@@ -15,8 +15,8 @@ import PremiumModal from "@/components/global/PremiumModal";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
 
-const FREE_COMPARE_LIMIT = 2;
-const MAX_COMPARE = 4;
+const FREE_COMPARE_LIMIT = 9;
+const MAX_COMPARE = 9;
 
 const getGroups = (locale: Locale) => {
   const t = (en: string, tr: string, es: string, fr: string, pt: string) => {
@@ -240,10 +240,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const toggleCompare = (ticker: string) => {
     setCompareSelection((prev) => {
       if (prev.includes(ticker)) return prev.filter((t) => t !== ticker);
-      if (!isPremium && prev.length >= FREE_COMPARE_LIMIT) {
-        setShowCompareLimitModal(true);
-        return prev;
-      }
       if (prev.length >= MAX_COMPARE) return prev;
       return [...prev, ticker];
     });
