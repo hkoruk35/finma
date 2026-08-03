@@ -20,3 +20,12 @@ create table public.movers_daily_snapshot (
 );
 
 create index movers_daily_snapshot_date_idx on public.movers_daily_snapshot (snapshot_date desc);
+
+-- RLS acik, HICBIR policy yok -> anon/authenticated rolleri icin varsayilan
+-- deny. Bu tablo ham (maskesiz) veri icerdigi icin dogrudan public anon key
+-- ile Supabase REST'ten okunabilir olmamali (bkz. docs/AI_BEHAVIOR.md Rule 3 —
+-- maskeleme sadece uygulama katmaninda var, bu da top100_tickers/top100_snapshot'ta
+-- zaten var olan ayni riski tekrarlamamak icin). service-role key (supabaseAdmin,
+-- /api/internal/movers-snapshot'un kullandigi) RLS'i her zaman bypass eder, bu
+-- yuzden yazma etkilenmez.
+alter table public.movers_daily_snapshot enable row level security;
