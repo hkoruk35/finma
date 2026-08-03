@@ -5,6 +5,7 @@ import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCa
 import SectorHeatmaps from "@/components/global/SectorHeatmaps";
 import SectorAnalysisSummary from "@/components/global/SectorAnalysisSummary";
 import { getMultiQuote } from "@/lib/homeFeed";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const revalidate = 120;
