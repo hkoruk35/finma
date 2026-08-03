@@ -94,7 +94,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
       <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-medium tracking-tighter mb-2">
-            <span className="text-[#3b82f6]">Boga</span><span className="text-white">Stock</span>
+            <span style={{ color: '#3b82f6' }}>Boga</span><span className="text-white">Stock</span>
           </h1>
           <p className="text-white/50 text-lg font-medium">{t.title}</p>
           {t.subtitle && <p className="text-white/30 text-xs mt-1">{t.subtitle}</p>}
