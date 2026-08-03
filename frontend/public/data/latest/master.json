@@ -1,32 +1,33 @@
 {
-  "date": "2026-07-31",
-  "generated_at": "2026-07-31T17:07:00.986996-04:00",
+  "date": "2026-08-03",
+  "generated_at": "2026-08-03T09:15:35.963374-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 35,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "USPH",
-        "SFBS",
-        "RIO",
-        "QTWO",
-        "SN",
-        "SXT",
-        "REXR",
-        "OII",
-        "DLR",
-        "INSW"
+        "SBCF",
+        "IMO",
+        "SCI",
+        "HPQ",
+        "CSCO",
+        "IMMR",
+        "OOMA",
+        "SHOO",
+        "WST",
+        "AN"
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 5,
       "tickers": [
-        "SF",
-        "CLMT",
-        "ADP",
-        "HEI"
+        "SCI",
+        "HPQ",
+        "CSCO",
+        "IMMR",
+        "OOMA"
       ]
     },
     "value": {
@@ -48,18 +49,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "USPH",
-      "score": 56.0,
+      "ticker": "SBCF",
+      "score": 62.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SFBS",
-      "score": 56.0,
+      "ticker": "IMO",
+      "score": 59.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RIO",
-      "score": 53.5,
+      "ticker": "SCI",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
