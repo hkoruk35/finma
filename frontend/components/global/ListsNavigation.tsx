@@ -11,44 +11,54 @@ interface Props {
 
 const translations: Record<string, Record<string, string>> = {
   tr: {
-    swing: "TREND",
-    watchlist: "TREND ADAYLARI",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "İZLEME LİSTEM",
-    themes: "TEMA"
+    gainers: "ARTANLAR",
+    losers: "DÜŞENLER",
+    mostActive: "İŞLEM GÖRENLER",
+    swing: "TREND HİSSELERİ",
+    themes: "TEMA LİSTESİ",
+    myWatchlist: "İZLEME LİSTEM"
   },
   en: {
-    swing: "TREND",
-    watchlist: "TREND CANDIDATES",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MY WATCHLIST",
-    themes: "THEMES"
+    gainers: "GAINERS",
+    losers: "LOSERS",
+    mostActive: "MOST ACTIVE",
+    swing: "TRENDING STOCKS",
+    themes: "THEME LIST",
+    myWatchlist: "MY WATCHLIST"
   },
   es: {
-    swing: "TENDENCIA",
-    watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MI LISTA",
-    themes: "TEMAS"
+    gainers: "ALZAS",
+    losers: "BAJAS",
+    mostActive: "MÁS ACTIVAS",
+    swing: "EN TENDENCIA",
+    themes: "LISTA DE TEMAS",
+    myWatchlist: "MI LISTA"
   },
   fr: {
-    swing: "TENDANCE",
-    watchlist: "CANDIDATS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MA LISTE",
-    themes: "THÈMES"
+    gainers: "HAUSSES",
+    losers: "BAISSES",
+    mostActive: "PLUS ÉCHANGÉES",
+    swing: "ACTIONS TENDANCE",
+    themes: "LISTE DE THÈMES",
+    myWatchlist: "MA LISTE"
   },
   pt: {
-    swing: "TENDÊNCIA",
-    watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MINHA LISTA",
-    themes: "TEMAS"
+    gainers: "ALTAS",
+    losers: "BAIXAS",
+    mostActive: "MAIS ATIVAS",
+    swing: "AÇÕES EM TENDÊNCIA",
+    themes: "LISTA DE TEMAS",
+    myWatchlist: "MINHA LISTA"
   }
 };
 
@@ -56,12 +66,14 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
   const t = translations[locale] || translations.en;
 
   const links = [
-    { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
-    { id: "watchlist", label: t.watchlist, href: `/global/${locale}/watchlist` },
     { id: "top7", label: t.top7, href: `/global/${locale}/top7` },
     { id: "top100", label: t.top100, href: `/global/${locale}/top100` },
-    { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` },
-    { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` }
+    { id: "gainers", label: t.gainers, href: `/global/${locale}/gainers` },
+    { id: "losers", label: t.losers, href: `/global/${locale}/losers` },
+    { id: "mostactive", label: t.mostActive, href: `/global/${locale}/mostactive` },
+    { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
+    { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` },
+    { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }
   ];
 
   return (

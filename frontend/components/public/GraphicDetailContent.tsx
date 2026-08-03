@@ -12,6 +12,7 @@ import TickerSearchBox from "@/components/public/TickerSearchBox";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
+import { getAssetCategory } from "@/lib/symbols";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -156,13 +157,14 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const isLoggedIn = plan !== null;
   const TOP7_TICKERS = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
   const isTop7 = TOP7_TICKERS.includes(ticker);
-  // Grafik+analiz: anonim sadece Top7 + sabit vitrin ticker'ları (bkz.
-  // lib/publicTeaserTickers.ts) görür; herhangi bir giriş (free dahil) tüm
-  // 6000+ evrene açar — asıl paylı ürün (işlem planı) zaten Faz 0B'de
-  // sunucu tarafında ayrıca korunuyor, bu kapı sadece grafiğin kendisi
-  // için (bkz. Faz 5 plan notu, "Kararım": server-side evren zorlaması
-  // gerekmiyor çünkü chart-data'da paylı içerik yok).
-  const chartUnlocked = isTop7 || isPublicTeaserTicker(ticker) || isLoggedIn;
+  // US Endeks (SPX/NDX/DJI/RUT/VIX — getAssetCategory'de ayrı bir kategorisi
+  // yok, "stock"a düşerler) + Döviz/Emtia/Kripto: piyasa bağlamı verisi,
+  // BOGA'nın asıl hisse-seçim ürünü değil — 2026-08-03 kullanıcı talebiyle
+  // herkese (giriş şart olmadan) açık. Trade plan kartı (lockTradePlanCard,
+  // aşağıda) bundan etkilenmedi, hâlâ premium.
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX"];
+  const isMarketContextAsset = INDEX_TICKERS.includes(ticker) || getAssetCategory(ticker) !== "stock";
+  const chartUnlocked = isTop7 || isPublicTeaserTicker(ticker) || isLoggedIn || isMarketContextAsset;
 
   // null = henuz bilinmiyor (SSR/ilk render) — BogaChartEngine, defaultIndicators
   // prop'unu SADECE mount aninda ilk state'i tohumlamak icin kullaniyor, bu

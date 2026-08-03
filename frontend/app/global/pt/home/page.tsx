@@ -1,8 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
-import { THEMES_BANNER_LABELS } from "@/lib/themesBannerLabels";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -124,21 +121,7 @@ export default async function PtHomePage() {
             <HomeSearchBar locale="pt" />
 
             <div className="-mb-2">
-              <ListsNavigation
-                locale="pt"
-                activePath="home"
-                trailingAction={
-                  <Link
-                    href={`/global/pt/themes/${HOT_THEMES_2026[0].slug}`}
-                    className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-[10px] rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
-                  >
-                    {THEMES_BANNER_LABELS.pt.browseAll}
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                }
-              />
+              <ListsNavigation locale="pt" activePath="home" />
             </div>
 
             <div className="mt-2">
