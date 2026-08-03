@@ -130,7 +130,7 @@ export default function HomeSearchBar({ locale }: { locale: Locale }) {
           onKeyDown={handleKeyDown}
           onFocus={() => suggestions.length > 0 && setOpen(true)}
           placeholder={copy.placeholder}
-          className="w-full rounded-2xl bg-[#141924] border border-[#1e2a3a] text-white placeholder:text-slate-500 focus:outline-none focus:border-[#3b82f6] transition-colors pl-12 pr-4 py-4 text-base shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
+          className="w-full rounded-2xl bg-[#141924] border border-[#1e2a3a] text-white placeholder:text-slate-200 focus:outline-none focus:border-[#3b82f6] transition-colors pl-12 pr-4 py-4 text-base shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
         />
       </div>
 

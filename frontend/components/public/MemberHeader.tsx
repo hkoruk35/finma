@@ -16,6 +16,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [authChecked, setAuthChecked] = useState(false);
   const [member, setMember] = useState<any>(null);
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
+  const [isMobileUserMenuOpen, setIsMobileUserMenuOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -100,6 +101,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
     } finally {
       setIsLoggedIn(false);
       setMember(null);
+      setIsMobileUserMenuOpen(false);
       router.push(loginHref);
     }
   };
@@ -128,10 +130,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
     );
   };
 
+  const usernameText =
+    member?.username ||
+    member?.email?.split("@")[0] ||
+    (locale === "tr" ? "Hesabım" : "Account");
+
   return (
     <>
-      <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3 relative">
+      <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/95 backdrop-blur-md sticky top-0 z-50">
+        <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center justify-between gap-2 relative">
           <Link
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
@@ -144,9 +151,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </div>
           </Link>
 
-          <div className="flex-1" />
-
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-hidden">
             {/* Mobilde kompakt dil seçici */}
             {locale && (
               <div className="relative sm:hidden">
@@ -187,6 +192,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 )}
               </div>
             )}
+
             {/* Language Selector — sm+ ekranda tüm diller tek satırda görünür */}
             {locale && (
               <div className="hidden sm:flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
@@ -209,14 +215,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               </div>
             )}
 
+            {/* Terminal Link */}
             <MobileTerminalLink
               locale={locale}
               targetHref={terminalHref}
               title={terminalTooltip}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+              className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all shrink-0"
             >
               <svg
-                className="w-4 h-4 flex-shrink-0"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -228,12 +235,13 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
                 />
               </svg>
-              <span className="hidden sm:inline">TERMINAL</span>
+              <span className="text-[9px] sm:text-[10px]">TERMINAL</span>
             </MobileTerminalLink>
 
+            {/* Desktop-only Quick Navigation */}
             <Link
               href={homeHref}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
             >
               <svg
                 className="w-4 h-4 flex-shrink-0"
@@ -248,7 +256,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 />
               </svg>
-              <span className="hidden sm:inline">
+              <span>
                 {locale === "tr"
                   ? "Anasayfa"
                   : locale === "es"
@@ -260,6 +268,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                         : "Home"}
               </span>
             </Link>
+
             <Link
               href={
                 locale === "pt"
@@ -268,7 +277,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     ? "/global/tr/sss"
                     : `/global/${locale}/faq`
               }
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
             >
               <svg
                 className="w-4 h-4 flex-shrink-0"
@@ -283,7 +292,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="hidden sm:inline">
+              <span>
                 {locale === "tr"
                   ? "SSS"
                   : locale === "es"
@@ -295,83 +304,194 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                         : "FAQ"}
               </span>
             </Link>
+
             {authChecked &&
               (isLoggedIn ? (
-                <div className="flex items-center gap-1.5 ml-1">
-                  <Link
-                    href={accountHref}
-                    className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-[#1e2a3a]/70 hover:bg-[#1e2a3a] border border-[#3b82f6]/40 text-white transition-all shadow-sm"
-                  >
-                    {member?.avatar_url ? (
-                      <img
-                        src={member.avatar_url}
-                        alt={member.username || "Profile"}
-                        className="w-5 h-5 rounded-full object-cover border border-[#3b82f6]"
-                      />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[10px] font-bold">
-                        {(member?.username || member?.email || "U")
-                          .charAt(0)
-                          .toUpperCase()}
-                      </div>
-                    )}
-                    <span className="text-[11px] font-semibold max-w-[90px] sm:max-w-[130px] truncate text-slate-100">
-                      {member?.username ||
-                        member?.email?.split("@")[0] ||
-                        (locale === "tr" ? "Hesabım" : "Account")}
-                    </span>
-                    {member?.plan === "premium" && (
-                      <span className="text-[8px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase">
-                        PRO
-                      </span>
-                    )}
-                  </Link>
-
-                  <button
-                    onClick={handleLogout}
-                    disabled={loggingOut}
-                    title={
-                      locale === "tr"
-                        ? "Çıkış Yap"
-                        : locale === "es"
-                          ? "Cerrar sesión"
-                          : locale === "fr"
-                            ? "Se déconnecter"
-                            : locale === "pt"
-                              ? "Sair"
-                              : "Log out"
-                    }
-                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
-                  >
-                    <svg
-                      className="w-3.5 h-3.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                <div className="relative shrink-0">
+                  {/* Desktop User Badge */}
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    <Link
+                      href={accountHref}
+                      className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-[#1e2a3a]/70 hover:bg-[#1e2a3a] border border-[#3b82f6]/40 text-white transition-all shadow-sm"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
-                      />
-                    </svg>
-                    <span className="hidden md:inline">
-                      {loggingOut
-                        ? "..."
-                        : locale === "tr"
-                          ? "Çıkış"
-                          : "Logout"}
-                    </span>
-                  </button>
+                      {member?.avatar_url ? (
+                        <img
+                          src={member.avatar_url}
+                          alt={usernameText}
+                          className="w-5 h-5 rounded-full object-cover border border-[#3b82f6]"
+                        />
+                      ) : (
+                        <div className="w-5 h-5 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[10px] font-bold">
+                          {usernameText.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <span className="text-[11px] font-semibold max-w-[120px] truncate text-slate-100">
+                        {usernameText}
+                      </span>
+                      {member?.plan === "premium" && (
+                        <span className="text-[8px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase">
+                          PRO
+                        </span>
+                      )}
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      disabled={loggingOut}
+                      title={
+                        locale === "tr"
+                          ? "Çıkış Yap"
+                          : locale === "es"
+                            ? "Cerrar sesión"
+                            : locale === "fr"
+                              ? "Se déconnecter"
+                              : locale === "pt"
+                                ? "Sair"
+                                : "Log out"
+                      }
+                      className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+                    >
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
+                        />
+                      </svg>
+                      <span>{loggingOut ? "..." : locale === "tr" ? "Çıkış" : "Logout"}</span>
+                    </button>
+                  </div>
+
+                  {/* Mobile Compact User Menu Button */}
+                  <div className="sm:hidden">
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileUserMenuOpen((v) => !v)}
+                      className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#1e2a3a]/80 border border-[#3b82f6]/40 text-white"
+                    >
+                      {member?.avatar_url ? (
+                        <img
+                          src={member.avatar_url}
+                          alt={usernameText}
+                          className="w-4 h-4 rounded-full object-cover border border-[#3b82f6]"
+                        />
+                      ) : (
+                        <div className="w-4 h-4 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[9px] font-bold">
+                          {usernameText.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <span className="text-[10px] font-semibold max-w-[50px] truncate text-slate-100">
+                        {usernameText}
+                      </span>
+                      <span className="text-[8px] text-slate-400">▾</span>
+                    </button>
+
+                    {/* Mobile Dropdown Drawer */}
+                    {isMobileUserMenuOpen && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs"
+                          onClick={() => setIsMobileUserMenuOpen(false)}
+                        />
+                        <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-[#0f172a] border border-[#1e2a3a] rounded-2xl shadow-2xl overflow-hidden p-3 space-y-3">
+                          {/* User Header */}
+                          <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
+                            {member?.avatar_url ? (
+                              <img
+                                src={member.avatar_url}
+                                alt={usernameText}
+                                className="w-9 h-9 rounded-full object-cover border border-[#3b82f6]"
+                              />
+                            ) : (
+                              <div className="w-9 h-9 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-sm font-bold shadow-md">
+                                {usernameText.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                            <div className="flex flex-col min-w-0 flex-1">
+                              <span className="text-xs font-bold text-white truncate">
+                                {usernameText}
+                              </span>
+                              <span className="text-[10px] text-slate-400 truncate">
+                                {member?.email || ""}
+                              </span>
+                              <span className="inline-block mt-1 text-[8px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 px-1.5 py-0.5 rounded border border-[#3b82f6]/30 w-max uppercase">
+                                {member?.plan === "premium" ? "PRO ÜYE" : "ÜCRETSİZ PLAN"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Navigation Links with Text & Icons */}
+                          <div className="space-y-1">
+                            <Link
+                              href={terminalHref}
+                              onClick={() => setIsMobileUserMenuOpen(false)}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                            >
+                              <span className="text-sm">💻</span>
+                              <span>TERMINAL</span>
+                            </Link>
+
+                            <Link
+                              href={homeHref}
+                              onClick={() => setIsMobileUserMenuOpen(false)}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                            >
+                              <span className="text-sm">🏠</span>
+                              <span>{locale === "tr" ? "Anasayfa" : "Home"}</span>
+                            </Link>
+
+                            <Link
+                              href={accountHref}
+                              onClick={() => setIsMobileUserMenuOpen(false)}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                            >
+                              <span className="text-sm">👤</span>
+                              <span>{locale === "tr" ? "Hesabım" : "Account"}</span>
+                            </Link>
+
+                            <Link
+                              href={
+                                locale === "pt"
+                                  ? "/global/pt/Perguntas_Frequentes"
+                                  : locale === "tr"
+                                    ? "/global/tr/sss"
+                                    : `/global/${locale}/faq`
+                              }
+                              onClick={() => setIsMobileUserMenuOpen(false)}
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                            >
+                              <span className="text-sm">❓</span>
+                              <span>{locale === "tr" ? "SSS (Sıkça Sorulan Sorular)" : "FAQ"}</span>
+                            </Link>
+
+                            <button
+                              type="button"
+                              onClick={handleLogout}
+                              disabled={loggingOut}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
+                            >
+                              <span className="text-sm">🚪</span>
+                              <span>{loggingOut ? "..." : locale === "tr" ? "Çıkış Yap" : "Log out"}</span>
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               ) : (
                 <Link
                   href={loginHref}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1"
+                  className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1 shrink-0"
                 >
                   <svg
-                    className="w-4 h-4 flex-shrink-0"
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -383,7 +503,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                       d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                     />
                   </svg>
-                  <span className="hidden sm:inline">
+                  <span>
                     {locale === "tr"
                       ? "Giriş Yap"
                       : locale === "es"
