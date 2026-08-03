@@ -174,28 +174,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
-        let candidateItems: any[] = [];
-        try {
-          const r3 = await fetch('/api/watchlist-picks', { cache: 'no-store' });
-          if (r3.ok) {
-             const d3 = await r3.json();
-             const picks = (d3.picks || []).slice(0, 10);
-             const tks = picks.map((p: any) => p.ticker);
-             if (tks.length > 0) {
-               const r3b = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
-               if (r3b.ok) {
-                  const rows = await r3b.json();
-                  const liveMap: Record<string, any> = {};
-                  rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
-                  candidateItems = picks.map((p: any) => {
-                     const d = liveMap[p.ticker];
-                     return { ticker: p.ticker, label: p.ticker, ySymbol: p.ticker, price: d?.price?.current ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
-                  });
-               }
-             }
-          }
-        } catch {}
-
         // Top7/Top100/Gainers/Losers/MostActive: /home sayfasıyla AYNI kaynak
         // (/api/home-movers) — tek istek, hazır price/change_pct, maskeleme
         // yok (2026-08-03'ten beri herkese açık). Eskiden burada /api/top100
@@ -227,7 +205,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         setExtendedGroups([
           ...baseGroups,
           ...(personalItems.length ? [{ group: "İzleme Listem ★ Kişisel (ilk 10)", items: personalItems }] : []),
-          ...(candidateItems.length ? [{ group: "Trend Adayları (ilk 10)", items: candidateItems }] : []),
           ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
           ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 7)", items: gainersItems }] : []),
           ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 7)", items: losersItems }] : []),
