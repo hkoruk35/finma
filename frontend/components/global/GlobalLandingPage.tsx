@@ -63,6 +63,7 @@ const getGroups = (locale: Locale) => {
         { ticker: "USDCHF", label: "USD/CHF", ySymbol: "CHF=X" },
         { ticker: "AUDUSD", label: "AUD/USD", ySymbol: "AUDUSD=X" },
         { ticker: "USDCAD", label: "USD/CAD", ySymbol: "CAD=X" },
+        { ticker: "NZDUSD", label: "NZD/USD", ySymbol: "NZDUSD=X" },
       ],
     },
     {
@@ -79,6 +80,8 @@ const getGroups = (locale: Locale) => {
       items: [
         { ticker: "BTCUSD", label: "Bitcoin", ySymbol: "BTC-USD" },
         { ticker: "ETHUSD", label: "Ethereum", ySymbol: "ETH-USD" },
+        { ticker: "SOLUSD", label: "Solana", ySymbol: "SOL-USD" },
+        { ticker: "XRPUSD", label: "XRP", ySymbol: "XRP-USD" },
       ],
     },
   ];
@@ -91,6 +94,8 @@ const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
   const router = useRouter();
+  const premiumMemberLabel = locale === 'tr' ? 'Premium Üye' : locale === 'es' ? 'Miembro Premium' : locale === 'fr' ? 'Membre Premium' : locale === 'pt' ? 'Membro Premium' : 'Premium Member';
+  const upgradeToPremiumLabel = locale === 'tr' ? "Premium'a Geç" : locale === 'es' ? 'Actualizar a Premium' : locale === 'fr' ? 'Passer à Premium' : locale === 'pt' ? 'Atualizar para Premium' : 'Upgrade to Premium';
   const [selectedTicker, setSelectedTicker] = useState("^GSPC");
 
   useEffect(() => {
@@ -140,20 +145,32 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           const r2 = await fetch('/api/swing-picks?min=10', { cache: 'no-store' });
           if (r2.ok) {
             const d2 = await r2.json();
-            const picks = (d2.picks || []).slice(0, 10);
-            const tks = picks.map((p: any) => p.ticker);
+            const picks = (d2.picks || []).slice(0, 7);
+            const tks = picks.map((p: any) => p.ticker).filter((tk: string) => !tk.startsWith('LOCKED-'));
+            const liveMap: Record<string, any> = {};
             if (tks.length > 0) {
               const r2b = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
               if (r2b.ok) {
-                 const rows = await r2b.json();
-                 const liveMap: Record<string, any> = {};
-                 rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
-                 trendItems = picks.map((p: any) => {
-                    const d = liveMap[p.ticker];
-                    return { ticker: p.ticker, label: p.ticker, ySymbol: p.ticker, price: d?.price?.current ?? p.current_price ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
-                 });
+                const rows = await r2b.json();
+                rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
               }
             }
+            // maskTrendPicks (lib/pickMasking.ts) sadece ticker/company'yi
+            // LOCKED-N yapar, fiyat alanları gerçek kalır — bu yüzden fiyat
+            // için /api/watchlist-data'ya hiç ihtiyaç yok, doğrudan p.current_price
+            // kullanılabilir. Etiket ise artık ham "LOCKED-N" yerine premiumMemberLabel.
+            trendItems = picks.map((p: any) => {
+              const locked = String(p.ticker).startsWith('LOCKED-');
+              const d = liveMap[p.ticker];
+              return {
+                ticker: p.ticker,
+                label: locked ? premiumMemberLabel : p.ticker,
+                ySymbol: p.ticker,
+                price: d?.price?.current ?? p.current_price ?? 0,
+                change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0,
+                locked,
+              };
+            });
           }
         } catch {}
 
@@ -179,95 +196,49 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
+        // Top7/Top100/Gainers/Losers/MostActive: /home sayfasıyla AYNI kaynak
+        // (/api/home-movers) — tek istek, hazır price/change_pct, maskeleme
+        // yok (2026-08-03'ten beri herkese açık). Eskiden burada /api/top100
+        // + ayrı bir /api/watchlist-data re-join + client-side sıralama vardı;
+        // anonim ziyaretçi için LOCKED-N ticker'lar watchlist-data'da hiç
+        // bulunamadığından bu listeler fiilen boş kalıyordu.
         let top7Items: any[] = [];
-        try {
-          const tks = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
-          const r4 = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
-          if (r4.ok) {
-             const rows = await r4.json();
-             const liveMap: Record<string, any> = {};
-             rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
-             top7Items = tks.map((t: string) => {
-                const d = liveMap[t];
-                return { ticker: t, label: t, ySymbol: t, price: d?.price?.current ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
-             });
-          }
-        } catch {}
-
         let top100Items: any[] = [];
         let gainersItems: any[] = [];
         let losersItems: any[] = [];
         let mostActiveItems: any[] = [];
         try {
-          const r5 = await fetch('/api/top100');
-          if (r5.ok) {
-             const d5 = await r5.json();
-             const compRows: any[] = d5.rows || [];
-             if (compRows.length > 0) {
-               const tks = compRows.map((r: any) => r.ticker).join(',');
-               const r5b = await fetch(`/api/watchlist-data?tickers=${tks}`);
-               if (r5b.ok) {
-                  const liveRows = await r5b.json();
-                  const liveMap: Record<string, any> = {};
-                  liveRows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
-                  // Top100Tracker.tsx (the real /top100 page) sorts and displays
-                  // Δ% 1G from live tracker_1h.change_pct_1d, NOT from /api/top100's
-                  // own change_pct (top100_snapshot table, a different/stale value) —
-                  // match that exact field so "ilk 10" here is really the same top 10.
-                  const sortedByGain = compRows
-                    .map((r: any) => ({ ticker: r.ticker, live: liveMap[r.ticker] }))
-                    .filter((x) => x.live?.tracker_1h?.change_pct_1d != null)
-                    .sort((a, b) => (b.live.tracker_1h.change_pct_1d ?? 0) - (a.live.tracker_1h.change_pct_1d ?? 0));
-                  top100Items = sortedByGain.slice(0, 10).map((x) => ({
-                     ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
-                     price: x.live?.price?.current ?? 0,
-                     change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
-                  }));
-
-                  // Free-tier "en çok yükselen/düşen/işlem gören ilk 5"
-                  // (bkz. Faz 3 plan "Kararım" #2) — Top100'ün zaten çekilmiş
-                  // aynı veri setinden türetilir, yeni bir istek gerekmez.
-                  const withVolume = compRows
-                    .map((r: any) => ({ ticker: r.ticker, live: liveMap[r.ticker] }))
-                    .filter((x) => x.live?.price != null);
-                  const byGainDesc = [...withVolume]
-                    .filter((x) => x.live?.tracker_1h?.change_pct_1d != null)
-                    .sort((a, b) => (b.live.tracker_1h.change_pct_1d ?? 0) - (a.live.tracker_1h.change_pct_1d ?? 0));
-                  gainersItems = byGainDesc.slice(0, 5).map((x) => ({
-                    ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
-                    price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
-                  }));
-                  losersItems = byGainDesc.slice(-5).reverse().map((x) => ({
-                    ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
-                    price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
-                  }));
-                  mostActiveItems = [...withVolume]
-                    .sort((a, b) => (b.live?.price?.volume ?? 0) - (a.live?.price?.volume ?? 0))
-                    .slice(0, 5)
-                    .map((x) => ({
-                      ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
-                      price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
-                    }));
-               }
-             }
+          const r4 = await fetch('/api/home-movers?limit=7', { cache: 'no-store' });
+          if (r4.ok) {
+            const d4 = await r4.json();
+            const toItems = (arr: any[]) => (arr || []).map((r: any) => ({
+              ticker: r.ticker, label: r.ticker, ySymbol: r.ticker, price: r.price ?? 0, change_1d: r.change_pct ?? 0,
+            }));
+            top7Items = toItems(d4.top7);
+            top100Items = toItems(d4.top100);
+            gainersItems = toItems(d4.gainers);
+            losersItems = toItems(d4.losers);
+            mostActiveItems = toItems(d4.mostActive);
           }
         } catch {}
 
+        // Sıra (2026-08-03 kullanıcı talebiyle): Top7 → Artanlar → Düşenler →
+        // İşlem Görenler → Top100 → Trend Hisseleri (Premium, en altta).
         setExtendedGroups([
           ...baseGroups,
           ...(personalItems.length ? [{ group: "İzleme Listem ★ Kişisel (ilk 10)", items: personalItems }] : []),
-          ...(trendItems.length ? [{ group: "Trend Hisseleri (ilk 10)", items: trendItems }] : []),
           ...(candidateItems.length ? [{ group: "Trend Adayları (ilk 10)", items: candidateItems }] : []),
           ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
-          ...(top100Items.length ? [{ group: "Top 100 (ilk 10)", items: top100Items }] : []),
-          ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 5)", items: gainersItems }] : []),
-          ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 5)", items: losersItems }] : []),
-          ...(mostActiveItems.length ? [{ group: "En Çok İşlem Görenler (ilk 5)", items: mostActiveItems }] : []),
+          ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 7)", items: gainersItems }] : []),
+          ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 7)", items: losersItems }] : []),
+          ...(mostActiveItems.length ? [{ group: "En Çok İşlem Görenler (ilk 7)", items: mostActiveItems }] : []),
+          ...(top100Items.length ? [{ group: "Top 100 (ilk 7)", items: top100Items }] : []),
+          ...(trendItems.length ? [{ group: `Trend Hisseleri (Premium, ilk 7)`, items: trendItems }] : []),
         ]);
       } catch (err) {}
     };
     fetchAllData();
-  }, [groups]);
+  }, [groups, premiumMemberLabel]);
   
   // Sidebar states
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
@@ -283,6 +254,11 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [compareSelection, setCompareSelection] = useState<string[]>([]);
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
   const [multiChartRequest, setMultiChartRequest] = useState<string[] | null>(null);
+  // Trend Hisseleri'nde premium-kilitli (LOCKED-N) bir satır seçildiğinde
+  // grafik alanı yerine "Premium" göstermek için — diğer her ticker'ın
+  // grafiği (indeks/sektör/döviz/emtia/kripto/Top7/Top100/Artanlar/
+  // Düşenler/İşlem Görenler) açık kalır.
+  const [selectedLocked, setSelectedLocked] = useState(false);
 
   const toggleCompare = (ticker: string) => {
     setCompareSelection((prev) => {
@@ -427,6 +403,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                         onClick={() => {
                           setSelectedTicker(item.ticker);
                           setSelectedYSymbol(item.ySymbol);
+                          setSelectedLocked(!!item.locked);
                           setShowMobileSidebar(false);
                         }}
                         title={item.label}
@@ -439,7 +416,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           onToggle={() => toggleCompare(item.ticker)}
                           title={compareCheckboxTitle}
                         />
-                        <div className="font-medium flex-1 min-w-0 truncate" style={{ fontSize: 12, color: "#e8e8e8" }}>
+                        <div className="font-medium flex-1 min-w-0 truncate flex items-center gap-1" style={{ fontSize: 12, color: item.locked ? "#f59e0b" : "#e8e8e8" }}>
+                          {item.locked && (
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" className="shrink-0">
+                              <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                            </svg>
+                          )}
                           {item.label}
                         </div>
                         <div
@@ -496,24 +478,40 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             <div className="flex items-center gap-3">
               
               <div className="hidden md:block w-64 mr-2">
-                <TickerSearchBox locale={locale} compact onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
+                <TickerSearchBox locale={locale} compact onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); setSelectedLocked(false); }} />
               </div>
             </div>
           </div>
 
           <div className="p-4 flex-1 flex flex-col gap-6 min-h-min">
             <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] shrink-0">
-              <BogaChartEngine
-                symbol={selectedYSymbol}
-                lang={locale}
-                detailMode
-                height={600}
-                defaultTimeframe="D"
-                defaultCandleType="candle"
-                premiumGate
-                externalMultiChartTickers={multiChartRequest}
-                onExternalMultiChartConsumed={() => setMultiChartRequest(null)}
-              />
+              {selectedLocked ? (
+                <div className="w-full h-full min-h-[400px] md:min-h-[600px] flex flex-col items-center justify-center gap-3 text-center px-6">
+                  <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor" style={{ color: "#f59e0b" }}>
+                    <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                  </svg>
+                  <span className="text-lg font-medium" style={{ color: "#f59e0b" }}>{premiumMemberLabel}</span>
+                  <button
+                    type="button"
+                    onClick={() => setShowCompareLimitModal(true)}
+                    className="px-4 py-2 rounded-lg bg-[#f59e0b] text-black text-sm font-medium hover:bg-[#fbbf24] transition-colors"
+                  >
+                    {upgradeToPremiumLabel}
+                  </button>
+                </div>
+              ) : (
+                <BogaChartEngine
+                  symbol={selectedYSymbol}
+                  lang={locale}
+                  detailMode
+                  height={600}
+                  defaultTimeframe="D"
+                  defaultCandleType="candle"
+                  premiumGate
+                  externalMultiChartTickers={multiChartRequest}
+                  onExternalMultiChartConsumed={() => setMultiChartRequest(null)}
+                />
+              )}
             </div>
 
             {/* Technical Analysis Panel */}

@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "AMZN",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 277.65,
+        "entry_zone": "273.02 - 282.28",
+        "SL": 259.14,
+        "TP": 314.68
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "DXCM",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 84.98,
+        "entry_zone": "83.29 - 86.67",
+        "SL": 78.23,
+        "TP": 98.48
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "GH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 162.6,
+        "entry_zone": "158.35 - 166.85",
+        "SL": 145.61,
+        "TP": 196.58
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "MPWR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 1393.0,
+        "entry_zone": "1346.33 - 1439.67",
+        "SL": 1206.33,
+        "TP": 1766.33
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "FIVN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 28.0,
+        "entry_zone": "27.11 - 28.89",
+        "SL": 24.43,
+        "TP": 35.13
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "FTNT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 164.97,
+        "entry_zone": "161.32 - 168.62",
+        "SL": 150.39,
+        "TP": 194.14
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "GOOG",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 363.06,
+        "entry_zone": "356.44 - 369.68",
+        "SL": 336.59,
+        "TP": 416.01
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "GOOGL",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 363.22,
+        "entry_zone": "356.60 - 369.85",
+        "SL": 336.72,
+        "TP": 416.22
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "ANET",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 173.89,
+        "entry_zone": "168.68 - 179.10",
+        "SL": 153.04,
+        "TP": 215.58
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "VVX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 91.8,
+        "entry_zone": "90.00 - 93.60",
+        "SL": 84.61,
+        "TP": 106.17
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "INVX",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 28.64,
+        "entry_zone": "28.12 - 29.16",
+        "SL": 26.58,
+        "TP": 32.76
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "WY",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 25.18,
+        "entry_zone": "24.83 - 25.53",
+        "SL": 23.77,
+        "TP": 28.0
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "MSA",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 190.88,
+        "entry_zone": "188.08 - 193.68",
+        "SL": 179.68,
+        "TP": 213.28
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "GTES",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 28.95,
+        "entry_zone": "28.31 - 29.59",
+        "SL": 26.38,
+        "TP": 34.1
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "FSLY",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 23.02,
+        "entry_zone": "22.28 - 23.76",
+        "SL": 20.06,
+        "TP": 28.94
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "ETN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 413.44,
+        "entry_zone": "403.55 - 423.33",
+        "SL": 373.86,
+        "TP": 492.6
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "FAST",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 48.78,
+        "entry_zone": "48.01 - 49.55",
+        "SL": 45.71,
+        "TP": 54.92
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "CDNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 45.85,
+        "entry_zone": "44.48 - 47.22",
+        "SL": 40.38,
+        "TP": 56.78
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "APO",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 126.52,
+        "entry_zone": "124.41 - 128.63",
+        "SL": 118.08,
+        "TP": 143.4
+    },
+    {
+        "date": "2026-08-03 09:00",
+        "symbol": "GSAT",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 83.34,
+        "entry_zone": "82.80 - 83.88",
+        "SL": 81.17,
+        "TP": 87.69
+    }
+]

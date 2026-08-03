@@ -1,0 +1,89 @@
+{
+  "ticker": "GOLD",
+  "company": "Gold.com, Inc.",
+  "date": "2026-08-02",
+  "generated_at": "2026-08-02T20:42:25.419Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 41.36000061035156,
+    "open": 41.630001068115234,
+    "high": 41.95000076293945,
+    "low": 40.27000045776367,
+    "prev_close": 42.08000183105469,
+    "change_pct": -1.7110294424269017,
+    "change_pct_1w": 5.108010709460043,
+    "change_pct_1m": 10.087838558192665,
+    "change_pct_1y": 94.36089885235518,
+    "volume": 333300,
+    "avg_volume_30d": 12065900
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 85,
+    "fundamental_score": 46.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.65286024245631,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 40.56176548600645,
+    "ema_50": 41.353946499831736,
+    "ema_200": 39.51966164459936,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.42800064086914,
+    "bb_middle": 41.36000061035156,
+    "bb_lower": 39.29200057983398,
+    "bb_width": 10,
+    "atr": 1.55,
+    "atr_pct": 3.74,
+    "rvol": 0.8437165897280766,
+    "52w_high": 66.69999694824219,
+    "52w_low": 20.554000854492188
+  },
+  "fundamental": {
+    "pe_ratio": 13.472313,
+    "pb_ratio": 1.3899251,
+    "gross_margin": 0.01844,
+    "operating_margin": 0.00865,
+    "net_margin": 0.0034999999,
+    "market_cap": 1199620864,
+    "revenue_growth_ttm": 2.44,
+    "fcf_yield": -0.6201213652782884,
+    "institutional_ownership_pct": 0.60495,
+    "dividend_rate": 0.8,
+    "dividend_yield": 0.019299999
+  },
+  "scores_detail": {
+    "entry_range_low": 40.58,
+    "entry_range_high": 41.51,
+    "target_range_low": 44.02,
+    "target_range_high": 47.2,
+    "target_1": 44.02,
+    "target_2": 45.29,
+    "target_3": 47.2,
+    "stop_loss": 39.29,
+    "risk_reward_ratio": 2.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $40.58 – $41.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $42.22 direnci veya $40.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.29 olarak belirlenmiştir. Fiyatın EMA200 ($39.52) veya günlük VWAP ($41.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($41.35) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($41.20) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

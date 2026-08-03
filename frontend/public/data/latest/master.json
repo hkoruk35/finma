@@ -1,8 +1,8 @@
 {
   "date": "2026-07-31",
-  "generated_at": "2026-07-31T14:06:23.171610-04:00",
+  "generated_at": "2026-07-31T17:07:00.986996-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
+  "active_scores_count": 35,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,11 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 4,
       "tickers": [
-        "IP",
         "SF",
-        "CLMT"
+        "CLMT",
+        "ADP",
+        "HEI"
       ]
     },
     "value": {
