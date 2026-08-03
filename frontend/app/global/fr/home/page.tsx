@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import ThemesBanner, { THEMES_BANNER_LABELS } from "@/components/global/ThemesBanner";
+import ThemesBanner from "@/components/global/ThemesBanner";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { THEMES_BANNER_LABELS } from "@/lib/themesBannerLabels";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";

@@ -2,16 +2,7 @@
 
 import Link from "next/link";
 import { HOT_THEMES_2026, themeShortName } from "@/lib/hotThemes2026";
-
-type Locale = "tr" | "en" | "es" | "fr" | "pt";
-
-export const THEMES_BANNER_LABELS: Record<Locale, { title: string; browseAll: string; more: string }> = {
-  tr: { title: "Tematik Analiz", browseAll: "Tüm Temaları Gözat", more: "daha" },
-  en: { title: "Thematic Analysis", browseAll: "Browse All Themes", more: "more" },
-  es: { title: "Análisis Temático", browseAll: "Explorar Todos los Temas", more: "más" },
-  fr: { title: "Analyse Thématique", browseAll: "Explorer Tous les Thèmes", more: "de plus" },
-  pt: { title: "Análise Temática", browseAll: "Explorar Todos os Temas", more: "mais" },
-};
+import { THEMES_BANNER_LABELS, type ThemesBannerLocale as Locale } from "@/lib/themesBannerLabels";
 
 // PC'de daha fazla, mobilde daha az tema adı sığdırılıp geri kalanı
 // "+N daha" ile özetlenir — tek satırda kalması için.
