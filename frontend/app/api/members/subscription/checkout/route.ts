@@ -27,14 +27,30 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { data: member, error: memberError } = await supabase
+  let { data: member } = await supabaseAdmin
     .from("members")
     .select("email, subscription_status, stripe_customer_id, stripe_subscription_id, consent_locale")
     .eq("id", userData.user.id)
     .single();
 
-  if (memberError || !member) {
-    return NextResponse.json({ error: "Member profile not found." }, { status: 404 });
+  if (!member) {
+    const userEmail = userData.user.email || "";
+    const username = userData.user.user_metadata?.full_name || userData.user.user_metadata?.name || userEmail.split("@")[0] || "Üye";
+    const { data: newMember } = await supabaseAdmin
+      .from("members")
+      .upsert({
+        id: userData.user.id,
+        email: userEmail,
+        username,
+        plan: "free",
+      })
+      .select("email, subscription_status, stripe_customer_id, stripe_subscription_id, consent_locale")
+      .single();
+    member = newMember;
+  }
+
+  if (!member || !member.email) {
+    return NextResponse.json({ error: "Member profile missing email." }, { status: 400 });
   }
 
   if (member.subscription_status && ["trialing", "active", "past_due"].includes(member.subscription_status)) {
@@ -53,9 +69,6 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from("members").update({ stripe_customer_id: customerId }).eq("id", userData.user.id);
   }
 
-  // Daha önce hiç aboneliği olmamış üyeler ilk ay indirimli fiyattan başlar
-  // (Stripe coupon); daha önce abone olup iptal etmiş üyeler tam fiyattan
-  // başlar. Deneme süresi yok — ödeme her durumda checkout'ta anında alınır.
   const firstTimeDiscount = !member.stripe_subscription_id;
 
   const session = await createPremiumCheckoutSession({

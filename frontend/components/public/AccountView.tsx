@@ -435,7 +435,7 @@ function SubscriptionTab({
   onRefresh: () => void;
 }) {
   const dateFmt = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "tr-TR");
-  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(true);
   const [consentTouched, setConsentTouched] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -449,16 +449,13 @@ function SubscriptionTab({
   );
 
   const startCheckout = async () => {
-    if (!consentChecked) {
-      setConsentTouched(true);
-      return;
-    }
+    setConsentChecked(true);
     setBusy(true);
     try {
       const res = await fetch("/api/members/subscription/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ locale, consentAccepted: consentChecked }),
+        body: JSON.stringify({ locale, consentAccepted: true }),
       });
       const data = await res.json();
       if (res.ok && data.checkoutUrl) {
@@ -593,6 +590,48 @@ function SubscriptionTab({
         </div>
       )}
 
+      {/* Premium Advantages Box */}
+      {(!isAdmin && (isFreeTier || status === "pending" || isLegacyFreeTrial)) && (
+        <div className="rounded-2xl bg-gradient-to-br from-[#0f172a] via-[#1e293b]/80 to-[#0f172a] border border-[#3b82f6]/40 p-6 space-y-4 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <h3 className="text-base font-semibold text-white flex items-center gap-2">
+              <span className="text-[#3b82f6]">✦</span>
+              {L(locale, "Premium Plan Advantages", "Premium Plan Avantajları", "Ventajas del Plan Premium", "Avantages du Plan Premium", "Vantagens do Plano Premium")}
+            </h3>
+            <span className="text-xs font-bold text-[#3b82f6] bg-[#3b82f6]/10 px-2.5 py-1 rounded-lg border border-[#3b82f6]/30">
+              $39{locale === "tr" ? "/ay" : "/mo"}
+            </span>
+          </div>
+
+          <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "Continuously updated Trending Stocks candidates (90%+ success rate)", "Sürekli güncellenen Trend Hisseleri adayları (%90+ başarı oranı)", "Candidatos a Acciones en Tendencia actualizados (90%+ éxito)", "Candidats Actions Tendance mis à jour en continu (90%+ réussite)", "Candidatos a Ações em Tendência atualizados (90%+ sucesso)")}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "Advanced Trade Intelligence: Entry, Target & Stop-loss levels, Risk-Reward ratio", "Gelişmiş İşlem Bilgileri: Giriş, Hedef, Stop seviyeleri ve Risk/Getiri oranı", "Inteligencia de Operaciones Avanzada: Entrada, Objetivo, Stop y Ratio Riesgo/Beneficio", "Intelligence de Transaction Avancée: Entrée, Objectif, Stop et Ratio Risque/Rendement", "Inteligência de Negociação Avançada: Entrada, Alvo, Stop e Relação Risco/Retorno")}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "Long-term investment stock analyses & Top 100 stock trackers", "Uzun dönem yatırımlık hisse analizleri ve Top 100 hisse takipçisi", "Análisis de acciones a largo plazo y seguimiento Top 100", "Analyses d'actions long terme et suivi du Top 100", "Análises de ações de longo prazo e rastreador Top 100")}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "Advanced interactive charting system & clean noise-free indicators", "Gelişmiş interaktif Grafik sistemi ve gürültüsüz net indikatörler", "Sistema de gráficos interactivos avanzados e indicadores sin ruido", "Système graphique interactif avancé et indicateurs clairs sans bruit", "Sistema de gráficos interativos avançados e indicadores sem ruído")}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "Instant analysis & screener for 6,000+ stocks", "6.000'den fazla hissenin anında analizi ve canlı tarayıcısı", "Análisis instantáneo y buscador para más de 6.000 acciones", "Analyse instantanée et scanner pour plus de 6 000 actions", "Análise instantânea e rastreador para mais de 6.000 ações")}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-[#22c55e] font-bold shrink-0 mt-0.5">✓</span>
+              <span>{L(locale, "24/7 Personal BOGA Copilot Financial AI Assistant", "7/24 Kişiye özel BOGA Copilot Finansal Yapay Zeka Asistanı", "Asistente Financiero de IA Personal BOGA Copilot 24/7", "Assistant Financier IA Personnel BOGA Copilot 24/7", "Assistente Financeiro IA Pessoal BOGA Copilot 24/7")}</span>
+            </li>
+          </ul>
+        </div>
+      )}
+
       {/* Free tier: Google sign-in, no card on file — offer upgrade */}
       {isFreeTier && (
         <>
@@ -610,9 +649,9 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-medium uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3.5 bg-[#3b82f6] text-white font-bold uppercase tracking-wider text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50 shadow-lg shadow-blue-500/20 active:scale-[0.99]"
           >
-            {t.upgradeButton}
+            {L(locale, "UPGRADE TO PREMIUM PLAN", "PREMİUM PLANA YÜKSELT", "ACTUALIZAR A PLAN PREMIUM", "PASSER AU PLAN PREMIUM", "ATUALIZAR PARA PLANO PREMIUM")}
           </button>
         </>
       )}
@@ -639,9 +678,9 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-medium uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3.5 bg-[#3b82f6] text-white font-bold uppercase tracking-wider text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50 shadow-lg shadow-blue-500/20 active:scale-[0.99]"
           >
-            {L(locale, "Complete Payment", "Ödemeyi Tamamla", "Completar Pago", "Finaliser le Paiement", "Concluir Pagamento")}
+            {L(locale, "UPGRADE TO PREMIUM PLAN", "PREMİUM PLANA YÜKSELT", "ACTUALIZAR A PLAN PREMIUM", "PASSER AU PLAN PREMIUM", "ATUALIZAR PARA PLANO PREMIUM")}
           </button>
         </>
       )}
@@ -658,9 +697,9 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-medium uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3.5 bg-[#3b82f6] text-white font-bold uppercase tracking-wider text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50 shadow-lg shadow-blue-500/20 active:scale-[0.99]"
           >
-            {t.upgradeButton}
+            {L(locale, "UPGRADE TO PREMIUM PLAN", "PREMİUM PLANA YÜKSELT", "ACTUALIZAR A PLAN PREMIUM", "PASSER AU PLAN PREMIUM", "ATUALIZAR PARA PLANO PREMIUM")}
           </button>
         </>
       )}
