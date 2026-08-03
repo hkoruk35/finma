@@ -176,53 +176,97 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
-          {/* Mobilde tek sütunlu "flex justify-between" satırları uzun
-              değerleri (ör. "245.3/198.4/187.2") sağa itip konteynerin
-              kenarından taşırıyordu. 2 sütunlu grid + Key üstte/Value altta
-              düzeni her hücreyi daraltıp taşmayı önler; sm+ ekranda eski
-              tek-sütun/satır görünümüne döner. */}
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 sm:gap-y-0">
-            {([
-              ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
-              ["EMA200", fmt(d1.ema200, 1)],
-              ["RSI (14)", fmt(d1.rsi, 1)],
-              ["MACD", fmt(data.momentum.macd, 3)],
-              ["ADX (14)", fmt(data.momentum.adx, 1)],
-              ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
-              ["BB%", fmt(data.momentum.bbPercent, 2)],
-              ["Pattern", d1.pattern],
-            ] as [string, string][]).map(([label, value], i, arr) => (
-              <div
-                key={label}
-                className={`flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:py-1.5 sm:gap-0 ${
-                  label === "EMA9/20/50" ? "col-span-2 sm:col-span-1" : ""
-                } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
-              >
-                <span className="text-[13px] text-white/40">{label}</span>
-                <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-medium">{value}</span>
+        {/* TEKNİK GÖSTERGELER CARD */}
+        <div className="bg-[#111620] border border-[#253347] rounded-xl p-3.5 flex flex-col justify-between shadow-lg">
+          <div>
+            <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#58a6ff]/30">
+              <span className="text-[11px] text-[#38bdf8] font-bold uppercase tracking-widest flex items-center gap-1.5">
+                <span>⚡</span> {t.technicalCard}
+              </span>
+            </div>
+
+            {/* EMA 9 / 20 / 50 Header Badge Row */}
+            <div className="mb-3 p-2 rounded-lg bg-[#182232] border border-[#2a3f5c]">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                EMA (9 / 20 / 50)
               </div>
-            ))}
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white">
+                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
+                  {fmt(d1.ema9, 1)}
+                </span>
+                <span className="text-slate-500">/</span>
+                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
+                  {fmt(d1.ema20, 1)}
+                </span>
+                <span className="text-slate-500">/</span>
+                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
+                  {fmt(d1.ema50, 1)}
+                </span>
+              </div>
+            </div>
+
+            {/* Grid of Key-Value Technical Indicators */}
+            <div className="space-y-1.5">
+              {[
+                ["EMA 200", `$${fmt(d1.ema200, 1)}`, "text-slate-200"],
+                ["RSI (14)", fmt(d1.rsi, 1), d1.rsi >= 60 ? "text-emerald-400" : d1.rsi <= 40 ? "text-amber-400" : "text-slate-200"],
+                ["MACD", fmt(data.momentum.macd, 3), data.momentum.macd >= 0 ? "text-emerald-400" : "text-red-400"],
+                ["ADX (14)", fmt(data.momentum.adx, 1), "text-slate-200"],
+                ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`, data.momentum.roc10 >= 0 ? "text-emerald-400" : "text-red-400"],
+                ["BB%", fmt(data.momentum.bbPercent, 2), "text-slate-200"],
+              ].map(([label, value, textColor]) => (
+                <div
+                  key={label}
+                  className="flex items-center justify-between py-1 px-2 rounded hover:bg-white/5 transition-colors border-b border-white/[0.04] text-xs"
+                >
+                  <span className="text-slate-400 font-medium">{label}</span>
+                  <span className={`font-mono font-semibold ${textColor}`}>{value}</span>
+                </div>
+              ))}
+
+              {d1.pattern && d1.pattern !== "—" && (
+                <div className="flex items-center justify-between pt-1.5 px-2 text-xs">
+                  <span className="text-slate-400 font-medium">Formasyon</span>
+                  <span className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                    {d1.pattern}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
-          {[
-            ["52H High", `$${fmt(data.context.hi52)}`],
-            ["52L Low", `$${fmt(data.context.lo52)}`],
-            ["52H Distance", `${fmt(data.context.pct52h, 1)}%`],
-            ["ATR%", `${fmt(data.context.atrPct)}%`],
-            ["RVOL", `${fmt(data.rvol)}x`],
-            ["Volume", fmtVol(data.volume)],
-            ["Avg Vol 30d", fmtVol(data.avgVol30)],
-          ].map(([label, value], i, arr) => (
-            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
-              <span className="text-white/40">{label}</span>
-              <span className="text-white/80 font-mono font-medium">{value}</span>
+        {/* PİYASA VERİLERİ CARD */}
+        <div className="bg-[#111620] border border-[#253347] rounded-xl p-3.5 flex flex-col justify-between shadow-lg">
+          <div>
+            <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#58a6ff]/30">
+              <span className="text-[11px] text-[#38bdf8] font-bold uppercase tracking-widest flex items-center gap-1.5">
+                <span>📊</span> {t.marketCard}
+              </span>
             </div>
-          ))}
+
+            <div className="space-y-1.5">
+              {[
+                ["52H High", `$${fmt(data.context.hi52)}`, "text-slate-100"],
+                ["52L Low", `$${fmt(data.context.lo52)}`, "text-slate-100"],
+                ["52H Distance", `${fmt(data.context.pct52h, 1)}%`, data.context.pct52h >= 0 ? "text-emerald-400" : "text-red-400"],
+                ["ATR%", `${fmt(data.context.atrPct)}%`, "text-amber-400"],
+                ["RVOL", `${fmt(data.rvol)}x`, data.rvol >= 1.5 ? "text-emerald-400 font-bold" : "text-slate-200"],
+                ["Volume", fmtVol(data.volume), "text-slate-200"],
+                ["Avg Vol 30d", fmtVol(data.avgVol30), "text-slate-400"],
+              ].map(([label, value, textColor], i, arr) => (
+                <div
+                  key={label}
+                  className={`flex items-center justify-between py-1.5 px-2 rounded hover:bg-white/5 transition-colors text-xs ${
+                    i < arr.length - 1 ? "border-b border-white/[0.04]" : ""
+                  }`}
+                >
+                  <span className="text-slate-400 font-medium">{label}</span>
+                  <span className={`font-mono font-semibold ${textColor}`}>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">

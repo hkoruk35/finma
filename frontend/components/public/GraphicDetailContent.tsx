@@ -293,36 +293,6 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
           )}
         </div>
 
-        <div className="md:hidden w-full overflow-hidden mb-4 rounded-lg border border-[#1e2a3a] bg-[#141924]">
-          <div className="ticker-tape flex items-center gap-4 py-1.5 px-3 whitespace-nowrap w-max">
-            {[...Array(2)].flatMap((_, dup) => [
-              ...INDICES.map((idx) => {
-                const q = quotes[idx.symbol];
-                const positive = (q?.change_1d ?? 0) >= 0;
-                return (
-                  <div key={`${idx.symbol}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-medium shrink-0">
-                    <span className="text-slate-400">{idx.label}</span>
-                    <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
-                    <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
-                  </div>
-                );
-              }),
-              ...(sectorEtf
-                ? [
-                    <div key={`${sectorEtf}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-medium shrink-0">
-                      <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
-                      <span className="text-white font-mono">
-                        {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
-                      </span>
-                      <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}>
-                        {fmtChange(quotes[sectorEtf]?.change_1d)}
-                      </span>
-                    </div>,
-                  ]
-                : []),
-            ])}
-          </div>
-        </div>
 
         {/* v3.2: Hisse arama geçici olarak kaldırıldı — şimdilik sadece
             BOGA AI Swing Trade havuzuna odaklanıyoruz. */}

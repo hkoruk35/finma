@@ -89,15 +89,6 @@ export default function TickerSearchBox({ locale = "en", onSelect, compact }: { 
         }
         className={`w-full rounded-lg bg-[#1a2b4d] border border-[#2a3f66] text-white placeholder:text-slate-200 focus:outline-none focus:border-[#3b82f6] transition-colors ${compact ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm"}`}
       />
-      {!compact && (
-        <p className="mt-1.5 text-[10px] text-slate-500">
-          {locale === "tr" ? "BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir."
-          : locale === "es" ? "BOGA AI puede analizar todo el mercado de EE. UU. en tiempo real."
-          : locale === "fr" ? "BOGA AI peut analyser l'ensemble du marché américain en temps réel."
-          : locale === "pt" ? "A BOGA AI pode analisar todo o mercado dos EUA em tempo real."
-          : "BOGA AI can instantly scan the entire U.S. stock market."}
-        </p>
-      )}
       {open && suggestions.length > 0 && (
         <div className="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-lg bg-[#1a2b4d] border border-[#2a3f66] shadow-xl">
           {suggestions.map((s, i) => (
