@@ -55,7 +55,7 @@ export default async function PtSectorsPage() {
         <ListsNavigation locale="pt" activePath="sectors" />
 
         <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-5 mt-2 items-start">
-          <HomeListCard title="Setores" accent="#38bdf8" stocks={sectorStocks} locale="pt" />
+          <HomeListCard title="Setores" accent="#3b82f6" stocks={sectorStocks} locale="pt" />
 
           <div className="min-w-0 flex flex-col gap-4">
             <SectorHeatmaps locale="pt" items={SECTOR_ITEMS} dailyQuotes={quotes} />

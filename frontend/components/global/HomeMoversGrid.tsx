@@ -66,11 +66,11 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const d = data ?? EMPTY;
 
   const cards = [
-    { key: 'top7', title: titles.top7, accent: '#a78bfa', href: `/global/${locale}/top7`, stocks: d.top7, gated: false },
-    { key: 'gainers', title: titles.gainers, accent: '#22c55e', href: `/global/${locale}/gainers`, stocks: d.gainers, gated: requireAuthToOpen },
-    { key: 'losers', title: titles.losers, accent: '#ef4444', href: `/global/${locale}/losers`, stocks: d.losers, gated: requireAuthToOpen },
+    { key: 'top7', title: titles.top7, accent: '#3b82f6', href: `/global/${locale}/top7`, stocks: d.top7, gated: false },
+    { key: 'gainers', title: titles.gainers, accent: '#3b82f6', href: `/global/${locale}/gainers`, stocks: d.gainers, gated: requireAuthToOpen },
+    { key: 'losers', title: titles.losers, accent: '#3b82f6', href: `/global/${locale}/losers`, stocks: d.losers, gated: requireAuthToOpen },
     { key: 'mostActive', title: titles.mostActive, accent: '#3b82f6', href: `/global/${locale}/mostactive`, stocks: d.mostActive, gated: requireAuthToOpen },
-    { key: 'top100', title: titles.top100, accent: '#f59e0b', href: `/global/${locale}/top100`, stocks: d.top100, gated: requireAuthToOpen },
+    { key: 'top100', title: titles.top100, accent: '#3b82f6', href: `/global/${locale}/top100`, stocks: d.top100, gated: requireAuthToOpen },
   ];
 
   return (

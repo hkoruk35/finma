@@ -132,7 +132,7 @@ export default async function EnHomePage() {
 
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="en" initialVisible={5} />
-            <HomeListCard title="Sectors" accent="#38bdf8" stocks={sectorStocks} locale="en" initialVisible={5} viewAllHref="/global/en/sectors" />
+            <HomeListCard title="Sectors" accent="#3b82f6" stocks={sectorStocks} locale="en" initialVisible={5} viewAllHref="/global/en/sectors" />
           </div>
         </div>
 

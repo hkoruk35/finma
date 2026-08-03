@@ -55,7 +55,7 @@ export default async function EsSectorsPage() {
         <ListsNavigation locale="es" activePath="sectors" />
 
         <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-5 mt-2 items-start">
-          <HomeListCard title="Sectores" accent="#38bdf8" stocks={sectorStocks} locale="es" />
+          <HomeListCard title="Sectores" accent="#3b82f6" stocks={sectorStocks} locale="es" />
 
           <div className="min-w-0 flex flex-col gap-4">
             <SectorHeatmaps locale="es" items={SECTOR_ITEMS} dailyQuotes={quotes} />

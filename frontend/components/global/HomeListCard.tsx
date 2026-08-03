@@ -76,7 +76,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
 
       {visibleStocks.length > 0 ? (
         <>
-          <div className="grid grid-cols-[1fr_40px_60px] gap-2 px-3 py-1.5 text-[9px] border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500">
+          <div className="grid grid-cols-[1fr_68px_60px] gap-2 px-3 py-1.5 text-[9px] border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500">
             <span>{labels.stock}</span>
             <span />
             <span className="text-right">{labels.price}</span>
@@ -86,7 +86,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
               return (
                 <div
                   key={stock.ticker + idx}
-                  className="grid grid-cols-[1fr_40px_60px] gap-2 items-center px-3 py-2 transition-colors duration-150 hover:bg-white/[0.03] cursor-pointer"
+                  className="grid grid-cols-[1fr_68px_60px] gap-2 items-center px-3 py-2 transition-colors duration-150 hover:bg-white/[0.03] cursor-pointer"
                   onClick={() =>
                     requireAuthToOpen
                       ? router.push(`/global/${locale}/${REGISTER_PATH[locale]}`)
@@ -104,7 +104,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
                   </div>
 
                   <div className="justify-self-center">
-                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} width={40} height={18} />
+                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} width={60} height={26} />
                   </div>
 
                   <div className="text-right shrink-0">
@@ -112,9 +112,8 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
                     <span
-                      className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[9px] font-medium font-mono ${
-                        stock.change_pct >= 0 ? 'bg-[#22c55e] text-white' : 'bg-[#ef4444] text-white'
-                      }`}
+                      className="inline-block mt-0.5 text-[9px] font-medium font-mono"
+                      style={{ color: stock.change_pct >= 0 ? '#22c55e' : '#ef4444' }}
                     >
                       {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
                     </span>

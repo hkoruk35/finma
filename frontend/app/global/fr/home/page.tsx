@@ -132,7 +132,7 @@ export default async function FrHomePage() {
 
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="fr" initialVisible={5} />
-            <HomeListCard title="Secteurs" accent="#38bdf8" stocks={sectorStocks} locale="fr" initialVisible={5} viewAllHref="/global/fr/sectors" />
+            <HomeListCard title="Secteurs" accent="#3b82f6" stocks={sectorStocks} locale="fr" initialVisible={5} viewAllHref="/global/fr/sectors" />
           </div>
         </div>
 

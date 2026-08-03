@@ -40,8 +40,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
   const terminalHref = `/global/${locale}`;
   const terminalTooltip = locale === "tr" ? "TERMİNAL sayfasını aç" : locale === "es" ? "Abrir la página TERMINAL" : locale === "fr" ? "Ouvrir la page TERMINAL" : locale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
-  const screenerHref = `/global/${locale}/home`;
-  const screenerLabel = locale === "tr" ? "LİSTELER" : locale === "es" ? "LISTAS" : locale === "fr" ? "LISTES" : locale === "pt" ? "LISTAS" : "SCREENER";
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -126,19 +124,19 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   return (
                     <span
                       key={lang}
-                      className="px-2 py-1 text-[9px] font-medium uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
+                      className="px-2 py-1 text-[8px] font-medium uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
                       title="Coming Soon"
                     >
                       {lang}
                     </span>
                   );
                 }
-                
+
                 return (
                   <Link
                     key={lang}
                     href={getLangHref(lang)}
-                    className={`px-2 py-1 rounded-md text-[9px] font-medium uppercase tracking-wider transition-all ${
+                    className={`px-2 py-1 rounded-md text-[8px] font-medium uppercase tracking-wider transition-all ${
                       isActive
                         ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                         : "text-[#64748b] hover:text-white hover:bg-white/10"
@@ -162,16 +160,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </svg>
             <span className="hidden sm:inline">TERMINAL</span>
           </MobileTerminalLink>
-
-          <Link
-            href={screenerHref}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
-          >
-            <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-            </svg>
-            <span className="hidden sm:inline">{screenerLabel}</span>
-          </Link>
 
           <Link
             href={homeHref}

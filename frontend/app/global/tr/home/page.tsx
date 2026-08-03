@@ -132,7 +132,7 @@ export default async function TrHomePage() {
 
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="tr" initialVisible={5} />
-            <HomeListCard title="Sektörler" accent="#38bdf8" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
+            <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
           </div>
         </div>
 

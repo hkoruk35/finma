@@ -6,7 +6,7 @@ import type { Locale } from '@/lib/i18n/copy';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import HomeListCard, { type HomeListStock } from './HomeListCard';
 
-const ACCENT = '#a78bfa';
+const ACCENT = '#3b82f6';
 
 interface LiveWatchRow {
   ticker: string;

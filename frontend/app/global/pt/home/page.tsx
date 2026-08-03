@@ -132,7 +132,7 @@ export default async function PtHomePage() {
 
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="pt" initialVisible={5} />
-            <HomeListCard title="Setores" accent="#38bdf8" stocks={sectorStocks} locale="pt" initialVisible={5} viewAllHref="/global/pt/sectors" />
+            <HomeListCard title="Setores" accent="#3b82f6" stocks={sectorStocks} locale="pt" initialVisible={5} viewAllHref="/global/pt/sectors" />
           </div>
         </div>
 
