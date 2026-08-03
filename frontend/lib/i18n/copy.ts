@@ -3,7 +3,7 @@ export type Locale = "en" | "tr" | "es" | "fr" | "pt";
 export const copy = {
   en: {
     register: {
-      title: "Create your account",
+      title: "Create your free account",
       subtitle: "",
       usernameLabel: "USERNAME",
       usernamePlaceholder: "Your username",
@@ -21,7 +21,7 @@ export const copy = {
     },
     consent: {
       disclaimer: "I understand this platform offers information and analysis only — not investment advice.",
-      cardNotice: "Your card details are processed securely by Stripe and are never stored on our servers.",
+      cardNotice: "Using the platform is free — go ahead and get started.",
       required: "Please confirm the notice above to continue.",
     },
     login: {
@@ -265,7 +265,7 @@ export const copy = {
   },
   tr: {
     register: {
-      title: "Hesap Oluştur",
+      title: "Ücretsiz Hesap Oluştur",
       subtitle: "",
       usernameLabel: "KULLANICI ADI",
       usernamePlaceholder: "Kullanıcı adınız",
@@ -283,7 +283,7 @@ export const copy = {
     },
     consent: {
       disclaimer: "Bu platformun yalnızca bilgilendirme ve analiz amaçlı olduğunu, yatırım tavsiyesi niteliği taşımadığını anladım.",
-      cardNotice: "Kredi kartı bilgileriniz güvenli şekilde Stripe tarafından işlenir ve sistemlerimizde asla saklanmaz.",
+      cardNotice: "Sistemi kullanmak ücretsizdir, hemen kullanmaya başlayın.",
       required: "Devam etmek için yukarıdaki bildirimi onaylayın.",
     },
     login: {
@@ -527,7 +527,7 @@ export const copy = {
   },
   es: {
     register: {
-      title: "Crear tu cuenta",
+      title: "Crea tu cuenta gratuita",
       subtitle: "",
       usernameLabel: "NOMBRE DE USUARIO",
       usernamePlaceholder: "Tu nombre de usuario",
@@ -545,7 +545,7 @@ export const copy = {
     },
     consent: {
       disclaimer: "Entiendo que esta plataforma ofrece solo información y análisis, no asesoramiento de inversión.",
-      cardNotice: "Los datos de tu tarjeta se procesan de forma segura a través de Stripe y nunca se almacenan en nuestros servidores.",
+      cardNotice: "Usar la plataforma es gratis — puedes empezar ahora mismo.",
       required: "Confirma el aviso anterior para continuar.",
     },
     login: {
@@ -789,7 +789,7 @@ export const copy = {
   },
   fr: {
     register: {
-      title: "Créer votre compte",
+      title: "Créez votre compte gratuit",
       subtitle: "",
       usernameLabel: "NOM D'UTILISATEUR",
       usernamePlaceholder: "Votre nom d'utilisateur",
@@ -807,7 +807,7 @@ export const copy = {
     },
     consent: {
       disclaimer: "Je comprends que cette plateforme propose uniquement des informations et des analyses, et non des conseils en investissement.",
-      cardNotice: "Les informations de votre carte sont traitées en toute sécurité par Stripe et ne sont jamais stockées sur nos serveurs.",
+      cardNotice: "L'utilisation de la plateforme est gratuite — vous pouvez commencer dès maintenant.",
       required: "Veuillez confirmer l'avis ci-dessus pour continuer.",
     },
     login: {
@@ -1051,7 +1051,7 @@ export const copy = {
   },
   pt: {
     register: {
-      title: "Crie sua conta",
+      title: "Crie sua conta gratuita",
       subtitle: "",
       usernameLabel: "NOME DE USUÁRIO",
       usernamePlaceholder: "Seu nome de usuário",
@@ -1069,7 +1069,7 @@ export const copy = {
     },
     consent: {
       disclaimer: "Entendo que esta plataforma oferece apenas informações e análises, não consultoria de investimento.",
-      cardNotice: "Os dados do seu cartão são processados com segurança pela Stripe e nunca são armazenados em nossos servidores.",
+      cardNotice: "Usar a plataforma é gratuito — comece agora mesmo.",
       required: "Confirme o aviso acima para continuar.",
     },
     login: {
