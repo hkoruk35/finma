@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T14:03:30.217015-04:00",
+  "generated_at": "2026-08-04T17:03:35.448727-04:00",
   "picks": [
     {
       "ticker": "SNOW",
@@ -32,12 +32,6 @@
       "score": 38.0
     },
     {
-      "ticker": "PUK",
-      "sector": "Financial Services",
-      "date_added": "2026-08-03",
-      "score": 41.5
-    },
-    {
       "ticker": "CBRE",
       "sector": "Real Estate",
       "date_added": "2026-08-03",
@@ -56,12 +50,6 @@
       "score": 47.0
     },
     {
-      "ticker": "BJRI",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-03",
-      "score": 46.5
-    },
-    {
       "ticker": "LYV",
       "sector": "Communication Services",
       "date_added": "2026-08-03",
@@ -76,12 +64,6 @@
     {
       "ticker": "APH",
       "sector": "Technology",
-      "date_added": "2026-08-04",
-      "score": 42.5
-    },
-    {
-      "ticker": "AWI",
-      "sector": "Industrials",
       "date_added": "2026-08-04",
       "score": 42.5
     },
@@ -104,16 +86,46 @@
       "score": 46.5
     },
     {
-      "ticker": "DHR",
-      "sector": "Healthcare",
+      "ticker": "M",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-08-04",
-      "score": 40.5
+      "score": 51.0
     },
     {
-      "ticker": "GS",
-      "sector": "Financial Services",
+      "ticker": "ILMN",
+      "sector": "Healthcare",
       "date_added": "2026-08-04",
-      "score": 38.0
+      "score": 50.0
+    },
+    {
+      "ticker": "NSC",
+      "sector": "Industrials",
+      "date_added": "2026-08-04",
+      "score": 50.0
+    },
+    {
+      "ticker": "ST",
+      "sector": "Technology",
+      "date_added": "2026-08-04",
+      "score": 49.0
+    },
+    {
+      "ticker": "RUSHA",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-04",
+      "score": 47.5
+    },
+    {
+      "ticker": "EME",
+      "sector": "Industrials",
+      "date_added": "2026-08-04",
+      "score": 43.5
+    },
+    {
+      "ticker": "RPM",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-04",
+      "score": 41.0
     }
   ]
 }
