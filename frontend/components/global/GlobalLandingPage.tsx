@@ -230,7 +230,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   // işaretleyebilir; fazlasını denerse PremiumModal açılır.
   const [compareSelection, setCompareSelection] = useState<string[]>([]);
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
-  const [multiChartRequest, setMultiChartRequest] = useState<string[] | null>(null);
+  const [multiChartTrigger, setMultiChartTrigger] = useState<number>(0);
   // Trend Hisseleri'nde premium-kilitli (LOCKED-N) bir satır seçildiğinde
   // grafik alanı yerine "Premium" göstermek için — diğer her ticker'ın
   // grafiği (indeks/sektör/döviz/emtia/kripto/Top7/Top100/Artanlar/
@@ -475,8 +475,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   defaultTimeframe="D"
                   defaultCandleType="candle"
                   premiumGate
-                  externalMultiChartTickers={multiChartRequest}
-                  onExternalMultiChartConsumed={() => setMultiChartRequest(null)}
+                  externalMultiChartTickers={compareSelection}
+                  externalMultiChartTrigger={multiChartTrigger}
                 />
               )}
             </div>
@@ -509,7 +509,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </button>
             <button
               onClick={() => {
-                setMultiChartRequest([...compareSelection]);
+                setMultiChartTrigger((prev) => prev + 1);
               }}
               className="px-5 py-2 rounded-full bg-[#3b82f6] text-xs font-bold text-white hover:bg-[#2563eb] transition-all shadow-lg hover:scale-105 active:scale-95"
             >

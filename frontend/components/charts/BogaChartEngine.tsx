@@ -265,7 +265,8 @@ interface Props {
   defaultTimeframe?: string; // initial interval value
   defaultCandleType?: CandleType; // initial candle style (overrides the detailMode-based default)
   premiumGate?: boolean; // non-premium viewers may only toggle FREE_INDICATOR_KEYS; everything else (incl. Trade Plan values) prompts PremiumModal instead
-  externalMultiChartTickers?: string[] | null; // caller-driven multi-chart open request (checkbox selection), consumed once
+  externalMultiChartTickers?: string[] | null; // caller-driven multi-chart selection (checkboxes)
+  externalMultiChartTrigger?: number; // signal incremented when caller explicitly requests opening multi-chart screen
   onExternalMultiChartConsumed?: () => void;
 }
 
@@ -341,6 +342,7 @@ export default function BogaChartEngine({
   defaultCandleType,
   premiumGate = false,
   externalMultiChartTickers,
+  externalMultiChartTrigger,
   onExternalMultiChartConsumed,
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
@@ -499,14 +501,14 @@ export default function BogaChartEngine({
 
   // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay
   // kutucuklariyla dışarıdan (GlobalLandingPage) tetiklenen çoklu grafik
-  // isteği — tam olarak kullanıcının seçtiği ticker'ları gösterir.
+  // isteği — kullanıcı "Çoklu Ekranda Göster" butonuna bastığında seçili hisseleri açar.
   useEffect(() => {
-    if (externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
+    if (externalMultiChartTrigger && externalMultiChartTrigger > 0 && externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
       setMultiChartTickers([...externalMultiChartTickers]);
       setMultiChartLayout(externalMultiChartTickers.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [externalMultiChartTickers]);
+  }, [externalMultiChartTrigger]);
 
   useEffect(() => {
     const handler = () => setIsFullscreen(document.fullscreenElement === wrapperRef.current);
