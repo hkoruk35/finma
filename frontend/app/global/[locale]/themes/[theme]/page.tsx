@@ -151,19 +151,8 @@ export default async function ThemePage({ params }: Props) {
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const realThemeTickers = await getEffectiveThemeTickers(hotTheme);
 
-  // Tüm 12 tema gezilebilir; ticker kimliği anonim+free'de maskeli, sadece
-  // premium/admin gerçek listeyi görür (Trend Hisseleri ile aynı kural, bkz.
-  // Faz 5 plan notu). Önceki "sadece ilk tema açık" tasarımı (isFirstTheme)
-  // ThemeSwingTracker.tsx'te artık okunmuyordu — component çoktan satır
-  // bazlı maskelemeye geçmiş, ama BU sayfa gerçek ticker dizisini hâlâ
-  // client component'e prop olarak (dolayısıyla RSC payload'ına çıplak)
-  // geçiyordu: view-source ile tüm 12 temanın tam ticker listesi okunabiliyordu
-  // (canlıda "uzay-temasi" için doğrulandı — 18 ticker'ın 18'i de payload'da).
-  const tier = resolveMemberTierFromAccess(await getMemberAccess());
-  const unlockAll = tier === "premium" || tier === "admin";
-  const themeTickers = unlockAll
-    ? realThemeTickers
-    : realThemeTickers.map((tk, idx) => (isPublicTeaserTicker(tk) ? tk : `LOCKED-${idx}`));
+  // Tüm Tema Listesi hisseleri ücretsiz üyelere açık; sadece işlem detayları Premium
+  const themeTickers = realThemeTickers;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
