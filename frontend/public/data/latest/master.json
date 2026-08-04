@@ -1,8 +1,8 @@
 {
   "date": "2026-08-04",
-  "generated_at": "2026-08-04T09:03:35.159093-04:00",
+  "generated_at": "2026-08-04T14:03:28.236580-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 32,
+  "active_scores_count": 41,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 20,
+      "count": 19,
       "tickers": [
         "HPQ",
         "CSCO",
@@ -31,7 +31,6 @@
         "AN",
         "ST",
         "NWG",
-        "RACE",
         "RUSHA",
         "SPHR",
         "EXLS",
@@ -81,25 +80,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 771.635,
-      "change_pct": 1.84
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 722.73,
-      "change_pct": 3.24
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 541.16,
-      "change_pct": 1.87
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.59,
-      "change_pct": 4.6
-    },
-    "RUSSELL2000": {
-      "value": 301.83,
-      "change_pct": 1.89
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-04T14:01:37.998537-04:00"
+  }
 }
