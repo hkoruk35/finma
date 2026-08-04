@@ -1,66 +1,92 @@
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 
-export default function FrPrivacyPage() {
+export const metadata = {
+  title: "Politique de Confidentialité et Sécurité | BogaStock.com",
+  description: "Politique de confidentialité de BogaStock.com, normes de sécurité Google et conformité RGPD (UE), CCPA (USA), LGPD (LatAm), PIPA/PDPA (Asie).",
+  alternates: {
+    canonical: "https://bogastock.com/global/fr/privacy",
+    languages: {
+      "en-US": "https://bogastock.com/global/en/privacy",
+      "tr-TR": "https://bogastock.com/global/tr/privacy",
+      "es-ES": "https://bogastock.com/global/es/privacy",
+      "fr-FR": "https://bogastock.com/global/fr/privacy",
+      "pt-PT": "https://bogastock.com/global/pt/privacy",
+    },
+  },
+  openGraph: {
+    url: "https://bogastock.com/global/fr/privacy",
+  },
+};
+
+export default function PrivacyPageFr() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <MemberHeader locale="fr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         
-        <h1 className="text-3xl font-semibold text-white mb-8 tracking-tight">Politique de Confidentialité</h1>
+        <h1 className="text-3xl font-bold text-white mb-8 tracking-tight">Politique de Confidentialité et Normes Mondiales de Sécurité</h1>
 
-        <div className="glass-card p-8 space-y-6 text-white leading-relaxed">
-          <p>Dernière mise à jour : Avril 2026</p>
-
+        <div className="glass-card p-8 space-y-10 text-slate-200 leading-relaxed rounded-2xl border border-[#1e2a3a] bg-[#0d131f]/90">
+          
+          {/* Section 1 */}
           <section>
-            <h2 className="text-lg font-medium text-white mb-3">1. Informations que nous Collectons</h2>
-            <p>
-              Nous collectons des informations personnelles minimales pour fournir nos services.
-              Cela comprend votre adresse e-mail lors de votre inscription, ainsi que des données
-              techniques telles que les adresses IP et les cookies du navigateur pour maintenir votre
-              session et analyser les performances du site.
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              1. Notre Engagement en Matière de Sécurité des Données
+            </h2>
+            <p className="mb-4 text-slate-300">
+              <strong className="text-white">BogaStock.com</strong> est une plateforme automatisée <strong className="text-white">d'analyse technique et d'aide à la décision</strong>. La confidentialité des données est au cœur de notre architecture.
+            </p>
+            <p className="text-slate-300">
+              Nous appliquons rigoureusement les principes de sécurité de Google : <strong className="text-white">Minimisation des Données</strong> et <strong className="text-white">Respect de la Vie Privée dès la Conception</strong>.
             </p>
           </section>
 
+          {/* Section 2 */}
           <section>
-            <h2 className="text-lg font-medium text-white mb-3">2. Comment nous Utilisons les Données</h2>
-            <p>
-              Vos données sont utilisées pour :
-            </p>
-            <ul className="list-disc pl-6 space-y-2 mt-2">
-               <li>Gérer votre compte membre et vos paramètres de liste de surveillance.</li>
-               <li>Envoyer des digests de marché quotidiens ou des alertes critiques (si activé).</li>
-               <li>Améliorer nos algorithmes de scoring d'IA selon les modèles d'utilisation agrégés.</li>
-               <li>Afficher les publicités financières pertinentes.</li>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              2. Conformité Réglementaire Mondiale (USA, UE, Amérique Latine, Asie)
+            </h2>
+            <ul className="list-disc list-inside space-y-2 text-slate-300 ml-2">
+              <li><strong className="text-white">Union Européenne (UE) :</strong> Règlement Général sur la Protection des Données (<strong className="text-white">RGPD / GDPR</strong>).</li>
+              <li><strong className="text-white">États-Unis (USA) :</strong> California Consumer Privacy Act (<strong className="text-white">CCPA / CPRA</strong>).</li>
+              <li><strong className="text-white">Amérique Latine :</strong> Brésil (<strong className="text-white">LGPD</strong>), Mexique (<strong className="text-white">LFPDPPP</strong>) et Argentine (<strong className="text-white">Loi 25.326</strong>).</li>
+              <li><strong className="text-white">Asie-Pacifique :</strong> Corée du Sud (<strong className="text-white">PIPA</strong>), Japon (<strong className="text-white">APPI</strong>) et Singapour/Malaisie (<strong className="text-white">PDPA</strong>).</li>
             </ul>
           </section>
 
+          {/* Section 3 */}
           <section>
-            <h2 className="text-lg font-medium text-white mb-3">3. Partage des Données</h2>
-            <p>
-              Nous ne vendons pas vos données personnelles à des tiers.
-              Des données agrégées et anonymisées peuvent être partagées avec nos partenaires
-              publicitaires pour faciliter la livraison des annonces.
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              3. Interdiction de Vente des Données Personnelles
+            </h2>
+            <p className="text-slate-300">
+              <strong className="text-white">BogaStock.com ne vend ni ne loue aucune donnée personnelle d'utilisateur à des tiers.</strong>
             </p>
           </section>
 
+          {/* Section 4 */}
           <section>
-            <h2 className="text-lg font-medium text-white mb-3">4. Sécurité</h2>
-            <p>
-              Nous utilisons le chiffrement standard de l'industrie pour protéger votre compte.
-              Cependant, aucune méthode de stockage ou de transmission électronique n'est 100% sécurisée.
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              4. Chiffrement et Droits des Utilisateurs
+            </h2>
+            <p className="text-slate-300">
+              Toutes les données sont chiffrées en transit via <strong className="text-white">TLS 1.3 / SSL</strong> et au repos via <strong className="text-white">AES-256</strong>. Les utilisateurs bénéficient du <strong className="text-white">Droit à l'Oubli</strong> (suppression complète des données).
             </p>
           </section>
 
-          <section>
-            <h2 className="text-lg font-medium text-white mb-3">5. Vos Droits</h2>
-            <p>
-              Vous pouvez demander à voir, corriger ou supprimer vos données personnelles
-              à tout moment en nous contactant à contact@bogastock.com.
+          {/* Section 5 */}
+          <section className="pt-6 border-t border-[#1e2a3a]">
+            <h2 className="text-lg font-semibold text-white mb-2">Déclaration Mondiale</h2>
+            <p className="text-xs text-slate-400">
+              En utilisant BogaStock.com, vous acceptez la présente politique de confidentialité et les normes internationales.
+            </p>
+            <p className="mt-4 text-xs font-mono text-[#38bdf8]">
+              Dernière mise à jour : 4 août 2026 | BogaStock.com Gestion de la Confidentialité
             </p>
           </section>
+
         </div>
       </main>
 
