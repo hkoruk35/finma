@@ -17,6 +17,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [member, setMember] = useState<any>(null);
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isMobileUserMenuOpen, setIsMobileUserMenuOpen] = useState(false);
+  const [isDesktopUserMenuOpen, setIsDesktopUserMenuOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -215,28 +216,63 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               </div>
             )}
 
-            {/* Terminal Link */}
-            <MobileTerminalLink
-              locale={locale}
-              targetHref={terminalHref}
-              title={terminalTooltip}
-              className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all shrink-0"
-            >
-              <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.8}
+            {/* Terminal Link with Hover Preview */}
+            <div className="relative group shrink-0">
+              <MobileTerminalLink
+                locale={locale}
+                targetHref={terminalHref}
+                title={terminalTooltip}
+                className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all shrink-0"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
-                />
-              </svg>
-              <span className="text-[9px] sm:text-[10px]">TERMINAL</span>
-            </MobileTerminalLink>
+                <svg
+                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
+                  />
+                </svg>
+                <span className="text-[9px] sm:text-[10px]">TERMINAL</span>
+              </MobileTerminalLink>
+
+              {/* Terminal Page Hover Preview Card */}
+              <div className="absolute right-0 top-full mt-2 hidden group-hover:block z-50 w-72 p-3 rounded-xl bg-[#0d131f] border border-[#3b82f6]/50 shadow-[0_10px_35px_rgba(0,0,0,0.8)] backdrop-blur-xl pointer-events-none">
+                <div className="flex items-center gap-2 pb-2 border-b border-white/10">
+                  <div className="w-5 h-5 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-[10px] font-bold text-[#3b82f6]">
+                    &gt;_
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-white leading-none">BOGASTOCK Terminal</span>
+                    <span className="text-[9px] text-[#38bdf8] mt-0.5">
+                      {locale === "tr" ? "Canlı İşlem & Analiz Paneli" : "Live Trading & Analysis Panel"}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-2 space-y-1.5 text-[10px] text-slate-300">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#3b82f6]">📊</span>
+                    <span>{locale === "tr" ? "Çoklu Ekran & Canlı İnteraktif Grafikler" : "Multi-Chart & Live Interactive Charts"}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#22c55e]">🤖</span>
+                    <span>{locale === "tr" ? "Yapay Zeka Al/Sat & Trend Sinyalleri" : "AI Buy/Sell & Trend Signals"}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#eab308]">📈</span>
+                    <span>{locale === "tr" ? "Hacim Profili (VP) & Destek/Direnç" : "Volume Profile (VP) & Support/Resistance"}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#a855f7]">🎯</span>
+                    <span>{locale === "tr" ? "15 Günlük Swing İşlem Planları" : "15-Day Swing Trade Plans"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Desktop-only Quick Navigation */}
             <Link
@@ -308,11 +344,12 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             {authChecked &&
               (isLoggedIn ? (
                 <div className="relative shrink-0">
-                  {/* Desktop User Badge */}
-                  <div className="hidden sm:flex items-center gap-1.5">
-                    <Link
-                      href={accountHref}
-                      className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-[#1e2a3a]/70 hover:bg-[#1e2a3a] border border-[#3b82f6]/40 text-white transition-all shadow-sm"
+                  {/* Desktop User Dropdown Badge */}
+                  <div className="hidden sm:block relative">
+                    <button
+                      type="button"
+                      onClick={() => setIsDesktopUserMenuOpen((v) => !v)}
+                      className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-[#1e2a3a]/70 hover:bg-[#1e2a3a] border border-[#3b82f6]/40 text-white transition-all shadow-sm cursor-pointer"
                     >
                       {member?.avatar_url ? (
                         <img
@@ -333,39 +370,62 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           PRO
                         </span>
                       )}
-                    </Link>
-
-                    <button
-                      onClick={handleLogout}
-                      disabled={loggingOut}
-                      title={
-                        locale === "tr"
-                          ? "Çıkış Yap"
-                          : locale === "es"
-                            ? "Cerrar sesión"
-                            : locale === "fr"
-                              ? "Se déconnecter"
-                              : locale === "pt"
-                                ? "Sair"
-                                : "Log out"
-                      }
-                      className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
-                    >
-                      <svg
-                        className="w-3.5 h-3.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
-                        />
-                      </svg>
-                      <span>{loggingOut ? "..." : locale === "tr" ? "Çıkış" : "Logout"}</span>
+                      <span className="text-[9px] text-slate-400 ml-0.5">▾</span>
                     </button>
+
+                    {/* Desktop User Dropdown Menu */}
+                    {isDesktopUserMenuOpen && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-40"
+                          onClick={() => setIsDesktopUserMenuOpen(false)}
+                        />
+                        <div className="absolute right-0 top-full mt-2 z-50 w-56 bg-[#0f172a] border border-[#1e2a3a] rounded-xl shadow-2xl overflow-hidden p-2.5 space-y-2">
+                          <div className="flex items-center gap-2 pb-2 border-b border-white/10 px-1">
+                            {member?.avatar_url ? (
+                              <img
+                                src={member.avatar_url}
+                                alt={usernameText}
+                                className="w-7 h-7 rounded-full object-cover border border-[#3b82f6]"
+                              />
+                            ) : (
+                              <div className="w-7 h-7 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-xs font-bold">
+                                {usernameText.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                            <div className="flex flex-col min-w-0 flex-1">
+                              <span className="text-xs font-bold text-white truncate">
+                                {usernameText}
+                              </span>
+                              <span className="text-[9px] text-slate-400 truncate">
+                                {member?.email || ""}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="space-y-0.5">
+                            <Link
+                              href={accountHref}
+                              onClick={() => setIsDesktopUserMenuOpen(false)}
+                              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                            >
+                              <span>👤</span>
+                              <span>{locale === "tr" ? "Hesabım" : "Account"}</span>
+                            </Link>
+
+                            <button
+                              type="button"
+                              onClick={handleLogout}
+                              disabled={loggingOut}
+                              className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
+                            >
+                              <span>🚪</span>
+                              <span>{loggingOut ? "..." : locale === "tr" ? "Çıkış Yap" : "Log out"}</span>
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Mobile Compact User Menu Button */}

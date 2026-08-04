@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { formatAssetPrice } from '@/lib/symbols';
 import type { Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
+import TickerHoverChart from '@/components/TickerHoverChart';
 
 export interface MarketQuoteItem {
   ticker: string;
@@ -34,10 +35,10 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
               key={g.key}
               type="button"
               onClick={() => setActive(g.key)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${
                 isActive
-                  ? 'bg-[#3b82f6] text-white shadow-md shadow-blue-500/25 border border-blue-400/30'
-                  : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                  ? 'bg-[#3b82f6] text-white shadow-md shadow-blue-500/30 border border-blue-400/40'
+                  : 'text-[#38bdf8] hover:text-white hover:bg-white/[0.08]'
               }`}
             >
               {g.label}
@@ -52,26 +53,27 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
           const positive = changePct >= 0;
           const color = !item.quote ? '#8b949e' : positive ? '#3fb950' : '#f85149';
           return (
-            <Link
-              key={item.ticker}
-              href={`/global/${locale}/graphic/${item.ticker}`}
-              className="group rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-3.5 hover:border-[#3b82f6]/50 hover:bg-[#141b2a] transition-all duration-200 shadow-sm"
-            >
-              <div className="text-[11px] font-medium text-slate-400 truncate group-hover:text-slate-200 transition-colors">
-                {item.label}
-              </div>
-              <div className="text-sm font-bold font-mono text-white mt-1 tracking-tight">
-                {item.quote ? formatAssetPrice(item.quote.value, item.ticker) : '—'}
-              </div>
-              <div className="flex items-center justify-between mt-2 gap-1.5">
-                <span className="text-[11px] font-bold font-mono px-1.5 py-0.5 rounded" style={{ color, backgroundColor: `${color}15` }}>
-                  {item.quote ? `${positive ? '+' : ''}${changePct.toFixed(2)}%` : '—'}
-                </span>
-                {item.quote && item.quote.recent_closes.length > 1 && (
-                  <Sparkline data={item.quote.recent_closes} color={color} changePct={changePct} width={48} height={18} />
-                )}
-              </div>
-            </Link>
+            <TickerHoverChart key={item.ticker} ticker={item.ticker} locale={locale}>
+              <Link
+                href={`/global/${locale}/graphic/${item.ticker}`}
+                className="group block rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-3.5 hover:border-[#3b82f6]/50 hover:bg-[#141b2a] transition-all duration-200 shadow-sm"
+              >
+                <div className="text-[11px] font-medium text-slate-400 truncate group-hover:text-slate-200 transition-colors">
+                  {item.label}
+                </div>
+                <div className="text-sm font-bold font-mono text-white mt-1 tracking-tight">
+                  {item.quote ? formatAssetPrice(item.quote.value, item.ticker) : '—'}
+                </div>
+                <div className="flex items-center justify-between mt-2 gap-1.5">
+                  <span className="text-[11px] font-bold font-mono px-1.5 py-0.5 rounded" style={{ color, backgroundColor: `${color}15` }}>
+                    {item.quote ? `${positive ? '+' : ''}${changePct.toFixed(2)}%` : '—'}
+                  </span>
+                  {item.quote && item.quote.recent_closes.length > 1 && (
+                    <Sparkline data={item.quote.recent_closes} color={color} changePct={changePct} width={48} height={18} />
+                  )}
+                </div>
+              </Link>
+            </TickerHoverChart>
           );
         })}
       </div>
