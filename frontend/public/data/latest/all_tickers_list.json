@@ -1,5 +1,5 @@
 {
-  "date": "2026-08-03",
+  "date": "2026-08-04",
   "tickers": [
     {
       "ticker": "SBCF",
@@ -93,12 +93,12 @@
       "ticker": "WST",
       "company": "WST",
       "sector": "Healthcare",
-      "master_score": 51.5,
+      "master_score": 44.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 340.9599914550781,
-      "change_pct": 0.4,
+      "price": 347.94000244140625,
+      "change_pct": 2.05,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
     },
     {
       "ticker": "AN",
@@ -115,12 +115,12 @@
       "ticker": "BKR",
       "company": "BKR",
       "sector": "Energy",
-      "master_score": 61.5,
+      "master_score": 55.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 60.54499816894531,
-      "change_pct": 0.09,
+      "price": 60.810001373291016,
+      "change_pct": 0.53,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
     },
     {
       "ticker": "LXFR",
@@ -159,12 +159,12 @@
       "ticker": "ST",
       "company": "ST",
       "sector": "Technology",
-      "master_score": 50.0,
+      "master_score": 58.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 46.80500030517578,
-      "change_pct": 1.11,
+      "price": 46.81999969482422,
+      "change_pct": 1.14,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: BREAKOUT"
     },
     {
       "ticker": "NWG",
@@ -203,12 +203,12 @@
       "ticker": "RUSHA",
       "company": "RUSHA",
       "sector": "Consumer Cyclical",
-      "master_score": 43.5,
+      "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 81.26000213623047,
-      "change_pct": 1.84,
+      "price": 80.95999908447266,
+      "change_pct": 1.47,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 43.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
     },
     {
       "ticker": "CVI",
@@ -286,6 +286,72 @@
       "change_pct": 0.69,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WY",
+      "company": "WY",
+      "sector": "Real Estate",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 25.229999542236328,
+      "change_pct": 0.8,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ARE",
+      "company": "ARE",
+      "sector": "Real Estate",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 53.029998779296875,
+      "change_pct": 3.07,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "SIRI",
+      "company": "SIRI",
+      "sector": "Communication Services",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 30.3700008392334,
+      "change_pct": 2.53,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "M",
+      "company": "M",
+      "sector": "Consumer Cyclical",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 25.950000762939453,
+      "change_pct": 4.55,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "LNC",
+      "company": "LNC",
+      "sector": "Financial Services",
+      "master_score": 49.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 46.09000015258789,
+      "change_pct": 1.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "FFIV",
+      "company": "FFIV",
+      "sector": "Technology",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 406.3500061035156,
+      "change_pct": 0.94,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: BREAKOUT"
     }
   ]
 }

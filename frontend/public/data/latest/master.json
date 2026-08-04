@@ -1,8 +1,8 @@
 {
-  "date": "2026-08-03",
-  "generated_at": "2026-08-03T17:03:28.623536-04:00",
+  "date": "2026-08-04",
+  "generated_at": "2026-08-04T09:03:35.159093-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 26,
+  "active_scores_count": 32,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 20,
       "tickers": [
         "HPQ",
         "CSCO",
@@ -29,12 +29,20 @@
         "OOMA",
         "SHOO",
         "AN",
+        "ST",
         "NWG",
         "RACE",
+        "RUSHA",
         "SPHR",
         "EXLS",
         "THRM",
-        "LOGI"
+        "LOGI",
+        "WY",
+        "ARE",
+        "SIRI",
+        "M",
+        "LNC",
+        "FFIV"
       ]
     },
     "value": {
