@@ -1157,10 +1157,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         <div className="hidden md:block glass-card overflow-hidden">
-          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="bg-[#0d1521] border-b-2 border-[#1e2a3a] text-[#58a6ff] text-[10px]">
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent" style={{ maxHeight: "calc(100vh - 240px)", overflowY: "auto" }}>
+            <table className="w-full text-left text-xs" style={{ borderCollapse: "collapse" }}>
+              <thead style={{ position: "sticky", top: 0, zIndex: 10, background: "#0d1521" }}>
+                <tr className="border-b-2 border-[#1e2a3a] text-[#58a6ff] text-[10px]">
                   <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "Tarih" : locale === "pt" ? "Data" : "Date"} <SortIcon column="date" /></th>
                   <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "Sembol" : locale === "pt" ? "Símbolo" : "Symbol"} <SortIcon column="ticker" /></th>
                   <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#3fb950] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "Getiri (SL Uyarla)" : locale === "pt" ? "Retorno (Ajust. SL)" : "Return (SL Adj.)"} <SortIcon column="return_pct" /></th>
@@ -1183,6 +1183,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   const resultCls = RESULT_COLORS[effRes] ?? "text-white";
                   const pnl = pnlFromReturn(effRet);
                   const slHit = slTriggered(t);
+
+                  const getValColor = (val: number | null | undefined) => {
+                    if (val == null || val === 0) return "#8b949e";
+                    return val > 0 ? "#3fb950" : "#f85149";
+                  };
+
                   return (
                     <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
                       <td className="px-3 py-2 text-slate-400 font-mono text-xs whitespace-nowrap">{t.date}</td>
@@ -1210,7 +1216,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           </>
                         )}
                       </td>
-                      <td className={`px-3 py-2 text-right font-mono font-semibold text-xs whitespace-nowrap ${retColor(effRet)}`}>
+                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(effRet), fontWeight: 700 }}>
                         {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
                       <td className="px-3 py-2 text-right font-mono text-xs text-slate-300 whitespace-nowrap">${fmt(t.entry)}</td>
@@ -1225,7 +1231,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           </span>
                         ) : "—"}
                       </td>
-                      <td className={`px-3 py-2 text-right font-mono font-semibold text-xs whitespace-nowrap ${retColor(t.peak_gain_pct)}`}>
+                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(t.peak_gain_pct), fontWeight: 700 }}>
                         {t.peak_gain_pct != null ? `${t.peak_gain_pct > 0 ? "+" : ""}${fmt(t.peak_gain_pct, 2)}%` : "—"}
                       </td>
                       <td className="px-3 py-2 text-right font-mono text-xs text-[#00d2ff] font-semibold whitespace-nowrap">
@@ -1236,7 +1242,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           ? <span className="text-[#3b82f6] font-semibold text-[9px] px-1.5 py-0.5 bg-[#3b82f6]/10 rounded">PND</span>
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
-                      <td className={`px-3 py-2 text-right font-mono font-semibold text-xs whitespace-nowrap ${retColor(pnl)}`}>
+                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(pnl), fontWeight: 700 }}>
                         {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                       </td>
                       <td className="px-3 py-2 text-[10px] text-slate-300 uppercase font-semibold whitespace-nowrap">
