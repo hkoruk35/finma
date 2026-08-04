@@ -1161,19 +1161,18 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <table className="w-full text-left text-xs" style={{ borderCollapse: "collapse" }}>
               <thead style={{ position: "sticky", top: 0, zIndex: 10, background: "#0d1521" }}>
                 <tr className="border-b-2 border-[#1e2a3a] text-[#58a6ff] text-[10px]">
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "Tarih" : locale === "pt" ? "Data" : "Date"} <SortIcon column="date" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "Sembol" : locale === "pt" ? "Símbolo" : "Symbol"} <SortIcon column="ticker" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#3fb950] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "Getiri (SL Uyarla)" : locale === "pt" ? "Retorno (Ajust. SL)" : "Return (SL Adj.)"} <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>{locale === "tr" ? "Giriş Fiyatı" : locale === "pt" ? "Entrada" : "Entry Price"} <SortIcon column="entry" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>{locale === "tr" ? "1G EMA50" : locale === "pt" ? "EMA50 1D" : "1D EMA50"} <SortIcon column="ema50_1d" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>{locale === "tr" ? "Tepe Fiyat" : locale === "pt" ? "Preço de Pico" : "Peak Price"} <SortIcon column="max_price" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>{locale === "tr" ? "Tepe Kazanç %" : locale === "pt" ? "Ganho de Pico %" : "Peak Gain %"} <SortIcon column="peak_gain_pct" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "Anlık Fiyat" : locale === "pt" ? "Preço Atual" : "Cur. Price"} <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>{locale === "tr" ? "Gün" : locale === "pt" ? "Dias" : "Days"} <SortIcon column="days" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "PnL/$1K" : "PnL/$1K"} <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>{locale === "tr" ? "Sektör" : locale === "pt" ? "Setor" : "Sector"} <SortIcon column="sector" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>{locale === "tr" ? "Alt Sektör" : locale === "pt" ? "Subsetor" : "Subsector"} <SortIcon column="subsector" /></th>
-                  <th className="px-3 py-2.5 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>{locale === "tr" ? "Sonuç" : locale === "pt" ? "Resultado" : "Result"} <SortIcon column="result" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "TARİH" : locale === "pt" ? "DATA" : "DATE"} <SortIcon column="date" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "SEMBOL" : locale === "pt" ? "SÍMBOLO" : "SYMBOL"} <SortIcon column="ticker" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#3fb950] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "GETİRİ" : locale === "pt" ? "RETORNO" : "RETURN"} <SortIcon column="return_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>{locale === "tr" ? "GİRİŞ" : locale === "pt" ? "ENTRADA" : "ENTRY"} <SortIcon column="entry" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>EMA50 <SortIcon column="ema50_1d" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>{locale === "tr" ? "TEPE" : locale === "pt" ? "PICO" : "PEAK"} <SortIcon column="max_price" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>{locale === "tr" ? "TEPE %" : locale === "pt" ? "PICO %" : "PEAK %"} <SortIcon column="peak_gain_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "FİYAT" : locale === "pt" ? "PREÇO" : "PRICE"} <SortIcon column="return_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>{locale === "tr" ? "GÜN" : locale === "pt" ? "DIAS" : "DAYS"} <SortIcon column="days" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PNL <SortIcon column="return_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>{locale === "tr" ? "SEKTÖR" : locale === "pt" ? "SETOR" : "SECTOR"} <SortIcon column="sector" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>{locale === "tr" ? "SONUÇ" : locale === "pt" ? "RESULTADO" : "RESULT"} <SortIcon column="result" /></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1e2a3a]/60">
@@ -1191,67 +1190,56 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
                   return (
                     <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
-                      <td className="px-3 py-2 text-slate-400 font-mono text-xs whitespace-nowrap">{t.date}</td>
-                      <td className="px-3 py-2 whitespace-nowrap">
+                      <td className="px-2 py-1.5 text-slate-400 font-mono text-[11px] whitespace-nowrap">{t.date}</td>
+                      <td className="px-2 py-1.5 whitespace-nowrap">
                         {!t.ticker ? (
-                          <span className="font-semibold text-xs tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                          <span className="font-semibold text-[11px] tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
                           </span>
                         ) : (
-                          <>
+                          <div className="flex items-center gap-1">
                             <TickerHoverChart ticker={t.ticker}>
                               {disableTickerLink ? (
-                                <span className="font-semibold text-xs text-[#3b82f6] tracking-tight">{t.ticker}</span>
+                                <span className="font-semibold text-[11px] text-[#3b82f6] tracking-tight">{t.ticker}</span>
                               ) : (
-                                <Link href={`/stock/${t.ticker}`} className="font-semibold text-xs text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                                <Link href={`/stock/${t.ticker}`} className="font-semibold text-[11px] text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
                               )}
                             </TickerHoverChart>
                             {t.is_duplicate && (
-                              <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-semibold text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
+                              <span title="30 gün içinde tekrar" className="text-[8px] font-semibold text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
                             )}
-                            {t.company && t.company !== t.ticker && (
-                              <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
-                            )}
-                          </>
+                          </div>
                         )}
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(effRet), fontWeight: 700 }}>
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] whitespace-nowrap" style={{ color: getValColor(effRet), fontWeight: 700 }}>
                         {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-xs text-slate-300 whitespace-nowrap">${fmt(t.entry)}</td>
-                      <td className="px-3 py-2 text-right font-mono text-xs text-[#a855f7] font-semibold whitespace-nowrap">
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] text-slate-300 whitespace-nowrap">${fmt(t.entry)}</td>
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] text-[#a855f7] font-semibold whitespace-nowrap">
                         {t.ema50_1d != null ? `$${fmt(t.ema50_1d)}` : "—"}
                       </td>
-                      <td className="px-3 py-2 text-right whitespace-nowrap">
-                        {t.max_price != null ? (
-                          <span>
-                            <span className="font-mono text-xs text-slate-200">${fmt(t.max_price)}</span>
-                            {t.peak_date && <span className="block text-[9px] text-slate-500">{t.peak_date}</span>}
-                          </span>
-                        ) : "—"}
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] text-slate-200 whitespace-nowrap" title={t.peak_date || ""}>
+                        {t.max_price != null ? `$${fmt(t.max_price)}` : "—"}
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(t.peak_gain_pct), fontWeight: 700 }}>
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] whitespace-nowrap" style={{ color: getValColor(t.peak_gain_pct), fontWeight: 700 }}>
                         {t.peak_gain_pct != null ? `${t.peak_gain_pct > 0 ? "+" : ""}${fmt(t.peak_gain_pct, 2)}%` : "—"}
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-xs text-[#00d2ff] font-semibold whitespace-nowrap">
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] text-[#00d2ff] font-semibold whitespace-nowrap">
                         {effRet != null ? `$${fmt(t.entry * (1 + effRet / 100))}` : "—"}
                       </td>
-                      <td className="px-3 py-2 text-center text-xs text-slate-300 whitespace-nowrap">
+                      <td className="px-2 py-1.5 text-center text-[11px] text-slate-300 whitespace-nowrap">
                         {t.result === "PENDING"
                           ? <span className="text-[#3b82f6] font-semibold text-[9px] px-1.5 py-0.5 bg-[#3b82f6]/10 rounded">PND</span>
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
-                      <td className="px-3 py-2 text-right font-mono text-xs whitespace-nowrap" style={{ color: getValColor(pnl), fontWeight: 700 }}>
+                      <td className="px-2 py-1.5 text-right font-mono text-[11px] whitespace-nowrap" style={{ color: getValColor(pnl), fontWeight: 700 }}>
                         {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                       </td>
-                      <td className="px-3 py-2 text-[10px] text-slate-300 uppercase font-semibold whitespace-nowrap">
-                        <span className="truncate block" title={t.sector}>{t.sector || "—"}</span>
+                      <td className="px-2 py-1.5 text-[10px] text-slate-300 uppercase font-semibold whitespace-nowrap">
+                        <span className="truncate block max-w-[110px]" title={t.sector}>{t.sector || "—"}</span>
                       </td>
-                      <td className="px-3 py-2 text-[10px] text-[#00d2ff] whitespace-nowrap">
-                        <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
-                      </td>
-                      <td className="px-3 py-2 text-center whitespace-nowrap">
+                      <td className="px-2 py-1.5 text-center whitespace-nowrap">
                         <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
                       </td>
                     </tr>
