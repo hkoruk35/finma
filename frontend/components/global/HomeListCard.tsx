@@ -76,11 +76,6 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
 
       {visibleStocks.length > 0 ? (
         <>
-          <div className="grid grid-cols-[1fr_68px_60px] gap-2 px-3 py-1.5 text-[9px] border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500">
-            <span>{labels.stock}</span>
-            <span />
-            <span className="text-right">{labels.price}</span>
-          </div>
           <div className="flex-1 min-h-0 divide-y divide-[#1e2a3a]/70">
             {visibleStocks.map((stock, idx) => {
               return (
