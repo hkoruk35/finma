@@ -101,7 +101,7 @@ export default function HomePersonalWatchlistCard({ locale, initialVisible }: { 
         <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#1e2a3a]">
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-            <h3 className="text-[14px] font-bold uppercase tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
+            <h3 className="text-[16px] font-bold uppercase tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
           </div>
           <Link
             href={viewAllHref}
