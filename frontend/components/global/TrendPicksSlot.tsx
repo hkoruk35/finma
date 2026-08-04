@@ -110,8 +110,8 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
   const [loaded, setLoaded] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const gridCols = compactMode
-    ? (selectable ? 'grid-cols-[16px_1fr_56px_60px]' : 'grid-cols-[1fr_56px_60px]')
-    : 'grid-cols-[1fr_56px_72px_72px]';
+    ? (selectable ? 'grid-cols-[16px_1fr_68px_60px]' : 'grid-cols-[1fr_68px_60px]')
+    : 'grid-cols-[1fr_68px_72px_72px]';
   const labels = getLabels(locale);
   const { isPremium } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
@@ -169,7 +169,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
+          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium uppercase tracking-tight truncate`} style={{ color: ACCENT }}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
@@ -238,17 +238,16 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                   </div>
 
                   <div className="justify-self-center">
-                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} width={compactMode ? 56 : 56} height={compactMode ? 24 : 28} />
+                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} width={68} height={compactMode ? 24 : 26} />
                   </div>
 
                   <div className="text-right shrink-0">
-                    <div className={`${compactMode ? 'text-[12px]' : 'text-[14px]'} font-mono font-medium text-white`}>
+                    <div className={`${compactMode ? 'text-[12px]' : 'text-[13px]'} font-mono font-medium text-white/90`}>
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
                     <div
-                      className={`${compactMode ? 'text-[11px]' : 'text-[13px]'} font-mono font-medium ${
-                        stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
-                      }`}
+                      className={`${compactMode ? 'text-[11px]' : 'text-[9px]'} font-medium font-mono`}
+                      style={{ color: stock.change_pct >= 0 ? '#22c55e' : '#ef4444' }}
                     >
                       {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
                     </div>
