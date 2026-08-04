@@ -477,12 +477,18 @@ export default function BogaChartEngine({
     }
   };
 
-  // Aktif sembol ilk karo, kalanlar havuzdan (tekrarsız) tamamlanir.
-  // Eğer kullanıcı sol listeden onay kutucuklarıyla seçim yaptıysa (externalMultiChartTickers), öncelikle seçtiği hisseleri göster.
+  // Aktif sembol ve kullanıcının sol listeden onay kutucuklarıyla seçtiği (externalMultiChartTickers) hisseler.
+  // Seçimdeki tüm ticker'lar çoklu ekrana aktarılır, n sınırı varsa sığdırılır veya havuzdan tamamlanır.
   const openMultiChart = (n: number) => {
     let tickers: string[] = [];
-    if (externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
-      tickers = externalMultiChartTickers.slice(0, n);
+    if (externalMultiChartTickers && externalMultiChartTickers.length > 0) {
+      tickers = [...externalMultiChartTickers];
+      if (tickers.length < n) {
+        const pool = MULTI_CHART_POOL.filter((s) => !tickers.includes(s) && s !== symbol);
+        tickers = [...tickers, symbol, ...pool].slice(0, n);
+      } else {
+        tickers = tickers.slice(0, n);
+      }
     } else {
       const pool = MULTI_CHART_POOL.filter((s) => s !== symbol);
       tickers = [symbol, ...pool].slice(0, n);
@@ -499,11 +505,9 @@ export default function BogaChartEngine({
     });
   };
 
-  // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay
-  // kutucuklariyla dışarıdan (GlobalLandingPage) tetiklenen çoklu grafik
-  // isteği — kullanıcı "Çoklu Ekranda Göster" butonuna bastığında seçili hisseleri açar.
+  // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay kutucuklarıyla dışarıdan tetiklenen veya seçim değiştiğinde çoklu grafiği güncelleme
   useEffect(() => {
-    if (externalMultiChartTrigger && externalMultiChartTrigger > 0 && externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
+    if (externalMultiChartTrigger && externalMultiChartTrigger > 0 && externalMultiChartTickers && externalMultiChartTickers.length >= 1) {
       setMultiChartTickers([...externalMultiChartTickers]);
       setMultiChartLayout(externalMultiChartTickers.length);
     }
@@ -1547,8 +1551,21 @@ export default function BogaChartEngine({
             layout={multiChartLayout}
             tickers={multiChartTickers}
             lang={lang}
+            parentCandleType={candleType}
+            parentIndicators={Array.from(active)}
             onClose={() => setMultiChartLayout(null)}
             onChangeTicker={changeMultiChartTicker}
+            onChangeLayout={(n) => {
+              let nextTickers = [...multiChartTickers];
+              if (nextTickers.length < n) {
+                const pool = MULTI_CHART_POOL.filter((s) => !nextTickers.includes(s) && s !== symbol);
+                nextTickers = [...nextTickers, ...pool].slice(0, n);
+              } else {
+                nextTickers = nextTickers.slice(0, n);
+              }
+              setMultiChartTickers(nextTickers);
+              setMultiChartLayout(n);
+            }}
           />,
           document.body
         )}
@@ -1560,14 +1577,20 @@ function MultiChartOverlay({
   layout,
   tickers,
   lang,
+  parentCandleType,
+  parentIndicators,
   onClose,
   onChangeTicker,
+  onChangeLayout,
 }: {
   layout: number;
   tickers: string[];
   lang: Locale;
+  parentCandleType?: CandleType;
+  parentIndicators?: IndicatorKey[];
   onClose: () => void;
   onChangeTicker: (index: number, next: string) => void;
+  onChangeLayout: (n: number) => void;
 }) {
   const t = LABELS[lang] || LABELS.en;
   const [sharedInterval, setSharedInterval] = useState("60");
@@ -1576,46 +1599,81 @@ function MultiChartOverlay({
       className="fixed inset-0 z-[200] bg-[#0a0e17] flex flex-col"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0">
-        <span className="text-sm font-medium text-white uppercase tracking-widest">
-          {t.multiChartScreen} — {layout}
-        </span>
-        <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
-          {INTERVALS.map((iv) => (
-            <button
-              type="button"
-              key={iv.value}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSharedInterval(iv.value);
-              }}
-              style={{ fontSize: 9 }}
-              className={`px-2.5 py-1 rounded font-medium transition-all ${
-                sharedInterval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
-              }`}
-            >
-              {iv.label}
-            </button>
-          ))}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0 gap-3">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-bold text-white uppercase tracking-widest">
+            {t.multiChartScreen} — {layout}
+          </span>
+
+          {/* Layout Selector Buttons */}
+          <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+            {[2, 4, 6, 9].map((n) => (
+              <button
+                type="button"
+                key={n}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onChangeLayout(n);
+                }}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+                  layout === n ? "bg-[#3b82f6] text-white" : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onClose();
-          }}
-          className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-medium text-[#00d2ff] hover:text-white transition-all cursor-pointer z-50"
-        >
-          ✕
-        </button>
+
+        <div className="flex items-center gap-3">
+          <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+            {INTERVALS.map((iv) => (
+              <button
+                type="button"
+                key={iv.value}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSharedInterval(iv.value);
+                }}
+                style={{ fontSize: 9 }}
+                className={`px-2.5 py-1 rounded font-medium transition-all ${
+                  sharedInterval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
+                }`}
+              >
+                {iv.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
+            className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-medium text-[#00d2ff] hover:text-white transition-all cursor-pointer z-50"
+          >
+            ✕
+          </button>
+        </div>
       </div>
+
       <div className={`flex-1 grid ${multiChartGridClass(layout)} gap-1.5 p-1.5 overflow-auto`}>
         {tickers.map((ticker, i) => (
           <div key={i} className="min-h-[240px] flex flex-col rounded-lg border border-[#1e2a3a] overflow-hidden">
             <MultiChartTickerInput value={ticker} label={getMarketAssetLabel(ticker, lang)} onChange={(next) => onChangeTicker(i, next)} />
             <div className="flex-1 min-h-0">
-              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} interval={sharedInterval} />
+              <BogaChartEngine
+                symbol={ticker}
+                lang={lang}
+                compact
+                showToolbar={false}
+                height={null}
+                interval={sharedInterval}
+                defaultCandleType={parentCandleType}
+                defaultIndicators={parentIndicators}
+              />
             </div>
           </div>
         ))}
