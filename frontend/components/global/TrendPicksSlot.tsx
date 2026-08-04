@@ -17,6 +17,7 @@ interface Stock {
   status: TrendStatus;
   price: number;
   change_pct: number;
+  sparkline?: number[];
 }
 
 interface SwingPickRaw {
@@ -31,6 +32,7 @@ interface LiveWatchData {
   sector?: string;
   price?: { current: number; change_pct: number };
   tracker_1h?: { signal: string; change_pct_1d: number };
+  recent_closes?: number[];
 }
 
 const ACCENT = '#f59e0b';
@@ -108,8 +110,8 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
   const [loaded, setLoaded] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const gridCols = compactMode
-    ? (selectable ? 'grid-cols-[16px_1fr_48px_64px]' : 'grid-cols-[1fr_48px_64px]')
-    : 'grid-cols-[1fr_56px_64px_72px]';
+    ? (selectable ? 'grid-cols-[16px_1fr_56px_60px]' : 'grid-cols-[1fr_56px_60px]')
+    : 'grid-cols-[1fr_56px_72px_72px]';
   const labels = getLabels(locale);
   const { isPremium } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
@@ -147,6 +149,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
             status,
             price: d?.price?.current ?? p.current_price ?? 0,
             change_pct: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0,
+            sparkline: d?.recent_closes ?? [],
           };
         });
         setStocks(mapped);
@@ -183,12 +186,11 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       {displayStocks.length > 0 ? (
         <>
           {/* Column labels */}
-          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
-            <div className="flex items-center gap-2">
-              {selectable && <span className="w-3.5" />}
-              <span>{labels.stock}</span>
-            </div>
-            <span>{labels.price}</span>
+          <div className={`grid ${gridCols} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
+            {selectable && <span className="w-3.5" />}
+            <span>{labels.stock}</span>
+            <span />
+            <span className="text-right">{labels.price}</span>
           </div>
 
           {/* Rows */}
@@ -200,44 +202,51 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
               return (
                 <div
                   key={stock.ticker}
-                  className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
+                  className={`grid ${gridCols} gap-2 items-center ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
                   onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                 >
-                  <div className="flex items-center gap-2 min-w-0 flex-1">
-                    {selectable && (
-                      <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
-                        {!locked && (
-                          <CompareCheckbox
-                            checked={!!selectedTickers?.includes(stock.ticker)}
-                            onToggle={() => onToggleSelect?.(stock.ticker)}
-                          />
-                        )}
-                      </div>
-                    )}
-                    <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
-                    <div className="min-w-0 flex-1">
-                      {locked ? (
-                        <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
-                          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                          <span>{labels.premiumMember}</span>
-                        </div>
-                      ) : disableHoverChart ? (
-                        <div className="text-[15px] font-medium text-white truncate">{stock.ticker}</div>
-                      ) : (
-                        <TickerHoverChart ticker={stock.ticker}>
-                          <div className="text-[15px] font-medium text-white truncate">{stock.ticker}</div>
-                        </TickerHoverChart>
+                  {selectable && (
+                    <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                      {!locked && (
+                        <CompareCheckbox
+                          checked={!!selectedTickers?.includes(stock.ticker)}
+                          onToggle={() => onToggleSelect?.(stock.ticker)}
+                        />
                       )}
-                      <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                    </div>
+                  )}
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
+                      <div className="min-w-0 flex-1">
+                        {locked ? (
+                          <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            <span>{labels.premiumMember}</span>
+                          </div>
+                        ) : disableHoverChart ? (
+                          <div className={`${compactMode ? 'text-[13px]' : 'text-[15px]'} font-medium text-white truncate`}>{stock.ticker}</div>
+                        ) : (
+                          <TickerHoverChart ticker={stock.ticker}>
+                            <div className={`${compactMode ? 'text-[13px]' : 'text-[15px]'} font-medium text-white truncate`}>{stock.ticker}</div>
+                          </TickerHoverChart>
+                        )}
+                        <div className={`${compactMode ? 'text-[10px]' : 'text-[12px]'} text-slate-500 truncate`}>{sectorNames[stock.sector] ?? stock.sector}</div>
+                      </div>
                     </div>
                   </div>
 
+                  <div className="justify-self-center">
+                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} width={compactMode ? 56 : 56} height={compactMode ? 24 : 28} />
+                  </div>
+
                   <div className="text-right shrink-0">
-                    <div className="text-[14px] font-mono font-medium text-white">
+                    <div className={`${compactMode ? 'text-[12px]' : 'text-[14px]'} font-mono font-medium text-white`}>
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
                     <div
-                      className={`text-[13px] font-mono font-medium ${
+                      className={`${compactMode ? 'text-[11px]' : 'text-[13px]'} font-mono font-medium ${
                         stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                       }`}
                     >

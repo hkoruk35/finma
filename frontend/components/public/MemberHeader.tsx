@@ -19,6 +19,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isMobileUserMenuOpen, setIsMobileUserMenuOpen] = useState(false);
   const [isDesktopUserMenuOpen, setIsDesktopUserMenuOpen] = useState(false);
   const [isTerminalHovered, setIsTerminalHovered] = useState(false);
+  const [isListsOpen, setIsListsOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -93,6 +94,118 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
           : locale === "pt"
             ? "Abrir a página TERMINAL"
             : "Open the TERMINAL page";
+
+  const listsMenuLabel =
+    locale === "tr"
+      ? "LİSTELER"
+      : locale === "es"
+        ? "LISTAS"
+        : locale === "fr"
+          ? "LISTES"
+          : locale === "pt"
+            ? "LISTAS"
+            : "LISTS";
+
+  const listsItems = [
+    {
+      id: "top7",
+      label:
+        locale === "tr"
+          ? "TOP 7"
+          : locale === "es"
+            ? "TOP 7"
+            : locale === "fr"
+              ? "TOP 7"
+              : locale === "pt"
+                ? "TOP 7"
+                : "TOP 7",
+      href: `/global/${locale}/top7`,
+    },
+    {
+      id: "top100",
+      label:
+        locale === "tr"
+          ? "TOP 100"
+          : locale === "es"
+            ? "TOP 100"
+            : locale === "fr"
+              ? "TOP 100"
+              : locale === "pt"
+                ? "TOP 100"
+                : "TOP 100",
+      href: `/global/${locale}/top100`,
+    },
+    {
+      id: "gainers",
+      label:
+        locale === "tr"
+          ? "ARTANLAR"
+          : locale === "es"
+            ? "ALZAS"
+            : locale === "fr"
+              ? "HAUSSES"
+              : locale === "pt"
+                ? "ALTAS"
+                : "GAINERS",
+      href: `/global/${locale}/gainers`,
+    },
+    {
+      id: "losers",
+      label:
+        locale === "tr"
+          ? "DÜŞENLER"
+          : locale === "es"
+            ? "BAJAS"
+            : locale === "fr"
+              ? "BAISSES"
+              : locale === "pt"
+                ? "BAIXAS"
+                : "LOSERS",
+      href: `/global/${locale}/losers`,
+    },
+    {
+      id: "swing",
+      label:
+        locale === "tr"
+          ? "TREND HİSSELERİ"
+          : locale === "es"
+            ? "EN TENDENCIA"
+            : locale === "fr"
+              ? "ACTIONS TENDANCE"
+              : locale === "pt"
+                ? "AÇÕES EM TENDÊNCIA"
+                : "TRENDING STOCKS",
+      href: `/global/${locale}/swing`,
+    },
+    {
+      id: "themes",
+      label:
+        locale === "tr"
+          ? "TEMA LİSTESİ"
+          : locale === "es"
+            ? "LISTA DE TEMAS"
+            : locale === "fr"
+              ? "LISTE DE THÈMES"
+              : locale === "pt"
+                ? "LISTA DE TEMAS"
+                : "THEME LIST",
+      href: `/global/${locale}/themes/bellek-ureticiler-ai-depolama`,
+    },
+    {
+      id: "my-watchlist",
+      label:
+        locale === "tr"
+          ? "İZLEME LİSTEM"
+          : locale === "es"
+            ? "MI LISTA"
+            : locale === "fr"
+              ? "MA LISTE"
+              : locale === "pt"
+                ? "MINHA LISTA"
+                : "MY WATCHLIST",
+      href: `/global/${locale}/my-watchlist`,
+    },
+  ];
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -307,6 +420,51 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                         : "Home"}
               </span>
             </Link>
+
+            {/* Lists Menu */}
+            <div className="relative hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setIsListsOpen((v) => !v)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+              >
+                <svg
+                  className="w-4 h-4 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <span>{listsMenuLabel}</span>
+              </button>
+
+              {isListsOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setIsListsOpen(false)}
+                  />
+                  <div className="absolute left-0 top-full mt-1 z-50 w-48 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden">
+                    {listsItems.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={item.href}
+                        onClick={() => setIsListsOpen(false)}
+                        className="block px-3 py-2.5 text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-[#1e2a3a]/70 transition-colors border-b border-[#1e2a3a]/40 last:border-b-0"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
 
             <Link
               href={

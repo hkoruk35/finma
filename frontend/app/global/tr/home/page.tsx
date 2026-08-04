@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import ListsNavigation from "@/components/global/ListsNavigation";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -103,6 +102,20 @@ const SECTOR_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "XLC", label: "İletişim" },
 ];
 
+const SECTOR_LABELS: Record<string, string> = {
+  XLK: "Teknoloji",
+  XLF: "Finans",
+  XLE: "Enerji",
+  XLV: "Sağlık",
+  XLY: "Tüketici (İsteğe Bağlı)",
+  XLP: "Tüketici (Temel)",
+  XLI: "Sanayi",
+  XLB: "Malzeme",
+  XLRE: "Gayrimenkul",
+  XLU: "Kamu Hizmetleri",
+  XLC: "İletişim",
+};
+
 type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
 
 function toMarketItems(items: { ticker: string; label: string }[], quotes: QuoteMap): MarketQuoteItem[] {
@@ -154,10 +167,17 @@ export default async function TrHomePage() {
 
   const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);
 
+  const sectorIndices = Object.fromEntries(
+    SECTOR_ITEMS.map(item => [
+      item.ticker,
+      { value: quotes[item.ticker]?.value ?? 0, change_pct: quotes[item.ticker]?.change_pct ?? 0 }
+    ])
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
       <MemberHeader locale="tr" />
-      <TickerTape indices={indices} />
+      <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
@@ -169,12 +189,7 @@ export default async function TrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
             </div>
 
-            {/* Menü Çubuğu — Piyasalar Kartlarının Altında */}
-            <div className="mt-4 mb-4">
-              <ListsNavigation locale="tr" activePath="home" />
-            </div>
-
-            <div className="mt-2">
+            <div className="mt-4">
               <HomeMoversGrid locale="tr" />
             </div>
           </div>

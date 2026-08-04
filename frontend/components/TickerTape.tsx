@@ -15,12 +15,14 @@ type Indices = Record<string, { value: number; change_pct: number }>;
 interface Props {
   data?: MasterData;
   indices?: Indices;
+  labels?: Record<string, string>;
 }
 
-export default function TickerTape({ data, indices }: Props) {
+export default function TickerTape({ data, indices, labels }: Props) {
   const source = indices ?? data?.market_indices ?? {};
+  const labelMap = labels ?? INDEX_LABELS;
   const items = Object.entries(source).map(([key, val]) => ({
-    label: INDEX_LABELS[key] || key,
+    label: labelMap[key] || key,
     value: val.value,
     change: val.change_pct,
   }));
