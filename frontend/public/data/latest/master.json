@@ -1,8 +1,8 @@
 {
   "date": "2026-08-03",
-  "generated_at": "2026-08-03T14:06:26.046857-04:00",
+  "generated_at": "2026-08-03T17:03:28.623536-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 26,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,15 +21,20 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 12,
       "tickers": [
-        "SCI",
         "HPQ",
         "CSCO",
         "IMMR",
         "OOMA",
+        "SHOO",
+        "AN",
         "NWG",
-        "RACE"
+        "RACE",
+        "SPHR",
+        "EXLS",
+        "THRM",
+        "LOGI"
       ]
     },
     "value": {
@@ -52,7 +57,7 @@
   "top_3_overall": [
     {
       "ticker": "SBCF",
-      "score": 62.5,
+      "score": 58.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
