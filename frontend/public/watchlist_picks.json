@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03T17:03:30.102935-04:00",
+  "generated_at": "2026-08-04T09:03:36.923113-04:00",
   "picks": [
     {
       "ticker": "SNOW",
@@ -44,12 +44,6 @@
       "score": 41.5
     },
     {
-      "ticker": "SIRI",
-      "sector": "Communication Services",
-      "date_added": "2026-08-03",
-      "score": 40.5
-    },
-    {
       "ticker": "CBRE",
       "sector": "Real Estate",
       "date_added": "2026-08-03",
@@ -68,12 +62,6 @@
       "score": 27.5
     },
     {
-      "ticker": "ECL",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-03",
-      "score": 47.5
-    },
-    {
       "ticker": "JLL",
       "sector": "Real Estate",
       "date_added": "2026-08-03",
@@ -86,28 +74,40 @@
       "score": 46.5
     },
     {
-      "ticker": "OOMA",
-      "sector": "Technology",
-      "date_added": "2026-08-03",
-      "score": 46.0
-    },
-    {
       "ticker": "LYV",
       "sector": "Communication Services",
       "date_added": "2026-08-03",
       "score": 45.5
     },
     {
-      "ticker": "FTNT",
-      "sector": "Technology",
-      "date_added": "2026-08-03",
-      "score": 43.5
+      "ticker": "UFPI",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-04",
+      "score": 43.0
     },
     {
-      "ticker": "CNC",
-      "sector": "Healthcare",
-      "date_added": "2026-08-03",
-      "score": 35.5
+      "ticker": "APH",
+      "sector": "Technology",
+      "date_added": "2026-08-04",
+      "score": 42.5
+    },
+    {
+      "ticker": "AWI",
+      "sector": "Industrials",
+      "date_added": "2026-08-04",
+      "score": 42.5
+    },
+    {
+      "ticker": "CP",
+      "sector": "Industrials",
+      "date_added": "2026-08-04",
+      "score": 39.0
+    },
+    {
+      "ticker": "AXP",
+      "sector": "Financial Services",
+      "date_added": "2026-08-04",
+      "score": 39.0
     }
   ]
 }
