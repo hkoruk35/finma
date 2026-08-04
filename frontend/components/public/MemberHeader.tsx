@@ -245,36 +245,32 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 <span className="text-[9px] sm:text-[10px]">TERMINAL</span>
               </MobileTerminalLink>
 
-              {/* Terminal Page Hover Preview Card */}
+              {/* Terminal Page Screenshot Preview Card */}
               {isTerminalHovered && (
-                <div className="absolute right-0 top-full mt-2 z-[100] w-80 p-3.5 rounded-xl bg-[#0d131f] border-2 border-[#3b82f6] shadow-[0_10px_40px_rgba(0,0,0,0.9)] backdrop-blur-xl animate-fadeIn">
-                  <div className="flex items-center gap-2.5 pb-2.5 border-b border-white/10">
-                    <div className="w-6 h-6 rounded-md bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-xs font-bold text-[#3b82f6]">
-                      &gt;_
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-xs font-extrabold text-white leading-none">BOGASTOCK Terminal</span>
-                      <span className="text-[10px] text-[#38bdf8] font-medium mt-0.5">
-                        {locale === "tr" ? "Canlı İşlem & Analiz Paneli" : "Live Trading & Analysis Panel"}
+                <div className="absolute right-0 top-full mt-2 z-[100] w-96 p-2 rounded-xl bg-[#0d131f] border-2 border-[#3b82f6] shadow-[0_12px_45px_rgba(0,0,0,0.95)] backdrop-blur-xl animate-fadeIn pointer-events-none">
+                  <div className="flex items-center justify-between px-2 py-1 border-b border-white/10 mb-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
+                      <span className="text-[11px] font-bold text-white ml-1.5 tracking-wide uppercase">
+                        {locale === "tr" ? "Terminal Önizleme" : "Terminal Preview"}
                       </span>
                     </div>
+                    <span className="text-[9px] font-mono font-bold text-[#38bdf8] bg-[#38bdf8]/10 px-1.5 py-0.5 rounded border border-[#38bdf8]/30">
+                      LIVE UI
+                    </span>
                   </div>
-                  <div className="mt-2.5 space-y-2 text-[11px] text-slate-200">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#3b82f6]">📊</span>
-                      <span className="font-semibold">{locale === "tr" ? "Çoklu Ekran & Canlı İnteraktif Grafikler" : "Multi-Chart & Live Interactive Charts"}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#22c55e]">🤖</span>
-                      <span className="font-semibold">{locale === "tr" ? "Yapay Zeka Al/Sat & Trend Sinyalleri" : "AI Buy/Sell & Trend Signals"}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#eab308]">📈</span>
-                      <span className="font-semibold">{locale === "tr" ? "Hacim Profili (VP) & Destek/Direnç" : "Volume Profile (VP) & Support/Resistance"}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#a855f7]">🎯</span>
-                      <span className="font-semibold">{locale === "tr" ? "15 Günlük Swing İşlem Planları" : "15-Day Swing Trade Plans"}</span>
+                  <div className="relative rounded-lg overflow-hidden border border-[#1e2a3a] aspect-[16/9] bg-[#0a0e17]">
+                    <img
+                      src="/terminal_preview.jpg"
+                      alt="BOGASTOCK Terminal Live Preview"
+                      className="w-full h-full object-cover shadow-inner"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17]/80 via-transparent to-transparent flex items-end p-2.5">
+                      <span className="text-[10px] font-extrabold text-white bg-[#3b82f6] px-2 py-1 rounded-md shadow-md">
+                        {locale === "tr" ? "Terminale Git ➔" : "Go to Terminal ➔"}
+                      </span>
                     </div>
                   </div>
                 </div>
