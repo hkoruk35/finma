@@ -272,11 +272,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
     : locale === 'pt' ? 'Minha Lista'
     : 'Watchlist';
   const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
-  const compareLabel = locale === 'tr' ? 'Karşılaştır' : locale === 'es' ? 'Comparar' : locale === 'fr' ? 'Comparer' : locale === 'pt' ? 'Comparar' : 'Compare';
-  const compareOpenLabel = locale === 'tr' ? 'Aç' : locale === 'es' ? 'Abrir' : locale === 'fr' ? 'Ouvrir' : locale === 'pt' ? 'Abrir' : 'Open';
+  const compareLabel = locale === 'tr' ? 'Seçili Hisse' : locale === 'es' ? 'Acción Seleccionada' : locale === 'fr' ? 'Action Sélectionnée' : locale === 'pt' ? 'Ação Selecionada' : 'Selected Stock';
+  const compareOpenLabel = locale === 'tr' ? 'Çoklu Ekranda Göster' : locale === 'es' ? 'Mostrar en Multigráfico' : locale === 'fr' ? 'Afficher en Multi-Graphiques' : locale === 'pt' ? 'Mostrar em Multigráficos' : 'Show in Multi-Chart';
   const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : 'Select to compare';
   const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : 'DASHBOARD';
-
 
   // Determine current company/sector name based on selection
   useEffect(() => {
@@ -497,28 +496,27 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         </div>
 
         {compareSelection.length >= 2 && (
-          <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#141924] border border-[#3b82f6]/50 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
-            <span className="text-[13px] font-medium text-white">
-              {compareLabel} ({compareSelection.length})
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-[#141924] border-2 border-[#3b82f6] shadow-[0_4px_30px_rgba(59,130,246,0.45)] animate-bounce-short">
+            <span className="text-sm font-bold text-white">
+              {compareSelection.length} {compareLabel}
             </span>
             <button
               onClick={() => setCompareSelection([])}
-              className="text-[13px] font-medium text-slate-400 hover:text-white transition-colors"
+              className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-1"
+              title="Temizle"
             >
               ✕
             </button>
             <button
               onClick={() => {
-                setMultiChartRequest(compareSelection);
-                setCompareSelection([]);
+                setMultiChartRequest([...compareSelection]);
               }}
-              className="px-3 py-1 rounded-full bg-[#3b82f6] text-[13px] font-medium text-white hover:bg-[#2563eb] transition-colors"
+              className="px-5 py-2 rounded-full bg-[#3b82f6] text-xs font-bold text-white hover:bg-[#2563eb] transition-all shadow-lg hover:scale-105 active:scale-95"
             >
               {compareOpenLabel}
             </button>
           </div>
         )}
-
 
       </main>
 

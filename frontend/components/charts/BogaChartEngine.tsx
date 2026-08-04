@@ -476,9 +476,15 @@ export default function BogaChartEngine({
   };
 
   // Aktif sembol ilk karo, kalanlar havuzdan (tekrarsız) tamamlanir.
+  // Eğer kullanıcı sol listeden onay kutucuklarıyla seçim yaptıysa (externalMultiChartTickers), öncelikle seçtiği hisseleri göster.
   const openMultiChart = (n: number) => {
-    const pool = MULTI_CHART_POOL.filter((s) => s !== symbol);
-    const tickers = [symbol, ...pool].slice(0, n);
+    let tickers: string[] = [];
+    if (externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
+      tickers = externalMultiChartTickers.slice(0, n);
+    } else {
+      const pool = MULTI_CHART_POOL.filter((s) => s !== symbol);
+      tickers = [symbol, ...pool].slice(0, n);
+    }
     setMultiChartTickers(tickers);
     setMultiChartLayout(n);
   };
@@ -493,14 +499,11 @@ export default function BogaChartEngine({
 
   // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay
   // kutucuklariyla dışarıdan (GlobalLandingPage) tetiklenen çoklu grafik
-  // isteği — pool tabanlı openMultiChart'tan farklı, tam olarak seçilen
-  // ticker'ları kullanır. Tüketildikten sonra parent'a haber verilip prop
-  // sıfırlanır, aksi halde aynı seçimle tekrar tetiklenemez.
+  // isteği — tam olarak kullanıcının seçtiği ticker'ları gösterir.
   useEffect(() => {
     if (externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
-      setMultiChartTickers(externalMultiChartTickers);
+      setMultiChartTickers([...externalMultiChartTickers]);
       setMultiChartLayout(externalMultiChartTickers.length);
-      onExternalMultiChartConsumed?.();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalMultiChartTickers]);
