@@ -405,30 +405,28 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
       {/* TABLE */}
       {activeTab === "table" && composition.length > 0 && (
         <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "calc(100vh - 240px)", WebkitOverflowScrolling: "touch", width: "100%", maxWidth: "100vw", paddingBottom: 60 }}>
-          <table className="sm:min-w-[1000px]" style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "EKLENME", key: null, align: "left" },
-                  { label: "GİRİŞ", key: null, align: "left" },
                   { label: "SEKTÖR", key: null, align: "left" },
                   { label: "FİYAT", key: "price", align: "right" },
                   { label: "Δ% 1G", key: "chg1d", align: "right" },
                   { label: "HACİM", key: "volume", align: "right" },
-                  { label: "HACİM ORANI", key: "goran", align: "right" },
+                  { label: "HACİM OR.", key: "goran", align: "right" },
                   { label: "EMA20", key: "ema20", align: "right" },
                   { label: "EMA50", key: "ema50", align: "right" },
                   { label: "EMA200", key: "ema200", align: "right" },
-                  { label: "DURUM (Trend)", key: null, align: "right" },
+                  { label: "DURUM", key: null, align: "right" },
                   { label: "RSI", key: "rsi", align: "right" },
-                  { label: "PATERN (Günlük)", key: null, align: "right" },
-                  { label: "SİNYAL (Günlük)", key: "signal", align: "right" },
+                  { label: "PATERN", key: null, align: "right" },
+                  { label: "SİNYAL", key: "signal", align: "right" },
                   { label: "DETAY", key: null, align: "right" },
                 ] : locale === "pt" ? [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "ADICIONADO", key: null, align: "left" },
-                  { label: "ENTRADA", key: null, align: "left" },
                   { label: "SETOR", key: null, align: "left" },
                   { label: "PREÇO", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -437,15 +435,14 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "EMA20", key: "ema20", align: "right" },
                   { label: "EMA50", key: "ema50", align: "right" },
                   { label: "EMA200", key: "ema200", align: "right" },
-                  { label: "STATUS (Tendência)", key: null, align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
                   { label: "RSI", key: "rsi", align: "right" },
-                  { label: "PADRÃO (Diário)", key: null, align: "right" },
-                  { label: "SINAL (Diário)", key: "signal", align: "right" },
+                  { label: "PADRÃO", key: null, align: "right" },
+                  { label: "SINAL", key: "signal", align: "right" },
                   { label: "DETALHE", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "DATE ADDED", key: null, align: "left" },
-                  { label: "ENTRY", key: null, align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
                   { label: "PRICE", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -454,16 +451,16 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "EMA20", key: "ema20", align: "right" },
                   { label: "EMA50", key: "ema50", align: "right" },
                   { label: "EMA200", key: "ema200", align: "right" },
-                  { label: "STATUS (Trend)", key: null, align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
                   { label: "RSI", key: "rsi", align: "right" },
-                  { label: "PATTERN (Daily)", key: null, align: "right" },
-                  { label: "SIGNAL (Daily)", key: "signal", align: "right" },
+                  { label: "PATTERN", key: null, align: "right" },
+                  { label: "SIGNAL", key: "signal", align: "right" },
                   { label: "DETAIL", key: null, align: "right" },
                 ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                     style={{
-                      padding: "10px 12px", textAlign: align as "left" | "right",
-                      fontSize: 10, fontWeight: 700, letterSpacing: "0.08em",
+                      padding: "8px 6px", textAlign: align as "left" | "right",
+                      fontSize: 10, fontWeight: 700, letterSpacing: "0.05em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
                       whiteSpace: "nowrap", background: "#0f1117",
                       cursor: key ? "pointer" : "default", userSelect: "none",
@@ -488,37 +485,36 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   return (
                     <Fragment key={r.ticker}>
                       <tr onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
-                        <td style={{ padding: "8px 12px", whiteSpace: "nowrap" }}>
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                        <td style={{ padding: "6px 6px", whiteSpace: "nowrap" }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
                           </span>
                         </td>
-                        <td style={{ padding: "8px 12px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
-                        <td style={{ padding: "8px 12px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                        <td style={{ padding: "8px 12px", color: "#8b949e", fontSize: 12, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 700, whiteSpace: "nowrap" }}>${fmt2(d?.price?.current ?? r.price)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700, whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "6px 6px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
+                        <td style={{ padding: "6px 6px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", fontWeight: 700, whiteSpace: "nowrap" }}>${fmt2(d?.price?.current ?? r.price)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700, whiteSpace: "nowrap" }}>
                           {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
                         </td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20), whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20), whiteSpace: "nowrap" }}>
                           {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
                         </td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50), whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50), whiteSpace: "nowrap" }}>
                           {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
                         </td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200), whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200), whiteSpace: "nowrap" }}>
                           {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
                         </td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e", whiteSpace: "nowrap" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
-                        <td style={{ padding: "8px 12px", textAlign: "right", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e", whiteSpace: "nowrap" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                        <td style={{ padding: "6px 6px", textAlign: "right", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                           <button onClick={() => setShowPremiumModal(true)}
-                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 4, padding: "3px 10px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, whiteSpace: "nowrap", display: "inline-block" }}>
+                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 4, padding: "2px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, whiteSpace: "nowrap", display: "inline-block" }}>
                             🔒 Premium
                           </button>
                         </td>
@@ -530,37 +526,36 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                 return (
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
-                      <td style={{ padding: "8px 12px", fontWeight: 700, color: "#58a6ff", whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", fontWeight: 700, color: "#58a6ff", whiteSpace: "nowrap" }}>
                         <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "8px 12px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
-                      <td style={{ padding: "8px 12px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                      <td style={{ padding: "8px 12px", color: "#8b949e", fontSize: 12, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 700, whiteSpace: "nowrap" }}>${fmt2(d?.price?.current ?? r.price)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700, whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
+                      <td style={{ padding: "6px 6px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", fontWeight: 700, whiteSpace: "nowrap" }}>${fmt2(d?.price?.current ?? r.price)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700, whiteSpace: "nowrap" }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
                       </td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20), whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20), whiteSpace: "nowrap" }}>
                         {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
                       </td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50), whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50), whiteSpace: "nowrap" }}>
                         {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
                       </td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200), whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200), whiteSpace: "nowrap" }}>
                         {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
                       </td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e", whiteSpace: "nowrap" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
-                      <td style={{ padding: "8px 12px", textAlign: "right", whiteSpace: "nowrap" }}>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700, whiteSpace: "nowrap" }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e", whiteSpace: "nowrap" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                      <td style={{ padding: "6px 6px", textAlign: "right", whiteSpace: "nowrap" }}>
                         <Link
                           href={`/global/${locale}/graphic/${r.ticker}`}
-                          style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 4, padding: "3px 10px", display: "inline-block", cursor: "pointer", whiteSpace: "nowrap" }}
+                          style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 4, padding: "2px 8px", display: "inline-block", cursor: "pointer", whiteSpace: "nowrap" }}
                         >
                           {locale === "tr" ? "GRAFİK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : "CHART DETAIL"}
                         </Link>
@@ -568,7 +563,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={16} style={{ padding: 0 }}>
+                        <td colSpan={15} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} lockTradePlanCard />
                         </td>
                       </tr>
