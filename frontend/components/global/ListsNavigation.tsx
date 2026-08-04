@@ -74,7 +74,6 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
     { id: "top100", label: t.top100, href: `/global/${locale}/top100` },
     { id: "gainers", label: t.gainers, href: `/global/${locale}/gainers` },
     { id: "losers", label: t.losers, href: `/global/${locale}/losers` },
-    { id: "mostactive", label: t.mostActive, href: `/global/${locale}/mostactive` },
     { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
     { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` },
     { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }

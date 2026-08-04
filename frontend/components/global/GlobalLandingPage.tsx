@@ -208,7 +208,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
           ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 7)", items: gainersItems }] : []),
           ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 7)", items: losersItems }] : []),
-          ...(mostActiveItems.length ? [{ group: "En Çok İşlem Görenler (ilk 7)", items: mostActiveItems }] : []),
           ...(top100Items.length ? [{ group: "Top 100 (ilk 7)", items: top100Items }] : []),
           ...(trendItems.length ? [{ group: `Trend Hisseleri (Premium, ilk 7)`, items: trendItems }] : []),
         ]);
