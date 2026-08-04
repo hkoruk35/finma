@@ -25,13 +25,43 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   AUDUSD: "AUDUSD=X",
   USDCAD: "CAD=X",
   NZDUSD: "NZDUSD=X",
+  USDTRY: "TRY=X",
+  EURTRY: "EURTRY=X",
 
-  // Indices
+  // US Indices
   VIX: "^VIX",
   SPX: "^GSPC",
   NDX: "^NDX",
   DJI: "^DJI",
   RUT: "^RUT",
+
+  // Europe Indices
+  DAX: "^GDAXI",
+  FTSE100: "^FTSE",
+  CAC40: "^FCHI",
+  IBEX35: "^IBEX",
+  STOXX50: "^STOXX50E",
+
+  // Asia Indices
+  N225: "^N225",
+  SSE: "000001.SS",
+  HSI: "^HSI",
+  SENSEX: "^BSESN",
+  NIFTY50: "^NSEI",
+
+  // Latin America Indices
+  SPLATA40: "ILF",
+  SPLATA_BMI: "^SPLAT",
+  IBOVESPA: "^BVSP",
+  IGCX: "IGCX.SA",
+  IBXX: "IBXX.SA",
+
+  // Futures
+  YM_F: "YM=F",
+  ES_F: "ES=F",
+  NQ_F: "NQ=F",
+  GC_F: "GC=F",
+  CL_F: "CL=F",
 };
 
 export function resolveYahooSymbol(ticker: string): string {
