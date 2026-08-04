@@ -196,7 +196,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
             {displayStocks.map((stock, idx) => {
               const st = STATUS_STYLE[stock.status];
               const slabel = statusLabel(stock.status, locale);
-              const locked = idx > 0 && !isPremium;
+              const locked = !isPremium || stock.ticker.startsWith("LOCKED-");
               return (
                 <div
                   key={stock.ticker}
