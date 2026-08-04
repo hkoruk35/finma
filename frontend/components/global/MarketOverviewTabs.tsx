@@ -27,7 +27,7 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
 
   return (
     <section className="mb-6">
-      <div className="flex items-center gap-1.5 mb-3 bg-[#0d131f] p-1.5 rounded-xl border border-[#1e2a3a] w-full overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-1.5 mb-3 w-full overflow-x-auto scrollbar-hide">
         {groups.map((g) => {
           const isActive = active === g.key;
           return (
@@ -35,10 +35,10 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
               key={g.key}
               type="button"
               onClick={() => setActive(g.key)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider whitespace-nowrap transition-all duration-200 cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-[13px] font-medium uppercase tracking-wider whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? 'bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] border border-blue-400'
-                  : 'bg-[#38bdf8]/10 text-[#38bdf8] border border-[#38bdf8]/30 hover:bg-[#38bdf8]/25 hover:text-white hover:border-[#38bdf8]/60 shadow-[0_0_8px_rgba(56,189,248,0.15)]'
+                  ? 'bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]'
+                  : 'bg-[#38bdf8]/10 text-[#38bdf8] hover:bg-[#38bdf8]/25 hover:text-white shadow-[0_0_8px_rgba(56,189,248,0.15)]'
               }`}
             >
               {g.label}
