@@ -35,28 +35,36 @@ const INDEX_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "VIX", label: "VIX" },
 ];
 
-const SECTOR_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "XLK", label: "Technologie" },
-  { ticker: "XLF", label: "Finance" },
-  { ticker: "XLE", label: "Énergie" },
-  { ticker: "XLV", label: "Santé" },
-  { ticker: "XLY", label: "Consommation Discrétionnaire" },
-  { ticker: "XLP", label: "Consommation de Base" },
-  { ticker: "XLI", label: "Industrie" },
-  { ticker: "XLB", label: "Matériaux" },
-  { ticker: "XLRE", label: "Immobilier" },
-  { ticker: "XLU", label: "Services Publics" },
-  { ticker: "XLC", label: "Communication" },
+const EUROPE_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "DAX", label: "DAX" },
+  { ticker: "FTSE100", label: "FTSE 100" },
+  { ticker: "CAC40", label: "CAC 40" },
+  { ticker: "IBEX35", label: "IBEX 35" },
+  { ticker: "STOXX50", label: "STOXX 50" },
+];
+
+const ASIA_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "N225", label: "Nikkei 225" },
+  { ticker: "SSE", label: "SSE" },
+  { ticker: "HSI", label: "HSI" },
+  { ticker: "SENSEX", label: "SENSEX" },
+  { ticker: "NIFTY50", label: "NIFTY 50" },
+];
+
+const LATAM_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "SPLATA40", label: "S&P Latam 40" },
+  { ticker: "SPLATA_BMI", label: "S&P Latam BMI" },
+  { ticker: "IBOVESPA", label: "IBOVESPA" },
+  { ticker: "IGCX", label: "IGCX" },
+  { ticker: "IBXX", label: "IBXX" },
 ];
 
 const FX_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "EURUSD", label: "EUR/USD" },
   { ticker: "GBPUSD", label: "GBP/USD" },
   { ticker: "USDJPY", label: "USD/JPY" },
+  { ticker: "USDTRY", label: "USD/TRY" },
   { ticker: "USDCHF", label: "USD/CHF" },
-  { ticker: "AUDUSD", label: "AUD/USD" },
-  { ticker: "USDCAD", label: "USD/CAD" },
-  { ticker: "NZDUSD", label: "NZD/USD" },
 ];
 
 const COMMODITY_ITEMS: { ticker: string; label: string }[] = [
@@ -71,6 +79,28 @@ const CRYPTO_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "ETHUSD", label: "Ethereum" },
   { ticker: "SOLUSD", label: "Solana" },
   { ticker: "XRPUSD", label: "XRP" },
+];
+
+const FUTURES_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "YM_F", label: "Dow Futures" },
+  { ticker: "ES_F", label: "S&P Futures" },
+  { ticker: "NQ_F", label: "Nasdaq Futures" },
+  { ticker: "GC_F", label: "Or Futures" },
+  { ticker: "CL_F", label: "Pétrole Futures" },
+];
+
+const SECTOR_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "XLK", label: "Technologie" },
+  { ticker: "XLF", label: "Finance" },
+  { ticker: "XLE", label: "Énergie" },
+  { ticker: "XLV", label: "Santé" },
+  { ticker: "XLY", label: "Consommation Discrétionnaire" },
+  { ticker: "XLP", label: "Consommation de Base" },
+  { ticker: "XLI", label: "Industrie" },
+  { ticker: "XLB", label: "Matériaux" },
+  { ticker: "XLRE", label: "Immobilier" },
+  { ticker: "XLU", label: "Services Publics" },
+  { ticker: "XLC", label: "Communication" },
 ];
 
 type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
@@ -93,7 +123,17 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
 }
 
 export default async function FrHomePage() {
-  const allTickers = [...INDEX_ITEMS, ...SECTOR_ITEMS, ...FX_ITEMS, ...COMMODITY_ITEMS, ...CRYPTO_ITEMS].map((i) => i.ticker);
+  const allTickers = [
+    ...INDEX_ITEMS,
+    ...EUROPE_ITEMS,
+    ...ASIA_ITEMS,
+    ...LATAM_ITEMS,
+    ...FX_ITEMS,
+    ...COMMODITY_ITEMS,
+    ...CRYPTO_ITEMS,
+    ...FUTURES_ITEMS,
+    ...SECTOR_ITEMS,
+  ].map((i) => i.ticker);
 
   const [lastUpdated, indices, quotes] = await Promise.all([
     getLastUpdated(),
@@ -102,10 +142,14 @@ export default async function FrHomePage() {
   ]);
 
   const marketGroups: MarketGroup[] = [
-    { key: "indices", label: "Indices Américains", items: toMarketItems(INDEX_ITEMS, quotes) },
+    { key: "us", label: "Indices US", items: toMarketItems(INDEX_ITEMS, quotes) },
+    { key: "europe", label: "Europe", items: toMarketItems(EUROPE_ITEMS, quotes) },
+    { key: "asia", label: "Asie", items: toMarketItems(ASIA_ITEMS, quotes) },
+    { key: "latam", label: "Amérique Latine", items: toMarketItems(LATAM_ITEMS, quotes) },
     { key: "fx", label: "Devises", items: toMarketItems(FX_ITEMS, quotes) },
     { key: "commodities", label: "Matières Premières", items: toMarketItems(COMMODITY_ITEMS, quotes) },
     { key: "crypto", label: "Crypto", items: toMarketItems(CRYPTO_ITEMS, quotes) },
+    { key: "futures", label: "Futures", items: toMarketItems(FUTURES_ITEMS, quotes) },
   ];
 
   const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);
@@ -120,12 +164,15 @@ export default async function FrHomePage() {
           <div className="min-w-0">
             <HomeSearchBar locale="fr" />
 
-            <div className="-mb-2">
+            <div className="mt-4">
+              <MarketOverviewTabs groups={marketGroups} locale="fr" />
+            </div>
+
+            <div className="mt-4 mb-4">
               <ListsNavigation locale="fr" activePath="home" />
             </div>
 
             <div className="mt-2">
-              <MarketOverviewTabs groups={marketGroups} locale="fr" />
               <HomeMoversGrid locale="fr" />
             </div>
           </div>
