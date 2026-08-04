@@ -80,7 +80,7 @@ html, body {
   100% { transform: translateX(-50%); }
 }
 .ticker-tape {
-  animation: ticker-scroll 45s linear infinite;
+  animation: ticker-scroll 90s linear infinite;
 }
 
 /* Pulse glow for live indicators */
