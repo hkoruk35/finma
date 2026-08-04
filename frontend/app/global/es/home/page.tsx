@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import ListsNavigation from "@/components/global/ListsNavigation";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -168,11 +167,7 @@ export default async function EsHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="es" />
             </div>
 
-            <div className="mt-4 mb-4">
-              <ListsNavigation locale="es" activePath="home" />
-            </div>
-
-            <div className="mt-2">
+            <div className="mt-4">
               <HomeMoversGrid locale="es" />
             </div>
           </div>
