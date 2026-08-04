@@ -64,7 +64,6 @@ const FX_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "GBPUSD", label: "GBP/USD" },
   { ticker: "USDJPY", label: "USD/JPY" },
   { ticker: "USDTRY", label: "USD/TRY" },
-  { ticker: "EURTRY", label: "EUR/TRY" },
   { ticker: "USDCHF", label: "USD/CHF" },
 ];
 

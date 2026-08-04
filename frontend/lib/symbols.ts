@@ -25,8 +25,7 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   AUDUSD: "AUDUSD=X",
   USDCAD: "CAD=X",
   NZDUSD: "NZDUSD=X",
-  USDTRY: "TRY=X",
-  EURTRY: "EURTRY=X",
+  USDTRY: "USDTRY=X",
 
   // US Indices
   VIX: "^VIX",
@@ -51,10 +50,10 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
 
   // Latin America Indices
   SPLATA40: "ILF",
-  SPLATA_BMI: "^SPLAT",
+  SPLATA_BMI: "^SPFLA",
   IBOVESPA: "^BVSP",
-  IGCX: "IGCX.SA",
-  IBXX: "IBXX.SA",
+  IGCX: "EWZ",
+  IBXX: "ILF",
 
   // Futures
   YM_F: "YM=F",
@@ -74,10 +73,10 @@ export type AssetCategory = "forex" | "commodity" | "crypto" | "stock";
 
 export function getAssetCategory(ticker: string): AssetCategory {
   const clean = ticker.trim().toUpperCase();
-  if (["EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", "USDCAD", "NZDUSD"].includes(clean) || clean.endsWith("=X")) {
+  if (["EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", "USDCAD", "NZDUSD", "USDTRY"].includes(clean) || clean.endsWith("=X")) {
     return "forex";
   }
-  if (["GOLD", "SILVER", "USOIL", "NATGAS"].includes(clean) || clean.endsWith("=F")) {
+  if (["GOLD", "SILVER", "USOIL", "NATGAS", "GC_F", "CL_F"].includes(clean) || clean.endsWith("=F")) {
     return "commodity";
   }
   if (["BTCUSD", "ETHUSD", "SOLUSD", "XRPUSD"].includes(clean) || clean.endsWith("-USD")) {
