@@ -14,12 +14,19 @@ export async function GET(req: NextRequest) {
   const tier = resolveMemberTierFromAccess(access);
 
   if (Array.isArray(data?.picks) && data.picks.length > 0) {
+    // Preserve real ticker for client-side live quote lookup
+    data.picks = data.picks.map((p: any) => ({
+      ...p,
+      real_ticker: p.real_ticker || p.ticker,
+    }));
+
     try {
-      const tickers = data.picks.map((p: any) => p.ticker).filter(Boolean);
+      const tickers = data.picks.map((p: any) => p.real_ticker || p.ticker).filter(Boolean);
       if (tickers.length > 0) {
         const masterData: Record<string, any> = (await getMasterData(tickers)) || {};
         data.picks = data.picks.map((p: any) => {
-          const md = masterData[p.ticker];
+          const realSymbol = p.real_ticker || p.ticker;
+          const md = masterData[realSymbol];
           const price = md?.price?.current ?? md?.current_price ?? p.current_price ?? 0;
           const change_pct = md?.tracker_1h?.change_pct_1d ?? md?.price?.change_pct ?? p.change_1d ?? p.change_pct ?? 0;
           return {

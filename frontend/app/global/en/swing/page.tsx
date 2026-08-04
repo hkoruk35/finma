@@ -22,7 +22,7 @@ export default function EnSwingPage() {
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/en/home" className="hover:text-[#3b82f6] transition-colors">Dashboard</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Daily Trending Stock Candidates</span>
+          <span className="text-white italic">Daily Trending Stocks</span>
         </nav>
 
         <ListsNavigation locale="en" activePath="swing" />

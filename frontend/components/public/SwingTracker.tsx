@@ -29,6 +29,7 @@ const ROW_BG: Record<string, string> = { STRONG: "#0f1117", WATCH: "#0f1117", HO
 
 interface SwingRow {
   ticker: string;
+  real_ticker?: string;
   company: string | null;
   sector: string | null;
   price: number | null;
@@ -176,6 +177,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
       const rows: SwingRow[] = (swingData.picks ?? []).map((p: any) => ({
         ticker: p.ticker,
+        real_ticker: p.real_ticker || p.ticker,
         company: p.company || p.ticker,
         sector: p.sector || null,
         price: p.price || null,
@@ -191,13 +193,15 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
       setComposition(rows);
 
       if (rows.length > 0) {
-        const tickers = rows.map((r) => r.ticker).join(",");
-        const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers}`);
-        if (liveRes.ok) {
-          const liveRows: LiveData[] = await liveRes.json();
-          const map: Record<string, LiveData> = {};
-          liveRows.forEach((item) => { if (item?.ticker) map[item.ticker] = item; });
-          setLive(map);
+        const tickers = rows.map((r) => r.real_ticker || r.ticker).filter((t) => t && !t.startsWith("LOCKED-")).join(",");
+        if (tickers) {
+          const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers}`);
+          if (liveRes.ok) {
+            const liveRows: LiveData[] = await liveRes.json();
+            const map: Record<string, LiveData> = {};
+            liveRows.forEach((item) => { if (item?.ticker) map[item.ticker] = item; });
+            setLive(map);
+          }
         }
       }
 
@@ -219,7 +223,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const sectorOptions = useMemo(() => {
     const s = new Set<string>();
     composition.forEach((r) => {
-      const sec = live[r.ticker]?.sector || r.sector;
+      const sym = r.real_ticker || r.ticker;
+      const sec = live[sym]?.sector || r.sector;
       if (sec && sec !== "Unknown") s.add(sec);
     });
     return Array.from(s).sort();
@@ -228,7 +233,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const patternOptions = useMemo(() => {
     const s = new Set<string>();
     composition.forEach((r) => {
-      const p = live[r.ticker]?.tracker_1h?.candle_pattern;
+      const sym = r.real_ticker || r.ticker;
+      const p = live[sym]?.tracker_1h?.candle_pattern;
       if (p) s.add(p);
     });
     return Array.from(s).sort();
@@ -236,7 +242,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
   const filtered = useMemo(() => {
     return composition.filter((r) => {
-      const d = live[r.ticker];
+      const sym = r.real_ticker || r.ticker;
+      const d = live[sym];
       if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
       if (filterSector && (d?.sector || r.sector) !== filterSector) return false;
       if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
@@ -244,7 +251,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         const q = searchQuery.toUpperCase();
         const sector = d?.sector || r.sector || "";
         const company = d?.company || r.company || "";
-        if (!r.ticker.includes(q) && !company.toUpperCase().includes(q) && !sector.toUpperCase().includes(q)) return false;
+        if (!r.ticker.includes(q) && !sym.includes(q) && !company.toUpperCase().includes(q) && !sector.toUpperCase().includes(q)) return false;
       }
       return true;
     });
@@ -258,7 +265,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const sorted = useMemo(() => {
     if (!sortBy) return filtered;
     return [...filtered].sort((a, b) => {
-      const da = live[a.ticker], db = live[b.ticker];
+      const da = live[a.real_ticker || a.ticker], db = live[b.real_ticker || b.ticker];
       let va: number, vb: number;
       switch (sortBy) {
         case "price": va = da?.price?.current ?? 0; vb = db?.price?.current ?? 0; break;
@@ -276,8 +283,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
     });
   }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "STRONG").length;
-  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "WATCH").length;
+  const alCount = filtered.filter((r) => live[r.real_ticker || r.ticker]?.tracker_1h?.signal === "STRONG").length;
+  const izleCount = filtered.filter((r) => live[r.real_ticker || r.ticker]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
@@ -305,7 +312,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
-              {locale === "tr" ? "Günlük Trend Hisseleri Adayları" : locale === "pt" ? "Candidatos Diários de Ações em Tendência" : "Daily Trending Stock Candidates"}
+              {locale === "tr" ? "Günlük Trend Hisseleri" : locale === "pt" ? "Ações Diárias em Tendência" : locale === "es" ? "Acciones Diarias en Tendencia" : locale === "fr" ? "Actions Tendance Quotidiennes" : "Daily Trending Stocks"}
             </div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
@@ -469,7 +476,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
             </thead>
             <tbody>
               {sorted.map((r, idx) => {
-                const d = live[r.ticker];
+                const sym = r.real_ticker || r.ticker;
+                const d = live[sym];
                 const signal = d?.tracker_1h?.signal || "—";
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
