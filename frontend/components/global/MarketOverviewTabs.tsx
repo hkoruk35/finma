@@ -35,10 +35,10 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
               key={g.key}
               type="button"
               onClick={() => setActive(g.key)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? 'bg-[#3b82f6] text-white shadow-md shadow-blue-500/30 border border-blue-400/40'
-                  : 'text-[#38bdf8] hover:text-white hover:bg-white/[0.08]'
+                  ? 'bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] border border-blue-400'
+                  : 'bg-[#38bdf8]/10 text-[#38bdf8] border border-[#38bdf8]/30 hover:bg-[#38bdf8]/25 hover:text-white hover:border-[#38bdf8]/60 shadow-[0_0_8px_rgba(56,189,248,0.15)]'
               }`}
             >
               {g.label}

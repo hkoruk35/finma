@@ -18,6 +18,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isMobileUserMenuOpen, setIsMobileUserMenuOpen] = useState(false);
   const [isDesktopUserMenuOpen, setIsDesktopUserMenuOpen] = useState(false);
+  const [isTerminalHovered, setIsTerminalHovered] = useState(false);
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -152,7 +153,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </div>
           </Link>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-visible">
             {/* Mobilde kompakt dil seçici */}
             {locale && (
               <div className="relative sm:hidden">
@@ -217,12 +218,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             )}
 
             {/* Terminal Link with Hover Preview */}
-            <div className="relative group shrink-0">
+            <div
+              className="relative shrink-0"
+              onMouseEnter={() => setIsTerminalHovered(true)}
+              onMouseLeave={() => setIsTerminalHovered(false)}
+            >
               <MobileTerminalLink
                 locale={locale}
                 targetHref={terminalHref}
                 title={terminalTooltip}
-                className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all shrink-0"
+                className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
               >
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
@@ -241,37 +246,39 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               </MobileTerminalLink>
 
               {/* Terminal Page Hover Preview Card */}
-              <div className="absolute right-0 top-full mt-2 hidden group-hover:block z-50 w-72 p-3 rounded-xl bg-[#0d131f] border border-[#3b82f6]/50 shadow-[0_10px_35px_rgba(0,0,0,0.8)] backdrop-blur-xl pointer-events-none">
-                <div className="flex items-center gap-2 pb-2 border-b border-white/10">
-                  <div className="w-5 h-5 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-[10px] font-bold text-[#3b82f6]">
-                    &gt;_
+              {isTerminalHovered && (
+                <div className="absolute right-0 top-full mt-2 z-[100] w-80 p-3.5 rounded-xl bg-[#0d131f] border-2 border-[#3b82f6] shadow-[0_10px_40px_rgba(0,0,0,0.9)] backdrop-blur-xl animate-fadeIn">
+                  <div className="flex items-center gap-2.5 pb-2.5 border-b border-white/10">
+                    <div className="w-6 h-6 rounded-md bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-xs font-bold text-[#3b82f6]">
+                      &gt;_
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-extrabold text-white leading-none">BOGASTOCK Terminal</span>
+                      <span className="text-[10px] text-[#38bdf8] font-medium mt-0.5">
+                        {locale === "tr" ? "Canlı İşlem & Analiz Paneli" : "Live Trading & Analysis Panel"}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-white leading-none">BOGASTOCK Terminal</span>
-                    <span className="text-[9px] text-[#38bdf8] mt-0.5">
-                      {locale === "tr" ? "Canlı İşlem & Analiz Paneli" : "Live Trading & Analysis Panel"}
-                    </span>
+                  <div className="mt-2.5 space-y-2 text-[11px] text-slate-200">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#3b82f6]">📊</span>
+                      <span className="font-semibold">{locale === "tr" ? "Çoklu Ekran & Canlı İnteraktif Grafikler" : "Multi-Chart & Live Interactive Charts"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#22c55e]">🤖</span>
+                      <span className="font-semibold">{locale === "tr" ? "Yapay Zeka Al/Sat & Trend Sinyalleri" : "AI Buy/Sell & Trend Signals"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#eab308]">📈</span>
+                      <span className="font-semibold">{locale === "tr" ? "Hacim Profili (VP) & Destek/Direnç" : "Volume Profile (VP) & Support/Resistance"}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#a855f7]">🎯</span>
+                      <span className="font-semibold">{locale === "tr" ? "15 Günlük Swing İşlem Planları" : "15-Day Swing Trade Plans"}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="mt-2 space-y-1.5 text-[10px] text-slate-300">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#3b82f6]">📊</span>
-                    <span>{locale === "tr" ? "Çoklu Ekran & Canlı İnteraktif Grafikler" : "Multi-Chart & Live Interactive Charts"}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#22c55e]">🤖</span>
-                    <span>{locale === "tr" ? "Yapay Zeka Al/Sat & Trend Sinyalleri" : "AI Buy/Sell & Trend Signals"}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#eab308]">📈</span>
-                    <span>{locale === "tr" ? "Hacim Profili (VP) & Destek/Direnç" : "Volume Profile (VP) & Support/Resistance"}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#a855f7]">🎯</span>
-                    <span>{locale === "tr" ? "15 Günlük Swing İşlem Planları" : "15-Day Swing Trade Plans"}</span>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Desktop-only Quick Navigation */}
@@ -348,8 +355,11 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   <div className="hidden sm:block relative">
                     <button
                       type="button"
-                      onClick={() => setIsDesktopUserMenuOpen((v) => !v)}
-                      className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-[#1e2a3a]/70 hover:bg-[#1e2a3a] border border-[#3b82f6]/40 text-white transition-all shadow-sm cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsDesktopUserMenuOpen((v) => !v);
+                      }}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1e2a3a]/80 hover:bg-[#1e2a3a] border border-[#3b82f6]/50 text-white transition-all shadow-md cursor-pointer"
                     >
                       {member?.avatar_url ? (
                         <img
@@ -362,7 +372,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           {usernameText.charAt(0).toUpperCase()}
                         </div>
                       )}
-                      <span className="text-[11px] font-semibold max-w-[120px] truncate text-slate-100">
+                      <span className="text-xs font-bold max-w-[120px] truncate text-white">
                         {usernameText}
                       </span>
                       {member?.plan === "premium" && (
@@ -370,7 +380,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           PRO
                         </span>
                       )}
-                      <span className="text-[9px] text-slate-400 ml-0.5">▾</span>
+                      <span className="text-xs text-[#38bdf8] font-bold ml-0.5">▾</span>
                     </button>
 
                     {/* Desktop User Dropdown Menu */}
@@ -380,16 +390,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           className="fixed inset-0 z-40"
                           onClick={() => setIsDesktopUserMenuOpen(false)}
                         />
-                        <div className="absolute right-0 top-full mt-2 z-50 w-56 bg-[#0f172a] border border-[#1e2a3a] rounded-xl shadow-2xl overflow-hidden p-2.5 space-y-2">
-                          <div className="flex items-center gap-2 pb-2 border-b border-white/10 px-1">
+                        <div className="absolute right-0 top-full mt-2 z-50 w-60 bg-[#0d131f] border-2 border-[#3b82f6]/60 rounded-xl shadow-[0_10px_35px_rgba(0,0,0,0.9)] overflow-hidden p-3 space-y-2.5 backdrop-blur-xl">
+                          <div className="flex items-center gap-2.5 pb-2.5 border-b border-white/10 px-1">
                             {member?.avatar_url ? (
                               <img
                                 src={member.avatar_url}
                                 alt={usernameText}
-                                className="w-7 h-7 rounded-full object-cover border border-[#3b82f6]"
+                                className="w-8 h-8 rounded-full object-cover border border-[#3b82f6]"
                               />
                             ) : (
-                              <div className="w-7 h-7 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-xs font-bold">
+                              <div className="w-8 h-8 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-xs font-bold shadow-md">
                                 {usernameText.charAt(0).toUpperCase()}
                               </div>
                             )}
