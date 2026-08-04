@@ -58,7 +58,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
       <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#1e2a3a]">
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: accent }} />
-          <h3 className="text-[13px] font-medium uppercase tracking-tight truncate" style={{ color: accent }}>{title}</h3>
+          <h3 className="text-[14px] font-bold uppercase tracking-tight truncate" style={{ color: accent }}>{title}</h3>
         </div>
         {viewAllHref && (
           <Link
