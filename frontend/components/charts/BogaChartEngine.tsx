@@ -392,6 +392,52 @@ export default function BogaChartEngine({
   const [multiChartTickers, setMultiChartTickers] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
+
+  // Oturumlar arası kaydedilmiş göstergeleri ve grafik şablonunu otomatik yükle
+  useEffect(() => {
+    if (compact || typeof window === "undefined") return;
+    try {
+      const savedStr = localStorage.getItem("bogastock_chart_settings");
+      if (savedStr) {
+        const saved = JSON.parse(savedStr);
+        if (saved.interval) setInterval_(saved.interval);
+        if (saved.candleType) setCandleType(saved.candleType);
+        if (saved.range) setRange(saved.range);
+        if (Array.isArray(saved.indicators) && saved.indicators.length > 0) {
+          setInternalActive(new Set(saved.indicators as IndicatorKey[]));
+        }
+      }
+    } catch {}
+  }, [compact]);
+
+  const saveChartSettings = () => {
+    if (typeof window === "undefined") return;
+    try {
+      const settings = {
+        interval,
+        candleType,
+        range,
+        indicators: Array.from(active),
+      };
+      localStorage.setItem("bogastock_chart_settings", JSON.stringify(settings));
+      setToastMsg(lang === "tr" ? "✓ Ayarlar ve Göstergeler Kaydedildi!" : "✓ Settings & Indicators Saved!");
+      setTimeout(() => setToastMsg(null), 2500);
+    } catch {}
+  };
+
+  const resetChartSettings = () => {
+    if (typeof window === "undefined") return;
+    try {
+      localStorage.removeItem("bogastock_chart_settings");
+      setInterval_(defaultTimeframe || "240");
+      setCandleType("candle");
+      setRange("3M");
+      setInternalActive(new Set(["ema50", "rsi", "volume"] as IndicatorKey[]));
+      setToastMsg(lang === "tr" ? "↺ Varsayılan Ayarlara Sıfırlandı!" : "↺ Reset to Factory Defaults!");
+      setTimeout(() => setToastMsg(null), 2500);
+    } catch {}
+  };
   // Rendered as a plain DOM overlay (see JSX below) — driven by React state
   // instead of a lightweight-charts canvas primitive, since the primitive
   // paint lifecycle (paneViews/renderer/draw) proved unreliable to trigger
@@ -1314,10 +1360,26 @@ export default function BogaChartEngine({
             )}
             {detailMode && (
               <div className="flex items-center gap-1.5 ml-auto">
-                {/* Mobilde Paylaş burada değil, ikinci satırda mum tipi
-                    seçicisinin yanındaki boş alanda (bkz. shareControl
-                    kullanımı aşağıda) — Tam Ekran ve Çoklu Grafik
-                    butonları da mobilde tamamen kaldırıldı. */}
+                <button
+                  type="button"
+                  onClick={saveChartSettings}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/50 text-[10px] font-bold text-[#38bdf8] hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm cursor-pointer"
+                  title={lang === "tr" ? "Mevcut gösterge ve grafik ayarlarını kaydet" : "Save current indicators & chart settings"}
+                >
+                  <span>💾</span>
+                  <span>{lang === "tr" ? "Kaydet" : "Save"}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={resetChartSettings}
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 transition-all cursor-pointer"
+                  title={lang === "tr" ? "Varsayılan gösterge ve grafik ayarlarına sıfırla" : "Reset to default indicators & settings"}
+                >
+                  <span>↺</span>
+                  <span>{lang === "tr" ? "Sıfırla" : "Reset"}</span>
+                </button>
+
                 <div className="hidden md:block">{shareControl}</div>
                 <button
                   onClick={toggleFullscreen}
@@ -1442,6 +1504,14 @@ export default function BogaChartEngine({
           onMouseLeave={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: false }, handleScale: { mouseWheel: false } })}
         >
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
+
+          {/* Toast Notification */}
+          {toastMsg && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[100] px-4 py-1.5 rounded-full bg-[#0d131f] border-2 border-[#3b82f6] text-xs font-bold text-white shadow-[0_4px_30px_rgba(59,130,246,0.6)] animate-fadeIn pointer-events-none flex items-center gap-2">
+              <span className="text-[#38bdf8] text-sm">✦</span>
+              <span>{toastMsg}</span>
+            </div>
+          )}
 
           {/* BOGASTOCK filigran — sol ustte, detailMode'da masaustunde OHLC
               satirinin hemen altinda (o satir orada her zaman gorunur).
