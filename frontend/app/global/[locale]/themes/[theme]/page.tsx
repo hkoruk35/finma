@@ -151,8 +151,17 @@ export default async function ThemePage({ params }: Props) {
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const realThemeTickers = await getEffectiveThemeTickers(hotTheme);
 
-  // Tüm Tema Listesi hisseleri ücretsiz üyelere açık; sadece işlem detayları Premium
-  const themeTickers = realThemeTickers;
+  // Bellek Üreticiler teması ücretsiz üyelere (ve üstü) açık vitrin; diğer 11 tema
+  // sadece Premium/Admin'e açık — free/anonim'de ticker kimliği ve detay butonu
+  // maskelenir (bkz. ThemeSwingTracker.tsx LOCKED_PREFIX satır maskeleme).
+  const tier = resolveMemberTierFromAccess(await getMemberAccess());
+  const isMemoryTheme = hotTheme.slug === "bellek-ureticiler-ai-depolama";
+  const unlockAll = isMemoryTheme
+    ? tier !== "anonymous"
+    : tier === "premium" || tier === "admin";
+  const themeTickers = unlockAll
+    ? realThemeTickers
+    : realThemeTickers.map((tk, idx) => (isPublicTeaserTicker(tk) ? tk : `LOCKED-${idx}`));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
