@@ -254,22 +254,27 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/95 backdrop-blur-md sticky top-0 z-50">
-        <div className="w-full max-w-[1800px] mx-auto pl-1 pr-3 sm:px-3 h-14 sm:h-20 flex items-center justify-between gap-2 relative">
+        <div className="w-full max-w-[1800px] mx-auto pl-1 pr-2 sm:px-3 h-14 sm:h-20 flex items-center justify-between gap-1 sm:gap-2 relative">
           <Link
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
           >
-            <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-9 sm:h-[72px] w-auto" priority />
+            <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-8 sm:h-[72px] w-auto" priority />
           </Link>
 
-          <div className="flex items-center gap-1 sm:gap-2 min-w-0 overflow-x-auto scrollbar-hide">
+          {/* overflow-x-auto KULLANMA: overflow-x tek başına set edilince CSS
+              spesifikasyonu geregi overflow-y de zorla 'auto' oluyor, bu da bu
+              gruptan açılan absolute-pozisyonlu dropdown'ları (dil menüsü,
+              terminal önizleme) header sınırında görünmez/tıklanmaz şekilde
+              kesiyordu — mobil "menüler tıklanmıyor" hatasının kök nedeni buydu. */}
+          <div className="flex items-center gap-1 sm:gap-2 min-w-0">
             {/* Mobilde kompakt dil seçici */}
             {locale && (
               <div className="relative sm:hidden">
                 <button
                   type="button"
                   onClick={() => setIsMobileLangOpen((v) => !v)}
-                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[9px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
+                  className="flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
                   aria-label="Language"
                 >
                   🌐 {locale.toUpperCase()}
@@ -336,7 +341,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 locale={locale}
                 targetHref={terminalHref}
                 title={terminalTooltip}
-                className="flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
               >
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
@@ -708,7 +713,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               ) : (
                 <Link
                   href={loginHref}
-                  className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1 shrink-0"
+                  className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 shrink-0"
                 >
                   <svg
                     className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"

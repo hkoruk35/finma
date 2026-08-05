@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "INVX",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 30.67,
+        "entry_zone": "29.91 - 31.43",
+        "SL": 27.61,
+        "TP": 36.78
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "TDW",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 79.24,
+        "entry_zone": "77.20 - 81.28",
+        "SL": 71.08,
+        "TP": 95.55
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "MDB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 374.77,
+        "entry_zone": "365.97 - 383.56",
+        "SL": 339.57,
+        "TP": 445.16
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "RBRK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 84.1,
+        "entry_zone": "82.28 - 85.92",
+        "SL": 76.81,
+        "TP": 98.68
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "TNGX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 28.66,
+        "entry_zone": "27.80 - 29.52",
+        "SL": 25.23,
+        "TP": 35.52
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "EXPD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 181.31,
+        "entry_zone": "178.77 - 183.85",
+        "SL": 171.14,
+        "TP": 201.64
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "ZETA",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 27.37,
+        "entry_zone": "26.59 - 28.15",
+        "SL": 24.25,
+        "TP": 33.61
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "EWTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 44.53,
+        "entry_zone": "43.32 - 45.74",
+        "SL": 39.67,
+        "TP": 54.25
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 108.05,
+        "entry_zone": "104.52 - 111.58",
+        "SL": 93.95,
+        "TP": 136.25
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "FIG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 27.98,
+        "entry_zone": "27.09 - 28.86",
+        "SL": 24.44,
+        "TP": 35.04
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "AYA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 25.17,
+        "entry_zone": "24.44 - 25.90",
+        "SL": 22.25,
+        "TP": 31.01
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "PLTR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 159.12,
+        "entry_zone": "154.90 - 163.34",
+        "SL": 142.26,
+        "TP": 192.84
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "FSLY",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 25.87,
+        "entry_zone": "25.09 - 26.65",
+        "SL": 22.74,
+        "TP": 32.13
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 102.51,
+        "entry_zone": "99.34 - 105.68",
+        "SL": 89.83,
+        "TP": 127.86
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "INSP",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 60.59,
+        "entry_zone": "58.92 - 62.26",
+        "SL": 53.93,
+        "TP": 73.92
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 12.83,
+        "entry_zone": "12.32 - 13.34",
+        "SL": 10.79,
+        "TP": 16.91
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "COHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 330.92,
+        "entry_zone": "315.57 - 346.28",
+        "SL": 269.5,
+        "TP": 453.77
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "AAOI",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 129.04,
+        "entry_zone": "121.96 - 136.12",
+        "SL": 100.72,
+        "TP": 185.67
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "UMAC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 25.8,
+        "entry_zone": "24.66 - 26.94",
+        "SL": 21.24,
+        "TP": 34.92
+    },
+    {
+        "date": "2026-08-05 15:45",
+        "symbol": "ALAB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 321.15,
+        "entry_zone": "303.95 - 338.35",
+        "SL": 252.34,
+        "TP": 458.76
+    }
+]
