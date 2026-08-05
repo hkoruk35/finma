@@ -96,6 +96,11 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const router = useRouter();
   const premiumMemberLabel = locale === 'tr' ? 'Premium Üye' : locale === 'es' ? 'Miembro Premium' : locale === 'fr' ? 'Membre Premium' : locale === 'pt' ? 'Membro Premium' : 'Premium Member';
   const upgradeToPremiumLabel = locale === 'tr' ? "Premium'a Geç" : locale === 'es' ? 'Actualizar a Premium' : locale === 'fr' ? 'Passer à Premium' : locale === 'pt' ? 'Atualizar para Premium' : 'Upgrade to Premium';
+  const watchlistGroupLabel = locale === 'tr' ? 'İzleme Listem ★ Kişisel (ilk 10)' : locale === 'es' ? 'Mi Lista ★ Personal (primeras 10)' : locale === 'fr' ? 'Ma Liste ★ Personnelle (10 premières)' : locale === 'pt' ? 'Minha Lista ★ Pessoal (primeiras 10)' : 'My Watchlist ★ Personal (first 10)';
+  const gainersGroupLabel = locale === 'tr' ? 'En Çok Yükselenler (ilk 7)' : locale === 'es' ? 'Mayores Alzas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Hausses (7 premières)' : locale === 'pt' ? 'Maiores Altas (primeiras 7)' : 'Top Gainers (first 7)';
+  const losersGroupLabel = locale === 'tr' ? 'En Çok Düşenler (ilk 7)' : locale === 'es' ? 'Mayores Bajas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Baisses (7 premières)' : locale === 'pt' ? 'Maiores Baixas (primeiras 7)' : 'Top Losers (first 7)';
+  const top100GroupLabel = locale === 'tr' ? 'Top 100 (ilk 7)' : locale === 'es' ? 'Top 100 (primeras 7)' : locale === 'fr' ? 'Top 100 (7 premières)' : locale === 'pt' ? 'Top 100 (primeiras 7)' : 'Top 100 (first 7)';
+  const trendGroupLabel = locale === 'tr' ? 'Trend Hisseleri (Premium, ilk 7)' : locale === 'es' ? 'Acciones en Tendencia (Premium, primeras 7)' : locale === 'fr' ? 'Actions Tendance (Premium, 7 premières)' : locale === 'pt' ? 'Ações em Tendência (Premium, primeiras 7)' : 'Trending Stocks (Premium, first 7)';
   const [selectedTicker, setSelectedTicker] = useState("^GSPC");
 
   useEffect(() => {
@@ -204,17 +209,17 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         // İşlem Görenler → Top100 → Trend Hisseleri (Premium, en altta).
         setExtendedGroups([
           ...baseGroups,
-          ...(personalItems.length ? [{ group: "İzleme Listem ★ Kişisel (ilk 10)", items: personalItems }] : []),
+          ...(personalItems.length ? [{ group: watchlistGroupLabel, items: personalItems }] : []),
           ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
-          ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 7)", items: gainersItems }] : []),
-          ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 7)", items: losersItems }] : []),
-          ...(top100Items.length ? [{ group: "Top 100 (ilk 7)", items: top100Items }] : []),
-          ...(trendItems.length ? [{ group: `Trend Hisseleri (Premium, ilk 7)`, items: trendItems }] : []),
+          ...(gainersItems.length ? [{ group: gainersGroupLabel, items: gainersItems }] : []),
+          ...(losersItems.length ? [{ group: losersGroupLabel, items: losersItems }] : []),
+          ...(top100Items.length ? [{ group: top100GroupLabel, items: top100Items }] : []),
+          ...(trendItems.length ? [{ group: trendGroupLabel, items: trendItems }] : []),
         ]);
       } catch (err) {}
     };
     fetchAllData();
-  }, [groups, premiumMemberLabel]);
+  }, [groups, premiumMemberLabel, watchlistGroupLabel, gainersGroupLabel, losersGroupLabel, top100GroupLabel, trendGroupLabel]);
   
   // Sidebar states
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
