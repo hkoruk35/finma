@@ -1,49 +1,43 @@
 {
-  "date": "2026-08-04",
-  "generated_at": "2026-08-04T17:03:33.462179-04:00",
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T09:09:49.938185-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 48,
+  "active_scores_count": 26,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SBCF",
-        "IMO",
-        "SCI",
-        "HPQ",
-        "CSCO",
-        "IMMR",
-        "OOMA",
-        "SHOO",
-        "WST",
-        "AN"
-      ]
-    },
-    "breakout": {
-      "count": 21,
-      "tickers": [
-        "HPQ",
-        "CSCO",
-        "IMMR",
-        "OOMA",
-        "SHOO",
-        "AN",
-        "ST",
-        "NWG",
-        "RUSHA",
-        "SPHR",
-        "EXLS",
-        "THRM",
-        "LOGI",
         "WY",
         "ARE",
         "SIRI",
         "M",
         "LNC",
         "FFIV",
+        "PCAR",
+        "AMTB",
+        "MSA",
+        "HAPN"
+      ]
+    },
+    "breakout": {
+      "count": 15,
+      "tickers": [
+        "WY",
+        "ARE",
+        "SIRI",
+        "M",
+        "LNC",
+        "FFIV",
+        "PCAR",
+        "HAPN",
+        "CSW",
         "SKYW",
-        "RDVT"
+        "RDVT",
+        "TREX",
+        "ATRC",
+        "IMO",
+        "RGEN"
       ]
     },
     "value": {
@@ -65,18 +59,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SBCF",
-      "score": 58.5,
+      "ticker": "WY",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IMO",
-      "score": 59.5,
+      "ticker": "ARE",
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SCI",
-      "score": 57.0,
+      "ticker": "SIRI",
+      "score": 50.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
