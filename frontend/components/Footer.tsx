@@ -109,7 +109,7 @@ export default function Footer({
           {/* Brand */}
           <div>
             <Link href={`/global/${locale ?? "en"}`} className="flex items-start mb-3 group w-fit">
-              <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-16 w-auto" />
+              <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-11 sm:h-16 w-auto" />
             </Link>
             <p className="text-xs text-[#00d2ff] mb-3">
               {BRAND_TAGLINE[locale ?? "en"]}

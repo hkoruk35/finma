@@ -331,9 +331,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               </div>
             )}
 
-            {/* Terminal Link with Hover Preview */}
+            {/* Terminal Link with Hover Preview — sadece desktop'ta gösterilir, mobilde üye/giriş alanına yer açmak için kaldırıldı */}
             <div
-              className="relative shrink-0"
+              className="relative shrink-0 hidden sm:block"
               onMouseEnter={() => setIsTerminalHovered(true)}
               onMouseLeave={() => setIsTerminalHovered(false)}
             >
@@ -598,23 +598,28 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     <button
                       type="button"
                       onClick={() => setIsMobileUserMenuOpen((v) => !v)}
-                      className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#1e2a3a]/80 border border-[#3b82f6]/40 text-white"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1e2a3a]/80 border border-[#3b82f6]/40 text-white"
                     >
                       {member?.avatar_url ? (
                         <img
                           src={member.avatar_url}
                           alt={usernameText}
-                          className="w-4 h-4 rounded-full object-cover border border-[#3b82f6]"
+                          className="w-5 h-5 rounded-full object-cover border border-[#3b82f6]"
                         />
                       ) : (
-                        <div className="w-4 h-4 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[9px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[10px] font-bold">
                           {usernameText.charAt(0).toUpperCase()}
                         </div>
                       )}
-                      <span className="text-[10px] font-semibold max-w-[50px] truncate text-slate-100">
+                      <span className="text-[11px] font-semibold max-w-[110px] truncate text-slate-100">
                         {usernameText}
                       </span>
-                      <span className="text-[8px] text-slate-400">▾</span>
+                      {member?.plan === "premium" && (
+                        <span className="text-[7px] font-extrabold px-1 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase">
+                          PRO
+                        </span>
+                      )}
+                      <span className="text-[9px] text-slate-400">▾</span>
                     </button>
 
                     {/* Mobile Dropdown Drawer */}
@@ -713,7 +718,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               ) : (
                 <Link
                   href={loginHref}
-                  className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 shrink-0"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 shrink-0"
                 >
                   <svg
                     className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
