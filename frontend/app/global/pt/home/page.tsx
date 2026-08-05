@@ -8,6 +8,7 @@ import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
+import CookieConsent from "@/components/global/CookieConsent";
 
 export const revalidate = 120;
 
@@ -178,6 +179,7 @@ export default async function PtHomePage() {
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
       <MemberHeader locale="pt" />
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
+      <CookieConsent locale="pt" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
