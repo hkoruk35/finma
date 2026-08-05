@@ -259,7 +259,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0 min-w-0"
           >
-            <Image src="/logo/bogo_stock_1_clean.png" alt="BogaStock" width={1170} height={492} className="h-8 sm:h-[50px] w-auto max-w-[140px] sm:max-w-none" priority />
+            <Image src="/logo/bogo_stock_1.png" alt="BogaStock" width={200} height={50} className="h-8 sm:h-[50px] w-auto max-w-[140px] sm:max-w-none" priority />
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-visible">
