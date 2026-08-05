@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import BottomNavWrapper from "@/components/BottomNavWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
-import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
 import VisitorTracker from "@/components/VisitorTracker";
 import { Inter, Montserrat, JetBrains_Mono, Manrope } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
 import CopilotShell from "@/components/global/CopilotShell";
+import AnalyticsLoader from "@/components/global/AnalyticsLoader";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -126,29 +126,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${manrope.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
       <head>
         <StructuredData />
-        {/* Google Analytics — lazyOnload: render'ı bloke etmez */}
-        <Script id="google-analytics" strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-CCSWK67D93" />
-        <Script id="google-analytics-config" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-CCSWK67D93');
-          `}
-        </Script>
-
-        {/* Google AdSense — lazyOnload: TBT'yi 200-400ms azaltır */}
-        <Script
-          id="google-adsense"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1081747094060539"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
       </head>
       <body className="antialiased min-h-[100dvh] bg-[#0a0e17] pb-20 lg:pb-0">
         <SmartTrackerProvider>
           <TrackerProvider>
+            <AnalyticsLoader />
             <VisitorTracker />
             <PWAInstaller />
             <CopilotShell>

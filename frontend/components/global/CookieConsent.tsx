@@ -4,35 +4,43 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { Locale } from '@/lib/i18n/copy';
 
-const STORAGE_KEY = 'boga_cookie_consent';
+export const CONSENT_STORAGE_KEY = 'boga_cookie_consent';
+export const CONSENT_EVENT = 'boga-cookie-consent-changed';
 
-const TEXT: Record<Locale, { message: string; accept: string; policy: string }> = {
+const TEXT: Record<Locale, { message: string; accept: string; reject: string; policy: string }> = {
   tr: {
-    message: 'Bu site, deneyiminizi geliştirmek için çerezler kullanır. Siteyi kullanmaya devam ederek çerez kullanımını kabul etmiş olursunuz.',
-    accept: 'Çerezleri Kabul Ediyorum',
+    message: 'Bu site, deneyiminizi geliştirmek ve trafiği analiz etmek için çerezler kullanır. "Kabul Ediyorum"a basarak analiz/reklam çerezlerine izin verirsiniz; "Reddet"e basarsanız bu çerezler yüklenmez, site yalnızca temel işlevlerle çalışmaya devam eder.',
+    accept: 'Kabul Ediyorum',
+    reject: 'Reddet',
     policy: 'Gizlilik Politikası',
   },
   en: {
-    message: 'This site uses cookies to improve your experience. By continuing to use the site, you accept our use of cookies.',
-    accept: 'Accept Cookies',
+    message: 'This site uses cookies to improve your experience and analyze traffic. Click "Accept" to allow analytics/advertising cookies; click "Reject" and those cookies will not load — the site will keep working with only essential functionality.',
+    accept: 'Accept',
+    reject: 'Reject',
     policy: 'Privacy Policy',
   },
   es: {
-    message: 'Este sitio utiliza cookies para mejorar su experiencia. Al continuar utilizando el sitio, acepta nuestro uso de cookies.',
-    accept: 'Aceptar Cookies',
+    message: 'Este sitio utiliza cookies para mejorar su experiencia y analizar el tráfico. Al hacer clic en "Aceptar" permite cookies de análisis/publicidad; si hace clic en "Rechazar" esas cookies no se cargarán — el sitio seguirá funcionando solo con lo esencial.',
+    accept: 'Aceptar',
+    reject: 'Rechazar',
     policy: 'Política de Privacidad',
   },
   fr: {
-    message: 'Ce site utilise des cookies pour améliorer votre expérience. En continuant à utiliser le site, vous acceptez notre utilisation des cookies.',
-    accept: 'Accepter les Cookies',
+    message: 'Ce site utilise des cookies pour améliorer votre expérience et analyser le trafic. En cliquant sur "Accepter", vous autorisez les cookies d\'analyse/publicité ; en cliquant sur "Refuser", ces cookies ne seront pas chargés — le site continuera de fonctionner avec les fonctions essentielles uniquement.',
+    accept: 'Accepter',
+    reject: 'Refuser',
     policy: 'Politique de Confidentialité',
   },
   pt: {
-    message: 'Este site utiliza cookies para melhorar sua experiência. Ao continuar usando o site, você aceita nosso uso de cookies.',
-    accept: 'Aceitar Cookies',
+    message: 'Este site utiliza cookies para melhorar sua experiência e analisar o tráfego. Ao clicar em "Aceitar" você permite cookies de análise/publicidade; ao clicar em "Rejeitar" esses cookies não serão carregados — o site continuará funcionando apenas com o essencial.',
+    accept: 'Aceitar',
+    reject: 'Rejeitar',
     policy: 'Política de Privacidade',
   },
 };
+
+type Consent = 'accepted' | 'rejected';
 
 export default function CookieConsent({ locale }: { locale: Locale }) {
   const [visible, setVisible] = useState(false);
@@ -40,7 +48,8 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     try {
-      if (window.localStorage.getItem(STORAGE_KEY) !== '1') {
+      const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
+      if (stored !== 'accepted' && stored !== 'rejected') {
         setVisible(true);
       }
     } catch {
@@ -48,9 +57,10 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
     }
   }, []);
 
-  const accept = () => {
+  const choose = (value: Consent) => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, '1');
+      window.localStorage.setItem(CONSENT_STORAGE_KEY, value);
+      window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
     } catch {}
     setVisible(false);
   };
@@ -66,13 +76,22 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
             {t.policy}
           </Link>
         </p>
-        <button
-          type="button"
-          onClick={accept}
-          className="shrink-0 px-5 py-2 rounded-lg bg-[#3b82f6] hover:bg-[#2563eb] text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
-        >
-          {t.accept}
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => choose('rejected')}
+            className="px-5 py-2 rounded-lg bg-transparent border border-[#1e2a3a] hover:border-white/30 text-white/70 hover:text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
+          >
+            {t.reject}
+          </button>
+          <button
+            type="button"
+            onClick={() => choose('accepted')}
+            className="px-5 py-2 rounded-lg bg-[#3b82f6] hover:bg-[#2563eb] text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
+          >
+            {t.accept}
+          </button>
+        </div>
       </div>
     </div>
   );
