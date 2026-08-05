@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T17:03:35.448727-04:00",
+  "generated_at": "2026-08-05T09:09:52.514877-04:00",
   "picks": [
     {
       "ticker": "SNOW",
@@ -83,7 +83,7 @@
       "ticker": "TSM",
       "sector": "Technology",
       "date_added": "2026-08-04",
-      "score": 46.5
+      "score": 48.5
     },
     {
       "ticker": "M",
@@ -96,18 +96,6 @@
       "sector": "Healthcare",
       "date_added": "2026-08-04",
       "score": 50.0
-    },
-    {
-      "ticker": "NSC",
-      "sector": "Industrials",
-      "date_added": "2026-08-04",
-      "score": 50.0
-    },
-    {
-      "ticker": "ST",
-      "sector": "Technology",
-      "date_added": "2026-08-04",
-      "score": 49.0
     },
     {
       "ticker": "RUSHA",
@@ -126,6 +114,42 @@
       "sector": "Basic Materials",
       "date_added": "2026-08-04",
       "score": 41.0
+    },
+    {
+      "ticker": "SHW",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-05",
+      "score": 47.5
+    },
+    {
+      "ticker": "WCC",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 47.0
+    },
+    {
+      "ticker": "IOT",
+      "sector": "Technology",
+      "date_added": "2026-08-05",
+      "score": 45.0
+    },
+    {
+      "ticker": "PRKS",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-05",
+      "score": 44.5
+    },
+    {
+      "ticker": "NBR",
+      "sector": "Energy",
+      "date_added": "2026-08-05",
+      "score": 43.0
+    },
+    {
+      "ticker": "SHIP",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 36.0
     }
   ]
 }
