@@ -1,4 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
+import { createOpenAI } from "@ai-sdk/openai";
+import { generateText } from "ai";
 
 export const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
 export type Locale = (typeof LOCALES)[number];
@@ -68,10 +70,6 @@ export interface GenerateMarketAssetInput {
 export async function generateLocalizedTexts(
   input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput | GenerateMarketAssetInput
 ): Promise<Record<Locale, string>> {
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY not configured");
-  }
-
   const listPrompt = (input: GenerateListInput) => {
     const tickerLine = input.items
       .map((i) => `${i.ticker} ${i.changePct >= 0 ? "+" : ""}${i.changePct.toFixed(1)}%`)
@@ -175,19 +173,45 @@ Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. abov
           input.customInstruction ? ` Additional instruction from the analyst (follow this closely): ${input.customInstruction}` : ""
         } Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
 
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-  const response = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
-    contents: prompt,
-    config: {
-      systemInstruction: `You are the social media voice of BogaStock, a stock analysis platform. Return ONLY a valid JSON object mapping each requested locale code to the requested text, written naturally in that locale's language, matching the length the prompt asks for. No explanation, no markdown, no preamble. The first character must be { and the last character must be }.
+  const systemInstruction = `You are the social media voice of BogaStock, a stock analysis platform. Return ONLY a valid JSON object mapping each requested locale code to the requested text, written naturally in that locale's language, matching the length the prompt asks for. No explanation, no markdown, no preamble. The first character must be { and the last character must be }.
 
-Write like a real market analyst posting casually to followers, not like an AI. Be direct and specific. AVOID AI-sounding filler and corporate-speak: phrases like "in today's dynamic market", "it's worth noting that", "navigating the landscape", "in the ever-evolving world of", "as we move forward", "this underscores the importance of", excessive hedging, or generic summary sentences that repeat what was already said. Use plain, confident, natural phrasing a sharp trader would actually type — contractions are fine, vary sentence length, get to the point.`,
+Write like a real market analyst posting casually to followers, not like an AI. Be direct and specific. AVOID AI-sounding filler and corporate-speak: phrases like "in today's dynamic market", "it's worth noting that", "navigating the landscape", "in the ever-evolving world of", "as we move forward", "this underscores the importance of", excessive hedging, or generic summary sentences that repeat what was already said. Use plain, confident, natural phrasing a sharp trader would actually type — contractions are fine, vary sentence length, get to the point.`;
+
+  // DeepSeek her zaman birinci öncelik (kullanıcı talimatı, bkz. Copilot chat
+  // route'undaki aynı kural) — Gemini yalnızca DeepSeek başarısız olursa
+  // (kota, geçici hata, geçersiz key) devreye giren otomatik fallback'tir.
+  async function tryDeepSeek(): Promise<string> {
+    const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
+    if (!deepseekApiKey) throw new Error("DEEPSEEK_API_KEY not configured");
+    const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https://api.deepseek.com" });
+    const { text } = await generateText({
+      model: deepseekProvider("deepseek-v4-flash"),
+      system: systemInstruction,
+      prompt,
       temperature: 0.8,
-    },
-  });
+    });
+    return text || "";
+  }
 
-  const rawText = response.text || "";
+  async function tryGemini(): Promise<string> {
+    if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not configured");
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const response = await ai.models.generateContent({
+      model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+      contents: prompt,
+      config: { systemInstruction, temperature: 0.8 },
+    });
+    return response.text || "";
+  }
+
+  let rawText = "";
+  try {
+    rawText = await tryDeepSeek();
+  } catch (deepseekErr: any) {
+    console.error("[x/generateContent] DeepSeek failed, falling back to Gemini:", deepseekErr?.message || deepseekErr);
+    rawText = await tryGemini();
+  }
+
   const parsed = tryParseJSON(rawText);
   if (!parsed) throw new Error("AI response was not valid JSON");
   return parsed as Record<Locale, string>;

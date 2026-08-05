@@ -63,43 +63,58 @@ async function startNewCycle(): Promise<string | null> {
 
   if (!poolItem) return null; // baska bir istek once claim etti
 
-  const market = await fetchTickerMarketData(poolItem.ticker);
+  // Claim'den sonraki her adim (piyasa verisi + AI metin uretimi + insert)
+  // basarisiz olabilir (orn. Gemini API hatasi) — bunlar denenmeden once
+  // used_at zaten set edildigi icin, burada hata olursa poolItem KALICI
+  // OLARAK KAYBOLUYORDU (used_at set ama hic x_posts satiri yok). Bunu
+  // onlemek icin basarisizlikta used_at'i geri null'a cekip (un-claim)
+  // ticker'i bir sonraki cron denemesi icin kuyrukta birakiyoruz.
+  try {
+    const market = await fetchTickerMarketData(poolItem.ticker);
 
-  const texts = await generateLocalizedTexts({
-    contentType: "stock",
-    ticker: poolItem.ticker,
-    company: poolItem.company,
-    sector: poolItem.sector,
-    theme: poolItem.theme,
-    signal: market?.signal,
-    trend: market?.trend,
-    rvol: market?.rvol,
-    opportunity: market?.opportunity,
-  });
-
-  const cycleId = crypto.randomUUID();
-  const rows = LOCALES.map((locale) => {
-    const row: any = {
-      cycle_id: cycleId,
-      content_type: "stock" as const,
+    const texts = await generateLocalizedTexts({
+      contentType: "stock",
       ticker: poolItem.ticker,
+      company: poolItem.company,
       sector: poolItem.sector,
       theme: poolItem.theme,
-      source: poolItem.source,
-      locale,
-      status: "draft" as const,
-      content_text: texts[locale],
-    };
-    return row;
-  });
+      signal: market?.signal,
+      trend: market?.trend,
+      rvol: market?.rvol,
+      opportunity: market?.opportunity,
+    });
 
-  const { error: insertError } = await supabaseAdmin.from("x_posts").insert(rows);
-  if (insertError) {
-    console.error("[x-scheduler] x_posts insert failed:", insertError.message);
+    const cycleId = crypto.randomUUID();
+    const rows = LOCALES.map((locale) => {
+      const row: any = {
+        cycle_id: cycleId,
+        content_type: "stock" as const,
+        ticker: poolItem.ticker,
+        sector: poolItem.sector,
+        theme: poolItem.theme,
+        source: poolItem.source,
+        locale,
+        status: "draft" as const,
+        content_text: texts[locale],
+      };
+      return row;
+    });
+
+    const { error: insertError } = await supabaseAdmin.from("x_posts").insert(rows);
+    if (insertError) {
+      throw new Error(`x_posts insert failed: ${insertError.message}`);
+    }
+
+    return cycleId;
+  } catch (err: any) {
+    console.error(`[x-scheduler] startNewCycle failed for ${poolItem.ticker}, un-claiming pool item:`, err?.message || err);
+    await supabaseAdmin
+      .from("x_content_pool")
+      .update({ used_at: null })
+      .eq("id", poolItem.id)
+      .eq("used_at", poolItem.used_at); // sadece bizim biraz once koydugumuz claim'i geri al
     return null;
   }
-
-  return cycleId;
 }
 
 export async function GET(req: NextRequest) {
