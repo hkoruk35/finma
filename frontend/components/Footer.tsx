@@ -71,11 +71,11 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
 };
 
 const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
-  en: "AI-powered analysis of 6,000+ premier US stocks and ETFs.",
-  tr: "ABD borsalarında işlem gören 6.000'den fazla seçkin hisse senedi ve ETF'in yapay zekâ destekli analizi.",
-  es: "Análisis con IA de más de 6.000 acciones y ETFs premier de EE.UU.",
-  fr: "Analyse alimentée par l'IA de plus de 6 000 actions et ETF américains de premier plan.",
-  pt: "Análise com IA de mais de 6.000 ações e ETFs de primeira linha dos EUA.",
+  en: "Delivers AI-powered in-depth analysis of 6,000+ stocks and ETFs traded on US exchanges; also tracks and analyzes global markets, forex, precious metals, and crypto.",
+  tr: "ABD borsalarında işlem gören 6.000'den fazla hisse senedi ve ETF üzerinde yapay zekâ destekli derinlemesine analiz sunar; küresel borsaları, döviz, değerli madenler ve kripto piyasalarını da kapsam dahilinde takip ve analiz eder.",
+  es: "Ofrece análisis profundo impulsado por IA de más de 6.000 acciones y ETFs que cotizan en las bolsas de EE. UU.; también realiza seguimiento y análisis de los mercados globales, divisas, metales preciosos y criptomonedas.",
+  fr: "Propose une analyse approfondie alimentée par l'IA de plus de 6 000 actions et ETF négociés sur les bourses américaines ; assure également le suivi et l'analyse des marchés mondiaux, des devises, des métaux précieux et des cryptomonnaies.",
+  pt: "Oferece análise aprofundada com IA de mais de 6.000 ações e ETFs negociados nas bolsas dos EUA; também acompanha e analisa os mercados globais, câmbio, metais preciosos e criptomoedas.",
 };
 
 const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
