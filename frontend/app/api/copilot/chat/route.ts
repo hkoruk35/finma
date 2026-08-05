@@ -661,12 +661,12 @@ export async function POST(req: NextRequest) {
       }),
     };
 
-    // BOGA ekonomik mimarisi: rutin sohbet/uzun analiz DeepSeek'te (ucuz,
-    // 1M context) kalır; web araması ve gelecekteki Google-özel/multimodal
-    // görevler Gemini'ye gider. search_market_news bu yüzden sadece "google"
-    // provider'ına eklenir — DeepSeek ve Claude asla canlı haber aracı görmez.
-    function toolsForProvider(providerKey: "deepseek" | "google" | "anthropic") {
-      const tools = providerKey === "google" ? { ...baseTools, ...searchMarketNewsTool } : baseTools;
+    // DeepSeek her zaman birinci öncelik olduğu için (bkz. MODEL_CANDIDATES),
+    // search_market_news TÜM sağlayıcılara açık — aracın kendisi provider'dan
+    // bağımsız olarak HER ZAMAN Gemini kullanır (bkz. lib/copilot/newsSearch.ts),
+    // yani DeepSeek orkestre ederken de haber sonucu aynı kalitede gelir.
+    function toolsForProvider(_providerKey: "deepseek" | "google" | "anthropic") {
+      const tools = { ...baseTools, ...searchMarketNewsTool };
       // Free tier: get_deep_analysis (5 kredi/DEEP_RESEARCH) hiç görünmez —
       // free/premium farkını miktardan çok yeteneğe dayandırır (bkz. Faz 3
       // plan notu). Free zaten günlük 5 kredilik havuzuyla bu aracı
@@ -678,31 +678,16 @@ export async function POST(req: NextRequest) {
       return tools;
     }
 
-    // "HABERLER" kuralındaki istisnayla senkron (fiyat hareketi NEDEN soruları
-    // da search_market_news'i tetikler) — bkz. buildSystemPrompt.
-    const NEWS_INTENT_TRIGGERS = [
-      "haber", "haberler", "son gelişme", "son dakika", "neden düştü", "neden yükseldi", "ne oldu", // tr
-      "news", "breaking", "latest update", "why did", "what happened",                              // en
-      "noticia", "última hora", "por qué cayó", "por qué subió", "qué pasó",                          // es
-      "actualité", "dernière nouvelle", "pourquoi a chuté", "pourquoi a monté", "que s'est-il passé", // fr
-      "notícia", "última hora", "por que caiu", "por que subiu", "o que aconteceu",                   // pt
-    ];
-
-    // Hangi provider'ın bu turu YÖNETECEĞİNİ (orkestratör model) belirler.
-    // Tetik kelimeleri sistem promptundaki search_market_news çağrı kuralıyla
-    // BİREBİR aynı niyeti yakalar (bkz. buildSystemPrompt "HABERLER" bölümü) —
-    // ikisi ayrı ayrı güncellenirse (örn. yeni bir dil eklenirse) burası da
-    // güncellenmeli, aksi halde yönlendirme modelin asıl kararından sapar.
-    // Multimodal ek (resim vb.) şu an istemcide yok ama ileride eklenirse
-    // DeepSeek'in görsel desteği garanti değil — burada şimdiden Gemini'ye
-    // yönlendirilir.
+    // DeepSeek HER ZAMAN birinci önceliktir (kullanıcı talimatı) — tek istisna
+    // görsel ek (resim) içeren mesajlardır, çünkü DeepSeek bu SDK entegrasyonunda
+    // görsel giriş desteklemiyor (yetenek kısıtı, tercih değil); o durumda Gemini
+    // önce denenir. search_market_news artık tüm sağlayıcılara açık olduğu için
+    // (bkz. toolsForProvider) haber niyeti tespiti artık sıralamayı etkilemiyor.
     function pickPrimaryProvider(msgs: any[]): { primary: "deepseek" | "google"; reason: string } {
       const last = [...msgs].reverse().find((m: any) => m.role === "user");
       const hasAttachment = Array.isArray(last?.experimental_attachments) && last.experimental_attachments.length > 0;
       if (hasAttachment) return { primary: "google", reason: "multimodal_attachment" };
-      const content = typeof last?.content === "string" ? last.content.toLowerCase() : "";
-      if (NEWS_INTENT_TRIGGERS.some((t) => content.includes(t))) return { primary: "google", reason: "web_search_intent" };
-      return { primary: "deepseek", reason: "routine_chat_or_analysis" };
+      return { primary: "deepseek", reason: "deepseek_always_first" };
     }
 
     const userId = user.id;
@@ -740,15 +725,14 @@ export async function POST(req: NextRequest) {
       } catch {}
     };
 
-    // Ekonomik yönlendirme: rutin sohbet/uzun analiz → DeepSeek (deepseek-v4-flash,
-    // en ucuz sürüm, 1M context — uzun analiz akışları için bol pay). Web araması
-    // veya (ileride) multimodal görevler → Gemini. Üçüncü katman her zaman
-    // Claude Haiku'dur (son çare) — hangi provider birincil olursa olsun.
-    // Google zaman zaman model adlarını deprecate ediyor (bugün ikinci kez:
-    // sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not found" hatası verdi
-    // — bkz. Vercel production logları), bu yüzden tek bir sağlayıcıya/isme
-    // güvenmek yerine tükenene kadar dener; bu sınıf hata bir daha tüm
-    // Copilot'u kesintiye uğratmasın diye.
+    // Sağlayıcı önceliği (kullanıcı talimatı): DeepSeek HER ZAMAN birinci —
+    // tek istisna görsel ekli mesajlar (DeepSeek görsel desteklemiyor, bu
+    // durumda Gemini önce denenir). DeepSeek başarısız olursa (kota, geçici
+    // hata, geçersiz key vb.) sırayla Gemini varyantları, en son Claude Haiku
+    // denenir — üçünden hiçbiri çalışmazsa kullanıcıya nazik bir hata döner.
+    // Google zaman zaman model adlarını deprecate ediyor (bkz. Vercel
+    // production logları), bu yüzden tek bir isme güvenmek yerine birden
+    // fazla Gemini varyantı sırayla denenir.
     const DEEPSEEK_CANDIDATE = { providerKey: "deepseek" as const, provider: deepseekProvider, modelName: "deepseek-v4-flash" };
     const GEMINI_CANDIDATES = [
       { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-flash-latest" },
