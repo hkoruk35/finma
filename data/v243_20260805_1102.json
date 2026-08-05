@@ -1,0 +1,32 @@
+{
+  "version": "v243",
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T11:02:30.927341-04:00",
+  "vix": 16.309999465942383,
+  "dte_range": "1-30",
+  "atm_strikes": 5,
+  "earnings_hard_block_days": 14,
+  "active_sectors": [
+    "SMH",
+    "XLK",
+    "XLC",
+    "XLV",
+    "XLE",
+    "XLF",
+    "ARKK"
+  ],
+  "regime": {
+    "regime": "bull",
+    "score": 85,
+    "qqq_5d": 9.32,
+    "qqq_20d": 1.69,
+    "qqq_above_ema20": true,
+    "spy_gap_pct": 0.59,
+    "spy_gap_up": true,
+    "spy_gap_down": false
+  },
+  "universe_size": 868,
+  "scan_duration_sec": 140.9965705871582,
+  "total_candidates": 0,
+  "picks": []
+}
