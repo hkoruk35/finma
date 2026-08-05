@@ -254,15 +254,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/95 backdrop-blur-md sticky top-0 z-50">
-        <div className="w-full max-w-[1800px] mx-auto pl-1 pr-3 sm:px-3 h-20 flex items-center justify-between gap-2 relative">
+        <div className="w-full max-w-[1800px] mx-auto pl-1 pr-3 sm:px-3 h-14 sm:h-20 flex items-center justify-between gap-2 relative">
           <Link
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
           >
-            <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-[72px] w-auto" priority />
+            <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-9 sm:h-[72px] w-auto" priority />
           </Link>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-visible">
+          <div className="flex items-center gap-1 sm:gap-2 min-w-0 overflow-x-auto scrollbar-hide">
             {/* Mobilde kompakt dil seçici */}
             {locale && (
               <div className="relative sm:hidden">
