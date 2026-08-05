@@ -254,7 +254,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/95 backdrop-blur-md sticky top-0 z-50">
-        <div className="w-full max-w-[1800px] mx-auto px-3 h-20 flex items-center justify-between gap-2 relative">
+        <div className="w-full max-w-[1800px] mx-auto pl-1 pr-3 sm:px-3 h-20 flex items-center justify-between gap-2 relative">
           <Link
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
