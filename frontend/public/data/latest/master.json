@@ -1,8 +1,8 @@
 {
   "date": "2026-08-05",
-  "generated_at": "2026-08-05T09:09:49.938185-04:00",
+  "generated_at": "2026-08-05T14:03:33.127926-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 26,
+  "active_scores_count": 35,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,9 +21,8 @@
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 14,
       "tickers": [
-        "WY",
         "ARE",
         "SIRI",
         "M",
@@ -60,7 +59,7 @@
   "top_3_overall": [
     {
       "ticker": "WY",
-      "score": 53.0,
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -76,25 +75,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 771.7,
-      "change_pct": 0.05
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 721.0399,
-      "change_pct": -0.39
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 545.17,
-      "change_pct": 0.88
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.89,
-      "change_pct": -3.7
-    },
-    "RUSSELL2000": {
-      "value": 301.09,
-      "change_pct": -0.21
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-05T14:01:33.873550-04:00"
+  }
 }
