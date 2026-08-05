@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05T09:09:52.514877-04:00",
+  "generated_at": "2026-08-05T14:03:36.344005-04:00",
   "picks": [
     {
       "ticker": "SNOW",
@@ -18,12 +18,6 @@
       "sector": "Financial Services",
       "date_added": "2026-08-03",
       "score": 43.5
-    },
-    {
-      "ticker": "TTEK",
-      "sector": "Industrials",
-      "date_added": "2026-08-03",
-      "score": 43.0
     },
     {
       "ticker": "CRI",
@@ -68,12 +62,6 @@
       "score": 42.5
     },
     {
-      "ticker": "CP",
-      "sector": "Industrials",
-      "date_added": "2026-08-04",
-      "score": 39.0
-    },
-    {
       "ticker": "AXP",
       "sector": "Financial Services",
       "date_added": "2026-08-04",
@@ -84,18 +72,6 @@
       "sector": "Technology",
       "date_added": "2026-08-04",
       "score": 48.5
-    },
-    {
-      "ticker": "M",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-04",
-      "score": 51.0
-    },
-    {
-      "ticker": "ILMN",
-      "sector": "Healthcare",
-      "date_added": "2026-08-04",
-      "score": 50.0
     },
     {
       "ticker": "RUSHA",
@@ -140,16 +116,64 @@
       "score": 44.5
     },
     {
-      "ticker": "NBR",
-      "sector": "Energy",
+      "ticker": "CSCO",
+      "sector": "Technology",
       "date_added": "2026-08-05",
-      "score": 43.0
+      "score": 51.0
     },
     {
-      "ticker": "SHIP",
+      "ticker": "PLXS",
+      "sector": "Technology",
+      "date_added": "2026-08-05",
+      "score": 50.0
+    },
+    {
+      "ticker": "NVT",
       "sector": "Industrials",
       "date_added": "2026-08-05",
-      "score": 36.0
+      "score": 50.0
+    },
+    {
+      "ticker": "ANET",
+      "sector": "Technology",
+      "date_added": "2026-08-05",
+      "score": 48.0
+    },
+    {
+      "ticker": "GIL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-05",
+      "score": 47.0
+    },
+    {
+      "ticker": "UNP",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 46.5
+    },
+    {
+      "ticker": "R",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 46.0
+    },
+    {
+      "ticker": "GEV",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 45.0
+    },
+    {
+      "ticker": "CMPR",
+      "sector": "Industrials",
+      "date_added": "2026-08-05",
+      "score": 44.0
+    },
+    {
+      "ticker": "PRCH",
+      "sector": "Financial Services",
+      "date_added": "2026-08-05",
+      "score": 38.0
     }
   ]
 }
