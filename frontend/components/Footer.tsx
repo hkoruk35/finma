@@ -108,10 +108,8 @@ export default function Footer({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <Link href={`/global/${locale ?? "en"}`} className="flex flex-col items-start mb-3 group w-fit">
-              <span className="text-lg tracking-tight font-medium">
-                <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
-              </span>
+            <Link href={`/global/${locale ?? "en"}`} className="flex items-start mb-3 group w-fit">
+              <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-8 w-auto" />
             </Link>
             <p className="text-xs text-[#00d2ff] mb-3">
               {BRAND_TAGLINE[locale ?? "en"]}

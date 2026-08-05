@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
@@ -258,12 +259,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
           >
-            <div className="flex flex-col items-start">
-              <span className="text-xl tracking-tight font-medium">
-                <span className="text-[#3b82f6]">Boga</span>
-                <span className="text-white font-medium">Stock</span>
-              </span>
-            </div>
+            <Image src="/logo/boga_stock.png" alt="BogaStock" width={195} height={61} className="h-9 w-auto" priority />
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 max-w-full overflow-visible">
