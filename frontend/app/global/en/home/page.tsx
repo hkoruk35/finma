@@ -202,13 +202,10 @@ export default async function EnHomePage() {
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
-            <p className="text-[11px] text-white/40">
-              Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
+            <p className="text-[10px] font-normal text-white/40">
+              Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
             </p>
           )}
-          <p className="text-[10px] text-white/25 max-w-xl">
-            Data is analyzed from sources delayed by 15 minutes. This page updates hourly on days the market is open.
-          </p>
         </div>
       </main>
 

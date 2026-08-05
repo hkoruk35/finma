@@ -202,13 +202,10 @@ export default async function EsHomePage() {
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
-            <p className="text-[11px] text-white/40">
-              Última actualización: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
+            <p className="text-[10px] font-normal text-white/40">
+              Última actualización: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
             </p>
           )}
-          <p className="text-[10px] text-white/25 max-w-xl">
-            Los datos se analizan a partir de fuentes con un retraso de 15 minutos. Esta página se actualiza cada hora los días en que el mercado está abierto.
-          </p>
         </div>
       </main>
 

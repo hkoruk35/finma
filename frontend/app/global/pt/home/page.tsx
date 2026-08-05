@@ -202,13 +202,10 @@ export default async function PtHomePage() {
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
-            <p className="text-[11px] text-white/40">
-              Última atualização: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
+            <p className="text-[10px] font-normal text-white/40">
+              Última atualização: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
             </p>
           )}
-          <p className="text-[10px] text-white/25 max-w-xl">
-            Os dados são analisados a partir de fontes com atraso de 15 minutos. Esta página é atualizada de hora em hora nos dias em que o mercado está aberto.
-          </p>
         </div>
       </main>
 

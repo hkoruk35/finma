@@ -203,13 +203,10 @@ export default async function TrHomePage() {
         {/* Güncelleme bilgisi */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
-            <p className="text-[11px] text-white/40">
-              Son güncelleme: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
+            <p className="text-[10px] font-normal text-white/40">
+              Son güncelleme: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
             </p>
           )}
-          <p className="text-[10px] text-white/25 max-w-xl">
-            Veriler 15 dakika gecikmeli kaynaklardan analiz edilir. Sayfa, borsanın açık olduğu günlerde saat başı güncellenir.
-          </p>
         </div>
       </main>
 
