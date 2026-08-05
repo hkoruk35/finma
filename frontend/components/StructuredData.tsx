@@ -21,7 +21,7 @@ export default function StructuredData() {
       "name": "BOGA AI",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://bogastock.com/finmawave.png"
+        "url": "https://bogastock.com/logo/boga_stock_icon.png"
       }
     }
   };

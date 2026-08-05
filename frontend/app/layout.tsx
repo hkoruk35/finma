@@ -70,10 +70,10 @@ export const metadata: Metadata = {
     siteName: "BOGASTOCK Terminal",
     images: [
       {
-        url: "/finmawave.png",
-        width: 1200,
-        height: 630,
-        alt: "BOGASTOCK Terminal",
+        url: "/logo/boga_stock_icon.png",
+        width: 2000,
+        height: 2000,
+        alt: "BogaStock",
       },
     ],
     locale: "en_US",
@@ -83,15 +83,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
-    images: ["/finmawave.png"],
+    images: ["/logo/boga_stock_icon.png"],
   },
   icons: {
     icon: [
-      { url: "/favicon.png?v=2" },
-      { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230a0e17' width='100' height='100'/%3E%3Cpath d='M30 60 Q40 30 50 60 T70 60' stroke='%233b82f6' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='50' y1='60' x2='50' y2='85' stroke='%233b82f6' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E", type: "image/svg+xml" }
+      { url: "/logo/boga_stock_icon.png", type: "image/png" }
     ],
     apple: [
-      { url: "/finmawave.png", sizes: "180x180", type: "image/png" }
+      { url: "/logo/boga_stock_icon.png", sizes: "180x180", type: "image/png" }
     ],
   },
   manifest: "/manifest.json",

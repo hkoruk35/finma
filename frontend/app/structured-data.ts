@@ -30,7 +30,7 @@ export const getOrganizationStructuredData = () => {
     "name": "BOGA AI - Blue One Global Analysis",
     "alternateName": "BOGA",
     "url": "https://bogastock.com",
-    "logo": "https://bogastock.com/finmawave.png",
+    "logo": "https://bogastock.com/logo/boga_stock_icon.png",
     "description": "AI-powered stock analysis platform providing daily trading signals and technical analysis",
     "foundingDate": "2023",
     "contactPoint": {
@@ -51,7 +51,7 @@ export const getArticleStructuredData = (title: string, description: string, dat
     "@type": "NewsArticle",
     "headline": title,
     "description": description,
-    "image": "https://bogastock.com/finmawave.png",
+    "image": "https://bogastock.com/logo/boga_stock_icon.png",
     "datePublished": datePublished,
     "author": {
       "@type": "Organization",
@@ -62,7 +62,7 @@ export const getArticleStructuredData = (title: string, description: string, dat
       "name": "BOGA AI",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://bogastock.com/finmawave.png"
+        "url": "https://bogastock.com/logo/boga_stock_icon.png"
       }
     }
   };

@@ -21,9 +21,9 @@ export const SEO_CONFIG = {
     "stock watchlist",
   ],
   image: {
-    url: "https://bogastock.com/finmawave.png",
-    width: 1200,
-    height: 630,
+    url: "https://bogastock.com/logo/boga_stock_icon.png",
+    width: 2000,
+    height: 2000,
     alt: "BOGA AI - Blue One Global Analysis",
   },
   socialProfiles: {

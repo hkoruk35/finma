@@ -29,7 +29,7 @@ async function loadFont(): Promise<Buffer> {
 let logoCache: string | null = null;
 async function loadLogoDataUri(): Promise<string> {
   if (logoCache) return logoCache;
-  const buf = await fs.readFile(path.join(process.cwd(), "public", "favicon.png"));
+  const buf = await fs.readFile(path.join(process.cwd(), "public", "logo", "boga_stock_icon.png"));
   logoCache = `data:image/png;base64,${buf.toString("base64")}`;
   return logoCache;
 }

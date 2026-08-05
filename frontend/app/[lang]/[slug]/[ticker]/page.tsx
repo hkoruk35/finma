@@ -90,7 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
       description: summary.slice(0, 160),
       url: `https://bogastock.com/${lang}/${slug}/${ticker}`,
-      images: [{ url: "https://bogastock.com/finmawave.png", width: 1200, height: 630 }],
+      images: [{ url: "https://bogastock.com/logo/boga_stock_icon.png", width: 1200, height: 630 }],
     },
   };
 }
@@ -136,7 +136,7 @@ export default async function LangAnalysisPage({ params }: Props) {
     "@type": "Article",
     headline: `${pick.ticker} — ${pick.company}`,
     author: { "@type": "Organization", name: "BOGA AI" },
-    publisher: { "@type": "Organization", name: "BOGA AI", logo: { "@type": "ImageObject", url: "https://bogastock.com/finmawave.png" } },
+    publisher: { "@type": "Organization", name: "BOGA AI", logo: { "@type": "ImageObject", url: "https://bogastock.com/logo/boga_stock_icon.png" } },
     datePublished: dateStr,
     description: summary,
     url: `https://bogastock.com/${lang}/${slug}/${ticker}`,
