@@ -1,8 +1,8 @@
 {
   "date": "2026-08-04",
-  "generated_at": "2026-08-04T14:03:28.236580-04:00",
+  "generated_at": "2026-08-04T17:03:33.462179-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 41,
+  "active_scores_count": 48,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 19,
+      "count": 21,
       "tickers": [
         "HPQ",
         "CSCO",
@@ -41,7 +41,9 @@
         "SIRI",
         "M",
         "LNC",
-        "FFIV"
+        "FFIV",
+        "SKYW",
+        "RDVT"
       ]
     },
     "value": {

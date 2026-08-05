@@ -62,8 +62,8 @@
       "sector": "Technology",
       "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 7.559999942779541,
-      "change_pct": 2.02,
+      "price": 7.730000019073486,
+      "change_pct": 3.34,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
     },
@@ -117,8 +117,8 @@
       "sector": "Energy",
       "master_score": 55.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 60.810001373291016,
-      "change_pct": 0.53,
+      "price": 61.72999954223633,
+      "change_pct": 1.51,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
     },
@@ -126,12 +126,12 @@
       "ticker": "LXFR",
       "company": "LXFR",
       "sector": "Industrials",
-      "master_score": 61.0,
+      "master_score": 59.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 17.075000762939453,
-      "change_pct": 0.26,
+      "price": 17.059999465942383,
+      "change_pct": -0.47,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
     },
     {
       "ticker": "PAYX",
@@ -451,6 +451,83 @@
       "change_pct": 0.33,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 50.0 | System: SPRING"
+    },
+    {
+      "ticker": "BBVA",
+      "company": "BBVA",
+      "sector": "Financial Services",
+      "master_score": 59.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 28.1200008392334,
+      "change_pct": -0.85,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WAB",
+      "company": "WAB",
+      "sector": "Industrials",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 299.07000732421875,
+      "change_pct": 0.88,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ESI",
+      "company": "ESI",
+      "sector": "Basic Materials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 38.88999938964844,
+      "change_pct": 3.18,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SKYW",
+      "company": "SKYW",
+      "sector": "Industrials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 114.91999816894531,
+      "change_pct": 3.18,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "HAYW",
+      "company": "HAYW",
+      "sector": "Industrials",
+      "master_score": 52.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 16.09000015258789,
+      "change_pct": 3.94,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: EMA_CROSS"
+    },
+    {
+      "ticker": "DOV",
+      "company": "DOV",
+      "sector": "Industrials",
+      "master_score": 52.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 209.92999267578125,
+      "change_pct": 2.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RDVT",
+      "company": "RDVT",
+      "sector": "Technology",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 69.7300033569336,
+      "change_pct": 1.65,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
     }
   ]
 }
