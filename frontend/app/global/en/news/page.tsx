@@ -37,10 +37,7 @@ export default async function EnNewsPage() {
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">
           <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">@bogastock on X</p>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Market News & AI Analysis</h1>
-          <p className="text-slate-400 max-w-xl mx-auto">
-            A public feed of every AI-generated stock analysis BOGA AI has posted in English.
-          </p>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Current Stock Analysis</h1>
         </div>
 
         <NewsFeed posts={posts} locale="en" />

@@ -37,10 +37,7 @@ export default async function TrNewsPage() {
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">
           <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">X'te @bogastock</p>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Piyasa Haberleri & AI Analiz</h1>
-          <p className="text-slate-400 max-w-xl mx-auto">
-            BOGA AI'nin Türkçe paylaştığı tüm AI destekli hisse analizlerinin yer aldığı herkese açık akış.
-          </p>
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Güncel Hisse Analizleri</h1>
         </div>
 
         <NewsFeed posts={posts} locale="tr" />

@@ -2,12 +2,12 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { getPublicPosts } from "@/lib/x/publicPosts";
 
-const STRINGS: Record<Locale, { title: string; subtitle: string; all: string; empty: string }> = {
-  tr: { title: "Son Analizler", subtitle: "BOGA AI'nin son hisse analizleri", all: "TÜMÜ", empty: "Henüz analiz yok." },
-  en: { title: "Latest Analysis", subtitle: "BOGA AI's most recent stock analyses", all: "ALL", empty: "No analysis yet." },
-  es: { title: "Últimos Análisis", subtitle: "Los análisis bursátiles más recientes de BOGA AI", all: "TODO", empty: "Aún no hay análisis." },
-  fr: { title: "Dernières Analyses", subtitle: "Les analyses boursières les plus récentes de BOGA AI", all: "TOUT", empty: "Pas encore d'analyse." },
-  pt: { title: "Últimas Análises", subtitle: "As análises de ações mais recentes da BOGA AI", all: "TODOS", empty: "Ainda sem análises." },
+const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
+  tr: { title: "Hisse Analizleri", all: "TÜMÜ", empty: "Henüz analiz yok." },
+  en: { title: "Stock Analysis", all: "ALL", empty: "No analysis yet." },
+  es: { title: "Análisis de Acciones", all: "TODO", empty: "Aún no hay análisis." },
+  fr: { title: "Analyses d'Actions", all: "TOUT", empty: "Pas encore d'analyse." },
+  pt: { title: "Análises de Ações", all: "TODOS", empty: "Ainda sem análises." },
 };
 
 function formatDate(iso: string, locale: Locale): string {
@@ -34,7 +34,6 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
           <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
           <div className="min-w-0">
             <h3 className="text-[16px] font-bold uppercase tracking-tight text-[#3b82f6] truncate">{t.title}</h3>
-            <p className="text-[11px] text-slate-500 truncate">{t.subtitle}</p>
           </div>
         </div>
         <Link
@@ -55,9 +54,6 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
             href={newsHref}
             className="flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
           >
-            <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wide">
-              <span className="text-[#3b82f6]">{post.ticker ?? "BOGASTOCK"}</span>
-            </div>
             {post.content_text && (
               <p className="text-white text-[13px] leading-snug font-medium line-clamp-2">{post.content_text}</p>
             )}
@@ -70,7 +66,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
                 className="w-full rounded-lg border border-white/10 mt-1"
               />
             )}
-            <time dateTime={post.posted_at} className="text-[10px] text-slate-500 mt-1">
+            <time dateTime={post.posted_at} className="text-[11px] text-slate-500 mt-1">
               {formatDate(post.posted_at, locale)}
             </time>
           </Link>
