@@ -388,7 +388,13 @@ export default function CopilotDrawer() {
     }
   };
 
-  const quotaExhausted = !!usage && usage.hasAccess && !usage.unlimited && (usage.monthlyCredits + usage.topupCredits) < 1;
+  const quotaExhausted =
+    !!usage &&
+    usage.hasAccess &&
+    !usage.unlimited &&
+    (usage.tier === "free"
+      ? (usage.dailyUsed ?? 0) >= (usage.dailyLimit ?? 10) && usage.topupCredits < 1
+      : usage.monthlyCredits + usage.topupCredits < 1);
   const noAccess = !!usage && !usage.hasAccess;
   const inputDisabled = isAuthenticated ? (isLoading || quotaExhausted || noAccess) : demoLoading;
 
@@ -1317,7 +1323,12 @@ export default function CopilotDrawer() {
           {isAuthenticated && usage && usage.hasAccess && !usage.unlimited && (
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="text-[10px] text-gray-500 font-mono">
-                {ct("creditsRemaining", activeLocale, { n: usage.monthlyCredits + usage.topupCredits })}
+                {usage.tier === "free"
+                  ? ct("requestsLeft", activeLocale, {
+                      n: Math.max(0, (usage.dailyLimit ?? 10) - (usage.dailyUsed ?? 0)),
+                      limit: usage.dailyLimit ?? 10,
+                    })
+                  : ct("creditsRemaining", activeLocale, { n: usage.monthlyCredits + usage.topupCredits })}
               </span>
               {quotaExhausted && (
                 <button

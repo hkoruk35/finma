@@ -21,6 +21,9 @@ export interface UsageState {
   topupCredits: number;
   unlimited: boolean;
   hasAccess: boolean;
+  tier?: "free" | "premium" | "admin";
+  dailyUsed?: number;
+  dailyLimit?: number;
 }
 
 export interface ProfileState {

@@ -334,21 +334,47 @@ export async function POST(req: NextRequest) {
     const accessMode: "member" | "expired_member" =
       access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
 
-    // Kredi kontrolü — iki ayrı sistem: free tier günlük sabit kota
-    // (user_credits/get_copilot_credit_status, 0015_copilot.sql — bugüne
-    // kadar main'de hiç çağrılmayan, canlandırılan tablo), premium/admin ise
-    // mevcut aylık kredi havuzu (0020_usage_credits.sql). Asil dusum (free:
-    // increment_copilot_credit, premium: consume_credits) onFinish'te, gercek
-    // yanit uretildikten sonra yapilir.
+    // Kullanım limitleri (kullanıcı talimatı, 2026-08-05 plan):
+    // - Free: Trend/Theme sayfalarında sınırsız; diğer her yerde günlük 10
+    //   sorgu. 10 dolunca, satın alınmış top-up kredisi varsa (9 USD/100
+    //   kredi) ondan düşülerek devam eder — Premier özellikler yine kilitli
+    //   kalır (isPremiumTier zaten sadece tier'a bakar, topup'tan etkilenmez).
+    // - Premium/Admin: admin muaf. Premium'da adil kullanım (FAU) günlük 150
+    //   sorgu, kayan 120 dakikalık pencerede sayılır; 150'ye ulaşınca 120 dk
+    //   cooldown (pencereden en eski kayıt düşene kadar otomatik açılır).
+    const FREE_DAILY_LIMIT = 10;
+    const PREMIUM_FAU_LIMIT = 150;
+    const PREMIUM_FAU_WINDOW_MIN = 120;
+    const isExemptFreePage =
+      pageContext?.activeTheme != null ||
+      pageContext?.activeListContext?.listKey === "trend_list" ||
+      pageContext?.activeListContext?.listKey === "trend_candidate_watchlist";
+    let freeTierUsesTopup = false;
+
     if (tier === "free") {
-      const { data: creditStatus } = await supabaseAdmin
-        .rpc("get_copilot_credit_status", { p_user_id: user.id, p_default_limit: 5 })
-        .single<{ current_usage: number; daily_limit: number }>();
-      if (creditStatus && creditStatus.current_usage >= creditStatus.daily_limit) {
-        return NextResponse.json(
-          { error: ct("quotaExhausted", locale, { limit: creditStatus.daily_limit }), code: "INSUFFICIENT_CREDITS" },
-          { status: 402 }
-        );
+      if (!isExemptFreePage) {
+        const { data: creditStatus } = await supabaseAdmin
+          .rpc("get_copilot_credit_status", { p_user_id: user.id, p_default_limit: FREE_DAILY_LIMIT })
+          .single<{ current_usage: number; daily_limit: number }>();
+        if (creditStatus && creditStatus.current_usage >= creditStatus.daily_limit) {
+          const { data: memberRow } = await supabaseAdmin
+            .from("members")
+            .select("topup_credit_balance")
+            .eq("id", user.id)
+            .single<{ topup_credit_balance: number }>();
+          if (!memberRow || memberRow.topup_credit_balance < 1) {
+            return NextResponse.json(
+              {
+                error: ct("freeQuotaExhausted", locale, { limit: creditStatus.daily_limit }),
+                code: "INSUFFICIENT_CREDITS",
+                topup_url: "/api/members/credits/topup-checkout",
+              },
+              { status: 402 }
+            );
+          }
+          // Günlük 10 doldu ama top-up kredisi var — ondan düşülerek devam eder.
+          freeTierUsesTopup = true;
+        }
       }
     } else if (access.plan !== "admin") {
       // En ucuz sorgu tipinin (Fast Answer = 1 kredi) maliyetini bile
@@ -363,20 +389,31 @@ export async function POST(req: NextRequest) {
           { status: 402 }
         );
       }
-      // Günlük 60 kredi tavanı — otomasyon/kötüye kullanım bariyeri, gerçek
-      // kullanıcı davranışının çok üzerinde, credit_logs zaten zaman
-      // damgalı olduğu için yeni bir tablo gerekmiyor (bkz. Faz 5).
-      const todayStart = new Date();
-      todayStart.setUTCHours(0, 0, 0, 0);
-      const { data: todayLogs } = await supabaseAdmin
+      // Adil kullanım (FAU): kayan 120 dakikalık pencerede 150 sorgu tavanı —
+      // otomasyon/kötüye kullanım bariyeri, gerçek kullanıcı davranışının
+      // çok üzerinde. Pencerenin en eski kaydı 120 dk'yı geçince otomatik
+      // olarak tekrar alan açılır (sabit gece yarısı sıfırlaması değil).
+      const windowStart = new Date(Date.now() - PREMIUM_FAU_WINDOW_MIN * 60 * 1000);
+      const { data: recentLogs } = await supabaseAdmin
         .from("credit_logs")
-        .select("credits_deducted")
+        .select("created_at")
         .eq("user_id", user.id)
-        .gte("created_at", todayStart.toISOString());
-      const usedToday = (todayLogs ?? []).reduce((s: number, r: any) => s + (r.credits_deducted ?? 0), 0);
-      if (usedToday >= 60) {
+        .gte("created_at", windowStart.toISOString())
+        .order("created_at", { ascending: true });
+      const recentCount = recentLogs?.length ?? 0;
+      if (recentCount >= PREMIUM_FAU_LIMIT) {
+        const oldest = new Date(recentLogs![0].created_at);
+        const resetAt = new Date(oldest.getTime() + PREMIUM_FAU_WINDOW_MIN * 60 * 1000);
+        const remainingMs = Math.max(0, resetAt.getTime() - Date.now());
+        const hh = String(Math.floor(remainingMs / 3600000)).padStart(2, "0");
+        const mm = String(Math.floor((remainingMs % 3600000) / 60000)).padStart(2, "0");
+        const ss = String(Math.floor((remainingMs % 60000) / 1000)).padStart(2, "0");
         return NextResponse.json(
-          { error: ct("quotaExhausted", locale, { limit: 60 }), code: "DAILY_CEILING_REACHED" },
+          {
+            error: ct("premiumCooldownActive", locale, { time: `${hh}:${mm}:${ss}` }),
+            code: "FAIR_USE_COOLDOWN",
+            resetAt: resetAt.toISOString(),
+          },
           { status: 402 }
         );
       }
@@ -694,7 +731,16 @@ export async function POST(req: NextRequest) {
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
         if (tier === "free") {
-          await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
+          // Trend/Theme sayfalarında (isExemptFreePage) sınırsız — hiçbir
+          // sayaç düşürülmez. Günlük 10 dolup top-up'tan devam edildiyse
+          // (freeTierUsesTopup) topup_credit_balance'tan düşülür.
+          if (!isExemptFreePage) {
+            if (freeTierUsesTopup) {
+              await supabaseAdmin.rpc("consume_credits", { p_user_id: userId, p_amount: 1, p_query_type: "FAST_ANSWER" });
+            } else {
+              await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
+            }
+          }
         } else if (access.plan !== "admin") {
           const isDeepResearch = Array.isArray(toolCalls) && toolCalls.some((tc: any) => tc.toolName === "get_deep_analysis");
           await supabaseAdmin.rpc("consume_credits", {
