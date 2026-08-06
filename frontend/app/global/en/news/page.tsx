@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import NewsFeed from "@/components/public/NewsFeed";
 import { getPublicPosts } from "@/lib/x/publicPosts";
@@ -32,9 +32,9 @@ export default async function EnNewsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} globalLocale="en" />
+      <MemberHeader locale="en" />
 
-      <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-16">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">
           <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">@bogastock on X</p>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Market News & AI Analysis</h1>

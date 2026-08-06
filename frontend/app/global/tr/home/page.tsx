@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
+import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -189,6 +190,10 @@ export default async function TrHomePage() {
             {/* Piyasalar Sekmesi — Arama Çubuğunun Hemen Altında */}
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
+            </div>
+
+            <div className="mt-4">
+              <HomeLatestAnalysis locale="tr" />
             </div>
 
             <div className="mt-4">

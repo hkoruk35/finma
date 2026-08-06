@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
+import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -188,6 +189,10 @@ export default async function PtHomePage() {
 
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="pt" />
+            </div>
+
+            <div className="mt-4">
+              <HomeLatestAnalysis locale="pt" />
             </div>
 
             <div className="mt-4">
