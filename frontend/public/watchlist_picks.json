@@ -1,30 +1,6 @@
 {
-  "generated_at": "2026-08-06T14:03:02.877654-04:00",
+  "generated_at": "2026-08-06T17:03:11.597325-04:00",
   "picks": [
-    {
-      "ticker": "RPM",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-04",
-      "score": 41.0
-    },
-    {
-      "ticker": "ANET",
-      "sector": "Technology",
-      "date_added": "2026-08-05",
-      "score": 49.5
-    },
-    {
-      "ticker": "FDS",
-      "sector": "Financial Services",
-      "date_added": "2026-08-05",
-      "score": 51.0
-    },
-    {
-      "ticker": "AVY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-06",
-      "score": 48.5
-    },
     {
       "ticker": "SAP",
       "sector": "Technology",
@@ -38,28 +14,28 @@
       "score": 46.0
     },
     {
-      "ticker": "KFRC",
-      "sector": "Industrials",
-      "date_added": "2026-08-06",
-      "score": 49.0
-    },
-    {
-      "ticker": "BKNG",
-      "sector": "Consumer Cyclical",
+      "ticker": "TENB",
+      "sector": "Technology",
       "date_added": "2026-08-06",
       "score": 48.0
     },
     {
-      "ticker": "FFIV",
-      "sector": "Technology",
+      "ticker": "WST",
+      "sector": "Healthcare",
       "date_added": "2026-08-06",
-      "score": 46.5
+      "score": 45.5
     },
     {
-      "ticker": "SAN",
-      "sector": "Financial Services",
+      "ticker": "FSLR",
+      "sector": "Technology",
       "date_added": "2026-08-06",
-      "score": 39.0
+      "score": 44.0
+    },
+    {
+      "ticker": "STX",
+      "sector": "Technology",
+      "date_added": "2026-08-06",
+      "score": 38.5
     }
   ]
 }
