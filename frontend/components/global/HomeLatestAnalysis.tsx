@@ -33,7 +33,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
           <div className="min-w-0">
-            <h3 className="text-[16px] font-bold uppercase tracking-tight text-[#3b82f6] truncate">{t.title}</h3>
+            <h3 className="text-[16px] font-bold tracking-tight text-[#3b82f6] truncate">{t.title}</h3>
           </div>
         </div>
         <Link
@@ -66,7 +66,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
                 className="w-full rounded-lg border border-white/10 mt-1"
               />
             )}
-            <time dateTime={post.posted_at} className="text-[11px] text-slate-500 mt-1">
+            <time dateTime={post.posted_at} className="text-[9px] text-slate-500 mt-1">
               {formatDate(post.posted_at, locale)}
             </time>
           </Link>

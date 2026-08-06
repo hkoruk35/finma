@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -14,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK AI — Plataforma de Análisis Bursátil y Decisiones de Inversión con IA",
-  description: "Descubra análisis técnico impulsado por IA para acciones de EE. UU., índices, sectores, divisas, materias primas y criptoactivos en BOGASTOCK AI.",
-  keywords: ["análisis de acciones de EE. UU.", "BOGASTOCK AI", "análisis técnico de acciones", "análisis de índices", "análisis de divisas", "análisis de materias primas", "IA para bolsa"],
+  title: "BogaStock — Plataforma de Análisis Bursátil y Decisiones de Inversión con IA",
+  description: "Descubra análisis técnico impulsado por IA para acciones de EE. UU., índices, sectores, divisas, materias primas y criptoactivos en BogaStock.",
+  keywords: ["análisis de acciones de EE. UU.", "BogaStock", "análisis técnico de acciones", "análisis de índices", "análisis de divisas", "análisis de materias primas", "IA para bolsa"],
   openGraph: {
-    title: "BOGASTOCK AI — Plataforma de Análisis Bursátil y Decisiones de Inversión con IA",
-    description: "Descubra análisis técnico impulsado por IA para acciones de EE. UU., índices, sectores, divisas, materias primas y criptoactivos en BOGASTOCK AI.",
+    title: "BogaStock — Plataforma de Análisis Bursátil y Decisiones de Inversión con IA",
+    description: "Descubra análisis técnico impulsado por IA para acciones de EE. UU., índices, sectores, divisas, materias primas y criptoactivos en BogaStock.",
     url: "https://bogastock.com/global/es/home",
     siteName: "BOGASTOCK Terminal",
     locale: "es_ES",
@@ -193,6 +194,10 @@ export default async function EsHomePage() {
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="es" />
+            </div>
+
+            <div className="mt-4">
+              <HomeUpcomingEarnings locale="es" />
             </div>
 
             <div className="mt-4">

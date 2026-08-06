@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -14,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
-  description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BOGASTOCK AI.",
-  keywords: ["analyse des actions US", "BOGASTOCK AI", "analyse technique boursière", "analyse des indices", "analyse des devises", "analyse des matières premières", "IA bourse"],
+  title: "BogaStock — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
+  description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BogaStock.",
+  keywords: ["analyse des actions US", "BogaStock", "analyse technique boursière", "analyse des indices", "analyse des devises", "analyse des matières premières", "IA bourse"],
   openGraph: {
-    title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
-    description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BOGASTOCK AI.",
+    title: "BogaStock — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
+    description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BogaStock.",
     url: "https://bogastock.com/global/fr/home",
     siteName: "BOGASTOCK Terminal",
     locale: "fr_FR",
@@ -193,6 +194,10 @@ export default async function FrHomePage() {
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="fr" />
+            </div>
+
+            <div className="mt-4">
+              <HomeUpcomingEarnings locale="fr" />
             </div>
 
             <div className="mt-4">

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -14,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK AI — AI-Powered Stock Market Analysis & Investment Decision Platform",
-  description: "Discover AI-powered technical chart analysis for U.S. stocks, indices, sectors, forex, commodities, and crypto assets on BOGASTOCK AI.",
-  keywords: ["US stock analysis", "BOGASTOCK AI", "stock technical analysis", "index analysis", "forex analysis", "commodity analysis", "crypto analysis", "AI stock market"],
+  title: "BogaStock — AI-Powered Stock Market Analysis & Investment Decision Platform",
+  description: "Discover AI-powered technical chart analysis for U.S. stocks, indices, sectors, forex, commodities, and crypto assets on BogaStock.",
+  keywords: ["US stock analysis", "BogaStock", "stock technical analysis", "index analysis", "forex analysis", "commodity analysis", "crypto analysis", "AI stock market"],
   openGraph: {
-    title: "BOGASTOCK AI — AI-Powered Stock Market Analysis & Investment Decision Platform",
-    description: "Discover AI-powered technical chart analysis for U.S. stocks, indices, sectors, forex, commodities, and crypto assets on BOGASTOCK AI.",
+    title: "BogaStock — AI-Powered Stock Market Analysis & Investment Decision Platform",
+    description: "Discover AI-powered technical chart analysis for U.S. stocks, indices, sectors, forex, commodities, and crypto assets on BogaStock.",
     url: "https://bogastock.com/global/en/home",
     siteName: "BOGASTOCK Terminal",
     locale: "en_US",
@@ -193,6 +194,10 @@ export default async function EnHomePage() {
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="en" />
+            </div>
+
+            <div className="mt-4">
+              <HomeUpcomingEarnings locale="en" />
             </div>
 
             <div className="mt-4">

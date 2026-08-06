@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -14,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK AI — Plataforma de Análise de Ações e Decisões de Investimento com IA",
-  description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BOGASTOCK AI.",
-  keywords: ["análise de ações dos EUA", "BOGASTOCK AI", "análise técnica de ações", "análise de índices", "análise de câmbio", "análise de commodities", "IA para bolsa de valores"],
+  title: "BogaStock — Plataforma de Análise de Ações e Decisões de Investimento com IA",
+  description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BogaStock.",
+  keywords: ["análise de ações dos EUA", "BogaStock", "análise técnica de ações", "análise de índices", "análise de câmbio", "análise de commodities", "IA para bolsa de valores"],
   openGraph: {
-    title: "BOGASTOCK AI — Plataforma de Análise de Ações e Decisões de Investimento com IA",
-    description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BOGASTOCK AI.",
+    title: "BogaStock — Plataforma de Análise de Ações e Decisões de Investimento com IA",
+    description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BogaStock.",
     url: "https://bogastock.com/global/pt/home",
     siteName: "BOGASTOCK Terminal",
     locale: "pt_BR",
@@ -193,6 +194,10 @@ export default async function PtHomePage() {
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="pt" />
+            </div>
+
+            <div className="mt-4">
+              <HomeUpcomingEarnings locale="pt" />
             </div>
 
             <div className="mt-4">

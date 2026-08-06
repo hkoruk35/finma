@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -14,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BogaStock AI — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
-  description: "BogaStock AI ile ABD hisseleri, endeksler, sektörler, döviz, emtia ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
-  keywords: ["ABD hisse analizi", "BogaStock AI", "hisse senedi teknik analiz", "endeks analizi", "döviz analizi", "emtia analizi", "kripto analizi", "yapay zeka borsa", "borsa grafik analiz"],
+  title: "BogaStock — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
+  description: "BogaStock ile ABD hisseleri, endeksler, sektörler, döviz, emtia ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
+  keywords: ["ABD hisse analizi", "BogaStock", "hisse senedi teknik analiz", "endeks analizi", "döviz analizi", "emtia analizi", "kripto analizi", "yapay zeka borsa", "borsa grafik analiz"],
   openGraph: {
-    title: "BogaStock AI — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
-    description: "BogaStock AI ile ABD hisseleri, endeksler, sektörler, döviz, emtia ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
+    title: "BogaStock — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
+    description: "BogaStock ile ABD hisseleri, endeksler, sektörler, döviz, emtia ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
     url: "https://bogastock.com/global/tr/home",
     siteName: "BogaStock Terminal",
     locale: "tr_TR",
@@ -194,6 +195,10 @@ export default async function TrHomePage() {
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="tr" />
+            </div>
+
+            <div className="mt-4">
+              <HomeUpcomingEarnings locale="tr" />
             </div>
 
             <div className="mt-4">

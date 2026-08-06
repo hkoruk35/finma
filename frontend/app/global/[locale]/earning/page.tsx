@@ -9,11 +9,11 @@ type Props = {
 };
 
 const TITLES: Record<Locale, string> = {
-  tr: "Bilançolar (Earnings) — BogaStock AI",
-  en: "Earnings — BogaStock AI",
-  es: "Resultados Financieros (Earnings) — BogaStock AI",
-  fr: "Résultats Financiers (Earnings) — BogaStock AI",
-  pt: "Resultados Financeiros (Earnings) — BogaStock AI",
+  tr: "Bilançolar (Earnings) — BogaStock",
+  en: "Earnings — BogaStock",
+  es: "Resultados Financieros (Earnings) — BogaStock",
+  fr: "Résultats Financiers (Earnings) — BogaStock",
+  pt: "Resultados Financeiros (Earnings) — BogaStock",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
