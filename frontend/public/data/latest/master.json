@@ -1,8 +1,8 @@
 {
   "date": "2026-08-06",
-  "generated_at": "2026-08-06T09:03:46.344337-04:00",
+  "generated_at": "2026-08-06T14:03:01.049615-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 29,
+  "active_scores_count": 36,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,12 +21,10 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 3,
       "tickers": [
         "TREX",
-        "ATRC",
         "IMO",
-        "RGEN",
         "NVST"
       ]
     },
@@ -55,7 +53,7 @@
     },
     {
       "ticker": "ATRC",
-      "score": 53.0,
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -66,25 +64,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 768.64,
-      "change_pct": -0.15
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 715.36,
-      "change_pct": -0.27
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 538.66,
-      "change_pct": -0.76
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.37,
-      "change_pct": -2.78
-    },
-    "RUSSELL2000": {
-      "value": 298.91,
-      "change_pct": -0.29
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-06T14:01:32.999724-04:00"
+  }
 }
