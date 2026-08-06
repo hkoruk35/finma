@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "KODK",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 9.59,
+        "entry_zone": "9.37 - 9.81",
+        "SL": 8.72,
+        "TP": 11.34
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "TVTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 64.18,
+        "entry_zone": "62.63 - 65.74",
+        "SL": 57.96,
+        "TP": 76.63
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "CMPS",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.53,
+        "entry_zone": "13.17 - 13.89",
+        "SL": 12.1,
+        "TP": 16.4
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "B",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 41.24,
+        "entry_zone": "40.55 - 41.93",
+        "SL": 38.5,
+        "TP": 46.72
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "AYA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 24.9,
+        "entry_zone": "24.17 - 25.63",
+        "SL": 21.96,
+        "TP": 30.78
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "DT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 48.52,
+        "entry_zone": "47.46 - 49.58",
+        "SL": 44.3,
+        "TP": 56.97
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "FRPT",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 67.62,
+        "entry_zone": "65.90 - 69.34",
+        "SL": 60.75,
+        "TP": 81.36
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "ZETA",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 25.64,
+        "entry_zone": "24.87 - 26.40",
+        "SL": 22.56,
+        "TP": 31.78
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "BKNG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 207.37,
+        "entry_zone": "203.42 - 211.32",
+        "SL": 191.57,
+        "TP": 238.97
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "SSRM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 28.83,
+        "entry_zone": "28.02 - 29.64",
+        "SL": 25.6,
+        "TP": 35.29
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "GFI",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 37.44,
+        "entry_zone": "36.73 - 38.15",
+        "SL": 34.58,
+        "TP": 43.15
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "AEM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 166.46,
+        "entry_zone": "163.39 - 169.53",
+        "SL": 154.19,
+        "TP": 191.0
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "WPM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 124.45,
+        "entry_zone": "122.17 - 126.73",
+        "SL": 115.32,
+        "TP": 142.72
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "TREX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 49.17,
+        "entry_zone": "48.09 - 50.25",
+        "SL": 44.85,
+        "TP": 55.65
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "GFF",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 105.41,
+        "entry_zone": "103.42 - 107.40",
+        "SL": 97.45,
+        "TP": 121.32
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "KGC",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 25.66,
+        "entry_zone": "25.14 - 26.18",
+        "SL": 23.6,
+        "TP": 29.79
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "AU",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 87.46,
+        "entry_zone": "85.47 - 89.45",
+        "SL": 79.52,
+        "TP": 103.35
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "KTOS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 57.84,
+        "entry_zone": "56.00 - 59.68",
+        "SL": 50.46,
+        "TP": 72.59
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "TWST",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 110.29,
+        "entry_zone": "106.01 - 114.57",
+        "SL": 93.18,
+        "TP": 144.52
+    },
+    {
+        "date": "2026-08-06 12:45",
+        "symbol": "MTRN",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 274.61,
+        "entry_zone": "264.18 - 285.04",
+        "SL": 232.9,
+        "TP": 358.03
+    }
+]
