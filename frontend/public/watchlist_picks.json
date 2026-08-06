@@ -1,29 +1,11 @@
 {
-  "generated_at": "2026-08-06T09:03:47.872229-04:00",
+  "generated_at": "2026-08-06T14:03:02.877654-04:00",
   "picks": [
-    {
-      "ticker": "TSM",
-      "sector": "Technology",
-      "date_added": "2026-08-04",
-      "score": 48.5
-    },
     {
       "ticker": "RPM",
       "sector": "Basic Materials",
       "date_added": "2026-08-04",
       "score": 41.0
-    },
-    {
-      "ticker": "SHW",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-05",
-      "score": 47.5
-    },
-    {
-      "ticker": "IOT",
-      "sector": "Technology",
-      "date_added": "2026-08-05",
-      "score": 50.0
     },
     {
       "ticker": "ANET",
@@ -32,28 +14,10 @@
       "score": 49.5
     },
     {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-05",
-      "score": 51.0
-    },
-    {
       "ticker": "FDS",
       "sector": "Financial Services",
       "date_added": "2026-08-05",
       "score": 51.0
-    },
-    {
-      "ticker": "BA",
-      "sector": "Industrials",
-      "date_added": "2026-08-05",
-      "score": 44.0
-    },
-    {
-      "ticker": "CCL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-06",
-      "score": 51.5
     },
     {
       "ticker": "AVY",
@@ -68,28 +32,34 @@
       "score": 47.5
     },
     {
-      "ticker": "PRKS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-06",
-      "score": 46.5
-    },
-    {
-      "ticker": "NVT",
-      "sector": "Industrials",
-      "date_added": "2026-08-06",
-      "score": 46.5
-    },
-    {
       "ticker": "GTES",
       "sector": "Industrials",
       "date_added": "2026-08-06",
       "score": 46.0
     },
     {
-      "ticker": "PRCH",
+      "ticker": "KFRC",
+      "sector": "Industrials",
+      "date_added": "2026-08-06",
+      "score": 49.0
+    },
+    {
+      "ticker": "BKNG",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-06",
+      "score": 48.0
+    },
+    {
+      "ticker": "FFIV",
+      "sector": "Technology",
+      "date_added": "2026-08-06",
+      "score": 46.5
+    },
+    {
+      "ticker": "SAN",
       "sector": "Financial Services",
       "date_added": "2026-08-06",
-      "score": 36.5
+      "score": 39.0
     }
   ]
 }
