@@ -1,8 +1,8 @@
 {
   "date": "2026-08-05",
-  "generated_at": "2026-08-05T14:03:33.127926-04:00",
+  "generated_at": "2026-08-05T17:03:25.665695-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 35,
+  "active_scores_count": 43,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 14,
+      "count": 13,
       "tickers": [
         "ARE",
         "SIRI",
@@ -30,7 +30,6 @@
         "FFIV",
         "PCAR",
         "HAPN",
-        "CSW",
         "SKYW",
         "RDVT",
         "TREX",
