@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06T13:01:47.094978-04:00",
+  "updated_at": "2026-08-06T13:02:38.789485-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 372,
@@ -15,7 +15,7 @@
     "avg_loser_pct": -43.6,
     "best_trade_pct": 435.5,
     "worst_trade_pct": -100.0,
-    "avg_unrealized_pnl": -69.4,
+    "avg_unrealized_pnl": -69.9,
     "by_setup": {
       "NR7_SIKIŞ": {
         "total": 2,
@@ -13131,8 +13131,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 1.825,
-      "unrealized_pnl_pct": -31.6,
+      "current_premium": 1.725,
+      "unrealized_pnl_pct": -35.4,
       "days_held": 107,
       "peak_premium": 2.85,
       "trough_premium": 0.95,
