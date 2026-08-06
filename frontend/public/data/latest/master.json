@@ -1,41 +1,33 @@
 {
-  "date": "2026-08-05",
-  "generated_at": "2026-08-05T17:03:25.665695-04:00",
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T09:03:46.344337-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 43,
+  "active_scores_count": 29,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "WY",
-        "ARE",
-        "SIRI",
-        "M",
-        "LNC",
-        "FFIV",
-        "PCAR",
-        "AMTB",
-        "MSA",
-        "HAPN"
-      ]
-    },
-    "breakout": {
-      "count": 13,
-      "tickers": [
-        "ARE",
-        "SIRI",
-        "M",
-        "LNC",
-        "FFIV",
-        "PCAR",
-        "HAPN",
-        "SKYW",
-        "RDVT",
         "TREX",
         "ATRC",
         "IMO",
-        "RGEN"
+        "RGEN",
+        "TRS",
+        "MMM",
+        "AXTA",
+        "HSIC",
+        "CIEN",
+        "GTES"
+      ]
+    },
+    "breakout": {
+      "count": 5,
+      "tickers": [
+        "TREX",
+        "ATRC",
+        "IMO",
+        "RGEN",
+        "NVST"
       ]
     },
     "value": {
@@ -57,18 +49,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "WY",
-      "score": 55.0,
+      "ticker": "TREX",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ARE",
-      "score": 51.0,
+      "ticker": "ATRC",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SIRI",
-      "score": 50.5,
+      "ticker": "IMO",
+      "score": 52.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

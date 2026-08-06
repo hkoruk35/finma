@@ -1,248 +1,6 @@
 {
-  "date": "2026-08-05",
+  "date": "2026-08-06",
   "tickers": [
-    {
-      "ticker": "WY",
-      "company": "WY",
-      "sector": "Real Estate",
-      "master_score": 55.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 25.764999389648438,
-      "change_pct": -0.25,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ARE",
-      "company": "ARE",
-      "sector": "Real Estate",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 53.029998779296875,
-      "change_pct": 3.07,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "SIRI",
-      "company": "SIRI",
-      "sector": "Communication Services",
-      "master_score": 50.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 30.3700008392334,
-      "change_pct": 2.53,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "M",
-      "company": "M",
-      "sector": "Consumer Cyclical",
-      "master_score": 50.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 25.950000762939453,
-      "change_pct": 4.55,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "LNC",
-      "company": "LNC",
-      "sector": "Financial Services",
-      "master_score": 49.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 46.09000015258789,
-      "change_pct": 1.05,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "FFIV",
-      "company": "FFIV",
-      "sector": "Technology",
-      "master_score": 43.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 406.3500061035156,
-      "change_pct": 0.94,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 43.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "PCAR",
-      "company": "PCAR",
-      "sector": "Industrials",
-      "master_score": 60.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 135.9600067138672,
-      "change_pct": 2.95,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "AMTB",
-      "company": "AMTB",
-      "sector": "Financial Services",
-      "master_score": 61.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 29.670000076293945,
-      "change_pct": 0.0,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MSA",
-      "company": "MSA",
-      "sector": "Industrials",
-      "master_score": 57.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 191.51499938964844,
-      "change_pct": -0.49,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "HAPN",
-      "company": "HAPN",
-      "sector": "Financial Services",
-      "master_score": 56.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 20.8799991607666,
-      "change_pct": 2.15,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "WCC",
-      "company": "WCC",
-      "sector": "Industrials",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 373.0799865722656,
-      "change_pct": -0.27,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "PWR",
-      "company": "PWR",
-      "sector": "Industrials",
-      "master_score": 56.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 693.0,
-      "change_pct": 1.88,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.5 | System: EMA_CROSS"
-    },
-    {
-      "ticker": "CSW",
-      "company": "CSW",
-      "sector": "Industrials",
-      "master_score": 58.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 346.0299987792969,
-      "change_pct": -0.94,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "GRC",
-      "company": "GRC",
-      "sector": "Industrials",
-      "master_score": 51.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 85.91999816894531,
-      "change_pct": 3.77,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "KMI",
-      "company": "KMI",
-      "sector": "Energy",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 31.3799991607666,
-      "change_pct": -0.06,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: SPRING"
-    },
-    {
-      "ticker": "BBVA",
-      "company": "BBVA",
-      "sector": "Financial Services",
-      "master_score": 59.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 28.1200008392334,
-      "change_pct": -0.85,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 59.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "WAB",
-      "company": "WAB",
-      "sector": "Industrials",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 299.07000732421875,
-      "change_pct": 0.88,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ESI",
-      "company": "ESI",
-      "sector": "Basic Materials",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 38.88999938964844,
-      "change_pct": 3.18,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "SKYW",
-      "company": "SKYW",
-      "sector": "Industrials",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 114.91999816894531,
-      "change_pct": 3.18,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "HAYW",
-      "company": "HAYW",
-      "sector": "Industrials",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 16.09000015258789,
-      "change_pct": 3.94,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: EMA_CROSS"
-    },
-    {
-      "ticker": "DOV",
-      "company": "DOV",
-      "sector": "Industrials",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 209.92999267578125,
-      "change_pct": 2.05,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "RDVT",
-      "company": "RDVT",
-      "sector": "Technology",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 69.7300033569336,
-      "change_pct": 1.65,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
-    },
     {
       "ticker": "TREX",
       "company": "TREX",
@@ -291,23 +49,23 @@
       "ticker": "TRS",
       "company": "TRS",
       "sector": "Consumer Cyclical",
-      "master_score": 61.0,
+      "master_score": 57.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 41.20000076293945,
-      "change_pct": 1.7,
+      "price": 40.90999984741211,
+      "change_pct": 0.99,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 57.5 | System: TREND_CONT"
     },
     {
       "ticker": "MMM",
       "company": "MMM",
       "sector": "Industrials",
-      "master_score": 59.0,
+      "master_score": 57.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 182.72500610351562,
-      "change_pct": 0.7,
+      "price": 182.0800018310547,
+      "change_pct": 0.35,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
     },
     {
       "ticker": "AXTA",
@@ -473,6 +231,94 @@
       "change_pct": 0.23,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PAYX",
+      "company": "PAYX",
+      "sector": "Technology",
+      "master_score": 61.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 118.2699966430664,
+      "change_pct": -0.33,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GIL",
+      "company": "GIL",
+      "sector": "Consumer Cyclical",
+      "master_score": 60.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 58.09000015258789,
+      "change_pct": 2.34,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PLXS",
+      "company": "PLXS",
+      "sector": "Technology",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 274.70001220703125,
+      "change_pct": -0.76,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NVST",
+      "company": "NVST",
+      "sector": "Healthcare",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 28.6299991607666,
+      "change_pct": 2.4,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "TENB",
+      "company": "TENB",
+      "sector": "Technology",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 36.0,
+      "change_pct": 0.17,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WY",
+      "company": "WY",
+      "sector": "Real Estate",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 25.84000015258789,
+      "change_pct": 0.04,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PSA",
+      "company": "PSA",
+      "sector": "Real Estate",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 327.3399963378906,
+      "change_pct": 0.26,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CSCO",
+      "sector": "Technology",
+      "master_score": 52.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 121.5,
+      "change_pct": -0.2,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
     }
   ]
 }
