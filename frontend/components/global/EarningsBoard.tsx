@@ -112,7 +112,7 @@ function fmtMoney(n: number | null | undefined): string {
 
 export default function EarningsBoard({ locale }: { locale: Locale }) {
   const t = LABELS[locale] ?? LABELS.en;
-  const [range, setRange] = useState<Range>("daily");
+  const [range, setRange] = useState<Range>("monthly");
   const [items, setItems] = useState<EarningsItem[] | null>(null);
 
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
         </div>
 
         <div className="flex items-center gap-2 mb-6">
-          {(["daily", "weekly", "monthly"] as Range[]).map((r) => (
+          {(["monthly", "weekly", "daily"] as Range[]).map((r) => (
             <button
               key={r}
               type="button"
