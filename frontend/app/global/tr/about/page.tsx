@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-  description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli interactive charts sunar.",
+  title: "BogaStock Hakkında — Hikayemiz, Teknolojimiz ve Vizyonumuz",
+  description: "BogaStock'un arkasındaki hikaye: AFK Data Sistemleri'nin 2018'de Kaliforniya'da başlayan yolculuğundan, 2021'de finans dünyasına açılan BogaStock.com'a. Bugün 70'ten fazla ülkede, 7/24 hizmet veren bir yapay zeka platformu.",
   alternates: {
     canonical: "https://bogastock.com/global/tr/about",
     languages: {
@@ -18,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-    description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli interactive charts sunar.",
+    title: "BogaStock Hakkında — Hikayemiz, Teknolojimiz ve Vizyonumuz",
+    description: "AFK Data Sistemleri'nin 2018'de başlayan yolculuğundan, bugün 70'ten fazla ülkede hizmet veren BogaStock'a.",
     url: "https://bogastock.com/global/tr/about",
   },
 };
@@ -30,138 +29,84 @@ export default function AboutPageTr() {
       <MemberHeader locale="tr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-
-        <div className="flex justify-end mb-6">
-          <Link href="/global/en/about" className="text-xs font-medium text-[#3b82f6] hover:text-white transition-colors">English →</Link>
-        </div>
-
         {/* Hero */}
-        <div className="text-center mb-20">
-          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">ABD Hisse Senedi Piyasası İstihbaratı</p>
+        <div className="text-center mb-16">
+          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Hikayemiz</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Günlük Interactive Charts.<br />
-            <span className="text-[#3b82f6]">ABD Piyasaları İçin İnşa Edildi.</span>
+            Bir Otonom Araç Fikrinden<br />
+            <span className="text-[#3b82f6]">Bugünün BogaStock'una.</span>
           </h1>
-          <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGASTOCK - Blue One Global Analysis - Günlük 6.000+ hisse, tüm ABD hisse senedi evrenini her işlem gününde yüksek olasılıklı fırsatların odaklanmış bir kısa listesine dönüştüren özel, çok aşamalı bir hisse tarama ve puanlama sistemidir.
+          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+            BogaStock, bir gecede ortaya çıkmadı. Kaliforniya'da otonom araçlar üzerine çalışan küçük bir ekibin, yıllar içinde biriktirdiği veri işleme deneyimini finans dünyasına taşımasıyla doğdu.
           </p>
         </div>
 
-        {/* 3-Stage Process */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGASTOCK Sistemi Nasıl Çalışır</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            {/* Stage 1 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
-              <h3 className="text-lg font-medium text-white mb-3">Günlük Evren Taraması</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGASTOCK algoritması her gün NYSE, NASDAQ ve AMEX dahil tüm büyük borsalardaki <strong className="text-white">6.000'den fazla seçkin ABD hisse senedi ve ETFyi</strong> tarar; likidite, volatilite ve yapısal filtreler uygulayarak en işlem yapılabilir adayları belirler.
-              </p>
-            </div>
-
-            {/* Stage 2 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
-              <h3 className="text-lg font-medium text-white mb-3">Günlük Top 6.000+ İzleme Listesi</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Günlük taramadan sistem, günlük izleme için <strong className="text-white">6.000'den fazla yüksek öncelikli seçkin hisse senedi ve ETFyi</strong> seçer. Bu adaylar her sabah NY saatiyle 09:00'da güncel piyasa verileri, teknik göstergeler ve temel metriklerle yeniden değerlendirilir.
-              </p>
-            </div>
-
-            {/* Stage 3 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
-              <h3 className="text-lg font-medium text-white mb-3">En Yüksek İnanç Düzeyine Sahip Adaylar — Bireysel Olarak Puanlanır</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGASTOCK puanlama motoru her günlük adayı sıralar ve en yüksek inanç düzeyine sahip kurulumları seçer. Her biri teknik, temel ve puan gerekçesini kapsayan, şablon değil hisseye özel bir AI analiz raporu alır.
-              </p>
-            </div>
+        {/* 2018 - Origin */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl font-black text-[#3b82f6]">2018</span>
+            <h2 className="text-xl font-bold text-white">Kaliforniya'da Bir Başlangıç</h2>
           </div>
-        </div>
-
-        {/* Scoring System */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGASTOCK Puanlama Sistemi</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Çok Faktörlü Teknik Motor</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGASTOCK Ana Puanı; RSI, MACD, bağıl hacim, EMA çapraz katları, ADX trend gücü ve Bollinger Band sıkışma yoğunluğu gibi teknik göstergelerin ağırlıklı bir karışımından hesaplanır — özellikle ABD hisse senedi momentum yapıları için geliştirilmiştir.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Temel ve Sektör Katmanı</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Her puan; F/K oranı sektör medyanına kıyasla, FCF verimi, brüt kâr marjları ve gelir büyüme momentumu gibi temel verilerle çapraz kontrol edilir. Sektör performans bağlamı, puanların güncel piyasa koşullarına göre her zaman bağıl — mutlak değil — olmasını sağlar.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#f59e0b]/10 flex items-center justify-center text-[#f59e0b] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Özel AI Yorumu</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Kısa listeye giren her hisse, BOGASTOCK motoru tarafından üretilen sade bir dilde analiz raporu alır. Rapor, belirli bir puanın <em>neden</em> verildiğini — genel ifadeler değil, hissenin kendi verilerine atıfla — açıklar; böylece her derecelendirmenin arkasındaki mantığı anlarsınız.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Beş Kademeli Puan Derecelendirmesi</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGASTOCK puanları beş profesyonel kademeye ayrılır: <strong className="text-white">Yüksek İnanç</strong>, <strong className="text-white">Pozitif Eğilim</strong>, <strong className="text-white">Nötr Bekle</strong>, <strong className="text-white">Negatif Eğilim</strong> ve <strong className="text-white">Düşük Performans</strong> — belirsizlik olmadan kurumsal düzeyde netlik sunar.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Focus Statement */}
-        <div className="glass-card p-10 text-center mb-12">
-          <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
-          <h2 className="text-2xl font-medium text-white mb-4">%100 ABD Hisse Senedi Piyasalarına Odaklı</h2>
-          <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGASTOCK - Blue One Global Analysis - Günlük 6.000+ hisse, ABD hisse senedi piyasası için özel olarak inşa edilmiştir. Her algoritma, her ağırlık ve her puan kategorisi NYSE, NASDAQ ve ABD piyasa yapısına göre kalibre edilmiştir — ABD'ye uyarlanmış genel bir küresel model değil.
+          <p className="text-white/70 leading-relaxed">
+            BogaStock'un hikayesi aslında finansla değil, otonom araçlarla başlıyor. 2018 yılında Kaliforniya'da kurulan AFK Data Sistemleri (AFK DaSYS), ilk yıllarında kendi kendine giden araçlar için veri işleme ve karar destek sistemleri geliştirdi. Bugün, 2025 itibarıyla bu bilgi birikimi ABD genelinde 48 eyalette, 1.000'den fazla şehirde gerçek zamanlı Smart City simülasyonlarını mümkün kılıyor.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-xs font-medium uppercase tracking-widest">
-            {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (
-              <span key={ex} className="px-3 py-1.5 bg-[#3b82f6]/10 text-[#3b82f6] rounded-full border border-[#3b82f6]/20">{ex}</span>
-            ))}
+        </div>
+
+        {/* 2021 - BogaStock born */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl font-black text-[#8b5cf6]">2021</span>
+            <h2 className="text-xl font-bold text-white">Yollar Finansla Kesişiyor</h2>
+          </div>
+          <p className="text-white/70 leading-relaxed">
+            2021 yılında AFK DaSYS ekibi, şehirlerin trafiğini okumak için geliştirdiği yoğun veri işleme deneyimini bambaşka bir alana, finans piyasalarına yöneltmeye karar verdi. Aynı disiplin — büyük hacimli veriyi anlamlandırıp anlık kararlara dönüştürme — burada da işe yarayabilirdi. Bu vizyonla BogaStock.com hayata geçti: amaç, ABD borsalarındaki binlerce hisseyi takip etmeyi karmaşık bir uğraş olmaktan çıkarıp herkes için anlaşılır hale getirmekti.
+          </p>
+        </div>
+
+        {/* Continuous learning */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
+          <h2 className="text-xl font-bold text-white mb-4">Hiç Durmayan Bir Öğrenme Süreci</h2>
+          <p className="text-white/70 leading-relaxed">
+            BogaStock'un yapay zekâsı, kurulduğu günden bugüne aynı kalmadı ve kalmayacak. Sistem her yeni analiz veya işlem modelini devreye aldığında, kendi içinde bir yeniden öğrenme sürecinden geçiriyor — yani platform ne kadar çok kullanılırsa, o kadar çok tecrübe kazanıyor ve zamanla daha isabetli hale geliyor. Bu gelişim, Smart City ve otonom araç teknolojileri üzerine çalışan kardeş bir yapay zekâ sistemi olan{" "}
+            <a href="https://www.afknexro.com/" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">AFK Nexro AI</a>
+            {" "}ile birlikte, ortak bir Ar-Ge kültürü içinde ilerliyor.
+          </p>
+        </div>
+
+        {/* Today */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-black text-white text-center mb-10">Bugün BogaStock</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">70+</div>
+              <p className="text-white/70 text-sm leading-relaxed">ülkede kullanıcılara ulaşıyoruz, sistemimiz kesintisiz 7/24 çalışıyor.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">6.000+</div>
+              <p className="text-white/70 text-sm leading-relaxed">ABD hisse senedi ve ETF'ini her gün tarayıp değerlendiriyoruz.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">5 Dil</div>
+              <p className="text-white/70 text-sm leading-relaxed">web sitemizde; kendi veritabanlarımız ve veri merkezlerimiz üzerinden hizmet veriyoruz.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">30+ Dil</div>
+              <p className="text-white/70 text-sm leading-relaxed">Boga Copilot ile — günlük hayata uygun, doğal bir dille sohbet edebiliyoruz.</p>
+            </div>
           </div>
         </div>
 
         {/* Mission */}
         <div className="glass-card p-10 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
-          <h2 className="text-2xl font-medium text-white mb-4">Misyonumuz</h2>
-          <p className="text-white max-w-2xl mx-auto italic leading-relaxed">
-            "Büyük fonların ve profesyonellerin arkasındaki analitik gücü, her seviyeden yatırımcı için erişilebilir kılıyoruz. Gelişmiş piyasa tarama ve puanlama teknolojimizle, ABD borsalarında doğru yatırımı bulmayı karmaşık bir süreç olmaktan çıkarıp günlük bir rutin haline getiriyoruz."
+          <h2 className="text-2xl font-medium text-white mb-4">Neye İnanıyoruz</h2>
+          <p className="text-white/80 max-w-2xl mx-auto italic leading-relaxed">
+            "Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock olarak amacımız, karmaşık piyasa verisini herkesin anlayabileceği net bir yola dönüştürüp, kullanıcımızın kendi kararını rahatça verebilmesine yardımcı olmak."
           </p>
         </div>
-
       </main>
 
       <Footer hidePlatform={true} locale="tr" />

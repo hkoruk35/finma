@@ -19,6 +19,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isMobileUserMenuOpen, setIsMobileUserMenuOpen] = useState(false);
   const [isDesktopUserMenuOpen, setIsDesktopUserMenuOpen] = useState(false);
+  const [isDesktopLangOpen, setIsDesktopLangOpen] = useState(false);
   const [isTerminalHovered, setIsTerminalHovered] = useState(false);
   const [isListsOpen, setIsListsOpen] = useState(false);
 
@@ -337,25 +338,45 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               </div>
             )}
 
-            {/* Language Selector — sm+ ekranda tüm diller tek satırda görünür */}
-            {locale && (
-              <div className="hidden sm:flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
-                {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
-                  const isActive = locale.toUpperCase() === lang;
-                  return (
-                    <Link
-                      key={lang}
-                      href={getLangHref(lang)}
-                      className={`px-2 py-1 rounded-md text-[8px] font-medium uppercase tracking-wider transition-all ${
-                        isActive
-                          ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
-                          : "text-[#64748b] hover:text-white hover:bg-white/10"
-                      }`}
-                    >
-                      {lang}
-                    </Link>
-                  );
-                })}
+            {/* Dil Seçici (Desktop) — üye girişi olmayan/henüz kontrol edilmeyen
+                durumda açılır menü olarak gösterilir. Giriş yapmış kullanıcıda
+                bu satırdan tamamen kaldırılır, yerine üye menüsünün içine
+                taşınır (bkz. Desktop User Dropdown Menu). */}
+            {locale && authChecked && !isLoggedIn && (
+              <div className="relative hidden sm:block">
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setIsDesktopLangOpen((v) => !v); }}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                >
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{locale.toUpperCase()}</span>
+                  <span className="text-[9px] text-[#38bdf8]">▾</span>
+                </button>
+                {isDesktopLangOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsDesktopLangOpen(false)} />
+                    <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[100px]">
+                      {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
+                        const isActive = locale.toUpperCase() === lang;
+                        return (
+                          <Link
+                            key={lang}
+                            href={getLangHref(lang)}
+                            onClick={() => setIsDesktopLangOpen(false)}
+                            className={`block px-3 py-2 text-[11px] font-medium uppercase tracking-wider ${
+                              isActive ? "bg-[#3b82f6] text-white" : "text-[#94a3b8] hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            {lang}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
@@ -495,42 +516,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               )}
             </div>
 
-            <Link
-              href={
-                locale === "pt"
-                  ? "/global/pt/Perguntas_Frequentes"
-                  : locale === "tr"
-                    ? "/global/tr/sss"
-                    : `/global/${locale}/faq`
-              }
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
-            >
-              <svg
-                className="w-4 h-4 flex-shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>
-                {locale === "tr"
-                  ? "SSS"
-                  : locale === "es"
-                    ? "FAQ"
-                    : locale === "fr"
-                      ? "FAQ"
-                      : locale === "pt"
-                        ? "FAQ"
-                        : "FAQ"}
-              </span>
-            </Link>
-
             {authChecked &&
               (isLoggedIn ? (
                 <div className="relative shrink-0">
@@ -605,6 +590,33 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                               <span>👤</span>
                               <span>{locale === "tr" ? "Hesabım" : "Account"}</span>
                             </Link>
+
+                            {/* Dil Seçimi — giriş yapmış kullanıcıda üye menüsünün içine taşındı */}
+                            <div className="px-2.5 py-1.5">
+                              <div className="flex items-center gap-1 text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                                <span>🌐</span>
+                                <span>{locale === "tr" ? "Dil" : "Language"}</span>
+                              </div>
+                              <div className="flex items-center gap-1 flex-wrap">
+                                {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
+                                  const isActive = locale.toUpperCase() === lang;
+                                  return (
+                                    <Link
+                                      key={lang}
+                                      href={getLangHref(lang)}
+                                      onClick={() => setIsDesktopUserMenuOpen(false)}
+                                      className={`px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider transition-all ${
+                                        isActive
+                                          ? "bg-[#3b82f6] text-white"
+                                          : "bg-[#1e2a3a]/60 text-slate-400 hover:text-white hover:bg-[#1e2a3a]"
+                                      }`}
+                                    >
+                                      {lang}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
 
                             <button
                               type="button"

@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered interactive charts on the highest-conviction opportunities in the US market.",
+  title: "About BogaStock — Our Story, Technology, and Vision",
+  description: "The story behind BogaStock: from AFK Data Sistemleri's 2018 beginnings in California, to BogaStock.com's launch into finance in 2021. Today, an AI platform serving users in 70+ countries, around the clock.",
   alternates: {
     canonical: "https://bogastock.com/global/en/about",
     languages: {
@@ -18,154 +17,99 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered interactive charts on the highest-conviction opportunities in the US market.",
+    title: "About BogaStock — Our Story, Technology, and Vision",
+    description: "From AFK Data Sistemleri's 2018 beginnings to BogaStock, now serving users in 70+ countries.",
     url: "https://bogastock.com/global/en/about",
   },
 };
 
-// Public page — no auth required
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-
-        <div className="flex justify-end mb-6">
-          <Link href="/global/tr/about" className="text-xs font-medium text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
-        </div>
-
         {/* Hero */}
-        <div className="text-center mb-20">
-          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">US Stock Market Intelligence</p>
+        <div className="text-center mb-16">
+          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Our Story</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Daily Interactive Charts.<br />
-            <span className="text-[#3b82f6]">Built for US Markets.</span>
+            From an Autonomous-Vehicle Idea<br />
+            <span className="text-[#3b82f6]">to Today's BogaStock.</span>
           </h1>
-          <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
+          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+            BogaStock didn't appear overnight. It grew out of years of data-processing experience gathered by a small team in California that started out working on self-driving cars.
           </p>
         </div>
 
-        {/* 3-Stage Process */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">How the BOGASTOCK System Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            {/* Stage 1 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
-              <h3 className="text-lg font-medium text-white mb-3">Daily Universe Scan</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Every day, the BOGASTOCK algorithm sweeps through <strong className="text-white">6,000+ premier US stocks and ETFs</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
-              </p>
-            </div>
-
-            {/* Stage 2 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
-              <h3 className="text-lg font-medium text-white mb-3">Top 6,000+ Daily Watchlist</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                From the daily scan, the system selects <strong className="text-white">6,000+ high-priority stocks and ETFs</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
-              </p>
-            </div>
-
-            {/* Stage 3 */}
-            <div className="glass-card p-8 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
-              <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
-              <h3 className="text-lg font-medium text-white mb-3">Highest-Conviction Candidates — Individually Scored</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                The BOGASTOCK scoring engine ranks every daily candidate and selects the highest-conviction setups. Each receives a unique AI-generated analysis covering technicals, fundamentals, and score rationale — not a template, but a stock-specific brief.
-              </p>
-            </div>
+        {/* 2018 - Origin */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl font-black text-[#3b82f6]">2018</span>
+            <h2 className="text-xl font-bold text-white">A Start in California</h2>
           </div>
-        </div>
-
-        {/* Scoring System */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">The BOGASTOCK Scoring System</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Multi-Factor Technical Engine</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                The BOGASTOCK Master Score is computed from a weighted blend of technical indicators — RSI, MACD, relative volume, EMA cross-multiples, ADX trend strength, and Bollinger Band squeeze intensity — engineered specifically for US equity momentum structures.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Fundamental & Sector Overlay</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Every score is cross-referenced with fundamental data: P/E ratio vs. sector median, FCF yield, gross margins, and revenue growth momentum. Sector performance context ensures scores are always relative — not absolute — to current market conditions.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#f59e0b]/10 flex items-center justify-center text-[#f59e0b] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Proprietary AI Commentary</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Each shortlisted stock receives a plain-language analysis brief generated by the BOGASTOCK engine. The brief explains <em>why</em> a specific score was assigned — referencing the stock's own data, not generics — so you understand the rationale behind every rating.
-              </p>
-            </div>
-
-            <div className="glass-card p-8">
-              <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-medium text-white mb-4">Five-Tier Score Ratings</h3>
-              <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGASTOCK scores are classified into five professional tiers: <strong className="text-white">High Conviction</strong>, <strong className="text-white">Positive Bias</strong>, <strong className="text-white">Neutral Stay</strong>, <strong className="text-white">Negative Bias</strong>, and <strong className="text-white">Underperform</strong> — giving you institutional-grade clarity without ambiguity.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Focus Statement */}
-        <div className="glass-card p-10 text-center mb-12">
-          <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
-          <h2 className="text-2xl font-medium text-white mb-4">100% Focused on US Equity Markets</h2>
-          <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
+          <p className="text-white/70 leading-relaxed">
+            BogaStock's story actually begins with autonomous vehicles, not finance. Founded in California in 2018, AFK Data Sistemleri (AFK DaSYS) spent its early years building data-processing and decision-support systems for self-driving cars. That know-how now powers real-time Smart City simulations across more than 1,000 cities in 48 U.S. states, as of 2025.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-xs font-medium uppercase tracking-widest">
-            {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (
-              <span key={ex} className="px-3 py-1.5 bg-[#3b82f6]/10 text-[#3b82f6] rounded-full border border-[#3b82f6]/20">{ex}</span>
-            ))}
+        </div>
+
+        {/* 2021 - BogaStock born */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl font-black text-[#8b5cf6]">2021</span>
+            <h2 className="text-xl font-bold text-white">The Path Crosses Into Finance</h2>
+          </div>
+          <p className="text-white/70 leading-relaxed">
+            In 2021, the AFK DaSYS team decided to point that same deep data-processing discipline — making sense of huge volumes of data and turning it into real-time decisions — toward an entirely different challenge: financial markets. That's how BogaStock.com came to life, with a simple goal: make following thousands of US stocks feel less like a technical chore, and more like something anyone can understand.
+          </p>
+        </div>
+
+        {/* Continuous learning */}
+        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
+          <h2 className="text-xl font-bold text-white mb-4">A System That Never Stops Learning</h2>
+          <p className="text-white/70 leading-relaxed">
+            BogaStock's AI hasn't stayed the same since day one, and it won't in the future either. Every time the system rolls out a new analysis or trading model, it goes through its own retraining cycle — so the more the platform is used, the more experience it gains, and the sharper it becomes over time. This progress continues alongside{" "}
+            <a href="https://www.afknexro.com/" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">AFK Nexro AI</a>
+            , a sister AI system focused on Smart City and autonomous-vehicle technology, as part of a shared R&D culture.
+          </p>
+        </div>
+
+        {/* Today */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-black text-white text-center mb-10">BogaStock Today</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">70+</div>
+              <p className="text-white/70 text-sm leading-relaxed">countries reached, with a system that runs around the clock.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">6,000+</div>
+              <p className="text-white/70 text-sm leading-relaxed">US stocks and ETFs scanned and evaluated every single day.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">5 Languages</div>
+              <p className="text-white/70 text-sm leading-relaxed">on our website, running on our own databases and data centers.</p>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-3xl font-black text-[#3b82f6] mb-2">30+ Languages</div>
+              <p className="text-white/70 text-sm leading-relaxed">through Boga Copilot — natural conversation, adapted to everyday use.</p>
+            </div>
           </div>
         </div>
 
         {/* Mission */}
         <div className="glass-card p-10 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
-          <h2 className="text-2xl font-medium text-white mb-4">Our Mission</h2>
-          <p className="text-white max-w-2xl mx-auto italic leading-relaxed">
-            "We make the analytical power of institutional funds and professionals accessible to every investor. Through our advanced market screening and scoring technology, identifying the right opportunities in the US stock market is no longer a complex task—it's a daily routine."
+          <h2 className="text-2xl font-medium text-white mb-4">What We Believe</h2>
+          <p className="text-white/80 max-w-2xl mx-auto italic leading-relaxed">
+            "In a world increasingly run by algorithms, processing data correctly is only half the job — making it understandable matters just as much. At BogaStock, our goal is to turn complex market data into a clear path anyone can follow, so you can make your own decisions with confidence."
           </p>
         </div>
-
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }
