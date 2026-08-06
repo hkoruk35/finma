@@ -32,11 +32,15 @@ async function processTicker(ticker: string): Promise<{ ticker: string; newRepor
 
     let newReports = 0;
     for (const filing of filings) {
+      // NOT: 'report_date' kolonu SEC'e BİLDİRİM tarihini (filingDate) tutar,
+      // mali dönem bitiş tarihini DEĞİL — Günlük/Haftalık/Aylık filtresi
+      // "ne zaman açıklandı"yı gösterir, "hangi çeyrek"i değil (bu ayrı olarak
+      // 'period' alanında saklanır, örn. "Q2 2026").
       const { data: existing } = await supabaseAdmin
         .from("earnings_reports")
         .select("id")
         .eq("ticker", filing.ticker)
-        .eq("report_date", filing.reportDate)
+        .eq("report_date", filing.filingDate)
         .eq("sec_form_type", filing.form)
         .maybeSingle();
       if (existing) continue; // zaten işlenmiş — DeepSeek'i tekrar tetikleme
@@ -48,7 +52,7 @@ async function processTicker(ticker: string): Promise<{ ticker: string; newRepor
         ticker: filing.ticker,
         company_name: filing.companyName,
         period: derivePeriod(filing.form, filing.reportDate),
-        report_date: filing.reportDate,
+        report_date: filing.filingDate,
         sec_form_type: filing.form,
         sec_accession_no: filing.accessionNo,
         raw_metrics: metrics,
