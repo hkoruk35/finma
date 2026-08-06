@@ -22,6 +22,7 @@ import { findFaqMatches } from "@/lib/copilot/faqData";
 import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { getUserTasks, createCopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { HOT_THEMES_2026, getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
+import { EARNINGS_LOCALES } from "@/lib/earnings/deepseekAnalysis";
 
 // DeepSeek-v4-flash varsayılan olarak "thinking mode" ile çalışır (bkz.
 // DeepSeek fiyatlandırma tablosu) — Gemini flash'a göre adım başına daha
@@ -184,6 +185,11 @@ FİNANSAL DİL KISITLAMASI (KESİN KURAL, YANITIN HANGİ DİLDE OLURSA OLSUN GE�
 - ASLA şu anlama gelen kelimeleri kullanma (yanıtın dilinde karşılığı ne olursa olsun): "garanti/guarantee/garantía/garantie/garantia", "risksiz/risk-free/sin riesgo/sans risque/sem risco", "kesin kâr/guaranteed profit/ganancia segura/profit garanti/lucro garantido", "bu hisse kesinlikle yükselecek/düşecek (this stock will definitely rise/fall, esta acción subirá/bajará con toda seguridad, cette action va certainement monter/baisser, esta ação vai subir/cair com certeza)".
 - Bunun yerine: "görünüm ... güçlenebilir", "senaryo ... altında zayıflayabilir", "teyit hâlâ gerekli", "bu seviye izlenmeye değer", "algoritma şu anda ... olarak belirliyor" gibi ihtiyatlı ifadelerin yanıtın dilindeki karşılığını kullan.
 - BOGASTOCK bir yatırım danışmanlığı kuruluşu DEĞİLDİR. Nihai işlem kararı, pozisyon büyüklüğü ve risk yönetimi KULLANICIYA aittir — bunu gerektiğinde nazikçe hatırlat.
+
+BİLANÇO (EARNINGS) SORULARI — KESİN ÖNCELİK KURALI:
+- Kullanıcı bir şirketin bilançosunu, çeyrek/yıllık sonuçlarını, gelirini, hisse başı kârını (EPS) veya SEC bildirimini sorduğunda MUTLAKA ÖNCE 'get_earnings_report' aracını çağır — bu araç SEC EDGAR'dan gelen gerçek 10-Q/10-K verisine dayanır ve BOGASTOCK'un /global/${locale}/earning sayfasıyla BİREBİR AYNI kaynaktan gelir.
+- Araç found:false dönerse (henüz işlenmiş yakın bir SEC bildirimi yok), bunu dürüstçe belirt ve genel temel veriler için 'get_deep_analysis' aracına geç.
+- Araç found:true dönerse, ai.summary/ai.key_takeaways/ai.bullish_signals/ai.bearish_signals/ai.ai_score alanlarını kullanarak yanıt ver — rakamları uydurma, sadece aracın döndürdüğü metrics/ai verisini kullan. Yanıtının sonunda kullanıcıyı [Tüm Bilançoları Gör](copilot-topic://select) butonuyla site içindeki Earnings sayfasına yönlendirebilirsin.
 
 İŞLEM KURGUSU / TRADE PLAN KURALI (KESİN, TEK KAYNAK — SİTE İLE BİREBİR TUTARLILIK):
 - Kullanıcı bir hissenin işlem kurgusunu, giriş/giriş aralığını, giriş tetiğini (trigger), stop-loss'unu, hedef (TP1/TP2/TP3) seviyelerini veya risk/ödül oranını sorduğunda MUTLAKA 'get_trade_plan' aracını çağır. Bu araç, o hissenin kendi Grafik/Detay sayfasındaki "İŞLEM KURGUSU GEREKÇESİ" bloğuyla BİREBİR AYNI motordan (tek kaynak) gelir.
@@ -553,6 +559,38 @@ export async function POST(req: NextRequest) {
               return { success: true, ...card };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
+            }
+          },
+        }),
+        get_earnings_report: tool({
+          description: "Fetches the latest SEC EDGAR-sourced earnings report (10-Q/10-K) with DeepSeek-generated AI analysis (revenue/EPS status, key takeaways, bullish/bearish signals, AI score) for a stock. ALWAYS call this FIRST when the user asks about a company's earnings, bilanço, quarterly/annual results, revenue, or EPS — before 'get_deep_analysis'. If it returns found:false, no recent SEC filing exists yet; fall back to 'get_deep_analysis' for general fundamentals instead.",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            try {
+              const t = ticker.trim().toUpperCase();
+              const { data } = await supabaseAdmin
+                .from("earnings_reports")
+                .select("*")
+                .eq("ticker", t)
+                .order("report_date", { ascending: false })
+                .limit(1)
+                .maybeSingle();
+              if (!data) return { success: true, found: false };
+              const localeKey = (EARNINGS_LOCALES as readonly string[]).includes(locale) ? locale : "en";
+              const ai = data.ai_summary?.[localeKey] ?? data.ai_summary?.en ?? null;
+              return {
+                success: true,
+                found: true,
+                ticker: data.ticker,
+                companyName: data.company_name,
+                period: data.period,
+                reportDate: data.report_date,
+                formType: data.sec_form_type,
+                metrics: data.raw_metrics,
+                ai,
+              };
+            } catch (e) {
+              return { success: false, found: false, error: ct("noStockData", locale) };
             }
           },
         }),

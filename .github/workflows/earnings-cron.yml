@@ -1,0 +1,25 @@
+name: SEC Earnings Ingestion
+
+on:
+  schedule:
+    # Günde 2 kez (11:00 ve 23:00 UTC) — SEC bildirimleri gün içinde farklı
+    # saatlerde düşebildiği için taze veri için yeterli sıklık, DeepSeek
+    # maliyeti düşük kalır çünkü sadece GERÇEKTEN yeni bildirimler işlenir.
+    - cron: '0 11 * * *'
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call SEC earnings ingestion endpoint
+        run: |
+          response=$(curl -s -w "\nHTTP_STATUS=%{http_code}" -X GET "https://bogastock.com/api/cron/process-sec-earnings" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::Earnings ingestion call returned HTTP $status"
+            exit 1
+          fi

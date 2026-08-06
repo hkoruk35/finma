@@ -206,6 +206,20 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 : "MY WATCHLIST",
       href: `/global/${locale}/my-watchlist`,
     },
+    {
+      id: "earning",
+      label:
+        locale === "tr"
+          ? "BİLANÇOLAR"
+          : locale === "es"
+            ? "RESULTADOS"
+            : locale === "fr"
+              ? "RÉSULTATS"
+              : locale === "pt"
+                ? "RESULTADOS"
+                : "EARNINGS",
+      href: `/global/${locale}/earning`,
+    },
   ];
 
   const handleLogout = async () => {
