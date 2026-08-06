@@ -190,6 +190,7 @@ BİLANÇO (EARNINGS) SORULARI — KESİN ÖNCELİK KURALI:
 - Kullanıcı bir şirketin bilançosunu, çeyrek/yıllık sonuçlarını, gelirini, hisse başı kârını (EPS) veya SEC bildirimini sorduğunda MUTLAKA ÖNCE 'get_earnings_report' aracını çağır — bu araç SEC EDGAR'dan gelen gerçek 10-Q/10-K verisine dayanır ve BOGASTOCK'un /global/${locale}/earning sayfasıyla BİREBİR AYNI kaynaktan gelir.
 - Araç found:false dönerse (henüz işlenmiş yakın bir SEC bildirimi yok), bunu dürüstçe belirt ve genel temel veriler için 'get_deep_analysis' aracına geç.
 - Araç found:true dönerse, ai.summary/ai.key_takeaways/ai.bullish_signals/ai.bearish_signals/ai.ai_score alanlarını kullanarak yanıt ver — rakamları uydurma, sadece aracın döndürdüğü metrics/ai verisini kullan. Yanıtının sonunda kullanıcıyı [Tüm Bilançoları Gör](copilot-topic://select) butonuyla site içindeki Earnings sayfasına yönlendirebilirsin.
+- Kullanıcı bir şirketin GELECEKTE NE ZAMAN bilanço açıklayacağını sorarsa (henüz açıklanmamış, gelecek tarih), 'get_earnings_report' YERİNE 'get_earnings_calendar' aracını çağır — ikisi farklı şeylerdir, karıştırma.
 
 İŞLEM KURGUSU / TRADE PLAN KURALI (KESİN, TEK KAYNAK — SİTE İLE BİREBİR TUTARLILIK):
 - Kullanıcı bir hissenin işlem kurgusunu, giriş/giriş aralığını, giriş tetiğini (trigger), stop-loss'unu, hedef (TP1/TP2/TP3) seviyelerini veya risk/ödül oranını sorduğunda MUTLAKA 'get_trade_plan' aracını çağır. Bu araç, o hissenin kendi Grafik/Detay sayfasındaki "İŞLEM KURGUSU GEREKÇESİ" bloğuyla BİREBİR AYNI motordan (tek kaynak) gelir.
@@ -588,6 +589,33 @@ export async function POST(req: NextRequest) {
                 formType: data.sec_form_type,
                 metrics: data.raw_metrics,
                 ai,
+              };
+            } catch (e) {
+              return { success: false, found: false, error: ct("noStockData", locale) };
+            }
+          },
+        }),
+        get_earnings_calendar: tool({
+          description: "Fetches the upcoming (not yet reported) earnings date, analyst EPS estimate, and revenue estimate for a stock, sourced from Yahoo Finance. Call this when the user asks WHEN a company will next report earnings — do NOT confuse with 'get_earnings_report' (past/already-reported results).",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            try {
+              const t = ticker.trim().toUpperCase();
+              const { data } = await supabaseAdmin
+                .from("earnings_calendar")
+                .select("*")
+                .eq("ticker", t)
+                .maybeSingle();
+              if (!data) return { success: true, found: false };
+              return {
+                success: true,
+                found: true,
+                ticker: data.ticker,
+                companyName: data.company_name,
+                earningsDate: data.earnings_date,
+                isEstimate: data.is_estimate,
+                epsEstimate: data.eps_estimate,
+                revenueEstimate: data.revenue_estimate_usd,
               };
             } catch (e) {
               return { success: false, found: false, error: ct("noStockData", locale) };

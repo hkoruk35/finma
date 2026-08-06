@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import type { Locale } from "@/lib/i18n/copy";
@@ -42,10 +43,12 @@ const LABELS: Record<Locale, {
   bullish: string;
   bearish: string;
   source: string;
+  viewCalendar: string;
 }> = {
   tr: {
     title: "Bilançolar",
     subtitle: "SEC EDGAR bildirimlerinden, yapay zekâ destekli otomatik analiz",
+    viewCalendar: "Bilanço Takvimini Gör →",
     daily: "Günlük", weekly: "Haftalık", monthly: "Aylık",
     empty: "Bu aralıkta henüz işlenmiş bir bilanço bulunmuyor.",
     loading: "Yükleniyor...",
@@ -56,6 +59,7 @@ const LABELS: Record<Locale, {
   en: {
     title: "Earnings",
     subtitle: "AI-powered analysis, sourced directly from SEC EDGAR filings",
+    viewCalendar: "View Earnings Calendar →",
     daily: "Daily", weekly: "Weekly", monthly: "Monthly",
     empty: "No processed earnings reports in this range yet.",
     loading: "Loading...",
@@ -66,6 +70,7 @@ const LABELS: Record<Locale, {
   es: {
     title: "Resultados Financieros",
     subtitle: "Análisis impulsado por IA, basado en presentaciones de SEC EDGAR",
+    viewCalendar: "Ver Calendario de Resultados →",
     daily: "Diario", weekly: "Semanal", monthly: "Mensual",
     empty: "Aún no hay resultados procesados en este rango.",
     loading: "Cargando...",
@@ -76,6 +81,7 @@ const LABELS: Record<Locale, {
   fr: {
     title: "Résultats Financiers",
     subtitle: "Analyse alimentée par l'IA, basée sur les dépôts SEC EDGAR",
+    viewCalendar: "Voir le Calendrier des Résultats →",
     daily: "Quotidien", weekly: "Hebdomadaire", monthly: "Mensuel",
     empty: "Aucun résultat traité dans cette période pour le moment.",
     loading: "Chargement...",
@@ -86,6 +92,7 @@ const LABELS: Record<Locale, {
   pt: {
     title: "Resultados Financeiros",
     subtitle: "Análise com IA, baseada em registros da SEC EDGAR",
+    viewCalendar: "Ver Calendário de Resultados →",
     daily: "Diário", weekly: "Semanal", monthly: "Mensal",
     empty: "Ainda não há resultados processados neste intervalo.",
     loading: "Carregando...",
@@ -123,9 +130,17 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
       <MemberHeader locale={locale} />
 
       <main className="flex-1 max-w-[1200px] mx-auto w-full px-4 py-8">
-        <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-white mb-1.5">{t.title}</h1>
-          <p className="text-sm text-white/50">{t.subtitle}</p>
+        <div className="mb-6 flex items-start justify-between flex-wrap gap-3">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-1.5">{t.title}</h1>
+            <p className="text-sm text-white/50">{t.subtitle}</p>
+          </div>
+          <Link
+            href={`/global/${locale}/earning-calendar`}
+            className="shrink-0 px-3 py-1.5 rounded-lg text-[12px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all"
+          >
+            {t.viewCalendar}
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 mb-6">

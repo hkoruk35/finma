@@ -65,6 +65,7 @@ export async function proxy(request: NextRequest) {
     'contact',
     'ai',
     'earning',
+    'earning-calendar',
   ]
 
   let isGlobalMemberPath = false

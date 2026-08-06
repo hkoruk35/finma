@@ -1,0 +1,22 @@
+name: Earnings Calendar Ingestion
+
+on:
+  schedule:
+    # Günde 1 kez yeterli — yaklaşan bilanço tarihleri gün içinde nadiren değişir.
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call earnings calendar ingestion endpoint
+        run: |
+          response=$(curl -s -w "\nHTTP_STATUS=%{http_code}" -X GET "https://bogastock.com/api/cron/process-earnings-calendar" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::Earnings calendar ingestion call returned HTTP $status"
+            exit 1
+          fi

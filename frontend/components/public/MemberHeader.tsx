@@ -220,6 +220,20 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 : "EARNINGS",
       href: `/global/${locale}/earning`,
     },
+    {
+      id: "earning-calendar",
+      label:
+        locale === "tr"
+          ? "BİLANÇO TAKVİMİ"
+          : locale === "es"
+            ? "CALENDARIO"
+            : locale === "fr"
+              ? "CALENDRIER"
+              : locale === "pt"
+                ? "CALENDÁRIO"
+                : "EARNINGS CALENDAR",
+      href: `/global/${locale}/earning-calendar`,
+    },
   ];
 
   const handleLogout = async () => {
