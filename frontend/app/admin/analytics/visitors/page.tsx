@@ -63,18 +63,12 @@ export default function VisitorsPage() {
     return `${hours}:${mins}:${secs}`;
   };
 
-  const getDurationColor = (seconds: number) => {
-    if (seconds < 60) return '#3fb950'; // green <1min
-    if (seconds < 300) return '#e3b341'; // yellow 1-5min
-    return '#f85149'; // red >5min
-  };
-
-  const formatDuration = (seconds: number) => {
-    if (seconds < 60) return `${seconds}s`;
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}m ${secs}s`;
-  };
+  const countryStats = Object.entries(
+    filtered.reduce<Record<string, number>>((acc, v) => {
+      acc[v.country] = (acc[v.country] ?? 0) + 1;
+      return acc;
+    }, {})
+  ).sort((a, b) => b[1] - a[1]);
 
   return (
     <div style={{ padding: 24, fontFamily: 'monospace', color: TEXT_MAIN }}>
@@ -190,6 +184,45 @@ export default function VisitorsPage() {
         </div>
       </div>
 
+      {/* Ülke Bazlı İstatistikler */}
+      <div style={{ marginBottom: 24 }}>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>
+          ÜLKE BAZLI İSTATİSTİKLER
+        </label>
+        <div style={{ border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, overflow: 'hidden' }}>
+          {countryStats.length === 0 ? (
+            <div style={{ padding: 16, textAlign: 'center', color: TEXT_SECONDARY, fontSize: 12 }}>
+              Veri yok.
+            </div>
+          ) : (
+            countryStats.map(([country, count]) => {
+              const pct = filtered.length > 0 ? Math.round((count / filtered.length) * 100) : 0;
+              return (
+                <div
+                  key={country}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '8px 12px',
+                    borderBottom: `1px solid ${BORDER_COLOR}`,
+                    fontSize: 12,
+                  }}
+                >
+                  <div style={{ width: 90, color: TEXT_MAIN, fontWeight: 700 }}>{country}</div>
+                  <div style={{ flex: 1, background: '#161b22', borderRadius: 3, height: 8, overflow: 'hidden' }}>
+                    <div style={{ width: `${pct}%`, background: ACCENT, height: '100%' }} />
+                  </div>
+                  <div style={{ width: 70, textAlign: 'right', color: TEXT_SECONDARY }}>
+                    {count} ({pct}%)
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+
       {/* Table */}
       <div style={{ overflowX: 'auto', border: `1px solid ${BORDER_COLOR}`, borderRadius: 6 }}>
         <table
@@ -203,16 +236,16 @@ export default function VisitorsPage() {
           <thead>
             <tr style={{ background: '#161b22', borderBottom: `1px solid ${BORDER_COLOR}` }}>
               <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                ZAMAN
+                GİRİŞ ZAMANI
+              </th>
+              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
+                ÇIKIŞ ZAMANI
               </th>
               <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
                 ÜLKE/ŞEHİR
               </th>
               <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
                 SAYFA
-              </th>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                KALMA SÜRESİ
               </th>
               <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
                 IP
@@ -227,30 +260,26 @@ export default function VisitorsPage() {
                 </td>
               </tr>
             ) : (
-              filtered.map((v) => {
-                // Calculate duration in real-time (frontend)
-                const durationSeconds = Math.round((Date.now() - v.sessionStart) / 1000);
-                return (
-                  <tr key={v.id} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
-                    <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                      {formatTime(v.timestamp)}
-                    </td>
-                    <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                      <div>{v.country}</div>
-                      <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>{v.city}</div>
-                    </td>
-                    <td style={{ padding: '10px', color: TEXT_MAIN, maxWidth: 200 }}>
-                      <div style={{ wordBreak: 'break-word' }}>{v.page}</div>
-                    </td>
-                    <td style={{ padding: '10px', color: getDurationColor(durationSeconds), fontWeight: 700 }}>
-                      {formatDuration(durationSeconds)}
-                    </td>
-                    <td style={{ padding: '10px', color: TEXT_SECONDARY, fontSize: 11 }}>
-                      {v.ip}
-                    </td>
-                  </tr>
-                );
-              })
+              filtered.map((v) => (
+                <tr key={v.id} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
+                    {formatTime(v.sessionStart)}
+                  </td>
+                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
+                    {formatTime(v.timestamp)}
+                  </td>
+                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
+                    <div>{v.country}</div>
+                    <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>{v.city}</div>
+                  </td>
+                  <td style={{ padding: '10px', color: TEXT_MAIN, maxWidth: 200 }}>
+                    <div style={{ wordBreak: 'break-word' }}>{v.page}</div>
+                  </td>
+                  <td style={{ padding: '10px', color: TEXT_SECONDARY, fontSize: 11 }}>
+                    {v.ip}
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
