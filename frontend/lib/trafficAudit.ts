@@ -50,6 +50,19 @@ export interface TrafficSession {
   signup_completed_at: number | null;
 }
 
+const NON_PAGE_PATHS = new Set(["/robots.txt", "/sitemap.xml", "/manifest.json", "/favicon.ico"]);
+const STATIC_FILE_EXT = /\.(png|jpe?g|gif|svg|ico|webp|avif|css|js|mjs|map|woff2?|ttf|eot|xml|txt|json|webmanifest|pdf|mp4|webm)$/i;
+
+// proxy.ts landing_request'i SADECE gercek sayfa navigasyonlarinda loglamali —
+// /logo/*.png, /robots.txt gibi statik dosya istekleri page-view sayisini
+// kirletmesin diye burada eleniyor (matcher zaten _next/static'i haric
+// tutuyor ama public/ altindaki dosyalar route olarak matcher'a takiliyor).
+export function isTrackablePageRequest(pathname: string): boolean {
+  if (NON_PAGE_PATHS.has(pathname)) return false;
+  if (STATIC_FILE_EXT.test(pathname)) return false;
+  return true;
+}
+
 export function detectDevice(ua: string): string {
   if (/ipad|tablet/i.test(ua)) return "tablet";
   if (/mobile|android|iphone/i.test(ua)) return "mobile";

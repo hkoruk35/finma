@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
-import { detectDevice, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
+import { detectDevice, isTrackablePageRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
@@ -126,7 +126,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   })
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!pathname.startsWith('/admin')) {
+  if (!pathname.startsWith('/admin') && isTrackablePageRequest(pathname)) {
     trackLanding(request, response, event)
   }
 
