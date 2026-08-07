@@ -62,8 +62,8 @@
       "sector": "Industrials",
       "master_score": 57.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 182.0800018310547,
-      "change_pct": 0.35,
+      "price": 180.7100067138672,
+      "change_pct": -0.75,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
     },
@@ -247,12 +247,12 @@
       "ticker": "GIL",
       "company": "GIL",
       "sector": "Consumer Cyclical",
-      "master_score": 60.0,
+      "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 58.09000015258789,
-      "change_pct": 2.34,
+      "price": 58.16999816894531,
+      "change_pct": 0.14,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
     {
       "ticker": "PLXS",
@@ -313,12 +313,12 @@
       "ticker": "CSCO",
       "company": "CSCO",
       "sector": "Technology",
-      "master_score": 52.5,
+      "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 121.5,
-      "change_pct": -0.2,
+      "price": 120.87999725341797,
+      "change_pct": -0.51,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
     },
     {
       "ticker": "SQM",
@@ -396,6 +396,83 @@
       "change_pct": 1.3,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RACE",
+      "company": "RACE",
+      "sector": "Consumer Cyclical",
+      "master_score": 61.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 407.2799987792969,
+      "change_pct": 0.12,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SYF",
+      "company": "SYF",
+      "sector": "Financial Services",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 78.66999816894531,
+      "change_pct": -0.73,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "QTWO",
+      "company": "QTWO",
+      "sector": "Technology",
+      "master_score": 58.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 63.369998931884766,
+      "change_pct": -0.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MRSH",
+      "company": "MRSH",
+      "sector": "Financial Services",
+      "master_score": 57.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 193.2899932861328,
+      "change_pct": 0.95,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "STE",
+      "company": "STE",
+      "sector": "Healthcare",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 231.77999877929688,
+      "change_pct": -0.4,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CLX",
+      "company": "CLX",
+      "sector": "Consumer Defensive",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 105.5999984741211,
+      "change_pct": -0.23,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NVT",
+      "company": "NVT",
+      "sector": "Industrials",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 163.3000030517578,
+      "change_pct": 0.78,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
     }
   ]
 }
