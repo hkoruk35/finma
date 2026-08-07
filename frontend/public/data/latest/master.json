@@ -1,31 +1,31 @@
 {
-  "date": "2026-08-06",
-  "generated_at": "2026-08-06T17:03:10.202046-04:00",
+  "date": "2026-08-07",
+  "generated_at": "2026-08-07T09:03:45.621694-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 43,
+  "active_scores_count": 29,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "TREX",
-        "ATRC",
-        "IMO",
-        "RGEN",
-        "TRS",
-        "MMM",
-        "AXTA",
-        "HSIC",
-        "CIEN",
-        "GTES"
+        "PAYX",
+        "GIL",
+        "PLXS",
+        "NVST",
+        "TENB",
+        "WY",
+        "PSA",
+        "CSCO",
+        "SQM",
+        "FAST"
       ]
     },
     "breakout": {
       "count": 3,
       "tickers": [
-        "TREX",
-        "IMO",
-        "NVST"
+        "NVST",
+        "CPAY",
+        "PBR"
       ]
     },
     "value": {
@@ -47,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "TREX",
-      "score": 53.0,
+      "ticker": "PAYX",
+      "score": 61.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ATRC",
-      "score": 56.0,
+      "ticker": "GIL",
+      "score": 49.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IMO",
-      "score": 52.5,
+      "ticker": "PLXS",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

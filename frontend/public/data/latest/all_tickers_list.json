@@ -1,237 +1,6 @@
 {
-  "date": "2026-08-06",
+  "date": "2026-08-07",
   "tickers": [
-    {
-      "ticker": "TREX",
-      "company": "TREX",
-      "sector": "Industrials",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 47.02000045776367,
-      "change_pct": 4.89,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "ATRC",
-      "company": "ATRC",
-      "sector": "Healthcare",
-      "master_score": 56.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 40.2599983215332,
-      "change_pct": 2.34,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "IMO",
-      "company": "IMO",
-      "sector": "Energy",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 127.41999816894531,
-      "change_pct": 0.85,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "RGEN",
-      "company": "RGEN",
-      "sector": "Healthcare",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 158.8000030517578,
-      "change_pct": 0.13,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "TRS",
-      "company": "TRS",
-      "sector": "Consumer Cyclical",
-      "master_score": 57.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 40.90999984741211,
-      "change_pct": 0.99,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MMM",
-      "company": "MMM",
-      "sector": "Industrials",
-      "master_score": 57.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 180.7100067138672,
-      "change_pct": -0.75,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "AXTA",
-      "company": "AXTA",
-      "sector": "Basic Materials",
-      "master_score": 62.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 37.86000061035156,
-      "change_pct": -0.55,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 62.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "HSIC",
-      "company": "HSIC",
-      "sector": "Healthcare",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 88.98500061035156,
-      "change_pct": -0.14,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "CIEN",
-      "company": "CIEN",
-      "sector": "Technology",
-      "master_score": 53.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 416.635009765625,
-      "change_pct": 1.34,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "GTES",
-      "company": "GTES",
-      "sector": "Industrials",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 29.700000762939453,
-      "change_pct": -0.47,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "AMCR",
-      "company": "AMCR",
-      "sector": "Consumer Cyclical",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 47.68000030517578,
-      "change_pct": 1.15,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "CCL",
-      "company": "CCL",
-      "sector": "Consumer Cyclical",
-      "master_score": 51.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 29.700000762939453,
-      "change_pct": 0.37,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "SAP",
-      "company": "SAP",
-      "sector": "Technology",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 196.5500030517578,
-      "change_pct": 0.54,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "TBBK",
-      "company": "TBBK",
-      "sector": "Financial Services",
-      "master_score": 60.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 71.73999786376953,
-      "change_pct": -0.43,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MORN",
-      "company": "MORN",
-      "sector": "Financial Services",
-      "master_score": 56.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 199.3249969482422,
-      "change_pct": -0.46,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ZWS",
-      "company": "ZWS",
-      "sector": "Industrials",
-      "master_score": 55.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 52.7599983215332,
-      "change_pct": -0.79,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ITW",
-      "company": "ITW",
-      "sector": "Industrials",
-      "master_score": 55.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 297.32000732421875,
-      "change_pct": 0.77,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "TNL",
-      "company": "TNL",
-      "sector": "Consumer Cyclical",
-      "master_score": 54.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 77.9000015258789,
-      "change_pct": -0.2,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "UFPI",
-      "company": "UFPI",
-      "sector": "Basic Materials",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 92.69999694824219,
-      "change_pct": -0.02,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "EMN",
-      "company": "EMN",
-      "sector": "Basic Materials",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 73.3499984741211,
-      "change_pct": -0.74,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "GGG",
-      "company": "GGG",
-      "sector": "Industrials",
-      "master_score": 51.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 82.5,
-      "change_pct": 0.23,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
-    },
     {
       "ticker": "PAYX",
       "company": "PAYX",
@@ -346,23 +115,23 @@
       "ticker": "TSM",
       "company": "TSM",
       "sector": "Technology",
-      "master_score": 56.5,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 419.8800048828125,
-      "change_pct": 1.42,
+      "price": 418.20001220703125,
+      "change_pct": 1.01,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
       "ticker": "CPAY",
       "company": "CPAY",
       "sector": "Technology",
-      "master_score": 55.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 393.7950134277344,
-      "change_pct": -0.19,
+      "price": 398.2799987792969,
+      "change_pct": 0.95,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
     },
     {
       "ticker": "CSL",
@@ -473,6 +242,83 @@
       "change_pct": 0.78,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ABNB",
+      "company": "ABNB",
+      "sector": "Consumer Cyclical",
+      "master_score": 59.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 151.63999938964844,
+      "change_pct": -0.56,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TRS",
+      "company": "TRS",
+      "sector": "Consumer Cyclical",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 40.47999954223633,
+      "change_pct": -0.95,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GEHC",
+      "company": "GEHC",
+      "sector": "Healthcare",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 70.30999755859375,
+      "change_pct": 0.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PBR",
+      "company": "PBR",
+      "sector": "Energy",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 18.520000457763672,
+      "change_pct": 0.87,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ATRC",
+      "company": "ATRC",
+      "sector": "Healthcare",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 39.4900016784668,
+      "change_pct": 0.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RGEN",
+      "company": "RGEN",
+      "sector": "Healthcare",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 159.44000244140625,
+      "change_pct": 0.54,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "FELE",
+      "company": "FELE",
+      "sector": "Industrials",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 109.33000183105469,
+      "change_pct": -0.4,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
     }
   ]
 }
