@@ -199,8 +199,8 @@ export default function XStudioQueuePage() {
                         ))}
                       </div>
 
-                      <div style={{ display: "flex", gap: 16 }}>
-                        <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+                        <div style={{ flex: 1, minWidth: 240 }}>
                           <div style={{ ...inputStyle, whiteSpace: "pre-wrap", marginBottom: 8 }}>{row.texts[row.locale]}</div>
                           {row.hashtags && (
                             <div style={{ ...inputStyle, opacity: 0.7, marginBottom: 8 }}>
@@ -216,7 +216,7 @@ export default function XStudioQueuePage() {
                           </div>
                         </div>
                         {row.imageUrl && (
-                          <img src={row.imageUrl} alt="preview" style={{ width: 340, borderRadius: 8, border: "1px solid #30363d" }} />
+                          <img src={row.imageUrl} alt="preview" style={{ width: 340, maxWidth: "100%", borderRadius: 8, border: "1px solid #30363d" }} />
                         )}
                       </div>
                     </>

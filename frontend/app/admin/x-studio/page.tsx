@@ -919,7 +919,7 @@ export default function XStudioPage() {
       </div>
 
       {settings && (
-        <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 20, marginBottom: 20, padding: 12 }}>
+        <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 20, marginBottom: 20, padding: 12, flexWrap: "wrap" }}>
           <button
             style={{ ...btnStyle, background: settings.enabled ? "#22c55e" : "#30363d", color: settings.enabled ? "#0d1117" : "#e6edf3" }}
             onClick={() => patchSettings({ enabled: !settings.enabled })}
@@ -951,7 +951,7 @@ export default function XStudioPage() {
         </div>
       )}
 
-      <div style={{ display: "flex", gap: 24 }}>
+      <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
         {/* Kuyruk */}
         <div style={{ flex: 1, minWidth: 320 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
