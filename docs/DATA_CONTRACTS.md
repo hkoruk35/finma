@@ -14,6 +14,16 @@
 
 Backfilling real migration files for these (by querying live `information_schema`, not guessing) is `tasks/active/003-supabase-migration-backfill.md`.
 
+## `traffic_sessions` / `traffic_events` — first-party traffic audit (2026-08-07)
+
+Added by migration `002_create_traffic_audit.sql`. Independent of `site_visitors` (which keeps running unmodified) — this is the ad-spend/conversion-funnel audit pipeline, built to answer "what actually happened in the visitor's browser" without trusting GA4/X Pixel numbers.
+
+- `traffic_sessions` — one row per session (`session_id` PK). First-touch `utm_source/medium/campaign/content/term` + `twclid` are written **once**, at session creation in `frontend/proxy.ts`, and never overwritten by later requests in the same session. Funnel-stage progress is denormalized as booleans (`page_loaded`, `active_5s/15s/30s`, `interacted`, `signup_started`, `signup_completed`) for cheap counting — `frontend/lib/trafficAudit.ts:sessionStage()` derives the single current stage from these flags.
+- `traffic_events` — append-only raw log. `landing_request` gets one row per HTTP page request (no dedup — this is the page-view/request count). All other event names (`page_loaded`, `active_5s/15s/30s`, `user_interaction`, `signup_started`, `signup_completed`) are constrained by a **partial unique index** on `(session_id, event_name)` so each can only be recorded once per session, written via `upsert(..., { onConflict: "session_id,event_name", ignoreDuplicates: true })`.
+- Identity: `boga_vid` (1yr cookie, httpOnly) = unique visitor across sessions/days. `boga_sid` (30min sliding cookie, httpOnly) = one funnel run. Both set only in `proxy.ts`; IP is stored but never used as an identity key.
+- Write paths: `proxy.ts` (server `landing_request` + session create/touch, via `event.waitUntil()` — non-blocking), `POST /api/track/event` (client milestone events only — rejects `signup_completed`), `POST /api/members/register` (writes `signup_completed` directly after a real `supabase.auth.signUp()` success, never from a client claim).
+- Read path: `GET /api/admin/traffic-audit` (admin-gated, same `boga_auth` check as `/api/admin/visitors`) powers the Traffic Funnel / Traffic Sources / Visitor Detail sections of `/admin/analytics/visitors`.
+
 ## `movers_daily_snapshot` — gainers/losers/most-active archive
 
 Added by migration `0021_movers_daily_snapshot.sql` (2026-08-02). One row per `(snapshot_date, category, rank)`, `category ∈ {gainers, losers, mostActive, top100}`. Written once daily by `POST /api/internal/movers-snapshot` (same `x-revalidate-secret`/`REVALIDATE_SECRET` bot-pipeline auth as `/api/internal/top100-sync`), triggered by `.github/workflows/movers-snapshot.yml`. Stored **unmasked** — ticker identity masking (`lib/publicTeaserTickers.ts:maskTop100Ticker`) must be re-applied at read time by any future archive page, exactly like `/api/top100` and `/api/home-movers` already do for the live view. No archive-viewing page exists yet as of 2026-08-02 (table starts empty; needs a few days of accumulated snapshots before one is useful) — ranking logic lives once in `lib/homeFeed.ts:buildTop100MoverRows`/`rankTop100Movers`, shared by both `/api/home-movers` (live, masked) and this snapshot writer (archival, unmasked).

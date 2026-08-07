@@ -2,15 +2,49 @@
 
 import { useEffect, useState, useCallback } from 'react';
 
-interface Visitor {
-  id: string;
-  ip: string;
-  country: string;
-  city: string;
+interface FunnelStage {
+  stage: string;
+  count: number;
+  pctOfPrev: number | null;
+}
+
+interface SourceRow {
+  source: string;
+  sessions: number;
+  browserLoaded: number;
+  active5s: number;
+  active15s: number;
+  interacted: number;
+  signupStarted: number;
+  signupCompleted: number;
+  withTwclid: number | null;
+}
+
+interface VisitorRow {
+  sessionId: string;
+  firstSeen: number;
+  lastActivity: number;
+  country: string | null;
+  city: string | null;
+  source: string;
+  campaign: string | null;
+  content: string | null;
   page: string;
-  timestamp: number;
-  userAgent: string;
-  sessionStart: number;
+  stage: string;
+  ip: string | null;
+  device: string | null;
+  twclid: boolean;
+  suspectedAutomation: boolean;
+}
+
+interface AuditResponse {
+  totalSessions: number;
+  funnel: FunnelStage[];
+  sources: SourceRow[];
+  campaigns: string[];
+  contents: string[];
+  countries: string[];
+  visitors: VisitorRow[];
 }
 
 const ACCENT = '#58a6ff';
@@ -19,97 +53,103 @@ const BORDER_COLOR = '#30363d';
 const TEXT_MAIN = '#e6edf3';
 const TEXT_SECONDARY = '#8b949e';
 
+const selectStyle: React.CSSProperties = {
+  width: '100%',
+  padding: '8px 10px',
+  background: CARD_BG,
+  border: `1px solid ${BORDER_COLOR}`,
+  borderRadius: 4,
+  color: TEXT_MAIN,
+  fontFamily: 'monospace',
+  fontSize: 12,
+};
+
+const thStyle: React.CSSProperties = { padding: '10px 8px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700, whiteSpace: 'nowrap' };
+const tdStyle: React.CSSProperties = { padding: '8px', color: TEXT_MAIN };
+
 export default function VisitorsPage() {
-  const [visitors, setVisitors] = useState<Visitor[]>([]);
-  const [filterCountry, setFilterCountry] = useState('');
-  const [filterPage, setFilterPage] = useState('');
+  const [data, setData] = useState<AuditResponse | null>(null);
   const [timeframe, setTimeframe] = useState<'24h' | '7d' | '30d' | 'all'>('24h');
+  const [filterCountry, setFilterCountry] = useState('');
+  const [filterSource, setFilterSource] = useState('');
+  const [filterCampaign, setFilterCampaign] = useState('');
+  const [filterContent, setFilterContent] = useState('');
   const [lastUpdate, setLastUpdate] = useState<number>(Date.now());
 
   const load = useCallback(async () => {
     try {
       const params = new URLSearchParams({ timeframe });
-      const res = await fetch(`/api/admin/visitors?${params}`);
+      if (filterCountry) params.set('country', filterCountry);
+      if (filterSource) params.set('source', filterSource);
+      if (filterCampaign) params.set('campaign', filterCampaign);
+      if (filterContent) params.set('content', filterContent);
+      const res = await fetch(`/api/admin/traffic-audit?${params}`);
       if (res.ok) {
-        const data = await res.json();
-        setVisitors(data.visitors ?? []);
+        setData(await res.json());
         setLastUpdate(Date.now());
       }
     } catch (err) {
-      console.error('Failed to load visitors:', err);
+      console.error('Failed to load traffic audit:', err);
     }
-  }, [timeframe]);
+  }, [timeframe, filterCountry, filterSource, filterCampaign, filterContent]);
 
   useEffect(() => {
     load();
-    const interval = setInterval(load, 3000);
+    const interval = setInterval(load, 10000);
     return () => clearInterval(interval);
   }, [load]);
-
-  const filtered = visitors.filter((v) => {
-    if (filterCountry && v.country !== filterCountry) return false;
-    if (filterPage && !v.page.includes(filterPage)) return false;
-    return true;
-  });
-
-  const countries = Array.from(new Set(visitors.map((v) => v.country))).sort();
-  const pages = Array.from(new Set(visitors.map((v) => v.page))).sort();
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
     const hours = String(date.getHours()).padStart(2, '0');
     const mins = String(date.getMinutes()).padStart(2, '0');
     const secs = String(date.getSeconds()).padStart(2, '0');
-    return `${hours}:${mins}:${secs}`;
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return `${day}.${month} ${hours}:${mins}:${secs}`;
   };
 
-  const countryStats = Object.entries(
-    filtered.reduce<Record<string, number>>((acc, v) => {
-      acc[v.country] = (acc[v.country] ?? 0) + 1;
-      return acc;
-    }, {})
-  ).sort((a, b) => b[1] - a[1]);
+  const stageColor = (stage: string) => {
+    if (stage === 'Converted') return '#3fb950';
+    if (stage === 'Signup Started') return '#e3b341';
+    if (stage === 'Interacted' || stage === 'Active 15s') return ACCENT;
+    if (stage === 'Request Only') return '#f85149';
+    return TEXT_SECONDARY;
+  };
 
   return (
     <div style={{ padding: 24, fontFamily: 'monospace', color: TEXT_MAIN }}>
-      <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 20 }}>
-        🌍 Site Ziyaretçileri
+      <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 4 }}>
+        🌍 First-Party Traffic Audit
       </h1>
+      <p style={{ fontSize: 11, color: TEXT_SECONDARY, marginBottom: 20 }}>
+        Landing Request → Browser Loaded → 5s Active → 15s Active → Interaction → Signup Start → Signup Complete — GA4/X Ads'e bağımlı olmayan first-party ölçüm.
+      </p>
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginBottom: 24 }}>
         <div style={{ background: CARD_BG, border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, padding: 16 }}>
-          <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Toplam Ziyaretçi</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>
-            {visitors.length}
-          </div>
+          <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Toplam Session</div>
+          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>{data?.totalSessions ?? '—'}</div>
         </div>
         <div style={{ background: CARD_BG, border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, padding: 16 }}>
           <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Ülke Sayısı</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>
-            {countries.length}
-          </div>
+          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>{data?.countries.length ?? '—'}</div>
         </div>
         <div style={{ background: CARD_BG, border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, padding: 16 }}>
-          <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Sayfa Sayısı</div>
-          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>
-            {pages.length}
-          </div>
+          <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Kaynak Sayısı</div>
+          <div style={{ fontSize: 28, fontWeight: 900, color: TEXT_MAIN, marginTop: 6 }}>{data?.sources.length ?? '—'}</div>
         </div>
         <div style={{ background: CARD_BG, border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, padding: 16 }}>
           <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>Son Güncelleme</div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: TEXT_MAIN, marginTop: 6 }}>
-            {formatTime(lastUpdate)}
-          </div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: TEXT_MAIN, marginTop: 6 }}>{formatTime(lastUpdate)}</div>
         </div>
       </div>
 
       {/* Timeframe */}
-      <div style={{ marginBottom: 24 }}>
-        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>
-          ZAMAN ARALIGI
-        </label>
-        <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>ZAMAN ARALIĞI</label>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {(['24h', '7d', '30d', 'all'] as const).map((tf) => (
             <button
               key={tf}
@@ -133,160 +173,168 @@ export default function VisitorsPage() {
       </div>
 
       {/* Filters */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginBottom: 24 }}>
         <div>
-          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>
-            ÜLKE FİLTRESİ
-          </label>
-          <select
-            value={filterCountry}
-            onChange={(e) => setFilterCountry(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '8px 10px',
-              background: CARD_BG,
-              border: `1px solid ${BORDER_COLOR}`,
-              borderRadius: 4,
-              color: TEXT_MAIN,
-              fontFamily: 'monospace',
-              fontSize: 12,
-            }}
-          >
+          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>ÜLKE</label>
+          <select value={filterCountry} onChange={(e) => setFilterCountry(e.target.value)} style={selectStyle}>
             <option value="">Tümü</option>
-            {countries.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
+            {(data?.countries ?? []).map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
-
         <div>
-          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>
-            SAYFA FİLTRESİ
-          </label>
-          <input
-            type="text"
-            placeholder="Sayfa URL'si ara..."
-            value={filterPage}
-            onChange={(e) => setFilterPage(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '8px 10px',
-              background: CARD_BG,
-              border: `1px solid ${BORDER_COLOR}`,
-              borderRadius: 4,
-              color: TEXT_MAIN,
-              fontFamily: 'monospace',
-              fontSize: 12,
-            }}
-          />
+          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>KAYNAK (SOURCE)</label>
+          <select value={filterSource} onChange={(e) => setFilterSource(e.target.value)} style={selectStyle}>
+            <option value="">Tümü</option>
+            {(data?.sources ?? []).map((s) => <option key={s.source} value={s.source}>{s.source}</option>)}
+          </select>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>KAMPANYA (utm_campaign)</label>
+          <select value={filterCampaign} onChange={(e) => setFilterCampaign(e.target.value)} style={selectStyle}>
+            <option value="">Tümü</option>
+            {(data?.campaigns ?? []).map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+        </div>
+        <div>
+          <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 4 }}>REKLAM (utm_content)</label>
+          <select value={filterContent} onChange={(e) => setFilterContent(e.target.value)} style={selectStyle}>
+            <option value="">Tümü</option>
+            {(data?.contents ?? []).map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
         </div>
       </div>
 
-      {/* Ülke Bazlı İstatistikler */}
+      {/* Traffic Funnel */}
       <div style={{ marginBottom: 24 }}>
-        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>
-          ÜLKE BAZLI İSTATİSTİKLER
-        </label>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>TRAFFIC FUNNEL</label>
         <div style={{ border: `1px solid ${BORDER_COLOR}`, borderRadius: 6, overflow: 'hidden' }}>
-          {countryStats.length === 0 ? (
-            <div style={{ padding: 16, textAlign: 'center', color: TEXT_SECONDARY, fontSize: 12 }}>
-              Veri yok.
-            </div>
-          ) : (
-            countryStats.map(([country, count]) => {
-              const pct = filtered.length > 0 ? Math.round((count / filtered.length) * 100) : 0;
-              return (
+          {(data?.funnel ?? []).map((f) => (
+            <div
+              key={f.stage}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px',
+                borderBottom: `1px solid ${BORDER_COLOR}`, fontSize: 12,
+              }}
+            >
+              <div style={{ width: 160, color: TEXT_MAIN, fontWeight: 700 }}>{f.stage}</div>
+              <div style={{ flex: 1, background: '#161b22', borderRadius: 3, height: 10, overflow: 'hidden' }}>
                 <div
-                  key={country}
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    padding: '8px 12px',
-                    borderBottom: `1px solid ${BORDER_COLOR}`,
-                    fontSize: 12,
+                    width: data && data.funnel[0].count > 0 ? `${Math.round((f.count / data.funnel[0].count) * 100)}%` : '0%',
+                    background: ACCENT, height: '100%',
                   }}
-                >
-                  <div style={{ width: 90, color: TEXT_MAIN, fontWeight: 700 }}>{country}</div>
-                  <div style={{ flex: 1, background: '#161b22', borderRadius: 3, height: 8, overflow: 'hidden' }}>
-                    <div style={{ width: `${pct}%`, background: ACCENT, height: '100%' }} />
-                  </div>
-                  <div style={{ width: 70, textAlign: 'right', color: TEXT_SECONDARY }}>
-                    {count} ({pct}%)
-                  </div>
-                </div>
-              );
-            })
+                />
+              </div>
+              <div style={{ width: 130, textAlign: 'right', color: TEXT_MAIN, fontWeight: 700 }}>{f.count}</div>
+              <div style={{ width: 70, textAlign: 'right', color: TEXT_SECONDARY }}>
+                {f.pctOfPrev === null ? '—' : `${f.pctOfPrev}%`}
+              </div>
+            </div>
+          ))}
+          {(!data || data.funnel.length === 0) && (
+            <div style={{ padding: 16, textAlign: 'center', color: TEXT_SECONDARY, fontSize: 12 }}>Veri yok.</div>
           )}
         </div>
       </div>
 
-      {/* Table */}
-      <div style={{ overflowX: 'auto', border: `1px solid ${BORDER_COLOR}`, borderRadius: 6 }}>
-        <table
-          style={{
-            width: '100%',
-            borderCollapse: 'collapse',
-            fontSize: 12,
-            fontFamily: 'monospace',
-          }}
-        >
-          <thead>
-            <tr style={{ background: '#161b22', borderBottom: `1px solid ${BORDER_COLOR}` }}>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                GİRİŞ ZAMANI
-              </th>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                ÇIKIŞ ZAMANI
-              </th>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                ÜLKE/ŞEHİR
-              </th>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                SAYFA
-              </th>
-              <th style={{ padding: '12px 10px', textAlign: 'left', color: TEXT_SECONDARY, fontWeight: 700 }}>
-                IP
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.length === 0 ? (
-              <tr>
-                <td colSpan={5} style={{ padding: '24px', textAlign: 'center', color: TEXT_SECONDARY }}>
-                  Ziyaretçi bulunamadı. Site'de gezinti yap veya filtreleri kontrol et.
-                </td>
+      {/* Traffic Sources */}
+      <div style={{ marginBottom: 24 }}>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>TRAFFIC SOURCES</label>
+        <div style={{ overflowX: 'auto', border: `1px solid ${BORDER_COLOR}`, borderRadius: 6 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, fontFamily: 'monospace' }}>
+            <thead>
+              <tr style={{ background: '#161b22', borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                <th style={thStyle}>SOURCE</th>
+                <th style={thStyle}>SESSIONS</th>
+                <th style={thStyle}>LOADED</th>
+                <th style={thStyle}>ACTIVE 5S</th>
+                <th style={thStyle}>ACTIVE 15S</th>
+                <th style={thStyle}>INTERACTED</th>
+                <th style={thStyle}>SIGNUP START</th>
+                <th style={thStyle}>SIGNUP DONE</th>
+                <th style={thStyle}>TWCLID</th>
               </tr>
-            ) : (
-              filtered.map((v) => (
-                <tr key={v.id} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
-                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                    {formatTime(v.sessionStart)}
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                    {formatTime(v.timestamp)}
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                    <div>{v.country}</div>
-                    <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>{v.city}</div>
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_MAIN, maxWidth: 200 }}>
-                    <div style={{ wordBreak: 'break-word' }}>{v.page}</div>
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_SECONDARY, fontSize: 11 }}>
-                    {v.ip}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {(data?.sources ?? []).length === 0 ? (
+                <tr><td colSpan={9} style={{ padding: 24, textAlign: 'center', color: TEXT_SECONDARY }}>Veri yok.</td></tr>
+              ) : (
+                data!.sources.map((s) => (
+                  <tr key={s.source} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                    <td style={{ ...tdStyle, fontWeight: 700, color: ACCENT }}>{s.source}</td>
+                    <td style={tdStyle}>{s.sessions}</td>
+                    <td style={tdStyle}>{s.browserLoaded}</td>
+                    <td style={tdStyle}>{s.active5s}</td>
+                    <td style={tdStyle}>{s.active15s}</td>
+                    <td style={tdStyle}>{s.interacted}</td>
+                    <td style={tdStyle}>{s.signupStarted}</td>
+                    <td style={tdStyle}>{s.signupCompleted}</td>
+                    <td style={tdStyle}>{s.withTwclid === null ? '—' : `${s.withTwclid}/${s.sessions}`}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div style={{ marginTop: 16, fontSize: 11, color: TEXT_SECONDARY }}>
-        Gösterilen: {filtered.length} / {visitors.length} | Her 3 saniyede otomatik yenilenir
+      {/* Visitor Detail */}
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>VISITOR DETAIL</label>
+        <div style={{ overflowX: 'auto', border: `1px solid ${BORDER_COLOR}`, borderRadius: 6 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, fontFamily: 'monospace' }}>
+            <thead>
+              <tr style={{ background: '#161b22', borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                <th style={thStyle}>FIRST SEEN</th>
+                <th style={thStyle}>LAST ACTIVITY</th>
+                <th style={thStyle}>COUNTRY/CITY</th>
+                <th style={thStyle}>SOURCE</th>
+                <th style={thStyle}>CAMPAIGN</th>
+                <th style={thStyle}>PAGE</th>
+                <th style={thStyle}>STAGE</th>
+                <th style={thStyle}>IP</th>
+                <th style={thStyle}>DEVICE</th>
+                <th style={thStyle}>FLAG</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(data?.visitors ?? []).length === 0 ? (
+                <tr><td colSpan={10} style={{ padding: 24, textAlign: 'center', color: TEXT_SECONDARY }}>Ziyaretçi bulunamadı.</td></tr>
+              ) : (
+                data!.visitors.map((v) => (
+                  <tr key={v.sessionId} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                    <td style={tdStyle}>{formatTime(v.firstSeen)}</td>
+                    <td style={tdStyle}>{formatTime(v.lastActivity)}</td>
+                    <td style={tdStyle}>
+                      <div>{v.country}</div>
+                      <div style={{ fontSize: 10, color: TEXT_SECONDARY }}>{v.city}</div>
+                    </td>
+                    <td style={tdStyle}>
+                      {v.source}
+                      {v.twclid && <span style={{ marginLeft: 6, fontSize: 9, color: '#3fb950' }}>twclid</span>}
+                    </td>
+                    <td style={{ ...tdStyle, fontSize: 11, color: TEXT_SECONDARY }}>{v.campaign || '—'}{v.content ? ` / ${v.content}` : ''}</td>
+                    <td style={{ ...tdStyle, maxWidth: 180, wordBreak: 'break-word' }}>{v.page}</td>
+                    <td style={{ ...tdStyle, color: stageColor(v.stage), fontWeight: 700 }}>{v.stage}</td>
+                    <td style={{ ...tdStyle, fontSize: 11, color: TEXT_SECONDARY }}>{v.ip}</td>
+                    <td style={tdStyle}>{v.device}</td>
+                    <td style={tdStyle}>
+                      {v.suspectedAutomation && (
+                        <span style={{ fontSize: 9, fontWeight: 700, color: '#e3b341', border: '1px solid #e3b341', borderRadius: 4, padding: '2px 6px' }}>
+                          suspected_automation
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>
+        Gösterilen: {data?.visitors.length ?? 0} session (en fazla 500) | Her 10 saniyede otomatik yenilenir
       </div>
     </div>
   );

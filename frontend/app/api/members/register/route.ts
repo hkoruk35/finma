@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { stripe, createPremiumCheckoutSession } from "@/lib/stripe";
+import { SESSION_COOKIE } from "@/lib/trafficAudit";
 
 // Brute-force/spam koruması: basit in-memory rate limiter (app/api/auth/login/route.ts deseni)
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -93,6 +94,24 @@ export async function POST(req: NextRequest) {
 
   if (!data.user) {
     return NextResponse.json({ ok: true, needsEmailConfirmation: !data.session });
+  }
+
+  // signup_completed SADECE burada, gercek basarili supabase.auth.signUp()
+  // sonucundan sonra yazilir — frontend button click'inden degil (bkz. TASK
+  // point 5). Idempotent: (session_id, event_name) unique index + update.
+  const auditSessionId = req.cookies.get(SESSION_COOKIE)?.value;
+  if (auditSessionId) {
+    const now = Date.now();
+    await supabaseAdmin
+      .from("traffic_events")
+      .upsert(
+        { session_id: auditSessionId, event_name: "signup_completed", timestamp: now, pathname: req.nextUrl.pathname },
+        { onConflict: "session_id,event_name", ignoreDuplicates: true }
+      );
+    await supabaseAdmin
+      .from("traffic_sessions")
+      .update({ signup_completed: true, signup_completed_at: now, last_activity: now })
+      .eq("session_id", auditSessionId);
   }
 
   // Ödeme tamamlanmadan üyelik aktifleşmez: hesap "pending" kalır, Stripe

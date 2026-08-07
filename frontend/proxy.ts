@@ -1,12 +1,105 @@
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import type { NextRequest, NextFetchEvent } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
+import { detectDevice, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || ''
 
-export async function proxy(request: NextRequest) {
+// First-Party Traffic Audit: sunucuya ulasan HER sayfa istegini (admin haric)
+// server-side yakalar. Cookie atamasi (boga_vid/boga_sid) senkron ve ucuz;
+// asil Supabase yazma cagrilari event.waitUntil() ile "fire and forget"
+// yapilir, response'u ASLA bloklamaz (sayfa hizini etkilemez).
+function trackLanding(request: NextRequest, response: NextResponse, event: NextFetchEvent) {
+  if (!supabaseServiceKey) return
+  try {
+    const existingVisitorId = request.cookies.get(VISITOR_COOKIE)?.value
+    const existingSessionId = request.cookies.get(SESSION_COOKIE)?.value
+    const isNewSession = !existingSessionId
+    const visitorId = existingVisitorId || crypto.randomUUID()
+    const sessionId = existingSessionId || crypto.randomUUID()
+
+    response.cookies.set(VISITOR_COOKIE, visitorId, {
+      httpOnly: true, sameSite: 'lax', maxAge: VISITOR_MAX_AGE_SECONDS, path: '/',
+    })
+    response.cookies.set(SESSION_COOKIE, sessionId, {
+      httpOnly: true, sameSite: 'lax', maxAge: SESSION_MAX_AGE_SECONDS, path: '/',
+    })
+
+    const { pathname } = request.nextUrl
+    const now = Date.now()
+    const ua = request.headers.get('user-agent') || 'Unknown'
+    const country = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'Unknown'
+    const city = request.headers.get('x-vercel-ip-city') || 'Unknown'
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'Unknown'
+    const referrer = request.headers.get('referer') || null
+
+    const restHeaders = {
+      apikey: supabaseServiceKey,
+      Authorization: `Bearer ${supabaseServiceKey}`,
+      'Content-Type': 'application/json',
+    }
+
+    // Requests/Page views: HER istek icin ayri bir satir (dedup YOK — bu sayimin amaci budur).
+    event.waitUntil(
+      fetch(`${supabaseUrl}/rest/v1/traffic_events`, {
+        method: 'POST',
+        headers: restHeaders,
+        body: JSON.stringify({
+          session_id: sessionId,
+          request_id: crypto.randomUUID(),
+          event_name: 'landing_request',
+          timestamp: now,
+          pathname,
+          metadata: { referrer },
+        }),
+      }).catch(() => {})
+    )
+
+    if (isNewSession) {
+      // Ilk-dokunus (first-touch) attribution: UTM/twclid SADECE burada, session
+      // olusurken yazilir — sonraki isteklerde asla ustune yazilmaz.
+      const url = request.nextUrl
+      event.waitUntil(
+        fetch(`${supabaseUrl}/rest/v1/traffic_sessions`, {
+          method: 'POST',
+          headers: { ...restHeaders, Prefer: 'resolution=ignore-duplicates' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            visitor_id: visitorId,
+            first_seen: now,
+            last_activity: now,
+            landing_pathname: pathname,
+            referrer,
+            utm_source: url.searchParams.get('utm_source'),
+            utm_medium: url.searchParams.get('utm_medium'),
+            utm_campaign: url.searchParams.get('utm_campaign'),
+            utm_content: url.searchParams.get('utm_content'),
+            utm_term: url.searchParams.get('utm_term'),
+            twclid: url.searchParams.get('twclid'),
+            ip, country, city, user_agent: ua,
+            device: detectDevice(ua),
+            suspected_bot_ua: isKnownCrawlerUserAgent(ua),
+          }),
+        }).catch(() => {})
+      )
+    } else {
+      event.waitUntil(
+        fetch(`${supabaseUrl}/rest/v1/traffic_sessions?session_id=eq.${sessionId}`, {
+          method: 'PATCH',
+          headers: restHeaders,
+          body: JSON.stringify({ last_activity: now }),
+        }).catch(() => {})
+      )
+    }
+  } catch {
+    // Tracking hatasi asla siteyi etkilememeli.
+  }
+}
+
+export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl
 
   // ── /data/* statik JSON'lara doğrudan HTTP erişimi kapalı ──────────────────
@@ -32,6 +125,10 @@ export async function proxy(request: NextRequest) {
     },
   })
   const { data: { user } } = await supabase.auth.getUser()
+
+  if (!pathname.startsWith('/admin')) {
+    trackLanding(request, response, event)
+  }
 
   const redirectTo = (url: URL) => {
     const res = NextResponse.redirect(url)

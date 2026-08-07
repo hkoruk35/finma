@@ -6,6 +6,7 @@ import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ConsentCheckbox from "@/components/public/ConsentCheckbox";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { sendTrackEvent } from "@/components/global/TrafficAuditTracker";
 
 export default function RegisterForm({ locale }: { locale: Locale }) {
   const t = copy[locale].register;
@@ -31,6 +32,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
       return;
     }
     setGoogleLoading(true);
+    sendTrackEvent("signup_started");
     const supabase = createSupabaseBrowserClient();
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -52,6 +54,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
     }
 
     setLoading(true);
+    sendTrackEvent("signup_started");
 
     try {
       const confirmRedirectTo = window.location.origin + `/global/${locale}`;

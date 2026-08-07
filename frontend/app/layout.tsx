@@ -4,6 +4,7 @@ import BottomNavWrapper from "@/components/BottomNavWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
 import StructuredData from "@/components/StructuredData";
 import VisitorTracker from "@/components/VisitorTracker";
+import TrafficAuditTracker from "@/components/global/TrafficAuditTracker";
 import { Inter, Montserrat, JetBrains_Mono, Manrope } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
@@ -131,6 +132,7 @@ export default function RootLayout({
           <TrackerProvider>
             <AnalyticsLoader />
             <VisitorTracker />
+            <TrafficAuditTracker />
             <PWAInstaller />
             <CopilotShell>
               {children}
