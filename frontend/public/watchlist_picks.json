@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T17:03:11.597325-04:00",
+  "generated_at": "2026-08-07T09:03:46.691387-04:00",
   "picks": [
     {
       "ticker": "SAP",
@@ -14,18 +14,6 @@
       "score": 46.0
     },
     {
-      "ticker": "TENB",
-      "sector": "Technology",
-      "date_added": "2026-08-06",
-      "score": 48.0
-    },
-    {
-      "ticker": "WST",
-      "sector": "Healthcare",
-      "date_added": "2026-08-06",
-      "score": 45.5
-    },
-    {
       "ticker": "FSLR",
       "sector": "Technology",
       "date_added": "2026-08-06",
@@ -36,6 +24,54 @@
       "sector": "Technology",
       "date_added": "2026-08-06",
       "score": 38.5
+    },
+    {
+      "ticker": "CSL",
+      "sector": "Industrials",
+      "date_added": "2026-08-07",
+      "score": 49.0
+    },
+    {
+      "ticker": "KFRC",
+      "sector": "Industrials",
+      "date_added": "2026-08-07",
+      "score": 49.0
+    },
+    {
+      "ticker": "ETN",
+      "sector": "Industrials",
+      "date_added": "2026-08-07",
+      "score": 47.5
+    },
+    {
+      "ticker": "CRI",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-07",
+      "score": 47.5
+    },
+    {
+      "ticker": "NP",
+      "sector": "Financial Services",
+      "date_added": "2026-08-07",
+      "score": 46.5
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "date_added": "2026-08-07",
+      "score": 42.5
+    },
+    {
+      "ticker": "STNG",
+      "sector": "Energy",
+      "date_added": "2026-08-07",
+      "score": 40.0
+    },
+    {
+      "ticker": "DAR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-07",
+      "score": 37.5
     }
   ]
 }
