@@ -2,31 +2,56 @@ import { NextResponse } from 'next/server'
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
-import { detectDevice, isTrackablePageRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
+import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || ''
 
-// First-Party Traffic Audit: sunucuya ulasan HER sayfa istegini (admin haric)
-// server-side yakalar. Cookie atamasi (boga_vid/boga_sid) senkron ve ucuz;
-// asil Supabase yazma cagrilari event.waitUntil() ile "fire and forget"
-// yapilir, response'u ASLA bloklamaz (sayfa hizini etkilemez).
-function trackLanding(request: NextRequest, response: NextResponse, event: NextFetchEvent) {
+const SESSION_CORRELATION_WINDOW_MS = 30_000
+
+// Cookie kayipli ilk-istek durumunda (ad-blocker/gizlilik uzantisi Set-Cookie'yi
+// engelledi, tarayici cookie'yi henuz depolamadan ikinci bir kaynak istek attirdi
+// vb.) ayni ziyareti YANLISLIKLA ikinci bir session/attribution olarak
+// kaydetmemek icin: cookie yoksa, kisa bir pencerede (30sn) ayni IP+User-Agent
+// ile olusturulmus EN SON session'i ara; varsa ONU kullan (attribution'ina asla
+// dokunma), yoksa gercekten yeni bir session olustur. Bu SADECE cookie'nin
+// GERCEKTEN eksik oldugu (nadir) durumda calisir — normal seyirde session
+// cookie'si zaten var, bu sorgu hic tetiklenmez.
+async function findRecentSessionByFingerprint(ip: string, ua: string): Promise<string | null> {
+  if (!supabaseServiceKey || ip === 'Unknown') return null
+  try {
+    const cutoff = Date.now() - SESSION_CORRELATION_WINDOW_MS
+    const url =
+      `${supabaseUrl}/rest/v1/traffic_sessions` +
+      `?ip=eq.${encodeURIComponent(ip)}&user_agent=eq.${encodeURIComponent(ua)}` +
+      `&first_seen=gte.${cutoff}&select=session_id&order=first_seen.desc&limit=1`
+    const res = await fetch(url, {
+      headers: { apikey: supabaseServiceKey, Authorization: `Bearer ${supabaseServiceKey}` },
+      signal: AbortSignal.timeout(1500),
+    })
+    if (!res.ok) return null
+    const rows = (await res.json()) as { session_id: string }[]
+    return rows[0]?.session_id ?? null
+  } catch {
+    return null
+  }
+}
+
+// First-Party Traffic Audit: sunucuya ulasan HER GERCEK sayfa navigasyonunu
+// (admin ve prefetch/RSC istekleri haric) server-side yakalar. Cookie atamasi
+// (boga_vid/boga_sid) senkron ve ucuz. YENI session'in traffic_sessions
+// INSERT'i BILEREK await edilir (fire-and-forget DEGIL) — boylece client'in
+// hemen ardindan gonderdigi page_loaded beacon'i, henuz var olmayan bir
+// session'a yazmaya calisip sessizce kaybolmaz (race condition). landing_request
+// event log'u ve mevcut session'in last_activity PATCH'i hala event.waitUntil()
+// ile fire-and-forget — bunlarda boyle bir yaris riski yok, response'u
+// bloklamazlar.
+async function trackLanding(request: NextRequest, response: NextResponse, event: NextFetchEvent) {
   if (!supabaseServiceKey) return
   try {
     const existingVisitorId = request.cookies.get(VISITOR_COOKIE)?.value
     const existingSessionId = request.cookies.get(SESSION_COOKIE)?.value
-    const isNewSession = !existingSessionId
-    const visitorId = existingVisitorId || crypto.randomUUID()
-    const sessionId = existingSessionId || crypto.randomUUID()
-
-    response.cookies.set(VISITOR_COOKIE, visitorId, {
-      httpOnly: true, sameSite: 'lax', maxAge: VISITOR_MAX_AGE_SECONDS, path: '/',
-    })
-    response.cookies.set(SESSION_COOKIE, sessionId, {
-      httpOnly: true, sameSite: 'lax', maxAge: SESSION_MAX_AGE_SECONDS, path: '/',
-    })
 
     const { pathname } = request.nextUrl
     const now = Date.now()
@@ -41,6 +66,22 @@ function trackLanding(request: NextRequest, response: NextResponse, event: NextF
       Authorization: `Bearer ${supabaseServiceKey}`,
       'Content-Type': 'application/json',
     }
+
+    let sessionId = existingSessionId
+    let isBrandNewSession = false
+    if (!sessionId) {
+      const recovered = await findRecentSessionByFingerprint(ip, ua)
+      sessionId = recovered || crypto.randomUUID()
+      isBrandNewSession = !recovered
+    }
+    const visitorId = existingVisitorId || crypto.randomUUID()
+
+    response.cookies.set(VISITOR_COOKIE, visitorId, {
+      httpOnly: true, secure: true, sameSite: 'lax', maxAge: VISITOR_MAX_AGE_SECONDS, path: '/',
+    })
+    response.cookies.set(SESSION_COOKIE, sessionId, {
+      httpOnly: true, secure: true, sameSite: 'lax', maxAge: SESSION_MAX_AGE_SECONDS, path: '/',
+    })
 
     // Requests/Page views: HER istek icin ayri bir satir (dedup YOK — bu sayimin amaci budur).
     event.waitUntil(
@@ -58,33 +99,33 @@ function trackLanding(request: NextRequest, response: NextResponse, event: NextF
       }).catch(() => {})
     )
 
-    if (isNewSession) {
+    if (isBrandNewSession) {
       // Ilk-dokunus (first-touch) attribution: UTM/twclid SADECE burada, session
-      // olusurken yazilir — sonraki isteklerde asla ustune yazilmaz.
+      // olusurken yazilir — sonraki isteklerde (client eventleri dahil) asla
+      // ustune yazilmaz. AWAIT EDILIR: satir asagida "return response"tan once
+      // DB'de var olmasi garanti — client'in ilk page_loaded beacon'i icin.
       const url = request.nextUrl
-      event.waitUntil(
-        fetch(`${supabaseUrl}/rest/v1/traffic_sessions`, {
-          method: 'POST',
-          headers: { ...restHeaders, Prefer: 'resolution=ignore-duplicates' },
-          body: JSON.stringify({
-            session_id: sessionId,
-            visitor_id: visitorId,
-            first_seen: now,
-            last_activity: now,
-            landing_pathname: pathname,
-            referrer,
-            utm_source: url.searchParams.get('utm_source'),
-            utm_medium: url.searchParams.get('utm_medium'),
-            utm_campaign: url.searchParams.get('utm_campaign'),
-            utm_content: url.searchParams.get('utm_content'),
-            utm_term: url.searchParams.get('utm_term'),
-            twclid: url.searchParams.get('twclid'),
-            ip, country, city, user_agent: ua,
-            device: detectDevice(ua),
-            suspected_bot_ua: isKnownCrawlerUserAgent(ua),
-          }),
-        }).catch(() => {})
-      )
+      await fetch(`${supabaseUrl}/rest/v1/traffic_sessions`, {
+        method: 'POST',
+        headers: { ...restHeaders, Prefer: 'resolution=ignore-duplicates' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          visitor_id: visitorId,
+          first_seen: now,
+          last_activity: now,
+          landing_pathname: pathname,
+          referrer,
+          utm_source: url.searchParams.get('utm_source'),
+          utm_medium: url.searchParams.get('utm_medium'),
+          utm_campaign: url.searchParams.get('utm_campaign'),
+          utm_content: url.searchParams.get('utm_content'),
+          utm_term: url.searchParams.get('utm_term'),
+          twclid: url.searchParams.get('twclid'),
+          ip, country, city, user_agent: ua,
+          device: detectDevice(ua),
+          suspected_bot_ua: isKnownCrawlerUserAgent(ua),
+        }),
+      }).catch(() => {})
     } else {
       event.waitUntil(
         fetch(`${supabaseUrl}/rest/v1/traffic_sessions?session_id=eq.${sessionId}`, {
@@ -126,8 +167,8 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   })
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!pathname.startsWith('/admin') && isTrackablePageRequest(pathname)) {
-    trackLanding(request, response, event)
+  if (!pathname.startsWith('/admin') && isTrackablePageRequest(pathname) && !isPrefetchOrDataRequest(request.headers)) {
+    await trackLanding(request, response, event)
   }
 
   const redirectTo = (url: URL) => {

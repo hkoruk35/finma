@@ -4,6 +4,7 @@ import {
   classifySource,
   sessionStage,
   isTrackablePageRequest,
+  isScannerProbePath,
   diagnosticSignals,
   isSuspectedAutomation,
   X_PAID_LABEL,
@@ -60,6 +61,12 @@ export async function GET(req: NextRequest) {
   // funnel/kaynak/visitor listelerinden cikar.
   sessions = sessions.filter((s) => isTrackablePageRequest(s.landing_pathname));
 
+  // Security/Scanner probe trafigi (point 5): /wp-admin, /xmlrpc.php vb. —
+  // BOGASTOCK'a ait degil, funnel/session/visitor sayimina hic girmemeli.
+  // Ham kayitlar Supabase'de duruyor, sadece bu response'tan cikariliyor.
+  const scannerCount = sessions.filter((s) => isScannerProbePath(s.landing_pathname)).length;
+  sessions = sessions.filter((s) => !isScannerProbePath(s.landing_pathname));
+
   if (source) sessions = sessions.filter((s) => classifySource(s) === source);
 
   // ── Funnel (point 7) ─────────────────────────────────────────────────────
@@ -97,9 +104,9 @@ export async function GET(req: NextRequest) {
   const contents = Array.from(new Set(sessions.map((s) => s.utm_content).filter(Boolean))) as string[];
   const countries = Array.from(new Set(sessions.map((s) => s.country).filter(Boolean))) as string[];
 
-  // ── high_frequency_requests sinyali icin: bu session'larin landing_request
-  // sayisi (JS'te aggregate ediliyor — REST API GROUP BY yapamiyor, veri
-  // hacmi bu audit'in olcegi icin kucuk).
+  // ── abnormal_navigation_rate sinyali icin: bu session'larin landing_request
+  // (gercek navigasyon) sayisi (JS'te aggregate ediliyor — REST API GROUP BY
+  // yapamiyor, veri hacmi bu audit'in olcegi icin kucuk).
   const visibleSessionIds = sessions.slice(0, 500).map((s) => s.session_id);
   const requestCountBySession = new Map<string, number>();
   if (visibleSessionIds.length > 0) {
@@ -149,6 +156,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     timeframe,
     totalSessions: sessions.length,
+    scannerTrafficExcluded: scannerCount,
     auditLiveSince,
     funnel,
     sources,

@@ -40,6 +40,7 @@ interface VisitorRow {
 
 interface AuditResponse {
   totalSessions: number;
+  scannerTrafficExcluded: number;
   auditLiveSince: number | null;
   funnel: FunnelStage[];
   sources: SourceRow[];
@@ -52,8 +53,9 @@ interface AuditResponse {
 const SIGNAL_LABELS: Record<string, string> = {
   request_only: 'request_only',
   loaded_no_engagement: 'loaded_no_engagement',
-  known_bot_user_agent: 'known_bot_ua',
-  high_frequency_requests: 'high_frequency',
+  known_bot: 'known_bot',
+  scanner_probe: 'scanner_probe',
+  abnormal_navigation_rate: 'abnormal_navigation_rate',
 };
 
 const ACCENT = '#58a6ff';
@@ -135,8 +137,13 @@ export default function VisitorsPage() {
         Landing Request → Browser Loaded → 5s Active → 15s Active → Interaction → Signup Start → Signup Complete — GA4/X Ads'e bağımlı olmayan first-party ölçüm.
       </p>
       {data?.auditLiveSince && (
-        <p style={{ fontSize: 11, color: '#e3b341', marginBottom: 20 }}>
+        <p style={{ fontSize: 11, color: '#e3b341', marginBottom: 4 }}>
           ⏱ Ölçüm başlangıcı (instrumentation live since): <strong>{formatTime(data.auditLiveSince)}</strong> — X Ads karşılaştırması sadece bu andan sonraki trafik için geçerli.
+        </p>
+      )}
+      {!!data?.scannerTrafficExcluded && (
+        <p style={{ fontSize: 11, color: TEXT_SECONDARY, marginBottom: 20 }}>
+          🛡 Security/Scanner probe trafiği (wp-admin, xmlrpc.php vb.) funnel'dan hariç tutuldu: <strong>{data.scannerTrafficExcluded}</strong> session (ham kayıtlar silinmedi).
         </p>
       )}
 

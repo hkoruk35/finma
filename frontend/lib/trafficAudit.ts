@@ -63,6 +63,44 @@ export function isTrackablePageRequest(pathname: string): boolean {
   return true;
 }
 
+// Next.js App Router, <Link> viewport/hover prefetch'i ve client-side RSC
+// navigasyonlari icin arka planda gercek HTTP istekleri atar — bunlar
+// kullanicinin GERCEKTEN gordugu bir sayfa degildir ("meaningful
+// document/navigation" degil), landing_request/session sayimina KATILMAMALI.
+// Next.js bu istekleri sabit header'larla isaretler (App Router sozlesmesi).
+export function isPrefetchOrDataRequest(headers: { get(name: string): string | null }): boolean {
+  if (headers.get("next-router-prefetch")) return true;
+  if (headers.get("purpose") === "prefetch" || headers.get("x-purpose") === "prefetch") return true;
+  if (headers.get("rsc")) return true; // RSC payload fetch (client-side route değişimi), ayrı bir HTML document değil
+  return false;
+}
+
+// Bilinen exploit/scanner probe path'leri (bkz. TASK point 5) — bunlar
+// BOGASTOCK uygulamasina ait degil, otomatik guvenlik taramalarindan gelir.
+// Ham loglar SILINMEZ (proxy.ts hala normal sekilde kaydeder); bu fonksiyon
+// SADECE dashboard'un funnel/source/visitor sayimlarindan hariç tutmak icin
+// kullanilir (bkz. admin route).
+const SCANNER_PROBE_PATTERNS = [
+  /^\/wp-admin/i,
+  /^\/wp-login\.php/i,
+  /^\/wp-content/i,
+  /^\/wp-includes/i,
+  /^\/xmlrpc\.php/i,
+  /^\/\.env/i,
+  /^\/\.git/i,
+  /^\/phpmyadmin/i,
+  /^\/administrator/i,
+  /^\/wordpress/i,
+  /^\/\.aws/i,
+  /^\/config\.php/i,
+  /^\/vendor\/phpunit/i,
+  /^\/cgi-bin/i,
+];
+
+export function isScannerProbePath(pathname: string): boolean {
+  return SCANNER_PROBE_PATTERNS.some((re) => re.test(pathname));
+}
+
 export function detectDevice(ua: string): string {
   if (/ipad|tablet/i.test(ua)) return "tablet";
   if (/mobile|android|iphone/i.test(ua)) return "mobile";
@@ -116,25 +154,30 @@ export function classifySource(s: Pick<TrafficSession, "utm_source" | "utm_mediu
   return "Direct";
 }
 
-// ── Diagnostic signals (bkz. TASK point 3) ─────────────────────────────────
+// ── Diagnostic signals (bkz. TASK point 4) ─────────────────────────────────
 // Tek bir zayif sinyal (orn. sadece "5sn'de active event gelmedi") artik
 // otomatik "suspected_automation" ETIKETLEMEZ — sinyaller ayri ayri raporlanir,
-// suspected_automation SADECE 2+ sinyal ayni anda varsa true olur.
+// suspected_automation SADECE 2+ BAGIMSIZ guclu sinyal ayni anda varsa true olur.
 export const DIAGNOSTIC_AGE_GATE_MS = 5 * 60 * 1000; // sinyal icin en az 5dk gecmis olmali (hala yukleniyor olabilir)
-export const HIGH_FREQUENCY_REQUEST_THRESHOLD = 15; // ayni session'da bu sayidan fazla landing_request
+// "Abnormal navigation rate": landing_request SADECE gercek document
+// navigasyonlarinda olusur (proxy.ts artik prefetch/RSC isteklerini
+// isPrefetchOrDataRequest() ile eliyor) — analytics/telemetry POST'lari zaten
+// /api/* altinda oldugu icin proxy'den hic gecmiyor, bu sayima hic girmiyor.
+export const ABNORMAL_NAVIGATION_RATE_THRESHOLD = 15;
 
-export type DiagnosticSignal = "request_only" | "loaded_no_engagement" | "known_bot_user_agent" | "high_frequency_requests";
+export type DiagnosticSignal = "request_only" | "loaded_no_engagement" | "known_bot" | "scanner_probe" | "abnormal_navigation_rate";
 
 export function diagnosticSignals(
-  s: Pick<TrafficSession, "suspected_bot_ua" | "page_loaded" | "active_5s" | "first_seen">,
-  landingRequestCount = 0
+  s: Pick<TrafficSession, "suspected_bot_ua" | "page_loaded" | "active_5s" | "first_seen" | "landing_pathname">,
+  navigationRequestCount = 0
 ): DiagnosticSignal[] {
   const signals: DiagnosticSignal[] = [];
   const ageMs = Date.now() - s.first_seen;
-  if (s.suspected_bot_ua) signals.push("known_bot_user_agent");
+  if (s.suspected_bot_ua) signals.push("known_bot");
+  if (isScannerProbePath(s.landing_pathname)) signals.push("scanner_probe");
   if (!s.page_loaded && ageMs > DIAGNOSTIC_AGE_GATE_MS) signals.push("request_only");
   else if (s.page_loaded && !s.active_5s && ageMs > DIAGNOSTIC_AGE_GATE_MS) signals.push("loaded_no_engagement");
-  if (landingRequestCount > HIGH_FREQUENCY_REQUEST_THRESHOLD) signals.push("high_frequency_requests");
+  if (navigationRequestCount > ABNORMAL_NAVIGATION_RATE_THRESHOLD) signals.push("abnormal_navigation_rate");
   return signals;
 }
 
