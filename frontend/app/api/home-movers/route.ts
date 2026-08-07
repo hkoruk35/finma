@@ -31,14 +31,23 @@ export async function GET(req: NextRequest) {
 
   const supabase = await createSupabaseServerClient();
 
-  const [{ data: tickerRows }, { data: snapshotRows }, top7Live] = await Promise.all([
+  const [{ data: tickerRows }, { data: snapshotRows }] = await Promise.all([
     supabase.from("top100_tickers").select("ticker, company, sector").eq("active", true),
     supabase.from("top100_snapshot").select("ticker, price, volume, change_pct"),
-    fetchLiveQuotes(MAGNIFICENT_7),
   ]);
 
+  const tickers = tickerRows ?? [];
+
+  // MAGNIFICENT_7 buyuk olasilikla top100_tickers'in bir alt kumesi — iki ayri
+  // fetchLiveQuotes cagrisi (ikisi de /api/watchlist-data'ya HTTP round-trip
+  // atiyor, o da rate-limitli batch'lerle isliyor) yerine TEK cagrida birlesik
+  // ticker kumesini cekiyoruz. Bu, sayfa yuklemesindeki en yavas adimi
+  // (aninda iki kez calisan pahali batch-fetch) yariya indirir.
+  const allTickers = Array.from(new Set([...MAGNIFICENT_7, ...tickers.map((t) => t.ticker)]));
+  const live = allTickers.length > 0 ? await fetchLiveQuotes(allTickers) : {};
+
   const top7: MoverRow[] = MAGNIFICENT_7.map((ticker) => {
-    const l = top7Live[ticker];
+    const l = live[ticker];
     return {
       ticker,
       sector: l?.sector && l.sector !== "Unknown" ? l.sector : "Technology",
@@ -48,15 +57,13 @@ export async function GET(req: NextRequest) {
     };
   });
 
-  const tickers = tickerRows ?? [];
   if (tickers.length === 0) {
     return NextResponse.json(
       { top7, top100: [], gainers: [], losers: [], mostActive: [] },
-      { headers: { "Cache-Control": "no-store" } }
+      { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } }
     );
   }
 
-  const live = await fetchLiveQuotes(tickers.map((t) => t.ticker));
   const rows = buildTop100MoverRows(tickers, snapshotRows ?? [], live);
   const { top100, gainers, losers, mostActive } = rankTop100Movers(rows, limit);
 
@@ -71,6 +78,6 @@ export async function GET(req: NextRequest) {
       losers: strip(losers),
       mostActive: strip(mostActive),
     },
-    { headers: { "Cache-Control": "no-store" } }
+    { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } }
   );
 }
