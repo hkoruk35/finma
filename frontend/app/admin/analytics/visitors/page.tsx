@@ -34,11 +34,13 @@ interface VisitorRow {
   ip: string | null;
   device: string | null;
   twclid: boolean;
+  diagnosticSignals: string[];
   suspectedAutomation: boolean;
 }
 
 interface AuditResponse {
   totalSessions: number;
+  auditLiveSince: number | null;
   funnel: FunnelStage[];
   sources: SourceRow[];
   campaigns: string[];
@@ -46,6 +48,13 @@ interface AuditResponse {
   countries: string[];
   visitors: VisitorRow[];
 }
+
+const SIGNAL_LABELS: Record<string, string> = {
+  request_only: 'request_only',
+  loaded_no_engagement: 'loaded_no_engagement',
+  known_bot_user_agent: 'known_bot_ua',
+  high_frequency_requests: 'high_frequency',
+};
 
 const ACCENT = '#58a6ff';
 const CARD_BG = '#0d1117';
@@ -122,9 +131,14 @@ export default function VisitorsPage() {
       <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 4 }}>
         🌍 First-Party Traffic Audit
       </h1>
-      <p style={{ fontSize: 11, color: TEXT_SECONDARY, marginBottom: 20 }}>
+      <p style={{ fontSize: 11, color: TEXT_SECONDARY, marginBottom: 8 }}>
         Landing Request → Browser Loaded → 5s Active → 15s Active → Interaction → Signup Start → Signup Complete — GA4/X Ads'e bağımlı olmayan first-party ölçüm.
       </p>
+      {data?.auditLiveSince && (
+        <p style={{ fontSize: 11, color: '#e3b341', marginBottom: 20 }}>
+          ⏱ Ölçüm başlangıcı (instrumentation live since): <strong>{formatTime(data.auditLiveSince)}</strong> — X Ads karşılaştırması sadece bu andan sonraki trafik için geçerli.
+        </p>
+      )}
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginBottom: 24 }}>
@@ -318,12 +332,17 @@ export default function VisitorsPage() {
                     <td style={{ ...tdStyle, color: stageColor(v.stage), fontWeight: 700 }}>{v.stage}</td>
                     <td style={{ ...tdStyle, fontSize: 11, color: TEXT_SECONDARY }}>{v.ip}</td>
                     <td style={tdStyle}>{v.device}</td>
-                    <td style={tdStyle}>
+                    <td style={{ ...tdStyle, display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                       {v.suspectedAutomation && (
-                        <span style={{ fontSize: 9, fontWeight: 700, color: '#e3b341', border: '1px solid #e3b341', borderRadius: 4, padding: '2px 6px' }}>
+                        <span style={{ fontSize: 9, fontWeight: 700, color: '#f85149', border: '1px solid #f85149', borderRadius: 4, padding: '2px 6px' }}>
                           suspected_automation
                         </span>
                       )}
+                      {v.diagnosticSignals.map((sig) => (
+                        <span key={sig} style={{ fontSize: 9, color: TEXT_SECONDARY, border: `1px solid ${BORDER_COLOR}`, borderRadius: 4, padding: '2px 6px' }}>
+                          {SIGNAL_LABELS[sig] ?? sig}
+                        </span>
+                      ))}
                     </td>
                   </tr>
                 ))
