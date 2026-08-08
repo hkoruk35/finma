@@ -12,6 +12,7 @@ import TickerSearchBox from "@/components/public/TickerSearchBox";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import CompareCheckbox from "@/components/global/CompareCheckbox";
 import PremiumModal from "@/components/global/PremiumModal";
+import FreeRegisterModal from "@/components/global/FreeRegisterModal";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
 
@@ -236,6 +237,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   // fazlasını denerse kayıt olma uyarısı (modal) açılır. Ücretsiz kayıtlı üyeler 4, 6, 9 ekran seçebilir.
   const [compareSelection, setCompareSelection] = useState<string[]>([]);
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [multiChartTrigger, setMultiChartTrigger] = useState<number>(0);
   // Trend Hisseleri'nde premium-kilitli (LOCKED-N) bir satır seçildiğinde
   // grafik alanı yerine "Premium" göstermek için — diğer her ticker'ın
@@ -469,7 +471,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   <span className="text-lg font-medium" style={{ color: "#f59e0b" }}>{premiumMemberLabel}</span>
                   <button
                     type="button"
-                    onClick={() => setShowCompareLimitModal(true)}
+                    onClick={() => setShowPremiumModal(true)}
                     className="px-4 py-2 rounded-lg bg-[#f59e0b] text-black text-sm font-medium hover:bg-[#fbbf24] transition-colors"
                   >
                     {upgradeToPremiumLabel}
@@ -529,7 +531,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
       </main>
 
-      {showCompareLimitModal && <PremiumModal locale={locale} onClose={() => setShowCompareLimitModal(false)} />}
+      {showCompareLimitModal && <FreeRegisterModal locale={locale} onClose={() => setShowCompareLimitModal(false)} />}
+      {showPremiumModal && <PremiumModal locale={locale} onClose={() => setShowPremiumModal(false)} />}
 
       <Footer hidePlatform locale={locale} />
     </div>
