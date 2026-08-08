@@ -241,15 +241,24 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     'ai',
     'earning',
     'earning-calendar',
-    // Faz 1 — Guest Mode: bu sayfalar artık anonim ziyaretçiye açık, kimlik
-    // bazlı kilitleme (maskTop100Ticker / SwingTracker rowLocked / GraphicDetailContent
-    // chartUnlocked) component seviyesinde zaten devrede.
+    // Tüm kamuya/ücretsiz üyelere açık içerik ve liste sayfaları:
+    // Kimlik/Erişim yetki kontrolleri (maskeleme/kilitler) component-level yapılmaktadır.
+    'top7',
     'top100',
-    'swing',
+    'gainers',
+    'losers',
+    'mostactive',
+    'themes',
+    'hisse',
+    'stock',
     'graphic',
+    'analysis',
+    'swing',
     'sectors',
-    // Terminal sayfasının yeni SEO-dostu adresi — eskiden bare /global/{locale}
-    // idi (aşağıdaki redirect ile buraya taşınıyor).
+    'watchlist',
+    'my-watchlist',
+    'performance',
+    'swingperformance',
     'terminal',
   ]
 
@@ -284,44 +293,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     }
   }
 
-  // Global üye sayfasına (Terminal, Top7, Top100, Swing, Sektörler, Hisse Detay vb.) giriş yapmamış kullanıcı gelirse → register'a yönlendir
+  // Sadece yetkisiz özel üye rotalarında (ör. /account /hesabim) giriş yapmamış kullanıcıyı register'a yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
     const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
     return redirectTo(new URL(registerUrl, request.url))
-  }
-
-  // ── Faz 4: organik/AI trafiği için "ilk sayfa ücretsiz" ölçümlü kapı ──────
-  // Google aramasından/AI asistan linkinden gelen anonim ziyaretçi ilk derin
-  // içerik sayfasını (grafik/liste) tam görür; ikinci FARKLI sayfaya
-  // geçtiğinde Google girişi istenir. Yukarıdaki isGlobalMemberPath kontrolü
-  // bu yolların hiçbirinde tetiklenmez (hepsi izin listesinde) — bu yüzden
-  // bağımsız, ek bir kural. Bot/crawler'lar (lib/botUserAgents.ts — hem
-  // robots.ts hem burası aynı listeyi okur) HİÇ ölçülmez: her zaman tam
-  // içerik görürler, bu SEO/AI-atıf için gerekli ve cloaking değil (User-
-  // Agent'a göre farklı İÇERİK değil, farklı bir insan-dönüşüm kuralı
-  // gösteriyoruz — crawler'a da, ilk kez gelen insana da AYNI HTML gider).
-  // graphic/top100/swing artık PUBLIC_SUBPATHS'te (Faz 1 Guest Mode) — kalıcı
-  // component-seviyesi kilitlemeleri var, bu "ilk sayfa ücretsiz" duvarına
-  // tabi değiller; listeden çıkarıldı ki ikinci ziyarette register'a atmasın.
-  const METERED_SEGMENTS = ['watchlist', 'themes', 'hisse', 'performance', 'swingperformance', 'gainers', 'losers', 'mostactive']
-  if (!hasSupabaseSession && currentLocale && !isKnownCrawlerUserAgent(request.headers.get('user-agent'))) {
-    const base = `/global/${currentLocale}`
-    const isMeteredPath = METERED_SEGMENTS.some((seg) => pathname.startsWith(`${base}/${seg}`))
-    if (isMeteredPath) {
-      const seenPath = request.cookies.get('boga_first_view')?.value
-      if (seenPath && seenPath !== pathname) {
-        const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
-        return redirectTo(new URL(registerUrl, request.url))
-      }
-      if (!seenPath) {
-        response.cookies.set('boga_first_view', pathname, {
-          httpOnly: true,
-          sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 30,
-          path: '/',
-        })
-      }
-    }
   }
 
   const isAdminAuthPath =

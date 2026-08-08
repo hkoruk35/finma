@@ -407,10 +407,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
-                // Free-tier üye (Google girişli) Top100'ü tam görür — sadece
-                // anonim ziyaretçi, sabit "vitrin" ticker'lar dışında kilitli
-                // görür (bkz. lib/apiAuth.ts:resolveMemberTier, Faz 0B).
-                const rowLocked = tier === "anonymous" && !isPublicTeaserTicker(r.ticker);
+                // Free-tier üye (Google girişli) Top100'ü tam görür — anonim
+                // ziyaretçi ise ilk 10 hisse ve vitrin ticker'larını kilitsiz görür.
+                const rowLocked = tier === "anonymous" && idx >= 10 && !isPublicTeaserTicker(r.ticker);
 
                 if (rowLocked) {
                   return (

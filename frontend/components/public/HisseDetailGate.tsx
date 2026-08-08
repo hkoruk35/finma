@@ -32,17 +32,8 @@ const ACCOUNT_HREF: Record<Locale, string> = {
 };
 
 export default function HisseDetailGate({ ticker, locale }: { ticker: string; locale: Locale }) {
-  const router = useRouter();
   const session = useMemberSession();
   const loading = !session.authChecked;
-
-  useEffect(() => {
-    if (!session.authChecked) return;
-    if (!session.isLoggedIn) {
-      router.push(LOGIN_HREF[locale]);
-      return;
-    }
-  }, [session.authChecked, session.isLoggedIn, router, locale]);
 
   if (loading) {
     return (
@@ -52,9 +43,5 @@ export default function HisseDetailGate({ ticker, locale }: { ticker: string; lo
     );
   }
 
-  if (!session.isLoggedIn) {
-    return null;
-  }
-
-  return <TickerDetailPanel ticker={ticker} locale={locale} fullPage />;
+  return <TickerDetailPanel ticker={ticker} locale={locale} fullPage lockTradePlanCard />;
 }
