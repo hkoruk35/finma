@@ -237,6 +237,9 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     'swing',
     'graphic',
     'sectors',
+    // Terminal sayfasının yeni SEO-dostu adresi — eskiden bare /global/{locale}
+    // idi (aşağıdaki redirect ile buraya taşınıyor).
+    'terminal',
   ]
 
   let isGlobalMemberPath = false
@@ -258,6 +261,16 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       ? '/global/tr/top100'
       : '/global/en/top100'
     return redirectTo(new URL(globalPath, request.url))
+  }
+
+  // Terminal sayfası taşındı: bare /global/{locale} → /global/{locale}/terminal
+  // (kalıcı 308 — arama motorlarının eski URL yerine yenisini indekslemesi için).
+  for (const locale of Object.keys(LOCALE_AUTH_ROUTES)) {
+    if (pathname === `/global/${locale}` || pathname === `/global/${locale}/`) {
+      const res = NextResponse.redirect(new URL(`/global/${locale}/terminal`, request.url), 308)
+      response.cookies.getAll().forEach((c) => res.cookies.set(c))
+      return res
+    }
   }
 
   // Global üye sayfasına (Terminal, Top7, Top100, Swing, Sektörler, Hisse Detay vb.) giriş yapmamış kullanıcı gelirse → register'a yönlendir

@@ -38,8 +38,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/academy/rsi-indicator',       priority: 0.8, cf: 'monthly' },
     { route: '/academy/momentum-trading',    priority: 0.8, cf: 'monthly' },
     { route: '/academy/ai-stock-picking',    priority: 0.8, cf: 'monthly' },
+    { route: '/global/en/terminal',            priority: 0.9, cf: 'daily'   },
     { route: '/global/en/news',                priority: 0.85, cf: 'daily'  },
     { route: '/global/en/about',              priority: 0.5, cf: 'monthly' },
+    { route: '/global/tr/terminal',            priority: 0.9, cf: 'daily'   },
     { route: '/global/tr/news',                priority: 0.85, cf: 'daily'  },
     { route: '/global/tr/about',              priority: 0.5, cf: 'monthly' },
     { route: '/global/en/contact',            priority: 0.5, cf: 'monthly' },
@@ -52,7 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/global/tr/terms',              priority: 0.3, cf: 'monthly' },
     { route: '/daily',                       priority: 0.9, cf: 'hourly'  },
     // Global ES
-    { route: '/global/es',                   priority: 0.9, cf: 'daily'   },
+    { route: '/global/es/terminal',           priority: 0.9, cf: 'daily'   },
     { route: '/global/es/home',              priority: 0.9, cf: 'daily'   },
     { route: '/global/es/swing',             priority: 0.85, cf: 'daily'  },
     { route: '/global/es/swing/archive',     priority: 0.7, cf: 'daily'   },
@@ -67,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/global/es/privacy',           priority: 0.3, cf: 'monthly' },
     { route: '/global/es/terms',             priority: 0.3, cf: 'monthly' },
     // Global FR
-    { route: '/global/fr',                   priority: 0.9, cf: 'daily'   },
+    { route: '/global/fr/terminal',           priority: 0.9, cf: 'daily'   },
     { route: '/global/fr/home',              priority: 0.9, cf: 'daily'   },
     { route: '/global/fr/swing',             priority: 0.85, cf: 'daily'  },
     { route: '/global/fr/swing/archive',     priority: 0.7, cf: 'daily'   },
@@ -82,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/global/fr/privacy',           priority: 0.3, cf: 'monthly' },
     { route: '/global/fr/terms',             priority: 0.3, cf: 'monthly' },
     // Global PT
-    { route: '/global/pt',                   priority: 0.9, cf: 'daily'   },
+    { route: '/global/pt/terminal',           priority: 0.9, cf: 'daily'   },
     { route: '/global/pt/home',              priority: 0.9, cf: 'daily'   },
     { route: '/global/pt/swing',             priority: 0.85, cf: 'daily'  },
     { route: '/global/pt/swing/archive',     priority: 0.7, cf: 'daily'   },

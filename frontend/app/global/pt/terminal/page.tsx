@@ -7,9 +7,9 @@ import { TrendStatus } from '@/lib/homeFeed';
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK Terminal — Plateforme d'Analyse d'Investissement et de Décision Alimentée par l'IA",
-  description: "Analyse graphique technique interactive avancée pour les actions américaines, l'or, les devises et les crypto-actifs.",
-  alternates: { canonical: `https://bogastock.com/global/fr` },
+  title: 'BOGASTOCK Terminal — Plataforma de Análise de Investimentos e Decisões Alimentada por IA',
+  description: 'Análise gráfica interativa avançada de ações dos EUA, ouro, moedas e criptomoedas.',
+  alternates: { canonical: `https://bogastock.com/global/pt/terminal` },
 };
 
 export default async function LandingPage() {
@@ -31,5 +31,5 @@ export default async function LandingPage() {
     };
   });
 
-  return <GlobalLandingPage locale={'fr'} defaultWatchlist={defaultWatchlist} />;
+  return <GlobalLandingPage locale={'pt'} defaultWatchlist={defaultWatchlist} />;
 }
