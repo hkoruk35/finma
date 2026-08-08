@@ -222,54 +222,15 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     pt: { login: 'login', register: 'register', home: 'home' },
   }
 
-  const PUBLIC_SUBPATHS = [
-    'login', 'giris',
-    'register', 'kayit',
-    'home',
-    'news',
-    'about',
-    'disclaimer',
-    'terms',
-    'privacy',
-    'sss', 'faq', 'Perguntas_Frequentes',
-    'today',
-    'search',
-    'discover',
-    'sports',
-    'weather',
-    'contact',
-    'ai',
-    'earning',
-    'earning-calendar',
-    // Tüm kamuya/ücretsiz üyelere açık içerik ve liste sayfaları:
-    // Kimlik/Erişim yetki kontrolleri (maskeleme/kilitler) component-level yapılmaktadır.
-    'top7',
-    'top100',
-    'gainers',
-    'losers',
-    'mostactive',
-    'themes',
-    'hisse',
-    'stock',
-    'graphic',
-    'analysis',
-    'swing',
-    'sectors',
-    'watchlist',
-    'my-watchlist',
-    'performance',
-    'swingperformance',
-    'terminal',
-  ]
+  const PRIVATE_MEMBER_SUBPATHS = ['account', 'hesabim']
 
-  let isGlobalMemberPath = false
+  let isPrivateMemberPath = false
   let currentLocale: string | null = null
   for (const [locale] of Object.entries(LOCALE_AUTH_ROUTES)) {
     const base = `/global/${locale}`
     if (isPathOrSubpath(base)) {
       currentLocale = locale
-      const isPublic = PUBLIC_SUBPATHS.some((sub) => pathname.startsWith(`${base}/${sub}`))
-      isGlobalMemberPath = !isPublic
+      isPrivateMemberPath = PRIVATE_MEMBER_SUBPATHS.some((sub) => pathname === `${base}/${sub}` || pathname.startsWith(`${base}/${sub}/`))
       break
     }
   }
@@ -293,8 +254,8 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     }
   }
 
-  // Sadece yetkisiz özel üye rotalarında (ör. /account /hesabim) giriş yapmamış kullanıcıyı register'a yönlendir
-  if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
+  // Sadece gizli üye hesabı rotalarında (/account /hesabim) giriş yapmamış kullanıcıyı register'a yönlendir
+  if (isPrivateMemberPath && !hasSupabaseSession && currentLocale) {
     const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
     return redirectTo(new URL(registerUrl, request.url))
   }
