@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemberSession } from "./useMemberSession";
 
 export type MemberTier = "anonymous" | "free" | "premium" | "admin";
 
@@ -18,34 +18,19 @@ function tierFor(plan: string | null, authenticated: boolean): MemberTier {
   return "free";
 }
 
-const EMPTY: MemberPlanData = {
-  plan: null,
-  isPremium: false,
-  tier: "anonymous",
-};
-
-let cached: MemberPlanData | null = null;
-let fetchPromise: Promise<void> | null = null;
-
+// Artik kendi fetch'ini atmiyor — useMemberSession() ile AYNI paylasimli/
+// onbellekli /api/members/me sonucunu turetilmis bir sekle donusturuyor
+// (bkz. 2026-08-08: MemberHeader/GlobalBottomNav/CopilotContext ile birlikte
+// sayfa basina TEK auth cagrisina indirgeme).
 export function useMemberPlan(): MemberPlanData & { loading: boolean } {
-  const [data, setData] = useState<MemberPlanData | null>(cached);
+  const session = useMemberSession();
+  const plan: string | null = session.isLoggedIn ? (session.member?.plan ?? null) : null;
+  const isPremium = plan === "premium" || plan === "admin";
 
-  useEffect(() => {
-    if (cached) { setData(cached); return; }
-    if (!fetchPromise) {
-      fetchPromise = fetch("/api/members/me")
-        .then((r) => r.json())
-        .then((d) => {
-          const m = d.member;
-          if (!m) { cached = EMPTY; return; }
-          const plan: string | null = m.plan ?? null;
-          const isPremium = plan === "premium" || plan === "admin";
-          cached = { plan, isPremium, tier: tierFor(plan, true) };
-        })
-        .catch(() => { cached = EMPTY; });
-    }
-    fetchPromise.then(() => setData(cached));
-  }, []);
-
-  return { ...(data ?? EMPTY), loading: !data };
+  return {
+    plan,
+    isPremium,
+    tier: tierFor(plan, session.isLoggedIn),
+    loading: !session.authChecked,
+  };
 }

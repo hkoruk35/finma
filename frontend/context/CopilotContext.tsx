@@ -6,6 +6,7 @@ import { useChat } from "ai/react";
 import { getSuggestedName } from "@/lib/copilot/persona";
 import { resolveRouteKey, buildRoute, RouteKey } from "@/lib/copilot/routes";
 import { buildPageContext, CopilotPageContext } from "@/lib/copilot/pageContextSchema";
+import { useMemberSession } from "@/hooks/useMemberSession";
 
 const LIST_CATEGORY_TO_ROUTE_KEY: Record<string, RouteKey> = {
   trend_stocks: "trend_list",
@@ -106,42 +107,49 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
       .catch(() => {});
   }, []);
 
+  // Auth durumu artik hooks/useMemberSession.ts'ten geliyor — MemberHeader,
+  // GlobalBottomNav vb. ile AYNI paylasimli/onbellekli /api/members/me
+  // cagrisini kullanir (ayri bir fetch ATMAZ). Bu context sadece o veriyi
+  // kendi sekline (MemberState) donusturup Copilot-ozel takip cagrilarini
+  // (history/profile/usage) tetikler.
+  const session = useMemberSession();
+
   useEffect(() => {
-    fetch("/api/members/me")
-      .then(async (r) => {
-        if (!r.ok) throw new Error();
-        const d = await r.json().catch(() => null);
-        const m = d?.member;
-        if (m) {
-          setMember({
-            username: m.username || null,
-            email: m.email || null,
-            subscriptionStatus: m.subscription_status || null,
-            currentPeriodEnd: m.current_period_end || null,
-            cancelAtPeriodEnd: m.cancel_at_period_end ?? null,
-          });
+    if (!session.authChecked) return;
+    if (!session.isLoggedIn) {
+      setIsAuthenticated(false);
+      return;
+    }
+    const m = session.member;
+    if (m) {
+      setMember({
+        username: m.username || null,
+        email: m.email || null,
+        subscriptionStatus: m.subscription_status || null,
+        currentPeriodEnd: m.current_period_end || null,
+        cancelAtPeriodEnd: m.cancel_at_period_end ?? null,
+      });
+    }
+    setIsAuthenticated(true);
+    refreshUsage();
+    fetch(`/api/copilot/history?locale=${locale}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        // Sadece kullanıcı henüz bu sekmede mesaj göndermemişse geri yükle —
+        // aktif bir sohbetin üzerine yazma riskini önler.
+        if (d?.messages?.length > 0) {
+          setMessages((prev) => (prev.length === 0 ? d.messages : prev));
         }
-        setIsAuthenticated(true);
-        refreshUsage();
-        fetch(`/api/copilot/history?locale=${locale}`)
-          .then((r) => (r.ok ? r.json() : null))
-          .then((d) => {
-            // Sadece kullanıcı henüz bu sekmede mesaj göndermemişse geri yükle —
-            // aktif bir sohbetin üzerine yazma riskini önler.
-            if (d?.messages?.length > 0) {
-              setMessages((prev) => (prev.length === 0 ? d.messages : prev));
-            }
-          })
-          .catch(() => {});
-        return fetch("/api/copilot/profile");
       })
+      .catch(() => {});
+    fetch("/api/copilot/profile")
       .then((r) => (r && r.ok ? r.json() : null))
       .then((d) => {
         if (d) setProfile({ displayName: d.displayName || getSuggestedName(locale), avatarId: d.avatarId || "aylin" });
       })
-      .catch(() => setIsAuthenticated(false));
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session.authChecked, session.isLoggedIn, session.member]);
 
   // Aktif ücretli plan mı, süresi dolmuş (daha önce ücretliydi) mi, yoksa hiç
   // üye değil mi — spec böl. 1.1-1.3'teki üç erişim modu. Nihai yetki kontrolü
