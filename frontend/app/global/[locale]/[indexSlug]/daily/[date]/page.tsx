@@ -10,6 +10,7 @@ import {
   getDailySnapshotsForDate,
   resolveNarrative,
   type IndexDailySnapshot,
+  type IndexNarrativeFields,
 } from "@/lib/indexSnapshots";
 import { getArticleStructuredData, getBreadcrumbStructuredData } from "@/app/structured-data";
 
@@ -90,7 +91,7 @@ export default async function IndexDailyDetailPage({ params }: Props) {
 
   const articleJsonLd = getArticleStructuredData(
     `${name} ${t.dailyAnalysis} — ${date}`,
-    narrative?.slice(0, 200) || `${name} ${t.dailyAnalysis} — ${date}`,
+    narrative?.summary?.slice(0, 200) || `${name} ${t.dailyAnalysis} — ${date}`,
     date
   );
   const breadcrumbJsonLd = getBreadcrumbStructuredData([
@@ -274,8 +275,46 @@ function SnapshotSection({
         </div>
       )}
 
-      {narrative && <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">{narrative}</p>}
+      {narrative && <NarrativeBlock narrative={narrative} t={t} />}
     </section>
+  );
+}
+
+function NarrativeBlock({ narrative, t }: { narrative: IndexNarrativeFields; t: ReturnType<typeof getT> }) {
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-slate-300 leading-relaxed">{narrative.summary}</p>
+      <NarrativeRow label={t.narrativeMarketDrivers} text={narrative.market_drivers} />
+      <NarrativeRow label={t.narrativeTrendInterpretation} text={narrative.trend_interpretation} />
+      <NarrativeRow label={t.narrativeRiskFactors} text={narrative.risk_factors} />
+      <div className="grid sm:grid-cols-3 gap-3 pt-1">
+        <ScenarioCard label={t.scenarioBullish} text={narrative.bullish_scenario} tone="bullish" />
+        <ScenarioCard label={t.scenarioNeutral} text={narrative.neutral_scenario} tone="neutral" />
+        <ScenarioCard label={t.scenarioRisk} text={narrative.risk_scenario} tone="risk" />
+      </div>
+    </div>
+  );
+}
+
+function NarrativeRow({ label, text }: { label: string; text?: string }) {
+  if (!text) return null;
+  return (
+    <div>
+      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-sm text-slate-300 leading-relaxed">{text}</p>
+    </div>
+  );
+}
+
+function ScenarioCard({ label, text, tone }: { label: string; text?: string; tone: "bullish" | "neutral" | "risk" }) {
+  if (!text) return null;
+  const toneClass =
+    tone === "bullish" ? "border-l-[#3fb950]" : tone === "risk" ? "border-l-[#f85149]" : "border-l-slate-500";
+  return (
+    <div className={`rounded-lg bg-[#141924] border border-[#1e2a3a] border-l-4 ${toneClass} p-3`}>
+      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-xs text-slate-300 leading-relaxed">{text}</p>
+    </div>
   );
 }
 

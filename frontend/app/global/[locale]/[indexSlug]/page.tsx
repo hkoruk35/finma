@@ -167,7 +167,7 @@ export default async function IndexPage({ params }: Props) {
               </div>
               {resolveNarrative(dailySnapshot.ai_narrative, locale) && (
                 <p className="text-sm text-slate-300 leading-relaxed line-clamp-4">
-                  {resolveNarrative(dailySnapshot.ai_narrative, locale)}
+                  {resolveNarrative(dailySnapshot.ai_narrative, locale)?.summary}
                 </p>
               )}
               <Link
@@ -209,7 +209,7 @@ export default async function IndexPage({ params }: Props) {
               </div>
               {resolveNarrative(weeklySnapshot.ai_narrative, locale) && (
                 <p className="text-sm text-slate-300 leading-relaxed line-clamp-4">
-                  {resolveNarrative(weeklySnapshot.ai_narrative, locale)}
+                  {resolveNarrative(weeklySnapshot.ai_narrative, locale)?.summary}
                 </p>
               )}
               <Link

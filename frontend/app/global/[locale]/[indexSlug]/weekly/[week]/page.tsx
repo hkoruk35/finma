@@ -84,7 +84,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
 
   const articleJsonLd = getArticleStructuredData(
     `${name} ${t.weeklyAnalysis} — ${week}`,
-    narrative?.slice(0, 200) || `${name} ${t.weeklyAnalysis} — ${week}`,
+    narrative?.summary?.slice(0, 200) || `${name} ${t.weeklyAnalysis} — ${week}`,
     snapshot?.week_start || week
   );
   const breadcrumbJsonLd = getBreadcrumbStructuredData([
@@ -186,7 +186,35 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
                 <Stat label={t.priorWeekAccuracy} value={snapshot.prior_week_outlook_accuracy ?? "—"} />
               </div>
 
-              {narrative && <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">{narrative}</p>}
+              {narrative && (
+                <div className="space-y-3">
+                  <p className="text-sm text-slate-300 leading-relaxed">{narrative.summary}</p>
+                  {narrative.market_drivers && (
+                    <div>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeMarketDrivers}</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">{narrative.market_drivers}</p>
+                    </div>
+                  )}
+                  {narrative.trend_interpretation && (
+                    <div>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeTrendInterpretation}</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">{narrative.trend_interpretation}</p>
+                    </div>
+                  )}
+                  {narrative.risk_factors && (
+                    <div>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeRiskFactors}</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">{narrative.risk_factors}</p>
+                    </div>
+                  )}
+                  {narrative.prior_week_accuracy && (
+                    <div>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.priorWeekAccuracy}</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">{narrative.prior_week_accuracy}</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </section>
 
             {scenarios && (scenarios.bullish || scenarios.neutral || scenarios.risk) && (

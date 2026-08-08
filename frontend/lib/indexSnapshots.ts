@@ -11,6 +11,21 @@ import type { IndexLocale, IndexSymbol } from "@/lib/indices";
 
 export type IndexSession = "premarket" | "midday" | "closing";
 
+// DeepSeek yalnizca nitel alanlar uretir (bkz. index_analysis_common.py
+// NARRATIVE_FIELDS) — rakamlar HER ZAMAN quant_snapshot/kolonlardan gelir,
+// AI'nin ürettiği metinde sayi olmaz. Haftalik snapshot'ta ayrica
+// prior_week_accuracy alani bulunur (bkz. index_weekly_analyzer.py).
+export interface IndexNarrativeFields {
+  summary: string;
+  market_drivers: string;
+  trend_interpretation: string;
+  risk_factors: string;
+  bullish_scenario: string;
+  neutral_scenario: string;
+  risk_scenario: string;
+  prior_week_accuracy?: string;
+}
+
 export interface IndexDailySnapshot {
   id: number;
   index_symbol: IndexSymbol;
@@ -35,7 +50,7 @@ export interface IndexDailySnapshot {
   dxy: number | null;
   volume: number | null;
   quant_snapshot: Record<string, unknown> | null;
-  ai_narrative: Partial<Record<IndexLocale, string>> | null;
+  ai_narrative: Partial<Record<IndexLocale, IndexNarrativeFields>> | null;
   created_at: string;
   updated_at: string;
 }
@@ -56,7 +71,7 @@ export interface IndexWeeklySnapshot {
   scenarios: unknown | null;
   prior_week_outlook_accuracy: string | null;
   quant_snapshot: Record<string, unknown> | null;
-  ai_narrative: Partial<Record<IndexLocale, string>> | null;
+  ai_narrative: Partial<Record<IndexLocale, IndexNarrativeFields>> | null;
   created_at: string;
   updated_at: string;
 }
@@ -169,11 +184,11 @@ export async function getWeeklyArchiveList(
   return (data ?? []) as Pick<IndexWeeklySnapshot, "week_start" | "week_label" | "change_pct_week" | "close">[];
 }
 
-/** ai_narrative jsonb'den locale metnini cikar, yoksa en (Ingilizce) fallback. */
+/** ai_narrative jsonb'den locale narrative objesini cikar, yoksa en (Ingilizce) fallback. */
 export function resolveNarrative(
-  narrative: Partial<Record<IndexLocale, string>> | null | undefined,
+  narrative: Partial<Record<IndexLocale, IndexNarrativeFields>> | null | undefined,
   locale: IndexLocale
-): string | null {
+): IndexNarrativeFields | null {
   if (!narrative) return null;
   return narrative[locale] || narrative.en || null;
 }

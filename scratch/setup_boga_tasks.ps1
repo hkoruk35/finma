@@ -12,11 +12,11 @@ Write-Host "INFO: Tasks will be registered for user: $CurrentUser"
 git config --global --add safe.directory $FINMA_DIR
 
 function Set-BogaTask {
-    param($Name, $Script, $Args, $StartTime, $RepetitionInterval = $null, $RepetitionDuration = $null)
+    param($Name, $Script, $Args, $StartTime, $RepetitionInterval = $null, $RepetitionDuration = $null, $DaysOfWeek = @("Monday","Tuesday","Wednesday","Thursday","Friday"))
 
     $Action = New-ScheduledTaskAction -Execute $VENV_PY -Argument "$Script $Args" -WorkingDirectory $FINMA_DIR
 
-    $Trigger = New-ScheduledTaskTrigger -Weekly -At $StartTime -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday
+    $Trigger = New-ScheduledTaskTrigger -Weekly -At $StartTime -DaysOfWeek $DaysOfWeek
 
     if ($RepetitionInterval) {
         $RepetitionTrigger = New-ScheduledTaskTrigger -Once -At $StartTime -RepetitionInterval $RepetitionInterval -RepetitionDuration $RepetitionDuration
@@ -60,6 +60,22 @@ Set-BogaTask -Name "BOGA_AI_Health_Check" -Script "site_health_checker.py" -Args
 
 # 6. BOGA AI SWING HOURLY SCAN (run_swing_hourly.py) - 09:00 NY (Every 1 hour)
 Set-BogaTask -Name "BOGA_AI_Swing_Hourly" -Script "run_swing_hourly.py" -Args "" -StartTime "09:00:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 8)
+
+# 7. BOGA AI INDEX ANALYSIS — Endeks SEO analiz botu (bkz. index_daily_analyzer.py)
+# Sistem saati Eastern (ET). Avrupa tetik saatleri (Berlin/Paris/Madrid/Amsterdam
+# 08:30/13:00/17:45 CET, London 07:30/12:00/16:45 GMT) yaklasik -6h/-5h ile ET'ye
+# cevrilmistir (DST donemlerinde birkac haftalik kucuk sapma kabul edilebilir, v1).
+# Her tetik SADECE ilgili bolgenin sembollerini calistirir (auto-infer session,
+# --session zorlanmaz) — boylece yanlis bolgenin session'i erken/gec tetiklenmez.
+Set-BogaTask -Name "BOGA_AI_Index_EU_PreMarket" -Script "index_daily_analyzer.py" -Args "--symbols=DAX,FTSE100,CAC40,IBEX35,STOXX600" -StartTime "02:30:00"
+Set-BogaTask -Name "BOGA_AI_Index_EU_Midday"    -Script "index_daily_analyzer.py" -Args "--symbols=DAX,FTSE100,CAC40,IBEX35,STOXX600" -StartTime "07:00:00"
+Set-BogaTask -Name "BOGA_AI_Index_US_PreMarket" -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "09:00:00"
+Set-BogaTask -Name "BOGA_AI_Index_EU_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=DAX,FTSE100,CAC40,IBEX35,STOXX600" -StartTime "11:45:00"
+Set-BogaTask -Name "BOGA_AI_Index_US_Midday"    -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "13:00:00"
+Set-BogaTask -Name "BOGA_AI_Index_US_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "16:30:00"
+
+# 8. BOGA AI INDEX WEEKLY — haftalik outlook (SADECE Cuma, US kapanisindan sonra, tum 9 endeks)
+Set-BogaTask -Name "BOGA_AI_Index_Weekly" -Script "index_weekly_analyzer.py" -Args "" -StartTime "17:00:00" -DaysOfWeek @("Friday")
 
 # ESKİ GÖREVLERİ TEMİZLE (Tamamen silmek için)
 $OldTasks = @(
