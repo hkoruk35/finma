@@ -19,6 +19,7 @@ const NAV = [
   { href: "/admin/settings/theme", label: "🎨 Themes" },
   { href: "/admin/members", label: "👥 Üyeler" },
   { href: "/admin/messages", label: "💬 Mesajlar" },
+  { href: "/admin/feedback", label: "📝 Geri Bildirim" },
   { href: "/admin/plans", label: "📋 Paketler" },
   { href: "/admin/campaigns", label: "📣 Kampanyalar" },
   { href: "/admin/landing", label: "🌐 Landing Pages" },

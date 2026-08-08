@@ -10,6 +10,7 @@ import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
 import CopilotShell from "@/components/global/CopilotShell";
 import AnalyticsLoader from "@/components/global/AnalyticsLoader";
+import FeedbackWidget from "@/components/global/FeedbackWidget";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -137,6 +138,7 @@ export default function RootLayout({
             <CopilotShell>
               {children}
             </CopilotShell>
+            <FeedbackWidget />
             <BottomNavWrapper />
           </TrackerProvider>
         </SmartTrackerProvider>
