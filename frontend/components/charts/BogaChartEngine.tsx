@@ -260,6 +260,7 @@ interface Props {
   showToolbar?: boolean; // internal interval + indicator toggle UI (default true)
   onIntervalChange?: (interval: string) => void;
   indicators?: IndicatorKey[]; // when provided, overrides internal toggle state (controlled mode)
+  hideIndicatorToggles?: boolean; // hides the block of indicator toggle buttons
   detailMode?: boolean; // unlocks the full toolbar: candle type, range, OHLCV readout, share, fullscreen
   defaultIndicators?: IndicatorKey[]; // initial active set (uncontrolled mode only)
   defaultTimeframe?: string; // initial interval value
@@ -336,6 +337,7 @@ export default function BogaChartEngine({
   showToolbar = true,
   onIntervalChange,
   indicators: indicatorsProp,
+  hideIndicatorToggles = false,
   detailMode = false,
   defaultIndicators,
   defaultTimeframe,
@@ -1299,7 +1301,7 @@ export default function BogaChartEngine({
                 </button>
               ))}
             </div>
-            {!detailMode && (
+            {!detailMode && !hideIndicatorToggles && (
               <div className="flex flex-wrap items-center gap-1.5">
                 {availableIndicators.map((key) => (
                   <button
@@ -1491,9 +1493,11 @@ export default function BogaChartEngine({
                 üstteki kategorili "Göstergeler ▾" menüsü kullanılır — aktif
                 edilen gösterge o menüden işaretlenince otomatik olarak bu
                 satırda da belirir (active state ortak). */}
-            <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
-              {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
-            </div>
+            {!hideIndicatorToggles && (
+              <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+                {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
+              </div>
+            )}
           </>
         )}
 

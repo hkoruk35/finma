@@ -14,6 +14,7 @@ import {
 } from "@/lib/indexSnapshots";
 import { getArticleStructuredData, getBreadcrumbStructuredData } from "@/app/structured-data";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 export const revalidate = 900;
 
@@ -287,7 +288,18 @@ function SnapshotSection({
                 key={`${leader.sector ?? leader.ticker ?? leader.name ?? i}`}
                 className="px-2.5 py-1 rounded-md bg-[#141924] border border-[#1e2a3a] text-xs text-slate-300"
               >
-                {leader.sector || leader.name || leader.ticker}
+                {leader.ticker ? (
+                  <TickerHoverChart ticker={leader.ticker} locale={locale}>
+                    <Link
+                      href={`/global/${locale}/analysis/${leader.ticker}`}
+                      className="hover:text-[#00d2ff] transition-colors"
+                    >
+                      {leader.sector || leader.name || leader.ticker}
+                    </Link>
+                  </TickerHoverChart>
+                ) : (
+                  leader.sector || leader.name || leader.ticker
+                )}
                 {leader.change_pct != null ? (
                   <span className={leader.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"}>
                     {" "}
@@ -304,10 +316,10 @@ function SnapshotSection({
       {(topGainers.length > 0 || topLosers.length > 0) && (
         <div className="grid sm:grid-cols-2 gap-3 mb-4">
           {topGainers.length > 0 && (
-            <MoverList title={t.topGainers} movers={topGainers} />
+            <MoverList title={t.topGainers} movers={topGainers} locale={locale} />
           )}
           {topLosers.length > 0 && (
-            <MoverList title={t.topLosers} movers={topLosers} />
+            <MoverList title={t.topLosers} movers={topLosers} locale={locale} />
           )}
         </div>
       )}
@@ -317,14 +329,23 @@ function SnapshotSection({
   );
 }
 
-function MoverList({ title, movers }: { title: string; movers: { ticker: string; name?: string; price?: number; change_pct?: number }[] }) {
+function MoverList({ title, movers, locale }: { title: string; movers: { ticker: string; name?: string; price?: number; change_pct?: number }[]; locale: Locale }) {
   return (
     <div className="rounded-lg bg-[#141924] border border-[#1e2a3a] p-3">
       <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-2">{title}</p>
       <div className="divide-y divide-[#1e2a3a]">
         {movers.map((m) => (
           <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
-            <span className="font-semibold text-slate-200">{m.name || m.ticker}</span>
+            <span className="font-semibold text-slate-200">
+              <TickerHoverChart ticker={m.ticker} locale={locale}>
+                <Link
+                  href={`/global/${locale}/analysis/${m.ticker}`}
+                  className="hover:text-[#3b82f6] transition-colors"
+                >
+                  {m.name || m.ticker}
+                </Link>
+              </TickerHoverChart>
+            </span>
             <span className="flex items-center gap-2 font-mono">
               {m.price != null ? <span className="text-slate-400">{m.price.toFixed(2)}</span> : null}
               {m.change_pct != null ? (
