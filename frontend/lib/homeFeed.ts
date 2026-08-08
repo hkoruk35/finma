@@ -27,7 +27,7 @@ function normalizeStatus(emaStatus: string | undefined): TrendStatus {
   return "NEUTRAL";
 }
 
-const CACHE_TIME = 120; // 2 minutes
+const CACHE_TIME = 900; // 15 minutes — canli veri baglantisini gevsetip Supabase/self-fetch yukunu azaltir (bkz. 2026-08-08 stabilite fix)
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";

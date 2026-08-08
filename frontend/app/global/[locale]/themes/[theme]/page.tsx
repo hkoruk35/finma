@@ -9,7 +9,7 @@ import ListsNavigation from "@/components/global/ListsNavigation";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
-export const revalidate = 300;
+export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 type Props = {
   params: Promise<{ locale: string; theme: string }>;

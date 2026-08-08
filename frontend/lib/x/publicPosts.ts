@@ -17,18 +17,23 @@ export interface PublicPost {
 // (app/global/{locale}/news/page.tsx) kendi dilini gecirir — /global/tr/news
 // sadece locale='tr' postlari gorur, /global/en/news sadece 'en' vb.
 export async function getPublicPosts(locale: string, limit = 60): Promise<PublicPost[]> {
-  const { data, error } = await supabaseAdmin
-    .from("x_posts")
-    .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
-    .eq("status", "posted")
-    .eq("locale", locale)
-    .not("posted_at", "is", null)
-    .order("posted_at", { ascending: false })
-    .limit(limit);
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("x_posts")
+      .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
+      .eq("status", "posted")
+      .eq("locale", locale)
+      .not("posted_at", "is", null)
+      .order("posted_at", { ascending: false })
+      .limit(limit)
+      .abortSignal(AbortSignal.timeout(5000)); // Supabase yavas/erisilemezse sayfayi askida birakmasin
 
-  if (error) {
-    console.error("[x/publicPosts] fetch failed:", error.message);
+    if (error) {
+      console.error("[x/publicPosts] fetch failed:", error.message);
+      return [];
+    }
+    return data ?? [];
+  } catch {
     return [];
   }
-  return data ?? [];
 }

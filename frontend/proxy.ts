@@ -102,8 +102,13 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
     if (isBrandNewSession) {
       // Ilk-dokunus (first-touch) attribution: UTM/twclid SADECE burada, session
       // olusurken yazilir — sonraki isteklerde (client eventleri dahil) asla
-      // ustune yazilmaz. AWAIT EDILIR: satir asagida "return response"tan once
-      // DB'de var olmasi garanti — client'in ilk page_loaded beacon'i icin.
+      // ustune yazilmaz. AWAIT EDILIR (kisa bir timeout ile SINIRLI — asla
+      // sayfa yuklemesini askida birakmamali): boylece client'in hemen ardindan
+      // gonderdigi page_loaded beacon'i, henuz var olmayan bir session'a
+      // yazmaya calisip sessizce kaybolmaz (race condition). Timeout/hata
+      // durumunda cookie yine de set edilir, sayfa normal acilir — sadece bu
+      // tek session'in ilk page_loaded'i kaybolabilir (landing_request/PATCH
+      // zaten fire-and-forget, bunlardan etkilenmez).
       const url = request.nextUrl
       await fetch(`${supabaseUrl}/rest/v1/traffic_sessions`, {
         method: 'POST',
@@ -125,6 +130,7 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
           device: detectDevice(ua),
           suspected_bot_ua: isKnownCrawlerUserAgent(ua),
         }),
+        signal: AbortSignal.timeout(2000),
       }).catch(() => {})
     } else {
       event.waitUntil(
@@ -168,7 +174,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!pathname.startsWith('/admin') && isTrackablePageRequest(pathname) && !isPrefetchOrDataRequest(request.headers)) {
-    await trackLanding(request, response, event)
+    // Ek guvenlik siniri: trackLanding icindeki fetch'ler kendi timeout'larina
+    // sahip olsa da, sayfa yuklemesi HICBIR sekilde tracking'e bagimli
+    // kalmamali — 3sn'de sonuclanmazsa vazgecilir, response normal devam eder.
+    await Promise.race([trackLanding(request, response, event), new Promise((resolve) => setTimeout(resolve, 3000))])
   }
 
   const redirectTo = (url: URL) => {

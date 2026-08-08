@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import CookieConsent from "@/components/global/CookieConsent";
 
-export const revalidate = 120;
+export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
   title: "BogaStock — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
