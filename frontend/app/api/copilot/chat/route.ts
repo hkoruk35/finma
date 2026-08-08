@@ -356,18 +356,25 @@ export async function POST(req: NextRequest) {
         ? "expired_member"
         : "member";
 
-    // Kullanım limitleri (kullanıcı talimatı, 2026-08-05 plan):
-    // - Anonim (hesapsız) ziyaretçi: günlük sabit 3 sorgu, cookie ile sayılır
-    //   (hesap yok — Supabase'te bir kullanıcı satırı açmadan ölçülür).
-    // - Free: Trend/Theme sayfalarında sınırsız; diğer her yerde günlük 10
-    //   sorgu. 10 dolunca, satın alınmış top-up kredisi varsa (9 USD/100
-    //   kredi) ondan düşülerek devam eder — Premier özellikler yine kilitli
-    //   kalır (isPremiumTier zaten sadece tier'a bakar, topup'tan etkilenmez).
+    // Kullanım limitleri (kullanıcı talimatı, 2026-08-08 plan — tam Copilot
+    // artık her katmana açık, NVDA-özel/kampanya kısıtlaması yok):
+    // - Anonim (hesapsız) ziyaretçi: günlük 3 sorgu, cookie ile sayılır (hesap
+    //   yok — Supabase'te bir kullanıcı satırı açmadan ölçülür). Hedeflenen
+    //   ~4500 token/gün bütçesi, cookie'nin yanıt sonrası güncellenememesi
+    //   (streaming response döndükten sonra Set-Cookie eklenemiyor) nedeniyle
+    //   ayrıca ölçülmüyor — 3 sorguluk sabit tavan bu bütçenin yerini tutar.
+    // - Free (hesaplı, ücretsiz üye): günlük 10 sorgu VE 15.000 token —
+    //   hangisi önce dolarsa. Trend/Theme sayfalarında sorgu sayacı sınırsız
+    //   (isExemptFreePage) ama token sayacı yine de işler. 10 sorgu dolunca,
+    //   satın alınmış top-up kredisi varsa (9 USD/100 kredi) ondan düşülerek
+    //   devam eder — Premier özellikler yine kilitli kalır (isPremiumTier
+    //   zaten sadece tier'a bakar, topup'tan etkilenmez).
     // - Premium/Admin: admin muaf. Premium'da adil kullanım (FAU) günlük 150
     //   sorgu, kayan 120 dakikalık pencerede sayılır; 150'ye ulaşınca 120 dk
     //   cooldown (pencereden en eski kayıt düşene kadar otomatik açılır).
     const ANON_DAILY_LIMIT = 3;
     const FREE_DAILY_LIMIT = 10;
+    const FREE_DAILY_TOKEN_LIMIT = 15_000;
     const PREMIUM_FAU_LIMIT = 150;
     const PREMIUM_FAU_WINDOW_MIN = 120;
     const isExemptFreePage =
@@ -400,29 +407,29 @@ export async function POST(req: NextRequest) {
         path: "/",
       });
     } else if (tier === "free") {
-      if (!isExemptFreePage) {
-        const { data: creditStatus } = await supabaseAdmin
-          .rpc("get_copilot_credit_status", { p_user_id: user!.id, p_default_limit: FREE_DAILY_LIMIT })
-          .single<{ current_usage: number; daily_limit: number }>();
-        if (creditStatus && creditStatus.current_usage >= creditStatus.daily_limit) {
-          const { data: memberRow } = await supabaseAdmin
-            .from("members")
-            .select("topup_credit_balance")
-            .eq("id", user!.id)
-            .single<{ topup_credit_balance: number }>();
-          if (!memberRow || memberRow.topup_credit_balance < 1) {
-            return NextResponse.json(
-              {
-                error: ct("freeQuotaExhausted", locale, { limit: creditStatus.daily_limit }),
-                code: "INSUFFICIENT_CREDITS",
-                topup_url: "/api/members/credits/topup-checkout",
-              },
-              { status: 402 }
-            );
-          }
-          // Günlük 10 doldu ama top-up kredisi var — ondan düşülerek devam eder.
-          freeTierUsesTopup = true;
+      const { data: creditStatus } = await supabaseAdmin
+        .rpc("get_copilot_credit_status", { p_user_id: user!.id, p_default_limit: FREE_DAILY_LIMIT })
+        .single<{ current_usage: number; daily_limit: number; tokens_used_today: number }>();
+      const queryLimitHit = !isExemptFreePage && !!creditStatus && creditStatus.current_usage >= creditStatus.daily_limit;
+      const tokenLimitHit = !!creditStatus && creditStatus.tokens_used_today >= FREE_DAILY_TOKEN_LIMIT;
+      if (queryLimitHit || tokenLimitHit) {
+        const { data: memberRow } = await supabaseAdmin
+          .from("members")
+          .select("topup_credit_balance")
+          .eq("id", user!.id)
+          .single<{ topup_credit_balance: number }>();
+        if (!memberRow || memberRow.topup_credit_balance < 1) {
+          return NextResponse.json(
+            {
+              error: ct("freeQuotaExhausted", locale, { limit: creditStatus?.daily_limit ?? FREE_DAILY_LIMIT }),
+              code: "INSUFFICIENT_CREDITS",
+              topup_url: "/api/members/credits/topup-checkout",
+            },
+            { status: 402 }
+          );
         }
+        // Günlük 10 sorgu veya 15k token doldu ama top-up kredisi var — ondan düşülerek devam eder.
+        freeTierUsesTopup = true;
       }
     } else if (access.plan !== "admin") {
       // En ucuz sorgu tipinin (Fast Answer = 1 kredi) maliyetini bile
@@ -841,22 +848,26 @@ export async function POST(req: NextRequest) {
     }
 
     const userId = user?.id ?? null;
-    const onFinish = async ({ text, toolCalls, toolResults }: any) => {
+    const onFinish = async ({ text, toolCalls, toolResults, usage }: any) => {
       // Anonim ziyaretçi: kota zaten istek başında cookie ile düşürüldü, üye
       // satırı olmadığı için ne kredi RPC'si ne de sohbet geçmişi (copilot_chats,
       // user_id NOT NULL) yazılabilir/yazılmalı — sessizce atla.
       if (!userId) return;
       try {
         if (tier === "free") {
-          // Trend/Theme sayfalarında (isExemptFreePage) sınırsız — hiçbir
-          // sayaç düşürülmez. Günlük 10 dolup top-up'tan devam edildiyse
-          // (freeTierUsesTopup) topup_credit_balance'tan düşülür.
+          // Sorgu sayacı: Trend/Theme sayfalarında (isExemptFreePage) sınırsız,
+          // hiç düşürülmez. Token sayacı ise sayfa türünden bağımsız her zaman
+          // işler — 15k/gün tavanı tüm free kullanım için geçerli.
           if (!isExemptFreePage) {
             if (freeTierUsesTopup) {
               await supabaseAdmin.rpc("consume_credits", { p_user_id: userId, p_amount: 1, p_query_type: "FAST_ANSWER" });
             } else {
               await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
             }
+          }
+          const totalTokens = usage?.totalTokens;
+          if (typeof totalTokens === "number" && totalTokens > 0) {
+            await supabaseAdmin.rpc("increment_copilot_tokens", { p_user_id: userId, p_tokens: Math.round(totalTokens) });
           }
         } else if (access.plan !== "admin") {
           const isDeepResearch = Array.isArray(toolCalls) && toolCalls.some((tc: any) => tc.toolName === "get_deep_analysis");

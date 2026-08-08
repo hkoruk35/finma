@@ -8,7 +8,7 @@ import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";
 import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
-import { VISITOR_TEXTS, SupportedLocale, DemoMessage } from "@/lib/copilot/visitorDemo";
+import { SupportedLocale } from "@/lib/copilot/visitorDemo";
 import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
 import { TASK_LABELS, CopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { getUSMarketStatus } from "@/lib/copilot/marketSchedule";
@@ -142,12 +142,6 @@ export default function CopilotDrawer() {
   const [draftName, setDraftName] = useState(profile.displayName || getSuggestedName(activeLocale));
   const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
 
-  const [demoStage, setDemoStage] = useState<number>(1);
-  const [demoPrimaryInterest, setDemoPrimaryInterest] = useState<string>("trend");
-  const [demoTimeHorizon, setDemoTimeHorizon] = useState<string>("few_weeks");
-  const [demoMessages, setDemoMessages] = useState<DemoMessage[]>([]);
-  const [demoInput, setDemoInput] = useState<string>("");
-  const [demoLoading, setDemoLoading] = useState<boolean>(false);
   const [customTaskInput, setCustomTaskInput] = useState<string>("");
 
   const taskDef = TASK_LABELS[activeLocale] || TASK_LABELS.en;
@@ -181,13 +175,13 @@ export default function CopilotDrawer() {
   };
 
   useEffect(() => {
-    if (messages.length > 0 || demoMessages.length > 1) {
+    if (messages.length > 0) {
       setIsTasksOpen(false);
       setIsHistoryOpen(false);
       setIsSettingsOpen(false);
       setIsAlertsOpen(false);
     }
-  }, [messages.length, demoMessages.length]);
+  }, [messages.length]);
 
   const refetchAlerts = () => {
     fetch("/api/copilot/alerts")
@@ -242,38 +236,10 @@ export default function CopilotDrawer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages.length]);
 
-  useEffect(() => {
-    if (!isAuthenticated && demoMessages.length === 0) {
-      const vText = VISITOR_TEXTS[activeLocale] || VISITOR_TEXTS.en;
-      setDemoMessages([
-        {
-          id: "welcome-stage1",
-          role: "assistant",
-          content: vText.stage1Message,
-          buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
-          stage: 1,
-        },
-      ]);
-    }
-  }, [isAuthenticated, activeLocale, demoMessages.length]);
-
   const handleLangChange = (newLang: SupportedLocale) => {
     setActiveLocale(newLang);
     if (!profile.displayName) {
       setDraftName(getSuggestedName(newLang));
-    }
-    if (!isAuthenticated) {
-      const vText = VISITOR_TEXTS[newLang] || VISITOR_TEXTS.en;
-      setDemoStage(1);
-      setDemoMessages([
-        {
-          id: `welcome-${Date.now()}`,
-          role: "assistant",
-          content: vText.stage1Message,
-          buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
-          stage: 1,
-        },
-      ]);
     }
   };
 
@@ -284,7 +250,7 @@ export default function CopilotDrawer() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, demoMessages, isLoading, demoLoading]);
+  }, [messages, isLoading]);
 
   const avatar = getAvatar(profile.avatarId);
   // displayName = asistanın kendi adı/persona'sı (başlıkta ve mesaj balonlarında gösterilir).
@@ -343,60 +309,37 @@ export default function CopilotDrawer() {
     const subject = customTaskInput.trim();
     setCustomTaskInput("");
 
-    if (isAuthenticated) {
-      try {
-        const res = await fetch("/api/copilot/tasks", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ taskType: "company_daily_watch", subject, language: activeLocale }),
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data?.task) setActiveTasks((prev) => [data.task, ...prev]);
-        }
-      } catch {}
-    } else {
-      setActiveTasks((prev) => [
-        {
-          id: `task-${Date.now()}`,
-          user_id: "demo",
-          task_type: "company_daily_watch",
-          subject,
-          status: "active",
-          language: activeLocale,
-          schedule: { premarket: "08:45", midday: "12:00", closing: "16:15" },
-          created_at: new Date().toISOString(),
-        },
-        ...prev,
-      ]);
-    }
+    // Görevler paneli sadece hesaplı kullanıcıya gösteriliyor (bkz. render
+    // altında `{isAuthenticated && (isTasksOpen || ...)}`) — bu handler'a
+    // anonim ziyaretçi hiç ulaşamaz, o yüzden misafir dalı yok.
+    try {
+      const res = await fetch("/api/copilot/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ taskType: "company_daily_watch", subject, language: activeLocale }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.task) setActiveTasks((prev) => [data.task, ...prev]);
+      }
+    } catch {}
   };
 
   const handleBreakPrompt = () => {
     setIsTasksOpen(false);
-    if (isAuthenticated) {
-      append({ role: "user", content: ct("msgBreakPrompt", activeLocale) });
-    } else {
-      setDemoMessages((prev) => [
-        ...prev,
-        {
-          id: `break-${Date.now()}`,
-          role: "assistant",
-          content: taskDef.breakPromptMsg,
-        },
-      ]);
-    }
+    append({ role: "user", content: ct("msgBreakPrompt", activeLocale) });
   };
 
   const quotaExhausted =
     !!usage &&
     usage.hasAccess &&
     !usage.unlimited &&
-    (usage.tier === "free"
-      ? (usage.dailyUsed ?? 0) >= (usage.dailyLimit ?? 10) && usage.topupCredits < 1
+    (usage.tier === "anonymous" || usage.tier === "free"
+      ? (usage.dailyUsed ?? 0) >= (usage.dailyLimit ?? (usage.tier === "anonymous" ? 3 : 10)) &&
+        (usage.tier === "anonymous" || usage.topupCredits < 1)
       : usage.monthlyCredits + usage.topupCredits < 1);
   const noAccess = !!usage && !usage.hasAccess;
-  const inputDisabled = isAuthenticated ? (isLoading || quotaExhausted || noAccess) : demoLoading;
+  const inputDisabled = isLoading || quotaExhausted || noAccess;
 
   const [buyingCredits, setBuyingCredits] = useState(false);
   const handleBuyCredits = async () => {
@@ -431,100 +374,10 @@ export default function CopilotDrawer() {
   };
 
   const handleNewChat = () => {
-    if (isAuthenticated) {
-      if (setMessages) setMessages([]);
-    } else {
-      const vText = VISITOR_TEXTS[activeLocale] || VISITOR_TEXTS.en;
-      setDemoStage(1);
-      setDemoMessages([
-        {
-          id: `welcome-${Date.now()}`,
-          role: "assistant",
-          content: vText.stage1Message,
-          buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
-          stage: 1,
-        },
-      ]);
-    }
+    if (setMessages) setMessages([]);
     setIsTasksOpen(false);
     setIsHistoryOpen(false);
     setIsSettingsOpen(false);
-  };
-
-  const handleVisitorActionClick = async (btn: { label: string; id: string; action?: string; href?: string }) => {
-    if (demoLoading) return;
-    if (btn.href) {
-      router.push(btn.href);
-      if (btn.action === "return_chart") setIsOpen(false);
-      return;
-    }
-
-    const userMsgText = btn.label;
-    const nextUserMsg: DemoMessage = { id: `user-${Date.now()}`, role: "user", content: userMsgText };
-    setDemoMessages((prev) => [...prev, nextUserMsg]);
-
-    let nextStage = demoStage;
-    let nextInterest = demoPrimaryInterest;
-    let nextHorizon = demoTimeHorizon;
-
-    if (btn.action === "stage1_select") { nextInterest = btn.id; setDemoPrimaryInterest(btn.id); nextStage = 2; }
-    else if (btn.action === "stage2_select") { nextHorizon = btn.id; setDemoTimeHorizon(btn.id); nextStage = 3; }
-    else if (btn.action === "set_followup") { nextStage = 4; }
-
-    setDemoStage(nextStage);
-    setDemoLoading(true);
-
-    try {
-      const res = await fetch("/api/copilot/demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          locale: activeLocale, stage: nextStage, primaryInterest: nextInterest, timeHorizon: nextHorizon, userMessage: userMsgText,
-        }),
-      });
-
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || nextStage }]);
-      if (data.stage) setDemoStage(data.stage);
-    } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: VISITOR_TEXTS[activeLocale]?.connectionError || VISITOR_TEXTS.en.connectionError }]);
-    } finally {
-      setDemoLoading(false);
-    }
-  };
-
-  const handleVisitorInputSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!demoInput.trim() || demoLoading) return;
-
-    const userText = demoInput.trim();
-    setDemoInput("");
-
-    const lower = userText.toLowerCase();
-    if (lower === "english" || lower === "en") { handleLangChange("en"); return; }
-    if (lower === "türkçe" || lower === "tr" || lower === "turkce") { handleLangChange("tr"); return; }
-    if (lower === "español" || lower === "es" || lower === "espanol") { handleLangChange("es"); return; }
-    if (lower === "français" || lower === "fr" || lower === "francais") { handleLangChange("fr"); return; }
-    if (lower === "português" || lower === "pt" || lower === "portugues") { handleLangChange("pt"); return; }
-
-    setDemoMessages((prev) => [...prev, { id: `user-${Date.now()}`, role: "user", content: userText }]);
-    setDemoLoading(true);
-
-    try {
-      const res = await fetch("/api/copilot/demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ locale: activeLocale, stage: demoStage, primaryInterest: demoPrimaryInterest, timeHorizon: demoTimeHorizon, userMessage: userText }),
-      });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || demoStage }]);
-    } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: VISITOR_TEXTS[activeLocale]?.connectionError || VISITOR_TEXTS.en.connectionError }]);
-    } finally {
-      setDemoLoading(false);
-    }
   };
 
   return (
@@ -570,11 +423,6 @@ export default function CopilotDrawer() {
               <h3 className="text-xs font-semibold text-white leading-tight truncate">{displayName}</h3>
               <p className="text-[10px] text-blue-400 font-mono flex items-center gap-1 leading-none mt-0.5">
                 <span className="font-bold tracking-tight whitespace-nowrap">BOGA COPILOT</span>
-                {!isAuthenticated && (
-                  <span className="hidden xs:inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] px-1.5 py-0.2 rounded-full font-sans font-medium">
-                    {VISITOR_TEXTS[activeLocale]?.headerBadge || "✨"}
-                  </span>
-                )}
               </p>
             </div>
           </div>
@@ -971,7 +819,7 @@ export default function CopilotDrawer() {
 
         {/* Messages Body (Generous Vertical Height) */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {isAuthenticated ? (
+          {(
             messages.length === 0 ? (
               <div className="flex flex-col gap-3">
                 <div className="bg-[#141924] p-4 rounded-2xl border border-[#2a384e] shadow-lg text-sm text-gray-200 whitespace-pre-wrap leading-relaxed">
@@ -1230,63 +1078,6 @@ export default function CopilotDrawer() {
                 );
               })
             )
-          ) : (
-            demoMessages.map((msg) => (
-              <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"} space-y-2`}>
-                <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-medium ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
-                  <ReactMarkdown
-                    urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
-                    components={{
-                      a: ({ href, children }) => {
-                        if (href?.startsWith("copilot://")) {
-                          const ticker = href.replace("copilot://", "").trim().toUpperCase();
-                          return (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                router.push(buildRoute("graphic", activeLocale, ticker));
-                                setIsOpen(false);
-                              }}
-                              className="inline-flex items-center align-baseline px-1.5 py-0.5 my-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-mono font-semibold uppercase transition-all cursor-pointer leading-none shrink-0"
-                            >
-                              {children}
-                            </button>
-                          );
-                        }
-                        if (href?.startsWith("copilot-topic://")) {
-                          const topicText = extractPlainText(children);
-                          return (
-                            <button type="button" onClick={() => topicText && handleVisitorActionClick({ label: topicText, id: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-medium transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
-                              <span>{children}</span>
-                            </button>
-                          );
-                        }
-                        return <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">{children}</a>;
-                      },
-                    }}
-                  >
-                    {prepareMessageContent(msg.content)}
-                  </ReactMarkdown>
-                </div>
-
-                {msg.buttons && msg.buttons.length > 0 && msg.role === "assistant" && (
-                  <div className="grid grid-cols-1 gap-2 pt-1">
-                    {msg.buttons.map((btn) => (
-                      <button
-                        key={btn.id}
-                        type="button"
-                        onClick={() => handleVisitorActionClick(btn)}
-                        disabled={demoLoading}
-                        className="w-full text-left px-3 py-2 rounded-xl bg-[#161b22] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-xs font-medium text-gray-200 hover:text-white transition-all shadow-md flex items-center justify-between group active:scale-[0.98] cursor-pointer"
-                      >
-                        <span>{btn.label}</span>
-                        <span className="text-blue-400 group-hover:translate-x-1 transition-transform font-mono text-sm">→</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))
           )}
 
           {error && (
@@ -1319,18 +1110,18 @@ export default function CopilotDrawer() {
         </div>
 
         {/* Input Footer */}
-        <form onSubmit={isAuthenticated ? handleSubmit : handleVisitorInputSubmit} className="border-t border-white/10 p-4 pb-8 sm:pb-4 bg-[#0d1117] shrink-0">
-          {isAuthenticated && usage && usage.hasAccess && !usage.unlimited && (
+        <form onSubmit={handleSubmit} className="border-t border-white/10 p-4 pb-8 sm:pb-4 bg-[#0d1117] shrink-0">
+          {usage && usage.hasAccess && !usage.unlimited && (
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="text-[10px] text-gray-500 font-mono">
-                {usage.tier === "free"
+                {usage.tier === "anonymous" || usage.tier === "free"
                   ? ct("requestsLeft", activeLocale, {
                       n: Math.max(0, (usage.dailyLimit ?? 10) - (usage.dailyUsed ?? 0)),
                       limit: usage.dailyLimit ?? 10,
                     })
                   : ct("creditsRemaining", activeLocale, { n: usage.monthlyCredits + usage.topupCredits })}
               </span>
-              {quotaExhausted && (
+              {quotaExhausted && usage.tier !== "anonymous" && (
                 <button
                   type="button"
                   onClick={handleBuyCredits}
@@ -1345,13 +1136,13 @@ export default function CopilotDrawer() {
           <div className="relative flex items-center">
             <input
               type="text"
-              value={isAuthenticated ? input : demoInput}
-              onChange={isAuthenticated ? handleInputChange : (e) => setDemoInput(e.target.value)}
+              value={input}
+              onChange={handleInputChange}
               placeholder={ct("inputPlaceholder", activeLocale)}
               disabled={inputDisabled}
               className="w-full bg-[#161b22] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50"
             />
-            <button type="submit" disabled={isAuthenticated ? (!input.trim() || inputDisabled) : (!demoInput.trim() || demoLoading)} className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white disabled:opacity-50 hover:bg-blue-500 transition-colors touch-manipulation">
+            <button type="submit" disabled={!input.trim() || inputDisabled} className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white disabled:opacity-50 hover:bg-blue-500 transition-colors touch-manipulation">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>

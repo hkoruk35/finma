@@ -1,12 +1,37 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
+const ANON_DAILY_LIMIT = 3;
+const FREE_DAILY_TOKEN_LIMIT = 15_000;
+
 export async function GET() {
   const access = await getMemberAccess();
+
+  // Anonim (hesapsız) ziyaretçi — copilot/chat/route.ts'teki ANON_DAILY_LIMIT
+  // ile aynı cookie'yi okur, artırmaz (sadece görüntüleme amaçlı).
   if (!access.authenticated) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const cookieStore = await cookies();
+    const today = new Date().toISOString().slice(0, 10);
+    const raw = cookieStore.get("boga_anon_copilot")?.value;
+    let anonCount = 0;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed?.date === today) anonCount = Number(parsed.count) || 0;
+      } catch {}
+    }
+    return NextResponse.json({
+      monthlyCredits: 0,
+      topupCredits: 0,
+      unlimited: false,
+      hasAccess: true,
+      tier: "anonymous",
+      dailyUsed: anonCount,
+      dailyLimit: ANON_DAILY_LIMIT,
+    });
   }
 
   const tier = resolveMemberTierFromAccess(access);
@@ -23,7 +48,7 @@ export async function GET() {
       ? await Promise.all([
           supabaseAdmin
             .rpc("get_copilot_credit_status", { p_user_id: userData.user.id, p_default_limit: 10 })
-            .single<{ current_usage: number; daily_limit: number }>(),
+            .single<{ current_usage: number; daily_limit: number; tokens_used_today: number }>(),
           supabaseAdmin
             .from("members")
             .select("topup_credit_balance")
@@ -39,6 +64,8 @@ export async function GET() {
       tier: "free",
       dailyUsed: creditStatus?.current_usage ?? 0,
       dailyLimit: creditStatus?.daily_limit ?? 10,
+      tokensUsed: creditStatus?.tokens_used_today ?? 0,
+      tokenLimit: FREE_DAILY_TOKEN_LIMIT,
     });
   }
 

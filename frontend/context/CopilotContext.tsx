@@ -22,9 +22,11 @@ export interface UsageState {
   topupCredits: number;
   unlimited: boolean;
   hasAccess: boolean;
-  tier?: "free" | "premium" | "admin";
+  tier?: "anonymous" | "free" | "premium" | "admin";
   dailyUsed?: number;
   dailyLimit?: number;
+  tokensUsed?: number;
+  tokenLimit?: number;
 }
 
 export interface ProfileState {
@@ -118,6 +120,9 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     if (!session.authChecked) return;
     if (!session.isLoggedIn) {
       setIsAuthenticated(false);
+      // Anonim ziyaretçi de artık gerçek Copilot'u (sınırlı günlük kotayla)
+      // kullanıyor — kalan hakkı göstermek için usage'ı yine de çekiyoruz.
+      refreshUsage();
       return;
     }
     const m = session.member;
