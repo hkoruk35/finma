@@ -14,12 +14,24 @@ export type IndexSymbol =
   | "FTSE100"
   | "CAC40"
   | "IBEX35"
-  | "STOXX600";
+  | "STOXX600"
+  | "FTSEMIB"
+  | "SMI"
+  | "AEX"
+  | "NIKKEI225"
+  | "HANGSENG"
+  | "SHANGHAI"
+  | "KOSPI"
+  | "NIFTY50"
+  | "ASX200"
+  | "BOVESPA"
+  | "IPCMEXICO"
+  | "MERVAL";
 
 export interface IndexDefinition {
   symbol: IndexSymbol;
   slug: string;
-  region: "us" | "europe";
+  region: "us" | "europe" | "asia" | "latam";
   yahooTicker: string;
   names: Record<IndexLocale, string>;
 }
@@ -96,6 +108,96 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
       fr: "STOXX Europe 600",
       pt: "STOXX Europe 600",
     },
+  },
+  FTSEMIB: {
+    symbol: "FTSEMIB",
+    slug: "ftse-mib",
+    region: "europe",
+    yahooTicker: "FTSEMIB.MI",
+    names: { en: "FTSE MIB", tr: "FTSE MIB", es: "FTSE MIB", fr: "FTSE MIB", pt: "FTSE MIB" },
+  },
+  SMI: {
+    symbol: "SMI",
+    slug: "smi",
+    region: "europe",
+    yahooTicker: "^SSMI",
+    names: { en: "SMI", tr: "SMI", es: "SMI", fr: "SMI", pt: "SMI" },
+  },
+  AEX: {
+    symbol: "AEX",
+    slug: "aex",
+    region: "europe",
+    yahooTicker: "^AEX",
+    names: { en: "AEX", tr: "AEX", es: "AEX", fr: "AEX", pt: "AEX" },
+  },
+  NIKKEI225: {
+    symbol: "NIKKEI225",
+    slug: "nikkei-225",
+    region: "asia",
+    yahooTicker: "^N225",
+    names: { en: "Nikkei 225", tr: "Nikkei 225", es: "Nikkei 225", fr: "Nikkei 225", pt: "Nikkei 225" },
+  },
+  HANGSENG: {
+    symbol: "HANGSENG",
+    slug: "hang-seng",
+    region: "asia",
+    yahooTicker: "^HSI",
+    names: { en: "Hang Seng", tr: "Hang Seng", es: "Hang Seng", fr: "Hang Seng", pt: "Hang Seng" },
+  },
+  SHANGHAI: {
+    symbol: "SHANGHAI",
+    slug: "shanghai-composite",
+    region: "asia",
+    yahooTicker: "000001.SS",
+    names: {
+      en: "Shanghai Composite",
+      tr: "Shanghai Composite",
+      es: "Shanghai Composite",
+      fr: "Shanghai Composite",
+      pt: "Shanghai Composite",
+    },
+  },
+  KOSPI: {
+    symbol: "KOSPI",
+    slug: "kospi",
+    region: "asia",
+    yahooTicker: "^KS11",
+    names: { en: "KOSPI", tr: "KOSPI", es: "KOSPI", fr: "KOSPI", pt: "KOSPI" },
+  },
+  NIFTY50: {
+    symbol: "NIFTY50",
+    slug: "nifty-50",
+    region: "asia",
+    yahooTicker: "^NSEI",
+    names: { en: "Nifty 50", tr: "Nifty 50", es: "Nifty 50", fr: "Nifty 50", pt: "Nifty 50" },
+  },
+  ASX200: {
+    symbol: "ASX200",
+    slug: "asx-200",
+    region: "asia",
+    yahooTicker: "^AXJO",
+    names: { en: "ASX 200", tr: "ASX 200", es: "ASX 200", fr: "ASX 200", pt: "ASX 200" },
+  },
+  BOVESPA: {
+    symbol: "BOVESPA",
+    slug: "bovespa",
+    region: "latam",
+    yahooTicker: "^BVSP",
+    names: { en: "Bovespa", tr: "Bovespa", es: "Bovespa", fr: "Bovespa", pt: "Bovespa" },
+  },
+  IPCMEXICO: {
+    symbol: "IPCMEXICO",
+    slug: "ipc-mexico",
+    region: "latam",
+    yahooTicker: "^MXX",
+    names: { en: "IPC México", tr: "IPC México", es: "IPC México", fr: "IPC México", pt: "IPC México" },
+  },
+  MERVAL: {
+    symbol: "MERVAL",
+    slug: "merval",
+    region: "latam",
+    yahooTicker: "^MERV",
+    names: { en: "MERVAL", tr: "MERVAL", es: "MERVAL", fr: "MERVAL", pt: "MERVAL" },
   },
 };
 

@@ -61,7 +61,7 @@ class AnalysisSession:
 class IndexDefinition:
     symbol: str
     slug: str
-    region: str  # "us" | "europe"
+    region: str  # "us" | "europe" | "asia" | "latam"
     yahoo_ticker: str
     name: str
     # ── Piyasa takvimi — her endeks KENDI borsasinin saatini tasir, "ET"
@@ -84,14 +84,14 @@ _US_SCHEDULE = (
     AnalysisSession("closing", "16:30"),
 )
 
-# Avrupa endeksleri icin ortak tetik saatleri — her borsanin KENDI yerel
-# saatinde uygulanir (borsalar arasi ~1 saat fark olsa da yapisal olarak
-# ayni sema: erken-oturum / ogle / kapanis-sonrasi).
-_EU_SCHEDULE = (
-    AnalysisSession("premarket", "08:30"),
-    AnalysisSession("midday", "13:00"),
-    AnalysisSession("closing", "17:45"),
-)
+# Avrupa (ve artik Asya/LatAm) endeksleri icin TEK gunluk oturum — sahibin
+# 2026-08-08 talebi: Avrupa 3x/gun'den 1x/gun "genel ozet"e dusuruldu, yeni
+# eklenen Asya/LatAm bolgeleri de bastan itibaren ayni 1x/gun desenini
+# kullanir. Session adi hala "closing" (DB session CHECK'i degismedi),
+# tetik saati borsanin KENDI kapanisindan ~15dk sonra.
+def _closing_only(trigger_time: str) -> tuple[AnalysisSession, ...]:
+    return (AnalysisSession("closing", trigger_time),)
+
 
 INDEX_DEFINITIONS: dict[str, IndexDefinition] = {
     "SPX": IndexDefinition(
@@ -117,31 +117,92 @@ INDEX_DEFINITIONS: dict[str, IndexDefinition] = {
     "DAX": IndexDefinition(
         "DAX", "dax", "europe", "^GDAXI", "DAX",
         timezone="Europe/Berlin", market_open="09:00", market_close="17:30",
-        analysis_schedule=_EU_SCHEDULE,
+        analysis_schedule=_closing_only("17:45"),
     ),
     "FTSE100": IndexDefinition(
         "FTSE100", "ftse-100", "europe", "^FTSE", "FTSE 100",
         timezone="Europe/London", market_open="08:00", market_close="16:30",
-        analysis_schedule=(
-            AnalysisSession("premarket", "07:30"),
-            AnalysisSession("midday", "12:00"),
-            AnalysisSession("closing", "16:45"),
-        ),
+        analysis_schedule=_closing_only("16:45"),
     ),
     "CAC40": IndexDefinition(
         "CAC40", "cac-40", "europe", "^FCHI", "CAC 40",
         timezone="Europe/Paris", market_open="09:00", market_close="17:30",
-        analysis_schedule=_EU_SCHEDULE,
+        analysis_schedule=_closing_only("17:45"),
     ),
     "IBEX35": IndexDefinition(
         "IBEX35", "ibex-35", "europe", "^IBEX", "IBEX 35",
         timezone="Europe/Madrid", market_open="09:00", market_close="17:30",
-        analysis_schedule=_EU_SCHEDULE,
+        analysis_schedule=_closing_only("17:45"),
     ),
     "STOXX600": IndexDefinition(
         "STOXX600", "stoxx-600", "europe", "^STOXX", "STOXX Europe 600",
         timezone="Europe/Amsterdam", market_open="09:00", market_close="17:30",
-        analysis_schedule=_EU_SCHEDULE,
+        analysis_schedule=_closing_only("17:45"),
+    ),
+    # ── Yeni Avrupa endeksleri (2026-08-08 kapsam genisletme) ──
+    "FTSEMIB": IndexDefinition(
+        "FTSEMIB", "ftse-mib", "europe", "FTSEMIB.MI", "FTSE MIB",
+        timezone="Europe/Rome", market_open="09:00", market_close="17:30",
+        analysis_schedule=_closing_only("17:45"),
+    ),
+    "SMI": IndexDefinition(
+        "SMI", "smi", "europe", "^SSMI", "SMI",
+        timezone="Europe/Zurich", market_open="09:00", market_close="17:30",
+        analysis_schedule=_closing_only("17:45"),
+    ),
+    "AEX": IndexDefinition(
+        "AEX", "aex", "europe", "^AEX", "AEX",
+        timezone="Europe/Amsterdam", market_open="09:00", market_close="17:30",
+        analysis_schedule=_closing_only("17:45"),
+    ),
+    # ── Yeni bolge: Asya (2026-08-08) ──
+    "NIKKEI225": IndexDefinition(
+        "NIKKEI225", "nikkei-225", "asia", "^N225", "Nikkei 225",
+        timezone="Asia/Tokyo", market_open="09:00", market_close="15:00",
+        analysis_schedule=_closing_only("15:15"),
+    ),
+    "HANGSENG": IndexDefinition(
+        "HANGSENG", "hang-seng", "asia", "^HSI", "Hang Seng",
+        timezone="Asia/Hong_Kong", market_open="09:30", market_close="16:00",
+        analysis_schedule=_closing_only("16:15"),
+    ),
+    "SHANGHAI": IndexDefinition(
+        "SHANGHAI", "shanghai-composite", "asia", "000001.SS", "Shanghai Composite",
+        timezone="Asia/Shanghai", market_open="09:30", market_close="15:00",
+        analysis_schedule=_closing_only("15:15"),
+    ),
+    "KOSPI": IndexDefinition(
+        "KOSPI", "kospi", "asia", "^KS11", "KOSPI",
+        timezone="Asia/Seoul", market_open="09:00", market_close="15:30",
+        analysis_schedule=_closing_only("15:45"),
+    ),
+    "NIFTY50": IndexDefinition(
+        "NIFTY50", "nifty-50", "asia", "^NSEI", "Nifty 50",
+        timezone="Asia/Kolkata", market_open="09:15", market_close="15:30",
+        analysis_schedule=_closing_only("15:45"),
+    ),
+    "ASX200": IndexDefinition(
+        "ASX200", "asx-200", "asia", "^AXJO", "ASX 200",
+        timezone="Australia/Sydney", market_open="10:00", market_close="16:00",
+        analysis_schedule=_closing_only("16:15"),
+    ),
+    # ── Yeni bolge: Latin Amerika (2026-08-08). NOT: IPSA (Sili) yfinance'ta
+    # (IPSA / ^IPSA / IPSA.SN denendi) veri donmedigi icin roster'a EKLENMEDI —
+    # bkz. rapor. ──
+    "BOVESPA": IndexDefinition(
+        "BOVESPA", "bovespa", "latam", "^BVSP", "Bovespa",
+        timezone="America/Sao_Paulo", market_open="10:00", market_close="17:00",
+        analysis_schedule=_closing_only("17:15"),
+    ),
+    "IPCMEXICO": IndexDefinition(
+        "IPCMEXICO", "ipc-mexico", "latam", "^MXX", "IPC Mexico",
+        timezone="America/Mexico_City", market_open="08:30", market_close="15:00",
+        analysis_schedule=_closing_only("15:15"),
+    ),
+    "MERVAL": IndexDefinition(
+        "MERVAL", "merval", "latam", "^MERV", "MERVAL",
+        timezone="America/Argentina/Buenos_Aires", market_open="11:00", market_close="17:00",
+        analysis_schedule=_closing_only("17:15"),
     ),
 }
 

@@ -55,6 +55,8 @@ export default async function IndexLandingPage({ params }: Props) {
 
   const usIndices = getIndicesByRegion("us");
   const europeIndices = getIndicesByRegion("europe");
+  const asiaIndices = getIndicesByRegion("asia");
+  const latamIndices = getIndicesByRegion("latam");
 
   const breadcrumbJsonLd = getBreadcrumbStructuredData([
     { name: "BOGASTOCK", url: "https://bogastock.com" },
@@ -98,12 +100,46 @@ export default async function IndexLandingPage({ params }: Props) {
           </div>
         </section>
 
-        <section>
+        <section className="mb-10">
           <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
             {t.regionEurope}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {europeIndices.map((idx) => (
+              <Link
+                key={idx.symbol}
+                href={`/global/${locale}/${idx.slug}`}
+                className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-4 hover:border-[#3b82f6]/50 hover:bg-[#141b2a] transition-all"
+              >
+                <span className="text-sm font-bold text-white">{idx.names[locale]}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
+            {t.regionAsia}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            {asiaIndices.map((idx) => (
+              <Link
+                key={idx.symbol}
+                href={`/global/${locale}/${idx.slug}`}
+                className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-4 hover:border-[#3b82f6]/50 hover:bg-[#141b2a] transition-all"
+              >
+                <span className="text-sm font-bold text-white">{idx.names[locale]}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
+            {t.regionLatam}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            {latamIndices.map((idx) => (
               <Link
                 key={idx.symbol}
                 href={`/global/${locale}/${idx.slug}`}

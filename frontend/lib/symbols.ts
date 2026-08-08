@@ -40,6 +40,10 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   CAC40: "^FCHI",
   IBEX35: "^IBEX",
   STOXX50: "^STOXX50E",
+  STOXX600: "^STOXX",
+  FTSEMIB: "FTSEMIB.MI",
+  SMI: "^SSMI",
+  AEX: "^AEX",
 
   // Asia Indices
   N225: "^N225",
@@ -47,6 +51,11 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   HSI: "^HSI",
   SENSEX: "^BSESN",
   NIFTY50: "^NSEI",
+  NIKKEI225: "^N225",
+  HANGSENG: "^HSI",
+  SHANGHAI: "000001.SS",
+  KOSPI: "^KS11",
+  ASX200: "^AXJO",
 
   // Latin America Indices
   SPLATA40: "ILF",
@@ -54,6 +63,9 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   IBOVESPA: "^BVSP",
   IGCX: "EWZ",
   IBXX: "ILF",
+  BOVESPA: "^BVSP",
+  IPCMEXICO: "^MXX",
+  MERVAL: "^MERV",
 
   // Futures
   YM_F: "YM=F",

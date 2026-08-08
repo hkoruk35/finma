@@ -91,8 +91,20 @@ export default async function IndexPage({ params }: Props) {
     { name, url: `https://bogastock.com/global/${locale}/${indexSlug}` },
   ]);
 
-  const regionLabel = indexDef.region === "us" ? t.regionUS : t.regionEurope;
-  const breadcrumbRegionLabel = indexDef.region === "us" ? t.breadcrumbUS : t.breadcrumbEurope;
+  const regionLabelMap = {
+    us: t.regionUS,
+    europe: t.regionEurope,
+    asia: t.regionAsia,
+    latam: t.regionLatam,
+  } as const;
+  const breadcrumbRegionLabelMap = {
+    us: t.breadcrumbUS,
+    europe: t.breadcrumbEurope,
+    asia: t.breadcrumbAsia,
+    latam: t.breadcrumbLatam,
+  } as const;
+  const regionLabel = regionLabelMap[indexDef.region];
+  const breadcrumbRegionLabel = breadcrumbRegionLabelMap[indexDef.region];
 
   return (
     <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
