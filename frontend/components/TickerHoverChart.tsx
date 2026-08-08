@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import { getIndexBySymbol } from "@/lib/indices";
 
 const CHART_DETAIL_LABEL: Record<string, string> = {
   en: "Chart Detail",
@@ -11,6 +12,14 @@ const CHART_DETAIL_LABEL: Record<string, string> = {
   es: "Detalle del Gráfico",
   fr: "Détail du Graphique",
   pt: "Detalhe do Gráfico",
+};
+
+const ANALYSIS_LABEL: Record<string, string> = {
+  en: "Analysis",
+  tr: "Analiz",
+  es: "Análisis",
+  fr: "Analyse",
+  pt: "Análise",
 };
 
 interface Props {
@@ -112,6 +121,15 @@ export default function TickerHoverChart({ ticker, children, className, locale }
               {ticker} — 1D Chart
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 11, fontWeight: 600 }}>
+              {getIndexBySymbol(ticker) && (
+                <a
+                  href={`/global/${loc}/${getIndexBySymbol(ticker)!.slug}`}
+                  style={{ color: "#00d2ff" }}
+                  className="hover:underline"
+                >
+                  {ANALYSIS_LABEL[loc] || ANALYSIS_LABEL.en} ↗
+                </a>
+              )}
               <a
                 href={`/global/${loc}/graphic/${ticker}`}
                 style={{ color: "#00d2ff" }}

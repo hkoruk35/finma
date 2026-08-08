@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import { getIndicesByRegion } from "@/lib/indices";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
@@ -183,20 +182,6 @@ export default async function EnHomePage() {
 
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="en" />
-              {/* Crawlable index links (MarketOverviewTabs above is a client-only tab
-                  switcher; these real <Link> elements let crawlers reach the new
-                  SEO index pages regardless of active tab). */}
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {[...getIndicesByRegion("us"), ...getIndicesByRegion("europe")].map((idx) => (
-                  <Link
-                    key={idx.symbol}
-                    href={`/global/en/${idx.slug}`}
-                    className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] text-slate-400 hover:text-white hover:border-[#3b82f6]/40 transition-all"
-                  >
-                    {idx.names.en}
-                  </Link>
-                ))}
-              </div>
             </div>
 
             <div className="mt-4">

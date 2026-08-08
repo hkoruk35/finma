@@ -34,23 +34,23 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
 const INDEX_BANNER_LABELS: Record<Locale, { text: (name: string) => string; cta: string }> = {
   en: {
     text: (name) => `Want the full daily & weekly quant analysis for ${name}?`,
-    cta: "View index analysis →",
+    cta: "Current Analysis →",
   },
   tr: {
     text: (name) => `${name} için günlük ve haftalık kantitatif analize göz atmak ister misiniz?`,
-    cta: "Endeks analizini görüntüle →",
+    cta: "Güncel Analiz →",
   },
   es: {
     text: (name) => `¿Quieres el análisis cuantitativo diario y semanal completo de ${name}?`,
-    cta: "Ver análisis del índice →",
+    cta: "Análisis Actual →",
   },
   fr: {
     text: (name) => `Vous voulez l'analyse quantitative quotidienne et hebdomadaire complète de ${name} ?`,
-    cta: "Voir l'analyse de l'indice →",
+    cta: "Analyse Actuelle →",
   },
   pt: {
     text: (name) => `Quer a análise quantitativa diária e semanal completa do ${name}?`,
-    cta: "Ver análise do índice →",
+    cta: "Análise Atual →",
   },
 };
 
