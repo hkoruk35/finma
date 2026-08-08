@@ -8,6 +8,8 @@ import { useSmartTracker } from "@/components/SmartTrackerContext";
 import { useTracker } from "@/components/TrackerContext";
 import { computePnl } from "@/lib/smartTracker";
 
+import { useMemberSession } from "@/hooks/useMemberSession";
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type Instrument = {
@@ -32,6 +34,18 @@ type HourlySignal = {
 // ─── Instrument Config ────────────────────────────────────────────────────────
 
 const GROUPS: { group: string; items: Instrument[] }[] = [
+  {
+    group: "Top7 Leaders",
+    items: [
+      { ticker: "NVDA",  label: "NVIDIA",      tvSymbol: "NASDAQ:NVDA",  ySymbol: "NVDA",  isStock: true },
+      { ticker: "AAPL",  label: "Apple",       tvSymbol: "NASDAQ:AAPL",  ySymbol: "AAPL",  isStock: true },
+      { ticker: "MSFT",  label: "Microsoft",   tvSymbol: "NASDAQ:MSFT",  ySymbol: "MSFT",  isStock: true },
+      { ticker: "AMZN",  label: "Amazon",      tvSymbol: "NASDAQ:AMZN",  ySymbol: "AMZN",  isStock: true },
+      { ticker: "GOOGL", label: "Alphabet",    tvSymbol: "NASDAQ:GOOGL", ySymbol: "GOOGL", isStock: true },
+      { ticker: "META",  label: "Meta",        tvSymbol: "NASDAQ:META",  ySymbol: "META",  isStock: true },
+      { ticker: "TSLA",  label: "Tesla",       tvSymbol: "NASDAQ:TSLA",  ySymbol: "TSLA",  isStock: true },
+    ],
+  },
   {
     group: "US Equity Markets",
     items: [
@@ -461,17 +475,32 @@ export default function TerminalClient() {
     }
   }, []);
 
+  const session = useMemberSession();
+  const maxAllowedScreens = !session.isLoggedIn ? 2 : 9;
+
   const addToTracker = () => {
+    if (!session.isLoggedIn) {
+      alert("Terminal izleme listesini kaydetme ve düzenleme özelliği üyelerimize özeldir. Lütfen ücretsiz kaydolun!");
+      return;
+    }
     const t = trackerInput.trim().toUpperCase();
     if (!t || trackerList.includes(t) || trackerList.length >= 100) return;
     addToTrackerContext(t, "Swing"); setTrackerInput("");
   };
 
   const saveWatchlistActive = (list: string[]) => {
+    if (!session.isLoggedIn) {
+      alert("Terminal izleme listesini kaydetme özelliği üyelerimize özeldir. Lütfen ücretsiz kaydolun!");
+      return;
+    }
     setWatchlistActive(list);
     cloudSave("/api/csp-watchlist/active", "t_active", list, { tickers: list });
   };
   const addToWatchlistActive = () => {
+    if (!session.isLoggedIn) {
+      alert("Terminal izleme listesini kaydetme özelliği üyelerimize özeldir. Lütfen ücretsiz kaydolun!");
+      return;
+    }
     const t = watchInputActive.trim().toUpperCase();
     if (!t || watchlistActive.includes(t) || watchlistActive.length >= 100) return;
     saveWatchlistActive([...watchlistActive, t]); setWatchInputActive("");
@@ -565,13 +594,20 @@ export default function TerminalClient() {
 
   // ── Toggle multi-screen ticker ────────────────────────────────────────────────
   const toggleCheck = (ticker: string) => {
-    setChecked((prev) =>
-      prev.includes(ticker)
-        ? prev.filter((t) => t !== ticker)
-        : prev.length < 12
-        ? [...prev, ticker]
-        : prev
-    );
+    setChecked((prev) => {
+      if (prev.includes(ticker)) {
+        return prev.filter((t) => t !== ticker);
+      }
+      if (prev.length >= maxAllowedScreens) {
+        if (!session.isLoggedIn) {
+          alert("Anonim ziyaretçiler 2 çoklu ekran kullanabilir. 4, 6 ve 9 ekran görünümleri için ücretsiz kayıt olun!");
+        } else {
+          alert("Çoklu ekran görünümü için en fazla 9 hisse seçebilirsiniz.");
+        }
+        return prev;
+      }
+      return [...prev, ticker];
+    });
   };
 
   // ── Resolve instrument (from left panel or watchlist) ─────────────────────────

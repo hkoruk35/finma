@@ -30,6 +30,6 @@ export function maskTop100Ticker<T extends { ticker: string; company?: string | 
   tier: "anonymous" | "free" | "premium" | "admin"
 ): T {
   const unlockAll = tier === "free" || tier === "premium" || tier === "admin";
-  if (unlockAll || isPublicTeaserTicker(row.ticker)) return row;
+  if (unlockAll || idx < 10 || isPublicTeaserTicker(row.ticker)) return row;
   return { ...row, ticker: `LOCKED-${idx}`, company: null };
 }

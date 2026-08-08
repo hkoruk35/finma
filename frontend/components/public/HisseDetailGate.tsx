@@ -34,7 +34,6 @@ const ACCOUNT_HREF: Record<Locale, string> = {
 export default function HisseDetailGate({ ticker, locale }: { ticker: string; locale: Locale }) {
   const router = useRouter();
   const session = useMemberSession();
-  const [isPremium, setIsPremium] = useState(false);
   const loading = !session.authChecked;
 
   useEffect(() => {
@@ -43,9 +42,7 @@ export default function HisseDetailGate({ ticker, locale }: { ticker: string; lo
       router.push(LOGIN_HREF[locale]);
       return;
     }
-    const plan = session.member?.plan;
-    setIsPremium(plan === "premium" || plan === "admin");
-  }, [session.authChecked, session.isLoggedIn, session.member, router, locale]);
+  }, [session.authChecked, session.isLoggedIn, router, locale]);
 
   if (loading) {
     return (
@@ -55,13 +52,8 @@ export default function HisseDetailGate({ ticker, locale }: { ticker: string; lo
     );
   }
 
-  if (!isPremium) {
-    return (
-      <PremiumModal
-        locale={locale}
-        onClose={() => router.push(`${ACCOUNT_HREF[locale]}?tab=subscription`)}
-      />
-    );
+  if (!session.isLoggedIn) {
+    return null;
   }
 
   return <TickerDetailPanel ticker={ticker} locale={locale} fullPage />;

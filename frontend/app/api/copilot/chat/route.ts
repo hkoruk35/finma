@@ -270,11 +270,11 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 `;
 
   if (accessMode === "visitor") {
-    contextStr += `ÜYELİK DURUMU: Bu kullanıcı henüz hesap OLUŞTURMAMIŞ, misafir (anonim) bir ziyaretçidir. Günlük sınırlı sayıda ücretsiz Copilot sorusu hakkı vardır. Kişisel izleme listesi, geçmiş sohbet kaydı veya görev/uyarı oluşturma özelliği YOKTUR — bunlardan biri istenirse, ücretsiz hesap oluşturmasının bu özellikleri açacağını kısaca ve nazikçe belirt (agresif satış yapma).\n\n`;
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcı henüz hesap OLUŞTURMAMIŞ, misafir (anonim) bir ziyaretçidir. Top7 sıralaması, Top Gainers (En Çok Yükselenler), Top Losers (En Çok Düşenler), Top100'ün ilk 10 hissesi ve Terminal sayfası (2 ekran görünümü) bu kullanıcıya TAMAMEN AÇIKTIR. Anonim ziyaretçiye Trend Hisseleri ve Trend Adayları önerilmez. Kişisel izleme listesi kaydetme, 4-6-9 ekran görünümü ve 1. tema dışındaki temalar için ücretsiz hesap açmasını kısaca ve nazikçe belirt (agresif satış yapma).\n\n`;
   } else if (accessMode === "expired_member") {
-    contextStr += `ÜYELİK DURUMU: Bu kullanıcının ücretli üyeliği şu anda AKTİF DEĞİL (süresi dolmuş/iptal edilmiş). Kayıtlı kişisel listesi ve geçmiş görevleri korunuyor (salt okunur) ama yeni görev oluşturamaz. Bunu sorarsa kibarca açıkla, ama sohbetin başında kendiliğinden satış/yenileme mesajı ile karşılama.\n\n`;
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcının ücretli üyeliği şu anda AKTİF DEĞİL (süresi dolmuş/iptal edilmiş). Tüm hisse detayları, Top7, Top100 tam listesi, Bellek Üreticiler & AI Depolama teması ve 4-6-9 ekran Terminal görünümleri bu kullanıcıya AÇIKTIR. Kayıtlı kişisel listesi korunur. Bunu sorarsa kibarca açıkla, ama sohbetin başında kendiliğinden satış/yenileme mesajı ile karşılama.\n\n`;
   } else {
-    contextStr += `ÜYELİK DURUMU: Bu kullanıcının aktif bir üyeliği var. Aktif üyeye tekrar tekrar üyelik/fiyat/kampanya mesajı GÖSTERME — görevin üyeliği yeniden satmak değil, üyeliğin değerini kullandırmaktır.\n\n`;
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcının aktif bir üyeliği var. Tüm hisse detayları, Top7, Top100 tam listesi, Bellek Üreticiler & AI Depolama teması ve 4-6-9 ekran Terminal görünümleri bu kullanıcıya AÇIKTIR. Aktif üyeye tekrar tekrar üyelik/fiyat/kampanya mesajı GÖSTERME — görevin üyeliği yeniden satmak değil, üyeliğin değerini kullandırmaktır.\n\n`;
   }
 
   if (pageContext?.selectedAsset) {

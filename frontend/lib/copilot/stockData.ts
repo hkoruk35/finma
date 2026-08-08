@@ -285,7 +285,7 @@ export async function getSiteCategoryStocksList(
   // maskTop100Ticker) — sadece anonim ziyaretçide, vitrin ticker'ları hariç, ticker
   // kimliği maskelenir. Diğer kategoriler (top_7, user_watchlist) hiç maskelenmez.
   if (category === "top_100" && tier === "anonymous") {
-    tickers = tickers.map((t, idx) => (isPublicTeaserTicker(t) ? t : `LOCKED-${idx}`));
+    tickers = tickers.map((t, idx) => (idx < 10 || isPublicTeaserTicker(t) ? t : `LOCKED-${idx}`));
   }
 
   const validTickers = tickers.slice(0, 10);

@@ -262,7 +262,8 @@ export default function CopilotDrawer() {
   const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
     ? (activeLocale as CopilotLang)
     : "tr";
-  const dailyGreeting = buildMemberDailyGreeting(realUserName, favoriteSectors, 0, memberLang);
+  const isAnon = !isAuthenticated || !member;
+  const dailyGreeting = buildMemberDailyGreeting(realUserName, favoriteSectors, 0, memberLang, isAnon);
 
   const handleCancelTask = async (taskId: string) => {
     setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));
