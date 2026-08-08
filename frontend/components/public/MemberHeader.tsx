@@ -80,10 +80,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
           : locale === "pt"
             ? "/global/pt/login"
             : "/global/en/login";
-  const registerHref =
-    locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
-  const terminalHref =
-    authChecked && !isLoggedIn ? registerHref : `/global/${locale}`;
+  // Terminal Faz 1'den beri herkese açık (bkz. proxy.ts PUBLIC_SUBPATHS) —
+  // giriş durumundan bağımsız olarak her zaman doğrudan Terminal'e gider.
+  const terminalHref = `/global/${locale}/terminal`;
   const terminalTooltip =
     locale === "tr"
       ? "TERMİNAL sayfasını aç"
