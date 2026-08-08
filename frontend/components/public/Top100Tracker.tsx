@@ -145,8 +145,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
       setComposition(rows);
 
       if (rows.length > 0) {
-        const tickers = rows.map((r) => r.ticker).join(",");
-        const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers}`);
+        const realTickers = rows.map((r) => (r as any).realTicker || r.ticker).join(",");
+        const liveRes = await fetch(`/api/watchlist-data?tickers=${realTickers}`);
         if (liveRes.ok) {
           const liveRows: LiveData[] = await liveRes.json();
           const map: Record<string, LiveData> = {};
@@ -399,7 +399,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             </thead>
             <tbody>
               {sorted.map((r, idx) => {
-                const d = live[r.ticker];
+                const realTk = (r as any).realTicker || r.ticker;
+                const d = live[realTk] || live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";

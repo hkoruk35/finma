@@ -21,6 +21,7 @@ function isRateLimited(ip: string): boolean {
 
 export interface Top100Row {
   ticker: string;
+  realTicker: string;
   company: string | null;
   sector: string | null;
   source: "fixed" | "swing_daily";
@@ -47,21 +48,14 @@ export async function GET(req: NextRequest) {
 
   const supabase = await createSupabaseServerClient();
 
-  // Herkes Top 100'ün yapısını görebilir (aktif üye olmayanlar da) — ama
-  // ticker kimliği artık burada, sunucu tarafında maskeleniyor (bkz. Faz 0B):
-  // anonim sadece sabit "vitrin" ticker'ları (PUBLIC_TEASER_TICKERS) gerçek
-  // görür, free/premium/admin tam listeyi. Pozisyona (idx>0) göre değil
-  // ticker kimliğine göre kilitleniyor, çünkü client tabloyu serbestçe
-  // yeniden sıralayabiliyor — pozisyonel kilit sıralamayla senkron kalamazdı.
-  // Eskiden bu maskeleme sadece client'taydı ve /api/top100 tam veriyi
-  // döndürüyordu — doğrudan curl ile bypass edilebiliyordu.
   const access = await getMemberAccess();
   const tier = resolveMemberTierFromAccess(access);
 
   const { data: tickers, error: tickersError } = await supabase
     .from("top100_tickers")
     .select("ticker, company, sector, source")
-    .eq("active", true);
+    .eq("active", true)
+    .order("id", { ascending: true });
 
   if (tickersError) {
     return NextResponse.json({ error: "Could not load Top 100 composition." }, { status: 502 });
@@ -82,6 +76,7 @@ export async function GET(req: NextRequest) {
     const masked = maskTop100Ticker({ ticker: t.ticker, company: t.company }, idx, tier);
     return {
       ticker: masked.ticker,
+      realTicker: t.ticker,
       company: masked.company,
       sector: t.sector,
       source: t.source as "fixed" | "swing_daily",
