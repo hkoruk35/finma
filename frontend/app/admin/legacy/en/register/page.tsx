@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Create Account — BOGA AI",
+  description: "Sign up for free and access the BOGA AI Top 100 Tracker with EMA/RSI signals.",
   alternates: { canonical: "https://bogastock.com/en/register" },
 };
 

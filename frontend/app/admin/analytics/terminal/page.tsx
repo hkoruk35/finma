@@ -3,9 +3,9 @@ import Header from "@/components/Header";
 import TerminalClient from "@/components/TerminalClient";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  title: "Market Terminal | BOGA AI",
   description:
-    "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+    "Professional Wall Street-style terminal. Live charts for US equities, sectors, currencies, and commodities with hourly AI signals and multi-screen view.",
   alternates: { canonical: "https://bogastock.com/terminal" },
 };
 

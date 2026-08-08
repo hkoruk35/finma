@@ -6,19 +6,10 @@ import { TrendStatus } from '@/lib/homeFeed';
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  keywords: ["BogaStock Terminal", "yapay zeka hisse analizi", "ABD borsa grafikleri", "teknik analiz platformu", "canlı hisse verileri"],
-  openGraph: {
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-    url: 'https://bogastock.com/global/tr/terminal',
-    siteName: 'BogaStock Terminal',
-    locale: 'tr_TR',
-    type: 'website',
-  },
-  alternates: { canonical: `https://bogastock.com/global/tr/terminal` },
+  title: "Terminal",
+  alternates: { canonical: "https://bogastock.com/global/tr/terminal" }
 };
+
 
 export default async function LandingPage() {
   // Default tickers for Watchlist (Top 7)

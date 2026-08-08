@@ -5,8 +5,8 @@ import AllListDetailClient from "@/components/AllListDetailClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "ALL LIST Watchlist | BOGA AI",
+  description: "Complete market universe with 900+ stocks - detailed tracking and analysis.",
 };
 
 export default function AllListPage() {

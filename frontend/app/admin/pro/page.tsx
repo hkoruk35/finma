@@ -18,8 +18,8 @@ import { MARKET_THEMES } from "@/lib/themeData";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "BOGA PRO | Professional Market Analytics",
+  description: "Advanced market analytics, sector heatmaps, and institutional-grade stock screening. The alternative professional dashboard for BOGA AI.",
   alternates: { canonical: "https://bogastock.com/pro" },
 };
 

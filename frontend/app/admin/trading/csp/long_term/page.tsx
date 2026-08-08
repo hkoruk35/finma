@@ -4,8 +4,8 @@ import CSPDetailClient from "@/components/CSPDetailClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Long-Term Oyunlar | BOGA AI",
+  description: "Uzun vadeli hisse seçimleri ve makro trendler.",
 };
 
 export default function LongTermPage() {

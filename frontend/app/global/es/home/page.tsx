@@ -15,19 +15,10 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  keywords: ["análisis de acciones de EE. UU.", "BogaStock", "análisis técnico de acciones", "análisis de índices", "análisis de divisas", "análisis de materias primas", "IA para bolsa"],
-  openGraph: {
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-    url: "https://bogastock.com/global/es/home",
-    siteName: "BOGASTOCK Terminal",
-    locale: "es_ES",
-    type: "website",
-  },
-  alternates: { canonical: "https://bogastock.com/global/es/home" },
+  title: "Home",
+  alternates: { canonical: "https://bogastock.com/global/es/home" }
 };
+
 
 const INDEX_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "SPX", label: "S&P 500" },

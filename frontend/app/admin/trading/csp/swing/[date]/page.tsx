@@ -4,8 +4,8 @@ import SwingArchiveClient from "@/components/SwingArchiveClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Swing Picks Archive | BOGA AI",
+  description: "Swing ticaret adayları arşivi — tarihli veriler ve performans analizi.",
 };
 
 export default async function SwingArchivePage({

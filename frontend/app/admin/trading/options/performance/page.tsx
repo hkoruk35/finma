@@ -9,8 +9,8 @@ import { Metadata } from "next";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Options Performance | BOGA AI",
+  description: "Live P&L tracking — all options positions, open and closed, with real-time PnL, TP/SL status and contract expiry.",
 };
 
 export default async function OptionsPerformancePage() {

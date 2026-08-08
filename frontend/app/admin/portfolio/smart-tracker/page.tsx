@@ -9,8 +9,8 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Smart Tracker – Paper Trade Portfolio | BOGA AI",
+  description: "Track your swing trade picks in a paper trading portfolio. Monitor PnL, sector distribution, and portfolio statistics — no real money involved.",
   alternates: { canonical: "https://bogastock.com/smart-tracker" },
 };
 

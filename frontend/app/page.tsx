@@ -7,8 +7,8 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "BOGASTOCK | Advanced Interactive Chart Analysis for Stocks, Gold, FX & Crypto",
+  description: "BOGASTOCK Terminal | Advanced Interactive Chart Analysis for Stocks, Gold, FX & Crypto.",
   alternates: {
     canonical: "https://bogastock.com",
   },

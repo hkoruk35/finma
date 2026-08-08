@@ -4,8 +4,8 @@ import DailyTrackerClient from "@/components/DailyTrackerClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Daily Intraday Tracker | BOGA AI",
+  description: "Sabah ilk taramadan gün sonuna kadar tüm intraday sinyallerin canlı takibi. Isı haritası ve gün sonu arşivi.",
   keywords: ["intraday", "daily tracker", "boga ai", "hisse takip", "stock scanner"],
 };
 

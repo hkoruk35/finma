@@ -44,11 +44,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: {
-    default: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    template: "%s | BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi"
+    default: "BogaStock | Advanced Interactive Chart Analysis",
+    template: "%s | BogaStock"
   },
   description:
-    "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+    "BOGASTOCK Terminal | Advanced Interactive Chart Analysis for Stocks, Gold, FX & Crypto.",
   keywords: ["US stock analysis", "interactive charts", "stock terminal", "market insights", "BOGASTOCK Terminal"],
   authors: [{ name: "BOGASTOCK Team" }],
   creator: "BOGASTOCK Terminal",
@@ -65,8 +65,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+    title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     url: "https://bogastock.com",
     siteName: "BOGASTOCK Terminal",
     images: [
@@ -82,8 +82,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+    title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     images: ["/logo/boga_stock_icon.png"],
   },
   icons: {
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+    title: "BOGASTOCK Terminal",
     statusBarStyle: "black-translucent",
   },
   formatDetection: {

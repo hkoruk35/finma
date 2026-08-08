@@ -7,25 +7,10 @@ import { getPublicPosts } from "@/lib/x/publicPosts";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bogastock.com"),
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  alternates: {
-    canonical: "https://bogastock.com/global/tr/news",
-    languages: {
-      "en-US": "https://bogastock.com/global/en/news",
-      "es-ES": "https://bogastock.com/global/es/news",
-      "fr-FR": "https://bogastock.com/global/fr/news",
-      "pt-PT": "https://bogastock.com/global/pt/news",
-      "tr-TR": "https://bogastock.com/global/tr/news",
-    },
-  },
-  openGraph: {
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-    url: "https://bogastock.com/global/tr/news",
-  },
+  title: "News",
+  alternates: { canonical: "https://bogastock.com/global/tr/news" }
 };
+
 
 export default async function TrNewsPage() {
   const posts = await getPublicPosts("tr");

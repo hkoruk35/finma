@@ -8,10 +8,10 @@ import Footer from "@/components/Footer";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  alternates: { canonical: "https://bogastock.com/global/en/gainers" },
+  title: "Gainers",
+  alternates: { canonical: "https://bogastock.com/global/en/gainers" }
 };
+
 
 export default function EnGainersPage() {
   return (

@@ -3,25 +3,10 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bogastock.com"),
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  alternates: {
-    canonical: "https://bogastock.com/global/tr/about",
-    languages: {
-      "en-US": "https://bogastock.com/global/en/about",
-      "es-ES": "https://bogastock.com/global/es/about",
-      "fr-FR": "https://bogastock.com/global/fr/about",
-      "pt-PT": "https://bogastock.com/global/pt/about",
-      "tr-TR": "https://bogastock.com/global/tr/about",
-    },
-  },
-  openGraph: {
-    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-    url: "https://bogastock.com/global/tr/about",
-  },
+  title: "About",
+  alternates: { canonical: "https://bogastock.com/global/tr/about" }
 };
+
 
 export default function AboutPageTr() {
   return (

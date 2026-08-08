@@ -8,10 +8,10 @@ import Footer from "@/components/Footer";
 export const revalidate = 0; // Dynamic route
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
-  alternates: { canonical: "https://bogastock.com/global/fr/my-watchlist" },
+  title: "My Watchlist",
+  alternates: { canonical: "https://bogastock.com/global/fr/my-watchlist" }
 };
+
 
 export default function FrMyWatchlistPage() {
   return (

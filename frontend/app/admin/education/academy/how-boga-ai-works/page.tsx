@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import AcademyArticleClient from "@/components/AcademyArticleClient";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "How BOGA AI Works: 3-Layer Swing Trading System",
+  description: "Learn how swing113 scans 7,000+ stocks daily, picks 5 candidates, and inday313 monitors them hourly.",
 };
 
 export default function Page() {
@@ -52,9 +52,9 @@ export default function Page() {
             content={content}
             breadcrumb={{ label: "How BOGA AI Works", href: "/academy/how-boga-ai-works" }}
             relatedArticles={[
-              { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/swing-picks-explained", tag: "BOGA AI Edge" },
-              { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/smart-tracker", tag: "BOGA AI Edge" },
-              { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/performance-dashboard", tag: "BOGA AI Edge" },
+              { title: "Swing Picks Explained", href: "/academy/swing-picks-explained", tag: "BOGA AI Edge" },
+              { title: "Smart Tracker Guide", href: "/academy/smart-tracker", tag: "BOGA AI Edge" },
+              { title: "Performance Dashboard", href: "/academy/performance-dashboard", tag: "BOGA AI Edge" },
             ]}
           />
         </main>

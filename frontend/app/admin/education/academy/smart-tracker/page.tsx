@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import AcademyArticleClient from "@/components/AcademyArticleClient";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Smart Tracker: Paper Trade & Hourly Signals",
+  description: "Track BOGA AI picks and get hourly intraday signals for position management.",
 };
 
 export default function Page() {

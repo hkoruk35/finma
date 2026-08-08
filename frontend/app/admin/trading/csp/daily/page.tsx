@@ -4,8 +4,8 @@ import DailyCspDetailClient from "@/components/DailyCspDetailClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
+  title: "Daily Intraday Watchlist | BOGA AI",
+  description: "Günlük intraday takip hisseleri. Saatlik performans ve durum güncellemeleri ile gerçek zamanlı takip.",
 };
 
 export default function CSPDailyPage() {
