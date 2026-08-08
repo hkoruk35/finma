@@ -29,18 +29,6 @@ const getGroups = (locale: Locale) => {
 
   return [
     {
-      group: t("Top 7 Leaders", "Top 7 Liderler", "Líderes Top 7", "Leaders Top 7", "Líderes Top 7"),
-      items: [
-        { ticker: "NVDA", label: "NVIDIA", ySymbol: "NVDA" },
-        { ticker: "AAPL", label: "Apple", ySymbol: "AAPL" },
-        { ticker: "MSFT", label: "Microsoft", ySymbol: "MSFT" },
-        { ticker: "AMZN", label: "Amazon", ySymbol: "AMZN" },
-        { ticker: "GOOGL", label: "Alphabet", ySymbol: "GOOGL" },
-        { ticker: "META", label: "Meta", ySymbol: "META" },
-        { ticker: "TSLA", label: "Tesla", ySymbol: "TSLA" },
-      ],
-    },
-    {
       group: t("US Equity Markets", "ABD HİSSE SENEDİ PİYASALARI", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA"),
       items: [
         { ticker: "^GSPC", label: "S&P 500", ySymbol: "^GSPC" },
@@ -133,7 +121,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const groups = useMemo(() => getGroups(locale), [locale]);
   
   const [extendedGroups, setExtendedGroups] = useState<any[]>([]);
-  const [selectedList, setSelectedList] = useState<string>("Tüm Liste");
+  const [selectedList, setSelectedList] = useState<string>("Top 7");
 
   useEffect(() => {
     const baseGroups = groups;
