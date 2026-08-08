@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
@@ -95,14 +96,18 @@ async function buildSystemPrompt(
   pageContext: CopilotPageContext | null,
   locale: string,
   userId: string,
-  accessMode: "member" | "expired_member",
+  accessMode: "member" | "expired_member" | "visitor",
   isPremium: boolean
 ): Promise<string> {
-  const [profile, personalization, master] = await Promise.all([
-    withTimeout(getCopilotProfile(userId), 1500, { displayName: "", avatarId: "aylin" } as any),
-    withTimeout(getPersonalizationContext(userId), 1500, { topSectors: [], watchlistTickers: [], recentQueries: [] }),
-    withTimeout(getMasterData(), 1500, null as any)
-  ]);
+  // Anonim ziyaretçi için hesap yok — kişiselleştirme/profil sorgusu hiç
+  // atılmaz, doğrudan varsayılanlarla devam edilir.
+  const [profile, personalization, master] = userId
+    ? await Promise.all([
+        withTimeout(getCopilotProfile(userId), 1500, { displayName: "", avatarId: "aylin" } as any),
+        withTimeout(getPersonalizationContext(userId), 1500, { topSectors: [], watchlistTickers: [], recentQueries: [] }),
+        withTimeout(getMasterData(), 1500, null as any)
+      ])
+    : [{ displayName: "", avatarId: "aylin" } as any, { topSectors: [], watchlistTickers: [], recentQueries: [] }, await withTimeout(getMasterData(), 1500, null as any)];
   const name = profile.displayName || getSuggestedName(locale);
 
   // HOT_THEMES_2026'dan istek anında üretilir — yeni bir tema eklendiğinde
@@ -263,7 +268,9 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 
 `;
 
-  if (accessMode === "expired_member") {
+  if (accessMode === "visitor") {
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcı henüz hesap OLUŞTURMAMIŞ, misafir (anonim) bir ziyaretçidir. Günlük sınırlı sayıda ücretsiz Copilot sorusu hakkı vardır. Kişisel izleme listesi, geçmiş sohbet kaydı veya görev/uyarı oluşturma özelliği YOKTUR — bunlardan biri istenirse, ücretsiz hesap oluşturmasının bu özellikleri açacağını kısaca ve nazikçe belirt (agresif satış yapma).\n\n`;
+  } else if (accessMode === "expired_member") {
     contextStr += `ÜYELİK DURUMU: Bu kullanıcının ücretli üyeliği şu anda AKTİF DEĞİL (süresi dolmuş/iptal edilmiş). Kayıtlı kişisel listesi ve geçmiş görevleri korunuyor (salt okunur) ama yeni görev oluşturamaz. Bunu sorarsa kibarca açıkla, ama sohbetin başında kendiliğinden satış/yenileme mesajı ile karşılama.\n\n`;
   } else {
     contextStr += `ÜYELİK DURUMU: Bu kullanıcının aktif bir üyeliği var. Aktif üyeye tekrar tekrar üyelik/fiyat/kampanya mesajı GÖSTERME — görevin üyeliği yeniden satmak değil, üyeliğin değerini kullandırmaktır.\n\n`;
@@ -333,20 +340,25 @@ export async function POST(req: NextRequest) {
     const supabaseAuth = await createSupabaseServerClient();
     const { data: userData } = await supabaseAuth.auth.getUser();
     const user = userData.user;
-    if (!user) return new Response("Unauthorized", { status: 401 });
 
     // Gerçek plan kontrolü — /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
     // access.hasAccess (site geneli premium veri erişimi) burada KASITLI
     // olarak kapı olarak kullanılmıyor artık — Copilot artık free tier'a da
-    // (kısıtlı günlük kota ile) açık, bkz. Faz 3 plan matrisi. Anonim zaten
-    // yukarıdaki `!user` kontrolünde 401 alıyor.
+    // (kısıtlı günlük kota ile) açık, bkz. Faz 3 plan matrisi. Anonim ziyaretçi
+    // artık 401 almaz — Faz 2 Guest Mode: hesapsız kullanıcıya da günde
+    // sınırlı sayıda gerçek Copilot sorgusu açık (bkz. aşağıdaki ANON_DAILY_LIMIT).
     const access = await getMemberAccess();
     const tier = resolveMemberTierFromAccess(access);
     const isPremiumTier = tier === "premium" || tier === "admin";
-    const accessMode: "member" | "expired_member" =
-      access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
+    const accessMode: "member" | "expired_member" | "visitor" = !user
+      ? "visitor"
+      : access.plan && access.plan !== "premium" && access.plan !== "admin"
+        ? "expired_member"
+        : "member";
 
     // Kullanım limitleri (kullanıcı talimatı, 2026-08-05 plan):
+    // - Anonim (hesapsız) ziyaretçi: günlük sabit 3 sorgu, cookie ile sayılır
+    //   (hesap yok — Supabase'te bir kullanıcı satırı açmadan ölçülür).
     // - Free: Trend/Theme sayfalarında sınırsız; diğer her yerde günlük 10
     //   sorgu. 10 dolunca, satın alınmış top-up kredisi varsa (9 USD/100
     //   kredi) ondan düşülerek devam eder — Premier özellikler yine kilitli
@@ -354,6 +366,7 @@ export async function POST(req: NextRequest) {
     // - Premium/Admin: admin muaf. Premium'da adil kullanım (FAU) günlük 150
     //   sorgu, kayan 120 dakikalık pencerede sayılır; 150'ye ulaşınca 120 dk
     //   cooldown (pencereden en eski kayıt düşene kadar otomatik açılır).
+    const ANON_DAILY_LIMIT = 3;
     const FREE_DAILY_LIMIT = 10;
     const PREMIUM_FAU_LIMIT = 150;
     const PREMIUM_FAU_WINDOW_MIN = 120;
@@ -363,16 +376,39 @@ export async function POST(req: NextRequest) {
       pageContext?.activeListContext?.listKey === "trend_candidate_watchlist";
     let freeTierUsesTopup = false;
 
-    if (tier === "free") {
+    if (tier === "anonymous") {
+      const cookieStore = await cookies();
+      const today = new Date().toISOString().slice(0, 10);
+      const raw = cookieStore.get("boga_anon_copilot")?.value;
+      let anonCount = 0;
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed?.date === today) anonCount = Number(parsed.count) || 0;
+        } catch {}
+      }
+      if (anonCount >= ANON_DAILY_LIMIT) {
+        return NextResponse.json(
+          { error: ct("anonQuotaExhausted", locale, { limit: ANON_DAILY_LIMIT }), code: "ANON_QUOTA_EXHAUSTED" },
+          { status: 402 }
+        );
+      }
+      cookieStore.set("boga_anon_copilot", JSON.stringify({ date: today, count: anonCount + 1 }), {
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 2,
+        path: "/",
+      });
+    } else if (tier === "free") {
       if (!isExemptFreePage) {
         const { data: creditStatus } = await supabaseAdmin
-          .rpc("get_copilot_credit_status", { p_user_id: user.id, p_default_limit: FREE_DAILY_LIMIT })
+          .rpc("get_copilot_credit_status", { p_user_id: user!.id, p_default_limit: FREE_DAILY_LIMIT })
           .single<{ current_usage: number; daily_limit: number }>();
         if (creditStatus && creditStatus.current_usage >= creditStatus.daily_limit) {
           const { data: memberRow } = await supabaseAdmin
             .from("members")
             .select("topup_credit_balance")
-            .eq("id", user.id)
+            .eq("id", user!.id)
             .single<{ topup_credit_balance: number }>();
           if (!memberRow || memberRow.topup_credit_balance < 1) {
             return NextResponse.json(
@@ -409,7 +445,7 @@ export async function POST(req: NextRequest) {
       const { data: recentLogs } = await supabaseAdmin
         .from("credit_logs")
         .select("created_at")
-        .eq("user_id", user.id)
+        .eq("user_id", user!.id)
         .gte("created_at", windowStart.toISOString())
         .order("created_at", { ascending: true });
       const recentCount = recentLogs?.length ?? 0;
@@ -432,12 +468,12 @@ export async function POST(req: NextRequest) {
     }
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
-    if (lastUserMessage?.content) {
+    if (user && lastUserMessage?.content) {
       const tickerFromContext: string | null = pageContext?.selectedAsset?.symbol || null;
       logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
     }
 
-    const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
+    const systemPrompt = await buildSystemPrompt(pageContext, locale, user?.id ?? "", accessMode, access.isPremium);
 
     // search_market_news'in kendi araç sonucuna gömülü talimat üretebilmesi için
     // bu turda site-verisi aracı (deep-analysis/technical-levels) çağrıldı mı takip
@@ -456,7 +492,7 @@ export async function POST(req: NextRequest) {
             try {
               const cat = (category || "trend_stocks") as SiteListCategory;
               const res = await withTimeout(
-                getSiteCategoryStocksList(cat, locale, user.id),
+                getSiteCategoryStocksList(cat, locale, user?.id),
                 5000,
                 { categoryName: "", tickers: [], cards: [], isFallback: true }
               );
@@ -709,13 +745,13 @@ export async function POST(req: NextRequest) {
                 }
               }
 
-              const existingTasks = await withTimeout(getUserTasks(user.id), 3000, []);
+              const existingTasks = await withTimeout(getUserTasks(user!.id), 3000, []);
               const existing = existingTasks.find((t) => t.task_type === taskType && (t.subject || "") === (subject || ""));
               if (existing) {
                 return { success: true, alreadyExists: true, task: existing };
               }
 
-              const task = await createCopilotTask(user.id, taskType, subject, locale);
+              const task = await createCopilotTask(user!.id, taskType, subject, locale);
               return { success: true, alreadyExists: false, task };
             } catch (err) {
               console.error("[create_watch_task] Error:", err);
@@ -774,14 +810,20 @@ export async function POST(req: NextRequest) {
     // bağımsız olarak HER ZAMAN Gemini kullanır (bkz. lib/copilot/newsSearch.ts),
     // yani DeepSeek orkestre ederken de haber sonucu aynı kalitede gelir.
     function toolsForProvider(_providerKey: "deepseek" | "google" | "anthropic") {
-      const tools = { ...baseTools, ...searchMarketNewsTool };
+      let tools: any = { ...baseTools, ...searchMarketNewsTool };
       // Free tier: get_deep_analysis (5 kredi/DEEP_RESEARCH) hiç görünmez —
       // free/premium farkını miktardan çok yeteneğe dayandırır (bkz. Faz 3
       // plan notu). Free zaten günlük 5 kredilik havuzuyla bu aracı
       // karşılayamazdı; yapısal olarak da hiç sunulmuyor.
       if (!isPremiumTier) {
         const { get_deep_analysis, ...restTools } = tools as typeof baseTools;
-        return restTools;
+        tools = restTools;
+      }
+      // Anonim ziyaretçinin hesabı yok — görev/uyarı oluşturma (create_watch_task)
+      // bir üye satırı gerektirir, bu yüzden anonime hiç sunulmuyor.
+      if (!user) {
+        const { create_watch_task, ...restTools } = tools;
+        tools = restTools;
       }
       return tools;
     }
@@ -798,8 +840,12 @@ export async function POST(req: NextRequest) {
       return { primary: "deepseek", reason: "deepseek_always_first" };
     }
 
-    const userId = user.id;
+    const userId = user?.id ?? null;
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
+      // Anonim ziyaretçi: kota zaten istek başında cookie ile düşürüldü, üye
+      // satırı olmadığı için ne kredi RPC'si ne de sohbet geçmişi (copilot_chats,
+      // user_id NOT NULL) yazılabilir/yazılmalı — sessizce atla.
+      if (!userId) return;
       try {
         if (tier === "free") {
           // Trend/Theme sayfalarında (isExemptFreePage) sınırsız — hiçbir

@@ -51,6 +51,13 @@ const T: Record<string, Record<CopilotLocale, string>> = {
     fr: "Vous avez utilisé vos {limit} analyses Copilot gratuites du jour — bravo ! 🚀 Passez à Premium pour une analyse illimitée et tous les outils Premium, ou continuez dès maintenant avec 100 Crédits d'Analyse Supplémentaires pour seulement 9 $.",
     pt: "Você concluiu suas {limit} análises gratuitas do Copilot hoje — ótimo trabalho! 🚀 Faça upgrade para o Premium para análises ilimitadas e todas as ferramentas Premium, ou continue agora mesmo com 100 Créditos Extras de Análise por apenas $9.",
   },
+  anonQuotaExhausted: {
+    tr: "Bugünkü {limit} ücretsiz misafir sorunu kullandın — umarım faydalı olmuştur! 🚀 Ücretsiz hesap oluşturarak Copilot'u günlük daha yüksek bir kotayla kullanmaya devam edebilirsin, kredi kartı gerekmez.",
+    en: "You've used today's {limit} free guest questions — hope it was useful! 🚀 Create a free account to keep using Copilot with a higher daily quota — no credit card required.",
+    es: "Has usado tus {limit} preguntas gratuitas de invitado de hoy — ¡espero que te haya sido útil! 🚀 Crea una cuenta gratuita para seguir usando Copilot con una cuota diaria mayor, sin tarjeta de crédito.",
+    fr: "Vous avez utilisé vos {limit} questions gratuites d'invité du jour — j'espère que c'était utile ! 🚀 Créez un compte gratuit pour continuer à utiliser Copilot avec un quota quotidien plus élevé, aucune carte de crédit requise.",
+    pt: "Você usou suas {limit} perguntas gratuitas de visitante hoje — espero que tenha sido útil! 🚀 Crie uma conta gratuita para continuar usando o Copilot com uma cota diária maior, sem necessidade de cartão de crédito.",
+  },
   premiumCooldownActive: {
     tr: "Adil kullanım politikamız gereği Copilot'un şu an kısa bir mola veriyor — bu, sistemin herkes için hızlı ve sorunsuz çalışmasını sağlıyor. Yeniden açılış: {time}. Bu arada dilersen sitedeki diğer araçları keşfetmeye devam edebilirsin.",
     en: "In line with our fair-use policy, Copilot is taking a short breather right now — this keeps things fast and smooth for everyone. Back online in: {time}. Feel free to keep exploring the rest of the platform in the meantime.",
