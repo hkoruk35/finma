@@ -407,11 +407,27 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
-                // Free-tier üye (Google girişli) Top100'ü tam görür — anonim
-                // ziyaretçi ise ilk 10 hisse ve vitrin ticker'larını kilitsiz görür.
-                const rowLocked = tier === "anonymous" && idx >= 10 && !isPublicTeaserTicker(r.ticker);
+                // Anonim: ilk 10 hisse açık; Ücretsiz üye (Google girişli): ilk 20 hisse açık; Premium: hepsi açık.
+                const rowLocked =
+                  tier === "premium" || tier === "admin"
+                    ? false
+                    : tier === "free"
+                    ? idx >= 20
+                    : idx >= 10 && !isPublicTeaserTicker(r.ticker);
 
                 if (rowLocked) {
+                  const rowPrice = d?.price?.current ?? r.price;
+                  const rowChg = d?.tracker_1h?.change_pct_1d ?? r.change_pct;
+                  const rowVol = d?.price?.volume ?? r.volume;
+                  const rowVolRatio = d?.tracker_1h?.volume_ratio_1d ?? null;
+                  const rowEma20 = d?.tracker_1h?.ema_20 ?? r.ema20;
+                  const rowEma50 = d?.tracker_1h?.ema_50 ?? r.ema50;
+                  const rowEma200 = d?.tracker_1h?.ema_200 ?? r.ema200;
+                  const rowEmaStatus = d?.tracker_1h?.ema_status ?? (rowPrice && rowEma50 ? (rowPrice > rowEma50 ? "Bullish" : "Bearish") : null);
+                  const rowRsi = d?.tracker_1h?.rsi ?? r.rsi;
+                  const rowPattern = d?.tracker_1h?.candle_pattern ?? r.pattern;
+                  const rowSignal = d?.tracker_1h?.signal ?? r.signal ?? "—";
+
                   return (
                     <Fragment key={r.ticker}>
                       <tr
@@ -426,40 +442,40 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                           </span>
                         </td>
                         <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 12, whiteSpace: "nowrap" }}>{translateSector(sectorLabel === "—" ? null : sectorLabel, locale).toUpperCase().slice(0, 14)}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
-                          {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>{rowPrice != null ? `$${fmt2(rowPrice)}` : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: rowChg == null ? "#8b949e" : rowChg >= 0 ? "#3fb950" : "#f85149" }}>
+                          {rowChg != null ? `${rowChg >= 0 ? "+" : ""}${fmt2(rowChg)}%` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 11, color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
-                          {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(rowVol)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 11, color: rowVolRatio == null ? "#8b949e" : rowVolRatio >= 1.5 ? "#3fb950" : rowVolRatio >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                          {rowVolRatio != null ? `${fmt2(rowVolRatio)}x` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
-                          {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: rowPrice && rowEma20 ? emaColor(rowPrice, rowEma20) : "#8b949e" }}>
+                          {rowEma20 != null ? `${fmt2(rowEma20)}${rowPrice ? emaArrow(rowPrice, rowEma20) : ""}` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
-                          {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: rowPrice && rowEma50 ? emaColor(rowPrice, rowEma50) : "#8b949e" }}>
+                          {rowEma50 != null ? `${fmt2(rowEma50)}${rowPrice ? emaArrow(rowPrice, rowEma50) : ""}` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
-                          {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: rowPrice && rowEma200 ? emaColor(rowPrice, rowEma200) : "#8b949e" }}>
+                          {rowEma200 != null ? `${fmt2(rowEma200)}${rowPrice ? emaArrow(rowPrice, rowEma200) : ""}` : "—"}
                         </td>
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
-                          {d && (
+                          {rowEmaStatus && (
                             <span style={{
                               fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                              background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "BullishWeak" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Neutral" ? "#1a1a2e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
-                              color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "BullishWeak" ? "#56d364" : d.tracker_1h?.ema_status === "Neutral" ? "#8b949e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#f85149" : "#ff7b72",
+                              background: rowEmaStatus === "Bullish" ? "#1a3a1a" : rowEmaStatus === "BullishWeak" ? "#1c2e1c" : rowEmaStatus === "Neutral" ? "#1a1a2e" : rowEmaStatus === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
+                              color: rowEmaStatus === "Bullish" ? "#3fb950" : rowEmaStatus === "BullishWeak" ? "#56d364" : rowEmaStatus === "Neutral" ? "#8b949e" : rowEmaStatus === "BearishWeak" ? "#f85149" : "#ff7b72",
                             }}>
-                              {translateEMAStatus(d.tracker_1h?.ema_status, locale)}
+                              {translateEMAStatus(rowEmaStatus, locale)}
                             </span>
                           )}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi) : "#8b949e" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: rowRsi != null ? rsiColor(rowRsi) : "#8b949e" }}>{rowRsi != null ? fmt1(rowRsi) : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(rowPattern, locale)}</td>
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
-                          {d && (
-                            <span style={{ fontWeight: 700, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
-                              {SIGNAL_ICON[signal] || "○"} {signalLabel(signal, locale)}
+                          {rowSignal && (
+                            <span style={{ fontWeight: 700, fontSize: 12, color: SIGNAL_COLOR[rowSignal] || "#8b949e" }}>
+                              {SIGNAL_ICON[rowSignal] || "○"} {signalLabel(rowSignal, locale)}
                             </span>
                           )}
                         </td>

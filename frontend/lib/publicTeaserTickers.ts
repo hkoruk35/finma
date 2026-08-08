@@ -29,7 +29,12 @@ export function maskTop100Ticker<T extends { ticker: string; company?: string | 
   idx: number,
   tier: "anonymous" | "free" | "premium" | "admin"
 ): T {
-  const unlockAll = tier === "free" || tier === "premium" || tier === "admin";
-  if (unlockAll || idx < 10 || isPublicTeaserTicker(row.ticker)) return row;
+  const isUnlocked =
+    tier === "premium" ||
+    tier === "admin" ||
+    (tier === "free" && idx < 20) ||
+    (tier === "anonymous" && (idx < 10 || isPublicTeaserTicker(row.ticker)));
+
+  if (isUnlocked) return row;
   return { ...row, ticker: `LOCKED-${idx}`, company: null };
 }

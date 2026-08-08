@@ -151,17 +151,12 @@ export default async function ThemePage({ params }: Props) {
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const realThemeTickers = await getEffectiveThemeTickers(hotTheme);
 
-  // Bellek Üreticiler teması ücretsiz üyelere (ve üstü) açık vitrin; diğer 11 tema
-  // sadece Premium/Admin'e açık — free/anonim'de ticker kimliği ve detay butonu
-  // maskelenir (bkz. ThemeSwingTracker.tsx LOCKED_PREFIX satır maskeleme).
+  // Bellek Üreticiler teması anonim + tüm üyeler için kilitsiz açık vitrin; diğer 11 tema
+  // için canlı veriler açık, sadece Ticker ve Detay butonları kilitli kalır.
   const tier = resolveMemberTierFromAccess(await getMemberAccess());
   const isMemoryTheme = hotTheme.slug === "bellek-ureticiler-ai-depolama";
-  const unlockAll = isMemoryTheme
-    ? tier !== "anonymous"
-    : tier === "premium" || tier === "admin";
-  const themeTickers = unlockAll
-    ? realThemeTickers
-    : realThemeTickers.map((tk, idx) => (isPublicTeaserTicker(tk) ? tk : `LOCKED-${idx}`));
+  const unlockAll = isMemoryTheme || tier === "premium" || tier === "admin";
+  const isLockedTheme = !unlockAll;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -203,8 +198,8 @@ export default async function ThemePage({ params }: Props) {
           </div>
         </div>
 
-        {/* Stocks Table — same layout/columns as the Daily Trend Tracker (/swing) */}
-        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} />
+        {/* Stocks Table — live metrics always fetched, ticker/detail locked on non-free themes */}
+        <ThemeSwingTracker locale={locale as Locale} tickers={realThemeTickers} isLockedTheme={isLockedTheme} />
       </main>
 
       <Footer hidePlatform={true} locale={locale as Locale} />

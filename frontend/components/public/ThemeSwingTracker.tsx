@@ -8,6 +8,7 @@ import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import PremiumModal from "@/components/global/PremiumModal";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -241,14 +242,12 @@ function registerHrefFor(locale: Locale): string {
 interface ThemeSwingTrackerProps {
   locale: Locale;
   tickers: string[];
+  isLockedTheme?: boolean;
 }
 
-// Sunucu (bkz. themes/[theme]/page.tsx) kilitli satırların ticker'ını bu
-// önekle maskeler — client burada pozisyona (idx>0) değil, doğrudan bu
-// sinyale bakar: tablo yeniden sıralandığında maskeleme senkron kalır.
 const LOCKED_PREFIX = "LOCKED-";
 
-export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTrackerProps) {
+export default function ThemeSwingTracker({ locale, tickers, isLockedTheme }: ThemeSwingTrackerProps) {
   const t = copy[locale].top100;
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
@@ -481,7 +480,7 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === tk;
-                const rowLocked = tk.startsWith(LOCKED_PREFIX);
+                const rowLocked = (!!isLockedTheme || tk.startsWith(LOCKED_PREFIX)) && !isPublicTeaserTicker(tk);
 
                 if (rowLocked) {
                   return (
