@@ -87,13 +87,10 @@ const nextConfig: NextConfig = {
 
       // Portfolio
       { source: "/tracker", destination: "/admin/portfolio/tracker", permanent: false },
-      { source: "/watchlist", destination: "/admin/portfolio/watchlist", permanent: false },
       { source: "/smart-tracker", destination: "/admin/portfolio/smart-tracker", permanent: false },
       { source: "/order/:path*", destination: "/admin/portfolio/order/:path*", permanent: false },
 
       // Analytics
-      { source: "/performance/:path*", destination: "/admin/analytics/performance/:path*", permanent: false },
-      { source: "/terminal", destination: "/admin/analytics/terminal", permanent: false },
       { source: "/screener/:path*", destination: "/admin/analytics/screener/:path*", permanent: false },
       { source: "/hourly", destination: "/admin/analytics/hourly", permanent: false },
 
@@ -101,24 +98,17 @@ const nextConfig: NextConfig = {
       { source: "/academy/:path*", destination: "/admin/education/academy/:path*", permanent: false },
 
       // Stocks
-      { source: "/stock/:path*", destination: "/admin/stocks/:path*", permanent: false },
       { source: "/category/:path*", destination: "/admin/stocks/category/:path*", permanent: false },
       { source: "/sector/:path*", destination: "/admin/stocks/sector/:path*", permanent: false },
 
       // AI
-      { source: "/ai/:path*", destination: "/admin/ai/:path*", permanent: false },
       { source: "/daily/:path*", destination: "/admin/ai/daily/:path*", permanent: false },
-
-      // Account
-      { source: "/login", destination: "/admin/account/login", permanent: false },
-      { source: "/register", destination: "/admin/account/register", permanent: false },
 
       // Archive
       { source: "/archive/:path*", destination: "/admin/archive/:path*", permanent: false },
 
       // Other
       { source: "/pro", destination: "/admin/pro", permanent: false },
-      { source: "/theme/:path*", destination: "/admin/settings/theme/:path*", permanent: false },
 
       // Moved under /global
       { source: "/tr/hisse/:ticker", destination: "/global/tr/hisse/:ticker", permanent: true },
