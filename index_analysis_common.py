@@ -207,12 +207,25 @@ def check_env() -> list[str]:
     return missing
 
 
+# PostgREST "Prefer: resolution=merge-duplicates" TEK BASINA yetmiyor —
+# hangi unique constraint uzerinden merge edilecegini bilmesi icin ayrica
+# on_conflict query param'i gerekiyor, yoksa duz INSERT dener ve unique
+# constraint ihlalinde 409 doner (bkz. 2026-08-08 canli hata).
+UPSERT_CONFLICT_TARGETS = {
+    "index_daily_snapshot": "index_symbol,trade_date,session",
+    "index_weekly_snapshot": "index_symbol,week_start",
+}
+
+
 def supabase_upsert(table: str, row: dict) -> None:
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         raise RuntimeError("Supabase env degiskenleri eksik (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_KEY)")
+    on_conflict = UPSERT_CONFLICT_TARGETS.get(table)
+    params = {"on_conflict": on_conflict} if on_conflict else None
     res = requests.post(
         f"{SUPABASE_URL}/rest/v1/{table}",
         headers=supabase_headers(upsert=True),
+        params=params,
         data=json.dumps(row, default=str),
         timeout=30,
     )
