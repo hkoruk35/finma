@@ -21,7 +21,7 @@ export function IndexStatTable({ items, columns = 2 }: { items: IndexStatItem[];
           <dt className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">{item.label}</dt>
           <dd
             className={`text-sm font-semibold font-mono tabular-nums ${
-              item.positive === undefined ? "text-white" : item.positive ? "text-[#3fb950]" : "text-[#f85149]"
+              item.positive === undefined ? "text-white" : item.positive ? "text-green-500" : "text-red-500"
             }`}
           >
             {item.value}

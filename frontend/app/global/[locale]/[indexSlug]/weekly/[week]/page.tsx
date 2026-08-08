@@ -143,7 +143,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
         </nav>
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-          <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-semibold text-[#3b82f6] tracking-tight">
             {name} {t.weeklyAnalysis} — {t.weekOf} {week}
           </h1>
           <div className="flex gap-2">

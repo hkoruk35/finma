@@ -607,6 +607,12 @@ export default function BogaChartEngine({
       { priceFormat: { type: "volume" }, priceScaleId: "" },
       1
     );
+    volumeSeries.priceScale().applyOptions({
+      scaleMargins: {
+        top: 0.8, // leave top 80% for candles
+        bottom: 0,
+      },
+    });
     // Sabit 150px hacim paneli, tam detay grafiğinde (height=600) makul bir
     // oran (~%25) ama compact/hover mini grafiklerde (örn. TickerHoverChart,
     // height=220) toplam yüksekliğin çoğunu yutup mum panelini birkaç

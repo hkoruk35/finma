@@ -9,6 +9,10 @@ export default function BottomNav() {
   const { activeTracker } = useSmartTracker();
   const trackerCount = activeTracker?.positions.filter(p => p.status !== "closed").length ?? 0;
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const navItems = [
     { label: "Screener", icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
