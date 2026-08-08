@@ -154,6 +154,23 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
+  // ── Kok yol locale redirect'i edge'de yapilir ──────────────────────────────
+  // Eskiden app/page.tsx'te bir Server Component render'i (fonksiyon cold
+  // start + React) calisip SONRA redirect() cagriliyordu — edge'de, sayfa
+  // hic render edilmeden Accept-Language'e gore yonlendirmek ayni SEO-dogru
+  // 307 davranisini cok daha hizli verir. app/page.tsx hala mevcut (JS
+  // kapali/eski cache gibi nadir durumlar icin fallback), normalde artik
+  // buraya hic ulasmiyor.
+  if (pathname === '/') {
+    const acceptLang = (request.headers.get('accept-language') || '').toLowerCase()
+    let locale = 'en'
+    if (acceptLang.includes('tr')) locale = 'tr'
+    else if (acceptLang.includes('pt')) locale = 'pt'
+    else if (acceptLang.includes('es')) locale = 'es'
+    else if (acceptLang.includes('fr')) locale = 'fr'
+    return NextResponse.redirect(new URL(`/global/${locale}/home`, request.url))
+  }
+
   const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
 
   let response = NextResponse.next({ request })

@@ -19,7 +19,7 @@ export async function getUpcomingEarnings(limit = 4): Promise<UpcomingEarning[]>
   try {
     const { data, error } = await supabaseAdmin
       .from("earnings_calendar")
-      .select("*")
+      .select("ticker, company_name, earnings_date, is_estimate, eps_estimate, revenue_estimate_usd")
       .gte("earnings_date", today)
       .order("earnings_date", { ascending: true })
       .limit(limit)

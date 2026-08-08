@@ -8,11 +8,13 @@ import type { Locale } from "@/lib/i18n/copy";
 
 import MobileTerminalLink from "@/components/global/MobileTerminalLink";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { useMemberSession } from "@/hooks/useMemberSession";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
   const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
+  const session = useMemberSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [member, setMember] = useState<any>(null);
@@ -24,42 +26,38 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isListsOpen, setIsListsOpen] = useState(false);
 
   useEffect(() => {
-    fetch("/api/members/me")
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((data) => {
+    if (!session.authChecked) return;
+    if (session.isLoggedIn) {
+      setIsLoggedIn(true);
+      setMember(session.member);
+      setAuthChecked(true);
+      return;
+    }
+    // Fallback: /api/members/me 401 dondu — Supabase browser client ile Google OAuth oturumunu doğrudan kontrol et
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
         setIsLoggedIn(true);
-        setMember(data.member);
-      })
-      .catch(() => {
-        // Fallback: Supabase browser client ile Google OAuth oturumunu doğrudan kontrol et
-        const supabase = createSupabaseBrowserClient();
-        supabase.auth.getUser().then(({ data: { user } }) => {
-          if (user) {
-            setIsLoggedIn(true);
-            setMember({
-              username:
-                user.user_metadata?.full_name ||
-                user.user_metadata?.name ||
-                user.email?.split("@")[0] ||
-                "Üye",
-              email: user.email,
-              avatar_url:
-                user.user_metadata?.avatar_url ||
-                user.user_metadata?.picture ||
-                null,
-              plan: "free",
-            });
-          } else {
-            setIsLoggedIn(false);
-            setMember(null);
-          }
+        setMember({
+          username:
+            user.user_metadata?.full_name ||
+            user.user_metadata?.name ||
+            user.email?.split("@")[0] ||
+            "Üye",
+          email: user.email,
+          avatar_url:
+            user.user_metadata?.avatar_url ||
+            user.user_metadata?.picture ||
+            null,
+          plan: "free",
         });
-      })
-      .finally(() => setAuthChecked(true));
-  }, [pathname, locale]);
+      } else {
+        setIsLoggedIn(false);
+        setMember(null);
+      }
+      setAuthChecked(true);
+    });
+  }, [session.authChecked, session.isLoggedIn, session.member]);
 
   const homeHref = `/global/${locale}/home`;
   const accountHref =

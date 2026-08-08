@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import TickerDetailPanel from "./TickerDetailPanel";
 import PremiumModal from "@/components/global/PremiumModal";
 import type { Locale } from "@/lib/i18n/copy";
+import { useMemberSession } from "@/hooks/useMemberSession";
 
 const LOGIN_HREF: Record<Locale, string> = {
   en: "/global/en/login",
@@ -32,19 +33,19 @@ const ACCOUNT_HREF: Record<Locale, string> = {
 
 export default function HisseDetailGate({ ticker, locale }: { ticker: string; locale: Locale }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const session = useMemberSession();
   const [isPremium, setIsPremium] = useState(false);
+  const loading = !session.authChecked;
 
   useEffect(() => {
-    fetch("/api/members/me")
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((d) => {
-        const plan = d.member?.plan;
-        setIsPremium(plan === "premium" || plan === "admin");
-      })
-      .catch(() => router.push(LOGIN_HREF[locale]))
-      .finally(() => setLoading(false));
-  }, [router, locale]);
+    if (!session.authChecked) return;
+    if (!session.isLoggedIn) {
+      router.push(LOGIN_HREF[locale]);
+      return;
+    }
+    const plan = session.member?.plan;
+    setIsPremium(plan === "premium" || plan === "admin");
+  }, [session.authChecked, session.isLoggedIn, session.member, router, locale]);
 
   if (loading) {
     return (

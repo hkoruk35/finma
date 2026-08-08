@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useMemberSession } from "@/hooks/useMemberSession";
 
 type Locale = "tr" | "en" | "es" | "fr" | "pt";
 
@@ -20,13 +20,7 @@ const MY_WATCHLIST_LABEL: Record<Locale, string> = {
 
 export default function GlobalBottomNav() {
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/members/me")
-      .then((r) => setIsLoggedIn(r.ok))
-      .catch(() => setIsLoggedIn(false));
-  }, []);
+  const { isLoggedIn } = useMemberSession();
 
   // Hide on search/landing page
   const isSearchPage = pathname.includes("/search");

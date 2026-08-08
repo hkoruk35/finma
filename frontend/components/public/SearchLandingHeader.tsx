@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
+import { useMemberSession } from "@/hooks/useMemberSession";
 
 // /global/{locale}/search'in kendi başlığı — bu bileşen SADECE bu tek URL
 // şeklinde render olur, bu yüzden MemberHeader.tsx'in genel getLangHref'i
@@ -10,8 +11,7 @@ import type { Locale } from "@/lib/i18n/copy";
 import { usePathname } from "next/navigation";
 
 export default function SearchLandingHeader({ locale, onLogoClick }: { locale: Locale; onLogoClick: () => void }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
+  const { isLoggedIn, authChecked } = useMemberSession();
   const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
 
@@ -20,17 +20,6 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
   const TODAY_LABEL: Record<Locale, string> = { tr: "Bugün Neler Oluyor", en: "What's Happening Today", es: "¿Qué pasa hoy?", fr: "Aujourd'hui", pt: "O que está acontecendo hoje" };
   const SLOGAN = "Ask · Discover · Markets";
-
-  useEffect(() => {
-    fetch("/api/members/me")
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then(() => setIsLoggedIn(true))
-      .catch(() => setIsLoggedIn(false))
-      .finally(() => setAuthChecked(true));
-  }, []);
 
   const getLangHref = (targetLocale: string) => {
     if (!pathname) return `/global/${targetLocale.toLowerCase()}/search`;
