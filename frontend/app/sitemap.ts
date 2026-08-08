@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { getSwingAllPicks } from '@/lib/data';
 import { getAllLangParams } from '@/lib/analysis-langs';
 import { getAllArchivedTickers, getArchivedDates } from '@/lib/analysis-archive';
+import { INDEX_LIST, INDEX_LOCALES, type IndexSymbol } from '@/lib/indices';
+import { getAllDailyTradeDates, getAllWeeklyLabels } from '@/lib/indexSnapshots';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const swingData = await getSwingAllPicks();
@@ -111,9 +113,85 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   );
 
+  // ── /global/{locale}/markets + /global/{locale}/{indexSlug}/** — market index landing + per-index + archives ──
+  const indexBySymbol = new Map(INDEX_LIST.map((idx) => [idx.symbol, idx]));
+
+  const indexLandingRoutes = INDEX_LOCALES.map((locale) => ({
+    url: `${baseUrl}/global/${locale}/markets`,
+    lastModified: now,
+    changeFrequency: 'daily' as const,
+    priority: 0.7,
+  }));
+
+  const indexPerIndexRoutes = INDEX_LOCALES.flatMap((locale) =>
+    INDEX_LIST.flatMap((idx) => [
+      {
+        url: `${baseUrl}/global/${locale}/${idx.slug}`,
+        lastModified: now,
+        changeFrequency: 'daily' as const,
+        priority: 0.7,
+      },
+      {
+        url: `${baseUrl}/global/${locale}/${idx.slug}/daily`,
+        lastModified: now,
+        changeFrequency: 'daily' as const,
+        priority: 0.5,
+      },
+      {
+        url: `${baseUrl}/global/${locale}/${idx.slug}/weekly`,
+        lastModified: now,
+        changeFrequency: 'weekly' as const,
+        priority: 0.5,
+      },
+    ])
+  );
+
+  let indexDailyDetailRoutes: MetadataRoute.Sitemap = [];
+  let indexWeeklyDetailRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const [dailyDates, weeklyLabels] = await Promise.all([
+      getAllDailyTradeDates(),
+      getAllWeeklyLabels(),
+    ]);
+
+    indexDailyDetailRoutes = INDEX_LOCALES.flatMap((locale) =>
+      dailyDates
+        .filter((row) => indexBySymbol.has(row.index_symbol as IndexSymbol))
+        .map((row) => {
+          const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
+          return {
+            url: `${baseUrl}/global/${locale}/${idx.slug}/daily/${row.trade_date}`,
+            lastModified: new Date(row.trade_date),
+            changeFrequency: 'never' as const,
+            priority: 0.4,
+          };
+        })
+    );
+
+    indexWeeklyDetailRoutes = INDEX_LOCALES.flatMap((locale) =>
+      weeklyLabels
+        .filter((row) => indexBySymbol.has(row.index_symbol as IndexSymbol))
+        .map((row) => {
+          const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
+          return {
+            url: `${baseUrl}/global/${locale}/${idx.slug}/weekly/${row.week_label.toLowerCase()}`,
+            lastModified: now,
+            changeFrequency: 'never' as const,
+            priority: 0.4,
+          };
+        })
+    );
+  } catch {
+    // Supabase erisilemez olabilir (build ortami) — statik/landing rotalari yine de eklenir.
+  }
+
   return [
     ...staticRoutes,
     ...langCurrentRoutes,
     ...langArchiveRoutes,
+    ...indexLandingRoutes,
+    ...indexPerIndexRoutes,
+    ...indexDailyDetailRoutes,
+    ...indexWeeklyDetailRoutes,
   ];
 }
