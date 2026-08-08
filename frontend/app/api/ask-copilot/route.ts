@@ -221,20 +221,24 @@ export async function POST(req: NextRequest) {
         execute: async ({ category }) => {
           try {
             const cat = (category || "trend_stocks") as SiteListCategory;
+            // Bu endpoint tamamen kimliksiz/anonim çağrılır (bkz. dosya başı —
+            // session/auth yok, sadece IP bazlı rate limit) — Premium/Free-only
+            // kategoriler için her zaman "anonymous" tier ile maskelenir.
             const res = await withTimeout(
-              getSiteCategoryStocksList(cat, locale, undefined),
+              getSiteCategoryStocksList(cat, locale, undefined, "anonymous"),
               5000,
-              { categoryName: "", tickers: [], cards: [], isFallback: true }
+              { categoryName: "", tickers: [], cards: [], isFallback: true, requiresPremium: false }
             );
             return {
-              success: !res.isFallback,
+              success: !res.isFallback && !res.requiresPremium,
               isFallback: res.isFallback,
+              requiresPremium: res.requiresPremium,
               categoryName: res.categoryName,
               tickers: res.tickers || [],
               stocks: res.cards || [],
             };
           } catch (err) {
-            return { success: false, isFallback: true, categoryName: "", tickers: [], stocks: [] };
+            return { success: false, isFallback: true, requiresPremium: false, categoryName: "", tickers: [], stocks: [] };
           }
         },
       }),
@@ -246,13 +250,14 @@ export async function POST(req: NextRequest) {
         execute: async ({ themeSlug }) => {
           try {
             const res = await withTimeout(
-              getThemeStocksList(themeSlug, locale),
+              getThemeStocksList(themeSlug, locale, "anonymous"),
               5000,
-              { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true }
+              { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true, requiresPremium: false }
             );
             return {
-              success: !res.isFallback,
+              success: !res.isFallback && !res.requiresPremium,
               isFallback: res.isFallback,
+              requiresPremium: res.requiresPremium,
               themeName: res.themeName,
               themeSlug,
               tickers: res.tickers || [],
@@ -260,7 +265,7 @@ export async function POST(req: NextRequest) {
               stocks: res.cards || [],
             };
           } catch (err) {
-            return { success: false, isFallback: true, themeName: "", themeSlug, tickers: [], totalCount: 0, stocks: [] };
+            return { success: false, isFallback: true, requiresPremium: false, themeName: "", themeSlug, tickers: [], totalCount: 0, stocks: [] };
           }
         },
       }),

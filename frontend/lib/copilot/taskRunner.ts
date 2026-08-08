@@ -13,6 +13,20 @@ import { getHotTheme } from "@/lib/hotThemes2026";
 import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { calculateMaterialityScore } from "@/lib/copilot/materialityScore";
 import { ct } from "@/lib/copilot/i18n";
+import type { MemberTier } from "@/lib/apiAuth";
+
+// Görev sahibinin GERÇEK, güncel tier'ı — görev oluşturulduğu andaki plan
+// değil (üye sonradan Premium'dan düşmüş/hiç Premium olmamış olabilir).
+// create_watch_task aracı Premium-only liste türleri için entitlement
+// kontrolü yapmıyor; bu yüzden alert üretimi bu kontrolü burada, veri
+// kaynağına gitmeden ÖNCE yapmak zorunda (aksi halde free bir üye Trend
+// Listesi'ni izlemeye alıp gerçek ticker'ları alert olarak alabilirdi).
+async function getTaskOwnerTier(userId: string): Promise<MemberTier> {
+  const { data } = await supabaseAdmin.from("members").select("plan").eq("id", userId).single<{ plan: string | null }>();
+  if (data?.plan === "admin") return "admin";
+  if (data?.plan === "premium") return "premium";
+  return "free";
+}
 
 interface RunResult {
   taskId: string;
@@ -55,8 +69,14 @@ async function recordRun(
  *  gövdesi — bkz. runListWatchTask ve runThemeWatchTask. */
 async function recordListSnapshotAndMaybeAlert(
   task: CopilotTask,
-  res: { categoryName: string; tickers: string[]; isFallback: boolean }
+  res: { categoryName: string; tickers: string[]; isFallback: boolean; requiresPremium?: boolean }
 ): Promise<RunResult> {
+  if (res.requiresPremium) {
+    // Görev sahibinin hesabı artık bu listeyi görüntülemeye yetmiyor (hiç
+    // Premium olmamış ya da süresi dolmuş) — snapshot/alert üretmeden atla,
+    // gerçek ticker içeriğini asla kullanıcının bildirimine yazma.
+    return { taskId: task.id, status: "skipped", reason: "requires_premium", alertCreated: false };
+  }
   if (res.isFallback) {
     return { taskId: task.id, status: "failed", reason: "list_source_unavailable", alertCreated: false };
   }
@@ -93,7 +113,8 @@ async function recordListSnapshotAndMaybeAlert(
 }
 
 async function runListWatchTask(task: CopilotTask, category: NonNullable<(typeof LIST_WATCH_TASK_CATEGORY)[TaskType]>): Promise<RunResult> {
-  const res = await getSiteCategoryStocksList(category, task.language, task.user_id);
+  const tier = await getTaskOwnerTier(task.user_id);
+  const res = await getSiteCategoryStocksList(category, task.language, task.user_id, tier);
   return recordListSnapshotAndMaybeAlert(task, res);
 }
 
@@ -103,11 +124,13 @@ async function runThemeWatchTask(task: CopilotTask): Promise<RunResult> {
     return { taskId: task.id, status: "skipped", reason: "no_valid_theme_subject", alertCreated: false };
   }
 
-  const res = await getThemeStocksList(themeSlug, task.language);
+  const tier = await getTaskOwnerTier(task.user_id);
+  const res = await getThemeStocksList(themeSlug, task.language, tier);
   return recordListSnapshotAndMaybeAlert(task, {
     categoryName: res.themeName || themeSlug,
     tickers: res.tickers,
     isFallback: res.isFallback,
+    requiresPremium: res.requiresPremium,
   });
 }
 

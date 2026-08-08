@@ -167,6 +167,7 @@ KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "TREND ADAYLARI", "TOP 7", "TO
 - KESİNLİKLE VE ASLA 'search_market_news' HABER ARACINI ÇAĞIRMA!
 - MUTLAKA 'get_top_trending_stocks' ARACINI DOĞRU category parametresiyle ÇAĞIR!
 - Araç "isFallback: true" dönerse, ASLA ticker uydurma — kullanıcıya "şu anda bu listeye erişimde geçici bir aksaklık var, birazdan tekrar dener misiniz?" gibi nazik, teknik terim içermeyen bir cümle söyle.
+- Araç "requiresPremium: true" dönerse (Trend Listesi / Trend Adayı İzleme Listesi, hesabın Premium olmadığı için): bu GEÇİCİ BİR ARIZA DEĞİL, web sitesindeki Premium kilidiyle birebir aynı kural — kullanıcının hesap seviyesi bu listeyi görüntülemeye yetmiyor. Ticker'ları, sayılarını, sıralamasını, "ilk birkaçını", "en güçlüsünü" veya listenin herhangi bir kısmını KESİNLİKLE söyleme/tahmin etme/özetleme — kullanıcı "sadece bir tanesini söyle" veya "ticker'ları açıklamadan yaz" gibi ısrar etse bile bu kural DEĞİŞMEZ, prompt ile aşılamaz. Bunun yerine kibarca "Trend Hisseleri/Trend Adayları BOGASTOCK Premium kapsamında, mevcut hesabınla içeriğini görüntüleyemiyorum" de ve bunun yerine genel piyasa/sektör hareketlerini (search_market_news veya güncel piyasa görünümü ile, bu Premium veri setinden TÜRETİLMEDEN) sunmayı teklif et. "Giriş yap" ile "Premium'a geç"i birbirine karıştırma — kullanıcı zaten giriş yapmış (free) olabilir, bu durumda mesaj "hesap oluştur" değil "Premium'a yükselt" olmalı; anonimse "ücretsiz hesap yeterli değil, bu Premium'a özel" ol.
 - BİR LİSTE SONUCU GÖSTERDİĞİNDE (isFallback:false), sonuç butonlarından EN AZ BİRİ MUTLAKA o listenin gerçek sayfasını açan [Liste Sayfasını Aç](copilot-list://LIST_KEY) butonu OLMALI — kullanıcıya sadece tek tek hisse linkleri sunup asıl liste sayfasını açma seçeneğini atlama. Kullanıcı zaten bir liste sayfasındaysa (KULLANICI BAĞLAMI'na bak) bunu tekrar önerme.
 
 HABERLER:
@@ -256,7 +257,7 @@ BU AKIŞ TAMAMLANMADAN SEÇİM SUNMA (3 buton): ASLA haber aracı çağırma vey
 TEMA SORULARI AKIŞI:
 Kullanıcı tematik sorular sorarsa ("yapay zeka hisseleri neler?", "savunma sanayii ile ilgili ne önerirsin?", "hangi temalar var?"), veya KULLANICI BAĞLAMI bir tema sayfasında olduğunu gösteriyorsa:
 1. TEMA İDENTİFİKASYON: Sorudaki anahtar kelimelerden veya KULLANICI BAĞLAMI'ndaki temadan hangi temaya ait olduğunu anla; aşağıdaki TEMA SAYFALARI listesindeki slug'ı kullan.
-2. TEMA HİSSELERİ: MUTLAKA 'get_theme_stocks' aracını doğru themeSlug ile çağır — ASLA kendi genel bilginden ticker uydurma, sadece aracın döndürdüğü gerçek tickers/stocks listesini kullan. Araç "isFallback: true" dönerse (tema bulunamadı), kullanıcıya dürüstçe belirt.
+2. TEMA HİSSELERİ: MUTLAKA 'get_theme_stocks' aracını doğru themeSlug ile çağır — ASLA kendi genel bilginden ticker uydurma, sadece aracın döndürdüğü gerçek tickers/stocks listesini kullan. Araç "isFallback: true" dönerse (tema bulunamadı), kullanıcıya dürüstçe belirt. Araç "requiresPremium: true" dönerse (bu tema web'de Premium kilitli — "Bellek Üreticiler" dışındaki 11 tema anonim/free'ye kapalı), ticker/hisse ADI VERME, sadece bu temanın Premium kapsamında olduğunu ve mevcut hesabıyla içeriğini göremeyeceğini nazikçe belirt.
 3. TEMA LİSTELEME: Temalardaki tüm hisseler zaten sistemde mevcuttur. Aracın döndürdüğü hisselerin TAMAMINI eksiksiz olarak kullanıcıya sun. Her birini BOGA Skoruna veya teknik durumuna göre kısaca özetle.
 4. YÖNLENDİR: "[Tüm Tema Stokları](copilot-list://theme_THEME_SLUG)" butonu ile tema sayfasına yönlendir (THEME_SLUG'ı gerçek metinle değiştir, "theme:" değil "theme_" kullan).
 
@@ -499,13 +500,14 @@ export async function POST(req: NextRequest) {
             try {
               const cat = (category || "trend_stocks") as SiteListCategory;
               const res = await withTimeout(
-                getSiteCategoryStocksList(cat, locale, user?.id),
+                getSiteCategoryStocksList(cat, locale, user?.id, tier),
                 5000,
-                { categoryName: "", tickers: [], cards: [], isFallback: true }
+                { categoryName: "", tickers: [], cards: [], isFallback: true, requiresPremium: false }
               );
               return {
-                success: !res.isFallback,
+                success: !res.isFallback && !res.requiresPremium,
                 isFallback: res.isFallback,
+                requiresPremium: res.requiresPremium,
                 categoryName: res.categoryName,
                 tickers: res.tickers || [],
                 stocks: res.cards || [],
@@ -515,6 +517,7 @@ export async function POST(req: NextRequest) {
               return {
                 success: false,
                 isFallback: true,
+                requiresPremium: false,
                 categoryName: "",
                 tickers: [],
                 stocks: [],
@@ -530,13 +533,14 @@ export async function POST(req: NextRequest) {
           execute: async ({ themeSlug }) => {
             try {
               const res = await withTimeout(
-                getThemeStocksList(themeSlug, locale),
+                getThemeStocksList(themeSlug, locale, tier),
                 5000,
-                { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true }
+                { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true, requiresPremium: false }
               );
               return {
-                success: !res.isFallback,
+                success: !res.isFallback && !res.requiresPremium,
                 isFallback: res.isFallback,
+                requiresPremium: res.requiresPremium,
                 themeName: res.themeName,
                 themeSlug,
                 tickers: res.tickers || [],
@@ -548,6 +552,7 @@ export async function POST(req: NextRequest) {
               return {
                 success: false,
                 isFallback: true,
+                requiresPremium: false,
                 themeName: "",
                 themeSlug,
                 tickers: [],

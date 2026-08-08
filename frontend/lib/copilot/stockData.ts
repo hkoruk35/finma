@@ -9,6 +9,9 @@ import { getPersonalizationContext } from "@/lib/copilot/personalization";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 import { getEffectiveThemeTickers } from "@/lib/themeOverrides";
+import type { MemberTier } from "@/lib/apiAuth";
+import { isTrendPickTierUnlocked } from "@/lib/pickMasking";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -204,14 +207,33 @@ async function getRankedTop100(): Promise<{ ticker: string; score: number }[]> {
   return rows.sort((a, b) => b.score - a.score);
 }
 
+// Trend Listesi / Trend Adayı İzleme Listesi web'de sadece Premium/Admin'e
+// açık (bkz. lib/pickMasking.ts:isTrendPickTierUnlocked — Top100'ün "free de
+// unlockAll" kuralından FARKLI). Copilot bu iki kategori için önceden tier
+// hiç kontrol etmeden gerçek, maskesiz ticker listesi döndürüyordu — web
+// arayüzündeki Premium kilidini bypass eden bir veri sızıntısıydı. Artık
+// yetkisiz çağrıda kaynak sorgusu hiç yapılmıyor (fail closed, "önce çek
+// sonra gizle" değil).
+const PREMIUM_ONLY_CATEGORIES = new Set<SiteListCategory>([
+  "trend_stocks",
+  "trend_candidate_watchlist",
+  "boga_ai_watchlist",
+]);
+
 export async function getSiteCategoryStocksList(
   category: SiteListCategory,
   lang: string = "tr",
-  userId?: string
-): Promise<{ categoryName: string; tickers: string[]; cards: CopilotStockCard[]; isFallback: boolean }> {
+  userId: string | undefined,
+  tier: MemberTier
+): Promise<{ categoryName: string; tickers: string[]; cards: CopilotStockCard[]; isFallback: boolean; requiresPremium: boolean }> {
+  const categoryName = categoryNameFor(category, lang);
+
+  if (PREMIUM_ONLY_CATEGORIES.has(category) && !isTrendPickTierUnlocked(tier)) {
+    return { categoryName, tickers: [], cards: [], isFallback: false, requiresPremium: true };
+  }
+
   let tickers: string[] = [];
   let isFallback = false;
-  const categoryName = categoryNameFor(category, lang);
 
   try {
     if (category === "user_watchlist") {
@@ -238,8 +260,9 @@ export async function getSiteCategoryStocksList(
       tickers = picks.slice(0, 8).map((p) => p.ticker);
     } else if (category === "top_7") {
       // Top 7 = sitenin standart, sabit bileşimi (homeFeed.ts, ana sayfa/​
-      // /top7 ile AYNI kaynak). Veriler (fiyat/skor) her zaman canlı/güncel
-      // çekilir — sadece bileşim sabit, sıralama değil.
+      // /top7 ile AYNI kaynak) — web'de hiç maskelenmiyor, herkese açık.
+      // Veriler (fiyat/skor) her zaman canlı/güncel çekilir — sadece
+      // bileşim sabit, sıralama değil.
       tickers = [...MAGNIFICENT_7];
     } else if (category === "top_100") {
       const ranked = await getRankedTop100();
@@ -258,12 +281,21 @@ export async function getSiteCategoryStocksList(
     isFallback = true;
   }
 
+  // Top100 web'de "free de unlockAll" kuralına tabi (bkz. lib/publicTeaserTickers.ts
+  // maskTop100Ticker) — sadece anonim ziyaretçide, vitrin ticker'ları hariç, ticker
+  // kimliği maskelenir. Diğer kategoriler (top_7, user_watchlist) hiç maskelenmez.
+  if (category === "top_100" && tier === "anonymous") {
+    tickers = tickers.map((t, idx) => (isPublicTeaserTicker(t) ? t : `LOCKED-${idx}`));
+  }
+
   const validTickers = tickers.slice(0, 10);
   const cards: CopilotStockCard[] = await Promise.all(
-    validTickers.map((t) => getFastStockCardData(t, lang, categoryName))
+    validTickers
+      .filter((t) => !t.startsWith("LOCKED-"))
+      .map((t) => getFastStockCardData(t, lang, categoryName))
   );
 
-  return { categoryName, tickers: validTickers, cards, isFallback };
+  return { categoryName, tickers: validTickers, cards, isFallback, requiresPremium: false };
 }
 
 /**
@@ -273,21 +305,40 @@ export async function getSiteCategoryStocksList(
  * diğer kategorilerle tutarlı olacak şekilde ilk 10'a kesilir ama gerçek
  * toplam sayı (totalCount) ayrıca döndürülür — sessizce eksik göstermemek için.
  */
+// "Bellek Üreticiler" teması web'de ücretsiz üyelere (ve üstü) açık vitrin;
+// diğer 11 tema sadece Premium/Admin'e açık (bkz.
+// app/global/[locale]/themes/[theme]/page.tsx). Copilot önceden tier
+// kontrolü yapmadan HER temanın gerçek ticker listesini döndürüyordu —
+// aynı sınıf sızıntı, aynı kuralla düzeltildi.
+const FREE_SHOWCASE_THEME_SLUG = "bellek-ureticiler-ai-depolama";
+
 export async function getThemeStocksList(
   themeSlug: string,
-  lang: string = "tr"
-): Promise<{ themeName: string; tickers: string[]; totalCount: number; cards: CopilotStockCard[]; isFallback: boolean }> {
+  lang: string = "tr",
+  tier: MemberTier
+): Promise<{ themeName: string; tickers: string[]; totalCount: number; cards: CopilotStockCard[]; isFallback: boolean; requiresPremium: boolean }> {
   const theme = getHotTheme(themeSlug);
   if (!theme) {
-    return { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true };
+    return { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true, requiresPremium: false };
   }
 
   const themeName = localizedThemeTitle(theme.title, lang) || theme.title;
+  const isShowcaseTheme = theme.slug === FREE_SHOWCASE_THEME_SLUG;
+  const unlockAll = isShowcaseTheme ? tier !== "anonymous" : isTrendPickTierUnlocked(tier);
+
+  if (!unlockAll && !isShowcaseTheme) {
+    // Premium-only tema, yetkisiz çağrı — kaynağa hiç gidilmez.
+    const totalCount = (await getEffectiveThemeTickers(theme)).length;
+    return { themeName, tickers: [], totalCount, cards: [], isFallback: false, requiresPremium: true };
+  }
+
   const allTickers = await getEffectiveThemeTickers(theme);
-  const tickers = allTickers.slice(0, 10);
+  const tickers = unlockAll
+    ? allTickers.slice(0, 10)
+    : allTickers.slice(0, 10).map((t, idx) => (isPublicTeaserTicker(t) ? t : `LOCKED-${idx}`));
   const cards: CopilotStockCard[] = await Promise.all(
-    tickers.map((t) => getFastStockCardData(t, lang, themeName))
+    tickers.filter((t) => !t.startsWith("LOCKED-")).map((t) => getFastStockCardData(t, lang, themeName))
   );
 
-  return { themeName, tickers, totalCount: allTickers.length, cards, isFallback: false };
+  return { themeName, tickers, totalCount: allTickers.length, cards, isFallback: false, requiresPremium: false };
 }
