@@ -230,6 +230,13 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     'ai',
     'earning',
     'earning-calendar',
+    // Faz 1 — Guest Mode: bu sayfalar artık anonim ziyaretçiye açık, kimlik
+    // bazlı kilitleme (maskTop100Ticker / SwingTracker rowLocked / GraphicDetailContent
+    // chartUnlocked) component seviyesinde zaten devrede.
+    'top100',
+    'swing',
+    'graphic',
+    'sectors',
   ]
 
   let isGlobalMemberPath = false
@@ -269,7 +276,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   // içerik görürler, bu SEO/AI-atıf için gerekli ve cloaking değil (User-
   // Agent'a göre farklı İÇERİK değil, farklı bir insan-dönüşüm kuralı
   // gösteriyoruz — crawler'a da, ilk kez gelen insana da AYNI HTML gider).
-  const METERED_SEGMENTS = ['graphic', 'top100', 'swing', 'watchlist', 'themes', 'hisse', 'performance', 'swingperformance', 'gainers', 'losers', 'mostactive']
+  // graphic/top100/swing artık PUBLIC_SUBPATHS'te (Faz 1 Guest Mode) — kalıcı
+  // component-seviyesi kilitlemeleri var, bu "ilk sayfa ücretsiz" duvarına
+  // tabi değiller; listeden çıkarıldı ki ikinci ziyarette register'a atmasın.
+  const METERED_SEGMENTS = ['watchlist', 'themes', 'hisse', 'performance', 'swingperformance', 'gainers', 'losers', 'mostactive']
   if (!hasSupabaseSession && currentLocale && !isKnownCrawlerUserAgent(request.headers.get('user-agent'))) {
     const base = `/global/${currentLocale}`
     const isMeteredPath = METERED_SEGMENTS.some((seg) => pathname.startsWith(`${base}/${seg}`))
