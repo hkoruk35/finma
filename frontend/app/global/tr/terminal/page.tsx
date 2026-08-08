@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { getMemberAccess } from '@/lib/apiAuth';
 import GlobalLandingPage from '@/components/global/GlobalLandingPage';
 import { fetchLiveQuotes } from '@/lib/homeFeed';
 import { TrendStatus } from '@/lib/homeFeed';
@@ -22,8 +21,6 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage() {
-  const memberAccess = await getMemberAccess();
-  
   // Default tickers for Watchlist
   const defaultTickers = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA'];
   const live = await fetchLiveQuotes(defaultTickers);

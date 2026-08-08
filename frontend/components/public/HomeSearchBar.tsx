@@ -2,21 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useMemberPlan } from '@/hooks/useMemberPlan';
 import type { Locale } from '@/lib/i18n/copy';
 
 interface Suggestion {
   ticker: string;
   company: string;
 }
-
-const REGISTER_PATH: Record<Locale, string> = {
-  tr: 'kayit',
-  en: 'register',
-  es: 'register',
-  fr: 'register',
-  pt: 'register',
-};
 
 function getCopy(locale: Locale) {
   if (locale === 'tr') return {
@@ -38,15 +29,12 @@ function getCopy(locale: Locale) {
 
 /**
  * Ana sayfanın en üstündeki arama kutusu — TickerSearchBox ile AYNI kaynağı
- * kullanır (/api/tickers/search, "aynı kaynak/aynı sonuç" isteği), sadece
- * daha geniş ve sonucu görüntülemek (ilgili /graphic sayfasına gitmek) için
- * giriş yapmış olmayı şart koşar. Öneri listesi (ticker+şirket adı) herkese
- * açık kalır — kilitlenen sadece SONUCA gidiş (BOGA'nın o ticker için ürettiği
- * analiz sayfası), Yahoo'nun genel arama indeksi değil.
+ * kullanır (/api/tickers/search, "aynı kaynak/aynı sonuç" isteği). /graphic
+ * sayfası Faz 1'den beri herkese açık (bkz. proxy.ts PUBLIC_SUBPATHS) —
+ * anonim ziyaretçi de sonuca doğrudan gider.
  */
 export default function HomeSearchBar({ locale }: { locale: Locale }) {
   const router = useRouter();
-  const { tier, loading: tierLoading } = useMemberPlan();
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
@@ -86,13 +74,6 @@ export default function HomeSearchBar({ locale }: { locale: Locale }) {
     setQuery('');
     setSuggestions([]);
     setOpen(false);
-    // Sonucu (BOGA analiz sayfasını) görmek için giriş şart — sadece
-    // tier'ı henüz çözülmüşse (tierLoading false) ve gerçekten anonimse
-    // kayıt sayfasına yönlendir; yükleme sırasında yanlışlıkla kilitlemeyelim.
-    if (!tierLoading && tier === 'anonymous') {
-      router.push(`/global/${locale}/${REGISTER_PATH[locale]}`);
-      return;
-    }
     router.push(`/global/${locale}/graphic/${ticker.toUpperCase()}`);
   };
 
