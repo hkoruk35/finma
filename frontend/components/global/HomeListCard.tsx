@@ -16,14 +16,6 @@ export interface HomeListStock {
   sparkline?: number[];
 }
 
-const REGISTER_PATH: Record<Locale, string> = {
-  tr: 'kayit',
-  en: 'register',
-  es: 'register',
-  fr: 'register',
-  pt: 'register',
-};
-
 function getLabels(locale: Locale) {
   if (locale === 'tr') return { all: 'TÜMÜ', stock: 'HİSSE / SEKTÖR', price: 'FİYAT', empty: 'Veri bulunmamaktadır', showMore: 'Daha Fazla', showLess: 'Daha Az' };
   if (locale === 'pt') return { all: 'TODOS', stock: 'AÇÃO / SETOR', price: 'PREÇO', empty: 'Nenhum dado disponível', showMore: 'Ver Mais', showLess: 'Ver Menos' };
@@ -39,13 +31,11 @@ interface Props {
   stocks: HomeListStock[];
   locale: Locale;
   loading?: boolean;
-  /** Ticker kimliği her zaman görünür — true iken satıra tıklamak /graphic yerine kayıt sayfasına yönlendirir (anonim ziyaretçi için). */
-  requireAuthToOpen?: boolean;
   /** Set edilirse liste başta bu kadar satır gösterir, altında "Daha Fazla" ile genişler (compact sidebar kartları için). */
   initialVisible?: number;
 }
 
-export default function HomeListCard({ title, accent, viewAllHref, stocks, locale, loading, requireAuthToOpen, initialVisible }: Props) {
+export default function HomeListCard({ title, accent, viewAllHref, stocks, locale, loading, initialVisible }: Props) {
   const router = useRouter();
   const labels = getLabels(locale);
   const sectorNames = (copy[locale]?.top100?.sectors ?? {}) as Record<string, string>;
@@ -82,11 +72,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
                 <div
                   key={stock.ticker + idx}
                   className="grid grid-cols-[1fr_68px_60px] gap-2 items-center px-3 py-2 transition-colors duration-150 hover:bg-white/[0.03] cursor-pointer"
-                  onClick={() =>
-                    requireAuthToOpen
-                      ? router.push(`/global/${locale}/${REGISTER_PATH[locale]}`)
-                      : router.push(`/global/${locale}/graphic/${stock.ticker}`)
-                  }
+                  onClick={() => router.push(`/global/${locale}/graphic/${stock.ticker}`)}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>

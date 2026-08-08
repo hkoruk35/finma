@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '@/lib/i18n/copy';
-import { useMemberPlan } from '@/hooks/useMemberPlan';
 import HomeListCard, { type HomeListStock } from './HomeListCard';
 import TrendPicksSlot from './TrendPicksSlot';
 
@@ -29,8 +28,6 @@ const CARD_STEP = 336;
 
 export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const [data, setData] = useState<MoversResponse | null>(null);
-  const { tier } = useMemberPlan();
-  const requireAuthToOpen = tier === 'anonymous';
   const titles = getTitles(locale);
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollByCard = (dir: 1 | -1) => scrollRef.current?.scrollBy({ left: dir * CARD_STEP, behavior: 'smooth' });
@@ -48,10 +45,10 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const d = data ?? EMPTY;
 
   const cards = [
-    { key: 'top7', title: titles.top7, accent: '#3b82f6', href: `/global/${locale}/top7`, stocks: d.top7, gated: false },
-    { key: 'gainers', title: titles.gainers, accent: '#3b82f6', href: `/global/${locale}/gainers`, stocks: d.gainers, gated: requireAuthToOpen },
-    { key: 'losers', title: titles.losers, accent: '#3b82f6', href: `/global/${locale}/losers`, stocks: d.losers, gated: requireAuthToOpen },
-    { key: 'top100', title: titles.top100, accent: '#3b82f6', href: `/global/${locale}/top100`, stocks: d.top100, gated: requireAuthToOpen },
+    { key: 'top7', title: titles.top7, accent: '#3b82f6', href: `/global/${locale}/top7`, stocks: d.top7 },
+    { key: 'gainers', title: titles.gainers, accent: '#3b82f6', href: `/global/${locale}/gainers`, stocks: d.gainers },
+    { key: 'losers', title: titles.losers, accent: '#3b82f6', href: `/global/${locale}/losers`, stocks: d.losers },
+    { key: 'top100', title: titles.top100, accent: '#3b82f6', href: `/global/${locale}/top100`, stocks: d.top100 },
   ];
 
   return (
@@ -81,7 +78,6 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
               stocks={c.stocks}
               locale={locale}
               loading={loading}
-              requireAuthToOpen={c.gated}
             />
           </div>
         ))}
