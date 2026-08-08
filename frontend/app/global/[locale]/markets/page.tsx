@@ -62,7 +62,7 @@ export default async function IndexLandingPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -78,11 +78,11 @@ export default async function IndexLandingPage({ params }: Props) {
           <span className="text-white">{t.breadcrumbMarkets}</span>
         </nav>
 
-        <h1 className="text-3xl md:text-4xl font-normal text-white mb-2">{t.pageTitle}</h1>
+        <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-2">{t.pageTitle}</h1>
         <p className="text-sm text-slate-400 mb-8 max-w-2xl">{t.pageDescription}</p>
 
         <section className="mb-10">
-          <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+          <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
             {t.regionUS}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -99,7 +99,7 @@ export default async function IndexLandingPage({ params }: Props) {
         </section>
 
         <section>
-          <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+          <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
             {t.regionEurope}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">

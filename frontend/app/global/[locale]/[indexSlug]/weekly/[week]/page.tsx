@@ -11,6 +11,7 @@ import {
   resolveNarrative,
 } from "@/lib/indexSnapshots";
 import { getArticleStructuredData, getBreadcrumbStructuredData } from "@/app/structured-data";
+import { IndexStatTable } from "@/components/public/IndexStatTable";
 
 export const revalidate = 900;
 
@@ -109,7 +110,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
       : null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -142,7 +143,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
         </nav>
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-          <h1 className="text-2xl md:text-3xl font-normal text-white">
+          <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
             {name} {t.weeklyAnalysis} — {t.weekOf} {week}
           </h1>
           <div className="flex gap-2">
@@ -170,46 +171,50 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
         ) : (
           <>
             <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4 border-l-4 border-l-[#3b82f6]">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <Stat label={t.close} value={snapshot.close?.toFixed(2) ?? "—"} />
-                <Stat
-                  label={t.change}
-                  value={snapshot.change_pct_week != null ? `${snapshot.change_pct_week.toFixed(2)}%` : "—"}
-                  positive={snapshot.change_pct_week != null ? snapshot.change_pct_week >= 0 : undefined}
-                />
-                <Stat label={t.trendStrength} value={snapshot.trend_strength ?? "—"} />
-                <Stat label={t.volatilityRegime} value={snapshot.volatility_regime ?? "—"} />
-                <Stat
-                  label={t.breadthChange}
-                  value={snapshot.breadth_change != null ? snapshot.breadth_change.toFixed(2) : "—"}
-                />
-                <Stat label={t.priorWeekAccuracy} value={snapshot.prior_week_outlook_accuracy ?? "—"} />
-              </div>
+              <IndexStatTable
+                columns={2}
+                items={[
+                  { label: t.close, value: snapshot.close?.toFixed(2) ?? "—" },
+                  {
+                    label: t.change,
+                    value: snapshot.change_pct_week != null ? `${snapshot.change_pct_week.toFixed(2)}%` : "—",
+                    positive: snapshot.change_pct_week != null ? snapshot.change_pct_week >= 0 : undefined,
+                  },
+                  { label: t.trendStrength, value: snapshot.trend_strength ?? "—" },
+                  { label: t.volatilityRegime, value: snapshot.volatility_regime ?? "—" },
+                  {
+                    label: t.breadthChange,
+                    value: snapshot.breadth_change != null ? snapshot.breadth_change.toFixed(2) : "—",
+                    positive: snapshot.breadth_change != null ? snapshot.breadth_change >= 0 : undefined,
+                  },
+                  { label: t.priorWeekAccuracy, value: snapshot.prior_week_outlook_accuracy ?? "—" },
+                ]}
+              />
 
               {narrative && (
                 <div className="space-y-3">
                   <p className="text-sm text-slate-300 leading-relaxed">{narrative.summary}</p>
                   {narrative.market_drivers && (
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeMarketDrivers}</p>
+                      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{t.narrativeMarketDrivers}</p>
                       <p className="text-sm text-slate-300 leading-relaxed">{narrative.market_drivers}</p>
                     </div>
                   )}
                   {narrative.trend_interpretation && (
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeTrendInterpretation}</p>
+                      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{t.narrativeTrendInterpretation}</p>
                       <p className="text-sm text-slate-300 leading-relaxed">{narrative.trend_interpretation}</p>
                     </div>
                   )}
                   {narrative.risk_factors && (
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.narrativeRiskFactors}</p>
+                      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{t.narrativeRiskFactors}</p>
                       <p className="text-sm text-slate-300 leading-relaxed">{narrative.risk_factors}</p>
                     </div>
                   )}
                   {narrative.prior_week_accuracy && (
                     <div>
-                      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{t.priorWeekAccuracy}</p>
+                      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{t.priorWeekAccuracy}</p>
                       <p className="text-sm text-slate-300 leading-relaxed">{narrative.prior_week_accuracy}</p>
                     </div>
                   )}
@@ -219,25 +224,25 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
 
             {scenarios && (scenarios.bullish || scenarios.neutral || scenarios.risk) && (
               <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4">
-                <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+                <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
                   {t.scenarios}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {scenarios.bullish && (
                     <div>
-                      <p className="text-[10px] text-[#3fb950] uppercase tracking-widest mb-1">{t.scenarioBullish}</p>
+                      <p className="text-[11px] text-[#3fb950] uppercase tracking-wide mb-1">{t.scenarioBullish}</p>
                       <p className="text-sm text-slate-300">{scenarios.bullish}</p>
                     </div>
                   )}
                   {scenarios.neutral && (
                     <div>
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">{t.scenarioNeutral}</p>
+                      <p className="text-[11px] text-slate-400 uppercase tracking-wide mb-1">{t.scenarioNeutral}</p>
                       <p className="text-sm text-slate-300">{scenarios.neutral}</p>
                     </div>
                   )}
                   {scenarios.risk && (
                     <div>
-                      <p className="text-[10px] text-[#f85149] uppercase tracking-widest mb-1">{t.scenarioRisk}</p>
+                      <p className="text-[11px] text-[#f85149] uppercase tracking-wide mb-1">{t.scenarioRisk}</p>
                       <p className="text-sm text-slate-300">{scenarios.risk}</p>
                     </div>
                   )}
@@ -247,7 +252,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
 
             {keyLevels && keyLevels.length > 0 && (
               <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4">
-                <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+                <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
                   {t.keyLevels}
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -265,7 +270,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
 
             {macroCalendar && macroCalendar.length > 0 && (
               <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4">
-                <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+                <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
                   {t.macroCalendar}
                 </h2>
                 <div className="flex flex-col gap-1.5">
@@ -289,16 +294,6 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
       </main>
 
       <Footer locale={locale} />
-    </div>
-  );
-}
-
-function Stat({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  const color = positive === undefined ? "text-white" : positive ? "text-[#3fb950]" : "text-[#f85149]";
-  return (
-    <div>
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest">{label}</p>
-      <p className={`text-sm font-mono font-bold ${color}`}>{value}</p>
     </div>
   );
 }

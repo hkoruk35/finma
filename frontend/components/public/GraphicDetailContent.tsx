@@ -13,6 +13,7 @@ import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { getAssetCategory } from "@/lib/symbols";
+import { getIndexBySymbol } from "@/lib/indices";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -24,6 +25,33 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
   es: { dashboard: "Panel", loading: "Cargando..." },
   fr: { dashboard: "Tableau de bord", loading: "Chargement..." },
   pt: { dashboard: "Painel", loading: "Carregando..." },
+};
+
+// Grafik sayfasindan evergreen /global/{locale}/{indexSlug} endeks analiz
+// sayfasina kucuk, tek cumlelik bir banner+buton — 2026-08-08 kullanici
+// talebiyle (bkz. AGENTS.md scope-discipline: sadece bu banner eklenir,
+// mevcut grafik sayfasi yeniden yapilandirilmaz).
+const INDEX_BANNER_LABELS: Record<Locale, { text: (name: string) => string; cta: string }> = {
+  en: {
+    text: (name) => `Want the full daily & weekly quant analysis for ${name}?`,
+    cta: "View index analysis →",
+  },
+  tr: {
+    text: (name) => `${name} için günlük ve haftalık kantitatif analize göz atmak ister misiniz?`,
+    cta: "Endeks analizini görüntüle →",
+  },
+  es: {
+    text: (name) => `¿Quieres el análisis cuantitativo diario y semanal completo de ${name}?`,
+    cta: "Ver análisis del índice →",
+  },
+  fr: {
+    text: (name) => `Vous voulez l'analyse quantitative quotidienne et hebdomadaire complète de ${name} ?`,
+    cta: "Voir l'analyse de l'indice →",
+  },
+  pt: {
+    text: (name) => `Quer a análise quantitativa diária e semanal completa do ${name}?`,
+    cta: "Ver análise do índice →",
+  },
 };
 
 const SHORTCUT_LABELS: Record<Locale, { trend: string; candidates: string; top7: string; top100: string; myWatchlist: string }> = {
@@ -296,6 +324,23 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
 
         {/* v3.2: Hisse arama geçici olarak kaldırıldı — şimdilik sadece
             BOGA AI Swing Trade havuzuna odaklanıyoruz. */}
+
+        {(() => {
+          const indexDef = getIndexBySymbol(ticker);
+          if (!indexDef) return null;
+          const banner = INDEX_BANNER_LABELS[locale] || INDEX_BANNER_LABELS.en;
+          return (
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-4 px-4 py-3 rounded-lg bg-[#0d131f]/80 border border-[#1e2a3a]">
+              <p className="text-sm text-slate-300">{banner.text(indexDef.names[locale])}</p>
+              <Link
+                href={`/global/${locale}/${indexDef.slug}`}
+                className="shrink-0 px-3 py-1.5 rounded-lg bg-[#141924] border border-[#3b82f6]/40 text-xs font-semibold text-[#00d2ff] hover:text-white hover:border-[#3b82f6] transition-all"
+              >
+                {banner.cta}
+              </Link>
+            </div>
+          );
+        })()}
 
         <div className="glass-card overflow-hidden mb-4" style={{ minHeight: isMobile === null ? 420 : undefined }}>
           {isMobile !== null && (

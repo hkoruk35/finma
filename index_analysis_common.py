@@ -352,6 +352,80 @@ def compute_quant_metrics(df: pd.DataFrame) -> Optional[dict]:
     }
 
 
+def compute_top_movers(limit: int = 3) -> dict:
+    """
+    SADECE US endeksleri (SPX/NDX/DJI/RUT) icin: config.FIXED_100_TICKERS
+    evreninden (~350 likit buyuk ABD hissesi, config.py) batch fiyat cekip
+    gunluk change_pct'e gore en cok yukselen/dusen `limit` adet hisseyi doner.
+
+    ONEMLI SINIRLAMA: Bu repo'da resmi S&P 500 / Nasdaq 100 / Dow Jones /
+    Russell 2000 bilesen listesi YOK (ne CSV ne canli scraper) — bu fonksiyon
+    OFISYEL endeks bilesenlerini degil, mevcut curated evreni kullanir. Tum
+    US endeksleri su an AYNI evreni paylasir (endekse ozel daha akilli bir
+    bolme yok, cunku bu evreni endekslere ayiracak bir kaynak da yok).
+    Avrupa endeksleri icin cagrilmaz — compute_sector_breadth ile ayni desen:
+    guvenilir bir ulke bazli hisse evreni olmadigi icin bos liste doner (bkz.
+    analyze_symbol'daki region=="us" kontrolu).
+
+    `name` alani icin bu kod tabaninda guvenilir/hizli bir ticker->sirket-adi
+    haritasi yok (build_swing_performance.py'deki persistent_info_cache.json
+    bu pipeline'in disinda, harici/yerel bir dosya) — bu yuzden name=ticker
+    fallback kullanilir.
+    """
+    tickers = config.FIXED_100_TICKERS
+    try:
+        data = yf.download(
+            tickers,
+            period="5d",
+            interval="1d",
+            progress=False,
+            auto_adjust=True,
+            ignore_tz=True,
+            group_by="ticker",
+            threads=True,
+        )
+    except Exception as exc:
+        logger.warning(f"compute_top_movers batch fetch basarisiz: {exc}")
+        return {"top_gainers": [], "top_losers": []}
+
+    if data is None or data.empty:
+        return {"top_gainers": [], "top_losers": []}
+
+    is_multi = isinstance(data.columns, pd.MultiIndex)
+    top_level = set(data.columns.get_level_values(0)) if is_multi else None
+
+    movers: list[dict] = []
+    for t in tickers:
+        try:
+            if is_multi:
+                if t not in top_level:
+                    continue
+                close = data[t]["Close"].dropna()
+            else:
+                # Tek ticker fallback (batch bir tek hisseye dusmusse yfinance MultiIndex donmez)
+                close = data["Close"].dropna()
+            if len(close) < 2:
+                continue
+            last = float(close.iloc[-1])
+            prev = float(close.iloc[-2])
+            if not prev:
+                continue
+            change_pct = round((last / prev - 1) * 100, 3)
+            movers.append({"ticker": t, "name": t, "price": round(last, 2), "change_pct": change_pct})
+        except Exception:
+            continue
+
+    if not movers:
+        return {"top_gainers": [], "top_losers": []}
+
+    ranked = sorted(movers, key=lambda m: m["change_pct"], reverse=True)
+    top_gainers = ranked[:limit]
+    remaining = ranked[len(top_gainers):]
+    top_losers = list(reversed(remaining[-limit:])) if remaining else []
+
+    return {"top_gainers": top_gainers, "top_losers": top_losers}
+
+
 def compute_sector_breadth(us_index_symbol: str) -> dict:
     """
     SADECE US endeksleri icin: config.SECTOR_ETF_MAP'teki 11 sektor ETF'inin

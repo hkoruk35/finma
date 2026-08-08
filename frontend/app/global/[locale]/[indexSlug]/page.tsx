@@ -12,6 +12,8 @@ import {
   resolveNarrative,
 } from "@/lib/indexSnapshots";
 import { getMultiQuote } from "@/lib/homeFeed";
+import { IndexStatTable } from "@/components/public/IndexStatTable";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 export const revalidate = 900;
 
@@ -93,7 +95,7 @@ export default async function IndexPage({ params }: Props) {
   const breadcrumbRegionLabel = indexDef.region === "us" ? t.breadcrumbUS : t.breadcrumbEurope;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -117,15 +119,15 @@ export default async function IndexPage({ params }: Props) {
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
           <div>
-            <h1 className="text-3xl md:text-4xl font-normal text-white mb-1">{name}</h1>
+            <h1 className="text-3xl md:text-4xl font-semibold text-white mb-1 tracking-tight">{name}</h1>
             <p className="text-xs text-slate-500">{regionLabel}</p>
           </div>
           {liveQuote && (
             <div className="text-right">
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest">{t.currentPrice}</p>
+              <p className="text-[11px] text-slate-500 uppercase tracking-wide">{t.currentPrice}</p>
               <p className="text-2xl font-mono font-bold text-white">{liveQuote.value.toFixed(2)}</p>
               <p
-                className={`text-sm font-mono font-bold ${
+                className={`text-sm font-semibold font-mono ${
                   liveQuote.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"
                 }`}
               >
@@ -136,14 +138,25 @@ export default async function IndexPage({ params }: Props) {
           )}
         </div>
 
-        {/* TODO: reusable price chart component — no trivially-reusable chart
-            component was found for /graphic/[ticker] (client-fetch coupled to
-            stock detail data), so charting is intentionally out of scope here. */}
+        {/* 1D interaktif fiyat grafigi — /graphic/[ticker] sayfalarindaki ile
+            ayni BogaChartEngine bileseni, ayni sembol (indexDef.symbol) ile
+            dogrudan yeniden kullanilir; gorsel tutarlilik boylece garanti. */}
+        <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-3 sm:p-4 mb-6 md:col-span-2">
+          <div className="glass-card overflow-hidden" style={{ minHeight: 340 }}>
+            <BogaChartEngine
+              symbol={indexDef.symbol}
+              lang={locale}
+              height={340}
+              defaultTimeframe="D"
+              defaultCandleType="line"
+            />
+          </div>
+        </section>
 
         {/* Daily analysis summary */}
         <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest">
+            <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide">
               {t.dailyAnalysis}
             </h2>
             <Link
@@ -155,16 +168,22 @@ export default async function IndexPage({ params }: Props) {
           </div>
           {dailySnapshot ? (
             <>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <Stat label={t.close} value={dailySnapshot.close?.toFixed(2) ?? "—"} />
-                <Stat
-                  label={t.change}
-                  value={dailySnapshot.change_pct != null ? `${dailySnapshot.change_pct.toFixed(2)}%` : "—"}
-                  positive={dailySnapshot.change_pct != null ? dailySnapshot.change_pct >= 0 : undefined}
-                />
-                <Stat label={t.rsi} value={dailySnapshot.rsi14?.toFixed(1) ?? "—"} />
-                <Stat label={t.volatility} value={dailySnapshot.volatility_20d != null ? `${dailySnapshot.volatility_20d.toFixed(2)}%` : "—"} />
-              </div>
+              <IndexStatTable
+                columns={2}
+                items={[
+                  { label: t.close, value: dailySnapshot.close?.toFixed(2) ?? "—" },
+                  {
+                    label: t.change,
+                    value: dailySnapshot.change_pct != null ? `${dailySnapshot.change_pct.toFixed(2)}%` : "—",
+                    positive: dailySnapshot.change_pct != null ? dailySnapshot.change_pct >= 0 : undefined,
+                  },
+                  { label: t.rsi, value: dailySnapshot.rsi14?.toFixed(1) ?? "—" },
+                  {
+                    label: t.volatility,
+                    value: dailySnapshot.volatility_20d != null ? `${dailySnapshot.volatility_20d.toFixed(2)}%` : "—",
+                  },
+                ]}
+              />
               {resolveNarrative(dailySnapshot.ai_narrative, locale) && (
                 <p className="text-sm text-slate-300 leading-relaxed line-clamp-4">
                   {resolveNarrative(dailySnapshot.ai_narrative, locale)?.summary}
@@ -185,7 +204,7 @@ export default async function IndexPage({ params }: Props) {
         {/* Weekly analysis summary */}
         <section className="rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest">
+            <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide">
               {t.weeklyAnalysis}
             </h2>
             <Link
@@ -197,16 +216,20 @@ export default async function IndexPage({ params }: Props) {
           </div>
           {weeklySnapshot ? (
             <>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <Stat label={t.close} value={weeklySnapshot.close?.toFixed(2) ?? "—"} />
-                <Stat
-                  label={t.change}
-                  value={weeklySnapshot.change_pct_week != null ? `${weeklySnapshot.change_pct_week.toFixed(2)}%` : "—"}
-                  positive={weeklySnapshot.change_pct_week != null ? weeklySnapshot.change_pct_week >= 0 : undefined}
-                />
-                <Stat label={t.trendStrength} value={weeklySnapshot.trend_strength ?? "—"} />
-                <Stat label={t.volatilityRegime} value={weeklySnapshot.volatility_regime ?? "—"} />
-              </div>
+              <IndexStatTable
+                columns={2}
+                items={[
+                  { label: t.close, value: weeklySnapshot.close?.toFixed(2) ?? "—" },
+                  {
+                    label: t.change,
+                    value:
+                      weeklySnapshot.change_pct_week != null ? `${weeklySnapshot.change_pct_week.toFixed(2)}%` : "—",
+                    positive: weeklySnapshot.change_pct_week != null ? weeklySnapshot.change_pct_week >= 0 : undefined,
+                  },
+                  { label: t.trendStrength, value: weeklySnapshot.trend_strength ?? "—" },
+                  { label: t.volatilityRegime, value: weeklySnapshot.volatility_regime ?? "—" },
+                ]}
+              />
               {resolveNarrative(weeklySnapshot.ai_narrative, locale) && (
                 <p className="text-sm text-slate-300 leading-relaxed line-clamp-4">
                   {resolveNarrative(weeklySnapshot.ai_narrative, locale)?.summary}
@@ -226,7 +249,7 @@ export default async function IndexPage({ params }: Props) {
 
         {relatedIndices.length > 0 && (
           <section>
-            <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+            <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
               {t.relatedMarkets}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -245,16 +268,6 @@ export default async function IndexPage({ params }: Props) {
       </main>
 
       <Footer locale={locale} />
-    </div>
-  );
-}
-
-function Stat({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  const color = positive === undefined ? "text-white" : positive ? "text-[#3fb950]" : "text-[#f85149]";
-  return (
-    <div>
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest">{label}</p>
-      <p className={`text-sm font-mono font-bold ${color}`}>{value}</p>
     </div>
   );
 }

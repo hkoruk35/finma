@@ -57,8 +57,12 @@ def analyze_symbol(symbol: str, forced_session: str | None, macro: dict, dry_run
 
     if idx.region == "us":
         breadth = common.compute_sector_breadth(symbol)
+        movers = common.compute_top_movers()
     else:
         breadth = {"advancers": None, "decliners": None, "sector_leaders": None}
+        # Avrupa: guvenilir ulke bazli hisse evreni yok — compute_sector_breadth
+        # ile ayni desen, fabrike veri yok, bos liste.
+        movers = {"top_gainers": [], "top_losers": []}
 
     quant_snapshot = {
         "index_symbol": symbol,
@@ -68,6 +72,7 @@ def analyze_symbol(symbol: str, forced_session: str | None, macro: dict, dry_run
         "timezone": idx.timezone,
         **metrics,
         **breadth,
+        **movers,
         **macro,
     }
 

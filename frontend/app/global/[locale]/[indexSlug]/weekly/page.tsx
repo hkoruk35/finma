@@ -59,7 +59,7 @@ export default async function IndexWeeklyArchivePage({ params }: Props) {
   const weeks = await getWeeklyArchiveList(indexDef.symbol, 26);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale={locale} />
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6">
@@ -79,7 +79,7 @@ export default async function IndexWeeklyArchivePage({ params }: Props) {
           <span className="text-white">{t.weeklyArchive}</span>
         </nav>
 
-        <h1 className="text-2xl md:text-3xl font-normal text-white mb-1">
+        <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-1">
           {name} — {t.weeklyArchive}
         </h1>
         <p className="text-xs text-slate-500 mb-6">{t.showingRecent}</p>

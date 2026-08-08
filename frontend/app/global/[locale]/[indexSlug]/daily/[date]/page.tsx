@@ -13,6 +13,7 @@ import {
   type IndexNarrativeFields,
 } from "@/lib/indexSnapshots";
 import { getArticleStructuredData, getBreadcrumbStructuredData } from "@/app/structured-data";
+import { IndexStatTable } from "@/components/public/IndexStatTable";
 
 export const revalidate = 900;
 
@@ -103,7 +104,7 @@ export default async function IndexDailyDetailPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -136,7 +137,7 @@ export default async function IndexDailyDetailPage({ params }: Props) {
         </nav>
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-          <h1 className="text-2xl md:text-3xl font-normal text-white">
+          <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
             {name} {t.dailyAnalysis} — {date}
           </h1>
           <div className="flex gap-2">
@@ -207,7 +208,7 @@ function SnapshotSection({
   const narrative = resolveNarrative(snapshot.ai_narrative, locale);
   const sectorLeaders =
     snapshot.sector_leaders && Array.isArray(snapshot.sector_leaders)
-      ? (snapshot.sector_leaders as { name?: string; ticker?: string; change_pct?: number }[])
+      ? (snapshot.sector_leaders as { sector?: string; name?: string; ticker?: string; change_pct?: number }[])
       : null;
 
   return (
@@ -216,59 +217,79 @@ function SnapshotSection({
         primary ? "border-l-4 border-l-[#3b82f6]" : ""
       }`}
     >
-      <h2 className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">
+      <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
         {t.session}: {sessionLabel(snapshot.session, t)}
       </h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-        <Stat label={t.close} value={snapshot.close?.toFixed(2) ?? "—"} />
-        <Stat
-          label={t.change}
-          value={snapshot.change_pct != null ? `${snapshot.change_pct.toFixed(2)}%` : "—"}
-          positive={snapshot.change_pct != null ? snapshot.change_pct >= 0 : undefined}
-        />
-        <Stat
-          label={t.change1w}
-          value={snapshot.change_pct_1w != null ? `${snapshot.change_pct_1w.toFixed(2)}%` : "—"}
-          positive={snapshot.change_pct_1w != null ? snapshot.change_pct_1w >= 0 : undefined}
-        />
-        <Stat
-          label={t.change20d}
-          value={snapshot.change_pct_20d != null ? `${snapshot.change_pct_20d.toFixed(2)}%` : "—"}
-          positive={snapshot.change_pct_20d != null ? snapshot.change_pct_20d >= 0 : undefined}
-        />
-        <Stat label="EMA20" value={snapshot.ema20?.toFixed(2) ?? "—"} />
-        <Stat label="EMA50" value={snapshot.ema50?.toFixed(2) ?? "—"} />
-        <Stat label="EMA200" value={snapshot.ema200?.toFixed(2) ?? "—"} />
-        <Stat label={t.rsi} value={snapshot.rsi14?.toFixed(1) ?? "—"} />
-        <Stat label={t.atr} value={snapshot.atr14?.toFixed(2) ?? "—"} />
-        <Stat label={t.volatility} value={snapshot.volatility_20d != null ? `${snapshot.volatility_20d.toFixed(2)}%` : "—"} />
-        <Stat
-          label={t.distanceFrom20dHigh}
-          value={snapshot.distance_from_20d_high_pct != null ? `${snapshot.distance_from_20d_high_pct.toFixed(2)}%` : "—"}
-        />
-        <Stat label={t.advancers} value={snapshot.advancers?.toString() ?? "—"} />
-        <Stat label={t.decliners} value={snapshot.decliners?.toString() ?? "—"} />
-        <Stat label={t.volume} value={snapshot.volume != null ? snapshot.volume.toLocaleString() : "—"} />
-      </div>
+      <IndexStatTable
+        columns={2}
+        items={[
+          { label: t.close, value: snapshot.close?.toFixed(2) ?? "—" },
+          {
+            label: t.change,
+            value: snapshot.change_pct != null ? `${snapshot.change_pct.toFixed(2)}%` : "—",
+            positive: snapshot.change_pct != null ? snapshot.change_pct >= 0 : undefined,
+          },
+          {
+            label: t.change1w,
+            value: snapshot.change_pct_1w != null ? `${snapshot.change_pct_1w.toFixed(2)}%` : "—",
+            positive: snapshot.change_pct_1w != null ? snapshot.change_pct_1w >= 0 : undefined,
+          },
+          {
+            label: t.change20d,
+            value: snapshot.change_pct_20d != null ? `${snapshot.change_pct_20d.toFixed(2)}%` : "—",
+            positive: snapshot.change_pct_20d != null ? snapshot.change_pct_20d >= 0 : undefined,
+          },
+          { label: "EMA20", value: snapshot.ema20?.toFixed(2) ?? "—" },
+          { label: "EMA50", value: snapshot.ema50?.toFixed(2) ?? "—" },
+          { label: "EMA200", value: snapshot.ema200?.toFixed(2) ?? "—" },
+          { label: t.rsi, value: snapshot.rsi14?.toFixed(1) ?? "—" },
+          { label: t.atr, value: snapshot.atr14?.toFixed(2) ?? "—" },
+          {
+            label: t.volatility,
+            value: snapshot.volatility_20d != null ? `${snapshot.volatility_20d.toFixed(2)}%` : "—",
+          },
+          {
+            label: t.distanceFrom20dHigh,
+            value:
+              snapshot.distance_from_20d_high_pct != null
+                ? `${snapshot.distance_from_20d_high_pct.toFixed(2)}%`
+                : "—",
+            positive:
+              snapshot.distance_from_20d_high_pct != null ? snapshot.distance_from_20d_high_pct >= 0 : undefined,
+          },
+          { label: t.advancers, value: snapshot.advancers?.toString() ?? "—" },
+          { label: t.decliners, value: snapshot.decliners?.toString() ?? "—" },
+          { label: t.volume, value: snapshot.volume != null ? snapshot.volume.toLocaleString() : "—" },
+        ]}
+      />
 
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <Stat label="VIX" value={snapshot.vix?.toFixed(2) ?? "—"} />
-        <Stat label="US10Y" value={snapshot.us10y != null ? `${snapshot.us10y.toFixed(2)}%` : "—"} />
-        <Stat label="DXY" value={snapshot.dxy?.toFixed(2) ?? "—"} />
-      </div>
+      <IndexStatTable
+        columns={3}
+        items={[
+          { label: "VIX", value: snapshot.vix?.toFixed(2) ?? "—" },
+          { label: "US10Y", value: snapshot.us10y != null ? `${snapshot.us10y.toFixed(2)}%` : "—" },
+          { label: "DXY", value: snapshot.dxy?.toFixed(2) ?? "—" },
+        ]}
+      />
 
       {sectorLeaders && sectorLeaders.length > 0 && (
         <div className="mb-4">
-          <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-2">{t.sectorLeaders}</p>
+          <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-2">{t.sectorLeaders}</p>
           <div className="flex flex-wrap gap-2">
             {sectorLeaders.map((leader, i) => (
               <span
-                key={`${leader.ticker ?? leader.name ?? i}`}
+                key={`${leader.sector ?? leader.ticker ?? leader.name ?? i}`}
                 className="px-2.5 py-1 rounded-md bg-[#141924] border border-[#1e2a3a] text-xs text-slate-300"
               >
-                {leader.name || leader.ticker}
-                {leader.change_pct != null ? ` ${leader.change_pct >= 0 ? "+" : ""}${leader.change_pct.toFixed(2)}%` : ""}
+                {leader.sector || leader.name || leader.ticker}
+                {leader.change_pct != null ? (
+                  <span className={leader.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"}>
+                    {" "}
+                    {leader.change_pct >= 0 ? "+" : ""}
+                    {leader.change_pct.toFixed(2)}%
+                  </span>
+                ) : null}
               </span>
             ))}
           </div>
@@ -300,7 +321,7 @@ function NarrativeRow({ label, text }: { label: string; text?: string }) {
   if (!text) return null;
   return (
     <div>
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{label}</p>
       <p className="text-sm text-slate-300 leading-relaxed">{text}</p>
     </div>
   );
@@ -312,18 +333,8 @@ function ScenarioCard({ label, text, tone }: { label: string; text?: string; ton
     tone === "bullish" ? "border-l-[#3fb950]" : tone === "risk" ? "border-l-[#f85149]" : "border-l-slate-500";
   return (
     <div className={`rounded-lg bg-[#141924] border border-[#1e2a3a] border-l-4 ${toneClass} p-3`}>
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{label}</p>
       <p className="text-xs text-slate-300 leading-relaxed">{text}</p>
-    </div>
-  );
-}
-
-function Stat({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  const color = positive === undefined ? "text-white" : positive ? "text-[#3fb950]" : "text-[#f85149]";
-  return (
-    <div>
-      <p className="text-[10px] text-slate-500 uppercase tracking-widest">{label}</p>
-      <p className={`text-sm font-mono font-bold ${color}`}>{value}</p>
     </div>
   );
 }

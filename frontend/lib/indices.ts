@@ -105,6 +105,11 @@ export function getIndexBySlug(slug: string): IndexDefinition | null {
   return INDEX_LIST.find((idx) => idx.slug === slug) ?? null;
 }
 
+export function getIndexBySymbol(symbol: string): IndexDefinition | null {
+  const upper = symbol.toUpperCase();
+  return INDEX_LIST.find((idx) => idx.symbol === upper) ?? null;
+}
+
 export function getIndicesByRegion(region: IndexDefinition["region"]): IndexDefinition[] {
   return INDEX_LIST.filter((idx) => idx.region === region);
 }
