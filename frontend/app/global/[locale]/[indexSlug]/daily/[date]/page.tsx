@@ -211,6 +211,11 @@ function SnapshotSection({
       ? (snapshot.sector_leaders as { sector?: string; name?: string; ticker?: string; change_pct?: number }[])
       : null;
 
+  type Mover = { ticker: string; name?: string; price?: number; change_pct?: number };
+  const qs = snapshot.quant_snapshot as Record<string, unknown> | null;
+  const topGainers = Array.isArray(qs?.top_gainers) ? (qs!.top_gainers as Mover[]) : [];
+  const topLosers = Array.isArray(qs?.top_losers) ? (qs!.top_losers as Mover[]) : [];
+
   return (
     <section
       className={`rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-5 mb-4 ${
@@ -296,8 +301,43 @@ function SnapshotSection({
         </div>
       )}
 
+      {(topGainers.length > 0 || topLosers.length > 0) && (
+        <div className="grid sm:grid-cols-2 gap-3 mb-4">
+          {topGainers.length > 0 && (
+            <MoverList title={t.topGainers} movers={topGainers} />
+          )}
+          {topLosers.length > 0 && (
+            <MoverList title={t.topLosers} movers={topLosers} />
+          )}
+        </div>
+      )}
+
       {narrative && <NarrativeBlock narrative={narrative} t={t} />}
     </section>
+  );
+}
+
+function MoverList({ title, movers }: { title: string; movers: { ticker: string; name?: string; price?: number; change_pct?: number }[] }) {
+  return (
+    <div className="rounded-lg bg-[#141924] border border-[#1e2a3a] p-3">
+      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-2">{title}</p>
+      <div className="divide-y divide-[#1e2a3a]">
+        {movers.map((m) => (
+          <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
+            <span className="font-semibold text-slate-200">{m.name || m.ticker}</span>
+            <span className="flex items-center gap-2 font-mono">
+              {m.price != null ? <span className="text-slate-400">{m.price.toFixed(2)}</span> : null}
+              {m.change_pct != null ? (
+                <span className={m.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"}>
+                  {m.change_pct >= 0 ? "+" : ""}
+                  {m.change_pct.toFixed(2)}%
+                </span>
+              ) : null}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
