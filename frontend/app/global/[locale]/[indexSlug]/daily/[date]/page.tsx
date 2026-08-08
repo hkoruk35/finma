@@ -138,7 +138,7 @@ export default async function IndexDailyDetailPage({ params }: Props) {
         </nav>
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-          <h1 className="text-2xl md:text-3xl font-semibold text-[#3b82f6] tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-semibold !text-[#3b82f6] tracking-tight">
             {name} {t.dailyAnalysis} — {date}
           </h1>
           <div className="flex gap-2">
@@ -301,7 +301,7 @@ function SnapshotSection({
                   leader.sector || leader.name || leader.ticker
                 )}
                 {leader.change_pct != null ? (
-                  <span className={leader.change_pct >= 0 ? "text-green-500" : "text-red-500"}>
+                  <span className={leader.change_pct >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                     {" "}
                     {leader.change_pct >= 0 ? "+" : ""}
                     {leader.change_pct.toFixed(2)}%
@@ -349,7 +349,7 @@ function MoverList({ title, movers, locale }: { title: string; movers: { ticker:
             <span className="flex items-center gap-2 font-mono">
               {m.price != null ? <span className="text-slate-400">{m.price.toFixed(2)}</span> : null}
               {m.change_pct != null ? (
-                <span className={m.change_pct >= 0 ? "text-green-500" : "text-red-500"}>
+                <span className={m.change_pct >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                   {m.change_pct >= 0 ? "+" : ""}
                   {m.change_pct.toFixed(2)}%
                 </span>
