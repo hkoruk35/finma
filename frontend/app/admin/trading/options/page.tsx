@@ -10,8 +10,8 @@ import { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Option Scanner | BOGA AI — v242 Terminal",
-  description: "BOGA AI v242 Options Scanner. Institutional Flow & Winner Formula terminal.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/options" },
 };
 

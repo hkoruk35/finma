@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import AcademyArticleClient from "@/components/AcademyArticleClient";
 
 export const metadata: Metadata = {
-  title: "Swing Picks Explained: Buy Zones, Stops & Targets",
-  description: "Learn what each BOGA AI swing pick contains and how to read it.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function Page() {

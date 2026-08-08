@@ -2,8 +2,8 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Privacy Policy & Global Data Security Standards | BogaStock.com",
-  description: "BogaStock.com global privacy policy, data security standards, and compliance with GDPR (EU), CCPA (USA), LGPD (LatAm), PIPA/PDPA (Asia), and KVKK.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: {
     canonical: "https://bogastock.com/global/en/privacy",
     languages: {

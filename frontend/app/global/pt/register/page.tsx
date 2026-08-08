@@ -4,8 +4,8 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Criar Conta — BOGA AI",
-  description: "Junte-se ao BOGA AI Premium e acesse o Rastreador Top 100 com sinais EMA/RSI.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/global/pt/register" },
 };
 

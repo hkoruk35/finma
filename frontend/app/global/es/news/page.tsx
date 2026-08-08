@@ -8,8 +8,8 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "Noticias del Mercado y Análisis IA — BOGA AI",
-  description: "Cada análisis bursátil generado por IA que BOGA AI ha publicado en X (@bogastock), todo en un solo feed público y actualizado.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: {
     canonical: "https://bogastock.com/global/es/news",
     languages: {
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Noticias del Mercado y Análisis IA — BOGA AI",
-    description: "Cada análisis bursátil generado por IA que BOGA AI ha publicado en X (@bogastock), todo en un solo feed público y actualizado.",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/global/es/news",
   },
 };

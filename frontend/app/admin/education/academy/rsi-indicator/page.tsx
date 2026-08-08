@@ -6,24 +6,24 @@ import { articleRsi } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "RSI Indicator Explained: Overbought & Oversold Stocks | BOGA AI Academy",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
   description:
-    "Learn what the RSI (Relative Strength Index) is, how to read overbought and oversold signals, RSI divergence, and how AI monitors RSI across 560 stocks automatically.",
+    "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   keywords: articleRsi.meta.en.keywords,
   alternates: { canonical: "https://bogastock.com/academy/rsi-indicator" },
   openGraph: {
-    title: "RSI Indicator Explained: How to Spot Overbought and Oversold Stocks",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
     description:
-      "Master the RSI indicator with easy examples. Learn when to enter, avoid peaks, and let AI track RSI across 560 stocks automatically.",
+      "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/academy/rsi-indicator",
     type: "article",
   },
 };
 
 const RELATED = [
-  { title: "How to Start Investing in US Stocks", href: "/academy/how-to-start-investing", tag: "Beginner" },
-  { title: "Momentum Trading Explained", href: "/academy/momentum-trading", tag: "Intermediate" },
-  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/how-to-start-investing", tag: "Beginner" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/momentum-trading", tag: "Intermediate" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
 ];
 
 export default function RsiIndicatorPage() {
@@ -36,7 +36,7 @@ export default function RsiIndicatorPage() {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: "RSI Indicator Explained: How to Spot Overbought and Oversold Stocks",
-            description: "Master RSI: spot overbought & oversold levels and time better entries.",
+            description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
             author: { "@type": "Organization", name: "BOGA AI" },
             publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/rsi-indicator",

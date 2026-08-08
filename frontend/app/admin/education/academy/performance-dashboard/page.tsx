@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import AcademyArticleClient from "@/components/AcademyArticleClient";
 
 export const metadata: Metadata = {
-  title: "Performance Dashboard: 180-Day Track Record",
-  description: "Learn to interpret win rates, returns, and sector performance of BOGA AI picks.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function Page() {

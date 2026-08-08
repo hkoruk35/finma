@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "À Propos de BogaStock — Notre Histoire, Notre Technologie et Notre Vision",
-  description: "L'histoire derrière BogaStock : des débuts d'AFK Data Sistemleri en Californie en 2018, au lancement de BogaStock.com dans la finance en 2021. Aujourd'hui, une plateforme d'IA au service d'utilisateurs dans plus de 70 pays, 24h/24.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: {
     canonical: "https://bogastock.com/global/fr/about",
     languages: {
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "À Propos de BogaStock — Notre Histoire, Notre Technologie et Notre Vision",
-    description: "Des débuts d'AFK Data Sistemleri en 2018 à BogaStock, aujourd'hui présent dans plus de 70 pays.",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/global/fr/about",
   },
 };

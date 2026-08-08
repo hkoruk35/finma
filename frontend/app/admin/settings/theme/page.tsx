@@ -9,8 +9,8 @@ import HotThemes2026Section from "@/components/HotThemes2026Section";
 import ThemePageTabs from "@/components/ThemePageTabs";
 
 export const metadata: Metadata = {
-  title: "Active Market Themes | BOGA AI",
-  description: "Browse active market themes, swing picks, and options scanner picks.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 function slugify(text: string) {

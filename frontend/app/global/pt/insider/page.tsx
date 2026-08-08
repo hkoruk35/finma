@@ -2,16 +2,16 @@ import { Metadata } from "next";
 import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
 
 export const metadata: Metadata = {
-  title: "Atividade de Transações de Insiders | BOGASTOCK",
-  description: "Apresentações do Formulário 4 da SEC - Rastreamento de transações de insiders.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function InsiderPage() {
   const locale = "pt";
   const topBuyers: any[] = [];
   const insiderT = {
-    title: "Atividade de Transações de Insiders",
-    subtitle: "Arquivos do Formulário 4 da SEC - Últimos 90 dias",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+    subtitle: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
     noData: "Nenhuma transação de insider encontrada",
     dataSource: "Arquivos do Formulário 4 da SEC",
   };

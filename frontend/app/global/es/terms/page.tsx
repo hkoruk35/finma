@@ -2,8 +2,8 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Términos del Servicio y Acuerdo de Usuario | BogaStock.com",
-  description: "Términos del servicio de la plataforma de análisis técnico y soporte de decisiones BogaStock.com y cumplimiento normativo de la UE.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: {
     canonical: "https://bogastock.com/global/es/terms",
     languages: {

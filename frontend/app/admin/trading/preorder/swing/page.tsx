@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import PreOrderListClient from "@/components/PreOrderListClient";
 
 export const metadata: Metadata = {
-  title: "Pre-Order Swing Listesi — BOGA AI",
-  description: "Onaylanan swing pozisyonları ve anlık performans takibi",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function PreOrderSwingPage() {

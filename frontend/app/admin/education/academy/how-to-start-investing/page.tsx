@@ -6,24 +6,24 @@ import { articleInvesting } from "@/lib/academy-i18n";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "How to Start Investing in US Stocks – Beginner Guide 2026 | BOGA AI Academy",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
   description:
-    "Complete beginner guide to investing in US stocks. Step-by-step strategy, risk management, choosing exchanges, and how AI stock analysis can help you invest better.",
+    "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   keywords: articleInvesting.meta.en.keywords,
   alternates: { canonical: "https://bogastock.com/academy/how-to-start-investing" },
   openGraph: {
-    title: "How to Start Investing in US Stocks (Step-by-Step Guide 2026)",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
     description:
-      "Learn exchange basics, strategy selection, risk management, and how AI finds the best stocks for you — in one beginner-friendly guide.",
+      "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/academy/how-to-start-investing",
     type: "article",
   },
 };
 
 const RELATED = [
-  { title: "RSI Indicator Explained", href: "/academy/rsi-indicator", tag: "Intermediate" },
-  { title: "Momentum Trading Explained", href: "/academy/momentum-trading", tag: "Intermediate" },
-  { title: "AI Stock Picking Explained", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/rsi-indicator", tag: "Intermediate" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/momentum-trading", tag: "Intermediate" },
+  { title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi", href: "/academy/ai-stock-picking", tag: "BOGA AI Edge" },
 ];
 
 export default function HowToStartInvestingPage() {
@@ -36,7 +36,7 @@ export default function HowToStartInvestingPage() {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: "How to Start Investing in US Stocks (Beginner Guide 2026)",
-            description: "Complete step-by-step guide to US stock investing for beginners.",
+            description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
             author: { "@type": "Organization", name: "BOGA AI" },
             publisher: { "@type": "Organization", name: "BOGA AI – Blue One Global Analysis", url: "https://bogastock.com" },
             mainEntityOfPage: "https://bogastock.com/academy/how-to-start-investing",

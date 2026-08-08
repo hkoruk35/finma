@@ -3,8 +3,8 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Perguntas Frequentes (FAQ) - BOGASTOCK",
-  description: "Dúvidas comuns sobre como usar a BOGASTOCK, nosso motor de inteligência artificial e estratégias de Ações em Tendência.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/global/pt/Perguntas_Frequentes" },
 };
 

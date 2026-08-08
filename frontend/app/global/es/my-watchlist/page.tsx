@@ -8,8 +8,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 0; // Dynamic route
 
 export const metadata: Metadata = {
-  title: "Mi Lista de Seguimiento | BOGASTOCK",
-  description: "BOGASTOCK - Mi Lista de Seguimiento",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/global/es/my-watchlist" },
 };
 

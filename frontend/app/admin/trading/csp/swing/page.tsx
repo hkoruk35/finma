@@ -4,8 +4,8 @@ import SwingCspDetailClient from "@/components/SwingCspDetailClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Swing Picks Watchlist | BOGA AI",
-  description: "Günlük swing ticaret adayları. BOGA AI tarafından tespit edilen günlük setuplar ve fırsat analizi.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function CSPSwingPage() {

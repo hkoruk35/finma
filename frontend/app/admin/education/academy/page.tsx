@@ -5,9 +5,9 @@ import AcademyIndexClient from "@/components/AcademyIndexClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "Stock Market Academy | Learn AI Stock Analysis & Investing Strategies – BOGA AI",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
   description:
-    "Free stock market education: beginner guides, technical indicators (RSI, momentum), and AI stock analysis tutorials. Learn how to pick winning stocks with data.",
+    "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   keywords: [
     "stock market academy",
     "learn stock trading",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://bogastock.com/academy" },
   openGraph: {
-    title: "BOGA AI Stock Market Academy – Free AI Investing Guides",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
     description:
-      "From beginner basics to advanced AI-powered stock picking. Free guides trusted by thousands of US equity investors.",
+      "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/academy",
     siteName: "BOGA AI – Blue One Global Analysis",
     type: "website",
@@ -41,7 +41,7 @@ export default function AcademyPage() {
             name: "BOGA AI Stock Market Academy",
             url: "https://bogastock.com/academy",
             description:
-              "Free stock market education platform — beginner to advanced AI investing strategies.",
+              "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
             teaches: [
               "Stock Market Fundamentals",
               "RSI Technical Analysis",

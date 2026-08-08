@@ -3,8 +3,8 @@ import Header from "@/components/Header";
 import ScreenerArchiveClient from "@/components/ScreenerArchiveClient";
 
 export const metadata: Metadata = {
-  title: "Screener Arşivi | BOGA Screener",
-  description: "Tüm screener taramaların zaman damgalı arşivi. Geçmiş tarama sonuçlarını görüntüle.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/screener/archive" },
 };
 

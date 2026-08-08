@@ -17,8 +17,8 @@ import { Metadata } from "next";
 export const revalidate = 14400; // 4 saatte bir ISR
 
 export const metadata: Metadata = {
-  title: "Kriter Analizi | BOGA AI",
-  description: "Son 10 rapor gününde açılan trade'lerin giriş günü teknik kriterleri ve AI destekli bot optimizasyon analizi.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/performance/kriter" },
 };
 

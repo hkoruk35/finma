@@ -11,8 +11,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGASTOCK | Mapa de Calor Sectorial y Análisis",
-  description: "Mapas de calor de rendimiento sectorial por hora y diarios, con análisis sectorial asistido por IA.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: "https://bogastock.com/global/es/sectors" },
 };
 

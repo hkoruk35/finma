@@ -6,8 +6,8 @@ import { TrendStatus } from '@/lib/homeFeed';
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: 'BOGASTOCK Terminal — Plataforma de Análisis e Decisiones de Inversión Impulsada por IA',
-  description: 'Análisis gráfico técnico interactivo avanzado para acciones de EE. UU., oro, divisas y criptoactivos.',
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   alternates: { canonical: `https://bogastock.com/global/es/terminal` },
 };
 

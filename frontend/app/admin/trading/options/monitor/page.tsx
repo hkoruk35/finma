@@ -2,8 +2,8 @@ import OptionsMonitorClient from "./OptionsMonitorClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Options Performance Monitor | BOGA AI",
-  description: "Real-time performance and latency tracking dashboard for BOGA AI options.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
 };
 
 export default function Page() {

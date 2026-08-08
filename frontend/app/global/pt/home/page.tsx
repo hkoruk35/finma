@@ -15,12 +15,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
-  title: "BogaStock — Plataforma de Análise de Ações e Decisões de Investimento com IA",
-  description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BogaStock.",
+  title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
   keywords: ["análise de ações dos EUA", "BogaStock", "análise técnica de ações", "análise de índices", "análise de câmbio", "análise de commodities", "IA para bolsa de valores"],
   openGraph: {
-    title: "BogaStock — Plataforma de Análise de Ações e Decisões de Investimento com IA",
-    description: "Descubra análises técnicas com IA para ações dos EUA, índices, setores, câmbio, commodities e criptomoedas no BogaStock.",
+    title: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
+    description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin.",
     url: "https://bogastock.com/global/pt/home",
     siteName: "BOGASTOCK Terminal",
     locale: "pt_BR",
