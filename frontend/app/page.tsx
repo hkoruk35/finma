@@ -14,16 +14,29 @@ export const metadata: Metadata = {
   },
 };
 
+function resolvePreferredLocale(acceptLangHeader: string | null): string {
+  if (!acceptLangHeader) return "en";
+  const supported = ["tr", "en", "es", "fr", "pt"];
+  const langs = acceptLangHeader
+    .split(",")
+    .map((item) => {
+      const [lang, qVal] = item.trim().split(";q=");
+      const q = qVal ? parseFloat(qVal) : 1.0;
+      const code = lang.split("-")[0].toLowerCase();
+      return { code, q: isNaN(q) ? 1.0 : q };
+    })
+    .sort((a, b) => b.q - a.q);
+
+  for (const l of langs) {
+    if (supported.includes(l.code)) return l.code;
+  }
+  return "en";
+}
+
 export default async function HomePage() {
   const headerList = await headers();
-  const acceptLang = headerList.get("accept-language") || "";
-
-  let locale = "en";
-  const lowerLang = acceptLang.toLowerCase();
-  if (lowerLang.includes("tr")) locale = "tr";
-  else if (lowerLang.includes("pt")) locale = "pt";
-  else if (lowerLang.includes("es")) locale = "es";
-  else if (lowerLang.includes("fr")) locale = "fr";
+  const acceptLang = headerList.get("accept-language");
+  const locale = resolvePreferredLocale(acceptLang);
 
   redirect(`/global/${locale}/home`, RedirectType.replace);
 }

@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage() {
-  // Default tickers for Watchlist
-  const defaultTickers = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA'];
+  // Default tickers for Watchlist (Top 7)
+  const defaultTickers = ['NVDA', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'META', 'TSLA'];
   const live = await fetchLiveQuotes(defaultTickers);
 
   const defaultWatchlist = defaultTickers.map(ticker => {

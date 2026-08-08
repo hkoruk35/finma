@@ -146,6 +146,25 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
   }
 }
 
+function resolvePreferredLocale(acceptLangHeader: string | null): string {
+  if (!acceptLangHeader) return 'en'
+  const supported = ['tr', 'en', 'es', 'fr', 'pt']
+  const langs = acceptLangHeader
+    .split(',')
+    .map((item) => {
+      const [lang, qVal] = item.trim().split(';q=')
+      const q = qVal ? parseFloat(qVal) : 1.0
+      const code = lang.split('-')[0].toLowerCase()
+      return { code, q: isNaN(q) ? 1.0 : q }
+    })
+    .sort((a, b) => b.q - a.q)
+
+  for (const l of langs) {
+    if (supported.includes(l.code)) return l.code
+  }
+  return 'en'
+}
+
 export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl
 
@@ -155,19 +174,11 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   }
 
   // ── Kok yol locale redirect'i edge'de yapilir ──────────────────────────────
-  // Eskiden app/page.tsx'te bir Server Component render'i (fonksiyon cold
-  // start + React) calisip SONRA redirect() cagriliyordu — edge'de, sayfa
-  // hic render edilmeden Accept-Language'e gore yonlendirmek ayni SEO-dogru
-  // 307 davranisini cok daha hizli verir. app/page.tsx hala mevcut (JS
-  // kapali/eski cache gibi nadir durumlar icin fallback), normalde artik
-  // buraya hic ulasmiyor.
+  // Edge'de sayfa hic render edilmeden tarayıcının kendi Accept-Language
+  // tercihlerine göre yönlendirilir. Desteklenen diller haricinde varsayılan
+  // ikinci seçenek İngilizce'dir.
   if (pathname === '/') {
-    const acceptLang = (request.headers.get('accept-language') || '').toLowerCase()
-    let locale = 'en'
-    if (acceptLang.includes('tr')) locale = 'tr'
-    else if (acceptLang.includes('pt')) locale = 'pt'
-    else if (acceptLang.includes('es')) locale = 'es'
-    else if (acceptLang.includes('fr')) locale = 'fr'
+    const locale = resolvePreferredLocale(request.headers.get('accept-language'))
     return NextResponse.redirect(new URL(`/global/${locale}/home`, request.url))
   }
 

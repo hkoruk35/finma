@@ -29,6 +29,18 @@ const getGroups = (locale: Locale) => {
 
   return [
     {
+      group: t("Top 7 Leaders", "Top 7 Liderler", "Líderes Top 7", "Leaders Top 7", "Líderes Top 7"),
+      items: [
+        { ticker: "NVDA", label: "NVIDIA", ySymbol: "NVDA" },
+        { ticker: "AAPL", label: "Apple", ySymbol: "AAPL" },
+        { ticker: "MSFT", label: "Microsoft", ySymbol: "MSFT" },
+        { ticker: "AMZN", label: "Amazon", ySymbol: "AMZN" },
+        { ticker: "GOOGL", label: "Alphabet", ySymbol: "GOOGL" },
+        { ticker: "META", label: "Meta", ySymbol: "META" },
+        { ticker: "TSLA", label: "Tesla", ySymbol: "TSLA" },
+      ],
+    },
+    {
       group: t("US Equity Markets", "ABD HİSSE SENEDİ PİYASALARI", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA"),
       items: [
         { ticker: "^GSPC", label: "S&P 500", ySymbol: "^GSPC" },
@@ -101,7 +113,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const losersGroupLabel = locale === 'tr' ? 'En Çok Düşenler (ilk 7)' : locale === 'es' ? 'Mayores Bajas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Baisses (7 premières)' : locale === 'pt' ? 'Maiores Baixas (primeiras 7)' : 'Top Losers (first 7)';
   const top100GroupLabel = locale === 'tr' ? 'Top 100 (ilk 7)' : locale === 'es' ? 'Top 100 (primeras 7)' : locale === 'fr' ? 'Top 100 (7 premières)' : locale === 'pt' ? 'Top 100 (primeiras 7)' : 'Top 100 (first 7)';
   const trendGroupLabel = locale === 'tr' ? 'Trend Hisseleri (Premium, ilk 7)' : locale === 'es' ? 'Acciones en Tendencia (Premium, primeras 7)' : locale === 'fr' ? 'Actions Tendance (Premium, 7 premières)' : locale === 'pt' ? 'Ações em Tendência (Premium, primeiras 7)' : 'Trending Stocks (Premium, first 7)';
-  const [selectedTicker, setSelectedTicker] = useState("^GSPC");
+  const [selectedTicker, setSelectedTicker] = useState("NVDA");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -112,7 +124,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       }
     }
   }, [locale, router]);
-  const [selectedYSymbol, setSelectedYSymbol] = useState("^GSPC");
+  const [selectedYSymbol, setSelectedYSymbol] = useState("NVDA");
   
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});
   const [currentCompany, setCurrentCompany] = useState("");
@@ -227,11 +239,13 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [rightTab, setRightTab] = useState<"watchlist" | "trend">("watchlist");
 
-  const { isPremium } = useMemberPlan();
+  const { isPremium, tier } = useMemberPlan();
+  const maxAllowedCompare = tier === "anonymous" ? 2 : MAX_COMPARE;
+
   // Sol Markets + sağ Watchlist/Trend Hisseleri satırlarındaki onay
   // kutucuklarıyla toplanan, "Çoklu Grafik Ekranı"na gönderilecek ticker
-  // seçimi. Üye olmayanlar aynı anda en fazla FREE_COMPARE_LIMIT kadar
-  // işaretleyebilir; fazlasını denerse PremiumModal açılır.
+  // seçimi. Üye olmayanlar aynı anda en fazla 2 ekran işaretleyebilir;
+  // fazlasını denerse kayıt olma uyarısı (modal) açılır. Ücretsiz kayıtlı üyeler 4, 6, 9 ekran seçebilir.
   const [compareSelection, setCompareSelection] = useState<string[]>([]);
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
   const [multiChartTrigger, setMultiChartTrigger] = useState<number>(0);
@@ -244,7 +258,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const toggleCompare = (ticker: string) => {
     setCompareSelection((prev) => {
       if (prev.includes(ticker)) return prev.filter((t) => t !== ticker);
-      if (prev.length >= MAX_COMPARE) return prev;
+      if (prev.length >= maxAllowedCompare) {
+        setShowCompareLimitModal(true);
+        return prev;
+      }
       return [...prev, ticker];
     });
   };
