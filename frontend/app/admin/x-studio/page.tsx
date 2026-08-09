@@ -5,6 +5,7 @@ import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
 import { nyWallTimeToUtcIso, utcIsoToNyDisplay, nyTodayDateStr, nyMaxDateStr } from "@/lib/x/timezone";
+import { WEEKDAY_LABELS_TR } from "@/lib/x/recurringSchedules";
 import type { ListType } from "@/lib/x/generateContent";
 import type { ListOptionCategory, ListOptionItem } from "@/lib/x/listOptions";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
@@ -67,6 +68,22 @@ interface ScheduledRow {
   locale: string;
   content_text: string | null;
   scheduled_at: string;
+}
+
+interface RecurringScheduleRow {
+  id: string;
+  content_type: "stock" | "market_asset";
+  ticker: string;
+  category: string | null;
+  weekly: boolean;
+  locale: string | null;
+  recurrence_type: "interval" | "weekly";
+  interval_hours: number | null;
+  weekday: number | null;
+  time_of_day: string | null;
+  enabled: boolean;
+  next_run_at: string;
+  last_run_at: string | null;
 }
 
 interface AutomationSettings {
@@ -141,6 +158,14 @@ export default function XStudioPage() {
   const [pickerWeekly, setPickerWeekly] = useState(false);
   const [pickerLocale, setPickerLocale] = useState<Locale | "">("");
 
+  // Tekrarlanan Programlama — seçilen öğeleri "her N saatte bir" veya
+  // "haftalık, belirli NY gün+saat" otomatik olarak sabitler.
+  const [recurringSchedules, setRecurringSchedules] = useState<RecurringScheduleRow[]>([]);
+  const [recurrenceType, setRecurrenceType] = useState<"interval" | "weekly">("interval");
+  const [recurIntervalHours, setRecurIntervalHours] = useState(4);
+  const [recurWeekday, setRecurWeekday] = useState(6); // Cumartesi
+  const [recurTimeOfDay, setRecurTimeOfDay] = useState("17:00");
+
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
     if (res.ok) setPool((await res.json()).pool ?? []);
@@ -161,6 +186,11 @@ export default function XStudioPage() {
     if (res.ok) setSettings((await res.json()).settings);
   }, []);
 
+  const loadRecurringSchedules = useCallback(async () => {
+    const res = await fetch("/api/admin/x/recurring-schedules");
+    if (res.ok) setRecurringSchedules((await res.json()).schedules ?? []);
+  }, []);
+
   const patchSettings = async (patch: Partial<AutomationSettings>) => {
     const res = await fetch("/api/admin/x/settings", {
       method: "PATCH",
@@ -175,9 +205,10 @@ export default function XStudioPage() {
     loadPosts();
     loadSettings();
     loadScheduled();
+    loadRecurringSchedules();
     if (!scheduleDate) setScheduleDate(nyTodayDateStr());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadPool, loadPosts, loadSettings, loadScheduled]);
+  }, [loadPool, loadPosts, loadSettings, loadScheduled, loadRecurringSchedules]);
 
   const fillPool = async () => {
     setBusy(true);
@@ -257,6 +288,69 @@ export default function XStudioPage() {
     setPickerSelected(new Set());
     await loadPool();
     setBusy(false);
+  };
+
+  // Seçilen öğeler için kalıcı tekrarlanan programlama oluşturur — kuyruğa
+  // eklemekten farklı: bunlar cron/x-recurring-schedules tarafından zamanı
+  // geldikçe taze AI metniyle otomatik üretilip yayınlanır.
+  const scheduleSelectedRecurring = async () => {
+    if (!pickerCategory || pickerSelected.size === 0) return;
+    setBusy(true);
+    setError("");
+    const isStockCategory = !MARKET_ASSET_CATEGORIES.has(pickerCategory);
+    const items = pickerItems.filter((it) => pickerSelected.has(it.ticker));
+    const failed: string[] = [];
+    for (const it of items) {
+      const res = await fetch("/api/admin/x/recurring-schedules", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contentType: isStockCategory ? "stock" : "market_asset",
+          ticker: it.ticker,
+          category: isStockCategory ? undefined : pickerCategory,
+          company: isStockCategory ? it.label : undefined,
+          sector: isStockCategory ? it.sector : undefined,
+          weekly: pickerWeekly,
+          locale: pickerLocale || undefined,
+          recurrenceType,
+          intervalHours: recurrenceType === "interval" ? recurIntervalHours : undefined,
+          weekday: recurrenceType === "weekly" ? recurWeekday : undefined,
+          timeOfDay: recurrenceType === "weekly" ? recurTimeOfDay : undefined,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        failed.push(`${it.ticker}: ${data.error || "hata"}`);
+      }
+    }
+    if (failed.length) setError(`Bazı öğeler programlanamadı — ${failed.join(" | ")}`);
+    setPickerSelected(new Set());
+    await loadRecurringSchedules();
+    setBusy(false);
+  };
+
+  const toggleRecurringSchedule = async (id: string, enabled: boolean) => {
+    setError("");
+    const res = await fetch(`/api/admin/x/recurring-schedules?id=${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ enabled }),
+    });
+    if (!res.ok) {
+      setError((await res.json()).error || "Güncelleme hatası");
+      return;
+    }
+    await loadRecurringSchedules();
+  };
+
+  const deleteRecurringSchedule = async (id: string) => {
+    setError("");
+    const res = await fetch(`/api/admin/x/recurring-schedules?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError((await res.json()).error || "Silme hatası");
+      return;
+    }
+    await loadRecurringSchedules();
   };
 
   const generateStockText = async (item: PoolItem, weekly = false) => {
@@ -902,8 +996,106 @@ export default function XStudioPage() {
             >
               Seçilenleri Kuyruğa Ekle ({pickerSelected.size})
             </button>
+
+            <div style={{ marginTop: 16, paddingTop: 12, borderTop: "1px dashed #30363d" }}>
+              <div style={{ fontSize: 12, color: ACCENT, marginBottom: 8, fontWeight: 700 }}>
+                🔁 Tekrarlanan Programlama (otomatik, kalıcı)
+              </div>
+              <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10, flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setRecurrenceType("interval")}
+                  style={{ ...btnStyle, background: recurrenceType === "interval" ? ACCENT : "#30363d", color: recurrenceType === "interval" ? "#0d1117" : "#e6edf3" }}
+                >
+                  Her N Saatte Bir
+                </button>
+                {recurrenceType === "interval" && (
+                  <input
+                    type="number"
+                    min={1}
+                    max={24}
+                    value={recurIntervalHours}
+                    onChange={(e) => setRecurIntervalHours(Number(e.target.value))}
+                    style={{ ...inputStyle, width: 60 }}
+                  />
+                )}
+                <button
+                  onClick={() => setRecurrenceType("weekly")}
+                  style={{ ...btnStyle, background: recurrenceType === "weekly" ? "#8b5cf6" : "#30363d", color: "#fff" }}
+                >
+                  Haftalık (NY saati)
+                </button>
+                {recurrenceType === "weekly" && (
+                  <>
+                    <select
+                      value={recurWeekday}
+                      onChange={(e) => setRecurWeekday(Number(e.target.value))}
+                      style={{ ...inputStyle }}
+                    >
+                      {WEEKDAY_LABELS_TR.map((label, idx) => (
+                        <option key={idx} value={idx}>{label}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="time"
+                      value={recurTimeOfDay}
+                      onChange={(e) => setRecurTimeOfDay(e.target.value)}
+                      style={{ ...inputStyle }}
+                    />
+                  </>
+                )}
+              </div>
+              <button
+                style={{ ...btnStyle, background: "#f59e0b" }}
+                disabled={busy || pickerSelected.size === 0}
+                onClick={scheduleSelectedRecurring}
+              >
+                Seçilenleri Tekrarlı Programla ({pickerSelected.size})
+              </button>
+              <div style={{ fontSize: 11, opacity: 0.6, marginTop: 6 }}>
+                Not: Mod/Dil yukarıdaki seçime göre uygulanır. Her tetiklendiğinde AI taze metin üretir, otomasyon (X Bağlantısı) açıksa X'e de paylaşır.
+              </div>
+            </div>
           </>
         )}
+      </div>
+
+      {/* Tekrarlanan Programlar — yukarıdan oluşturulan kalıcı zamanlamaların listesi */}
+      <div style={{ marginBottom: 24, padding: 16, border: `1px solid #30363d`, borderRadius: 8, background: "#0d1117" }}>
+        <h2 style={{ fontSize: 16, color: ACCENT, marginBottom: 12, fontWeight: "bold" }}>
+          🔁 Tekrarlanan Programlar ({recurringSchedules.length})
+        </h2>
+        {recurringSchedules.length === 0 && <div style={{ fontSize: 12, opacity: 0.5 }}>Tekrarlanan programlama yok.</div>}
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          {recurringSchedules.map((s) => (
+            <div key={s.id} style={{ ...inputStyle, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap", opacity: s.enabled ? 1 : 0.5 }}>
+              <span>
+                {s.ticker} <span style={{ opacity: 0.6 }}>({s.category || s.content_type})</span>
+                {s.weekly ? " ★" : ""} {s.locale ? `[${s.locale.toUpperCase()}]` : "[Tümü]"}
+              </span>
+              <span style={{ opacity: 0.8 }}>
+                {s.recurrence_type === "interval"
+                  ? `Her ${s.interval_hours} saatte bir`
+                  : `Her ${WEEKDAY_LABELS_TR[s.weekday ?? 0]} ${s.time_of_day} NY`}
+              </span>
+              <span style={{ color: "#f59e0b" }}>Sıradaki: {utcIsoToNyDisplay(s.next_run_at)}</span>
+              <span style={{ display: "flex", gap: 6 }}>
+                <button
+                  onClick={() => toggleRecurringSchedule(s.id, !s.enabled)}
+                  style={{ ...btnStyle, padding: "4px 8px", fontSize: 10, background: s.enabled ? "#22c55e" : "#30363d" }}
+                >
+                  {s.enabled ? "Açık" : "Kapalı"}
+                </button>
+                <button
+                  onClick={() => deleteRecurringSchedule(s.id)}
+                  title="Sil"
+                  style={{ background: "transparent", border: "none", color: "#f85149", cursor: "pointer", fontSize: 13, padding: "0 4px" }}
+                >
+                  ✕
+                </button>
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>

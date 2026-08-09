@@ -136,7 +136,7 @@ async function getStockListTickers(category: "top100" | "swing" | "watchlist"): 
       .from("top100_snapshot")
       .select("ticker, change_pct")
       .order("change_pct", { ascending: false })
-      .limit(20);
+      .limit(100);
     return (data ?? []).map((r: any) => String(r.ticker).toUpperCase());
   }
   if (category === "swing") {
