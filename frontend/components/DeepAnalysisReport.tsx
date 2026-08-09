@@ -401,9 +401,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="relative overflow-hidden rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center cursor-pointer mb-5 shadow-lg" onClick={() => setShowPremiumModal(true)}>
               <div className="flex items-center justify-center gap-2 text-amber-400 font-medium text-xs uppercase tracking-wider">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                <span>{L(lang, "BOGA AI Trend Strateji Durumu — Premium", "BOGA AI Trend Strategy Status — Premium")}</span>
+                <span>{L(lang, "BogaStock.com Trend Strateji Durumu — Premium", "BogaStock.com Trend Strategy Status — Premium")}</span>
               </div>
-              <p className="text-[11px] text-white/70 mt-1">{L(lang, "BOGA AI Strateji durumunu görüntülemek için tıklayıp Premium'a geçin →", "Click to upgrade to Premium to view detailed BOGA AI Strategy →")}</p>
+              <p className="text-[11px] text-white/70 mt-1">{L(lang, "BogaStock.com Strateji durumunu görüntülemek için tıklayıp Premium'a geçin →", "Click to upgrade to Premium to view detailed BogaStock.com Strategy →")}</p>
             </div>
           ) : (
             <>
