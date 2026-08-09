@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
-import { getTopInsiderBuyers } from "@/lib/insider-data";
+import { getRecentInsiderActivity } from "@/lib/insider-data";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { INDEX_LOCALES } from "@/lib/indices";
 
@@ -36,9 +36,10 @@ export default async function InsiderPage({ params }: Props) {
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
   const t = copy[locale].insider;
 
-  // Sitede en son 30 gunde raporlanmis, tum ticker'lardaki INSIDER ALIM
-  // (BUY) islemleri — SEC Form 4 verisinden (bkz. lib/insider-data.ts).
-  const transactions = await getTopInsiderBuyers(30, 150);
+  // Sitede en son 90 gunde raporlanmis, tum ticker'lardaki TUM insider
+  // islemleri (alim/satim/hibe/kullanim) — SEC Form 4 verisinden (bkz.
+  // lib/insider-data.ts). Grid kendi icinde tipe gore filtreleme sunuyor.
+  const transactions = await getRecentInsiderActivity(90, 150);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
