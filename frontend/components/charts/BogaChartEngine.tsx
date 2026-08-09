@@ -8,6 +8,7 @@ import {
   CandlestickSeries,
   HistogramSeries,
   LineSeries,
+  AreaSeries,
   BarSeries,
   TickMarkType,
   type IChartApi,
@@ -306,7 +307,13 @@ function seriesCategory(candleType: CandleType): "line" | "bar" | "candlestick" 
 function createMainSeries(chart: IChartApi, candleType: CandleType) {
   const category = seriesCategory(candleType);
   if (category === "line") {
-    return chart.addSeries(LineSeries, { color: "#3b82f6", lineWidth: 2, priceLineVisible: true });
+    return chart.addSeries(AreaSeries, { 
+      topColor: "rgba(59, 130, 246, 0.4)",
+      bottomColor: "rgba(59, 130, 246, 0.05)",
+      lineColor: "#3b82f6",
+      lineWidth: 2, 
+      priceLineVisible: true 
+    });
   }
   if (category === "bar") {
     return chart.addSeries(BarSeries, { upColor: UP_COLOR, downColor: DOWN_COLOR });
@@ -377,7 +384,8 @@ export default function BogaChartEngine({
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
   const setActive = setInternalActive;
 
-  const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (detailMode ? "heikin-ashi" : "candle"));
+  const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || ["SPX", "NDX", "DJI", "RUT", "VIX"].includes(symbol.toUpperCase());
+  const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (isIndex ? "line" : (detailMode ? "heikin-ashi" : "candle")));
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
   // Mobilde toolbar kalabalığını azaltmak için: mum tipi ve gösterge satırları

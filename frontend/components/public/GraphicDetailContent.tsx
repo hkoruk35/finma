@@ -271,7 +271,6 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               const sl = SHORTCUT_LABELS[locale] || SHORTCUT_LABELS.en;
               const shortcutsItems = [
                 { label: sl.trend, href: `/global/${locale}/swing` },
-                { label: sl.candidates, href: `/global/${locale}/watchlist` },
                 { label: sl.top7, href: `/global/${locale}/top7` },
                 { label: sl.top100, href: `/global/${locale}/top100` },
                 { label: sl.myWatchlist, href: `/global/${locale}/my-watchlist` },
@@ -304,7 +303,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               >
                 <span className="text-slate-400">{idx.label}</span>
                 <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
-                <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
+                <span className={positive ? "!text-[#3fb950]" : "!text-[#f85149]"}>{fmtChange(q?.change_1d)}</span>
               </div>
             );
           })}
@@ -314,7 +313,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               <span className="text-white font-mono">
                 {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
               </span>
-              <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}>
+              <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                 {fmtChange(quotes[sectorEtf]?.change_1d)}
               </span>
             </div>
