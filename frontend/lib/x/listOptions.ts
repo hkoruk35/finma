@@ -81,7 +81,7 @@ const SECTOR_TICKER_TO_GICS: Record<string, string> = {
   XLC: "Communication Services",
 };
 
-const MARKET_ASSET_DEFS: Record<"index" | "sector" | "commodity" | "fx" | "crypto", { ticker: string; label: string }[]> = {
+export const MARKET_ASSET_DEFS: Record<"index" | "sector" | "commodity" | "fx" | "crypto", { ticker: string; label: string }[]> = {
   index: INDICES,
   sector: SECTORS,
   commodity: COMMODITIES,
