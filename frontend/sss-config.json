@@ -4,36 +4,84 @@
     "description": "BogaStock'un nasıl çalıştığı, analizlerimiz ve sistem işleyişi hakkında merak ettiğiniz tüm detaylar.",
     "faqs": [
       {
-        "question": "1. BogaStock tam olarak nedir?",
-        "answer": "BogaStock, binlerce hisse senedini tarayan, gelişmiş grafik özellikleri ve yapay zeka destekli analizler sunan bir finansal teknoloji platformudur. Sitemizin büyük bir kısmı tüm ziyaretçilere tamamen açıktır. Kayıt olmadan dahi binlerce hisse senedini inceleyebilir ve interaktif grafiklerimizi ücretsiz olarak tarayabilirsiniz."
+        "question": "1. BogaStock tam olarak nedir ve benim için ne yapar?",
+        "answer": "BogaStock, yapay zeka (Boga Copilot) ve gelişmiş matematiksel algoritmalar kullanarak dünya borsalarını ve ABD piyasalarındaki binlerce hisse senedini tarayan bir finansal teknoloji platformudur. Sitemizin büyük bir kısmı tüm kullanıcılara tamamen açıktır; kayıt olmadan dahi binlerce hisse senedini ve interaktif grafiklerimizi ücretsiz olarak tarayabilirsiniz. Amacımız, karmaşık indikatör kalabalığı içinde kaybolmanızı önleyerek, trend hisseleri için en uygun hedefleri tespit etmek ve yatırım kararlarınızı rasyonel verilere dayandırarak almanızı sağlamaktır."
       },
       {
-        "question": "2. Ücretsiz üyelik (Google veya Email) bana ne gibi avantajlar sağlar?",
-        "answer": "BogaStock'a Google veya email adresinizle kayıt olmak tamamen ücretsizdir ve size harika kişiselleştirme imkanları sunar! Ücretsiz üyeliğinizle Boga Copilot yapay zeka asistanımızda günlük 15.000 token kullanım hakkı kazanırsınız. Ayrıca, piyasanın en iyi hisselerini listelediğimiz Top100 listesindeki ilk 20 hisseye erişim sağlayabilirsiniz."
+        "question": "2. Bize hisse alım-satım tavsiyesi mi veriyorsunuz?",
+        "answer": "Kesinlikle hayır. Biz bir yatırım danışmanlığı firması değiliz. BogaStock, tamamen matematiksel algoritmalara dayalı analizler üreten bir yazılım platformudur. Sistemimiz size \"al\" veya \"sat\" demez; sadece teknik ve temel kriterlere göre gücü kanıtlanmış potansiyel adayları listeler ve yapay zeka analiz raporunu sunar. Ticaret kararı tamamen sizin sorumluluğunuzdadır."
       },
       {
-        "question": "3. Premium üyeliğe geçersem hangi özellikleri elde ederim?",
-        "answer": "Premium üyelerimiz BogaStock'un tüm gücünü kullanabilir. Hisse bazlı detay analizler, net işlem kurguları, özel tema listeleri, 7/24 hizmet veren kişiselleştirilmiş finansal asistan (Copilot sınırsız erişim), günlük yenilenen trend hisseler ve performans takipleri emrinizdedir. Ayrıca tüm hisselerin saatlik ısı haritaları, otomatik görevler, alarmlar ve bildirimler, gelişmiş tematik hisse senedi sorgulamaları (akıllı listeler) ve ekstra gelişmiş grafik özellikleriyle ticaretinizi bambaşka bir boyuta taşırsınız."
+        "question": "3. Üye olmadan sistemi ücretsiz kullanabilir miyim veya Ücretsiz Üyelik neleri kapsar?",
+        "answer": "Evet! Platformumuzun büyük kısmı ziyaretçilere tamamen açıktır ve interaktif grafikleri ücretsiz kullanabilirsiniz. Kişiselleştirme için Google veya email adresinizle oluşturacağınız Ücretsiz Üyelik size harika avantajlar sunar: Boga Copilot yapay zeka asistanımızda günlük 15.000 token kullanım hakkı ve Top100 listemizdeki ilk 20 hisseye anında erişim elde edersiniz."
       },
       {
-        "question": "4. Küresel piyasalar ve ABD borsaları için hangi analizleri sunuyorsunuz?",
-        "answer": "Platformumuz dünya çapındaki büyük borsaların günlük ve haftalık analizlerini sunmaktadır. ABD borsaları (NYSE, NASDAQ) için ise çok daha detaylı bir kapsama sahibiz: Açılış öncesi (pre-market), gün ortası (mid-day) ve kapanış (closing) analizlerini anlık olarak alabilirsiniz."
+        "question": "4. Premium üyeliğe geçersem hangi özellikleri elde ederim?",
+        "answer": "Premium üyelerimiz BogaStock'un tüm gücünü kullanabilir. Hisse bazlı detay analizler, net işlem kurguları, özel tema listeleri, 7/24 hizmet veren kişiselleştirilmiş finansal asistan (Copilot), günlük yenilenen trend hisseler ve performans takipleri emrinizdedir. Ayrıca tüm hisselerin saatlik ısı haritaları, otomatik görevler, alarmlar ve bildirimler, gelişmiş tematik hisse senedi sorgulamaları (akıllı listeler) ve ekstra gelişmiş grafik özellikleriyle ticaretinizi profesyonel bir seviyeye taşırsınız."
       },
       {
-        "question": "5. Bize hisse alım-satım tavsiyesi mi veriyorsunuz?",
-        "answer": "Kesinlikle hayır. BogaStock bir yatırım danışmanlığı firması değil, tamamen matematiksel algoritmalara ve yapay zeka analizlerine dayanan bir yazılımdır. Sistemimiz size \"al\" veya \"sat\" demez; bunun yerine teknik ve temel verilere göre gücü kanıtlanmış (Trend Hisseleri) adayları listeler, yapay zeka analiz raporları ve ısı haritaları sunar. Karar vermek tamamen sizin inisiyatifinizdedir."
+        "question": "5. Kredi kartı bilgilerimi sisteminizde saklıyor musunuz? Güvende miyim?",
+        "answer": "Kredi kartı bilgileriniz kesinlikle bizim sitemizde veya sunucularımızda kayıt altına alınmaz ve saklanmaz. Ödeme altyapımız, dünyanın en güvenli ve prestijli ödeme sistemlerinden biri olan Stripe aracılığıyla, tamamen şifreli ve güvenli bir ortamda gerçekleştirilir."
       },
       {
-        "question": "6. Trend hisseleri listesi ve takibi nasıl yapılıyor?",
-        "answer": "Premium üyelerimiz için Trend Hisseleri listesi günlük olarak taranır ve güncellenir. Bir hisse senedi teknik bir kırılım ve hacim onayı aldığında listeye eklenir. Trend hisselerinin performans takipleri anlık olarak sistemde raporlanır, böylece fırsatları kaçırmadan izleme şansına sahip olursunuz."
+        "question": "6. Trend Hisseleri nedir? Ben hiç bilmiyorum.",
+        "answer": "Trend Hisseleri, bir hisse senedinin birkaç gün ila birkaç hafta sürebilecek güçlü yönlü fiyat hareketlerini yakalayarak kar elde etmeyi amaçlayan bir ticaret yöntemidir. Premium'da günlük yenilenen trend hisselerimizi ve performans takiplerini anlık olarak izleyebilirsiniz."
       },
       {
-        "question": "7. Kredi kartı güvenliği ve üyelik iptali süreci nasıldır?",
-        "answer": "Kart bilgileriniz hiçbir zaman sunucularımızda saklanmaz. Tüm ödeme işlemleri Stripe altyapısıyla uçtan uca şifreli olarak gerçekleşir. İstediğiniz zaman hesap ayarlarınızdan hiçbir ek ücret ödemeden üyeliğinizi iptal edebilirsiniz."
+        "question": "7. Önerilen hisseler hemen işleme girmeye hazır mıdır? Nasıl giriş yapmalıyım?",
+        "answer": "Sistemimizdeki \"Trend Hisseleri\" listesinde yer alan adaylar teknik olarak işleme hazır, güçlü yapılardır. Ancak daha yüksek karlılık ve daha düşük risk için, gelişmiş grafik özelliklerimizi kullanarak uygun formasyon ve paternlerle giriş yapmanız önerilir."
       },
       {
-        "question": "8. İzleme Listesi (Watchlist) ve Akıllı Listeler (Smart Lists) nedir?",
-        "answer": "BogaStock, kendi İzleme Listelerinizi oluşturup yönetmenize olanak tanır. Premium'da ise gelişmiş tematik hisse senedi sorgulamaları sayesinde Akıllı Listeler elde edersiniz; yapay zeka destekli sektör, finansal büyüme ve teknik güç filtreleriyle en uygun şirketler anında önünüze gelir."
+        "question": "8. \"İzleme Listesi\" ile \"Trend Listesi\" arasındaki fark nedir?",
+        "answer": "İzleme Listesi (Watchlist), potansiyeli yüksek ancak henüz güvenli giriş seviyesine ulaşmamış adayları içerir. Trend Listesi ise izleme listesinden geçerek gerekli teknik ve hacimsel onayları almış, aktif ticaret planına dahil edilen yüksek inançlı hisselerdir."
+      },
+      {
+        "question": "9. İnteraktif Grafik ve Boga Copilot analizi bana nasıl yardımcı olacak?",
+        "answer": "Kayıt olmadan bile erişebildiğiniz interaktif grafiklerimize ek olarak, Boga Copilot yapay zekası (Premium'da 7/24 sınırsız, Ücretsiz'de günlük 15k token) karmaşık formasyonları analiz ederek net ticaret planları üretir. Gelişmiş grafik özelliklerimizle verileri inceleyerek kendi kararlarınızı verirsiniz."
+      },
+      {
+        "question": "10. Boga Copilot zamanla hata yapar mı? Kendini nasıl geliştiriyor?",
+        "answer": "Dünyada hatasız çalışan hiçbir sistem yoktur. Ancak Boga Copilot, özel makine öğrenimi altyapısı sayesinde piyasalardaki işlemleri analiz ederek kendini sürekli olarak günceller ve değişen piyasa koşullarına hızla uyum sağlar."
+      },
+      {
+        "question": "11. Grafiklerde çok fazla çizgi ve kafa karıştırıcı indikatör var mı? Anlamakta zorlanır mıyım?",
+        "answer": "Hayır! BogaStock'un felsefesi karmaşadan uzak durmaktır. Size temiz grafikler ve anlaşılır metrikler sunuyoruz. Ücretsiz sunduğumuz birçok hizmetimizle ve yapay zekanın sade dilde yazdığı raporlarla, finansal okuryazarlığınız başlangıç seviyesinde olsa bile kolayca analiz yapabilirsiniz."
+      },
+      {
+        "question": "12. Küresel piyasalar ve ABD borsaları için hangi analizleri sunuyorsunuz? Veriler gecikmeli mi?",
+        "answer": "BogaStock, dünya çapındaki büyük borsaların günlük ve haftalık analizlerini sağlar. ABD borsaları için ise açılış öncesi (pre-market), gün ortası (mid-day) ve kapanış (closing) analizlerini sunuyoruz. Teknik verilerimiz sakin ve sağlıklı bir analiz için saat başı güncellenir ve 15 dakika gecikmeli veri akışıyla çalışır."
+      },
+      {
+        "question": "13. Borsada işlem gören binlerce hisse var. Hangisini seçeceğimi nasıl bileceğim?",
+        "answer": "BogaStock her gün binlerce hisse senedini tarar, likidite ve hacim gibi filtrelerden geçirerek gürültüyü yok eder. Ücretsiz üyelikte Top100 listemizin ilk 20 hissesine erişebilir, Premium'da ise tüm detaylı tema listelerine ve akıllı listelere ulaşabilirsiniz."
+      },
+      {
+        "question": "14. \"Akıllı Paranın İzini Sürmek\" ne anlama geliyor?",
+        "answer": "Algoritmamız, büyük fonların ve bankaların sermaye akışlarını takip ederek, hangi hisselere güçlü hacim giriş-çıkışları olduğunu tespit eder. Premium'daki saatlik ısı haritalarımız ve bildirimlerimiz sayesinde bu para akışlarını kolayca izleyebilirsiniz."
+      },
+      {
+        "question": "15. \"Beş Kademeli Puan Derecelendirmesi\" nedir?",
+        "answer": "BogaStock puanlama motoru, her adayı teknik ve temel rasyolara göre sınıflandırır: Yüksek İnanç, Pozitif Eğilim, Nötr Bekle, Negatif Eğilim ve Düşük Performans. Böylece hissenin arkasındaki matematiksel gücü net olarak görürsünüz."
+      },
+      {
+        "question": "16. Hisselerin teknik puanları nasıl hesaplanıyor?",
+        "answer": "Puanımız; RSI, MACD, bağıl hacim, EMA hareketli ortalama kesişimleri ve trend gücü gibi birçok faktörün ağırlıklı karmasından oluşur. Sadece tek bir indikatöre değil, çok faktörlü bir onaya dayanır."
+      },
+      {
+        "question": "17. Sadece teknik analiz mi kullanıyorsunuz? Bilançolar önemli değil mi?",
+        "answer": "Kesinlikle önemli! Sistemimiz F/K oranları, serbest nakit akışı ve gelir büyümesi gibi \"Temel Katmanları\" da analiz eder. Premium ile gelişmiş tematik sorgulamalarda şirketlerin hem mali performansını hem de teknik grafiğini filtreleyebilirsiniz."
+      },
+      {
+        "question": "18. Sadece ABD borsalarına mı odaklanıyorsunuz?",
+        "answer": "Önceliğimiz ABD piyasaları (NYSE, NASDAQ, AMEX) olmakla birlikte, dünya çapındaki büyük borsaların günlük ve haftalık analizlerini de sistemimizde bulabilirsiniz. ABD borsaları için açılış öncesi, gün ortası ve kapanış detaylı analizlerimiz mevcuttur."
+      },
+      {
+        "question": "19. Sistemdeki işlemlerde kaybetme olasılığım var mı?",
+        "answer": "Evet, kesinlikle var. Finansal piyasalarda %100 başarı vaat eden hiçbir dürüst sistem olamaz. Geçmiş başarılar geleceği garanti etmez. Risk yönetimini mutlaka yapmalı ve tüm sermayenizi tek bir işleme bağlamamalısınız."
+      },
+      {
+        "question": "20. \"Stop Loss\" (Zarar Durdur) kullanmak zorunda mıyım?",
+        "answer": "Evet! BogaStock felsefesinin birinci kuralı \"Stop Loss konmadan işlem açılmaz\" kuralıdır. Sermayenizi büyük çöküşlerden korumanın tek yolu işlem planınıza sadık kalmak ve otomatik alarmlarımızı (Premium) kullanarak duygularınızı ticaretten uzak tutmaktır."
       }
     ]
   },
@@ -42,36 +90,84 @@
     "description": "All the details you wonder about how BogaStock works, our analyses, and system operations.",
     "faqs": [
       {
-        "question": "1. What exactly is BogaStock?",
-        "answer": "BogaStock is a financial technology platform that scans thousands of stocks, providing advanced charting features and AI-powered analysis. A large portion of our site is completely open to all visitors. Even without registering, you can browse thousands of stocks and scan our interactive charts for free."
+        "question": "1. What exactly is BogaStock and what does it do for me?",
+        "answer": "BogaStock is a financial technology platform that scans global markets and thousands of US equities using AI (Boga Copilot) and advanced algorithms. A large portion of our site is completely open to all users; even without registering, you can browse thousands of stocks and use our interactive charts for free. Our goal is to prevent you from getting lost in complex indicators, finding the best targets for trend stocks, and enabling you to make rational, data-driven decisions."
       },
       {
-        "question": "2. What advantages does a free membership (Google or Email) provide?",
-        "answer": "Registering with BogaStock via Google or your email address is completely free and offers great personalization! With your free membership, you earn 15,000 daily tokens for our Boga Copilot AI assistant. Additionally, you get access to the Top 20 stocks in our Top100 list."
+        "question": "2. Do you provide stock buy-sell recommendations?",
+        "answer": "Absolutely not. We are not an investment advisory firm. BogaStock is a software platform based entirely on mathematical algorithms. Our system doesn't tell you to \"buy\" or \"sell\"; it lists candidates with proven strength based on technical data and provides AI reports. The trading decision is entirely your responsibility."
       },
       {
-        "question": "3. What features do I get if I upgrade to Premium?",
-        "answer": "Premium members unleash the full power of BogaStock. You get stock-based detailed analysis, clear trade setups, custom theme lists, a 24/7 personalized financial assistant, daily updated trend stocks, and performance tracking. Plus, hourly heatmaps for all stocks, automated tasks, alarms and notifications, advanced thematic stock screening (smart lists), and extra advanced charting features take your trading to the next level."
+        "question": "3. Can I use the system for free without registering, or what does Free Membership cover?",
+        "answer": "Yes! A major part of our platform is open to visitors, and you can use interactive charts for free. Creating a Free Membership with your Google or email address offers great benefits: 15,000 daily tokens for our Boga Copilot AI assistant and instant access to the top 20 stocks in our Top100 list."
       },
       {
-        "question": "4. What analysis do you provide for global markets and US exchanges?",
-        "answer": "Our platform provides daily and weekly analysis of major global exchanges worldwide. For US exchanges (NYSE, NASDAQ), we have much more detailed coverage: You receive pre-market, mid-day, and closing analysis instantly."
+        "question": "4. What features do I get with Premium membership?",
+        "answer": "Premium members unleash the full power of BogaStock. You get stock-based detailed analysis, clear trade setups, custom theme lists, a 24/7 personalized financial assistant (Copilot), daily updated trend stocks, and performance tracking. Additionally, hourly heatmaps for all stocks, automated tasks, alarms/notifications, advanced thematic stock screening (smart lists), and extra advanced charting features take your trading to a professional level."
       },
       {
-        "question": "5. Do you provide stock buy-sell recommendations?",
-        "answer": "Absolutely not. BogaStock is not an investment advisory firm; it is software based entirely on mathematical algorithms and AI analysis. Our system doesn't tell you to \"buy\" or \"sell\"; instead, it lists candidates (Trend Stocks) with proven strength based on technical and fundamental data, and provides AI reports and heatmaps. The final decision is entirely up to you."
+        "question": "5. Do you store my credit card details? Am I safe?",
+        "answer": "Your credit card details are never saved or stored on our servers. Our payment infrastructure is powered by Stripe, one of the world's most secure and prestigious payment systems, operating in a fully encrypted and secure environment."
       },
       {
-        "question": "6. How are trend stocks listed and tracked?",
-        "answer": "For our Premium members, the Trend Stocks list is scanned and updated daily. When a stock receives technical breakout and volume confirmation, it is added to the list. The performance tracking of trend stocks is reported instantly in the system, so you never miss an opportunity."
+        "question": "6. What are Trend Stocks? I have no idea.",
+        "answer": "Trend Stocks trading aims to capture strong directional price movements that can last from a few days to several weeks. On Premium, you can instantly track our daily updated trend stocks and their performances."
       },
       {
-        "question": "7. How does credit card security and membership cancellation work?",
-        "answer": "Your card details are never stored on our servers. All payment transactions take place with end-to-end encryption via the Stripe infrastructure. You can cancel your membership at any time from your account settings at no additional cost."
+        "question": "7. Are the recommended stocks ready to trade immediately? How should I enter?",
+        "answer": "Candidates in our \"Trend Stocks\" list are technically ready, strong structures. However, for higher profitability and lower risk, we recommend using our advanced charting features to enter with appropriate patterns."
       },
       {
-        "question": "8. What are Watchlists and Smart Lists?",
-        "answer": "BogaStock allows you to create and manage your own Watchlists. On Premium, through advanced thematic stock screening, you get Smart Lists; using AI-backed sector, financial growth, and technical strength filters, the most suitable companies are instantly presented to you."
+        "question": "8. What is the difference between \"Watchlist\" and \"Trend List\"?",
+        "answer": "The Watchlist includes high-potential candidates that haven't reached a safe entry level yet. The Trend List contains high-conviction stocks that have passed the watchlist by getting all necessary technical and volume confirmations."
+      },
+      {
+        "question": "9. How will Interactive Charts and Boga Copilot help me?",
+        "answer": "In addition to interactive charts you can access without registering, our Boga Copilot AI (unlimited on Premium, 15k daily tokens for Free) analyzes complex patterns to generate clear trade plans. You can examine the data with our advanced charting tools and make your own decisions."
+      },
+      {
+        "question": "10. Does Boga Copilot make mistakes over time? How does it improve?",
+        "answer": "No system in the world is flawless. However, thanks to its special machine learning infrastructure, Boga Copilot continuously updates itself by analyzing market transactions, rapidly adapting to changing market conditions."
+      },
+      {
+        "question": "11. Are there too many confusing indicators on the charts? Will I struggle to understand?",
+        "answer": "No! BogaStock's philosophy is to avoid clutter. We provide clean charts and clear metrics. With our many free services and AI reports written in plain language, you can easily conduct analysis even if your financial literacy is at a beginner level."
+      },
+      {
+        "question": "12. What market analysis do you provide, and is data delayed?",
+        "answer": "BogaStock provides daily and weekly analysis of major global exchanges worldwide. For US markets, we offer pre-market, mid-day, and closing analysis. Our technical data is updated hourly for calm and healthy analysis, operating on a 15-minute delayed feed."
+      },
+      {
+        "question": "13. How do I choose from thousands of stocks?",
+        "answer": "BogaStock scans thousands of stocks daily, removing noise through liquidity and volume filters. On a free membership, you access the top 20 of our Top100 list. On Premium, you unlock all detailed theme lists and smart lists."
+      },
+      {
+        "question": "14. What does \"Tracking Smart Money\" mean?",
+        "answer": "Our algorithm tracks the capital flows of large funds and banks to detect heavy volume inflows and outflows. Thanks to hourly heatmaps and notifications in Premium, you can easily monitor these money flows."
+      },
+      {
+        "question": "15. What is the \"Five-Tier Scoring System\"?",
+        "answer": "The BogaStock scoring engine categorizes each candidate based on technical and fundamental ratios: High Conviction, Positive Bias, Neutral, Negative Bias, and Underperforming. This clearly shows the mathematical strength behind a stock."
+      },
+      {
+        "question": "16. How are technical scores calculated?",
+        "answer": "Our score is a weighted blend of multiple factors like RSI, MACD, relative volume, EMA crossovers, and trend strength. It relies on a multi-factor confirmation mechanism, not just a single indicator."
+      },
+      {
+        "question": "17. Do you only use technical analysis? Aren't balance sheets important?",
+        "answer": "They are definitely important! Our system also analyzes fundamental layers like P/E ratios, free cash flow, and revenue growth. With advanced thematic screening in Premium, you can filter companies by both financial performance and technical charts."
+      },
+      {
+        "question": "18. Do you focus only on US exchanges?",
+        "answer": "While our priority is the US markets (NYSE, NASDAQ, AMEX), you can also find daily and weekly analysis of major global exchanges in our system. For US markets, we offer detailed pre-market, mid-day, and closing analysis."
+      },
+      {
+        "question": "19. Is there a possibility of losing money?",
+        "answer": "Yes, absolutely. No honest system can promise 100% success. Past performance does not guarantee future results. You must practice risk management and never tie all your capital to a single trade."
+      },
+      {
+        "question": "20. Do I have to use a \"Stop Loss\"?",
+        "answer": "Yes! The first rule of BogaStock philosophy is never opening a trade without a Stop Loss. Utilizing our automated alarms (Premium) and sticking to your plan is the only way to protect your capital from major crashes."
       }
     ]
   },
@@ -80,36 +176,84 @@
     "description": "Todos los detalles que te preguntas sobre cómo funciona BogaStock, nuestros análisis y operaciones del sistema.",
     "faqs": [
       {
-        "question": "1. ¿Qué es exactamente BogaStock?",
-        "answer": "BogaStock es una plataforma de tecnología financiera que escanea miles de acciones, ofreciendo funciones de gráficos avanzados y análisis impulsados por inteligencia artificial. Gran parte de nuestro sitio está completamente abierto a todos los visitantes. Incluso sin registrarse, puede buscar miles de acciones y escanear nuestros gráficos interactivos de forma gratuita."
+        "question": "1. ¿Qué es exactamente BogaStock y qué hace por mí?",
+        "answer": "BogaStock es una plataforma de tecnología financiera que escanea los mercados globales y miles de acciones de EE. UU. utilizando IA (Boga Copilot) y algoritmos avanzados. Gran parte de nuestro sitio está abierto a todos los usuarios; incluso sin registrarse, puede buscar miles de acciones y utilizar nuestros gráficos interactivos de forma gratuita. Nuestro objetivo es evitar que se pierda en indicadores complejos, encontrar los mejores objetivos y permitirle tomar decisiones basadas en datos."
       },
       {
-        "question": "2. ¿Qué ventajas ofrece la membresía gratuita (Google o correo electrónico)?",
-        "answer": "Registrarse en BogaStock a través de Google o su dirección de correo electrónico es completamente gratuito y ofrece una gran personalización. Con su membresía gratuita, obtiene 15,000 tokens diarios para nuestro asistente de IA Boga Copilot. Además, tiene acceso a las 20 mejores acciones de nuestra lista Top100."
+        "question": "2. ¿Proporcionan recomendaciones de compra y venta de acciones?",
+        "answer": "Absolutamente no. No somos una firma de asesoría de inversiones. BogaStock es una plataforma de software basada en algoritmos matemáticos. Nuestro sistema enumera candidatos con fuerza comprobada. La decisión comercial es de su entera responsabilidad."
       },
       {
-        "question": "3. ¿Qué funciones obtengo si me actualizo a Premium?",
-        "answer": "Los miembros Premium desatan todo el poder de BogaStock. Obtiene análisis detallados basados en acciones, configuraciones comerciales claras, listas de temas personalizadas, un asistente financiero personalizado las 24 horas del día, los 7 días de la semana, acciones de tendencia actualizadas diariamente y seguimiento de rendimiento. Además, los mapas de calor por hora, las tareas automáticas, las alarmas y notificaciones, el escaneo temático avanzado (listas inteligentes) y las funciones de gráficos avanzados elevan su comercio al siguiente nivel."
+        "question": "3. ¿Puedo usar el sistema gratis sin registrarme, o qué cubre la membresía gratuita?",
+        "answer": "¡Sí! Una gran parte de nuestra plataforma está abierta a los visitantes. Crear una membresía gratuita con su Google o correo electrónico ofrece grandes beneficios: 15,000 tokens diarios para nuestro asistente Boga Copilot y acceso instantáneo a las 20 principales acciones de nuestra lista Top100."
       },
       {
-        "question": "4. ¿Qué análisis ofrecen para los mercados globales y estadounidenses?",
-        "answer": "Nuestra plataforma proporciona análisis diarios y semanales de los principales mercados globales. Para las bolsas de EE. UU., tenemos una cobertura mucho más detallada: recibe análisis previos a la apertura (pre-market), al mediodía (mid-day) y al cierre (closing) de manera instantánea."
+        "question": "4. ¿Qué funciones obtengo con la membresía Premium?",
+        "answer": "Los miembros Premium desatan todo el poder de BogaStock. Obtiene análisis detallados basados en acciones, configuraciones comerciales claras, listas de temas personalizadas, un asistente financiero personalizado las 24 horas del día (Copilot), acciones de tendencia actualizadas diariamente y seguimiento de rendimiento. Además, los mapas de calor por hora, las tareas automáticas, alarmas/notificaciones, el escaneo temático avanzado (listas inteligentes) y las funciones de gráficos adicionales llevan su comercio a un nivel profesional."
       },
       {
-        "question": "5. ¿Proporcionan recomendaciones de compra y venta de acciones?",
-        "answer": "Absolutamente no. BogaStock no es una firma de asesoría de inversiones; es un software basado completamente en algoritmos y análisis de IA. Nuestro sistema no le dice que \"compre\" o \"venda\"; en su lugar, enumera candidatos (acciones de tendencia) con fuerza comprobada y proporciona informes y mapas de calor. La decisión final depende totalmente de usted."
+        "question": "5. ¿Almacenan los datos de mi tarjeta de crédito? ¿Estoy a salvo?",
+        "answer": "Los datos de su tarjeta de crédito nunca se guardan en nuestros servidores. Nuestra infraestructura de pago está impulsada por Stripe, operando en un entorno totalmente encriptado."
       },
       {
-        "question": "6. ¿Cómo se enumeran y rastrean las acciones de tendencia?",
-        "answer": "Para nuestros miembros Premium, la lista de acciones de tendencia se escanea y actualiza a diario. Cuando una acción recibe confirmación técnica de volumen, se agrega a la lista. El seguimiento del rendimiento se informa instantáneamente."
+        "question": "6. ¿Qué son las acciones de tendencia?",
+        "answer": "El comercio de acciones de tendencia tiene como objetivo capturar fuertes movimientos de precios direccionales. En Premium, puede realizar un seguimiento de estas acciones al instante."
       },
       {
-        "question": "7. ¿Cómo funciona la seguridad de la tarjeta de crédito y la cancelación?",
-        "answer": "Los datos de su tarjeta nunca se almacenan en nuestros servidores. Todas las transacciones de pago se realizan con cifrado de extremo a extremo a través de Stripe. Puede cancelar su membresía en cualquier momento desde la configuración de su cuenta."
+        "question": "7. ¿Están las acciones recomendadas listas para operar de inmediato?",
+        "answer": "Los candidatos en nuestra lista de \"Acciones de tendencia\" son estructuras fuertes y técnicamente listas. Sin embargo, recomendamos utilizar nuestras funciones de gráficos avanzados para ingresar con patrones apropiados."
       },
       {
-        "question": "8. ¿Qué son las listas de seguimiento y las listas inteligentes?",
-        "answer": "BogaStock le permite crear y administrar sus propias listas de seguimiento. En Premium, a través de la selección temática avanzada, obtiene listas inteligentes impulsadas por IA."
+        "question": "8. ¿Cuál es la diferencia entre \"Watchlist\" y \"Trend List\"?",
+        "answer": "La Watchlist incluye candidatos de alto potencial que aún no han alcanzado un nivel de entrada seguro. La Trend List contiene acciones de alta convicción que han obtenido todas las confirmaciones técnicas necesarias."
+      },
+      {
+        "question": "9. ¿Cómo me ayudarán los gráficos interactivos y Boga Copilot?",
+        "answer": "Además de los gráficos interactivos de acceso gratuito, nuestra IA Boga Copilot (Premium ilimitado, 15k tokens gratis por día) analiza patrones complejos para generar planes comerciales claros."
+      },
+      {
+        "question": "10. ¿Boga Copilot comete errores? ¿Cómo mejora?",
+        "answer": "Ningún sistema es perfecto. Sin embargo, gracias a su infraestructura de aprendizaje automático, Boga Copilot se actualiza continuamente analizando transacciones del mercado."
+      },
+      {
+        "question": "11. ¿Hay demasiados indicadores confusos en los gráficos?",
+        "answer": "¡No! La filosofía de BogaStock es evitar el desorden. Proporcionamos gráficos limpios. Con nuestros muchos servicios gratuitos e informes de IA en lenguaje sencillo, puede realizar análisis fácilmente."
+      },
+      {
+        "question": "12. ¿Qué análisis de mercado proporcionan y los datos están retrasados?",
+        "answer": "BogaStock proporciona análisis diarios y semanales de los principales mercados globales. Para los mercados de EE. UU., Ofrecemos análisis previos a la apertura, al mediodía y al cierre. Nuestros datos técnicos se actualizan cada hora (retraso de 15 min)."
+      },
+      {
+        "question": "13. ¿Cómo elijo entre miles de acciones?",
+        "answer": "BogaStock escanea miles de acciones diariamente. Con una membresía gratuita, accede a las 20 principales de nuestro Top100. En Premium, desbloquea todas las listas de temas y listas inteligentes detalladas."
+      },
+      {
+        "question": "14. ¿Qué significa \"Rastrear dinero inteligente\"?",
+        "answer": "Nuestro algoritmo rastrea los flujos de capital de grandes fondos y bancos. Gracias a los mapas de calor por hora y notificaciones (Premium), puede monitorear fácilmente estos flujos."
+      },
+      {
+        "question": "15. ¿Qué es el \"Sistema de puntuación de cinco niveles\"?",
+        "answer": "El motor de puntuación categoriza cada candidato: Alta convicción, Sesgo positivo, Neutral, Sesgo negativo y Bajo rendimiento."
+      },
+      {
+        "question": "16. ¿Cómo se calculan las puntuaciones técnicas?",
+        "answer": "Nuestro puntaje es una combinación ponderada de múltiples factores como RSI, MACD y fuerza de la tendencia, no solo un solo indicador."
+      },
+      {
+        "question": "17. ¿Solo usan análisis técnico? ¿No son importantes los balances?",
+        "answer": "¡Definitivamente son importantes! Con un escaneo temático avanzado en Premium, puede filtrar empresas tanto por rendimiento financiero como por gráficos técnicos."
+      },
+      {
+        "question": "18. ¿Se centran solo en los intercambios de Estados Unidos?",
+        "answer": "Aunque nuestra prioridad son los mercados de EE. UU., también encontrará análisis de los principales mercados globales. Para EE. UU., Ofrecemos análisis pre-market, mid-day y closing."
+      },
+      {
+        "question": "19. ¿Existe la posibilidad de perder dinero?",
+        "answer": "Sí, absolutamente. Ningún sistema honesto puede prometer un 100% de éxito. El rendimiento pasado no garantiza resultados futuros."
+      },
+      {
+        "question": "20. ¿Tengo que usar un \"Stop Loss\"?",
+        "answer": "¡Sí! La primera regla de la filosofía de BogaStock es nunca abrir una operación sin un Stop Loss. Utilizar nuestras alarmas automáticas (Premium) es la única forma de proteger su capital."
       }
     ]
   },
@@ -118,36 +262,84 @@
     "description": "Tous les détails que vous vous posez sur le fonctionnement de BogaStock, nos analyses et le fonctionnement du système.",
     "faqs": [
       {
-        "question": "1. Qu'est-ce que BogaStock exactement ?",
-        "answer": "BogaStock est une plateforme de technologie financière qui analyse des milliers d'actions, offrant des fonctionnalités graphiques avancées et des analyses basées sur l'IA. Une grande partie de notre site est entièrement ouverte à tous. Même sans inscription, vous pouvez parcourir des milliers d'actions et utiliser nos graphiques interactifs gratuitement."
+        "question": "1. Qu'est-ce que BogaStock et que fait-il pour moi?",
+        "answer": "BogaStock est une plateforme qui analyse les marchés mondiaux et des milliers d'actions américaines. Une grande partie est ouverte gratuitement. Sans inscription, vous pouvez utiliser nos graphiques interactifs."
       },
       {
-        "question": "2. Quels sont les avantages de l'inscription gratuite (Google ou Email) ?",
-        "answer": "S'inscrire sur BogaStock via Google ou votre email est totalement gratuit ! Avec votre inscription gratuite, vous gagnez 15 000 jetons par jour pour notre assistant IA Boga Copilot. De plus, vous avez accès aux 20 premières actions de notre liste Top100."
+        "question": "2. Fournissez-vous des recommandations d'achat-vente ?",
+        "answer": "Absolument pas. BogaStock ne fournit que des données et des analyses mathématiques. La décision est la vôtre."
       },
       {
-        "question": "3. Quelles fonctionnalités obtiens-je avec Premium ?",
-        "answer": "Les membres Premium bénéficient d'une analyse détaillée par action, de configurations de trading claires, de listes thématiques personnalisées, d'un assistant financier 24/7, d'actions de tendance mises à jour quotidiennement. En outre, des cartes thermiques horaires, des tâches automatisées, des alarmas, un filtrage thématique avancé (smart lists) et des graphiques avancés vous sont fournis."
+        "question": "3. Puis-je utiliser le système sans inscription ?",
+        "answer": "Oui, beaucoup de nos graphiques sont ouverts à tous. L'inscription gratuite avec Google ou par e-mail vous donne 15 000 jetons quotidiens pour Boga Copilot et l'accès au Top 20 du Top100."
       },
       {
-        "question": "4. Quelles analyses fournissez-vous pour les marchés mondiaux et américains ?",
-        "answer": "Notre plateforme fournit des analyses quotidiennes et hebdomadaires des principales bourses mondiales. Pour les bourses américaines, nous offrons une couverture détaillée : vous recevez des analyses de pré-ouverture (pre-market), de mi-journée (mid-day) et de clôture (closing)."
+        "question": "4. Quelles fonctionnalités avec Premium ?",
+        "answer": "Analyses détaillées, listes thématiques, assistant financier 24/7 (Copilot), cartes thermiques horaires, listes intelligentes, alarmes, et analyses de marché avancées."
       },
       {
-        "question": "5. Fournissez-vous des recommandations d'achat-vente ?",
-        "answer": "Absolument pas. BogaStock n'est pas une société de conseil ; c'est un logiciel basé entièrement sur des algorithmes et l'IA. Notre système ne vous dit pas d'\"acheter\" ou de \"vendre\" ; il répertorie les candidats forts sur la base de données techniques. La décision finale vous appartient."
+        "question": "5. Ma carte de crédit est-elle en sécurité ?",
+        "answer": "Vos données ne sont jamais stockées chez nous, tout est géré via Stripe."
       },
       {
-        "question": "6. Comment les actions de tendance sont-elles suivies ?",
-        "answer": "Pour nos membres Premium, la liste des actions de tendance est mise à jour quotidiennement. Lorsqu'une action reçoit une confirmation technique, elle est ajoutée à la liste. Le suivi des performances est signalé instantanément."
+        "question": "6. Que sont les actions de tendance ?",
+        "answer": "Le trading de tendance vise à capturer les mouvements de prix forts. Les membres Premium peuvent suivre ces actions quotidiennement."
       },
       {
-        "question": "7. Comment fonctionnent la sécurité des paiements et l'annulation ?",
-        "answer": "Les détails de votre carte ne sont jamais stockés sur nos serveurs. Toutes les transactions se font via Stripe. Vous pouvez annuler votre adhésion à tout moment depuis les paramètres de votre compte."
+        "question": "7. Dois-je trader immédiatement les recommandations ?",
+        "answer": "Non, nous vous conseillons d'utiliser nos graphiques avancés pour trouver le meilleur point d'entrée."
       },
       {
-        "question": "8. Que sont les Smart Lists ?",
-        "answer": "BogaStock vous permet de créer vos propres listes de surveillance. En Premium, grâce à un filtrage thématique avancé, vous obtenez des Smart Lists basées sur l'IA."
+        "question": "8. Quelle est la différence entre Watchlist et Trend List ?",
+        "answer": "La Watchlist comprend les candidats potentiels. La Trend List contient les actions avec une forte conviction technique."
+      },
+      {
+        "question": "9. Comment Copilot m'aide-t-il ?",
+        "answer": "Boga Copilot (Premium illimité, Gratuit 15k) analyse les données et génère des plans de trading clairs."
+      },
+      {
+        "question": "10. L'IA fait-elle des erreurs ?",
+        "answer": "Aucun système n'est parfait, mais notre IA apprend et s'améliore continuellement."
+      },
+      {
+        "question": "11. Les graphiques sont-ils compliqués ?",
+        "answer": "Non, la philosophie de BogaStock est la simplicité. Nos graphiques sont propres et faciles à comprendre."
+      },
+      {
+        "question": "12. Fournissez-vous des analyses de marché ?",
+        "answer": "Nous analysons les marchés mondiaux quotidiennement. Pour les États-Unis, nous offrons une analyse de pré-ouverture, mi-journée et clôture."
+      },
+      {
+        "question": "13. Comment choisir parmi des milliers d'actions ?",
+        "answer": "Avec notre adhésion gratuite, vous voyez le Top 20. En Premium, vous accédez à des filtres thématiques avancés."
+      },
+      {
+        "question": "14. Que signifie \"Suivre la Smart Money\" ?",
+        "answer": "Cela signifie suivre les flux de capitaux des grandes banques, visible avec nos cartes thermiques en Premium."
+      },
+      {
+        "question": "15. Qu'est-ce que le système de notation ?",
+        "answer": "Nous classons les actions de Haute Conviction à Sous-performance pour vous guider mathématiquement."
+      },
+      {
+        "question": "16. Comment est calculé le score technique ?",
+        "answer": "C'est une combinaison de RSI, MACD, volume, etc."
+      },
+      {
+        "question": "17. Le bilan est-il important ?",
+        "answer": "Oui, nous combinons l'analyse fondamentale et technique, que vous pouvez filtrer en Premium."
+      },
+      {
+        "question": "18. Vous concentrez-vous uniquement sur les États-Unis ?",
+        "answer": "Les États-Unis sont notre priorité, mais nous couvrons les tendances mondiales (pre-market, closing, etc.)."
+      },
+      {
+        "question": "19. Puis-je perdre de l'argent ?",
+        "answer": "Oui, aucun système ne garantit un succès à 100%. Gérez toujours vos risques."
+      },
+      {
+        "question": "20. Dois-je utiliser un Stop Loss ?",
+        "answer": "Oui, c'est la règle d'or pour protéger votre capital."
       }
     ]
   },
@@ -157,35 +349,83 @@
     "faqs": [
       {
         "question": "1. O que é exatamente a BogaStock?",
-        "answer": "A BogaStock é uma plataforma de tecnologia financeira que analisa milhares de ações, oferecendo recursos de gráficos avançados e análises baseadas em IA. Grande parte do nosso site é totalmente aberta a todos. Mesmo sem se registrar, você pode navegar por milhares de ações e examinar nossos gráficos interativos gratuitamente."
+        "answer": "A BogaStock é uma plataforma que analisa mercados globais e ações dos EUA. Grande parte do site é aberta a todos os usuários; você pode acessar gráficos interativos gratuitamente."
       },
       {
-        "question": "2. Quais são os benefícios do registro gratuito (Google ou E-mail)?",
-        "answer": "O registro na BogaStock via Google ou e-mail é totalmente gratuito! Com seu registro gratuito, você ganha 15.000 tokens diários para nosso assistente de IA Boga Copilot. Além disso, você tem acesso às 20 principais ações em nossa lista Top100."
+        "question": "2. Vocês fornecem recomendações de compra?",
+        "answer": "Não somos consultores. Nosso sistema fornece apenas análises matemáticas. A decisão é sua."
       },
       {
-        "question": "3. Quais recursos obtenho com o Premium?",
-        "answer": "Os membros Premium desbloqueiam análises detalhadas baseadas em ações, configurações de negociação claras, listas de temas personalizadas, um assistente financeiro personalizado 24 horas por dia, 7 dias por semana, ações de tendências atualizadas diariamente e rastreamento de desempenho. Além disso, mapas de calor por hora, tarefas automatizadas, alarmes e notificações e recursos extras de gráficos avançados."
+        "question": "3. O que a associação gratuita inclui?",
+        "answer": "A associação gratuita (Google/E-mail) fornece 15.000 tokens diários para o Copilot e acesso às 20 principais ações do nosso Top100."
       },
       {
-        "question": "4. Que análise vocês fornecem para os mercados globais e dos EUA?",
-        "answer": "Nossa plataforma fornece análises diárias e semanais das principais bolsas globais. Para as bolsas dos EUA, temos uma cobertura muito mais detalhada: você recebe análises de pré-abertura, meio-dia e fechamento."
+        "question": "4. O que ganho com o Premium?",
+        "answer": "Análises avançadas, listas de temas, Copilot 24/7 ilimitado, ações de tendência diárias, mapas de calor por hora, notificações e triagem inteligente."
       },
       {
-        "question": "5. Vocês fornecem recomendações de compra/venda?",
-        "answer": "Absolutamente não. A BogaStock não é uma empresa de consultoria de investimentos; é um software baseado inteiramente em algoritmos e análise de IA. Nosso sistema não lhe diz para \"comprar\" ou \"vender\"; em vez disso, lista candidatos (Ações de Tendência) com base em dados técnicos e fundamentais. A decisão final é sua."
+        "question": "5. Meu cartão de crédito está seguro?",
+        "answer": "Sim. Não armazenamos seus dados, tudo é protegido pelo Stripe."
       },
       {
-        "question": "6. Como as ações de tendência são listadas e rastreadas?",
-        "answer": "Para nossos membros Premium, a lista de Ações de Tendência é analisada e atualizada diariamente. Quando uma ação recebe confirmação técnica, ela é adicionada à lista. O acompanhamento do desempenho é relatado instantaneamente."
+        "question": "6. O que são ações de tendência?",
+        "answer": "É o foco em fortes movimentos direcionais de preços que você pode acompanhar no Premium."
       },
       {
-        "question": "7. Como funciona a segurança e o cancelamento do pagamento?",
-        "answer": "Os dados do seu cartão nunca são armazenados em nossos servidores. Todas as transações ocorrem com criptografia via Stripe. Você pode cancelar sua associação a qualquer momento, sem custo adicional."
+        "question": "7. Devo entrar na negociação imediatamente?",
+        "answer": "Sempre recomendamos o uso de nossos gráficos para encontrar as melhores configurações de entrada."
       },
       {
-        "question": "8. O que são as Smart Lists?",
-        "answer": "A BogaStock permite que você crie suas próprias Watchlists. No Premium, através de triagem temática avançada baseada em IA, você obtém Smart Lists."
+        "question": "8. Qual é a diferença entre Watchlist e Trend List?",
+        "answer": "A Watchlist tem ações com potencial; a Trend List tem aquelas com fortes confirmações técnicas."
+      },
+      {
+        "question": "9. Como o Copilot me ajuda?",
+        "answer": "O Boga Copilot fornece planos claros analisando padrões de gráficos (15k diários grátis, ilimitado no Premium)."
+      },
+      {
+        "question": "10. A IA comete erros?",
+        "answer": "Nenhum sistema é infalível, mas o Copilot aprende e se adapta constantemente."
+      },
+      {
+        "question": "11. Os gráficos são muito confusos?",
+        "answer": "Não. Nós nos orgulhamos de ter gráficos limpos e métricas claras, além de relatórios de IA fáceis de ler."
+      },
+      {
+        "question": "12. Como funciona a análise de mercado?",
+        "answer": "Analisamos mercados globais diariamente e semanalmente. Para os EUA, cobrimos o pré-mercado, o meio-dia e o fechamento."
+      },
+      {
+        "question": "13. Como escolho em qual investir?",
+        "answer": "A conta gratuita dá as Top 20. O Premium fornece filtragem e listas inteligentes exclusivas."
+      },
+      {
+        "question": "14. O que é seguir o Smart Money?",
+        "answer": "Significa monitorar o volume de instituições, algo possível com mapas de calor no Premium."
+      },
+      {
+        "question": "15. Como funciona a pontuação?",
+        "answer": "Classificamos as ações em 5 níveis, desde Alta Convicção até Baixo Desempenho."
+      },
+      {
+        "question": "16. Como a pontuação técnica é feita?",
+        "answer": "Usamos MACD, RSI, Volume Relativo, etc."
+      },
+      {
+        "question": "17. A análise fundamental é usada?",
+        "answer": "Sim, com o Premium, você pode filtrar pelo crescimento de receita, P/L e outras métricas."
+      },
+      {
+        "question": "18. O foco é apenas nos EUA?",
+        "answer": "Principalmente nos EUA, mas incluímos relatórios sobre tendências de mercado globais e de pré-abertura."
+      },
+      {
+        "question": "19. Posso perder dinheiro?",
+        "answer": "Sim, o mercado financeiro tem riscos. O desempenho passado não é garantia."
+      },
+      {
+        "question": "20. O Stop Loss é obrigatório?",
+        "answer": "Na nossa filosofia, sim! Use nossas ferramentas para proteger seu capital."
       }
     ]
   }
