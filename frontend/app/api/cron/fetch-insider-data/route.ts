@@ -286,9 +286,14 @@ function numOf(node: any): number | undefined {
 async function parseForm4XML(cikPadded: string, filing: SubmissionFiling, ticker: string): Promise<InsiderRow[]> {
   if (!filing.primaryDocument) return [];
 
+  // submissions.json'daki primaryDocument genelde XSLT ile HTML'e cevrilmis
+  // GORUNTULEME surumune isaret ediyor (ornegin "xslF345X06/form4.xml" — .xml
+  // uzantili ama icerigi HTML). Gercek ham XML, ayni accession klasorunun
+  // KOKUNDE, sadece dosya adiyla (ornegin "form4.xml") duruyor.
+  const rawFileName = filing.primaryDocument.split("/").pop() || filing.primaryDocument;
   const cikNum = String(Number(cikPadded));
   const accessionNoDashes = filing.accessionNumber.replace(/-/g, "");
-  const xmlUrl = `https://www.sec.gov/Archives/edgar/data/${cikNum}/${accessionNoDashes}/${filing.primaryDocument}`;
+  const xmlUrl = `https://www.sec.gov/Archives/edgar/data/${cikNum}/${accessionNoDashes}/${rawFileName}`;
 
   const res = await fetch(xmlUrl, { headers: SEC_HEADERS });
   if (!res.ok) {
