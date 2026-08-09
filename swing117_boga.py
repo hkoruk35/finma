@@ -120,7 +120,7 @@ DAILY_RUN_MINUTE = 0
 # ================================================================
 # 🔹 CACHE & FILE SETTINGS
 # ================================================================
-UNIVERSE_TTL = 7 * 24 * 3600        # Weekly universe update (168 hours)
+UNIVERSE_TTL = 24 * 3600        # Günlük evren güncellemesi (24 saat)
 UNIVERSE_CACHE: Dict[str, Any] = {"ts": 0.0, "data": []}
 BULK_DATA_CACHE: Dict[str, pd.DataFrame] = {}
 index_cache: Dict[str, pd.Series] = {}
@@ -332,25 +332,21 @@ load_info_cache()
 # ================================================================
 
 async def fetch_all_us_tickers() -> List[str]:
-    """Fetches NASDAQ, NYSE, AMEX symbols. Only 1-5 letter stocks."""
+    """Fetches Universe from SEC daily_universe.json"""
     all_tickers: set = set()
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    try:
+        universe_path = r"C:\Users\afksm\finma\frontend\public\data\daily_universe.json"
+        with open(universe_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            tickers = data.get("tickers", [])
+            for sym in tickers:
+                sym = sym.strip().upper()
+                if sym.isalpha() and 1 <= len(sym) <= 5:
+                    all_tickers.add(sym)
+    except Exception as e:
+        logging.error(f"⚠️ Failed to read daily_universe.json: {e}")
 
-    async with aiohttp.ClientSession() as session:
-        for url in EXCHANGE_SOURCES:
-            try:
-                async with session.get(url, headers=headers, timeout=15) as resp:
-                    if resp.status != 200:
-                        continue
-                    content = await resp.text()
-                    for sym in content.splitlines():
-                        sym = sym.strip().upper()
-                        if sym.isalpha() and 1 <= len(sym) <= 5:
-                            all_tickers.add(sym)
-            except Exception as e:
-                logging.error(f"⚠️ Ticker list error ({url}): {e}")
-
-    logging.info(f"[OK] Raw symbol count: {len(all_tickers)}")
+    logging.info(f"[OK] Raw symbol count from daily_universe.json: {len(all_tickers)}")
     return list(all_tickers)
 
 # ================================================================
@@ -2073,9 +2069,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 # bulmasına yol açıyordu.
                 try:
                     weekly_vol = df_1d['Volume'].resample('W').sum().dropna()
-                    weekly_vol_safe = weekly_vol.iloc[:-1] if len(weekly_vol) > 1 else weekly_vol
-                    if len(weekly_vol_safe) >= 8:
-                        w_vol_ratio = float(weekly_vol_safe.iloc[-1]) / float(weekly_vol_safe.tail(8).mean())
+                    if len(weekly_vol) >= 8:
+                        avg_vol = float(weekly_vol.tail(8).mean())
+                        w_vol_ratio_last = float(weekly_vol.iloc[-1]) / avg_vol if avg_vol > 0 else 1.0
+                        w_vol_ratio_prev = float(weekly_vol.iloc[-2]) / avg_vol if (len(weekly_vol) >= 2 and avg_vol > 0) else w_vol_ratio_last
+                        w_vol_ratio = max(w_vol_ratio_last, w_vol_ratio_prev)
                 except Exception:
                     w_vol_ratio = 1.0
 

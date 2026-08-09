@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
+import { getAboutConfig } from "@/lib/aboutConfig";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,7 +10,17 @@ export const metadata: Metadata = {
 };
 
 
-export default function AboutPageTr() {
+export default async function AboutPage() {
+  const config = await getAboutConfig("tr");
+
+  if (!config) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#0d1117] items-center justify-center text-white">
+        Config not found for tr.
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <MemberHeader locale="tr" />
@@ -16,81 +28,64 @@ export default function AboutPageTr() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         {/* Hero */}
         <div className="text-center mb-16">
-          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Hikayemiz</p>
+          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">{config.hero.subtitle}</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Bir Otonom Araç Fikrinden<br />
-            <span className="text-[#3b82f6]">Bugünün BogaStock'una.</span>
+            <span dangerouslySetInnerHTML={{ __html: config.hero.title_html }} />
+            <span className="text-[#3b82f6]">{config.hero.title_highlight}</span>
           </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-            BogaStock, bir gecede ortaya çıkmadı. Kaliforniya'da otonom araçlar üzerine çalışan küçük bir ekibin, yıllar içinde biriktirdiği veri işleme deneyimini finans dünyasına taşımasıyla doğdu.
+          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-6">
+            {config.hero.description}
           </p>
+          {config.hero.image_url && (
+            <div className="w-full relative h-64 md:h-96 rounded-lg overflow-hidden border border-gray-800">
+              <img src={config.hero.image_url} alt="Hero" className="object-cover w-full h-full" />
+            </div>
+          )}
         </div>
 
-        {/* 2018 - Origin */}
-        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]"></div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-3xl font-black text-[#3b82f6]">2018</span>
-            <h2 className="text-xl font-bold text-white">Kaliforniya'da Bir Başlangıç</h2>
+        {/* Sections */}
+        {config.sections.map((sec, idx) => (
+          <div key={idx} className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
+            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${sec.gradient}`}></div>
+            <div className="flex items-center gap-3 mb-4">
+              <h2 className="text-xl font-bold text-white">{sec.title}</h2>
+            </div>
+            <p className="text-white/70 leading-relaxed mb-4">
+              {sec.description}
+            </p>
+            {sec.image_url && (
+              <div className="w-full relative h-48 md:h-64 rounded-lg overflow-hidden border border-gray-800 mt-6">
+                <img src={sec.image_url} alt={sec.title} className="object-cover w-full h-full" />
+              </div>
+            )}
           </div>
-          <p className="text-white/70 leading-relaxed">
-            BogaStock'un hikayesi aslında finansla değil, otonom araçlarla başlıyor. 2018 yılında Kaliforniya'da kurulan AFK Data Sistemleri (AFK DaSYS), ilk yıllarında kendi kendine giden araçlar için veri işleme ve karar destek sistemleri geliştirdi. Bugün, 2025 itibarıyla bu bilgi birikimi ABD genelinde 48 eyalette, 1.000'den fazla şehirde gerçek zamanlı Smart City simülasyonlarını mümkün kılıyor.
-          </p>
-        </div>
+        ))}
 
-        {/* 2021 - BogaStock born */}
-        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-3xl font-black text-[#8b5cf6]">2021</span>
-            <h2 className="text-xl font-bold text-white">Yollar Finansla Kesişiyor</h2>
-          </div>
-          <p className="text-white/70 leading-relaxed">
-            2021 yılında AFK DaSYS ekibi, şehirlerin trafiğini okumak için geliştirdiği yoğun veri işleme deneyimini bambaşka bir alana, finans piyasalarına yöneltmeye karar verdi. Aynı disiplin — büyük hacimli veriyi anlamlandırıp anlık kararlara dönüştürme — burada da işe yarayabilirdi. Bu vizyonla BogaStock.com hayata geçti: amaç, ABD borsalarındaki binlerce hisseyi takip etmeyi karmaşık bir uğraş olmaktan çıkarıp herkes için anlaşılır hale getirmekti.
-          </p>
-        </div>
-
-        {/* Continuous learning */}
-        <div className="glass-card p-8 md:p-10 mb-8 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#06b6d4] to-[#22c55e]"></div>
-          <h2 className="text-xl font-bold text-white mb-4">Hiç Durmayan Bir Öğrenme Süreci</h2>
-          <p className="text-white/70 leading-relaxed">
-            BogaStock'un yapay zekâsı, kurulduğu günden bugüne aynı kalmadı ve kalmayacak. Sistem her yeni analiz veya işlem modelini devreye aldığında, kendi içinde bir yeniden öğrenme sürecinden geçiriyor — yani platform ne kadar çok kullanılırsa, o kadar çok tecrübe kazanıyor ve zamanla daha isabetli hale geliyor. Bu gelişim, Smart City ve otonom araç teknolojileri üzerine çalışan kardeş bir yapay zekâ sistemi olan{" "}
-            <a href="https://www.afknexro.com/" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">AFK Nexro AI</a>
-            {" "}ile birlikte, ortak bir Ar-Ge kültürü içinde ilerliyor.
-          </p>
-        </div>
-
-        {/* Today */}
+        {/* Today Stats */}
         <div className="mb-8">
-          <h2 className="text-2xl font-black text-white text-center mb-10">Bugün BogaStock</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-10">{config.stats.title}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="glass-card p-6">
-              <div className="text-3xl font-black text-[#3b82f6] mb-2">70+</div>
-              <p className="text-white/70 text-sm leading-relaxed">ülkede kullanıcılara ulaşıyoruz, sistemimiz kesintisiz 7/24 çalışıyor.</p>
-            </div>
-            <div className="glass-card p-6">
-              <div className="text-3xl font-black text-[#3b82f6] mb-2">6.000+</div>
-              <p className="text-white/70 text-sm leading-relaxed">ABD hisse senedi ve ETF'ini her gün tarayıp değerlendiriyoruz.</p>
-            </div>
-            <div className="glass-card p-6">
-              <div className="text-3xl font-black text-[#3b82f6] mb-2">5 Dil</div>
-              <p className="text-white/70 text-sm leading-relaxed">web sitemizde; kendi veritabanlarımız ve veri merkezlerimiz üzerinden hizmet veriyoruz.</p>
-            </div>
-            <div className="glass-card p-6">
-              <div className="text-3xl font-black text-[#3b82f6] mb-2">30+ Dil</div>
-              <p className="text-white/70 text-sm leading-relaxed">Boga Copilot ile — günlük hayata uygun, doğal bir dille sohbet edebiliyoruz.</p>
-            </div>
+            {config.stats.items.map((stat, idx) => (
+              <div key={idx} className="glass-card p-6">
+                <div className="text-3xl font-black text-[#3b82f6] mb-2">{stat.number}</div>
+                <p className="text-white/70 text-sm leading-relaxed">{stat.text}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Mission */}
         <div className="glass-card p-10 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
-          <h2 className="text-2xl font-medium text-white mb-4">Neye İnanıyoruz</h2>
-          <p className="text-white/80 max-w-2xl mx-auto italic leading-relaxed">
-            "Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock olarak amacımız, karmaşık piyasa verisini herkesin anlayabileceği net bir yola dönüştürüp, kullanıcımızın kendi kararını rahatça verebilmesine yardımcı olmak."
+          <h2 className="text-2xl font-medium text-white mb-4">{config.mission.title}</h2>
+          <p className="text-white/80 max-w-2xl mx-auto italic leading-relaxed mb-6">
+            {config.mission.description}
           </p>
+          {config.mission.image_url && (
+            <div className="w-full relative h-48 md:h-64 rounded-lg overflow-hidden border border-gray-800 mt-6">
+              <img src={config.mission.image_url} alt="Mission" className="object-cover w-full h-full" />
+            </div>
+          )}
         </div>
       </main>
 
