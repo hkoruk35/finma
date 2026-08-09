@@ -24,6 +24,7 @@ const NAV = [
   { href: "/admin/campaigns", label: "📣 Kampanyalar" },
   { href: "/admin/landing", label: "🌐 Landing Pages" },
   { href: "/admin/about", label: "📄 Hakkımızda" },
+  { href: "/admin/sss", label: "❓ SSS Yönetimi" },
   { href: "/admin/sitemap", label: "🗺️ Site Haritası" },
   { href: "/admin/top100", label: "🏆 Top100" },
   { href: "/admin/admins", label: "👨‍💼 Adminler" },
