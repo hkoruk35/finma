@@ -14,6 +14,7 @@ import {
 import { getMultiQuote } from "@/lib/homeFeed";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import { IndexDailySnapshotSection } from "@/components/global/IndexDailySnapshotSection";
 
 export const revalidate = 900;
 
@@ -81,6 +82,7 @@ export default async function IndexPage({ params }: Props) {
   // Kapanis session'i varsa onceliklendir, yoksa listedeki son kayit.
   const dailySnapshot =
     dailySnapshots.find((s) => s.session === "closing") ?? dailySnapshots[dailySnapshots.length - 1] ?? null;
+  const otherSnapshots = dailySnapshots.filter((s) => s !== dailySnapshot);
 
   const liveQuote = quotes[indexDef.symbol];
   const relatedIndices = getIndicesByRegion(indexDef.region).filter((i) => i.symbol !== indexDef.symbol);
@@ -181,27 +183,11 @@ export default async function IndexPage({ params }: Props) {
           </div>
           {dailySnapshot ? (
             <>
-              <IndexStatTable
-                columns={2}
-                items={[
-                  { label: t.close, value: dailySnapshot.close?.toFixed(2) ?? "—" },
-                  {
-                    label: t.change,
-                    value: dailySnapshot.change_pct != null ? `${dailySnapshot.change_pct.toFixed(2)}%` : "—",
-                    positive: dailySnapshot.change_pct != null ? dailySnapshot.change_pct >= 0 : undefined,
-                  },
-                  { label: t.rsi, value: dailySnapshot.rsi14?.toFixed(1) ?? "—" },
-                  {
-                    label: t.volatility,
-                    value: dailySnapshot.volatility_20d != null ? `${dailySnapshot.volatility_20d.toFixed(2)}%` : "—",
-                  },
-                ]}
-              />
-              {resolveNarrative(dailySnapshot.ai_narrative, locale) && (
-                <p className="text-sm text-slate-300 leading-relaxed line-clamp-4">
-                  {resolveNarrative(dailySnapshot.ai_narrative, locale)?.summary}
-                </p>
-              )}
+              <IndexDailySnapshotSection snapshot={dailySnapshot} locale={locale as Locale} primary />
+              {otherSnapshots.map((s) => (
+                <IndexDailySnapshotSection key={s.session} snapshot={s} locale={locale as Locale} />
+              ))}
+              
               <Link
                 href={`/global/${locale}/${indexSlug}/daily/${dailySnapshot.trade_date}`}
                 className="inline-block mt-3 text-xs font-semibold text-[#00d2ff] hover:text-white transition-colors"
