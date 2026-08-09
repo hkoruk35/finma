@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ScreenerChart from "@/components/screener/ScreenerChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
-import { formatAssetPrice } from "@/lib/symbols";
+import { formatAssetPrice, getAssetCategory } from "@/lib/symbols";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import type { AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
@@ -59,6 +59,9 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const router = useRouter();
   const { isPremium, plan } = useMemberPlan();
   const isLoggedIn = plan !== null;
+
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX"];
+  const isStock = !INDEX_TICKERS.includes(ticker) && getAssetCategory(ticker) === "stock";
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
 
@@ -288,7 +291,13 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">
           <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
-          {tradePlanLocked ? (
+          {!isStock ? (
+            <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
+              <span className="text-[11px] text-white/50 max-w-[210px] leading-snug">
+                {locale === "tr" ? "Bu endeks/parite veya ticker için işlem planı hesaplanmamaktadır." : "A trade plan is not calculated for this index/parity or ticker here."}
+              </span>
+            </div>
+          ) : tradePlanLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : !data.tradePlan.valid ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
@@ -386,7 +395,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
       )}
 
-      {data.tradePlan.valid && (
+      {data.tradePlan.valid && isStock && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
           {rationaleLocked ? (
