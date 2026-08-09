@@ -5,8 +5,8 @@ import path from "node:path";
 
 // Marka renkleri: app/globals.css @theme bloguyla birebir.
 const COLORS = {
-  bg: "#030047",
-  bgSecondary: "#0f1420",
+  bg: "#0F172A",
+  bgSecondary: "#111827",
   blue: "#3b82f6",
   cyan: "#06b6d4",
   purple: "#8b5cf6",
@@ -331,7 +331,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <img src={logo} width={50} height={50} style={{ borderRadius: 11 }} />
-            <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+            <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BogaStock</span>
           </div>
           <span style={{ fontSize: 18, fontWeight: 600, opacity: 0.5, marginLeft: 64, display: "flex" }}>
             bogastock.com
