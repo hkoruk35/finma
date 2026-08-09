@@ -25,7 +25,32 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
   const posts = await getPublicPosts(locale, 4);
   const newsHref = `/global/${locale}/news`;
 
-  if (posts.length === 0) return null;
+  if (posts.length === 0) {
+    return (
+      <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a]">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
+            <div className="min-w-0">
+              <h3 className="text-[16px] font-bold tracking-tight text-[#3b82f6] truncate">{t.title}</h3>
+            </div>
+          </div>
+          <Link
+            href={newsHref}
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0"
+          >
+            {t.all}
+            <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
+        <div className="p-6 text-center text-[#94a3b8] text-sm">
+          {t.empty}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden">
