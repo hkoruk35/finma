@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { XMLParser } from "fast-xml-parser";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export const runtime = "nodejs";
@@ -6,15 +7,47 @@ export const maxDuration = 300; // 5 minutes timeout
 
 const MIN_SHARES_THRESHOLD = 1000;
 const EDGAR_BASE = "https://data.sec.gov/submissions";
+// SEC EDGAR Fair Access Policy requires a descriptive User-Agent with contact
+// info on EVERY request (sec.gov + data.sec.gov) — istekler bu header olmadan
+// reddediliyor/anlamsız yanıt dönüyordu, bu yüzden hiç CIK/işlem bulunamıyordu.
+const SEC_HEADERS = { "User-Agent": "BogaStock contact@bogastock.com" };
 
-interface EdgarFiling {
+// Form 4 islem kodu -> bizim transaction_type enum'umuz. Yalnizca gercek
+// alim/satim/hibe/kullanim niteligindeki kodlari isliyoruz; digerleri (F: vergi
+// odemesi icin teslim, G: hediye, C/E/H/O/X gibi turev-spesifik kodlar) atlanir.
+const CODE_TO_TYPE: Record<string, "BUY" | "SELL" | "GRANT" | "EXERCISE"> = {
+  P: "BUY",
+  S: "SELL",
+  A: "GRANT",
+  M: "EXERCISE",
+};
+
+interface SubmissionFiling {
+  form: string;
   accessionNumber: string;
   filingDate: string;
   reportDate: string;
+  primaryDocument: string;
 }
 
 interface CIKCache {
   [ticker: string]: string | undefined;
+}
+
+interface InsiderRow {
+  cik: string;
+  ticker: string;
+  executive_name: string;
+  title: string | null;
+  transaction_type: "BUY" | "SELL" | "GRANT" | "EXERCISE";
+  shares_transacted: number;
+  transaction_price: number | null;
+  transaction_date: string;
+  filed_date: string;
+  form_type: string;
+  is_director: boolean;
+  is_officer: boolean;
+  is_ten_pct_owner: boolean;
 }
 
 /**
@@ -48,7 +81,6 @@ export async function GET(request: NextRequest) {
 async function fetchInsiderData() {
   console.log("[INSIDER CRON] Starting insider data fetch...");
 
-  // Load ticker universe
   const tickers = await loadTickerUniverse();
   console.log(`[INSIDER CRON] Loaded ${tickers.length} tickers`);
 
@@ -56,37 +88,36 @@ async function fetchInsiderData() {
     return { success: false, message: "No tickers found" };
   }
 
-  // Load CIK cache
   const cikCache = await loadCIKCache();
   console.log(`[INSIDER CRON] CIK cache: ${Object.keys(cikCache).length} entries`);
+
+  // Eksik ticker'lar icin SEC'in tum halka acik sirketleri iceren TEK dosyasi
+  // (per-ticker sorgudan cok daha guvenilir — browse-edgar arama uc noktasi
+  // duzensiz JSON donuyordu).
+  const missingTickers = tickers.filter((t) => !cikCache[t]);
+  const bulkMap = missingTickers.length > 0 ? await loadBulkTickerCikMap() : new Map<string, string>();
 
   let totalStored = 0;
   let totalErrors = 0;
   const errors: string[] = [];
 
-  // Process each ticker
   for (const ticker of tickers) {
     try {
-      // Get CIK
       let cik = cikCache[ticker];
       if (!cik) {
-        cik = await lookupCIK(ticker);
+        cik = bulkMap.get(ticker.toUpperCase());
         if (!cik) {
-          console.warn(`[INSIDER CRON] No CIK for ${ticker}, skipping`);
           totalErrors++;
           errors.push(`No CIK: ${ticker}`);
           continue;
         }
-        // Update cache
         await cacheCIK(ticker, cik);
         cikCache[ticker] = cik;
       }
 
-      // Fetch Form 4 filings
       const transactions = await fetchForm4Transactions(cik, ticker);
       console.log(`[INSIDER CRON] ${ticker}: ${transactions.length} transactions`);
 
-      // Store in database
       const stored = await storeTransactions(transactions);
       totalStored += stored;
     } catch (err) {
@@ -101,7 +132,7 @@ async function fetchInsiderData() {
     processed: tickers.length,
     stored: totalStored,
     errors: totalErrors,
-    errorDetails: errors.slice(0, 10), // First 10 errors
+    errorDetails: errors.slice(0, 10),
   };
 
   console.log(`[INSIDER CRON] Complete:`, summary);
@@ -141,32 +172,28 @@ async function loadCIKCache(): Promise<CIKCache> {
   }
 }
 
-async function lookupCIK(ticker: string): Promise<string | undefined> {
+// https://www.sec.gov/files/company_tickers.json — SEC'in resmi ticker->CIK
+// dizini (tum halka acik sirketler, tek istekte). Anahtarlari sirali index
+// olan bir obje donuyor: { "0": {cik_str, ticker, title}, "1": {...}, ... }
+async function loadBulkTickerCikMap(): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
   try {
-    // Search SEC EDGAR for ticker (using company search via JSON API)
-    // This is a simple approach: fetch EDGAR company facts to derive CIK
-    // More reliable: use SEC EDGAR search API with ticker
-    const response = await fetch(
-      `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${ticker}&type=&dateb=&owner=exclude&count=1&search_text=&CIK=&myHID=&count=100&output=json`
-    );
-
-    if (!response.ok) {
-      console.warn(`[INSIDER CRON] SEC lookup failed for ${ticker}: ${response.status}`);
-      return undefined;
+    const res = await fetch("https://www.sec.gov/files/company_tickers.json", { headers: SEC_HEADERS });
+    if (!res.ok) {
+      console.error(`[INSIDER CRON] company_tickers.json fetch failed: ${res.status}`);
+      return map;
     }
-
-    const json: any = await response.json();
-    if (json.results && json.results[0] && json.results[0].cik_str) {
-      const cik = String(json.results[0].cik_str).padStart(10, "0");
-      console.log(`[INSIDER CRON] Found CIK for ${ticker}: ${cik}`);
-      return cik;
+    const json: Record<string, { cik_str: number; ticker: string; title: string }> = await res.json();
+    for (const entry of Object.values(json)) {
+      if (entry?.ticker && entry.cik_str) {
+        map.set(entry.ticker.toUpperCase(), String(entry.cik_str).padStart(10, "0"));
+      }
     }
-
-    return undefined;
+    console.log(`[INSIDER CRON] Bulk CIK map loaded: ${map.size} companies`);
   } catch (err) {
-    console.warn(`[INSIDER CRON] CIK lookup error for ${ticker}:`, err);
-    return undefined;
+    console.error("[INSIDER CRON] Bulk CIK map fetch error:", err);
   }
+  return map;
 }
 
 async function cacheCIK(ticker: string, cik: string): Promise<void> {
@@ -182,52 +209,44 @@ async function cacheCIK(ticker: string, cik: string): Promise<void> {
   }
 }
 
-async function fetchForm4Transactions(
-  cik: string,
-  ticker: string
-): Promise<any[]> {
+async function fetchForm4Transactions(cik: string, ticker: string): Promise<InsiderRow[]> {
   try {
     const cikPadded = cik.padStart(10, "0");
     const url = `${EDGAR_BASE}/CIK${cikPadded}.json`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, { headers: SEC_HEADERS });
     if (!response.ok) {
       throw new Error(`EDGAR API error: ${response.status}`);
     }
 
     const data: any = await response.json();
-    const filings = data.filings?.recent?.form || [];
+    const recent = data.filings?.recent;
+    if (!recent?.form) return [];
 
-    const form4s: EdgarFiling[] = [];
-    for (let i = 0; i < filings.length; i++) {
-      if (filings[i] === "4") {
-        form4s.push({
-          accessionNumber: data.filings.recent.accessionNumber[i],
-          filingDate: data.filings.recent.filingDate[i],
-          reportDate: data.filings.recent.reportDate[i],
+    const filings: SubmissionFiling[] = [];
+    for (let i = 0; i < recent.form.length; i++) {
+      if (recent.form[i] === "4") {
+        filings.push({
+          form: recent.form[i],
+          accessionNumber: recent.accessionNumber[i],
+          filingDate: recent.filingDate[i],
+          reportDate: recent.reportDate[i],
+          primaryDocument: recent.primaryDocument[i],
         });
       }
     }
 
-    console.log(`[INSIDER CRON] Found ${form4s.length} Form 4s for CIK ${cikPadded}`);
-
-    // Parse transactions from recent Form 4s (last 30 days)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    const transactions: any[] = [];
-    for (const filing of form4s.slice(0, 10)) {
-      // Last 10 Form 4s
-      if (new Date(filing.reportDate) < thirtyDaysAgo) break;
-
+    const transactions: InsiderRow[] = [];
+    for (const filing of filings) {
+      if (new Date(filing.filingDate) < thirtyDaysAgo) break; // filings zaten filingDate'e gore azalan sirali
       try {
-        const filTx = await parseForm4XML(cikPadded, filing.accessionNumber, ticker);
+        const filTx = await parseForm4XML(cikPadded, filing, ticker);
         transactions.push(...filTx);
       } catch (err) {
-        console.warn(
-          `[INSIDER CRON] Parse error for ${ticker} ${filing.accessionNumber}:`,
-          err
-        );
+        console.warn(`[INSIDER CRON] Parse error for ${ticker} ${filing.accessionNumber}:`, err);
       }
     }
 
@@ -238,40 +257,107 @@ async function fetchForm4Transactions(
   }
 }
 
-async function parseForm4XML(
-  cik: string,
-  accession: string,
-  ticker: string
-): Promise<any[]> {
-  try {
-    // Fetch XML document
-    const accessionClean = accession.replace(/-/g, "");
-    const xmlUrl = `https://www.sec.gov/cgi-bin/viewer?action=view&cik=${cik}&accession_number=${accession}&xbrl_type=v`;
+const xmlParser = new XMLParser({ ignoreAttributes: true, trimValues: true });
 
-    // Alternative: fetch from EDGAR XBRL data feeds
-    // For now, use a simplified approach: fetch filing details via JSON
-    // This is less robust but doesn't require XML parsing
-
-    // Simplified: assume we don't have detailed transaction parsing yet
-    // Return empty for now — this should be enhanced with full Form 4 XML parsing
-    return [];
-  } catch (err) {
-    console.warn(
-      `[INSIDER CRON] XML parse error for ${cik}/${accession}:`,
-      err
-    );
-    return [];
-  }
+// Bir dizi/tekil degeri her zaman diziye normalize eder — fast-xml-parser tek
+// eleman oldugunda obje, birden fazla oldugunda dizi donuyor.
+function asArray<T>(value: T | T[] | undefined | null): T[] {
+  if (value === undefined || value === null) return [];
+  return Array.isArray(value) ? value : [value];
 }
 
-async function storeTransactions(transactions: any[]): Promise<number> {
+function textOf(node: any): string | undefined {
+  if (node === undefined || node === null) return undefined;
+  if (typeof node === "object") return node.value !== undefined ? String(node.value) : undefined;
+  return String(node);
+}
+
+function numOf(node: any): number | undefined {
+  const t = textOf(node);
+  if (t === undefined || t === "") return undefined;
+  const n = Number(t);
+  return Number.isFinite(n) ? n : undefined;
+}
+
+// Gercek Form 4 XML gövdesini indirip ayristirir — reportingOwner (isim,
+// unvan, director/officer/10% owner rolleri) + nonDerivativeTable icindeki
+// islemler (kod, adet, fiyat, tarih). Turev (opsiyon vb.) islemleri simdilik
+// kapsam disi — nonDerivativeTable, gercek hisse alim/satimlarini icerir.
+async function parseForm4XML(cikPadded: string, filing: SubmissionFiling, ticker: string): Promise<InsiderRow[]> {
+  if (!filing.primaryDocument) return [];
+
+  const cikNum = String(Number(cikPadded));
+  const accessionNoDashes = filing.accessionNumber.replace(/-/g, "");
+  const xmlUrl = `https://www.sec.gov/Archives/edgar/data/${cikNum}/${accessionNoDashes}/${filing.primaryDocument}`;
+
+  const res = await fetch(xmlUrl, { headers: SEC_HEADERS });
+  if (!res.ok) {
+    console.warn(`[INSIDER CRON] Form 4 doc fetch failed (${res.status}): ${xmlUrl}`);
+    return [];
+  }
+  const xmlText = await res.text();
+  if (!xmlText.trim().startsWith("<?xml") && !xmlText.includes("<ownershipDocument")) {
+    // primaryDocument bazen .htm oluyor (nadir/eski filing'ler) — XML degil, atla.
+    return [];
+  }
+
+  const doc = xmlParser.parse(xmlText)?.ownershipDocument;
+  if (!doc) return [];
+
+  const owner = asArray(doc.reportingOwner)[0];
+  const executiveName = textOf(owner?.reportingOwnerId?.rptOwnerName) || "Unknown";
+  const relationship = owner?.reportingOwnerRelationship;
+  const isDirector = textOf(relationship?.isDirector) === "1" || textOf(relationship?.isDirector) === "true";
+  const isOfficer = textOf(relationship?.isOfficer) === "1" || textOf(relationship?.isOfficer) === "true";
+  const isTenPctOwner = textOf(relationship?.isTenPercentOwner) === "1" || textOf(relationship?.isTenPercentOwner) === "true";
+  const title = textOf(relationship?.officerTitle) || null;
+
+  const rows: InsiderRow[] = [];
+  const nonDerivative = asArray(doc.nonDerivativeTable?.nonDerivativeTransaction);
+
+  for (const tx of nonDerivative) {
+    const code = textOf(tx?.transactionCoding?.transactionCode);
+    const type = code ? CODE_TO_TYPE[code] : undefined;
+    if (!type) continue; // F/G/C/vb. — bizim kapsamimizda degil
+
+    const shares = numOf(tx?.transactionAmounts?.transactionShares);
+    if (!shares || shares < MIN_SHARES_THRESHOLD) continue;
+
+    const price = numOf(tx?.transactionAmounts?.transactionPricePerShare);
+    const transactionDate = textOf(tx?.transactionDate);
+    if (!transactionDate) continue;
+
+    rows.push({
+      cik: cikPadded,
+      ticker,
+      executive_name: executiveName,
+      title,
+      transaction_type: type,
+      shares_transacted: Math.round(shares),
+      transaction_price: price ?? null,
+      transaction_date: transactionDate,
+      filed_date: filing.filingDate,
+      form_type: "Form 4",
+      is_director: isDirector,
+      is_officer: isOfficer,
+      is_ten_pct_owner: isTenPctOwner,
+    });
+  }
+
+  return rows;
+}
+
+async function storeTransactions(transactions: InsiderRow[]): Promise<number> {
   if (transactions.length === 0) return 0;
 
   try {
-    await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from("insider_transactions")
-      .upsert(transactions);
-
+      .upsert(transactions, {
+        onConflict: "cik,ticker,transaction_date,executive_name,transaction_type,shares_transacted",
+        ignoreDuplicates: true,
+      });
+    if (error) throw error;
     return transactions.length;
   } catch (err) {
     console.error(`[INSIDER CRON] Store error:`, err);
