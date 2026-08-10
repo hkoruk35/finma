@@ -57,15 +57,15 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
       <div className="flex flex-wrap gap-4 text-xs text-[#00d2ff]">
         {inst && (
           <span className="text-white">
-            🛡️ <b>${formatNumber(inst.strike?, 0)}C</b> · Prem: ${formatNumber(inst.premium?, 2)}
-            · TP: ${formatNumber(inst.tp_price?, 2)} · SL: ${formatNumber(inst.sl_price?, 2)}
+            🛡️ <b>${formatNumber(inst.strike, 0)}C</b> · Prem: ${formatNumber(inst.premium, 2)}
+            · TP: ${formatNumber(inst.tp_price, 2)} · SL: ${formatNumber(inst.sl_price, 2)}
             · {inst.expiration} ({inst.dte}d)
           </span>
         )}
         {asym && (
           <span className="text-white">
-            🚀 <b>${formatNumber(asym.strike?, 0)}C</b> · Prem: ${formatNumber(asym.premium?, 2)}
-            · TP: ${formatNumber(asym.tp_price?, 2)} · SL: ${formatNumber(asym.sl_price?, 2)}
+            🚀 <b>${formatNumber(asym.strike, 0)}C</b> · Prem: ${formatNumber(asym.premium, 2)}
+            · TP: ${formatNumber(asym.tp_price, 2)} · SL: ${formatNumber(asym.sl_price, 2)}
           </span>
         )}
         {pick.expected_move != null && (

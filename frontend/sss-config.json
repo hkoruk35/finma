@@ -168,6 +168,10 @@
       {
         "question": "20. Do I have to use a \"Stop Loss\"?",
         "answer": "Yes! The first rule of BogaStock philosophy is never opening a trade without a Stop Loss. Utilizing our automated alarms (Premium) and sticking to your plan is the only way to protect your capital from major crashes."
+      },
+      {
+        "question": "21. Are you a global company? Which languages does your platform support?",
+        "answer": "Yes. We are a US-based global company operating 24/7. While our default platform language is English, we provide full localization in 5 languages (English, Turkish, Spanish, French, Portuguese). Furthermore, our advanced Boga Copilot AI is capable of understanding and interacting with you in over 100 languages, ensuring seamless support no matter where you are in the world."
       }
     ]
   },
@@ -254,6 +258,10 @@
       {
         "question": "20. ¿Tengo que usar un \"Stop Loss\"?",
         "answer": "¡Sí! La primera regla de la filosofía de BogaStock es nunca abrir una operación sin un Stop Loss. Utilizar nuestras alarmas automáticas (Premium) es la única forma de proteger su capital."
+      },
+      {
+        "question": "21. ¿Son una empresa global? ¿Qué idiomas admite su plataforma?",
+        "answer": "Sí. Somos una empresa global con sede en EE. UU. que opera las 24 horas del día, los 7 días de la semana. Aunque nuestro idioma predeterminado es el inglés, ofrecemos localización completa en 5 idiomas (inglés, turco, español, francés, portugués). Además, nuestra avanzada IA Boga Copilot es capaz de comprender e interactuar con usted en más de 100 idiomas."
       }
     ]
   },
@@ -340,6 +348,10 @@
       {
         "question": "20. Dois-je utiliser un Stop Loss ?",
         "answer": "Oui, c'est la règle d'or pour protéger votre capital."
+      },
+      {
+        "question": "21. Êtes-vous une entreprise mondiale ? Quelles langues votre plateforme prend-elle en charge ?",
+        "answer": "Oui. Nous sommes une entreprise mondiale basée aux États-Unis, active 24h/24 et 7j/7. Bien que la langue par défaut de notre plateforme soit l'anglais, nous proposons une localisation complète dans 5 langues (anglais, turc, espagnol, français, portugais). De plus, notre IA avancée Boga Copilot est capable de comprendre et d'interagir avec vous dans plus de 100 langues."
       }
     ]
   },
@@ -426,6 +438,10 @@
       {
         "question": "20. O Stop Loss é obrigatório?",
         "answer": "Na nossa filosofia, sim! Use nossas ferramentas para proteger seu capital."
+      },
+      {
+        "question": "21. Vocês são uma empresa global? Quais idiomas sua plataforma suporta?",
+        "answer": "Sim. Somos uma empresa global com sede nos EUA, operando 24 horas por dia, 7 dias por semana. Embora nosso idioma padrão seja o inglês, oferecemos localização completa em 5 idiomas (inglês, turco, espanhol, francês, português). Além disso, nossa avançada IA Boga Copilot é capaz de entender e interagir com você em mais de 100 idiomas."
       }
     ]
   }

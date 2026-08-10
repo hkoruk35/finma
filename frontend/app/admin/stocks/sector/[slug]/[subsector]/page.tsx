@@ -260,7 +260,7 @@ export default async function SubsectorPage({
                     </Link>
                   </td>
                   <td className="px-4 py-3 text-white font-semibold">
-                    ${formatNumber(stock.price?, 2) || "N/A"}
+                    ${formatNumber(stock.price, 2) || "N/A"}
                   </td>
                   <td className={`px-4 py-3 text-right font-medium ${getChangeColor(stock.change_1d)}`}>
                     {stock.change_1d !== undefined && stock.change_1d !== null
@@ -268,7 +268,7 @@ export default async function SubsectorPage({
                       : "N/A"}
                   </td>
                   <td className="px-4 py-3 text-center text-white">
-                    {formatNumber(stock.technical?.rsi?, 1) || "N/A"}
+                    {formatNumber(stock.technical?.rsi, 1) || "N/A"}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {stock.technical?.momentum ? (
@@ -311,12 +311,12 @@ export default async function SubsectorPage({
                 </span>
               </div>
               <p className="text-white font-semibold mb-2">
-                ${formatNumber(stock.price?, 2) || "N/A"}
+                ${formatNumber(stock.price, 2) || "N/A"}
               </p>
               <div className="grid grid-cols-3 gap-2 text-[10px] text-white">
                 <div>
                   <p className="uppercase font-medium">RSI</p>
-                  <p className="text-white">{formatNumber(stock.technical?.rsi?, 1) || "N/A"}</p>
+                  <p className="text-white">{formatNumber(stock.technical?.rsi, 1) || "N/A"}</p>
                 </div>
                 <div>
                   <p className="uppercase font-medium">Momentum</p>

@@ -49,7 +49,7 @@ export function IndexDailySnapshotSection({
       <IndexStatTable
         columns={2}
         items={[
-          { label: t.close, value: formatNumber(snapshot.close?, 2) ?? "—" },
+          { label: t.close, value: formatNumber(snapshot.close, 2) ?? "—" },
           {
             label: t.change,
             value: snapshot.change_pct != null ? `${formatNumber(snapshot.change_pct, 2)}%` : "—",
@@ -65,11 +65,11 @@ export function IndexDailySnapshotSection({
             value: snapshot.change_pct_20d != null ? `${formatNumber(snapshot.change_pct_20d, 2)}%` : "—",
             positive: snapshot.change_pct_20d != null ? snapshot.change_pct_20d >= 0 : undefined,
           },
-          { label: "EMA20", value: formatNumber(snapshot.ema20?, 2) ?? "—" },
-          { label: "EMA50", value: formatNumber(snapshot.ema50?, 2) ?? "—" },
-          { label: "EMA200", value: formatNumber(snapshot.ema200?, 2) ?? "—" },
-          { label: t.rsi, value: formatNumber(snapshot.rsi14?, 1) ?? "—" },
-          { label: t.atr, value: formatNumber(snapshot.atr14?, 2) ?? "—" },
+          { label: "EMA20", value: formatNumber(snapshot.ema20, 2) ?? "—" },
+          { label: "EMA50", value: formatNumber(snapshot.ema50, 2) ?? "—" },
+          { label: "EMA200", value: formatNumber(snapshot.ema200, 2) ?? "—" },
+          { label: t.rsi, value: formatNumber(snapshot.rsi14, 1) ?? "—" },
+          { label: t.atr, value: formatNumber(snapshot.atr14, 2) ?? "—" },
           {
             label: t.volatility,
             value: snapshot.volatility_20d != null ? `${formatNumber(snapshot.volatility_20d, 2)}%` : "—",
@@ -92,9 +92,9 @@ export function IndexDailySnapshotSection({
       <IndexStatTable
         columns={3}
         items={[
-          { label: "VIX", value: formatNumber(snapshot.vix?, 2) ?? "—" },
+          { label: "VIX", value: formatNumber(snapshot.vix, 2) ?? "—" },
           { label: "US10Y", value: snapshot.us10y != null ? `${formatNumber(snapshot.us10y, 2)}%` : "—" },
-          { label: "DXY", value: formatNumber(snapshot.dxy?, 2) ?? "—" },
+          { label: "DXY", value: formatNumber(snapshot.dxy, 2) ?? "—" },
         ]}
       />
 

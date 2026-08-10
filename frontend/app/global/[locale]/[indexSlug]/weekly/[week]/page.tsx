@@ -178,7 +178,7 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
               <IndexStatTable
                 columns={2}
                 items={[
-                  { label: t.close, value: formatNumber(snapshot.close?, 2) ?? "—" },
+                  { label: t.close, value: formatNumber(snapshot.close, 2) ?? "—" },
                   {
                     label: t.change,
                     value: snapshot.change_pct_week != null ? `${formatNumber(snapshot.change_pct_week, 2)}%` : "—",

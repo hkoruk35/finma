@@ -419,7 +419,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           )}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <MetricBox label="RSI 14" value={formatNumber(rsi, 1)} sub={rsiLabel} color={rsiColor} />
-            <MetricBox label="ATR 14" value={fmtUsd(atr)} sub={`${formatNumber(rd.atrPct?, 1) ?? "—"}%`} color="amber" />
+            <MetricBox label="ATR 14" value={fmtUsd(atr)} sub={`${formatNumber(rd.atrPct, 1) ?? "—"}%`} color="amber" />
             <MetricBox label="IV Rank" value={`${formatNumber(ivRank, 0)}%`} sub={`IV ${iv}%`} color={ivRank > 50 ? "red" : "purple"} />
             <MetricBox label={L(lang, "30G Beklenti", "30D Implied")} value={`±${fmtUsd(implied)}`} sub={`±${cp > 0 ? ((implied / cp) * 100).toFixed(1) : "—"}%`} color="cyan" />
           </div>
@@ -650,8 +650,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                 <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-medium mb-1.5">OBV / A-D / MFI</div>
                 <p className="text-[12px] text-slate-300 leading-relaxed">
                   {lang === "tr"
-                    ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${formatNumber(fs.mfi?, 0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
-                    : `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${formatNumber(fs.mfi?, 0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`}
+                    ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${formatNumber(fs.mfi, 0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
+                    : `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${formatNumber(fs.mfi, 0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`}
                 </p>
               </div>
             </div>
@@ -703,8 +703,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                       <span className="text-[11px] text-slate-500 ml-1.5">{e.date}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-slate-400">{L(lang, "Ger", "Act")}: <span className="text-white font-medium">${formatNumber(e.eps?, 2)}</span> · Est: ${formatNumber(e.estimate?, 2)}</span>
-                      <span className={`text-[11px] font-medium ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{formatNumber(e.epsSurprise?, 1)}%</span>
+                      <span className="text-[11px] text-slate-400">{L(lang, "Ger", "Act")}: <span className="text-white font-medium">${formatNumber(e.eps, 2)}</span> · Est: ${formatNumber(e.estimate, 2)}</span>
+                      <span className={`text-[11px] font-medium ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{formatNumber(e.epsSurprise, 1)}%</span>
                       <Chip label={beat ? L(lang, "GEÇTİ", "BEAT") : L(lang, "KAÇIRDI", "MISS")} color={beat ? "green" : "red"} />
                     </div>
                   </div>
@@ -720,7 +720,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           <div className="grid grid-cols-3 gap-2 mb-4">
             {rd.sp500Change  != null && <MetricBox label="S&P 500" value={`${rd.sp500Change  >= 0 ? "+" : ""}${formatNumber(rd.sp500Change, 2)}%`}  color={rd.sp500Change  >= 0 ? "green" : "red"} />}
             {rd.nasdaqChange != null && <MetricBox label="Nasdaq"   value={`${rd.nasdaqChange >= 0 ? "+" : ""}${formatNumber(rd.nasdaqChange, 2)}%`} color={rd.nasdaqChange >= 0 ? "green" : "red"} />}
-            {rd.vixPrice     != null && <MetricBox label="VIX" value={formatNumber(rd.vixPrice?, 1)} sub={rd.vixPrice > 25 ? L(lang, "Yüksek Korku", "High Fear") : rd.vixPrice > 18 ? L(lang, "Orta", "Moderate") : L(lang, "Düşük", "Low")} color={rd.vixPrice > 25 ? "red" : rd.vixPrice > 18 ? "amber" : "green"} />}
+            {rd.vixPrice     != null && <MetricBox label="VIX" value={formatNumber(rd.vixPrice, 1)} sub={rd.vixPrice > 25 ? L(lang, "Yüksek Korku", "High Fear") : rd.vixPrice > 18 ? L(lang, "Orta", "Moderate") : L(lang, "Düşük", "Low")} color={rd.vixPrice > 25 ? "red" : rd.vixPrice > 18 ? "amber" : "green"} />}
           </div>
 
           {/* Daily peer performance */}

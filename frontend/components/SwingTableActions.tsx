@@ -32,9 +32,9 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
       formatNumber(p.profit_zone.high, 2),
       formatNumber(p.stop_zone.low, 2),
       formatNumber(p.stop_zone.high, 2),
-      formatNumber(p.change_1d?, 2) || "0",
-      formatNumber(p.change_1w?, 2) || "0",
-      formatNumber(p.change_1m?, 2) || "0"
+      formatNumber(p.change_1d, 2) || "0",
+      formatNumber(p.change_1w, 2) || "0",
+      formatNumber(p.change_1m, 2) || "0"
     ]);
 
     const csvContent = [

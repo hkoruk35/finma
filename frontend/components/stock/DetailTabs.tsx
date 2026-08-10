@@ -178,7 +178,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                     <div>
                       <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">24H Change</p>
                       <p className={`text-2xl font-mono font-medium ${hourlyData.change_24h >= 0 ? "text-green-400" : "text-red-400"}`}>
-                        {hourlyData.change_24h >= 0 ? "+" : ""}{formatNumber(hourlyData.change_24h?, 2)}%
+                        {hourlyData.change_24h >= 0 ? "+" : ""}{formatNumber(hourlyData.change_24h, 2)}%
                       </p>
                     </div>
                     <div>

@@ -43,30 +43,35 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
     { href: "/global/en/news", label: "Market News" },
     { href: "/global/en/contact", label: "Contact Support" },
     { href: "/global/en/faq", label: "Frequently Asked Questions (FAQ)" },
+    { href: "/global/en/sitemap", label: "Sitemap" },
   ],
   tr: [
     { href: "/global/tr/about", label: "BogaStock Hakkında" },
     { href: "/global/tr/news", label: "Piyasa Haberleri" },
     { href: "/global/tr/contact", label: "Destek İletişim" },
     { href: "/global/tr/sss", label: "Sıkça Sorulan Sorular (SSS)" },
+    { href: "/global/tr/sitemap", label: "Site Haritası" },
   ],
   es: [
     { href: "/global/es/about", label: "Acerca de BogaStock" },
     { href: "/global/es/news", label: "Noticias del Mercado" },
     { href: "/global/es/contact", label: "Soporte y Contacto" },
     { href: "/global/es/faq", label: "Preguntas Frecuentes (FAQ)" },
+    { href: "/global/es/sitemap", label: "Mapa del Sitio" },
   ],
   fr: [
     { href: "/global/fr/about", label: "À Propos de BogaStock" },
     { href: "/global/fr/news", label: "Actualités du Marché" },
     { href: "/global/fr/contact", label: "Support et Contact" },
     { href: "/global/fr/faq", label: "Foire Aux Questions (FAQ)" },
+    { href: "/global/fr/sitemap", label: "Plan du Site" },
   ],
   pt: [
     { href: "/global/pt/about", label: "Sobre a BogaStock" },
     { href: "/global/pt/news", label: "Notícias do Mercado" },
     { href: "/global/pt/contact", label: "Suporte e Contato" },
     { href: "/global/pt/Perguntas_Frequentes", label: "Perguntas Frequentes (FAQ)" },
+    { href: "/global/pt/sitemap", label: "Mapa do Site" },
   ],
 };
 

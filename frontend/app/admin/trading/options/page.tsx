@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 function n(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return NumberformatNumber(v, d);
+  return formatNumber(v, d);
 }
 function pct(v: any, d = 1): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
@@ -27,7 +27,7 @@ function pct(v: any, d = 1): string {
 }
 function dollar(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return "$" + NumberformatNumber(v, d);
+  return "$" + formatNumber(v, d);
 }
 function num(v: any, d = 0): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";

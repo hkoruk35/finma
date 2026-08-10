@@ -349,7 +349,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                               </Link>
                             </td>
                             <td className="px-3 py-2.5 text-right">
-                              <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score?, 1)}</span>
+                              <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score, 1)}</span>
                             </td>
                             <td className="px-3 py-2.5 text-right">
                               <span className="text-[#a78bfa] font-medium text-xs">{op.grade ?? "—"}</span>
@@ -384,7 +384,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           </Link>
                           <div className="flex items-center gap-2">
                             <span className="text-[#a78bfa] font-medium text-sm">{op.grade ?? ""}</span>
-                            <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score?, 1)}</span>
+                            <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score, 1)}</span>
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-3 text-[11px]">

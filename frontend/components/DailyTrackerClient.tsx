@@ -772,7 +772,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
               }}>
                 <div style={{ fontSize: 9, color: "#8b949e", marginBottom: 2 }}>{h.hour}</div>
                 <div style={{ fontSize: 8, color: text, fontWeight: 700 }}>{statusLabel(h.status)}</div>
-                <div style={{ fontSize: 9, color: "#e6edf3" }}>${formatNumber(h.price?, 2) ?? "—"}</div>
+                <div style={{ fontSize: 9, color: "#e6edf3" }}>${formatNumber(h.price, 2) ?? "—"}</div>
               </div>
             );
           })}
@@ -792,7 +792,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div style={{ marginBottom: 6 }}>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Alım: </span>
               <span style={{ fontSize: 10, color: "#3fb950", fontWeight: 700 }}>
-                ${formatNumber(tk.buy_zone.low?, 2)} – ${formatNumber(tk.buy_zone.high?, 2)}
+                ${formatNumber(tk.buy_zone.low, 2)} – ${formatNumber(tk.buy_zone.high, 2)}
               </span>
             </div>
           )}
@@ -800,7 +800,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div style={{ marginBottom: 6 }}>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Stop: </span>
               <span style={{ fontSize: 10, color: "#f85149", fontWeight: 700 }}>
-                ${formatNumber(tk.stop_zone.low?, 2)} – ${formatNumber(tk.stop_zone.high?, 2)}
+                ${formatNumber(tk.stop_zone.low, 2)} – ${formatNumber(tk.stop_zone.high, 2)}
               </span>
             </div>
           )}
@@ -808,7 +808,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Hedef: </span>
               <span style={{ fontSize: 10, color: "#d2a8ff", fontWeight: 700 }}>
-                ${formatNumber(tk.profit_zone.low?, 2)} – ${(tk.profit_zone as any)formatNumber(.high?, 2)}
+                ${formatNumber(tk.profit_zone.low, 2)} – ${formatNumber((tk.profit_zone as any).high, 2)}
               </span>
             </div>
           )}
@@ -936,7 +936,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                   return (
                     <td
                       key={h}
-                      title={item ? `${item.hour}: ${item.status} ($${formatNumber(item.price?, 2)})` : "—"}
+                      title={item ? `${item.hour}: ${item.status} ($${formatNumber(item.price, 2)})` : "—"}
                       style={{
                         padding: "5px 4px", textAlign: "center", background: bg,
                         borderRight: "1px solid #1a1f27", minWidth: 50,
@@ -947,7 +947,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                           <div style={{ fontSize: 8, color: text, fontWeight: 700 }}>
                             {statusLabel(item.status).replace(/[^\w%$+.-]/g, "").slice(0, 4)}
                           </div>
-                          <div style={{ fontSize: 8, color: "#aaa" }}>${formatNumber(item.price?, 1)}</div>
+                          <div style={{ fontSize: 8, color: "#aaa" }}>${formatNumber(item.price, 1)}</div>
                         </>
                       ) : (
                         <span style={{ color: "#333", fontSize: 9 }}>·</span>

@@ -50,7 +50,7 @@
     },
     "mission": {
       "title": "Neye İnanıyoruz",
-      "description": "\"Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock olarak amacımız, global finans verilerini herkesin anlayabileceği net bir yola dönüştürüp, kendi kararınızı güvenle vermenize yardımcı olmaktır.\"",
+      "description": "\"Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock olarak amacımız, global finans verilerini herkesin anlayabileceği net bir yola dönüştürüp, kendi kararınızı güvenle vermenize yardımcı olmaktır.\" ABD merkezli, 7/24 aktif küresel bir şirketiz. Varsayılan dilimiz İngilizce'dir, ancak 5 dilde yerelleştirilmiş içerik sunuyoruz ve gelişmiş Copilot yapay zekamız 100'den fazla dili desteklemektedir. Sektör endeksleri, insider takibi ve bilanço analizleri dahil olmak üzere yeni analitik araçlarla sürekli olarak gelişmeye devam ediyoruz.",
       "image_url": ""
     }
   },
@@ -105,7 +105,7 @@
     },
     "mission": {
       "title": "What We Believe",
-      "description": "\"In a world increasingly run by algorithms, processing data correctly is only half the job — making it understandable matters just as much. At BogaStock, our goal is to turn global financial data into a clear path anyone can follow.\"",
+      "description": "\"In a world increasingly run by algorithms, processing data correctly is only half the job — making it understandable matters just as much. At BogaStock, our goal is to turn global financial data into a clear path anyone can follow.\" We are a US-based global company with a 24/7 active structure. Our default language is English, but we offer localized content in 5 languages, and our advanced Copilot AI supports over 100 languages. We continuously evolve with new analytical tools, including sector indices, insider tracking, and earnings analysis.",
       "image_url": ""
     }
   },
@@ -160,7 +160,7 @@
     },
     "mission": {
       "title": "Lo Que Creemos",
-      "description": "\"En un mundo cada vez más dirigido por algoritmos, procesar los datos correctamente es solo la mitad del trabajo. En BogaStock, nuestro objetivo es convertir los datos financieros en un camino claro que cualquiera pueda seguir.\"",
+      "description": "\"En un mundo cada vez más dirigido por algoritmos, procesar los datos correctamente es solo la mitad del trabajo. En BogaStock, nuestro objetivo es convertir los datos financieros en un camino claro que cualquiera pueda seguir.\" Somos una empresa global con sede en EE. UU. y una estructura activa las 24 horas, los 7 días de la semana. Nuestro idioma predeterminado es el inglés, pero ofrecemos contenido localizado en 5 idiomas, y nuestra avanzada IA Copilot admite más de 100 idiomas. Evolucionamos continuamente con nuevas herramientas analíticas, incluidos índices sectoriales, seguimiento de transacciones de directivos (insiders) y análisis de ganancias.",
       "image_url": ""
     }
   },
@@ -215,7 +215,7 @@
     },
     "mission": {
       "title": "Ce Que Nous Croyons",
-      "description": "\"Dans un monde dirigé par les algorithmes, traiter les données correctement n'est que la moitié du travail. Chez BogaStock, notre objectif est de transformer les données financières en un chemin clair pour vous aider à prendre vos propres décisions en toute confiance.\"",
+      "description": "\"Dans un monde dirigé par les algorithmes, traiter les données correctement n'est que la moitié du travail. Chez BogaStock, notre objectif est de transformer les données financières en un chemin clair pour vous aider à prendre vos propres décisions en toute confiance.\" Nous sommes une entreprise mondiale basée aux États-Unis avec une structure active 24h/24 et 7j/7. Notre langue par défaut est l'anglais, mais nous proposons un contenu localisé dans 5 langues, et notre IA avancée Copilot prend en charge plus de 100 langues. Nous évoluons continuellement avec de nouveaux outils analytiques, notamment des indices sectoriels, le suivi des transactions d'initiés (insiders) et l'analyse des résultats (bilans).",
       "image_url": ""
     }
   },
@@ -270,7 +270,7 @@
     },
     "mission": {
       "title": "No Que Acreditamos",
-      "description": "\"Em um mundo cada vez mais administrado por algoritmos, processar dados corretamente é apenas metade do trabalho. Na BogaStock, nosso objetivo é transformar os dados financeiros em um caminho claro para ajudá-lo a tomar suas decisões com confiança.\"",
+      "description": "\"Em um mundo cada vez mais administrado por algoritmos, processar dados corretamente é apenas metade do trabalho. Na BogaStock, nosso objetivo é transformar os dados financeiros em um caminho claro para ajudá-lo a tomar suas decisões com confiança.\" Somos uma empresa global com sede nos EUA e uma estrutura ativa 24 horas por dia, 7 dias por semana. Nosso idioma padrão é o inglês, mas oferecemos conteúdo localizado em 5 idiomas, e nossa IA avançada Copilot oferece suporte a mais de 100 idiomas. Continuamos a evoluir com novas ferramentas analíticas, incluindo índices do setor, rastreamento de transações de insiders e análise de lucros.",
       "image_url": ""
     }
   }

@@ -8,7 +8,7 @@ import { formatNumber } from "@/lib/formatNumber";
 
 function n(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return NumberformatNumber(v, d);
+  return formatNumber(v, d);
 }
 function pct(v: any, d = 1): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
@@ -17,7 +17,7 @@ function pct(v: any, d = 1): string {
 }
 function dollar(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return "$" + NumberformatNumber(v, d);
+  return "$" + formatNumber(v, d);
 }
 function num(v: any, d = 0): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
@@ -76,7 +76,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           cIdx === 0 ? pick.date : pick.date,
           pick.ticker,
-          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
+          cIdx === 0 ? formatNumber(pick.score, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "—") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "—") : "",
           cIdx === 0 ? dollar(pick.current_price) : "",
@@ -117,7 +117,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           pick.date,
           pick.ticker,
-          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
+          cIdx === 0 ? formatNumber(pick.score, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "") : "",
           cIdx === 0 ? pick.current_price : "",
@@ -165,7 +165,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           pick.date,
           pick.ticker,
-          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
+          cIdx === 0 ? formatNumber(pick.score, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "") : "",
           cIdx === 0 ? pick.current_price : "",

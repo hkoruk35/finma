@@ -219,7 +219,7 @@ export default async function IndexPage({ params }: Props) {
               <IndexStatTable
                 columns={2}
                 items={[
-                  { label: t.close, value: formatNumber(weeklySnapshot.close?, 2) ?? "—" },
+                  { label: t.close, value: formatNumber(weeklySnapshot.close, 2) ?? "—" },
                   {
                     label: t.change,
                     value:

@@ -561,8 +561,8 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginTop: 10 }}>
               <span style={{ fontSize: 44, fontWeight: 800, display: "flex" }}>
                 {(params as MarketAssetCardParams).category === "fx"
-                  ? (params as MarketAssetCardParams)formatNumber(.price!, 4)
-                  : `$${(params as MarketAssetCardParams)formatNumber(.price!, 2)}`}
+                  ? formatNumber((params as MarketAssetCardParams).price!, 4)
+                  : `$${formatNumber((params as MarketAssetCardParams).price!, 2)}`}
               </span>
               {params.changePct != null && (
                 <span style={{ fontSize: 34, fontWeight: 800, color: changeColor, display: "flex" }}>
