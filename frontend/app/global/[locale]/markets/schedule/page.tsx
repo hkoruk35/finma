@@ -143,29 +143,27 @@ export default async function SchedulePage({ params }: Props) {
         </h1>
         <p className="text-sm text-slate-400 mb-8 max-w-2xl">{t.pageDescription}</p>
 
-        <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden shadow-xl">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="text-xs uppercase bg-[#141b2b] text-slate-400 border-b border-[#1e2a3a]/80">
-                <tr>
-                  <th className="px-6 py-4 font-medium">{t.region}</th>
-                  <th className="px-6 py-4 font-medium">{t.indices}</th>
-                  <th className="px-6 py-4 font-medium">{t.dailySchedule}</th>
-                  <th className="px-6 py-4 font-medium">{t.weeklySchedule}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#1e2a3a]/40">
-                {scheduleData.map((row, i) => (
-                  <tr key={i} className="hover:bg-[#141b2b]/50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-white whitespace-nowrap">{row.region}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-[#3b82f6]">{row.indices}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{row.daily}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{row.weekly}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {scheduleData.map((row, i) => (
+            <div key={i} className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 hover:border-[#3b82f6]/40 transition-colors rounded-xl p-5 shadow-xl flex flex-col justify-between">
+              <div>
+                <div className="mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-[#141b2b] px-2 py-1 rounded">{row.region}</span>
+                </div>
+                <h3 className="text-[14px] font-medium text-[#3b82f6] leading-snug mb-4">{row.indices}</h3>
+              </div>
+              <div className="space-y-3 pt-4 border-t border-[#1e2a3a]/40 text-[13px]">
+                <div>
+                  <span className="block text-[11px] font-bold text-slate-500 uppercase mb-0.5 tracking-wide">{t.dailySchedule}</span>
+                  <span className="text-slate-200">{row.daily}</span>
+                </div>
+                <div>
+                  <span className="block text-[11px] font-bold text-slate-500 uppercase mb-0.5 tracking-wide">{t.weeklySchedule}</span>
+                  <span className="text-emerald-400 font-medium">{row.weekly}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
 
