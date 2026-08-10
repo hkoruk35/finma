@@ -141,7 +141,7 @@ export default function ScheduleClient({ locale }: { locale: string }) {
           {items.map((item, idx) => {
             const active = isActive(item);
             const prefix = item.type === "daily" ? w.daily : w.weekly;
-            const linkHref = `/global/${locale}/${item.slug}/${item.type}`;
+            const linkHref = `/global/${locale}/${item.slug}`;
             const timeEt = formatEtTime(item.etHour, item.etMinute);
             const timeDisplay = item.localTimeStr ? `${item.localTimeStr} (${timeEt})` : timeEt;
 
