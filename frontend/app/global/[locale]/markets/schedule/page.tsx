@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { INDEX_LOCALES } from "@/lib/indices";
 import { getBreadcrumbStructuredData } from "@/app/structured-data";
+import ScheduleClient from "@/components/global/ScheduleClient";
 
 export const revalidate = 3600;
 
@@ -60,63 +61,6 @@ export default async function SchedulePage({ params }: Props) {
     { name: t.breadcrumb, url: `https://bogastock.com/global/${locale}/markets/schedule` },
   ]);
 
-  const scheduleData = [
-    {
-      region: m.regionUS,
-      indices: "SPX, NDX, DJI, RUT",
-      daily: "09:00 AM (PreMarket), 01:00 PM (Midday), 04:30 PM (Closing)",
-      weekly: "Sat 10:00 AM - 01:00 PM",
-    },
-    {
-      region: m.regionEurope,
-      indices: "DAX, FTSE100, CAC40, IBEX35, STOXX600, FTSEMIB, SMI, AEX",
-      daily: "11:35 AM (Closing)",
-      weekly: "Sat 02:00 PM - 09:00 PM",
-    },
-    {
-      region: m.regionLatam,
-      indices: "BOVESPA, MERVAL",
-      daily: "04:05 PM (Closing)",
-      weekly: "Sat 10:00 PM / Sun 10:00 AM",
-    },
-    {
-      region: m.regionLatam,
-      indices: "IPCMEXICO",
-      daily: "05:05 PM (Closing)",
-      weekly: "Sat 11:00 PM",
-    },
-    {
-      region: m.regionAsia,
-      indices: "NIKKEI225, ASX200",
-      daily: "02:05 AM (Closing)",
-      weekly: "Sun 11:00 AM / 04:00 PM",
-    },
-    {
-      region: m.regionAsia,
-      indices: "KOSPI",
-      daily: "02:35 AM (Closing)",
-      weekly: "Sun 02:00 PM",
-    },
-    {
-      region: m.regionAsia,
-      indices: "SHANGHAI",
-      daily: "03:05 AM (Closing)",
-      weekly: "Sun 01:00 PM",
-    },
-    {
-      region: m.regionAsia,
-      indices: "HANGSENG",
-      daily: "04:05 AM (Closing)",
-      weekly: "Sun 12:00 PM",
-    },
-    {
-      region: m.regionAsia,
-      indices: "NIFTY50",
-      daily: "06:05 AM (Closing)",
-      weekly: "Sun 03:00 PM",
-    },
-  ];
-
   return (
     <div lang={locale} className="min-h-screen flex flex-col bg-[#0a0e17]">
       <script
@@ -143,28 +87,8 @@ export default async function SchedulePage({ params }: Props) {
         </h1>
         <p className="text-sm text-slate-400 mb-8 max-w-2xl">{t.pageDescription}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {scheduleData.map((row, i) => (
-            <div key={i} className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 hover:border-[#3b82f6]/40 transition-colors rounded-xl p-5 shadow-xl flex flex-col justify-between">
-              <div>
-                <div className="mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-[#141b2b] px-2 py-1 rounded">{row.region}</span>
-                </div>
-                <h3 className="text-[14px] font-medium text-[#3b82f6] leading-snug mb-4">{row.indices}</h3>
-              </div>
-              <div className="space-y-3 pt-4 border-t border-[#1e2a3a]/40 text-[13px]">
-                <div>
-                  <span className="block text-[11px] font-bold text-slate-500 uppercase mb-0.5 tracking-wide">{t.dailySchedule}</span>
-                  <span className="text-slate-200">{row.daily}</span>
-                </div>
-                <div>
-                  <span className="block text-[11px] font-bold text-slate-500 uppercase mb-0.5 tracking-wide">{t.weeklySchedule}</span>
-                  <span className="text-emerald-400 font-medium">{row.weekly}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Dynamic Interactive Schedule */}
+        <ScheduleClient locale={locale} />
       </main>
 
       <Footer locale={locale} />
