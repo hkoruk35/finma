@@ -3,6 +3,7 @@ import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
+import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
@@ -189,6 +190,7 @@ export default async function EnHomePage() {
             </div>
 
             <div className="mt-4">
+              <HomeRecentEarnings locale="en" />
               <HomeUpcomingEarnings locale="en" />
             </div>
 
