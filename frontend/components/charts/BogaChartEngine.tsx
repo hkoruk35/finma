@@ -597,7 +597,10 @@ export default function BogaChartEngine({
         vertLines: { color: "#1e2a3a" },
         horzLines: { color: "#1e2a3a" },
       },
-      rightPriceScale: { borderColor: "#1e2a3a" },
+      rightPriceScale: { 
+        borderColor: "#1e2a3a",
+        scaleMargins: { top: 0.2, bottom: 0.2 },
+      },
       timeScale: {
         borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false, rightOffset: DEFAULT_RIGHT_OFFSET,
         tickMarkFormatter: nyTickMarkFormatter,
@@ -819,7 +822,12 @@ export default function BogaChartEngine({
     }
     priceLinesRef.current = [];
 
-    if (!mainSeriesRef.current) mainSeriesRef.current = createMainSeries(chart, candleType);
+    if (!mainSeriesRef.current) {
+      mainSeriesRef.current = createMainSeries(chart, candleType);
+      mainSeriesRef.current.priceScale().applyOptions({
+        scaleMargins: { top: 0.15, bottom: 0.15 }
+      });
+    }
     const mainSeries = mainSeriesRef.current;
 
     mainSeries.setData(toMainSeriesData(bars, candleType));
