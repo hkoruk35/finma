@@ -805,7 +805,7 @@ export default function BogaChartEngine({
     barsRef.current = bars;
     const chart = chartRef.current;
     const volumeSeries = volumeSeriesRef.current;
-    if (!chart || !volumeSeries || bars.length === 0) return;
+    if (!chart || bars.length === 0) return;
 
     // Clear previous overlays
     for (const key of Object.keys(lineSeriesRefs.current) as IndicatorKey[]) {
@@ -823,14 +823,17 @@ export default function BogaChartEngine({
     const mainSeries = mainSeriesRef.current;
 
     mainSeries.setData(toMainSeriesData(bars, candleType));
-    volumeSeries.setData(
-      bars.map((b) => ({
-        time: b.time as UTCTimestamp,
-        value: b.volume,
-        color: b.close >= b.open ? `${UP_COLOR}cc` : `${DOWN_COLOR}cc`,
-      }))
-    );
-    volumeSeries.applyOptions({ visible: active.has("volume") });
+    
+    if (volumeSeries) {
+      volumeSeries.setData(
+        bars.map((b) => ({
+          time: b.time as UTCTimestamp,
+          value: b.volume,
+          color: b.close >= b.open ? `${UP_COLOR}cc` : `${DOWN_COLOR}cc`,
+        }))
+      );
+      volumeSeries.applyOptions({ visible: active.has("volume") });
+    }
 
     const ind = data.indicators || {};
     const toPoints = (arr: unknown) =>
