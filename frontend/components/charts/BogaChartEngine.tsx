@@ -385,7 +385,7 @@ export default function BogaChartEngine({
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
   const setActive = setInternalActive;
 
-  const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX"].includes(symbol.toUpperCase());
+  const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"].includes(symbol.toUpperCase());
   const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (isIndex ? "line" : (detailMode ? "heikin-ashi" : "candle")));
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
