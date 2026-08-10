@@ -12,12 +12,28 @@ from dotenv import dotenv_values
 
 REPO_ROOT = Path(__file__).resolve().parent
 ENV = dotenv_values(REPO_ROOT / "frontend" / ".env.local")
+ROOT_ENV = dotenv_values(REPO_ROOT / ".env")
 
-SUPABASE_URL = ENV.get("NEXT_PUBLIC_SUPABASE_URL")
-SUPABASE_SERVICE_KEY = ENV.get("SUPABASE_SERVICE_KEY")
-# Mevcut bot-pipeline kimlik dogrulamasi (swing117_boga.py -> /api/revalidate-swing ile ayni) —
-# OS ortam degiskeni olarak tanimli, .env.local'de degil.
-BOT_SECRET = os.environ.get("REVALIDATE_SECRET")
+SUPABASE_URL = ENV.get("NEXT_PUBLIC_SUPABASE_URL") or ROOT_ENV.get("NEXT_PUBLIC_SUPABASE_URL")
+SUPABASE_SERVICE_KEY = ENV.get("SUPABASE_SERVICE_KEY") or ROOT_ENV.get("SUPABASE_SERVICE_KEY")
+
+# Bot-pipeline kimlik dogrulamasi (swing117_boga.py -> /api/revalidate-swing ile ayni).
+#
+# Onceden SADECE os.environ'dan okunuyordu ("OS ortam degiskeni olarak tanimli"
+# varsayimiyla). Bu degisken isletim sisteminde hicbir kapsamda (Process/User/
+# Machine) tanimli DEGIL — sadece kok `.env` dosyasinda var. Sonucu:
+# update_top100_hourly.py ve update_top100_swing.py her calismada
+# "REVALIDATE_SECRET ortam degiskeni bulunamadi" ile cokuyordu ve
+# top100_snapshot 2026-07-27'de donmustu; /api/top100 iki haftalik fiyat, RSI
+# ve sinyalleri guncelmis gibi servis ediyordu (2026-08-10'da tespit edildi).
+#
+# Oncelik sirasi korunuyor: OS ortam degiskeni varsa o kazanir, yoksa kok
+# `.env`, en son frontend/.env.local.
+BOT_SECRET = (
+    os.environ.get("REVALIDATE_SECRET")
+    or ROOT_ENV.get("REVALIDATE_SECRET")
+    or ENV.get("REVALIDATE_SECRET")
+)
 
 BASE_URL = os.environ.get("TOP100_SYNC_BASE_URL", "https://bogastock.com")
 SYNC_URL = f"{BASE_URL}/api/internal/top100-sync"

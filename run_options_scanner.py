@@ -10,6 +10,7 @@ import os
 import subprocess
 import shutil
 import glob
+import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -73,16 +74,31 @@ def main():
 
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
-    # opsiyon242.py currently still outputs v241_ prefix files
-    v242_files = glob.glob(os.path.join(data_dir, "v242_*.json"))
-    v241_files = glob.glob(os.path.join(data_dir, "v241_*.json"))
-    all_files  = v242_files + v241_files
+    # opsiyon242.py'nin çıktı dosya adındaki sürüm öneki zamanla değişiyor
+    # (v241 -> v242 -> v243). Burada yalnızca v241_/v242_ aranıyordu; scanner
+    # 2026-06-08'de v243_'e geçince glob hiçbir yeni dosyayı görmedi ve her
+    # çalışmada bulabildiği en son dosyayı — 2026-06-05 tarihli
+    # v242_20260605_1100.json — "bugünün seçimleri" olarak kopyalamaya devam
+    # etti. Site iki aydan uzun süre 5 Haziran opsiyon seçimlerini güncelmiş
+    # gibi gösterdi; her saatlik çalışma da bunu tekrar commit'ledi
+    # (2026-08-10'da tespit edildi).
+    #
+    # Artık sürüm önekinden bağımsız olarak bütün v2*_ dosyaları taranıyor ve
+    # seçim, dosya adındaki YYYYMMDD_HHMM damgasına göre yapılıyor — böylece
+    # bir sonraki sürüm yükseltmesi bunu sessizce tekrar kıramaz.
+    def _stamp(path: str) -> str:
+        m = re.search(r"_(\d{8}_\d{4})\.json$", os.path.basename(path))
+        return m.group(1) if m else ""
+
+    all_files = sorted(
+        (f for f in glob.glob(os.path.join(data_dir, "v2*_*.json")) if _stamp(f)),
+        key=_stamp,
+    )
 
     if not all_files:
         log.error("❌ opsiyon242.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
         return
 
-    all_files.sort()
     latest_file = all_files[-1]
 
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")

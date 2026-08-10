@@ -214,12 +214,17 @@ def check_bot_logs():
 
 async def check_main_pages():
     """Ana sayfaların erişilebilirliğini kontrol et"""
+    # Bu liste 2026-08-10'da guncellendi: /swing-picks, /swing-performance ve
+    # /stock/AAPL rotalari artik yok (site /global/{locale}/... semasina tasindi),
+    # bu yuzden saglik kontrolu her calismasinda "KRITIK HATA" uyarisi
+    # uretiyordu — sayfalar calisirken yanlis alarm. Rotalar app/ agacindan
+    # dogrulandi, hepsi 200 donuyor.
     pages = {
         "Ana Sayfa": "https://bogastock.com/",
-        "Swing Picks": "https://bogastock.com/swing-picks",
-        "Swing Performance": "https://bogastock.com/swing-performance",
+        "Swing Picks": "https://bogastock.com/global/tr/swing",
+        "Swing Performance": "https://bogastock.com/global/tr/swingperformance",
         "Sektör": "https://bogastock.com/sector/technology",
-        "Hisse Detay": "https://bogastock.com/stock/AAPL",
+        "Hisse Detay": "https://bogastock.com/global/tr/graphic/AAPL",
     }
 
     working = 0
