@@ -4,8 +4,8 @@ import type { Locale } from "@/lib/i18n/copy";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 const STRINGS: Record<Locale, { title: string; all: string; revenue: string; eps: string }> = {
-  tr: { title: "Son Bilançolar", all: "TÜMÜ", revenue: "Gelir", eps: "EPS" },
-  en: { title: "Recent Earnings", all: "ALL", revenue: "Rev", eps: "EPS" },
+  tr: { title: "Son Bilanço Analizleri", all: "TÜMÜ", revenue: "Gelir", eps: "EPS" },
+  en: { title: "Recent Earnings Analysis", all: "ALL", revenue: "Rev", eps: "EPS" },
   es: { title: "Últimos Resultados", all: "TODO", revenue: "Ingr.", eps: "BPA" },
   fr: { title: "Derniers Résultats", all: "TOUT", revenue: "CA", eps: "BPA" },
   pt: { title: "Resultados Recentes", all: "TODOS", revenue: "Rec.", eps: "LPA" },
@@ -101,13 +101,14 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
               </div>
 
               {/* Mini Chart Area */}
-              <div className="h-[120px] w-full mt-2 relative border border-[#1e2a3a]/40 rounded-lg overflow-hidden bg-black/30">
+              <div className="h-[180px] w-full mt-4 relative border border-[#1e2a3a]/40 rounded-lg overflow-hidden bg-black/30">
                 <BogaChartEngine 
                   symbol={item.ticker}
                   lang={locale}
                   defaultTimeframe="W"
                   defaultCandleType="line"
                   compact={true}
+                  showToolbar={false}
                   hideIndicatorToggles={true}
                   indicators={[]}
                 />
