@@ -9,22 +9,23 @@ interface ScheduleItem {
   hour: number;
   minute: number;
   days: number[]; // 0=Sun, 1=Mon...6=Sat
+  slug: string;
 }
 
 const SCHEDULE: ScheduleItem[] = [
-  { key: "bannerAsia1", hour: 2, minute: 5, days: [1, 2, 3, 4, 5] },
-  { key: "bannerAsia2", hour: 2, minute: 35, days: [1, 2, 3, 4, 5] },
-  { key: "bannerAsia3", hour: 3, minute: 5, days: [1, 2, 3, 4, 5] },
-  { key: "bannerAsia4", hour: 4, minute: 5, days: [1, 2, 3, 4, 5] },
-  { key: "bannerAsia5", hour: 6, minute: 5, days: [1, 2, 3, 4, 5] },
-  { key: "bannerUsPre", hour: 9, minute: 0, days: [1, 2, 3, 4, 5] },
-  { key: "bannerEuClose", hour: 11, minute: 35, days: [1, 2, 3, 4, 5] },
-  { key: "bannerUsMid", hour: 13, minute: 0, days: [1, 2, 3, 4, 5] },
-  { key: "bannerLatAm1", hour: 16, minute: 5, days: [1, 2, 3, 4, 5] },
-  { key: "bannerUsClose", hour: 16, minute: 30, days: [1, 2, 3, 4, 5] },
-  { key: "bannerLatAm2", hour: 17, minute: 5, days: [1, 2, 3, 4, 5] },
+  { key: "bannerAsia1", hour: 2, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/nikkei225/daily" },
+  { key: "bannerAsia2", hour: 2, minute: 35, days: [1, 2, 3, 4, 5], slug: "asia/kospi/daily" },
+  { key: "bannerAsia3", hour: 3, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/shanghai/daily" },
+  { key: "bannerAsia4", hour: 4, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/hangseng/daily" },
+  { key: "bannerAsia5", hour: 6, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/nifty50/daily" },
+  { key: "bannerUsPre", hour: 9, minute: 0, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
+  { key: "bannerEuClose", hour: 11, minute: 35, days: [1, 2, 3, 4, 5], slug: "europe/dax/daily" },
+  { key: "bannerUsMid", hour: 13, minute: 0, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
+  { key: "bannerLatAm1", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "latam/bovespa/daily" },
+  { key: "bannerUsClose", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
+  { key: "bannerLatAm2", hour: 17, minute: 5, days: [1, 2, 3, 4, 5], slug: "latam/ipcmexico/daily" },
   // Weekly represents the weekend blocks
-  { key: "bannerWeekly", hour: 10, minute: 0, days: [0, 6] },
+  { key: "bannerWeekly", hour: 10, minute: 0, days: [0, 6], slug: "us/spx/weekly" },
 ];
 
 export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
@@ -100,35 +101,38 @@ export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
   
   return (
     <Link 
-      href={`/global/${locale}/markets/schedule`}
-      className="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0d131f]/90 border border-[#1e2a3a] hover:border-[#3b82f6]/50 rounded-xl p-3 mb-4 transition-all duration-300 relative overflow-hidden"
+      href={`/global/${locale}/${item.slug}`}
+      className="group flex flex-col md:flex-row md:items-center justify-between gap-3 bg-[#0d131f]/90 border border-[#1e2a3a] hover:border-[#3b82f6]/50 rounded-xl p-3 mb-4 transition-all duration-300 relative overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#3b82f6]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#3b82f6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       
-      <div className="flex items-center gap-3">
-        <div className={`flex items-center justify-center w-8 h-8 rounded-full ${isRunning ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'}`}>
+      <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className={`flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0 ${isRunning ? 'bg-emerald-500/10' : 'bg-blue-500/20 text-blue-400'}`}>
           {isRunning ? (
-            <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" /></svg>
+            <span className="relative flex h-4 w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.9)]"></span>
+            </span>
           ) : (
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           )}
         </div>
         
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.bannerPrefix}</span>
-            <span className={`text-[10px] px-1.5 py-0.5 rounded uppercase font-bold tracking-wider ${isRunning ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-300'}`}>
+        <div className="flex flex-col md:flex-row md:items-center md:gap-3 w-full">
+          <div className="flex items-center gap-2 mb-1 md:mb-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 md:hidden">{t.bannerPrefix}</span>
+            <span className={`text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wider ${isRunning ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-300'}`}>
               {isRunning ? t.nowRunning : t.upNext}
             </span>
           </div>
-          <p className="text-sm font-medium text-slate-200 mt-0.5">
-            {itemName} <span className="text-slate-500 font-normal ml-1">{t.at} {timeStr}</span>
+          <p className="text-sm font-medium text-slate-200">
+            {itemName} <span className="text-slate-500 font-normal ml-1 whitespace-nowrap">{t.at} {timeStr}</span>
           </p>
         </div>
       </div>
       
-      <div className="hidden sm:flex items-center text-xs font-medium text-[#3b82f6] group-hover:translate-x-1 transition-transform">
-        {t.viewSchedule} <span className="ml-1">→</span>
+      <div className="hidden md:flex items-center text-xs font-bold text-white bg-[#3b82f6] px-4 py-1.5 rounded-lg group-hover:bg-blue-500 transition-colors shadow-lg shadow-blue-500/30 whitespace-nowrap">
+        {(t as any).viewAnalysis || "Analizi Aç"} <span className="ml-1.5">→</span>
       </div>
     </Link>
   );

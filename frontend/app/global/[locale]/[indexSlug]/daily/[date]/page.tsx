@@ -173,12 +173,21 @@ export default async function IndexDailyDetailPage({ params }: Props) {
           </>
         )}
 
-        <Link
-          href={`/global/${locale}/${indexSlug}`}
-          className="inline-block mt-8 text-xs font-semibold text-[#00d2ff] hover:text-white transition-colors"
-        >
-          ← {t.backToIndex}
-        </Link>
+        <div className="mt-8 flex items-center justify-between border-t border-[#1e2a3a]/60 pt-6">
+          <Link
+            href={`/global/${locale}/${indexSlug}`}
+            className="text-xs font-semibold text-[#00d2ff] hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <span aria-hidden="true">←</span> {t.backToIndex}
+          </Link>
+          <Link
+            href={`/global/${locale}/markets/schedule`}
+            className="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            {(copy[locale as Locale].schedule as any).viewSchedule || "View Analysis Schedule"}
+          </Link>
+        </div>
       </main>
 
       <Footer locale={locale} />
