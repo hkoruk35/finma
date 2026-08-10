@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { createTimeoutFetch } from '@/lib/supabaseFetch'
 
 const VALID_SLUGS = ['active', '525', '2550', '50250', 'portfolio', 'swing', 'daily', 'long_term']
 
 function getAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const key = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  return createClient(url, key)
+  return createClient(url, key, { global: { fetch: createTimeoutFetch() } })
 }
 
 // GET — watchlist'i oku

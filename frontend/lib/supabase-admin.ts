@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { createTimeoutFetch } from "./supabaseFetch";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_KEY;
@@ -11,5 +12,7 @@ if (!supabaseUrl || !serviceRoleKey || supabaseUrl.includes("your-project")) {
 // her çağıran kendi içinde boga_auth==='admin' kontrolünü yapmak zorunda.
 export const supabaseAdmin = createClient(
   supabaseUrl || "https://none.supabase.co",
-  serviceRoleKey || "none"
+  serviceRoleKey || "none",
+  // DB yanıt vermediğinde sorgular süresiz askıda kalmasın (bkz. lib/supabaseFetch.ts).
+  { global: { fetch: createTimeoutFetch() } }
 );

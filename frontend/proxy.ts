@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
+import { createTimeoutFetch } from './lib/supabaseFetch'
 import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
@@ -186,6 +187,11 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
 
   let response = NextResponse.next({ request })
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    // Bu istemci HER istekte calisir; Supabase yanit vermezse tum site
+    // (giris yapmis kullanicilar icin) askida kalir — 2026-08-10'da tam
+    // olarak bu oldu. Tracking fetch'lerindeki 1.5s/3s korumalarinin
+    // auth cagrisindaki karsiligi budur.
+    global: { fetch: createTimeoutFetch(3000) },
     cookies: {
       getAll() {
         return request.cookies.getAll()

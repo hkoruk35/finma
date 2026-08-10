@@ -9,6 +9,7 @@ import { HOT_THEMES_2026 } from "./hotThemes2026";
 import { selectHeatMapTickers } from "./sectorHeatMap";
 import { translateSector } from "./translationHelpers";
 import type { Locale } from "./i18n/copy";
+import { SUPABASE_TIMEOUT_MS } from "./supabaseFetch";
 
 export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
 
@@ -58,6 +59,9 @@ async function supabaseSelect(table: string, query: string): Promise<any[]> {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
       headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
       next: { revalidate: CACHE_TIME },
+      // DB düştüğünde bu çağrı süresiz askıda kalıp sayfayı/build'i kilitliyordu
+      // (bkz. lib/supabaseFetch.ts).
+      signal: AbortSignal.timeout(SUPABASE_TIMEOUT_MS),
     });
     if (!res.ok) return [];
     return await res.json();

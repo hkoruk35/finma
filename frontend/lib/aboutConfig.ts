@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { createTimeoutFetch } from "./supabaseFetch";
 
 export interface AboutSection {
   title: string;
@@ -37,7 +38,9 @@ export type AllAboutConfigs = Record<string, AboutConfig>;
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const key = process.env.SUPABASE_SERVICE_KEY!;
-  return createClient(url, key);
+  // Zaman aşımı olmadan DB düştüğünde readFileConfig() fallback'i hiç
+  // çalışmıyor, build "Collecting page data"da kilitleniyordu.
+  return createClient(url, key, { global: { fetch: createTimeoutFetch() } });
 }
 
 // Fallback to file when Supabase table not yet created

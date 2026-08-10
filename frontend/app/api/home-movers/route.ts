@@ -3,6 +3,9 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { fetchLiveQuotes, MAGNIFICENT_7, buildTop100MoverRows, rankTop100Movers, type RawMoverRow } from "@/lib/homeFeed";
 
 export const runtime = "nodejs";
+// Supabase (8s) + canlı fiyat self-fetch (20s) en kötü durumda üst üste
+// binebilir; DB düştüğünde bile route'un kesin bir üst sınırı olsun.
+export const maxDuration = 30;
 
 interface MoverRow {
   ticker: string;
