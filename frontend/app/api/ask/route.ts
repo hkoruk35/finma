@@ -665,9 +665,9 @@ function generateBogaSimulation(
     dailyForecasts.push({
       day: d + 1,
       date: targetDate.toISOString().split('T')[0],
-      bearish: parseFloat(formatNumber(bearish, 2)),
-      base: parseFloat(formatNumber(base, 2)),
-      bullish: parseFloat(formatNumber(bullish, 2)),
+      bearish: parseFloat((bearish).toFixed(2)),
+      base: parseFloat((base).toFixed(2)),
+      bullish: parseFloat((bullish).toFixed(2)),
       probabilityOfProfit
     });
   }

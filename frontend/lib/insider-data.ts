@@ -122,7 +122,7 @@ export async function getTopInsiderBuyers(
         transactionDate: row.transaction_date,
         filedDate: row.filed_date,
         formType: row.form_type || "Form 4",
-        score: parseFloat(formatNumber(score, 2)),
+        score: parseFloat((score).toFixed(2)),
       };
     });
   } catch (err) {

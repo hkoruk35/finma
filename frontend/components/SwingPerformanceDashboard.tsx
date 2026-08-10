@@ -128,7 +128,7 @@ function retColor(n: number | null | undefined): string {
 
 function pnlFromReturn(ret: number | null): number | null {
   if (ret == null) return null;
-  return parseFloat(formatNumber(1000 * ret / 100, 2));
+  return parseFloat((1000 * ret / 100).toFixed(2));
 }
 
 
@@ -326,7 +326,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       );
       const sumRet = trades.reduce((s, t) => s + (t.realized_return_pct ?? effectiveReturn(t) ?? 0), 0);
       const avgRet = trades.length > 0 ? sumRet / trades.length : 0;
-      return { ...b, count: trades.length, avgRet: parseFloat(formatNumber(avgRet, 1)) };
+      return { ...b, count: trades.length, avgRet: parseFloat((avgRet).toFixed(1)) };
     });
   }, [filtered]);
 
