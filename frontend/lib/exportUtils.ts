@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 export function exportScreenerResultsToXLS(results: any[], presetName: string) {
   if (!results.length) return;
 
@@ -28,16 +30,16 @@ export function exportScreenerResultsToXLS(results: any[], presetName: string) {
         <td>${stock.ticker}</td>
         <td>${stock.company}</td>
         <td>${stock.primary_setup || "swing"}</td>
-        <td>$${stock.price.toFixed(2)}</td>
-        <td>${change1d}${stock.change_1d.toFixed(2)}%</td>
+        <td>$${formatNumber(stock.price, 2)}</td>
+        <td>${change1d}${formatNumber(stock.change_1d, 2)}%</td>
         <td>${macdLabel}</td>
-        <td>${stock.rsi?.toFixed(0) || "—"}</td>
+        <td>${formatNumber(stock.rsi, 0) || "—"}</td>
         <td>${stock.rr_ratio}</td>
         <td>${stock.boga_score}</td>
-        <td>${stock.rvol.toFixed(1)}x</td>
-        <td>${stock.adx?.toFixed(0) || "—"}</td>
+        <td>${formatNumber(stock.rvol, 1)}x</td>
+        <td>${formatNumber(stock.adx, 0) || "—"}</td>
         <td>${stock.sector || "—"}</td>
-        <td>${stock.macd_hist?.toFixed(3) || "—"}</td>
+        <td>${formatNumber(stock.macd_hist, 3) || "—"}</td>
         <td>${stock.market_cap_label}</td>
       </tr>
     `;
@@ -84,14 +86,14 @@ export function exportSwingResultsToXLS(results: any[]) {
         <td>${pick.ticker}</td>
         <td>${pick.company}</td>
         <td>${pick.sector || "—"}</td>
-        <td>$${pick.price?.toFixed(2) || "—"}</td>
-        <td>$${pick.buy_zone?.low?.toFixed(2) || "—"} - $${pick.buy_zone?.high?.toFixed(2) || "—"}</td>
-        <td>$${pick.profit_zone?.low?.toFixed(2) || "—"}</td>
-        <td>$${pick.stop_zone?.high?.toFixed(2) || "—"}</td>
-        <td>${pick.change_1d >= 0 ? "+" : ""}${pick.change_1d?.toFixed(2) || "—"}%</td>
-        <td>${pick.change_1w >= 0 ? "+" : ""}${pick.change_1w?.toFixed(2) || "—"}%</td>
-        <td>${pick.change_1m >= 0 ? "+" : ""}${pick.change_1m?.toFixed(2) || "—"}%</td>
-        <td>$${pick.entry?.toFixed(2) || "—"}</td>
+        <td>$${formatNumber(pick.price, 2) || "—"}</td>
+        <td>$${formatNumber(pick.buy_zone?.low, 2) || "—"} - $${formatNumber(pick.buy_zone?.high, 2) || "—"}</td>
+        <td>$${formatNumber(pick.profit_zone?.low, 2) || "—"}</td>
+        <td>$${formatNumber(pick.stop_zone?.high, 2) || "—"}</td>
+        <td>${pick.change_1d >= 0 ? "+" : ""}${formatNumber(pick.change_1d, 2) || "—"}%</td>
+        <td>${pick.change_1w >= 0 ? "+" : ""}${formatNumber(pick.change_1w, 2) || "—"}%</td>
+        <td>${pick.change_1m >= 0 ? "+" : ""}${formatNumber(pick.change_1m, 2) || "—"}%</td>
+        <td>$${formatNumber(pick.entry, 2) || "—"}</td>
         <td>${pick.rr_ratio || "—"}</td>
         <td>${pick.status || "—"}</td>
       </tr>

@@ -121,7 +121,7 @@ const SIGNAL_CFG: Record<string, { label: string; color: string; bg: string }> =
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
 const fmt = (n: number, d = 2) =>
-  n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  formatNumber(n, d);
 
 const pColor = (v: number | null) =>
   v == null ? "text-slate-500" : v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400";

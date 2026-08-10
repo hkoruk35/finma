@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { formatNumber } from "@/lib/formatNumber";
 
 // Import ticker-to-sector mapping from theme data
 // This ensures 559+ tickers have accurate sector information
@@ -468,16 +469,16 @@ function calculateSupportResistance1h(
 
   return {
     entry_engine: { valid: entry_valid, type: entry_type, confidence: entry_confidence },
-    buy_zone: { low: Number(buy_zone_low.toFixed(2)), high: Number(buy_zone_high.toFixed(2)) },
-    sell_zone: { low: Number(sell_zone_low.toFixed(2)), high: Number(sell_zone_high.toFixed(2)) },
-    stop_zone: { low: Number(stop_low.toFixed(2)), high: Number(stop_high.toFixed(2)) },
-    support_1h: Number(support_1h.toFixed(2)),
-    resist_1h: Number(resist_1h.toFixed(2)),
-    atr_1d: Number(atr_1d.toFixed(2)),
-    atr_pct: Number(atr_pct.toFixed(2)),
-    rr_ratio: Number(rr_ratio.toFixed(2)),
-    risk_usd: Number(actual_risk.toFixed(2)),
-    reward_usd: Number(actual_reward.toFixed(2))
+    buy_zone: { low: Number(formatNumber(buy_zone_low, 2)), high: Number(formatNumber(buy_zone_high, 2)) },
+    sell_zone: { low: Number(formatNumber(sell_zone_low, 2)), high: Number(formatNumber(sell_zone_high, 2)) },
+    stop_zone: { low: Number(formatNumber(stop_low, 2)), high: Number(formatNumber(stop_high, 2)) },
+    support_1h: Number(formatNumber(support_1h, 2)),
+    resist_1h: Number(formatNumber(resist_1h, 2)),
+    atr_1d: Number(formatNumber(atr_1d, 2)),
+    atr_pct: Number(formatNumber(atr_pct, 2)),
+    rr_ratio: Number(formatNumber(rr_ratio, 2)),
+    risk_usd: Number(formatNumber(actual_risk, 2)),
+    reward_usd: Number(formatNumber(actual_reward, 2))
   };
 }
 
@@ -509,7 +510,7 @@ function check15mMicroTrend(
   }
 
   if (net_change_pct > 0.5 && green_candles >= 5) {
-    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m CONFIRMED: Net uptrend last 2h (+${net_change_pct.toFixed(2)}%)` };
+    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m CONFIRMED: Net uptrend last 2h (+${formatNumber(net_change_pct, 2)}%)` };
   }
 
   if (net_change_pct < 0 && green_candles < 4) {
@@ -718,10 +719,10 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
             // Keep last bar of the slot (overwrite with later bar in same slot)
             hourlyBars[slotIdx] = {
               time: matchSlot,
-              price: Number(barClose.toFixed(2)),
-              change_pct: Number(changePct.toFixed(2)),
+              price: Number(formatNumber(barClose, 2)),
+              change_pct: Number(formatNumber(changePct, 2)),
               volume: vol,
-              volume_ratio: volRatio !== null ? Number(volRatio.toFixed(2)) : null,
+              volume_ratio: volRatio !== null ? Number(formatNumber(volRatio, 2)) : null,
             };
 
             prevDayClose = barClose; // rolling ref: each bar's change vs previous bar
@@ -1071,17 +1072,17 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
         "52w_low": low52w
       },
       tracker_1h: {
-        ema_20: Number(ema20.toFixed(2)),
-        ema_50: Number(ema50.toFixed(2)),
-        ema_200: Number(ema200.toFixed(2)),
+        ema_20: Number(formatNumber(ema20, 2)),
+        ema_50: Number(formatNumber(ema50, 2)),
+        ema_200: Number(formatNumber(ema200, 2)),
         ema_status: emaStatus_1d,
-        rsi: Number(rsi14.toFixed(1)),
+        rsi: Number(formatNumber(rsi14, 1)),
         candle_pattern: candlePattern_1d,
         signal: signal,
-        volume_ratio: Number(volumeRatio_1h.toFixed(2)),
-        change_pct_1h: Number(change_pct_1h.toFixed(2)),
-        change_pct_1d: Number(changePct.toFixed(2)),
-        volume_ratio_1d: Number((last30dVol > 0 ? volumes[volumes.length - 1] / last30dVol : 1.0).toFixed(2))
+        volume_ratio: Number(formatNumber(volumeRatio_1h, 2)),
+        change_pct_1h: Number(formatNumber(change_pct_1h, 2)),
+        change_pct_1d: Number(formatNumber(changePct, 2)),
+        volume_ratio_1d: Number(formatNumber((last30dVol > 0 ? volumes[volumes.length - 1] / last30dVol : 1.0), 2))
       },
       fundamental: {
         pe_ratio: peRatio,

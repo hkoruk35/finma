@@ -103,7 +103,7 @@ export default function InsiderTransactionGrid({
   };
 
   const formatShares = (shares: number) => {
-    return shares.toLocaleString();
+    return formatNumber(shares, 0);
   };
 
   const formatDate = (dateStr: string) => {

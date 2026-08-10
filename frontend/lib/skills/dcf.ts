@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 // WACC defaults by Yahoo Finance industry string
 const SECTOR_WACC: Record<string, number> = {
   "Technology":                    0.11,
@@ -112,7 +114,7 @@ export function calcDCF(params: DCFInput, yfData: any): DCFOutput {
       : 0;
     const equityValue = pvFCFs + pvTerminal - netDebt;
     const value = Math.max(0.01, equityValue / sharesOut);
-    return { value: +value.toFixed(2), pvFCFs, pvTerminal };
+    return { value: +formatNumber(value, 2), pvFCFs, pvTerminal };
   }
 
   const base = projectScenario(1.00);
@@ -125,19 +127,19 @@ export function calcDCF(params: DCFInput, yfData: any): DCFOutput {
     ticker:             params.ticker,
     currentPrice:       params.currentPrice,
     intrinsicValue:     base.value,
-    upside:             +upside.toFixed(4),
+    upside:             +formatNumber(upside, 4),
     scenarios: {
-      bull: { value: bull.value, upside: +((bull.value - params.currentPrice) / params.currentPrice).toFixed(4) },
-      base: { value: base.value, upside: +upside.toFixed(4) },
-      bear: { value: bear.value, upside: +((bear.value - params.currentPrice) / params.currentPrice).toFixed(4) },
+      bull: { value: bull.value, upside: +formatNumber(((bull.value - params.currentPrice) / params.currentPrice), 4) },
+      base: { value: base.value, upside: +formatNumber(upside, 4) },
+      bear: { value: bear.value, upside: +formatNumber(((bear.value - params.currentPrice) / params.currentPrice), 4) },
     },
     wacc,
-    usedGrowthRate:     +g.toFixed(4),
-    pvFCFSum:           +base.pvFCFs.toFixed(0),
-    pvTerminalValue:    +base.pvTerminal.toFixed(0),
-    netDebt:            +netDebt.toFixed(0),
+    usedGrowthRate:     +formatNumber(g, 4),
+    pvFCFSum:           +formatNumber(base.pvFCFs, 0),
+    pvTerminalValue:    +formatNumber(base.pvTerminal, 0),
+    netDebt:            +formatNumber(netDebt, 0),
     sharesOutstanding:  sharesOut,
-    methodology:        `5Y FCF DCF | WACC: ${(wacc * 100).toFixed(1)}% | Büyüme: ${(g * 100).toFixed(1)}% | TGR: ${(tgr * 100).toFixed(1)}%`,
+    methodology:        `5Y FCF DCF | WACC: ${formatNumber((wacc * 100), 1)}% | Büyüme: ${formatNumber((g * 100), 1)}% | TGR: ${formatNumber((tgr * 100), 1)}%`,
     ...(warning ? { warning } : {}),
   };
 }

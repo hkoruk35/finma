@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 function formatPrice(n: number | null | undefined) {
   if (n == null) return "—";
-  return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return formatNumber(n, 2);
 }
 
 function ScoreBadge({ score }: { score: number }) {

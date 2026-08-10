@@ -34,7 +34,7 @@ export default function LivePriceSync({ ticker, initialPrice, initialChange }: P
           const returns1dEl = document.getElementById("stock-returns-1d");
 
           if (priceEl) {
-            priceEl.innerText = `$${live.price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            priceEl.innerText = `$${formatNumber(live.price, 2)}`;
           }
 
           if (changeEl) {

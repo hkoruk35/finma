@@ -31,7 +31,7 @@ function dollar(v: any, d = 2): string {
 }
 function num(v: any, d = 0): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return Number(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  return formatNumber(Number(v), d);
 }
 
 export default async function OptionsPage() {

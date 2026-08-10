@@ -26,7 +26,7 @@ const SIGNAL_CFG: Record<string, { label: string; color: string; border: string 
   STOP_HIT:       { label: "Stop Hit",       color: "text-red-500",     border: "border-red-600/60" },
 };
 
-const f = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const f = (n: number, d = 2) => formatNumber(n, d);
 const pColor = (v: number) => v > 0 ? "text-emerald-400" : v < 0 ? "text-red-400" : "text-slate-400";
 const sgn = (v: number) => v > 0 ? "+" : "";
 

@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 // Curated havuzda (getStockData) OLMAYAN ticker'lar için canlı BOGA analizi.
 // Grafik detay sayfasının kullandığı AYNI motoru (/api/preorder-analysis)
 // çağırır — Yahoo'dan çekip BOGA Skoru / konviksiyon / trade plan / Wyckoff
@@ -131,7 +133,7 @@ export async function getTradePlanSummary(ticker: string, locale: string = "en")
     valid: !!tp.valid,
     entryLow: tp.entryZone.low,
     entryHigh: tp.entryZone.high,
-    avgEntry: +((tp.entryZone.low + tp.entryZone.high) / 2).toFixed(2),
+    avgEntry: +formatNumber(((tp.entryZone.low + tp.entryZone.high) / 2), 2),
     entryCondition: tp.entryCondition || "",
     stopPrice: tp.stop?.price,
     stopPct: tp.stop?.pct,

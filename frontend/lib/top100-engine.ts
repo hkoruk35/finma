@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 /**
  * BOGA AI Top 100 Tracker — paylaşılan hesaplama motoru.
  * Admin'in "ticker ekle" anlık seed çağrısı VE saatlik bot pipeline'ı (Faz 6)
@@ -337,15 +339,15 @@ export async function computeTop100Snapshot(ticker: string): Promise<Top100Snaps
   return {
     ticker,
     company: meta.shortName || meta.longName || ticker,
-    price: +price.toFixed(2),
+    price: +formatNumber(price, 2),
     volume,
-    change_pct: +change_pct.toFixed(2),
-    ema20: +ema20.toFixed(2),
-    ema50: +ema50.toFixed(2),
-    ema200: +ema200.toFixed(2),
-    rsi: +rsi.toFixed(1),
-    macd: +macdResult.macd.toFixed(3),
-    adx: +adx.toFixed(1),
+    change_pct: +formatNumber(change_pct, 2),
+    ema20: +formatNumber(ema20, 2),
+    ema50: +formatNumber(ema50, 2),
+    ema200: +formatNumber(ema200, 2),
+    rsi: +formatNumber(rsi, 1),
+    macd: +formatNumber(macdResult.macd, 3),
+    adx: +formatNumber(adx, 1),
     pattern,
     signal,
     character,

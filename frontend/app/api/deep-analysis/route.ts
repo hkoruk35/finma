@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import { hasDataAccess } from "@/lib/apiAuth";
 import { isRateLimited, getClientIp } from "@/lib/rateLimit";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -150,8 +151,8 @@ async function fetchPeerData(currentTicker: string, sector: string): Promise<any
     return (json?.quoteResponse?.result ?? []).map((q: any) => ({
       ticker:     q.symbol ?? "",
       name:       q.shortName ?? q.symbol ?? "",
-      price:      +(q.regularMarketPrice ?? 0).toFixed(2),
-      changePct:  +(q.regularMarketChangePercent ?? 0).toFixed(2),
+      price:      +formatNumber((q.regularMarketPrice ?? 0), 2),
+      changePct:  +formatNumber((q.regularMarketChangePercent ?? 0), 2),
       marketCap:  q.marketCap ?? 0,
       rs20d:      0, // filled in by fetchPeer20dChanges
     }));
@@ -175,7 +176,7 @@ async function fetchPeer20dChanges(tickers: string[]): Promise<Record<string, nu
       const closes: (number | null)[] = data?.chart?.result?.[0]?.indicators?.quote?.[0]?.close ?? [];
       const valid = closes.filter((c): c is number => c != null);
       if (valid.length >= 2) {
-        results[t] = +((valid[valid.length - 1] - valid[0]) / valid[0] * 100).toFixed(1);
+        results[t] = +formatNumber(((valid[valid.length - 1] - valid[0]) / valid[0] * 100), 1);
       }
     } catch {}
   }));
@@ -251,7 +252,7 @@ function calcRSI14(closes: number[]): number {
     avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
   }
   const rs = avgGain / (avgLoss || 1e-9);
-  return +Math.min(100, Math.max(0, 100 - 100 / (1 + rs))).toFixed(1);
+  return +formatNumber(Math.min(100, Math.max(0, 100 - 100 / (1 + rs))), 1);
 }
 
 /** Real pivot-based support/resistance from OHLC bars */
@@ -295,20 +296,20 @@ function buildSRFromPivots(
   const supports    = cluster(pivotLows ).filter(l => l < currentPrice * 1.005).reverse();
 
   // Fill gaps with percentage fallbacks if not enough pivots
-  const r1 = resistances[0] ?? +(currentPrice * 1.04).toFixed(2);
-  const r2 = resistances[1] ?? +(Math.max(r1 * 1.04, currentPrice * 1.08)).toFixed(2);
-  const r3 = resistances[2] ?? +(Math.max(r2 * 1.04, high52w)).toFixed(2);
-  const s1 = supports[0]    ?? +(currentPrice * 0.96).toFixed(2);
-  const s2 = supports[1]    ?? +(Math.min(s1 * 0.95, currentPrice * 0.91)).toFixed(2);
-  const s3 = supports[2]    ?? +(Math.min(s2 * 0.95, low52w)).toFixed(2);
+  const r1 = resistances[0] ?? +formatNumber((currentPrice * 1.04), 2);
+  const r2 = resistances[1] ?? +formatNumber((Math.max(r1 * 1.04, currentPrice * 1.08)), 2);
+  const r3 = resistances[2] ?? +formatNumber((Math.max(r2 * 1.04, high52w)), 2);
+  const s1 = supports[0]    ?? +formatNumber((currentPrice * 0.96), 2);
+  const s2 = supports[1]    ?? +formatNumber((Math.min(s1 * 0.95, currentPrice * 0.91)), 2);
+  const s3 = supports[2]    ?? +formatNumber((Math.min(s2 * 0.95, low52w)), 2);
 
   return {
-    resistance3: +Math.max(r3, high52w).toFixed(2),
-    resistance2: +r2.toFixed(2),
-    resistance1: +r1.toFixed(2),
-    support1:    +s1.toFixed(2),
-    support2:    +s2.toFixed(2),
-    support3:    +Math.min(s3, low52w).toFixed(2),
+    resistance3: +formatNumber(Math.max(r3, high52w), 2),
+    resistance2: +formatNumber(r2, 2),
+    resistance1: +formatNumber(r1, 2),
+    support1:    +formatNumber(s1, 2),
+    support2:    +formatNumber(s2, 2),
+    support3:    +formatNumber(Math.min(s3, low52w), 2),
   };
 }
 
@@ -340,7 +341,7 @@ function calcMFI(rows: Array<{ high: number; low: number; close: number; volume:
     const mf = tp[i] * rows[i].volume;
     if (tp[i] > tp[i - 1]) pos += mf; else neg += mf;
   }
-  return +(100 - 100 / (1 + pos / (neg || 1))).toFixed(1);
+  return +formatNumber((100 - 100 / (1 + pos / (neg || 1))), 1);
 }
 
 function calcEMASlope(closes: number[], period: number): "yükselen" | "yatay" | "düşen" {
@@ -415,12 +416,12 @@ function calcLiveIndicators(rows: Array<{ open: number; high: number; low: numbe
     return +Math.sqrt(variance * 252) * 100;
   })();
   const avgVol30d = volumes.slice(-30).reduce((a, b) => a + b, 0) / 30;
-  const rvol      = volumes.length > 0 ? +(volumes[volumes.length - 1] / (avgVol30d || 1)).toFixed(2) : 1;
+  const rvol      = volumes.length > 0 ? +formatNumber((volumes[volumes.length - 1] / (avgVol30d || 1)), 2) : 1;
 
   // MACD (12/26/9 EMA difference)
   const ema12  = calcEMA(closes, 12);
   const ema26  = calcEMA(closes, 26);
-  const macd   = +(ema12 - ema26).toFixed(3);
+  const macd   = +formatNumber((ema12 - ema26), 3);
 
   return { rsi14, ema20, ema50, atr14, hv30, avgVol30d, rvol, macd };
 }
@@ -504,11 +505,11 @@ function buildHistoryTable(rows: Array<{ date: string; open: number; close: numb
     const atrPct = atr > 0 ? ((r.high - r.low) / atr) * 100 : 0;
     return {
       date: r.date,
-      open: +r.open.toFixed(2),
-      close: +r.close.toFixed(2),
-      changePct: +changePct.toFixed(2),
-      volume: +(r.volume / 1e6).toFixed(2),
-      atrPct: +atrPct.toFixed(1),
+      open: +formatNumber(r.open, 2),
+      close: +formatNumber(r.close, 2),
+      changePct: +formatNumber(changePct, 2),
+      volume: +formatNumber((r.volume / 1e6), 2),
+      atrPct: +formatNumber(atrPct, 1),
     };
   });
 }
@@ -516,12 +517,12 @@ function buildHistoryTable(rows: Array<{ date: string; open: number; close: numb
 function buildSRLevels(rows: Array<{ high: number; low: number; close: number }>, currentPrice: number, support1: number, resistance1: number, low52w: number, high52w: number) {
   if (!rows || rows.length === 0) {
     return {
-      resistance3: +(high52w).toFixed(2),
-      resistance2: +(currentPrice * 1.12).toFixed(2),
-      resistance1: +resistance1.toFixed(2),
-      support1: +support1.toFixed(2),
-      support2: +(currentPrice * 0.92).toFixed(2),
-      support3: +low52w.toFixed(2),
+      resistance3: +formatNumber((high52w), 2),
+      resistance2: +formatNumber((currentPrice * 1.12), 2),
+      resistance1: +formatNumber(resistance1, 2),
+      support1: +formatNumber(support1, 2),
+      support2: +formatNumber((currentPrice * 0.92), 2),
+      support3: +formatNumber(low52w, 2),
     };
   }
   const highs = rows.map(r => r.high);
@@ -531,12 +532,12 @@ function buildSRLevels(rows: Array<{ high: number; low: number; close: number }>
   const midHigh = (recentHigh + high52w) / 2;
   const midLow = (recentLow + low52w) / 2;
   return {
-    resistance3: +high52w.toFixed(2),
-    resistance2: +Math.max(midHigh, resistance1 * 1.05).toFixed(2),
-    resistance1: +resistance1.toFixed(2),
-    support1: +support1.toFixed(2),
-    support2: +Math.min(midLow, support1 * 0.95).toFixed(2),
-    support3: +low52w.toFixed(2),
+    resistance3: +formatNumber(high52w, 2),
+    resistance2: +formatNumber(Math.max(midHigh, resistance1 * 1.05), 2),
+    resistance1: +formatNumber(resistance1, 2),
+    support1: +formatNumber(support1, 2),
+    support2: +formatNumber(Math.min(midLow, support1 * 0.95), 2),
+    support3: +formatNumber(low52w, 2),
   };
 }
 
@@ -546,9 +547,9 @@ function buildMALevels(rows: Array<{ close: number }> | null, currentPrice: numb
   const ma21 = closes.length >= 21 ? closes.slice(-21).reduce((a, b) => a + b, 0) / 21 : ema20 * 0.99;
   const yearAvg = closes.length >= 50 ? closes.reduce((a, b) => a + b, 0) / closes.length : (low52w + high52w) / 2;
   return {
-    ma7: +ma7.toFixed(2), ma21: +ma21.toFixed(2),
-    ma50: +ema50.toFixed(2), ma200: +ema200.toFixed(2),
-    yearAvg: +yearAvg.toFixed(2),
+    ma7: +formatNumber(ma7, 2), ma21: +formatNumber(ma21, 2),
+    ma50: +formatNumber(ema50, 2), ma200: +formatNumber(ema200, 2),
+    yearAvg: +formatNumber(yearAvg, 2),
     goldenCross: ema20 > ema50, deathCross: ema20 < ema50,
   };
 }
@@ -561,12 +562,12 @@ function buildCspMatrix(spot: number, iv: number, support1: number, support2: nu
     { label: "Aylık (30G)", dte: 30 },
   ];
   return weeks.map(w => {
-    const strike = +(support1 * 0.98).toFixed(2);
-    const bid = +estimatePutPremium(spot, strike, iv, w.dte).toFixed(2);
-    const yieldPct = +((bid / strike) * 100).toFixed(2);
-    const annualYield = +((bid / strike) * (365 / w.dte) * 100).toFixed(1);
-    const otmPct = +((spot - strike) / spot * 100).toFixed(1);
-    const efMaliyet = +(strike - bid).toFixed(2);
+    const strike = +formatNumber((support1 * 0.98), 2);
+    const bid = +formatNumber(estimatePutPremium(spot, strike, iv, w.dte), 2);
+    const yieldPct = +formatNumber(((bid / strike) * 100), 2);
+    const annualYield = +formatNumber(((bid / strike) * (365 / w.dte) * 100), 1);
+    const otmPct = +formatNumber(((spot - strike) / spot * 100), 1);
+    const efMaliyet = +formatNumber((strike - bid), 2);
     return { label: w.label, dte: w.dte, strike, bid, yieldPct, annualYield, otmPct, efMaliyet };
   });
 }
@@ -578,16 +579,16 @@ function buildCcMatrix(spot: number, iv: number, resistance1: number) {
     { label: "Aylık (30G)", dte: 30 },
   ];
   return weeks.map(w => {
-    const strike = +(resistance1 * 1.01).toFixed(2);
+    const strike = +formatNumber((resistance1 * 1.01), 2);
     const ivDec = iv / 100;
     const t = w.dte / 252;
     const otmPct = Math.max(0, (strike - spot) / spot);
     const atm = spot * ivDec * Math.sqrt(t) * 0.4;
-    const bid = +Math.max(0.01, atm * Math.exp(-otmPct * 12)).toFixed(2);
-    const yieldPct = +((bid / spot) * 100).toFixed(2);
-    const annualYield = +((bid / spot) * (365 / w.dte) * 100).toFixed(1);
-    const otmPctShow = +((strike - spot) / spot * 100).toFixed(1);
-    const maxReturn = +(strike - spot + bid).toFixed(2);
+    const bid = +formatNumber(Math.max(0.01, atm * Math.exp(-otmPct * 12)), 2);
+    const yieldPct = +formatNumber(((bid / spot) * 100), 2);
+    const annualYield = +formatNumber(((bid / spot) * (365 / w.dte) * 100), 1);
+    const otmPctShow = +formatNumber(((strike - spot) / spot * 100), 1);
+    const maxReturn = +formatNumber((strike - spot + bid), 2);
     return { label: w.label, dte: w.dte, strike, bid, yieldPct, annualYield, otmPct: otmPctShow, maxReturn };
   });
 }
@@ -611,7 +612,7 @@ function buildForecast15(forecast: any[], currentPrice: number) {
     const bear = safeNum(d.bear ?? d.low, currentPrice * (1 - 0.012 * day));
     const base = safeNum(d.base ?? d.median, currentPrice * (1 + 0.004 * day));
     const bull = safeNum(d.bull ?? d.high, currentPrice * (1 + 0.018 * day));
-    return { day, bear: +bear.toFixed(2), base: +base.toFixed(2), bull: +bull.toFixed(2), teknikSinyal: signals[i], eylemOnerisi: actions[i] };
+    return { day, bear: +formatNumber(bear, 2), base: +formatNumber(base, 2), bull: +formatNumber(bull, 2), teknikSinyal: signals[i], eylemOnerisi: actions[i] };
   });
 }
 
@@ -641,8 +642,8 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       hacimTepkisi: `Above-average volume days increase volatility and directional movement. Falling volume points to consolidation.`,
       haberEtkisi: `Sector news and macro developments affect short-term price action. Earnings periods drive volatility higher.`,
       trendDurumu: `Price is currently ${aboveEma20 ? "above" : "below"} EMA 20 and ${aboveEma50 ? "above" : "below"} EMA 50. Overall picture: ${trendStr}.`,
-      kritikSeviyeler: `Key support is at $${p.support1.toFixed(2)}. A break above $${p.resistance1.toFixed(2)} resistance opens new targets.`,
-      momentumYorumu: `RSI at ${p.rsi.toFixed(1)} is in ${p.rsi > 70 ? "overbought" : p.rsi < 30 ? "oversold" : "neutral"} territory. EMA alignment confirms the current direction.`,
+      kritikSeviyeler: `Key support is at $${formatNumber(p.support1, 2)}. A break above $${formatNumber(p.resistance1, 2)} resistance opens new targets.`,
+      momentumYorumu: `RSI at ${formatNumber(p.rsi, 1)} is in ${p.rsi > 70 ? "overbought" : p.rsi < 30 ? "oversold" : "neutral"} territory. EMA alignment confirms the current direction.`,
       volatilite: `IV at ${p.iv}% reflects a ${p.iv > 50 ? "high" : p.iv > 30 ? "moderate" : "low"} volatility environment.`,
       bearTetikleyici: "Negative news or sector pressure breaking support",
       baseTetikleyici: "Continuation of current momentum and technical structure",
@@ -650,7 +651,7 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
       oneri: `Considering the technical structure, ${p.masterScore >= 60 ? "the setup favors a long bias." : "waiting for a clearer signal is advisable."}`,
       kritikRisk: "Earnings dates and macro events like FOMC should be closely monitored, as they can drive sharp volatility.",
-      genelPuan: (p.masterScore / 10).toFixed(1),
+      genelPuan: formatNumber((p.masterScore / 10), 1),
     };
   }
 
@@ -663,8 +664,8 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       hacimTepkisi: `Los días de volumen superior al promedio aumentan la volatilidad y el movimiento direccional. El volumen decreciente apunta a consolidación.`,
       haberEtkisi: `Las noticias del sector y los desarrollos macro afectan la acción del precio a corto plazo. Los períodos de ganancias impulsan mayor volatilidad.`,
       trendDurumu: `El precio está actualmente ${aboveEma20 ? "por encima" : "por debajo"} de EMA 20 y ${aboveEma50 ? "por encima" : "por debajo"} de EMA 50. Panorama general: ${trendStr}.`,
-      kritikSeviyeler: `El soporte clave está en $${p.support1.toFixed(2)}. Una ruptura por encima de la resistencia $${p.resistance1.toFixed(2)} abre nuevos objetivos.`,
-      momentumYorumu: `RSI en ${p.rsi.toFixed(1)} está en territorio ${p.rsi > 70 ? "sobrecomprado" : p.rsi < 30 ? "sobrevendido" : "neutral"}. La alineación de EMA confirma la dirección actual.`,
+      kritikSeviyeler: `El soporte clave está en $${formatNumber(p.support1, 2)}. Una ruptura por encima de la resistencia $${formatNumber(p.resistance1, 2)} abre nuevos objetivos.`,
+      momentumYorumu: `RSI en ${formatNumber(p.rsi, 1)} está en territorio ${p.rsi > 70 ? "sobrecomprado" : p.rsi < 30 ? "sobrevendido" : "neutral"}. La alineación de EMA confirma la dirección actual.`,
       volatilite: `IV al ${p.iv}% refleja un ambiente de volatilidad ${p.iv > 50 ? "alto" : p.iv > 30 ? "moderado" : "bajo"}.`,
       bearTetikleyici: "Noticias negativas o presión del sector rompiendo soporte",
       baseTetikleyici: "Continuación del impulso actual y estructura técnica",
@@ -672,7 +673,7 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
       oneri: `Considerando la estructura técnica, ${p.masterScore >= 60 ? "la configuración favorece un sesgo largo." : "esperar una señal más clara es aconsejable."}`,
       kritikRisk: "Las fechas de ganancias y eventos macro como FOMC deben monitorearse de cerca, ya que pueden impulsar volatilidad aguda.",
-      genelPuan: (p.masterScore / 10).toFixed(1),
+      genelPuan: formatNumber((p.masterScore / 10), 1),
     };
   }
 
@@ -685,8 +686,8 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       hacimTepkisi: `Les jours de volume supérieur à la moyenne augmentent la volatilité et le mouvement directionnel. La baisse du volume indique une consolidation.`,
       haberEtkisi: `Les nouvelles sectorielles et les développements macro affectent l'action des prix à court terme. Les périodes de résultats augmentent la volatilité.`,
       trendDurumu: `Le prix est actuellement ${aboveEma20 ? "au-dessus" : "en dessous"} de l'EMA 20 et ${aboveEma50 ? "au-dessus" : "en dessous"} de l'EMA 50. Vue d'ensemble: ${trendStr}.`,
-      kritikSeviyeler: `Le support clé est à $${p.support1.toFixed(2)}. Une rupture au-dessus de la résistance $${p.resistance1.toFixed(2)} ouvre de nouveaux objectifs.`,
-      momentumYorumu: `RSI à ${p.rsi.toFixed(1)} est en territoire ${p.rsi > 70 ? "suracheté" : p.rsi < 30 ? "survendu" : "neutre"}. L'alignement d'EMA confirme la direction actuelle.`,
+      kritikSeviyeler: `Le support clé est à $${formatNumber(p.support1, 2)}. Une rupture au-dessus de la résistance $${formatNumber(p.resistance1, 2)} ouvre de nouveaux objectifs.`,
+      momentumYorumu: `RSI à ${formatNumber(p.rsi, 1)} est en territoire ${p.rsi > 70 ? "suracheté" : p.rsi < 30 ? "survendu" : "neutre"}. L'alignement d'EMA confirme la direction actuelle.`,
       volatilite: `IV à ${p.iv}% reflète un environnement de volatilité ${p.iv > 50 ? "élevé" : p.iv > 30 ? "modéré" : "faible"}.`,
       bearTetikleyici: "Nouvelles négatives ou pression du secteur cassant support",
       baseTetikleyici: "Continuation de l'élan actuel et structure technique",
@@ -694,7 +695,7 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
       bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
       oneri: `Considérant la structure technique, ${p.masterScore >= 60 ? "la configuration favorise un biais haussier." : "attendre un signal plus clair est conseillé."}`,
       kritikRisk: "Les dates de résultats et les événements macro comme le FOMC doivent être surveillés de près, car ils peuvent générer une volatilité importante.",
-      genelPuan: (p.masterScore / 10).toFixed(1),
+      genelPuan: formatNumber((p.masterScore / 10), 1),
     };
   }
 
@@ -706,8 +707,8 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
     hacimTepkisi: `Ortalamanın üzerinde hacimli günlerde volatilite ve yönlü hareket artar. Hacim düşüşü konsolidasyona işaret eder.`,
     haberEtkisi: `Sektörel haberler ve makro gelişmeler kısa vadeli fiyat hareketini etkiler. Bilanço dönemleri IV yükselişine neden olur.`,
     trendDurumu: `Fiyat şu an EMA 20 ${aboveEma20 ? "üzerinde" : "altında"} ve EMA 50 ${aboveEma50 ? "üzerinde" : "altında"} seyrediyor. Genel görünüm ${trendStr}.`,
-    kritikSeviyeler: `Kritik destek $${p.support1.toFixed(2)} seviyesinde. $${p.resistance1.toFixed(2)} direnci kırılırsa yeni hedefler devreye girer.`,
-    momentumYorumu: `RSI ${p.rsi.toFixed(1)} ile ${p.rsi > 70 ? "aşırı alım" : p.rsi < 30 ? "aşırı satım" : "nötr"} bölgesinde. EMA hizalaması mevcut yönü teyit ediyor.`,
+    kritikSeviyeler: `Kritik destek $${formatNumber(p.support1, 2)} seviyesinde. $${formatNumber(p.resistance1, 2)} direnci kırılırsa yeni hedefler devreye girer.`,
+    momentumYorumu: `RSI ${formatNumber(p.rsi, 1)} ile ${p.rsi > 70 ? "aşırı alım" : p.rsi < 30 ? "aşırı satım" : "nötr"} bölgesinde. EMA hizalaması mevcut yönü teyit ediyor.`,
     volatilite: `IV %${p.iv} seviyesinde ${p.iv > 50 ? "yüksek" : p.iv > 30 ? "orta" : "düşük"} volatilite ortamı mevcut.`,
     bearTetikleyici: "Negatif haber veya sektör baskısı ile destek kırılımı",
     baseTetikleyici: "Mevcut momentum ve teknik yapı devamı",
@@ -715,7 +716,7 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
     bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
     oneri: `Teknik yapı dikkate alınarak ${p.masterScore >= 60 ? "pozitif önyargı uygundur." : "net bir sinyal beklenmelidir."}`,
     kritikRisk: "Bilanço tarihi ve FOMC gibi makro gelişmeler yakından takip edilmeli, ani volatiliteye neden olabilir.",
-    genelPuan: (p.masterScore / 10).toFixed(1),
+    genelPuan: formatNumber((p.masterScore / 10), 1),
   };
 }
 
@@ -766,10 +767,10 @@ function buildUserPrompt(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
   // (kritikSeviyeler/oneri/tetikleyiciler) plan kartiyla ayni seviyeleri
   // referans alsin — plandan habersiz seviye uydurmasin.
   const planSeg = p.enginePlan
-    ? ` TradePlan[EntryZone:${p.enginePlan.entryLow.toFixed(2)}-${p.enginePlan.entryHigh.toFixed(2)} Stop:${p.enginePlan.stop.toFixed(2)} TP1:${p.enginePlan.t1.toFixed(2)} TP2:${p.enginePlan.t2.toFixed(2)} TP3:${p.enginePlan.t3.toFixed(2)}]`
+    ? ` TradePlan[EntryZone:${formatNumber(p.enginePlan.entryLow, 2)}-${formatNumber(p.enginePlan.entryHigh, 2)} Stop:${formatNumber(p.enginePlan.stop, 2)} TP1:${formatNumber(p.enginePlan.t1, 2)} TP2:${formatNumber(p.enginePlan.t2, 2)} TP3:${formatNumber(p.enginePlan.t3, 2)}]`
     : "";
-  const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}${planSeg}`;
-  const roundedScore = (p.masterScore / 10).toFixed(1);
+  const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${formatNumber(p.currentPrice, 2)} Score:${p.masterScore} RSI:${formatNumber(p.rsi, 1)} IV:${p.iv} EMA20:${formatNumber(p.ema20, 2)} EMA50:${formatNumber(p.ema50, 2)} EMA200:${formatNumber(p.ema200, 2)} Support:${formatNumber(p.support1, 2)} Resistance:${formatNumber(p.resistance1, 2)} ATR:${formatNumber(p.atr, 2)} Bear15D:${formatNumber(p.bearTarget, 2)} Base15D:${formatNumber(p.baseTarget, 2)} Bull15D:${formatNumber(p.bullTarget, 2)}${planSeg}`;
+  const roundedScore = formatNumber((p.masterScore / 10), 1);
   const schema =
     lang === "tr"
       ? `{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${roundedScore}}`
@@ -849,8 +850,8 @@ export async function POST(req: NextRequest) {
     const macd = tech.macd ?? 0;
     const ivRank = Math.min(100, Math.max(0, ((iv - 15) / 65) * 100));
     const hv30 = safeNum(tech.hv30 ?? tech.historical_volatility, iv * 0.85);
-    const optimalCSPStrike = +(support1 * 0.98).toFixed(2);
-    const optimalCCStrike = +(resistance1 * 1.01).toFixed(2);
+    const optimalCSPStrike = +formatNumber((support1 * 0.98), 2);
+    const optimalCCStrike = +formatNumber((resistance1 * 1.01), 2);
 
     // ── Fetch historical OHLC + compute live indicators ─────────────────────
     const histResult = await fetchHistory(ticker.toUpperCase());
@@ -863,7 +864,7 @@ export async function POST(req: NextRequest) {
       s.marketCap ?? s.market_cap ?? s.price?.market_cap ?? s.price?.marketCap,
       safeNum(histResult?.marketCap, 0)
     );
-    const marketCapStr = marketCap > 1e9 ? "$" + (marketCap / 1e9).toFixed(1) + "B" : marketCap > 1e6 ? "$" + (marketCap / 1e6).toFixed(0) + "M" : "N/A";
+    const marketCapStr = marketCap > 1e9 ? "$" + formatNumber((marketCap / 1e9), 1) + "B" : marketCap > 1e6 ? "$" + formatNumber((marketCap / 1e6), 0) + "M" : "N/A";
 
     // ── Override stale stockData values with live OHLC calculations ──────────
     // Yahoo Finance 60-day OHLC gives us accurate, real-time technicals.
@@ -907,8 +908,8 @@ export async function POST(req: NextRequest) {
     // Use live S/R levels for CSP/CC strike selection
     const liveS1 = srLevels.support1;
     const liveR1 = srLevels.resistance1;
-    const optimalCSPStrikeLive = +(liveS1 * 0.98).toFixed(2);
-    const optimalCCStrikeLive  = +(liveR1 * 1.01).toFixed(2);
+    const optimalCSPStrikeLive = +formatNumber((liveS1 * 0.98), 2);
+    const optimalCCStrikeLive  = +formatNumber((liveR1 * 1.01), 2);
 
     const cspMatrix = buildCspMatrix(currentPrice, iv, liveS1, srLevels.support2);
     const ccMatrix  = buildCcMatrix(currentPrice, iv, liveR1);
@@ -1036,14 +1037,14 @@ export async function POST(req: NextRequest) {
       .map((tx: any) => {
         const shares = safeNum(tx.shares?.raw, 0);
         const value  = safeNum(tx.value?.raw, 0);
-        const price  = shares > 0 && value > 0 ? +(value / shares).toFixed(2) : null;
+        const price  = shares > 0 && value > 0 ? +formatNumber((value / shares), 2) : null;
         const type   = classifyInsiderType(tx.transactionType);
         return {
           officer:     tx.filerName       || (lang === "en" ? "Unknown" : "Bilinmiyor"),
           title:       tx.filerRelation   || (lang === "en" ? "Executive" : "Yönetici"),
           type,
           date:        tx.startDate?.fmt  || "",
-          shares:      tx.shares?.longFmt || (shares > 0 ? shares.toLocaleString() : "—"),
+          shares:      tx.shares?.longFmt || (shares > 0 ? formatNumber(shares, 0) : "—"),
           sharesRaw:   shares,
           price,
           value:       value > 0 ? value : null,
@@ -1096,7 +1097,7 @@ export async function POST(req: NextRequest) {
         const rawPct = o.pctChange?.raw;
         const pctDecimal = typeof rawPct === "number" && isFinite(rawPct) ? rawPct : null;
         const isNewPosition = pctDecimal === null || Math.abs(pctDecimal) >= 0.5;
-        const change = pctDecimal !== null ? +(pctDecimal * 100).toFixed(2) : 0;
+        const change = pctDecimal !== null ? +formatNumber((pctDecimal * 100), 2) : 0;
         return {
           name:          o.organization ?? (lang === "en" ? "Unknown" : "Bilinmiyor"),
           shares:        safeNum(o.position?.raw, 0),
@@ -1158,7 +1159,7 @@ export async function POST(req: NextRequest) {
           date:        e.quarter?.fmt ?? "",
           eps:         epsActual,
           estimate:    epsEstimate,
-          epsSurprise: +surp.toFixed(1),
+          epsSurprise: +formatNumber(surp, 1),
           epsBeating:  epsActual >= epsEstimate,
           priceMove:   0,   // post-earnings hareketi için ayrı hesap gerekir
           persistence: 0,
@@ -1191,8 +1192,8 @@ export async function POST(req: NextRequest) {
 
     // Implied move from IV
     const implied30dMove = currentPrice * (iv / 100) * Math.sqrt(30 / 252);
-    const range1sd = { low: +(currentPrice - implied30dMove).toFixed(2), high: +(currentPrice + implied30dMove).toFixed(2) };
-    const range2sd = { low: +(currentPrice - implied30dMove * 2).toFixed(2), high: +(currentPrice + implied30dMove * 2).toFixed(2) };
+    const range1sd = { low: +formatNumber((currentPrice - implied30dMove), 2), high: +formatNumber((currentPrice + implied30dMove), 2) };
+    const range2sd = { low: +formatNumber((currentPrice - implied30dMove * 2), 2), high: +formatNumber((currentPrice + implied30dMove * 2), 2) };
 
     // promptParams uses live technical values for accurate AI analysis
     // Paylasilan trade-plan motorunun (lib/tradePlanEngine.ts) plani —
@@ -1239,14 +1240,14 @@ export async function POST(req: NextRequest) {
     let vwap20: number | null = null;
     let poc: number | null = null;
     const rs20d = historyRows && historyRows.length >= 20
-      ? +(((currentPrice - historyRows[historyRows.length - 20].close) / historyRows[historyRows.length - 20].close) * 100).toFixed(1)
+      ? +formatNumber((((currentPrice - historyRows[historyRows.length - 20].close) / historyRows[historyRows.length - 20].close) * 100), 1)
       : null;
 
     if (historyRows && historyRows.length >= 20) {
       const rows20 = historyRows.slice(-20);
       const totalVol = rows20.reduce((s: number, r: any) => s + r.volume, 0);
       if (totalVol > 0) {
-        vwap20 = +(rows20.reduce((s: number, r: any) => s + (r.high + r.low + r.close) / 3 * r.volume, 0) / totalVol).toFixed(2);
+        vwap20 = +formatNumber((rows20.reduce((s: number, r: any) => s + (r.high + r.low + r.close) / 3 * r.volume, 0) / totalVol), 2);
       }
       const mn = Math.min(...rows20.map((r: any) => r.low));
       const mx = Math.max(...rows20.map((r: any) => r.high));
@@ -1259,7 +1260,7 @@ export async function POST(req: NextRequest) {
           volBuckets[idx] += r.volume;
         });
         const maxIdx = volBuckets.indexOf(Math.max(...volBuckets));
-        poc = +(mn + (maxIdx + 0.5) * bSize).toFixed(2);
+        poc = +formatNumber((mn + (maxIdx + 0.5) * bSize), 2);
       }
     }
 
@@ -1385,22 +1386,22 @@ export async function POST(req: NextRequest) {
         },
         ceklistSkorlar,
         sonucKarar: {
-          genelPuan: str(String(ai.genelPuan ?? (masterScore / 10).toFixed(1)), (masterScore / 10).toFixed(1)),
+          genelPuan: str(String(ai.genelPuan ?? formatNumber((masterScore / 10), 1)), formatNumber((masterScore / 10), 1)),
           oneri: str(ai.oneri, lang === "en" ? "Position can be evaluated considering the technical structure." : "Teknik yapı dikkate alınarak pozisyon değerlendirilebilir."),
           kritikRisk: str(ai.kritikRisk, lang === "en" ? "Earnings dates and macro developments should be closely monitored." : "Bilanço tarihi ve makro gelişmeler yakından takip edilmeli."),
         },
       },
       rawData: {
-        masterScore, rsi: rsiF, iv, hv30: hv30F, atr: atrF, atrPct: +atrPct.toFixed(2),
+        masterScore, rsi: rsiF, iv, hv30: hv30F, atr: atrF, atrPct: +formatNumber(atrPct, 2),
         ema20: ema20F, ema50: ema50F, ema200, support1: liveS1, resistance1: liveR1, low52w, high52w,
-        avgVol30d: avgVol30dF, volume, rvol: rvolF, macd: macdF, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30F, 1)).toFixed(2),
+        avgVol30d: avgVol30dF, volume, rvol: rvolF, macd: macdF, ivRank: +formatNumber(ivRank, 2), ivHvRatio: +formatNumber((iv / Math.max(hv30F, 1)), 2),
         marketCapStr, forecast15, history15, srLevels, maLevels, cspMatrix, ccMatrix,
         historyOHLC: historyRows || [], currentPrice,
         // DeepAnalysisReport'un Swing sekmesi BU degerleri gosterir ki
         // /graphic ve /en/stock ile birebir ayni giris araligi / stop /
         // TP1-3 gorunsun.
         enginePlan,
-        implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
+        implied30dMove: +formatNumber(implied30dMove, 2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
         insiderTransactions, insiderSummary, recentNews: localizedNews, analystData, institutionalOwners, earningsHistory,

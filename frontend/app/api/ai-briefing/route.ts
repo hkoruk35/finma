@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateWithFallback } from "@/lib/copilot/aiFallback";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -96,9 +97,9 @@ Stock Data Reference:
 - Sector: ${pick.sector || "N/A"}
 - Current Price: $${pick.current_price}
 - BOGA AI Score: ${pick.score}/100 (Signal: ${pick.market_regime || "Bullish"})
-- Entry Zone: $${pick.buy_zone?.low?.toFixed(2) ?? "N/A"} – $${pick.buy_zone?.high?.toFixed(2) ?? "N/A"}
-- Profit Target: $${pick.profit_zone?.low?.toFixed(2) ?? "N/A"} – $${pick.profit_zone?.high?.toFixed(2) ?? "N/A"}
-- Stop Loss: $${pick.stop_zone?.low?.toFixed(2) ?? "N/A"} – $${pick.stop_zone?.high?.toFixed(2) ?? "N/A"}
+- Entry Zone: $${formatNumber(pick.buy_zone?.low, 2) ?? "N/A"} – $${formatNumber(pick.buy_zone?.high, 2) ?? "N/A"}
+- Profit Target: $${formatNumber(pick.profit_zone?.low, 2) ?? "N/A"} – $${formatNumber(pick.profit_zone?.high, 2) ?? "N/A"}
+- Stop Loss: $${formatNumber(pick.stop_zone?.low, 2) ?? "N/A"} – $${formatNumber(pick.stop_zone?.high, 2) ?? "N/A"}
 - Holding Period: ${pick.holding_period || "60-120 days"}
 - Entry Signal: ${pick.entry_mode || "EMA200 Breakout"}
 - EMA200 Breakout: ${pick.ema200_breakout ? "Yes" : "No"}
@@ -113,9 +114,9 @@ Technical Indicators:
 ${Object.keys(fundamental).length > 0 ? `
 Fundamental Data:
 - PE Ratio: ${fundamental.pe_ratio ?? "N/A"}
-- Market Cap: ${fundamental.market_cap ? "$" + (fundamental.market_cap / 1e9).toFixed(1) + "B" : "N/A"}
-- Revenue Growth (TTM): ${fundamental.revenue_growth_ttm ? (fundamental.revenue_growth_ttm * 100).toFixed(1) + "%" : "N/A"}
-- Profit Margin: ${fundamental.profit_margins ? (fundamental.profit_margins * 100).toFixed(1) + "%" : "N/A"}
+- Market Cap: ${fundamental.market_cap ? "$" + formatNumber((fundamental.market_cap / 1e9), 1) + "B" : "N/A"}
+- Revenue Growth (TTM): ${fundamental.revenue_growth_ttm ? formatNumber((fundamental.revenue_growth_ttm * 100), 1) + "%" : "N/A"}
+- Profit Margin: ${fundamental.profit_margins ? formatNumber((fundamental.profit_margins * 100), 1) + "%" : "N/A"}
 ` : ""}
 
 Instructions:

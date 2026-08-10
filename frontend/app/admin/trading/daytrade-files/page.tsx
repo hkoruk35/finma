@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 function formatPrice(n: any) {
   if (n === undefined || n === null || isNaN(Number(n))) return "0.00";
-  return Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return formatNumber(Number(n), 2);
 }
 
 function ScoreBadge({ score }: { score: number }) {

@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 /**
  * BOGA AI Data Loader — reads JSON from transfer/latest/ or public/mock/
  * In production, this reads from the deployed static JSON endpoint.
@@ -633,7 +635,7 @@ export function getChangeColor(pct: number): string {
 export function formatPrice(n: any): string {
   const num = typeof n === "number" ? n : parseFloat(String(n));
   if (isNaN(num)) return "0.00";
-  return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return formatNumber(num, 2);
 }
 
 function getMockStockDetail(ticker: string, overridePrice?: number): StockDetail {
@@ -753,7 +755,7 @@ function getMockStockDetail(ticker: string, overridePrice?: number): StockDetail
     quick_view: {
       score_badge: masterScore >= 70 ? "HIGH CONVICTION" : "NEUTRAL",
       score_bar: masterScore,
-      price_change_display: `${changePct >= 0 ? '+' : ''}${changePct.toFixed(2)}%`,
+      price_change_display: `${changePct >= 0 ? '+' : ''}${formatNumber(changePct, 2)}%`,
       key_metrics: {
         RSI: 50,
         MACD: "Neutral",
@@ -1302,9 +1304,9 @@ export function calculateSwingStatsFromHistory(history: any[]) {
   const above10 = activeStatsTrades.filter(t => (t.return_pct ?? 0) >= 10).length;
   const statsCount = activeStatsTrades.length;
 
-  const winRate = statsCount > 0 ? (wins / statsCount * 100).toFixed(1) : "0.0";
-  const avgReturn = statsCount > 0 ? (sumRet / statsCount).toFixed(1) : "0.0";
-  const above10Rate = statsCount > 0 ? (above10 / statsCount * 100).toFixed(1) : "0.0";
+  const winRate = statsCount > 0 ? formatNumber((wins / statsCount * 100), 1) : "0.0";
+  const avgReturn = statsCount > 0 ? formatNumber((sumRet / statsCount), 1) : "0.0";
+  const above10Rate = statsCount > 0 ? formatNumber((above10 / statsCount * 100), 1) : "0.0";
 
   return {
     win_rate: winRate,

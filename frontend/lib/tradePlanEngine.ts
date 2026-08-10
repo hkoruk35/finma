@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 // Tek, paylasilan trade-plan motoru — /api/ask (deep analysis raporu),
 // /api/preorder-analysis (grafik sayfasi) ve dolayisiyla TickerDetailPanel
 // hepsi BU fonksiyonlari kullanir. Amac: ayni ticker icin farkli sayfalarda
@@ -202,23 +204,23 @@ export function calculateTradePlanZones(
 
   return {
     entryEngine: { valid: entryValid, type: entryType, confidence: entryConfidence },
-    buyZone: { low: +buyZoneLow.toFixed(2), high: +buyZoneHigh.toFixed(2) },
-    sellZone: { low: +sellZoneLow.toFixed(2), high: +sellZoneHigh.toFixed(2) },
-    stopZone: { low: +stopLow.toFixed(2), high: +stopHigh.toFixed(2) },
-    tp1: +tp1.toFixed(2),
-    tp2: +tp2.toFixed(2),
-    tp3: +tp3.toFixed(2),
-    supportLevel: +supportLevel.toFixed(2),
-    resistLevel: +resistLevel.toFixed(2),
-    breakoutLevel: +breakoutLevel.toFixed(2),
-    ema20_1h: +ema20_1h.toFixed(2),
-    atr1d: +atr1d.toFixed(2),
-    atrPct: +atrPct.toFixed(2),
-    riskReward: +rrRatio.toFixed(2),
-    riskUsd: +actualRisk.toFixed(2),
-    rewardUsd: +actualReward.toFixed(2),
-    stopPrice: +stopHigh.toFixed(2),
-    avgEntry: +avgEntry.toFixed(2),
+    buyZone: { low: +formatNumber(buyZoneLow, 2), high: +formatNumber(buyZoneHigh, 2) },
+    sellZone: { low: +formatNumber(sellZoneLow, 2), high: +formatNumber(sellZoneHigh, 2) },
+    stopZone: { low: +formatNumber(stopLow, 2), high: +formatNumber(stopHigh, 2) },
+    tp1: +formatNumber(tp1, 2),
+    tp2: +formatNumber(tp2, 2),
+    tp3: +formatNumber(tp3, 2),
+    supportLevel: +formatNumber(supportLevel, 2),
+    resistLevel: +formatNumber(resistLevel, 2),
+    breakoutLevel: +formatNumber(breakoutLevel, 2),
+    ema20_1h: +formatNumber(ema20_1h, 2),
+    atr1d: +formatNumber(atr1d, 2),
+    atrPct: +formatNumber(atrPct, 2),
+    riskReward: +formatNumber(rrRatio, 2),
+    riskUsd: +formatNumber(actualRisk, 2),
+    rewardUsd: +formatNumber(actualReward, 2),
+    stopPrice: +formatNumber(stopHigh, 2),
+    avgEntry: +formatNumber(avgEntry, 2),
   };
 }
 
@@ -250,7 +252,7 @@ export interface TradePlanRationale {
   rsi: string;
 }
 
-const fmt$ = (n: number) => `$${n.toFixed(2)}`;
+const fmt$ = (n: number) => `$${formatNumber(n, 2)}`;
 
 function pick(lang: RationaleLang, map: Record<RationaleLang, string>): string {
   return map[lang] ?? map.en;
@@ -357,11 +359,11 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
 
   // ── Hacim ───────────────────────────────────────────────────────────────
   const volume = rvol >= 1.5 ? pick(lang, {
-    en: `Volume is ${rvol.toFixed(1)}x above the 30-day average — indicating active market participation and a high probability of confirmation.`,
-    tr: `Hacim 30 günlük ortalamanın ${rvol.toFixed(1)} katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.`,
-    es: `El volumen supera en ${rvol.toFixed(1)}x el promedio de 30 días — indica alta participación y una fuerte probabilidad de confirmación.`,
-    fr: `Le volume est de ${rvol.toFixed(1)}x supérieur à la moyenne de 30 jours — indique une forte participation et une haute probabilité de confirmation.`,
-    pt: `O volume está ${rvol.toFixed(1)}x acima da média de 30 dias — indica alta participação e forte probabilidade de confirmação.`,
+    en: `Volume is ${formatNumber(rvol, 1)}x above the 30-day average — indicating active market participation and a high probability of confirmation.`,
+    tr: `Hacim 30 günlük ortalamanın ${formatNumber(rvol, 1)} katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.`,
+    es: `El volumen supera en ${formatNumber(rvol, 1)}x el promedio de 30 días — indica alta participación y una fuerte probabilidad de confirmación.`,
+    fr: `Le volume est de ${formatNumber(rvol, 1)}x supérieur à la moyenne de 30 jours — indique une forte participation et une haute probabilité de confirmation.`,
+    pt: `O volume está ${formatNumber(rvol, 1)}x acima da média de 30 dias — indica alta participação e forte probabilidade de confirmação.`,
   }) : rvol >= 1.0 ? pick(lang, {
     en: `Volume is near its 30-day average — standard market participation observed.`,
     tr: `Hacim 30 günlük ortalamaya yakın seviyede — standart piyasa katılımı gözleniyor.`,
@@ -369,44 +371,44 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     fr: `Le volume est proche de sa moyenne de 30 jours — participation standard au marché observée.`,
     pt: `O volume está próximo da sua média de 30 dias — observada participação padrão do mercado.`,
   }) : pick(lang, {
-    en: `Volume is below average (${rvol.toFixed(1)}x) — volume confirmation is limited; position sizing can be managed according to risk preference.`,
-    tr: `Hacim ortalamanın altında (${rvol.toFixed(1)}x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
-    es: `El volumen está por debajo del promedio (${rvol.toFixed(1)}x) — la confirmación por volumen es limitada; ajuste el tamaño de posición según su gestión de riesgo.`,
-    fr: `Le volume est inférieur à la moyenne (${rvol.toFixed(1)}x) — la confirmation par le volume est limitée ; la taille de position peut être ajustée selon votre gestion du risque.`,
-    pt: `O volume está abaixo da média (${rvol.toFixed(1)}x) — a confirmação por volume é limitada; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
+    en: `Volume is below average (${formatNumber(rvol, 1)}x) — volume confirmation is limited; position sizing can be managed according to risk preference.`,
+    tr: `Hacim ortalamanın altında (${formatNumber(rvol, 1)}x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
+    es: `El volumen está por debajo del promedio (${formatNumber(rvol, 1)}x) — la confirmación por volumen es limitada; ajuste el tamaño de posición según su gestión de riesgo.`,
+    fr: `Le volume est inférieur à la moyenne (${formatNumber(rvol, 1)}x) — la confirmation par le volume est limitée ; la taille de position peut être ajustée selon votre gestion du risque.`,
+    pt: `O volume está abaixo da média (${formatNumber(rvol, 1)}x) — a confirmação por volume é limitada; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
   });
 
   // ── RSI ─────────────────────────────────────────────────────────────────
   const rsiText = rsi >= 70 ? pick(lang, {
-    en: `RSI at ${rsi.toFixed(0)} is in overbought territory — short-term consolidation or momentum pause may be observed.`,
-    tr: `RSI ${rsi.toFixed(0)} seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir.`,
-    es: `El RSI en ${rsi.toFixed(0)} está en zona de sobrecompra — se podría observar una consolidación o pausa a corto plazo.`,
-    fr: `Le RSI à ${rsi.toFixed(0)} est en zone de surachat — une consolidation à court terme ou une pause du momentum peut être observée.`,
-    pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrecompra — consolidação de curto prazo ou pausa no impulso pode ser observada.`,
+    en: `RSI at ${formatNumber(rsi, 0)} is in overbought territory — short-term consolidation or momentum pause may be observed.`,
+    tr: `RSI ${formatNumber(rsi, 0)} seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir.`,
+    es: `El RSI en ${formatNumber(rsi, 0)} está en zona de sobrecompra — se podría observar una consolidación o pausa a corto plazo.`,
+    fr: `Le RSI à ${formatNumber(rsi, 0)} est en zone de surachat — une consolidation à court terme ou une pause du momentum peut être observée.`,
+    pt: `O RSI em ${formatNumber(rsi, 0)} está em território de sobrecompra — consolidação de curto prazo ou pausa no impulso pode ser observada.`,
   }) : rsi >= 55 ? pick(lang, {
-    en: `RSI at ${rsi.toFixed(0)} supports positive momentum.`,
-    tr: `RSI ${rsi.toFixed(0)} seviyesinde pozitif momentumu destekliyor.`,
-    es: `El RSI en ${rsi.toFixed(0)} respalda el impulso positivo.`,
-    fr: `Le RSI à ${rsi.toFixed(0)} soutient le momentum positif.`,
-    pt: `O RSI em ${rsi.toFixed(0)} suporta o impulso positivo.`,
+    en: `RSI at ${formatNumber(rsi, 0)} supports positive momentum.`,
+    tr: `RSI ${formatNumber(rsi, 0)} seviyesinde pozitif momentumu destekliyor.`,
+    es: `El RSI en ${formatNumber(rsi, 0)} respalda el impulso positivo.`,
+    fr: `Le RSI à ${formatNumber(rsi, 0)} soutient le momentum positif.`,
+    pt: `O RSI em ${formatNumber(rsi, 0)} suporta o impulso positivo.`,
   }) : rsi <= 30 ? pick(lang, {
-    en: `RSI at ${rsi.toFixed(0)} is in oversold territory — potential for a technical bounce exists.`,
-    tr: `RSI ${rsi.toFixed(0)} ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir.`,
-    es: `El RSI en ${rsi.toFixed(0)} está en zona de sobreventa — existe potencial para un rebote técnico.`,
-    fr: `Le RSI à ${rsi.toFixed(0)} est en zone de survente — un potentiel de rebond technique existe.`,
-    pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrevenda — existe potencial para um repique técnico.`,
+    en: `RSI at ${formatNumber(rsi, 0)} is in oversold territory — potential for a technical bounce exists.`,
+    tr: `RSI ${formatNumber(rsi, 0)} ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir.`,
+    es: `El RSI en ${formatNumber(rsi, 0)} está en zona de sobreventa — existe potencial para un rebote técnico.`,
+    fr: `Le RSI à ${formatNumber(rsi, 0)} est en zone de survente — un potentiel de rebond technique existe.`,
+    pt: `O RSI em ${formatNumber(rsi, 0)} está em território de sobrevenda — existe potencial para um repique técnico.`,
   }) : rsi <= 45 ? pick(lang, {
-    en: `RSI at ${rsi.toFixed(0)} displays a weaker momentum structure.`,
-    tr: `RSI ${rsi.toFixed(0)} seviyesinde zayıf momentum görünümü sergiliyor.`,
-    es: `El RSI en ${rsi.toFixed(0)} muestra una estructura de impulso más débil.`,
-    fr: `Le RSI à ${rsi.toFixed(0)} affiche une structure de momentum plus faible.`,
-    pt: `O RSI em ${rsi.toFixed(0)} exibe uma estrutura de impulso mais fraca.`,
+    en: `RSI at ${formatNumber(rsi, 0)} displays a weaker momentum structure.`,
+    tr: `RSI ${formatNumber(rsi, 0)} seviyesinde zayıf momentum görünümü sergiliyor.`,
+    es: `El RSI en ${formatNumber(rsi, 0)} muestra una estructura de impulso más débil.`,
+    fr: `Le RSI à ${formatNumber(rsi, 0)} affiche une structure de momentum plus faible.`,
+    pt: `O RSI em ${formatNumber(rsi, 0)} exibe uma estrutura de impulso mais fraca.`,
   }) : pick(lang, {
-    en: `RSI at ${rsi.toFixed(0)} remains in a neutral range.`,
-    tr: `RSI ${rsi.toFixed(0)} ile dengeli/nötr bir görünümde.`,
-    es: `El RSI en ${rsi.toFixed(0)} se mantiene en un rango neutral.`,
-    fr: `Le RSI à ${rsi.toFixed(0)} reste dans une plage neutre.`,
-    pt: `O RSI em ${rsi.toFixed(0)} permanece em uma faixa neutra.`,
+    en: `RSI at ${formatNumber(rsi, 0)} remains in a neutral range.`,
+    tr: `RSI ${formatNumber(rsi, 0)} ile dengeli/nötr bir görünümde.`,
+    es: `El RSI en ${formatNumber(rsi, 0)} se mantiene en un rango neutral.`,
+    fr: `Le RSI à ${formatNumber(rsi, 0)} reste dans une plage neutre.`,
+    pt: `O RSI em ${formatNumber(rsi, 0)} permanece em uma faixa neutra.`,
   });
 
   return { entryCondition, stopRationale, ema, vwap: vwap_, volume, rsi: rsiText };

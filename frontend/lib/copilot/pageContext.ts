@@ -6,6 +6,7 @@
 // genel/belirsiz bir cevap uydurmasın.
 
 import { getSwingPicksBackfilled, getWatchlistPicks } from "@/lib/data";
+import { formatNumber } from "@/lib/formatNumber";
 
 const LAYER_LABELS: Record<string, Record<string, string>> = {
   tr: { "1D_Trend": "1D Trend", "4H_Quality": "4H Kalite", "1H_Momentum": "1H Momentum" },
@@ -33,7 +34,7 @@ export async function getSwingStrategySnapshot(ticker: string, locale: string): 
       `- Durum: ${swingPick.entry_status === "ENTERED" ? "Giriş Zone (hassas giriş noktası yakalandı)" : "Bekle (henüz hassas giriş tetiklenmedi)"}`,
     ];
     if (swingPick.entry_zone) {
-      lines.push(`- Giriş Bölgesi: $${swingPick.entry_zone.low?.toFixed?.(2)} – $${swingPick.entry_zone.high?.toFixed?.(2)}`);
+      lines.push(`- Giriş Bölgesi: $${formatNumber(swingPick.entry_zone.low, 2)} – $${formatNumber(swingPick.entry_zone.high, 2)}`);
     }
     if (swingPick.detail_reasoning) lines.push(`- Gerekçe: ${swingPick.detail_reasoning}`);
     if (Array.isArray(swingPick.selection_reasons) && swingPick.selection_reasons.length > 0) {

@@ -85,7 +85,7 @@ export function IndexDailySnapshotSection({
           },
           { label: t.advancers, value: snapshot.advancers?.toString() ?? "—" },
           { label: t.decliners, value: snapshot.decliners?.toString() ?? "—" },
-          { label: t.volume, value: snapshot.volume != null ? snapshot.volume.toLocaleString() : "—" },
+          { label: t.volume, value: snapshot.volume != null ? formatNumber(snapshot.volume, 0) : "—" },
         ]}
       />
 

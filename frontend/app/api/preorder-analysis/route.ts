@@ -4,6 +4,7 @@ import { resolveYahooSymbol, getAssetCategory } from "@/lib/symbols";
 import { generateAiMarketCommentary, type AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
+import { formatNumber } from "@/lib/formatNumber";
 
 // In-memory cache — TTL 30 seconds while the market is open, for technical
 // data freshness.
@@ -297,13 +298,13 @@ function calcLiquidityScorePublic(rvol: number, avgVol: number, price: number): 
 function calcPivots(high: number, low: number, close: number) {
   const p = (high + low + close) / 3;
   return {
-    p:  +p.toFixed(2),
-    r1: +(2 * p - low).toFixed(2),
-    r2: +(p + high - low).toFixed(2),
-    r3: +(high + 2 * (p - low)).toFixed(2),
-    s1: +(2 * p - high).toFixed(2),
-    s2: +(p - high + low).toFixed(2),
-    s3: +(low - 2 * (high - low)).toFixed(2),
+    p:  +formatNumber(p, 2),
+    r1: +formatNumber((2 * p - low), 2),
+    r2: +formatNumber((p + high - low), 2),
+    r3: +formatNumber((high + 2 * (p - low)), 2),
+    s1: +formatNumber((2 * p - high), 2),
+    s2: +formatNumber((p - high + low), 2),
+    s3: +formatNumber((low - 2 * (high - low)), 2),
   };
 }
 
@@ -436,7 +437,7 @@ function buildSRTable(
     const type: "resistance" | "support" = p > price * 1.002 ? "resistance" : "support";
     const ex = levels.find(l => Math.abs(l.price - p) / p < 0.006);
     if (ex) { ex.strength = Math.max(ex.strength, str); ex.source += ` + ${src}`; }
-    else levels.push({ price: +p.toFixed(2), type, source: src, strength: str });
+    else levels.push({ price: +formatNumber(p, 2), type, source: src, strength: str });
   };
 
   // Daily pivots
@@ -709,10 +710,10 @@ export async function GET(req: NextRequest) {
   const activeSignals: string[] = [];
   if (price > d1_ema200) activeSignals.push("Price>EMA200");
   if (d1_ema20 > d1_ema50) activeSignals.push("EMA20>EMA50");
-  if (d1_rsi >= 55 && d1_rsi <= 70) activeSignals.push(`RSI ${d1_rsi.toFixed(0)} (Momentum)`);
-  if (rvol >= 1.5) activeSignals.push(`RVOL ${rvol.toFixed(1)}x`);
-  if (changePct > 2) activeSignals.push(`+${changePct.toFixed(1)}% Güçlü gün`);
-  if (atrPct > 5) activeSignals.push(`ATR ${atrPct.toFixed(1)}%`);
+  if (d1_rsi >= 55 && d1_rsi <= 70) activeSignals.push(`RSI ${formatNumber(d1_rsi, 0)} (Momentum)`);
+  if (rvol >= 1.5) activeSignals.push(`RVOL ${formatNumber(rvol, 1)}x`);
+  if (changePct > 2) activeSignals.push(`+${formatNumber(changePct, 1)}% Güçlü gün`);
+  if (atrPct > 5) activeSignals.push(`ATR ${formatNumber(atrPct, 1)}%`);
   if (macdResult.histogram > 0) activeSignals.push("MACD Pozitif");
 
   const warnings: string[] = [];
@@ -842,7 +843,7 @@ export async function GET(req: NextRequest) {
   // hedefler gosteriyordu ve /analysis ile celisiyordu.
   const targets = [zones.tp1, zones.tp2, zones.tp3].map((p, i) => ({
     price: p,
-    rr: zones.riskUsd > 0 ? +((p - zones.avgEntry) / zones.riskUsd).toFixed(1) : 0,
+    rr: zones.riskUsd > 0 ? +formatNumber(((p - zones.avgEntry) / zones.riskUsd), 1) : 0,
     label: `Target ${i + 1}`,
   }));
 
@@ -860,42 +861,42 @@ export async function GET(req: NextRequest) {
     ticker,
     company: meta.shortName || meta.longName || ticker,
     exchange: meta.exchangeName || meta.fullExchangeName || "NASDAQ",
-    price:     +price.toFixed(2),
-    prevClose: +prevClose.toFixed(2),
-    changePct: +changePct.toFixed(2),
+    price:     +formatNumber(price, 2),
+    prevClose: +formatNumber(prevClose, 2),
+    changePct: +formatNumber(changePct, 2),
     volume:    curVol,
     avgVol30:  Math.round(avgVol30),
-    rvol:      +rvol.toFixed(2),
+    rvol:      +formatNumber(rvol, 2),
     generatedAt: new Date().toISOString(),
     context: {
-      hi52: +hi52.toFixed(2), lo52: +lo52.toFixed(2), pct52h: +pct52h.toFixed(1),
-      atr: +d1_atr.toFixed(2), atrPct: +atrPct.toFixed(2),
-      weinstein, stockReturn1y: +ret1y.toFixed(1), vcpDetected,
+      hi52: +formatNumber(hi52, 2), lo52: +formatNumber(lo52, 2), pct52h: +formatNumber(pct52h, 1),
+      atr: +formatNumber(d1_atr, 2), atrPct: +formatNumber(atrPct, 2),
+      weinstein, stockReturn1y: +formatNumber(ret1y, 1), vcpDetected,
     },
     timeframes: {
       d1: {
-        ema9: +d1_ema9.toFixed(2), ema20: +d1_ema20.toFixed(2),
-        ema50: +d1_ema50.toFixed(2), ema200: +d1_ema200.toFixed(2),
-        rsi: +d1_rsi.toFixed(1), pattern: d1_pat, rvol: +rvol.toFixed(2),
+        ema9: +formatNumber(d1_ema9, 2), ema20: +formatNumber(d1_ema20, 2),
+        ema50: +formatNumber(d1_ema50, 2), ema200: +formatNumber(d1_ema200, 2),
+        rsi: +formatNumber(d1_rsi, 1), pattern: d1_pat, rvol: +formatNumber(rvol, 2),
         pivots: pivots1d, pivotsWeekly: pivotsW,
-        swingHigh: +d1_swings.swingHigh.toFixed(2),
-        swingLow:  +d1_swings.swingLow.toFixed(2),
-        swingHighs: d1_swings.allHighs.map(v => +v.toFixed(2)),
-        swingLows:  d1_swings.allLows.map(v => +v.toFixed(2)),
+        swingHigh: +formatNumber(d1_swings.swingHigh, 2),
+        swingLow:  +formatNumber(d1_swings.swingLow, 2),
+        swingHighs: d1_swings.allHighs.map(v => +formatNumber(v, 2)),
+        swingLows:  d1_swings.allLows.map(v => +formatNumber(v, 2)),
       },
       h1: {
-        ema9: +h1_ema9.toFixed(2), ema20: +h1_ema20.toFixed(2), ema50: +h1_ema50.toFixed(2),
-        rsi: +h1_rsi.toFixed(1), pattern: h1_pat, rvol: +h1_rvol.toFixed(2),
+        ema9: +formatNumber(h1_ema9, 2), ema20: +formatNumber(h1_ema20, 2), ema50: +formatNumber(h1_ema50, 2),
+        rsi: +formatNumber(h1_rsi, 1), pattern: h1_pat, rvol: +formatNumber(h1_rvol, 2),
         pivots: h1_pivots,
-        swingHigh: +h1_swings.swingHigh.toFixed(2),
-        swingLow:  +h1_swings.swingLow.toFixed(2),
+        swingHigh: +formatNumber(h1_swings.swingHigh, 2),
+        swingLow:  +formatNumber(h1_swings.swingLow, 2),
       },
       m15: {
-        ema9: +m15_ema9.toFixed(2), ema20: +m15_ema20.toFixed(2),
-        pattern: m15_pat, vwap: +vwap.toFixed(2),
+        ema9: +formatNumber(m15_ema9, 2), ema20: +formatNumber(m15_ema20, 2),
+        pattern: m15_pat, vwap: +formatNumber(vwap, 2),
         pivots: m15_pivots,
-        swingHigh: +m15_swings.swingHigh.toFixed(2),
-        swingLow:  +m15_swings.swingLow.toFixed(2),
+        swingHigh: +formatNumber(m15_swings.swingHigh, 2),
+        swingLow:  +formatNumber(m15_swings.swingLow, 2),
       },
     },
     wyckoff: wyckoffResult,
@@ -906,7 +907,7 @@ export async function GET(req: NextRequest) {
       entryZone: zones.buyZone,
       entryType: zones.entryEngine.type,
       entryCondition: rationale.entryCondition,
-      stop: { price: zones.stopPrice, pct: +(((zones.stopPrice - price) / price) * 100).toFixed(1) },
+      stop: { price: zones.stopPrice, pct: +formatNumber((((zones.stopPrice - price) / price) * 100), 1) },
       stopRationale: rationale.stopRationale,
       targets,
       riskReward: zones.riskReward,
@@ -914,8 +915,8 @@ export async function GET(req: NextRequest) {
       valid: tradePlanValid,
     },
     momentum: {
-      macd: +macdResult.macd.toFixed(3), macdSignal: +macdResult.signal.toFixed(3), macdHist: +macdResult.histogram.toFixed(3),
-      adx: +d1_adx.toFixed(1), roc10: +roc10.toFixed(1), bbPercent: +bbPercent.toFixed(2),
+      macd: +formatNumber(macdResult.macd, 3), macdSignal: +formatNumber(macdResult.signal, 3), macdHist: +formatNumber(macdResult.histogram, 3),
+      adx: +formatNumber(d1_adx, 1), roc10: +formatNumber(roc10, 1), bbPercent: +formatNumber(bbPercent, 2),
     },
     bogaScore: { trend: trendScore, momentum: momentumScore, liquidity: liquidityScore },
     activeSignals,

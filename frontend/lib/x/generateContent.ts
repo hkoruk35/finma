@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
 export type Locale = (typeof LOCALES)[number];
@@ -72,7 +73,7 @@ export async function generateLocalizedTexts(
 ): Promise<Record<Locale, string>> {
   const listPrompt = (input: GenerateListInput) => {
     const tickerLine = input.items
-      .map((i) => `${i.ticker} ${i.changePct >= 0 ? "+" : ""}${i.changePct.toFixed(1)}%`)
+      .map((i) => `${i.ticker} ${i.changePct >= 0 ? "+" : ""}${formatNumber(i.changePct, 1)}%`)
       .join(", ");
     return `Write a short, engaging one-sentence roundup (max 220 chars) of today's "${input.listTitle}" list on BogaStock, an AI stock analysis platform. Today's top movers: ${tickerLine}. Mention 2-3 of the standout tickers by name and tie them to the list's theme (e.g. swing-trade candidates, trending stocks, most-active names, or sector rotation, depending on what "${input.listTitle}" implies). Do not invent numbers beyond what's given. Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
   };
@@ -105,7 +106,7 @@ Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code 
 
   const marketAssetPrompt = (input: GenerateMarketAssetInput) => {
     const noun = MARKET_ASSET_CATEGORY_NOUN[input.category] ?? "asset";
-    const changeLine = input.changePct != null ? `Change: ${input.changePct >= 0 ? "+" : ""}${input.changePct.toFixed(2)}%.` : "";
+    const changeLine = input.changePct != null ? `Change: ${input.changePct >= 0 ? "+" : ""}${formatNumber(input.changePct, 2)}%.` : "";
     const customLine = input.customInstruction ? ` Additional instruction from the analyst (follow this closely): ${input.customInstruction}` : "";
 
     if (!input.weekly) {
@@ -113,7 +114,7 @@ Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code 
     }
 
     if (input.category === "sector" && input.sectorStandouts?.length) {
-      const standoutsLine = input.sectorStandouts.map((s) => `${s.ticker} ${s.changePct >= 0 ? "+" : ""}${s.changePct.toFixed(1)}%`).join(", ");
+      const standoutsLine = input.sectorStandouts.map((s) => `${s.ticker} ${s.changePct >= 0 ? "+" : ""}${formatNumber(s.changePct, 1)}%`).join(", ");
       return `Write an in-depth WEEKLY analysis (roughly 600-1100 characters — there's no strict length limit, so use the space to say something genuinely useful, don't pad it) of the ${input.label} SECTOR as a whole on BogaStock. This week's ${changeLine} Real standout names from this sector, sorted by performance: ${standoutsLine}.
 
 IMPORTANT — this is a sector-level report, NOT a single-company deep-dive. The bulk of the analysis must stay about the sector as a whole (group tone, breadth, rotation, what's driving the group). The standout tickers are supporting evidence, not the subject: name 2-3 of them in a single clause each (e.g. "led by X and Y") — do not analyze any one company's earnings, guidance, product news, or fundamentals in detail, and do not switch into a stock-picking tone for a single name.
@@ -124,7 +125,7 @@ Use ONLY the tickers and numbers given above — do not invent additional ticker
     }
 
     if (input.category === "index" && input.sectorRotation?.length) {
-      const rotationLine = input.sectorRotation.map((s) => `${s.label} ${s.changePct >= 0 ? "+" : ""}${s.changePct.toFixed(1)}%`).join(", ");
+      const rotationLine = input.sectorRotation.map((s) => `${s.label} ${s.changePct >= 0 ? "+" : ""}${formatNumber(s.changePct, 1)}%`).join(", ");
       return `Write an in-depth WEEKLY analysis (roughly 600-1100 characters — there's no strict length limit, so use the space to say something genuinely useful, don't pad it) of ${input.label} on BogaStock, focused on money flow and sector rotation. This week's ${changeLine} Real sector ETF performance, sorted best to worst: ${rotationLine}.
 
 Write it as natural flowing prose (not a bullet list), covering: ${input.label}'s overall weekly tone; where money appears to be rotating INTO based on the leading sectors above; where it's rotating OUT OF based on the laggards; what that rotation pattern typically signals (risk-on vs risk-off, defensive positioning, growth vs value, etc.); and a clear directional read for the index heading into next week.
@@ -141,7 +142,7 @@ Stay qualitative — do not invent specific price levels, events, or news beyond
   };
 
   const weeklyStockPrompt = (input: GenerateStockInput) => {
-    const changeLine = input.changePct != null ? `This week's change: ${input.changePct >= 0 ? "+" : ""}${input.changePct.toFixed(2)}%.` : "";
+    const changeLine = input.changePct != null ? `This week's change: ${input.changePct >= 0 ? "+" : ""}${formatNumber(input.changePct, 2)}%.` : "";
     return `Write an in-depth WEEKLY analysis (roughly 600-1100 characters — there's no strict length limit, so use the space to say something genuinely useful, don't pad it) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}). This is a longer-form weekly post, not a quick daily update.
 
 Write it as natural flowing prose (not a bullet list), covering: how ${input.ticker} is positioned within its sector this week (sector-wide tone/momentum); how it compares to its main competitors/peers in that sector — who's leading, who's lagging, and where ${input.ticker} fits; any relevant sector theme or narrative currently driving the group (only if genuinely relevant — e.g. AI capex, rate-sensitivity, a restocking cycle, regulatory overhang, whatever actually fits this sector, don't force one); and a clear directional read for the week ahead (bullish, bearish, or range-bound) with brief reasoning.
@@ -163,7 +164,7 @@ Competitor and theme commentary should draw on well-known, general market knowle
       ? marketAssetPrompt(input)
       : input.weekly
       ? weeklyStockPrompt(input)
-      : `Write a short, engaging one-sentence mini analysis (max 220 chars) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${input.rvol.toFixed(1)}x average` : "N/A"}.
+      : `Write a short, engaging one-sentence mini analysis (max 220 chars) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${formatNumber(input.rvol, 1)}x average` : "N/A"}.
 
 Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. above-average volume confirming the move, or thin volume suggesting caution) rather than just repeating the trend. ${
           input.opportunity

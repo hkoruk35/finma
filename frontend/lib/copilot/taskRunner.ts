@@ -14,6 +14,7 @@ import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { calculateMaterialityScore } from "@/lib/copilot/materialityScore";
 import { ct } from "@/lib/copilot/i18n";
 import type { MemberTier } from "@/lib/apiAuth";
+import { formatNumber } from "@/lib/formatNumber";
 
 // Görev sahibinin GERÇEK, güncel tier'ı — görev oluşturulduğu andaki plan
 // değil (üye sonradan Premium'dan düşmüş/hiç Premium olmamış olabilir).
@@ -222,7 +223,7 @@ async function runCrossAssetWatchTask(task: CopilotTask): Promise<RunResult> {
     task_id: task.id,
     ticker: quote.yahooSymbol,
     severity: moveSincePrev >= 5 ? "high" : "medium",
-    title: `${quote.label}: ${ct("alertMove", task.language, { pct: moveSincePrev.toFixed(1) })}`,
+    title: `${quote.label}: ${ct("alertMove", task.language, { pct: formatNumber(moveSincePrev, 1) })}`,
     body: ct("alertPriceUpdated", task.language, {
       prev: prev.price,
       next: quote.price,

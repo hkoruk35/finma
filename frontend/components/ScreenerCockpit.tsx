@@ -271,7 +271,7 @@ function MACDDot({ val, hist }: { val: number; hist: number }) {
 }
 
 function fmt(n: number, dec = 2): string {
-  return n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  return formatNumber(n, dec);
 }
 function fmtVol(v: number): string {
   if (v >= 1e9) return `$${formatNumber(v / 1e9, 1)}B`;

@@ -549,7 +549,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-[13px] font-medium text-white">{index.price.toLocaleString()}</p>
+                          <p className="text-[13px] font-medium text-white">{formatNumber(index.price, 0)}</p>
                           <span
                             className={`inline-block px-1.5 py-0.5 rounded text-[13px] font-medium mt-0.5 ${
                               isPositive ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"

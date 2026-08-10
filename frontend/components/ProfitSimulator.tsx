@@ -68,7 +68,7 @@ const ProfitSimulator = () => {
               <div className="flex justify-between items-end">
                 <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Initial Capital</label>
                 <div className="flex items-baseline gap-1">
-                   <span className="text-2xl md:text-3xl font-mono font-medium text-[#3b82f6]">${capital.toLocaleString()}</span>
+                   <span className="text-2xl md:text-3xl font-mono font-medium text-[#3b82f6]">${formatNumber(capital, 0)}</span>
                    <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-medium">USD</span>
                 </div>
               </div>
@@ -121,7 +121,7 @@ const ProfitSimulator = () => {
               <div className="flex flex-col gap-1 md:gap-2">
                  <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest">Est. Monthly Total</p>
                  <div className="flex items-baseline gap-2">
-                    <p className="text-3xl md:text-4xl font-mono font-medium text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
+                    <p className="text-3xl md:text-4xl font-mono font-medium text-white">${formatNumber(Math.floor(estimatedMonthly), 0)}</p>
                     <span className={`text-sm md:text-base font-medium ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                        +{formatNumber(((estimatedMonthly/capital - 1)*100), 1)}%
                     </span>
@@ -144,7 +144,7 @@ const ProfitSimulator = () => {
               <div>
                 <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
                 <p className="text-3xl md:text-5xl font-mono font-medium text-white leading-none tracking-tighter">
-                   ${Math.floor(finalValue).toLocaleString()}
+                   ${formatNumber(Math.floor(finalValue), 0)}
                 </p>
               </div>
               

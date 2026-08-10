@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 const YF_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
@@ -62,8 +64,8 @@ function median(values: (number | null)[]): number | null {
   const sorted = [...clean].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 === 0
-    ? +((sorted[mid - 1] + sorted[mid]) / 2).toFixed(2)
-    : +sorted[mid].toFixed(2);
+    ? +formatNumber(((sorted[mid - 1] + sorted[mid]) / 2), 2)
+    : +formatNumber(sorted[mid], 2);
 }
 
 export interface CompsInput {
@@ -121,13 +123,13 @@ export async function calcComps(params: CompsInput, yfData: any): Promise<CompsO
   let impliedPriceFromPE: number | null = null;
   if (medPE !== null && targetPE !== null && targetPE > 0) {
     const epsImplied = params.currentPrice / targetPE;
-    impliedPriceFromPE = +(medPE * epsImplied).toFixed(2);
+    impliedPriceFromPE = +formatNumber((medPE * epsImplied), 2);
   }
 
   // PE discount/premium vs peers (positive = premium, negative = discount)
   let peDiscount: number | null = null;
   if (targetPE !== null && medPE !== null && medPE > 0) {
-    peDiscount = +((targetPE - medPE) / medPE).toFixed(4);
+    peDiscount = +formatNumber(((targetPE - medPE) / medPE), 4);
   }
 
   const verdict: CompsOutput["verdict"] =
@@ -140,8 +142,8 @@ export async function calcComps(params: CompsInput, yfData: any): Promise<CompsO
           : "FAIR";
 
   const verdictNote =
-    verdict === "CHEAP"             ? `Sektör medyanına göre ${Math.abs(peDiscount! * 100).toFixed(0)}% iskontolu`
-    : verdict === "EXPENSIVE"       ? `Sektör medyanına göre ${(peDiscount! * 100).toFixed(0)}% primli`
+    verdict === "CHEAP"             ? `Sektör medyanına göre ${formatNumber(Math.abs(peDiscount! * 100), 0)}% iskontolu`
+    : verdict === "EXPENSIVE"       ? `Sektör medyanına göre ${formatNumber((peDiscount! * 100), 0)}% primli`
     : verdict === "FAIR"            ? `Sektör medyanıyla yakın seviyelerde işlem görüyor`
     : `Yetersiz peer verisi (${validPeers.length}/${peerList.length} peer)`;
 
@@ -151,9 +153,9 @@ export async function calcComps(params: CompsInput, yfData: any): Promise<CompsO
     peerList,
     validPeerCount:   validPeers.length,
     targetMetrics: {
-      trailingPE:  targetPE   !== null ? +targetPE.toFixed(2)   : null,
-      forwardPE:   targetFwPE !== null ? +targetFwPE.toFixed(2) : null,
-      priceToBook: targetPB   !== null ? +targetPB.toFixed(2)   : null,
+      trailingPE:  targetPE   !== null ? +formatNumber(targetPE, 2)   : null,
+      forwardPE:   targetFwPE !== null ? +formatNumber(targetFwPE, 2) : null,
+      priceToBook: targetPB   !== null ? +formatNumber(targetPB, 2)   : null,
     },
     peerMedians: {
       trailingPE:  medPE,

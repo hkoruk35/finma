@@ -52,7 +52,7 @@ const fmtLarge = (v?: number) => {
   if (v >= 1e12) return "$" + formatNumber(v / 1e12, 1) + "T";
   if (v >= 1e9)  return "$" + formatNumber(v / 1e9, 1) + "B";
   if (v >= 1e6)  return "$" + formatNumber(v / 1e6, 0) + "M";
-  return "$" + v.toLocaleString();
+  return "$" + formatNumber(v, 0);
 };
 
 function heatBg(pct: number | null | undefined): { bg: string; text: string } {

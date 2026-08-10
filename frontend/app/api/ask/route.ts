@@ -6,6 +6,7 @@ import { MARKET_THEMES } from "../../../lib/themeData";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
 import { isRateLimited, getClientIp } from "@/lib/rateLimit";
 import { generateWithFallback, FallbackProvider } from "@/lib/copilot/aiFallback";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -575,7 +576,7 @@ function check15mMicroTrend(
   }
 
   if (net_change_pct > 0.5 && green_candles >= 5) {
-    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m ONAY: Son 2 saat net trend (+${net_change_pct.toFixed(2)}%)` };
+    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m ONAY: Son 2 saat net trend (+${formatNumber(net_change_pct, 2)}%)` };
   }
 
   if (net_change_pct < 0 && green_candles < 4) {
@@ -664,9 +665,9 @@ function generateBogaSimulation(
     dailyForecasts.push({
       day: d + 1,
       date: targetDate.toISOString().split('T')[0],
-      bearish: parseFloat(bearish.toFixed(2)),
-      base: parseFloat(base.toFixed(2)),
-      bullish: parseFloat(bullish.toFixed(2)),
+      bearish: parseFloat(formatNumber(bearish, 2)),
+      base: parseFloat(formatNumber(base, 2)),
+      bullish: parseFloat(formatNumber(bullish, 2)),
       probabilityOfProfit
     });
   }
@@ -1517,10 +1518,10 @@ export async function POST(req: NextRequest) {
       stockJson.market_overview = marketOverview;
     }
 
-    const sp500ChangeStr = marketOverview.sp500Change != null ? (marketOverview.sp500Change >= 0 ? "+" : "") + marketOverview.sp500Change.toFixed(2) + "%" : "N/A";
-    const nasdaqChangeStr = marketOverview.nasdaqChange != null ? (marketOverview.nasdaqChange >= 0 ? "+" : "") + marketOverview.nasdaqChange.toFixed(2) + "%" : "N/A";
-    const vixPriceStr = marketOverview.vixPrice != null ? marketOverview.vixPrice.toFixed(2) : "N/A";
-    const sectorChangeStr = marketOverview.sectorChange != null ? (marketOverview.sectorChange >= 0 ? "+" : "") + marketOverview.sectorChange.toFixed(2) + "%" : "N/A";
+    const sp500ChangeStr = marketOverview.sp500Change != null ? (marketOverview.sp500Change >= 0 ? "+" : "") + formatNumber(marketOverview.sp500Change, 2) + "%" : "N/A";
+    const nasdaqChangeStr = marketOverview.nasdaqChange != null ? (marketOverview.nasdaqChange >= 0 ? "+" : "") + formatNumber(marketOverview.nasdaqChange, 2) + "%" : "N/A";
+    const vixPriceStr = marketOverview.vixPrice != null ? formatNumber(marketOverview.vixPrice, 2) : "N/A";
+    const sectorChangeStr = marketOverview.sectorChange != null ? (marketOverview.sectorChange >= 0 ? "+" : "") + formatNumber(marketOverview.sectorChange, 2) + "%" : "N/A";
     const sectorEtf = marketOverview.sectorEtf;
 
     // Verileri düzenli şekilde çıkar
@@ -1532,48 +1533,48 @@ export async function POST(req: NextRequest) {
     const regime = masterJson?.market_regime || "N/A";
     const scoresDetail = s.scores_detail || s.strategy || {};
 
-    const price       = pr.current?.toFixed(2)       ?? "N/A";
-    const change      = pr.change_pct?.toFixed(2)     ?? "N/A";
-    const change1w    = pr.change_pct_1w?.toFixed(2)  ?? "N/A";
-    const change1m    = pr.change_pct_1m?.toFixed(2)  ?? "N/A";
-    const change1y    = pr.change_pct_1y?.toFixed(2)  ?? "N/A";
-    const volume      = pr.volume ? (pr.volume / 1e6).toFixed(1) + "M" : "N/A";
-    const avgVol      = pr.avg_volume_30d ? (pr.avg_volume_30d / 1e6).toFixed(1) + "M" : "N/A";
-    const rvol        = pr.volume && pr.avg_volume_30d ? (pr.volume / pr.avg_volume_30d).toFixed(2) : "N/A";
+    const price       = formatNumber(pr.current, 2)       ?? "N/A";
+    const change      = formatNumber(pr.change_pct, 2)     ?? "N/A";
+    const change1w    = formatNumber(pr.change_pct_1w, 2)  ?? "N/A";
+    const change1m    = formatNumber(pr.change_pct_1m, 2)  ?? "N/A";
+    const change1y    = formatNumber(pr.change_pct_1y, 2)  ?? "N/A";
+    const volume      = pr.volume ? formatNumber((pr.volume / 1e6), 1) + "M" : "N/A";
+    const avgVol      = pr.avg_volume_30d ? formatNumber((pr.avg_volume_30d / 1e6), 1) + "M" : "N/A";
+    const rvol        = pr.volume && pr.avg_volume_30d ? formatNumber((pr.volume / pr.avg_volume_30d), 2) : "N/A";
 
-    const rsi         = tech.rsi_14?.toFixed(1)       ?? "N/A";
-    const macd        = tech.macd?.toFixed(3)          ?? "N/A";
-    const macdHist    = tech.macd_histogram?.toFixed(3)?? "N/A";
-    const ema20       = tech.ema_20?.toFixed(2)        ?? "N/A";
-    const ema50       = tech.ema_50?.toFixed(2)        ?? "N/A";
-    const ema200      = tech.ema_200?.toFixed(2)       ?? "N/A";
+    const rsi         = formatNumber(tech.rsi_14, 1)       ?? "N/A";
+    const macd        = formatNumber(tech.macd, 3)          ?? "N/A";
+    const macdHist    = formatNumber(tech.macd_histogram, 3)?? "N/A";
+    const ema20       = formatNumber(tech.ema_20, 2)        ?? "N/A";
+    const ema50       = formatNumber(tech.ema_50, 2)        ?? "N/A";
+    const ema200      = formatNumber(tech.ema_200, 2)       ?? "N/A";
     const emaStack    = tech.ema_stack_bullish ? "✅ Boğa (EMA20>50>200)" : "⚠️ Ayı (Karışık)";
-    const bbUpper     = tech.bb_upper?.toFixed(2)      ?? "N/A";
-    const bbLower     = tech.bb_lower?.toFixed(2)      ?? "N/A";
-    const support     = tech.support_level?.toFixed(2) ?? pr.low?.toFixed(2) ?? "N/A";
-    const resistance  = tech.resistance_level?.toFixed(2) ?? pr.high?.toFixed(2) ?? "N/A";
-    const atr         = tech.atr?.toFixed(2)           ?? "N/A";
+    const bbUpper     = formatNumber(tech.bb_upper, 2)      ?? "N/A";
+    const bbLower     = formatNumber(tech.bb_lower, 2)      ?? "N/A";
+    const support     = formatNumber(tech.support_level, 2) ?? formatNumber(pr.low, 2) ?? "N/A";
+    const resistance  = formatNumber(tech.resistance_level, 2) ?? formatNumber(pr.high, 2) ?? "N/A";
+    const atr         = formatNumber(tech.atr, 2)           ?? "N/A";
 
-    const masterScore = sc.master_score?.toFixed(0)    ?? "N/A";
+    const masterScore = formatNumber(sc.master_score, 0)    ?? "N/A";
     const signal      = sc.signal_type                 ?? "N/A";
 
-    const mcap        = fund.market_cap ? (fund.market_cap / 1e9).toFixed(1) + "B" : "N/A";
-    const pe          = fund.pe_ratio?.toFixed(1)      ?? "N/A";
-    const pb          = fund.pb_ratio?.toFixed(2)      ?? "N/A";
-    const grossMargin = fund.gross_margin != null ? (fund.gross_margin * 100).toFixed(1) + "%" : "N/A";
-    const netMargin   = fund.net_margin != null ? (fund.net_margin * 100).toFixed(1) + "%" : "N/A";
-    const revGrowth   = fund.revenue_growth_ttm != null ? (fund.revenue_growth_ttm * 100).toFixed(1) + "%" : "N/A";
-    const fcfYield    = fund.fcf_yield != null ? (fund.fcf_yield * 100).toFixed(1) + "%" : "N/A";
+    const mcap        = fund.market_cap ? formatNumber((fund.market_cap / 1e9), 1) + "B" : "N/A";
+    const pe          = formatNumber(fund.pe_ratio, 1)      ?? "N/A";
+    const pb          = formatNumber(fund.pb_ratio, 2)      ?? "N/A";
+    const grossMargin = fund.gross_margin != null ? formatNumber((fund.gross_margin * 100), 1) + "%" : "N/A";
+    const netMargin   = fund.net_margin != null ? formatNumber((fund.net_margin * 100), 1) + "%" : "N/A";
+    const revGrowth   = fund.revenue_growth_ttm != null ? formatNumber((fund.revenue_growth_ttm * 100), 1) + "%" : "N/A";
+    const fcfYield    = fund.fcf_yield != null ? formatNumber((fund.fcf_yield * 100), 1) + "%" : "N/A";
 
     // Giriş/Hedef/Stop seviyeleri (scores_detail veya ATR bazlı)
-    const entryLow    = scoresDetail.entry_range_low?.toFixed(2)  ?? (pr.current ? (pr.current * 0.985).toFixed(2) : "N/A");
-    const entryHigh   = scoresDetail.entry_range_high?.toFixed(2) ?? price;
-    const targetLow   = scoresDetail.target_range_low?.toFixed(2) ?? (pr.current ? (pr.current * 1.10).toFixed(2) : "N/A");
-    const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
-    const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
-    const tp1Str      = scoresDetail.target_1?.toFixed(2) ?? targetLow;
-    const tp2Str      = scoresDetail.target_2?.toFixed(2) ?? targetHigh;
-    const tp3Str      = scoresDetail.target_3?.toFixed(2) ?? targetHigh;
+    const entryLow    = formatNumber(scoresDetail.entry_range_low, 2)  ?? (pr.current ? formatNumber((pr.current * 0.985), 2) : "N/A");
+    const entryHigh   = formatNumber(scoresDetail.entry_range_high, 2) ?? price;
+    const targetLow   = formatNumber(scoresDetail.target_range_low, 2) ?? (pr.current ? formatNumber((pr.current * 1.10), 2) : "N/A");
+    const targetHigh  = formatNumber(scoresDetail.target_range_high, 2)?? (pr.current ? formatNumber((pr.current * 1.15), 2) : "N/A");
+    const stopLoss    = formatNumber(scoresDetail.stop_loss, 2)         ?? (pr.current ? formatNumber((pr.current * 0.95), 2) : "N/A");
+    const tp1Str      = formatNumber(scoresDetail.target_1, 2) ?? targetLow;
+    const tp2Str      = formatNumber(scoresDetail.target_2, 2) ?? targetHigh;
+    const tp3Str      = formatNumber(scoresDetail.target_3, 2) ?? targetHigh;
 
     // lib/tradePlanEngine.ts'den gelen deterministik gerekce notlari — LLM'e
     // GEREKÇE'yi bu somut EMA/VWAP/hacim/RSI notlarina dayandirmasi icin

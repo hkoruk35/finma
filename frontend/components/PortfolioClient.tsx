@@ -362,7 +362,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
           {form.entryPrice && form.quantity && (
             <div style={{ marginTop: 10, fontSize: 11, color: "#8b949e" }}>
               Toplam Maliyet: <span style={{ color: "#e3b341", fontWeight: 700, fontFamily: "monospace" }}>
-                ${(parseFloat(form.entryPrice as string || "0") * parseFloat(form.quantity as string || "0")).toLocaleString("tr-TR", { minimumFractionDigits: 2 })}
+                ${formatNumber((parseFloat(form.entryPrice as string || "0") * parseFloat(form.quantity as string || "0")), 2)}
               </span>
             </div>
           )}

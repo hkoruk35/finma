@@ -1,3 +1,5 @@
+import { formatNumber } from "@/lib/formatNumber";
+
 /**
  * Centralized Ticker to Yahoo Finance symbol mapping helper
  * Ensures Commodities (GOLD -> GC=F), Forex (EURUSD -> EURUSD=X),
@@ -100,10 +102,10 @@ export function getAssetCategory(ticker: string): AssetCategory {
 export function formatAssetPrice(price: number, ticker: string): string {
   const category = getAssetCategory(ticker);
   if (category === "forex") {
-    return price >= 10 ? price.toFixed(2) : price.toFixed(4);
+    return price >= 10 ? formatNumber(price, 2) : formatNumber(price, 4);
   }
   if (category === "crypto" && price < 10) {
-    return price.toFixed(4);
+    return formatNumber(price, 4);
   }
-  return price.toFixed(2);
+  return formatNumber(price, 2);
 }

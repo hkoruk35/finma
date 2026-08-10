@@ -15,6 +15,7 @@ import PremiumModal from "@/components/global/PremiumModal";
 import FreeRegisterModal from "@/components/global/FreeRegisterModal";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 const FREE_COMPARE_LIMIT = 9;
 const MAX_COMPARE = 9;
@@ -90,7 +91,7 @@ const getGroups = (locale: Locale) => {
 
 type PriceInfo = { price: number | null; change_1d: number | null };
 
-const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmt = (n: number, d = 2) => formatNumber(n, d);
 const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
