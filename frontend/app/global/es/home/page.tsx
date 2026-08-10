@@ -183,11 +183,11 @@ export default async function EsHomePage() {
             <HomeSearchBar locale="es" />
 
             <div className="mt-4">
-              <HomeScheduleBanner locale="es" />
+              <MarketOverviewTabs groups={marketGroups} locale="es" />
             </div>
 
             <div className="mt-4">
-              <MarketOverviewTabs groups={marketGroups} locale="es" />
+              <HomeScheduleBanner locale="es" />
             </div>
 
             <div className="mt-4">

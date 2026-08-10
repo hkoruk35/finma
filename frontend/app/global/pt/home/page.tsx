@@ -183,11 +183,11 @@ export default async function PtHomePage() {
             <HomeSearchBar locale="pt" />
 
             <div className="mt-4">
-              <HomeScheduleBanner locale="pt" />
+              <MarketOverviewTabs groups={marketGroups} locale="pt" />
             </div>
 
             <div className="mt-4">
-              <MarketOverviewTabs groups={marketGroups} locale="pt" />
+              <HomeScheduleBanner locale="pt" />
             </div>
 
             <div className="mt-4">

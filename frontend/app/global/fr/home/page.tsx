@@ -183,11 +183,11 @@ export default async function FrHomePage() {
             <HomeSearchBar locale="fr" />
 
             <div className="mt-4">
-              <HomeScheduleBanner locale="fr" />
+              <MarketOverviewTabs groups={marketGroups} locale="fr" />
             </div>
 
             <div className="mt-4">
-              <MarketOverviewTabs groups={marketGroups} locale="fr" />
+              <HomeScheduleBanner locale="fr" />
             </div>
 
             <div className="mt-4">

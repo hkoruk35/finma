@@ -182,13 +182,13 @@ export default async function TrHomePage() {
           <div className="min-w-0">
             <HomeSearchBar locale="tr" />
 
-            <div className="mt-4">
-              <HomeScheduleBanner locale="tr" />
-            </div>
-
             {/* Piyasalar Sekmesi — Arama Çubuğunun Hemen Altında */}
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
+            </div>
+
+            <div className="mt-4">
+              <HomeScheduleBanner locale="tr" />
             </div>
 
             <div className="mt-4">
