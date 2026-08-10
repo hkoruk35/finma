@@ -1137,7 +1137,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     </span>
                     {pnl != null && (
                       <p className={`text-[8px] font-mono leading-none mt-0.5 ${retColor(pnl)}`}>
-                        {pnl > 0 ? `+$${Math.absformatNumber(pnl, 0)}` : pnl < 0 ? `-$${Math.absformatNumber(pnl, 0)}` : "$0"}
+                        {pnl > 0 ? `+$${formatNumber(Math.abs(pnl), 0)}` : pnl < 0 ? `-$${formatNumber(Math.abs(pnl), 0)}` : "$0"}
                       </p>
                     )}
                   </div>
@@ -1235,7 +1235,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
                       <td className="px-2 py-1.5 text-right font-mono text-[11px] whitespace-nowrap" style={{ color: getValColor(pnl), fontWeight: 700 }}>
-                        {pnl != null ? (pnl > 0 ? `+$${Math.absformatNumber(pnl, 0)}` : pnl < 0 ? `-$${Math.absformatNumber(pnl, 0)}` : "$0") : "—"}
+                        {pnl != null ? (pnl > 0 ? `+$${formatNumber(Math.abs(pnl), 0)}` : pnl < 0 ? `-$${formatNumber(Math.abs(pnl), 0)}` : "$0") : "—"}
                       </td>
                       <td className="px-2 py-1.5 text-[10px] text-slate-300 uppercase font-semibold whitespace-nowrap">
                         <span className="truncate block max-w-[110px]" title={t.sector}>{t.sector || "—"}</span>

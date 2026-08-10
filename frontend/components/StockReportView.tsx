@@ -572,7 +572,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <div className="text-2xl font-medium text-white">${formatNum(currentPrice)}</div>
             <div className={`text-xs font-medium flex items-center gap-1.5 mt-0.5 ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
               <span>{changePct >= 0 ? "▲" : "▼"}</span>
-              <span>${Math.absformatNumber(priceDiff, 2)} ({formatPct(changePct)})</span>
+              <span>${formatNumber(Math.abs(priceDiff), 2)} ({formatPct(changePct)})</span>
             </div>
           </div>
         </div>

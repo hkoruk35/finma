@@ -94,7 +94,7 @@ function emaVsPrice(price: number, ema: number) {
   const diff = ((price - ema) / ema) * 100;
   const color = diff > 0.5 ? "#3fb950" : diff < -0.5 ? "#f85149" : "#e3b341";
   const arrow = diff > 0.5 ? "↑" : diff < -0.5 ? "↓" : "~";
-  return { color, label: `${arrow} ${Math.absformatNumber(diff, 1)}%` };
+  return { color, label: `${arrow} ${formatNumber(Math.abs(diff), 1)}%` };
 }
 
 function convictionColor(n: number) {
