@@ -12,11 +12,20 @@ function resolveLocale(raw: string | null): EarningsLocale {
 // earnings_reports tablosundan okur (Redis'in yerini tutan Postgres önbelleği).
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const range = searchParams.get("range") || "daily"; // daily | weekly | monthly
+  const range = searchParams.get("range") || "all"; // daily | weekly | monthly | all
   const locale = resolveLocale(searchParams.get("locale"));
+  const ticker = searchParams.get("ticker");
+  
+  const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+  const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "5", 10)));
+  const offset = (page - 1) * limit;
 
   const today = new Date();
   let query = supabaseAdmin.from("earnings_reports").select("*");
+
+  if (ticker) {
+    query = query.eq("ticker", ticker.toUpperCase());
+  }
 
   if (range === "daily") {
     const dateStr = today.toISOString().split("T")[0];
@@ -25,13 +34,16 @@ export async function GET(req: NextRequest) {
     const lastWeek = new Date(today);
     lastWeek.setDate(today.getDate() - 7);
     query = query.gte("report_date", lastWeek.toISOString().split("T")[0]);
-  } else {
+  } else if (range === "monthly") {
     const lastMonth = new Date(today);
     lastMonth.setDate(today.getDate() - 30);
     query = query.gte("report_date", lastMonth.toISOString().split("T")[0]);
   }
 
-  const { data, error } = await query.order("report_date", { ascending: false }).limit(200);
+  const { data, error } = await query
+    .order("report_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .range(offset, offset + limit - 1);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

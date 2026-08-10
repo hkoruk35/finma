@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import type { Locale } from "@/lib/i18n/copy";
-
-type Range = "daily" | "weekly" | "monthly";
 
 interface EarningsAi {
   summary: string;
@@ -31,9 +30,6 @@ interface EarningsItem {
 const LABELS: Record<Locale, {
   title: string;
   subtitle: string;
-  daily: string;
-  weekly: string;
-  monthly: string;
   empty: string;
   loading: string;
   revenue: string;
@@ -44,225 +40,348 @@ const LABELS: Record<Locale, {
   bearish: string;
   source: string;
   viewCalendar: string;
+  loadMore: string;
+  filterTicker: string;
+  filterDate: string;
+  allDates: string;
 }> = {
   tr: {
-    title: "Bilançolar",
-    subtitle: "SEC EDGAR bildirimlerinden, yapay zekâ destekli otomatik analiz",
+    title: "Kurumsal Kazanç Analizleri",
+    subtitle: "SEC EDGAR verilerine dayalı, yapay zekâ destekli kurumsal finansal tablo analizi.",
     viewCalendar: "Bilanço Takvimini Gör →",
-    daily: "Günlük", weekly: "Haftalık", monthly: "Aylık",
-    empty: "Bu aralıkta henüz işlenmiş bir bilanço bulunmuyor.",
+    empty: "Bu kriterlere uygun henüz işlenmiş bir bilanço bulunmuyor.",
     loading: "Yükleniyor...",
     revenue: "Gelir", eps: "Hisse Başı Kâr", score: "BOGA AI Skoru",
     keyTakeaways: "Öne Çıkanlar", bullish: "Boğa Sinyalleri", bearish: "Ayı Sinyalleri",
     source: "Kaynak: SEC EDGAR",
+    loadMore: "Daha Fazla Yükle",
+    filterTicker: "Hisse Ara (Örn: AAPL)",
+    filterDate: "Tarih Seç",
+    allDates: "Tüm Zamanlar",
   },
   en: {
-    title: "Earnings",
-    subtitle: "AI-powered analysis, sourced directly from SEC EDGAR filings",
+    title: "Corporate Earnings Analysis",
+    subtitle: "AI-powered corporate financial statement analysis based on SEC EDGAR data.",
     viewCalendar: "View Earnings Calendar →",
-    daily: "Daily", weekly: "Weekly", monthly: "Monthly",
-    empty: "No processed earnings reports in this range yet.",
+    empty: "No processed earnings reports match these criteria.",
     loading: "Loading...",
     revenue: "Revenue", eps: "EPS", score: "BOGA AI Score",
     keyTakeaways: "Key Takeaways", bullish: "Bullish Signals", bearish: "Bearish Signals",
     source: "Source: SEC EDGAR",
+    loadMore: "Load More",
+    filterTicker: "Search Ticker (e.g., AAPL)",
+    filterDate: "Select Date",
+    allDates: "All Time",
   },
   es: {
-    title: "Resultados Financieros",
-    subtitle: "Análisis impulsado por IA, basado en presentaciones de SEC EDGAR",
+    title: "Análisis de Resultados Corporativos",
+    subtitle: "Análisis de estados financieros corporativos impulsado por IA, basado en datos de SEC EDGAR.",
     viewCalendar: "Ver Calendario de Resultados →",
-    daily: "Diario", weekly: "Semanal", monthly: "Mensual",
-    empty: "Aún no hay resultados procesados en este rango.",
+    empty: "Aún no hay resultados procesados con estos criterios.",
     loading: "Cargando...",
     revenue: "Ingresos", eps: "BPA", score: "Puntuación BOGA AI",
     keyTakeaways: "Puntos Clave", bullish: "Señales Alcistas", bearish: "Señales Bajistas",
     source: "Fuente: SEC EDGAR",
+    loadMore: "Cargar Más",
+    filterTicker: "Buscar Ticker (ej: AAPL)",
+    filterDate: "Seleccionar Fecha",
+    allDates: "Todo el Tiempo",
   },
   fr: {
-    title: "Résultats Financiers",
-    subtitle: "Analyse alimentée par l'IA, basée sur les dépôts SEC EDGAR",
+    title: "Analyse des Résultats d'Entreprise",
+    subtitle: "Analyse des états financiers d'entreprise assistée par IA, basée sur les données de la SEC EDGAR.",
     viewCalendar: "Voir le Calendrier des Résultats →",
-    daily: "Quotidien", weekly: "Hebdomadaire", monthly: "Mensuel",
-    empty: "Aucun résultat traité dans cette période pour le moment.",
+    empty: "Aucun résultat traité ne correspond à ces critères.",
     loading: "Chargement...",
     revenue: "Chiffre d'Affaires", eps: "BPA", score: "Score BOGA AI",
     keyTakeaways: "Points Clés", bullish: "Signaux Haussiers", bearish: "Signaux Baissiers",
     source: "Source : SEC EDGAR",
+    loadMore: "Charger Plus",
+    filterTicker: "Rechercher Ticker (ex: AAPL)",
+    filterDate: "Sélectionner la Date",
+    allDates: "Tout le Temps",
   },
   pt: {
-    title: "Resultados Financeiros",
-    subtitle: "Análise com IA, baseada em registros da SEC EDGAR",
+    title: "Análise de Resultados Corporativos",
+    subtitle: "Análise de demonstrações financeiras corporativas com IA, baseada em dados da SEC EDGAR.",
     viewCalendar: "Ver Calendário de Resultados →",
-    daily: "Diário", weekly: "Semanal", monthly: "Mensal",
-    empty: "Ainda não há resultados processados neste intervalo.",
+    empty: "Ainda não há resultados processados com estes critérios.",
     loading: "Carregando...",
     revenue: "Receita", eps: "LPA", score: "Pontuação BOGA AI",
     keyTakeaways: "Principais Pontos", bullish: "Sinais de Alta", bearish: "Sinais de Baixa",
     source: "Fonte: SEC EDGAR",
+    loadMore: "Carregar Mais",
+    filterTicker: "Pesquisar Ticker (ex: AAPL)",
+    filterDate: "Selecionar Data",
+    allDates: "Todo o Tempo",
   },
 };
 
-function fmtMoney(n: number | null | undefined): string {
-  if (n == null || !isFinite(n)) return "—";
-  const abs = Math.abs(n);
-  if (abs >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
-  if (abs >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
-  return `$${n.toFixed(2)}`;
-}
-
 export default function EarningsBoard({ locale }: { locale: Locale }) {
   const t = LABELS[locale] ?? LABELS.en;
-  const [range, setRange] = useState<Range>("monthly");
-  const [items, setItems] = useState<EarningsItem[] | null>(null);
+  
+  const [items, setItems] = useState<EarningsItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  
+  // Filters
+  const [tickerFilter, setTickerFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState(""); // YYYY-MM-DD
+  const [debouncedTicker, setDebouncedTicker] = useState("");
 
+  // Debounce ticker input
   useEffect(() => {
-    let active = true;
-    setItems(null);
-    fetch(`/api/earnings?range=${range}&locale=${locale}`, { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : { data: [] }))
-      .then((d) => { if (active) setItems(d.data || []); })
-      .catch(() => { if (active) setItems([]); });
-    return () => { active = false; };
-  }, [range, locale]);
+    const handler = setTimeout(() => {
+      setDebouncedTicker(tickerFilter);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [tickerFilter]);
+
+  const fetchEarnings = useCallback(async (pageNum: number, tck: string, dt: string, append = false) => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        locale,
+        page: pageNum.toString(),
+        limit: "5",
+        range: "all"
+      });
+      if (tck) params.set("ticker", tck);
+      
+      const res = await fetch(`/api/earnings?${params.toString()}`);
+      if (!res.ok) throw new Error("Fetch failed");
+      
+      const json = await res.json();
+      const newItems = json.data || [];
+      
+      // Client-side date filter since the API only supports ranges easily right now.
+      // Alternatively, the API could be updated, but for exact date filtering this works for MVP.
+      let filteredItems = newItems;
+      if (dt) {
+        filteredItems = newItems.filter((item: EarningsItem) => item.reportDate === dt);
+      }
+
+      setItems(prev => append ? [...prev, ...filteredItems] : filteredItems);
+      setHasMore(newItems.length === 5); // If we got 5, there might be more
+    } catch (err) {
+      console.error(err);
+      if (!append) setItems([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [locale]);
+
+  // Initial load and filter change
+  useEffect(() => {
+    setPage(1);
+    fetchEarnings(1, debouncedTicker, dateFilter, false);
+  }, [debouncedTicker, dateFilter, fetchEarnings]);
+
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchEarnings(nextPage, debouncedTicker, dateFilter, true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
       <MemberHeader locale={locale} />
 
-      <main className="flex-1 max-w-[1200px] mx-auto w-full px-4 py-8">
-        <div className="mb-6 flex items-start justify-between flex-wrap gap-3">
+      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 py-8 lg:py-12">
+        <div className="mb-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-1.5">{t.title}</h1>
-            <p className="text-sm text-white/50">{t.subtitle}</p>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">{t.title}</h1>
+            <p className="text-sm md:text-base text-white/50">{t.subtitle}</p>
           </div>
           <Link
             href={`/global/${locale}/earning-calendar`}
-            className="shrink-0 px-3 py-1.5 rounded-lg text-[12px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all"
+            className="shrink-0 px-4 py-2 rounded-xl text-sm font-bold text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-lg shadow-[#3b82f6]/5"
           >
             {t.viewCalendar}
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 mb-6">
-          {(["monthly", "weekly", "daily"] as Range[]).map((r) => (
-            <button
-              key={r}
-              type="button"
-              onClick={() => setRange(r)}
-              className={`px-4 py-2 rounded-lg text-[13px] font-bold uppercase tracking-wide transition-all ${
-                range === r
-                  ? "bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]"
-                  : "bg-[#0f1117] text-[#64748b] border border-[#1e2a3a] hover:text-white hover:border-[#3b82f6]/40"
-              }`}
-            >
-              {t[r]}
-            </button>
-          ))}
+        {/* Filters */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 bg-[#0f1117] p-4 rounded-2xl border border-[#1e2a3a]/60 shadow-lg">
+          <div className="relative w-full sm:w-64">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder={t.filterTicker}
+              value={tickerFilter}
+              onChange={(e) => setTickerFilter(e.target.value)}
+              className="w-full bg-[#0a0e17] border border-[#1e2a3a] rounded-xl py-2 pl-9 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#3b82f6] transition-colors"
+            />
+          </div>
+          <div className="w-full sm:w-auto flex items-center gap-2">
+            <input
+              type="date"
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value)}
+              className="w-full sm:w-auto bg-[#0a0e17] border border-[#1e2a3a] rounded-xl py-2 px-4 text-sm text-white focus:outline-none focus:border-[#3b82f6] transition-colors"
+            />
+            {dateFilter && (
+              <button 
+                onClick={() => setDateFilter("")}
+                className="text-xs text-slate-400 hover:text-white transition-colors"
+              >
+                ✕ {t.allDates}
+              </button>
+            )}
+          </div>
         </div>
 
-        {items === null && (
+        {loading && items.length === 0 && (
           <div className="flex items-center justify-center py-24">
             <span className="text-[#3b82f6] font-mono text-sm animate-pulse">{t.loading}</span>
           </div>
         )}
 
-        {items !== null && items.length === 0 && (
-          <div className="flex items-center justify-center py-24">
-            <p className="text-white/40 text-sm">{t.empty}</p>
+        {!loading && items.length === 0 && (
+          <div className="flex items-center justify-center py-24 bg-[#0f1117] rounded-2xl border border-[#1e2a3a]/40">
+            <p className="text-white/40 text-base">{t.empty}</p>
           </div>
         )}
 
-        {items !== null && items.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {items.length > 0 && (
+          <div className="flex flex-col gap-6">
             {items.map((item) => {
               const ai = item.ai;
               const revenuePositive = ai?.revenue_status && !/below|altı|bajas?|baisse|baixo/i.test(ai.revenue_status);
+              
               return (
                 <div
                   key={item.id}
-                  className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl p-4 hover:border-[#3b82f6]/40 transition-colors"
+                  className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-2xl overflow-hidden hover:border-[#3b82f6]/30 transition-all shadow-xl shadow-black/20 flex flex-col lg:flex-row"
                 >
-                  <div className="flex items-start justify-between mb-2">
+                  {/* Left: AI Analysis */}
+                  <div className="flex-1 p-6 lg:p-8 flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-base font-bold text-white">{item.ticker}</span>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 uppercase">
-                          {item.formType}
-                        </span>
+                      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+                        <div>
+                          <div className="flex items-center gap-3 mb-1">
+                            <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-2xl md:text-3xl font-black text-white hover:text-[#3b82f6] transition-colors">
+                              {item.ticker}
+                            </Link>
+                            <span className="text-[11px] font-bold px-2 py-1 rounded-md bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 uppercase">
+                              {item.formType}
+                            </span>
+                          </div>
+                          <div className="text-sm text-white/50 font-medium">{item.companyName}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xs font-bold text-[#3b82f6] uppercase tracking-wider mb-1">{item.period}</div>
+                          <div className="text-xs text-white/40 font-mono">{item.reportDate}</div>
+                        </div>
                       </div>
-                      <div className="text-[11px] text-white/40 truncate max-w-[220px]">{item.companyName}</div>
+
+                      {ai && (
+                        <>
+                          <p className="text-sm md:text-base text-white/80 leading-relaxed mb-6 font-medium">
+                            {ai.summary}
+                          </p>
+
+                          <div className="flex flex-wrap items-center gap-3 mb-8">
+                            <span
+                              className="text-xs font-bold px-3 py-1.5 rounded-lg border"
+                              style={{
+                                color: revenuePositive ? "#22c55e" : "#ef4444",
+                                backgroundColor: revenuePositive ? "#22c55e10" : "#ef444410",
+                                borderColor: revenuePositive ? "#22c55e30" : "#ef444430",
+                              }}
+                            >
+                              {t.revenue}: {ai.revenue_status}
+                            </span>
+                            <span className="text-xs font-bold px-3 py-1.5 rounded-lg bg-white/5 text-white/80 border border-white/10">
+                              {t.eps}: {ai.eps_status}
+                            </span>
+                            <span className="text-xs font-bold px-3 py-1.5 rounded-lg bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                              {t.score}: {ai.ai_score}/10
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            {ai.key_takeaways?.length > 0 && (
+                              <div className="md:col-span-2">
+                                <div className="text-xs font-bold text-white/50 uppercase tracking-wider mb-2">{t.keyTakeaways}</div>
+                                <ul className="space-y-1.5">
+                                  {ai.key_takeaways.map((k, i) => (
+                                    <li key={i} className="text-sm text-white/70 flex gap-2">
+                                      <span className="text-[#3b82f6] mt-0.5">•</span>
+                                      <span>{k}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {ai.bullish_signals?.length > 0 && (
+                              <div className="bg-[#22c55e]/5 border border-[#22c55e]/10 p-4 rounded-xl">
+                                <div className="text-[11px] font-bold text-[#22c55e] uppercase tracking-wider mb-2 flex items-center gap-1">
+                                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                                  {t.bullish}
+                                </div>
+                                <ul className="space-y-1">
+                                  {ai.bullish_signals.map((s, i) => (
+                                    <li key={i} className="text-xs text-[#22c55e]/80 font-medium">{s}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            {ai.bearish_signals?.length > 0 && (
+                              <div className="bg-[#ef4444]/5 border border-[#ef4444]/10 p-4 rounded-xl">
+                                <div className="text-[11px] font-bold text-[#ef4444] uppercase tracking-wider mb-2 flex items-center gap-1">
+                                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                                  {t.bearish}
+                                </div>
+                                <ul className="space-y-1">
+                                  {ai.bearish_signals.map((s, i) => (
+                                    <li key={i} className="text-xs text-[#ef4444]/80 font-medium">{s}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
-                    <div className="text-right shrink-0">
-                      <div className="text-[10px] text-white/40">{item.period}</div>
-                      <div className="text-[10px] text-white/30 font-mono">{item.reportDate}</div>
+                    <div className="mt-4 pt-4 border-t border-[#1e2a3a]/40 flex items-center justify-between">
+                      <div className="text-[10px] text-white/30 uppercase tracking-widest">{t.source}</div>
+                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-xs font-bold text-[#3b82f6] hover:underline">
+                        Analiz Detayı →
+                      </Link>
                     </div>
                   </div>
 
-                  {ai && (
-                    <>
-                      <p className="text-[12px] text-white/70 leading-relaxed mb-3">{ai.summary}</p>
-
-                      <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        <span
-                          className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                          style={{
-                            color: revenuePositive ? "#22c55e" : "#ef4444",
-                            backgroundColor: revenuePositive ? "#22c55e15" : "#ef444415",
-                          }}
-                        >
-                          {t.revenue}: {ai.revenue_status}
-                        </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-white/70">
-                          {t.eps}: {ai.eps_status}
-                        </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6]">
-                          {t.score}: {ai.ai_score}/10
-                        </span>
-                      </div>
-
-                      {ai.key_takeaways?.length > 0 && (
-                        <div className="mb-2">
-                          <div className="text-[10px] font-bold text-white/40 uppercase tracking-wide mb-1">{t.keyTakeaways}</div>
-                          <ul className="space-y-0.5">
-                            {ai.key_takeaways.map((k, i) => (
-                              <li key={i} className="text-[11px] text-white/60 flex gap-1.5">
-                                <span className="text-[#3b82f6]">•</span>
-                                <span>{k}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      <div className="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-[#1e2a3a]/60">
-                        {ai.bullish_signals?.length > 0 && (
-                          <div>
-                            <div className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wide mb-1">{t.bullish}</div>
-                            <ul className="space-y-0.5">
-                              {ai.bullish_signals.map((s, i) => (
-                                <li key={i} className="text-[10px] text-white/50">↑ {s}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {ai.bearish_signals?.length > 0 && (
-                          <div>
-                            <div className="text-[10px] font-bold text-[#ef4444] uppercase tracking-wide mb-1">{t.bearish}</div>
-                            <ul className="space-y-0.5">
-                              {ai.bearish_signals.map((s, i) => (
-                                <li key={i} className="text-[10px] text-white/50">↓ {s}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </>
-                  )}
-
-                  <div className="mt-3 text-[9px] text-white/25">{t.source}</div>
+                  {/* Right: 1W Chart */}
+                  <div className="w-full lg:w-[400px] xl:w-[500px] h-[300px] lg:h-auto border-t lg:border-t-0 lg:border-l border-[#1e2a3a]/60 bg-black/20 shrink-0 relative overflow-hidden">
+                    <BogaChartEngine 
+                      symbol={item.ticker} 
+                      lang={locale} 
+                      defaultTimeframe="W" 
+                      compact={true}
+                      hideIndicatorToggles={true}
+                    />
+                  </div>
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {hasMore && items.length > 0 && (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={handleLoadMore}
+              disabled={loading}
+              className="px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider bg-[#1e293b] border border-[#3b82f6]/40 text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(59,130,246,0.1)] hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+            >
+              {loading ? t.loading : t.loadMore}
+            </button>
           </div>
         )}
       </main>
@@ -271,3 +390,4 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
     </div>
   );
 }
+

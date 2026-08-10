@@ -17,11 +17,11 @@ const TITLES: Record<Locale, string> = {
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
-  tr: "SEC EDGAR bildirimlerine dayalı, yapay zekâ destekli günlük/haftalık/aylık bilanço analizleri.",
-  en: "AI-powered daily, weekly, and monthly earnings analysis sourced directly from SEC EDGAR filings.",
-  es: "Análisis de resultados financieros diarios, semanales y mensuales impulsados por IA, basados en presentaciones de SEC EDGAR.",
-  fr: "Analyses de résultats financiers quotidiennes, hebdomadaires et mensuelles alimentées par l'IA, basées sur les dépôts SEC EDGAR.",
-  pt: "Análises de resultados financeiros diários, semanais e mensais com IA, baseadas em registros da SEC EDGAR.",
+  tr: "SEC EDGAR verilerine dayalı, yapay zekâ destekli kurumsal finansal tablo analizi.",
+  en: "AI-powered corporate financial statement analysis based on SEC EDGAR data.",
+  es: "Análisis de estados financieros corporativos impulsado por IA, basado en datos de SEC EDGAR.",
+  fr: "Analyse des états financiers d'entreprise assistée par IA, basée sur les données de la SEC EDGAR.",
+  pt: "Análise de demonstrações financeiras corporativas com IA, baseada em dados da SEC EDGAR.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
