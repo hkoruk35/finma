@@ -60,7 +60,7 @@ Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily2" -Script "index_daily_analyzer.py
 # --- ABD GUNLUK ANALIZLERI (Mevcut Sabit Yapi) ---
 Set-BogaTask -Name "BOGA_AI_Index_US_PreMarket" -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "09:00:00"
 Set-BogaTask -Name "BOGA_AI_Index_US_Midday"    -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "13:00:00"
-Set-BogaTask -Name "BOGA_AI_Index_US_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "16:30:00"
+Set-BogaTask -Name "BOGA_AI_Index_US_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "16:05:00"
 
 # --- HAFTALIK ANALIZLER (Cumartesi Staggering) ---
 Set-BogaTask -Name "BOGA_AI_Index_Weekly_SPX" -Script "index_weekly_analyzer.py" -Args "--symbols=SPX" -StartTime "10:00:00" -DaysOfWeek @("Saturday")

@@ -13,19 +13,19 @@ interface ScheduleItem {
 }
 
 const SCHEDULE: ScheduleItem[] = [
-  { key: "bannerAsia1", hour: 2, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/nikkei225/daily" },
-  { key: "bannerAsia2", hour: 2, minute: 35, days: [1, 2, 3, 4, 5], slug: "asia/kospi/daily" },
-  { key: "bannerAsia3", hour: 3, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/shanghai/daily" },
-  { key: "bannerAsia4", hour: 4, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/hangseng/daily" },
-  { key: "bannerAsia5", hour: 6, minute: 5, days: [1, 2, 3, 4, 5], slug: "asia/nifty50/daily" },
-  { key: "bannerUsPre", hour: 9, minute: 0, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
-  { key: "bannerEuClose", hour: 11, minute: 35, days: [1, 2, 3, 4, 5], slug: "europe/dax/daily" },
-  { key: "bannerUsMid", hour: 13, minute: 0, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
-  { key: "bannerLatAm1", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "latam/bovespa/daily" },
-  { key: "bannerUsClose", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "us/spx/daily" },
-  { key: "bannerLatAm2", hour: 17, minute: 5, days: [1, 2, 3, 4, 5], slug: "latam/ipcmexico/daily" },
+  { key: "bannerAsia1", hour: 2, minute: 5, days: [1, 2, 3, 4, 5], slug: "nikkei-225/daily" },
+  { key: "bannerAsia2", hour: 2, minute: 35, days: [1, 2, 3, 4, 5], slug: "kospi/daily" },
+  { key: "bannerAsia3", hour: 3, minute: 5, days: [1, 2, 3, 4, 5], slug: "shanghai-composite/daily" },
+  { key: "bannerAsia4", hour: 4, minute: 5, days: [1, 2, 3, 4, 5], slug: "hang-seng/daily" },
+  { key: "bannerAsia5", hour: 6, minute: 5, days: [1, 2, 3, 4, 5], slug: "nifty-50/daily" },
+  { key: "bannerUsPre", hour: 9, minute: 0, days: [1, 2, 3, 4, 5], slug: "sp500/daily" },
+  { key: "bannerEuClose", hour: 11, minute: 35, days: [1, 2, 3, 4, 5], slug: "dax/daily" },
+  { key: "bannerUsMid", hour: 13, minute: 0, days: [1, 2, 3, 4, 5], slug: "sp500/daily" },
+  { key: "bannerLatAm1", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "bovespa/daily" },
+  { key: "bannerUsClose", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "sp500/daily" },
+  { key: "bannerLatAm2", hour: 17, minute: 5, days: [1, 2, 3, 4, 5], slug: "ipc-mexico/daily" },
   // Weekly represents the weekend blocks
-  { key: "bannerWeekly", hour: 10, minute: 0, days: [0, 6], slug: "us/spx/weekly" },
+  { key: "bannerWeekly", hour: 10, minute: 0, days: [0, 6], slug: "sp500/weekly" },
 ];
 
 export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
