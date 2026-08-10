@@ -55,26 +55,26 @@ export default async function HomeUpcomingEarnings({ locale }: { locale: Locale 
             <Link
               key={item.ticker}
               href={`/global/${locale}/graphic/${item.ticker}`}
-              className="flex items-center gap-3 px-4 py-3 hover:bg-white/[0.03] transition-colors"
+              className="grid grid-cols-[44px_1fr_auto_auto] md:grid-cols-[48px_minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] items-center gap-3 md:gap-6 px-4 py-3 hover:bg-white/[0.03] transition-colors"
             >
-              <div className="shrink-0 w-11 text-center">
+              <div className="text-center">
                 <div className="text-[9px] font-bold text-slate-500 tracking-wide">{weekday}</div>
                 <div className="text-lg font-bold text-white leading-tight">{day}</div>
               </div>
 
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0">
                 <div className="text-[13px] font-bold text-white truncate">{item.companyName || item.ticker}</div>
                 <div className="text-[11px] text-slate-500">{item.ticker}</div>
               </div>
 
-              <div className="shrink-0 text-right">
+              <div className="text-right md:text-left">
                 <div className="text-[9px] text-slate-500">{t.epsEst}</div>
                 <div className="text-[12px] font-mono font-bold text-white/80">
                   {item.epsEstimate != null ? `$${item.epsEstimate.toFixed(2)}` : "—"}
                 </div>
               </div>
 
-              <div className="shrink-0 text-right w-16">
+              <div className="text-right min-w-[60px]">
                 <div className="text-[9px] text-slate-500">{t.revEst}</div>
                 <div className="text-[12px] font-mono font-bold text-white/80">{fmtMoney(item.revenueEstimate)}</div>
               </div>
