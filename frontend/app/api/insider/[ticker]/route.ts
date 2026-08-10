@@ -31,10 +31,16 @@ interface InsiderResponse {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { ticker: string } }
+  // Next.js 16'da route handler `params`'i bir Promise. Burada eski senkron
+  // imza kullaniliyordu; `params.ticker` undefined kaliyor, .toUpperCase()
+  // TypeError firlatiyor ve asagidaki catch bunu "Internal server error"
+  // 500'une ceviriyordu. /api/insider/AAPL uretimde her istekte 500 donuyordu
+  // (2026-08-10'da tespit edildi).
+  { params }: { params: Promise<{ ticker: string }> }
 ) {
   try {
-    const ticker = params.ticker.toUpperCase();
+    const { ticker: rawTicker } = await params;
+    const ticker = (rawTicker ?? "").toUpperCase();
     const searchParams = request.nextUrl.searchParams;
 
     // Query parameters
