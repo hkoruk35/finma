@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "HCI",
@@ -151,7 +151,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TEVA",
@@ -297,7 +297,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SBLK",
@@ -441,7 +441,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TOST",
@@ -586,7 +586,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ZM",
@@ -731,7 +731,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BCPC",
@@ -877,7 +877,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "HBM",
@@ -1023,7 +1023,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RYTM",
@@ -1168,7 +1168,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "OC",
@@ -1312,7 +1312,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-10",
+      "last_checked": "2026-08-10 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RL",

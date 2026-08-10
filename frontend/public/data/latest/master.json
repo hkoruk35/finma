@@ -1,32 +1,33 @@
 {
-  "date": "2026-08-07",
-  "generated_at": "2026-08-07T17:03:28.969189-04:00",
+  "date": "2026-08-10",
+  "generated_at": "2026-08-10T09:06:44.010050-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 42,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "PAYX",
-        "GIL",
-        "PLXS",
-        "NVST",
-        "TENB",
-        "WY",
-        "PSA",
-        "CSCO",
-        "SQM",
-        "FAST"
+        "HCI",
+        "TEVA",
+        "SBLK",
+        "TOST",
+        "ZM",
+        "BCPC",
+        "HBM",
+        "RYTM",
+        "OC",
+        "RL"
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 5,
       "tickers": [
-        "NVST",
-        "CPAY",
-        "PBR",
-        "NET"
+        "HCI",
+        "SBLK",
+        "ZM",
+        "RYTM",
+        "OC"
       ]
     },
     "value": {
@@ -48,18 +49,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "PAYX",
-      "score": 61.5,
+      "ticker": "HCI",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "GIL",
-      "score": 49.0,
+      "ticker": "TEVA",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PLXS",
-      "score": 44.0,
+      "ticker": "SBLK",
+      "score": 56.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
