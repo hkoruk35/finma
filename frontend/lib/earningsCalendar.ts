@@ -23,7 +23,7 @@ export async function getUpcomingEarnings(limit = 4): Promise<UpcomingEarning[]>
       .gte("earnings_date", today)
       .order("earnings_date", { ascending: true })
       .limit(limit)
-      .abortSignal(AbortSignal.timeout(5000)); // Supabase yavas/erisilemezse sayfayi askida birakmasin
+      .abortSignal(AbortSignal.timeout(20000)); // Build sirasinda (Vercel) timeout olmamasi icin 20s verildi
 
     if (error) {
       console.error("[earningsCalendar] fetch failed:", error.message);

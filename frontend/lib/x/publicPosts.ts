@@ -26,7 +26,7 @@ export async function getPublicPosts(locale: string, limit = 60): Promise<Public
       .not("posted_at", "is", null)
       .order("posted_at", { ascending: false })
       .limit(limit)
-      .abortSignal(AbortSignal.timeout(5000)); // Supabase yavas/erisilemezse sayfayi askida birakmasin
+      .abortSignal(AbortSignal.timeout(20000)); // Build sirasinda (Vercel) timeout olmamasi icin 20s verildi
 
     if (error) {
       console.error("[x/publicPosts] fetch failed:", error.message);
