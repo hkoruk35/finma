@@ -108,13 +108,13 @@ export async function getTechnicalLevels(ticker: string): Promise<TechnicalLevel
   const rsiArr: (number | null)[] = d.indicators?.rsi || [];
   const rsi14 = lastValue(rsiArr);
 
-  const pctDist = (ema: number | null) => (ema ? +formatNumber((((currentPrice - ema) / ema) * 100), 2) : null);
+  const pctDist = (ema: number | null) => (ema ? +(((((currentPrice - ema) / ema) * 100)).toFixed(2)) : null);
 
   const pctChange = (idxFromEnd: number): number | null => {
     const i = bars.length - 1 - idxFromEnd;
     if (i < 0 || !bars[i]) return null;
     const base = bars[i].close;
-    return base > 0 ? +formatNumber((((currentPrice - base) / base) * 100), 2) : null;
+    return base > 0 ? +(((((currentPrice - base) / base) * 100)).toFixed(2)) : null;
   };
 
   const avgVol20 =
@@ -123,7 +123,7 @@ export async function getTechnicalLevels(ticker: string): Promise<TechnicalLevel
       : null;
   const volumeToday = volumes[volumes.length - 1] ?? null;
   const volumeVsAvgPct =
-    avgVol20 && volumeToday != null ? +formatNumber((((volumeToday - avgVol20) / avgVol20) * 100), 1) : null;
+    avgVol20 && volumeToday != null ? +(((((volumeToday - avgVol20) / avgVol20) * 100)).toFixed(1)) : null;
 
   const sr: Array<{ price: number; type: "support" | "resistance" }> = d.sr || [];
   const supports = sr
@@ -135,11 +135,11 @@ export async function getTechnicalLevels(ticker: string): Promise<TechnicalLevel
 
   return {
     ticker: t,
-    currentPrice: +formatNumber(currentPrice, 2),
+    currentPrice: +((currentPrice).toFixed(2)),
     change1dPct: pctChange(1),
     change5dPct: pctChange(5),
     change1mPct: pctChange(21),
-    change1yPct: bars.length > 1 ? +formatNumber((((currentPrice - bars[0].close) / bars[0].close) * 100), 2) : null,
+    change1yPct: bars.length > 1 ? +(((((currentPrice - bars[0].close) / bars[0].close) * 100)).toFixed(2)) : null,
     ema20, ema50, ema200,
     distFromEma20Pct: pctDist(ema20),
     distFromEma50Pct: pctDist(ema50),

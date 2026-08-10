@@ -133,7 +133,7 @@ export async function getTradePlanSummary(ticker: string, locale: string = "en")
     valid: !!tp.valid,
     entryLow: tp.entryZone.low,
     entryHigh: tp.entryZone.high,
-    avgEntry: +formatNumber(((tp.entryZone.low + tp.entryZone.high) / 2), 2),
+    avgEntry: +((((tp.entryZone.low + tp.entryZone.high) / 2)).toFixed(2)),
     entryCondition: tp.entryCondition || "",
     stopPrice: tp.stop?.price,
     stopPct: tp.stop?.pct,

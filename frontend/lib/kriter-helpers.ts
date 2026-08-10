@@ -237,9 +237,9 @@ function stockJsonToArchivePick(stockData: any, ticker: string): ArchivePick | n
         ema_20: ema20,
         ema_50: ema50,
         ema_200: ema200,
-        price_vs_ema20: ema20 > 0 ? +formatNumber(((price - ema20) / ema20 * 100), 2) : 0,
-        price_vs_ema50: ema50 > 0 ? +formatNumber(((price - ema50) / ema50 * 100), 2) : 0,
-        price_vs_ema200: ema200 > 0 ? +formatNumber(((price - ema200) / ema200 * 100), 2) : 0,
+        price_vs_ema20: ema20 > 0 ? +((((price - ema20) / ema20 * 100)).toFixed(2)) : 0,
+        price_vs_ema50: ema50 > 0 ? +((((price - ema50) / ema50 * 100)).toFixed(2)) : 0,
+        price_vs_ema200: ema200 > 0 ? +((((price - ema200) / ema200 * 100)).toFixed(2)) : 0,
         ema20_slope: "Unknown",
       },
       boga_zones: {
@@ -447,14 +447,14 @@ export function computeAggregateStats(
   const pending = trades.filter((t) => t.result === "PENDING");
 
   const win_rate = trades.length > 0
-    ? +formatNumber(((wins.length / trades.filter((t) => t.result !== "PENDING").length || 0) * 100), 1)
+    ? +((((wins.length / trades.filter((t) => t.result !== "PENDING").length || 0) * 100)).toFixed(1))
     : 0;
 
   const avg_return_win = wins.length > 0
-    ? +formatNumber((wins.reduce((s, t) => s + t.return_pct, 0) / wins.length), 2)
+    ? +(((wins.reduce((s, t) => s + t.return_pct, 0) / wins.length)).toFixed(2))
     : 0;
   const avg_return_all = trades.length > 0
-    ? +formatNumber((trades.reduce((s, t) => s + t.return_pct, 0) / trades.length), 2)
+    ? +(((trades.reduce((s, t) => s + t.return_pct, 0) / trades.length)).toFixed(2))
     : 0;
 
   // Sistem bazlı
@@ -465,7 +465,7 @@ export function computeAggregateStats(
     return {
       total: group.length,
       win: groupWins.length,
-      win_rate: completed.length > 0 ? +formatNumber(((groupWins.length / completed.length) * 100), 1) : 0,
+      win_rate: completed.length > 0 ? +((((groupWins.length / completed.length) * 100)).toFixed(1)) : 0,
     };
   };
 
@@ -479,7 +479,7 @@ export function computeAggregateStats(
   const highRvol = systemWinRate((t) => t.derived?.rvol_category === "HIGH");
 
   const enriched_pct =
-    trades.length > 0 ? +formatNumber(((enriched.length / trades.length) * 100), 1) : 0;
+    trades.length > 0 ? +((((enriched.length / trades.length) * 100)).toFixed(1)) : 0;
 
   const dates = reportDays.sort();
 
@@ -532,9 +532,9 @@ export function computeSignalMatrix(trades: EnrichedTrade[]): SignalMatrix[] {
       win: data.win,
       loss: data.loss,
       pending: data.pending,
-      win_rate: completed > 0 ? +formatNumber(((data.win / completed) * 100), 1) : 0,
+      win_rate: completed > 0 ? +((((data.win / completed) * 100)).toFixed(1)) : 0,
       avg_return: data.returns.length > 0
-        ? +formatNumber((data.returns.reduce((a, b) => a + b, 0) / data.returns.length), 2)
+        ? +(((data.returns.reduce((a, b) => a + b, 0) / data.returns.length)).toFixed(2))
         : 0,
     });
   }
@@ -553,7 +553,7 @@ export function computeDailyTrend(
     const losses = dayTrades.filter((t) => t.result === "LOSS");
     const pending = dayTrades.filter((t) => t.result === "PENDING");
     const completed = wins.length + losses.length;
-    const win_rate = completed > 0 ? +formatNumber(((wins.length / completed) * 100), 1) : 0;
+    const win_rate = completed > 0 ? +((((wins.length / completed) * 100)).toFixed(1)) : 0;
 
     // Dominant system
     const sysCounts: Record<string, number> = {};

@@ -57,13 +57,13 @@ async function change1dV8(ticker: string): Promise<{ price: number | null; chang
 
     const price: number | null = meta?.regularMarketPrice ?? (closes.length > 0 ? closes[closes.length - 1] : null);
 
-    let change_1d: number | null = meta?.regularMarketChangePercent != null ? +formatNumber(meta.regularMarketChangePercent, 2) : null;
+    let change_1d: number | null = meta?.regularMarketChangePercent != null ? +((meta.regularMarketChangePercent).toFixed(2)) : null;
 
     if (closes.length >= 2) {
       const todayClose = closes[closes.length - 1];
       const prevClose = closes[closes.length - 2];
       if (prevClose > 0) {
-        change_1d = +formatNumber(((todayClose - prevClose) / prevClose * 100), 2);
+        change_1d = +((((todayClose - prevClose) / prevClose * 100)).toFixed(2));
       }
     }
 

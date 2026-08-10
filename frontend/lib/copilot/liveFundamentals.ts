@@ -103,7 +103,7 @@ export async function getLiveFundamentals(ticker: string): Promise<LiveFundament
     const transactions: any[] = result.insiderTransactions?.transactions || [];
     const recTrend = result.recommendationTrend?.trend?.[0];
 
-    const pct = (v: any) => (typeof v?.raw === "number" ? +formatNumber((v.raw * 100), 1) : null);
+    const pct = (v: any) => (typeof v?.raw === "number" ? +(((v.raw * 100)).toFixed(1)) : null);
     const num = (v: any) => (typeof v?.raw === "number" ? v.raw : null);
 
     const now = Date.now();

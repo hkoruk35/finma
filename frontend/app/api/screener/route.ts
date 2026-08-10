@@ -441,18 +441,18 @@ function detectSymmetricalTriangle(
   const targetFib  = breakoutPx + triWidth * 1.618;
   const stopLoss   = lowerNow * 0.98;
   const risk       = breakoutPx - stopLoss;
-  const rr         = risk > 0 ? +formatNumber(((targetFib - breakoutPx) / risk), 1) : 0;
+  const rr         = risk > 0 ? +((((targetFib - breakoutPx) / risk)).toFixed(1)) : 0;
 
   return {
     detected: true,
     bbw_percentile: bbwPct,
     apex_bars_left: Math.min(Math.max(apexBars, 0), 60),
     triangle_score: triScore,
-    upper_trendline: +formatNumber(upperNow, 2),
-    lower_trendline: +formatNumber(lowerNow, 2),
-    target_1x: +formatNumber(target1x, 2),
-    target_fib: +formatNumber(targetFib, 2),
-    stop_loss: +formatNumber(stopLoss, 2),
+    upper_trendline: +((upperNow).toFixed(2)),
+    lower_trendline: +((lowerNow).toFixed(2)),
+    target_1x: +((target1x).toFixed(2)),
+    target_fib: +((targetFib).toFixed(2)),
+    stop_loss: +((stopLoss).toFixed(2)),
     risk_reward: rr,
   };
 }
@@ -695,41 +695,41 @@ function tradePlan(params: {
   if (preset === "early_break") {
     if (triUpper && triLower && triUpper > triLower) {
       const h = triUpper - triLower;
-      entry  = +formatNumber((triUpper * 1.002), 2);
-      stop   = +formatNumber((triLower * 0.98), 2);
-      target = +formatNumber((entry + h * 1.618), 2);
+      entry  = +(((triUpper * 1.002)).toFixed(2));
+      stop   = +(((triLower * 0.98)).toFixed(2));
+      target = +(((entry + h * 1.618)).toFixed(2));
     } else {
-      entry  = +formatNumber((bbUpper * 1.001), 2);
-      stop   = +formatNumber((bbLower * 0.999), 2);
-      target = +formatNumber((entry + (entry - stop) * 2.5), 2);
+      entry  = +(((bbUpper * 1.001)).toFixed(2));
+      stop   = +(((bbLower * 0.999)).toFixed(2));
+      target = +(((entry + (entry - stop) * 2.5)).toFixed(2));
     }
   } else if (preset === "cheap_exp" && pivot) {
     const { pp, r1, r2, r3, s2, s3 } = pivot;
     if (price <= s2) {
       // Dönüş (mean reversion): S2/S3 aşırı satım bölgesinden alım, hedef PP
-      entry  = +formatNumber((price * 1.002), 2);
-      stop   = +formatNumber((price <= s3 ? s3 * 0.99 : s2 * 0.99), 2);
-      target = +formatNumber(pp, 2);
+      entry  = +(((price * 1.002)).toFixed(2));
+      stop   = +(((price <= s3 ? s3 * 0.99 : s2 * 0.99)).toFixed(2));
+      target = +((pp).toFixed(2));
     } else {
       // Kırılım (breakout): PP üstü, R1→R2→R3 hedef merdiveni
-      entry  = +formatNumber((price * 1.001), 2);
-      stop   = +formatNumber((pp * 0.995), 2);
-      target = +formatNumber((price >= r2 ? r3 : price >= r1 ? r2 : r1), 2);
+      entry  = +(((price * 1.001)).toFixed(2));
+      stop   = +(((pp * 0.995)).toFixed(2));
+      target = +(((price >= r2 ? r3 : price >= r1 ? r2 : r1)).toFixed(2));
     }
   } else if (preset === "day_mom") {
-    entry  = +formatNumber((price * 1.001), 2);
-    stop   = +formatNumber((price * 0.97), 2);
-    target = +formatNumber((entry + atrVal * 2), 2);
+    entry  = +(((price * 1.001)).toFixed(2));
+    stop   = +(((price * 0.97)).toFixed(2));
+    target = +(((entry + atrVal * 2)).toFixed(2));
   } else {
     // Swing default — EMA20 stop
-    entry  = +formatNumber((price * 1.002), 2);
-    stop   = +formatNumber((Math.min(ema20 * 0.995, price * 0.97)), 2);
-    target = +formatNumber((entry + (entry - stop) * 3), 2);
+    entry  = +(((price * 1.002)).toFixed(2));
+    stop   = +(((Math.min(ema20 * 0.995, price * 0.97))).toFixed(2));
+    target = +(((entry + (entry - stop) * 3)).toFixed(2));
   }
 
   const risk = entry - stop;
   const rr   = risk > 0 ? formatNumber(((target - entry) / risk), 1) + "x" : "—";
-  const riskPct = risk > 0 ? +formatNumber(((risk / entry) * 100), 1) : 0;
+  const riskPct = risk > 0 ? +((((risk / entry) * 100)).toFixed(1)) : 0;
   return { entry, stop, target, rr, riskPct };
 }
 
@@ -786,12 +786,12 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const price   = meta.regularMarketPrice ?? closes.at(-1)!;
     const prev1d  = meta.previousClose ?? closes.at(-2)!;
     const prev1w  = closes.at(-6) ?? closes[0];
-    const change1d = prev1d ? +formatNumber(((price - prev1d) / prev1d * 100), 2) : 0;
-    const change1w = prev1w ? +formatNumber(((price - prev1w) / prev1w * 100), 2) : 0;
+    const change1d = prev1d ? +((((price - prev1d) / prev1d * 100)).toFixed(2)) : 0;
+    const change1w = prev1w ? +((((price - prev1w) / prev1w * 100)).toFixed(2)) : 0;
 
     const curVol  = meta.regularMarketVolume ?? volumes.at(-1) ?? 0;
     const avgVol  = sma(volumes, 30);
-    const rvolVal = avgVol > 0 ? +formatNumber((curVol / avgVol), 2) : 1;
+    const rvolVal = avgVol > 0 ? +(((curVol / avgVol)).toFixed(2)) : 1;
     const mktCap  = meta.marketCap ?? (price * curVol / 10);
 
     // Indicators
@@ -802,12 +802,12 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const e50  = ema(closes, 50);
     const e200 = ema(closes, 200);
     const s200 = sma(closes, 200);
-    const rsiVal  = +formatNumber(rsi(closes), 1);
-    const rsiPrev5 = closes.length >= 20 ? +formatNumber(rsi(closes.slice(0, -5)), 1) : rsiVal;
-    const rsiSlope = +formatNumber((rsiVal - rsiPrev5), 1);
+    const rsiVal  = +((rsi(closes)).toFixed(1));
+    const rsiPrev5 = closes.length >= 20 ? +((rsi(closes.slice(0, -5))).toFixed(1)) : rsiVal;
+    const rsiSlope = +(((rsiVal - rsiPrev5)).toFixed(1));
     const macdR   = macd(closes);
     const atrVal  = atr(highs, lows, closes, 14);
-    const atrPct  = price > 0 ? +formatNumber((atrVal / price * 100), 2) : 0;
+    const atrPct  = price > 0 ? +(((atrVal / price * 100)).toFixed(2)) : 0;
     const bb      = bollinger(closes);
     const squeeze = detectSqueeze(highs, lows, closes, bb);
     const kc      = keltner(highs, lows, closes, 20, 1.5);
@@ -815,11 +815,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const cmfVal  = chaikinMoneyFlow(highs, lows, closes, volumes, 20);
     const cmfPrev = closes.length >= 25 ? chaikinMoneyFlow(highs.slice(0, -5), lows.slice(0, -5), closes.slice(0, -5), volumes.slice(0, -5), 20) : cmfVal;
     const adxResult = adxFull(highs, lows, closes, 14);
-    const adxVal  = +formatNumber(adxResult.adx, 1);
-    const plusDI  = +formatNumber(adxResult.plusDI, 1);
-    const minusDI = +formatNumber(adxResult.minusDI, 1);
-    const rocVal  = +formatNumber(roc(closes), 2);
-    const ivEst   = Math.min(250, +formatNumber((atrPct * 16), 0));
+    const adxVal  = +((adxResult.adx).toFixed(1));
+    const plusDI  = +((adxResult.plusDI).toFixed(1));
+    const minusDI = +((adxResult.minusDI).toFixed(1));
+    const rocVal  = +((roc(closes)).toFixed(2));
+    const ivEst   = Math.min(250, +(((atrPct * 16)).toFixed(0)));
 
     // ── V2 Preset Signals ───────────────────────────────────────────────────
     // Weekly EMA50: her 5. günü örnekle → haftalık mum proxisi
@@ -853,11 +853,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     // Gap: önceki kapanış → bugünkü açılış
     const opens = ((q.open || []) as any[]).filter((v): v is number => v != null && typeof v === "number");
     const todayOpen = opens.at(-1) ?? price;
-    const gap_pct = prev1d > 0 ? +formatNumber(((todayOpen - prev1d) / prev1d * 100), 2) : 0;
+    const gap_pct = prev1d > 0 ? +((((todayOpen - prev1d) / prev1d * 100)).toFixed(2)) : 0;
 
     const hi52 = meta.fiftyTwoWeekHigh ?? Math.max(...closes.slice(-252));
     const lo52 = meta.fiftyTwoWeekLow  ?? Math.min(...closes.slice(-252));
-    const pct52h = hi52 ? +formatNumber(((price - hi52) / hi52 * 100), 1) : 0;
+    const pct52h = hi52 ? +((((price - hi52) / hi52 * 100)).toFixed(1)) : 0;
 
     // EMA structure label
     let ema_structure = "EMA Nötr";
@@ -941,17 +941,17 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       market_cap: mktCap, market_cap_label: fmtCap(mktCap), float_shares: 0,
       boga_score: finalScore, grade: finalGrade,
       trend_score: tScore, momentum_score: mScore, options_score: oScore, liquidity_score: lScore,
-      ema8: +formatNumber(e8, 2), ema13: +formatNumber(e13, 2), ema20: +formatNumber(e20, 2),
-      ema21: +formatNumber(e21, 2), ema50: +formatNumber(e50, 2), ema200: +formatNumber(e200, 2),
-      sma200: +formatNumber(s200, 2), rsi: rsiVal,
-      macd: +formatNumber(macdR.macd, 4), macd_signal: +formatNumber(macdR.signal, 4), macd_hist: +formatNumber(macdR.hist, 4),
+      ema8: +((e8).toFixed(2)), ema13: +((e13).toFixed(2)), ema20: +((e20).toFixed(2)),
+      ema21: +((e21).toFixed(2)), ema50: +((e50).toFixed(2)), ema200: +((e200).toFixed(2)),
+      sma200: +((s200).toFixed(2)), rsi: rsiVal,
+      macd: +((macdR.macd).toFixed(4)), macd_signal: +((macdR.signal).toFixed(4)), macd_hist: +((macdR.hist).toFixed(4)),
       atr_pct: atrPct,
-      bb_upper: +formatNumber(bb.upper, 2), bb_lower: +formatNumber(bb.lower, 2), bb_pct: +formatNumber(bb.pct, 3), bb_width: +formatNumber(bb.width, 3),
+      bb_upper: +((bb.upper).toFixed(2)), bb_lower: +((bb.lower).toFixed(2)), bb_pct: +((bb.pct).toFixed(3)), bb_width: +((bb.width).toFixed(3)),
       adx: adxVal, roc10: rocVal,
       ema_structure, trend_direction, pct_from_52w_high: pct52h,
       has_options, has_weekly_options: has_weekly, iv_est: ivEst,
       entry: plan.entry, stop: plan.stop, target: plan.target, rr_ratio: plan.rr, risk_pct: plan.riskPct,
-      support: +formatNumber(lo52, 2), resistance: +formatNumber(hi52, 2),
+      support: +((lo52).toFixed(2)), resistance: +((hi52).toFixed(2)),
       primary_setup: primary, setup_signals: signals, warnings,
       rs_rating, is_new_high, vol_contraction, rsi_slope: rsiSlope,
       triangle_detected: tri.detected,
@@ -963,24 +963,24 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       target_fib: tri.target_fib,
       triangle_stop: tri.stop_loss,
       triangle_rr: tri.risk_reward,
-      pivot_pp: +formatNumber(pivotLevels.pp, 2),
-      pivot_r1: +formatNumber(pivotLevels.r1, 2),
-      pivot_r2: +formatNumber(pivotLevels.r2, 2),
-      pivot_r3: +formatNumber(pivotLevels.r3, 2),
-      pivot_s1: +formatNumber(pivotLevels.s1, 2),
-      pivot_s2: +formatNumber(pivotLevels.s2, 2),
-      pivot_s3: +formatNumber(pivotLevels.s3, 2),
+      pivot_pp: +((pivotLevels.pp).toFixed(2)),
+      pivot_r1: +((pivotLevels.r1).toFixed(2)),
+      pivot_r2: +((pivotLevels.r2).toFixed(2)),
+      pivot_r3: +((pivotLevels.r3).toFixed(2)),
+      pivot_s1: +((pivotLevels.s1).toFixed(2)),
+      pivot_s2: +((pivotLevels.s2).toFixed(2)),
+      pivot_s3: +((pivotLevels.s3).toFixed(2)),
       pivot_bias: pivotClassified.bias,
       pivot_signal: pivotClassified.signal,
-      keltner_upper: +formatNumber(kc.upper, 2),
-      keltner_lower: +formatNumber(kc.lower, 2),
+      keltner_upper: +((kc.upper).toFixed(2)),
+      keltner_lower: +((kc.lower).toFixed(2)),
       squeeze_active: squeeze.squeezeActive,
       squeeze_breakout: squeeze.breakout,
       bbw_expanding: squeeze.bbwExpanding,
-      vwap: +formatNumber(vwapVal, 2),
+      vwap: +((vwapVal).toFixed(2)),
       price_vs_vwap: price >= vwapVal ? "above" : "below",
       vwap_pullback_buy: price > vwapVal && price <= vwapVal * 1.01 && rvolVal >= 1.2,
-      cmf: +formatNumber(cmfVal, 3),
+      cmf: +((cmfVal).toFixed(3)),
       cmf_rising: cmfVal > cmfPrev,
       cmf_positive: cmfVal > 0,
       rsi_rising,
@@ -989,11 +989,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       ema20_pullback_buy,
       ema50_pullback_buy,
       // V2 preset fields
-      weekly_ema50:           +formatNumber(weeklyEma50, 2),
-      donchian20_high:        +formatNumber(donchian20High, 2),
+      weekly_ema50:           +((weeklyEma50).toFixed(2)),
+      donchian20_high:        +((donchian20High).toFixed(2)),
       plus_di:                plusDI,
       minus_di:               minusDI,
-      bbw_ema20:              +formatNumber(bbwEma20, 4),
+      bbw_ema20:              +((bbwEma20).toFixed(4)),
       above_sma200_10d,
       gap_pct,
       ema8_cross_ema20_recent,
@@ -1222,11 +1222,11 @@ async function detectRegime(): Promise<Regime> {
     return {
       regime,
       label: { bull_trending: "Güçlü Boğa", bull_choppy: "Çalkantılı Boğa", neutral: "Nötr", bear_choppy: "Çalkantılı Ayı", bear_trending: "Güçlü Ayı", high_volatility: "Yüksek Volatilite", low_volatility: "Düşük Volatilite" }[regime] ?? "Nötr",
-      spy_change: +formatNumber(spyChange, 2),
-      vix_price: +formatNumber(vixPrice, 1),
+      spy_change: +((spyChange).toFixed(2)),
+      vix_price: +((vixPrice).toFixed(1)),
       trend: spyPrice > spySma200 ? "bullish" : "bearish",
       momentum: spyChange > 0.5 ? "strong" : spyChange < -0.5 ? "weak" : "moderate",
-      spy_12m_return: +formatNumber(spy12mReturn, 2),
+      spy_12m_return: +((spy12mReturn).toFixed(2)),
     };
   } catch {
     return { regime: "neutral", label: "Nötr", spy_change: 0, vix_price: 20, trend: "choppy", momentum: "moderate", spy_12m_return: 0 };

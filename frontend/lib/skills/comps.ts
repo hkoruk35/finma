@@ -64,8 +64,8 @@ function median(values: (number | null)[]): number | null {
   const sorted = [...clean].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 === 0
-    ? +formatNumber(((sorted[mid - 1] + sorted[mid]) / 2), 2)
-    : +formatNumber(sorted[mid], 2);
+    ? +((((sorted[mid - 1] + sorted[mid]) / 2)).toFixed(2))
+    : +((sorted[mid]).toFixed(2));
 }
 
 export interface CompsInput {
@@ -123,13 +123,13 @@ export async function calcComps(params: CompsInput, yfData: any): Promise<CompsO
   let impliedPriceFromPE: number | null = null;
   if (medPE !== null && targetPE !== null && targetPE > 0) {
     const epsImplied = params.currentPrice / targetPE;
-    impliedPriceFromPE = +formatNumber((medPE * epsImplied), 2);
+    impliedPriceFromPE = +(((medPE * epsImplied)).toFixed(2));
   }
 
   // PE discount/premium vs peers (positive = premium, negative = discount)
   let peDiscount: number | null = null;
   if (targetPE !== null && medPE !== null && medPE > 0) {
-    peDiscount = +formatNumber(((targetPE - medPE) / medPE), 4);
+    peDiscount = +((((targetPE - medPE) / medPE)).toFixed(4));
   }
 
   const verdict: CompsOutput["verdict"] =
@@ -153,9 +153,9 @@ export async function calcComps(params: CompsInput, yfData: any): Promise<CompsO
     peerList,
     validPeerCount:   validPeers.length,
     targetMetrics: {
-      trailingPE:  targetPE   !== null ? +formatNumber(targetPE, 2)   : null,
-      forwardPE:   targetFwPE !== null ? +formatNumber(targetFwPE, 2) : null,
-      priceToBook: targetPB   !== null ? +formatNumber(targetPB, 2)   : null,
+      trailingPE:  targetPE   !== null ? +((targetPE).toFixed(2))   : null,
+      forwardPE:   targetFwPE !== null ? +((targetFwPE).toFixed(2)) : null,
+      priceToBook: targetPB   !== null ? +((targetPB).toFixed(2))   : null,
     },
     peerMedians: {
       trailingPE:  medPE,

@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
         win: data.win,
         loss: data.loss,
         pending: data.pending,
-        win_rate: completed > 0 ? +formatNumber(((data.win / completed) * 100), 1) : 0,
+        win_rate: completed > 0 ? +((((data.win / completed) * 100)).toFixed(1)) : 0,
       };
     }).sort((a, b) => b.total - a.total);
 
