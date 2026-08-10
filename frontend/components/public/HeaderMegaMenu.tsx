@@ -19,12 +19,12 @@ interface MenuGroup {
 
 const T: Record<Locale, Record<string, string>> = {
   tr: {
-    markets: "Markets", watchlist: "İzleme Listem", news: "News", analysis: "Analizler", brokers: "Brokers",
-    indices: "Endeksler", stocksHeading: "Stocks", top7: "Top 7", top100: "Top 100", gainers: "Artanlar",
-    losers: "Düşenler", trendStocks: "Trend Hisseleri", fx: "Döviz", commodity: "Emtia", crypto: "Kripto", futures: "Vadeliler",
-    stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "Insider Bilgileri",
-    marketsAnalysis: "Markets", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Stock Analizleri",
-    futuresAnalysis: "Vadeliler Analizleri", stockBrokers: "Stock Brokers", fxBrokers: "FX Brokers", cryptoBrokers: "Kripto Brokers",
+    markets: "Piyasalar", watchlist: "İzleme Listem", news: "Haberler", analysis: "Analizler", brokers: "Aracı Kurumlar",
+    indices: "Endeksler", stocksHeading: "Hisseler", top7: "Top 7", top100: "Top 100", gainers: "Yükselenler",
+    losers: "Düşenler", trendStocks: "Trend Hisseler", fx: "Döviz", commodity: "Emtia", crypto: "Kripto", futures: "Vadeliler",
+    stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "İçeriden İşlemler",
+    marketsAnalysis: "Piyasa Analizleri", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Hisse Analizleri",
+    futuresAnalysis: "Vadeli Analizleri", stockBrokers: "Hisse Aracı Kurumları", fxBrokers: "FX Aracı Kurumları", cryptoBrokers: "Kripto Aracı Kurumları",
   },
   en: {
     markets: "Markets", watchlist: "My Watchlist", news: "News", analysis: "Analysis", brokers: "Brokers",
@@ -155,9 +155,9 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
             <div key={group.key} className="relative" onMouseEnter={() => setHoveredKey(group.key)} onMouseLeave={() => setHoveredKey(null)}>
               <Link
                 href={group.href}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
               >
-                <span>{label}</span>
+                <span>{label.toLocaleUpperCase(locale)}</span>
                 {group.children && <span className="text-[8px] text-[#38bdf8]">▾</span>}
               </Link>
 
@@ -166,16 +166,16 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                   <div className="w-56 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden py-1">
                     {group.children.map((child, idx) =>
                       child.heading ? (
-                        <div key={idx} className="px-3 pt-2 pb-1 text-[9px] font-bold uppercase tracking-widest text-[#3b82f6]/80">
-                          {child.label}
+                        <div key={idx} className="px-3 pt-2 pb-1 text-[9px] font-bold tracking-widest text-[#3b82f6]/80">
+                          {child.label.toLocaleUpperCase(locale)}
                         </div>
                       ) : (
                         <Link
                           key={idx}
                           href={child.href!}
-                          className="block px-4 py-2 text-[11px] font-medium uppercase tracking-wider text-[#94a3b8] hover:text-white hover:bg-[#1e2a3a]/70 transition-colors"
+                          className="block px-4 py-2 text-[11px] font-medium tracking-wider text-[#94a3b8] hover:text-white hover:bg-[#1e2a3a]/70 transition-colors"
                         >
-                          {child.label}
+                          {child.label.toLocaleUpperCase(locale)}
                         </Link>
                       )
                     )}
@@ -215,13 +215,13 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                           ? setMobileOpenKey((k) => (k === group.key ? null : group.key))
                           : setIsMobileMenuOpen(false)
                       }
-                      className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-200"
+                      className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold tracking-wider text-slate-200"
                     >
                       {group.children ? (
-                        <span>{label}</span>
+                        <span>{label.toLocaleUpperCase(locale)}</span>
                       ) : (
                         <Link href={group.href} onClick={() => setIsMobileMenuOpen(false)} className="flex-1 text-left">
-                          {label}
+                          {label.toLocaleUpperCase(locale)}
                         </Link>
                       )}
                       {group.children && <span className="text-[9px] text-[#38bdf8]">{mobileOpenKey === group.key ? "▴" : "▾"}</span>}
@@ -230,8 +230,8 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                       <div className="pb-2">
                         {group.children.map((child, idx) =>
                           child.heading ? (
-                            <div key={idx} className="px-5 pt-1.5 pb-0.5 text-[9px] font-bold uppercase tracking-widest text-[#3b82f6]/80">
-                              {child.label}
+                            <div key={idx} className="px-5 pt-1.5 pb-0.5 text-[9px] font-bold tracking-widest text-[#3b82f6]/80">
+                              {child.label.toLocaleUpperCase(locale)}
                             </div>
                           ) : (
                             <Link
@@ -240,7 +240,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                               onClick={() => setIsMobileMenuOpen(false)}
                               className="block px-6 py-1.5 text-[11px] font-medium text-slate-400 hover:text-white"
                             >
-                              {child.label}
+                              {child.label.toLocaleUpperCase(locale)}
                             </Link>
                           )
                         )}
