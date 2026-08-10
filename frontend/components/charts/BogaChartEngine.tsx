@@ -21,6 +21,7 @@ import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
+import { getIndexBySymbol } from "@/lib/indices";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
@@ -384,7 +385,7 @@ export default function BogaChartEngine({
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
   const setActive = setInternalActive;
 
-  const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || ["SPX", "NDX", "DJI", "RUT", "VIX"].includes(symbol.toUpperCase());
+  const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX"].includes(symbol.toUpperCase());
   const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (isIndex ? "line" : (detailMode ? "heikin-ashi" : "candle")));
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
