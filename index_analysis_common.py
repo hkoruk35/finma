@@ -218,23 +218,18 @@ def resolve_market_now(index_def: IndexDefinition) -> datetime:
     return datetime.now(ZoneInfo(index_def.timezone))
 
 
-def infer_session_for_index(index_def: IndexDefinition, now_local: Optional[datetime] = None) -> str:
+def infer_session_for_index(index_def: IndexDefinition, now_local: Optional[datetime] = None) -> Optional[str]:
     """
-    Endeksin KENDI analysis_schedule'ina (kendi yerel saatinde tanimli tetik
-    saatleri) gore en uygun session adini secer. Tum semboller icin tek bir
-    global NY-saat kontrolu YAPILMAZ — her endeks kendi borsasinin saatine gore
-    degerlendirilir (bkz. Avrupa endeksleri icin structural fix).
-
+    Endeksin KENDI analysis_schedule'ina gore en uygun session adini secer.
     Kural: su anki yerel saat, schedule'daki tetik saatlerinden en son gecmis
-    olana (>=) esitse/gectiyse o session secilir; hicbiri gecmediyse (henuz
-    ilk tetikten once) yine de ilk session dondurulur (en erken oturum, cunku
-    "henuz oturum yok" durumu bu botun DB semasinda yok — session NOT NULL).
+    olana (>=) esitse/gectiyse o session secilir; eger ilk session'in tetik 
+    saati bile gelmediyse None doner.
     """
     local = now_local or resolve_market_now(index_def)
     local_minutes = local.hour * 60 + local.minute
     schedule = sorted(index_def.analysis_schedule, key=lambda s: s.trigger_time)
 
-    chosen = schedule[0].name
+    chosen = None
     for session in schedule:
         h, m = session.trigger_time.split(":")
         trigger_minutes = int(h) * 60 + int(m)

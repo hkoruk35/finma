@@ -38,6 +38,11 @@ def analyze_symbol(symbol: str, forced_session: str | None, macro: dict, dry_run
     # Her endeks KENDI yerel saatinde degerlendirilir (ET her yerde hardcode edilmez).
     now_local = common.resolve_market_now(idx)
     session = forced_session or common.infer_session_for_index(idx, now_local)
+    
+    if not session:
+        common.logger.warning(f"[{symbol}] Piyasa kapanmadi veya analiz saati gelmedi (yerel saat: {now_local.strftime('%H:%M')}). Atlaniyor.")
+        return False
+        
     trade_date = now_local.strftime("%Y-%m-%d")
 
     common.logger.info(
