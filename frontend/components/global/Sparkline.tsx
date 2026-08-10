@@ -30,7 +30,7 @@ export default function Sparkline({ data, color, width = 56, height = 22, change
   const step = width / (adjustedPoints.length - 1);
 
   const coords = adjustedPoints
-    .map((v, i) => `${formatNumber((i * step), 1)},${formatNumber((height - ((v - min) / range) * height), 1)}`)
+    .map((v, i) => `${(i * step).toFixed(1)},${(height - ((v - min) / range) * height).toFixed(1)}`)
     .join(" ");
 
   const gradientId = `sparkline-${Math.random().toString(36).substr(2, 9)}`;
