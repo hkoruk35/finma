@@ -30,10 +30,11 @@ export async function getPublicPosts(locale: string, limit = 60): Promise<Public
 
     if (error) {
       console.error("[x/publicPosts] fetch failed:", error.message);
-      return [];
+      throw error;
     }
     return data ?? [];
-  } catch {
-    return [];
+  } catch (err) {
+    console.error("[x/publicPosts] exception:", err);
+    throw err;
   }
 }

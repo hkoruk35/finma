@@ -27,7 +27,7 @@ export async function getUpcomingEarnings(limit = 4): Promise<UpcomingEarning[]>
 
     if (error) {
       console.error("[earningsCalendar] fetch failed:", error.message);
-      return [];
+      throw error;
     }
 
     return (data ?? []).map((row: any) => ({
@@ -38,7 +38,8 @@ export async function getUpcomingEarnings(limit = 4): Promise<UpcomingEarning[]>
       epsEstimate: row.eps_estimate,
       revenueEstimate: row.revenue_estimate_usd,
     }));
-  } catch {
-    return [];
+  } catch (err) {
+    console.error("[earningsCalendar] exception:", err);
+    throw err;
   }
 }
