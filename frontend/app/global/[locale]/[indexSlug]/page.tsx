@@ -15,6 +15,7 @@ import { getMultiQuote } from "@/lib/homeFeed";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { IndexDailySnapshotSection } from "@/components/global/IndexDailySnapshotSection";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 900;
 
@@ -139,14 +140,14 @@ export default async function IndexPage({ params }: Props) {
           {liveQuote && (
             <div className="text-right">
               <p className="text-[11px] text-slate-500 uppercase tracking-wide">{t.currentPrice}</p>
-              <p className="text-2xl font-mono font-bold text-white">{liveQuote.value.toFixed(2)}</p>
+              <p className="text-2xl font-mono font-bold text-white">{formatNumber(liveQuote.value, 2)}</p>
               <p
                 className={`text-sm font-semibold font-mono ${
                   liveQuote.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"
                 }`}
               >
                 {liveQuote.change_pct >= 0 ? "+" : ""}
-                {liveQuote.change_pct.toFixed(2)}%
+                {formatNumber(liveQuote.change_pct, 2)}%
               </p>
             </div>
           )}
@@ -218,11 +219,11 @@ export default async function IndexPage({ params }: Props) {
               <IndexStatTable
                 columns={2}
                 items={[
-                  { label: t.close, value: weeklySnapshot.close?.toFixed(2) ?? "—" },
+                  { label: t.close, value: formatNumber(weeklySnapshot.close?, 2) ?? "—" },
                   {
                     label: t.change,
                     value:
-                      weeklySnapshot.change_pct_week != null ? `${weeklySnapshot.change_pct_week.toFixed(2)}%` : "—",
+                      weeklySnapshot.change_pct_week != null ? `${formatNumber(weeklySnapshot.change_pct_week, 2)}%` : "—",
                     positive: weeklySnapshot.change_pct_week != null ? weeklySnapshot.change_pct_week >= 0 : undefined,
                   },
                   { label: t.trendStrength, value: weeklySnapshot.trend_strength ?? "—" },

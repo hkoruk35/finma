@@ -6,6 +6,7 @@ import Header from "./Header";
 import MemberHeader from "./public/MemberHeader";
 import dynamic from "next/dynamic";
 import BogaChartEngine from "./charts/BogaChartEngine";
+import { formatNumber } from "@/lib/formatNumber";
 
 const DeepAnalysisReport = dynamic(() => import("./DeepAnalysisReport"), { ssr: false });
 
@@ -196,8 +197,8 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
   const ema200 = tech.ema_200 || currentPrice * 0.95;
   const rsi = tech.rsi_14 || 50;
   const rvol = tech.rvol || 1.0;
-  const volume = pr.volume ? (pr.volume / 1e6).toFixed(2) + "M" : "N/A";
-  const avgVolume = pr.avg_volume_30d ? (pr.avg_volume_30d / 1e6).toFixed(2) + "M" : "N/A";
+  const volume = pr.volume ? formatNumber(pr.volume / 1e6, 2) + "M" : "N/A";
+  const avgVolume = pr.avg_volume_30d ? formatNumber(pr.avg_volume_30d / 1e6, 2) + "M" : "N/A";
 
   // Support & Resistance
   const support1 = sd.stop_loss || tech.support_level || currentPrice * 0.96;
@@ -214,8 +215,8 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
   const riskReward = sd.risk_reward_ratio || 2.5;
 
   // Safe formatting helpers
-  const formatNum = (v: any, dec = 2) => typeof v === "number" ? v.toFixed(dec) : "N/A";
-  const formatPct = (v: any) => typeof v === "number" ? (v >= 0 ? "+" : "") + v.toFixed(2) + "%" : "N/A";
+  const formatNum = (v: any, dec = 2) => typeof v === "number" ? formatNumber(v, dec) : "N/A";
+  const formatPct = (v: any) => typeof v === "number" ? (v >= 0 ? "+" : "") + formatNumber(v, 2) + "%" : "N/A";
 
   const chartSymbol = ticker.toUpperCase() === "BOGA" ? "SPY" : ticker.toUpperCase();
 
@@ -336,7 +337,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
               />
             </svg>
             <div className="absolute flex flex-col items-center">
-              <span className="text-base font-medium tracking-tighter text-white">{(masterScore / 10).toFixed(1)}</span>
+              <span className="text-base font-medium tracking-tighter text-white">{formatNumber(masterScore / 10, 1)}</span>
               <span className="text-[7px] font-medium text-slate-400 uppercase tracking-widest">{L("Skor","Score")}</span>
             </div>
           </div>
@@ -408,7 +409,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{L("S&P 500 Endeksi","S&P 500 Index")}</span>
             <div>
               <div className="text-lg font-medium text-white font-mono">
-                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "+" : "") + sp500ChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
+                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "+" : "") + formatNumber(sp500ChangeVal, 2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-medium uppercase tracking-wider ${sp500ChangeVal != null && sp500ChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                 {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
@@ -421,7 +422,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{L("NASDAQ Endeksi","NASDAQ Index")}</span>
             <div>
               <div className="text-lg font-medium text-white font-mono">
-                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "+" : "") + nasdaqChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
+                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "+" : "") + formatNumber(nasdaqChangeVal, 2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-medium uppercase tracking-wider ${nasdaqChangeVal != null && nasdaqChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                 {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
@@ -434,7 +435,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{L("VIX Korku Endeksi","VIX Fear Index")}</span>
             <div>
               <div className="text-lg font-medium text-white font-mono">
-                {vixPriceVal != null ? vixPriceVal.toFixed(2) : L("Yükleniyor...","Loading...")}
+                {vixPriceVal != null ? formatNumber(vixPriceVal, 2) : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-medium uppercase tracking-wider ${vixPriceVal != null && vixPriceVal > 20 ? "text-rose-400" : "text-emerald-400"}`}>
                 {vixPriceVal != null ? (vixPriceVal > 20 ? `⚠️ ${L("YÜKSEK VOLATİLİTE","HIGH VOLATILITY")}` : `✓ ${L("DÜŞÜK RİSK","LOW RISK")}`) : L("Canlı Veri","Live Data")}
@@ -449,7 +450,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             </div>
             <div>
               <div className="text-lg font-medium text-white font-mono">
-                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "+" : "") + sectorChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
+                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "+" : "") + formatNumber(sectorChangeVal, 2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-medium uppercase tracking-wider ${sectorChangeVal != null && sectorChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                 {sectorChangeVal != null ? (sectorChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
@@ -544,8 +545,8 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             const divRate = fund.dividend_rate || 0;
             const divYield = fund.dividend_yield || 0;
             const paysDiv = divYield > 0;
-            const divText = paysDiv ? `🟢 ${L("TEMETTÜ HİSSESİ","DIVIDEND STOCK")} (%${(divYield * 100).toFixed(2)})` : `⚪ ${L("BÜYÜME ODAKLI (Yatırımsız)","GROWTH FOCUSED (No Dividend)")}`;
-            const divDesc = paysDiv ? `${L("Yıllık Hisse Başı","Annual Per Share")}: $${divRate.toFixed(2)} • ${L("Dönem","Period")}: ${L("Çeyreklik","Quarterly")}` : L("Tüm serbest nakit akışını büyümeye harcar.","Spends all free cash flow on growth.");
+            const divText = paysDiv ? `🟢 ${L("TEMETTÜ HİSSESİ","DIVIDEND STOCK")} (%${formatNumber(divYield * 100, 2)})` : `⚪ ${L("BÜYÜME ODAKLI (Yatırımsız)","GROWTH FOCUSED (No Dividend)")}`;
+            const divDesc = paysDiv ? `${L("Yıllık Hisse Başı","Annual Per Share")}: $${formatNumber(divRate, 2)} • ${L("Dönem","Period")}: ${L("Çeyreklik","Quarterly")}` : L("Tüm serbest nakit akışını büyümeye harcar.","Spends all free cash flow on growth.");
             return (
               <div className="p-4 rounded-2xl border border-[#1e2a3a]/40 bg-[#0d1321] text-slate-300 flex flex-col justify-between space-y-2">
                 <div className="flex justify-between items-center">
@@ -571,7 +572,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <div className="text-2xl font-medium text-white">${formatNum(currentPrice)}</div>
             <div className={`text-xs font-medium flex items-center gap-1.5 mt-0.5 ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
               <span>{changePct >= 0 ? "▲" : "▼"}</span>
-              <span>${Math.abs(priceDiff).toFixed(2)} ({formatPct(changePct)})</span>
+              <span>${Math.absformatNumber(priceDiff, 2)} ({formatPct(changePct)})</span>
             </div>
           </div>
         </div>
@@ -596,7 +597,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
               />
             </div>
             <div className="text-[9px] text-slate-400 text-center mt-1.5 font-medium">
-              {L("Zirveye uzaklık","Distance to high")}: %{Math.max(0, 100 - range52wPercent).toFixed(0)}
+              {L("Zirveye uzaklık","Distance to high")}: %{formatNumber(Math.max(0, 100 - range52wPercent), 0)}
             </div>
           </div>
         </div>
@@ -788,23 +789,23 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
           <div className="space-y-2.5 font-mono text-xs">
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-medium text-slate-400">{L("Piyasa Değeri","Market Cap")}</span>
-              <span className="font-medium text-slate-200">{fund.market_cap ? (fund.market_cap / 1e9).toFixed(1) + "B" : "N/A"}</span>
+              <span className="font-medium text-slate-200">{fund.market_cap ? formatNumber(fund.market_cap / 1e9, 1) + "B" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-medium text-slate-400">{L("F/K Oranı (P/E)","P/E Ratio")}</span>
-              <span className="font-medium text-slate-200">{(fund.pe_ratio && fund.pe_ratio > 0) ? fund.pe_ratio.toFixed(1) + "x" : "N/A"}</span>
+              <span className="font-medium text-slate-200">{(fund.pe_ratio && fund.pe_ratio > 0) ? formatNumber(fund.pe_ratio, 1) + "x" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-medium text-slate-400">{L("Gelir Büyümesi","Revenue Growth")}</span>
-              <span className="font-medium text-slate-200">{fund.revenue_growth_ttm ? (fund.revenue_growth_ttm * 100).toFixed(1) + "%" : "N/A"}</span>
+              <span className="font-medium text-slate-200">{fund.revenue_growth_ttm ? formatNumber(fund.revenue_growth_ttm * 100, 1) + "%" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-medium text-slate-400">{L("Brüt Kar Marjı","Gross Margin")}</span>
-              <span className="font-medium text-slate-200">{fund.gross_margin ? (fund.gross_margin * 100).toFixed(1) + "%" : "N/A"}</span>
+              <span className="font-medium text-slate-200">{fund.gross_margin ? formatNumber(fund.gross_margin * 100, 1) + "%" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5">
               <span className="font-sans font-medium text-slate-400">{L("Serbest Nakit Akışı Verimi","Free Cash Flow Yield")}</span>
-              <span className="font-medium text-slate-200">{fund.fcf_yield ? (fund.fcf_yield * 100).toFixed(1) + "%" : "N/A"}</span>
+              <span className="font-medium text-slate-200">{fund.fcf_yield ? formatNumber(fund.fcf_yield * 100, 1) + "%" : "N/A"}</span>
             </div>
           </div>
         </div>
@@ -893,7 +894,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                     const stp = support1 * 0.95;
                     const r = ent - stp;
                     const w = tgt - ent;
-                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.0";
+                    return r > 0 && w > 0 ? `1:${formatNumber(w / r, 1)}` : "1:2.0";
                   })()}
                 </td>
               </tr>
@@ -909,7 +910,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                     const stp = ema200 * 0.96;
                     const r = ent - stp;
                     const w = tgt - ent;
-                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.5";
+                    return r > 0 && w > 0 ? `1:${formatNumber(w / r, 1)}` : "1:2.5";
                   })()}
                 </td>
               </tr>
@@ -925,7 +926,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                     const stp = resistance1 * 0.96;
                     const r = ent - stp;
                     const w = tgt - ent;
-                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.0";
+                    return r > 0 && w > 0 ? `1:${formatNumber(w / r, 1)}` : "1:2.0";
                   })()}
                 </td>
               </tr>
@@ -964,7 +965,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                       <span className="text-[9px] font-medium text-slate-400 uppercase tracking-wider">{L("Gün","Day")} {day.day}</span>
                       <div className="flex flex-col items-center">
                         <span className={`text-[10px] font-medium ${isUp ? "text-emerald-400" : "text-rose-400"}`}>
-                          {isUp ? "▲" : "▼"} ${day.base.toFixed(2)}
+                          {isUp ? "▲" : "▼"} ${formatNumber(day.base, 2)}
                         </span>
                         <span className="text-[8px] font-medium text-slate-500 mt-0.5">{day.date.split("-").slice(1).reverse().join("/")}</span>
                       </div>
@@ -1005,9 +1006,9 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                         </div>
 
                         <div>
-                          <div className="text-xl font-mono font-medium text-white">${msData.base.toFixed(2)}</div>
+                          <div className="text-xl font-mono font-medium text-white">${formatNumber(msData.base, 2)}</div>
                           <div className="text-[9px] text-slate-400 font-medium mt-1">
-                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-medium">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-medium">${msData.bullish.toFixed(2)}</span>
+                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-medium">${formatNumber(msData.bearish, 2)}</span> - <span className="text-emerald-400 font-medium">${formatNumber(msData.bullish, 2)}</span>
                           </div>
                         </div>
 
@@ -1060,9 +1061,9 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                         </div>
 
                         <div>
-                          <div className="text-xl font-mono font-medium text-white">${item.base.toFixed(2)}</div>
+                          <div className="text-xl font-mono font-medium text-white">${formatNumber(item.base, 2)}</div>
                           <div className="text-[9px] text-slate-400 font-medium mt-1">
-                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-medium">${item.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-medium">${item.bullish.toFixed(2)}</span>
+                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-medium">${formatNumber(item.bearish, 2)}</span> - <span className="text-emerald-400 font-medium">${formatNumber(item.bullish, 2)}</span>
                           </div>
                         </div>
 
@@ -1153,10 +1154,10 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
               <strong>{L("Piyasa Payı & Değerleme:","Market Share & Valuation:")}</strong> {L(`Sektör medyan değerleriyle karşılaştırıldığında, F/K rasyosu`, `Compared to sector median values, the P/E ratio of`)} <strong>{formatNum(fund.pe_ratio, 1)}x</strong> {fund.pe_ratio < 25 ? L("ile oldukça cazip seviyelerde.","is quite attractive.") : L("ile primli ama stabil bir büyümeyi yansıtıyor.","reflects a premium but stable growth.")}
             </li>
             <li>
-              <strong>{L("Nakit Akışı İvmesi:","Cash Flow Momentum:")}</strong> {L("Serbest nakit akışı verimi","Free cash flow yield of")} <strong>%{(fund.fcf_yield * 100).toFixed(1)}</strong> {L("ile şirketin operasyonel nakit üretme gücünün stabil olduğunu gösteriyor.","shows the company's operational cash-generating power is stable.")}
+              <strong>{L("Nakit Akışı İvmesi:","Cash Flow Momentum:")}</strong> {L("Serbest nakit akışı verimi","Free cash flow yield of")} <strong>%{formatNumber(fund.fcf_yield * 100, 1)}</strong> {L("ile şirketin operasyonel nakit üretme gücünün stabil olduğunu gösteriyor.","shows the company's operational cash-generating power is stable.")}
             </li>
             <li>
-              <strong>{L("Kurumsal Değerlendirme:","Institutional Assessment:")}</strong> {L(`Son dönemde artan hacim girişleri ve ${fund.institutional_ownership_pct ? `%${(fund.institutional_ownership_pct * 100).toFixed(0)}` : "stabil"} kurumsal sahiplik oranı kurumsal yatırımcıların hisseye duyduğu güveni doğruluyor.`, `Recently increasing volume inflows and a ${fund.institutional_ownership_pct ? `${(fund.institutional_ownership_pct * 100).toFixed(0)}%` : "stable"} institutional ownership ratio confirm institutional investors' confidence in the stock.`)}
+              <strong>{L("Kurumsal Değerlendirme:","Institutional Assessment:")}</strong> {L(`Son dönemde artan hacim girişleri ve ${fund.institutional_ownership_pct ? `%${formatNumber(fund.institutional_ownership_pct * 100, 0)}` : "stabil"} kurumsal sahiplik oranı kurumsal yatırımcıların hisseye duyduğu güveni doğruluyor.`, `Recently increasing volume inflows and a ${fund.institutional_ownership_pct ? `${formatNumber(fund.institutional_ownership_pct * 100, 0)}%` : "stable"} institutional ownership ratio confirm institutional investors' confidence in the stock.`)}
             </li>
           </ul>
         </div>

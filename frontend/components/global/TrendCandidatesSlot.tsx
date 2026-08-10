@@ -7,6 +7,7 @@ import { copy, type Locale } from '@/lib/i18n/copy';
 import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Stock {
   ticker: string;
@@ -170,14 +171,14 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
 
                   <div className="text-right shrink-0">
                     <div className="text-[14px] font-mono font-medium text-white">
-                      {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
+                      {stock.price > 0 ? `$${formatNumber(stock.price, 2)}` : '—'}
                     </div>
                     <div
                       className={`text-[13px] font-mono font-medium ${
                         stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                       }`}
                     >
-                      {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                      {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2)}%
                     </div>
                   </div>
                 </div>

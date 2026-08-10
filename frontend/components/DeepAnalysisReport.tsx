@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import BogaChartEngine from "./charts/BogaChartEngine";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "./global/PremiumModal";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Props {
   ticker: string;
@@ -25,12 +26,12 @@ function getCacheKey(ticker: string, lang: string) {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function fmtVol(v: number): string {
-  if (v >= 1e9) return (v / 1e9).toFixed(2) + "B";
-  if (v >= 1e6) return (v / 1e6).toFixed(2) + "M";
-  if (v >= 1e3) return (v / 1e3).toFixed(0) + "K";
+  if (v >= 1e9) return formatNumber(v / 1e9, 2) + "B";
+  if (v >= 1e6) return formatNumber(v / 1e6, 2) + "M";
+  if (v >= 1e3) return formatNumber(v / 1e3, 0) + "K";
   return String(v);
 }
-function fmtUsd(v: number) { return "$" + v.toFixed(2); }
+function fmtUsd(v: number) { return "$" + formatNumber(v, 2); }
 
 // ── Candle pattern detail ─────────────────────────────────────────────────────
 
@@ -212,7 +213,7 @@ function MARowL({ label, value, current, lang }: { label: string; value: number;
   return (
     <div className="flex items-center justify-between py-2 border-b border-[#1e3a5f]/25 last:border-0">
       <span className="text-[11px] text-slate-400 w-16">{label}</span>
-      <span className="text-[11px] text-slate-500 flex-1 text-center">{dist >= 0 ? "+" : ""}{dist.toFixed(1)}%</span>
+      <span className="text-[11px] text-slate-500 flex-1 text-center">{dist >= 0 ? "+" : ""}{formatNumber(dist, 1)}%</span>
       <span className="text-[12px] font-medium text-white w-20 text-right">{fmtUsd(value)}</span>
       <span className={`ml-2 text-[10px] font-medium px-1.5 py-0.5 rounded w-16 text-center ${above ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
         {above ? L(lang, "Üstünde", "Above") : L(lang, "Altında", "Below")}
@@ -417,9 +418,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             </>
           )}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            <MetricBox label="RSI 14" value={rsi.toFixed(1)} sub={rsiLabel} color={rsiColor} />
-            <MetricBox label="ATR 14" value={fmtUsd(atr)} sub={`${rd.atrPct?.toFixed(1) ?? "—"}%`} color="amber" />
-            <MetricBox label="IV Rank" value={`${ivRank.toFixed(0)}%`} sub={`IV ${iv}%`} color={ivRank > 50 ? "red" : "purple"} />
+            <MetricBox label="RSI 14" value={formatNumber(rsi, 1)} sub={rsiLabel} color={rsiColor} />
+            <MetricBox label="ATR 14" value={fmtUsd(atr)} sub={`${formatNumber(rd.atrPct?, 1) ?? "—"}%`} color="amber" />
+            <MetricBox label="IV Rank" value={`${formatNumber(ivRank, 0)}%`} sub={`IV ${iv}%`} color={ivRank > 50 ? "red" : "purple"} />
             <MetricBox label={L(lang, "30G Beklenti", "30D Implied")} value={`±${fmtUsd(implied)}`} sub={`±${cp > 0 ? ((implied / cp) * 100).toFixed(1) : "—"}%`} color="cyan" />
           </div>
         </div>
@@ -521,7 +522,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                 <div key={l.key} className={`border rounded-xl px-3 py-2.5 ${l.bordCl}`}>
                   <div className="flex items-center justify-between mb-0.5">
                     <span className="text-[10px] text-slate-500 font-medium">{l.code}</span>
-                    <span className={`text-[9px] font-medium ${dist >= 0 ? "text-rose-400" : "text-emerald-400"}`}>{dist >= 0 ? "+" : ""}{dist.toFixed(1)}%</span>
+                    <span className={`text-[9px] font-medium ${dist >= 0 ? "text-rose-400" : "text-emerald-400"}`}>{dist >= 0 ? "+" : ""}{formatNumber(dist, 1)}%</span>
                   </div>
                   <div className={`text-[14px] md:text-[15px] font-medium ${l.textCl}`}>{fmtUsd(val)}</div>
                   <div className="text-[9px] text-slate-600 mt-0.5">{l.label}</div>
@@ -620,19 +621,19 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="text-center"><div className="text-[10px] text-slate-500 mb-1">{L(lang, "30G Ort.", "30D Avg")}</div><div className="text-[15px] font-medium text-white">{fmtVol(avgVol)}</div></div>
               <div className={`text-center rounded-lg p-1 ${rvol >= 2 ? "bg-rose-500/10" : rvol >= 1.3 ? "bg-amber-500/10" : ""}`}>
                 <div className="text-[10px] text-slate-500 mb-1">RVOL</div>
-                <div className={`text-[15px] font-medium ${rvol >= 2 ? "text-rose-400" : rvol >= 1.3 ? "text-amber-400" : rvol < 0.7 ? "text-slate-500" : "text-white"}`}>{rvol.toFixed(2)}x</div>
+                <div className={`text-[15px] font-medium ${rvol >= 2 ? "text-rose-400" : rvol >= 1.3 ? "text-amber-400" : rvol < 0.7 ? "text-slate-500" : "text-white"}`}>{formatNumber(rvol, 2)}x</div>
               </div>
             </div>
             <p className="text-[12px] text-slate-400 leading-relaxed">
               {lang === "tr"
-                ? rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — yüksek hacim patlaması. Yönlü hareket olasılığı yüksek; günlük ${fmtVol(volume)} hacim, ${fmtVol(avgVol)} olan 30 günlük ortalamanın çok üzerinde.`
-                : rvol >= 1.3 ? `RVOL ${rvol.toFixed(2)}x — ortalamanın üzerinde katılım. Bugünkü fiyat hareketi normalden daha anlamlı.`
-                : rvol < 0.7  ? `RVOL ${rvol.toFixed(2)}x — ince katılım. Düşük hacimli hareketler güvenilmez; onay bekle.`
-                :               `RVOL ${rvol.toFixed(2)}x — normal piyasa koşulları.`
-                : rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — volume spike. High-probability directional move; current ${fmtVol(volume)} is well above the ${fmtVol(avgVol)} 30-day average.`
-                : rvol >= 1.3 ? `RVOL ${rvol.toFixed(2)}x — above-average participation. Today's price action carries more weight than usual.`
-                : rvol < 0.7  ? `RVOL ${rvol.toFixed(2)}x — thin participation. Moves on low volume are less reliable; wait for confirmation.`
-                :               `RVOL ${rvol.toFixed(2)}x — normal conditions, no volume anomaly.`}
+                ? rvol >= 2   ? `RVOL ${formatNumber(rvol, 2)}x — yüksek hacim patlaması. Yönlü hareket olasılığı yüksek; günlük ${fmtVol(volume)} hacim, ${fmtVol(avgVol)} olan 30 günlük ortalamanın çok üzerinde.`
+                : rvol >= 1.3 ? `RVOL ${formatNumber(rvol, 2)}x — ortalamanın üzerinde katılım. Bugünkü fiyat hareketi normalden daha anlamlı.`
+                : rvol < 0.7  ? `RVOL ${formatNumber(rvol, 2)}x — ince katılım. Düşük hacimli hareketler güvenilmez; onay bekle.`
+                :               `RVOL ${formatNumber(rvol, 2)}x — normal piyasa koşulları.`
+                : rvol >= 2   ? `RVOL ${formatNumber(rvol, 2)}x — volume spike. High-probability directional move; current ${fmtVol(volume)} is well above the ${fmtVol(avgVol)} 30-day average.`
+                : rvol >= 1.3 ? `RVOL ${formatNumber(rvol, 2)}x — above-average participation. Today's price action carries more weight than usual.`
+                : rvol < 0.7  ? `RVOL ${formatNumber(rvol, 2)}x — thin participation. Moves on low volume are less reliable; wait for confirmation.`
+                :               `RVOL ${formatNumber(rvol, 2)}x — normal conditions, no volume anomaly.`}
             </p>
           </div>
 
@@ -649,8 +650,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                 <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-medium mb-1.5">OBV / A-D / MFI</div>
                 <p className="text-[12px] text-slate-300 leading-relaxed">
                   {lang === "tr"
-                    ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
-                    : `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`}
+                    ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${formatNumber(fs.mfi?, 0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
+                    : `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${formatNumber(fs.mfi?, 0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`}
                 </p>
               </div>
             </div>
@@ -702,8 +703,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                       <span className="text-[11px] text-slate-500 ml-1.5">{e.date}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-slate-400">{L(lang, "Ger", "Act")}: <span className="text-white font-medium">${e.eps?.toFixed(2)}</span> · Est: ${e.estimate?.toFixed(2)}</span>
-                      <span className={`text-[11px] font-medium ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{e.epsSurprise?.toFixed(1)}%</span>
+                      <span className="text-[11px] text-slate-400">{L(lang, "Ger", "Act")}: <span className="text-white font-medium">${formatNumber(e.eps?, 2)}</span> · Est: ${formatNumber(e.estimate?, 2)}</span>
+                      <span className={`text-[11px] font-medium ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{formatNumber(e.epsSurprise?, 1)}%</span>
                       <Chip label={beat ? L(lang, "GEÇTİ", "BEAT") : L(lang, "KAÇIRDI", "MISS")} color={beat ? "green" : "red"} />
                     </div>
                   </div>
@@ -717,9 +718,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
         <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-2xl p-5 md:p-6">
           <SectionTitle icon="🌐" title={L(lang, "Piyasa & Sektör Konumu", "Market & Sector Position")} />
           <div className="grid grid-cols-3 gap-2 mb-4">
-            {rd.sp500Change  != null && <MetricBox label="S&P 500" value={`${rd.sp500Change  >= 0 ? "+" : ""}${rd.sp500Change.toFixed(2)}%`}  color={rd.sp500Change  >= 0 ? "green" : "red"} />}
-            {rd.nasdaqChange != null && <MetricBox label="Nasdaq"   value={`${rd.nasdaqChange >= 0 ? "+" : ""}${rd.nasdaqChange.toFixed(2)}%`} color={rd.nasdaqChange >= 0 ? "green" : "red"} />}
-            {rd.vixPrice     != null && <MetricBox label="VIX" value={rd.vixPrice?.toFixed(1)} sub={rd.vixPrice > 25 ? L(lang, "Yüksek Korku", "High Fear") : rd.vixPrice > 18 ? L(lang, "Orta", "Moderate") : L(lang, "Düşük", "Low")} color={rd.vixPrice > 25 ? "red" : rd.vixPrice > 18 ? "amber" : "green"} />}
+            {rd.sp500Change  != null && <MetricBox label="S&P 500" value={`${rd.sp500Change  >= 0 ? "+" : ""}${formatNumber(rd.sp500Change, 2)}%`}  color={rd.sp500Change  >= 0 ? "green" : "red"} />}
+            {rd.nasdaqChange != null && <MetricBox label="Nasdaq"   value={`${rd.nasdaqChange >= 0 ? "+" : ""}${formatNumber(rd.nasdaqChange, 2)}%`} color={rd.nasdaqChange >= 0 ? "green" : "red"} />}
+            {rd.vixPrice     != null && <MetricBox label="VIX" value={formatNumber(rd.vixPrice?, 1)} sub={rd.vixPrice > 25 ? L(lang, "Yüksek Korku", "High Fear") : rd.vixPrice > 18 ? L(lang, "Orta", "Moderate") : L(lang, "Düşük", "Low")} color={rd.vixPrice > 25 ? "red" : rd.vixPrice > 18 ? "amber" : "green"} />}
           </div>
 
           {/* Daily peer performance */}
@@ -736,7 +737,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                       <span className="text-[11px] text-slate-500 flex-1 truncate">{p.name}</span>
                       <div className="w-16 hidden md:block"><div className={`h-1 rounded-full ${up ? "bg-emerald-500/40" : "bg-rose-500/40"}`} style={{ width: `${w}%` }} /></div>
                       <span className="text-[12px] font-medium text-white shrink-0">{fmtUsd(p.price)}</span>
-                      <span className={`text-[12px] font-medium w-14 text-right shrink-0 ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "+" : ""}{p.changePct.toFixed(2)}%</span>
+                      <span className={`text-[12px] font-medium w-14 text-right shrink-0 ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "+" : ""}{formatNumber(p.changePct, 2)}%</span>
                     </div>
                   );
                 })}
@@ -758,7 +759,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                         style={{ width: `${rsNorm(r.v)}%` }}
                       />
                     </div>
-                    <span className={`text-[11px] font-medium w-14 text-right shrink-0 ${r.v >= 0 ? "text-emerald-400" : "text-rose-400"}`}>{r.v >= 0 ? "+" : ""}{r.v.toFixed(1)}%</span>
+                    <span className={`text-[11px] font-medium w-14 text-right shrink-0 ${r.v >= 0 ? "text-emerald-400" : "text-rose-400"}`}>{r.v >= 0 ? "+" : ""}{formatNumber(r.v, 1)}%</span>
                   </div>
                 ))}
               </div>
@@ -807,7 +808,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                     <span className={`text-[12px] font-medium shrink-0 ${o.change >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                       {o.isNewPosition
                         ? (o.change >= 0 ? `▲ ${L(lang, "Yeni Giriş", "New Entry")}` : `▼ ${L(lang, "Büyük Çıkış", "Major Exit")}`)
-                        : `${o.change >= 0 ? "▲" : "▼"} ${Math.abs(o.change).toFixed(1)}%`}
+                        : `${o.change >= 0 ? "▲" : "▼"} ${Math.absformatNumber(o.change, 1)}%`}
                     </span>
                   </div>
                 )) : <p className="text-[11px] text-slate-600 text-center py-3">{L(lang, "Veri bulunamadı.", "No data available.")}</p>}

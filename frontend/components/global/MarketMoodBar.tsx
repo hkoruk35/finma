@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getMasterData, type MasterData } from "@/lib/data";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface MoodData {
   regime: string;
@@ -68,7 +69,7 @@ export default function MarketMoodBar() {
     regimeLower.includes("trend") ||
     (mood.vix !== null && mood.vix < 20 && !regimeLower.includes("bear") && !regimeLower.includes("choppy"));
 
-  const fmtPct = (v: number | null) => (v === null ? "—" : `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`);
+  const fmtPct = (v: number | null) => (v === null ? "—" : `${v >= 0 ? "+" : ""}${formatNumber(v, 2)}%`);
 
   return (
     <div className="w-full bg-[#0a0e17] border-b border-white/5 py-1.5 px-4 flex items-center justify-center sm:justify-between text-[10px] sm:text-xs font-mono font-medium tracking-wide z-40 relative">
@@ -103,7 +104,7 @@ export default function MarketMoodBar() {
           {mood.vix !== null && (
             <div className="flex items-center gap-1.5">
               <span>VIX</span>
-              <span className={mood.vix < 15 ? "text-green-400" : mood.vix < 25 ? "text-yellow-400" : "text-red-400"}>{mood.vix.toFixed(1)}</span>
+              <span className={mood.vix < 15 ? "text-green-400" : mood.vix < 25 ? "text-yellow-400" : "text-red-400"}>{formatNumber(mood.vix, 1)}</span>
             </div>
           )}
 

@@ -9,6 +9,7 @@ import { WEEKDAY_LABELS_TR } from "@/lib/x/recurringSchedules";
 import type { ListType } from "@/lib/x/generateContent";
 import type { ListOptionCategory, ListOptionItem } from "@/lib/x/listOptions";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
+import { formatNumber } from "@/lib/formatNumber";
 
 const LIST_PICKER_CATEGORIES: { key: ListOptionCategory; label: string }[] = [
   { key: "top100", label: "Top 100" },
@@ -953,10 +954,10 @@ export default function XStudioPage() {
                     <span style={{ opacity: 0.6 }}>{it.label !== it.ticker ? it.label : ""}</span>
                   </span>
                   <span>
-                    {it.price != null && <span style={{ opacity: 0.7, marginRight: 10 }}>{it.price.toFixed(2)}</span>}
+                    {it.price != null && <span style={{ opacity: 0.7, marginRight: 10 }}>{formatNumber(it.price, 2)}</span>}
                     {it.changePct != null && (
                       <span style={{ color: it.changePct >= 0 ? "#3fb950" : "#f85149" }}>
-                        {it.changePct >= 0 ? "+" : ""}{it.changePct.toFixed(2)}%
+                        {it.changePct >= 0 ? "+" : ""}{formatNumber(it.changePct, 2)}%
                       </span>
                     )}
                   </span>
@@ -1271,7 +1272,7 @@ export default function XStudioPage() {
             <div style={{ ...inputStyle, marginBottom: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
               {listItems.map((it) => (
                 <span key={it.ticker} style={{ color: it.changePct >= 0 ? "#3fb950" : "#f85149" }}>
-                  {it.ticker} {it.changePct >= 0 ? "+" : ""}{it.changePct.toFixed(1)}%
+                  {it.ticker} {it.changePct >= 0 ? "+" : ""}{formatNumber(it.changePct, 1)}%
                 </span>
               ))}
             </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { StockQuickView, MasterData, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
 import MiniChart from "./stock/MiniChart";
+import { formatNumber } from "@/lib/formatNumber";
 
 const TABS = [
   { key: "top_scores", label: "Top Scores" },
@@ -130,7 +131,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
 
             <div className="flex items-center justify-between mb-2">
               <span className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest">BOGA SCORE</span>
-              <span className="text-[11px] font-mono font-medium text-[#3b82f6]">{stock.master_score.toFixed(0)} / 100</span>
+              <span className="text-[11px] font-mono font-medium text-[#3b82f6]">{formatNumber(stock.master_score, 0)} / 100</span>
             </div>
             <div className="relative w-full h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">
               <div

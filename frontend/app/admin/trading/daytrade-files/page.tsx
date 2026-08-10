@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
 import SwingTableActions from "@/components/SwingTableActions";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 60;
 
@@ -30,7 +31,7 @@ function ScoreBadge({ score }: { score: number }) {
                   "from-[#64748b] to-[#475569]";
   return (
     <div className={`bg-gradient-to-r ${color} text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider`}>
-      {(score || 0).toFixed(1)}
+      {formatNumber(score || 0, 1)}
     </div>
   );
 }
@@ -147,12 +148,12 @@ export default async function DayTradePicksPage() {
                         </td>
                         <td className="px-3 py-4 text-right">
                            <span className={`font-mono text-[12px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                             {(pick.change_pct || 0) >= 0 ? "+" : ""}{(pick.change_pct || 0).toFixed(1)}%
+                             {(pick.change_pct || 0) >= 0 ? "+" : ""}{formatNumber(pick.change_pct || 0, 1)}%
                            </span>
                         </td>
                         <td className="px-3 py-4 text-right">
                            <span className={`font-mono text-[11px] ${(pick.price_vs_vwap || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                             {(pick.price_vs_vwap || 0) >= 0 ? "ABOVE" : "BELOW"} ({(pick.price_vs_vwap || 0).toFixed(1)}%)
+                             {(pick.price_vs_vwap || 0) >= 0 ? "ABOVE" : "BELOW"} ({formatNumber(pick.price_vs_vwap || 0, 1)}%)
                            </span>
                         </td>
                         <td className="px-3 py-4 text-right text-white font-mono text-[12px] font-semibold">
@@ -197,7 +198,7 @@ export default async function DayTradePicksPage() {
                       <div className="text-right">
                          <div className="text-white font-mono font-medium text-lg">${formatPrice(price)}</div>
                          <div className={`text-[11px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                           {(pick.change_pct || 0) >= 0 ? "+" : ""}{(pick.change_pct || 0).toFixed(1)}% GAP
+                           {(pick.change_pct || 0) >= 0 ? "+" : ""}{formatNumber(pick.change_pct || 0, 1)}% GAP
                          </div>
                       </div>
                     </div>

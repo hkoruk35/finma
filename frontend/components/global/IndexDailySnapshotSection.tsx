@@ -3,6 +3,7 @@ import { copy, type Locale } from "@/lib/i18n/copy";
 import { resolveNarrative, type IndexDailySnapshot, type IndexNarrativeFields } from "@/lib/indexSnapshots";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import { formatNumber } from "@/lib/formatNumber";
 
 function getT(locale: Locale) {
   return copy[locale].indices;
@@ -48,36 +49,36 @@ export function IndexDailySnapshotSection({
       <IndexStatTable
         columns={2}
         items={[
-          { label: t.close, value: snapshot.close?.toFixed(2) ?? "—" },
+          { label: t.close, value: formatNumber(snapshot.close?, 2) ?? "—" },
           {
             label: t.change,
-            value: snapshot.change_pct != null ? `${snapshot.change_pct.toFixed(2)}%` : "—",
+            value: snapshot.change_pct != null ? `${formatNumber(snapshot.change_pct, 2)}%` : "—",
             positive: snapshot.change_pct != null ? snapshot.change_pct >= 0 : undefined,
           },
           {
             label: t.change1w,
-            value: snapshot.change_pct_1w != null ? `${snapshot.change_pct_1w.toFixed(2)}%` : "—",
+            value: snapshot.change_pct_1w != null ? `${formatNumber(snapshot.change_pct_1w, 2)}%` : "—",
             positive: snapshot.change_pct_1w != null ? snapshot.change_pct_1w >= 0 : undefined,
           },
           {
             label: t.change20d,
-            value: snapshot.change_pct_20d != null ? `${snapshot.change_pct_20d.toFixed(2)}%` : "—",
+            value: snapshot.change_pct_20d != null ? `${formatNumber(snapshot.change_pct_20d, 2)}%` : "—",
             positive: snapshot.change_pct_20d != null ? snapshot.change_pct_20d >= 0 : undefined,
           },
-          { label: "EMA20", value: snapshot.ema20?.toFixed(2) ?? "—" },
-          { label: "EMA50", value: snapshot.ema50?.toFixed(2) ?? "—" },
-          { label: "EMA200", value: snapshot.ema200?.toFixed(2) ?? "—" },
-          { label: t.rsi, value: snapshot.rsi14?.toFixed(1) ?? "—" },
-          { label: t.atr, value: snapshot.atr14?.toFixed(2) ?? "—" },
+          { label: "EMA20", value: formatNumber(snapshot.ema20?, 2) ?? "—" },
+          { label: "EMA50", value: formatNumber(snapshot.ema50?, 2) ?? "—" },
+          { label: "EMA200", value: formatNumber(snapshot.ema200?, 2) ?? "—" },
+          { label: t.rsi, value: formatNumber(snapshot.rsi14?, 1) ?? "—" },
+          { label: t.atr, value: formatNumber(snapshot.atr14?, 2) ?? "—" },
           {
             label: t.volatility,
-            value: snapshot.volatility_20d != null ? `${snapshot.volatility_20d.toFixed(2)}%` : "—",
+            value: snapshot.volatility_20d != null ? `${formatNumber(snapshot.volatility_20d, 2)}%` : "—",
           },
           {
             label: t.distanceFrom20dHigh,
             value:
               snapshot.distance_from_20d_high_pct != null
-                ? `${snapshot.distance_from_20d_high_pct.toFixed(2)}%`
+                ? `${formatNumber(snapshot.distance_from_20d_high_pct, 2)}%`
                 : "—",
             positive:
               snapshot.distance_from_20d_high_pct != null ? snapshot.distance_from_20d_high_pct >= 0 : undefined,
@@ -91,9 +92,9 @@ export function IndexDailySnapshotSection({
       <IndexStatTable
         columns={3}
         items={[
-          { label: "VIX", value: snapshot.vix?.toFixed(2) ?? "—" },
-          { label: "US10Y", value: snapshot.us10y != null ? `${snapshot.us10y.toFixed(2)}%` : "—" },
-          { label: "DXY", value: snapshot.dxy?.toFixed(2) ?? "—" },
+          { label: "VIX", value: formatNumber(snapshot.vix?, 2) ?? "—" },
+          { label: "US10Y", value: snapshot.us10y != null ? `${formatNumber(snapshot.us10y, 2)}%` : "—" },
+          { label: "DXY", value: formatNumber(snapshot.dxy?, 2) ?? "—" },
         ]}
       />
 
@@ -122,7 +123,7 @@ export function IndexDailySnapshotSection({
                   <span className={leader.change_pct >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                     {" "}
                     {leader.change_pct >= 0 ? "+" : ""}
-                    {leader.change_pct.toFixed(2)}%
+                    {formatNumber(leader.change_pct, 2)}%
                   </span>
                 ) : null}
               </span>
@@ -165,11 +166,11 @@ function MoverList({ title, movers, locale }: { title: string; movers: { ticker:
               </TickerHoverChart>
             </span>
             <span className="flex items-center gap-2 font-mono">
-              {m.price != null ? <span className="text-slate-400">{m.price.toFixed(2)}</span> : null}
+              {m.price != null ? <span className="text-slate-400">{formatNumber(m.price, 2)}</span> : null}
               {m.change_pct != null ? (
                 <span className={m.change_pct >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                   {m.change_pct >= 0 ? "+" : ""}
-                  {m.change_pct.toFixed(2)}%
+                  {formatNumber(m.change_pct, 2)}%
                 </span>
               ) : null}
             </span>

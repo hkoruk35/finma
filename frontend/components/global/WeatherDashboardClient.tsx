@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import SearchLandingHeader from "@/components/public/SearchLandingHeader";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface ForecastDay {
   date: string;
@@ -198,7 +199,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          const coords = `${lat.toFixed(4)},${lon.toFixed(4)}`;
+          const coords = `${formatNumber(lat, 4)},${formatNumber(lon, 4)}`;
           setWeatherCity(coords);
           localStorage.setItem("boga-weather-city", coords);
         },

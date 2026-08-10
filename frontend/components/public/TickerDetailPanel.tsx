@@ -9,6 +9,7 @@ import { formatAssetPrice, getAssetCategory } from "@/lib/symbols";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import type { AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 import { getIndexBySymbol } from "@/lib/indices";
+import { formatNumber } from "@/lib/formatNumber";
 
 function registerHref(locale: Locale): string {
   return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
@@ -53,13 +54,13 @@ interface PreorderAnalysis {
 }
 
 function fmt(n: number | undefined, dec = 2): string {
-  return n === undefined || Number.isNaN(n) ? "—" : n.toFixed(dec);
+  return n === undefined || Number.isNaN(n) ? "—" : formatNumber(n, dec);
 }
 
 function fmtVol(n: number): string {
-  if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
-  if (n >= 1e3) return `${(n / 1e3).toFixed(0)}K`;
+  if (n >= 1e9) return `${formatNumber(n / 1e9, 1)}B`;
+  if (n >= 1e6) return `${formatNumber(n / 1e6, 1)}M`;
+  if (n >= 1e3) return `${formatNumber(n / 1e3, 0)}K`;
   return `${n}`;
 }
 

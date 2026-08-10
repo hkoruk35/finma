@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useUserRole } from "@/hooks/useUserRole";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -39,15 +40,15 @@ interface LiveData {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number) => isFinite(n) ? n.toFixed(2) : "—";
-const fmt1 = (n: number) => isFinite(n) ? n.toFixed(1) : "—";
+const fmt2 = (n: number) => isFinite(n) ? formatNumber(n, 2) : "—";
+const fmt1 = (n: number) => isFinite(n) ? formatNumber(n, 1) : "—";
 const fmtM = (n: number) => {
   if (!isFinite(n)) return "—";
   const abs = Math.abs(n);
   const sign = n >= 0 ? "+" : "-";
-  if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(2)}M`;
-  if (abs >= 1e3) return `${sign}$${(abs / 1e3).toFixed(1)}K`;
-  return `${sign}$${abs.toFixed(2)}`;
+  if (abs >= 1e6) return `${sign}$${formatNumber(abs / 1e6, 2)}M`;
+  if (abs >= 1e3) return `${sign}$${formatNumber(abs / 1e3, 1)}K`;
+  return `${sign}$${formatNumber(abs, 2)}`;
 };
 const pctColor = (p: number) => p > 0 ? "#3fb950" : p < 0 ? "#f85149" : "#8b949e";
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -439,7 +440,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
                             {order.quantity}
                           </td>
                           <td style={{ padding: "9px 10px", textAlign: "right", fontFamily: "monospace", color: "#8b949e" }}>
-                            ${(order.totalCost / 1000).toFixed(1)}K
+                            ${formatNumber(order.totalCost / 1000, 1)}K
                           </td>
                           <td style={{ padding: "9px 10px", textAlign: "right", fontWeight: 700, color: pctColor(pnl.dailyPct) }}>
                             {live ? `${pnl.dailyPct >= 0 ? "+" : ""}${fmt2(pnl.dailyPct)}%` : "—"}

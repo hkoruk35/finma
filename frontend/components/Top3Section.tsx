@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { MasterData, StockQuickView, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Props {
   master: MasterData;
@@ -51,7 +52,7 @@ export default function Top3Section({ master, allTickers }: Props) {
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex items-end gap-2">
                    <div className="text-6xl font-mono font-medium text-[#3b82f6] leading-none">
-                     {item.score.toFixed(1)}
+                     {formatNumber(item.score, 1)}
                    </div>
                    <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
                 </div>
@@ -79,7 +80,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                            : 'text-[#00d2ff]'
                        }`}>
                          {period.value !== undefined && period.value !== null
-                           ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
+                           ? `${period.value >= 0 ? '+' : ''}${formatNumber(period.value, 1)}%`
                            : '—'}
                        </div>
                        <div className="text-[12px] text-[#00d2ff] font-medium mt-2">{period.label}</div>

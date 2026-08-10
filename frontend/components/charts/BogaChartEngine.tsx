@@ -22,6 +22,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 import { getIndexBySymbol } from "@/lib/indices";
+import { formatNumber } from "@/lib/formatNumber";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
@@ -229,7 +230,7 @@ function tradePlanValueLabel(
   key: IndicatorKey,
   plan: { entryZone: { low: number; high: number }; stop: { price: number }; targets: { price: number }[] }
 ): string | null {
-  const fmt2 = (n: number) => n.toFixed(2);
+  const fmt2 = (n: number) => formatNumber(n, 2);
   if (key === "entry") return `${fmt2(plan.entryZone.low)}-${fmt2(plan.entryZone.high)}`;
   if (key === "stop") return fmt2(plan.stop.price);
   if (key === "tp1") return plan.targets[0] ? fmt2(plan.targets[0].price) : null;
@@ -1206,12 +1207,12 @@ export default function BogaChartEngine({
     }
   };
 
-  const fmt = (n: number | undefined | null, d = 2) => (n == null ? "—" : n.toFixed(d));
+  const fmt = (n: number | undefined | null, d = 2) => (n == null ? "—" : formatNumber(n, d));
   const fmtVol = (n: number | undefined | null) => {
     if (n == null) return "—";
-    if (n >= 1e9) return (n / 1e9).toFixed(2) + "B";
-    if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+    if (n >= 1e9) return formatNumber(n / 1e9, 2) + "B";
+    if (n >= 1e6) return formatNumber(n / 1e6, 2) + "M";
+    if (n >= 1e3) return formatNumber(n / 1e3, 1) + "K";
     return String(n);
   };
 
@@ -1634,7 +1635,7 @@ export default function BogaChartEngine({
               }}
             >
               <span className="absolute left-1 top-0.5 text-[9px] font-medium text-[#22c55e] bg-[#0a0e17]/70 px-1 rounded">
-                ENTRY ${tradePlan.entryZone.low.toFixed(2)}–${tradePlan.entryZone.high.toFixed(2)}
+                ENTRY ${formatNumber(tradePlan.entryZone.low, 2)}–${formatNumber(tradePlan.entryZone.high, 2)}
               </span>
             </div>
           )}

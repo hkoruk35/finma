@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
 import { TrackerPosition, SizeUnit, computePnl } from "@/lib/smartTracker";
+import { formatNumber } from "@/lib/formatNumber";
 
 type HourlySignal = {
   ticker: string;
@@ -115,7 +116,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
           <div className={`rounded-lg px-3 py-2 mb-3 border ${isAlert ? "bg-red-500/5 border-red-500/30" : isProfit ? "bg-amber-500/5 border-amber-500/20" : "bg-[#141924] border-[#1e2a3a]"}`}>
             <div className="flex items-center justify-between mb-0.5">
               <span className={`text-[10px] font-medium uppercase tracking-wider ${cfg.color}`}>{cfg.label}</span>
-              <span className="text-[9px] text-slate-500 font-mono">RSI {signal.intraday.rsi_1h.toFixed(0)} · {signal.intraday.trend_1h} · Vol {signal.intraday.volume_ratio.toFixed(1)}x</span>
+              <span className="text-[9px] text-slate-500 font-mono">RSI {formatNumber(signal.intraday.rsi_1h, 0)} · {signal.intraday.trend_1h} · Vol {formatNumber(signal.intraday.volume_ratio, 1)}x</span>
             </div>
             {signal.status_detail && (
               <p className="text-[10px] text-slate-400 leading-relaxed">{signal.status_detail}</p>
@@ -270,7 +271,7 @@ export default function SmartTrackerDashboard() {
       <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3 mb-5">
         <div className="flex justify-between text-[10px] mb-1.5">
           <span className="text-[#3b82f6] font-medium uppercase tracking-wider">Budget Used</span>
-          <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeTracker.totalBudgetUsd,0)} · {budgetPct.toFixed(0)}%</span>
+          <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeTracker.totalBudgetUsd,0)} · {formatNumber(budgetPct, 0)}%</span>
         </div>
         <div className="h-2 bg-[#1e2a3a] rounded-full overflow-hidden">
           <div className={`h-full rounded-full ${budgetPct>90?"bg-red-500":budgetPct>70?"bg-amber-500":"bg-gradient-to-r from-[#3b82f6] to-[#6366f1]"}`} style={{width:`${budgetPct}%`}} />
@@ -334,7 +335,7 @@ export default function SmartTrackerDashboard() {
                     <div key={s} className="mb-2">
                       <div className="flex justify-between text-[10px] mb-0.5">
                         <span className="text-white font-medium truncate">{s}</span>
-                        <span className="text-slate-400 font-mono shrink-0 ml-2">${f(amt,0)} · {pct.toFixed(0)}%</span>
+                        <span className="text-slate-400 font-mono shrink-0 ml-2">${f(amt,0)} · {formatNumber(pct, 0)}%</span>
                       </div>
                       <div className="h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{width:`${pct}%`,background:sectorColors[i%sectorColors.length]}}/>

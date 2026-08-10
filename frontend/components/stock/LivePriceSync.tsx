@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Props {
   ticker: string;
@@ -38,7 +39,7 @@ export default function LivePriceSync({ ticker, initialPrice, initialChange }: P
 
           if (changeEl) {
             const pct = live.change_pct || 0;
-            changeEl.innerText = `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`;
+            changeEl.innerText = `${pct >= 0 ? "+" : ""}${formatNumber(pct, 2)}%`;
             // Update color
             const parent = changeEl.parentElement;
             if (parent) {
@@ -48,7 +49,7 @@ export default function LivePriceSync({ ticker, initialPrice, initialChange }: P
 
           if (returns1dEl) {
              const pct = live.change_pct || 0;
-             returns1dEl.innerText = `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`;
+             returns1dEl.innerText = `${pct >= 0 ? "+" : ""}${formatNumber(pct, 2)}%`;
              returns1dEl.className = `text-base md:text-lg font-mono font-medium ${pct > 0 ? "text-[#22c55e]" : pct < 0 ? "text-[#ef4444]" : "text-[#94a3b8]"}`;
           }
         }

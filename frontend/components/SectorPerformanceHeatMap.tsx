@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, type ReactNode } from "react";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Trade {
   ticker: string;
@@ -89,7 +90,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
             </p>
             <div className="flex items-center justify-between gap-1 mt-0.5">
               <span className={`text-xs font-medium font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                {s.avgReturn >= 0 ? "+" : ""}{formatNumber(s.avgReturn, 1)}%
               </span>
               <span className="text-[9px] font-medium text-white/60 bg-white/5 px-1 rounded">
                 {s.total}
@@ -110,7 +111,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
             >
               <span className="uppercase tracking-tight whitespace-nowrap">{s.name}</span>
               <span className={`font-mono font-medium ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                {s.avgReturn >= 0 ? "+" : ""}{formatNumber(s.avgReturn, 1)}%
               </span>
               <span className="bg-white/10 px-1.5 py-0.2 rounded-full text-[8px]">{s.total}</span>
             </CardWrapper>

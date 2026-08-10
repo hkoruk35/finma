@@ -30,13 +30,14 @@ function ScoreBadge({ score }: { score: number }) {
                   "from-[#64748b] to-[#475569]";
   return (
     <div className={`bg-gradient-to-r ${color} text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider`}>
-      {score.toFixed(1)}
+      {formatNumber(score, 1)}
     </div>
   );
 }
 
 import SwingTableActions from "@/components/SwingTableActions";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import { formatNumber } from "@/lib/formatNumber";
 
 export default async function SwingPicksPage({ searchParams }: { searchParams: Promise<{ date?: string }> }) {
   const { date: selectedDate } = await searchParams;
@@ -191,7 +192,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         <td key={perf.field} className="px-3 py-3 text-right">
                           {pick[perf.field] != null ? (
                             <span className={`font-mono text-[13px] font-medium ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                              {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
+                              {pick[perf.field] >= 0 ? "+" : ""}{formatNumber(pick[perf.field], 1)}%
                             </span>
                           ) : <span className="text-white/20 text-[13px] font-mono">—</span>}
                         </td>
@@ -264,7 +265,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         <div key={p.label} className="flex flex-col">
                            <span className="text-[8px] uppercase opacity-50 mb-0.5">{p.label}</span>
                            <span className={p.val != null ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
-                             {p.val != null ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}
+                             {p.val != null ? (p.val >= 0 ? "+" : "") + formatNumber(p.val, 1) + "%" : "—"}
                            </span>
                         </div>
                       ))}
@@ -348,7 +349,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                               </Link>
                             </td>
                             <td className="px-3 py-2.5 text-right">
-                              <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
+                              <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score?, 1)}</span>
                             </td>
                             <td className="px-3 py-2.5 text-right">
                               <span className="text-[#a78bfa] font-medium text-xs">{op.grade ?? "—"}</span>
@@ -357,12 +358,12 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                             <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.strike ? `$${best.strike}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#a78bfa] font-mono text-[11px]">{best.expiration ?? "—"}</td>
                             <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.dte ?? "—"}d</td>
-                            <td className="px-3 py-2.5 text-right text-[#f59e0b] font-mono text-[11px] font-medium">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#f59e0b] font-mono text-[11px] font-medium">{best.mid != null ? `$${formatNumber(best.mid, 2)}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#10b981] font-mono text-[11px] font-semibold">{best.tp_price ? `$${formatPrice(best.tp_price)}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#ef4444] font-mono text-[11px]">{best.sl_price ? `$${formatPrice(best.sl_price)}` : "—"}</td>
-                            <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.delta != null ? best.delta.toFixed(2) : "—"}</td>
-                            <td className="px-3 py-2.5 text-right text-[#a78bfa] text-[11px]">{best.iv_rank != null ? `${best.iv_rank.toFixed(0)}%` : "—"}</td>
-                            <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.cost_per_contract != null ? `$${best.cost_per_contract.toFixed(0)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.delta != null ? formatNumber(best.delta, 2) : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#a78bfa] text-[11px]">{best.iv_rank != null ? `${formatNumber(best.iv_rank, 0)}%` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.cost_per_contract != null ? `$${formatNumber(best.cost_per_contract, 0)}` : "—"}</td>
                           </tr>
                         );
                       })}
@@ -383,7 +384,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           </Link>
                           <div className="flex items-center gap-2">
                             <span className="text-[#a78bfa] font-medium text-sm">{op.grade ?? ""}</span>
-                            <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
+                            <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{formatNumber(op.score?, 1)}</span>
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-3 text-[11px]">
@@ -394,8 +395,8 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           </div>
                           <div className="bg-white/5 rounded-lg p-3">
                             <div className="text-[#f59e0b] font-black uppercase tracking-widest text-[9px] mb-1">Premium</div>
-                            <div className="text-[#f59e0b] font-mono font-medium">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</div>
-                            <div className="text-white/60">{best.cost_per_contract != null ? `$${best.cost_per_contract.toFixed(0)}/contract` : ""}</div>
+                            <div className="text-[#f59e0b] font-mono font-medium">{best.mid != null ? `$${formatNumber(best.mid, 2)}` : "—"}</div>
+                            <div className="text-white/60">{best.cost_per_contract != null ? `$${formatNumber(best.cost_per_contract, 0)}/contract` : ""}</div>
                           </div>
                           <div className="bg-white/5 rounded-lg p-3">
                             <div className="text-[#10b981] font-black uppercase tracking-widest text-[9px] mb-1">Target</div>
@@ -407,8 +408,8 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           </div>
                         </div>
                         <div className="flex gap-4 mt-3 text-[11px] text-white/60">
-                          <span>Delta: <b className="text-white">{best.delta != null ? best.delta.toFixed(2) : "—"}</b></span>
-                          <span>IV Rank: <b className="text-[#a78bfa]">{best.iv_rank != null ? `${best.iv_rank.toFixed(0)}%` : "—"}</b></span>
+                          <span>Delta: <b className="text-white">{best.delta != null ? formatNumber(best.delta, 2) : "—"}</b></span>
+                          <span>IV Rank: <b className="text-[#a78bfa]">{best.iv_rank != null ? `${formatNumber(best.iv_rank, 0)}%` : "—"}</b></span>
                           <span>Price: <b className="text-white">${formatPrice(op.current_price)}</b></span>
                         </div>
                       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { MasterData } from "@/lib/data";
+import { formatNumber } from "@/lib/formatNumber";
 
 const INDEX_LABELS: Record<string, string> = {
   SP500: "SP500",
@@ -38,13 +39,13 @@ export default function TickerTape({ data, indices, labels }: Props) {
         {doubled.map((item, i) => (
           <div key={i} className="flex items-center gap-2 text-xs shrink-0">
             <span className="text-white font-medium uppercase tracking-wider text-[9px]">{item.label}</span>
-            <span className="font-mono text-white/70 text-[11px]">{item.value.toFixed(2)}</span>
+            <span className="font-mono text-white/70 text-[11px]">{formatNumber(item.value, 2)}</span>
             <span
               className="font-mono font-medium text-[11px]"
               style={{ color: item.change >= 0 ? "#22c55e" : "#ef4444" }}
             >
               {item.change >= 0 ? "+" : ""}
-              {item.change.toFixed(2)}%
+              {formatNumber(item.change, 2)}%
             </span>
           </div>
         ))}

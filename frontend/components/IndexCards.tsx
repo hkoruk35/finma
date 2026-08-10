@@ -1,6 +1,7 @@
 "use client";
 
 import { MasterData } from "@/lib/data";
+import { formatNumber } from "@/lib/formatNumber";
 
 const INDEX_COLORS: Record<string, string> = {
   SP500: "from-blue-500/10 to-transparent",
@@ -42,7 +43,7 @@ export default function IndexCards({ data }: { data: MasterData }) {
             <div className="flex flex-col gap-0.5">
               <span className="text-[8px] sm:text-[11px] lg:text-[13px] font-medium text-white uppercase tracking-[0.05em] leading-tight">{INDEX_SHORT_LABELS[key] ?? key}</span>
               <span className={`text-[10px] sm:text-[12px] lg:text-[14px] font-mono font-medium px-1 py-0.25 sm:px-1.5 sm:py-0.5 lg:px-2 rounded whitespace-nowrap ${idx.change_pct >= 0 ? 'bg-green-500/10 text-[#22c55e]' : 'bg-red-500/10 text-[#ef4444]'}`}>
-                {idx.change_pct >= 0 ? '+' : ''}{idx.change_pct.toFixed(2)}%
+                {idx.change_pct >= 0 ? '+' : ''}{formatNumber(idx.change_pct, 2)}%
               </span>
             </div>
 

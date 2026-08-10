@@ -6,6 +6,7 @@ import TickerTape from "@/components/TickerTape";
 import OptionsTableClient from "@/components/OptionsTableClient";
 import Link from "next/link";
 import { Metadata } from "next";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 60;
 
@@ -17,16 +18,16 @@ export const metadata: Metadata = {
 
 function n(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return Number(v).toFixed(d);
+  return NumberformatNumber(v, d);
 }
 function pct(v: any, d = 1): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
   const x = Number(v);
-  return (x >= 0 ? "+" : "") + x.toFixed(d) + "%";
+  return (x >= 0 ? "+" : "") + formatNumber(x, d) + "%";
 }
 function dollar(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return "$" + Number(v).toFixed(d);
+  return "$" + NumberformatNumber(v, d);
 }
 function num(v: any, d = 0): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { formatNumber } from "@/lib/formatNumber";
 
 export default function WatchlistPage() {
   const [watchlist, setWatchlist] = useState<string[]>([]);
@@ -200,11 +201,11 @@ export default function WatchlistPage() {
                     <div className="flex justify-between items-end mb-5">
                       <div>
                         <p className="text-[9px] text-slate-500 uppercase tracking-widest font-medium mb-1">Current Price</p>
-                        <p className="text-xl font-medium text-white">${pr.current?.toFixed(2) || "N/A"}</p>
+                        <p className="text-xl font-medium text-white">${formatNumber(pr.current?, 2) || "N/A"}</p>
                       </div>
                       <div className="text-right">
                         <p className={`text-sm font-medium ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                          {changePct >= 0 ? "+" : ""}{changePct.toFixed(2)}%
+                          {changePct >= 0 ? "+" : ""}{formatNumber(changePct, 2)}%
                         </p>
                       </div>
                     </div>
@@ -218,19 +219,19 @@ export default function WatchlistPage() {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">BOGA AI Score</span>
-                        <span className="font-medium text-white text-xs">{sc.master_score?.toFixed(0) || "50"}/100</span>
+                        <span className="font-medium text-white text-xs">{formatNumber(sc.master_score?, 0) || "50"}/100</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Buy Target Zone</span>
-                        <span className="font-medium text-slate-300 font-mono">${sd.entry_range_low?.toFixed(2)} - ${sd.entry_range_high?.toFixed(2)}</span>
+                        <span className="font-medium text-slate-300 font-mono">${formatNumber(sd.entry_range_low?, 2)} - ${formatNumber(sd.entry_range_high?, 2)}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Take Profit Target</span>
-                        <span className="font-medium text-emerald-400 font-mono">${sd.target_range_low?.toFixed(2)}</span>
+                        <span className="font-medium text-emerald-400 font-mono">${formatNumber(sd.target_range_low?, 2)}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-slate-500 font-medium">Stop Loss</span>
-                        <span className="font-medium text-rose-400 font-mono">${sd.stop_loss?.toFixed(2)}</span>
+                        <span className="font-medium text-rose-400 font-mono">${formatNumber(sd.stop_loss?, 2)}</span>
                       </div>
                     </div>
                   </div>

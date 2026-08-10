@@ -6,6 +6,7 @@ import { useCloudStore } from "@/hooks/useCloudStore";
 import { useTracker } from "@/components/TrackerContext";
 import * as XLSX from "xlsx";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -67,9 +68,9 @@ const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
-const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 1) : "—");
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
@@ -206,13 +207,13 @@ export default function CSPDetailClient({ slug }: Props) {
         "Sektör": d?.sector || "",
         "Fiyat": price?.current ?? "",
         "Hacim": price?.volume ?? "",
-        "RVOL": t1h?.volume_ratio_1d != null ? +t1h.volume_ratio_1d.toFixed(2) : "",
-        "1G %": price?.change_pct != null ? +price.change_pct.toFixed(2) : "",
-        "EMA20": t1h?.ema_20 != null ? +t1h.ema_20.toFixed(2) : "",
-        "EMA50": t1h?.ema_50 != null ? +t1h.ema_50.toFixed(2) : "",
-        "EMA200": t1h?.ema_200 != null ? +t1h.ema_200.toFixed(2) : "",
+        "RVOL": t1h?.volume_ratio_1d != null ? +formatNumber(t1h.volume_ratio_1d, 2) : "",
+        "1G %": price?.change_pct != null ? +formatNumber(price.change_pct, 2) : "",
+        "EMA20": t1h?.ema_20 != null ? +formatNumber(t1h.ema_20, 2) : "",
+        "EMA50": t1h?.ema_50 != null ? +formatNumber(t1h.ema_50, 2) : "",
+        "EMA200": t1h?.ema_200 != null ? +formatNumber(t1h.ema_200, 2) : "",
         "EMA Durum": t1h?.ema_status || "",
-        "RSI": t1h?.rsi != null ? +t1h.rsi.toFixed(1) : "",
+        "RSI": t1h?.rsi != null ? +formatNumber(t1h.rsi, 1) : "",
         "Patern": t1h?.candle_pattern || "",
         "Sinyal": t1h?.signal || "",
       };
@@ -886,7 +887,7 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
                   const { bg, text } = heatBg(bar?.change_pct ?? null);
                   return (
                     <td key={h} style={{ padding: "4px 8px", textAlign: "center", background: bg, color: text, fontWeight: 700, minWidth: 52 }}>
-                      {bar?.price != null ? `$${bar.price.toFixed(2)}` : "—"}
+                      {bar?.price != null ? `$${formatNumber(bar.price, 2)}` : "—"}
                     </td>
                   );
                 })}
@@ -898,7 +899,7 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
                   const { bg, text } = heatBg(bar?.change_pct ?? null);
                   return (
                     <td key={h} style={{ padding: "3px 8px", textAlign: "center", background: bg, color: text, fontSize: 10 }}>
-                      {bar?.change_pct != null ? `${bar.change_pct >= 0 ? "+" : ""}${bar.change_pct.toFixed(1)}%` : "—"}
+                      {bar?.change_pct != null ? `${bar.change_pct >= 0 ? "+" : ""}${formatNumber(bar.change_pct, 1)}%` : "—"}
                     </td>
                   );
                 })}
@@ -922,7 +923,7 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
                   return (
                     <td key={h} style={{ padding: "3px 8px", textAlign: "center",
                       color: vr == null ? "#333" : vr >= 1.5 ? "#3fb950" : vr >= 0.8 ? "#8b949e" : "#8b949e", fontSize: 10 }}>
-                      {vr != null ? `${vr.toFixed(1)}x` : "—"}
+                      {vr != null ? `${formatNumber(vr, 1)}x` : "—"}
                     </td>
                   );
                 })}
@@ -1012,12 +1013,12 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
                     const { bg, text } = heatBg(pct);
                     return (
                       <td key={h} style={{ padding: "9px 12px", textAlign: "center", background: bg, color: text, fontSize: 11, fontWeight: 800, minWidth: 70, border: "1px solid rgba(48,54,61,0.5)", cursor: "pointer" }}>
-                        {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#555" }}>—</span>}
+                        {pct != null ? `${pct >= 0 ? "+" : ""}${formatNumber(pct, 1)}%` : <span style={{ color: "#555" }}>—</span>}
                       </td>
                     );
                   })}
                   <td style={{ padding: "9px 14px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 800, fontSize: 12, border: "1px solid rgba(48,54,61,0.5)" }}>
-                    {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
+                    {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${formatNumber(dayPct, 1)}%` : "—"}
                   </td>
                 </tr>
               );

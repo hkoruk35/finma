@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const metadata: Metadata = {
   title: "Hourly Scan Archive – BOGA AI",
@@ -62,7 +63,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 function fmt(n?: number, dec = 2) {
   if (n == null || isNaN(n)) return "—";
-  return n.toFixed(dec);
+  return formatNumber(n, dec);
 }
 
 function loadSwingUniverse(): { days: number; tickers: number } {

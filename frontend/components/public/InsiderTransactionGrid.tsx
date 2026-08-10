@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { InsiderTransaction } from "@/lib/insider-data";
 import { Locale } from "@/lib/i18n/copy";
 import { copy } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface InsiderTransactionGridProps {
   data: InsiderTransaction[];
@@ -98,7 +99,7 @@ export default function InsiderTransactionGrid({
 
   const formatCurrency = (value: number | null) => {
     if (value === null) return "—";
-    return `$${value.toFixed(2)}`;
+    return `$${formatNumber(value, 2)}`;
   };
 
   const formatShares = (shares: number) => {

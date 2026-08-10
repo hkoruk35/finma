@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface OHLC {
   date: Date;
@@ -184,7 +185,7 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
       ctx.fillStyle = colors.text;
       ctx.font = "10px monospace";
       ctx.textAlign = "left";
-      ctx.fillText(pval.toFixed(pval > 1000 ? 0 : 2), w - padR + 4, yg + 3);
+      ctx.fillText(formatNumber(pval, pval > 1000 ? 0 : 2), w - padR + 4, yg + 3);
     }
 
     // fStart: forecast begins right after the last real historical bar
@@ -388,7 +389,7 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
         tooltipRef.current.style.display = "block";
         tooltipRef.current.style.left = e.clientX - rect.left + 10 + "px";
         tooltipRef.current.style.top = e.clientY - rect.top - 10 + "px";
-        const fmt = (v: number | null) => v != null ? v.toFixed(v > 1000 ? 1 : 2) : "—";
+        const fmt = (v: number | null) => v != null ? formatNumber(v, v > 1000 ? 1 : 2) : "—";
         const dateStr = d.date.toLocaleDateString("tr-TR", { day: "2-digit", month: "short", year: "2-digit" });
         if (isForecast && forecastBars[idx - histLen]) {
           const fb = forecastBars[idx - histLen];
@@ -421,7 +422,7 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
     // Update metrics
     // last = most recent historical bar (before forecast zone)
     const last = sliceData[Math.max(0, fStart - 1)];
-    const fmt = (v: number | null) => v != null ? v.toFixed(v > 1000 ? 1 : 2) : "—";
+    const fmt = (v: number | null) => v != null ? formatNumber(v, v > 1000 ? 1 : 2) : "—";
 
     // Kumo: cloud at current bar = spanAFut/spanBFut of bar at (current - 0)
     // Since spanAFut[i] is drawn at position i, the cloud currently visible at

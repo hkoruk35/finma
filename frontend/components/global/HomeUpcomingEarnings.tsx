@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { getUpcomingEarnings } from "@/lib/earningsCalendar";
+import { formatNumber } from "@/lib/formatNumber";
 
 const STRINGS: Record<Locale, { title: string; all: string; epsEst: string; revEst: string }> = {
   tr: { title: "Yaklaşan Bilançolar", all: "TÜMÜ", epsEst: "EPS Tah.", revEst: "Gelir Tah." },
@@ -15,9 +16,9 @@ const WEEKDAY_LOCALE: Record<Locale, string> = { tr: "tr-TR", en: "en-US", es: "
 function fmtMoney(n: number | null): string {
   if (n == null || !isFinite(n)) return "—";
   const abs = Math.abs(n);
-  if (abs >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
-  if (abs >= 1e6) return `$${(n / 1e6).toFixed(1)}M`;
-  return `$${n.toFixed(2)}`;
+  if (abs >= 1e9) return `$${formatNumber(n / 1e9, 1)}B`;
+  if (abs >= 1e6) return `$${formatNumber(n / 1e6, 1)}M`;
+  return `$${formatNumber(n, 2)}`;
 }
 
 export default async function HomeUpcomingEarnings({ locale }: { locale: Locale }) {
@@ -70,7 +71,7 @@ export default async function HomeUpcomingEarnings({ locale }: { locale: Locale 
               <div className="text-right md:text-left">
                 <div className="text-[9px] text-slate-500">{t.epsEst}</div>
                 <div className="text-[12px] font-mono font-bold text-white/80">
-                  {item.epsEstimate != null ? `$${item.epsEstimate.toFixed(2)}` : "—"}
+                  {item.epsEstimate != null ? `$${formatNumber(item.epsEstimate, 2)}` : "—"}
                 </div>
               </div>
 

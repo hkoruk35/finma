@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import * as XLSX from "xlsx";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -132,12 +133,12 @@ const REGIME_COLORS: Record<string, string> = {
 };
 
 const fmt2 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(2) : "—";
+  n != null && isFinite(n) ? formatNumber(n, 2) : "—";
 const fmt1 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(1) : "—";
+  n != null && isFinite(n) ? formatNumber(n, 1) : "—";
 const pctColor = (v: number) => (v >= 0 ? "#3fb950" : "#f85149");
 const fmtVol = (v: number | null | undefined) =>
-  !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+  !v ? "—" : v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 
 function emaColor(price: number, ema: number | undefined) {
   if (!ema) return "#8b949e";
@@ -317,13 +318,13 @@ export default function DailyTrackerClient() {
         "Sektör": tk.sector,
         "Fiyat": tk.current_price,
         "Hacim": watchlistData[tk.ticker]?.price?.volume ?? "",
-        "1G %": w?.change_pct_1d != null ? +w.change_pct_1d.toFixed(2) : "",
-        "VOL× (1G/30G)": w?.volume_ratio_1d != null ? +w.volume_ratio_1d.toFixed(2) : "",
+        "1G %": w?.change_pct_1d != null ? +formatNumber(w.change_pct_1d, 2) : "",
+        "VOL× (1G/30G)": w?.volume_ratio_1d != null ? +formatNumber(w.volume_ratio_1d, 2) : "",
         "EMA20": w?.ema_20 ?? "",
         "EMA50": w?.ema_50 ?? "",
         "EMA200": w?.ema_200 ?? "",
         "Durum": w?.ema_status || "",
-        "RSI": tk.intraday?.rsi_1h != null ? +tk.intraday.rsi_1h.toFixed(1) : "",
+        "RSI": tk.intraday?.rsi_1h != null ? +formatNumber(tk.intraday.rsi_1h, 1) : "",
         "Patern": w?.candle_pattern || "",
         "Setup": tk.intraday?.setup || "",
         "GAP Grade": tk.intraday?.pre_gap_grade || "",
@@ -771,7 +772,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
               }}>
                 <div style={{ fontSize: 9, color: "#8b949e", marginBottom: 2 }}>{h.hour}</div>
                 <div style={{ fontSize: 8, color: text, fontWeight: 700 }}>{statusLabel(h.status)}</div>
-                <div style={{ fontSize: 9, color: "#e6edf3" }}>${h.price?.toFixed(2) ?? "—"}</div>
+                <div style={{ fontSize: 9, color: "#e6edf3" }}>${formatNumber(h.price?, 2) ?? "—"}</div>
               </div>
             );
           })}
@@ -791,7 +792,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div style={{ marginBottom: 6 }}>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Alım: </span>
               <span style={{ fontSize: 10, color: "#3fb950", fontWeight: 700 }}>
-                ${tk.buy_zone.low?.toFixed(2)} – ${tk.buy_zone.high?.toFixed(2)}
+                ${formatNumber(tk.buy_zone.low?, 2)} – ${formatNumber(tk.buy_zone.high?, 2)}
               </span>
             </div>
           )}
@@ -799,7 +800,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div style={{ marginBottom: 6 }}>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Stop: </span>
               <span style={{ fontSize: 10, color: "#f85149", fontWeight: 700 }}>
-                ${tk.stop_zone.low?.toFixed(2)} – ${tk.stop_zone.high?.toFixed(2)}
+                ${formatNumber(tk.stop_zone.low?, 2)} – ${formatNumber(tk.stop_zone.high?, 2)}
               </span>
             </div>
           )}
@@ -807,7 +808,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
             <div>
               <span style={{ fontSize: 9, color: "#8b949e" }}>Hedef: </span>
               <span style={{ fontSize: 10, color: "#d2a8ff", fontWeight: 700 }}>
-                ${tk.profit_zone.low?.toFixed(2)} – ${(tk.profit_zone as any).high?.toFixed(2)}
+                ${formatNumber(tk.profit_zone.low?, 2)} – ${(tk.profit_zone as any)formatNumber(.high?, 2)}
               </span>
             </div>
           )}
@@ -923,7 +924,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                   </TickerHoverChart>
                   {tk.entry_price && (
                     <span style={{ color: "#8b949e", fontSize: 9, marginLeft: 4 }}>
-                      @${tk.entry_price.toFixed(2)}
+                      @${formatNumber(tk.entry_price, 2)}
                     </span>
                   )}
                 </td>
@@ -935,7 +936,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                   return (
                     <td
                       key={h}
-                      title={item ? `${item.hour}: ${item.status} ($${item.price?.toFixed(2)})` : "—"}
+                      title={item ? `${item.hour}: ${item.status} ($${formatNumber(item.price?, 2)})` : "—"}
                       style={{
                         padding: "5px 4px", textAlign: "center", background: bg,
                         borderRight: "1px solid #1a1f27", minWidth: 50,
@@ -946,7 +947,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                           <div style={{ fontSize: 8, color: text, fontWeight: 700 }}>
                             {statusLabel(item.status).replace(/[^\w%$+.-]/g, "").slice(0, 4)}
                           </div>
-                          <div style={{ fontSize: 8, color: "#aaa" }}>${item.price?.toFixed(1)}</div>
+                          <div style={{ fontSize: 8, color: "#aaa" }}>${formatNumber(item.price?, 1)}</div>
                         </>
                       ) : (
                         <span style={{ color: "#333", fontSize: 9 }}>·</span>
@@ -958,7 +959,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
                 {/* PnL */}
                 <td style={{ padding: "5px 8px", textAlign: "center", fontWeight: 700, fontSize: 10, color: pctColor(tk.pnl_pct) }}>
                   {tk.entry_price
-                    ? `${tk.pnl_pct >= 0 ? "+" : ""}${tk.pnl_pct.toFixed(2)}%`
+                    ? `${tk.pnl_pct >= 0 ? "+" : ""}${formatNumber(tk.pnl_pct, 2)}%`
                     : <span style={{ color: "#555" }}>—</span>}
                 </td>
               </tr>

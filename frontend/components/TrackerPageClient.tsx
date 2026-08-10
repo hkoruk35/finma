@@ -7,6 +7,7 @@ import Link from "next/link";
 import * as XLSX from "xlsx";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -53,9 +54,9 @@ const ACCENT = "#58a6ff";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
-const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 1) : "—");
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
@@ -647,7 +648,7 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
                   const { bg, text } = heatBg(bar?.change_pct ?? null);
                   return (
                     <td key={h} style={{ padding: "4px 8px", textAlign: "center", background: bg, color: text, fontWeight: 700, minWidth: 52 }}>
-                      {bar?.price != null ? `$${bar.price.toFixed(2)}` : "—"}
+                      {bar?.price != null ? `$${formatNumber(bar.price, 2)}` : "—"}
                     </td>
                   );
                 })}
@@ -658,7 +659,7 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
                   const { bg, text } = heatBg(bar?.change_pct ?? null);
                   return (
                     <td key={h} style={{ padding: "3px 8px", textAlign: "center", background: bg, color: text, fontSize: 10 }}>
-                      {bar?.change_pct != null ? `${bar.change_pct >= 0 ? "+" : ""}${bar.change_pct.toFixed(1)}%` : "—"}
+                      {bar?.change_pct != null ? `${bar.change_pct >= 0 ? "+" : ""}${formatNumber(bar.change_pct, 1)}%` : "—"}
                     </td>
                   );
                 })}
@@ -679,7 +680,7 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
                   const vr = bar?.volume_ratio;
                   return (
                     <td key={h} style={{ padding: "3px 8px", textAlign: "center", color: vr == null ? "#333" : vr >= 1.5 ? "#3fb950" : "#8b949e", fontSize: 10 }}>
-                      {vr != null ? `${vr.toFixed(1)}x` : "—"}
+                      {vr != null ? `${formatNumber(vr, 1)}x` : "—"}
                     </td>
                   );
                 })}
@@ -765,12 +766,12 @@ function TrackerHeatmapTab({ tickers, data, types }: { tickers: string[]; data: 
                     const { bg, text } = heatBg(pct);
                     return (
                       <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
-                        {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                        {pct != null ? `${pct >= 0 ? "+" : ""}${formatNumber(pct, 1)}%` : <span style={{ color: "#333" }}>—</span>}
                       </td>
                     );
                   })}
                   <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
-                    {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
+                    {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${formatNumber(dayPct, 1)}%` : "—"}
                   </td>
                 </tr>
               );

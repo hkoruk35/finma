@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import type { Locale } from "@/lib/i18n/copy";
 import TickerHoverChart from "./TickerHoverChart";
 import PremiumModal from "@/components/global/PremiumModal";
+import { formatNumber } from "@/lib/formatNumber";
 
 const PAGE_SIZE = 50;
 
@@ -117,7 +118,7 @@ const RESULT_COLORS: Record<string, string> = {
 
 function fmt(n: number | null | undefined, dec = 2): string {
   if (n == null) return "—";
-  return n.toFixed(dec);
+  return formatNumber(n, dec);
 }
 
 function retColor(n: number | null | undefined): string {
@@ -127,7 +128,7 @@ function retColor(n: number | null | undefined): string {
 
 function pnlFromReturn(ret: number | null): number | null {
   if (ret == null) return null;
-  return parseFloat((1000 * ret / 100).toFixed(2));
+  return parseFloat(formatNumber(1000 * ret / 100, 2));
 }
 
 
@@ -295,12 +296,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       wins,
       losses,
       slHits,
-      winRate: (wins / statsCount * 100).toFixed(1),
-      avgReturn: (sumRet / statsCount).toFixed(1),
-      avgMfe: (sumMfe / statsCount).toFixed(1),
-      avgMae: (sumMae / statsCount).toFixed(1),
-      avgDays: avgDays != null ? avgDays.toFixed(1) : "—",
-      avgPnl: (sumRet / statsCount * 10).toFixed(0),
+      winRate: formatNumber(wins / statsCount * 100, 1),
+      avgReturn: formatNumber(sumRet / statsCount, 1),
+      avgMfe: formatNumber(sumMfe / statsCount, 1),
+      avgMae: formatNumber(sumMae / statsCount, 1),
+      avgDays: avgDays != null ? formatNumber(avgDays, 1) : "—",
+      avgPnl: formatNumber(sumRet / statsCount * 10, 0),
       isFallback: false
     };
   }, [filtered]);
@@ -325,7 +326,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       );
       const sumRet = trades.reduce((s, t) => s + (t.realized_return_pct ?? effectiveReturn(t) ?? 0), 0);
       const avgRet = trades.length > 0 ? sumRet / trades.length : 0;
-      return { ...b, count: trades.length, avgRet: parseFloat(avgRet.toFixed(1)) };
+      return { ...b, count: trades.length, avgRet: parseFloat(formatNumber(avgRet, 1)) };
     });
   }, [filtered]);
 
@@ -351,8 +352,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       return {
         pct,
         count: reached.length,
-        rate: active.length > 0 ? (reached.length / active.length * 100).toFixed(1) : "0",
-        avgDays: avgD != null ? avgD.toFixed(1) : "—",
+        rate: active.length > 0 ? formatNumber(reached.length / active.length * 100, 1) : "0",
+        avgDays: avgD != null ? formatNumber(avgD, 1) : "—",
       };
     });
   }, [filtered]);
@@ -807,7 +808,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         <p className="text-[10px] text-slate-600 font-medium mt-0.5">Premium</p>
                       </div>
                       <div className={`px-2 py-1 rounded-lg text-[11px] font-medium ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
-                        {pick.score != null ? pick.score.toFixed(0) : "—"}
+                        {pick.score != null ? formatNumber(pick.score, 0) : "—"}
                       </div>
                     </div>
                     {/* Giriş/Hedef/Stop artık burada gösterilmiyor — sunucu
@@ -817,12 +818,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <div className="flex items-center gap-2 mt-2.5 flex-wrap">
                       {pick.rsi != null && (
                         <span className="text-[9px] font-medium text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                          RSI {pick.rsi.toFixed(0)}
+                          RSI {formatNumber(pick.rsi, 0)}
                         </span>
                       )}
                       {pick.adx != null && (
                         <span className="text-[9px] font-medium text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                          ADX {pick.adx.toFixed(0)}
+                          ADX {formatNumber(pick.adx, 0)}
                         </span>
                       )}
                       {pick.sector && (
@@ -845,7 +846,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       )}
                     </div>
                     <div className={`px-2 py-1 rounded-lg text-[11px] font-medium ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
-                      {pick.score != null ? pick.score.toFixed(0) : "—"}
+                      {pick.score != null ? formatNumber(pick.score, 0) : "—"}
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-center">
@@ -853,7 +854,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "Giriş" : locale === "pt" ? "Entrada" : "Entry"}</p>
                         <p className="text-[10px] font-mono font-medium text-white">
-                          ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
+                          ${formatNumber(pick.buy_zone.low, 0)}–{formatNumber(pick.buy_zone.high, 0)}
                         </p>
                       </div>
                     )}
@@ -861,7 +862,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : "Target"}</p>
                         <p className="text-[10px] font-mono font-medium text-white">
-                          ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
+                          ${formatNumber(pick.profit_zone.low, 0)}–{formatNumber(pick.profit_zone.high, 0)}
                         </p>
                       </div>
                     )}
@@ -869,7 +870,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</p>
                         <p className="text-[10px] font-mono font-medium text-white">
-                          ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
+                          ${formatNumber(pick.stop_zone.low, 0)}–{formatNumber(pick.stop_zone.high, 0)}
                         </p>
                       </div>
                     )}
@@ -877,12 +878,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="flex items-center gap-2 mt-2.5 flex-wrap">
                     {pick.rsi != null && (
                       <span className="text-[9px] font-medium text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                        RSI {pick.rsi != null ? pick.rsi.toFixed(0) : "—"}
+                        RSI {pick.rsi != null ? formatNumber(pick.rsi, 0) : "—"}
                       </span>
                     )}
                     {pick.adx != null && (
                       <span className="text-[9px] font-medium text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                        ADX {pick.adx != null ? pick.adx.toFixed(0) : "—"}
+                        ADX {pick.adx != null ? formatNumber(pick.adx, 0) : "—"}
                       </span>
                     )}
                     {pick.sector && (
@@ -975,7 +976,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   className={`rounded-lg border px-3 py-2 ${heatColor(s.avgReturn)} flex items-center gap-2 transition-colors shrink-0 ${s.name === selectedSector ? "ring-1 ring-white" : ""}`}>
                   <span className="text-[9px] font-medium text-white uppercase tracking-wider whitespace-nowrap">{s.name}</span>
                   <span className={`text-sm font-medium font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                    {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                    {s.avgReturn >= 0 ? "+" : ""}{formatNumber(s.avgReturn, 1)}%
                   </span>
                   <span className="text-[9px] text-[#00d2ff] font-medium">{s.total}p</span>
                 </button>
@@ -990,7 +991,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 className={`rounded-lg border px-2.5 py-2 ${heatColor(s.avgReturn)} flex flex-col gap-1 transition-colors duration-200 shrink-0 text-left min-w-[90px] ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
                 <p className="text-[9px] font-medium text-white uppercase tracking-wider truncate w-full" title={s.name}>{s.name}</p>
                 <p className={`text-sm font-medium font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                  {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                  {s.avgReturn >= 0 ? "+" : ""}{formatNumber(s.avgReturn, 1)}%
                 </p>
                 <div className="flex items-center gap-1">
                   <p className="text-[8px] text-[#00d2ff] font-medium uppercase">AVG</p>
@@ -1136,7 +1137,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     </span>
                     {pnl != null && (
                       <p className={`text-[8px] font-mono leading-none mt-0.5 ${retColor(pnl)}`}>
-                        {pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0"}
+                        {pnl > 0 ? `+$${Math.absformatNumber(pnl, 0)}` : pnl < 0 ? `-$${Math.absformatNumber(pnl, 0)}` : "$0"}
                       </p>
                     )}
                   </div>
@@ -1234,7 +1235,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
                       <td className="px-2 py-1.5 text-right font-mono text-[11px] whitespace-nowrap" style={{ color: getValColor(pnl), fontWeight: 700 }}>
-                        {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
+                        {pnl != null ? (pnl > 0 ? `+$${Math.absformatNumber(pnl, 0)}` : pnl < 0 ? `-$${Math.absformatNumber(pnl, 0)}` : "$0") : "—"}
                       </td>
                       <td className="px-2 py-1.5 text-[10px] text-slate-300 uppercase font-semibold whitespace-nowrap">
                         <span className="truncate block max-w-[110px]" title={t.sector}>{t.sector || "—"}</span>

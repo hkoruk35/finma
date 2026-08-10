@@ -7,6 +7,7 @@ import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector, slugifySector } from "@/li
 // import Link from "next/link"  // Removed navigation link as per request
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ShareButton from "@/components/ShareButton";
+import { formatNumber } from "@/lib/formatNumber";
 
 /* ── Refined Performance Colors ──────────────────────────────── */
 function getPerformanceColor(pct: number) {
@@ -90,7 +91,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                     <span className="text-[8px] font-medium text-white/70 tracking-wider">{SECTOR_ETF[sector] || "SEC"}</span>
                   </div>
                   <div className="text-right ml-1 flex-shrink-0">
-                    <span className="text-sm font-mono font-medium text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>
+                    <span className="text-sm font-mono font-medium text-white">{avgChange >= 0 ? "+" : ""}{formatNumber(avgChange, 2)}%</span>
                   </div>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { exportSwingResultsToXLS } from "@/lib/exportUtils";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface SwingTableActionsProps {
   picks: any[];
@@ -23,17 +24,17 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
       p.ticker,
       `"${p.company}"`,
       `"${p.sector}"`,
-      p.score.toFixed(1),
-      p.current_price.toFixed(2),
-      p.buy_zone.low.toFixed(2),
-      p.buy_zone.high.toFixed(2),
-      p.profit_zone.low.toFixed(2),
-      p.profit_zone.high.toFixed(2),
-      p.stop_zone.low.toFixed(2),
-      p.stop_zone.high.toFixed(2),
-      p.change_1d?.toFixed(2) || "0",
-      p.change_1w?.toFixed(2) || "0",
-      p.change_1m?.toFixed(2) || "0"
+      formatNumber(p.score, 1),
+      formatNumber(p.current_price, 2),
+      formatNumber(p.buy_zone.low, 2),
+      formatNumber(p.buy_zone.high, 2),
+      formatNumber(p.profit_zone.low, 2),
+      formatNumber(p.profit_zone.high, 2),
+      formatNumber(p.stop_zone.low, 2),
+      formatNumber(p.stop_zone.high, 2),
+      formatNumber(p.change_1d?, 2) || "0",
+      formatNumber(p.change_1w?, 2) || "0",
+      formatNumber(p.change_1m?, 2) || "0"
     ]);
 
     const csvContent = [
@@ -64,7 +65,7 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
     if (!picks || picks.length === 0) return;
 
     const text = picks.map((p, i) => 
-      `#${i+1} ${p.ticker} | Score: ${p.score.toFixed(1)} | Price: $${p.current_price.toFixed(2)} | Buy: $${p.buy_zone.low}-$${p.buy_zone.high} | Target: $${p.profit_zone.high} | Stop: $${p.stop_zone.low}`
+      `#${i+1} ${p.ticker} | Score: ${formatNumber(p.score, 1)} | Price: $${formatNumber(p.current_price, 2)} | Buy: $${p.buy_zone.low}-$${p.buy_zone.high} | Target: $${p.profit_zone.high} | Stop: $${p.stop_zone.low}`
     ).join("\n");
 
     navigator.clipboard.writeText(text).then(() => {

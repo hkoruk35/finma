@@ -1,3 +1,4 @@
+import { formatNumber } from "@/lib/formatNumber";
 interface SparklineProps {
   data: number[];
   color: string;

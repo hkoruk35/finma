@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import SearchLandingHeader from "@/components/public/SearchLandingHeader";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
+import { formatNumber } from "@/lib/formatNumber";
 
 const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
 type Locale = (typeof LOCALES)[number];
@@ -235,7 +236,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          setWeatherCity(`${lat.toFixed(4)},${lon.toFixed(4)}`);
+          setWeatherCity(`${formatNumber(lat, 4)},${formatNumber(lon, 4)}`);
         },
         (error) => {
           console.error("Geolocation error:", error);

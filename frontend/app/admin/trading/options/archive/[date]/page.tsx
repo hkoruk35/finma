@@ -5,15 +5,16 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 3600;
 
 function fmt(n: number | null | undefined, d = 2) {
-  return n == null ? "—" : n.toFixed(d);
+  return n == null ? "—" : formatNumber(n, d);
 }
 function fmtPct(n: number | null | undefined) {
   if (n == null) return "—";
-  return (n >= 0 ? "+" : "") + n.toFixed(1) + "%";
+  return (n >= 0 ? "+" : "") + formatNumber(n, 1) + "%";
 }
 
 const MODE_ICONS: Record<string, string> = {
@@ -37,13 +38,13 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
           <Link href={`/stock/${pick.ticker}`} className="text-xl font-black text-white hover:text-[#3b82f6] transition-colors">
             {pick.ticker}
           </Link>
-          <span className="text-[#00d2ff] font-mono text-sm">${pick.current_price.toFixed(2)}</span>
+          <span className="text-[#00d2ff] font-mono text-sm">${formatNumber(pick.current_price, 2)}</span>
           <span className="text-xs text-[#00d2ff]">{icon} {pick.entry_mode_label}</span>
         </div>
         <div className={`text-white text-xs font-black px-3 py-1 rounded-full bg-gradient-to-r ${
           pick.score >= 75 ? "from-[#f59e0b] to-[#ef4444]" :
           pick.score >= 60 ? "from-[#3b82f6] to-[#6366f1]" : "from-[#10b981] to-[#06b6d4]"
-        }`}>{pick.score.toFixed(1)}</div>
+        }`}>{formatNumber(pick.score, 1)}</div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[#00d2ff] mb-3">
@@ -56,19 +57,19 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
       <div className="flex flex-wrap gap-4 text-xs text-[#00d2ff]">
         {inst && (
           <span className="text-white">
-            🛡️ <b>${inst.strike?.toFixed(0)}C</b> · Prem: ${inst.premium?.toFixed(2)}
-            · TP: ${inst.tp_price?.toFixed(2)} · SL: ${inst.sl_price?.toFixed(2)}
+            🛡️ <b>${formatNumber(inst.strike?, 0)}C</b> · Prem: ${formatNumber(inst.premium?, 2)}
+            · TP: ${formatNumber(inst.tp_price?, 2)} · SL: ${formatNumber(inst.sl_price?, 2)}
             · {inst.expiration} ({inst.dte}d)
           </span>
         )}
         {asym && (
           <span className="text-white">
-            🚀 <b>${asym.strike?.toFixed(0)}C</b> · Prem: ${asym.premium?.toFixed(2)}
-            · TP: ${asym.tp_price?.toFixed(2)} · SL: ${asym.sl_price?.toFixed(2)}
+            🚀 <b>${formatNumber(asym.strike?, 0)}C</b> · Prem: ${formatNumber(asym.premium?, 2)}
+            · TP: ${formatNumber(asym.tp_price?, 2)} · SL: ${formatNumber(asym.sl_price?, 2)}
           </span>
         )}
         {pick.expected_move != null && (
-          <span>Exp Move: <b className="text-[#a78bfa]">±${pick.expected_move.toFixed(1)}</b></span>
+          <span>Exp Move: <b className="text-[#a78bfa]">±${formatNumber(pick.expected_move, 1)}</b></span>
         )}
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useUserRole } from "@/hooks/useUserRole";
+import { formatNumber } from "@/lib/formatNumber";
 
 const BogaChartEngine = dynamic(() => import("@/components/charts/BogaChartEngine"), {
   ssr: false,
@@ -76,12 +77,12 @@ interface Analysis {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number) => isFinite(n) ? n.toFixed(2) : "—";
-const fmt1 = (n: number) => isFinite(n) ? n.toFixed(1) : "—";
+const fmt2 = (n: number) => isFinite(n) ? formatNumber(n, 2) : "—";
+const fmt1 = (n: number) => isFinite(n) ? formatNumber(n, 1) : "—";
 
 function fmtVol(v: number) {
   if (!v) return "—";
-  return v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+  return v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 }
 
 function pctColor(p: number) {
@@ -93,7 +94,7 @@ function emaVsPrice(price: number, ema: number) {
   const diff = ((price - ema) / ema) * 100;
   const color = diff > 0.5 ? "#3fb950" : diff < -0.5 ? "#f85149" : "#e3b341";
   const arrow = diff > 0.5 ? "↑" : diff < -0.5 ? "↓" : "~";
-  return { color, label: `${arrow} ${Math.abs(diff).toFixed(1)}%` };
+  return { color, label: `${arrow} ${Math.absformatNumber(diff, 1)}%` };
 }
 
 function convictionColor(n: number) {
@@ -597,7 +598,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
                           {level.source}
                         </td>
                         <td style={{ padding: "4px 4px", textAlign: "right", color: "#8b949e", fontSize: 9 }}>
-                          {proximity.toFixed(1)}%
+                          {formatNumber(proximity, 1)}%
                         </td>
                       </tr>
                     );

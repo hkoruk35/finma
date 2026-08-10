@@ -6,6 +6,7 @@ import TickerTape from "@/components/TickerTape";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { formatNumber } from "@/lib/formatNumber";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -131,7 +132,7 @@ export default async function CategoryPage({ params }: Props) {
           <div className="border-l border-[#1e2a3a] pl-6">
              <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Average Score</p>
              <p className="text-2xl font-mono font-medium text-[#3b82f6]">
-                {(stocks.reduce((acc, s) => acc + s!.master_score, 0) / (stocks.length || 1)).toFixed(1)}
+                {formatNumber((stocks.reduce((acc, s) => acc + s!.master_score, 0) / (stocks.length || 1)), 1)}
              </p>
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
@@ -210,13 +211,13 @@ export default async function CategoryPage({ params }: Props) {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="text-3xl font-mono font-black text-[#3b82f6]">
-                    {stock!.master_score.toFixed(1)}
+                    {formatNumber(stock!.master_score, 1)}
                   </div>
                   <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest leading-none">BOGA AI Score</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-2xl font-mono font-black ${getChangeColor(stock!.change_pct)}`}>
-                    {stock!.change_pct >= 0 ? "+" : ""}{stock!.change_pct.toFixed(2)}%
+                    {stock!.change_pct >= 0 ? "+" : ""}{formatNumber(stock!.change_pct, 2)}%
                   </div>
                   <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest leading-none">Change</div>
                 </div>

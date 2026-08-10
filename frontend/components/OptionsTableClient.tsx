@@ -4,19 +4,20 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { OptionPick } from "@/lib/data";
 import TickerHoverChart from "./TickerHoverChart";
+import { formatNumber } from "@/lib/formatNumber";
 
 function n(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return Number(v).toFixed(d);
+  return NumberformatNumber(v, d);
 }
 function pct(v: any, d = 1): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
   const x = Number(v);
-  return (x >= 0 ? "+" : "") + x.toFixed(d) + "%";
+  return (x >= 0 ? "+" : "") + formatNumber(x, d) + "%";
 }
 function dollar(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
-  return "$" + Number(v).toFixed(d);
+  return "$" + NumberformatNumber(v, d);
 }
 function num(v: any, d = 0): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
@@ -75,7 +76,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           cIdx === 0 ? pick.date : pick.date,
           pick.ticker,
-          cIdx === 0 ? pick.score?.toFixed(0) : "",
+          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "—") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "—") : "",
           cIdx === 0 ? dollar(pick.current_price) : "",
@@ -116,7 +117,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           pick.date,
           pick.ticker,
-          cIdx === 0 ? pick.score?.toFixed(0) : "",
+          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "") : "",
           cIdx === 0 ? pick.current_price : "",
@@ -164,7 +165,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
         return [
           pick.date,
           pick.ticker,
-          cIdx === 0 ? pick.score?.toFixed(0) : "",
+          cIdx === 0 ? formatNumber(pick.score?, 0) : "",
           cIdx === 0 ? (pick.sector_info?.etf || pick.sector || "") : "",
           cIdx === 0 ? (pick.s5?.setup_type || pick.entry_mode_label || "") : "",
           cIdx === 0 ? pick.current_price : "",
@@ -237,7 +238,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
             </div>
             {latestData && (
               <div className="flex items-center gap-4 text-[10px] font-medium uppercase tracking-wider text-slate-400 ml-4">
-                <span>VIX: <span className={latestData.vix < 20 ? "text-emerald-400" : "text-red-400"}>{latestData.vix.toFixed(1)}</span></span>
+                <span>VIX: <span className={latestData.vix < 20 ? "text-emerald-400" : "text-red-400"}>{formatNumber(latestData.vix, 1)}</span></span>
                 <span className="hidden md:inline">|</span>
                 <span>UNIVERSE: <span className="text-white">{latestData.universe_size}</span></span>
                 <span className="hidden md:inline">|</span>
@@ -303,7 +304,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                           <TickerHoverChart ticker={raw.ticker}><Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link></TickerHoverChart>
                         ) : raw.ticker}
                       </TD>
-                      <TD center cls={cIdx === 0 ? `font-medium ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? raw.score.toFixed(0) : ""}</TD>
+                      <TD center cls={cIdx === 0 ? `font-medium ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? formatNumber(raw.score, 0) : ""}</TD>
                       <TD cls={cIdx === 0 ? "text-slate-400" : "text-transparent"}>
                         {cIdx === 0 ? (raw.sector_info?.etf || raw.sector || "—") : ""}
                       </TD>

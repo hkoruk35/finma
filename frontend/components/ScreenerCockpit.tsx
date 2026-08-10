@@ -6,6 +6,7 @@ import ScreenerChart from "./screener/ScreenerChart";
 import TickerHoverChart from "./TickerHoverChart";
 import { useTracker } from "@/components/TrackerContext";
 import { exportScreenerResultsToXLS } from "@/lib/exportUtils";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -273,20 +274,20 @@ function fmt(n: number, dec = 2): string {
   return n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 }
 function fmtVol(v: number): string {
-  if (v >= 1e9) return `$${(v / 1e9).toFixed(1)}B`;
-  if (v >= 1e6) return `$${(v / 1e6).toFixed(0)}M`;
-  return `$${(v / 1e3).toFixed(0)}K`;
+  if (v >= 1e9) return `$${formatNumber(v / 1e9, 1)}B`;
+  if (v >= 1e6) return `$${formatNumber(v / 1e6, 0)}M`;
+  return `$${formatNumber(v / 1e3, 0)}K`;
 }
 function fmtShareVol(v: number): string {
-  if (v >= 1e6) return (v / 1e6).toFixed(2) + "M";
-  if (v >= 1e3) return (v / 1e3).toFixed(1) + "K";
+  if (v >= 1e6) return formatNumber(v / 1e6, 2) + "M";
+  if (v >= 1e3) return formatNumber(v / 1e3, 1) + "K";
   return String(v);
 }
 function fmtCap(v: number): string {
-  if (v >= 1e12) return `$${(v / 1e12).toFixed(1)}T`;
-  if (v >= 1e9)  return `$${(v / 1e9).toFixed(1)}B`;
-  if (v >= 1e6)  return `$${(v / 1e6).toFixed(0)}M`;
-  return `$${v.toFixed(0)}`;
+  if (v >= 1e12) return `$${formatNumber(v / 1e12, 1)}T`;
+  if (v >= 1e9)  return `$${formatNumber(v / 1e9, 1)}B`;
+  if (v >= 1e6)  return `$${formatNumber(v / 1e6, 0)}M`;
+  return `$${formatNumber(v, 0)}`;
 }
 
 // ─── Detail Row ───────────────────────────────────────────────────────────────
@@ -450,9 +451,9 @@ function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string })
               {[
                 { label: "BBW Percentile", value: `${stock.bbw_percentile}p`, color: (stock.bbw_percentile ?? 100) < 20 ? "#4ade80" : (stock.bbw_percentile ?? 100) < 30 ? "#fbbf24" : "#b0bec5" },
                 { label: "Apeks Mesafesi", value: `~${stock.apex_bars_left} mum`,  color: "#b0bec5" },
-                { label: "Üst TL",         value: `$${stock.upper_trendline?.toFixed(2) ?? "—"}`, color: "#f87171" },
-                { label: "Alt TL",         value: `$${stock.lower_trendline?.toFixed(2) ?? "—"}`, color: "#4ade80" },
-                { label: "Fib 1.618 Hedef",value: `$${stock.target_fib?.toFixed(2) ?? "—"}`,      color: "#fbbf24" },
+                { label: "Üst TL",         value: `$${formatNumber(stock.upper_trendline?, 2) ?? "—"}`, color: "#f87171" },
+                { label: "Alt TL",         value: `$${formatNumber(stock.lower_trendline?, 2) ?? "—"}`, color: "#4ade80" },
+                { label: "Fib 1.618 Hedef",value: `$${formatNumber(stock.target_fib?, 2) ?? "—"}`,      color: "#fbbf24" },
               ].map(({ label, value, color }) => (
                 <div key={label} style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "8px 10px", textAlign: "center" }}>
                   <div style={{ fontSize: 9, color: "#7c8fa6", marginBottom: 4, fontWeight: 600 }}>{label}</div>
@@ -463,7 +464,7 @@ function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string })
             <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               <div style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontSize: 10, color: "#94a3b8" }}>Triangle Stop</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "#f87171", fontFamily: "monospace" }}>${stock.triangle_stop?.toFixed(2) ?? "—"}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#f87171", fontFamily: "monospace" }}>${formatNumber(stock.triangle_stop?, 2) ?? "—"}</span>
               </div>
               <div style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontSize: 10, color: "#94a3b8" }}>R/R (Fib 1.618)</span>
@@ -494,7 +495,7 @@ function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string })
               ].map(({ label, value, color }) => (
                 <div key={label} style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "8px 6px", textAlign: "center" }}>
                   <div style={{ fontSize: 9, color, marginBottom: 4, fontWeight: 700 }}>{label}</div>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>${value?.toFixed(2) ?? "—"}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>${formatNumber(value?, 2) ?? "—"}</div>
                 </div>
               ))}
             </div>
@@ -559,7 +560,7 @@ export default function ScreenerCockpit() {
     if (capFilter !== "all") filters.push(`Cap: ${CAP_RANGES.find(c => c.id === capFilter)?.label || capFilter}`);
     if (liqFilter !== "all") filters.push(`Liq: ${LIQ_RANGES.find(l => l.id === liqFilter)?.label || liqFilter}`);
     if (optFilter !== "all") filters.push(`Opt: ${OPT_RANGES.find(o => o.id === optFilter)?.label || optFilter}`);
-    if (rvolMin !== null) filters.push(`RVOL>${rvolMin.toFixed(1)}`);
+    if (rvolMin !== null) filters.push(`RVOL>${formatNumber(rvolMin, 1)}`);
     if (rsiMin !== null || rsiMax !== null) filters.push(`RSI ${rsiMin || "0"}-${rsiMax || "100"}`);
     if (adxMin !== null) filters.push(`ADX>${adxMin}`);
     if (squeezeOnly) filters.push("Squeeze+Patlama");
@@ -710,12 +711,12 @@ export default function ScreenerCockpit() {
           )}
           <span style={{ fontSize: 11, color: "#7c8fa6" }}>
             SPY <span style={{ color: regime.spy_change >= 0 ? "#4ade80" : "#f87171", fontWeight: 700 }}>
-              {regime.spy_change >= 0 ? "+" : ""}{(regime.spy_change ?? 0).toFixed(2)}%
+              {regime.spy_change >= 0 ? "+" : ""}{formatNumber(regime.spy_change ?? 0, 2)}%
             </span>
           </span>
           <span style={{ fontSize: 11, color: "#7c8fa6" }}>
             VIX <span style={{ color: (regime.vix_price ?? 20) > 25 ? "#f87171" : "#fbbf24", fontWeight: 700 }}>
-              {(regime.vix_price ?? 20).toFixed(1)}
+              {formatNumber(regime.vix_price ?? 20, 1)}
             </span>
           </span>
           {/* Filter toggle button */}
@@ -1005,14 +1006,14 @@ export default function ScreenerCockpit() {
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: stock.change_1d >= 0 ? "#4ade80" : "#f87171", fontWeight: 700, fontFamily: "monospace", fontSize: 12 }}>
-                            {stock.change_1d >= 0 ? "+" : ""}{stock.change_1d.toFixed(2)}%
+                            {stock.change_1d >= 0 ? "+" : ""}{formatNumber(stock.change_1d, 2)}%
                           </span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <MACDDot val={stock.macd} hist={stock.macd_hist} />
                         </td>
                         <td style={{ padding: "8px 11px" }}>
-                          <span style={{ color: stock.rsi > 70 ? "#f87171" : stock.rsi >= 55 ? "#4ade80" : "#b0bec5", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>{stock.rsi?.toFixed(0)}</span>
+                          <span style={{ color: stock.rsi > 70 ? "#f87171" : stock.rsi >= 55 ? "#4ade80" : "#b0bec5", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>{formatNumber(stock.rsi?, 0)}</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: "#22d3ee", fontWeight: 700, fontFamily: "monospace", fontSize: 12 }}>{stock.rr_ratio}</span>
@@ -1046,10 +1047,10 @@ export default function ScreenerCockpit() {
                         </td>
                         <td style={{ padding: "8px 11px" }}><ScoreBar score={stock.boga_score} grade={stock.grade} /></td>
                         <td style={{ padding: "8px 11px" }}>
-                          <span style={{ color: stock.rvol >= 3 ? "#fbbf24" : "#b0bec5", fontWeight: stock.rvol >= 3 ? 700 : 400, fontFamily: "monospace", fontSize: 12 }}>{stock.rvol.toFixed(1)}x</span>
+                          <span style={{ color: stock.rvol >= 3 ? "#fbbf24" : "#b0bec5", fontWeight: stock.rvol >= 3 ? 700 : 400, fontFamily: "monospace", fontSize: 12 }}>{formatNumber(stock.rvol, 1)}x</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
-                          <span style={{ color: stock.adx >= 25 ? "#4ade80" : "#94a3b8", fontFamily: "monospace", fontSize: 12, fontWeight: stock.adx >= 25 ? 700 : 400 }}>{stock.adx?.toFixed(0) ?? "—"}</span>
+                          <span style={{ color: stock.adx >= 25 ? "#4ade80" : "#94a3b8", fontFamily: "monospace", fontSize: 12, fontWeight: stock.adx >= 25 ? 700 : 400 }}>{formatNumber(stock.adx?, 0) ?? "—"}</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -1079,7 +1080,7 @@ export default function ScreenerCockpit() {
               <span style={{ color: regimeColor, fontWeight: 700 }}>{regime.label}</span>
             </div>
             <div style={{ fontSize: 11, color: "#94a3b8" }}>
-              VIX <span style={{ color: (regime.vix_price ?? 20) > 25 ? "#f87171" : "#fbbf24", fontWeight: 700 }}>{(regime.vix_price ?? 20).toFixed(1)}</span>
+              VIX <span style={{ color: (regime.vix_price ?? 20) > 25 ? "#f87171" : "#fbbf24", fontWeight: 700 }}>{formatNumber(regime.vix_price ?? 20, 1)}</span>
             </div>
             <div style={{ fontSize: 11, color: "#64748b" }}>|</div>
             <div style={{ fontSize: 11, color: "#94a3b8" }}>

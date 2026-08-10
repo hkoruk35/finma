@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { getIndexBySlug, INDEX_LIST, INDEX_LOCALES } from "@/lib/indices";
 import { getWeeklyArchiveList } from "@/lib/indexSnapshots";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 900;
 
@@ -96,7 +97,7 @@ export default async function IndexWeeklyArchivePage({ params }: Props) {
                 {w.change_pct_week != null && (
                   <span className={w.change_pct_week >= 0 ? "text-[#3fb950] ml-1" : "text-[#f85149] ml-1"}>
                     {w.change_pct_week >= 0 ? "+" : ""}
-                    {w.change_pct_week.toFixed(2)}%
+                    {formatNumber(w.change_pct_week, 2)}%
                   </span>
                 )}
               </Link>

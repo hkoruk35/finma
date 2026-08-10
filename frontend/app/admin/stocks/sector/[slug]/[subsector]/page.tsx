@@ -4,6 +4,7 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface TickerData {
   ticker: string;
@@ -37,10 +38,10 @@ interface SectorAnalysis {
 
 function formatPrice(price: number): string {
   if (price === 0 || !price) return "N/A";
-  if (price >= 1000000000) return `$${(price / 1000000000).toFixed(1)}B`;
-  if (price >= 1000000) return `$${(price / 1000000).toFixed(1)}M`;
-  if (price >= 1000) return `$${(price / 1000).toFixed(1)}K`;
-  return `$${price.toFixed(2)}`;
+  if (price >= 1000000000) return `$${formatNumber(price / 1000000000, 1)}B`;
+  if (price >= 1000000) return `$${formatNumber(price / 1000000, 1)}M`;
+  if (price >= 1000) return `$${formatNumber(price / 1000, 1)}K`;
+  return `$${formatNumber(price, 2)}`;
 }
 
 function getChangeColor(change: number | null | undefined) {
@@ -259,15 +260,15 @@ export default async function SubsectorPage({
                     </Link>
                   </td>
                   <td className="px-4 py-3 text-white font-semibold">
-                    ${stock.price?.toFixed(2) || "N/A"}
+                    ${formatNumber(stock.price?, 2) || "N/A"}
                   </td>
                   <td className={`px-4 py-3 text-right font-medium ${getChangeColor(stock.change_1d)}`}>
                     {stock.change_1d !== undefined && stock.change_1d !== null
-                      ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
+                      ? `${stock.change_1d > 0 ? "+" : ""}${formatNumber(stock.change_1d, 2)}%`
                       : "N/A"}
                   </td>
                   <td className="px-4 py-3 text-center text-white">
-                    {stock.technical?.rsi?.toFixed(1) || "N/A"}
+                    {formatNumber(stock.technical?.rsi?, 1) || "N/A"}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {stock.technical?.momentum ? (
@@ -277,7 +278,7 @@ export default async function SubsectorPage({
                         }
                       >
                         {stock.technical.momentum > 0 ? "+" : ""}
-                        {stock.technical.momentum.toFixed(1)}%
+                        {formatNumber(stock.technical.momentum, 1)}%
                       </span>
                     ) : (
                       <span className="text-white">N/A</span>
@@ -305,23 +306,23 @@ export default async function SubsectorPage({
                 </Link>
                 <span className={`font-medium ${getChangeColor(stock.change_1d)}`}>
                   {stock.change_1d !== undefined && stock.change_1d !== null
-                    ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
+                    ? `${stock.change_1d > 0 ? "+" : ""}${formatNumber(stock.change_1d, 2)}%`
                     : "N/A"}
                 </span>
               </div>
               <p className="text-white font-semibold mb-2">
-                ${stock.price?.toFixed(2) || "N/A"}
+                ${formatNumber(stock.price?, 2) || "N/A"}
               </p>
               <div className="grid grid-cols-3 gap-2 text-[10px] text-white">
                 <div>
                   <p className="uppercase font-medium">RSI</p>
-                  <p className="text-white">{stock.technical?.rsi?.toFixed(1) || "N/A"}</p>
+                  <p className="text-white">{formatNumber(stock.technical?.rsi?, 1) || "N/A"}</p>
                 </div>
                 <div>
                   <p className="uppercase font-medium">Momentum</p>
                   <p className={stock.technical?.momentum && stock.technical.momentum > 0 ? "text-green-400 font-medium" : "text-red-400 font-medium"}>
                     {stock.technical?.momentum
-                      ? `${stock.technical.momentum > 0 ? "+" : ""}${stock.technical.momentum.toFixed(1)}%`
+                      ? `${stock.technical.momentum > 0 ? "+" : ""}${formatNumber(stock.technical.momentum, 1)}%`
                       : "N/A"}
                   </p>
                 </div>

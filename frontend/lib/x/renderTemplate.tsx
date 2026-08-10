@@ -2,6 +2,7 @@ import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { formatNumber } from "@/lib/formatNumber";
 
 // Marka renkleri: app/globals.css @theme bloguyla birebir.
 const COLORS = {
@@ -69,7 +70,7 @@ interface OhlcBar {
 }
 
 function fmtAxisPrice(v: number): string {
-  return `$${v >= 100 ? Math.round(v) : v.toFixed(1)}`;
+  return `$${v >= 100 ? Math.round(v) : formatNumber(v, 1)}`;
 }
 
 // "Guzel" (yuvarlak) adim buyuklugu — 1/2/2.5/5/10 x 10^n serisinden secer,
@@ -408,7 +409,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 }}
               >
                 <span style={{ fontSize: 24, fontWeight: 800, color: "#0d1117", display: "flex" }}>
-                  ${chart.lastPrice.toFixed(2)}
+                  ${formatNumber(chart.lastPrice, 2)}
                 </span>
               </div>
             </div>
@@ -453,7 +454,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                         }}
                       >
                         {p.value >= 0 ? "+" : ""}
-                        {p.value.toFixed(2)}%
+                        {formatNumber(p.value, 2)}%
                       </span>
                     </div>
                   )
@@ -479,7 +480,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             )}
             {params.rvol != null && (
               <span style={{ fontSize: 22, color: COLORS.text, opacity: 0.9, border: `2px solid rgba(241,245,249,0.35)`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
-                {params.rvol.toFixed(1)}x {localizedLabel(AVG_VOL_LABEL, params.locale)}
+                {formatNumber(params.rvol, 1)}x {localizedLabel(AVG_VOL_LABEL, params.locale)}
               </span>
             )}
             {params.opportunity && (
@@ -545,7 +546,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 }}
               >
                 <span style={{ fontSize: 24, fontWeight: 800, color: "#0d1117", display: "flex" }}>
-                  ${chart.lastPrice.toFixed(2)}
+                  ${formatNumber(chart.lastPrice, 2)}
                 </span>
               </div>
             </div>
@@ -560,13 +561,13 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginTop: 10 }}>
               <span style={{ fontSize: 44, fontWeight: 800, display: "flex" }}>
                 {(params as MarketAssetCardParams).category === "fx"
-                  ? (params as MarketAssetCardParams).price!.toFixed(4)
-                  : `$${(params as MarketAssetCardParams).price!.toFixed(2)}`}
+                  ? (params as MarketAssetCardParams)formatNumber(.price!, 4)
+                  : `$${(params as MarketAssetCardParams)formatNumber(.price!, 2)}`}
               </span>
               {params.changePct != null && (
                 <span style={{ fontSize: 34, fontWeight: 800, color: changeColor, display: "flex" }}>
                   {changePositive ? "+" : ""}
-                  {params.changePct.toFixed(2)}%
+                  {formatNumber(params.changePct, 2)}%
                 </span>
               )}
             </div>

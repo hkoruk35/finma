@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface LatencyBreakdown {
   timestamp: string;
@@ -391,7 +392,7 @@ export default function OptionsMonitorClient() {
                   {avgLatency} ms
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 font-mono">
-                  size: {current ? `${(current.pageSize / 1024).toFixed(1)} KB` : "—"}
+                  size: {current ? `${formatNumber(current.pageSize / 1024, 1)} KB` : "—"}
                 </div>
               </div>
 
@@ -575,7 +576,7 @@ export default function OptionsMonitorClient() {
                               {logItem.totalTime} ms
                             </td>
                             <td className="py-2 text-right text-text-secondary font-mono">
-                              {(logItem.pageSize / 1024).toFixed(1)} KB
+                              {formatNumber(logItem.pageSize / 1024, 1)} KB
                             </td>
                             <td className={`py-2 text-right font-medium ${logItem.contentValid ? 'text-gain' : 'text-amber-500'}`}>
                               {logItem.contentValid ? "VALID" : "UNEXPECTED"}

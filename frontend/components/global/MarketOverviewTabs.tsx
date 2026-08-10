@@ -6,6 +6,7 @@ import { formatAssetPrice } from '@/lib/symbols';
 import type { Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
 import TickerHoverChart from '@/components/TickerHoverChart';
+import { formatNumber } from "@/lib/formatNumber";
 
 export interface MarketQuoteItem {
   ticker: string;
@@ -67,7 +68,7 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
                   </div>
                   <div className="flex items-center justify-between mt-2 gap-1.5">
                     <span className="text-[11px] font-bold font-mono px-1.5 py-0.5 rounded" style={{ color, backgroundColor: `${color}15` }}>
-                      {item.quote ? `${positive ? '+' : ''}${changePct.toFixed(2)}%` : '—'}
+                      {item.quote ? `${positive ? '+' : ''}${formatNumber(changePct, 2)}%` : '—'}
                     </span>
                     {item.quote && item.quote.recent_closes.length > 1 && (
                       <Sparkline data={item.quote.recent_closes} color={color} changePct={changePct} width={48} height={18} />

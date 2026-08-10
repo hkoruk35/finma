@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/i18n/copy';
 import type { SectorItem } from './SectorHeatmaps';
+import { formatNumber } from "@/lib/formatNumber";
 
 type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
 
@@ -28,7 +29,7 @@ function getLabels(locale: Locale) {
   };
 }
 
-const fmtPct = (pct: number) => `${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%`;
+const fmtPct = (pct: number) => `${pct >= 0 ? '+' : ''}${formatNumber(pct, 2)}%`;
 
 /**
  * Gerçek change_pct verisinden türetilmiş, kural-tabanlı sıralama özeti —

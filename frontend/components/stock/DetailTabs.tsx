@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AnalysisTabs from "./AnalysisTabs";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface DetailTabsProps {
   stock: any;
@@ -43,7 +44,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
               change_24h: found.intraday.change_24h,
               hourly_action: mapStatusToAction(found.status),
               directive_msg: found.status_detail,
-              entry_zone: found.buy_zone ? `${found.buy_zone.low.toFixed(2)} - ${found.buy_zone.high.toFixed(2)}` : 'N/A',
+              entry_zone: found.buy_zone ? `${formatNumber(found.buy_zone.low, 2)} - ${formatNumber(found.buy_zone.high, 2)}` : 'N/A',
               take_profit: found.profit_zone?.high || 'N/A',
             };
             setHourlyData(transformed);
@@ -51,19 +52,19 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
             // ── DOM SYNC FOR LIVE OVERRIDE (Top Right Price ONLY) ──
             setTimeout(() => {
               const priceEl = document.getElementById("stock-price-current");
-              if (priceEl && found.current_price) priceEl.innerText = "$" + found.current_price.toFixed(2);
+              if (priceEl && found.current_price) priceEl.innerText = "$" + formatNumber(found.current_price, 2);
 
               const changeEl = document.getElementById("stock-price-change");
               if (changeEl && found.intraday.change_24h !== undefined) {
                 const sign = found.intraday.change_24h >= 0 ? "+" : "";
-                changeEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
+                changeEl.innerText = sign + formatNumber(found.intraday.change_24h, 2) + "%";
                 changeEl.className = `text-xl font-mono font-medium leading-none ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
 
               const returns1dEl = document.getElementById("stock-returns-1d");
               if (returns1dEl && found.intraday.change_24h !== undefined) {
                 const sign = found.intraday.change_24h >= 0 ? "+" : "";
-                returns1dEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
+                returns1dEl.innerText = sign + formatNumber(found.intraday.change_24h, 2) + "%";
                 returns1dEl.className = `text-base md:text-lg font-mono font-medium ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
             }, 50);
@@ -177,7 +178,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                     <div>
                       <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">24H Change</p>
                       <p className={`text-2xl font-mono font-medium ${hourlyData.change_24h >= 0 ? "text-green-400" : "text-red-400"}`}>
-                        {hourlyData.change_24h >= 0 ? "+" : ""}{hourlyData.change_24h?.toFixed(2)}%
+                        {hourlyData.change_24h >= 0 ? "+" : ""}{formatNumber(hourlyData.change_24h?, 2)}%
                       </p>
                     </div>
                     <div>

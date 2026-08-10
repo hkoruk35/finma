@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ct } from "@/lib/copilot/i18n";
+import { formatNumber } from "@/lib/formatNumber";
 
 export interface StockCardProps {
   ticker: string;
@@ -45,7 +46,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
 
   // GÜVENLİK: geri yüklenen/eksik bir kart verisinde sayısal alanlar undefined
   // olabilir — .toFixed() doğrudan çağrılırsa render çöker (global beyaz ekran).
-  const fmt = (v: unknown) => (typeof v === "number" ? `$${v.toFixed(2)}` : "—");
+  const fmt = (v: unknown) => (typeof v === "number" ? `$${formatNumber(v, 2)}` : "—");
 
   return (
     <div className="w-full bg-[#0a0e17] rounded-xl border border-[#388bfd33] overflow-hidden shadow-xl shadow-blue-500/5 my-3 relative">

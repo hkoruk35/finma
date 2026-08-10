@@ -14,6 +14,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { getAssetCategory } from "@/lib/symbols";
 import { getIndexBySymbol } from "@/lib/indices";
+import { formatNumber } from "@/lib/formatNumber";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -167,7 +168,7 @@ type Quote = { price: number | null; change_1d: number | null };
 
 function fmtChange(v: number | null | undefined) {
   if (v == null) return "—";
-  return `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
+  return `${v >= 0 ? "+" : ""}${formatNumber(v, 2)}%`;
 }
 
 export default function GraphicDetailContent({ locale }: { locale: Locale }) {
@@ -302,7 +303,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium"
               >
                 <span className="text-slate-400">{idx.label}</span>
-                <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
+                <span className="text-white font-mono">{q?.price != null ? formatNumber(q.price, 2) : "—"}</span>
                 <span className={positive ? "!text-[#3fb950]" : "!text-[#f85149]"}>{fmtChange(q?.change_1d)}</span>
               </div>
             );
@@ -311,7 +312,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-medium">
               <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
               <span className="text-white font-mono">
-                {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
+                {quotes[sectorEtf]?.price != null ? formatNumber(quotes[sectorEtf].price!, 2) : "—"}
               </span>
               <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "!text-[#3fb950]" : "!text-[#f85149]"}>
                 {fmtChange(quotes[sectorEtf]?.change_1d)}

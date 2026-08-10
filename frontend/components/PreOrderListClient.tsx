@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useUserRole } from "@/hooks/useUserRole";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -33,8 +34,8 @@ interface LivePrice {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number) => isFinite(n) ? n.toFixed(2) : "—";
-const fmt1 = (n: number) => isFinite(n) ? n.toFixed(1) : "—";
+const fmt2 = (n: number) => isFinite(n) ? formatNumber(n, 2) : "—";
+const fmt1 = (n: number) => isFinite(n) ? formatNumber(n, 1) : "—";
 
 function pctColor(p: number) {
   return p > 0 ? "#3fb950" : p < 0 ? "#f85149" : "#8b949e";

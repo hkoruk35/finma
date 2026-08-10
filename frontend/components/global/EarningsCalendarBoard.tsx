@@ -5,6 +5,7 @@ import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import type { Locale } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface CalendarItem {
   ticker: string;
@@ -76,9 +77,9 @@ const LABELS: Record<Locale, {
 function fmtMoney(n: number | null): string {
   if (n == null || !isFinite(n)) return "—";
   const abs = Math.abs(n);
-  if (abs >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
-  if (abs >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
-  return `$${n.toFixed(2)}`;
+  if (abs >= 1e9) return `$${formatNumber(n / 1e9, 2)}B`;
+  if (abs >= 1e6) return `$${formatNumber(n / 1e6, 2)}M`;
+  return `$${formatNumber(n, 2)}`;
 }
 
 function groupByDate(items: CalendarItem[]): [string, CalendarItem[]][] {
@@ -170,7 +171,7 @@ export default function EarningsCalendarBoard({ locale }: { locale: Locale }) {
                       <div className="text-right shrink-0">
                         <div className="text-[10px] text-white/40">{t.epsEst}</div>
                         <div className="text-[12px] font-mono font-bold text-white/80">
-                          {item.epsEstimate != null ? `$${item.epsEstimate.toFixed(2)}` : "—"}
+                          {item.epsEstimate != null ? `$${formatNumber(item.epsEstimate, 2)}` : "—"}
                         </div>
                         <div className="text-[9px] text-white/30 mt-0.5">{fmtMoney(item.revenueEstimate)}</div>
                       </div>

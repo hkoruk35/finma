@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n/copy";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
+import { formatNumber } from "@/lib/formatNumber";
 
 const ACCENT = "#58a6ff";
 
@@ -45,8 +46,8 @@ const LABEL_COLOR: Record<string, string> = {
   gray: "#8b949e",
 };
 
-const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
-const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 1) : "—");
 
 function rsiColor(rsi: number | null | undefined) {
   if (rsi == null) return "#8b949e";
@@ -396,7 +397,7 @@ export default function SwingArchiveTracker({
                       const { bg, text } = heatColors(pct);
                       return (
                         <td key={day.date} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
-                          {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                          {pct != null ? `${pct >= 0 ? "+" : ""}${formatNumber(pct, 1)}%` : <span style={{ color: "#333" }}>—</span>}
                         </td>
                       );
                     })}

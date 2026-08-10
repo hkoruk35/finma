@@ -6,6 +6,7 @@ import TickerTape from "@/components/TickerTape";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { formatNumber } from "@/lib/formatNumber";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -121,7 +122,7 @@ export default async function SectorPage({ params }: Props) {
           <div className="flex gap-4">
              <div className="glass-card p-4 text-center min-w-[120px]">
                 <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Sector Avg</p>
-                <p className="text-2xl font-mono font-medium text-white">{sectorStats.avg_score.toFixed(1)}</p>
+                <p className="text-2xl font-mono font-medium text-white">{formatNumber(sectorStats.avg_score, 1)}</p>
              </div>
              <div className="glass-card p-4 text-center min-w-[120px]">
                 <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Top Pick</p>
@@ -199,7 +200,7 @@ export default async function SectorPage({ params }: Props) {
                        </td>
                        <td className="px-6 py-4">
                           <span className={`text-xl font-mono font-black ${getChangeColor(stock.change_pct)}`}>
-                             {stock.change_pct >= 0 ? "+" : ""}{stock.change_pct.toFixed(2)}%
+                             {stock.change_pct >= 0 ? "+" : ""}{formatNumber(stock.change_pct, 2)}%
                           </span>
                        </td>
                        <td className="px-6 py-4">
@@ -207,7 +208,7 @@ export default async function SectorPage({ params }: Props) {
                              <div className="w-24 h-2 bg-[#141924] rounded-full overflow-hidden border border-[#1e2a3a]">
                                 <div className="h-full score-gradient rounded-full" style={{ width: `${stock.master_score}%` }}></div>
                              </div>
-                             <span className="text-xl font-mono font-black text-[#3b82f6] truncate">{stock.master_score.toFixed(1)}</span>
+                             <span className="text-xl font-mono font-black text-[#3b82f6] truncate">{formatNumber(stock.master_score, 1)}</span>
                           </div>
                        </td>
                        <td className="px-6 py-4">

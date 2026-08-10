@@ -5,6 +5,7 @@ import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { useTracker } from "@/components/TrackerContext";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -43,14 +44,14 @@ interface ThemeDetailClientProps {
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 const fmt2 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(2) : "—";
+  n != null && isFinite(n) ? formatNumber(n, 2) : "—";
 const fmt1 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(1) : "—";
+  n != null && isFinite(n) ? formatNumber(n, 1) : "—";
 const fmtLarge = (v?: number) => {
   if (!v) return "—";
-  if (v >= 1e12) return "$" + (v / 1e12).toFixed(1) + "T";
-  if (v >= 1e9)  return "$" + (v / 1e9).toFixed(1) + "B";
-  if (v >= 1e6)  return "$" + (v / 1e6).toFixed(0) + "M";
+  if (v >= 1e12) return "$" + formatNumber(v / 1e12, 1) + "T";
+  if (v >= 1e9)  return "$" + formatNumber(v / 1e9, 1) + "B";
+  if (v >= 1e6)  return "$" + formatNumber(v / 1e6, 0) + "M";
   return "$" + v.toLocaleString();
 };
 
@@ -506,7 +507,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                           )}
                           <div style={{ color: text, fontSize: 13, fontWeight: 900, letterSpacing: "-0.3px" }}>{sym}</div>
                           <div style={{ color: text, fontSize: 11, marginTop: 3, fontWeight: 700 }}>
-                            {pct != null ? (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%" : "—"}
+                            {pct != null ? (pct >= 0 ? "+" : "") + formatNumber(pct, 2) + "%" : "—"}
                           </div>
                           <div style={{ color: text + "90", fontSize: 9, marginTop: 2 }}>
                             {d?.price?.current != null ? "$" + fmt2(d.price.current) : "—"}

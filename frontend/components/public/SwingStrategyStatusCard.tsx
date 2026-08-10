@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 // Bu kart, /graphic/[ticker] sayfasındaki "işlem kurgusu gerekçesi"ni
 // swing117_boga.py botunun GERÇEK Power Pullback çıktısıyla besler —
@@ -50,20 +51,20 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
     case "15M_BREAKOUT":
       if (td.rvol == null || td.level == null) return null;
       return {
-        tr: `Breakout tetiği yakalandı: Hacimli kırılım (${td.rvol.toFixed(1)}x) > direnç ($${td.level.toFixed(2)})`,
-        en: `Breakout trigger captured: high-volume breakout (${td.rvol.toFixed(1)}x) > resistance ($${td.level.toFixed(2)})`,
-        es: `Disparador de ruptura capturado: ruptura con alto volumen (${td.rvol.toFixed(1)}x) > resistencia ($${td.level.toFixed(2)})`,
-        fr: `Déclencheur de cassure capturé : cassure à fort volume (${td.rvol.toFixed(1)}x) > résistance (${td.level.toFixed(2)}$)`,
-        pt: `Gatilho de rompimento capturado: rompimento com alto volume (${td.rvol.toFixed(1)}x) > resistência ($${td.level.toFixed(2)})`,
+        tr: `Breakout tetiği yakalandı: Hacimli kırılım (${formatNumber(td.rvol, 1)}x) > direnç ($${formatNumber(td.level, 2)})`,
+        en: `Breakout trigger captured: high-volume breakout (${formatNumber(td.rvol, 1)}x) > resistance ($${formatNumber(td.level, 2)})`,
+        es: `Disparador de ruptura capturado: ruptura con alto volumen (${formatNumber(td.rvol, 1)}x) > resistencia ($${formatNumber(td.level, 2)})`,
+        fr: `Déclencheur de cassure capturé : cassure à fort volume (${formatNumber(td.rvol, 1)}x) > résistance (${formatNumber(td.level, 2)}$)`,
+        pt: `Gatilho de rompimento capturado: rompimento com alto volume (${formatNumber(td.rvol, 1)}x) > resistência ($${formatNumber(td.level, 2)})`,
       }[l];
     case "15M_SPRING_BOUNCE":
       if (td.rsi == null) return null;
       return {
-        tr: `Spring bounce tetiği yakalandı: RSI:${td.rsi.toFixed(1)} + MACD yön yukarı`,
-        en: `Spring bounce trigger captured: RSI:${td.rsi.toFixed(1)} + MACD turning up`,
-        es: `Disparador de rebote (spring) capturado: RSI:${td.rsi.toFixed(1)} + MACD girando al alza`,
-        fr: `Déclencheur de rebond (spring) capturé : RSI :${td.rsi.toFixed(1)} + MACD orienté à la hausse`,
-        pt: `Gatilho de repique (spring) capturado: RSI:${td.rsi.toFixed(1)} + MACD virando para cima`,
+        tr: `Spring bounce tetiği yakalandı: RSI:${formatNumber(td.rsi, 1)} + MACD yön yukarı`,
+        en: `Spring bounce trigger captured: RSI:${formatNumber(td.rsi, 1)} + MACD turning up`,
+        es: `Disparador de rebote (spring) capturado: RSI:${formatNumber(td.rsi, 1)} + MACD girando al alza`,
+        fr: `Déclencheur de rebond (spring) capturé : RSI :${formatNumber(td.rsi, 1)} + MACD orienté à la hausse`,
+        pt: `Gatilho de repique (spring) capturado: RSI:${formatNumber(td.rsi, 1)} + MACD virando para cima`,
       }[l];
     case "15M_EMA_CROSS":
       return {
@@ -78,21 +79,21 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
       if (td.n_candles == null || td.rsi == null || td.rvol == null) return null;
       const candleLabel = CANDLE_TYPE_LABEL[td.type][l];
       return {
-        tr: `Power Pullback (${td.n_candles} mum) tetiklendi. RSI reset (${td.rsi.toFixed(0)}). ${candleLabel}. Hacim ${td.rvol.toFixed(1)}x`,
-        en: `Power Pullback (${td.n_candles} candles) triggered. RSI reset (${td.rsi.toFixed(0)}). ${candleLabel}. Volume ${td.rvol.toFixed(1)}x`,
-        es: `Power Pullback (${td.n_candles} velas) activado. RSI reiniciado (${td.rsi.toFixed(0)}). ${candleLabel}. Volumen ${td.rvol.toFixed(1)}x`,
-        fr: `Power Pullback (${td.n_candles} bougies) déclenché. RSI réinitialisé (${td.rsi.toFixed(0)}). ${candleLabel}. Volume ${td.rvol.toFixed(1)}x`,
-        pt: `Power Pullback (${td.n_candles} candles) acionado. RSI resetado (${td.rsi.toFixed(0)}). ${candleLabel}. Volume ${td.rvol.toFixed(1)}x`,
+        tr: `Power Pullback (${td.n_candles} mum) tetiklendi. RSI reset (${formatNumber(td.rsi, 0)}). ${candleLabel}. Hacim ${formatNumber(td.rvol, 1)}x`,
+        en: `Power Pullback (${td.n_candles} candles) triggered. RSI reset (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
+        es: `Power Pullback (${td.n_candles} velas) activado. RSI reiniciado (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volumen ${formatNumber(td.rvol, 1)}x`,
+        fr: `Power Pullback (${td.n_candles} bougies) déclenché. RSI réinitialisé (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
+        pt: `Power Pullback (${td.n_candles} candles) acionado. RSI resetado (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
       }[l];
     }
     case "VOLUME_BREAKOUT":
       if (td.rvol == null || td.price == null) return null;
       return {
-        tr: `Hacimli Kırılım yakalandı: Güçlü yükseliş hacmi (${td.rvol.toFixed(1)}x) + Fiyat kırılımı ($${td.price.toFixed(2)} > son 4 mum yüksekliği)`,
-        en: `Volume Breakout captured: strong bullish volume (${td.rvol.toFixed(1)}x) + price breakout ($${td.price.toFixed(2)} > last 4-candle high)`,
-        es: `Ruptura por volumen capturada: volumen alcista fuerte (${td.rvol.toFixed(1)}x) + ruptura de precio ($${td.price.toFixed(2)} > máximo de las últimas 4 velas)`,
-        fr: `Cassure sur volume capturée : fort volume haussier (${td.rvol.toFixed(1)}x) + cassure de prix (${td.price.toFixed(2)}$ > plus haut des 4 dernières bougies)`,
-        pt: `Rompimento por volume capturado: forte volume de alta (${td.rvol.toFixed(1)}x) + rompimento de preço ($${td.price.toFixed(2)} > máxima das últimas 4 velas)`,
+        tr: `Hacimli Kırılım yakalandı: Güçlü yükseliş hacmi (${formatNumber(td.rvol, 1)}x) + Fiyat kırılımı ($${formatNumber(td.price, 2)} > son 4 mum yüksekliği)`,
+        en: `Volume Breakout captured: strong bullish volume (${formatNumber(td.rvol, 1)}x) + price breakout ($${formatNumber(td.price, 2)} > last 4-candle high)`,
+        es: `Ruptura por volumen capturada: volumen alcista fuerte (${formatNumber(td.rvol, 1)}x) + ruptura de precio ($${formatNumber(td.price, 2)} > máximo de las últimas 4 velas)`,
+        fr: `Cassure sur volume capturée : fort volume haussier (${formatNumber(td.rvol, 1)}x) + cassure de prix (${formatNumber(td.price, 2)}$ > plus haut des 4 dernières bougies)`,
+        pt: `Rompimento por volume capturado: forte volume de alta (${formatNumber(td.rvol, 1)}x) + rompimento de preço ($${formatNumber(td.price, 2)} > máxima das últimas 4 velas)`,
       }[l];
     default:
       return null; // bilinmeyen/yeni bir tip — yanlış dilde göstermektense hiç gösterme
@@ -337,7 +338,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
 
           {swingPick.entry_status === "ENTERED" && swingPick.entry_zone && (
             <div className="text-xs text-green-400">
-              {t.entryZone}: ${swingPick.entry_zone.low.toFixed(2)} – ${swingPick.entry_zone.high.toFixed(2)}
+              {t.entryZone}: ${formatNumber(swingPick.entry_zone.low, 2)} – ${formatNumber(swingPick.entry_zone.high, 2)}
             </div>
           )}
 

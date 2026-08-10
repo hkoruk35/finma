@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
 import { SizeUnit } from "@/lib/smartTracker";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface AddToTrackerButtonProps {
   pick: {
@@ -93,15 +94,15 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             <div className="grid grid-cols-3 gap-2 mb-5 bg-[#141924] rounded-xl p-3">
               <div className="text-center">
                 <div className="text-[9px] text-[#3b82f6] font-medium uppercase mb-0.5">Buy Zone</div>
-                <div className="text-white text-[11px] font-mono font-medium">${pick.buy_zone.low.toFixed(2)}</div>
+                <div className="text-white text-[11px] font-mono font-medium">${formatNumber(pick.buy_zone.low, 2)}</div>
               </div>
               <div className="text-center">
                 <div className="text-[9px] text-[#10b981] font-medium uppercase mb-0.5">Target</div>
-                <div className="text-[#10b981] text-[11px] font-mono font-medium">${pick.profit_zone.high.toFixed(2)}</div>
+                <div className="text-[#10b981] text-[11px] font-mono font-medium">${formatNumber(pick.profit_zone.high, 2)}</div>
               </div>
               <div className="text-center">
                 <div className="text-[9px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</div>
-                <div className="text-[#ef4444] text-[11px] font-mono font-medium">${pick.stop_zone.low.toFixed(2)}</div>
+                <div className="text-[#ef4444] text-[11px] font-mono font-medium">${formatNumber(pick.stop_zone.low, 2)}</div>
               </div>
             </div>
 
@@ -142,7 +143,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
               />
               {sizeUnit === "usd" && pick.current_price > 0 && (
                 <div className="text-[10px] text-[#00d2ff] mt-1.5">
-                  ≈ {(sizeValue / pick.current_price).toFixed(2)} shares @ ${pick.current_price.toFixed(2)}
+                  ≈ {formatNumber(sizeValue / pick.current_price, 2)} shares @ ${formatNumber(pick.current_price, 2)}
                 </div>
               )}
             </div>

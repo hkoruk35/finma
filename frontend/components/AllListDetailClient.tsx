@@ -8,6 +8,7 @@ import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useTracker } from "@/components/TrackerContext";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { sectorFromSlug } from "@/lib/sectorHeatMap";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface HourlyBar {
   time: string;
@@ -34,9 +35,9 @@ const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: 
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
 const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
 
-const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
-const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 1) : "—");
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 
 const normalizeGicsSector = (sec: string | undefined): string => {
   if (!sec) return "Other";

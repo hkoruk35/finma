@@ -4,19 +4,20 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { OptionsOutcomes, OptionPosition } from "@/lib/data";
 import TickerHoverChart from "./TickerHoverChart";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function fmtD(n: number | null | undefined, d = 2) {
-  return n == null ? "—" : n.toFixed(d);
+  return n == null ? "—" : formatNumber(n, d);
 }
 function fmtPct(n: number | null | undefined) {
   if (n == null) return "—";
-  return (n >= 0 ? "+" : "") + n.toFixed(1) + "%";
+  return (n >= 0 ? "+" : "") + formatNumber(n, 1) + "%";
 }
 function dollar(n: number | null | undefined, d = 2) {
   if (n == null) return "—";
-  return "$" + n.toFixed(d);
+  return "$" + formatNumber(n, d);
 }
 function pnlCls(n: number | null | undefined) {
   if (n == null) return "text-slate-500";
@@ -105,13 +106,13 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       p.scan_date, p.ticker, p.strategy,
       p.strike ? `$${p.strike} C` : "—",
       p.expiration || "—",
-      p.entry_premium?.toFixed(2) ?? "—",
-      p.current_premium?.toFixed(2) ?? "—",
-      p.tp_target?.toFixed(2) ?? "—",
-      p.sl_target?.toFixed(2) ?? "—",
+      formatNumber(p.entry_premium?, 2) ?? "—",
+      formatNumber(p.current_premium?, 2) ?? "—",
+      formatNumber(p.tp_target?, 2) ?? "—",
+      formatNumber(p.sl_target?, 2) ?? "—",
       p.status,
-      p.pnl_pct?.toFixed(1) ?? "—",
-      p.unrealized_pnl_pct?.toFixed(1) ?? "—",
+      formatNumber(p.pnl_pct?, 1) ?? "—",
+      formatNumber(p.unrealized_pnl_pct?, 1) ?? "—",
       p.days_held ?? "—",
     ].join("\t")).join("\n");
     navigator.clipboard.writeText(header + "\n" + rows);
@@ -124,13 +125,13 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       p.scan_date, p.ticker, p.strategy,
       p.strike ? p.strike + " C" : "",
       p.expiration || "",
-      p.entry_premium?.toFixed(2) ?? "",
-      p.current_premium?.toFixed(2) ?? "",
-      p.tp_target?.toFixed(2) ?? "",
-      p.sl_target?.toFixed(2) ?? "",
+      formatNumber(p.entry_premium?, 2) ?? "",
+      formatNumber(p.current_premium?, 2) ?? "",
+      formatNumber(p.tp_target?, 2) ?? "",
+      formatNumber(p.sl_target?, 2) ?? "",
       p.status,
-      p.pnl_pct?.toFixed(1) ?? "",
-      p.unrealized_pnl_pct?.toFixed(1) ?? "",
+      formatNumber(p.pnl_pct?, 1) ?? "",
+      formatNumber(p.unrealized_pnl_pct?, 1) ?? "",
       p.days_held ?? "",
       p.exit_date ?? "",
       (p.exit_reason || "").replace(/,/g, ";"),
@@ -151,13 +152,13 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       p.scan_date, p.ticker, p.strategy,
       p.strike ? p.strike + " C" : "",
       p.expiration || "",
-      p.entry_premium?.toFixed(2) ?? "",
-      p.current_premium?.toFixed(2) ?? "",
-      p.tp_target?.toFixed(2) ?? "",
-      p.sl_target?.toFixed(2) ?? "",
+      formatNumber(p.entry_premium?, 2) ?? "",
+      formatNumber(p.current_premium?, 2) ?? "",
+      formatNumber(p.tp_target?, 2) ?? "",
+      formatNumber(p.sl_target?, 2) ?? "",
       p.status,
-      p.pnl_pct?.toFixed(1) ?? "",
-      p.unrealized_pnl_pct?.toFixed(1) ?? "",
+      formatNumber(p.pnl_pct?, 1) ?? "",
+      formatNumber(p.unrealized_pnl_pct?, 1) ?? "",
       p.days_held ?? "",
       p.exit_date ?? "",
       p.exit_reason ?? "",

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from 'react';
+import { formatNumber } from "@/lib/formatNumber";
 
 const ProfitSimulator = () => {
   const [capital, setCapital] = useState(1000);
@@ -35,7 +36,7 @@ const ProfitSimulator = () => {
   }, [capital, monthlyRate]);
 
   const finalValue = compoundingData[12];
-  const alphaEdge = (monthlyReturn * 100 - 0.7).toFixed(1); // S&P 500 avg monthly is ~0.7-0.8%
+  const alphaEdge = formatNumber(monthlyReturn * 100 - 0.7, 1); // S&P 500 avg monthly is ~0.7-0.8%
 
   // SVG Chart Helper
   const maxVal = Math.max(...compoundingData) * 1.1;
@@ -122,7 +123,7 @@ const ProfitSimulator = () => {
                  <div className="flex items-baseline gap-2">
                     <p className="text-3xl md:text-4xl font-mono font-medium text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
                     <span className={`text-sm md:text-base font-medium ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                       +{((estimatedMonthly/capital - 1)*100).toFixed(1)}%
+                       +{formatNumber(((estimatedMonthly/capital - 1)*100), 1)}%
                     </span>
                  </div>
               </div>

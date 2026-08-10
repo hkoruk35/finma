@@ -9,6 +9,7 @@ import { useTracker } from "@/components/TrackerContext";
 import { computePnl } from "@/lib/smartTracker";
 
 import { useMemberSession } from "@/hooks/useMemberSession";
+import { formatNumber } from "@/lib/formatNumber";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -782,7 +783,7 @@ export default function TerminalClient() {
                   <div className="flex flex-col">
                     <span className="text-[8px] text-slate-500 uppercase">RSI (1H)</span>
                     <span className={`text-[10px] font-medium ${selectedSignal.intraday.rsi_1h > 70 ? "text-red-400" : selectedSignal.intraday.rsi_1h < 30 ? "text-emerald-400" : "text-white"}`}>
-                      {selectedSignal.intraday.rsi_1h.toFixed(1)}
+                      {formatNumber(selectedSignal.intraday.rsi_1h, 1)}
                     </span>
                   </div>
                   <div className="flex flex-col">
@@ -791,7 +792,7 @@ export default function TerminalClient() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[8px] text-slate-500 uppercase">Vol Ratio</span>
-                    <span className="text-[10px] font-medium text-[#00d2ff]">{selectedSignal.intraday.volume_ratio.toFixed(2)}x</span>
+                    <span className="text-[10px] font-medium text-[#00d2ff]">{formatNumber(selectedSignal.intraday.volume_ratio, 2)}x</span>
                   </div>
                 </div>
               )}
@@ -937,7 +938,7 @@ export default function TerminalClient() {
                         <div className="flex items-center gap-1.5">
                           <span className="text-[12px] font-medium text-white">{ticker}</span>
                           <span className="text-[10px] font-medium text-[#3b82f6] bg-[#3b82f6]/10 px-1 rounded">
-                            {score.toFixed(0)}
+                            {formatNumber(score, 0)}
                           </span>
                         </div>
                         <span className="text-[11px] font-mono text-white">{fmt(price)}</span>

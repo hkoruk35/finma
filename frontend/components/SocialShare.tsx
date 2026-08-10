@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface SocialShareProps {
   ticker?: string;
@@ -15,7 +16,7 @@ export default function SocialShare({ ticker, score, scoreType, url, hideHeader 
   const currentUrl = url || (typeof window !== "undefined" ? window.location.href : "");
 
   const shareText = ticker
-    ? `$${ticker} scored ${score?.toFixed(1)}/100 on BOGA AI today! ${scoreType?.replace("_", " ")} score. #stocks #investing`
+    ? `$${ticker} scored ${formatNumber(score?, 1)}/100 on BOGA AI today! ${scoreType?.replace("_", " ")} score. #stocks #investing`
     : "Check out BOGA AI - Blue One Global Analysis - Daily +500 stocks — AI-powered US stock analysis and scores.";
 
   const encodedText = encodeURIComponent(shareText);

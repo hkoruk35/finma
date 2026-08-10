@@ -10,6 +10,7 @@ import { STATUS_STYLE, statusLabel } from './HomeWatchlistSlot';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
 import CompareCheckbox from './CompareCheckbox';
+import { formatNumber } from "@/lib/formatNumber";
 
 interface Stock {
   ticker: string;
@@ -243,13 +244,13 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
 
                   <div className="text-right shrink-0">
                     <div className={`${compactMode ? 'text-[12px]' : 'text-[13px]'} font-mono font-medium text-white/90`}>
-                      {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
+                      {stock.price > 0 ? `$${formatNumber(stock.price, 2)}` : '—'}
                     </div>
                     <div
                       className={`${compactMode ? 'text-[11px]' : 'text-[9px]'} font-medium font-mono`}
                       style={{ color: stock.change_pct >= 0 ? '#22c55e' : '#ef4444' }}
                     >
-                      {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                      {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2)}%
                     </div>
                   </div>
                 </div>

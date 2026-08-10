@@ -9,6 +9,7 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import PremiumModal from "@/components/global/PremiumModal";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
+import { formatNumber } from "@/lib/formatNumber";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -40,10 +41,10 @@ interface LiveData {
   hourly?: HourlyBar[];
 }
 
-const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
-const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? formatNumber(n, 1) : "—");
 const fmtVol = (v: number | null | undefined) =>
-  !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+  !v ? "—" : v >= 1e6 ? formatNumber(v / 1e6, 2) + "M" : v >= 1e3 ? formatNumber(v / 1e3, 1) + "K" : String(v);
 
 function rsiColor(rsi: number | undefined) {
   if (rsi == null) return "#8b949e";
@@ -618,12 +619,12 @@ export default function ThemeSwingTracker({ locale, tickers, isLockedTheme }: Th
                         const heatTextColor = pct == null ? "#333333" : pct >= 2.0 ? "#56d364" : pct >= 1.0 ? "#3fb950" : pct >= 0.3 ? "#3fb950" : pct > -0.3 ? "#8b949e" : pct > -1.0 ? "#f85149" : pct > -2.0 ? "#f85149" : "#ff7b72";
                         return (
                           <td key={h} style={{ padding: "10px 14px", textAlign: "center", background: heatBgColor, color: heatTextColor, fontSize: 12, fontWeight: 700, minWidth: 72 }}>
-                            {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                            {pct != null ? `${pct >= 0 ? "+" : ""}${formatNumber(pct, 1)}%` : <span style={{ color: "#333" }}>—</span>}
                           </td>
                         );
                       })}
                       <td style={{ padding: "10px 14px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
-                        {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
+                        {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${formatNumber(dayPct, 1)}%` : "—"}
                       </td>
                     </tr>
                   );

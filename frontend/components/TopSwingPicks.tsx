@@ -9,6 +9,7 @@ import MiniChart from "./stock/MiniChart";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import AddToTrackerButton from "@/components/AddToTrackerButton";
+import { formatNumber } from "@/lib/formatNumber";
 
 interface SwingPick {
   rank: number;
@@ -169,7 +170,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   <div className={`flex flex-col gap-2 mb-6 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
                     <div className="flex items-end gap-2">
                       <div className="text-5xl md:text-4xl font-mono font-medium text-white leading-none">
-                        {item.score != null ? item.score.toFixed(1) : "—"}
+                        {item.score != null ? formatNumber(item.score, 1) : "—"}
                       </div>
                       <div className="text-[10px] md:text-[9px] text-[#3b82f6] font-medium uppercase tracking-[0.15em] mb-1">
                         SCORE
@@ -247,7 +248,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                       {metrics.map((p, i) => (
                         <div key={i} className="flex flex-col items-center py-2 px-1">
                           <span className={`text-[13px] font-mono font-medium ${p.val != null && p.val >= 0 ? "text-[#10b981]" : p.val != null ? "text-[#ef4444]" : "text-[#00d2ff]"}`}>
-                            {p.val != null ? `${p.val >= 0 ? '+' : ''}${p.val.toFixed(1)}%` : "—"}
+                            {p.val != null ? `${p.val >= 0 ? '+' : ''}${formatNumber(p.val, 1)}%` : "—"}
                           </span>
                           <span className="text-[8px] text-white font-medium mt-0.5 uppercase">{p.label}</span>
                         </div>

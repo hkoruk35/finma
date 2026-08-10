@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Locale } from '@/lib/i18n/copy';
+import { formatNumber } from "@/lib/formatNumber";
 
 export interface SectorItem {
   ticker: string;
@@ -126,7 +127,7 @@ export default function SectorHeatmaps({ locale, items, dailyQuotes }: { locale:
                     const c = hourly === null && tab === 'hourly' ? { bg: '#111111', text: '#333333' } : heatBg(pct);
                     return (
                       <td key={i} className="px-2 py-1.5 text-center" style={{ background: c.bg, color: c.text }}>
-                        {pct != null ? `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%` : hourly === null && tab === 'hourly' ? '···' : '—'}
+                        {pct != null ? `${pct >= 0 ? '+' : ''}${formatNumber(pct, 1)}%` : hourly === null && tab === 'hourly' ? '···' : '—'}
                       </td>
                     );
                   })}

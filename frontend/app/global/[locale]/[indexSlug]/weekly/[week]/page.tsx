@@ -12,6 +12,7 @@ import {
 } from "@/lib/indexSnapshots";
 import { getArticleStructuredData, getBreadcrumbStructuredData } from "@/app/structured-data";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
+import { formatNumber } from "@/lib/formatNumber";
 
 export const revalidate = 900;
 
@@ -177,17 +178,17 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
               <IndexStatTable
                 columns={2}
                 items={[
-                  { label: t.close, value: snapshot.close?.toFixed(2) ?? "—" },
+                  { label: t.close, value: formatNumber(snapshot.close?, 2) ?? "—" },
                   {
                     label: t.change,
-                    value: snapshot.change_pct_week != null ? `${snapshot.change_pct_week.toFixed(2)}%` : "—",
+                    value: snapshot.change_pct_week != null ? `${formatNumber(snapshot.change_pct_week, 2)}%` : "—",
                     positive: snapshot.change_pct_week != null ? snapshot.change_pct_week >= 0 : undefined,
                   },
                   { label: t.trendStrength, value: snapshot.trend_strength ?? "—" },
                   { label: t.volatilityRegime, value: snapshot.volatility_regime ?? "—" },
                   {
                     label: t.breadthChange,
-                    value: snapshot.breadth_change != null ? snapshot.breadth_change.toFixed(2) : "—",
+                    value: snapshot.breadth_change != null ? formatNumber(snapshot.breadth_change, 2) : "—",
                     positive: snapshot.breadth_change != null ? snapshot.breadth_change >= 0 : undefined,
                   },
                   { label: t.priorWeekAccuracy, value: snapshot.prior_week_outlook_accuracy ?? "—" },

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formatAssetPrice } from "@/lib/symbols";
 import type { Locale } from "@/lib/i18n/copy";
+import { formatNumber } from "@/lib/formatNumber";
 
 export interface AssetClassItem {
   ticker: string;
@@ -46,7 +47,7 @@ export default function HomeAssetClassSection({
                 className="text-[11px] font-medium mt-0.5"
                 style={{ color: !item.quote ? "#8b949e" : positive ? "#3fb950" : "#f85149" }}
               >
-                {item.quote ? `${positive ? "+" : ""}${item.quote.change_pct.toFixed(2)}%` : "—"}
+                {item.quote ? `${positive ? "+" : ""}${formatNumber(item.quote.change_pct, 2)}%` : "—"}
               </div>
             </Link>
           );
