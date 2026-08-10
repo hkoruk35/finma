@@ -38,7 +38,7 @@ const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 export async function fetchLiveQuotes(tickers: string[]): Promise<Record<string, any>> {
   if (tickers.length === 0) return {};
   try {
-    const res = await fetch(`${BASE_URL}/api/watchlist-data?tickers=${tickers.join(",")}`, {
+    const res = await fetch(`${BASE_URL}/api/watchlist-data?cb=1&tickers=${tickers.join(",")}`, {
       next: { revalidate: CACHE_TIME },
       signal: AbortSignal.timeout(20000),
     });
@@ -290,7 +290,7 @@ const INDEX_TICKERS: Record<string, string> = {
 export async function getLiveIndices(): Promise<Record<string, { value: number; change_pct: number }>> {
   const symbols = Object.values(INDEX_TICKERS).join(",");
   try {
-    const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(symbols)}`, {
+    const res = await fetch(`${BASE_URL}/api/quote?cb=1&tickers=${encodeURIComponent(symbols)}`, {
       next: { revalidate: CACHE_TIME },
       signal: AbortSignal.timeout(15000),
     });
@@ -321,7 +321,7 @@ export async function getLiveIndices(): Promise<Record<string, { value: number; 
 export async function getMultiQuote(tickers: string[]): Promise<Record<string, { value: number; change_pct: number; recent_closes: number[] }>> {
   if (tickers.length === 0) return {};
   try {
-    const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(tickers.join(","))}`, {
+    const res = await fetch(`${BASE_URL}/api/quote?cb=1&tickers=${encodeURIComponent(tickers.join(","))}`, {
       next: { revalidate: CACHE_TIME },
       signal: AbortSignal.timeout(15000),
     });
