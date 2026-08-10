@@ -1,35 +1,11 @@
 {
-  "generated_at": "2026-08-10T14:06:16.088090-04:00",
+  "generated_at": "2026-08-10T17:04:03.017655-04:00",
   "picks": [
-    {
-      "ticker": "ADI",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 50.5
-    },
     {
       "ticker": "ZETA",
       "sector": "Technology",
       "date_added": "2026-08-10",
       "score": 47.0
-    },
-    {
-      "ticker": "NOVT",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 44.5
-    },
-    {
-      "ticker": "FLYW",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 44.5
-    },
-    {
-      "ticker": "DXCM",
-      "sector": "Healthcare",
-      "date_added": "2026-08-10",
-      "score": 43.5
     },
     {
       "ticker": "TGT",
@@ -44,22 +20,58 @@
       "score": 43.5
     },
     {
-      "ticker": "RAL",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 38.0
-    },
-    {
-      "ticker": "CLH",
-      "sector": "Industrials",
-      "date_added": "2026-08-10",
-      "score": 38.0
-    },
-    {
       "ticker": "FTI",
       "sector": "Energy",
       "date_added": "2026-08-10",
       "score": 36.5
+    },
+    {
+      "ticker": "TDY",
+      "sector": "Technology",
+      "date_added": "2026-08-10",
+      "score": 50.5
+    },
+    {
+      "ticker": "STLD",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-10",
+      "score": 48.0
+    },
+    {
+      "ticker": "BCC",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-10",
+      "score": 45.0
+    },
+    {
+      "ticker": "RL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-10",
+      "score": 43.5
+    },
+    {
+      "ticker": "GMED",
+      "sector": "Healthcare",
+      "date_added": "2026-08-10",
+      "score": 41.0
+    },
+    {
+      "ticker": "ARIS",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-10",
+      "score": 40.0
+    },
+    {
+      "ticker": "MDGL",
+      "sector": "Healthcare",
+      "date_added": "2026-08-10",
+      "score": 40.0
+    },
+    {
+      "ticker": "FTDR",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-10",
+      "score": 39.0
     }
   ]
 }
