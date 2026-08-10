@@ -8,6 +8,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { formatAssetPrice, getAssetCategory } from "@/lib/symbols";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import type { AiMarketCommentary } from "@/lib/marketCommentaryEngine";
+import { getIndexBySymbol } from "@/lib/indices";
 
 function registerHref(locale: Locale): string {
   return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
@@ -60,8 +61,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const { isPremium, plan } = useMemberPlan();
   const isLoggedIn = plan !== null;
 
-  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX"];
-  const isStock = !INDEX_TICKERS.includes(ticker) && getAssetCategory(ticker) === "stock";
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"];
+  const isStock = !INDEX_TICKERS.includes(ticker) && !getIndexBySymbol(ticker) && getAssetCategory(ticker) === "stock";
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
 
