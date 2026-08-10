@@ -611,23 +611,25 @@ export default function BogaChartEngine({
       handleScale: { mouseWheel: false, axisPressedMouseMove: true, pinch: true },
     });
 
-    const volumeSeries = chart.addSeries(
-      HistogramSeries,
-      { priceFormat: { type: "volume" }, priceScaleId: "" },
-      1
-    );
-    volumeSeries.priceScale().applyOptions({
-      scaleMargins: {
-        top: 0.8, // leave top 80% for candles
-        bottom: 0,
-      },
-    });
     const hideVolumePane = indicatorsProp && !indicatorsProp.includes("volume");
-    const volumePaneHeight = hideVolumePane ? 0 : (compact ? Math.max(30, Math.min(70, Math.round((height ?? 240) * 0.2))) : 150);
-    chart.panes()[1]?.setHeight(volumePaneHeight);
+    if (!hideVolumePane) {
+      const volumeSeries = chart.addSeries(
+        HistogramSeries,
+        { priceFormat: { type: "volume" }, priceScaleId: "" },
+        1
+      );
+      volumeSeries.priceScale().applyOptions({
+        scaleMargins: {
+          top: 0.8, // leave top 80% for candles
+          bottom: 0,
+        },
+      });
+      const volumePaneHeight = compact ? Math.max(30, Math.min(70, Math.round((height ?? 240) * 0.2))) : 150;
+      chart.panes()[1]?.setHeight(volumePaneHeight);
+      volumeSeriesRef.current = volumeSeries;
+    }
 
     chartRef.current = chart;
-    volumeSeriesRef.current = volumeSeries;
 
     chart.subscribeCrosshairMove((param) => {
       if (!param.time) {
