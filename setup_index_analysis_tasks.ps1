@@ -48,14 +48,28 @@ try { Unregister-ScheduledTask -TaskName "BOGA_AI_Index_EU_Midday" -Confirm:$fal
 try { Unregister-ScheduledTask -TaskName "BOGA_AI_Index_Weekly" -Confirm:$false -ErrorAction SilentlyContinue } catch {}
 
 # --- GUNLUK ANALIZLER (Local Close + 5 Dk ET karsiliklari) ---
+#
+# NOT (2026-08-10): Canlida kayitli gorevler bu dosyayla UYUSMUYORDU — hepsi
+# argumansiz "index_daily_analyzer.py" ile kayitliydi (yani her gorev 21
+# sembolun tamamini tariyordu) ve US_Closing 16:30'daydi. Bu dosya tekrar tek
+# kaynak yapildi; degisiklikler FIX_INDEX_TASKS_ADMIN.bat ile uygulanir.
 Set-BogaTask -Name "BOGA_AI_Index_Asia_Daily1"  -Script "index_daily_analyzer.py" -Args "--symbols=NIKKEI225,ASX200" -StartTime "02:05:00"
 Set-BogaTask -Name "BOGA_AI_Index_Asia_Daily2"  -Script "index_daily_analyzer.py" -Args "--symbols=KOSPI" -StartTime "02:35:00"
 Set-BogaTask -Name "BOGA_AI_Index_Asia_Daily3"  -Script "index_daily_analyzer.py" -Args "--symbols=SHANGHAI" -StartTime "03:05:00"
 Set-BogaTask -Name "BOGA_AI_Index_Asia_Daily4"  -Script "index_daily_analyzer.py" -Args "--symbols=HANGSENG" -StartTime "04:05:00"
 Set-BogaTask -Name "BOGA_AI_Index_Asia_Daily5"  -Script "index_daily_analyzer.py" -Args "--symbols=NIFTY50" -StartTime "06:05:00"
-Set-BogaTask -Name "BOGA_AI_Index_EU_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=DAX,FTSE100,CAC40,IBEX35,STOXX600,FTSEMIB,SMI,AEX" -StartTime "11:35:00"
-Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily1" -Script "index_daily_analyzer.py" -Args "--symbols=BOVESPA,MERVAL" -StartTime "16:05:00"
-Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily2" -Script "index_daily_analyzer.py" -Args "--symbols=IPCMEXICO" -StartTime "17:05:00"
+
+# Avrupa: 11:35 ET, DAX/CAC/IBEX/STOXX/MIB/SMI/AEX'in tetik saatiyle (17:35 yerel)
+# TAM AYNI dakikaydi — sifir tolerans. 11:45'e alindi (kapanistan 15 dk sonra).
+Set-BogaTask -Name "BOGA_AI_Index_EU_Closing"   -Script "index_daily_analyzer.py" -Args "--symbols=DAX,FTSE100,CAC40,IBEX35,STOXX600,FTSEMIB,SMI,AEX" -StartTime "11:45:00"
+
+# 16:05 ET'de ABD kapanisi ile LatAm kapanisi ust uste biniyordu (sahibin
+# 2026-08-10 talebi): once ABD, 5 dk sonra LatAm.
+Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily1" -Script "index_daily_analyzer.py" -Args "--symbols=BOVESPA,MERVAL,IPCMEXICO" -StartTime "16:10:00"
+
+# Gunun kurtarma koşusu: US/EU/LatAm'da eksik veya AI'siz kalmis ne varsa
+# tamamlar (--only-missing sayesinde tamam olanlara dokunmaz).
+Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily2" -Script "index_daily_analyzer.py" -Args "--only-missing --symbols=SPX,NDX,DJI,RUT,DAX,FTSE100,CAC40,IBEX35,STOXX600,FTSEMIB,SMI,AEX,BOVESPA,MERVAL,IPCMEXICO" -StartTime "17:05:00"
 
 # --- ABD GUNLUK ANALIZLERI (Mevcut Sabit Yapi) ---
 Set-BogaTask -Name "BOGA_AI_Index_US_PreMarket" -Script "index_daily_analyzer.py" -Args "--symbols=SPX,NDX,DJI,RUT" -StartTime "09:00:00"

@@ -45,6 +45,11 @@ FULL_SCAN_HOURS_NY = {9, 14, 17}
 ACTIVE_SCAN_HOURS_NY = set(range(9, 18))
 
 # swing117_boga.py ile ayni Telegram kanali (v117.v2'den beri kullanilan sabitler)
+#
+# Telegram bildirimleri KULLANILMIYOR (sahibin 2026-08-10 karari). Token gecersiz
+# oldugu icin her saatlik koşuda "Telegram error 401" uyarisi log'a dusuyordu ve
+# gercek arizalari gizliyordu — gonderim artik bayrakla kapali.
+ENABLE_TELEGRAM = False
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID = "-1003569445341"
 
@@ -62,6 +67,8 @@ GIT_PATHS = [
 
 
 def send_telegram(message: str):
+    if not ENABLE_TELEGRAM:
+        return
     try:
         resp = requests.post(
             f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage",

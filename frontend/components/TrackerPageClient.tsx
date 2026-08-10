@@ -8,6 +8,7 @@ import * as XLSX from "xlsx";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { formatNumber } from "@/lib/formatNumber";
+import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -107,7 +108,8 @@ export function TrackerPageClient() {
   const isReadonly = role === "readonly";
   const [data, setData] = useState<Record<string, TrackerData>>({});
   const [loading, setLoading] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Verinin sunucudaki uretim zamani (ISO) — tarayici saati DEGIL.
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
   const [filterType, setFilterType] = useState("");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
@@ -131,7 +133,7 @@ export function TrackerPageClient() {
       const map: Record<string, TrackerData> = {};
       results.forEach((item: TrackerData) => { if (item?.ticker) map[item.ticker] = item; });
       setData(map);
-      setLastUpdated(new Date());
+      setLastUpdated(latestGeneratedAt(results));
     } catch {}
     finally { setLoading(false); }
   }, [tickers]);
@@ -276,7 +278,7 @@ export function TrackerPageClient() {
               BOGA TRACKER — ACTIVE
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
+              {formatUpdatedAtET(lastUpdated, "tr") && <span>son güncelleme: {formatUpdatedAtET(lastUpdated, "tr")}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
                 ● {isMarketOpen() ? "market açık" : "market kapalı"}
               </span>

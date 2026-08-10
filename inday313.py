@@ -2036,7 +2036,9 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
 # 🔹 Telegram Notification Settings
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID = "-1003569445341"
-ENABLE_TELEGRAM_NOTIFICATIONS = True
+# Telegram bildirimleri KULLANILMIYOR (sahibin 2026-08-10 karari) — diger tum
+# canli botlarla (swing117, opsiyon242, daytrade_atmaca_v2) ayni sekilde kapali.
+ENABLE_TELEGRAM_NOTIFICATIONS = False
 
 
 _TELEGRAM_SESSION: Optional[aiohttp.ClientSession] = None

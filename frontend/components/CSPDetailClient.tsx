@@ -7,6 +7,7 @@ import { useTracker } from "@/components/TrackerContext";
 import * as XLSX from "xlsx";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { formatNumber } from "@/lib/formatNumber";
+import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -152,7 +153,8 @@ export default function CSPDetailClient({ slug }: Props) {
   // ── UI state ──────────────────────────────────────────────────────────────
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Verinin sunucudaki uretim zamani (ISO) — tarayici saati DEGIL.
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
@@ -256,7 +258,7 @@ export default function CSPDetailClient({ slug }: Props) {
       }
 
       setData(map);
-      setLastUpdated(new Date());
+      setLastUpdated(latestGeneratedAt(results));
     } catch (err) {
       console.error("[CSPDetail] Fetch error:", err);
       // Retry on error if not already retried
@@ -400,7 +402,7 @@ export default function CSPDetailClient({ slug }: Props) {
               </Link>
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
-              {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
+              {formatUpdatedAtET(lastUpdated, "tr") && <span>son güncelleme: {formatUpdatedAtET(lastUpdated, "tr")}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
                 ● {isMarketOpen() ? "market açık" : "market kapalı"}
               </span>

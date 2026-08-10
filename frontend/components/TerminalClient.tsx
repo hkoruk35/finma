@@ -526,6 +526,9 @@ export default function TerminalClient() {
         }
         return next;
       });
+      // Burada `new Date()` DOGRU: /api/quote canli Yahoo gecisi (no-store),
+      // yani veri istek aninda uretiliyor ve bu bir "son yenileme" gostergesi.
+      // Yaninda "ET" etiketi de yok — liste yuzeylerindeki hatadan farkli.
       setLastUpdated(new Date());
     } catch {}
   }, []);

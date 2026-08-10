@@ -4162,7 +4162,10 @@ async def send_telegram_message(message: str):
 
 
 async def send_telegram_photo(photo_path: str, caption: str = ""):
-    if not TELEGRAM_API_KEY or not os.path.exists(photo_path): return
+    # send_telegram_message ile ayni bayragi kullanir — daha once bu fonksiyon
+    # ENABLE_TELEGRAM_NOTIFICATIONS'i kontrol etmiyordu ve bildirimler "kapali"
+    # olmasina ragmen foto gondermeye calisiyordu (2026-08-10'da tespit edildi).
+    if not ENABLE_TELEGRAM_NOTIFICATIONS or not TELEGRAM_API_KEY or not os.path.exists(photo_path): return
     url = f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendPhoto"
     async with aiohttp.ClientSession() as session:
         try:
@@ -4783,7 +4786,13 @@ async def send_weekly_performance_report():
         )
 
         await send_telegram_message(msg)
-        logging.info("📊 Haftalık performans raporu Telegram'a gönderildi.")
+        # send_telegram_message bayrak kapaliyken sessizce donuyor — bu satir
+        # eskiden kosulsuz "gönderildi" yaziyordu ve log'da sahte basari
+        # uretiyordu (2026-08-10'da tespit edildi).
+        if ENABLE_TELEGRAM_NOTIFICATIONS:
+            logging.info("📊 Haftalık performans raporu Telegram'a gönderildi.")
+        else:
+            logging.info("📊 Haftalık performans raporu hazırlandı (Telegram kapalı, gönderilmedi).")
 
     except Exception as e:
         logging.error(f"❌ Haftalık rapor hatası: {e}")

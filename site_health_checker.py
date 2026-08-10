@@ -12,6 +12,11 @@ import shutil
 import subprocess
 
 # Yapilandirma
+#
+# Telegram bildirimleri KULLANILMIYOR (sahibin 2026-08-10 karari). Saglik raporu
+# artik SADECE logs/site_health_checker.log dosyasina yazilir; gonderim bayrakla
+# kapali (token gecersiz oldugu icin her koşuda sessiz 401 aliniyordu).
+ENABLE_TELEGRAM = False
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID = "-1003569445341"
 NY_TZ = ZoneInfo("America/New_York")
@@ -60,6 +65,8 @@ FILES = {
 }
 
 async def send_telegram(message):
+    if not ENABLE_TELEGRAM:
+        return None
     url = f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage"
     payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"}
     try:

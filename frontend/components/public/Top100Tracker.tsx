@@ -12,6 +12,7 @@ import PremiumModal from "@/components/global/PremiumModal";
 import type { Top100Row } from "@/app/api/top100/route";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { formatNumber } from "@/lib/formatNumber";
+import { formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -107,7 +108,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Sunucudan gelen snapshot damgasi (ISO). Tarayici saati DEGIL — bkz. lib/formatUpdatedAt.ts
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [filterSource, setFilterSource] = useState<"" | "fixed" | "swing_daily">("fixed");
   const [filterSignal, setFilterSignal] = useState("");
   const [filterSector, setFilterSector] = useState("");
@@ -155,7 +157,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           setLive(map);
         }
       }
-      setLastUpdated(new Date());
+      // /api/top100 snapshot'in gercek uretim zamanini dondurur (cron ile yazilir).
+      setLastUpdated(compData.lastUpdated ?? null);
       setError("");
     } catch {
       setError(t.error);
@@ -265,7 +268,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>{t.title}</div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
+              {formatUpdatedAtET(lastUpdated, locale) && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {formatUpdatedAtET(lastUpdated, locale)}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
               {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("STRONG", locale)}</span>}

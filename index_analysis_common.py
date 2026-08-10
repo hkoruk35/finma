@@ -78,10 +78,15 @@ class IndexDefinition:
 
 
 # US endeksleri: NYSE/Nasdaq takvimi (America/New_York, 09:30-16:00 ET)
+#
+# closing tetigi 16:30 -> 16:05 (sahibin 2026-08-10 talebi): 16:05 ET'de ABD ve
+# LatAm kapanislari cakisiyordu, once ABD analiz edilsin istendi. Tetik saati
+# gorevin saatiyle AYNI olmak zorunda — 16:05'te calisip tetik 16:30 kalsaydi
+# infer_session_for_index "midday" secer ve kapanis satiri hic yazilmazdi.
 _US_SCHEDULE = (
     AnalysisSession("premarket", "09:00"),
     AnalysisSession("midday", "13:00"),
-    AnalysisSession("closing", "16:30"),
+    AnalysisSession("closing", "16:05"),
 )
 
 # Avrupa (ve artik Asya/LatAm) endeksleri icin TEK gunluk oturum — sahibin
@@ -307,26 +312,46 @@ def supabase_select(table: str, params: dict) -> list[dict]:
 # ============================================================
 
 
-def fetch_history(yahoo_ticker: str, lookback_days: int = config.LOOKBACK_DAYS) -> Optional[pd.DataFrame]:
-    """yfinance ile gunluk OHLCV cekimi. Basarisiz olursa None doner (crash yok)."""
-    try:
-        df = yf.download(
-            yahoo_ticker,
-            period=f"{lookback_days}d",
-            interval="1d",
-            progress=False,
-            auto_adjust=True,
-            ignore_tz=True,
-        )
-        if df is None or df.empty:
-            return None
-        # yfinance bazen MultiIndex kolon donuyor (tek ticker'da bile) — duzlestir
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = df.columns.get_level_values(0)
-        return df.dropna(how="all")
-    except Exception as exc:
-        logger.warning(f"fetch_history({yahoo_ticker}) basarisiz: {exc}")
-        return None
+def fetch_history(
+    yahoo_ticker: str,
+    lookback_days: int = config.LOOKBACK_DAYS,
+    attempts: int = 3,
+) -> Optional[pd.DataFrame]:
+    """yfinance ile gunluk OHLCV cekimi. Basarisiz olursa None doner (crash yok).
+
+    Yeniden deneme: yfinance gecici olarak bos DataFrame veya rate-limit hatasi
+    donebiliyor. Tek denemede vazgecildiginde TUM semboller ayni koşuda
+    dusebiliyor — 2026-08-10'da BOGA_AI_Index_EU_Closing tam olarak boyle
+    "0 basarili" ile exit 1 verdi. Artik artan bekleme ile birkac kez denenir.
+    """
+    last_error: Optional[str] = None
+    for attempt in range(1, attempts + 1):
+        try:
+            df = yf.download(
+                yahoo_ticker,
+                period=f"{lookback_days}d",
+                interval="1d",
+                progress=False,
+                auto_adjust=True,
+                ignore_tz=True,
+            )
+            if df is not None and not df.empty:
+                # yfinance bazen MultiIndex kolon donuyor (tek ticker'da bile) — duzlestir
+                if isinstance(df.columns, pd.MultiIndex):
+                    df.columns = df.columns.get_level_values(0)
+                return df.dropna(how="all")
+            last_error = "bos DataFrame"
+        except Exception as exc:
+            last_error = str(exc)
+        if attempt < attempts:
+            wait = attempt * 5
+            logger.warning(
+                f"fetch_history({yahoo_ticker}) deneme {attempt}/{attempts} basarisiz "
+                f"({last_error}) — {wait}sn sonra tekrar denenecek."
+            )
+            time.sleep(wait)
+    logger.warning(f"fetch_history({yahoo_ticker}) {attempts} denemede de basarisiz: {last_error}")
+    return None
 
 
 def fetch_last_value(yahoo_ticker: str) -> Optional[float]:

@@ -36,19 +36,20 @@ const SCHEDULES: ScheduleItem[] = [
   { ticker: 'RUT', slug: 'russell-2000', name: 'Russell 2000', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 5, days: [1,2,3,4,5], region: 'us' },
 
   // Europe Closing
-  { ticker: 'DAX', slug: 'dax', name: 'DAX', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'FTSE100', slug: 'ftse-100', name: 'FTSE 100', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'CAC40', slug: 'cac-40', name: 'CAC 40', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'IBEX35', slug: 'ibex-35', name: 'IBEX 35', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'STOXX600', slug: 'stoxx-600', name: 'STOXX 600', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'FTSEMIB', slug: 'ftse-mib', name: 'FTSE MIB', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'SMI', slug: 'smi', name: 'SMI', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
-  { ticker: 'AEX', slug: 'aex', name: 'AEX', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 35, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:35 PM CET' },
+  { ticker: 'DAX', slug: 'dax', name: 'DAX', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'FTSE100', slug: 'ftse-100', name: 'FTSE 100', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'CAC40', slug: 'cac-40', name: 'CAC 40', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'IBEX35', slug: 'ibex-35', name: 'IBEX 35', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'STOXX600', slug: 'stoxx-600', name: 'STOXX 600', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'FTSEMIB', slug: 'ftse-mib', name: 'FTSE MIB', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'SMI', slug: 'smi', name: 'SMI', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
+  { ticker: 'AEX', slug: 'aex', name: 'AEX', type: 'daily', suffix: 'Closing', etHour: 11, etMinute: 45, days: [1,2,3,4,5], region: 'eu', localTimeStr: '05:45 PM CET' },
 
   // LatAm
-  { ticker: 'BOVESPA', slug: 'bovespa', name: 'BOVESPA', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 5, days: [1,2,3,4,5], region: 'latam', localTimeStr: '05:05 PM BRT' },
-  { ticker: 'MERVAL', slug: 'merval', name: 'MERVAL', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 5, days: [1,2,3,4,5], region: 'latam', localTimeStr: '05:05 PM ART' },
-  { ticker: 'IPCMEXICO', slug: 'ipc-mexico', name: 'IPC MEXICO', type: 'daily', suffix: 'Closing', etHour: 17, etMinute: 5, days: [1,2,3,4,5], region: 'latam', localTimeStr: '03:05 PM CST' },
+  // 16:05 ET'de ABD kapanisiyla cakisiyordu — LatAm 16:10'a alindi (once ABD).
+  { ticker: 'BOVESPA', slug: 'bovespa', name: 'BOVESPA', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 10, days: [1,2,3,4,5], region: 'latam', localTimeStr: '05:10 PM BRT' },
+  { ticker: 'MERVAL', slug: 'merval', name: 'MERVAL', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 10, days: [1,2,3,4,5], region: 'latam', localTimeStr: '05:10 PM ART' },
+  { ticker: 'IPCMEXICO', slug: 'ipc-mexico', name: 'IPC MEXICO', type: 'daily', suffix: 'Closing', etHour: 16, etMinute: 10, days: [1,2,3,4,5], region: 'latam', localTimeStr: '03:10 PM CST' },
 
   // Asia
   { ticker: 'NIKKEI225', slug: 'nikkei-225', name: 'NIKKEI 225', type: 'daily', suffix: 'Closing', etHour: 2, etMinute: 5, days: [1,2,3,4,5], region: 'asia', localTimeStr: '03:05 PM JST' },

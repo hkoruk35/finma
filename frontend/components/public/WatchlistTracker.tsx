@@ -11,6 +11,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { formatNumber } from "@/lib/formatNumber";
+import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
@@ -139,7 +140,8 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Verinin sunucudaki uretim zamani (ISO) — tarayici saati DEGIL.
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
   const [filterSector, setFilterSector] = useState("");
   const [filterPattern, setFilterPattern] = useState("");
@@ -175,17 +177,18 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
 
       setComposition(rows);
 
+      let liveRows: LiveData[] = [];
       if (rows.length > 0) {
         const tickers = rows.map((r) => r.ticker).join(",");
         const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers}`);
         if (liveRes.ok) {
-          const liveRows: LiveData[] = await liveRes.json();
+          liveRows = await liveRes.json();
           const map: Record<string, LiveData> = {};
           liveRows.forEach((item) => { if (item?.ticker) map[item.ticker] = item; });
           setLive(map);
         }
       }
-      setLastUpdated(new Date());
+      setLastUpdated(latestGeneratedAt(liveRows));
       setError("");
     } catch (err) {
       setError(t.error);
@@ -289,7 +292,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
               {t.title}
             </div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
+              {formatUpdatedAtET(lastUpdated, locale) && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {formatUpdatedAtET(lastUpdated, locale)}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
               {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("STRONG", locale)}</span>}

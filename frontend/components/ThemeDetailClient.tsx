@@ -6,6 +6,7 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 import { useTracker } from "@/components/TrackerContext";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { formatNumber } from "@/lib/formatNumber";
+import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -118,7 +119,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   const [loadingMore, setLoadingMore] = useState(false);
   const [isSyncing, setIsSyncing]   = useState(false);
   const [visibleCount, setVisibleCount] = useState(50);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Verinin sunucudaki uretim zamani (ISO) — tarayici saati DEGIL.
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [activeTab, setActiveTab]   = useState<"table" | "heatmap">("table");
   const [sortBy, setSortBy]         = useState<string>("1G%");
   const [sortDir, setSortDir]       = useState<"asc" | "desc">("desc");
@@ -182,7 +184,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
       const map: Record<string, TickerData> = {};
       results.forEach(item => { if (item?.ticker) map[item.ticker] = item; });
       setData(map);
-      setLastUpdated(new Date());
+      setLastUpdated(latestGeneratedAt(results));
     } catch (e) {
       console.error("ThemeDetail fetch error:", e);
     } finally {
@@ -204,7 +206,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
         return updated;
       });
       setVisibleCount(currentVisible + 50);
-      setLastUpdated(new Date());
+      setLastUpdated(latestGeneratedAt(results));
     } catch (e) {
       console.error("loadMore error:", e);
     } finally {
@@ -390,8 +392,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
             </span>
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", display: "flex", gap: 14, flexWrap: "wrap" }}>
-              {lastUpdated && (
-                <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>
+              {formatUpdatedAtET(lastUpdated, "tr") && (
+                <span>son güncelleme: {formatUpdatedAtET(lastUpdated, "tr")}</span>
               )}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
                 ● {isMarketOpen() ? "market açık" : "market kapalı"}

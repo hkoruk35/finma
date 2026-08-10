@@ -12,6 +12,9 @@ interface ScheduleItem {
   slug: string;
 }
 
+// ⚠️ Bu liste, Task Scheduler'daki endeks gorevleriyle AYNI saatleri tasimali.
+// Kaynak: setup_index_analysis_tasks.ps1 (repo kokunde). Saatler orada
+// degisirse burasi da guncellenmeli — aksi halde banner yanlis saat gosterir.
 const SCHEDULE: ScheduleItem[] = [
   { key: "bannerAsia1", hour: 2, minute: 5, days: [1, 2, 3, 4, 5], slug: "nikkei-225" },
   { key: "bannerAsia2", hour: 2, minute: 35, days: [1, 2, 3, 4, 5], slug: "kospi" },
@@ -19,18 +22,32 @@ const SCHEDULE: ScheduleItem[] = [
   { key: "bannerAsia4", hour: 4, minute: 5, days: [1, 2, 3, 4, 5], slug: "hang-seng" },
   { key: "bannerAsia5", hour: 6, minute: 5, days: [1, 2, 3, 4, 5], slug: "nifty-50" },
   { key: "bannerUsPre", hour: 9, minute: 0, days: [1, 2, 3, 4, 5], slug: "sp500" },
-  { key: "bannerEuClose", hour: 11, minute: 35, days: [1, 2, 3, 4, 5], slug: "dax" },
+  { key: "bannerEuClose", hour: 11, minute: 45, days: [1, 2, 3, 4, 5], slug: "dax" },
   { key: "bannerUsMid", hour: 13, minute: 0, days: [1, 2, 3, 4, 5], slug: "sp500" },
-  { key: "bannerLatAm1", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "bovespa" },
+  // 16:05'te ABD ve LatAm ayni dakikadaydi; asagidaki dongu ilk eslesmede
+  // break ettigi icin LatAm her zaman kazaniyor ve "ABD Kapanis" banner'i HIC
+  // gorunmuyordu. Analizler de ayni anda calisiyordu — once ABD, 5 dk sonra
+  // LatAm olacak sekilde ayrildi (sahibin 2026-08-10 talebi).
   { key: "bannerUsClose", hour: 16, minute: 5, days: [1, 2, 3, 4, 5], slug: "sp500" },
+  { key: "bannerLatAm1", hour: 16, minute: 10, days: [1, 2, 3, 4, 5], slug: "bovespa" },
   { key: "bannerLatAm2", hour: 17, minute: 5, days: [1, 2, 3, 4, 5], slug: "ipc-mexico" },
   // Weekly represents the weekend blocks
   { key: "bannerWeekly", hour: 10, minute: 0, days: [0, 6], slug: "sp500" },
 ];
 
+// Ayni anda birden fazla analiz "calisiyor" durumundaysa banner bunlar arasinda
+// bu araliklarla doner (dönüşümlü uyari).
+const ROTATE_MS = 6000;
+const RUNNING_WINDOW_MIN = 30;
+
 export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
   const t = copy[locale].schedule;
-  const [activeItem, setActiveItem] = useState<{ item: ScheduleItem; isRunning: boolean } | null>(null);
+  // Ayni anda birden fazla analiz calisabilir (orn. 16:05 ABD + 16:10 LatAm),
+  // bu yuzden tek bir item degil LISTE tutulur ve aralarinda donulur.
+  const [active, setActive] = useState<{ items: ScheduleItem[]; isRunning: boolean } | null>(null);
+  const [rotation, setRotation] = useState(0);
+  const itemCount = active?.items.length ?? 0;
+  const itemsKey = active?.items.map(i => i.key).join("|") ?? "";
 
   useEffect(() => {
     const updateSchedule = () => {
@@ -38,49 +55,48 @@ export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
       const now = new Date();
       const etString = now.toLocaleString("en-US", { timeZone: "America/New_York" });
       const etDate = new Date(etString);
-      
+
       const currentHour = etDate.getHours();
       const currentMinute = etDate.getMinutes();
       const currentDay = etDate.getDay();
 
       const currentTotalMinutes = currentHour * 60 + currentMinute;
 
-      // Find the currently running or next upcoming item
-      let nextItem: ScheduleItem | null = null;
-      let minDiff = Infinity;
-      let isRunning = false;
-
       // Check if it's the weekend
       if (currentDay === 0 || currentDay === 6) {
-        nextItem = SCHEDULE.find(s => s.key === "bannerWeekly") || null;
-        isRunning = currentHour >= 10 && currentHour <= 23;
-      } else {
-        // Weekdays
-        for (const s of SCHEDULE) {
-          if (!s.days.includes(currentDay)) continue;
-          const itemMinutes = s.hour * 60 + s.minute;
-          const diff = itemMinutes - currentTotalMinutes;
-          
-          // Consider running if we are within 30 minutes after the start time
-          if (diff <= 0 && diff > -30) {
-            nextItem = s;
-            isRunning = true;
-            break;
-          } else if (diff > 0 && diff < minDiff) {
-            minDiff = diff;
-            nextItem = s;
-            isRunning = false;
-          }
-        }
+        const weekly = SCHEDULE.find(s => s.key === "bannerWeekly");
+        setActive(weekly ? { items: [weekly], isRunning: currentHour >= 10 && currentHour <= 23 } : null);
+        return;
+      }
 
-        // If no upcoming item today, point to the first item tomorrow
-        if (!nextItem) {
-          nextItem = SCHEDULE.find(s => s.days.includes(1)) || null; // Assume Asia1
-          isRunning = false;
+      // Weekdays: o an calisan TUM analizleri topla (30 dk'lik pencere)
+      const running: ScheduleItem[] = [];
+      let nextItem: ScheduleItem | null = null;
+      let minDiff = Infinity;
+
+      for (const s of SCHEDULE) {
+        if (!s.days.includes(currentDay)) continue;
+        const itemMinutes = s.hour * 60 + s.minute;
+        const diff = itemMinutes - currentTotalMinutes;
+
+        if (diff <= 0 && diff > -RUNNING_WINDOW_MIN) {
+          running.push(s);
+        } else if (diff > 0 && diff < minDiff) {
+          minDiff = diff;
+          nextItem = s;
         }
       }
 
-      setActiveItem(nextItem ? { item: nextItem, isRunning } : null);
+      if (running.length > 0) {
+        // Baslama saatine gore sirala — 16:05 ABD once, 16:10 LatAm sonra donsun.
+        running.sort((a, b) => (a.hour * 60 + a.minute) - (b.hour * 60 + b.minute));
+        setActive({ items: running, isRunning: true });
+        return;
+      }
+
+      // If no upcoming item today, point to the first item tomorrow
+      const upcoming = nextItem || SCHEDULE.find(s => s.days.includes(1)) || null; // Assume Asia1
+      setActive(upcoming ? { items: [upcoming], isRunning: false } : null);
     };
 
     updateSchedule();
@@ -88,9 +104,19 @@ export default function HomeScheduleBanner({ locale }: { locale: Locale }) {
     return () => clearInterval(interval);
   }, []);
 
-  if (!activeItem) return null;
+  // Birden fazla analiz ayni anda aktifse aralarinda don; tek ise sabit kal.
+  // rotation sifirlanmaz — asagida modulo alindigi icin liste degistiginde de
+  // gecerli kalir (effect icinde senkron setState React uyarisi uretiyor).
+  useEffect(() => {
+    if (itemCount < 2) return;
+    const interval = setInterval(() => setRotation(r => r + 1), ROTATE_MS);
+    return () => clearInterval(interval);
+  }, [itemCount, itemsKey]);
 
-  const { item, isRunning } = activeItem;
+  if (!active || active.items.length === 0) return null;
+
+  const { isRunning } = active;
+  const item = active.items[rotation % active.items.length];
   // Format hour (12h am/pm) for ET
   const ampm = item.hour >= 12 ? 'PM' : 'AM';
   const h = item.hour % 12 || 12;

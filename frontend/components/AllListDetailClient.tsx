@@ -9,6 +9,7 @@ import { useTracker } from "@/components/TrackerContext";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { sectorFromSlug } from "@/lib/sectorHeatMap";
 import { formatNumber } from "@/lib/formatNumber";
+import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
 
 interface HourlyBar {
   time: string;
@@ -93,7 +94,8 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
   const [extraTickers, setExtraTickers] = useState<string[]>([]);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Verinin sunucudaki uretim zamani (ISO) — tarayici saati DEGIL.
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
   const [filterVolume, setFilterVolume] = useState("");
@@ -299,7 +301,7 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
           }
         });
         setData(newData);
-        setLastUpdated(new Date());
+        setLastUpdated(latestGeneratedAt(result));
         setLoading(false);
       } catch (err) {
         console.error("Data fetch failed:", err);
@@ -403,7 +405,7 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
             </div>
             )}
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
-              {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
+              {formatUpdatedAtET(lastUpdated, "tr") && <span>son güncelleme: {formatUpdatedAtET(lastUpdated, "tr")}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
                 ● {isMarketOpen() ? "market açık" : "market kapalı"}
               </span>
