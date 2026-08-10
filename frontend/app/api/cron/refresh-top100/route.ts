@@ -23,7 +23,11 @@ export async function GET(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Pass a special marker so refresh-top100 knows this is from cron (if needed)
+        // CRON_SECRET iletilmezse /api/refresh-top100 isteği çerezsiz/anonim
+        // görür ve swing_daily upsert'i RLS'e takılıp 500 döner (fixed
+        // kısmı servis anahtarıyla zaten tazelenmiş olur). Başlığı ileterek
+        // o endpoint'in servis anahtarlı yola geçmesini sağlıyoruz.
+        Authorization: `Bearer ${CRON_SECRET}`,
       },
       signal: AbortSignal.timeout(120000), // 2 minutes timeout
     });

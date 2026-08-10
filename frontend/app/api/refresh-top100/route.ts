@@ -35,9 +35,13 @@ async function syncFixedFromTracker(): Promise<void> {
   }
 }
 
-async function getTopicsToUpdate(): Promise<string[]> {
+async function getTopicsToUpdate(
+  // Çağıran hangi istemciye karar verdiyse onu kullan — cron yolunda burada
+  // ikinci kez çerez-bağımlı bir istemci kurmak, ileride top100_tickers'ın
+  // RLS'i sıkılaştığında listeyi sessizce boş döndürürdü.
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>> | typeof supabaseAdmin
+): Promise<string[]> {
   // Get top100_tickers marked as active, excluding 'fixed' (already fully recomputed above)
-  const supabase = await createSupabaseServerClient();
   const { data: tickers, error } = await supabase
     .from("top100_tickers")
     .select("ticker")
@@ -76,13 +80,25 @@ async function fetchLiveData(tickers: string[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    const supabase = await createSupabaseServerClient();
+    // Vercel Cron (/api/cron/refresh-top100) bu endpoint'i çerezsiz çağırır.
+    // Upsert normalde oturum çerezine bağlı istemciyle yapılıyor ve RLS
+    // tarafından engelleniyordu: syncFixedFromTracker() servis anahtarıyla
+    // 100 satırı tazeliyor, hemen ardından swing_daily upsert'i patlayıp tüm
+    // istek 500 dönüyordu. Bu yüzden top100_snapshot'ın swing_daily kısmı
+    // 2026-06-26'da kalmıştı. Cron'dan gelen istek CRON_SECRET ile
+    // doğrulandığında servis anahtarlı istemciyi kullanıyoruz; tarayıcıdaki
+    // "YENİLE" butonunun üye yolu aynen RLS'e tabi kalmaya devam ediyor.
+    const isCron =
+      !!process.env.CRON_SECRET &&
+      req.headers.get("authorization") === `Bearer ${process.env.CRON_SECRET}`;
+
+    const supabase = isCron ? supabaseAdmin : await createSupabaseServerClient();
 
     // Sync 'fixed' composition (full tracker list, no cap) — same engine as nightly job
     await syncFixedFromTracker();
 
     // Get remaining tickers (swing_daily) to refresh with lightweight live data
-    const tickers = await getTopicsToUpdate();
+    const tickers = await getTopicsToUpdate(supabase);
     if (tickers.length === 0) {
       return NextResponse.json({ updated: 0 });
     }
