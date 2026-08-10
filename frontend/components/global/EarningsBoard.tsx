@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import type { Locale } from "@/lib/i18n/copy";
+
+type Range = "daily" | "weekly" | "monthly" | "all";
 
 interface EarningsAi {
   summary: string;
@@ -42,8 +44,10 @@ const LABELS: Record<Locale, {
   viewCalendar: string;
   loadMore: string;
   filterTicker: string;
-  filterDate: string;
-  allDates: string;
+  daily: string;
+  weekly: string;
+  monthly: string;
+  all: string;
 }> = {
   tr: {
     title: "Kurumsal Kazanç Analizleri",
@@ -56,8 +60,7 @@ const LABELS: Record<Locale, {
     source: "Kaynak: SEC EDGAR",
     loadMore: "Daha Fazla Yükle",
     filterTicker: "Hisse Ara (Örn: AAPL)",
-    filterDate: "Tarih Seç",
-    allDates: "Tüm Zamanlar",
+    daily: "Gün", weekly: "Hafta", monthly: "Ay", all: "Dönem",
   },
   en: {
     title: "Corporate Earnings Analysis",
@@ -70,8 +73,7 @@ const LABELS: Record<Locale, {
     source: "Source: SEC EDGAR",
     loadMore: "Load More",
     filterTicker: "Search Ticker (e.g., AAPL)",
-    filterDate: "Select Date",
-    allDates: "All Time",
+    daily: "Day", weekly: "Week", monthly: "Month", all: "Period",
   },
   es: {
     title: "Análisis de Resultados Corporativos",
@@ -84,8 +86,7 @@ const LABELS: Record<Locale, {
     source: "Fuente: SEC EDGAR",
     loadMore: "Cargar Más",
     filterTicker: "Buscar Ticker (ej: AAPL)",
-    filterDate: "Seleccionar Fecha",
-    allDates: "Todo el Tiempo",
+    daily: "Diario", weekly: "Semanal", monthly: "Mensual", all: "Período",
   },
   fr: {
     title: "Analyse des Résultats d'Entreprise",
@@ -98,8 +99,7 @@ const LABELS: Record<Locale, {
     source: "Source : SEC EDGAR",
     loadMore: "Charger Plus",
     filterTicker: "Rechercher Ticker (ex: AAPL)",
-    filterDate: "Sélectionner la Date",
-    allDates: "Tout le Temps",
+    daily: "Jour", weekly: "Semaine", monthly: "Mois", all: "Période",
   },
   pt: {
     title: "Análise de Resultados Corporativos",
@@ -112,8 +112,7 @@ const LABELS: Record<Locale, {
     source: "Fonte: SEC EDGAR",
     loadMore: "Carregar Mais",
     filterTicker: "Pesquisar Ticker (ex: AAPL)",
-    filterDate: "Selecionar Data",
-    allDates: "Todo o Tempo",
+    daily: "Diário", weekly: "Semanal", monthly: "Mensal", all: "Período",
   },
 };
 
@@ -127,8 +126,34 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
   
   // Filters
   const [tickerFilter, setTickerFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState(""); // YYYY-MM-DD
+  const [rangeFilter, setRangeFilter] = useState<Range>("all");
   const [debouncedTicker, setDebouncedTicker] = useState("");
+  
+  // Smart Search (Autocomplete)
+  const [availableTickers, setAvailableTickers] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Fetch available tickers on mount
+  useEffect(() => {
+    fetch("/api/earnings/tickers")
+      .then(res => res.json())
+      .then(data => {
+        if (data.tickers) setAvailableTickers(data.tickers);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Debounce ticker input
   useEffect(() => {
@@ -138,14 +163,14 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
     return () => clearTimeout(handler);
   }, [tickerFilter]);
 
-  const fetchEarnings = useCallback(async (pageNum: number, tck: string, dt: string, append = false) => {
+  const fetchEarnings = useCallback(async (pageNum: number, tck: string, rng: Range, append = false) => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
         locale,
         page: pageNum.toString(),
         limit: "5",
-        range: "all"
+        range: rng
       });
       if (tck) params.set("ticker", tck);
       
@@ -154,16 +179,9 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
       
       const json = await res.json();
       const newItems = json.data || [];
-      
-      // Client-side date filter since the API only supports ranges easily right now.
-      // Alternatively, the API could be updated, but for exact date filtering this works for MVP.
-      let filteredItems = newItems;
-      if (dt) {
-        filteredItems = newItems.filter((item: EarningsItem) => item.reportDate === dt);
-      }
 
-      setItems(prev => append ? [...prev, ...filteredItems] : filteredItems);
-      setHasMore(newItems.length === 5); // If we got 5, there might be more
+      setItems(prev => append ? [...prev, ...newItems] : newItems);
+      setHasMore(newItems.length === 5);
     } catch (err) {
       console.error(err);
       if (!append) setItems([]);
@@ -175,14 +193,18 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
   // Initial load and filter change
   useEffect(() => {
     setPage(1);
-    fetchEarnings(1, debouncedTicker, dateFilter, false);
-  }, [debouncedTicker, dateFilter, fetchEarnings]);
+    fetchEarnings(1, debouncedTicker, rangeFilter, false);
+  }, [debouncedTicker, rangeFilter, fetchEarnings]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
-    fetchEarnings(nextPage, debouncedTicker, dateFilter, true);
+    fetchEarnings(nextPage, debouncedTicker, rangeFilter, true);
   };
+
+  const filteredDropdownTickers = availableTickers.filter(tck => 
+    tck.toLowerCase().includes(tickerFilter.toLowerCase())
+  ).slice(0, 10); // Limit dropdown to 10 suggestions
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
@@ -203,8 +225,9 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 bg-[#0f1117] p-4 rounded-2xl border border-[#1e2a3a]/60 shadow-lg">
-          <div className="relative w-full sm:w-64">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 bg-[#0f1117] p-4 rounded-2xl border border-[#1e2a3a]/60 shadow-lg relative z-10">
+          {/* Smart Search */}
+          <div className="relative w-full sm:w-64" ref={searchRef}>
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -212,25 +235,47 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
               type="text"
               placeholder={t.filterTicker}
               value={tickerFilter}
-              onChange={(e) => setTickerFilter(e.target.value)}
-              className="w-full bg-[#0a0e17] border border-[#1e2a3a] rounded-xl py-2 pl-9 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#3b82f6] transition-colors"
+              onFocus={() => setShowDropdown(true)}
+              onChange={(e) => {
+                setTickerFilter(e.target.value.toUpperCase());
+                setShowDropdown(true);
+              }}
+              className="w-full bg-[#0a0e17] border border-[#1e2a3a] rounded-xl py-2 pl-9 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#3b82f6] transition-colors uppercase"
             />
-          </div>
-          <div className="w-full sm:w-auto flex items-center gap-2">
-            <input
-              type="date"
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
-              className="w-full sm:w-auto bg-[#0a0e17] border border-[#1e2a3a] rounded-xl py-2 px-4 text-sm text-white focus:outline-none focus:border-[#3b82f6] transition-colors"
-            />
-            {dateFilter && (
-              <button 
-                onClick={() => setDateFilter("")}
-                className="text-xs text-slate-400 hover:text-white transition-colors"
-              >
-                ✕ {t.allDates}
-              </button>
+            {showDropdown && tickerFilter && filteredDropdownTickers.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[#0f1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-2xl z-20">
+                {filteredDropdownTickers.map((tck) => (
+                  <button
+                    key={tck}
+                    onClick={() => {
+                      setTickerFilter(tck);
+                      setShowDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm text-white hover:bg-[#1e2a3a]/50 transition-colors"
+                  >
+                    {tck}
+                  </button>
+                ))}
+              </div>
             )}
+          </div>
+
+          {/* Range Buttons */}
+          <div className="w-full sm:w-auto flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-hide">
+            {(["daily", "weekly", "monthly", "all"] as Range[]).map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRangeFilter(r)}
+                className={`shrink-0 px-4 py-2 rounded-xl text-[13px] font-bold uppercase tracking-wide transition-all ${
+                  rangeFilter === r
+                    ? "bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]"
+                    : "bg-[#0a0e17] text-[#64748b] border border-[#1e2a3a] hover:text-white hover:border-[#3b82f6]/40"
+                }`}
+              >
+                {t[r]}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -358,14 +403,17 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
                   </div>
 
                   {/* Right: 1W Chart */}
-                  <div className="w-full lg:w-[400px] xl:w-[500px] h-[300px] lg:h-auto border-t lg:border-t-0 lg:border-l border-[#1e2a3a]/60 bg-black/20 shrink-0 relative overflow-hidden">
-                    <BogaChartEngine 
-                      symbol={item.ticker} 
-                      lang={locale} 
-                      defaultTimeframe="W" 
-                      compact={true}
-                      hideIndicatorToggles={true}
-                    />
+                  <div className="w-full lg:w-[400px] xl:w-[500px] h-[300px] lg:h-auto border-t lg:border-t-0 lg:border-l border-[#1e2a3a]/60 bg-black/20 shrink-0 relative overflow-hidden flex items-center justify-center p-4">
+                    <div className="w-full h-full relative">
+                      <BogaChartEngine 
+                        symbol={item.ticker} 
+                        lang={locale} 
+                        defaultTimeframe="W" 
+                        compact={true}
+                        hideIndicatorToggles={true}
+                        indicators={[]}
+                      />
+                    </div>
                   </div>
                 </div>
               );
@@ -390,4 +438,3 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
     </div>
   );
 }
-
