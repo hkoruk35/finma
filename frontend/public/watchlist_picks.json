@@ -1,29 +1,11 @@
 {
-  "generated_at": "2026-08-10T09:06:44.065568-04:00",
+  "generated_at": "2026-08-10T14:06:16.088090-04:00",
   "picks": [
-    {
-      "ticker": "NVDA",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 51.0
-    },
-    {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-10",
-      "score": 50.5
-    },
     {
       "ticker": "ADI",
       "sector": "Technology",
       "date_added": "2026-08-10",
       "score": 50.5
-    },
-    {
-      "ticker": "PRDO",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-10",
-      "score": 48.5
     },
     {
       "ticker": "ZETA",
@@ -48,6 +30,36 @@
       "sector": "Healthcare",
       "date_added": "2026-08-10",
       "score": 43.5
+    },
+    {
+      "ticker": "TGT",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-10",
+      "score": 48.0
+    },
+    {
+      "ticker": "APO",
+      "sector": "Financial Services",
+      "date_added": "2026-08-10",
+      "score": 43.5
+    },
+    {
+      "ticker": "RAL",
+      "sector": "Technology",
+      "date_added": "2026-08-10",
+      "score": 38.0
+    },
+    {
+      "ticker": "CLH",
+      "sector": "Industrials",
+      "date_added": "2026-08-10",
+      "score": 38.0
+    },
+    {
+      "ticker": "FTI",
+      "sector": "Energy",
+      "date_added": "2026-08-10",
+      "score": 36.5
     }
   ]
 }
