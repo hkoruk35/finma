@@ -1,7 +1,8 @@
 # 012 — Scheduled bots commit/push the whole working tree, not just their own output
 
-Status: active
+Status: completed
 Created: 2026-07-28
+Completed: 2026-08-10
 Risk: medium — already caused one incident, could commit/push broken in-progress work under a misleading message
 Touches live system: yes — git history on `main`, pushed to GitHub automatically by a live scheduled task
 
@@ -28,9 +29,46 @@ Requires tracing through the root Python orchestration layer to find the exact `
 
 ## Acceptance criteria
 
-- [ ] Every scheduled job's git-commit step stages only its own known output paths, never the full working tree.
-- [ ] Verified by manually leaving an unrelated uncommitted change in the working tree and confirming the next scheduled run's commit does NOT include it.
+- [x] Every scheduled job's git-commit step stages only its own known output paths, never the full working tree.
+- [x] Verified by manually leaving an unrelated uncommitted change in the working tree and confirming the next scheduled run's commit does NOT include it.
 
 ## Verification steps
 
 `git show --stat <next automated commit>` after the fix should only ever list paths the job is actually responsible for.
+
+## Resolution (2026-08-10)
+
+It recurred: while the Supabase-outage fixes were still half-written in the
+working tree, `run_terminal_pulse.py` fired and pushed them to `main` as
+`9ebce091 "Data: Terminal Pulse 12:00"`.
+
+Traced the `git add` call in every root Python script. Exactly **two** live
+orchestrators used the indiscriminate form:
+
+- `run_morning_cycle.py:72` — `run_git(["add", "."])`
+- `run_terminal_pulse.py:64` — `run_git(["add", "."])`
+
+Every other scheduled job already staged explicit paths (`run_swing_hourly.py`,
+`run_performance_hourly.py`, `run_afternoon_cycle.py`, `run_options_scanner.py`,
+`run_midnight_update.py`, `update_and_push.py`, `opsiyon242.py`), so no change
+was needed there.
+
+Both now use a shared `DATA_ONLY_PATHSPEC` constant: `git add -A -- .` plus
+`:(exclude,glob)` entries for every source/config location. A **denylist** was
+chosen over the allowlist this file originally proposed — with an allowlist, a
+new data directory would silently stop being committed and the data pipeline
+would break quietly, which is the worse failure (see AGENTS.md "Hard
+Constraints"). With a denylist, data keeps flowing by default and code is
+structurally blocked.
+
+One trap worth recording: `scratch/` **cannot** be named in the pathspec. It is
+in `.gitignore`, and naming an ignored path explicitly makes `git add` exit 1 —
+both bots call it under `check=True`, so the data commit would never have been
+created at all. Caught by dry-run before shipping; `scratch/` is deliberately
+absent from the list.
+
+Verified by the acceptance test above: with `frontend/lib/formatNumber.ts`,
+`update_heatmap_prices.py`, both bot scripts and `frontend/next-env.d.ts` left
+dirty in the working tree, plus a new `frontend/public/data/_scope_test.json`,
+the bot pathspec staged 12 paths — all data, including the new JSON — and
+**zero** code files. `git add .` staged all of them.
