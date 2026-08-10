@@ -105,6 +105,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                 <BogaChartEngine 
                   symbol={item.ticker}
                   lang={locale}
+                  height={180}
                   defaultTimeframe="W"
                   defaultCandleType="line"
                   compact={true}
