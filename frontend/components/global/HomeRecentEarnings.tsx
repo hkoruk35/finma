@@ -54,13 +54,13 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[#1e2a3a]/70">
+      <div className="flex md:grid md:grid-cols-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:divide-x divide-[#1e2a3a]/70">
         {items.map((item) => {
           const ai = item.ai;
           const revenuePositive = ai?.revenue_status && !/below|altı|bajas?|baisse|baixo/i.test(ai.revenue_status);
 
           return (
-            <div key={item.id} className="p-4 hover:bg-white/[0.02] transition-colors flex flex-col justify-between">
+            <div key={item.id} className="flex-none w-[90%] md:w-auto snap-center p-4 hover:bg-white/[0.02] transition-colors flex flex-col justify-between border-r border-[#1e2a3a]/70 last:border-r-0 md:border-r-0">
               <div>
                 <div className="flex items-start justify-between mb-2">
                   <div>

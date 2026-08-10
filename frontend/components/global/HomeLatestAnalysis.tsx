@@ -47,12 +47,12 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3">
+      <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
         {posts.map((post) => (
           <Link
             key={post.id}
             href={newsHref}
-            className="flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
+            className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
           >
             {post.content_text && (
               <p className="text-white text-[13px] leading-snug font-medium line-clamp-2">{post.content_text}</p>
