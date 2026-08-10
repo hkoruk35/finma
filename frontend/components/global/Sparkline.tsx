@@ -1,4 +1,7 @@
-import { formatNumber } from "@/lib/formatNumber";
+"use client";
+
+import { useId } from "react";
+
 interface SparklineProps {
   data: number[];
   color: string;
@@ -8,6 +11,15 @@ interface SparklineProps {
 }
 
 export default function Sparkline({ data, color, width = 56, height = 22, changePct = 0 }: SparklineProps) {
+  // Gradient id'si sunucuda ve tarayicida AYNI olmak zorunda. Onceden
+  // Math.random() ile uretiliyordu; sunucu "sparkline-j58tl9y23", tarayici
+  // "sparkline-1pdt9ksgb" yaziyor, React hydration uyusmazligi verip o
+  // sparkline alt agaclarinin tamamini atip yeniden ciziyordu (ana sayfada
+  // her yuklemede onlarca kez). useId sunucu/istemci arasinda tutarlidir.
+  // Uretilen deger ":r1:" formatinda oldugundan, url(#...) referansinda
+  // sorun cikarmamasi icin iki nokta ustuste temizlenir.
+  const gradientId = `sparkline-${useId().replace(/:/g, "")}`;
+
   const points = data.filter((n) => typeof n === "number" && isFinite(n));
   if (points.length < 2) {
     return <div style={{ width, height }} />;
@@ -33,7 +45,6 @@ export default function Sparkline({ data, color, width = 56, height = 22, change
     .map((v, i) => `${(i * step).toFixed(1)},${(height - ((v - min) / range) * height).toFixed(1)}`)
     .join(" ");
 
-  const gradientId = `sparkline-${Math.random().toString(36).substr(2, 9)}`;
   const pathD = `M${coords}L${width},${height}L0,${height}Z`;
 
   return (
