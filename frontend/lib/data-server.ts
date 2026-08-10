@@ -38,8 +38,8 @@ export function readJson(relPath: string, date?: string): any | null {
   }
 
   // Vercel/production: public/data/latest is committed to the repo and copied at build time
-  // __dirname resolves reliably regardless of where Next.js sets process.cwd()
-  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  // @ts-ignore
+  const dirBase = path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "..");
   candidates.push(path.join(dirBase, "public", "data", folder));
   candidates.push(path.join(dirBase, "..", "public", "data", folder));
 
@@ -73,7 +73,8 @@ export function readJson(relPath: string, date?: string): any | null {
 
 export function listOptionsDates(): string[] {
   const candidates: string[] = [];
-  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  // @ts-ignore
+  const dirBase = path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "..");
   candidates.push(path.join(dirBase, "public", "data"));
   candidates.push(path.resolve(process.cwd(), "public", "data"));
   // @ts-ignore
@@ -96,7 +97,8 @@ export function listOptionsDates(): string[] {
 
 export function listSwingArchiveDates(): string[] {
   const candidates: string[] = [];
-  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  // @ts-ignore
+  const dirBase = path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "..");
   candidates.push(path.join(dirBase, "public", "data", "swing2026"));
   candidates.push(path.resolve(process.cwd(), "public", "data", "swing2026"));
 
@@ -124,10 +126,14 @@ export function readPublicJson(filename: string): any | null {
     path.join(process.cwd(), "public", "data", filename),
     path.join(process.cwd(), "frontend", "public", filename),
     path.join(process.cwd(), "frontend", "public", "data", filename),
-    path.resolve(__dirname, "..", "..", "..", "..", "public", filename),
-    path.resolve(__dirname, "..", "..", "..", "..", "public", "data", filename),
-    path.resolve(__dirname, "..", "..", "..", "public", filename),
-    path.resolve(__dirname, "..", "..", "..", "public", "data", filename),
+    // @ts-ignore
+    path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "..", "public", filename),
+    // @ts-ignore
+    path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "..", "public", "data", filename),
+    // @ts-ignore
+    path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "public", filename),
+    // @ts-ignore
+    path.resolve(/* turbopackIgnore: true */ __dirname, "..", "..", "..", "public", "data", filename),
   ];
 
   for (const fullPath of candidates) {
