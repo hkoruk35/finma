@@ -14,6 +14,14 @@ function registerHref(locale: Locale): string {
   return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
 }
 
+const NO_PLAN_LABELS: Record<Locale, string> = {
+  tr: "Bu endeks/parite veya ticker için işlem planı hesaplanmamaktadır.",
+  en: "A trade plan is not calculated for this index/parity or ticker here.",
+  es: "No se calcula un plan de operaciones para este índice/paridad o ticker aquí.",
+  fr: "Aucun plan de trading n'est calculé pour cet indice/parité ou ticker ici.",
+  pt: "Nenhum plano de negociação é calculado para este índice/paridade ou ticker aqui."
+};
+
 interface PreorderAnalysis {
   ticker: string;
   company: string;
@@ -295,7 +303,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           {!isStock ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
               <span className="text-[11px] text-white/50 max-w-[210px] leading-snug">
-                {locale === "tr" ? "Bu endeks/parite veya ticker için işlem planı hesaplanmamaktadır." : "A trade plan is not calculated for this index/parity or ticker here."}
+                {NO_PLAN_LABELS[locale] || NO_PLAN_LABELS.en}
               </span>
             </div>
           ) : tradePlanLocked ? (
