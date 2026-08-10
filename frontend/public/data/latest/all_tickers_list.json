@@ -93,12 +93,12 @@
       "ticker": "SQM",
       "company": "SQM",
       "sector": "Basic Materials",
-      "master_score": 63.0,
+      "master_score": 61.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 72.44999694824219,
-      "change_pct": 3.43,
+      "price": 71.94999694824219,
+      "change_pct": -0.69,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
     },
     {
       "ticker": "FAST",
@@ -139,8 +139,8 @@
       "sector": "Industrials",
       "master_score": 51.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 386.07000732421875,
-      "change_pct": 0.19,
+      "price": 387.489990234375,
+      "change_pct": 1.22,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
     },
@@ -159,12 +159,12 @@
       "ticker": "CRI",
       "company": "CRI",
       "sector": "Consumer Cyclical",
-      "master_score": 49.5,
+      "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 40.470001220703125,
-      "change_pct": 1.3,
+      "price": 39.959999084472656,
+      "change_pct": -0.82,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
     },
     {
       "ticker": "RACE",
@@ -271,8 +271,8 @@
       "sector": "Healthcare",
       "master_score": 56.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 70.30999755859375,
-      "change_pct": 0.1,
+      "price": 71.7699966430664,
+      "change_pct": 2.08,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
     },
@@ -291,23 +291,23 @@
       "ticker": "ATRC",
       "company": "ATRC",
       "sector": "Healthcare",
-      "master_score": 54.0,
+      "master_score": 58.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 39.4900016784668,
-      "change_pct": 0.38,
+      "price": 41.38999938964844,
+      "change_pct": 4.81,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
     },
     {
       "ticker": "RGEN",
       "company": "RGEN",
       "sector": "Healthcare",
-      "master_score": 52.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 159.44000244140625,
-      "change_pct": 0.54,
+      "price": 163.89999389648438,
+      "change_pct": 2.8,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
       "ticker": "FELE",
@@ -418,6 +418,50 @@
       "change_pct": 5.05,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 43.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "AVGO",
+      "company": "AVGO",
+      "sector": "Technology",
+      "master_score": 56.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 427.760009765625,
+      "change_pct": 1.71,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NET",
+      "company": "NET",
+      "sector": "Technology",
+      "master_score": 55.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 300.2699890136719,
+      "change_pct": 5.57,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 55.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EW",
+      "company": "EW",
+      "sector": "Healthcare",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 89.72000122070312,
+      "change_pct": 0.45,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "AVY",
+      "company": "AVY",
+      "sector": "Consumer Cyclical",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 177.17999267578125,
+      "change_pct": 1.83,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
     }
   ]
 }

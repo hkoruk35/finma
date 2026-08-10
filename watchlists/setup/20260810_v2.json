@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "ABNB",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 177.31,
+        "entry_zone": "174.28 - 180.34",
+        "SL": 165.19,
+        "TP": 195.49
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "CON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 34.6,
+        "entry_zone": "34.01 - 35.19",
+        "SL": 32.23,
+        "TP": 39.35
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "TEAM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 149.36,
+        "entry_zone": "144.46 - 154.25",
+        "SL": 129.76,
+        "TP": 188.54
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "NTRA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 320.93,
+        "entry_zone": "313.66 - 328.20",
+        "SL": 291.87,
+        "TP": 379.06
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "MCHP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 85.07,
+        "entry_zone": "82.74 - 87.40",
+        "SL": 75.74,
+        "TP": 103.72
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "GTLB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 38.52,
+        "entry_zone": "37.49 - 39.54",
+        "SL": 34.41,
+        "TP": 46.72
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "TWLO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 241.29,
+        "entry_zone": "234.88 - 247.70",
+        "SL": 215.64,
+        "TP": 292.59
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "TILE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 40.0,
+        "entry_zone": "39.36 - 40.64",
+        "SL": 37.43,
+        "TP": 45.13
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "SSRM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 32.02,
+        "entry_zone": "31.13 - 32.91",
+        "SL": 28.47,
+        "TP": 39.11
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "FLR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 57.24,
+        "entry_zone": "55.87 - 58.61",
+        "SL": 51.77,
+        "TP": 68.17
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 51.62,
+        "entry_zone": "49.99 - 53.25",
+        "SL": 45.09,
+        "TP": 64.67
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "MP",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 52.16,
+        "entry_zone": "50.64 - 53.69",
+        "SL": 46.07,
+        "TP": 64.35
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "USAR",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 19.39,
+        "entry_zone": "18.73 - 20.05",
+        "SL": 16.75,
+        "TP": 24.66
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "AXON",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 568.85,
+        "entry_zone": "551.44 - 586.27",
+        "SL": 499.19,
+        "TP": 708.18
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "FIVN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 33.4,
+        "entry_zone": "32.31 - 34.49",
+        "SL": 29.05,
+        "TP": 42.1
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 60.49,
+        "entry_zone": "58.73 - 62.25",
+        "SL": 53.45,
+        "TP": 74.59
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "AAOI",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 139.19,
+        "entry_zone": "131.38 - 147.00",
+        "SL": 107.93,
+        "TP": 201.71
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "ONTO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 310.56,
+        "entry_zone": "297.74 - 323.38",
+        "SL": 259.28,
+        "TP": 413.12
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "COHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 386.09,
+        "entry_zone": "368.91 - 403.27",
+        "SL": 317.36,
+        "TP": 523.54
+    },
+    {
+        "date": "2026-08-10 09:00",
+        "symbol": "NVTS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 13.93,
+        "entry_zone": "13.29 - 14.58",
+        "SL": 11.34,
+        "TP": 19.11
+    }
+]

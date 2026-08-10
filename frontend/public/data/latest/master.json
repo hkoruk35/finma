@@ -1,8 +1,8 @@
 {
   "date": "2026-08-07",
-  "generated_at": "2026-08-07T14:05:45.426935-04:00",
+  "generated_at": "2026-08-07T17:03:28.969189-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 38,
+  "active_scores_count": 42,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,11 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 4,
       "tickers": [
         "NVST",
         "CPAY",
-        "PBR"
+        "PBR",
+        "NET"
       ]
     },
     "value": {
