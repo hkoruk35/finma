@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import {
   createChart,
@@ -383,7 +383,24 @@ export default function BogaChartEngine({
           : (["ema50", "rsi", "volume"] as IndicatorKey[]))
       )
   );
-  const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
+  // `indicators` prop'u cagiran tarafta genellikle satir ici dizi olarak
+  // veriliyor (<BogaChartEngine indicators={["ema50","volume"]} />), yani her
+  // render'da yeni bir referans. Bunu dogrudan `new Set(...)` ile sarmak
+  // `active`'i her render'da yeni bir nesne yapiyordu. fetchData useCallback'i
+  // `active`'e bagli oldugu icin kimligi de her render'da degisiyor,
+  // `useEffect(..., [fetchData])` yeniden tetikleniyor, fetch state'i
+  // guncelleyince yeni render olusuyor ve dongu bastan basliyordu:
+  // /api/chart-data sonsuz dongude cagriliyordu (2026-08-10, /global/tr/home
+  // uzerinde tek ziyarette 6000'den fazla istek olculdu).
+  // Icerige gore memoize edince referans stabil kaliyor ve dongu kiriliyor.
+  const indicatorsKey = indicatorsProp ? indicatorsProp.join(",") : null;
+  const active = useMemo(
+    () =>
+      indicatorsKey !== null
+        ? new Set(indicatorsKey.split(",").filter(Boolean) as IndicatorKey[])
+        : internalActive,
+    [indicatorsKey, internalActive]
+  );
   const setActive = setInternalActive;
 
   const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"].includes(symbol.toUpperCase());
