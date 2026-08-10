@@ -81,7 +81,19 @@ export default async function IndexLandingPage({ params }: Props) {
         </nav>
 
         <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-2">{t.pageTitle}</h1>
-        <p className="text-sm text-slate-400 mb-8 max-w-2xl">{t.pageDescription}</p>
+        <p className="text-sm text-slate-400 mb-6 max-w-2xl">{t.pageDescription}</p>
+
+        <div className="mb-10">
+          <Link
+            href={`/global/${locale}/markets/schedule`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 rounded-lg text-sm font-medium transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {copy[locale].schedule.viewSchedule}
+          </Link>
+        </div>
 
         <section className="mb-10">
           <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">

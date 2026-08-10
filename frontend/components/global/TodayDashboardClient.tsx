@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SearchLandingHeader from "@/components/public/SearchLandingHeader";
+import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 
 const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
 type Locale = (typeof LOCALES)[number];
@@ -414,6 +415,9 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             </button>
           </div>
         </div>
+
+        {/* Dynamic Schedule Banner */}
+        <HomeScheduleBanner locale={locale} />
 
         {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">

@@ -96,10 +96,13 @@ export default async function IndexWeeklyDetailPage({ params }: Props) {
     { name: week, url: `https://bogastock.com/global/${locale}/${indexSlug}/weekly/${week}` },
   ]);
 
-  const scenarios =
-    snapshot?.scenarios && typeof snapshot.scenarios === "object"
-      ? (snapshot.scenarios as { bullish?: string; neutral?: string; risk?: string })
-      : null;
+  const scenarios = narrative
+    ? {
+        bullish: narrative.bullish_scenario,
+        neutral: narrative.neutral_scenario,
+        risk: narrative.risk_scenario,
+      }
+    : null;
   const keyLevels =
     snapshot?.key_levels && Array.isArray(snapshot.key_levels)
       ? (snapshot.key_levels as { label?: string; level?: number }[])

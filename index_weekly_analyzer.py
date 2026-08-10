@@ -114,13 +114,6 @@ Su JSON semasini uret (5 dilin {', '.join(common.LOCALES)} HER BIRI icin, asagid
   "pt": {{ ... }}
 }}
 
-Ayrica dilden bagimsiz, TEK bir "scenarios" objesi uret (sadece Ingilizce anahtar kelimelerle, 1-2 cumlelik nitel aciklamalarla, RAKAM ICERMEZ):
-{{
-  "scenarios": {{ "bullish": "...", "neutral": "...", "risk": "..." }}
-}}
-
-Bu iki objeyi TEK bir JSON'da birlestir: {{"en": {{...}}, "tr": {{...}}, "es": {{...}}, "fr": {{...}}, "pt": {{...}}, "scenarios": {{"bullish": "...", "neutral": "...", "risk": "..."}}}}
-
 Kurallar: Sadece verilen rakamlara dayan, uydurma haber/katalizor ekleme. {common.NARRATIVE_TONE_RULE} {common.NUMBER_FREE_RULE}"""
     return system_prompt, user_prompt
 
@@ -142,7 +135,7 @@ def parse_weekly_response(parsed: dict | None) -> tuple[dict, dict, dict, bool, 
     for locale in common.LOCALES:
         entry = parsed.get(locale) if parsed and isinstance(parsed, dict) else None
         locale_out: dict = {}
-        for field in common.NARRATIVE_FIELDS:
+        for field in WEEKLY_NARRATIVE_FIELDS:
             text = entry.get(field) if isinstance(entry, dict) else None
             if isinstance(text, str) and len(text.strip()) >= 40:
                 locale_out[field] = text.strip()
@@ -168,21 +161,22 @@ def parse_weekly_response(parsed: dict | None) -> tuple[dict, dict, dict, bool, 
 
 def analyze_symbol_weekly(symbol: str, dry_run: bool) -> bool:
     idx = common.INDEX_DEFINITIONS[symbol]
-
-    # Her endeks KENDI yerel saatinde degerlendirilir (structural fix — bkz. daily bot).
     now_local = common.resolve_market_now(idx)
-    week_start = week_start_monday(now_local)
-    wk_label = week_label(now_local)
+
+    df = common.fetch_history(idx.yahoo_ticker)
+    if df is None or len(df) == 0:
+        common.logger.warning(f"[{symbol}] fiyat verisi alinamadi, atlaniyor.")
+        return False
+
+    # Her endeks KENDI islem gunune gore hesaplanir. Son islem gununu baz alalim.
+    last_dt = df.index[-1].to_pydatetime()
+    week_start = week_start_monday(last_dt)
+    wk_label = week_label(last_dt)
 
     common.logger.info(
         f"[{symbol}] {idx.name} — haftalik fiyat verisi cekiliyor ({idx.yahoo_ticker}); "
         f"tz={idx.timezone} week_start={week_start} week_label={wk_label}..."
     )
-
-    df = common.fetch_history(idx.yahoo_ticker)
-    if df is None:
-        common.logger.warning(f"[{symbol}] fiyat verisi alinamadi, atlaniyor.")
-        return False
 
     metrics = common.compute_quant_metrics(df)
     if metrics is None:
