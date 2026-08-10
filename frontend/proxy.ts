@@ -205,7 +205,16 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       },
     },
   })
-  const { data: { user } } = await supabase.auth.getUser()
+  // Supabase erisilemezse istek 500'e dusmemeli: kullaniciyi "bilinmiyor"
+  // kabul edip devam ederiz. Uyelik kontrolu zaten boga_member_session
+  // cookie'sine de bakiyor (bkz. hasSupabaseSession), yani DB kisa sureligine
+  // duserse mevcut uyeler disari atilmaz.
+  let user: Awaited<ReturnType<typeof supabase.auth.getUser>>['data']['user'] = null
+  try {
+    user = (await supabase.auth.getUser()).data.user
+  } catch {
+    user = null
+  }
 
   if (!pathname.startsWith('/admin') && isTrackablePageRequest(pathname) && !isPrefetchOrDataRequest(request.headers)) {
     // Ek guvenlik siniri: trackLanding icindeki fetch'ler kendi timeout'larina

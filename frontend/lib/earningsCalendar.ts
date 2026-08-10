@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { isProductionBuild } from "@/lib/buildPhase";
 
 export interface UpcomingEarning {
   ticker: string;
@@ -40,6 +41,10 @@ export async function getUpcomingEarnings(limit = 4): Promise<UpcomingEarning[]>
     }));
   } catch (err) {
     console.error("[earningsCalendar] exception:", err);
+    // Calisma aninda firlatmak ISR'in onceki basarili sayfayi korumasini
+    // saglar; build sirasinda ise geri donulecek cache yoktur ve ayni throw
+    // tum deploy'u patlatir (bkz. lib/buildPhase.ts).
+    if (isProductionBuild()) return [];
     throw err;
   }
 }

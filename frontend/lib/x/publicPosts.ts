@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { isProductionBuild } from "@/lib/buildPhase";
 
 export interface PublicPost {
   id: string;
@@ -35,6 +36,10 @@ export async function getPublicPosts(locale: string, limit = 60): Promise<Public
     return data ?? [];
   } catch (err) {
     console.error("[x/publicPosts] exception:", err);
+    // Calisma aninda firlatmak ISR'in onceki basarili sayfayi korumasini
+    // saglar; build sirasinda ise geri donulecek cache yoktur ve ayni throw
+    // tum deploy'u patlatir (bkz. lib/buildPhase.ts).
+    if (isProductionBuild()) return [];
     throw err;
   }
 }
