@@ -1019,6 +1019,18 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
     else if (finalMaster <= 42) signalType = "STRONG_SELL";
     else if (finalMaster <= 49) signalType = "SELL";
 
+    let projected_vol_1d = volumes[volumes.length - 1];
+    const nowEtStr = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+    const nowEt = new Date(nowEtStr);
+    const dayEt = nowEt.getDay();
+    if (dayEt !== 0 && dayEt !== 6) {
+      let elapsedMin = nowEt.getHours() * 60 + nowEt.getMinutes() - (9 * 60 + 30);
+      if (elapsedMin > 0 && elapsedMin < 390) {
+        elapsedMin = Math.max(1, elapsedMin);
+        projected_vol_1d = (projected_vol_1d / elapsedMin) * 390.0;
+      }
+    }
+
     const tickerData = {
       ticker: ticker.toUpperCase(),
       company: meta.longName || v7LongName || stats.longName || `${ticker.toUpperCase()} Corp.`,
@@ -1082,7 +1094,7 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
         volume_ratio: Number((volumeRatio_1h).toFixed(2)),
         change_pct_1h: Number((change_pct_1h).toFixed(2)),
         change_pct_1d: Number((changePct).toFixed(2)),
-        volume_ratio_1d: Number(((last30dVol > 0 ? volumes[volumes.length - 1] / last30dVol : 1.0)).toFixed(2))
+        volume_ratio_1d: Number(((last30dVol > 0 ? projected_vol_1d / last30dVol : 1.0)).toFixed(2))
       },
       fundamental: {
         pe_ratio: peRatio,

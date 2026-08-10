@@ -2853,10 +2853,23 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score -= 0.5; details.append("➖ OBV: Nötr")
 
-        # RVOL 1D
+        # RVOL 1D (Güne Tamamlama - Pro-Rata RVOL)
         vol_today  = float(volume_1d.iloc[-1])
         vol_ma_1d  = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
-        rvol_today = (vol_today / vol_ma_1d) if vol_ma_1d > 0 else 0.0
+        
+        # ABD Piyasa Saatleri (09:30 - 16:00 EST -> 390 dakika)
+        now_est = datetime.now(ZoneInfo("America/New_York"))
+        market_open = now_est.replace(hour=9, minute=30, second=0, microsecond=0)
+        elapsed_min = (now_est - market_open).total_seconds() / 60.0
+        
+        # Hafta içi mesai saatlerindeysek güne tamamlama (projeksiyon) yap
+        if 0 < elapsed_min < 390 and now_est.weekday() < 5:
+            elapsed_min = max(1.0, elapsed_min) # Sıfıra bölünmeyi önle
+            projected_vol = (vol_today / elapsed_min) * 390.0
+        else:
+            projected_vol = vol_today
+            
+        rvol_today = (projected_vol / vol_ma_1d) if vol_ma_1d > 0 else 0.0
 
         if 1.2 <= rvol_today <= 1.8 and abs(close_change_pct) < 0.006:
             score += 5.5; details.append(f"🐋 RVOL 1D: Sessiz Birikim ({rvol_today:.2f}x)")
