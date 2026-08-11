@@ -1,8 +1,8 @@
 {
   "date": "2026-08-10",
-  "generated_at": "2026-08-10T14:06:14.540934-04:00",
+  "generated_at": "2026-08-10T17:04:01.707280-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 27,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,18 +21,20 @@
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 12,
       "tickers": [
         "HCI",
         "SBLK",
         "ZM",
-        "RYTM",
         "OC",
         "UMAC",
         "HPE",
         "CXW",
         "EC",
-        "BAX"
+        "BAX",
+        "CRGY",
+        "BURL",
+        "DXCM"
       ]
     },
     "value": {
@@ -60,7 +62,7 @@
     },
     {
       "ticker": "TEVA",
-      "score": 57.0,
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
