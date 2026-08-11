@@ -78,6 +78,18 @@ Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily1" -Script "index_daily_analyzer.py
 # tamamlar (--only-missing sayesinde tamam olanlara dokunmaz).
 Set-BogaTask -Name "BOGA_AI_Index_LatAm_Daily2" -Script "index_daily_analyzer.py" -ScriptArgs "--only-missing --symbols=SPX,NDX,DJI,RUT,DAX,FTSE100,CAC40,IBEX35,STOXX600,FTSEMIB,SMI,AEX,BOVESPA,MERVAL,IPCMEXICO" -StartTime "17:05:00"
 
+# Son temizlik: quant verisi saglam ama DeepSeek dustugu icin ai_narrative'i
+# NULL kalmis satirlari onarir. 17:05 kurtarma kosusunun ARKASINA konumlandi
+# (15 dk pay) — cunku o kosu da yeni satir yazabiliyor.
+#
+# Neden --only-missing yetmiyor: index_daily_analyzer fiyati borsadan YENIDEN
+# ceker, yani gecmis bir "midday" satirini 17:20'de kosturmak dogru kaydin
+# uzerine kapanis sonrasi fiyatlari yazar. Backfill fiyata hic dokunmaz,
+# satirda saklanan quant_snapshot'tan sadece yorumu yeniden uretir.
+#
+# --days 3: Pazartesi kosusu Cuma/Cumartesi/Pazar'da kalmis satirlari da toplar.
+Set-BogaTask -Name "BOGA_AI_Index_Narrative_Backfill" -Script "index_narrative_backfill.py" -ScriptArgs "--days 3" -StartTime "17:20:00"
+
 # --- ABD GUNLUK ANALIZLERI (Mevcut Sabit Yapi) ---
 Set-BogaTask -Name "BOGA_AI_Index_US_PreMarket" -Script "index_daily_analyzer.py" -ScriptArgs "--symbols=SPX,NDX,DJI,RUT" -StartTime "09:00:00"
 Set-BogaTask -Name "BOGA_AI_Index_US_Midday"    -Script "index_daily_analyzer.py" -ScriptArgs "--symbols=SPX,NDX,DJI,RUT" -StartTime "13:00:00"

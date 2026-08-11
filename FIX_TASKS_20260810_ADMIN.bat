@@ -14,6 +14,8 @@ echo       - EU_Closing    11:35 -^> 11:45  (Avrupa kapanisi + 15 dk)
 echo       - US_Closing    16:30 -^> 16:05  (once ABD)
 echo       - LatAm_Daily1  16:05 -^> 16:10  (5 dk sonra LatAm)
 echo       - LatAm_Daily2  17:05         (--only-missing kurtarma kosusu)
+echo       - Narrative_Backfill 17:20 (YENI) eksik AI yorumlarini
+echo         fiyata dokunmadan onarir
 echo       - Tum gorevlere --symbols eklenir (her gorev 21 sembolu
 echo         bastan sona taramayi birakir)
 echo.
