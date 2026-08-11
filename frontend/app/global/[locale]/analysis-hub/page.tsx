@@ -87,6 +87,20 @@ const T: Record<Locale, { title: string; subtitle: string; cards: { title: strin
       { title: "Análises de Futuros", desc: "Visão geral do mercado de futuros.", href: "/home" },
     ],
   },
+  id: {
+    title: "Analisis",
+    subtitle: "Akses semua jenis analisis pasar BogaStock di satu tempat.",
+    cards: [
+      { title: "Markets", desc: "Tinjauan indeks global dan kelas aset.", href: "/markets" },
+      { title: "Analisis Sektor", desc: "Kinerja dan rotasi di seluruh sektor GICS.", href: "/sectors" },
+      { title: "Peta Panas Sektor", desc: "Tampilan peta panas sektor harian/mingguan.", href: "/sectors" },
+      { title: "Analisis Saham", desc: "Analisis saham yang didukung AI dengan fokus pada tren dan volume.", href: "/news" },
+      { title: "Analisis Forex", desc: "Tinjauan pasangan mata uang utama.", href: "/home" },
+      { title: "Analisis Komoditas", desc: "Prospek emas, perak, minyak mentah, dan gas alam.", href: "/home" },
+      { title: "Analisis Kripto", desc: "Bitcoin, Ethereum, dan aset kripto lainnya.", href: "/home" },
+      { title: "Analisis Futures", desc: "Prospek pasar futures.", href: "/home" },
+    ],
+  },
 };
 
 export default async function AnalysisHubPage({ params }: Props) {

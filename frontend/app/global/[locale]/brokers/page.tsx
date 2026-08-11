@@ -81,6 +81,15 @@ const T: Record<Locale, { title: string; subtitle: string; sections: Record<stri
       "Esta página é apenas para fins informativos e não constitui aconselhamento de investimento. A negociação financeira, incluindo produtos alavancados como CFDs, forex e opções, envolve risco de perda parcial ou total do capital investido. Os preços podem ser voláteis e o desempenho passado não garante resultados futuros. Antes de abrir uma conta em qualquer corretora, faça sua própria pesquisa e revise cuidadosamente sua estrutura de taxas, licenças regulatórias e termos de uso. A BogaStock não é afiliada a nenhuma das corretoras listadas e não é responsável por seus serviços.",
     noLogo: "Sem logo ainda",
   },
+  id: {
+    title: "Brokers",
+    subtitle: "Tinjauan broker terkenal untuk trading saham, forex, dan kripto.",
+    sections: { stock: "Broker Saham", fx: "Broker FX", crypto: "Broker Kripto" },
+    riskTitle: "Peringatan Risiko",
+    risk:
+      "Halaman ini hanya untuk tujuan informasi dan bukan merupakan nasihat investasi. Perdagangan keuangan, termasuk produk leverage seperti CFD, forex, dan opsi, membawa risiko kehilangan sebagian atau seluruh modal yang diinvestasikan. Harga dapat volatil dan kinerja masa lalu tidak menjamin hasil masa depan. Sebelum membuka akun dengan broker mana pun, lakukan riset sendiri dan tinjau dengan cermat struktur biaya, lisensi regulasi, dan perjanjian pengguna mereka. BogaStock tidak berafiliasi dengan broker mana pun yang terdaftar dan tidak bertanggung jawab atas layanan mereka.",
+    noLogo: "Belum ada logo",
+  },
 };
 
 export default async function BrokersPage({ params }: Props) {
