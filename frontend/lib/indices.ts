@@ -1,8 +1,8 @@
-// Faz 1 endeks evreni: US 4 + Avrupa 5. Slug <-> sembol <-> isim tek kaynak.
+﻿// Faz 1 endeks evreni: US 4 + Avrupa 5. Slug <-> sembol <-> isim tek kaynak.
 // index_daily_snapshot / index_weekly_snapshot tablolarindaki index_symbol
 // degerleriyle birebir eslesir (bkz. supabase/migrations/0026_index_snapshots.sql).
 
-export const INDEX_LOCALES = ["en", "tr", "es", "fr", "pt"] as const;
+export const INDEX_LOCALES = ["en", "tr", "es", "fr", "pt", "id"] as const;
 export type IndexLocale = (typeof INDEX_LOCALES)[number];
 
 export type IndexSymbol =
@@ -42,56 +42,56 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
     slug: "sp500",
     region: "us",
     yahooTicker: "^GSPC",
-    names: { en: "S&P 500", tr: "S&P 500", es: "S&P 500", fr: "S&P 500", pt: "S&P 500" },
+    names: { en: "S&P 500", tr: "S&P 500", es: "S&P 500", fr: "S&P 500", pt: "S&P 500", id: "S&P 500" },
   },
   NDX: {
     symbol: "NDX",
     slug: "nasdaq-100",
     region: "us",
     yahooTicker: "^NDX",
-    names: { en: "Nasdaq 100", tr: "Nasdaq 100", es: "Nasdaq 100", fr: "Nasdaq 100", pt: "Nasdaq 100" },
+    names: { en: "Nasdaq 100", tr: "Nasdaq 100", es: "Nasdaq 100", fr: "Nasdaq 100", pt: "Nasdaq 100", id: "Nasdaq 100" },
   },
   DJI: {
     symbol: "DJI",
     slug: "dow-jones",
     region: "us",
     yahooTicker: "^DJI",
-    names: { en: "Dow Jones", tr: "Dow Jones", es: "Dow Jones", fr: "Dow Jones", pt: "Dow Jones" },
+    names: { en: "Dow Jones", tr: "Dow Jones", es: "Dow Jones", fr: "Dow Jones", pt: "Dow Jones", id: "Dow Jones" },
   },
   RUT: {
     symbol: "RUT",
     slug: "russell-2000",
     region: "us",
     yahooTicker: "^RUT",
-    names: { en: "Russell 2000", tr: "Russell 2000", es: "Russell 2000", fr: "Russell 2000", pt: "Russell 2000" },
+    names: { en: "Russell 2000", tr: "Russell 2000", es: "Russell 2000", fr: "Russell 2000", pt: "Russell 2000", id: "Russell 2000" },
   },
   DAX: {
     symbol: "DAX",
     slug: "dax",
     region: "europe",
     yahooTicker: "^GDAXI",
-    names: { en: "DAX", tr: "DAX", es: "DAX", fr: "DAX", pt: "DAX" },
+    names: { en: "DAX", tr: "DAX", es: "DAX", fr: "DAX", pt: "DAX", id: "DAX" },
   },
   FTSE100: {
     symbol: "FTSE100",
     slug: "ftse-100",
     region: "europe",
     yahooTicker: "^FTSE",
-    names: { en: "FTSE 100", tr: "FTSE 100", es: "FTSE 100", fr: "FTSE 100", pt: "FTSE 100" },
+    names: { en: "FTSE 100", tr: "FTSE 100", es: "FTSE 100", fr: "FTSE 100", pt: "FTSE 100", id: "FTSE 100" },
   },
   CAC40: {
     symbol: "CAC40",
     slug: "cac-40",
     region: "europe",
     yahooTicker: "^FCHI",
-    names: { en: "CAC 40", tr: "CAC 40", es: "CAC 40", fr: "CAC 40", pt: "CAC 40" },
+    names: { en: "CAC 40", tr: "CAC 40", es: "CAC 40", fr: "CAC 40", pt: "CAC 40", id: "CAC 40" },
   },
   IBEX35: {
     symbol: "IBEX35",
     slug: "ibex-35",
     region: "europe",
     yahooTicker: "^IBEX",
-    names: { en: "IBEX 35", tr: "IBEX 35", es: "IBEX 35", fr: "IBEX 35", pt: "IBEX 35" },
+    names: { en: "IBEX 35", tr: "IBEX 35", es: "IBEX 35", fr: "IBEX 35", pt: "IBEX 35", id: "IBEX 35" },
   },
   STOXX600: {
     symbol: "STOXX600",
@@ -107,6 +107,7 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
       es: "STOXX Europe 600",
       fr: "STOXX Europe 600",
       pt: "STOXX Europe 600",
+      id: "STOXX Europe 600",
     },
   },
   FTSEMIB: {
@@ -114,35 +115,35 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
     slug: "ftse-mib",
     region: "europe",
     yahooTicker: "FTSEMIB.MI",
-    names: { en: "FTSE MIB", tr: "FTSE MIB", es: "FTSE MIB", fr: "FTSE MIB", pt: "FTSE MIB" },
+    names: { en: "FTSE MIB", tr: "FTSE MIB", es: "FTSE MIB", fr: "FTSE MIB", pt: "FTSE MIB", id: "FTSE MIB" },
   },
   SMI: {
     symbol: "SMI",
     slug: "smi",
     region: "europe",
     yahooTicker: "^SSMI",
-    names: { en: "SMI", tr: "SMI", es: "SMI", fr: "SMI", pt: "SMI" },
+    names: { en: "SMI", tr: "SMI", es: "SMI", fr: "SMI", pt: "SMI", id: "SMI" },
   },
   AEX: {
     symbol: "AEX",
     slug: "aex",
     region: "europe",
     yahooTicker: "^AEX",
-    names: { en: "AEX", tr: "AEX", es: "AEX", fr: "AEX", pt: "AEX" },
+    names: { en: "AEX", tr: "AEX", es: "AEX", fr: "AEX", pt: "AEX", id: "AEX" },
   },
   NIKKEI225: {
     symbol: "NIKKEI225",
     slug: "nikkei-225",
     region: "asia",
     yahooTicker: "^N225",
-    names: { en: "Nikkei 225", tr: "Nikkei 225", es: "Nikkei 225", fr: "Nikkei 225", pt: "Nikkei 225" },
+    names: { en: "Nikkei 225", tr: "Nikkei 225", es: "Nikkei 225", fr: "Nikkei 225", pt: "Nikkei 225", id: "Nikkei 225" },
   },
   HANGSENG: {
     symbol: "HANGSENG",
     slug: "hang-seng",
     region: "asia",
     yahooTicker: "^HSI",
-    names: { en: "Hang Seng", tr: "Hang Seng", es: "Hang Seng", fr: "Hang Seng", pt: "Hang Seng" },
+    names: { en: "Hang Seng", tr: "Hang Seng", es: "Hang Seng", fr: "Hang Seng", pt: "Hang Seng", id: "Hang Seng" },
   },
   SHANGHAI: {
     symbol: "SHANGHAI",
@@ -155,6 +156,7 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
       es: "Shanghai Composite",
       fr: "Shanghai Composite",
       pt: "Shanghai Composite",
+      id: "Shanghai Composite",
     },
   },
   KOSPI: {
@@ -162,42 +164,42 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
     slug: "kospi",
     region: "asia",
     yahooTicker: "^KS11",
-    names: { en: "KOSPI", tr: "KOSPI", es: "KOSPI", fr: "KOSPI", pt: "KOSPI" },
+    names: { en: "KOSPI", tr: "KOSPI", es: "KOSPI", fr: "KOSPI", pt: "KOSPI", id: "KOSPI" },
   },
   NIFTY50: {
     symbol: "NIFTY50",
     slug: "nifty-50",
     region: "asia",
     yahooTicker: "^NSEI",
-    names: { en: "Nifty 50", tr: "Nifty 50", es: "Nifty 50", fr: "Nifty 50", pt: "Nifty 50" },
+    names: { en: "Nifty 50", tr: "Nifty 50", es: "Nifty 50", fr: "Nifty 50", pt: "Nifty 50", id: "Nifty 50" },
   },
   ASX200: {
     symbol: "ASX200",
     slug: "asx-200",
     region: "asia",
     yahooTicker: "^AXJO",
-    names: { en: "ASX 200", tr: "ASX 200", es: "ASX 200", fr: "ASX 200", pt: "ASX 200" },
+    names: { en: "ASX 200", tr: "ASX 200", es: "ASX 200", fr: "ASX 200", pt: "ASX 200", id: "ASX 200" },
   },
   BOVESPA: {
     symbol: "BOVESPA",
     slug: "bovespa",
     region: "latam",
     yahooTicker: "^BVSP",
-    names: { en: "Bovespa", tr: "Bovespa", es: "Bovespa", fr: "Bovespa", pt: "Bovespa" },
+    names: { en: "Bovespa", tr: "Bovespa", es: "Bovespa", fr: "Bovespa", pt: "Bovespa", id: "Bovespa" },
   },
   IPCMEXICO: {
     symbol: "IPCMEXICO",
     slug: "ipc-mexico",
     region: "latam",
     yahooTicker: "^MXX",
-    names: { en: "IPC México", tr: "IPC México", es: "IPC México", fr: "IPC México", pt: "IPC México" },
+    names: { en: "IPC MÃ©xico", tr: "IPC MÃ©xico", es: "IPC MÃ©xico", fr: "IPC MÃ©xico", pt: "IPC MÃ©xico", id: "IPC MÃ©xico" },
   },
   MERVAL: {
     symbol: "MERVAL",
     slug: "merval",
     region: "latam",
     yahooTicker: "^MERV",
-    names: { en: "MERVAL", tr: "MERVAL", es: "MERVAL", fr: "MERVAL", pt: "MERVAL" },
+    names: { en: "MERVAL", tr: "MERVAL", es: "MERVAL", fr: "MERVAL", pt: "MERVAL", id: "MERVAL" },
   },
 };
 
@@ -215,3 +217,4 @@ export function getIndexBySymbol(symbol: string): IndexDefinition | null {
 export function getIndicesByRegion(region: IndexDefinition["region"]): IndexDefinition[] {
   return INDEX_LIST.filter((idx) => idx.region === region);
 }
+

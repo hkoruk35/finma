@@ -1,6 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
-type Locale = "en" | "tr" | "es" | "fr" | "pt";
+type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
 interface PricingContent {
   badge: string;
@@ -16,24 +16,24 @@ interface PricingContent {
 
 const CONTENT: Record<Locale, PricingContent> = {
   tr: {
-    badge: "LANSMAN FİYATI",
-    title: "Basit, Şeffaf Fiyatlandırma",
-    subtitle: "İlk ayın indirimli, istediğin zaman iptal et.",
-    firstMonthLabel: "İlk ay",
+    badge: "LANSMAN FÄ°YATI",
+    title: "Basit, Åžeffaf FiyatlandÄ±rma",
+    subtitle: "Ä°lk ayÄ±n indirimli, istediÄŸin zaman iptal et.",
+    firstMonthLabel: "Ä°lk ay",
     thenLabel: "sonraki aylar",
     perMonth: "/ay",
     features: [
-      "Sürekli güncellenen Trend Hisseleri adayları — %90 üzeri başarı oranı",
-      "Gelişmiş işlem bilgileri (giriş/hedef/stop, risk-getiri oranı)",
-      "Uzun dönem yatırımlık hisse analizleri",
+      "SÃ¼rekli gÃ¼ncellenen Trend Hisseleri adaylarÄ± â€” %90 Ã¼zeri baÅŸarÄ± oranÄ±",
+      "GeliÅŸmiÅŸ iÅŸlem bilgileri (giriÅŸ/hedef/stop, risk-getiri oranÄ±)",
+      "Uzun dÃ¶nem yatÄ±rÄ±mlÄ±k hisse analizleri",
       "Top100'de trend olan hisselerin analizleri",
-      "Gelişmiş interaktif Grafik sistemi",
-      "Net ve gürültüsüz indikatör sistemleri ve net stratejiler",
-      "6.000'den fazla hissenin anında analizi",
-      "7/24 BOGA AI tarafından sürekli eğitilen kişiye özel Finansal Asistan",
+      "GeliÅŸmiÅŸ interaktif Grafik sistemi",
+      "Net ve gÃ¼rÃ¼ltÃ¼sÃ¼z indikatÃ¶r sistemleri ve net stratejiler",
+      "6.000'den fazla hissenin anÄ±nda analizi",
+      "7/24 BOGA AI tarafÄ±ndan sÃ¼rekli eÄŸitilen kiÅŸiye Ã¶zel Finansal Asistan",
     ],
-    ctaText: "Hemen Başla",
-    ctaNote: "Kredi kartı gerekli · Ödeme kayıt anında alınır · İstediğin zaman iptal et",
+    ctaText: "Hemen BaÅŸla",
+    ctaNote: "Kredi kartÄ± gerekli Â· Ã–deme kayÄ±t anÄ±nda alÄ±nÄ±r Â· Ä°stediÄŸin zaman iptal et",
   },
   en: {
     badge: "LAUNCH PRICING",
@@ -43,7 +43,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "following months",
     perMonth: "/mo",
     features: [
-      "Continuously updated Trending Stocks candidates — 90%+ success rate",
+      "Continuously updated Trending Stocks candidates â€” 90%+ success rate",
       "Advanced trade intelligence (entry/target/stop, risk-reward ratio)",
       "Long-term investment stock analyses",
       "Trending stock analyses from the Top 100",
@@ -53,7 +53,7 @@ const CONTENT: Record<Locale, PricingContent> = {
       "A personal Financial Assistant, continuously trained by BOGA AI, available 24/7",
     ],
     ctaText: "Get Started Today",
-    ctaNote: "Card required · Billed immediately at signup · Cancel anytime",
+    ctaNote: "Card required Â· Billed immediately at signup Â· Cancel anytime",
   },
   es: {
     badge: "PRECIO DE LANZAMIENTO",
@@ -63,57 +63,57 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "meses siguientes",
     perMonth: "/mes",
     features: [
-      "Candidatos de Acciones en Tendencia actualizados constantemente — tasa de éxito superior al 90%",
-      "Información avanzada de operaciones (entrada/objetivo/stop, ratio riesgo-beneficio)",
-      "Análisis de acciones para inversión a largo plazo",
-      "Análisis de las acciones en tendencia del Top 100",
-      "Sistema de gráficos interactivo avanzado",
+      "Candidatos de Acciones en Tendencia actualizados constantemente â€” tasa de Ã©xito superior al 90%",
+      "InformaciÃ³n avanzada de operaciones (entrada/objetivo/stop, ratio riesgo-beneficio)",
+      "AnÃ¡lisis de acciones para inversiÃ³n a largo plazo",
+      "AnÃ¡lisis de las acciones en tendencia del Top 100",
+      "Sistema de grÃ¡ficos interactivo avanzado",
       "Sistemas de indicadores claros y sin ruido, con estrategias precisas",
-      "Análisis instantáneo de más de 6.000 acciones",
+      "AnÃ¡lisis instantÃ¡neo de mÃ¡s de 6.000 acciones",
       "Un Asistente Financiero personal, entrenado continuamente por BOGA AI, disponible 24/7",
     ],
     ctaText: "Comienza Hoy",
-    ctaNote: "Tarjeta requerida · Se cobra de inmediato al registrarte · Cancela cuando quieras",
+    ctaNote: "Tarjeta requerida Â· Se cobra de inmediato al registrarte Â· Cancela cuando quieras",
   },
   fr: {
     badge: "PRIX DE LANCEMENT",
     title: "Tarification Simple et Transparente",
-    subtitle: "Premier mois à prix réduit, annulez à tout moment.",
+    subtitle: "Premier mois Ã  prix rÃ©duit, annulez Ã  tout moment.",
     firstMonthLabel: "Premier mois",
     thenLabel: "mois suivants",
     perMonth: "/mois",
     features: [
-      "Candidats Actions Tendance mis à jour en continu — taux de réussite supérieur à 90 %",
-      "Informations avancées sur les transactions (entrée/objectif/stop, ratio risque-rendement)",
-      "Analyses d'actions pour l'investissement à long terme",
+      "Candidats Actions Tendance mis Ã  jour en continu â€” taux de rÃ©ussite supÃ©rieur Ã  90 %",
+      "Informations avancÃ©es sur les transactions (entrÃ©e/objectif/stop, ratio risque-rendement)",
+      "Analyses d'actions pour l'investissement Ã  long terme",
       "Analyses des actions tendance du Top 100",
-      "Système de graphiques interactifs avancé",
-      "Systèmes d'indicateurs clairs et sans bruit, avec des stratégies nettes",
-      "Analyse instantanée de plus de 6 000 actions",
-      "Un Assistant Financier personnel, formé en continu par BOGA AI, disponible 24h/24 et 7j/7",
+      "SystÃ¨me de graphiques interactifs avancÃ©",
+      "SystÃ¨mes d'indicateurs clairs et sans bruit, avec des stratÃ©gies nettes",
+      "Analyse instantanÃ©e de plus de 6 000 actions",
+      "Un Assistant Financier personnel, formÃ© en continu par BOGA AI, disponible 24h/24 et 7j/7",
     ],
     ctaText: "Commencer Maintenant",
-    ctaNote: "Carte requise · Facturé immédiatement à l'inscription · Annulez à tout moment",
+    ctaNote: "Carte requise Â· FacturÃ© immÃ©diatement Ã  l'inscription Â· Annulez Ã  tout moment",
   },
   pt: {
-    badge: "PREÇO DE LANÇAMENTO",
-    title: "Preços Simples e Transparentes",
-    subtitle: "Primeiro mês com desconto, cancele quando quiser.",
-    firstMonthLabel: "Primeiro mês",
+    badge: "PREÃ‡O DE LANÃ‡AMENTO",
+    title: "PreÃ§os Simples e Transparentes",
+    subtitle: "Primeiro mÃªs com desconto, cancele quando quiser.",
+    firstMonthLabel: "Primeiro mÃªs",
     thenLabel: "meses seguintes",
-    perMonth: "/mês",
+    perMonth: "/mÃªs",
     features: [
-      "Candidatos de Ações em Tendência atualizados continuamente — taxa de sucesso superior a 90%",
-      "Informações avançadas de negociação (entrada/alvo/stop, relação risco-retorno)",
-      "Análises de ações para investimento de longo prazo",
-      "Análises das ações em tendência do Top 100",
-      "Sistema de gráficos interativo avançado",
-      "Sistemas de indicadores limpos e sem ruído, com estratégias claras",
-      "Análise instantânea de mais de 6.000 ações",
-      "Um Assistente Financeiro pessoal, treinado continuamente pela BOGA AI, disponível 24/7",
+      "Candidatos de AÃ§Ãµes em TendÃªncia atualizados continuamente â€” taxa de sucesso superior a 90%",
+      "InformaÃ§Ãµes avanÃ§adas de negociaÃ§Ã£o (entrada/alvo/stop, relaÃ§Ã£o risco-retorno)",
+      "AnÃ¡lises de aÃ§Ãµes para investimento de longo prazo",
+      "AnÃ¡lises das aÃ§Ãµes em tendÃªncia do Top 100",
+      "Sistema de grÃ¡ficos interativo avanÃ§ado",
+      "Sistemas de indicadores limpos e sem ruÃ­do, com estratÃ©gias claras",
+      "AnÃ¡lise instantÃ¢nea de mais de 6.000 aÃ§Ãµes",
+      "Um Assistente Financeiro pessoal, treinado continuamente pela BOGA AI, disponÃ­vel 24/7",
     ],
     ctaText: "Comece Agora",
-    ctaNote: "Cartão necessário · Cobrança imediata no cadastro · Cancele quando quiser",
+    ctaNote: "CartÃ£o necessÃ¡rio Â· CobranÃ§a imediata no cadastro Â· Cancele quando quiser",
   },
 };
 
@@ -176,3 +176,4 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import MobileTerminalLink from "./global/MobileTerminalLink";
 
@@ -113,8 +113,8 @@ export default function Header({
   onLogoClick?: () => void;
   onNewQueryClick?: () => void;
   /** When set, the logo (and the header's TERMINAL button) link to the
-   * /global/{locale} dashboard — regardless of login state. */
-  globalLocale?: "en" | "tr" | "es" | "fr" | "pt";
+   * /global/{locale} dashboard â€” regardless of login state. */
+  globalLocale?: "en" | "tr" | "es" | "fr" | "pt" | "id";
   /** Plain link target for the logo when hideMenus is true (no auth check needed). */
   logoHref?: string;
 }) {
@@ -134,17 +134,17 @@ export default function Header({
     }
   };
 
-  // Üye olsun olmasın logo her zaman ana açılış sayfasına (Gösterge Paneli
-  // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
+  // Ãœye olsun olmasÄ±n logo her zaman ana aÃ§Ä±lÄ±ÅŸ sayfasÄ±na (GÃ¶sterge Paneli
+  // /global/{locale}) gÃ¶tÃ¼rÃ¼r â€” eskiden giriÅŸ yapmÄ±ÅŸ Ã¼yeler /home'a gidiyordu.
   const isMobileHeader = typeof window !== "undefined" && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
   const globalLandingHref = globalLocale ? (isMobileHeader ? `/global/${globalLocale}/home` : `/global/${globalLocale}`) : undefined;
-  // Logo artık /search'e (yeni "ana sayfa") gider — globalLandingHref TERMINAL
-  // nav pili ile paylaşılıyor (bkz. "Terminal" butonu asagida), o yuzden onu
+  // Logo artÄ±k /search'e (yeni "ana sayfa") gider â€” globalLandingHref TERMINAL
+  // nav pili ile paylaÅŸÄ±lÄ±yor (bkz. "Terminal" butonu asagida), o yuzden onu
   // degistirmek yerine sadece logo icin ayri bir degisken kullaniyoruz.
   const logoLandingHref = globalLocale ? `/global/${globalLocale}/home` : undefined;
-  const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
+  const terminalTooltip = globalLocale === "tr" ? "TERMÄ°NAL sayfasÄ±nÄ± aÃ§" : globalLocale === "es" ? "Abrir la pÃ¡gina TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a pÃ¡gina TERMINAL" : "Open the TERMINAL page";
   const screenerHref = globalLocale ? `/global/${globalLocale}/home` : "/home";
-  const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
+  const screenerLabel = globalLocale === "tr" ? "LÄ°STELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
 
   const getLangHref = (targetLang: string) => {
     if (!pathname) return `/global/${targetLang.toLowerCase()}`;
@@ -206,7 +206,7 @@ export default function Header({
           <div className="hidden md:block w-px h-6 bg-[#1e2a3a] flex-shrink-0" />
         )}
 
-        {/* Desktop nav — inline, always visible */}
+        {/* Desktop nav â€” inline, always visible */}
         {showNav && (
           <nav className="hidden md:flex items-center gap-0.5 flex-1 overflow-x-auto scrollbar-none">
             {NAV_LINKS.map((link) => {
@@ -236,7 +236,7 @@ export default function Header({
 
         {/* Right side extras */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Terminal — clear, always-visible link back to the dashboard */}
+          {/* Terminal â€” clear, always-visible link back to the dashboard */}
           {globalLocale && (
             <>
               <MobileTerminalLink
@@ -314,8 +314,8 @@ export default function Header({
               href={`/global/${globalLocale}/today`}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
             >
-              <span>📅</span>
-              <span>{globalLocale === "tr" ? "Bugün Neler Oluyor" : globalLocale === "es" ? "¿Qué pasa hoy?" : globalLocale === "fr" ? "Aujourd'hui" : globalLocale === "pt" ? "Hoje" : "Today"}</span>
+              <span>ðŸ“…</span>
+              <span>{globalLocale === "tr" ? "BugÃ¼n Neler Oluyor" : globalLocale === "es" ? "Â¿QuÃ© pasa hoy?" : globalLocale === "fr" ? "Aujourd'hui" : globalLocale === "pt" ? "Hoje" : "Today"}</span>
             </Link>
           )}
 
@@ -325,27 +325,27 @@ export default function Header({
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-medium uppercase tracking-widest transition-all animate-pulse"
             >
               <span>+</span>
-              <span>YENİ ARAMA</span>
+              <span>YENÄ° ARAMA</span>
             </button>
           )}
 
 
-          {/* Logout butonu — her zaman görünür */}
+          {/* Logout butonu â€” her zaman gÃ¶rÃ¼nÃ¼r */}
           {!isHomePage && !hideMenus && (
             <button
               onClick={handleLogout}
               disabled={loggingOut}
-              title="Çıkış Yap"
+              title="Ã‡Ä±kÄ±ÅŸ Yap"
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
             >
               <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
               </svg>
-              <span className="hidden sm:inline">{loggingOut ? "..." : "Çıkış"}</span>
+              <span className="hidden sm:inline">{loggingOut ? "..." : "Ã‡Ä±kÄ±ÅŸ"}</span>
             </button>
           )}
 
-          {/* Mobile hamburger — only on small screens */}
+          {/* Mobile hamburger â€” only on small screens */}
           {showNav && (
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -392,3 +392,4 @@ export default function Header({
     </header>
   );
 }
+

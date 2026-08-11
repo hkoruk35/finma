@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
-type Locale = "en" | "tr" | "es" | "fr" | "pt";
+type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
 interface Props {
   ticker: string;
@@ -14,9 +14,9 @@ interface Props {
 
 const EXPAND_LABEL: Record<Locale, [string, string]> = {
   en: ["EXPAND", "COLLAPSE"],
-  tr: ["GENİŞLET", "DARALT"],
+  tr: ["GENÄ°ÅžLET", "DARALT"],
   es: ["EXPANDIR", "CONTRAER"],
-  fr: ["AGRANDIR", "RÉDUIRE"],
+  fr: ["AGRANDIR", "RÃ‰DUIRE"],
   pt: ["EXPANDIR", "RECOLHER"],
 };
 
@@ -30,7 +30,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
           <span className="text-xs font-medium text-white uppercase tracking-widest">
-            Live Chart · {ticker}
+            Live Chart Â· {ticker}
           </span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -63,12 +63,12 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
 
       {companyMismatch && (
         <div className="px-4 py-2 bg-[#f59e0b]/10 border-b border-[#f59e0b]/30 flex items-center gap-2">
-          <span className="text-[#f59e0b] text-xs">⚠</span>
+          <span className="text-[#f59e0b] text-xs">âš </span>
           <span className="text-xs text-[#f59e0b]">
             Chart may show a different company. BOGA tracks{" "}
             <strong>{companyMismatch.local}</strong>{" "}
-            — grafik{" "}
-            <strong>{companyMismatch.yfinance}</strong> gösteriyor olabilir.
+            â€” grafik{" "}
+            <strong>{companyMismatch.yfinance}</strong> gÃ¶steriyor olabilir.
           </span>
         </div>
       )}
@@ -86,3 +86,4 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
     </div>
   );
 }
+

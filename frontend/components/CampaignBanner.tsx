@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ interface Campaign {
   cta_url: string | null;
 }
 
-export default function CampaignBanner({ lang }: { lang: "en" | "tr" | "es" | "fr" | "pt" }) {
+export default function CampaignBanner({ lang }: { lang: "en" | "tr" | "es" | "fr" | "pt" | "id" }) {
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
@@ -33,16 +33,17 @@ export default function CampaignBanner({ lang }: { lang: "en" | "tr" | "es" | "f
   return (
     <div style={{ background: "#1c2433", borderBottom: "1px solid #30363d", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, fontSize: 13, fontFamily: "monospace", color: "#e6edf3" }}>
       <span>
-        <strong style={{ color: "#58a6ff" }}>{campaign.title}</strong> — {campaign.message}
+        <strong style={{ color: "#58a6ff" }}>{campaign.title}</strong> â€” {campaign.message}
       </span>
       {campaign.cta_url && (
         <a href={campaign.cta_url} style={{ color: "#3fb950", fontWeight: 700, textDecoration: "none" }}>
-          →
+          â†’
         </a>
       )}
       <button onClick={dismiss} style={{ background: "transparent", border: "none", color: "#8b949e", cursor: "pointer", fontSize: 14 }}>
-        ✕
+        âœ•
       </button>
     </div>
   );
 }
+

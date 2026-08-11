@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
@@ -24,12 +24,12 @@ import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 import { getIndexBySymbol } from "@/lib/indices";
 import { formatNumber } from "@/lib/formatNumber";
 
-type Locale = "en" | "tr" | "es" | "fr" | "pt";
+type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
-// Grafik barları borsa oturumuna (NY / ET) göre üretiliyor — eksen üzerindeki
-// saat/tarih etiketleri her ziyaretçinin kendi tarayıcı saat dilimine göre
-// değil, HER ZAMAN New York saatine göre gösterilmeli (aksi halde örn. TR
-// kullanıcısı için barlar +7 saat kaymış görünür).
+// Grafik barlarÄ± borsa oturumuna (NY / ET) gÃ¶re Ã¼retiliyor â€” eksen Ã¼zerindeki
+// saat/tarih etiketleri her ziyaretÃ§inin kendi tarayÄ±cÄ± saat dilimine gÃ¶re
+// deÄŸil, HER ZAMAN New York saatine gÃ¶re gÃ¶sterilmeli (aksi halde Ã¶rn. TR
+// kullanÄ±cÄ±sÄ± iÃ§in barlar +7 saat kaymÄ±ÅŸ gÃ¶rÃ¼nÃ¼r).
 const NY_TIME_ZONE = "America/New_York";
 
 function toNYDate(time: Time): Date {
@@ -94,73 +94,73 @@ const LABELS: Record<Locale, Record<string, string>> = {
     fibonacci: "Auto Fibonacci", trendLine: "Auto Trend Line", horizontalLine: "Auto Horizontal Line",
   },
   tr: {
-    liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
+    liveChart: "CanlÄ± Grafik", expand: "GENÄ°ÅžLET", collapse: "DARALT",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
-    rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bantları", vwap: "VWAP", sr: "Destek/Direnç",
+    rsi: "RSI (14)", macd: "MACD", bb: "Bollinger BantlarÄ±", vwap: "VWAP", sr: "Destek/DirenÃ§",
     volumeProfile: "Hacim Profili",
-    entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC",
-    share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
-    vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
-    multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
-    catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
+    entry: "GiriÅŸ", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
+    candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Ã‡izgi", ohlc: "OHLC",
+    share: "PaylaÅŸ", copyLink: "Linki kopyala", linkCopied: "Link kopyalandÄ±!",
+    vol: "Hac", indicators: "GÃ¶stergeler", premiumRequired: "Premium Ã¼yelik gerekir",
+    multiChartScreen: "Ã‡oklu Grafik EkranÄ±", charts: "Grafik",
+    catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa YapÄ±sÄ±", catPatterns: "Formasyonlar", catDrawings: "Ã‡izim AraÃ§larÄ±",
     autoChartPatterns: "Otomatik Chart Patterns", basicCandlePatterns: "Temel Candlestick Patterns",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilite", atr: "ATR", volume: "Hacim", obv: "OBV",
-    fvg: "FVG (Fair Value Gap)", sd: "Arz-Talep Bölgeleri", candlePat: "Mum Formasyonları", chartPat: "Otomatik Formasyonlar",
-    fibonacci: "Oto Fibonacci", trendLine: "Oto Trend Çizgisi", horizontalLine: "Oto Yatay Çizgi",
+    fvg: "FVG (Fair Value Gap)", sd: "Arz-Talep BÃ¶lgeleri", candlePat: "Mum FormasyonlarÄ±", chartPat: "Otomatik Formasyonlar",
+    fibonacci: "Oto Fibonacci", trendLine: "Oto Trend Ã‡izgisi", horizontalLine: "Oto Yatay Ã‡izgi",
   },
   es: {
-    liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
+    liveChart: "GrÃ¡fico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Soporte/Resistencia",
     volumeProfile: "Perfil de Volumen",
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC",
-    share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
-    vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
-    multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
+    candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "LÃ­nea", ohlc: "OHLC",
+    share: "Compartir", copyLink: "Copiar enlace", linkCopied: "Â¡Enlace copiado!",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresÃ­a Premium",
+    multiChartScreen: "Pantalla MultigrÃ¡fico", charts: "GrÃ¡ficos",
     catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
-    autoChartPatterns: "Patrones de Gráficos Automáticos", basicCandlePatterns: "Patrones Básicos de Velas",
+    autoChartPatterns: "Patrones de GrÃ¡ficos AutomÃ¡ticos", basicCandlePatterns: "Patrones BÃ¡sicos de Velas",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidad", atr: "ATR", volume: "Volumen", obv: "OBV",
-    fvg: "Fair Value Gap", sd: "Oferta y Demanda", candlePat: "Patrones de Velas", chartPat: "Patrones Automáticos",
-    fibonacci: "Fibonacci Automático", trendLine: "Línea de Tendencia Auto", horizontalLine: "Línea Horizontal Auto",
+    fvg: "Fair Value Gap", sd: "Oferta y Demanda", candlePat: "Patrones de Velas", chartPat: "Patrones AutomÃ¡ticos",
+    fibonacci: "Fibonacci AutomÃ¡tico", trendLine: "LÃ­nea de Tendencia Auto", horizontalLine: "LÃ­nea Horizontal Auto",
   },
   fr: {
-    liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
+    liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÃ‰DUIRE",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
-    rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/Résistance",
+    rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/RÃ©sistance",
     volumeProfile: "Profil de Volume",
-    entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
+    entry: "EntrÃ©e", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC",
-    share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
-    vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
-    multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
-    catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
-    autoChartPatterns: "Modèles de Graphiques Automatiques", basicCandlePatterns: "Modèles de Bougies de Base",
-    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilité", atr: "ATR", volume: "Volume", obv: "OBV",
-    fvg: "Fair Value Gap", sd: "Offre et Demande", candlePat: "Modèles de Bougies", chartPat: "Modèles Automatiques",
+    share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copiÃ© !",
+    vol: "Vol", indicators: "Indicateurs", premiumRequired: "AdhÃ©sion Premium requise",
+    multiChartScreen: "Ã‰cran Multi-Graphiques", charts: "Graphiques",
+    catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du MarchÃ©", catPatterns: "ModÃ¨les", catDrawings: "Outils de Dessin",
+    autoChartPatterns: "ModÃ¨les de Graphiques Automatiques", basicCandlePatterns: "ModÃ¨les de Bougies de Base",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "VolatilitÃ©", atr: "ATR", volume: "Volume", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Offre et Demande", candlePat: "ModÃ¨les de Bougies", chartPat: "ModÃ¨les Automatiques",
     fibonacci: "Fibonacci Automatique", trendLine: "Ligne de Tendance Auto", horizontalLine: "Ligne Horizontale Auto",
   },
   pt: {
-    liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
+    liveChart: "GrÃ¡fico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
-    rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Suporte/Resistência",
+    rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Suporte/ResistÃªncia",
     volumeProfile: "Perfil de Volume",
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
-    vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
-    multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
-    catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
-    autoChartPatterns: "Padrões Gráficos Automáticos", basicCandlePatterns: "Padrões Básicos de Velas",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessÃ¡ria",
+    multiChartScreen: "Tela MultigrÃ¡ficos", charts: "GrÃ¡ficos",
+    catTrend: "TendÃªncia", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "PadrÃµes", catDrawings: "Ferramentas de Desenho",
+    autoChartPatterns: "PadrÃµes GrÃ¡ficos AutomÃ¡ticos", basicCandlePatterns: "PadrÃµes BÃ¡sicos de Velas",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidade", atr: "ATR", volume: "Volume", obv: "OBV",
-    fvg: "Fair Value Gap", sd: "Oferta e Demanda", candlePat: "Padrões de Velas", chartPat: "Padrões Automáticos",
-    fibonacci: "Fibonacci Automático", trendLine: "Linha de Tendência Auto", horizontalLine: "Linha Horizontal Auto",
+    fvg: "Fair Value Gap", sd: "Oferta e Demanda", candlePat: "PadrÃµes de Velas", chartPat: "PadrÃµes AutomÃ¡ticos",
+    fibonacci: "Fibonacci AutomÃ¡tico", trendLine: "Linha de TendÃªncia Auto", horizontalLine: "Linha Horizontal Auto",
   },
 };
 
 // Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki
-// gosterge — geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
+// gosterge â€” geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
 // tiklaninca PremiumModal acar, aktif edilemez.
 const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume"]);
 
@@ -190,7 +190,7 @@ const DEFAULT_RIGHT_OFFSET = 5;
 
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
-// Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
+// Trade Plan zone/level toggles â€” detail-page-only (bkz. availableIndicators),
 // canlida /api/preorder-analysis'ten cekilen entryZone/stop/targets verisine
 // dayanir. "entry" taranmis/filigranli yesil bir aralik olarak (DOM overlay),
 // digerleri ("stop"/"tp1-3") sr ile ayni desende tek fiyat cizgisi olarak
@@ -201,8 +201,8 @@ const UP_COLOR = "#22c55e";
 const DOWN_COLOR = "#ef4444";
 const NAVY = "#030073";
 
-// Çoklu Grafik Ekranı — tıklanan hisse ilk karo, geri kalanı bu havuzdan
-// (tekrarsız) dolduruluyor, boylece "9 Grafik" secince 9 ayni grafik yerine
+// Ã‡oklu Grafik EkranÄ± â€” tÄ±klanan hisse ilk karo, geri kalanÄ± bu havuzdan
+// (tekrarsÄ±z) dolduruluyor, boylece "9 Grafik" secince 9 ayni grafik yerine
 // karsilastirmali bir izleme listesi gorunuyor.
 const MULTI_CHART_POOL = ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "SPY", "QQQ"];
 
@@ -215,7 +215,7 @@ function multiChartGridClass(n: number): string {
 }
 
 // Trade Plan toggle butonlarinin ve grafik uzerindeki cizgilerin/overlay'in
-// rengi — createPriceLine cagrilarindaki (STOP=DOWN_COLOR kirmizi, TP1-3
+// rengi â€” createPriceLine cagrilarindaki (STOP=DOWN_COLOR kirmizi, TP1-3
 // mavi/camgobegi/mor) ve entry-zone overlay'indeki (yesil) renklerle birebir
 // eslesir, boylece buton ile grafikteki isaret ayni renkte gorunur.
 const TRADE_PLAN_COLORS: Partial<Record<IndicatorKey, string>> = {
@@ -359,8 +359,8 @@ export default function BogaChartEngine({
   const t = LABELS[lang] || LABELS.en;
   const { isPremium, tier } = useMemberPlan();
   const gated = premiumGate && !isPremium;
-  // Çoklu ekran (2/3/4/6/9): 2026-08-03 kullanıcı talebiyle üye olan
-  // HERKESE (free dahil) 9 grafiğe kadar kısıtlamasız ve tamamen ücretsiz.
+  // Ã‡oklu ekran (2/3/4/6/9): 2026-08-03 kullanÄ±cÄ± talebiyle Ã¼ye olan
+  // HERKESE (free dahil) 9 grafiÄŸe kadar kÄ±sÄ±tlamasÄ±z ve tamamen Ã¼cretsiz.
   const multiChartGated = false;
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -407,11 +407,11 @@ export default function BogaChartEngine({
   const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (isIndex ? "line" : (detailMode ? "heikin-ashi" : "candle")));
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
-  // Mobilde toolbar kalabalığını azaltmak için: mum tipi ve gösterge satırları
-  // masaüstünde (md:) her zaman açık kalır, mobilde ise varsayılan kapalı
-  // açılır menü/panel arkasına saklanır. crosshairActive: mobilde statik
-  // OHLCV kutusu SADECE kullanıcı grafiğe dokunup crosshair'i aktif ettiğinde
-  // görünür (masaüstünde davranış değişmedi, her zaman görünür kalır).
+  // Mobilde toolbar kalabalÄ±ÄŸÄ±nÄ± azaltmak iÃ§in: mum tipi ve gÃ¶sterge satÄ±rlarÄ±
+  // masaÃ¼stÃ¼nde (md:) her zaman aÃ§Ä±k kalÄ±r, mobilde ise varsayÄ±lan kapalÄ±
+  // aÃ§Ä±lÄ±r menÃ¼/panel arkasÄ±na saklanÄ±r. crosshairActive: mobilde statik
+  // OHLCV kutusu SADECE kullanÄ±cÄ± grafiÄŸe dokunup crosshair'i aktif ettiÄŸinde
+  // gÃ¶rÃ¼nÃ¼r (masaÃ¼stÃ¼nde davranÄ±ÅŸ deÄŸiÅŸmedi, her zaman gÃ¶rÃ¼nÃ¼r kalÄ±r).
   const [mobileCandleMenuOpen, setMobileCandleMenuOpen] = useState(false);
   const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -423,7 +423,7 @@ export default function BogaChartEngine({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
-  // Oturumlar arası kaydedilmiş göstergeleri ve grafik şablonunu otomatik yükle
+  // Oturumlar arasÄ± kaydedilmiÅŸ gÃ¶stergeleri ve grafik ÅŸablonunu otomatik yÃ¼kle
   useEffect(() => {
     if (compact || typeof window === "undefined") return;
     try {
@@ -450,7 +450,7 @@ export default function BogaChartEngine({
         indicators: Array.from(active),
       };
       localStorage.setItem("bogastock_chart_settings", JSON.stringify(settings));
-      setToastMsg(lang === "tr" ? "✓ Ayarlar ve Göstergeler Kaydedildi!" : "✓ Settings & Indicators Saved!");
+      setToastMsg(lang === "tr" ? "âœ“ Ayarlar ve GÃ¶stergeler Kaydedildi!" : "âœ“ Settings & Indicators Saved!");
       setTimeout(() => setToastMsg(null), 2500);
     } catch {}
   };
@@ -463,11 +463,11 @@ export default function BogaChartEngine({
       setCandleType("candle");
       setRange("3M");
       setInternalActive(new Set(["ema50", "rsi", "volume"] as IndicatorKey[]));
-      setToastMsg(lang === "tr" ? "↺ Varsayılan Ayarlara Sıfırlandı!" : "↺ Reset to Factory Defaults!");
+      setToastMsg(lang === "tr" ? "â†º VarsayÄ±lan Ayarlara SÄ±fÄ±rlandÄ±!" : "â†º Reset to Factory Defaults!");
       setTimeout(() => setToastMsg(null), 2500);
     } catch {}
   };
-  // Rendered as a plain DOM overlay (see JSX below) — driven by React state
+  // Rendered as a plain DOM overlay (see JSX below) â€” driven by React state
   // instead of a lightweight-charts canvas primitive, since the primitive
   // paint lifecycle (paneViews/renderer/draw) proved unreliable to trigger
   // consistently. Coordinates come from the same priceToCoordinate /
@@ -480,7 +480,7 @@ export default function BogaChartEngine({
   } | null>(null);
   const recomputeVPRef = useRef<(bars: Bar[]) => void>(() => {});
 
-  // Trade Plan (Entry/Stop/TP1-3) — lib/tradePlanEngine.ts uzerinden ayni
+  // Trade Plan (Entry/Stop/TP1-3) â€” lib/tradePlanEngine.ts uzerinden ayni
   // /api/preorder-analysis'i (grafik sayfasindaki Trade Plan karti ile ayni
   // kaynak, celismesin diye) sadece detay modunda ceker. Entry bir aralik
   // oldugu icin (VP ile ayni sekilde) DOM overlay olarak, stop/tp1-3 ise
@@ -495,7 +495,7 @@ export default function BogaChartEngine({
   const [entryZoneOverlay, setEntryZoneOverlay] = useState<{ top: number; height: number } | null>(null);
   const recomputeEntryZoneRef = useRef<() => void>(() => {});
 
-  // Mobil breakpoint (md: = 768px) kontrol — varsayılan göstergeleri uyarla
+  // Mobil breakpoint (md: = 768px) kontrol â€” varsayÄ±lan gÃ¶stergeleri uyarla
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -503,15 +503,15 @@ export default function BogaChartEngine({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Mobil tasarımda varsayılan göstergeleri güncelle: hacim profili ve RSI'ı kaldır.
-  // NOT: `defaultIndicators` sadece ilk state'i tohumluyor (grafik sayfası
-  // detailMode'da rsi/volumeProfile'ı masaüstü varsayılanı olarak geçiyor,
-  // bkz. GraphicDetailContent.tsx) — kullanıcı toolbar'daki butonlarla hâlâ
-  // değiştirebiliyor, o yüzden bu durumda ATLANMAMALI. Gerçekten dışarıdan
-  // TAM kontrollü mod (compact grid tile gibi, toggle butonu bile yok) sadece
-  // `indicatorsProp` (indicators prop'u) geçildiğinde devreye girer.
+  // Mobil tasarÄ±mda varsayÄ±lan gÃ¶stergeleri gÃ¼ncelle: hacim profili ve RSI'Ä± kaldÄ±r.
+  // NOT: `defaultIndicators` sadece ilk state'i tohumluyor (grafik sayfasÄ±
+  // detailMode'da rsi/volumeProfile'Ä± masaÃ¼stÃ¼ varsayÄ±lanÄ± olarak geÃ§iyor,
+  // bkz. GraphicDetailContent.tsx) â€” kullanÄ±cÄ± toolbar'daki butonlarla hÃ¢lÃ¢
+  // deÄŸiÅŸtirebiliyor, o yÃ¼zden bu durumda ATLANMAMALI. GerÃ§ekten dÄ±ÅŸarÄ±dan
+  // TAM kontrollÃ¼ mod (compact grid tile gibi, toggle butonu bile yok) sadece
+  // `indicatorsProp` (indicators prop'u) geÃ§ildiÄŸinde devreye girer.
   useEffect(() => {
-    if (indicatorsProp) return; // Tam kontrollü mod — toggle UI'ı yok, dokunma
+    if (indicatorsProp) return; // Tam kontrollÃ¼ mod â€” toggle UI'Ä± yok, dokunma
     if (isMobile) {
       const updated = new Set(internalActive);
       updated.delete("volumeProfile");
@@ -523,7 +523,7 @@ export default function BogaChartEngine({
   useEffect(() => {
     if (!detailMode) return;
     let active = true;
-    // preorder-analysis artik 5 dili de uretir (tr varsayilan) — kendi
+    // preorder-analysis artik 5 dili de uretir (tr varsayilan) â€” kendi
     // dilinde metin alsin diye gercek locale gonderilir (eskiden tr disindaki
     // tum diller Ingilizce'ye dusuyordu).
     const langParam = lang && lang !== "tr" ? `&lang=${lang}` : "";
@@ -539,7 +539,7 @@ export default function BogaChartEngine({
     };
   }, [symbol, detailMode, lang]);
 
-  // Native Fullscreen API — reliably escapes any ancestor CSS (e.g.
+  // Native Fullscreen API â€” reliably escapes any ancestor CSS (e.g.
   // backdrop-filter/overflow-hidden on a parent .glass-card), which a
   // plain CSS `position:fixed` trick does not: an ancestor with
   // backdrop-filter creates a new containing block for fixed descendants,
@@ -552,8 +552,8 @@ export default function BogaChartEngine({
     }
   };
 
-  // Aktif sembol ve kullanıcının sol listeden onay kutucuklarıyla seçtiği (externalMultiChartTickers) hisseler.
-  // Seçimdeki tüm ticker'lar çoklu ekrana aktarılır, n sınırı varsa sığdırılır veya havuzdan tamamlanır.
+  // Aktif sembol ve kullanÄ±cÄ±nÄ±n sol listeden onay kutucuklarÄ±yla seÃ§tiÄŸi (externalMultiChartTickers) hisseler.
+  // SeÃ§imdeki tÃ¼m ticker'lar Ã§oklu ekrana aktarÄ±lÄ±r, n sÄ±nÄ±rÄ± varsa sÄ±ÄŸdÄ±rÄ±lÄ±r veya havuzdan tamamlanÄ±r.
   const openMultiChart = (n: number) => {
     let tickers: string[] = [];
     if (externalMultiChartTickers && externalMultiChartTickers.length > 0) {
@@ -580,7 +580,7 @@ export default function BogaChartEngine({
     });
   };
 
-  // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay kutucuklarıyla dışarıdan tetiklenen veya seçim değiştiğinde çoklu grafiği güncelleme
+  // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay kutucuklarÄ±yla dÄ±ÅŸarÄ±dan tetiklenen veya seÃ§im deÄŸiÅŸtiÄŸinde Ã§oklu grafiÄŸi gÃ¼ncelleme
   useEffect(() => {
     if (externalMultiChartTrigger && externalMultiChartTrigger > 0 && externalMultiChartTickers && externalMultiChartTickers.length >= 1) {
       setMultiChartTickers([...externalMultiChartTickers]);
@@ -600,7 +600,7 @@ export default function BogaChartEngine({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [intervalProp]);
 
-  // ── Chart lifecycle ──────────────────────────────────────────────────────
+  // â”€â”€ Chart lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -625,9 +625,9 @@ export default function BogaChartEngine({
       },
       localization: { timeFormatter: nyTimeFormatter },
       autoSize: true,
-      // Fare tekerleği varsayılan olarak kapalı — grafik üzerinden sayfayı
-      // aşağı/yukarı kaydırmaya çalışan kullanıcı yanlışlıkla zoom yapmasın diye.
-      // Tıklayınca (bkz. onClick/onMouseLeave aşağıda) geçici olarak açılıyor.
+      // Fare tekerleÄŸi varsayÄ±lan olarak kapalÄ± â€” grafik Ã¼zerinden sayfayÄ±
+      // aÅŸaÄŸÄ±/yukarÄ± kaydÄ±rmaya Ã§alÄ±ÅŸan kullanÄ±cÄ± yanlÄ±ÅŸlÄ±kla zoom yapmasÄ±n diye.
+      // TÄ±klayÄ±nca (bkz. onClick/onMouseLeave aÅŸaÄŸÄ±da) geÃ§ici olarak aÃ§Ä±lÄ±yor.
       handleScroll: { mouseWheel: false, pressedMouseMove: true, horzTouchDrag: true, vertTouchDrag: true },
       handleScale: { mouseWheel: false, axisPressedMouseMove: true, pinch: true },
     });
@@ -687,7 +687,7 @@ export default function BogaChartEngine({
     };
   }, []);
 
-  // ── Data fetch ───────────────────────────────────────────────────────────
+  // â”€â”€ Data fetch â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const fetchData = useCallback(async () => {
     const wanted = Array.from(active).filter((k) => k !== "sr").join(",");
     const indicatorsParam = [wanted, active.has("sr") ? "sr" : ""].filter(Boolean).join(",");
@@ -700,15 +700,15 @@ export default function BogaChartEngine({
       lastDataRef.current = data;
       renderAll(data);
     } catch {
-      // silent — network hiccup, next poll/refetch will retry
+      // silent â€” network hiccup, next poll/refetch will retry
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [symbol, interval, active]);
 
-  // Fixed Range Volume Profile — only in the full detail toolbar, never on
+  // Fixed Range Volume Profile â€” only in the full detail toolbar, never on
   // compact/mini/hover embeds, regardless of what `active` contains.
   // "Fixed range" = the currently visible window (the same range the
-  // Görünüm buttons zoom to), not the whole fetched dataset — otherwise
+  // GÃ¶rÃ¼nÃ¼m buttons zoom to), not the whole fetched dataset â€” otherwise
   // the profile is computed and positioned against months of off-screen
   // history instead of what's actually on screen. Must run AFTER
   // applyVisibleRange (needs the timeScale already reflecting the current
@@ -735,7 +735,7 @@ export default function BogaChartEngine({
     }
 
     // Anchor at the far edge of the reserved right-hand margin (not at the
-    // last candle) using the logical index space — timeToCoordinate can't
+    // last candle) using the logical index space â€” timeToCoordinate can't
     // resolve a Time value past the last real bar, but logical indices
     // extend smoothly into the empty rightOffset margin.
     chart.timeScale().applyOptions({ rightOffset: VP_MARGIN_BARS + 2 });
@@ -751,7 +751,7 @@ export default function BogaChartEngine({
     const maxVol = Math.max(...rows.map((r) => r.volume), 1);
     const pocIndex = rows.findIndex((r) => r.volume === maxVol);
 
-    // Value Area — the contiguous price band around the POC holding ~70% of
+    // Value Area â€” the contiguous price band around the POC holding ~70% of
     // total volume. Expand outward from the POC one row at a time, always
     // taking whichever neighbor (above/below the current band) has more
     // volume, until the running total crosses the threshold.
@@ -803,7 +803,7 @@ export default function BogaChartEngine({
   };
   recomputeVPRef.current = recomputeVolumeProfile;
 
-  // Entry zone — VP ile ayni desen: canvas primitive yerine plain DOM
+  // Entry zone â€” VP ile ayni desen: canvas primitive yerine plain DOM
   // overlay, mainSeries.priceToCoordinate() ile pixel Y'ye cevrilir.
   const recomputeEntryZone = () => {
     const mainSeries = mainSeriesRef.current;
@@ -1044,7 +1044,7 @@ export default function BogaChartEngine({
 
 
     if (active.has("sr") && data.sr) {
-      // Keep only the levels nearest the last close — otherwise months of
+      // Keep only the levels nearest the last close â€” otherwise months of
       // pivot history clutters the chart with dozens of R/S lines.
       const lastClose = bars[bars.length - 1]?.close ?? 0;
       const nearest = [...data.sr]
@@ -1063,9 +1063,9 @@ export default function BogaChartEngine({
       }
     }
 
-    // Trade Plan tekli seviyeler (STOP/TP1-3) — "sr" ile ayni createPriceLine
+    // Trade Plan tekli seviyeler (STOP/TP1-3) â€” "sr" ile ayni createPriceLine
     // deseni, farkli renk/etiketle. "entry" burada degil: o bir aralik,
-    // priceLine tek deger aliyor — ayrica DOM overlay olarak cizilir (asagida
+    // priceLine tek deger aliyor â€” ayrica DOM overlay olarak cizilir (asagida
     // recomputeEntryZone).
     if (tradePlan?.valid) {
       if (active.has("stop")) {
@@ -1111,7 +1111,7 @@ export default function BogaChartEngine({
       chart.timeScale().fitContent();
       return;
     }
-    // Detail mode: independent "Görünüm" (range/zoom) row, user-selectable.
+    // Detail mode: independent "GÃ¶rÃ¼nÃ¼m" (range/zoom) row, user-selectable.
     // Otherwise: auto-pick a sensible window per interval (spec: 4H opens to 1W).
     const windowSeconds = detailMode
       ? RANGE_WINDOW_SECONDS[range]
@@ -1119,7 +1119,7 @@ export default function BogaChartEngine({
           interval
         ] ?? 7 * 86400);
 
-    // setVisibleRange sets an explicit from/to, which overrides rightOffset —
+    // setVisibleRange sets an explicit from/to, which overrides rightOffset â€”
     // so when the Volume Profile margin is reserved, extend `to` past the
     // last candle to keep that margin (and the profile drawn in it) in view.
     let rightEdge = lastBar.time;
@@ -1139,7 +1139,7 @@ export default function BogaChartEngine({
   }, [fetchData]);
 
   // Candle type change: re-create the main series and redraw from cached
-  // data — no network refetch needed, same bars, different presentation.
+  // data â€” no network refetch needed, same bars, different presentation.
   useEffect(() => {
     const chart = chartRef.current;
     if (!chart) return;
@@ -1153,7 +1153,7 @@ export default function BogaChartEngine({
   }, [candleType]);
 
   // Range (view window) change: rezoom + recompute the volume profile
-  // against the newly-selected window — no refetch needed.
+  // against the newly-selected window â€” no refetch needed.
   useEffect(() => {
     if (barsRef.current.length) {
       applyVisibleRange(barsRef.current);
@@ -1162,8 +1162,8 @@ export default function BogaChartEngine({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range]);
 
-  // ── Polling for the latest bar (Yahoo data is ~15min delayed, so this
-  // just keeps the last visible candle current rather than simulating ticks) ──
+  // â”€â”€ Polling for the latest bar (Yahoo data is ~15min delayed, so this
+  // just keeps the last visible candle current rather than simulating ticks) â”€â”€
   useEffect(() => {
     const poll = window.setInterval(() => {
       if (document.hidden) return;
@@ -1190,9 +1190,9 @@ export default function BogaChartEngine({
     onIntervalChange?.(value);
   };
 
-  // Volume Profile ve Trade Plan (Entry/Stop/TP1-3) detay-sayfasi-only —
+  // Volume Profile ve Trade Plan (Entry/Stop/TP1-3) detay-sayfasi-only â€”
   // compact/mini/embedded grafiklerde hicbir zaman toggle olarak sunulmaz.
-  // Trade Plan gecerli degilse (bkz. tradePlan.valid) hic gosterilmez —
+  // Trade Plan gecerli degilse (bkz. tradePlan.valid) hic gosterilmez â€”
   // TickerDetailPanel'deki "Not Suitable for a Trade" ile ayni mantik.
   const availableIndicators: IndicatorKey[] = compact
     ? ["ema20", "ema50"]
@@ -1208,7 +1208,7 @@ export default function BogaChartEngine({
   };
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const shareText = `${symbol} chart — BOGA AI`;
+  const shareText = `${symbol} chart â€” BOGA AI`;
   const shareLinks = {
     x: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`,
     whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`,
@@ -1220,21 +1220,21 @@ export default function BogaChartEngine({
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard unavailable — silently ignore
+      // clipboard unavailable â€” silently ignore
     }
   };
 
-  const fmt = (n: number | undefined | null, d = 2) => (n == null ? "—" : formatNumber(n, d));
+  const fmt = (n: number | undefined | null, d = 2) => (n == null ? "â€”" : formatNumber(n, d));
   const fmtVol = (n: number | undefined | null) => {
-    if (n == null) return "—";
+    if (n == null) return "â€”";
     if (n >= 1e9) return formatNumber(n / 1e9, 2) + "B";
     if (n >= 1e6) return formatNumber(n / 1e6, 2) + "M";
     if (n >= 1e3) return formatNumber(n / 1e3, 1) + "K";
     return String(n);
   };
 
-  // Gösterge butonu — hem masaüstü satırında hem mobil açılır panelde
-  // AYNI kod kullanılsın diye tek yerden üretilir.
+  // GÃ¶sterge butonu â€” hem masaÃ¼stÃ¼ satÄ±rÄ±nda hem mobil aÃ§Ä±lÄ±r panelde
+  // AYNI kod kullanÄ±lsÄ±n diye tek yerden Ã¼retilir.
   const renderIndicatorButton = (key: IndicatorKey) => {
     const locked = gated && !FREE_INDICATOR_KEYS.has(key);
     const val = !locked && ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
@@ -1277,9 +1277,9 @@ export default function BogaChartEngine({
     );
   };
 
-  // Paylaş butonu + açılır menüsü — masaüstünde ilk satırda (metinli),
-  // mobilde ikinci satırda mum tipi seçicisinin yanındaki boş alanda
-  // (ikon-only) render edilir; aynı shareOpen state'i paylaşırlar.
+  // PaylaÅŸ butonu + aÃ§Ä±lÄ±r menÃ¼sÃ¼ â€” masaÃ¼stÃ¼nde ilk satÄ±rda (metinli),
+  // mobilde ikinci satÄ±rda mum tipi seÃ§icisinin yanÄ±ndaki boÅŸ alanda
+  // (ikon-only) render edilir; aynÄ± shareOpen state'i paylaÅŸÄ±rlar.
   const shareControl = (
     <div className="relative">
       <button
@@ -1370,7 +1370,7 @@ export default function BogaChartEngine({
                     <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  {t.indicators} <span className="text-[9px]">{indicatorsMenuOpen ? "▴" : "▾"}</span>
+                  {t.indicators} <span className="text-[9px]">{indicatorsMenuOpen ? "â–´" : "â–¾"}</span>
                 </button>
                 {indicatorsMenuOpen && (
                   <div className="absolute left-0 mt-1 w-72 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
@@ -1389,12 +1389,12 @@ export default function BogaChartEngine({
                       <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volume" ? "Volume" : k === "volumeProfile" ? "Volume Profile" : k.toUpperCase())}</button>
                     ))}
                     
-                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa YapÄ±sÄ±"}</div>
                     <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
                     <button onClick={() => toggle("sd")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sd") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sd || "Supply & Demand Zones"}</button>
                     <button onClick={() => toggle("fvg")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fvg") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fvg || "Fair Value Gap (FVG)"}</button>
                     
-                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Ã‡izim AraÃ§larÄ±"}</div>
                     <button onClick={() => toggle("trendLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("trendLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.trendLine || "Trend Line"}</button>
                     <button onClick={() => toggle("horizontalLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("horizontalLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.horizontalLine || "Horizontal Line"}</button>
                     <button onClick={() => toggle("fibonacci")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fibonacci") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fibonacci || "Fibonacci Retracement"}</button>
@@ -1408,9 +1408,9 @@ export default function BogaChartEngine({
                   type="button"
                   onClick={saveChartSettings}
                   className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/50 text-[10px] font-bold text-[#38bdf8] hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm cursor-pointer"
-                  title={lang === "tr" ? "Mevcut gösterge ve grafik ayarlarını kaydet" : "Save current indicators & chart settings"}
+                  title={lang === "tr" ? "Mevcut gÃ¶sterge ve grafik ayarlarÄ±nÄ± kaydet" : "Save current indicators & chart settings"}
                 >
-                  <span>💾</span>
+                  <span>ðŸ’¾</span>
                   <span>{lang === "tr" ? "Kaydet" : "Save"}</span>
                 </button>
 
@@ -1418,10 +1418,10 @@ export default function BogaChartEngine({
                   type="button"
                   onClick={resetChartSettings}
                   className="flex items-center gap-1 px-2 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 transition-all cursor-pointer"
-                  title={lang === "tr" ? "Varsayılan gösterge ve grafik ayarlarına sıfırla" : "Reset to default indicators & settings"}
+                  title={lang === "tr" ? "VarsayÄ±lan gÃ¶sterge ve grafik ayarlarÄ±na sÄ±fÄ±rla" : "Reset to default indicators & settings"}
                 >
-                  <span>↺</span>
-                  <span>{lang === "tr" ? "Sıfırla" : "Reset"}</span>
+                  <span>â†º</span>
+                  <span>{lang === "tr" ? "SÄ±fÄ±rla" : "Reset"}</span>
                 </button>
 
                 <div className="hidden md:block">{shareControl}</div>
@@ -1430,7 +1430,7 @@ export default function BogaChartEngine({
                   className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all"
                   title={t.fullscreen || "Tam Ekran"}
                 >
-                  {isFullscreen ? "⛶" : "⛶"}
+                  {isFullscreen ? "â›¶" : "â›¶"}
                 </button>
                 <div className="relative hidden md:block">
                   <button
@@ -1480,8 +1480,8 @@ export default function BogaChartEngine({
                 ))}
               </div>
 
-              {/* Mum tipi — masaüstünde tam buton satırı, mobilde kalabalığı
-                  azaltmak için tek satırlık açılır menü (bkz. mobileCandleMenuOpen). */}
+              {/* Mum tipi â€” masaÃ¼stÃ¼nde tam buton satÄ±rÄ±, mobilde kalabalÄ±ÄŸÄ±
+                  azaltmak iÃ§in tek satÄ±rlÄ±k aÃ§Ä±lÄ±r menÃ¼ (bkz. mobileCandleMenuOpen). */}
               <div className="hidden md:flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
                 {CANDLE_TYPES.map((ct) => (
                   <button
@@ -1500,7 +1500,7 @@ export default function BogaChartEngine({
                   onClick={() => setMobileCandleMenuOpen((v) => !v)}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff]"
                 >
-                  {t[candleType]} <span className="text-[8px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
+                  {t[candleType]} <span className="text-[8px]">{mobileCandleMenuOpen ? "â–´" : "â–¾"}</span>
                 </button>
                 {mobileCandleMenuOpen && (
                   <div className="absolute left-0 mt-1 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
@@ -1522,19 +1522,19 @@ export default function BogaChartEngine({
                 )}
               </div>
 
-              {/* Paylaş — mobilde burada, mum tipi seçicisinin yanındaki
-                  boş alanda (bkz. shareControl tanımı yukarıda). Negatif
-                  margin, satırın gap boşluğunu kısarak dar mobil genişlikte
-                  sığmasını sağlıyor. */}
+              {/* PaylaÅŸ â€” mobilde burada, mum tipi seÃ§icisinin yanÄ±ndaki
+                  boÅŸ alanda (bkz. shareControl tanÄ±mÄ± yukarÄ±da). Negatif
+                  margin, satÄ±rÄ±n gap boÅŸluÄŸunu kÄ±sarak dar mobil geniÅŸlikte
+                  sÄ±ÄŸmasÄ±nÄ± saÄŸlÄ±yor. */}
               <div className="md:hidden -ml-1">{shareControl}</div>
             </div>
 
-            {/* Göstergeler — SADECE aktif/varsayılan göstergeler (EMA50,
-                RSI, Hacim) tek satırda gösterilir, hem masaüstü hem mobilde.
-                Diğer tüm göstergeler gizli kalır; yeni gösterge eklemek için
-                üstteki kategorili "Göstergeler ▾" menüsü kullanılır — aktif
-                edilen gösterge o menüden işaretlenince otomatik olarak bu
-                satırda da belirir (active state ortak). */}
+            {/* GÃ¶stergeler â€” SADECE aktif/varsayÄ±lan gÃ¶stergeler (EMA50,
+                RSI, Hacim) tek satÄ±rda gÃ¶sterilir, hem masaÃ¼stÃ¼ hem mobilde.
+                DiÄŸer tÃ¼m gÃ¶stergeler gizli kalÄ±r; yeni gÃ¶sterge eklemek iÃ§in
+                Ã¼stteki kategorili "GÃ¶stergeler â–¾" menÃ¼sÃ¼ kullanÄ±lÄ±r â€” aktif
+                edilen gÃ¶sterge o menÃ¼den iÅŸaretlenince otomatik olarak bu
+                satÄ±rda da belirir (active state ortak). */}
             {!hideIndicatorToggles && (
               <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
                 {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
@@ -1554,18 +1554,18 @@ export default function BogaChartEngine({
           {/* Toast Notification */}
           {toastMsg && (
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[100] px-4 py-1.5 rounded-full bg-[#0d131f] border-2 border-[#3b82f6] text-xs font-bold text-white shadow-[0_4px_30px_rgba(59,130,246,0.6)] animate-fadeIn pointer-events-none flex items-center gap-2">
-              <span className="text-[#38bdf8] text-sm">✦</span>
+              <span className="text-[#38bdf8] text-sm">âœ¦</span>
               <span>{toastMsg}</span>
             </div>
           )}
 
-          {/* BOGASTOCK filigran — sol ustte, detailMode'da masaustunde OHLC
+          {/* BOGASTOCK filigran â€” sol ustte, detailMode'da masaustunde OHLC
               satirinin hemen altinda (o satir orada her zaman gorunur).
               Mobilde OHLC satiri varsayilan gizli oldugu icin (bkz.
-              crosshairActive) filigran da yukari, ust kenara yaklasir —
+              crosshairActive) filigran da yukari, ust kenara yaklasir â€”
               aksi halde bos bir bosluk kalirdi. Header.tsx'teki logoyla ayni
               format (Boga mavi, Stock beyaz/gri), dusuk opaklikla mum/gosterge
-              okumayi engellemeyecek sekilde. Altinda ticker sembolü. */}
+              okumayi engellemeyecek sekilde. Altinda ticker sembolÃ¼. */}
           <div
             className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-2 md:top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
           >
@@ -1584,9 +1584,9 @@ export default function BogaChartEngine({
           </div>
 
           {detailMode && (
-            // Masaüstünde her zaman görünür (mevcut davranış korunuyor).
-            // Mobilde ise ekranı kalabalıklaştırmasın diye SADECE kullanıcı
-            // grafiğe dokunup crosshair'i aktif ettiğinde görünür.
+            // MasaÃ¼stÃ¼nde her zaman gÃ¶rÃ¼nÃ¼r (mevcut davranÄ±ÅŸ korunuyor).
+            // Mobilde ise ekranÄ± kalabalÄ±klaÅŸtÄ±rmasÄ±n diye SADECE kullanÄ±cÄ±
+            // grafiÄŸe dokunup crosshair'i aktif ettiÄŸinde gÃ¶rÃ¼nÃ¼r.
             <div
               className={`absolute top-2 left-2 z-10 ${crosshairActive ? "flex" : "hidden"} md:flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-medium pointer-events-none`}
             >
@@ -1598,12 +1598,12 @@ export default function BogaChartEngine({
             </div>
           )}
 
-          {/* Volume Profile — plain DOM overlay (not a canvas primitive),
+          {/* Volume Profile â€” plain DOM overlay (not a canvas primitive),
               positioned with the same coordinate APIs the chart itself uses.
               pointer-events-none so it never blocks crosshair/candle hover. */}
           {vpOverlay && (
             <div className="absolute inset-0 z-[6] overflow-hidden pointer-events-none">
-              {/* POC reference line — dashed, spans the full chart width so the
+              {/* POC reference line â€” dashed, spans the full chart width so the
                   price the market spent the most volume at reads clearly behind
                   the candles, not just within the profile bars themselves. */}
               <div
@@ -1635,7 +1635,7 @@ export default function BogaChartEngine({
             </div>
           )}
 
-          {/* Entry zone — VP ile ayni DOM overlay deseni: taranmis/filigranli
+          {/* Entry zone â€” VP ile ayni DOM overlay deseni: taranmis/filigranli
               yesil bir bant, "Entry" toggle'i acikken tradePlan.entryZone
               (low-high) araligini gosterir. pointer-events-none, crosshair'i
               engellemez. */}
@@ -1652,7 +1652,7 @@ export default function BogaChartEngine({
               }}
             >
               <span className="absolute left-1 top-0.5 text-[9px] font-medium text-[#22c55e] bg-[#0a0e17]/70 px-1 rounded">
-                ENTRY ${formatNumber(tradePlan.entryZone.low, 2)}–${formatNumber(tradePlan.entryZone.high, 2)}
+                ENTRY ${formatNumber(tradePlan.entryZone.low, 2)}â€“${formatNumber(tradePlan.entryZone.high, 2)}
               </span>
             </div>
           )}
@@ -1718,7 +1718,7 @@ function MultiChartOverlay({
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0 gap-3">
         <div className="flex items-center gap-3">
           <span className="text-sm font-bold text-white uppercase tracking-widest">
-            {t.multiChartScreen} — {layout}
+            {t.multiChartScreen} â€” {layout}
           </span>
 
           {/* Layout Selector Buttons */}
@@ -1770,7 +1770,7 @@ function MultiChartOverlay({
             }}
             className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-medium text-[#00d2ff] hover:text-white transition-all cursor-pointer z-50"
           >
-            ✕
+            âœ•
           </button>
         </div>
       </div>
@@ -1833,3 +1833,4 @@ function MultiChartTickerInput({ value, label, onChange }: { value: string; labe
     />
   );
 }
+
