@@ -94,6 +94,22 @@ export default function PrivacyPageId() {
           </section>
 
           {/* Section 7 */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              7. Periklanan, Cookie & Google AdSense
+            </h2>
+            <p className="mb-4 text-slate-300">
+              BogaStock.com menggunakan <strong className="text-white">Google AdSense</strong> untuk menampilkan iklan di situs ini. Sebagai vendor pihak ketiga, Google menggunakan cookie untuk menayangkan iklan berdasarkan kunjungan pengguna sebelumnya ke situs ini atau situs lain di Internet. Penggunaan cookie iklan oleh Google memungkinkan Google dan mitranya menayangkan iklan kepada pengguna kami berdasarkan kunjungan mereka ke BogaStock.com dan/atau situs lain.
+            </p>
+            <p className="text-slate-300">
+              Pengguna dapat memilih keluar dari iklan yang dipersonalisasi dengan mengunjungi{" "}
+              <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">Setelan Iklan Google</a>
+              {" "}atau{" "}
+              <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">www.aboutads.info</a>.
+            </p>
+          </section>
+
+          {/* Section 8 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">Pernyataan Privasi Global</h2>
             <p className="text-xs text-slate-400">

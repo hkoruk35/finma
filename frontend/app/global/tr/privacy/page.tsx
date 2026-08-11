@@ -94,6 +94,23 @@ export default function PrivacyPageTr() {
           </section>
 
           {/* Section 7 */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              7. Reklamcılık, Çerezler ve Google AdSense
+            </h2>
+            <p className="mb-4 text-slate-300">
+              BogaStock.com, bu web sitesinde reklam göstermek için <strong className="text-white">Google AdSense</strong> kullanmaktadır. Üçüncü taraf tedarikçi olarak Google, kullanıcıların bu siteyi veya İnternet&apos;teki diğer siteleri daha önce ziyaret etmiş olmasına dayanarak reklam sunmak amacıyla çerezler kullanır. Google&apos;ın reklam çerezlerini kullanması, Google ve iş ortaklarının kullanıcılarımıza BogaStock.com ve/veya diğer sitelere yaptıkları ziyaretlere dayalı reklamlar sunmasını sağlar.
+            </p>
+            <p className="text-slate-300">
+              Kullanıcılar,{" "}
+              <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">Google Reklam Ayarları</a>
+              {" "}veya{" "}
+              <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">www.aboutads.info</a>
+              {" "}üzerinden kişiselleştirilmiş reklamcılıktan çıkabilirler.
+            </p>
+          </section>
+
+          {/* Section 8 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">Küresel Gizlilik Beyanı</h2>
             <p className="text-xs text-slate-400">

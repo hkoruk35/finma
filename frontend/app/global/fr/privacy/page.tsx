@@ -66,6 +66,22 @@ export default function PrivacyPageFr() {
           </section>
 
           {/* Section 5 */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              5. Publicité, Cookies et Google AdSense
+            </h2>
+            <p className="mb-4 text-slate-300">
+              BogaStock.com utilise <strong className="text-white">Google AdSense</strong> pour afficher des publicités sur ce site. En tant que fournisseur tiers, Google utilise des cookies pour diffuser des annonces basées sur les visites antérieures d&apos;un utilisateur sur ce site ou d&apos;autres sites Internet. L&apos;utilisation par Google de cookies publicitaires permet à Google et à ses partenaires de diffuser des annonces à nos utilisateurs en fonction de leurs visites sur BogaStock.com et/ou d&apos;autres sites.
+            </p>
+            <p className="text-slate-300">
+              Les utilisateurs peuvent refuser la publicité personnalisée en consultant les{" "}
+              <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">Paramètres des annonces Google</a>
+              {" "}ou{" "}
+              <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">www.aboutads.info</a>.
+            </p>
+          </section>
+
+          {/* Section 6 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">Déclaration Mondiale</h2>
             <p className="text-xs text-slate-400">
