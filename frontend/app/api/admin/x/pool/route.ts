@@ -17,7 +17,7 @@ const VALID_SOURCES = new Set([
   "watchlist", "sector", "index", "commodity", "fx", "crypto",
 ]);
 
-const VALID_LOCALES = new Set(["en", "es", "fr", "pt", "tr"]);
+const VALID_LOCALES = new Set(["en", "es", "fr", "pt", "tr", "id"]);
 
 async function fetchTickerMeta(ticker: string): Promise<{ company: string | null; sector: string | null }> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";

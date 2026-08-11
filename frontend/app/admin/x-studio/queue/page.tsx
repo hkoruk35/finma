@@ -5,7 +5,7 @@ import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 
 const ACCENT = "#58a6ff";
-const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
+const LOCALES = ["en", "es", "fr", "pt", "tr", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 const inputStyle = { background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" };

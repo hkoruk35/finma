@@ -111,8 +111,8 @@ function fitTagFontSize(text: string, base: number, maxChars: number, min: numbe
 // Grafikteki tek sabit-metin etiketler ("DAILY", "AVG VOL") daha once hep
 // Ingilizce kaliyordu; trend/tema gibi diger her sey secili dile cevrilirken
 // bu ikisinin Ingilizce kalmasi dil karisikligi gibi goruluyordu.
-const DAILY_LABEL: Record<string, string> = { en: "DAILY", es: "DIARIO", fr: "QUOTIDIEN", pt: "DIÁRIO", tr: "GÜNLÜK" };
-const AVG_VOL_LABEL: Record<string, string> = { en: "AVG VOL", es: "VOL PROM", fr: "VOL MOY", pt: "VOL MÉD", tr: "ORT HACİM" };
+const DAILY_LABEL: Record<string, string> = { en: "DAILY", es: "DIARIO", fr: "QUOTIDIEN", pt: "DIÁRIO", tr: "GÜNLÜK", id: "HARIAN" };
+const AVG_VOL_LABEL: Record<string, string> = { en: "AVG VOL", es: "VOL PROM", fr: "VOL MOY", pt: "VOL MÉD", tr: "ORT HACİM", id: "VOL RATA2" };
 
 function localizedLabel(table: Record<string, string>, locale: string): string {
   return table[locale] ?? table.en;
@@ -282,14 +282,14 @@ export interface MarketAssetCardParams {
 export type CardParams = StockCardParams | PromoCardParams | MarketAssetCardParams;
 
 const MARKET_ASSET_CATEGORY_LABEL: Record<MarketAssetCardParams["category"], Record<string, string>> = {
-  sector: { en: "SECTOR", es: "SECTOR", fr: "SECTEUR", pt: "SETOR", tr: "SEKTÖR" },
-  index: { en: "INDEX", es: "ÍNDICE", fr: "INDICE", pt: "ÍNDICE", tr: "ENDEKS" },
-  commodity: { en: "COMMODITY", es: "MATERIA PRIMA", fr: "MATIÈRE PREMIÈRE", pt: "COMMODITY", tr: "EMTİA" },
-  fx: { en: "FOREX", es: "DIVISA", fr: "DEVISE", pt: "CÂMBIO", tr: "DÖVİZ" },
-  crypto: { en: "CRYPTO", es: "CRIPTO", fr: "CRYPTO", pt: "CRIPTO", tr: "KRİPTO" },
+  sector: { en: "SECTOR", es: "SECTOR", fr: "SECTEUR", pt: "SETOR", tr: "SEKTÖR", id: "SEKTOR" },
+  index: { en: "INDEX", es: "ÍNDICE", fr: "INDICE", pt: "ÍNDICE", tr: "ENDEKS", id: "INDEKS" },
+  commodity: { en: "COMMODITY", es: "MATERIA PRIMA", fr: "MATIÈRE PREMIÈRE", pt: "COMMODITY", tr: "EMTİA", id: "KOMODITAS" },
+  fx: { en: "FOREX", es: "DIVISA", fr: "DEVISE", pt: "CÂMBIO", tr: "DÖVİZ", id: "FOREX" },
+  crypto: { en: "CRYPTO", es: "CRIPTO", fr: "CRYPTO", pt: "CRIPTO", tr: "KRİPTO", id: "KRIPTO" },
 };
 
-const WEEKLY_LABEL: Record<string, string> = { en: "WEEKLY", es: "SEMANAL", fr: "HEBDO", pt: "SEMANAL", tr: "HAFTALIK" };
+const WEEKLY_LABEL: Record<string, string> = { en: "WEEKLY", es: "SEMANAL", fr: "HEBDO", pt: "SEMANAL", tr: "HAFTALIK", id: "MINGGUAN" };
 
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);

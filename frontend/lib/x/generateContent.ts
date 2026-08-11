@@ -3,7 +3,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { formatNumber } from "@/lib/formatNumber";
 
-export const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
+export const LOCALES = ["en", "es", "fr", "pt", "tr", "id"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 function tryParseJSON(raw: string): Record<string, string> | null {
@@ -79,7 +79,7 @@ export async function generateLocalizedTexts(
   };
 
   const translatePrompt = (input: GenerateTranslationInput) => {
-    return `Translate the following text into 5 languages naturally.
+    return `Translate the following text into ${LOCALES.length} languages naturally.
 CRITICAL RULE: NEVER translate, alter, or remove cashtags (e.g. $AAPL, $TSLA) or any financial tickers. They MUST remain exactly as they appear in the original text.
 
 Text to translate:

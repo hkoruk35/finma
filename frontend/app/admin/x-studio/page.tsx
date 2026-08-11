@@ -32,7 +32,7 @@ const LIST_TYPES: { type: ListType; label: string }[] = [
 ];
 
 const ACCENT = "#58a6ff";
-const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
+const LOCALES = ["en", "es", "fr", "pt", "tr", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 const inputStyle = { background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" };
@@ -123,7 +123,7 @@ export default function XStudioPage() {
   const [pool, setPool] = useState<PoolItem[]>([]);
   const [posts, setPosts] = useState<PostRow[]>([]);
   const [selected, setSelected] = useState<PoolItem | null>(null);
-  const [texts, setTexts] = useState<Record<Locale, string>>({ en: "", es: "", fr: "", pt: "", tr: "" });
+  const [texts, setTexts] = useState<Record<Locale, string>>({ en: "", es: "", fr: "", pt: "", tr: "", id: "" });
   const [locale, setLocale] = useState<Locale>("en");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -578,11 +578,11 @@ export default function XStudioPage() {
     setImageUrl(null);
     setListType(null);
     setListItems([]);
-    setTexts({ en: "", es: "", fr: "", pt: "", tr: "" });
+    setTexts({ en: "", es: "", fr: "", pt: "", tr: "", id: "" });
     await Promise.all([loadPool(), loadPosts()]);
   };
 
-  // Uretilen 5 dilin hepsini tek tek /api/admin/x/post'a gonderir — "Şimdi
+  // Uretilen 6 dilin hepsini tek tek /api/admin/x/post'a gonderir — "Şimdi
   // Paylaş" sadece o an acik olan sekmenin (locale) dilini paylasir, bu ise
   // hepsini paylasip her dilin kendi /news sayfasina dusmesini saglar.
   const publishAll = async () => {
@@ -615,7 +615,7 @@ export default function XStudioPage() {
     setImageUrl(null);
     setListType(null);
     setListItems([]);
-    setTexts({ en: "", es: "", fr: "", pt: "", tr: "" });
+    setTexts({ en: "", es: "", fr: "", pt: "", tr: "", id: "" });
     await Promise.all([loadPool(), loadPosts()]);
   };
 
@@ -754,7 +754,7 @@ export default function XStudioPage() {
     const translatedTexts = data.texts as Record<Locale, string>;
     const tMarket = data.market;
     
-    setError("Çeviri başarılı, 5 dilde yayınlanıyor...");
+    setError("Çeviri başarılı, 6 dilde yayınlanıyor...");
     
     // 2. Paylaşım İsteği
     const failed: string[] = [];
@@ -806,7 +806,7 @@ export default function XStudioPage() {
       setError(""); // clear error on full success
       setQuickText("");
       setQuickTicker("");
-      alert("Başarıyla 5 dilde çevrildi ve paylaşıldı!");
+      alert("Başarıyla 6 dilde çevrildi ve paylaşıldı!");
     }
     
     await loadPosts();
@@ -836,7 +836,7 @@ export default function XStudioPage() {
             />
           </div>
           <div style={{ flex: 1, minWidth: 300 }}>
-            <label style={{ display: "block", fontSize: 11, marginBottom: 4, opacity: 0.8 }}>Ana Metin (Türkçe yazabilirsiniz, AI 5 dile çevirir):</label>
+            <label style={{ display: "block", fontSize: 11, marginBottom: 4, opacity: 0.8 }}>Ana Metin (Türkçe yazabilirsiniz, AI 6 dile çevirir):</label>
             <textarea
               placeholder="Örn: $AAPL bilanço sonrası harika görünüyor, hacim artışı pozitif sinyal."
               value={quickText}
@@ -849,7 +849,7 @@ export default function XStudioPage() {
             disabled={busy || !quickText.trim()}
             onClick={quickTranslateAndPublish}
           >
-            Çevir & 5 Dilde Yayınla
+            Çevir & 6 Dilde Yayınla
           </button>
         </div>
         <p style={{ fontSize: 11, color: "#8b949e", marginTop: 8, marginBottom: 0 }}>
@@ -984,7 +984,7 @@ export default function XStudioPage() {
                 onChange={(e) => setPickerLocale(e.target.value as Locale | "")}
                 style={{ ...inputStyle }}
               >
-                <option value="">Tümü (5 dil üretilir, hepsi arasından seçersin)</option>
+                <option value="">Tümü (6 dil üretilir, hepsi arasından seçersin)</option>
                 {LOCALES.map((l) => (
                   <option key={l} value={l}>{l.toUpperCase()}</option>
                 ))}

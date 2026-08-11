@@ -94,6 +94,7 @@ const TREND_LABELS: Record<string, Record<TrendStatus, string>> = {
   fr: { Bullish: "Haussier", BullishWeak: "Haussier Faible", Bearish: "Baissier", BearishWeak: "Baissier Faible", Neutral: "Neutre" },
   pt: { Bullish: "Altista", BullishWeak: "Altista Fraco", Bearish: "Baixista", BearishWeak: "Baixista Fraco", Neutral: "Neutro" },
   tr: { Bullish: "Yükseliş", BullishWeak: "Zayıf Yükseliş", Bearish: "Düşüş", BearishWeak: "Zayıf Düşüş", Neutral: "Nötr" },
+  id: { Bullish: "Bullish", BullishWeak: "Bullish Ringan", Bearish: "Bearish", BearishWeak: "Bearish Ringan", Neutral: "Netral" },
 };
 
 export function trendLabel(trend: TrendStatus, locale: string): string {
@@ -106,6 +107,7 @@ const OPPORTUNITY_LABELS: Record<string, string> = {
   fr: "Opportunité Swing",
   pt: "Oportunidade Swing",
   tr: "Swing Fırsatı",
+  id: "Peluang Swing",
 };
 
 export function opportunityLabel(locale: string): string {

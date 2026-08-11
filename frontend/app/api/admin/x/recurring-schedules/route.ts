@@ -9,7 +9,7 @@ function requireAdmin(req: NextRequest): boolean {
   return req.cookies.get("boga_auth")?.value === "admin";
 }
 
-const LOCALES = new Set(["en", "es", "fr", "pt", "tr"]);
+const LOCALES = new Set(["en", "es", "fr", "pt", "tr", "id"]);
 const MARKET_ASSET_CATEGORIES = new Set(["sector", "index", "commodity", "fx", "crypto"]);
 
 // X Studio "Tekrarlanan Programlama" — bir ticker/varlık için "her N saatte
