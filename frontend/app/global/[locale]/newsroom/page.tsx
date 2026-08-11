@@ -67,6 +67,16 @@ const T: Record<Locale, { title: string; subtitle: string; cards: { title: strin
       { title: "Atividade de Insiders", desc: "Atividade de compra-venda de executivos com base em registros SEC Form 4.", href: "/insider" },
     ],
   },
+  id: {
+    title: "Berita",
+    subtitle: "Feed berita saham, hasil keuangan, dan insider BogaStock — semuanya di satu tempat.",
+    cards: [
+      { title: "Analisis Saham", desc: "Analisis saham harian dan mingguan yang didukung AI dengan sinyal tren dan volume.", href: "/news" },
+      { title: "Hasil Keuangan", desc: "Hasil keuangan kuartalan yang dilaporkan dan perbandingan estimasi.", href: "/earning" },
+      { title: "Kalender Hasil Keuangan", desc: "Tanggal pengumuman hasil keuangan yang akan datang.", href: "/earning-calendar" },
+      { title: "Aktivitas Insider", desc: "Aktivitas pembelian-penjualan eksekutif berdasarkan pengajuan SEC Form 4.", href: "/insider" },
+    ],
+  },
 };
 
 export default async function NewsroomPage({ params }: Props) {
