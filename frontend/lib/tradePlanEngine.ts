@@ -229,7 +229,7 @@ export function calculateTradePlanZones(
 // otomatik olarak en'e dusuyordu (grafik sayfasinda PT/ES/FR kullanicilari
 // Ingilizce metin goruyordu). Her dil kendi metnini alir.
 
-export type RationaleLang = "en" | "tr" | "es" | "fr" | "pt";
+export type RationaleLang = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
 export interface RationaleInputs {
   price: number;
@@ -271,6 +271,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
         es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Si el precio rompe por debajo del soporte de ${fmt$(zones.supportLevel)} y luego recupera y cierra por encima con volumen fuerte, puede respaldar el impulso alcista.`,
         fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Un balayage sous le support de ${fmt$(zones.supportLevel)} suivi d'une réintégration avec du volume et d'une clôture au-dessus peut soutenir la dynamique haussière.`,
         pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. O preço varrendo abaixo do suporte de ${fmt$(zones.supportLevel)} e recuperando com fechamento acima sob alto volume pode reforçar a tendência de alta.`,
+        id: `Rentang entry yang dihitung adalah ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Harga yang menembus di bawah support ${fmt$(zones.supportLevel)} diikuti reclaim volume kuat dan penutupan candle di atasnya dapat memperkuat momentum naik.`,
       });
       break;
     case "BREAKOUT (BOS)":
@@ -280,6 +281,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
         es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Un cierre de vela de 1 hora por encima de la resistencia de ${fmt$(zones.breakoutLevel)} con volumen creciente sirve como confirmación técnica.`,
         fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Une clôture de bougie 1h au-dessus de la résistance de ${fmt$(zones.breakoutLevel)} avec expansion du volume confirme techniquement la poursuite haussière.`,
         pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Um fechamento de candle de 1h acima da resistência de ${fmt$(zones.breakoutLevel)} com volume expansivo serve como confirmação técnica.`,
+        id: `Rentang entry yang dihitung adalah ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Penutupan candle 1 jam di atas resistensi ${fmt$(zones.breakoutLevel)} dengan volume yang meningkat menjadi konfirmasi teknikal utama untuk kelanjutan tren.`,
       });
       break;
     case "EARLY MOMENTUM":
@@ -289,6 +291,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
         es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Mantenerse por encima de la EMA20 de 1h (${fmt$(zones.ema20_1h)}) con trayectoria de volumen alcista puede fortalecer el impulso inicial.`,
         fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Le maintien au-dessus de l'EMA20 1h (${fmt$(zones.ema20_1h)}) avec un volume en hausse renforce le momentum initial.`,
         pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. O preço se mantendo acima da EMA20 de 1h (${fmt$(zones.ema20_1h)}) com trajetória de volume crescente pode fortalecer o impulso inicial.`,
+        id: `Rentang entry yang dihitung adalah ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Harga yang bertahan di atas EMA20 1 jam (${fmt$(zones.ema20_1h)}) dengan lintasan volume yang meningkat dapat memperkuat momentum awal.`,
       });
       break;
     case "PULLBACK":
@@ -298,6 +301,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
         es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Mantenerse sobre el soporte de ${fmt$(zones.supportLevel)} y formar una vela alcista refuerza la validez técnica.`,
         fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Le maintien au-dessus du support de ${fmt$(zones.supportLevel)} et la formation d'une bougie haussière renforcent la validité technique.`,
         pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Manter-se acima do suporte de ${fmt$(zones.supportLevel)} e formar um candle de reversão alcista fortalece a validade técnica.`,
+        id: `Rentang entry yang dihitung adalah ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Bertahan di atas support ${fmt$(zones.supportLevel)} dan membentuk candle pembalikan bullish memberikan konfirmasi teknikal untuk setup ini.`,
       });
       break;
     default:
@@ -307,6 +311,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
         es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Al tomar decisiones, se sugiere evaluar la expansión del volumen, la dirección del RSI y el cierre de velas respecto a la resistencia de ${fmt$(zones.resistLevel)} o soporte de ${fmt$(zones.supportLevel)}.`,
         fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Lors de la prise de décision, l'expansion du volume, la direction du RSI et les clôtures de bougies par rapport à la résistance de ${fmt$(zones.resistLevel)} ou au support de ${fmt$(zones.supportLevel)} peuvent être observées.`,
         pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Para auxílio na tomada de decisão, recomenda-se acompanhar a expansão de volume, direção do RSI e fechamentos em relação à resistência de ${fmt$(zones.resistLevel)} ou suporte de ${fmt$(zones.supportLevel)}.`,
+        id: `Rentang entry yang dihitung adalah ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Mengevaluasi ekspansi volume, arah RSI, dan penutupan candle relatif terhadap resistensi ${fmt$(zones.resistLevel)} atau support ${fmt$(zones.supportLevel)} dapat membantu pengambilan keputusan.`,
       });
   }
 
@@ -319,6 +324,7 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     es: `El nivel de stop-loss calculado se fija en ${fmt$(zones.stopPrice)}. Un cierre diario por debajo de la ${nearestEma.label} (${fmt$(nearestEma.value)}) o del VWAP diario (${fmt$(vwap)}) señala la invalidación técnica de la estructura.`,
     fr: `Le niveau de stop-loss calculé est fixé à ${fmt$(zones.stopPrice)}. Une clôture journalière sous l'${nearestEma.label} (${fmt$(nearestEma.value)}) ou le VWAP journalier (${fmt$(vwap)}) indique une invalidation technique.`,
     pt: `O nível de stop-loss calculado é fixado em ${fmt$(zones.stopPrice)}. Um fechamento diário abaixo da ${nearestEma.label} (${fmt$(nearestEma.value)}) ou VWAP diário (${fmt$(vwap)}) indica potencial invalidação técnica da estrutura.`,
+    id: `Level stop-loss yang dihitung ditetapkan di ${fmt$(zones.stopPrice)}. Penutupan harian di bawah ${nearestEma.label} (${fmt$(nearestEma.value)}) atau VWAP harian (${fmt$(vwap)}) menandakan invalidasi teknikal struktur.`,
   });
 
   // ── EMA yapısı ───────────────────────────────────────────────────────────
@@ -328,18 +334,21 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     es: `El precio cotiza por encima de una estructura de EMA totalmente alcista (20>50>200) — indica una estructura de tendencia positiva.`,
     fr: `Le prix évolue au-dessus d'une structure d'EMA totalement haussière (20>50>200) — indique une structure de tendance positive.`,
     pt: `O preço está negociando acima de uma estrutura de EMA totalmente altista (20>50>200) — indica uma estrutura de tendência positiva.`,
+    id: `Harga diperdagangkan di atas struktur EMA yang sepenuhnya bullish (20>50>200) — struktur tren naik yang telah terbentuk.`,
   }) : price > ema50 ? pick(lang, {
     en: `Price is above its 50-day EMA (${fmt$(ema50)}), while shorter-term structure displays mixed conditions.`,
     tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.`,
     es: `El precio está por encima de su EMA de 50 días (${fmt$(ema50)}), mientras que la estructura de corto plazo muestra condiciones mixtas.`,
     fr: `Le prix est au-dessus de son EMA 50 jours (${fmt$(ema50)}), tandis que la structure à court terme affiche une configuration mitigée.`,
     pt: `O preço está acima da sua EMA de 50 dias (${fmt$(ema50)}), enquanto a estrutura de curto prazo exibe condições mistas.`,
+    id: `Harga berada di atas EMA 50 hari (${fmt$(ema50)}), sementara struktur jangka pendek menunjukkan kondisi campuran.`,
   }) : pick(lang, {
     en: `Price is trading below its 50-day EMA (${fmt$(ema50)}) — indicating momentum slowing down.`,
     tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.`,
     es: `El precio cotiza por debajo de su EMA de 50 días (${fmt$(ema50)}) — puede indicar desaceleración en el impulso.`,
     fr: `Le prix évolue sous son EMA 50 jours (${fmt$(ema50)}) — peut indiquer un ralentissement du momentum.`,
     pt: `O preço está sendo negociado abaixo da sua EMA de 50 dias (${fmt$(ema50)}) — pode indicar desaceleração do impulso.`,
+    id: `Harga diperdagangkan di bawah EMA 50 hari (${fmt$(ema50)}) — menunjukkan momentum yang melambat.`,
   });
 
   // ── VWAP ────────────────────────────────────────────────────────────────
@@ -349,12 +358,14 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     es: `El precio cotiza por encima del VWAP intradía (${fmt$(vwap)}), lo que sugiere orientación comprador intradía.`,
     fr: `Le prix évolue au-dessus du VWAP intrajournalier (${fmt$(vwap)}), suggérant une orientation acheteuse au cours de la journée.`,
     pt: `O preço está negociando acima da VWAP intradiária (${fmt$(vwap)}), sugerindo orientação compradora no dia.`,
+    id: `Harga diperdagangkan di atas VWAP intraday (${fmt$(vwap)}), menunjukkan orientasi pembeli intraday yang positif.`,
   } : {
     en: `Price is trading below the intraday VWAP (${fmt$(vwap)}), indicating intraday seller influence.`,
     tr: `Fiyat gün içi VWAP'ın (${fmt$(vwap)}) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.`,
     es: `El precio cotiza por debajo del VWAP intradía (${fmt$(vwap)}), lo que sugiere presión vendedora intradía.`,
     fr: `Le prix évolue sous le VWAP intrajournalier (${fmt$(vwap)}), suggérant une pression vendeuse intrajournalière.`,
     pt: `O preço está negociando abaixo da VWAP intradiária (${fmt$(vwap)}), sugerindo pressão vendedora no dia.`,
+    id: `Harga diperdagangkan di bawah VWAP intraday (${fmt$(vwap)}), menunjukkan pengaruh penjual intraday.`,
   });
 
   // ── Hacim ───────────────────────────────────────────────────────────────
@@ -364,18 +375,21 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     es: `El volumen supera en ${formatNumber(rvol, 1)}x el promedio de 30 días — indica alta participación y una fuerte probabilidad de confirmación.`,
     fr: `Le volume est de ${formatNumber(rvol, 1)}x supérieur à la moyenne de 30 jours — indique une forte participation et une haute probabilité de confirmation.`,
     pt: `O volume está ${formatNumber(rvol, 1)}x acima da média de 30 dias — indica alta participação e forte probabilidade de confirmação.`,
+    id: `Volume ${formatNumber(rvol, 1)}x di atas rata-rata 30 hari — menunjukkan partisipasi pasar yang aktif dan probabilitas konfirmasi yang tinggi.`,
   }) : rvol >= 1.0 ? pick(lang, {
     en: `Volume is near its 30-day average — standard market participation observed.`,
     tr: `Hacim 30 günlük ortalamaya yakın seviyede — standart piyasa katılımı gözleniyor.`,
     es: `El volumen está cerca de su promedio de 30 días — se observa una participación de mercado estándar.`,
     fr: `Le volume est proche de sa moyenne de 30 jours — participation standard au marché observée.`,
     pt: `O volume está próximo da sua média de 30 dias — observada participação padrão do mercado.`,
+    id: `Volume mendekati rata-rata 30 harinya — partisipasi pasar standar teramati.`,
   }) : pick(lang, {
     en: `Volume is below average (${formatNumber(rvol, 1)}x) — volume confirmation is limited; position sizing can be managed according to risk preference.`,
     tr: `Hacim ortalamanın altında (${formatNumber(rvol, 1)}x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
     es: `El volumen está por debajo del promedio (${formatNumber(rvol, 1)}x) — la confirmación por volumen es limitada; ajuste el tamaño de posición según su gestión de riesgo.`,
     fr: `Le volume est inférieur à la moyenne (${formatNumber(rvol, 1)}x) — la confirmation par le volume est limitée ; la taille de position peut être ajustée selon votre gestion du risque.`,
     pt: `O volume está abaixo da média (${formatNumber(rvol, 1)}x) — a confirmação por volume é limitada; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
+    id: `Volume di bawah rata-rata (${formatNumber(rvol, 1)}x) — konfirmasi volume terbatas; ukuran posisi dapat disesuaikan menurut preferensi risiko.`,
   });
 
   // ── RSI ─────────────────────────────────────────────────────────────────
@@ -385,30 +399,35 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     es: `El RSI en ${formatNumber(rsi, 0)} está en zona de sobrecompra — se podría observar una consolidación o pausa a corto plazo.`,
     fr: `Le RSI à ${formatNumber(rsi, 0)} est en zone de surachat — une consolidation à court terme ou une pause du momentum peut être observée.`,
     pt: `O RSI em ${formatNumber(rsi, 0)} está em território de sobrecompra — consolidação de curto prazo ou pausa no impulso pode ser observada.`,
+    id: `RSI di ${formatNumber(rsi, 0)} berada di zona overbought — konsolidasi jangka pendek atau jeda momentum dapat teramati.`,
   }) : rsi >= 55 ? pick(lang, {
     en: `RSI at ${formatNumber(rsi, 0)} supports positive momentum.`,
     tr: `RSI ${formatNumber(rsi, 0)} seviyesinde pozitif momentumu destekliyor.`,
     es: `El RSI en ${formatNumber(rsi, 0)} respalda el impulso positivo.`,
     fr: `Le RSI à ${formatNumber(rsi, 0)} soutient le momentum positif.`,
     pt: `O RSI em ${formatNumber(rsi, 0)} suporta o impulso positivo.`,
+    id: `RSI di ${formatNumber(rsi, 0)} mendukung momentum positif.`,
   }) : rsi <= 30 ? pick(lang, {
     en: `RSI at ${formatNumber(rsi, 0)} is in oversold territory — potential for a technical bounce exists.`,
     tr: `RSI ${formatNumber(rsi, 0)} ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir.`,
     es: `El RSI en ${formatNumber(rsi, 0)} está en zona de sobreventa — existe potencial para un rebote técnico.`,
     fr: `Le RSI à ${formatNumber(rsi, 0)} est en zone de survente — un potentiel de rebond technique existe.`,
     pt: `O RSI em ${formatNumber(rsi, 0)} está em território de sobrevenda — existe potencial para um repique técnico.`,
+    id: `RSI di ${formatNumber(rsi, 0)} berada di zona oversold — potensi pantulan teknikal ada.`,
   }) : rsi <= 45 ? pick(lang, {
     en: `RSI at ${formatNumber(rsi, 0)} displays a weaker momentum structure.`,
     tr: `RSI ${formatNumber(rsi, 0)} seviyesinde zayıf momentum görünümü sergiliyor.`,
     es: `El RSI en ${formatNumber(rsi, 0)} muestra una estructura de impulso más débil.`,
     fr: `Le RSI à ${formatNumber(rsi, 0)} affiche une structure de momentum plus faible.`,
     pt: `O RSI em ${formatNumber(rsi, 0)} exibe uma estrutura de impulso mais fraca.`,
+    id: `RSI di ${formatNumber(rsi, 0)} menunjukkan struktur momentum yang lebih lemah.`,
   }) : pick(lang, {
     en: `RSI at ${formatNumber(rsi, 0)} remains in a neutral range.`,
     tr: `RSI ${formatNumber(rsi, 0)} ile dengeli/nötr bir görünümde.`,
     es: `El RSI en ${formatNumber(rsi, 0)} se mantiene en un rango neutral.`,
     fr: `Le RSI à ${formatNumber(rsi, 0)} reste dans une plage neutre.`,
     pt: `O RSI em ${formatNumber(rsi, 0)} permanece em uma faixa neutra.`,
+    id: `RSI di ${formatNumber(rsi, 0)} tetap berada di kisaran netral.`,
   });
 
   return { entryCondition, stopRationale, ema, vwap: vwap_, volume, rsi: rsiText };

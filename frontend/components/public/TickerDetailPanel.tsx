@@ -71,7 +71,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const { isPremium, plan } = useMemberPlan();
   const isLoggedIn = plan !== null;
 
-  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50", "YM_F", "ES_F", "NQ_F", "GC_F", "CL_F"];
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50", "YM_F", "ES_F", "NQ_F", "GC_F", "CL_F", "XLK", "XLF", "XLE", "XLV", "XLY", "XLP", "XLI", "XLB", "XLRE", "XLU", "XLC"];
   const isStock = !INDEX_TICKERS.includes(ticker) && !getIndexBySymbol(ticker) && getAssetCategory(ticker) === "stock";
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
@@ -102,11 +102,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
       </svg>
       <span className="text-xs font-bold tracking-wider text-amber-400 uppercase">
-        {isLoggedIn ? (locale === "tr" ? "PREMİUM PLANA YÜKSELTİN" : "UPGRADE TO PREMIUM") : t.premiumLocked}
+        {isLoggedIn ? (locale === "tr" ? "PREMİUM PLANA YÜKSELTİN" : locale === "id" ? "TINGKATKAN KE PREMIUM" : "UPGRADE TO PREMIUM") : t.premiumLocked}
       </span>
       <span className="text-[11px] font-medium text-slate-300 max-w-[220px] leading-snug">
         {isLoggedIn
-          ? (locale === "tr" ? "Giriş, stop, hedef ve risk/getiri oranını görmek için Premium Plana Yükseltin" : "Upgrade to Premium to unlock entry, stop & targets")
+          ? (locale === "tr" ? "Giriş, stop, hedef ve risk/getiri oranını görmek için Premium Plana Yükseltin" : locale === "id" ? "Tingkatkan ke Premium untuk membuka entry, stop, target & rasio risiko/imbalan" : "Upgrade to Premium to unlock entry, stop & targets")
           : message}
       </span>
     </button>
@@ -345,7 +345,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           )}
           {!hidePermalink && (
             <a href={`/global/${locale}/graphic/${ticker}`} className="text-center text-sm font-medium text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
-              {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
+              {locale === "tr" ? "Grafik Detay" : locale === "id" ? "Detail Grafik" : "Chart Detail"} ↗
             </a>
           )}
         </div>
@@ -358,7 +358,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             <div className="flex items-center gap-2">
               <span className="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
               <span className="text-xs font-medium text-cyan-300 uppercase tracking-widest">
-                {locale === "tr" ? "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı" : locale === "es" ? "Comentarista IA de Mercado 24/7" : locale === "fr" ? "Commentateur IA du Marché 24/7" : locale === "pt" ? "Comentador IA do Mercado 24/7" : "24/7 AI Market & Technical Commentary"}
+                {locale === "tr" ? "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı" : locale === "es" ? "Comentarista IA de Mercado 24/7" : locale === "fr" ? "Commentateur IA du Marché 24/7" : locale === "pt" ? "Comentador IA do Mercado 24/7" : locale === "id" ? "Komentator Pasar & Teknikal AI 24/7" : "24/7 AI Market & Technical Commentary"}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -385,11 +385,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-cyan-400 font-medium block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : "Key Levels & Pivots"}:</span>
+                  <span className="text-cyan-400 font-medium block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : locale === "id" ? "Level Kunci & Pivot" : "Key Levels & Pivots"}:</span>
                   <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
                 </div>
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-amber-400 font-medium block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : "Liquidity & Volume Flow"}:</span>
+                  <span className="text-amber-400 font-medium block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : locale === "id" ? "Aliran Likuiditas & Volume" : "Liquidity & Volume Flow"}:</span>
                   <span className="text-white/70">{data.aiCommentary.liquidityVolume}</span>
                 </div>
               </div>

@@ -58,13 +58,13 @@ function isRateLimited(ip: string): boolean {
 // cache itself always stays Turkish, and translation never mutates cached
 // data. 5 languages supported (was en-only; es/fr/pt used to silently fall
 // back to English).
-type AnalysisLang = "en" | "es" | "fr" | "pt";
+type AnalysisLang = "en" | "es" | "fr" | "pt" | "id";
 
 const MACD_POSITIVE: Record<AnalysisLang, string> = {
-  en: "MACD Positive", es: "MACD Positivo", fr: "MACD Positif", pt: "MACD Positivo",
+  en: "MACD Positive", es: "MACD Positivo", fr: "MACD Positif", pt: "MACD Positivo", id: "MACD Positif",
 };
 const STRONG_DAY: Record<AnalysisLang, string> = {
-  en: "Strong day", es: "Día fuerte", fr: "Jour fort", pt: "Dia forte",
+  en: "Strong day", es: "Día fuerte", fr: "Jour fort", pt: "Dia forte", id: "Hari kuat",
 };
 
 const WARNING_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
@@ -73,36 +73,40 @@ const WARNING_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
     es: "El RSI está en zona de sobrecompra — riesgo de un retroceso a corto plazo",
     fr: "Le RSI est en zone de surachat — risque de repli à court terme",
     pt: "O RSI está em território de sobrecompra — risco de recuo no curto prazo",
+    id: "RSI berada di zona overbought — risiko koreksi jangka pendek",
   },
   "52 haftalık zirveden uzak — trend zayıf olabilir": {
     en: "Far from the 52-week high — trend may be weak",
     es: "Lejos del máximo de 52 semanas — la tendencia podría ser débil",
     fr: "Loin du plus haut sur 52 semaines — la tendance pourrait être faible",
     pt: "Longe da máxima de 52 semanas — a tendência pode estar fraca",
+    id: "Jauh dari titik tertinggi 52 minggu — tren mungkin lemah",
   },
   "ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla": {
     en: "ATR% is high — size your position according to volatility",
     es: "El ATR% es alto — ajusta el tamaño de tu posición según la volatilidad",
     fr: "L'ATR% est élevé — ajuste la taille de ta position selon la volatilité",
     pt: "O ATR% está alto — ajuste o tamanho da sua posição de acordo com a volatilidade",
+    id: "ATR% tinggi — sesuaikan ukuran posisi dengan volatilitas",
   },
   "Hacim ortalamanın çok altında — likidite riski": {
     en: "Volume is well below average — liquidity risk",
     es: "El volumen está muy por debajo del promedio — riesgo de liquidez",
     fr: "Le volume est bien en dessous de la moyenne — risque de liquidité",
     pt: "O volume está bem abaixo da média — risco de liquidez",
+    id: "Volume jauh di bawah rata-rata — risiko likuiditas",
   },
 };
 
 const PATTERN_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
-  "Güçlü Kapanış ↑": { en: "Strong Close ↑", es: "Cierre Fuerte ↑", fr: "Clôture Forte ↑", pt: "Fechamento Forte ↑" },
-  "Zayıf Kapanış ↓": { en: "Weak Close ↓", es: "Cierre Débil ↓", fr: "Clôture Faible ↓", pt: "Fechamento Fraco ↓" },
-  "Yeşil Mum ↑": { en: "Green Candle ↑", es: "Vela Verde ↑", fr: "Bougie Verte ↑", pt: "Candle Verde ↑" },
-  "Kırmızı Mum ↓": { en: "Red Candle ↓", es: "Vela Roja ↓", fr: "Bougie Rouge ↓", pt: "Candle Vermelho ↓" },
+  "Güçlü Kapanış ↑": { en: "Strong Close ↑", es: "Cierre Fuerte ↑", fr: "Clôture Forte ↑", pt: "Fechamento Forte ↑", id: "Penutupan Kuat ↑" },
+  "Zayıf Kapanış ↓": { en: "Weak Close ↓", es: "Cierre Débil ↓", fr: "Clôture Faible ↓", pt: "Fechamento Fraco ↓", id: "Penutupan Lemah ↓" },
+  "Yeşil Mum ↑": { en: "Green Candle ↑", es: "Vela Verde ↑", fr: "Bougie Verte ↑", pt: "Candle Verde ↑", id: "Candle Hijau ↑" },
+  "Kırmızı Mum ↓": { en: "Red Candle ↓", es: "Vela Roja ↓", fr: "Bougie Rouge ↓", pt: "Candle Vermelho ↓", id: "Candle Merah ↓" },
 };
 
 function localizeAnalysis(data: PreorderAnalysis, lang: string): PreorderAnalysis {
-  if (lang !== "en" && lang !== "es" && lang !== "fr" && lang !== "pt") return data;
+  if (lang !== "en" && lang !== "es" && lang !== "fr" && lang !== "pt" && lang !== "id") return data;
   const l = lang as AnalysisLang;
   return {
     ...data,
@@ -601,7 +605,7 @@ export async function GET(req: NextRequest) {
   const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase().trim();
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
   const rawLang = req.nextUrl.searchParams.get("lang");
-  const lang = (["en", "es", "fr", "pt"].includes(rawLang || "") ? rawLang : "tr") as "en" | "tr" | "es" | "fr" | "pt";
+  const lang = (["en", "es", "fr", "pt", "id"].includes(rawLang || "") ? rawLang : "tr") as "en" | "tr" | "es" | "fr" | "pt" | "id";
 
   const access = await getMemberAccess();
   const tier = resolveMemberTierFromAccess(access);

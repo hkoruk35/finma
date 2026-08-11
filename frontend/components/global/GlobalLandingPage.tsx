@@ -32,29 +32,29 @@ const getGroups = (locale: Locale) => {
 
   return [
     {
-      group: t("US Equity Markets", "ABD HİSSE SENEDİ PİYASALARI", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA"),
+      group: t("US Equity Markets", "ABD HİSSE SENEDİ PİYASALARI", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA", "Pasar Saham AS"),
       items: [
-        { ticker: "^GSPC", label: "S&P 500", ySymbol: "^GSPC" },
-        { ticker: "^IXIC", label: "NASDAQ", ySymbol: "^IXIC" },
-        { ticker: "^DJI", label: "Dow Jones", ySymbol: "^DJI" },
-        { ticker: "^RUT", label: "Russell 2000", ySymbol: "^RUT" },
-        { ticker: "^VIX", label: "VIX", ySymbol: "^VIX" },
+        { ticker: "SPX", label: "S&P 500", ySymbol: "^GSPC" },
+        { ticker: "NDX", label: "NASDAQ", ySymbol: "^IXIC" },
+        { ticker: "DJI", label: "Dow Jones", ySymbol: "^DJI" },
+        { ticker: "RUT", label: "Russell 2000", ySymbol: "^RUT" },
+        { ticker: "VIX", label: "VIX", ySymbol: "^VIX" },
       ],
     },
     {
-      group: t("US Sectors", "ABD Sektörleri", "Sectores de EE. UU.", "Secteurs Américains", "Setores dos EUA"),
+      group: t("US Sectors", "ABD Sektörleri", "Sectores de EE. UU.", "Secteurs Américains", "Setores dos EUA", "Sektor AS"),
       items: [
-        { ticker: "XLK", label: t("Technology", "Teknoloji", "Tecnología", "Technologie", "Tecnologia"), ySymbol: "XLK" },
-        { ticker: "XLF", label: t("Financials", "Finans", "Finanzas", "Finance", "Finanças"), ySymbol: "XLF" },
-        { ticker: "XLE", label: t("Energy", "Enerji", "Energía", "Énergie", "Energia"), ySymbol: "XLE" },
-        { ticker: "XLV", label: t("Health Care", "Sağlık", "Salud", "Santé", "Saúde"), ySymbol: "XLV" },
-        { ticker: "XLY", label: t("Cons. Discretionary", "Tüketim (İsteğe Bağlı)", "Consumo Discrecional", "Consommation Discrétionnaire", "Consumo Discricionário"), ySymbol: "XLY" },
-        { ticker: "XLP", label: t("Cons. Staples", "Temel Tüketim", "Consumo Básico", "Biens de Consommation Essentiels", "Bens de Consumo Essenciais"), ySymbol: "XLP" },
-        { ticker: "XLI", label: t("Industrials", "Sanayi", "Industriales", "Industriels", "Bens Industriais"), ySymbol: "XLI" },
-        { ticker: "XLB", label: t("Materials", "Materyaller", "Materiales", "Matériaux", "Materiais"), ySymbol: "XLB" },
-        { ticker: "XLRE", label: t("Real Estate", "Gayrimenkul", "Bienes Raíces", "Immobilier", "Setor Imobiliário"), ySymbol: "XLRE" },
-        { ticker: "XLU", label: t("Utilities", "Altyapı", "Servicios Públicos", "Services Publics", "Serviços Públicos"), ySymbol: "XLU" },
-        { ticker: "XLC", label: t("Comm. Services", "İletişim Hizmetleri", "Servicios de Com.", "Services de Com.", "Serviços de Com."), ySymbol: "XLC" },
+        { ticker: "XLK", label: t("Technology", "Teknoloji", "Tecnología", "Technologie", "Tecnologia", "Teknologi"), ySymbol: "XLK" },
+        { ticker: "XLF", label: t("Financials", "Finans", "Finanzas", "Finance", "Finanças", "Keuangan"), ySymbol: "XLF" },
+        { ticker: "XLE", label: t("Energy", "Enerji", "Energía", "Énergie", "Energia", "Energi"), ySymbol: "XLE" },
+        { ticker: "XLV", label: t("Health Care", "Sağlık", "Salud", "Santé", "Saúde", "Kesehatan"), ySymbol: "XLV" },
+        { ticker: "XLY", label: t("Cons. Discretionary", "Tüketim (İsteğe Bağlı)", "Consumo Discrecional", "Consommation Discrétionnaire", "Consumo Discricionário", "Konsumen Diskresioner"), ySymbol: "XLY" },
+        { ticker: "XLP", label: t("Cons. Staples", "Temel Tüketim", "Consumo Básico", "Biens de Consommation Essentiels", "Bens de Consumo Essenciais", "Konsumen Pokok"), ySymbol: "XLP" },
+        { ticker: "XLI", label: t("Industrials", "Sanayi", "Industriales", "Industriels", "Bens Industriais", "Industri"), ySymbol: "XLI" },
+        { ticker: "XLB", label: t("Materials", "Materyaller", "Materiales", "Matériaux", "Materiais", "Bahan Baku"), ySymbol: "XLB" },
+        { ticker: "XLRE", label: t("Real Estate", "Gayrimenkul", "Bienes Raíces", "Immobilier", "Setor Imobiliário", "Real Estat"), ySymbol: "XLRE" },
+        { ticker: "XLU", label: t("Utilities", "Altyapı", "Servicios Públicos", "Services Publics", "Serviços Públicos", "Utilitas"), ySymbol: "XLU" },
+        { ticker: "XLC", label: t("Comm. Services", "İletişim Hizmetleri", "Servicios de Com.", "Services de Com.", "Serviços de Com.", "Layanan Komunikasi"), ySymbol: "XLC" },
       ],
     },
     {
@@ -94,7 +94,7 @@ const getGroups = (locale: Locale) => {
       ],
     },
     {
-      group: t("Currencies", "Döviz", "Divisas", "Devises", "Moedas"),
+      group: t("Currencies", "Döviz", "Divisas", "Devises", "Moedas", "Mata Uang"),
       items: [
         { ticker: "EURUSD", label: "EUR/USD", ySymbol: "EURUSD=X" },
         { ticker: "GBPUSD", label: "GBP/USD", ySymbol: "GBPUSD=X" },
@@ -106,16 +106,16 @@ const getGroups = (locale: Locale) => {
       ],
     },
     {
-      group: t("Commodities", "Emtia", "Materias Primas", "Matières Premières", "Commodities"),
+      group: t("Commodities", "Emtia", "Materias Primas", "Matières Premières", "Commodities", "Komoditas"),
       items: [
-        { ticker: "GOLD", label: t("Gold", "Altın", "Oro", "Or", "Ouro"), ySymbol: "GC=F" },
-        { ticker: "SILVER", label: t("Silver", "Gümüş", "Plata", "Argent", "Prata"), ySymbol: "SI=F" },
-        { ticker: "USOIL", label: t("Crude Oil WTI", "Ham Petrol WTI", "Petróleo Crudo WTI", "Pétrole Brut WTI", "Petróleo Bruto WTI"), ySymbol: "CL=F" },
-        { ticker: "NATGAS", label: t("Natural Gas", "Doğal Gaz", "Gas Natural", "Gaz Naturel", "Gás Natural"), ySymbol: "NG=F" },
+        { ticker: "GOLD", label: t("Gold", "Altın", "Oro", "Or", "Ouro", "Emas"), ySymbol: "GC=F" },
+        { ticker: "SILVER", label: t("Silver", "Gümüş", "Plata", "Argent", "Prata", "Perak"), ySymbol: "SI=F" },
+        { ticker: "USOIL", label: t("Crude Oil WTI", "Ham Petrol WTI", "Petróleo Crudo WTI", "Pétrole Brut WTI", "Petróleo Bruto WTI", "Minyak Mentah WTI"), ySymbol: "CL=F" },
+        { ticker: "NATGAS", label: t("Natural Gas", "Doğal Gaz", "Gas Natural", "Gaz Naturel", "Gás Natural", "Gas Alam"), ySymbol: "NG=F" },
       ],
     },
     {
-      group: t("Crypto", "Kripto", "Criptomonedas", "Crypto", "Criptomoedas"),
+      group: t("Crypto", "Kripto", "Criptomonedas", "Crypto", "Criptomoedas", "Kripto"),
       items: [
         { ticker: "BTCUSD", label: "Bitcoin", ySymbol: "BTC-USD" },
         { ticker: "ETHUSD", label: "Ethereum", ySymbol: "ETH-USD" },
@@ -146,13 +146,13 @@ const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
   const router = useRouter();
-  const premiumMemberLabel = locale === 'tr' ? 'Premium Üye' : locale === 'es' ? 'Miembro Premium' : locale === 'fr' ? 'Membre Premium' : locale === 'pt' ? 'Membro Premium' : 'Premium Member';
-  const upgradeToPremiumLabel = locale === 'tr' ? "Premium'a Geç" : locale === 'es' ? 'Actualizar a Premium' : locale === 'fr' ? 'Passer à Premium' : locale === 'pt' ? 'Atualizar para Premium' : 'Upgrade to Premium';
-  const watchlistGroupLabel = locale === 'tr' ? 'İzleme Listem ★ Kişisel (ilk 10)' : locale === 'es' ? 'Mi Lista ★ Personal (primeras 10)' : locale === 'fr' ? 'Ma Liste ★ Personnelle (10 premières)' : locale === 'pt' ? 'Minha Lista ★ Pessoal (primeiras 10)' : 'My Watchlist ★ Personal (first 10)';
-  const gainersGroupLabel = locale === 'tr' ? 'En Çok Yükselenler (ilk 7)' : locale === 'es' ? 'Mayores Alzas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Hausses (7 premières)' : locale === 'pt' ? 'Maiores Altas (primeiras 7)' : 'Top Gainers (first 7)';
-  const losersGroupLabel = locale === 'tr' ? 'En Çok Düşenler (ilk 7)' : locale === 'es' ? 'Mayores Bajas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Baisses (7 premières)' : locale === 'pt' ? 'Maiores Baixas (primeiras 7)' : 'Top Losers (first 7)';
-  const top100GroupLabel = locale === 'tr' ? 'Top 100 (ilk 7)' : locale === 'es' ? 'Top 100 (primeras 7)' : locale === 'fr' ? 'Top 100 (7 premières)' : locale === 'pt' ? 'Top 100 (primeiras 7)' : 'Top 100 (first 7)';
-  const trendGroupLabel = locale === 'tr' ? 'Trend Hisseleri (Premium, ilk 7)' : locale === 'es' ? 'Acciones en Tendencia (Premium, primeras 7)' : locale === 'fr' ? 'Actions Tendance (Premium, 7 premières)' : locale === 'pt' ? 'Ações em Tendência (Premium, primeiras 7)' : 'Trending Stocks (Premium, first 7)';
+  const premiumMemberLabel = locale === 'tr' ? 'Premium Üye' : locale === 'es' ? 'Miembro Premium' : locale === 'fr' ? 'Membre Premium' : locale === 'pt' ? 'Membro Premium' : locale === 'id' ? 'Anggota Premium' : 'Premium Member';
+  const upgradeToPremiumLabel = locale === 'tr' ? "Premium'a Geç" : locale === 'es' ? 'Actualizar a Premium' : locale === 'fr' ? 'Passer à Premium' : locale === 'pt' ? 'Atualizar para Premium' : locale === 'id' ? 'Tingkatkan ke Premium' : 'Upgrade to Premium';
+  const watchlistGroupLabel = locale === 'tr' ? 'İzleme Listem ★ Kişisel (ilk 10)' : locale === 'es' ? 'Mi Lista ★ Personal (primeras 10)' : locale === 'fr' ? 'Ma Liste ★ Personnelle (10 premières)' : locale === 'pt' ? 'Minha Lista ★ Pessoal (primeiras 10)' : locale === 'id' ? 'Daftar Pantau Saya ★ Pribadi (10 pertama)' : 'My Watchlist ★ Personal (first 10)';
+  const gainersGroupLabel = locale === 'tr' ? 'En Çok Yükselenler (ilk 7)' : locale === 'es' ? 'Mayores Alzas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Hausses (7 premières)' : locale === 'pt' ? 'Maiores Altas (primeiras 7)' : locale === 'id' ? 'Top Penguat (7 pertama)' : 'Top Gainers (first 7)';
+  const losersGroupLabel = locale === 'tr' ? 'En Çok Düşenler (ilk 7)' : locale === 'es' ? 'Mayores Bajas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Baisses (7 premières)' : locale === 'pt' ? 'Maiores Baixas (primeiras 7)' : locale === 'id' ? 'Top Pelemah (7 pertama)' : 'Top Losers (first 7)';
+  const top100GroupLabel = locale === 'tr' ? 'Top 100 (ilk 7)' : locale === 'es' ? 'Top 100 (primeras 7)' : locale === 'fr' ? 'Top 100 (7 premières)' : locale === 'pt' ? 'Top 100 (primeiras 7)' : locale === 'id' ? 'Top 100 (7 pertama)' : 'Top 100 (first 7)';
+  const trendGroupLabel = locale === 'tr' ? 'Trend Hisseleri (Premium, ilk 7)' : locale === 'es' ? 'Acciones en Tendencia (Premium, primeras 7)' : locale === 'fr' ? 'Actions Tendance (Premium, 7 premières)' : locale === 'pt' ? 'Ações em Tendência (Premium, primeiras 7)' : locale === 'id' ? 'Saham Tren (Premium, 7 pertama)' : 'Trending Stocks (Premium, first 7)';
   const [selectedTicker, setSelectedTicker] = useState("NVDA");
 
   useEffect(() => {
@@ -337,12 +337,13 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
     : locale === 'es' ? 'Mi Lista'
     : locale === 'fr' ? 'Ma Liste'
     : locale === 'pt' ? 'Minha Lista'
+    : locale === 'id' ? 'Daftar Pantau'
     : 'Watchlist';
-  const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
-  const compareLabel = locale === 'tr' ? 'Seçili Hisse' : locale === 'es' ? 'Acción Seleccionada' : locale === 'fr' ? 'Action Sélectionnée' : locale === 'pt' ? 'Ação Selecionada' : 'Selected Stock';
-  const compareOpenLabel = locale === 'tr' ? 'Çoklu Ekranda Göster' : locale === 'es' ? 'Mostrar en Multigráfico' : locale === 'fr' ? 'Afficher en Multi-Graphiques' : locale === 'pt' ? 'Mostrar em Multigráficos' : 'Show in Multi-Chart';
-  const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : 'Select to compare';
-  const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : 'DASHBOARD';
+  const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : locale === 'id' ? 'Saham Tren' : 'Trending Stocks';
+  const compareLabel = locale === 'tr' ? 'Seçili Hisse' : locale === 'es' ? 'Acción Seleccionada' : locale === 'fr' ? 'Action Sélectionnée' : locale === 'pt' ? 'Ação Selecionada' : locale === 'id' ? 'Saham Terpilih' : 'Selected Stock';
+  const compareOpenLabel = locale === 'tr' ? 'Çoklu Ekranda Göster' : locale === 'es' ? 'Mostrar en Multigráfico' : locale === 'fr' ? 'Afficher en Multi-Graphiques' : locale === 'pt' ? 'Mostrar em Multigráficos' : locale === 'id' ? 'Tampilkan di Multi-Chart' : 'Show in Multi-Chart';
+  const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : locale === 'id' ? 'Pilih untuk membandingkan' : 'Select to compare';
+  const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : locale === 'id' ? 'DASBOR' : 'DASHBOARD';
 
   // Determine current company/sector name based on selection
   useEffect(() => {
@@ -413,7 +414,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
               onChange={(e) => setSelectedList(e.target.value)}
               className="w-full bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs rounded-lg px-3 py-2 outline-none focus:border-[#3b82f6] transition-colors"
             >
-              <option value="Tüm Liste">{locale === 'tr' ? 'Tüm Liste' : 'All List'}</option>
+              <option value="Tüm Liste">{locale === 'tr' ? 'Tüm Liste' : locale === 'es' ? 'Toda la Lista' : locale === 'fr' ? 'Toute la Liste' : locale === 'pt' ? 'Lista Completa' : locale === 'id' ? 'Semua Daftar' : 'All List'}</option>
               {extendedGroups.map(g => (
                 <option key={g.group} value={g.group}>{g.group}</option>
               ))}
