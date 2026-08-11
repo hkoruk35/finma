@@ -50,6 +50,7 @@ A generic `{key, value: jsonb, updated_at}` KV table, gated by an `ALLOWED_KEYS`
 | `portfolio_swing`, `portfolio_longterm` | position objects | Paper-trade portfolios |
 | `search_history`, `preorder_analyses` | arrays | Copilot/analysis history |
 | `theme_final_tickers` | *(unused today)* | Was an intermediate snapshot; superseded by computing the merge live via `getEffectiveThemeTickers()` — see `docs/AI_BEHAVIOR.md`. Kept in `ALLOWED_KEYS` for backward compatibility only. |
+| `home_movers_cache` | `{top7, top100, gainers, losers, mostActive}` (same shape `/api/home-movers` returns) | Last successful home-page movers snapshot, written by `/api/home-movers` itself on every healthy computation (not through `ALLOWED_KEYS`/the generic store route — read/written directly via `supabaseAdmin`). Served back when the live computation comes back empty/broken (DB or live-quote fetch failure), so the home page never shows "No data" — added 2026-08-11 after a Supabase blip left Top7/Gainers/Losers empty. |
 
 **Effective theme ticker list** = `base (HOT_THEMES_2026[slug].stocks) ∪ theme_overrides[title] − hot_themes_removals.removedStocks[slug]`. Computed by `frontend/lib/themeOverrides.ts:getEffectiveThemeTickers()` — the single source of truth as of 2026-07-27 (see `theme_admin_public_ticker_sync` fix).
 

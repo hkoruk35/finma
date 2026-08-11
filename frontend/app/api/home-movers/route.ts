@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { fetchLiveQuotes, MAGNIFICENT_7, buildTop100MoverRows, rankTop100Movers, type RawMoverRow } from "@/lib/homeFeed";
 
 export const runtime = "nodejs";
@@ -13,6 +14,49 @@ interface MoverRow {
   price: number;
   change_pct: number;
   sparkline: number[];
+}
+
+interface HomeMoversPayload {
+  top7: MoverRow[];
+  top100: MoverRow[];
+  gainers: MoverRow[];
+  losers: MoverRow[];
+  mostActive: MoverRow[];
+}
+
+// 2026-08-11: Supabase/canli fiyat cekme gecici olarak basarisiz oldugunda
+// (DB tikanikligi, self-fetch timeout vb.) bu route bos listelerle donuyor,
+// ana sayfada "Veri bulunmamaktadir" gorunuyordu — kullanicinin acik talebi:
+// "her acildiginda liste olmali", gunde birkac kez guncellenmesi yeterli.
+// Bu yuzden her BASARILI hesaplama shared_store'a yazilir; bir sonraki
+// istekte hesaplama basarisiz/bos gorunurse bu SON BASARILI anlik goruntu
+// donulur (canli veri yerine bayat ama HER ZAMAN dolu bir liste).
+const CACHE_KEY = "home_movers_cache";
+
+async function readCachedMovers(): Promise<HomeMoversPayload | null> {
+  try {
+    const { data } = await supabaseAdmin.from("shared_store").select("value").eq("key", CACHE_KEY).maybeSingle();
+    const value = data?.value as HomeMoversPayload | undefined;
+    return value?.top7?.length ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function cacheMoversInBackground(value: HomeMoversPayload) {
+  (async () => {
+    try {
+      await supabaseAdmin
+        .from("shared_store")
+        .upsert({ key: CACHE_KEY, value, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    } catch {
+      // Cache yazimi basarisiz olsa bile canli yanit kullaniciya zaten dondu.
+    }
+  })();
+}
+
+function isHealthy(tickerCount: number, top7: MoverRow[]): boolean {
+  return tickerCount > 0 && top7.some((t) => t.price > 0);
 }
 
 /**
@@ -60,27 +104,37 @@ export async function GET(req: NextRequest) {
     };
   });
 
+  let payload: HomeMoversPayload;
+
   if (tickers.length === 0) {
-    return NextResponse.json(
-      { top7, top100: [], gainers: [], losers: [], mostActive: [] },
-      { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } }
-    );
-  }
-
-  const rows = buildTop100MoverRows(tickers, snapshotRows ?? [], live);
-  const { top100, gainers, losers, mostActive } = rankTop100Movers(rows, limit);
-
-  const strip = (arr: RawMoverRow[]): MoverRow[] =>
-    arr.map((r) => ({ ticker: r.ticker, sector: r.sector, price: r.price, change_pct: r.change_pct, sparkline: r.sparkline }));
-
-  return NextResponse.json(
-    {
+    payload = { top7, top100: [], gainers: [], losers: [], mostActive: [] };
+  } else {
+    const rows = buildTop100MoverRows(tickers, snapshotRows ?? [], live);
+    const { top100, gainers, losers, mostActive } = rankTop100Movers(rows, limit);
+    const strip = (arr: RawMoverRow[]): MoverRow[] =>
+      arr.map((r) => ({ ticker: r.ticker, sector: r.sector, price: r.price, change_pct: r.change_pct, sparkline: r.sparkline }));
+    payload = {
       top7,
       top100: strip(top100),
       gainers: strip(gainers),
       losers: strip(losers),
       mostActive: strip(mostActive),
-    },
-    { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } }
-  );
+    };
+  }
+
+  if (isHealthy(tickers.length, top7)) {
+    cacheMoversInBackground(payload);
+    return NextResponse.json(payload, { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } });
+  }
+
+  // Canli hesaplama bos/kirik gorunuyor (DB veya fiyat cekme basarisiz) —
+  // sessizce bos donmek yerine son basarili anlik goruntuyu dene.
+  const cached = await readCachedMovers();
+  if (cached) {
+    return NextResponse.json(cached, {
+      headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120", "X-Home-Movers-Source": "cache-fallback" },
+    });
+  }
+
+  return NextResponse.json(payload, { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } });
 }
