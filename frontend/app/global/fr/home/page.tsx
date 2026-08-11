@@ -45,6 +45,7 @@ const ASIA_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "HSI", label: "HSI" },
   { ticker: "SENSEX", label: "SENSEX" },
   { ticker: "NIFTY50", label: "NIFTY 50" },
+  { ticker: "IHSG", label: "IHSG" },
 ];
 
 const LATAM_ITEMS: { ticker: string; label: string }[] = [

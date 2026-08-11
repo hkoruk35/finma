@@ -217,7 +217,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   // BOGA'nın asıl hisse-seçim ürünü değil — 2026-08-03 kullanıcı talebiyle
   // herkese (giriş şart olmadan) açık. Trade plan kartı (lockTradePlanCard,
   // aşağıda) bundan etkilenmedi, hâlâ premium.
-  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"];
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "IHSG", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"];
   const isMarketContextAsset = INDEX_TICKERS.includes(ticker) || !!getIndexBySymbol(ticker) || getAssetCategory(ticker) !== "stock";
   const chartUnlocked = isTop7 || isPublicTeaserTicker(ticker) || isLoggedIn || isMarketContextAsset;
 

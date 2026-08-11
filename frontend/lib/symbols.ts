@@ -58,6 +58,7 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   SHANGHAI: "000001.SS",
   KOSPI: "^KS11",
   ASX200: "^AXJO",
+  IHSG: "^JKSE",
 
   // Latin America Indices
   SPLATA40: "ILF",

@@ -80,6 +80,7 @@ const getGroups = (locale: Locale) => {
         { ticker: "HSI", label: "HSI", ySymbol: "^HSI" },
         { ticker: "SENSEX", label: "SENSEX", ySymbol: "^BSESN" },
         { ticker: "NIFTY50", label: "NIFTY 50", ySymbol: "^NSEI" },
+        { ticker: "IHSG", label: "IHSG", ySymbol: "^JKSE" },
       ],
     },
     {

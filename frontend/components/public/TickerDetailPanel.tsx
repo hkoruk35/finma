@@ -71,7 +71,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const { isPremium, plan } = useMemberPlan();
   const isLoggedIn = plan !== null;
 
-  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50", "YM_F", "ES_F", "NQ_F", "GC_F", "CL_F", "XLK", "XLF", "XLE", "XLV", "XLY", "XLP", "XLI", "XLB", "XLRE", "XLU", "XLC"];
+  const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "IHSG", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50", "YM_F", "ES_F", "NQ_F", "GC_F", "CL_F", "XLK", "XLF", "XLE", "XLV", "XLY", "XLP", "XLI", "XLB", "XLRE", "XLU", "XLC"];
   const isStock = !INDEX_TICKERS.includes(ticker) && !getIndexBySymbol(ticker) && getAssetCategory(ticker) === "stock";
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
