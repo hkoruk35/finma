@@ -14,9 +14,9 @@ interface Props {
 
 const EXPAND_LABEL: Record<Locale, [string, string]> = {
   en: ["EXPAND", "COLLAPSE"],
-  tr: ["GENÄ°ÅžLET", "DARALT"],
+  tr: ["GENİŞLET", "DARALT"],
   es: ["EXPANDIR", "CONTRAER"],
-  fr: ["AGRANDIR", "RÃ‰DUIRE"],
+  fr: ["AGRANDIR", "RÉDUIRE"],
   pt: ["EXPANDIR", "RECOLHER"],
   id: ["PERLUAS", "CIUTKAN"],
 };
@@ -31,7 +31,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
           <span className="text-xs font-medium text-white uppercase tracking-widest">
-            Live Chart Â· {ticker}
+            Live Chart · {ticker}
           </span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -64,12 +64,12 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
 
       {companyMismatch && (
         <div className="px-4 py-2 bg-[#f59e0b]/10 border-b border-[#f59e0b]/30 flex items-center gap-2">
-          <span className="text-[#f59e0b] text-xs">âš </span>
+          <span className="text-[#f59e0b] text-xs">⚠</span>
           <span className="text-xs text-[#f59e0b]">
             Chart may show a different company. BOGA tracks{" "}
             <strong>{companyMismatch.local}</strong>{" "}
-            â€” grafik{" "}
-            <strong>{companyMismatch.yfinance}</strong> gÃ¶steriyor olabilir.
+            — grafik{" "}
+            <strong>{companyMismatch.yfinance}</strong> gösteriyor olabilir.
           </span>
         </div>
       )}

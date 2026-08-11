@@ -192,7 +192,7 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
     slug: "ipc-mexico",
     region: "latam",
     yahooTicker: "^MXX",
-    names: { en: "IPC MÃ©xico", tr: "IPC MÃ©xico", es: "IPC MÃ©xico", fr: "IPC MÃ©xico", pt: "IPC MÃ©xico", id: "IPC MÃ©xico" },
+    names: { en: "IPC México", tr: "IPC México", es: "IPC México", fr: "IPC México", pt: "IPC México", id: "IPC México" },
   },
   MERVAL: {
     symbol: "MERVAL",

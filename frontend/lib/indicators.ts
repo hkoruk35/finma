@@ -115,7 +115,7 @@ export function bollingerBands(
 }
 
 // Resets every time the calendar day (America/New_York) changes â only
-// meaningful on intraday bars, per the spec ("gÃ¼n bitiminde sÄ±fÄ±rlanÄ±r").
+// meaningful on intraday bars, per the spec ("gün bitiminde sıfırlanır").
 export function vwap(bars: Bar[]): (number | null)[] {
   const out: (number | null)[] = new Array(bars.length).fill(null);
   let cumPV = 0;
