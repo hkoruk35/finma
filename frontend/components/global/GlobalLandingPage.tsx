@@ -21,11 +21,12 @@ const FREE_COMPARE_LIMIT = 9;
 const MAX_COMPARE = 9;
 
 const getGroups = (locale: Locale) => {
-  const t = (en: string, tr: string, es: string, fr: string, pt: string) => {
+  const t = (en: string, tr: string, es: string, fr: string, pt: string, id?: string) => {
     if (locale === 'tr') return tr;
     if (locale === 'es') return es;
     if (locale === 'fr') return fr;
     if (locale === 'pt') return pt;
+    if (locale === 'id') return id ?? en;
     return en;
   };
 
@@ -57,6 +58,42 @@ const getGroups = (locale: Locale) => {
       ],
     },
     {
+      // Ana sayfadaki (home/page.tsx) EUROPE_ITEMS ile ayni ticker seti —
+      // tek kaynak, tutarlilik icin. TickerDetailPanel'deki INDEX_TICKERS/
+      // getIndexBySymbol zaten bu sembolleri "endeks" olarak taniyor, bu
+      // yuzden Trade Plan karti otomatik olarak NO_PLAN_LABELS gosteriyor.
+      group: t("Europe List", "Avrupa Listesi", "Lista de Europa", "Liste Europe", "Lista da Europa", "Daftar Eropa"),
+      items: [
+        { ticker: "DAX", label: "DAX", ySymbol: "^GDAXI" },
+        { ticker: "FTSE100", label: "FTSE 100", ySymbol: "^FTSE" },
+        { ticker: "CAC40", label: "CAC 40", ySymbol: "^FCHI" },
+        { ticker: "IBEX35", label: "IBEX 35", ySymbol: "^IBEX" },
+        { ticker: "STOXX50", label: "STOXX 50", ySymbol: "^STOXX50E" },
+      ],
+    },
+    {
+      // Ana sayfadaki ASIA_ITEMS ile ayni ticker seti.
+      group: t("Asian Markets", "Asya Borsaları", "Mercados de Asia", "Marchés Asiatiques", "Mercados da Ásia", "Pasar Asia"),
+      items: [
+        { ticker: "N225", label: "Nikkei 225", ySymbol: "^N225" },
+        { ticker: "SSE", label: "SSE", ySymbol: "000001.SS" },
+        { ticker: "HSI", label: "HSI", ySymbol: "^HSI" },
+        { ticker: "SENSEX", label: "SENSEX", ySymbol: "^BSESN" },
+        { ticker: "NIFTY50", label: "NIFTY 50", ySymbol: "^NSEI" },
+      ],
+    },
+    {
+      // Ana sayfadaki LATAM_ITEMS ile ayni ticker seti.
+      group: t("Latin America", "Latin Amerika", "América Latina", "Amérique Latine", "América Latina", "Amerika Latin"),
+      items: [
+        { ticker: "SPLATA40", label: "S&P Latam 40", ySymbol: "ILF" },
+        { ticker: "SPLATA_BMI", label: "S&P Latam BMI", ySymbol: "^SPFLA" },
+        { ticker: "IBOVESPA", label: "IBOVESPA", ySymbol: "^BVSP" },
+        { ticker: "IGCX", label: "IGCX", ySymbol: "EWZ" },
+        { ticker: "IBXX", label: "IBXX", ySymbol: "ILF" },
+      ],
+    },
+    {
       group: t("Currencies", "Döviz", "Divisas", "Devises", "Moedas"),
       items: [
         { ticker: "EURUSD", label: "EUR/USD", ySymbol: "EURUSD=X" },
@@ -84,6 +121,19 @@ const getGroups = (locale: Locale) => {
         { ticker: "ETHUSD", label: "Ethereum", ySymbol: "ETH-USD" },
         { ticker: "SOLUSD", label: "Solana", ySymbol: "SOL-USD" },
         { ticker: "XRPUSD", label: "XRP", ySymbol: "XRP-USD" },
+      ],
+    },
+    {
+      // Ana sayfadaki FUTURES_ITEMS ile ayni ticker seti. YM_F/ES_F/NQ_F/
+      // GC_F/CL_F, TickerDetailPanel'in INDEX_TICKERS dizisine eklendi —
+      // bu yuzden burada da Trade Plan karti gostermez.
+      group: t("Futures", "Vadeli İşlemler", "Futuros", "Contrats à Terme", "Futuros", "Futures"),
+      items: [
+        { ticker: "YM_F", label: t("Dow Futures", "Dow Vadeli", "Futuros Dow", "Futures Dow", "Futuros Dow", "Futures Dow"), ySymbol: "YM=F" },
+        { ticker: "ES_F", label: t("S&P Futures", "S&P Vadeli", "Futuros S&P", "Futures S&P", "Futuros S&P", "Futures S&P"), ySymbol: "ES=F" },
+        { ticker: "NQ_F", label: t("Nasdaq Futures", "Nasdaq Vadeli", "Futuros Nasdaq", "Futures Nasdaq", "Futuros Nasdaq", "Futures Nasdaq"), ySymbol: "NQ=F" },
+        { ticker: "GC_F", label: t("Gold Futures", "Altın Vadeli", "Futuros de Oro", "Futures Or", "Futuros de Ouro", "Futures Emas"), ySymbol: "GC=F" },
+        { ticker: "CL_F", label: t("Crude Futures", "Ham Petrol Vadeli", "Futuros de Crudo", "Futures Pétrole", "Futuros de Petróleo", "Futures Minyak Mentah"), ySymbol: "CL=F" },
       ],
     },
   ];
@@ -123,7 +173,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const groups = useMemo(() => getGroups(locale), [locale]);
   
   const [extendedGroups, setExtendedGroups] = useState<any[]>([]);
-  const [selectedList, setSelectedList] = useState<string>("Top 7");
+  // Varsayilan "Tum Liste" (dropdown'daki sabit "All List" secenegiyle
+  // ayni deger) — eskiden "Top 7"ydi, ama o grup extendedGroups'a ancak
+  // async fetchAllData() tamamlandiktan sonra eklendigi icin ilk render'da
+  // hicbir gruba uymuyor, sol panel bos gorunuyordu (kullanicinin bildirdigi
+  // sorun). "Tum Liste" ise groups (statik) ile aninda dolu gelir.
+  const [selectedList, setSelectedList] = useState<string>("Tüm Liste");
 
   useEffect(() => {
     const baseGroups = groups;
