@@ -344,6 +344,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const compareOpenLabel = locale === 'tr' ? 'Çoklu Ekranda Göster' : locale === 'es' ? 'Mostrar en Multigráfico' : locale === 'fr' ? 'Afficher en Multi-Graphiques' : locale === 'pt' ? 'Mostrar em Multigráficos' : locale === 'id' ? 'Tampilkan di Multi-Chart' : 'Show in Multi-Chart';
   const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : locale === 'id' ? 'Pilih untuk membandingkan' : 'Select to compare';
   const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : locale === 'id' ? 'DASBOR' : 'DASHBOARD';
+  const multiTimeframeLabel = locale === 'tr' ? 'Çoklu Zaman Dilimi' : locale === 'es' ? 'Múltiples Marcos Temporales' : locale === 'fr' ? 'Multi-Périodes' : locale === 'pt' ? 'Múltiplos Períodos' : locale === 'id' ? 'Multi Kerangka Waktu' : 'Multi-Timeframe';
+  const [showMultiTimeframe, setShowMultiTimeframe] = useState(false);
 
   // Determine current company/sector name based on selection
   useEffect(() => {
@@ -511,7 +513,22 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
             
             <div className="flex items-center gap-3">
-              
+              <button
+                onClick={() => setShowMultiTimeframe((v) => !v)}
+                className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium border transition-colors shrink-0 ${
+                  showMultiTimeframe
+                    ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
+                    : "bg-[#141924] border-[#1e2a3a] text-slate-400 hover:text-white"
+                }`}
+                title={multiTimeframeLabel}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="7" rx="1" strokeWidth={2} />
+                  <rect x="3" y="14" width="18" height="7" rx="1" strokeWidth={2} />
+                </svg>
+                {multiTimeframeLabel}
+              </button>
+
               <div className="hidden md:block w-64 mr-2">
                 <TickerSearchBox locale={locale} compact onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); setSelectedLocked(false); }} />
               </div>
@@ -562,6 +579,49 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
           </div>
         </div>
+
+        {/* RIGHT COLUMN: MULTI-TIMEFRAME MINI CHARTS — anonim ziyaretçiye de
+            acik, hicbir premium/free-account kapisi yok (BogaChartEngine'e
+            premiumGate gecilmiyor). 15M ustte, 1W altta, sabit; hacim/RSI
+            olmadan (defaultIndicators=[]). */}
+        {showMultiTimeframe && (
+          <div className="hidden md:flex md:w-56 lg:w-64 flex-col shrink-0 border-l border-[#1e2a3a] md:h-[calc(100vh-64px)] md:overflow-y-auto bg-[#0a0e17]">
+            <div className="px-3 py-2.5 border-b border-[#1e2a3a] flex items-center justify-between shrink-0">
+              <span className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">{multiTimeframeLabel}</span>
+              <button onClick={() => setShowMultiTimeframe(false)} className="text-slate-500 hover:text-white text-xs leading-none">✕</button>
+            </div>
+            <div className="flex flex-col gap-2 p-2">
+              <div className="rounded-lg overflow-hidden border border-[#1e2a3a]">
+                <div className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-[#111620] border-b border-[#1e2a3a]">15M</div>
+                <BogaChartEngine
+                  key={`${selectedYSymbol}-15`}
+                  symbol={selectedYSymbol}
+                  lang={locale}
+                  compact
+                  hideIndicatorToggles
+                  showToolbar={false}
+                  defaultTimeframe="15"
+                  defaultIndicators={[]}
+                  height={200}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden border border-[#1e2a3a]">
+                <div className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-[#111620] border-b border-[#1e2a3a]">1W</div>
+                <BogaChartEngine
+                  key={`${selectedYSymbol}-W`}
+                  symbol={selectedYSymbol}
+                  lang={locale}
+                  compact
+                  hideIndicatorToggles
+                  showToolbar={false}
+                  defaultTimeframe="W"
+                  defaultIndicators={[]}
+                  height={200}
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {compareSelection.length >= 2 && (
           <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-[#141924] border-2 border-[#3b82f6] shadow-[0_4px_30px_rgba(59,130,246,0.45)] animate-bounce-short">
