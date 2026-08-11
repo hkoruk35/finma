@@ -444,5 +444,95 @@
         "answer": "Sim. Somos uma empresa global com sede nos EUA, operando 24 horas por dia, 7 dias por semana. Embora nosso idioma padrão seja o inglês, oferecemos localização completa em 5 idiomas (inglês, turco, espanhol, francês, português). Além disso, nossa avançada IA Boga Copilot é capaz de entender e interagir com você em mais de 100 idiomas."
       }
     ]
+  },
+  "id": {
+    "title": "Pertanyaan yang Sering Diajukan (FAQ)",
+    "description": "Semua detail yang ingin Anda ketahui tentang cara kerja BogaStock, analisis kami, dan operasional sistem.",
+    "faqs": [
+      {
+        "question": "1. Apa sebenarnya BogaStock dan apa manfaatnya bagi saya?",
+        "answer": "BogaStock adalah platform teknologi keuangan yang memindai pasar global dan ribuan saham AS menggunakan AI (Boga Copilot) dan algoritma canggih. Sebagian besar situs kami sepenuhnya terbuka untuk semua pengguna; bahkan tanpa mendaftar, Anda dapat menjelajahi ribuan saham dan menggunakan grafik interaktif kami secara gratis. Tujuan kami adalah mencegah Anda tersesat dalam indikator yang rumit, menemukan target terbaik untuk saham trending, dan memungkinkan Anda membuat keputusan yang rasional dan berbasis data."
+      },
+      {
+        "question": "2. Apakah Anda memberikan rekomendasi beli-jual saham?",
+        "answer": "Sama sekali tidak. Kami bukan perusahaan penasihat investasi. BogaStock adalah platform perangkat lunak yang sepenuhnya berbasis algoritma matematis. Sistem kami tidak memberi tahu Anda untuk \"membeli\" atau \"menjual\"; sistem ini mendaftar kandidat dengan kekuatan yang terbukti berdasarkan data teknikal dan menyediakan laporan AI. Keputusan trading sepenuhnya menjadi tanggung jawab Anda."
+      },
+      {
+        "question": "3. Bisakah saya menggunakan sistem secara gratis tanpa mendaftar, atau apa saja yang tercakup dalam Keanggotaan Gratis?",
+        "answer": "Ya! Sebagian besar platform kami terbuka untuk pengunjung, dan Anda dapat menggunakan grafik interaktif secara gratis. Membuat Keanggotaan Gratis dengan alamat Google atau email Anda memberikan manfaat besar: 15.000 token harian untuk asisten AI Boga Copilot kami dan akses instan ke 20 saham teratas dalam daftar Top100 kami."
+      },
+      {
+        "question": "4. Fitur apa yang saya dapatkan dengan keanggotaan Premium?",
+        "answer": "Anggota Premium membuka kekuatan penuh BogaStock. Anda mendapatkan analisis mendetail berbasis saham, setup trading yang jelas, daftar tema kustom, asisten keuangan personal 24/7 (Copilot), saham trending yang diperbarui harian, dan pelacakan performa. Selain itu, peta panas per jam untuk semua saham, tugas otomatis, alarm/notifikasi, penyaringan saham tematik lanjutan (daftar cerdas), dan fitur grafik lanjutan ekstra membawa trading Anda ke tingkat profesional."
+      },
+      {
+        "question": "5. Apakah Anda menyimpan detail kartu kredit saya? Apakah saya aman?",
+        "answer": "Detail kartu kredit Anda tidak pernah disimpan atau ditahan di server kami. Infrastruktur pembayaran kami didukung oleh Stripe, salah satu sistem pembayaran paling aman dan terpercaya di dunia, beroperasi dalam lingkungan yang sepenuhnya terenkripsi dan aman."
+      },
+      {
+        "question": "6. Apa itu Saham Trending? Saya tidak tahu sama sekali.",
+        "answer": "Trading Saham Trending bertujuan untuk menangkap pergerakan harga terarah yang kuat, yang dapat berlangsung dari beberapa hari hingga beberapa minggu. Dengan Premium, Anda dapat langsung melacak saham trending kami yang diperbarui harian beserta performanya."
+      },
+      {
+        "question": "7. Apakah saham yang direkomendasikan siap diperdagangkan segera? Bagaimana cara saya masuk?",
+        "answer": "Kandidat dalam daftar \"Saham Trending\" kami secara teknikal sudah siap, dengan struktur yang kuat. Namun, untuk profitabilitas yang lebih tinggi dan risiko yang lebih rendah, kami merekomendasikan menggunakan fitur grafik lanjutan kami untuk masuk dengan pola yang tepat."
+      },
+      {
+        "question": "8. Apa perbedaan antara \"Daftar Pantauan\" dan \"Daftar Trend\"?",
+        "answer": "Daftar Pantauan mencakup kandidat berpotensi tinggi yang belum mencapai level entry yang aman. Daftar Trend berisi saham dengan keyakinan tinggi yang telah melewati daftar pantauan dengan mendapatkan semua konfirmasi teknikal dan volume yang diperlukan."
+      },
+      {
+        "question": "9. Bagaimana Grafik Interaktif dan Boga Copilot akan membantu saya?",
+        "answer": "Selain grafik interaktif yang dapat Anda akses tanpa mendaftar, AI Boga Copilot kami (tak terbatas di Premium, 15 ribu token harian untuk Gratis) menganalisis pola kompleks untuk menghasilkan rencana trading yang jelas. Anda dapat memeriksa data dengan alat grafik lanjutan kami dan membuat keputusan Anda sendiri."
+      },
+      {
+        "question": "10. Apakah Boga Copilot membuat kesalahan seiring waktu? Bagaimana cara meningkatkannya?",
+        "answer": "Tidak ada sistem di dunia yang sempurna. Namun, berkat infrastruktur pembelajaran mesin khususnya, Boga Copilot secara terus-menerus memperbarui dirinya sendiri dengan menganalisis transaksi pasar, beradaptasi dengan cepat terhadap kondisi pasar yang berubah."
+      },
+      {
+        "question": "11. Apakah ada terlalu banyak indikator membingungkan pada grafik? Akankah saya kesulitan memahaminya?",
+        "answer": "Tidak! Filosofi BogaStock adalah menghindari kekacauan. Kami menyediakan grafik yang bersih dan metrik yang jelas. Dengan banyak layanan gratis dan laporan AI kami yang ditulis dalam bahasa sederhana, Anda dapat dengan mudah melakukan analisis bahkan jika literasi keuangan Anda masih pemula."
+      },
+      {
+        "question": "12. Analisis pasar apa yang Anda sediakan, dan apakah data tertunda?",
+        "answer": "BogaStock menyediakan analisis harian dan mingguan dari bursa global utama di seluruh dunia. Untuk pasar AS, kami menawarkan analisis pra-pasar, tengah hari, dan penutupan. Data teknikal kami diperbarui setiap jam untuk analisis yang tenang dan sehat, beroperasi dengan feed yang tertunda 15 menit."
+      },
+      {
+        "question": "13. Bagaimana saya memilih dari ribuan saham?",
+        "answer": "BogaStock memindai ribuan saham setiap hari, menghilangkan noise melalui filter likuiditas dan volume. Dengan keanggotaan gratis, Anda mengakses 20 teratas dari daftar Top100 kami. Dengan Premium, Anda membuka semua daftar tema mendetail dan daftar cerdas."
+      },
+      {
+        "question": "14. Apa arti \"Melacak Uang Cerdas\"?",
+        "answer": "Algoritma kami melacak arus modal dari dana besar dan bank untuk mendeteksi arus masuk dan keluar volume besar. Berkat peta panas per jam dan notifikasi di Premium, Anda dapat dengan mudah memantau arus uang ini."
+      },
+      {
+        "question": "15. Apa itu \"Sistem Skor Lima Tingkat\"?",
+        "answer": "Mesin skor BogaStock mengkategorikan setiap kandidat berdasarkan rasio teknikal dan fundamental: Keyakinan Tinggi, Bias Positif, Netral, Bias Negatif, dan Berkinerja Kurang. Ini dengan jelas menunjukkan kekuatan matematis di balik sebuah saham."
+      },
+      {
+        "question": "16. Bagaimana skor teknikal dihitung?",
+        "answer": "Skor kami adalah campuran berbobot dari berbagai faktor seperti RSI, MACD, volume relatif, persilangan EMA, dan kekuatan tren. Ini mengandalkan mekanisme konfirmasi multi-faktor, bukan hanya satu indikator saja."
+      },
+      {
+        "question": "17. Apakah Anda hanya menggunakan analisis teknikal? Bukankah laporan keuangan penting?",
+        "answer": "Tentu saja penting! Sistem kami juga menganalisis lapisan fundamental seperti rasio P/E, arus kas bebas, dan pertumbuhan pendapatan. Dengan penyaringan tematik lanjutan di Premium, Anda dapat menyaring perusahaan berdasarkan performa keuangan dan grafik teknikal."
+      },
+      {
+        "question": "18. Apakah Anda hanya berfokus pada bursa AS?",
+        "answer": "Meskipun prioritas kami adalah pasar AS (NYSE, NASDAQ, AMEX), Anda juga dapat menemukan analisis harian dan mingguan dari bursa global utama dalam sistem kami. Untuk pasar AS, kami menawarkan analisis pra-pasar, tengah hari, dan penutupan yang mendetail."
+      },
+      {
+        "question": "19. Apakah ada kemungkinan kehilangan uang?",
+        "answer": "Ya, tentu saja. Tidak ada sistem jujur yang dapat menjanjikan kesuksesan 100%. Performa masa lalu tidak menjamin hasil di masa depan. Anda harus menerapkan manajemen risiko dan tidak pernah mengikat seluruh modal Anda pada satu perdagangan."
+      },
+      {
+        "question": "20. Apakah saya harus menggunakan \"Stop Loss\"?",
+        "answer": "Ya! Aturan pertama filosofi BogaStock adalah tidak pernah membuka perdagangan tanpa Stop Loss. Memanfaatkan alarm otomatis kami (Premium) dan berpegang pada rencana Anda adalah satu-satunya cara untuk melindungi modal Anda dari kejatuhan besar."
+      },
+      {
+        "question": "21. Apakah Anda perusahaan global? Bahasa apa saja yang didukung platform Anda?",
+        "answer": "Ya. Kami adalah perusahaan global berbasis di AS yang beroperasi 24/7. Meskipun bahasa default platform kami adalah Inggris, kami menyediakan lokalisasi penuh dalam 6 bahasa (Inggris, Turki, Spanyol, Prancis, Portugis, Indonesia). Selain itu, AI Boga Copilot canggih kami mampu memahami dan berinteraksi dengan Anda dalam lebih dari 100 bahasa, memastikan dukungan yang lancar di mana pun Anda berada di dunia."
+      }
+    ]
   }
 }

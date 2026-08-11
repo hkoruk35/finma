@@ -96,7 +96,7 @@ bu rakamlari metinde TEKRARLAMAYACAKSIN — site bunlari zaten DB'den dogrudan g
 {quant_snapshot}
 {prior_block}
 
-Su JSON semasini uret (5 dilin {', '.join(common.LOCALES)} HER BIRI icin, asagidaki 7 nitel alan + prior_week_accuracy):
+Su JSON semasini uret ({len(common.LOCALES)} dilin {', '.join(common.LOCALES)} HER BIRI icin, asagidaki 7 nitel alan + prior_week_accuracy):
 {{
   "en": {{
     "summary": "1-2 sentence qualitative weekly overview",
@@ -111,7 +111,8 @@ Su JSON semasini uret (5 dilin {', '.join(common.LOCALES)} HER BIRI icin, asagid
   "tr": {{ ... same fields, in Turkish ... }},
   "es": {{ ... }},
   "fr": {{ ... }},
-  "pt": {{ ... }}
+  "pt": {{ ... }},
+  "id": {{ ... same fields, in Indonesian (Bahasa Indonesia) ... }}
 }}
 
 Kurallar: Sadece verilen rakamlara dayan, uydurma haber/katalizor ekleme. {common.NARRATIVE_TONE_RULE} {common.NUMBER_FREE_RULE}"""

@@ -43,7 +43,7 @@ SUPABASE_URL = ENV.get("NEXT_PUBLIC_SUPABASE_URL")
 SUPABASE_SERVICE_KEY = ENV.get("SUPABASE_SERVICE_KEY")
 DEEPSEEK_API_KEY = ENV.get("DEEPSEEK_API_KEY")
 
-LOCALES = ["en", "tr", "es", "fr", "pt"]
+LOCALES = ["en", "tr", "es", "fr", "pt", "id"]
 
 # ============================================================
 # 9-ENDEKS EVRENI — frontend/lib/indices.ts ile birebir ayni
@@ -675,7 +675,7 @@ def build_daily_narrative_prompt(index_name: str, quant_snapshot: dict) -> tuple
 bu rakamlari metinde TEKRARLAMAYACAKSIN — site bunlari zaten DB'den dogrudan gosteriyor):
 {json.dumps(quant_snapshot, default=str)}
 
-Bu verilere dayanarak 5 dilin ({', '.join(LOCALES)}) HER BIRI icin, asagidaki 7 nitel alani doldur.
+Bu verilere dayanarak {len(LOCALES)} dilin ({', '.join(LOCALES)}) HER BIRI icin, asagidaki 7 nitel alani doldur.
 Format (her locale kodu ayni semada, o dilde yazilmis icerikle):
 {{
   "en": {{
@@ -690,7 +690,8 @@ Format (her locale kodu ayni semada, o dilde yazilmis icerikle):
   "tr": {{ ... same 7 fields, in Turkish ... }},
   "es": {{ ... }},
   "fr": {{ ... }},
-  "pt": {{ ... }}
+  "pt": {{ ... }},
+  "id": {{ ... same 7 fields, in Indonesian (Bahasa Indonesia) ... }}
 }}
 
 Kurallar: Sadece verilen rakamlara dayan, uydurma haber/katalizor ekleme. {NARRATIVE_TONE_RULE} {NUMBER_FREE_RULE}"""

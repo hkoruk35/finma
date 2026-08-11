@@ -273,5 +273,60 @@
       "description": "\"Em um mundo cada vez mais administrado por algoritmos, processar dados corretamente é apenas metade do trabalho. Na BogaStock, nosso objetivo é transformar os dados financeiros em um caminho claro para ajudá-lo a tomar suas decisões com confiança.\" Somos uma empresa global com sede nos EUA e uma estrutura ativa 24 horas por dia, 7 dias por semana. Nosso idioma padrão é o inglês, mas oferecemos conteúdo localizado em 5 idiomas, e nossa IA avançada Copilot oferece suporte a mais de 100 idiomas. Continuamos a evoluir com novas ferramentas analíticas, incluindo índices do setor, rastreamento de transações de insiders e análise de lucros.",
       "image_url": ""
     }
+  },
+  "id": {
+    "hero": {
+      "subtitle": "Kisah Kami",
+      "title_html": "Gerbang Anda Menuju Pasar Global<br />",
+      "title_highlight": "BogaStock.",
+      "description": "BogaStock adalah terminal keuangan canggih yang dirancang untuk menganalisis pasar saham global. Apa yang dimulai sebagai proyek pemrosesan data mendalam untuk sistem otonom kini telah berkembang menjadi platform komprehensif bagi investor di seluruh dunia.",
+      "image_url": ""
+    },
+    "sections": [
+      {
+        "title": "Perjalanan Bersama AFK DaSYS",
+        "description": "Fondasi BogaStock dibangun di atas keahlian pemrosesan data besar dari perusahaan induk kami, AFK DaSYS. Teknologi berkapasitas tinggi yang awalnya dikembangkan untuk kendaraan otonom kini dirancang ulang untuk menganalisis struktur kompleks pasar keuangan.",
+        "image_url": "",
+        "gradient": "from-[#3b82f6] to-[#8b5cf6]"
+      },
+      {
+        "title": "Sistem Grafik Canggih dan Terminal",
+        "description": "Saat ini, BogaStock berfungsi sebagai terminal keuangan yang lengkap. Dengan sistem grafik canggih dan analisis data real-time kami, kami memindai ribuan saham setiap hari, membuat pasar menjadi transparan dan mudah dipahami.",
+        "image_url": "",
+        "gradient": "from-[#8b5cf6] to-[#06b6d4]"
+      },
+      {
+        "title": "Boga Copilot: Kecerdasan Buatan dalam 50+ Bahasa",
+        "description": "Di jantung sistem kami terdapat Boga Copilot yang unik, didukung oleh teknologi AI paling canggih. Copilot kami berkomunikasi secara lancar dalam lebih dari 50 bahasa, menghadirkan analisis profesional dalam bahasa ibu Anda.",
+        "image_url": "",
+        "gradient": "from-[#06b6d4] to-[#22c55e]"
+      }
+    ],
+    "stats": {
+      "title": "BogaStock Hari Ini",
+      "items": [
+        {
+          "number": "100+",
+          "text": "negara terjangkau, memberikan layanan tanpa henti 24/7 kepada pengguna kami."
+        },
+        {
+          "number": "6.000+",
+          "text": "saham dan ETF AS dianalisis dan dievaluasi setiap hari."
+        },
+        {
+          "number": "6 Bahasa",
+          "text": "didukung secara native di platform web kami melalui kebijakan lokalisasi penuh."
+        },
+        {
+          "number": "50+ Bahasa",
+          "text": "didukung oleh Boga Copilot untuk bantuan AI yang alami dalam bahasa Anda sendiri."
+        }
+      ]
+    },
+    "mission": {
+      "title": "Apa yang Kami Yakini",
+      "description": "\"Di dunia yang semakin dijalankan oleh algoritma, memproses data dengan benar hanyalah setengah dari pekerjaan — membuatnya mudah dipahami sama pentingnya. Di BogaStock, tujuan kami adalah mengubah data keuangan global menjadi jalur yang jelas yang dapat diikuti siapa saja.\" Kami adalah perusahaan global berbasis di AS dengan struktur aktif 24/7. Bahasa default kami adalah Inggris, namun kami menyediakan konten terlokalisasi dalam 6 bahasa, dan AI Copilot canggih kami mendukung lebih dari 100 bahasa. Kami terus berkembang dengan alat analisis baru, termasuk indeks sektor, pelacakan insider, dan analisis laporan keuangan.",
+      "image_url": ""
+    }
   }
 }
