@@ -834,6 +834,8 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
       router.push(isGlobal ? "/global/fr/account" : "/fr/account");
     } else if (lang === 'PT') {
       router.push(isGlobal ? "/global/pt/account" : "/pt/account");
+    } else if (lang === 'ID') {
+      router.push(isGlobal ? "/global/id/account" : "/id/account");
     }
   };
 
@@ -842,9 +844,9 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
       <h2 className="text-xl font-medium text-white">{t.languageTitle}</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
+        {['EN', 'ES', 'FR', 'PT', 'ID', 'TR'].map((lang) => {
           const isActive = locale.toUpperCase() === lang;
-          const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT';
+          const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT' || lang === 'ID';
 
           return (
             <button

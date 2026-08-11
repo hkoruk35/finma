@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { stripe, createPremiumCheckoutSession } from "@/lib/stripe";
 
-const SUPPORTED_LOCALES = ["en", "tr", "es", "fr", "pt"];
+const SUPPORTED_LOCALES = ["en", "tr", "es", "fr", "pt", "id"];
 
 export async function POST(req: NextRequest) {
   const supabase = await createSupabaseServerClient();

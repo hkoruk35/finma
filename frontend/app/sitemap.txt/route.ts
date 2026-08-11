@@ -2,7 +2,7 @@ export const runtime = "edge";
 
 const baseUrl = "https://bogastock.com";
 
-const locales = ["en", "tr", "es", "fr", "pt"];
+const locales = ["en", "tr", "es", "fr", "pt", "id"];
 
 const routes = [
   "",

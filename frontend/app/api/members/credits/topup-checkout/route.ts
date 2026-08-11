@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { stripe, createTopupCheckoutSession } from "@/lib/stripe";
 
-const SUPPORTED_LOCALES = ["en", "tr", "es", "fr", "pt"];
+const SUPPORTED_LOCALES = ["en", "tr", "es", "fr", "pt", "id"];
 
 // 100 Ekstra Copilot AI Kredisi ($9, tek seferlik) — abonelik durumundan
 // bağımsız, herhangi bir giriş yapmış üye satın alabilir.

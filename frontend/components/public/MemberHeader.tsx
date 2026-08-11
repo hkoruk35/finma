@@ -172,7 +172,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                       onClick={() => setIsMobileLangOpen(false)}
                     />
                     <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[88px]">
-                      {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
+                      {["EN", "ES", "FR", "PT", "ID", "TR"].map((lang) => {
                         const isActive = locale.toUpperCase() === lang;
                         return (
                           <Link
@@ -216,7 +216,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsDesktopLangOpen(false)} />
                     <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[100px]">
-                      {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
+                      {["EN", "ES", "FR", "PT", "ID", "TR"].map((lang) => {
                         const isActive = locale.toUpperCase() === lang;
                         return (
                           <Link
@@ -414,7 +414,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                                 <span>{locale === "tr" ? "Dil" : "Language"}</span>
                               </div>
                               <div className="flex items-center gap-1 flex-wrap">
-                                {["EN", "ES", "FR", "PT", "TR"].map((lang) => {
+                                {["EN", "ES", "FR", "PT", "ID", "TR"].map((lang) => {
                                   const isActive = locale.toUpperCase() === lang;
                                   return (
                                     <Link

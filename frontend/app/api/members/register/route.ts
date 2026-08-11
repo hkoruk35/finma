@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { email, password, username, redirectTo, consentAccepted, region, selectedLanguage } = body;
-  const locale = body.locale && ["en", "tr", "es", "fr", "pt"].includes(body.locale) ? body.locale : "en";
+  const locale = body.locale && ["en", "tr", "es", "fr", "pt", "id"].includes(body.locale) ? body.locale : "en";
 
   if (!email || !password || !username) {
     return NextResponse.json(

@@ -1,9 +1,9 @@
 // DeepSeek ile bilanço (earnings) yapılandırılmış JSON analiz üretimi.
 // Maliyet disiplinini korumak için: (1) ham SEC belgesi DEĞİL, sadece
-// çıkarılmış temel rakamlar gönderilir, (2) 5 dilin TAMAMI TEK bir çağrıda
+// çıkarılmış temel rakamlar gönderilir, (2) 6 dilin TAMAMI TEK bir çağrıda
 // üretilir (X Studio içerik üretimindeki desenle aynı, bkz. lib/x/generateContent.ts).
 
-export const EARNINGS_LOCALES = ["en", "tr", "es", "fr", "pt"] as const;
+export const EARNINGS_LOCALES = ["en", "tr", "es", "fr", "pt", "id"] as const;
 export type EarningsLocale = (typeof EARNINGS_LOCALES)[number];
 
 export interface EarningsAiSummary {
@@ -34,7 +34,7 @@ function buildPrompt(ticker: string, companyName: string, formType: string, metr
 Aşağıda ${companyName} (${ticker}) şirketinin SEC bildiriminden (${formType}) alınan temel finansal rakamlar bulunmaktadır:
 ${JSON.stringify(metrics)}
 
-Bu verilere dayanarak 5 dilin (en, tr, es, fr, pt) HER BİRİ için ayrı ayrı analiz üret. Sadece geçerli bir JSON objesi olarak yanıt ver, başka hiçbir açıklama, markdown veya preamble ekleme. İlk karakter { son karakter } olmalı.
+Bu verilere dayanarak 6 dilin (en, tr, es, fr, pt, id) HER BİRİ için ayrı ayrı analiz üret. Sadece geçerli bir JSON objesi olarak yanıt ver, başka hiçbir açıklama, markdown veya preamble ekleme. İlk karakter { son karakter } olmalı.
 
 Format (her locale kodu için aynı şema, o dilde yazılmış içerikle):
 {
@@ -42,7 +42,8 @@ Format (her locale kodu için aynı şema, o dilde yazılmış içerikle):
   "tr": { ... same fields, in Turkish ... },
   "es": { ... same fields, in Spanish ... },
   "fr": { ... same fields, in French ... },
-  "pt": { ... same fields, in Portuguese ... }
+  "pt": { ... same fields, in Portuguese ... },
+  "id": { ... same fields, in Indonesian (Bahasa Indonesia) ... }
 }
 
 Kurallar: Sadece verilen rakamlara dayan, uydurma katalizör/haber ekleme. ai_score 0-10 arası, aynı sayısal değer tüm locale'lerde AYNI olmalı (sadece metin çevrilir, skor değişmez). key_takeaways/bullish_signals/bearish_signals her biri 2-4 madde içersin.`;

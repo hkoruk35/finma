@@ -107,7 +107,7 @@ function formatDate(iso: string, locale: string): string {
   return `${formatted} NY`;
 }
 
-const VALID_LOCALES: Locale[] = ["en", "tr", "es", "fr", "pt"];
+const VALID_LOCALES: Locale[] = ["en", "tr", "es", "fr", "pt", "id"];
 
 const PAGE_SIZE = 6;
 
