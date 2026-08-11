@@ -7,6 +7,8 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 interface Props {
   locale: Locale;
   onClose: () => void;
+  titleOverride?: string;
+  descriptionOverride?: string;
 }
 
 const COPY = {
@@ -60,7 +62,7 @@ const COPY = {
   },
 };
 
-export default function FreeRegisterModal({ locale, onClose }: Props) {
+export default function FreeRegisterModal({ locale, onClose, titleOverride, descriptionOverride }: Props) {
   const c = COPY[locale] ?? COPY.en;
   const [googleLoading, setGoogleLoading] = useState(false);
 
@@ -122,8 +124,8 @@ export default function FreeRegisterModal({ locale, onClose }: Props) {
             {c.badge}
           </div>
 
-          <h2 className="text-lg font-semibold text-white mb-2 tracking-tight">{c.title}</h2>
-          <p className="text-sm text-slate-400 mb-6 leading-relaxed">{c.desc}</p>
+          <h2 className="text-lg font-semibold text-white mb-2 tracking-tight">{titleOverride ?? c.title}</h2>
+          <p className="text-sm text-slate-400 mb-6 leading-relaxed">{descriptionOverride ?? c.desc}</p>
 
           {/* Action buttons */}
           <div className="flex flex-col gap-3">

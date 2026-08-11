@@ -20,6 +20,7 @@ import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
+import FreeRegisterModal from "@/components/global/FreeRegisterModal";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 import { getIndexBySymbol } from "@/lib/indices";
 import { formatNumber } from "@/lib/formatNumber";
@@ -85,7 +86,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
-    vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
+    vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required", freeAccountRequired: "Sign in with Google or register free to unlock",
+    indicatorUnlockTitle: "Unlock More Indicators", indicatorUnlockDesc: "Anonymous visitors can use the default indicators (EMA 50, RSI, Volume). Sign in with Google or create a free account to unlock every other indicator!",
     multiChartScreen: "Multi-Chart Screen", charts: "Charts",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Market Structure", catPatterns: "Patterns", catDrawings: "Drawing Tools",
     autoChartPatterns: "Auto Chart Patterns", basicCandlePatterns: "Basic Candlestick Patterns",
@@ -101,7 +103,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
-    vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
+    vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir", freeAccountRequired: "Google ile giriş yapın veya ücretsiz kaydolun",
+    indicatorUnlockTitle: "Daha Fazla Gösterge Aç", indicatorUnlockDesc: "Anonim ziyaretçiler varsayılan göstergeleri (EMA 50, RSI, Hacim) kullanabilir. Diğer tüm göstergeleri açmak için hemen ücretsiz Google girişi yapın veya kaydolun!",
     multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
     autoChartPatterns: "Otomatik Chart Patterns", basicCandlePatterns: "Temel Candlestick Patterns",
@@ -117,7 +120,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
-    vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium", freeAccountRequired: "Inicia sesión con Google o regístrate gratis para desbloquear",
+    indicatorUnlockTitle: "Desbloquea Más Indicadores", indicatorUnlockDesc: "Los visitantes anónimos pueden usar los indicadores predeterminados (EMA 50, RSI, Volumen). Inicia sesión con Google o crea una cuenta gratuita para desbloquear todos los demás indicadores.",
     multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
     catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
     autoChartPatterns: "Patrones de Gráficos Automáticos", basicCandlePatterns: "Patrones Básicos de Velas",
@@ -133,7 +137,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
-    vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
+    vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise", freeAccountRequired: "Connectez-vous avec Google ou inscrivez-vous gratuitement pour débloquer",
+    indicatorUnlockTitle: "Débloquer Plus d'Indicateurs", indicatorUnlockDesc: "Les visiteurs anonymes peuvent utiliser les indicateurs par défaut (EMA 50, RSI, Volume). Connectez-vous avec Google ou créez un compte gratuit pour débloquer tous les autres indicateurs !",
     multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
     catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
     autoChartPatterns: "Modèles de Graphiques Automatiques", basicCandlePatterns: "Modèles de Bougies de Base",
@@ -149,7 +154,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
-    vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária", freeAccountRequired: "Entre com o Google ou registre-se grátis para desbloquear",
+    indicatorUnlockTitle: "Desbloqueie Mais Indicadores", indicatorUnlockDesc: "Visitantes anônimos podem usar os indicadores padrão (EMA 50, RSI, Volume). Entre com o Google ou crie uma conta gratuita para desbloquear todos os outros indicadores!",
     multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
     catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
     autoChartPatterns: "Padrões Gráficos Automáticos", basicCandlePatterns: "Padrões Básicos de Velas",
@@ -165,7 +171,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Garis", ohlc: "OHLC",
     share: "Bagikan", copyLink: "Salin tautan", linkCopied: "Tautan disalin!",
-    vol: "Vol", indicators: "Indikator", premiumRequired: "Keanggotaan Premium diperlukan",
+    vol: "Vol", indicators: "Indikator", premiumRequired: "Keanggotaan Premium diperlukan", freeAccountRequired: "Masuk dengan Google atau daftar gratis untuk membuka",
+    indicatorUnlockTitle: "Buka Lebih Banyak Indikator", indicatorUnlockDesc: "Pengunjung anonim dapat menggunakan indikator default (EMA 50, RSI, Volume). Masuk dengan Google atau buat akun gratis untuk membuka semua indikator lainnya!",
     multiChartScreen: "Layar Multi-Grafik", charts: "Grafik",
     catTrend: "Tren", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Struktur Pasar", catPatterns: "Pola", catDrawings: "Alat Gambar",
     autoChartPatterns: "Pola Grafik Otomatis", basicCandlePatterns: "Pola Candlestick Dasar",
@@ -374,11 +381,19 @@ export default function BogaChartEngine({
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
   const { isPremium, tier } = useMemberPlan();
-  const gated = premiumGate && !isPremium;
+  const isLoggedIn = tier !== "anonymous";
+  // Trade Plan degerleri (entry/stop/tp1-3) hala Premium gerektirir; diger
+  // tum gostergeler artik SADECE ucretsiz hesap (Google/e-posta) gerektirir —
+  // 2026-08-11 kullanici talebi: "indikatorlerden premium hesap / ucret
+  // talebi yok", varsayilan secili olanlar (FREE_INDICATOR_KEYS) anonim
+  // ziyaretciye de acik kalir.
+  const tradePlanGated = premiumGate && !isPremium;
+  const indicatorGated = premiumGate && !isLoggedIn;
   // Çoklu ekran (2/3/4/6/9): 2026-08-03 kullanıcı talebiyle üye olan
   // HERKESE (free dahil) 9 grafiğe kadar kısıtlamasız ve tamamen ücretsiz.
   const multiChartGated = false;
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [showFreeRegisterModal, setShowFreeRegisterModal] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -1189,8 +1204,13 @@ export default function BogaChartEngine({
   }, [fetchData]);
 
   const toggle = (key: IndicatorKey) => {
-    if (gated && !FREE_INDICATOR_KEYS.has(key)) {
-      setShowPremiumModal(true);
+    if (TRADE_PLAN_KEYS.includes(key)) {
+      if (tradePlanGated) {
+        setShowPremiumModal(true);
+        return;
+      }
+    } else if (indicatorGated && !FREE_INDICATOR_KEYS.has(key)) {
+      setShowFreeRegisterModal(true);
       return;
     }
     setActive((prev) => {
@@ -1252,10 +1272,10 @@ export default function BogaChartEngine({
   // Gösterge butonu — hem masaüstü satırında hem mobil açılır panelde
   // AYNI kod kullanılsın diye tek yerden üretilir.
   const renderIndicatorButton = (key: IndicatorKey) => {
-    const locked = gated && !FREE_INDICATOR_KEYS.has(key);
+    const isTradePlanKey = TRADE_PLAN_KEYS.includes(key);
+    const locked = isTradePlanKey ? tradePlanGated : indicatorGated && !FREE_INDICATOR_KEYS.has(key);
     const val = !locked && ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
     const tpColor = TRADE_PLAN_COLORS[key];
-    const isTradePlanKey = TRADE_PLAN_KEYS.includes(key);
     const tpLabel = locked && isTradePlanKey
       ? "(Premium)"
       : tradePlan
@@ -1265,7 +1285,7 @@ export default function BogaChartEngine({
       <button
         key={key}
         onClick={() => toggle(key)}
-        title={locked ? t.premiumRequired : undefined}
+        title={locked ? (isTradePlanKey ? t.premiumRequired : t.freeAccountRequired) : undefined}
         className={`px-2 py-0.5 rounded text-[8px] font-medium border transition-all ${
           locked
             ? "border-[#1e2a3a] text-[#64748b]/60 hover:text-amber-400 hover:border-amber-500/40"
@@ -1676,6 +1696,14 @@ export default function BogaChartEngine({
       </div>
 
       {showPremiumModal && <PremiumModal locale={lang} onClose={() => setShowPremiumModal(false)} />}
+      {showFreeRegisterModal && (
+        <FreeRegisterModal
+          locale={lang}
+          onClose={() => setShowFreeRegisterModal(false)}
+          titleOverride={t.indicatorUnlockTitle}
+          descriptionOverride={t.indicatorUnlockDesc}
+        />
+      )}
 
       {multiChartLayout && typeof document !== "undefined" &&
         createPortal(
