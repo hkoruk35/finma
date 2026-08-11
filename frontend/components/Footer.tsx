@@ -7,6 +7,7 @@ const DISCLAIMER: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   es: "Esta pÃ¡gina no constituye asesoramiento de inversiÃ³n. El contenido aquÃ­ es solo para fines informativos y analÃ­ticos. Los datos pueden estar retrasados y no se garantiza que sean precisos, completos o actuales. El rendimiento pasado no indica resultados futuros. Siempre realiza tu propia investigaciÃ³n antes de tomar cualquier decisiÃ³n de inversiÃ³n.",
   fr: "Cette page ne constitue pas des conseils en investissement. Le contenu ici est destinÃ© Ã  des fins informationnelles et analytiques uniquement. Les donnÃ©es peuvent Ãªtre retardÃ©es et ne sont pas garanties d'Ãªtre exactes, complÃ¨tes ou actuelles. Les performances passÃ©es n'indiquent pas les rÃ©sultats futurs. Faites toujours vos propres recherches avant de prendre une dÃ©cision d'investissement.",
   pt: "Esta pÃ¡gina nÃ£o constitui aconselhamento de investimento. O conteÃºdo aqui Ã© apenas para fins informativos e analÃ­ticos. Os dados podem estar atrasados e nÃ£o hÃ¡ garantia de que sejam precisos, completos ou atuais. O desempenho passado nÃ£o indica resultados futuros. Sempre faÃ§a sua prÃ³pria pesquisa antes de tomar qualquer decisÃ£o de investimento.",
+  id: "Halaman ini bukan nasihat investasi. Konten di sini hanya untuk tujuan informasi dan analitik. Data mungkin tertunda dan tidak dijamin akurat, lengkap, atau terkini. Kinerja masa lalu tidak menunjukkan hasil masa depan. Selalu lakukan riset sendiri sebelum membuat keputusan investasi apa pun.",
 };
 
 const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: string; label: string }[]> = {
@@ -34,6 +35,11 @@ const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: strin
     { href: "/global/pt/disclaimer", label: "Aviso Legal" },
     { href: "/global/pt/terms", label: "Termos de ServiÃ§o" },
     { href: "/global/pt/privacy", label: "PolÃ­tica de Privacidade" },
+  ],
+  id: [
+    { href: "/global/id/disclaimer", label: "Penafian" },
+    { href: "/global/id/terms", label: "Syarat Layanan" },
+    { href: "/global/id/privacy", label: "Kebijakan Privasi" },
   ],
 };
 
@@ -73,6 +79,13 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: s
     { href: "/global/pt/Perguntas_Frequentes", label: "Perguntas Frequentes (FAQ)" },
     { href: "/global/pt/sitemap", label: "Mapa do Site" },
   ],
+  id: [
+    { href: "/global/id/about", label: "Tentang BogaStock" },
+    { href: "/global/id/news", label: "Berita Pasar" },
+    { href: "/global/id/contact", label: "Dukungan dan Kontak" },
+    { href: "/global/id/faq", label: "Pertanyaan Umum" },
+    { href: "/global/id/sitemap", label: "Peta Situs" },
+  ],
 };
 
 const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
@@ -81,6 +94,7 @@ const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   es: "Ofrece anÃ¡lisis profundo impulsado por IA de mÃ¡s de 6.000 acciones y ETFs que cotizan en las bolsas de EE. UU.; tambiÃ©n realiza seguimiento y anÃ¡lisis de los mercados globales, divisas, metales preciosos y criptomonedas.",
   fr: "Propose une analyse approfondie alimentÃ©e par l'IA de plus de 6 000 actions et ETF nÃ©gociÃ©s sur les bourses amÃ©ricaines ; assure Ã©galement le suivi et l'analyse des marchÃ©s mondiaux, des devises, des mÃ©taux prÃ©cieux et des cryptomonnaies.",
   pt: "Oferece anÃ¡lise aprofundada com IA de mais de 6.000 aÃ§Ãµes e ETFs negociados nas bolsas dos EUA; tambÃ©m acompanha e analisa os mercados globais, cÃ¢mbio, metais preciosos e criptomoedas.",
+  id: "Memberikan analisis mendalam yang didukung AI dari lebih dari 6.000 saham dan ETF yang diperdagangkan di bursa AS; juga melacak dan menganalisis pasar global, forex, logam mulia, dan kripto.",
 };
 
 const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
@@ -89,6 +103,7 @@ const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = 
   es: "Abrir Terminal",
   fr: "Ouvrir le Terminal",
   pt: "Abrir Terminal",
+  id: "Buka Terminal",
 };
 
 const TERMINAL_TOOLTIP: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
@@ -97,6 +112,7 @@ const TERMINAL_TOOLTIP: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> 
   es: "Abrir la pÃ¡gina TERMINAL",
   fr: "Ouvrir la page TERMINAL",
   pt: "Abrir a pÃ¡gina TERMINAL",
+  id: "Buka halaman TERMINAL",
 };
 
 export default function Footer({
