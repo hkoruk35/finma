@@ -583,24 +583,24 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <div className="flex items-center gap-2 mb-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${stats.isFallback ? "bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]" : "bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]"}`} />
               <span className={`text-[10px] font-medium uppercase tracking-[0.2em] ${stats.isFallback ? "text-[#f59e0b]" : "text-[#3b82f6]"}`}>
-                {stats.isFallback ? (locale === "tr" ? "Sistem Geneli (Filtrede Ä°ÅŸlem Yok)" : locale === "pt" ? "Todo o Sistema (Sem OperaÃ§Ãµes no Filtro)" : "System-wide (No Trades in Filter)") : (locale === "tr" ? "Sistem Ä°statistikleri" : locale === "pt" ? "EstatÃ­sticas do Sistema" : "System Statistics")}
+                {stats.isFallback ? (locale === "tr" ? "Sistem Geneli (Filtrede Ä°ÅŸlem Yok)" : locale === "pt" ? "Todo o Sistema (Sem OperaÃ§Ãµes no Filtro)" : locale === "id" ? "Seluruh Sistem (Tidak Ada Transaksi di Filter)" : "System-wide (No Trades in Filter)") : (locale === "tr" ? "Sistem Ä°statistikleri" : locale === "pt" ? "EstatÃ­sticas do Sistema" : locale === "id" ? "Statistik Sistem" : "System Statistics")}
               </span>
             </div>
             <h2 className="text-lg md:text-xl font-medium text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">TREND STOCKS</span> PERFORMANCE</h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
-              {locale === "tr" ? "GeÃ§miÅŸ DÃ¶nem Performans Ã–zeti" : locale === "pt" ? "Resumo de Desempenho HistÃ³rico" : "Historical Performance Summary"} Â· <span className="text-[#f59e0b] font-medium">{locale === "tr" ? "Dinamik Stop-Loss (AI)" : locale === "pt" ? "Stop-Loss DinÃ¢mico (IA)" : "Dynamic Stop-Loss (AI)"}</span>
+              {locale === "tr" ? "GeÃ§miÅŸ DÃ¶nem Performans Ã–zeti" : locale === "pt" ? "Resumo de Desempenho HistÃ³rico" : locale === "id" ? "Ringkasan Kinerja Historis" : "Historical Performance Summary"} Â· <span className="text-[#f59e0b] font-medium">{locale === "tr" ? "Dinamik Stop-Loss (AI)" : locale === "pt" ? "Stop-Loss DinÃ¢mico (IA)" : locale === "id" ? "Stop-Loss Dinamis (AI)" : "Dynamic Stop-Loss (AI)"}</span>
             </p>
             <div className="flex items-center gap-3 mt-1.5 flex-wrap">
               {lastUpdated && (
                 <span className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
                   <svg className="w-3 h-3 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  {locale === "tr" ? "Performans:" : locale === "pt" ? "Desempenho:" : "Performance:"} {formatLastUpdated(lastUpdated)}
+                  {locale === "tr" ? "Performans:" : locale === "pt" ? "Desempenho:" : locale === "id" ? "Kinerja:" : "Performance:"} {formatLastUpdated(lastUpdated)}
                 </span>
               )}
               {picksGeneratedAt && (
                 <span className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
                   <svg className="w-3 h-3 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                  {locale === "tr" ? "Trend AdaylarÄ±:" : locale === "pt" ? "Picks de TendÃªncia:" : "Trend Picks:"} {formatLastUpdated(picksGeneratedAt)}
+                  {locale === "tr" ? "Trend AdaylarÄ±:" : locale === "pt" ? "Picks de TendÃªncia:" : locale === "id" ? "Kandidat Tren:" : "Trend Picks:"} {formatLastUpdated(picksGeneratedAt)}
                 </span>
               )}
             </div>
@@ -611,14 +611,14 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {serverStats?.stop_loss_pct || "Dynamic SL"}
               </span>
               <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-medium">
-                {stats.completedCount} {locale === "tr" ? "TamamlandÄ±" : locale === "pt" ? "ConcluÃ­do" : "Completed"}
+                {stats.completedCount} {locale === "tr" ? "TamamlandÄ±" : locale === "pt" ? "ConcluÃ­do" : locale === "id" ? "Selesai" : "Completed"}
               </span>
               <button
                 onClick={() => setShowStats(v => !v)}
                 className={`px-3 py-1 rounded-full border font-medium transition-colors flex items-center gap-1.5 ${showStats ? "bg-[#3b82f6]/25 border-[#3b82f6]/60 text-[#3b82f6]" : "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6] hover:bg-[#3b82f6]/20"}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-                {locale === "tr" ? "Genel Ä°statistikler" : locale === "pt" ? "EstatÃ­sticas Globais" : "Global Statistics"}
+                {locale === "tr" ? "Genel Ä°statistikler" : locale === "pt" ? "EstatÃ­sticas Globais" : locale === "id" ? "Statistik Umum" : "Global Statistics"}
                 {todayPicks.length > 0 && <span className="text-[10px] opacity-60">({todayPicks.length})</span>}
               </button>
             </div>
@@ -634,7 +634,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   </svg>
                   <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
                 </span>
-                <span className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest">{locale === "tr" ? "BOT ANALÄ°Z SÄ°STEMÄ°" : locale === "pt" ? "SISTEMA DE ANÃLISE DO BOT" : "BOT ANALYSIS SYSTEM"}</span>
+                <span className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest">{locale === "tr" ? "BOT ANALÄ°Z SÄ°STEMÄ°" : locale === "pt" ? "SISTEMA DE ANÃLISE DO BOT" : locale === "id" ? "SISTEM ANALISIS BOT" : "BOT ANALYSIS SYSTEM"}</span>
                 <svg className="w-2.5 h-2.5 text-[#3b82f6]/50 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -647,32 +647,32 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
           <div className="p-4 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "KÃ‚RLI Ä°ÅžLEM ORANI" : locale === "pt" ? "TAXA DE ACERTO" : "WIN RATE"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "KÃ‚RLI Ä°ÅžLEM ORANI" : locale === "pt" ? "TAXA DE ACERTO" : locale === "id" ? "RASIO KEMENANGAN" : "WIN RATE"}</p>
             <p className="text-xl sm:text-2xl font-mono font-medium text-[#22c55e] tracking-tight">
               {stats.winRate === "â€”" ? "â€”" : `${stats.winRate}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{stats.wins} {locale === "tr" ? "KÃ‚R" : "WIN"} / {stats.losses} {locale === "tr" ? "ZARAR" : "LOSS"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{stats.wins} {locale === "tr" ? "KÃ‚R" : locale === "id" ? "UNTUNG" : "WIN"} / {stats.losses} {locale === "tr" ? "ZARAR" : locale === "id" ? "RUGI" : "LOSS"}</p>
           </div>
           <div className="p-4 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORT. GERÃ‡EKLEÅžEN GETÄ°RÄ°" : locale === "pt" ? "RETORNO MÃ‰DIO REALIZADO" : "AVG REALIZED RETURN"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORT. GERÃ‡EKLEÅžEN GETÄ°RÄ°" : locale === "pt" ? "RETORNO MÃ‰DIO REALIZADO" : locale === "id" ? "RATA-RATA RETURN TEREALISASI" : "AVG REALIZED RETURN"}</p>
             <p className={`text-xl sm:text-2xl font-mono font-medium tracking-tight ${stats.avgReturn === "â€”" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "â€”" ? "â€”" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "%0.1 Ä°ÅŸlem Maliyeti DÃ¼ÅŸÃ¼lmÃ¼ÅŸ" : "Net of 0.1% Cost"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "%0.1 Ä°ÅŸlem Maliyeti DÃ¼ÅŸÃ¼lmÃ¼ÅŸ" : locale === "id" ? "Bersih dari Biaya 0.1%" : "Net of 0.1% Cost"}</p>
           </div>
           <div className="p-4 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORTALAMA MAKS. GETÄ°RÄ° (MFE)" : locale === "pt" ? "RETORNO MÃXIMO MÃ‰DIO (MFE)" : "AVG MAX RETURN (MFE)"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORTALAMA MAKS. GETÄ°RÄ° (MFE)" : locale === "pt" ? "RETORNO MÃXIMO MÃ‰DIO (MFE)" : locale === "id" ? "RATA-RATA RETURN MAKS (MFE)" : "AVG MAX RETURN (MFE)"}</p>
             <p className="text-xl sm:text-2xl font-mono font-medium text-[#3b82f6] tracking-tight">
               {stats.avgMfe === "â€”" ? "â€”" : `+${stats.avgMfe}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase italic">{locale === "tr" ? "Potansiyel Tepe FiyatÄ±" : "Peak Opportunity"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase italic">{locale === "tr" ? "Potansiyel Tepe FiyatÄ±" : locale === "id" ? "Peluang Puncak" : "Peak Opportunity"}</p>
           </div>
           <div className="p-4 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORT. RÄ°SK & SÃœRE" : locale === "pt" ? "RISCO & DURAÃ‡ÃƒO MÃ‰DIA" : "AVG RISK & DURATION"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-1.5 font-medium">{locale === "tr" ? "ORT. RÄ°SK & SÃœRE" : locale === "pt" ? "RISCO & DURAÃ‡ÃƒO MÃ‰DIA" : locale === "id" ? "RATA-RATA RISIKO & DURASI" : "AVG RISK & DURATION"}</p>
             <p className="text-xl sm:text-2xl font-mono font-medium text-white tracking-tight">
               {stats.avgMae}% <span className="text-xs font-normal text-slate-400">/ {stats.avgDays}g</span>
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "Ort. Ã‡ekilme (MAE) / Ort. Takip" : "Avg MAE / Avg Holding"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "Ort. Ã‡ekilme (MAE) / Ort. Takip" : locale === "id" ? "Rata-rata MAE / Rata-rata Penahanan" : "Avg MAE / Avg Holding"}</p>
           </div>
         </div>
 
@@ -683,12 +683,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Profit Target Breakdown */}
         <div className="px-6 py-4 border-b border-white/5 bg-white/[0.01]">
-          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-medium">{locale === "tr" ? "HEDEF BAZLI ANALÄ°Z â€” OlasÄ±lÄ±k ve Ortalama SÃ¼re" : locale === "pt" ? "ANÃLISE POR ALVO â€” Probabilidade e DuraÃ§Ã£o MÃ©dia" : "TARGET-BASED ANALYSIS â€” Probability and Avg Duration"}</p>
+          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-medium">{locale === "tr" ? "HEDEF BAZLI ANALÄ°Z â€” OlasÄ±lÄ±k ve Ortalama SÃ¼re" : locale === "pt" ? "ANÃLISE POR ALVO â€” Probabilidade e DuraÃ§Ã£o MÃ©dia" : locale === "id" ? "ANALISIS BERBASIS TARGET â Probabilitas dan Rata-rata Durasi" : "TARGET-BASED ANALYSIS â€” Probability and Avg Duration"}</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-2xl bg-black/40 border border-white/5 p-4 text-center hover:border-[#22c55e]/20 transition-all group">
-                <p className="text-[9px] text-[#3b82f6] font-medium uppercase tracking-widest mb-2">+{pt.pct}% {locale === "tr" ? "HEDEF" : locale === "pt" ? "ALVO" : "TARGET"}</p>
-                <p className="text-2xl font-medium font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "â€”" ? "â€”" : `${pt.avgDays} ${locale === "tr" ? "G" : "D"}`}</p>
+                <p className="text-[9px] text-[#3b82f6] font-medium uppercase tracking-widest mb-2">+{pt.pct}% {locale === "tr" ? "HEDEF" : locale === "pt" ? "ALVO" : locale === "id" ? "TARGET" : "TARGET"}</p>
+                <p className="text-2xl font-medium font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "â€”" ? "â€”" : `${pt.avgDays} ${locale === "tr" ? "G" : locale === "id" ? "H" : "D"}`}</p>
                 <div className="mt-2 flex items-center justify-center gap-1.5">
                    <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
                    <span className="text-[10px] text-white font-medium">{pt.rate}%</span>
@@ -700,7 +700,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Days-to-Profit Distribution Bar Chart */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-medium">{locale === "tr" ? "GÃ¼n DaÄŸÄ±lÄ±mÄ± â€” KazandÄ±ran Ä°ÅŸlemler (Ort. Getiri)" : locale === "pt" ? "DistribuiÃ§Ã£o de Dias â€” OperaÃ§Ãµes Vencedoras (Retorno MÃ©dio)" : "Days Distribution â€” Winning Trades (Avg Return)"}</p>
+          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-medium">{locale === "tr" ? "GÃ¼n DaÄŸÄ±lÄ±mÄ± â€” KazandÄ±ran Ä°ÅŸlemler (Ort. Getiri)" : locale === "pt" ? "DistribuiÃ§Ã£o de Dias â€” OperaÃ§Ãµes Vencedoras (Retorno MÃ©dio)": locale === "id" ? "Distribusi Hari — Transaksi Untung (Rata-rata Return)" : "Days Distribution â€” Winning Trades (Avg Return)"}</p>
           <div className="flex items-end gap-3 h-28">
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
@@ -717,21 +717,21 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               );
             })}
           </div>
-          <p className="text-sm text-[#00d2ff] mt-2">{locale === "tr" ? "Her Ã§ubuk, o elde tutma sÃ¼resi iÃ§inde zirve yapan kazanÃ§lÄ± iÅŸlemler iÃ§in ortalama getiriyi ve iÅŸlem sayÄ±sÄ±nÄ± gÃ¶sterir." : locale === "pt" ? "Cada barra mostra o retorno mÃ©dio e o nÃºmero de operaÃ§Ãµes vencedoras que atingiram o pico dentro desse perÃ­odo de retenÃ§Ã£o." : "Each bar shows the avg return and trade count for winning trades that peaked within that holding period."}</p>
+          <p className="text-sm text-[#00d2ff] mt-2">{locale === "tr" ? "Her Ã§ubuk, o elde tutma sÃ¼resi iÃ§inde zirve yapan kazanÃ§lÄ± iÅŸlemler iÃ§in ortalama getiriyi ve iÅŸlem sayÄ±sÄ±nÄ± gÃ¶sterir." : locale === "pt" ? "Cada barra mostra o retorno mÃ©dio e o nÃºmero de operaÃ§Ãµes vencedoras que atingiram o pico dentro desse perÃ­odo de retenÃ§Ã£o.": locale === "id" ? "Setiap batang menunjukkan rata-rata return dan jumlah transaksi untung yang mencapai puncak dalam periode penahanan tersebut." : "Each bar shows the avg return and trade count for winning trades that peaked within that holding period."}</p>
         </div>
 
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+5% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +5%" : "Reached +5%"}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+5% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +5%" : locale === "id" ? "Mencapai +5%" : "Reached +5%"}</p>
             <p className="text-xl md:text-2xl font-medium font-mono text-[#22c55e]">{profitTargets.find(p => p.pct === 5)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+10% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +10%" : "Reached +10%"}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+10% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +10%" : locale === "id" ? "Mencapai +10%" : "Reached +10%"}</p>
             <p className="text-xl md:text-2xl font-medium font-mono text-[#3b82f6]">{profitTargets.find(p => p.pct === 10)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+15% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +15%" : "Reached +15%"}</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+15% UlaÅŸtÄ±" : locale === "pt" ? "Atingiu +15%" : locale === "id" ? "Mencapai +15%" : "Reached +15%"}</p>
             <p className="text-xl md:text-2xl font-medium font-mono text-[#a78bfa]">{profitTargets.find(p => p.pct === 15)?.rate ?? 0}%</p>
           </div>
         </div>
@@ -742,7 +742,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             className="px-4 py-1.5 rounded-xl text-[11px] font-medium bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : "Hide"}
+            {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : locale === "id" ? "Sembunyikan" : "Hide"}
           </button>
         </div>
         </>}
@@ -757,10 +757,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_10px_#3b82f6] animate-pulse" />
               <div>
-                <p className="text-[11px] font-medium text-[#3b82f6] uppercase tracking-[0.25em]">{locale === "tr" ? "GÃ¼ncel Veriler" : locale === "pt" ? "Dados ao Vivo" : "Live Data"}</p>
+                <p className="text-[11px] font-medium text-[#3b82f6] uppercase tracking-[0.25em]">{locale === "tr" ? "GÃ¼ncel Veriler" : locale === "pt" ? "Dados ao Vivo" : locale === "id" ? "Data Langsung" : "Live Data"}</p>
                 <h3 className="text-base font-medium text-white uppercase tracking-tight">
-                  {locale === "tr" ? "BugÃ¼nkÃ¼ Trend AdaylarÄ±" : locale === "pt" ? "Picks de TendÃªncia de Hoje" : "Today's Trend Picks"}
-                  <span className="ml-2 text-[#3b82f6]">({todayPicks.length} {locale === "tr" ? "hisse" : locale === "pt" ? "aÃ§Ãµes" : "stocks"})</span>
+                  {locale === "tr" ? "BugÃ¼nkÃ¼ Trend AdaylarÄ±" : locale === "pt" ? "Picks de TendÃªncia de Hoje" : locale === "id" ? "Kandidat Tren Hari Ini" : "Today's Trend Picks"}
+                  <span className="ml-2 text-[#3b82f6]">({todayPicks.length} {locale === "tr" ? "hisse" : locale === "pt" ? "aÃ§Ãµes" : locale === "id" ? "saham" : "stocks"})</span>
                 </h3>
               </div>
               {picksGeneratedAt && (
@@ -853,7 +853,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="grid grid-cols-3 gap-1.5 text-center">
                     {pick.buy_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                        <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "GiriÅŸ" : locale === "pt" ? "Entrada" : "Entry"}</p>
+                        <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "GiriÅŸ" : locale === "pt" ? "Entrada" : locale === "id" ? "Masuk" : "Entry"}</p>
                         <p className="text-[10px] font-mono font-medium text-white">
                           ${formatNumber(pick.buy_zone.low, 0)}â€“{formatNumber(pick.buy_zone.high, 0)}
                         </p>
@@ -861,7 +861,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     )}
                     {pick.profit_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                        <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : "Target"}</p>
+                        <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : locale === "id" ? "Target" : "Target"}</p>
                         <p className="text-[10px] font-mono font-medium text-white">
                           ${formatNumber(pick.profit_zone.low, 0)}â€“{formatNumber(pick.profit_zone.high, 0)}
                         </p>
@@ -904,14 +904,14 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           </div>
           <div className="px-6 py-3 border-t border-[#1e2a3a] flex items-center justify-between">
             <p className="text-[10px] text-slate-500 font-medium">
-              {locale === "tr" ? "Her gÃ¼n piyasa kapanÄ±ÅŸÄ±ndan sonra otomatik gÃ¼ncellenir. Veriler gerÃ§ek zamanlÄ± fiyatlarÄ± yansÄ±tÄ±r. 15 dakika gecikme ile saat baÅŸlarÄ± gÃ¼ncellenir." : locale === "pt" ? "Atualizado automaticamente apÃ³s o fechamento do mercado todos os dias. Os dados refletem preÃ§os em tempo real. Atraso de 15 minutos, atualizado a cada hora." : "Updated automatically after market close every day. Data reflects real-time prices. Delayed by 15 mins and updated every hour."}
+              {locale === "tr" ? "Her gÃ¼n piyasa kapanÄ±ÅŸÄ±ndan sonra otomatik gÃ¼ncellenir. Veriler gerÃ§ek zamanlÄ± fiyatlarÄ± yansÄ±tÄ±r. 15 dakika gecikme ile saat baÅŸlarÄ± gÃ¼ncellenir." : locale === "pt" ? "Atualizado automaticamente apÃ³s o fechamento do mercado todos os dias. Os dados refletem preÃ§os em tempo real. Atraso de 15 minutos, atualizado a cada hora.": locale === "id" ? "Diperbarui otomatis setiap hari setelah pasar tutup. Data mencerminkan harga real-time. Tertunda 15 menit dan diperbarui setiap jam." : "Updated automatically after market close every day. Data reflects real-time prices. Delayed by 15 mins and updated every hour."}
             </p>
             <button
               onClick={() => setShowStats(false)}
               className="px-4 py-1.5 rounded-xl text-[11px] font-medium bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : "Hide"}
+              {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : locale === "id" ? "Sembunyikan" : "Hide"}
             </button>
           </div>
         </div>
@@ -921,25 +921,25 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       <div className="flex flex-wrap gap-3 mb-8 items-center">
         <select value={selectedSector} onChange={e => { setSelectedSector(e.target.value); setSelectedSubsector("All"); }}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">{locale === "tr" ? "TÃ¼m SektÃ¶rler" : locale === "pt" ? "Todos os Setores" : "All Sectors"}</option>
+          <option value="All">{locale === "tr" ? "TÃ¼m SektÃ¶rler" : locale === "pt" ? "Todos os Setores" : locale === "id" ? "Semua Sektor" : "All Sectors"}</option>
           {sectors.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
         <select value={selectedSubsector} onChange={e => setSelectedSubsector(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">{locale === "tr" ? "TÃ¼m Alt SektÃ¶rler" : locale === "pt" ? "Todos os Subsetores" : "All Subsectors"}</option>
+          <option value="All">{locale === "tr" ? "TÃ¼m Alt SektÃ¶rler" : locale === "pt" ? "Todos os Subsetores" : locale === "id" ? "Semua Subsektor" : "All Subsectors"}</option>
           {subsectors.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
         <select value={selectedYear} onChange={e => { setSelectedYear(e.target.value); setSelectedMonth("All"); }}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">{locale === "tr" ? "TÃ¼m YÄ±llar" : locale === "pt" ? "Todos os Anos" : "All Years"}</option>
+          <option value="All">{locale === "tr" ? "TÃ¼m YÄ±llar" : locale === "pt" ? "Todos os Anos" : locale === "id" ? "Semua Tahun" : "All Years"}</option>
           {years.map(y => <option key={y} value={y}>{y}</option>)}
         </select>
 
         <select value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">{locale === "tr" ? "TÃ¼m Aylar" : locale === "pt" ? "Todos os Meses" : "All Months"}</option>
+          <option value="All">{locale === "tr" ? "TÃ¼m Aylar" : locale === "pt" ? "Todos os Meses" : locale === "id" ? "Semua Bulan" : "All Months"}</option>
           {months.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
         </select>
 
@@ -948,7 +948,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           title="Filter by exact date" />
 
         <div className="relative">
-          <input type="text" placeholder={locale === "tr" ? "Hisse Ara..." : locale === "pt" ? "Buscar Ativo..." : "Search Ticker..."} value={searchTicker}
+          <input type="text" placeholder={locale === "tr" ? "Hisse Ara..." : locale === "pt" ? "Buscar Ativo..." : locale === "id" ? "Cari Saham..." : "Search Ticker..."} value={searchTicker}
             onChange={e => setSearchTicker(e.target.value)}
             className="bg-[#1a2030] border border-[#1e2a3a] text-white pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6] w-full md:w-40" />
           <svg className="w-4 h-4 text-[#00d2ff] absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -959,7 +959,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {hasActiveFilter && (
           <button onClick={resetFilters}
             className="px-4 py-2.5 rounded-xl text-sm border border-[#ef4444]/40 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors">
-            {locale === "tr" ? "SÄ±fÄ±rla" : locale === "pt" ? "Redefinir" : "Reset"}
+            {locale === "tr" ? "SÄ±fÄ±rla" : locale === "pt" ? "Redefinir" : locale === "id" ? "Atur Ulang" : "Reset"}
           </button>
         )}
       </div>
@@ -967,7 +967,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       {/* â”€â”€ Sector Heatmap â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {heatmap.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-white mb-3 uppercase tracking-widest">{locale === "tr" ? "SektÃ¶r KarlÄ±lÄ±k IsÄ± HaritasÄ±" : locale === "pt" ? "Mapa de Calor de Rentabilidade por Setor" : "Sector Profitability Heatmap"}</h3>
+          <h3 className="text-sm font-medium text-white mb-3 uppercase tracking-widest">{locale === "tr" ? "SektÃ¶r KarlÄ±lÄ±k IsÄ± HaritasÄ±" : locale === "pt" ? "Mapa de Calor de Rentabilidade por Setor" : locale === "id" ? "Peta Panas Profitabilitas Sektor" : "Sector Profitability Heatmap"}</h3>
           {/* Mobile: auto-scrolling ticker */}
           <div className="md:hidden overflow-hidden relative">
             <div className="flex gap-2 animate-[ticker_30s_linear_infinite] w-max">
@@ -1008,10 +1008,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       <div className="w-full">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
           <div className="flex flex-col md:flex-row md:items-center gap-3">
-            <h3 className="text-xl font-medium text-white">{locale === "tr" ? "GeÃ§miÅŸ Ä°ÅŸlem KayÄ±tlarÄ±" : locale === "pt" ? "Registro HistÃ³rico de OperaÃ§Ãµes" : "Historical Trade Log"}</h3>
+            <h3 className="text-xl font-medium text-white">{locale === "tr" ? "GeÃ§miÅŸ Ä°ÅŸlem KayÄ±tlarÄ±" : locale === "pt" ? "Registro HistÃ³rico de OperaÃ§Ãµes" : locale === "id" ? "Riwayat Transaksi" : "Historical Trade Log"}</h3>
             <div className="flex items-center gap-2">
-              <p className="text-xs text-white">{locale === "tr" ? `Toplam ${filtered.length} iÅŸlemin ${Math.min(visibleCount, filtered.length)} tanesi gÃ¶steriliyor` : `Showing ${Math.min(visibleCount, filtered.length)} of ${filtered.length} trades`}</p>
-              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-medium">{locale === "tr" ? "Bot-HesaplÄ± Stop-Loss UygulandÄ±" : locale === "pt" ? "Stop-Loss Calculado pelo Bot Aplicado" : "Bot-Calc Stop-Loss Applied"}</span>
+              <p className="text-xs text-white">{locale === "tr" ? `Toplam ${filtered.length} iÅŸlemin ${Math.min(visibleCount, filtered.length)} tanesi gÃ¶steriliyor`: locale === "id" ? `Menampilkan ${Math.min(visibleCount, filtered.length)} dari ${filtered.length} transaksi` : `Showing ${Math.min(visibleCount, filtered.length)} of ${filtered.length} trades`}</p>
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-medium">{locale === "tr" ? "Bot-HesaplÄ± Stop-Loss UygulandÄ±" : locale === "pt" ? "Stop-Loss Calculado pelo Bot Aplicado" : locale === "id" ? "Stop-Loss Hitungan Bot Diterapkan" : "Bot-Calc Stop-Loss Applied"}</span>
             </div>
           </div>
           {!hideExportButtons && (
@@ -1019,10 +1019,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <button onClick={() => {
               const text = filtered.map(t => `${t.date}\t${t.ticker}\t${fmt(t.entry)}\t${fmt(effectiveReturn(t), 1)}%\t${t.days||0}d\t${effectiveResult(t)}`).join("\n");
               navigator.clipboard.writeText(`Date\tTicker\tEntry\tReturn%\tDays\tResult\n${text}`);
-              alert(locale === "tr" ? "Liste baÅŸarÄ±yla kopyalandÄ±!" : locale === "pt" ? "Lista copiada com sucesso para a Ã¡rea de transferÃªncia!" : "List successfully copied to clipboard!");
+              alert(locale === "tr" ? "Liste baÅŸarÄ±yla kopyalandÄ±!" : locale === "pt" ? "Lista copiada com sucesso para a Ã¡rea de transferÃªncia!" : locale === "id" ? "Daftar berhasil disalin ke clipboard!" : "List successfully copied to clipboard!");
             }}
               className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex items-center gap-2 uppercase tracking-widest">
-              {locale === "tr" ? "LÄ°STEYÄ° KOPYALA" : locale === "pt" ? "COPIAR LISTA" : "COPY LIST"}
+              {locale === "tr" ? "LÄ°STEYÄ° KOPYALA" : locale === "pt" ? "COPIAR LISTA" : locale === "id" ? "SALIN DAFTAR" : "COPY LIST"}
             </button>
             <button onClick={handleExportCSV}
               className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#1e293b] text-white border border-white/5 hover:border-[#3b82f6] transition-all flex items-center gap-2 uppercase tracking-widest">
@@ -1049,15 +1049,15 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <div className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]/60" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]/60" />
             </div>
-            <span className="text-[10px] font-mono text-slate-500 ml-1">swing_performance.log â€” {filtered.length} {locale === "tr" ? "kayÄ±t" : locale === "pt" ? "registros" : "records"}</span>
+            <span className="text-[10px] font-mono text-slate-500 ml-1">swing_performance.log â€” {filtered.length} {locale === "tr" ? "kayÄ±t" : locale === "pt" ? "registros" : locale === "id" ? "catatan" : "records"}</span>
           </div>
           {/* Column labels */}
           <div className="grid grid-cols-[1fr_52px_52px_52px_48px] gap-0 px-3 py-1.5 border-b border-[#1e2a3a] bg-[#0a0f1a]">
-            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider">{locale === "tr" ? "TÄ°CKER / SEKTÃ–R" : locale === "pt" ? "TICKER / SETOR" : "TICKER / SECTOR"}</span>
-            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "GÄ°RÄ°Åž" : locale === "pt" ? "ENTRADA" : "ENTRY"}</span>
+            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider">{locale === "tr" ? "TÄ°CKER / SEKTÃ–R" : locale === "pt" ? "TICKER / SETOR" : locale === "id" ? "TICKER / SEKTOR" : "TICKER / SECTOR"}</span>
+            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "GÄ°RÄ°Åž" : locale === "pt" ? "ENTRADA" : locale === "id" ? "MASUK" : "ENTRY"}</span>
             <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider text-right">PEAK</span>
             <span className="text-[9px] font-medium text-[#22c55e]/60 uppercase tracking-wider text-right">RET%</span>
-            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "SONUÃ‡" : locale === "pt" ? "RESULTADO" : "RESULT"}</span>
+            <span className="text-[9px] font-medium text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "SONUÃ‡" : locale === "pt" ? "RESULTADO" : locale === "id" ? "HASIL" : "RESULT"}</span>
           </div>
           {/* Rows */}
           <div className="divide-y divide-[#1e2a3a]/60">
@@ -1163,18 +1163,18 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <table className="w-full text-left text-xs" style={{ borderCollapse: "collapse" }}>
               <thead style={{ position: "sticky", top: 0, zIndex: 10, background: "#0d1521" }}>
                 <tr className="border-b-2 border-[#1e2a3a] text-[#58a6ff] text-[10px]">
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "TARÄ°H" : locale === "pt" ? "DATA" : "DATE"} <SortIcon column="date" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "SEMBOL" : locale === "pt" ? "SÃMBOLO" : "SYMBOL"} <SortIcon column="ticker" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#3fb950] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "GETÄ°RÄ°" : locale === "pt" ? "RETORNO" : "RETURN"} <SortIcon column="return_pct" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>{locale === "tr" ? "GÄ°RÄ°Åž" : locale === "pt" ? "ENTRADA" : "ENTRY"} <SortIcon column="entry" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "TARÄ°H" : locale === "pt" ? "DATA" : locale === "id" ? "TANGGAL" : "DATE"} <SortIcon column="date" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "SEMBOL" : locale === "pt" ? "SÃMBOLO" : locale === "id" ? "SIMBOL" : "SYMBOL"} <SortIcon column="ticker" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#3fb950] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "GETÄ°RÄ°" : locale === "pt" ? "RETORNO" : locale === "id" ? "RETURN" : "RETURN"} <SortIcon column="return_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>{locale === "tr" ? "GÄ°RÄ°Åž" : locale === "pt" ? "ENTRADA" : locale === "id" ? "MASUK" : "ENTRY"} <SortIcon column="entry" /></th>
                   <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>EMA50 <SortIcon column="ema50_1d" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>{locale === "tr" ? "TEPE" : locale === "pt" ? "PICO" : "PEAK"} <SortIcon column="max_price" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>{locale === "tr" ? "TEPE %" : locale === "pt" ? "PICO %" : "PEAK %"} <SortIcon column="peak_gain_pct" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "FÄ°YAT" : locale === "pt" ? "PREÃ‡O" : "PRICE"} <SortIcon column="return_pct" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>{locale === "tr" ? "GÃœN" : locale === "pt" ? "DIAS" : "DAYS"} <SortIcon column="days" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>{locale === "tr" ? "TEPE" : locale === "pt" ? "PICO" : locale === "id" ? "PUNCAK" : "PEAK"} <SortIcon column="max_price" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>{locale === "tr" ? "TEPE %" : locale === "pt" ? "PICO %" : locale === "id" ? "PUNCAK %" : "PEAK %"} <SortIcon column="peak_gain_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "FÄ°YAT" : locale === "pt" ? "PREÃ‡O" : locale === "id" ? "HARGA" : "PRICE"} <SortIcon column="return_pct" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>{locale === "tr" ? "GÃœN" : locale === "pt" ? "DIAS" : locale === "id" ? "HARI" : "DAYS"} <SortIcon column="days" /></th>
                   <th className="px-2 py-2 font-semibold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PNL <SortIcon column="return_pct" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>{locale === "tr" ? "SEKTÃ–R" : locale === "pt" ? "SETOR" : "SECTOR"} <SortIcon column="sector" /></th>
-                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>{locale === "tr" ? "SONUÃ‡" : locale === "pt" ? "RESULTADO" : "RESULT"} <SortIcon column="result" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>{locale === "tr" ? "SEKTÃ–R" : locale === "pt" ? "SETOR" : locale === "id" ? "SEKTOR" : "SECTOR"} <SortIcon column="sector" /></th>
+                  <th className="px-2 py-2 font-semibold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>{locale === "tr" ? "SONUÃ‡" : locale === "pt" ? "RESULTADO" : locale === "id" ? "HASIL" : "RESULT"} <SortIcon column="result" /></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1e2a3a]/60">
@@ -1251,7 +1251,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </table>
           </div>
           {filtered.length === 0 && (
-            <div className="p-12 text-center text-[#00d2ff]">{locale === "tr" ? "SeÃ§ili filtreler iÃ§in iÅŸlem bulunamadÄ±." : locale === "pt" ? "Nenhuma operaÃ§Ã£o encontrada para os filtros selecionados." : "No trades found for selected filters."}</div>
+            <div className="p-12 text-center text-[#00d2ff]">{locale === "tr" ? "SeÃ§ili filtreler iÃ§in iÅŸlem bulunamadÄ±." : locale === "pt" ? "Nenhuma operaÃ§Ã£o encontrada para os filtros selecionados." : locale === "id" ? "Tidak ada transaksi ditemukan untuk filter yang dipilih." : "No trades found for selected filters."}</div>
           )}
         </div>
 
@@ -1259,8 +1259,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           <div className="mt-6 text-center">
             <button onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
               className="px-8 py-3 rounded-xl bg-[#1e2a3a] border border-[#2d3a4b] text-sm font-medium text-white hover:border-[#3b82f6] hover:text-white transition-all">
-              {locale === "tr" ? `${Math.min(PAGE_SIZE, filtered.length - visibleCount)} daha yÃ¼kle` : `Load ${Math.min(PAGE_SIZE, filtered.length - visibleCount)} more`}
-              <span className="ml-2 text-[#00d2ff]">({locale === "tr" ? `${filtered.length - visibleCount} kaldÄ±` : `${filtered.length - visibleCount} remaining`})</span>
+              {locale === "tr" ? `${Math.min(PAGE_SIZE, filtered.length - visibleCount)} daha yÃ¼kle`: locale === "id" ? `Muat ${Math.min(PAGE_SIZE, filtered.length - visibleCount)} lagi` : `Load ${Math.min(PAGE_SIZE, filtered.length - visibleCount)} more`}
+              <span className="ml-2 text-[#00d2ff]">({locale === "tr" ? `${filtered.length - visibleCount} kaldÄ±`: locale === "id" ? `${filtered.length - visibleCount} tersisa` : `${filtered.length - visibleCount} remaining`})</span>
             </button>
           </div>
         )}

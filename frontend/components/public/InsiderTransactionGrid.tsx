@@ -109,7 +109,7 @@ export default function InsiderTransactionGrid({
   const formatDate = (dateStr: string) => {
     try {
       const date = new Date(dateStr + "T00:00:00");
-      return date.toLocaleDateString(locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US");
+      return date.toLocaleDateString(locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : locale === "id" ? "id-ID" : "en-US");
     } catch {
       return dateStr;
     }

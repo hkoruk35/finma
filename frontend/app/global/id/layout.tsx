@@ -4,17 +4,17 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi",
-    default: "BogaStock | Yapay Zekâ Destekli Hisse, Borsa ve Piyasa Analizi"
+    template: "%s | BogaStock | Analisis Saham, Pasar, dan Keuangan Bertenaga AI",
+    default: "BogaStock | Analisis Saham, Pasar, dan Keuangan Bertenaga AI"
   },
-  description: "ABD hisseleri ve küresel piyasaları BogaStock ile takip edin. Yapay zekâ destekli hisse analizleri, grafikler, sektörler, döviz, emtia ve kripto piyasalarını tek platformda inceleyin."
+  description: "Pantau saham AS dan pasar global bersama BogaStock. Telusuri analisis saham berbasis AI, grafik, sektor, valuta asing, komoditas, dan pasar kripto dalam satu platform."
 };
 
 // Completely public layout — no authentication required
-export default async function GlobalTrLayout({ children }: { children: React.ReactNode }) {
+export default async function GlobalIdLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <CampaignBanner lang="tr" />
+      <CampaignBanner lang="id" />
       {children}
     </>
   );

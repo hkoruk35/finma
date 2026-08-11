@@ -4,4 +4,4 @@
 // kalıyor — hâlâ CopilotDrawer.tsx ve api/copilot/tasks/route.ts tarafından
 // kullanılıyor.
 
-export type SupportedLocale = "tr" | "en" | "pt" | "es" | "fr";
+export type SupportedLocale = "tr" | "en" | "pt" | "es" | "fr" | "id";

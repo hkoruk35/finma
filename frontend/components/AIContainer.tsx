@@ -172,7 +172,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
   // /global member area (no Screener/Terminal/Option links, no root logout) and always
   // jump straight to Deep Analysis instead of the standard report.
   const isGlobal = !!locale;
-  const homeHref = locale === "es" ? "/global/es/home" : locale === "en" ? "/global/en/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/tr/home";
+  const homeHref = locale === "es" ? "/global/es/home" : locale === "en" ? "/global/en/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : locale === "id" ? "/global/id/home" : "/global/tr/home";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -396,6 +396,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 locale === "es" ? "CANALES" :
                 locale === "fr" ? "CHAÎNES" :
                 locale === "pt" ? "CANAIS" :
+                locale === "id" ? "SALURAN" :
                 "CHANNELS"
               }
             </div>

@@ -6,7 +6,7 @@ interface Props {
   data?: any;
   ticker?: string;
   stockData?: any;
-  lang?: "tr" | "en" | "es" | "fr" | "pt";
+  lang?: "tr" | "en" | "es" | "fr" | "pt" | "id";
   locale?: "tr" | "en" | "es" | "fr";
 }
 

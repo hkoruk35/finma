@@ -71,7 +71,7 @@ function localeFromPathname(pathname: string | null): string {
   if (!pathname) return "en";
   const parts = pathname.split("/");
   // /global/{locale}/...
-  if (parts[1] === "global" && ["tr", "en", "es", "fr", "pt"].includes(parts[2])) {
+  if (parts[1] === "global" && ["tr", "en", "es", "fr", "pt", "id"].includes(parts[2])) {
     return parts[2];
   }
   return "en";

@@ -7,21 +7,21 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
   const { ticker } = await params;
   const t = ticker.toUpperCase();
   return {
-    title: `${t} - Gelişmiş İnteraktif Teknik Grafik Analizi ve Seviyeler | BOGASTOCK`,
-    description: `${t} için gerçek zamanlı interaktif teknik grafik analizi: EMA, RSI, MACD ve teknik seviyeler.`,
-    alternates: { canonical: `https://bogastock.com/global/tr/hisse/${t}` },
+    title: `${t} - Analisis Grafik Teknikal Interaktif Lanjutan dan Level | BOGASTOCK`,
+    description: `Analisis grafik teknikal interaktif real-time untuk ${t}: EMA, RSI, MACD, dan level teknikal.`,
+    alternates: { canonical: `https://bogastock.com/global/id/hisse/${t}` },
   };
 }
 
-export default async function GlobalTrHissePage({ params }: { params: Promise<{ ticker: string }> }) {
+export default async function GlobalIdHissePage({ params }: { params: Promise<{ ticker: string }> }) {
   const { ticker } = await params;
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       <div className="flex-1">
-        <HisseDetailGate ticker={ticker.toUpperCase()} locale="tr" />
+        <HisseDetailGate ticker={ticker.toUpperCase()} locale="id" />
       </div>
-      <Footer hidePlatform locale="tr" />
+      <Footer hidePlatform locale="id" />
     </div>
   );
 }

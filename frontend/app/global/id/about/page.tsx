@@ -6,24 +6,24 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
-  alternates: { canonical: "https://bogastock.com/global/tr/about" }
+  alternates: { canonical: "https://bogastock.com/global/id/about" }
 };
 
 
 export default async function AboutPage() {
-  const config = await getAboutConfig("tr");
+  const config = await getAboutConfig("id");
 
   if (!config) {
     return (
       <div className="min-h-screen flex flex-col bg-[#0d1117] items-center justify-center text-white">
-        Config not found for tr.
+        Konfigurasi tidak ditemukan untuk id.
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         {/* Hero */}
@@ -89,7 +89,7 @@ export default async function AboutPage() {
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

@@ -113,6 +113,8 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
               ? "Vérifiez votre boîte de réception pour confirmer votre e-mail, puis connectez-vous."
               : locale === "pt"
               ? "Verifique sua caixa de entrada para confirmar seu e-mail e depois entre."
+              : locale === "id"
+              ? "Periksa kotak masuk Anda untuk mengonfirmasi email, lalu masuk."
               : "E-postanı onaylamak için gelen kutunu kontrol et, ardından giriş yap."}
           </div>
         ) : (
@@ -174,6 +176,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
                  : locale === "es" ? "Solo letras y números. Sin espacios ni caracteres especiales como @, !, ?."
                  : locale === "fr" ? "Lettres et chiffres uniquement. Pas d'espaces ni de caractères spéciaux comme @, !, ?."
                  : locale === "pt" ? "Apenas letras e números. Sem espaços ou caracteres especiais como @, !, ?."
+                 : locale === "id" ? "Hanya huruf dan angka. Tidak boleh ada spasi atau karakter khusus seperti @, !, ?."
                  : "Only letters and numbers. No spaces or special characters like @, !, ?."}
               </p>
             </div>

@@ -7,6 +7,7 @@ export const SUGGESTED_NAMES: Record<string, string> = {
   es: "Sofía",
   fr: "Sophie",
   pt: "Lorena",
+  id: "Putri",
 };
 
 export function getSuggestedName(locale: string): string {
@@ -37,4 +38,5 @@ export const LOCALE_NAMES: Record<string, string> = {
   es: "Español",
   fr: "Français",
   pt: "Português",
+  id: "Bahasa Indonesia",
 };

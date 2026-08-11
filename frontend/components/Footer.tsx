@@ -151,7 +151,7 @@ export default function Footer({
 
           {/* Resources */}
           <div>
-            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : "Resources"}</h4>
+            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : locale === "id" ? "Sumber Daya" : "Resources"}</h4>
             <div className="flex flex-col gap-2">
               {RESOURCES_LINKS[locale ?? "en"].map((item) => (
                 <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
@@ -163,7 +163,7 @@ export default function Footer({
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Yasal" : "Legal"}</h4>
+            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Yasal" : locale === "id" ? "Hukum" : "Legal"}</h4>
             <div className="flex flex-col gap-1.5">
               {LEGAL_LINKS[locale ?? "en"].map((item) => (
                 <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
@@ -189,6 +189,8 @@ export default function Footer({
               ? "Toutes les donnÃ©es sont retardÃ©es de 15 minutes et mises Ã  jour au dÃ©but de chaque heure."
               : locale === "pt"
               ? "Todos os dados tÃªm atraso de 15 minutos e sÃ£o atualizados no inÃ­cio de cada hora."
+              : locale === "id"
+              ? "Semua data tertunda 15 menit dan diperbarui di setiap awal jam."
               : "All data is delayed by 15 minutes and updated at the top of each hour."}
           </p>
           <p className="text-xs text-[#00d2ff]">
@@ -200,6 +202,8 @@ export default function Footer({
               ? "\u00A9 Blue One Global Analysis. 2021- 2026 BogaStock.com - Powered by AFK DaSYS Tous Droits R\u00E9serv\u00E9s."
               : locale === "pt"
               ? "\u00A9 Blue One Global Analysis. 2021- 2026 BogaStock.com - Powered by AFK DaSYS Todos os Direitos Reservados."
+              : locale === "id"
+              ? "\u00A9 Blue One Global Analysis. 2021- 2026 BogaStock.com - Powered by AFK DaSYS Hak Cipta Dilindungi Undang-Undang."
               : "\u00A9 Blue One Global Analysis. 2021- 2026 BogaStock.com - Powered by AFK DaSYS All Rights Reserved."}
           </p>
         </div>

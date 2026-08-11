@@ -238,4 +238,18 @@ export const TASK_LABELS: Record<string, any> = {
       { label: "🔥 Ações em Destaque Hoje", action: "task_movers", type: "top_movers_watch", subject: "Ações em Tendência" },
     ],
   },
+  id: {
+    headerTitle: "TUGAS AKTIF SAYA",
+    breakBtn: "☕ Istirahat",
+    muteBtn: "🔕 Bisukan",
+    breakPromptMsg: "☕ Mode Istirahat Aktif. Tugas Anda tetap berjalan di latar belakang. Silakan istirahatkan mata Anda!",
+    taskConfirmedMsg: (subject: string) =>
+      `Baik! Pemantauan dimulai untuk **${subject}**. Laporan akan disiapkan pada 08:45 ET (pra-pembukaan), 12:00 ET (siang hari), dan 16:15 ET (penutupan).`,
+    quickChoices: [
+      { label: "📊 Pantau Laporan Laba Hari Ini", action: "task_earnings", type: "earnings_watch", subject: "Laporan Laba Hari Ini" },
+      { label: "🤖 Sektor Teknologi & AI", action: "task_tech", type: "sector_analysis", subject: "Teknologi & AI" },
+      { label: "🌅 Ringkasan Pra-Pembukaan Pasar", action: "task_premarket", type: "premarket_briefing", subject: "Pembukaan Pasar" },
+      { label: "🔥 Saham Unggulan Hari Ini", action: "task_movers", type: "top_movers_watch", subject: "Saham Tren" },
+    ],
+  },
 };

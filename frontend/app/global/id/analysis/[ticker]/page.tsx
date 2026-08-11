@@ -7,7 +7,7 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import DeepAnalysisContent from "@/components/DeepAnalysisContent";
 
-export default function TrAnalysisPage() {
+export default function IdAnalysisPage() {
   const params = useParams();
   const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
   const [stockData, setStockData] = useState<any>(null);
@@ -18,7 +18,7 @@ export default function TrAnalysisPage() {
     fetch("/api/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: ticker, history: [], lang: "tr" }),
+      body: JSON.stringify({ message: ticker, history: [], lang: "id" }),
     })
       .then(r => r.json())
       .then(d => {
@@ -30,22 +30,22 @@ export default function TrAnalysisPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-4">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-4">
-          <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+          <Link href="/global/id/home" className="hover:text-[#3b82f6] transition-colors">Dasbor</Link>
           <span className="opacity-30">/</span>
-          <Link href="/global/tr/swing" className="hover:text-[#3b82f6] transition-colors">Takip</Link>
+          <Link href="/global/id/swing" className="hover:text-[#3b82f6] transition-colors">Pelacakan</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">{ticker} Derin Analiz</span>
+          <span className="text-white italic">Analisis Mendalam {ticker}</span>
         </nav>
         {error ? (
-          <div className="text-rose-400 text-sm text-center py-16">Hisse verisi yüklenemedi. Lütfen tekrar deneyin.</div>
+          <div className="text-rose-400 text-sm text-center py-16">Data saham gagal dimuat. Silakan coba lagi.</div>
         ) : (
-          <DeepAnalysisContent ticker={ticker} stockData={stockData} lang="tr" />
+          <DeepAnalysisContent ticker={ticker} stockData={stockData} lang="id" />
         )}
       </main>
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

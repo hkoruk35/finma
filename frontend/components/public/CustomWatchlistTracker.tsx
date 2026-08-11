@@ -270,15 +270,15 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const addTicker = (ticker: string) => {
     if (myTickers.includes(ticker)) return;
     if (!isLoggedIn && myTickers.length >= 5) {
-      alert(locale === "tr" ? "Üye olmadan en fazla 5 hisse ekleyebilirsiniz. Listelerinizi kaydetmek ve 10 hisseye kadar çıkarmak için lütfen üye girişi yapın." : "Non-members can add up to 5 tickers. Please log in to save watchlists and expand up to 10 tickers.");
+      alert(locale === "tr" ? "Üye olmadan en fazla 5 hisse ekleyebilirsiniz. Listelerinizi kaydetmek ve 10 hisseye kadar çıkarmak için lütfen üye girişi yapın." : locale === "id" ? "Tanpa akun, Anda dapat menambahkan maksimal 5 saham. Silakan masuk untuk menyimpan daftar pantauan dan menambah hingga 10 saham." : "Non-members can add up to 5 tickers. Please log in to save watchlists and expand up to 10 tickers.");
       return;
     }
     if (isLoggedIn && !isPremium && myTickers.length >= 10) {
-      alert(locale === "tr" ? "Ücretsiz planda maksimum 10 hisse ekleyebilirsiniz. Daha fazlası için Premium'a geçin." : "You can add up to 10 tickers on the Free plan. Upgrade to Premium for more.");
+      alert(locale === "tr" ? "Ücretsiz planda maksimum 10 hisse ekleyebilirsiniz. Daha fazlası için Premium'a geçin." : locale === "id" ? "Anda dapat menambahkan maksimal 10 saham pada paket Gratis. Upgrade ke Premium untuk lebih banyak." : "You can add up to 10 tickers on the Free plan. Upgrade to Premium for more.");
       return;
     }
     if (isLoggedIn && isPremium && myTickers.length >= 50) {
-      alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : "You can add maximum 50 tickers.");
+      alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : locale === "id" ? "Anda dapat menambahkan maksimal 50 saham." : "You can add maximum 50 tickers.");
       return;
     }
     setSearchInput("");
@@ -326,12 +326,12 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
-              {locale === "tr" ? "KİŞİSEL TAKİP LİSTESİ" : locale === "pt" ? "MINHA LISTA DE OBSERVAÇÃO" : locale === "es" ? "MI LISTA DE SEGUIMIENTO" : locale === "fr" ? "MA LISTE DE SURVEILLANCE" : "MY WATCHLIST"}
+              {locale === "tr" ? "KİŞİSEL TAKİP LİSTESİ" : locale === "pt" ? "MINHA LISTA DE OBSERVAÇÃO" : locale === "es" ? "MI LISTA DE SEGUIMIENTO" : locale === "fr" ? "MA LISTE DE SURVEILLANCE" : locale === "id" ? "DAFTAR PANTAUAN SAYA" : "MY WATCHLIST"}
             </div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(localeTag(locale), { hour: "2-digit", minute: "2-digit" })}</span>}
-              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : (locale === "tr" ? "market kapalı" : "market closed")}</span>
-              <span>{myTickers.length} / {maxTickers} {locale === "tr" ? "hisse" : "tickers"}</span>
+              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "id" ? "pembaruan terakhir" : "last update"}: {lastUpdated.toLocaleTimeString(localeTag(locale), { hour: "2-digit", minute: "2-digit" })}</span>}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "id" ? "pasar buka" : "market open") : (locale === "tr" ? "market kapalı" : locale === "id" ? "pasar tutup" : "market closed")}</span>
+              <span>{myTickers.length} / {maxTickers} {locale === "tr" ? "hisse" : locale === "id" ? "saham" : "tickers"}</span>
             </div>
           </div>
 
@@ -345,12 +345,12 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   color: activeTab === tab ? ACCENT : "#8b949e",
                   borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
                 }}>
-                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : "HEATMAP")}
+                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : locale === "id" ? "TABEL UTAMA" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : locale === "id" ? "PETA PANAS" : "HEATMAP")}
               </button>
             ))}
             <button onClick={fetchWatchlist} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
-              {loading ? "..." : (locale === "tr" ? "YENİLE" : "REFRESH")}
+              {loading ? "..." : (locale === "tr" ? "YENİLE" : locale === "id" ? "MUAT ULANG" : "REFRESH")}
             </button>
           </div>
         </div>
@@ -362,7 +362,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
             <input
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value.toUpperCase())}
-              placeholder={locale === "tr" ? "Hisse ara ve ekle (örn. TSLA)..." : "Search and add ticker..."}
+              placeholder={locale === "tr" ? "Hisse ara ve ekle (örn. TSLA)..." : locale === "id" ? "Cari dan tambah saham (mis. TSLA)..." : "Search and add ticker..."}
               maxLength={12}
               style={{ background: "transparent", color: "#e6edf3", fontSize: 12, fontFamily: "monospace", width: "100%", outline: "none", border: "none" }}
             />
@@ -383,7 +383,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   </div>
                 ))
               ) : (
-                <div style={{ padding: "8px 12px", fontSize: 11, color: "#8b949e" }}>{locale === "tr" ? "Bulunamadı" : "Not found"}</div>
+                <div style={{ padding: "8px 12px", fontSize: 11, color: "#8b949e" }}>{locale === "tr" ? "Bulunamadı" : locale === "id" ? "Tidak ditemukan" : "Not found"}</div>
               )}
             </div>
           )}
@@ -423,6 +423,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                locale === "es" ? "Crea Tu Lista de Seguimiento Personal" :
                locale === "fr" ? "Créez Votre Liste de Surveillance" :
                locale === "pt" ? "Crie Sua Lista de Observação" :
+               locale === "id" ? "Buat Daftar Pantauan Pribadi Anda" :
                "Create Your Personal Watchlist"}
             </div>
 
@@ -436,16 +437,18 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                 ? "Ajoutez les actions que vous souhaitez suivre à votre liste personnelle. Lorsque vous ajoutez au moins 5 actions, votre liste apparaît sur la page d'accueil."
                 : locale === "pt"
                 ? "Adicione as ações que deseja acompanhar à sua lista pessoal. Quando adicionar pelo menos 5 ações, sua lista aparecerá na página inicial."
+                : locale === "id"
+                ? "Tambahkan saham yang ingin Anda pantau ke daftar pribadi Anda. Setelah menambahkan minimal 5 saham, daftar pantauan Anda akan muncul di halaman utama."
                 : "Add the stocks you want to track to your personal list. Once you add at least 5 stocks, your personal watchlist will appear on the home page."}
             </div>
 
             {/* Steps */}
             <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 28, flexWrap: "wrap" }}>
               {[
-                { icon: "🔍", label: locale === "tr" ? "Hisse Ara" : locale === "es" ? "Busca" : locale === "fr" ? "Cherche" : locale === "pt" ? "Busque" : "Search" },
-                { icon: "➕", label: locale === "tr" ? "Ekle" : locale === "es" ? "Agrega" : locale === "fr" ? "Ajoute" : locale === "pt" ? "Adicione" : "Add" },
-                { icon: "⭐", label: locale === "tr" ? "5+ Hisse" : locale === "es" ? "5+ Acciones" : locale === "fr" ? "5+ Actions" : locale === "pt" ? "5+ Ações" : "5+ Stocks" },
-                { icon: "🏠", label: locale === "tr" ? "Ana Sayfa" : locale === "es" ? "Inicio" : locale === "fr" ? "Accueil" : locale === "pt" ? "Início" : "Home Page" },
+                { icon: "🔍", label: locale === "tr" ? "Hisse Ara" : locale === "es" ? "Busca" : locale === "fr" ? "Cherche" : locale === "pt" ? "Busque" : locale === "id" ? "Cari Saham" : "Search" },
+                { icon: "➕", label: locale === "tr" ? "Ekle" : locale === "es" ? "Agrega" : locale === "fr" ? "Ajoute" : locale === "pt" ? "Adicione" : locale === "id" ? "Tambah" : "Add" },
+                { icon: "⭐", label: locale === "tr" ? "5+ Hisse" : locale === "es" ? "5+ Acciones" : locale === "fr" ? "5+ Actions" : locale === "pt" ? "5+ Ações" : locale === "id" ? "5+ Saham" : "5+ Stocks" },
+                { icon: "🏠", label: locale === "tr" ? "Ana Sayfa" : locale === "es" ? "Inicio" : locale === "fr" ? "Accueil" : locale === "pt" ? "Início" : locale === "id" ? "Beranda" : "Home Page" },
               ].map((step, i) => (
                 <div key={i} style={{ textAlign: "center" }}>
                   <div style={{ fontSize: 24, marginBottom: 6 }}>{step.icon}</div>
@@ -469,7 +472,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(56,139,253,0.5)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(56,139,253,0.35)"; }}
             >
-              ✨ {locale === "tr" ? "Listemi Oluştur" : locale === "es" ? "Crear Mi Lista" : locale === "fr" ? "Créer Ma Liste" : locale === "pt" ? "Criar Minha Lista" : "Create My Watchlist"}
+              ✨ {locale === "tr" ? "Listemi Oluştur" : locale === "es" ? "Crear Mi Lista" : locale === "fr" ? "Créer Ma Liste" : locale === "pt" ? "Criar Minha Lista" : locale === "id" ? "Buat Daftar Saya" : "Create My Watchlist"}
             </a>
 
             {/* Note */}
@@ -478,6 +481,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                locale === "es" ? "Gratis · Hasta 10 acciones · Actualización diaria — Premium: 50 acciones, cada hora" :
                locale === "fr" ? "Gratuit · Jusqu'à 10 actions · Mise à jour quotidienne — Premium : 50 actions, toutes les heures" :
                locale === "pt" ? "Gratuito · Até 10 ações · Atualização diária — Premium: 50 ações, a cada hora" :
+               locale === "id" ? "Gratis · Hingga 10 saham · Pembaruan harian — Premium: 50 saham, per jam" :
                "Free · Up to 10 stocks · Daily updates — Premium: 50 stocks, hourly"}
             </div>
           </div>
@@ -507,6 +511,22 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   { label: "SİNYAL (Günlük)", key: "signal", align: "right" },
                   { label: "GRAFİK", key: null, align: "center" },
                   { label: "İŞLEM", key: null, align: "right" },
+                ] : locale === "id" ? [
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "SEKTOR", key: null, align: "left" },
+                  { label: "HARGA", key: "price", align: "right" },
+                  { label: "Δ% 1H", key: "chg1d", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "RASIO VOL", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS (Tren)", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "POLA (Harian)", key: null, align: "right" },
+                  { label: "SINYAL (Harian)", key: "signal", align: "right" },
+                  { label: "GRAFIK", key: null, align: "center" },
+                  { label: "AKSI", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
@@ -550,7 +570,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
@@ -590,15 +610,15 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                           }}
                           onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#388bfd22"; (e.currentTarget as HTMLElement).style.borderColor = "#58a6ff"; }}
                           onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#1c2333"; (e.currentTarget as HTMLElement).style.borderColor = "#388bfd55"; }}
-                          title={locale === "tr" ? "Grafik sayfasını aç" : "Open chart page"}
+                          title={locale === "tr" ? "Grafik sayfasını aç" : locale === "id" ? "Buka halaman grafik" : "Open chart page"}
                         >
-                          📊 {locale === "tr" ? "Grafik" : "Chart"} ↗
+                          📊 {locale === "tr" ? "Grafik" : locale === "id" ? "Grafik" : "Chart"} ↗
                         </a>
                       </td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => removeTicker(r.ticker)}
                           style={{ background: "transparent", border: "1px solid #f8514944", color: "#f85149", borderRadius: 3, padding: "2px 6px", fontSize: 10, cursor: "pointer" }}
-                          title={locale === "tr" ? "Sil" : "Remove"}
+                          title={locale === "tr" ? "Sil" : locale === "id" ? "Hapus" : "Remove"}
                         >
                           ✕
                         </button>
@@ -623,7 +643,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
       {activeTab === "heatmap" && composition.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <div style={{ fontSize: 12, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
-            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
+            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : locale === "id" ? "Peta panas Δ% per jam akhir hari — setiap sel menunjukkan perubahan pada jam tersebut" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace", minWidth: 900 }}>
@@ -633,7 +653,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   {HOUR_SLOTS.map((h) => (
                     <th key={h} style={{ padding: "10px 14px", textAlign: "center", color: "#58a6ff", fontSize: 11, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
-                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : "DAY"}</th>
+                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : locale === "id" ? "HARI" : "DAY"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -645,7 +665,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   return (
                     <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                           <a href={`/global/${locale}/graphic/${r.ticker}`} target="_blank" rel="noopener noreferrer" style={{ color: "#58a6ff", fontWeight: 900, textDecoration: "none" }}>{r.ticker}</a>
                         </TickerHoverChart>
                       </td>

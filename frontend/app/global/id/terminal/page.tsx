@@ -7,7 +7,7 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "Terminal",
-  alternates: { canonical: "https://bogastock.com/global/tr/terminal" }
+  alternates: { canonical: "https://bogastock.com/global/id/terminal" }
 };
 
 
@@ -28,5 +28,5 @@ export default async function LandingPage() {
     };
   });
 
-  return <GlobalLandingPage locale={'tr'} defaultWatchlist={defaultWatchlist} />;
+  return <GlobalLandingPage locale={'id'} defaultWatchlist={defaultWatchlist} />;
 }

@@ -11,13 +11,13 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Swingperformance",
-  alternates: { canonical: "https://bogastock.com/global/tr/swingperformance" }
+  alternates: { canonical: "https://bogastock.com/global/id/swingperformance" }
 };
 
 
 const LAST_N_DAYS = 10;
 
-export default async function TrSwingPerformancePage() {
+export default async function IdSwingPerformancePage() {
   const [performanceData, swingPicksData, access] = await Promise.all([
     getSwingPerformance(),
     getSwingAllPicks(),
@@ -28,7 +28,7 @@ export default async function TrSwingPerformancePage() {
   if (!performanceData) {
     return (
       <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-medium text-xl uppercase animate-pulse">
-        Performans Verisi Yükleniyor...
+        Memuat Data Performa...
       </div>
     );
   }
@@ -44,13 +44,13 @@ export default async function TrSwingPerformancePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/tr/watchlist" className="hover:text-[#3b82f6] transition-colors">Watchlist</Link>
+          <Link href="/global/id/watchlist" className="hover:text-[#3b82f6] transition-colors">Watchlist</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Trend Hisseleri Performansı — Son 10 Gün</span>
+          <span className="text-white italic">Performa Saham Tren — 10 Hari Terakhir</span>
         </nav>
 
         <div className="relative z-10">
@@ -60,11 +60,12 @@ export default async function TrSwingPerformancePage() {
             todayPicks={todayPicks}
             picksGeneratedAt={picksGeneratedAt}
             hideBotLink
+            locale="id"
           />
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

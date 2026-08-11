@@ -31,8 +31,8 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   };
 
   const computerHref = `/global/${locale}`;
-  const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
-  const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
+  const accountHref = locale === "tr" ? "/global/tr/hesabim" : `/global/${locale}/account`;
+  const loginHref = locale === "tr" ? "/global/tr/giris" : `/global/${locale}/login`;
 
   const focusSearchInput = () => {
     document.querySelector<HTMLTextAreaElement>("#search-landing-input")?.focus();

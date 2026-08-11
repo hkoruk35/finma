@@ -249,6 +249,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Fabricantes de Memoria y Almacenamiento IA",
     fr: "Fabricants de Mémoire et Stockage IA",
     pt: "Fabricantes de Memória e Armazenamento IA",
+    id: "Produsen Memori & Penyimpanan AI",
   },
   "uzay-temasi": {
     tr: "Uzay Teması",
@@ -256,6 +257,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Tema Espacial",
     fr: "Thème Spatial",
     pt: "Tema Espacial",
+    id: "Tema Luar Angkasa",
   },
   "fiziksel-ai-humanoid-robotik": {
     tr: "Fiziksel AI & Hümanoid Robotik",
@@ -263,6 +265,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "IA Física y Robótica Humanoide",
     fr: "IA Physique et Robotique Humanoïde",
     pt: "IA Física e Robótica Humanoide",
+    id: "AI Fisik & Robotika Humanoid",
   },
   "ai-savunma-drone-otonom-sistemler": {
     tr: "AI Savunma, Drone & Otonom Sistemler",
@@ -270,6 +273,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Defensa IA, Drones y Sistemas Autónomos",
     fr: "Défense IA, Drones et Systèmes Autonomes",
     pt: "Defesa IA, Drones e Sistemas Autônomos",
+    id: "Pertahanan AI, Drone & Sistem Otonom",
   },
   "kritik-maden-nadir-toprak": {
     tr: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
@@ -277,6 +281,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Minerales Críticos, Tierras Raras y Materiales Semiconductores",
     fr: "Minéraux Critiques, Terres Rares et Matériaux Semi-conducteurs",
     pt: "Minerais Críticos, Terras Raras e Materiais Semicondutores",
+    id: "Mineral Kritis, Logam Tanah Jarang & Material Semikonduktor",
   },
   "nukleer-enerji-ai-guc": {
     tr: "Nükleer Enerji & AI Güç Altyapısı",
@@ -284,6 +289,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Energía Nuclear e Infraestructura Energética IA",
     fr: "Énergie Nucléaire et Infrastructure Électrique IA",
     pt: "Energia Nuclear e Infraestrutura de Energia IA",
+    id: "Energi Nuklir & Infrastruktur Daya AI",
   },
   "kuantum-bilisim": {
     tr: "Kuantum Bilişim",
@@ -291,6 +297,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Computación Cuántica",
     fr: "Informatique Quantique",
     pt: "Computação Quântica",
+    id: "Komputasi Kuantum",
   },
   "ai-ajanlar-kurumsal-yazilim": {
     tr: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
@@ -298,6 +305,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Agentes IA y Transformación de Software Empresarial",
     fr: "Agents IA et Transformation Logicielle d'Entreprise",
     pt: "Agentes IA e Transformação de Software Empresarial",
+    id: "Agen AI & Transformasi Perangkat Lunak Enterprise",
   },
   "ai-veri-merkezi-sogutma": {
     tr: "AI Veri Merkezi & Soğutma Altyapısı",
@@ -305,6 +313,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Centro de Datos IA e Infraestructura de Refrigeración",
     fr: "Centre de Données IA et Infrastructure de Refroidissement",
     pt: "Data Center IA e Infraestrutura de Refrigeração",
+    id: "Pusat Data AI & Infrastruktur Pendingin",
   },
   "post-kuantum-siber-guvenlik": {
     tr: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
@@ -312,6 +321,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Ciberseguridad Poscuántica y Seguridad Soberana",
     fr: "Cybersécurité Post-Quantique et Sécurité Souveraine",
     pt: "Cibersegurança Pós-Quântica e Segurança Soberana",
+    id: "Keamanan Siber Pasca-Kuantum & Keamanan Berdaulat",
   },
   "fiziksel-ai-yariiletken-cip-ekosistemi": {
     tr: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
@@ -319,6 +329,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Ecosistema de Chips Semiconductores para IA Física",
     fr: "Écosystème de Puces Semi-conductrices pour l'IA Physique",
     pt: "Ecossistema de Chips Semicondutores para IA Física",
+    id: "Ekosistem Chip Semikonduktor untuk AI Fisik",
   },
   biotech: {
     tr: "Biotech",
@@ -326,6 +337,7 @@ const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
     es: "Biotecnología",
     fr: "Biotech",
     pt: "Biotech",
+    id: "Bioteknologi",
   },
 };
 
@@ -348,18 +360,18 @@ export function localizedThemeTitle(rawTheme: string | null | undefined, locale:
 // Kısa/tek satır bağlamlar için (ör. ana sayfa Tematik Analiz bandı) — tam
 // başlıklar (THEME_TITLE_TRANSLATIONS) tek satıra sığmayacak kadar uzun.
 const THEME_SHORT_NAMES: Record<string, Record<string, string>> = {
-  "bellek-ureticiler-ai-depolama": { tr: "Bellek", en: "Memory", es: "Memoria", fr: "Mémoire", pt: "Memória" },
-  "uzay-temasi": { tr: "Uzay", en: "Space", es: "Espacio", fr: "Espace", pt: "Espaço" },
-  "fiziksel-ai-humanoid-robotik": { tr: "Fiziksel AI", en: "Physical AI", es: "IA Física", fr: "IA Physique", pt: "IA Física" },
-  "ai-savunma-drone-otonom-sistemler": { tr: "Savunma", en: "Defense", es: "Defensa", fr: "Défense", pt: "Defesa" },
-  "kritik-maden-nadir-toprak": { tr: "Madenler", en: "Minerals", es: "Minerales", fr: "Minéraux", pt: "Minerais" },
-  "nukleer-enerji-ai-guc": { tr: "Nükleer Enerji", en: "Nuclear Energy", es: "Energía Nuclear", fr: "Énergie Nucléaire", pt: "Energia Nuclear" },
-  "kuantum-bilisim": { tr: "Kuantum", en: "Quantum", es: "Cuántica", fr: "Quantique", pt: "Quântica" },
-  "ai-ajanlar-kurumsal-yazilim": { tr: "AI Ajanlar", en: "AI Agents", es: "Agentes IA", fr: "Agents IA", pt: "Agentes IA" },
-  "ai-veri-merkezi-sogutma": { tr: "Veri Merkezi", en: "Data Center", es: "Centro de Datos", fr: "Centre de Données", pt: "Data Center" },
-  "post-kuantum-siber-guvenlik": { tr: "Siber Güvenlik", en: "Cybersecurity", es: "Ciberseguridad", fr: "Cybersécurité", pt: "Cibersegurança" },
-  "fiziksel-ai-yariiletken-cip-ekosistemi": { tr: "Yarı İletken", en: "Semiconductor", es: "Semiconductores", fr: "Semi-conducteurs", pt: "Semicondutores" },
-  biotech: { tr: "Biotech", en: "Biotech", es: "Biotecnología", fr: "Biotech", pt: "Biotech" },
+  "bellek-ureticiler-ai-depolama": { tr: "Bellek", en: "Memory", es: "Memoria", fr: "Mémoire", pt: "Memória", id: "Memori" },
+  "uzay-temasi": { tr: "Uzay", en: "Space", es: "Espacio", fr: "Espace", pt: "Espaço", id: "Luar Angkasa" },
+  "fiziksel-ai-humanoid-robotik": { tr: "Fiziksel AI", en: "Physical AI", es: "IA Física", fr: "IA Physique", pt: "IA Física", id: "AI Fisik" },
+  "ai-savunma-drone-otonom-sistemler": { tr: "Savunma", en: "Defense", es: "Defensa", fr: "Défense", pt: "Defesa", id: "Pertahanan" },
+  "kritik-maden-nadir-toprak": { tr: "Madenler", en: "Minerals", es: "Minerales", fr: "Minéraux", pt: "Minerais", id: "Mineral" },
+  "nukleer-enerji-ai-guc": { tr: "Nükleer Enerji", en: "Nuclear Energy", es: "Energía Nuclear", fr: "Énergie Nucléaire", pt: "Energia Nuclear", id: "Energi Nuklir" },
+  "kuantum-bilisim": { tr: "Kuantum", en: "Quantum", es: "Cuántica", fr: "Quantique", pt: "Quântica", id: "Kuantum" },
+  "ai-ajanlar-kurumsal-yazilim": { tr: "AI Ajanlar", en: "AI Agents", es: "Agentes IA", fr: "Agents IA", pt: "Agentes IA", id: "Agen AI" },
+  "ai-veri-merkezi-sogutma": { tr: "Veri Merkezi", en: "Data Center", es: "Centro de Datos", fr: "Centre de Données", pt: "Data Center", id: "Pusat Data" },
+  "post-kuantum-siber-guvenlik": { tr: "Siber Güvenlik", en: "Cybersecurity", es: "Ciberseguridad", fr: "Cybersécurité", pt: "Cibersegurança", id: "Keamanan Siber" },
+  "fiziksel-ai-yariiletken-cip-ekosistemi": { tr: "Yarı İletken", en: "Semiconductor", es: "Semiconductores", fr: "Semi-conducteurs", pt: "Semicondutores", id: "Semikonduktor" },
+  biotech: { tr: "Biotech", en: "Biotech", es: "Biotecnología", fr: "Biotech", pt: "Biotech", id: "Bioteknologi" },
 };
 
 export function themeShortName(slug: string, locale: string): string {

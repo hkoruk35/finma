@@ -151,7 +151,7 @@ export default function EarningsCalendarBoard({ locale }: { locale: Locale }) {
               <div key={date}>
                 <div className="text-[13px] font-bold text-[#3b82f6] uppercase tracking-wide mb-2 pb-2 border-b border-[#1e2a3a]">
                   {new Date(date + "T00:00:00").toLocaleDateString(
-                    locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US",
+                    locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : locale === "id" ? "id-ID" : "en-US",
                     { weekday: "long", year: "numeric", month: "long", day: "numeric" }
                   )}
                 </div>

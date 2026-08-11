@@ -268,9 +268,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>{t.title}</div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {formatUpdatedAtET(lastUpdated, locale) && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {formatUpdatedAtET(lastUpdated, locale)}</span>}
-              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
-              <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
+              {formatUpdatedAtET(lastUpdated, locale) && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : locale === "id" ? "pembaruan terakhir" : "last update"}: {formatUpdatedAtET(lastUpdated, locale)}</span>}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : locale === "id" ? "pasar buka" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : locale === "id" ? "pasar tutup" : "market closed"}</span>
+              <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : locale === "id" ? "ticker" : "tickers"}</span>
               {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("STRONG", locale)}</span>}
               {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("WATCH", locale)}</span>}
             </div>
@@ -286,12 +286,12 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   color: activeTab === tab ? ACCENT : "#8b949e",
                   borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
                 }}>
-                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : "HEATMAP")}
+                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : locale === "id" ? "TABEL UTAMA" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : locale === "id" ? "PETA PANAS" : "HEATMAP")}
               </button>
             ))}
             <button onClick={refreshSnapshot} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
-              {loading ? "..." : (locale === "tr" ? "YENİLE" : locale === "pt" ? "ATUALIZAR" : "REFRESH")}
+              {loading ? "..." : (locale === "tr" ? "YENİLE" : locale === "pt" ? "ATUALIZAR" : locale === "id" ? "MUAT ULANG" : "REFRESH")}
             </button>
           </div>
         </div>
@@ -301,7 +301,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toUpperCase())}
-            placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : "search..."}
+            placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : locale === "id" ? "cari..." : "search..."}
             maxLength={12}
             style={{ background: searchQuery ? ACCENT + "33" : ACCENT + "1a", border: `1px solid ${searchQuery ? ACCENT : ACCENT + "66"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
@@ -316,18 +316,18 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 color: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#8b949e",
                 borderRadius: 3, cursor: "pointer",
               }}>
-              {s ? `${SIGNAL_ICON[s]} ${signalLabel(s, locale)}` : (locale === "tr" ? "TÜM SİNYAL" : locale === "pt" ? "TODOS OS SINAIS" : "ALL SIGNALS")}
+              {s ? `${SIGNAL_ICON[s]} ${signalLabel(s, locale)}` : (locale === "tr" ? "TÜM SİNYAL" : locale === "pt" ? "TODOS OS SINAIS" : locale === "id" ? "SEMUA SINYAL" : "ALL SIGNALS")}
             </button>
           ))}
           <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
           <select value={filterSector} onChange={(e) => setFilterSector(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterSector ? ACCENT : "#30363d"}`, color: filterSector ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
-            <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : locale === "pt" ? "TODOS OS SETORES" : "ALL SECTORS"}</option>
+            <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : locale === "pt" ? "TODOS OS SETORES" : locale === "id" ? "SEMUA SEKTOR" : "ALL SECTORS"}</option>
             {sectorOptions.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
-            <option value="">{locale === "tr" ? "TÜM PATERNLER" : locale === "pt" ? "TODOS OS PADRÕES" : "ALL PATTERNS"}</option>
+            <option value="">{locale === "tr" ? "TÜM PATERNLER" : locale === "pt" ? "TODOS OS PADRÕES" : locale === "id" ? "SEMUA POLA" : "ALL PATTERNS"}</option>
             {patternOptions.map((p) => <option key={p} value={p}>{p}</option>)}
           </select>
         </div>
@@ -371,6 +371,21 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   { label: "PADRÃO (Diário)", key: null, align: "right" },
                   { label: "SINAL (Diário)", key: "signal", align: "right" },
                   { label: "DETALHE", key: null, align: "right" },
+                ] : locale === "id" ? [
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "SEKTOR", key: null, align: "left" },
+                  { label: "HARGA", key: "price", align: "right" },
+                  { label: "Δ% 1H", key: "chg1d", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "RASIO VOL", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS (Tren)", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "POLA (Harian)", key: null, align: "right" },
+                  { label: "SINYAL (Harian)", key: "signal", align: "right" },
+                  { label: "DETAIL", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
@@ -503,7 +518,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}>
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                         <span onClick={() => toggleExpand(r.ticker)} style={{ cursor: "pointer" }}>
-                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
+                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                             <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 700 }}>{r.ticker}</span>
                           </TickerHoverChart>
                           <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
@@ -557,7 +572,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                           href={`/global/${locale}/graphic/${r.ticker}`}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
                         >
-                          {locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}
+                          {locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}
                         </Link>
                       </td>
                     </tr>
@@ -580,7 +595,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
       {activeTab === "heatmap" && composition.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <div style={{ fontSize: 12, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
-            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : locale === "pt" ? "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
+            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : locale === "pt" ? "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora" : locale === "id" ? "Peta panas Δ% per jam akhir hari — setiap sel menunjukkan perubahan pada jam tersebut" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace", minWidth: 900 }}>
@@ -590,7 +605,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   {HOUR_SLOTS.map((h) => (
                     <th key={h} style={{ padding: "10px 14px", textAlign: "center", color: "#58a6ff", fontSize: 11, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
-                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : locale === "pt" ? "DIA" : "DAY"}</th>
+                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : locale === "pt" ? "DIA" : locale === "id" ? "HARI" : "DAY"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -612,7 +627,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         ) : (
-                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
+                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                             <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                           </TickerHoverChart>
                         )}

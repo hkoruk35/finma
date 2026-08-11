@@ -12,22 +12,22 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "Sectors",
-  alternates: { canonical: "https://bogastock.com/global/tr/sectors" }
+  alternates: { canonical: "https://bogastock.com/global/id/sectors" }
 };
 
 
 const SECTOR_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "XLK", label: "Teknoloji" },
-  { ticker: "XLF", label: "Finans" },
-  { ticker: "XLE", label: "Enerji" },
-  { ticker: "XLV", label: "Sağlık" },
-  { ticker: "XLY", label: "Tüketici (İsteğe Bağlı)" },
-  { ticker: "XLP", label: "Tüketici (Temel)" },
-  { ticker: "XLI", label: "Sanayi" },
-  { ticker: "XLB", label: "Malzeme" },
-  { ticker: "XLRE", label: "Gayrimenkul" },
-  { ticker: "XLU", label: "Kamu Hizmetleri" },
-  { ticker: "XLC", label: "İletişim" },
+  { ticker: "XLK", label: "Teknologi" },
+  { ticker: "XLF", label: "Keuangan" },
+  { ticker: "XLE", label: "Energi" },
+  { ticker: "XLV", label: "Kesehatan" },
+  { ticker: "XLY", label: "Konsumen Siklikal" },
+  { ticker: "XLP", label: "Konsumen Primer" },
+  { ticker: "XLI", label: "Industri" },
+  { ticker: "XLB", label: "Material" },
+  { ticker: "XLRE", label: "Properti" },
+  { ticker: "XLU", label: "Utilitas" },
+  { ticker: "XLC", label: "Komunikasi" },
 ];
 
 function toSectorStocks(quotes: Record<string, { value: number; change_pct: number; recent_closes: number[] }>): HomeListStock[] {
@@ -37,34 +37,34 @@ function toSectorStocks(quotes: Record<string, { value: number; change_pct: numb
   });
 }
 
-export default async function TrSectorsPage() {
+export default async function IdSectorsPage() {
   const quotes = await getMultiQuote(SECTOR_ITEMS.map((i) => i.ticker));
   const sectorStocks = toSectorStocks(quotes);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+          <Link href="/global/id/home" className="hover:text-[#3b82f6] transition-colors">Dasbor</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Sektörler</span>
+          <span className="text-white italic">Sektor</span>
         </nav>
 
-        <ListsNavigation locale="tr" activePath="sectors" />
+        <ListsNavigation locale="id" activePath="sectors" />
 
         <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-5 mt-2 items-start">
-          <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" />
+          <HomeListCard title="Sektor" accent="#3b82f6" stocks={sectorStocks} locale="id" />
 
           <div className="min-w-0 flex flex-col gap-4">
-            <SectorHeatmaps locale="tr" items={SECTOR_ITEMS} dailyQuotes={quotes} />
-            <SectorAnalysisSummary locale="tr" items={SECTOR_ITEMS} quotes={quotes} />
+            <SectorHeatmaps locale="id" items={SECTOR_ITEMS} dailyQuotes={quotes} />
+            <SectorAnalysisSummary locale="id" items={SECTOR_ITEMS} quotes={quotes} />
           </div>
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

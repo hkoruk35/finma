@@ -167,6 +167,7 @@ export async function getTopPerformanceEntries(limit = 5, locale: string = "en")
   const dayLabel = (days: number) => {
     if (locale === "tr") return `${days}g`;
     if (locale === "es" || locale === "fr" || locale === "pt") return `${days}j`;
+    if (locale === "id") return `${days}h`;
     return `${days}d`;
   };
 

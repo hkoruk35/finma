@@ -4,19 +4,19 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Hesabim",
-  alternates: { canonical: "https://bogastock.com/global/tr/hesabim" }
+  title: "Akun Saya",
+  alternates: { canonical: "https://bogastock.com/global/id/account" }
 };
 
 
-export default function GlobalTrHesabimPage() {
+export default function GlobalIdAccountPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       <main className="flex-1">
-        <AccountView locale="tr" isGlobal={true} />
+        <AccountView locale="id" isGlobal={true} />
       </main>
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

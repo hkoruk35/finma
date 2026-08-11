@@ -69,7 +69,7 @@ function heatColors(pct: number | null) {
 }
 
 function localeTag(locale: Locale) {
-  return locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US";
+  return locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : locale === "id" ? "id-ID" : "en-US";
 }
 
 function formatDateShort(d: string, locale: Locale) {
@@ -108,7 +108,7 @@ export default function SwingArchiveTracker({
   const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
-  const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : locale === "fr" ? "/global/fr/swing" : locale === "pt" ? "/global/pt/swing" : "/global/tr/swing";
+  const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : locale === "fr" ? "/global/fr/swing" : locale === "pt" ? "/global/pt/swing" : locale === "id" ? "/global/id/swing" : "/global/tr/swing";
   const permalink = (ticker: string) => `/global/${locale}/graphic/${ticker.toUpperCase()}`;
 
   // archives is sorted most-recent-first, so the first RECENT_LOCK_DAYS
@@ -169,7 +169,7 @@ export default function SwingArchiveTracker({
           fontFamily: "monospace",
         }}
       >
-        {locale === "tr" ? "Arşiv verisi bulunamadı" : locale === "pt" ? "Nenhum dado de arquivo encontrado" : "No archive data found"}
+        {locale === "tr" ? "Arşiv verisi bulunamadı" : locale === "pt" ? "Nenhum dado de arquivo encontrado" : locale === "id" ? "Data arsip tidak ditemukan" : "No archive data found"}
       </div>
     );
   }
@@ -181,10 +181,10 @@ export default function SwingArchiveTracker({
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
-              {locale === "tr" ? "Trend Hisseleri Arşivi" : locale === "pt" ? "Arquivo de Ações em Tendência" : "Trending Stocks Archive"}
+              {locale === "tr" ? "Trend Hisseleri Arşivi" : locale === "pt" ? "Arquivo de Ações em Tendência" : locale === "id" ? "Arsip Saham Tren" : "Trending Stocks Archive"}
             </div>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <span>{archives.length} {locale === "tr" ? "gün" : locale === "pt" ? "dias" : "days"}</span>
+              <span>{archives.length} {locale === "tr" ? "gün" : locale === "pt" ? "dias" : locale === "id" ? "hari" : "days"}</span>
               <span>{selectedDay ? formatDateLong(selectedDay.date, locale) : ""}</span>
             </div>
           </div>
@@ -198,7 +198,7 @@ export default function SwingArchiveTracker({
                 borderRadius: 4, textDecoration: "none", letterSpacing: "0.05em",
               }}
             >
-              {locale === "tr" ? "← CANLI" : locale === "pt" ? "← AO VIVO" : "← LIVE"}
+              {locale === "tr" ? "← CANLI" : locale === "pt" ? "← AO VIVO" : locale === "id" ? "← LANGSUNG" : "← LIVE"}
             </Link>
             {(["table", "heatmap"] as const).map((tab) => (
               <button
@@ -213,8 +213,8 @@ export default function SwingArchiveTracker({
                 }}
               >
                 {tab === "table"
-                  ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : "MAIN TABLE")
-                  : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : "HEATMAP")}
+                  ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : locale === "id" ? "TABEL UTAMA" : "MAIN TABLE")
+                  : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : locale === "id" ? "PETA PANAS" : "HEATMAP")}
               </button>
             ))}
           </div>
@@ -237,7 +237,7 @@ export default function SwingArchiveTracker({
               >
                 {!isPremium && recentDates.has(day.date) ? "🔒 " : ""}
                 {formatDateShort(day.date, locale)}
-                {i === 0 ? ` (${locale === "tr" ? "son" : locale === "pt" ? "recente" : "latest"})` : ""}
+                {i === 0 ? ` (${locale === "tr" ? "son" : locale === "pt" ? "recente" : locale === "id" ? "terbaru" : "latest"})` : ""}
               </button>
             ))}
           </div>
@@ -251,6 +251,8 @@ export default function SwingArchiveTracker({
             ? `Son ${RECENT_LOCK_DAYS} günün ticker isimleri sadece Premium üyelere açıktır — yükseltmek için tıklayın`
             : locale === "pt"
             ? `Os nomes dos tickers dos últimos ${RECENT_LOCK_DAYS} dias são exclusivos para Premium — clique para fazer upgrade`
+            : locale === "id"
+            ? `Nama ticker untuk ${RECENT_LOCK_DAYS} hari terakhir hanya untuk anggota Premium — klik untuk upgrade`
             : `Ticker names for the last ${RECENT_LOCK_DAYS} days are Premium-only — click to upgrade`}
         </div>
       )}
@@ -277,6 +279,14 @@ export default function SwingArchiveTracker({
                   { label: "RSI", align: "right" },
                   { label: "STATUS", align: "right" },
                   { label: "DETALHE", align: "right" },
+                ] : locale === "id" ? [
+                  { label: "TICKER", align: "left" },
+                  { label: "SEKTOR", align: "left" },
+                  { label: "HARGA", align: "right" },
+                  { label: "Δ% 1H", align: "right" },
+                  { label: "RSI", align: "right" },
+                  { label: "STATUS", align: "right" },
+                  { label: "DETAIL", align: "right" },
                 ] : [
                   { label: "TICKER", align: "left" },
                   { label: "SECTOR", align: "left" },
@@ -339,7 +349,7 @@ export default function SwingArchiveTracker({
                           href={permalink(p.ticker)}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}
                         >
-                          {locale === "tr" ? "ANALİZ" : locale === "pt" ? "ANALISAR" : "ANALYZE"}
+                          {locale === "tr" ? "ANALİZ" : locale === "pt" ? "ANALISAR" : locale === "id" ? "ANALISIS" : "ANALYZE"}
                         </Link>
                       )}
                     </td>
@@ -359,6 +369,8 @@ export default function SwingArchiveTracker({
               ? `Son ${archives.length} günün Δ% ısı haritası — her hücre o günün kapanış değişimini gösterir`
               : locale === "pt"
               ? `Mapa de calor Δ% dos últimos ${archives.length} dias — cada célula mostra a variação de fechamento daquele dia`
+              : locale === "id"
+              ? `Peta panas Δ% ${archives.length} hari terakhir — setiap sel menunjukkan perubahan penutupan hari itu`
               : `Last ${archives.length} days Δ% heatmap — each cell shows that day's closing change`}
           </div>
           <div style={{ overflowX: "auto" }}>

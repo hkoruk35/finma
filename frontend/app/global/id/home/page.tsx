@@ -19,7 +19,7 @@ export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek 
 
 export const metadata: Metadata = {
   title: "Home",
-  alternates: { canonical: "https://bogastock.com/global/tr/home" }
+  alternates: { canonical: "https://bogastock.com/global/id/home" }
 };
 
 
@@ -64,10 +64,10 @@ const FX_ITEMS: { ticker: string; label: string }[] = [
 ];
 
 const COMMODITY_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "GOLD", label: "Altın" },
-  { ticker: "SILVER", label: "Gümüş" },
-  { ticker: "USOIL", label: "Ham Petrol" },
-  { ticker: "NATGAS", label: "Doğalgaz" },
+  { ticker: "GOLD", label: "Emas" },
+  { ticker: "SILVER", label: "Perak" },
+  { ticker: "USOIL", label: "Minyak Mentah" },
+  { ticker: "NATGAS", label: "Gas Alam" },
 ];
 
 const CRYPTO_ITEMS: { ticker: string; label: string }[] = [
@@ -78,39 +78,39 @@ const CRYPTO_ITEMS: { ticker: string; label: string }[] = [
 ];
 
 const FUTURES_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "YM_F", label: "Dow Vadeli" },
-  { ticker: "ES_F", label: "S&P Vadeli" },
-  { ticker: "NQ_F", label: "Nasdaq Vadeli" },
-  { ticker: "GC_F", label: "Altın Vadeli" },
-  { ticker: "CL_F", label: "Petrol Vadeli" },
+  { ticker: "YM_F", label: "Futures Dow" },
+  { ticker: "ES_F", label: "Futures S&P" },
+  { ticker: "NQ_F", label: "Futures Nasdaq" },
+  { ticker: "GC_F", label: "Futures Emas" },
+  { ticker: "CL_F", label: "Futures Minyak" },
 ];
 
 const SECTOR_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "XLK", label: "Teknoloji" },
-  { ticker: "XLF", label: "Finans" },
-  { ticker: "XLE", label: "Enerji" },
-  { ticker: "XLV", label: "Sağlık" },
-  { ticker: "XLY", label: "Tüketici (İsteğe Bağlı)" },
-  { ticker: "XLP", label: "Tüketici (Temel)" },
-  { ticker: "XLI", label: "Sanayi" },
-  { ticker: "XLB", label: "Malzeme" },
-  { ticker: "XLRE", label: "Gayrimenkul" },
-  { ticker: "XLU", label: "Kamu Hizmetleri" },
-  { ticker: "XLC", label: "İletişim" },
+  { ticker: "XLK", label: "Teknologi" },
+  { ticker: "XLF", label: "Keuangan" },
+  { ticker: "XLE", label: "Energi" },
+  { ticker: "XLV", label: "Kesehatan" },
+  { ticker: "XLY", label: "Konsumen Siklikal" },
+  { ticker: "XLP", label: "Konsumen Primer" },
+  { ticker: "XLI", label: "Industri" },
+  { ticker: "XLB", label: "Material" },
+  { ticker: "XLRE", label: "Properti" },
+  { ticker: "XLU", label: "Utilitas" },
+  { ticker: "XLC", label: "Komunikasi" },
 ];
 
 const SECTOR_LABELS: Record<string, string> = {
-  XLK: "Teknoloji",
-  XLF: "Finans",
-  XLE: "Enerji",
-  XLV: "Sağlık",
-  XLY: "Tüketici (İsteğe Bağlı)",
-  XLP: "Tüketici (Temel)",
-  XLI: "Sanayi",
-  XLB: "Malzeme",
-  XLRE: "Gayrimenkul",
-  XLU: "Kamu Hizmetleri",
-  XLC: "İletişim",
+  XLK: "Teknologi",
+  XLF: "Keuangan",
+  XLE: "Energi",
+  XLV: "Kesehatan",
+  XLY: "Konsumen Siklikal",
+  XLP: "Konsumen Primer",
+  XLI: "Industri",
+  XLB: "Material",
+  XLRE: "Properti",
+  XLU: "Utilitas",
+  XLC: "Komunikasi",
 };
 
 type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
@@ -132,7 +132,7 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
-export default async function TrHomePage() {
+export default async function IdHomePage() {
   const allTickers = [
     ...INDEX_ITEMS,
     ...EUROPE_ITEMS,
@@ -153,13 +153,13 @@ export default async function TrHomePage() {
 
   const marketGroups: MarketGroup[] = [
     { key: "us", label: "US", items: toMarketItems(INDEX_ITEMS, quotes) },
-    { key: "europe", label: "AVRUPA", items: toMarketItems(EUROPE_ITEMS, quotes) },
-    { key: "asia", label: "ASYA", items: toMarketItems(ASIA_ITEMS, quotes) },
-    { key: "latam", label: "LATİN AMERİKA", items: toMarketItems(LATAM_ITEMS, quotes) },
-    { key: "fx", label: "DÖVİZ", items: toMarketItems(FX_ITEMS, quotes) },
-    { key: "commodities", label: "EMTİA", items: toMarketItems(COMMODITY_ITEMS, quotes) },
-    { key: "crypto", label: "KRİPTO", items: toMarketItems(CRYPTO_ITEMS, quotes) },
-    { key: "futures", label: "VADELİLER", items: toMarketItems(FUTURES_ITEMS, quotes) },
+    { key: "europe", label: "EROPA", items: toMarketItems(EUROPE_ITEMS, quotes) },
+    { key: "asia", label: "ASIA", items: toMarketItems(ASIA_ITEMS, quotes) },
+    { key: "latam", label: "AMERIKA LATIN", items: toMarketItems(LATAM_ITEMS, quotes) },
+    { key: "fx", label: "VALUTA ASING", items: toMarketItems(FX_ITEMS, quotes) },
+    { key: "commodities", label: "KOMODITAS", items: toMarketItems(COMMODITY_ITEMS, quotes) },
+    { key: "crypto", label: "KRIPTO", items: toMarketItems(CRYPTO_ITEMS, quotes) },
+    { key: "futures", label: "FUTURES", items: toMarketItems(FUTURES_ITEMS, quotes) },
   ];
 
   const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);
@@ -173,55 +173,55 @@ export default async function TrHomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
-      <CookieConsent locale="tr" />
+      <CookieConsent locale="id" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
           <div className="min-w-0">
-            <HomeSearchBar locale="tr" />
+            <HomeSearchBar locale="id" />
 
-            {/* Piyasalar Sekmesi — Arama Çubuğunun Hemen Altında */}
+            {/* Tab Pasar — Tepat Di Bawah Kolom Pencarian */}
             <div className="mt-4">
-              <MarketOverviewTabs groups={marketGroups} locale="tr" />
+              <MarketOverviewTabs groups={marketGroups} locale="id" />
             </div>
 
             <div className="mt-4">
-              <HomeScheduleBanner locale="tr" />
+              <HomeScheduleBanner locale="id" />
             </div>
 
             <div className="mt-4">
-              <HomeLatestAnalysis locale="tr" />
+              <HomeLatestAnalysis locale="id" />
             </div>
 
             <div className="mt-4">
-              <HomeRecentEarnings locale="tr" />
-              <HomeUpcomingEarnings locale="tr" />
+              <HomeRecentEarnings locale="id" />
+              <HomeUpcomingEarnings locale="id" />
             </div>
 
             <div className="mt-4">
-              <HomeMoversGrid locale="tr" />
+              <HomeMoversGrid locale="id" />
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            <HomePersonalWatchlistCard locale="tr" initialVisible={5} />
-            <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
+            <HomePersonalWatchlistCard locale="id" initialVisible={5} />
+            <HomeListCard title="Sektor" accent="#3b82f6" stocks={sectorStocks} locale="id" initialVisible={5} viewAllHref="/global/id/sectors" />
           </div>
         </div>
 
-        {/* Güncelleme bilgisi */}
+        {/* Info pembaruan */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
             <p className="text-[10px] font-normal text-white/40">
-              Son güncelleme: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
+              Terakhir diperbarui: <span className="font-mono text-white/60">{lastUpdated}</span> (NY)
             </p>
           )}
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

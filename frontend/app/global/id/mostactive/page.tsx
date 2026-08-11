@@ -9,30 +9,30 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Mostactive",
-  alternates: { canonical: "https://bogastock.com/global/tr/mostactive" }
+  alternates: { canonical: "https://bogastock.com/global/id/mostactive" }
 };
 
 
-export default function TrMostActivePage() {
+export default function IdMostActivePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+          <Link href="/global/id/home" className="hover:text-[#3b82f6] transition-colors">Dasbor</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">En Çok İşlem Görenler</span>
+          <span className="text-white italic">Paling Aktif Diperdagangkan</span>
         </nav>
 
-        <ListsNavigation locale="tr" activePath="mostactive" />
+        <ListsNavigation locale="id" activePath="mostactive" />
 
         <div className="relative z-10">
-          <MoverPageTracker mode="mostActive" locale="tr" />
+          <MoverPageTracker mode="mostActive" locale="id" />
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

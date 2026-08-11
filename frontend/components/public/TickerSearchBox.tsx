@@ -85,6 +85,7 @@ export default function TickerSearchBox({ locale = "en", onSelect, compact }: { 
           : locale === "es" ? "Buscar acción (ej. AAPL, MSFT)..."
           : locale === "fr" ? "Rechercher un titre (ex. AAPL, MSFT)..."
           : locale === "pt" ? "Buscar ação (ex. AAPL, MSFT)..."
+          : locale === "id" ? "Cari saham (mis. AAPL, MSFT)..."
           : "Search ticker (e.g. AAPL, MSFT)..."
         }
         className={`w-full rounded-lg bg-[#1a2b4d] border border-[#2a3f66] text-white placeholder:text-slate-200 focus:outline-none focus:border-[#3b82f6] transition-colors ${compact ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm"}`}

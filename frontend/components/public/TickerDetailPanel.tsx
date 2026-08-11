@@ -77,15 +77,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
 
   const accountHref =
-    locale === "tr"
-      ? "/global/tr/hesabim?tab=subscription"
-      : locale === "es"
-        ? "/global/es/account?tab=subscription"
-        : locale === "fr"
-          ? "/global/fr/account?tab=subscription"
-          : locale === "pt"
-            ? "/global/pt/account?tab=subscription"
-            : "/global/en/account?tab=subscription";
+    locale === "tr" ? "/global/tr/hesabim?tab=subscription" : `/global/${locale}/account?tab=subscription`;
 
   const targetUpgradeHref = isLoggedIn ? accountHref : registerHref(locale);
 

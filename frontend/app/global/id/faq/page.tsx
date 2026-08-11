@@ -5,23 +5,23 @@ import { getSssConfig } from "@/lib/sssConfig";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  alternates: { canonical: "https://bogastock.com/global/tr/sss" }
+  alternates: { canonical: "https://bogastock.com/global/id/faq" }
 };
 
 export default async function FAQPage() {
-  const config = await getSssConfig("tr");
+  const config = await getSssConfig("id");
 
   if (!config) {
     return (
       <div className="min-h-screen flex flex-col bg-[#0a0e17] items-center justify-center text-white">
-        Config not found for tr.
+        Konfigurasi tidak ditemukan untuk id.
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-12 md:py-20">
         <div className="text-center mb-12">
@@ -49,7 +49,7 @@ export default async function FAQPage() {
         </div>
       </main>
 
-      <Footer locale="tr" />
+      <Footer locale="id" />
     </div>
   );
 }

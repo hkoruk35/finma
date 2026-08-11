@@ -4,108 +4,108 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Terms",
-  alternates: { canonical: "https://bogastock.com/global/tr/terms" }
+  alternates: { canonical: "https://bogastock.com/global/id/terms" }
 };
 
 
-export default function TermsPageTr() {
+export default function TermsPageId() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-        
-        <h1 className="text-3xl font-bold text-white mb-8 tracking-tight">Kullanım Şartları ve Hizmet Sözleşmesi</h1>
+
+        <h1 className="text-3xl font-bold text-white mb-8 tracking-tight">Syarat Penggunaan dan Perjanjian Layanan</h1>
 
         <div className="glass-card p-8 space-y-10 text-slate-200 leading-relaxed rounded-2xl border border-[#1e2a3a] bg-[#0d131f]/90">
-          
+
           {/* Section 1 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              1. Şartların Kabulü ve Kurumsal Beyan
+              1. Penerimaan Syarat dan Pernyataan Perusahaan
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> platformuna, web sitesine veya mobil uygulamalarına erişim sağlayarak veya üyelik oluşturarak işbu Kullanım Şartları ve Hizmet Sözleşmesi hükümlerini okuduğunuzu, anladığınızı ve bunlarla hukuken bağlı olmayı kabul etmiş olursunuz.
+              Dengan mengakses platform <strong className="text-white">BogaStock.com</strong>, situs web, atau aplikasi selulernya, atau dengan membuat keanggotaan, Anda dianggap telah membaca, memahami, dan setuju untuk terikat secara hukum pada ketentuan Syarat Penggunaan dan Perjanjian Layanan ini.
             </p>
             <p className="text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> (Blue One Global Analysis), gelişmiş yapay zeka modelleri ve kantitatif veri algoritmaları ile çalışan otomatik bir <strong className="text-white">teknik analiz ve karar destek platformudur</strong>.
+              <strong className="text-white">BogaStock.com</strong> (Blue One Global Analysis) adalah <strong className="text-white">platform analisis teknikal dan dukungan keputusan</strong> otomatis yang bekerja dengan model kecerdasan buatan tingkat lanjut dan algoritma data kuantitatif.
             </p>
           </section>
 
           {/* Section 2 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              2. Hizmet Kapsamı ve Yatırım Tavsiyesi Muafiyeti
+              2. Cakupan Layanan dan Pengecualian Nasihat Investasi
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong>, piyasadaki öne çıkan teknik fırsatları algoritmalarıyla tarayarak kullanıcılara genel bilgilendirme, istatistiksel modelleme ve analitik karar destek verileri sunar. 
+              <strong className="text-white">BogaStock.com</strong> memindai peluang teknikal yang menonjol di pasar menggunakan algoritmanya dan menyajikan kepada pengguna data informasi umum, pemodelan statistik, serta dukungan keputusan analitis.
             </p>
             <p className="text-slate-300">
-              Platform bünyesinde yayınlanan hiçbir grafik, indikatör sinyali, AI skoru veya teknik analiz çıktısı <strong className="text-white">yatırım tavsiyesi, portföy yöneticiliği veya finansal danışmanlık değildir</strong>. BogaStock.com, ABD SPK (SEC) nezdinde tescilli bir Yatırım Danışmanı (RIA) veya Aracı Kurum olmadığı gibi, Türkiye Cumhuriyeti 6362 Sayılı SPK veya AB yetkili makamları çerçevesinde lisanslı bir finansal danışmanlık kuruluşu değildir. Kullanıcılar ile hiçbir şekilde danışmanlık veya mütevelli ilişkisi tesis edilmez.
+              Tidak ada grafik, sinyal indikator, skor AI, atau output analisis teknikal yang dipublikasikan di dalam platform ini yang merupakan <strong className="text-white">nasihat investasi, manajemen portofolio, atau konsultasi keuangan</strong>. BogaStock.com bukan Penasihat Investasi (RIA) atau Pialang-Dealer terdaftar di bawah SEC AS, dan juga bukan lembaga konsultasi keuangan berlisensi di bawah Undang-Undang Pasar Modal Republik Turki No. 6362 atau otoritas berwenang UE. Tidak ada hubungan konsultasi atau fidusia yang terbentuk dengan pengguna dalam bentuk apa pun.
             </p>
           </section>
 
           {/* Section 3 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              3. Küresel Piyasalar ve AB Yasaları (ESMA, MiFID II, MAR) Uyum Beyanı
+              3. Pernyataan Kepatuhan Pasar Global dan Hukum UE (ESMA, MiFID II, MAR)
             </h2>
             <p className="mb-4 text-slate-300">
-              Platformumuz küresel finansal piyasaları kapsar: <strong className="text-white">ABD Piyasaları (NYSE, NASDAQ, S&P 500, Dow, Russell)</strong>, <strong className="text-white">Avrupa Borsaları (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">Asya Borsaları (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong>, <strong className="text-white">Latin Amerika Borsaları (S&P Latam 40, IBOVESPA)</strong> ile Döviz, Emtia ve Kripto borsaları.
+              Platform kami mencakup pasar keuangan global: <strong className="text-white">Pasar AS (NYSE, NASDAQ, S&P 500, Dow, Russell)</strong>, <strong className="text-white">bursa Eropa (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">bursa Asia (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong>, <strong className="text-white">bursa Amerika Latin (S&P Latam 40, IBOVESPA)</strong>, serta bursa Valuta Asing, Komoditas, dan Kripto.
             </p>
             <p className="text-slate-300">
-              <strong className="text-white">BogaStock.com</strong>; Avrupa Birliği (AB) finansal düzenleme direktifleri (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) ve <strong className="text-white">AB Piyasa Suistimali Yönetmeliği (MAR - Regulation EU No 596/2014)</strong> esaslarına tam uyum gözetilerek işletilir. Sistemimiz piyasa manipülasyonu veya yetkisiz portföy yönlendirmesi içermez.
+              <strong className="text-white">BogaStock.com</strong> dioperasikan dengan kepatuhan penuh terhadap direktif regulasi keuangan Uni Eropa (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) dan <strong className="text-white">Peraturan Penyalahgunaan Pasar UE (MAR - Regulation EU No 596/2014)</strong>. Sistem kami tidak mengandung manipulasi pasar atau arahan portofolio tanpa izin.
             </p>
           </section>
 
           {/* Section 4 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              4. Kullanıcı Hesap Güvenliği ve Fikri Mülkiyet Kısıtlamaları
+              4. Keamanan Akun Pengguna dan Batasan Kekayaan Intelektual
             </h2>
             <p className="mb-4 text-slate-300">
-              Oluşturulan kullanıcı hesapları kişiye özeldir ve üçüncü kişilerle paylaşılamaz. Kullanıcılar hesap erişim şifrelerinin güvenliğinden kendileri sorumludur.
+              Akun pengguna bersifat pribadi dan tidak boleh dibagikan kepada pihak ketiga. Pengguna bertanggung jawab penuh atas keamanan kredensial akses akun mereka sendiri.
             </p>
             <p className="text-slate-300">
-              BogaStock.com bünyesindeki telif hakları, yazılım kodları, algoritma mimarisi, AI skorlama motoru verileri ve tasarım bileşenleri firmamıza aittir. Yazılı izin olmaksızın platform verilerinin botlar/scraping araçlarıyla çekilmesi, kopyalanması, otomatik olarak toplanması veya ticari amaçla yeniden dağıtılması yasaktır.
+              Hak cipta, kode perangkat lunak, arsitektur algoritma, data mesin penilaian skor AI, dan komponen desain di dalam BogaStock.com merupakan milik perusahaan kami. Dilarang mengambil, menyalin, mengumpulkan secara otomatis, atau mendistribusikan ulang data platform untuk tujuan komersial menggunakan bot/alat scraping tanpa izin tertulis.
             </p>
           </section>
 
           {/* Section 5 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              5. Veri Gizliliği (GDPR, KVKK ve CCPA)
+              5. Privasi Data (GDPR, KVKK, dan CCPA)
             </h2>
             <p className="text-slate-300">
-              Kullanıcı verileri Avrupa Birliği Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR</strong>), Türkiye Cumhuriyeti 6698 Sayılı Kişisel Verilerin Korunması Kanunu (<strong className="text-white">KVKK</strong>) ve Kaliforniya Tüketici Gizliliği Yasası (<strong className="text-white">CCPA</strong>) standartlarına tam uyum içinde işlenir. BogaStock.com kişisel verileri hiçbir üçüncü tarafa satmaz veya satılık veri olarak kiralamaz.
+              Data pengguna diproses dengan kepatuhan penuh terhadap standar Peraturan Perlindungan Data Umum Uni Eropa (<strong className="text-white">GDPR</strong>), Undang-Undang Perlindungan Data Pribadi Republik Turki No. 6698 (<strong className="text-white">KVKK</strong>), dan Undang-Undang Privasi Konsumen California (<strong className="text-white">CCPA</strong>). BogaStock.com tidak menjual atau menyewakan data pribadi kepada pihak ketiga mana pun.
             </p>
           </section>
 
           {/* Section 6 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
-              6. Sorumluluk Sınırlaması ve Hizmet Değişiklikleri
+              6. Batasan Tanggung Jawab dan Perubahan Layanan
             </h2>
             <p className="text-slate-300">
-              Finansal piyasalarda işlem yapmak yüksek derecede volatilite ve risk taşır. BogaStock.com analitik karar destek verilerinin kullanımı sonucunda alınacak tüm ticari kararlar ve doğabilecek finansal/hukuki kayıplar münhasıran kullanıcının sorumluluğundadır. BogaStock.com hizmet özelliklerini veya şartlarını önceden haber vermeksizin güncelleme hakkını saklı tutar.
+              Bertransaksi di pasar keuangan mengandung volatilitas dan risiko yang sangat tinggi. Seluruh keputusan transaksi yang diambil sebagai hasil penggunaan data dukungan keputusan analitis BogaStock.com, beserta kerugian finansial/hukum yang mungkin timbul, sepenuhnya menjadi tanggung jawab pengguna. BogaStock.com berhak memperbarui fitur atau ketentuan layanannya tanpa pemberitahuan sebelumnya.
             </p>
           </section>
 
           {/* Section 7 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
-            <h2 className="text-lg font-semibold text-white mb-2">Hukuki Yürürlük</h2>
+            <h2 className="text-lg font-semibold text-white mb-2">Keberlakuan Hukum</h2>
             <p className="text-xs text-slate-400">
-              BogaStock.com platformunu kullanmaya devam ederek yukarıdaki şartları ve yasal çerçeveyi kabul etmiş olursunuz.
+              Dengan terus menggunakan platform BogaStock.com, Anda dianggap telah menyetujui ketentuan dan kerangka hukum di atas.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Son Güncelleme: 4 Ağustos 2026 | BogaStock.com Teknik Analiz ve Karar Destek Platformu
+              Terakhir Diperbarui: 4 Agustus 2026 | Platform Analisis Teknikal dan Dukungan Keputusan BogaStock.com
             </p>
           </section>
 
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

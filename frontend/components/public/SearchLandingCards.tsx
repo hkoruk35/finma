@@ -220,6 +220,8 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
               ? "Réponse rapide — résultats sans sources"
               : locale === "pt"
               ? "Resposta rápida — resultados sem fontes"
+              : locale === "id"
+              ? "Jawaban cepat — hasil tanpa sumber"
               : "Fast answer — results without sources"
             : locale === "tr"
             ? "Derin araştırma — kaynaklı detaylı sonuçlar"
@@ -229,6 +231,8 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
             ? "Recherche approfondie — résultats détaillés avec sources"
             : locale === "pt"
             ? "Pesquisa profunda — resultados detalhados com fontes"
+            : locale === "id"
+            ? "Riset mendalam — hasil rinci lengkap dengan sumber"
             : "Deep Research — detailed results with sources"}
         </p>
       </div>

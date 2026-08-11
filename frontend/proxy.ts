@@ -149,7 +149,7 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
 
 function resolvePreferredLocale(acceptLangHeader: string | null): string {
   if (!acceptLangHeader) return 'en'
-  const supported = ['tr', 'en', 'es', 'fr', 'pt']
+  const supported = ['tr', 'en', 'es', 'fr', 'pt', 'id']
   const langs = acceptLangHeader
     .split(',')
     .map((item) => {
@@ -235,6 +235,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     es: { login: 'login', register: 'register', home: 'home' },
     fr: { login: 'login', register: 'register', home: 'home' },
     pt: { login: 'login', register: 'register', home: 'home' },
+    id: { login: 'login', register: 'register', home: 'home' },
   }
 
   const PRIVATE_MEMBER_SUBPATHS = ['account', 'hesabim']

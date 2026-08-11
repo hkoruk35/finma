@@ -19,22 +19,22 @@ export type RouteKey =
   | "account";
 
 const SLUGS: Record<RouteKey, Record<CopilotLocale, string>> = {
-  dashboard: { tr: "home", en: "home", es: "home", fr: "home", pt: "home" },
-  trend_list: { tr: "swing", en: "swing", es: "swing", fr: "swing", pt: "swing" },
-  trend_candidate_watchlist: { tr: "watchlist", en: "watchlist", es: "watchlist", fr: "watchlist", pt: "watchlist" },
-  top7: { tr: "top7", en: "top7", es: "top7", fr: "top7", pt: "top7" },
-  top100: { tr: "top100", en: "top100", es: "top100", fr: "top100", pt: "top100" },
-  my_watchlist: { tr: "my-watchlist", en: "my-watchlist", es: "my-watchlist", fr: "my-watchlist", pt: "my-watchlist" },
-  graphic: { tr: "graphic", en: "graphic", es: "graphic", fr: "graphic", pt: "graphic" },
-  themes: { tr: "themes", en: "themes", es: "themes", fr: "themes", pt: "themes" },
-  faq: { tr: "sss", en: "faq", es: "faq", fr: "faq", pt: "Perguntas_Frequentes" },
-  news: { tr: "news", en: "news", es: "news", fr: "news", pt: "news" },
-  account: { tr: "hesabim", en: "account", es: "account", fr: "account", pt: "account" },
+  dashboard: { tr: "home", en: "home", es: "home", fr: "home", pt: "home", id: "home" },
+  trend_list: { tr: "swing", en: "swing", es: "swing", fr: "swing", pt: "swing", id: "swing" },
+  trend_candidate_watchlist: { tr: "watchlist", en: "watchlist", es: "watchlist", fr: "watchlist", pt: "watchlist", id: "watchlist" },
+  top7: { tr: "top7", en: "top7", es: "top7", fr: "top7", pt: "top7", id: "top7" },
+  top100: { tr: "top100", en: "top100", es: "top100", fr: "top100", pt: "top100", id: "top100" },
+  my_watchlist: { tr: "my-watchlist", en: "my-watchlist", es: "my-watchlist", fr: "my-watchlist", pt: "my-watchlist", id: "my-watchlist" },
+  graphic: { tr: "graphic", en: "graphic", es: "graphic", fr: "graphic", pt: "graphic", id: "graphic" },
+  themes: { tr: "themes", en: "themes", es: "themes", fr: "themes", pt: "themes", id: "themes" },
+  faq: { tr: "sss", en: "faq", es: "faq", fr: "faq", pt: "Perguntas_Frequentes", id: "faq" },
+  news: { tr: "news", en: "news", es: "news", fr: "news", pt: "news", id: "news" },
+  account: { tr: "hesabim", en: "account", es: "account", fr: "account", pt: "account", id: "account" },
 };
 
 /** route_key (+opsiyonel ticker/themeSlug) -> gerçek, locale'e göre doğru site içi yol. */
 export function buildRoute(key: RouteKey, locale: string, ticker?: string): string {
-  const loc = (["tr", "en", "es", "fr", "pt"].includes(locale) ? locale : "en") as CopilotLocale;
+  const loc = (["tr", "en", "es", "fr", "pt", "id"].includes(locale) ? locale : "en") as CopilotLocale;
   const slug = SLUGS[key]?.[loc] ?? SLUGS[key]?.en ?? key;
   const base = `/global/${loc}/${slug}`;
   if (key === "graphic" && ticker) return `${base}/${ticker.trim().toUpperCase()}`;
@@ -53,7 +53,7 @@ export function resolveRouteKey(pathname: string): { key: RouteKey | "unknown"; 
 
   const seg = rest[0];
   for (const key of Object.keys(SLUGS) as RouteKey[]) {
-    const localeSlug = SLUGS[key][(["tr", "en", "es", "fr", "pt"].includes(locale) ? locale : "en") as CopilotLocale];
+    const localeSlug = SLUGS[key][(["tr", "en", "es", "fr", "pt", "id"].includes(locale) ? locale : "en") as CopilotLocale];
     if (seg === localeSlug || seg.toLowerCase() === localeSlug.toLowerCase()) {
       if (key === "graphic") return { key, ticker: rest[1] ? rest[1].toUpperCase() : null };
       // Tema slug'ı küçük harf/tireli (getHotTheme tam eşleşme arar) — BÜYÜTÜLMEZ.

@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Arsiv",
-  alternates: { canonical: "https://bogastock.com/global/tr/swing/arsiv" }
+  alternates: { canonical: "https://bogastock.com/global/id/swing/arsiv" }
 };
 
 
@@ -25,7 +25,7 @@ function toArchivePicks(raw: any): ArchivePick[] {
   }));
 }
 
-export default async function TrSwingArchivePage() {
+export default async function IdSwingArchivePage() {
   const dates = (await getSwingArchiveDates()).slice(0, 10);
 
   const archives: ArchiveDay[] = (
@@ -39,23 +39,23 @@ export default async function TrSwingArchivePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+          <Link href="/global/id/home" className="hover:text-[#3b82f6] transition-colors">Dasbor</Link>
           <span className="opacity-30">/</span>
-          <Link href="/global/tr/swing" className="hover:text-[#3b82f6] transition-colors">Günlük Trend Hisseleri Adayları</Link>
+          <Link href="/global/id/swing" className="hover:text-[#3b82f6] transition-colors">Kandidat Saham Tren Harian</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Arşiv</span>
+          <span className="text-white italic">Arsip</span>
         </nav>
 
         <div className="relative z-10">
-          <SwingArchiveTracker archives={archives} locale="tr" />
+          <SwingArchiveTracker archives={archives} locale="id" />
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

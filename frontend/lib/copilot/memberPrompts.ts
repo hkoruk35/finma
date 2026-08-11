@@ -1,6 +1,6 @@
 // BOGA Copilot Authenticated Member Daily Kickoff & Interactive Suggestion Helpers
 
-export type CopilotLang = "tr" | "en" | "es" | "fr" | "pt";
+export type CopilotLang = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
 export interface DailyGreeting {
   welcomeMessage: string;
@@ -15,6 +15,7 @@ function greetLine(lang: CopilotLang, userName: string | null): string {
     case "pt": return n ? `Olá ${n}!` : "Olá!";
     case "es": return n ? `¡Hola ${n}!` : "¡Hola!";
     case "fr": return n ? `Bonjour ${n} !` : "Bonjour !";
+    case "id": return n ? `Halo ${n}!` : "Halo!";
     default: return n ? `Hello ${n}!` : "Hello!";
   }
 }
@@ -121,6 +122,31 @@ export function buildMemberDailyGreeting(
           { label: "🏆 Top100", prompt: "Montrez les actions du classement Top100" },
           { label: "💡 Mémoire & IA", prompt: "Montrez les actions du thème Fabricants de Mémoire & Stockage IA" },
           { label: "🚀 Plus Fortes Hausses", prompt: "Montrez les plus fortes hausses du marché" },
+        ];
+
+    return { welcomeMessage, pills };
+  }
+
+  if (lang === "id") {
+    const welcomeMessage =
+      `${greetLine(lang, userName)} Selamat datang di platform BOGASTOCK.\n\n` +
+      `Saya siap memandu Anda dan menganalisis pasar berdasarkan panel aktif Anda.\n\n` +
+      `Daftar mana yang ingin Anda tinjau hari ini?`;
+
+    const pills = isAnonymous
+      ? [
+          { label: "🏆 Top7", prompt: "Tampilkan saham dalam peringkat Top7 BOGASTOCK" },
+          { label: "🚀 Penguat Teratas", prompt: "Tampilkan saham yang paling menguat di pasar" },
+          { label: "📉 Pelemah Teratas", prompt: "Tampilkan saham yang paling melemah di pasar" },
+          { label: "🏆 Top100 (10 Teratas)", prompt: "Tampilkan 10 saham teratas dalam daftar Top100 BOGASTOCK" },
+          { label: "🖥️ Terminal", prompt: "Jelajahi halaman dan fitur Terminal BOGASTOCK" },
+        ]
+      : [
+          { label: "⭐ Daftar Pantau Saya", prompt: "Tampilkan saham di daftar pantau saya beserta statusnya" },
+          { label: "🏆 Top7", prompt: "Tampilkan saham dalam peringkat Top7 BOGASTOCK" },
+          { label: "🏆 Top100", prompt: "Tampilkan saham dalam peringkat Top100 BOGASTOCK" },
+          { label: "💡 Memori & Penyimpanan AI", prompt: "Tampilkan saham dalam tema Produsen Memori & Penyimpanan AI" },
+          { label: "🚀 Penguat Teratas", prompt: "Tampilkan saham yang paling menguat di pasar" },
         ];
 
     return { welcomeMessage, pills };

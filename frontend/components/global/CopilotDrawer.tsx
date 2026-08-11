@@ -23,7 +23,7 @@ const LIST_KEY_TO_ROUTE_KEY: Record<string, RouteKey> = {
   top100: "top100",
 };
 
-const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
+const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR", id: "id-ID" };
 
 // Bu araçların kendi kartı var (aşağıdaki map'te ayrı render edilir). Model
 // SADECE kart'ı olmayan bir araç çağırıp (örn. get_deep_analysis,
@@ -136,7 +136,7 @@ export default function CopilotDrawer() {
 
   // --- VISITOR & MEMBER LANGUAGE STATES ---
   const [activeLocale, setActiveLocale] = useState<SupportedLocale>(() => {
-    return ["tr", "en", "es", "fr", "pt"].includes(locale) ? (locale as SupportedLocale) : "en";
+    return ["tr", "en", "es", "fr", "pt", "id"].includes(locale) ? (locale as SupportedLocale) : "en";
   });
 
   const [draftName, setDraftName] = useState(profile.displayName || getSuggestedName(activeLocale));
@@ -259,7 +259,7 @@ export default function CopilotDrawer() {
   const displayName = profile.displayName || getSuggestedName(activeLocale);
   const realUserName = member?.username?.trim() || member?.email?.split("@")[0]?.trim() || null;
 
-  const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
+  const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt", "id"] as const).includes(activeLocale)
     ? (activeLocale as CopilotLang)
     : "tr";
   const isAnon = !isAuthenticated || !member;
@@ -440,7 +440,7 @@ export default function CopilotDrawer() {
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
               <span className="hidden sm:inline">
-                {activeLocale === "tr" ? "Yeni" : activeLocale === "es" ? "Nuevo" : activeLocale === "fr" ? "Nouveau" : activeLocale === "pt" ? "Novo" : "New"}
+                {activeLocale === "tr" ? "Yeni" : activeLocale === "es" ? "Nuevo" : activeLocale === "fr" ? "Nouveau" : activeLocale === "pt" ? "Novo" : activeLocale === "id" ? "Baru" : "New"}
               </span>
             </button>
 
@@ -454,6 +454,7 @@ export default function CopilotDrawer() {
               <option value="es">ES</option>
               <option value="fr">FR</option>
               <option value="pt">PT</option>
+              <option value="id">ID</option>
             </select>
 
             {isAuthenticated && (

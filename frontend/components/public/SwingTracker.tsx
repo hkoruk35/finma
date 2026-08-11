@@ -47,7 +47,7 @@ function formatDateAdded(dateStr: string | null, locale: Locale): string {
   if (!dateStr) return "—";
   try {
     const d = new Date(dateStr + "T12:00:00Z");
-    const tag = locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US";
+    const tag = locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : locale === "id" ? "id-ID" : "en-US";
     return d.toLocaleDateString(tag, { month: "2-digit", day: "2-digit", year: "numeric" });
   } catch {
     return dateStr;
@@ -57,8 +57,8 @@ function formatDateAdded(dateStr: string | null, locale: Locale): string {
 function EntryStatusBadge({ status, zone, locale }: { status: "PENDING" | "ENTERED" | null; zone: { low: number; high: number } | null; locale: Locale }) {
   const entered = status === "ENTERED";
   const label = entered
-    ? (locale === "tr" ? "Giriş Zone" : locale === "es" ? "Zona Entrada" : locale === "fr" ? "Zone Entrée" : locale === "pt" ? "Zona Entrada" : "Entry Zone")
-    : (locale === "tr" ? "Bekle" : locale === "es" ? "Espera" : locale === "fr" ? "Attendre" : locale === "pt" ? "Aguarde" : "Wait");
+    ? (locale === "tr" ? "Giriş Zone" : locale === "es" ? "Zona Entrada" : locale === "fr" ? "Zone Entrée" : locale === "pt" ? "Zona Entrada" : locale === "id" ? "Zona Masuk" : "Entry Zone")
+    : (locale === "tr" ? "Bekle" : locale === "es" ? "Espera" : locale === "fr" ? "Attendre" : locale === "pt" ? "Aguarde" : locale === "id" ? "Tunggu" : "Wait");
   const title = entered && zone ? `${formatNumber(zone.low, 2)} - ${formatNumber(zone.high, 2)}` : undefined;
   return (
     <span
@@ -313,12 +313,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-white uppercase">
-              {locale === "tr" ? "GÜNLÜK TREND HİSSELERİ" : locale === "pt" ? "AÇÕES DIÁRIAS EM TENDÊNCIA" : locale === "es" ? "ACCIONES DIARIAS EN TENDENCIA" : locale === "fr" ? "ACTIONS TENDANCE QUOTIDIENNES" : "DAILY TRENDING STOCKS"}
+              {locale === "tr" ? "GÜNLÜK TREND HİSSELERİ" : locale === "pt" ? "AÇÕES DIÁRIAS EM TENDÊNCIA" : locale === "es" ? "ACCIONES DIARIAS EN TENDENCIA" : locale === "fr" ? "ACTIONS TENDANCE QUOTIDIENNES" : locale === "id" ? "SAHAM TREN HARIAN" : "DAILY TRENDING STOCKS"}
             </h2>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
-              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
-              <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
+              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : locale === "id" ? "pembaruan terakhir" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : locale === "id" ? "pasar buka" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : locale === "id" ? "pasar tutup" : "market closed"}</span>
+              <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : locale === "id" ? "ticker" : "tickers"}</span>
               {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("STRONG", locale)}</span>}
               {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("WATCH", locale)}</span>}
             </div>
@@ -326,24 +326,24 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
           <div style={{ display: "flex", gap: 6 }}>
             <Link
-              href={locale === "es" ? "/global/es/performance" : locale === "en" ? "/global/en/performance" : locale === "pt" ? "/global/pt/performance" : locale === "fr" ? "/global/fr/performance" : "/global/tr/performance"}
+              href={locale === "es" ? "/global/es/performance" : locale === "en" ? "/global/en/performance" : locale === "pt" ? "/global/pt/performance" : locale === "fr" ? "/global/fr/performance" : locale === "id" ? "/global/id/performance" : "/global/tr/performance"}
               style={{
                 padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid #30363d", background: "transparent", color: "#8b949e",
                 borderRadius: 4, textDecoration: "none", letterSpacing: "0.05em",
               }}
             >
-              {locale === "tr" ? "PERFORMANS" : locale === "es" ? "RENDIMIENTO" : locale === "pt" ? "DESEMPENHO" : "PERFORMANCE"}
+              {locale === "tr" ? "PERFORMANS" : locale === "es" ? "RENDIMIENTO" : locale === "pt" ? "DESEMPENHO" : locale === "id" ? "KINERJA" : "PERFORMANCE"}
             </Link>
             <Link
-              href={locale === "es" ? "/global/es/swing/archive" : locale === "en" ? "/global/en/swing/archive" : locale === "pt" ? "/global/pt/swing/archive" : locale === "fr" ? "/global/fr/swing/archive" : "/global/tr/swing/arsiv"}
+              href={locale === "es" ? "/global/es/swing/archive" : locale === "en" ? "/global/en/swing/archive" : locale === "pt" ? "/global/pt/swing/archive" : locale === "fr" ? "/global/fr/swing/archive" : locale === "id" ? "/global/id/swing/archive" : "/global/tr/swing/arsiv"}
               style={{
                 padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid #30363d", background: "transparent", color: "#8b949e",
                 borderRadius: 4, textDecoration: "none", letterSpacing: "0.05em",
               }}
             >
-              {locale === "tr" ? "ARŞİV" : locale === "pt" ? "ARQUIVO" : "ARCHIVE"}
+              {locale === "tr" ? "ARŞİV" : locale === "pt" ? "ARQUIVO" : locale === "id" ? "ARSIP" : "ARCHIVE"}
             </Link>
             {(["table", "heatmap"] as const).map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
@@ -354,12 +354,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   color: activeTab === tab ? ACCENT : "#8b949e",
                   borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
                 }}>
-                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : "HEATMAP")}
+                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : locale === "pt" ? "TABELA PRINCIPAL" : locale === "id" ? "TABEL UTAMA" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : locale === "pt" ? "MAPA DE CALOR" : locale === "id" ? "PETA PANAS" : "HEATMAP")}
               </button>
             ))}
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
-              {loading ? "..." : (locale === "tr" ? "YENİLE" : locale === "pt" ? "ATUALIZAR" : "REFRESH")}
+              {loading ? "..." : (locale === "tr" ? "YENİLE" : locale === "pt" ? "ATUALIZAR" : locale === "id" ? "MUAT ULANG" : "REFRESH")}
             </button>
           </div>
         </div>
@@ -369,7 +369,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toUpperCase())}
-            placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : "search..."}
+            placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : locale === "id" ? "cari..." : "search..."}
             maxLength={12}
             style={{ background: searchQuery ? ACCENT + "33" : ACCENT + "1a", border: `1px solid ${searchQuery ? ACCENT : ACCENT + "66"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
@@ -384,18 +384,18 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                 color: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#8b949e",
                 borderRadius: 3, cursor: "pointer",
               }}>
-              {s ? `${SIGNAL_ICON[s]} ${signalLabel(s, locale)}` : (locale === "tr" ? "TÜM SİNYAL" : locale === "pt" ? "TODOS OS SINAIS" : "ALL SIGNALS")}
+              {s ? `${SIGNAL_ICON[s]} ${signalLabel(s, locale)}` : (locale === "tr" ? "TÜM SİNYAL" : locale === "pt" ? "TODOS OS SINAIS" : locale === "id" ? "SEMUA SINYAL" : "ALL SIGNALS")}
             </button>
           ))}
           <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
           <select value={filterSector} onChange={(e) => setFilterSector(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterSector ? ACCENT : "#30363d"}`, color: filterSector ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
-            <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : locale === "pt" ? "TODOS OS SETORES" : "ALL SECTORS"}</option>
+            <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : locale === "pt" ? "TODOS OS SETORES" : locale === "id" ? "SEMUA SEKTOR" : "ALL SECTORS"}</option>
             {sectorOptions.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
-            <option value="">{locale === "tr" ? "TÜM PATERNLER" : locale === "pt" ? "TODOS OS PADRÕES" : "ALL PATTERNS"}</option>
+            <option value="">{locale === "tr" ? "TÜM PATERNLER" : locale === "pt" ? "TODOS OS PADRÕES" : locale === "id" ? "SEMUA POLA" : "ALL PATTERNS"}</option>
             {patternOptions.map((p) => <option key={p} value={p}>{translatePattern(p, locale)}</option>)}
           </select>
         </div>
@@ -441,6 +441,22 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "PADRÃO", key: null, align: "right" },
                   { label: "SINAL", key: "signal", align: "right" },
                   { label: "DETALHE", key: null, align: "right" },
+                ] : locale === "id" ? [
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "DITAMBAHKAN", key: null, align: "left" },
+                  { label: "SEKTOR", key: null, align: "left" },
+                  { label: "HARGA", key: "price", align: "right" },
+                  { label: "Δ% 1H", key: "chg1d", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "RASIO VOL", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "POLA", key: null, align: "right" },
+                  { label: "SINYAL", key: "signal", align: "right" },
+                  { label: "DETAIL", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "DATE ADDED", key: null, align: "left" },
@@ -528,7 +544,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 6px", fontWeight: 700, color: "#58a6ff", whiteSpace: "nowrap" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
@@ -558,7 +574,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                           href={`/global/${locale}/graphic/${r.ticker}`}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 4, padding: "2px 8px", display: "inline-block", cursor: "pointer", whiteSpace: "nowrap" }}
                         >
-                          {locale === "tr" ? "GRAFİK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : "CHART DETAIL"}
+                          {locale === "tr" ? "GRAFİK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : locale === "id" ? "DETAIL GRAFIK" : "CHART DETAIL"}
                         </Link>
                       </td>
                     </tr>
@@ -581,7 +597,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
       {activeTab === "heatmap" && composition.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <div style={{ fontSize: 12, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
-            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : locale === "pt" ? "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
+            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : locale === "pt" ? "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora" : locale === "id" ? "Peta panas Δ% per jam akhir hari — setiap sel menunjukkan perubahan pada jam tersebut" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace", minWidth: 900 }}>
@@ -591,7 +607,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   {HOUR_SLOTS.map((h) => (
                     <th key={h} style={{ padding: "10px 14px", textAlign: "center", color: "#58a6ff", fontSize: 11, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
-                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : locale === "pt" ? "DIA" : "DAY"}</th>
+                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : locale === "pt" ? "DIA" : locale === "id" ? "HARI" : "DAY"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -609,7 +625,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         ) : (
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : locale === "id" ? "Detail Grafik ↗" : "Chart Detail ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
                         )}

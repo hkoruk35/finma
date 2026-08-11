@@ -46,7 +46,7 @@ const deepseekApiKey = process.env.DEEPSEEK_API_KEY || "";
 const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https://api.deepseek.com" });
 
 function resolveLocale(raw: any): string {
-  return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
+  return ["tr", "en", "es", "fr", "pt", "id"].includes(raw) ? raw : "en";
 }
 
 const ASSET_CLASS_RULES: Record<AssetType, string> = {
@@ -129,6 +129,7 @@ async function buildSystemPrompt(
     es: "REGLA DE IDIOMA (MÁXIMA PRIORIDAD): Sin importar cuán corto o ambiguo sea el mensaje del usuario (p. ej. solo un símbolo bursátil o una palabra), responde SIEMPRE en español. Nunca uses turco ni inglés por defecto.",
     fr: "RÈGLE DE LANGUE (PRIORITÉ MAXIMALE) : Quelle que soit la brièveté ou l'ambiguïté du message de l'utilisateur (par ex. un simple symbole boursier ou un seul mot), répondez TOUJOURS en français. Ne basculez jamais vers le turc ou l'anglais par défaut.",
     pt: "REGRA DE IDIOMA (MÁXIMA PRIORIDADE): Não importa quão curta ou ambígua seja a mensagem do usuário (ex.: apenas um símbolo de ação ou uma única palavra), responda SEMPRE em português. Nunca use turco ou inglês por padrão.",
+    id: "ATURAN BAHASA (PRIORITAS TERTINGGI): Betapapun singkat atau ambigunya pesan pengguna (misalnya hanya simbol ticker atau satu kata saja), SELALU balas dalam Bahasa Indonesia. Jangan pernah default ke bahasa Turki atau Inggris.",
   };
 
   let contextStr = `${LANG_DIRECTIVE[locale] || LANG_DIRECTIVE.en}
@@ -136,7 +137,7 @@ async function buildSystemPrompt(
 SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
 
 KÜRESEL ŞİRKET VE DİL POLİTİKASI (GLOBAL COMPANY & LANGUAGE POLICY):
-- Biz ABD merkezli küresel bir şirketiz. Varsayılan dilimiz İngilizce'dir, ancak 5 farklı dilde (İngilizce, Türkçe, İspanyolca, Fransızca, Portekizce) yerel çeviri desteği sunuyoruz.
+- Biz ABD merkezli küresel bir şirketiz. Varsayılan dilimiz İngilizce'dir, ancak 6 farklı dilde (İngilizce, Türkçe, İspanyolca, Fransızca, Portekizce, Endonezce) yerel çeviri desteği sunuyoruz.
 - Sen (Copilot), 100'den fazla dilde çeviri yeteneğine sahip, dikkatli, kullanıcı odaklı ve 7/24 aktif olan global bir yapısın. Bu özelliklerini bağlam uygun olduğunda şık ve güven verici bir dille anlatabilirsin.
 
 SİTE İÇİ ANALİZ ARAÇLARI ÖNCELİĞİ (ON-SITE TOOLS PRIORITY):
@@ -294,8 +295,9 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
       else if (locale === "es") nvdaNote = "(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)";
       else if (locale === "fr") nvdaNote = "(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)";
       else if (locale === "pt") nvdaNote = "(✨ Estas análises e níveis técnicos profundos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)";
+      else if (locale === "id") nvdaNote = "(✨ Analisis mendalam dan level teknikal ini biasanya khusus untuk anggota BOGA Pro/Premium; dibuka gratis sebagai bagian dari integrasi showcase NVIDIA ($NVDA) kami.)";
 
-      contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "${nvdaNote}"\n\n`;
+      contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 6 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "${nvdaNote}"\n\n`;
     }
   } else if (pageContext?.activeListContext?.listKey) {
     contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.activeListContext.listKey}" liste sayfasındadır. Belirsiz bir istek gelirse bu listeyi kastettiğini varsay, get_top_trending_stocks aracını bu kategoriyle çağır.\n\n`;

@@ -30,7 +30,7 @@ const anthropicProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KE
 const deepseekProvider = createOpenAI({ apiKey: process.env.DEEPSEEK_API_KEY || "", baseURL: "https://api.deepseek.com" });
 
 function resolveLocale(raw: any): string {
-  return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
+  return ["tr", "en", "es", "fr", "pt", "id"].includes(raw) ? raw : "en";
 }
 
 async function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
@@ -49,6 +49,8 @@ function getSystemPrompt(locale: string): string {
     ? "LANGUAGE OVERRIDE: Always respond in Spanish. Ensure your tone is natural, conversational, and fluent in Spanish.\n"
     : locale === "fr"
     ? "LANGUAGE OVERRIDE: Always respond in French. Ensure your tone is natural, conversational, and fluent in French.\n"
+    : locale === "id"
+    ? "ATURAN BAHASA: Selalu jawab dalam Bahasa Indonesia. Gunakan gaya bahasa yang alami, mengalir, dan mudah dipahami sehari-hari.\n"
     : "DİL KURALI: Her zaman Türkçe yanıt ver. Metinlerin okunaklı, net ve günlük konuşma diline uygun akıcı bir Türkçe olmalı.\n";
 
   return `BOGASMART INTELLIGENT ASSISTANT — MASTER SYSTEM PROMPT v1.0

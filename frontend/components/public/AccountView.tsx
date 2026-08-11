@@ -47,7 +47,9 @@ function AccountViewInner({ locale, isGlobal = false }: { locale: Locale; isGlob
                 ? "Vos informations de paiement ont été enregistrées. Votre abonnement est actif."
                 : locale === "pt"
                   ? "Suas informações de pagamento foram salvas. Sua assinatura está ativa."
-                  : "Your payment details were saved. Your subscription is active.",
+                  : locale === "id"
+                    ? "Informasi pembayaran Anda telah disimpan. Langganan Anda sudah aktif."
+                    : "Your payment details were saved. Your subscription is active.",
       });
     } else if (checkout === "cancelled") {
       setMessage({
@@ -61,7 +63,9 @@ function AccountViewInner({ locale, isGlobal = false }: { locale: Locale; isGlob
                 ? "Le paiement n'a pas été finalisé. Vous pouvez réessayer pour continuer."
                 : locale === "pt"
                   ? "O pagamento não foi concluído. Você pode tentar novamente para continuar."
-                  : "Payment was not completed. You can try again to continue.",
+                  : locale === "id"
+                    ? "Pembayaran belum selesai. Anda dapat mencoba lagi untuk melanjutkan."
+                    : "Payment was not completed. You can try again to continue.",
       });
     }
   }, [searchParams, locale]);

@@ -4,23 +4,23 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Giris",
-  alternates: { canonical: "https://bogastock.com/global/tr/giris" }
+  title: "Masuk",
+  alternates: { canonical: "https://bogastock.com/global/id/login" }
 };
 
 
-export default function GlobalTrGirisPage() {
+export default function GlobalIdLoginPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
       <main className="flex-1 flex flex-col">
         <LoginForm
-          locale="tr"
-          redirectTo="/global/tr"
-          registerHref="/global/tr/kayit"
+          locale="id"
+          redirectTo="/global/id"
+          registerHref="/global/id/register"
         />
       </main>
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

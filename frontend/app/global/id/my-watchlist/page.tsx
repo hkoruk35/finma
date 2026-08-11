@@ -9,30 +9,30 @@ export const revalidate = 0; // Dynamic route
 
 export const metadata: Metadata = {
   title: "My Watchlist",
-  alternates: { canonical: "https://bogastock.com/global/tr/my-watchlist" }
+  alternates: { canonical: "https://bogastock.com/global/id/my-watchlist" }
 };
 
 
-export default function TrMyWatchlistPage() {
+export default function IdMyWatchlistPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <MemberHeader locale="tr" />
+      <MemberHeader locale="id" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+          <Link href="/global/id/home" className="hover:text-[#3b82f6] transition-colors">Dasbor</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Kişisel Takip</span>
+          <span className="text-white italic">Watchlist Pribadi</span>
         </nav>
 
-        <ListsNavigation locale="tr" activePath="my-watchlist" />
+        <ListsNavigation locale="id" activePath="my-watchlist" />
 
         <div className="relative z-10">
-          <CustomWatchlistTracker locale="tr" />
+          <CustomWatchlistTracker locale="id" />
         </div>
       </main>
 
-      <Footer hidePlatform={true} locale="tr" />
+      <Footer hidePlatform={true} locale="id" />
     </div>
   );
 }

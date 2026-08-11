@@ -3,11 +3,11 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { ct } from "@/lib/copilot/i18n";
 
-const INTL_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
+const INTL_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR", id: "id-ID" };
 
 export async function GET(req: NextRequest) {
   const rawLocale = req.nextUrl.searchParams.get("locale") || "en";
-  const locale = ["tr", "en", "es", "fr", "pt"].includes(rawLocale) ? rawLocale : "en";
+  const locale = ["tr", "en", "es", "fr", "pt", "id"].includes(rawLocale) ? rawLocale : "en";
 
   const supabase = await createSupabaseServerClient();
   const { data: userData, error } = await supabase.auth.getUser();
