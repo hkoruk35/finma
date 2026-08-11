@@ -593,16 +593,17 @@ export default function XStudioPage() {
     }
     // Uretim artik eksik dili otomatik tamir ediyor (bkz. generateContent.ts),
     // ama tarayicida ESKI bir uretimden kalma texts state'i (orn. deploy
-    // sirasinda uretilmis) hala eksik olabilir — bunu sessizce paylasmak
-    // yerine acikca uyarip onay istiyoruz (STLD/APO'da id/pt/tr'nin sessizce
-    // atlanip fark edilmemesi olayindan sonra eklendi).
+    // sirasinda uretilmis, ya da tamirin kendisi basarisiz olmus) hala eksik
+    // olabilir. Onceki surumde bunun icin bir confirm() penceresi vardi ama
+    // kullanici okumadan "Tamam"a basip gecti (TGT'de id yine sessizce
+    // atlandi). Artik onay penceresi YOK — eksik dil varsa paylasim TAMAMEN
+    // engelleniyor, kacis yolu birakmiyoruz. Admin "Kuyruğu Doldur"dan bu
+    // ogeyi tekrar uretmek zorunda.
     const missingLocales = LOCALES.filter((loc) => !targets.includes(loc));
-    if (
-      missingLocales.length > 0 &&
-      !confirm(
-        `Şu dillerde metin YOK: ${missingLocales.map((l) => l.toUpperCase()).join(", ")}. Sadece ${targets.map((l) => l.toUpperCase()).join(", ")} paylaşılacak. Devam etmeden önce "Kuyruğu Doldur"dan bu öğeyi tekrar üretmeyi düşünün. Yine de devam edilsin mi?`
-      )
-    ) {
+    if (missingLocales.length > 0) {
+      setError(
+        `⛔ PAYLAŞILAMAZ — şu dillerde metin YOK: ${missingLocales.map((l) => l.toUpperCase()).join(", ")}. Önce bu ögeyi tekrar üretin (aynı ticker'a tekrar tıklayın), TÜM diller dolmadan paylaşamazsınız.`
+      );
       return;
     }
     setBusy(true);
