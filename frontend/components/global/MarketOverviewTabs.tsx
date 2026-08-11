@@ -48,7 +48,10 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
         })}
       </div>
 
-      <div className="flex md:grid md:grid-cols-5 gap-2.5 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-1">
+      <div
+        className="flex md:grid gap-2.5 md:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-1"
+        style={{ gridTemplateColumns: `repeat(${activeGroup.items.length}, minmax(0, 1fr))` }}
+      >
         {activeGroup.items.map((item) => {
           const changePct = item.quote?.change_pct ?? 0;
           const positive = changePct >= 0;

@@ -23,6 +23,7 @@ export type IndexSymbol =
   | "SHANGHAI"
   | "KOSPI"
   | "NIFTY50"
+  | "IHSG"
   | "ASX200"
   | "BOVESPA"
   | "IPCMEXICO"
@@ -172,6 +173,13 @@ export const INDEX_DEFINITIONS: Record<IndexSymbol, IndexDefinition> = {
     region: "asia",
     yahooTicker: "^NSEI",
     names: { en: "Nifty 50", tr: "Nifty 50", es: "Nifty 50", fr: "Nifty 50", pt: "Nifty 50", id: "Nifty 50" },
+  },
+  IHSG: {
+    symbol: "IHSG",
+    slug: "ihsg",
+    region: "asia",
+    yahooTicker: "^JKSE",
+    names: { en: "IHSG", tr: "IHSG", es: "IHSG", fr: "IHSG", pt: "IHSG", id: "IHSG" },
   },
   ASX200: {
     symbol: "ASX200",
