@@ -294,6 +294,30 @@ def supabase_upsert(table: str, row: dict) -> None:
         raise RuntimeError(f"Supabase upsert HTTP {res.status_code} ({table}): {res.text[:500]}")
 
 
+def supabase_patch(table: str, filters: dict, payload: dict) -> None:
+    """Var olan satirin SADECE verilen alanlarini gunceller (PostgREST PATCH).
+
+    supabase_upsert tum satiri POST ettigi icin, sadece bir kac alani
+    duzeltmek istendiginde geri kalan kolonlari da yeniden yazmak gerekiyordu.
+    Narrative backfill'inde fiyat/quant kolonlarina DOKUNULMAMASI sart —
+    aksi halde 13:00'te uretilmis bir "midday" satirinin uzerine kapanis
+    sonrasi fiyatlar yazilir (bkz. index_narrative_backfill.py).
+    """
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        raise RuntimeError("Supabase env degiskenleri eksik (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_KEY)")
+    if not filters:
+        raise ValueError("supabase_patch: filtresiz PATCH tum tabloyu gunceller — filters zorunlu.")
+    res = requests.patch(
+        f"{SUPABASE_URL}/rest/v1/{table}",
+        headers=supabase_headers(),
+        params=filters,
+        data=json.dumps(payload, default=str),
+        timeout=30,
+    )
+    if res.status_code not in (200, 204):
+        raise RuntimeError(f"Supabase patch HTTP {res.status_code} ({table}): {res.text[:500]}")
+
+
 def supabase_select(table: str, params: dict) -> list[dict]:
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return []
