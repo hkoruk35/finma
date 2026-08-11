@@ -20,6 +20,7 @@ export function translateSignal(signal: string | null | undefined, locale: Local
     es: { STRONG: "FUERTE", WATCH: "VIGILAR", HOLD: "MANTENER", WEAK: "DÉBIL" },
     fr: { STRONG: "FORT", WATCH: "SURVEILLER", HOLD: "CONSERVER", WEAK: "FAIBLE" },
     pt: { STRONG: "FORTE", WATCH: "OBSERVAR", HOLD: "MANTER", WEAK: "FRACO" },
+    id: { STRONG: "KUAT", WATCH: "PANTAU", HOLD: "PERTAHANKAN", WEAK: "LEMAH" },
   };
   return (signalMap[locale] ?? signalMap.en)[signal] ?? signal;
 }
