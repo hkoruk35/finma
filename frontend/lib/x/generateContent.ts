@@ -215,5 +215,70 @@ Write like a real market analyst posting casually to followers, not like an AI. 
 
   const parsed = tryParseJSON(rawText);
   if (!parsed) throw new Error("AI response was not valid JSON");
+
+  // Model sicakligi (0.8) 6 dilin HEPSINI garanti etmiyor — bazen JSON'da
+  // bir locale (genelde en yeni eklenen, orn. "id") sessizce eksik kaliyor.
+  // Bu, admin panelinde "5 dilde paylasti, 6.si atlandi" gibi sessiz veri
+  // kaybina yol aciyordu (bkz. 2026-08-11 Endonezce X Studio hatasi). Eksik
+  // varsa, mevcut iyi metinlerden birini referans alip SADECE eksik dil(ler)i
+  // ayri, kucuk bir cagriyla tamamlariz — tum 6 diyi yeniden uretmek hem
+  // maliyetli hem de zaten iyi olan metinleri gereksiz yere degistirebilir.
+  const missing = LOCALES.filter((l) => typeof parsed[l] !== "string" || !parsed[l].trim());
+  if (missing.length > 0) {
+    console.warn(`[x/generateContent] AI response missing locale(s): ${missing.join(", ")} — attempting repair.`);
+    const referenceLocale = LOCALES.find((l) => typeof parsed[l] === "string" && parsed[l].trim());
+    const referenceText = referenceLocale ? parsed[referenceLocale] : null;
+
+    if (referenceText) {
+      const repairPrompt = `Translate the following text (already in ${referenceLocale}) naturally into ${missing.join(", ")}. Preserve any cashtags (e.g. $AAPL) exactly as-is.
+
+Text:
+"${referenceText}"
+
+Return a JSON object with keys: ${missing.join(", ")}, mapping each to the translated text. No explanation, no markdown — first character must be { and last must be }.`;
+
+      try {
+        let repairRaw = "";
+        try {
+          const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
+          if (!deepseekApiKey) throw new Error("DEEPSEEK_API_KEY not configured");
+          const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https://api.deepseek.com" });
+          const { text } = await generateText({
+            model: deepseekProvider("deepseek-v4-flash"),
+            system: systemInstruction,
+            prompt: repairPrompt,
+            temperature: 0.6,
+          });
+          repairRaw = text || "";
+        } catch {
+          if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not configured");
+          const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+          const response = await ai.models.generateContent({
+            model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+            contents: repairPrompt,
+            config: { systemInstruction, temperature: 0.6 },
+          });
+          repairRaw = response.text || "";
+        }
+
+        const repaired = tryParseJSON(repairRaw);
+        if (repaired) {
+          for (const locale of missing) {
+            if (typeof repaired[locale] === "string" && repaired[locale].trim()) {
+              parsed[locale] = repaired[locale];
+            }
+          }
+        }
+      } catch (repairErr: any) {
+        console.error("[x/generateContent] repair pass failed:", repairErr?.message || repairErr);
+      }
+    }
+
+    const stillMissing = LOCALES.filter((l) => typeof parsed[l] !== "string" || !parsed[l].trim());
+    if (stillMissing.length > 0) {
+      throw new Error(`AI response missing text for: ${stillMissing.join(", ")} (repair attempt also failed)`);
+    }
+  }
+
   return parsed as Record<Locale, string>;
 }
