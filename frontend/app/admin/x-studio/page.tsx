@@ -591,6 +591,20 @@ export default function XStudioPage() {
       setError("Önce metin üretin.");
       return;
     }
+    // Uretim artik eksik dili otomatik tamir ediyor (bkz. generateContent.ts),
+    // ama tarayicida ESKI bir uretimden kalma texts state'i (orn. deploy
+    // sirasinda uretilmis) hala eksik olabilir — bunu sessizce paylasmak
+    // yerine acikca uyarip onay istiyoruz (STLD/APO'da id/pt/tr'nin sessizce
+    // atlanip fark edilmemesi olayindan sonra eklendi).
+    const missingLocales = LOCALES.filter((loc) => !targets.includes(loc));
+    if (
+      missingLocales.length > 0 &&
+      !confirm(
+        `Şu dillerde metin YOK: ${missingLocales.map((l) => l.toUpperCase()).join(", ")}. Sadece ${targets.map((l) => l.toUpperCase()).join(", ")} paylaşılacak. Devam etmeden önce "Kuyruğu Doldur"dan bu öğeyi tekrar üretmeyi düşünün. Yine de devam edilsin mi?`
+      )
+    ) {
+      return;
+    }
     setBusy(true);
     setError("");
     const failed: string[] = [];
