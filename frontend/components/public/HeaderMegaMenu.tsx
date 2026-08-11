@@ -11,7 +11,7 @@ interface MenuChild {
 }
 
 interface MenuGroup {
-  key: "markets" | "watchlist" | "news" | "analysis" | "brokers";
+  key: "markets" | "watchlist" | "news" | "analysis";
   label: string;
   href: string;
   children?: MenuChild[];
@@ -109,16 +109,6 @@ function buildGroups(locale: Locale): MenuGroup[] {
         { label: t.futuresAnalysis, href: g("/home") },
       ],
     },
-    {
-      key: "brokers",
-      label: t.brokers,
-      href: g("/brokers"),
-      children: [
-        { label: t.stockBrokers, href: g("/brokers#stock") },
-        { label: t.fxBrokers, href: g("/brokers#fx") },
-        { label: t.cryptoBrokers, href: g("/brokers#crypto") },
-      ],
-    },
   ];
 }
 
@@ -155,7 +145,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
             <div key={group.key} className="relative" onMouseEnter={() => setHoveredKey(group.key)} onMouseLeave={() => setHoveredKey(null)}>
               <Link
                 href={group.href}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
               >
                 <span>{label.toLocaleUpperCase(locale)}</span>
                 {group.children && <span className="text-[8px] text-[#38bdf8]">▾</span>}
