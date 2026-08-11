@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-08-11T14:06:20.252030-04:00",
+  "generated_at": "2026-08-11T17:04:00.628131-04:00",
   "picks": [
     {
       "ticker": "ZETA",
       "sector": "Technology",
       "date_added": "2026-08-10",
       "score": 47.0
-    },
-    {
-      "ticker": "TGT",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-10",
-      "score": 50.0
     },
     {
       "ticker": "APO",
@@ -32,20 +26,8 @@
       "score": 41.0
     },
     {
-      "ticker": "ARIS",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-10",
-      "score": 40.0
-    },
-    {
       "ticker": "CAMT",
       "sector": "Technology",
-      "date_added": "2026-08-11",
-      "score": 49.0
-    },
-    {
-      "ticker": "EC",
-      "sector": "Energy",
       "date_added": "2026-08-11",
       "score": 49.0
     },
@@ -54,18 +36,6 @@
       "sector": "Financial Services",
       "date_added": "2026-08-11",
       "score": 41.5
-    },
-    {
-      "ticker": "NTAP",
-      "sector": "Technology",
-      "date_added": "2026-08-11",
-      "score": 40.0
-    },
-    {
-      "ticker": "FCX",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-11",
-      "score": 38.5
     },
     {
       "ticker": "VSEC",
@@ -78,6 +48,24 @@
       "sector": "Energy",
       "date_added": "2026-08-11",
       "score": 33.0
+    },
+    {
+      "ticker": "MGY",
+      "sector": "Energy",
+      "date_added": "2026-08-11",
+      "score": 43.4
+    },
+    {
+      "ticker": "GWW",
+      "sector": "Industrials",
+      "date_added": "2026-08-11",
+      "score": 42.5
+    },
+    {
+      "ticker": "DK",
+      "sector": "Energy",
+      "date_added": "2026-08-11",
+      "score": 36.5
     }
   ]
 }
