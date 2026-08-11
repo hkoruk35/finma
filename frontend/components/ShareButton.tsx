@@ -16,6 +16,7 @@ const LABELS: Record<Locale, { share: string; copyLink: string; linkCopied: stri
   es: { share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!" },
   fr: { share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !" },
   pt: { share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!" },
+  id: { share: "Bagikan", copyLink: "Salin tautan", linkCopied: "Tautan disalin!" },
 };
 
 export default function ShareButton({ locale, shareText, url, accent = "#3b82f6" }: ShareButtonProps) {

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import AIContainer from "@/components/AIContainer";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "BogaSmart — Búsqueda Inteligente",
   fr: "BogaSmart — Recherche Intelligente",
   pt: "BogaSmart — Busca Inteligente",
+  id: "BogaSmart — Pencarian Cerdas",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Pregunta a BogaSmart sobre mercados, empresas o acciones y obtén un análisis profundo instantáneo respaldado por datos en tiempo real.",
   fr: "Posez vos questions à BogaSmart sur les marchés, les entreprises ou les actions et obtenez une analyse approfondie instantanée basée sur des données en temps réel.",
   pt: "Pergunte a BogaSmart sobre mercados, empresas ou ações e obtenha uma análise profunda instantânea com dados em tempo real.",
+  id: "Tanyakan pada BogaSmart tentang pasar, perusahaan, atau saham dan dapatkan analisis mendalam instan yang didukung data real-time.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

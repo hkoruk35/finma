@@ -116,6 +116,22 @@ const I18N = {
     clickPrompt: "Clique em uma pergunta para iniciar o chat",
     loading: "Carregando...",
   },
+  id: {
+    title: "Portal Cuaca Cerdas",
+    subtitle: "Prakiraan regional terperinci, wawasan iklim, dan kueri pasar terkait cuaca.",
+    searchCity: "Cari Kota...",
+    useLocation: "Gunakan Lokasi Saya",
+    details: "Pengukuran Terperinci",
+    humidity: "Kelembapan",
+    wind: "Kecepatan Angin",
+    feelsLike: "Terasa Seperti",
+    pressure: "Tekanan Udara",
+    uvIndex: "Indeks UV",
+    forecast: "Prakiraan 3 Hari",
+    suggestedQueries: "Cuaca & Analisis Pasar AI",
+    clickPrompt: "Klik Pertanyaan untuk Memulai Obrolan",
+    loading: "Memuat...",
+  },
 };
 
 const DYNAMIC_PROMPTS = (city: string) => {
@@ -150,6 +166,12 @@ const DYNAMIC_PROMPTS = (city: string) => {
       `Recomendações de atividades ao ar livre com base no clima futuro em ${cleanCity}?`,
       "Qual é o impacto das ondas de calor globais nas ações de agricultura e alimentação?",
       "Analise o impacto financeiro de tempestades e furacões nas seguradoras."
+    ],
+    id: [
+      `Apakah saya perlu membawa payung di ${cleanCity} hari ini? Berikan panduan pakaian yang sesuai.`,
+      `Rekomendasi aktivitas luar ruangan berdasarkan prakiraan cuaca mendatang di ${cleanCity}?`,
+      "Apa dampak gelombang panas global terhadap saham pertanian dan pangan?",
+      "Analisis beban keuangan badai besar dan topan terhadap perusahaan asuransi."
     ]
   };
 };

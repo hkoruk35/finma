@@ -157,6 +157,22 @@ const LABELS: Record<Locale, Record<string, string>> = {
     fvg: "Fair Value Gap", sd: "Oferta e Demanda", candlePat: "PadrÃµes de Velas", chartPat: "PadrÃµes AutomÃ¡ticos",
     fibonacci: "Fibonacci AutomÃ¡tico", trendLine: "Linha de TendÃªncia Auto", horizontalLine: "Linha Horizontal Auto",
   },
+  id: {
+    liveChart: "Grafik Langsung", expand: "PERLUAS", collapse: "CIUTKAN",
+    ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
+    rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bands", vwap: "VWAP", sr: "Support/Resistance",
+    volumeProfile: "Profil Volume",
+    entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
+    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Garis", ohlc: "OHLC",
+    share: "Bagikan", copyLink: "Salin tautan", linkCopied: "Tautan disalin!",
+    vol: "Vol", indicators: "Indikator", premiumRequired: "Keanggotaan Premium diperlukan",
+    multiChartScreen: "Layar Multi-Grafik", charts: "Grafik",
+    catTrend: "Tren", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Struktur Pasar", catPatterns: "Pola", catDrawings: "Alat Gambar",
+    autoChartPatterns: "Pola Grafik Otomatis", basicCandlePatterns: "Pola Candlestick Dasar",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilitas", atr: "ATR", volume: "Volume", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Supply & Demand", candlePat: "Pola Candlestick", chartPat: "Pola Otomatis",
+    fibonacci: "Fibonacci Otomatis", trendLine: "Garis Tren Otomatis", horizontalLine: "Garis Horizontal Otomatis",
+  },
 };
 
 // Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki

@@ -26,6 +26,7 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
   es: { dashboard: "Panel", loading: "Cargando..." },
   fr: { dashboard: "Tableau de bord", loading: "Chargement..." },
   pt: { dashboard: "Painel", loading: "Carregando..." },
+  id: { dashboard: "Dasbor", loading: "Memuat..." },
 };
 
 // Grafik sayfasindan evergreen /global/{locale}/{indexSlug} endeks analiz
@@ -53,6 +54,10 @@ const INDEX_BANNER_LABELS: Record<Locale, { text: (name: string) => string; cta:
     text: (name) => `Quer a análise quantitativa diária e semanal completa do ${name}?`,
     cta: "Análise Atual →",
   },
+  id: {
+    text: (name) => `Ingin analisis kuantitatif harian & mingguan lengkap untuk ${name}?`,
+    cta: "Analisis Terkini →",
+  },
 };
 
 const SHORTCUT_LABELS: Record<Locale, { trend: string; candidates: string; top7: string; top100: string; myWatchlist: string }> = {
@@ -61,6 +66,7 @@ const SHORTCUT_LABELS: Record<Locale, { trend: string; candidates: string; top7:
   es: { trend: "TENDENCIA", candidates: "CANDIDATAS", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MI LISTA" },
   fr: { trend: "TENDANCE", candidates: "CANDIDATES", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MA LISTE" },
   pt: { trend: "TENDÊNCIA", candidates: "CANDIDATAS", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MINHA LISTA" },
+  id: { trend: "TREN", candidates: "KANDIDAT WATCHLIST", top7: "TOP 7", top100: "TOP 100", myWatchlist: "WATCHLIST SAYA" },
 };
 
 const SECTOR_TRANSLATIONS: Record<Locale, Record<string, string>> = {
@@ -138,6 +144,26 @@ const SECTOR_TRANSLATIONS: Record<Locale, Record<string, string>> = {
     "real estate": "MERCADO IMOBILIÁRIO",
     "utilities": "SERVIÇOS PÚBLICOS",
     "communication services": "SERVIÇOS DE COMUNICAÇÃO"
+  },
+  id: {
+    "us equity markets": "PASAR SAHAM AS",
+    "technology": "TEKNOLOGI",
+    "energy": "ENERGI",
+    "financials": "KEUANGAN",
+    "financial services": "LAYANAN KEUANGAN",
+    "healthcare": "KESEHATAN",
+    "consumer discretionary": "KONSUMEN SIKLIKAL",
+    "consumer cyclical": "KONSUMEN SIKLIKAL",
+    "consumer staples": "KONSUMEN PRIMER",
+    "consumer defensive": "KONSUMEN DEFENSIF",
+    "industrials": "INDUSTRI",
+    "materials": "BAHAN BAKU",
+    "basic materials": "BAHAN BAKU DASAR",
+    "real estate": "PROPERTI",
+    "utilities": "UTILITAS",
+    "communication services": "LAYANAN KOMUNIKASI",
+    "etf": "ETF",
+    "equity": "SAHAM"
   }
 };
 

@@ -3,7 +3,7 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
-type Locale = "en" | "tr" | "es" | "fr" | "pt";
+type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
 export const metadata: Metadata = {
   title: "Sitemap",
@@ -15,6 +15,7 @@ const SITEMAP_TITLES: Record<Locale, string> = {
   es: "Mapa del Sitio",
   fr: "Plan du Site",
   pt: "Mapa do Site",
+  id: "Peta Situs",
 };
 
 const SECTION_LABELS: Record<Locale, Record<string, string>> = {
@@ -23,6 +24,7 @@ const SECTION_LABELS: Record<Locale, Record<string, string>> = {
   es: { main: "Páginas Principales", tools: "Herramientas y Análisis", legal: "Legal e Información" },
   fr: { main: "Pages Principales", tools: "Outils et Analyse", legal: "Légal et Infos" },
   pt: { main: "Páginas Principais", tools: "Ferramentas e Análise", legal: "Legal e Informações" },
+  id: { main: "Halaman Utama", tools: "Alat & Analisis", legal: "Legal & Info" },
 };
 
 export default function SitemapPage({ params: { locale } }: { params: { locale: Locale } }) {

@@ -71,6 +71,12 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
       desc: "Para a melhor experiência no TERMINAL, é recomendado o uso de um computador (PC).",
       confirm: "Continuar",
       cancel: "Cancelar"
+    },
+    id: {
+      title: "Pemberitahuan Penggunaan TERMINAL",
+      desc: "Untuk pengalaman TERMINAL terbaik dan paling lengkap, disarankan menggunakan komputer (PC).",
+      confirm: "Lanjutkan",
+      cancel: "Batal"
     }
   }[locale] ?? {
     title: "TERMINAL Experience Notice",

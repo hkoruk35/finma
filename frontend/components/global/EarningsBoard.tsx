@@ -114,6 +114,19 @@ const LABELS: Record<Locale, {
     filterTicker: "Pesquisar Ticker (ex: AAPL)",
     daily: "Diário", weekly: "Semanal", monthly: "Mensal", all: "Período",
   },
+  id: {
+    title: "Analisis Laba Perusahaan",
+    subtitle: "Analisis laporan keuangan perusahaan bertenaga AI, berdasarkan data SEC EDGAR.",
+    viewCalendar: "Lihat Kalender Laba →",
+    empty: "Belum ada laporan laba yang diproses sesuai kriteria ini.",
+    loading: "Memuat...",
+    revenue: "Pendapatan", eps: "EPS", score: "Skor BOGA AI",
+    keyTakeaways: "Poin Utama", bullish: "Sinyal Bullish", bearish: "Sinyal Bearish",
+    source: "Sumber: SEC EDGAR",
+    loadMore: "Muat Lebih Banyak",
+    filterTicker: "Cari Ticker (cth: AAPL)",
+    daily: "Hari", weekly: "Minggu", monthly: "Bulan", all: "Periode",
+  },
 };
 
 export default function EarningsBoard({ locale }: { locale: Locale }) {

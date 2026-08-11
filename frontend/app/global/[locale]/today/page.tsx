@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import TodayDashboardClient from "@/components/global/TodayDashboardClient";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "¿Qué pasa hoy? — BogaSmart",
   fr: "Aujourd'hui — BogaSmart",
   pt: "O que está acontecendo hoje — BogaSmart",
+  id: "Apa yang Terjadi Hari Ini — BogaSmart",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Su panel de resumen diario con índices de mercado, datos de bolsa en vivo, clima actual, puntajes deportivos y noticias globales.",
   fr: "Votre tableau de bord quotidien comprenant les indices boursiers, la météo, les scores sportifs et l'actualité mondiale.",
   pt: "Seu painel de resumo diário com índices de mercado, clima atual, placares esportivos e principais notícias globais.",
+  id: "Dasbor ringkasan harian Anda yang menampilkan indeks pasar, data saham langsung, cuaca terkini, skor olahraga, dan berita utama dunia.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

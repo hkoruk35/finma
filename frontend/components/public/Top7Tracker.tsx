@@ -133,9 +133,9 @@ const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LAB
 export type TrackerMode = "top7" | "gainers" | "losers" | "mostActive";
 
 const MODE_TITLES: Record<Exclude<TrackerMode, "top7">, Record<Locale, string>> = {
-  gainers: { tr: "EN ÇOK ARTANLAR", en: "TOP GAINERS", es: "MAYORES ALZAS", fr: "PLUS FORTES HAUSSES", pt: "MAIORES ALTAS" },
-  losers: { tr: "EN ÇOK DÜŞENLER", en: "TOP LOSERS", es: "MAYORES BAJAS", fr: "PLUS FORTES BAISSES", pt: "MAIORES BAIXAS" },
-  mostActive: { tr: "EN ÇOK İŞLEM GÖRENLER", en: "MOST ACTIVE", es: "MÁS NEGOCIADAS", fr: "PLUS ÉCHANGÉES", pt: "MAIS NEGOCIADAS" },
+  gainers: { tr: "EN ÇOK ARTANLAR", en: "TOP GAINERS", es: "MAYORES ALZAS", fr: "PLUS FORTES HAUSSES", pt: "MAIORES ALTAS", id: "KENAIKAN TERBESAR" },
+  losers: { tr: "EN ÇOK DÜŞENLER", en: "TOP LOSERS", es: "MAYORES BAJAS", fr: "PLUS FORTES BAISSES", pt: "MAIORES BAIXAS", id: "PENURUNAN TERBESAR" },
+  mostActive: { tr: "EN ÇOK İŞLEM GÖRENLER", en: "MOST ACTIVE", es: "MÁS NEGOCIADAS", fr: "PLUS ÉCHANGÉES", pt: "MAIS NEGOCIADAS", id: "PALING AKTIF" },
 };
 
 const trackerTitle = (mode: TrackerMode, locale: Locale) => (mode === "top7" ? "TOP 7" : MODE_TITLES[mode][locale]);

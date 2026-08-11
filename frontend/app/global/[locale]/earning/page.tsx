@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import EarningsBoard from "@/components/global/EarningsBoard";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "Resultados Financieros (Earnings) — BogaStock",
   fr: "Résultats Financiers (Earnings) — BogaStock",
   pt: "Resultados Financeiros (Earnings) — BogaStock",
+  id: "Laba (Earnings) — BogaStock",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Análisis de estados financieros corporativos impulsado por IA, basado en datos de SEC EDGAR.",
   fr: "Analyse des états financiers d'entreprise assistée par IA, basée sur les données de la SEC EDGAR.",
   pt: "Análise de demonstrações financeiras corporativas com IA, baseada em dados da SEC EDGAR.",
+  id: "Analisis laporan keuangan perusahaan bertenaga AI, berdasarkan data SEC EDGAR.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

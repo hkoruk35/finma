@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import DiscoverDashboardClient from "@/components/global/DiscoverDashboardClient";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "Descubrir — BogaSmart",
   fr: "Découvrir — BogaSmart",
   pt: "Descobrir — BogaSmart",
+  id: "Discover — BogaSmart",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Temas de IA y consultas de búsqueda personalizadas según sus intereses.",
   fr: "Sujets d'IA et requêtes de recherche personnalisés selon vos intérêts.",
   pt: "Temas de IA e consultas de busca personalizadas com base em seus interesses.",
+  id: "Topik AI dan kueri pencarian yang dipersonalisasi berdasarkan minat Anda.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

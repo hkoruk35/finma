@@ -9,6 +9,7 @@ const STRINGS: Record<Locale, { title: string; all: string; revenue: string; eps
   es: { title: "Últimos Resultados", all: "TODO", revenue: "Ingr.", eps: "BPA" },
   fr: { title: "Derniers Résultats", all: "TOUT", revenue: "CA", eps: "BPA" },
   pt: { title: "Resultados Recentes", all: "TODOS", revenue: "Rec.", eps: "LPA" },
+  id: { title: "Analisis Laba Terbaru", all: "SEMUA", revenue: "Pend.", eps: "EPS" },
 };
 
 async function getRecent(locale: Locale) {

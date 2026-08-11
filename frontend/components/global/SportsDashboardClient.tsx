@@ -66,6 +66,16 @@ const I18N = {
     loading: "Carregando notícias...",
     noNews: "Nenhuma notícia esportiva encontrada.",
   },
+  id: {
+    title: "Portal Olahraga Cerdas",
+    subtitle: "Klub olahraga yang Anda ikuti, berita terkini, dan wawasan olahraga AI.",
+    myTeams: "Tim yang Saya Ikuti",
+    sportsNews: "Berita Olahraga Terbaru",
+    suggestedQueries: "Pertanyaan Olahraga yang Disarankan",
+    clickPrompt: "Klik Pertanyaan untuk Memulai Obrolan",
+    loading: "Memuat berita...",
+    noNews: "Tidak ada berita olahraga ditemukan.",
+  },
 };
 
 const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
@@ -75,6 +85,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Rumores de transferencia más recientes y profundidad del equipo de Fenerbahce", "Análisis táctico del partido reciente de Fenerbahce"],
     fr: ["Dernières rumeurs de transfert et profondeur de l'effectif de Fenerbahce", "Analyse tactique du dernier match de Fenerbahce"],
     pt: ["Últimos rumores de transferência e elenco do Fenerbahce", "Análise tática da partida recente do Fenerbahce"],
+    id: ["Rumor transfer terbaru dan kedalaman skuad Fenerbahce", "Analisis taktik pertandingan terakhir Fenerbahce"],
   },
   "Galatasaray": {
     tr: ["Galatasaray'ın sakatlık raporu ve gelecek maç kadro planı", "Galatasaray'ın mali borç yapısı ve sponsorluk gelirleri"],
@@ -82,6 +93,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Actualizaciones de lesiones de Galatasaray y alineación para el próximo partido", "Estructura de deuda financiera e ingresos por patrocinio de Galatasaray"],
     fr: ["Mises à jour sur les blessures de Galatasaray et composition du prochain match", "Structure financière de la dette de Galatasaray et revenus de sponsoring"],
     pt: ["Atualizações de lesões do Galatasaray e escalação para o próximo jogo", "Estrutura financeira da dívida do Galatasaray e receitas de patrocínio"],
+    id: ["Update cedera Galatasaray dan rencana susunan pemain untuk laga berikutnya", "Struktur utang keuangan Galatasaray dan pendapatan sponsor"],
   },
   "Beşiktaş": {
     tr: ["Beşiktaş'ın yeni sezondaki genç oyuncu yapılanması", "Beşiktaş'ın stadyum gelirleri ve bütçe analizi"],
@@ -89,6 +101,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Estrategia de integración de la academia juvenil de Besiktas para la nueva temporada", "Análisis del presupuesto e ingresos del estadio de Besiktas"],
     fr: ["Stratégie d'intégration des jeunes du centre de formation de Besiktas", "Revenus du stade de Besiktas et analyse budgétaire"],
     pt: ["Estratégia de integração da academia de juniores do Besiktas para a nova temporada", "Receitas do estádio do Besiktas e análise orçamentária"],
+    id: ["Strategi integrasi akademi muda Besiktas untuk musim baru", "Pendapatan stadion Besiktas dan analisis anggaran"],
   },
   "Real Madrid": {
     tr: ["Real Madrid'in Şampiyonlar Ligi'ndeki şampiyonluk olasılık analizi", "Kylian Mbappe'nin Real Madrid'e taktiksel uyum raporu"],
@@ -96,6 +109,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Análisis de la probabilidad de campeonato de Champions League de Real Madrid", "Informe del encaje táctico de Kylian Mbappé en el Real Madrid"],
     fr: ["Analyse de probabilité de titre du Real Madrid en Ligue des Champions", "Rapport d'intégration tactique de Kylian Mbappé au Real Madrid"],
     pt: ["Análise da probabilidade de título do Real Madrid na Champions League", "Relatório de adaptação tática de Kylian Mbappé no Real Madrid"],
+    id: ["Analisis probabilitas juara Liga Champions untuk Real Madrid", "Laporan kecocokan taktis Kylian Mbappe di Real Madrid"],
   },
   "Barcelona": {
     tr: ["Barcelona'nın La Masia akademisindeki yeni yetenekler", "Barcelona'nın finansal Fair Play limiti ve transfer engeli durumu"],
@@ -103,6 +117,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Nuevos talentos emergentes en la academia La Masia del Barcelona", "Límites del juego limpio financiero de Barcelona y restricciones de transferencia"],
     fr: ["Les talents émergents de l'académie La Masia du FC Barcelone", "Statut du fair-play financier de Barcelone et restrictions de transfert"],
     pt: ["Novos talentos em ascensão na academia La Masia do Barcelona", "Situação do fair play financeiro do Barcelona e restrições de transferência"],
+    id: ["Talenta muda yang bersinar di akademi La Masia Barcelona", "Status batas Fair Play finansial Barcelona dan pembatasan transfer"],
   },
   "Lakers": {
     tr: ["LA Lakers'ın güncel sakatlık durumu ve NBA playoff analizi", "Lakers'ın yeni sezon draft ve serbest oyuncu stratejisi"],
@@ -110,6 +125,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Actualizaciones de lesiones de LA Lakers y análisis de la postemporada de la NBA", "Próximos planes de draft y objetivos de agentes libres de los Lakers"],
     fr: ["Point sur les blessures des LA Lakers et analyse pour les playoffs NBA", "Prochains plans de draft des Lakers et cibles d'agents libres"],
     pt: ["Atualizações de lesões do LA Lakers e análise dos playoffs da NBA", "Próximos planos de draft dos Lakers e alvos de agentes livres"],
+    id: ["Update cedera LA Lakers dan analisis peluang playoff NBA", "Rencana draft berikutnya dan target agen bebas Lakers"],
   },
   "Celtics": {
     tr: ["Boston Celtics'in savunma verimliliği ve hücum şemaları", "Celtics kadro derinliği ve maaş bütçesi sınırları"],
@@ -117,6 +133,7 @@ const SUGGESTIONS: Record<Team, Record<Locale, string[]>> = {
     es: ["Calificación de eficiencia defensiva de Boston Celtics y esquemas ofensivos", "Profundidad del roster de los Celtics y límites del tope salarial"],
     fr: ["Efficacité défensive des Boston Celtics et systèmes offensifs", "Profondeur de l'effectif des Celtics et structure du plafond salarial"],
     pt: ["Classificação de eficiência defensiva e esquemas ofensivos do Boston Celtics", "Profundidade do elenco do Celtics e estrutura do teto salarial"],
+    id: ["Peringkat efisiensi pertahanan dan skema serangan Boston Celtics", "Kedalaman skuad Celtics dan struktur batas gaji"],
   },
 };
 

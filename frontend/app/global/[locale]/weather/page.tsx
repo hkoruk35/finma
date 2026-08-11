@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import WeatherDashboardClient from "@/components/global/WeatherDashboardClient";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "Clima — BogaSmart",
   fr: "Météo — BogaSmart",
   pt: "Clima — BogaSmart",
+  id: "Cuaca — BogaSmart",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Detalles del clima regional, pronósticos de 3 días y análisis de mercado.",
   fr: "Rapports météo régionaux, prévisions sur 3 jours et analyses climatologiques du marché.",
   pt: "Relatórios de clima regional, previsões de 3 dias e análises de mercado associadas ao clima.",
+  id: "Laporan cuaca regional terperinci, prakiraan 3 hari, dan analisis pasar terkait iklim.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -58,6 +58,14 @@ const T: Record<Locale, Record<string, string>> = {
     marketsAnalysis: "Markets", sectorAnalysis: "Análises Setoriais", sectorHeatmap: "Mapa de Calor Setorial", stockAnalysis: "Análises de Ações",
     futuresAnalysis: "Análises de Futuros", stockBrokers: "Brokers de Ações", fxBrokers: "Brokers de Câmbio", cryptoBrokers: "Brokers de Cripto",
   },
+  id: {
+    markets: "Pasar", watchlist: "Watchlist Saya", news: "Berita", analysis: "Analisis", brokers: "Broker",
+    indices: "Indeks", stocksHeading: "Saham", top7: "Top 7", top100: "Top 100", gainers: "Penguat",
+    losers: "Pelemah", trendStocks: "Saham Tren", fx: "Forex", commodity: "Komoditas", crypto: "Kripto", futures: "Futures",
+    stockAnalyses: "Analisis Saham", earnings: "Laba", earningsCalendar: "Kalender Laba", insider: "Aktivitas Insider",
+    marketsAnalysis: "Pasar", sectorAnalysis: "Analisis Sektor", sectorHeatmap: "Peta Panas Sektor", stockAnalysis: "Analisis Saham",
+    futuresAnalysis: "Analisis Futures", stockBrokers: "Broker Saham", fxBrokers: "Broker FX", cryptoBrokers: "Broker Kripto",
+  },
 };
 
 function buildGroups(locale: Locale): MenuGroup[] {

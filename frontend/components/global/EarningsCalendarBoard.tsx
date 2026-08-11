@@ -72,6 +72,15 @@ const LABELS: Record<Locale, {
     estimated: "Data Estimada", confirmed: "Data Confirmada",
     viewEarnings: "Ver Resultados Divulgados →",
   },
+  id: {
+    title: "Kalender Laba",
+    subtitle: "Perusahaan yang diperkirakan melaporkan laba dalam beberapa hari mendatang",
+    empty: "Belum ada laporan laba terjadwal untuk periode ini.",
+    loading: "Memuat...",
+    epsEst: "Estimasi EPS", revEst: "Estimasi Pendapatan",
+    estimated: "Tanggal Perkiraan", confirmed: "Tanggal Dikonfirmasi",
+    viewEarnings: "Lihat Laba yang Dilaporkan →",
+  },
 };
 
 function fmtMoney(n: number | null): string {

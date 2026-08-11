@@ -4,18 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemberSession } from "@/hooks/useMemberSession";
 
-type Locale = "tr" | "en" | "es" | "fr" | "pt";
+type Locale = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
 const HOME_LABEL: Record<Locale, string> = {
-  tr: "Anasayfa", en: "Home", es: "Inicio", fr: "Accueil", pt: "Início",
+  tr: "Anasayfa", en: "Home", es: "Inicio", fr: "Accueil", pt: "Início", id: "Beranda",
 };
 
 const TOP7_LABEL: Record<Locale, string> = {
-  tr: "Top 7", en: "Top 7", es: "Top 7", fr: "Top 7", pt: "Top 7",
+  tr: "Top 7", en: "Top 7", es: "Top 7", fr: "Top 7", pt: "Top 7", id: "Top 7",
 };
 
 const MY_WATCHLIST_LABEL: Record<Locale, string> = {
-  tr: "İzleme Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista",
+  tr: "İzleme Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista", id: "Watchlist Saya",
 };
 
 export default function GlobalBottomNav() {
@@ -28,7 +28,7 @@ export default function GlobalBottomNav() {
 
   // Detect locale from pathname (/global/{locale}/...) — supports all 5 locales
   const segment = pathname.split("/")[2];
-  const locale: Locale = (["tr", "en", "es", "fr", "pt"] as const).includes(segment as Locale)
+  const locale: Locale = (["tr", "en", "es", "fr", "pt", "id"] as const).includes(segment as Locale)
     ? (segment as Locale)
     : "en";
 

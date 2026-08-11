@@ -20,7 +20,8 @@ const NO_PLAN_LABELS: Record<Locale, string> = {
   en: "A trade plan is not calculated for this index/parity or ticker here.",
   es: "No se calcula un plan de operaciones para este índice/paridad o ticker aquí.",
   fr: "Aucun plan de trading n'est calculé pour cet indice/parité ou ticker ici.",
-  pt: "Nenhum plano de negociação é calculado para este índice/paridade ou ticker aqui."
+  pt: "Nenhum plano de negociação é calculado para este índice/paridade ou ticker aqui.",
+  id: "Rencana perdagangan tidak dihitung untuk indeks/pasangan atau ticker ini."
 };
 
 interface PreorderAnalysis {

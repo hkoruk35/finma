@@ -15,10 +15,10 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
 
-  const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
-  const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
-  const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
-  const TODAY_LABEL: Record<Locale, string> = { tr: "Bugün Neler Oluyor", en: "What's Happening Today", es: "¿Qué pasa hoy?", fr: "Aujourd'hui", pt: "O que está acontecendo hoje" };
+  const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar", id: "Tanya" };
+  const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta", id: "Akun" };
+  const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar", id: "Masuk" };
+  const TODAY_LABEL: Record<Locale, string> = { tr: "Bugün Neler Oluyor", en: "What's Happening Today", es: "¿Qué pasa hoy?", fr: "Aujourd'hui", pt: "O que está acontecendo hoje", id: "Apa yang Terjadi Hari Ini" };
   const SLOGAN = "Ask · Discover · Markets";
 
   const getLangHref = (targetLocale: string) => {

@@ -8,10 +8,11 @@ const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
   es: { title: "Análisis de Acciones", all: "TODO", empty: "Aún no hay análisis." },
   fr: { title: "Analyses d'Actions", all: "TOUT", empty: "Pas encore d'analyse." },
   pt: { title: "Análises de Ações", all: "TODOS", empty: "Ainda sem análises." },
+  id: { title: "Analisis Saham", all: "SEMUA", empty: "Belum ada analisis." },
 };
 
 function formatDate(iso: string, locale: Locale): string {
-  const langMap: Record<Locale, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR" };
+  const langMap: Record<Locale, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR", id: "id-ID" };
   const formatted = new Intl.DateTimeFormat(langMap[locale] ?? "en-US", {
     dateStyle: "medium",
     timeStyle: "short",

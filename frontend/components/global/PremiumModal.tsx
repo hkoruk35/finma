@@ -45,6 +45,13 @@ const COPY = {
     cta: "Começar Agora →",
     close: "Fechar",
   },
+  id: {
+    title: "Diperlukan Keanggotaan Premium",
+    desc: "Diperlukan keanggotaan Premium untuk mengakses konten ini. Dapatkan akses tak terbatas ke semua sinyal saham, analisis, dan daftar.",
+    sub: "Harga normal $39/bln",
+    cta: "Mulai Sekarang →",
+    close: "Tutup",
+  },
 };
 
 export default function PremiumModal({ locale, onClose }: Props) {

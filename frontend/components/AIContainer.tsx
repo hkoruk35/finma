@@ -165,7 +165,7 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "tr", locale, variant = "classic" }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt"; variant?: "classic" | "landing" }) {
+export default function AIContainer({ lang = "tr", locale, variant = "classic" }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt" | "id"; variant?: "classic" | "landing" }) {
   const pathname = usePathname();
   const t = (key: keyof typeof TEXTS) => TEXTS[key][(lang === "en" ? "en" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "pt" ? "pt" : "tr")];
   // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the

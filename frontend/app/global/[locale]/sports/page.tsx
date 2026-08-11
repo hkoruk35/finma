@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import SportsDashboardClient from "@/components/global/SportsDashboardClient";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "Deportes — BogaSmart",
   fr: "Sports — BogaSmart",
   pt: "Esportes — BogaSmart",
+  id: "Olahraga — BogaSmart",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Sus clubes deportivos seguidos, noticias en vivo y análisis de IA.",
   fr: "Vos clubs préférés, actualités en direct et analyses de match par IA.",
   pt: "Seus clubes esportivos seguidos, notícias de esportes ao vivo e análises de IA.",
+  id: "Klub olahraga yang Anda ikuti, berita olahraga terkini, dan wawasan olahraga AI.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

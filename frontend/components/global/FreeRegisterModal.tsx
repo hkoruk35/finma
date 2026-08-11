@@ -50,6 +50,14 @@ const COPY = {
     emailBtn: "Registrar-se com E-mail (Grátis)",
     close: "Fechar",
   },
+  id: {
+    badge: "FITUR GRATIS",
+    title: "Tampilan Multi-Layar 4, 6, dan 9",
+    desc: "Pengunjung anonim hanya dapat menggunakan hingga 2 layar. Masuk dengan Google atau buat akun gratis untuk membuka tampilan 4, 6, dan 9 layar!",
+    googleBtn: "Masuk dengan Google (Gratis)",
+    emailBtn: "Daftar dengan Email (Gratis)",
+    close: "Tutup",
+  },
 };
 
 export default function FreeRegisterModal({ locale, onClose }: Props) {

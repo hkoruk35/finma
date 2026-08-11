@@ -33,16 +33,16 @@ export interface TriggerDetail {
   price: number | null;
 }
 
-type ReasoningLang = "tr" | "en" | "es" | "fr" | "pt";
+type ReasoningLang = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
 const CANDLE_TYPE_LABEL: Record<string, Record<ReasoningLang, string>> = {
   BULLISH_ENGULFING: {
     tr: "Boğa Yutan Mum", en: "bullish engulfing candle", es: "vela envolvente alcista",
-    fr: "bougie enveloppante haussière", pt: "candle de engolfo de alta",
+    fr: "bougie enveloppante haussière", pt: "candle de engolfo de alta", id: "candle bullish engulfing",
   },
   BREAKOUT_CANDLE: {
     tr: "Kırılım Mumu", en: "breakout candle", es: "vela de ruptura",
-    fr: "bougie de cassure", pt: "candle de rompimento",
+    fr: "bougie de cassure", pt: "candle de rompimento", id: "candle breakout",
   },
 };
 
@@ -56,6 +56,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
         es: `Disparador de ruptura capturado: ruptura con alto volumen (${formatNumber(td.rvol, 1)}x) > resistencia ($${formatNumber(td.level, 2)})`,
         fr: `Déclencheur de cassure capturé : cassure à fort volume (${formatNumber(td.rvol, 1)}x) > résistance (${formatNumber(td.level, 2)}$)`,
         pt: `Gatilho de rompimento capturado: rompimento com alto volume (${formatNumber(td.rvol, 1)}x) > resistência ($${formatNumber(td.level, 2)})`,
+        id: `Pemicu breakout tertangkap: breakout volume tinggi (${formatNumber(td.rvol, 1)}x) > resistance ($${formatNumber(td.level, 2)})`,
       }[l];
     case "15M_SPRING_BOUNCE":
       if (td.rsi == null) return null;
@@ -65,6 +66,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
         es: `Disparador de rebote (spring) capturado: RSI:${formatNumber(td.rsi, 1)} + MACD girando al alza`,
         fr: `Déclencheur de rebond (spring) capturé : RSI :${formatNumber(td.rsi, 1)} + MACD orienté à la hausse`,
         pt: `Gatilho de repique (spring) capturado: RSI:${formatNumber(td.rsi, 1)} + MACD virando para cima`,
+        id: `Pemicu spring bounce tertangkap: RSI:${formatNumber(td.rsi, 1)} + MACD berbalik naik`,
       }[l];
     case "15M_EMA_CROSS":
       return {
@@ -73,6 +75,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
         es: `Disparador de cruce de EMA capturado: Golden Cross EMA9/20 en el gráfico de 15m`,
         fr: `Déclencheur de croisement d'EMA capturé : Golden Cross EMA9/20 sur le graphique 15m`,
         pt: `Gatilho de cruzamento de EMA capturado: Golden Cross EMA9/20 no gráfico de 15m`,
+        id: `Pemicu EMA Cross tertangkap: Golden Cross EMA9/20 pada grafik 15m`,
       }[l];
     case "BULLISH_ENGULFING":
     case "BREAKOUT_CANDLE": {
@@ -84,6 +87,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
         es: `Power Pullback (${td.n_candles} velas) activado. RSI reiniciado (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volumen ${formatNumber(td.rvol, 1)}x`,
         fr: `Power Pullback (${td.n_candles} bougies) déclenché. RSI réinitialisé (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
         pt: `Power Pullback (${td.n_candles} candles) acionado. RSI resetado (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
+        id: `Power Pullback (${td.n_candles} candle) terpicu. RSI reset (${formatNumber(td.rsi, 0)}). ${candleLabel}. Volume ${formatNumber(td.rvol, 1)}x`,
       }[l];
     }
     case "VOLUME_BREAKOUT":
@@ -94,6 +98,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
         es: `Ruptura por volumen capturada: volumen alcista fuerte (${formatNumber(td.rvol, 1)}x) + ruptura de precio ($${formatNumber(td.price, 2)} > máximo de las últimas 4 velas)`,
         fr: `Cassure sur volume capturée : fort volume haussier (${formatNumber(td.rvol, 1)}x) + cassure de prix (${formatNumber(td.price, 2)}$ > plus haut des 4 dernières bougies)`,
         pt: `Rompimento por volume capturado: forte volume de alta (${formatNumber(td.rvol, 1)}x) + rompimento de preço ($${formatNumber(td.price, 2)} > máxima das últimas 4 velas)`,
+        id: `Volume Breakout tertangkap: volume bullish kuat (${formatNumber(td.rvol, 1)}x) + breakout harga ($${formatNumber(td.price, 2)} > tertinggi 4 candle terakhir)`,
       }[l];
     default:
       return null; // bilinmeyen/yeni bir tip — yanlış dilde göstermektense hiç gösterme
@@ -102,7 +107,7 @@ function buildReasoningSentence(td: TriggerDetail, l: ReasoningLang): string | n
 
 function translateDetailReasoning(triggerDetail: TriggerDetail | null | undefined, locale: Locale): string | null {
   if (!triggerDetail || !triggerDetail.type) return null;
-  const l: ReasoningLang = (["tr", "en", "es", "fr", "pt"] as const).includes(locale as ReasoningLang)
+  const l: ReasoningLang = (["tr", "en", "es", "fr", "pt", "id"] as const).includes(locale as ReasoningLang)
     ? (locale as ReasoningLang)
     : "en";
   return buildReasoningSentence(triggerDetail, l);
@@ -269,6 +274,33 @@ const T: Record<Locale, {
     factorSector: "Momentum Setorial",
     swingLink: "Ver na Página de Tendência",
     watchlistLink: "Ver na Página Watchlist",
+  },
+  id: {
+    title: "Status Strategi Tren BogaStock.com",
+    pendingMessage: "Saham ini ada dalam daftar Tren BogaStock.com dan sedang dipantau. Kami menunggu setup/formasi yang tepat terbentuk untuk peluang yang menguntungkan.",
+    enteredMessage: "Saham ini ada dalam daftar Tren BogaStock.com dan setup entry yang valid telah terpicu.",
+    inWatchlist: "Saham ini sedang dipantau sebagai Kandidat Tren — dapat masuk ke Daftar Tren begitu kondisi teknikal matang.",
+    notTracked: "Setup swing aktif atau formasi pemicu mungkin belum terbentuk untuk saham ini di sistem BogaStock.com.",
+    notTrackedNote: "Sistem analisis BogaStock.com terus memindai pasar saham AS. Saham akan otomatis dipantau begitu memenuhi kriteria breakout dan momentum teknikal yang disyaratkan.",
+    entered: "Zona Entry",
+    pending: "Tunggu",
+    entryZone: "Zona Entry",
+    dateAdded: "Ditambahkan ke pool",
+    reasonLabel: "Alasan",
+    layers: "Konfirmasi Lapisan",
+    tradePlanNote: "Berdasarkan zona Entry, Target, dan Stop Loss pada rencana perdagangan kami di bawah, Anda dapat membuka posisi dengan menyesuaikan risiko Anda.",
+    layer1: "Tren 1D",
+    layer2: "Kualitas 4H",
+    layer3: "Momentum 1H",
+    layer4Pending: "Pemicu 15m: Menunggu",
+    layer4Entered: "Pemicu 15m: Terpicu",
+    factorTrend: "Kualitas Tren 4H",
+    factorMomentum: "Kekuatan RS",
+    factorVolatility: "Kualitas Pullback",
+    factorVolume: "RVOL 1H",
+    factorSector: "Momentum Sektor",
+    swingLink: "Lihat di Halaman Tren",
+    watchlistLink: "Lihat di Halaman Watchlist",
   },
 };
 

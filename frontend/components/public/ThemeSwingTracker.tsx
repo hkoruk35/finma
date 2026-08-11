@@ -80,11 +80,11 @@ function isMarketOpen() {
 const SIGNAL_RANK: Record<string, number> = { STRONG: 4, WATCH: 3, HOLD: 2, WEAK: 1 };
 
 const CHART_DETAIL_LABEL: Record<Locale, string> = {
-  tr: "Grafik Detay ↗", en: "Chart Detail ↗", es: "Detalle de Gráfico ↗", fr: "Détail Graphique ↗", pt: "Detalhe de Gráfico ↗",
+  tr: "Grafik Detay ↗", en: "Chart Detail ↗", es: "Detalle de Gráfico ↗", fr: "Détail Graphique ↗", pt: "Detalhe de Gráfico ↗", id: "Detail Grafik ↗",
 };
 
 const DETAIL_BTN_LABEL: Record<Locale, string> = {
-  tr: "GRAFIK DETAY", en: "CHART DETAIL", es: "DETALLE DE GRÁFICO", fr: "DÉTAIL GRAPHIQUE", pt: "DETALHE DE GRÁFICO",
+  tr: "GRAFIK DETAY", en: "CHART DETAIL", es: "DETALLE DE GRÁFICO", fr: "DÉTAIL GRAPHIQUE", pt: "DETALHE DE GRÁFICO", id: "DETAIL GRAFIK",
 };
 
 const MARKET_STATUS: Record<Locale, { open: string; closed: string }> = {
@@ -93,14 +93,15 @@ const MARKET_STATUS: Record<Locale, { open: string; closed: string }> = {
   es: { open: "mercado abierto", closed: "mercado cerrado" },
   fr: { open: "marché ouvert", closed: "marché fermé" },
   pt: { open: "mercado aberto", closed: "mercado fechado" },
+  id: { open: "pasar buka", closed: "pasar tutup" },
 };
 
 const LAST_UPDATE_LABEL: Record<Locale, string> = {
-  tr: "son güncelleme", en: "last update", es: "última actualización", fr: "dernière mise à jour", pt: "última atualização",
+  tr: "son güncelleme", en: "last update", es: "última actualización", fr: "dernière mise à jour", pt: "última atualização", id: "pembaruan terakhir",
 };
 
 const TICKER_WORD: Record<Locale, string> = {
-  tr: "ticker", en: "tickers", es: "acciones", fr: "titres", pt: "ativos",
+  tr: "ticker", en: "tickers", es: "acciones", fr: "titres", pt: "ativos", id: "saham",
 };
 
 const TAB_LABEL: Record<Locale, { table: string; heatmap: string; refresh: string; refreshing: string }> = {
@@ -109,22 +110,23 @@ const TAB_LABEL: Record<Locale, { table: string; heatmap: string; refresh: strin
   es: { table: "TABLA PRINCIPAL", heatmap: "MAPA DE CALOR", refresh: "ACTUALIZAR", refreshing: "..." },
   fr: { table: "TABLEAU PRINCIPAL", heatmap: "CARTE THERMIQUE", refresh: "ACTUALISER", refreshing: "..." },
   pt: { table: "TABELA PRINCIPAL", heatmap: "MAPA DE CALOR", refresh: "ATUALIZAR", refreshing: "..." },
+  id: { table: "TABEL UTAMA", heatmap: "PETA PANAS", refresh: "SEGARKAN", refreshing: "..." },
 };
 
 const SEARCH_PLACEHOLDER: Record<Locale, string> = {
-  tr: "hisse ara...", en: "search...", es: "buscar...", fr: "rechercher...", pt: "buscar...",
+  tr: "hisse ara...", en: "search...", es: "buscar...", fr: "rechercher...", pt: "buscar...", id: "cari saham...",
 };
 
 const ALL_SIGNALS_LABEL: Record<Locale, string> = {
-  tr: "TÜM SİNYAL", en: "ALL SIGNALS", es: "TODAS LAS SEÑALES", fr: "TOUS SIGNAUX", pt: "TODOS OS SINAIS",
+  tr: "TÜM SİNYAL", en: "ALL SIGNALS", es: "TODAS LAS SEÑALES", fr: "TOUS SIGNAUX", pt: "TODOS OS SINAIS", id: "SEMUA SINYAL",
 };
 
 const ALL_SECTORS_LABEL: Record<Locale, string> = {
-  tr: "TÜM SEKTÖRLER", en: "ALL SECTORS", es: "TODOS LOS SECTORES", fr: "TOUS SECTEURS", pt: "TODOS OS SETORES",
+  tr: "TÜM SEKTÖRLER", en: "ALL SECTORS", es: "TODOS LOS SECTORES", fr: "TOUS SECTEURS", pt: "TODOS OS SETORES", id: "SEMUA SEKTOR",
 };
 
 const ALL_PATTERNS_LABEL: Record<Locale, string> = {
-  tr: "TÜM PATERNLER", en: "ALL PATTERNS", es: "TODOS LOS PATRONES", fr: "TOUS MOTIFS", pt: "TODOS OS PADRÕES",
+  tr: "TÜM PATERNLER", en: "ALL PATTERNS", es: "TODOS LOS PATRONES", fr: "TOUS MOTIFS", pt: "TODOS OS PADRÕES", id: "SEMUA POLA",
 };
 
 const HEATMAP_LEGEND: Record<Locale, string> = {
@@ -133,9 +135,10 @@ const HEATMAP_LEGEND: Record<Locale, string> = {
   es: "Mapa de calor horario Δ% de fin de día — cada celda muestra el cambio de esa hora",
   fr: "Carte thermique horaire Δ% de fin de journée — chaque cellule montre la variation de cette heure",
   pt: "Mapa de calor horário Δ% de fim de dia — cada célula mostra a variação daquela hora",
+  id: "Peta panas Δ% per jam akhir hari — setiap sel menunjukkan perubahan pada jam tersebut",
 };
 
-const DAY_LABEL: Record<Locale, string> = { tr: "GÜN", en: "DAY", es: "DÍA", fr: "JOUR", pt: "DIA" };
+const DAY_LABEL: Record<Locale, string> = { tr: "GÜN", en: "DAY", es: "DÍA", fr: "JOUR", pt: "DIA", id: "HARI" };
 
 const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align: "left" | "right" }[]> = {
   tr: [
@@ -218,10 +221,26 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
     { label: "SINAL (Diário)", key: "signal", align: "right" },
     { label: "DETALHE", key: null, align: "right" },
   ],
+  id: [
+    { label: "TICKER", key: null, align: "left" },
+    { label: "SEKTOR", key: null, align: "left" },
+    { label: "HARGA", key: "price", align: "right" },
+    { label: "Δ% 1H", key: "chg1d", align: "right" },
+    { label: "VOLUME", key: "volume", align: "right" },
+    { label: "RASIO VOL", key: "goran", align: "right" },
+    { label: "EMA20", key: "ema20", align: "right" },
+    { label: "EMA50", key: "ema50", align: "right" },
+    { label: "EMA200", key: "ema200", align: "right" },
+    { label: "STATUS (Tren)", key: null, align: "right" },
+    { label: "RSI", key: "rsi", align: "right" },
+    { label: "POLA (Harian)", key: null, align: "right" },
+    { label: "SINYAL (Harian)", key: "signal", align: "right" },
+    { label: "DETAIL", key: null, align: "right" },
+  ],
 };
 
 const PREMIUM_LABEL: Record<Locale, string> = {
-  tr: "Premium", en: "Premium", es: "Premium", fr: "Premium", pt: "Premium",
+  tr: "Premium", en: "Premium", es: "Premium", fr: "Premium", pt: "Premium", id: "Premium",
 };
 
 const PREMIUM_LOCK_MESSAGE: Record<Locale, string> = {
@@ -230,10 +249,11 @@ const PREMIUM_LOCK_MESSAGE: Record<Locale, string> = {
   es: "La tabla de acciones en vivo de este tema es exclusiva para miembros Premium. El primer tema de la lista superior es de acceso gratuito.",
   fr: "Le tableau boursier en direct de ce thème est réservé aux membres Premium. Le premier thème de la liste ci-dessus est en accès libre.",
   pt: "A tabela de ações ao vivo deste tema é exclusiva para membros Premium. O primeiro tema da lista acima é de acesso gratuito.",
+  id: "Tabel saham langsung untuk tema ini khusus anggota Premium. Tema pertama di daftar atas dapat dijelajahi gratis.",
 };
 
 const PREMIUM_CTA_LABEL: Record<Locale, string> = {
-  tr: "Üye Ol", en: "Sign Up", es: "Regístrate", fr: "S'inscrire", pt: "Cadastre-se",
+  tr: "Üye Ol", en: "Sign Up", es: "Regístrate", fr: "S'inscrire", pt: "Cadastre-se", id: "Daftar",
 };
 
 function registerHrefFor(locale: Locale): string {

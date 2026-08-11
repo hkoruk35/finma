@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useMemberSession } from "@/hooks/useMemberSession";
 
-type Locale = "tr" | "en" | "es" | "fr" | "pt";
+type Locale = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
 function localeFromPathname(pathname: string | null): Locale {
   if (!pathname) return "en";
   const parts = pathname.split("/");
-  if (parts[1] === "global" && ["tr", "en", "es", "fr", "pt"].includes(parts[2])) {
+  if (parts[1] === "global" && ["tr", "en", "es", "fr", "pt", "id"].includes(parts[2])) {
     return parts[2] as Locale;
   }
   return "en";
@@ -191,6 +191,38 @@ function getCopy(locale: Locale) {
         feature_request: "Solicitação de Recurso",
         translation: "Idioma / Tradução",
         other: "Outro",
+      },
+    },
+    id: {
+      trigger: "Masukan",
+      title: "Masukan BOGASTOCK",
+      subtitle: "Masukan, laporan bug, atau saran Anda membantu kami meningkatkan platform.",
+      categoryLabel: "Pilih Topik",
+      categoryPlaceholder: "Pilih topik...",
+      emailLabel: "Email Anda",
+      emailHint: "Digunakan agar kami dapat menanggapi masukan Anda.",
+      messageLabel: "Tulis Masukan Anda",
+      screenshotLabel: "Tangkapan Layar (opsional)",
+      submit: "Kirim",
+      submitting: "Mengirim...",
+      successTitle: "Masukan diterima",
+      successBody: "Terima kasih! Referensi:",
+      close: "Tutup",
+      genericError: "Tidak dapat mengirim, silakan coba lagi.",
+      categories: {
+        bug: "Bug / Masalah Teknis",
+        data_error: "Kesalahan Data",
+        chart_terminal: "Grafik / Terminal",
+        stock_analysis: "Analisis Saham",
+        copilot: "BOGA Copilot",
+        lists: "Top 100 / Daftar Tren",
+        account_login: "Keanggotaan / Login",
+        premium_billing: "Premium / Tagihan",
+        mobile: "Penggunaan Mobile",
+        design_ux: "Desain / UX",
+        feature_request: "Permintaan Fitur",
+        translation: "Bahasa / Terjemahan",
+        other: "Lainnya",
       },
     },
   };

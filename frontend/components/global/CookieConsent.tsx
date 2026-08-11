@@ -38,6 +38,12 @@ const TEXT: Record<Locale, { message: string; accept: string; reject: string; po
     reject: 'Rejeitar',
     policy: 'Política de Privacidade',
   },
+  id: {
+    message: 'Situs ini menggunakan cookie untuk meningkatkan pengalaman Anda dan menganalisis lalu lintas. Klik "Terima" untuk mengizinkan cookie analitik/iklan; klik "Tolak" dan cookie tersebut tidak akan dimuat — situs akan tetap berfungsi hanya dengan fitur penting.',
+    accept: 'Terima',
+    reject: 'Tolak',
+    policy: 'Kebijakan Privasi',
+  },
 };
 
 type Consent = 'accepted' | 'rejected';

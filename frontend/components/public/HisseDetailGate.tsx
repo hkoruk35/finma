@@ -13,6 +13,7 @@ const LOGIN_HREF: Record<Locale, string> = {
   es: "/global/es/login",
   fr: "/global/fr/login",
   pt: "/global/pt/login",
+  id: "/global/id/login",
 };
 
 const LOADING_TEXT: Record<Locale, string> = {
@@ -21,6 +22,7 @@ const LOADING_TEXT: Record<Locale, string> = {
   es: "Cargando…",
   fr: "Chargement…",
   pt: "Carregando…",
+  id: "Memuat…",
 };
 
 const ACCOUNT_HREF: Record<Locale, string> = {
@@ -29,6 +31,7 @@ const ACCOUNT_HREF: Record<Locale, string> = {
   es: "/global/es/account",
   fr: "/global/fr/account",
   pt: "/global/pt/account",
+  id: "/global/id/account",
 };
 
 export default function HisseDetailGate({ ticker, locale }: { ticker: string; locale: Locale }) {

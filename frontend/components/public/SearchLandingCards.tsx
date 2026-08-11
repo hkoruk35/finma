@@ -12,6 +12,7 @@ const QUESTION_TITLES: L[] = [
     es: "¿Cuáles son los acontecimientos clave en el mundo?",
     fr: "Quels sont les développements clés dans le monde ?",
     pt: "Quais são os principais acontecimentos no mundo?",
+    id: "Apa saja perkembangan penting di dunia?",
   },
   {
     tr: "İlgi alanlarımda bugün neler oluyor?",
@@ -19,6 +20,7 @@ const QUESTION_TITLES: L[] = [
     es: "¿Qué está pasando hoy en mis intereses?",
     fr: "Que se passe-t-il dans mes centres d'intérêt aujourd'hui ?",
     pt: "O que está acontecendo nos meus interesses hoje?",
+    id: "Apa yang terjadi hari ini di bidang minat saya?",
   },
   {
     tr: "Bugün piyasalarda durum nasıl?",
@@ -26,6 +28,7 @@ const QUESTION_TITLES: L[] = [
     es: "¿Cómo está la situación en los mercados hoy?",
     fr: "Comment est la situation sur les marchés aujourd'hui ?",
     pt: "Como está a situação nos mercados hoje?",
+    id: "Bagaimana kondisi pasar hari ini?",
   },
 ];
 
@@ -36,6 +39,7 @@ const CARD_LABELS: L[] = [
     es: "AGENDA",
     fr: "AGENDA",
     pt: "AGENDA",
+    id: "AGENDA",
   },
   {
     tr: "BANA ÖZEL",
@@ -43,6 +47,7 @@ const CARD_LABELS: L[] = [
     es: "PERSONALIZADO",
     fr: "PERSONNALISÉ",
     pt: "PERSONALIZADO",
+    id: "PERSONAL",
   },
   {
     tr: "PİYASALAR",
@@ -50,6 +55,7 @@ const CARD_LABELS: L[] = [
     es: "MERCADOS",
     fr: "MARCHÉS",
     pt: "MERCADOS",
+    id: "PASAR",
   },
 ];
 
@@ -60,6 +66,7 @@ const CARD_DESCRIPTIONS: L[] = [
     es: "Acontecimientos mundiales clave",
     fr: "Développements mondiaux clés",
     pt: "Acontecimentos mundiais importantes",
+    id: "Perkembangan penting dunia",
   },
   {
     tr: "Konumuma ve ilgi alanlarıma göre",
@@ -67,6 +74,7 @@ const CARD_DESCRIPTIONS: L[] = [
     es: "Basado en mi ubicación e intereses",
     fr: "Selon ma position et mes intérêts",
     pt: "Com base na minha localização e interesses",
+    id: "Berdasarkan lokasi & minat saya",
   },
   {
     tr: "Şirketler, sektörler ve piyasa hareketleri",
@@ -74,6 +82,7 @@ const CARD_DESCRIPTIONS: L[] = [
     es: "Empresas, sectores y movimientos de mercado",
     fr: "Entreprises, secteurs et mouvements du marché",
     pt: "Empresas, setores e movimentos do mercado",
+    id: "Perusahaan, sektor & pergerakan pasar",
   },
 ];
 
@@ -84,6 +93,7 @@ const RESEARCH_MODES: Record<"fast" | "deep", L> = {
     es: "Respuesta Rápida",
     fr: "Réponse Rapide",
     pt: "Resposta Rápida",
+    id: "Jawaban Cepat",
   },
   deep: {
     tr: "Derin Araştırma",
@@ -91,6 +101,7 @@ const RESEARCH_MODES: Record<"fast" | "deep", L> = {
     es: "Investigación Profunda",
     fr: "Recherche Approfondie",
     pt: "Pesquisa Profunda",
+    id: "Riset Mendalam",
   },
 };
 

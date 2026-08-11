@@ -115,6 +115,26 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaText: "Comece Agora",
     ctaNote: "CartÃ£o necessÃ¡rio Â· CobranÃ§a imediata no cadastro Â· Cancele quando quiser",
   },
+  id: {
+    badge: "HARGA PELUNCURAN",
+    title: "Harga Sederhana dan Transparan",
+    subtitle: "Bulan pertama diskon, batalkan kapan saja.",
+    firstMonthLabel: "Bulan pertama",
+    thenLabel: "bulan berikutnya",
+    perMonth: "/bln",
+    features: [
+      "Kandidat Saham Tren yang terus diperbarui — tingkat keberhasilan di atas 90%",
+      "Informasi perdagangan lanjutan (entry/target/stop, rasio risiko-imbalan)",
+      "Analisis saham untuk investasi jangka panjang",
+      "Analisis saham tren dari Top 100",
+      "Sistem grafik interaktif tingkat lanjut",
+      "Sistem indikator yang bersih tanpa gangguan dengan strategi yang jelas",
+      "Analisis instan untuk lebih dari 6.000 saham",
+      "Asisten Keuangan pribadi, dilatih terus-menerus oleh BOGA AI, tersedia 24/7",
+    ],
+    ctaText: "Mulai Sekarang",
+    ctaNote: "Kartu diperlukan Â· Ditagih langsung saat mendaftar Â· Batalkan kapan saja",
+  },
 };
 
 const CheckIcon = () => (

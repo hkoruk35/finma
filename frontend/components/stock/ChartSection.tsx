@@ -18,6 +18,7 @@ const EXPAND_LABEL: Record<Locale, [string, string]> = {
   es: ["EXPANDIR", "CONTRAER"],
   fr: ["AGRANDIR", "RÃ‰DUIRE"],
   pt: ["EXPANDIR", "RECOLHER"],
+  id: ["PERLUAS", "CIUTKAN"],
 };
 
 export default function ChartSection({ ticker, exchange, companyMismatch, lang = "en" }: Props) {

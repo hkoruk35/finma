@@ -6,7 +6,7 @@ import SearchLandingHeader from "@/components/public/SearchLandingHeader";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { formatNumber } from "@/lib/formatNumber";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 interface MarketIndex {
@@ -181,6 +181,30 @@ const I18N = {
     noNews: "Nenhuma notícia encontrada.",
     today: "O que está acontecendo hoje",
     economy: "Notícias Econômicas",
+  },
+  id: {
+    goodMorning: "Selamat pagi",
+    goodAfternoon: "Selamat siang",
+    goodEvening: "Selamat malam",
+    weather: "CUACA",
+    markets: "PASAR",
+    refresh: "Segarkan",
+    widgets: "Widget",
+    seeMarket: "Lihat pasar",
+    seeFullForecast: "Detail Cuaca",
+    sports: "Berita Olahraga",
+    seeMore: "Lihat lebih banyak",
+    topStories: "Berita Utama",
+    newLook: "Tampilan Baru",
+    searchCity: "Cari kota...",
+    airQuality: "Kualitas Udara",
+    humidity: "Kelembapan",
+    wind: "Angin",
+    loading: "Memuat...",
+    noEvents: "Tidak ada berita olahraga untuk hari ini.",
+    noNews: "Tidak ada berita ditemukan.",
+    today: "Apa yang Terjadi Hari Ini",
+    economy: "Berita Ekonomi",
   }
 };
 
@@ -266,6 +290,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         es: "es-ES",
         fr: "fr-FR",
         pt: "pt-PT",
+        id: "id-ID",
       };
       const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
       setDateStr(now.toLocaleDateString(localeMap[locale], options));

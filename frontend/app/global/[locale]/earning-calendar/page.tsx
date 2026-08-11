@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import EarningsCalendarBoard from "@/components/global/EarningsCalendarBoard";
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 type Props = {
@@ -14,6 +14,7 @@ const TITLES: Record<Locale, string> = {
   es: "Calendario de Resultados (Earnings Calendar) — BogaStock",
   fr: "Calendrier des Résultats (Earnings Calendar) — BogaStock",
   pt: "Calendário de Resultados (Earnings Calendar) — BogaStock",
+  id: "Kalender Laba (Earnings Calendar) — BogaStock",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
@@ -22,6 +23,7 @@ const DESCRIPTIONS: Record<Locale, string> = {
   es: "Próximas fechas de resultados financieros de empresas seguidas, con estimaciones de EPS e ingresos de analistas.",
   fr: "Prochaines dates de résultats financiers des entreprises suivies, avec estimations du BPA et du chiffre d'affaires par les analystes.",
   pt: "Próximas datas de resultados financeiros de empresas monitoradas, com estimativas de LPA e receita dos analistas.",
+  id: "Tanggal laporan laba mendatang untuk perusahaan yang dipantau, lengkap dengan estimasi EPS dan pendapatan dari analis.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

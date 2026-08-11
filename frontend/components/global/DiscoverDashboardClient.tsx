@@ -15,6 +15,7 @@ const TOPIC_LABELS: Record<Topic, Record<Locale, string>> = {
     es: "Fútbol",
     fr: "Football",
     pt: "Futebol",
+    id: "Sepak Bola",
   },
   Science: {
     tr: "Bilim",
@@ -22,6 +23,7 @@ const TOPIC_LABELS: Record<Topic, Record<Locale, string>> = {
     es: "Ciencia",
     fr: "Science",
     pt: "Ciência",
+    id: "Sains",
   },
   Art: {
     tr: "Sanat",
@@ -29,6 +31,7 @@ const TOPIC_LABELS: Record<Topic, Record<Locale, string>> = {
     es: "Arte",
     fr: "Art",
     pt: "Arte",
+    id: "Seni",
   },
   Cinema: {
     tr: "Sinema",
@@ -36,6 +39,7 @@ const TOPIC_LABELS: Record<Topic, Record<Locale, string>> = {
     es: "Cine",
     fr: "Cinéma",
     pt: "Cinema",
+    id: "Sinema",
   },
 };
 
@@ -85,6 +89,15 @@ const I18N = {
     clickPrompt: "Clique em uma pergunta para iniciar o chat",
     allTopics: "Todos os Temas",
   },
+  id: {
+    title: "Discover Cerdas",
+    subtitle: "Rekomendasi AI dan topik pencarian yang dipersonalisasi sesuai minat Anda.",
+    myInterests: "Minat Saya",
+    suggestedQueries: "Saran Pencarian",
+    saveTopics: "Simpan Minat",
+    clickPrompt: "Klik Prompt untuk Melanjutkan Obrolan",
+    allTopics: "Semua Topik",
+  },
 };
 
 const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
@@ -119,6 +132,12 @@ const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
       "Principais candidatos e análise tática na corrida pelo título da Premier League",
       "Status atual das seleções nacionais de futebol na preparação para a Copa do Mundo"
     ],
+    id: [
+      "Strategi transfer musim baru dan analisis keuangan Real Madrid dan Barcelona",
+      "Dampak perubahan format Liga Champions terhadap pendapatan klub dan persaingan",
+      "Kandidat utama dan analisis taktik dalam perebutan gelar Premier League",
+      "Status terkini tim nasional sepak bola menjelang persiapan Piala Dunia"
+    ],
   },
   Science: {
     tr: [
@@ -150,6 +169,12 @@ const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
       "Métodos de imunoterapia de próxima geração no tratamento do câncer",
       "Marcos recentes na pesquisa de fusão nuclear e metas comerciais",
       "O papel dos modelos de imagem artificial na aceleração da pesquisa científica"
+    ],
+    id: [
+      "Penemuan terbaru Teleskop Luar Angkasa James Webb dan teori asal-usul alam semesta",
+      "Metode imunoterapi generasi baru dalam pengobatan kanker dan tingkat keberhasilannya",
+      "Pencapaian terbaru dalam riset energi fusi nuklir dan target komersialisasinya",
+      "Peran model kecerdasan buatan dalam mempercepat riset dan analisis ilmiah"
     ],
   },
   Art: {
@@ -183,6 +208,12 @@ const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
       "Temas centrais nas bienais globais de arte e movimentos de arte contemporânea",
       "O papel da arte de rua nos movimentos sociais e seu impacto na transformação urbana"
     ],
+    id: [
+      "Dampak seni digital modern dan AI generatif terhadap pasar seni tradisional",
+      "Proses restorasi dan teknologi yang digunakan untuk mahakarya Renaisans terkenal",
+      "Tema utama dalam biennale seni global dan gerakan seni kontemporer",
+      "Peran seni jalanan dalam gerakan sosial dan dampaknya pada transformasi perkotaan"
+    ],
   },
   Cinema: {
     tr: [
@@ -214,6 +245,12 @@ const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
       "Impacto das plataformas de streaming na produção e distribuição de cinema independente",
       "Evolução e futuro dos efeitos visuais (VFX) no cinema hollywoodiano",
       "Histórias de bastidores e análises de filmes cult na história do cinema"
+    ],
+    id: [
+      "Film dan sutradara pemenang penghargaan di festival film internasional (Cannes, Venesia)",
+      "Dampak platform streaming pada produksi dan distribusi sinema independen",
+      "Evolusi dan masa depan teknologi efek visual (VFX) dalam sinema Hollywood",
+      "Kisah di balik layar produksi dan analisis film kultus dalam sejarah sinema"
     ],
   },
 };

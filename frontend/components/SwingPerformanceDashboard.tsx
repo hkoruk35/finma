@@ -106,6 +106,7 @@ const METHODOLOGY_NOTE: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> 
   es: "Nota metodolÃ³gica: Estas estadÃ­sticas se basan en el modelo v2 que realiza un seguimiento disciplinado de todas las seÃ±ales desde el 1 de enero durante 20 dÃ­as de negociaciÃ³n. Se omiten las seÃ±ales con gap inicial > +3%. El stop loss es 1.8x ATR (mÃ­n 4%, mÃ¡x 10%) y se descuenta un 0.1% de costo.",
   fr: "Note mÃ©thodologique: Ces statistiques reposent sur le modÃ¨le v2 suivant toutes les lignes depuis le 1er janvier sur une fenÃªtre disciplinÃ©e de 20 jours de bourse. Les signaux avec un gap > +3% Ã  l'ouverture sont ignorÃ©s. Le stop-loss est de 1.8x ATR (min 4%, max 10%) et un coÃ»t de 0,1% est dÃ©duit.",
   pt: "Nota metodolÃ³gica: Essas estatÃ­sticas utilizam o modelo v2 acompanhando todas as sinalizaÃ§Ãµes desde 1Âº de janeiro em uma janela disciplinada de 20 dias Ãºteis. Sinais com gap de abertura > +3% sÃ£o desconsiderados. O stop loss Ã© de 1.8x ATR (mÃ­n 4%, mÃ¡x 10%) e Ã© descontado 0,1% de custo.",
+  id: "Catatan metodologi: Statistik ini didasarkan pada model v2 yang melacak seluruh sinyal sejak 1 Januari secara disiplin selama jendela 20 hari perdagangan. Sinyal dengan gap pembukaan T+1 lebih dari +3% dilewati. Stop loss ditetapkan pada 1.8x ATR (min 4%, maks 10%) dan biaya transaksi 0.1% dikurangkan.",
 };
 
 // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

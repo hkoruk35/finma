@@ -9,9 +9,10 @@ const STRINGS: Record<Locale, { title: string; all: string; epsEst: string; revE
   es: { title: "Próximos Resultados", all: "TODO", epsEst: "BPA Est.", revEst: "Ingr. Est." },
   fr: { title: "Résultats à Venir", all: "TOUT", epsEst: "BPA Est.", revEst: "CA Est." },
   pt: { title: "Próximos Resultados", all: "TODOS", epsEst: "LPA Est.", revEst: "Rec. Est." },
+  id: { title: "Laba Mendatang", all: "SEMUA", epsEst: "Est. EPS", revEst: "Est. Pendapatan" },
 };
 
-const WEEKDAY_LOCALE: Record<Locale, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
+const WEEKDAY_LOCALE: Record<Locale, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR", id: "id-ID" };
 
 function fmtMoney(n: number | null): string {
   if (n == null || !isFinite(n)) return "—";
