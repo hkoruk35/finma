@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const DISCLAIMER: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   en: "This page does not constitute investment advice. Content here is for informational and analytical purposes only. Data may be delayed and is not guaranteed to be accurate, complete, or current. Past performance does not indicate future results. Always do your own research before making any investment decision.",
-  tr: "Bu sayfa yatÄ±rÄ±m tavsiyesi niteliÄŸi taÅŸÄ±maz. Buradaki iÃ§erik yalnÄ±zca bilgilendirme ve analiz amaÃ§lÄ±dÄ±r. Veriler gecikmeli olarak ulaÅŸabilir; doÄŸruluÄŸu, eksiksizliÄŸi veya gÃ¼ncelliÄŸi garanti edilmez. GeÃ§miÅŸ performans gelecekteki sonuÃ§larÄ±n gÃ¶stergesi deÄŸildir. Herhangi bir yatÄ±rÄ±m kararÄ± vermeden Ã¶nce kendi araÅŸtÄ±rmanÄ±zÄ± yapÄ±n.",
-  es: "Esta pÃ¡gina no constituye asesoramiento de inversiÃ³n. El contenido aquÃ­ es solo para fines informativos y analÃ­ticos. Los datos pueden estar retrasados y no se garantiza que sean precisos, completos o actuales. El rendimiento pasado no indica resultados futuros. Siempre realiza tu propia investigaciÃ³n antes de tomar cualquier decisiÃ³n de inversiÃ³n.",
-  fr: "Cette page ne constitue pas des conseils en investissement. Le contenu ici est destinÃ© Ã  des fins informationnelles et analytiques uniquement. Les donnÃ©es peuvent Ãªtre retardÃ©es et ne sont pas garanties d'Ãªtre exactes, complÃ¨tes ou actuelles. Les performances passÃ©es n'indiquent pas les rÃ©sultats futurs. Faites toujours vos propres recherches avant de prendre une dÃ©cision d'investissement.",
-  pt: "Esta pÃ¡gina nÃ£o constitui aconselhamento de investimento. O conteÃºdo aqui Ã© apenas para fins informativos e analÃ­ticos. Os dados podem estar atrasados e nÃ£o hÃ¡ garantia de que sejam precisos, completos ou atuais. O desempenho passado nÃ£o indica resultados futuros. Sempre faÃ§a sua prÃ³pria pesquisa antes de tomar qualquer decisÃ£o de investimento.",
+  tr: "Bu sayfa yatırım tavsiyesi niteliği taşımaz. Buradaki içerik yalnızca bilgilendirme ve analiz amaçlıdır. Veriler gecikmeli olarak ulaşabilir; doğruluğu, eksiksizliği veya güncelliği garanti edilmez. Geçmiş performans gelecekteki sonuçların göstergesi değildir. Herhangi bir yatırım kararı vermeden önce kendi araştırmanızı yapın.",
+  es: "Esta página no constituye asesoramiento de inversión. El contenido aquí es solo para fines informativos y analíticos. Los datos pueden estar retrasados y no se garantiza que sean precisos, completos o actuales. El rendimiento pasado no indica resultados futuros. Siempre realiza tu propia investigación antes de tomar cualquier decisión de inversión.",
+  fr: "Cette page ne constitue pas des conseils en investissement. Le contenu ici est destiné à des fins informationnelles et analytiques uniquement. Les données peuvent être retardées et ne sont pas garanties d'être exactes, complètes ou actuelles. Les performances passées n'indiquent pas les résultats futurs. Faites toujours vos propres recherches avant de prendre une décision d'investissement.",
+  pt: "Esta página não constitui aconselhamento de investimento. O conteúdo aqui é apenas para fins informativos e analíticos. Os dados podem estar atrasados e não há garantia de que sejam precisos, completos ou atuais. O desempenho passado não indica resultados futuros. Sempre faça sua própria pesquisa antes de tomar qualquer decisão de investimento.",
   id: "Halaman ini bukan nasihat investasi. Konten di sini hanya untuk tujuan informasi dan analitik. Data mungkin tertunda dan tidak dijamin akurat, lengkap, atau terkini. Kinerja masa lalu tidak menunjukkan hasil masa depan. Selalu lakukan riset sendiri sebelum membuat keputusan investasi apa pun.",
 };
 
@@ -18,23 +18,23 @@ const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: strin
   ],
   tr: [
     { href: "/global/tr/disclaimer", label: "Sorumluluk Reddi" },
-    { href: "/global/tr/terms", label: "KullanÄ±m ÅžartlarÄ±" },
-    { href: "/global/tr/privacy", label: "Gizlilik PolitikasÄ±" },
+    { href: "/global/tr/terms", label: "Kullanım Şartları" },
+    { href: "/global/tr/privacy", label: "Gizlilik Politikası" },
   ],
   es: [
     { href: "/global/es/disclaimer", label: "Aviso Legal" },
-    { href: "/global/es/terms", label: "TÃ©rminos de Servicio" },
-    { href: "/global/es/privacy", label: "PolÃ­tica de Privacidad" },
+    { href: "/global/es/terms", label: "Términos de Servicio" },
+    { href: "/global/es/privacy", label: "Política de Privacidad" },
   ],
   fr: [
     { href: "/global/fr/disclaimer", label: "Avertissement" },
     { href: "/global/fr/terms", label: "Conditions d'Utilisation" },
-    { href: "/global/fr/privacy", label: "Politique de ConfidentialitÃ©" },
+    { href: "/global/fr/privacy", label: "Politique de Confidentialité" },
   ],
   pt: [
     { href: "/global/pt/disclaimer", label: "Aviso Legal" },
-    { href: "/global/pt/terms", label: "Termos de ServiÃ§o" },
-    { href: "/global/pt/privacy", label: "PolÃ­tica de Privacidade" },
+    { href: "/global/pt/terms", label: "Termos de Serviço" },
+    { href: "/global/pt/privacy", label: "Política de Privacidade" },
   ],
   id: [
     { href: "/global/id/disclaimer", label: "Penafian" },
@@ -52,11 +52,11 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: s
     { href: "/global/en/sitemap", label: "Sitemap" },
   ],
   tr: [
-    { href: "/global/tr/about", label: "BogaStock HakkÄ±nda" },
+    { href: "/global/tr/about", label: "BogaStock Hakkında" },
     { href: "/global/tr/news", label: "Piyasa Haberleri" },
-    { href: "/global/tr/contact", label: "Destek Ä°letiÅŸim" },
-    { href: "/global/tr/sss", label: "SÄ±kÃ§a Sorulan Sorular (SSS)" },
-    { href: "/global/tr/sitemap", label: "Site HaritasÄ±" },
+    { href: "/global/tr/contact", label: "Destek İletişim" },
+    { href: "/global/tr/sss", label: "Sıkça Sorulan Sorular (SSS)" },
+    { href: "/global/tr/sitemap", label: "Site Haritası" },
   ],
   es: [
     { href: "/global/es/about", label: "Acerca de BogaStock" },
@@ -66,15 +66,15 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: s
     { href: "/global/es/sitemap", label: "Mapa del Sitio" },
   ],
   fr: [
-    { href: "/global/fr/about", label: "Ã€ Propos de BogaStock" },
-    { href: "/global/fr/news", label: "ActualitÃ©s du MarchÃ©" },
+    { href: "/global/fr/about", label: "À Propos de BogaStock" },
+    { href: "/global/fr/news", label: "Actualités du Marché" },
     { href: "/global/fr/contact", label: "Support et Contact" },
     { href: "/global/fr/faq", label: "Foire Aux Questions (FAQ)" },
     { href: "/global/fr/sitemap", label: "Plan du Site" },
   ],
   pt: [
     { href: "/global/pt/about", label: "Sobre a BogaStock" },
-    { href: "/global/pt/news", label: "NotÃ­cias do Mercado" },
+    { href: "/global/pt/news", label: "Notícias do Mercado" },
     { href: "/global/pt/contact", label: "Suporte e Contato" },
     { href: "/global/pt/Perguntas_Frequentes", label: "Perguntas Frequentes (FAQ)" },
     { href: "/global/pt/sitemap", label: "Mapa do Site" },
@@ -90,16 +90,16 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", { href: s
 
 const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   en: "Delivers AI-powered in-depth analysis of 6,000+ stocks and ETFs traded on US exchanges; also tracks and analyzes global markets, forex, precious metals, and crypto.",
-  tr: "ABD borsalarÄ±nda iÅŸlem gÃ¶ren 6.000'den fazla hisse senedi ve ETF Ã¼zerinde yapay zekÃ¢ destekli derinlemesine analiz sunar; kÃ¼resel borsalarÄ±, dÃ¶viz, deÄŸerli madenler ve kripto piyasalarÄ±nÄ± da kapsam dahilinde takip ve analiz eder.",
-  es: "Ofrece anÃ¡lisis profundo impulsado por IA de mÃ¡s de 6.000 acciones y ETFs que cotizan en las bolsas de EE. UU.; tambiÃ©n realiza seguimiento y anÃ¡lisis de los mercados globales, divisas, metales preciosos y criptomonedas.",
-  fr: "Propose une analyse approfondie alimentÃ©e par l'IA de plus de 6 000 actions et ETF nÃ©gociÃ©s sur les bourses amÃ©ricaines ; assure Ã©galement le suivi et l'analyse des marchÃ©s mondiaux, des devises, des mÃ©taux prÃ©cieux et des cryptomonnaies.",
-  pt: "Oferece anÃ¡lise aprofundada com IA de mais de 6.000 aÃ§Ãµes e ETFs negociados nas bolsas dos EUA; tambÃ©m acompanha e analisa os mercados globais, cÃ¢mbio, metais preciosos e criptomoedas.",
+  tr: "ABD borsalarında işlem gören 6.000'den fazla hisse senedi ve ETF üzerinde yapay zekâ destekli derinlemesine analiz sunar; küresel borsaları, döviz, değerli madenler ve kripto piyasalarını da kapsam dahilinde takip ve analiz eder.",
+  es: "Ofrece análisis profundo impulsado por IA de más de 6.000 acciones y ETFs que cotizan en las bolsas de EE. UU.; también realiza seguimiento y análisis de los mercados globales, divisas, metales preciosos y criptomonedas.",
+  fr: "Propose une analyse approfondie alimentée par l'IA de plus de 6 000 actions et ETF négociés sur les bourses américaines ; assure également le suivi et l'analyse des marchés mondiaux, des devises, des métaux précieux et des cryptomonnaies.",
+  pt: "Oferece análise aprofundada com IA de mais de 6.000 ações e ETFs negociados nas bolsas dos EUA; também acompanha e analisa os mercados globais, câmbio, metais preciosos e criptomoedas.",
   id: "Memberikan analisis mendalam yang didukung AI dari lebih dari 6.000 saham dan ETF yang diperdagangkan di bursa AS; juga melacak dan menganalisis pasar global, forex, logam mulia, dan kripto.",
 };
 
 const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   en: "Open Terminal",
-  tr: "Terminali AÃ§",
+  tr: "Terminali Aç",
   es: "Abrir Terminal",
   fr: "Ouvrir le Terminal",
   pt: "Abrir Terminal",
@@ -108,10 +108,10 @@ const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = 
 
 const TERMINAL_TOOLTIP: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   en: "Open the TERMINAL page",
-  tr: "TERMÄ°NAL sayfasÄ±nÄ± aÃ§",
-  es: "Abrir la pÃ¡gina TERMINAL",
+  tr: "TERMİNAL sayfasını aç",
+  es: "Abrir la página TERMINAL",
   fr: "Ouvrir la page TERMINAL",
-  pt: "Abrir a pÃ¡gina TERMINAL",
+  pt: "Abrir a página TERMINAL",
   id: "Buka halaman TERMINAL",
 };
 
@@ -182,13 +182,13 @@ export default function Footer({
           )}
           <p className="text-[11px] text-slate-500 mb-2">
             {locale === "tr"
-              ? "TÃ¼m veriler 15 dakika gecikme ile saat baÅŸlarÄ± gÃ¼ncellenir."
+              ? "Tüm veriler 15 dakika gecikme ile saat başları güncellenir."
               : locale === "es"
               ? "Todos los datos tienen un retraso de 15 minutos y se actualizan al inicio de cada hora."
               : locale === "fr"
-              ? "Toutes les donnÃ©es sont retardÃ©es de 15 minutes et mises Ã  jour au dÃ©but de chaque heure."
+              ? "Toutes les données sont retardées de 15 minutes et mises à jour au début de chaque heure."
               : locale === "pt"
-              ? "Todos os dados tÃªm atraso de 15 minutos e sÃ£o atualizados no inÃ­cio de cada hora."
+              ? "Todos os dados têm atraso de 15 minutos e são atualizados no início de cada hora."
               : locale === "id"
               ? "Semua data tertunda 15 menit dan diperbarui di setiap awal jam."
               : "All data is delayed by 15 minutes and updated at the top of each hour."}
