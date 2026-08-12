@@ -142,7 +142,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             href={`/global/${locale}/home`}
             className="flex items-center gap-2 group flex-shrink-0"
           >
-            <Image src="/logo/bogastock01_logo.png" alt="BogaStock" width={430} height={100} className="h-7 sm:h-[58px] w-auto" priority />
+            <Image src="/logo/bogastock02_logo.png" alt="BogaStock" width={1000} height={193} className="h-6 sm:h-12 w-auto" priority />
           </Link>
 
           {/* overflow-x-auto KULLANMA: overflow-x tek başına set edilince CSS
