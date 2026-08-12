@@ -8,9 +8,13 @@ interface SparklineProps {
   width?: number;
   height?: number;
   changePct?: number;
+  /** Stretches the SVG to 100% of its container width via CSS (viewBox math
+   * still uses `width`/`height` for the path, so the plotted shape scales
+   * with the box instead of staying pinned to a fixed pixel size). */
+  responsive?: boolean;
 }
 
-export default function Sparkline({ data, color, width = 56, height = 22, changePct = 0 }: SparklineProps) {
+export default function Sparkline({ data, color, width = 56, height = 22, changePct = 0, responsive = false }: SparklineProps) {
   // Gradient id'si sunucuda ve tarayicida AYNI olmak zorunda. Onceden
   // Math.random() ile uretiliyordu; sunucu "sparkline-j58tl9y23", tarayici
   // "sparkline-1pdt9ksgb" yaziyor, React hydration uyusmazligi verip o
@@ -48,7 +52,13 @@ export default function Sparkline({ data, color, width = 56, height = 22, change
   const pathD = `M${coords}L${width},${height}L0,${height}Z`;
 
   return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
+    <svg
+      width={responsive ? "100%" : width}
+      height={responsive ? "100%" : height}
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio={responsive ? "none" : undefined}
+      className="overflow-visible"
+    >
       <defs>
         <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor={color} stopOpacity="0.5" />

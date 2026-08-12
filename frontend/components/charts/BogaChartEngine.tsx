@@ -672,11 +672,11 @@ export default function BogaChartEngine({
       );
       volumeSeries.priceScale().applyOptions({
         scaleMargins: {
-          top: 0.8, // leave top 80% for candles
+          top: 0.6, // leave top 60% for candles, more room for taller volume bars
           bottom: 0,
         },
       });
-      const volumePaneHeight = compact ? Math.max(30, Math.min(70, Math.round((height ?? 240) * 0.2))) : 150;
+      const volumePaneHeight = compact ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3))) : 190;
       chart.panes()[1]?.setHeight(volumePaneHeight);
       volumeSeriesRef.current = volumeSeries;
     }

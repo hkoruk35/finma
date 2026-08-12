@@ -132,7 +132,7 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]" />
       <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.2em] mb-3">{c.badge}</p>
 
-      <div className="flex items-center justify-between gap-3 mb-4">
+      <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-11 h-11 rounded-full bg-[#1e2a3a] border border-[#3b82f6]/30 flex items-center justify-center shrink-0">
             <span className="text-[11px] font-black text-[#3b82f6]">{initials}</span>
@@ -146,25 +146,29 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
         </div>
 
         {quote && (
-          <div className="flex items-center gap-2 shrink-0">
-            <Sparkline
-              data={quote.sparkline}
-              color={changePositive ? "#22c55e" : "#ef4444"}
-              changePct={quote.changePct}
-              width={60}
-              height={26}
-            />
-            <div className="text-right">
-              <p className="text-sm font-bold text-white font-mono">
-                {quote.price ? `$${quote.price.toFixed(2)}` : "—"}
-              </p>
-              <p className={`text-xs font-semibold ${changePositive ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
-                {changePositive ? "+" : ""}{quote.changePct.toFixed(2)}%
-              </p>
-            </div>
+          <div className="text-right shrink-0">
+            <p className="text-sm font-bold text-white font-mono">
+              {quote.price ? `$${quote.price.toFixed(2)}` : "—"}
+            </p>
+            <p className={`text-xs font-semibold ${changePositive ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
+              {changePositive ? "+" : ""}{quote.changePct.toFixed(2)}%
+            </p>
           </div>
         )}
       </div>
+
+      {quote && quote.sparkline.length > 1 && (
+        <div className="w-full h-16 sm:h-20 mb-4">
+          <Sparkline
+            data={quote.sparkline}
+            color={changePositive ? "#22c55e" : "#ef4444"}
+            changePct={quote.changePct}
+            width={400}
+            height={64}
+            responsive
+          />
+        </div>
+      )}
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-sm">
