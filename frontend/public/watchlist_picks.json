@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-08-12T09:05:09.472979-04:00",
+  "generated_at": "2026-08-12T14:03:51.436540-04:00",
   "picks": [
-    {
-      "ticker": "ZETA",
-      "sector": "Technology",
-      "date_added": "2026-08-10",
-      "score": 47.0
-    },
     {
       "ticker": "APO",
       "sector": "Financial Services",
@@ -30,12 +24,6 @@
       "sector": "Technology",
       "date_added": "2026-08-11",
       "score": 49.0
-    },
-    {
-      "ticker": "BX",
-      "sector": "Financial Services",
-      "date_added": "2026-08-11",
-      "score": 41.5
     },
     {
       "ticker": "VSEC",
@@ -74,22 +62,34 @@
       "score": 42.5
     },
     {
-      "ticker": "PACS",
-      "sector": "Healthcare",
-      "date_added": "2026-08-12",
-      "score": 41.5
-    },
-    {
-      "ticker": "SYY",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-12",
-      "score": 41.5
-    },
-    {
       "ticker": "RAL",
       "sector": "Technology",
       "date_added": "2026-08-12",
       "score": 37.5
+    },
+    {
+      "ticker": "MS",
+      "sector": "Financial Services",
+      "date_added": "2026-08-12",
+      "score": 50.0
+    },
+    {
+      "ticker": "ECO",
+      "sector": "Industrials",
+      "date_added": "2026-08-12",
+      "score": 48.0
+    },
+    {
+      "ticker": "RHP",
+      "sector": "Real Estate",
+      "date_added": "2026-08-12",
+      "score": 47.0
+    },
+    {
+      "ticker": "IHG",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-12",
+      "score": 43.0
     }
   ]
 }
