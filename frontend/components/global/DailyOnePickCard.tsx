@@ -11,7 +11,6 @@ interface DailyOnePick {
   ticker: string;
   company: string;
   score: number;
-  targetPct: number;
 }
 
 interface LiveQuote {
@@ -20,64 +19,72 @@ interface LiveQuote {
   sparkline: number[];
 }
 
+// Copy is deliberately neutral: no "opportunity"/"pick", no target-return
+// figure, no "catch it" call to action. This card is the ad-facing surface
+// on Home (X/Meta ads can point here) and ad platform policy in some
+// markets (e.g. X's securities-promotion rules) prohibits framing this as
+// an investment tip or implying an expected gain — it's positioned purely
+// as a market-data/analysis tool. Any specific target price/gain % is
+// reserved for the gated detail page a logged-in member reaches after
+// signing up, not shown on this public teaser.
 const COPY: Record<Locale, {
-  badge: string; scoreLabel: string; targetLabel: string;
+  badge: string; scoreLabel: string; dataLabel: string;
   lockedCta: string; unlockedCta: string;
   modalTitle: string; modalDesc: string;
 }> = {
   en: {
-    badge: "TODAY'S AI STOCK PICK",
-    scoreLabel: "BS Score",
-    targetLabel: "AI Target Gain",
-    lockedCta: "Sign In Free with Google to Unlock the Full Analysis and Catch the Opportunity",
+    badge: "TODAY'S AI MARKET SPOTLIGHT",
+    scoreLabel: "AI Model Score",
+    dataLabel: "Market Analysis & Data",
+    lockedCta: "Sign In Free with Google to Unlock the Full Analysis",
     unlockedCta: "View Full Analysis →",
-    modalTitle: "Today's AI Stock Pick",
-    modalDesc: "Sign in with Google or create a free account to see the full chart, analysis, and trade plan for today's pick.",
+    modalTitle: "Today's AI Market Spotlight",
+    modalDesc: "Sign in with Google or create a free account to see the full chart, technical analysis, and market data.",
   },
   tr: {
-    badge: "BUGÜNÜN AI HİSSE FIRSATI",
-    scoreLabel: "BS Puanı",
-    targetLabel: "AI Hedef Kazanç",
-    lockedCta: "Tam Analizi Açmak ve Fırsatı Yakalamak İçin Google ile Ücretsiz Giriş Yap",
+    badge: "BUGÜNÜN AI PİYASA ÖNE ÇIKANI",
+    scoreLabel: "AI Model Puanı",
+    dataLabel: "Piyasa Analizi & Verisi",
+    lockedCta: "Tam Analizi Açmak İçin Google ile Ücretsiz Giriş Yap",
     unlockedCta: "Tam Analizi Gör →",
-    modalTitle: "Bugünün AI Hisse Fırsatı",
-    modalDesc: "Bugünün fırsat hissesinin tam grafiğini, analizini ve işlem kurgusunu görmek için Google ile giriş yapın veya ücretsiz kaydolun.",
+    modalTitle: "Bugünün AI Piyasa Öne Çıkanı",
+    modalDesc: "Tam grafiği, teknik analizi ve piyasa verilerini görmek için Google ile giriş yapın veya ücretsiz kaydolun.",
   },
   es: {
-    badge: "SELECCIÓN AI DE HOY",
-    scoreLabel: "Puntuación BS",
-    targetLabel: "Ganancia Objetivo AI",
-    lockedCta: "Inicia Sesión Gratis con Google para Desbloquear el Análisis Completo y Aprovechar la Oportunidad",
+    badge: "DESTACADO DE MERCADO AI DE HOY",
+    scoreLabel: "Puntuación del Modelo AI",
+    dataLabel: "Análisis y Datos de Mercado",
+    lockedCta: "Inicia Sesión Gratis con Google para Desbloquear el Análisis Completo",
     unlockedCta: "Ver Análisis Completo →",
-    modalTitle: "Selección AI de Hoy",
-    modalDesc: "Inicia sesión con Google o crea una cuenta gratuita para ver el gráfico, análisis y plan de operación completos de la selección de hoy.",
+    modalTitle: "Destacado de Mercado AI de Hoy",
+    modalDesc: "Inicia sesión con Google o crea una cuenta gratuita para ver el gráfico completo, el análisis técnico y los datos de mercado.",
   },
   fr: {
-    badge: "SÉLECTION IA DU JOUR",
-    scoreLabel: "Score BS",
-    targetLabel: "Gain Cible IA",
-    lockedCta: "Connectez-vous Gratuitement avec Google pour Débloquer l'Analyse Complète et Saisir l'Opportunité",
+    badge: "TENDANCE MARCHÉ IA DU JOUR",
+    scoreLabel: "Score du Modèle IA",
+    dataLabel: "Analyse et Données de Marché",
+    lockedCta: "Connectez-vous Gratuitement avec Google pour Débloquer l'Analyse Complète",
     unlockedCta: "Voir l'Analyse Complète →",
-    modalTitle: "Sélection IA du Jour",
-    modalDesc: "Connectez-vous avec Google ou créez un compte gratuit pour voir le graphique, l'analyse et le plan de trading complets de la sélection du jour.",
+    modalTitle: "Tendance Marché IA du Jour",
+    modalDesc: "Connectez-vous avec Google ou créez un compte gratuit pour voir le graphique complet, l'analyse technique et les données de marché.",
   },
   pt: {
-    badge: "SELEÇÃO IA DE HOJE",
-    scoreLabel: "Pontuação BS",
-    targetLabel: "Ganho Alvo IA",
-    lockedCta: "Entre Grátis com o Google para Desbloquear a Análise Completa e Aproveitar a Oportunidade",
+    badge: "DESTAQUE DE MERCADO IA DE HOJE",
+    scoreLabel: "Pontuação do Modelo IA",
+    dataLabel: "Análise e Dados de Mercado",
+    lockedCta: "Entre Grátis com o Google para Desbloquear a Análise Completa",
     unlockedCta: "Ver Análise Completa →",
-    modalTitle: "Seleção IA de Hoje",
-    modalDesc: "Entre com o Google ou crie uma conta gratuita para ver o gráfico, a análise e o plano de operação completos da seleção de hoje.",
+    modalTitle: "Destaque de Mercado IA de Hoje",
+    modalDesc: "Entre com o Google ou crie uma conta gratuita para ver o gráfico completo, a análise técnica e os dados de mercado.",
   },
   id: {
-    badge: "PELUANG SAHAM AI HARI INI",
-    scoreLabel: "Skor BS",
-    targetLabel: "Target Keuntungan AI",
-    lockedCta: "Masuk Gratis dengan Google untuk Membuka Analisis Lengkap dan Menangkap Peluang",
+    badge: "SOROTAN PASAR AI HARI INI",
+    scoreLabel: "Skor Model AI",
+    dataLabel: "Analisis & Data Pasar",
+    lockedCta: "Masuk Gratis dengan Google untuk Membuka Analisis Lengkap",
     unlockedCta: "Lihat Analisis Lengkap →",
-    modalTitle: "Peluang Saham AI Hari Ini",
-    modalDesc: "Masuk dengan Google atau buat akun gratis untuk melihat grafik, analisis, dan rencana perdagangan lengkap dari pilihan hari ini.",
+    modalTitle: "Sorotan Pasar AI Hari Ini",
+    modalDesc: "Masuk dengan Google atau buat akun gratis untuk melihat grafik lengkap, analisis teknikal, dan data pasar.",
   },
 };
 
@@ -108,10 +115,18 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
         if (!active) return;
         const row = Array.isArray(rows) ? rows[0] : null;
         if (!row) return;
+        // Prefer whichever look-back window (1 week, then 1 day) is
+        // currently positive, so the teaser doesn't default to a red
+        // reading when a longer/shorter window is green.
+        const weekly = row?.price?.change_pct_1w;
+        const daily = row?.price?.change_pct ?? row?.tracker_1h?.change_pct_1d;
+        const changePct = typeof weekly === "number" && weekly >= 0
+          ? weekly
+          : (typeof daily === "number" ? daily : (weekly ?? 0));
         setQuote({
           price: row?.price?.current ?? 0,
-          changePct: row?.tracker_1h?.change_pct_1d ?? row?.price?.change_pct ?? 0,
-          sparkline: row?.recent_closes ?? [],
+          changePct,
+          sparkline: (row?.recent_closes ?? []).slice(-6),
         });
       })
       .catch(() => {});
@@ -124,7 +139,6 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
   if (pick === null) return null;
 
   const initials = pick.ticker.slice(0, 4);
-  const targetLabel = `${pick.targetPct >= 0 ? "+" : ""}${pick.targetPct.toFixed(1)}%`;
   const changePositive = (quote?.changePct ?? 0) >= 0;
 
   const CardInner = (
@@ -134,23 +148,23 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
 
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-11 h-11 rounded-full bg-[#1e2a3a] border border-[#3b82f6]/30 flex items-center justify-center shrink-0">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1e2a3a] border border-[#3b82f6]/30 flex items-center justify-center shrink-0">
             <span className="text-[11px] font-black text-[#3b82f6]">{initials}</span>
           </div>
           <div className="min-w-0">
-            <p className="text-lg font-black text-white truncate">{pick.ticker}</p>
+            <p className="text-lg sm:text-xl font-black text-white truncate">{pick.ticker}</p>
             {pick.company && pick.company !== pick.ticker && (
-              <p className="text-xs text-white/50 truncate">{pick.company}</p>
+              <p className="text-xs sm:text-sm text-white/50 truncate">{pick.company}</p>
             )}
           </div>
         </div>
 
         {quote && (
           <div className="text-right shrink-0">
-            <p className="text-sm font-bold text-white font-mono">
+            <p className="text-base sm:text-2xl font-bold text-white font-mono leading-tight">
               {quote.price ? `$${quote.price.toFixed(2)}` : "—"}
             </p>
-            <p className={`text-xs font-semibold ${changePositive ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
+            <p className={`text-sm sm:text-lg font-semibold leading-tight ${changePositive ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
               {changePositive ? "+" : ""}{quote.changePct.toFixed(2)}%
             </p>
           </div>
@@ -172,13 +186,11 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-sm">
-          <span className="text-white/60">↑</span>
           <span className="text-white/70">{c.scoreLabel}:</span>
           <span className="font-bold text-white">{Math.round(pick.score)}/100</span>
         </span>
-        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#10b981]/10 border border-[#10b981]/40 text-sm">
-          <span className="text-white/70">{c.targetLabel}:</span>
-          <span className="font-bold text-[#10b981]">{targetLabel}</span>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-sm text-white/70">
+          {c.dataLabel}
         </span>
       </div>
 
