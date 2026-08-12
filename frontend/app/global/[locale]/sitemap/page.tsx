@@ -297,7 +297,8 @@ const LINK_LABELS: Record<Locale, Record<string, string>> = {
   },
 };
 
-export default function SitemapPage({ params: { locale } }: { params: { locale: Locale } }) {
+export default async function SitemapPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const t = SITEMAP_TITLES[locale] || SITEMAP_TITLES.en;
   const sec = SECTION_LABELS[locale] || SECTION_LABELS.en;
   const l = LINK_LABELS[locale] || LINK_LABELS.en;
