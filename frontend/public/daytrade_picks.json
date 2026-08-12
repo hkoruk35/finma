@@ -1,70 +1,15 @@
 {
-  "generated_at": "2026-08-11T09:15:06.596341-04:00",
+  "generated_at": "2026-08-12T09:15:07.872775-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 28.9,
-  "total_scanned": 2,
+  "scan_duration_s": 30.3,
+  "total_scanned": 3,
   "layer1_passed": 2,
   "final_picks": 2,
   "picks": [
     {
-      "ticker": "BMRN",
-      "price": 68.88,
-      "change_pct": 7.95,
-      "dt_score": 58.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 67.44,
-      "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "biomarin to participate at the canaccord genuity 46th annual growth conference on wednesday, august 12, 2026, at 8:00am ",
-        "confidence": "high",
-        "ts": 1786454134.569439
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 68.81,
-          "high": 69.22
-        },
-        "stop": 67.85,
-        "tp1": 71.35,
-        "tp2": 73.09,
-        "rr_ratio": 2.0,
-        "avg_entry": 69.02,
-        "risk_per_sh": 1.17,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 68.88
-      },
-      "details": [
-        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +8.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.14%",
-        "✅ Açılış Barı: Yeşil",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "PRTA",
-      "price": 9.12,
-      "change_pct": 4.11,
+      "ticker": "SRPT",
+      "price": 18.22,
+      "change_pct": 6.05,
       "dt_score": 38.0,
       "signal": "CONFIRMED_OPEN",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
@@ -72,13 +17,13 @@
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 8.87,
+      "vwap": 17.89,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1786454134.5482993
+        "ts": 1786540537.0391057
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +37,81 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 9.11,
-          "high": 9.17
+          "low": 18.2,
+          "high": 18.31
         },
-        "stop": 8.98,
-        "tp1": 9.46,
-        "tp2": 9.7,
-        "rr_ratio": 2.0,
-        "avg_entry": 9.14,
-        "risk_per_sh": 0.16,
+        "stop": 17.95,
+        "tp1": 18.86,
+        "tp2": 19.32,
+        "rr_ratio": 1.98,
+        "avg_entry": 18.25,
+        "risk_per_sh": 0.3,
         "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 9.12
+        "pm_high_ref": 18.22
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.1%",
+        "↗️ Orta Gap: +6.0%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.85%",
+        "✅ VWAP Üstünde: +1.84%",
         "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "CELH",
+      "price": 28.09,
+      "change_pct": 3.23,
+      "dt_score": 25.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 27.29,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1786540536.9913661
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 28.06,
+          "high": 28.23
+        },
+        "stop": 27.67,
+        "tp1": 29.09,
+        "tp2": 29.81,
+        "rr_ratio": 1.99,
+        "avg_entry": 28.14,
+        "risk_per_sh": 0.47,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 28.09
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.2%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +2.94%",
+        "🔴 Açılış Barı: Kırmızı (0.3% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
