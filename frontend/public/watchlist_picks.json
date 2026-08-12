@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T17:04:00.628131-04:00",
+  "generated_at": "2026-08-12T09:05:09.472979-04:00",
   "picks": [
     {
       "ticker": "ZETA",
@@ -56,16 +56,40 @@
       "score": 43.4
     },
     {
-      "ticker": "GWW",
-      "sector": "Industrials",
-      "date_added": "2026-08-11",
-      "score": 42.5
-    },
-    {
       "ticker": "DK",
       "sector": "Energy",
       "date_added": "2026-08-11",
       "score": 36.5
+    },
+    {
+      "ticker": "KNTK",
+      "sector": "Energy",
+      "date_added": "2026-08-12",
+      "score": 44.5
+    },
+    {
+      "ticker": "PSX",
+      "sector": "Energy",
+      "date_added": "2026-08-12",
+      "score": 42.5
+    },
+    {
+      "ticker": "PACS",
+      "sector": "Healthcare",
+      "date_added": "2026-08-12",
+      "score": 41.5
+    },
+    {
+      "ticker": "SYY",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-12",
+      "score": 41.5
+    },
+    {
+      "ticker": "RAL",
+      "sector": "Technology",
+      "date_added": "2026-08-12",
+      "score": 37.5
     }
   ]
 }
