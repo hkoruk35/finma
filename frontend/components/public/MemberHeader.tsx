@@ -108,6 +108,21 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
       return `/global/${targetLoc}${faqSuffix}`;
     }
 
+    const isLoginPage = pathname.endsWith("/giris") || pathname.endsWith("/login");
+    if (isLoginPage) {
+      return `/global/${targetLoc}/${targetLoc === "tr" ? "giris" : "login"}`;
+    }
+
+    const isRegisterPage = pathname.endsWith("/kayit") || pathname.endsWith("/register");
+    if (isRegisterPage) {
+      return `/global/${targetLoc}/${targetLoc === "tr" ? "kayit" : "register"}`;
+    }
+
+    const isAccountPage = pathname.endsWith("/hesabim") || pathname.endsWith("/account");
+    if (isAccountPage) {
+      return `/global/${targetLoc}/${targetLoc === "tr" ? "hesabim" : "account"}`;
+    }
+
     return pathname.replace(
       new RegExp(`^/global/${locale}`),
       `/global/${targetLoc}`
