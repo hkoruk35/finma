@@ -60,6 +60,10 @@ A generic `{key, value: jsonb, updated_at}` KV table, gated by an `ALLOWED_KEYS`
 - `watchlist_picks.json` (read via `getWatchlistPicks()`): the "Trend Adayı" (trend candidate) pool — radar, not yet confirmed.
 - Pool membership precedence: a ticker in `swing_all_picks.json` with `entry_status==ENTERED` → "Trend Listesi" (trend_list); otherwise if present in either file → "Trend Adayı" (trend_candidate); otherwise → not in any pool.
 
+## `daily_one_picks` — Daily AI stock pick (2026-08-13)
+
+Added by migration `0034_daily_one_picks.sql`. Backs the Home "Today's AI Stock Pick" widget and `/global/{locale}/dailyone` full-detail page. `period_key` (text, primary key) is a New York calendar date — `frontend/lib/dailyOnePick.ts:getEffectivePeriodKey()` rolls it over at 12:12 PM ET, not via a scheduled job: the first request to `GET /api/daily-one` after that boundary each day ranks the current `swing_all_picks.json` candidates by a candle+volume formation heuristic (`formationScore()` — relative volume, BOGA score, factor-score composite/momentum, risk/reward; excludes exhausted trends), upserts the winner, and every subsequent request that day reads the stored row instead of recomputing. Public read (RLS policy), service-role write only.
+
 ## BOGA score / conviction — where it's actually computed
 
 `frontend/app/api/preorder-analysis/route.ts` is the single live-scoring engine (conviction 0–100, Weinstein stage, Wyckoff phase/score, trade-plan zones via `frontend/lib/tradePlanEngine.ts`). Everything else (Copilot's stock card, `TickerDetailPanel`, graphic pages) calls this endpoint — never reimplements the math. See `docs/FINANCIAL_CALCULATIONS.md` for the full formula trace (not yet written — `tasks/active/006`).
