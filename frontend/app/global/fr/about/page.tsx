@@ -3,6 +3,7 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import { getAboutConfig } from "@/lib/aboutConfig";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -86,7 +87,10 @@ export default async function AboutPage() {
               <img src={config.mission.image_url} alt="Mission" className="object-cover w-full h-full" />
             </div>
           )}
+          <div className="text-center mt-10">
+          <Link href="/global/fr/future" className="text-[#3b82f6] hover:underline font-medium">En savoir plus sur nous &rarr;</Link>
         </div>
+</div>
       </main>
 
       <Footer hidePlatform={true} locale="fr" />
