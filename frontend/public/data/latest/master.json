@@ -1,8 +1,8 @@
 {
   "date": "2026-08-11",
-  "generated_at": "2026-08-11T14:06:18.133151-04:00",
+  "generated_at": "2026-08-11T17:03:58.545769-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 39,
+  "active_scores_count": 47,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 16,
       "tickers": [
         "HCI",
         "SBLK",
@@ -36,8 +36,9 @@
         "CRGY",
         "BURL",
         "DXCM",
-        "CNQ",
-        "RAL"
+        "RAL",
+        "HEI",
+        "ARES"
       ]
     },
     "value": {

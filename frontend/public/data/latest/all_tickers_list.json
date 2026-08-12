@@ -137,12 +137,12 @@
       "ticker": "WSM",
       "company": "WSM",
       "sector": "Consumer Cyclical",
-      "master_score": 53.5,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 250.82000732421875,
-      "change_pct": -0.38,
+      "price": 250.58999633789062,
+      "change_pct": -0.09,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
       "ticker": "GFI",
@@ -324,12 +324,12 @@
       "ticker": "CNQ",
       "company": "CNQ",
       "sector": "Energy",
-      "master_score": 51.0,
+      "master_score": 57.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 47.25,
-      "change_pct": 3.82,
+      "price": 47.61000061035156,
+      "change_pct": 0.76,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
     },
     {
       "ticker": "ADP",
@@ -429,6 +429,94 @@
       "change_pct": 3.91,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 40.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "TGT",
+      "company": "TGT",
+      "sector": "Consumer Defensive",
+      "master_score": 55.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 152.2899932861328,
+      "change_pct": 0.18,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "HEI",
+      "company": "HEI",
+      "sector": "Industrials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 366.9200134277344,
+      "change_pct": 0.82,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PANW",
+      "company": "PANW",
+      "sector": "Technology",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 383.79998779296875,
+      "change_pct": -0.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "FUL",
+      "company": "FUL",
+      "sector": "Basic Materials",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 62.029998779296875,
+      "change_pct": 1.27,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BG",
+      "company": "BG",
+      "sector": "Consumer Defensive",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 111.5999984741211,
+      "change_pct": -0.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MDT",
+      "company": "MDT",
+      "sector": "Healthcare",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 90.68000030517578,
+      "change_pct": 1.42,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "KGC",
+      "company": "KGC",
+      "sector": "Basic Materials",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 27.239999771118164,
+      "change_pct": -0.58,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ARES",
+      "company": "ARES",
+      "sector": "Financial Services",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 143.11000061035156,
+      "change_pct": 3.96,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: BREAKOUT"
     }
   ]
 }
