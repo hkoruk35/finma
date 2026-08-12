@@ -344,13 +344,6 @@ export default async function SitemapPage({ params }: { params: Promise<{ locale
       ],
     },
     {
-      category: sec.extras,
-      links: [
-        { href: `${base}/sports`, label: l.sports },
-        { href: `${base}/weather`, label: l.weather },
-      ],
-    },
-    {
       category: sec.account,
       links: [
         { href: `${base}/${r.login}`, label: l.login },
