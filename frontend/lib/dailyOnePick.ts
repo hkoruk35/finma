@@ -88,20 +88,25 @@ function formationScore(pick: any): number {
   return rvolNorm * 35 + bogaScore * 30 + composite * 15 + momentum * 10 + riskReward * 10;
 }
 
+/** Baseline: has a real, still-open entry setup at all. */
 function isEligible(pick: any): boolean {
   if (!pick?.ticker) return false;
   if (pick?.trend_status?.is_exhausted) return false;
   if (pick?.entry_status === "STOPPED" || pick?.entry_status === "EXPIRED") return false;
   const tp1 = pick?.tracker_logic?.profit_target_tp1 ?? pick?.profit_zone?.low;
-  if (!(typeof pick?.current_price === "number" && typeof tp1 === "number" && tp1 > pick.current_price)) {
-    return false;
-  }
-  // RSI and relative volume must both be trending up on the 1h timeframe —
-  // this is the "RSI ve rvol yukarı yönlü olmalı" screening criterion.
+  return typeof pick?.current_price === "number" && typeof tp1 === "number" && tp1 > pick.current_price;
+}
+
+/**
+ * "RSI ve rvol yukarı yönlü olmalı" — 1h RSI and relative volume both
+ * trending up. This is a soft preference, not a hard filter: it's applied
+ * as a sort priority (confirmed-first) rather than exclusion, so a thin
+ * trading day never drops the picks count below PICKS_COUNT.
+ */
+function isTrendConfirmed(pick: any): boolean {
   const rsi1h = pick?.hourly_analysis?.rsi_1h;
   if (typeof rsi1h === "number" && rsi1h < 50) return false;
-  if (parseRvol(pick) < 1.0) return false;
-  return true;
+  return parseRvol(pick) >= 1.0;
 }
 
 function toDailyOnePick(pick: any, formation: number): DailyOnePick {
@@ -150,9 +155,15 @@ async function selectFreshPicks(): Promise<DailyOnePick[]> {
   const eligible = picks.filter(isEligible);
   if (eligible.length === 0) return [];
 
+  // Trend-confirmed (1h RSI + rvol up) candidates rank ahead of the rest,
+  // but unconfirmed ones are kept in the pool so the count never drops
+  // below PICKS_COUNT on a quiet trading day.
   const ranked = eligible
-    .map((p) => ({ pick: p, formation: formationScore(p) }))
-    .sort((a, b) => b.formation - a.formation);
+    .map((p) => ({ pick: p, formation: formationScore(p), confirmed: isTrendConfirmed(p) }))
+    .sort((a, b) => {
+      if (a.confirmed !== b.confirmed) return a.confirmed ? -1 : 1;
+      return b.formation - a.formation;
+    });
 
   const pool = ranked.slice(0, LIVE_CHECK_POOL);
   const confirmations = await Promise.all(pool.map((r) => get15mConfirmation(r.pick.ticker)));
@@ -160,16 +171,25 @@ async function selectFreshPicks(): Promise<DailyOnePick[]> {
   const withLiveScore = pool
     .map((r, i) => {
       const bonus = confirmations[i];
-      return { ...r, live: bonus, combined: r.formation + (bonus ?? 0) };
+      return { ...r, live: bonus, combined: r.formation + (r.confirmed ? 10 : 0) + (bonus ?? 0) };
     })
     .filter((r) => r.live !== -100) // hard-reject 15m distribution candidates
     .sort((a, b) => b.combined - a.combined);
 
-  // If live confirmation wiped out the whole pool (Yahoo down, etc.), fall
-  // back to the static ranking rather than showing nothing.
-  const finalList = withLiveScore.length > 0 ? withLiveScore : ranked;
+  // Always fill back up to PICKS_COUNT from the full ranked pool (skipping
+  // anything already chosen) in case 15m rejections or a thin live-check
+  // pool left withLiveScore short — the picks count must never drop below
+  // PICKS_COUNT just because live confirmation was strict or unavailable.
+  const chosen = [...withLiveScore];
+  const chosenTickers = new Set(chosen.map((r) => r.pick.ticker));
+  for (const r of ranked) {
+    if (chosen.length >= PICKS_COUNT) break;
+    if (chosenTickers.has(r.pick.ticker)) continue;
+    chosen.push({ ...r, live: null, combined: r.formation });
+    chosenTickers.add(r.pick.ticker);
+  }
 
-  return finalList.slice(0, PICKS_COUNT).map((r) => toDailyOnePick(r.pick, r.formation));
+  return chosen.slice(0, PICKS_COUNT).map((r) => toDailyOnePick(r.pick, r.formation));
 }
 
 function rowToPicks(row: any): DailyOnePick[] {
@@ -211,7 +231,10 @@ export async function getDailyOnePicks(): Promise<DailyOnePick[]> {
       .maybeSingle();
     if (existing) {
       const picks = rowToPicks(existing);
-      if (picks.length > 0) return picks;
+      // A row written before the multi-pick migration (or before `picks`
+      // was populated) only has 1 — treat as stale and recompute below
+      // instead of permanently serving a single pick for the rest of the day.
+      if (picks.length >= PICKS_COUNT) return picks;
     }
   } catch {
     // fall through to fresh selection if Supabase is unreachable
