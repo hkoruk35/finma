@@ -20,7 +20,7 @@ interface MenuGroup {
 const T: Record<Locale, Record<string, string>> = {
   tr: {
     markets: "Piyasalar", watchlist: "İzleme Listem", news: "Haberler", analysis: "Analizler", brokers: "Aracı Kurumlar",
-    indices: "Endeksler", stocksHeading: "Hisseler", top7: "Top 7", top100: "Top 100", gainers: "Yükselenler",
+    indices: "Endeksler", sectors: "Sektörler", stocksHeading: "Hisseler", top7: "Top 7", top100: "Top 100", gainers: "Yükselenler",
     losers: "Düşenler", trendStocks: "Trend Hisseler", fx: "Döviz", commodity: "Emtia", crypto: "Kripto", futures: "Vadeliler",
     stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "İçeriden İşlemler",
     marketsAnalysis: "Piyasa Analizleri", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Hisse Analizleri",
@@ -28,7 +28,7 @@ const T: Record<Locale, Record<string, string>> = {
   },
   en: {
     markets: "Markets", watchlist: "My Watchlist", news: "News", analysis: "Analysis", brokers: "Brokers",
-    indices: "Indices", stocksHeading: "Stocks", top7: "Top 7", top100: "Top 100", gainers: "Gainers",
+    indices: "Indices", sectors: "Sectors", stocksHeading: "Stocks", top7: "Top 7", top100: "Top 100", gainers: "Gainers",
     losers: "Losers", trendStocks: "Trending Stocks", fx: "Forex", commodity: "Commodities", crypto: "Crypto", futures: "Futures",
     stockAnalyses: "Stock Analyses", earnings: "Earnings", earningsCalendar: "Earnings Calendar", insider: "Insider Activity",
     marketsAnalysis: "Markets", sectorAnalysis: "Sector Analyses", sectorHeatmap: "Sector Heat Map", stockAnalysis: "Stock Analyses",
@@ -36,7 +36,7 @@ const T: Record<Locale, Record<string, string>> = {
   },
   es: {
     markets: "Markets", watchlist: "Mi Lista", news: "News", analysis: "Análisis", brokers: "Brokers",
-    indices: "Índices", stocksHeading: "Acciones", top7: "Top 7", top100: "Top 100", gainers: "Alzas",
+    indices: "Índices", sectors: "Sectores", stocksHeading: "Acciones", top7: "Top 7", top100: "Top 100", gainers: "Alzas",
     losers: "Bajas", trendStocks: "En Tendencia", fx: "Divisas", commodity: "Materias Primas", crypto: "Cripto", futures: "Futuros",
     stockAnalyses: "Análisis de Acciones", earnings: "Resultados", earningsCalendar: "Calendario de Resultados", insider: "Actividad de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análisis Sectorial", sectorHeatmap: "Mapa de Calor Sectorial", stockAnalysis: "Análisis de Acciones",
@@ -44,7 +44,7 @@ const T: Record<Locale, Record<string, string>> = {
   },
   fr: {
     markets: "Markets", watchlist: "Ma Liste", news: "News", analysis: "Analyses", brokers: "Brokers",
-    indices: "Indices", stocksHeading: "Actions", top7: "Top 7", top100: "Top 100", gainers: "Hausses",
+    indices: "Indices", sectors: "Secteurs", stocksHeading: "Actions", top7: "Top 7", top100: "Top 100", gainers: "Hausses",
     losers: "Baisses", trendStocks: "Actions Tendance", fx: "Forex", commodity: "Matières Premières", crypto: "Crypto", futures: "Futures",
     stockAnalyses: "Analyses d'Actions", earnings: "Résultats", earningsCalendar: "Calendrier des Résultats", insider: "Activité des Initiés",
     marketsAnalysis: "Markets", sectorAnalysis: "Analyses Sectorielles", sectorHeatmap: "Carte Sectorielle", stockAnalysis: "Analyses d'Actions",
@@ -52,7 +52,7 @@ const T: Record<Locale, Record<string, string>> = {
   },
   pt: {
     markets: "Markets", watchlist: "Minha Lista", news: "News", analysis: "Análises", brokers: "Brokers",
-    indices: "Índices", stocksHeading: "Ações", top7: "Top 7", top100: "Top 100", gainers: "Altas",
+    indices: "Índices", sectors: "Setores", stocksHeading: "Ações", top7: "Top 7", top100: "Top 100", gainers: "Altas",
     losers: "Baixas", trendStocks: "Ações em Tendência", fx: "Câmbio", commodity: "Commodities", crypto: "Cripto", futures: "Futuros",
     stockAnalyses: "Análises de Ações", earnings: "Resultados", earningsCalendar: "Calendário de Resultados", insider: "Atividade de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análises Setoriais", sectorHeatmap: "Mapa de Calor Setorial", stockAnalysis: "Análises de Ações",
@@ -60,7 +60,7 @@ const T: Record<Locale, Record<string, string>> = {
   },
   id: {
     markets: "Pasar", watchlist: "Watchlist Saya", news: "Berita", analysis: "Analisis", brokers: "Broker",
-    indices: "Indeks", stocksHeading: "Saham", top7: "Top 7", top100: "Top 100", gainers: "Penguat",
+    indices: "Indeks", sectors: "Sektor", stocksHeading: "Saham", top7: "Top 7", top100: "Top 100", gainers: "Penguat",
     losers: "Pelemah", trendStocks: "Saham Tren", fx: "Forex", commodity: "Komoditas", crypto: "Kripto", futures: "Futures",
     stockAnalyses: "Analisis Saham", earnings: "Laba", earningsCalendar: "Kalender Laba", insider: "Aktivitas Insider",
     marketsAnalysis: "Pasar", sectorAnalysis: "Analisis Sektor", sectorHeatmap: "Peta Panas Sektor", stockAnalysis: "Analisis Saham",
@@ -78,6 +78,7 @@ function buildGroups(locale: Locale): MenuGroup[] {
       href: g("/markets"),
       children: [
         { label: t.indices, href: g("/markets") },
+        { label: t.sectors, href: g("/sectors") },
         { label: t.stocksHeading, heading: true },
         { label: t.top7, href: g("/top7") },
         { label: t.top100, href: g("/top100") },
@@ -108,8 +109,6 @@ function buildGroups(locale: Locale): MenuGroup[] {
       href: g("/analysis-hub"),
       children: [
         { label: t.marketsAnalysis, href: g("/markets") },
-        { label: t.sectorAnalysis, href: g("/sectors") },
-        { label: t.sectorHeatmap, href: g("/sectors") },
         { label: t.stockAnalysis, href: g("/news") },
         { label: t.fx, href: g("/home") },
         { label: t.commodity, href: g("/home") },
