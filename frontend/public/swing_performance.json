@@ -2,15 +2,15 @@
   "stats": {
     "total_picks": 1543,
     "completed_count": 988,
-    "win_rate": 85.7,
-    "avg_return_pct": 3.14,
+    "win_rate": 83.8,
+    "avg_return_pct": 3.0,
     "stop_loss_pct": "Min 7%",
-    "last_updated": "2026-08-12T17:00:17",
+    "last_updated": "2026-08-12T17:05:29",
     "counted_picks": 1244,
     "duplicate_count": 299,
     "pending_count": 256,
-    "above_5pct_rate": 62.7,
-    "above_10pct_rate": 2.3
+    "above_5pct_rate": 62.3,
+    "above_10pct_rate": 2.0
   },
   "history": [
     {
