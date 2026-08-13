@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-08-12T17:05:29.201851-04:00",
+  "generated_at": "2026-08-13T09:04:37.293858-04:00",
   "picks": [
-    {
-      "ticker": "APO",
-      "sector": "Financial Services",
-      "date_added": "2026-08-10",
-      "score": 43.5
-    },
     {
       "ticker": "CAMT",
       "sector": "Technology",
@@ -47,23 +41,11 @@
       "ticker": "IHG",
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-12",
-      "score": 43.0
-    },
-    {
-      "ticker": "MANH",
-      "sector": "Technology",
-      "date_added": "2026-08-12",
-      "score": 45.5
+      "score": 39.0
     },
     {
       "ticker": "ZD",
       "sector": "Communication Services",
-      "date_added": "2026-08-12",
-      "score": 44.5
-    },
-    {
-      "ticker": "MAC",
-      "sector": "Real Estate",
       "date_added": "2026-08-12",
       "score": 44.5
     },
@@ -74,16 +56,40 @@
       "score": 43.5
     },
     {
-      "ticker": "SYY",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-12",
-      "score": 43.5
-    },
-    {
       "ticker": "DHT",
       "sector": "Energy",
       "date_added": "2026-08-12",
       "score": 42.5
+    },
+    {
+      "ticker": "ESNT",
+      "sector": "Financial Services",
+      "date_added": "2026-08-13",
+      "score": 46.5
+    },
+    {
+      "ticker": "EXPE",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-13",
+      "score": 45.0
+    },
+    {
+      "ticker": "CVSA",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-13",
+      "score": 42.0
+    },
+    {
+      "ticker": "HPQ",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 40.5
+    },
+    {
+      "ticker": "INSW",
+      "sector": "Energy",
+      "date_added": "2026-08-13",
+      "score": 40.5
     }
   ]
 }
