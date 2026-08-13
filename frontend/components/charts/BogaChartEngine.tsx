@@ -66,11 +66,16 @@ function nyTickMarkFormatter(time: Time, tickMarkType: TickMarkType): string {
   return new Intl.DateTimeFormat("en-US", opts).format(date);
 }
 
-function nyTimeFormatter(time: Time): string {
+// Daily/weekly bars carry a single per-bar timestamp internally (typically
+// the session open), but showing that as e.g. "Aug 12, 2026 09:30 ET" reads
+// as if it's an intraday snapshot rather than the full day/week's candle —
+// so for "D"/"W" intervals the crosshair label drops the time entirely.
+function nyTimeFormatter(time: Time, interval?: string): string {
   const date = toNYDate(time);
   const datePart = new Intl.DateTimeFormat("en-US", {
     timeZone: NY_TIME_ZONE, year: "numeric", month: "short", day: "2-digit",
   }).format(date);
+  if (interval === "D" || interval === "W") return datePart;
   const timePart = new Intl.DateTimeFormat("en-US", {
     timeZone: NY_TIME_ZONE, hour: "2-digit", minute: "2-digit", hour12: false,
   }).format(date);
@@ -405,6 +410,7 @@ export default function BogaChartEngine({
   const priceLinesRef = useRef<any[]>([]);
   const barsRef = useRef<Bar[]>([]);
   const lastDataRef = useRef<ChartResponse | null>(null);
+  const intervalRef = useRef(intervalProp || defaultTimeframe || "240");
 
   const [interval, setInterval_] = useState(intervalProp || defaultTimeframe || "240");
   const [isMobile, setIsMobile] = useState(false);
@@ -480,6 +486,13 @@ export default function BogaChartEngine({
       setCandleType("candle");
       setInternalActive(new Set(["ema50"] as IndicatorKey[]));
     }
+  }, [interval]);
+
+  // nyTimeFormatter (crosshair time label) is interval-aware — the chart is
+  // only created once, so it reads the current interval from this ref
+  // instead of needing chart.applyOptions on every interval change.
+  useEffect(() => {
+    intervalRef.current = interval;
   }, [interval]);
 
   const saveChartSettings = () => {
@@ -665,7 +678,7 @@ export default function BogaChartEngine({
         borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false, rightOffset: DEFAULT_RIGHT_OFFSET,
         tickMarkFormatter: nyTickMarkFormatter,
       },
-      localization: { timeFormatter: nyTimeFormatter },
+      localization: { timeFormatter: (time: Time) => nyTimeFormatter(time, intervalRef.current) },
       autoSize: true,
       // Fare tekerleği varsayılan olarak kapalı — grafik üzerinden sayfayı
       // aşağı/yukarı kaydırmaya çalışan kullanıcı yanlışlıkla zoom yapmasın diye.
