@@ -1,37 +1,37 @@
 {
-  "date": "2026-08-12",
-  "generated_at": "2026-08-12T17:05:27.459937-04:00",
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T09:04:34.963712-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 45,
+  "active_scores_count": 33,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "PAYX",
-        "LAD",
-        "CNQ",
-        "ADP",
-        "VRSN",
-        "WAT",
-        "PSX",
-        "ADUS",
-        "CTAS",
-        "SRRK"
+        "NTSK",
+        "UMAC",
+        "WPM",
+        "HPE",
+        "CART",
+        "BKNG",
+        "WAB",
+        "VAL",
+        "PLXS",
+        "TMO"
       ]
     },
     "breakout": {
       "count": 9,
       "tickers": [
-        "RAL",
-        "HEI",
-        "ARES",
         "NTSK",
         "UMAC",
         "HPE",
         "CART",
         "WAB",
-        "FDX"
+        "FDX",
+        "RHP",
+        "AYI",
+        "GOLD"
       ]
     },
     "value": {
@@ -53,18 +53,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "PAYX",
-      "score": 56.0,
+      "ticker": "NTSK",
+      "score": 63.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "LAD",
-      "score": 52.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "CNQ",
+      "ticker": "UMAC",
       "score": 57.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "WPM",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
