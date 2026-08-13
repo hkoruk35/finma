@@ -33,81 +33,78 @@ const COPY: Record<Locale, {
   modalTitle: string; modalDesc: string;
 }> = {
   en: {
-    badge: "TODAY'S AI MARKET SPOTLIGHT",
+    badge: "TODAY'S TRENDING STOCKS",
     scoreLabel: "AI Model Score",
     dataLabel: "Market Analysis & Data",
     lockedCta: "Sign In Free with Google to Unlock the Full Analysis",
     unlockedCta: "View Full Analysis →",
-    modalTitle: "Today's AI Market Spotlight",
+    modalTitle: "Today's Trending Stocks",
     modalDesc: "Sign in with Google or create a free account to see the full chart, technical analysis, and market data.",
   },
   tr: {
-    badge: "BUGÜNÜN AI PİYASA ÖNE ÇIKANI",
+    badge: "GÜNÜN TREND HİSSELERİNDEN",
     scoreLabel: "AI Model Puanı",
     dataLabel: "Piyasa Analizi & Verisi",
     lockedCta: "Tam Analizi Açmak İçin Google ile Ücretsiz Giriş Yap",
     unlockedCta: "Tam Analizi Gör →",
-    modalTitle: "Bugünün AI Piyasa Öne Çıkanı",
+    modalTitle: "Günün Trend Hisselerinden",
     modalDesc: "Tam grafiği, teknik analizi ve piyasa verilerini görmek için Google ile giriş yapın veya ücretsiz kaydolun.",
   },
   es: {
-    badge: "DESTACADO DE MERCADO AI DE HOY",
+    badge: "ACCIONES EN TENDENCIA DE HOY",
     scoreLabel: "Puntuación del Modelo AI",
     dataLabel: "Análisis y Datos de Mercado",
     lockedCta: "Inicia Sesión Gratis con Google para Desbloquear el Análisis Completo",
     unlockedCta: "Ver Análisis Completo →",
-    modalTitle: "Destacado de Mercado AI de Hoy",
+    modalTitle: "Acciones en Tendencia de Hoy",
     modalDesc: "Inicia sesión con Google o crea una cuenta gratuita para ver el gráfico completo, el análisis técnico y los datos de mercado.",
   },
   fr: {
-    badge: "TENDANCE MARCHÉ IA DU JOUR",
+    badge: "ACTIONS TENDANCE DU JOUR",
     scoreLabel: "Score du Modèle IA",
     dataLabel: "Analyse et Données de Marché",
     lockedCta: "Connectez-vous Gratuitement avec Google pour Débloquer l'Analyse Complète",
     unlockedCta: "Voir l'Analyse Complète →",
-    modalTitle: "Tendance Marché IA du Jour",
+    modalTitle: "Actions Tendance du Jour",
     modalDesc: "Connectez-vous avec Google ou créez un compte gratuit pour voir le graphique complet, l'analyse technique et les données de marché.",
   },
   pt: {
-    badge: "DESTAQUE DE MERCADO IA DE HOJE",
+    badge: "AÇÕES EM TENDÊNCIA DE HOJE",
     scoreLabel: "Pontuação do Modelo IA",
     dataLabel: "Análise e Dados de Mercado",
     lockedCta: "Entre Grátis com o Google para Desbloquear a Análise Completa",
     unlockedCta: "Ver Análise Completa →",
-    modalTitle: "Destaque de Mercado IA de Hoje",
+    modalTitle: "Ações em Tendência de Hoje",
     modalDesc: "Entre com o Google ou crie uma conta gratuita para ver o gráfico completo, a análise técnica e os dados de mercado.",
   },
   id: {
-    badge: "SOROTAN PASAR AI HARI INI",
+    badge: "SAHAM TREN HARI INI",
     scoreLabel: "Skor Model AI",
     dataLabel: "Analisis & Data Pasar",
     lockedCta: "Masuk Gratis dengan Google untuk Membuka Analisis Lengkap",
     unlockedCta: "Lihat Analisis Lengkap →",
-    modalTitle: "Sorotan Pasar AI Hari Ini",
+    modalTitle: "Saham Tren Hari Ini",
     modalDesc: "Masuk dengan Google atau buat akun gratis untuk melihat grafik lengkap, analisis teknikal, dan data pasar.",
   },
 };
 
-export default function DailyOnePickCard({ locale }: { locale: Locale }) {
-  const c = COPY[locale] ?? COPY.en;
-  const { plan, loading: planLoading } = useMemberPlan();
-  const isLoggedIn = plan !== null;
-  const [pick, setPick] = useState<DailyOnePick | null | undefined>(undefined);
+// Chart always renders as the confirmed-uptrend color — these tickers only
+// reach the card after passing the RSI/rvol/15m-candle uptrend screen in
+// lib/dailyOnePick.ts, so the visual should reflect the trend call
+// regardless of the current intraday tick.
+const TREND_COLOR = "#22c55e";
+
+function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
+  locale: Locale;
+  c: (typeof COPY)[Locale];
+  pick: DailyOnePick;
+  isLoggedIn: boolean;
+  onLockedClick: () => void;
+}) {
   const [quote, setQuote] = useState<LiveQuote | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const detailHref = `/global/${locale}/dailyone`;
+  const detailHref = `/global/${locale}/dailyone?ticker=${pick.ticker}`;
 
   useEffect(() => {
-    let active = true;
-    fetch("/api/daily-one", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => { if (active) setPick(d?.pick ?? null); })
-      .catch(() => { if (active) setPick(null); });
-    return () => { active = false; };
-  }, []);
-
-  useEffect(() => {
-    if (!pick?.ticker) return;
     let active = true;
     fetch(`/api/watchlist-data?tickers=${pick.ticker}`)
       .then((r) => (r.ok ? r.json() : []))
@@ -115,9 +112,6 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
         if (!active) return;
         const row = Array.isArray(rows) ? rows[0] : null;
         if (!row) return;
-        // Prefer whichever look-back window (1 week, then 1 day) is
-        // currently positive, so the teaser doesn't default to a red
-        // reading when a longer/shorter window is green.
         const weekly = row?.price?.change_pct_1w;
         const daily = row?.price?.change_pct ?? row?.tracker_1h?.change_pct_1d;
         const changePct = typeof weekly === "number" && weekly >= 0
@@ -131,20 +125,13 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
       })
       .catch(() => {});
     return () => { active = false; };
-  }, [pick?.ticker]);
-
-  if (pick === undefined || planLoading) {
-    return <div className="mt-4 h-[140px] rounded-xl bg-[#0f1117] border border-[#1e2a3a]/60 animate-pulse" />;
-  }
-  if (pick === null) return null;
+  }, [pick.ticker]);
 
   const initials = pick.ticker.slice(0, 4);
-  const changePositive = (quote?.changePct ?? 0) >= 0;
 
-  const CardInner = (
-    <div className="relative overflow-hidden rounded-xl border border-[#3b82f6]/40 bg-gradient-to-br from-[#0f1c2e] via-[#0f1117] to-[#0f1e17] p-4 sm:p-5">
+  return (
+    <div className="min-w-[88%] sm:min-w-0 shrink-0 sm:shrink snap-start relative overflow-hidden rounded-xl border border-[#3b82f6]/40 bg-gradient-to-br from-[#0f1c2e] via-[#0f1117] to-[#0f1e17] p-4 sm:p-5">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]" />
-      <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.2em] mb-3">{c.badge}</p>
 
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 min-w-0">
@@ -164,8 +151,8 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
             <p className="text-base sm:text-2xl font-bold text-white font-mono leading-tight">
               {quote.price ? `$${quote.price.toFixed(2)}` : "—"}
             </p>
-            <p className={`text-sm sm:text-lg font-semibold leading-tight ${changePositive ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
-              {changePositive ? "+" : ""}{quote.changePct.toFixed(2)}%
+            <p className={`text-sm sm:text-lg font-semibold leading-tight ${quote.changePct >= 0 ? "!text-[#22c55e]" : "!text-[#ef4444]"}`}>
+              {quote.changePct >= 0 ? "+" : ""}{quote.changePct.toFixed(2)}%
             </p>
           </div>
         )}
@@ -173,14 +160,7 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
 
       {quote && quote.sparkline.length > 1 && (
         <div className="w-full h-16 sm:h-20 mb-4">
-          <Sparkline
-            data={quote.sparkline}
-            color={changePositive ? "#22c55e" : "#ef4444"}
-            changePct={quote.changePct}
-            width={400}
-            height={64}
-            responsive
-          />
+          <Sparkline data={quote.sparkline} color={TREND_COLOR} changePct={1} width={400} height={64} responsive />
         </div>
       )}
 
@@ -203,7 +183,7 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
         </Link>
       ) : (
         <button
-          onClick={() => setShowModal(true)}
+          onClick={onLockedClick}
           className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-semibold text-sm bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-colors text-center"
         >
           <svg className="w-4 h-4 shrink-0 bg-white rounded-full p-0.5" viewBox="0 0 24 24">
@@ -217,10 +197,44 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
       )}
     </div>
   );
+}
+
+export default function DailyOnePickCard({ locale }: { locale: Locale }) {
+  const c = COPY[locale] ?? COPY.en;
+  const { plan, loading: planLoading } = useMemberPlan();
+  const isLoggedIn = plan !== null;
+  const [picks, setPicks] = useState<DailyOnePick[] | undefined>(undefined);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/daily-one", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => { if (active) setPicks(Array.isArray(d?.picks) ? d.picks : []); })
+      .catch(() => { if (active) setPicks([]); });
+    return () => { active = false; };
+  }, []);
+
+  if (picks === undefined || planLoading) {
+    return <div className="mt-4 h-[140px] rounded-xl bg-[#0f1117] border border-[#1e2a3a]/60 animate-pulse" />;
+  }
+  if (picks.length === 0) return null;
 
   return (
     <div className="mt-4">
-      {CardInner}
+      <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.2em] mb-3">{c.badge}</p>
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 sm:overflow-visible sm:snap-none">
+        {picks.map((pick) => (
+          <PickTile
+            key={pick.ticker}
+            locale={locale}
+            c={c}
+            pick={pick}
+            isLoggedIn={isLoggedIn}
+            onLockedClick={() => setShowModal(true)}
+          />
+        ))}
+      </div>
       {showModal && (
         <FreeRegisterModal
           locale={locale}

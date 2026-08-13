@@ -1,8 +1,9 @@
 import { getSwingPicksBackfilled } from "./data";
 import { supabaseAdmin } from "./supabase-admin";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
+
 export interface DailyOnePick {
-  periodKey: string;
   ticker: string;
   company: string;
   sector: string;
@@ -15,12 +16,15 @@ export interface DailyOnePick {
   riskReward: number;
   selectionReasons: string[];
   formationScore: number;
-  generatedAt: string;
 }
 
 const TABLE = "daily_one_picks";
-// 12:12 PM New York time — the pick becomes effective for the day at/after
-// this boundary; before it, the previous day's pick is still shown.
+const PICKS_COUNT = 2;
+// How many top static candidates get a live 15m/1h confirmation check
+// before picking the final 2 — kept small to limit live-quote fetches.
+const LIVE_CHECK_POOL = 8;
+// 12:12 PM New York time — the picks become effective for the day at/after
+// this boundary; before it, the previous day's picks are still shown.
 const ROLLOVER_HOUR = 12;
 const ROLLOVER_MINUTE = 12;
 
@@ -51,7 +55,7 @@ function previousNyDate(dateStr: string): string {
   return dt.toISOString().slice(0, 10);
 }
 
-/** The calendar date whose 12:12 PM ET rollover currently governs the active pick. */
+/** The calendar date whose 12:12 PM ET rollover currently governs the active picks. */
 export function getEffectivePeriodKey(): string {
   const { date, hour, minute } = getNyParts();
   const isPastRollover = hour > ROLLOVER_HOUR || (hour === ROLLOVER_HOUR && minute >= ROLLOVER_MINUTE);
@@ -89,66 +93,114 @@ function isEligible(pick: any): boolean {
   if (pick?.trend_status?.is_exhausted) return false;
   if (pick?.entry_status === "STOPPED" || pick?.entry_status === "EXPIRED") return false;
   const tp1 = pick?.tracker_logic?.profit_target_tp1 ?? pick?.profit_zone?.low;
-  return typeof pick?.current_price === "number" && typeof tp1 === "number" && tp1 > pick.current_price;
+  if (!(typeof pick?.current_price === "number" && typeof tp1 === "number" && tp1 > pick.current_price)) {
+    return false;
+  }
+  // RSI and relative volume must both be trending up on the 1h timeframe —
+  // this is the "RSI ve rvol yukarı yönlü olmalı" screening criterion.
+  const rsi1h = pick?.hourly_analysis?.rsi_1h;
+  if (typeof rsi1h === "number" && rsi1h < 50) return false;
+  if (parseRvol(pick) < 1.0) return false;
+  return true;
 }
 
-async function selectFreshPick(periodKey: string): Promise<DailyOnePick | null> {
+function toDailyOnePick(pick: any, formation: number): DailyOnePick {
+  const currentPrice = pick.current_price;
+  const targetPrice = pick.tracker_logic?.profit_target_tp1 ?? pick.profit_zone?.low;
+  return {
+    ticker: pick.ticker,
+    company: pick.company || pick.ticker,
+    sector: pick.sector || "",
+    score: pick.boga_score ?? pick.score ?? 0,
+    currentPrice,
+    targetPrice,
+    targetPct: ((targetPrice - currentPrice) / currentPrice) * 100,
+    entryLow: pick.tracker_logic?.entry_zone_low ?? pick.buy_zone?.low ?? currentPrice,
+    entryHigh: pick.tracker_logic?.entry_zone_high ?? pick.buy_zone?.high ?? currentPrice,
+    riskReward: pick.boga_zones?.risk_reward ?? 0,
+    selectionReasons: pick.selection_reasons ?? [],
+    formationScore: formation,
+  };
+}
+
+/** Live 15m candle+volume confirmation via the same engine watchlist-data
+ * uses (check15mMicroTrend) — returns a score delta, or null if the live
+ * fetch failed (caller should fall back to the static ranking only). */
+async function get15mConfirmation(ticker: string): Promise<number | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/api/watchlist-data?tickers=${ticker}`, {
+      signal: AbortSignal.timeout(8000),
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const rows = await res.json();
+    const row = Array.isArray(rows) ? rows[0] : null;
+    const micro = row?.scores?.micro_15m;
+    if (!micro) return null;
+    if (micro.is_valid === false) return -100; // hard reject: 15m distribution
+    return typeof micro.score_bonus === "number" ? micro.score_bonus : 0;
+  } catch {
+    return null;
+  }
+}
+
+async function selectFreshPicks(): Promise<DailyOnePick[]> {
   const data = await getSwingPicksBackfilled(30);
   const picks: any[] = Array.isArray(data?.picks) ? data.picks : [];
   const eligible = picks.filter(isEligible);
-  if (eligible.length === 0) return null;
+  if (eligible.length === 0) return [];
 
-  eligible.sort((a, b) => formationScore(b) - formationScore(a));
-  const best = eligible[0];
+  const ranked = eligible
+    .map((p) => ({ pick: p, formation: formationScore(p) }))
+    .sort((a, b) => b.formation - a.formation);
 
-  const currentPrice = best.current_price;
-  const targetPrice = best.tracker_logic?.profit_target_tp1 ?? best.profit_zone?.low;
-  const targetPct = ((targetPrice - currentPrice) / currentPrice) * 100;
+  const pool = ranked.slice(0, LIVE_CHECK_POOL);
+  const confirmations = await Promise.all(pool.map((r) => get15mConfirmation(r.pick.ticker)));
 
-  return {
-    periodKey,
-    ticker: best.ticker,
-    company: best.company || best.ticker,
-    sector: best.sector || "",
-    score: best.boga_score ?? best.score ?? 0,
-    currentPrice,
-    targetPrice,
-    targetPct,
-    entryLow: best.tracker_logic?.entry_zone_low ?? best.buy_zone?.low ?? currentPrice,
-    entryHigh: best.tracker_logic?.entry_zone_high ?? best.buy_zone?.high ?? currentPrice,
-    riskReward: best.boga_zones?.risk_reward ?? 0,
-    selectionReasons: best.selection_reasons ?? [],
-    formationScore: formationScore(best),
-    generatedAt: new Date().toISOString(),
-  };
+  const withLiveScore = pool
+    .map((r, i) => {
+      const bonus = confirmations[i];
+      return { ...r, live: bonus, combined: r.formation + (bonus ?? 0) };
+    })
+    .filter((r) => r.live !== -100) // hard-reject 15m distribution candidates
+    .sort((a, b) => b.combined - a.combined);
+
+  // If live confirmation wiped out the whole pool (Yahoo down, etc.), fall
+  // back to the static ranking rather than showing nothing.
+  const finalList = withLiveScore.length > 0 ? withLiveScore : ranked;
+
+  return finalList.slice(0, PICKS_COUNT).map((r) => toDailyOnePick(r.pick, r.formation));
 }
 
-function rowToPick(row: any): DailyOnePick {
-  const payload = row.payload ?? {};
-  return {
-    periodKey: row.period_key,
-    ticker: row.ticker,
-    company: row.company || row.ticker,
-    sector: row.sector || "",
-    score: Number(row.score) || 0,
-    currentPrice: Number(row.current_price) || 0,
-    targetPrice: Number(row.target_price) || 0,
-    targetPct: Number(row.target_pct) || 0,
-    entryLow: Number(row.entry_low) || 0,
-    entryHigh: Number(row.entry_high) || 0,
-    riskReward: Number(row.risk_reward) || 0,
-    selectionReasons: Array.isArray(row.selection_reasons) ? row.selection_reasons : [],
-    formationScore: Number(row.formation_score) || 0,
-    generatedAt: payload.generatedAt || row.created_at,
-  };
+function rowToPicks(row: any): DailyOnePick[] {
+  if (Array.isArray(row.picks) && row.picks.length > 0) return row.picks as DailyOnePick[];
+  // Legacy single-pick row (pre-multi-pick migration) — wrap for compatibility.
+  if (row.ticker) {
+    return [{
+      ticker: row.ticker,
+      company: row.company || row.ticker,
+      sector: row.sector || "",
+      score: Number(row.score) || 0,
+      currentPrice: Number(row.current_price) || 0,
+      targetPrice: Number(row.target_price) || 0,
+      targetPct: Number(row.target_pct) || 0,
+      entryLow: Number(row.entry_low) || 0,
+      entryHigh: Number(row.entry_high) || 0,
+      riskReward: Number(row.risk_reward) || 0,
+      selectionReasons: Array.isArray(row.selection_reasons) ? row.selection_reasons : [],
+      formationScore: Number(row.formation_score) || 0,
+    }];
+  }
+  return [];
 }
 
 /**
- * Returns the active Daily One pick, persisting a freshly-selected stock the
- * first time it's requested after each day's 12:12 PM ET rollover so the
- * same ticker is shown to every visitor for the rest of that window.
+ * Returns the active Daily One picks (up to 2), persisting a freshly
+ * selected list the first time it's requested after each day's 12:12 PM ET
+ * rollover so every visitor sees the same stocks for the rest of that
+ * window.
  */
-export async function getDailyOnePick(): Promise<DailyOnePick | null> {
+export async function getDailyOnePicks(): Promise<DailyOnePick[]> {
   const periodKey = getEffectivePeriodKey();
 
   try {
@@ -157,33 +209,38 @@ export async function getDailyOnePick(): Promise<DailyOnePick | null> {
       .select("*")
       .eq("period_key", periodKey)
       .maybeSingle();
-    if (existing) return rowToPick(existing);
+    if (existing) {
+      const picks = rowToPicks(existing);
+      if (picks.length > 0) return picks;
+    }
   } catch {
     // fall through to fresh selection if Supabase is unreachable
   }
 
-  const fresh = await selectFreshPick(periodKey);
-  if (!fresh) return null;
+  const fresh = await selectFreshPicks();
+  if (fresh.length === 0) return [];
 
+  const first = fresh[0];
   try {
     await supabaseAdmin.from(TABLE).upsert({
-      period_key: fresh.periodKey,
-      ticker: fresh.ticker,
-      company: fresh.company,
-      sector: fresh.sector,
-      score: fresh.score,
-      current_price: fresh.currentPrice,
-      target_price: fresh.targetPrice,
-      target_pct: fresh.targetPct,
-      entry_low: fresh.entryLow,
-      entry_high: fresh.entryHigh,
-      risk_reward: fresh.riskReward,
-      selection_reasons: fresh.selectionReasons,
-      formation_score: fresh.formationScore,
-      payload: { generatedAt: fresh.generatedAt },
+      period_key: periodKey,
+      ticker: first.ticker,
+      company: first.company,
+      sector: first.sector,
+      score: first.score,
+      current_price: first.currentPrice,
+      target_price: first.targetPrice,
+      target_pct: first.targetPct,
+      entry_low: first.entryLow,
+      entry_high: first.entryHigh,
+      risk_reward: first.riskReward,
+      selection_reasons: first.selectionReasons,
+      formation_score: first.formationScore,
+      picks: fresh,
+      payload: { generatedAt: new Date().toISOString() },
     });
   } catch {
-    // best-effort persistence — still return the freshly computed pick
+    // best-effort persistence — still return the freshly computed picks
   }
 
   return fresh;

@@ -1,7 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import DailyOneDetailContent from "@/components/public/DailyOneDetailContent";
 
 export default function DailyOnePage() {
-  return <DailyOneDetailContent locale="fr" />;
+  return (
+    <Suspense fallback={null}>
+      <DailyOneDetailContent locale="fr" />
+    </Suspense>
+  );
 }
