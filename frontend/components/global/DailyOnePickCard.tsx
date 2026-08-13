@@ -221,9 +221,9 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
   if (picks.length === 0) return null;
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 w-full min-w-0">
       <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.2em] mb-3">{c.badge}</p>
-      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 sm:overflow-visible sm:snap-none">
+      <div className="flex gap-3 overflow-x-auto overscroll-x-contain snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:snap-none">
         {picks.map((pick) => (
           <PickTile
             key={pick.ticker}

@@ -471,6 +471,15 @@ export default function BogaChartEngine({
     } catch {}
   }, [compact]);
 
+  // 1H zaman diliminde her zaman Candle tipine ve sadece EMA 50 göstergesine
+  // dön — kullanıcı bu zaman dilimine geçtiğinde (veya sayfa 1H ile açıldığında).
+  useEffect(() => {
+    if (interval === "60") {
+      setCandleType("candle");
+      setInternalActive(new Set(["ema50"] as IndicatorKey[]));
+    }
+  }, [interval]);
+
   const saveChartSettings = () => {
     if (typeof window === "undefined") return;
     try {
