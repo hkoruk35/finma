@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-08-12T09:15:07.872775-04:00",
+  "generated_at": "2026-08-13T09:15:04.851729-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 30.3,
+  "scan_duration_s": 32.7,
   "total_scanned": 3,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "layer1_passed": 3,
+  "final_picks": 3,
   "picks": [
     {
-      "ticker": "SRPT",
-      "price": 18.22,
-      "change_pct": 6.05,
-      "dt_score": 38.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "MRNA",
+      "price": 63.67,
+      "change_pct": 5.12,
+      "dt_score": 63.0,
+      "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 17.89,
+      "vwap": 62.95,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1786540537.0391057
+        "catalyst_type": "fda_approval",
+        "catalyst_score": 23,
+        "headline": "fda approval of mflusiva highlights modernas position in mrna market(clinical trials arena)",
+        "confidence": "high",
+        "ts": 1786626936.2619917
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,48 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 18.2,
-          "high": 18.31
+          "low": 63.61,
+          "high": 63.99
         },
-        "stop": 17.95,
-        "tp1": 18.86,
-        "tp2": 19.32,
-        "rr_ratio": 1.98,
-        "avg_entry": 18.25,
-        "risk_per_sh": 0.3,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 18.22
+        "stop": 62.71,
+        "tp1": 65.98,
+        "tp2": 67.61,
+        "rr_ratio": 2.0,
+        "avg_entry": 63.8,
+        "risk_per_sh": 1.09,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 63.67
       },
       "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "🎯 Güçlü Kataliz: FDA_APPROVAL (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +6.0%",
+        "↗️ Orta Gap: +5.1%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.84%",
-        "✅ Açılış Barı: Yeşil",
+        "✅ VWAP Üstünde: +1.14%",
+        "🔥 Açılış Barı: Güçlü (3.8x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "CELH",
-      "price": 28.09,
-      "change_pct": 3.23,
-      "dt_score": 25.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "SMCI",
+      "price": 37.61,
+      "change_pct": 19.02,
+      "dt_score": 50.0,
+      "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 27.29,
+      "vwap": 36.53,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1786540536.9913661
+        "ts": 1786626936.280156
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +92,81 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 28.06,
-          "high": 28.23
+          "low": 37.57,
+          "high": 37.8
         },
-        "stop": 27.67,
-        "tp1": 29.09,
-        "tp2": 29.81,
-        "rr_ratio": 1.99,
-        "avg_entry": 28.14,
-        "risk_per_sh": 0.47,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 28.09
+        "stop": 37.05,
+        "tp1": 38.96,
+        "tp2": 39.91,
+        "rr_ratio": 2.01,
+        "avg_entry": 37.69,
+        "risk_per_sh": 0.64,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 37.61
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.2%",
+        "🚀 Büyük Gap: +19.0%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.94%",
-        "🔴 Açılış Barı: Kırmızı (0.3% gövde)",
+        "✅ VWAP Üstünde: +2.97%",
+        "🔥 Açılış Barı: Güçlü (11.2x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "price": 224.09,
+      "change_pct": 3.03,
+      "dt_score": 47.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 223.24,
+      "catalyst": {
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "cerebras slumps as mixed quarterly results test ai growth narrative(reuters)",
+        "confidence": "high",
+        "ts": 1786626936.209839
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 223.87,
+          "high": 225.21
+        },
+        "stop": 220.73,
+        "tp1": 232.16,
+        "tp2": 237.88,
+        "rr_ratio": 2.0,
+        "avg_entry": 224.54,
+        "risk_per_sh": 3.81,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 224.09
+      },
+      "details": [
+        "📰 Kataliz: PARTNERSHIP",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +0.38%",
+        "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
