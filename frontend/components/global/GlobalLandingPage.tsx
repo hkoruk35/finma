@@ -583,8 +583,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
         {/* RIGHT COLUMN: MULTI-TIMEFRAME MINI CHARTS — anonim ziyaretçiye de
             acik, hicbir premium/free-account kapisi yok (BogaChartEngine'e
-            premiumGate gecilmiyor). 15M ustte, 1W altta, sabit; hacim/RSI
-            olmadan (defaultIndicators=[]). */}
+            premiumGate gecilmiyor). 15M/1H/4H/1W sirasiyla ustten alta,
+            sabit; hacim/RSI olmadan (defaultIndicators=[]). */}
         {showMultiTimeframe && (
           <div className="hidden md:flex md:w-56 lg:w-64 flex-col shrink-0 border-l border-[#1e2a3a] md:h-[calc(100vh-64px)] md:overflow-y-auto bg-[#0a0e17]">
             <div className="px-3 py-2.5 border-b border-[#1e2a3a] flex items-center justify-between shrink-0">
@@ -602,6 +602,34 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   hideIndicatorToggles
                   showToolbar={false}
                   defaultTimeframe="15"
+                  defaultIndicators={[]}
+                  height={200}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden border border-[#1e2a3a]">
+                <div className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-[#111620] border-b border-[#1e2a3a]">1H</div>
+                <BogaChartEngine
+                  key={`${selectedYSymbol}-60`}
+                  symbol={selectedYSymbol}
+                  lang={locale}
+                  compact
+                  hideIndicatorToggles
+                  showToolbar={false}
+                  defaultTimeframe="60"
+                  defaultIndicators={[]}
+                  height={200}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden border border-[#1e2a3a]">
+                <div className="px-2 py-1 text-[10px] font-semibold text-slate-400 bg-[#111620] border-b border-[#1e2a3a]">4H</div>
+                <BogaChartEngine
+                  key={`${selectedYSymbol}-240`}
+                  symbol={selectedYSymbol}
+                  lang={locale}
+                  compact
+                  hideIndicatorToggles
+                  showToolbar={false}
+                  defaultTimeframe="240"
                   defaultIndicators={[]}
                   height={200}
                 />
