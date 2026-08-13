@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13T09:04:37.293858-04:00",
+  "generated_at": "2026-08-13T14:05:46.879185-04:00",
   "picks": [
     {
       "ticker": "CAMT",
@@ -12,12 +12,6 @@
       "sector": "Industrials",
       "date_added": "2026-08-11",
       "score": 34.5
-    },
-    {
-      "ticker": "MGY",
-      "sector": "Energy",
-      "date_added": "2026-08-11",
-      "score": 43.4
     },
     {
       "ticker": "DK",
@@ -36,12 +30,6 @@
       "sector": "Industrials",
       "date_added": "2026-08-12",
       "score": 48.0
-    },
-    {
-      "ticker": "IHG",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-12",
-      "score": 39.0
     },
     {
       "ticker": "ZD",
@@ -90,6 +78,54 @@
       "sector": "Energy",
       "date_added": "2026-08-13",
       "score": 40.5
+    },
+    {
+      "ticker": "NWS",
+      "sector": "Communication Services",
+      "date_added": "2026-08-13",
+      "score": 45.0
+    },
+    {
+      "ticker": "NOVT",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 43.0
+    },
+    {
+      "ticker": "SRRK",
+      "sector": "Healthcare",
+      "date_added": "2026-08-13",
+      "score": 43.0
+    },
+    {
+      "ticker": "CRSR",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 42.5
+    },
+    {
+      "ticker": "SWKS",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 42.0
+    },
+    {
+      "ticker": "HWM",
+      "sector": "Industrials",
+      "date_added": "2026-08-13",
+      "score": 38.5
+    },
+    {
+      "ticker": "ANET",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 36.0
+    },
+    {
+      "ticker": "TWLO",
+      "sector": "Technology",
+      "date_added": "2026-08-13",
+      "score": 34.5
     }
   ]
 }
