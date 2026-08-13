@@ -7,6 +7,16 @@ import { useTracker } from "@/components/TrackerContext";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { formatNumber } from "@/lib/formatNumber";
 import { latestGeneratedAt, formatUpdatedAtET } from "@/lib/formatUpdatedAt";
+import { COLUMN_TOOLTIPS } from "@/lib/columnTooltips";
+
+// This component's headers are Turkish-only regardless of site locale
+// (pre-existing — not something this change expands), so tooltips follow
+// suit rather than introducing a locale prop this file doesn't otherwise take.
+const HEADER_TOOLTIP_ORDER_TR = [
+  "ticker", "company", "sector", "price", "change1d", "change1w", "volRatio",
+  "ema20", "ema50", "ema200", "status", "rsi", "pattern", "signal",
+  "marketCap", "score", "trackerPool",
+];
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -550,7 +560,9 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                   const sortable = SORTABLE_COLS.includes(h);
                   const isSorted = sortBy === h;
                   return (
-                    <th key={i} onClick={() => sortable && toggleSort(h)} style={{
+                    <th key={i} onClick={() => sortable && toggleSort(h)}
+                      title={COLUMN_TOOLTIPS.tr[HEADER_TOOLTIP_ORDER_TR[i]]}
+                      style={{
                       padding: "7px 8px",
                       textAlign: i <= 2 ? "left" : "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.08em",

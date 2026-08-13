@@ -11,6 +11,14 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { formatNumber } from "@/lib/formatNumber";
+import { getColumnTooltip } from "@/lib/columnTooltips";
+
+// Column order is identical across every locale branch below — used to
+// look up each header's hover tooltip by position.
+const HEADER_TOOLTIP_ORDER = [
+  "ticker", "dateAdded", "sector", "price", "change1d", "volume", "volRatio",
+  "ema20", "ema50", "ema200", "status", "rsi", "pattern", "signal", "detail",
+];
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -473,8 +481,9 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "PATTERN", key: null, align: "right" },
                   { label: "SIGNAL", key: "signal", align: "right" },
                   { label: "DETAIL", key: null, align: "right" },
-                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
+                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }, i) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
+                    title={getColumnTooltip(locale, HEADER_TOOLTIP_ORDER[i])}
                     style={{
                       padding: "8px 6px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.05em",

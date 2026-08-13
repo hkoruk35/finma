@@ -10,6 +10,14 @@ import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import PremiumModal from "@/components/global/PremiumModal";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { formatNumber } from "@/lib/formatNumber";
+import { getColumnTooltip } from "@/lib/columnTooltips";
+
+// Matches COLUMN_HEADERS' order below — used to look up each header's
+// hover tooltip by position.
+const HEADER_TOOLTIP_ORDER = [
+  "ticker", "sector", "price", "change1d", "volume", "volRatio",
+  "ema20", "ema50", "ema200", "status", "rsi", "pattern", "signal", "detail",
+];
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -479,8 +487,9 @@ export default function ThemeSwingTracker({ locale, tickers, isLockedTheme }: Th
           <table className="sm:min-w-[1000px]" style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
-                {columns.map(({ label, key, align }) => (
+                {columns.map(({ label, key, align }, i) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
+                    title={getColumnTooltip(locale, HEADER_TOOLTIP_ORDER[i])}
                     style={{
                       padding: "7px 8px", textAlign: align,
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",

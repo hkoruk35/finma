@@ -10,6 +10,14 @@ import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import { formatNumber } from "@/lib/formatNumber";
+import { getColumnTooltip } from "@/lib/columnTooltips";
+
+// Column order is identical across every locale branch below — used to
+// look up each header's hover tooltip by position.
+const HEADER_TOOLTIP_ORDER = [
+  "ticker", "sector", "price", "change1d", "volume", "volRatio",
+  "ema20", "ema50", "ema200", "status", "rsi", "pattern", "signal", "detail",
+];
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
@@ -447,8 +455,9 @@ export default function Top7Tracker({ locale, mode = "top7" }: { locale: Locale;
                   { label: "PATTERN (Daily)", key: null, align: "right" },
                   { label: "SIGNAL (Daily)", key: "signal", align: "right" },
                   { label: "DETAIL", key: null, align: "right" },
-                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
+                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }, i) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
+                    title={getColumnTooltip(locale, HEADER_TOOLTIP_ORDER[i])}
                     style={{
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
