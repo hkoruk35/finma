@@ -15,7 +15,7 @@ type Props = {
   params: Promise<{ locale: string; theme: string }>;
 };
 
-const LOCALES = ["tr", "en", "es", "fr", "pt"] as const;
+const LOCALES = ["tr", "en", "es", "fr", "pt", "id"] as const;
 type Locale = (typeof LOCALES)[number];
 
 const THEME_DESCRIPTIONS: Record<string, Record<string, string>> = {
