@@ -101,18 +101,23 @@ const SECTOR_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "XLC", label: "İletişim" },
 ];
 
+// Değerler bilinçli olarak zaten büyük harfle yazılıyor: TickerTape bu
+// etiketleri CSS `text-transform: uppercase` ile büyütüyor, ama tarayıcılar
+// varsayılan (Türkçe olmayan) Unicode kurallarıyla küçük "i"yi noktasız "I"
+// yapıyor — "Hizmetleri" böylece "HİZMETLERİ" değil "HIZMETLERI" oluyordu.
+// Kaynağı zaten doğru noktalı büyük harflerle yazmak bu hatayı by-pass eder.
 const SECTOR_LABELS: Record<string, string> = {
-  XLK: "Teknoloji",
-  XLF: "Finans",
-  XLE: "Enerji",
-  XLV: "Sağlık",
-  XLY: "Tüketici (İsteğe Bağlı)",
-  XLP: "Tüketici (Temel)",
-  XLI: "Sanayi",
-  XLB: "Malzeme",
-  XLRE: "Gayrimenkul",
-  XLU: "Kamu Hizmetleri",
-  XLC: "İletişim",
+  XLK: "TEKNOLOJİ",
+  XLF: "FİNANS",
+  XLE: "ENERJİ",
+  XLV: "SAĞLIK",
+  XLY: "TÜKETİCİ (İSTEĞE BAĞLI)",
+  XLP: "TÜKETİCİ (TEMEL)",
+  XLI: "SANAYİ",
+  XLB: "MALZEME",
+  XLRE: "GAYRİMENKUL",
+  XLU: "KAMU HİZMETLERİ",
+  XLC: "İLETİŞİM",
 };
 
 type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
