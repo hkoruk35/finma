@@ -4,7 +4,6 @@ import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/co
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
-import HomeUpcomingEarnings from "@/components/global/HomeUpcomingEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -205,7 +204,6 @@ export default async function TrHomePage() {
 
             <div className="mt-4">
               <HomeRecentEarnings locale="tr" />
-              <HomeUpcomingEarnings locale="tr" />
             </div>
 
             <div className="mt-4">
