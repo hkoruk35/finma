@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import FreeRegisterModal from "./FreeRegisterModal";
-import Sparkline from "./Sparkline";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 interface DailyOnePick {
   ticker: string;
@@ -16,7 +16,6 @@ interface DailyOnePick {
 interface LiveQuote {
   price: number;
   changePct: number;
-  sparkline: number[];
 }
 
 // Copy is deliberately neutral: no "opportunity"/"pick", no target-return
@@ -88,12 +87,6 @@ const COPY: Record<Locale, {
   },
 };
 
-// Chart always renders as the confirmed-uptrend color — these tickers only
-// reach the card after passing the RSI/rvol/15m-candle uptrend screen in
-// lib/dailyOnePick.ts, so the visual should reflect the trend call
-// regardless of the current intraday tick.
-const TREND_COLOR = "#22c55e";
-
 function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
   locale: Locale;
   c: (typeof COPY)[Locale];
@@ -117,11 +110,7 @@ function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
         const changePct = typeof weekly === "number" && weekly >= 0
           ? weekly
           : (typeof daily === "number" ? daily : (weekly ?? 0));
-        setQuote({
-          price: row?.price?.current ?? 0,
-          changePct,
-          sparkline: (row?.recent_closes ?? []).slice(-6),
-        });
+        setQuote({ price: row?.price?.current ?? 0, changePct });
       })
       .catch(() => {});
     return () => { active = false; };
@@ -158,11 +147,17 @@ function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
         )}
       </div>
 
-      {quote && quote.sparkline.length > 1 && (
-        <div className="w-full h-16 sm:h-20 mb-4">
-          <Sparkline data={quote.sparkline} color={TREND_COLOR} changePct={1} width={400} height={64} responsive />
-        </div>
-      )}
+      <div className="w-full h-28 sm:h-32 mb-4 rounded-lg overflow-hidden border border-white/5">
+        <BogaChartEngine
+          symbol={pick.ticker}
+          lang={locale}
+          interval="240"
+          height={128}
+          compact
+          showToolbar={false}
+          indicators={["ema50"]}
+        />
+      </div>
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-sm">
