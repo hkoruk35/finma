@@ -156,6 +156,7 @@ function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
           compact
           showToolbar={false}
           indicators={["ema50"]}
+          compactWindowDays={90}
         />
       </div>
 

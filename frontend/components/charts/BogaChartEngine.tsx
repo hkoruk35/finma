@@ -292,6 +292,7 @@ interface Props {
   defaultTimeframe?: string; // initial interval value
   defaultCandleType?: CandleType; // initial candle style (overrides the detailMode-based default)
   premiumGate?: boolean; // non-premium viewers may only toggle FREE_INDICATOR_KEYS; everything else (incl. Trade Plan values) prompts PremiumModal instead
+  compactWindowDays?: number; // non-detailMode only: overrides the per-interval auto visible-range window (e.g. 4H defaults to 1W)
   externalMultiChartTickers?: string[] | null; // caller-driven multi-chart selection (checkboxes)
   externalMultiChartTrigger?: number; // signal incremented when caller explicitly requests opening multi-chart screen
   onExternalMultiChartConsumed?: () => void;
@@ -375,6 +376,7 @@ export default function BogaChartEngine({
   defaultTimeframe,
   defaultCandleType,
   premiumGate = false,
+  compactWindowDays,
   externalMultiChartTickers,
   externalMultiChartTrigger,
   onExternalMultiChartConsumed,
@@ -1155,6 +1157,8 @@ export default function BogaChartEngine({
     // Otherwise: auto-pick a sensible window per interval (spec: 4H opens to 1W).
     const windowSeconds = detailMode
       ? RANGE_WINDOW_SECONDS[range]
+      : compactWindowDays
+      ? compactWindowDays * 86400
       : ({ "1": 86400, "5": 86400, "15": 86400, "60": 5 * 86400, "240": 7 * 86400, D: 90 * 86400, W: 730 * 86400 }[
           interval
         ] ?? 7 * 86400);
