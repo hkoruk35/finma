@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "CAVA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 71.25,
+        "entry_zone": "69.44 - 73.06",
+        "SL": 64.0,
+        "TP": 85.76
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "RMAX",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 12.17,
+        "entry_zone": "11.86 - 12.48",
+        "SL": 10.93,
+        "TP": 14.66
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "CIEN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 453.37,
+        "entry_zone": "436.72 - 470.02",
+        "SL": 386.76,
+        "TP": 586.6
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "MRX",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 74.96,
+        "entry_zone": "73.27 - 76.65",
+        "SL": 68.18,
+        "TP": 88.52
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "WEN",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 8.53,
+        "entry_zone": "8.31 - 8.76",
+        "SL": 7.62,
+        "TP": 10.36
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 85.66,
+        "entry_zone": "84.08 - 87.24",
+        "SL": 79.35,
+        "TP": 98.28
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "IMVT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 41.99,
+        "entry_zone": "41.23 - 42.75",
+        "SL": 38.96,
+        "TP": 48.05
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "EAT",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 237.86,
+        "entry_zone": "232.45 - 243.27",
+        "SL": 216.22,
+        "TP": 281.15
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "HPE",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 60.39,
+        "entry_zone": "58.67 - 62.11",
+        "SL": 53.51,
+        "TP": 70.71
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "SMCI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 39.71,
+        "entry_zone": "38.38 - 41.04",
+        "SL": 34.4,
+        "TP": 50.32
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "NOK",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 10.6,
+        "entry_zone": "10.30 - 10.89",
+        "SL": 9.43,
+        "TP": 12.94
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "AEHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 128.79,
+        "entry_zone": "122.56 - 135.02",
+        "SL": 103.86,
+        "TP": 178.64
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "DOCN",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 135.82,
+        "entry_zone": "129.79 - 141.84",
+        "SL": 111.72,
+        "TP": 184.0
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "BE",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 242.01,
+        "entry_zone": "228.81 - 255.20",
+        "SL": 189.24,
+        "TP": 347.53
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "CRWV",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 108.16,
+        "entry_zone": "103.69 - 112.63",
+        "SL": 90.27,
+        "TP": 143.94
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "LITE",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 914.79,
+        "entry_zone": "871.64 - 957.94",
+        "SL": 742.19,
+        "TP": 1259.98
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "NBIS",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 253.46,
+        "entry_zone": "239.98 - 266.94",
+        "SL": 199.52,
+        "TP": 361.33
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 20.44,
+        "entry_zone": "19.11 - 21.77",
+        "SL": 15.11,
+        "TP": 31.1
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "DELL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 495.04,
+        "entry_zone": "476.26 - 513.82",
+        "SL": 419.91,
+        "TP": 645.3
+    },
+    {
+        "date": "2026-08-13 12:45",
+        "symbol": "IREN",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 44.87,
+        "entry_zone": "42.72 - 47.02",
+        "SL": 36.29,
+        "TP": 62.04
+    }
+]
