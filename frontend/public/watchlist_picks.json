@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-08-14T09:06:13.056714-04:00",
+  "generated_at": "2026-08-14T14:05:25.174529-04:00",
   "picks": [
     {
       "ticker": "PSX",
       "sector": "Energy",
       "date_added": "2026-08-12",
       "score": 47.0
-    },
-    {
-      "ticker": "ECO",
-      "sector": "Industrials",
-      "date_added": "2026-08-12",
-      "score": 48.0
     },
     {
       "ticker": "ZD",
@@ -44,12 +38,6 @@
       "score": 42.0
     },
     {
-      "ticker": "HPQ",
-      "sector": "Technology",
-      "date_added": "2026-08-13",
-      "score": 40.5
-    },
-    {
       "ticker": "INSW",
       "sector": "Energy",
       "date_added": "2026-08-13",
@@ -66,18 +54,6 @@
       "sector": "Technology",
       "date_added": "2026-08-13",
       "score": 42.5
-    },
-    {
-      "ticker": "SWKS",
-      "sector": "Technology",
-      "date_added": "2026-08-13",
-      "score": 42.0
-    },
-    {
-      "ticker": "TWLO",
-      "sector": "Technology",
-      "date_added": "2026-08-13",
-      "score": 34.5
     },
     {
       "ticker": "OMF",
@@ -98,46 +74,16 @@
       "score": 45.0
     },
     {
-      "ticker": "TRMB",
-      "sector": "Technology",
-      "date_added": "2026-08-13",
-      "score": 42.1
-    },
-    {
-      "ticker": "KNTK",
-      "sector": "Energy",
-      "date_added": "2026-08-14",
-      "score": 48.0
-    },
-    {
       "ticker": "BC",
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-14",
       "score": 47.0
     },
     {
-      "ticker": "AJG",
-      "sector": "Financial Services",
-      "date_added": "2026-08-14",
-      "score": 46.5
-    },
-    {
       "ticker": "DAR",
       "sector": "Consumer Defensive",
       "date_added": "2026-08-14",
       "score": 46.0
-    },
-    {
-      "ticker": "ARCB",
-      "sector": "Industrials",
-      "date_added": "2026-08-14",
-      "score": 46.0
-    },
-    {
-      "ticker": "DDS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-14",
-      "score": 43.5
     },
     {
       "ticker": "IMO",
@@ -152,10 +98,28 @@
       "score": 41.5
     },
     {
-      "ticker": "SPHR",
-      "sector": "Communication Services",
+      "ticker": "MCO",
+      "sector": "Financial Services",
       "date_added": "2026-08-14",
-      "score": 39.5
+      "score": 41.0
+    },
+    {
+      "ticker": "VSEC",
+      "sector": "Industrials",
+      "date_added": "2026-08-14",
+      "score": 38.5
+    },
+    {
+      "ticker": "NTRA",
+      "sector": "Healthcare",
+      "date_added": "2026-08-14",
+      "score": 37.5
+    },
+    {
+      "ticker": "FROG",
+      "sector": "Technology",
+      "date_added": "2026-08-14",
+      "score": 37.0
     }
   ]
 }
