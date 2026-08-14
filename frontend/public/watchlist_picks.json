@@ -1,24 +1,6 @@
 {
-  "generated_at": "2026-08-14T14:05:25.174529-04:00",
+  "generated_at": "2026-08-14T17:04:11.447899-04:00",
   "picks": [
-    {
-      "ticker": "PSX",
-      "sector": "Energy",
-      "date_added": "2026-08-12",
-      "score": 47.0
-    },
-    {
-      "ticker": "ZD",
-      "sector": "Communication Services",
-      "date_added": "2026-08-12",
-      "score": 44.5
-    },
-    {
-      "ticker": "VLO",
-      "sector": "Energy",
-      "date_added": "2026-08-12",
-      "score": 43.5
-    },
     {
       "ticker": "DHT",
       "sector": "Energy",
@@ -26,52 +8,10 @@
       "score": 42.5
     },
     {
-      "ticker": "ESNT",
-      "sector": "Financial Services",
-      "date_added": "2026-08-13",
-      "score": 46.5
-    },
-    {
-      "ticker": "CVSA",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-13",
-      "score": 42.0
-    },
-    {
       "ticker": "INSW",
       "sector": "Energy",
       "date_added": "2026-08-13",
       "score": 40.5
-    },
-    {
-      "ticker": "SRRK",
-      "sector": "Healthcare",
-      "date_added": "2026-08-13",
-      "score": 43.0
-    },
-    {
-      "ticker": "CRSR",
-      "sector": "Technology",
-      "date_added": "2026-08-13",
-      "score": 42.5
-    },
-    {
-      "ticker": "OMF",
-      "sector": "Financial Services",
-      "date_added": "2026-08-13",
-      "score": 49.0
-    },
-    {
-      "ticker": "CLH",
-      "sector": "Industrials",
-      "date_added": "2026-08-13",
-      "score": 49.0
-    },
-    {
-      "ticker": "KEX",
-      "sector": "Industrials",
-      "date_added": "2026-08-13",
-      "score": 45.0
     },
     {
       "ticker": "BC",
@@ -83,25 +23,7 @@
       "ticker": "DAR",
       "sector": "Consumer Defensive",
       "date_added": "2026-08-14",
-      "score": 46.0
-    },
-    {
-      "ticker": "IMO",
-      "sector": "Energy",
-      "date_added": "2026-08-14",
-      "score": 43.5
-    },
-    {
-      "ticker": "APO",
-      "sector": "Financial Services",
-      "date_added": "2026-08-14",
-      "score": 41.5
-    },
-    {
-      "ticker": "MCO",
-      "sector": "Financial Services",
-      "date_added": "2026-08-14",
-      "score": 41.0
+      "score": 42.0
     },
     {
       "ticker": "VSEC",
@@ -120,6 +42,60 @@
       "sector": "Technology",
       "date_added": "2026-08-14",
       "score": 37.0
+    },
+    {
+      "ticker": "LFST",
+      "sector": "Healthcare",
+      "date_added": "2026-08-14",
+      "score": 53.0
+    },
+    {
+      "ticker": "AVY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-14",
+      "score": 53.0
+    },
+    {
+      "ticker": "WAT",
+      "sector": "Healthcare",
+      "date_added": "2026-08-14",
+      "score": 52.5
+    },
+    {
+      "ticker": "APG",
+      "sector": "Industrials",
+      "date_added": "2026-08-14",
+      "score": 50.5
+    },
+    {
+      "ticker": "PEB",
+      "sector": "Real Estate",
+      "date_added": "2026-08-14",
+      "score": 50.5
+    },
+    {
+      "ticker": "AIT",
+      "sector": "Industrials",
+      "date_added": "2026-08-14",
+      "score": 50.0
+    },
+    {
+      "ticker": "CBRL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-14",
+      "score": 48.5
+    },
+    {
+      "ticker": "AM",
+      "sector": "Energy",
+      "date_added": "2026-08-14",
+      "score": 48.5
+    },
+    {
+      "ticker": "URBN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-14",
+      "score": 47.5
     }
   ]
 }
