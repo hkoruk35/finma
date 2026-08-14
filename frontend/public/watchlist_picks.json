@@ -1,23 +1,11 @@
 {
-  "generated_at": "2026-08-13T17:08:09.558374-04:00",
+  "generated_at": "2026-08-14T09:06:13.056714-04:00",
   "picks": [
-    {
-      "ticker": "CAMT",
-      "sector": "Technology",
-      "date_added": "2026-08-11",
-      "score": 41.5
-    },
-    {
-      "ticker": "DK",
-      "sector": "Energy",
-      "date_added": "2026-08-11",
-      "score": 36.5
-    },
     {
       "ticker": "PSX",
       "sector": "Energy",
       "date_added": "2026-08-12",
-      "score": 42.5
+      "score": 47.0
     },
     {
       "ticker": "ECO",
@@ -104,12 +92,6 @@
       "score": 49.0
     },
     {
-      "ticker": "TREX",
-      "sector": "Industrials",
-      "date_added": "2026-08-13",
-      "score": 48.0
-    },
-    {
       "ticker": "KEX",
       "sector": "Industrials",
       "date_added": "2026-08-13",
@@ -120,6 +102,60 @@
       "sector": "Technology",
       "date_added": "2026-08-13",
       "score": 42.1
+    },
+    {
+      "ticker": "KNTK",
+      "sector": "Energy",
+      "date_added": "2026-08-14",
+      "score": 48.0
+    },
+    {
+      "ticker": "BC",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-14",
+      "score": 47.0
+    },
+    {
+      "ticker": "AJG",
+      "sector": "Financial Services",
+      "date_added": "2026-08-14",
+      "score": 46.5
+    },
+    {
+      "ticker": "DAR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-14",
+      "score": 46.0
+    },
+    {
+      "ticker": "ARCB",
+      "sector": "Industrials",
+      "date_added": "2026-08-14",
+      "score": 46.0
+    },
+    {
+      "ticker": "DDS",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-14",
+      "score": 43.5
+    },
+    {
+      "ticker": "IMO",
+      "sector": "Energy",
+      "date_added": "2026-08-14",
+      "score": 43.5
+    },
+    {
+      "ticker": "APO",
+      "sector": "Financial Services",
+      "date_added": "2026-08-14",
+      "score": 41.5
+    },
+    {
+      "ticker": "SPHR",
+      "sector": "Communication Services",
+      "date_added": "2026-08-14",
+      "score": 39.5
     }
   ]
 }
