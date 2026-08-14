@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "ZIM",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 27.36,
+        "entry_zone": "26.85 - 27.88",
+        "SL": 25.32,
+        "TP": 31.45
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "NTSK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 16.2,
+        "entry_zone": "15.79 - 16.61",
+        "SL": 14.57,
+        "TP": 19.46
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "ARCB",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 144.81,
+        "entry_zone": "141.01 - 148.61",
+        "SL": 129.61,
+        "TP": 175.21
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "GTLB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 42.29,
+        "entry_zone": "41.18 - 43.40",
+        "SL": 37.86,
+        "TP": 51.15
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "GRRR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 15.31,
+        "entry_zone": "14.89 - 15.73",
+        "SL": 13.64,
+        "TP": 18.65
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "RBRK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 103.6,
+        "entry_zone": "101.13 - 106.07",
+        "SL": 93.71,
+        "TP": 123.37
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "CVLT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 147.39,
+        "entry_zone": "143.54 - 151.24",
+        "SL": 131.99,
+        "TP": 178.2
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 17.23,
+        "entry_zone": "16.69 - 17.77",
+        "SL": 15.05,
+        "TP": 21.59
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "DBX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 35.08,
+        "entry_zone": "34.29 - 35.88",
+        "SL": 31.92,
+        "TP": 39.83
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "TPG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 53.96,
+        "entry_zone": "52.88 - 55.04",
+        "SL": 49.66,
+        "TP": 62.57
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "PATH",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 16.25,
+        "entry_zone": "15.80 - 16.69",
+        "SL": 14.48,
+        "TP": 19.78
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "WDAY",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 198.08,
+        "entry_zone": "191.44 - 204.72",
+        "SL": 171.53,
+        "TP": 251.19
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 27.7,
+        "entry_zone": "27.20 - 28.20",
+        "SL": 25.69,
+        "TP": 31.72
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "PARR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 80.97,
+        "entry_zone": "78.41 - 83.54",
+        "SL": 70.72,
+        "TP": 101.48
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "RKT",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 14.95,
+        "entry_zone": "14.53 - 15.37",
+        "SL": 13.29,
+        "TP": 18.27
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "FISV",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 54.54,
+        "entry_zone": "53.32 - 55.77",
+        "SL": 49.64,
+        "TP": 64.34
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "FIVN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 32.65,
+        "entry_zone": "31.60 - 33.71",
+        "SL": 28.42,
+        "TP": 41.13
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "BIRK",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 40.0,
+        "entry_zone": "38.88 - 41.12",
+        "SL": 35.51,
+        "TP": 48.99
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "MU",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 969.88,
+        "entry_zone": "932.36 - 1007.41",
+        "SL": 819.79,
+        "TP": 1270.07
+    },
+    {
+        "date": "2026-08-14 10:00",
+        "symbol": "FIG",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 25.69,
+        "entry_zone": "24.59 - 26.79",
+        "SL": 21.3,
+        "TP": 34.47
+    }
+]

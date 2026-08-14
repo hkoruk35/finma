@@ -1,39 +1,40 @@
 {
-  "date": "2026-08-13",
-  "generated_at": "2026-08-13T17:07:46.701389-04:00",
+  "date": "2026-08-14",
+  "generated_at": "2026-08-14T09:06:08.554642-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 51,
+  "active_scores_count": 33,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "NTSK",
-        "UMAC",
-        "WPM",
-        "HPE",
-        "CART",
-        "BKNG",
-        "WAB",
-        "VAL",
-        "PLXS",
-        "TMO"
+        "MTD",
+        "PAAS",
+        "RHP",
+        "DBX",
+        "AYI",
+        "GOLD",
+        "GEO",
+        "MS",
+        "EC",
+        "KKR"
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 12,
       "tickers": [
-        "NTSK",
-        "UMAC",
-        "HPE",
-        "CART",
-        "WAB",
-        "FDX",
         "AYI",
         "GOLD",
+        "KKR",
+        "GIS",
         "DT",
         "CARG",
-        "SKY"
+        "SKY",
+        "IT",
+        "PEB",
+        "AIT",
+        "TKR",
+        "CLMT"
       ]
     },
     "value": {
@@ -55,18 +56,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "NTSK",
-      "score": 63.0,
+      "ticker": "MTD",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "UMAC",
-      "score": 57.0,
+      "ticker": "PAAS",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "WPM",
-      "score": 55.0,
+      "ticker": "RHP",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
