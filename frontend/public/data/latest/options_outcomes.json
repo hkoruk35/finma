@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T11:03:02.122202-04:00",
+  "updated_at": "2026-08-14T11:03:58.103900-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 388,
@@ -13739,8 +13739,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 1.955,
-      "unrealized_pnl_pct": -82.1,
+      "current_premium": 2.005,
+      "unrealized_pnl_pct": -81.7,
       "days_held": 115,
       "peak_premium": 14.0,
       "trough_premium": 0.175,
@@ -13867,8 +13867,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.82,
-      "unrealized_pnl_pct": -84.7,
+      "current_premium": 0.835,
+      "unrealized_pnl_pct": -84.4,
       "days_held": 115,
       "peak_premium": 10.1,
       "trough_premium": 0.145,
