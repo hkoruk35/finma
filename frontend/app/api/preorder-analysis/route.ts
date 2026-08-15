@@ -545,6 +545,7 @@ interface PreorderAnalysis {
   activeSignals: string[];
   warnings: string[];
   aiCommentary: AiMarketCommentary;
+  performance: { w1: number | null; m1: number | null; m3: number | null; m6: number | null; ytd: number | null; y1: number | null };
 }
 
 // ── Fetch helper ─────────────────────────────────────────────────────────────
@@ -681,6 +682,39 @@ export async function GET(req: NextRequest) {
   const pct52h    = hi52 > 0 ? ((price - hi52) / hi52) * 100 : 0;
   const atrPct    = d1_atr > 0 ? (d1_atr / price) * 100 : 0;
   const ret1y     = closes1d.length > 1 ? ((price - closes1d[0]) / closes1d[0]) * 100 : 0;
+
+  // ── Performance row (1W/1M/3M/6M/YTD/1Y) ─────────────────────────────────
+  // Trading-day-offset windows use the same (nulls-filtered) closes1d series
+  // as every other 1D metric on this page, so they can't disagree with the
+  // rest of the card over a data gap. YTD alone needs a calendar boundary,
+  // so it's found from the raw (unfiltered) timestamp array Yahoo returns
+  // alongside q1d — indexed independently of closes1d to avoid any null-gap
+  // misalignment between the two raw arrays.
+  const pctBackTradingDays = (days: number): number | null => {
+    const idx = closes1d.length - 1 - days;
+    if (idx < 0) return null;
+    const base = closes1d[idx];
+    return base > 0 ? ((price - base) / base) * 100 : null;
+  };
+  const rawTimestamps1d: number[] = r1d.chart.result[0].timestamp || [];
+  const rawCloses1d: (number | null)[] = q1d.close || [];
+  const currentYearUtc = new Date().getUTCFullYear();
+  const ytdStartIdx = rawTimestamps1d.findIndex((ts) => new Date(ts * 1000).getUTCFullYear() === currentYearUtc);
+  let ytdBase: number | null = null;
+  if (ytdStartIdx >= 0) {
+    for (let i = ytdStartIdx; i < rawCloses1d.length; i++) {
+      const c = rawCloses1d[i];
+      if (c != null && isFinite(c)) { ytdBase = c; break; }
+    }
+  }
+  const performance = {
+    w1: pctBackTradingDays(5),
+    m1: pctBackTradingDays(21),
+    m3: pctBackTradingDays(63),
+    m6: pctBackTradingDays(126),
+    ytd: ytdBase != null && ytdBase > 0 ? ((price - ytdBase) / ytdBase) * 100 : null,
+    y1: closes1d.length > 1 ? ret1y : null,
+  };
 
   // Daily pivots (from yesterday's bar)
   const yH = highs1d.at(-2) ?? highs1d.at(-1)!;
@@ -1000,6 +1034,14 @@ export async function GET(req: NextRequest) {
       rsiRising,
       volumeRising,
     }),
+    performance: {
+      w1: performance.w1 != null ? +performance.w1.toFixed(2) : null,
+      m1: performance.m1 != null ? +performance.m1.toFixed(2) : null,
+      m3: performance.m3 != null ? +performance.m3.toFixed(2) : null,
+      m6: performance.m6 != null ? +performance.m6.toFixed(2) : null,
+      ytd: performance.ytd != null ? +performance.ytd.toFixed(2) : null,
+      y1: performance.y1 != null ? +performance.y1.toFixed(2) : null,
+    },
   };
 
   cache.set(cacheKey, { data: result, ts: Date.now() });

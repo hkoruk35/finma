@@ -52,6 +52,7 @@ interface PreorderAnalysis {
   activeSignals: string[];
   warnings: string[];
   aiCommentary?: AiMarketCommentary;
+  performance?: { w1: number | null; m1: number | null; m3: number | null; m6: number | null; ytd: number | null; y1: number | null };
 }
 
 function fmt(n: number | undefined, dec = 2): string {
@@ -183,6 +184,36 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             <div key={w} className="bg-amber-500/10 border border-amber-500/40 text-amber-400 text-xs px-2.5 py-1 rounded">
               ⚠️ {w}
             </div>
+          ))}
+        </div>
+      )}
+
+      {data.performance && (
+        <div className="flex gap-1.5 mb-3 flex-wrap items-center">
+          <span className="text-xs text-white/40 font-medium tracking-wider mr-1">
+            {locale === "tr" ? "Performans" : locale === "es" ? "Rendimiento" : locale === "fr" ? "Performance" : locale === "pt" ? "Desempenho" : locale === "id" ? "Performa" : "Performance"}:
+          </span>
+          {([
+            ["1W", data.performance.w1],
+            ["1M", data.performance.m1],
+            ["3M", data.performance.m3],
+            ["6M", data.performance.m6],
+            ["YTD", data.performance.ytd],
+            ["1Y", data.performance.y1],
+          ] as [string, number | null][]).map(([label, val]) => (
+            <span
+              key={label}
+              className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border ${
+                val == null
+                  ? "bg-slate-500/10 border-slate-500/30 text-slate-400"
+                  : val >= 0
+                  ? "bg-green-900/30 border-green-700/50 text-green-400"
+                  : "bg-red-900/30 border-red-700/50 text-red-400"
+              }`}
+            >
+              <span className="text-white/40 font-medium">{label}</span>
+              <span className="font-mono font-semibold">{val == null ? "—" : `${val >= 0 ? "+" : ""}${fmt(val, 2)}%`}</span>
+            </span>
           ))}
         </div>
       )}
