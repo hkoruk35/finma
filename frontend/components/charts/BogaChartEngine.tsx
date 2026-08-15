@@ -1355,7 +1355,7 @@ export default function BogaChartEngine({
     <div className="relative">
       <button
         onClick={() => setShareOpen((v) => !v)}
-        className="flex items-center gap-1 p-1 md:px-2.5 md:py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all"
+        className="flex items-center gap-1 p-1 md:px-1.5 md:py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-medium text-[#00d2ff] hover:text-white transition-all whitespace-nowrap"
         title={t.share}
       >
         <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1502,11 +1502,11 @@ export default function BogaChartEngine({
               </div>
             )}
             {detailMode && (
-              <div className="flex items-center gap-1.5 ml-auto">
+              <div className="flex items-center gap-1 ml-auto shrink-0">
                 <button
                   type="button"
                   onClick={saveChartSettings}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/50 text-[10px] font-bold text-[#38bdf8] hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm cursor-pointer"
+                  className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/50 text-[9px] font-bold text-[#38bdf8] hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm cursor-pointer whitespace-nowrap"
                   title={lang === "tr" ? "Mevcut gösterge ve grafik ayarlarını kaydet" : "Save current indicators & chart settings"}
                 >
                   <span>💾</span>
@@ -1516,7 +1516,7 @@ export default function BogaChartEngine({
                 <button
                   type="button"
                   onClick={resetChartSettings}
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 transition-all cursor-pointer"
+                  className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-bold text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 transition-all cursor-pointer whitespace-nowrap"
                   title={lang === "tr" ? "Varsayılan gösterge ve grafik ayarlarına sıfırla" : "Reset to default indicators & settings"}
                 >
                   <span>↺</span>
@@ -1526,7 +1526,7 @@ export default function BogaChartEngine({
                 <div className="hidden md:block">{shareControl}</div>
                 <button
                   onClick={toggleFullscreen}
-                  className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all"
+                  className="hidden md:inline-flex px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-medium text-[#00d2ff] hover:text-white transition-all"
                   title={t.fullscreen || "Tam Ekran"}
                 >
                   {isFullscreen ? "⛶" : "⛶"}
@@ -1534,7 +1534,7 @@ export default function BogaChartEngine({
                 <div className="relative hidden md:block">
                   <button
                     onClick={() => setMultiChartOpen(v => !v)}
-                    className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all ml-1"
+                    className="px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-medium text-[#00d2ff] hover:text-white transition-all ml-0.5 whitespace-nowrap"
                     title={t.multiChartScreen}
                   >
                     2 / 4 / 6 / 9
@@ -1621,25 +1621,25 @@ export default function BogaChartEngine({
               panesinin (pane 0) olculen pikselyuksekligine gore konumlanir
               (bkz. mainPaneHeight / renderAll ve ResizeObserver). Boylece
               mumlarin uzerine binmez. Olcum henuz gelmediyse (ilk render)
-              eski sabit top-* siniflarina duser. Compact (mini-chart) ve
-              detailMode disi kullanimlar eski sabit konumunu korur.
-              Ticker sembolu ustte (1px daha buyuk), logo altinda, Header'daki
-              logoyla ayni format (Boga mavi, Stock beyaz), %50 opaklikla. */}
+              sabit bir top degerine duser. Compact (mini-chart) icin ise tek
+              pane oldugundan (hacim paneli yok) fiyat skalasinin alt bos
+              marjina (scaleMargins bottom ~0.15) denk gelecek sekilde alta
+              sabitlenir — ust taraftaki mum verisiyle cakismaz.
+              Ticker sembolu ustte (1px daha buyuk), logo altinda,
+              Header.tsx'teki logoyla birebir ayni format ve renkler
+              (Boga #3b82f6, Stock beyaz, tracking-tight), sadece watermark
+              etkisi icin hafif saydam (bkz. Header.tsx logoContent). */}
           <div
-            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
+            className={`absolute left-2 ${compact ? "bottom-1" : detailMode ? "" : "top-2.5"} pointer-events-none select-none z-10 flex flex-col items-start`}
             style={detailMode && !compact ? { top: mainPaneHeight != null ? mainPaneHeight + 8 : 140 } : undefined}
           >
             <span
-              className={`tracking-wide text-white ${compact ? "text-xs" : "text-[19px] md:text-[21px]"} leading-tight`}
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
+              className={`tracking-tight text-white ${compact ? "text-[13px]" : "text-[19px] md:text-[21px]"} leading-tight font-bold`}
             >
               {getSymbolDisplayName(symbol)}
             </span>
-            <span
-              className={`tracking-wide ${compact ? "text-xs" : "text-lg md:text-xl"}`}
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500 }}
-            >
-              <span style={{ color: "#3b82f6", opacity: 0.5 }}>Boga</span><span style={{ color: "#ffffff", opacity: 0.5 }}>Stock</span>
+            <span className={`tracking-tight font-medium ${compact ? "text-[11px]" : "text-lg md:text-xl"}`}>
+              <span style={{ color: "#3b82f6", opacity: 0.7 }}>Boga</span><span style={{ color: "#ffffff", opacity: 0.7 }}>Stock</span>
             </span>
           </div>
 
