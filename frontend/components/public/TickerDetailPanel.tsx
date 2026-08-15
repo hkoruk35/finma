@@ -389,7 +389,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
                   <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
                 </div>
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-amber-400 font-medium block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : locale === "id" ? "Aliran Likuiditas & Volume" : "Liquidity & Volume Flow"}:</span>
+                  <span className="text-amber-400 font-medium block mb-1">💧 {locale === "tr" ? "Hacim & Hareketlilik" : locale === "es" ? "Volumen y Volatilidad" : locale === "fr" ? "Volume et Volatilité" : locale === "pt" ? "Volume e Volatilidade" : locale === "id" ? "Volume & Volatilitas" : "Volume & Volatility"}:</span>
                   <span className="text-white/70">{data.aiCommentary.liquidityVolume}</span>
                 </div>
               </div>

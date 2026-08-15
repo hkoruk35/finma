@@ -699,6 +699,54 @@ export async function GET(req: NextRequest) {
   const weinstein = weinsteinStage(closes1d, ticker);
   const vcpDetected = vols1d.length >= 10 && Math.min(...vols1d.slice(-10)) < avgVol30 * 0.65;
 
+  // ── AI commentary derived signals ────────────────────────────────────────
+  // generateAiMarketCommentary() is a pure template and must never re-derive
+  // a fact from raw data it wasn't explicitly handed (docs/AI_BEHAVIOR.md
+  // Rule 1) — so the EMA support test, volatility regime and daily/weekly
+  // confirmation flags are computed here, from the same bars everything
+  // else on this page already uses, and passed in as plain booleans/enums.
+  //
+  // An EMA only counts as "tested" support if a recent low actually
+  // approached it (within 1.5%) and that day's close held back above it —
+  // not merely because price > EMA today (see user-reported feedback:
+  // "price > EMA50" alone must never be reported as "EMA50 destek").
+  const emaSupportTested = (emaVals: (number | null)[], lookback = 6): boolean => {
+    const n = closes1d.length;
+    const lastEma = emaVals[n - 1];
+    if (lastEma == null || price <= lastEma) return false;
+    for (let i = Math.max(1, n - lookback); i < n; i++) {
+      const ema = emaVals[i];
+      if (ema == null) continue;
+      if (lows1d[i] <= ema * 1.015 && closes1d[i] >= ema) return true;
+    }
+    return false;
+  };
+  const ema50SupportTested  = emaSupportTested(emaSeries(closes1d, 50));
+  const ema200SupportTested = emaSupportTested(emaSeries(closes1d, 200));
+
+  // Volatility character relative to the stock's OWN recent history (not a
+  // fixed ATR% threshold shared across every ticker).
+  const volRangeWindow = 90;
+  const rangePctHist: number[] = [];
+  for (let i = Math.max(1, closes1d.length - volRangeWindow); i < closes1d.length; i++) {
+    if (closes1d[i] > 0) rangePctHist.push(((highs1d[i] - lows1d[i]) / closes1d[i]) * 100);
+  }
+  const todayRangePct = price > 0 ? ((highs1d.at(-1)! - lows1d.at(-1)!) / price) * 100 : 0;
+  const volatilityRank = rangePctHist.length
+    ? rangePctHist.filter(v => v <= todayRangePct).length / rangePctHist.length
+    : 0.5;
+  const volatilityRegime: "CALM" | "NORMAL" | "ACTIVE" | "HIGH" =
+    volatilityRank < 0.25 ? "CALM" : volatilityRank < 0.65 ? "NORMAL" : volatilityRank < 0.9 ? "ACTIVE" : "HIGH";
+
+  // Daily RSI/volume momentum vs. the weekly trend (reusing weinsteinStage's
+  // own classification as the "weekly trend" read, per its stage semantics:
+  // stage 2 = established uptrend, stage 4 = established downtrend).
+  const rsiPrev       = calcRSI(closes1d.slice(0, -1));
+  const rsiRising      = d1_rsi > rsiPrev;
+  const volumeRising   = rvol >= 1.1;
+  const weeklyTrendUp   = weinstein.stage === 2;
+  const weeklyTrendDown = weinstein.stage === 4;
+
   // ── Momentum bileşenleri (MACD/ADX/ROC/BB%) ──────────────────────────────
   const macdResult = calcMACD(closes1d);
   const d1_adx     = calcADX(highs1d, lows1d, closes1d);
@@ -944,6 +992,13 @@ export async function GET(req: NextRequest) {
       weinsteinStage: weinstein.stage,
       macdHist: macdResult.histogram,
       lang,
+      ema50SupportTested,
+      ema200SupportTested,
+      volatilityRegime,
+      weeklyTrendUp,
+      weeklyTrendDown,
+      rsiRising,
+      volumeRising,
     }),
   };
 
