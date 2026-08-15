@@ -346,7 +346,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : locale === 'id' ? 'Pilih untuk membandingkan' : 'Select to compare';
   const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : locale === 'id' ? 'DASBOR' : 'DASHBOARD';
   const multiTimeframeLabel = locale === 'tr' ? 'Çoklu Zaman Dilimi' : locale === 'es' ? 'Múltiples Marcos Temporales' : locale === 'fr' ? 'Multi-Périodes' : locale === 'pt' ? 'Múltiplos Períodos' : locale === 'id' ? 'Multi Kerangka Waktu' : 'Multi-Timeframe';
-  const [showMultiTimeframe, setShowMultiTimeframe] = useState(false);
+  const showMarketsPanelLabel = locale === 'tr' ? 'Piyasalar Panelini Göster' : locale === 'es' ? 'Mostrar Panel de Mercados' : locale === 'fr' ? 'Afficher le Panneau des Marchés' : locale === 'pt' ? 'Mostrar Painel de Mercados' : locale === 'id' ? 'Tampilkan Panel Pasar' : 'Show Markets Panel';
+  const hideMarketsPanelLabel = locale === 'tr' ? 'Piyasalar Panelini Gizle' : locale === 'es' ? 'Ocultar Panel de Mercados' : locale === 'fr' ? 'Masquer le Panneau des Marchés' : locale === 'pt' ? 'Ocultar Painel de Mercados' : locale === 'id' ? 'Sembunyikan Panel Pasar' : 'Hide Markets Panel';
+  const [showMultiTimeframe, setShowMultiTimeframe] = useState(true);
 
   // Determine current company/sector name based on selection
   useEffect(() => {
@@ -488,13 +490,13 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           
           <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] bg-[#0a0e17] shrink-0">
             <div className="flex items-center gap-2">
-              <button 
+              <button
                 onClick={() => setShowLeftSidebar(!showLeftSidebar)}
-                className="hidden md:flex p-1.5 text-slate-400 hover:text-white bg-[#141924] border border-[#1e2a3a] rounded transition-colors"
-                title="Toggle Markets"
+                className="hidden md:flex p-1.5 text-slate-200 hover:text-white bg-[#141924] border border-[#1e2a3a] hover:border-[#3b82f6]/50 rounded transition-colors"
+                title={showLeftSidebar ? hideMarketsPanelLabel : showMarketsPanelLabel}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {showLeftSidebar ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {showLeftSidebar ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />}
                 </svg>
               </button>
               <div className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
