@@ -1465,6 +1465,34 @@ export default function BogaChartEngine({
               </div>
             )}
             {detailMode && (
+              <div className="relative">
+                <button
+                  onClick={() => setMobileCandleMenuOpen((v) => !v)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-medium text-[#00d2ff] hover:text-white transition-all"
+                >
+                  {t[candleType]} <span className="text-[9px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
+                </button>
+                {mobileCandleMenuOpen && (
+                  <div className="absolute left-0 mt-1 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-50">
+                    {CANDLE_TYPES.map((ct) => (
+                      <button
+                        key={ct}
+                        onClick={() => {
+                          setCandleType(ct);
+                          setMobileCandleMenuOpen(false);
+                        }}
+                        className={`block w-full text-left px-3 py-2 text-[11px] font-medium whitespace-nowrap ${
+                          candleType === ct ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+                        }`}
+                      >
+                        {t[ct]}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {detailMode && (
               <div className="flex items-center gap-1.5 ml-auto">
                 <button
                   type="button"
@@ -1540,48 +1568,6 @@ export default function BogaChartEngine({
                     {r}
                   </button>
                 ))}
-              </div>
-
-              {/* Mum tipi — masaüstünde tam buton satırı, mobilde kalabalığı
-                  azaltmak için tek satırlık açılır menü (bkz. mobileCandleMenuOpen). */}
-              <div className="hidden md:flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
-                {CANDLE_TYPES.map((ct) => (
-                  <button
-                    key={ct}
-                    onClick={() => setCandleType(ct)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
-                      candleType === ct ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
-                    }`}
-                  >
-                    {t[ct]}
-                  </button>
-                ))}
-              </div>
-              <div className="relative md:hidden">
-                <button
-                  onClick={() => setMobileCandleMenuOpen((v) => !v)}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff]"
-                >
-                  {t[candleType]} <span className="text-[8px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
-                </button>
-                {mobileCandleMenuOpen && (
-                  <div className="absolute left-0 mt-1 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
-                    {CANDLE_TYPES.map((ct) => (
-                      <button
-                        key={ct}
-                        onClick={() => {
-                          setCandleType(ct);
-                          setMobileCandleMenuOpen(false);
-                        }}
-                        className={`block w-full text-left px-3 py-2 text-[11px] font-medium whitespace-nowrap ${
-                          candleType === ct ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
-                        }`}
-                      >
-                        {t[ct]}
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* Paylaş — mobilde burada, mum tipi seçicisinin yanındaki
