@@ -284,6 +284,17 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [showRightSidebar, setShowRightSidebar] = useState(true);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [rightTab, setRightTab] = useState<"watchlist" | "trend">("watchlist");
+  // Sol liste panelindeki her grup (ABD Hisse Senedi Piyasaları, Sektörler,
+  // vb.) başlığındaki gizle/göster butonuyla ayrı ayrı daraltılabilir.
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
+  const toggleGroupCollapsed = (groupName: string) => {
+    setCollapsedGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(groupName)) next.delete(groupName);
+      else next.add(groupName);
+      return next;
+    });
+  };
 
   const { isPremium, tier } = useMemberPlan();
   const maxAllowedCompare = tier === "anonymous" ? 2 : MAX_COMPARE;
@@ -427,11 +438,26 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           </div>
 
           <div className="md:pb-4">
-            {(selectedList === "Tüm Liste" ? extendedGroups : extendedGroups.filter(g => g.group === selectedList)).map(group => (
+            {(selectedList === "Tüm Liste" ? extendedGroups : extendedGroups.filter(g => g.group === selectedList)).map(group => {
+              const isCollapsed = collapsedGroups.has(group.group);
+              return (
               <div key={group.group} className="mb-2">
                 {selectedList === "Tüm Liste" && (
-                  <h3 className="px-3 mb-1 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
+                  <button
+                    type="button"
+                    onClick={() => toggleGroupCollapsed(group.group)}
+                    className="w-full flex items-center justify-between gap-2 px-3 mb-1 text-xs font-medium text-slate-500 uppercase tracking-widest hover:text-slate-300 transition-colors"
+                    title={isCollapsed
+                      ? (locale === 'tr' ? 'Listeyi göster' : locale === 'es' ? 'Mostrar lista' : locale === 'fr' ? 'Afficher la liste' : locale === 'pt' ? 'Mostrar lista' : locale === 'id' ? 'Tampilkan daftar' : 'Show list')
+                      : (locale === 'tr' ? 'Listeyi gizle' : locale === 'es' ? 'Ocultar lista' : locale === 'fr' ? 'Masquer la liste' : locale === 'pt' ? 'Ocultar lista' : locale === 'id' ? 'Sembunyikan daftar' : 'Hide list')}
+                  >
+                    <span className="truncate">{group.group}</span>
+                    <svg className={`w-3 h-3 shrink-0 transition-transform ${isCollapsed ? "-rotate-90" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
                 )}
+                {!isCollapsed && (
                 <div className="flex flex-col">
                   {group.items.map((item: any) => {
                     const price = item.price !== undefined ? { price: item.price, change_1d: item.change_1d } : prices[item.ySymbol];
@@ -477,8 +503,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                     );
                   })}
                 </div>
+                )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
