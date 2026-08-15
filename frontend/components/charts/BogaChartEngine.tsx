@@ -1407,8 +1407,8 @@ export default function BogaChartEngine({
     >
       <div className="contents">
         {showToolbar && (
-          <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
-            <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+          <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+            <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a] shrink-0">
               {INTERVALS.map((iv) => (
                 <button
                   key={iv.value}
@@ -1440,12 +1440,12 @@ export default function BogaChartEngine({
               </div>
             )}
             {detailMode && (
-              <div className="relative ml-2">
+              <div className="relative ml-1 shrink-0">
                 <button
                   onClick={() => setIndicatorsMenuOpen((v) => !v)}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-medium text-[#00d2ff] hover:text-white transition-all"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all whitespace-nowrap"
                 >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -1482,10 +1482,10 @@ export default function BogaChartEngine({
               </div>
             )}
             {detailMode && (
-              <div className="relative">
+              <div className="relative shrink-0">
                 <button
                   onClick={() => setMobileCandleMenuOpen((v) => !v)}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-medium text-[#00d2ff] hover:text-white transition-all"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all whitespace-nowrap"
                 >
                   {t[candleType]} <span className="text-[9px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
                 </button>
