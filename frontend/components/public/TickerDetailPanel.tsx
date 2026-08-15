@@ -203,7 +203,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         <div className="bg-[#111620] border border-[#253347] rounded-xl p-3.5 flex flex-col justify-between shadow-lg">
           <div>
             <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#58a6ff]/30">
-              <span lang={locale} className="text-[11px] text-[#3b82f6] font-bold uppercase tracking-widest flex items-center gap-1.5">
+              <span lang={locale} style={{ color: "#3b82f6" }} className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5">
                 <span>⚡</span> {t.technicalCard}
               </span>
             </div>
@@ -263,7 +263,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         <div className="bg-[#111620] border border-[#253347] rounded-xl p-3.5 flex flex-col justify-between shadow-lg">
           <div>
             <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#58a6ff]/30">
-              <span lang={locale} className="text-[11px] text-[#3b82f6] font-bold uppercase tracking-widest flex items-center gap-1.5">
+              <span lang={locale} style={{ color: "#3b82f6" }} className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5">
                 <span>📊</span> {t.marketCard}
               </span>
             </div>
@@ -293,7 +293,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">
-          <div lang={locale} className="text-xs text-[#3b82f6] uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
+          <div lang={locale} style={{ color: "#3b82f6" }} className="text-xs uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
           {!isStock ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
               <span className="text-[11px] text-white/50 max-w-[210px] leading-snug">
@@ -357,7 +357,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-[#58a6ff]/30 flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <span className="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
-              <span lang={locale} className="text-xs font-medium text-[#3b82f6] uppercase tracking-widest">
+              <span lang={locale} style={{ color: "#3b82f6" }} className="text-xs font-medium uppercase tracking-widest">
                 {locale === "tr" ? "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı" : locale === "es" ? "Comentarista IA de Mercado 24/7" : locale === "fr" ? "Commentateur IA du Marché 24/7" : locale === "pt" ? "Comentador IA do Mercado 24/7" : locale === "id" ? "Komentator Pasar & Teknikal AI 24/7" : "24/7 AI Market & Technical Commentary"}
               </span>
             </div>
@@ -385,11 +385,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-[#3b82f6] font-medium block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : locale === "id" ? "Level Kunci & Pivot" : "Key Levels & Pivots"}:</span>
+                  <span style={{ color: "#3b82f6" }} className="font-medium block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : locale === "id" ? "Level Kunci & Pivot" : "Key Levels & Pivots"}:</span>
                   <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
                 </div>
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-[#3b82f6] font-medium block mb-1">💧 {locale === "tr" ? "Hacim & Hareketlilik" : locale === "es" ? "Volumen y Volatilidad" : locale === "fr" ? "Volume et Volatilité" : locale === "pt" ? "Volume e Volatilidade" : locale === "id" ? "Volume & Volatilitas" : "Volume & Volatility"}:</span>
+                  <span style={{ color: "#3b82f6" }} className="font-medium block mb-1">💧 {locale === "tr" ? "Hacim & Hareketlilik" : locale === "es" ? "Volumen y Volatilidad" : locale === "fr" ? "Volume et Volatilité" : locale === "pt" ? "Volume e Volatilidade" : locale === "id" ? "Volume & Volatilitas" : "Volume & Volatility"}:</span>
                   <span className="text-white/70">{data.aiCommentary.liquidityVolume}</span>
                 </div>
               </div>
@@ -400,24 +400,24 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
 
       {data.tradePlan.valid && isStock && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div lang={locale} className="text-xs text-[#3b82f6] uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
+          <div lang={locale} style={{ color: "#3b82f6" }} className="text-xs uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
           {rationaleLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/70 leading-relaxed">
-              <p><span className="text-[#3b82f6] font-medium">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
-              <p><span className="text-[#3b82f6] font-medium">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
-              <p><span className="text-[#3b82f6] font-medium">EMA:</span> {data.tradePlan.rationale.ema}</p>
-              <p><span className="text-[#3b82f6] font-medium">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
-              <p><span className="text-[#3b82f6] font-medium">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
-              <p><span className="text-[#3b82f6] font-medium">RSI:</span> {data.tradePlan.rationale.rsi}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">EMA:</span> {data.tradePlan.rationale.ema}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
+              <p><span style={{ color: "#3b82f6" }} className="font-medium">RSI:</span> {data.tradePlan.rationale.rsi}</p>
             </div>
           )}
         </div>
       )}
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-        <div lang={locale} className="text-xs text-[#3b82f6] uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>
+        <div lang={locale} style={{ color: "#3b82f6" }} className="text-xs uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>
         <div className="grid grid-cols-3 gap-3">
           {scoreBars.map(({ label, score, color }) => (
             <div key={label}>

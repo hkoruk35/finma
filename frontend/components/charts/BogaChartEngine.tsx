@@ -693,6 +693,10 @@ export default function BogaChartEngine({
 
     const hideVolumePane = indicatorsProp ? !indicatorsProp.includes("volume") : !active.has("volume");
     if (!hideVolumePane) {
+      // Read viewport width once, at chart-creation time only — this effect
+      // has [] deps (runs once on mount) so it can't react to later resizes,
+      // same as every other "compact"/"detailMode" layout choice below.
+      const isMobileViewport = typeof window !== "undefined" && window.innerWidth < 768;
       const volumeSeries = chart.addSeries(
         HistogramSeries,
         { priceFormat: { type: "volume" }, priceScaleId: "" },
@@ -700,11 +704,15 @@ export default function BogaChartEngine({
       );
       volumeSeries.priceScale().applyOptions({
         scaleMargins: {
-          top: 0.25, // bars can now grow through ~75% of the pane instead of ~40%
+          // Desktop bars fill ~75% of the pane; mobile keeps more headroom
+          // (~55%) so the bars don't dominate the much shorter screen.
+          top: compact ? 0.25 : isMobileViewport ? 0.45 : 0.25,
           bottom: 0,
         },
       });
-      const volumePaneHeight = compact ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3))) : 230;
+      const volumePaneHeight = compact
+        ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3)))
+        : isMobileViewport ? 130 : 230;
       chart.panes()[1]?.setHeight(volumePaneHeight);
       volumeSeriesRef.current = volumeSeries;
     }
@@ -1616,32 +1624,42 @@ export default function BogaChartEngine({
             </div>
           )}
 
-          {/* Ticker basligi + BOGASTOCK filigran — detailMode'da (masaustu)
-              hacim panelinin (pane 1) hemen ustundeki bos alana, candle
-              panesinin (pane 0) olculen pikselyuksekligine gore konumlanir
-              (bkz. mainPaneHeight / renderAll ve ResizeObserver). Boylece
-              mumlarin uzerine binmez. Olcum henuz gelmediyse (ilk render)
-              sabit bir top degerine duser. Compact (mini-chart) icin ise tek
-              pane oldugundan (hacim paneli yok) fiyat skalasinin alt bos
-              marjina (scaleMargins bottom ~0.15) denk gelecek sekilde alta
-              sabitlenir — ust taraftaki mum verisiyle cakismaz.
-              Ticker sembolu ustte (1px daha buyuk), logo altinda,
-              Header.tsx'teki logoyla birebir ayni format ve renkler
-              (Boga #3b82f6, Stock beyaz, tracking-tight), sadece watermark
-              etkisi icin hafif saydam (bkz. Header.tsx logoContent). */}
-          <div
-            className={`absolute left-2 ${compact ? "bottom-1" : detailMode ? "" : "top-2.5"} pointer-events-none select-none z-10 flex flex-col items-start`}
-            style={detailMode && !compact ? { top: mainPaneHeight != null ? mainPaneHeight + 8 : 140 } : undefined}
-          >
-            <span
-              className={`tracking-tight text-white ${compact ? "text-[13px]" : "text-[19px] md:text-[21px]"} leading-tight font-bold`}
+          {/* Ticker basligi + BOGASTOCK filigran — SADECE detailMode'da
+              (masaustu/mobil ana grafik ekrani). Compact mini-chart'larda
+              (sag panel kucuk 15M/1H/4H/1W grafikleri) kucuk alanda cirkin
+              durdugu icin hic render edilmiyor. Hacim panelinin (pane 1)
+              hemen ustundeki bos alana, candle panesinin (pane 0) olculen
+              pikselyuksekligine gore konumlanir (bkz. mainPaneHeight /
+              renderAll ve ResizeObserver) — mumlarin uzerine binmez. Olcum
+              henuz gelmediyse (ilk render) sabit bir top degerine duser.
+              Ticker sembolu ustte (1px daha buyuk), logo altinda. Renkler
+              GERCEK header logosuyla (public/logo/bogastock02_logo.png,
+              MemberHeader.tsx'te kullanilan) birebir eslesir: Boga gri
+              (#A6A6A6), Stock mavi (#0059CF) — Header.tsx'teki KULLANILMAYAN
+              CSS-metin logosu (Boga mavi/Stock beyaz) DEGIL, bu sayfada o
+              render edilmiyor. Watermark etkisi icin hafif saydam. */}
+          {detailMode ? (
+            <div
+              className="absolute left-2 pointer-events-none select-none z-10 flex flex-col items-start"
+              style={{ top: mainPaneHeight != null ? mainPaneHeight + 8 : 140 }}
             >
-              {getSymbolDisplayName(symbol)}
-            </span>
-            <span className={`tracking-tight font-medium ${compact ? "text-[11px]" : "text-lg md:text-xl"}`}>
-              <span style={{ color: "#3b82f6", opacity: 0.7 }}>Boga</span><span style={{ color: "#ffffff", opacity: 0.7 }}>Stock</span>
-            </span>
-          </div>
+              <span className="tracking-tight text-white text-[19px] md:text-[21px] leading-tight font-bold">
+                {getSymbolDisplayName(symbol)}
+              </span>
+              <span className="tracking-tight font-medium text-lg md:text-xl">
+                <span style={{ color: "#A6A6A6", opacity: 0.7 }}>Boga</span><span style={{ color: "#0059CF", opacity: 0.7 }}>Stock</span>
+              </span>
+            </div>
+          ) : !compact && (
+            <div className="absolute top-2.5 left-3 pointer-events-none select-none z-10 flex flex-col items-start">
+              <span className="tracking-tight text-lg md:text-xl">
+                <span style={{ color: "#A6A6A6", opacity: 0.7 }}>Boga</span><span style={{ color: "#0059CF", opacity: 0.7 }}>Stock</span>
+              </span>
+              <span className="tracking-tight text-white text-lg md:text-xl leading-tight font-bold">
+                {getSymbolDisplayName(symbol)}
+              </span>
+            </div>
+          )}
 
           {detailMode && (
             // Masaüstünde her zaman görünür (mevcut davranış korunuyor).
