@@ -209,22 +209,23 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             </div>
 
             {/* EMA 9 / 20 / 50 Header Badge Row */}
-            <div className="mb-3 p-2 rounded-lg bg-[#182232] border border-[#2a3f5c]">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+            <div className="mb-3 p-2.5 rounded-lg bg-[#182232] border border-[#2a3f5c]">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">
                 EMA (9 / 20 / 50)
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-white">
-                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
-                  {fmt(d1.ema9, 1)}
-                </span>
-                <span className="text-slate-500">/</span>
-                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
-                  {fmt(d1.ema20, 1)}
-                </span>
-                <span className="text-slate-500">/</span>
-                <span className="bg-[#3b82f6]/20 text-[#60a5fa] px-2 py-0.5 rounded border border-[#3b82f6]/30">
-                  {fmt(d1.ema50, 1)}
-                </span>
+              <div className="grid grid-cols-3 gap-1.5">
+                <div className="flex flex-col items-center gap-0.5 bg-[#3b82f6]/15 text-[#60a5fa] py-1.5 rounded border border-[#3b82f6]/30">
+                  <span className="text-[9px] font-medium text-[#60a5fa]/70 uppercase tracking-wider">EMA9</span>
+                  <span className="text-sm font-mono font-bold">{fmt(d1.ema9, 1)}</span>
+                </div>
+                <div className="flex flex-col items-center gap-0.5 bg-[#3b82f6]/15 text-[#60a5fa] py-1.5 rounded border border-[#3b82f6]/30">
+                  <span className="text-[9px] font-medium text-[#60a5fa]/70 uppercase tracking-wider">EMA20</span>
+                  <span className="text-sm font-mono font-bold">{fmt(d1.ema20, 1)}</span>
+                </div>
+                <div className="flex flex-col items-center gap-0.5 bg-[#3b82f6]/15 text-[#60a5fa] py-1.5 rounded border border-[#3b82f6]/30">
+                  <span className="text-[9px] font-medium text-[#60a5fa]/70 uppercase tracking-wider">EMA50</span>
+                  <span className="text-sm font-mono font-bold">{fmt(d1.ema50, 1)}</span>
+                </div>
               </div>
             </div>
 
@@ -233,10 +234,6 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               {[
                 ["EMA 200", `$${fmt(d1.ema200, 1)}`, "text-slate-200"],
                 ["RSI (14)", fmt(d1.rsi, 1), d1.rsi >= 60 ? "text-emerald-400" : d1.rsi <= 40 ? "text-amber-400" : "text-slate-200"],
-                ["MACD", fmt(data.momentum.macd, 3), data.momentum.macd >= 0 ? "text-emerald-400" : "text-red-400"],
-                ["ADX (14)", fmt(data.momentum.adx, 1), "text-slate-200"],
-                ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`, data.momentum.roc10 >= 0 ? "text-emerald-400" : "text-red-400"],
-                ["BB%", fmt(data.momentum.bbPercent, 2), "text-slate-200"],
               ].map(([label, value, textColor]) => (
                 <div
                   key={label}
