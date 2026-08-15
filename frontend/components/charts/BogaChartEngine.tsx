@@ -459,6 +459,10 @@ export default function BogaChartEngine({
   const [multiChartLayout, setMultiChartLayout] = useState<number | null>(null);
   const [multiChartTickers, setMultiChartTickers] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
+  // Candle (pane 0) pixel height in detailMode — used to drop the BOGASTOCK
+  // watermark into the empty band above the volume bars (pane 1) instead of
+  // overlapping the candles near the top of the chart.
+  const [mainPaneHeight, setMainPaneHeight] = useState<number | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
@@ -696,11 +700,11 @@ export default function BogaChartEngine({
       );
       volumeSeries.priceScale().applyOptions({
         scaleMargins: {
-          top: 0.6, // leave top 60% for candles, more room for taller volume bars
+          top: 0.25, // bars can now grow through ~75% of the pane instead of ~40%
           bottom: 0,
         },
       });
-      const volumePaneHeight = compact ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3))) : 190;
+      const volumePaneHeight = compact ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3))) : 230;
       chart.panes()[1]?.setHeight(volumePaneHeight);
       volumeSeriesRef.current = volumeSeries;
     }
@@ -728,7 +732,10 @@ export default function BogaChartEngine({
       recomputeEntryZoneRef.current();
     });
 
-    const resizeObserver = new ResizeObserver(() => chart.applyOptions({}));
+    const resizeObserver = new ResizeObserver(() => {
+      chart.applyOptions({});
+      requestAnimationFrame(() => setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null));
+    });
     resizeObserver.observe(el);
 
     return () => {
@@ -915,6 +922,8 @@ export default function BogaChartEngine({
       );
       volumeSeries.applyOptions({ visible: active.has("volume") });
     }
+
+    requestAnimationFrame(() => setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null));
 
     const ind = data.indicators || {};
     const toPoints = (arr: unknown) =>
@@ -1607,27 +1616,30 @@ export default function BogaChartEngine({
             </div>
           )}
 
-          {/* BOGASTOCK filigran — sol ustte, detailMode'da masaustunde OHLC
-              satirinin hemen altinda (o satir orada her zaman gorunur).
-              Mobilde OHLC satiri varsayilan gizli oldugu icin (bkz.
-              crosshairActive) filigran da yukari, ust kenara yaklasir —
-              aksi halde bos bir bosluk kalirdi. Header.tsx'teki logoyla ayni
-              format (Boga mavi, Stock beyaz/gri), dusuk opaklikla mum/gosterge
-              okumayi engellemeyecek sekilde. Altinda ticker sembolü. */}
+          {/* Ticker basligi + BOGASTOCK filigran — detailMode'da (masaustu)
+              hacim panelinin (pane 1) hemen ustundeki bos alana, candle
+              panesinin (pane 0) olculen pikselyuksekligine gore konumlanir
+              (bkz. mainPaneHeight / renderAll ve ResizeObserver). Boylece
+              mumlarin uzerine binmez. Olcum henuz gelmediyse (ilk render)
+              eski sabit top-* siniflarina duser. Compact (mini-chart) ve
+              detailMode disi kullanimlar eski sabit konumunu korur.
+              Ticker sembolu ustte (1px daha buyuk), logo altinda, Header'daki
+              logoyla ayni format (Boga mavi, Stock beyaz), %50 opaklikla. */}
           <div
-            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-2 md:top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
+            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
+            style={detailMode && !compact ? { top: mainPaneHeight != null ? mainPaneHeight + 8 : 140 } : undefined}
           >
+            <span
+              className={`tracking-wide text-white ${compact ? "text-xs" : "text-[19px] md:text-[21px]"} leading-tight`}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
+            >
+              {getSymbolDisplayName(symbol)}
+            </span>
             <span
               className={`tracking-wide ${compact ? "text-xs" : "text-lg md:text-xl"}`}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500 }}
             >
               <span style={{ color: "#3b82f6", opacity: 0.5 }}>Boga</span><span style={{ color: "#ffffff", opacity: 0.5 }}>Stock</span>
-            </span>
-            <span
-              className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
-            >
-              {getSymbolDisplayName(symbol)}
             </span>
           </div>
 
