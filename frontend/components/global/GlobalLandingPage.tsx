@@ -584,7 +584,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         {/* RIGHT COLUMN: MULTI-TIMEFRAME MINI CHARTS — anonim ziyaretçiye de
             acik, hicbir premium/free-account kapisi yok (BogaChartEngine'e
             premiumGate gecilmiyor). 15M/1H/4H/1W sirasiyla ustten alta,
-            sabit; hacim/RSI olmadan (defaultIndicators=[]). Her panel
+            sabit; hacim/RSI olmadan, sadece EMA50 (defaultIndicators=["ema50"]). Her panel
             compactWindowDays ile ELLE dengelendi (1g/5g/20g/1y) — genel
             varsayilan 4H penceresi (1 hafta, ~10 bar) bu kucuk 200px'lik
             kutuda gorsel olarak bos/yanlis duruyordu. */}
@@ -605,7 +605,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   hideIndicatorToggles
                   showToolbar={false}
                   defaultTimeframe="15"
-                  defaultIndicators={[]}
+                  defaultIndicators={["ema50"]}
                   height={200}
                   compactWindowDays={1}
                 />
@@ -635,7 +635,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   hideIndicatorToggles
                   showToolbar={false}
                   defaultTimeframe="240"
-                  defaultIndicators={[]}
+                  defaultIndicators={["ema50"]}
                   height={200}
                   compactWindowDays={20}
                 />
@@ -650,7 +650,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   hideIndicatorToggles
                   showToolbar={false}
                   defaultTimeframe="W"
-                  defaultIndicators={[]}
+                  defaultIndicators={["ema50"]}
                   height={200}
                   compactWindowDays={365}
                 />

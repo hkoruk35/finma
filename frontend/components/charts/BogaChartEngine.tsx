@@ -687,7 +687,7 @@ export default function BogaChartEngine({
       handleScale: { mouseWheel: false, axisPressedMouseMove: true, pinch: true },
     });
 
-    const hideVolumePane = indicatorsProp && !indicatorsProp.includes("volume");
+    const hideVolumePane = indicatorsProp ? !indicatorsProp.includes("volume") : !active.has("volume");
     if (!hideVolumePane) {
       const volumeSeries = chart.addSeries(
         HistogramSeries,
