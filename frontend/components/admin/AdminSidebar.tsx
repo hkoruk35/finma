@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 const NAV = [
   { href: "/admin", label: "Genel Bakış" },
+  { href: "/admin/supertrade", label: "🦅 SPX SuperTrade" },
   { href: "/admin/trading/swing", label: "📈 Trading" },
   { href: "/admin/analytics/performance", label: "📊 Analytics" },
   { href: "/admin/analytics/visitors", label: "👥 Ziyaretçiler" },
