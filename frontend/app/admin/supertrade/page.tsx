@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import StrategyLab from "@/components/admin/StrategyLab";
 import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
+import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
 import { getDecisionContext } from "@/lib/decisionEngine";
 import { evaluateSPXContext } from "@/lib/contextEngine";
 
@@ -514,116 +515,19 @@ export default function SPXSuperTradePage() {
 
       {/* ── 2. ANA GRAFİK PANELLERİ ─────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-6">
-        {/* Sol Panel: ES Vadeli 5-Dakikalık */}
-        <div className="lg:col-span-7 flex flex-col justify-between" style={ELEGANT_CARD}>
-          <div className="flex items-center justify-between mb-3 border-b border-white/[0.06] pb-2.5">
-            <span className="text-sm font-semibold text-white">ES Vadeli 5m (Ana Yön &amp; VWAP Grafiği)</span>
-            <span className="text-xs bg-slate-800/80 px-2.5 py-0.5 rounded text-slate-300">Seans Akışı</span>
-          </div>
-
-          {/* Seviye Kartları */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-            <div className="bg-[#070a11] p-2.5 rounded-md border border-white/[0.06]">
-              <span className="text-slate-400 text-[11px] block font-medium">Seans VWAP</span>
-              <span className="font-semibold text-[#00d2ff] text-sm">
-                {es.vwap ? es.vwap.toFixed(2) : "7,811.17"}
-              </span>
-            </div>
-            <div className="bg-[#070a11] p-2.5 rounded-md border border-white/[0.06]">
-              <span className="text-slate-400 text-[11px] block font-medium">Globex ONH</span>
-              <span className="font-semibold text-[#34d399] text-sm">
-                {es.onh ? es.onh.toFixed(2) : "7,817.50"}
-              </span>
-            </div>
-            <div className="bg-[#070a11] p-2.5 rounded-md border border-white/[0.06]">
-              <span className="text-slate-400 text-[11px] block font-medium">Globex ONL</span>
-              <span className="font-semibold text-[#f87171] text-sm">
-                {es.onl ? es.onl.toFixed(2) : "7,796.50"}
-              </span>
-            </div>
-            <div className="bg-[#070a11] p-2.5 rounded-md border border-white/[0.06]">
-              <span className="text-slate-400 text-[11px] block font-medium">ON Midpoint</span>
-              <span className="font-semibold text-amber-300 text-sm">
-                {es.overnight_mid ? es.overnight_mid.toFixed(2) : "7,807.00"}
-              </span>
-            </div>
-          </div>
-
-          {/* Görsel Mum Akışı (SVG Visualizer) */}
-          <div className="h-[270px] bg-[#050811] border border-white/[0.06] rounded-md p-4 relative flex flex-col justify-between overflow-hidden">
-            <div className="flex justify-between items-center text-xs text-slate-400 border-b border-white/[0.04] pb-2">
-              <span>ES1! CME — 5m Intraday Candle Stream</span>
-              <span className="text-slate-300 text-[11px]">
-                VWAP: <strong className="text-[#00d2ff]">{es.vwap || 7811.17}</strong> | ONH:{" "}
-                <strong className="text-[#34d399]">{es.onh || 7817.5}</strong> | ONL:{" "}
-                <strong className="text-[#f87171]">{es.onl || 7796.5}</strong>
-              </span>
-            </div>
-
-            <div className="w-full h-[200px] relative flex items-end justify-between px-3 pt-4">
-              {/* Katman Çizgileri - ONH / ONL */}
-              <div className="absolute left-0 right-0 top-[15%] border-b border-solid border-[#34d399]/40 opacity-80 z-10 flex justify-end pr-3">
-                <span className="text-[10px] bg-[#34d399]/10 text-[#34d399] px-1.5 py-0.5 rounded border border-[#34d399]/20">
-                  ONH 7817.50
-                </span>
-              </div>
-              <div className="absolute left-0 right-0 top-[35%] border-b border-dashed border-[#00d2ff]/60 opacity-80 z-10 flex justify-end pr-3">
-                <span className="text-[10px] bg-[#00d2ff]/10 text-[#00d2ff] px-1.5 py-0.5 rounded border border-[#00d2ff]/20">
-                  VWAP 7811.17
-                </span>
-              </div>
-
-              {/* Katman Çizgileri - ORH / ORL */}
-              <div className="absolute left-0 right-0 top-[45%] border-b-2 border-dashed border-purple-400/70 opacity-90 z-10 flex justify-end pr-3">
-                <span className="text-[10px] bg-purple-400/10 text-purple-400 px-1.5 py-0.5 rounded border border-purple-400/20 font-bold">
-                  ORH 7807.71
-                </span>
-              </div>
-              <div className="absolute left-0 right-0 top-[65%] border-b-2 border-dashed border-rose-400/70 opacity-90 z-10 flex justify-end pr-3">
-                <span className="text-[10px] bg-rose-400/10 text-rose-400 px-1.5 py-0.5 rounded border border-rose-400/20 font-bold">
-                  ORL 7801.46
-                </span>
-              </div>
-
-              <div className="absolute left-0 right-0 top-[80%] border-b border-solid border-[#f87171]/40 opacity-80 z-10 flex justify-end pr-3">
-                <span className="text-[10px] bg-[#f87171]/10 text-[#f87171] px-1.5 py-0.5 rounded border border-[#f87171]/20">
-                  ONL 7796.50
-                </span>
-              </div>
-
-              {/* Mum Akışı */}
-              {[
-                { h: 40, l: 15, o: 20, c: 35, bull: true },
-                { h: 45, l: 30, o: 35, c: 42, bull: true },
-                { h: 55, l: 40, o: 42, c: 50, bull: true },
-                { h: 60, l: 45, o: 50, c: 48, bull: false },
-                { h: 52, l: 35, o: 48, c: 38, bull: false },
-                { h: 42, l: 25, o: 38, c: 30, bull: false },
-                { h: 38, l: 28, o: 30, c: 36, bull: true },
-                { h: 48, l: 34, o: 36, c: 45, bull: true },
-                { h: 65, l: 44, o: 45, c: 62, bull: true },
-                { h: 70, l: 58, o: 62, c: 66, bull: true },
-                { h: 75, l: 60, o: 66, c: 64, bull: false },
-                { h: 68, l: 55, o: 64, c: 58, bull: false },
-                { h: 62, l: 50, o: 58, c: 52, bull: false },
-                { h: 56, l: 48, o: 52, c: 54, bull: true },
-              ].map((c, i) => (
-                <div key={i} className="flex flex-col items-center h-full justify-end w-3 relative">
-                  <div
-                    className="w-[1px] bg-slate-600/80 absolute"
-                    style={{ bottom: `${c.l}%`, height: `${c.h - c.l}%` }}
-                  />
-                  <div
-                    className={`w-2.5 rounded-sm z-10 ${c.bull ? "bg-[#34d399]" : "bg-[#f87171]"}`}
-                    style={{
-                      bottom: `${Math.min(c.o, c.c)}%`,
-                      height: `${Math.max(4, Math.abs(c.c - c.o))}%`,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Sol Panel: Canlı İnteraktif 1m / 5m Mum & Hacim Grafiği */}
+        <div className="lg:col-span-7">
+          <SuperTradeLiveChart
+            currentPrice={snapshot?.es_price || 7805.0}
+            vwapPrice={es.vwap || 7811.17}
+            onh={es.onh || 7817.5}
+            onl={es.onl || 7796.5}
+            onMid={es.overnight_mid || 7807.0}
+            orh={spx.orh || 7807.71}
+            orl={spx.orl || 7801.46}
+            replayTime={replayTime}
+            isReplayMode={mode === "replay"}
+          />
         </div>
 
         {/* Sağ Yan Paneller */}
