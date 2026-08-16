@@ -38,6 +38,8 @@ export default function AdminSidebar({ role }: { role?: string }) {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const navList = (onNavigate?: () => void) => (
     <nav style={{ padding: 8, display: "flex", flexDirection: "column", gap: 2 }}>
       {NAV.map((item) => {
@@ -47,6 +49,7 @@ export default function AdminSidebar({ role }: { role?: string }) {
             key={item.href}
             href={item.href}
             onClick={onNavigate}
+            title={item.label}
             style={{
               padding: "8px 10px",
               borderRadius: 4,
@@ -56,9 +59,18 @@ export default function AdminSidebar({ role }: { role?: string }) {
               color: active ? "#58a6ff" : "#8b949e",
               background: active ? "#58a6ff15" : "transparent",
               textDecoration: "none",
+              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              overflow: "hidden",
             }}
           >
-            {item.label}
+            <span style={{ minWidth: "24px" }}>
+              {item.label.split(" ")[0]} 
+            </span>
+            <span style={{ opacity: isHovered || isMobileOpen ? 1 : 0, transition: "opacity 0.2s" }}>
+              {item.label.substring(item.label.indexOf(" ") + 1)}
+            </span>
           </Link>
         );
       })}
@@ -67,7 +79,7 @@ export default function AdminSidebar({ role }: { role?: string }) {
 
   return (
     <>
-      {/* Mobil Üst Bar — hamburger menü ile tüm admin menülerine erişim */}
+      {/* Mobil Üst Bar */}
       <div
         style={{ background: "#0d1117", borderBottom: "1px solid #30363d" }}
         className="flex md:hidden items-center justify-between px-4 py-3 sticky top-0 z-40"
@@ -123,15 +135,34 @@ export default function AdminSidebar({ role }: { role?: string }) {
 
       {/* Masaüstü Kenar Çubuğu */}
       <aside
-        style={{ background: "#0d1117", borderRight: "1px solid #30363d", width: 200, minHeight: "100vh" }}
-        className="hidden md:flex flex-col flex-shrink-0"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ 
+          background: "#0d1117", 
+          borderRight: "1px solid #30363d", 
+          width: isHovered ? 200 : 54, 
+          minHeight: "100vh",
+          transition: "width 0.2s ease",
+          overflow: "hidden",
+          position: "sticky",
+          top: 0
+        }}
+        className="hidden md:flex flex-col flex-shrink-0 z-50 h-screen"
       >
-        <div style={{ padding: "16px 16px 12px", borderBottom: "1px solid #30363d" }}>
-          <div style={{ color: "#58a6ff", fontWeight: 900, fontSize: 14, fontFamily: "monospace" }}>BOGA AI</div>
-          <div style={{ color: "#8b949e", fontSize: 10, fontFamily: "monospace", marginTop: 2 }}>Yönetim Merkezi</div>
+        <div style={{ padding: "16px 16px 12px", borderBottom: "1px solid #30363d", display: "flex", flexDirection: "column" }}>
+          {isHovered ? (
+            <>
+              <div style={{ color: "#58a6ff", fontWeight: 900, fontSize: 14, fontFamily: "monospace" }}>BOGA AI</div>
+              <div style={{ color: "#8b949e", fontSize: 10, fontFamily: "monospace", marginTop: 2 }}>Yönetim Merkezi</div>
+            </>
+          ) : (
+            <div style={{ color: "#58a6ff", fontWeight: 900, fontSize: 14, fontFamily: "monospace", textAlign: "center" }}>B</div>
+          )}
         </div>
-        {navList()}
-        {role === "readonly" && (
+        <div className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar">
+          {navList()}
+        </div>
+        {role === "readonly" && isHovered && (
           <div style={{ marginTop: "auto", padding: 12, fontSize: 10, color: "#e3b341", fontFamily: "monospace" }}>
             Salt okunur erişim
           </div>
