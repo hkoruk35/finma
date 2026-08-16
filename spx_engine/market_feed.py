@@ -8,7 +8,7 @@ import pandas as pd
 import logging
 from typing import Dict, Optional, Tuple
 from spx_engine.data_provider import MarketDataProvider, YFinanceProvider, get_futures_front_contract_symbol
-from spx_engine.time_session import NY_TZ
+from spx_engine.time_session import NY_TZ, SPXSessionClock, SPXSessionPhase
 
 logger = logging.getLogger("spx_engine.market_feed")
 
@@ -21,6 +21,7 @@ class DataQualityStatus:
 class SPXMarketFeedManager:
     def __init__(self, provider: Optional[MarketDataProvider] = None):
         self.provider = provider or YFinanceProvider()
+        self.clock = SPXSessionClock()
         self.stale_threshold_ms = 180000  # 3 minutes
         self.delayed_threshold_ms = 90000  # 1.5 minutes
         self._candle_cache: Dict[str, Dict[str, pd.DataFrame]] = {}
@@ -59,7 +60,10 @@ class SPXMarketFeedManager:
             meta["source_timestamp"] = last_ts.isoformat()
             meta["age_ms"] = age_ms
 
-            if age_ms <= self.delayed_threshold_ms:
+            phase = self.clock.get_session_phase(now)
+            if phase == SPXSessionPhase.OFF_HOURS:
+                meta["status"] = DataQualityStatus.LIVE  # Market closed, last available session data is valid
+            elif age_ms <= self.delayed_threshold_ms:
                 meta["status"] = DataQualityStatus.LIVE
             elif age_ms <= self.stale_threshold_ms:
                 meta["status"] = DataQualityStatus.DELAYED
@@ -103,6 +107,9 @@ class SPXMarketFeedManager:
         })
 
     def evaluate_overall_data_integrity(self) -> Tuple[bool, str, dict]:
+        now = datetime.datetime.now(NY_TZ)
+        phase = self.clock.get_session_phase(now)
+        
         critical_symbols = ["ES", "SPX"]
         integrity_details = {}
         is_valid = True
@@ -113,7 +120,7 @@ class SPXMarketFeedManager:
             status = meta.get("status", DataQualityStatus.MISSING)
             integrity_details[sym] = meta
 
-            if status in (DataQualityStatus.STALE, DataQualityStatus.MISSING):
+            if phase != SPXSessionPhase.OFF_HOURS and status in (DataQualityStatus.STALE, DataQualityStatus.MISSING):
                 is_valid = False
                 message = f"MARKET DATA INTEGRITY WARNING: {sym} feed is {status} (Age: {meta.get('age_ms', 0)/1000:.1f}s)"
 

@@ -1,6 +1,7 @@
 """
 SPX Live Engine — Deterministic Level & VWAP Calculation Engine
 Calculates Globex ONH/ONL, Premarket H/L, PDH/PDL/PDC, OR5 (09:30-09:35 ET), ES VWAP, SPY VWAP proxy, and VWAP chop detector.
+Handles off-hours fallback to latest available trading session.
 """
 
 import pandas as pd
@@ -70,34 +71,51 @@ class SPXLevelEngine:
         if df.index.tz is None:
             df.index = df.index.tz_localize("UTC").tz_convert(NY_TZ)
 
+        # Globex Overnight
         on_start, on_end = self.clock.get_globex_overnight_window(dt)
         on_df = df[(df.index >= on_start) & (df.index <= on_end)]
+        if on_df.empty:
+            # Off-hours fallback to recent overnight range
+            on_df = df.iloc[-390:-150] if len(df) >= 390 else df
+
         if not on_df.empty:
             onh = float(on_df['high'].max())
             onl = float(on_df['low'].min())
-            result["onh"] = onh
-            result["onl"] = onl
+            result["onh"] = round(onh, 2)
+            result["onl"] = round(onl, 2)
             result["overnight_mid"] = round((onh + onl) / 2.0, 2)
 
+        # Premarket
         pm_start, pm_end = self.clock.get_premarket_window(dt)
         pm_df = df[(df.index >= pm_start) & (df.index <= pm_end)]
         if not pm_df.empty:
-            result["premarket_high"] = float(pm_df['high'].max())
-            result["premarket_low"] = float(pm_df['low'].min())
+            result["premarket_high"] = round(float(pm_df['high'].max()), 2)
+            result["premarket_low"] = round(float(pm_df['low'].min()), 2)
+        elif not on_df.empty:
+            result["premarket_high"] = round(float(on_df['high'].max()), 2)
+            result["premarket_low"] = round(float(on_df['low'].min()), 2)
 
         today_date = dt.date()
         prev_days_df = df[df.index.date < today_date]
+        if prev_days_df.empty:
+            prev_days_df = df
+
         if not prev_days_df.empty:
             last_prev_date = prev_days_df.index.date[-1]
             last_day_df = prev_days_df[prev_days_df.index.date == last_prev_date]
-            result["pdh"] = float(last_day_df['high'].max())
-            result["pdl"] = float(last_day_df['low'].min())
-            result["pdc"] = float(last_day_df['close'].iloc[-1])
+            result["pdh"] = round(float(last_day_df['high'].max()), 2)
+            result["pdl"] = round(float(last_day_df['low'].min()), 2)
+            result["pdc"] = round(float(last_day_df['close'].iloc[-1]), 2)
 
         today_df = df[df.index.date == today_date]
+        if today_df.empty:
+            # Off-hours fallback to latest session
+            latest_date = df.index.date[-1]
+            today_df = df[df.index.date == latest_date]
+
         if not today_df.empty:
-            result["session_high"] = float(today_df['high'].max())
-            result["session_low"] = float(today_df['low'].min())
+            result["session_high"] = round(float(today_df['high'].max()), 2)
+            result["session_low"] = round(float(today_df['low'].min()), 2)
 
             vwap_series = calculate_vwap(today_df)
             if not vwap_series.empty:
@@ -158,27 +176,33 @@ class SPXLevelEngine:
         today_date = dt.date()
         
         prev_days_df = df[df.index.date < today_date]
+        if prev_days_df.empty:
+            prev_days_df = df
+
         if not prev_days_df.empty:
             last_prev_date = prev_days_df.index.date[-1]
             last_day_df = prev_days_df[prev_days_df.index.date == last_prev_date]
-            result["pdh"] = float(last_day_df['high'].max())
-            result["pdl"] = float(last_day_df['low'].min())
-            result["pdc"] = float(last_day_df['close'].iloc[-1])
+            result["pdh"] = round(float(last_day_df['high'].max()), 2)
+            result["pdl"] = round(float(last_day_df['low'].min()), 2)
+            result["pdc"] = round(float(last_day_df['close'].iloc[-1]), 2)
 
         today_df = df[df.index.date == today_date]
-        if not today_df.empty:
-            result["session_high"] = float(today_df['high'].max())
-            result["session_low"] = float(today_df['low'].min())
+        if today_df.empty:
+            latest_date = df.index.date[-1]
+            today_df = df[df.index.date == latest_date]
 
-            or_start = localize_ny(datetime.datetime.combine(today_date, datetime.time(9, 30, 0)))
-            or_end = localize_ny(datetime.datetime.combine(today_date, datetime.time(9, 34, 59)))
-            or_df = today_df[(today_df.index >= or_start) & (today_df.index <= or_end)]
+        if not today_df.empty:
+            result["session_high"] = round(float(today_df['high'].max()), 2)
+            result["session_low"] = round(float(today_df['low'].min()), 2)
+
+            # OR5 (09:30 - 09:35)
+            or_df = today_df.iloc[:5] if len(today_df) >= 5 else today_df
             
-            if not or_df.empty and len(or_df) >= 3:
+            if not or_df.empty:
                 orh = float(or_df['high'].max())
                 orl = float(or_df['low'].min())
-                result["orh"] = orh
-                result["orl"] = orl
+                result["orh"] = round(orh, 2)
+                result["orl"] = round(orl, 2)
                 result["or_mid"] = round((orh + orl) / 2.0, 2)
                 result["or_size"] = round(orh - orl, 2)
                 result["is_or_defined"] = True
@@ -193,6 +217,10 @@ class SPXLevelEngine:
             
         today_date = dt.date()
         today_df = df[df.index.date == today_date]
+        if today_df.empty:
+            latest_date = df.index.date[-1]
+            today_df = df[df.index.date == latest_date]
+
         if today_df.empty:
             return 0.0
 
