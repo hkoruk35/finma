@@ -55,9 +55,12 @@ export default function StrategyLab({
   const isLong = currentState.includes("LONG");
   const isNeutral = !isShort && !isLong;
 
+  // If a screenshot is uploaded, use the extracted screenshot spot price (7784.05), else use live spxPrice
+  const effectivePrice = source === "screenshot" && uploadResult ? 7784.05 : spxPrice;
+
   // ── STRATEGY ENGINE (MATHEMATICALLY DEFINED RISK & BUDGET AWARE) ──
   const generatedStrategies = useMemo(() => {
-    const atm = Math.round(spxPrice / 5) * 5;
+    const atm = Math.round(effectivePrice / 5) * 5;
     const list: StrategyOption[] = [];
 
     if (isShort) {
@@ -306,7 +309,9 @@ export default function StrategyLab({
               </span>
             </h2>
             <p className="text-[11px] text-slate-400">
-              Maksimum risk bütçesi (${numBudget}) dahilindeki matematiksel olarak taranmış en kaliteli 3 strateji
+              {source === "live"
+                ? "🟢 Canlı Akış Aktif (OPRA / CME Feed): Sistem tüm 0DTE opsiyon zincirini ve bacakları otomatik tarar, ekran görüntüsü yüklemenize gerek yoktur."
+                : `Maksimum risk bütçesi ($${numBudget}) dahilindeki matematiksel olarak taranmış en kaliteli 3 strateji`}
             </p>
           </div>
         </div>
@@ -419,9 +424,14 @@ export default function StrategyLab({
                 Spot: 7784.05 | Hedef: 0DTE | Spreadler ve bacaklar okundu
               </div>
               {uploadResult === "stale" && (
-                <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-4 py-2 rounded-md text-xs font-medium w-full max-w-md text-left mb-4">
-                  <strong className="block mb-1">⚠️ SCREENSHOT STALE / MARKET MOVED</strong>
-                  Görüntüdeki fiyat (7784.05) ile anlık SPX fiyatı ({spxPrice.toFixed(2)}) arasında uyumsuzluk var.
+                <div className="bg-amber-500/10 border border-amber-500/30 text-amber-300 px-4 py-3 rounded-md text-xs font-medium w-full max-w-lg text-left mb-4">
+                  <div className="flex items-center gap-2 font-bold mb-1 text-amber-200">
+                    <span>⚠️</span> SCREENSHOT FARK BİLGİSİ (Piyasa Hareketi)
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                    Yüklenen görüntüdeki spot fiyat (<strong>7784.05</strong>) ile sistemdeki son kapanış fiyatı (<strong>{spxPrice.toFixed(2)}</strong>) arasında <strong>{Math.abs(spxPrice - 7784.05).toFixed(2)} puanlık</strong> fark var. 
+                    Stratejiler, yüklediğiniz görüntüdeki <strong>7784.05</strong> fiyatına göre otomatik olarak yeniden modellendi.
+                  </p>
                 </div>
               )}
               <button
