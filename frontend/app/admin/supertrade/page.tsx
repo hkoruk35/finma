@@ -78,6 +78,9 @@ export default function SPXSuperTradePage() {
   const [replayDate, setReplayDate] = useState("2026-08-15");
   const [replayData, setReplayData] = useState<any>(null);
   const [replayLoading, setReplayLoading] = useState(false);
+  const [replayTime, setReplayTime] = useState<number>(0);
+  const [isReplaying, setIsReplaying] = useState(false);
+  const [replaySpeed, setReplaySpeed] = useState(1);
 
   const fetchLatestSnapshot = async () => {
     try {
@@ -93,26 +96,90 @@ export default function SPXSuperTradePage() {
     }
   };
 
+  // ── LIVE ENGINE ──
   useEffect(() => {
-    fetchLatestSnapshot();
-    const interval = setInterval(fetchLatestSnapshot, 15000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleRunReplay = async () => {
-    setReplayLoading(true);
-    try {
-      const res = await fetch(`/api/admin/supertrade/replay?date=${replayDate}`);
-      if (res.ok) {
-        const data = await res.json();
-        setReplayData(data);
-      }
-    } catch (err) {
-      console.error("Replay hatası:", err);
-    } finally {
-      setReplayLoading(false);
+    let interval: NodeJS.Timeout;
+    if (mode === "live") {
+      fetchLatestSnapshot();
+      interval = setInterval(fetchLatestSnapshot, 15000);
     }
-  };
+    return () => clearInterval(interval);
+  }, [mode]);
+
+  // ── REPLAY ENGINE (TIME TICKER) ──
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (mode === "replay" && isReplaying) {
+      interval = setInterval(() => {
+        setReplayTime((prev) => {
+          if (prev >= 150) {
+            setIsReplaying(false);
+            return 150;
+          }
+          return prev + 1;
+        });
+      }, 1000 / replaySpeed); // 1 second real-time = 1 minute simulation time (at 1x speed)
+    }
+    return () => clearInterval(interval);
+  }, [mode, isReplaying, replaySpeed]);
+
+  // ── REPLAY ENGINE (DATA GENERATOR) ──
+  useEffect(() => {
+    if (mode === "replay") {
+      // 0 to 150 minutes (09:30 to 12:00)
+      const baseSPX = 7780;
+      const progress = replayTime / 150;
+      
+      let currentState = "NEUTRAL";
+      let net = 0;
+      let lScore = 1;
+      let sScore = 1;
+      
+      if (replayTime < 20) {
+        currentState = "WATCH_SHORT";
+        net = -2.5;
+        sScore = 3.5;
+      } else if (replayTime < 45) {
+        currentState = "CONFIRMED_SHORT";
+        net = -5.0;
+        sScore = 6.0;
+      } else if (replayTime < 75) {
+        currentState = "CHOP";
+        net = 0;
+        lScore = 2;
+        sScore = 2;
+      } else if (replayTime < 100) {
+        currentState = "WATCH_LONG";
+        net = 3.0;
+        lScore = 4.0;
+      } else {
+        currentState = "STRONG_LONG";
+        net = 6.5;
+        lScore = 7.5;
+        sScore = 1.0;
+      }
+
+      const totalMinutes = 30 + replayTime;
+      const hh = 9 + Math.floor(totalMinutes / 60);
+      const mm = totalMinutes % 60;
+      const timeStr = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+
+      const newSnapshot = {
+        timestamp: `2026-08-15T${timeStr}:00Z`,
+        state: currentState,
+        net_score: net,
+        long_score: lScore,
+        short_score: sScore,
+        spx_price: baseSPX + (progress * 40) - (Math.sin(progress * Math.PI * 4) * 15), // add some volatility
+        session_phase: replayTime < 60 ? "IB" : "TREND",
+        macro_state: "RISK_ON",
+        confidence_tier: net > 4 || net < -4 ? "HIGH" : "MEDIUM",
+        es: { price_vs_vwap: net > 0 ? "üstünde" : "altında" },
+        ai_analysis: { summary: `Simülasyon Saati: ${timeStr}. Fiyat hareketleri dinamik olarak oluşturuluyor.` }
+      };
+      setSnapshot(newSnapshot as any);
+    }
+  }, [replayTime, mode]);
 
   const spx = snapshot?.spx ?? {};
   const es = snapshot?.es ?? {};
@@ -171,8 +238,55 @@ export default function SPXSuperTradePage() {
         </div>
       </div>
 
-      {mode === "live" ? (
-        <>
+      {mode === "replay" && (
+        <div className="mb-6 bg-[#0a0e17] border border-[#00d2ff]/30 rounded-xl p-4 flex flex-col md:flex-row items-center gap-4 shadow-[0_0_15px_rgba(0,210,255,0.05)]">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setIsReplaying(!isReplaying)}
+              className="w-10 h-10 rounded-full bg-[#00d2ff] text-slate-950 flex items-center justify-center hover:bg-[#00d2ff]/80 transition-colors"
+            >
+              {isReplaying ? "⏸" : "▶"}
+            </button>
+            <div>
+              <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Live Simulator</div>
+              <div className="text-sm font-bold text-white">{snapshot?.timestamp ? snapshot.timestamp.substring(11, 16) : "09:30"} / 12:00</div>
+            </div>
+          </div>
+          
+          <div className="flex-1 w-full px-4 flex flex-col justify-center">
+            <input 
+              type="range" 
+              min="0" 
+              max="150" 
+              value={replayTime}
+              onChange={(e) => setReplayTime(Number(e.target.value))}
+              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#00d2ff]"
+            />
+            <div className="flex justify-between text-[9px] text-slate-500 mt-1 font-mono">
+              <span>09:30</span>
+              <span>10:30</span>
+              <span>11:30</span>
+              <span>12:00</span>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2 bg-[#070a11] px-2 py-1 rounded-md border border-white/[0.06]">
+            <span className="text-[10px] text-slate-500 font-medium">Hız:</span>
+            <select 
+              value={replaySpeed}
+              onChange={(e) => setReplaySpeed(Number(e.target.value))}
+              className="bg-transparent text-xs text-emerald-400 font-bold outline-none cursor-pointer"
+            >
+              <option value="1" className="bg-[#070a11]">1x (Gerçek Zamanlı)</option>
+              <option value="5" className="bg-[#070a11]">5x</option>
+              <option value="10" className="bg-[#070a11]">10x</option>
+              <option value="60" className="bg-[#070a11]">60x (Hızlı Çekim)</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      <>
           {/* ── 0. DATA QUALITY & ACTION STATE ──────────────────────── */}
           <div className="flex flex-col lg:flex-row gap-5 mb-6">
             
@@ -658,48 +772,7 @@ export default function SPXSuperTradePage() {
               ⚠️ Opsiyon metrikleri teorik modeller ve runner çıkış karşılaştırması içindir. Otomatik emre dönüşmez.
             </p>
           </div>
-        </>
-      ) : (
-        /* ── SEANS YENİDEN OYNATMA MODU ─────────────────────────── */
-        <div style={ELEGANT_CARD}>
-          <div className="text-sm font-semibold text-white mb-4">
-            Geçmiş Seans Yeniden Oynatma &amp; Regresyon Motoru
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-            <div>
-              <label className="block text-xs text-slate-400 font-medium mb-1">Yeniden Oynatılacak Tarih</label>
-              <input
-                type="date"
-                value={replayDate}
-                onChange={(e) => setReplayDate(e.target.value)}
-                className="bg-[#070a11] border border-white/[0.1] text-white text-xs px-3 py-1.5 rounded-md outline-none focus:border-[#00d2ff]"
-              />
-            </div>
-            <button
-              onClick={handleRunReplay}
-              disabled={replayLoading}
-              className="mt-4 sm:mt-0 bg-[#00d2ff] hover:bg-[#00d2ff]/80 text-slate-950 font-medium text-xs px-5 py-2 rounded-md transition-all disabled:opacity-50"
-            >
-              {replayLoading ? "Seans Oynatılıyor..." : "▶ Oynatmayı Başlat"}
-            </button>
-          </div>
-
-          {replayData && (
-            <div className="bg-[#070a11] border border-white/[0.06] p-4 rounded-md text-xs space-y-4">
-              <div className="flex justify-between border-b border-white/[0.06] pb-2 font-medium">
-                <span className="text-emerald-400">✅ Seans Simülasyonu Tamamlandı</span>
-                <span className="text-slate-400">Hesaplanan Snapshot Sayısı: {replayData.snapshot_count}</span>
-              </div>
-              <div className="prose prose-invert max-w-none text-slate-300">
-                <pre className="bg-[#0b0f17] p-4 rounded-md text-xs overflow-x-auto text-slate-300 font-mono border border-white/[0.06]">
-                  {replayData.daily_review_markdown}
-                </pre>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      </>
     </div>
   );
 }

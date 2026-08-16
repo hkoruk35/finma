@@ -7,6 +7,26 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
   const [expectation, setExpectation] = useState("Sistem Seçsin (Tavsiye)");
   const [duration, setDuration] = useState("15-45 dk (Momentum)");
 
+  const [source, setSource] = useState("live");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadResult, setUploadResult] = useState<string | null>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setIsUploading(true);
+      // Simulate vision model processing (mock)
+      setTimeout(() => {
+        setIsUploading(false);
+        // Simulate checking spot price
+        if (Math.abs(spxPrice - 7784.05) > 1) {
+          setUploadResult("stale");
+        } else {
+          setUploadResult("success");
+        }
+      }, 2500);
+    }
+  };
+
   const isNeutral = currentState.includes("CHOP") || currentState.includes("NEUTRAL");
   const isBullish = currentState.includes("LONG");
   
@@ -60,7 +80,14 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
         <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
           <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Kaynak / Hedef</label>
-          <div className="text-sm font-medium text-emerald-400">Live Chain (OPRA)</div>
+          <select 
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            className="bg-transparent border-b border-white/[0.1] text-emerald-400 text-sm font-medium outline-none w-full pb-1 focus:border-[#00d2ff]"
+          >
+            <option className="bg-[#070a11]" value="live">Live Chain (OPRA)</option>
+            <option className="bg-[#070a11]" value="screenshot">Screenshot Upload</option>
+          </select>
         </div>
         <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
           <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Deterministik State</label>
@@ -101,6 +128,43 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
           </select>
         </div>
       </div>
+
+      {source === "screenshot" && (
+        <div className="mb-6 bg-[#0a0e17] border-2 border-dashed border-white/[0.1] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-[#00d2ff]/50">
+          {!isUploading && !uploadResult ? (
+            <>
+              <div className="text-4xl mb-3">📸</div>
+              <div className="text-sm font-semibold text-white mb-1">Broker Ekran Görüntüsü Yükle</div>
+              <div className="text-xs text-slate-400 mb-4">IBKR veya Robinhood opsiyon zinciri görüntüsünü sürükleyin veya seçin</div>
+              <label className="bg-[#00d2ff]/10 text-[#00d2ff] hover:bg-[#00d2ff]/20 px-4 py-2 rounded-md text-xs font-bold cursor-pointer transition-colors border border-[#00d2ff]/20">
+                Dosya Seç
+                <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
+              </label>
+            </>
+          ) : isUploading ? (
+            <>
+              <div className="w-8 h-8 border-2 border-[#00d2ff] border-t-transparent rounded-full animate-spin mb-3"></div>
+              <div className="text-sm font-semibold text-white">Vision Model İşliyor...</div>
+              <div className="text-xs text-slate-400">Grev fiyatları, spreadler ve IV çıkarılıyor</div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center w-full">
+              <div className="text-emerald-400 text-3xl mb-2">✅</div>
+              <div className="text-sm font-bold text-white mb-1">Görüntü İşlendi (Mock Data)</div>
+              <div className="text-xs text-slate-400 mb-4">Spot: 7784.05 | Hedef: 0DTE | Spreadler okundu</div>
+              {uploadResult === "stale" && (
+                <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-4 py-2 rounded-md text-xs font-medium w-full max-w-md text-left mb-4">
+                  <strong className="block mb-1">⚠️ SCREENSHOT STALE / MARKET MOVED</strong>
+                  Görüntüdeki (7784.05) ile anlık SPX fiyatı ({spxPrice.toFixed(2)}) arasında büyük fark var.
+                </div>
+              )}
+              <button onClick={() => setUploadResult(null)} className="text-[10px] text-slate-500 hover:text-white underline">
+                Yeni Görüntü Yükle
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="text-[11px] text-slate-400 mb-3 flex items-center justify-between">
         <span>Kısıtlamalara göre optimize edilmiş Risk/Getiri yapıları:</span>
