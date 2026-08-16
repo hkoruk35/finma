@@ -72,29 +72,34 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
 
   return (
     <div className="mt-8 pt-6 border-t border-white/[0.08]">
-      <div className="flex items-center gap-2 mb-5">
-        <span className="text-xl">🧠</span>
-        <h2 className="text-lg font-bold text-white tracking-wide">Strategy Lab <span className="text-slate-400 font-normal text-sm ml-2">| Budget-Aware Options Engine</span></h2>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">🧠</span>
+          <h2 className="text-lg font-bold text-white tracking-wide">Strategy Lab <span className="text-slate-400 font-normal text-sm ml-2">| Budget-Aware Options Engine</span></h2>
+        </div>
+        <div className="flex bg-[#070a11] border border-white/[0.08] rounded-lg p-1 self-start md:self-auto">
+          <button 
+            onClick={() => setSource("live")}
+            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${source === "live" ? "bg-[#00d2ff]/20 text-[#00d2ff]" : "text-slate-400 hover:text-white"}`}
+          >
+            Canlı Veri (OPRA)
+          </button>
+          <button 
+            onClick={() => setSource("screenshot")}
+            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-1.5 ${source === "screenshot" ? "bg-amber-400/20 text-amber-400" : "text-slate-400 hover:text-white"}`}
+          >
+            <span>📸</span> Ekran Görüntüsü Yükle
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Kaynak / Hedef</label>
-          <select 
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
-            className="bg-transparent border-b border-white/[0.1] text-emerald-400 text-sm font-medium outline-none w-full pb-1 focus:border-[#00d2ff]"
-          >
-            <option className="bg-[#070a11]" value="live">Live Chain (OPRA)</option>
-            <option className="bg-[#070a11]" value="screenshot">Screenshot Upload</option>
-          </select>
-        </div>
-        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Deterministik State</label>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]" title="Piyasanın mevcut algoritmik durumu (Trend yönü)">
+          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1 cursor-help">Deterministik State</label>
           <div className="text-sm font-medium text-white">{currentState.replace(/_/g, " ")}</div>
         </div>
-        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Maksimum Risk Bütçesi ($)</label>
+        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]" title="Bu strateji için göze aldığınız maksimum kayıp miktarı">
+          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1 cursor-help">Maksimum Risk Bütçesi ($)</label>
           <input 
             type="number" 
             value={budget}
@@ -102,8 +107,8 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
             className="bg-transparent border-b border-white/[0.1] text-white text-sm font-bold outline-none w-full pb-1 focus:border-amber-400 transition-colors"
           />
         </div>
-        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Piyasa Beklentisi</label>
+        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]" title="Sistemin sizin yerinize karar vermesi veya manuel fiyat hareketi beklentiniz">
+          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1 cursor-help">Piyasa Beklentisi</label>
           <select 
             value={expectation}
             onChange={(e) => setExpectation(e.target.value)}
@@ -115,8 +120,8 @@ export default function StrategyLab({ spxPrice, currentState }: { spxPrice: numb
             <option className="bg-[#070a11]">Güçlü Düşüş</option>
           </select>
         </div>
-        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1">Hedef Süre</label>
+        <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]" title="Bu işlemin ne kadar sürede hedefe ulaşmasını planladığınız">
+          <label className="block text-[10px] text-slate-500 uppercase font-semibold mb-1 cursor-help">Hedef Süre</label>
           <select 
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
