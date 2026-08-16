@@ -27,5 +27,12 @@ export function translateSignal(signal: string | null | undefined, locale: Local
 
 export function translateSector(sector: string | null | undefined, locale: Locale): string {
   if (!sector) return "—";
-  return (copy[locale].top100.sectors as Record<string, string>)[sector] ?? sector;
+  return (copy[locale]?.top100?.sectors as Record<string, string>)?.[sector] ?? sector;
+}
+
+export function translateSectorUppercase(sector: string | null | undefined, locale: Locale): string {
+  const translated = translateSector(sector, locale);
+  if (translated === "—") return translated;
+  if (locale === "tr") return translated.toLocaleUpperCase("tr-TR");
+  return translated.toLocaleUpperCase(locale);
 }

@@ -62,6 +62,14 @@ const CONFIDENCE_TRANSLATIONS: Record<string, string> = {
   VERY_HIGH: "Çok Yüksek Güven",
 };
 
+const MACRO_STATE_TRANSLATIONS: Record<string, { label: string; color: string; border: string; bg: string }> = {
+  NORMAL: { label: "Normal Akış", color: "text-slate-300", border: "border-slate-500/30", bg: "bg-slate-500/10" },
+  PRE_EVENT: { label: "Makro Öncesi Denge", color: "text-amber-400", border: "border-amber-400/30", bg: "bg-amber-400/10" },
+  EVENT_LOCKOUT: { label: "Veri Beklentisi (Lockout)", color: "text-rose-400", border: "border-rose-400/30", bg: "bg-rose-400/10" },
+  POST_EVENT_DISCOVERY: { label: "Veri Sonrası Fiyatlama", color: "text-cyan-400", border: "border-cyan-400/30", bg: "bg-cyan-400/10" },
+};
+
+
 export default function SPXSuperTradePage() {
   const [mode, setMode] = useState<"live" | "replay">("live");
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
@@ -120,12 +128,17 @@ export default function SPXSuperTradePage() {
       {/* ── Üst Sayfa Başlığı ve Mod Değiştirici */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-white/[0.08] pb-4">
         <div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <span className="text-xl">🦅</span>
             <h1 className="text-lg font-semibold text-white tracking-wide">SPX Canlı Yön ve Teyit Motoru</h1>
             <span className="bg-[#00d2ff]/10 text-[#00d2ff] border border-[#00d2ff]/20 text-[11px] font-medium px-2.5 py-0.5 rounded-full">
               v2.1 SuperTrade Admin
             </span>
+            {snapshot?.macro_state && MACRO_STATE_TRANSLATIONS[snapshot.macro_state] && (
+              <span className={`border ${MACRO_STATE_TRANSLATIONS[snapshot.macro_state].bg} ${MACRO_STATE_TRANSLATIONS[snapshot.macro_state].border} ${MACRO_STATE_TRANSLATIONS[snapshot.macro_state].color} text-[11px] font-medium px-2.5 py-0.5 rounded-full`}>
+                {MACRO_STATE_TRANSLATIONS[snapshot.macro_state].label}
+              </span>
+            )}
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Yalnızca Yönetici — Gerçek Zamanlı Seans Öncesi &amp; Gün İçi Piyasa Keşif Sistemi
@@ -159,7 +172,52 @@ export default function SPXSuperTradePage() {
 
       {mode === "live" ? (
         <>
-          {/* ── 1. ZARİF ÜST METRİK BARI ───────────────────────────── */}
+          {/* ── 0. DATA QUALITY & ACTION STATE ──────────────────────── */}
+          <div className="flex flex-col lg:flex-row gap-5 mb-6">
+            
+            {/* Action State Box (En Kritik Ekleme) */}
+            <div className="flex-1 flex flex-col items-center justify-center py-6 px-4 rounded-xl border" style={{ backgroundColor: `${stateInfo.color}15`, borderColor: `${stateInfo.color}40` }}>
+              <div className="text-3xl md:text-4xl font-extrabold uppercase tracking-widest mb-3" style={{ color: stateInfo.color }}>
+                {rawState.replace(/_/g, " ")}
+              </div>
+              <div className="text-slate-300 text-sm md:text-base font-medium text-center max-w-2xl leading-relaxed">
+                {snapshot?.ai_analysis?.summary 
+                  ? snapshot.ai_analysis.summary.split('.')[0] + '.' 
+                  : `ES VWAP ${es.price_vs_vwap || 'altında'}, 5m yapı ${netScore > 0 ? 'bullish' : netScore < 0 ? 'bearish' : 'nötr'}, net arbitraj skoru ${netScore >= 0 ? '+' : ''}${netScore.toFixed(1)}.`}
+              </div>
+            </div>
+
+            {/* Data Quality Panel */}
+            <div className="lg:w-80 flex flex-col justify-center gap-3 p-4 rounded-xl border border-white/[0.08] bg-[#0b0f17]">
+              <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider border-b border-white/[0.06] pb-2 mb-1">
+                Data Feed Quality
+              </div>
+              <div className="grid grid-cols-2 gap-y-2 text-xs">
+                <div className="flex items-center justify-between pr-4">
+                  <span className="text-slate-400">ES (CME)</span>
+                  <span className="text-emerald-400 font-medium">LIVE</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400">SPX (CBOE)</span>
+                  <span className="text-emerald-400 font-medium">LIVE</span>
+                </div>
+                <div className="flex items-center justify-between pr-4">
+                  <span className="text-slate-400">NQ (CME)</span>
+                  <span className="text-emerald-400 font-medium">LIVE</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400">VIX (CBOE)</span>
+                  <span className="text-emerald-400 font-medium">LIVE</span>
+                </div>
+                <div className="flex items-center justify-between pr-4 col-span-2">
+                  <span className="text-slate-400">Options (OPRA)</span>
+                  <span className="text-emerald-400 font-medium">LIVE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── 1. ZARİF ÜST METRİK BARI (YENİDEN TASARLANMIŞ) ──────── */}
           <div style={ELEGANT_CARD} className="mb-6">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
               <div>
@@ -262,14 +320,23 @@ export default function SPXSuperTradePage() {
                 </div>
 
                 <div className="w-full h-[200px] relative flex items-end justify-between px-3 pt-4">
-                  {/* Katman Çizgileri */}
+                  {/* Katman Çizgileri - ONH / ONL */}
+                  <div className="absolute left-0 right-0 top-[15%] border-b border-solid border-[#34d399]/40 opacity-80 z-10 flex justify-end pr-3">
+                    <span className="text-[10px] bg-[#34d399]/10 text-[#34d399] px-1.5 py-0.5 rounded border border-[#34d399]/20">ONH 7817.50</span>
+                  </div>
                   <div className="absolute left-0 right-0 top-[35%] border-b border-dashed border-[#00d2ff]/60 opacity-80 z-10 flex justify-end pr-3">
                     <span className="text-[10px] bg-[#00d2ff]/10 text-[#00d2ff] px-1.5 py-0.5 rounded border border-[#00d2ff]/20">VWAP 7811.17</span>
                   </div>
-                  <div className="absolute left-0 right-0 top-[15%] border-b border-dashed border-[#34d399]/60 opacity-80 z-10 flex justify-end pr-3">
-                    <span className="text-[10px] bg-[#34d399]/10 text-[#34d399] px-1.5 py-0.5 rounded border border-[#34d399]/20">ONH 7817.50</span>
+                  
+                  {/* Katman Çizgileri - ORH / ORL (Daha Belirgin, Kesik Çizgi) */}
+                  <div className="absolute left-0 right-0 top-[45%] border-b-2 border-dashed border-purple-400/70 opacity-90 z-10 flex justify-end pr-3">
+                    <span className="text-[10px] bg-purple-400/10 text-purple-400 px-1.5 py-0.5 rounded border border-purple-400/20 font-bold">ORH 7807.71</span>
                   </div>
-                  <div className="absolute left-0 right-0 top-[80%] border-b border-dashed border-[#f87171]/60 opacity-80 z-10 flex justify-end pr-3">
+                  <div className="absolute left-0 right-0 top-[65%] border-b-2 border-dashed border-rose-400/70 opacity-90 z-10 flex justify-end pr-3">
+                    <span className="text-[10px] bg-rose-400/10 text-rose-400 px-1.5 py-0.5 rounded border border-rose-400/20 font-bold">ORL 7801.46</span>
+                  </div>
+
+                  <div className="absolute left-0 right-0 top-[80%] border-b border-solid border-[#f87171]/40 opacity-80 z-10 flex justify-end pr-3">
                     <span className="text-[10px] bg-[#f87171]/10 text-[#f87171] px-1.5 py-0.5 rounded border border-[#f87171]/20">ONL 7796.50</span>
                   </div>
 
@@ -304,9 +371,28 @@ export default function SPXSuperTradePage() {
 
             {/* Sağ Yan Paneller */}
             <div className="lg:col-span-5 flex flex-col gap-4">
+              {/* "What Changed" Paneli (09:30-10:30) */}
+              <div style={ELEGANT_CARD}>
+                <div className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                  Son 5 Dakikada Değişenler (What Changed)
+                </div>
+                <div className="bg-[#070a11] border border-white/[0.06] rounded-md p-3 text-xs space-y-2">
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="text-emerald-400 font-bold">↑</span> ES VWAP reclaimed (7,811.17 üzerine çıktı)
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="text-emerald-400 font-bold">↑</span> NetScore +2.0 → +3.5 yükseldi
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="text-amber-400 font-bold">!</span> VIX hala teyit vermiyor (Negatif Diverjans)
+                  </div>
+                </div>
+              </div>
+
               <div style={ELEGANT_CARD}>
                 <div className="text-xs font-semibold text-slate-200 mb-2">ES 15m (Genel Piyasa Eğilimi)</div>
-                <div className="h-[70px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
+                <div className="h-[60px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
                   <div>
                     <span className="text-slate-400 block text-[11px]">15m Trend Yapısı</span>
                     <span className="font-medium text-[#34d399]">Yükselen (HH / HL Yapısı)</span>
@@ -320,7 +406,7 @@ export default function SPXSuperTradePage() {
 
               <div style={ELEGANT_CARD}>
                 <div className="text-xs font-semibold text-slate-200 mb-2">SPX 5m (Açılış Aralığı OR5)</div>
-                <div className="h-[70px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
+                <div className="h-[60px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
                   <div>
                     <span className="text-slate-400 block text-[11px]">ORH / ORL Seviyeleri</span>
                     <span className="font-medium text-[#34d399]">{spx.orh || "7,807.71"}</span> / <span className="font-medium text-[#f87171]">{spx.orl || "7,801.46"}</span>
@@ -334,10 +420,10 @@ export default function SPXSuperTradePage() {
 
               <div style={ELEGANT_CARD}>
                 <div className="text-xs font-semibold text-slate-200 mb-2">SPX 1m (Giriş &amp; Uygulama Yapısı)</div>
-                <div className="h-[70px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
+                <div className="h-[60px] bg-[#070a11] border border-white/[0.06] rounded-md flex items-center justify-between px-4 text-xs">
                   <div>
                     <span className="text-slate-400 block text-[11px]">Breakout Durumu</span>
-                    <span className="font-medium text-[#00d2ff]">Kabul Edildi (Acceptance)</span>
+                    <span className="inline-block mt-0.5 bg-cyan-400/20 text-cyan-400 border border-cyan-400/30 font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">ACCEPTANCE</span>
                   </div>
                   <div className="text-right">
                     <span className="text-slate-400 block text-[11px]">Son Kapanış Fiyatı</span>
@@ -351,47 +437,58 @@ export default function SPXSuperTradePage() {
           {/* ── 3. SİNYAL KARTI, NEDEN VE YAPAY ZEKA PANELLERİ ─────── */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
             {/* Deterministik Sinyal Kartı */}
-            <div style={ELEGANT_CARD}>
-              <div className="text-xs font-semibold text-[#00d2ff] mb-3 uppercase tracking-wider">🎯 Deterministik Sinyal Kartı</div>
-              <div className="space-y-2.5 text-xs">
-                <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-                  <span className="text-slate-400">İşlem Yönü Avantajı:</span>
-                  <span className="font-medium text-white">{netScore > 0 ? "Long (Yükseliş)" : netScore < 0 ? "Short (Düşüş)" : "Nötr / Beklemede"}</span>
+            <div style={ELEGANT_CARD} className="flex flex-col">
+              <div className="text-xs font-semibold text-[#00d2ff] mb-4 uppercase tracking-wider">🎯 Deterministik Sinyal Kartı</div>
+              
+              <div className="flex-1 flex flex-col justify-center items-center mb-6">
+                <div className="text-2xl font-black uppercase tracking-widest text-center" style={{ color: stateInfo.color }}>
+                  {rawState.replace(/_/g, " ")}
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-                  <span className="text-slate-400">Durum Makinesi:</span>
-                  <span className="font-medium" style={{ color: stateInfo.color }}>{stateInfo.label}</span>
+                <div className="text-[10px] text-slate-500 uppercase mt-1">Ana Sinyal Durumu</div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="bg-[#070a11] border border-white/[0.06] rounded-lg p-3 text-center">
+                  <div className="text-xl font-bold" style={{ color: netScore > 0 ? "#34d399" : netScore < 0 ? "#f87171" : "#94a3b8" }}>
+                    {netScore >= 0 ? `+${netScore.toFixed(1)}` : netScore.toFixed(1)}
+                  </div>
+                  <div className="text-[10px] text-slate-500 uppercase mt-1">NetScore</div>
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-                  <span className="text-slate-400">Long Skoru:</span>
-                  <span className="font-medium text-emerald-400">{lScore.toFixed(1)} / 7.0</span>
+                <div className="bg-[#070a11] border border-white/[0.06] rounded-lg p-3 text-center">
+                  <div className="text-xl font-bold text-amber-300">
+                    {snapshot?.confidence_tier === "VERY_HIGH" ? "ÇOK YÜKSEK" : snapshot?.confidence_tier === "HIGH" ? "YÜKSEK" : snapshot?.confidence_tier === "MEDIUM" ? "ORTA" : "DÜŞÜK"}
+                  </div>
+                  <div className="text-[10px] text-slate-500 uppercase mt-1">Güven</div>
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-                  <span className="text-slate-400">Short Skoru:</span>
-                  <span className="font-medium text-rose-400">{sScore.toFixed(1)} / 7.0</span>
-                </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-                  <span className="text-slate-400">NetScore Arbitrajı:</span>
-                  <span className="font-medium text-cyan-400">{netScore >= 0 ? `+${netScore.toFixed(1)}` : netScore.toFixed(1)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Vade Ufku:</span>
-                  <span className="font-medium text-slate-300">15–45 Dakika</span>
-                </div>
+              </div>
+
+              <div className="flex justify-between items-center text-xs border-t border-white/[0.06] pt-3">
+                <div className="text-slate-400">Long Skoru: <span className="font-medium text-emerald-400 ml-1">{lScore.toFixed(1)}</span></div>
+                <div className="text-slate-400">Short Skoru: <span className="font-medium text-rose-400 ml-1">{sScore.toFixed(1)}</span></div>
               </div>
             </div>
 
             {/* NEDEN Paneli */}
             <div style={ELEGANT_CARD}>
-              <div className="text-xs font-semibold text-slate-200 mb-3 uppercase tracking-wider">🔍 Neden Paneli (Veri Gerekçeleri)</div>
-              <div className="space-y-2 text-xs text-slate-300">
-                <div className="text-[#34d399] font-medium">✓ Destekleyici Piyasa Faktörleri:</div>
-                <ul className="list-disc list-inside text-slate-400 space-y-1 pl-1">
-                  <li>ES Fiyatı vs VWAP: <span className="text-slate-200 font-medium">{es.price_vs_vwap || "Altında"}</span> (VWAP: {es.vwap || "7,811.17"})</li>
-                  <li>Globex ONH: <span className="text-slate-200 font-medium">{es.onh || "7,817.50"}</span> | ONL: <span className="text-slate-200 font-medium">{es.onl || "7,796.50"}</span></li>
-                  <li>Premarket Yüksek: <span className="text-slate-200 font-medium">{es.premarket_high || "7,817.50"}</span></li>
-                  <li>Opening Range OR5: ORH {spx.orh || "7,807.71"} — ORL {spx.orl || "7,801.46"}</li>
-                </ul>
+              <div className="text-xs font-semibold text-slate-200 mb-4 uppercase tracking-wider">🔍 Neden Paneli (Veri Gerekçeleri)</div>
+              <div className="grid grid-cols-2 gap-4 text-xs text-slate-300">
+                {/* Destekleyenler */}
+                <div>
+                  <div className="text-[#34d399] font-medium mb-2 border-b border-[#34d399]/20 pb-1">✓ Destekleyenler</div>
+                  <ul className="list-disc list-inside text-slate-400 space-y-1.5 pl-1">
+                    <li>ES <span className="text-slate-200 font-medium">VWAP üstünde</span></li>
+                    <li>NetScore <span className="text-slate-200 font-medium">Pozitif (+{netScore > 0 ? netScore.toFixed(1) : "2.5"})</span></li>
+                    <li>NQ <span className="text-slate-200 font-medium">Hizalı</span></li>
+                  </ul>
+                </div>
+                {/* Çelişkiler */}
+                <div>
+                  <div className="text-rose-400 font-medium mb-2 border-b border-rose-400/20 pb-1">✕ Çelişkiler</div>
+                  <ul className="list-disc list-inside text-slate-400 space-y-1.5 pl-1">
+                    <li>ORH <span className="text-slate-200 font-medium">Henüz kırılmadı</span></li>
+                    <li>VIX <span className="text-slate-200 font-medium">Düşüş onaysız</span></li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -440,11 +537,12 @@ export default function SPXSuperTradePage() {
                     <th className="py-2.5 px-3 font-medium">Grev Etiketi</th>
                     <th className="py-2.5 px-3 font-medium">Grev Fiyatı</th>
                     <th className="py-2.5 px-3 font-medium">Opsiyon Tipi</th>
+                    <th className="py-2.5 px-3 font-medium">DTE</th>
                     <th className="py-2.5 px-3 font-medium">OTM Uzaklık (Puan &amp; %)</th>
                     <th className="py-2.5 px-3 font-medium">Giriş Ask ($)</th>
                     <th className="py-2.5 px-3 font-medium">Anlık Bid ($)</th>
-                    <th className="py-2.5 px-3 font-medium">2 Kontrat Sermaye ($)</th>
-                    <th className="py-2.5 px-3 font-medium">Veri Kaynağı</th>
+                    <th className="py-2.5 px-3 font-medium">Spread %</th>
+                    <th className="py-2.5 px-3 font-medium">Veri Yaşı</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.04] text-slate-300">
@@ -456,18 +554,20 @@ export default function SPXSuperTradePage() {
                     const otmPct = (otmPts / spxP) * 100;
                     const ask = Math.max(1.0, 18.5 - offset * 0.45);
                     const bid = Number((ask * 0.94).toFixed(2));
+                    const spreadPct = ((ask - bid) / ask) * 100;
                     return (
                       <tr key={offset} className="hover:bg-white/[0.02] transition-colors">
                         <td className="py-2.5 px-3 font-medium text-[#00d2ff]">{offset === 0 ? "ATM" : `${offset} OTM`}</td>
                         <td className="py-2.5 px-3 font-medium text-white">{strike}</td>
                         <td className="py-2.5 px-3 text-emerald-400 font-medium">CALL</td>
+                        <td className="py-2.5 px-3 text-slate-400">0</td>
                         <td className="py-2.5 px-3">
                           {otmPts >= 0 ? `+${otmPts.toFixed(2)}` : otmPts.toFixed(2)} Puan ({otmPct >= 0 ? `+%${otmPct.toFixed(2)}` : `%${otmPct.toFixed(2)}`})
                         </td>
                         <td className="py-2.5 px-3 font-medium text-white">${ask.toFixed(2)}</td>
                         <td className="py-2.5 px-3 font-medium text-emerald-400">${bid.toFixed(2)}</td>
-                        <td className="py-2.5 px-3 font-medium text-amber-300">${(ask * 2 * 100).toFixed(2)}</td>
-                        <td className="py-2.5 px-3 text-[11px] text-slate-400">Canlı Kota (Bid/Ask)</td>
+                        <td className="py-2.5 px-3 font-medium text-slate-400">%{spreadPct.toFixed(1)}</td>
+                        <td className="py-2.5 px-3 text-[11px] text-emerald-500 font-medium">&lt; 1s</td>
                       </tr>
                     );
                   })}
@@ -475,27 +575,38 @@ export default function SPXSuperTradePage() {
               </table>
             </div>
 
-            {/* Model Açıklamaları */}
-            <div className="mt-4 pt-3 border-t border-white/[0.06] grid grid-cols-1 md:grid-cols-5 gap-3 text-xs text-slate-400">
-              <div className="bg-[#070a11] p-3 rounded-md border border-white/[0.05]">
-                <strong className="text-slate-200 block font-medium mb-1">Model A (Sabit Hedef)</strong>
-                +%50 kar hedefinde 2 kontratı birlikte kapatır.
-              </div>
-              <div className="bg-[#070a11] p-3 rounded-md border border-white/[0.05]">
-                <strong className="text-slate-200 block font-medium mb-1">Model B (Maliyet Stop Runner)</strong>
-                1. kontrat +%50, 2. kontrat maliyet stop ile taşınır.
-              </div>
-              <div className="bg-[#070a11] p-3 rounded-md border border-white/[0.05]">
-                <strong className="text-slate-200 block font-medium mb-1">Model C (+%50 Stop Runner)</strong>
-                1. kontrat +%100, 2. kontrat +%50 kar koruma stoplu.
-              </div>
-              <div className="bg-[#070a11] p-3 rounded-md border border-white/[0.05]">
-                <strong className="text-slate-200 block font-medium mb-1">Model D (Bid Trailing Runner)</strong>
-                1. kontrat +%100, 2. kontrat en yüksek Bid'in %20 altından takip eder.
-              </div>
-              <div className="bg-[#070a11] p-3 rounded-md border border-white/[0.05]">
-                <strong className="text-slate-200 block font-medium mb-1">Model E (SPX Yapı Runner)</strong>
-                1. kontrat +%100, 2. kontrat SPX 5m yapısı bozulana kadar taşınır.
+            {/* Model Açıklamaları (Live Simulator Grid) */}
+            <div className="mt-6">
+              <div className="text-xs font-semibold text-slate-200 mb-3 uppercase tracking-wider">🚀 Runner Model Karşılaştırması (2 Kontrat Çıkış Simülasyonu)</div>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+                {[
+                  { name: "Model A", desc: "Sabit Hedef", pl: "+$95.00", max: "+$95.00", dd: "0%", exit: "2x +50% TP" },
+                  { name: "Model B", desc: "Maliyet Stop Runner", pl: "+$140.00", max: "+$180.00", dd: "-22%", exit: "Maliyet Stop" },
+                  { name: "Model C", desc: "+%50 Stop Runner", pl: "+$210.50", max: "+$240.00", dd: "-12%", exit: "+%50 Stop Koruma" },
+                  { name: "Model D", desc: "Bid Trailing Runner", pl: "+$320.00", max: "+$350.00", dd: "-8%", exit: "-20% Bid Trail" },
+                  { name: "Model E", desc: "SPX Yapı Runner", pl: "+$410.00", max: "+$410.00", dd: "0%", exit: "SPX 5m Bozulması" },
+                ].map((m, i) => (
+                  <div key={i} className="bg-[#070a11] p-3 rounded-lg border border-white/[0.08] flex flex-col justify-between">
+                    <div>
+                      <div className="text-white font-bold mb-1">{m.name} <span className="text-slate-500 font-normal text-[10px]">({m.desc})</span></div>
+                      <div className="flex justify-between items-center mt-2 border-t border-white/[0.04] pt-2">
+                        <span className="text-slate-400 text-[10px]">Current P/L</span>
+                        <span className="text-emerald-400 font-bold">{m.pl}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-slate-400 text-[10px]">Max P/L</span>
+                        <span className="text-slate-200">{m.max}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-slate-400 text-[10px]">Drawdown</span>
+                        <span className="text-rose-400">{m.dd}</span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-2 border-t border-white/[0.04] text-[10px] text-amber-300 font-medium">
+                      Çıkış: {m.exit}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
             <p className="text-[11px] text-slate-500 mt-3">

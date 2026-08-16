@@ -16,6 +16,7 @@ import FreeRegisterModal from "@/components/global/FreeRegisterModal";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
 import { formatNumber } from "@/lib/formatNumber";
+import { translateSectorUppercase } from "@/lib/translationHelpers";
 
 const FREE_COMPARE_LIMIT = 9;
 const MAX_COMPARE = 9;
@@ -383,9 +384,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             const match = data[0];
             if (match) {
               setCurrentCompany(match.company || "");
-              setCurrentGroup(match.sector || "");
+              setCurrentGroup(translateSectorUppercase(match.sector, locale));
             }
           }
+
         }).catch(() => {});
     }
   }, [selectedTicker]);
