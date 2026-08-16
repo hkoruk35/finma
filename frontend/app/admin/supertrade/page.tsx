@@ -2,7 +2,9 @@
 
 import { useEffect, useState, useMemo } from "react";
 import StrategyLab from "@/components/admin/StrategyLab";
+import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
 import { getDecisionContext } from "@/lib/decisionEngine";
+import { evaluateSPXContext } from "@/lib/contextEngine";
 
 interface Snapshot {
   timestamp: string;
@@ -235,6 +237,17 @@ export default function SPXSuperTradePage() {
     if (optionViewMode === "put") return "PUT";
     return decision.direction === "SHORT" ? "PUT" : "CALL";
   }, [optionViewMode, decision.direction]);
+
+  // ── SPX CONTEXT & REGIME SNAPSHOT ──
+  const contextSnapshot = useMemo(() => {
+    return evaluateSPXContext(
+      new Date(),
+      rawState,
+      snapshot?.spx_price ?? 7786.01,
+      es.vwap ?? 7811.17,
+      snapshot?.es_price ?? 7805.0
+    );
+  }, [rawState, snapshot?.spx_price, es.vwap, snapshot?.es_price]);
 
   return (
     <div className="min-h-screen bg-[#070a11] text-slate-300 p-6 font-sans">
@@ -495,6 +508,9 @@ export default function SPXSuperTradePage() {
           </div>
         </div>
       </div>
+
+      {/* ── 1.5. CONTEXT & REGIME ENGINE (PİYASA BAĞLAMI & REJİMİ) ─── */}
+      <ContextEnginePanel context={contextSnapshot} liveState={rawState} />
 
       {/* ── 2. ANA GRAFİK PANELLERİ ─────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-6">
