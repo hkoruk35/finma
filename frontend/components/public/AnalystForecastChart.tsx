@@ -31,6 +31,7 @@ export default function AnalystForecastChart({ locale, ticker, currentPrice, num
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
         textColor: "#64748b",
+        attributionLogo: false,
       },
       grid: {
         vertLines: { color: "rgba(30, 41, 59, 0.5)" },
