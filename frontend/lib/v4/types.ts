@@ -201,6 +201,8 @@ export interface OvernightContext {
   nqAlignment: "ALIGNED" | "DIVERGENT";
   nqChangePct: number;
   esChangePct: number;
+  /** Çapraz kontrol enstrümanının görünen adı (SPX ailesi için "NQ", NDX ailesi için "ES") */
+  crossLabel: string;
   label: string;
 }
 

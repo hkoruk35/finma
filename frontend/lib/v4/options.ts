@@ -142,7 +142,7 @@ const MODELS: ModelDef[] = [
   { id: "B", name: "Maliyet stop", rule: "+%30'dan sonra stop girişe çekilir" },
   { id: "C", name: "Kâr koruma", rule: "+%100'den sonra stop +%50'ye çekilir" },
   { id: "D", name: "Zirve takip", rule: "En yüksek primden %20 geri çekilince çıkılır" },
-  { id: "E", name: "Yapı takip", rule: "SPX tetik seviyesine geri dönünce çıkılır" },
+  { id: "E", name: "Yapı takip", rule: "Spot tetik seviyesine geri dönünce çıkılır" },
 ];
 
 export interface RunnerInput {

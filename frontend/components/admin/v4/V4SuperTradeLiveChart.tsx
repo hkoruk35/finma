@@ -7,8 +7,9 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { CompactBar } from "@/lib/v4/types";
-import { INSET, Panel, Tabs, num } from "./supertrade/ui";
+import type { AssetClass, CompactBar } from "@/lib/v4/types";
+import { ASSET_MAP } from "@/lib/v4/types";
+import { INSET, Panel, Tabs, num } from "../supertrade/ui";
 
 export interface ChartLevels {
   vwap: number;
@@ -70,6 +71,7 @@ function timeLabel(unixSec: number): string {
 }
 
 export default function V4SuperTradeLiveChart({
+  asset,
   esBars,
   spxBars,
   levels,
@@ -78,6 +80,7 @@ export default function V4SuperTradeLiveChart({
   isReplay = false,
   loading = false,
 }: {
+  asset: AssetClass;
   esBars: CompactBar[];
   spxBars: CompactBar[];
   levels: ChartLevels;
@@ -86,6 +89,8 @@ export default function V4SuperTradeLiveChart({
   isReplay?: boolean;
   loading?: boolean;
 }) {
+  const info = ASSET_MAP[asset];
+  const futuresLabel = info.futures.replace("=F", "");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [symbol, setSymbol] = useState<Symbol>("ES");
@@ -426,20 +431,20 @@ export default function V4SuperTradeLiveChart({
 
   return (
     <Panel
-      title={symbol === "ES" ? "ES Vadeli — CME Globex" : "SPX Endeksi — CBOE"}
+      title={symbol === "ES" ? `${futuresLabel} Vadeli` : `${asset} — ${info.name}`}
       hint={isReplay ? "yeniden oynatma" : "canlı akış"}
       right={
         <div className="flex flex-wrap items-center gap-2">
           <Tabs
             size="sm"
             value={symbol}
-            onChange={(v) => setSymbol(v)}
+            onChange={(v: Symbol) => setSymbol(v)}
             options={[
-              { value: "ES", label: "ES" },
-              { value: "SPX", label: "SPX" },
+              { value: "ES", label: futuresLabel },
+              { value: "SPX", label: asset },
             ]}
           />
-          <Tabs size="sm" value={timeframe} onChange={(v) => setTimeframe(v)} options={TF_OPTIONS} />
+          <Tabs size="sm" value={timeframe} onChange={(v: Timeframe) => setTimeframe(v)} options={TF_OPTIONS} />
         </div>
       }
     >

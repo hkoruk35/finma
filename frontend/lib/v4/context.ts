@@ -143,7 +143,8 @@ export function buildOvernight(
   esPdc: number,
   onMid: number,
   nqChangePct: number,
-  esChangePct: number
+  esChangePct: number,
+  crossLabel: string
 ): OvernightContext {
   const empty: OvernightContext = {
     gapPts: 0,
@@ -154,6 +155,7 @@ export function buildOvernight(
     nqAlignment: "ALIGNED",
     nqChangePct: 0,
     esChangePct: 0,
+    crossLabel,
     label: "Gece seansı verisi bulunamadı",
   };
 
@@ -183,6 +185,7 @@ export function buildOvernight(
     nqAlignment: aligned ? "ALIGNED" : "DIVERGENT",
     nqChangePct: round2(nqChangePct),
     esChangePct: round2(esChangePct),
+    crossLabel,
     label: `${gapType.toLowerCase()}, gece aralığı ${round2(onh - onl)} puan`,
   };
 }
@@ -363,6 +366,8 @@ export interface ContextInput {
   onMid: number;
   nqChangePct: number;
   esChangePct: number;
+  /** Çapraz kontrol enstrümanının görünen adı (örn. "NQ" veya "ES") */
+  crossLabel: string;
   spotPrice: number;
   state: SignalState;
 }
@@ -377,7 +382,8 @@ export function buildContext(input: ContextInput): ContextSnapshot {
     input.esPdc,
     input.onMid,
     input.nqChangePct,
-    input.esChangePct
+    input.esChangePct,
+    input.crossLabel
   );
 
   const [, , dayStr] = input.sessionDate.split("-");

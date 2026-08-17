@@ -52,13 +52,31 @@ interface CacheEntry<T> {
   expires: number;
 }
 const cache = new Map<string, CacheEntry<unknown>>();
+const cacheInFlight = new Map<string, Promise<unknown>>();
 
+/**
+ * TTL önbellek + eşzamanlı istek birleştirme (in-flight dedup). `symbol=ALL`
+ * modu 6 varlığı paralel çözerken ES=F/NQ=F/^VIX/^VXN gibi paylaşılan
+ * enstrümanlar için aynı anda birden fazla Yahoo isteği atılmasını önler.
+ */
 async function cached<T>(key: string, ttlMs: number, fn: () => Promise<T>): Promise<T> {
   const hit = cache.get(key);
   if (hit && hit.expires > Date.now()) return hit.value as T;
-  const value = await fn();
-  cache.set(key, { value, expires: Date.now() + ttlMs });
-  return value;
+
+  const pending = cacheInFlight.get(key);
+  if (pending) return pending as Promise<T>;
+
+  const promise = fn()
+    .then((value) => {
+      cache.set(key, { value, expires: Date.now() + ttlMs });
+      return value;
+    })
+    .finally(() => {
+      cacheInFlight.delete(key);
+    });
+
+  cacheInFlight.set(key, promise);
+  return promise;
 }
 
 export interface MarketData {
@@ -72,15 +90,25 @@ export interface MarketData {
   spxMarketPrice: number | null;
   nqMarketPrice: number | null;
   vixMarketPrice: number | null;
+  /** Çapraz kontrol enstrümanının Yahoo sembolü (SPX ailesi için NQ=F, NDX ailesi için ES=F) */
+  crossFutures: string;
+  /** Çapraz kontrol enstrümanının görünen adı ("NQ" veya "ES") */
+  crossLabel: string;
   errors: string[];
 }
 
 export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): Promise<MarketData> {
   const info = ASSET_MAP[asset];
+  // Çapraz kontrol her zaman DİĞER endeks ailesinin vadelisidir: SPX ailesi
+  // (ES=F) için NQ, NDX ailesi (NQ=F) için ES. Aksi halde bir varlığın
+  // kendi vadelisiyle kendini karşılaştırması gibi anlamsız bir durum oluşur.
+  const crossFutures = info.futures === "NQ=F" ? "ES=F" : "NQ=F";
+  const crossLabel = crossFutures === "NQ=F" ? "NQ" : "ES";
+
   const [es, spx, nq, vix, spxD, vixD] = await Promise.all([
     cached(`futures1m-${info.futures}`, intradayTtlMs, () => fetchBars(info.futures, "1m", "5d", true)),
     cached(`spot1m-${info.spot}`, intradayTtlMs, () => fetchBars(info.spot, "1m", "5d", false)),
-    cached("nq1m", intradayTtlMs, () => fetchBars("NQ=F", "1m", "2d", true)),
+    cached(`futures1m-${crossFutures}`, intradayTtlMs, () => fetchBars(crossFutures, "1m", "2d", true)),
     cached(`vix1m-${info.vix}`, intradayTtlMs, () => fetchBars(info.vix, "1m", "2d", false)),
     cached(`spot1d-${info.spot}`, 6 * 60 * 60 * 1000, () => fetchBars(info.spot, "1d", "2y", false)),
     cached(`vix1d-${info.vix}`, 6 * 60 * 60 * 1000, () => fetchBars(info.vix, "1d", "3mo", false)),
@@ -89,7 +117,7 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): 
   const errors: string[] = [];
   if (es.error) errors.push(`Vadeli verisi alınamadı (${es.error})`);
   if (spx.error) errors.push(`Spot verisi alınamadı (${spx.error})`);
-  if (nq.error) errors.push(`NQ verisi alınamadı (${nq.error})`);
+  if (nq.error) errors.push(`${crossLabel} verisi alınamadı (${nq.error})`);
   if (vix.error) errors.push(`VIX verisi alınamadı (${vix.error})`);
 
   return {
@@ -103,6 +131,8 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): 
     spxMarketPrice: spx.marketPrice,
     nqMarketPrice: nq.marketPrice,
     vixMarketPrice: vix.marketPrice,
+    crossFutures,
+    crossLabel,
     errors,
   };
 }
@@ -143,7 +173,10 @@ export interface SessionBuild {
 export function buildSession(data: MarketData, sessionDate: string, asset: AssetClass): SessionBuild | null {
   const allDates = sessionDates(data.spot1m);
   if (!allDates.includes(sessionDate)) return null;
-  const scale = ASSET_MAP[asset].scale;
+  const info = ASSET_MAP[asset];
+  const scale = info.scale;
+  const futuresLabel = info.futures.replace("=F", "");
+  const assetLabel = asset as string;
 
   const slices = buildSessionSlices(data.futures1m, data.spot1m, sessionDate, allDates);
   const { spxRth, esRth, esVwap } = slices;
@@ -264,6 +297,9 @@ export function buildSession(data: MarketData, sessionDate: string, asset: Asset
       structure,
       longBreak,
       shortBreak,
+      futuresLabel,
+      assetLabel,
+      crossLabel: data.crossLabel,
     });
 
     const prev10 = frames[i - 10];
@@ -419,6 +455,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
     onMid: session.levels.futures.onMid,
     nqChangePct: session.nqChangePct,
     esChangePct: session.esChangePct,
+    crossLabel: data.crossLabel,
     spotPrice: last.spotPrice,
     state,
   });
@@ -436,7 +473,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
     });
     const spxDelta = round2(last.spotPrice - ref.spotPrice);
     changes.push({
-      label: "SPX",
+      label: asset,
       from: ref.spotPrice.toFixed(2),
       to: `${spxDelta >= 0 ? "+" : ""}${spxDelta.toFixed(2)} puan`,
       tone: spxDelta > 0 ? "UP" : spxDelta < 0 ? "DOWN" : "FLAT",
@@ -480,7 +517,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   const feeds: FeedHealth[] = [
     feedHealth(ASSET_MAP[asset].futures, "Vadeli", data.futures1m, nowSec, isLiveSession),
     feedHealth(ASSET_MAP[asset].spot, "Spot", data.spot1m, nowSec, isLiveSession),
-    feedHealth("NQ=F", "NQ Vadeli (CME)", data.nq1m, nowSec, isLiveSession),
+    feedHealth(data.crossFutures, `${data.crossLabel} Vadeli (Çapraz Kontrol)`, data.nq1m, nowSec, isLiveSession),
     feedHealth(ASSET_MAP[asset].vix, "VIX", data.vix1m, nowSec, isLiveSession),
   ];
 
@@ -570,6 +607,7 @@ export async function buildReplay(asset: AssetClass, dateParam?: string): Promis
     onMid: session.levels.futures.onMid,
     nqChangePct: session.nqChangePct,
     esChangePct: session.esChangePct,
+    crossLabel: data.crossLabel,
     spotPrice: last.spotPrice,
     state: last.state,
   });

@@ -1,4 +1,4 @@
-import { Panel, Row, Badge, toneClass } from "@/components/admin/supertrade/ui";
+import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
 import type { AssetSnapshot } from "@/lib/v4/types";
 
 export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnapshot }) {
@@ -54,14 +54,14 @@ export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnap
 
       <Panel title="Tahmin Faktörleri" padding="p-4">
         <div className="space-y-2">
-          <Row 
-            label="Kapanış Seviyesi (SPX)" 
-            value={spotPrice.toFixed(2)} 
+          <Row
+            label="Kapanış Seviyesi"
+            value={spotPrice.toFixed(2)}
             valueClass={spotPrice > levels.spot.orh ? "text-[#22c55e]" : spotPrice < levels.spot.orl ? "text-[#ef4444]" : "text-slate-300"}
           />
-          <Row 
-            label="VWAP Durumu (ES)" 
-            value={`ES ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`} 
+          <Row
+            label="VWAP Durumu (Vadeli)"
+            value={`Vadeli ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`}
             valueClass={futuresPrice > levels.futures.vwap ? "text-[#22c55e]" : "text-[#ef4444]"}
           />
           <Row 

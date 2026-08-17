@@ -61,6 +61,12 @@ export interface ScoreInput {
   structure: StructureSet;
   longBreak: BreakoutState;
   shortBreak: BreakoutState;
+  /** Seçili varlığın vadeli işlem etiketi (örn. "ES" veya "NQ") */
+  futuresLabel: string;
+  /** Seçili varlığın spot/endeks etiketi (örn. "SPX", "QQQ") */
+  assetLabel: string;
+  /** Çapraz kontrol enstrümanının etiketi (örn. "NQ" veya "ES") */
+  crossLabel: string;
 }
 
 export interface ScoreResult {
@@ -78,12 +84,12 @@ export function computeScores(input: ScoreInput): ScoreResult {
   const push = (label: string, detail: string, weight: number) =>
     factors.push({ label, detail, weight: Math.round(weight * 100) / 100 });
 
-  // 1. ES fiyatının seans VWAP'ına göre konumu (en ağır tekil faktör)
+  // 1. Vadeli fiyatının seans VWAP'ına göre konumu (en ağır tekil faktör)
   if (es.vwap > 0) {
     const dist = input.futuresPrice - es.vwap;
     const w = Math.max(-1.5, Math.min(1.5, dist / 4));
     push(
-      "ES / VWAP konumu",
+      `${input.futuresLabel} / VWAP konumu`,
       `${dist >= 0 ? "+" : ""}${dist.toFixed(2)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${es.vwap.toFixed(2)})`,
       w
     );
@@ -99,9 +105,9 @@ export function computeScores(input: ScoreInput): ScoreResult {
   }
 
   // 3–4. Çok zaman dilimli yapı
-  push("ES 15 dk yapı", TR_STRUCTURE[structure.futures15m], structureWeight(structure.futures15m, 1.0));
-  push("ES 5 dk yapı", TR_STRUCTURE[structure.futures5m], structureWeight(structure.futures5m, 0.75));
-  push("SPX 1 dk yapı", TR_STRUCTURE[structure.spot1m], structureWeight(structure.spot1m, 0.5));
+  push(`${input.futuresLabel} 15 dk yapı`, TR_STRUCTURE[structure.futures15m], structureWeight(structure.futures15m, 1.0));
+  push(`${input.futuresLabel} 5 dk yapı`, TR_STRUCTURE[structure.futures5m], structureWeight(structure.futures5m, 0.75));
+  push(`${input.assetLabel} 1 dk yapı`, TR_STRUCTURE[structure.spot1m], structureWeight(structure.spot1m, 0.5));
 
   // 5. Açılış aralığına göre konum
   if (spx.isOrDefined) {
@@ -123,11 +129,11 @@ export function computeScores(input: ScoreInput): ScoreResult {
     push("Kırılım kabulü", "5 dk kapanış teyidi henüz yok", 0);
   }
 
-  // 7. NQ uyumu
+  // 7. Çapraz vadeli uyumu
   if (Number.isFinite(input.nqChangePct)) {
     const w = Math.max(-0.75, Math.min(0.75, input.nqChangePct * 1.5));
     push(
-      "NQ vadeli uyumu",
+      `${input.crossLabel} vadeli uyumu`,
       `${input.nqChangePct >= 0 ? "+" : ""}%${input.nqChangePct.toFixed(2)} (gün içi)`,
       w
     );
@@ -340,7 +346,7 @@ export function buildDecision(
         ...base,
         action: "Long hazırlığı — henüz giriş yok",
         confirmation: `ORH ${orh.toFixed(2)} üzerinde 5 dk kapanış`,
-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `ES'in VWAP ${vwap.toFixed(2)} altına dönmesi`,
+        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `Vadelinin VWAP ${vwap.toFixed(2)} altına dönmesi`,
         triggerLevelName: `ORH ${orh.toFixed(2)}`,
         triggerLevelValue: orh,
         statusBadge: "KIRILIM BEKLENİYOR",
@@ -352,7 +358,7 @@ export function buildDecision(
         ...base,
         action: "Short hazırlığı — henüz giriş yok",
         confirmation: `ORL ${orl.toFixed(2)} altında 5 dk kapanış`,
-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `ES'in VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
+        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
         triggerLevelName: `ORL ${orl.toFixed(2)}`,
         triggerLevelValue: orl,
         statusBadge: "KIRILIM BEKLENİYOR",
@@ -388,7 +394,7 @@ export function buildDecision(
         ...base,
         action: "Long giriş uygun — normal pozisyon",
         confirmation: "Hacmin korunması ve yeni zirvelerin yapılması",
-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `ES'in VWAP ${vwap.toFixed(2)} altına inmesi`,
+        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} altına inmesi`,
         triggerLevelName: `ORH ${orh.toFixed(2)}`,
         triggerLevelValue: orh,
         statusBadge: "KABUL EDİLDİ",
@@ -400,7 +406,7 @@ export function buildDecision(
         ...base,
         action: "Short giriş uygun — normal pozisyon",
         confirmation: "Satış hacminin korunması ve yeni diplerin yapılması",
-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `ES'in VWAP ${vwap.toFixed(2)} üzerine çıkması`,
+        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine çıkması`,
         triggerLevelName: `ORL ${orl.toFixed(2)}`,
         triggerLevelValue: orl,
         statusBadge: "KABUL EDİLDİ",

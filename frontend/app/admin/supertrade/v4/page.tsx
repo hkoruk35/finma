@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Badge, Panel, Row, toneClass, signed, SectionTitle } from "@/components/admin/supertrade/ui";
-import type { AssetClass } from "@/lib/v4/types";
+import { Badge, Panel, Row, signed, toneClass } from "@/components/admin/supertrade/ui";
+import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
 
-// V4 Özel Bileşenleri (Daha sonra oluşturulacak)
+// V4 Özel Bileşenleri
 import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
+
+type AssetResult = (AssetSnapshot & { ok: true }) | { ok: false; error: string };
 
 export default function SuperTradeV4Dashboard() {
   const [selectedAsset, setSelectedAsset] = useState<AssetClass | null>(null);
-  const [snapshots, setSnapshots] = useState<Record<string, any>>({});
+  const [snapshots, setSnapshots] = useState<Record<string, AssetResult>>({});
   const [loading, setLoading] = useState(true);
 
   // Dashboard verilerini çek
@@ -37,19 +39,22 @@ export default function SuperTradeV4Dashboard() {
   }, [selectedAsset]);
 
   if (selectedAsset) {
+    const selectedData = snapshots[selectedAsset];
+    const selectedSnapshot = selectedData && selectedData.ok ? selectedData : null;
+    const selectedError = selectedData && !selectedData.ok ? selectedData.error : null;
     return (
       <div className="p-4 md:p-5 bg-[#0a0e17] min-h-screen text-slate-300">
-        <button 
+        <button
           onClick={() => setSelectedAsset(null)}
           className="mb-4 flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
         >
-          ← Dashboard'a Dön
+          ← Dashboard&apos;a Dön
         </button>
-        <MultiAssetDetail 
-          asset={selectedAsset} 
-          snapshot={snapshots[selectedAsset]} 
-          loading={loading} 
-          error={snapshots[selectedAsset]?.error || null} 
+        <MultiAssetDetail
+          asset={selectedAsset}
+          snapshot={selectedSnapshot}
+          loading={loading}
+          error={selectedError}
         />
       </div>
     );
@@ -67,7 +72,7 @@ export default function SuperTradeV4Dashboard() {
           <Badge tone="brand">SuperTrade V4</Badge>
         </div>
         <p className="text-[12px] text-slate-500">
-          S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF'lerin anlık kırılım ve yön teyidi.
+          S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
         </p>
       </header>
 

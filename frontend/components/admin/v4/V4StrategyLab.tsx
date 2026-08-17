@@ -7,10 +7,10 @@
  * bacak primlerinden hesaplanır (sabit rakam yoktur).
  */
 
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { SignalState } from "@/lib/v4/types";
 import { impliedVolFor, priceOption } from "@/lib/v4/options";
-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "./supertrade/ui";
+import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "../supertrade/ui";
 
 type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
 
@@ -59,17 +59,16 @@ export default function V4StrategyLab({
   const [category, setCategory] = useState<Category>("ALL");
   const [horizon, setHorizon] = useState<Horizon>("MOMENTUM");
   
-  // 15 dakikalık strateji döngüsü kilidi
+  // 15 dakikalık strateji döngüsü kilidi — render sırasında senkronize edilir
+  // (bkz. react.dev "Adjusting state when a prop changes"); ayrı bir efekte
+  // taşımak gereksiz bir render turu ve cascading setState uyarısına yol açar.
   const [lockedPrice, setLockedPrice] = useState(spotPrice);
   const [lastCycle, setLastCycle] = useState(Math.floor(minutesLeft / 15));
-
-  React.useEffect(() => {
-    const currentCycle = Math.floor(minutesLeft / 15);
-    if (currentCycle !== lastCycle) {
-      setLockedPrice(spotPrice);
-      setLastCycle(currentCycle);
-    }
-  }, [minutesLeft, spotPrice, lastCycle]);
+  const currentCycle = Math.floor(minutesLeft / 15);
+  if (currentCycle !== lastCycle) {
+    setLockedPrice(spotPrice);
+    setLastCycle(currentCycle);
+  }
 
   // Yeni fiyat kilidi üzerinden hesapla
   const activePrice = lockedPrice || spotPrice;
@@ -140,7 +139,7 @@ export default function V4StrategyLab({
         horizon: horizonLabel,
         score: 0,
         reason: `Satılan bacak zaman erimesini dengeler; ${cost2} dolar riskle 5 puanlık hedef bandı yakalar.`,
-        invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
+        invalidation: "Vadelinin VWAP'ın ters tarafına geçmesi.",
       });
 
       // 3. Standart debit spread
@@ -161,7 +160,7 @@ export default function V4StrategyLab({
         horizon: horizonLabel,
         score: 0,
         reason: `Mevcut ${stateTr} durumunda 10 puanlık hedef bandı için tanımlı riskli standart yapı.`,
-        invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
+        invalidation: "Vadelinin VWAP'ın ters tarafına geçmesi.",
       });
 
       // 4. Savunmaci kredi spread
@@ -184,7 +183,7 @@ export default function V4StrategyLab({
         horizon: "Gün sonu",
         score: 0,
         reason: `Fiyat ${shortK} seviyesinin ${isLong ? "üstünde" : "altında"} kaldığı sürece yön hareketi olmasa bile prim toplar.`,
-        invalidation: `SPX ${shortK} seviyesini ${isLong ? "aşağı" : "yukarı"} kırarsa risk hızla artar.`,
+        invalidation: `Fiyat ${shortK} seviyesini ${isLong ? "aşağı" : "yukarı"} kırarsa risk hızla artar.`,
       });
     } else {
       // Yönsüz / bant yapıları
@@ -421,7 +420,7 @@ export default function V4StrategyLab({
 
       <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
         Primler Black-Scholes ile modellenmiş teorik değerlerdir (faiz ve temettü sıfır kabul edilir,
-        örtük oynaklık VIX'ten türetilir). Canlı OPRA kotasyonu değildir ve otomatik emre dönüşmez.
+        örtük oynaklık VIX&apos;ten türetilir). Canlı OPRA kotasyonu değildir ve otomatik emre dönüşmez.
       </p>
     </Panel>
   );

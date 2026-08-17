@@ -7,7 +7,7 @@
 
 import React, { useState } from "react";
 import type { ContextSnapshot, SignalState } from "@/lib/v4/types";
-import { Badge, INSET, Panel, num, toneClass } from "./supertrade/ui";
+import { Badge, INSET, Panel, num, toneClass } from "../supertrade/ui";
 
 const AGREEMENT_META = {
   CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
@@ -151,7 +151,7 @@ export default function V4ContextEnginePanel({
           title="Gece Seansı (Globex)"
           headline={overnight.gapType}
           headlineClass={toneClass(overnight.gapPts)}
-          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · NQ ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
+          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
           footLabel="Açılış boşluğu"
           footValue={`${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`}
           footClass={toneClass(overnight.gapPts)}
