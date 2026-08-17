@@ -58,10 +58,6 @@ const content: Record<Locale, FutureContent> = {
           text: "Beneath the surface, a coordinated network of specialized scanners — covering swing setups, intraday moves, and our broader stock universe — watches the market around the clock, surfacing chart formations and distilling opportunities for investors.",
         },
         {
-          title: "AI Challenge",
-          text: "Our most ambitious module: an AI that doesn't just predict, but actively manages a real $1,000 portfolio under strict risk-management rules, with every decision recorded on a fully transparent, tamper-proof ledger.",
-        },
-        {
           title: "An Autonomous Data & Media Layer",
           text: "The system doesn't just analyze the market — it communicates about it. X Studio tracks market moves, insider activity, and earnings calendars in real time, then produces and publishes content entirely on its own, without human input.",
         },
@@ -148,10 +144,6 @@ const content: Record<Locale, FutureContent> = {
         {
           title: "Otonom Bir Tarayıcı Ağı",
           text: "Yüzeyin altında; swing kurgularını, gün içi hareketleri ve daha geniş hisse evrenimizi kapsayan koordineli bir tarayıcı ağı piyasayı 7/24 izliyor, formasyonları yakalıyor ve yatırımcı için fırsatları damıtıyor.",
-        },
-        {
-          title: "AI Challenge",
-          text: "En iddialı modülümüz: sadece tahmin yapmayan, gerçek bir $1.000'lık portföyü katı risk yönetimi kuralları altında bizzat yöneten bir yapay zeka — her karar tamamen şeffaf, değiştirilemez bir işlem defterine kaydedilir.",
         },
         {
           title: "Otonom Bir Veri ve Medya Katmanı",
@@ -242,10 +234,6 @@ const content: Record<Locale, FutureContent> = {
           text: "Bajo la superficie, una red coordinada de rastreadores especializados —que cubre configuraciones swing, movimientos intradía y nuestro universo bursátil más amplio— vigila el mercado las 24 horas, detectando formaciones y destilando oportunidades para el inversor.",
         },
         {
-          title: "AI Challenge",
-          text: "Nuestro módulo más ambicioso: una IA que no solo predice, sino que gestiona activamente una cartera real de 1.000 USD bajo estrictas reglas de gestión de riesgo, registrando cada decisión en un libro de operaciones totalmente transparente e inalterable.",
-        },
-        {
           title: "Una Capa Autónoma de Datos y Medios",
           text: "El sistema no solo analiza el mercado, también comunica sobre él. X Studio sigue en tiempo real los movimientos del mercado, la actividad de insiders y el calendario de resultados, y luego produce y publica contenido de forma completamente autónoma, sin intervención humana.",
         },
@@ -332,10 +320,6 @@ const content: Record<Locale, FutureContent> = {
         {
           title: "Un Réseau de Scanners Autonomes",
           text: "Sous la surface, un réseau coordonné de scanners spécialisés — couvrant les configurations swing, les mouvements intrajournaliers et notre univers boursier plus large — surveille le marché en continu, repérant les figures chartistes et distillant les opportunités pour l'investisseur.",
-        },
-        {
-          title: "AI Challenge",
-          text: "Notre module le plus ambitieux : une IA qui ne se contente pas de prédire, mais gère activement un vrai portefeuille de 1 000 $ selon des règles strictes de gestion des risques, chaque décision étant enregistrée sur un registre entièrement transparent et inaltérable.",
         },
         {
           title: "Une Couche Autonome de Données et de Médias",
@@ -426,10 +410,6 @@ const content: Record<Locale, FutureContent> = {
           text: "Sob a superfície, uma rede coordenada de scanners especializados — cobrindo configurações swing, movimentos intradiários e nosso universo de ações mais amplo — vigia o mercado continuamente, capturando formações gráficas e destilando oportunidades para o investidor.",
         },
         {
-          title: "AI Challenge",
-          text: "Nosso módulo mais ambicioso: uma IA que não apenas prevê, mas gerencia ativamente uma carteira real de US$ 1.000 sob regras rígidas de gestão de risco, registrando cada decisão em um livro-razão totalmente transparente e inalterável.",
-        },
-        {
           title: "Uma Camada Autônoma de Dados e Mídia",
           text: "O sistema não apenas analisa o mercado — ele também comunica sobre ele. O X Studio acompanha em tempo real os movimentos do mercado, a atividade de insiders e o calendário de resultados, e então produz e publica conteúdo de forma totalmente autônoma, sem intervenção humana.",
         },
@@ -516,10 +496,6 @@ const content: Record<Locale, FutureContent> = {
         {
           title: "Jaringan Pemindai Otonom",
           text: "Di balik layar, jaringan pemindai khusus yang terkoordinasi — mencakup setup swing, pergerakan intraday, dan cakupan saham kami yang lebih luas — mengawasi pasar sepanjang waktu, menangkap formasi grafik dan menyaring peluang bagi investor.",
-        },
-        {
-          title: "AI Challenge",
-          text: "Modul paling ambisius kami: AI yang tidak hanya memprediksi, tetapi secara aktif mengelola portofolio nyata senilai $1.000 di bawah aturan manajemen risiko yang ketat, dengan setiap keputusan dicatat pada buku besar yang sepenuhnya transparan dan tidak dapat diubah.",
         },
         {
           title: "Lapisan Data & Media Otonom",
