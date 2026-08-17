@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ScreenerChart from "@/components/screener/ScreenerChart";
+import TechnicalAnalystConsensus from "./TechnicalAnalystConsensus";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { formatAssetPrice, getAssetCategory } from "@/lib/symbols";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
@@ -442,6 +443,15 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             </div>
           )}
         </div>
+      )}
+
+      {data.bogaScore && (
+        <TechnicalAnalystConsensus
+          locale={locale}
+          ticker={data.ticker}
+          currentPrice={data.price}
+          bogaScore={data.bogaScore}
+        />
       )}
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
