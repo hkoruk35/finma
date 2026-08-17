@@ -206,7 +206,7 @@ export default function SuperTradeLiveChart({
     candleSeries.createPriceLine({
       price: onh,
       color: "#22c55e",
-      lineWidth: 1.5,
+      lineWidth: 1,
       lineStyle: 0,
       axisLabelVisible: true,
       title: "ONH (Gece Zirvesi)",
@@ -224,7 +224,7 @@ export default function SuperTradeLiveChart({
     candleSeries.createPriceLine({
       price: orh,
       color: "#a855f7",
-      lineWidth: 1.5,
+      lineWidth: 1,
       lineStyle: 2,
       axisLabelVisible: true,
       title: "ORH (Açılış Zirvesi)",
@@ -233,7 +233,7 @@ export default function SuperTradeLiveChart({
     candleSeries.createPriceLine({
       price: orl,
       color: "#f43f5e",
-      lineWidth: 1.5,
+      lineWidth: 1,
       lineStyle: 2,
       axisLabelVisible: true,
       title: "ORL (Açılış Dibi)",
@@ -242,7 +242,7 @@ export default function SuperTradeLiveChart({
     candleSeries.createPriceLine({
       price: onl,
       color: "#ef4444",
-      lineWidth: 1.5,
+      lineWidth: 1,
       lineStyle: 0,
       axisLabelVisible: true,
       title: "ONL (Gece Dibi)",
