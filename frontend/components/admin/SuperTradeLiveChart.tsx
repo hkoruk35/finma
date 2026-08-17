@@ -165,11 +165,31 @@ export default function SuperTradeLiveChart({
     const volH = Math.round(plotH * 0.18);
     const priceH = plotH - volH - 10;
 
+    const forecastBars = 24; // Gelecek tahmin aralığı (boşluk)
+
     const relevant = [levels.vwap, levels.onh, levels.onl, levels.orh, levels.orl].filter(
       (v) => v > 0
     );
     let min = Math.min(...candles.map((c) => c.low), ...relevant);
     let max = Math.max(...candles.map((c) => c.high), ...relevant);
+    
+    let stdDev = 1;
+    if (candles.length > 0) {
+      const lookback = Math.min(20, candles.length);
+      let sumClose = 0;
+      for (let i = candles.length - lookback; i < candles.length; i++) sumClose += candles[i].close;
+      const avgClose = sumClose / lookback;
+      let sqSum = 0;
+      for (let i = candles.length - lookback; i < candles.length; i++) sqSum += Math.pow(candles[i].close - avgClose, 2);
+      stdDev = Math.max(Math.sqrt(sqSum / lookback), 1);
+      
+      const lastClose = candles[candles.length - 1].close;
+      const maxVal = lastClose + stdDev * Math.sqrt(forecastBars) * 1.5;
+      const minVal = lastClose - stdDev * Math.sqrt(forecastBars) * 1.5;
+      max = Math.max(max, maxVal);
+      min = Math.min(min, minVal);
+    }
+    
     const span = max - min || 1;
     min -= span * 0.04;
     max += span * 0.04;
@@ -195,7 +215,7 @@ export default function SuperTradeLiveChart({
       ctx.fillText(p.toFixed(2), width - padR + 6, y);
     }
 
-    const n = candles.length;
+    const n = candles.length + forecastBars;
     const step = plotW / n;
     const barW = Math.max(1.5, Math.min(14, step * 0.62));
 
@@ -277,7 +297,7 @@ export default function SuperTradeLiveChart({
     });
 
     // Zaman ekseni
-    const labelEvery = Math.max(1, Math.ceil(n / 8));
+    const labelEvery = Math.max(1, Math.ceil(candles.length / 8));
     ctx.fillStyle = COLOR.axis;
     ctx.font = "10px ui-monospace, monospace";
     ctx.textAlign = "center";
@@ -286,17 +306,69 @@ export default function SuperTradeLiveChart({
       ctx.fillText(c.label, padL + i * step + step / 2, height - padB + 12);
     });
 
+    // Forecast Cone
+    if (candles.length > 0) {
+      const lastCandle = candles[candles.length - 1];
+      const startX = padL + (candles.length - 1) * step + step / 2;
+      const startY = priceY(lastCandle.close);
+
+      ctx.save();
+      // Max line
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      for (let i = 1; i <= forecastBars; i++) {
+        const fx = startX + i * step;
+        const fy = priceY(lastCandle.close + stdDev * Math.sqrt(i) * 1.5);
+        ctx.lineTo(fx, fy);
+      }
+      ctx.strokeStyle = "#10b981";
+      ctx.setLineDash([2, 4]);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Min line
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      for (let i = 1; i <= forecastBars; i++) {
+        const fx = startX + i * step;
+        const fy = priceY(lastCandle.close - stdDev * Math.sqrt(i) * 1.5);
+        ctx.lineTo(fx, fy);
+      }
+      ctx.strokeStyle = "#047857";
+      ctx.stroke();
+
+      // Avg line
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(startX + forecastBars * step, startY);
+      ctx.strokeStyle = "#059669";
+      ctx.stroke();
+      ctx.restore();
+
+      const maxVal = lastCandle.close + stdDev * Math.sqrt(forecastBars) * 1.5;
+      const minVal = lastCandle.close - stdDev * Math.sqrt(forecastBars) * 1.5;
+      
+      ctx.fillStyle = "#10b981";
+      ctx.font = "9px ui-sans-serif, system-ui";
+      ctx.textAlign = "left";
+      ctx.fillText(`Max ${maxVal.toFixed(2)}`, width - padR + 4, priceY(maxVal));
+      ctx.fillStyle = "#059669";
+      ctx.fillText(`Avg ${lastCandle.close.toFixed(2)}`, width - padR + 4, priceY(lastCandle.close));
+      ctx.fillStyle = "#047857";
+      ctx.fillText(`Min ${minVal.toFixed(2)}`, width - padR + 4, priceY(minVal));
+    }
+
     // Son fiyat etiketi
-    const lastCandle = candles[n - 1];
-    const lastY = priceY(lastCandle.close);
-    const lastColor = lastCandle.close >= lastCandle.open ? COLOR.up : COLOR.down;
+    const endCandle = candles[candles.length - 1];
+    const lastY = priceY(endCandle.close);
+    const lastColor = endCandle.close >= endCandle.open ? COLOR.up : COLOR.down;
     ctx.fillStyle = lastColor;
     ctx.fillRect(width - padR + 2, lastY - 8, padR - 6, 16);
     ctx.fillStyle = "#0a0e17";
     ctx.font = "10px ui-monospace, monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(lastCandle.close.toFixed(2), width - padR + 2 + (padR - 6) / 2, lastY);
+    ctx.fillText(endCandle.close.toFixed(2), width - padR + 2 + (padR - 6) / 2, lastY);
 
     // İmleç
     if (hover && candles[hover.index]) {
@@ -342,7 +414,8 @@ export default function SuperTradeLiveChart({
     const y = e.clientY - rect.top;
     const padL = 8;
     const padR = 68;
-    const step = (rect.width - padL - padR) / candles.length;
+    const forecastBars = 24;
+    const step = (rect.width - padL - padR) / (candles.length + forecastBars);
     const index = Math.floor((x - padL) / step);
     if (index >= 0 && index < candles.length) setHover({ index, x, y });
     else setHover(null);
