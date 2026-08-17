@@ -1,0 +1,955 @@
+From cc7765181cf23463d18a92bdbe434e39c43dd194 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 17 Aug 2026 20:07:05 +0000
+Subject: [PATCH] =?UTF-8?q?fix:=20SuperTrade=20V4=20multi-asset=20detay=20?=
+ =?UTF-8?q?g=C3=B6r=C3=BCn=C3=BCm=C3=BC=20build=20hatalar=C4=B1n=C4=B1=20v?=
+ =?UTF-8?q?e=20varl=C4=B1k-ba=C4=9F=C4=B1ms=C4=B1z=20etiket=20hatalar?=
+ =?UTF-8?q?=C4=B1n=C4=B1=20d=C3=BCzelt?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+MultiAssetDetail.tsx tamamen bozuktu: var olmayan directionTone import'u,
+var olmayan AssetSnapshot.frame alanı, alt bileşenlere (LiveChart/
+StrategyLab/ContextEnginePanel) tamamen yanlış prop'lar ve tüm Türkçe
+karakterlerin ASCII'ye bozulmuş olması (11 tsc hatası) nedeniyle proje derlenmiyordu.
+
+- MultiAssetDetail.tsx: doğru prop imzalarıyla yeniden yazıldı, Türkçe
+  metin onarıldı, directionTone yerel olarak tanımlandı
+- 3 bileşende yanlış "./supertrade/ui" import yolu → "../supertrade/ui"
+- V4SuperTradeLiveChart.tsx: 2 örtük "any" parametresi tipleniyor,
+  grafik başlığı/sekmeleri artık seçili varlığa göre (ES/NQ/SPX/QQQ/...)
+- scoring.ts/context.ts/snapshot.ts: skor faktörleri, karar iptal metni
+  ve gece seansı çapraz kontrolü artık gerçekten seçili varlığa göre
+  (önceden her varlıkta sabit "ES"/"SPX"/"NQ" gösteriliyordu; NQ çapraz
+  kontrolü NDX/QQQ/XND için kendi kendiyle karşılaştırma yapıyordu)
+- snapshot.ts cached(): eşzamanlı istek birleştirme eklendi (symbol=ALL
+  modunda paylaşılan enstrümanlar için tekrarlı Yahoo isteklerini önler)
+- route.ts: runtime/maxDuration eklendi (symbol=ALL fan-out için)
+- V4StrategyLab.tsx: setState-in-effect kalıbı render-sırası state
+  senkronizasyonuna çevrildi (react-hooks lint hatası)
+- Kalan any/apostrof lint hataları temizlendi
+
+tsc -p tsconfig.v4check.json ve eslint artık 0 hata veriyor; scoring/
+context motorları senkron test edilerek (SPX ve QQQ senaryoları)
+doğrulandı.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QwWp9agfTD2mt3oS6xmoUF
+---
+ frontend/app/admin/supertrade/v4/page.tsx     |  29 ++--
+ frontend/app/api/admin/supertrade/v4/route.ts |  17 ++-
+ .../components/admin/v4/MultiAssetDetail.tsx  | 142 +++++++++---------
+ .../admin/v4/V4ContextEnginePanel.tsx         |   4 +-
+ .../components/admin/v4/V4StrategyLab.tsx     |  29 ++--
+ .../admin/v4/V4SuperTradeForecast.tsx         |  14 +-
+ .../admin/v4/V4SuperTradeLiveChart.tsx        |  19 ++-
+ frontend/lib/v4/context.ts                    |  10 +-
+ frontend/lib/v4/options.ts                    |   2 +-
+ frontend/lib/v4/scoring.ts                    |  28 ++--
+ frontend/lib/v4/snapshot.ts                   |  54 ++++++-
+ frontend/lib/v4/types.ts                      |   2 +
+ frontend/tsconfig.v4check.json                |  12 ++
+ 13 files changed, 220 insertions(+), 142 deletions(-)
+ create mode 100644 frontend/tsconfig.v4check.json
+
+diff --git a/frontend/app/admin/supertrade/v4/page.tsx b/frontend/app/admin/supertrade/v4/page.tsx
+index b1dfba6..0720f49 100644
+--- a/frontend/app/admin/supertrade/v4/page.tsx
++++ b/frontend/app/admin/supertrade/v4/page.tsx
+@@ -1,16 +1,18 @@
+ "use client";
+ 
+ import { useEffect, useState } from "react";
+-import { Badge, Panel, Row, toneClass, signed, SectionTitle } from "@/components/admin/supertrade/ui";
+-import type { AssetClass } from "@/lib/v4/types";
++import { Badge, Panel, Row, signed, toneClass } from "@/components/admin/supertrade/ui";
++import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
+ import { ASSET_MAP } from "@/lib/v4/types";
+ 
+-// V4 Özel Bileşenleri (Daha sonra oluşturulacak)
++// V4 Özel Bileşenleri
+ import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
+ 
++type AssetResult = (AssetSnapshot & { ok: true }) | { ok: false; error: string };
++
+ export default function SuperTradeV4Dashboard() {
+   const [selectedAsset, setSelectedAsset] = useState<AssetClass | null>(null);
+-  const [snapshots, setSnapshots] = useState<Record<string, any>>({});
++  const [snapshots, setSnapshots] = useState<Record<string, AssetResult>>({});
+   const [loading, setLoading] = useState(true);
+ 
+   // Dashboard verilerini çek
+@@ -37,19 +39,22 @@ export default function SuperTradeV4Dashboard() {
+   }, [selectedAsset]);
+ 
+   if (selectedAsset) {
++    const selectedData = snapshots[selectedAsset];
++    const selectedSnapshot = selectedData && selectedData.ok ? selectedData : null;
++    const selectedError = selectedData && !selectedData.ok ? selectedData.error : null;
+     return (
+       <div className="p-4 md:p-5 bg-[#0a0e17] min-h-screen text-slate-300">
+-        <button 
++        <button
+           onClick={() => setSelectedAsset(null)}
+           className="mb-4 flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
+         >
+-          ← Dashboard'a Dön
++          ← Dashboard&apos;a Dön
+         </button>
+-        <MultiAssetDetail 
+-          asset={selectedAsset} 
+-          snapshot={snapshots[selectedAsset]} 
+-          loading={loading} 
+-          error={snapshots[selectedAsset]?.error || null} 
++        <MultiAssetDetail
++          asset={selectedAsset}
++          snapshot={selectedSnapshot}
++          loading={loading}
++          error={selectedError}
+         />
+       </div>
+     );
+@@ -67,7 +72,7 @@ export default function SuperTradeV4Dashboard() {
+           <Badge tone="brand">SuperTrade V4</Badge>
+         </div>
+         <p className="text-[12px] text-slate-500">
+-          S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF'lerin anlık kırılım ve yön teyidi.
++          S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
+         </p>
+       </header>
+ 
+diff --git a/frontend/app/api/admin/supertrade/v4/route.ts b/frontend/app/api/admin/supertrade/v4/route.ts
+index e6aab64..eefd205 100644
+--- a/frontend/app/api/admin/supertrade/v4/route.ts
++++ b/frontend/app/api/admin/supertrade/v4/route.ts
+@@ -1,24 +1,28 @@
+ import { NextResponse } from "next/server";
+ import { getSnapshot } from "@/lib/v4/snapshot";
+-import { AssetClass, ASSET_MAP } from "@/lib/v4/types";
++import { AssetClass, ASSET_MAP, AssetSnapshot } from "@/lib/v4/types";
+ 
++export const runtime = "nodejs";
+ export const dynamic = "force-dynamic";
+ export const revalidate = 0;
++export const maxDuration = 60;
++
++type AssetResult = AssetSnapshot | { ok: false; error: string };
+ 
+ export async function GET(request: Request) {
+   try {
+     const { searchParams } = new URL(request.url);
+     const symbolParam = (searchParams.get("symbol") || "SPX").toUpperCase();
+-    
++
+     if (symbolParam === "ALL") {
+-      const results: Record<string, any> = {};
++      const results: Record<string, AssetResult> = {};
+       const promises = Object.keys(ASSET_MAP).map(async (key) => {
+         const asset = key as AssetClass;
+         try {
+           const snapshot = await getSnapshot(asset);
+           results[asset] = snapshot;
+         } catch (e) {
+-          results[asset] = { ok: false, error: String(e) };
++          results[asset] = { ok: false, error: e instanceof Error ? e.message : String(e) };
+         }
+       });
+       await Promise.all(promises);
+@@ -32,7 +36,8 @@ export async function GET(request: Request) {
+ 
+     const snapshot = await getSnapshot(asset);
+     return NextResponse.json(snapshot);
+-  } catch (error: any) {
+-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
++  } catch (error: unknown) {
++    const message = error instanceof Error ? error.message : String(error);
++    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+   }
+ }
+diff --git a/frontend/components/admin/v4/MultiAssetDetail.tsx b/frontend/components/admin/v4/MultiAssetDetail.tsx
+index 0bfde62..f322104 100644
+--- a/frontend/components/admin/v4/MultiAssetDetail.tsx
++++ b/frontend/components/admin/v4/MultiAssetDetail.tsx
+@@ -1,9 +1,8 @@
+ "use client";
+ 
+-import { useMemo, useState } from "react";
++import { useState } from "react";
+ import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
+-import { buildChain, minutesToClose, simulateRunners } from "@/lib/v4/options";
+-import { directionTone } from "@/lib/v4/scoring";
++import { minutesToClose } from "@/lib/v4/options";
+ import {
+   Badge,
+   EmptyState,
+@@ -20,10 +19,11 @@ import V4StrategyLab from "./V4StrategyLab";
+ import V4SuperTradeForecast from "./V4SuperTradeForecast";
+ import V4SuperTradeLiveChart from "./V4SuperTradeLiveChart";
+ 
+-// Basit yardmc fonksiyon (sayfa formatlamas iin)
+-function formatTime(d: Date | null) {
+-  if (!d) return "";
+-  return d.toLocaleDateString("tr-TR") + " " + d.toLocaleTimeString("tr-TR");
++/** Yön göstergesi rengi — v3 konsolundaki ile aynı mantık */
++function directionTone(direction: string): "up" | "down" | "neutral" {
++  if (direction === "LONG") return "up";
++  if (direction === "SHORT") return "down";
++  return "neutral";
+ }
+ 
+ export default function MultiAssetDetail({
+@@ -38,47 +38,26 @@ export default function MultiAssetDetail({
+   error: string | null;
+ }) {
+   const [mode, setMode] = useState<"live" | "forecast">("live");
+-  const [chainView, setChainView] = useState<"auto" | "call" | "put">("auto");
+ 
+-  // V3'teki gibi "view" mekanizmas (u an sadece canl)
+   const view = snapshot;
+ 
+-  const runners = useMemo(() => {
+-    if (!view) return null;
+-    return view.runners;
+-  }, [view]);
+-
+-  const chain = useMemo(() => {
+-    if (!view) return [];
+-    return view.chain;
+-  }, [view]);
+-
+-  const chainType = chain[0]?.type ?? "CALL";
+-
+   if (!view) {
+     return (
+       <div className="mt-4">
+         {error ? (
+-          <Panel title="Veri alnamad">
++          <Panel title="Veri alınamadı">
+             <p className="text-[12px] leading-relaxed text-slate-300">{error}</p>
+           </Panel>
+         ) : (
+-          <EmptyState>{loading ? "Ykleniyor..." : "Grntlenecek veri yok"}</EmptyState>
++          <EmptyState>{loading ? "Yükleniyor..." : "Görüntülenecek veri yok"}</EmptyState>
+         )}
+       </div>
+     );
+   }
+ 
+-  const { frame, decision, levels, structure, factors, context } = view;
++  const { decision, levels, structure, factors, context } = view;
++  const frame = view.frames[view.frames.length - 1];
+   const dirTone = directionTone(decision.direction);
+-  
+-  const supporting = factors.filter((f) =>
+-    frame.netScore >= 0 ? f.weight > 0 : f.weight < 0
+-  );
+-  const conflicting = factors.filter((f) =>
+-    frame.netScore >= 0 ? f.weight < 0 : f.weight > 0
+-  );
+-  const neutralFactors = factors.filter((f) => f.weight === 0);
+ 
+   return (
+     <div className="mt-4 flex flex-col gap-4">
+@@ -86,25 +65,25 @@ export default function MultiAssetDetail({
+         <Tabs
+           size="sm"
+           value={mode}
+-          onChange={(m) => setMode(m as any)}
++          onChange={(m) => setMode(m)}
+           options={[
+-            { value: "live", label: "Canl / Bugn" },
+-            { value: "forecast", label: "Tahmin (Yarn)" },
++            { value: "live", label: "Canlı / Bugün" },
++            { value: "forecast", label: "Tahmin (Yarın)" },
+           ]}
+         />
+         <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+           <span className={`h-1.5 w-1.5 rounded-full ${view.isLiveSession ? "bg-[#22c55e]" : "bg-slate-500"}`} />
+-          Son Gncelleme: {new Date(view.generatedAt).toLocaleTimeString("tr-TR")}
++          Son Güncelleme: {new Date(view.generatedAt).toLocaleTimeString("tr-TR")}
+         </span>
+       </div>
+ 
+       {mode === "forecast" ? (
+-        <V4SuperTradeForecast snapshot={snapshot} />
++        <V4SuperTradeForecast snapshot={view} />
+       ) : (
+         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
+           {/* Sol Kolon - Grafikler ve Analiz */}
+           <div className="flex flex-col gap-4 min-w-0">
+-            {/* Karar Masas */}
++            {/* Karar Masası */}
+             <div className={`rounded-lg border p-4 ${INSET} ${
+                 decision.tone === "POSITIVE"
+                   ? "border-[#22c55e]/20"
+@@ -116,7 +95,7 @@ export default function MultiAssetDetail({
+               <div className="mb-3 flex items-start justify-between">
+                 <div>
+                   <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+-                    Sistem Karar ({asset})
++                    Sistem Kararı ({asset})
+                   </div>
+                   <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
+                     {decision.action}
+@@ -132,63 +111,87 @@ export default function MultiAssetDetail({
+ 
+               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                 <Row label="Teyit Beklentisi" value={decision.confirmation} />
+-                <Row label="ptal Koulu (Stop)" value={decision.invalidation} />
++                <Row label="İptal Koşulu (Stop)" value={decision.invalidation} />
+               </div>
+             </div>
+ 
+-            {/* Grafikler */}
++            {/* Grafik */}
+             <V4SuperTradeLiveChart
+-              bars={view.bars}
+-              levels={view.levels}
+-              spotPrice={view.spotPrice}
+-              futuresPrice={view.futuresPrice}
+-              vixPrice={view.vixPrice}
+-              frame={frame}
++              asset={asset}
++              esBars={view.bars.futures}
++              spxBars={view.bars.spot}
++              levels={{
++                vwap: frame.vwap,
++                onh: levels.futures.onh,
++                onl: levels.futures.onl,
++                orh: levels.spot.orh,
++                orl: levels.spot.orl,
++                pdc: levels.futures.pdc,
++              }}
++              vwapStartTime={view.frames[0]?.time ?? 0}
++              loading={loading}
+             />
+ 
+-            {/* Yap ve Skor Tablosu */}
++            {/* Yapı ve Skor Tablosu */}
+             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+-              <Panel title="Piyasa Yaps" className="col-span-1 lg:col-span-2">
++              <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
+                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+-                  <StructureBox label="VADEL 15M" val={structure.futures15m} />
+-                  <StructureBox label="VADEL 5M" val={structure.futures5m} />
+-                  <StructureBox label="VADEL 1M" val={structure.futures1m} />
++                  <StructureBox label="VADELİ 15M" val={structure.futures15m} />
++                  <StructureBox label="VADELİ 5M" val={structure.futures5m} />
++                  <StructureBox label="VADELİ 1M" val={structure.futures1m} />
+                   <StructureBox label="SPOT 5M" val={structure.spot5m} />
+                   <StructureBox label="SPOT 1M" val={structure.spot1m} />
+                 </div>
+               </Panel>
+-              <Panel title="Skor zeti">
++              <Panel title="Skor Özeti">
+                 <div className="flex h-full flex-col justify-center gap-3">
+-                  <Row label="Long Faktrleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
+-                  <Row label="Short Faktrleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
++                  <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
++                  <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
+                   <div className="my-1 h-px bg-[#1c2635]" />
+                   <Row
+-                    label="Net Yn Skoru"
++                    label="Net Yön Skoru"
+                     value={signed(frame.netScore, 1)}
+                     valueClass={`font-medium ${toneClass(frame.netScore)}`}
+                   />
+                 </div>
+               </Panel>
+             </div>
+-            
++
++            {/* Faktör dökümü */}
++            <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
++              <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
++                {factors.map((f, i) => (
++                  <Row
++                    key={`${f.label}-${i}`}
++                    label={f.label}
++                    value={f.detail}
++                    valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
++                  />
++                ))}
++              </div>
++            </Panel>
++
+             <V4StrategyLab
+-                chain={chain}
+-                chainView={chainView}
+-                setChainView={setChainView}
+-                runners={runners}
+-                targetPrice={0} // v3 mantna gre basitletirilebilir
+-                vix={view.vixPrice}
+-                minutesLeft={minutesToClose(Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1]))}
+-                decisionTone={decision.tone}
++              spotPrice={view.spotPrice}
++              state={frame.state}
++              vix={view.vixPrice}
++              minutesLeft={minutesToClose(
++                Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
++              )}
+             />
+           </div>
+ 
+-          {/* Sa Kolon - Detaylar */}
++          {/* Sağ Kolon - Detaylar */}
+           <div className="flex w-full flex-col gap-4">
+-             <V4ContextEnginePanel context={context} />
++            <V4ContextEnginePanel context={context} liveState={frame.state} />
+           </div>
+         </div>
+       )}
++
++      <p className="text-[11px] leading-relaxed text-slate-500">
++        Bu görünüm araştırma ve karar desteği amaçlıdır. Opsiyon primleri teorik modellerdir, otomatik
++        emre dönüşmez ve yatırım tavsiyesi değildir.
++      </p>
+     </div>
+   );
+ }
+@@ -196,13 +199,10 @@ export default function MultiAssetDetail({
+ function StructureBox({ label, val }: { label: string; val: string }) {
+   const t =
+     val === "UPTREND" ? "text-[#22c55e]" : val === "DOWNTREND" ? "text-[#ef4444]" : "text-slate-400";
+-  const icon = val === "UPTREND" ? "" : val === "DOWNTREND" ? "" : "";
+   return (
+     <div className="flex flex-col items-center justify-center gap-1 rounded bg-[#0f141d] p-2 text-center">
+       <div className="text-[10px] text-slate-500">{label}</div>
+-      <div className={`flex items-center gap-1 text-[11px] font-medium ${t}`}>
+-        <span>{icon}</span> {val}
+-      </div>
++      <div className={`flex items-center gap-1 text-[11px] font-medium ${t}`}>{val}</div>
+     </div>
+   );
+ }
+diff --git a/frontend/components/admin/v4/V4ContextEnginePanel.tsx b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+index f42c349..a179d55 100644
+--- a/frontend/components/admin/v4/V4ContextEnginePanel.tsx
++++ b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+@@ -7,7 +7,7 @@
+ 
+ import React, { useState } from "react";
+ import type { ContextSnapshot, SignalState } from "@/lib/v4/types";
+-import { Badge, INSET, Panel, num, toneClass } from "./supertrade/ui";
++import { Badge, INSET, Panel, num, toneClass } from "../supertrade/ui";
+ 
+ const AGREEMENT_META = {
+   CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
+@@ -151,7 +151,7 @@ export default function V4ContextEnginePanel({
+           title="Gece Seansı (Globex)"
+           headline={overnight.gapType}
+           headlineClass={toneClass(overnight.gapPts)}
+-          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · NQ ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
++          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
+           footLabel="Açılış boşluğu"
+           footValue={`${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`}
+           footClass={toneClass(overnight.gapPts)}
+diff --git a/frontend/components/admin/v4/V4StrategyLab.tsx b/frontend/components/admin/v4/V4StrategyLab.tsx
+index b0fce42..3a5950d 100644
+--- a/frontend/components/admin/v4/V4StrategyLab.tsx
++++ b/frontend/components/admin/v4/V4StrategyLab.tsx
+@@ -7,10 +7,10 @@
+  * bacak primlerinden hesaplanır (sabit rakam yoktur).
+  */
+ 
+-import React, { useMemo, useState } from "react";
++import { useMemo, useState } from "react";
+ import type { SignalState } from "@/lib/v4/types";
+ import { impliedVolFor, priceOption } from "@/lib/v4/options";
+-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "./supertrade/ui";
++import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "../supertrade/ui";
+ 
+ type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
+ 
+@@ -59,17 +59,16 @@ export default function V4StrategyLab({
+   const [category, setCategory] = useState<Category>("ALL");
+   const [horizon, setHorizon] = useState<Horizon>("MOMENTUM");
+   
+-  // 15 dakikalık strateji döngüsü kilidi
++  // 15 dakikalık strateji döngüsü kilidi — render sırasında senkronize edilir
++  // (bkz. react.dev "Adjusting state when a prop changes"); ayrı bir efekte
++  // taşımak gereksiz bir render turu ve cascading setState uyarısına yol açar.
+   const [lockedPrice, setLockedPrice] = useState(spotPrice);
+   const [lastCycle, setLastCycle] = useState(Math.floor(minutesLeft / 15));
+-
+-  React.useEffect(() => {
+-    const currentCycle = Math.floor(minutesLeft / 15);
+-    if (currentCycle !== lastCycle) {
+-      setLockedPrice(spotPrice);
+-      setLastCycle(currentCycle);
+-    }
+-  }, [minutesLeft, spotPrice, lastCycle]);
++  const currentCycle = Math.floor(minutesLeft / 15);
++  if (currentCycle !== lastCycle) {
++    setLockedPrice(spotPrice);
++    setLastCycle(currentCycle);
++  }
+ 
+   // Yeni fiyat kilidi üzerinden hesapla
+   const activePrice = lockedPrice || spotPrice;
+@@ -140,7 +139,7 @@ export default function V4StrategyLab({
+         horizon: horizonLabel,
+         score: 0,
+         reason: `Satılan bacak zaman erimesini dengeler; ${cost2} dolar riskle 5 puanlık hedef bandı yakalar.`,
+-        invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
++        invalidation: "Vadelinin VWAP'ın ters tarafına geçmesi.",
+       });
+ 
+       // 3. Standart debit spread
+@@ -161,7 +160,7 @@ export default function V4StrategyLab({
+         horizon: horizonLabel,
+         score: 0,
+         reason: `Mevcut ${stateTr} durumunda 10 puanlık hedef bandı için tanımlı riskli standart yapı.`,
+-        invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
++        invalidation: "Vadelinin VWAP'ın ters tarafına geçmesi.",
+       });
+ 
+       // 4. Savunmaci kredi spread
+@@ -184,7 +183,7 @@ export default function V4StrategyLab({
+         horizon: "Gün sonu",
+         score: 0,
+         reason: `Fiyat ${shortK} seviyesinin ${isLong ? "üstünde" : "altında"} kaldığı sürece yön hareketi olmasa bile prim toplar.`,
+-        invalidation: `SPX ${shortK} seviyesini ${isLong ? "aşağı" : "yukarı"} kırarsa risk hızla artar.`,
++        invalidation: `Fiyat ${shortK} seviyesini ${isLong ? "aşağı" : "yukarı"} kırarsa risk hızla artar.`,
+       });
+     } else {
+       // Yönsüz / bant yapıları
+@@ -421,7 +420,7 @@ export default function V4StrategyLab({
+ 
+       <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
+         Primler Black-Scholes ile modellenmiş teorik değerlerdir (faiz ve temettü sıfır kabul edilir,
+-        örtük oynaklık VIX'ten türetilir). Canlı OPRA kotasyonu değildir ve otomatik emre dönüşmez.
++        örtük oynaklık VIX&apos;ten türetilir). Canlı OPRA kotasyonu değildir ve otomatik emre dönüşmez.
+       </p>
+     </Panel>
+   );
+diff --git a/frontend/components/admin/v4/V4SuperTradeForecast.tsx b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+index 7c30cc8..8c31621 100644
+--- a/frontend/components/admin/v4/V4SuperTradeForecast.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+@@ -1,4 +1,4 @@
+-import { Panel, Row, Badge, toneClass } from "@/components/admin/supertrade/ui";
++import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
+ import type { AssetSnapshot } from "@/lib/v4/types";
+ 
+ export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnapshot }) {
+@@ -54,14 +54,14 @@ export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnap
+ 
+       <Panel title="Tahmin Faktörleri" padding="p-4">
+         <div className="space-y-2">
+-          <Row 
+-            label="Kapanış Seviyesi (SPX)" 
+-            value={spotPrice.toFixed(2)} 
++          <Row
++            label="Kapanış Seviyesi"
++            value={spotPrice.toFixed(2)}
+             valueClass={spotPrice > levels.spot.orh ? "text-[#22c55e]" : spotPrice < levels.spot.orl ? "text-[#ef4444]" : "text-slate-300"}
+           />
+-          <Row 
+-            label="VWAP Durumu (ES)" 
+-            value={`ES ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`} 
++          <Row
++            label="VWAP Durumu (Vadeli)"
++            value={`Vadeli ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`}
+             valueClass={futuresPrice > levels.futures.vwap ? "text-[#22c55e]" : "text-[#ef4444]"}
+           />
+           <Row 
+diff --git a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+index a3b86ef..ebd558e 100644
+--- a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+@@ -7,8 +7,9 @@
+  */
+ 
+ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+-import type { CompactBar } from "@/lib/v4/types";
+-import { INSET, Panel, Tabs, num } from "./supertrade/ui";
++import type { AssetClass, CompactBar } from "@/lib/v4/types";
++import { ASSET_MAP } from "@/lib/v4/types";
++import { INSET, Panel, Tabs, num } from "../supertrade/ui";
+ 
+ export interface ChartLevels {
+   vwap: number;
+@@ -70,6 +71,7 @@ function timeLabel(unixSec: number): string {
+ }
+ 
+ export default function V4SuperTradeLiveChart({
++  asset,
+   esBars,
+   spxBars,
+   levels,
+@@ -78,6 +80,7 @@ export default function V4SuperTradeLiveChart({
+   isReplay = false,
+   loading = false,
+ }: {
++  asset: AssetClass;
+   esBars: CompactBar[];
+   spxBars: CompactBar[];
+   levels: ChartLevels;
+@@ -86,6 +89,8 @@ export default function V4SuperTradeLiveChart({
+   isReplay?: boolean;
+   loading?: boolean;
+ }) {
++  const info = ASSET_MAP[asset];
++  const futuresLabel = info.futures.replace("=F", "");
+   const canvasRef = useRef<HTMLCanvasElement>(null);
+   const containerRef = useRef<HTMLDivElement>(null);
+   const [symbol, setSymbol] = useState<Symbol>("ES");
+@@ -426,20 +431,20 @@ export default function V4SuperTradeLiveChart({
+ 
+   return (
+     <Panel
+-      title={symbol === "ES" ? "ES Vadeli — CME Globex" : "SPX Endeksi — CBOE"}
++      title={symbol === "ES" ? `${futuresLabel} Vadeli` : `${asset} — ${info.name}`}
+       hint={isReplay ? "yeniden oynatma" : "canlı akış"}
+       right={
+         <div className="flex flex-wrap items-center gap-2">
+           <Tabs
+             size="sm"
+             value={symbol}
+-            onChange={(v) => setSymbol(v)}
++            onChange={(v: Symbol) => setSymbol(v)}
+             options={[
+-              { value: "ES", label: "ES" },
+-              { value: "SPX", label: "SPX" },
++              { value: "ES", label: futuresLabel },
++              { value: "SPX", label: asset },
+             ]}
+           />
+-          <Tabs size="sm" value={timeframe} onChange={(v) => setTimeframe(v)} options={TF_OPTIONS} />
++          <Tabs size="sm" value={timeframe} onChange={(v: Timeframe) => setTimeframe(v)} options={TF_OPTIONS} />
+         </div>
+       }
+     >
+diff --git a/frontend/lib/v4/context.ts b/frontend/lib/v4/context.ts
+index 6f37851..654c94d 100644
+--- a/frontend/lib/v4/context.ts
++++ b/frontend/lib/v4/context.ts
+@@ -143,7 +143,8 @@ export function buildOvernight(
+   esPdc: number,
+   onMid: number,
+   nqChangePct: number,
+-  esChangePct: number
++  esChangePct: number,
++  crossLabel: string
+ ): OvernightContext {
+   const empty: OvernightContext = {
+     gapPts: 0,
+@@ -154,6 +155,7 @@ export function buildOvernight(
+     nqAlignment: "ALIGNED",
+     nqChangePct: 0,
+     esChangePct: 0,
++    crossLabel,
+     label: "Gece seansı verisi bulunamadı",
+   };
+ 
+@@ -183,6 +185,7 @@ export function buildOvernight(
+     nqAlignment: aligned ? "ALIGNED" : "DIVERGENT",
+     nqChangePct: round2(nqChangePct),
+     esChangePct: round2(esChangePct),
++    crossLabel,
+     label: `${gapType.toLowerCase()}, gece aralığı ${round2(onh - onl)} puan`,
+   };
+ }
+@@ -363,6 +366,8 @@ export interface ContextInput {
+   onMid: number;
+   nqChangePct: number;
+   esChangePct: number;
++  /** Çapraz kontrol enstrümanının görünen adı (örn. "NQ" veya "ES") */
++  crossLabel: string;
+   spotPrice: number;
+   state: SignalState;
+ }
+@@ -377,7 +382,8 @@ export function buildContext(input: ContextInput): ContextSnapshot {
+     input.esPdc,
+     input.onMid,
+     input.nqChangePct,
+-    input.esChangePct
++    input.esChangePct,
++    input.crossLabel
+   );
+ 
+   const [, , dayStr] = input.sessionDate.split("-");
+diff --git a/frontend/lib/v4/options.ts b/frontend/lib/v4/options.ts
+index 1907db9..b2a2210 100644
+--- a/frontend/lib/v4/options.ts
++++ b/frontend/lib/v4/options.ts
+@@ -142,7 +142,7 @@ const MODELS: ModelDef[] = [
+   { id: "B", name: "Maliyet stop", rule: "+%30'dan sonra stop girişe çekilir" },
+   { id: "C", name: "Kâr koruma", rule: "+%100'den sonra stop +%50'ye çekilir" },
+   { id: "D", name: "Zirve takip", rule: "En yüksek primden %20 geri çekilince çıkılır" },
+-  { id: "E", name: "Yapı takip", rule: "SPX tetik seviyesine geri dönünce çıkılır" },
++  { id: "E", name: "Yapı takip", rule: "Spot tetik seviyesine geri dönünce çıkılır" },
+ ];
+ 
+ export interface RunnerInput {
+diff --git a/frontend/lib/v4/scoring.ts b/frontend/lib/v4/scoring.ts
+index 7952072..0e1fe4f 100644
+--- a/frontend/lib/v4/scoring.ts
++++ b/frontend/lib/v4/scoring.ts
+@@ -61,6 +61,12 @@ export interface ScoreInput {
+   structure: StructureSet;
+   longBreak: BreakoutState;
+   shortBreak: BreakoutState;
++  /** Seçili varlığın vadeli işlem etiketi (örn. "ES" veya "NQ") */
++  futuresLabel: string;
++  /** Seçili varlığın spot/endeks etiketi (örn. "SPX", "QQQ") */
++  assetLabel: string;
++  /** Çapraz kontrol enstrümanının etiketi (örn. "NQ" veya "ES") */
++  crossLabel: string;
+ }
+ 
+ export interface ScoreResult {
+@@ -78,12 +84,12 @@ export function computeScores(input: ScoreInput): ScoreResult {
+   const push = (label: string, detail: string, weight: number) =>
+     factors.push({ label, detail, weight: Math.round(weight * 100) / 100 });
+ 
+-  // 1. ES fiyatının seans VWAP'ına göre konumu (en ağır tekil faktör)
++  // 1. Vadeli fiyatının seans VWAP'ına göre konumu (en ağır tekil faktör)
+   if (es.vwap > 0) {
+     const dist = input.futuresPrice - es.vwap;
+     const w = Math.max(-1.5, Math.min(1.5, dist / 4));
+     push(
+-      "ES / VWAP konumu",
++      `${input.futuresLabel} / VWAP konumu`,
+       `${dist >= 0 ? "+" : ""}${dist.toFixed(2)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${es.vwap.toFixed(2)})`,
+       w
+     );
+@@ -99,9 +105,9 @@ export function computeScores(input: ScoreInput): ScoreResult {
+   }
+ 
+   // 3–4. Çok zaman dilimli yapı
+-  push("ES 15 dk yapı", TR_STRUCTURE[structure.futures15m], structureWeight(structure.futures15m, 1.0));
+-  push("ES 5 dk yapı", TR_STRUCTURE[structure.futures5m], structureWeight(structure.futures5m, 0.75));
+-  push("SPX 1 dk yapı", TR_STRUCTURE[structure.spot1m], structureWeight(structure.spot1m, 0.5));
++  push(`${input.futuresLabel} 15 dk yapı`, TR_STRUCTURE[structure.futures15m], structureWeight(structure.futures15m, 1.0));
++  push(`${input.futuresLabel} 5 dk yapı`, TR_STRUCTURE[structure.futures5m], structureWeight(structure.futures5m, 0.75));
++  push(`${input.assetLabel} 1 dk yapı`, TR_STRUCTURE[structure.spot1m], structureWeight(structure.spot1m, 0.5));
+ 
+   // 5. Açılış aralığına göre konum
+   if (spx.isOrDefined) {
+@@ -123,11 +129,11 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     push("Kırılım kabulü", "5 dk kapanış teyidi henüz yok", 0);
+   }
+ 
+-  // 7. NQ uyumu
++  // 7. Çapraz vadeli uyumu
+   if (Number.isFinite(input.nqChangePct)) {
+     const w = Math.max(-0.75, Math.min(0.75, input.nqChangePct * 1.5));
+     push(
+-      "NQ vadeli uyumu",
++      `${input.crossLabel} vadeli uyumu`,
+       `${input.nqChangePct >= 0 ? "+" : ""}%${input.nqChangePct.toFixed(2)} (gün içi)`,
+       w
+     );
+@@ -340,7 +346,7 @@ export function buildDecision(
+         ...base,
+         action: "Long hazırlığı — henüz giriş yok",
+         confirmation: `ORH ${orh.toFixed(2)} üzerinde 5 dk kapanış`,
+-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `ES'in VWAP ${vwap.toFixed(2)} altına dönmesi`,
++        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `Vadelinin VWAP ${vwap.toFixed(2)} altına dönmesi`,
+         triggerLevelName: `ORH ${orh.toFixed(2)}`,
+         triggerLevelValue: orh,
+         statusBadge: "KIRILIM BEKLENİYOR",
+@@ -352,7 +358,7 @@ export function buildDecision(
+         ...base,
+         action: "Short hazırlığı — henüz giriş yok",
+         confirmation: `ORL ${orl.toFixed(2)} altında 5 dk kapanış`,
+-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `ES'in VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
++        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
+         triggerLevelName: `ORL ${orl.toFixed(2)}`,
+         triggerLevelValue: orl,
+         statusBadge: "KIRILIM BEKLENİYOR",
+@@ -388,7 +394,7 @@ export function buildDecision(
+         ...base,
+         action: "Long giriş uygun — normal pozisyon",
+         confirmation: "Hacmin korunması ve yeni zirvelerin yapılması",
+-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `ES'in VWAP ${vwap.toFixed(2)} altına inmesi`,
++        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} altına inmesi`,
+         triggerLevelName: `ORH ${orh.toFixed(2)}`,
+         triggerLevelValue: orh,
+         statusBadge: "KABUL EDİLDİ",
+@@ -400,7 +406,7 @@ export function buildDecision(
+         ...base,
+         action: "Short giriş uygun — normal pozisyon",
+         confirmation: "Satış hacminin korunması ve yeni diplerin yapılması",
+-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `ES'in VWAP ${vwap.toFixed(2)} üzerine çıkması`,
++        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine çıkması`,
+         triggerLevelName: `ORL ${orl.toFixed(2)}`,
+         triggerLevelValue: orl,
+         statusBadge: "KABUL EDİLDİ",
+diff --git a/frontend/lib/v4/snapshot.ts b/frontend/lib/v4/snapshot.ts
+index ac9a3df..1bdf7a8 100644
+--- a/frontend/lib/v4/snapshot.ts
++++ b/frontend/lib/v4/snapshot.ts
+@@ -52,13 +52,31 @@ interface CacheEntry<T> {
+   expires: number;
+ }
+ const cache = new Map<string, CacheEntry<unknown>>();
++const cacheInFlight = new Map<string, Promise<unknown>>();
+ 
++/**
++ * TTL önbellek + eşzamanlı istek birleştirme (in-flight dedup). `symbol=ALL`
++ * modu 6 varlığı paralel çözerken ES=F/NQ=F/^VIX/^VXN gibi paylaşılan
++ * enstrümanlar için aynı anda birden fazla Yahoo isteği atılmasını önler.
++ */
+ async function cached<T>(key: string, ttlMs: number, fn: () => Promise<T>): Promise<T> {
+   const hit = cache.get(key);
+   if (hit && hit.expires > Date.now()) return hit.value as T;
+-  const value = await fn();
+-  cache.set(key, { value, expires: Date.now() + ttlMs });
+-  return value;
++
++  const pending = cacheInFlight.get(key);
++  if (pending) return pending as Promise<T>;
++
++  const promise = fn()
++    .then((value) => {
++      cache.set(key, { value, expires: Date.now() + ttlMs });
++      return value;
++    })
++    .finally(() => {
++      cacheInFlight.delete(key);
++    });
++
++  cacheInFlight.set(key, promise);
++  return promise;
+ }
+ 
+ export interface MarketData {
+@@ -72,15 +90,25 @@ export interface MarketData {
+   spxMarketPrice: number | null;
+   nqMarketPrice: number | null;
+   vixMarketPrice: number | null;
++  /** Çapraz kontrol enstrümanının Yahoo sembolü (SPX ailesi için NQ=F, NDX ailesi için ES=F) */
++  crossFutures: string;
++  /** Çapraz kontrol enstrümanının görünen adı ("NQ" veya "ES") */
++  crossLabel: string;
+   errors: string[];
+ }
+ 
+ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): Promise<MarketData> {
+   const info = ASSET_MAP[asset];
++  // Çapraz kontrol her zaman DİĞER endeks ailesinin vadelisidir: SPX ailesi
++  // (ES=F) için NQ, NDX ailesi (NQ=F) için ES. Aksi halde bir varlığın
++  // kendi vadelisiyle kendini karşılaştırması gibi anlamsız bir durum oluşur.
++  const crossFutures = info.futures === "NQ=F" ? "ES=F" : "NQ=F";
++  const crossLabel = crossFutures === "NQ=F" ? "NQ" : "ES";
++
+   const [es, spx, nq, vix, spxD, vixD] = await Promise.all([
+     cached(`futures1m-${info.futures}`, intradayTtlMs, () => fetchBars(info.futures, "1m", "5d", true)),
+     cached(`spot1m-${info.spot}`, intradayTtlMs, () => fetchBars(info.spot, "1m", "5d", false)),
+-    cached("nq1m", intradayTtlMs, () => fetchBars("NQ=F", "1m", "2d", true)),
++    cached(`futures1m-${crossFutures}`, intradayTtlMs, () => fetchBars(crossFutures, "1m", "2d", true)),
+     cached(`vix1m-${info.vix}`, intradayTtlMs, () => fetchBars(info.vix, "1m", "2d", false)),
+     cached(`spot1d-${info.spot}`, 6 * 60 * 60 * 1000, () => fetchBars(info.spot, "1d", "2y", false)),
+     cached(`vix1d-${info.vix}`, 6 * 60 * 60 * 1000, () => fetchBars(info.vix, "1d", "3mo", false)),
+@@ -89,7 +117,7 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000):
+   const errors: string[] = [];
+   if (es.error) errors.push(`Vadeli verisi alınamadı (${es.error})`);
+   if (spx.error) errors.push(`Spot verisi alınamadı (${spx.error})`);
+-  if (nq.error) errors.push(`NQ verisi alınamadı (${nq.error})`);
++  if (nq.error) errors.push(`${crossLabel} verisi alınamadı (${nq.error})`);
+   if (vix.error) errors.push(`VIX verisi alınamadı (${vix.error})`);
+ 
+   return {
+@@ -103,6 +131,8 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000):
+     spxMarketPrice: spx.marketPrice,
+     nqMarketPrice: nq.marketPrice,
+     vixMarketPrice: vix.marketPrice,
++    crossFutures,
++    crossLabel,
+     errors,
+   };
+ }
+@@ -143,7 +173,10 @@ export interface SessionBuild {
+ export function buildSession(data: MarketData, sessionDate: string, asset: AssetClass): SessionBuild | null {
+   const allDates = sessionDates(data.spot1m);
+   if (!allDates.includes(sessionDate)) return null;
+-  const scale = ASSET_MAP[asset].scale;
++  const info = ASSET_MAP[asset];
++  const scale = info.scale;
++  const futuresLabel = info.futures.replace("=F", "");
++  const assetLabel = asset as string;
+ 
+   const slices = buildSessionSlices(data.futures1m, data.spot1m, sessionDate, allDates);
+   const { spxRth, esRth, esVwap } = slices;
+@@ -264,6 +297,9 @@ export function buildSession(data: MarketData, sessionDate: string, asset: Asset
+       structure,
+       longBreak,
+       shortBreak,
++      futuresLabel,
++      assetLabel,
++      crossLabel: data.crossLabel,
+     });
+ 
+     const prev10 = frames[i - 10];
+@@ -419,6 +455,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+     onMid: session.levels.futures.onMid,
+     nqChangePct: session.nqChangePct,
+     esChangePct: session.esChangePct,
++    crossLabel: data.crossLabel,
+     spotPrice: last.spotPrice,
+     state,
+   });
+@@ -436,7 +473,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+     });
+     const spxDelta = round2(last.spotPrice - ref.spotPrice);
+     changes.push({
+-      label: "SPX",
++      label: asset,
+       from: ref.spotPrice.toFixed(2),
+       to: `${spxDelta >= 0 ? "+" : ""}${spxDelta.toFixed(2)} puan`,
+       tone: spxDelta > 0 ? "UP" : spxDelta < 0 ? "DOWN" : "FLAT",
+@@ -480,7 +517,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+   const feeds: FeedHealth[] = [
+     feedHealth(ASSET_MAP[asset].futures, "Vadeli", data.futures1m, nowSec, isLiveSession),
+     feedHealth(ASSET_MAP[asset].spot, "Spot", data.spot1m, nowSec, isLiveSession),
+-    feedHealth("NQ=F", "NQ Vadeli (CME)", data.nq1m, nowSec, isLiveSession),
++    feedHealth(data.crossFutures, `${data.crossLabel} Vadeli (Çapraz Kontrol)`, data.nq1m, nowSec, isLiveSession),
+     feedHealth(ASSET_MAP[asset].vix, "VIX", data.vix1m, nowSec, isLiveSession),
+   ];
+ 
+@@ -570,6 +607,7 @@ export async function buildReplay(asset: AssetClass, dateParam?: string): Promis
+     onMid: session.levels.futures.onMid,
+     nqChangePct: session.nqChangePct,
+     esChangePct: session.esChangePct,
++    crossLabel: data.crossLabel,
+     spotPrice: last.spotPrice,
+     state: last.state,
+   });
+diff --git a/frontend/lib/v4/types.ts b/frontend/lib/v4/types.ts
+index 57ee61c..4f72eb0 100644
+--- a/frontend/lib/v4/types.ts
++++ b/frontend/lib/v4/types.ts
+@@ -201,6 +201,8 @@ export interface OvernightContext {
+   nqAlignment: "ALIGNED" | "DIVERGENT";
+   nqChangePct: number;
+   esChangePct: number;
++  /** Çapraz kontrol enstrümanının görünen adı (SPX ailesi için "NQ", NDX ailesi için "ES") */
++  crossLabel: string;
+   label: string;
+ }
+ 
+diff --git a/frontend/tsconfig.v4check.json b/frontend/tsconfig.v4check.json
+new file mode 100644
+index 0000000..5a8b635
+--- /dev/null
++++ b/frontend/tsconfig.v4check.json
+@@ -0,0 +1,12 @@
++{
++  "extends": "./tsconfig.json",
++  "compilerOptions": { "incremental": false, "noEmit": true },
++  "include": [
++    "next-env.d.ts",
++    "lib/v4/**/*.ts",
++    "components/admin/v4/**/*.tsx",
++    "components/admin/supertrade/**/*.tsx",
++    "app/admin/supertrade/v4/page.tsx",
++    "app/api/admin/supertrade/v4/route.ts"
++  ]
++}
+-- 
+2.43.0
+

@@ -1,0 +1,29 @@
+fix: SuperTrade V4 multi-asset detay görünümü build hatalarını ve varlık-bağımsız etiket hatalarını düzelt
+
+MultiAssetDetail.tsx tamamen bozuktu: var olmayan directionTone import'u,
+var olmayan AssetSnapshot.frame alanı, alt bileşenlere (LiveChart/
+StrategyLab/ContextEnginePanel) tamamen yanlış prop'lar ve tüm Türkçe
+karakterlerin ASCII'ye bozulmuş olması (11 tsc hatası) nedeniyle proje derlenmiyordu.
+
+- MultiAssetDetail.tsx: doğru prop imzalarıyla yeniden yazıldı, Türkçe
+  metin onarıldı, directionTone yerel olarak tanımlandı
+- 3 bileşende yanlış "./supertrade/ui" import yolu → "../supertrade/ui"
+- V4SuperTradeLiveChart.tsx: 2 örtük "any" parametresi tipleniyor,
+  grafik başlığı/sekmeleri artık seçili varlığa göre (ES/NQ/SPX/QQQ/...)
+- scoring.ts/context.ts/snapshot.ts: skor faktörleri, karar iptal metni
+  ve gece seansı çapraz kontrolü artık gerçekten seçili varlığa göre
+  (önceden her varlıkta sabit "ES"/"SPX"/"NQ" gösteriliyordu; NQ çapraz
+  kontrolü NDX/QQQ/XND için kendi kendiyle karşılaştırma yapıyordu)
+- snapshot.ts cached(): eşzamanlı istek birleştirme eklendi (symbol=ALL
+  modunda paylaşılan enstrümanlar için tekrarlı Yahoo isteklerini önler)
+- route.ts: runtime/maxDuration eklendi (symbol=ALL fan-out için)
+- V4StrategyLab.tsx: setState-in-effect kalıbı render-sırası state
+  senkronizasyonuna çevrildi (react-hooks lint hatası)
+- Kalan any/apostrof lint hataları temizlendi
+
+tsc -p tsconfig.v4check.json ve eslint artık 0 hata veriyor; scoring/
+context motorları senkron test edilerek (SPX ve QQQ senaryoları)
+doğrulandı.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QwWp9agfTD2mt3oS6xmoUF
