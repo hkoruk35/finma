@@ -449,17 +449,17 @@ export default function SuperTradePage() {
 
           <div className="mt-3 grid grid-cols-1 gap-3 border-t border-[#1c2635] pt-3 md:grid-cols-3">
             <div>
-              <SectionTitle>Şu an ne yapmalı</SectionTitle>
+              <SectionTitle>AKSİYON PLANI & KARAR</SectionTitle>
               <p className={`mt-1 text-[13px] font-medium leading-snug ${actionColor(decision.tone)}`}>
                 {decision.action}
               </p>
             </div>
             <div className="md:border-l md:border-[#1c2635] md:pl-3">
-              <SectionTitle>Teyit için ne bekliyoruz</SectionTitle>
+              <SectionTitle>PİYASA TEYİDİ & ONAY</SectionTitle>
               <p className="mt-1 text-[13px] leading-snug text-slate-300">{decision.confirmation}</p>
             </div>
             <div className="md:border-l md:border-[#1c2635] md:pl-3">
-              <SectionTitle>Senaryoyu ne bozar</SectionTitle>
+              <SectionTitle>RİSK YÖNETİMİ & İPTAL KOŞULU (STOP)</SectionTitle>
               <p className="mt-1 text-[13px] leading-snug text-slate-300">{decision.invalidation}</p>
             </div>
           </div>

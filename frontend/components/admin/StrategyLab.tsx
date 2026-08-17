@@ -58,22 +58,37 @@ export default function StrategyLab({
   const [budgetInput, setBudgetInput] = useState("300");
   const [category, setCategory] = useState<Category>("ALL");
   const [horizon, setHorizon] = useState<Horizon>("MOMENTUM");
+  
+  // 15 dakikalık strateji döngüsü kilidi
+  const [lockedPrice, setLockedPrice] = useState(spxPrice);
+  const [lastCycle, setLastCycle] = useState(Math.floor(minutesLeft / 15));
+
+  React.useEffect(() => {
+    const currentCycle = Math.floor(minutesLeft / 15);
+    if (currentCycle !== lastCycle) {
+      setLockedPrice(spxPrice);
+      setLastCycle(currentCycle);
+    }
+  }, [minutesLeft, spxPrice, lastCycle]);
+
+  // Yeni fiyat kilidi üzerinden hesapla
+  const activePrice = lockedPrice || spxPrice;
 
   const budget = Math.max(50, Number(budgetInput) || 300);
   const isShort = state.includes("SHORT") && !state.startsWith("FAILED");
   const isLong = state.includes("LONG") && !state.startsWith("FAILED");
 
   const structures = useMemo<Structure[]>(() => {
-    if (!spxPrice) return [];
-    const atm = Math.round(spxPrice / 5) * 5;
+    if (!activePrice) return [];
+    const atm = Math.round(activePrice / 5) * 5;
     const t = Math.max(10, minutesLeft);
 
-    const call = (k: number) => priceOption(spxPrice, k, t, impliedVolFor(vix, spxPrice, k), true).price;
-    const put = (k: number) => priceOption(spxPrice, k, t, impliedVolFor(vix, spxPrice, k), false).price;
+    const call = (k: number) => priceOption(activePrice, k, t, impliedVolFor(vix, activePrice, k), true).price;
+    const put = (k: number) => priceOption(activePrice, k, t, impliedVolFor(vix, activePrice, k), false).price;
     const callDelta = (k: number) =>
-      priceOption(spxPrice, k, t, impliedVolFor(vix, spxPrice, k), true).delta;
+      priceOption(activePrice, k, t, impliedVolFor(vix, activePrice, k), true).delta;
     const putDelta = (k: number) =>
-      priceOption(spxPrice, k, t, impliedVolFor(vix, spxPrice, k), false).delta;
+      priceOption(activePrice, k, t, impliedVolFor(vix, activePrice, k), false).delta;
 
     const money = (v: number) => Math.round(v * 100);
     const list: Structure[] = [];
@@ -248,7 +263,7 @@ export default function StrategyLab({
       if (horizon !== "CLOSE" && s.horizon !== "Gün sonu") score += 8;
       return { ...s, score: Math.max(0, Math.min(99, Math.round(score))) };
     });
-  }, [spxPrice, vix, minutesLeft, isLong, isShort, state, budget, horizon]);
+  }, [activePrice, vix, minutesLeft, isLong, isShort, state, budget, horizon]);
 
   const filtered = category === "ALL" ? structures : structures.filter((s) => s.category === category);
   const withinBudget = filtered.filter((s) => s.maxLoss <= budget).sort((a, b) => b.score - a.score);
@@ -259,17 +274,20 @@ export default function StrategyLab({
       title="Strateji Laboratuvarı"
       hint={`teorik fiyatlama · IV tabanı VIX ${num(vix, 1)} · vadeye ${minutesLeft} dk`}
       right={
-        <Tabs
-          size="sm"
-          value={category}
-          onChange={setCategory}
-          options={[
-            { value: "ALL", label: `Tümü (${structures.length})` },
-            { value: "SIMPLE", label: CATEGORY_LABEL.SIMPLE },
-            { value: "SPREAD", label: CATEGORY_LABEL.SPREAD },
-            { value: "RANGE", label: CATEGORY_LABEL.RANGE },
-          ]}
-        />
+        <div className="flex items-center gap-3">
+          <Badge tone="warning">15 dk Strateji Döngüsü</Badge>
+          <Tabs
+            size="sm"
+            value={category}
+            onChange={setCategory}
+            options={[
+              { value: "ALL", label: `Tümü (${structures.length})` },
+              { value: "SIMPLE", label: CATEGORY_LABEL.SIMPLE },
+              { value: "SPREAD", label: CATEGORY_LABEL.SPREAD },
+              { value: "RANGE", label: CATEGORY_LABEL.RANGE },
+            ]}
+          />
+        </div>
       }
     >
       <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
