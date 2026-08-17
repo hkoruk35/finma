@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
@@ -76,11 +76,11 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
 
       <div
         className="transition-all duration-500 ease-in-out overflow-hidden"
-        style={{ height: expanded ? 560 : 300 }}
+        style={{ height: expanded ? "auto" : "auto", minHeight: expanded ? 560 : 450 }}
       >
         <BogaChartEngine
           symbol={ticker}
-          height={expanded ? 560 : 300}
+          height={expanded ? 560 : 450}
           lang={lang}
         />
       </div>

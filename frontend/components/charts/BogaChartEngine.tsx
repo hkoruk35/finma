@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
@@ -1399,11 +1399,14 @@ export default function BogaChartEngine({
     </div>
   );
 
+  const activeBottomPanes = ["rsi", "macd", "atr", "obv", "volatilite", "volume"].filter(k => active.has(k as IndicatorKey)).length;
+  const dynamicHeight = Math.max(height ?? 400, 250 + (activeBottomPanes * 90));
+
   return (
     <div
       ref={wrapperRef}
-      className="flex flex-col w-full h-full"
-      style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
+      className="flex flex-col w-full"
+      style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d`, height: isFullscreen ? "100vh" : dynamicHeight, minHeight: dynamicHeight }}
     >
       <div className="contents">
         {showToolbar && (
@@ -1610,11 +1613,11 @@ export default function BogaChartEngine({
 
         <div
           className="relative flex-1"
-          style={{ minHeight: height ?? 300 }}
+          style={{ minHeight: dynamicHeight }}
           onClick={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: true }, handleScale: { mouseWheel: true } })}
           onMouseLeave={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: false }, handleScale: { mouseWheel: false } })}
         >
-          <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
+          <div ref={containerRef} style={{ width: "100%", height: dynamicHeight, minHeight: dynamicHeight }} />
 
           {/* Toast Notification */}
           {toastMsg && (
