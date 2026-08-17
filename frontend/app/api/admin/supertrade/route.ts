@@ -5,7 +5,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { buildSnapshot } from "@/lib/spx/snapshot";
+import { getSnapshot } from "@/lib/spx/snapshot";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ export const maxDuration = 30;
 
 export async function GET() {
   try {
-    const snapshot = await buildSnapshot();
+    const snapshot = await getSnapshot();
     return NextResponse.json(snapshot, {
       headers: { "Cache-Control": "no-store" },
     });

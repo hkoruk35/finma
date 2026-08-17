@@ -145,7 +145,8 @@ export interface Frame extends FrameLite {
 export interface FeedHealth {
   symbol: string;
   label: string;
-  status: "LIVE" | "DELAYED" | "STALE" | "MISSING";
+  /** CLOSED: seans kapalı, gecikme değil — son kapanış verisi gösteriliyor */
+  status: "LIVE" | "DELAYED" | "STALE" | "CLOSED" | "MISSING";
   ageSec: number;
   lastPrice: number;
 }

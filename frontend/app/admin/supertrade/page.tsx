@@ -6,7 +6,7 @@
  * Tüm sayısal değerler /api/admin/supertrade uç noktalarından gelir.
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
 import StrategyLab from "@/components/admin/StrategyLab";
 import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
@@ -36,6 +36,8 @@ import type {
 } from "@/lib/spx/types";
 
 const LIVE_POLL_MS = 20000;
+/** Piyasa kapalıyken veri saatlerce değişmez — 20 sn'de bir sorgulamak boşuna. */
+const CLOSED_POLL_MS = 5 * 60 * 1000;
 
 const STATE_LABEL: Record<SignalState, string> = {
   NEUTRAL: "Nötr / Beklemede",
@@ -84,6 +86,25 @@ const SPEEDS = [
   { value: 15, label: "15 dk/sn" },
   { value: 60, label: "60 dk/sn" },
 ];
+
+const FEED_LABEL: Record<string, string> = {
+  LIVE: "Canlı",
+  DELAYED: "Gecikmeli",
+  STALE: "Bayat",
+  CLOSED: "Kapanış",
+  MISSING: "Yok",
+};
+
+/** Ham saniye yerine okunabilir yaş: "48 sn", "12 dk", "2 gün" */
+function formatAge(sec: number): string {
+  if (!Number.isFinite(sec) || sec < 0) return "—";
+  if (sec < 90) return `${sec} sn`;
+  const minutes = Math.round(sec / 60);
+  if (minutes < 90) return `${minutes} dk`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 48) return `${hours} sa`;
+  return `${Math.round(hours / 24)} gün`;
+}
 
 function directionTone(direction: string): "up" | "down" | "neutral" {
   if (direction === "LONG") return "up";
@@ -135,12 +156,21 @@ export default function SuperTradePage() {
     }
   }, []);
 
+  const pollMs = snapshot?.isLiveSession === false ? CLOSED_POLL_MS : LIVE_POLL_MS;
+  const startedRef = useRef(false);
+
   useEffect(() => {
-    if (mode !== "live") return;
-    fetchSnapshot();
-    const id = setInterval(fetchSnapshot, LIVE_POLL_MS);
+    if (mode !== "live") {
+      startedRef.current = false;
+      return;
+    }
+    if (!startedRef.current) {
+      startedRef.current = true;
+      fetchSnapshot();
+    }
+    const id = setInterval(fetchSnapshot, pollMs);
     return () => clearInterval(id);
-  }, [mode, fetchSnapshot]);
+  }, [mode, fetchSnapshot, pollMs]);
 
   // ── Yeniden oynatma verisi ──
   const fetchReplay = useCallback(async (date?: string) => {
@@ -192,6 +222,8 @@ export default function SuperTradePage() {
       const frame: Frame = replay.frames[idx];
       return {
         isReplay: true,
+        isLiveSession: false,
+        phase: frame.phase,
         sessionDate: replay.date,
         frame,
         factors: frame.factors,
@@ -212,6 +244,8 @@ export default function SuperTradePage() {
     const lite = snapshot.frames[snapshot.frames.length - 1];
     return {
       isReplay: false,
+      isLiveSession: snapshot.isLiveSession,
+      phase: snapshot.phase,
       sessionDate: snapshot.sessionDate,
       frame: {
         ...lite,
@@ -402,7 +436,7 @@ export default function SuperTradePage() {
               {STATE_LABEL[frame.state]}
             </h2>
             <span className="text-[12px] text-slate-500">
-              {PHASE_LABEL[frame.phase]} · {view.sessionDate}
+              {PHASE_LABEL[view.phase]} · {view.sessionDate}
               {mode === "replay" && ` · ${frame.timeLabel} ET`}
             </span>
           </div>
@@ -439,15 +473,21 @@ export default function SuperTradePage() {
                   key={f.symbol}
                   label={f.label}
                   value={
-                    <span className={f.status === "LIVE" ? "text-[#22c55e]" : "text-slate-400"}>
-                      {f.status === "LIVE"
-                        ? "Canlı"
-                        : f.status === "DELAYED"
-                        ? "Gecikmeli"
-                        : f.status === "STALE"
-                        ? "Bayat"
-                        : "Yok"}
-                      <span className="ml-1.5 text-[11px] text-slate-500">{f.ageSec}s</span>
+                    <span
+                      className={
+                        f.status === "LIVE"
+                          ? "text-[#22c55e]"
+                          : f.status === "STALE" || f.status === "MISSING"
+                          ? "text-[#ef4444]"
+                          : "text-slate-400"
+                      }
+                    >
+                      {FEED_LABEL[f.status] ?? f.status}
+                      {f.status !== "CLOSED" && (
+                        <span className="ml-1.5 text-[11px] text-slate-500">
+                          {formatAge(f.ageSec)}
+                        </span>
+                      )}
                     </span>
                   }
                 />
@@ -457,7 +497,10 @@ export default function SuperTradePage() {
                   label="Son güncelleme"
                   value={lastUpdated ? lastUpdated.toLocaleTimeString("tr-TR") : "—"}
                 />
-                <Row label="Yenileme aralığı" value={`${LIVE_POLL_MS / 1000} sn`} />
+                <Row
+                  label="Yenileme aralığı"
+                  value={pollMs >= 60000 ? `${pollMs / 60000} dk` : `${pollMs / 1000} sn`}
+                />
               </div>
             </div>
           ) : (
@@ -565,7 +608,10 @@ export default function SuperTradePage() {
           </Panel>
 
           {view.changes && view.changes.length > 0 && (
-            <Panel title="Son 5 dakikada ne değişti" padding="p-4">
+            <Panel
+              title={view.isLiveSession ? "Son 5 dakikada ne değişti" : "Kapanışın son 5 dakikası"}
+              padding="p-4"
+            >
               <div className="space-y-0.5">
                 {view.changes.map((c, i) => (
                   <Row

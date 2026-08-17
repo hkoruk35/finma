@@ -49,13 +49,24 @@ const COLOR = {
   bg: "#0a0e17",
 };
 
+// Biçimlendirici modül düzeyinde bir kez kurulur. Her mum için yeniden
+// oluşturmak (384 mum × her render) ölçülebilir bir maliyet yaratıyordu.
+const ET_TIME = new Intl.DateTimeFormat("tr-TR", {
+  timeZone: "America/New_York",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
+
+const labelCache = new Map<number, string>();
+
 function timeLabel(unixSec: number): string {
-  return new Intl.DateTimeFormat("tr-TR", {
-    timeZone: "America/New_York",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  }).format(new Date(unixSec * 1000));
+  const hit = labelCache.get(unixSec);
+  if (hit) return hit;
+  const value = ET_TIME.format(new Date(unixSec * 1000));
+  if (labelCache.size > 5000) labelCache.clear();
+  labelCache.set(unixSec, value);
+  return value;
 }
 
 export default function SuperTradeLiveChart({

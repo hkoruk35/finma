@@ -354,8 +354,10 @@ function feedHealth(
   }
   const last = bars[bars.length - 1];
   const age = Math.max(0, Math.round(nowSec - last.time));
+  // Seans kapalıyken veri "gecikmeli" değildir — son kapanış verisidir.
+  // İkisini ayırmazsak kapalı piyasada 50 saatlik "gecikme" gösterilir.
   let status: FeedHealth["status"] = "LIVE";
-  if (!isLiveSession) status = "DELAYED";
+  if (!isLiveSession) status = "CLOSED";
   else if (age > 300) status = "STALE";
   else if (age > 120) status = "DELAYED";
   return { symbol, label, status, ageSec: age, lastPrice: round2(last.close) };
@@ -381,9 +383,23 @@ export async function buildSnapshot(): Promise<SPXSnapshot> {
   const nowParts = nyParts(nowSec);
   const isLiveSession = nowParts.ymd === sessionDate && nowParts.minutes < 16 * 60 + 5;
 
+  // Seans açık değilken bile doğru evreyi bildir: hafta içi 04:00–09:30 ET
+  // arası "açılış öncesi"dir, "seans kapalı" değil.
+  const isWeekday = nowParts.weekday >= 1 && nowParts.weekday <= 5;
+  const currentPhase: SPXSnapshot["phase"] = isLiveSession
+    ? last.phase
+    : isWeekday && nowParts.minutes >= 4 * 60 && nowParts.minutes < RTH_OPEN_MIN
+    ? "PREMARKET"
+    : "AFTER_HOURS";
+
   const dataAgeSec = Math.max(0, nowSec - last.time);
   const isStale = isLiveSession && dataAgeSec > 300;
   if (isStale) notes.push("Son mum 5 dakikadan eski — sinyaller askıya alındı.");
+  if (!isLiveSession) {
+    notes.push(
+      `Piyasa kapalı — gösterilen değerler ${sessionDate} seansının kapanış verileridir.`
+    );
+  }
 
   const state = isStale ? "DATA_STALE" : last.state;
 
@@ -467,7 +483,7 @@ export async function buildSnapshot(): Promise<SPXSnapshot> {
     generatedAt: new Date().toISOString(),
     asOf: new Date(last.time * 1000).toISOString(),
     sessionDate,
-    phase: isLiveSession ? last.phase : "AFTER_HOURS",
+    phase: currentPhase,
     isLiveSession,
     dataAgeSec,
     isStale,
@@ -568,6 +584,34 @@ export async function buildReplay(dateParam?: string): Promise<SPXReplayResponse
     runners,
     notes,
   };
+}
+
+// ── Anlık görüntü önbelleği ──────────────────────────────────────
+
+let snapshotCache: { value: SPXSnapshot; expires: number } | null = null;
+let inFlight: Promise<SPXSnapshot> | null = null;
+
+/**
+ * Anlık görüntüyü önbellekten döndürür. Seans kapalıyken veri saatlerce
+ * değişmediği için TTL 5 dakikaya çıkar; böylece kapalı piyasada her 20
+ * saniyede bir 6 uzak istek yapılmaz. Eşzamanlı istekler tek yapıma
+ * bağlanır (thundering herd koruması).
+ */
+export async function getSnapshot(): Promise<SPXSnapshot> {
+  if (snapshotCache && snapshotCache.expires > Date.now()) return snapshotCache.value;
+  if (inFlight) return inFlight;
+
+  inFlight = buildSnapshot()
+    .then((value) => {
+      const ttl = value.isLiveSession ? 10000 : 5 * 60 * 1000;
+      snapshotCache = { value, expires: Date.now() + ttl };
+      return value;
+    })
+    .finally(() => {
+      inFlight = null;
+    });
+
+  return inFlight;
 }
 
 export { impliedVolFor, vwapSeries };
