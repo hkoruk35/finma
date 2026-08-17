@@ -1,0 +1,354 @@
+From 4b99720f035d46f05e30962c02e7fc81f9d13602 Mon Sep 17 00:00:00 2001
+From: hkoruk35 <hkoruk35@gmail.com>
+Date: Mon, 17 Aug 2026 01:51:03 +0000
+Subject: [PATCH 2/2] =?UTF-8?q?perf(supertrade):=20kapal=C4=B1=20piyasa=20?=
+ =?UTF-8?q?durumunu=20do=C4=9Fru=20bildir,=20gereksiz=20yoklama=20ve=20yen?=
+ =?UTF-8?q?iden=20hesaplamay=C4=B1=20kald=C4=B1r?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Ekran görüntülerinde görülen sorunlar:
+- Seans kapalıyken veri akışı paneli "Gecikmeli 193548s" gösteriyordu.
+  Kapalı piyasada veri gecikmeli değil, son kapanış verisidir: yeni CLOSED
+  durumu eklendi ve yaş "53 sa" gibi okunabilir biçimde yazılıyor.
+- Başlıkta evre olarak son karenin evresi (CLOSING → "Kapanış bölgesi")
+  yazılıyordu. Artık anlık görüntünün gerçek evresi kullanılıyor; hafta içi
+  04:00-09:30 ET arası "Açılış öncesi" olarak ayrıldı.
+- Piyasa kapalıyken "Güçlü Short / Çok Yüksek güven" uyarısız görünüyordu.
+  Artık hangi seansın kapanış verisi olduğunu söyleyen bir not düşülüyor ve
+  değişim paneli "Kapanışın son 5 dakikası" olarak etiketleniyor.
+
+Verimlilik:
+- Anlık görüntü sunucuda önbelleğe alınıyor (seans açıkken 10 sn, kapalıyken
+  5 dk) ve eşzamanlı istekler tek yapıma bağlanıyor. Kapalı piyasada her 20
+  saniyede 6 uzak istek + 384 karelik yeniden hesaplama yapılmıyor.
+- İstemci yoklama aralığı da piyasa durumuna göre 20 sn / 5 dk.
+- Grafikte her mum için yeni bir Intl.DateTimeFormat kuruluyordu
+  (384 mum x her render). Biçimlendirici modül düzeyine alındı ve etiketler
+  önbelleğe alındı.
+
+Doğrulama: tsc --noEmit temiz, 60 motor testi geçiyor.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QwWp9agfTD2mt3oS6xmoUF
+---
+ frontend/app/admin/supertrade/page.tsx        | 80 +++++++++++++++----
+ frontend/app/api/admin/supertrade/route.ts    |  4 +-
+ .../components/admin/SuperTradeLiveChart.tsx  | 23 ++++--
+ frontend/lib/spx/snapshot.ts                  | 48 ++++++++++-
+ frontend/lib/spx/types.ts                     |  3 +-
+ 5 files changed, 130 insertions(+), 28 deletions(-)
+
+diff --git a/frontend/app/admin/supertrade/page.tsx b/frontend/app/admin/supertrade/page.tsx
+index 6b7c4077..119f1b72 100644
+--- a/frontend/app/admin/supertrade/page.tsx
++++ b/frontend/app/admin/supertrade/page.tsx
+@@ -6,7 +6,7 @@
+  * Tüm sayısal değerler /api/admin/supertrade uç noktalarından gelir.
+  */
+ 
+-import { useCallback, useEffect, useMemo, useState } from "react";
++import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
+ import StrategyLab from "@/components/admin/StrategyLab";
+ import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
+@@ -36,6 +36,8 @@ import type {
+ } from "@/lib/spx/types";
+ 
+ const LIVE_POLL_MS = 20000;
++/** Piyasa kapalıyken veri saatlerce değişmez — 20 sn'de bir sorgulamak boşuna. */
++const CLOSED_POLL_MS = 5 * 60 * 1000;
+ 
+ const STATE_LABEL: Record<SignalState, string> = {
+   NEUTRAL: "Nötr / Beklemede",
+@@ -85,6 +87,25 @@ const SPEEDS = [
+   { value: 60, label: "60 dk/sn" },
+ ];
+ 
++const FEED_LABEL: Record<string, string> = {
++  LIVE: "Canlı",
++  DELAYED: "Gecikmeli",
++  STALE: "Bayat",
++  CLOSED: "Kapanış",
++  MISSING: "Yok",
++};
++
++/** Ham saniye yerine okunabilir yaş: "48 sn", "12 dk", "2 gün" */
++function formatAge(sec: number): string {
++  if (!Number.isFinite(sec) || sec < 0) return "—";
++  if (sec < 90) return `${sec} sn`;
++  const minutes = Math.round(sec / 60);
++  if (minutes < 90) return `${minutes} dk`;
++  const hours = Math.round(minutes / 60);
++  if (hours < 48) return `${hours} sa`;
++  return `${Math.round(hours / 24)} gün`;
++}
++
+ function directionTone(direction: string): "up" | "down" | "neutral" {
+   if (direction === "LONG") return "up";
+   if (direction === "SHORT") return "down";
+@@ -135,12 +156,21 @@ export default function SuperTradePage() {
+     }
+   }, []);
+ 
++  const pollMs = snapshot?.isLiveSession === false ? CLOSED_POLL_MS : LIVE_POLL_MS;
++  const startedRef = useRef(false);
++
+   useEffect(() => {
+-    if (mode !== "live") return;
+-    fetchSnapshot();
+-    const id = setInterval(fetchSnapshot, LIVE_POLL_MS);
++    if (mode !== "live") {
++      startedRef.current = false;
++      return;
++    }
++    if (!startedRef.current) {
++      startedRef.current = true;
++      fetchSnapshot();
++    }
++    const id = setInterval(fetchSnapshot, pollMs);
+     return () => clearInterval(id);
+-  }, [mode, fetchSnapshot]);
++  }, [mode, fetchSnapshot, pollMs]);
+ 
+   // ── Yeniden oynatma verisi ──
+   const fetchReplay = useCallback(async (date?: string) => {
+@@ -192,6 +222,8 @@ export default function SuperTradePage() {
+       const frame: Frame = replay.frames[idx];
+       return {
+         isReplay: true,
++        isLiveSession: false,
++        phase: frame.phase,
+         sessionDate: replay.date,
+         frame,
+         factors: frame.factors,
+@@ -212,6 +244,8 @@ export default function SuperTradePage() {
+     const lite = snapshot.frames[snapshot.frames.length - 1];
+     return {
+       isReplay: false,
++      isLiveSession: snapshot.isLiveSession,
++      phase: snapshot.phase,
+       sessionDate: snapshot.sessionDate,
+       frame: {
+         ...lite,
+@@ -402,7 +436,7 @@ export default function SuperTradePage() {
+               {STATE_LABEL[frame.state]}
+             </h2>
+             <span className="text-[12px] text-slate-500">
+-              {PHASE_LABEL[frame.phase]} · {view.sessionDate}
++              {PHASE_LABEL[view.phase]} · {view.sessionDate}
+               {mode === "replay" && ` · ${frame.timeLabel} ET`}
+             </span>
+           </div>
+@@ -439,15 +473,21 @@ export default function SuperTradePage() {
+                   key={f.symbol}
+                   label={f.label}
+                   value={
+-                    <span className={f.status === "LIVE" ? "text-[#22c55e]" : "text-slate-400"}>
+-                      {f.status === "LIVE"
+-                        ? "Canlı"
+-                        : f.status === "DELAYED"
+-                        ? "Gecikmeli"
+-                        : f.status === "STALE"
+-                        ? "Bayat"
+-                        : "Yok"}
+-                      <span className="ml-1.5 text-[11px] text-slate-500">{f.ageSec}s</span>
++                    <span
++                      className={
++                        f.status === "LIVE"
++                          ? "text-[#22c55e]"
++                          : f.status === "STALE" || f.status === "MISSING"
++                          ? "text-[#ef4444]"
++                          : "text-slate-400"
++                      }
++                    >
++                      {FEED_LABEL[f.status] ?? f.status}
++                      {f.status !== "CLOSED" && (
++                        <span className="ml-1.5 text-[11px] text-slate-500">
++                          {formatAge(f.ageSec)}
++                        </span>
++                      )}
+                     </span>
+                   }
+                 />
+@@ -457,7 +497,10 @@ export default function SuperTradePage() {
+                   label="Son güncelleme"
+                   value={lastUpdated ? lastUpdated.toLocaleTimeString("tr-TR") : "—"}
+                 />
+-                <Row label="Yenileme aralığı" value={`${LIVE_POLL_MS / 1000} sn`} />
++                <Row
++                  label="Yenileme aralığı"
++                  value={pollMs >= 60000 ? `${pollMs / 60000} dk` : `${pollMs / 1000} sn`}
++                />
+               </div>
+             </div>
+           ) : (
+@@ -565,7 +608,10 @@ export default function SuperTradePage() {
+           </Panel>
+ 
+           {view.changes && view.changes.length > 0 && (
+-            <Panel title="Son 5 dakikada ne değişti" padding="p-4">
++            <Panel
++              title={view.isLiveSession ? "Son 5 dakikada ne değişti" : "Kapanışın son 5 dakikası"}
++              padding="p-4"
++            >
+               <div className="space-y-0.5">
+                 {view.changes.map((c, i) => (
+                   <Row
+diff --git a/frontend/app/api/admin/supertrade/route.ts b/frontend/app/api/admin/supertrade/route.ts
+index ec447139..2e52c15b 100644
+--- a/frontend/app/api/admin/supertrade/route.ts
++++ b/frontend/app/api/admin/supertrade/route.ts
+@@ -5,7 +5,7 @@
+  */
+ 
+ import { NextResponse } from "next/server";
+-import { buildSnapshot } from "@/lib/spx/snapshot";
++import { getSnapshot } from "@/lib/spx/snapshot";
+ 
+ export const runtime = "nodejs";
+ export const dynamic = "force-dynamic";
+@@ -13,7 +13,7 @@ export const maxDuration = 30;
+ 
+ export async function GET() {
+   try {
+-    const snapshot = await buildSnapshot();
++    const snapshot = await getSnapshot();
+     return NextResponse.json(snapshot, {
+       headers: { "Cache-Control": "no-store" },
+     });
+diff --git a/frontend/components/admin/SuperTradeLiveChart.tsx b/frontend/components/admin/SuperTradeLiveChart.tsx
+index 4c12372e..caae82eb 100644
+--- a/frontend/components/admin/SuperTradeLiveChart.tsx
++++ b/frontend/components/admin/SuperTradeLiveChart.tsx
+@@ -49,13 +49,24 @@ const COLOR = {
+   bg: "#0a0e17",
+ };
+ 
++// Biçimlendirici modül düzeyinde bir kez kurulur. Her mum için yeniden
++// oluşturmak (384 mum × her render) ölçülebilir bir maliyet yaratıyordu.
++const ET_TIME = new Intl.DateTimeFormat("tr-TR", {
++  timeZone: "America/New_York",
++  hour: "2-digit",
++  minute: "2-digit",
++  hourCycle: "h23",
++});
++
++const labelCache = new Map<number, string>();
++
+ function timeLabel(unixSec: number): string {
+-  return new Intl.DateTimeFormat("tr-TR", {
+-    timeZone: "America/New_York",
+-    hour: "2-digit",
+-    minute: "2-digit",
+-    hourCycle: "h23",
+-  }).format(new Date(unixSec * 1000));
++  const hit = labelCache.get(unixSec);
++  if (hit) return hit;
++  const value = ET_TIME.format(new Date(unixSec * 1000));
++  if (labelCache.size > 5000) labelCache.clear();
++  labelCache.set(unixSec, value);
++  return value;
+ }
+ 
+ export default function SuperTradeLiveChart({
+diff --git a/frontend/lib/spx/snapshot.ts b/frontend/lib/spx/snapshot.ts
+index 8c63b09e..cf2d22db 100644
+--- a/frontend/lib/spx/snapshot.ts
++++ b/frontend/lib/spx/snapshot.ts
+@@ -354,8 +354,10 @@ function feedHealth(
+   }
+   const last = bars[bars.length - 1];
+   const age = Math.max(0, Math.round(nowSec - last.time));
++  // Seans kapalıyken veri "gecikmeli" değildir — son kapanış verisidir.
++  // İkisini ayırmazsak kapalı piyasada 50 saatlik "gecikme" gösterilir.
+   let status: FeedHealth["status"] = "LIVE";
+-  if (!isLiveSession) status = "DELAYED";
++  if (!isLiveSession) status = "CLOSED";
+   else if (age > 300) status = "STALE";
+   else if (age > 120) status = "DELAYED";
+   return { symbol, label, status, ageSec: age, lastPrice: round2(last.close) };
+@@ -381,9 +383,23 @@ export async function buildSnapshot(): Promise<SPXSnapshot> {
+   const nowParts = nyParts(nowSec);
+   const isLiveSession = nowParts.ymd === sessionDate && nowParts.minutes < 16 * 60 + 5;
+ 
++  // Seans açık değilken bile doğru evreyi bildir: hafta içi 04:00–09:30 ET
++  // arası "açılış öncesi"dir, "seans kapalı" değil.
++  const isWeekday = nowParts.weekday >= 1 && nowParts.weekday <= 5;
++  const currentPhase: SPXSnapshot["phase"] = isLiveSession
++    ? last.phase
++    : isWeekday && nowParts.minutes >= 4 * 60 && nowParts.minutes < RTH_OPEN_MIN
++    ? "PREMARKET"
++    : "AFTER_HOURS";
++
+   const dataAgeSec = Math.max(0, nowSec - last.time);
+   const isStale = isLiveSession && dataAgeSec > 300;
+   if (isStale) notes.push("Son mum 5 dakikadan eski — sinyaller askıya alındı.");
++  if (!isLiveSession) {
++    notes.push(
++      `Piyasa kapalı — gösterilen değerler ${sessionDate} seansının kapanış verileridir.`
++    );
++  }
+ 
+   const state = isStale ? "DATA_STALE" : last.state;
+ 
+@@ -467,7 +483,7 @@ export async function buildSnapshot(): Promise<SPXSnapshot> {
+     generatedAt: new Date().toISOString(),
+     asOf: new Date(last.time * 1000).toISOString(),
+     sessionDate,
+-    phase: isLiveSession ? last.phase : "AFTER_HOURS",
++    phase: currentPhase,
+     isLiveSession,
+     dataAgeSec,
+     isStale,
+@@ -570,4 +586,32 @@ export async function buildReplay(dateParam?: string): Promise<SPXReplayResponse
+   };
+ }
+ 
++// ── Anlık görüntü önbelleği ──────────────────────────────────────
++
++let snapshotCache: { value: SPXSnapshot; expires: number } | null = null;
++let inFlight: Promise<SPXSnapshot> | null = null;
++
++/**
++ * Anlık görüntüyü önbellekten döndürür. Seans kapalıyken veri saatlerce
++ * değişmediği için TTL 5 dakikaya çıkar; böylece kapalı piyasada her 20
++ * saniyede bir 6 uzak istek yapılmaz. Eşzamanlı istekler tek yapıma
++ * bağlanır (thundering herd koruması).
++ */
++export async function getSnapshot(): Promise<SPXSnapshot> {
++  if (snapshotCache && snapshotCache.expires > Date.now()) return snapshotCache.value;
++  if (inFlight) return inFlight;
++
++  inFlight = buildSnapshot()
++    .then((value) => {
++      const ttl = value.isLiveSession ? 10000 : 5 * 60 * 1000;
++      snapshotCache = { value, expires: Date.now() + ttl };
++      return value;
++    })
++    .finally(() => {
++      inFlight = null;
++    });
++
++  return inFlight;
++}
++
+ export { impliedVolFor, vwapSeries };
+diff --git a/frontend/lib/spx/types.ts b/frontend/lib/spx/types.ts
+index 1a4869bd..c468e25e 100644
+--- a/frontend/lib/spx/types.ts
++++ b/frontend/lib/spx/types.ts
+@@ -145,7 +145,8 @@ export interface Frame extends FrameLite {
+ export interface FeedHealth {
+   symbol: string;
+   label: string;
+-  status: "LIVE" | "DELAYED" | "STALE" | "MISSING";
++  /** CLOSED: seans kapalı, gecikme değil — son kapanış verisi gösteriliyor */
++  status: "LIVE" | "DELAYED" | "STALE" | "CLOSED" | "MISSING";
+   ageSec: number;
+   lastPrice: number;
+ }
+-- 
+2.34.1
+

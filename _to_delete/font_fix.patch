@@ -1,0 +1,67 @@
+From 2b2915bf39c4f15cd77cc1a374712f8d1938c834 Mon Sep 17 00:00:00 2001
+From: hkoruk35 <hkoruk35@gmail.com>
+Date: Mon, 17 Aug 2026 02:07:39 +0000
+Subject: [PATCH] =?UTF-8?q?fix(fonts):=20T=C3=BCrk=C3=A7e=20karakterler=20?=
+ =?UTF-8?q?i=C3=A7in=20latin-ext=20alt=20k=C3=BCmesi=20ekle?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Kök nedeni: app/layout.tsx içindeki next/font/google tanımları
+(Inter, Manrope, Montserrat, JetBrains Mono) yalnızca subsets: ["latin"]
+kullanıyordu. Bu alt küme ğ, ş, ı, İ, ç, ö, ü gibi Türkçe karakterleri
+içermez; tarayıcı bu glifleri sistem yedek fontundan çiziyordu, bu da
+admin panelindeki Türkçe metinlerin farklı bir yazı tipinde/kalınlıkta
+görünmesine (bozuk gibi algılanan bir görünüme) yol açıyordu.
+
+Çözüm: dört font tanımına da "latin-ext" alt kümesi eklendi, böylece
+Türkçe karakterler asıl fontla aynı glif setinden çiziliyor.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QwWp9agfTD2mt3oS6xmoUF
+---
+ frontend/app/layout.tsx | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/frontend/app/layout.tsx b/frontend/app/layout.tsx
+index efcdb62a..15f48e8b 100644
+--- a/frontend/app/layout.tsx
++++ b/frontend/app/layout.tsx
+@@ -12,7 +12,7 @@ import CopilotShell from "@/components/global/CopilotShell";
+ import AnalyticsLoader from "@/components/global/AnalyticsLoader";
+ import FeedbackWidget from "@/components/global/FeedbackWidget";
+ const inter = Inter({
+-  subsets: ["latin"],
++  subsets: ["latin", "latin-ext"],
+   weight: ["400", "600", "700"],
+   display: "swap",
+   variable: "--font-inter",
+@@ -20,14 +20,14 @@ const inter = Inter({
+ });
+ 
+ const manrope = Manrope({
+-  subsets: ["latin"],
++  subsets: ["latin", "latin-ext"],
+   display: "swap",
+   variable: "--font-manrope",
+   preload: true,
+ });
+ 
+ const montserrat = Montserrat({
+-  subsets: ["latin"],
++  subsets: ["latin", "latin-ext"],
+   weight: ["700", "900"],
+   display: "swap",
+   variable: "--font-montserrat",
+@@ -35,7 +35,7 @@ const montserrat = Montserrat({
+ });
+ 
+ const jetbrainsMono = JetBrains_Mono({
+-  subsets: ["latin"],
++  subsets: ["latin", "latin-ext"],
+   display: "swap",
+   variable: "--font-mono",
+   preload: true,
+-- 
+2.34.1
+
