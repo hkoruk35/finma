@@ -52,8 +52,16 @@ export function priceOption(
   const delta = isCall ? nd1 : nd1 - 1;
   const theta = (-(s * pdf * sigma) / (2 * sqrtT)) / 365;
 
+  let tickPrice = price;
+  if (price < 3.0) {
+    tickPrice = Math.round(price * 20) / 20;
+    tickPrice = Math.max(0.05, tickPrice);
+  } else {
+    tickPrice = Math.round(price * 10) / 10;
+  }
+
   return {
-    price: Math.max(0.05, Math.round(price * 100) / 100),
+    price: tickPrice,
     delta: Math.round(delta * 1000) / 1000,
     theta: Math.round(theta * 100) / 100,
   };

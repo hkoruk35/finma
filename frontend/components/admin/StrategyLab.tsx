@@ -87,12 +87,12 @@ export default function StrategyLab({
       const priceAt = isLong ? call : put;
       const deltaAt = isLong ? callDelta : putDelta;
 
-      // 1. Tek bacak OTM
-      const k1 = atm + dir * 10;
+      // 1. Tek bacak ATM
+      const k1 = atm;
       const c1 = money(priceAt(k1));
       list.push({
         id: "single",
-        name: `Tek bacak ${isLong ? "CALL" : "PUT"} (10 puan OTM)`,
+        name: `Tek bacak ${isLong ? "CALL" : "PUT"} (ATM)`,
         category: "SIMPLE",
         legs: `Al ${k1} ${type}`,
         netLabel: "Net maliyet",
@@ -107,7 +107,7 @@ export default function StrategyLab({
         invalidation: "Hareket 10–15 dakika içinde gelmezse zaman erimesi primi hızla eritir.",
       });
 
-      // 2. Dar debit spread (5 puan)
+      // 2. Dar debit spread
       const long2 = atm;
       const short2 = atm + dir * 5;
       const cost2 = money(priceAt(long2) - priceAt(short2));
@@ -128,7 +128,7 @@ export default function StrategyLab({
         invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
       });
 
-      // 3. Standart debit spread (10 puan)
+      // 3. Standart debit spread
       const long3 = atm;
       const short3 = atm + dir * 10;
       const cost3 = money(priceAt(long3) - priceAt(short3));
@@ -149,9 +149,9 @@ export default function StrategyLab({
         invalidation: "ES'in VWAP'ın ters tarafına geçmesi.",
       });
 
-      // 4. Ters yönde kredi spreadi (savunmacı)
-      const shortK = atm - dir * 10;
-      const longK = atm - dir * 15;
+      // 4. Savunmaci kredi spread
+      const shortK = atm - dir * 5;
+      const longK = atm - dir * 10;
       const credit4 = isLong
         ? money(put(shortK) - put(longK))
         : money(call(shortK) - call(longK));
