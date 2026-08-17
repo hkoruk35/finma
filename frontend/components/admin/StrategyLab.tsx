@@ -275,7 +275,7 @@ export default function StrategyLab({
       hint={`teorik fiyatlama · IV tabanı VIX ${num(vix, 1)} · vadeye ${minutesLeft} dk`}
       right={
         <div className="flex items-center gap-3">
-          <Badge tone="warning">15 dk Strateji Döngüsü</Badge>
+          <Badge tone="warn">15 dk Strateji Döngüsü</Badge>
           <Tabs
             size="sm"
             value={category}
