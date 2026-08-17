@@ -1,40 +1,29 @@
 {
-  "date": "2026-08-14",
-  "generated_at": "2026-08-14T17:04:08.876295-04:00",
+  "date": "2026-08-17",
+  "generated_at": "2026-08-17T09:05:50.977078-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 51,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "MTD",
-        "PAAS",
-        "RHP",
-        "DBX",
-        "AYI",
-        "GOLD",
-        "GEO",
-        "MS",
-        "EC",
-        "KKR"
+        "AME",
+        "VICR",
+        "HSIC",
+        "GLBE",
+        "NVDA",
+        "GIS",
+        "INOD",
+        "SOLV",
+        "DINO",
+        "LECO"
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 1,
       "tickers": [
-        "AYI",
-        "GOLD",
-        "KKR",
-        "GIS",
-        "DT",
-        "CARG",
-        "SKY",
-        "IT",
-        "PEB",
-        "AIT",
-        "TKR",
-        "CLMT"
+        "SOLV"
       ]
     },
     "value": {
@@ -56,18 +45,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "MTD",
-      "score": 54.5,
+      "ticker": "AME",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PAAS",
-      "score": 54.0,
+      "ticker": "VICR",
+      "score": 56.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RHP",
-      "score": 52.0,
+      "ticker": "HSIC",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

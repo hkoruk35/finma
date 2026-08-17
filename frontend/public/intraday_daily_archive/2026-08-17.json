@@ -1,140 +1,95 @@
 {
   "date": "2026-08-17",
-  "generated_at": "2026-08-17T09:00:47.292265-04:00",
+  "generated_at": "2026-08-17T10:00:48.978607-04:00",
   "market_regime": "Bull",
-  "vix_level": 15.069999694824219,
+  "vix_level": 15.0,
   "total": 20,
   "signals": [
-    {
-      "ticker": "SKM",
-      "company": "SK Telecom Co., Ltd.",
-      "sector": "Communication Services",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 39.82,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($38.92–$40.72). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 71.0,
-        "adx_1h": 39.7,
-        "volume_ratio": 0.0,
-        "change_1h": -0.08,
-        "change_24h": 8.47,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 4.69,
-        "pre_gap_total": 6,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.75,
-        "gap_score": 0,
-        "hourly_strength_pct": 2.02,
-        "hourly_score": 3,
-        "daily_rvol": 1.06,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.92,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚡ Bollinger Squeeze",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "MGTX",
-      "company": "MeiraGTx Holdings plc",
-      "sector": "Healthcare",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 13.64,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($13.31–$13.97). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 55.0,
-        "adx_1h": 21.8,
-        "volume_ratio": 0.0,
-        "change_1h": -0.44,
-        "change_24h": 7.66,
-        "trend_1h": "DOWN",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 4.95,
-        "pre_gap_total": 4,
-        "pre_gap_grade": "C",
-        "gap_pct": 4.59,
-        "gap_score": 2,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.16,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 96.46,
-        "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
-      ]
-    },
     {
       "ticker": "ZIM",
       "company": "ZIM Integrated Shipping Services Ltd.",
       "sector": "Industrials",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 28.84,
+      "current_price": 28.98,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($28.30–$29.38). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($28.43–$29.53). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 74.9,
-        "adx_1h": 42.1,
-        "volume_ratio": 0.0,
-        "change_1h": 0.98,
-        "change_24h": 7.53,
+        "rsi_1h": 75.9,
+        "adx_1h": 37.5,
+        "volume_ratio": 3.65,
+        "change_1h": 0.62,
+        "change_24h": 2.99,
         "trend_1h": "FLAT",
-        "setup": "NONE",
+        "setup": "AGGRESSIVE_BUY",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 3.83,
+        "natr": 3.8,
         "pre_gap_total": 8,
         "pre_gap_grade": "B",
         "gap_pct": 0.04,
         "gap_score": 0,
-        "hourly_strength_pct": 0.24,
-        "hourly_score": 3,
-        "daily_rvol": 2.94,
-        "daily_rvol_score": 2,
-        "close_to_high_pct": 100.0,
+        "hourly_strength_pct": 0.73,
+        "hourly_score": 2,
+        "daily_rvol": 8.01,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 99.9,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
+        "late_volume_ratio": 0.81,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m: Price UP but volume DOWN (-81%) ⚠️ Fake Rally Trap - RED"
+      ]
+    },
+    {
+      "ticker": "SKM",
+      "company": "SK Telecom Co., Ltd.",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 39.43,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($38.66–$40.20). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 63.2,
+        "adx_1h": 38.2,
+        "volume_ratio": 5.11,
+        "change_1h": -0.4,
+        "change_24h": 2.39,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 3.89,
+        "pre_gap_total": 9,
+        "pre_gap_grade": "B",
+        "gap_pct": 0.75,
+        "gap_score": 0,
+        "hourly_strength_pct": 1.02,
+        "hourly_score": 3,
+        "daily_rvol": 4.4,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 98.95,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.74,
         "late_volume_score": 0
       },
       "notes": [
@@ -143,55 +98,10 @@
         "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "NU",
-      "company": "Nu Holdings Ltd.",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 15.25,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($14.96–$15.54). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 59.0,
-        "adx_1h": 41.2,
-        "volume_ratio": 0.0,
-        "change_1h": -0.16,
-        "change_24h": 9.48,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 3.82,
-        "pre_gap_total": 4,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.13,
-        "gap_score": 0,
-        "hourly_strength_pct": -0.33,
-        "hourly_score": 0,
-        "daily_rvol": 1.77,
-        "daily_rvol_score": 1,
-        "close_to_high_pct": 98.83,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "VWAP Extended",
-        "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -200,138 +110,94 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 16.03,
+      "current_price": 15.55,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($15.58–$16.48). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($15.10–$16.00). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 54.8,
-        "adx_1h": 67.5,
-        "volume_ratio": 0.0,
-        "change_1h": -1.87,
-        "change_24h": 3.89,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
+        "rsi_1h": 45.4,
+        "adx_1h": 62.5,
+        "volume_ratio": 2.99,
+        "change_1h": -2.8,
+        "change_24h": -5.01,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 5.47,
-        "pre_gap_total": 2,
+        "natr": 5.78,
+        "pre_gap_total": 4,
         "pre_gap_grade": "C",
         "gap_pct": -0.43,
         "gap_score": 0,
-        "hourly_strength_pct": -0.99,
+        "hourly_strength_pct": -3.95,
         "hourly_score": 0,
-        "daily_rvol": 0.96,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 95.25,
-        "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "daily_rvol": 2.07,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 92.39,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.89,
+        "late_volume_score": 2
       },
       "notes": [
         "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP Extended",
+        "VWAP/EMA50 Defense Zone",
+        "🔥 Institutional Absorption",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-2.8%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "BTU",
-      "company": "Peabody Energy Corporation",
-      "sector": "Energy",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 25.61,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($25.00–$26.22). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 61.5,
-        "adx_1h": 35.9,
-        "volume_ratio": 0.0,
-        "change_1h": 0.04,
-        "change_24h": 6.31,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 4.78,
-        "pre_gap_total": 6,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.27,
-        "hourly_score": 3,
-        "daily_rvol": 0.77,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.42,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "OSCR",
-      "company": "Oscar Health, Inc.",
+      "ticker": "MGTX",
+      "company": "MeiraGTx Holdings plc",
       "sector": "Healthcare",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 32.58,
+      "current_price": 13.4,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($31.58–$33.58). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($13.08–$13.72). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 66.2,
-        "adx_1h": 36.6,
-        "volume_ratio": 0.0,
-        "change_1h": -0.4,
-        "change_24h": 5.85,
-        "trend_1h": "FLAT",
+        "rsi_1h": 50.2,
+        "adx_1h": 21.0,
+        "volume_ratio": 1.73,
+        "change_1h": -3.67,
+        "change_24h": -0.89,
+        "trend_1h": "DOWN",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 6.09,
-        "pre_gap_total": 3,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.21,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.25,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 98.4,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "natr": 4.71,
+        "pre_gap_total": 8,
+        "pre_gap_grade": "B",
+        "gap_pct": 4.59,
+        "gap_score": 2,
+        "hourly_strength_pct": -1.76,
+        "hourly_score": 2,
+        "daily_rvol": 1.57,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 94.77,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.85,
+        "late_volume_score": 2
       },
       "notes": [
         "🚀 RS: Outperformer",
         "Phase: EXPANSION",
-        "Vol: Acceptable",
+        "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP Extended",
+        "VWAP/EMA50 Defense Zone",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-3.7%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -340,45 +206,188 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 512.98,
+      "current_price": 511.25,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($496.59–$529.37). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($496.40–$526.10). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 61.3,
-        "adx_1h": 30.6,
-        "volume_ratio": 0.0,
-        "change_1h": 0.08,
-        "change_24h": 6.2,
+        "rsi_1h": 57.5,
+        "adx_1h": 28.8,
+        "volume_ratio": 3.1,
+        "change_1h": -0.58,
+        "change_24h": -0.61,
         "trend_1h": "FLAT",
-        "setup": "NONE",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 6.37,
-        "pre_gap_total": 5,
-        "pre_gap_grade": "C",
+        "natr": 5.81,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
         "gap_pct": 0.86,
         "gap_score": 0,
-        "hourly_strength_pct": 0.31,
-        "hourly_score": 3,
-        "daily_rvol": 0.92,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 97.89,
+        "hourly_strength_pct": -0.03,
+        "hourly_score": 2,
+        "daily_rvol": 2.0,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 97.56,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.59,
+        "late_volume_score": 2
       },
       "notes": [
         "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
-        "Vol: Acceptable",
+        "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-0.6%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "OSCR",
+      "company": "Oscar Health, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 31.42,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "BUY (WAIT) ⏳ In buy zone but 15M trend weak. Wait for stabilization.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 41.4,
+        "adx_1h": 34.3,
+        "volume_ratio": 2.07,
+        "change_1h": -3.62,
+        "change_24h": -4.09,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 5.83,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.21,
+        "gap_score": 0,
+        "hourly_strength_pct": -3.56,
+        "hourly_score": 2,
+        "daily_rvol": 1.68,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 94.9,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.18,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-3.6%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "NU",
+      "company": "Nu Holdings Ltd.",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 14.93,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($14.63–$15.22). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 45.8,
+        "adx_1h": 38.3,
+        "volume_ratio": 0.8,
+        "change_1h": -2.13,
+        "change_24h": -2.0,
+        "trend_1h": "DOWN",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.0,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.13,
+        "gap_score": 0,
+        "hourly_strength_pct": -2.45,
+        "hourly_score": 2,
+        "daily_rvol": 1.02,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 96.73,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 1.85,
+        "late_volume_score": 2
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.8x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "BTU",
+      "company": "Peabody Energy Corporation",
+      "sector": "Energy",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 25.5,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($24.90–$26.11). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 58.1,
+        "adx_1h": 33.7,
+        "volume_ratio": 1.2,
+        "change_1h": -0.41,
+        "change_24h": 0.1,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.71,
+        "pre_gap_total": 8,
+        "pre_gap_grade": "B",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.14,
+        "hourly_score": 2,
+        "daily_rvol": 0.55,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.01,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 2.2,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -387,7 +396,7 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 11.53,
+      "current_price": 11.46,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
@@ -428,43 +437,91 @@
       "sector": "Basic Materials",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 11.8,
+      "current_price": 11.59,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($11.42–$12.18). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($11.20–$11.98). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 49.0,
-        "adx_1h": 12.3,
-        "volume_ratio": 0.0,
-        "change_1h": -1.4,
-        "change_24h": 4.15,
+        "rsi_1h": 43.8,
+        "adx_1h": 13.9,
+        "volume_ratio": 1.19,
+        "change_1h": -2.52,
+        "change_24h": -3.34,
         "trend_1h": "DOWN",
         "setup": "NONE",
         "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 6.27,
-        "pre_gap_total": 4,
+        "rs_score": 1.0,
+        "natr": 6.64,
+        "pre_gap_total": 5,
         "pre_gap_grade": "C",
         "gap_pct": 0.92,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 2.69,
-        "daily_rvol_score": 2,
-        "close_to_high_pct": 97.52,
+        "hourly_strength_pct": -1.78,
+        "hourly_score": 2,
+        "daily_rvol": 1.96,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 95.79,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
+        "late_volume_ratio": 1.14,
         "late_volume_score": 0
       },
       "notes": [
-        "🚀 RS: Outperformer",
+        "🧱 RS: Resilient",
         "Price below EMA50 & Slope Negative",
-        "VWAP/EMA50 Defense Zone",
+        "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-2.5%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "AAOI",
+      "company": "Applied Optoelectronics, Inc. Common Stock",
+      "sector": "Technology",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 153.29,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($145.06–$161.52). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 65.4,
+        "adx_1h": 40.2,
+        "volume_ratio": 2.89,
+        "change_1h": 0.42,
+        "change_24h": 2.0,
+        "trend_1h": "FLAT",
+        "setup": "AGGRESSIVE_BUY",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 10.74,
+        "pre_gap_total": 9,
+        "pre_gap_grade": "B",
+        "gap_pct": 2.69,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.68,
+        "hourly_score": 2,
+        "daily_rvol": 3.44,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 98.14,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.41,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m: Price UP but volume DOWN (-61%) ⚠️ Fake Rally Trap - RED"
       ]
     },
     {
@@ -473,89 +530,47 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 136.25,
+      "current_price": 135.53,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($129.35–$143.15). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($128.74–$142.32). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 59.2,
-        "adx_1h": 46.2,
-        "volume_ratio": 0.0,
-        "change_1h": 0.18,
-        "change_24h": 10.5,
+        "rsi_1h": 55.7,
+        "adx_1h": 44.2,
+        "volume_ratio": 2.5,
+        "change_1h": 2.53,
+        "change_24h": 1.1,
         "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
+        "setup": "AGGRESSIVE_BUY",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 10.29,
-        "pre_gap_total": 8,
-        "pre_gap_grade": "B",
+        "natr": 10.02,
+        "pre_gap_total": 10,
+        "pre_gap_grade": "A",
         "gap_pct": 3.4,
         "gap_score": 2,
-        "hourly_strength_pct": 0.21,
-        "hourly_score": 3,
-        "daily_rvol": 1.06,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 98.13,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "hourly_strength_pct": -0.32,
+        "hourly_score": 2,
+        "daily_rvol": 1.88,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 97.29,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 2.07,
+        "late_volume_score": 3
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "MXL",
-      "company": "MaxLinear, Inc.",
-      "sector": "Technology",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 86.89,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($83.43–$90.35). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 72.6,
-        "adx_1h": 49.3,
-        "volume_ratio": 0.0,
-        "change_1h": 0.22,
-        "change_24h": 13.36,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 8.17,
-        "pre_gap_total": 7,
-        "pre_gap_grade": "B",
-        "gap_pct": 1.03,
-        "gap_score": 1,
-        "hourly_strength_pct": 0.22,
-        "hourly_score": 3,
-        "daily_rvol": 0.9,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 98.9,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "🏦 GAP-UP A (10/15)",
+        "⚠️ 15m: Price UP but volume DOWN (-29%) ⚠️ Fake Rally Trap - RED"
       ]
     },
     {
@@ -564,180 +579,45 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 32.6,
+      "current_price": 31.43,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($31.11–$34.08). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($29.91–$32.95). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 55.2,
-        "adx_1h": 24.5,
-        "volume_ratio": 0.0,
-        "change_1h": 0.12,
-        "change_24h": 19.66,
-        "trend_1h": "UP",
-        "setup": "SQUEEZE",
+        "rsi_1h": 46.4,
+        "adx_1h": 23.9,
+        "volume_ratio": 2.38,
+        "change_1h": -3.41,
+        "change_24h": -7.72,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 8.72,
-        "pre_gap_total": 4,
+        "natr": 9.64,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.29,
         "gap_score": 0,
-        "hourly_strength_pct": -0.29,
-        "hourly_score": 0,
-        "daily_rvol": 4.34,
+        "hourly_strength_pct": -3.85,
+        "hourly_score": 2,
+        "daily_rvol": 6.94,
         "daily_rvol_score": 3,
-        "close_to_high_pct": 94.48,
+        "close_to_high_pct": 91.1,
         "close_to_high_score": 1,
-        "late_volume_ratio": 0.0,
+        "late_volume_ratio": 1.01,
         "late_volume_score": 0
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "⚡ Bollinger Squeeze",
+        "VWAP/EMA50 Acceptable Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "RCAT",
-      "company": "Red Cat Holdings, Inc.",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 10.98,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($10.56–$11.40). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 52.8,
-        "adx_1h": 13.0,
-        "volume_ratio": 0.0,
-        "change_1h": -0.74,
-        "change_24h": 7.33,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 7.5,
-        "pre_gap_total": 4,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.46,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 2.07,
-        "daily_rvol_score": 1,
-        "close_to_high_pct": 98.48,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "FCEL",
-      "company": "FuelCell Energy, Inc.",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 22.84,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($21.43–$24.25). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 61.5,
-        "adx_1h": 34.0,
-        "volume_ratio": 0.0,
-        "change_1h": -0.44,
-        "change_24h": 12.29,
-        "trend_1h": "DOWN",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 12.6,
-        "pre_gap_total": 7,
-        "pre_gap_grade": "B",
-        "gap_pct": 2.82,
-        "gap_score": 1,
-        "hourly_strength_pct": 0.66,
-        "hourly_score": 3,
-        "daily_rvol": 1.02,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 98.24,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "AAOI",
-      "company": "Applied Optoelectronics, Inc.",
-      "sector": "Technology",
-      "swing_pick_date": "2026-08-17",
-      "days_since_pick": 0,
-      "current_price": 152.57,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($144.02–$161.12). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 64.2,
-        "adx_1h": 42.3,
-        "volume_ratio": 0.0,
-        "change_1h": 0.0,
-        "change_24h": 17.29,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 2.0,
-        "natr": 11.37,
-        "pre_gap_total": 7,
-        "pre_gap_grade": "B",
-        "gap_pct": 2.69,
-        "gap_score": 1,
-        "hourly_strength_pct": 0.2,
-        "hourly_score": 3,
-        "daily_rvol": 1.72,
-        "daily_rvol_score": 1,
-        "close_to_high_pct": 97.68,
-        "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-3.4%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -746,43 +626,92 @@
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 9.7,
+      "current_price": 9.59,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($9.32–$10.08). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($9.22–$9.96). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 60.2,
-        "adx_1h": 33.2,
-        "volume_ratio": 0.0,
-        "change_1h": 0.0,
-        "change_24h": 8.87,
+        "rsi_1h": 54.2,
+        "adx_1h": 33.9,
+        "volume_ratio": 4.2,
+        "change_1h": -1.64,
+        "change_24h": 0.1,
         "trend_1h": "DOWN",
-        "setup": "NONE",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 7.99,
-        "pre_gap_total": 6,
-        "pre_gap_grade": "C",
+        "natr": 7.75,
+        "pre_gap_total": 8,
+        "pre_gap_grade": "B",
         "gap_pct": 2.61,
         "gap_score": 1,
-        "hourly_strength_pct": 0.1,
-        "hourly_score": 3,
-        "daily_rvol": 1.25,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 97.0,
+        "hourly_strength_pct": -1.03,
+        "hourly_score": 2,
+        "daily_rvol": 3.98,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 95.9,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.4,
+        "late_volume_score": 1
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-1.6%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "SIMO",
+      "company": "Silicon Motion Technology Corporation",
+      "sector": "Technology",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 272.8,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($260.05–$285.55). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 63.1,
+        "adx_1h": 38.4,
+        "volume_ratio": 3.04,
+        "change_1h": 0.78,
+        "change_24h": 1.45,
+        "trend_1h": "FLAT",
+        "setup": "AGGRESSIVE_BUY",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 9.35,
+        "pre_gap_total": 9,
+        "pre_gap_grade": "B",
+        "gap_pct": 4.46,
+        "gap_score": 2,
+        "hourly_strength_pct": -0.8,
+        "hourly_score": 2,
+        "daily_rvol": 2.14,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 97.12,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 1.82,
+        "late_volume_score": 2
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m: Price UP but volume DOWN (-43%) ⚠️ Fake Rally Trap - RED"
       ]
     },
     {
@@ -791,43 +720,136 @@
       "sector": "Communication Services",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 276.7,
+      "current_price": 273.43,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($262.86–$290.54). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($260.03–$286.83). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 59.8,
-        "adx_1h": 49.8,
-        "volume_ratio": 0.0,
-        "change_1h": 0.03,
-        "change_24h": 8.49,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
+        "rsi_1h": 54.5,
+        "adx_1h": 46.7,
+        "volume_ratio": 2.91,
+        "change_1h": -1.25,
+        "change_24h": -1.53,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 9.97,
-        "pre_gap_total": 5,
+        "natr": 9.8,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.48,
         "gap_score": 0,
-        "hourly_strength_pct": 0.68,
-        "hourly_score": 3,
-        "daily_rvol": 1.23,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 97.13,
+        "hourly_strength_pct": -0.51,
+        "hourly_score": 2,
+        "daily_rvol": 2.5,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 95.98,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.22,
+        "late_volume_score": 1
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
+        "🔥 Institutional Absorption",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-1.3%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "RCAT",
+      "company": "Red Cat Holdings, Inc.",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 10.45,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "BUY (WAIT) ⏳ In buy zone but 15M trend weak. Wait for stabilization.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 35.8,
+        "adx_1h": 15.0,
+        "volume_ratio": 2.7,
+        "change_1h": -3.78,
+        "change_24h": -6.11,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 8.1,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.46,
+        "gap_score": 0,
+        "hourly_strength_pct": -4.83,
+        "hourly_score": 0,
+        "daily_rvol": 3.9,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 93.72,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.42,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-3.8%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "FCEL",
+      "company": "FuelCell Energy, Inc.",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-08-17",
+      "days_since_pick": 0,
+      "current_price": 21.94,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "BUY (WAIT) ⏳ In buy zone but 15M trend weak. Wait for stabilization.",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 48.0,
+        "adx_1h": 31.0,
+        "volume_ratio": 1.92,
+        "change_1h": -1.96,
+        "change_24h": -1.91,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 12.38,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 2.82,
+        "gap_score": 1,
+        "hourly_strength_pct": -3.3,
+        "hourly_score": 0,
+        "daily_rvol": 1.39,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 94.37,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.64,
+        "late_volume_score": 2
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP/EMA50 Acceptable Zone",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-2.0%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -841,89 +863,90 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($9.74–$10.88). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($9.76–$10.86). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 56.8,
-        "adx_1h": 41.7,
-        "volume_ratio": 0.0,
-        "change_1h": -1.36,
-        "change_24h": 10.24,
+        "rsi_1h": 56.4,
+        "adx_1h": 39.0,
+        "volume_ratio": 1.45,
+        "change_1h": -0.39,
+        "change_24h": 0.19,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 11.03,
-        "pre_gap_total": 4,
-        "pre_gap_grade": "C",
+        "natr": 10.6,
+        "pre_gap_total": 8,
+        "pre_gap_grade": "B",
         "gap_pct": 0.58,
         "gap_score": 0,
-        "hourly_strength_pct": -0.79,
-        "hourly_score": 0,
-        "daily_rvol": 1.7,
+        "hourly_strength_pct": -0.77,
+        "hourly_score": 2,
+        "daily_rvol": 1.58,
         "daily_rvol_score": 1,
-        "close_to_high_pct": 98.08,
+        "close_to_high_pct": 98.1,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.67,
+        "late_volume_score": 2
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
+        "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "SIMO",
-      "company": "Silicon Motion Technology Corporation",
+      "ticker": "MXL",
+      "company": "MaxLinear, Inc.",
       "sector": "Technology",
       "swing_pick_date": "2026-08-17",
       "days_since_pick": 0,
-      "current_price": 273.0,
+      "current_price": 84.53,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($259.45–$286.55). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($81.18–$87.88). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 65.2,
-        "adx_1h": 41.3,
-        "volume_ratio": 0.0,
-        "change_1h": -1.67,
-        "change_24h": 9.59,
+        "rsi_1h": 55.6,
+        "adx_1h": 47.4,
+        "volume_ratio": 3.98,
+        "change_1h": -3.94,
+        "change_24h": -0.37,
         "trend_1h": "DOWN",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 2.0,
-        "natr": 10.08,
-        "pre_gap_total": 4,
+        "natr": 7.93,
+        "pre_gap_total": 5,
         "pre_gap_grade": "C",
-        "gap_pct": 4.46,
-        "gap_score": 2,
-        "hourly_strength_pct": -0.72,
+        "gap_pct": 1.03,
+        "gap_score": 1,
+        "hourly_strength_pct": -2.5,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 97.19,
-        "close_to_high_score": 2,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "daily_rvol": 2.7,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 94.98,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 1.28,
+        "late_volume_score": 1
       },
       "notes": [
         "🚀 RS: Outperformer",
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+        "⚠️ 15m trend DOWN (-3.9%) 🔻 Falling knife - RED"
       ]
     }
   ],
   "summary": {
     "date": "2026-08-17",
-    "last_updated": "2026-08-17T09:00:47.292265-04:00",
+    "last_updated": "2026-08-17T10:00:48.978607-04:00",
     "tickers": {
       "MGTX": {
         "status_history": [
@@ -933,6 +956,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -949,6 +980,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "WAIT"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -963,6 +1002,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -979,6 +1026,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -993,6 +1048,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1009,9 +1072,17 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "WAIT"
+          },
+          {
+            "hour": "10:00",
+            "status": "WAIT"
           }
         ],
-        "current_status": "ENTRY_NOW",
+        "current_status": "WAIT",
         "entry_triggered_at": "2026-08-17T08:48:47.195083-04:00",
         "entry_price": 32.58
       },
@@ -1023,6 +1094,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1039,6 +1118,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1053,6 +1140,14 @@
           },
           {
             "hour": "09:00",
+            "status": "WAIT"
+          },
+          {
+            "hour": "09:45",
+            "status": "WAIT"
+          },
+          {
+            "hour": "10:00",
             "status": "WAIT"
           }
         ],
@@ -1069,6 +1164,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1083,6 +1186,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "WAIT"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1099,6 +1210,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1114,9 +1233,17 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "WAIT"
+          },
+          {
+            "hour": "10:00",
+            "status": "WAIT"
           }
         ],
-        "current_status": "ENTRY_NOW",
+        "current_status": "WAIT",
         "entry_triggered_at": "2026-08-17T08:48:47.195083-04:00",
         "entry_price": 10.98
       },
@@ -1128,6 +1255,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1144,6 +1279,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1158,6 +1301,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1174,6 +1325,14 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1189,9 +1348,17 @@
           {
             "hour": "09:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
+            "status": "WAIT"
           }
         ],
-        "current_status": "ENTRY_NOW",
+        "current_status": "WAIT",
         "entry_triggered_at": "2026-08-17T08:48:47.195083-04:00",
         "entry_price": 22.69
       },
@@ -1203,6 +1370,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1218,6 +1393,14 @@
           },
           {
             "hour": "09:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "10:00",
             "status": "ENTRY_NOW"
           }
         ],
