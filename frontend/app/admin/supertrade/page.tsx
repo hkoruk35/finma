@@ -850,10 +850,10 @@ function Header({
             SPX Yön ve Teyit Motoru
           </h1>
           <Badge tone="brand">SuperTrade v3</Badge>
-          {live && lastUpdated && (
+          {lastUpdated && (
             <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#22c55e]" />
-              {lastUpdated.toLocaleTimeString("tr-TR")}
+              <span className={`h-1.5 w-1.5 rounded-full ${live ? "bg-[#22c55e]" : "bg-slate-500"}`} />
+              {lastUpdated.toLocaleDateString("tr-TR")} {lastUpdated.toLocaleTimeString("tr-TR")}
             </span>
           )}
         </div>
