@@ -34,9 +34,9 @@ export default function ContextEnginePanel({
     : "bg-amber-400/20 text-amber-300 border-amber-400/30";
 
   const overrideTitle = isConfirmed
-    ? "CANLI YAPI İLE TEYİTLİ (CONFIRMED)"
+    ? "CANLI YAPI İLE TEYİTLİ (ONAYLANDI)"
     : isContradicted
-    ? "CANLI YAPI İLE ÇELİŞKİLİ (LIVE OVERRIDE AKTİF)"
+    ? "CANLI YAPI İLE ÇELİŞKİLİ (CANLI GEÇERSİZ KILMA AKTİF)"
     : "HENÜZ TEYİT EDİLMEDİ (BEKLEMEDE)";
 
   return (
@@ -47,15 +47,15 @@ export default function ContextEnginePanel({
           <span className="text-xl">🏛️</span>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                Context &amp; Regime Engine
+              <h3 className="text-sm font-bold text-[#00d2ff] uppercase tracking-wider">
+                Piyasa Bağlamı ve Rejim Motoru (Context &amp; Regime Engine)
               </h3>
-              <span className="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-bold px-2 py-0.5 rounded">
-                Çok Katmanlı Piyasa Bağlamı
+              <span className="bg-[#00d2ff]/10 text-[#00d2ff] border border-[#00d2ff]/20 text-[10px] font-bold px-2 py-0.5 rounded">
+                Çok Katmanlı Analiz
               </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5">
-              Takvim Mevsimselliği + Makro Olay Hafızası + Volatilite Rejimi + Tarihsel Analog Eşleşmesi
+              Takvim Mevsimselliği + Makro Olay Hafızası + Volatilite Rejimi + Tarihsel Benzerlik Eşleşmesi
             </p>
           </div>
         </div>
@@ -63,16 +63,16 @@ export default function ContextEnginePanel({
         {/* Fingerprint ve Ağırlık Dağılımı Toggle */}
         <div className="flex items-center gap-2 self-start md:self-auto">
           <div
-            className="bg-[#050811] border border-white/[0.06] px-2.5 py-1 rounded font-mono text-[10px] text-cyan-400 max-w-[320px] truncate"
-            title={`Context Fingerprint:\n${fingerprint}`}
+            className="bg-[#050811] border border-white/[0.06] px-2.5 py-1 rounded font-mono text-[10px] text-[#00d2ff] max-w-[320px] truncate"
+            title={`Bağlam İmzası:\n${fingerprint}`}
           >
             🔑 {fingerprint}
           </div>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-[10px] text-slate-400 hover:text-white px-2 py-1 rounded bg-white/[0.04] border border-white/[0.06] transition-colors"
+            className="text-[10px] text-slate-300 hover:text-white px-2.5 py-1 rounded bg-white/[0.06] border border-white/[0.1] transition-colors"
           >
-            {isExpanded ? "Ağırlıkları Gizle ▲" : "Ağırlıklar ▼"}
+            {isExpanded ? "Ağırlıkları Gizle ▲" : "Ağırlıkları Göster ▼"}
           </button>
         </div>
       </div>
@@ -81,143 +81,125 @@ export default function ContextEnginePanel({
       {isExpanded && (
         <div className="mb-4 bg-[#050811] p-3 rounded-lg border border-white/[0.06] text-xs text-slate-300 grid grid-cols-2 md:grid-cols-7 gap-2 text-center">
           <div>
-            <span className="text-slate-500 block text-[10px]">Canlı Yapı</span>
+            <span className="text-[#00d2ff] font-semibold block text-[10px]">Canlı Yapı</span>
             <span className="font-bold text-[#00d2ff]">%35</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Gece/Vadeli</span>
+            <span className="text-slate-400 block text-[10px]">Gece / Vadeli</span>
             <span className="font-bold text-slate-200">%20</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Önceki Seans</span>
+            <span className="text-slate-400 block text-[10px]">Önceki Seans</span>
             <span className="font-bold text-slate-200">%15</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Makro Bağlam</span>
+            <span className="text-slate-400 block text-[10px]">Makro Bağlam</span>
             <span className="font-bold text-slate-200">%10</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Volatilite Rejimi</span>
+            <span className="text-slate-400 block text-[10px]">Volatilite Rejimi</span>
             <span className="font-bold text-slate-200">%10</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Mevsimsellik</span>
-            <span className="font-bold text-slate-200">%7</span>
+            <span className="text-slate-400 block text-[10px]">Mevsimsellik</span>
+            <span className="font-bold text-slate-200">%5</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px]">Gün Eğilimi</span>
-            <span className="font-bold text-slate-200">%3</span>
+            <span className="text-slate-400 block text-[10px]">Tarihsel Benzerlik</span>
+            <span className="font-bold text-slate-200">%5</span>
           </div>
         </div>
       )}
 
-      {/* 5 Katmanlı Rejim Izgarası + Tarihsel Analog Özeti */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
-        {/* Sol 5 Katman (8 Kolon) */}
-        <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          {/* Katman 1: Mevsimsellik */}
-          <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-            <div className="flex justify-between items-center text-slate-400 text-[10px] uppercase font-semibold mb-1">
-              <span>📅 Calendar Seasonality</span>
-              <span className="text-purple-400">{seasonality.monthPhase}</span>
-            </div>
-            <div className="font-bold text-white text-xs">{seasonality.humanSummary}</div>
-            <div className="text-[10px] text-slate-500 mt-1">
-              OPEX: Hayır | Triple Witching: Hayır
-            </div>
-          </div>
-
-          {/* Katman 2: Makro Olay & Event Memory */}
-          <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-            <div className="flex justify-between items-center text-slate-400 text-[10px] uppercase font-semibold mb-1">
-              <span>⚡ Macro Event Context</span>
-              <span className="text-rose-400 font-bold">{macro.impact}</span>
-            </div>
-            <div className="font-bold text-white text-xs">{macro.label}</div>
-            <div className="text-[10px] text-amber-300 mt-1 flex justify-between">
-              <span>Son 12 CPI Günü Reaksiyonu:</span>
-              <span className="font-bold">OR Kırılım %{macro.eventMemory?.orBreakoutSuccessRate}</span>
-            </div>
-          </div>
-
-          {/* Katman 3: Volatilite Rejimi */}
-          <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-            <div className="flex justify-between items-center text-slate-400 text-[10px] uppercase font-semibold mb-1">
-              <span>🌊 Volatility Regime</span>
-              <span className="text-emerald-400 font-bold">{volatility.level}</span>
-            </div>
-            <div className="font-bold text-white text-xs">{volatility.regimeTag}</div>
-            <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
-              <span>VIX: {volatility.vixValue}</span>
-              <span className="text-emerald-400">5D İvme: {volatility.vix5dChange}</span>
-            </div>
-          </div>
-
-          {/* Katman 4 & 5: Önceki Gün & Gece */}
-          <div className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]">
-            <div className="flex justify-between items-center text-slate-400 text-[10px] uppercase font-semibold mb-1">
-              <span>🌙 Overnight &amp; Prev Session</span>
-              <span className="text-cyan-400">Futures Align</span>
-            </div>
-            <div className="font-bold text-white text-xs">{overnight.label}</div>
-            <div className="text-[10px] text-slate-400 mt-1 flex justify-between">
-              <span>Önceki Gün: {previousSession.label.split("(")[0]}</span>
-              <span className="text-emerald-400">Gap: +{overnight.gapPts} pts</span>
-            </div>
-          </div>
+      {/* Canlı Yapı Teyit / Çelişki Şeridi */}
+      <div className={`p-3 rounded-lg border flex flex-col md:flex-row md:items-center justify-between gap-2.5 mb-4 ${overrideBadgeColor}`}>
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-xs">{overrideTitle}</span>
+          <span className="text-[11px] opacity-90 hidden sm:inline">|</span>
+          <span className="text-xs">{liveOverrideExplanation}</span>
         </div>
-
-        {/* Sağ: Tarihsel Analog & İstatistikler (4 Kolon) */}
-        <div className="md:col-span-4 bg-[#070a11] p-3.5 rounded-lg border border-cyan-500/20 flex flex-col justify-between">
-          <div>
-            <div className="flex justify-between items-center text-[10px] uppercase font-bold text-cyan-400 mb-2 border-b border-white/[0.04] pb-1.5">
-              <span>📊 Historical Analog Kohortu</span>
-              <span>{analog.sampleSize} Seans Eşleşti</span>
-            </div>
-
-            <div className="space-y-1.5 text-xs">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400 text-[11px]">Tarihsel Eğilim:</span>
-                <span className="font-bold text-emerald-400">
-                  {analog.directionalDistribution.bullishCount}/{analog.sampleSize} Yukarı (%{analog.directionalDistribution.bullishPct.toFixed(1)})
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400 text-[11px]">Medyan 30m Hareketi:</span>
-                <span className="font-bold text-white">+{analog.median30mMovePts} SPX Puan</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400 text-[11px]">MFE / MAE Oranı:</span>
-                <span className="font-medium text-slate-300">
-                  <span className="text-emerald-400 font-bold">+{analog.medianMFE}</span> /{" "}
-                  <span className="text-rose-400 font-bold">{analog.medianMAE}</span>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-3 pt-2 border-t border-white/[0.04] flex justify-between items-center text-[10px]">
-            <span className="text-slate-500">En Yakın Analog Tarih:</span>
-            <span className="font-mono text-cyan-300 font-bold">
-              {analog.nearestAnalogDate} (%{analog.nearestAnalogSimilarity} Benzerlik)
-            </span>
-          </div>
+        <div className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-black/30 w-fit">
+          Mevcut Durum: {liveState.replace(/_/g, " ")}
         </div>
       </div>
 
-      {/* EN KRİTİK GÜVENLİK KİLİDİ: LIVE OVERRIDE BAR */}
-      <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-            Live Override:
-          </span>
-          <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold border uppercase tracking-wider ${overrideBadgeColor}`}>
-            {overrideTitle}
-          </span>
+      {/* 6 Katmanlı Bağlam Kartları Izgarası */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+        {/* 1. Mevsimsellik */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">1. Mevsimsellik</div>
+            <div className="font-bold text-slate-200">{seasonality.bias}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{seasonality.desc}</div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Tarihsel Kazanma: <span className="text-[#00d2ff] font-bold">%{seasonality.winRate}</span>
+          </div>
         </div>
-        <p className="text-[11px] text-slate-300 leading-tight">
-          💡 <span className="text-slate-400">{liveOverrideExplanation}</span>
-        </p>
+
+        {/* 2. Makro Olay */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">2. Makro Olay</div>
+            <div className="font-bold text-amber-300">{macro.event}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{macro.regimeNote}</div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Kısıtlama: <span className="text-rose-400 font-bold">{macro.isRestricted ? "AKTİF" : "YOK"}</span>
+          </div>
+        </div>
+
+        {/* 3. Volatilite Rejimi */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">3. Volatilite (VIX)</div>
+            <div className="font-bold text-purple-300">{volatility.regime}</div>
+            <div className="text-[11px] text-slate-400 mt-1">VIX: {volatility.vixLevel.toFixed(1)} | Beklenen Aralık: ±{volatility.expectedMovePts} Puan</div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Rejim: <span className="text-slate-300 font-medium">{volatility.behavior}</span>
+          </div>
+        </div>
+
+        {/* 4. Önceki Seans Yapısı */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">4. Önceki Seans</div>
+            <div className="font-bold text-slate-200">{previousSession.type}</div>
+            <div className="text-[11px] text-slate-400 mt-1">
+              Kapanış: <span className={previousSession.closePosition === "Zirveye Yakın (Üst %25)" ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>{previousSession.closePosition}</span>
+            </div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Genişlik: <span className="text-slate-300 font-medium">{previousSession.rangePts} Puan</span>
+          </div>
+        </div>
+
+        {/* 5. Gece Seansı (Overnight Globex) */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">5. Gece Globex</div>
+            <div className="font-bold text-slate-200">{overnight.inventory}</div>
+            <div className="text-[11px] text-slate-400 mt-1">
+              Gap: <span className={overnight.gapType.includes("Yukarı") ? "text-emerald-400 font-bold" : overnight.gapType.includes("Aşağı") ? "text-rose-400 font-bold" : "text-slate-300"}>{overnight.gapType} ({overnight.gapPts >= 0 ? `+${overnight.gapPts}` : overnight.gapPts} Puan)</span>
+            </div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Envanter Riski: <span className="text-amber-400 font-medium">{overnight.inventoryRisk}</span>
+          </div>
+        </div>
+
+        {/* 6. Tarihsel Benzerlik (Analog Match) */}
+        <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">6. Tarihsel Eşleşme</div>
+            <div className="font-bold text-[#00d2ff]">{analog.matchedDate}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{analog.description}</div>
+          </div>
+          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
+            Benzerlik Oranı: <span className="text-emerald-400 font-bold">%{analog.similarityScore}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

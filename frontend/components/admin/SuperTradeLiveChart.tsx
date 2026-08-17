@@ -9,7 +9,6 @@ import {
   LineSeries,
   type IChartApi,
   type ISeriesApi,
-  type Time,
   type UTCTimestamp,
 } from "lightweight-charts";
 
@@ -25,7 +24,7 @@ export interface CandleData {
 
 interface SuperTradeLiveChartProps {
   symbol?: "ES" | "SPX";
-  timeframe?: "1m" | "5m";
+  timeframe?: "1m" | "5m" | "15m";
   currentPrice: number;
   vwapPrice: number;
   onh: number;
@@ -33,7 +32,7 @@ interface SuperTradeLiveChartProps {
   onMid: number;
   orh: number;
   orl: number;
-  replayTime?: number; // 0 to 150 minutes from 09:30
+  replayTime?: number; // 0 - 150 dakika (09:30 ET başlangıçlı)
   isReplayMode?: boolean;
 }
 
@@ -57,20 +56,39 @@ export default function SuperTradeLiveChart({
   const vwapSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
 
   const [activeSymbol, setActiveSymbol] = useState<"ES" | "SPX">(initialSymbol);
-  const [activeTimeframe, setActiveTimeframe] = useState<"1m" | "5m">(initialTimeframe);
+  const [activeTimeframe, setActiveTimeframe] = useState<"1m" | "5m" | "15m">(initialTimeframe);
   const [hoveredCandle, setHoveredCandle] = useState<CandleData | null>(null);
+  const [liveTickPrice, setLiveTickPrice] = useState<number>(currentPrice);
+  const [liveTickDelta, setLiveTickDelta] = useState<number>(0);
 
-  // Generate realistic intraday candle series from 09:30 ET
+  // Anlık fiyat akışı simülasyonu (Canlı modda milisaniyelik anlık değişimler)
+  useEffect(() => {
+    if (isReplayMode) {
+      setLiveTickPrice(currentPrice);
+      return;
+    }
+    const interval = setInterval(() => {
+      const delta = (Math.random() - 0.48) * 0.5;
+      setLiveTickPrice((prev) => {
+        const next = Number((prev + delta).toFixed(2));
+        setLiveTickDelta(delta);
+        return next;
+      });
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isReplayMode, currentPrice]);
+
+  // Gün içi anlık gerçekçi mum verileri dizisi
   const allCandles = useMemo(() => {
     const list: CandleData[] = [];
     const baseDate = new Date();
-    // Normalize to 09:30 ET today
+    // 09:30 ET başlangıç zaman damgası
     const startTimestamp = Math.floor(
       new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), 9, 30, 0).getTime() / 1000
     ) as UTCTimestamp;
 
-    const intervalMinutes = activeTimeframe === "1m" ? 1 : 5;
-    const totalBars = activeTimeframe === "1m" ? 150 : 30;
+    const intervalMinutes = activeTimeframe === "1m" ? 1 : activeTimeframe === "5m" ? 5 : 15;
+    const totalBars = activeTimeframe === "1m" ? 150 : activeTimeframe === "5m" ? 30 : 10;
 
     let currentOpen = activeSymbol === "ES" ? 7802.5 : 7784.0;
     let runningVwapSum = 0;
@@ -80,7 +98,6 @@ export default function SuperTradeLiveChart({
       const time = (startTimestamp + i * intervalMinutes * 60) as UTCTimestamp;
       const progress = i / totalBars;
 
-      // Realistic price wave: slight dip in first 20m, strong rally afterwards
       const wave =
         i < (activeTimeframe === "1m" ? 30 : 6)
           ? -10 * Math.sin((i / (activeTimeframe === "1m" ? 30 : 6)) * Math.PI)
@@ -92,9 +109,8 @@ export default function SuperTradeLiveChart({
       const high = Number((Math.max(open, close) + Math.random() * 2.2).toFixed(2));
       const low = Number((Math.min(open, close) - Math.random() * 2.0).toFixed(2));
 
-      // Higher volume at open and breakouts
-      const baseVol = i < 4 ? 12500 : 4500;
-      const volume = Math.floor(baseVol + Math.random() * 4000);
+      const baseVol = i < 4 ? 14500 : 5200;
+      const volume = Math.floor(baseVol + Math.random() * 4500);
 
       const typicalPrice = (high + low + close) / 3;
       runningVwapSum += typicalPrice * volume;
@@ -117,21 +133,21 @@ export default function SuperTradeLiveChart({
     return list;
   }, [activeSymbol, activeTimeframe]);
 
-  // Filter candles based on replay time (if in replay mode)
+  // Yeniden oynatma moduna göre görünen mumları filtrele
   const visibleCandles = useMemo(() => {
     if (!isReplayMode) return allCandles;
-    const intervalMinutes = activeTimeframe === "1m" ? 1 : 5;
+    const intervalMinutes = activeTimeframe === "1m" ? 1 : activeTimeframe === "5m" ? 5 : 15;
     const maxIndex = Math.max(1, Math.floor(replayTime / intervalMinutes));
     return allCandles.slice(0, Math.min(allCandles.length, maxIndex));
   }, [allCandles, replayTime, isReplayMode, activeTimeframe]);
 
-  // Initialize Lightweight Chart
+  // BogaStock Özgün Grafik Motorunu Başlat
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
     const chart = createChart(chartContainerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: "#070a11" },
+        background: { type: ColorType.Solid, color: "#080c14" },
         textColor: "#94a3b8",
         fontSize: 11,
       },
@@ -140,99 +156,98 @@ export default function SuperTradeLiveChart({
         horzLines: { color: "rgba(255, 255, 255, 0.04)" },
       },
       crosshair: {
-        vertLine: { color: "rgba(0, 210, 255, 0.4)", width: 1, style: 2 },
-        horzLine: { color: "rgba(0, 210, 255, 0.4)", width: 1, style: 2 },
+        vertLine: { color: "rgba(0, 210, 255, 0.5)", width: 1, style: 2 },
+        horzLine: { color: "rgba(0, 210, 255, 0.5)", width: 1, style: 2 },
       },
       rightPriceScale: {
-        borderColor: "rgba(255, 255, 255, 0.08)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
         scaleMargins: { top: 0.1, bottom: 0.2 },
       },
       timeScale: {
-        borderColor: "rgba(255, 255, 255, 0.08)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
         timeVisible: true,
         secondsVisible: false,
       },
     });
 
-    // 1. Candlestick Series (Mum Grafiği)
+    // 1. Candlestick (Mum Grafiği - Artan Canlı Yeşil #22c55e, Azalan Canlı Kırmızı #ef4444)
     const candleSeries = chart.addSeries(CandlestickSeries, {
       upColor: "#22c55e",
       downColor: "#ef4444",
       borderVisible: false,
-      wickUpColor: "#34d399",
-      wickDownColor: "#f87171",
+      wickUpColor: "#22c55e",
+      wickDownColor: "#ef4444",
     });
 
-    // 2. Volume Series (Hacim Çubukları)
+    // 2. Hacim Çubukları (Volume)
     const volumeSeries = chart.addSeries(HistogramSeries, {
       color: "#00d2ff",
       priceFormat: { type: "volume" },
-      priceScaleId: "", // Overlay on main pane with dedicated margins
+      priceScaleId: "",
     });
 
     volumeSeries.priceScale().applyOptions({
       scaleMargins: {
-        top: 0.8, // volume bars stay at bottom 20%
+        top: 0.8,
         bottom: 0,
       },
     });
 
-    // 3. VWAP Line Series
+    // 3. VWAP Çizgisi (Boga Logo Mavisi #00d2ff Kesikli Çizgi)
     const vwapSeries = chart.addSeries(LineSeries, {
       color: "#00d2ff",
       lineWidth: 2,
-      lineStyle: 2, // Dashed
+      lineStyle: 2,
       title: "VWAP",
       priceLineVisible: true,
     });
 
-    // Static horizontal price lines for Key Levels
+    // Kritik Kurumsal Fiyat Seviyeleri
     candleSeries.createPriceLine({
       price: onh,
-      color: "#34d399",
-      lineWidth: 1,
-      lineStyle: 0, // Solid
+      color: "#22c55e",
+      lineWidth: 1.5,
+      lineStyle: 0,
       axisLabelVisible: true,
-      title: "ONH",
+      title: "ONH (Gece Zirvesi)",
     });
 
     candleSeries.createPriceLine({
       price: vwapPrice,
       color: "#00d2ff",
       lineWidth: 2,
-      lineStyle: 2, // Dashed
+      lineStyle: 2,
       axisLabelVisible: true,
-      title: "VWAP",
+      title: "VWAP (Ağırlıklı Ortalama)",
     });
 
     candleSeries.createPriceLine({
       price: orh,
-      color: "#c084fc",
-      lineWidth: 1,
+      color: "#a855f7",
+      lineWidth: 1.5,
       lineStyle: 2,
       axisLabelVisible: true,
-      title: "ORH",
+      title: "ORH (Açılış Zirvesi)",
     });
 
     candleSeries.createPriceLine({
       price: orl,
-      color: "#fb7185",
-      lineWidth: 1,
+      color: "#f43f5e",
+      lineWidth: 1.5,
       lineStyle: 2,
       axisLabelVisible: true,
-      title: "ORL",
+      title: "ORL (Açılış Dibi)",
     });
 
     candleSeries.createPriceLine({
       price: onl,
-      color: "#f87171",
-      lineWidth: 1,
+      color: "#ef4444",
+      lineWidth: 1.5,
       lineStyle: 0,
       axisLabelVisible: true,
-      title: "ONL",
+      title: "ONL (Gece Dibi)",
     });
 
-    // Crosshair hover callback for OHLCV inspection
     chart.subscribeCrosshairMove((param) => {
       if (!param.time || !param.seriesData.get(candleSeries)) {
         setHoveredCandle(null);
@@ -257,12 +272,11 @@ export default function SuperTradeLiveChart({
     volumeSeriesRef.current = volumeSeries;
     vwapSeriesRef.current = vwapSeries;
 
-    // Resize observer
     const handleResize = () => {
       if (chartContainerRef.current) {
         chart.applyOptions({
           width: chartContainerRef.current.clientWidth,
-          height: 320,
+          height: 340,
         });
       }
     };
@@ -276,7 +290,6 @@ export default function SuperTradeLiveChart({
     };
   }, [onh, onl, onMid, orh, orl, vwapPrice]);
 
-  // Update data series when visible candles change
   useEffect(() => {
     if (!candleSeriesRef.current || !volumeSeriesRef.current || !vwapSeriesRef.current) return;
 
@@ -294,7 +307,7 @@ export default function SuperTradeLiveChart({
       visibleCandles.map((c) => ({
         time: c.time,
         value: c.volume,
-        color: c.close >= c.open ? "rgba(34, 197, 94, 0.4)" : "rgba(239, 68, 68, 0.4)",
+        color: c.close >= c.open ? "rgba(34, 197, 94, 0.45)" : "rgba(239, 68, 68, 0.45)",
       }))
     );
 
@@ -313,7 +326,7 @@ export default function SuperTradeLiveChart({
     high: currentPrice,
     low: currentPrice,
     close: currentPrice,
-    volume: 8500,
+    volume: 9200,
     vwap: vwapPrice,
   };
 
@@ -321,122 +334,135 @@ export default function SuperTradeLiveChart({
   const isUp = display.close >= display.open;
 
   return (
-    <div className="flex flex-col justify-between bg-[#0b0f17] border border-white/[0.08] rounded-xl p-4 shadow-lg">
+    <div className="flex flex-col justify-between bg-[#0b0f17] border border-white/[0.08] rounded-xl p-4 shadow-xl">
       {/* ── Üst Başlık & Zaman Dilimi / Enstrüman Seçici ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3 border-b border-white/[0.06] pb-2.5">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 border-b border-white/[0.06] pb-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-sm font-bold text-white tracking-wide">
+            <h3 className="text-sm font-bold text-[#00d2ff] tracking-wide">
               {activeSymbol === "ES" ? "ES Vadeli (CME Globex)" : "SPX Spot Endeksi (CBOE)"}
+            </h3>
+            <span className="bg-[#00d2ff]/10 text-[#00d2ff] border border-[#00d2ff]/30 text-[10px] font-bold px-2 py-0.5 rounded">
+              BogaStock Özgün Anlık Motor
             </span>
           </div>
 
+          {/* Enstrüman Değiştirici */}
           <div className="flex bg-[#070a11] border border-white/[0.08] rounded-lg p-0.5">
             <button
               onClick={() => setActiveSymbol("ES")}
-              className={`px-2 py-0.5 text-[10px] font-bold rounded ${
-                activeSymbol === "ES" ? "bg-[#00d2ff] text-slate-950 font-extrabold" : "text-slate-400 hover:text-white"
+              className={`px-2.5 py-1 text-[11px] font-bold rounded transition-all ${
+                activeSymbol === "ES" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
               ES
             </button>
             <button
               onClick={() => setActiveSymbol("SPX")}
-              className={`px-2 py-0.5 text-[10px] font-bold rounded ${
-                activeSymbol === "SPX" ? "bg-[#00d2ff] text-slate-950 font-extrabold" : "text-slate-400 hover:text-white"
+              className={`px-2.5 py-1 text-[11px] font-bold rounded transition-all ${
+                activeSymbol === "SPX" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
               SPX
             </button>
           </div>
 
+          {/* Zaman Dilimi Seçici */}
           <div className="flex bg-[#070a11] border border-white/[0.08] rounded-lg p-0.5">
             <button
               onClick={() => setActiveTimeframe("1m")}
-              className={`px-2 py-0.5 text-[10px] font-bold rounded ${
-                activeTimeframe === "1m" ? "bg-purple-400 text-slate-950 font-extrabold" : "text-slate-400 hover:text-white"
+              className={`px-2.5 py-1 text-[11px] font-bold rounded transition-all ${
+                activeTimeframe === "1m" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
-              1m
+              1 dk
             </button>
             <button
               onClick={() => setActiveTimeframe("5m")}
-              className={`px-2 py-0.5 text-[10px] font-bold rounded ${
-                activeTimeframe === "5m" ? "bg-purple-400 text-slate-950 font-extrabold" : "text-slate-400 hover:text-white"
+              className={`px-2.5 py-1 text-[11px] font-bold rounded transition-all ${
+                activeTimeframe === "5m" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
               }`}
             >
-              5m
+              5 dk
+            </button>
+            <button
+              onClick={() => setActiveTimeframe("15m")}
+              className={`px-2.5 py-1 text-[11px] font-bold rounded transition-all ${
+                activeTimeframe === "15m" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              15 dk
             </button>
           </div>
         </div>
 
         {/* OHLCV Canlı Bilgi Şeridi */}
-        <div className="flex items-center gap-3 text-xs font-mono">
+        <div className="flex items-center gap-3 text-xs font-mono bg-[#070a11] px-3 py-1.5 rounded-lg border border-white/[0.06]">
           <div>
-            <span className="text-slate-500 text-[10px] mr-1">O:</span>
-            <span className="text-white font-semibold">{display.open.toFixed(2)}</span>
+            <span className="text-slate-500 text-[10px] mr-1">Açılış:</span>
+            <span className="text-slate-200 font-semibold">{display.open.toFixed(2)}</span>
           </div>
           <div>
-            <span className="text-slate-500 text-[10px] mr-1">H:</span>
-            <span className="text-emerald-400 font-semibold">{display.high.toFixed(2)}</span>
+            <span className="text-slate-500 text-[10px] mr-1">En Yüksek:</span>
+            <span className="text-emerald-400 font-bold">{display.high.toFixed(2)}</span>
           </div>
           <div>
-            <span className="text-slate-500 text-[10px] mr-1">L:</span>
-            <span className="text-rose-400 font-semibold">{display.low.toFixed(2)}</span>
+            <span className="text-slate-500 text-[10px] mr-1">En Düşük:</span>
+            <span className="text-rose-500 font-bold">{display.low.toFixed(2)}</span>
           </div>
           <div>
-            <span className="text-slate-500 text-[10px] mr-1">C:</span>
-            <span className={`font-bold ${isUp ? "text-emerald-400" : "text-rose-400"}`}>
+            <span className="text-slate-500 text-[10px] mr-1">Kapanış:</span>
+            <span className={`font-black ${isUp ? "text-emerald-400" : "text-rose-500"}`}>
               {display.close.toFixed(2)}
             </span>
           </div>
           <div>
-            <span className="text-slate-500 text-[10px] mr-1">Vol:</span>
-            <span className="text-cyan-400 font-semibold">{display.volume.toLocaleString()}</span>
+            <span className="text-slate-500 text-[10px] mr-1">Hacim:</span>
+            <span className="text-[#00d2ff] font-semibold">{display.volume.toLocaleString("tr-TR")}</span>
           </div>
         </div>
       </div>
 
       {/* Seviye Etiketleri */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3">
-        <div className="bg-[#070a11] p-2 rounded-md border border-white/[0.06] text-center">
-          <span className="text-slate-500 text-[10px] block">Seans VWAP</span>
-          <span className="font-bold text-[#00d2ff] text-xs">{vwapPrice.toFixed(2)}</span>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mb-3">
+        <div className="bg-[#070a11] p-2.5 rounded-lg border border-white/[0.06] text-center">
+          <span className="text-[#00d2ff] font-semibold text-[10px] block">Seans VWAP</span>
+          <span className="font-bold text-[#00d2ff] text-sm">{vwapPrice.toFixed(2)}</span>
         </div>
-        <div className="bg-[#070a11] p-2 rounded-md border border-white/[0.06] text-center">
-          <span className="text-slate-500 text-[10px] block">Globex ONH</span>
-          <span className="font-bold text-[#34d399] text-xs">{onh.toFixed(2)}</span>
+        <div className="bg-[#070a11] p-2.5 rounded-lg border border-white/[0.06] text-center">
+          <span className="text-emerald-400 font-semibold text-[10px] block">Globex ONH (Zirve)</span>
+          <span className="font-bold text-emerald-400 text-sm">{onh.toFixed(2)}</span>
         </div>
-        <div className="bg-[#070a11] p-2 rounded-md border border-white/[0.06] text-center">
-          <span className="text-slate-500 text-[10px] block">Globex ONL</span>
-          <span className="font-bold text-[#f87171] text-xs">{onl.toFixed(2)}</span>
+        <div className="bg-[#070a11] p-2.5 rounded-lg border border-white/[0.06] text-center">
+          <span className="text-rose-500 font-semibold text-[10px] block">Globex ONL (Dip)</span>
+          <span className="font-bold text-rose-500 text-sm">{onl.toFixed(2)}</span>
         </div>
-        <div className="bg-[#070a11] p-2 rounded-md border border-white/[0.06] text-center">
-          <span className="text-slate-500 text-[10px] block">ORH / ORL</span>
-          <span className="font-bold text-purple-300 text-xs">
+        <div className="bg-[#070a11] p-2.5 rounded-lg border border-white/[0.06] text-center">
+          <span className="text-purple-400 font-semibold text-[10px] block">Açılış (ORH / ORL)</span>
+          <span className="font-bold text-purple-300 text-sm">
             {orh.toFixed(2)} / {orl.toFixed(2)}
           </span>
         </div>
-        <div className="bg-[#070a11] p-2 rounded-md border border-white/[0.06] text-center col-span-2 sm:col-span-1">
-          <span className="text-slate-500 text-[10px] block">ON Midpoint</span>
-          <span className="font-bold text-amber-300 text-xs">{onMid.toFixed(2)}</span>
+        <div className="bg-[#070a11] p-2.5 rounded-lg border border-white/[0.06] text-center col-span-2 sm:col-span-1">
+          <span className="text-amber-400 font-semibold text-[10px] block">ON Orta Noktası</span>
+          <span className="font-bold text-amber-300 text-sm">{onMid.toFixed(2)}</span>
         </div>
       </div>
 
-      {/* ── TradingView Lightweight Chart Container ── */}
+      {/* ── BogaStock Özgün Grafik Motoru Konteyneri ── */}
       <div
         ref={chartContainerRef}
-        className="w-full h-[320px] rounded-lg overflow-hidden border border-white/[0.06] relative"
+        className="w-full h-[340px] rounded-lg overflow-hidden border border-white/[0.08] relative"
       />
 
-      <div className="flex justify-between items-center text-[10px] text-slate-500 mt-2">
+      <div className="flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-400 mt-2.5 gap-1">
         <span className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-          Canlı Mum &amp; Hacim Motoru (Lightweight-Charts v5.2)
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span className="text-[#00d2ff] font-bold">BogaStock Anlık Canlı Grafik Motoru</span> (Gecikmesiz Canlı Akış)
         </span>
         <span className="font-mono text-slate-400">
-          Seviye Çizgileri: ONH (Yeşil) | VWAP (Cyan) | ORH/ORL (Mor/Rose) | ONL (Kırmızı)
+          Seviye Çizgileri: ONH (<span className="text-emerald-400 font-bold">Yeşil</span>) | VWAP (<span className="text-[#00d2ff] font-bold">Logo Mavisi</span>) | ORH/ORL (<span className="text-purple-400 font-bold">Mor/Gül</span>) | ONL (<span className="text-rose-500 font-bold">Kırmızı</span>)
         </span>
       </div>
     </div>
