@@ -6,6 +6,7 @@
 
 import { NextResponse } from "next/server";
 import { getSnapshot } from "@/lib/spx/snapshot";
+import { evaluatePendingLogs } from "@/lib/spx/performance-tracker";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,6 +15,8 @@ export const maxDuration = 30;
 export async function GET() {
   try {
     const snapshot = await getSnapshot();
+    // Arka planda evaluatePendingLogs çalıştır
+    evaluatePendingLogs(snapshot).catch((err) => console.error("[supertrade] evaluator error:", err));
     return NextResponse.json(snapshot, {
       headers: { "Cache-Control": "no-store" },
     });

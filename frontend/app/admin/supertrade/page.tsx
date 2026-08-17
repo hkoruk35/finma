@@ -269,6 +269,34 @@ export default function SuperTradePage() {
     };
   }, [mode, snapshot, replay, replayIndex]);
 
+  // ── Otomatik İşlem Kaydı (Performans Takibi) ──
+  useEffect(() => {
+    if (mode !== "live" || !view || !view.isLiveSession) return;
+    
+    const state = view.frame.state;
+    if (state.startsWith("CONFIRMED_") || state.startsWith("STRONG_")) {
+      const direction = state.includes("LONG") ? "LONG" : "SHORT";
+      const spx = view.levels.spx;
+      // İptal seviyesi: Long için ORH (direnç kırılamazsa) veya Short için ORL
+      // Not: Bu sadece basit bir referanstır, asıl değerlendirmeyi backend (performance-tracker) yapar
+      const invalidationPrice = direction === "LONG" ? spx.orh : spx.orl;
+
+      fetch("/api/admin/supertrade/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_date: view.sessionDate,
+          signal_state: state,
+          direction,
+          entry_price: view.frame.spxPrice,
+          invalidation_price: invalidationPrice,
+          net_score: view.frame.netScore,
+          strategy_json: { timeLabel: view.frame.timeLabel, vwap: view.frame.vwap }
+        }),
+      }).catch((err) => console.error("Logging error:", err));
+    }
+  }, [view?.frame.state, view?.isLiveSession, mode]);
+
   // ── Runner simülasyonu (oynatma sırasında ilerler) ──
   const runners = useMemo(() => {
     if (!view) return null;
