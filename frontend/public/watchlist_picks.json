@@ -1,29 +1,11 @@
 {
-  "generated_at": "2026-08-17T14:04:16.387895-04:00",
+  "generated_at": "2026-08-17T17:04:05.293707-04:00",
   "picks": [
     {
       "ticker": "FROG",
       "sector": "Technology",
       "date_added": "2026-08-17",
       "score": 47.0
-    },
-    {
-      "ticker": "PRMB",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-17",
-      "score": 45.5
-    },
-    {
-      "ticker": "TKR",
-      "sector": "Industrials",
-      "date_added": "2026-08-17",
-      "score": 45.5
-    },
-    {
-      "ticker": "GEO",
-      "sector": "Industrials",
-      "date_added": "2026-08-17",
-      "score": 37.5
     },
     {
       "ticker": "EQIX",
@@ -38,16 +20,52 @@
       "score": 40.0
     },
     {
-      "ticker": "BP",
-      "sector": "Energy",
+      "ticker": "S",
+      "sector": "Technology",
       "date_added": "2026-08-17",
-      "score": 40.0
+      "score": 50.0
     },
     {
-      "ticker": "DLTR",
-      "sector": "Consumer Defensive",
+      "ticker": "TKR",
+      "sector": "Industrials",
       "date_added": "2026-08-17",
-      "score": 39.5
+      "score": 48.5
+    },
+    {
+      "ticker": "AVT",
+      "sector": "Technology",
+      "date_added": "2026-08-17",
+      "score": 48.0
+    },
+    {
+      "ticker": "ARMK",
+      "sector": "Industrials",
+      "date_added": "2026-08-17",
+      "score": 47.5
+    },
+    {
+      "ticker": "JBHT",
+      "sector": "Industrials",
+      "date_added": "2026-08-17",
+      "score": 45.0
+    },
+    {
+      "ticker": "HWM",
+      "sector": "Industrials",
+      "date_added": "2026-08-17",
+      "score": 43.5
+    },
+    {
+      "ticker": "AAPL",
+      "sector": "Technology",
+      "date_added": "2026-08-17",
+      "score": 43.5
+    },
+    {
+      "ticker": "CNK",
+      "sector": "Communication Services",
+      "date_added": "2026-08-17",
+      "score": 40.5
     }
   ]
 }
