@@ -27,11 +27,11 @@ const dots = allPoints.filter((p) => p !== nycPin && p.y >= cropY && p.y <= crop
 const VIEW_BOX = `${minX} ${cropY} ${mapW} ${cropH}`;
 
 const COPY: Record<Lang, { line1: string; line2: string }> = {
-  tr: { line1: "70+ Ülke · 5 Dil · ABD Borsaları Analizi", line2: "Küresel fırsatları birlikte yakalıyoruz." },
-  en: { line1: "70+ Countries · 5 Languages · US Market Analysis", line2: "Capturing global opportunities together." },
-  fr: { line1: "70+ Pays · 5 Langues · Analyse des Marchés Américains", line2: "Saisissons ensemble les opportunités mondiales." },
-  pt: { line1: "70+ Países · 5 Idiomas · Análise dos Mercados dos EUA", line2: "Capturando oportunidades globais juntos." },
-  es: { line1: "70+ Países · 5 Idiomas · Análisis de Mercados de EE. UU.", line2: "Capturando oportunidades globales juntos." },
+  tr: { line1: "70+ Ülke · 6 Dil · ABD Borsaları Analizi", line2: "Küresel fırsatları birlikte yakalıyoruz." },
+  en: { line1: "70+ Countries · 6 Languages · US Market Analysis", line2: "Capturing global opportunities together." },
+  fr: { line1: "70+ Pays · 6 Langues · Analyse des Marchés Américains", line2: "Saisissons ensemble les opportunités mondiales." },
+  pt: { line1: "70+ Países · 6 Idiomas · Análise dos Mercados dos EUA", line2: "Capturando oportunidades globais juntos." },
+  es: { line1: "70+ Países · 6 Idiomas · Análisis de Mercados de EE. UU.", line2: "Capturando oportunidades globales juntos." },
 };
 
 export default function GlobalReachBanner({ lang }: { lang: Lang }) {
