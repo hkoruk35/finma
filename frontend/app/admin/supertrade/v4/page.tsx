@@ -6,7 +6,7 @@ import type { AssetClass } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
 
 // V4 Özel Bileşenleri (Daha sonra oluşturulacak)
-// import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
+import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
 
 export default function SuperTradeV4Dashboard() {
   const [selectedAsset, setSelectedAsset] = useState<AssetClass | null>(null);
@@ -45,10 +45,12 @@ export default function SuperTradeV4Dashboard() {
         >
           ← Dashboard'a Dön
         </button>
-        {/* <MultiAssetDetail asset={selectedAsset} /> */}
-        <Panel title={`${selectedAsset} Detay Görünümü`}>
-          Geliştirme aşamasında...
-        </Panel>
+        <MultiAssetDetail 
+          asset={selectedAsset} 
+          snapshot={snapshots[selectedAsset]} 
+          loading={loading} 
+          error={snapshots[selectedAsset]?.error || null} 
+        />
       </div>
     );
   }
