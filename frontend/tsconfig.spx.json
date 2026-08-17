@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "incremental": false, "noEmit": true },
+  "include": [
+    "next-env.d.ts",
+    "lib/spx/**/*.ts",
+    "components/admin/supertrade/**/*.tsx",
+    "components/admin/SuperTradeLiveChart.tsx",
+    "components/admin/ContextEnginePanel.tsx",
+    "components/admin/StrategyLab.tsx",
+    "app/admin/supertrade/page.tsx",
+    "app/api/admin/supertrade/route.ts",
+    "app/api/admin/supertrade/replay/route.ts"
+  ]
+}

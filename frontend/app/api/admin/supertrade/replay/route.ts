@@ -1,34 +1,30 @@
-import { NextResponse } from "next/server";
-import { exec } from "child_process";
-import path from "path";
-import fs from "fs";
+/**
+ * GET /api/admin/supertrade/replay?date=YYYY-MM-DD
+ * Geçmiş bir seansı dakika dakika yeniden kurar. Kareler canlı motorla
+ * birebir aynı hesaplama yolundan geçer, böylece simülasyon gerçeği yansıtır.
+ */
 
-export async function GET(request: Request) {
+import { NextRequest, NextResponse } from "next/server";
+import { buildReplay } from "@/lib/spx/snapshot";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
+export async function GET(request: NextRequest) {
+  const date = request.nextUrl.searchParams.get("date") || undefined;
+
   try {
-    const { searchParams } = new URL(request.url);
-    const dateStr = searchParams.get("date") || "2026-08-15";
-
-    const rootDir = path.resolve(process.cwd(), "..");
-    const venvPython = path.join(rootDir, "venv313", "Scripts", "python.exe");
-    const pythonExe = fs.existsSync(venvPython) ? venvPython : "python";
-    const scriptPath = path.join(rootDir, "spx_engine", "cli_runner.py");
-
-    return new Promise((resolve) => {
-      exec(`"${pythonExe}" "${scriptPath}" replay --date ${dateStr}`, { cwd: rootDir }, (error, stdout, stderr) => {
-        if (error) {
-          console.error("SuperTrade Replay API Error:", error, stderr);
-          return resolve(NextResponse.json({ error: "Failed to execute SPX engine replay" }, { status: 500 }));
-        }
-        try {
-          const result = JSON.parse(stdout);
-          return resolve(NextResponse.json(result));
-        } catch (parseError) {
-          console.error("JSON parse error:", parseError, stdout);
-          return resolve(NextResponse.json({ error: "Invalid JSON from engine replay" }, { status: 500 }));
-        }
-      });
+    const replay = await buildReplay(date);
+    return NextResponse.json(replay, {
+      headers: { "Cache-Control": "no-store" },
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Bilinmeyen hata";
+    console.error("[supertrade] replay hatası:", message);
+    return NextResponse.json(
+      { ok: false, error: message, hint: "1 dakikalık geçmiş veri yalnızca son ~7 seans için sunulur." },
+      { status: 503, headers: { "Cache-Control": "no-store" } }
+    );
   }
 }

@@ -1,207 +1,186 @@
 "use client";
 
+/**
+ * SPX SuperTrade — Bağlam ve Rejim Paneli
+ * Altı katmanın tamamı gerçek piyasa verisinden türetilir; sabit değer yoktur.
+ */
+
 import React, { useState } from "react";
-import { SPXContextSnapshot } from "@/lib/contextEngine";
+import type { ContextSnapshot, SignalState } from "@/lib/spx/types";
+import { Badge, INSET, Panel, num, toneClass } from "./supertrade/ui";
+
+const AGREEMENT_META = {
+  CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
+  CONTRADICTED: { label: "Canlı yapı çelişiyor", tone: "down" as const },
+  PENDING: { label: "Teyit bekleniyor", tone: "neutral" as const },
+};
+
+function Card({
+  index,
+  title,
+  headline,
+  headlineClass = "text-slate-200",
+  detail,
+  footLabel,
+  footValue,
+  footClass = "text-slate-300",
+}: {
+  index: number;
+  title: string;
+  headline: string;
+  headlineClass?: string;
+  detail: string;
+  footLabel: string;
+  footValue: string;
+  footClass?: string;
+}) {
+  return (
+    <div className={`${INSET} flex flex-col justify-between p-3`}>
+      <div>
+        <div className="text-[10px] font-medium uppercase tracking-[0.07em] text-[#3b82f6]">
+          {index}. {title}
+        </div>
+        <div className={`mt-1.5 text-[13px] font-medium leading-snug ${headlineClass}`}>{headline}</div>
+        <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{detail}</p>
+      </div>
+      <div className="mt-2.5 flex items-baseline justify-between border-t border-[#1c2635] pt-1.5 text-[10px]">
+        <span className="text-slate-500">{footLabel}</span>
+        <span className={`font-medium tabular-nums ${footClass}`}>{footValue}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function ContextEnginePanel({
   context,
   liveState,
 }: {
-  context: SPXContextSnapshot;
-  liveState: string;
+  context: ContextSnapshot;
+  liveState: SignalState;
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const {
-    seasonality,
-    macro,
-    volatility,
-    previousSession,
-    overnight,
-    analog,
-    fingerprint,
-    liveOverrideStatus,
-    liveOverrideExplanation,
-    layerWeights,
-  } = context;
-
-  const isConfirmed = liveOverrideStatus === "CONFIRMED_BY_LIVE_STRUCTURE";
-  const isContradicted = liveOverrideStatus === "CONTRADICTED_BY_LIVE_STRUCTURE";
-
-  const overrideBadgeColor = isConfirmed
-    ? "bg-emerald-500/20 text-[#22c55e] border-emerald-500/40"
-    : isContradicted
-    ? "bg-rose-500/20 text-[#ef4444] border-rose-500/40"
-    : "bg-amber-400/20 text-amber-300 border-amber-400/30";
-
-  const overrideTitle = isConfirmed
-    ? "CANLI YAPI İLE TEYİTLİ (ONAYLANDI)"
-    : isContradicted
-    ? "CANLI YAPI İLE ÇELİŞKİLİ (CANLI GEÇERSİZ KILMA AKTİF)"
-    : "HENÜZ TEYİT EDİLMEDİ (BEKLEMEDE)";
+  const [showDetail, setShowDetail] = useState(false);
+  const { seasonality, volatility, previousSession, overnight, analog } = context;
+  const agreement = AGREEMENT_META[context.liveAgreement];
 
   return (
-    <div className="mb-6 rounded-xl border border-[#1e2a3a] bg-[#0b0f17] p-5 shadow-lg relative overflow-hidden">
-      {/* Üst Başlık & Context Fingerprint */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-white/[0.06] pb-3 mb-4">
-        <div className="flex items-center gap-2.5">
-          <span className="text-xl">🏛️</span>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wider">
-                Piyasa Bağlamı ve Rejim Motoru (Context &amp; Regime Engine)
-              </h3>
-              <span className="bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 text-[10px] font-bold px-2 py-0.5 rounded">
-                Çok Katmanlı Analiz
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">
-              Takvim Mevsimselliği + Makro Olay Hafızası + Volatilite Rejimi + Tarihsel Benzerlik Eşleşmesi
-            </p>
-          </div>
-        </div>
-
-        {/* Fingerprint ve Ağırlık Dağılımı Toggle */}
-        <div className="flex items-center gap-2 self-start md:self-auto">
-          <div
-            className="bg-[#050811] border border-[#1e2a3a] px-2.5 py-1 rounded font-mono text-[10px] text-[#3b82f6] max-w-[320px] truncate"
-            title={`Bağlam İmzası:\n${fingerprint}`}
+    <Panel
+      title="Piyasa Bağlamı ve Rejim Motoru"
+      hint="mevsimsellik · volatilite · önceki seans · gece seansı · tarihsel benzerlik"
+      right={
+        <div className="flex items-center gap-2">
+          <code
+            className="hidden max-w-[360px] truncate rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1 text-[10px] text-slate-400 lg:block"
+            title={context.fingerprint}
           >
-            🔑 {fingerprint}
-          </div>
+            {context.fingerprint}
+          </code>
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-[10px] text-slate-300 hover:text-white px-2.5 py-1 rounded bg-white/[0.06] border border-[#1e2a3a] transition-colors"
+            type="button"
+            onClick={() => setShowDetail((v) => !v)}
+            className="rounded border border-[#1c2635] px-2 py-1 text-[10px] text-slate-400 transition-colors hover:text-slate-200"
           >
-            {isExpanded ? "Ağırlıkları Gizle ▲" : "Ağırlıkları Göster ▼"}
+            {showDetail ? "Detayı gizle" : "Detayı göster"}
           </button>
         </div>
+      }
+    >
+      {/* Tarihsel eğilim ile canlı yapının uyumu */}
+      <div className={`${INSET} mb-3 flex flex-col gap-1.5 p-3 md:flex-row md:items-center md:justify-between`}>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge tone={agreement.tone}>{agreement.label}</Badge>
+          <span className="text-[12px] leading-relaxed text-slate-300">{context.liveAgreementText}</span>
+        </div>
+        <span className="shrink-0 text-[11px] text-slate-500">
+          Canlı durum: <span className="text-slate-300">{liveState.replace(/_/g, " ")}</span>
+        </span>
       </div>
 
-      {/* Ağırlık Dağılım Paneli (Açılır/Kapanır) */}
-      {isExpanded && (
-        <div className="mb-4 bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] text-xs text-slate-300 grid grid-cols-2 md:grid-cols-7 gap-2 text-center">
-          <div>
-            <span className="text-[#3b82f6] font-semibold block text-[10px]">Canlı Yapı</span>
-            <span className="font-bold text-[#3b82f6]">%{Math.round((layerWeights?.liveStructure ?? 0.35) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Gece / Vadeli</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.overnightFutures ?? 0.20) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Önceki Seans</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.previousSession ?? 0.15) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Makro Bağlam</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.macroContext ?? 0.10) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Volatilite Rejimi</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.volatilityRegime ?? 0.10) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Mevsimsellik</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.seasonality ?? 0.07) * 100)}</span>
-          </div>
-          <div>
-            <span className="text-slate-400 block text-[10px]">Günlük Eğilim</span>
-            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.weekdayTendency ?? 0.03) * 100)}</span>
-          </div>
+      {showDetail && (
+        <div className={`${INSET} mb-3 p-3 text-[11px] leading-relaxed text-slate-400`}>
+          <p>
+            Net skor, on bir ölçülebilir faktörün ağırlıklı toplamıdır. Bağlam katmanı skoru doğrudan
+            değiştirmez; tarihsel eğilimin canlı yapıyı destekleyip desteklemediğini gösterir. Çelişki
+            durumunda canlı yapı önceliklidir.
+          </p>
+          <p className="mt-2">
+            Tarihsel eşleşme kriteri: <span className="text-slate-300">{analog.criteria}</span>
+          </p>
         </div>
       )}
 
-      {/* Canlı Yapı Teyit / Çelişki Şeridi */}
-      <div className={`p-3 rounded-lg border flex flex-col md:flex-row md:items-center justify-between gap-2.5 mb-4 ${overrideBadgeColor}`}>
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-xs">{overrideTitle}</span>
-          <span className="text-[11px] opacity-90 hidden sm:inline">|</span>
-          <span className="text-xs">{liveOverrideExplanation}</span>
-        </div>
-        <div className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-black/30 w-fit">
-          Mevcut Durum: {liveState.replace(/_/g, " ")}
-        </div>
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <Card
+          index={1}
+          title="Mevsimsellik"
+          headline={`${seasonality.month} · ${seasonality.weekday}`}
+          detail={seasonality.summary}
+          footLabel="Ay evresi"
+          footValue={
+            seasonality.monthPhase === "EARLY"
+              ? "Ay başı"
+              : seasonality.monthPhase === "LATE"
+              ? "Ay sonu"
+              : "Ay ortası"
+          }
+        />
+
+        <Card
+          index={2}
+          title="Volatilite (VIX)"
+          headline={`VIX ${num(volatility.vix)}`}
+          headlineClass={toneClass(-volatility.vix5dChange)}
+          detail={volatility.label}
+          footLabel="5 günlük değişim"
+          footValue={`${volatility.vix5dChange >= 0 ? "+" : ""}${volatility.vix5dChange.toFixed(2)}`}
+          footClass={toneClass(-volatility.vix5dChange)}
+        />
+
+        <Card
+          index={3}
+          title="Önceki Seans"
+          headline={previousSession.structureType}
+          headlineClass={toneClass(previousSession.changePct)}
+          detail={`${previousSession.date} · ${previousSession.label}`}
+          footLabel="Kapanış konumu"
+          footValue={`%${previousSession.closePositionPct} (${previousSession.changePct >= 0 ? "+" : ""}${previousSession.changePct.toFixed(2)}%)`}
+          footClass={toneClass(previousSession.changePct)}
+        />
+
+        <Card
+          index={4}
+          title="Gece Seansı (Globex)"
+          headline={overnight.gapType}
+          headlineClass={toneClass(overnight.gapPts)}
+          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · NQ ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
+          footLabel="Açılış boşluğu"
+          footValue={`${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`}
+          footClass={toneClass(overnight.gapPts)}
+        />
+
+        <Card
+          index={5}
+          title="Tarihsel Benzerlik"
+          headline={
+            analog.sampleSize
+              ? `${analog.sampleSize} benzer seans · %${analog.bullishPct} yukarı`
+              : "Yeterli örnek yok"
+          }
+          headlineClass={
+            analog.bias === "BULLISH"
+              ? "text-[#22c55e]"
+              : analog.bias === "BEARISH"
+              ? "text-[#ef4444]"
+              : "text-slate-300"
+          }
+          detail={
+            analog.sampleSize
+              ? `Medyan gün içi hareket ${analog.medianMovePts >= 0 ? "+" : ""}${analog.medianMovePts.toFixed(1)} puan · en iyi ${analog.medianMfePts.toFixed(1)} / en kötü ${analog.medianMaePts.toFixed(1)} puan`
+              : "Tarihsel karşılaştırma yapılamadı"
+          }
+          footLabel="En yakın gün"
+          footValue={analog.sampleSize ? `${analog.nearestDate} (%${analog.nearestSimilarity})` : "—"}
+        />
       </div>
-
-      {/* 6 Katmanlı Bağlam Kartları Izgarası */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
-        {/* 1. Mevsimsellik */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">1. Mevsimsellik</h4>
-            <div className="font-bold text-slate-200">{seasonality.month} ({seasonality.monthPhase})</div>
-            <div className="text-[11px] text-slate-400 mt-1">{seasonality.humanSummary}</div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Gün: <span className="text-[#3b82f6] font-bold">{seasonality.weekday}</span>
-          </div>
-        </div>
-
-        {/* 2. Makro Olay */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">2. Makro Olay</h4>
-            <div className="font-bold text-amber-300">{macro.label}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{macro.eventMemory?.eventName || macro.tag}</div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Kırılım Başarısı: <span className="text-[#22c55e] font-bold">%{macro.eventMemory?.orBreakoutSuccessRate || 75}</span>
-          </div>
-        </div>
-
-        {/* 3. Volatilite Rejimi */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">3. Volatilite (VIX)</h4>
-            <div className="font-bold text-purple-300">{volatility.regimeTag}</div>
-            <div className="text-[11px] text-slate-400 mt-1">VIX: {volatility.vixValue.toFixed(1)} ({volatility.vix5dChange >= 0 ? `+${volatility.vix5dChange}` : volatility.vix5dChange})</div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Seviye: <span className="text-slate-300 font-medium">{volatility.level}</span>
-          </div>
-        </div>
-
-        {/* 4. Önceki Seans Yapısı */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">4. Önceki Seans</h4>
-            <div className="font-bold text-slate-200">{previousSession.structureType}</div>
-            <div className="text-[11px] text-slate-400 mt-1">
-              Kapanış: <span className={previousSession.closeVsHighLowPct >= 70 ? "text-[#22c55e] font-bold" : "text-[#ef4444] font-bold"}>%{previousSession.closeVsHighLowPct}</span> ({previousSession.label})
-            </div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Momentum: <span className="text-slate-300 font-medium">{previousSession.last30mMomentum}</span>
-          </div>
-        </div>
-
-        {/* 5. Gece Seansı (Overnight Globex) */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">5. Gece Globex</h4>
-            <div className="font-bold text-slate-200">{overnight.gapType}</div>
-            <div className="text-[11px] text-slate-400 mt-1">
-              Gap: <span className={overnight.gapPts >= 0 ? "text-[#22c55e] font-bold" : "text-[#ef4444] font-bold"}>{overnight.gapPts >= 0 ? `+${overnight.gapPts}` : overnight.gapPts} Puan</span>
-            </div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Aralık: <span className="text-amber-400 font-medium">{overnight.overnightRangePts} Puan</span>
-          </div>
-        </div>
-
-        {/* 6. Tarihsel Benzerlik (Analog Match) */}
-        <div className="bg-[#050811] p-3 rounded-lg border border-[#1e2a3a] flex flex-col justify-between">
-          <div>
-            <h4 className="text-[10px] text-[#3b82f6] font-bold uppercase mb-1">6. Tarihsel Eşleşme</h4>
-            <div className="font-bold text-[#3b82f6]">{analog.nearestAnalogDate}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{analog.historicalBias}</div>
-          </div>
-          <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Benzerlik Oranı: <span className="text-[#22c55e] font-bold">%{analog.nearestAnalogSimilarity}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </Panel>
   );
 }

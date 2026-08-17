@@ -36,10 +36,9 @@ const montserrat = Montserrat({
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "600"],
   display: "swap",
   variable: "--font-mono",
-  preload: false,
+  preload: true,
 });
 
 export const metadata: Metadata = {

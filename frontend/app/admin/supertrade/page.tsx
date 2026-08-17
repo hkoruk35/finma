@@ -1,920 +1,835 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import StrategyLab from "@/components/admin/StrategyLab";
-import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
-import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
-import { getDecisionContext } from "@/lib/decisionEngine";
-import { evaluateSPXContext } from "@/lib/contextEngine";
+/**
+ * SPX SuperTrade — Yönetici Konsolu
+ * Canlı terminal ve seans yeniden oynatma aynı hesaplama motorunu kullanır.
+ * Tüm sayısal değerler /api/admin/supertrade uç noktalarından gelir.
+ */
 
-interface Snapshot {
-  timestamp: string;
-  session_phase: string;
-  macro_state: string;
-  spx_price: number;
-  es_price: number;
-  es_spx_basis: number;
-  spx: Record<string, any>;
-  es: Record<string, any>;
-  long_score: number;
-  short_score: number;
-  net_score: number;
-  confidence_tier: string;
-  state: string;
-  ai_analysis?: Record<string, any>;
+import { useCallback, useEffect, useMemo, useState } from "react";
+import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
+import StrategyLab from "@/components/admin/StrategyLab";
+import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
+import {
+  Badge,
+  EmptyState,
+  INSET,
+  Panel,
+  Row,
+  SectionTitle,
+  Stat,
+  Tabs,
+  num,
+  signed,
+  toneClass,
+} from "@/components/admin/supertrade/ui";
+import { buildChain, minutesToClose, simulateRunners } from "@/lib/spx/options";
+import type {
+  Decision,
+  Frame,
+  OptionQuote,
+  SPXReplayResponse,
+  SPXSnapshot,
+  ScoreFactor,
+  SignalState,
+  StructureSet,
+} from "@/lib/spx/types";
+
+const LIVE_POLL_MS = 20000;
+
+const STATE_LABEL: Record<SignalState, string> = {
+  NEUTRAL: "Nötr / Beklemede",
+  WATCH_LONG: "Long İzleme",
+  WATCH_SHORT: "Short İzleme",
+  EARLY_LONG: "Erken Long",
+  EARLY_SHORT: "Erken Short",
+  CONFIRMED_LONG: "Teyitli Long",
+  CONFIRMED_SHORT: "Teyitli Short",
+  STRONG_LONG: "Güçlü Long",
+  STRONG_SHORT: "Güçlü Short",
+  LONG_WEAKENING: "Long Zayıflıyor",
+  SHORT_WEAKENING: "Short Zayıflıyor",
+  FAILED_LONG: "Long Kırılımı Başarısız",
+  FAILED_SHORT: "Short Kırılımı Başarısız",
+  CHOP: "Testere / İşlem Yok",
+  DATA_STALE: "Veri Akışı Beklemede",
+};
+
+const CONFIDENCE_LABEL: Record<string, string> = {
+  LOW: "Düşük",
+  MEDIUM: "Orta",
+  HIGH: "Yüksek",
+  VERY_HIGH: "Çok Yüksek",
+};
+
+const PHASE_LABEL: Record<string, string> = {
+  PRE_SESSION: "Seans öncesi",
+  PREMARKET: "Açılış öncesi",
+  OPENING_RANGE: "Açılış aralığı (09:30–09:35)",
+  MAIN_WINDOW: "Ana sinyal penceresi (09:35–10:30)",
+  MID_SESSION: "Seans ortası",
+  CLOSING: "Kapanış bölgesi",
+  AFTER_HOURS: "Seans kapalı",
+};
+
+const STRUCTURE_LABEL: Record<string, string> = {
+  UPTREND: "Yükselen",
+  DOWNTREND: "Düşen",
+  RANGE: "Yatay",
+};
+
+const SPEEDS = [
+  { value: 1, label: "1 dk/sn" },
+  { value: 5, label: "5 dk/sn" },
+  { value: 15, label: "15 dk/sn" },
+  { value: 60, label: "60 dk/sn" },
+];
+
+function directionTone(direction: string): "up" | "down" | "neutral" {
+  if (direction === "LONG") return "up";
+  if (direction === "SHORT") return "down";
+  return "neutral";
 }
 
-const ELEGANT_CARD = {
-  background: "#0b0f17",
-  border: "1px solid #1e2a3a",
-  borderRadius: 12,
-  padding: 20,
-};
+function actionColor(tone: Decision["tone"]): string {
+  if (tone === "POSITIVE") return "text-[#22c55e]";
+  if (tone === "NEGATIVE") return "text-[#ef4444]";
+  if (tone === "WARNING") return "text-slate-200";
+  return "text-slate-300";
+}
 
-const STATE_TRANSLATIONS: Record<string, { label: string; color: string; desc: string }> = {
-  NEUTRAL: { label: "Nötr / Beklemede", color: "#64748b", desc: "Belirgin yönsel sapma yok" },
-  WATCH_LONG: { label: "Long İzleme", color: "#fbbf24", desc: "Yukarı yönlü potansiyel izleniyor" },
-  WATCH_SHORT: { label: "Short İzleme", color: "#f97316", desc: "Aşağı yönlü potansiyel izleniyor" },
-  EARLY_LONG: { label: "Erken Long Kurulum", color: "#22c55e", desc: "İlk kırılım teyit edildi" },
-  EARLY_SHORT: { label: "Erken Short Kurulum", color: "#ef4444", desc: "İlk kırılım teyit edildi" },
-  CONFIRMED_LONG: { label: "Teyitli Long Trend", color: "#22c55e", desc: "Kırılım kabul edildi (Acceptance)" },
-  CONFIRMED_SHORT: { label: "Teyitli Short Trend", color: "#ef4444", desc: "Kırılım kabul edildi (Acceptance)" },
-  STRONG_LONG: { label: "Güçlü Long Momentum", color: "#16a34a", desc: "Yüksek net skor ve hacim teyidi" },
-  STRONG_SHORT: { label: "Güçlü Short Momentum", color: "#dc2626", desc: "Yüksek net skor ve hacim teyidi" },
-  LONG_WEAKENING: { label: "Long Zayıflıyor", color: "#f59e0b", desc: "Direnç veya kâr satışı baskısı" },
-  SHORT_WEAKENING: { label: "Short Zayıflıyor", color: "#f59e0b", desc: "Destek veya tepki alımı baskısı" },
-  FAILED_LONG: { label: "Başarısız Long Kırılım", color: "#f43f5e", desc: "Tuzak kırılım, seviye altına dönüş" },
-  FAILED_SHORT: { label: "Başarısız Short Kırılım", color: "#f43f5e", desc: "Tuzak kırılım, seviye üstüne dönüş" },
-  CHOP: { label: "Yatay / Testere (Chop)", color: "#475569", desc: "Çelişkili göstergeler, işlem riski yüksek" },
-  NO_TRADE: { label: "İşlem Yapılmamalı", color: "#334155", desc: "Uygun işlem koşulu yok" },
-  DATA_STALE: { label: "Veri Güncel Değil", color: "#a855f7", desc: "Canlı akış beklemede" },
-  EVENT_LOCKOUT: { label: "Makro Etkinlik Kilidi", color: "#ec4899", desc: "Veri öncesi işlem kısıtlaması" },
-};
-
-const PHASE_TRANSLATIONS: Record<string, string> = {
-  EARLY_PREMARKET: "Erken Seans Öncesi (07:00–08:59 ET)",
-  LATE_PREMARKET: "Geç Seans Öncesi (09:00–09:29 ET)",
-  OPENING_DISCOVERY: "Açılış Keşfi (09:30–09:35 ET)",
-  MAIN_SIGNAL_WINDOW: "Ana Sinyal Penceresi (09:35–10:30 ET)",
-  REST_OF_SESSION: "Seans Devamı (10:30–16:00 ET)",
-  OFF_HOURS: "Piyasa Kapalı (Kapanış Verileri)",
-};
-
-const CONFIDENCE_TRANSLATIONS: Record<string, string> = {
-  LOW: "Düşük Güven",
-  MEDIUM: "Orta Güven",
-  HIGH: "Yüksek Güven",
-  VERY_HIGH: "Çok Yüksek Güven",
-};
-
-const MACRO_STATE_TRANSLATIONS: Record<string, { label: string; color: string; border: string; bg: string }> = {
-  NORMAL: { label: "Normal Akış", color: "text-slate-300", border: "border-slate-500/30", bg: "bg-slate-500/10" },
-  PRE_EVENT: { label: "Makro Öncesi Denge", color: "text-amber-400", border: "border-amber-400/30", bg: "bg-amber-400/10" },
-  EVENT_LOCKOUT: { label: "Veri Beklentisi (Kilitli)", color: "text-[#ef4444]", border: "border-rose-500/30", bg: "bg-rose-500/10" },
-  POST_EVENT_DISCOVERY: { label: "Veri Sonrası Fiyatlama", color: "text-[#3b82f6]", border: "border-[#3b82f6]/30", bg: "bg-[#3b82f6]/10" },
-};
-
-export default function SPXSuperTradePage() {
+export default function SuperTradePage() {
   const [mode, setMode] = useState<"live" | "replay">("live");
-  const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [replayTime, setReplayTime] = useState<number>(0);
-  const [isReplaying, setIsReplaying] = useState(false);
-  const [replaySpeed, setReplaySpeed] = useState(1);
-  const [optionViewMode, setOptionViewMode] = useState<"directional" | "call" | "put">("directional");
 
-  const fetchLatestSnapshot = async () => {
+  const [snapshot, setSnapshot] = useState<SPXSnapshot | null>(null);
+  const [snapshotError, setSnapshotError] = useState<string | null>(null);
+  const [loadingLive, setLoadingLive] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  const [replay, setReplay] = useState<SPXReplayResponse | null>(null);
+  const [replayError, setReplayError] = useState<string | null>(null);
+  const [loadingReplay, setLoadingReplay] = useState(false);
+  const [replayDate, setReplayDate] = useState<string>("");
+  const [replayIndex, setReplayIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [speed, setSpeed] = useState(15);
+
+  const [chainView, setChainView] = useState<"auto" | "call" | "put">("auto");
+
+  // ── Canlı veri döngüsü ──
+  const fetchSnapshot = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/supertrade");
-      if (res.ok) {
-        const data = await res.json();
-        setSnapshot(data);
+      const res = await fetch("/api/admin/supertrade", { cache: "no-store" });
+      const data = await res.json();
+      if (!res.ok || data?.ok === false) {
+        setSnapshotError(data?.error || `Sunucu hatası (${res.status})`);
+      } else {
+        setSnapshot(data as SPXSnapshot);
+        setSnapshotError(null);
+        setLastUpdated(new Date());
       }
     } catch (err) {
-      console.error("Snapshot hatası:", err);
+      setSnapshotError(err instanceof Error ? err.message : "Bağlantı hatası");
     } finally {
-      setLoading(false);
+      setLoadingLive(false);
     }
-  };
+  }, []);
 
-  // ── CANLI VERİ MOTORU ──
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (mode === "live") {
-      fetchLatestSnapshot();
-      interval = setInterval(fetchLatestSnapshot, 5000);
-    }
-    return () => clearInterval(interval);
-  }, [mode]);
+    if (mode !== "live") return;
+    fetchSnapshot();
+    const id = setInterval(fetchSnapshot, LIVE_POLL_MS);
+    return () => clearInterval(id);
+  }, [mode, fetchSnapshot]);
 
-  // ── SEANS YENİDEN OYNATMA MOTORU (ZAMAN SAYACI) ──
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (mode === "replay" && isReplaying) {
-      interval = setInterval(() => {
-        setReplayTime((prev) => {
-          if (prev >= 150) {
-            setIsReplaying(false);
-            return 150;
-          }
-          return prev + 1;
-        });
-      }, 1000 / replaySpeed);
-    }
-    return () => clearInterval(interval);
-  }, [mode, isReplaying, replaySpeed]);
-
-  // ── SEANS YENİDEN OYNATMA (GERÇEKÇİ VERİ ÜRETİCİ) ──
-  useEffect(() => {
-    if (mode === "replay") {
-      const baseSPX = 7780;
-      let currentState = "NEUTRAL";
-      let net = 0;
-      let lScore = 1;
-      let sScore = 1;
-
-      if (replayTime < 25) {
-        currentState = "WATCH_SHORT";
-        net = -2.5;
-        sScore = 3.5;
-        lScore = 1.0;
-      } else if (replayTime < 50) {
-        currentState = "CONFIRMED_SHORT";
-        net = -5.0;
-        sScore = 6.5;
-        lScore = 1.5;
-      } else if (replayTime < 75) {
-        currentState = "CHOP";
-        net = 0;
-        lScore = 2.0;
-        sScore = 2.0;
-      } else if (replayTime < 105) {
-        currentState = "WATCH_LONG";
-        net = 3.0;
-        lScore = 4.5;
-        sScore = 1.5;
+  // ── Yeniden oynatma verisi ──
+  const fetchReplay = useCallback(async (date?: string) => {
+    setLoadingReplay(true);
+    try {
+      const url = date ? `/api/admin/supertrade/replay?date=${date}` : "/api/admin/supertrade/replay";
+      const res = await fetch(url, { cache: "no-store" });
+      const data = await res.json();
+      if (!res.ok || data?.ok === false) {
+        setReplayError(data?.error || `Sunucu hatası (${res.status})`);
       } else {
-        currentState = "STRONG_LONG";
-        net = 6.5;
-        lScore = 7.5;
-        sScore = 1.0;
+        const payload = data as SPXReplayResponse;
+        setReplay(payload);
+        setReplayDate(payload.date);
+        setReplayIndex(0);
+        setReplayError(null);
       }
-
-      const totalMinutes = 30 + replayTime;
-      const hh = 9 + Math.floor(totalMinutes / 60);
-      const mm = totalMinutes % 60;
-      const timeStr = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-
-      const dynamicSpx =
-        baseSPX +
-        (replayTime < 50
-          ? -15 * (replayTime / 50)
-          : replayTime < 75
-          ? -15 + 10 * ((replayTime - 50) / 25)
-          : -5 + 45 * ((replayTime - 75) / 75));
-
-      const newSnapshot = {
-        timestamp: `2026-08-15T${timeStr}:00Z`,
-        state: currentState,
-        net_score: net,
-        long_score: lScore,
-        short_score: sScore,
-        spx_price: Number(dynamicSpx.toFixed(2)),
-        es_price: Number((dynamicSpx + 18.5).toFixed(2)),
-        es_spx_basis: 18.5,
-        session_phase: replayTime < 60 ? "OPENING_DISCOVERY" : "MAIN_SIGNAL_WINDOW",
-        macro_state: "NORMAL",
-        confidence_tier: Math.abs(net) > 4 ? "HIGH" : "MEDIUM",
-        spx: {
-          orh: 7807.71,
-          orl: 7801.46,
-          or_size: 6.25,
-        },
-        es: {
-          vwap: 7811.17,
-          onh: 7817.5,
-          onl: 7796.5,
-          overnight_mid: 7807.0,
-          pdh: 7831.75,
-          pdl: 7796.5,
-          price_vs_vwap: net > 0 ? "üstünde" : "altında",
-        },
-        ai_analysis: {
-          summary: `Replay Saati: ${timeStr} ET. Karar motoru ${currentState.replace(/_/g, " ")} durumunu teyit etti. Net arbitraj skoru ${net >= 0 ? "+" : ""}${net.toFixed(1)}.`,
-        },
-      };
-      setSnapshot(newSnapshot as any);
+    } catch (err) {
+      setReplayError(err instanceof Error ? err.message : "Bağlantı hatası");
+    } finally {
+      setLoadingReplay(false);
     }
-  }, [replayTime, mode]);
+  }, []);
 
-  const spx = snapshot?.spx ?? {};
-  const es = snapshot?.es ?? {};
-  const lScore = snapshot?.long_score ?? 2.0;
-  const sScore = snapshot?.short_score ?? 3.0;
-  const netScore = snapshot?.net_score ?? -1.0;
-  const rawState = snapshot?.state ?? "NEUTRAL";
-  const stateInfo = STATE_TRANSLATIONS[rawState] || { label: rawState, color: "#94a3b8", desc: "" };
-  const phaseTR = PHASE_TRANSLATIONS[snapshot?.session_phase ?? "OFF_HOURS"] || snapshot?.session_phase;
-  const confidenceTR = CONFIDENCE_TRANSLATIONS[snapshot?.confidence_tier ?? "LOW"] || snapshot?.confidence_tier;
+  useEffect(() => {
+    if (mode === "replay" && !replay && !loadingReplay) fetchReplay();
+  }, [mode, replay, loadingReplay, fetchReplay]);
 
-  // ── MERKEZİ DETERMINİSTİK KARAR BAĞLAMI ──
-  const decision = useMemo(() => {
-    return getDecisionContext(
-      rawState,
-      netScore,
-      snapshot?.spx_price ?? 7786.01,
-      es.vwap ?? 7811.17,
-      spx.orh ?? 7807.71,
-      spx.orl ?? 7801.46
-    );
-  }, [rawState, netScore, snapshot?.spx_price, es.vwap, spx.orh, spx.orl]);
+  // ── Oynatma zamanlayıcısı ──
+  useEffect(() => {
+    if (mode !== "replay" || !playing || !replay) return;
+    const id = setInterval(() => {
+      setReplayIndex((prev) => {
+        if (prev >= replay.frames.length - 1) {
+          setPlaying(false);
+          return replay.frames.length - 1;
+        }
+        return prev + 1;
+      });
+    }, Math.max(40, 1000 / speed));
+    return () => clearInterval(id);
+  }, [mode, playing, speed, replay]);
 
-  // Opsiyon tipi seçimi
-  const activeOptionType = useMemo(() => {
-    if (optionViewMode === "call") return "CALL";
-    if (optionViewMode === "put") return "PUT";
-    return decision.direction === "SHORT" ? "PUT" : "CALL";
-  }, [optionViewMode, decision.direction]);
+  // ── Birleşik görünüm modeli ──
+  const view = useMemo(() => {
+    if (mode === "replay") {
+      if (!replay || !replay.frames.length) return null;
+      const idx = Math.min(replayIndex, replay.frames.length - 1);
+      const frame: Frame = replay.frames[idx];
+      return {
+        isReplay: true,
+        sessionDate: replay.date,
+        frame,
+        factors: frame.factors,
+        decision: frame.decision,
+        structure: frame.structure,
+        levels: replay.levels,
+        context: replay.context,
+        bars: replay.bars,
+        cutoffTime: frame.time,
+        frames: replay.frames.slice(0, idx + 1),
+        vix: replay.context.volatility.vix,
+        notes: replay.notes,
+        feeds: null,
+        changes: null,
+      };
+    }
+    if (!snapshot || !snapshot.frames.length) return null;
+    const lite = snapshot.frames[snapshot.frames.length - 1];
+    return {
+      isReplay: false,
+      sessionDate: snapshot.sessionDate,
+      frame: {
+        ...lite,
+        state: snapshot.state,
+        factors: snapshot.factors,
+        structure: snapshot.structure,
+        decision: snapshot.decision,
+      } as Frame,
+      factors: snapshot.factors,
+      decision: snapshot.decision,
+      structure: snapshot.structure,
+      levels: snapshot.levels,
+      context: snapshot.context,
+      bars: snapshot.bars,
+      cutoffTime: undefined as number | undefined,
+      frames: snapshot.frames,
+      vix: snapshot.vixPrice,
+      notes: snapshot.notes,
+      feeds: snapshot.feeds,
+      changes: snapshot.changes,
+    };
+  }, [mode, snapshot, replay, replayIndex]);
 
-  // ── SPX BAĞLAM VE REJİM ANLIK GÖRÜNTÜSÜ ──
-  const contextSnapshot = useMemo(() => {
-    return evaluateSPXContext(
-      new Date(),
-      rawState,
-      snapshot?.spx_price ?? 7786.01,
-      es.vwap ?? 7811.17,
-      snapshot?.es_price ?? 7805.0
-    );
-  }, [rawState, snapshot?.spx_price, es.vwap, snapshot?.es_price]);
+  // ── Runner simülasyonu (oynatma sırasında ilerler) ──
+  const runners = useMemo(() => {
+    if (!view) return null;
+    if (!view.isReplay && snapshot) return snapshot.runners;
+    return simulateRunners({ frames: view.frames, vix: view.vix || 15 });
+  }, [view, snapshot]);
 
-  return (
-    <div className="min-h-screen bg-[#070a11] text-slate-300 p-6 font-sans">
-      {/* ── Üst Sayfa Başlığı ve Mod Değiştirici */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-[#1e2a3a] pb-4">
-        <div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-2xl">🦅</span>
-            <h1 className="text-xl font-black text-[#3b82f6] tracking-wide">
-              SPX Canlı Yön ve Teyit Motoru
-            </h1>
-            <span className="bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-              v2.3 SuperTrade Terminali
-            </span>
-            {snapshot?.macro_state && MACRO_STATE_TRANSLATIONS[snapshot.macro_state] && (
-              <span
-                className={`border ${MACRO_STATE_TRANSLATIONS[snapshot.macro_state].bg} ${
-                  MACRO_STATE_TRANSLATIONS[snapshot.macro_state].border
-                } ${MACRO_STATE_TRANSLATIONS[snapshot.macro_state].color} text-[11px] font-bold px-2.5 py-0.5 rounded-full`}
+  // ── Opsiyon zinciri ──
+  const chain = useMemo<OptionQuote[]>(() => {
+    if (!view) return [];
+    const direction = view.decision.direction;
+    const type: "CALL" | "PUT" =
+      chainView === "call" ? "CALL" : chainView === "put" ? "PUT" : direction === "SHORT" ? "PUT" : "CALL";
+
+    if (!view.isReplay && snapshot && chainView === "auto") return snapshot.chain;
+
+    const [hh, mm] = view.frame.timeLabel.split(":").map(Number);
+    const spot = view.frame.spxPrice;
+    const orSize = view.levels.spx.orSize || 6;
+    const target = type === "PUT" ? spot - Math.max(5, orSize * 2) : spot + Math.max(5, orSize * 2);
+
+    return buildChain({
+      spot,
+      vix: view.vix || 15,
+      minutesLeft: minutesToClose(hh * 60 + mm),
+      type,
+      targetPrice: target,
+    });
+  }, [view, chainView, snapshot]);
+
+  const chainType = chain[0]?.type ?? "CALL";
+
+  const loading = mode === "live" ? loadingLive : loadingReplay;
+  const error = mode === "live" ? snapshotError : replayError;
+
+  // ── İskelet / hata ──
+  if (!view) {
+    return (
+      <div className="min-h-screen bg-[#0a0e17] p-5 text-slate-300">
+        <Header mode={mode} setMode={setMode} lastUpdated={lastUpdated} live={mode === "live"} />
+        <div className="mt-4">
+          {error ? (
+            <Panel title="Veri alınamadı">
+              <p className="text-[12px] leading-relaxed text-slate-300">{error}</p>
+              <p className="mt-2 text-[11px] text-slate-500">
+                Piyasa veri sağlayıcısına ulaşılamadığında panel boş kalır. Bağlantıyı kontrol edip
+                yeniden deneyin.
+              </p>
+              <button
+                type="button"
+                onClick={() => (mode === "live" ? fetchSnapshot() : fetchReplay(replayDate))}
+                className="mt-3 rounded border border-[#3b82f6]/40 bg-[#3b82f6]/10 px-3 py-1.5 text-[12px] font-medium text-[#3b82f6] transition-colors hover:bg-[#3b82f6]/20"
               >
-                {MACRO_STATE_TRANSLATIONS[snapshot.macro_state].label}
-              </span>
-            )}
-          </div>
-          <p className="text-xs text-slate-400 mt-1">
-            Yönetici Konsolu — Gerçek Zamanlı Seans Öncesi &amp; Gün İçi Piyasa Keşif Sistemi
-          </p>
-        </div>
-
-        {/* Mod Butonları (Logo Mavisi) */}
-        <div className="flex items-center gap-1.5 bg-[#0e131f] border border-[#1e2a3a] p-1 rounded-lg self-start md:self-auto">
-          <button
-            onClick={() => setMode("live")}
-            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${
-              mode === "live"
-                ? "bg-[#3b82f6] text-white shadow-md font-extrabold"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            Canlı Terminal
-          </button>
-          <button
-            onClick={() => setMode("replay")}
-            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${
-              mode === "replay"
-                ? "bg-[#3b82f6] text-white shadow-md font-extrabold"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            Seans Yeniden Oynatma
-          </button>
+                Yeniden dene
+              </button>
+            </Panel>
+          ) : (
+            <EmptyState>{loading ? "Piyasa verisi yükleniyor…" : "Görüntülenecek veri yok"}</EmptyState>
+          )}
         </div>
       </div>
+    );
+  }
 
-      {/* ── REPLAY KONTROL ÇUBUĞU (ZAMAN YÖNETİCİSİ) ── */}
-      {mode === "replay" && (
-        <div className="mb-6 bg-[#0a0e17] border border-[#3b82f6]/40 rounded-xl p-4 flex flex-col md:flex-row items-center gap-4 shadow-[0_0_20px_rgba(59,130,246,0.1)]">
+  const { frame, decision, levels, structure, factors, context } = view;
+  const dirTone = directionTone(decision.direction);
+  const supporting = factors.filter((f) =>
+    frame.netScore >= 0 ? f.weight > 0 : f.weight < 0
+  );
+  const conflicting = factors.filter((f) =>
+    frame.netScore >= 0 ? f.weight < 0 : f.weight > 0
+  );
+  const neutralFactors = factors.filter((f) => f.weight === 0);
+
+  return (
+    <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
+      <Header mode={mode} setMode={setMode} lastUpdated={lastUpdated} live={mode === "live"} />
+
+      {/* Yeniden oynatma kontrol çubuğu */}
+      {mode === "replay" && replay && (
+        <div className={`${INSET} mt-4 flex flex-col gap-3 p-3 lg:flex-row lg:items-center`}>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setIsReplaying(!isReplaying)}
-              className="w-10 h-10 rounded-full bg-[#3b82f6] text-white flex items-center justify-center hover:bg-[#2563eb] transition-colors text-base font-bold shadow-lg"
+              type="button"
+              onClick={() => setPlaying((p) => !p)}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3b82f6] text-[12px] text-white transition-colors hover:bg-[#2563eb]"
+              aria-label={playing ? "Duraklat" : "Oynat"}
             >
-              {isReplaying ? "⏸" : "▶"}
+              {playing ? "❚❚" : "▶"}
             </button>
             <div>
-              <div className="text-[10px] text-[#3b82f6] font-bold uppercase tracking-wider mb-0.5">
-                Simülasyon Seansı
-              </div>
-              <div className="text-sm font-bold text-white">
-                {snapshot?.timestamp ? snapshot.timestamp.substring(11, 16) : "09:30"} / 12:00 ET
+              <div className="text-[10px] uppercase tracking-[0.07em] text-[#3b82f6]">Simülasyon saati</div>
+              <div className="text-[13px] tabular-nums text-slate-100">
+                {frame.timeLabel} ET
+                <span className="ml-2 text-[11px] text-slate-500">
+                  {replayIndex + 1} / {replay.frames.length} dakika
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="flex-1 w-full px-4 flex flex-col justify-center">
+          <div className="flex-1 px-1">
             <input
               type="range"
-              min="0"
-              max="150"
-              value={replayTime}
-              onChange={(e) => setReplayTime(Number(e.target.value))}
-              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
+              min={0}
+              max={Math.max(0, replay.frames.length - 1)}
+              value={replayIndex}
+              onChange={(e) => setReplayIndex(Number(e.target.value))}
+              className="h-1 w-full cursor-pointer appearance-none rounded bg-[#1c2635] accent-[#3b82f6]"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
-              <span>09:30 (Açılış)</span>
-              <span>10:15</span>
+            <div className="mt-1 flex justify-between text-[10px] tabular-nums text-slate-500">
+              <span>09:30</span>
               <span>11:00</span>
-              <span>12:00 (Öğle)</span>
+              <span>13:00</span>
+              <span>16:00</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-[#070a11] px-3 py-1.5 rounded-md border border-[#1e2a3a]">
-            <span className="text-[10px] text-slate-400 font-medium">Hız:</span>
+          <div className="flex flex-wrap items-center gap-2">
             <select
-              value={replaySpeed}
-              onChange={(e) => setReplaySpeed(Number(e.target.value))}
-              className="bg-transparent text-xs text-[#22c55e] font-bold outline-none cursor-pointer"
+              value={replayDate}
+              onChange={(e) => {
+                setPlaying(false);
+                fetchReplay(e.target.value);
+              }}
+              className="rounded border border-[#1c2635] bg-[#0f141d] px-2 py-1 text-[11px] text-slate-300 outline-none"
             >
-              <option value="1" className="bg-[#070a11]">
-                1x (Gerçek Zaman)
-              </option>
-              <option value="5" className="bg-[#070a11]">
-                5x Hızlı
-              </option>
-              <option value="10" className="bg-[#070a11]">
-                10x Hızlı
-              </option>
-              <option value="60" className="bg-[#070a11]">
-                60x (Dakikada 1 sn)
-              </option>
+              {replay.availableDates.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+            <select
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+              className="rounded border border-[#1c2635] bg-[#0f141d] px-2 py-1 text-[11px] text-slate-300 outline-none"
+            >
+              {SPEEDS.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
       )}
 
-      {/* ── 0. DURUM VE AKSİYON ŞERİDİ ──────────────────────── */}
-      <div className="flex flex-col lg:flex-row gap-5 mb-6">
-        {/* Aksiyon Durumu Kutusu */}
-        <div
-          className="flex-1 flex flex-col justify-center py-5 px-6 rounded-xl border"
-          style={{ backgroundColor: `${stateInfo.color}10`, borderColor: `${stateInfo.color}30` }}
-        >
-          <div className="flex flex-col items-center mb-4">
+      {view.notes.length > 0 && (
+        <div className="mt-4 rounded-md border border-[#1c2635] bg-[#0f141d] px-3 py-2 text-[11px] text-slate-400">
+          {view.notes.join(" · ")}
+        </div>
+      )}
+
+      {/* Durum ve aksiyon */}
+      <div className="mt-4 grid grid-cols-1 gap-3 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <Panel padding="p-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge tone={dirTone}>{decision.direction === "NEUTRAL" ? "Yönsüz" : decision.direction}</Badge>
             <h2
-              className="text-3xl md:text-4xl font-black uppercase tracking-widest mb-2 text-center"
-              style={{ color: stateInfo.color }}
+              className={`text-[20px] font-medium leading-tight ${
+                dirTone === "up" ? "text-[#22c55e]" : dirTone === "down" ? "text-[#ef4444]" : "text-slate-200"
+              }`}
             >
-              {rawState.replace(/_/g, " ")}
+              {STATE_LABEL[frame.state]}
             </h2>
-            <div className="text-slate-200 text-sm font-medium text-center">
-              {snapshot?.ai_analysis?.summary
-                ? snapshot.ai_analysis.summary.split(".")[0] + "."
-                : `ES VWAP ${es.price_vs_vwap || "altında"}, net arbitraj skoru ${
-                    netScore >= 0 ? "+" : ""
-                  }${netScore.toFixed(1)}.`}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 border-t border-white/[0.06] pt-4">
-            <div className="flex flex-col gap-1">
-              <span className="text-[10px] text-[#3b82f6] uppercase font-bold">
-                Şu An Ne Yapmalı? (Aksiyon)
-              </span>
-              <span className="text-xs font-bold" style={{ color: decision.actionColor }}>
-                {decision.action}
-              </span>
-            </div>
-            <div className="flex flex-col gap-1 md:pl-4 md:border-l border-white/[0.06]">
-              <span className="text-[10px] text-[#3b82f6] uppercase font-bold">Teyit İçin Ne Bekliyoruz?</span>
-              <span className="text-xs text-slate-300 font-medium">{decision.confirmationCondition}</span>
-            </div>
-            <div className="flex flex-col gap-1 md:pl-4 md:border-l border-white/[0.06]">
-              <span className="text-[10px] text-[#3b82f6] uppercase font-bold">
-                Neyin Olması Senaryoyu Bozar?
-              </span>
-              <span className="text-xs text-slate-300 font-medium">{decision.invalidationCondition}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 3-Kademeli Sistem Sağlık Paneli */}
-        <div className="lg:w-84 flex flex-col justify-center gap-2.5 p-4 rounded-xl border border-[#1e2a3a] bg-[#0b0f17]">
-          <div className="flex justify-between items-center border-b border-white/[0.06] pb-2 mb-1">
-            <h3 className="text-[11px] text-[#3b82f6] font-bold uppercase tracking-wider">
-              Sistem Sağlık Kontrolü
-            </h3>
-            <span className="text-[10px] text-[#22c55e] font-bold">● TAM AKTİF</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-y-1.5 text-xs">
-            <div className="flex items-center justify-between pr-3">
-              <span className="text-slate-400">ES (CME Globex)</span>
-              <span className="text-[#22c55e] font-bold">
-                CANLI <span className="text-emerald-500/80 text-[10px]">(0.4s)</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-400">SPX (CBOE)</span>
-              <span className="text-[#22c55e] font-bold">
-                CANLI <span className="text-emerald-500/80 text-[10px]">(0.6s)</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between pr-3">
-              <span className="text-slate-400">NQ (CME)</span>
-              <span className="text-[#22c55e] font-bold">
-                CANLI <span className="text-emerald-500/80 text-[10px]">(0.5s)</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-400">VIX (CBOE)</span>
-              <span className="text-[#22c55e] font-bold">
-                CANLI <span className="text-emerald-500/80 text-[10px]">(1.2s)</span>
-              </span>
-            </div>
-          </div>
-
-          <div className="border-t border-white/[0.04] pt-2 mt-0.5 flex flex-col gap-1 text-[11px]">
-            <div className="flex justify-between">
-              <span className="text-slate-400">Hesaplama Motoru:</span>
-              <span className="text-[#3b82f6] font-bold">0.2s (Eşzamanlı Senkronizasyon)</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Yapay Zeka Yorumu:</span>
-              <span className="text-amber-400 font-medium">01:42 önce güncellendi</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 1. ÜST METRİK BARI ───────────────────────────────── */}
-      <div style={ELEGANT_CARD} className="mb-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
-          <div>
-            <h3 className="text-xs text-[#3b82f6] font-bold">SPX Endeksi</h3>
-            <div className="text-xl font-bold text-white mt-1">
-              {snapshot?.spx_price ? snapshot.spx_price.toFixed(2) : "7,786.01"}
-            </div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Spot Endeks</span>
-          </div>
-
-          <div>
-            <h3 className="text-xs text-[#3b82f6] font-bold">ES Vadeli (S&amp;P 500)</h3>
-            <div className="text-xl font-bold text-white mt-1">
-              {snapshot?.es_price ? snapshot.es_price.toFixed(2) : "7,805.00"}
-            </div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">CME Globex Vadeli</span>
-          </div>
-
-          <div>
-            <h3 className="text-xs text-[#3b82f6] font-bold">ES-SPX Farkı (Basis)</h3>
-            <div className="text-xl font-bold text-white mt-1">
-              {snapshot?.es_spx_basis !== undefined ? (
-                <span className={snapshot.es_spx_basis >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}>
-                  {snapshot.es_spx_basis >= 0 ? `+${snapshot.es_spx_basis.toFixed(2)}` : snapshot.es_spx_basis.toFixed(2)}
-                </span>
-              ) : (
-                <span className="text-[#22c55e]">+18.99</span>
-              )}
-            </div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Fark (Basis)</span>
-          </div>
-
-          <div className="col-span-2 md:col-span-1">
-            <h3 className="text-xs text-[#3b82f6] font-bold">Net Yön (Özet)</h3>
-            <div className="text-sm font-bold mt-1" style={{ color: stateInfo.color }}>
-              {stateInfo.label.split(" ")[0]}
-              <span className="text-slate-500 mx-1">|</span>
-              <span className={netScore > 0 ? "text-[#22c55e]" : netScore < 0 ? "text-[#ef4444]" : "text-slate-400"}>
-                {netScore >= 0 ? `+${netScore.toFixed(1)}` : netScore.toFixed(1)}
-              </span>
-            </div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Özet Sinyal</span>
-          </div>
-
-          <div>
-            <h3 className="text-xs text-[#3b82f6] font-bold">Güven Seviyesi</h3>
-            <div className="text-sm font-bold text-amber-300 mt-1">{confidenceTR}</div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">Kombine Güven</span>
-          </div>
-
-          <div>
-            <h3 className="text-xs text-[#3b82f6] font-bold">Seans Evresi</h3>
-            <div className="text-xs font-semibold text-slate-200 mt-1">{phaseTR}</div>
-            <span className="text-[11px] text-slate-400 block mt-0.5">New York Saat Dilimi</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 1.5. BAĞLAM VE REJİM MOTORU ─── */}
-      <ContextEnginePanel context={contextSnapshot} liveState={rawState} />
-
-      {/* ── 2. ANA GRAFİK VE YAN PANELLER ─────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-6">
-        {/* Sol Panel: BogaStock Özgün Anlık Grafik Motoru */}
-        <div className="lg:col-span-7">
-          <SuperTradeLiveChart
-            currentPrice={snapshot?.es_price || 7805.0}
-            vwapPrice={es.vwap || 7811.17}
-            onh={es.onh || 7817.5}
-            onl={es.onl || 7796.5}
-            onMid={es.overnight_mid || 7807.0}
-            orh={spx.orh || 7807.71}
-            orl={spx.orl || 7801.46}
-            replayTime={replayTime}
-            isReplayMode={mode === "replay"}
-          />
-        </div>
-
-        {/* Sağ Yan Paneller */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
-          <div style={ELEGANT_CARD}>
-            <h3 className="text-xs font-bold text-[#3b82f6] mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              Son 5 Dakikada Değişenler (What Changed)
-            </h3>
-            <div className="bg-[#070a11] border border-[#1e2a3a] rounded-lg p-3 text-xs space-y-2">
-              <div className="flex items-center gap-2 text-slate-200">
-                <span className={decision.direction === "SHORT" ? "text-[#ef4444] font-bold text-sm" : "text-[#22c55e] font-bold text-sm"}>
-                  {decision.direction === "SHORT" ? "↓" : "↑"}
-                </span>
-                ES VWAP <span className="font-semibold">{es.price_vs_vwap || "altında"}</span> seyrediyor
-              </div>
-              <div className="flex items-center gap-2 text-slate-200">
-                <span className={netScore >= 0 ? "text-[#22c55e] font-bold" : "text-[#ef4444] font-bold"}>●</span>
-                Net Skor: <span className={netScore >= 0 ? "text-[#22c55e] font-bold" : "text-[#ef4444] font-bold"}>{netScore >= 0 ? `+${netScore.toFixed(1)}` : netScore.toFixed(1)}</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-200">
-                <span className="text-amber-400 font-bold">!</span> Hedef Seviye: <span className="font-bold text-[#3b82f6]">{decision.triggerLevelName}</span>
-              </div>
-            </div>
-          </div>
-
-          <div style={ELEGANT_CARD}>
-            <h3 className="text-xs font-bold text-[#3b82f6] mb-2">ES 15 dk (Genel Piyasa Eğilimi)</h3>
-            <div className="h-[60px] bg-[#070a11] border border-[#1e2a3a] rounded-lg flex items-center justify-between px-4 text-xs">
-              <div>
-                <span className="text-slate-400 block text-[11px]">15 dk Trend Yapısı</span>
-                <span className={`font-bold ${decision.direction === "SHORT" ? "text-[#ef4444]" : "text-[#22c55e]"}`}>
-                  {decision.direction === "SHORT" ? "Düşen (LH / LL Yapısı)" : "Yükselen (HH / HL Yapısı)"}
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="text-slate-400 block text-[11px]">Önceki Gün (PDH / PDL)</span>
-                <span className="font-bold text-slate-200">
-                  <span className="text-[#22c55e]">{es.pdh || "7,831.75"}</span> / <span className="text-[#ef4444]">{es.pdl || "7,796.50"}</span>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div style={ELEGANT_CARD}>
-            <h3 className="text-xs font-bold text-[#3b82f6] mb-2">SPX 5 dk (Açılış Aralığı OR5)</h3>
-            <div className="h-[60px] bg-[#070a11] border border-[#1e2a3a] rounded-lg flex items-center justify-between px-4 text-xs">
-              <div>
-                <span className="text-slate-400 block text-[11px]">ORH / ORL Seviyeleri</span>
-                <span className="font-bold text-purple-300">{spx.orh || "7,807.71"}</span> /{" "}
-                <span className="font-bold text-[#ef4444]">{spx.orl || "7,801.46"}</span>
-              </div>
-              <div className="text-right">
-                <span className="text-slate-400 block text-[11px]">Açılış Genişliği</span>
-                <span className="font-bold text-amber-300">{spx.or_size || 6.25} Puan</span>
-              </div>
-            </div>
-          </div>
-
-          {/* SPX 1m Panel */}
-          <div style={ELEGANT_CARD}>
-            <h3 className="text-xs font-bold text-[#3b82f6] mb-3">SPX 1 dk (Giriş &amp; Uygulama Yapısı)</h3>
-            <div className="bg-[#070a11] border border-[#1e2a3a] rounded-lg p-3 text-xs">
-              <div className="flex justify-between items-center border-b border-white/[0.04] pb-2 mb-2">
-                <span className="text-slate-400 text-[11px]">Test Edilen Seviye:</span>
-                <span className={`font-bold ${decision.direction === "SHORT" ? "text-[#ef4444]" : "text-purple-400"}`}>
-                  {decision.triggerLevelName}
-                </span>
-              </div>
-              <div className="flex justify-between items-center border-b border-white/[0.04] pb-2 mb-2">
-                <span className="text-slate-400 text-[11px]">Kırılım Durumu (Statü):</span>
-                <span className={`font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider border ${decision.statusColor}`}>
-                  {decision.statusBadge}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400 text-[11px]">Güç (Strength):</span>
-                <span className="text-slate-200 font-medium text-[11px]">{decision.statusStrength}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 3. SİNYAL KARTI, NEDEN VE YAPAY ZEKA PANELLERİ ─────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-        {/* Deterministik Sinyal Kartı */}
-        <div style={ELEGANT_CARD} className="flex flex-col">
-          <h3 className="text-xs font-bold text-[#3b82f6] mb-4 uppercase tracking-wider">
-            🎯 Deterministik Sinyal Kartı
-          </h3>
-
-          <div className="flex-1 flex flex-col justify-center items-center mb-6">
-            <div
-              className="text-2xl font-black uppercase tracking-widest text-center"
-              style={{ color: stateInfo.color }}
-            >
-              {rawState.replace(/_/g, " ")}
-            </div>
-            <div className="text-[10px] text-slate-400 uppercase mt-1">Ana Sinyal Durumu</div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="bg-[#070a11] border border-[#1e2a3a] rounded-lg p-3 text-center">
-              <div
-                className="text-xl font-bold"
-                style={{ color: netScore > 0 ? "#22c55e" : netScore < 0 ? "#ef4444" : "#94a3b8" }}
-              >
-                {netScore >= 0 ? `+${netScore.toFixed(1)}` : netScore.toFixed(1)}
-              </div>
-              <div className="text-[10px] text-slate-400 uppercase mt-1">Net Skor</div>
-            </div>
-            <div className="bg-[#070a11] border border-[#1e2a3a] rounded-lg p-3 text-center">
-              <div className="text-xl font-bold text-amber-300">
-                {snapshot?.confidence_tier === "VERY_HIGH"
-                  ? "ÇOK YÜKSEK"
-                  : snapshot?.confidence_tier === "HIGH"
-                  ? "YÜKSEK"
-                  : snapshot?.confidence_tier === "MEDIUM"
-                  ? "ORTA"
-                  : "DÜŞÜK"}
-              </div>
-              <div className="text-[10px] text-slate-400 uppercase mt-1">Güven</div>
-            </div>
-          </div>
-
-          <div className="flex justify-between items-center text-xs border-t border-white/[0.06] pt-3">
-            <div className="text-slate-400">
-              Long Skoru: <span className="font-bold text-[#22c55e] ml-1">{lScore.toFixed(1)}</span>
-            </div>
-            <div className="text-slate-400">
-              Short Skoru: <span className="font-bold text-[#ef4444] ml-1">{sScore.toFixed(1)}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Neden Paneli */}
-        <div style={ELEGANT_CARD}>
-          <h3 className="text-xs font-bold text-[#3b82f6] mb-4 uppercase tracking-wider">
-            🔍 Neden Paneli (Veri Gerekçeleri)
-          </h3>
-          <div className="grid grid-cols-2 gap-4 text-xs text-slate-300">
-            <div>
-              <div className="text-[#22c55e] font-bold mb-2 border-b border-emerald-500/20 pb-1">
-                ✓ Destekleyenler
-              </div>
-              <ul className="list-disc list-inside text-slate-300 space-y-1.5 pl-1">
-                {decision.whySupported.map((w, idx) => (
-                  <li key={idx} className="text-slate-200">{w}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <div className="text-[#ef4444] font-bold mb-2 border-b border-rose-500/20 pb-1">
-                ✕ Çelişkiler / Eksikler
-              </div>
-              <ul className="list-disc list-inside text-slate-400 space-y-1.5 pl-1">
-                {decision.whyConflicted.map((w, idx) => (
-                  <li key={idx} className="text-slate-400">{w}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Katman B Yapay Zeka Yorumu */}
-        <div style={ELEGANT_CARD}>
-          <h3 className="text-xs font-bold text-[#3b82f6] mb-3 uppercase tracking-wider">
-            🤖 Katman B Yapay Zeka Yorumu (DeepSeek)
-          </h3>
-          <div className="space-y-2.5 text-xs">
-            <p className="text-slate-200 font-normal leading-relaxed">
-              {snapshot?.ai_analysis?.summary ||
-                `Deterministik Katman A verileri doğrulandı. Fiyat ${decision.triggerLevelName} seviyesini test ediyor.`}
-            </p>
-            <div className="text-[#22c55e] mt-2 bg-emerald-500/10 p-2.5 rounded-lg border border-emerald-500/20">
-              <strong className="font-bold">Teyit Koşulu:</strong> {decision.confirmationCondition}
-            </div>
-            <div className="text-[#ef4444] mt-1 bg-rose-500/10 p-2.5 rounded-lg border border-rose-500/20">
-              <strong className="font-bold">İptal Koşulu:</strong> {decision.invalidationCondition}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 4. OPSİYON ARAŞTIRMASI & MULTI-MODEL RUNNER TAKİBİ ──────── */}
-      <div style={ELEGANT_CARD}>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 border-b border-white/[0.06] pb-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-[#3b82f6] block">
-                Opsiyon Araştırma &amp; Runner Takibi
-              </h3>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-[#3b82f6]/15 text-[#3b82f6] font-bold border border-[#3b82f6]/30">
-                {activeOptionType} Evreni ({decision.direction})
-              </span>
-            </div>
-            <span className="text-xs text-slate-400 mt-0.5 block">
-              Mevcut piyasa yönüne ({decision.direction}) göre optimize edilmiş SPXW 0DTE Grevleri
+            <span className="text-[12px] text-slate-500">
+              {PHASE_LABEL[frame.phase]} · {view.sessionDate}
+              {mode === "replay" && ` · ${frame.timeLabel} ET`}
             </span>
           </div>
 
-          {/* Sekmeler: Directional | CALL | PUT (Logo Mavisi) */}
-          <div className="flex bg-[#070a11] border border-[#1e2a3a] rounded-lg p-1">
-            <button
-              onClick={() => setOptionViewMode("directional")}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${
-                optionViewMode === "directional"
-                  ? "bg-[#3b82f6] text-white font-extrabold shadow-sm"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Yönsel Otomatik ({activeOptionType})
-            </button>
-            <button
-              onClick={() => setOptionViewMode("put")}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${
-                optionViewMode === "put"
-                  ? "bg-[#ef4444] text-white font-extrabold shadow-sm"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              PUT Evreni
-            </button>
-            <button
-              onClick={() => setOptionViewMode("call")}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${
-                optionViewMode === "call"
-                  ? "bg-[#22c55e] text-white font-extrabold shadow-sm"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              CALL Evreni
-            </button>
-          </div>
-        </div>
+          <p className="mt-2 text-[13px] leading-relaxed text-slate-300">
+            {decision.statusStrength}. Net skor{" "}
+            <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>, güven{" "}
+            <span className="text-slate-200">{CONFIDENCE_LABEL[frame.confidence]}</span>.
+          </p>
 
+          <div className="mt-3 grid grid-cols-1 gap-3 border-t border-[#1c2635] pt-3 md:grid-cols-3">
+            <div>
+              <SectionTitle>Şu an ne yapmalı</SectionTitle>
+              <p className={`mt-1 text-[13px] font-medium leading-snug ${actionColor(decision.tone)}`}>
+                {decision.action}
+              </p>
+            </div>
+            <div className="md:border-l md:border-[#1c2635] md:pl-3">
+              <SectionTitle>Teyit için ne bekliyoruz</SectionTitle>
+              <p className="mt-1 text-[13px] leading-snug text-slate-300">{decision.confirmation}</p>
+            </div>
+            <div className="md:border-l md:border-[#1c2635] md:pl-3">
+              <SectionTitle>Senaryoyu ne bozar</SectionTitle>
+              <p className="mt-1 text-[13px] leading-snug text-slate-300">{decision.invalidation}</p>
+            </div>
+          </div>
+        </Panel>
+
+        <Panel title="Veri akışı" hint={mode === "replay" ? "arşiv" : undefined} padding="p-4">
+          {view.feeds ? (
+            <div className="space-y-0.5">
+              {view.feeds.map((f) => (
+                <Row
+                  key={f.symbol}
+                  label={f.label}
+                  value={
+                    <span className={f.status === "LIVE" ? "text-[#22c55e]" : "text-slate-400"}>
+                      {f.status === "LIVE"
+                        ? "Canlı"
+                        : f.status === "DELAYED"
+                        ? "Gecikmeli"
+                        : f.status === "STALE"
+                        ? "Bayat"
+                        : "Yok"}
+                      <span className="ml-1.5 text-[11px] text-slate-500">{f.ageSec}s</span>
+                    </span>
+                  }
+                />
+              ))}
+              <div className="mt-2 border-t border-[#1c2635] pt-2">
+                <Row
+                  label="Son güncelleme"
+                  value={lastUpdated ? lastUpdated.toLocaleTimeString("tr-TR") : "—"}
+                />
+                <Row label="Yenileme aralığı" value={`${LIVE_POLL_MS / 1000} sn`} />
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-0.5">
+              <Row label="Kaynak" value="Arşiv seans verisi" />
+              <Row label="Seans" value={view.sessionDate} />
+              <Row label="Kare sayısı" value={`${replay?.frames.length ?? 0} dakika`} />
+              <Row label="Hesaplama" value="Canlı motorla birebir aynı" />
+            </div>
+          )}
+        </Panel>
+      </div>
+
+      {/* Metrik şeridi */}
+      <Panel className="mt-3" padding="p-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <Stat label="SPX endeksi" value={num(frame.spxPrice)} sub="Spot endeks" />
+          <Stat label="ES vadeli" value={num(frame.esPrice)} sub="CME Globex" />
+          <Stat
+            label="ES − SPX farkı"
+            value={signed(frame.basis)}
+            valueClass={toneClass(frame.basis)}
+            sub="Basis"
+          />
+          <Stat
+            label="Net skor"
+            value={signed(frame.netScore, 1)}
+            valueClass={toneClass(frame.netScore)}
+            sub={`Long ${frame.longScore.toFixed(1)} · Short ${frame.shortScore.toFixed(1)}`}
+          />
+          <Stat label="Güven" value={CONFIDENCE_LABEL[frame.confidence]} sub="Faktör uyumu" />
+          <Stat label="Seans VWAP" value={num(frame.vwap)} sub={`ES ${frame.esPrice >= frame.vwap ? "üstünde" : "altında"}`} />
+        </div>
+      </Panel>
+
+      {/* Bağlam ve rejim */}
+      <div className="mt-3">
+        <ContextEnginePanel context={context} liveState={frame.state} />
+      </div>
+
+      {/* Grafik ve yan paneller */}
+      <div className="mt-3 grid grid-cols-1 gap-3 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+        <SuperTradeLiveChart
+          esBars={view.bars.es}
+          spxBars={view.bars.spx}
+          levels={{
+            vwap: frame.vwap,
+            onh: levels.es.onh,
+            onl: levels.es.onl,
+            orh: levels.spx.orh,
+            orl: levels.spx.orl,
+            pdc: levels.es.pdc,
+          }}
+          vwapStartTime={view.frames[0]?.time ?? 0}
+          cutoffTime={view.cutoffTime}
+          isReplay={view.isReplay}
+          loading={loading}
+        />
+
+        <div className="flex flex-col gap-3">
+          <Panel title="Kritik seviyeler" padding="p-4">
+            <div className="grid grid-cols-2 gap-x-4">
+              <div>
+                <Row label="Açılış ORH" value={num(levels.spx.orh)} />
+                <Row label="Açılış ORL" value={num(levels.spx.orl)} />
+                <Row label="OR genişliği" value={`${num(levels.spx.orSize)} puan`} />
+                <Row label="Seans VWAP" value={num(frame.vwap)} valueClass="text-[#3b82f6]" />
+              </div>
+              <div>
+                <Row label="Gece ONH" value={num(levels.es.onh)} />
+                <Row label="Gece ONL" value={num(levels.es.onl)} />
+                <Row label="ON orta nokta" value={num(levels.es.onMid)} />
+                <Row label="Önceki kapanış" value={num(levels.es.pdc)} />
+              </div>
+            </div>
+            <div className="mt-2 border-t border-[#1c2635] pt-2">
+              <Row
+                label="Fiyatın OR bandına göre konumu"
+                value={
+                  levels.spx.vsOr === "ABOVE"
+                    ? "Bandın üstünde"
+                    : levels.spx.vsOr === "BELOW"
+                    ? "Bandın altında"
+                    : "Bant içinde"
+                }
+                valueClass={
+                  levels.spx.vsOr === "ABOVE"
+                    ? "text-[#22c55e]"
+                    : levels.spx.vsOr === "BELOW"
+                    ? "text-[#ef4444]"
+                    : "text-slate-300"
+                }
+              />
+              <Row
+                label="Test edilen seviye"
+                value={decision.triggerLevelName}
+                valueClass="text-slate-200"
+              />
+              <Row label="Kırılım durumu" value={decision.statusBadge} valueClass="text-slate-200" />
+            </div>
+          </Panel>
+
+          <Panel title="Zaman dilimi yapısı" padding="p-4">
+            <StructureRows structure={structure} />
+          </Panel>
+
+          {view.changes && view.changes.length > 0 && (
+            <Panel title="Son 5 dakikada ne değişti" padding="p-4">
+              <div className="space-y-0.5">
+                {view.changes.map((c, i) => (
+                  <Row
+                    key={i}
+                    label={c.label}
+                    value={
+                      <span className={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}>
+                        {c.to}
+                      </span>
+                    }
+                    title={`Önceki: ${c.from}`}
+                  />
+                ))}
+              </div>
+            </Panel>
+          )}
+        </div>
+      </div>
+
+      {/* Gerekçeler */}
+      <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-3">
+        <Panel title="Skoru destekleyenler" hint={`${supporting.length} faktör`} padding="p-4">
+          <FactorList factors={supporting} emptyText="Yönü destekleyen faktör yok." />
+        </Panel>
+        <Panel title="Çelişen faktörler" hint={`${conflicting.length} faktör`} padding="p-4">
+          <FactorList factors={conflicting} emptyText="Çelişen faktör yok." />
+        </Panel>
+        <Panel title="Nötr / bekleyen" hint={`${neutralFactors.length} faktör`} padding="p-4">
+          <FactorList factors={neutralFactors} emptyText="Nötr faktör yok." />
+        </Panel>
+      </div>
+
+      {/* Opsiyon zinciri */}
+      <Panel
+        className="mt-3"
+        title="0DTE opsiyon zinciri"
+        hint="teorik prim · Black-Scholes"
+        padding="p-4"
+        right={
+          <Tabs
+            size="sm"
+            value={chainView}
+            onChange={setChainView}
+            options={[
+              { value: "auto", label: `Yöne göre (${chainType})` },
+              { value: "call", label: "CALL" },
+              { value: "put", label: "PUT" },
+            ]}
+          />
+        }
+      >
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[720px] text-left text-[12px]">
             <thead>
-              <tr className="border-b border-[#1e2a3a] text-[#3b82f6] uppercase text-[10px] font-bold">
-                <th className="py-2.5 px-3">Grev Etiketi</th>
-                <th className="py-2.5 px-3">Kullanım (Strike) Fiyatı</th>
-                <th className="py-2.5 px-3">Opsiyon Tipi</th>
-                <th className="py-2.5 px-3">Vadeye Kalan (DTE)</th>
-                <th className="py-2.5 px-3">OTM Uzaklık (Puan &amp; %)</th>
-                <th className="py-2.5 px-3">Giriş Ask ($)</th>
-                <th className="py-2.5 px-3">Anlık Bid ($)</th>
-                <th className="py-2.5 px-3">Spread %</th>
-                <th className="py-2.5 px-3">Risk (Likidite Kalitesi)</th>
-                <th className="py-2.5 px-3">Veri Yaşı</th>
+              <tr className="border-b border-[#1c2635] text-[10px] uppercase tracking-[0.06em] text-[#3b82f6]">
+                <th className="px-2 py-2 font-medium">Grev</th>
+                <th className="px-2 py-2 font-medium">Kullanım</th>
+                <th className="px-2 py-2 font-medium">Tip</th>
+                <th className="px-2 py-2 font-medium">OTM uzaklık</th>
+                <th className="px-2 py-2 font-medium">Teorik prim</th>
+                <th className="px-2 py-2 font-medium">Delta</th>
+                <th className="px-2 py-2 font-medium">Günlük theta</th>
+                <th className="px-2 py-2 font-medium">Başa baş</th>
+                <th className="px-2 py-2 font-medium">Hedefte prim</th>
+                <th className="px-2 py-2 font-medium">Hedef getirisi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04] text-slate-300">
-              {[0, 5, 10, 15, 20, 25, 30].map((offset) => {
-                const spxP = snapshot?.spx_price || 7786.01;
-                const atm = Math.round(spxP / 5) * 5;
-                const isPut = activeOptionType === "PUT";
-
-                const strike = isPut ? atm - offset : atm + offset;
-                const otmPts = isPut ? spxP - strike : strike - spxP;
-                const otmPct = (Math.abs(otmPts) / spxP) * 100;
-
-                const ask = Math.max(1.0, 18.5 - offset * 0.45);
-                const bid = Number((ask * (0.94 - offset * 0.005)).toFixed(2));
-                const spreadPct = ((ask - bid) / ask) * 100;
-
-                let riskLabel = "Dar Spread";
-                let riskColor = "bg-emerald-400/20 text-[#22c55e] border-emerald-400/30";
-                if (spreadPct > 6) {
-                  riskLabel = "Geniş Spread";
-                  riskColor = "bg-rose-500/20 text-[#ef4444] border-rose-500/30";
-                } else if (spreadPct >= 3) {
-                  riskLabel = "Orta Spread";
-                  riskColor = "bg-amber-400/20 text-amber-400 border-amber-400/30";
-                }
-
-                return (
-                  <tr key={offset} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-2.5 px-3 font-bold text-[#3b82f6]">
-                      {offset === 0 ? "ATM" : `${offset} OTM`}
-                    </td>
-                    <td className="py-2.5 px-3 font-bold text-white">{strike}</td>
-                    <td className={`py-2.5 px-3 font-bold ${isPut ? "text-[#ef4444]" : "text-[#22c55e]"}`}>
-                      {activeOptionType}
-                    </td>
-                    <td className="py-2.5 px-3 text-slate-400">0</td>
-                    <td className="py-2.5 px-3">
-                      <span className={otmPts >= 0 ? "text-[#22c55e] font-medium" : "text-[#ef4444] font-medium"}>
-                        {otmPts >= 0 ? `+${otmPts.toFixed(2)}` : otmPts.toFixed(2)} Puan (%{otmPct.toFixed(2)})
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-3 font-medium text-white">${ask.toFixed(2)}</td>
-                    <td className={`py-2.5 px-3 font-bold ${isPut ? "text-rose-400" : "text-[#22c55e]"}`}>
-                      ${bid.toFixed(2)}
-                    </td>
-                    <td className="py-2.5 px-3 font-medium text-slate-300">%{spreadPct.toFixed(1)}</td>
-                    <td className="py-2.5 px-3">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${riskColor}`}>
-                        {riskLabel}
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-3 text-[11px] text-[#22c55e] font-bold">&lt; 1s</td>
-                  </tr>
-                );
-              })}
+            <tbody className="divide-y divide-[#1c2635]/70 tabular-nums">
+              {chain.map((o) => (
+                <tr key={`${o.type}-${o.strike}`} className="transition-colors hover:bg-white/[0.02]">
+                  <td className="px-2 py-2 text-slate-400">{o.label}</td>
+                  <td className="px-2 py-2 text-slate-100">{o.strike}</td>
+                  <td className={`px-2 py-2 ${o.type === "CALL" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                    {o.type}
+                  </td>
+                  <td className="px-2 py-2 text-slate-400">
+                    {signed(o.otmPts)} ({o.otmPct.toFixed(2)}%)
+                  </td>
+                  <td className="px-2 py-2 text-slate-100">${o.premium.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-slate-400">{o.delta.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-[#ef4444]">{o.theta.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-slate-300">{o.breakeven.toFixed(2)}</td>
+                  <td className="px-2 py-2 text-slate-300">${o.premiumAtTarget.toFixed(2)}</td>
+                  <td className={`px-2 py-2 ${toneClass(o.targetReturnPct)}`}>
+                    {signed(o.targetReturnPct, 1)}%
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
+        <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+          &quot;Hedefte prim&quot;, fiyatın açılış aralığının iki katı kadar hedef seviyeye ulaşması ve
+          kalan sürenin %60&apos;ının tükenmesi varsayımıyla modellenmiştir.
+        </p>
+      </Panel>
 
-        {/* Model Açıklamaları */}
-        <div className="mt-6">
-          <h3 className="text-xs font-bold text-[#3b82f6] mb-3 uppercase tracking-wider">
-            🚀 Runner Model Karşılaştırması (2 Kontrat Çıkış Simülasyonu)
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-            {[
-              { name: "Model A", desc: "Sabit Hedef", pl: "+$95.00", max: "+$95.00", dd: "0%", exit: "2x +%50 Kâr Al", tag: "Dengeli" },
-              { name: "Model B", desc: "Maliyet Stop Runner", pl: "+$140.00", max: "+$180.00", dd: "-%22", exit: "Maliyet Stop", tag: "En Savunmacı" },
-              { name: "Model C", desc: "+%50 Stop Runner", pl: "+$210.50", max: "+$240.00", dd: "-%12", exit: "+%50 Stop Koruma", tag: "En İyi R/R" },
-              { name: "Model D", desc: "Bid Takip Runner", pl: "+$320.00", max: "+$350.00", dd: "-%8", exit: "-%20 Bid Takip", tag: "En Düşük Düşüş" },
-              { name: "Model E", desc: "SPX Yapı Runner", pl: "+$410.00", max: "+$410.00", dd: "0%", exit: "SPX 5 dk Bozulması", tag: "Lider Model" },
-            ].map((m, i) => {
-              const progressRatio = mode === "replay" ? Math.max(0.1, replayTime / 150) : 1;
-              const numericPl = parseFloat(m.pl.replace(/[^0-9.]/g, "")) * progressRatio;
-              const numericMax = parseFloat(m.max.replace(/[^0-9.]/g, "")) * Math.min(1, progressRatio * 1.05);
-
-              return (
+      {/* Runner modelleri */}
+      <Panel
+        className="mt-3"
+        title="Runner çıkış modelleri"
+        hint={runners?.available ? `${runners.contracts} kontrat · ${runners.strike} grev` : undefined}
+        padding="p-4"
+      >
+        {runners?.available ? (
+          <>
+            <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
+              <span>
+                Giriş: <span className="text-slate-300">{runners.entryTime} ET</span>
+              </span>
+              <span>
+                Yön:{" "}
+                <span className={runners.direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]"}>
+                  {runners.direction}
+                </span>
+              </span>
+              <span>
+                Giriş primi:{" "}
+                <span className="text-slate-300">${runners.models[0]?.entryPremium.toFixed(2)}</span>
+              </span>
+            </div>
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-5">
+              {runners.models.map((m) => (
                 <div
-                  key={i}
-                  className={`bg-[#070a11] p-3 rounded-lg border flex flex-col justify-between ${
-                    m.tag === "Lider Model"
-                      ? "border-amber-400/50 shadow-[0_0_15px_rgba(251,191,36,0.1)]"
-                      : "border-[#1e2a3a]"
-                  }`}
+                  key={m.id}
+                  className={`${INSET} p-3 ${m.id === runners.bestId ? "ring-1 ring-[#3b82f6]/40" : ""}`}
                 >
-                  <div>
-                    <div className="flex justify-between items-start mb-1">
-                      <div className="text-white font-bold">
-                        {m.name} <span className="text-slate-400 font-normal text-[10px] block md:inline">({m.desc})</span>
-                      </div>
-                      {m.tag && (
-                        <span
-                          className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${
-                            m.tag === "Lider Model"
-                              ? "bg-amber-400/20 text-amber-300 border-amber-400/30"
-                              : "bg-white/[0.05] text-slate-400 border-white/[0.1]"
-                          }`}
-                        >
-                          {m.tag}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex justify-between items-center mt-2 border-t border-white/[0.04] pt-2">
-                      <span className="text-slate-400 text-[10px]">Anlık K/Z</span>
-                      <span className="text-[#22c55e] font-bold">+${numericPl.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-slate-400 text-[10px]" title="Replay sırasında o ana kadar gerçekleşen maksimum kâr">
-                        Maks K/Z (Mevcut)
-                      </span>
-                      <span className="text-slate-200 font-medium">+${numericMax.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-slate-400 text-[10px]">Geri Çekilme (DD)</span>
-                      <span className="text-[#ef4444] font-medium">{m.dd}</span>
-                    </div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="text-[12px] font-medium text-slate-100">{m.name}</div>
+                    {m.id === runners.bestId && <Badge tone="brand">En iyi</Badge>}
                   </div>
-                  <div className="mt-3 pt-2 border-t border-white/[0.04] text-[10px] text-amber-300 font-medium">
-                    Çıkış: {m.exit}
+                  <p className="mt-1 text-[10px] leading-relaxed text-slate-500">{m.rule}</p>
+                  <div className="mt-2 border-t border-[#1c2635] pt-2">
+                    <Row
+                      label="Kâr / zarar"
+                      value={`${m.pnl >= 0 ? "+" : ""}$${m.pnl.toFixed(2)}`}
+                      valueClass={toneClass(m.pnl)}
+                    />
+                    <Row label="Zirve kâr" value={`+$${Math.max(0, m.maxPnl).toFixed(2)}`} />
+                    <Row
+                      label="Geri çekilme"
+                      value={`${m.drawdownPct.toFixed(1)}%`}
+                      valueClass={m.drawdownPct < 0 ? "text-[#ef4444]" : "text-slate-400"}
+                    />
+                    <Row label="Çıkış" value={m.open ? "Açık" : `${m.exitTime} ET`} />
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <EmptyState>{runners?.reason ?? "Runner simülasyonu için veri yok."}</EmptyState>
+        )}
+      </Panel>
+
+      {/* Strateji laboratuvarı */}
+      <div className="mt-3">
+        <StrategyLab
+          spxPrice={frame.spxPrice}
+          state={frame.state}
+          vix={view.vix || 15}
+          minutesLeft={minutesToClose(
+            Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+          )}
+        />
+      </div>
+
+      <p className="mt-4 text-[11px] leading-relaxed text-slate-500">
+        Bu konsol araştırma ve karar desteği amaçlıdır. Opsiyon primleri teorik modellerdir, otomatik
+        emre dönüşmez ve yatırım tavsiyesi değildir.
+      </p>
+    </div>
+  );
+}
+
+// ── Yardımcı bileşenler ─────────────────────────────────────────
+
+function Header({
+  mode,
+  setMode,
+  lastUpdated,
+  live,
+}: {
+  mode: "live" | "replay";
+  setMode: (m: "live" | "replay") => void;
+  lastUpdated: Date | null;
+  live: boolean;
+}) {
+  return (
+    <header className="flex flex-col gap-3 border-b border-[#1c2635] pb-3 md:flex-row md:items-center md:justify-between">
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <h1 className="text-[16px] font-medium tracking-tight text-[#3b82f6]">
+            SPX Yön ve Teyit Motoru
+          </h1>
+          <Badge tone="brand">SuperTrade v3</Badge>
+          {live && lastUpdated && (
+            <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#22c55e]" />
+              {lastUpdated.toLocaleTimeString("tr-TR")}
+            </span>
+          )}
         </div>
-
-        {/* ── 5. STRATEJİ LABORATUVARI (BUDGET-AWARE OPTION ENGINE) ── */}
-        <StrategyLab spxPrice={snapshot?.spx_price ?? 7786.01} currentState={rawState} />
-
-        <p className="text-[11px] text-slate-400 mt-5">
-          ⚠️ Opsiyon metrikleri teorik modeller ve runner çıkış karşılaştırması içindir. Otomatik emre dönüşmez.
+        <p className="mt-1 text-[11px] text-slate-500">
+          Yönetici konsolu — gün içi seviye, yapı ve kırılım teyidi takibi
         </p>
       </div>
+      <Tabs
+        value={mode}
+        onChange={setMode}
+        options={[
+          { value: "live", label: "Canlı terminal" },
+          { value: "replay", label: "Seans yeniden oynatma" },
+        ]}
+      />
+    </header>
+  );
+}
+
+function FactorList({ factors, emptyText }: { factors: ScoreFactor[]; emptyText: string }) {
+  if (!factors.length) {
+    return <p className="text-[12px] text-slate-500">{emptyText}</p>;
+  }
+  return (
+    <ul className="space-y-1.5">
+      {factors.map((f, i) => (
+        <li key={i} className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[12px] text-slate-200">{f.label}</div>
+            <div className="text-[11px] leading-snug text-slate-500">{f.detail}</div>
+          </div>
+          <span className={`shrink-0 text-[12px] tabular-nums ${toneClass(f.weight)}`}>
+            {f.weight === 0 ? "0.00" : signed(f.weight)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function StructureRows({ structure }: { structure: StructureSet }) {
+  const rows: { label: string; value: string }[] = [
+    { label: "ES 15 dakika", value: STRUCTURE_LABEL[structure.es15m] },
+    { label: "ES 5 dakika", value: STRUCTURE_LABEL[structure.es5m] },
+    { label: "ES 1 dakika", value: STRUCTURE_LABEL[structure.es1m] },
+    { label: "SPX 5 dakika", value: STRUCTURE_LABEL[structure.spx5m] },
+    { label: "SPX 1 dakika", value: STRUCTURE_LABEL[structure.spx1m] },
+  ];
+  return (
+    <div className="space-y-0.5">
+      {rows.map((r) => (
+        <Row
+          key={r.label}
+          label={r.label}
+          value={r.value}
+          valueClass={
+            r.value === "Yükselen"
+              ? "text-[#22c55e]"
+              : r.value === "Düşen"
+              ? "text-[#ef4444]"
+              : "text-slate-400"
+          }
+        />
+      ))}
     </div>
   );
 }

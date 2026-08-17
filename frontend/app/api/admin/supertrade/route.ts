@@ -1,31 +1,28 @@
+/**
+ * GET /api/admin/supertrade
+ * SPX SuperTrade canlı anlık görüntüsü. Tüm hesaplama Node tarafında yapılır;
+ * harici Python süreci veya yerel kurulum gerektirmez.
+ */
+
 import { NextResponse } from "next/server";
-import { exec } from "child_process";
-import path from "path";
-import fs from "fs";
+import { buildSnapshot } from "@/lib/spx/snapshot";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 
 export async function GET() {
   try {
-    const rootDir = path.resolve(process.cwd(), "..");
-    const venvPython = path.join(rootDir, "venv313", "Scripts", "python.exe");
-    const pythonExe = fs.existsSync(venvPython) ? venvPython : "python";
-    const scriptPath = path.join(rootDir, "spx_engine", "cli_runner.py");
-
-    return new Promise((resolve) => {
-      exec(`"${pythonExe}" "${scriptPath}" snapshot`, { cwd: rootDir }, (error, stdout, stderr) => {
-        if (error) {
-          console.error("SuperTrade API Error:", error, stderr);
-          return resolve(NextResponse.json({ error: "Failed to execute SPX engine snapshot" }, { status: 500 }));
-        }
-        try {
-          const snapshot = JSON.parse(stdout);
-          return resolve(NextResponse.json(snapshot));
-        } catch (parseError) {
-          console.error("JSON parse error:", parseError, stdout);
-          return resolve(NextResponse.json({ error: "Invalid JSON from engine" }, { status: 500 }));
-        }
-      });
+    const snapshot = await buildSnapshot();
+    return NextResponse.json(snapshot, {
+      headers: { "Cache-Control": "no-store" },
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Bilinmeyen hata";
+    console.error("[supertrade] snapshot hatası:", message);
+    return NextResponse.json(
+      { ok: false, error: message, hint: "Piyasa veri sağlayıcısına erişilemiyor olabilir." },
+      { status: 503, headers: { "Cache-Control": "no-store" } }
+    );
   }
 }

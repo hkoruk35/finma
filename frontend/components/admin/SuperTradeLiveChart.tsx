@@ -1,530 +1,433 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+/**
+ * SPX SuperTrade — Anlık Grafik Motoru (native canvas, harici kütüphane yok)
+ * Veri API'den gelen gerçek mumlardır; bileşen içinde rastgele üretim yoktur.
+ * Yeniden oynatma modunda `cutoffTime` ile mumlar zaman içinde açılır.
+ */
 
-export interface CandleData {
-  time: number; // Unix timestamp seconds
-  timeStr: string; // HH:mm
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { CompactBar } from "@/lib/spx/types";
+import { INSET, Panel, Tabs, num } from "./supertrade/ui";
+
+export interface ChartLevels {
+  vwap: number;
+  onh: number;
+  onl: number;
+  orh: number;
+  orl: number;
+  pdc: number;
+}
+
+interface Candle {
+  time: number;
   open: number;
   high: number;
   low: number;
   close: number;
   volume: number;
   vwap: number;
+  label: string;
 }
 
-interface SuperTradeLiveChartProps {
-  symbol?: "ES" | "SPX";
-  timeframe?: "1m" | "5m" | "15m";
-  currentPrice: number;
-  vwapPrice: number;
-  onh: number;
-  onl: number;
-  onMid: number;
-  orh: number;
-  orl: number;
-  replayTime?: number; // 0 - 150 dakika (09:30 ET başlangıçlı)
-  isReplayMode?: boolean;
+type Symbol = "ES" | "SPX";
+type Timeframe = "1" | "5" | "15";
+
+const TF_OPTIONS: { value: Timeframe; label: string }[] = [
+  { value: "1", label: "1 dk" },
+  { value: "5", label: "5 dk" },
+  { value: "15", label: "15 dk" },
+];
+
+const COLOR = {
+  up: "#22c55e",
+  down: "#ef4444",
+  brand: "#3b82f6",
+  grid: "rgba(255,255,255,0.04)",
+  axis: "#64748b",
+  level: "#64748b",
+  bg: "#0a0e17",
+};
+
+function timeLabel(unixSec: number): string {
+  return new Intl.DateTimeFormat("tr-TR", {
+    timeZone: "America/New_York",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).format(new Date(unixSec * 1000));
 }
 
 export default function SuperTradeLiveChart({
-  symbol: initialSymbol = "ES",
-  timeframe: initialTimeframe = "5m",
-  currentPrice = 7805.0,
-  vwapPrice = 7811.17,
-  onh = 7817.5,
-  onl = 7796.5,
-  onMid = 7807.0,
-  orh = 7807.71,
-  orl = 7801.46,
-  replayTime = 150,
-  isReplayMode = false,
-}: SuperTradeLiveChartProps) {
+  esBars,
+  spxBars,
+  levels,
+  vwapStartTime,
+  cutoffTime,
+  isReplay = false,
+  loading = false,
+}: {
+  esBars: CompactBar[];
+  spxBars: CompactBar[];
+  levels: ChartLevels;
+  vwapStartTime: number;
+  cutoffTime?: number;
+  isReplay?: boolean;
+  loading?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [symbol, setSymbol] = useState<Symbol>("ES");
+  const [timeframe, setTimeframe] = useState<Timeframe>("5");
+  const [hover, setHover] = useState<{ index: number; x: number; y: number } | null>(null);
+  const [size, setSize] = useState({ width: 640, height: 340 });
 
-  const [activeSymbol, setActiveSymbol] = useState<"ES" | "SPX">(initialSymbol);
-  const [activeTimeframe, setActiveTimeframe] = useState<"1m" | "5m" | "15m">(initialTimeframe);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
-  const [liveTickOffset, setLiveTickOffset] = useState<number>(0);
+  const source = symbol === "ES" ? esBars : spxBars;
 
-  // Canlı modda anlık fiyat mikro titreşimi (Real-Time Sub-Second Tick Feed)
-  useEffect(() => {
-    if (isReplayMode) {
-      setLiveTickOffset(0);
-      return;
-    }
-    const interval = setInterval(() => {
-      setLiveTickOffset((Math.random() - 0.48) * 0.6);
-    }, 1500);
-    return () => clearInterval(interval);
-  }, [isReplayMode]);
+  const candles = useMemo<Candle[]>(() => {
+    const factor = Number(timeframe);
+    const rows = cutoffTime ? source.filter((b) => b[0] <= cutoffTime) : source;
+    if (!rows.length) return [];
 
-  // Gün içi anlık gerçekçi mum verileri dizisi
-  const allCandles = useMemo(() => {
-    const list: CandleData[] = [];
-    const intervalMinutes = activeTimeframe === "1m" ? 1 : activeTimeframe === "5m" ? 5 : 15;
-    const totalBars = activeTimeframe === "1m" ? 150 : activeTimeframe === "5m" ? 30 : 10;
-
-    let currentOpen = activeSymbol === "ES" ? 7802.5 : 7784.0;
-    let runningVwapSum = 0;
-    let runningVolSum = 0;
-
-    for (let i = 0; i < totalBars; i++) {
-      const minutesFromOpen = i * intervalMinutes;
-      const totalMinutes = 9 * 60 + 30 + minutesFromOpen;
-      const hh = Math.floor(totalMinutes / 60);
-      const mm = totalMinutes % 60;
-      const timeStr = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-      const time = 1723728600 + i * intervalMinutes * 60;
-
-      const progress = i / totalBars;
-      const wave =
-        i < (activeTimeframe === "1m" ? 30 : 6)
-          ? -10 * Math.sin((i / (activeTimeframe === "1m" ? 30 : 6)) * Math.PI)
-          : (progress - 0.2) * (activeSymbol === "ES" ? 22 : 20);
-
-      const open = Number((currentOpen + (Math.random() - 0.48) * 1.2).toFixed(2));
-      const drift = wave * 0.12 + (Math.random() - 0.45) * 2.2;
-      const close = Number((open + drift).toFixed(2));
-      const high = Number((Math.max(open, close) + Math.random() * 2.0).toFixed(2));
-      const low = Number((Math.min(open, close) - Math.random() * 1.8).toFixed(2));
-
-      const baseVol = i < 4 ? 14500 : 5200;
-      const volume = Math.floor(baseVol + Math.random() * 4500);
-
-      const typicalPrice = (high + low + close) / 3;
-      runningVwapSum += typicalPrice * volume;
-      runningVolSum += volume;
-      const vwap = Number((runningVwapSum / runningVolSum).toFixed(2));
-
-      list.push({
-        time,
-        timeStr,
-        open,
-        high,
-        low,
-        close,
-        volume,
-        vwap,
+    // Zaman dilimine topla
+    const grouped: Omit<Candle, "vwap" | "label">[] = [];
+    for (let i = 0; i < rows.length; i += factor) {
+      const slice = rows.slice(i, i + factor);
+      if (!slice.length) continue;
+      grouped.push({
+        time: slice[0][0],
+        open: slice[0][1],
+        high: Math.max(...slice.map((b) => b[2])),
+        low: Math.min(...slice.map((b) => b[3])),
+        close: slice[slice.length - 1][4],
+        volume: slice.reduce((s, b) => s + b[5], 0),
       });
-
-      currentOpen = close;
     }
 
-    return list;
-  }, [activeSymbol, activeTimeframe]);
+    // Seans başlangıcından itibaren kümülatif VWAP
+    let tpv = 0;
+    let vol = 0;
+    let simpleSum = 0;
+    let simpleCount = 0;
 
-  // Görünür mumlar
-  const visibleCandles = useMemo(() => {
-    let result: CandleData[];
-    if (!isReplayMode) {
-      result = [...allCandles];
-    } else {
-      const intervalMinutes = activeTimeframe === "1m" ? 1 : activeTimeframe === "5m" ? 5 : 15;
-      const maxIndex = Math.max(1, Math.floor(replayTime / intervalMinutes));
-      result = allCandles.slice(0, Math.min(allCandles.length, maxIndex));
-    }
+    return grouped.map((c) => {
+      const typical = (c.high + c.low + c.close) / 3;
+      if (c.time >= vwapStartTime) {
+        tpv += typical * c.volume;
+        vol += c.volume;
+        simpleSum += typical;
+        simpleCount += 1;
+      }
+      const vwap = vol > 0 ? tpv / vol : simpleCount > 0 ? simpleSum / simpleCount : typical;
+      return { ...c, vwap, label: timeLabel(c.time) };
+    });
+  }, [source, timeframe, cutoffTime, vwapStartTime]);
 
-    // Son muma canlı anlık fiyat güncellemesini ekle
-    if (result.length > 0 && !isReplayMode && liveTickOffset !== 0) {
-      const last = { ...result[result.length - 1] };
-      last.close = Number((last.close + liveTickOffset).toFixed(2));
-      last.high = Math.max(last.high, last.close);
-      last.low = Math.min(last.low, last.close);
-      result[result.length - 1] = last;
-    }
+  const last = candles[candles.length - 1];
+  const display = hover && candles[hover.index] ? candles[hover.index] : last;
 
-    return result;
-  }, [allCandles, replayTime, isReplayMode, activeTimeframe, liveTickOffset]);
-
-  // BogaStock Native HTML5 Canvas Çizim Motoru (TradingView Bağımsız 60FPS)
-  const drawChart = useCallback(() => {
+  const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const width = canvas.width;
-    const height = canvas.height;
     const dpr = window.devicePixelRatio || 1;
+    const { width, height } = size;
 
-    // Arka planı temizle
-    ctx.fillStyle = "#070a11";
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = COLOR.bg;
     ctx.fillRect(0, 0, width, height);
+    if (!candles.length) return;
 
-    if (visibleCandles.length === 0) return;
+    const padL = 8;
+    const padR = 68;
+    const padT = 14;
+    const padB = 26;
+    const plotW = width - padL - padR;
+    const plotH = height - padT - padB;
+    const volH = Math.round(plotH * 0.18);
+    const priceH = plotH - volH - 10;
 
-    const paddingLeft = 10;
-    const paddingRight = 75;
-    const paddingTop = 25;
-    const paddingBottom = 40;
-    const chartWidth = width - paddingLeft - paddingRight;
-    const chartHeight = height - paddingTop - paddingBottom;
-    const volumeHeight = chartHeight * 0.22;
-    const priceHeight = chartHeight - volumeHeight - 15;
+    const relevant = [levels.vwap, levels.onh, levels.onl, levels.orh, levels.orl].filter(
+      (v) => v > 0
+    );
+    let min = Math.min(...candles.map((c) => c.low), ...relevant);
+    let max = Math.max(...candles.map((c) => c.high), ...relevant);
+    const span = max - min || 1;
+    min -= span * 0.04;
+    max += span * 0.04;
 
-    // Fiyat aralığını belirle
-    let minPrice = Math.min(...visibleCandles.map((c) => c.low), onl, orl, vwapPrice) - 3;
-    let maxPrice = Math.max(...visibleCandles.map((c) => c.high), onh, orh, vwapPrice) + 3;
-    let maxVol = Math.max(...visibleCandles.map((c) => c.volume), 1);
+    const priceY = (p: number) => padT + priceH - ((p - min) / (max - min)) * priceH;
+    const maxVol = Math.max(...candles.map((c) => c.volume), 1);
+    const volY = (v: number) => height - padB - (v / maxVol) * volH;
 
-    const priceToY = (p: number) => paddingTop + priceHeight - ((p - minPrice) / (maxPrice - minPrice)) * priceHeight;
-    const volToY = (v: number) => height - paddingBottom - (v / maxVol) * volumeHeight;
-
-    // 1. Grid Çizgileri
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-    ctx.lineWidth = 1;
-    const priceSteps = 6;
-    for (let i = 0; i <= priceSteps; i++) {
-      const p = minPrice + (i / priceSteps) * (maxPrice - minPrice);
-      const y = priceToY(p);
+    // Izgara ve fiyat ekseni
+    ctx.font = "10px ui-monospace, monospace";
+    ctx.textBaseline = "middle";
+    for (let i = 0; i <= 5; i++) {
+      const p = min + (i / 5) * (max - min);
+      const y = priceY(p);
+      ctx.strokeStyle = COLOR.grid;
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(paddingLeft, y);
-      ctx.lineTo(width - paddingRight, y);
+      ctx.moveTo(padL, y);
+      ctx.lineTo(width - padR, y);
       ctx.stroke();
-
-      // Fiyat Etiketi (Sağ Eksen)
-      ctx.fillStyle = "#64748b";
-      ctx.font = `${10 * dpr}px monospace`;
+      ctx.fillStyle = COLOR.axis;
       ctx.textAlign = "left";
-      ctx.fillText(p.toFixed(2), width - paddingRight + 8, y + 4 * dpr);
+      ctx.fillText(p.toFixed(2), width - padR + 6, y);
     }
 
-    const n = visibleCandles.length;
-    const barWidth = Math.max(2, (chartWidth / n) * 0.7);
-    const stepX = chartWidth / n;
+    const n = candles.length;
+    const step = plotW / n;
+    const barW = Math.max(1.5, Math.min(14, step * 0.62));
 
-    // 2. Kritik Kurumsal Seviye Çizgileri
-    const drawLevel = (price: number, color: string, label: string, isDashed: boolean = false) => {
-      const y = priceToY(price);
-      if (y < paddingTop || y > paddingTop + priceHeight) return;
+    // Açılış aralığı bandı
+    if (levels.orh > 0 && levels.orl > 0) {
+      const yTop = priceY(levels.orh);
+      const yBottom = priceY(levels.orl);
+      ctx.fillStyle = "rgba(59,130,246,0.06)";
+      ctx.fillRect(padL, yTop, plotW, Math.max(1, yBottom - yTop));
+    }
+
+    const drawLevel = (price: number, label: string, dash: number[], color: string) => {
+      if (!price) return;
+      const y = priceY(price);
+      if (y < padT - 2 || y > padT + priceH + 2) return;
       ctx.save();
       ctx.strokeStyle = color;
-      ctx.lineWidth = isDashed ? 1.5 : 1;
-      if (isDashed) ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1;
+      ctx.setLineDash(dash);
       ctx.beginPath();
-      ctx.moveTo(paddingLeft, y);
-      ctx.lineTo(width - paddingRight, y);
+      ctx.moveTo(padL, y);
+      ctx.lineTo(width - padR, y);
       ctx.stroke();
-
-      // Seviye Rozeti (Sağ Eksen)
-      ctx.fillStyle = color;
-      ctx.fillRect(width - paddingRight + 2, y - 9 * dpr, 68 * dpr, 18 * dpr);
-      ctx.fillStyle = "#070a11";
-      ctx.font = `bold ${9 * dpr}px sans-serif`;
-      ctx.textAlign = "center";
-      ctx.fillText(label, width - paddingRight + 36 * dpr, y + 3.5 * dpr);
       ctx.restore();
+
+      ctx.fillStyle = color;
+      ctx.font = "9px ui-sans-serif, system-ui";
+      ctx.textAlign = "right";
+      ctx.fillText(label, width - padR - 4, y - 6);
     };
 
-    drawLevel(onh, "#22c55e", "ONH " + onh.toFixed(1));
-    drawLevel(onl, "#ef4444", "ONL " + onl.toFixed(1));
-    drawLevel(orh, "#a855f7", "ORH " + orh.toFixed(1), true);
-    drawLevel(orl, "#f43f5e", "ORL " + orl.toFixed(1), true);
-    drawLevel(vwapPrice, "#3b82f6", "VWAP " + vwapPrice.toFixed(1), true);
+    drawLevel(levels.onh, `ONH ${levels.onh.toFixed(2)}`, [2, 4], COLOR.level);
+    drawLevel(levels.onl, `ONL ${levels.onl.toFixed(2)}`, [2, 4], COLOR.level);
+    drawLevel(levels.pdc, `PDC ${levels.pdc.toFixed(2)}`, [1, 5], "#475569");
+    drawLevel(levels.orh, `ORH ${levels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
+    drawLevel(levels.orl, `ORL ${levels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
 
-    // 3. Hacim (Volume) Çubukları
-    visibleCandles.forEach((c, idx) => {
-      const x = paddingLeft + idx * stepX + stepX / 2;
-      const isUp = c.close >= c.open;
-      const y = volToY(c.volume);
-      const h = height - paddingBottom - y;
-      ctx.fillStyle = isUp ? "rgba(34, 197, 94, 0.35)" : "rgba(239, 68, 68, 0.35)";
-      ctx.fillRect(x - barWidth / 2, y, barWidth, h);
+    // Hacim
+    candles.forEach((c, i) => {
+      const x = padL + i * step + step / 2;
+      const y = volY(c.volume);
+      ctx.fillStyle = c.close >= c.open ? "rgba(34,197,94,0.28)" : "rgba(239,68,68,0.28)";
+      ctx.fillRect(x - barW / 2, y, barW, height - padB - y);
     });
 
-    // 4. VWAP Çizgisi
+    // VWAP
     ctx.save();
-    ctx.strokeStyle = "#3b82f6";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = COLOR.brand;
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    visibleCandles.forEach((c, idx) => {
-      const x = paddingLeft + idx * stepX + stepX / 2;
-      const y = priceToY(c.vwap);
-      if (idx === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    let started = false;
+    candles.forEach((c, i) => {
+      if (c.time < vwapStartTime) return;
+      const x = padL + i * step + step / 2;
+      const y = priceY(c.vwap);
+      if (!started) {
+        ctx.moveTo(x, y);
+        started = true;
+      } else ctx.lineTo(x, y);
     });
     ctx.stroke();
     ctx.restore();
 
-    // 5. Candlestick Mumları (Yeşil / Kırmızı)
-    visibleCandles.forEach((c, idx) => {
-      const x = paddingLeft + idx * stepX + stepX / 2;
-      const isUp = c.close >= c.open;
-      const color = isUp ? "#22c55e" : "#ef4444";
-
-      const yOpen = priceToY(c.open);
-      const yClose = priceToY(c.close);
-      const yHigh = priceToY(c.high);
-      const yLow = priceToY(c.low);
-
-      // Fitiller (Wicks)
+    // Mumlar
+    candles.forEach((c, i) => {
+      const x = padL + i * step + step / 2;
+      const color = c.close >= c.open ? COLOR.up : COLOR.down;
       ctx.strokeStyle = color;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(x, yHigh);
-      ctx.lineTo(x, yLow);
+      ctx.moveTo(x, priceY(c.high));
+      ctx.lineTo(x, priceY(c.low));
       ctx.stroke();
 
-      // Mum Gövdesi (Candle Body)
+      const yo = priceY(c.open);
+      const yc = priceY(c.close);
       ctx.fillStyle = color;
-      const bodyTop = Math.min(yOpen, yClose);
-      const bodyHeight = Math.max(1.5, Math.abs(yOpen - yClose));
-      ctx.fillRect(x - barWidth / 2, bodyTop, barWidth, bodyHeight);
-
-      // Zaman Ekseni Etiketi
-      if (idx % (activeTimeframe === "1m" ? 15 : activeTimeframe === "5m" ? 5 : 2) === 0) {
-        ctx.fillStyle = "#64748b";
-        ctx.font = `${9 * dpr}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText(c.timeStr, x, height - paddingBottom + 16 * dpr);
-      }
+      ctx.fillRect(x - barW / 2, Math.min(yo, yc), barW, Math.max(1, Math.abs(yo - yc)));
     });
 
-    // 6. Crosshair (İmleç Kılavuz Çizgisi)
-    if (hoverIndex !== null && hoverIndex >= 0 && hoverIndex < visibleCandles.length) {
-      const c = visibleCandles[hoverIndex];
-      const x = paddingLeft + hoverIndex * stepX + stepX / 2;
-      const y = priceToY(c.close);
+    // Zaman ekseni
+    const labelEvery = Math.max(1, Math.ceil(n / 8));
+    ctx.fillStyle = COLOR.axis;
+    ctx.font = "10px ui-monospace, monospace";
+    ctx.textAlign = "center";
+    candles.forEach((c, i) => {
+      if (i % labelEvery) return;
+      ctx.fillText(c.label, padL + i * step + step / 2, height - padB + 12);
+    });
 
+    // Son fiyat etiketi
+    const lastCandle = candles[n - 1];
+    const lastY = priceY(lastCandle.close);
+    const lastColor = lastCandle.close >= lastCandle.open ? COLOR.up : COLOR.down;
+    ctx.fillStyle = lastColor;
+    ctx.fillRect(width - padR + 2, lastY - 8, padR - 6, 16);
+    ctx.fillStyle = "#0a0e17";
+    ctx.font = "10px ui-monospace, monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(lastCandle.close.toFixed(2), width - padR + 2 + (padR - 6) / 2, lastY);
+
+    // İmleç
+    if (hover && candles[hover.index]) {
+      const x = padL + hover.index * step + step / 2;
       ctx.save();
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.6)";
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(148,163,184,0.45)";
       ctx.setLineDash([3, 3]);
-
-      // Dikey çizgi
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(x, paddingTop);
-      ctx.lineTo(x, height - paddingBottom);
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, height - padB);
       ctx.stroke();
-
-      // Yatay çizgi
       ctx.beginPath();
-      ctx.moveTo(paddingLeft, y);
-      ctx.lineTo(width - paddingRight, y);
+      ctx.moveTo(padL, hover.y);
+      ctx.lineTo(width - padR, hover.y);
       ctx.stroke();
       ctx.restore();
     }
-  }, [visibleCandles, onh, onl, orh, orl, vwapPrice, activeTimeframe, hoverIndex]);
+  }, [candles, levels, size, hover, vwapStartTime]);
 
-  // Yeniden boyutlandırma ve Canvas Çizimi
   useEffect(() => {
-    const handleResize = () => {
-      const canvas = canvasRef.current;
-      const container = containerRef.current;
-      if (!canvas || !container) return;
-      const dpr = window.devicePixelRatio || 1;
+    const container = containerRef.current;
+    if (!container) return;
+    const update = () => {
       const rect = container.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = 360 * dpr;
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `360px`;
-      drawChart();
+      setSize({ width: Math.max(320, rect.width), height: 340 });
     };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [drawChart]);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    drawChart();
-  }, [drawChart]);
+    draw();
+  }, [draw]);
 
-  // Fare hareketi takibi
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !candles.length) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    setMousePos({ x, y });
-
-    const paddingLeft = 10;
-    const paddingRight = 75;
-    const chartWidth = rect.width - paddingLeft - paddingRight;
-    const n = visibleCandles.length;
-    if (n === 0) return;
-    const stepX = chartWidth / n;
-    const relX = x - paddingLeft;
-    const idx = Math.floor(relX / stepX);
-    if (idx >= 0 && idx < n) {
-      setHoverIndex(idx);
-    } else {
-      setHoverIndex(null);
-    }
+    const padL = 8;
+    const padR = 68;
+    const step = (rect.width - padL - padR) / candles.length;
+    const index = Math.floor((x - padL) / step);
+    if (index >= 0 && index < candles.length) setHover({ index, x, y });
+    else setHover(null);
   };
 
-  const handleMouseLeave = () => {
-    setHoverIndex(null);
-    setMousePos(null);
-  };
-
-  const latest = visibleCandles[visibleCandles.length - 1] || {
-    open: currentPrice,
-    high: currentPrice,
-    low: currentPrice,
-    close: currentPrice,
-    volume: 9200,
-    vwap: vwapPrice,
-    timeStr: "09:30",
-  };
-
-  const display = hoverIndex !== null && visibleCandles[hoverIndex] ? visibleCandles[hoverIndex] : latest;
-  const isUp = display.close >= display.open;
+  const changePct =
+    candles.length > 1 ? ((candles[candles.length - 1].close - candles[0].open) / candles[0].open) * 100 : 0;
 
   return (
-    <div className="flex flex-col justify-between bg-[#0b0f17] border border-[#1e2a3a] rounded-xl p-4 shadow-2xl">
-      {/* ── Üst Başlık & Zaman Dilimi / Enstrüman Seçici ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 border-b border-white/[0.06] pb-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#22c55e] animate-pulse"></span>
-            <h3 className="text-sm font-bold text-[#3b82f6] tracking-wide">
-              {activeSymbol === "ES" ? "ES Vadeli (CME Globex)" : "SPX Spot Endeksi (CBOE)"}
-            </h3>
-            <span className="bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 text-[10px] font-bold px-2 py-0.5 rounded">
-              BogaStock Özgün Motor
-            </span>
-          </div>
-
-          {/* Enstrüman Seçici */}
-          <div className="flex bg-[#070a11] border border-[#1e2a3a] rounded-lg p-0.5">
-            <button
-              onClick={() => setActiveSymbol("ES")}
-              className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
-                activeSymbol === "ES"
-                  ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              ES
-            </button>
-            <button
-              onClick={() => setActiveSymbol("SPX")}
-              className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
-                activeSymbol === "SPX"
-                  ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              SPX
-            </button>
-          </div>
-
-          {/* Zaman Dilimi Seçici */}
-          <div className="flex bg-[#070a11] border border-[#1e2a3a] rounded-lg p-0.5">
-            <button
-              onClick={() => setActiveTimeframe("1m")}
-              className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
-                activeTimeframe === "1m"
-                  ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              1 dk
-            </button>
-            <button
-              onClick={() => setActiveTimeframe("5m")}
-              className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
-                activeTimeframe === "5m"
-                  ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              5 dk
-            </button>
-            <button
-              onClick={() => setActiveTimeframe("15m")}
-              className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
-                activeTimeframe === "15m"
-                  ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              15 dk
-            </button>
-          </div>
+    <Panel
+      title={symbol === "ES" ? "ES Vadeli — CME Globex" : "SPX Endeksi — CBOE"}
+      hint={isReplay ? "yeniden oynatma" : "canlı akış"}
+      right={
+        <div className="flex flex-wrap items-center gap-2">
+          <Tabs
+            size="sm"
+            value={symbol}
+            onChange={(v) => setSymbol(v)}
+            options={[
+              { value: "ES", label: "ES" },
+              { value: "SPX", label: "SPX" },
+            ]}
+          />
+          <Tabs size="sm" value={timeframe} onChange={(v) => setTimeframe(v)} options={TF_OPTIONS} />
         </div>
-
-        {/* OHLCV Canlı Bilgi Şeridi */}
-        <div className="flex items-center gap-3 text-xs font-mono bg-[#070a11] px-3 py-1.5 rounded-lg border border-[#1e2a3a]">
-          <div>
-            <span className="text-slate-500 text-[10px] mr-1">Açılış:</span>
-            <span className="text-slate-200 font-semibold">{display.open.toFixed(2)}</span>
-          </div>
-          <div>
-            <span className="text-slate-500 text-[10px] mr-1">Yüksek:</span>
-            <span className="text-[#22c55e] font-bold">{display.high.toFixed(2)}</span>
-          </div>
-          <div>
-            <span className="text-slate-500 text-[10px] mr-1">Düşük:</span>
-            <span className="text-[#ef4444] font-bold">{display.low.toFixed(2)}</span>
-          </div>
-          <div>
-            <span className="text-slate-500 text-[10px] mr-1">Kapanış:</span>
-            <span className={`font-black ${isUp ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-              {display.close.toFixed(2)}
+      }
+    >
+      <div className="mb-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] tabular-nums">
+        {display ? (
+          <>
+            <span className="text-slate-500">
+              {display.label} <span className="text-slate-600">ET</span>
             </span>
-          </div>
-          <div>
-            <span className="text-slate-500 text-[10px] mr-1">Hacim:</span>
-            <span className="text-[#3b82f6] font-semibold">{display.volume.toLocaleString("tr-TR")}</span>
-          </div>
-        </div>
+            <span className="text-slate-500">
+              A <span className="text-slate-300">{num(display.open)}</span>
+            </span>
+            <span className="text-slate-500">
+              Y <span className="text-slate-300">{num(display.high)}</span>
+            </span>
+            <span className="text-slate-500">
+              D <span className="text-slate-300">{num(display.low)}</span>
+            </span>
+            <span className="text-slate-500">
+              K{" "}
+              <span className={display.close >= display.open ? "text-[#22c55e]" : "text-[#ef4444]"}>
+                {num(display.close)}
+              </span>
+            </span>
+            <span className="text-slate-500">
+              VWAP <span className="text-[#3b82f6]">{num(display.vwap)}</span>
+            </span>
+            <span className="text-slate-500">
+              Seans{" "}
+              <span className={changePct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}>
+                {changePct >= 0 ? "+" : ""}
+                {changePct.toFixed(2)}%
+              </span>
+            </span>
+          </>
+        ) : (
+          <span className="text-slate-500">{loading ? "Veri yükleniyor…" : "Mum verisi yok"}</span>
+        )}
       </div>
 
-      {/* Seviye Etiketleri */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mb-3">
-        <div className="bg-[#070a11] p-2.5 rounded-lg border border-[#1e2a3a] text-center">
-          <span className="text-[#3b82f6] font-bold text-[10px] block">Seans VWAP</span>
-          <span className="font-bold text-[#3b82f6] text-sm">{vwapPrice.toFixed(2)}</span>
-        </div>
-        <div className="bg-[#070a11] p-2.5 rounded-lg border border-[#1e2a3a] text-center">
-          <span className="text-[#22c55e] font-bold text-[10px] block">Globex ONH (Zirve)</span>
-          <span className="font-bold text-[#22c55e] text-sm">{onh.toFixed(2)}</span>
-        </div>
-        <div className="bg-[#070a11] p-2.5 rounded-lg border border-[#1e2a3a] text-center">
-          <span className="text-[#ef4444] font-bold text-[10px] block">Globex ONL (Dip)</span>
-          <span className="font-bold text-[#ef4444] text-sm">{onl.toFixed(2)}</span>
-        </div>
-        <div className="bg-[#070a11] p-2.5 rounded-lg border border-[#1e2a3a] text-center">
-          <span className="text-purple-400 font-bold text-[10px] block">Açılış (ORH / ORL)</span>
-          <span className="font-bold text-purple-300 text-sm">
-            {orh.toFixed(2)} / {orl.toFixed(2)}
-          </span>
-        </div>
-        <div className="bg-[#070a11] p-2.5 rounded-lg border border-[#1e2a3a] text-center col-span-2 sm:col-span-1">
-          <span className="text-amber-400 font-bold text-[10px] block">ON Orta Noktası</span>
-          <span className="font-bold text-amber-300 text-sm">{onMid.toFixed(2)}</span>
-        </div>
-      </div>
-
-      {/* ── BogaStock Özgün Canvas Grafik Konteyneri (100% Native, Sıfır TradingView) ── */}
-      <div
-        ref={containerRef}
-        className="w-full h-[360px] rounded-lg overflow-hidden border border-[#1e2a3a] relative bg-[#070a11]"
-      >
+      <div ref={containerRef} className={`${INSET} relative overflow-hidden`} style={{ height: 340 }}>
         <canvas
           ref={canvasRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="cursor-crosshair block w-full h-full"
+          onMouseMove={handleMove}
+          onMouseLeave={() => setHover(null)}
+          className="block cursor-crosshair"
         />
+        {!candles.length && (
+          <div className="absolute inset-0 flex items-center justify-center text-[12px] text-slate-500">
+            {loading ? "Veri yükleniyor…" : "Bu seans için mum verisi bulunamadı"}
+          </div>
+        )}
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-400 mt-2.5 gap-1">
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-slate-500">
         <span className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-[#22c55e]"></span>
-          <span className="text-[#3b82f6] font-bold">BogaStock Anlık Grafik Motoru</span> (Gecikmesiz Canlı Akış)
+          <span className="h-px w-4 bg-[#3b82f6]" /> VWAP
         </span>
-        <span className="font-mono text-slate-400">
-          Seviye Çizgileri: ONH (<span className="text-[#22c55e] font-bold">Yeşil</span>) | VWAP (<span className="text-[#3b82f6] font-bold">Logo Mavisi</span>) | ORH/ORL (<span className="text-purple-400 font-bold">Mor/Gül</span>) | ONL (<span className="text-[#ef4444] font-bold">Kırmızı</span>)
+        <span className="flex items-center gap-1.5">
+          <span className="h-px w-4 border-t border-dashed border-slate-400" /> ORH / ORL
         </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-px w-4 border-t border-dotted border-slate-500" /> Gece ONH / ONL
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-sm bg-[#22c55e]" /> artan
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-sm bg-[#ef4444]" /> azalan
+        </span>
+        <span className="ml-auto">{candles.length} mum</span>
       </div>
-    </div>
+    </Panel>
   );
 }
