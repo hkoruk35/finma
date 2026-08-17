@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import { createChart, ColorType, CrosshairMode, LineStyle, IChartApi, ISeriesApi, Time } from "lightweight-charts";
+import { createChart, ColorType, CrosshairMode, LineStyle, IChartApi, ISeriesApi, Time, LineSeries } from "lightweight-charts";
 import { copy, type Locale } from "@/lib/i18n/copy";
 
 interface Props {
@@ -58,27 +58,27 @@ export default function AnalystForecastChart({ locale, ticker, currentPrice, num
     });
     chartRef.current = chart;
 
-    const histSeries = chart.addLineSeries({
+    const histSeries = chart.addSeries(LineSeries, {
       color: "#3b82f6",
       lineWidth: 2,
       crosshairMarkerRadius: 4,
     });
 
-    const maxSeries = chart.addLineSeries({
+    const maxSeries = chart.addSeries(LineSeries, {
       color: "#10b981", // Emerald 500
       lineWidth: 2,
       lineStyle: LineStyle.Dashed,
       crosshairMarkerVisible: false,
     });
 
-    const avgSeries = chart.addLineSeries({
+    const avgSeries = chart.addSeries(LineSeries, {
       color: "#059669", // Emerald 600
       lineWidth: 2,
       lineStyle: LineStyle.Dashed,
       crosshairMarkerVisible: false,
     });
 
-    const minSeries = chart.addLineSeries({
+    const minSeries = chart.addSeries(LineSeries, {
       color: "#047857", // Emerald 700
       lineWidth: 2,
       lineStyle: LineStyle.Dashed,
