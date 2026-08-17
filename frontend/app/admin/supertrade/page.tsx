@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
 import StrategyLab from "@/components/admin/StrategyLab";
+import SuperTradeForecast from "@/components/admin/SuperTradeForecast";
 import SuperTradeLiveChart from "@/components/admin/SuperTradeLiveChart";
 import {
   Badge,
@@ -120,7 +121,7 @@ function actionColor(tone: Decision["tone"]): string {
 }
 
 export default function SuperTradePage() {
-  const [mode, setMode] = useState<"live" | "replay">("live");
+  const [mode, setMode] = useState<"live" | "forecast" | "replay">("live");
 
   const [snapshot, setSnapshot] = useState<SPXSnapshot | null>(null);
   const [snapshotError, setSnapshotError] = useState<string | null>(null);
@@ -147,7 +148,7 @@ export default function SuperTradePage() {
       } else {
         setSnapshot(data as SPXSnapshot);
         setSnapshotError(null);
-        setLastUpdated(new Date());
+        setLastUpdated(data.asOf ? new Date(data.asOf) : new Date());
       }
     } catch (err) {
       setSnapshotError(err instanceof Error ? err.message : "Bağlantı hatası");
@@ -357,6 +358,19 @@ export default function SuperTradePage() {
             <EmptyState>{loading ? "Piyasa verisi yükleniyor…" : "Görüntülenecek veri yok"}</EmptyState>
           )}
         </div>
+      </div>
+    );
+  }
+
+  if (mode === "forecast") {
+    return (
+      <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
+        <Header mode={mode} setMode={setMode} lastUpdated={lastUpdated} live={false} />
+        {snapshot ? (
+          <SuperTradeForecast snapshot={snapshot} />
+        ) : (
+          <EmptyState>Tahmin analizi için canlı veri bekleniyor...</EmptyState>
+        )}
       </div>
     );
   }
@@ -823,8 +837,8 @@ function Header({
   lastUpdated,
   live,
 }: {
-  mode: "live" | "replay";
-  setMode: (m: "live" | "replay") => void;
+  mode: "live" | "forecast" | "replay";
+  setMode: (m: "live" | "forecast" | "replay") => void;
   lastUpdated: Date | null;
   live: boolean;
 }) {
@@ -849,10 +863,11 @@ function Header({
       </div>
       <Tabs
         value={mode}
-        onChange={setMode}
+        onChange={(m) => setMode(m as any)}
         options={[
-          { value: "live", label: "Canlı terminal" },
-          { value: "replay", label: "Seans yeniden oynatma" },
+          { value: "live", label: "Canlı / Bugün" },
+          { value: "forecast", label: "Tahmin (Yarın)" },
+          { value: "replay", label: "Arşiv (Geçmiş)" },
         ]}
       />
     </header>
