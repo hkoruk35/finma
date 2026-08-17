@@ -12,7 +12,7 @@ import CopilotShell from "@/components/global/CopilotShell";
 import AnalyticsLoader from "@/components/global/AnalyticsLoader";
 import FeedbackWidget from "@/components/global/FeedbackWidget";
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "600", "700"],
   display: "swap",
   variable: "--font-inter",
@@ -20,14 +20,14 @@ const inter = Inter({
 });
 
 const manrope = Manrope({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-manrope",
   preload: true,
 });
 
 const montserrat = Montserrat({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["700", "900"],
   display: "swap",
   variable: "--font-montserrat",
@@ -35,7 +35,7 @@ const montserrat = Montserrat({
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-mono",
   preload: true,
