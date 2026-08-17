@@ -91,6 +91,7 @@ export default function V4SuperTradeLiveChart({
 }) {
   const info = ASSET_MAP[asset];
   const futuresLabel = info.futures.replace("=F", "");
+  const scale = info.scale || 1;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [symbol, setSymbol] = useState<Symbol>("ES");
@@ -99,6 +100,33 @@ export default function V4SuperTradeLiveChart({
   const [size, setSize] = useState({ width: 640, height: 340 });
 
   const source = symbol === "ES" ? esBars : spxBars;
+
+  // `levels` verili varlığın DOĞAL ölçeğinde gelir: vwap/onh/onl/pdc her
+  // zaman vadeli (ES/NQ) ölçeğinde, orh/orl her zaman spot (SPX/QQQ/…)
+  // ölçeğindedir. Bu iki ölçek, scale=1 olan SPX dışındaki her varlıkta
+  // (SPY, XSP, QQQ, XND) birbirinden çok farklı büyüklüktedir — aynı
+  // grafikte karıştırılırsa fiyat ekseni bozulur ve mumlar görünmez olur.
+  // Aktif sekmeye göre seviyeleri o sekmenin ölçeğine çeviriyoruz.
+  const displayLevels = useMemo<ChartLevels>(() => {
+    if (symbol === "ES") {
+      return {
+        vwap: levels.vwap,
+        onh: levels.onh,
+        onl: levels.onl,
+        pdc: levels.pdc,
+        orh: scale ? levels.orh / scale : levels.orh,
+        orl: scale ? levels.orl / scale : levels.orl,
+      };
+    }
+    return {
+      vwap: levels.vwap * scale,
+      onh: levels.onh * scale,
+      onl: levels.onl * scale,
+      pdc: levels.pdc * scale,
+      orh: levels.orh,
+      orl: levels.orl,
+    };
+  }, [symbol, levels, scale]);
 
   const candles = useMemo<Candle[]>(() => {
     const factor = Number(timeframe);
@@ -172,7 +200,7 @@ export default function V4SuperTradeLiveChart({
 
     const forecastBars = 24; // Gelecek tahmin aralığı (boşluk)
 
-    const relevant = [levels.vwap, levels.onh, levels.onl, levels.orh, levels.orl].filter(
+    const relevant = [displayLevels.vwap, displayLevels.onh, displayLevels.onl, displayLevels.orh, displayLevels.orl].filter(
       (v) => v > 0
     );
     let min = Math.min(...candles.map((c) => c.low), ...relevant);
@@ -225,9 +253,9 @@ export default function V4SuperTradeLiveChart({
     const barW = Math.max(1.5, Math.min(14, step * 0.62));
 
     // Açılış aralığı bandı
-    if (levels.orh > 0 && levels.orl > 0) {
-      const yTop = priceY(levels.orh);
-      const yBottom = priceY(levels.orl);
+    if (displayLevels.orh > 0 && displayLevels.orl > 0) {
+      const yTop = priceY(displayLevels.orh);
+      const yBottom = priceY(displayLevels.orl);
       ctx.fillStyle = "rgba(59,130,246,0.06)";
       ctx.fillRect(padL, yTop, plotW, Math.max(1, yBottom - yTop));
     }
@@ -252,11 +280,11 @@ export default function V4SuperTradeLiveChart({
       ctx.fillText(label, width - padR - 4, y - 6);
     };
 
-    drawLevel(levels.onh, `ONH ${levels.onh.toFixed(2)}`, [2, 4], COLOR.level);
-    drawLevel(levels.onl, `ONL ${levels.onl.toFixed(2)}`, [2, 4], COLOR.level);
-    drawLevel(levels.pdc, `PDC ${levels.pdc.toFixed(2)}`, [1, 5], "#475569");
-    drawLevel(levels.orh, `ORH ${levels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
-    drawLevel(levels.orl, `ORL ${levels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
+    drawLevel(displayLevels.onh, `ONH ${displayLevels.onh.toFixed(2)}`, [2, 4], COLOR.level);
+    drawLevel(displayLevels.onl, `ONL ${displayLevels.onl.toFixed(2)}`, [2, 4], COLOR.level);
+    drawLevel(displayLevels.pdc, `PDC ${displayLevels.pdc.toFixed(2)}`, [1, 5], "#475569");
+    drawLevel(displayLevels.orh, `ORH ${displayLevels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
+    drawLevel(displayLevels.orl, `ORL ${displayLevels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
 
     // Hacim
     candles.forEach((c, i) => {
@@ -392,7 +420,7 @@ export default function V4SuperTradeLiveChart({
       ctx.stroke();
       ctx.restore();
     }
-  }, [candles, levels, size, hover, vwapStartTime]);
+  }, [candles, displayLevels, size, hover, vwapStartTime]);
 
   useEffect(() => {
     const container = containerRef.current;

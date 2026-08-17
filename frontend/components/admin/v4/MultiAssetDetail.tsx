@@ -80,112 +80,145 @@ export default function MultiAssetDetail({
       {mode === "forecast" ? (
         <V4SuperTradeForecast snapshot={view} />
       ) : (
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
-          {/* Sol Kolon - Grafikler ve Analiz */}
-          <div className="flex flex-col gap-4 min-w-0">
-            {/* Karar Masası */}
-            <div className={`rounded-lg border p-4 ${INSET} ${
-                decision.tone === "POSITIVE"
-                  ? "border-[#22c55e]/20"
-                  : decision.tone === "NEGATIVE"
-                  ? "border-[#ef4444]/20"
-                  : "border-[#1c2635]"
-              }`}
-            >
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
-                    Sistem Kararı ({asset})
-                  </div>
-                  <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
-                    {decision.action}
-                  </div>
+        <>
+          {/* Karar Masası */}
+          <div className={`rounded-lg border p-4 ${INSET} ${
+              decision.tone === "POSITIVE"
+                ? "border-[#22c55e]/20"
+                : decision.tone === "NEGATIVE"
+                ? "border-[#ef4444]/20"
+                : "border-[#1c2635]"
+            }`}
+          >
+            <div className="mb-3 flex items-start justify-between">
+              <div>
+                <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+                  Sistem Kararı ({asset})
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
-                  <div className="text-[10px] text-slate-500">
-                    Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
-                  </div>
+                <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
+                  {decision.action}
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Row label="Teyit Beklentisi" value={decision.confirmation} />
-                <Row label="İptal Koşulu (Stop)" value={decision.invalidation} />
+              <div className="flex flex-col items-end gap-2">
+                <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
+                <div className="text-[10px] text-slate-500">
+                  Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
+                </div>
               </div>
             </div>
 
-            {/* Grafik */}
-            <V4SuperTradeLiveChart
-              asset={asset}
-              esBars={view.bars.futures}
-              spxBars={view.bars.spot}
-              levels={{
-                vwap: frame.vwap,
-                onh: levels.futures.onh,
-                onl: levels.futures.onl,
-                orh: levels.spot.orh,
-                orl: levels.spot.orl,
-                pdc: levels.futures.pdc,
-              }}
-              vwapStartTime={view.frames[0]?.time ?? 0}
-              loading={loading}
-            />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Row label="Teyit Beklentisi" value={decision.confirmation} />
+              <Row label="İptal Koşulu (Stop)" value={decision.invalidation} />
+            </div>
+          </div>
 
-            {/* Yapı ve Skor Tablosu */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-                  <StructureBox label="VADELİ 15M" val={structure.futures15m} />
-                  <StructureBox label="VADELİ 5M" val={structure.futures5m} />
-                  <StructureBox label="VADELİ 1M" val={structure.futures1m} />
-                  <StructureBox label="SPOT 5M" val={structure.spot5m} />
-                  <StructureBox label="SPOT 1M" val={structure.spot1m} />
+          {/* Piyasa Bağlamı — tam genişlik; 5 kartlık grid'in daralması engellenir */}
+          <V4ContextEnginePanel context={context} liveState={frame.state} />
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_300px]">
+            {/* Sol Kolon - Grafik ve Analiz */}
+            <div className="flex flex-col gap-4 min-w-0">
+              {/* Grafik */}
+              <V4SuperTradeLiveChart
+                asset={asset}
+                esBars={view.bars.futures}
+                spxBars={view.bars.spot}
+                levels={{
+                  vwap: frame.vwap,
+                  onh: levels.futures.onh,
+                  onl: levels.futures.onl,
+                  orh: levels.spot.orh,
+                  orl: levels.spot.orl,
+                  pdc: levels.futures.pdc,
+                }}
+                vwapStartTime={view.frames[0]?.time ?? 0}
+                loading={loading}
+              />
+
+              {/* Yapı ve Skor Tablosu */}
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+                    <StructureBox label="VADELİ 15M" val={structure.futures15m} />
+                    <StructureBox label="VADELİ 5M" val={structure.futures5m} />
+                    <StructureBox label="VADELİ 1M" val={structure.futures1m} />
+                    <StructureBox label="SPOT 5M" val={structure.spot5m} />
+                    <StructureBox label="SPOT 1M" val={structure.spot1m} />
+                  </div>
+                </Panel>
+                <Panel title="Skor Özeti">
+                  <div className="flex h-full flex-col justify-center gap-3">
+                    <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
+                    <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
+                    <div className="my-1 h-px bg-[#1c2635]" />
+                    <Row
+                      label="Net Yön Skoru"
+                      value={signed(frame.netScore, 1)}
+                      valueClass={`font-medium ${toneClass(frame.netScore)}`}
+                    />
+                  </div>
+                </Panel>
+              </div>
+
+              {/* Faktör dökümü */}
+              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
+                <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                  {factors.map((f, i) => (
+                    <Row
+                      key={`${f.label}-${i}`}
+                      label={f.label}
+                      value={f.detail}
+                      valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+                    />
+                  ))}
                 </div>
               </Panel>
-              <Panel title="Skor Özeti">
-                <div className="flex h-full flex-col justify-center gap-3">
-                  <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
-                  <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
-                  <div className="my-1 h-px bg-[#1c2635]" />
-                  <Row
-                    label="Net Yön Skoru"
-                    value={signed(frame.netScore, 1)}
-                    valueClass={`font-medium ${toneClass(frame.netScore)}`}
-                  />
-                </div>
-              </Panel>
+
+              <V4StrategyLab
+                spotPrice={view.spotPrice}
+                state={frame.state}
+                vix={view.vixPrice}
+                minutesLeft={minutesToClose(
+                  Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+                )}
+              />
             </div>
 
-            {/* Faktör dökümü */}
-            <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
-              <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                {factors.map((f, i) => (
-                  <Row
-                    key={`${f.label}-${i}`}
-                    label={f.label}
-                    value={f.detail}
-                    valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
-                  />
-                ))}
-              </div>
-            </Panel>
-
-            <V4StrategyLab
-              spotPrice={view.spotPrice}
-              state={frame.state}
-              vix={view.vixPrice}
-              minutesLeft={minutesToClose(
-                Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
-              )}
-            />
+            {/* Sağ Kolon - Kritik Seviyeler */}
+            <div className="flex w-full flex-col gap-4">
+              <Panel title="Kritik Seviyeler" padding="p-4">
+                <div className="space-y-0.5">
+                  <Row label="Açılış ORH" value={levels.spot.orh.toFixed(2)} />
+                  <Row label="Açılış ORL" value={levels.spot.orl.toFixed(2)} />
+                  <Row label="OR genişliği" value={`${levels.spot.orSize.toFixed(2)} puan`} />
+                  <Row label="Seans VWAP" value={frame.vwap.toFixed(2)} valueClass="text-[#3b82f6]" />
+                  <div className="my-1.5 h-px bg-[#1c2635]" />
+                  <Row label="Gece ONH" value={levels.futures.onh.toFixed(2)} />
+                  <Row label="Gece ONL" value={levels.futures.onl.toFixed(2)} />
+                  <Row label="ON orta nokta" value={levels.futures.onMid.toFixed(2)} />
+                  <Row label="Önceki gün kapanışı" value={levels.futures.pdc.toFixed(2)} />
+                </div>
+              </Panel>
+              <Panel title="Son Değişimler" padding="p-4">
+                {view.changes.length ? (
+                  <div className="space-y-0.5">
+                    {view.changes.map((c, i) => (
+                      <Row
+                        key={`${c.label}-${i}`}
+                        label={c.label}
+                        value={`${c.from} → ${c.to}`}
+                        valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState>Son 5 dakikada anlamlı değişim yok.</EmptyState>
+                )}
+              </Panel>
+            </div>
           </div>
-
-          {/* Sağ Kolon - Detaylar */}
-          <div className="flex w-full flex-col gap-4">
-            <V4ContextEnginePanel context={context} liveState={frame.state} />
-          </div>
-        </div>
+        </>
       )}
 
       <p className="text-[11px] leading-relaxed text-slate-500">
