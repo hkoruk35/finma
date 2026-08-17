@@ -1,8 +1,8 @@
 {
   "date": "2026-08-17",
-  "generated_at": "2026-08-17T09:05:50.977078-04:00",
+  "generated_at": "2026-08-17T14:04:14.314902-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,9 +21,11 @@
       ]
     },
     "breakout": {
-      "count": 1,
+      "count": 3,
       "tickers": [
-        "SOLV"
+        "SOLV",
+        "R",
+        "IESC"
       ]
     },
     "value": {
@@ -62,25 +64,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 773.36,
-      "change_pct": -0.38
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 730.0,
-      "change_pct": -0.15
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 533.85,
-      "change_pct": -0.55
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.22,
-      "change_pct": 6.81
-    },
-    "RUSSELL2000": {
-      "value": 303.29,
-      "change_pct": -0.59
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-17T14:01:42.072719-04:00"
+  }
 }
