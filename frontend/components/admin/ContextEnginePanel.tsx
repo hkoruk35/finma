@@ -22,6 +22,7 @@ export default function ContextEnginePanel({
     fingerprint,
     liveOverrideStatus,
     liveOverrideExplanation,
+    layerWeights,
   } = context;
 
   const isConfirmed = liveOverrideStatus === "CONFIRMED_BY_LIVE_STRUCTURE";
@@ -82,31 +83,31 @@ export default function ContextEnginePanel({
         <div className="mb-4 bg-[#050811] p-3 rounded-lg border border-white/[0.06] text-xs text-slate-300 grid grid-cols-2 md:grid-cols-7 gap-2 text-center">
           <div>
             <span className="text-[#00d2ff] font-semibold block text-[10px]">Canlı Yapı</span>
-            <span className="font-bold text-[#00d2ff]">%35</span>
+            <span className="font-bold text-[#00d2ff]">%{Math.round((layerWeights?.liveStructure ?? 0.35) * 100)}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px]">Gece / Vadeli</span>
-            <span className="font-bold text-slate-200">%20</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.overnightFutures ?? 0.20) * 100)}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px]">Önceki Seans</span>
-            <span className="font-bold text-slate-200">%15</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.previousSession ?? 0.15) * 100)}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px]">Makro Bağlam</span>
-            <span className="font-bold text-slate-200">%10</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.macroContext ?? 0.10) * 100)}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px]">Volatilite Rejimi</span>
-            <span className="font-bold text-slate-200">%10</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.volatilityRegime ?? 0.10) * 100)}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px]">Mevsimsellik</span>
-            <span className="font-bold text-slate-200">%5</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.seasonality ?? 0.07) * 100)}</span>
           </div>
           <div>
-            <span className="text-slate-400 block text-[10px]">Tarihsel Benzerlik</span>
-            <span className="font-bold text-slate-200">%5</span>
+            <span className="text-slate-400 block text-[10px]">Günlük Eğilim</span>
+            <span className="font-bold text-slate-200">%{Math.round((layerWeights?.weekdayTendency ?? 0.03) * 100)}</span>
           </div>
         </div>
       )}
@@ -129,11 +130,11 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">1. Mevsimsellik</div>
-            <div className="font-bold text-slate-200">{seasonality.bias}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{seasonality.desc}</div>
+            <div className="font-bold text-slate-200">{seasonality.month} ({seasonality.monthPhase})</div>
+            <div className="text-[11px] text-slate-400 mt-1">{seasonality.humanSummary}</div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Tarihsel Kazanma: <span className="text-[#00d2ff] font-bold">%{seasonality.winRate}</span>
+            Gün: <span className="text-[#00d2ff] font-bold">{seasonality.weekday}</span>
           </div>
         </div>
 
@@ -141,11 +142,11 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">2. Makro Olay</div>
-            <div className="font-bold text-amber-300">{macro.event}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{macro.regimeNote}</div>
+            <div className="font-bold text-amber-300">{macro.label}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{macro.eventMemory?.eventName || macro.tag}</div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Kısıtlama: <span className="text-rose-400 font-bold">{macro.isRestricted ? "AKTİF" : "YOK"}</span>
+            Kırılım Başarısı: <span className="text-emerald-400 font-bold">%{macro.eventMemory?.orBreakoutSuccessRate || 75}</span>
           </div>
         </div>
 
@@ -153,11 +154,11 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">3. Volatilite (VIX)</div>
-            <div className="font-bold text-purple-300">{volatility.regime}</div>
-            <div className="text-[11px] text-slate-400 mt-1">VIX: {volatility.vixLevel.toFixed(1)} | Beklenen Aralık: ±{volatility.expectedMovePts} Puan</div>
+            <div className="font-bold text-purple-300">{volatility.regimeTag}</div>
+            <div className="text-[11px] text-slate-400 mt-1">VIX: {volatility.vixValue.toFixed(1)} ({volatility.vix5dChange >= 0 ? `+${volatility.vix5dChange}` : volatility.vix5dChange})</div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Rejim: <span className="text-slate-300 font-medium">{volatility.behavior}</span>
+            Seviye: <span className="text-slate-300 font-medium">{volatility.level}</span>
           </div>
         </div>
 
@@ -165,13 +166,13 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">4. Önceki Seans</div>
-            <div className="font-bold text-slate-200">{previousSession.type}</div>
+            <div className="font-bold text-slate-200">{previousSession.structureType}</div>
             <div className="text-[11px] text-slate-400 mt-1">
-              Kapanış: <span className={previousSession.closePosition === "Zirveye Yakın (Üst %25)" ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>{previousSession.closePosition}</span>
+              Kapanış: <span className={previousSession.closeVsHighLowPct >= 70 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>%{previousSession.closeVsHighLowPct}</span> ({previousSession.label})
             </div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Genişlik: <span className="text-slate-300 font-medium">{previousSession.rangePts} Puan</span>
+            Momentum: <span className="text-slate-300 font-medium">{previousSession.last30mMomentum}</span>
           </div>
         </div>
 
@@ -179,13 +180,13 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">5. Gece Globex</div>
-            <div className="font-bold text-slate-200">{overnight.inventory}</div>
+            <div className="font-bold text-slate-200">{overnight.gapType}</div>
             <div className="text-[11px] text-slate-400 mt-1">
-              Gap: <span className={overnight.gapType.includes("Yukarı") ? "text-emerald-400 font-bold" : overnight.gapType.includes("Aşağı") ? "text-rose-400 font-bold" : "text-slate-300"}>{overnight.gapType} ({overnight.gapPts >= 0 ? `+${overnight.gapPts}` : overnight.gapPts} Puan)</span>
+              Gap: <span className={overnight.gapPts >= 0 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>{overnight.gapPts >= 0 ? `+${overnight.gapPts}` : overnight.gapPts} Puan</span>
             </div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Envanter Riski: <span className="text-amber-400 font-medium">{overnight.inventoryRisk}</span>
+            Aralık: <span className="text-amber-400 font-medium">{overnight.overnightRangePts} Puan</span>
           </div>
         </div>
 
@@ -193,11 +194,11 @@ export default function ContextEnginePanel({
         <div className="bg-[#050811] p-3 rounded-lg border border-white/[0.04] flex flex-col justify-between">
           <div>
             <div className="text-[10px] text-[#00d2ff] font-bold uppercase mb-1">6. Tarihsel Eşleşme</div>
-            <div className="font-bold text-[#00d2ff]">{analog.matchedDate}</div>
-            <div className="text-[11px] text-slate-400 mt-1">{analog.description}</div>
+            <div className="font-bold text-[#00d2ff]">{analog.nearestAnalogDate}</div>
+            <div className="text-[11px] text-slate-400 mt-1">{analog.historicalBias}</div>
           </div>
           <div className="text-[10px] text-slate-500 mt-2 pt-1 border-t border-white/[0.04]">
-            Benzerlik Oranı: <span className="text-emerald-400 font-bold">%{analog.similarityScore}</span>
+            Benzerlik Oranı: <span className="text-emerald-400 font-bold">%{analog.nearestAnalogSimilarity}</span>
           </div>
         </div>
       </div>
