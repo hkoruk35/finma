@@ -13,7 +13,6 @@ import AnalyticsLoader from "@/components/global/AnalyticsLoader";
 import FeedbackWidget from "@/components/global/FeedbackWidget";
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
   display: "swap",
   variable: "--font-inter",
   preload: true,
@@ -27,8 +26,7 @@ const manrope = Manrope({
 });
 
 const montserrat = Montserrat({
-  subsets: ["latin", "latin-ext"],
-  weight: ["700", "900"],
+  subsets: ["latin"],
   display: "swap",
   variable: "--font-montserrat",
   preload: true,
