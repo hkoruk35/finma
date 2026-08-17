@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import AnalystForecastChart from "./AnalystForecastChart";
 
 interface Props {
   locale: Locale;
@@ -229,6 +230,15 @@ export default function TechnicalAnalystConsensus({ locale, ticker }: Props) {
           )}
         </div>
       </div>
+      <AnalystForecastChart 
+        locale={locale} 
+        ticker={ticker} 
+        currentPrice={data.priceAtComputation}
+        numAnalysts={numAnalysts}
+        maxTarget={analyst.targetHigh ?? 0}
+        avgTarget={analyst.targetMean ?? 0}
+        minTarget={analyst.targetLow ?? 0}
+      />
     </div>
   );
 }

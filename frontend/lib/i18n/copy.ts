@@ -217,7 +217,12 @@ export const copy = {
         strongSell: "Strong Sell",
         noAnalystCoverage: "No analyst coverage available for this ticker",
         low: "Low",
-        high: "High",
+        high: "High",\n
+        priceTarget: "Price target",
+        forecastDesc: "The {n} analysts offering 1-year price forecasts have a max estimate of {max} and a min estimate of {min}.",
+        shareTarget: "Share",
+        past1Y: "PAST 1Y",
+        forecast1Y: "1Y FORECAST",
       },
       admin: {
         title: "Top 100 Composition Management",
@@ -597,7 +602,17 @@ export const copy = {
         strongSell: "Güçlü Sat",
         noAnalystCoverage: "Bu hisse için analist kapsamı bulunmuyor",
         low: "Düşük",
-        high: "Yüksek",
+        high: "Yüksek",\n
+        priceTarget: "Precio objetivo",
+        forecastDesc: "Los {n} analistas que ofrecen previsiones de precios a 1 año tienen una estimación máxima de {max} y una mínima de {min}.",
+        shareTarget: "Compartir",
+        past1Y: "ÚLTIMO AÑO",
+        forecast1Y: "PREVISIÓN 1A",\n
+        priceTarget: "Hedef Fiyat",
+        forecastDesc: "1 yıllık fiyat tahmini sunan {n} analistin maksimum tahmini {max} ve minimum tahmini {min} seviyesindedir.",
+        shareTarget: "Paylaş",
+        past1Y: "SON 1 YIL",
+        forecast1Y: "1Y TAHMİNİ",
       },
       admin: {
         title: "Top 100 Kompozisyon Yönetimi",
@@ -1357,7 +1372,12 @@ export const copy = {
         strongSell: "Forte Vente",
         noAnalystCoverage: "Aucune couverture d'analystes disponible pour cette action",
         low: "Bas",
-        high: "Haut",
+        high: "Haut",\n
+        priceTarget: "Objectif de cours",
+        forecastDesc: "Les {n} analystes offrant des prévisions de prix à 1 an ont une estimation maximale de {max} et minimale de {min}.",
+        shareTarget: "Partager",
+        past1Y: "1 AN PASSÉ",
+        forecast1Y: "PRÉVISION 1AN",
       },
       admin: {
         title: "Gestion de la Composition Top 100",
@@ -1737,7 +1757,12 @@ export const copy = {
         strongSell: "Forte Venda",
         noAnalystCoverage: "Nenhuma cobertura de analistas disponível para esta ação",
         low: "Baixo",
-        high: "Alto",
+        high: "Alto",\n
+        priceTarget: "Preço alvo",
+        forecastDesc: "Os {n} analistas que oferecem previsões de preços para 1 ano têm uma estimativa máxima de {max} e mínima de {min}.",
+        shareTarget: "Compartilhar",
+        past1Y: "ÚLTIMO 1A",
+        forecast1Y: "PREVISÃO 1A",
       },
       admin: {
         title: "Gestão da Composição Top 100",
@@ -2117,7 +2142,12 @@ export const copy = {
         strongSell: "Sangat Jual",
         noAnalystCoverage: "Tidak ada cakupan analis untuk saham ini",
         low: "Rendah",
-        high: "Tinggi",
+        high: "Tinggi",\n
+        priceTarget: "Target Harga",
+        forecastDesc: "{n} analis yang menawarkan perkiraan harga 1 tahun memiliki estimasi maksimum {max} dan minimum {min}.",
+        shareTarget: "Bagikan",
+        past1Y: "1T TERAKHIR",
+        forecast1Y: "PRAKIRAAN 1T",
       },
       admin: {
         title: "Manajemen Komposisi Top 100",
