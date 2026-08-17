@@ -445,14 +445,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
       )}
 
-      {data.bogaScore && (
-        <TechnicalAnalystConsensus
-          locale={locale}
-          ticker={data.ticker}
-          currentPrice={data.price}
-          bogaScore={data.bogaScore}
-        />
-      )}
+      <TechnicalAnalystConsensus locale={locale} ticker={data.ticker} />
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
         <div lang={locale} style={{ color: "#3b82f6" }} className="text-xs uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>

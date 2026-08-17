@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "incremental": false, "noEmit": true },
+  "include": [
+    "next-env.d.ts",
+    "lib/indicators.ts",
+    "lib/indicators/technicalConsensus.ts",
+    "lib/analystConsensus/**/*.ts",
+    "lib/symbols.ts",
+    "lib/supabase-admin.ts",
+    "app/api/technical-analyst-consensus/route.ts",
+    "components/public/TechnicalAnalystConsensus.tsx",
+    "components/public/TickerDetailPanel.tsx",
+    "lib/i18n/copy.ts"
+  ]
+}
