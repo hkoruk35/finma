@@ -104,7 +104,7 @@ export default function StrategyLab({
         family: "DAR DEBIT PUT SPREAD (5 PUAN TIGHT)",
         category: "SIMPLE_LOW_BUDGET",
         tag: "🎯 Bütçe Dostu Spread",
-        color: "border-[#00d2ff]/40 shadow-[0_0_15px_rgba(0,210,255,0.08)]",
+        color: "border-[#3b82f6]/40 shadow-[0_0_15px_rgba(59,130,246,0.08)]",
         legs: `Al ${tightLong} P / Sat ${tightShort} P`,
         cost: `Net Maliyet: $${tightDebit}`,
         maxLossNum: tightDebit,
@@ -206,7 +206,7 @@ export default function StrategyLab({
         family: "DAR DEBIT CALL SPREAD (5 PUAN TIGHT)",
         category: "SIMPLE_LOW_BUDGET",
         tag: "🎯 Bütçe Dostu Spread",
-        color: "border-[#00d2ff]/40 shadow-[0_0_15px_rgba(0,210,255,0.08)]",
+        color: "border-[#3b82f6]/40 shadow-[0_0_15px_rgba(59,130,246,0.08)]",
         legs: `Al ${tightCallLong} C / Sat ${tightCallShort} C`,
         cost: `Net Maliyet: $${tightCallDebit}`,
         maxLossNum: tightCallDebit,
@@ -310,7 +310,7 @@ export default function StrategyLab({
         family: "IRON CONDOR (TANIMLI RİSK YATAY BANT)",
         category: "MULTI_LEG_RANGE",
         tag: "🥇 En Dengeli (Range)",
-        color: "border-[#00d2ff]/40 shadow-[0_0_15px_rgba(0,210,255,0.08)]",
+        color: "border-[#3b82f6]/40 shadow-[0_0_15px_rgba(59,130,246,0.08)]",
         legs: `Sat ${icPutShort}P/Al ${icPutLong}P + Sat ${icCallShort}C/Al ${icCallLong}C`,
         cost: `Net Kredi: $${icCredit}`,
         maxLossNum: icMaxLoss,
@@ -367,17 +367,17 @@ export default function StrategyLab({
   const outOfBudgetStrategies = filteredByCategory.filter((s) => s.maxLossNum > numBudget);
 
   return (
-    <div className="mt-8 pt-6 border-t border-white/[0.08]">
+    <div className="mt-8 pt-6 border-t border-[#1e2a3a]">
       {/* Başlık ve Canlı Akış / Görüntü Yükleme Butonları */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-2.5">
           <span className="text-2xl">🧠</span>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-[#00d2ff] tracking-wide">
+              <h2 className="text-lg font-black text-[#3b82f6] tracking-wide">
                 Strateji Laboratuvarı (Strategy Lab)
               </h2>
-              <span className="bg-[#00d2ff]/10 text-[#00d2ff] border border-[#00d2ff]/20 text-[10px] font-bold px-2 py-0.5 rounded">
+              <span className="bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 text-[10px] font-bold px-2 py-0.5 rounded">
                 Bütçe Uyumlu Matematiksel Motor
               </span>
             </div>
@@ -389,11 +389,13 @@ export default function StrategyLab({
           </div>
         </div>
 
-        <div className="flex bg-[#070a11] border border-white/[0.08] rounded-lg p-1 self-start md:self-auto">
+        <div className="flex bg-[#070a11] border border-[#1e2a3a] rounded-lg p-1 self-start md:self-auto">
           <button
             onClick={() => setSource("live")}
             className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all ${
-              source === "live" ? "bg-[#00d2ff] text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
+              source === "live"
+                ? "bg-[#3b82f6] text-white font-extrabold shadow-sm"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             Canlı Veri (OPRA)
@@ -401,7 +403,9 @@ export default function StrategyLab({
           <button
             onClick={() => setSource("screenshot")}
             className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-1.5 ${
-              source === "screenshot" ? "bg-amber-400 text-slate-950 font-extrabold shadow-sm" : "text-slate-400 hover:text-white"
+              source === "screenshot"
+                ? "bg-amber-400 text-slate-950 font-extrabold shadow-sm"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             <span>📸</span> Ekran Görüntüsü Yükle
@@ -412,39 +416,39 @@ export default function StrategyLab({
       {/* Parametre Giriş Çubuğu */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
         <div
-          className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]"
+          className="bg-[#070a11] p-3 rounded-lg border border-[#1e2a3a]"
           title="Piyasanın mevcut algoritmik durumu (Trend yönü)"
         >
-          <label className="block text-[10px] text-[#00d2ff] uppercase font-bold mb-1 cursor-help">
+          <label className="block text-[10px] text-[#3b82f6] uppercase font-bold mb-1 cursor-help">
             Deterministik Durum (State)
           </label>
           <div className="text-sm font-semibold text-white">{currentState.replace(/_/g, " ")}</div>
         </div>
         <div
-          className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]"
+          className="bg-[#070a11] p-3 rounded-lg border border-[#1e2a3a]"
           title="Bu strateji için göze aldığınız KESİN MAKSİMUM kayıp miktarı"
         >
-          <label className="block text-[10px] text-[#00d2ff] uppercase font-bold mb-1 cursor-help">
+          <label className="block text-[10px] text-[#3b82f6] uppercase font-bold mb-1 cursor-help">
             Maksimum Risk Bütçesi ($)
           </label>
           <input
             type="number"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            className="bg-transparent border-b border-white/[0.1] text-white text-sm font-bold outline-none w-full pb-1 focus:border-[#00d2ff] transition-colors"
+            className="bg-transparent border-b border-[#1e2a3a] text-white text-sm font-bold outline-none w-full pb-1 focus:border-[#3b82f6] transition-colors"
           />
         </div>
         <div
-          className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]"
+          className="bg-[#070a11] p-3 rounded-lg border border-[#1e2a3a]"
           title="Sistemin sizin yerinize karar vermesi veya manuel piyasa beklentiniz"
         >
-          <label className="block text-[10px] text-[#00d2ff] uppercase font-bold mb-1 cursor-help">
+          <label className="block text-[10px] text-[#3b82f6] uppercase font-bold mb-1 cursor-help">
             Piyasa Beklentisi
           </label>
           <select
             value={expectation}
             onChange={(e) => setExpectation(e.target.value)}
-            className="bg-transparent border-b border-white/[0.1] text-slate-300 text-sm outline-none w-full pb-1 focus:border-[#00d2ff]"
+            className="bg-transparent border-b border-[#1e2a3a] text-slate-300 text-sm outline-none w-full pb-1 focus:border-[#3b82f6]"
           >
             <option className="bg-[#070a11]">Sistem Seçsin (Tavsiye)</option>
             <option className="bg-[#070a11]">Güçlü Yükseliş (Bullish)</option>
@@ -453,16 +457,16 @@ export default function StrategyLab({
           </select>
         </div>
         <div
-          className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06]"
+          className="bg-[#070a11] p-3 rounded-lg border border-[#1e2a3a]"
           title="Bu işlemin ne kadar sürede hedefe ulaşmasını planladığınız"
         >
-          <label className="block text-[10px] text-[#00d2ff] uppercase font-bold mb-1 cursor-help">
+          <label className="block text-[10px] text-[#3b82f6] uppercase font-bold mb-1 cursor-help">
             Hedef Süre
           </label>
           <select
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="bg-transparent border-b border-white/[0.1] text-slate-300 text-sm outline-none w-full pb-1 focus:border-[#00d2ff]"
+            className="bg-transparent border-b border-[#1e2a3a] text-slate-300 text-sm outline-none w-full pb-1 focus:border-[#3b82f6]"
           >
             <option className="bg-[#070a11]">5-15 dk (Scalp)</option>
             <option className="bg-[#070a11]">15-45 dk (Momentum)</option>
@@ -473,7 +477,7 @@ export default function StrategyLab({
 
       {/* Ekran Görüntüsü Yükleme Alanı */}
       {source === "screenshot" && (
-        <div className="mb-6 bg-[#0a0e17] border-2 border-dashed border-white/[0.1] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-[#00d2ff]/50">
+        <div className="mb-6 bg-[#0a0e17] border-2 border-dashed border-[#1e2a3a] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-[#3b82f6]/50">
           {!isUploading && !uploadResult ? (
             <>
               <div className="text-4xl mb-3">📸</div>
@@ -481,20 +485,20 @@ export default function StrategyLab({
               <div className="text-xs text-slate-400 mb-4">
                 IBKR veya Robinhood opsiyon zinciri görüntüsünü sürükleyin veya seçin
               </div>
-              <label className="bg-[#00d2ff]/10 text-[#00d2ff] hover:bg-[#00d2ff]/20 px-4 py-2 rounded-md text-xs font-bold cursor-pointer transition-colors border border-[#00d2ff]/20">
+              <label className="bg-[#3b82f6]/15 text-[#3b82f6] hover:bg-[#3b82f6]/30 px-4 py-2 rounded-md text-xs font-bold cursor-pointer transition-colors border border-[#3b82f6]/30">
                 Dosya Seç
                 <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
               </label>
             </>
           ) : isUploading ? (
             <>
-              <div className="w-8 h-8 border-2 border-[#00d2ff] border-t-transparent rounded-full animate-spin mb-3"></div>
+              <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin mb-3"></div>
               <div className="text-sm font-semibold text-white">Görüntü İşleniyor...</div>
               <div className="text-xs text-slate-400">Kullanım fiyatları, spreadler ve volatilite okunuyor</div>
             </>
           ) : (
             <div className="flex flex-col items-center w-full">
-              <div className="text-emerald-400 text-3xl mb-2">✅</div>
+              <div className="text-[#22c55e] text-3xl mb-2">✅</div>
               <div className="text-sm font-bold text-white mb-1">Görüntü Başarıyla İşlendi</div>
               <div className="text-xs text-slate-400 mb-4">
                 Spot: 7784.05 | Hedef: 0DTE | Spreadler ve bacaklar hesaplandı
@@ -512,7 +516,7 @@ export default function StrategyLab({
               )}
               <button
                 onClick={() => setUploadResult(null)}
-                className="text-[10px] text-[#00d2ff] hover:underline"
+                className="text-[10px] text-[#3b82f6] hover:underline"
               >
                 Yeni Görüntü Yükle
               </button>
@@ -521,15 +525,15 @@ export default function StrategyLab({
         </div>
       )}
 
-      {/* Strateji Kategori Sekmeleri */}
+      {/* Strateji Kategori Sekmeleri (Logo Mavisi) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-white/[0.06] pb-3">
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             onClick={() => setSelectedCategory("ALL")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               selectedCategory === "ALL"
-                ? "bg-[#00d2ff] text-slate-950 shadow-sm"
-                : "bg-[#070a11] text-slate-400 hover:text-white border border-white/[0.06]"
+                ? "bg-[#3b82f6] text-white shadow-sm font-extrabold"
+                : "bg-[#070a11] text-slate-400 hover:text-white border border-[#1e2a3a]"
             }`}
           >
             Tüm Yapılar ({allStrategies.length})
@@ -538,7 +542,7 @@ export default function StrategyLab({
             onClick={() => setSelectedCategory("SIMPLE_LOW_BUDGET")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-1 ${
               selectedCategory === "SIMPLE_LOW_BUDGET"
-                ? "bg-amber-400 text-slate-950 shadow-sm"
+                ? "bg-amber-400 text-slate-950 shadow-sm font-extrabold"
                 : "bg-[#070a11] text-amber-300/80 hover:text-amber-200 border border-amber-400/20"
             }`}
           >
@@ -548,8 +552,8 @@ export default function StrategyLab({
             onClick={() => setSelectedCategory("DEFINED_SPREAD")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               selectedCategory === "DEFINED_SPREAD"
-                ? "bg-emerald-400 text-slate-950 shadow-sm"
-                : "bg-[#070a11] text-slate-400 hover:text-white border border-white/[0.06]"
+                ? "bg-[#22c55e] text-slate-950 shadow-sm font-extrabold"
+                : "bg-[#070a11] text-slate-400 hover:text-white border border-[#1e2a3a]"
             }`}
           >
             🎯 Tanımlı Risk Spreadler (Debit / Kredi)
@@ -558,8 +562,8 @@ export default function StrategyLab({
             onClick={() => setSelectedCategory("MULTI_LEG_RANGE")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               selectedCategory === "MULTI_LEG_RANGE"
-                ? "bg-purple-400 text-slate-950 shadow-sm"
-                : "bg-[#070a11] text-slate-400 hover:text-white border border-white/[0.06]"
+                ? "bg-purple-500 text-white shadow-sm font-extrabold"
+                : "bg-[#070a11] text-slate-400 hover:text-white border border-[#1e2a3a]"
             }`}
           >
             🧩 Çoklu Bacak / Range
@@ -567,7 +571,7 @@ export default function StrategyLab({
         </div>
 
         <div className="text-[11px] text-slate-400 flex items-center gap-2">
-          <span>Onaylı: <strong className="text-emerald-400 font-bold">{qualifiedStrategies.length}</strong></span>
+          <span>Onaylı: <strong className="text-[#22c55e] font-bold">{qualifiedStrategies.length}</strong></span>
           <span className="text-slate-600">|</span>
           <span>Bütçe Sınırı: <strong className="text-white">${numBudget}</strong></span>
         </div>
@@ -591,19 +595,19 @@ export default function StrategyLab({
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">
                     {str.tag}
                   </div>
-                  <h4 className="text-sm font-bold text-[#00d2ff] leading-snug">{str.family}</h4>
+                  <h4 className="text-sm font-bold text-[#3b82f6] leading-snug">{str.family}</h4>
                 </div>
               </div>
 
               {/* Ranking & Greeks */}
-              <div className="grid grid-cols-2 gap-2 mb-3 bg-[#050811] p-2.5 rounded-lg border border-white/[0.04] text-[11px]">
+              <div className="grid grid-cols-2 gap-2 mb-3 bg-[#050811] p-2.5 rounded-lg border border-[#1e2a3a] text-[11px]">
                 <div>
                   <span className="text-slate-500 block text-[10px]">Sıralama Skoru</span>
-                  <span className="font-bold text-[#00d2ff]">{str.rankScore} / 100</span>
+                  <span className="font-bold text-[#3b82f6]">{str.rankScore} / 100</span>
                 </div>
                 <div>
                   <span className="text-slate-500 block text-[10px]">Bütçe Durumu</span>
-                  <span className="font-bold text-emerald-400">UYGUN (${str.maxLossNum} ≤ ${numBudget})</span>
+                  <span className="font-bold text-[#22c55e]">UYGUN (${str.maxLossNum} ≤ ${numBudget})</span>
                 </div>
                 <div className="col-span-2 border-t border-white/[0.04] pt-1.5 flex justify-between text-[10px]">
                   <span className="text-slate-400">{str.deltaGreeks}</span>
@@ -615,7 +619,7 @@ export default function StrategyLab({
               <div className="space-y-1.5 text-xs flex-1">
                 <div className="flex justify-between">
                   <span className="text-slate-400">Bacaklar (Legs):</span>
-                  <span className="font-bold text-[#00d2ff] text-right font-mono text-[11px]">{str.legs}</span>
+                  <span className="font-bold text-[#3b82f6] text-right font-mono text-[11px]">{str.legs}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Maliyet / Kredi:</span>
@@ -623,11 +627,11 @@ export default function StrategyLab({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Maksimum Risk (Kayıp):</span>
-                  <span className="font-bold text-rose-500">{str.maxLoss}</span>
+                  <span className="font-bold text-[#ef4444]">{str.maxLoss}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Maksimum Kâr:</span>
-                  <span className="font-bold text-emerald-400">{str.maxProfit}</span>
+                  <span className="font-bold text-[#22c55e]">{str.maxProfit}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">Risk / Getiri:</span>
@@ -641,7 +645,7 @@ export default function StrategyLab({
 
               {/* Reasons & Invalidation */}
               <div className="mt-3 pt-2.5 border-t border-white/[0.04]">
-                <div className="text-[10px] font-bold text-[#00d2ff] uppercase mb-0.5 flex items-center gap-1">
+                <div className="text-[10px] font-bold text-[#3b82f6] uppercase mb-0.5 flex items-center gap-1">
                   <span>🤖</span> Neden Seçildi?
                 </div>
                 <div className="text-[11px] text-slate-300 leading-relaxed mb-2">{str.reason}</div>
@@ -657,18 +661,18 @@ export default function StrategyLab({
       {/* Bütçe Dışı Alternatifler */}
       {outOfBudgetStrategies.length > 0 && (
         <div className="mt-6 p-4 rounded-xl border border-amber-500/20 bg-amber-500/[0.02]">
-          <h4 className="text-xs font-bold text-[#00d2ff] mb-2">
+          <h4 className="text-xs font-bold text-[#3b82f6] mb-2">
             ⚠️ Bütçe Dışı Alternatifler (${numBudget} Risk Sınırını Aşanlar)
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
             {outOfBudgetStrategies.map((s, i) => (
-              <div key={i} className="bg-[#070a11] p-3 rounded-lg border border-white/[0.06] flex justify-between items-center">
+              <div key={i} className="bg-[#070a11] p-3 rounded-lg border border-[#1e2a3a] flex justify-between items-center">
                 <div>
                   <span className="font-bold text-white block">{s.family}</span>
                   <span className="text-slate-400 text-[11px]">{s.legs}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-rose-500 font-bold block">Maks Risk: {s.maxLoss}</span>
+                  <span className="text-[#ef4444] font-bold block">Maks Risk: {s.maxLoss}</span>
                   <span className="text-[10px] text-amber-400 font-medium">+${s.maxLossNum - numBudget} ek risk gerekli</span>
                 </div>
               </div>
