@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "SKM",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 39.42,
+        "entry_zone": "38.65 - 40.19",
+        "SL": 36.35,
+        "TP": 45.56
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "OSCR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 31.63,
+        "entry_zone": "30.71 - 32.55",
+        "SL": 27.96,
+        "TP": 38.96
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "MGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.57,
+        "entry_zone": "13.25 - 13.89",
+        "SL": 12.29,
+        "TP": 16.14
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "ZIM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 28.96,
+        "entry_zone": "28.40 - 29.52",
+        "SL": 26.71,
+        "TP": 33.45
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "BTU",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 25.86,
+        "entry_zone": "25.25 - 26.47",
+        "SL": 23.43,
+        "TP": 30.72
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "NU",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 14.95,
+        "entry_zone": "14.66 - 15.25",
+        "SL": 13.76,
+        "TP": 17.35
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "AMD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 510.89,
+        "entry_zone": "495.99 - 525.79",
+        "SL": 451.29,
+        "TP": 630.09
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "GRRR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 15.23,
+        "entry_zone": "14.78 - 15.69",
+        "SL": 13.41,
+        "TP": 18.89
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "XNDU",
+        "sector": "Technology",
+        "action": "WAIT",
+        "price": 11.4,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "SGML",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 11.49,
+        "entry_zone": "11.11 - 11.88",
+        "SL": 9.95,
+        "TP": 14.58
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "AAOI",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 158.71,
+        "entry_zone": "150.34 - 167.09",
+        "SL": 125.23,
+        "TP": 225.69
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "UMAC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 30.94,
+        "entry_zone": "29.42 - 32.46",
+        "SL": 24.88,
+        "TP": 43.06
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 21.98,
+        "entry_zone": "20.61 - 23.34",
+        "SL": 16.53,
+        "TP": 32.86
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "NBIS",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 280.27,
+        "entry_zone": "266.77 - 293.77",
+        "SL": 226.26,
+        "TP": 388.29
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "AEHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 140.33,
+        "entry_zone": "133.48 - 147.18",
+        "SL": 112.92,
+        "TP": 195.15
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "POET",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 9.6,
+        "entry_zone": "9.23 - 9.97",
+        "SL": 8.1,
+        "TP": 12.6
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "MXL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 86.08,
+        "entry_zone": "82.72 - 89.45",
+        "SL": 72.63,
+        "TP": 113.0
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "BW",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 9.9,
+        "entry_zone": "9.34 - 10.45",
+        "SL": 7.68,
+        "TP": 14.32
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "SIMO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 270.04,
+        "entry_zone": "257.29 - 282.79",
+        "SL": 219.04,
+        "TP": 372.05
+    },
+    {
+        "date": "2026-08-17 12:45",
+        "symbol": "RCAT",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 10.62,
+        "entry_zone": "10.20 - 11.05",
+        "SL": 8.93,
+        "TP": 14.01
+    }
+]
