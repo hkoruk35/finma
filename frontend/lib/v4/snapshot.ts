@@ -12,6 +12,7 @@ import type {
   FuturesLevels,
   FeedHealth,
   ForecastBundle,
+  CloseStructure,
   Frame,
   FrameLite,
   Decision,
@@ -21,6 +22,8 @@ import type {
   SpotLevels,
   StructureSet,
   AssetClass,
+  ScoreFactor,
+  ConfidenceTier,
 } from "./types";
 import { ASSET_MAP } from "./types";
 import {
@@ -48,7 +51,7 @@ import {
   sessionPhase,
 } from "./scoring";
 import { buildContext } from "./context";
-import { buildChain, impliedVolFor, minutesToClose, simulateRunners } from "./options";
+import { buildChain, impliedVolFor, minutesToClose, priceOption, simulateRunners } from "./options";
 
 // ── Basit bellek içi önbellek ────────────────────────────────────
 
@@ -543,43 +546,213 @@ function nextWeekday(ymd: string): string {
   ).padStart(2, "0")}`;
 }
 
+/** V4SuperTradeForecast'taki client fallback ile aynı 2 ondalıklı tr-TR biçimi */
+function fmtNum(v: number, digits = 2): string {
+  return v.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
 /**
- * Kapanış sonrası ertesi gün özeti — V4SuperTradeForecast panelindeki basit
- * tahmin motoruyla AYNI mantık, burada sunucu tarafında önceden hesaplanıp
- * anlık görüntüye eklenir ki dashboard/detay ekranları 17:00 ET'den itibaren
- * bunu doğrudan gösterebilsin (istemcinin ayrı hesaplama yapması gerekmez).
+ * Kapanış Motoru — güven skoru. scoring.ts'deki determineConfidence ile AYNI
+ * "kaç faktör aynı yöne işaret ediyor" mantığı (agreement oranı), burada
+ * kapanış yönü tahmininin kendi faktör kümesi üzerinde uygulanır.
+ */
+function closeBiasConfidence(score: number, factors: ScoreFactor[]): ConfidenceTier {
+  const directional = factors.filter((f) => f.weight !== 0);
+  if (!directional.length) return "LOW";
+  const agreeing = directional.filter((f) => (score >= 0 ? f.weight > 0 : f.weight < 0)).length;
+  const agreement = agreeing / directional.length;
+  const abs = Math.abs(score);
+  if (abs >= 5 && agreement >= 0.8) return "VERY_HIGH";
+  if (abs >= 3 && agreement >= 0.65) return "HIGH";
+  if (abs >= 1 && agreement >= 0.55) return "MEDIUM";
+  return "LOW";
+}
+
+/**
+ * Kapanış Motoru — gecelik (overnight) opsiyon yapı önerileri.
+ * V4StrategyLab'daki AYNI Black-Scholes fiyatlama motorunu kullanır
+ * (priceOption/impliedVolFor), ancak vade süresi bugünkü kapanışa değil
+ * ertesi seansın açılışına kadar (~gece + tam seans) uzatılmıştır — bu
+ * yüzden fiyatlar Strateji Laboratuvarı'ndaki 0DTE fiyatlardan daha
+ * yüksektir (daha uzun vade = daha fazla zaman değeri). Hafta sonu/tatil
+ * farkları ihmal edilir, teorik bir yaklaşımdır.
+ *
+ * Hangi yapının seçileceği doğrudan kapanış yönü tahminine bağlıdır:
+ *   LOW güven (yön ne olursa olsun) → strangle (gece belirsizliği sigortası)
+ *   NEUTRAL + MEDIUM ve üzeri güven → iron butterfly (ATM'de sabitlenme/pin senaryosu)
+ *   BULLISH/BEARISH + MEDIUM ve üzeri güven → yönlü debit spread
+ */
+function buildCloseStructures(input: {
+  bias: "BULLISH" | "BEARISH" | "NEUTRAL";
+  confidence: ConfidenceTier;
+  spotPrice: number;
+  vix: number;
+}): CloseStructure[] {
+  const { spotPrice, vix } = input;
+  if (!(spotPrice > 0)) return [];
+
+  const overnightMinutes = 24 * 60 + 6.5 * 60; // gece + ertesi tam seans (yaklaşık)
+  const atm = Math.round(spotPrice / 5) * 5;
+  const iv = (k: number) => impliedVolFor(vix, spotPrice, k);
+  const call = (k: number) => priceOption(spotPrice, k, overnightMinutes, iv(k), true).price;
+  const put = (k: number) => priceOption(spotPrice, k, overnightMinutes, iv(k), false).price;
+  const money = (v: number) => Math.round(v * 100);
+
+  if (input.confidence === "LOW") {
+    const cK = atm + 10;
+    const pK = atm - 10;
+    const cost = money(call(cK) + put(pK));
+    return [
+      {
+        id: "close-strangle",
+        name: "Gecelik Strangle (Belirsizlik Sigortası)",
+        legs: `Al ${cK} C + Al ${pK} P`,
+        netLabel: "Net maliyet",
+        netAmount: cost,
+        maxLoss: cost,
+        maxProfit: null,
+        breakeven: `${fmtNum(pK - cost / 100)} / ${fmtNum(cK + cost / 100)}`,
+        reason:
+          "Kapanış faktörleri net bir yön göstermiyor — gece seansındaki (overnight) gelişmelere göre iki yöne de açık kalır.",
+      },
+    ];
+  }
+
+  if (input.bias === "NEUTRAL") {
+    const sP = atm - 5;
+    const lP = atm - 10;
+    const sC = atm + 5;
+    const lC = atm + 10;
+    const credit = money(put(sP) - put(lP) + call(sC) - call(lC));
+    return [
+      {
+        id: "close-butterfly",
+        name: "Gecelik Iron Butterfly (Pin Senaryosu)",
+        legs: `Sat ${sP}P / Al ${lP}P + Sat ${sC}C / Al ${lC}C`,
+        netLabel: "Net kredi",
+        netAmount: credit,
+        maxLoss: Math.max(1, 500 - credit),
+        maxProfit: credit,
+        breakeven: `${fmtNum(sP - credit / 100)} – ${fmtNum(sC + credit / 100)}`,
+        reason:
+          "Kapanış fiyatı açılış seviyesine yakın ve yön baskısı zayıf — fiyatın ertesi açılışa kadar dar bantta kalması beklenebilir.",
+      },
+    ];
+  }
+
+  const dir = input.bias === "BULLISH" ? 1 : -1;
+  const type = input.bias === "BULLISH" ? "C" : "P";
+  const priceAt = input.bias === "BULLISH" ? call : put;
+  const longK = atm;
+  const shortK = atm + dir * 10;
+  const cost = money(priceAt(longK) - priceAt(shortK));
+  return [
+    {
+      id: "close-directional",
+      name: `Gecelik Yönlü Debit Spread (${input.bias === "BULLISH" ? "CALL" : "PUT"})`,
+      legs: `Al ${longK} ${type} / Sat ${shortK} ${type}`,
+      netLabel: "Net maliyet",
+      netAmount: cost,
+      maxLoss: cost,
+      maxProfit: 1000 - cost,
+      breakeven: fmtNum(longK + (dir * cost) / 100),
+      reason: `Kapanış faktörlerinin çoğunluğu ${
+        input.bias === "BULLISH" ? "yukarı" : "aşağı"
+      } yönü destekliyor — ertesi seans açılışına kadar taşınacak tanımlı riskli pozisyon.`,
+    },
+  ];
+}
+
+/**
+ * Kapanış Motoru — çekirdek yön tahmini.
+ * Hem CANLI modda (seans kapanışına ≤30 dk kala, her istekte güncellenir —
+ * bkz. buildSnapshot'taki closingWindow) hem de FINAL modda (seans tamamen
+ * kapandıktan sonra, sabit özet) AYNI 6 faktörlü modeli kullanır. Hiçbir
+ * yeni veri kaynağı kullanılmaz: tamamen mevcut frames/context/levels'tan
+ * türetilir (gerçek opsiyon akışı/GEX/MOC dengesizliği verisi YOKTUR).
  */
 function computeForecastBundle(input: {
+  stage: "LIVE_CLOSING" | "FINAL";
+  frames: FrameLite[];
   futuresPrice: number;
   vwap: number;
   spotPrice: number;
   orh: number;
   orl: number;
+  sessionHigh: number;
+  sessionLow: number;
   volTrend: "RISING" | "FALLING" | "STABLE";
   analogBias: "BULLISH" | "BEARISH" | "NEUTRAL";
+  vix: number;
   nqChangePct?: number;
   esChangePct?: number;
   assetLabel?: string;
 }): ForecastBundle {
-  let score = 0;
-  if (input.futuresPrice > input.vwap) score += 1;
-  else if (input.futuresPrice < input.vwap) score -= 1;
+  const factors: ScoreFactor[] = [];
+  const push = (label: string, detail: string, weight: number) => factors.push({ label, detail, weight });
 
-  if (input.spotPrice > input.orh) score += 2;
-  else if (input.spotPrice < input.orl) score -= 2;
+  // 1. Vadeli / VWAP konumu
+  const vwapDist = round2(input.futuresPrice - input.vwap);
+  push(
+    "Vadeli / VWAP Konumu",
+    `${vwapDist >= 0 ? "+" : ""}${fmtNum(vwapDist)} puan ${vwapDist >= 0 ? "üstünde" : "altında"}`,
+    vwapDist > 0 ? 1 : vwapDist < 0 ? -1 : 0
+  );
 
-  if (input.volTrend === "FALLING") score += 1;
-  else if (input.volTrend === "RISING") score -= 1;
+  // 2. Açılış aralığı (OR) bandına göre konum — en ağır tekil faktör
+  if (input.spotPrice > input.orh) push("Açılış Aralığı Bandı", `ORH (${fmtNum(input.orh)}) üzerinde`, 2);
+  else if (input.spotPrice < input.orl) push("Açılış Aralığı Bandı", `ORL (${fmtNum(input.orl)}) altında`, -2);
+  else push("Açılış Aralığı Bandı", "OR bandı içinde", 0);
 
-  if (input.analogBias === "BULLISH") score += 1;
-  else if (input.analogBias === "BEARISH") score -= 1;
+  // 3. Son 30 dakikalık momentum — net skorun kapanışa yaklaşırken değişimi
+  const last = input.frames[input.frames.length - 1];
+  const past = input.frames.length > 30 ? input.frames[input.frames.length - 31] : input.frames[0];
+  const momentum = last && past ? round2(last.netScore - past.netScore) : 0;
+  push(
+    "Kapanış Momentumu (Son 30dk)",
+    `Net skor ${momentum >= 0 ? "+" : ""}${fmtNum(momentum, 1)} değişti`,
+    momentum > 0.5 ? 1 : momentum < -0.5 ? -1 : 0
+  );
 
+  // 4. Gün içi bandın neresinde kapanıyor — gerçek MOC dengesizliği verisi
+  // olmadığı için en yakın ücretsiz proxy: fiyat gün aralığının üst mü alt
+  // mı ucuna yakın (0 = dip, 100 = zirve).
+  const range = Math.max(1e-6, input.sessionHigh - input.sessionLow);
+  const posPct = Math.round(((input.spotPrice - input.sessionLow) / range) * 100);
+  push(
+    "Gün İçi Banda Göre Konum",
+    `Gün aralığının %${posPct}'inde (0=dip, 100=zirve)`,
+    posPct >= 70 ? 1 : posPct <= 30 ? -1 : 0
+  );
+
+  // 5. VIX trendi
+  push(
+    "Oynaklık (VIX) Trendi",
+    input.volTrend === "RISING" ? "Yükseliyor" : input.volTrend === "FALLING" ? "Düşüyor" : "Yatay",
+    input.volTrend === "FALLING" ? 1 : input.volTrend === "RISING" ? -1 : 0
+  );
+
+  // 6. Tarihsel benzer gün istatistiği
+  push(
+    "Tarihsel Benzerlik",
+    input.analogBias === "BULLISH"
+      ? "Benzer günler yükselişle kapanmış"
+      : input.analogBias === "BEARISH"
+      ? "Benzer günler düşüşle kapanmış"
+      : "Belirgin eğilim yok",
+    input.analogBias === "BULLISH" ? 1 : input.analogBias === "BEARISH" ? -1 : 0
+  );
+
+  const score = round2(factors.reduce((sum, f) => sum + f.weight, 0));
   let bias: ForecastBundle["bias"] = "NEUTRAL";
-  if (score >= 2) bias = "BULLISH";
-  else if (score <= -2) bias = "BEARISH";
+  if (score >= 3) bias = "BULLISH";
+  else if (score <= -3) bias = "BEARISH";
 
-  let analysisText: string;
-  
+  const confidence = closeBiasConfidence(score, factors);
+
+  const stagePrefix = input.stage === "LIVE_CLOSING" ? "Kapanışa doğru şu ana kadarki" : "Kapanışın";
+  const stageSuffix = input.stage === "LIVE_CLOSING" ? " Kapanışa kalan sürede bu tablo değişebilir." : "";
+
   const isSpx = input.assetLabel === "SPX" || input.assetLabel === "SPY";
   const nqPct = input.nqChangePct || 0;
   const esPct = input.esChangePct || 0;
@@ -588,23 +761,22 @@ function computeForecastBundle(input: {
   const rotationToDefensive = isSpx && diff > 0.8 && nqPct < -0.5;
   const rotationToTech = isSpx && diff < -0.8 && nqPct > 0.5;
 
+  let analysisText: string;
   if (bias === "BULLISH") {
-    analysisText =
-      "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
+    analysisText = `${stagePrefix} verileri VWAP ve direnç seviyeleri üzerinde, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.${stageSuffix}`;
   } else if (bias === "BEARISH") {
-    analysisText =
-      "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
+    analysisText = `${stagePrefix} verileri kritik seviyelerin ve VWAP'ın altında, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.${stageSuffix}`;
+  } else if (rotationToDefensive) {
+    analysisText = `Piyasa endeks bazında yatay (nötr) görünse de, alt kırılımda teknoloji/yarı iletken (QQQ) tarafındaki sert satışa karşın sermayenin mega-cap savunma hisselerine kaydığı net bir sektör rotasyonu yaşandı. Bu ortamda ağırlıklı ortalama yatay kalır; SPY'ı shortlamak kendi kendini nötrleyen bir işlemdir. Aşağı yönlü görüş varsa doğru araç QQQ'dur.${stageSuffix}`;
+  } else if (rotationToTech) {
+    analysisText = `Endeks geneli yatay seyretmesine rağmen teknoloji (QQQ/NDX) tarafında belirgin bir para girişi (rotasyon) var. Bu ayrışma SPY'ın yön bulmasını zorlaştırırken, yükseliş yönlü ivmenin ağırlıklı olarak teknoloji hisselerinden geldiğini gösteriyor.${stageSuffix}`;
   } else {
-    if (rotationToDefensive) {
-      analysisText = "Piyasa endeks bazında yatay (nötr) görünse de, alt kırılımda teknoloji/yarı iletken (QQQ) tarafındaki sert satışa karşın sermayenin mega-cap savunma hisselerine kaydığı net bir sektör rotasyonu yaşandı. Bu ortamda ağırlıklı ortalama yatay kalır; SPY'ı shortlamak kendi kendini nötrleyen bir işlemdir. Aşağı yönlü görüş varsa doğru araç QQQ'dur.";
-    } else if (rotationToTech) {
-      analysisText = "Endeks geneli yatay seyretmesine rağmen teknoloji (QQQ/NDX) tarafında belirgin bir para girişi (rotasyon) var. Bu ayrışma SPY'ın yön bulmasını zorlaştırırken, yükseliş yönlü ivmenin ağırlıklı olarak teknoloji hisselerinden geldiğini gösteriyor.";
-    } else {
-      analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
-    }
+    analysisText = `${stagePrefix} verileri net bir alıcı veya satıcı baskısı göstermiyor, piyasa denge arayışında. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.${stageSuffix}`;
   }
 
-  return { bias, score, analysisText };
+  const structures = buildCloseStructures({ bias, confidence, spotPrice: input.spotPrice, vix: input.vix });
+
+  return { bias, score, analysisText, stage: input.stage, confidence, factors, structures };
 }
 
 function buildRollover(sessionDate: string, isLiveSession: boolean, nowParts: { ymd: string; minutes: number }): RolloverInfo {
@@ -768,20 +940,31 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   ];
 
   const rollover = buildRollover(sessionDate, isLiveSession, nowParts);
-  const forecast = rollover.prepReady
-    ? computeForecastBundle({
-        futuresPrice: last.futuresPrice,
-        vwap: last.vwap,
-        spotPrice: last.spotPrice,
-        orh: session.levels.spot.orh,
-        orl: session.levels.spot.orl,
-        volTrend: context.volatility.trend,
-        analogBias: context.analog.bias,
-        nqChangePct: session.nqChangePct,
-        esChangePct: session.esChangePct,
-        assetLabel: ASSET_MAP[asset].spot,
-      })
-    : null;
+  // Kapanış Motoru penceresi: seansın son ≤30 dakikası (bkz. scoring.ts
+  // sessionPhase — CLOSING evresi RTH_CLOSE_MIN-30..RTH_CLOSE_MIN arası).
+  // Bu pencerede FINAL bekleyene kadar oturmak yerine her istekte canlı
+  // veriyle GEÇİCİ bir kapanış yönü tahmini üretilir (bkz. ForecastBundle.stage).
+  const closingWindow = isLiveSession && currentPhase === "CLOSING";
+  const forecast =
+    rollover.prepReady || closingWindow
+      ? computeForecastBundle({
+          stage: rollover.prepReady ? "FINAL" : "LIVE_CLOSING",
+          frames,
+          futuresPrice: last.futuresPrice,
+          vwap: last.vwap,
+          spotPrice: last.spotPrice,
+          orh: session.levels.spot.orh,
+          orl: session.levels.spot.orl,
+          sessionHigh: session.levels.spot.sessionHigh,
+          sessionLow: session.levels.spot.sessionLow,
+          volTrend: context.volatility.trend,
+          analogBias: context.analog.bias,
+          vix,
+          nqChangePct: session.nqChangePct,
+          esChangePct: session.esChangePct,
+          assetLabel: asset,
+        })
+      : null;
 
   return {
     ok: true,

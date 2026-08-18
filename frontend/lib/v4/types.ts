@@ -285,6 +285,37 @@ export interface ForecastBundle {
   bias: "BULLISH" | "BEARISH" | "NEUTRAL";
   score: number;
   analysisText: string;
+  /**
+   * Kapanış Motoru evresi:
+   * LIVE_CLOSING: seans kapanışına ≤30 dk kala, o anki canlı veriyle
+   *   hesaplanmış GEÇİCİ tahmin — her istekte yeniden hesaplanır.
+   * FINAL: seans tamamen kapandıktan sonra (17:00 ET+) hesaplanmış, sabit özet.
+   * Opsiyonel: eski istemci kodları bu alanı görmeyebilir.
+   */
+  stage?: "LIVE_CLOSING" | "FINAL";
+  confidence?: ConfidenceTier;
+  /** Kapanış yönü tahminini besleyen faktör dökümü — "Skor Gerekçeleri" ile aynı format */
+  factors?: ScoreFactor[];
+  /** Kapanış yönüne göre üretilmiş gecelik (overnight) opsiyon yapı önerileri */
+  structures?: CloseStructure[];
+}
+
+/**
+ * Kapanış Motoru'nun ürettiği gecelik (overnight) opsiyon yapı önerisi.
+ * V4StrategyLab'daki AYNI Black-Scholes fiyatlama motorunu kullanır, ancak
+ * vade süresi bugünkü kapanışa değil ertesi seansın açılışına kadar uzatılır.
+ * Teoriktir — canlı OPRA kotasyonu değildir, otomatik emre dönüşmez.
+ */
+export interface CloseStructure {
+  id: string;
+  name: string;
+  legs: string;
+  netLabel: string;
+  netAmount: number;
+  maxLoss: number;
+  maxProfit: number | null;
+  breakeven: string;
+  reason: string;
 }
 
 /**
@@ -339,7 +370,7 @@ export interface AssetSnapshot {
   bars: { futures: CompactBar[]; spot: CompactBar[] };
   frames: FrameLite[];
   rollover: RolloverInfo;
-  /** prepReady olana kadar null */
+  /** rollover.prepReady olana kadar VE kapanış penceresi (son ≤30 dk) dışında null — bkz. ForecastBundle.stage */
   forecast: ForecastBundle | null;
 }
 
