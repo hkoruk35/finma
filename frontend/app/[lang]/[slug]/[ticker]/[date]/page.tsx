@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import {
   getLangFromParams,
-  getAllLangParams,
   LANG_CONFIG,
   TRADE_LABELS,
   type LangCode,
@@ -11,7 +10,6 @@ import {
 import {
   getArchivedDates,
   getArchivedAnalysis,
-  getAllArchivedTickers,
 } from "@/lib/analysis-archive";
 import { getMasterData, formatPrice } from "@/lib/data";
 import ChartSection from "@/components/stock/ChartSection";
@@ -26,16 +24,10 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const tickers = getAllArchivedTickers();
-  const params: { lang: string; slug: string; ticker: string; date: string }[] = [];
-  for (const { lang, slug } of getAllLangParams()) {
-    for (const ticker of tickers) {
-      for (const date of getArchivedDates(ticker)) {
-        params.push({ lang, slug, ticker: ticker.toLowerCase(), date });
-      }
-    }
-  }
-  return []; // Save Vercel Build CPU Minutes by building on-demand
+  // Build sirasinda hic sayfa onceden derlenmiyor — arsiv sayfalari ilk
+  // ziyarette on-demand ISR ile olusup cache'lenir (force-static + varsayilan
+  // dynamicParams=true, yani listede olmayan tarih 404 degil).
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

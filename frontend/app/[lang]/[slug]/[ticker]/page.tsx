@@ -3,13 +3,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import {
   getLangFromParams,
-  getAllLangParams,
   LANG_CONFIG,
   TRADE_LABELS,
   type LangCode,
 } from "@/lib/analysis-langs";
 import { getArchivedDates } from "@/lib/analysis-archive";
-import { getSwingAllPicks, getMasterData, formatPrice, getStockData, getAllTickers } from "@/lib/data";
+import { getSwingAllPicks, getMasterData, formatPrice, getStockData } from "@/lib/data";
 import ChartSection from "@/components/stock/ChartSection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,15 +23,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const allTickers = await getAllTickers();
-  const tickers = allTickers.map((t: any) => t.ticker);
-  const params: { lang: string; slug: string; ticker: string }[] = [];
-  for (const { lang, slug } of getAllLangParams()) {
-    for (const ticker of tickers) {
-      params.push({ lang, slug, ticker: ticker.toLowerCase() });
-    }
-  }
-  return []; // Save Vercel Build CPU Minutes by building on-demand
+  // Build sirasinda hic sayfa onceden derlenmiyor (binlerce ticker x 6 dil
+  // artik build CPU harcamiyor) — sayfalar ilk ziyarette on-demand ISR ile
+  // olusup revalidate (3600s) suresince cache'lenir. dynamicParams burada
+  // hic override edilmedigi icin varsayilan true'dur, yani listede olmayan
+  // parametreler 404 DEGIL, anlik render olur.
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import { copy, type Locale } from "@/lib/i18n/copy";
-import { getIndexBySlug, INDEX_LIST, INDEX_LOCALES } from "@/lib/indices";
+import { getIndexBySlug, INDEX_LOCALES } from "@/lib/indices";
 import {
   getDailyArchiveDates,
   getDailySnapshotsForDate,
@@ -28,16 +28,11 @@ function isLocale(locale: string): locale is Locale {
 }
 
 export async function generateStaticParams() {
-  const params: { locale: string; indexSlug: string; date: string }[] = [];
-  for (const idx of INDEX_LIST) {
-    const dates = await getDailyArchiveDates(idx.symbol, 60);
-    for (const locale of INDEX_LOCALES) {
-      for (const date of dates) {
-        params.push({ locale, indexSlug: idx.slug, date });
-      }
-    }
-  }
-  return params;
+  // Build sirasinda hic sayfa onceden derlenmiyor (24 endeks x 60 gun x 6
+  // dil ~8.640 sayfa artik build'de uretilmiyor) — ilk ziyarette on-demand
+  // olusup revalidate (900s) suresince cache'lenir; dynamicParams override
+  // edilmedigi icin varsayilan true, listede olmayan tarih 404 vermez.
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
