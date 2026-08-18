@@ -4,6 +4,7 @@ import { resolveNarrative, type IndexDailySnapshot, type IndexNarrativeFields } 
 import { IndexStatTable } from "@/components/public/IndexStatTable";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { formatNumber } from "@/lib/formatNumber";
+import { ClientTime } from "@/components/global/ClientTime";
 
 function getT(locale: Locale) {
   return copy[locale].indices;
@@ -42,9 +43,22 @@ export function IndexDailySnapshotSection({
         primary ? "border-l-4 border-l-[#3b82f6]" : ""
       }`}
     >
-      <h2 className="text-xs font-bold text-[#3b82f6] uppercase tracking-wide mb-3">
-        {t.session}: {sessionLabel(snapshot.session, t)}
-      </h2>
+      <div className="mb-4 border-b border-[#1e2a3a] pb-3">
+        <h2 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wide mb-1.5 flex items-center justify-between">
+          <span>{t.session}: {sessionLabel(snapshot.session, t)}</span>
+          {primary && <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full">{t.latestAnalysis || "En Güncel"}</span>}
+        </h2>
+        <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400 font-medium">
+          <div className="flex items-center gap-1">
+            <svg className="w-3 h-3 text-[#00d2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>NY: {new Intl.DateTimeFormat(locale, { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(snapshot.created_at))}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <svg className="w-3 h-3 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Local: <ClientTime timestamp={snapshot.created_at} lang={locale} /></span>
+          </div>
+        </div>
+      </div>
 
       <IndexStatTable
         columns={2}

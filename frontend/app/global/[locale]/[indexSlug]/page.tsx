@@ -16,6 +16,7 @@ import { IndexStatTable } from "@/components/public/IndexStatTable";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { IndexDailySnapshotSection } from "@/components/global/IndexDailySnapshotSection";
 import { formatNumber } from "@/lib/formatNumber";
+import { ClientTime } from "@/components/global/ClientTime";
 
 export const revalidate = 900;
 
@@ -80,10 +81,10 @@ export default async function IndexPage({ params }: Props) {
     getMultiQuote([indexDef.symbol]),
   ]);
 
-  // Kapanis session'i varsa onceliklendir, yoksa listedeki son kayit.
-  const dailySnapshot =
-    dailySnapshots.find((s) => s.session === "closing") ?? dailySnapshots[dailySnapshots.length - 1] ?? null;
-  const otherSnapshots = dailySnapshots.filter((s) => s !== dailySnapshot);
+  // Gelen veriler session sırasına (premarket -> midday -> closing) göre eskiden yeniye doğru sıralıdır.
+  // Kullanıcı geçmişe yönelik (en yeni en üstte) görmek istediği için ters çeviriyoruz.
+  const sortedSnapshots = [...dailySnapshots].reverse();
+  const latestSnapshot = sortedSnapshots[0] ?? null;
 
   const liveQuote = quotes[indexDef.symbol];
   const relatedIndices = getIndicesByRegion(indexDef.region).filter((i) => i.symbol !== indexDef.symbol);
@@ -181,18 +182,22 @@ export default async function IndexPage({ params }: Props) {
               {t.dailyArchive} →
             </Link>
           </div>
-          {dailySnapshot ? (
+          {sortedSnapshots.length > 0 ? (
             <>
-              <IndexDailySnapshotSection snapshot={dailySnapshot} locale={locale as Locale} primary />
-              {otherSnapshots.map((s) => (
-                <IndexDailySnapshotSection key={s.session} snapshot={s} locale={locale as Locale} />
+              {sortedSnapshots.map((s) => (
+                <IndexDailySnapshotSection
+                  key={s.session}
+                  snapshot={s}
+                  locale={locale as Locale}
+                  primary={s === latestSnapshot}
+                />
               ))}
               
               <Link
-                href={`/global/${locale}/${indexSlug}/daily/${dailySnapshot.trade_date}`}
+                href={`/global/${locale}/${indexSlug}/daily/${latestSnapshot?.trade_date}`}
                 className="inline-block mt-3 text-xs font-semibold text-[#00d2ff] hover:text-white transition-colors"
               >
-                {t.viewFullDaily} ({dailySnapshot.trade_date}) →
+                {t.viewFullDaily} ({latestSnapshot?.trade_date}) →
               </Link>
             </>
           ) : (
@@ -215,6 +220,18 @@ export default async function IndexPage({ params }: Props) {
           </div>
           {weeklySnapshot ? (
             <>
+              <div className="mb-4 border-b border-[#1e2a3a] pb-3">
+                <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400 font-medium">
+                  <div className="flex items-center gap-1">
+                    <svg className="w-3 h-3 text-[#00d2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>NY: {new Intl.DateTimeFormat(locale, { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(weeklySnapshot.created_at))}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-3 h-3 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Local: <ClientTime timestamp={weeklySnapshot.created_at} lang={locale} /></span>
+                  </div>
+                </div>
+              </div>
               <IndexStatTable
                 columns={2}
                 items={[
