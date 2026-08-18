@@ -27,57 +27,61 @@ export async function GET(request: Request) {
 
     const results: Record<string, string> = {};
 
-    // Sadece SPX için loglama yapalım, veya hepsi için
-    const asset: AssetClass = "SPX"; 
-    
-    // Geçmiş seansı yüklemek için buildReplay kullanıyoruz.
-    // Tarih belirtmezsek en son kapanmış seansı (availableDates'in sonuncusu) yükler.
-    const replay = await buildReplay(asset);
-    
-    if (!replay.ok || !replay.frames.length) {
-      return NextResponse.json({ error: "No replay data found" }, { status: 400 });
+    const assetsToArchive = Object.keys(ASSET_MAP) as AssetClass[];
+
+    for (const asset of assetsToArchive) {
+      try {
+        const replay = await buildReplay(asset);
+        
+        if (!replay.ok || !replay.frames.length) {
+          results[asset] = "No replay data found";
+          continue;
+        }
+
+        const sessionDate = replay.date;
+        const lastFrame = replay.frames[replay.frames.length - 1];
+        const decision = lastFrame.decision;
+        
+        const { data: existing } = await supabase
+          .from("supertrade_logs")
+          .select("id")
+          .eq("session_date", sessionDate)
+          .eq("asset", asset)
+          .single();
+
+        if (existing) {
+          results[asset] = `${sessionDate} already archived`;
+          continue;
+        }
+
+        const target = decision.direction === "SHORT"
+          ? lastFrame.spotPrice - Math.max(5, replay.levels.spot.orSize * 2)
+          : lastFrame.spotPrice + Math.max(5, replay.levels.spot.orSize * 2);
+
+        const { error: insertError } = await supabase
+          .from("supertrade_logs")
+          .insert({
+            asset: asset,
+            session_date: sessionDate,
+            signal_state: lastFrame.state,
+            direction: decision.direction,
+            entry_price: lastFrame.spotPrice,
+            invalidation_price: decision.triggerLevelValue || 0,
+            target_price: target,
+            net_score: lastFrame.netScore,
+            status: "PENDING",
+          });
+
+        if (insertError) {
+          results[asset] = `Error: ${insertError.message}`;
+          continue;
+        }
+
+        results[asset] = `${sessionDate} archived successfully`;
+      } catch (err: any) {
+        results[asset] = `Error: ${err.message}`;
+      }
     }
-
-    const sessionDate = replay.date;
-    const lastFrame = replay.frames[replay.frames.length - 1];
-    const decision = lastFrame.decision;
-    
-    // Veritabanında bu tarihe ait kayıt var mı kontrol et
-    const { data: existing } = await supabase
-      .from("supertrade_logs")
-      .select("id")
-      .eq("session_date", sessionDate)
-      .single();
-
-    if (existing) {
-      results[asset] = `${sessionDate} already archived`;
-      return NextResponse.json({ ok: true, message: "Already archived", results });
-    }
-
-    // Hedef fiyat hesaplaması
-    const target = decision.direction === "SHORT"
-      ? lastFrame.spotPrice - Math.max(5, replay.levels.spot.orSize * 2)
-      : lastFrame.spotPrice + Math.max(5, replay.levels.spot.orSize * 2);
-
-    // Kayıt oluştur
-    const { error: insertError } = await supabase
-      .from("supertrade_logs")
-      .insert({
-        session_date: sessionDate,
-        signal_state: lastFrame.state,
-        direction: decision.direction,
-        entry_price: lastFrame.spotPrice, // Kapanış fiyatını baz alıyoruz
-        invalidation_price: decision.triggerLevelValue || 0,
-        target_price: target,
-        net_score: lastFrame.netScore,
-        status: "PENDING", // Ertesi gün kapanışında WON/LOST olarak güncellenebilir
-      });
-
-    if (insertError) {
-      throw insertError;
-    }
-
-    results[asset] = `${sessionDate} archived successfully`;
 
     return NextResponse.json({ ok: true, results });
   } catch (error: unknown) {

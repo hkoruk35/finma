@@ -24,11 +24,14 @@ export async function POST(req: NextRequest) {
     invalidation_price,
     net_score,
     strategy_json,
+    asset,
   } = body;
 
   if (!session_date || !signal_state || !direction || !entry_price || !invalidation_price) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
+
+  const recordAsset = asset || "SPX";
 
   // Aynı yönde (LONG/SHORT) ve aynı state için (örn: CONFIRMED_SHORT) gün içinde mükerrer kayıt açmamak için kontrol edebiliriz
   const { data: existing } = await supabaseAdmin
@@ -37,6 +40,7 @@ export async function POST(req: NextRequest) {
     .eq("session_date", session_date)
     .eq("signal_state", signal_state)
     .eq("direction", direction)
+    .eq("asset", recordAsset)
     .limit(1);
 
   if (existing && existing.length > 0) {
@@ -46,6 +50,7 @@ export async function POST(req: NextRequest) {
   const { data, error } = await supabaseAdmin
     .from("supertrade_logs")
     .insert({
+      asset: recordAsset,
       session_date,
       signal_state,
       direction,
@@ -101,11 +106,18 @@ export async function PUT(req: NextRequest) {
 export async function GET(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { data, error } = await supabaseAdmin
+  const asset = req.nextUrl.searchParams.get("asset");
+  let query = supabaseAdmin
     .from("supertrade_logs")
     .select("*")
     .order("created_at", { ascending: false })
-    .limit(100);
+    .limit(300);
+
+  if (asset && asset !== "ALL") {
+    query = query.eq("asset", asset);
+  }
+
+  const { data, error } = await query;
 
   if (error) return NextResponse.json({ error: "Could not fetch logs." }, { status: 502 });
 
