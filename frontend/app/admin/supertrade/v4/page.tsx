@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, fmt, signed, titleCase, toneClass } from "@/components/admin/supertrade/ui";
 import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
@@ -118,17 +119,28 @@ export default function SuperTradeV4Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
-      <header className="mb-6 flex flex-col gap-2 border-b border-[#1c2635] pb-4">
-        <div className="flex items-center gap-3">
-          <h1 className="text-[18px] font-medium tracking-tight text-[#3b82f6]">
-            Multi-Asset Fırsat Tarayıcı
-          </h1>
-          <Badge tone="brand">SuperTrade V4</Badge>
-          {anyNextDay && <Badge tone="neutral">Sonraki seans için hazır</Badge>}
+      <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#1c2635] pb-4">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <h1 className="text-[18px] font-medium tracking-tight text-[#3b82f6]">
+              Multi-Asset Fırsat Tarayıcı
+            </h1>
+            <Badge tone="brand">SuperTrade V4</Badge>
+            {anyNextDay && <Badge tone="neutral">Sonraki seans için hazır</Badge>}
+          </div>
+          <p className="text-[12px] text-slate-500">
+            S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
+          </p>
         </div>
-        <p className="text-[12px] text-slate-500">
-          S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
-        </p>
+        <Link 
+          href="/admin/supertrade/v4/performance" 
+          className="flex items-center gap-2 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-colors px-3 py-1.5 text-[12px] font-medium text-slate-300 whitespace-nowrap"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          Performans ve Öğrenim Modülü
+        </Link>
       </header>
 
       {loading && Object.keys(snapshots).length === 0 ? (

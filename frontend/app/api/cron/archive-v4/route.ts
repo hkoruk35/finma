@@ -29,6 +29,99 @@ export async function GET(request: Request) {
 
     const assetsToArchive = Object.keys(ASSET_MAP) as AssetClass[];
 
+    // --- PENDING İŞLEMLERİN OTONOM DEĞERLENDİRİLMESİ ---
+    const { data: pendingTrades } = await supabase
+      .from("supertrade_logs")
+      .select("*")
+      .eq("status", "PENDING");
+
+    if (pendingTrades && pendingTrades.length > 0) {
+      for (const trade of pendingTrades) {
+        try {
+          const tradeAsset = (trade.asset || "SPX") as AssetClass;
+          const replay = await buildReplay(tradeAsset, trade.session_date);
+          if (!replay.ok || !replay.frames.length) continue;
+
+          // Trade created time in seconds
+          const tradeTime = new Date(trade.created_at).getTime() / 1000;
+          let won = false;
+          let lost = false;
+          let exitPrice = trade.entry_price;
+
+          const target = trade.target_price;
+          const stop = trade.invalidation_price;
+
+          for (const frame of replay.frames) {
+            // İşlemden önceki barları atla (küçük bir güvenlik marjı: 1 saat)
+            if (frame.time < tradeTime - 3600) continue;
+            
+            if (trade.direction === "SHORT") {
+              if (stop && frame.high >= stop) {
+                lost = true;
+                exitPrice = stop;
+                break;
+              }
+              if (target && frame.low <= target) {
+                won = true;
+                exitPrice = target;
+                break;
+              }
+            } else {
+              // LONG
+              if (stop && frame.low <= stop) {
+                lost = true;
+                exitPrice = stop;
+                break;
+              }
+              if (target && frame.high >= target) {
+                won = true;
+                exitPrice = target;
+                break;
+              }
+            }
+          }
+
+          let newStatus = "PENDING";
+          let analysis = "";
+          
+          if (won) {
+            newStatus = "WON";
+            analysis = "Hedef fiyata başarıyla ulaşıldı.";
+          } else if (lost) {
+            newStatus = "LOST";
+            analysis = "Stop (İptal) seviyesi kırılarak işlem zararla kapandı.";
+          } else {
+            // Seans sonuna kadar hedef veya stop görülmedi
+            const lastFrame = replay.frames[replay.frames.length - 1];
+            exitPrice = lastFrame.spotPrice;
+            const pnl = trade.direction === "SHORT" ? trade.entry_price - exitPrice : exitPrice - trade.entry_price;
+            
+            if (pnl > 0) {
+              newStatus = "CHOP"; 
+              analysis = `Seans sonuna kadar hedef veya stop görülmedi, günü kârla kapattı (PnL: ${pnl.toFixed(2)}).`;
+            } else {
+              newStatus = "LOST";
+              analysis = `Seans sonuna kadar hedef veya stop görülmedi, günü zararla kapattı (PnL: ${pnl.toFixed(2)}).`;
+            }
+          }
+
+          await supabase
+            .from("supertrade_logs")
+            .update({
+              status: newStatus,
+              exit_price: exitPrice,
+              exit_time: new Date().toISOString(),
+              analysis: analysis
+            })
+            .eq("id", trade.id);
+            
+        } catch(e) {
+          console.error("Evaluation error for trade", trade.id, e);
+        }
+      }
+    }
+    // ---------------------------------------------------
+
     for (const asset of assetsToArchive) {
       try {
         const replay = await buildReplay(asset);
