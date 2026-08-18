@@ -710,9 +710,10 @@ export default function BogaChartEngine({
           bottom: 0,
         },
       });
+      const baseHeight = height ?? 400;
       const volumePaneHeight = compact
-        ? Math.max(50, Math.min(120, Math.round((height ?? 240) * 0.3)))
-        : isMobileViewport ? 130 : 230;
+        ? Math.max(50, Math.min(120, Math.round(baseHeight * 0.3)))
+        : Math.max(60, Math.round(baseHeight * 0.20));
       chart.panes()[1]?.setHeight(volumePaneHeight);
       volumeSeriesRef.current = volumeSeries;
     }
