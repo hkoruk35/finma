@@ -462,6 +462,7 @@ export default function BogaChartEngine({
   // OHLCV kutusu SADECE kullanıcı grafiğe dokunup crosshair'i aktif ettiğinde
   // görünür (masaüstünde davranış değişmedi, her zaman görünür kalır).
   const [mobileCandleMenuOpen, setMobileCandleMenuOpen] = useState(false);
+  const [inlineIndicatorsOpen, setInlineIndicatorsOpen] = useState(false);
   const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [multiChartOpen, setMultiChartOpen] = useState(false);
@@ -1468,7 +1469,43 @@ export default function BogaChartEngine({
             </div>
             {!detailMode && !hideIndicatorToggles && (
               <div className="flex flex-wrap items-center gap-1.5">
-                {availableIndicators.map((key) => (
+                <button
+                  onClick={() => setInlineIndicatorsOpen((v) => !v)}
+                  className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all whitespace-nowrap"
+                >
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {t.indicators || "Göstergeler"} <span className="text-[9px]">{inlineIndicatorsOpen ? "▴" : "▾"}</span>
+                </button>
+                <div className="relative shrink-0">
+                  <button
+                    onClick={() => setMobileCandleMenuOpen((v) => !v)}
+                    className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all whitespace-nowrap"
+                  >
+                    {t[candleType]} <span className="text-[9px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
+                  </button>
+                  {mobileCandleMenuOpen && (
+                    <div className="absolute left-0 mt-1 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-50">
+                      {CANDLE_TYPES.map((ct) => (
+                        <button
+                          key={ct}
+                          onClick={() => {
+                            setCandleType(ct);
+                            setMobileCandleMenuOpen(false);
+                          }}
+                          className={`block w-full text-left px-3 py-2 text-[11px] font-medium whitespace-nowrap ${
+                            candleType === ct ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+                          }`}
+                        >
+                          {t[ct]}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {inlineIndicatorsOpen && availableIndicators.map((key) => (
                   <button
                     key={key}
                     onClick={() => toggle(key)}
