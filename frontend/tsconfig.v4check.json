@@ -7,6 +7,8 @@
     "components/admin/v4/**/*.tsx",
     "components/admin/supertrade/**/*.tsx",
     "app/admin/supertrade/v4/page.tsx",
-    "app/api/admin/supertrade/v4/route.ts"
+    "app/api/admin/supertrade/v4/route.ts",
+    "app/api/chart-data/route.ts",
+    "components/charts/BogaChartEngine.tsx"
   ]
 }

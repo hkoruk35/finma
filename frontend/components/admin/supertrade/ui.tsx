@@ -28,6 +28,18 @@ export function signed(value: number, digits = 2): string {
   return `${value >= 0 ? "+" : ""}${value.toFixed(digits)}`;
 }
 
+/**
+ * CSS `text-transform: uppercase` Türkçe için güvenilir değildir: tarayıcı
+ * kök dili (bu sitede <html lang="en">) baz alınarak küçük "i" harfini
+ * noktasız "I" yapar, doğrusu ise noktalı "İ"dir (örn. "iptal" → "IPTAL"
+ * değil "İPTAL" olmalı). Bunu CSS'e bırakmak yerine string'i JS içinde
+ * Türkçe yerel ayarıyla büyütüp öyle basıyoruz — tarayıcı desteğinden
+ * bağımsız, her zaman doğru sonuç verir.
+ */
+export function trUp(text: string): string {
+  return text.toLocaleUpperCase("tr-TR");
+}
+
 export function num(value: number | undefined | null, digits = 2): string {
   if (value === undefined || value === null || !Number.isFinite(value) || value === 0) return "—";
   return value.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
@@ -42,7 +54,9 @@ export function SectionTitle({
 }) {
   return (
     <div className="flex items-baseline gap-2">
-      <h3 className="text-[11px] font-medium uppercase tracking-[0.09em] text-[#3b82f6]">{children}</h3>
+      <h3 className="text-[11px] font-medium tracking-[0.09em] text-[#3b82f6]">
+        {typeof children === "string" ? trUp(children) : children}
+      </h3>
       {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
     </div>
   );
@@ -89,7 +103,7 @@ export function Stat({
 }) {
   return (
     <div className="min-w-0">
-      <div className="text-[11px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">{label}</div>
+      <div className="text-[11px] font-medium tracking-[0.06em] text-[#3b82f6]">{trUp(label)}</div>
       <div className={`mt-1 text-[17px] font-medium tabular-nums leading-tight ${valueClass}`}>{value}</div>
       {sub !== undefined && <div className="mt-0.5 truncate text-[11px] text-slate-500">{sub}</div>}
     </div>
@@ -129,16 +143,19 @@ export function Badge({
   children,
   tone = "neutral",
   className = "",
+  title,
 }: {
   children: React.ReactNode;
   tone?: BadgeTone;
   className?: string;
+  title?: string;
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
+      title={title}
+      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
     >
-      {children}
+      {typeof children === "string" ? trUp(children) : children}
     </span>
   );
 }
@@ -187,5 +204,94 @@ export function EmptyState({ children }: { children: React.ReactNode }) {
     <div className="rounded-md border border-dashed border-[#1c2635] px-4 py-6 text-center text-[12px] text-slate-500">
       {children}
     </div>
+  );
+}
+
+/**
+ * Ortak tablo bileşenleri — kart/grid yığınları yerine düzenli, taranabilir
+ * satır-sütun görünümü için. Başlık satırı logo mavisi, hücreler tabular-nums
+ * ile hizalı; mobilde yatay kaydırma ile taşar (overflow-x-auto).
+ */
+export function Table({
+  children,
+  className = "",
+  bordered = true,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  /** false: kendi çerçevesini çizme — zaten çerçeveli bir Panel içine (padding="p-0") gömülüyken kullanılır */
+  bordered?: boolean;
+}) {
+  return (
+    <div className={`overflow-x-auto ${bordered ? "rounded-md border border-[#1c2635]" : ""} ${className}`}>
+      <table className="w-full border-collapse text-[12px]">{children}</table>
+    </div>
+  );
+}
+
+export function THead({ children }: { children: React.ReactNode }) {
+  return <thead className="bg-[#0a0e17]">{children}</thead>;
+}
+
+export function TBody({ children }: { children: React.ReactNode }) {
+  return <tbody className="divide-y divide-[#1c2635]">{children}</tbody>;
+}
+
+export function Tr({
+  children,
+  onClick,
+  className = "",
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}) {
+  return (
+    <tr
+      onClick={onClick}
+      className={`${onClick ? "cursor-pointer transition-colors hover:bg-[#3b82f6]/[0.05]" : ""} ${className}`}
+    >
+      {children}
+    </tr>
+  );
+}
+
+export function Th({
+  children,
+  align = "left",
+  className = "",
+}: {
+  children: React.ReactNode;
+  align?: "left" | "right" | "center";
+  className?: string;
+}) {
+  const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
+  return (
+    <th
+      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[10px] font-medium tracking-[0.06em] text-[#3b82f6] ${alignClass} ${className}`}
+    >
+      {typeof children === "string" ? trUp(children) : children}
+    </th>
+  );
+}
+
+export function Td({
+  children,
+  align = "left",
+  valueClass = "text-slate-200",
+  className = "",
+  colSpan,
+}: {
+  children: React.ReactNode;
+  align?: "left" | "right" | "center";
+  valueClass?: string;
+  className?: string;
+  colSpan?: number;
+}) {
+  const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
+  return (
+    <td colSpan={colSpan} className={`px-3 py-2 tabular-nums ${alignClass} ${valueClass} ${className}`}>
+      {children}
+    </td>
   );
 }

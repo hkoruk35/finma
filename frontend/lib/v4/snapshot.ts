@@ -9,10 +9,12 @@ import type {
   Bar,
   FuturesLevels,
   FeedHealth,
+  ForecastBundle,
   Frame,
   FrameLite,
   AssetReplayResponse,
   AssetSnapshot,
+  RolloverInfo,
   SpotLevels,
   StructureSet,
   AssetClass,
@@ -403,6 +405,83 @@ function feedHealth(
   return { symbol, label, status, ageSec: age, lastPrice: round2(last.close) };
 }
 
+// ── Gün geçişi (rollover) ─────────────────────────────────────────
+
+/** sessionDate'den sonraki bir sonraki işlem günü — hafta sonu atlanır */
+function nextWeekday(ymd: string): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  do {
+    date.setUTCDate(date.getUTCDate() + 1);
+  } while (date.getUTCDay() === 0 || date.getUTCDay() === 6);
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(
+    date.getUTCDate()
+  ).padStart(2, "0")}`;
+}
+
+/**
+ * Kapanış sonrası ertesi gün özeti — V4SuperTradeForecast panelindeki basit
+ * tahmin motoruyla AYNI mantık, burada sunucu tarafında önceden hesaplanıp
+ * anlık görüntüye eklenir ki dashboard/detay ekranları 17:00 ET'den itibaren
+ * bunu doğrudan gösterebilsin (istemcinin ayrı hesaplama yapması gerekmez).
+ */
+function computeForecastBundle(input: {
+  futuresPrice: number;
+  vwap: number;
+  spotPrice: number;
+  orh: number;
+  orl: number;
+  volTrend: "RISING" | "FALLING" | "STABLE";
+  analogBias: "BULLISH" | "BEARISH" | "NEUTRAL";
+}): ForecastBundle {
+  let score = 0;
+  if (input.futuresPrice > input.vwap) score += 1;
+  else if (input.futuresPrice < input.vwap) score -= 1;
+
+  if (input.spotPrice > input.orh) score += 2;
+  else if (input.spotPrice < input.orl) score -= 2;
+
+  if (input.volTrend === "FALLING") score += 1;
+  else if (input.volTrend === "RISING") score -= 1;
+
+  if (input.analogBias === "BULLISH") score += 1;
+  else if (input.analogBias === "BEARISH") score -= 1;
+
+  let bias: ForecastBundle["bias"] = "NEUTRAL";
+  if (score >= 2) bias = "BULLISH";
+  else if (score <= -2) bias = "BEARISH";
+
+  let analysisText: string;
+  if (bias === "BULLISH") {
+    analysisText =
+      "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
+  } else if (bias === "BEARISH") {
+    analysisText =
+      "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
+  } else {
+    analysisText =
+      "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
+  }
+
+  return { bias, score, analysisText };
+}
+
+function buildRollover(sessionDate: string, isLiveSession: boolean, nowParts: { ymd: string; minutes: number }): RolloverInfo {
+  const displayDate = nowParts.ymd;
+  const isNextDay = displayDate !== sessionDate;
+  // Gece yarısını geçtiysek (isNextDay) saat sıfırlanmış olur — o durumda da
+  // eşik zaten geçilmiş sayılır, sadece nowParts.minutes >= 17:00 kontrolü
+  // yetmez.
+  const pastPrepThreshold = isNextDay || nowParts.minutes >= 17 * 60;
+  const prepReady = !isLiveSession && pastPrepThreshold;
+  return {
+    displayDate,
+    isNextDay,
+    nextTradingDate: nextWeekday(sessionDate),
+    prepReady,
+  };
+}
+
 export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   const data = await loadMarketData(asset);
   const notes = [...data.errors];
@@ -521,6 +600,19 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
     feedHealth(ASSET_MAP[asset].vix, "VIX", data.vix1m, nowSec, isLiveSession),
   ];
 
+  const rollover = buildRollover(sessionDate, isLiveSession, nowParts);
+  const forecast = rollover.prepReady
+    ? computeForecastBundle({
+        futuresPrice: last.futuresPrice,
+        vwap: last.vwap,
+        spotPrice: last.spotPrice,
+        orh: session.levels.spot.orh,
+        orl: session.levels.spot.orl,
+        volTrend: context.volatility.trend,
+        analogBias: context.analog.bias,
+      })
+    : null;
+
   return {
     ok: true,
     generatedAt: new Date().toISOString(),
@@ -553,6 +645,8 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
     runners,
     bars: { futures: toCompact(session.esChart), spot: toCompact(session.spxChart) },
     frames: frames.map(toLite),
+    rollover,
+    forecast,
   };
 }
 

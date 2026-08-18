@@ -280,6 +280,31 @@ export interface RunnerSimulation {
 
 // ── Uç Nokta Yanıtları ────────────────────────────────────────────
 
+/** Ertesi güne dair, kapanış sonrası önceden hesaplanmış özet — bkz. Rollover */
+export interface ForecastBundle {
+  bias: "BULLISH" | "BEARISH" | "NEUTRAL";
+  score: number;
+  analysisText: string;
+}
+
+/**
+ * Gün geçişi durumu: piyasa kapanışından 1 saat sonra (17:00 ET) ertesi
+ * günün özeti arka planda hazırlanır (`prepReady`); ekranda "bugün" olarak
+ * gösterilen tarih ise NY gece yarısında (00:00 ET) otomatik olarak yeni
+ * takvim gününe döner (`isNextDay`) — gerçek seans verisi gelene kadar bu
+ * hazırlanmış özet "bugün" yerine gösterilir.
+ */
+export interface RolloverInfo {
+  /** Şu an NY takvimine göre "bugün" — gerçek saatten türetilir */
+  displayDate: string;
+  /** true: NY gece yarısı geçti ama sessionDate için henüz yeni seans verisi yok */
+  isNextDay: boolean;
+  /** sessionDate'den sonraki bir sonraki işlem günü (hafta sonu atlanır) */
+  nextTradingDate: string;
+  /** true: kapanıştan 1 saat sonra (17:00 ET) veya daha ileri bir zaman — ertesi gün özeti hazır */
+  prepReady: boolean;
+}
+
 export interface AssetSnapshot {
   ok: boolean;
   generatedAt: string;
@@ -313,6 +338,9 @@ export interface AssetSnapshot {
   runners: RunnerSimulation;
   bars: { futures: CompactBar[]; spot: CompactBar[] };
   frames: FrameLite[];
+  rollover: RolloverInfo;
+  /** prepReady olana kadar null */
+  forecast: ForecastBundle | null;
 }
 
 export interface AssetReplayResponse {

@@ -13,6 +13,7 @@ import {
   TickMarkType,
   type IChartApi,
   type ISeriesApi,
+  type IPriceLine,
   type UTCTimestamp,
   type Time,
 } from "lightweight-charts";
@@ -301,6 +302,13 @@ interface Props {
   externalMultiChartTickers?: string[] | null; // caller-driven multi-chart selection (checkboxes)
   externalMultiChartTrigger?: number; // signal incremented when caller explicitly requests opening multi-chart screen
   onExternalMultiChartConsumed?: () => void;
+  // Vadeli (ES=F/NQ=F) kontratlarda gece Globex seansını da getirir — diğer
+  // tüm çağıranlar bu prop'u hiç geçmiyor, davranışları değişmiyor.
+  extendedHours?: boolean;
+  // Çağıranın kendi hesapladığı ekstra yatay seviyeler (ör. SuperTrade
+  // VWAP/ONH/ONL/ORH/ORL/PDC) — "sr" ile aynı createPriceLine deseniyle,
+  // fiyat ekseninde ekstra çizgiler olarak çizilir.
+  customLevels?: { label: string; price: number; color: string; dashed?: boolean }[];
 }
 
 export const INDEX_DISPLAY_NAMES: Record<string, string> = {
@@ -385,6 +393,8 @@ export default function BogaChartEngine({
   externalMultiChartTickers,
   externalMultiChartTrigger,
   onExternalMultiChartConsumed,
+  extendedHours = false,
+  customLevels,
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
   const { isPremium, tier } = useMemberPlan();
@@ -553,6 +563,36 @@ export default function BogaChartEngine({
   } | null>(null);
   const [entryZoneOverlay, setEntryZoneOverlay] = useState<{ top: number; height: number } | null>(null);
   const recomputeEntryZoneRef = useRef<() => void>(() => {});
+
+  // Çağıranın customLevels prop'uyla verdiği ekstra yatay seviyeler — "sr"
+  // ile aynı createPriceLine deseni. Ayrı bir ref/effect ile tutuluyor ki
+  // fiyatlar değiştiğinde (ör. SuperTrade snapshot'ının kendi 20sn poll'u)
+  // grafiğin kendi 60sn'lik veri yenileme döngüsünü beklemeden anında
+  // güncellensin.
+  const customLevelLinesRef = useRef<IPriceLine[]>([]);
+  const applyCustomLevels = () => {
+    const mainSeries = mainSeriesRef.current;
+    if (!mainSeries) return;
+    for (const pl of customLevelLinesRef.current) {
+      try { mainSeries.removePriceLine(pl); } catch {}
+    }
+    customLevelLinesRef.current = [];
+    if (!customLevels) return;
+    for (const lvl of customLevels) {
+      if (!Number.isFinite(lvl.price) || lvl.price === 0) continue;
+      try {
+        const pl = mainSeries.createPriceLine({
+          price: lvl.price,
+          color: lvl.color,
+          lineWidth: 1,
+          lineStyle: lvl.dashed === false ? 0 : 2,
+          axisLabelVisible: true,
+          title: lvl.label,
+        });
+        customLevelLinesRef.current.push(pl);
+      } catch {}
+    }
+  };
 
   // Mobil breakpoint (md: = 768px) kontrol — varsayılan göstergeleri uyarla
   useEffect(() => {
@@ -764,6 +804,7 @@ export default function BogaChartEngine({
     const indicatorsParam = [wanted, active.has("sr") ? "sr" : ""].filter(Boolean).join(",");
     const params = new URLSearchParams({ ticker: symbol, timeframe: interval });
     if (indicatorsParam) params.set("indicators", indicatorsParam);
+    if (extendedHours) params.set("extendedHours", "true");
 
     try {
       const res = await fetch(`/api/chart-data?${params.toString()}`);
@@ -774,7 +815,7 @@ export default function BogaChartEngine({
       // silent — network hiccup, next poll/refetch will retry
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [symbol, interval, active]);
+  }, [symbol, interval, active, extendedHours]);
 
   // Fixed Range Volume Profile — only in the full detail toolbar, never on
   // compact/mini/hover embeds, regardless of what `active` contains.
@@ -1173,6 +1214,7 @@ export default function BogaChartEngine({
     applyVisibleRange(bars);
     recomputeVolumeProfile(bars);
     recomputeEntryZone();
+    applyCustomLevels();
     setHoverBar(bars[bars.length - 1] ?? null);
   };
 
@@ -1212,6 +1254,13 @@ export default function BogaChartEngine({
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // customLevels prop değiştiğinde (SuperTrade'in kendi poll döngüsü) grafiğin
+  // kendi 60sn'lik yenilemesini beklemeden çizgileri anında güncelle.
+  useEffect(() => {
+    applyCustomLevels();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customLevels]);
 
   // Candle type change: re-create the main series and redraw from cached
   // data — no network refetch needed, same bars, different presentation.

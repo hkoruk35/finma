@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Badge, Panel, Row, signed, toneClass } from "@/components/admin/supertrade/ui";
+import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, signed, toneClass, trUp } from "@/components/admin/supertrade/ui";
 import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
 
@@ -61,6 +61,13 @@ export default function SuperTradeV4Dashboard() {
   }
 
   const assets: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
+  // Herhangi bir varlık gece yarısını geçip yeni seansa henüz gerçek veri
+  // gelmemişse dashboard genelinde tek bir uyarı gösterilir (her satırda
+  // tekrarlamak yerine).
+  const anyNextDay = assets.some((a) => {
+    const d = snapshots[a];
+    return d && d.ok && d.rollover.isNextDay;
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
@@ -70,6 +77,9 @@ export default function SuperTradeV4Dashboard() {
             Multi-Asset Fırsat Tarayıcı
           </h1>
           <Badge tone="brand">SuperTrade V4</Badge>
+          {anyNextDay && (
+            <Badge tone="neutral">{trUp("Sonraki seans için hazır")}</Badge>
+          )}
         </div>
         <p className="text-[12px] text-slate-500">
           S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
@@ -79,75 +89,81 @@ export default function SuperTradeV4Dashboard() {
       {loading && Object.keys(snapshots).length === 0 ? (
         <div className="text-[13px] text-slate-400">Veriler yükleniyor...</div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {assets.map((asset) => {
-            const data = snapshots[asset];
-            const meta = ASSET_MAP[asset];
-            
-            if (!data || !data.ok) {
-              return (
-                <Panel key={asset} padding="p-4" className="opacity-50">
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="text-[16px] font-medium text-slate-300">{asset}</div>
-                    <Badge tone="neutral">Veri Yok</Badge>
-                  </div>
-                  <div className="text-[11px] text-slate-500">{meta.name}</div>
-                </Panel>
-              );
-            }
+        <Panel padding="p-0">
+          <Table bordered={false}>
+            <THead>
+              <tr>
+                <Th>Varlık</Th>
+                <Th align="right">Fiyat</Th>
+                <Th align="right">Net Skor</Th>
+                <Th>Durum</Th>
+                <Th align="right">VWAP Yakınlığı</Th>
+                <Th align="center">Yön</Th>
+              </tr>
+            </THead>
+            <TBody>
+              {assets.map((asset) => {
+                const data = snapshots[asset];
+                const meta = ASSET_MAP[asset];
 
-            const frame = data.frames[data.frames.length - 1];
-            const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
-            const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
-            const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
+                if (!data || !data.ok) {
+                  return (
+                    <Tr key={asset} className="opacity-50">
+                      <Td>
+                        <div className="font-medium text-slate-300">{asset}</div>
+                        <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
+                      </Td>
+                      <Td colSpan={4} valueClass="text-slate-500">
+                        —
+                      </Td>
+                      <Td align="center">
+                        <Badge tone="neutral">Veri Yok</Badge>
+                      </Td>
+                    </Tr>
+                  );
+                }
 
-            return (
-              <div 
-                key={asset} 
-                onClick={() => setSelectedAsset(asset)}
-                className={`cursor-pointer transition-all duration-200 hover:ring-1 hover:ring-[#3b82f6]/50 ${isConfirmed ? 'ring-1 ring-[#3b82f6]/30 bg-[#3b82f6]/[0.02]' : ''}`}
-              >
-                <Panel padding="p-4" className="h-full">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[18px] font-medium text-slate-100">{asset}</span>
-                        {isConfirmed && <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
+                const frame = data.frames[data.frames.length - 1];
+                const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
+                const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
+                const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
+                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
+
+                return (
+                  <Tr
+                    key={asset}
+                    onClick={() => setSelectedAsset(asset)}
+                    className={isConfirmed ? "bg-[#3b82f6]/[0.03]" : ""}
+                  >
+                    <Td>
+                      <div className="flex items-center gap-2 font-medium text-slate-100">
+                        {asset}
+                        {isConfirmed && <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
+                        {data.rollover.isNextDay && (
+                          <Badge tone="brand" className="ml-1">
+                            {trUp(data.rollover.nextTradingDate)}
+                          </Badge>
+                        )}
                       </div>
-                      <div className="text-[11px] text-slate-500">{meta.name}</div>
-                    </div>
-                    <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3 mb-3 border-y border-[#1c2635] py-3">
-                    <div>
-                      <div className="text-[10px] text-slate-500 uppercase">Spot Fiyat</div>
-                      <div className="text-[14px] font-medium text-slate-200">{data.spotPrice.toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <div className="text-[10px] text-slate-500 uppercase">Net Skor</div>
-                      <div className={`text-[14px] font-medium ${toneClass(frame.netScore)}`}>
-                        {signed(frame.netScore, 1)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <Row 
-                      label="Durum" 
-                      value={frame.state} 
-                      valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"} 
-                    />
-                    <Row 
-                      label="VWAP Yakınlığı" 
-                      value={`${Math.abs(data.spotPrice - data.levels.futures.vwap).toFixed(2)} pts`} 
-                    />
-                  </div>
-                </Panel>
-              </div>
-            );
-          })}
-        </div>
+                      <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
+                    </Td>
+                    <Td align="right">{data.spotPrice.toFixed(2)}</Td>
+                    <Td align="right" valueClass={`font-medium ${toneClass(frame.netScore)}`}>
+                      {signed(frame.netScore, 1)}
+                    </Td>
+                    <Td valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"}>
+                      {frame.state.replace(/_/g, " ")}
+                    </Td>
+                    <Td align="right">{vwapDistance.toFixed(2)} puan</Td>
+                    <Td align="center">
+                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
+                    </Td>
+                  </Tr>
+                );
+              })}
+            </TBody>
+          </Table>
+        </Panel>
       )}
     </div>
   );

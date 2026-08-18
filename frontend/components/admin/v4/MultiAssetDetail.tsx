@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
+import { useEffect, useRef, useState } from "react";
+import type { AssetClass, AssetSnapshot, TrendStructure } from "@/lib/v4/types";
 import { minutesToClose } from "@/lib/v4/options";
 import {
   Badge,
@@ -9,9 +9,16 @@ import {
   INSET,
   Panel,
   Row,
+  Table,
+  TBody,
+  Td,
+  Th,
+  THead,
+  Tr,
   Tabs,
   signed,
   toneClass,
+  trUp,
 } from "@/components/admin/supertrade/ui";
 
 import V4ContextEnginePanel from "./V4ContextEnginePanel";
@@ -26,6 +33,13 @@ function directionTone(direction: string): "up" | "down" | "neutral" {
   return "neutral";
 }
 
+/** Yapı (trend) rengi: yükseliş yeşil, düşüş kırmızı, yatay nötr */
+function trendClass(val: TrendStructure): string {
+  if (val === "UPTREND") return "text-[#22c55e]";
+  if (val === "DOWNTREND") return "text-[#ef4444]";
+  return "text-slate-400";
+}
+
 export default function MultiAssetDetail({
   asset,
   snapshot,
@@ -38,8 +52,19 @@ export default function MultiAssetDetail({
   error: string | null;
 }) {
   const [mode, setMode] = useState<"live" | "forecast">("live");
-
   const view = snapshot;
+
+  // Gece yarısını geçip (NY saatiyle) hâlâ yeni seansın gerçek verisi
+  // gelmemişse görünüm otomatik olarak "Tahmin" sekmesine döner — kullanıcı
+  // isterse "Canlı / Bugün" sekmesine geri dönüp son kapanışı görebilir, bu
+  // yüzden geçiş SADECE bir kere (geçiş anında) zorlanır.
+  const autoSwitchedRef = useRef(false);
+  useEffect(() => {
+    if (view?.rollover.isNextDay && !autoSwitchedRef.current) {
+      setMode("forecast");
+      autoSwitchedRef.current = true;
+    }
+  }, [view?.rollover.isNextDay]);
 
   if (!view) {
     return (
@@ -55,13 +80,13 @@ export default function MultiAssetDetail({
     );
   }
 
-  const { decision, levels, structure, factors, context } = view;
+  const { decision, levels, structure, factors, context, rollover, forecast } = view;
   const frame = view.frames[view.frames.length - 1];
   const dirTone = directionTone(decision.direction);
 
   return (
     <div className="mt-4 flex flex-col gap-4">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Tabs
           size="sm"
           value={mode}
@@ -75,10 +100,19 @@ export default function MultiAssetDetail({
           <span className={`h-1.5 w-1.5 rounded-full ${view.isLiveSession ? "bg-[#22c55e]" : "bg-slate-500"}`} />
           Son Güncelleme: {new Date(view.generatedAt).toLocaleTimeString("tr-TR")}
         </span>
+        {rollover.isNextDay ? (
+          <Badge tone="brand" className="ml-auto">
+            {trUp(`Sonraki seans: ${rollover.nextTradingDate}`)}
+          </Badge>
+        ) : rollover.prepReady ? (
+          <Badge tone="neutral" className="ml-auto" title={`${rollover.nextTradingDate} için hazır`}>
+            {trUp("Yarın için hazır")}
+          </Badge>
+        ) : null}
       </div>
 
       {mode === "forecast" ? (
-        <V4SuperTradeForecast snapshot={view} />
+        <V4SuperTradeForecast snapshot={view} precomputed={forecast} />
       ) : (
         <>
           {/* Karar Masası */}
@@ -92,8 +126,8 @@ export default function MultiAssetDetail({
           >
             <div className="mb-3 flex items-start justify-between">
               <div>
-                <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
-                  Sistem Kararı ({asset})
+                <div className="text-[10px] font-medium tracking-wider text-slate-500">
+                  {trUp(`Sistem Kararı (${asset})`)}
                 </div>
                 <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
                   {decision.action}
@@ -119,11 +153,9 @@ export default function MultiAssetDetail({
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_300px]">
             {/* Sol Kolon - Grafik ve Analiz */}
             <div className="flex flex-col gap-4 min-w-0">
-              {/* Grafik */}
+              {/* Grafik — gerçek BogaStock grafik motoru, tamamen interaktif */}
               <V4SuperTradeLiveChart
                 asset={asset}
-                esBars={view.bars.futures}
-                spxBars={view.bars.spot}
                 levels={{
                   vwap: frame.vwap,
                   onh: levels.futures.onh,
@@ -132,20 +164,42 @@ export default function MultiAssetDetail({
                   orl: levels.spot.orl,
                   pdc: levels.futures.pdc,
                 }}
-                vwapStartTime={view.frames[0]?.time ?? 0}
                 loading={loading}
               />
 
               {/* Yapı ve Skor Tablosu */}
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-                    <StructureBox label="VADELİ 15M" val={structure.futures15m} />
-                    <StructureBox label="VADELİ 5M" val={structure.futures5m} />
-                    <StructureBox label="VADELİ 1M" val={structure.futures1m} />
-                    <StructureBox label="SPOT 5M" val={structure.spot5m} />
-                    <StructureBox label="SPOT 1M" val={structure.spot1m} />
-                  </div>
+                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2" padding="p-0">
+                  <Table bordered={false}>
+                    <THead>
+                      <tr>
+                        <Th align="center">Vadeli 15dk</Th>
+                        <Th align="center">Vadeli 5dk</Th>
+                        <Th align="center">Vadeli 1dk</Th>
+                        <Th align="center">Spot 5dk</Th>
+                        <Th align="center">Spot 1dk</Th>
+                      </tr>
+                    </THead>
+                    <TBody>
+                      <Tr>
+                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures15m)}`}>
+                          {structure.futures15m}
+                        </Td>
+                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures5m)}`}>
+                          {structure.futures5m}
+                        </Td>
+                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures1m)}`}>
+                          {structure.futures1m}
+                        </Td>
+                        <Td align="center" valueClass={`font-medium ${trendClass(structure.spot5m)}`}>
+                          {structure.spot5m}
+                        </Td>
+                        <Td align="center" valueClass={`font-medium ${trendClass(structure.spot1m)}`}>
+                          {structure.spot1m}
+                        </Td>
+                      </Tr>
+                    </TBody>
+                  </Table>
                 </Panel>
                 <Panel title="Skor Özeti">
                   <div className="flex h-full flex-col justify-center gap-3">
@@ -162,17 +216,28 @@ export default function MultiAssetDetail({
               </div>
 
               {/* Faktör dökümü */}
-              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
-                <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                  {factors.map((f, i) => (
-                    <Row
-                      key={`${f.label}-${i}`}
-                      label={f.label}
-                      value={f.detail}
-                      valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
-                    />
-                  ))}
-                </div>
+              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding="p-0">
+                <Table bordered={false}>
+                  <THead>
+                    <tr>
+                      <Th>Faktör</Th>
+                      <Th align="right">Ölçüm</Th>
+                    </tr>
+                  </THead>
+                  <TBody>
+                    {factors.map((f, i) => (
+                      <Tr key={`${f.label}-${i}`}>
+                        <Td valueClass="text-slate-400">{f.label}</Td>
+                        <Td
+                          align="right"
+                          valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+                        >
+                          {f.detail}
+                        </Td>
+                      </Tr>
+                    ))}
+                  </TBody>
+                </Table>
               </Panel>
 
               <V4StrategyLab
@@ -187,31 +252,61 @@ export default function MultiAssetDetail({
 
             {/* Sağ Kolon - Kritik Seviyeler */}
             <div className="flex w-full flex-col gap-4">
-              <Panel title="Kritik Seviyeler" padding="p-4">
-                <div className="space-y-0.5">
-                  <Row label="Açılış ORH" value={levels.spot.orh.toFixed(2)} />
-                  <Row label="Açılış ORL" value={levels.spot.orl.toFixed(2)} />
-                  <Row label="OR genişliği" value={`${levels.spot.orSize.toFixed(2)} puan`} />
-                  <Row label="Seans VWAP" value={frame.vwap.toFixed(2)} valueClass="text-[#3b82f6]" />
-                  <div className="my-1.5 h-px bg-[#1c2635]" />
-                  <Row label="Gece ONH" value={levels.futures.onh.toFixed(2)} />
-                  <Row label="Gece ONL" value={levels.futures.onl.toFixed(2)} />
-                  <Row label="ON orta nokta" value={levels.futures.onMid.toFixed(2)} />
-                  <Row label="Önceki gün kapanışı" value={levels.futures.pdc.toFixed(2)} />
-                </div>
+              <Panel title="Kritik Seviyeler" padding="p-0">
+                <Table bordered={false}>
+                  <TBody>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Açılış ORH</Td>
+                      <Td align="right">{levels.spot.orh.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Açılış ORL</Td>
+                      <Td align="right">{levels.spot.orl.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">OR genişliği</Td>
+                      <Td align="right">{levels.spot.orSize.toFixed(2)} puan</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Seans VWAP</Td>
+                      <Td align="right" valueClass="text-[#3b82f6]">{frame.vwap.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Gece ONH</Td>
+                      <Td align="right">{levels.futures.onh.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Gece ONL</Td>
+                      <Td align="right">{levels.futures.onl.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">ON orta nokta</Td>
+                      <Td align="right">{levels.futures.onMid.toFixed(2)}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td valueClass="text-slate-500">Önceki gün kapanışı</Td>
+                      <Td align="right">{levels.futures.pdc.toFixed(2)}</Td>
+                    </Tr>
+                  </TBody>
+                </Table>
               </Panel>
-              <Panel title="Son Değişimler" padding="p-4">
+              <Panel title="Son Değişimler" padding={view.changes.length ? "p-0" : "p-4"}>
                 {view.changes.length ? (
-                  <div className="space-y-0.5">
-                    {view.changes.map((c, i) => (
-                      <Row
-                        key={`${c.label}-${i}`}
-                        label={c.label}
-                        value={`${c.from} → ${c.to}`}
-                        valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
-                      />
-                    ))}
-                  </div>
+                  <Table bordered={false}>
+                    <TBody>
+                      {view.changes.map((c, i) => (
+                        <Tr key={`${c.label}-${i}`}>
+                          <Td valueClass="text-slate-500">{c.label}</Td>
+                          <Td
+                            align="right"
+                            valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
+                          >
+                            {c.from} → {c.to}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </TBody>
+                  </Table>
                 ) : (
                   <EmptyState>Son 5 dakikada anlamlı değişim yok.</EmptyState>
                 )}
@@ -225,17 +320,6 @@ export default function MultiAssetDetail({
         Bu görünüm araştırma ve karar desteği amaçlıdır. Opsiyon primleri teorik modellerdir, otomatik
         emre dönüşmez ve yatırım tavsiyesi değildir.
       </p>
-    </div>
-  );
-}
-
-function StructureBox({ label, val }: { label: string; val: string }) {
-  const t =
-    val === "UPTREND" ? "text-[#22c55e]" : val === "DOWNTREND" ? "text-[#ef4444]" : "text-slate-400";
-  return (
-    <div className="flex flex-col items-center justify-center gap-1 rounded bg-[#0f141d] p-2 text-center">
-      <div className="text-[10px] text-slate-500">{label}</div>
-      <div className={`flex items-center gap-1 text-[11px] font-medium ${t}`}>{val}</div>
     </div>
   );
 }

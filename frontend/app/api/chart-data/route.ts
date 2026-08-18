@@ -48,12 +48,16 @@ export async function GET(req: NextRequest) {
   const range = timeframe ? TIMEFRAME_MAP[timeframe]?.yRange || "6mo" : sp.get("range") || "6mo";
   const resampleTo = timeframe ? TIMEFRAME_MAP[timeframe]?.resampleTo : undefined;
   const indicatorParam = sp.get("indicators"); // csv: ema9,ema20,ema50,ema200,rsi,macd,bb,vwap,sr
+  // SuperTrade V4 gibi vadeli (ES=F/NQ=F) kontratlar gece Globex seansını da
+  // göstermek istiyor — varsayılan `includePrePost=false` bu barları eler.
+  // Diğer tüm çağıranlar bu parametreyi hiç göndermiyor, davranışları değişmiyor.
+  const extendedHours = sp.get("extendedHours") === "true";
 
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
 
   try {
     const ySymbol = resolveYahooSymbol(ticker);
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=${interval}&range=${range}&includePrePost=false`;
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=${interval}&range=${range}&includePrePost=${extendedHours ? "true" : "false"}`;
     const res = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",

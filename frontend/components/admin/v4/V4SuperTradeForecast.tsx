@@ -1,41 +1,61 @@
 import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
-import type { AssetSnapshot } from "@/lib/v4/types";
+import type { AssetSnapshot, ForecastBundle } from "@/lib/v4/types";
 
-export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnapshot }) {
+export default function V4SuperTradeForecast({
+  snapshot,
+  precomputed,
+}: {
+  snapshot: AssetSnapshot;
+  /** Sunucu tarafında kapanıştan 1 saat sonra (17:00 ET) hazırlanmış özet —
+   *  varsa doğrudan kullanılır (dashboard ile birebir aynı sayı), yoksa
+   *  (henüz hazır değilse) aynı mantıkla anlık hesaplanır. */
+  precomputed?: ForecastBundle | null;
+}) {
   if (!snapshot) return null;
 
   const { levels, context, spotPrice, futuresPrice, vixPrice } = snapshot;
 
-  // Basit bir tahmin motoru
-  let bias: "BULLISH" | "BEARISH" | "NEUTRAL" = "NEUTRAL";
-  let score = 0;
+  let bias: "BULLISH" | "BEARISH" | "NEUTRAL";
+  let score: number;
+  let analysisText: string;
 
-  // 1. VWAP konumu
-  if (futuresPrice > levels.futures.vwap) score += 1;
-  else if (futuresPrice < levels.futures.vwap) score -= 1;
-
-  // 2. ORH / ORL konumu
-  if (spotPrice > levels.spot.orh) score += 2;
-  else if (spotPrice < levels.spot.orl) score -= 2;
-
-  // 3. VIX Trendi
-  if (context.volatility.trend === "FALLING") score += 1;
-  else if (context.volatility.trend === "RISING") score -= 1;
-
-  // 4. Tarihsel Benzerlik
-  if (context.analog.bias === "BULLISH") score += 1;
-  else if (context.analog.bias === "BEARISH") score -= 1;
-
-  if (score >= 2) bias = "BULLISH";
-  else if (score <= -2) bias = "BEARISH";
-
-  let analysisText = "";
-  if (bias === "BULLISH") {
-    analysisText = "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
-  } else if (bias === "BEARISH") {
-    analysisText = "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
+  if (precomputed) {
+    bias = precomputed.bias;
+    score = precomputed.score;
+    analysisText = precomputed.analysisText;
   } else {
-    analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
+    // Sunucu tarafı özet henüz hazır değil (kapanıştan 1 saat geçmedi) —
+    // sekme yine de anında kullanılabilir olsun diye aynı basit tahmin
+    // motoru burada, istemci tarafında çalışır.
+    score = 0;
+
+    // 1. VWAP konumu
+    if (futuresPrice > levels.futures.vwap) score += 1;
+    else if (futuresPrice < levels.futures.vwap) score -= 1;
+
+    // 2. ORH / ORL konumu
+    if (spotPrice > levels.spot.orh) score += 2;
+    else if (spotPrice < levels.spot.orl) score -= 2;
+
+    // 3. VIX Trendi
+    if (context.volatility.trend === "FALLING") score += 1;
+    else if (context.volatility.trend === "RISING") score -= 1;
+
+    // 4. Tarihsel Benzerlik
+    if (context.analog.bias === "BULLISH") score += 1;
+    else if (context.analog.bias === "BEARISH") score -= 1;
+
+    bias = "NEUTRAL";
+    if (score >= 2) bias = "BULLISH";
+    else if (score <= -2) bias = "BEARISH";
+
+    if (bias === "BULLISH") {
+      analysisText = "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
+    } else if (bias === "BEARISH") {
+      analysisText = "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
+    } else {
+      analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
+    }
   }
 
   return (

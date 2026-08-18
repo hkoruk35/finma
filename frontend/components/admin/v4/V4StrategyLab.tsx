@@ -10,7 +10,7 @@
 import { useMemo, useState } from "react";
 import type { SignalState } from "@/lib/v4/types";
 import { impliedVolFor, priceOption } from "@/lib/v4/options";
-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "../supertrade/ui";
+import { Badge, EmptyState, INSET, Panel, Row, Tabs, num, trUp } from "../supertrade/ui";
 
 type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
 
@@ -291,14 +291,14 @@ export default function V4StrategyLab({
     >
       <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
-            Deterministik durum
+          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+            {trUp("Deterministik durum")}
           </div>
           <div className="mt-1 text-[13px] text-slate-200">{state.replace(/_/g, " ")}</div>
         </div>
         <div className={`${INSET} p-3`}>
-          <label className="block text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
-            Maksimum risk bütçesi ($)
+          <label className="block text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+            {trUp("Maksimum risk bütçesi ($)")}
           </label>
           <input
             type="number"
@@ -310,8 +310,8 @@ export default function V4StrategyLab({
           />
         </div>
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
-            Hedef süre
+          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+            {trUp("Hedef süre")}
           </div>
           <div className="mt-1.5">
             <Tabs
@@ -323,8 +323,8 @@ export default function V4StrategyLab({
           </div>
         </div>
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
-            Bütçeye uyan yapı
+          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+            {trUp("Bütçeye uyan yapı")}
           </div>
           <div className="mt-1 text-[13px] tabular-nums text-slate-200">
             {withinBudget.length} / {filtered.length}
@@ -344,8 +344,8 @@ export default function V4StrategyLab({
             <article key={s.id} className={`${INSET} flex flex-col p-3.5`}>
               <header className="mb-2.5 flex items-start justify-between gap-2 border-b border-[#1c2635] pb-2.5">
                 <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-[0.06em] text-slate-500">
-                    {CATEGORY_LABEL[s.category]}
+                  <div className="text-[10px] tracking-[0.06em] text-slate-500">
+                    {trUp(CATEGORY_LABEL[s.category])}
                   </div>
                   <h4 className="mt-0.5 text-[13px] font-medium leading-snug text-slate-100">{s.name}</h4>
                 </div>
@@ -380,12 +380,12 @@ export default function V4StrategyLab({
               </div>
 
               <div className="mt-2.5 border-t border-[#1c2635] pt-2.5">
-                <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
-                  Neden bu yapı
+                <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+                  {trUp("Neden bu yapı")}
                 </div>
                 <p className="mt-1 text-[11px] leading-relaxed text-slate-400">{s.reason}</p>
-                <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.06em] text-slate-500">
-                  İptal koşulu
+                <div className="mt-2 text-[10px] font-medium tracking-[0.06em] text-slate-500">
+                  {trUp("İptal koşulu")}
                 </div>
                 <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">{s.invalidation}</p>
               </div>
@@ -396,8 +396,8 @@ export default function V4StrategyLab({
 
       {overBudget.length > 0 && (
         <div className="mt-3">
-          <div className="mb-1.5 text-[10px] font-medium uppercase tracking-[0.06em] text-slate-500">
-            Bütçe dışı kalanlar
+          <div className="mb-1.5 text-[10px] font-medium tracking-[0.06em] text-slate-500">
+            {trUp("Bütçe dışı kalanlar")}
           </div>
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
             {overBudget.map((s) => (
