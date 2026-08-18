@@ -55,15 +55,22 @@ export default function V4PerformancePage() {
   const totalClosed = won + lost + chop;
   const winRate = totalClosed > 0 ? ((won + chop) / totalClosed) * 100 : 0;
 
-  // CHOP olan işlemler de LOST olarak kabul edilir (0DTE opsiyon mantığı)
-  const effectiveWon = won;
-  const effectiveLost = lost + chop;
-  
-  // Sabit Kontrat Mantığı:
-  // 1 Kontrat Maliyeti: $100
-  // Başarılı (WON) -> +$158 Kâr (Toplam: $258)
-  // Başarısız (LOST/CHOP) -> -$89 Zarar (Toplam: $11)
-  const totalDollarPnl = (effectiveWon * 158) - (effectiveLost * 89);
+  let totalDollarPnl = 0;
+  logs.forEach((l) => {
+    if (l.status === "PENDING") return;
+    
+    const ePrem = l.strategy_json?.entryPremium;
+    const xPrem = l.strategy_json?.exitPremium;
+    
+    if (typeof ePrem === "number" && typeof xPrem === "number" && ePrem > 0) {
+      // 0DTE: We always BUY the option. So PnL is (Exit - Entry) * 100.
+      totalDollarPnl += (xPrem - ePrem) * 100;
+    } else {
+      // Eski loglar için varsayılan fallback
+      if (l.status === "WON") totalDollarPnl += 158;
+      else totalDollarPnl -= 89;
+    }
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
@@ -154,9 +161,15 @@ export default function V4PerformancePage() {
                     <td className="px-4 py-3 text-slate-300">
                       <div>Giriş: ${log.entry_price?.toFixed(2)}</div>
                       <div className="text-[#ef4444] text-[10px]">Stop: ${log.invalidation_price?.toFixed(2)}</div>
+                      <div className="mt-1 text-[10px] text-slate-500">
+                        {log.strategy_json?.entryPremium ? `Opsiyon Maliyeti: $${(log.strategy_json.entryPremium * 100).toFixed(2)}` : ''}
+                      </div>
                     </td>
                     <td className="px-4 py-3 text-slate-300">
-                      {log.exit_price ? `$${log.exit_price.toFixed(2)}` : "—"}
+                      <div>Spot Çıkış: {log.exit_price ? `$${log.exit_price.toFixed(2)}` : "—"}</div>
+                      <div className={`mt-1 text-[10px] ${log.strategy_json?.exitPremium && log.strategy_json.entryPremium && log.strategy_json.exitPremium > log.strategy_json.entryPremium ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+                        {log.strategy_json?.exitPremium ? `Opsiyon Değeri: $${(log.strategy_json.exitPremium * 100).toFixed(2)}` : ''}
+                      </div>
                     </td>
                     <td className="px-4 py-3 text-[11px] text-slate-400 max-w-xs">
                       {log.analysis ? log.analysis : "—"}

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { buildReplay } from "@/lib/v4/snapshot";
 import { createClient } from "@supabase/supabase-js";
 import { ASSET_MAP, AssetClass } from "@/lib/v4/types";
+import { priceOption, impliedVolFor, minutesToClose } from "@/lib/v4/options";
 
 // Vercel Cron endpoint
 export const runtime = "nodejs";
@@ -102,13 +103,43 @@ export async function GET(request: Request) {
             analysis = "Seans sonuna kadar hedefe ulaşılamadı. 0DTE kontratı süresi dolduğu için zararla kapandı.";
           }
 
+          const scale = ASSET_MAP[tradeAsset].scale;
+          const step = 5 * scale;
+          const strike = Math.round(trade.entry_price / step) * step;
+          
+          let entryPremium = 0;
+          let exitPremium = 0;
+
+          // Bulabildiğimiz ilk uygun kareyi giriş karesi olarak alıyoruz
+          const entryFrame = replay.frames.find(f => f.time >= tradeTime) || replay.frames[0];
+          const exitFrame = replay.frames.find(f => f.spotPrice === exitPrice || f.futuresPrice === exitPrice) || replay.frames[replay.frames.length - 1];
+
+          if (entryFrame && exitFrame) {
+            const isCall = trade.direction === "LONG";
+            
+            const [eH, eM] = entryFrame.timeLabel.split(":").map(Number);
+            const eMinLeft = minutesToClose(eH * 60 + eM);
+            const eIv = impliedVolFor(replay.context.volatility.vix, trade.entry_price, strike);
+            entryPremium = priceOption(trade.entry_price, strike, eMinLeft, eIv, isCall).price;
+
+            const [xH, xM] = exitFrame.timeLabel.split(":").map(Number);
+            const xMinLeft = minutesToClose(xH * 60 + xM);
+            const xIv = impliedVolFor(replay.context.volatility.vix, exitPrice, strike);
+            exitPremium = priceOption(exitPrice, strike, xMinLeft, xIv, isCall).price;
+          }
+
+          const strategyObj = trade.strategy_json || {};
+          strategyObj.entryPremium = entryPremium;
+          strategyObj.exitPremium = exitPremium;
+
           await supabase
             .from("supertrade_logs")
             .update({
               status: newStatus,
               exit_price: exitPrice,
               exit_time: new Date().toISOString(),
-              analysis: analysis
+              analysis: analysis,
+              strategy_json: strategyObj
             })
             .eq("id", trade.id);
             
