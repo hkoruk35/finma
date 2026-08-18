@@ -164,7 +164,6 @@ export default async function IndexPage({ params }: Props) {
               height={340}
               defaultTimeframe="D"
               defaultCandleType="line"
-              hideIndicatorToggles={true}
             />
           </div>
         </section>

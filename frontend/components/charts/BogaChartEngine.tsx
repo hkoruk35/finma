@@ -493,15 +493,6 @@ export default function BogaChartEngine({
     } catch {}
   }, [compact]);
 
-  // 1H zaman diliminde her zaman Candle tipine ve sadece EMA 50 göstergesine
-  // dön — kullanıcı bu zaman dilimine geçtiğinde (veya sayfa 1H ile açıldığında).
-  useEffect(() => {
-    if (interval === "60") {
-      setCandleType("candle");
-      setInternalActive(new Set(["ema50"] as IndicatorKey[]));
-    }
-  }, [interval]);
-
   // nyTimeFormatter (crosshair time label) is interval-aware — the chart is
   // only created once, so it reads the current interval from this ref
   // instead of needing chart.applyOptions on every interval change.
