@@ -12,6 +12,7 @@ import type {
   ForecastBundle,
   Frame,
   FrameLite,
+  Decision,
   AssetReplayResponse,
   AssetSnapshot,
   RolloverInfo,
@@ -174,15 +175,109 @@ export interface SessionBuild {
 
 export function buildSession(data: MarketData, sessionDate: string, asset: AssetClass): SessionBuild | null {
   const allDates = sessionDates(data.spot1m);
-  if (!allDates.includes(sessionDate)) return null;
+  const isFuture = allDates.length > 0 && sessionDate > allDates[allDates.length - 1];
+  if (!allDates.includes(sessionDate) && !isFuture) return null;
   const info = ASSET_MAP[asset];
   const scale = info.scale;
   const futuresLabel = info.futures.replace("=F", "");
   const assetLabel = asset as string;
 
   const slices = buildSessionSlices(data.futures1m, data.spot1m, sessionDate, allDates);
-  const { spxRth, esRth, esVwap } = slices;
-  if (!spxRth.length) return null;
+  const { spxRth, esRth, esVwap, esOvernight } = slices;
+  
+  if (!spxRth.length) {
+    if (!esOvernight.length) return null;
+    
+    const lastSpxDaily = data.spxDaily[data.spxDaily.length - 1];
+    const prevSpxClose = lastSpxDaily ? lastSpxDaily.close : data.spxMarketPrice ?? 0;
+    const lastEsOvernight = esOvernight[esOvernight.length - 1];
+    const p = nyParts(lastEsOvernight.time);
+    
+    // Statik (gün boyunca değişmeyen) seviyeler bir kez hesaplanır
+    const staticEs = computeFuturesLevels(data.futures1m, slices, scale);
+    const staticSpx = computeSpotLevels(data.spot1m, slices);
+
+    const esLevels: FuturesLevels = {
+      ...staticEs,
+      vwap: lastEsOvernight.close,
+      vwapSlope: "FLAT",
+      vwapDistance: 0,
+      priceVsVwap: "AT",
+      sessionHigh: staticEs.pdc,
+      sessionLow: staticEs.pdc,
+      isVwapChop: false,
+    };
+    
+    const spxLevels: SpotLevels = {
+      ...staticSpx,
+      orh: 0,
+      orl: 0,
+      orMid: 0,
+      orSize: 0,
+      isOrDefined: false,
+      sessionHigh: prevSpxClose,
+      sessionLow: prevSpxClose,
+      vsOr: "INSIDE",
+    };
+    
+    const structure: StructureSet = {
+      futures15m: "RANGE",
+      futures5m: "RANGE",
+      futures1m: "RANGE",
+      spot5m: "RANGE",
+      spot1m: "RANGE",
+    };
+    
+    const decision: Decision = {
+      direction: "NEUTRAL",
+      tone: "NEUTRAL",
+      action: "Piyasa Açılışını Bekleyin",
+      confirmation: "Pre-market aşamasında (SPX kapalı).",
+      invalidation: "-",
+      triggerLevelName: "N/A",
+      triggerLevelValue: 0,
+      statusBadge: "Beklemede",
+      statusStrength: "none",
+    };
+    
+    const frame: Frame = {
+      index: 0,
+      time: lastEsOvernight.time,
+      timeLabel: p.hhmm,
+      spotPrice: round2(prevSpxClose),
+      futuresPrice: round2(lastEsOvernight.close),
+      basis: round2(lastEsOvernight.close - prevSpxClose),
+      vwap: esLevels.vwap,
+      longScore: 0,
+      shortScore: 0,
+      netScore: 0,
+      state: "NEUTRAL",
+      confidence: "LOW",
+      phase: sessionPhase(p.minutes),
+      trigger: 0,
+      factors: [],
+      structure,
+      decision,
+    };
+    
+    const nqRth = data.nq1m.filter((b) => {
+      const pn = nyParts(b.time);
+      return pn.ymd === slices.prevDate && pn.minutes >= RTH_OPEN_MIN;
+    });
+    
+    return {
+      sessionDate,
+      prevDate: slices.prevDate,
+      frames: [frame],
+      levels: { spot: spxLevels, futures: esLevels },
+      esChart: slices.esChart,
+      spxChart: slices.spxChart,
+      esOvernight: slices.esOvernight,
+      esRthFirst: null,
+      nqChangePct: pctChangeFromOpen(nqRth, nqRth.length - 1),
+      esChangePct: 0,
+    };
+  }
 
   // Statik (gün boyunca değişmeyen) seviyeler bir kez hesaplanır
   const staticEs = computeFuturesLevels(data.futures1m, slices, scale);
@@ -487,7 +582,7 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   const notes = [...data.errors];
   const nowSec = Math.floor(Date.now() / 1000);
 
-  const sessionDate = latestSessionDate(data.spot1m);
+  const sessionDate = latestSessionDate(data.spot1m, nowSec);
   if (!sessionDate) {
     throw new Error(`${asset} seans verisi alınamadı`);
   }

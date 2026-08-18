@@ -22,6 +22,8 @@ import {
   toneClass,
 } from "@/components/admin/supertrade/ui";
 
+import { ClientTime } from "@/components/global/ClientTime";
+
 import V4ContextEnginePanel from "./V4ContextEnginePanel";
 import V4StrategyLab from "./V4StrategyLab";
 import V4SuperTradeForecast from "./V4SuperTradeForecast";
@@ -99,7 +101,7 @@ export default function MultiAssetDetail({
         />
         <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
           <span className={`h-1.5 w-1.5 rounded-full ${view.isLiveSession ? "bg-[#22c55e]" : "bg-slate-500"}`} />
-          Son Güncelleme: {new Date(view.generatedAt).toLocaleTimeString("tr-TR")}
+          Son Güncelleme: <ClientTime timestamp={view.asOf} lang="tr-TR" />
         </span>
         {rollover.isNextDay ? (
           <Badge tone="brand" className="ml-auto">

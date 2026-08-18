@@ -196,13 +196,52 @@ export function isRth(bar: Bar): boolean {
   return p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN;
 }
 
-/** Veride bulunan en son RTH seans tarihini (YYYY-MM-DD) döndürür */
-export function latestSessionDate(bars: Bar[]): string | null {
+/** sessionDate'den sonraki bir sonraki işlem günü — hafta sonu atlanır */
+export function nextWeekday(ymd: string): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  do {
+    date.setUTCDate(date.getUTCDate() + 1);
+  } while (date.getUTCDay() === 0 || date.getUTCDay() === 6);
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(
+    date.getUTCDate()
+  ).padStart(2, "0")}`;
+}
+
+/** 
+ * Veride bulunan en son RTH seans tarihini (YYYY-MM-DD) döndürür.
+ * Eğer nowSec verilirse ve saat 00:00 ET'yi geçmişse (veya Pazar akşamı Globex açılmışsa), 
+ * o güne ait SPX datası olmasa bile "sonraki seans" tarihini döndürerek gün devrini (rollover) sağlar.
+ */
+export function latestSessionDate(bars: Bar[], nowSec?: number): string | null {
+  let lastRth = null;
   for (let i = bars.length - 1; i >= 0; i--) {
     const p = nyParts(bars[i].time);
-    if (p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN) return p.ymd;
+    if (p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN) {
+      lastRth = p.ymd;
+      break;
+    }
   }
-  return bars.length ? nyParts(bars[bars.length - 1].time).ymd : null;
+  if (!lastRth) {
+    lastRth = bars.length ? nyParts(bars[bars.length - 1].time).ymd : null;
+  }
+  if (!lastRth) return null;
+
+  if (nowSec) {
+    const now = nyParts(nowSec);
+    // Gece yarısını geçmişsek devir yap
+    if (now.ymd !== lastRth) {
+      if (now.weekday >= 1 && now.weekday <= 5) {
+        return now.ymd;
+      }
+      // Pazar akşamı Globex açıldıysa Pazartesiye devret
+      if (now.weekday === 0 && now.minutes >= GLOBEX_OPEN_MIN) {
+        return nextWeekday(lastRth);
+      }
+    }
+  }
+  
+  return lastRth;
 }
 
 /** Veride bulunan tüm RTH seans tarihleri, eskiden yeniye */
