@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-08-18T14:08:10.813743-04:00",
+  "generated_at": "2026-08-18T17:06:05.096417-04:00",
   "picks": [
-    {
-      "ticker": "FROG",
-      "sector": "Technology",
-      "date_added": "2026-08-18",
-      "score": 44.0
-    },
-    {
-      "ticker": "DIS",
-      "sector": "Communication Services",
-      "date_added": "2026-08-18",
-      "score": 44.0
-    },
     {
       "ticker": "MCO",
       "sector": "Financial Services",
@@ -24,24 +12,6 @@
       "sector": "Basic Materials",
       "date_added": "2026-08-18",
       "score": 42.0
-    },
-    {
-      "ticker": "CRDO",
-      "sector": "Technology",
-      "date_added": "2026-08-18",
-      "score": 40.5
-    },
-    {
-      "ticker": "BC",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-18",
-      "score": 39.0
-    },
-    {
-      "ticker": "ATI",
-      "sector": "Industrials",
-      "date_added": "2026-08-18",
-      "score": 36.0
     },
     {
       "ticker": "SYRE",
@@ -56,10 +26,22 @@
       "score": 34.5
     },
     {
-      "ticker": "NET",
-      "sector": "Technology",
+      "ticker": "PK",
+      "sector": "Real Estate",
       "date_added": "2026-08-18",
-      "score": 31.5
+      "score": 40.0
+    },
+    {
+      "ticker": "GE",
+      "sector": "Industrials",
+      "date_added": "2026-08-18",
+      "score": 38.0
+    },
+    {
+      "ticker": "GOOGL",
+      "sector": "Communication Services",
+      "date_added": "2026-08-18",
+      "score": 35.5
     }
   ]
 }
