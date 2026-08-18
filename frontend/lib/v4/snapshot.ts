@@ -415,6 +415,7 @@ export function buildSession(data: MarketData, sessionDate: string, asset: Asset
       spotPrice: spxBar.close,
       futuresPrice: esBar.close,
       nqChangePct: pctChangeFromOpen(nqRth, nqIdx[i]),
+      esChangePct: pctChangeFromOpen(esRth, ei),
       vixChangePct: pctChangeFromOpen(vixRth, vixIdx[i]),
       es: esLevels,
       spx: spxLevels,
@@ -556,6 +557,9 @@ function computeForecastBundle(input: {
   orl: number;
   volTrend: "RISING" | "FALLING" | "STABLE";
   analogBias: "BULLISH" | "BEARISH" | "NEUTRAL";
+  nqChangePct?: number;
+  esChangePct?: number;
+  assetLabel?: string;
 }): ForecastBundle {
   let score = 0;
   if (input.futuresPrice > input.vwap) score += 1;
@@ -575,6 +579,15 @@ function computeForecastBundle(input: {
   else if (score <= -2) bias = "BEARISH";
 
   let analysisText: string;
+  
+  const isSpx = input.assetLabel === "SPX" || input.assetLabel === "SPY";
+  const nqPct = input.nqChangePct || 0;
+  const esPct = input.esChangePct || 0;
+  const diff = esPct - nqPct;
+
+  const rotationToDefensive = isSpx && diff > 0.8 && nqPct < -0.5;
+  const rotationToTech = isSpx && diff < -0.8 && nqPct > 0.5;
+
   if (bias === "BULLISH") {
     analysisText =
       "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
@@ -582,8 +595,13 @@ function computeForecastBundle(input: {
     analysisText =
       "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
   } else {
-    analysisText =
-      "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
+    if (rotationToDefensive) {
+      analysisText = "Piyasa endeks bazında yatay (nötr) görünse de, alt kırılımda teknoloji/yarı iletken (QQQ) tarafındaki sert satışa karşın sermayenin mega-cap savunma hisselerine kaydığı net bir sektör rotasyonu yaşandı. Bu ortamda ağırlıklı ortalama yatay kalır; SPY'ı shortlamak kendi kendini nötrleyen bir işlemdir. Aşağı yönlü görüş varsa doğru araç QQQ'dur.";
+    } else if (rotationToTech) {
+      analysisText = "Endeks geneli yatay seyretmesine rağmen teknoloji (QQQ/NDX) tarafında belirgin bir para girişi (rotasyon) var. Bu ayrışma SPY'ın yön bulmasını zorlaştırırken, yükseliş yönlü ivmenin ağırlıklı olarak teknoloji hisselerinden geldiğini gösteriyor.";
+    } else {
+      analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
+    }
   }
 
   return { bias, score, analysisText };
@@ -759,6 +777,9 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
         orl: session.levels.spot.orl,
         volTrend: context.volatility.trend,
         analogBias: context.analog.bias,
+        nqChangePct: session.nqChangePct,
+        esChangePct: session.esChangePct,
+        assetLabel: ASSET_MAP[asset].spot,
       })
     : null;
 

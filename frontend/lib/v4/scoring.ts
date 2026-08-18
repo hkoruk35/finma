@@ -62,6 +62,7 @@ export interface ScoreInput {
   spotPrice: number;
   futuresPrice: number;
   nqChangePct: number;
+  esChangePct: number;
   vixChangePct: number;
   es: FuturesLevels;
   spx: SpotLevels;
@@ -138,7 +139,6 @@ export function computeScores(input: ScoreInput): ScoreResult {
     push("Kırılım kabulü", "5 dk kapanış teyidi henüz yok", 0);
   }
 
-  // 7. Çapraz vadeli uyumu
   if (Number.isFinite(input.nqChangePct)) {
     const w = Math.max(-0.75, Math.min(0.75, input.nqChangePct * 1.5));
     push(
@@ -146,6 +146,28 @@ export function computeScores(input: ScoreInput): ScoreResult {
       `${input.nqChangePct >= 0 ? "+" : ""}%${fmtTr(input.nqChangePct)} (gün içi)`,
       w
     );
+
+    // SEKTÖR ROTASYONU KONTROLÜ (SPY/SPX için QQQ Divergence)
+    if ((input.assetLabel === "SPX" || input.assetLabel === "SPY") && Number.isFinite(input.esChangePct)) {
+      const diff = input.esChangePct - input.nqChangePct;
+      
+      // Teknoloji düşüyor ama SPY tutunuyor -> SPY'ı shortlamak tehlikeli, QQQ tercih edilmeli
+      if (diff > 0.8 && input.nqChangePct < -0.5) {
+        push(
+          "Sektörel Rotasyon",
+          "Teknoloji (QQQ) çöküyor ama sermaye savunma hisselerine kayıyor. SPY short tehlikeli.",
+          1.5 // Shortu baskıla (long puanı ekle)
+        );
+      } 
+      // Teknoloji ralli yapıyor ama SPY geride kalıyor -> Rotasyon
+      else if (diff < -0.8 && input.nqChangePct > 0.5) {
+        push(
+          "Sektörel Rotasyon",
+          "Teknolojiye para girişi var ama endeks geneline yayılmıyor.",
+          -1.5 // Longu baskıla
+        );
+      }
+    }
   }
 
   // 8. VIX (ters ilişki)
