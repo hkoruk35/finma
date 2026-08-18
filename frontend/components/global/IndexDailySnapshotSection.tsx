@@ -46,7 +46,7 @@ export function IndexDailySnapshotSection({
       <div className="mb-4 border-b border-[#1e2a3a] pb-3">
         <h2 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wide mb-1.5 flex items-center justify-between">
           <span>{t.session}: {sessionLabel(snapshot.session, t)}</span>
-          {primary && <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full">{t.latestAnalysis || "En Güncel"}</span>}
+          {primary && <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full">{locale === "tr" ? "En Güncel" : "Latest"}</span>}
         </h2>
         <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400 font-medium">
           <div className="flex items-center gap-1">
