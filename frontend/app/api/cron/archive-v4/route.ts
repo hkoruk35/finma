@@ -96,15 +96,10 @@ export async function GET(request: Request) {
             // Seans sonuna kadar hedef veya stop görülmedi
             const lastFrame = replay.frames[replay.frames.length - 1];
             exitPrice = tradeAsset === "SPX" || tradeAsset === "NDX" ? lastFrame.spotPrice : lastFrame.futuresPrice;
-            const pnl = trade.direction === "SHORT" ? trade.entry_price - exitPrice : exitPrice - trade.entry_price;
             
-            if (pnl > 0) {
-              newStatus = "CHOP"; 
-              analysis = `Seans sonuna kadar hedef veya stop görülmedi, günü kârla kapattı (PnL: ${pnl.toFixed(2)}).`;
-            } else {
-              newStatus = "LOST";
-              analysis = `Seans sonuna kadar hedef veya stop görülmedi, günü zararla kapattı (PnL: ${pnl.toFixed(2)}).`;
-            }
+            // 0DTE Opsiyon Mantığı: Hedef görülmediyse süre bitiminde değersiz olur (LOST)
+            newStatus = "LOST";
+            analysis = "Seans sonuna kadar hedefe ulaşılamadı. 0DTE kontratı süresi dolduğu için zararla kapandı.";
           }
 
           await supabase
@@ -122,61 +117,9 @@ export async function GET(request: Request) {
         }
       }
     }
-    // ---------------------------------------------------
-
-    for (const asset of assetsToArchive) {
-      try {
-        const replay = await buildReplay(asset);
-        
-        if (!replay.ok || !replay.frames.length) {
-          results[asset] = "No replay data found";
-          continue;
-        }
-
-        const sessionDate = replay.date;
-        const lastFrame = replay.frames[replay.frames.length - 1];
-        const decision = lastFrame.decision;
-        
-        const { data: existing } = await supabase
-          .from("supertrade_logs")
-          .select("id")
-          .eq("session_date", sessionDate)
-          .eq("asset", asset)
-          .single();
-
-        if (existing) {
-          results[asset] = `${sessionDate} already archived`;
-          continue;
-        }
-
-        const target = decision.direction === "SHORT"
-          ? lastFrame.spotPrice - Math.max(5, replay.levels.spot.orSize * 2)
-          : lastFrame.spotPrice + Math.max(5, replay.levels.spot.orSize * 2);
-
-        const { error: insertError } = await supabase
-          .from("supertrade_logs")
-          .insert({
-            asset: asset,
-            session_date: sessionDate,
-            signal_state: lastFrame.state,
-            direction: decision.direction,
-            entry_price: lastFrame.spotPrice,
-            invalidation_price: decision.triggerLevelValue || 0,
-            target_price: target,
-            net_score: lastFrame.netScore,
-            status: "PENDING",
-          });
-
-        if (insertError) {
-          results[asset] = `Error: ${insertError.message}`;
-          continue;
-        }
-
-        results[asset] = `${sessionDate} archived successfully`;
-      } catch (err: any) {
-        results[asset] = `Error: ${err.message}`;
-      }
-    }
+    // Gün sonu işlemleri (PENDING temizliği) tamamlandı.
+    // Yeni tahmin (pre-market forecast) sistemi farklı bir akışta yönetilmektedir.
+    results["cleanup"] = "Pending trades evaluated successfully.";
 
     return NextResponse.json({ ok: true, results });
   } catch (error: unknown) {

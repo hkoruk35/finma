@@ -37,7 +37,6 @@ export default function V4PerformancePage() {
   const [logs, setLogs] = useState<TradeLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>("ALL");
-  const [capital, setCapital] = useState<number>(10000);
 
   useEffect(() => {
     setLoading(true);
@@ -56,17 +55,15 @@ export default function V4PerformancePage() {
   const totalClosed = won + lost + chop;
   const winRate = totalClosed > 0 ? ((won + chop) / totalClosed) * 100 : 0;
 
-  let totalPnlPoints = 0;
-  logs.forEach((l) => {
-    if (l.status !== "PENDING" && l.exit_price) {
-      const pnl = l.direction === "SHORT" ? l.entry_price - l.exit_price : l.exit_price - l.entry_price;
-      totalPnlPoints += pnl;
-    }
-  });
-
-  // Tahmini Dolar Kazancı (Varsayılan 1 Puan = $50 kabul edilebilir, karma sepet için sembolik bir çarpan)
-  const estimatedDollarPnl = totalPnlPoints * 50; 
-  const roi = capital > 0 ? (estimatedDollarPnl / capital) * 100 : 0;
+  // CHOP olan işlemler de LOST olarak kabul edilir (0DTE opsiyon mantığı)
+  const effectiveWon = won;
+  const effectiveLost = lost + chop;
+  
+  // Sabit Kontrat Mantığı:
+  // 1 Kontrat Maliyeti: $100
+  // Başarılı (WON) -> +$158 Kâr (Toplam: $258)
+  // Başarısız (LOST/CHOP) -> -$89 Zarar (Toplam: $11)
+  const totalDollarPnl = (effectiveWon * 158) - (effectiveLost * 89);
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
@@ -84,7 +81,7 @@ export default function V4PerformancePage() {
         />
       </header>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4 mb-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
         <Panel padding="p-4" title="Başarı Oranı (Win Rate)">
           <div className="text-[32px] font-medium text-[#3b82f6]">
             {winRate.toFixed(1)}%
@@ -95,28 +92,11 @@ export default function V4PerformancePage() {
         </Panel>
         
         <Panel padding="p-4" title="Toplam Kâr / Zarar">
-          <div className={`text-[32px] font-medium ${totalPnlPoints >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-            {totalPnlPoints > 0 ? '+' : ''}{totalPnlPoints.toFixed(2)}
+          <div className={`text-[32px] font-medium ${totalDollarPnl >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+            {totalDollarPnl > 0 ? '+' : ''}${totalDollarPnl.toFixed(2)}
           </div>
           <div className="mt-1 text-[12px] text-slate-400">
-            Net PnL (Puan) • Tahmini: ${estimatedDollarPnl.toFixed(2)}
-          </div>
-        </Panel>
-
-        <Panel padding="p-4" title="Sermaye ve ROI (%)">
-          <div className="flex items-end gap-2">
-            <div className={`text-[32px] font-medium ${roi >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-              {roi > 0 ? '+' : ''}{roi.toFixed(1)}%
-            </div>
-          </div>
-          <div className="mt-1 flex items-center gap-2 text-[12px] text-slate-400">
-            Sermaye: $
-            <input 
-              type="number" 
-              value={capital}
-              onChange={(e) => setCapital(Number(e.target.value))}
-              className="bg-transparent border-b border-slate-600 outline-none w-16 text-slate-200"
-            />
+            Net Dolar (Varsayım: 1 Kontrat = $100)
           </div>
         </Panel>
 
