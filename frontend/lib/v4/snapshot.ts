@@ -672,7 +672,7 @@ function buildCloseStructures(input: {
  * türetilir (gerçek opsiyon akışı/GEX/MOC dengesizliği verisi YOKTUR).
  */
 function computeForecastBundle(input: {
-  stage: "LIVE_CLOSING" | "FINAL";
+  stage: "LIVE_AFTERNOON" | "LIVE_CLOSING" | "FINAL";
   frames: FrameLite[];
   futuresPrice: number;
   vwap: number;
@@ -750,8 +750,13 @@ function computeForecastBundle(input: {
 
   const confidence = closeBiasConfidence(score, factors);
 
-  const stagePrefix = input.stage === "LIVE_CLOSING" ? "Kapanışa doğru şu ana kadarki" : "Kapanışın";
-  const stageSuffix = input.stage === "LIVE_CLOSING" ? " Kapanışa kalan sürede bu tablo değişebilir." : "";
+  const stagePrefix =
+    input.stage === "LIVE_AFTERNOON"
+      ? "Öğleden sonra şu ana kadarki"
+      : input.stage === "LIVE_CLOSING"
+      ? "Kapanışa doğru şu ana kadarki"
+      : "Kapanışın";
+  const stageSuffix = input.stage === "FINAL" ? "" : " Kapanışa kalan sürede bu tablo değişebilir.";
 
   const isSpx = input.assetLabel === "SPX" || input.assetLabel === "SPY";
   const nqPct = input.nqChangePct || 0;
@@ -940,15 +945,28 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   ];
 
   const rollover = buildRollover(sessionDate, isLiveSession, nowParts);
-  // Kapanış Motoru penceresi: seansın son ≤30 dakikası (bkz. scoring.ts
-  // sessionPhase — CLOSING evresi RTH_CLOSE_MIN-30..RTH_CLOSE_MIN arası).
-  // Bu pencerede FINAL bekleyene kadar oturmak yerine her istekte canlı
-  // veriyle GEÇİCİ bir kapanış yönü tahmini üretilir (bkz. ForecastBundle.stage).
+  // Kapanış Motoru penceresi — kullanıcının günlük alım planlama akışına göre:
+  // NY saatiyle 13:00'ten itibaren (öğleden sonra), piyasa açıkken her
+  // istekte GELİŞEN bir "ertesi gün" tahmini üretilir (LIVE_AFTERNOON);
+  // 15:30'dan (sessionPhase'in CLOSING evresi, kapanışa ≤30 dk) itibaren bu,
+  // kullanıcının asıl karar penceresi olan LIVE_CLOSING'e geçer. Seans
+  // tamamen kapandıktan sonra FINAL'e oturur (bkz. ForecastBundle.stage).
+  // Sabah açılış-öncesi (09:00 ET) kurulum önerileri bu pencereden tamamen
+  // bağımsızdır — isLiveSession premarket'te false olduğu için hiç tetiklenmez.
+  const AFTERNOON_FORECAST_MIN = 13 * 60; // 13:00 ET
+  const afternoonWindow = isLiveSession && nowParts.minutes >= AFTERNOON_FORECAST_MIN;
   const closingWindow = isLiveSession && currentPhase === "CLOSING";
+  const forecastStage: "LIVE_AFTERNOON" | "LIVE_CLOSING" | "FINAL" | null = rollover.prepReady
+    ? "FINAL"
+    : closingWindow
+    ? "LIVE_CLOSING"
+    : afternoonWindow
+    ? "LIVE_AFTERNOON"
+    : null;
   const forecast =
-    rollover.prepReady || closingWindow
+    forecastStage
       ? computeForecastBundle({
-          stage: rollover.prepReady ? "FINAL" : "LIVE_CLOSING",
+          stage: forecastStage,
           frames,
           futuresPrice: last.futuresPrice,
           vwap: last.vwap,

@@ -20,11 +20,12 @@ export default function V4SuperTradeForecast({
   precomputed,
 }: {
   snapshot: AssetSnapshot;
-  /** Kapanış Motoru'nun sunucu tarafında hesapladığı özet. İki evresi var:
-   *  LIVE_CLOSING (seans kapanışına ≤30 dk kala, canlı — her istekte
-   *  güncellenir) ve FINAL (seans tamamen kapandıktan sonra, sabit). Her
-   *  iki pencere dışında null — o durumda aynı basit mantık istemci
-   *  tarafında anlık hesaplanır. */
+  /** Kapanış Motoru'nun sunucu tarafında hesapladığı özet. Üç evresi var:
+   *  LIVE_AFTERNOON (NY saatiyle 13:00'ten itibaren, piyasa açıkken —
+   *  gelişmekte olan tahmin), LIVE_CLOSING (seans kapanışına ≤30 dk kala —
+   *  asıl karar penceresi) ve FINAL (seans tamamen kapandıktan sonra, sabit
+   *  özet). Her istekte güncellenir. Üç pencere dışında null — o durumda
+   *  aynı basit mantık istemci tarafında anlık hesaplanır. */
   precomputed?: ForecastBundle | null;
 }) {
   if (!snapshot) return null;
@@ -74,8 +75,14 @@ export default function V4SuperTradeForecast({
     }
   }
 
+  const isLiveAfternoon = precomputed?.stage === "LIVE_AFTERNOON";
   const isLiveClosing = precomputed?.stage === "LIVE_CLOSING";
-  const panelTitle = isLiveClosing ? "Kapanışa Doğru Canlı Yön Tahmini" : "Ertesi Gün Yön Beklentisi";
+  const isLive = isLiveAfternoon || isLiveClosing;
+  const panelTitle = isLiveAfternoon
+    ? "Öğleden Sonra Gelişen Yön Tahmini"
+    : isLiveClosing
+    ? "Kapanışa Doğru Canlı Yön Tahmini (Karar Penceresi)"
+    : "Ertesi Gün Yön Beklentisi";
   const structures = precomputed?.structures ?? [];
 
   return (
@@ -83,9 +90,14 @@ export default function V4SuperTradeForecast({
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Panel title={panelTitle} padding="p-4">
           <div className="flex flex-wrap items-center gap-2">
+            {isLiveAfternoon && (
+              <Badge tone="brand" className="animate-pulse">
+                CANLI · GELİŞİYOR
+              </Badge>
+            )}
             {isLiveClosing && (
               <Badge tone="brand" className="animate-pulse">
-                CANLI · KAPANIŞ TAHMİNİ
+                CANLI · KAPANIŞ KARAR PENCERESİ
               </Badge>
             )}
             <Badge tone={bias === "BULLISH" ? "up" : bias === "BEARISH" ? "down" : "neutral"}>
@@ -97,8 +109,8 @@ export default function V4SuperTradeForecast({
           <p className="mt-4 text-[13px] leading-relaxed text-slate-300">{analysisText}</p>
           {!precomputed && (
             <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
-              Kapanış Motoru şu an aktif değil — bu tahmin, seans kapanışına 30 dakikadan az kala veya seans
-              tamamen kapandıktan sonra sunucu tarafında otomatik olarak hesaplanır.
+              Kapanış Motoru şu an aktif değil — bu tahmin, NY saatiyle 13:00&apos;ten itibaren (piyasa açıkken)
+              veya seans tamamen kapandıktan sonra sunucu tarafında otomatik olarak hesaplanıp güncellenir.
             </p>
           )}
         </Panel>
@@ -160,7 +172,7 @@ export default function V4SuperTradeForecast({
       {structures.length > 0 && (
         <Panel
           title="Gecelik Opsiyon Önerisi"
-          hint={`Kapanış Motoru · ${isLiveClosing ? "canlı tahmin" : "final özet"} yönüne göre`}
+          hint={`Kapanış Motoru · ${isLive ? "canlı, gelişen tahmin" : "final özet"} yönüne göre`}
         >
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
             {structures.map((s) => (

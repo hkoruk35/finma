@@ -286,13 +286,16 @@ export interface ForecastBundle {
   score: number;
   analysisText: string;
   /**
-   * Kapanış Motoru evresi:
-   * LIVE_CLOSING: seans kapanışına ≤30 dk kala, o anki canlı veriyle
-   *   hesaplanmış GEÇİCİ tahmin — her istekte yeniden hesaplanır.
+   * Kapanış Motoru evresi — NY saatiyle 13:00'ten itibaren piyasa açıkken
+   * her istekte güncellenir, kullanıcının günlük alım planlama akışına göre:
+   * LIVE_AFTERNOON: 13:00–15:30 ET arası, tahmin gün içi veriyle GELİŞİYOR —
+   *   henüz karar penceresi değil, izlemek için.
+   * LIVE_CLOSING: 15:30–16:00 ET (kapanışa ≤30 dk) — kullanıcının ertesi gün
+   *   alımlarını planladığı asıl karar penceresi.
    * FINAL: seans tamamen kapandıktan sonra (17:00 ET+) hesaplanmış, sabit özet.
    * Opsiyonel: eski istemci kodları bu alanı görmeyebilir.
    */
-  stage?: "LIVE_CLOSING" | "FINAL";
+  stage?: "LIVE_AFTERNOON" | "LIVE_CLOSING" | "FINAL";
   confidence?: ConfidenceTier;
   /** Kapanış yönü tahminini besleyen faktör dökümü — "Skor Gerekçeleri" ile aynı format */
   factors?: ScoreFactor[];
