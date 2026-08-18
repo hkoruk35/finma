@@ -248,24 +248,19 @@ export default function MultiAssetDetail({
                 )}
               </Panel>
 
-              {view.isLiveSession ? (
-                <V4StrategyLab
-                  spotPrice={view.spotPrice}
-                  state={frame.state}
-                  vix={view.vixPrice}
-                  minutesLeft={minutesToClose(
-                    Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
-                  )}
-                />
-              ) : (
-                <Panel title="Strateji Laboratuvarı">
-                  <EmptyState>
-                    Piyasa açık değilken teorik opsiyon fiyatlaması gösterilmez — kalan süreye dayalı
-                    hesaplama yalnızca seans içinde (09:30–16:00 ET) anlamlıdır. Piyasa açıldığında burada
-                    gerçek zamanlı stratejiler görünecek.
-                  </EmptyState>
-                </Panel>
-              )}
+              <V4StrategyLab
+                spotPrice={view.spotPrice}
+                state={frame.state}
+                vix={view.vixPrice}
+                minutesLeft={
+                  view.isLiveSession
+                    ? minutesToClose(
+                        Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+                      )
+                    : 390
+                }
+                isLive={view.isLiveSession}
+              />
             </div>
 
             {/* Sağ Kolon - Kritik Seviyeler */}

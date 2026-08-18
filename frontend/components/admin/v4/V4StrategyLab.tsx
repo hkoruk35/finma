@@ -49,11 +49,13 @@ export default function V4StrategyLab({
   state,
   vix,
   minutesLeft,
+  isLive = true,
 }: {
   spotPrice: number;
   state: SignalState;
   vix: number;
   minutesLeft: number;
+  isLive?: boolean;
 }) {
   const [budgetInput, setBudgetInput] = useState("300");
   const [category, setCategory] = useState<Category>("ALL");
@@ -270,10 +272,15 @@ export default function V4StrategyLab({
 
   return (
     <Panel
-      title="Strateji Laboratuvarı"
-      hint={`teorik fiyatlama · IV tabanı VIX ${num(vix, 1)} · vadeye ${minutesLeft} dk`}
+      title={isLive ? "Strateji Laboratuvarı" : "Strateji Laboratuvarı (Tahmini)"}
+      hint={
+        isLive
+          ? `teorik fiyatlama · IV tabanı VIX ${num(vix, 1)} · vadeye ${minutesLeft} dk`
+          : `pre-market teorik tahmini · IV tabanı VIX ${num(vix, 1)}`
+      }
       right={
         <div className="flex items-center gap-3">
+          {!isLive && <Badge tone="brand">Tahmini</Badge>}
           <Badge tone="warn">15 dk Strateji Döngüsü</Badge>
           <Tabs
             size="sm"
