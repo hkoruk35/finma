@@ -6,7 +6,7 @@ import OptionsPerformanceClient from "@/components/OptionsPerformanceClient";
 import Link from "next/link";
 import { Metadata } from "next";
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Options Performance | BOGA AI",

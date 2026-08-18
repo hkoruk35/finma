@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { maskPerformanceHistory, maskTrendPicks } from "@/lib/pickMasking";
 
-export const revalidate = 60;
+export const revalidate = 86400; // Updated once a day to save Vercel Execution
 
 export const metadata: Metadata = {
   title: "Performance",

@@ -17,7 +17,7 @@ import TickerTape from "@/components/TickerTape";
 import AIReportFormatter from "@/components/stock/AIReportFormatter";
 
 export const dynamic = "force-static";
-export const revalidate = 1; // force rapid refresh for update
+export const revalidate = 3600; // 1 hour // force rapid refresh for update
 
 interface Props {
   params: Promise<{ lang: string; slug: string; ticker: string }>;
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
       params.push({ lang, slug, ticker: ticker.toLowerCase() });
     }
   }
-  return params;
+  return []; // Save Vercel Build CPU Minutes by building on-demand
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

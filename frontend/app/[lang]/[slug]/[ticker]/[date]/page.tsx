@@ -35,7 +35,7 @@ export async function generateStaticParams() {
       }
     }
   }
-  return params;
+  return []; // Save Vercel Build CPU Minutes by building on-demand
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

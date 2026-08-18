@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { maskPerformanceHistory, maskTrendPicks } from "@/lib/pickMasking";
 
-export const revalidate = 60;
+export const revalidate = 86400; // Updated once a day
 
 export const metadata: Metadata = {
   title: "Swingperformance",
