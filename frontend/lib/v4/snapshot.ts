@@ -5,6 +5,8 @@
  * Canlı mod ile simülasyon modu AYNI hesaplama yolunu kullanır.
  */
 
+import { createClient } from "@supabase/supabase-js";
+
 import type {
   Bar,
   FuturesLevels,
@@ -97,6 +99,7 @@ export interface MarketData {
   crossFutures: string;
   /** Çapraz kontrol enstrümanının görünen adı ("NQ" veya "ES") */
   crossLabel: string;
+  recentLostTrades: { direction: string; net_score: number }[];
   errors: string[];
 }
 
@@ -123,7 +126,7 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): 
   if (nq.error) errors.push(`${crossLabel} verisi alınamadı (${nq.error})`);
   if (vix.error) errors.push(`VIX verisi alınamadı (${vix.error})`);
 
-  return {
+  const result: MarketData = {
     futures1m: es.bars,
     spot1m: spx.bars,
     nq1m: nq.bars,
@@ -136,8 +139,32 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): 
     vixMarketPrice: vix.marketPrice,
     crossFutures,
     crossLabel,
+    recentLostTrades: [], // varsayılan
     errors,
   };
+
+  // ML mantığı için son 5 LOST işlemi Supabase'den çek
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      const { data } = await supabase
+        .from("supertrade_logs")
+        .select("direction, net_score")
+        .eq("asset", asset)
+        .eq("status", "LOST")
+        .order("created_at", { ascending: false })
+        .limit(5);
+      if (data) {
+        result.recentLostTrades = data;
+      }
+    }
+  } catch (e) {
+    console.error("ML history fetch error", e);
+  }
+
+  return result;
 }
 
 // ── Kare (frame) üretimi ─────────────────────────────────────────
@@ -397,6 +424,7 @@ export function buildSession(data: MarketData, sessionDate: string, asset: Asset
       futuresLabel,
       assetLabel,
       crossLabel: data.crossLabel,
+      recentLostTrades: data.recentLostTrades,
     });
 
     const prev10 = frames[i - 10];

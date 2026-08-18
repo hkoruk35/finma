@@ -74,6 +74,8 @@ export interface ScoreInput {
   assetLabel: string;
   /** Çapraz kontrol enstrümanının etiketi (örn. "NQ" veya "ES") */
   crossLabel: string;
+  /** ML öğrenimi için son kaybedilen işlemler */
+  recentLostTrades?: { direction: string; net_score: number }[];
 }
 
 export interface ScoreResult {
@@ -186,6 +188,32 @@ export function computeScores(input: ScoreInput): ScoreResult {
   for (const f of factors) {
     if (f.weight > 0) longScore += f.weight;
     else if (f.weight < 0) shortScore += -f.weight;
+  }
+
+  // --- OTONOM ÖĞRENME (ML) CEZASI ---
+  let mlPenalty = 0;
+  const rawNet = Math.round((longScore - shortScore) * 10) / 10;
+  
+  if (input.recentLostTrades && input.recentLostTrades.length > 0) {
+    const currentDir = rawNet <= -1.5 ? "SHORT" : (rawNet >= 1.5 ? "LONG" : "NEUTRAL");
+    
+    // Yön aynıysa ve skor (± 1.5 hata payıyla) aynıysa (yani sistem geçmişteki hatayı tekrarlıyorsa)
+    const similarLost = input.recentLostTrades.filter(t => 
+      t.direction === currentDir && 
+      Math.abs(t.net_score - rawNet) <= 1.5
+    );
+
+    if (similarLost.length >= 2 && currentDir !== "NEUTRAL") {
+      mlPenalty = currentDir === "LONG" ? -2 : 2; // net skoru 0'a veya nötre çeker
+      factors.push({
+        label: "AI Öğrenim Motoru (ML)",
+        detail: `Son ${similarLost.length} benzer ${currentDir} işleminde stop olunduğu için yapay zeka gücü kıstı.`,
+        weight: mlPenalty
+      });
+      
+      if (mlPenalty > 0) longScore += mlPenalty;
+      else shortScore += -mlPenalty;
+    }
   }
 
   longScore = Math.round(longScore * 10) / 10;

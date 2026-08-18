@@ -55,25 +55,27 @@ export async function GET(request: Request) {
             // İşlemden önceki barları atla (küçük bir güvenlik marjı: 1 saat)
             if (frame.time < tradeTime - 3600) continue;
             
+            const price = tradeAsset === "SPX" || tradeAsset === "NDX" ? frame.spotPrice : frame.futuresPrice;
+
             if (trade.direction === "SHORT") {
-              if (stop && frame.high >= stop) {
+              if (stop && price >= stop) {
                 lost = true;
                 exitPrice = stop;
                 break;
               }
-              if (target && frame.low <= target) {
+              if (target && price <= target) {
                 won = true;
                 exitPrice = target;
                 break;
               }
             } else {
               // LONG
-              if (stop && frame.low <= stop) {
+              if (stop && price <= stop) {
                 lost = true;
                 exitPrice = stop;
                 break;
               }
-              if (target && frame.high >= target) {
+              if (target && price >= target) {
                 won = true;
                 exitPrice = target;
                 break;
@@ -93,7 +95,7 @@ export async function GET(request: Request) {
           } else {
             // Seans sonuna kadar hedef veya stop görülmedi
             const lastFrame = replay.frames[replay.frames.length - 1];
-            exitPrice = lastFrame.spotPrice;
+            exitPrice = tradeAsset === "SPX" || tradeAsset === "NDX" ? lastFrame.spotPrice : lastFrame.futuresPrice;
             const pnl = trade.direction === "SHORT" ? trade.entry_price - exitPrice : exitPrice - trade.entry_price;
             
             if (pnl > 0) {

@@ -37,6 +37,7 @@ export default function V4PerformancePage() {
   const [logs, setLogs] = useState<TradeLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>("ALL");
+  const [capital, setCapital] = useState<number>(10000);
 
   useEffect(() => {
     setLoading(true);
@@ -51,8 +52,21 @@ export default function V4PerformancePage() {
 
   const won = logs.filter((l) => l.status === "WON").length;
   const lost = logs.filter((l) => l.status === "LOST").length;
-  const totalClosed = won + lost;
-  const winRate = totalClosed > 0 ? (won / totalClosed) * 100 : 0;
+  const chop = logs.filter((l) => l.status === "CHOP").length;
+  const totalClosed = won + lost + chop;
+  const winRate = totalClosed > 0 ? ((won + chop) / totalClosed) * 100 : 0;
+
+  let totalPnlPoints = 0;
+  logs.forEach((l) => {
+    if (l.status !== "PENDING" && l.exit_price) {
+      const pnl = l.direction === "SHORT" ? l.entry_price - l.exit_price : l.exit_price - l.entry_price;
+      totalPnlPoints += pnl;
+    }
+  });
+
+  // Tahmini Dolar Kazancı (Varsayılan 1 Puan = $50 kabul edilebilir, karma sepet için sembolik bir çarpan)
+  const estimatedDollarPnl = totalPnlPoints * 50; 
+  const roi = capital > 0 ? (estimatedDollarPnl / capital) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
@@ -70,16 +84,42 @@ export default function V4PerformancePage() {
         />
       </header>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4 mb-4">
         <Panel padding="p-4" title="Başarı Oranı (Win Rate)">
           <div className="text-[32px] font-medium text-[#3b82f6]">
             {winRate.toFixed(1)}%
           </div>
           <div className="mt-1 text-[12px] text-slate-400">
-            {won} Başarılı / {totalClosed} Kapanan İşlem
+            {won + chop} Başarılı (Chop dahil) / {totalClosed} İşlem
           </div>
         </Panel>
         
+        <Panel padding="p-4" title="Toplam Kâr / Zarar">
+          <div className={`text-[32px] font-medium ${totalPnlPoints >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+            {totalPnlPoints > 0 ? '+' : ''}{totalPnlPoints.toFixed(2)}
+          </div>
+          <div className="mt-1 text-[12px] text-slate-400">
+            Net PnL (Puan) • Tahmini: ${estimatedDollarPnl.toFixed(2)}
+          </div>
+        </Panel>
+
+        <Panel padding="p-4" title="Sermaye ve ROI (%)">
+          <div className="flex items-end gap-2">
+            <div className={`text-[32px] font-medium ${roi >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+              {roi > 0 ? '+' : ''}{roi.toFixed(1)}%
+            </div>
+          </div>
+          <div className="mt-1 flex items-center gap-2 text-[12px] text-slate-400">
+            Sermaye: $
+            <input 
+              type="number" 
+              value={capital}
+              onChange={(e) => setCapital(Number(e.target.value))}
+              className="bg-transparent border-b border-slate-600 outline-none w-16 text-slate-200"
+            />
+          </div>
+        </Panel>
+
         <Panel padding="p-4" title="Bekleyen İşlemler">
           <div className="text-[32px] font-medium text-slate-200">
             {logs.filter(l => l.status === "PENDING").length}
@@ -87,12 +127,6 @@ export default function V4PerformancePage() {
           <div className="mt-1 text-[12px] text-slate-400">
             Aktif olan tahmin ve sinyaller
           </div>
-        </Panel>
-
-        <Panel padding="p-4" title="V4 Motoru (Multi-Asset)">
-          <p className="text-[12px] leading-relaxed text-slate-400">
-            Bu sayfa, seçili varlıktaki seansların ardından fiyatın tahmini kapanış / açılış hedefine ulaşıp ulaşmadığını takip eder. Pre-market ve canlı tahminleri loglar.
-          </p>
         </Panel>
       </div>
 
