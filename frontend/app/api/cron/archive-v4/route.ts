@@ -89,18 +89,13 @@ export async function GET(request: Request) {
           
           if (won) {
             newStatus = "WON";
-            analysis = "Hedef fiyata başarıyla ulaşıldı.";
           } else if (lost) {
             newStatus = "LOST";
-            analysis = "Stop (İptal) seviyesi kırılarak işlem zararla kapandı.";
           } else {
             // Seans sonuna kadar hedef veya stop görülmedi
             const lastFrame = replay.frames[replay.frames.length - 1];
             exitPrice = tradeAsset === "SPX" || tradeAsset === "NDX" ? lastFrame.spotPrice : lastFrame.futuresPrice;
-            
-            // 0DTE Opsiyon Mantığı: Hedef görülmediyse süre bitiminde değersiz olur (LOST)
-            newStatus = "LOST";
-            analysis = "Seans sonuna kadar hedefe ulaşılamadı. 0DTE kontratı süresi dolduğu için zararla kapandı.";
+            newStatus = "PENDING_EOD"; // Temporary status until premium is checked
           }
 
           const scale = ASSET_MAP[tradeAsset].scale;
@@ -126,6 +121,15 @@ export async function GET(request: Request) {
             const xMinLeft = minutesToClose(xH * 60 + xM);
             const xIv = impliedVolFor(replay.context.volatility.vix, exitPrice, strike);
             exitPremium = priceOption(exitPrice, strike, xMinLeft, xIv, isCall).price;
+          }
+
+          // Nihai Karar: Opsiyon Primine Göre (KAZANÇ / KAYIP)
+          if (exitPremium > entryPremium) {
+            newStatus = "WON";
+            analysis = "Net Sonuç: KAZANÇ (Hedef Göründü veya Gün Sonu Kâr)";
+          } else {
+            newStatus = "LOST";
+            analysis = "Net Sonuç: KAYIP (Stop veya Süre Sonu Zarar)";
           }
 
           const strategyObj = trade.strategy_json || {};
