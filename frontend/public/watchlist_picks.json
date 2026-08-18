@@ -1,41 +1,11 @@
 {
-  "generated_at": "2026-08-17T17:04:05.293707-04:00",
+  "generated_at": "2026-08-18T09:04:25.305852-04:00",
   "picks": [
-    {
-      "ticker": "FROG",
-      "sector": "Technology",
-      "date_added": "2026-08-17",
-      "score": 47.0
-    },
     {
       "ticker": "EQIX",
       "sector": "Real Estate",
       "date_added": "2026-08-17",
       "score": 40.5
-    },
-    {
-      "ticker": "PRAX",
-      "sector": "Healthcare",
-      "date_added": "2026-08-17",
-      "score": 40.0
-    },
-    {
-      "ticker": "S",
-      "sector": "Technology",
-      "date_added": "2026-08-17",
-      "score": 50.0
-    },
-    {
-      "ticker": "TKR",
-      "sector": "Industrials",
-      "date_added": "2026-08-17",
-      "score": 48.5
-    },
-    {
-      "ticker": "AVT",
-      "sector": "Technology",
-      "date_added": "2026-08-17",
-      "score": 48.0
     },
     {
       "ticker": "ARMK",
@@ -44,28 +14,40 @@
       "score": 47.5
     },
     {
-      "ticker": "JBHT",
-      "sector": "Industrials",
-      "date_added": "2026-08-17",
-      "score": 45.0
+      "ticker": "RJF",
+      "sector": "Financial Services",
+      "date_added": "2026-08-18",
+      "score": 44.5
     },
     {
-      "ticker": "HWM",
-      "sector": "Industrials",
-      "date_added": "2026-08-17",
-      "score": 43.5
-    },
-    {
-      "ticker": "AAPL",
+      "ticker": "FROG",
       "sector": "Technology",
-      "date_added": "2026-08-17",
-      "score": 43.5
+      "date_added": "2026-08-18",
+      "score": 44.0
     },
     {
-      "ticker": "CNK",
+      "ticker": "DIS",
       "sector": "Communication Services",
-      "date_added": "2026-08-17",
-      "score": 40.5
+      "date_added": "2026-08-18",
+      "score": 44.0
+    },
+    {
+      "ticker": "PRMB",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-18",
+      "score": 42.5
+    },
+    {
+      "ticker": "FTI",
+      "sector": "Energy",
+      "date_added": "2026-08-18",
+      "score": 41.0
+    },
+    {
+      "ticker": "GEO",
+      "sector": "Industrials",
+      "date_added": "2026-08-18",
+      "score": 38.5
     }
   ]
 }
