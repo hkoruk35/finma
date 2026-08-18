@@ -220,38 +220,52 @@ export default function MultiAssetDetail({
               </div>
 
               {/* Faktör dökümü */}
-              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding="p-0">
-                <Table bordered={false}>
-                  <THead>
-                    <tr>
-                      <Th>Faktör</Th>
-                      <Th align="right">Ölçüm</Th>
-                    </tr>
-                  </THead>
-                  <TBody>
-                    {factors.map((f, i) => (
-                      <Tr key={`${f.label}-${i}`}>
-                        <Td valueClass="text-slate-400">{f.label}</Td>
-                        <Td
-                          align="right"
-                          valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
-                        >
-                          {f.detail}
-                        </Td>
-                      </Tr>
-                    ))}
-                  </TBody>
-                </Table>
+              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding={factors.length ? "p-0" : "p-4"}>
+                {factors.length ? (
+                  <Table bordered={false}>
+                    <THead>
+                      <tr>
+                        <Th>Faktör</Th>
+                        <Th align="right">Ölçüm</Th>
+                      </tr>
+                    </THead>
+                    <TBody>
+                      {factors.map((f, i) => (
+                        <Tr key={`${f.label}-${i}`}>
+                          <Td valueClass="text-slate-400">{f.label}</Td>
+                          <Td
+                            align="right"
+                            valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+                          >
+                            {f.detail}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </TBody>
+                  </Table>
+                ) : (
+                  <EmptyState>Piyasa açılana kadar skor faktörleri hesaplanmaz.</EmptyState>
+                )}
               </Panel>
 
-              <V4StrategyLab
-                spotPrice={view.spotPrice}
-                state={frame.state}
-                vix={view.vixPrice}
-                minutesLeft={minutesToClose(
-                  Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
-                )}
-              />
+              {view.isLiveSession ? (
+                <V4StrategyLab
+                  spotPrice={view.spotPrice}
+                  state={frame.state}
+                  vix={view.vixPrice}
+                  minutesLeft={minutesToClose(
+                    Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+                  )}
+                />
+              ) : (
+                <Panel title="Strateji Laboratuvarı">
+                  <EmptyState>
+                    Piyasa açık değilken teorik opsiyon fiyatlaması gösterilmez — kalan süreye dayalı
+                    hesaplama yalnızca seans içinde (09:30–16:00 ET) anlamlıdır. Piyasa açıldığında burada
+                    gerçek zamanlı stratejiler görünecek.
+                  </EmptyState>
+                </Panel>
+              )}
             </div>
 
             {/* Sağ Kolon - Kritik Seviyeler */}
@@ -261,15 +275,15 @@ export default function MultiAssetDetail({
                   <TBody>
                     <Tr>
                       <Td valueClass="text-slate-500">Açılış ORH</Td>
-                      <Td align="right">{fmt(levels.spot.orh)}</Td>
+                      <Td align="right">{levels.spot.isOrDefined ? fmt(levels.spot.orh) : "—"}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Açılış ORL</Td>
-                      <Td align="right">{fmt(levels.spot.orl)}</Td>
+                      <Td align="right">{levels.spot.isOrDefined ? fmt(levels.spot.orl) : "—"}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">OR genişliği</Td>
-                      <Td align="right">{fmt(levels.spot.orSize)} puan</Td>
+                      <Td align="right">{levels.spot.isOrDefined ? `${fmt(levels.spot.orSize)} puan` : "—"}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Seans VWAP</Td>

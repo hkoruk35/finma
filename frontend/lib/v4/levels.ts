@@ -99,7 +99,13 @@ export function buildSessionSlices(
   allDates: string[]
 ): SessionSlices {
   const idx = allDates.indexOf(sessionDate);
-  const prevDate = idx > 0 ? allDates[idx - 1] : null;
+  // sessionDate henüz veri kümesinde yoksa (gece yarısı devri sonrası
+  // premarket senaryosu — bkz. buildSession'daki "isFuture" dalı), indexOf
+  // -1 döner. Bu durumda "önceki seans", elimizde RTH verisi olan EN SON
+  // gündür — aksi halde prevDate null kalır ve hem gece aralığı (esOvernight)
+  // Globex'in 18:00 öncesi kısmını kaybeder hem de Bağlam Motoru'nun
+  // "Önceki Seans" katmanı "Veri Yok" gösterir.
+  const prevDate = idx > 0 ? allDates[idx - 1] : idx === -1 && allDates.length ? allDates[allDates.length - 1] : null;
 
   const esRth = barsOnDate(futuresBars, sessionDate);
   const spxRth = barsOnDate(spotBars, sessionDate);

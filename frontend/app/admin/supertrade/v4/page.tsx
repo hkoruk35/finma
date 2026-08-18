@@ -175,7 +175,14 @@ export default function SuperTradeV4Dashboard() {
                 // zayıf bir SHORT sinyali de kırmızı, zayıf bir LONG da yeşil kalır.
                 const statusClass =
                   direction === "LONG" ? "text-[#22c55e]" : direction === "SHORT" ? "text-[#ef4444]" : "text-slate-300";
-                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
+                // futures.vwap her zaman ES/NQ ölçeğindedir (SPX/NDX ham
+                // seviyesine yakın) — SPY/XSP/QQQ/XND gibi ölçeklenmiş
+                // varlıklarda spot fiyatla doğrudan çıkarmadan önce asset'in
+                // kendi scale faktörüyle spot ölçeğine çevrilmesi gerekir,
+                // aksi halde "VWAP Yakınlığı" binlerce puan gibi anlamsız
+                // bir değer gösterir (örn. QQQ için ~29.000 puan).
+                const scale = meta.scale || 1;
+                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap * scale);
 
                 return (
                   <Tr

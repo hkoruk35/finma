@@ -595,7 +595,13 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   const frames = session.frames;
   const last = frames[frames.length - 1];
   const nowParts = nyParts(nowSec);
-  const isLiveSession = nowParts.ymd === sessionDate && nowParts.minutes < 16 * 60 + 5;
+  // RTH_OPEN_MIN alt sınırı kritik: latestSessionDate artık gece yarısını
+  // geçer geçmez sessionDate'i "bugüne" ilerletiyor (premarket devri), bu
+  // kontrol olmadan 00:00–09:30 ET arası (SPX henüz kapalıyken) yanlışlıkla
+  // "canlı seans" sayılıp minutesToClose/Strateji Lab gerçek dışı (~700+ dk)
+  // bir süre üzerinden fiyatlama yapıyordu.
+  const isLiveSession =
+    nowParts.ymd === sessionDate && nowParts.minutes >= RTH_OPEN_MIN && nowParts.minutes < 16 * 60 + 5;
 
   // Seans açık değilken bile doğru evreyi bildir: hafta içi 04:00–09:30 ET
   // arası "açılış öncesi"dir, "seans kapalı" değil.
