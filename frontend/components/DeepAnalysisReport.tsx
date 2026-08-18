@@ -443,10 +443,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
             </div>
             <h3 className="text-base font-medium text-white uppercase tracking-wider mb-2">
-              {L(lang, "İşlem Planı (Giriş / Stop / Hedefler) — Premium", "Trading Plan (Entry / Stop / Targets) — Premium")}
+              {L(lang, "Teknik Referans Seviyeleri (Potansiyel Giriş / Geçersizlik / Senaryo Hedefleri) — Premium", "Technical Reference Levels (Potential Entry Zone / Invalidation Level / Scenario Targets) — Premium")}
             </h3>
             <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed mb-4">
-              {L(lang, "Giriş Bölgesi, Stop Loss, T1-T3 Hedefleri ve Trailing Strateji kurallarını kilitleri kaldırmak için Premium üyeliğe geçin.", "Upgrade to Premium to unlock exact Entry Zones, Stop Loss, T1-T3 Targets, and Trailing rules.")}
+              {L(lang, "Potansiyel Giriş Bölgesi, Geçersizlik Seviyesi (Invalidation), Senaryo Hedefleri ve Trailing referanslarını görmek için Premium üyeliğe geçin.", "Upgrade to Premium to unlock Potential Entry Zones, Invalidation Levels, Scenario Targets, and Trailing references.")}
             </p>
             <button className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-medium text-xs uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 transition-all">
               {L(lang, "Premium'a Yükselt →", "Upgrade to Premium →")}
@@ -457,7 +457,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <span className="text-base">🎯</span>
-                <h3 className="text-[13px] font-medium text-white uppercase tracking-[0.12em]">{L(lang, "Trade Planı", "Trade Plan")}</h3>
+                <h3 className="text-[13px] font-medium text-white uppercase tracking-[0.12em]">{L(lang, "Teknik Referanslar", "Technical Refs")}</h3>
               </div>
               {/* Horizon tabs */}
               <div className="flex gap-1 bg-[#080c14] border border-[#1e3a5f]/50 rounded-lg p-0.5">

@@ -54,7 +54,7 @@ export default function TermsPageTr() {
               Platformumuz küresel finansal piyasaları kapsar: <strong className="text-white">ABD Piyasaları (NYSE, NASDAQ, S&P 500, Dow, Russell)</strong>, <strong className="text-white">Avrupa Borsaları (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">Asya Borsaları (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong>, <strong className="text-white">Latin Amerika Borsaları (S&P Latam 40, IBOVESPA)</strong> ile Döviz, Emtia ve Kripto borsaları.
             </p>
             <p className="text-slate-300">
-              <strong className="text-white">BogaStock.com</strong>; Avrupa Birliği (AB) finansal düzenleme direktifleri (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) ve <strong className="text-white">AB Piyasa Suistimali Yönetmeliği (MAR - Regulation EU No 596/2014)</strong> esaslarına tam uyum gözetilerek işletilir. Sistemimiz piyasa manipülasyonu veya yetkisiz portföy yönlendirmesi içermez.
+              <strong className="text-white">BogaStock.com</strong>; Avrupa Birliği (AB) finansal düzenleme direktifleri (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) ve <strong className="text-white">AB Piyasa Suistimali Yönetmeliği (MAR - Regulation EU No 596/2014)</strong> esaslarına uyumlu olma ilkesiyle işletilir. Sistemimiz piyasa manipülasyonu veya yetkisiz portföy yönlendirmesi içermez.
             </p>
           </section>
 
@@ -77,7 +77,7 @@ export default function TermsPageTr() {
               5. Veri Gizliliği (GDPR, KVKK ve CCPA)
             </h2>
             <p className="text-slate-300">
-              Kullanıcı verileri Avrupa Birliği Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR</strong>), Türkiye Cumhuriyeti 6698 Sayılı Kişisel Verilerin Korunması Kanunu (<strong className="text-white">KVKK</strong>) ve Kaliforniya Tüketici Gizliliği Yasası (<strong className="text-white">CCPA</strong>) standartlarına tam uyum içinde işlenir. BogaStock.com kişisel verileri hiçbir üçüncü tarafa satmaz veya satılık veri olarak kiralamaz.
+              Kullanıcı verileri Avrupa Birliği Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR</strong>), Türkiye Cumhuriyeti 6698 Sayılı Kişisel Verilerin Korunması Kanunu (<strong className="text-white">KVKK</strong>) ve Kaliforniya Tüketici Gizliliği Yasası (<strong className="text-white">CCPA</strong>) gibi ilgili yasa ve yönetmeliklere tabi olarak işlenir. BogaStock.com kişisel verileri hiçbir üçüncü tarafa satmaz veya satılık veri olarak kiralamaz.
             </p>
           </section>
 
@@ -91,14 +91,33 @@ export default function TermsPageTr() {
             </p>
           </section>
 
-          {/* Section 7 */}
+          {/* Section 7 - Subscriptions */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              7. Abonelikler, Otomatik Yenileme ve İptal Şartları
+            </h2>
+            <p className="mb-4 text-slate-300">
+              <strong>Premium Abonelikler:</strong> BogaStock.com, gelişmiş teknik referans seviyelerine ve veri araçlarına erişim sağlayan ücretli abonelikler ("Premium") sunar. Abone olarak, ilgili abonelik ücretlerinin seçtiğiniz ödeme yönteminden bizim tarafımızdan (veya Stripe gibi üçüncü taraf ödeme sağlayıcılarımız tarafından) tahsil edilmesine yetki vermiş olursunuz.
+            </p>
+            <p className="mb-4 text-slate-300">
+              <strong>Otomatik Yenileme:</strong> Satın alma anında aksi belirtilmediği sürece, kesintisiz hizmet sağlamak amacıyla tüm abonelikler faturalandırma döngüsünün (aylık veya yıllık) sonunda otomatik olarak yenilenir. Bu yinelenen tahsilat işlemine açıkça onay vermektesiniz.
+            </p>
+            <p className="mb-4 text-slate-300">
+              <strong>İptal İşlemi:</strong> Aboneliğinizi istediğiniz zaman hesap panelinizden iptal edebilirsiniz. İptal işlemi, gelecekteki yinelenen ücretlendirmeleri durduracak ve Premium erişiminiz mevcut ödenmiş faturalandırma döngüsünün sonuna kadar aktif kalacaktır.
+            </p>
+            <p className="text-slate-300">
+              <strong>İade Politikası:</strong> Dijital içerik ve verilerimiz satın alma işlemi sonrasında anında teslim edildiğinden, tüm abonelik ödemeleri iade edilemez (non-refundable). Kısmen kullanılmış faturalandırma dönemleri için kısmi (prorated) iade yapılmamaktadır.
+            </p>
+          </section>
+
+          {/* Section 8 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">Hukuki Yürürlük</h2>
             <p className="text-xs text-slate-400">
               BogaStock.com platformunu kullanmaya devam ederek yukarıdaki şartları ve yasal çerçeveyi kabul etmiş olursunuz.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Son Güncelleme: 4 Ağustos 2026 | BogaStock.com Teknik Analiz ve Karar Destek Platformu
+              Son Güncelleme: 18 Ağustos 2026 | BogaStock.com Teknik Analiz ve Karar Destek Platformu
             </p>
           </section>
 

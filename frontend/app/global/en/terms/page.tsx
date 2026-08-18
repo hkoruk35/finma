@@ -54,7 +54,7 @@ export default function TermsPageEn() {
               Our platform covers global capital markets: <strong className="text-white">U.S. Markets (NYSE, NASDAQ, S&P 500, Dow, Russell)</strong>, <strong className="text-white">European Exchanges (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">Asian Exchanges (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong>, and <strong className="text-white">Latin American Exchanges (S&P Latam 40, IBOVESPA)</strong>, alongside Forex, Commodities, and Crypto.
             </p>
             <p className="text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> operates in strict adherence to European Union (EU) financial market standards, including <strong className="text-white">ESMA</strong> guidelines, <strong className="text-white">MiFID II</strong> directive transparency, and <strong className="text-white">MAR (EU Market Abuse Regulation No 596/2014)</strong>. We do not engage in market manipulation or unauthorized portfolio direction.
+              <strong className="text-white">BogaStock.com</strong> operates with a commitment to observing European Union (EU) financial market standards, including <strong className="text-white">ESMA</strong> guidelines, <strong className="text-white">MiFID II</strong> directive transparency, and <strong className="text-white">MAR (EU Market Abuse Regulation No 596/2014)</strong>. We do not engage in market manipulation or unauthorized portfolio direction.
             </p>
           </section>
 
@@ -77,7 +77,7 @@ export default function TermsPageEn() {
               5. Data Privacy (GDPR & CCPA)
             </h2>
             <p className="text-slate-300">
-              We process user data in full compliance with the European Union General Data Protection Regulation (<strong className="text-white">GDPR</strong>) and the California Consumer Privacy Act (<strong className="text-white">CCPA</strong>). BogaStock.com never sells or leases personal data to third-party data brokers.
+              We process user data subject to applicable laws and regulations including the European Union General Data Protection Regulation (<strong className="text-white">GDPR</strong>) and the California Consumer Privacy Act (<strong className="text-white">CCPA</strong>). BogaStock.com never sells or leases personal data to third-party data brokers.
             </p>
           </section>
 
@@ -91,14 +91,34 @@ export default function TermsPageEn() {
             </p>
           </section>
 
-          {/* Section 7 */}
+          
+          {/* Section 7 - Subscriptions */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4 text-[#38bdf8]">
+              7. Subscriptions, Auto-Renewal & Cancellations
+            </h2>
+            <p className="mb-4 text-slate-300">
+              <strong>Premium Subscriptions:</strong> BogaStock.com offers paid subscriptions ("Premium") that unlock advanced technical reference levels and data tools. By subscribing, you authorize us (and our third-party payment processors like Stripe) to charge the applicable subscription fees to your designated payment method.
+            </p>
+            <p className="mb-4 text-slate-300">
+              <strong>Auto-Renewal:</strong> Unless otherwise stated at the time of purchase, all subscriptions auto-renew automatically at the end of each billing cycle (monthly or annually) to ensure uninterrupted service. You explicitly consent to this recurring billing.
+            </p>
+            <p className="mb-4 text-slate-300">
+              <strong>Cancellation:</strong> You may cancel your subscription at any time through your account dashboard. Cancellation will stop future recurring charges, and your Premium access will remain active until the end of your current paid billing cycle.
+            </p>
+            <p className="text-slate-300">
+              <strong>Refund Policy:</strong> Because our digital content and data are delivered immediately upon purchase, all subscription payments are non-refundable. We do not provide prorated refunds for partially used billing periods.
+            </p>
+          </section>
+
+          {/* Section 8 */}
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">Legal Execution</h2>
             <p className="text-xs text-slate-400">
               By continuing to use BogaStock.com, you acknowledge and agree to these terms and regulatory standards.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Last Updated: August 4, 2026 | BogaStock.com Technical Analysis & Decision Support Platform
+              Last Updated: August 18, 2026 | BogaStock.com Technical Analysis & Decision Support Platform
             </p>
           </section>
 

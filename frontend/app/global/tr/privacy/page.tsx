@@ -28,7 +28,7 @@ export default function PrivacyPageTr() {
               <strong className="text-white">BogaStock.com</strong> (Blue One Global Analysis), yapay zeka tabanlı algoritmalarla çalışan bir <strong className="text-white">teknik analiz ve karar destek platformudur</strong>. Kullanıcılarımızın veri gizliliği ve bilgi güvenliği, kurumsal mimarimizin merkezinde yer alır.
             </p>
             <p className="text-slate-300">
-              Sistemimiz; Google Veri Güvenliği İlkeleri doğrultusunda <strong className="text-white">Veri Minimizasyonu (Sadece gerekli verinin toplanması)</strong> ve <strong className="text-white">Tasarım Gereği Gizlilik (Privacy by Design)</strong> prensiplerine tam bağlılıkla işletilmektedir.
+              Sistemimiz; Google Veri Güvenliği İlkeleri doğrultusunda <strong className="text-white">Veri Minimizasyonu (Sadece gerekli verinin toplanması)</strong> ve <strong className="text-white">Tasarım Gereği Gizlilik (Privacy by Design)</strong> prensiplerine uyumlu olacak şekilde işletilmektedir.
             </p>
           </section>
 
@@ -116,8 +116,8 @@ export default function PrivacyPageTr() {
             <p className="text-xs text-slate-400">
               BogaStock.com platformunu kullanarak bu gizlilik politikası ve uluslararası veri koruma standartlarını kabul etmiş olursunuz.
             </p>
-            <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Son Güncelleme: 4 Ağustos 2026 | BogaStock.com Veri Güvenliği ve Gizlilik Yönetimi
+            <p className="mt-6 text-sm text-slate-400 font-mono border-t border-[#1e2a3a] pt-4">
+              Son Güncelleme: 18 Ağustos 2026 | BogaStock.com Veri Gizliliği Yönetimi
             </p>
           </section>
 

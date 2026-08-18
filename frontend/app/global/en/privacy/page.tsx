@@ -112,7 +112,7 @@ export default function PrivacyPageEn() {
               By using BogaStock.com, you accept this Privacy Policy and international data security standards.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Last Updated: August 4, 2026 | BogaStock.com Data Privacy Management
+              Last Updated: August 18, 2026 | BogaStock.com Data Privacy Management
             </p>
           </section>
 

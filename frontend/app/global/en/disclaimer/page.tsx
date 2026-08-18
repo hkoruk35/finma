@@ -78,7 +78,7 @@ export default function DisclaimerPageEn() {
               By using BogaStock.com, you acknowledge that you have read, understood, and agreed to all legal terms, EU compliance statements, and disclaimers outlined above.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
-              Last Updated: August 4, 2026 | BogaStock.com Technical Analysis & Decision Support Platform
+              Last Updated: August 18, 2026 | BogaStock.com Technical Analysis & Decision Support Platform
             </p>
           </section>
 
