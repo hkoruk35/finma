@@ -19,6 +19,13 @@ import type {
 import type { BreakoutState } from "./levels";
 import { RTH_CLOSE_MIN, RTH_OPEN_MIN } from "./yahoo";
 
+/** Türkçe rakam biçimi (binlik nokta, ondalık virgül) — gerekçe/karar
+ *  metinlerinin içine gömülen fiyat seviyeleri için (örn. NDX/XND gibi
+ *  büyük ölçekli varlıklarda "24500.00" yerine "24.500,00" gösterir). */
+function fmtTr(v: number, digits = 2): string {
+  return v.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
 export function sessionPhase(minutes: number): SessionPhase {
   if (minutes < 4 * 60) return "PRE_SESSION";
   if (minutes < RTH_OPEN_MIN) return "PREMARKET";
@@ -90,7 +97,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
     const w = Math.max(-1.5, Math.min(1.5, dist / 4));
     push(
       `${input.futuresLabel} / VWAP konumu`,
-      `${dist >= 0 ? "+" : ""}${dist.toFixed(2)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${es.vwap.toFixed(2)})`,
+      `${dist >= 0 ? "+" : ""}${fmtTr(dist)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${fmtTr(es.vwap)})`,
       w
     );
   }
@@ -112,11 +119,11 @@ export function computeScores(input: ScoreInput): ScoreResult {
   // 5. Açılış aralığına göre konum
   if (spx.isOrDefined) {
     if (spx.vsOr === "ABOVE") {
-      push("Açılış aralığı", `ORH ${spx.orh.toFixed(2)} üzerinde`, 1.25);
+      push("Açılış aralığı", `ORH ${fmtTr(spx.orh)} üzerinde`, 1.25);
     } else if (spx.vsOr === "BELOW") {
-      push("Açılış aralığı", `ORL ${spx.orl.toFixed(2)} altında`, -1.25);
+      push("Açılış aralığı", `ORL ${fmtTr(spx.orl)} altında`, -1.25);
     } else {
-      push("Açılış aralığı", `${spx.orl.toFixed(2)} – ${spx.orh.toFixed(2)} bandı içinde`, 0);
+      push("Açılış aralığı", `${fmtTr(spx.orl)} – ${fmtTr(spx.orh)} bandı içinde`, 0);
     }
   }
 
@@ -134,7 +141,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
     const w = Math.max(-0.75, Math.min(0.75, input.nqChangePct * 1.5));
     push(
       `${input.crossLabel} vadeli uyumu`,
-      `${input.nqChangePct >= 0 ? "+" : ""}%${input.nqChangePct.toFixed(2)} (gün içi)`,
+      `${input.nqChangePct >= 0 ? "+" : ""}%${fmtTr(input.nqChangePct)} (gün içi)`,
       w
     );
   }
@@ -144,7 +151,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
     const w = Math.max(-0.5, Math.min(0.5, -input.vixChangePct / 6));
     push(
       "VIX yönü",
-      `${input.vixChangePct >= 0 ? "+" : ""}%${input.vixChangePct.toFixed(2)} — ${input.vixChangePct >= 0 ? "risk iştahı azalıyor" : "risk iştahı artıyor"}`,
+      `${input.vixChangePct >= 0 ? "+" : ""}%${fmtTr(input.vixChangePct)} — ${input.vixChangePct >= 0 ? "risk iştahı azalıyor" : "risk iştahı artıyor"}`,
       w
     );
   }
@@ -154,7 +161,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
     const w = input.futuresPrice >= es.onMid ? 0.5 : -0.5;
     push(
       "Gece aralığı orta noktası",
-      `ON Mid ${es.onMid.toFixed(2)} ${input.futuresPrice >= es.onMid ? "üstünde" : "altında"}`,
+      `ON Mid ${fmtTr(es.onMid)} ${input.futuresPrice >= es.onMid ? "üstünde" : "altında"}`,
       w
     );
   }
@@ -164,7 +171,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
     const w = input.futuresPrice >= es.pdc ? 0.5 : -0.5;
     push(
       "Önceki gün kapanışı",
-      `PDC ${es.pdc.toFixed(2)} ${input.futuresPrice >= es.pdc ? "üstünde" : "altında"}`,
+      `PDC ${fmtTr(es.pdc)} ${input.futuresPrice >= es.pdc ? "üstünde" : "altında"}`,
       w
     );
   }
@@ -318,11 +325,11 @@ export function buildDecision(
     direction: meta.direction,
     action: "Bekle — açılış aralığını izle",
     confirmation: spx.isOrDefined
-      ? `ORH ${orh.toFixed(2)} veya ORL ${orl.toFixed(2)} kırılımı + 5 dk kapanış teyidi`
+      ? `ORH ${fmtTr(orh)} veya ORL ${fmtTr(orl)} kırılımı + 5 dk kapanış teyidi`
       : "Açılış aralığının (09:30–09:35) oluşması",
     invalidation: "Bant içinde yönsüz sıkışmanın sürmesi",
     triggerLevelName: spx.isOrDefined
-      ? `OR bandı ${orl.toFixed(2)} – ${orh.toFixed(2)}`
+      ? `OR bandı ${fmtTr(orl)} – ${fmtTr(orh)}`
       : "Açılış aralığı bekleniyor",
     triggerLevelValue: spx.orMid,
     statusBadge: "BANT İÇİ",
@@ -345,9 +352,9 @@ export function buildDecision(
       return {
         ...base,
         action: "Long hazırlığı — henüz giriş yok",
-        confirmation: `ORH ${orh.toFixed(2)} üzerinde 5 dk kapanış`,
-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `Vadelinin VWAP ${vwap.toFixed(2)} altına dönmesi`,
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        confirmation: `ORH ${fmtTr(orh)} üzerinde 5 dk kapanış`,
+        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${fmtTr(orh)} direncini aşamaması` : `Vadelinin VWAP ${fmtTr(vwap)} altına dönmesi`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "KIRILIM BEKLENİYOR",
         statusStrength: "Yukarı yön lehine baskı var, teyit eksik",
@@ -357,9 +364,9 @@ export function buildDecision(
       return {
         ...base,
         action: "Short hazırlığı — henüz giriş yok",
-        confirmation: `ORL ${orl.toFixed(2)} altında 5 dk kapanış`,
-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        confirmation: `ORL ${fmtTr(orl)} altında 5 dk kapanış`,
+        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${fmtTr(orl)} desteğini kıramaması` : `Vadelinin VWAP ${fmtTr(vwap)} üzerine dönmesi`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "KIRILIM BEKLENİYOR",
         statusStrength: "Aşağı yön lehine baskı var, teyit eksik",
@@ -369,9 +376,9 @@ export function buildDecision(
       return {
         ...base,
         action: "Erken giriş — küçük pozisyon",
-        confirmation: `5 dk mumun ORH ${orh.toFixed(2)} üzerinde kapanması`,
+        confirmation: `5 dk mumun ORH ${fmtTr(orh)} üzerinde kapanması`,
         invalidation: `Fiyatın ORH altına dönmesi (tuzak kırılım)`,
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "İLK KIRILIM",
         statusStrength: `${breaks.longBreak.barsBeyond} dakikadır seviye üzerinde`,
@@ -381,9 +388,9 @@ export function buildDecision(
       return {
         ...base,
         action: "Erken giriş — küçük pozisyon",
-        confirmation: `5 dk mumun ORL ${orl.toFixed(2)} altında kapanması`,
+        confirmation: `5 dk mumun ORL ${fmtTr(orl)} altında kapanması`,
         invalidation: "Fiyatın ORL üzerine dönmesi (tuzak kırılım)",
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "İLK KIRILIM",
         statusStrength: `${breaks.shortBreak.barsBeyond} dakikadır seviye altında`,
@@ -394,8 +401,8 @@ export function buildDecision(
         ...base,
         action: "Long giriş uygun — normal pozisyon",
         confirmation: "Hacmin korunması ve yeni zirvelerin yapılması",
-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} altına inmesi`,
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${fmtTr(orh)} altına dönmesi` : `Vadelinin VWAP ${fmtTr(vwap)} altına inmesi`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "KABUL EDİLDİ",
         statusStrength: "1 dk ve 5 dk teyidi tamam",
@@ -406,8 +413,8 @@ export function buildDecision(
         ...base,
         action: "Short giriş uygun — normal pozisyon",
         confirmation: "Satış hacminin korunması ve yeni diplerin yapılması",
-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine çıkması`,
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${fmtTr(orl)} üzerine dönmesi` : `Vadelinin VWAP ${fmtTr(vwap)} üzerine çıkması`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "KABUL EDİLDİ",
         statusStrength: "1 dk ve 5 dk teyidi tamam",
@@ -419,7 +426,7 @@ export function buildDecision(
         action: "Pozisyonu koru — takip eden stop ile yönet",
         confirmation: "Runner modellerinin çıkış kuralları",
         invalidation: "5 dk yapının bozulması veya net skorun çökmesi",
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "GÜÇLÜ TREND",
         statusStrength: "Tüm zaman dilimleri hizalı",
@@ -431,7 +438,7 @@ export function buildDecision(
         action: "Pozisyonu koru — takip eden stop ile yönet",
         confirmation: "Runner modellerinin çıkış kuralları",
         invalidation: "5 dk yapının bozulması veya net skorun toparlanması",
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "GÜÇLÜ TREND",
         statusStrength: "Tüm zaman dilimleri hizalı",
@@ -442,8 +449,8 @@ export function buildDecision(
         ...base,
         action: "Yeni giriş yapma — kademeli kâr al",
         confirmation: "Net skorun yeniden güçlenmesi",
-        invalidation: `ORH ${orh.toFixed(2)} altına dönüş`,
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        invalidation: `ORH ${fmtTr(orh)} altına dönüş`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "İVME AZALIYOR",
         statusStrength: "Yukarı ivme son 10 dakikada zayıfladı",
@@ -454,8 +461,8 @@ export function buildDecision(
         ...base,
         action: "Yeni giriş yapma — kademeli kâr al",
         confirmation: "Net skorun yeniden zayıflaması",
-        invalidation: `ORL ${orl.toFixed(2)} üzerine dönüş`,
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        invalidation: `ORL ${fmtTr(orl)} üzerine dönüş`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "İVME AZALIYOR",
         statusStrength: "Aşağı ivme son 10 dakikada zayıfladı",
@@ -467,7 +474,7 @@ export function buildDecision(
         action: "Long senaryosu iptal — pozisyonu kapat",
         confirmation: "—",
         invalidation: "Fiyat ORH üzerinde tutunamadı",
-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
+        triggerLevelName: `ORH ${fmtTr(orh)}`,
         triggerLevelValue: orh,
         statusBadge: "TUZAK KIRILIM",
         statusStrength: "Kırılım geri alındı, ters yön riski var",
@@ -479,7 +486,7 @@ export function buildDecision(
         action: "Short senaryosu iptal — pozisyonu kapat",
         confirmation: "—",
         invalidation: "Fiyat ORL altında tutunamadı",
-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
+        triggerLevelName: `ORL ${fmtTr(orl)}`,
         triggerLevelValue: orl,
         statusBadge: "TUZAK KIRILIM",
         statusStrength: "Kırılım geri alındı, ters yön riski var",

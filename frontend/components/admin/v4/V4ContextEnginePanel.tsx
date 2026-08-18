@@ -7,7 +7,7 @@
 
 import { useState } from "react";
 import type { ContextSnapshot, SignalState } from "@/lib/v4/types";
-import { Badge, INSET, Panel, Table, TBody, Td, Th, THead, Tr, num, toneClass } from "../supertrade/ui";
+import { Badge, INSET, Panel, Table, TBody, Td, Th, THead, Tr, fmt, num, signed, titleCase, toneClass } from "../supertrade/ui";
 
 const AGREEMENT_META = {
   CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
@@ -43,7 +43,7 @@ export default function V4ContextEnginePanel({
       headlineClass: toneClass(-volatility.vix5dChange),
       detail: volatility.label,
       footLabel: "5 günlük değişim",
-      footValue: `${volatility.vix5dChange >= 0 ? "+" : ""}${volatility.vix5dChange.toFixed(2)}`,
+      footValue: signed(volatility.vix5dChange, 2),
       footClass: toneClass(-volatility.vix5dChange),
     },
     {
@@ -52,7 +52,7 @@ export default function V4ContextEnginePanel({
       headlineClass: toneClass(previousSession.changePct),
       detail: `${previousSession.date} · ${previousSession.label}`,
       footLabel: "Kapanış konumu",
-      footValue: `%${previousSession.closePositionPct} (${previousSession.changePct >= 0 ? "+" : ""}${previousSession.changePct.toFixed(2)}%)`,
+      footValue: `%${previousSession.closePositionPct} (${signed(previousSession.changePct, 2)}%)`,
       footClass: toneClass(previousSession.changePct),
     },
     {
@@ -61,7 +61,7 @@ export default function V4ContextEnginePanel({
       headlineClass: toneClass(overnight.gapPts),
       detail: `Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`,
       footLabel: "Açılış boşluğu",
-      footValue: `${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`,
+      footValue: `${signed(overnight.gapPts, 2)} puan`,
       footClass: toneClass(overnight.gapPts),
     },
     {
@@ -72,7 +72,7 @@ export default function V4ContextEnginePanel({
       headlineClass:
         analog.bias === "BULLISH" ? "text-[#22c55e]" : analog.bias === "BEARISH" ? "text-[#ef4444]" : "text-slate-300",
       detail: analog.sampleSize
-        ? `Medyan gün içi hareket ${analog.medianMovePts >= 0 ? "+" : ""}${analog.medianMovePts.toFixed(1)} puan · en iyi ${analog.medianMfePts.toFixed(1)} / en kötü ${analog.medianMaePts.toFixed(1)} puan`
+        ? `Medyan gün içi hareket ${signed(analog.medianMovePts, 1)} puan · en iyi ${fmt(analog.medianMfePts, 1)} / en kötü ${fmt(analog.medianMaePts, 1)} puan`
         : "Tarihsel karşılaştırma yapılamadı",
       footLabel: "En yakın gün",
       footValue: analog.sampleSize ? `${analog.nearestDate} (%${analog.nearestSimilarity})` : "—",
@@ -109,7 +109,7 @@ export default function V4ContextEnginePanel({
           <span className="text-[12px] leading-relaxed text-slate-300">{context.liveAgreementText}</span>
         </div>
         <span className="shrink-0 text-[11px] text-slate-500">
-          Canlı durum: <span className="text-slate-300">{liveState.replace(/_/g, " ")}</span>
+          Canlı durum: <span className="text-slate-300">{titleCase(liveState.replace(/_/g, " "))}</span>
         </span>
       </div>
 

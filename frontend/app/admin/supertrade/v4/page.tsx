@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, signed, toneClass, trUp } from "@/components/admin/supertrade/ui";
+import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, fmt, signed, titleCase, toneClass } from "@/components/admin/supertrade/ui";
 import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
 
@@ -9,6 +9,22 @@ import { ASSET_MAP } from "@/lib/v4/types";
 import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
 
 type AssetResult = (AssetSnapshot & { ok: true }) | { ok: false; error: string };
+
+const ASSETS: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
+
+/** Dashboard satırı ve varlık-geçiş menüsü ortak durum türetimi — ikisi de
+ *  aynı yön/renk mantığını kullanır, tek yerden yönetilir. */
+function deriveAssetMeta(data: AssetResult | undefined) {
+  if (!data || !data.ok) return null;
+  const frame = data.frames[data.frames.length - 1];
+  const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
+  const direction: "LONG" | "SHORT" | "NEUTRAL" = frame.state.includes("LONG")
+    ? "LONG"
+    : frame.state.includes("SHORT")
+    ? "SHORT"
+    : "NEUTRAL";
+  return { frame, isConfirmed, direction };
+}
 
 export default function SuperTradeV4Dashboard() {
   const [selectedAsset, setSelectedAsset] = useState<AssetClass | null>(null);
@@ -44,12 +60,43 @@ export default function SuperTradeV4Dashboard() {
     const selectedError = selectedData && !selectedData.ok ? selectedData.error : null;
     return (
       <div className="p-4 md:p-5 bg-[#0a0e17] min-h-screen text-slate-300">
-        <button
-          onClick={() => setSelectedAsset(null)}
-          className="mb-4 flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
-        >
-          ← Dashboard&apos;a Dön
-        </button>
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setSelectedAsset(null)}
+            className="flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
+          >
+            ← Dashboard&apos;a Dön
+          </button>
+          <div className="h-4 w-px bg-[#1c2635]" />
+          <div className="flex flex-wrap items-center gap-1.5">
+            {ASSETS.map((a) => {
+              const meta = deriveAssetMeta(snapshots[a]);
+              const active = a === selectedAsset;
+              const dotClass = !meta
+                ? "bg-slate-600"
+                : meta.direction === "LONG"
+                ? "bg-[#22c55e]"
+                : meta.direction === "SHORT"
+                ? "bg-[#ef4444]"
+                : "bg-slate-500";
+              return (
+                <button
+                  key={a}
+                  onClick={() => setSelectedAsset(a)}
+                  title={ASSET_MAP[a].name}
+                  className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                    active
+                      ? "border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
+                      : "border-[#1c2635] text-slate-400 hover:border-[#2a3648] hover:text-slate-200"
+                  }`}
+                >
+                  <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />
+                  {a}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         <MultiAssetDetail
           asset={selectedAsset}
           snapshot={selectedSnapshot}
@@ -60,7 +107,7 @@ export default function SuperTradeV4Dashboard() {
     );
   }
 
-  const assets: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
+  const assets = ASSETS;
   // Herhangi bir varlık gece yarısını geçip yeni seansa henüz gerçek veri
   // gelmemişse dashboard genelinde tek bir uyarı gösterilir (her satırda
   // tekrarlamak yerine).
@@ -77,9 +124,7 @@ export default function SuperTradeV4Dashboard() {
             Multi-Asset Fırsat Tarayıcı
           </h1>
           <Badge tone="brand">SuperTrade V4</Badge>
-          {anyNextDay && (
-            <Badge tone="neutral">{trUp("Sonraki seans için hazır")}</Badge>
-          )}
+          {anyNextDay && <Badge tone="neutral">Sonraki seans için hazır</Badge>}
         </div>
         <p className="text-[12px] text-slate-500">
           S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
@@ -123,10 +168,13 @@ export default function SuperTradeV4Dashboard() {
                   );
                 }
 
-                const frame = data.frames[data.frames.length - 1];
-                const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
-                const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
+                const meta2 = deriveAssetMeta(data)!;
+                const { frame, isConfirmed, direction } = meta2;
                 const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
+                // Durum rengi teyit gücünden bağımsız, her zaman yöne göredir —
+                // zayıf bir SHORT sinyali de kırmızı, zayıf bir LONG da yeşil kalır.
+                const statusClass =
+                  direction === "LONG" ? "text-[#22c55e]" : direction === "SHORT" ? "text-[#ef4444]" : "text-slate-300";
                 const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
 
                 return (
@@ -141,22 +189,20 @@ export default function SuperTradeV4Dashboard() {
                         {isConfirmed && <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
                         {data.rollover.isNextDay && (
                           <Badge tone="brand" className="ml-1">
-                            {trUp(data.rollover.nextTradingDate)}
+                            {data.rollover.nextTradingDate}
                           </Badge>
                         )}
                       </div>
                       <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
                     </Td>
-                    <Td align="right">{data.spotPrice.toFixed(2)}</Td>
-                    <Td align="right" valueClass={`font-medium ${toneClass(frame.netScore)}`}>
+                    <Td align="right">{fmt(data.spotPrice)}</Td>
+                    <Td align="right" valueClass={`font-semibold ${toneClass(frame.netScore)}`}>
                       {signed(frame.netScore, 1)}
                     </Td>
-                    <Td valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"}>
-                      {frame.state.replace(/_/g, " ")}
-                    </Td>
-                    <Td align="right">{vwapDistance.toFixed(2)} puan</Td>
+                    <Td valueClass={`font-medium ${statusClass}`}>{titleCase(frame.state.replace(/_/g, " "))}</Td>
+                    <Td align="right">{fmt(vwapDistance)} puan</Td>
                     <Td align="center">
-                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
+                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "Yönsüz" : direction}</Badge>
                     </Td>
                   </Tr>
                 );

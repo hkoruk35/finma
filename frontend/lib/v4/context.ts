@@ -93,7 +93,7 @@ export function buildPreviousSession(
     changePct: 0,
     closePositionPct: 0,
     last30mDirection: "FLAT",
-    structureType: "VERİ YOK",
+    structureType: "Veri Yok",
     label: "Önceki seans verisi bulunamadı",
   };
   if (!prevDate) return empty;
@@ -118,19 +118,19 @@ export function buildPreviousSession(
   let structureType: string;
   let label: string;
   if (closePositionPct >= 80 && changePct > 0.25) {
-    structureType = "GÜÇLÜ BOĞA KAPANIŞI";
+    structureType = "Güçlü Boğa Kapanışı";
     label = "Zirveye yakın kapanış, alıcı kontrolü";
   } else if (closePositionPct <= 20 && changePct < -0.25) {
-    structureType = "GÜÇLÜ AYI KAPANIŞI";
+    structureType = "Güçlü Ayı Kapanışı";
     label = "Dibe yakın kapanış, satıcı kontrolü";
   } else if (Math.abs(changePct) < 0.2) {
-    structureType = "YATAY GÜN";
+    structureType = "Yatay Gün";
     label = "Dar bantta denge günü";
   } else if (changePct > 0) {
-    structureType = "ILIMLI YUKARI";
+    structureType = "Ilımlı Yukarı";
     label = "Pozitif kapanış, ivme sınırlı";
   } else {
-    structureType = "ILIMLI AŞAĞI";
+    structureType = "Ilımlı Aşağı";
     label = "Negatif kapanış, ivme sınırlı";
   }
 
@@ -149,7 +149,7 @@ export function buildOvernight(
   const empty: OvernightContext = {
     gapPts: 0,
     gapPct: 0,
-    gapType: "VERİ YOK",
+    gapType: "Veri Yok",
     onRangePts: 0,
     vsOnMid: "ABOVE",
     nqAlignment: "ALIGNED",
@@ -168,11 +168,11 @@ export function buildOvernight(
   const gapPct = round2((gapPts / esPdc) * 100);
 
   let gapType: string;
-  if (Math.abs(gapPct) < 0.08) gapType = "BOŞLUKSUZ AÇILIŞ";
-  else if (gapPct >= 0.35) gapType = "BÜYÜK YUKARI BOŞLUK";
-  else if (gapPct > 0) gapType = "KÜÇÜK YUKARI BOŞLUK";
-  else if (gapPct <= -0.35) gapType = "BÜYÜK AŞAĞI BOŞLUK";
-  else gapType = "KÜÇÜK AŞAĞI BOŞLUK";
+  if (Math.abs(gapPct) < 0.08) gapType = "Boşluksuz Açılış";
+  else if (gapPct >= 0.35) gapType = "Büyük Yukarı Boşluk";
+  else if (gapPct > 0) gapType = "Küçük Yukarı Boşluk";
+  else if (gapPct <= -0.35) gapType = "Büyük Aşağı Boşluk";
+  else gapType = "Küçük Aşağı Boşluk";
 
   const aligned = (nqChangePct >= 0) === (esChangePct >= 0);
 
@@ -293,7 +293,7 @@ export function buildAnalog(
     nearestDate: top[0].date,
     nearestSimilarity: top[0].similarity,
     bias,
-    criteria: `Açılış boşluğu %${todayGapPct.toFixed(2)}, önceki gün kapanış konumu %${Math.round(todayPrevClosePos)} ve aynı hafta günü kriterlerine en yakın ${top.length} seans`,
+    criteria: `Açılış boşluğu %${todayGapPct.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}, önceki gün kapanış konumu %${Math.round(todayPrevClosePos)} ve aynı hafta günü kriterlerine en yakın ${top.length} seans`,
   };
 }
 
@@ -308,8 +308,8 @@ export function buildFingerprint(
     `EVRE=${seasonality.monthPhase}`,
     `GUN=${seasonality.weekday.slice(0, 3).toUpperCase()}`,
     `VIX=${volatility.level}_${volatility.trend}`,
-    `ONCEKI=${previousSession.structureType.split(" ")[0]}`,
-    `GECE=${overnight.gapType.split(" ")[0]}`,
+    `ONCEKI=${previousSession.structureType.split(" ")[0].toUpperCase()}`,
+    `GECE=${overnight.gapType.split(" ")[0].toUpperCase()}`,
   ].join(" | ");
 }
 

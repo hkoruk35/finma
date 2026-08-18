@@ -540,30 +540,50 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
   });
 
   // Son 5 dakikada ne değişti
+  // Türkçe rakam biçimi (binlik nokta, ondalık virgül) — UI'daki `fmt()` ile
+  // aynı kural, sunucu tarafında üretilen "from"/"to" metinleri için.
+  const fmtTr = (v: number, digits = 2) =>
+    v.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  // "WATCH_LONG" → "Watch Long" — durum değişimi satırında ham enum değerinin
+  // tamamen büyük harfle görünmesini engeller.
+  const stateLabel = (s: string) =>
+    s
+      .replace(/_/g, " ")
+      .toLocaleLowerCase("tr-TR")
+      .split(" ")
+      .map((w) => (w ? w.charAt(0).toLocaleUpperCase("tr-TR") + w.slice(1) : w))
+      .join(" ");
+
   const ref = frames[Math.max(0, frames.length - 6)];
   const changes: AssetSnapshot["changes"] = [];
   if (ref && ref.index !== last.index) {
     const netDelta = round2(last.netScore - ref.netScore);
     changes.push({
       label: "Net skor",
-      from: ref.netScore.toFixed(1),
-      to: `${last.netScore >= 0 ? "+" : ""}${last.netScore.toFixed(1)}`,
+      from: `${ref.netScore >= 0 ? "+" : ""}${fmtTr(ref.netScore, 1)}`,
+      to: `${last.netScore >= 0 ? "+" : ""}${fmtTr(last.netScore, 1)}`,
       tone: netDelta > 0 ? "UP" : netDelta < 0 ? "DOWN" : "FLAT",
     });
     const spxDelta = round2(last.spotPrice - ref.spotPrice);
     changes.push({
       label: asset,
-      from: ref.spotPrice.toFixed(2),
-      to: `${spxDelta >= 0 ? "+" : ""}${spxDelta.toFixed(2)} puan`,
+      from: fmtTr(ref.spotPrice, 2),
+      to: `${spxDelta >= 0 ? "+" : ""}${fmtTr(spxDelta, 2)} puan`,
       tone: spxDelta > 0 ? "UP" : spxDelta < 0 ? "DOWN" : "FLAT",
     });
     if (ref.state !== last.state) {
-      changes.push({ label: "Durum", from: ref.state, to: last.state, tone: "FLAT" });
+      // Yeni durum SHORT ise kırmızı, LONG ise yeşil — teyit gücünden bağımsız.
+      const stateTone: "UP" | "DOWN" | "FLAT" = last.state.includes("SHORT")
+        ? "DOWN"
+        : last.state.includes("LONG")
+        ? "UP"
+        : "FLAT";
+      changes.push({ label: "Durum", from: stateLabel(ref.state), to: stateLabel(last.state), tone: stateTone });
     }
     const vwapPos = last.futuresPrice >= last.vwap;
     changes.push({
       label: "Vadeli / VWAP",
-      from: `${last.vwap.toFixed(2)}`,
+      from: fmtTr(last.vwap, 2),
       to: vwapPos ? "üstünde" : "altında",
       tone: vwapPos ? "UP" : "DOWN",
     });

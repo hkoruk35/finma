@@ -16,9 +16,10 @@ import {
   THead,
   Tr,
   Tabs,
+  fmt,
   signed,
+  titleCase,
   toneClass,
-  trUp,
 } from "@/components/admin/supertrade/ui";
 
 import V4ContextEnginePanel from "./V4ContextEnginePanel";
@@ -102,11 +103,11 @@ export default function MultiAssetDetail({
         </span>
         {rollover.isNextDay ? (
           <Badge tone="brand" className="ml-auto">
-            {trUp(`Sonraki seans: ${rollover.nextTradingDate}`)}
+            {`Sonraki seans: ${rollover.nextTradingDate}`}
           </Badge>
         ) : rollover.prepReady ? (
           <Badge tone="neutral" className="ml-auto" title={`${rollover.nextTradingDate} için hazır`}>
-            {trUp("Yarın için hazır")}
+            Yarın için hazır
           </Badge>
         ) : null}
       </div>
@@ -127,16 +128,17 @@ export default function MultiAssetDetail({
             <div className="mb-3 flex items-start justify-between">
               <div>
                 <div className="text-[10px] font-medium tracking-wider text-slate-500">
-                  {trUp(`Sistem Kararı (${asset})`)}
+                  {`Sistem Kararı (${asset})`}
                 </div>
                 <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
                   {decision.action}
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
-                <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
+                <Badge tone={dirTone}>{titleCase(frame.state.replace(/_/g, " "))}</Badge>
                 <div className="text-[10px] text-slate-500">
-                  Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
+                  Net Skor:{" "}
+                  <span className={`font-semibold ${toneClass(frame.netScore)}`}>{signed(frame.netScore, 1)}</span>
                 </div>
               </div>
             </div>
@@ -183,19 +185,19 @@ export default function MultiAssetDetail({
                     <TBody>
                       <Tr>
                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures15m)}`}>
-                          {structure.futures15m}
+                          {titleCase(structure.futures15m)}
                         </Td>
                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures5m)}`}>
-                          {structure.futures5m}
+                          {titleCase(structure.futures5m)}
                         </Td>
                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures1m)}`}>
-                          {structure.futures1m}
+                          {titleCase(structure.futures1m)}
                         </Td>
                         <Td align="center" valueClass={`font-medium ${trendClass(structure.spot5m)}`}>
-                          {structure.spot5m}
+                          {titleCase(structure.spot5m)}
                         </Td>
                         <Td align="center" valueClass={`font-medium ${trendClass(structure.spot1m)}`}>
-                          {structure.spot1m}
+                          {titleCase(structure.spot1m)}
                         </Td>
                       </Tr>
                     </TBody>
@@ -203,13 +205,13 @@ export default function MultiAssetDetail({
                 </Panel>
                 <Panel title="Skor Özeti">
                   <div className="flex h-full flex-col justify-center gap-3">
-                    <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
-                    <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
+                    <Row label="Long Faktörleri" value={`+${fmt(frame.longScore, 1)}`} valueClass="font-semibold text-[#22c55e]" />
+                    <Row label="Short Faktörleri" value={`-${fmt(frame.shortScore, 1)}`} valueClass="font-semibold text-[#ef4444]" />
                     <div className="my-1 h-px bg-[#1c2635]" />
                     <Row
                       label="Net Yön Skoru"
                       value={signed(frame.netScore, 1)}
-                      valueClass={`font-medium ${toneClass(frame.netScore)}`}
+                      valueClass={`font-semibold ${toneClass(frame.netScore)}`}
                     />
                   </div>
                 </Panel>
@@ -257,35 +259,35 @@ export default function MultiAssetDetail({
                   <TBody>
                     <Tr>
                       <Td valueClass="text-slate-500">Açılış ORH</Td>
-                      <Td align="right">{levels.spot.orh.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.spot.orh)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Açılış ORL</Td>
-                      <Td align="right">{levels.spot.orl.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.spot.orl)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">OR genişliği</Td>
-                      <Td align="right">{levels.spot.orSize.toFixed(2)} puan</Td>
+                      <Td align="right">{fmt(levels.spot.orSize)} puan</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Seans VWAP</Td>
-                      <Td align="right" valueClass="text-[#3b82f6]">{frame.vwap.toFixed(2)}</Td>
+                      <Td align="right" valueClass="text-[#3b82f6]">{fmt(frame.vwap)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Gece ONH</Td>
-                      <Td align="right">{levels.futures.onh.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.futures.onh)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Gece ONL</Td>
-                      <Td align="right">{levels.futures.onl.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.futures.onl)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">ON orta nokta</Td>
-                      <Td align="right">{levels.futures.onMid.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.futures.onMid)}</Td>
                     </Tr>
                     <Tr>
                       <Td valueClass="text-slate-500">Önceki gün kapanışı</Td>
-                      <Td align="right">{levels.futures.pdc.toFixed(2)}</Td>
+                      <Td align="right">{fmt(levels.futures.pdc)}</Td>
                     </Tr>
                   </TBody>
                 </Table>

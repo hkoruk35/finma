@@ -1,4 +1,4 @@
-import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
+import { Panel, Row, Badge, fmt, signed } from "@/components/admin/supertrade/ui";
 import type { AssetSnapshot, ForecastBundle } from "@/lib/v4/types";
 
 export default function V4SuperTradeForecast({
@@ -65,7 +65,7 @@ export default function V4SuperTradeForecast({
           <Badge tone={bias === "BULLISH" ? "up" : bias === "BEARISH" ? "down" : "neutral"}>
             {bias === "BULLISH" ? "YÜKSELİŞ BEKLENTİSİ" : bias === "BEARISH" ? "DÜŞÜŞ BEKLENTİSİ" : "YATAY / YÖNSÜZ"}
           </Badge>
-          <span className="text-[14px] font-medium text-slate-200">Tahmin Skoru: {score}</span>
+          <span className="text-[14px] font-medium text-slate-200">Tahmin Skoru: {signed(score, 0)}</span>
         </div>
         <p className="mt-4 text-[13px] leading-relaxed text-slate-300">
           {analysisText}
@@ -76,7 +76,7 @@ export default function V4SuperTradeForecast({
         <div className="space-y-2">
           <Row
             label="Kapanış Seviyesi"
-            value={spotPrice.toFixed(2)}
+            value={fmt(spotPrice)}
             valueClass={spotPrice > levels.spot.orh ? "text-[#22c55e]" : spotPrice < levels.spot.orl ? "text-[#ef4444]" : "text-slate-300"}
           />
           <Row
@@ -84,9 +84,9 @@ export default function V4SuperTradeForecast({
             value={`Vadeli ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`}
             valueClass={futuresPrice > levels.futures.vwap ? "text-[#22c55e]" : "text-[#ef4444]"}
           />
-          <Row 
-            label="Oynaklık (VIX)" 
-            value={`${vixPrice.toFixed(2)} - ${context.volatility.trend === "RISING" ? "Yükseliyor" : context.volatility.trend === "FALLING" ? "Düşüyor" : "Yatay"}`} 
+          <Row
+            label="Oynaklık (VIX)"
+            value={`${fmt(vixPrice)} - ${context.volatility.trend === "RISING" ? "Yükseliyor" : context.volatility.trend === "FALLING" ? "Düşüyor" : "Yatay"}`}
             valueClass={context.volatility.trend === "FALLING" ? "text-[#22c55e]" : context.volatility.trend === "RISING" ? "text-[#ef4444]" : "text-slate-300"}
           />
           <Row 

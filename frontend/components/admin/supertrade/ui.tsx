@@ -23,9 +23,19 @@ export function toneClass(value: number): string {
   return "text-slate-400";
 }
 
+/**
+ * Türkçe rakam biçimi: binlik ayraç nokta, ondalık ayraç virgül
+ * (örn. 30002.24 → "30.002,24"). Tüm fiyat/seviye/skor gösterimlerinde
+ * ham `.toFixed()` yerine bu kullanılır — 0 dahil, eksik veri göstermez.
+ */
+export function fmt(value: number | undefined | null, digits = 2): string {
+  if (value === undefined || value === null || !Number.isFinite(value)) return "—";
+  return value.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
 export function signed(value: number, digits = 2): string {
   if (!Number.isFinite(value)) return "—";
-  return `${value >= 0 ? "+" : ""}${value.toFixed(digits)}`;
+  return `${value >= 0 ? "+" : ""}${fmt(value, digits)}`;
 }
 
 /**
@@ -34,10 +44,24 @@ export function signed(value: number, digits = 2): string {
  * noktasız "I" yapar, doğrusu ise noktalı "İ"dir (örn. "iptal" → "IPTAL"
  * değil "İPTAL" olmalı). Bunu CSS'e bırakmak yerine string'i JS içinde
  * Türkçe yerel ayarıyla büyütüp öyle basıyoruz — tarayıcı desteğinden
- * bağımsız, her zaman doğru sonuç verir.
+ * bağımsız, her zaman doğru sonuç verir. Yalnızca gerçekten büyük harf
+ * gerektiren yerlerde (kısa rozet etiketleri gibi) elle çağrılır; başlık
+ * ve tablo bileşenleri artık metni olduğu gibi (normal harf büyüklüğüyle)
+ * basar — sürekli büyük harf kullanımı okunabilirliği azaltıyordu.
  */
 export function trUp(text: string): string {
   return text.toLocaleUpperCase("tr-TR");
+}
+
+/** "STRONG_SHORT" / "DOWNTREND" gibi İngilizce sabit kodları okunur başlık
+ *  biçimine çevirir (örn. "Strong Short", "Downtrend") — tablo hücrelerinde
+ *  ham enum değerinin tamamen büyük harfle görünmesini engeller. */
+export function titleCase(text: string): string {
+  return text
+    .toLocaleLowerCase("tr-TR")
+    .split(" ")
+    .map((w) => (w ? w.charAt(0).toLocaleUpperCase("tr-TR") + w.slice(1) : w))
+    .join(" ");
 }
 
 export function num(value: number | undefined | null, digits = 2): string {
@@ -54,8 +78,8 @@ export function SectionTitle({
 }) {
   return (
     <div className="flex items-baseline gap-2">
-      <h3 className="text-[11px] font-medium tracking-[0.09em] text-[#3b82f6]">
-        {typeof children === "string" ? trUp(children) : children}
+      <h3 className="text-[11px] font-medium tracking-[0.04em] text-[#3b82f6]">
+        {children}
       </h3>
       {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
     </div>
@@ -103,7 +127,7 @@ export function Stat({
 }) {
   return (
     <div className="min-w-0">
-      <div className="text-[11px] font-medium tracking-[0.06em] text-[#3b82f6]">{trUp(label)}</div>
+      <div className="text-[11px] font-medium tracking-[0.02em] text-[#3b82f6]">{label}</div>
       <div className={`mt-1 text-[17px] font-medium tabular-nums leading-tight ${valueClass}`}>{value}</div>
       {sub !== undefined && <div className="mt-0.5 truncate text-[11px] text-slate-500">{sub}</div>}
     </div>
@@ -153,9 +177,9 @@ export function Badge({
   return (
     <span
       title={title}
-      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
+      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.03em] ${BADGE_STYLES[tone]} ${className}`}
     >
-      {typeof children === "string" ? trUp(children) : children}
+      {children}
     </span>
   );
 }
@@ -268,9 +292,9 @@ export function Th({
   const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
   return (
     <th
-      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[10px] font-medium tracking-[0.06em] text-[#3b82f6] ${alignClass} ${className}`}
+      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[11px] font-medium tracking-[0.02em] text-[#3b82f6] ${alignClass} ${className}`}
     >
-      {typeof children === "string" ? trUp(children) : children}
+      {children}
     </th>
   );
 }

@@ -10,7 +10,7 @@
 import { useMemo, useState } from "react";
 import type { SignalState } from "@/lib/v4/types";
 import { impliedVolFor, priceOption } from "@/lib/v4/options";
-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num, trUp } from "../supertrade/ui";
+import { Badge, EmptyState, INSET, Panel, Row, Tabs, fmt, num, titleCase } from "../supertrade/ui";
 
 type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
 
@@ -113,8 +113,8 @@ export default function V4StrategyLab({
         netAmount: c1,
         maxLoss: c1,
         maxProfit: null,
-        breakeven: (k1 + (dir * c1) / 100).toFixed(2),
-        delta: `Delta ${deltaAt(k1).toFixed(2)} · yüksek gamma`,
+        breakeven: fmt(k1 + (dir * c1) / 100),
+        delta: `Delta ${fmt(deltaAt(k1))} · yüksek gamma`,
         horizon: horizonLabel,
         score: 0,
         reason: `Kırılım sonrası hızlı delta genişlemesinden yararlanır. Tüm risk ödenen ${c1} dolarla sınırlıdır.`,
@@ -134,8 +134,8 @@ export default function V4StrategyLab({
         netAmount: cost2,
         maxLoss: cost2,
         maxProfit: 500 - cost2,
-        breakeven: (long2 + (dir * cost2) / 100).toFixed(2),
-        delta: `Delta ${(deltaAt(long2) - deltaAt(short2)).toFixed(2)} · theta dengeli`,
+        breakeven: fmt(long2 + (dir * cost2) / 100),
+        delta: `Delta ${fmt(deltaAt(long2) - deltaAt(short2))} · theta dengeli`,
         horizon: horizonLabel,
         score: 0,
         reason: `Satılan bacak zaman erimesini dengeler; ${cost2} dolar riskle 5 puanlık hedef bandı yakalar.`,
@@ -155,8 +155,8 @@ export default function V4StrategyLab({
         netAmount: cost3,
         maxLoss: cost3,
         maxProfit: 1000 - cost3,
-        breakeven: (long3 + (dir * cost3) / 100).toFixed(2),
-        delta: `Delta ${(deltaAt(long3) - deltaAt(short3)).toFixed(2)} · dengeli gamma`,
+        breakeven: fmt(long3 + (dir * cost3) / 100),
+        delta: `Delta ${fmt(deltaAt(long3) - deltaAt(short3))} · dengeli gamma`,
         horizon: horizonLabel,
         score: 0,
         reason: `Mevcut ${stateTr} durumunda 10 puanlık hedef bandı için tanımlı riskli standart yapı.`,
@@ -178,7 +178,7 @@ export default function V4StrategyLab({
         netAmount: credit4,
         maxLoss: Math.max(1, 500 - credit4),
         maxProfit: credit4,
-        breakeven: (shortK - (dir * credit4) / 100).toFixed(2),
+        breakeven: fmt(shortK - (dir * credit4) / 100),
         delta: "Pozitif theta · olasılık öncelikli",
         horizon: "Gün sonu",
         score: 0,
@@ -199,7 +199,7 @@ export default function V4StrategyLab({
         netAmount: strangleCost,
         maxLoss: strangleCost,
         maxProfit: null,
-        breakeven: `${(pK - strangleCost / 100).toFixed(2)} / ${(cK + strangleCost / 100).toFixed(2)}`,
+        breakeven: `${fmt(pK - strangleCost / 100)} / ${fmt(cK + strangleCost / 100)}`,
         delta: "Delta nötr · yüksek vega",
         horizon: HORIZON_OPTIONS.find((h) => h.value === horizon)!.label,
         score: 0,
@@ -221,7 +221,7 @@ export default function V4StrategyLab({
         netAmount: icCredit,
         maxLoss: Math.max(1, 500 - icCredit),
         maxProfit: icCredit,
-        breakeven: `${(icSP - icCredit / 100).toFixed(2)} – ${(icSC + icCredit / 100).toFixed(2)}`,
+        breakeven: `${fmt(icSP - icCredit / 100)} – ${fmt(icSC + icCredit / 100)}`,
         delta: "Delta nötr · pozitif theta",
         horizon: "Gün sonu",
         score: 0,
@@ -239,7 +239,7 @@ export default function V4StrategyLab({
         netAmount: ibCredit,
         maxLoss: Math.max(1, 500 - ibCredit),
         maxProfit: ibCredit,
-        breakeven: `${(atm - ibCredit / 100).toFixed(2)} – ${(atm + ibCredit / 100).toFixed(2)}`,
+        breakeven: `${fmt(atm - ibCredit / 100)} – ${fmt(atm + ibCredit / 100)}`,
         delta: "Delta nötr · maksimum theta",
         horizon: "Gün sonu",
         score: 0,
@@ -291,14 +291,18 @@ export default function V4StrategyLab({
     >
       <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
-            {trUp("Deterministik durum")}
+          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Deterministik durum</div>
+          <div
+            className={`mt-1 text-[13px] font-medium ${
+              isLong ? "text-[#22c55e]" : isShort ? "text-[#ef4444]" : "text-slate-200"
+            }`}
+          >
+            {titleCase(state.replace(/_/g, " "))}
           </div>
-          <div className="mt-1 text-[13px] text-slate-200">{state.replace(/_/g, " ")}</div>
         </div>
         <div className={`${INSET} p-3`}>
-          <label className="block text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
-            {trUp("Maksimum risk bütçesi ($)")}
+          <label className="block text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">
+            Maksimum risk bütçesi ($)
           </label>
           <input
             type="number"
@@ -310,9 +314,7 @@ export default function V4StrategyLab({
           />
         </div>
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
-            {trUp("Hedef süre")}
-          </div>
+          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Hedef süre</div>
           <div className="mt-1.5">
             <Tabs
               size="sm"
@@ -323,12 +325,10 @@ export default function V4StrategyLab({
           </div>
         </div>
         <div className={`${INSET} p-3`}>
-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
-            {trUp("Bütçeye uyan yapı")}
-          </div>
+          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Bütçeye uyan yapı</div>
           <div className="mt-1 text-[13px] tabular-nums text-slate-200">
             {withinBudget.length} / {filtered.length}
-            <span className="ml-2 text-[11px] text-slate-500">sınır ${budget}</span>
+            <span className="ml-2 text-[11px] text-slate-500">sınır ${fmt(budget, 0)}</span>
           </div>
         </div>
       </div>
@@ -344,9 +344,7 @@ export default function V4StrategyLab({
             <article key={s.id} className={`${INSET} flex flex-col p-3.5`}>
               <header className="mb-2.5 flex items-start justify-between gap-2 border-b border-[#1c2635] pb-2.5">
                 <div className="min-w-0">
-                  <div className="text-[10px] tracking-[0.06em] text-slate-500">
-                    {trUp(CATEGORY_LABEL[s.category])}
-                  </div>
+                  <div className="text-[10px] tracking-[0.02em] text-slate-500">{CATEGORY_LABEL[s.category]}</div>
                   <h4 className="mt-0.5 text-[13px] font-medium leading-snug text-slate-100">{s.name}</h4>
                 </div>
                 {i === 0 && <Badge tone="brand">Öne çıkan</Badge>}
@@ -354,23 +352,23 @@ export default function V4StrategyLab({
 
               <div className="space-y-0.5">
                 <Row label="Bacaklar" value={<span className="font-mono text-[11px]">{s.legs}</span>} />
-                <Row label={s.netLabel} value={`$${s.netAmount}`} />
+                <Row label={s.netLabel} value={`$${fmt(s.netAmount, 0)}`} />
                 <Row
                   label="Maksimum risk"
-                  value={`$${s.maxLoss}`}
-                  valueClass="text-[#ef4444]"
+                  value={`$${fmt(s.maxLoss, 0)}`}
+                  valueClass="font-medium text-[#ef4444]"
                 />
                 <Row
                   label="Maksimum kâr"
-                  value={s.maxProfit === null ? "Teorik sınırsız" : `$${s.maxProfit}`}
-                  valueClass="text-[#22c55e]"
+                  value={s.maxProfit === null ? "Teorik sınırsız" : `$${fmt(s.maxProfit, 0)}`}
+                  valueClass="font-medium text-[#22c55e]"
                 />
                 <Row
                   label="Risk / getiri"
                   value={
                     s.maxProfit === null
                       ? "Yön ve hız odaklı"
-                      : `1 : ${(s.maxProfit / Math.max(1, s.maxLoss)).toFixed(1)}`
+                      : `1 : ${fmt(s.maxProfit / Math.max(1, s.maxLoss), 1)}`
                   }
                 />
                 <Row label="Başa baş" value={s.breakeven} />
@@ -380,13 +378,9 @@ export default function V4StrategyLab({
               </div>
 
               <div className="mt-2.5 border-t border-[#1c2635] pt-2.5">
-                <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
-                  {trUp("Neden bu yapı")}
-                </div>
+                <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Neden bu yapı</div>
                 <p className="mt-1 text-[11px] leading-relaxed text-slate-400">{s.reason}</p>
-                <div className="mt-2 text-[10px] font-medium tracking-[0.06em] text-slate-500">
-                  {trUp("İptal koşulu")}
-                </div>
+                <div className="mt-2 text-[10px] font-medium tracking-[0.02em] text-slate-500">İptal koşulu</div>
                 <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">{s.invalidation}</p>
               </div>
             </article>
@@ -396,9 +390,7 @@ export default function V4StrategyLab({
 
       {overBudget.length > 0 && (
         <div className="mt-3">
-          <div className="mb-1.5 text-[10px] font-medium tracking-[0.06em] text-slate-500">
-            {trUp("Bütçe dışı kalanlar")}
-          </div>
+          <div className="mb-1.5 text-[10px] font-medium tracking-[0.02em] text-slate-500">Bütçe dışı kalanlar</div>
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
             {overBudget.map((s) => (
               <div
@@ -407,9 +399,9 @@ export default function V4StrategyLab({
               >
                 <span className="min-w-0 truncate text-slate-300">{s.name}</span>
                 <span className="shrink-0 tabular-nums text-[#ef4444]">
-                  ${s.maxLoss}
+                  ${fmt(s.maxLoss, 0)}
                   <span className="ml-1.5 text-[11px] text-slate-500">
-                    (+${s.maxLoss - budget} gerekli)
+                    (+${fmt(s.maxLoss - budget, 0)} gerekli)
                   </span>
                 </span>
               </div>
