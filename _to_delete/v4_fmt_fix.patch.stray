@@ -1,0 +1,1064 @@
+diff --git a/frontend/app/admin/supertrade/v4/page.tsx b/frontend/app/admin/supertrade/v4/page.tsx
+index 5ad6362..1f4ef5f 100644
+--- a/frontend/app/admin/supertrade/v4/page.tsx
++++ b/frontend/app/admin/supertrade/v4/page.tsx
+@@ -1,7 +1,7 @@
+ "use client";
+ 
+ import { useEffect, useState } from "react";
+-import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, signed, toneClass, trUp } from "@/components/admin/supertrade/ui";
++import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, fmt, signed, titleCase, toneClass } from "@/components/admin/supertrade/ui";
+ import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
+ import { ASSET_MAP } from "@/lib/v4/types";
+ 
+@@ -10,6 +10,22 @@ import MultiAssetDetail from "@/components/admin/v4/MultiAssetDetail";
+ 
+ type AssetResult = (AssetSnapshot & { ok: true }) | { ok: false; error: string };
+ 
++const ASSETS: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
++
++/** Dashboard satırı ve varlık-geçiş menüsü ortak durum türetimi — ikisi de
++ *  aynı yön/renk mantığını kullanır, tek yerden yönetilir. */
++function deriveAssetMeta(data: AssetResult | undefined) {
++  if (!data || !data.ok) return null;
++  const frame = data.frames[data.frames.length - 1];
++  const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
++  const direction: "LONG" | "SHORT" | "NEUTRAL" = frame.state.includes("LONG")
++    ? "LONG"
++    : frame.state.includes("SHORT")
++    ? "SHORT"
++    : "NEUTRAL";
++  return { frame, isConfirmed, direction };
++}
++
+ export default function SuperTradeV4Dashboard() {
+   const [selectedAsset, setSelectedAsset] = useState<AssetClass | null>(null);
+   const [snapshots, setSnapshots] = useState<Record<string, AssetResult>>({});
+@@ -44,12 +60,43 @@ export default function SuperTradeV4Dashboard() {
+     const selectedError = selectedData && !selectedData.ok ? selectedData.error : null;
+     return (
+       <div className="p-4 md:p-5 bg-[#0a0e17] min-h-screen text-slate-300">
+-        <button
+-          onClick={() => setSelectedAsset(null)}
+-          className="mb-4 flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
+-        >
+-          ← Dashboard&apos;a Dön
+-        </button>
++        <div className="mb-4 flex flex-wrap items-center gap-3">
++          <button
++            onClick={() => setSelectedAsset(null)}
++            className="flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
++          >
++            ← Dashboard&apos;a Dön
++          </button>
++          <div className="h-4 w-px bg-[#1c2635]" />
++          <div className="flex flex-wrap items-center gap-1.5">
++            {ASSETS.map((a) => {
++              const meta = deriveAssetMeta(snapshots[a]);
++              const active = a === selectedAsset;
++              const dotClass = !meta
++                ? "bg-slate-600"
++                : meta.direction === "LONG"
++                ? "bg-[#22c55e]"
++                : meta.direction === "SHORT"
++                ? "bg-[#ef4444]"
++                : "bg-slate-500";
++              return (
++                <button
++                  key={a}
++                  onClick={() => setSelectedAsset(a)}
++                  title={ASSET_MAP[a].name}
++                  className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors ${
++                    active
++                      ? "border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
++                      : "border-[#1c2635] text-slate-400 hover:border-[#2a3648] hover:text-slate-200"
++                  }`}
++                >
++                  <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />
++                  {a}
++                </button>
++              );
++            })}
++          </div>
++        </div>
+         <MultiAssetDetail
+           asset={selectedAsset}
+           snapshot={selectedSnapshot}
+@@ -60,7 +107,7 @@ export default function SuperTradeV4Dashboard() {
+     );
+   }
+ 
+-  const assets: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
++  const assets = ASSETS;
+   // Herhangi bir varlık gece yarısını geçip yeni seansa henüz gerçek veri
+   // gelmemişse dashboard genelinde tek bir uyarı gösterilir (her satırda
+   // tekrarlamak yerine).
+@@ -77,9 +124,7 @@ export default function SuperTradeV4Dashboard() {
+             Multi-Asset Fırsat Tarayıcı
+           </h1>
+           <Badge tone="brand">SuperTrade V4</Badge>
+-          {anyNextDay && (
+-            <Badge tone="neutral">{trUp("Sonraki seans için hazır")}</Badge>
+-          )}
++          {anyNextDay && <Badge tone="neutral">Sonraki seans için hazır</Badge>}
+         </div>
+         <p className="text-[12px] text-slate-500">
+           S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
+@@ -123,10 +168,13 @@ export default function SuperTradeV4Dashboard() {
+                   );
+                 }
+ 
+-                const frame = data.frames[data.frames.length - 1];
+-                const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
+-                const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
++                const meta2 = deriveAssetMeta(data)!;
++                const { frame, isConfirmed, direction } = meta2;
+                 const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
++                // Durum rengi teyit gücünden bağımsız, her zaman yöne göredir —
++                // zayıf bir SHORT sinyali de kırmızı, zayıf bir LONG da yeşil kalır.
++                const statusClass =
++                  direction === "LONG" ? "text-[#22c55e]" : direction === "SHORT" ? "text-[#ef4444]" : "text-slate-300";
+                 const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
+ 
+                 return (
+@@ -141,22 +189,20 @@ export default function SuperTradeV4Dashboard() {
+                         {isConfirmed && <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
+                         {data.rollover.isNextDay && (
+                           <Badge tone="brand" className="ml-1">
+-                            {trUp(data.rollover.nextTradingDate)}
++                            {data.rollover.nextTradingDate}
+                           </Badge>
+                         )}
+                       </div>
+                       <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
+                     </Td>
+-                    <Td align="right">{data.spotPrice.toFixed(2)}</Td>
+-                    <Td align="right" valueClass={`font-medium ${toneClass(frame.netScore)}`}>
++                    <Td align="right">{fmt(data.spotPrice)}</Td>
++                    <Td align="right" valueClass={`font-semibold ${toneClass(frame.netScore)}`}>
+                       {signed(frame.netScore, 1)}
+                     </Td>
+-                    <Td valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"}>
+-                      {frame.state.replace(/_/g, " ")}
+-                    </Td>
+-                    <Td align="right">{vwapDistance.toFixed(2)} puan</Td>
++                    <Td valueClass={`font-medium ${statusClass}`}>{titleCase(frame.state.replace(/_/g, " "))}</Td>
++                    <Td align="right">{fmt(vwapDistance)} puan</Td>
+                     <Td align="center">
+-                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
++                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "Yönsüz" : direction}</Badge>
+                     </Td>
+                   </Tr>
+                 );
+diff --git a/frontend/components/admin/supertrade/ui.tsx b/frontend/components/admin/supertrade/ui.tsx
+index 1811958..bd58dd3 100644
+--- a/frontend/components/admin/supertrade/ui.tsx
++++ b/frontend/components/admin/supertrade/ui.tsx
+@@ -23,9 +23,19 @@ export function toneClass(value: number): string {
+   return "text-slate-400";
+ }
+ 
++/**
++ * Türkçe rakam biçimi: binlik ayraç nokta, ondalık ayraç virgül
++ * (örn. 30002.24 → "30.002,24"). Tüm fiyat/seviye/skor gösterimlerinde
++ * ham `.toFixed()` yerine bu kullanılır — 0 dahil, eksik veri göstermez.
++ */
++export function fmt(value: number | undefined | null, digits = 2): string {
++  if (value === undefined || value === null || !Number.isFinite(value)) return "—";
++  return value.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
++}
++
+ export function signed(value: number, digits = 2): string {
+   if (!Number.isFinite(value)) return "—";
+-  return `${value >= 0 ? "+" : ""}${value.toFixed(digits)}`;
++  return `${value >= 0 ? "+" : ""}${fmt(value, digits)}`;
+ }
+ 
+ /**
+@@ -34,12 +44,26 @@ export function signed(value: number, digits = 2): string {
+  * noktasız "I" yapar, doğrusu ise noktalı "İ"dir (örn. "iptal" → "IPTAL"
+  * değil "İPTAL" olmalı). Bunu CSS'e bırakmak yerine string'i JS içinde
+  * Türkçe yerel ayarıyla büyütüp öyle basıyoruz — tarayıcı desteğinden
+- * bağımsız, her zaman doğru sonuç verir.
++ * bağımsız, her zaman doğru sonuç verir. Yalnızca gerçekten büyük harf
++ * gerektiren yerlerde (kısa rozet etiketleri gibi) elle çağrılır; başlık
++ * ve tablo bileşenleri artık metni olduğu gibi (normal harf büyüklüğüyle)
++ * basar — sürekli büyük harf kullanımı okunabilirliği azaltıyordu.
+  */
+ export function trUp(text: string): string {
+   return text.toLocaleUpperCase("tr-TR");
+ }
+ 
++/** "STRONG_SHORT" / "DOWNTREND" gibi İngilizce sabit kodları okunur başlık
++ *  biçimine çevirir (örn. "Strong Short", "Downtrend") — tablo hücrelerinde
++ *  ham enum değerinin tamamen büyük harfle görünmesini engeller. */
++export function titleCase(text: string): string {
++  return text
++    .toLocaleLowerCase("tr-TR")
++    .split(" ")
++    .map((w) => (w ? w.charAt(0).toLocaleUpperCase("tr-TR") + w.slice(1) : w))
++    .join(" ");
++}
++
+ export function num(value: number | undefined | null, digits = 2): string {
+   if (value === undefined || value === null || !Number.isFinite(value) || value === 0) return "—";
+   return value.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+@@ -54,8 +78,8 @@ export function SectionTitle({
+ }) {
+   return (
+     <div className="flex items-baseline gap-2">
+-      <h3 className="text-[11px] font-medium tracking-[0.09em] text-[#3b82f6]">
+-        {typeof children === "string" ? trUp(children) : children}
++      <h3 className="text-[11px] font-medium tracking-[0.04em] text-[#3b82f6]">
++        {children}
+       </h3>
+       {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
+     </div>
+@@ -103,7 +127,7 @@ export function Stat({
+ }) {
+   return (
+     <div className="min-w-0">
+-      <div className="text-[11px] font-medium tracking-[0.06em] text-[#3b82f6]">{trUp(label)}</div>
++      <div className="text-[11px] font-medium tracking-[0.02em] text-[#3b82f6]">{label}</div>
+       <div className={`mt-1 text-[17px] font-medium tabular-nums leading-tight ${valueClass}`}>{value}</div>
+       {sub !== undefined && <div className="mt-0.5 truncate text-[11px] text-slate-500">{sub}</div>}
+     </div>
+@@ -153,9 +177,9 @@ export function Badge({
+   return (
+     <span
+       title={title}
+-      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
++      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.03em] ${BADGE_STYLES[tone]} ${className}`}
+     >
+-      {typeof children === "string" ? trUp(children) : children}
++      {children}
+     </span>
+   );
+ }
+@@ -268,9 +292,9 @@ export function Th({
+   const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
+   return (
+     <th
+-      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[10px] font-medium tracking-[0.06em] text-[#3b82f6] ${alignClass} ${className}`}
++      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[11px] font-medium tracking-[0.02em] text-[#3b82f6] ${alignClass} ${className}`}
+     >
+-      {typeof children === "string" ? trUp(children) : children}
++      {children}
+     </th>
+   );
+ }
+diff --git a/frontend/components/admin/v4/MultiAssetDetail.tsx b/frontend/components/admin/v4/MultiAssetDetail.tsx
+index 0816cd1..47c44a6 100644
+--- a/frontend/components/admin/v4/MultiAssetDetail.tsx
++++ b/frontend/components/admin/v4/MultiAssetDetail.tsx
+@@ -16,9 +16,10 @@ import {
+   THead,
+   Tr,
+   Tabs,
++  fmt,
+   signed,
++  titleCase,
+   toneClass,
+-  trUp,
+ } from "@/components/admin/supertrade/ui";
+ 
+ import V4ContextEnginePanel from "./V4ContextEnginePanel";
+@@ -102,11 +103,11 @@ export default function MultiAssetDetail({
+         </span>
+         {rollover.isNextDay ? (
+           <Badge tone="brand" className="ml-auto">
+-            {trUp(`Sonraki seans: ${rollover.nextTradingDate}`)}
++            {`Sonraki seans: ${rollover.nextTradingDate}`}
+           </Badge>
+         ) : rollover.prepReady ? (
+           <Badge tone="neutral" className="ml-auto" title={`${rollover.nextTradingDate} için hazır`}>
+-            {trUp("Yarın için hazır")}
++            Yarın için hazır
+           </Badge>
+         ) : null}
+       </div>
+@@ -127,16 +128,17 @@ export default function MultiAssetDetail({
+             <div className="mb-3 flex items-start justify-between">
+               <div>
+                 <div className="text-[10px] font-medium tracking-wider text-slate-500">
+-                  {trUp(`Sistem Kararı (${asset})`)}
++                  {`Sistem Kararı (${asset})`}
+                 </div>
+                 <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
+                   {decision.action}
+                 </div>
+               </div>
+               <div className="flex flex-col items-end gap-2">
+-                <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
++                <Badge tone={dirTone}>{titleCase(frame.state.replace(/_/g, " "))}</Badge>
+                 <div className="text-[10px] text-slate-500">
+-                  Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
++                  Net Skor:{" "}
++                  <span className={`font-semibold ${toneClass(frame.netScore)}`}>{signed(frame.netScore, 1)}</span>
+                 </div>
+               </div>
+             </div>
+@@ -183,19 +185,19 @@ export default function MultiAssetDetail({
+                     <TBody>
+                       <Tr>
+                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures15m)}`}>
+-                          {structure.futures15m}
++                          {titleCase(structure.futures15m)}
+                         </Td>
+                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures5m)}`}>
+-                          {structure.futures5m}
++                          {titleCase(structure.futures5m)}
+                         </Td>
+                         <Td align="center" valueClass={`font-medium ${trendClass(structure.futures1m)}`}>
+-                          {structure.futures1m}
++                          {titleCase(structure.futures1m)}
+                         </Td>
+                         <Td align="center" valueClass={`font-medium ${trendClass(structure.spot5m)}`}>
+-                          {structure.spot5m}
++                          {titleCase(structure.spot5m)}
+                         </Td>
+                         <Td align="center" valueClass={`font-medium ${trendClass(structure.spot1m)}`}>
+-                          {structure.spot1m}
++                          {titleCase(structure.spot1m)}
+                         </Td>
+                       </Tr>
+                     </TBody>
+@@ -203,13 +205,13 @@ export default function MultiAssetDetail({
+                 </Panel>
+                 <Panel title="Skor Özeti">
+                   <div className="flex h-full flex-col justify-center gap-3">
+-                    <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
+-                    <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
++                    <Row label="Long Faktörleri" value={`+${fmt(frame.longScore, 1)}`} valueClass="font-semibold text-[#22c55e]" />
++                    <Row label="Short Faktörleri" value={`-${fmt(frame.shortScore, 1)}`} valueClass="font-semibold text-[#ef4444]" />
+                     <div className="my-1 h-px bg-[#1c2635]" />
+                     <Row
+                       label="Net Yön Skoru"
+                       value={signed(frame.netScore, 1)}
+-                      valueClass={`font-medium ${toneClass(frame.netScore)}`}
++                      valueClass={`font-semibold ${toneClass(frame.netScore)}`}
+                     />
+                   </div>
+                 </Panel>
+@@ -257,35 +259,35 @@ export default function MultiAssetDetail({
+                   <TBody>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Açılış ORH</Td>
+-                      <Td align="right">{levels.spot.orh.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.spot.orh)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Açılış ORL</Td>
+-                      <Td align="right">{levels.spot.orl.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.spot.orl)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">OR genişliği</Td>
+-                      <Td align="right">{levels.spot.orSize.toFixed(2)} puan</Td>
++                      <Td align="right">{fmt(levels.spot.orSize)} puan</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Seans VWAP</Td>
+-                      <Td align="right" valueClass="text-[#3b82f6]">{frame.vwap.toFixed(2)}</Td>
++                      <Td align="right" valueClass="text-[#3b82f6]">{fmt(frame.vwap)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Gece ONH</Td>
+-                      <Td align="right">{levels.futures.onh.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.futures.onh)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Gece ONL</Td>
+-                      <Td align="right">{levels.futures.onl.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.futures.onl)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">ON orta nokta</Td>
+-                      <Td align="right">{levels.futures.onMid.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.futures.onMid)}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Önceki gün kapanışı</Td>
+-                      <Td align="right">{levels.futures.pdc.toFixed(2)}</Td>
++                      <Td align="right">{fmt(levels.futures.pdc)}</Td>
+                     </Tr>
+                   </TBody>
+                 </Table>
+diff --git a/frontend/components/admin/v4/V4ContextEnginePanel.tsx b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+index 9b34b8e..1cd6fd7 100644
+--- a/frontend/components/admin/v4/V4ContextEnginePanel.tsx
++++ b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+@@ -7,7 +7,7 @@
+ 
+ import { useState } from "react";
+ import type { ContextSnapshot, SignalState } from "@/lib/v4/types";
+-import { Badge, INSET, Panel, Table, TBody, Td, Th, THead, Tr, num, toneClass } from "../supertrade/ui";
++import { Badge, INSET, Panel, Table, TBody, Td, Th, THead, Tr, fmt, num, signed, titleCase, toneClass } from "../supertrade/ui";
+ 
+ const AGREEMENT_META = {
+   CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
+@@ -43,7 +43,7 @@ export default function V4ContextEnginePanel({
+       headlineClass: toneClass(-volatility.vix5dChange),
+       detail: volatility.label,
+       footLabel: "5 günlük değişim",
+-      footValue: `${volatility.vix5dChange >= 0 ? "+" : ""}${volatility.vix5dChange.toFixed(2)}`,
++      footValue: signed(volatility.vix5dChange, 2),
+       footClass: toneClass(-volatility.vix5dChange),
+     },
+     {
+@@ -52,7 +52,7 @@ export default function V4ContextEnginePanel({
+       headlineClass: toneClass(previousSession.changePct),
+       detail: `${previousSession.date} · ${previousSession.label}`,
+       footLabel: "Kapanış konumu",
+-      footValue: `%${previousSession.closePositionPct} (${previousSession.changePct >= 0 ? "+" : ""}${previousSession.changePct.toFixed(2)}%)`,
++      footValue: `%${previousSession.closePositionPct} (${signed(previousSession.changePct, 2)}%)`,
+       footClass: toneClass(previousSession.changePct),
+     },
+     {
+@@ -61,7 +61,7 @@ export default function V4ContextEnginePanel({
+       headlineClass: toneClass(overnight.gapPts),
+       detail: `Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`,
+       footLabel: "Açılış boşluğu",
+-      footValue: `${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`,
++      footValue: `${signed(overnight.gapPts, 2)} puan`,
+       footClass: toneClass(overnight.gapPts),
+     },
+     {
+@@ -72,7 +72,7 @@ export default function V4ContextEnginePanel({
+       headlineClass:
+         analog.bias === "BULLISH" ? "text-[#22c55e]" : analog.bias === "BEARISH" ? "text-[#ef4444]" : "text-slate-300",
+       detail: analog.sampleSize
+-        ? `Medyan gün içi hareket ${analog.medianMovePts >= 0 ? "+" : ""}${analog.medianMovePts.toFixed(1)} puan · en iyi ${analog.medianMfePts.toFixed(1)} / en kötü ${analog.medianMaePts.toFixed(1)} puan`
++        ? `Medyan gün içi hareket ${signed(analog.medianMovePts, 1)} puan · en iyi ${fmt(analog.medianMfePts, 1)} / en kötü ${fmt(analog.medianMaePts, 1)} puan`
+         : "Tarihsel karşılaştırma yapılamadı",
+       footLabel: "En yakın gün",
+       footValue: analog.sampleSize ? `${analog.nearestDate} (%${analog.nearestSimilarity})` : "—",
+@@ -109,7 +109,7 @@ export default function V4ContextEnginePanel({
+           <span className="text-[12px] leading-relaxed text-slate-300">{context.liveAgreementText}</span>
+         </div>
+         <span className="shrink-0 text-[11px] text-slate-500">
+-          Canlı durum: <span className="text-slate-300">{liveState.replace(/_/g, " ")}</span>
++          Canlı durum: <span className="text-slate-300">{titleCase(liveState.replace(/_/g, " "))}</span>
+         </span>
+       </div>
+ 
+diff --git a/frontend/components/admin/v4/V4StrategyLab.tsx b/frontend/components/admin/v4/V4StrategyLab.tsx
+index b2cc2cb..ed7caf3 100644
+--- a/frontend/components/admin/v4/V4StrategyLab.tsx
++++ b/frontend/components/admin/v4/V4StrategyLab.tsx
+@@ -10,7 +10,7 @@
+ import { useMemo, useState } from "react";
+ import type { SignalState } from "@/lib/v4/types";
+ import { impliedVolFor, priceOption } from "@/lib/v4/options";
+-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num, trUp } from "../supertrade/ui";
++import { Badge, EmptyState, INSET, Panel, Row, Tabs, fmt, num, titleCase } from "../supertrade/ui";
+ 
+ type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
+ 
+@@ -113,8 +113,8 @@ export default function V4StrategyLab({
+         netAmount: c1,
+         maxLoss: c1,
+         maxProfit: null,
+-        breakeven: (k1 + (dir * c1) / 100).toFixed(2),
+-        delta: `Delta ${deltaAt(k1).toFixed(2)} · yüksek gamma`,
++        breakeven: fmt(k1 + (dir * c1) / 100),
++        delta: `Delta ${fmt(deltaAt(k1))} · yüksek gamma`,
+         horizon: horizonLabel,
+         score: 0,
+         reason: `Kırılım sonrası hızlı delta genişlemesinden yararlanır. Tüm risk ödenen ${c1} dolarla sınırlıdır.`,
+@@ -134,8 +134,8 @@ export default function V4StrategyLab({
+         netAmount: cost2,
+         maxLoss: cost2,
+         maxProfit: 500 - cost2,
+-        breakeven: (long2 + (dir * cost2) / 100).toFixed(2),
+-        delta: `Delta ${(deltaAt(long2) - deltaAt(short2)).toFixed(2)} · theta dengeli`,
++        breakeven: fmt(long2 + (dir * cost2) / 100),
++        delta: `Delta ${fmt(deltaAt(long2) - deltaAt(short2))} · theta dengeli`,
+         horizon: horizonLabel,
+         score: 0,
+         reason: `Satılan bacak zaman erimesini dengeler; ${cost2} dolar riskle 5 puanlık hedef bandı yakalar.`,
+@@ -155,8 +155,8 @@ export default function V4StrategyLab({
+         netAmount: cost3,
+         maxLoss: cost3,
+         maxProfit: 1000 - cost3,
+-        breakeven: (long3 + (dir * cost3) / 100).toFixed(2),
+-        delta: `Delta ${(deltaAt(long3) - deltaAt(short3)).toFixed(2)} · dengeli gamma`,
++        breakeven: fmt(long3 + (dir * cost3) / 100),
++        delta: `Delta ${fmt(deltaAt(long3) - deltaAt(short3))} · dengeli gamma`,
+         horizon: horizonLabel,
+         score: 0,
+         reason: `Mevcut ${stateTr} durumunda 10 puanlık hedef bandı için tanımlı riskli standart yapı.`,
+@@ -178,7 +178,7 @@ export default function V4StrategyLab({
+         netAmount: credit4,
+         maxLoss: Math.max(1, 500 - credit4),
+         maxProfit: credit4,
+-        breakeven: (shortK - (dir * credit4) / 100).toFixed(2),
++        breakeven: fmt(shortK - (dir * credit4) / 100),
+         delta: "Pozitif theta · olasılık öncelikli",
+         horizon: "Gün sonu",
+         score: 0,
+@@ -199,7 +199,7 @@ export default function V4StrategyLab({
+         netAmount: strangleCost,
+         maxLoss: strangleCost,
+         maxProfit: null,
+-        breakeven: `${(pK - strangleCost / 100).toFixed(2)} / ${(cK + strangleCost / 100).toFixed(2)}`,
++        breakeven: `${fmt(pK - strangleCost / 100)} / ${fmt(cK + strangleCost / 100)}`,
+         delta: "Delta nötr · yüksek vega",
+         horizon: HORIZON_OPTIONS.find((h) => h.value === horizon)!.label,
+         score: 0,
+@@ -221,7 +221,7 @@ export default function V4StrategyLab({
+         netAmount: icCredit,
+         maxLoss: Math.max(1, 500 - icCredit),
+         maxProfit: icCredit,
+-        breakeven: `${(icSP - icCredit / 100).toFixed(2)} – ${(icSC + icCredit / 100).toFixed(2)}`,
++        breakeven: `${fmt(icSP - icCredit / 100)} – ${fmt(icSC + icCredit / 100)}`,
+         delta: "Delta nötr · pozitif theta",
+         horizon: "Gün sonu",
+         score: 0,
+@@ -239,7 +239,7 @@ export default function V4StrategyLab({
+         netAmount: ibCredit,
+         maxLoss: Math.max(1, 500 - ibCredit),
+         maxProfit: ibCredit,
+-        breakeven: `${(atm - ibCredit / 100).toFixed(2)} – ${(atm + ibCredit / 100).toFixed(2)}`,
++        breakeven: `${fmt(atm - ibCredit / 100)} – ${fmt(atm + ibCredit / 100)}`,
+         delta: "Delta nötr · maksimum theta",
+         horizon: "Gün sonu",
+         score: 0,
+@@ -291,14 +291,18 @@ export default function V4StrategyLab({
+     >
+       <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+-            {trUp("Deterministik durum")}
++          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Deterministik durum</div>
++          <div
++            className={`mt-1 text-[13px] font-medium ${
++              isLong ? "text-[#22c55e]" : isShort ? "text-[#ef4444]" : "text-slate-200"
++            }`}
++          >
++            {titleCase(state.replace(/_/g, " "))}
+           </div>
+-          <div className="mt-1 text-[13px] text-slate-200">{state.replace(/_/g, " ")}</div>
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <label className="block text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+-            {trUp("Maksimum risk bütçesi ($)")}
++          <label className="block text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">
++            Maksimum risk bütçesi ($)
+           </label>
+           <input
+             type="number"
+@@ -310,9 +314,7 @@ export default function V4StrategyLab({
+           />
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+-            {trUp("Hedef süre")}
+-          </div>
++          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Hedef süre</div>
+           <div className="mt-1.5">
+             <Tabs
+               size="sm"
+@@ -323,12 +325,10 @@ export default function V4StrategyLab({
+           </div>
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+-            {trUp("Bütçeye uyan yapı")}
+-          </div>
++          <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Bütçeye uyan yapı</div>
+           <div className="mt-1 text-[13px] tabular-nums text-slate-200">
+             {withinBudget.length} / {filtered.length}
+-            <span className="ml-2 text-[11px] text-slate-500">sınır ${budget}</span>
++            <span className="ml-2 text-[11px] text-slate-500">sınır ${fmt(budget, 0)}</span>
+           </div>
+         </div>
+       </div>
+@@ -344,9 +344,7 @@ export default function V4StrategyLab({
+             <article key={s.id} className={`${INSET} flex flex-col p-3.5`}>
+               <header className="mb-2.5 flex items-start justify-between gap-2 border-b border-[#1c2635] pb-2.5">
+                 <div className="min-w-0">
+-                  <div className="text-[10px] tracking-[0.06em] text-slate-500">
+-                    {trUp(CATEGORY_LABEL[s.category])}
+-                  </div>
++                  <div className="text-[10px] tracking-[0.02em] text-slate-500">{CATEGORY_LABEL[s.category]}</div>
+                   <h4 className="mt-0.5 text-[13px] font-medium leading-snug text-slate-100">{s.name}</h4>
+                 </div>
+                 {i === 0 && <Badge tone="brand">Öne çıkan</Badge>}
+@@ -354,23 +352,23 @@ export default function V4StrategyLab({
+ 
+               <div className="space-y-0.5">
+                 <Row label="Bacaklar" value={<span className="font-mono text-[11px]">{s.legs}</span>} />
+-                <Row label={s.netLabel} value={`$${s.netAmount}`} />
++                <Row label={s.netLabel} value={`$${fmt(s.netAmount, 0)}`} />
+                 <Row
+                   label="Maksimum risk"
+-                  value={`$${s.maxLoss}`}
+-                  valueClass="text-[#ef4444]"
++                  value={`$${fmt(s.maxLoss, 0)}`}
++                  valueClass="font-medium text-[#ef4444]"
+                 />
+                 <Row
+                   label="Maksimum kâr"
+-                  value={s.maxProfit === null ? "Teorik sınırsız" : `$${s.maxProfit}`}
+-                  valueClass="text-[#22c55e]"
++                  value={s.maxProfit === null ? "Teorik sınırsız" : `$${fmt(s.maxProfit, 0)}`}
++                  valueClass="font-medium text-[#22c55e]"
+                 />
+                 <Row
+                   label="Risk / getiri"
+                   value={
+                     s.maxProfit === null
+                       ? "Yön ve hız odaklı"
+-                      : `1 : ${(s.maxProfit / Math.max(1, s.maxLoss)).toFixed(1)}`
++                      : `1 : ${fmt(s.maxProfit / Math.max(1, s.maxLoss), 1)}`
+                   }
+                 />
+                 <Row label="Başa baş" value={s.breakeven} />
+@@ -380,13 +378,9 @@ export default function V4StrategyLab({
+               </div>
+ 
+               <div className="mt-2.5 border-t border-[#1c2635] pt-2.5">
+-                <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
+-                  {trUp("Neden bu yapı")}
+-                </div>
++                <div className="text-[10px] font-medium tracking-[0.02em] text-[#3b82f6]">Neden bu yapı</div>
+                 <p className="mt-1 text-[11px] leading-relaxed text-slate-400">{s.reason}</p>
+-                <div className="mt-2 text-[10px] font-medium tracking-[0.06em] text-slate-500">
+-                  {trUp("İptal koşulu")}
+-                </div>
++                <div className="mt-2 text-[10px] font-medium tracking-[0.02em] text-slate-500">İptal koşulu</div>
+                 <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">{s.invalidation}</p>
+               </div>
+             </article>
+@@ -396,9 +390,7 @@ export default function V4StrategyLab({
+ 
+       {overBudget.length > 0 && (
+         <div className="mt-3">
+-          <div className="mb-1.5 text-[10px] font-medium tracking-[0.06em] text-slate-500">
+-            {trUp("Bütçe dışı kalanlar")}
+-          </div>
++          <div className="mb-1.5 text-[10px] font-medium tracking-[0.02em] text-slate-500">Bütçe dışı kalanlar</div>
+           <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+             {overBudget.map((s) => (
+               <div
+@@ -407,9 +399,9 @@ export default function V4StrategyLab({
+               >
+                 <span className="min-w-0 truncate text-slate-300">{s.name}</span>
+                 <span className="shrink-0 tabular-nums text-[#ef4444]">
+-                  ${s.maxLoss}
++                  ${fmt(s.maxLoss, 0)}
+                   <span className="ml-1.5 text-[11px] text-slate-500">
+-                    (+${s.maxLoss - budget} gerekli)
++                    (+${fmt(s.maxLoss - budget, 0)} gerekli)
+                   </span>
+                 </span>
+               </div>
+diff --git a/frontend/components/admin/v4/V4SuperTradeForecast.tsx b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+index 9301d1b..08d9559 100644
+--- a/frontend/components/admin/v4/V4SuperTradeForecast.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+@@ -1,4 +1,4 @@
+-import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
++import { Panel, Row, Badge, fmt, signed } from "@/components/admin/supertrade/ui";
+ import type { AssetSnapshot, ForecastBundle } from "@/lib/v4/types";
+ 
+ export default function V4SuperTradeForecast({
+@@ -65,7 +65,7 @@ export default function V4SuperTradeForecast({
+           <Badge tone={bias === "BULLISH" ? "up" : bias === "BEARISH" ? "down" : "neutral"}>
+             {bias === "BULLISH" ? "YÜKSELİŞ BEKLENTİSİ" : bias === "BEARISH" ? "DÜŞÜŞ BEKLENTİSİ" : "YATAY / YÖNSÜZ"}
+           </Badge>
+-          <span className="text-[14px] font-medium text-slate-200">Tahmin Skoru: {score}</span>
++          <span className="text-[14px] font-medium text-slate-200">Tahmin Skoru: {signed(score, 0)}</span>
+         </div>
+         <p className="mt-4 text-[13px] leading-relaxed text-slate-300">
+           {analysisText}
+@@ -76,7 +76,7 @@ export default function V4SuperTradeForecast({
+         <div className="space-y-2">
+           <Row
+             label="Kapanış Seviyesi"
+-            value={spotPrice.toFixed(2)}
++            value={fmt(spotPrice)}
+             valueClass={spotPrice > levels.spot.orh ? "text-[#22c55e]" : spotPrice < levels.spot.orl ? "text-[#ef4444]" : "text-slate-300"}
+           />
+           <Row
+@@ -84,9 +84,9 @@ export default function V4SuperTradeForecast({
+             value={`Vadeli ${futuresPrice > levels.futures.vwap ? "Üzerinde" : "Altında"}`}
+             valueClass={futuresPrice > levels.futures.vwap ? "text-[#22c55e]" : "text-[#ef4444]"}
+           />
+-          <Row 
+-            label="Oynaklık (VIX)" 
+-            value={`${vixPrice.toFixed(2)} - ${context.volatility.trend === "RISING" ? "Yükseliyor" : context.volatility.trend === "FALLING" ? "Düşüyor" : "Yatay"}`} 
++          <Row
++            label="Oynaklık (VIX)"
++            value={`${fmt(vixPrice)} - ${context.volatility.trend === "RISING" ? "Yükseliyor" : context.volatility.trend === "FALLING" ? "Düşüyor" : "Yatay"}`}
+             valueClass={context.volatility.trend === "FALLING" ? "text-[#22c55e]" : context.volatility.trend === "RISING" ? "text-[#ef4444]" : "text-slate-300"}
+           />
+           <Row 
+diff --git a/frontend/lib/v4/context.ts b/frontend/lib/v4/context.ts
+index 654c94d..c10a8ac 100644
+--- a/frontend/lib/v4/context.ts
++++ b/frontend/lib/v4/context.ts
+@@ -93,7 +93,7 @@ export function buildPreviousSession(
+     changePct: 0,
+     closePositionPct: 0,
+     last30mDirection: "FLAT",
+-    structureType: "VERİ YOK",
++    structureType: "Veri Yok",
+     label: "Önceki seans verisi bulunamadı",
+   };
+   if (!prevDate) return empty;
+@@ -118,19 +118,19 @@ export function buildPreviousSession(
+   let structureType: string;
+   let label: string;
+   if (closePositionPct >= 80 && changePct > 0.25) {
+-    structureType = "GÜÇLÜ BOĞA KAPANIŞI";
++    structureType = "Güçlü Boğa Kapanışı";
+     label = "Zirveye yakın kapanış, alıcı kontrolü";
+   } else if (closePositionPct <= 20 && changePct < -0.25) {
+-    structureType = "GÜÇLÜ AYI KAPANIŞI";
++    structureType = "Güçlü Ayı Kapanışı";
+     label = "Dibe yakın kapanış, satıcı kontrolü";
+   } else if (Math.abs(changePct) < 0.2) {
+-    structureType = "YATAY GÜN";
++    structureType = "Yatay Gün";
+     label = "Dar bantta denge günü";
+   } else if (changePct > 0) {
+-    structureType = "ILIMLI YUKARI";
++    structureType = "Ilımlı Yukarı";
+     label = "Pozitif kapanış, ivme sınırlı";
+   } else {
+-    structureType = "ILIMLI AŞAĞI";
++    structureType = "Ilımlı Aşağı";
+     label = "Negatif kapanış, ivme sınırlı";
+   }
+ 
+@@ -149,7 +149,7 @@ export function buildOvernight(
+   const empty: OvernightContext = {
+     gapPts: 0,
+     gapPct: 0,
+-    gapType: "VERİ YOK",
++    gapType: "Veri Yok",
+     onRangePts: 0,
+     vsOnMid: "ABOVE",
+     nqAlignment: "ALIGNED",
+@@ -168,11 +168,11 @@ export function buildOvernight(
+   const gapPct = round2((gapPts / esPdc) * 100);
+ 
+   let gapType: string;
+-  if (Math.abs(gapPct) < 0.08) gapType = "BOŞLUKSUZ AÇILIŞ";
+-  else if (gapPct >= 0.35) gapType = "BÜYÜK YUKARI BOŞLUK";
+-  else if (gapPct > 0) gapType = "KÜÇÜK YUKARI BOŞLUK";
+-  else if (gapPct <= -0.35) gapType = "BÜYÜK AŞAĞI BOŞLUK";
+-  else gapType = "KÜÇÜK AŞAĞI BOŞLUK";
++  if (Math.abs(gapPct) < 0.08) gapType = "Boşluksuz Açılış";
++  else if (gapPct >= 0.35) gapType = "Büyük Yukarı Boşluk";
++  else if (gapPct > 0) gapType = "Küçük Yukarı Boşluk";
++  else if (gapPct <= -0.35) gapType = "Büyük Aşağı Boşluk";
++  else gapType = "Küçük Aşağı Boşluk";
+ 
+   const aligned = (nqChangePct >= 0) === (esChangePct >= 0);
+ 
+@@ -293,7 +293,7 @@ export function buildAnalog(
+     nearestDate: top[0].date,
+     nearestSimilarity: top[0].similarity,
+     bias,
+-    criteria: `Açılış boşluğu %${todayGapPct.toFixed(2)}, önceki gün kapanış konumu %${Math.round(todayPrevClosePos)} ve aynı hafta günü kriterlerine en yakın ${top.length} seans`,
++    criteria: `Açılış boşluğu %${todayGapPct.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}, önceki gün kapanış konumu %${Math.round(todayPrevClosePos)} ve aynı hafta günü kriterlerine en yakın ${top.length} seans`,
+   };
+ }
+ 
+@@ -308,8 +308,8 @@ export function buildFingerprint(
+     `EVRE=${seasonality.monthPhase}`,
+     `GUN=${seasonality.weekday.slice(0, 3).toUpperCase()}`,
+     `VIX=${volatility.level}_${volatility.trend}`,
+-    `ONCEKI=${previousSession.structureType.split(" ")[0]}`,
+-    `GECE=${overnight.gapType.split(" ")[0]}`,
++    `ONCEKI=${previousSession.structureType.split(" ")[0].toUpperCase()}`,
++    `GECE=${overnight.gapType.split(" ")[0].toUpperCase()}`,
+   ].join(" | ");
+ }
+ 
+diff --git a/frontend/lib/v4/scoring.ts b/frontend/lib/v4/scoring.ts
+index 0e1fe4f..b7f21ba 100644
+--- a/frontend/lib/v4/scoring.ts
++++ b/frontend/lib/v4/scoring.ts
+@@ -19,6 +19,13 @@ import type {
+ import type { BreakoutState } from "./levels";
+ import { RTH_CLOSE_MIN, RTH_OPEN_MIN } from "./yahoo";
+ 
++/** Türkçe rakam biçimi (binlik nokta, ondalık virgül) — gerekçe/karar
++ *  metinlerinin içine gömülen fiyat seviyeleri için (örn. NDX/XND gibi
++ *  büyük ölçekli varlıklarda "24500.00" yerine "24.500,00" gösterir). */
++function fmtTr(v: number, digits = 2): string {
++  return v.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
++}
++
+ export function sessionPhase(minutes: number): SessionPhase {
+   if (minutes < 4 * 60) return "PRE_SESSION";
+   if (minutes < RTH_OPEN_MIN) return "PREMARKET";
+@@ -90,7 +97,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     const w = Math.max(-1.5, Math.min(1.5, dist / 4));
+     push(
+       `${input.futuresLabel} / VWAP konumu`,
+-      `${dist >= 0 ? "+" : ""}${dist.toFixed(2)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${es.vwap.toFixed(2)})`,
++      `${dist >= 0 ? "+" : ""}${fmtTr(dist)} puan ${dist >= 0 ? "üstünde" : "altında"} (VWAP ${fmtTr(es.vwap)})`,
+       w
+     );
+   }
+@@ -112,11 +119,11 @@ export function computeScores(input: ScoreInput): ScoreResult {
+   // 5. Açılış aralığına göre konum
+   if (spx.isOrDefined) {
+     if (spx.vsOr === "ABOVE") {
+-      push("Açılış aralığı", `ORH ${spx.orh.toFixed(2)} üzerinde`, 1.25);
++      push("Açılış aralığı", `ORH ${fmtTr(spx.orh)} üzerinde`, 1.25);
+     } else if (spx.vsOr === "BELOW") {
+-      push("Açılış aralığı", `ORL ${spx.orl.toFixed(2)} altında`, -1.25);
++      push("Açılış aralığı", `ORL ${fmtTr(spx.orl)} altında`, -1.25);
+     } else {
+-      push("Açılış aralığı", `${spx.orl.toFixed(2)} – ${spx.orh.toFixed(2)} bandı içinde`, 0);
++      push("Açılış aralığı", `${fmtTr(spx.orl)} – ${fmtTr(spx.orh)} bandı içinde`, 0);
+     }
+   }
+ 
+@@ -134,7 +141,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     const w = Math.max(-0.75, Math.min(0.75, input.nqChangePct * 1.5));
+     push(
+       `${input.crossLabel} vadeli uyumu`,
+-      `${input.nqChangePct >= 0 ? "+" : ""}%${input.nqChangePct.toFixed(2)} (gün içi)`,
++      `${input.nqChangePct >= 0 ? "+" : ""}%${fmtTr(input.nqChangePct)} (gün içi)`,
+       w
+     );
+   }
+@@ -144,7 +151,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     const w = Math.max(-0.5, Math.min(0.5, -input.vixChangePct / 6));
+     push(
+       "VIX yönü",
+-      `${input.vixChangePct >= 0 ? "+" : ""}%${input.vixChangePct.toFixed(2)} — ${input.vixChangePct >= 0 ? "risk iştahı azalıyor" : "risk iştahı artıyor"}`,
++      `${input.vixChangePct >= 0 ? "+" : ""}%${fmtTr(input.vixChangePct)} — ${input.vixChangePct >= 0 ? "risk iştahı azalıyor" : "risk iştahı artıyor"}`,
+       w
+     );
+   }
+@@ -154,7 +161,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     const w = input.futuresPrice >= es.onMid ? 0.5 : -0.5;
+     push(
+       "Gece aralığı orta noktası",
+-      `ON Mid ${es.onMid.toFixed(2)} ${input.futuresPrice >= es.onMid ? "üstünde" : "altında"}`,
++      `ON Mid ${fmtTr(es.onMid)} ${input.futuresPrice >= es.onMid ? "üstünde" : "altında"}`,
+       w
+     );
+   }
+@@ -164,7 +171,7 @@ export function computeScores(input: ScoreInput): ScoreResult {
+     const w = input.futuresPrice >= es.pdc ? 0.5 : -0.5;
+     push(
+       "Önceki gün kapanışı",
+-      `PDC ${es.pdc.toFixed(2)} ${input.futuresPrice >= es.pdc ? "üstünde" : "altında"}`,
++      `PDC ${fmtTr(es.pdc)} ${input.futuresPrice >= es.pdc ? "üstünde" : "altında"}`,
+       w
+     );
+   }
+@@ -318,11 +325,11 @@ export function buildDecision(
+     direction: meta.direction,
+     action: "Bekle — açılış aralığını izle",
+     confirmation: spx.isOrDefined
+-      ? `ORH ${orh.toFixed(2)} veya ORL ${orl.toFixed(2)} kırılımı + 5 dk kapanış teyidi`
++      ? `ORH ${fmtTr(orh)} veya ORL ${fmtTr(orl)} kırılımı + 5 dk kapanış teyidi`
+       : "Açılış aralığının (09:30–09:35) oluşması",
+     invalidation: "Bant içinde yönsüz sıkışmanın sürmesi",
+     triggerLevelName: spx.isOrDefined
+-      ? `OR bandı ${orl.toFixed(2)} – ${orh.toFixed(2)}`
++      ? `OR bandı ${fmtTr(orl)} – ${fmtTr(orh)}`
+       : "Açılış aralığı bekleniyor",
+     triggerLevelValue: spx.orMid,
+     statusBadge: "BANT İÇİ",
+@@ -345,9 +352,9 @@ export function buildDecision(
+       return {
+         ...base,
+         action: "Long hazırlığı — henüz giriş yok",
+-        confirmation: `ORH ${orh.toFixed(2)} üzerinde 5 dk kapanış`,
+-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} direncini aşamaması` : `Vadelinin VWAP ${vwap.toFixed(2)} altına dönmesi`,
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        confirmation: `ORH ${fmtTr(orh)} üzerinde 5 dk kapanış`,
++        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${fmtTr(orh)} direncini aşamaması` : `Vadelinin VWAP ${fmtTr(vwap)} altına dönmesi`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "KIRILIM BEKLENİYOR",
+         statusStrength: "Yukarı yön lehine baskı var, teyit eksik",
+@@ -357,9 +364,9 @@ export function buildDecision(
+       return {
+         ...base,
+         action: "Short hazırlığı — henüz giriş yok",
+-        confirmation: `ORL ${orl.toFixed(2)} altında 5 dk kapanış`,
+-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} desteğini kıramaması` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine dönmesi`,
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        confirmation: `ORL ${fmtTr(orl)} altında 5 dk kapanış`,
++        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${fmtTr(orl)} desteğini kıramaması` : `Vadelinin VWAP ${fmtTr(vwap)} üzerine dönmesi`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "KIRILIM BEKLENİYOR",
+         statusStrength: "Aşağı yön lehine baskı var, teyit eksik",
+@@ -369,9 +376,9 @@ export function buildDecision(
+       return {
+         ...base,
+         action: "Erken giriş — küçük pozisyon",
+-        confirmation: `5 dk mumun ORH ${orh.toFixed(2)} üzerinde kapanması`,
++        confirmation: `5 dk mumun ORH ${fmtTr(orh)} üzerinde kapanması`,
+         invalidation: `Fiyatın ORH altına dönmesi (tuzak kırılım)`,
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "İLK KIRILIM",
+         statusStrength: `${breaks.longBreak.barsBeyond} dakikadır seviye üzerinde`,
+@@ -381,9 +388,9 @@ export function buildDecision(
+       return {
+         ...base,
+         action: "Erken giriş — küçük pozisyon",
+-        confirmation: `5 dk mumun ORL ${orl.toFixed(2)} altında kapanması`,
++        confirmation: `5 dk mumun ORL ${fmtTr(orl)} altında kapanması`,
+         invalidation: "Fiyatın ORL üzerine dönmesi (tuzak kırılım)",
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "İLK KIRILIM",
+         statusStrength: `${breaks.shortBreak.barsBeyond} dakikadır seviye altında`,
+@@ -394,8 +401,8 @@ export function buildDecision(
+         ...base,
+         action: "Long giriş uygun — normal pozisyon",
+         confirmation: "Hacmin korunması ve yeni zirvelerin yapılması",
+-        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${orh.toFixed(2)} altına dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} altına inmesi`,
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        invalidation: es.vwapDistance < 0 ? `Fiyatın ORH ${fmtTr(orh)} altına dönmesi` : `Vadelinin VWAP ${fmtTr(vwap)} altına inmesi`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "KABUL EDİLDİ",
+         statusStrength: "1 dk ve 5 dk teyidi tamam",
+@@ -406,8 +413,8 @@ export function buildDecision(
+         ...base,
+         action: "Short giriş uygun — normal pozisyon",
+         confirmation: "Satış hacminin korunması ve yeni diplerin yapılması",
+-        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${orl.toFixed(2)} üzerine dönmesi` : `Vadelinin VWAP ${vwap.toFixed(2)} üzerine çıkması`,
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        invalidation: es.vwapDistance > 0 ? `Fiyatın ORL ${fmtTr(orl)} üzerine dönmesi` : `Vadelinin VWAP ${fmtTr(vwap)} üzerine çıkması`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "KABUL EDİLDİ",
+         statusStrength: "1 dk ve 5 dk teyidi tamam",
+@@ -419,7 +426,7 @@ export function buildDecision(
+         action: "Pozisyonu koru — takip eden stop ile yönet",
+         confirmation: "Runner modellerinin çıkış kuralları",
+         invalidation: "5 dk yapının bozulması veya net skorun çökmesi",
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "GÜÇLÜ TREND",
+         statusStrength: "Tüm zaman dilimleri hizalı",
+@@ -431,7 +438,7 @@ export function buildDecision(
+         action: "Pozisyonu koru — takip eden stop ile yönet",
+         confirmation: "Runner modellerinin çıkış kuralları",
+         invalidation: "5 dk yapının bozulması veya net skorun toparlanması",
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "GÜÇLÜ TREND",
+         statusStrength: "Tüm zaman dilimleri hizalı",
+@@ -442,8 +449,8 @@ export function buildDecision(
+         ...base,
+         action: "Yeni giriş yapma — kademeli kâr al",
+         confirmation: "Net skorun yeniden güçlenmesi",
+-        invalidation: `ORH ${orh.toFixed(2)} altına dönüş`,
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        invalidation: `ORH ${fmtTr(orh)} altına dönüş`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "İVME AZALIYOR",
+         statusStrength: "Yukarı ivme son 10 dakikada zayıfladı",
+@@ -454,8 +461,8 @@ export function buildDecision(
+         ...base,
+         action: "Yeni giriş yapma — kademeli kâr al",
+         confirmation: "Net skorun yeniden zayıflaması",
+-        invalidation: `ORL ${orl.toFixed(2)} üzerine dönüş`,
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        invalidation: `ORL ${fmtTr(orl)} üzerine dönüş`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "İVME AZALIYOR",
+         statusStrength: "Aşağı ivme son 10 dakikada zayıfladı",
+@@ -467,7 +474,7 @@ export function buildDecision(
+         action: "Long senaryosu iptal — pozisyonu kapat",
+         confirmation: "—",
+         invalidation: "Fiyat ORH üzerinde tutunamadı",
+-        triggerLevelName: `ORH ${orh.toFixed(2)}`,
++        triggerLevelName: `ORH ${fmtTr(orh)}`,
+         triggerLevelValue: orh,
+         statusBadge: "TUZAK KIRILIM",
+         statusStrength: "Kırılım geri alındı, ters yön riski var",
+@@ -479,7 +486,7 @@ export function buildDecision(
+         action: "Short senaryosu iptal — pozisyonu kapat",
+         confirmation: "—",
+         invalidation: "Fiyat ORL altında tutunamadı",
+-        triggerLevelName: `ORL ${orl.toFixed(2)}`,
++        triggerLevelName: `ORL ${fmtTr(orl)}`,
+         triggerLevelValue: orl,
+         statusBadge: "TUZAK KIRILIM",
+         statusStrength: "Kırılım geri alındı, ters yön riski var",
+diff --git a/frontend/lib/v4/snapshot.ts b/frontend/lib/v4/snapshot.ts
+index 1f002e5..9465f5b 100644
+--- a/frontend/lib/v4/snapshot.ts
++++ b/frontend/lib/v4/snapshot.ts
+@@ -540,30 +540,50 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+   });
+ 
+   // Son 5 dakikada ne değişti
++  // Türkçe rakam biçimi (binlik nokta, ondalık virgül) — UI'daki `fmt()` ile
++  // aynı kural, sunucu tarafında üretilen "from"/"to" metinleri için.
++  const fmtTr = (v: number, digits = 2) =>
++    v.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
++  // "WATCH_LONG" → "Watch Long" — durum değişimi satırında ham enum değerinin
++  // tamamen büyük harfle görünmesini engeller.
++  const stateLabel = (s: string) =>
++    s
++      .replace(/_/g, " ")
++      .toLocaleLowerCase("tr-TR")
++      .split(" ")
++      .map((w) => (w ? w.charAt(0).toLocaleUpperCase("tr-TR") + w.slice(1) : w))
++      .join(" ");
++
+   const ref = frames[Math.max(0, frames.length - 6)];
+   const changes: AssetSnapshot["changes"] = [];
+   if (ref && ref.index !== last.index) {
+     const netDelta = round2(last.netScore - ref.netScore);
+     changes.push({
+       label: "Net skor",
+-      from: ref.netScore.toFixed(1),
+-      to: `${last.netScore >= 0 ? "+" : ""}${last.netScore.toFixed(1)}`,
++      from: `${ref.netScore >= 0 ? "+" : ""}${fmtTr(ref.netScore, 1)}`,
++      to: `${last.netScore >= 0 ? "+" : ""}${fmtTr(last.netScore, 1)}`,
+       tone: netDelta > 0 ? "UP" : netDelta < 0 ? "DOWN" : "FLAT",
+     });
+     const spxDelta = round2(last.spotPrice - ref.spotPrice);
+     changes.push({
+       label: asset,
+-      from: ref.spotPrice.toFixed(2),
+-      to: `${spxDelta >= 0 ? "+" : ""}${spxDelta.toFixed(2)} puan`,
++      from: fmtTr(ref.spotPrice, 2),
++      to: `${spxDelta >= 0 ? "+" : ""}${fmtTr(spxDelta, 2)} puan`,
+       tone: spxDelta > 0 ? "UP" : spxDelta < 0 ? "DOWN" : "FLAT",
+     });
+     if (ref.state !== last.state) {
+-      changes.push({ label: "Durum", from: ref.state, to: last.state, tone: "FLAT" });
++      // Yeni durum SHORT ise kırmızı, LONG ise yeşil — teyit gücünden bağımsız.
++      const stateTone: "UP" | "DOWN" | "FLAT" = last.state.includes("SHORT")
++        ? "DOWN"
++        : last.state.includes("LONG")
++        ? "UP"
++        : "FLAT";
++      changes.push({ label: "Durum", from: stateLabel(ref.state), to: stateLabel(last.state), tone: stateTone });
+     }
+     const vwapPos = last.futuresPrice >= last.vwap;
+     changes.push({
+       label: "Vadeli / VWAP",
+-      from: `${last.vwap.toFixed(2)}`,
++      from: fmtTr(last.vwap, 2),
+       to: vwapPos ? "üstünde" : "altında",
+       tone: vwapPos ? "UP" : "DOWN",
+     });

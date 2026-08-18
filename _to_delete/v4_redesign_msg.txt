@@ -1,0 +1,28 @@
+fix: SuperTrade V4 tasarim, grafik ve gun gecisi kapsamli yenileme
+
+- Turkce buyuk harf CSS hatasi: text-transform:uppercase Turkce icin
+  guvenilir degil (html lang="en" + varsayilan case-folding "i" harfini
+  "I" yapiyor, dogrusu "I" noktali). ui.tsx'e trUp() (toLocaleUpperCase
+  'tr-TR') eklendi, tum V4 bilesenlerinde CSS uppercase yerine JS'te
+  onceden buyutulmus metin kullaniliyor.
+- Grafikler artik site genelindeki gercek BogaStock grafik motorunu
+  (BogaChartEngine, lightweight-charts) kullaniyor: tamamen interaktif
+  (yakinlastirma, mum tipi, gosterge secimi, tam ekran, paylasim).
+  BogaChartEngine'e additive extendedHours (gece Globex barlari) ve
+  customLevels (VWAP/ONH/ONL/ORH/ORL/PDC ekstra seviyeler) prop'lari
+  eklendi; /api/chart-data'ya extendedHours query parametresi eklendi
+  (varsayilan false, diger tum cagiranlar etkilenmiyor).
+- Tasarim: kart/grid yiginlari yerine duzenli tablolar (dashboard varlik
+  listesi, Piyasa Baglami 5 katman, Piyasa Yapisi, Kritik Seviyeler, Son
+  Degisimler) — ui.tsx'e Table/THead/TBody/Tr/Th/Td bilesenleri eklendi.
+- Gun gecisi: kapanistan 1 saat sonra (17:00 ET) ertesi gunun ozeti
+  (forecast bundle) sunucu tarafinda onceden hesaplanip anlik goruntuye
+  ekleniyor (snapshot.rollover / snapshot.forecast); ekrandaki "bugun"
+  tarihi NY gece yarisinda (00:00 ET) otomatik olarak yeni takvim gunune
+  donuyor, gercek seans verisi gelene kadar hazirlanmis ozet gosteriliyor.
+- BogaChartEngine icindeki extendedHours/customLevels eklemeleri, ayni
+  dosyada eszamanli yapilan "dinamik yukseklik" ve "hacim panel oran"
+  duzeltmeleriyle (c26c9c9 / f35bf5d) uyumlu sekilde birlestirildi.
+
+Kaynak: kullanicinin 9 ekran goruntusunde bildirdigi bozuk tasarim,
+calismayan grafikler ve "tum tablolar dolmus olsun" talebi.

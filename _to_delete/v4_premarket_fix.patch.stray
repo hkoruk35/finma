@@ -1,0 +1,164 @@
+diff --git a/frontend/app/admin/supertrade/v4/page.tsx b/frontend/app/admin/supertrade/v4/page.tsx
+index 1f4ef5f..195761c 100644
+--- a/frontend/app/admin/supertrade/v4/page.tsx
++++ b/frontend/app/admin/supertrade/v4/page.tsx
+@@ -175,7 +175,14 @@ export default function SuperTradeV4Dashboard() {
+                 // zayıf bir SHORT sinyali de kırmızı, zayıf bir LONG da yeşil kalır.
+                 const statusClass =
+                   direction === "LONG" ? "text-[#22c55e]" : direction === "SHORT" ? "text-[#ef4444]" : "text-slate-300";
+-                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
++                // futures.vwap her zaman ES/NQ ölçeğindedir (SPX/NDX ham
++                // seviyesine yakın) — SPY/XSP/QQQ/XND gibi ölçeklenmiş
++                // varlıklarda spot fiyatla doğrudan çıkarmadan önce asset'in
++                // kendi scale faktörüyle spot ölçeğine çevrilmesi gerekir,
++                // aksi halde "VWAP Yakınlığı" binlerce puan gibi anlamsız
++                // bir değer gösterir (örn. QQQ için ~29.000 puan).
++                const scale = meta.scale || 1;
++                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap * scale);
+ 
+                 return (
+                   <Tr
+diff --git a/frontend/components/admin/v4/MultiAssetDetail.tsx b/frontend/components/admin/v4/MultiAssetDetail.tsx
+index adec19d..7d9a729 100644
+--- a/frontend/components/admin/v4/MultiAssetDetail.tsx
++++ b/frontend/components/admin/v4/MultiAssetDetail.tsx
+@@ -220,38 +220,52 @@ export default function MultiAssetDetail({
+               </div>
+ 
+               {/* Faktör dökümü */}
+-              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding="p-0">
+-                <Table bordered={false}>
+-                  <THead>
+-                    <tr>
+-                      <Th>Faktör</Th>
+-                      <Th align="right">Ölçüm</Th>
+-                    </tr>
+-                  </THead>
+-                  <TBody>
+-                    {factors.map((f, i) => (
+-                      <Tr key={`${f.label}-${i}`}>
+-                        <Td valueClass="text-slate-400">{f.label}</Td>
+-                        <Td
+-                          align="right"
+-                          valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+-                        >
+-                          {f.detail}
+-                        </Td>
+-                      </Tr>
+-                    ))}
+-                  </TBody>
+-                </Table>
++              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding={factors.length ? "p-0" : "p-4"}>
++                {factors.length ? (
++                  <Table bordered={false}>
++                    <THead>
++                      <tr>
++                        <Th>Faktör</Th>
++                        <Th align="right">Ölçüm</Th>
++                      </tr>
++                    </THead>
++                    <TBody>
++                      {factors.map((f, i) => (
++                        <Tr key={`${f.label}-${i}`}>
++                          <Td valueClass="text-slate-400">{f.label}</Td>
++                          <Td
++                            align="right"
++                            valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
++                          >
++                            {f.detail}
++                          </Td>
++                        </Tr>
++                      ))}
++                    </TBody>
++                  </Table>
++                ) : (
++                  <EmptyState>Piyasa açılana kadar skor faktörleri hesaplanmaz.</EmptyState>
++                )}
+               </Panel>
+ 
+-              <V4StrategyLab
+-                spotPrice={view.spotPrice}
+-                state={frame.state}
+-                vix={view.vixPrice}
+-                minutesLeft={minutesToClose(
+-                  Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+-                )}
+-              />
++              {view.isLiveSession ? (
++                <V4StrategyLab
++                  spotPrice={view.spotPrice}
++                  state={frame.state}
++                  vix={view.vixPrice}
++                  minutesLeft={minutesToClose(
++                    Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
++                  )}
++                />
++              ) : (
++                <Panel title="Strateji Laboratuvarı">
++                  <EmptyState>
++                    Piyasa açık değilken teorik opsiyon fiyatlaması gösterilmez — kalan süreye dayalı
++                    hesaplama yalnızca seans içinde (09:30–16:00 ET) anlamlıdır. Piyasa açıldığında burada
++                    gerçek zamanlı stratejiler görünecek.
++                  </EmptyState>
++                </Panel>
++              )}
+             </div>
+ 
+             {/* Sağ Kolon - Kritik Seviyeler */}
+@@ -261,15 +275,15 @@ export default function MultiAssetDetail({
+                   <TBody>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Açılış ORH</Td>
+-                      <Td align="right">{fmt(levels.spot.orh)}</Td>
++                      <Td align="right">{levels.spot.isOrDefined ? fmt(levels.spot.orh) : "—"}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Açılış ORL</Td>
+-                      <Td align="right">{fmt(levels.spot.orl)}</Td>
++                      <Td align="right">{levels.spot.isOrDefined ? fmt(levels.spot.orl) : "—"}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">OR genişliği</Td>
+-                      <Td align="right">{fmt(levels.spot.orSize)} puan</Td>
++                      <Td align="right">{levels.spot.isOrDefined ? `${fmt(levels.spot.orSize)} puan` : "—"}</Td>
+                     </Tr>
+                     <Tr>
+                       <Td valueClass="text-slate-500">Seans VWAP</Td>
+diff --git a/frontend/lib/v4/levels.ts b/frontend/lib/v4/levels.ts
+index 6432e88..b461b7b 100644
+--- a/frontend/lib/v4/levels.ts
++++ b/frontend/lib/v4/levels.ts
+@@ -99,7 +99,13 @@ export function buildSessionSlices(
+   allDates: string[]
+ ): SessionSlices {
+   const idx = allDates.indexOf(sessionDate);
+-  const prevDate = idx > 0 ? allDates[idx - 1] : null;
++  // sessionDate henüz veri kümesinde yoksa (gece yarısı devri sonrası
++  // premarket senaryosu — bkz. buildSession'daki "isFuture" dalı), indexOf
++  // -1 döner. Bu durumda "önceki seans", elimizde RTH verisi olan EN SON
++  // gündür — aksi halde prevDate null kalır ve hem gece aralığı (esOvernight)
++  // Globex'in 18:00 öncesi kısmını kaybeder hem de Bağlam Motoru'nun
++  // "Önceki Seans" katmanı "Veri Yok" gösterir.
++  const prevDate = idx > 0 ? allDates[idx - 1] : idx === -1 && allDates.length ? allDates[allDates.length - 1] : null;
+ 
+   const esRth = barsOnDate(futuresBars, sessionDate);
+   const spxRth = barsOnDate(spotBars, sessionDate);
+diff --git a/frontend/lib/v4/snapshot.ts b/frontend/lib/v4/snapshot.ts
+index 9906ba7..2a3bc75 100644
+--- a/frontend/lib/v4/snapshot.ts
++++ b/frontend/lib/v4/snapshot.ts
+@@ -595,7 +595,13 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+   const frames = session.frames;
+   const last = frames[frames.length - 1];
+   const nowParts = nyParts(nowSec);
+-  const isLiveSession = nowParts.ymd === sessionDate && nowParts.minutes < 16 * 60 + 5;
++  // RTH_OPEN_MIN alt sınırı kritik: latestSessionDate artık gece yarısını
++  // geçer geçmez sessionDate'i "bugüne" ilerletiyor (premarket devri), bu
++  // kontrol olmadan 00:00–09:30 ET arası (SPX henüz kapalıyken) yanlışlıkla
++  // "canlı seans" sayılıp minutesToClose/Strateji Lab gerçek dışı (~700+ dk)
++  // bir süre üzerinden fiyatlama yapıyordu.
++  const isLiveSession =
++    nowParts.ymd === sessionDate && nowParts.minutes >= RTH_OPEN_MIN && nowParts.minutes < 16 * 60 + 5;
+ 
+   // Seans açık değilken bile doğru evreyi bildir: hafta içi 04:00–09:30 ET
+   // arası "açılış öncesi"dir, "seans kapalı" değil.

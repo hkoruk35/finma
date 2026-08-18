@@ -1,0 +1,2005 @@
+diff --git a/frontend/app/admin/supertrade/v4/page.tsx b/frontend/app/admin/supertrade/v4/page.tsx
+index 0720f49..5ad6362 100644
+--- a/frontend/app/admin/supertrade/v4/page.tsx
++++ b/frontend/app/admin/supertrade/v4/page.tsx
+@@ -1,7 +1,7 @@
+ "use client";
+ 
+ import { useEffect, useState } from "react";
+-import { Badge, Panel, Row, signed, toneClass } from "@/components/admin/supertrade/ui";
++import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, signed, toneClass, trUp } from "@/components/admin/supertrade/ui";
+ import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
+ import { ASSET_MAP } from "@/lib/v4/types";
+ 
+@@ -61,6 +61,13 @@ export default function SuperTradeV4Dashboard() {
+   }
+ 
+   const assets: AssetClass[] = ["SPX", "SPY", "XSP", "NDX", "QQQ", "XND"];
++  // Herhangi bir varlık gece yarısını geçip yeni seansa henüz gerçek veri
++  // gelmemişse dashboard genelinde tek bir uyarı gösterilir (her satırda
++  // tekrarlamak yerine).
++  const anyNextDay = assets.some((a) => {
++    const d = snapshots[a];
++    return d && d.ok && d.rollover.isNextDay;
++  });
+ 
+   return (
+     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
+@@ -70,6 +77,9 @@ export default function SuperTradeV4Dashboard() {
+             Multi-Asset Fırsat Tarayıcı
+           </h1>
+           <Badge tone="brand">SuperTrade V4</Badge>
++          {anyNextDay && (
++            <Badge tone="neutral">{trUp("Sonraki seans için hazır")}</Badge>
++          )}
+         </div>
+         <p className="text-[12px] text-slate-500">
+           S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
+@@ -79,75 +89,81 @@ export default function SuperTradeV4Dashboard() {
+       {loading && Object.keys(snapshots).length === 0 ? (
+         <div className="text-[13px] text-slate-400">Veriler yükleniyor...</div>
+       ) : (
+-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+-          {assets.map((asset) => {
+-            const data = snapshots[asset];
+-            const meta = ASSET_MAP[asset];
+-            
+-            if (!data || !data.ok) {
+-              return (
+-                <Panel key={asset} padding="p-4" className="opacity-50">
+-                  <div className="flex justify-between items-center mb-2">
+-                    <div className="text-[16px] font-medium text-slate-300">{asset}</div>
+-                    <Badge tone="neutral">Veri Yok</Badge>
+-                  </div>
+-                  <div className="text-[11px] text-slate-500">{meta.name}</div>
+-                </Panel>
+-              );
+-            }
++        <Panel padding="p-0">
++          <Table bordered={false}>
++            <THead>
++              <tr>
++                <Th>Varlık</Th>
++                <Th align="right">Fiyat</Th>
++                <Th align="right">Net Skor</Th>
++                <Th>Durum</Th>
++                <Th align="right">VWAP Yakınlığı</Th>
++                <Th align="center">Yön</Th>
++              </tr>
++            </THead>
++            <TBody>
++              {assets.map((asset) => {
++                const data = snapshots[asset];
++                const meta = ASSET_MAP[asset];
+ 
+-            const frame = data.frames[data.frames.length - 1];
+-            const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
+-            const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
+-            const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
++                if (!data || !data.ok) {
++                  return (
++                    <Tr key={asset} className="opacity-50">
++                      <Td>
++                        <div className="font-medium text-slate-300">{asset}</div>
++                        <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
++                      </Td>
++                      <Td colSpan={4} valueClass="text-slate-500">
++                        —
++                      </Td>
++                      <Td align="center">
++                        <Badge tone="neutral">Veri Yok</Badge>
++                      </Td>
++                    </Tr>
++                  );
++                }
+ 
+-            return (
+-              <div 
+-                key={asset} 
+-                onClick={() => setSelectedAsset(asset)}
+-                className={`cursor-pointer transition-all duration-200 hover:ring-1 hover:ring-[#3b82f6]/50 ${isConfirmed ? 'ring-1 ring-[#3b82f6]/30 bg-[#3b82f6]/[0.02]' : ''}`}
+-              >
+-                <Panel padding="p-4" className="h-full">
+-                  <div className="flex justify-between items-start mb-3">
+-                    <div>
+-                      <div className="flex items-center gap-2">
+-                        <span className="text-[18px] font-medium text-slate-100">{asset}</span>
+-                        {isConfirmed && <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
+-                      </div>
+-                      <div className="text-[11px] text-slate-500">{meta.name}</div>
+-                    </div>
+-                    <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
+-                  </div>
++                const frame = data.frames[data.frames.length - 1];
++                const isConfirmed = frame.state.includes("CONFIRMED") || frame.state.includes("STRONG");
++                const direction = frame.state.includes("LONG") ? "LONG" : frame.state.includes("SHORT") ? "SHORT" : "NEUTRAL";
++                const dirTone = direction === "LONG" ? "up" : direction === "SHORT" ? "down" : "neutral";
++                const vwapDistance = Math.abs(data.spotPrice - data.levels.futures.vwap);
+ 
+-                  <div className="grid grid-cols-2 gap-3 mb-3 border-y border-[#1c2635] py-3">
+-                    <div>
+-                      <div className="text-[10px] text-slate-500 uppercase">Spot Fiyat</div>
+-                      <div className="text-[14px] font-medium text-slate-200">{data.spotPrice.toFixed(2)}</div>
+-                    </div>
+-                    <div>
+-                      <div className="text-[10px] text-slate-500 uppercase">Net Skor</div>
+-                      <div className={`text-[14px] font-medium ${toneClass(frame.netScore)}`}>
+-                        {signed(frame.netScore, 1)}
++                return (
++                  <Tr
++                    key={asset}
++                    onClick={() => setSelectedAsset(asset)}
++                    className={isConfirmed ? "bg-[#3b82f6]/[0.03]" : ""}
++                  >
++                    <Td>
++                      <div className="flex items-center gap-2 font-medium text-slate-100">
++                        {asset}
++                        {isConfirmed && <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] animate-pulse" />}
++                        {data.rollover.isNextDay && (
++                          <Badge tone="brand" className="ml-1">
++                            {trUp(data.rollover.nextTradingDate)}
++                          </Badge>
++                        )}
+                       </div>
+-                    </div>
+-                  </div>
+-
+-                  <div className="space-y-1">
+-                    <Row 
+-                      label="Durum" 
+-                      value={frame.state} 
+-                      valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"} 
+-                    />
+-                    <Row 
+-                      label="VWAP Yakınlığı" 
+-                      value={`${Math.abs(data.spotPrice - data.levels.futures.vwap).toFixed(2)} pts`} 
+-                    />
+-                  </div>
+-                </Panel>
+-              </div>
+-            );
+-          })}
+-        </div>
++                      <div className="text-[11px] font-normal text-slate-500">{meta.name}</div>
++                    </Td>
++                    <Td align="right">{data.spotPrice.toFixed(2)}</Td>
++                    <Td align="right" valueClass={`font-medium ${toneClass(frame.netScore)}`}>
++                      {signed(frame.netScore, 1)}
++                    </Td>
++                    <Td valueClass={isConfirmed ? (direction === "LONG" ? "text-[#22c55e]" : "text-[#ef4444]") : "text-slate-300"}>
++                      {frame.state.replace(/_/g, " ")}
++                    </Td>
++                    <Td align="right">{vwapDistance.toFixed(2)} puan</Td>
++                    <Td align="center">
++                      <Badge tone={dirTone}>{direction === "NEUTRAL" ? "YÖNSÜZ" : direction}</Badge>
++                    </Td>
++                  </Tr>
++                );
++              })}
++            </TBody>
++          </Table>
++        </Panel>
+       )}
+     </div>
+   );
+diff --git a/frontend/app/api/chart-data/route.ts b/frontend/app/api/chart-data/route.ts
+index 614e707..0a86c62 100644
+--- a/frontend/app/api/chart-data/route.ts
++++ b/frontend/app/api/chart-data/route.ts
+@@ -48,12 +48,16 @@ export async function GET(req: NextRequest) {
+   const range = timeframe ? TIMEFRAME_MAP[timeframe]?.yRange || "6mo" : sp.get("range") || "6mo";
+   const resampleTo = timeframe ? TIMEFRAME_MAP[timeframe]?.resampleTo : undefined;
+   const indicatorParam = sp.get("indicators"); // csv: ema9,ema20,ema50,ema200,rsi,macd,bb,vwap,sr
++  // SuperTrade V4 gibi vadeli (ES=F/NQ=F) kontratlar gece Globex seansını da
++  // göstermek istiyor — varsayılan `includePrePost=false` bu barları eler.
++  // Diğer tüm çağıranlar bu parametreyi hiç göndermiyor, davranışları değişmiyor.
++  const extendedHours = sp.get("extendedHours") === "true";
+ 
+   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
+ 
+   try {
+     const ySymbol = resolveYahooSymbol(ticker);
+-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=${interval}&range=${range}&includePrePost=false`;
++    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=${interval}&range=${range}&includePrePost=${extendedHours ? "true" : "false"}`;
+     const res = await fetch(url, {
+       headers: {
+         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+diff --git a/frontend/components/admin/supertrade/ui.tsx b/frontend/components/admin/supertrade/ui.tsx
+index fd828ec..1811958 100644
+--- a/frontend/components/admin/supertrade/ui.tsx
++++ b/frontend/components/admin/supertrade/ui.tsx
+@@ -28,6 +28,18 @@ export function signed(value: number, digits = 2): string {
+   return `${value >= 0 ? "+" : ""}${value.toFixed(digits)}`;
+ }
+ 
++/**
++ * CSS `text-transform: uppercase` Türkçe için güvenilir değildir: tarayıcı
++ * kök dili (bu sitede <html lang="en">) baz alınarak küçük "i" harfini
++ * noktasız "I" yapar, doğrusu ise noktalı "İ"dir (örn. "iptal" → "IPTAL"
++ * değil "İPTAL" olmalı). Bunu CSS'e bırakmak yerine string'i JS içinde
++ * Türkçe yerel ayarıyla büyütüp öyle basıyoruz — tarayıcı desteğinden
++ * bağımsız, her zaman doğru sonuç verir.
++ */
++export function trUp(text: string): string {
++  return text.toLocaleUpperCase("tr-TR");
++}
++
+ export function num(value: number | undefined | null, digits = 2): string {
+   if (value === undefined || value === null || !Number.isFinite(value) || value === 0) return "—";
+   return value.toLocaleString("tr-TR", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+@@ -42,7 +54,9 @@ export function SectionTitle({
+ }) {
+   return (
+     <div className="flex items-baseline gap-2">
+-      <h3 className="text-[11px] font-medium uppercase tracking-[0.09em] text-[#3b82f6]">{children}</h3>
++      <h3 className="text-[11px] font-medium tracking-[0.09em] text-[#3b82f6]">
++        {typeof children === "string" ? trUp(children) : children}
++      </h3>
+       {hint && <span className="text-[11px] text-slate-500">{hint}</span>}
+     </div>
+   );
+@@ -89,7 +103,7 @@ export function Stat({
+ }) {
+   return (
+     <div className="min-w-0">
+-      <div className="text-[11px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">{label}</div>
++      <div className="text-[11px] font-medium tracking-[0.06em] text-[#3b82f6]">{trUp(label)}</div>
+       <div className={`mt-1 text-[17px] font-medium tabular-nums leading-tight ${valueClass}`}>{value}</div>
+       {sub !== undefined && <div className="mt-0.5 truncate text-[11px] text-slate-500">{sub}</div>}
+     </div>
+@@ -129,16 +143,19 @@ export function Badge({
+   children,
+   tone = "neutral",
+   className = "",
++  title,
+ }: {
+   children: React.ReactNode;
+   tone?: BadgeTone;
+   className?: string;
++  title?: string;
+ }) {
+   return (
+     <span
+-      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
++      title={title}
++      className={`inline-flex items-center rounded border px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] ${BADGE_STYLES[tone]} ${className}`}
+     >
+-      {children}
++      {typeof children === "string" ? trUp(children) : children}
+     </span>
+   );
+ }
+@@ -189,3 +206,92 @@ export function EmptyState({ children }: { children: React.ReactNode }) {
+     </div>
+   );
+ }
++
++/**
++ * Ortak tablo bileşenleri — kart/grid yığınları yerine düzenli, taranabilir
++ * satır-sütun görünümü için. Başlık satırı logo mavisi, hücreler tabular-nums
++ * ile hizalı; mobilde yatay kaydırma ile taşar (overflow-x-auto).
++ */
++export function Table({
++  children,
++  className = "",
++  bordered = true,
++}: {
++  children: React.ReactNode;
++  className?: string;
++  /** false: kendi çerçevesini çizme — zaten çerçeveli bir Panel içine (padding="p-0") gömülüyken kullanılır */
++  bordered?: boolean;
++}) {
++  return (
++    <div className={`overflow-x-auto ${bordered ? "rounded-md border border-[#1c2635]" : ""} ${className}`}>
++      <table className="w-full border-collapse text-[12px]">{children}</table>
++    </div>
++  );
++}
++
++export function THead({ children }: { children: React.ReactNode }) {
++  return <thead className="bg-[#0a0e17]">{children}</thead>;
++}
++
++export function TBody({ children }: { children: React.ReactNode }) {
++  return <tbody className="divide-y divide-[#1c2635]">{children}</tbody>;
++}
++
++export function Tr({
++  children,
++  onClick,
++  className = "",
++}: {
++  children: React.ReactNode;
++  onClick?: () => void;
++  className?: string;
++}) {
++  return (
++    <tr
++      onClick={onClick}
++      className={`${onClick ? "cursor-pointer transition-colors hover:bg-[#3b82f6]/[0.05]" : ""} ${className}`}
++    >
++      {children}
++    </tr>
++  );
++}
++
++export function Th({
++  children,
++  align = "left",
++  className = "",
++}: {
++  children: React.ReactNode;
++  align?: "left" | "right" | "center";
++  className?: string;
++}) {
++  const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
++  return (
++    <th
++      className={`whitespace-nowrap border-b border-[#1c2635] px-3 py-2 text-[10px] font-medium tracking-[0.06em] text-[#3b82f6] ${alignClass} ${className}`}
++    >
++      {typeof children === "string" ? trUp(children) : children}
++    </th>
++  );
++}
++
++export function Td({
++  children,
++  align = "left",
++  valueClass = "text-slate-200",
++  className = "",
++  colSpan,
++}: {
++  children: React.ReactNode;
++  align?: "left" | "right" | "center";
++  valueClass?: string;
++  className?: string;
++  colSpan?: number;
++}) {
++  const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
++  return (
++    <td colSpan={colSpan} className={`px-3 py-2 tabular-nums ${alignClass} ${valueClass} ${className}`}>
++      {children}
++    </td>
++  );
++}
+diff --git a/frontend/components/admin/v4/MultiAssetDetail.tsx b/frontend/components/admin/v4/MultiAssetDetail.tsx
+index 41161b0..0816cd1 100644
+--- a/frontend/components/admin/v4/MultiAssetDetail.tsx
++++ b/frontend/components/admin/v4/MultiAssetDetail.tsx
+@@ -1,7 +1,7 @@
+ "use client";
+ 
+-import { useState } from "react";
+-import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
++import { useEffect, useRef, useState } from "react";
++import type { AssetClass, AssetSnapshot, TrendStructure } from "@/lib/v4/types";
+ import { minutesToClose } from "@/lib/v4/options";
+ import {
+   Badge,
+@@ -9,9 +9,16 @@ import {
+   INSET,
+   Panel,
+   Row,
++  Table,
++  TBody,
++  Td,
++  Th,
++  THead,
++  Tr,
+   Tabs,
+   signed,
+   toneClass,
++  trUp,
+ } from "@/components/admin/supertrade/ui";
+ 
+ import V4ContextEnginePanel from "./V4ContextEnginePanel";
+@@ -26,6 +33,13 @@ function directionTone(direction: string): "up" | "down" | "neutral" {
+   return "neutral";
+ }
+ 
++/** Yapı (trend) rengi: yükseliş yeşil, düşüş kırmızı, yatay nötr */
++function trendClass(val: TrendStructure): string {
++  if (val === "UPTREND") return "text-[#22c55e]";
++  if (val === "DOWNTREND") return "text-[#ef4444]";
++  return "text-slate-400";
++}
++
+ export default function MultiAssetDetail({
+   asset,
+   snapshot,
+@@ -38,9 +52,20 @@ export default function MultiAssetDetail({
+   error: string | null;
+ }) {
+   const [mode, setMode] = useState<"live" | "forecast">("live");
+-
+   const view = snapshot;
+ 
++  // Gece yarısını geçip (NY saatiyle) hâlâ yeni seansın gerçek verisi
++  // gelmemişse görünüm otomatik olarak "Tahmin" sekmesine döner — kullanıcı
++  // isterse "Canlı / Bugün" sekmesine geri dönüp son kapanışı görebilir, bu
++  // yüzden geçiş SADECE bir kere (geçiş anında) zorlanır.
++  const autoSwitchedRef = useRef(false);
++  useEffect(() => {
++    if (view?.rollover.isNextDay && !autoSwitchedRef.current) {
++      setMode("forecast");
++      autoSwitchedRef.current = true;
++    }
++  }, [view?.rollover.isNextDay]);
++
+   if (!view) {
+     return (
+       <div className="mt-4">
+@@ -55,13 +80,13 @@ export default function MultiAssetDetail({
+     );
+   }
+ 
+-  const { decision, levels, structure, factors, context } = view;
++  const { decision, levels, structure, factors, context, rollover, forecast } = view;
+   const frame = view.frames[view.frames.length - 1];
+   const dirTone = directionTone(decision.direction);
+ 
+   return (
+     <div className="mt-4 flex flex-col gap-4">
+-      <div className="flex items-center gap-3">
++      <div className="flex flex-wrap items-center gap-3">
+         <Tabs
+           size="sm"
+           value={mode}
+@@ -75,10 +100,19 @@ export default function MultiAssetDetail({
+           <span className={`h-1.5 w-1.5 rounded-full ${view.isLiveSession ? "bg-[#22c55e]" : "bg-slate-500"}`} />
+           Son Güncelleme: {new Date(view.generatedAt).toLocaleTimeString("tr-TR")}
+         </span>
++        {rollover.isNextDay ? (
++          <Badge tone="brand" className="ml-auto">
++            {trUp(`Sonraki seans: ${rollover.nextTradingDate}`)}
++          </Badge>
++        ) : rollover.prepReady ? (
++          <Badge tone="neutral" className="ml-auto" title={`${rollover.nextTradingDate} için hazır`}>
++            {trUp("Yarın için hazır")}
++          </Badge>
++        ) : null}
+       </div>
+ 
+       {mode === "forecast" ? (
+-        <V4SuperTradeForecast snapshot={view} />
++        <V4SuperTradeForecast snapshot={view} precomputed={forecast} />
+       ) : (
+         <>
+           {/* Karar Masası */}
+@@ -92,8 +126,8 @@ export default function MultiAssetDetail({
+           >
+             <div className="mb-3 flex items-start justify-between">
+               <div>
+-                <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+-                  Sistem Kararı ({asset})
++                <div className="text-[10px] font-medium tracking-wider text-slate-500">
++                  {trUp(`Sistem Kararı (${asset})`)}
+                 </div>
+                 <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
+                   {decision.action}
+@@ -119,11 +153,9 @@ export default function MultiAssetDetail({
+           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_300px]">
+             {/* Sol Kolon - Grafik ve Analiz */}
+             <div className="flex flex-col gap-4 min-w-0">
+-              {/* Grafik */}
++              {/* Grafik — gerçek BogaStock grafik motoru, tamamen interaktif */}
+               <V4SuperTradeLiveChart
+                 asset={asset}
+-                esBars={view.bars.futures}
+-                spxBars={view.bars.spot}
+                 levels={{
+                   vwap: frame.vwap,
+                   onh: levels.futures.onh,
+@@ -132,20 +164,42 @@ export default function MultiAssetDetail({
+                   orl: levels.spot.orl,
+                   pdc: levels.futures.pdc,
+                 }}
+-                vwapStartTime={view.frames[0]?.time ?? 0}
+                 loading={loading}
+               />
+ 
+               {/* Yapı ve Skor Tablosu */}
+               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+-                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
+-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+-                    <StructureBox label="VADELİ 15M" val={structure.futures15m} />
+-                    <StructureBox label="VADELİ 5M" val={structure.futures5m} />
+-                    <StructureBox label="VADELİ 1M" val={structure.futures1m} />
+-                    <StructureBox label="SPOT 5M" val={structure.spot5m} />
+-                    <StructureBox label="SPOT 1M" val={structure.spot1m} />
+-                  </div>
++                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2" padding="p-0">
++                  <Table bordered={false}>
++                    <THead>
++                      <tr>
++                        <Th align="center">Vadeli 15dk</Th>
++                        <Th align="center">Vadeli 5dk</Th>
++                        <Th align="center">Vadeli 1dk</Th>
++                        <Th align="center">Spot 5dk</Th>
++                        <Th align="center">Spot 1dk</Th>
++                      </tr>
++                    </THead>
++                    <TBody>
++                      <Tr>
++                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures15m)}`}>
++                          {structure.futures15m}
++                        </Td>
++                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures5m)}`}>
++                          {structure.futures5m}
++                        </Td>
++                        <Td align="center" valueClass={`font-medium ${trendClass(structure.futures1m)}`}>
++                          {structure.futures1m}
++                        </Td>
++                        <Td align="center" valueClass={`font-medium ${trendClass(structure.spot5m)}`}>
++                          {structure.spot5m}
++                        </Td>
++                        <Td align="center" valueClass={`font-medium ${trendClass(structure.spot1m)}`}>
++                          {structure.spot1m}
++                        </Td>
++                      </Tr>
++                    </TBody>
++                  </Table>
+                 </Panel>
+                 <Panel title="Skor Özeti">
+                   <div className="flex h-full flex-col justify-center gap-3">
+@@ -162,17 +216,28 @@ export default function MultiAssetDetail({
+               </div>
+ 
+               {/* Faktör dökümü */}
+-              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
+-                <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+-                  {factors.map((f, i) => (
+-                    <Row
+-                      key={`${f.label}-${i}`}
+-                      label={f.label}
+-                      value={f.detail}
+-                      valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+-                    />
+-                  ))}
+-                </div>
++              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör" padding="p-0">
++                <Table bordered={false}>
++                  <THead>
++                    <tr>
++                      <Th>Faktör</Th>
++                      <Th align="right">Ölçüm</Th>
++                    </tr>
++                  </THead>
++                  <TBody>
++                    {factors.map((f, i) => (
++                      <Tr key={`${f.label}-${i}`}>
++                        <Td valueClass="text-slate-400">{f.label}</Td>
++                        <Td
++                          align="right"
++                          valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
++                        >
++                          {f.detail}
++                        </Td>
++                      </Tr>
++                    ))}
++                  </TBody>
++                </Table>
+               </Panel>
+ 
+               <V4StrategyLab
+@@ -187,31 +252,61 @@ export default function MultiAssetDetail({
+ 
+             {/* Sağ Kolon - Kritik Seviyeler */}
+             <div className="flex w-full flex-col gap-4">
+-              <Panel title="Kritik Seviyeler" padding="p-4">
+-                <div className="space-y-0.5">
+-                  <Row label="Açılış ORH" value={levels.spot.orh.toFixed(2)} />
+-                  <Row label="Açılış ORL" value={levels.spot.orl.toFixed(2)} />
+-                  <Row label="OR genişliği" value={`${levels.spot.orSize.toFixed(2)} puan`} />
+-                  <Row label="Seans VWAP" value={frame.vwap.toFixed(2)} valueClass="text-[#3b82f6]" />
+-                  <div className="my-1.5 h-px bg-[#1c2635]" />
+-                  <Row label="Gece ONH" value={levels.futures.onh.toFixed(2)} />
+-                  <Row label="Gece ONL" value={levels.futures.onl.toFixed(2)} />
+-                  <Row label="ON orta nokta" value={levels.futures.onMid.toFixed(2)} />
+-                  <Row label="Önceki gün kapanışı" value={levels.futures.pdc.toFixed(2)} />
+-                </div>
++              <Panel title="Kritik Seviyeler" padding="p-0">
++                <Table bordered={false}>
++                  <TBody>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Açılış ORH</Td>
++                      <Td align="right">{levels.spot.orh.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Açılış ORL</Td>
++                      <Td align="right">{levels.spot.orl.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">OR genişliği</Td>
++                      <Td align="right">{levels.spot.orSize.toFixed(2)} puan</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Seans VWAP</Td>
++                      <Td align="right" valueClass="text-[#3b82f6]">{frame.vwap.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Gece ONH</Td>
++                      <Td align="right">{levels.futures.onh.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Gece ONL</Td>
++                      <Td align="right">{levels.futures.onl.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">ON orta nokta</Td>
++                      <Td align="right">{levels.futures.onMid.toFixed(2)}</Td>
++                    </Tr>
++                    <Tr>
++                      <Td valueClass="text-slate-500">Önceki gün kapanışı</Td>
++                      <Td align="right">{levels.futures.pdc.toFixed(2)}</Td>
++                    </Tr>
++                  </TBody>
++                </Table>
+               </Panel>
+-              <Panel title="Son Değişimler" padding="p-4">
++              <Panel title="Son Değişimler" padding={view.changes.length ? "p-0" : "p-4"}>
+                 {view.changes.length ? (
+-                  <div className="space-y-0.5">
+-                    {view.changes.map((c, i) => (
+-                      <Row
+-                        key={`${c.label}-${i}`}
+-                        label={c.label}
+-                        value={`${c.from} → ${c.to}`}
+-                        valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
+-                      />
+-                    ))}
+-                  </div>
++                  <Table bordered={false}>
++                    <TBody>
++                      {view.changes.map((c, i) => (
++                        <Tr key={`${c.label}-${i}`}>
++                          <Td valueClass="text-slate-500">{c.label}</Td>
++                          <Td
++                            align="right"
++                            valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
++                          >
++                            {c.from} → {c.to}
++                          </Td>
++                        </Tr>
++                      ))}
++                    </TBody>
++                  </Table>
+                 ) : (
+                   <EmptyState>Son 5 dakikada anlamlı değişim yok.</EmptyState>
+                 )}
+@@ -228,14 +323,3 @@ export default function MultiAssetDetail({
+     </div>
+   );
+ }
+-
+-function StructureBox({ label, val }: { label: string; val: string }) {
+-  const t =
+-    val === "UPTREND" ? "text-[#22c55e]" : val === "DOWNTREND" ? "text-[#ef4444]" : "text-slate-400";
+-  return (
+-    <div className="flex flex-col items-center justify-center gap-1 rounded bg-[#0f141d] p-2 text-center">
+-      <div className="text-[10px] text-slate-500">{label}</div>
+-      <div className={`flex items-center gap-1 text-[11px] font-medium ${t}`}>{val}</div>
+-    </div>
+-  );
+-}
+diff --git a/frontend/components/admin/v4/V4ContextEnginePanel.tsx b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+index a179d55..9b34b8e 100644
+--- a/frontend/components/admin/v4/V4ContextEnginePanel.tsx
++++ b/frontend/components/admin/v4/V4ContextEnginePanel.tsx
+@@ -2,12 +2,12 @@
+ 
+ /**
+  * SPX SuperTrade — Bağlam ve Rejim Paneli
+- * Altı katmanın tamamı gerçek piyasa verisinden türetilir; sabit değer yoktur.
++ * Beş katmanın tamamı gerçek piyasa verisinden türetilir; sabit değer yoktur.
+  */
+ 
+-import React, { useState } from "react";
++import { useState } from "react";
+ import type { ContextSnapshot, SignalState } from "@/lib/v4/types";
+-import { Badge, INSET, Panel, num, toneClass } from "../supertrade/ui";
++import { Badge, INSET, Panel, Table, TBody, Td, Th, THead, Tr, num, toneClass } from "../supertrade/ui";
+ 
+ const AGREEMENT_META = {
+   CONFIRMED: { label: "Canlı yapı teyit ediyor", tone: "up" as const },
+@@ -15,42 +15,6 @@ const AGREEMENT_META = {
+   PENDING: { label: "Teyit bekleniyor", tone: "neutral" as const },
+ };
+ 
+-function Card({
+-  index,
+-  title,
+-  headline,
+-  headlineClass = "text-slate-200",
+-  detail,
+-  footLabel,
+-  footValue,
+-  footClass = "text-slate-300",
+-}: {
+-  index: number;
+-  title: string;
+-  headline: string;
+-  headlineClass?: string;
+-  detail: string;
+-  footLabel: string;
+-  footValue: string;
+-  footClass?: string;
+-}) {
+-  return (
+-    <div className={`${INSET} flex flex-col justify-between p-3`}>
+-      <div>
+-        <div className="text-[10px] font-medium uppercase tracking-[0.07em] text-[#3b82f6]">
+-          {index}. {title}
+-        </div>
+-        <div className={`mt-1.5 text-[13px] font-medium leading-snug ${headlineClass}`}>{headline}</div>
+-        <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{detail}</p>
+-      </div>
+-      <div className="mt-2.5 flex items-baseline justify-between border-t border-[#1c2635] pt-1.5 text-[10px]">
+-        <span className="text-slate-500">{footLabel}</span>
+-        <span className={`font-medium tabular-nums ${footClass}`}>{footValue}</span>
+-      </div>
+-    </div>
+-  );
+-}
+-
+ export default function V4ContextEnginePanel({
+   context,
+   liveState,
+@@ -62,6 +26,60 @@ export default function V4ContextEnginePanel({
+   const { seasonality, volatility, previousSession, overnight, analog } = context;
+   const agreement = AGREEMENT_META[context.liveAgreement];
+ 
++  const rows = [
++    {
++      title: "Mevsimsellik",
++      headline: `${seasonality.month} · ${seasonality.weekday}`,
++      headlineClass: "text-slate-200",
++      detail: seasonality.summary,
++      footLabel: "Ay evresi",
++      footValue:
++        seasonality.monthPhase === "EARLY" ? "Ay başı" : seasonality.monthPhase === "LATE" ? "Ay sonu" : "Ay ortası",
++      footClass: "text-slate-300",
++    },
++    {
++      title: "Volatilite (VIX)",
++      headline: `VIX ${num(volatility.vix)}`,
++      headlineClass: toneClass(-volatility.vix5dChange),
++      detail: volatility.label,
++      footLabel: "5 günlük değişim",
++      footValue: `${volatility.vix5dChange >= 0 ? "+" : ""}${volatility.vix5dChange.toFixed(2)}`,
++      footClass: toneClass(-volatility.vix5dChange),
++    },
++    {
++      title: "Önceki Seans",
++      headline: previousSession.structureType,
++      headlineClass: toneClass(previousSession.changePct),
++      detail: `${previousSession.date} · ${previousSession.label}`,
++      footLabel: "Kapanış konumu",
++      footValue: `%${previousSession.closePositionPct} (${previousSession.changePct >= 0 ? "+" : ""}${previousSession.changePct.toFixed(2)}%)`,
++      footClass: toneClass(previousSession.changePct),
++    },
++    {
++      title: "Gece Seansı (Globex)",
++      headline: overnight.gapType,
++      headlineClass: toneClass(overnight.gapPts),
++      detail: `Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`,
++      footLabel: "Açılış boşluğu",
++      footValue: `${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`,
++      footClass: toneClass(overnight.gapPts),
++    },
++    {
++      title: "Tarihsel Benzerlik",
++      headline: analog.sampleSize
++        ? `${analog.sampleSize} benzer seans · %${analog.bullishPct} yukarı`
++        : "Yeterli örnek yok",
++      headlineClass:
++        analog.bias === "BULLISH" ? "text-[#22c55e]" : analog.bias === "BEARISH" ? "text-[#ef4444]" : "text-slate-300",
++      detail: analog.sampleSize
++        ? `Medyan gün içi hareket ${analog.medianMovePts >= 0 ? "+" : ""}${analog.medianMovePts.toFixed(1)} puan · en iyi ${analog.medianMfePts.toFixed(1)} / en kötü ${analog.medianMaePts.toFixed(1)} puan`
++        : "Tarihsel karşılaştırma yapılamadı",
++      footLabel: "En yakın gün",
++      footValue: analog.sampleSize ? `${analog.nearestDate} (%${analog.nearestSimilarity})` : "—",
++      footClass: "text-slate-300",
++    },
++  ];
++
+   return (
+     <Panel
+       title="Piyasa Bağlamı ve Rejim Motoru"
+@@ -108,79 +126,33 @@ export default function V4ContextEnginePanel({
+         </div>
+       )}
+ 
+-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+-        <Card
+-          index={1}
+-          title="Mevsimsellik"
+-          headline={`${seasonality.month} · ${seasonality.weekday}`}
+-          detail={seasonality.summary}
+-          footLabel="Ay evresi"
+-          footValue={
+-            seasonality.monthPhase === "EARLY"
+-              ? "Ay başı"
+-              : seasonality.monthPhase === "LATE"
+-              ? "Ay sonu"
+-              : "Ay ortası"
+-          }
+-        />
+-
+-        <Card
+-          index={2}
+-          title="Volatilite (VIX)"
+-          headline={`VIX ${num(volatility.vix)}`}
+-          headlineClass={toneClass(-volatility.vix5dChange)}
+-          detail={volatility.label}
+-          footLabel="5 günlük değişim"
+-          footValue={`${volatility.vix5dChange >= 0 ? "+" : ""}${volatility.vix5dChange.toFixed(2)}`}
+-          footClass={toneClass(-volatility.vix5dChange)}
+-        />
+-
+-        <Card
+-          index={3}
+-          title="Önceki Seans"
+-          headline={previousSession.structureType}
+-          headlineClass={toneClass(previousSession.changePct)}
+-          detail={`${previousSession.date} · ${previousSession.label}`}
+-          footLabel="Kapanış konumu"
+-          footValue={`%${previousSession.closePositionPct} (${previousSession.changePct >= 0 ? "+" : ""}${previousSession.changePct.toFixed(2)}%)`}
+-          footClass={toneClass(previousSession.changePct)}
+-        />
+-
+-        <Card
+-          index={4}
+-          title="Gece Seansı (Globex)"
+-          headline={overnight.gapType}
+-          headlineClass={toneClass(overnight.gapPts)}
+-          detail={`Gece aralığı ${num(overnight.onRangePts)} puan · ON orta noktasının ${overnight.vsOnMid === "ABOVE" ? "üstünde" : "altında"} · ${overnight.crossLabel} ${overnight.nqAlignment === "ALIGNED" ? "uyumlu" : "ayrışıyor"}`}
+-          footLabel="Açılış boşluğu"
+-          footValue={`${overnight.gapPts >= 0 ? "+" : ""}${overnight.gapPts.toFixed(2)} puan`}
+-          footClass={toneClass(overnight.gapPts)}
+-        />
+-
+-        <Card
+-          index={5}
+-          title="Tarihsel Benzerlik"
+-          headline={
+-            analog.sampleSize
+-              ? `${analog.sampleSize} benzer seans · %${analog.bullishPct} yukarı`
+-              : "Yeterli örnek yok"
+-          }
+-          headlineClass={
+-            analog.bias === "BULLISH"
+-              ? "text-[#22c55e]"
+-              : analog.bias === "BEARISH"
+-              ? "text-[#ef4444]"
+-              : "text-slate-300"
+-          }
+-          detail={
+-            analog.sampleSize
+-              ? `Medyan gün içi hareket ${analog.medianMovePts >= 0 ? "+" : ""}${analog.medianMovePts.toFixed(1)} puan · en iyi ${analog.medianMfePts.toFixed(1)} / en kötü ${analog.medianMaePts.toFixed(1)} puan`
+-              : "Tarihsel karşılaştırma yapılamadı"
+-          }
+-          footLabel="En yakın gün"
+-          footValue={analog.sampleSize ? `${analog.nearestDate} (%${analog.nearestSimilarity})` : "—"}
+-        />
+-      </div>
++      <Table bordered={false}>
++        <THead>
++          <tr>
++            <Th>Katman</Th>
++            <Th>Özet</Th>
++            <Th className="hidden md:table-cell">Detay</Th>
++            <Th align="right">Ölçüm</Th>
++          </tr>
++        </THead>
++        <TBody>
++          {rows.map((r) => (
++            <Tr key={r.title}>
++              <Td valueClass="text-slate-400">{r.title}</Td>
++              <Td valueClass={`font-medium ${r.headlineClass}`}>{r.headline}</Td>
++              <Td className="hidden md:table-cell" valueClass="text-slate-500 font-normal">
++                {r.detail}
++              </Td>
++              <Td align="right" valueClass={r.footClass}>
++                <div className="flex flex-col items-end">
++                  <span className="text-[10px] text-slate-500">{r.footLabel}</span>
++                  <span className={`font-medium ${r.footClass}`}>{r.footValue}</span>
++                </div>
++              </Td>
++            </Tr>
++          ))}
++        </TBody>
++      </Table>
+     </Panel>
+   );
+ }
+diff --git a/frontend/components/admin/v4/V4StrategyLab.tsx b/frontend/components/admin/v4/V4StrategyLab.tsx
+index 3a5950d..b2cc2cb 100644
+--- a/frontend/components/admin/v4/V4StrategyLab.tsx
++++ b/frontend/components/admin/v4/V4StrategyLab.tsx
+@@ -10,7 +10,7 @@
+ import { useMemo, useState } from "react";
+ import type { SignalState } from "@/lib/v4/types";
+ import { impliedVolFor, priceOption } from "@/lib/v4/options";
+-import { Badge, EmptyState, INSET, Panel, Row, Tabs, num } from "../supertrade/ui";
++import { Badge, EmptyState, INSET, Panel, Row, Tabs, num, trUp } from "../supertrade/ui";
+ 
+ type Category = "ALL" | "SIMPLE" | "SPREAD" | "RANGE";
+ 
+@@ -291,14 +291,14 @@ export default function V4StrategyLab({
+     >
+       <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
+-            Deterministik durum
++          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
++            {trUp("Deterministik durum")}
+           </div>
+           <div className="mt-1 text-[13px] text-slate-200">{state.replace(/_/g, " ")}</div>
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <label className="block text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
+-            Maksimum risk bütçesi ($)
++          <label className="block text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
++            {trUp("Maksimum risk bütçesi ($)")}
+           </label>
+           <input
+             type="number"
+@@ -310,8 +310,8 @@ export default function V4StrategyLab({
+           />
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
+-            Hedef süre
++          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
++            {trUp("Hedef süre")}
+           </div>
+           <div className="mt-1.5">
+             <Tabs
+@@ -323,8 +323,8 @@ export default function V4StrategyLab({
+           </div>
+         </div>
+         <div className={`${INSET} p-3`}>
+-          <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
+-            Bütçeye uyan yapı
++          <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
++            {trUp("Bütçeye uyan yapı")}
+           </div>
+           <div className="mt-1 text-[13px] tabular-nums text-slate-200">
+             {withinBudget.length} / {filtered.length}
+@@ -344,8 +344,8 @@ export default function V4StrategyLab({
+             <article key={s.id} className={`${INSET} flex flex-col p-3.5`}>
+               <header className="mb-2.5 flex items-start justify-between gap-2 border-b border-[#1c2635] pb-2.5">
+                 <div className="min-w-0">
+-                  <div className="text-[10px] uppercase tracking-[0.06em] text-slate-500">
+-                    {CATEGORY_LABEL[s.category]}
++                  <div className="text-[10px] tracking-[0.06em] text-slate-500">
++                    {trUp(CATEGORY_LABEL[s.category])}
+                   </div>
+                   <h4 className="mt-0.5 text-[13px] font-medium leading-snug text-slate-100">{s.name}</h4>
+                 </div>
+@@ -380,12 +380,12 @@ export default function V4StrategyLab({
+               </div>
+ 
+               <div className="mt-2.5 border-t border-[#1c2635] pt-2.5">
+-                <div className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#3b82f6]">
+-                  Neden bu yapı
++                <div className="text-[10px] font-medium tracking-[0.06em] text-[#3b82f6]">
++                  {trUp("Neden bu yapı")}
+                 </div>
+                 <p className="mt-1 text-[11px] leading-relaxed text-slate-400">{s.reason}</p>
+-                <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.06em] text-slate-500">
+-                  İptal koşulu
++                <div className="mt-2 text-[10px] font-medium tracking-[0.06em] text-slate-500">
++                  {trUp("İptal koşulu")}
+                 </div>
+                 <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">{s.invalidation}</p>
+               </div>
+@@ -396,8 +396,8 @@ export default function V4StrategyLab({
+ 
+       {overBudget.length > 0 && (
+         <div className="mt-3">
+-          <div className="mb-1.5 text-[10px] font-medium uppercase tracking-[0.06em] text-slate-500">
+-            Bütçe dışı kalanlar
++          <div className="mb-1.5 text-[10px] font-medium tracking-[0.06em] text-slate-500">
++            {trUp("Bütçe dışı kalanlar")}
+           </div>
+           <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+             {overBudget.map((s) => (
+diff --git a/frontend/components/admin/v4/V4SuperTradeForecast.tsx b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+index 8c31621..9301d1b 100644
+--- a/frontend/components/admin/v4/V4SuperTradeForecast.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeForecast.tsx
+@@ -1,41 +1,61 @@
+ import { Panel, Row, Badge } from "@/components/admin/supertrade/ui";
+-import type { AssetSnapshot } from "@/lib/v4/types";
++import type { AssetSnapshot, ForecastBundle } from "@/lib/v4/types";
+ 
+-export default function V4SuperTradeForecast({ snapshot }: { snapshot: AssetSnapshot }) {
++export default function V4SuperTradeForecast({
++  snapshot,
++  precomputed,
++}: {
++  snapshot: AssetSnapshot;
++  /** Sunucu tarafında kapanıştan 1 saat sonra (17:00 ET) hazırlanmış özet —
++   *  varsa doğrudan kullanılır (dashboard ile birebir aynı sayı), yoksa
++   *  (henüz hazır değilse) aynı mantıkla anlık hesaplanır. */
++  precomputed?: ForecastBundle | null;
++}) {
+   if (!snapshot) return null;
+ 
+   const { levels, context, spotPrice, futuresPrice, vixPrice } = snapshot;
+ 
+-  // Basit bir tahmin motoru
+-  let bias: "BULLISH" | "BEARISH" | "NEUTRAL" = "NEUTRAL";
+-  let score = 0;
++  let bias: "BULLISH" | "BEARISH" | "NEUTRAL";
++  let score: number;
++  let analysisText: string;
+ 
+-  // 1. VWAP konumu
+-  if (futuresPrice > levels.futures.vwap) score += 1;
+-  else if (futuresPrice < levels.futures.vwap) score -= 1;
++  if (precomputed) {
++    bias = precomputed.bias;
++    score = precomputed.score;
++    analysisText = precomputed.analysisText;
++  } else {
++    // Sunucu tarafı özet henüz hazır değil (kapanıştan 1 saat geçmedi) —
++    // sekme yine de anında kullanılabilir olsun diye aynı basit tahmin
++    // motoru burada, istemci tarafında çalışır.
++    score = 0;
+ 
+-  // 2. ORH / ORL konumu
+-  if (spotPrice > levels.spot.orh) score += 2;
+-  else if (spotPrice < levels.spot.orl) score -= 2;
++    // 1. VWAP konumu
++    if (futuresPrice > levels.futures.vwap) score += 1;
++    else if (futuresPrice < levels.futures.vwap) score -= 1;
+ 
+-  // 3. VIX Trendi
+-  if (context.volatility.trend === "FALLING") score += 1;
+-  else if (context.volatility.trend === "RISING") score -= 1;
++    // 2. ORH / ORL konumu
++    if (spotPrice > levels.spot.orh) score += 2;
++    else if (spotPrice < levels.spot.orl) score -= 2;
+ 
+-  // 4. Tarihsel Benzerlik
+-  if (context.analog.bias === "BULLISH") score += 1;
+-  else if (context.analog.bias === "BEARISH") score -= 1;
++    // 3. VIX Trendi
++    if (context.volatility.trend === "FALLING") score += 1;
++    else if (context.volatility.trend === "RISING") score -= 1;
+ 
+-  if (score >= 2) bias = "BULLISH";
+-  else if (score <= -2) bias = "BEARISH";
++    // 4. Tarihsel Benzerlik
++    if (context.analog.bias === "BULLISH") score += 1;
++    else if (context.analog.bias === "BEARISH") score -= 1;
+ 
+-  let analysisText = "";
+-  if (bias === "BULLISH") {
+-    analysisText = "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
+-  } else if (bias === "BEARISH") {
+-    analysisText = "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
+-  } else {
+-    analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
++    bias = "NEUTRAL";
++    if (score >= 2) bias = "BULLISH";
++    else if (score <= -2) bias = "BEARISH";
++
++    if (bias === "BULLISH") {
++      analysisText = "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
++    } else if (bias === "BEARISH") {
++      analysisText = "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
++    } else {
++      analysisText = "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
++    }
+   }
+ 
+   return (
+diff --git a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+index c9551cd..692efdb 100644
+--- a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+@@ -1,15 +1,20 @@
+ "use client";
+ 
+ /**
+- * SPX SuperTrade — Anlık Grafik Motoru (native canvas, harici kütüphane yok)
+- * Veri API'den gelen gerçek mumlardır; bileşen içinde rastgele üretim yoktur.
+- * Yeniden oynatma modunda `cutoffTime` ile mumlar zaman içinde açılır.
++ * SPX SuperTrade — Anlık Grafik
++ * Artık site genelinde kullanılan gerçek BogaStock grafik motorunu
++ * (BogaChartEngine, lightweight-charts tabanlı) kullanır: tamamen
++ * interaktif — yakınlaştırma, kaydırma, mum tipi, gösterge seçimi, tam
++ * ekran, paylaşım. SuperTrade'e özgü VWAP/ONH/ONL/ORH/ORL/Önceki Kapanış
++ * seviyeleri `customLevels` ile grafiğin üzerine ekstra yatay çizgi
++ * olarak eklenir.
+  */
+ 
+-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+-import type { AssetClass, CompactBar } from "@/lib/v4/types";
++import { useMemo, useState } from "react";
++import BogaChartEngine from "@/components/charts/BogaChartEngine";
++import type { AssetClass } from "@/lib/v4/types";
+ import { ASSET_MAP } from "@/lib/v4/types";
+-import { INSET, Panel, Tabs, num } from "../supertrade/ui";
++import { Tabs } from "../supertrade/ui";
+ 
+ export interface ChartLevels {
+   vwap: number;
+@@ -20,95 +25,37 @@ export interface ChartLevels {
+   pdc: number;
+ }
+ 
+-interface Candle {
+-  time: number;
+-  open: number;
+-  high: number;
+-  low: number;
+-  close: number;
+-  volume: number;
+-  vwap: number;
+-  label: string;
+-}
+-
+-type Symbol = "ES" | "SPX";
+-type Timeframe = "1" | "5" | "15";
+-
+-const TF_OPTIONS: { value: Timeframe; label: string }[] = [
+-  { value: "1", label: "1 dk" },
+-  { value: "5", label: "5 dk" },
+-  { value: "15", label: "15 dk" },
+-];
++type ChartView = "FUTURES" | "SPOT";
+ 
+-const COLOR = {
+-  up: "#22c55e",
+-  down: "#ef4444",
+-  brand: "#3b82f6",
+-  grid: "rgba(255,255,255,0.04)",
+-  axis: "#64748b",
+-  level: "#64748b",
+-  bg: "#0a0e17",
++const LEVEL_META: Record<keyof ChartLevels, { label: string; color: string }> = {
++  vwap: { label: "VWAP", color: "#eab308" },
++  onh: { label: "Gece ONH", color: "#ef4444" },
++  onl: { label: "Gece ONL", color: "#22c55e" },
++  orh: { label: "Açılış ORH", color: "#3b82f6" },
++  orl: { label: "Açılış ORL", color: "#3b82f6" },
++  pdc: { label: "Önceki Kapanış", color: "#94a3b8" },
+ };
+ 
+-// Biçimlendirici modül düzeyinde bir kez kurulur. Her mum için yeniden
+-// oluşturmak (384 mum × her render) ölçülebilir bir maliyet yaratıyordu.
+-const ET_TIME = new Intl.DateTimeFormat("tr-TR", {
+-  timeZone: "America/New_York",
+-  hour: "2-digit",
+-  minute: "2-digit",
+-  hourCycle: "h23",
+-});
+-
+-const labelCache = new Map<number, string>();
+-
+-function timeLabel(unixSec: number): string {
+-  const hit = labelCache.get(unixSec);
+-  if (hit) return hit;
+-  const value = ET_TIME.format(new Date(unixSec * 1000));
+-  if (labelCache.size > 5000) labelCache.clear();
+-  labelCache.set(unixSec, value);
+-  return value;
+-}
+-
+ export default function V4SuperTradeLiveChart({
+   asset,
+-  esBars,
+-  spxBars,
+   levels,
+-  vwapStartTime,
+-  cutoffTime,
+-  isReplay = false,
+-  loading = false,
++  loading,
+ }: {
+   asset: AssetClass;
+-  esBars: CompactBar[];
+-  spxBars: CompactBar[];
+   levels: ChartLevels;
+-  vwapStartTime: number;
+-  cutoffTime?: number;
+-  isReplay?: boolean;
+   loading?: boolean;
+ }) {
+   const info = ASSET_MAP[asset];
+-  const futuresLabel = info.futures.replace("=F", "");
+   const scale = info.scale || 1;
+-  const canvasRef = useRef<HTMLCanvasElement>(null);
+-  const containerRef = useRef<HTMLDivElement>(null);
+-  const [symbol, setSymbol] = useState<Symbol>("ES");
+-  const [timeframe, setTimeframe] = useState<Timeframe>("5");
+-  const [hover, setHover] = useState<{ index: number; x: number; y: number } | null>(null);
+-  const [size, setSize] = useState({ width: 640, height: 340 });
+-
+-  const source = symbol === "ES" ? esBars : spxBars;
++  const [view, setView] = useState<ChartView>("FUTURES");
+ 
+   // `levels` verili varlığın DOĞAL ölçeğinde gelir: vwap/onh/onl/pdc her
+   // zaman vadeli (ES/NQ) ölçeğinde, orh/orl her zaman spot (SPX/QQQ/…)
+-  // ölçeğindedir. Bu iki ölçek, scale=1 olan SPX dışındaki her varlıkta
+-  // (SPY, XSP, QQQ, XND) birbirinden çok farklı büyüklüktedir — aynı
+-  // grafikte karıştırılırsa fiyat ekseni bozulur ve mumlar görünmez olur.
+-  // Aktif sekmeye göre seviyeleri o sekmenin ölçeğine çeviriyoruz.
++  // ölçeğindedir (bkz. MultiAssetDetail). Aktif görünüme göre HER İKİSİNİ de
++  // o görünümün ölçeğine çeviriyoruz — aksi halde küçük ölçekli varlıklarda
++  // (QQQ 0.025, XND 0.01) fiyat ekseni çöker ve grafik anlamsız görünür.
+   const displayLevels = useMemo<ChartLevels>(() => {
+-    if (symbol === "ES") {
++    if (view === "FUTURES") {
+       return {
+         vwap: levels.vwap,
+         onh: levels.onh,
+@@ -126,425 +73,48 @@ export default function V4SuperTradeLiveChart({
+       orh: levels.orh,
+       orl: levels.orl,
+     };
+-  }, [symbol, levels, scale]);
+-
+-  const candles = useMemo<Candle[]>(() => {
+-    const factor = Number(timeframe);
+-    const rows = cutoffTime ? source.filter((b) => b[0] <= cutoffTime) : source;
+-    if (!rows.length) return [];
+-
+-    // Zaman dilimine topla
+-    const grouped: Omit<Candle, "vwap" | "label">[] = [];
+-    for (let i = 0; i < rows.length; i += factor) {
+-      const slice = rows.slice(i, i + factor);
+-      if (!slice.length) continue;
+-      grouped.push({
+-        time: slice[0][0],
+-        open: slice[0][1],
+-        high: Math.max(...slice.map((b) => b[2])),
+-        low: Math.min(...slice.map((b) => b[3])),
+-        close: slice[slice.length - 1][4],
+-        volume: slice.reduce((s, b) => s + b[5], 0),
+-      });
+-    }
+-
+-    // Seans başlangıcından itibaren kümülatif VWAP
+-    let tpv = 0;
+-    let vol = 0;
+-    let simpleSum = 0;
+-    let simpleCount = 0;
+-
+-    return grouped.map((c) => {
+-      const typical = (c.high + c.low + c.close) / 3;
+-      if (c.time >= vwapStartTime) {
+-        tpv += typical * c.volume;
+-        vol += c.volume;
+-        simpleSum += typical;
+-        simpleCount += 1;
+-      }
+-      const vwap = vol > 0 ? tpv / vol : simpleCount > 0 ? simpleSum / simpleCount : typical;
+-      return { ...c, vwap, label: timeLabel(c.time) };
+-    });
+-  }, [source, timeframe, cutoffTime, vwapStartTime]);
+-
+-  const last = candles[candles.length - 1];
+-  const display = hover && candles[hover.index] ? candles[hover.index] : last;
+-
+-  const draw = useCallback(() => {
+-    const canvas = canvasRef.current;
+-    if (!canvas) return;
+-    const ctx = canvas.getContext("2d");
+-    if (!ctx) return;
+-
+-    const dpr = window.devicePixelRatio || 1;
+-    const { width, height } = size;
+-
+-    canvas.width = Math.floor(width * dpr);
+-    canvas.height = Math.floor(height * dpr);
+-    canvas.style.width = `${width}px`;
+-    canvas.style.height = `${height}px`;
+-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+-
+-    ctx.fillStyle = COLOR.bg;
+-    ctx.fillRect(0, 0, width, height);
+-    if (!candles.length) return;
+-
+-    const padL = 8;
+-    const padR = 68;
+-    const padT = 14;
+-    const padB = 26;
+-    const plotW = width - padL - padR;
+-    const plotH = height - padT - padB;
+-    const volH = Math.round(plotH * 0.18);
+-    const priceH = plotH - volH - 10;
+-
+-    const forecastBars = 24; // Gelecek tahmin aralığı (boşluk)
+-
+-    const relevant = [displayLevels.vwap, displayLevels.onh, displayLevels.onl, displayLevels.orh, displayLevels.orl].filter(
+-      (v) => v > 0
+-    );
+-    let min = Math.min(...candles.map((c) => c.low), ...relevant);
+-    let max = Math.max(...candles.map((c) => c.high), ...relevant);
+-    
+-    let stdDev = 1;
+-    if (candles.length > 0) {
+-      const lookback = Math.min(20, candles.length);
+-      let sumClose = 0;
+-      for (let i = candles.length - lookback; i < candles.length; i++) sumClose += candles[i].close;
+-      const avgClose = sumClose / lookback;
+-      let sqSum = 0;
+-      for (let i = candles.length - lookback; i < candles.length; i++) sqSum += Math.pow(candles[i].close - avgClose, 2);
+-      stdDev = Math.max(Math.sqrt(sqSum / lookback), 1);
+-      
+-      const lastClose = candles[candles.length - 1].close;
+-      const maxVal = lastClose + stdDev * Math.sqrt(forecastBars) * 1.5;
+-      const minVal = lastClose - stdDev * Math.sqrt(forecastBars) * 1.5;
+-      max = Math.max(max, maxVal);
+-      min = Math.min(min, minVal);
+-    }
+-    
+-    const span = max - min || 1;
+-    min -= span * 0.04;
+-    max += span * 0.04;
+-
+-    const priceY = (p: number) => padT + priceH - ((p - min) / (max - min)) * priceH;
+-    const maxVol = Math.max(...candles.map((c) => c.volume), 1);
+-    const volY = (v: number) => height - padB - (v / maxVol) * volH;
+-
+-    // Izgara ve fiyat ekseni
+-    ctx.font = "10px ui-monospace, monospace";
+-    ctx.textBaseline = "middle";
+-    for (let i = 0; i <= 5; i++) {
+-      const p = min + (i / 5) * (max - min);
+-      const y = priceY(p);
+-      ctx.strokeStyle = COLOR.grid;
+-      ctx.lineWidth = 1;
+-      ctx.beginPath();
+-      ctx.moveTo(padL, y);
+-      ctx.lineTo(width - padR, y);
+-      ctx.stroke();
+-      ctx.fillStyle = COLOR.axis;
+-      ctx.textAlign = "left";
+-      ctx.fillText(p.toFixed(2), width - padR + 6, y);
+-    }
+-
+-    const n = candles.length + forecastBars;
+-    const step = plotW / n;
+-    const barW = Math.max(1.5, Math.min(14, step * 0.62));
+-
+-    // Açılış aralığı bandı
+-    if (displayLevels.orh > 0 && displayLevels.orl > 0) {
+-      const yTop = priceY(displayLevels.orh);
+-      const yBottom = priceY(displayLevels.orl);
+-      ctx.fillStyle = "rgba(59,130,246,0.06)";
+-      ctx.fillRect(padL, yTop, plotW, Math.max(1, yBottom - yTop));
+-    }
+-
+-    const drawLevel = (price: number, label: string, dash: number[], color: string) => {
+-      if (!price) return;
+-      const y = priceY(price);
+-      if (y < padT - 2 || y > padT + priceH + 2) return;
+-      ctx.save();
+-      ctx.strokeStyle = color;
+-      ctx.lineWidth = 1;
+-      ctx.setLineDash(dash);
+-      ctx.beginPath();
+-      ctx.moveTo(padL, y);
+-      ctx.lineTo(width - padR, y);
+-      ctx.stroke();
+-      ctx.restore();
+-
+-      ctx.fillStyle = color;
+-      ctx.font = "9px ui-sans-serif, system-ui";
+-      ctx.textAlign = "right";
+-      ctx.fillText(label, width - padR - 4, y - 6);
+-    };
+-
+-    drawLevel(displayLevels.onh, `ONH ${displayLevels.onh.toFixed(2)}`, [2, 4], COLOR.level);
+-    drawLevel(displayLevels.onl, `ONL ${displayLevels.onl.toFixed(2)}`, [2, 4], COLOR.level);
+-    drawLevel(displayLevels.pdc, `PDC ${displayLevels.pdc.toFixed(2)}`, [1, 5], "#475569");
+-    drawLevel(displayLevels.orh, `ORH ${displayLevels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
+-    drawLevel(displayLevels.orl, `ORL ${displayLevels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
+-
+-    // Hacim
+-    candles.forEach((c, i) => {
+-      const x = padL + i * step + step / 2;
+-      const y = volY(c.volume);
+-      ctx.fillStyle = c.close >= c.open ? "rgba(34,197,94,0.28)" : "rgba(239,68,68,0.28)";
+-      ctx.fillRect(x - barW / 2, y, barW, height - padB - y);
+-    });
+-
+-    // VWAP
+-    ctx.save();
+-    ctx.strokeStyle = COLOR.brand;
+-    ctx.lineWidth = 1.5;
+-    ctx.beginPath();
+-    let started = false;
+-    candles.forEach((c, i) => {
+-      if (c.time < vwapStartTime) return;
+-      const x = padL + i * step + step / 2;
+-      const y = priceY(c.vwap);
+-      if (!started) {
+-        ctx.moveTo(x, y);
+-        started = true;
+-      } else ctx.lineTo(x, y);
+-    });
+-    ctx.stroke();
+-    ctx.restore();
+-
+-    // Mumlar
+-    candles.forEach((c, i) => {
+-      const x = padL + i * step + step / 2;
+-      const color = c.close >= c.open ? COLOR.up : COLOR.down;
+-      ctx.strokeStyle = color;
+-      ctx.lineWidth = 1;
+-      ctx.beginPath();
+-      ctx.moveTo(x, priceY(c.high));
+-      ctx.lineTo(x, priceY(c.low));
+-      ctx.stroke();
+-
+-      const yo = priceY(c.open);
+-      const yc = priceY(c.close);
+-      ctx.fillStyle = color;
+-      ctx.fillRect(x - barW / 2, Math.min(yo, yc), barW, Math.max(1, Math.abs(yo - yc)));
+-    });
+-
+-    // Zaman ekseni
+-    const labelEvery = Math.max(1, Math.ceil(candles.length / 8));
+-    ctx.fillStyle = COLOR.axis;
+-    ctx.font = "10px ui-monospace, monospace";
+-    ctx.textAlign = "center";
+-    candles.forEach((c, i) => {
+-      if (i % labelEvery) return;
+-      ctx.fillText(c.label, padL + i * step + step / 2, height - padB + 12);
+-    });
+-
+-    // Forecast Cone
+-    if (candles.length > 0) {
+-      const lastCandle = candles[candles.length - 1];
+-      const startX = padL + (candles.length - 1) * step + step / 2;
+-      const startY = priceY(lastCandle.close);
+-
+-      ctx.save();
+-      // Max line
+-      ctx.beginPath();
+-      ctx.moveTo(startX, startY);
+-      for (let i = 1; i <= forecastBars; i++) {
+-        const fx = startX + i * step;
+-        const fy = priceY(lastCandle.close + stdDev * Math.sqrt(i) * 1.5);
+-        ctx.lineTo(fx, fy);
+-      }
+-      ctx.strokeStyle = "#10b981";
+-      ctx.setLineDash([2, 4]);
+-      ctx.lineWidth = 1.5;
+-      ctx.stroke();
+-
+-      // Min line
+-      ctx.beginPath();
+-      ctx.moveTo(startX, startY);
+-      for (let i = 1; i <= forecastBars; i++) {
+-        const fx = startX + i * step;
+-        const fy = priceY(lastCandle.close - stdDev * Math.sqrt(i) * 1.5);
+-        ctx.lineTo(fx, fy);
+-      }
+-      ctx.strokeStyle = "#047857";
+-      ctx.stroke();
+-
+-      // Avg line
+-      ctx.beginPath();
+-      ctx.moveTo(startX, startY);
+-      ctx.lineTo(startX + forecastBars * step, startY);
+-      ctx.strokeStyle = "#059669";
+-      ctx.stroke();
+-      ctx.restore();
+-
+-      const maxVal = lastCandle.close + stdDev * Math.sqrt(forecastBars) * 1.5;
+-      const minVal = lastCandle.close - stdDev * Math.sqrt(forecastBars) * 1.5;
+-      
+-      ctx.fillStyle = "#10b981";
+-      ctx.font = "9px ui-sans-serif, system-ui";
+-      ctx.textAlign = "left";
+-      ctx.fillText(`Max ${maxVal.toFixed(2)}`, width - padR + 4, priceY(maxVal));
+-      ctx.fillStyle = "#059669";
+-      ctx.fillText(`Avg ${lastCandle.close.toFixed(2)}`, width - padR + 4, priceY(lastCandle.close));
+-      ctx.fillStyle = "#047857";
+-      ctx.fillText(`Min ${minVal.toFixed(2)}`, width - padR + 4, priceY(minVal));
+-    }
+-
+-    // Son fiyat etiketi
+-    const endCandle = candles[candles.length - 1];
+-    const lastY = priceY(endCandle.close);
+-    const lastColor = endCandle.close >= endCandle.open ? COLOR.up : COLOR.down;
+-    ctx.fillStyle = lastColor;
+-    ctx.fillRect(width - padR + 2, lastY - 8, padR - 6, 16);
+-    ctx.fillStyle = "#0a0e17";
+-    ctx.font = "10px ui-monospace, monospace";
+-    ctx.textAlign = "center";
+-    ctx.textBaseline = "middle";
+-    ctx.fillText(endCandle.close.toFixed(2), width - padR + 2 + (padR - 6) / 2, lastY);
+-
+-    // İmleç
+-    if (hover && candles[hover.index]) {
+-      const x = padL + hover.index * step + step / 2;
+-      ctx.save();
+-      ctx.strokeStyle = "rgba(148,163,184,0.45)";
+-      ctx.setLineDash([3, 3]);
+-      ctx.lineWidth = 1;
+-      ctx.beginPath();
+-      ctx.moveTo(x, padT);
+-      ctx.lineTo(x, height - padB);
+-      ctx.stroke();
+-      ctx.beginPath();
+-      ctx.moveTo(padL, hover.y);
+-      ctx.lineTo(width - padR, hover.y);
+-      ctx.stroke();
+-      ctx.restore();
+-    }
+-  }, [candles, displayLevels, size, hover, vwapStartTime]);
+-
+-  useEffect(() => {
+-    const container = containerRef.current;
+-    if (!container) return;
+-    const update = () => {
+-      const rect = container.getBoundingClientRect();
+-      setSize({ width: Math.max(320, rect.width), height: 340 });
+-    };
+-    update();
+-    const observer = new ResizeObserver(update);
+-    observer.observe(container);
+-    return () => observer.disconnect();
+-  }, []);
+-
+-  useEffect(() => {
+-    draw();
+-  }, [draw]);
+-
+-  const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+-    const canvas = canvasRef.current;
+-    if (!canvas || !candles.length) return;
+-    const rect = canvas.getBoundingClientRect();
+-    const x = e.clientX - rect.left;
+-    const y = e.clientY - rect.top;
+-    const padL = 8;
+-    const padR = 68;
+-    const forecastBars = 24;
+-    const step = (rect.width - padL - padR) / (candles.length + forecastBars);
+-    const index = Math.floor((x - padL) / step);
+-    if (index >= 0 && index < candles.length) setHover({ index, x, y });
+-    else setHover(null);
+-  };
++  }, [view, levels, scale]);
++
++  const customLevels = useMemo(
++    () =>
++      (Object.keys(LEVEL_META) as (keyof ChartLevels)[]).map((key) => ({
++        label: LEVEL_META[key].label,
++        price: displayLevels[key],
++        color: LEVEL_META[key].color,
++      })),
++    [displayLevels]
++  );
+ 
+-  const changePct =
+-    candles.length > 1 ? ((candles[candles.length - 1].close - candles[0].open) / candles[0].open) * 100 : 0;
++  const symbol = view === "FUTURES" ? info.futures : info.spot;
++  const futuresLabel = info.futures.replace("=F", "");
+ 
+   return (
+-    <Panel
+-      title={symbol === "ES" ? `${futuresLabel} Vadeli` : `${asset} — ${info.name}`}
+-      hint={isReplay ? "yeniden oynatma" : "canlı akış"}
+-      right={
+-        <div className="flex flex-wrap items-center gap-2">
+-          <Tabs
+-            size="sm"
+-            value={symbol}
+-            onChange={(v: Symbol) => setSymbol(v)}
+-            options={[
+-              { value: "ES", label: futuresLabel },
+-              { value: "SPX", label: asset },
+-            ]}
+-          />
+-          <Tabs size="sm" value={timeframe} onChange={(v: Timeframe) => setTimeframe(v)} options={TF_OPTIONS} />
+-        </div>
+-      }
+-    >
+-      <div className="mb-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] tabular-nums">
+-        {display ? (
+-          <>
+-            <span className="text-slate-500">
+-              {display.label} <span className="text-slate-600">ET</span>
+-            </span>
+-            <span className="text-slate-500">
+-              A <span className="text-slate-300">{num(display.open)}</span>
+-            </span>
+-            <span className="text-slate-500">
+-              Y <span className="text-slate-300">{num(display.high)}</span>
+-            </span>
+-            <span className="text-slate-500">
+-              D <span className="text-slate-300">{num(display.low)}</span>
+-            </span>
+-            <span className="text-slate-500">
+-              K{" "}
+-              <span className={display.close >= display.open ? "text-[#22c55e]" : "text-[#ef4444]"}>
+-                {num(display.close)}
+-              </span>
+-            </span>
+-            <span className="text-slate-500">
+-              VWAP <span className="text-[#3b82f6]">{num(display.vwap)}</span>
+-            </span>
+-            <span className="text-slate-500">
+-              Seans{" "}
+-              <span className={changePct >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}>
+-                {changePct >= 0 ? "+" : ""}
+-                {changePct.toFixed(2)}%
+-              </span>
+-            </span>
+-          </>
+-        ) : (
+-          <span className="text-slate-500">{loading ? "Veri yükleniyor…" : "Mum verisi yok"}</span>
+-        )}
+-      </div>
+-
+-      <div ref={containerRef} className={`${INSET} relative overflow-hidden`} style={{ height: 340 }}>
+-        <canvas
+-          ref={canvasRef}
+-          onMouseMove={handleMove}
+-          onMouseLeave={() => setHover(null)}
+-          className="block cursor-crosshair"
++    <div className="flex flex-col gap-2">
++      <div className="flex flex-wrap items-center justify-between gap-2">
++        <Tabs
++          size="sm"
++          value={view}
++          onChange={setView}
++          options={[
++            { value: "FUTURES", label: `Vadeli (${futuresLabel})` },
++            { value: "SPOT", label: `Spot (${asset})` },
++          ]}
+         />
+-        {!candles.length && (
+-          <div className="absolute inset-0 flex items-center justify-center text-[12px] text-slate-500">
+-            {loading ? "Veri yükleniyor…" : "Bu seans için mum verisi bulunamadı"}
+-          </div>
+-        )}
++        {loading && <span className="text-[11px] text-slate-500">Güncelleniyor…</span>}
+       </div>
+-
+-      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-slate-500">
+-        <span className="flex items-center gap-1.5">
+-          <span className="h-px w-4 bg-[#3b82f6]" /> VWAP
+-        </span>
+-        <span className="flex items-center gap-1.5">
+-          <span className="h-px w-4 border-t border-dashed border-slate-400" /> ORH / ORL
+-        </span>
+-        <span className="flex items-center gap-1.5">
+-          <span className="h-px w-4 border-t border-dotted border-slate-500" /> Gece ONH / ONL
+-        </span>
+-        <span className="flex items-center gap-1.5">
+-          <span className="h-2 w-2 rounded-sm bg-[#22c55e]" /> artan
+-        </span>
+-        <span className="flex items-center gap-1.5">
+-          <span className="h-2 w-2 rounded-sm bg-[#ef4444]" /> azalan
+-        </span>
+-        <span className="ml-auto">{candles.length} mum</span>
++      <div className="overflow-hidden rounded-lg border border-[#1c2635] bg-[#0a0e17]">
++        <BogaChartEngine
++          symbol={symbol}
++          height={440}
++          lang="tr"
++          detailMode
++          showToolbar
++          extendedHours={view === "FUTURES"}
++          defaultTimeframe="15"
++          defaultIndicators={["volume"]}
++          customLevels={customLevels}
++        />
+       </div>
+-    </Panel>
++    </div>
+   );
+ }
+diff --git a/frontend/components/charts/BogaChartEngine.tsx b/frontend/components/charts/BogaChartEngine.tsx
+index 9c2419d..ad654fb 100644
+--- a/frontend/components/charts/BogaChartEngine.tsx
++++ b/frontend/components/charts/BogaChartEngine.tsx
+@@ -13,6 +13,7 @@ import {
+   TickMarkType,
+   type IChartApi,
+   type ISeriesApi,
++  type IPriceLine,
+   type UTCTimestamp,
+   type Time,
+ } from "lightweight-charts";
+@@ -301,6 +302,13 @@ interface Props {
+   externalMultiChartTickers?: string[] | null; // caller-driven multi-chart selection (checkboxes)
+   externalMultiChartTrigger?: number; // signal incremented when caller explicitly requests opening multi-chart screen
+   onExternalMultiChartConsumed?: () => void;
++  // Vadeli (ES=F/NQ=F) kontratlarda gece Globex seansını da getirir — diğer
++  // tüm çağıranlar bu prop'u hiç geçmiyor, davranışları değişmiyor.
++  extendedHours?: boolean;
++  // Çağıranın kendi hesapladığı ekstra yatay seviyeler (ör. SuperTrade
++  // VWAP/ONH/ONL/ORH/ORL/PDC) — "sr" ile aynı createPriceLine deseniyle,
++  // fiyat ekseninde ekstra çizgiler olarak çizilir.
++  customLevels?: { label: string; price: number; color: string; dashed?: boolean }[];
+ }
+ 
+ export const INDEX_DISPLAY_NAMES: Record<string, string> = {
+@@ -385,6 +393,8 @@ export default function BogaChartEngine({
+   externalMultiChartTickers,
+   externalMultiChartTrigger,
+   onExternalMultiChartConsumed,
++  extendedHours = false,
++  customLevels,
+ }: Props) {
+   const t = LABELS[lang] || LABELS.en;
+   const { isPremium, tier } = useMemberPlan();
+@@ -554,6 +564,36 @@ export default function BogaChartEngine({
+   const [entryZoneOverlay, setEntryZoneOverlay] = useState<{ top: number; height: number } | null>(null);
+   const recomputeEntryZoneRef = useRef<() => void>(() => {});
+ 
++  // Çağıranın customLevels prop'uyla verdiği ekstra yatay seviyeler — "sr"
++  // ile aynı createPriceLine deseni. Ayrı bir ref/effect ile tutuluyor ki
++  // fiyatlar değiştiğinde (ör. SuperTrade snapshot'ının kendi 20sn poll'u)
++  // grafiğin kendi 60sn'lik veri yenileme döngüsünü beklemeden anında
++  // güncellensin.
++  const customLevelLinesRef = useRef<IPriceLine[]>([]);
++  const applyCustomLevels = () => {
++    const mainSeries = mainSeriesRef.current;
++    if (!mainSeries) return;
++    for (const pl of customLevelLinesRef.current) {
++      try { mainSeries.removePriceLine(pl); } catch {}
++    }
++    customLevelLinesRef.current = [];
++    if (!customLevels) return;
++    for (const lvl of customLevels) {
++      if (!Number.isFinite(lvl.price) || lvl.price === 0) continue;
++      try {
++        const pl = mainSeries.createPriceLine({
++          price: lvl.price,
++          color: lvl.color,
++          lineWidth: 1,
++          lineStyle: lvl.dashed === false ? 0 : 2,
++          axisLabelVisible: true,
++          title: lvl.label,
++        });
++        customLevelLinesRef.current.push(pl);
++      } catch {}
++    }
++  };
++
+   // Mobil breakpoint (md: = 768px) kontrol — varsayılan göstergeleri uyarla
+   useEffect(() => {
+     const checkMobile = () => setIsMobile(window.innerWidth < 768);
+@@ -763,6 +803,7 @@ export default function BogaChartEngine({
+     const indicatorsParam = [wanted, active.has("sr") ? "sr" : ""].filter(Boolean).join(",");
+     const params = new URLSearchParams({ ticker: symbol, timeframe: interval });
+     if (indicatorsParam) params.set("indicators", indicatorsParam);
++    if (extendedHours) params.set("extendedHours", "true");
+ 
+     try {
+       const res = await fetch(`/api/chart-data?${params.toString()}`);
+@@ -773,7 +814,7 @@ export default function BogaChartEngine({
+       // silent — network hiccup, next poll/refetch will retry
+     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+-  }, [symbol, interval, active]);
++  }, [symbol, interval, active, extendedHours]);
+ 
+   // Fixed Range Volume Profile — only in the full detail toolbar, never on
+   // compact/mini/hover embeds, regardless of what `active` contains.
+@@ -1172,6 +1213,7 @@ export default function BogaChartEngine({
+     applyVisibleRange(bars);
+     recomputeVolumeProfile(bars);
+     recomputeEntryZone();
++    applyCustomLevels();
+     setHoverBar(bars[bars.length - 1] ?? null);
+   };
+ 
+@@ -1212,6 +1254,13 @@ export default function BogaChartEngine({
+     fetchData();
+   }, [fetchData]);
+ 
++  // customLevels prop değiştiğinde (SuperTrade'in kendi poll döngüsü) grafiğin
++  // kendi 60sn'lik yenilemesini beklemeden çizgileri anında güncelle.
++  useEffect(() => {
++    applyCustomLevels();
++    // eslint-disable-next-line react-hooks/exhaustive-deps
++  }, [customLevels]);
++
+   // Candle type change: re-create the main series and redraw from cached
+   // data — no network refetch needed, same bars, different presentation.
+   useEffect(() => {
+diff --git a/frontend/lib/v4/snapshot.ts b/frontend/lib/v4/snapshot.ts
+index 1bdf7a8..1f002e5 100644
+--- a/frontend/lib/v4/snapshot.ts
++++ b/frontend/lib/v4/snapshot.ts
+@@ -9,10 +9,12 @@ import type {
+   Bar,
+   FuturesLevels,
+   FeedHealth,
++  ForecastBundle,
+   Frame,
+   FrameLite,
+   AssetReplayResponse,
+   AssetSnapshot,
++  RolloverInfo,
+   SpotLevels,
+   StructureSet,
+   AssetClass,
+@@ -403,6 +405,83 @@ function feedHealth(
+   return { symbol, label, status, ageSec: age, lastPrice: round2(last.close) };
+ }
+ 
++// ── Gün geçişi (rollover) ─────────────────────────────────────────
++
++/** sessionDate'den sonraki bir sonraki işlem günü — hafta sonu atlanır */
++function nextWeekday(ymd: string): string {
++  const [y, m, d] = ymd.split("-").map(Number);
++  const date = new Date(Date.UTC(y, m - 1, d));
++  do {
++    date.setUTCDate(date.getUTCDate() + 1);
++  } while (date.getUTCDay() === 0 || date.getUTCDay() === 6);
++  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(
++    date.getUTCDate()
++  ).padStart(2, "0")}`;
++}
++
++/**
++ * Kapanış sonrası ertesi gün özeti — V4SuperTradeForecast panelindeki basit
++ * tahmin motoruyla AYNI mantık, burada sunucu tarafında önceden hesaplanıp
++ * anlık görüntüye eklenir ki dashboard/detay ekranları 17:00 ET'den itibaren
++ * bunu doğrudan gösterebilsin (istemcinin ayrı hesaplama yapması gerekmez).
++ */
++function computeForecastBundle(input: {
++  futuresPrice: number;
++  vwap: number;
++  spotPrice: number;
++  orh: number;
++  orl: number;
++  volTrend: "RISING" | "FALLING" | "STABLE";
++  analogBias: "BULLISH" | "BEARISH" | "NEUTRAL";
++}): ForecastBundle {
++  let score = 0;
++  if (input.futuresPrice > input.vwap) score += 1;
++  else if (input.futuresPrice < input.vwap) score -= 1;
++
++  if (input.spotPrice > input.orh) score += 2;
++  else if (input.spotPrice < input.orl) score -= 2;
++
++  if (input.volTrend === "FALLING") score += 1;
++  else if (input.volTrend === "RISING") score -= 1;
++
++  if (input.analogBias === "BULLISH") score += 1;
++  else if (input.analogBias === "BEARISH") score -= 1;
++
++  let bias: ForecastBundle["bias"] = "NEUTRAL";
++  if (score >= 2) bias = "BULLISH";
++  else if (score <= -2) bias = "BEARISH";
++
++  let analysisText: string;
++  if (bias === "BULLISH") {
++    analysisText =
++      "Kapanışın VWAP ve direnç seviyeleri üzerinde olması, alıcıların kontrolü ele aldığını gösteriyor. VIX seviyesindeki gevşeme de bu durumu destekliyor. Ertesi gün için yukarı yönlü (Gap Up) açılış veya yükseliş trendinin devamı beklenebilir.";
++  } else if (bias === "BEARISH") {
++    analysisText =
++      "Kapanışın kritik seviyelerin ve VWAP'ın altında kalması, zayıflığa işaret ediyor. Artan veya yüksek kalan VIX oynaklığı satıcıların iştahlı olduğunu gösteriyor. Ertesi gün zayıf bir açılış (Gap Down) muhtemeldir.";
++  } else {
++    analysisText =
++      "Piyasa günü denge arayışı içinde tamamladı. Belirgin bir alıcı veya satıcı baskısı yok. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.";
++  }
++
++  return { bias, score, analysisText };
++}
++
++function buildRollover(sessionDate: string, isLiveSession: boolean, nowParts: { ymd: string; minutes: number }): RolloverInfo {
++  const displayDate = nowParts.ymd;
++  const isNextDay = displayDate !== sessionDate;
++  // Gece yarısını geçtiysek (isNextDay) saat sıfırlanmış olur — o durumda da
++  // eşik zaten geçilmiş sayılır, sadece nowParts.minutes >= 17:00 kontrolü
++  // yetmez.
++  const pastPrepThreshold = isNextDay || nowParts.minutes >= 17 * 60;
++  const prepReady = !isLiveSession && pastPrepThreshold;
++  return {
++    displayDate,
++    isNextDay,
++    nextTradingDate: nextWeekday(sessionDate),
++    prepReady,
++  };
++}
++
+ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+   const data = await loadMarketData(asset);
+   const notes = [...data.errors];
+@@ -521,6 +600,19 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+     feedHealth(ASSET_MAP[asset].vix, "VIX", data.vix1m, nowSec, isLiveSession),
+   ];
+ 
++  const rollover = buildRollover(sessionDate, isLiveSession, nowParts);
++  const forecast = rollover.prepReady
++    ? computeForecastBundle({
++        futuresPrice: last.futuresPrice,
++        vwap: last.vwap,
++        spotPrice: last.spotPrice,
++        orh: session.levels.spot.orh,
++        orl: session.levels.spot.orl,
++        volTrend: context.volatility.trend,
++        analogBias: context.analog.bias,
++      })
++    : null;
++
+   return {
+     ok: true,
+     generatedAt: new Date().toISOString(),
+@@ -553,6 +645,8 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
+     runners,
+     bars: { futures: toCompact(session.esChart), spot: toCompact(session.spxChart) },
+     frames: frames.map(toLite),
++    rollover,
++    forecast,
+   };
+ }
+ 
+diff --git a/frontend/lib/v4/types.ts b/frontend/lib/v4/types.ts
+index 4f72eb0..4e49469 100644
+--- a/frontend/lib/v4/types.ts
++++ b/frontend/lib/v4/types.ts
+@@ -280,6 +280,31 @@ export interface RunnerSimulation {
+ 
+ // ── Uç Nokta Yanıtları ────────────────────────────────────────────
+ 
++/** Ertesi güne dair, kapanış sonrası önceden hesaplanmış özet — bkz. Rollover */
++export interface ForecastBundle {
++  bias: "BULLISH" | "BEARISH" | "NEUTRAL";
++  score: number;
++  analysisText: string;
++}
++
++/**
++ * Gün geçişi durumu: piyasa kapanışından 1 saat sonra (17:00 ET) ertesi
++ * günün özeti arka planda hazırlanır (`prepReady`); ekranda "bugün" olarak
++ * gösterilen tarih ise NY gece yarısında (00:00 ET) otomatik olarak yeni
++ * takvim gününe döner (`isNextDay`) — gerçek seans verisi gelene kadar bu
++ * hazırlanmış özet "bugün" yerine gösterilir.
++ */
++export interface RolloverInfo {
++  /** Şu an NY takvimine göre "bugün" — gerçek saatten türetilir */
++  displayDate: string;
++  /** true: NY gece yarısı geçti ama sessionDate için henüz yeni seans verisi yok */
++  isNextDay: boolean;
++  /** sessionDate'den sonraki bir sonraki işlem günü (hafta sonu atlanır) */
++  nextTradingDate: string;
++  /** true: kapanıştan 1 saat sonra (17:00 ET) veya daha ileri bir zaman — ertesi gün özeti hazır */
++  prepReady: boolean;
++}
++
+ export interface AssetSnapshot {
+   ok: boolean;
+   generatedAt: string;
+@@ -313,6 +338,9 @@ export interface AssetSnapshot {
+   runners: RunnerSimulation;
+   bars: { futures: CompactBar[]; spot: CompactBar[] };
+   frames: FrameLite[];
++  rollover: RolloverInfo;
++  /** prepReady olana kadar null */
++  forecast: ForecastBundle | null;
+ }
+ 
+ export interface AssetReplayResponse {
+diff --git a/frontend/tsconfig.v4check.json b/frontend/tsconfig.v4check.json
+index 5a8b635..5155c84 100644
+--- a/frontend/tsconfig.v4check.json
++++ b/frontend/tsconfig.v4check.json
+@@ -7,6 +7,8 @@
+     "components/admin/v4/**/*.tsx",
+     "components/admin/supertrade/**/*.tsx",
+     "app/admin/supertrade/v4/page.tsx",
+-    "app/api/admin/supertrade/v4/route.ts"
++    "app/api/admin/supertrade/v4/route.ts",
++    "app/api/chart-data/route.ts",
++    "components/charts/BogaChartEngine.tsx"
+   ]
+ }

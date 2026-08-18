@@ -1,0 +1,19 @@
+fix: SuperTrade V4 grafik olcek hatasini ve baglam panelinin daralan tasarimini duzelt
+
+- V4SuperTradeLiveChart: ChartLevels artik aktif grafik sekmesine (ES/SPX)
+  gore olceklendiriliyor. Onceden vwap/onh/onl/pdc (vadeli olcek) ile
+  orh/orl (spot olcek) ayni fiyat eksenine karistiriliyordu; scale=1 olan
+  SPX icin bu tesadufen calisiyordu ama QQQ (0.025) ve XND (0.01) gibi
+  kucuk olcekli varliklarda eksen araligini cokerterek grafigi duz/bos
+  gosteriyordu. displayLevels adinda yeni bir hesaplanan deger, sembole
+  gore uyumsuz alanlari donusturuyor.
+- MultiAssetDetail: Piyasa Baglami ve Rejim Motoru paneli 300px genislikte
+  bir yan sutuna sikistirilmisti; bu panel tam sayfa genisligi icin
+  tasarlandigindan (xl:grid-cols-5) Tailwind viewport breakpoint'leri
+  nedeniyle metinler kelime kelime alt alta kirilip cok bozuk gorunuyordu.
+  Panel artik tam genislikte, iki sutunlu duzenin disinda render ediliyor.
+  Bosalan sag sutuna v3'te bulunan "Kritik Seviyeler" ve "Son Degisimler"
+  panelleri eklendi.
+
+Kaynak: kullanicinin 9 ekran goruntusunde bildirdigi bozuk tasarim ve
+calismayan grafik sorunlari (QQQ/SPX/XSP/SPY/NQ detay sayfalari).

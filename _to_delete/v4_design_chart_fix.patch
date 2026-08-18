@@ -1,0 +1,386 @@
+From 0d605e5d3249a67c006fe00bd61a7a1d20f88916 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Mon, 17 Aug 2026 21:33:02 +0000
+Subject: [PATCH] =?UTF-8?q?fix:=20SuperTrade=20V4=20grafik=20=C3=B6l=C3=A7?=
+ =?UTF-8?q?ek=20hatas=C4=B1n=C4=B1=20ve=20ba=C4=9Flam=20panelinin=20darala?=
+ =?UTF-8?q?n=20tasar=C4=B1m=C4=B1n=C4=B1=20d=C3=BCzelt?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+İki gerçek üretim hatası tespit edildi (kullanıcı ekran görüntüsüyle bildirdi):
+
+1) Grafikler NQ ailesinde (QQQ/NDX/XND) tamamen boş görünüyordu, ES
+   ailesinde (SPX/SPY/XSP) de fiyat ekseni hafif bozuktu. Sebep:
+   ChartLevels nesnesi spot-ölçek (orh/orl) ile vadeli-ölçek
+   (vwap/onh/onl/pdc) değerlerini aynı fiyat eksenine karıştırıyordu.
+   scale=1 olan SPX'te bu iki ölçek zaten yakın olduğu için fark
+   edilmiyordu, ama QQQ (scale=0.025) ve XND (scale=0.01) gibi
+   varlıklarda spot fiyat (~730) ile vadeli fiyat (~30000) arasındaki
+   dev fark, gerçek mum aralığını eksenin görünmez bir kesirine
+   sıkıştırıyordu (örn. -457..31157 gibi anlamsız bir eksen).
+   V4SuperTradeLiveChart.tsx artık aktif sekmeye (ES/spot) göre
+   seviyeleri `scale` ile doğru yöne çeviriyor (displayLevels).
+
+2) V4ContextEnginePanel (Piyasa Bağlamı ve Rejim Motoru — 5 kartlık
+   grid + başlık) dar (320px) sağ kenar çubuğunun içine
+   yerleştirilmişti. Bileşenin responsive grid sınıfları (sm/lg/xl)
+   viewport genişliğine göre tetiklendiği için, geniş bir masaüstü
+   ekranında bile 320px'lik konteynerin içinde 5 sütunlu bir grid
+   açmaya çalışıyor, başlık ve kart metinleri tek kelime/karakter
+   başına satır satır bölünüyordu. Panel artık v3 düzenindeki gibi
+   tam sayfa genişliğinde, iki sütunlu ızgaranın dışında render
+   ediliyor. Sağ kenar çubuğuna da eskiden hiç yer almayan "Kritik
+   Seviyeler" ve "Son Değişimler" panelleri eklendi.
+
+tsc -p tsconfig.v4check.json ve eslint temiz; ölçek dönüşümü ayrıca
+senkron testle doğrulandı (QQQ/XND/SPX senaryoları).
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01QwWp9agfTD2mt3oS6xmoUF
+---
+ .../components/admin/v4/MultiAssetDetail.tsx  | 221 ++++++++++--------
+ .../admin/v4/V4SuperTradeLiveChart.tsx        |  48 +++-
+ 2 files changed, 165 insertions(+), 104 deletions(-)
+
+diff --git a/frontend/components/admin/v4/MultiAssetDetail.tsx b/frontend/components/admin/v4/MultiAssetDetail.tsx
+index f322104..41161b0 100644
+--- a/frontend/components/admin/v4/MultiAssetDetail.tsx
++++ b/frontend/components/admin/v4/MultiAssetDetail.tsx
+@@ -80,112 +80,145 @@ export default function MultiAssetDetail({
+       {mode === "forecast" ? (
+         <V4SuperTradeForecast snapshot={view} />
+       ) : (
+-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
+-          {/* Sol Kolon - Grafikler ve Analiz */}
+-          <div className="flex flex-col gap-4 min-w-0">
+-            {/* Karar Masası */}
+-            <div className={`rounded-lg border p-4 ${INSET} ${
+-                decision.tone === "POSITIVE"
+-                  ? "border-[#22c55e]/20"
+-                  : decision.tone === "NEGATIVE"
+-                  ? "border-[#ef4444]/20"
+-                  : "border-[#1c2635]"
+-              }`}
+-            >
+-              <div className="mb-3 flex items-start justify-between">
+-                <div>
+-                  <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+-                    Sistem Kararı ({asset})
+-                  </div>
+-                  <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
+-                    {decision.action}
+-                  </div>
++        <>
++          {/* Karar Masası */}
++          <div className={`rounded-lg border p-4 ${INSET} ${
++              decision.tone === "POSITIVE"
++                ? "border-[#22c55e]/20"
++                : decision.tone === "NEGATIVE"
++                ? "border-[#ef4444]/20"
++                : "border-[#1c2635]"
++            }`}
++          >
++            <div className="mb-3 flex items-start justify-between">
++              <div>
++                <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
++                  Sistem Kararı ({asset})
+                 </div>
+-                <div className="flex flex-col items-end gap-2">
+-                  <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
+-                  <div className="text-[10px] text-slate-500">
+-                    Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
+-                  </div>
++                <div className="mt-1 text-[18px] font-medium tracking-tight text-white">
++                  {decision.action}
+                 </div>
+               </div>
+-
+-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+-                <Row label="Teyit Beklentisi" value={decision.confirmation} />
+-                <Row label="İptal Koşulu (Stop)" value={decision.invalidation} />
++              <div className="flex flex-col items-end gap-2">
++                <Badge tone={dirTone}>{frame.state.replace(/_/g, " ")}</Badge>
++                <div className="text-[10px] text-slate-500">
++                  Net Skor: <span className={toneClass(frame.netScore)}>{signed(frame.netScore, 1)}</span>
++                </div>
+               </div>
+             </div>
+ 
+-            {/* Grafik */}
+-            <V4SuperTradeLiveChart
+-              asset={asset}
+-              esBars={view.bars.futures}
+-              spxBars={view.bars.spot}
+-              levels={{
+-                vwap: frame.vwap,
+-                onh: levels.futures.onh,
+-                onl: levels.futures.onl,
+-                orh: levels.spot.orh,
+-                orl: levels.spot.orl,
+-                pdc: levels.futures.pdc,
+-              }}
+-              vwapStartTime={view.frames[0]?.time ?? 0}
+-              loading={loading}
+-            />
+-
+-            {/* Yapı ve Skor Tablosu */}
+-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+-              <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
+-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+-                  <StructureBox label="VADELİ 15M" val={structure.futures15m} />
+-                  <StructureBox label="VADELİ 5M" val={structure.futures5m} />
+-                  <StructureBox label="VADELİ 1M" val={structure.futures1m} />
+-                  <StructureBox label="SPOT 5M" val={structure.spot5m} />
+-                  <StructureBox label="SPOT 1M" val={structure.spot1m} />
++            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
++              <Row label="Teyit Beklentisi" value={decision.confirmation} />
++              <Row label="İptal Koşulu (Stop)" value={decision.invalidation} />
++            </div>
++          </div>
++
++          {/* Piyasa Bağlamı — tam genişlik; 5 kartlık grid'in daralması engellenir */}
++          <V4ContextEnginePanel context={context} liveState={frame.state} />
++
++          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_300px]">
++            {/* Sol Kolon - Grafik ve Analiz */}
++            <div className="flex flex-col gap-4 min-w-0">
++              {/* Grafik */}
++              <V4SuperTradeLiveChart
++                asset={asset}
++                esBars={view.bars.futures}
++                spxBars={view.bars.spot}
++                levels={{
++                  vwap: frame.vwap,
++                  onh: levels.futures.onh,
++                  onl: levels.futures.onl,
++                  orh: levels.spot.orh,
++                  orl: levels.spot.orl,
++                  pdc: levels.futures.pdc,
++                }}
++                vwapStartTime={view.frames[0]?.time ?? 0}
++                loading={loading}
++              />
++
++              {/* Yapı ve Skor Tablosu */}
++              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
++                <Panel title="Piyasa Yapısı" className="col-span-1 lg:col-span-2">
++                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
++                    <StructureBox label="VADELİ 15M" val={structure.futures15m} />
++                    <StructureBox label="VADELİ 5M" val={structure.futures5m} />
++                    <StructureBox label="VADELİ 1M" val={structure.futures1m} />
++                    <StructureBox label="SPOT 5M" val={structure.spot5m} />
++                    <StructureBox label="SPOT 1M" val={structure.spot1m} />
++                  </div>
++                </Panel>
++                <Panel title="Skor Özeti">
++                  <div className="flex h-full flex-col justify-center gap-3">
++                    <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
++                    <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
++                    <div className="my-1 h-px bg-[#1c2635]" />
++                    <Row
++                      label="Net Yön Skoru"
++                      value={signed(frame.netScore, 1)}
++                      valueClass={`font-medium ${toneClass(frame.netScore)}`}
++                    />
++                  </div>
++                </Panel>
++              </div>
++
++              {/* Faktör dökümü */}
++              <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
++                <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
++                  {factors.map((f, i) => (
++                    <Row
++                      key={`${f.label}-${i}`}
++                      label={f.label}
++                      value={f.detail}
++                      valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
++                    />
++                  ))}
+                 </div>
+               </Panel>
+-              <Panel title="Skor Özeti">
+-                <div className="flex h-full flex-col justify-center gap-3">
+-                  <Row label="Long Faktörleri" value={`+${frame.longScore.toFixed(1)}`} valueClass="text-[#22c55e]" />
+-                  <Row label="Short Faktörleri" value={`${frame.shortScore.toFixed(1)}`} valueClass="text-[#ef4444]" />
+-                  <div className="my-1 h-px bg-[#1c2635]" />
+-                  <Row
+-                    label="Net Yön Skoru"
+-                    value={signed(frame.netScore, 1)}
+-                    valueClass={`font-medium ${toneClass(frame.netScore)}`}
+-                  />
++
++              <V4StrategyLab
++                spotPrice={view.spotPrice}
++                state={frame.state}
++                vix={view.vixPrice}
++                minutesLeft={minutesToClose(
++                  Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
++                )}
++              />
++            </div>
++
++            {/* Sağ Kolon - Kritik Seviyeler */}
++            <div className="flex w-full flex-col gap-4">
++              <Panel title="Kritik Seviyeler" padding="p-4">
++                <div className="space-y-0.5">
++                  <Row label="Açılış ORH" value={levels.spot.orh.toFixed(2)} />
++                  <Row label="Açılış ORL" value={levels.spot.orl.toFixed(2)} />
++                  <Row label="OR genişliği" value={`${levels.spot.orSize.toFixed(2)} puan`} />
++                  <Row label="Seans VWAP" value={frame.vwap.toFixed(2)} valueClass="text-[#3b82f6]" />
++                  <div className="my-1.5 h-px bg-[#1c2635]" />
++                  <Row label="Gece ONH" value={levels.futures.onh.toFixed(2)} />
++                  <Row label="Gece ONL" value={levels.futures.onl.toFixed(2)} />
++                  <Row label="ON orta nokta" value={levels.futures.onMid.toFixed(2)} />
++                  <Row label="Önceki gün kapanışı" value={levels.futures.pdc.toFixed(2)} />
+                 </div>
+               </Panel>
++              <Panel title="Son Değişimler" padding="p-4">
++                {view.changes.length ? (
++                  <div className="space-y-0.5">
++                    {view.changes.map((c, i) => (
++                      <Row
++                        key={`${c.label}-${i}`}
++                        label={c.label}
++                        value={`${c.from} → ${c.to}`}
++                        valueClass={c.tone === "UP" ? "text-[#22c55e]" : c.tone === "DOWN" ? "text-[#ef4444]" : "text-slate-300"}
++                      />
++                    ))}
++                  </div>
++                ) : (
++                  <EmptyState>Son 5 dakikada anlamlı değişim yok.</EmptyState>
++                )}
++              </Panel>
+             </div>
+-
+-            {/* Faktör dökümü */}
+-            <Panel title="Skor Gerekçeleri" hint="ölçülen 11 faktör">
+-              <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+-                {factors.map((f, i) => (
+-                  <Row
+-                    key={`${f.label}-${i}`}
+-                    label={f.label}
+-                    value={f.detail}
+-                    valueClass={f.weight > 0 ? "text-[#22c55e]" : f.weight < 0 ? "text-[#ef4444]" : "text-slate-400"}
+-                  />
+-                ))}
+-              </div>
+-            </Panel>
+-
+-            <V4StrategyLab
+-              spotPrice={view.spotPrice}
+-              state={frame.state}
+-              vix={view.vixPrice}
+-              minutesLeft={minutesToClose(
+-                Number(frame.timeLabel.split(":")[0]) * 60 + Number(frame.timeLabel.split(":")[1])
+-              )}
+-            />
+-          </div>
+-
+-          {/* Sağ Kolon - Detaylar */}
+-          <div className="flex w-full flex-col gap-4">
+-            <V4ContextEnginePanel context={context} liveState={frame.state} />
+           </div>
+-        </div>
++        </>
+       )}
+ 
+       <p className="text-[11px] leading-relaxed text-slate-500">
+diff --git a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+index ebd558e..c9551cd 100644
+--- a/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
++++ b/frontend/components/admin/v4/V4SuperTradeLiveChart.tsx
+@@ -91,6 +91,7 @@ export default function V4SuperTradeLiveChart({
+ }) {
+   const info = ASSET_MAP[asset];
+   const futuresLabel = info.futures.replace("=F", "");
++  const scale = info.scale || 1;
+   const canvasRef = useRef<HTMLCanvasElement>(null);
+   const containerRef = useRef<HTMLDivElement>(null);
+   const [symbol, setSymbol] = useState<Symbol>("ES");
+@@ -100,6 +101,33 @@ export default function V4SuperTradeLiveChart({
+ 
+   const source = symbol === "ES" ? esBars : spxBars;
+ 
++  // `levels` verili varlığın DOĞAL ölçeğinde gelir: vwap/onh/onl/pdc her
++  // zaman vadeli (ES/NQ) ölçeğinde, orh/orl her zaman spot (SPX/QQQ/…)
++  // ölçeğindedir. Bu iki ölçek, scale=1 olan SPX dışındaki her varlıkta
++  // (SPY, XSP, QQQ, XND) birbirinden çok farklı büyüklüktedir — aynı
++  // grafikte karıştırılırsa fiyat ekseni bozulur ve mumlar görünmez olur.
++  // Aktif sekmeye göre seviyeleri o sekmenin ölçeğine çeviriyoruz.
++  const displayLevels = useMemo<ChartLevels>(() => {
++    if (symbol === "ES") {
++      return {
++        vwap: levels.vwap,
++        onh: levels.onh,
++        onl: levels.onl,
++        pdc: levels.pdc,
++        orh: scale ? levels.orh / scale : levels.orh,
++        orl: scale ? levels.orl / scale : levels.orl,
++      };
++    }
++    return {
++      vwap: levels.vwap * scale,
++      onh: levels.onh * scale,
++      onl: levels.onl * scale,
++      pdc: levels.pdc * scale,
++      orh: levels.orh,
++      orl: levels.orl,
++    };
++  }, [symbol, levels, scale]);
++
+   const candles = useMemo<Candle[]>(() => {
+     const factor = Number(timeframe);
+     const rows = cutoffTime ? source.filter((b) => b[0] <= cutoffTime) : source;
+@@ -172,7 +200,7 @@ export default function V4SuperTradeLiveChart({
+ 
+     const forecastBars = 24; // Gelecek tahmin aralığı (boşluk)
+ 
+-    const relevant = [levels.vwap, levels.onh, levels.onl, levels.orh, levels.orl].filter(
++    const relevant = [displayLevels.vwap, displayLevels.onh, displayLevels.onl, displayLevels.orh, displayLevels.orl].filter(
+       (v) => v > 0
+     );
+     let min = Math.min(...candles.map((c) => c.low), ...relevant);
+@@ -225,9 +253,9 @@ export default function V4SuperTradeLiveChart({
+     const barW = Math.max(1.5, Math.min(14, step * 0.62));
+ 
+     // Açılış aralığı bandı
+-    if (levels.orh > 0 && levels.orl > 0) {
+-      const yTop = priceY(levels.orh);
+-      const yBottom = priceY(levels.orl);
++    if (displayLevels.orh > 0 && displayLevels.orl > 0) {
++      const yTop = priceY(displayLevels.orh);
++      const yBottom = priceY(displayLevels.orl);
+       ctx.fillStyle = "rgba(59,130,246,0.06)";
+       ctx.fillRect(padL, yTop, plotW, Math.max(1, yBottom - yTop));
+     }
+@@ -252,11 +280,11 @@ export default function V4SuperTradeLiveChart({
+       ctx.fillText(label, width - padR - 4, y - 6);
+     };
+ 
+-    drawLevel(levels.onh, `ONH ${levels.onh.toFixed(2)}`, [2, 4], COLOR.level);
+-    drawLevel(levels.onl, `ONL ${levels.onl.toFixed(2)}`, [2, 4], COLOR.level);
+-    drawLevel(levels.pdc, `PDC ${levels.pdc.toFixed(2)}`, [1, 5], "#475569");
+-    drawLevel(levels.orh, `ORH ${levels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
+-    drawLevel(levels.orl, `ORL ${levels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
++    drawLevel(displayLevels.onh, `ONH ${displayLevels.onh.toFixed(2)}`, [2, 4], COLOR.level);
++    drawLevel(displayLevels.onl, `ONL ${displayLevels.onl.toFixed(2)}`, [2, 4], COLOR.level);
++    drawLevel(displayLevels.pdc, `PDC ${displayLevels.pdc.toFixed(2)}`, [1, 5], "#475569");
++    drawLevel(displayLevels.orh, `ORH ${displayLevels.orh.toFixed(2)}`, [5, 3], "#94a3b8");
++    drawLevel(displayLevels.orl, `ORL ${displayLevels.orl.toFixed(2)}`, [5, 3], "#94a3b8");
+ 
+     // Hacim
+     candles.forEach((c, i) => {
+@@ -392,7 +420,7 @@ export default function V4SuperTradeLiveChart({
+       ctx.stroke();
+       ctx.restore();
+     }
+-  }, [candles, levels, size, hover, vwapStartTime]);
++  }, [candles, displayLevels, size, hover, vwapStartTime]);
+ 
+   useEffect(() => {
+     const container = containerRef.current;
+-- 
+2.43.0
+
