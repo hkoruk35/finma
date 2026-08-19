@@ -104,11 +104,12 @@ interface Props {
   selectable?: boolean; // renders a "select for multi-chart" checkbox per row
   selectedTickers?: string[];
   onToggleSelect?: (ticker: string) => void;
+  initialStocks?: Stock[];
 }
 
-export default function TrendPicksSlot({ locale, compactMode, disableHoverChart, onTickerSelect, selectable, selectedTickers, onToggleSelect }: Props) {
-  const [stocks, setStocks] = useState<Stock[]>([]);
-  const [loaded, setLoaded] = useState(false);
+export default function TrendPicksSlot({ locale, compactMode, disableHoverChart, onTickerSelect, selectable, selectedTickers, onToggleSelect, initialStocks }: Props) {
+  const [stocks, setStocks] = useState<Stock[]>(initialStocks ?? []);
+  const [loaded, setLoaded] = useState(!!initialStocks);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const gridCols = compactMode
     ? (selectable ? 'grid-cols-[16px_1fr_68px_60px]' : 'grid-cols-[1fr_68px_60px]')
@@ -119,6 +120,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
   const displayStocks = compactMode ? stocks.slice(0, 7) : stocks;
 
   useEffect(() => {
+    if (initialStocks) return;
     let active = true;
 
     fetch('/api/swing-picks?min=10', { cache: 'no-store' })

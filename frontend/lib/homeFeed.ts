@@ -10,6 +10,33 @@ import { selectHeatMapTickers } from "./sectorHeatMap";
 import { translateSector } from "./translationHelpers";
 import type { Locale } from "./i18n/copy";
 import { SUPABASE_TIMEOUT_MS } from "./supabaseFetch";
+import { GET as getWatchlistData } from "@/app/api/watchlist-data/route";
+import { NextRequest } from "next/server";
+
+export async function getTrendStocksServerData() {
+  const data = await getSwingPicksBackfilled(10);
+  const picks = data?.picks ?? [];
+  if (picks.length === 0) return [];
+  const tickers = picks.map((p: any) => p.ticker).join(",");
+  const req = new NextRequest(new URL(`http://localhost/api?tickers=${tickers}`));
+  const res = await getWatchlistData(req);
+  const liveRows = await res.json();
+  const liveMap: Record<string, any> = {};
+  liveRows.forEach((item: any) => { if (item?.ticker) liveMap[item.ticker] = item; });
+  return picks.slice(0, 7).map((p: any) => {
+    const d = liveMap[p.ticker];
+    const signal = d?.tracker_1h?.signal;
+    const status = signal === 'STRONG' ? 'BULLISH' : signal === 'WEAK' ? 'BEARISH' : 'NEUTRAL';
+    return {
+      ticker: p.ticker,
+      sector: d?.sector ?? p.sector ?? '',
+      status,
+      price: d?.price?.current ?? p.current_price ?? 0,
+      change_pct: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0,
+      sparkline: d?.recent_closes ?? [],
+    };
+  });
+}
 
 export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
 

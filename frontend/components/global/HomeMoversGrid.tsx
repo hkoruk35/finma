@@ -26,7 +26,7 @@ function getTitles(locale: Locale) {
 const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[320px]';
 const CARD_STEP = 336;
 
-export default function HomeMoversGrid({ locale, initialData }: { locale: Locale; initialData?: MoversResponse }) {
+export default function HomeMoversGrid({ locale, initialData, initialTrendStocks }: { locale: Locale; initialData?: MoversResponse, initialTrendStocks?: any[] }) {
   const [data, setData] = useState<MoversResponse | null>(initialData ?? null);
   const titles = getTitles(locale);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,7 @@ export default function HomeMoversGrid({ locale, initialData }: { locale: Locale
           </div>
         ))}
         <div className={CARD_WIDTH}>
-          <TrendPicksSlot locale={locale} compactMode />
+          <TrendPicksSlot locale={locale} compactMode initialStocks={initialTrendStocks} />
         </div>
       </div>
 

@@ -142,6 +142,7 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
 }
 
 import { getHomeMoversServerData } from "@/app/api/home-movers/route";
+import { getTrendStocksServerData } from "@/lib/homeFeed";
 
 export default async function EsHomePage() {
   const allTickers = [
@@ -156,11 +157,12 @@ export default async function EsHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes, homeMoversData] = await Promise.all([
+  const [lastUpdated, indices, quotes, homeMoversData, trendStocksData] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
     getHomeMoversServerData(7),
+    getTrendStocksServerData(),
   ]);
 
   const marketGroups: MarketGroup[] = [
@@ -212,7 +214,7 @@ export default async function EsHomePage() {
             </div>
 
             <div className="mt-4">
-              <HomeMoversGrid locale="es" initialData={homeMoversData} />
+              <HomeMoversGrid locale="es" initialData={homeMoversData} initialTrendStocks={trendStocksData} />
             </div>
           </div>
 

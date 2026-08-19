@@ -115,7 +115,7 @@ const nextConfig: NextConfig = {
 
       // Stale Google-indexed URL with no matching route (404) — redirect to the
       // current login page instead of leaving it dead.
-      { source: "/login", destination: "/en/login", permanent: true },
+      { source: "/login", destination: "/global/en/home", permanent: true },
     ];
   },
 };

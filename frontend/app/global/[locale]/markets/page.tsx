@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${t.pageTitle} | BOGASTOCK`,
       description: t.pageDescription,
       url: `https://bogastock.com/global/${locale}/markets`,
-      images: [{ url: "https://bogastock.com/logo/boga_stock_icon.png", width: 1200, height: 630 }],
+      images: [{ url: "https://bogastock.com/logo/og_image.jpg", width: 1200, height: 630 }],
     },
   };
 }
