@@ -1,8 +1,8 @@
 {
   "date": "2026-08-18",
-  "generated_at": "2026-08-18T14:08:09.420680-04:00",
+  "generated_at": "2026-08-18T17:06:02.862189-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 39,
+  "active_scores_count": 49,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,14 +21,16 @@
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 8,
       "tickers": [
         "SOLV",
         "R",
         "IESC",
         "FSM",
         "F",
-        "CART"
+        "CART",
+        "BRZE",
+        "CRGY"
       ]
     },
     "value": {

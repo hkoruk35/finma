@@ -429,6 +429,116 @@
       "change_pct": -2.61,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 42.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "MORN",
+      "company": "MORN",
+      "sector": "Financial Services",
+      "master_score": 57.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 208.72999572753906,
+      "change_pct": 0.96,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BRZE",
+      "company": "BRZE",
+      "sector": "Technology",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 29.1200008392334,
+      "change_pct": 4.19,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "KNTK",
+      "company": "KNTK",
+      "sector": "Energy",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 54.540000915527344,
+      "change_pct": 2.94,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "C",
+      "company": "C",
+      "sector": "Financial Services",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 137.64999389648438,
+      "change_pct": -0.62,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ICUI",
+      "company": "ICUI",
+      "sector": "Healthcare",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 183.75999450683594,
+      "change_pct": 0.68,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CRGY",
+      "company": "CRGY",
+      "sector": "Energy",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 12.949999809265137,
+      "change_pct": 2.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "KKR",
+      "company": "KKR",
+      "sector": "Financial Services",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 107.19000244140625,
+      "change_pct": -1.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "FLS",
+      "company": "FLS",
+      "sector": "Industrials",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 78.79000091552734,
+      "change_pct": -2.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "ANET",
+      "company": "ANET",
+      "sector": "Technology",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 193.17999267578125,
+      "change_pct": -4.27,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "FTDR",
+      "company": "FTDR",
+      "sector": "Consumer Cyclical",
+      "master_score": 43.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 82.91999816894531,
+      "change_pct": -0.99,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.5 | System: DEFAULT"
     }
   ]
 }
