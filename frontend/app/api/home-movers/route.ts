@@ -73,9 +73,7 @@ function isHealthy(tickerCount: number, top7: MoverRow[]): boolean {
  * yaşıyor — /api/internal/movers-snapshot (günlük arşiv yazıcı) da AYNI
  * fonksiyonları çağırır, ikinci bir kopya yok.
  */
-export async function GET(req: NextRequest) {
-  const limit = Math.min(Math.max(Number(req.nextUrl.searchParams.get("limit")) || 7, 1), 20);
-
+export async function getHomeMoversServerData(limit: number = 7): Promise<HomeMoversPayload> {
   const supabase = await createSupabaseServerClient();
 
   const [{ data: tickerRows }, { data: snapshotRows }] = await Promise.all([
@@ -85,11 +83,6 @@ export async function GET(req: NextRequest) {
 
   const tickers = tickerRows ?? [];
 
-  // MAGNIFICENT_7 buyuk olasilikla top100_tickers'in bir alt kumesi — iki ayri
-  // fetchLiveQuotes cagrisi (ikisi de /api/watchlist-data'ya HTTP round-trip
-  // atiyor, o da rate-limitli batch'lerle isliyor) yerine TEK cagrida birlesik
-  // ticker kumesini cekiyoruz. Bu, sayfa yuklemesindeki en yavas adimi
-  // (aninda iki kez calisan pahali batch-fetch) yariya indirir.
   const allTickers = Array.from(new Set([...MAGNIFICENT_7, ...tickers.map((t) => t.ticker)]));
   const live = allTickers.length > 0 ? await fetchLiveQuotes(allTickers) : {};
 
@@ -124,17 +117,20 @@ export async function GET(req: NextRequest) {
 
   if (isHealthy(tickers.length, top7)) {
     cacheMoversInBackground(payload);
-    return NextResponse.json(payload, { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } });
+    return payload;
   }
 
-  // Canli hesaplama bos/kirik gorunuyor (DB veya fiyat cekme basarisiz) —
-  // sessizce bos donmek yerine son basarili anlik goruntuyu dene.
   const cached = await readCachedMovers();
   if (cached) {
-    return NextResponse.json(cached, {
-      headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120", "X-Home-Movers-Source": "cache-fallback" },
-    });
+    return cached;
   }
+
+  return payload;
+}
+
+export async function GET(req: NextRequest) {
+  const limit = Math.min(Math.max(Number(req.nextUrl.searchParams.get("limit")) || 7, 1), 20);
+  const payload = await getHomeMoversServerData(limit);
 
   return NextResponse.json(payload, { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=120" } });
 }

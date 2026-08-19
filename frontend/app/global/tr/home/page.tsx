@@ -138,6 +138,8 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
+import { getHomeMoversServerData } from "@/app/api/home-movers/route";
+
 export default async function TrHomePage() {
   const allTickers = [
     ...INDEX_ITEMS,
@@ -151,10 +153,11 @@ export default async function TrHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes] = await Promise.all([
+  const [lastUpdated, indices, quotes, homeMoversData] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
+    getHomeMoversServerData(7),
   ]);
 
   const marketGroups: MarketGroup[] = [
@@ -207,7 +210,7 @@ export default async function TrHomePage() {
             </div>
 
             <div className="mt-4">
-              <HomeMoversGrid locale="tr" />
+              <HomeMoversGrid locale="tr" initialData={homeMoversData} />
             </div>
           </div>
 

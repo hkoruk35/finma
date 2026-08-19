@@ -26,20 +26,21 @@ function getTitles(locale: Locale) {
 const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[320px]';
 const CARD_STEP = 336;
 
-export default function HomeMoversGrid({ locale }: { locale: Locale }) {
-  const [data, setData] = useState<MoversResponse | null>(null);
+export default function HomeMoversGrid({ locale, initialData }: { locale: Locale; initialData?: MoversResponse }) {
+  const [data, setData] = useState<MoversResponse | null>(initialData ?? null);
   const titles = getTitles(locale);
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollByCard = (dir: 1 | -1) => scrollRef.current?.scrollBy({ left: dir * CARD_STEP, behavior: 'smooth' });
 
   useEffect(() => {
+    if (initialData) return; // Skip client-side fetch if SSR data is provided
     let active = true;
     fetch('/api/home-movers?limit=7', { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : EMPTY))
       .then((d) => { if (active) setData(d); })
       .catch(() => { if (active) setData(EMPTY); });
     return () => { active = false; };
-  }, []);
+  }, [initialData]);
 
   const loading = data === null;
   const d = data ?? EMPTY;

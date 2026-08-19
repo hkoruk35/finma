@@ -51,17 +51,6 @@ export const metadata: Metadata = {
   authors: [{ name: "BOGASTOCK Team" }],
   creator: "BOGASTOCK Terminal",
   publisher: "BOGASTOCK Terminal",
-  alternates: {
-    canonical: "https://bogastock.com",
-    languages: {
-      "en-US": "https://bogastock.com/",
-      "tr-TR": "https://bogastock.com/tr/analiz",
-      "es-ES": "https://bogastock.com/es/analisis",
-      "pt-BR": "https://bogastock.com/pt/analise",
-      "fr-FR": "https://bogastock.com/fr/analyse",
-      "id-ID": "https://bogastock.com/id/analisis",
-    },
-  },
   openGraph: {
     title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
@@ -69,9 +58,9 @@ export const metadata: Metadata = {
     siteName: "BOGASTOCK Terminal",
     images: [
       {
-        url: "/logo/boga_stock_icon.png",
-        width: 2000,
-        height: 2000,
+        url: "/logo/og_image.jpg",
+        width: 1200,
+        height: 630,
         alt: "BogaStock",
       },
     ],
@@ -82,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
-    images: ["/logo/boga_stock_icon.png"],
+    images: ["/logo/og_image.jpg"],
   },
   icons: {
     icon: [
@@ -101,12 +90,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  // Google AdSense site-ownership doğrulaması: AdSense'in gerçek reklam
-  // scripti CookieConsent kabul edilmeden yüklenmiyor (bkz. AnalyticsLoader),
-  // bu yüzden Googlebot doğrulama taramasında script'i hiç görmüyor ve
-  // "Site sahipliği doğrulanamıyor" hatası veriyordu. Bu meta etiket rızaya
-  // bağlı değil — hiçbir script/çerez yüklemeden, sadece sahiplik beyanı
-  // olarak her zaman <head>'de bulunur.
   other: {
     "google-adsense-account": "ca-pub-1081747094060539",
   },
@@ -119,8 +102,6 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: "cover",
 };
 
