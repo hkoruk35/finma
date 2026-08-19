@@ -19,7 +19,15 @@ export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek 
 
 export const metadata: Metadata = {
   title: "Home",
-  alternates: { canonical: "https://bogastock.com/global/en/home" }
+  alternates: { canonical: "https://bogastock.com/global/en/home", languages: {
+      en: "https://bogastock.com/global/en/home",
+      es: "https://bogastock.com/global/es/home",
+      fr: "https://bogastock.com/global/fr/home",
+      id: "https://bogastock.com/global/id/home",
+      pt: "https://bogastock.com/global/pt/home",
+      tr: "https://bogastock.com/global/tr/home",
+      "x-default": "https://bogastock.com/global/en/home",
+    } }
 };
 
 

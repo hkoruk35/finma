@@ -9,7 +9,15 @@ export const revalidate = 0; // Dynamic route
 
 export const metadata: Metadata = {
   title: "My Watchlist",
-  alternates: { canonical: "https://bogastock.com/global/fr/my-watchlist" }
+  alternates: { canonical: "https://bogastock.com/global/fr/my-watchlist", languages: {
+      en: "https://bogastock.com/global/en/my-watchlist",
+      es: "https://bogastock.com/global/es/my-watchlist",
+      fr: "https://bogastock.com/global/fr/my-watchlist",
+      id: "https://bogastock.com/global/id/my-watchlist",
+      pt: "https://bogastock.com/global/pt/my-watchlist",
+      tr: "https://bogastock.com/global/tr/my-watchlist",
+      "x-default": "https://bogastock.com/global/en/my-watchlist",
+    } }
 };
 
 

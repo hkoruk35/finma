@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Swing",
-  alternates: { canonical: "https://bogastock.com/global/fr/swing" }
+  alternates: { canonical: "https://bogastock.com/global/fr/swing", languages: {
+      en: "https://bogastock.com/global/en/swing",
+      es: "https://bogastock.com/global/es/swing",
+      fr: "https://bogastock.com/global/fr/swing",
+      id: "https://bogastock.com/global/id/swing",
+      pt: "https://bogastock.com/global/pt/swing",
+      tr: "https://bogastock.com/global/tr/swing",
+      "x-default": "https://bogastock.com/global/en/swing",
+    } }
 };
 
 

@@ -100,13 +100,13 @@ export function getAssetCategory(ticker: string): AssetCategory {
   return "stock";
 }
 
-export function formatAssetPrice(price: number, ticker: string): string {
+export function formatAssetPrice(price: number, ticker: string, locale?: string): string {
   const category = getAssetCategory(ticker);
   if (category === "forex") {
-    return price >= 10 ? formatNumber(price, 2) : formatNumber(price, 4);
+    return price >= 10 ? formatNumber(price, 2, locale) : formatNumber(price, 4, locale);
   }
   if (category === "crypto" && price < 10) {
-    return formatNumber(price, 4);
+    return formatNumber(price, 4, locale);
   }
-  return formatNumber(price, 2);
+  return formatNumber(price, 2, locale);
 }

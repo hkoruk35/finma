@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Top100",
-  alternates: { canonical: "https://bogastock.com/global/es/top100" }
+  alternates: { canonical: "https://bogastock.com/global/es/top100", languages: {
+      en: "https://bogastock.com/global/en/top100",
+      es: "https://bogastock.com/global/es/top100",
+      fr: "https://bogastock.com/global/fr/top100",
+      id: "https://bogastock.com/global/id/top100",
+      pt: "https://bogastock.com/global/pt/top100",
+      tr: "https://bogastock.com/global/tr/top100",
+      "x-default": "https://bogastock.com/global/en/top100",
+    } }
 };
 
 

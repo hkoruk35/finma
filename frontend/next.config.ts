@@ -112,6 +112,10 @@ const nextConfig: NextConfig = {
 
       // Moved under /global
       { source: "/tr/hisse/:ticker", destination: "/global/tr/hisse/:ticker", permanent: true },
+
+      // Stale Google-indexed URL with no matching route (404) — redirect to the
+      // current login page instead of leaving it dead.
+      { source: "/login", destination: "/en/login", permanent: true },
     ];
   },
 };

@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Gainers",
-  alternates: { canonical: "https://bogastock.com/global/en/gainers" }
+  alternates: { canonical: "https://bogastock.com/global/en/gainers", languages: {
+      en: "https://bogastock.com/global/en/gainers",
+      es: "https://bogastock.com/global/es/gainers",
+      fr: "https://bogastock.com/global/fr/gainers",
+      id: "https://bogastock.com/global/id/gainers",
+      pt: "https://bogastock.com/global/pt/gainers",
+      tr: "https://bogastock.com/global/tr/gainers",
+      "x-default": "https://bogastock.com/global/en/gainers",
+    } }
 };
 
 

@@ -5,7 +5,15 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Daftar",
-  alternates: { canonical: "https://bogastock.com/global/id/register" }
+  alternates: { canonical: "https://bogastock.com/global/id/register", languages: {
+      en: "https://bogastock.com/global/en/register",
+      es: "https://bogastock.com/global/es/register",
+      fr: "https://bogastock.com/global/fr/register",
+      id: "https://bogastock.com/global/id/register",
+      pt: "https://bogastock.com/global/pt/register",
+      tr: "https://bogastock.com/global/tr/kayit",
+      "x-default": "https://bogastock.com/global/en/register",
+    } }
 };
 
 

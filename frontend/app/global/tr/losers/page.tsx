@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Losers",
-  alternates: { canonical: "https://bogastock.com/global/tr/losers" }
+  alternates: { canonical: "https://bogastock.com/global/tr/losers", languages: {
+      en: "https://bogastock.com/global/en/losers",
+      es: "https://bogastock.com/global/es/losers",
+      fr: "https://bogastock.com/global/fr/losers",
+      id: "https://bogastock.com/global/id/losers",
+      pt: "https://bogastock.com/global/pt/losers",
+      tr: "https://bogastock.com/global/tr/losers",
+      "x-default": "https://bogastock.com/global/en/losers",
+    } }
 };
 
 

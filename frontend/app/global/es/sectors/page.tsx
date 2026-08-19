@@ -12,7 +12,15 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "Sectors",
-  alternates: { canonical: "https://bogastock.com/global/es/sectors" }
+  alternates: { canonical: "https://bogastock.com/global/es/sectors", languages: {
+      en: "https://bogastock.com/global/en/sectors",
+      es: "https://bogastock.com/global/es/sectors",
+      fr: "https://bogastock.com/global/fr/sectors",
+      id: "https://bogastock.com/global/id/sectors",
+      pt: "https://bogastock.com/global/pt/sectors",
+      tr: "https://bogastock.com/global/tr/sectors",
+      "x-default": "https://bogastock.com/global/en/sectors",
+    } }
 };
 
 

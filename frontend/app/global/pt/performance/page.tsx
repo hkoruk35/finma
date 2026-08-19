@@ -11,7 +11,15 @@ export const revalidate = 86400; // Updated once a day to save Vercel Execution
 
 export const metadata: Metadata = {
   title: "Performance",
-  alternates: { canonical: "https://bogastock.com/global/pt/performance" }
+  alternates: { canonical: "https://bogastock.com/global/pt/performance", languages: {
+      en: "https://bogastock.com/global/en/performance",
+      es: "https://bogastock.com/global/es/performance",
+      fr: "https://bogastock.com/global/fr/performance",
+      id: "https://bogastock.com/global/id/performance",
+      pt: "https://bogastock.com/global/pt/performance",
+      tr: "https://bogastock.com/global/tr/performance",
+      "x-default": "https://bogastock.com/global/en/performance",
+    } }
 };
 
 

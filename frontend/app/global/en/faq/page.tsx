@@ -5,7 +5,15 @@ import { getSssConfig } from "@/lib/sssConfig";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  alternates: { canonical: "https://bogastock.com/global/en/faq" }
+  alternates: { canonical: "https://bogastock.com/global/en/faq", languages: {
+      en: "https://bogastock.com/global/en/faq",
+      es: "https://bogastock.com/global/es/faq",
+      fr: "https://bogastock.com/global/fr/faq",
+      id: "https://bogastock.com/global/id/faq",
+      pt: "https://bogastock.com/global/pt/Perguntas_Frequentes",
+      tr: "https://bogastock.com/global/tr/sss",
+      "x-default": "https://bogastock.com/global/en/faq",
+    } }
 };
 
 export default async function FAQPage() {

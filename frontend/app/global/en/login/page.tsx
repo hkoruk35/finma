@@ -5,7 +5,15 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Login",
-  alternates: { canonical: "https://bogastock.com/global/en/login" }
+  alternates: { canonical: "https://bogastock.com/global/en/login", languages: {
+      en: "https://bogastock.com/global/en/login",
+      es: "https://bogastock.com/global/es/login",
+      fr: "https://bogastock.com/global/fr/login",
+      id: "https://bogastock.com/global/id/login",
+      pt: "https://bogastock.com/global/pt/login",
+      tr: "https://bogastock.com/global/tr/giris",
+      "x-default": "https://bogastock.com/global/en/login",
+    } }
 };
 
 

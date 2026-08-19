@@ -11,7 +11,15 @@ export const revalidate = 86400; // Updated once a day
 
 export const metadata: Metadata = {
   title: "Swingperformance",
-  alternates: { canonical: "https://bogastock.com/global/pt/swingperformance" }
+  alternates: { canonical: "https://bogastock.com/global/pt/swingperformance", languages: {
+      en: "https://bogastock.com/global/en/swingperformance",
+      es: "https://bogastock.com/global/es/swingperformance",
+      fr: "https://bogastock.com/global/fr/swingperformance",
+      id: "https://bogastock.com/global/id/swingperformance",
+      pt: "https://bogastock.com/global/pt/swingperformance",
+      tr: "https://bogastock.com/global/tr/swingperformance",
+      "x-default": "https://bogastock.com/global/en/swingperformance",
+    } }
 };
 
 

@@ -5,9 +5,18 @@ import Link from "next/link";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
-export const metadata: Metadata = {
-  title: "Sitemap",
-};
+const SITEMAP_LOCALES: Locale[] = ["en", "tr", "es", "fr", "pt", "id"];
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale = (SITEMAP_LOCALES as readonly string[]).includes(rawLocale) ? (rawLocale as Locale) : "en";
+  const languages: Record<string, string> = { "x-default": "https://bogastock.com/global/en/sitemap" };
+  for (const l of SITEMAP_LOCALES) languages[l] = `https://bogastock.com/global/${l}/sitemap`;
+  return {
+    title: SITEMAP_TITLES[locale],
+    alternates: { canonical: `https://bogastock.com/global/${locale}/sitemap`, languages },
+  };
+}
 
 const LOCALE_ROUTES: Record<Locale, { login: string; register: string; account: string; faq: string }> = {
   en: { login: "login", register: "register", account: "account", faq: "faq" },

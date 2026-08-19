@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Mostactive",
-  alternates: { canonical: "https://bogastock.com/global/pt/mostactive" }
+  alternates: { canonical: "https://bogastock.com/global/pt/mostactive", languages: {
+      en: "https://bogastock.com/global/en/mostactive",
+      es: "https://bogastock.com/global/es/mostactive",
+      fr: "https://bogastock.com/global/fr/mostactive",
+      id: "https://bogastock.com/global/id/mostactive",
+      pt: "https://bogastock.com/global/pt/mostactive",
+      tr: "https://bogastock.com/global/tr/mostactive",
+      "x-default": "https://bogastock.com/global/en/mostactive",
+    } }
 };
 
 

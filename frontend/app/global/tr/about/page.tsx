@@ -7,7 +7,15 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
-  alternates: { canonical: "https://bogastock.com/global/tr/about" }
+  alternates: { canonical: "https://bogastock.com/global/tr/about", languages: {
+      en: "https://bogastock.com/global/en/about",
+      es: "https://bogastock.com/global/es/about",
+      fr: "https://bogastock.com/global/fr/about",
+      id: "https://bogastock.com/global/id/about",
+      pt: "https://bogastock.com/global/pt/about",
+      tr: "https://bogastock.com/global/tr/about",
+      "x-default": "https://bogastock.com/global/en/about",
+    } }
 };
 
 

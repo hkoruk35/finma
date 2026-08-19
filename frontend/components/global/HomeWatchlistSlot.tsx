@@ -297,7 +297,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
 
                     <div className="text-right shrink-0">
                       <div className="font-mono text-sm font-medium text-white/90">
-                        {stock.price > 0 ? `$${formatNumber(stock.price, 2)}` : '—'}
+                        {stock.price > 0 ? `$${formatNumber(stock.price, 2, locale)}` : '—'}
                       </div>
                       <span
                         className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[9px] font-medium font-mono ${
@@ -306,7 +306,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                             : 'bg-[#ef4444] text-white'
                         }`}
                       >
-                        {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2)}%
+                        {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2, locale)}%
                       </span>
                     </div>
                   </div>

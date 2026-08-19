@@ -1,6 +1,25 @@
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Aviso Legal",
+  alternates: {
+    canonical: "https://bogastock.com/global/pt/disclaimer",
+    languages: {
+    en: "https://bogastock.com/global/en/disclaimer",
+    es: "https://bogastock.com/global/es/disclaimer",
+    fr: "https://bogastock.com/global/fr/disclaimer",
+    id: "https://bogastock.com/global/id/disclaimer",
+    pt: "https://bogastock.com/global/pt/disclaimer",
+    tr: "https://bogastock.com/global/tr/disclaimer",
+    "x-default": "https://bogastock.com/global/en/disclaimer",
+    },
+  },
+};
+
+
 export default function DisclaimerPagePt() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">

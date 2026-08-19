@@ -16,6 +16,16 @@ export async function generateStaticParams() {
   return INDEX_LOCALES.map((locale) => ({ locale }));
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const languages: Record<string, string> = { "x-default": "https://bogastock.com/global/en/analysis-hub" };
+  for (const l of INDEX_LOCALES) languages[l] = `https://bogastock.com/global/${l}/analysis-hub`;
+  return {
+    alternates: { canonical: `https://bogastock.com/global/${locale}/analysis-hub`, languages },
+  };
+}
+
 const T: Record<Locale, { title: string; subtitle: string; cards: { title: string; desc: string; href: string }[] }> = {
   tr: {
     title: "Analizler",

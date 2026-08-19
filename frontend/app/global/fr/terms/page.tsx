@@ -4,7 +4,15 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Terms",
-  alternates: { canonical: "https://bogastock.com/global/fr/terms" }
+  alternates: { canonical: "https://bogastock.com/global/fr/terms", languages: {
+      en: "https://bogastock.com/global/en/terms",
+      es: "https://bogastock.com/global/es/terms",
+      fr: "https://bogastock.com/global/fr/terms",
+      id: "https://bogastock.com/global/id/terms",
+      pt: "https://bogastock.com/global/pt/terms",
+      tr: "https://bogastock.com/global/tr/terms",
+      "x-default": "https://bogastock.com/global/en/terms",
+    } }
 };
 
 

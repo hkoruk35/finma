@@ -91,13 +91,13 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
 
                   <div className="text-right shrink-0">
                     <div className="font-mono text-[13px] font-medium text-white/90">
-                      {stock.price > 0 ? `$${formatNumber(stock.price, 2)}` : '—'}
+                      {stock.price > 0 ? `$${formatNumber(stock.price, 2, locale)}` : '—'}
                     </div>
                     <span
                       className="inline-block mt-0.5 text-[9px] font-medium font-mono"
                       style={{ color: stock.change_pct >= 0 ? '#22c55e' : '#ef4444' }}
                     >
-                      {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2)}%
+                      {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2, locale)}%
                     </span>
                   </div>
                 </div>

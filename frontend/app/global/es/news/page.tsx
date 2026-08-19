@@ -8,7 +8,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "News",
-  alternates: { canonical: "https://bogastock.com/global/es/news" }
+  alternates: { canonical: "https://bogastock.com/global/es/news", languages: {
+      en: "https://bogastock.com/global/en/news",
+      es: "https://bogastock.com/global/es/news",
+      fr: "https://bogastock.com/global/fr/news",
+      id: "https://bogastock.com/global/id/news",
+      pt: "https://bogastock.com/global/pt/news",
+      tr: "https://bogastock.com/global/tr/news",
+      "x-default": "https://bogastock.com/global/en/news",
+    } }
 };
 
 

@@ -143,7 +143,7 @@ const getGroups = (locale: Locale) => {
 
 type PriceInfo = { price: number | null; change_1d: number | null };
 
-const fmt = (n: number, d = 2) => formatNumber(n, d);
+const fmt = (n: number, d = 2, locale?: string) => formatNumber(n, d, locale);
 const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
@@ -496,10 +496,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           className="font-mono font-semibold w-14 text-right shrink-0"
                           style={{ fontSize: 12, color: chg == null ? "#94a3b8" : chg > 0 ? "#22c55e" : chg < 0 ? "#ef4444" : "#94a3b8" }}
                         >
-                          {chg != null ? `${sgn(chg)}${fmt(chg)}%` : "—"}
+                          {chg != null ? `${sgn(chg)}${fmt(chg, 2, locale)}%` : "—"}
                         </div>
                         <div className="font-mono w-20 text-right shrink-0" style={{ fontSize: 12, color: "#e8e8e8" }}>
-                          {price?.price != null ? fmt(price.price) : "..."}
+                          {price?.price != null ? fmt(price.price, 2, locale) : "..."}
                         </div>
                       </div>
                     );

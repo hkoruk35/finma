@@ -41,13 +41,13 @@ export default function HomeAssetClassSection({
             >
               <div className="text-[11px] font-medium text-white/40 truncate">{item.label}</div>
               <div className="text-sm font-semibold text-white mt-1">
-                {item.quote ? formatAssetPrice(item.quote.value, item.ticker) : "—"}
+                {item.quote ? formatAssetPrice(item.quote.value, item.ticker, locale) : "—"}
               </div>
               <div
                 className="text-[11px] font-medium mt-0.5"
                 style={{ color: !item.quote ? "#8b949e" : positive ? "#3fb950" : "#f85149" }}
               >
-                {item.quote ? `${positive ? "+" : ""}${formatNumber(item.quote.change_pct, 2)}%` : "—"}
+                {item.quote ? `${positive ? "+" : ""}${formatNumber(item.quote.change_pct, 2, locale)}%` : "—"}
               </div>
             </Link>
           );

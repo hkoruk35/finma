@@ -9,7 +9,15 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Archive",
-  alternates: { canonical: "https://bogastock.com/global/fr/swing/archive" }
+  alternates: { canonical: "https://bogastock.com/global/fr/swing/archive", languages: {
+      en: "https://bogastock.com/global/en/swing/archive",
+      es: "https://bogastock.com/global/es/swing/archive",
+      fr: "https://bogastock.com/global/fr/swing/archive",
+      id: "https://bogastock.com/global/id/swing/arsiv",
+      pt: "https://bogastock.com/global/pt/swing/archive",
+      tr: "https://bogastock.com/global/tr/swing/arsiv",
+      "x-default": "https://bogastock.com/global/en/swing/archive",
+    } }
 };
 
 

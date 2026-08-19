@@ -9,7 +9,15 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Watchlist",
-  alternates: { canonical: "https://bogastock.com/global/pt/watchlist" }
+  alternates: { canonical: "https://bogastock.com/global/pt/watchlist", languages: {
+      en: "https://bogastock.com/global/en/watchlist",
+      es: "https://bogastock.com/global/es/watchlist",
+      fr: "https://bogastock.com/global/fr/watchlist",
+      id: "https://bogastock.com/global/id/watchlist",
+      pt: "https://bogastock.com/global/pt/watchlist",
+      tr: "https://bogastock.com/global/tr/watchlist",
+      "x-default": "https://bogastock.com/global/en/watchlist",
+    } }
 };
 
 

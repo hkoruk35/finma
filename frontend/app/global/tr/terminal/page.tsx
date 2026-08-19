@@ -7,7 +7,15 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "Terminal",
-  alternates: { canonical: "https://bogastock.com/global/tr/terminal" }
+  alternates: { canonical: "https://bogastock.com/global/tr/terminal", languages: {
+      en: "https://bogastock.com/global/en/terminal",
+      es: "https://bogastock.com/global/es/terminal",
+      fr: "https://bogastock.com/global/fr/terminal",
+      id: "https://bogastock.com/global/id/terminal",
+      pt: "https://bogastock.com/global/pt/terminal",
+      tr: "https://bogastock.com/global/tr/terminal",
+      "x-default": "https://bogastock.com/global/en/terminal",
+    } }
 };
 
 
