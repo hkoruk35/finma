@@ -5,8 +5,10 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import type { AssetInstrument, AssetClassLocale } from "@/lib/assetClasses";
 import { formatAssetPrice } from "@/lib/symbols";
-import { computeHourlyForecast, type HourlyForecast } from "@/lib/hourlyForecast";
+import { computeHourlyForecast, compute1hChangePct, type HourlyForecast } from "@/lib/hourlyForecast";
+import { formatRelativeUpdate } from "@/lib/relativeTime";
 import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
+import Sparkline from "@/components/global/Sparkline";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 interface QuoteResult {
@@ -17,6 +19,7 @@ interface QuoteResult {
 interface ForecastEntry {
   forecast: HourlyForecast | null;
   closes: number[];
+  change1h: number | null;
   failed?: boolean;
 }
 
@@ -33,6 +36,8 @@ interface Copy {
   instrument: string;
   price: string;
   change: string;
+  change1h: string;
+  chart: string;
   forecast: string;
   sortLabel: string;
   sortStrength: string;
@@ -40,44 +45,67 @@ interface Copy {
   sortVolume: string;
   rangeLabels: Record<RangeTab, string>;
   openFull: string;
+  riskOn: string;
+  riskOff: string;
+  riskMixed: string;
+  upCount: (n: number, total: number) => string;
+  updatedPrefix: string;
 }
 
 const COPY: Record<Locale, Copy> = {
   en: {
-    instrument: "Instrument", price: "Price", change: "24h Change", forecast: "Hourly Forecast",
+    instrument: "Instrument", price: "Price", change: "24h", change1h: "1h", chart: "Chart", forecast: "Hourly Forecast",
     sortLabel: "Sort:", sortStrength: "Signal Strength", sortChange: "Change", sortVolume: "Volume Trend",
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Open full chart ↗",
+    riskOn: "Risk-On", riskOff: "Risk-Off", riskMixed: "Mixed Outlook",
+    upCount: (n, total) => `${n}/${total} instruments up`,
+    updatedPrefix: "Updated",
   },
   tr: {
-    instrument: "Enstrüman", price: "Fiyat", change: "24s Değişim", forecast: "Saatlik Tahmin",
+    instrument: "Enstrüman", price: "Fiyat", change: "24s", change1h: "1s", chart: "Grafik", forecast: "Saatlik Tahmin",
     sortLabel: "Sırala:", sortStrength: "Sinyal Gücü", sortChange: "Değişim", sortVolume: "Hacim Eğilimi",
     rangeLabels: { "24h": "24s", "7d": "7g", "30d": "30g" },
     openFull: "Tam grafikte aç ↗",
+    riskOn: "Risk İştahı Açık", riskOff: "Risk İştahı Kapalı", riskMixed: "Karışık Görünüm",
+    upCount: (n, total) => `${n}/${total} enstrüman yukarı`,
+    updatedPrefix: "Güncellendi",
   },
   es: {
-    instrument: "Instrumento", price: "Precio", change: "Cambio 24h", forecast: "Pronóstico Horario",
+    instrument: "Instrumento", price: "Precio", change: "24h", change1h: "1h", chart: "Gráfico", forecast: "Pronóstico Horario",
     sortLabel: "Ordenar:", sortStrength: "Fuerza de Señal", sortChange: "Cambio", sortVolume: "Tendencia de Volumen",
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Abrir gráfico completo ↗",
+    riskOn: "Apetito de Riesgo Alto", riskOff: "Apetito de Riesgo Bajo", riskMixed: "Panorama Mixto",
+    upCount: (n, total) => `${n}/${total} instrumentos al alza`,
+    updatedPrefix: "Actualizado",
   },
   fr: {
-    instrument: "Instrument", price: "Prix", change: "Variation 24h", forecast: "Prévision Horaire",
+    instrument: "Instrument", price: "Prix", change: "24h", change1h: "1h", chart: "Graphique", forecast: "Prévision Horaire",
     sortLabel: "Trier :", sortStrength: "Force du Signal", sortChange: "Variation", sortVolume: "Tendance du Volume",
     rangeLabels: { "24h": "24h", "7d": "7j", "30d": "30j" },
     openFull: "Ouvrir le graphique complet ↗",
+    riskOn: "Appétit pour le Risque", riskOff: "Aversion au Risque", riskMixed: "Perspective Mixte",
+    upCount: (n, total) => `${n}/${total} instruments en hausse`,
+    updatedPrefix: "Mis à jour",
   },
   pt: {
-    instrument: "Instrumento", price: "Preço", change: "Variação 24h", forecast: "Previsão por Hora",
+    instrument: "Instrumento", price: "Preço", change: "24h", change1h: "1h", chart: "Gráfico", forecast: "Previsão por Hora",
     sortLabel: "Ordenar:", sortStrength: "Força do Sinal", sortChange: "Variação", sortVolume: "Tendência de Volume",
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Abrir gráfico completo ↗",
+    riskOn: "Apetite por Risco Alto", riskOff: "Apetite por Risco Baixo", riskMixed: "Panorama Misto",
+    upCount: (n, total) => `${n}/${total} instrumentos em alta`,
+    updatedPrefix: "Atualizado",
   },
   id: {
-    instrument: "Instrumen", price: "Harga", change: "Perubahan 24j", forecast: "Perkiraan per Jam",
+    instrument: "Instrumen", price: "Harga", change: "24j", change1h: "1j", chart: "Grafik", forecast: "Perkiraan per Jam",
     sortLabel: "Urutkan:", sortStrength: "Kekuatan Sinyal", sortChange: "Perubahan", sortVolume: "Tren Volume",
     rangeLabels: { "24h": "24j", "7d": "7h", "30d": "30h" },
     openFull: "Buka grafik lengkap ↗",
+    riskOn: "Selera Risiko Tinggi", riskOff: "Selera Risiko Rendah", riskMixed: "Pandangan Campuran",
+    upCount: (n, total) => `${n}/${total} instrumen naik`,
+    updatedPrefix: "Diperbarui",
   },
 };
 
@@ -101,11 +129,19 @@ export default function LiveAssetTable({
   const [sortBy, setSortBy] = useState<SortBy>("strength");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
   const [rangeTab, setRangeTab] = useState<RangeTab>("24h");
+  const [lastUpdatedMs, setLastUpdatedMs] = useState<number | null>(null);
+  const [, forceTick] = useState(0);
 
   const prevPricesRef = useRef<Record<string, number>>({});
   const flashTimeoutsRef = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
-  // ── Fiyat/degisim — 30 sn'de bir, ayni zamanda fiyat flash'ini tetikler ──
+  // "11dk önce" etiketinin canlı kalması için — yeni veri gelmese de periyodik yeniden çizim.
+  useEffect(() => {
+    const t = setInterval(() => forceTick((n) => n + 1), 15 * 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  // ── Fiyat/degisim — 30 sn'de bir, ayni zamanda fiyat flash'ini ve "son guncelleme" damgasini tetikler ──
   useEffect(() => {
     const tickers = instruments.map((i) => i.ticker).join(",");
     if (!tickers) return;
@@ -128,6 +164,7 @@ export default function LiveAssetTable({
         }
 
         setQuotes(data);
+        setLastUpdatedMs(Date.now());
 
         if (changedTickers.length) {
           setFlash((prev) => {
@@ -157,8 +194,10 @@ export default function LiveAssetTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instruments]);
 
-  // ── Saatlik tahmin — tum enstrumanlar icin merkezi olarak cekilir, hem
-  // rozette hem sirlamada (sortBy) kullanilir. 5 dk'da bir tazelenir. ──
+  // ── Saatlik tahmin + 1s değişim — tum enstrumanlar icin merkezi olarak
+  // cekilir (ayni /api/chart-data cevabindaki bars'tan 1s degisim de
+  // turetilir, ekstra istek gerekmez), hem rozette hem siralamada
+  // kullanilir. 5 dk'da bir tazelenir. ──
   useEffect(() => {
     let cancelled = false;
 
@@ -172,9 +211,10 @@ export default function LiveAssetTable({
             const data = await res.json();
             const forecast = computeHourlyForecast(data?.indicators?.candlePat ?? [], data?.indicators?.obv ?? []);
             const closes: number[] = (data?.bars ?? []).map((b: { close: number }) => b.close);
-            return [inst.ticker, { forecast, closes, failed: false }] as const;
+            const change1h = compute1hChangePct(closes);
+            return [inst.ticker, { forecast, closes, change1h, failed: false }] as const;
           } catch {
-            return [inst.ticker, { forecast: null, closes: [], failed: true }] as const;
+            return [inst.ticker, { forecast: null, closes: [], change1h: null, failed: true }] as const;
           }
         })
       );
@@ -211,6 +251,24 @@ export default function LiveAssetTable({
     return arr;
   }, [instruments, sortBy, quotes, forecasts]);
 
+  const { bullishCount, bearishCount, haveForecasts } = useMemo(() => {
+    let bull = 0, bear = 0, have = 0;
+    for (const inst of instruments) {
+      const dir = forecasts[inst.ticker]?.forecast?.direction;
+      if (!dir) continue;
+      have++;
+      if (dir === "bullish") bull++;
+      else if (dir === "bearish") bear++;
+    }
+    return { bullishCount: bull, bearishCount: bear, haveForecasts: have };
+  }, [instruments, forecasts]);
+
+  const total = instruments.length;
+  const sentiment = bearishCount > bullishCount ? "off" : bullishCount > bearishCount ? "on" : "mixed";
+  const sentimentColor = sentiment === "on" ? "#22c55e" : sentiment === "off" ? "#f85149" : "#94a3b8";
+  const sentimentLabel = sentiment === "on" ? c.riskOn : sentiment === "off" ? c.riskOff : c.riskMixed;
+  const { relative, clock } = formatRelativeUpdate(lastUpdatedMs, locale);
+
   function toggleExpand(ticker: string) {
     if (expandedTicker === ticker) {
       setExpandedTicker(null);
@@ -222,6 +280,20 @@ export default function LiveAssetTable({
 
   return (
     <div>
+      {/* Ozet cubuk — genel egilim + son guncelleme zamani, tek bakista */}
+      <div className="flex items-center justify-between gap-3 flex-wrap px-4 py-2.5 mb-2 rounded-xl bg-[#0d131f] border border-[#1e2a3a]">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: sentimentColor }} />
+          <span className="text-xs font-semibold" style={{ color: sentimentColor }}>{sentimentLabel}</span>
+          {haveForecasts > 0 && (
+            <span className="text-xs text-white/40">· {c.upCount(bullishCount, total)}</span>
+          )}
+        </div>
+        <span className="text-[10px] text-white/30 tabular-nums">
+          {c.updatedPrefix} {relative}{clock ? ` · ${clock}` : ""}
+        </span>
+      </div>
+
       {/* Sıralama kontrolü — varsayılan: en güçlü sinyalden en zayıfa (bkz. lib/hourlyForecast.ts) */}
       <div className="flex items-center gap-2 mb-2 px-1">
         <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">{c.sortLabel}</span>
@@ -248,10 +320,12 @@ export default function LiveAssetTable({
 
       <div className="rounded-2xl border border-[#1e2a3a] overflow-hidden">
         {/* Header row — sadece masaüstünde */}
-        <div className="hidden md:grid grid-cols-[1.4fr_0.9fr_0.9fr_1.5fr_auto] gap-3 px-5 py-2.5 bg-[#0d131f] text-[10px] font-bold uppercase tracking-wider text-white/40">
+        <div className="hidden md:grid grid-cols-[1.2fr_0.8fr_0.6fr_0.6fr_0.9fr_1.2fr_auto] gap-3 px-5 py-2.5 bg-[#0d131f] text-[10px] font-bold uppercase tracking-wider text-white/40">
           <span>{c.instrument}</span>
           <span className="text-right">{c.price}</span>
           <span className="text-right">{c.change}</span>
+          <span className="text-right">{c.change1h}</span>
+          <span>{c.chart}</span>
           <span>{c.forecast}</span>
           <span />
         </div>
@@ -265,13 +339,17 @@ export default function LiveAssetTable({
             const isExpanded = expandedTicker === inst.ticker;
             const fc = forecasts[inst.ticker];
             const range = RANGE_CONFIG[rangeTab];
+            const sparkColor = fc?.forecast
+              ? fc.forecast.direction === "bullish" ? "#22c55e" : fc.forecast.direction === "bearish" ? "#f85149" : "#64748b"
+              : "#64748b";
+            const change1hPositive = (fc?.change1h ?? 0) >= 0;
 
             return (
               <div key={inst.ticker} className="bg-[#0a0e17]">
                 <button
                   type="button"
                   onClick={() => toggleExpand(inst.ticker)}
-                  className="w-full grid grid-cols-[1.4fr_auto_auto] md:grid-cols-[1.4fr_0.9fr_0.9fr_1.5fr_auto] gap-2 md:gap-3 items-center px-4 md:px-5 py-3 md:py-3.5 hover:bg-[#111826] transition-colors text-left"
+                  className="w-full grid grid-cols-[1.4fr_auto_auto] md:grid-cols-[1.2fr_0.8fr_0.6fr_0.6fr_0.9fr_1.2fr_auto] gap-2 md:gap-3 items-center px-4 md:px-5 py-3 md:py-3.5 hover:bg-[#111826] transition-colors text-left"
                 >
                   <span className="text-sm font-semibold text-white truncate">{inst.names[assetLocale] ?? inst.ticker}</span>
                   <span
@@ -284,6 +362,16 @@ export default function LiveAssetTable({
                   <span className={`hidden md:inline text-sm font-mono font-semibold text-right ${positive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
                     {fmtChange(q?.change_1d)}
                   </span>
+                  <span className={`hidden md:inline text-sm font-mono font-semibold text-right ${change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
+                    {fmtChange(fc?.change1h)}
+                  </span>
+                  <span className="hidden md:flex items-center">
+                    {fc?.closes?.length ? (
+                      <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={64} height={24} />
+                    ) : (
+                      <span className="text-[10px] text-white/20">…</span>
+                    )}
+                  </span>
                   <span className="hidden md:flex">
                     <HourlyForecastBadge
                       ticker={inst.ticker}
@@ -295,17 +383,25 @@ export default function LiveAssetTable({
                   <span className={`text-white/30 text-xs transition-transform ${isExpanded ? "rotate-180" : ""}`}>▾</span>
                 </button>
 
-                {/* Mobilde forecast rozeti ikinci satıra iner — kart değil, aynı satır grubunun devamı */}
-                <div className="md:hidden px-4 pb-2 -mt-1 flex items-center justify-between">
+                {/* Mobilde ikinci satır: 24s / 1s / saatlik yön — kart değil, aynı satır grubunun devamı */}
+                <div className="md:hidden px-4 pb-2.5 -mt-1 flex items-center gap-3">
+                  {fc?.closes?.length ? (
+                    <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={40} height={18} />
+                  ) : null}
                   <span className={`text-xs font-mono font-semibold ${positive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
-                    {fmtChange(q?.change_1d)}
+                    {c.change} {fmtChange(q?.change_1d)}
                   </span>
-                  <HourlyForecastBadge
-                    ticker={inst.ticker}
-                    locale={locale}
-                    compact
-                    precomputed={fc ?? { forecast: null, closes: [], failed: false }}
-                  />
+                  <span className={`text-xs font-mono font-semibold ${change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
+                    {c.change1h} {fmtChange(fc?.change1h)}
+                  </span>
+                  <span className="ml-auto">
+                    <HourlyForecastBadge
+                      ticker={inst.ticker}
+                      locale={locale}
+                      compact
+                      precomputed={fc ?? { forecast: null, closes: [], failed: false }}
+                    />
+                  </span>
                 </div>
 
                 {isExpanded && (

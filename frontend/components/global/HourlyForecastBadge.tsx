@@ -26,7 +26,9 @@ interface Props {
 interface Copy {
   title: string;
   bullish: string;
+  bullishStrong: string;
   bearish: string;
+  bearishStrong: string;
   neutral: string;
   confirmed: string;
   mixed: string;
@@ -43,12 +45,15 @@ interface Copy {
   validUntil: (time: string) => string;
 }
 
+// Kisa, terminal-yogunlugunda etiketler — 2026-08-20: "Güçlü Yukarı" gibi
+// yoğunluk kademesi mockup'ta gösterildi (S&P "Yukarı" 72 puan, Altın
+// "Güçlü Yukarı" 91 puan) — ayni yon, farkli guc, farkli etiket.
 const COPY: Record<Locale, Copy> = {
   en: {
     title: "Hourly Direction Forecast",
-    bullish: "Bullish Bias",
-    bearish: "Bearish Bias",
-    neutral: "Sideways / Undecided",
+    bullish: "Up", bullishStrong: "Strong Up",
+    bearish: "Down", bearishStrong: "Strong Down",
+    neutral: "Flat",
     confirmed: "Volume Confirmed",
     mixed: "Mixed Signals",
     low: "Low Confidence",
@@ -65,9 +70,9 @@ const COPY: Record<Locale, Copy> = {
   },
   tr: {
     title: "Saatlik Yön Tahmini",
-    bullish: "Yükseliş Eğilimi",
-    bearish: "Düşüş Eğilimi",
-    neutral: "Yatay / Kararsız",
+    bullish: "Yukarı", bullishStrong: "Güçlü Yukarı",
+    bearish: "Aşağı", bearishStrong: "Güçlü Aşağı",
+    neutral: "Yönsüz",
     confirmed: "Hacim Onaylı",
     mixed: "Karışık Sinyal",
     low: "Düşük Güven",
@@ -84,9 +89,9 @@ const COPY: Record<Locale, Copy> = {
   },
   es: {
     title: "Pronóstico de Dirección por Hora",
-    bullish: "Sesgo Alcista",
-    bearish: "Sesgo Bajista",
-    neutral: "Lateral / Indeciso",
+    bullish: "Alza", bullishStrong: "Fuerte Alza",
+    bearish: "Baja", bearishStrong: "Fuerte Baja",
+    neutral: "Lateral",
     confirmed: "Confirmado por Volumen",
     mixed: "Señales Mixtas",
     low: "Baja Confianza",
@@ -103,9 +108,9 @@ const COPY: Record<Locale, Copy> = {
   },
   fr: {
     title: "Prévision de Direction Horaire",
-    bullish: "Biais Haussier",
-    bearish: "Biais Baissier",
-    neutral: "Latéral / Indécis",
+    bullish: "Hausse", bullishStrong: "Forte Hausse",
+    bearish: "Baisse", bearishStrong: "Forte Baisse",
+    neutral: "Latéral",
     confirmed: "Confirmé par le Volume",
     mixed: "Signaux Mixtes",
     low: "Faible Confiance",
@@ -122,9 +127,9 @@ const COPY: Record<Locale, Copy> = {
   },
   pt: {
     title: "Previsão de Direção por Hora",
-    bullish: "Viés de Alta",
-    bearish: "Viés de Baixa",
-    neutral: "Lateral / Indeciso",
+    bullish: "Alta", bullishStrong: "Forte Alta",
+    bearish: "Baixa", bearishStrong: "Forte Baixa",
+    neutral: "Lateral",
     confirmed: "Confirmado pelo Volume",
     mixed: "Sinais Mistos",
     low: "Baixa Confiança",
@@ -141,9 +146,9 @@ const COPY: Record<Locale, Copy> = {
   },
   id: {
     title: "Perkiraan Arah per Jam",
-    bullish: "Bias Bullish",
-    bearish: "Bias Bearish",
-    neutral: "Sideways / Belum Jelas",
+    bullish: "Naik", bullishStrong: "Naik Kuat",
+    bearish: "Turun", bearishStrong: "Turun Kuat",
+    neutral: "Datar",
     confirmed: "Dikonfirmasi Volume",
     mixed: "Sinyal Campuran",
     low: "Keyakinan Rendah",
@@ -167,18 +172,26 @@ const DIRECTION_COLOR: Record<HourlyForecast["direction"], string> = {
 };
 
 const DIRECTION_ARROW: Record<HourlyForecast["direction"], string> = {
-  bullish: "▲",
-  bearish: "▼",
-  neutral: "⇄",
+  bullish: "↗",
+  bearish: "↘",
+  neutral: "↔",
 };
 
-/** Yön + güç barı + kanıt (mini grafik) tek görsel birim olarak — 2026-08-20
- * geri bildirimi: "beş satırın beşinde de aynı rozet varsa hiçbiri bir şey
- * söylemiyor." Renk sadece yöne bağlı (arka plan/çerçeve rengi yok, "renk
- * enflasyonu" olmasın diye). */
-function StrengthBar({ strength, color }: { strength: number; color: string }) {
+const STRONG_THRESHOLD = 70;
+
+function directionLabelFor(direction: HourlyForecast["direction"], strength: number, c: Copy): string {
+  if (direction === "bullish") return strength >= STRONG_THRESHOLD ? c.bullishStrong : c.bullish;
+  if (direction === "bearish") return strength >= STRONG_THRESHOLD ? c.bearishStrong : c.bearish;
+  return c.neutral;
+}
+
+/** Yön + güç barı tek görsel birim — renk sadece yöne bağlı (arka plan/
+ * çerçeve rengi yok, "renk enflasyonu" olmasın diye). Kanıt (sparkline)
+ * artık burada değil — tablo bağlamında ayrı bir sütunda (bkz.
+ * LiveAssetTable.tsx), tekil kart bağlamında (compact=false) hâlâ burada. */
+function StrengthBar({ strength, color, wide }: { strength: number; color: string; wide?: boolean }) {
   return (
-    <span className="inline-block w-10 h-1 rounded-full bg-white/10 overflow-hidden align-middle">
+    <span className={`inline-block ${wide ? "w-14 h-1.5" : "w-10 h-1"} rounded-full bg-white/10 overflow-hidden align-middle`}>
       <span
         className="block h-full rounded-full transition-[width] duration-500"
         style={{ width: `${strength}%`, backgroundColor: color }}
@@ -242,7 +255,7 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
 
   const color = DIRECTION_COLOR[forecast.direction];
   const arrow = DIRECTION_ARROW[forecast.direction];
-  const directionLabel = forecast.direction === "bullish" ? c.bullish : forecast.direction === "bearish" ? c.bearish : c.neutral;
+  const directionLabel = directionLabelFor(forecast.direction, forecast.strength, c);
   const confidenceLabel = forecast.confidence === "confirmed" ? c.confirmed : forecast.confidence === "mixed" ? c.mixed : c.low;
   const volumeLabel = forecast.volumeTrend === "rising" ? c.volumeRising : forecast.volumeTrend === "falling" ? c.volumeFalling : c.volumeFlat;
   const reason = forecast.patternName ? c.reasonWithPattern(forecast.patternName, volumeLabel) : c.reasonNoPattern;
@@ -250,14 +263,12 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
   if (compact) {
     return (
       <span className="inline-flex items-center gap-2" title={reason}>
-        <Sparkline data={closes.slice(-24)} color={color} width={32} height={14} />
-        <span className="inline-flex flex-col items-start gap-0.5">
-          <span className="inline-flex items-center gap-1 text-[10px] font-semibold whitespace-nowrap" style={{ color }}>
-            <span>{arrow}</span>
-            <span>{directionLabel}</span>
-          </span>
-          <StrengthBar strength={forecast.strength} color={color} />
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold whitespace-nowrap" style={{ color }}>
+          <span>{arrow}</span>
+          <span>{directionLabel}</span>
         </span>
+        <StrengthBar strength={forecast.strength} color={color} />
+        <span className="text-[10px] text-white/35 tabular-nums w-5 text-right">{forecast.strength}</span>
       </span>
     );
   }
@@ -278,12 +289,7 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
             <span>{c.strength}</span>
             <span>{forecast.strength}/100</span>
           </div>
-          <span className="inline-block w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
-            <span
-              className="block h-full rounded-full transition-[width] duration-500"
-              style={{ width: `${forecast.strength}%`, backgroundColor: color }}
-            />
-          </span>
+          <StrengthBar strength={forecast.strength} color={color} wide />
         </div>
       </div>
       <p className="text-sm text-white/70 leading-relaxed mb-2">{reason}</p>

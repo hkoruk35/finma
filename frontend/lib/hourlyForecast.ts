@@ -104,3 +104,14 @@ export function nextHourBoundaryLabel(): string {
   const hh = String(d.getHours()).padStart(2, "0");
   return `${hh}:00`;
 }
+
+/** Son 1 saatlik fiyat değişimi (%) — 15dk barlarda 4 bar geriye bakar.
+ * `closes` /api/chart-data'nın `bars` alanından (timeframe=15) türetilir,
+ * ayrı bir istek gerektirmez. Yetersiz veri varsa null döner. */
+export function compute1hChangePct(closes: number[]): number | null {
+  if (!closes || closes.length < 5) return null;
+  const now = closes[closes.length - 1];
+  const hourAgo = closes[closes.length - 5];
+  if (!Number.isFinite(now) || !Number.isFinite(hourAgo) || hourAgo === 0) return null;
+  return ((now - hourAgo) / hourAgo) * 100;
+}
