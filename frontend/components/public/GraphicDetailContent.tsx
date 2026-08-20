@@ -15,6 +15,8 @@ import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { getAssetCategory } from "@/lib/symbols";
 import { getIndexBySymbol } from "@/lib/indices";
 import { formatNumber } from "@/lib/formatNumber";
+import { ALL_ASSET_CLASS_TICKERS } from "@/lib/assetClasses";
+import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -218,7 +220,15 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   // herkese (giriş şart olmadan) açık. Trade plan kartı (lockTradePlanCard,
   // aşağıda) bundan etkilenmedi, hâlâ premium.
   const INDEX_TICKERS = ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "IHSG", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"];
-  const isMarketContextAsset = INDEX_TICKERS.includes(ticker) || !!getIndexBySymbol(ticker) || getAssetCategory(ticker) !== "stock";
+  // ALL_ASSET_CLASS_TICKERS (lib/assetClasses.ts): YM_F/ES_F/NQ_F gibi endeks
+  // vadelileri getAssetCategory()'de "stock"a dusuyor (ozel bir "futures"
+  // kategorisi yok) — Forex/Emtia/Kripto/Vadeli sayfalarindaki tum
+  // enstrumanlarin herkese acik kalmasini burada ayrica garanti ediyoruz.
+  const isMarketContextAsset =
+    INDEX_TICKERS.includes(ticker) ||
+    !!getIndexBySymbol(ticker) ||
+    getAssetCategory(ticker) !== "stock" ||
+    ALL_ASSET_CLASS_TICKERS.includes(ticker);
   const chartUnlocked = isTop7 || isPublicTeaserTicker(ticker) || isLoggedIn || isMarketContextAsset;
 
   // null = henuz bilinmiyor (SSR/ilk render) — BogaChartEngine, defaultIndicators
@@ -380,6 +390,11 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             />
           )}
         </div>
+        {isMarketContextAsset && (
+          <div className="mb-4">
+            <HourlyForecastBadge ticker={ticker} locale={locale} />
+          </div>
+        )}
         {ticker && <SwingStrategyStatusCard ticker={ticker} locale={locale} />}
         <div className="glass-card overflow-hidden">
           <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlanCard />

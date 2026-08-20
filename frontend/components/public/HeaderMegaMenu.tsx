@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 
 interface MenuChild {
   label: string;
@@ -74,9 +75,22 @@ const T: Record<Locale, Record<string, string>> = {
   },
 };
 
+// Ana "Markets" mega menusundeki "Temalar/Themes" oge cevirisi — T objesinin
+// disinda tutuluyor ki 6 locale blogunun hepsine tek tek dokunmak gerekmesin.
+const THEMES_LABEL: Record<Locale, string> = {
+  tr: "Temalar",
+  en: "Themes",
+  es: "Temas",
+  fr: "Thèmes",
+  pt: "Temas",
+  id: "Tema",
+};
+
 function buildGroups(locale: Locale): MenuGroup[] {
   const t = T[locale] || T.en;
   const g = (path: string) => `/global/${locale}${path}`;
+  const themesLabel = THEMES_LABEL[locale] || THEMES_LABEL.en;
+  const themesHref = g(`/themes/${HOT_THEMES_2026[0].slug}`);
   return [
     {
       key: "markets",
@@ -91,10 +105,11 @@ function buildGroups(locale: Locale): MenuGroup[] {
         { label: t.gainers, href: g("/gainers") },
         { label: t.losers, href: g("/losers") },
         { label: t.trendStocks, href: g("/swing") },
-        { label: t.fx, href: g("/home") },
-        { label: t.commodity, href: g("/home") },
-        { label: t.crypto, href: g("/home") },
-        { label: t.futures, href: g("/home") },
+        { label: themesLabel, href: themesHref },
+        { label: t.fx, href: g("/forex") },
+        { label: t.commodity, href: g("/commodities") },
+        { label: t.crypto, href: g("/crypto") },
+        { label: t.futures, href: g("/futures") },
       ],
     },
     { key: "watchlist", label: t.watchlist, href: g("/my-watchlist") },
@@ -116,10 +131,10 @@ function buildGroups(locale: Locale): MenuGroup[] {
       children: [
         { label: t.marketsAnalysis, href: g("/markets") },
         { label: t.stockAnalysis, href: g("/news") },
-        { label: t.fx, href: g("/home") },
-        { label: t.commodity, href: g("/home") },
-        { label: t.crypto, href: g("/home") },
-        { label: t.futuresAnalysis, href: g("/home") },
+        { label: t.fx, href: g("/forex") },
+        { label: t.commodity, href: g("/commodities") },
+        { label: t.crypto, href: g("/crypto") },
+        { label: t.futuresAnalysis, href: g("/futures") },
       ],
     },
     { key: "premium", label: t.premium, href: g("/premium_club") },

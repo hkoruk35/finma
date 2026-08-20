@@ -4,6 +4,7 @@ import { getAllLangParams } from '@/lib/analysis-langs';
 import { getAllArchivedTickers, getArchivedDates } from '@/lib/analysis-archive';
 import { INDEX_LIST, INDEX_LOCALES, type IndexSymbol } from '@/lib/indices';
 import { getAllDailyTradeDates, getAllWeeklyLabels } from '@/lib/indexSnapshots';
+import { ASSET_CLASS_SLUGS, ASSET_CLASS_LOCALES } from '@/lib/assetClasses';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const swingData = await getSwingAllPicks();
@@ -192,6 +193,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Supabase erisilemez olabilir (build ortami) — statik/landing rotalari yine de eklenir.
   }
 
+  // ── /global/{locale}/{forex|commodities|crypto|futures} — canlı varlık sınıfı sayfaları ──
+  const assetClassRoutes = ASSET_CLASS_LOCALES.flatMap((locale) =>
+    ASSET_CLASS_SLUGS.map((slug) => ({
+      url: `${baseUrl}/global/${locale}/${slug}`,
+      lastModified: now,
+      changeFrequency: 'hourly' as const,
+      priority: 0.75,
+    }))
+  );
+
   return [
     ...staticRoutes,
     ...langCurrentRoutes,
@@ -200,5 +211,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...indexPerIndexRoutes,
     ...indexDailyDetailRoutes,
     ...indexWeeklyDetailRoutes,
+    ...assetClassRoutes,
   ];
 }
