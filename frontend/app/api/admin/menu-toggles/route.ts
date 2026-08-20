@@ -7,7 +7,7 @@ function requireAdmin(req: NextRequest): boolean {
   return req.cookies.get("boga_auth")?.value === "admin";
 }
 
-const VALID_KEYS = new Set(["markets", "watchlist", "news", "analysis", "brokers"]);
+const VALID_KEYS = new Set(["markets", "watchlist", "news", "analysis", "brokers", "premium"]);
 
 export async function GET(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });

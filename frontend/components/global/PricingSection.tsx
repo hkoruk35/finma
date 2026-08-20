@@ -6,8 +6,6 @@ interface PricingContent {
   badge: string;
   title: string;
   subtitle: string;
-  firstMonthLabel: string;
-  thenLabel: string;
   perMonth: string;
   features: string[];
   ctaText: string;
@@ -16,11 +14,9 @@ interface PricingContent {
 
 const CONTENT: Record<Locale, PricingContent> = {
   tr: {
-    badge: "LANSMAN FİYATI",
+    badge: "ÜYELİK",
     title: "Basit, Şeffaf Fiyatlandırma",
-    subtitle: "İlk ayın indirimli, istediğin zaman iptal et.",
-    firstMonthLabel: "İlk ay",
-    thenLabel: "sonraki aylar",
+    subtitle: "Tek fiyat, tam erişim. İstediğin zaman iptal et.",
     perMonth: "/ay",
     features: [
       "Sürekli güncellenen Trend Hisseleri adayları — %90 üzeri başarı oranı",
@@ -36,11 +32,9 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaNote: "Kredi kartı gerekli · Ödeme kayıt anında alınır · İstediğin zaman iptal et",
   },
   en: {
-    badge: "LAUNCH PRICING",
+    badge: "MEMBERSHIP",
     title: "Simple, Transparent Pricing",
-    subtitle: "First month discounted, cancel anytime.",
-    firstMonthLabel: "First month",
-    thenLabel: "following months",
+    subtitle: "One price, full access. Cancel anytime.",
     perMonth: "/mo",
     features: [
       "Continuously updated Trending Stocks candidates — 90%+ success rate",
@@ -56,11 +50,9 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaNote: "Card required · Billed immediately at signup · Cancel anytime",
   },
   es: {
-    badge: "PRECIO DE LANZAMIENTO",
+    badge: "MEMBRESÍA",
     title: "Precios Simples y Transparentes",
-    subtitle: "Primer mes con descuento, cancela cuando quieras.",
-    firstMonthLabel: "Primer mes",
-    thenLabel: "meses siguientes",
+    subtitle: "Un precio, acceso total. Cancela cuando quieras.",
     perMonth: "/mes",
     features: [
       "Candidatos de Acciones en Tendencia actualizados constantemente — tasa de éxito superior al 90%",
@@ -76,11 +68,9 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaNote: "Tarjeta requerida · Se cobra de inmediato al registrarte · Cancela cuando quieras",
   },
   fr: {
-    badge: "PRIX DE LANCEMENT",
+    badge: "ABONNEMENT",
     title: "Tarification Simple et Transparente",
-    subtitle: "Premier mois à prix réduit, annulez à tout moment.",
-    firstMonthLabel: "Premier mois",
-    thenLabel: "mois suivants",
+    subtitle: "Un prix, accès complet. Annulez à tout moment.",
     perMonth: "/mois",
     features: [
       "Candidats Actions Tendance mis à jour en continu — taux de réussite supérieur à 90 %",
@@ -96,11 +86,9 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaNote: "Carte requise · Facturé immédiatement à l'inscription · Annulez à tout moment",
   },
   pt: {
-    badge: "PREÇO DE LANÇAMENTO",
+    badge: "ASSINATURA",
     title: "Preços Simples e Transparentes",
-    subtitle: "Primeiro mês com desconto, cancele quando quiser.",
-    firstMonthLabel: "Primeiro mês",
-    thenLabel: "meses seguintes",
+    subtitle: "Um preço, acesso total. Cancele quando quiser.",
     perMonth: "/mês",
     features: [
       "Candidatos de Ações em Tendência atualizados continuamente — taxa de sucesso superior a 90%",
@@ -116,11 +104,9 @@ const CONTENT: Record<Locale, PricingContent> = {
     ctaNote: "Cartão necessário · Cobrança imediata no cadastro · Cancele quando quiser",
   },
   id: {
-    badge: "HARGA PELUNCURAN",
+    badge: "KEANGGOTAAN",
     title: "Harga Sederhana dan Transparan",
-    subtitle: "Bulan pertama diskon, batalkan kapan saja.",
-    firstMonthLabel: "Bulan pertama",
-    thenLabel: "bulan berikutnya",
+    subtitle: "Satu harga, akses penuh. Batalkan kapan saja.",
     perMonth: "/bln",
     features: [
       "Kandidat Saham Tren yang terus diperbarui — tingkat keberhasilan di atas 90%",
@@ -158,18 +144,11 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
       </div>
 
       <div className="max-w-xl mx-auto bg-gradient-to-b from-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/30 rounded-3xl p-6 md:p-10 shadow-[0_0_60px_rgba(59,130,246,0.08)]">
-        {/* Price Blocks */}
-        <div className="grid grid-cols-2 gap-3 mb-8">
-          <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-medium uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.firstMonthLabel}</div>
-            <div className="text-xl md:text-2xl font-medium text-[#22c55e]">
-              $9<span className="text-xs font-medium text-[#22c55e]/70">{c.perMonth}</span>
-            </div>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-medium uppercase tracking-wider text-white/40 mb-1 capitalize">{c.thenLabel}</div>
-            <div className="text-xl md:text-2xl font-medium text-white">
-              $39<span className="text-xs font-medium text-white/40">{c.perMonth}</span>
+        {/* Price */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-2xl px-8 py-5 text-center">
+            <div className="text-3xl md:text-4xl font-medium text-white">
+              $39<span className="text-sm font-medium text-white/40">{c.perMonth}</span>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ interface MenuChild {
 }
 
 interface MenuGroup {
-  key: "markets" | "watchlist" | "news" | "analysis";
+  key: "markets" | "watchlist" | "news" | "analysis" | "premium";
   label: string;
   href: string;
   children?: MenuChild[];
@@ -25,6 +25,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "İçeriden İşlemler",
     marketsAnalysis: "Piyasa Analizleri", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Hisse Analizleri",
     futuresAnalysis: "Vadeli Analizleri", stockBrokers: "Hisse Aracı Kurumları", fxBrokers: "FX Aracı Kurumları", cryptoBrokers: "Kripto Aracı Kurumları",
+    premium: "Premium Club",
   },
   en: {
     markets: "Markets", watchlist: "My Watchlist", news: "News", analysis: "Analysis", brokers: "Brokers",
@@ -33,6 +34,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Stock Analyses", earnings: "Earnings", earningsCalendar: "Earnings Calendar", insider: "Insider Activity",
     marketsAnalysis: "Markets", sectorAnalysis: "Sector Analyses", sectorHeatmap: "Sector Heat Map", stockAnalysis: "Stock Analyses",
     futuresAnalysis: "Futures Analyses", stockBrokers: "Stock Brokers", fxBrokers: "FX Brokers", cryptoBrokers: "Crypto Brokers",
+    premium: "Premium Club",
   },
   es: {
     markets: "Markets", watchlist: "Mi Lista", news: "News", analysis: "Análisis", brokers: "Brokers",
@@ -41,6 +43,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análisis de Acciones", earnings: "Resultados", earningsCalendar: "Calendario de Resultados", insider: "Actividad de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análisis Sectorial", sectorHeatmap: "Mapa de Calor Sectorial", stockAnalysis: "Análisis de Acciones",
     futuresAnalysis: "Análisis de Futuros", stockBrokers: "Brokers de Acciones", fxBrokers: "Brokers de Divisas", cryptoBrokers: "Brokers de Cripto",
+    premium: "Premium Club",
   },
   fr: {
     markets: "Markets", watchlist: "Ma Liste", news: "News", analysis: "Analyses", brokers: "Brokers",
@@ -49,6 +52,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analyses d'Actions", earnings: "Résultats", earningsCalendar: "Calendrier des Résultats", insider: "Activité des Initiés",
     marketsAnalysis: "Markets", sectorAnalysis: "Analyses Sectorielles", sectorHeatmap: "Carte Sectorielle", stockAnalysis: "Analyses d'Actions",
     futuresAnalysis: "Analyses de Futures", stockBrokers: "Brokers d'Actions", fxBrokers: "Brokers Forex", cryptoBrokers: "Brokers Crypto",
+    premium: "Premium Club",
   },
   pt: {
     markets: "Markets", watchlist: "Minha Lista", news: "News", analysis: "Análises", brokers: "Brokers",
@@ -57,6 +61,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análises de Ações", earnings: "Resultados", earningsCalendar: "Calendário de Resultados", insider: "Atividade de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análises Setoriais", sectorHeatmap: "Mapa de Calor Setorial", stockAnalysis: "Análises de Ações",
     futuresAnalysis: "Análises de Futuros", stockBrokers: "Brokers de Ações", fxBrokers: "Brokers de Câmbio", cryptoBrokers: "Brokers de Cripto",
+    premium: "Premium Club",
   },
   id: {
     markets: "Pasar", watchlist: "Watchlist Saya", news: "Berita", analysis: "Analisis", brokers: "Broker",
@@ -65,6 +70,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analisis Saham", earnings: "Laba", earningsCalendar: "Kalender Laba", insider: "Aktivitas Insider",
     marketsAnalysis: "Pasar", sectorAnalysis: "Analisis Sektor", sectorHeatmap: "Peta Panas Sektor", stockAnalysis: "Analisis Saham",
     futuresAnalysis: "Analisis Futures", stockBrokers: "Broker Saham", fxBrokers: "Broker FX", cryptoBrokers: "Broker Kripto",
+    premium: "Premium Club",
   },
 };
 
@@ -116,6 +122,7 @@ function buildGroups(locale: Locale): MenuGroup[] {
         { label: t.futuresAnalysis, href: g("/home") },
       ],
     },
+    { key: "premium", label: t.premium, href: g("/premium_club") },
   ];
 }
 
@@ -152,7 +159,11 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
             <div key={group.key} className="relative" onMouseEnter={() => setHoveredKey(group.key)} onMouseLeave={() => setHoveredKey(null)}>
               <Link
                 href={group.href}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                className={
+                  group.key === "premium"
+                    ? "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-bold tracking-wider text-[#fbbf24] bg-[#fbbf24]/10 hover:bg-[#fbbf24]/20 border border-[#fbbf24]/30 hover:border-[#fbbf24]/50 transition-all"
+                    : "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                }
               >
                 <span>{label.toLocaleUpperCase(locale)}</span>
                 {group.children && <span className="text-[8px] text-[#38bdf8]">▾</span>}
@@ -212,7 +223,11 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                           ? setMobileOpenKey((k) => (k === group.key ? null : group.key))
                           : setIsMobileMenuOpen(false)
                       }
-                      className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold tracking-wider text-slate-200"
+                      className={
+                        group.key === "premium"
+                          ? "w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold tracking-wider text-[#fbbf24]"
+                          : "w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold tracking-wider text-slate-200"
+                      }
                     >
                       {group.children ? (
                         <span>{label.toLocaleUpperCase(locale)}</span>

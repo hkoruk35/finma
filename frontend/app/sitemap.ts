@@ -79,6 +79,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/global/pt/disclaimer',        priority: 0.3, cf: 'monthly' },
     { route: '/global/pt/privacy',           priority: 0.3, cf: 'monthly' },
     { route: '/global/pt/terms',             priority: 0.3, cf: 'monthly' },
+    // Premium Club — pricing/membership landing page, all 6 locales
+    { route: '/global/en/premium_club',      priority: 0.8, cf: 'weekly'  },
+    { route: '/global/tr/premium_club',      priority: 0.8, cf: 'weekly'  },
+    { route: '/global/es/premium_club',      priority: 0.8, cf: 'weekly'  },
+    { route: '/global/fr/premium_club',      priority: 0.8, cf: 'weekly'  },
+    { route: '/global/pt/premium_club',      priority: 0.8, cf: 'weekly'  },
+    { route: '/global/id/premium_club',      priority: 0.8, cf: 'weekly'  },
   ].map(({ route, priority, cf }) => ({
     url: `${baseUrl}${route}`,
     lastModified: now,
