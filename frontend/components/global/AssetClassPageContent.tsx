@@ -12,7 +12,6 @@ import {
 export interface AssetClassPageCopy {
   breadcrumbHome: string;
   liveBadge: string;
-  publicNote: string;
   otherMarkets: string;
   metaSuffix: string;
 }
@@ -21,42 +20,36 @@ export const ASSET_CLASS_PAGE_COPY: Record<AssetClassLocale, AssetClassPageCopy>
   en: {
     breadcrumbHome: "Dashboard",
     liveBadge: "LIVE · UPDATES 24/7",
-    publicNote: "Free to view for everyone — no account required.",
     otherMarkets: "Explore other markets",
     metaSuffix: "Live Prices & Charts | BogaStock",
   },
   tr: {
     breadcrumbHome: "Gösterge Paneli",
     liveBadge: "CANLI · 7/24 GÜNCELLENİR",
-    publicNote: "Herkese ücretsiz açık — hesap gerekmez.",
     otherMarkets: "Diğer piyasalara göz at",
     metaSuffix: "Canlı Fiyatlar ve Grafikler | BogaStock",
   },
   es: {
     breadcrumbHome: "Panel",
     liveBadge: "EN VIVO · SE ACTUALIZA 24/7",
-    publicNote: "Gratis para todos — no se requiere cuenta.",
     otherMarkets: "Explora otros mercados",
     metaSuffix: "Precios y Gráficos en Vivo | BogaStock",
   },
   fr: {
     breadcrumbHome: "Tableau de Bord",
     liveBadge: "EN DIRECT · MISE À JOUR 24/7",
-    publicNote: "Gratuit pour tous — aucun compte requis.",
     otherMarkets: "Explorer d'autres marchés",
     metaSuffix: "Prix et Graphiques en Direct | BogaStock",
   },
   pt: {
     breadcrumbHome: "Painel",
     liveBadge: "AO VIVO · ATUALIZA 24/7",
-    publicNote: "Gratuito para todos — não é necessária conta.",
     otherMarkets: "Explore outros mercados",
     metaSuffix: "Preços e Gráficos ao Vivo | BogaStock",
   },
   id: {
     breadcrumbHome: "Dashboard",
     liveBadge: "LANGSUNG · DIPERBARUI 24/7",
-    publicNote: "Gratis untuk semua orang — tidak perlu akun.",
     otherMarkets: "Jelajahi pasar lainnya",
     metaSuffix: "Harga & Grafik Langsung | BogaStock",
   },
@@ -97,8 +90,7 @@ export default function AssetClassPageContent({ assetClass, locale }: Props) {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-2">{def.names[locale]}</h1>
-        <p className="text-sm text-slate-400 mb-1 max-w-2xl">{def.descriptions[locale]}</p>
-        <p className="text-xs text-[#3b82f6] mb-6">{pc.publicNote}</p>
+        <p className="text-sm text-slate-400 mb-6 max-w-2xl">{def.descriptions[locale]}</p>
 
         <LiveAssetTable instruments={def.instruments} locale={locale} />
 
