@@ -1,8 +1,8 @@
 {
   "date": "2026-08-21",
-  "generated_at": "2026-08-21T09:06:58.759006-04:00",
+  "generated_at": "2026-08-21T14:03:42.125233-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 25,
+  "active_scores_count": 33,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 15,
       "tickers": [
         "CART",
         "F",
@@ -34,7 +34,10 @@
         "ALSN",
         "JKHY",
         "ILMN",
-        "FDS"
+        "FDS",
+        "TECK",
+        "HCA",
+        "SYF"
       ]
     },
     "value": {
@@ -73,25 +76,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 766.28,
-      "change_pct": 0.48
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 713.58,
-      "change_pct": 0.37
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 532.58,
-      "change_pct": 0.96
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.3,
-      "change_pct": -4.43
-    },
-    "RUSSELL2000": {
-      "value": 300.055,
-      "change_pct": 0.8
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-21T15:00:18.821995-04:00"
+  }
 }
