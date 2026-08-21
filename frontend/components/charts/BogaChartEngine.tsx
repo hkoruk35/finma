@@ -427,9 +427,12 @@ export default function BogaChartEngine({
   const [internalActive, setInternalActive] = useState<Set<IndicatorKey>>(
     () =>
       new Set(
-        defaultIndicators ?? (compact
-          ? (["ema50", "volume"] as IndicatorKey[])
-          : (["ema50", "rsi", "volume"] as IndicatorKey[]))
+        // 2026-08-20: RSI(14) acilista varsayilan olsun istegi — kompakt ve
+        // tam modda artik ayni taban set: ema50+rsi+volume. Su an hicbir
+        // canli cagiran yer bu fallback'e dusmuyor (hepsi kendi indicators/
+        // defaultIndicators'ini veriyor) — ama ileride biri vermezse dogru
+        // varsayilanla acilsin diye ikisi de ayni.
+        defaultIndicators ?? (["ema50", "rsi", "volume"] as IndicatorKey[])
       )
   );
   // `indicators` prop'u cagiran tarafta genellikle satir ici dizi olarak
@@ -488,7 +491,17 @@ export default function BogaChartEngine({
         if (saved.candleType) setCandleType(saved.candleType);
         if (saved.range) setRange(saved.range);
         if (Array.isArray(saved.indicators) && saved.indicators.length > 0) {
-          setInternalActive(new Set(saved.indicators as IndicatorKey[]));
+          // 2026-08-20 kullanici talebi: RSI(14) acilista HER ZAMAN
+          // varsayilan olsun. Bir tarayicida daha once RSI kapatilip
+          // "Kaydet" ile localStorage'a yazilmis eski bir tercih, o
+          // tarayicidaki HER ziyarette RSI'yi sessizce gizliyordu —
+          // kullanici o kaydin varligindan haberdar olmadan. RSI'yi
+          // kaydedilmis sete birlestiriyoruz (union): kullanici ayni
+          // oturumda tekrar kapatabilir, sadece "acilista varsayilan"
+          // garantisi artik bir eski kayittan dolayi bozulmuyor.
+          const restored = new Set(saved.indicators as IndicatorKey[]);
+          restored.add("rsi");
+          setInternalActive(restored);
         }
       }
     } catch {}
@@ -736,16 +749,25 @@ export default function BogaChartEngine({
       );
       volumeSeries.priceScale().applyOptions({
         scaleMargins: {
-          // Desktop bars fill ~75% of the pane; mobile keeps more headroom
-          // (~55%) so the bars don't dominate the much shorter screen.
-          top: compact ? 0.25 : isMobileViewport ? 0.45 : 0.25,
+          // 2026-08-20 kullanıcı geri bildirimi: hacim çubukları genel
+          // tasarımın yanında hep küçük/soluk kalıyordu (Robinhood
+          // örneğiyle karşılaştırıldı) — üstteki boşluğu daraltıp çubuklara
+          // panelin neredeyse tamamını (~%85-90) bırakıyoruz. Mobilde biraz
+          // daha fazla baş payı bırakılıyor (kısa ekranda tepe değer
+          // fiyat eksenine çok yaklaşmasın diye) ama o da eskisinden belirgin
+          // şekilde daha dar.
+          top: compact ? 0.15 : isMobileViewport ? 0.3 : 0.1,
           bottom: 0,
         },
       });
       const baseHeight = height ?? 400;
+      // Panelin kendisi de büyüdü — eskiden ana grafiğin ~%20'si (masaüstü)
+      // / ~%30'u (kompakt) kadardı, şimdi ~%30 / ~%38 — hacim artık göze
+      // çarpan, "yaşıyor" hissi veren bir öge, arka planda kaybolan ince bir
+      // şerit değil.
       const volumePaneHeight = compact
-        ? Math.max(50, Math.min(120, Math.round(baseHeight * 0.3)))
-        : Math.max(60, Math.round(baseHeight * 0.20));
+        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
+        : Math.max(110, Math.round(baseHeight * 0.3));
       chart.panes()[1]?.setHeight(volumePaneHeight);
       volumeSeriesRef.current = volumeSeries;
     }
@@ -959,10 +981,27 @@ export default function BogaChartEngine({
         bars.map((b) => ({
           time: b.time as UTCTimestamp,
           value: b.volume,
-          color: b.close >= b.open ? `${UP_COLOR}cc` : `${DOWN_COLOR}cc`,
+          // cc(%80) -> e6(%90) opaklik — daha dolgun/canli renkler, Robinhood
+          // ornegindeki gibi hacim cubuklari solgun degil belirgin dursun.
+          color: b.close >= b.open ? `${UP_COLOR}e6` : `${DOWN_COLOR}e6`,
         }))
       );
       volumeSeries.applyOptions({ visible: active.has("volume") });
+      // 2026-08-20 KÖK NEDEN: bu setHeight çağrısı eskiden SADECE grafik
+      // oluşturulurken (mount'ta, [] dep'li effect içinde) bir kere
+      // çalışıyordu. RSI/MACD/ATR/OBV/Volatilite panelleri ise kendi
+      // setHeight(90) çağrılarını HER renderAll'da tekrar yapıyor. Yeni bir
+      // pane (örn. RSI) sonradan eklendiğinde lightweight-charts panellerin
+      // göreli yüksekliğini yeniden dağıtıyor ve sadece "bir kere" ayarlanan
+      // hacim paneli bu yeniden dağıtımda küçülüp kalıyordu (canlıda 180px
+      // yerine ~27px'e düşüyordu) — kullanıcının "hacim hâlâ çok küçük"
+      // bildirdiği asıl sebep buydu. Burada da (her veri yenilemesinde)
+      // tekrar uyguluyoruz ki RSI/diğer panelller eklenince küçülmesin.
+      const baseHeight = height ?? 400;
+      const volumePaneHeight = compact
+        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
+        : Math.max(110, Math.round(baseHeight * 0.3));
+      chart.panes()[1]?.setHeight(volumePaneHeight);
     }
 
     requestAnimationFrame(() => setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null));

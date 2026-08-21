@@ -2,6 +2,7 @@ import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import LiveAssetTable from "@/components/global/LiveAssetTable";
+import { localeUpperCase } from "@/lib/localeCase";
 import {
   ASSET_CLASSES,
   ASSET_CLASS_SLUGS,
@@ -76,12 +77,12 @@ export default function AssetClassPageContent({ assetClass, locale }: Props) {
       <MemberHeader locale={locale} />
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 md:px-6 py-6">
-        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-4">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 tracking-widest mb-4">
           <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">
-            {pc.breadcrumbHome}
+            {localeUpperCase(pc.breadcrumbHome, locale)}
           </Link>
           <span className="opacity-30">/</span>
-          <span className="text-white">{def.names[locale]}</span>
+          <span className="text-white">{localeUpperCase(def.names[locale], locale)}</span>
         </nav>
 
         <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-full px-3 py-1 mb-4">
@@ -95,7 +96,7 @@ export default function AssetClassPageContent({ assetClass, locale }: Props) {
         <LiveAssetTable instruments={def.instruments} locale={locale} />
 
         <div className="mt-8">
-          <h2 className="text-[10px] font-bold uppercase tracking-wider text-white/40 mb-2">{pc.otherMarkets}</h2>
+          <h2 className="text-[10px] font-bold tracking-wider text-white/40 mb-2">{localeUpperCase(pc.otherMarkets, locale)}</h2>
           <div className="flex flex-wrap gap-2">
             {otherClasses.map((slug) => (
               <Link

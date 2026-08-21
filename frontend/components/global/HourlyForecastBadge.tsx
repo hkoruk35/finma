@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n/copy";
 import Sparkline from "@/components/global/Sparkline";
-import { computeHourlyForecast, nextHourBoundaryLabel, type HourlyForecast } from "@/lib/hourlyForecast";
+import {
+  computeHourlyForecast,
+  nextHourBoundaryLabel,
+  displayDirection,
+  STRONG_THRESHOLD,
+  type HourlyForecast,
+} from "@/lib/hourlyForecast";
+import { localeUpperCase } from "@/lib/localeCase";
 
 interface Precomputed {
   forecast: HourlyForecast | null;
@@ -177,8 +184,6 @@ const DIRECTION_ARROW: Record<HourlyForecast["direction"], string> = {
   neutral: "↔",
 };
 
-const STRONG_THRESHOLD = 70;
-
 function directionLabelFor(direction: HourlyForecast["direction"], strength: number, c: Copy): string {
   if (direction === "bullish") return strength >= STRONG_THRESHOLD ? c.bullishStrong : c.bullish;
   if (direction === "bearish") return strength >= STRONG_THRESHOLD ? c.bearishStrong : c.bearish;
@@ -253,9 +258,14 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
     );
   }
 
-  const color = DIRECTION_COLOR[forecast.direction];
-  const arrow = DIRECTION_ARROW[forecast.direction];
-  const directionLabel = directionLabelFor(forecast.direction, forecast.strength, c);
+  // Ham model tahmini yerine GÖSTERİLEN yön kullanılıyor — güç
+  // NEUTRAL_THRESHOLD altındaysa "yönsüz" (gri ok) gösterilir, düşük
+  // güvenli bir tahmini renkli bir okla sunmak yanıltıcı olur (bkz.
+  // lib/hourlyForecast.ts displayDirection).
+  const shownDirection = displayDirection(forecast);
+  const color = DIRECTION_COLOR[shownDirection];
+  const arrow = DIRECTION_ARROW[shownDirection];
+  const directionLabel = directionLabelFor(shownDirection, forecast.strength, c);
   const confidenceLabel = forecast.confidence === "confirmed" ? c.confirmed : forecast.confidence === "mixed" ? c.mixed : c.low;
   const volumeLabel = forecast.volumeTrend === "rising" ? c.volumeRising : forecast.volumeTrend === "falling" ? c.volumeFalling : c.volumeFlat;
   const reason = forecast.patternName ? c.reasonWithPattern(forecast.patternName, volumeLabel) : c.reasonNoPattern;
@@ -276,7 +286,7 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
   return (
     <div className="rounded-2xl bg-[#0d1117] border border-[#1e2a3a] p-5">
       <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-white/60">{c.title}</h3>
+        <h3 className="text-xs font-bold tracking-wider text-white/60">{localeUpperCase(c.title, locale)}</h3>
         <span className="inline-flex items-center gap-1.5 text-xs font-bold" style={{ color }}>
           <span>{arrow}</span>
           <span>{directionLabel}</span>
@@ -294,7 +304,7 @@ export default function HourlyForecastBadge({ ticker, locale, compact, precomput
       </div>
       <p className="text-sm text-white/70 leading-relaxed mb-2">{reason}</p>
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <span className="text-[10px] font-medium uppercase tracking-wider text-white/40">{confidenceLabel}</span>
+        <span className="text-[10px] font-medium tracking-wider text-white/40">{localeUpperCase(confidenceLabel, locale)}</span>
         <span className="text-[10px] text-white/25">{c.validUntil(nextHourBoundaryLabel())} · {c.disclaimer}</span>
       </div>
     </div>

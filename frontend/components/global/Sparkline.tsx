@@ -12,9 +12,23 @@ interface SparklineProps {
    * still uses `width`/`height` for the path, so the plotted shape scales
    * with the box instead of staying pinned to a fixed pixel size). */
   responsive?: boolean;
+  /** Alan dolgusunun üst durak opaklığı (0-1). Varsayılan 0.5 — tekil
+   * kart/rozet bağlamında yeterince belirgin. Yoğun tablo bağlamında
+   * (bkz. LiveAssetTable) yüksek dolgu satırları görsel olarak bloklara
+   * bölüyordu — 2026-08-20 kullanıcı geri bildirimi: "sadece çizgi
+   * kalsın, dolgu ~%10 opaklığa insin." Alt durak bununla orantılı küçülür. */
+  fillOpacity?: number;
 }
 
-export default function Sparkline({ data, color, width = 56, height = 22, changePct = 0, responsive = false }: SparklineProps) {
+export default function Sparkline({
+  data,
+  color,
+  width = 56,
+  height = 22,
+  changePct = 0,
+  responsive = false,
+  fillOpacity = 0.5,
+}: SparklineProps) {
   // Gradient id'si sunucuda ve tarayicida AYNI olmak zorunda. Onceden
   // Math.random() ile uretiliyordu; sunucu "sparkline-j58tl9y23", tarayici
   // "sparkline-1pdt9ksgb" yaziyor, React hydration uyusmazligi verip o
@@ -61,8 +75,8 @@ export default function Sparkline({ data, color, width = 56, height = 22, change
     >
       <defs>
         <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={color} stopOpacity="0.5" />
-          <stop offset="100%" stopColor={color} stopOpacity="0.05" />
+          <stop offset="0%" stopColor={color} stopOpacity={fillOpacity} />
+          <stop offset="100%" stopColor={color} stopOpacity={fillOpacity * 0.1} />
         </linearGradient>
       </defs>
       <path d={pathD} fill={`url(#${gradientId})`} />

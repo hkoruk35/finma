@@ -5,8 +5,9 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import type { AssetInstrument, AssetClassLocale } from "@/lib/assetClasses";
 import { formatAssetPrice } from "@/lib/symbols";
-import { computeHourlyForecast, compute1hChangePct, type HourlyForecast } from "@/lib/hourlyForecast";
+import { computeHourlyForecast, compute1hChangePct, displayDirection, type HourlyForecast } from "@/lib/hourlyForecast";
 import { formatRelativeUpdate } from "@/lib/relativeTime";
+import { localeUpperCase } from "@/lib/localeCase";
 import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
 import Sparkline from "@/components/global/Sparkline";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
@@ -48,7 +49,14 @@ interface Copy {
   riskOn: string;
   riskOff: string;
   riskMixed: string;
-  upCount: (n: number, total: number) => string;
+  /** Gerçek eşik-tabanlı sayım — "8/8 yukarı" gibi ham sayıya bakmadan
+   * displayDirection() eşiğinden geçenleri sayar (bkz. lib/hourlyForecast.ts).
+   * 2026-08-20 kullanıcı geri bildirimi: özet başlık tablo verisiyle
+   * çelişmemeli. */
+  tripleCount: (up: number, down: number, neutral: number) => string;
+  /** Gerçek, biriktirilen (resolve-on-visit) isabet oranı — bkz.
+   * app/api/forecast-accuracy. sampleSize yeterince büyümeden gösterilmez. */
+  accuracyLabel: (pct: number, n: number) => string;
   updatedPrefix: string;
 }
 
@@ -59,7 +67,8 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Open full chart ↗",
     riskOn: "Risk-On", riskOff: "Risk-Off", riskMixed: "Mixed Outlook",
-    upCount: (n, total) => `${n}/${total} instruments up`,
+    tripleCount: (up, down, neutral) => `${up} up · ${down} down · ${neutral} flat`,
+    accuracyLabel: (pct, n) => `${pct}% of the last 30h forecasts hit · ${n} forecasts`,
     updatedPrefix: "Updated",
   },
   tr: {
@@ -68,7 +77,8 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24s", "7d": "7g", "30d": "30g" },
     openFull: "Tam grafikte aç ↗",
     riskOn: "Risk İştahı Açık", riskOff: "Risk İştahı Kapalı", riskMixed: "Karışık Görünüm",
-    upCount: (n, total) => `${n}/${total} enstrüman yukarı`,
+    tripleCount: (up, down, neutral) => `${up} yukarı · ${down} aşağı · ${neutral} yönsüz`,
+    accuracyLabel: (pct, n) => `Son 30 saatlik tahminlerin %${pct}'i tuttu · ${n} tahmin`,
     updatedPrefix: "Güncellendi",
   },
   es: {
@@ -77,7 +87,8 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Abrir gráfico completo ↗",
     riskOn: "Apetito de Riesgo Alto", riskOff: "Apetito de Riesgo Bajo", riskMixed: "Panorama Mixto",
-    upCount: (n, total) => `${n}/${total} instrumentos al alza`,
+    tripleCount: (up, down, neutral) => `${up} al alza · ${down} a la baja · ${neutral} lateral`,
+    accuracyLabel: (pct, n) => `El ${pct}% de los pronósticos de las últimas 30h acertó · ${n} pronósticos`,
     updatedPrefix: "Actualizado",
   },
   fr: {
@@ -86,7 +97,8 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24h", "7d": "7j", "30d": "30j" },
     openFull: "Ouvrir le graphique complet ↗",
     riskOn: "Appétit pour le Risque", riskOff: "Aversion au Risque", riskMixed: "Perspective Mixte",
-    upCount: (n, total) => `${n}/${total} instruments en hausse`,
+    tripleCount: (up, down, neutral) => `${up} en hausse · ${down} en baisse · ${neutral} stables`,
+    accuracyLabel: (pct, n) => `${pct}% des prévisions des dernières 30h se sont réalisées · ${n} prévisions`,
     updatedPrefix: "Mis à jour",
   },
   pt: {
@@ -95,7 +107,8 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24h", "7d": "7d", "30d": "30d" },
     openFull: "Abrir gráfico completo ↗",
     riskOn: "Apetite por Risco Alto", riskOff: "Apetite por Risco Baixo", riskMixed: "Panorama Misto",
-    upCount: (n, total) => `${n}/${total} instrumentos em alta`,
+    tripleCount: (up, down, neutral) => `${up} em alta · ${down} em baixa · ${neutral} estáveis`,
+    accuracyLabel: (pct, n) => `${pct}% das previsões das últimas 30h acertaram · ${n} previsões`,
     updatedPrefix: "Atualizado",
   },
   id: {
@@ -104,13 +117,29 @@ const COPY: Record<Locale, Copy> = {
     rangeLabels: { "24h": "24j", "7d": "7h", "30d": "30h" },
     openFull: "Buka grafik lengkap ↗",
     riskOn: "Selera Risiko Tinggi", riskOff: "Selera Risiko Rendah", riskMixed: "Pandangan Campuran",
-    upCount: (n, total) => `${n}/${total} instrumen naik`,
+    tripleCount: (up, down, neutral) => `${up} naik · ${down} turun · ${neutral} datar`,
+    accuracyLabel: (pct, n) => `${pct}% perkiraan 30 jam terakhir tepat · ${n} perkiraan`,
     updatedPrefix: "Diperbarui",
   },
 };
 
 function fmtChange(v: number | null | undefined) {
   if (v == null) return "—";
+  return `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
+}
+
+// 1 saatlik değişim çoğu zaman |değer| < %0,05 gibi ondalık gürültü —
+// "+0,01%" gibi bir sayı hiçbir şey söylemiyor. 2026-08-20 kullanıcı
+// geri bildirimi: bu durumda "—" bas (ya da baz puana çevir; burada
+// bastırmayı seçtik — sütun zaten çok dar, "bp" eki daha da sıkışırdı).
+const CHANGE_1H_NOISE_THRESHOLD = 0.05;
+
+function isChange1hNoise(v: number | null | undefined): boolean {
+  return v != null && Math.abs(v) < CHANGE_1H_NOISE_THRESHOLD;
+}
+
+function fmtChange1h(v: number | null | undefined) {
+  if (v == null || isChange1hNoise(v)) return "—";
   return `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
 }
 
@@ -130,6 +159,7 @@ export default function LiveAssetTable({
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
   const [rangeTab, setRangeTab] = useState<RangeTab>("24h");
   const [lastUpdatedMs, setLastUpdatedMs] = useState<number | null>(null);
+  const [accuracy, setAccuracy] = useState<{ hitRate: number | null; sampleSize: number } | null>(null);
   const [, forceTick] = useState(0);
 
   const prevPricesRef = useRef<Record<string, number>>({});
@@ -212,6 +242,26 @@ export default function LiveAssetTable({
             const forecast = computeHourlyForecast(data?.indicators?.candlePat ?? [], data?.indicators?.obv ?? []);
             const closes: number[] = (data?.bars ?? []).map((b: { close: number }) => b.close);
             const change1h = compute1hChangePct(closes);
+
+            // Isabet-oranı takibi (resolve-on-visit, cron yok) — sadece
+            // yönlü (yönsüz olmayan) tahminler için, bilinen bir güncel
+            // fiyatla birlikte. Sonucu beklenmiyor/yutuluyor: başarısız
+            // olursa tabloyu etkilemesin. bkz. app/api/forecast-accuracy.
+            const shownDir = displayDirection(forecast);
+            const currentPrice = prevPricesRef.current[inst.ticker];
+            if (shownDir !== "neutral" && typeof currentPrice === "number") {
+              fetch("/api/forecast-accuracy", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  ticker: inst.ticker,
+                  direction: shownDir,
+                  strength: forecast.strength,
+                  price: currentPrice,
+                }),
+              }).catch(() => {});
+            }
+
             return [inst.ticker, { forecast, closes, change1h, failed: false }] as const;
           } catch {
             return [inst.ticker, { forecast: null, closes: [], change1h: null, failed: true }] as const;
@@ -230,6 +280,29 @@ export default function LiveAssetTable({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instruments]);
+
+  // ── Gerçek, biriktirilen isabet oranı — sayfa/enstrüman bağımsız, site
+  // genelinde tek bir havuzdan (bkz. app/api/forecast-accuracy GET). ──
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadAccuracy() {
+      try {
+        const res = await fetch("/api/forecast-accuracy");
+        const data = await res.json();
+        if (!cancelled) setAccuracy(data);
+      } catch {
+        // sessizce yut — satır zaten yeterli örnek olmadan gösterilmiyor
+      }
+    }
+
+    loadAccuracy();
+    const interval = setInterval(loadAccuracy, 5 * 60 * 1000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
 
   const sortedInstruments = useMemo(() => {
     const arr = [...instruments];
@@ -251,23 +324,33 @@ export default function LiveAssetTable({
     return arr;
   }, [instruments, sortBy, quotes, forecasts]);
 
-  const { bullishCount, bearishCount, haveForecasts } = useMemo(() => {
-    let bull = 0, bear = 0, have = 0;
+  // Ham forecast.direction DEĞİL — displayDirection() eşiği (bkz.
+  // lib/hourlyForecast.ts NEUTRAL_THRESHOLD). 2026-08-20 kritik geri
+  // bildirim: özet çubuğu "8/8 yukarı" derken tablo gerçek negatif
+  // hareketler gösteriyordu — başlık kendi verisiyle çelişiyordu. Artık
+  // sayım da eşiğe göre, tablonun kendisiyle aynı kaynaktan.
+  const { bullishCount, bearishCount, neutralCount, haveForecasts } = useMemo(() => {
+    let bull = 0, bear = 0, neutral = 0, have = 0;
     for (const inst of instruments) {
-      const dir = forecasts[inst.ticker]?.forecast?.direction;
-      if (!dir) continue;
+      const forecast = forecasts[inst.ticker]?.forecast;
+      if (!forecast) continue;
       have++;
+      const dir = displayDirection(forecast);
       if (dir === "bullish") bull++;
       else if (dir === "bearish") bear++;
+      else neutral++;
     }
-    return { bullishCount: bull, bearishCount: bear, haveForecasts: have };
+    return { bullishCount: bull, bearishCount: bear, neutralCount: neutral, haveForecasts: have };
   }, [instruments, forecasts]);
 
-  const total = instruments.length;
   const sentiment = bearishCount > bullishCount ? "off" : bullishCount > bearishCount ? "on" : "mixed";
   const sentimentColor = sentiment === "on" ? "#22c55e" : sentiment === "off" ? "#f85149" : "#94a3b8";
   const sentimentLabel = sentiment === "on" ? c.riskOn : sentiment === "off" ? c.riskOff : c.riskMixed;
   const { relative, clock } = formatRelativeUpdate(lastUpdatedMs, locale);
+
+  // Sahte sayı basmamak için minimum örneklem — bkz. app/api/forecast-accuracy.
+  const MIN_ACCURACY_SAMPLE = 5;
+  const showAccuracy = !!accuracy && accuracy.hitRate != null && accuracy.sampleSize >= MIN_ACCURACY_SAMPLE;
 
   function toggleExpand(ticker: string) {
     if (expandedTicker === ticker) {
@@ -286,7 +369,7 @@ export default function LiveAssetTable({
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: sentimentColor }} />
           <span className="text-xs font-semibold" style={{ color: sentimentColor }}>{sentimentLabel}</span>
           {haveForecasts > 0 && (
-            <span className="text-xs text-white/40">· {c.upCount(bullishCount, total)}</span>
+            <span className="text-xs text-white/40">· {c.tripleCount(bullishCount, bearishCount, neutralCount)}</span>
           )}
         </div>
         <span className="text-[10px] text-white/30 tabular-nums">
@@ -296,7 +379,7 @@ export default function LiveAssetTable({
 
       {/* Sıralama kontrolü — varsayılan: en güçlü sinyalden en zayıfa (bkz. lib/hourlyForecast.ts) */}
       <div className="flex items-center gap-2 mb-2 px-1">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">{c.sortLabel}</span>
+        <span className="text-[10px] font-bold tracking-wider text-white/40">{localeUpperCase(c.sortLabel, locale)}</span>
         <div className="flex gap-1">
           {([
             ["strength", c.sortStrength],
@@ -320,13 +403,13 @@ export default function LiveAssetTable({
 
       <div className="rounded-2xl border border-[#1e2a3a] overflow-hidden">
         {/* Header row — sadece masaüstünde */}
-        <div className="hidden md:grid grid-cols-[1.2fr_0.8fr_0.6fr_0.6fr_0.9fr_1.2fr_auto] gap-3 px-5 py-2.5 bg-[#0d131f] text-[10px] font-bold uppercase tracking-wider text-white/40">
-          <span>{c.instrument}</span>
-          <span className="text-right">{c.price}</span>
-          <span className="text-right">{c.change}</span>
-          <span className="text-right">{c.change1h}</span>
-          <span>{c.chart}</span>
-          <span>{c.forecast}</span>
+        <div className="hidden md:grid grid-cols-[1.2fr_0.8fr_0.6fr_0.6fr_0.9fr_1.2fr_auto] gap-3 px-5 py-2.5 bg-[#0d131f] text-[10px] font-bold tracking-wider text-white/40">
+          <span>{localeUpperCase(c.instrument, locale)}</span>
+          <span className="text-right">{localeUpperCase(c.price, locale)}</span>
+          <span className="text-right">{localeUpperCase(c.change, locale)}</span>
+          <span className="text-right">{localeUpperCase(c.change1h, locale)}</span>
+          <span>{localeUpperCase(c.chart, locale)}</span>
+          <span>{localeUpperCase(c.forecast, locale)}</span>
           <span />
         </div>
 
@@ -339,9 +422,12 @@ export default function LiveAssetTable({
             const isExpanded = expandedTicker === inst.ticker;
             const fc = forecasts[inst.ticker];
             const range = RANGE_CONFIG[rangeTab];
-            const sparkColor = fc?.forecast
-              ? fc.forecast.direction === "bullish" ? "#22c55e" : fc.forecast.direction === "bearish" ? "#f85149" : "#64748b"
-              : "#64748b";
+            // Sparkline rengi de GÖSTERİLEN yöne göre (displayDirection) —
+            // ham model yönüne göre boyarsak düşük güvenli/yönsüz bir
+            // tahmin yeşil/kırmızı gösterip yanıltabilir.
+            const shownDir = fc?.forecast ? displayDirection(fc.forecast) : null;
+            const sparkColor = shownDir === "bullish" ? "#22c55e" : shownDir === "bearish" ? "#f85149" : "#64748b";
+            const change1hNoise = isChange1hNoise(fc?.change1h);
             const change1hPositive = (fc?.change1h ?? 0) >= 0;
 
             return (
@@ -362,12 +448,12 @@ export default function LiveAssetTable({
                   <span className={`hidden md:inline text-sm font-mono font-semibold text-right ${positive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
                     {fmtChange(q?.change_1d)}
                   </span>
-                  <span className={`hidden md:inline text-sm font-mono font-semibold text-right ${change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
-                    {fmtChange(fc?.change1h)}
+                  <span className={`hidden md:inline text-sm font-mono font-semibold text-right ${change1hNoise ? "!text-white/30" : change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
+                    {fmtChange1h(fc?.change1h)}
                   </span>
                   <span className="hidden md:flex items-center">
                     {fc?.closes?.length ? (
-                      <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={64} height={24} />
+                      <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={64} height={24} fillOpacity={0.12} />
                     ) : (
                       <span className="text-[10px] text-white/20">…</span>
                     )}
@@ -386,13 +472,13 @@ export default function LiveAssetTable({
                 {/* Mobilde ikinci satır: 24s / 1s / saatlik yön — kart değil, aynı satır grubunun devamı */}
                 <div className="md:hidden px-4 pb-2.5 -mt-1 flex items-center gap-3">
                   {fc?.closes?.length ? (
-                    <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={40} height={18} />
+                    <Sparkline data={fc.closes.slice(-24)} color={sparkColor} width={40} height={18} fillOpacity={0.12} />
                   ) : null}
                   <span className={`text-xs font-mono font-semibold ${positive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
                     {c.change} {fmtChange(q?.change_1d)}
                   </span>
-                  <span className={`text-xs font-mono font-semibold ${change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
-                    {c.change1h} {fmtChange(fc?.change1h)}
+                  <span className={`text-xs font-mono font-semibold ${change1hNoise ? "!text-white/30" : change1hPositive ? "!text-[#3fb950]" : "!text-[#f85149]"}`}>
+                    {c.change1h} {fmtChange1h(fc?.change1h)}
                   </span>
                   <span className="ml-auto">
                     <HourlyForecastBadge
@@ -424,9 +510,9 @@ export default function LiveAssetTable({
                       </div>
                       <Link
                         href={`/global/${locale}/graphic/${inst.ticker}`}
-                        className="text-[10px] font-semibold uppercase tracking-wider text-[#3b82f6] hover:text-[#60a5fa] transition-colors whitespace-nowrap"
+                        className="text-[10px] font-semibold tracking-wider text-[#3b82f6] hover:text-[#60a5fa] transition-colors whitespace-nowrap"
                       >
-                        {c.openFull}
+                        {localeUpperCase(c.openFull, locale)}
                       </Link>
                     </div>
                     <div className="rounded-xl overflow-hidden border border-[#1e2a3a]">
@@ -440,6 +526,11 @@ export default function LiveAssetTable({
                         defaultTimeframe={range.timeframe}
                         compactWindowDays={range.windowDays}
                         premiumGate={false}
+                        // Mini akordiyon grafiğin varsayılanı ema50+volume idi —
+                        // 2026-08-20 kullanıcı geri bildirimi: alttaki boş hacim
+                        // paneli ("0" etiketli) mini görünümde gereksiz, kaldır ki
+                        // grafik nefes alsın. EMA50 çizgisi kalsın, sadece hacim gitsin.
+                        indicators={["ema50"]}
                       />
                     </div>
                   </div>
@@ -449,6 +540,17 @@ export default function LiveAssetTable({
           })}
         </div>
       </div>
+
+      {/* Gerçek, biriktirilen isabet oranı — asıl farklılaştırıcı (bkz.
+         app/api/forecast-accuracy). Yeterli örneklem birikmeden gösterilmez;
+         sahte/tahmini bir sayı basmıyoruz. */}
+      {showAccuracy && accuracy && (
+        <div className="px-4 py-2.5 mt-2 rounded-xl bg-[#0d131f] border border-[#1e2a3a]">
+          <span className="text-[11px] text-white/40 tabular-nums">
+            {c.accuracyLabel(Math.round(accuracy.hitRate! * 100), accuracy.sampleSize)}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
