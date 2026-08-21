@@ -1,36 +1,44 @@
 {
-  "date": "2026-08-18",
-  "generated_at": "2026-08-18T17:06:02.862189-04:00",
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T14:06:20.320208-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 49,
+  "active_scores_count": 38,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "AME",
-        "VICR",
-        "HSIC",
-        "GLBE",
-        "NVDA",
-        "GIS",
-        "INOD",
-        "SOLV",
-        "DINO",
-        "LECO"
+        "OKE",
+        "BBIO",
+        "VTR",
+        "ARES",
+        "CLMT",
+        "CRM",
+        "RIG",
+        "HOOD",
+        "TEVA",
+        "UGI"
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 16,
       "tickers": [
-        "SOLV",
-        "R",
-        "IESC",
-        "FSM",
-        "F",
+        "OKE",
+        "BBIO",
+        "CLMT",
+        "CRM",
+        "HOOD",
+        "TEVA",
+        "NTRA",
+        "CPB",
+        "TTEK",
+        "TTAN",
         "CART",
-        "BRZE",
-        "CRGY"
+        "DRI",
+        "F",
+        "B",
+        "KMX",
+        "OSCR"
       ]
     },
     "value": {
@@ -52,18 +60,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "AME",
+      "ticker": "OKE",
       "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "VICR",
-      "score": 51.5,
+      "ticker": "BBIO",
+      "score": 46.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HSIC",
-      "score": 56.0,
+      "ticker": "VTR",
+      "score": 46.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

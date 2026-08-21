@@ -14,6 +14,7 @@ import json
 import logging
 import os
 import subprocess
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -65,6 +66,29 @@ GIT_PATHS = [
     "frontend/public/data/swing2026/",
 ]
 
+# 2026-08-18 17:00'dan sonra .git/index.lock siki­sip kalinca bu script (ve
+# ayni sorunu yasayan run_performance_hourly.py) sessizce her saat basarisiz
+# oldu — sadece log'a WARNING yaziyordu, Telegram da kapali oldugu icin kimse
+# fark etmedi. GIT_LOCK_STALE_SEC'ten daha eski bir index.lock, normal bir
+# commit/push suresinden cok daha uzun demektir; yani neredeyse kesin yarida
+# kesilmis/çökmüs bir git surecinden kalma yetim kilittir ve güvenle silinip
+# tek seferlik yeniden denenebilir.
+GIT_LOCK_PATH = os.path.join(FINMA_DIR, ".git", "index.lock")
+GIT_LOCK_STALE_SEC = 120
+
+
+def _clear_stale_lock() -> bool:
+    try:
+        if os.path.exists(GIT_LOCK_PATH):
+            age = time.time() - os.path.getmtime(GIT_LOCK_PATH)
+            if age > GIT_LOCK_STALE_SEC:
+                os.remove(GIT_LOCK_PATH)
+                log.warning(f"Sikismis .git/index.lock temizlendi (yasi {age:.0f}s), yeniden deneniyor.")
+                return True
+    except Exception as e:
+        log.warning(f"Kilit temizleme denemesi basarisiz: {e}")
+    return False
+
 
 def send_telegram(message: str):
     if not ENABLE_TELEGRAM:
@@ -87,7 +111,11 @@ def send_telegram(message: str):
 
 
 def run_git(args):
-    return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True)
+    result = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True)
+    if result.returncode != 0 and "index.lock" in (result.stderr or ""):
+        if _clear_stale_lock():
+            result = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True)
+    return result
 
 
 def pool_counts():

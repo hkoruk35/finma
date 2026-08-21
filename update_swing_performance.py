@@ -4,6 +4,7 @@ import os
 import yfinance as yf
 from datetime import datetime, timedelta
 import time
+from zoneinfo import ZoneInfo
 
 MOJIBAKE_FIXES = {'â€"': '–', 'â€™': ''', 'â€˜': ''', 'â€œ': '"', 'â€¦': '…'}
 
@@ -33,6 +34,9 @@ def fetch_ticker_meta(ticker: str) -> dict:
 performance_file = 'frontend/public/swing_performance.json'
 picks_file = 'frontend/public/swing_all_picks.json'
 log_file = 'logs/performance_update.log'
+FULL_SIM_MARKER_FILE = 'logs/performance_last_full_sim.txt'
+CLOSE_HOUR_NY = 16  # NY kapanisi (16:00 ET) - acik pozisyonlar sadece bu saatten
+                    # sonraki ilk calismada, gunde 1 kez fiyatlanir
 
 os.makedirs('logs', exist_ok=True)
 
@@ -220,22 +224,46 @@ def update_performance():
             except Exception as e:
                 log(f"Metadata backfill error for {ticker}: {e}")
 
-    # 1. Tüm kayıtları yeni kurallarla (90g max, 60g pencere, min %10 SL, %5 kazanç)
-    #    baştan simüle et — sadece PENDING değil, tamamlanmış kayıtlar da yeniden hesaplanır.
-    all_tickers = list(set(r['ticker'] for r in history))
-    earliest_entry = min(datetime.strptime(r['date'], '%Y-%m-%d') for r in history)
-    # EMA50'nin sağlıklı hesaplanması için giriş tarihinden ~150 gün öncesine kadar veri çek
-    start_date = (earliest_entry - timedelta(days=150)).strftime('%Y-%m-%d')
-    end_date = (today + timedelta(days=1)).strftime('%Y-%m-%d')
+    # 1. SADECE HENUZ SONUCLANMAMIS (PENDING/NO_DATA) kayitlari simule et.
+    #    WIN/LOSS bir kez belirlendiginde o islem BIR DAHA ASLA yeniden hesaplanmaz:
+    #    sonuc zaten giris-cikis tarihleri arasindaki (degismeyen) tarihsel fiyat
+    #    verisine bagli — tekrar hesaplamak yfinance trafigi ve CPU israfindan
+    #    baska bir sey katmiyor (2026-08-21, kullanici talebi).
+    #    Acik pozisyonlar da gun icinde saat basi degil, sadece NY kapanisindan
+    #    (16:00 ET) sonraki ILK calismada, gunde 1 kez fiyatlanir — bunun icin
+    #    FULL_SIM_MARKER_FILE isaretci dosyasi kullaniliyor.
+    open_records = [r for r in history if r.get('result') in (None, 'PENDING', 'NO_DATA')]
+    closed_count = len(history) - len(open_records)
+    if closed_count:
+        log(f"{closed_count} sonuclanmis (WIN/LOSS) kayit atlandi, yeniden hesaplanmadi.")
 
-    if not all_tickers:
-        log("No trades to simulate.")
+    now_ny = datetime.now(ZoneInfo("America/New_York"))
+    today_ny_str = now_ny.strftime('%Y-%m-%d')
+    already_ran_today = False
+    try:
+        with open(FULL_SIM_MARKER_FILE, 'r', encoding='utf-8') as f:
+            already_ran_today = f.read().strip() == today_ny_str
+    except FileNotFoundError:
+        pass
+
+    should_run_full_sim = now_ny.hour >= CLOSE_HOUR_NY and not already_ran_today
+
+    if not open_records:
+        log("No open trades to simulate.")
+    elif not should_run_full_sim:
+        log(f"Acik pozisyon fiyatlamasi atlandi (NY {now_ny.strftime('%H:%M')}) — sadece kapanistan (16:00) sonra gunde 1 kez calisir.")
     else:
-        log(f"Simulating {len(history)} records across {len(all_tickers)} tickers...")
+        all_tickers = list(set(r['ticker'] for r in open_records))
+        earliest_entry = min(datetime.strptime(r['date'], '%Y-%m-%d') for r in open_records)
+        # EMA50'nin sağlıklı hesaplanması için giriş tarihinden ~150 gün öncesine kadar veri çek
+        start_date = (earliest_entry - timedelta(days=150)).strftime('%Y-%m-%d')
+        end_date = (today + timedelta(days=1)).strftime('%Y-%m-%d')
+
+        log(f"Simulating {len(open_records)} open records across {len(all_tickers)} tickers...")
         try:
             prices_df = yf.download(all_tickers, start=start_date, end=end_date, interval="1d", group_by='ticker', threads=True, progress=False)
 
-            for record in history:
+            for record in open_records:
                 ticker = record['ticker']
                 try:
                     if len(all_tickers) == 1:
@@ -258,6 +286,12 @@ def update_performance():
                     log(f"Error simulating {ticker}: {str(e)}")
         except Exception as e:
             log(f"Bulk download failed: {str(e)}")
+
+        try:
+            with open(FULL_SIM_MARKER_FILE, 'w', encoding='utf-8') as f:
+                f.write(today_ny_str)
+        except Exception as e:
+            log(f"Marker dosyasi yazilamadi: {e}")
 
     # 2. Add NEW picks if any (with 5-day rule)
     if os.path.exists(picks_file):

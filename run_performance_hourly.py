@@ -7,6 +7,7 @@ Amacı: Hem swing hem de options P&L durumlarını güncelleyip GitHub'a pushlam
 import logging
 import os
 import subprocess
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -31,8 +32,36 @@ log = logging.getLogger("performance_hourly")
 
 VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
 
+# 2026-08-18 17:00'dan sonra .git/index.lock sikisip kalinca bu script (ve
+# ayni sorunu yasayan run_swing_hourly.py) sessizce her saat basarisiz oldu —
+# sadece log'a ERROR yaziyordu, kimseye bildirim gitmedi. GIT_LOCK_STALE_SEC'ten
+# daha eski bir index.lock, normal bir commit/push suresinden cok daha uzun
+# demektir; yani neredeyse kesin yarida kesilmis/çökmüs bir git surecinden
+# kalma yetim kilittir ve güvenle silinip tek seferlik yeniden denenebilir.
+GIT_LOCK_PATH = os.path.join(FINMA_DIR, ".git", "index.lock")
+GIT_LOCK_STALE_SEC = 120
+
+
+def _clear_stale_lock() -> bool:
+    try:
+        if os.path.exists(GIT_LOCK_PATH):
+            age = time.time() - os.path.getmtime(GIT_LOCK_PATH)
+            if age > GIT_LOCK_STALE_SEC:
+                os.remove(GIT_LOCK_PATH)
+                log.warning(f"Sikismis .git/index.lock temizlendi (yasi {age:.0f}s), yeniden deneniyor.")
+                return True
+    except Exception as e:
+        log.warning(f"Kilit temizleme denemesi basarisiz: {e}")
+    return False
+
+
 def run_git(args):
-    return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+    try:
+        return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as e:
+        if "index.lock" in (e.stderr or "") and _clear_stale_lock():
+            return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+        raise
 
 def main():
     now_ny = datetime.now(NY_TZ)
