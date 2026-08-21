@@ -217,6 +217,23 @@ type CandleType = (typeof CANDLE_TYPES)[number];
 const VP_MARGIN_BARS = 16;
 const DEFAULT_RIGHT_OFFSET = 5;
 
+// ── Panel (pane) boyutlandirma ──────────────────────────────────────────────────
+// lightweight-charts'ta pane.setHeight(px) GUVENILIR DEGIL: kutuphane pane
+// layout'unu asenkron hesapliyor, biz cagirdigimiz anda panellerin yuksekligi
+// henuz [tamYukseklik, 0, 0] durumunda oluyor ve verdigimiz piksel degerleri
+// sessizce cope gidiyor. Playwright ile birebir olculdu (600px grafik,
+// ana + hacim + RSI): setHeight ile sonuc 462/27/81 — yani hacim 27px'e
+// eziliyor, RSI de goze carpmayan bir seride kaliyordu. setStretchFactor ise
+// ORANSAL ve kalici; paneller eklenip cikarildikca dogru yeniden dagiliyor
+// (ayni olcumde 368/123/79, tekrarlanan render'larda da sabit kaldi).
+const PANE_STRETCH_MAIN = 6;
+const PANE_STRETCH_VOLUME = 2;
+const PANE_STRETCH_VOLUME_COMPACT = 3;
+const PANE_STRETCH_INDICATOR = 1.3;
+// Gizli panel tamamen kaldirilamiyor; orani sifira yaklastirip yer kaplamasini
+// engelliyoruz (0 gecerli degil, 0.0001 ~2px veriyor).
+const PANE_STRETCH_HIDDEN = 0.0001;
+
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 // Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
@@ -760,15 +777,13 @@ export default function BogaChartEngine({
           bottom: 0,
         },
       });
-      const baseHeight = height ?? 400;
-      // Panelin kendisi de büyüdü — eskiden ana grafiğin ~%20'si (masaüstü)
-      // / ~%30'u (kompakt) kadardı, şimdi ~%30 / ~%38 — hacim artık göze
-      // çarpan, "yaşıyor" hissi veren bir öge, arka planda kaybolan ince bir
-      // şerit değil.
-      const volumePaneHeight = compact
-        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
-        : Math.max(110, Math.round(baseHeight * 0.3));
-      chart.panes()[1]?.setHeight(volumePaneHeight);
+      // Yukseklik artik piksel yerine oranla veriliyor (bkz. PANE_STRETCH_*).
+      // Hacim, ana grafigin yaninda goze carpan bir oge olsun diye belirgin
+      // bir pay aliyor — Robinhood ornegindeki gibi.
+      chart.panes()[0]?.setStretchFactor(PANE_STRETCH_MAIN);
+      chart.panes()[1]?.setStretchFactor(
+        compact ? PANE_STRETCH_VOLUME_COMPACT : PANE_STRETCH_VOLUME
+      );
       volumeSeriesRef.current = volumeSeries;
     }
 
@@ -987,24 +1002,20 @@ export default function BogaChartEngine({
         }))
       );
       volumeSeries.applyOptions({ visible: active.has("volume") });
-      // 2026-08-20 KÖK NEDEN: bu setHeight çağrısı eskiden SADECE grafik
-      // oluşturulurken (mount'ta, [] dep'li effect içinde) bir kere
-      // çalışıyordu. RSI/MACD/ATR/OBV/Volatilite panelleri ise kendi
-      // setHeight(90) çağrılarını HER renderAll'da tekrar yapıyor. Yeni bir
-      // pane (örn. RSI) sonradan eklendiğinde lightweight-charts panellerin
-      // göreli yüksekliğini yeniden dağıtıyor ve sadece "bir kere" ayarlanan
-      // hacim paneli bu yeniden dağıtımda küçülüp kalıyordu (canlıda 180px
-      // yerine ~27px'e düşüyordu) — kullanıcının "hacim hâlâ çok küçük"
-      // bildirdiği asıl sebep buydu. Burada da (her veri yenilemesinde)
-      // tekrar uyguluyoruz ki RSI/diğer panelller eklenince küçülmesin.
-      const baseHeight = height ?? 400;
-      const volumePaneHeight = compact
-        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
-        : Math.max(110, Math.round(baseHeight * 0.3));
-      chart.panes()[1]?.setHeight(volumePaneHeight);
     }
 
-    requestAnimationFrame(() => setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null));
+    // Pane yukseklikleri asenkron oturuyor (yukaridaki PANE_STRETCH_* notu):
+    // tek bir rAF okumasi cogu zaman henuz layout olmamis degeri donuyor ve
+    // filigran yanlis yere konumlaniyordu. Once hemen, sonra kisa araliklarla
+    // tekrar okuyoruz. rAF yerine setTimeout, cunku arka plandaki sekmelerde
+    // rAF hic tetiklenmiyor.
+    const readMainPaneHeight = () => {
+      if (chartRef.current !== chart) return;
+      setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null);
+    };
+    readMainPaneHeight();
+    setTimeout(readMainPaneHeight, 60);
+    setTimeout(readMainPaneHeight, 300);
 
     const ind = data.indicators || {};
     const toPoints = (arr: unknown) =>
@@ -1051,23 +1062,10 @@ export default function BogaChartEngine({
     }
 
     let nextPaneIdx = 2;
-    // 2026-08-21 KÖK NEDEN (RSI "seçili ama görünmüyor" bildirimi): her yeni
-    // pane eklendiğinde (RSI/MACD/ATR/OBV/Volatilite) lightweight-charts TÜM
-    // pane yükseklikerini yeniden dağıtıyor — bu da birkaç satır yukarıda,
-    // bu renderAll'un DAHA ÖNCE ayarladığı hacim panelinin yüksekliğini
-    // geçersiz kılıyordu (canlıda ölçüldü: 180px yerine yine ~27px'e
-    // düşüyordu, RSI ise SONRADAN eklenip kendi setHeight'ini son çağıran
-    // olduğu için ~83-90px'te kalıp görece "şanslı" kalıyordu — ikisi
-    // birlikte 600px'lik grafiğin dibinde öyle sıkışıyordu ki RSI çizgisi
-    // gözden kaçıyordu). Çözüm: her panelin hedef yüksekliğini oluşturma
-    // sırasında bir listeye topla, TÜMÜ oluşturulduktan SONRA tek seferde
-    // (hacim dahil) kesin olarak uygula.
-    const bottomPaneHeights: { idx: number; height: number }[] = [];
 
     if (active.has("rsi") && ind.rsi) {
       const series = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.rsi) || []);
-      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.rsi = [series];
       nextPaneIdx++;
     }
@@ -1078,7 +1076,6 @@ export default function BogaChartEngine({
       macdLine.setData(toPoints(m.macd) || []);
       const signalLine = chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
       signalLine.setData(toPoints(m.signal) || []);
-      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.macd = [macdLine, signalLine];
       nextPaneIdx++;
     }
@@ -1086,7 +1083,6 @@ export default function BogaChartEngine({
     if (active.has("atr") && ind.atr) {
       const series = chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.atr) || []);
-      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.atr = [series];
       nextPaneIdx++;
     }
@@ -1094,7 +1090,6 @@ export default function BogaChartEngine({
     if (active.has("obv") && ind.obv) {
       const series = chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.obv) || []);
-      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.obv = [series];
       nextPaneIdx++;
     }
@@ -1102,35 +1097,35 @@ export default function BogaChartEngine({
     if (active.has("volatilite") && ind.volatilite) {
       const series = chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.volatilite) || []);
-      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.volatilite = [series];
       nextPaneIdx++;
     }
 
-    // Final pass — artık bu render'da oluşturulacak TÜM panel sayısı belli,
-    // hepsinin (hacim + göstergeler) yüksekliğini şimdi kesin olarak
-    // uyguluyoruz. 2026-08-21: senkron çağrı canlıda hâlâ eziliyordu — demek
-    // ki lightweight-charts pane yeniden-dağıtımını bir SONRAKİ paint/layout
-    // adımında (senkron olmayan) yapıyor. Bu yüzden burada da requestAnimation
-    // Frame'e erteliyoruz ki bizim çağrımız kütüphanenin kendi iç yeniden
-    // dağıtımından SONRA çalışsın ve kalıcı olsun (çift rAF: bazı tarayıcı/
-    // kütüphane kombinasyonlarında tek rAF bile kütüphanenin dahili
-    // layout'undan önce çalışabiliyor).
-    const applyFinalPaneHeights = () => {
-      if (chartRef.current !== chart) return; // bu arada grafik yeniden kuruldu/kaldırıldıysa dokunma
-      if (volumeSeries) {
-        const baseHeight = height ?? 400;
-        const volumePaneHeight = compact
-          ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
-          : Math.max(110, Math.round(baseHeight * 0.3));
-        chart.panes()[1]?.setHeight(volumePaneHeight);
-      }
-      for (const { idx, height: paneHeight } of bottomPaneHeights) {
-        chart.panes()[idx]?.setHeight(paneHeight);
-      }
-    };
-    applyFinalPaneHeights();
-    requestAnimationFrame(() => requestAnimationFrame(applyFinalPaneHeights));
+    // ── Panel oranlarini uygula ─────────────────────────────────────────
+    // GERCEK pane listesi uzerinden POZISYONEL calisir. Sabit index'e
+    // guvenilemez: lightweight-charts, var olmayan bir pane index'ine seri
+    // eklenirse onu mevcut son pane'e kirpiyor — hacim paneli kapaliyken RSI
+    // index 2 yerine index 1'e dusuyor, dolayisiyla "index 2'yi boyutlandir"
+    // demek yanlis/olmayan paneli hedefliyordu (olculdu).
+    const panes = chart.panes();
+    panes[0]?.setStretchFactor(PANE_STRETCH_MAIN);
+    let paneCursor = 1;
+    if (volumeSeries) {
+      // Hacim kapatildiginda seri gizleniyor ama paneli yer kaplamaya devam
+      // ediyordu (olculdu: 143px'lik bos bant). Gizliyken orani sifira
+      // yaklastirip o boslugu kapatiyoruz.
+      panes[1]?.setStretchFactor(
+        active.has("volume")
+          ? compact
+            ? PANE_STRETCH_VOLUME_COMPACT
+            : PANE_STRETCH_VOLUME
+          : PANE_STRETCH_HIDDEN
+      );
+      paneCursor = 2;
+    }
+    for (let i = paneCursor; i < panes.length; i++) {
+      panes[i]?.setStretchFactor(PANE_STRETCH_INDICATOR);
+    }
 
     if (active.has("fvg") && ind.fvg) {
       const zones = ind.fvg as { top: number; bottom: number; type: string }[];
