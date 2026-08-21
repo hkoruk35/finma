@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-08-21T14:03:44.185479-04:00",
+  "generated_at": "2026-08-21T17:03:50.918266-04:00",
   "picks": [
     {
       "ticker": "NTR",
       "sector": "Basic Materials",
       "date_added": "2026-08-19",
       "score": 51.5
-    },
-    {
-      "ticker": "ARES",
-      "sector": "Financial Services",
-      "date_added": "2026-08-19",
-      "score": 42.5
     },
     {
       "ticker": "SCCO",
@@ -24,18 +18,6 @@
       "sector": "Basic Materials",
       "date_added": "2026-08-20",
       "score": 43.0
-    },
-    {
-      "ticker": "GOLD",
-      "sector": "Financial Services",
-      "date_added": "2026-08-20",
-      "score": 42.0
-    },
-    {
-      "ticker": "BRKR",
-      "sector": "Healthcare",
-      "date_added": "2026-08-20",
-      "score": 35.0
     },
     {
       "ticker": "J",
@@ -56,24 +38,6 @@
       "score": 37.0
     },
     {
-      "ticker": "VLTO",
-      "sector": "Industrials",
-      "date_added": "2026-08-21",
-      "score": 42.5
-    },
-    {
-      "ticker": "SPGI",
-      "sector": "Financial Services",
-      "date_added": "2026-08-21",
-      "score": 39.5
-    },
-    {
-      "ticker": "TTWO",
-      "sector": "Communication Services",
-      "date_added": "2026-08-21",
-      "score": 34.5
-    },
-    {
       "ticker": "GM",
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-21",
@@ -92,10 +56,28 @@
       "score": 40.5
     },
     {
-      "ticker": "CTAS",
+      "ticker": "COR",
+      "sector": "Healthcare",
+      "date_added": "2026-08-21",
+      "score": 50.5
+    },
+    {
+      "ticker": "GOLD",
+      "sector": "Financial Services",
+      "date_added": "2026-08-21",
+      "score": 50.0
+    },
+    {
+      "ticker": "OII",
+      "sector": "Energy",
+      "date_added": "2026-08-21",
+      "score": 46.5
+    },
+    {
+      "ticker": "TRI",
       "sector": "Industrials",
       "date_added": "2026-08-21",
-      "score": 40.5
+      "score": 41.0
     }
   ]
 }
