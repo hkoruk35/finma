@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "PSNL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 16.66,
+        "entry_zone": "16.27 - 17.05",
+        "SL": 15.1,
+        "TP": 19.77
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "CRSP",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 59.53,
+        "entry_zone": "58.31 - 60.76",
+        "SL": 54.63,
+        "TP": 69.34
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "WPM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 150.51,
+        "entry_zone": "147.60 - 153.43",
+        "SL": 138.85,
+        "TP": 173.85
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "MRK",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 151.67,
+        "entry_zone": "149.46 - 153.88",
+        "SL": 142.84,
+        "TP": 169.33
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "EDIT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 3.2,
+        "entry_zone": "3.10 - 3.30",
+        "SL": 2.82,
+        "TP": 3.97
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "AU",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 113.73,
+        "entry_zone": "111.25 - 116.21",
+        "SL": 103.82,
+        "TP": 133.54
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "EL",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 97.76,
+        "entry_zone": "96.00 - 99.52",
+        "SL": 90.72,
+        "TP": 111.84
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "BNTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 111.06,
+        "entry_zone": "108.78 - 113.34",
+        "SL": 101.94,
+        "TP": 129.31
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "COTY",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 2.83,
+        "entry_zone": "2.73 - 2.92",
+        "SL": 2.46,
+        "TP": 3.55
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 64.07,
+        "entry_zone": "62.07 - 66.07",
+        "SL": 56.06,
+        "TP": 80.08
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "SRPT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 18.83,
+        "entry_zone": "18.35 - 19.30",
+        "SL": 16.94,
+        "TP": 22.6
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "MRVL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 241.56,
+        "entry_zone": "233.04 - 250.08",
+        "SL": 207.48,
+        "TP": 309.73
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "ILMN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 216.76,
+        "entry_zone": "212.46 - 221.06",
+        "SL": 199.56,
+        "TP": 251.17
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "COIN",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 171.63,
+        "entry_zone": "167.57 - 175.69",
+        "SL": 155.39,
+        "TP": 204.11
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "ABSI",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 9.87,
+        "entry_zone": "9.56 - 10.18",
+        "SL": 8.63,
+        "TP": 12.36
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "MSTR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 113.08,
+        "entry_zone": "110.18 - 115.98",
+        "SL": 101.5,
+        "TP": 136.25
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "AGRO",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 11.11,
+        "entry_zone": "10.88 - 11.34",
+        "SL": 10.19,
+        "TP": 12.94
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.93,
+        "entry_zone": "38.60 - 41.26",
+        "SL": 34.6,
+        "TP": 50.6
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "NVAX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 8.31,
+        "entry_zone": "8.13 - 8.49",
+        "SL": 7.59,
+        "TP": 9.76
+    },
+    {
+        "date": "2026-08-20 12:00",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 139.58,
+        "entry_zone": "132.58 - 146.58",
+        "SL": 111.58,
+        "TP": 195.59
+    }
+]

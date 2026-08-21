@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "LLY",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 1287.68,
+        "entry_zone": "1264.77 - 1310.59",
+        "SL": 1196.04,
+        "TP": 1470.96
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "MRK",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 150.09,
+        "entry_zone": "148.01 - 152.16",
+        "SL": 141.79,
+        "TP": 166.67
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "DHT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 19.57,
+        "entry_zone": "19.26 - 19.88",
+        "SL": 18.33,
+        "TP": 22.06
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "ABT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 114.68,
+        "entry_zone": "113.43 - 115.93",
+        "SL": 109.67,
+        "TP": 124.7
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "AGRO",
+        "sector": "Consumer Defensive",
+        "action": "CLOSE",
+        "price": 10.34,
+        "entry_zone": "10.11 - 10.57",
+        "SL": 9.41,
+        "TP": 12.2
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "GILD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 148.43,
+        "entry_zone": "146.36 - 150.49",
+        "SL": 140.16,
+        "TP": 164.95
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 14.31,
+        "entry_zone": "13.86 - 14.76",
+        "SL": 12.51,
+        "TP": 17.91
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "TRGP",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 294.44,
+        "entry_zone": "290.02 - 298.86",
+        "SL": 276.77,
+        "TP": 329.77
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "ACAD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 30.6,
+        "entry_zone": "30.07 - 31.13",
+        "SL": 28.49,
+        "TP": 34.82
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "SLDE",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 22.5,
+        "entry_zone": "22.14 - 22.86",
+        "SL": 21.04,
+        "TP": 25.41
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "RMAX",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 13.8,
+        "entry_zone": "13.46 - 14.14",
+        "SL": 12.44,
+        "TP": 16.52
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "NWSA",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 29.41,
+        "entry_zone": "29.01 - 29.80",
+        "SL": 27.82,
+        "TP": 32.58
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "DFTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 45.72,
+        "entry_zone": "44.22 - 47.23",
+        "SL": 39.69,
+        "TP": 57.79
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 37.41,
+        "entry_zone": "36.18 - 38.64",
+        "SL": 32.48,
+        "TP": 47.27
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "ABBV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 265.28,
+        "entry_zone": "262.17 - 268.39",
+        "SL": 252.82,
+        "TP": 290.2
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "SONO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 15.95,
+        "entry_zone": "15.59 - 16.31",
+        "SL": 14.52,
+        "TP": 18.81
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 400.94,
+        "entry_zone": "396.04 - 405.84",
+        "SL": 381.35,
+        "TP": 440.13
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 105.64,
+        "entry_zone": "102.76 - 108.52",
+        "SL": 94.12,
+        "TP": 128.67
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "S",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 21.74,
+        "entry_zone": "21.24 - 22.23",
+        "SL": 19.75,
+        "TP": 25.71
+    },
+    {
+        "date": "2026-08-19 10:01",
+        "symbol": "KMI",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 32.62,
+        "entry_zone": "32.31 - 32.94",
+        "SL": 31.37,
+        "TP": 35.12
+    }
+]

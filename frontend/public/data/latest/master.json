@@ -1,8 +1,8 @@
 {
   "date": "2026-08-20",
-  "generated_at": "2026-08-20T14:06:20.320208-04:00",
+  "generated_at": "2026-08-20T17:07:14.074418-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 38,
+  "active_scores_count": 42,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 16,
+      "count": 15,
       "tickers": [
         "OKE",
         "BBIO",
@@ -29,16 +29,15 @@
         "CRM",
         "HOOD",
         "TEVA",
-        "NTRA",
         "CPB",
         "TTEK",
-        "TTAN",
         "CART",
-        "DRI",
         "F",
         "B",
         "KMX",
-        "OSCR"
+        "OSCR",
+        "FNV",
+        "RIO"
       ]
     },
     "value": {

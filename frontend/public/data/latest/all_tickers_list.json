@@ -71,12 +71,12 @@
       "ticker": "RIG",
       "company": "RIG",
       "sector": "Energy",
-      "master_score": 66.0,
+      "master_score": 63.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 5.840000152587891,
-      "change_pct": 0.34,
+      "price": 6.010000228881836,
+      "change_pct": 2.91,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 66.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
     },
     {
       "ticker": "HOOD",
@@ -137,12 +137,12 @@
       "ticker": "NTRA",
       "company": "NTRA",
       "sector": "Healthcare",
-      "master_score": 51.5,
+      "master_score": 53.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 325.07000732421875,
-      "change_pct": 4.29,
+      "price": 324.8399963378906,
+      "change_pct": -0.07,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
     },
     {
       "ticker": "MTCH",
@@ -258,34 +258,34 @@
       "ticker": "TTAN",
       "company": "TTAN",
       "sector": "Technology",
-      "master_score": 58.0,
+      "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 95.0199966430664,
-      "change_pct": 4.29,
+      "price": 92.56999969482422,
+      "change_pct": -2.58,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
     },
     {
       "ticker": "CART",
       "company": "CART",
       "sector": "Consumer Cyclical",
-      "master_score": 57.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 50.66999816894531,
-      "change_pct": 3.56,
+      "price": 51.06999969482422,
+      "change_pct": 0.79,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
     },
     {
       "ticker": "DRI",
       "company": "DRI",
       "sector": "Consumer Cyclical",
-      "master_score": 54.0,
+      "master_score": 50.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 221.88999938964844,
-      "change_pct": 1.38,
+      "price": 217.9499969482422,
+      "change_pct": -1.78,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: DEFAULT"
     },
     {
       "ticker": "F",
@@ -304,8 +304,8 @@
       "sector": "Energy",
       "master_score": 53.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 42.029998779296875,
-      "change_pct": 0.45,
+      "price": 42.86000061035156,
+      "change_pct": 1.97,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
     },
@@ -418,6 +418,50 @@
       "change_pct": 0.86,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 42.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "FNV",
+      "company": "FNV",
+      "sector": "Basic Materials",
+      "master_score": 48.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 258.1400146484375,
+      "change_pct": 2.82,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "RIO",
+      "company": "RIO",
+      "sector": "Basic Materials",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 102.16999816894531,
+      "change_pct": 1.72,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "KGS",
+      "company": "KGS",
+      "sector": "Energy",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 60.599998474121094,
+      "change_pct": 0.95,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "FIVE",
+      "company": "FIVE",
+      "sector": "Consumer Cyclical",
+      "master_score": 45.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 236.30999755859375,
+      "change_pct": -2.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.0 | System: DEFAULT"
     }
   ]
 }
