@@ -1,43 +1,40 @@
 {
-  "date": "2026-08-20",
-  "generated_at": "2026-08-20T17:07:14.074418-04:00",
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T09:06:58.759006-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 42,
+  "active_scores_count": 25,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "OKE",
-        "BBIO",
-        "VTR",
-        "ARES",
-        "CLMT",
-        "CRM",
-        "RIG",
-        "HOOD",
-        "TEVA",
-        "UGI"
+        "SQM",
+        "TTAN",
+        "CART",
+        "DRI",
+        "F",
+        "EQNR",
+        "B",
+        "FRPT",
+        "GH",
+        "KMX"
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 12,
       "tickers": [
-        "OKE",
-        "BBIO",
-        "CLMT",
-        "CRM",
-        "HOOD",
-        "TEVA",
-        "CPB",
-        "TTEK",
         "CART",
         "F",
         "B",
         "KMX",
         "OSCR",
         "FNV",
-        "RIO"
+        "RIO",
+        "VAL",
+        "ALSN",
+        "JKHY",
+        "ILMN",
+        "FDS"
       ]
     },
     "value": {
@@ -59,42 +56,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "OKE",
-      "score": 58.0,
+      "ticker": "SQM",
+      "score": 63.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BBIO",
-      "score": 46.5,
+      "ticker": "TTAN",
+      "score": 48.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "VTR",
-      "score": 46.5,
+      "ticker": "CART",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 764.75,
-      "change_pct": 0.28
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 711.5475,
-      "change_pct": 0.09
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 530.35,
-      "change_pct": 0.54
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.43,
-      "change_pct": -3.62
-    },
-    "RUSSELL2000": {
-      "value": 299.52,
-      "change_pct": 0.62
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-21T10:00:20.392886-04:00"
+  }
 }

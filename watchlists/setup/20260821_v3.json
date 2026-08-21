@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "FCX",
+        "sector": "Basic Materials",
+        "action": "CLOSE",
+        "price": 76.2,
+        "entry_zone": "74.77 - 77.62",
+        "SL": 70.5,
+        "TP": 87.6
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "COIN",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 187.99,
+        "entry_zone": "183.74 - 192.23",
+        "SL": 171.01,
+        "TP": 221.94
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "MSTR",
+        "sector": "Technology",
+        "action": "CLOSE",
+        "price": 120.16,
+        "entry_zone": "117.17 - 123.15",
+        "SL": 108.19,
+        "TP": 144.09
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "MARA",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 12.15,
+        "entry_zone": "11.74 - 12.55",
+        "SL": 10.51,
+        "TP": 15.42
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "AU",
+        "sector": "Basic Materials",
+        "action": "CLOSE",
+        "price": 120.42,
+        "entry_zone": "117.82 - 123.02",
+        "SL": 110.03,
+        "TP": 141.21
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "FNV",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 264.94,
+        "entry_zone": "260.44 - 269.44",
+        "SL": 246.94,
+        "TP": 291.94
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "CF",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 128.13,
+        "entry_zone": "125.67 - 130.59",
+        "SL": 118.29,
+        "TP": 147.8
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "PSNL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 16.92,
+        "entry_zone": "16.56 - 17.27",
+        "SL": 15.5,
+        "TP": 19.75
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "MU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 980.19,
+        "entry_zone": "952.53 - 1007.85",
+        "SL": 869.57,
+        "TP": 1201.44
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "SM",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 37.77,
+        "entry_zone": "37.00 - 38.54",
+        "SL": 34.7,
+        "TP": 43.92
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "DE",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 622.7,
+        "entry_zone": "613.87 - 631.53",
+        "SL": 587.36,
+        "TP": 693.37
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "VIST",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 70.71,
+        "entry_zone": "69.23 - 72.19",
+        "SL": 64.81,
+        "TP": 82.51
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "HIVE",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 3.28,
+        "entry_zone": "3.17 - 3.39",
+        "SL": 2.82,
+        "TP": 4.19
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "FUTU",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 118.49,
+        "entry_zone": "116.26 - 120.72",
+        "SL": 109.56,
+        "TP": 136.35
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "LB",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 88.71,
+        "entry_zone": "86.29 - 91.12",
+        "SL": 79.06,
+        "TP": 107.99
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "MOS",
+        "sector": "Basic Materials",
+        "action": "CLOSE",
+        "price": 23.73,
+        "entry_zone": "23.20 - 24.25",
+        "SL": 21.62,
+        "TP": 27.93
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "NDSN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 335.05,
+        "entry_zone": "331.51 - 338.59",
+        "SL": 320.89,
+        "TP": 363.38
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "MRVL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 246.88,
+        "entry_zone": "238.53 - 255.23",
+        "SL": 213.5,
+        "TP": 313.64
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "DRAM",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 58.31,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-08-21 09:45",
+        "symbol": "BTDR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 11.62,
+        "entry_zone": "11.05 - 12.19",
+        "SL": 9.35,
+        "TP": 16.16
+    }
+]
