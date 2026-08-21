@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-08-20T17:07:16.132777-04:00",
+  "generated_at": "2026-08-21T09:07:00.395222-04:00",
   "picks": [
-    {
-      "ticker": "PK",
-      "sector": "Real Estate",
-      "date_added": "2026-08-18",
-      "score": 40.0
-    },
     {
       "ticker": "NTR",
       "sector": "Basic Materials",
@@ -38,12 +32,6 @@
       "score": 42.0
     },
     {
-      "ticker": "ALSN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-20",
-      "score": 40.0
-    },
-    {
       "ticker": "BRKR",
       "sector": "Healthcare",
       "date_added": "2026-08-20",
@@ -56,24 +44,6 @@
       "score": 44.5
     },
     {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-20",
-      "score": 44.0
-    },
-    {
-      "ticker": "IT",
-      "sector": "Technology",
-      "date_added": "2026-08-20",
-      "score": 43.0
-    },
-    {
-      "ticker": "SOLV",
-      "sector": "Healthcare",
-      "date_added": "2026-08-20",
-      "score": 43.0
-    },
-    {
       "ticker": "TGT",
       "sector": "Consumer Defensive",
       "date_added": "2026-08-20",
@@ -84,6 +54,30 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-20",
       "score": 37.0
+    },
+    {
+      "ticker": "VLTO",
+      "sector": "Industrials",
+      "date_added": "2026-08-21",
+      "score": 42.5
+    },
+    {
+      "ticker": "SPGI",
+      "sector": "Financial Services",
+      "date_added": "2026-08-21",
+      "score": 39.5
+    },
+    {
+      "ticker": "RNG",
+      "sector": "Technology",
+      "date_added": "2026-08-21",
+      "score": 39.0
+    },
+    {
+      "ticker": "TTWO",
+      "sector": "Communication Services",
+      "date_added": "2026-08-21",
+      "score": 34.5
     }
   ]
 }
