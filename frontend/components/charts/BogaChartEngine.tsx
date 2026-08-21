@@ -1109,18 +1109,28 @@ export default function BogaChartEngine({
 
     // Final pass — artık bu render'da oluşturulacak TÜM panel sayısı belli,
     // hepsinin (hacim + göstergeler) yüksekliğini şimdi kesin olarak
-    // uyguluyoruz; bundan sonra bu render'da yeni bir pane eklenmiyor,
-    // dolayısıyla burada set edilen değerler yeniden dağıtımla ezilmiyor.
-    if (volumeSeries) {
-      const baseHeight = height ?? 400;
-      const volumePaneHeight = compact
-        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
-        : Math.max(110, Math.round(baseHeight * 0.3));
-      chart.panes()[1]?.setHeight(volumePaneHeight);
-    }
-    for (const { idx, height: paneHeight } of bottomPaneHeights) {
-      chart.panes()[idx]?.setHeight(paneHeight);
-    }
+    // uyguluyoruz. 2026-08-21: senkron çağrı canlıda hâlâ eziliyordu — demek
+    // ki lightweight-charts pane yeniden-dağıtımını bir SONRAKİ paint/layout
+    // adımında (senkron olmayan) yapıyor. Bu yüzden burada da requestAnimation
+    // Frame'e erteliyoruz ki bizim çağrımız kütüphanenin kendi iç yeniden
+    // dağıtımından SONRA çalışsın ve kalıcı olsun (çift rAF: bazı tarayıcı/
+    // kütüphane kombinasyonlarında tek rAF bile kütüphanenin dahili
+    // layout'undan önce çalışabiliyor).
+    const applyFinalPaneHeights = () => {
+      if (chartRef.current !== chart) return; // bu arada grafik yeniden kuruldu/kaldırıldıysa dokunma
+      if (volumeSeries) {
+        const baseHeight = height ?? 400;
+        const volumePaneHeight = compact
+          ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
+          : Math.max(110, Math.round(baseHeight * 0.3));
+        chart.panes()[1]?.setHeight(volumePaneHeight);
+      }
+      for (const { idx, height: paneHeight } of bottomPaneHeights) {
+        chart.panes()[idx]?.setHeight(paneHeight);
+      }
+    };
+    applyFinalPaneHeights();
+    requestAnimationFrame(() => requestAnimationFrame(applyFinalPaneHeights));
 
     if (active.has("fvg") && ind.fvg) {
       const zones = ind.fvg as { top: number; bottom: number; type: string }[];
