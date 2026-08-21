@@ -1051,11 +1051,23 @@ export default function BogaChartEngine({
     }
 
     let nextPaneIdx = 2;
+    // 2026-08-21 KÖK NEDEN (RSI "seçili ama görünmüyor" bildirimi): her yeni
+    // pane eklendiğinde (RSI/MACD/ATR/OBV/Volatilite) lightweight-charts TÜM
+    // pane yükseklikerini yeniden dağıtıyor — bu da birkaç satır yukarıda,
+    // bu renderAll'un DAHA ÖNCE ayarladığı hacim panelinin yüksekliğini
+    // geçersiz kılıyordu (canlıda ölçüldü: 180px yerine yine ~27px'e
+    // düşüyordu, RSI ise SONRADAN eklenip kendi setHeight'ini son çağıran
+    // olduğu için ~83-90px'te kalıp görece "şanslı" kalıyordu — ikisi
+    // birlikte 600px'lik grafiğin dibinde öyle sıkışıyordu ki RSI çizgisi
+    // gözden kaçıyordu). Çözüm: her panelin hedef yüksekliğini oluşturma
+    // sırasında bir listeye topla, TÜMÜ oluşturulduktan SONRA tek seferde
+    // (hacim dahil) kesin olarak uygula.
+    const bottomPaneHeights: { idx: number; height: number }[] = [];
 
     if (active.has("rsi") && ind.rsi) {
       const series = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.rsi) || []);
-      chart.panes()[nextPaneIdx]?.setHeight(90);
+      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.rsi = [series];
       nextPaneIdx++;
     }
@@ -1066,33 +1078,48 @@ export default function BogaChartEngine({
       macdLine.setData(toPoints(m.macd) || []);
       const signalLine = chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
       signalLine.setData(toPoints(m.signal) || []);
-      chart.panes()[nextPaneIdx]?.setHeight(90);
+      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.macd = [macdLine, signalLine];
       nextPaneIdx++;
     }
-    
+
     if (active.has("atr") && ind.atr) {
       const series = chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.atr) || []);
-      chart.panes()[nextPaneIdx]?.setHeight(90);
+      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.atr = [series];
       nextPaneIdx++;
     }
-    
+
     if (active.has("obv") && ind.obv) {
       const series = chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.obv) || []);
-      chart.panes()[nextPaneIdx]?.setHeight(90);
+      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.obv = [series];
       nextPaneIdx++;
     }
-    
+
     if (active.has("volatilite") && ind.volatilite) {
       const series = chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.volatilite) || []);
-      chart.panes()[nextPaneIdx]?.setHeight(90);
+      bottomPaneHeights.push({ idx: nextPaneIdx, height: 90 });
       lineSeriesRefs.current.volatilite = [series];
       nextPaneIdx++;
+    }
+
+    // Final pass — artık bu render'da oluşturulacak TÜM panel sayısı belli,
+    // hepsinin (hacim + göstergeler) yüksekliğini şimdi kesin olarak
+    // uyguluyoruz; bundan sonra bu render'da yeni bir pane eklenmiyor,
+    // dolayısıyla burada set edilen değerler yeniden dağıtımla ezilmiyor.
+    if (volumeSeries) {
+      const baseHeight = height ?? 400;
+      const volumePaneHeight = compact
+        ? Math.max(70, Math.min(160, Math.round(baseHeight * 0.38)))
+        : Math.max(110, Math.round(baseHeight * 0.3));
+      chart.panes()[1]?.setHeight(volumePaneHeight);
+    }
+    for (const { idx, height: paneHeight } of bottomPaneHeights) {
+      chart.panes()[idx]?.setHeight(paneHeight);
     }
 
     if (active.has("fvg") && ind.fvg) {
