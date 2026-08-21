@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T09:07:00.395222-04:00",
+  "generated_at": "2026-08-21T14:03:44.185479-04:00",
   "picks": [
     {
       "ticker": "NTR",
@@ -68,16 +68,34 @@
       "score": 39.5
     },
     {
-      "ticker": "RNG",
-      "sector": "Technology",
-      "date_added": "2026-08-21",
-      "score": 39.0
-    },
-    {
       "ticker": "TTWO",
       "sector": "Communication Services",
       "date_added": "2026-08-21",
       "score": 34.5
+    },
+    {
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-21",
+      "score": 46.5
+    },
+    {
+      "ticker": "BSX",
+      "sector": "Healthcare",
+      "date_added": "2026-08-21",
+      "score": 45.9
+    },
+    {
+      "ticker": "NDAQ",
+      "sector": "Financial Services",
+      "date_added": "2026-08-21",
+      "score": 40.5
+    },
+    {
+      "ticker": "CTAS",
+      "sector": "Industrials",
+      "date_added": "2026-08-21",
+      "score": 40.5
     }
   ]
 }
