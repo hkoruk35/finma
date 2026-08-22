@@ -23,6 +23,7 @@ interface IndicatorPanelProps {
   isHistogram?: boolean;
   overBoughtLine?: number;   // e.g. 70 for RSI
   overSoldLine?: number;     // e.g. 30 for RSI
+  mainChart?: IChartApi | null;
 }
 
 export default function IndicatorPanel({
@@ -35,6 +36,7 @@ export default function IndicatorPanel({
   isHistogram = false,
   overBoughtLine,
   overSoldLine,
+  mainChart,
 }: IndicatorPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -134,13 +136,7 @@ export default function IndicatorPanel({
       }
     }
 
-    chart.timeScale().fitContent();
-
-    const ro = new ResizeObserver(() => chart.timeScale().fitContent());
-    ro.observe(el);
-
     return () => {
-      ro.disconnect();
       chart.remove();
       chartRef.current = null;
     };
@@ -161,9 +157,31 @@ export default function IndicatorPanel({
       const filtered2 = data2.filter((d) => d.value != null) as { time: UTCTimestamp; value: number }[];
       if (filtered2.length > 0) (series[1] as any).setData(filtered2);
     }
-    chart.timeScale().fitContent();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, data2]);
+
+  // Synchronize time scale with main chart
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart || !mainChart) return;
+
+    const syncTimeScale = () => {
+      const logicalRange = mainChart.timeScale().getVisibleLogicalRange();
+      if (logicalRange) {
+        chart.timeScale().setVisibleLogicalRange(logicalRange);
+      }
+    };
+
+    // Initial sync
+    syncTimeScale();
+
+    // Subscribe to changes
+    mainChart.timeScale().subscribeVisibleLogicalRangeChange(syncTimeScale);
+
+    return () => {
+      mainChart.timeScale().unsubscribeVisibleLogicalRangeChange(syncTimeScale);
+    };
+  }, [mainChart]);
 
   return (
     <div className="w-full border-t border-[#1e2a3a] relative" style={{ height }}>
