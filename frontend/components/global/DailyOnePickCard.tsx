@@ -119,7 +119,7 @@ function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
   const initials = pick.ticker.slice(0, 4);
 
   return (
-    <div className="w-[82vw] max-w-[320px] sm:w-[320px] sm:max-w-[320px] shrink-0 sm:shrink snap-center relative overflow-hidden rounded-xl border border-[#3b82f6]/40 bg-gradient-to-br from-[#0f1c2e] via-[#0f1117] to-[#0f1e17] p-4 sm:p-5">
+    <div className="w-[82vw] max-w-[320px] sm:w-full sm:max-w-none shrink-0 sm:shrink snap-center relative overflow-hidden rounded-xl border border-[#3b82f6]/40 bg-gradient-to-br from-[#0f1c2e] via-[#0f1117] to-[#0f1e17] p-4 sm:p-5">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]" />
 
       <div className="flex items-center justify-between gap-3 mb-3">
@@ -155,6 +155,7 @@ function PickTile({ locale, c, pick, isLoggedIn, onLockedClick }: {
           height={128}
           compact
           showToolbar={false}
+          indicators={[]}
           
           compactWindowDays={90}
         />
@@ -219,7 +220,7 @@ export default function DailyOnePickCard({ locale }: { locale: Locale }) {
   return (
     <div className="mt-4 w-full min-w-0">
       <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.2em] mb-3">{c.badge}</p>
-      <div className="flex gap-3 w-full max-w-full overflow-x-auto overscroll-x-contain snap-x snap-mandatory sm:flex sm:justify-center sm:overflow-visible sm:snap-none">
+      <div className="flex gap-3 w-full max-w-full overflow-x-auto overscroll-x-contain snap-x snap-mandatory sm:grid sm:grid-cols-2 sm:overflow-visible sm:snap-none">
         {picks.map((pick) => (
           <PickTile
             key={pick.ticker}
