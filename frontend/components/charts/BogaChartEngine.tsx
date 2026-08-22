@@ -236,6 +236,10 @@ const PANE_STRETCH_HIDDEN = 0.0001;
 // Bozuk GUI senkronizasyonu tespit edilirse grafik en fazla bu kadar kez
 // bastan kurulur (sonsuz dongu emniyeti).
 const MAX_CHART_REBUILDS = 2;
+// Kendi ALT PANELINI olusturan gostergeler. Bunlarin serileri her veri
+// yenilemesinde SILINIP YENIDEN EKLENMEZ; ayni seri yeniden kullanilip
+// sadece setData yapilir (bkz. renderAll icindeki aciklama).
+const PANE_INDICATOR_KEYS: IndicatorKey[] = ["rsi", "macd", "atr", "obv", "volatilite"];
 
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
@@ -989,11 +993,30 @@ export default function BogaChartEngine({
     const volumeSeries = volumeSeriesRef.current;
     if (!chart || bars.length === 0) return;
 
-    // Clear previous overlays
+    // Onceki overlay'leri temizle.
+    // 2026-08-21 KOK NEDEN: eskiden burada TUM gosterge serileri siliniyordu.
+    // Kendi panelini olusturan gostergeler (RSI/MACD/ATR/OBV/Volatilite) icin
+    // bu, her 60 saniyelik veri yenilemesinde panelin YOK EDILIP YENIDEN
+    // OLUSTURULMASI demekti. lightweight-charts bu dongulerden birinde model
+    // ile GUI'yi senkronize edemeyip kopuyor: chart.panes() 3 pane raporlarken
+    // DOM'da tek pane kaliyor ve pane yukseklikleri [572, 0, 0] olarak
+    // donuyor (canli sitede olculdu). O noktadan sonra setHeight /
+    // setStretchFactor / applyOptions / resize / fitContent / setData
+    // cagrilarinin hicbiri paneli geri getiremiyor — RSI verisi dolu ve
+    // gorunur oldugu halde ekranda hic cizilmiyor. Sorunun kesintili
+    // gorunmesinin sebebi de buydu: kopma hangi yenileme dongusunde olursa
+    // o an bozuluyordu.
+    // Cozum: panel olusturan gostergelerin serileri KORUNUYOR, asagida
+    // yeniden kullanilip sadece setData ediliyor. Boylece panel bir kez
+    // olusturuluyor ve bir daha yok edilmiyor.
     for (const key of Object.keys(lineSeriesRefs.current) as IndicatorKey[]) {
+      const isPaneIndicator = PANE_INDICATOR_KEYS.includes(key);
+      // Panel gostergesi hala aktifse serisini koru; degilse (kullanici
+      // kapattiysa) normal sekilde kaldir ki panel de kapansin.
+      if (isPaneIndicator && active.has(key)) continue;
       for (const series of lineSeriesRefs.current[key] || []) chart.removeSeries(series);
+      delete lineSeriesRefs.current[key];
     }
-    lineSeriesRefs.current = {};
     if (mainSeriesRef.current) {
       for (const pl of priceLinesRef.current) {
         try { mainSeriesRef.current.removePriceLine(pl); } catch {}
@@ -1084,7 +1107,9 @@ export default function BogaChartEngine({
     let nextPaneIdx = 2;
 
     if (active.has("rsi") && ind.rsi) {
-      const series = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
+      const series =
+        lineSeriesRefs.current.rsi?.[0] ??
+        chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.rsi) || []);
       lineSeriesRefs.current.rsi = [series];
       nextPaneIdx++;
@@ -1092,30 +1117,40 @@ export default function BogaChartEngine({
 
     if (active.has("macd") && ind.macd) {
       const m = ind.macd as { macd: (number | null)[]; signal: (number | null)[]; histogram: (number | null)[] };
-      const macdLine = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 1 }, nextPaneIdx);
+      const macdLine =
+        lineSeriesRefs.current.macd?.[0] ??
+        chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 1 }, nextPaneIdx);
       macdLine.setData(toPoints(m.macd) || []);
-      const signalLine = chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
+      const signalLine =
+        lineSeriesRefs.current.macd?.[1] ??
+        chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
       signalLine.setData(toPoints(m.signal) || []);
       lineSeriesRefs.current.macd = [macdLine, signalLine];
       nextPaneIdx++;
     }
 
     if (active.has("atr") && ind.atr) {
-      const series = chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
+      const series =
+        lineSeriesRefs.current.atr?.[0] ??
+        chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.atr) || []);
       lineSeriesRefs.current.atr = [series];
       nextPaneIdx++;
     }
 
     if (active.has("obv") && ind.obv) {
-      const series = chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
+      const series =
+        lineSeriesRefs.current.obv?.[0] ??
+        chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.obv) || []);
       lineSeriesRefs.current.obv = [series];
       nextPaneIdx++;
     }
 
     if (active.has("volatilite") && ind.volatilite) {
-      const series = chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
+      const series =
+        lineSeriesRefs.current.volatilite?.[0] ??
+        chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.volatilite) || []);
       lineSeriesRefs.current.volatilite = [series];
       nextPaneIdx++;
