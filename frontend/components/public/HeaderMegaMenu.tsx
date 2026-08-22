@@ -26,7 +26,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "İçeriden İşlemler",
     marketsAnalysis: "Piyasa Analizleri", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Hisse Analizleri",
     futuresAnalysis: "Vadeli Analizleri", stockBrokers: "Hisse Aracı Kurumları", fxBrokers: "FX Aracı Kurumları", cryptoBrokers: "Kripto Aracı Kurumları",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
   en: {
     markets: "Markets", watchlist: "My Watchlist", news: "News", analysis: "Analysis", brokers: "Brokers",
@@ -35,7 +35,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Stock Analyses", earnings: "Earnings", earningsCalendar: "Earnings Calendar", insider: "Insider Activity",
     marketsAnalysis: "Markets", sectorAnalysis: "Sector Analyses", sectorHeatmap: "Sector Heat Map", stockAnalysis: "Stock Analyses",
     futuresAnalysis: "Futures Analyses", stockBrokers: "Stock Brokers", fxBrokers: "FX Brokers", cryptoBrokers: "Crypto Brokers",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
   es: {
     markets: "Markets", watchlist: "Mi Lista", news: "News", analysis: "Análisis", brokers: "Brokers",
@@ -44,7 +44,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análisis de Acciones", earnings: "Resultados", earningsCalendar: "Calendario de Resultados", insider: "Actividad de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análisis Sectorial", sectorHeatmap: "Mapa de Calor Sectorial", stockAnalysis: "Análisis de Acciones",
     futuresAnalysis: "Análisis de Futuros", stockBrokers: "Brokers de Acciones", fxBrokers: "Brokers de Divisas", cryptoBrokers: "Brokers de Cripto",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
   fr: {
     markets: "Markets", watchlist: "Ma Liste", news: "News", analysis: "Analyses", brokers: "Brokers",
@@ -53,7 +53,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analyses d'Actions", earnings: "Résultats", earningsCalendar: "Calendrier des Résultats", insider: "Activité des Initiés",
     marketsAnalysis: "Markets", sectorAnalysis: "Analyses Sectorielles", sectorHeatmap: "Carte Sectorielle", stockAnalysis: "Analyses d'Actions",
     futuresAnalysis: "Analyses de Futures", stockBrokers: "Brokers d'Actions", fxBrokers: "Brokers Forex", cryptoBrokers: "Brokers Crypto",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
   pt: {
     markets: "Markets", watchlist: "Minha Lista", news: "News", analysis: "Análises", brokers: "Brokers",
@@ -62,7 +62,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análises de Ações", earnings: "Resultados", earningsCalendar: "Calendário de Resultados", insider: "Atividade de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análises Setoriais", sectorHeatmap: "Mapa de Calor Setorial", stockAnalysis: "Análises de Ações",
     futuresAnalysis: "Análises de Futuros", stockBrokers: "Brokers de Ações", fxBrokers: "Brokers de Câmbio", cryptoBrokers: "Brokers de Cripto",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
   id: {
     markets: "Pasar", watchlist: "Watchlist Saya", news: "Berita", analysis: "Analisis", brokers: "Broker",
@@ -71,7 +71,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analisis Saham", earnings: "Laba", earningsCalendar: "Kalender Laba", insider: "Aktivitas Insider",
     marketsAnalysis: "Pasar", sectorAnalysis: "Analisis Sektor", sectorHeatmap: "Peta Panas Sektor", stockAnalysis: "Analisis Saham",
     futuresAnalysis: "Analisis Futures", stockBrokers: "Broker Saham", fxBrokers: "Broker FX", cryptoBrokers: "Broker Kripto",
-    premium: "Premium Club",
+    premium: "PREMIUM Club",
   },
 };
 
