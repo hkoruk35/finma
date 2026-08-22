@@ -1185,11 +1185,14 @@ export default function BogaChartEngine({
     // Sub-gostergeler artik lightweight-charts alt-paneli olarak degil,
     // dis React bilesenlerinde (IndicatorPanel) gosteriliyor.
     // Sadece veriyi state'e yaziyoruz, grafikten pane yaratmiyoruz.
-    const toRaw = (arr: unknown): { time: number; value: number | null }[] =>
-      ((arr as (number | null)[] | undefined) ?? []).map((v, i) => ({
-        time: bars[i].time,
+    const toRaw = (arr: unknown): { time: number; value: number | null }[] => {
+      const parsed = (arr as (number | null)[] | undefined) ?? [];
+      const diff = Math.max(0, bars.length - parsed.length);
+      return parsed.map((v, i) => ({
+        time: bars[i + diff]?.time || 0,
         value: v ?? null,
       }));
+    };
 
     const macdObj = ind.macd as { macd: (number | null)[]; signal: (number | null)[] } | undefined;
     setSubIndData({
