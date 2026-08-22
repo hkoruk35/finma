@@ -19,6 +19,7 @@ import {
 } from "lightweight-charts";
 import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
+import IndicatorPanel from "@/components/charts/IndicatorPanel";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import FreeRegisterModal from "@/components/global/FreeRegisterModal";
@@ -566,6 +567,19 @@ export default function BogaChartEngine({
   const [mainPaneHeight, setMainPaneHeight] = useState<number | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
+
+  // Sub-indicator data — RSI, MACD, ATR, OBV, Volatilite artik BogaChartEngine
+  // icerisinde ayri pane olarak degil, dis React bilesenlerinde (IndicatorPanel)
+  // gosteriliyor. Bu state API cevabindan gelen ham veriyi tutar.
+  type SubIndData = { time: number; value: number | null }[];
+  const [subIndData, setSubIndData] = useState<{
+    rsi?: SubIndData;
+    macd?: SubIndData;
+    macdSignal?: SubIndData;
+    atr?: SubIndData;
+    obv?: SubIndData;
+    volatilite?: SubIndData;
+  }>({});
 
   // Oturumlar arası kaydedilmiş göstergeleri ve grafik şablonunu otomatik yükle
   useEffect(() => {
@@ -1168,82 +1182,29 @@ export default function BogaChartEngine({
       lineSeriesRefs.current.supertrend = [series];
     }
 
-    // 2026-08-22 KOK NEDEN (ek): sabit "2" varsayimi hacim paneli
-    // KAPALIYKEN yanlisti -- sadece pane 0 (ana) varken RSI "index 2"yi
-    // istiyordu; lightweight-charts var olmayan bir index'e eklenen
-    // seriyi son mevcut pane'e kirpiyor, yani RSI kendi paneli yerine
-    // ana panelin USTUNE biniyordu. Gercek pane sayisindan turetiyoruz.
-    let nextPaneIdx = volumeSeries ? 2 : 1;
+    // Sub-gostergeler artik lightweight-charts alt-paneli olarak degil,
+    // dis React bilesenlerinde (IndicatorPanel) gosteriliyor.
+    // Sadece veriyi state'e yaziyoruz, grafikten pane yaratmiyoruz.
+    const toRaw = (arr: unknown): { time: number; value: number | null }[] =>
+      ((arr as (number | null)[] | undefined) ?? []).map((v, i) => ({
+        time: bars[i].time,
+        value: v ?? null,
+      }));
 
-    if (active.has("rsi") && ind.rsi) {
-      const series =
-        lineSeriesRefs.current.rsi?.[0] ??
-        chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
-      series.setData(toPoints(ind.rsi) || []);
-      markPanePersistent(series);
-      lineSeriesRefs.current.rsi = [series];
-      nextPaneIdx++;
-      debugPanes(chart, "AFTER RSI add/setData");
-    }
+    const macdObj = ind.macd as { macd: (number | null)[]; signal: (number | null)[] } | undefined;
+    setSubIndData({
+      rsi: ind.rsi ? toRaw(ind.rsi) : undefined,
+      macd: macdObj?.macd ? toRaw(macdObj.macd) : undefined,
+      macdSignal: macdObj?.signal ? toRaw(macdObj.signal) : undefined,
+      atr: ind.atr ? toRaw(ind.atr) : undefined,
+      obv: ind.obv ? toRaw(ind.obv) : undefined,
+      volatilite: ind.volatilite ? toRaw(ind.volatilite) : undefined,
+    });
 
-    if (active.has("macd") && ind.macd) {
-      const m = ind.macd as { macd: (number | null)[]; signal: (number | null)[]; histogram: (number | null)[] };
-      const macdLine =
-        lineSeriesRefs.current.macd?.[0] ??
-        chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 1 }, nextPaneIdx);
-      macdLine.setData(toPoints(m.macd) || []);
-      const signalLine =
-        lineSeriesRefs.current.macd?.[1] ??
-        chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
-      signalLine.setData(toPoints(m.signal) || []);
-      markPanePersistent(macdLine);
-      lineSeriesRefs.current.macd = [macdLine, signalLine];
-      nextPaneIdx++;
-    }
-
-    if (active.has("atr") && ind.atr) {
-      const series =
-        lineSeriesRefs.current.atr?.[0] ??
-        chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
-      series.setData(toPoints(ind.atr) || []);
-      markPanePersistent(series);
-      lineSeriesRefs.current.atr = [series];
-      nextPaneIdx++;
-    }
-
-    if (active.has("obv") && ind.obv) {
-      const series =
-        lineSeriesRefs.current.obv?.[0] ??
-        chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
-      series.setData(toPoints(ind.obv) || []);
-      markPanePersistent(series);
-      lineSeriesRefs.current.obv = [series];
-      nextPaneIdx++;
-    }
-
-    if (active.has("volatilite") && ind.volatilite) {
-      const series =
-        lineSeriesRefs.current.volatilite?.[0] ??
-        chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
-      series.setData(toPoints(ind.volatilite) || []);
-      markPanePersistent(series);
-      lineSeriesRefs.current.volatilite = [series];
-      nextPaneIdx++;
-    }
-
-    // ── Panel oranlarini uygula ─────────────────────────────────────────
-    // GERCEK pane listesi uzerinden POZISYONEL calisir. Sabit index'e
-    // guvenilemez: lightweight-charts, var olmayan bir pane index'ine seri
-    // eklenirse onu mevcut son pane'e kirpiyor — hacim paneli kapaliyken RSI
-    // index 2 yerine index 1'e dusuyor, dolayisiyla "index 2'yi boyutlandir"
-    // demek yanlis/olmayan paneli hedefliyordu (olculdu).
+    // ── Panel oranlarini uygula (sadece ana + hacim) ──────────────────────
     const panes = chart.panes();
     panes[0]?.setStretchFactor(PANE_STRETCH_MAIN);
-    let paneCursor = 1;
     if (volumeSeries) {
-      // Hacim kapatildiginda seri gizleniyor ama paneli yer kaplamaya devam
-      // ediyordu (olculdu: 143px'lik bos bant). Gizliyken orani sifira
-      // yaklastirip o boslugu kapatiyoruz.
       panes[1]?.setStretchFactor(
         active.has("volume")
           ? compact
@@ -1251,11 +1212,8 @@ export default function BogaChartEngine({
             : PANE_STRETCH_VOLUME
           : PANE_STRETCH_HIDDEN
       );
-      paneCursor = 2;
     }
-    for (let i = paneCursor; i < panes.length; i++) {
-      panes[i]?.setStretchFactor(PANE_STRETCH_INDICATOR);
-    }
+
 
     // ── Panel sagligini dogrula, gerekirse grafigi bastan kur ──────────────
     // 2026-08-21, canli sitede olculdu: lightweight-charts bazen model
@@ -1678,13 +1636,17 @@ export default function BogaChartEngine({
   );
 
   const activeBottomPanes = ["rsi", "macd", "atr", "obv", "volatilite", "volume"].filter(k => active.has(k as IndicatorKey)).length;
-  const dynamicHeight = compact ? (height ?? 128) : Math.max(height ?? 400, 250 + (activeBottomPanes * 90));
+  // Ana grafik yuksekligi: sub-gostergeler (RSI/MACD/ATR/OBV/Volatilite) artik
+  // ayri DOM bilesenlerinde gosterildigi icin buradaki yukseklik SADECE
+  // candle + hacim panelini kapsar.
+  const mainChartHeight = compact ? (height ?? 128) : Math.max(height ?? 400, 250);
+  const dynamicHeight = mainChartHeight;
 
   return (
     <div
       ref={wrapperRef}
       className="flex flex-col w-full"
-      style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d`, height: isFullscreen ? "100vh" : dynamicHeight, minHeight: dynamicHeight }}
+      style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
     >
       <div className="contents">
         {showToolbar && (
@@ -1927,11 +1889,11 @@ export default function BogaChartEngine({
 
         <div
           className="relative flex-1"
-          style={{ minHeight: dynamicHeight }}
+          style={{ height: mainChartHeight, minHeight: mainChartHeight }}
           onClick={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: true }, handleScale: { mouseWheel: true } })}
           onMouseLeave={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: false }, handleScale: { mouseWheel: false } })}
         >
-          <div ref={containerRef} style={{ width: "100%", height: dynamicHeight, minHeight: dynamicHeight }} />
+          <div ref={containerRef} style={{ width: "100%", height: mainChartHeight, minHeight: mainChartHeight }} />
 
           {/* Toast Notification */}
           {toastMsg && (
@@ -2053,6 +2015,64 @@ export default function BogaChartEngine({
           )}
         </div>
       </div>
+
+      {/* ── Alt Gösterge Panelleri (RSI / MACD / ATR / OBV / Volatilite) ──────
+          Bu paneller artik lightweight-charts multi-pane olarak degil, bagimsiz
+          React bilesenlerinde gosteriliyor. Her biri kendi chart instance'ini
+          olusturur — pane senkronizasyon problemi tamamen ortadan kalkar. */}
+      {!compact && (
+        <>
+          {active.has("rsi") && subIndData.rsi && subIndData.rsi.length > 0 && (
+            <IndicatorPanel
+              key="rsi"
+              label="RSI (14)"
+              data={subIndData.rsi as any}
+              color="#38bdf8"
+              height={90}
+              overBoughtLine={70}
+              overSoldLine={30}
+            />
+          )}
+          {active.has("macd") && subIndData.macd && subIndData.macd.length > 0 && (
+            <IndicatorPanel
+              key="macd"
+              label="MACD"
+              data={subIndData.macd as any}
+              data2={subIndData.macdSignal as any}
+              color="#38bdf8"
+              color2="#f97316"
+              height={90}
+            />
+          )}
+          {active.has("atr") && subIndData.atr && subIndData.atr.length > 0 && (
+            <IndicatorPanel
+              key="atr"
+              label="ATR"
+              data={subIndData.atr as any}
+              color="#ec4899"
+              height={90}
+            />
+          )}
+          {active.has("obv") && subIndData.obv && subIndData.obv.length > 0 && (
+            <IndicatorPanel
+              key="obv"
+              label="OBV"
+              data={subIndData.obv as any}
+              color="#14b8a6"
+              height={90}
+            />
+          )}
+          {active.has("volatilite") && subIndData.volatilite && subIndData.volatilite.length > 0 && (
+            <IndicatorPanel
+              key="volatilite"
+              label={t.volatilite || "Volatility"}
+              data={subIndData.volatilite as any}
+              color="#f43f5e"
+              height={90}
+            />
+          )}
+        </>
+      )}
 
       {showPremiumModal && <PremiumModal locale={lang} onClose={() => setShowPremiumModal(false)} />}
       {showFreeRegisterModal && (
