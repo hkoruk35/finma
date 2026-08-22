@@ -477,6 +477,23 @@ export default function BogaChartEngine({
   const priceLinesRef = useRef<any[]>([]);
   const barsRef = useRef<Bar[]>([]);
   const lastDataRef = useRef<ChartResponse | null>(null);
+  // 2026-08-22 GERCEK KOK NEDEN (canli olcumle dogrulandi -- bkz. asagida
+  // fetchData ve renderAll sonundaki notlar): mount sirasinda `active`
+  // birden fazla kez YENI REFERANSLA degisiyor (localStorage'dan
+  // yuklenen gostergeler, isMobile duzeltmesi, vb. -- her biri kendi
+  // effect'inde ayri render'a yol aciyor). `fetchData` `active`'e bagli
+  // bir useCallback oldugu icin kimligi her degisiminde yenileniyor ve
+  // `useEffect(fetchData, [fetchData])` tekrar tetikleniyor -- tek bir
+  // sayfa yuklemesinde renderAll'in 9 KEZ CAGRILDIGI canli olculdu
+  // (panedebug ile). Bu istekler AG GECIKMESI yuzunden SIRASIZ
+  // donebiliyor: eski (RSI'siz) bir istek, RSI'yi zaten ekleyen daha
+  // yeni bir renderAll'dan SONRA cevap verirse, o eski renderAll
+  // RSI'nin panelini/serisini TEKRAR yaratmaya calisirken panel
+  // durumunu bozuyordu -- pane index/yukseklik senkronizasyonunun
+  // koptugu an tam olarak buydu. Cozum: her istek kendi neslini alir,
+  // sadece EN GUNCEL nesil grafige yaziyor; daha ESKI bir istek gec
+  // cevap verirse sessizce yok sayiliyor.
+  const fetchGenerationRef = useRef(0);
   // Grafigi bastan kurmak icin sayac (bkz. renderAll sonundaki saglik
   // dogrulamasi). Degistiginde grafik olusturma effect'i yeniden calisir.
   const [chartNonce, setChartNonce] = useState(0);
@@ -891,6 +908,12 @@ export default function BogaChartEngine({
 
   // ── Data fetch ───────────────────────────────────────────────────────────
   const fetchData = useCallback(async () => {
+    // Bu istek basladiginda "en guncel nesil" bu istekti. Cevap donduğunde
+    // hala oyle mi diye kontrol edecegiz (asagida) -- degilse, aradan DAHA
+    // YENI bir fetchData cagrisi baslamis demektir ve bu cevap ARTIK BAYAT;
+    // grafige uygulanmiyor.
+    const myGeneration = ++fetchGenerationRef.current;
+
     const wanted = Array.from(active).filter((k) => k !== "sr").join(",");
     const indicatorsParam = [wanted, active.has("sr") ? "sr" : ""].filter(Boolean).join(",");
     const params = new URLSearchParams({ ticker: symbol, timeframe: interval });
@@ -900,6 +923,7 @@ export default function BogaChartEngine({
     try {
       const res = await fetch(`/api/chart-data?${params.toString()}`);
       const data: ChartResponse = await res.json();
+      if (fetchGenerationRef.current !== myGeneration) return; // bayat cevap, yok say
       lastDataRef.current = data;
       renderAll(data);
     } catch {
@@ -1250,12 +1274,13 @@ export default function BogaChartEngine({
       window.setTimeout(() => {
         if (chartRef.current !== chart) return;
         debugPanes(chart, "AFTER resize/RAF (450ms)");
-        const current = chart.panes();
-        const collapsed = current.length > 1 && current.slice(1).some((p) => p.getHeight() < 1);
-        if (collapsed && rebuildCountRef.current < MAX_CHART_REBUILDS) {
-          rebuildCountRef.current += 1;
-          setChartNonce((n) => n + 1);
-        }
+        // 2026-08-22: otomatik "cokme tespit edilirse grafigi bastan kur"
+        // eylemi KASITLI OLARAK KALDIRILDI -- panedebug ile canli
+        // dogrulandi ki bu kontrol, fetchData'daki sirasiz-cevap yarisinin
+        // (bkz. fetchGenerationRef) ORTASINDAKI GECICI bir durumu "cokme"
+        // sanip saglikli grafigi yok edip yeniden kuruyordu; asil yaris artik
+        // kaynagindan cozuldugu icin bu agresif onlem sadece risk katiyordu.
+        // debugPanes logu (?panedebug) tani icin duruyor.
       }, 450);
     }
 
