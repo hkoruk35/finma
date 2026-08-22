@@ -29,12 +29,12 @@ export async function GET(request: Request) {
 
     // M5 Setup
     let m5 = "Waiting";
-    const structure = lastFrame?.structure?.spot5m || "RANGE";
+    const structure = (snapshot as any).structure?.spot5m || "RANGE";
     if (structure.includes("UP")) m5 = "Breakout Watch";
     if (structure.includes("DOWN")) m5 = "Support Test";
     
-    if (netScore > 3 && lastFrame.spotPrice > snapshot.levels.spot.orh) m5 = "Breakout";
-    else if (netScore < -3 && lastFrame.spotPrice < snapshot.levels.spot.orl) m5 = "Reversal";
+    if (netScore > 3 && lastFrame.spotPrice > (snapshot as any).levels.spot.orh) m5 = "Breakout";
+    else if (netScore < -3 && lastFrame.spotPrice < (snapshot as any).levels.spot.orl) m5 = "Reversal";
 
     // M1 Tetik ve State hesaplaması
     let m1 = "Waiting";
