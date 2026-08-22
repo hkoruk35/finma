@@ -182,8 +182,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   }
 
   // ── SEO: /sector/* — eski BOGA AI sektör sayfaları artık yok (410 Gone) ─────
-  // Bu path şu an /admin/account/login'e gidiyor; Google'a doğru sinyal ver.
-  if (pathname.startsWith('/sector/') || pathname === '/sector') {
+  // Önceki next.config.ts redirect'i /sector/* → /admin/stocks/sector/*
+  // gönderiyordu; oradan da admin auth guard /admin/account/login'e atıyordu.
+  // Bu blok tüm /sector path'lerini burada sonlandırır, admin chain'i kırar.
+  if (pathname === '/sector' || pathname.startsWith('/sector/')) {
     return new NextResponse('Gone', { status: 410 })
   }
 
