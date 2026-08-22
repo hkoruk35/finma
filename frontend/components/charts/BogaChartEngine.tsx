@@ -233,6 +233,9 @@ const PANE_STRETCH_INDICATOR = 1.3;
 // Gizli panel tamamen kaldirilamiyor; orani sifira yaklastirip yer kaplamasini
 // engelliyoruz (0 gecerli degil, 0.0001 ~2px veriyor).
 const PANE_STRETCH_HIDDEN = 0.0001;
+// Bozuk GUI senkronizasyonu tespit edilirse grafik en fazla bu kadar kez
+// bastan kurulur (sonsuz dongu emniyeti).
+const MAX_CHART_REBUILDS = 2;
 
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
@@ -437,6 +440,10 @@ export default function BogaChartEngine({
   const priceLinesRef = useRef<any[]>([]);
   const barsRef = useRef<Bar[]>([]);
   const lastDataRef = useRef<ChartResponse | null>(null);
+  // Grafigi bastan kurmak icin sayac (bkz. renderAll sonundaki saglik
+  // dogrulamasi). Degistiginde grafik olusturma effect'i yeniden calisir.
+  const [chartNonce, setChartNonce] = useState(0);
+  const rebuildCountRef = useRef(0);
   const intervalRef = useRef(intervalProp || defaultTimeframe || "240");
 
   const [interval, setInterval_] = useState(intervalProp || defaultTimeframe || "240");
@@ -837,7 +844,8 @@ export default function BogaChartEngine({
       lineSeriesRefs.current = {};
       priceLinesRef.current = [];
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chartNonce]);
 
   // ── Data fetch ───────────────────────────────────────────────────────────
   const fetchData = useCallback(async () => {
@@ -1139,6 +1147,31 @@ export default function BogaChartEngine({
       panes[i]?.setStretchFactor(PANE_STRETCH_INDICATOR);
     }
 
+    // ── Panel sagligini dogrula, gerekirse grafigi bastan kur ──────────────
+    // 2026-08-21, canli sitede olculdu: lightweight-charts bazen model
+    // tarafinda 3 pane raporlarken GUI tarafinda yalnizca 1 pane olusturuyor.
+    // Belirtiler: chart.panes() -> 3, ama yukseklikler [572, 0, 0]; DOM'da
+    // sadece 2 canvas var (saglikli bir 3-pane grafikte ~15 canvas oluyor);
+    // seriler dolu ve visible:true (RSI'da 237 veri noktasi olculdu) ama
+    // hicbiri gorunmuyor. setHeight / setStretchFactor / applyOptions /
+    // resize / fitContent / setData cagrilarinin HICBIRI bu durumu
+    // duzeltmiyor — kutuphane ici bir senkronizasyon kopmasi oldugu icin
+    // yerinde onarilamiyor. Kullanicinin "RSI secili ama grafikte yok"
+    // sikayetinin gercek sebebi buydu.
+    // Tek guvenilir cikis: durumu tespit edip grafigi yeniden kurmak.
+    // Sonsuz donguye karsi en fazla MAX_CHART_REBUILDS deneme yapiliyor.
+    if (panes.length > 1) {
+      window.setTimeout(() => {
+        if (chartRef.current !== chart) return;
+        const current = chart.panes();
+        const collapsed = current.length > 1 && current.slice(1).some((p) => p.getHeight() < 1);
+        if (collapsed && rebuildCountRef.current < MAX_CHART_REBUILDS) {
+          rebuildCountRef.current += 1;
+          setChartNonce((n) => n + 1);
+        }
+      }, 450);
+    }
+
     if (active.has("fvg") && ind.fvg) {
       const zones = ind.fvg as { top: number; bottom: number; type: string }[];
       for (const z of zones) {
@@ -1329,6 +1362,15 @@ export default function BogaChartEngine({
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Grafik bastan kurulduysa (yukaridaki saglik dogrulamasi) onbellekteki
+  // veriyi yeni grafige tekrar ciz — aksi halde yeni grafik bos kalirdi,
+  // cunku fetchData yalnizca symbol/interval/active degisince tetikleniyor.
+  useEffect(() => {
+    if (chartNonce === 0) return;
+    if (chartRef.current && lastDataRef.current) renderAll(lastDataRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chartNonce]);
 
   // customLevels prop değiştiğinde (SuperTrade'in kendi poll döngüsü) grafiğin
   // kendi 60sn'lik yenilemesini beklemeden çizgileri anında güncelle.
