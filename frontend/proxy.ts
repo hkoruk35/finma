@@ -4,6 +4,10 @@ import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
 import { createTimeoutFetch } from './lib/supabaseFetch'
 import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
+import exchangeMap from './public/exchange_map.json'
+
+// Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
+const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
@@ -168,6 +172,33 @@ function resolvePreferredLocale(acceptLangHeader: string | null): string {
 
 export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl
+
+  // ── SEO: WWW → non-WWW kalıcı yönlendirme (308) ────────────────────────────
+  const host = request.headers.get('host') || ''
+  if (host.startsWith('www.')) {
+    const newUrl = new URL(request.url)
+    newUrl.host = host.replace('www.', '')
+    return NextResponse.redirect(newUrl, 308)
+  }
+
+  // ── SEO: /sector/* — eski BOGA AI sektör sayfaları artık yok (410 Gone) ─────
+  // Bu path şu an /admin/account/login'e gidiyor; Google'a doğru sinyal ver.
+  if (pathname.startsWith('/sector/') || pathname === '/sector') {
+    return new NextResponse('Gone', { status: 410 })
+  }
+
+  // ── SEO: /stock/:ticker → /en/analysis/:ticker (308 Permanent Redirect) ─────
+  // Ticker her zaman lowercase normalize edilir. Sistemde olmayan ticker'lar 410.
+  if (pathname.startsWith('/stock/')) {
+    const rawTicker = pathname.split('/')[2] || ''
+    if (rawTicker) {
+      const ticker = rawTicker.toLowerCase()
+      if (KNOWN_TICKERS.has(ticker)) {
+        return NextResponse.redirect(new URL(`/en/analysis/${ticker}`, request.url), 308)
+      }
+      return new NextResponse('Gone', { status: 410 })
+    }
+  }
 
   // ── /data/* statik JSON'lara doğrudan HTTP erişimi kapalı ──────────────────
   if (pathname === '/data' || pathname.startsWith('/data/')) {
