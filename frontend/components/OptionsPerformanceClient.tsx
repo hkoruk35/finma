@@ -310,7 +310,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                       <TD cls="text-slate-500">{p.scan_date}</TD>
                       <TD cls="text-white font-medium">
                         <TickerHoverChart ticker={p.ticker}>
-                          <Link href={`/stock/${p.ticker}`} className="hover:text-[#3b82f6] transition-colors">
+                          <Link href={`/en/analysis/${p.ticker.toLowerCase()}`} className="hover:text-[#3b82f6] transition-colors">
                             {p.ticker}
                           </Link>
                         </TickerHoverChart>

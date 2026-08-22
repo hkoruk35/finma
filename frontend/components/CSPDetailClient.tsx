@@ -961,7 +961,7 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
           <Link href={`/global/en/graphic/${sym}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Chart Detail ↗</Link>
-          <Link href={`/stock/${sym}`}
+          <Link href={`/en/analysis/${sym.toLowerCase()}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
           <Link href={`/optanaliz?symbol=${sym}`}
             style={{ color: "#d2a8ff", fontSize: 10, textDecoration: "none" }}>OptAnaliz ↗</Link>
@@ -1002,7 +1002,7 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
               return (
                 <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d", transition: "background 0.2s" }}>
                   <td style={{ padding: "9px 14px", fontWeight: 700 }}>
-                    <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{sym}</Link>
+                    <Link href={`/en/analysis/${sym.toLowerCase()}`} style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{sym}</Link>
                   </td>
                   <td style={{ padding: "9px 12px" }}>
                     <span style={{ background: tipStyle.bg, color: tipStyle.text, fontSize: 10, fontWeight: 700, padding: "3px 7px", borderRadius: 3, display: "inline-block" }}>

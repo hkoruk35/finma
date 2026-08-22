@@ -35,7 +35,7 @@ function ArchivePickRow({ pick, index }: { pick: OptionPick; index: number }) {
       <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
         <div className="flex items-center gap-3">
           <span className={`text-xs font-black ${isTop3 ? "text-[#3b82f6]" : "text-[#00d2ff]"}`}>#{pick.rank}</span>
-          <Link href={`/stock/${pick.ticker}`} className="text-xl font-black text-white hover:text-[#3b82f6] transition-colors">
+          <Link href={`/en/analysis/${pick.ticker.toLowerCase()}`} className="text-xl font-black text-white hover:text-[#3b82f6] transition-colors">
             {pick.ticker}
           </Link>
           <span className="text-[#00d2ff] font-mono text-sm">${formatNumber(pick.current_price, 2)}</span>

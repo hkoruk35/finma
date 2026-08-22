@@ -217,7 +217,7 @@ export default async function SectorPage({ params }: Props) {
                           </span>
                        </td>
                        <td className="px-6 py-4 text-right">
-                          <Link href={`/stock/${stock.ticker}`} className="text-[#3b82f6] text-xs font-medium hover:underline">
+                          <Link href={`/en/analysis/${stock.ticker.toLowerCase()}`} className="text-[#3b82f6] text-xs font-medium hover:underline">
                              Details &rarr;
                           </Link>
                        </td>

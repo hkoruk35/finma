@@ -237,7 +237,7 @@ export default function WatchlistPage() {
                   </div>
 
                   <Link 
-                    href={`/stock/${stock.ticker}`}
+                    href={`/en/analysis/${stock.ticker.toLowerCase()}`}
                     className="w-full py-2.5 bg-[#0c121d] text-emerald-400 rounded-lg text-[10px] font-black text-center border border-white/10 hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all uppercase tracking-wider"
                   >
                     Interactive Analysis &rarr;

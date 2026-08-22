@@ -51,7 +51,7 @@ import {
   sessionPhase,
 } from "./scoring";
 import { buildContext } from "./context";
-import { buildChain, impliedVolFor, minutesToClose, priceOption, simulateRunners } from "./options";
+import { buildChain, expectedMove, impliedVolFor, minutesToClose, priceOption, roundToStep, simulateRunners } from "./options";
 
 // ── Basit bellek içi önbellek ────────────────────────────────────
 
@@ -582,25 +582,43 @@ function closeBiasConfidence(score: number, factors: ScoreFactor[]): ConfidenceT
  *   NEUTRAL + MEDIUM ve üzeri güven → iron butterfly (ATM'de sabitlenme/pin senaryosu)
  *   BULLISH/BEARISH + MEDIUM ve üzeri güven → yönlü debit spread
  */
+/** Bkz. V4StrategyLab.tsx'teki aynı isim — tanımlı riskli bir yapının
+ * gösterilebilmesi için gereken asgari kâr/risk eşiği. Sabit puanlı dar
+ * kanatlar (ör. SPX'te 5-10 puan) beklenen geceleyin hareketine kıyasla
+ * önemsiz kalıp $5 net kredi / $500 maksimum risk gibi anlamsız yapılar
+ * üretebiliyordu — bkz. expectedMove() gerekçesi. */
+const MIN_CREDIT_RATIO = 0.15;
+const MIN_CREDIT_ABS = 25;
+
 function buildCloseStructures(input: {
   bias: "BULLISH" | "BEARISH" | "NEUTRAL";
   confidence: ConfidenceTier;
   spotPrice: number;
   vix: number;
+  scale: number;
 }): CloseStructure[] {
-  const { spotPrice, vix } = input;
+  const { spotPrice, vix, scale } = input;
   if (!(spotPrice > 0)) return [];
 
   const overnightMinutes = 24 * 60 + 6.5 * 60; // gece + ertesi tam seans (yaklaşık)
-  const atm = Math.round(spotPrice / 5) * 5;
+  const step = 5 * scale;
+  const atm = Math.round(spotPrice / step) * step;
   const iv = (k: number) => impliedVolFor(vix, spotPrice, k);
   const call = (k: number) => priceOption(spotPrice, k, overnightMinutes, iv(k), true).price;
   const put = (k: number) => priceOption(spotPrice, k, overnightMinutes, iv(k), false).price;
   const money = (v: number) => Math.round(v * 100);
 
+  // Kanat/spread genişlikleri, gece + ertesi tam seansı kapsayan beklenen
+  // 1-sigma harekete oranla belirlenir (sabit puan DEĞİL) — bkz. V4StrategyLab
+  // ile aynı mantık.
+  const move = expectedMove(spotPrice, vix, overnightMinutes);
+  const move1 = Math.max(step, roundToStep(move * 0.35, step)); // dar (butterfly kanadı)
+  const move2 = Math.max(move1 + step, roundToStep(move * 0.7, step)); // strangle/yönlü genişlik
+  const wingWidth = Math.max(step * 2, roundToStep(move * 0.3, step)); // butterfly koruma genişliği
+
   if (input.confidence === "LOW") {
-    const cK = atm + 10;
-    const pK = atm - 10;
+    const cK = atm + move2;
+    const pK = atm - move2;
     const cost = money(call(cK) + put(pK));
     return [
       {
@@ -619,11 +637,34 @@ function buildCloseStructures(input: {
   }
 
   if (input.bias === "NEUTRAL") {
-    const sP = atm - 5;
-    const lP = atm - 10;
-    const sC = atm + 5;
-    const lC = atm + 10;
+    const sP = atm - move1;
+    const lP = sP - wingWidth;
+    const sC = atm + move1;
+    const lC = sC + wingWidth;
+    const width = money(wingWidth);
     const credit = money(put(sP) - put(lP) + call(sC) - call(lC));
+    // Kredi, korunan riske kıyasla anlamsız derecede düşükse (ör. çok düşük VIX
+    // günlerinde), kullanıcıya "$5 kâr hedefli" bir yapı önermek yerine
+    // gecelik strangle'a düş — en azından teorik sınırsız getirisi vardır.
+    if (credit < Math.max(MIN_CREDIT_ABS, width * MIN_CREDIT_RATIO)) {
+      const cK = atm + move2;
+      const pK = atm - move2;
+      const cost = money(call(cK) + put(pK));
+      return [
+        {
+          id: "close-strangle-fallback",
+          name: "Gecelik Strangle (Dar Pin Riski)",
+          legs: `Al ${cK} C + Al ${pK} P`,
+          netLabel: "Net maliyet",
+          netAmount: cost,
+          maxLoss: cost,
+          maxProfit: null,
+          breakeven: `${fmtNum(pK - cost / 100)} / ${fmtNum(cK + cost / 100)}`,
+          reason:
+            "Fiyat açılış seviyesine yakın kapanabilir, ancak mevcut oynaklıkta bir Iron Butterfly'ın kredisi taşıdığı riske kıyasla anlamsız kalıyordu — bunun yerine yön ne olursa olsun hareketi yakalayan bir yapı önerildi.",
+        },
+      ];
+    }
     return [
       {
         id: "close-butterfly",
@@ -631,7 +672,7 @@ function buildCloseStructures(input: {
         legs: `Sat ${sP}P / Al ${lP}P + Sat ${sC}C / Al ${lC}C`,
         netLabel: "Net kredi",
         netAmount: credit,
-        maxLoss: Math.max(1, 500 - credit),
+        maxLoss: Math.max(1, width - credit),
         maxProfit: credit,
         breakeven: `${fmtNum(sP - credit / 100)} – ${fmtNum(sC + credit / 100)}`,
         reason:
@@ -644,7 +685,8 @@ function buildCloseStructures(input: {
   const type = input.bias === "BULLISH" ? "C" : "P";
   const priceAt = input.bias === "BULLISH" ? call : put;
   const longK = atm;
-  const shortK = atm + dir * 10;
+  const shortK = atm + dir * move2;
+  const width = money(Math.abs(shortK - longK));
   const cost = money(priceAt(longK) - priceAt(shortK));
   return [
     {
@@ -654,7 +696,7 @@ function buildCloseStructures(input: {
       netLabel: "Net maliyet",
       netAmount: cost,
       maxLoss: cost,
-      maxProfit: 1000 - cost,
+      maxProfit: width - cost,
       breakeven: fmtNum(longK + (dir * cost) / 100),
       reason: `Kapanış faktörlerinin çoğunluğu ${
         input.bias === "BULLISH" ? "yukarı" : "aşağı"
@@ -779,7 +821,17 @@ function computeForecastBundle(input: {
     analysisText = `${stagePrefix} verileri net bir alıcı veya satıcı baskısı göstermiyor, piyasa denge arayışında. Yarınki açılış yönü büyük ihtimalle gece seansındaki (overnight) gelişmelere bağlı olacaktır.${stageSuffix}`;
   }
 
-  const structures = buildCloseStructures({ bias, confidence, spotPrice: input.spotPrice, vix: input.vix });
+  const closeScale =
+    input.assetLabel && input.assetLabel in ASSET_MAP
+      ? ASSET_MAP[input.assetLabel as keyof typeof ASSET_MAP].scale
+      : 1;
+  const structures = buildCloseStructures({
+    bias,
+    confidence,
+    spotPrice: input.spotPrice,
+    vix: input.vix,
+    scale: closeScale,
+  });
 
   return { bias, score, analysisText, stage: input.stage, confidence, factors, structures };
 }

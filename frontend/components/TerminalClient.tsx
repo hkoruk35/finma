@@ -239,7 +239,7 @@ function WatchlistRow({
         )}
       </div>
       <Link
-        href={`/stock/${ticker}`}
+        href={`/en/analysis/${ticker.toLowerCase()}`}
         className="text-[9px] text-[#3b82f6] hover:text-blue-300 px-1"
         title="Stock detail"
       >
@@ -858,7 +858,7 @@ export default function TerminalClient() {
           {/* Detail link (only for stocks) */}
           {selected.isStock && (
             <Link
-              href={`/stock/${selected.ticker}`}
+              href={`/en/analysis/${selected.ticker.toLowerCase()}`}
               className="px-2 py-1 text-[9px] font-medium text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/10"
             >
               Detail ↗

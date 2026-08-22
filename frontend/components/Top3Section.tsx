@@ -30,7 +30,7 @@ export default function Top3Section({ master, allTickers }: Props) {
           return (
             <Link
               key={item.ticker}
-              href={`/stock/${item.ticker}`}
+              href={`/en/analysis/${item.ticker.toLowerCase()}`}
               className="glass-card p-6 hover:bg-[#1a2030] transition-all duration-300 group relative overflow-hidden border-2 border-transparent hover:border-[#3b82f6]/20"
             >
               {/* Rank badge */}

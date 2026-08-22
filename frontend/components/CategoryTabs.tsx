@@ -92,7 +92,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {cards.map((stock, idx) => (
           <Link
-            href={`/stock/${stock.ticker}`}
+            href={`/en/analysis/${stock.ticker.toLowerCase()}`}
             key={stock.ticker}
             className="glass-card p-3 hover:bg-[#1a2030] transition-all duration-200 group cursor-pointer animate-fade-in border border-[#1e2a3a] hover:border-[#3b82f6]/30"
             style={{ animationDelay: `${idx * 60}ms` }}

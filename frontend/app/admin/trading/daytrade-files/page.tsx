@@ -130,7 +130,7 @@ export default async function DayTradePicksPage() {
                           </span>
                         </td>
                         <td className="px-3 py-4">
-                          <Link href={`/stock/${pick.ticker}`} className="group">
+                          <Link href={`/en/analysis/${pick.ticker.toLowerCase()}`} className="group">
                             <div className="text-white font-black text-base tracking-tight group-hover:text-[#10b981] transition-colors">
                               {pick.ticker}
                             </div>
@@ -223,7 +223,7 @@ export default async function DayTradePicksPage() {
                           <span className="text-[#00d2ff] uppercase">SCORE: <b className="text-white">{pick.dt_score}</b></span>
                           <span className="text-[#00d2ff] uppercase">R/R: <b className="text-white">{zones.rr_ratio || pick.rr_ratio || "2.0"}:1</b></span>
                        </div>
-                       <Link href={`/stock/${pick.ticker}`} className="text-[#10b981] uppercase tracking-widest">
+                       <Link href={`/en/analysis/${pick.ticker.toLowerCase()}`} className="text-[#10b981] uppercase tracking-widest">
                          ANALYSIS →
                        </Link>
                     </div>

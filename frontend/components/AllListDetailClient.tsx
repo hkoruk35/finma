@@ -553,7 +553,7 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
                     }}
                     onClick={e => e.stopPropagation()}
                   >
-                    <Link href={`/stock/${sym}`} style={{ textDecoration: "none" }}>
+                    <Link href={`/en/analysis/${sym.toLowerCase()}`} style={{ textDecoration: "none" }}>
                       <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
                     </Link>
                   </td>

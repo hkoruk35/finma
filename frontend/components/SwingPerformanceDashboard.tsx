@@ -898,7 +898,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               return disableTickerLink ? (
                 <div key={i} className={cardClassName}>{cardInner}</div>
               ) : (
-                <Link key={i} href={`/stock/${pick.ticker}`} className={cardClassName}>{cardInner}</Link>
+                <Link key={i} href={`/en/analysis/${pick.ticker.toLowerCase()}`} className={cardClassName}>{cardInner}</Link>
               );
             })}
           </div>
@@ -1094,7 +1094,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           {disableTickerLink ? (
                             <span className="text-[13px] font-medium text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
                           ) : (
-                            <Link href={`/stock/${t.ticker}`} className="text-[13px] font-medium text-[#3b82f6] tracking-tight leading-none hover:underline">
+                            <Link href={`/en/analysis/${t.ticker.toLowerCase()}`} className="text-[13px] font-medium text-[#3b82f6] tracking-tight leading-none hover:underline">
                               {t.ticker}
                             </Link>
                           )}
@@ -1205,7 +1205,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                               {disableTickerLink ? (
                                 <span className="font-semibold text-[11px] text-[#3b82f6] tracking-tight">{t.ticker}</span>
                               ) : (
-                                <Link href={`/stock/${t.ticker}`} className="font-semibold text-[11px] text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                                <Link href={`/en/analysis/${t.ticker.toLowerCase()}`} className="font-semibold text-[11px] text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
                               )}
                             </TickerHoverChart>
                             {t.is_duplicate && (

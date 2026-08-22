@@ -78,6 +78,30 @@ export function minutesToClose(nowMinutesEt: number): number {
   return Math.max(5, 16 * 60 - nowMinutesEt);
 }
 
+/**
+ * 1-sigma teorik hareket (spot ile aynı fiyat biriminde), ATM taban örtük
+ * oynaklık ve vadeye kalan süreye göre. Opsiyon yapı genişlikleri (spread /
+ * condor / butterfly kanat mesafeleri) bu değere ORANLA belirlenmelidir —
+ * sabit endeks puanı (ör. "10 puan") KULLANILMAMALIDIR: SPX/NDX gibi yüksek
+ * nominal değerli varlıklarda sabit puanlar beklenen harekete kıyasla önemsiz
+ * kalır ve neredeyse aynı fiyatlı bacaklar (dolayısıyla anlamsız derecede
+ * düşük net kredi/maliyet farkı) üretir; SPY/QQQ gibi düşük fiyatlı
+ * varlıklarda ise orantısız derecede geniş kalır. Bu fonksiyon her varlık ve
+ * her IV/vade kombinasyonu için tutarlı, piyasa koşullarına duyarlı genişlik
+ * üretir.
+ */
+export function expectedMove(spot: number, vix: number, minutesLeft: number): number {
+  const iv = impliedVolFor(vix, spot, spot); // ATM taban IV (moneyness gülümsemesi sıfır)
+  const t = Math.max(minutesLeft, 1) / MINUTES_PER_YEAR;
+  return spot * iv * Math.sqrt(t);
+}
+
+/** Bir değeri, varlığın kendi ölçeğine uygun bir strike adımının en yakın katına yuvarlar */
+export function roundToStep(value: number, step: number): number {
+  if (!(step > 0)) return value;
+  return Math.round(value / step) * step;
+}
+
 export interface ChainInput {
   spot: number;
   vix: number;

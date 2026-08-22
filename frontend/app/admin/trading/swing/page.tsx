@@ -158,7 +158,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         </span>
                       </td>
                       <td className="px-3 py-3">
-                        <Link href={`/stock/${pick.ticker}`} className="group">
+                        <Link href={`/en/analysis/${pick.ticker.toLowerCase()}`} className="group">
                           <TickerHoverChart ticker={pick.ticker}>
                             <div className="text-white font-black text-base tracking-tight group-hover:text-[#3b82f6] transition-colors font-mono uppercase">
                               {pick.ticker}
@@ -230,7 +230,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                   </div>
 
                   <div className="flex items-start justify-between mb-5">
-                    <Link href={`/stock/${pick.ticker}`} className="group flex-1">
+                    <Link href={`/en/analysis/${pick.ticker.toLowerCase()}`} className="group flex-1">
                       <TickerHoverChart ticker={pick.ticker}><div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5 group-hover:text-[#3b82f6] transition-colors">{pick.ticker}</div></TickerHoverChart>
                       <div className="text-[#00d2ff] text-xs font-medium uppercase tracking-wider opacity-80">{pick.company}</div>
                     </Link>
@@ -278,7 +278,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         Option →
                       </Link>
                       <Link 
-                        href={`/stock/${pick.ticker}`}
+                        href={`/en/analysis/${pick.ticker.toLowerCase()}`}
                         className="px-3 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-lg text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap"
                       >
                         DETAILS →
@@ -344,7 +344,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                               <span className="text-[11px] font-black text-[#a78bfa]">#{idx + 1}</span>
                             </td>
                             <td className="px-3 py-2.5">
-                              <Link href={`/stock/${op.ticker}`} className="group">
+                              <Link href={`/en/analysis/${op.ticker.toLowerCase()}`} className="group">
                                 <div className="text-white font-black text-sm tracking-tight group-hover:text-[#8b5cf6] transition-colors">{op.ticker}</div>
                               </Link>
                             </td>
@@ -379,7 +379,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                       <div key={op.ticker} className="glass-card p-5 border border-[#8b5cf6]/30 relative">
                         <div className="absolute top-0 right-0 px-3 py-1 text-[10px] font-black text-white bg-[#8b5cf6] rounded-bl-xl">#{idx + 1}</div>
                         <div className="flex items-center justify-between mb-4">
-                          <Link href={`/stock/${op.ticker}`}>
+                          <Link href={`/en/analysis/${op.ticker.toLowerCase()}`}>
                             <div className="text-white font-black text-2xl tracking-tighter">{op.ticker}</div>
                           </Link>
                           <div className="flex items-center gap-2">

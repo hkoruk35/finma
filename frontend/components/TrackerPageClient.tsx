@@ -714,7 +714,7 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
           <Link href={`/global/en/graphic/${sym}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Chart Detail ↗</Link>
-          <Link href={`/stock/${sym}`}
+          <Link href={`/en/analysis/${sym.toLowerCase()}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
           <Link href={`/optanaliz?symbol=${sym}`}
             style={{ color: "#d2a8ff", fontSize: 10, textDecoration: "none" }}>OptAnaliz ↗</Link>
@@ -755,7 +755,7 @@ function TrackerHeatmapTab({ tickers, data, types }: { tickers: string[]; data: 
               return (
                 <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
                   <td style={{ padding: "6px 10px" }}>
-                    <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900 }}>{sym}</Link>
+                    <Link href={`/en/analysis/${sym.toLowerCase()}`} style={{ color: "#58a6ff", fontWeight: 900 }}>{sym}</Link>
                   </td>
                   <td style={{ padding: "6px 8px" }}>
                     <span style={{ background: tipStyle.bg, color: tipStyle.text, fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 2 }}>

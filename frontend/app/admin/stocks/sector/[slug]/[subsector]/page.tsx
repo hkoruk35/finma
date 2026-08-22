@@ -253,7 +253,7 @@ export default async function SubsectorPage({
                 >
                   <td className="px-4 py-3">
                     <Link
-                      href={`/stock/${stock.ticker}`}
+                      href={`/en/analysis/${stock.ticker.toLowerCase()}`}
                       className="text-[#3b82f6] hover:text-white font-medium uppercase tracking-wide transition-colors"
                     >
                       {stock.ticker}
@@ -299,7 +299,7 @@ export default async function SubsectorPage({
             <div key={stock.ticker} className="glass-card p-4">
               <div className="flex justify-between items-start mb-2">
                 <Link
-                  href={`/stock/${stock.ticker}`}
+                  href={`/en/analysis/${stock.ticker.toLowerCase()}`}
                   className="text-[#3b82f6] hover:text-white font-medium text-lg uppercase transition-colors"
                 >
                   {stock.ticker}

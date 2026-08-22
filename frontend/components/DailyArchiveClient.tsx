@@ -99,7 +99,7 @@ export default function DailyArchiveClient({ date }: DailyArchiveProps) {
             {tickers.map((ticker) => (
               <Link
                 key={ticker}
-                href={`/stock/${ticker}`}
+                href={`/en/analysis/${ticker.toLowerCase()}`}
                 style={{
                   padding: "8px 16px",
                   background: "#161b22",

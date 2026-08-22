@@ -382,7 +382,7 @@ function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string })
               <div style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24" }}>{stock.risk_pct}%</div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              <Link href={`/stock/${stock.ticker}`}
+              <Link href={`/en/analysis/${stock.ticker.toLowerCase()}`}
                 style={{ background: "#0a2a4a", border: "1px solid #3b82f6", color: "#60a5fa", padding: "7px 0", borderRadius: 4, fontSize: 11, fontWeight: 700, textAlign: "center", display: "block" }}>
                 Detay ↗
               </Link>

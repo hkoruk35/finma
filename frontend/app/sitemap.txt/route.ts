@@ -13,7 +13,6 @@ const routes = [
   "/markets",
   "/earning-calendar",
   "/insider",
-  "/themes",
   "/about",
   "/contact",
   "/terms",

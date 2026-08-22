@@ -191,7 +191,7 @@ export default async function CategoryPage({ params }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {stocks.map((stock, idx) => (
             <Link
-              href={`/stock/${stock!.ticker}`}
+              href={`/en/analysis/${stock!.ticker.toLowerCase()}`}
               key={stock!.ticker}
               className="glass-card hover:bg-[#1a2030] transition-all duration-300 group flex flex-col p-5"
             >

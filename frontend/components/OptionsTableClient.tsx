@@ -301,7 +301,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                       <TD cls={cIdx === 0 ? "text-slate-500" : "text-transparent"}>{cIdx === 0 ? raw.date : raw.date}</TD>
                       <TD cls={cIdx === 0 ? "text-white font-medium" : "text-slate-700"}>
                         {cIdx === 0 ? (
-                          <TickerHoverChart ticker={raw.ticker}><Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link></TickerHoverChart>
+                          <TickerHoverChart ticker={raw.ticker}><Link href={`/en/analysis/${raw.ticker.toLowerCase()}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link></TickerHoverChart>
                         ) : raw.ticker}
                       </TD>
                       <TD center cls={cIdx === 0 ? `font-medium ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? formatNumber(raw.score, 0) : ""}</TD>

@@ -69,9 +69,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = titles[langCode as string] || titles.en;
 
-  const langAlternates: Record<string, string> = {};
+  const lowerTicker = ticker.toLowerCase();
+
+  const langAlternates: Record<string, string> = {
+    'x-default': `https://bogastock.com/en/${LANG_CONFIG['en'].slug}/${lowerTicker}`
+  };
+  
   for (const [l, cfg] of Object.entries(LANG_CONFIG)) {
-    langAlternates[l] = `https://bogastock.com/${l}/${cfg.slug}/${ticker}`;
+    langAlternates[l] = `https://bogastock.com/${l}/${cfg.slug}/${lowerTicker}`;
   }
 
   return {
@@ -79,13 +84,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description: summary.slice(0, 160),
     alternates: {
-      canonical: `https://bogastock.com/${lang}/${slug}/${ticker}`,
+      canonical: `https://bogastock.com/${lang}/${slug}/${lowerTicker}`,
       languages: langAlternates,
     },
     openGraph: {
-    title,
+      title,
       description: summary.slice(0, 160),
-      url: `https://bogastock.com/${lang}/${slug}/${ticker}`,
+      url: `https://bogastock.com/${lang}/${slug}/${lowerTicker}`,
       images: [{ url: "https://bogastock.com/logo/boga_stock_icon.png", width: 1200, height: 630 }],
     },
   };
@@ -309,7 +314,7 @@ export default async function LangAnalysisPage({ params }: Props) {
             {labels.fullDataPrompt}
           </p>
           <Link
-            href={`/stock/${pick.ticker}`}
+            href={`/en/analysis/${pick.ticker.toLowerCase()}`}
             className="px-4 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black text-white transition-colors whitespace-nowrap"
           >
             {pick.ticker} →

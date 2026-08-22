@@ -497,7 +497,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                     const { bg, text } = heatBg(pct);
                     const signal = d?.tracker_1h?.signal;
                     return (
-                      <Link key={sym} href={`/stock/${sym}`} style={{ textDecoration: "none" }}>
+                      <Link key={sym} href={`/en/analysis/${sym.toLowerCase()}`} style={{ textDecoration: "none" }}>
                         <div style={{
                           background: bg,
                           border: `1px solid ${text}35`,
@@ -598,7 +598,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
                         <TickerHoverChart ticker={sym}>
                           <Link
-                            href={`/stock/${sym}`}
+                            href={`/en/analysis/${sym.toLowerCase()}`}
                             onClick={e => e.stopPropagation()}
                             style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13, textDecoration: "none" }}
                           >
@@ -820,7 +820,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                                 </div>
                               ))}
                               <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
-                                <Link href={`/stock/${sym}`} style={{ flex: 1, background: "#0a2a4a", border: "1px solid #3b82f6", color: "#60a5fa", padding: "5px 0", borderRadius: 3, fontSize: 10, fontWeight: 700, textAlign: "center", textDecoration: "none", display: "block" }}>
+                                <Link href={`/en/analysis/${sym.toLowerCase()}`} style={{ flex: 1, background: "#0a2a4a", border: "1px solid #3b82f6", color: "#60a5fa", padding: "5px 0", borderRadius: 3, fontSize: 10, fontWeight: 700, textAlign: "center", textDecoration: "none", display: "block" }}>
                                   Detay ↗
                                 </Link>
                                 <Link href={`/terminal?ticker=${sym}`} style={{ flex: 1, background: "#0a2a0a", border: "1px solid #22c55e", color: "#4ade80", padding: "5px 0", borderRadius: 3, fontSize: 10, fontWeight: 700, textAlign: "center", textDecoration: "none", display: "block" }}>

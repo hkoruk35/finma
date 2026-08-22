@@ -273,7 +273,7 @@ export default function CSPWatchlistSection() {
                     {tickers.map((ticker) => (
                       <Link
                         key={ticker}
-                        href={`/stock/${ticker}`}
+                        href={`/en/analysis/${ticker.toLowerCase()}`}
                         className={`px-2 py-0.5 text-[11px] font-medium rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
                       >
                         {ticker}
@@ -346,7 +346,7 @@ export default function CSPWatchlistSection() {
                     {tickers.map((ticker) => (
                       <Link
                         key={ticker}
-                        href={`/stock/${ticker}`}
+                        href={`/en/analysis/${ticker.toLowerCase()}`}
                         className={`px-2 py-0.5 text-[11px] font-medium rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
                       >
                         {ticker}

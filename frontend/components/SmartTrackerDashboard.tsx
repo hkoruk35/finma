@@ -85,7 +85,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
     <div className={`bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-55" : ""}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Link href={`/stock/${pos.ticker}`} className="text-white font-medium text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
+          <Link href={`/en/analysis/${pos.ticker.toLowerCase()}`} className="text-white font-medium text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
           <span className={`text-[9px] font-medium px-2 py-0.5 rounded-full border ${badge}`}>{pos.status}</span>
         </div>
         <div className="text-right">

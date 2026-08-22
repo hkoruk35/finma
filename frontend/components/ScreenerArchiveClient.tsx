@@ -170,7 +170,7 @@ export default function ScreenerArchiveClient() {
                       </div>
                       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                         {scan.top_5_tickers.map(ticker => (
-                          <Link key={ticker} href={`/stock/${ticker}`}
+                          <Link key={ticker} href={`/en/analysis/${ticker.toLowerCase()}`}
                             style={{
                               background: "#0a2a4a",
                               border: "1px solid #3b82f6",

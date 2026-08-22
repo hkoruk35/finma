@@ -75,37 +75,26 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Trading
-      { source: "/swing/:path*", destination: "/admin/trading/swing/:path*", permanent: false },
       { source: "/daytrade", destination: "/admin/trading/daytrade", permanent: false },
       { source: "/daytrade-options", destination: "/admin/trading/daytrade-options", permanent: false },
       { source: "/daytrade-performance", destination: "/admin/trading/daytrade-performance", permanent: false },
-      { source: "/options/:path*", destination: "/admin/trading/options/:path*", permanent: false },
       { source: "/optanaliz", destination: "/admin/trading/optanaliz", permanent: false },
       { source: "/optanaliz-performance", destination: "/admin/trading/optanaliz-performance", permanent: false },
       { source: "/preorder/:path*", destination: "/admin/trading/preorder/:path*", permanent: false },
       { source: "/csp/:path*", destination: "/admin/trading/csp/:path*", permanent: false },
 
       // Portfolio
-      { source: "/tracker", destination: "/admin/portfolio/tracker", permanent: false },
       { source: "/smart-tracker", destination: "/admin/portfolio/smart-tracker", permanent: false },
       { source: "/order/:path*", destination: "/admin/portfolio/order/:path*", permanent: false },
 
       // Analytics
-      { source: "/screener/:path*", destination: "/admin/analytics/screener/:path*", permanent: false },
       { source: "/hourly", destination: "/admin/analytics/hourly", permanent: false },
-
-      // Education
-      { source: "/academy/:path*", destination: "/admin/education/academy/:path*", permanent: false },
 
       // Stocks
       { source: "/category/:path*", destination: "/admin/stocks/category/:path*", permanent: false },
-      { source: "/sector/:path*", destination: "/admin/stocks/sector/:path*", permanent: false },
 
       // AI
       { source: "/daily/:path*", destination: "/admin/ai/daily/:path*", permanent: false },
-
-      // Archive
-      { source: "/archive/:path*", destination: "/admin/archive/:path*", permanent: false },
 
       // Other
       { source: "/pro", destination: "/admin/pro", permanent: false },
