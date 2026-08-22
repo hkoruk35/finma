@@ -241,6 +241,39 @@ const MAX_CHART_REBUILDS = 2;
 // sadece setData yapilir (bkz. renderAll icindeki aciklama).
 const PANE_INDICATOR_KEYS: IndicatorKey[] = ["rsi", "macd", "atr", "obv", "volatilite"];
 
+// Sadece URL'de ?panedebug var iken calisir; canli sitede kullaniciyi
+// etkilemeden, sorun tekrar ettiginde 4 kontrol noktasinda pane
+// index/yukseklik/stretch/seri sayisini konsola yazdirir.
+function debugPanes(chart: IChartApi | null, label: string) {
+  if (typeof window === "undefined" || !window.location.search.includes("panedebug")) return;
+  if (!chart) return;
+  try {
+    // eslint-disable-next-line no-console
+    console.log(
+      `[PANES] ${label}`,
+      chart.panes().map((p, i) => ({
+        arrayIndex: i,
+        paneIndex: typeof p.paneIndex === "function" ? p.paneIndex() : undefined,
+        height: Math.round(p.getHeight()),
+        stretch: typeof p.getStretchFactor === "function" ? p.getStretchFactor() : undefined,
+        series: p.getSeries().length,
+      }))
+    );
+  } catch {}
+}
+
+// Kendi panelini olusturan bir gosterge serisi eklendikten sonra cagrilir:
+// panelin son serisi (kullanici gostergeyi kapatip actiginda) kaldirilsa
+// bile lightweight-charts panelin kendisini otomatik SILMESIN diye
+// isaretler. getPane() index yerine serinin GERCEKTE bulundugu paneli
+// dondurdugu icin, index kaymasina karsi da daha guvenilir.
+function markPanePersistent(series: ISeriesApi<"Line"> | null | undefined) {
+  try {
+    const pane = series?.getPane?.();
+    if (pane && typeof pane.setPreserveEmptyPane === "function") pane.setPreserveEmptyPane(true);
+  } catch {}
+}
+
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 // Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
@@ -834,7 +867,12 @@ export default function BogaChartEngine({
     });
 
     const resizeObserver = new ResizeObserver(() => {
-      chart.applyOptions({});
+      // 2026-08-22: "autoSize: true" zaten kendi ResizeObserver'i ile
+      // yeniden boyutlandirmayi hallediyor. Buradaki applyOptions({})
+      // cagrisi hicbir option'i degistirmiyordu ama autoSize'in kendi
+      // relayout dongusuyle YARISAN, gereksiz ikinci bir tetikleyiciydi.
+      // Sadece ana panel yuksekligini OKUYUP React state'ine yansitiyoruz;
+      // grafige ayrica mudahale etmiyoruz.
       requestAnimationFrame(() => setMainPaneHeight(chart.panes()[0]?.getHeight() ?? null));
     });
     resizeObserver.observe(el);
@@ -992,6 +1030,7 @@ export default function BogaChartEngine({
     const chart = chartRef.current;
     const volumeSeries = volumeSeriesRef.current;
     if (!chart || bars.length === 0) return;
+    debugPanes(chart, "BEFORE renderAll");
 
     // Onceki overlay'leri temizle.
     // 2026-08-21 KOK NEDEN: eskiden burada TUM gosterge serileri siliniyordu.
@@ -1017,6 +1056,7 @@ export default function BogaChartEngine({
       for (const series of lineSeriesRefs.current[key] || []) chart.removeSeries(series);
       delete lineSeriesRefs.current[key];
     }
+    debugPanes(chart, "AFTER removeSeries");
     if (mainSeriesRef.current) {
       for (const pl of priceLinesRef.current) {
         try { mainSeriesRef.current.removePriceLine(pl); } catch {}
@@ -1104,15 +1144,22 @@ export default function BogaChartEngine({
       lineSeriesRefs.current.supertrend = [series];
     }
 
-    let nextPaneIdx = 2;
+    // 2026-08-22 KOK NEDEN (ek): sabit "2" varsayimi hacim paneli
+    // KAPALIYKEN yanlisti -- sadece pane 0 (ana) varken RSI "index 2"yi
+    // istiyordu; lightweight-charts var olmayan bir index'e eklenen
+    // seriyi son mevcut pane'e kirpiyor, yani RSI kendi paneli yerine
+    // ana panelin USTUNE biniyordu. Gercek pane sayisindan turetiyoruz.
+    let nextPaneIdx = volumeSeries ? 2 : 1;
 
     if (active.has("rsi") && ind.rsi) {
       const series =
         lineSeriesRefs.current.rsi?.[0] ??
         chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.rsi) || []);
+      markPanePersistent(series);
       lineSeriesRefs.current.rsi = [series];
       nextPaneIdx++;
+      debugPanes(chart, "AFTER RSI add/setData");
     }
 
     if (active.has("macd") && ind.macd) {
@@ -1125,6 +1172,7 @@ export default function BogaChartEngine({
         lineSeriesRefs.current.macd?.[1] ??
         chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
       signalLine.setData(toPoints(m.signal) || []);
+      markPanePersistent(macdLine);
       lineSeriesRefs.current.macd = [macdLine, signalLine];
       nextPaneIdx++;
     }
@@ -1134,6 +1182,7 @@ export default function BogaChartEngine({
         lineSeriesRefs.current.atr?.[0] ??
         chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.atr) || []);
+      markPanePersistent(series);
       lineSeriesRefs.current.atr = [series];
       nextPaneIdx++;
     }
@@ -1143,6 +1192,7 @@ export default function BogaChartEngine({
         lineSeriesRefs.current.obv?.[0] ??
         chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.obv) || []);
+      markPanePersistent(series);
       lineSeriesRefs.current.obv = [series];
       nextPaneIdx++;
     }
@@ -1152,6 +1202,7 @@ export default function BogaChartEngine({
         lineSeriesRefs.current.volatilite?.[0] ??
         chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.volatilite) || []);
+      markPanePersistent(series);
       lineSeriesRefs.current.volatilite = [series];
       nextPaneIdx++;
     }
@@ -1198,6 +1249,7 @@ export default function BogaChartEngine({
     if (panes.length > 1) {
       window.setTimeout(() => {
         if (chartRef.current !== chart) return;
+        debugPanes(chart, "AFTER resize/RAF (450ms)");
         const current = chart.panes();
         const collapsed = current.length > 1 && current.slice(1).some((p) => p.getHeight() < 1);
         if (collapsed && rebuildCountRef.current < MAX_CHART_REBUILDS) {
