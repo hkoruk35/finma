@@ -1091,7 +1091,7 @@ export default function BogaChartEngine({
     if (!mainSeriesRef.current) {
       mainSeriesRef.current = createMainSeries(chart, candleType);
       mainSeriesRef.current.priceScale().applyOptions({
-        scaleMargins: { top: 0.15, bottom: 0.15 }
+        scaleMargins: compact ? { top: 0.05, bottom: 0.05 } : { top: 0.15, bottom: 0.15 }
       });
     }
     const mainSeries = mainSeriesRef.current;
