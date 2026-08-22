@@ -463,13 +463,22 @@ export default function BogaChartEngine({
   // uzerinde tek ziyarette 6000'den fazla istek olculdu).
   // Icerige gore memoize edince referans stabil kaliyor ve dongu kiriliyor.
   const indicatorsKey = indicatorsProp ? indicatorsProp.join(",") : null;
-  const active = useMemo(
-    () =>
+  const active = useMemo(() => {
+    const base =
       indicatorsKey !== null
         ? new Set(indicatorsKey.split(",").filter(Boolean) as IndicatorKey[])
-        : internalActive,
-    [indicatorsKey, internalActive]
-  );
+        : internalActive;
+    // Hacim profili küçük ekranda hem okunaksız hem pahalı — mobilde SADECE
+    // görüntüleme için çıkarıyoruz. Kullanıcının kendi seçimi
+    // (internalActive) DEĞİŞMİYOR, bu yüzden ekran genişleyince geri geliyor.
+    // RSI artık hiçbir koşulda çıkarılmıyor.
+    if (indicatorsKey === null && isMobile && base.has("volumeProfile")) {
+      const s = new Set(base);
+      s.delete("volumeProfile");
+      return s;
+    }
+    return base;
+  }, [indicatorsKey, internalActive, isMobile]);
   const setActive = setInternalActive;
 
   const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"].includes(symbol.toUpperCase());
@@ -616,30 +625,33 @@ export default function BogaChartEngine({
     }
   };
 
-  // Mobil breakpoint (md: = 768px) kontrol — varsayılan göstergeleri uyarla
+  // Mobil breakpoint (md: = 768px) kontrol
+  // 2026-08-21 KÖK NEDEN: window.innerWidth, arka plandaki / henüz boyanmamış
+  // / oturumdan geri yüklenen sekmelerde 0 dönebiliyor (canlı sitede ölçüldü:
+  // innerWidth === 0). "0 < 768" doğru olduğu için sayfa masaüstünde bile
+  // "mobil" sayılıyordu ve aşağıdaki mantık kullanıcının seçili
+  // göstergelerinden RSI'yı siliyordu — kullanıcının "RSI seçili görünüyor
+  // ama grafikte yok" şikayetinin gerçek sebebi buydu. Geçersiz (0) ölçümü
+  // yok sayıyoruz; gerçek bir genişlik gelene kadar mevcut değer korunuyor.
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => {
+      const w = window.innerWidth;
+      if (w > 0) setIsMobile(w < 768);
+    };
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Mobil tasarımda varsayılan göstergeleri güncelle: hacim profili ve RSI'ı kaldır.
-  // NOT: `defaultIndicators` sadece ilk state'i tohumluyor (grafik sayfası
-  // detailMode'da rsi/volumeProfile'ı masaüstü varsayılanı olarak geçiyor,
-  // bkz. GraphicDetailContent.tsx) — kullanıcı toolbar'daki butonlarla hâlâ
-  // değiştirebiliyor, o yüzden bu durumda ATLANMAMALI. Gerçekten dışarıdan
-  // TAM kontrollü mod (compact grid tile gibi, toggle butonu bile yok) sadece
-  // `indicatorsProp` (indicators prop'u) geçildiğinde devreye girer.
-  useEffect(() => {
-    if (indicatorsProp) return; // Tam kontrollü mod — toggle UI'ı yok, dokunma
-    if (isMobile) {
-      const updated = new Set(internalActive);
-      updated.delete("volumeProfile");
-      updated.delete("rsi");
-      setInternalActive(updated);
-    }
-  }, [isMobile]);
+  // NOT (2026-08-21): Burada eskiden mobilde `internalActive` STATE'inden
+  // volumeProfile ve rsi SİLİNİYORDU. İki ayrı hatası vardı:
+  //   1) Tek yönlüydü — silinen gösterge, ekran tekrar genişlediğinde geri
+  //      gelmiyordu; tek bir hatalı "mobil" ölçümü kullanıcının seçimini
+  //      kalıcı olarak bozuyordu.
+  //   2) Kullanıcının açık talebiyle çelişiyordu: RSI(14) her açılışta
+  //      varsayılan olmalı (mobil dahil).
+  // Artık kullanıcının seçimine hiç dokunmuyoruz; mobile özel kısıtlama
+  // yukarıdaki `active` useMemo'sunda SADECE görüntüleme için türetiliyor.
 
   useEffect(() => {
     if (!detailMode) return;
