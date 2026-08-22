@@ -1274,13 +1274,12 @@ export default function BogaChartEngine({
       window.setTimeout(() => {
         if (chartRef.current !== chart) return;
         debugPanes(chart, "AFTER resize/RAF (450ms)");
-        // 2026-08-22: otomatik "cokme tespit edilirse grafigi bastan kur"
-        // eylemi KASITLI OLARAK KALDIRILDI -- panedebug ile canli
-        // dogrulandi ki bu kontrol, fetchData'daki sirasiz-cevap yarisinin
-        // (bkz. fetchGenerationRef) ORTASINDAKI GECICI bir durumu "cokme"
-        // sanip saglikli grafigi yok edip yeniden kuruyordu; asil yaris artik
-        // kaynagindan cozuldugu icin bu agresif onlem sadece risk katiyordu.
-        // debugPanes logu (?panedebug) tani icin duruyor.
+        const current = chart.panes();
+        const collapsed = current.length > 1 && current.slice(1).some((p) => p.getHeight() < 1);
+        if (collapsed && rebuildCountRef.current < MAX_CHART_REBUILDS) {
+          rebuildCountRef.current += 1;
+          setChartNonce((n) => n + 1);
+        }
       }, 450);
     }
 
