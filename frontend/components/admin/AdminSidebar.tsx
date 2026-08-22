@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV = [
+  { href: "/admin/spyengine/v1", label: "⚡ SPYEngine" },
   { href: "/admin", label: "Genel Bakış" },
   { href: "/admin/supertrade/v4", label: "🦅 SuperTrade V4" },
-  { href: "/admin/supertrade/v4/performance", label: "🎯 V4 Performans" },
   { href: "/admin/trading/swing", label: "📈 Trading" },
   { href: "/admin/analytics/performance", label: "📊 Analytics" },
   { href: "/admin/analytics/visitors", label: "👥 Ziyaretçiler" },
