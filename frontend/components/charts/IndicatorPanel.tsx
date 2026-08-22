@@ -53,9 +53,15 @@ export default function IndicatorPanel({
         vertLines: { color: "#1e2a3a" },
         horzLines: { color: "#1e2a3a" },
       },
+      leftPriceScale: {
+        // Keep left price scale width for alignment with main chart.
+        alignLabels: true,
+      },
       rightPriceScale: {
         borderColor: "#1e2a3a",
         scaleMargins: { top: 0.1, bottom: 0.1 },
+        // Align the price labels across multiple chart instances so RSI/MACD panels line up with the main chart.
+        alignLabels: true,
       },
       timeScale: {
         borderColor: "#1e2a3a",
