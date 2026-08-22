@@ -2032,6 +2032,7 @@ export default function BogaChartEngine({
               overBoughtLine={70}
               overSoldLine={30}
               mainChart={chartRef.current}
+              mainDataLength={barsRef.current.length}
             />
           )}
           {active.has("macd") && subIndData.macd && subIndData.macd.length > 0 && (
@@ -2044,6 +2045,7 @@ export default function BogaChartEngine({
               color2="#f97316"
               height={90}
               mainChart={chartRef.current}
+              mainDataLength={barsRef.current.length}
             />
           )}
           {active.has("atr") && subIndData.atr && subIndData.atr.length > 0 && (
@@ -2054,6 +2056,7 @@ export default function BogaChartEngine({
               color="#ec4899"
               height={90}
               mainChart={chartRef.current}
+              mainDataLength={barsRef.current.length}
             />
           )}
           {active.has("obv") && subIndData.obv && subIndData.obv.length > 0 && (
@@ -2064,6 +2067,7 @@ export default function BogaChartEngine({
               color="#14b8a6"
               height={90}
               mainChart={chartRef.current}
+              mainDataLength={barsRef.current.length}
             />
           )}
           {active.has("volatilite") && subIndData.volatilite && subIndData.volatilite.length > 0 && (
@@ -2074,6 +2078,7 @@ export default function BogaChartEngine({
               color="#f43f5e"
               height={90}
               mainChart={chartRef.current}
+              mainDataLength={barsRef.current.length}
             />
           )}
         </>

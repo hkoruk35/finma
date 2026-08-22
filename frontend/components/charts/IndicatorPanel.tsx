@@ -24,6 +24,7 @@ interface IndicatorPanelProps {
   overBoughtLine?: number;   // e.g. 70 for RSI
   overSoldLine?: number;     // e.g. 30 for RSI
   mainChart?: IChartApi | null;
+  mainDataLength?: number;
 }
 
 export default function IndicatorPanel({
@@ -37,6 +38,7 @@ export default function IndicatorPanel({
   overBoughtLine,
   overSoldLine,
   mainChart,
+  mainDataLength = 0,
 }: IndicatorPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -165,10 +167,18 @@ export default function IndicatorPanel({
     const chart = chartRef.current;
     if (!chart || !mainChart) return;
 
+    // Calculate logical index offset: since this chart might have fewer data points
+    // (due to indicator lookback periods), its logical indices are shifted by the difference in data length.
+    const filteredData = data.filter((d) => d.value != null);
+    const offset = Math.max(0, mainDataLength - filteredData.length);
+
     const syncTimeScale = () => {
       const logicalRange = mainChart.timeScale().getVisibleLogicalRange();
       if (logicalRange) {
-        chart.timeScale().setVisibleLogicalRange(logicalRange);
+        chart.timeScale().setVisibleLogicalRange({
+          from: logicalRange.from - offset,
+          to: logicalRange.to - offset,
+        });
       }
     };
 
@@ -181,7 +191,7 @@ export default function IndicatorPanel({
     return () => {
       mainChart.timeScale().unsubscribeVisibleLogicalRangeChange(syncTimeScale);
     };
-  }, [mainChart]);
+  }, [mainChart, mainDataLength, data]);
 
   return (
     <div className="w-full border-t border-[#1e2a3a] relative" style={{ height }}>
