@@ -1679,7 +1679,7 @@ export default function BogaChartEngine({
   );
 
   const activeBottomPanes = ["rsi", "macd", "atr", "obv", "volatilite", "volume"].filter(k => active.has(k as IndicatorKey)).length;
-  const dynamicHeight = Math.max(height ?? 400, 250 + (activeBottomPanes * 90));
+  const dynamicHeight = compact ? (height ?? 128) : Math.max(height ?? 400, 250 + (activeBottomPanes * 90));
 
   return (
     <div
