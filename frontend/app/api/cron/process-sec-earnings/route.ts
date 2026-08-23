@@ -45,7 +45,11 @@ async function processTicker(ticker: string): Promise<{ ticker: string; newRepor
         .maybeSingle();
       if (existing) continue; // zaten işlenmiş — DeepSeek'i tekrar tetikleme
 
-      const metrics = await getKeyFinancialMetrics(filing.cik);
+      // 2026-08-23 kullanıcı bildirimi (AMAT vakası): accessionNo + form artık
+      // getKeyFinancialMetrics'e geçiliyor ki Revenues/NetIncomeLoss/EPS AYNI
+      // bildirimden ve AYNI süreden (çeyrek vs 9 aylık YTD karışmadan) gelsin
+      // — bkz. lib/earnings/secClient.ts pickPeriodMatch.
+      const metrics = await getKeyFinancialMetrics(filing.cik, filing.accessionNo, filing.form);
       const aiSummary = await analyzeEarningsWithDeepSeek(filing.ticker, filing.companyName, filing.form, metrics);
 
       const { error: insertError } = await supabaseAdmin.from("earnings_reports").insert({
