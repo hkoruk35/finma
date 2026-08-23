@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import type { FeaturedTrendStock } from "@/lib/homeFeed";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
-import Sparkline from "@/components/global/Sparkline";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import HomeFeaturedTrendCommentary from "@/components/global/HomeFeaturedTrendCommentary";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { formatNumber } from "@/lib/formatNumber";
 
 // Ana sayfada eski Nasdaq 100 sutununun yerine gecen kart. S&P 500 kartiyla
@@ -59,9 +59,6 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
   if (!data) return null;
   const t = LABELS[locale] ?? LABELS.en;
   const detailHref = `/global/${locale}/dailyone?ticker=${data.ticker}`;
-  // 2026-08-23 kullanıcı talebi: sparkline artık yeşil/kırmızı yön rengi
-  // değil, sabit ve daha ince bir mavi ("biraz daha incelterek mavi yap").
-  const sparklineColor = "#3b82f6";
 
   const periodItems = [
     { label: t.weekly, value: data.change_pct_1w },
@@ -116,11 +113,24 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
           </span>
         </div>
 
-        {data.sparkline.length > 1 && (
-          <div className="w-full h-24 mb-4 rounded-lg overflow-hidden border border-white/5 bg-black/20">
-            <Sparkline data={data.sparkline} color={sparklineColor} changePct={data.change_pct} responsive fillOpacity={0.35} strokeWidth={1} />
-          </div>
-        )}
+        {/* 2026-08-23 kullanıcı talebi: uydurma sparkline yerine gerçek
+            mum + hacim çubuğu + RSI + MACD grafiği — metindeki (AI Model
+            Puanı, Hedef Getiri, değişim oranları, yorum) tezi görsel
+            olarak da destekliyor. Bu alanda yer var, /dailyone'daki tam
+            grafik motoru (BogaChartEngine) doğrudan gömülü. */}
+        <div className="w-full mb-4 rounded-lg overflow-hidden border border-white/5 bg-black/20">
+          <BogaChartEngine
+            symbol={data.ticker}
+            lang={locale}
+            height={220}
+            compact={false}
+            showToolbar={false}
+            hideIndicatorToggles
+            indicators={["volume", "rsi", "macd"]}
+            defaultTimeframe="D"
+            premiumGate={false}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4">
           <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-xs">
