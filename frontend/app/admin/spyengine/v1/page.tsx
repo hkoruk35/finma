@@ -6,10 +6,13 @@ import { Badge } from "@/components/admin/supertrade/ui";
 import {
   createChart,
   CandlestickSeries,
+  LineSeries,
+  LineStyle,
   createSeriesMarkers,
   type IChartApi,
   type ISeriesApi,
   type CandlestickData,
+  type LineData,
   type SeriesMarker,
   type Time,
 } from "lightweight-charts";
@@ -22,6 +25,26 @@ interface EngineBar {
   high: number;
   low: number;
   close: number;
+}
+
+interface ForecastPoint {
+  time: number;
+  price: number;
+}
+
+interface ForecastSignal {
+  time: number;
+  price: number;
+  type: "BUY" | "SELL";
+  confidence: number;
+  reason: string;
+}
+
+interface ForecastData {
+  points: ForecastPoint[];
+  signals: ForecastSignal[];
+  trend: "UP" | "DOWN" | "FLAT";
+  note: string;
 }
 
 interface EngineData {
@@ -38,6 +61,7 @@ interface EngineData {
   sessionDate: string | null;
   marketNote: string | null;
   bars: EngineBar[];
+  forecast: ForecastData;
 }
 
 interface SignalEntry {
@@ -65,6 +89,19 @@ function toCandles(bars: EngineBar[]): CandlestickData<Time>[] {
     });
   }
   return Array.from(seen.values()).sort((a, b) => (a.time as number) - (b.time as number));
+}
+
+// Tahmin çizgisi: son mumun kapanışından başlar (koptuğu izlenimi vermemek
+// için ilk nokta olarak eklenir), ardından backend'in ürettiği kesikli
+// projeksiyon noktaları gelir.
+function toForecastLine(points: ForecastPoint[], lastCandle: CandlestickData<Time> | undefined): LineData<Time>[] {
+  const out: LineData<Time>[] = [];
+  if (lastCandle) out.push({ time: lastCandle.time, value: lastCandle.close });
+  for (const p of points) {
+    if (!Number.isFinite(p.price) || !Number.isFinite(p.time)) continue;
+    out.push({ time: p.time as unknown as Time, value: p.price });
+  }
+  return out;
 }
 
 // ── Color helpers ─────────────────────────────────────────────────
@@ -119,6 +156,7 @@ export default function SPYEngineV1() {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartApiRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
+  const forecastSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
 
   const [engineData, setEngineData] = useState<EngineData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -171,8 +209,20 @@ export default function SPYEngineV1() {
       wickDownColor: "#ef4444",
     });
 
+    // 60 dakikalık tahmin çizgisi — kesikli, mor tonda; gerçek mumlarla
+    // karışmaması için ayrı bir seri.
+    const forecastSeries = chart.addSeries(LineSeries, {
+      color: "#a78bfa",
+      lineWidth: 2,
+      lineStyle: LineStyle.Dashed,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      crosshairMarkerVisible: false,
+    });
+
     chartApiRef.current = chart;
     seriesRef.current = series;
+    forecastSeriesRef.current = forecastSeries;
 
     const ro = new ResizeObserver(() => {
       if (chartRef.current) chart.applyOptions({ width: chartRef.current.clientWidth });
@@ -254,7 +304,36 @@ export default function SPYEngineV1() {
               createSeriesMarkers(seriesRef.current, markers);
             }
 
-            chartApiRef.current?.timeScale().scrollToRealTime();
+            // ── 60 dk tahmin çizgisi + olası BUY/SELL noktaları ──
+            const forecast = data.forecast;
+            const lastCandle = candles[candles.length - 1];
+            if (forecastSeriesRef.current) {
+              const line = toForecastLine(forecast?.points || [], lastCandle);
+              forecastSeriesRef.current.setData(line);
+
+              const forecastMarkers: SeriesMarker<Time>[] = (forecast?.signals || []).map((s) => ({
+                time: s.time as unknown as Time,
+                position: s.type === "BUY" ? "belowBar" : "aboveBar",
+                color: s.type === "BUY" ? "#4ade80" : "#f87171",
+                shape: "circle",
+                text: `${s.type === "BUY" ? "≈BUY" : "≈SELL"} $${s.price.toFixed(2)}`,
+                size: 1,
+              }));
+              createSeriesMarkers(forecastSeriesRef.current, forecastMarkers);
+            }
+
+            // Grafiğin sol yarısı geçmiş mumları, sağ yarısı tahmini
+            // kapsayacak şekilde görünür aralığı elle ayarla: geçmiş
+            // penceresini tahmin ufku (60 dk) kadar geriye çek.
+            const lastCandleTime = lastCandle.time as number;
+            const horizonSec = forecast?.points?.length
+              ? (forecast.points[forecast.points.length - 1].time as number) - lastCandleTime
+              : 60 * 60;
+            const rangeFrom = Math.max(firstTime, lastCandleTime - horizonSec) as unknown as Time;
+            const rangeTo = (forecast?.points?.length
+              ? forecast.points[forecast.points.length - 1].time
+              : lastCandleTime) as unknown as Time;
+            chartApiRef.current?.timeScale().setVisibleRange({ from: rangeFrom, to: rangeTo });
           }
         } else {
           setError(json.error || "Bilinmeyen hata");
@@ -354,7 +433,9 @@ export default function SPYEngineV1() {
           <span className="text-[12px] font-semibold text-slate-400">
             SPY · 1m Grafik {engineData?.isLiveSession ? "(Canlı)" : engineData?.sessionDate ? `(${engineData.sessionDate} kapanışı)` : ""}
           </span>
-          <span className="text-[11px] text-slate-600">▲ BUY &nbsp; ▼ SHORT işaretleri mumlar üzerinde</span>
+          <span className="text-[11px] text-slate-600">
+            ▲ BUY / ▼ SHORT · gerçek sinyal &nbsp;·&nbsp; <span className="text-[#a78bfa]">┈┈</span> 60 dk tahmin (≈BUY/≈SELL)
+          </span>
         </div>
         <div ref={chartRef} className="w-full" />
       </div>
@@ -404,6 +485,45 @@ export default function SPYEngineV1() {
               </tr>
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* ── 60 Dakikalık Tahmin ── */}
+      {engineData?.forecast && (
+        <div className="mb-5 bg-[#111827] border border-[#1f2937] rounded-lg p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-[12px] font-semibold text-slate-400 flex items-center gap-2">
+              <span className="text-[#a78bfa]">┈┈</span> 60 Dakikalık Tahmin (5m, hacim + eğilim)
+            </div>
+            <span
+              className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+                engineData.forecast.trend === "UP"
+                  ? "bg-green-500/20 text-green-400"
+                  : engineData.forecast.trend === "DOWN"
+                  ? "bg-red-500/20 text-red-400"
+                  : "bg-slate-700 text-slate-300"
+              }`}
+            >
+              {engineData.forecast.trend === "UP" ? "Yukarı eğilim" : engineData.forecast.trend === "DOWN" ? "Aşağı eğilim" : "Yatay"}
+            </span>
+          </div>
+          {engineData.forecast.signals.length === 0 ? (
+            <div className="text-[12px] text-slate-600 italic">Belirgin bir olası dönüş/devam noktası bulunamadı.</div>
+          ) : (
+            <div className="flex flex-col gap-1.5 mb-2">
+              {engineData.forecast.signals.map((s, i) => (
+                <div key={i} className="flex items-center gap-2 text-[12px] font-mono">
+                  <span className={`px-1.5 py-0.5 rounded text-[11px] font-bold ${s.type === "BUY" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+                    ≈{s.type}
+                  </span>
+                  <span className="text-slate-300">${s.price.toFixed(2)}</span>
+                  <span className="text-slate-500">{s.confidence}/100</span>
+                  <span className="text-slate-600 text-[11px] truncate">{s.reason}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="text-[11px] text-slate-600 italic">{engineData.forecast.note}</div>
         </div>
       )}
 

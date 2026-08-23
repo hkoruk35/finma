@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSnapshot, buildReplay } from "@/lib/v4/snapshot";
+import { buildForecast } from "@/lib/v4/forecast";
+import type { Bar } from "@/lib/v4/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -77,8 +79,14 @@ export async function GET(request: Request) {
       (compact || [])
         .filter((b) => Array.isArray(b) && b.length >= 5 && Number.isFinite(b[1]) && Number.isFinite(b[4]))
         .map((b) => ({ time: b[0], open: b[1], high: b[2], low: b[3], close: b[4] }));
+    // Tahmin motoru hacim verisine de ihtiyaç duyuyor (CompactBar[5] = volume).
+    const toBarsWithVolume = (compact: number[][]): Bar[] =>
+      (compact || [])
+        .filter((b) => Array.isArray(b) && b.length >= 5 && Number.isFinite(b[1]) && Number.isFinite(b[4]))
+        .map((b) => ({ time: b[0], open: b[1], high: b[2], low: b[3], close: b[4], volume: b[5] || 0 }));
 
-    let bars = toBars((snapshot as any).bars?.spot || []);
+    let compactSpot: number[][] = (snapshot as any).bars?.spot || [];
+    let bars = toBars(compactSpot);
 
     // Pazar akşamı Globex açıldığında sessionDate bir sonraki iş gününe
     // (Pazartesi) devrediyor ama RTH mumları henüz yok — bu durumda grafik
@@ -88,8 +96,11 @@ export async function GET(request: Request) {
     if (!bars.length) {
       try {
         const replay = await buildReplay(asset as any);
-        bars = toBars((replay as any).bars?.spot || []);
-        if (bars.length) {
+        const replayCompact: number[][] = (replay as any).bars?.spot || [];
+        const replayBars = toBars(replayCompact);
+        if (replayBars.length) {
+          bars = replayBars;
+          compactSpot = replayCompact;
           isLiveSession = false;
           sessionDate = (replay as any).date ?? sessionDate;
         }
@@ -101,6 +112,11 @@ export async function GET(request: Request) {
     const marketNote = isLiveSession
       ? null
       : `Piyasa kapalı — ${sessionDate ?? "son"} seansının kapanış grafiği gösteriliyor.`;
+
+    // 60 dakikalık tahmin: hacim + fiyat eğilimi projeksiyonu (5m mumlarla).
+    // Canlı BUY/HOLD/SELL sinyal motorunu DEĞİŞTİRMEZ — grafikte ek bir
+    // kesikli çizgi katmanı olarak gösterilir.
+    const forecast = buildForecast(toBarsWithVolume(compactSpot));
 
     const engineData = {
       asset,
@@ -116,6 +132,7 @@ export async function GET(request: Request) {
       sessionDate,
       marketNote,
       bars,
+      forecast,
     };
 
     return NextResponse.json({ ok: true, data: engineData });
