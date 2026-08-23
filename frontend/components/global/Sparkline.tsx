@@ -18,6 +18,10 @@ interface SparklineProps {
    * bölüyordu — 2026-08-20 kullanıcı geri bildirimi: "sadece çizgi
    * kalsın, dolgu ~%10 opaklığa insin." Alt durak bununla orantılı küçülür. */
   fillOpacity?: number;
+  /** Çizgi kalınlığı (px). Varsayılan 1.4 — mevcut tüm çağrı yerlerinin
+   * görünümünü değiştirmez; ince çizgi istenen tekil bağlamlarda (bkz.
+   * HomeFeaturedTrendCard) daha düşük bir değer geçilebilir. */
+  strokeWidth?: number;
 }
 
 export default function Sparkline({
@@ -28,6 +32,7 @@ export default function Sparkline({
   changePct = 0,
   responsive = false,
   fillOpacity = 0.5,
+  strokeWidth = 1.4,
 }: SparklineProps) {
   // Gradient id'si sunucuda ve tarayicida AYNI olmak zorunda. Onceden
   // Math.random() ile uretiliyordu; sunucu "sparkline-j58tl9y23", tarayici
@@ -80,7 +85,7 @@ export default function Sparkline({
         </linearGradient>
       </defs>
       <path d={pathD} fill={`url(#${gradientId})`} />
-      <polyline points={coords} fill="none" stroke={color} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points={coords} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

@@ -4,6 +4,7 @@ import type { FeaturedTrendStock } from "@/lib/homeFeed";
 import { IndexStatTable } from "@/components/public/IndexStatTable";
 import Sparkline from "@/components/global/Sparkline";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import { formatNumber } from "@/lib/formatNumber";
 
 // Ana sayfada eski Nasdaq 100 sutununun yerine gecen kart. S&P 500 kartiyla
@@ -58,7 +59,9 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
   if (!data) return null;
   const t = LABELS[locale] ?? LABELS.en;
   const detailHref = `/global/${locale}/dailyone?ticker=${data.ticker}`;
-  const sparklineColor = data.change_pct >= 0 ? "#22c55e" : "#ef4444";
+  // 2026-08-23 kullanıcı talebi: sparkline artık yeşil/kırmızı yön rengi
+  // değil, sabit ve daha ince bir mavi ("biraz daha incelterek mavi yap").
+  const sparklineColor = "#3b82f6";
 
   const periodItems = [
     { label: t.weekly, value: data.change_pct_1w },
@@ -115,7 +118,7 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
 
         {data.sparkline.length > 1 && (
           <div className="w-full h-24 mb-4 rounded-lg overflow-hidden border border-white/5 bg-black/20">
-            <Sparkline data={data.sparkline} color={sparklineColor} changePct={data.change_pct} responsive fillOpacity={0.45} />
+            <Sparkline data={data.sparkline} color={sparklineColor} changePct={data.change_pct} responsive fillOpacity={0.35} strokeWidth={1} />
           </div>
         )}
 
@@ -135,14 +138,6 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
 
         {periodItems.length > 0 && <IndexStatTable columns={2} items={periodItems} />}
 
-        <IndexStatTable
-          columns={2}
-          items={[
-            { label: t.entryZone, value: `$${formatNumber(data.entryLow, 2)} – $${formatNumber(data.entryHigh, 2)}` },
-            { label: t.riskReward, value: data.riskReward ? `${formatNumber(data.riskReward, 1)}x` : "—" },
-          ]}
-        />
-
         {data.selectionReasons.length > 0 && (
           <div className="mb-4">
             <p className="text-[13px] font-bold text-[#3b82f6] mb-2">{t.whySelected}</p>
@@ -156,8 +151,16 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
             </ul>
           </div>
         )}
+      </div>
 
-        {data.summary && <p className="text-sm text-slate-300 leading-relaxed">{data.summary}</p>}
+      {/* 2026-08-23 kullanıcı talebi: /dailyone detay sayfasındaki Teknik
+          Göstergeler / Piyasa Verileri / İşlem Planı / 24/7 Yapay Zeka
+          Yorumlayıcısı bölümleri (tüm dillerde zaten var) ana sayfaya da
+          eklendi — aynı bileşen tekrar yazılmadan doğrudan gömülü, canlı
+          veriyle kendi kendine besleniyor (giriş bölgesi/risk-ödül ve özel
+          bir özet metni artık burada ayrıca tutulmuyor, bu panel kapsıyor). */}
+      <div className="border-t border-[#1e2a3a]">
+        <TickerDetailPanel ticker={data.ticker} locale={locale} hideChart hidePermalink />
       </div>
     </div>
   );
