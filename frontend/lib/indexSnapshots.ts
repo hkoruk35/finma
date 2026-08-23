@@ -78,6 +78,36 @@ export interface IndexWeeklySnapshot {
 
 const SESSION_ORDER: Record<IndexSession, number> = { premarket: 0, midday: 1, closing: 2 };
 
+/**
+ * Birden fazla endeks icin, her sembolun EN SON (en yeni created_at) tek kaydi —
+ * ana sayfadaki "Son N Analiz" metin akisi icin (bkz. HomeIndexTextFeed.tsx).
+ * Tek sorguda en yeni N*guvenlik-payi satiri cekip JS tarafinda sembol basina
+ * ilk (en yeni) satiri tutarak tekillestiriyoruz — sembol basina ayri sorgu
+ * atmaktan cok daha ucuz, N sembol / gunde ~3 session icin rahat yeterli.
+ */
+export async function getLatestSnapshotPerSymbol(
+  symbols: IndexSymbol[],
+  fetchLimit = 300
+): Promise<IndexDailySnapshot[]> {
+  if (symbols.length === 0) return [];
+
+  const { data } = await supabase
+    .from("index_daily_snapshot")
+    .select("*")
+    .in("index_symbol", symbols)
+    .order("created_at", { ascending: false })
+    .limit(fetchLimit);
+
+  const seen = new Set<IndexSymbol>();
+  const latest: IndexDailySnapshot[] = [];
+  for (const row of (data ?? []) as IndexDailySnapshot[]) {
+    if (seen.has(row.index_symbol)) continue;
+    seen.add(row.index_symbol);
+    latest.push(row);
+  }
+  return latest;
+}
+
 /** Bir endeks icin en son (en yeni trade_date) gunluk kayitlar — o gunun tum session'lari. */
 export async function getLatestDailySnapshots(symbol: IndexSymbol): Promise<IndexDailySnapshot[]> {
   const { data: latestDateRow } = await supabase

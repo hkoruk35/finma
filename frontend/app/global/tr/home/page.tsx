@@ -8,6 +8,7 @@ import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlist
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
+import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
@@ -189,7 +190,11 @@ export default async function TrHomePage() {
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
       <CookieConsent locale="tr" />
 
-      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
+      {/* sm:pl-20 — sol kenarda sabit (fixed) duran "Geri Bildirim" sekmesi
+          (FeedbackWidget.tsx, tum sitede left-0 top-1/2 sabit) icerikle
+          cakismasin diye ekstra sol bosluk; sadece ana sayfada, sekme
+          gorundugu sm+ genisliklerde. */}
+      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 sm:pl-20 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
           <div className="min-w-0">
             <HomeSearchBar locale="tr" />
@@ -221,6 +226,7 @@ export default async function TrHomePage() {
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="tr" initialVisible={5} />
             <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
+            <HomeIndexTextFeed locale="tr" />
           </div>
         </div>
 

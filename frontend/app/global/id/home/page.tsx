@@ -8,6 +8,7 @@ import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlist
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
+import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
@@ -184,7 +185,8 @@ export default async function IdHomePage() {
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
       <CookieConsent locale="id" />
 
-      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
+      {/* sm:pl-20 — fixed left "Feedback" tab clearance, see tr/home/page.tsx */}
+      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 sm:pl-20 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
           <div className="min-w-0">
             <HomeSearchBar locale="id" />
@@ -216,6 +218,7 @@ export default async function IdHomePage() {
           <div className="flex flex-col gap-4">
             <HomePersonalWatchlistCard locale="id" initialVisible={5} />
             <HomeListCard title="Sektor" accent="#3b82f6" stocks={sectorStocks} locale="id" initialVisible={5} viewAllHref="/global/id/sectors" />
+            <HomeIndexTextFeed locale="id" />
           </div>
         </div>
 
