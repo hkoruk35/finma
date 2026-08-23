@@ -55,7 +55,10 @@ export default async function HomeIndexTextFeed({ locale }: { locale: Locale }) 
         {items.map(({ snapshot, narrative, indexDef }) => (
           <div key={snapshot.index_symbol} className="p-3">
             <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[9px] text-slate-500 font-medium mb-1">
-              <span>NY: {new Intl.DateTimeFormat(locale, { timeZone: "America/New_York", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(snapshot.created_at))}</span>
+              {/* Ana sayfada 4 farklı tarih formatı karışıyordu (2026-08-23 kullanıcı
+                  geri bildirimi) — bu satır artık HomeIndexHighlights.tsx'teki "NY:"
+                  satırıyla (yıl dahil DD.MM.YYYY HH:MM) aynı formatı kullanıyor. */}
+              <span>NY: {new Intl.DateTimeFormat(locale, { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(snapshot.created_at))}</span>
               <span className="opacity-40">·</span>
               <span>Local: <ClientTime timestamp={snapshot.created_at} lang={locale} /></span>
             </div>

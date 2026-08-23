@@ -10,7 +10,6 @@ import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
-import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -21,7 +20,7 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: { absolute: "Analisis Saham & Pasar Bertenaga AI | BogaStock" },
   alternates: { canonical: "https://bogastock.com/global/id/home" }, openGraph: { url: "https://bogastock.com/global/id/home" }
 };
 
@@ -197,7 +196,6 @@ export default async function IdHomePage() {
             </div>
 
             <HomeIndexHighlights locale="id" />
-            <DailyOnePickCard locale="id" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="id" />

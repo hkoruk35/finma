@@ -6,7 +6,6 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
-import FreeRegisterModal from "@/components/global/FreeRegisterModal";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 
@@ -25,7 +24,7 @@ const COPY: Record<Locale, {
   loading: string; empty: string;
 }> = {
   en: {
-    badge: "TODAY'S TRENDING STOCKS",
+    badge: "Today's Trending Stocks",
     scoreLabel: "BS Score",
     targetLabel: "AI Target Gain",
     lockedTitle: "Unlock the Full Breakdown",
@@ -35,7 +34,7 @@ const COPY: Record<Locale, {
     empty: "No picks are available right now — check back soon.",
   },
   tr: {
-    badge: "GÜNÜN TREND HİSSELERİNDEN",
+    badge: "Günün Trend Hisselerinden",
     scoreLabel: "BS Puanı",
     targetLabel: "AI Hedef Kazanç",
     lockedTitle: "Tam Analizi Açın",
@@ -45,7 +44,7 @@ const COPY: Record<Locale, {
     empty: "Şu anda uygun bir hisse yok — kısa süre sonra tekrar kontrol edin.",
   },
   es: {
-    badge: "ACCIONES EN TENDENCIA DE HOY",
+    badge: "Acciones en Tendencia de Hoy",
     scoreLabel: "Puntuación BS",
     targetLabel: "Ganancia Objetivo AI",
     lockedTitle: "Desbloquea el Análisis Completo",
@@ -55,7 +54,7 @@ const COPY: Record<Locale, {
     empty: "No hay ninguna selección disponible ahora — vuelve pronto.",
   },
   fr: {
-    badge: "ACTIONS TENDANCE DU JOUR",
+    badge: "Actions Tendance du Jour",
     scoreLabel: "Score BS",
     targetLabel: "Gain Cible IA",
     lockedTitle: "Débloquez l'Analyse Complète",
@@ -65,7 +64,7 @@ const COPY: Record<Locale, {
     empty: "Aucune sélection disponible pour le moment — revenez bientôt.",
   },
   pt: {
-    badge: "AÇÕES EM TENDÊNCIA DE HOJE",
+    badge: "Ações em Tendência de Hoje",
     scoreLabel: "Pontuação BS",
     targetLabel: "Ganho Alvo IA",
     lockedTitle: "Desbloqueie a Análise Completa",
@@ -75,7 +74,7 @@ const COPY: Record<Locale, {
     empty: "Nenhuma seleção disponível agora — volte em breve.",
   },
   id: {
-    badge: "SAHAM TREN HARI INI",
+    badge: "Saham Tren Hari Ini",
     scoreLabel: "Skor BS",
     targetLabel: "Target Keuntungan AI",
     lockedTitle: "Buka Analisis Lengkap",
@@ -86,15 +85,18 @@ const COPY: Record<Locale, {
   },
 };
 
+// 2026-08-23: bu sayfa artik giris yapmamis ziyaretciye de acik — ana
+// sayfadaki "Gunun Trend Hisselerinden" karti Google/anonim ziyaretciye de
+// tikanabilir olsun diye eskiden buradaki "Google ile giris yap" duvari
+// kaldirildi (kullanici talebi: "Detay sayfasini da anonim kullaniciya ac.
+// Siteye giren herkes ulassin.").
 export default function DailyOneDetailContent({ locale }: { locale: Locale }) {
   const c = COPY[locale] ?? COPY.en;
   const searchParams = useSearchParams();
   const requestedTicker = searchParams?.get("ticker")?.toUpperCase();
-  const { plan, loading: planLoading } = useMemberPlan();
-  const isLoggedIn = plan !== null;
+  const { loading: planLoading } = useMemberPlan();
   const [picks, setPicks] = useState<DailyOnePick[] | undefined>(undefined);
   const [activeTicker, setActiveTicker] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -126,7 +128,7 @@ export default function DailyOneDetailContent({ locale }: { locale: Locale }) {
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale={locale} />
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-6">
-        <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.25em] mb-2">{c.badge}</p>
+        <p className="text-sm font-bold text-[#3b82f6] tracking-tight mb-2">{c.badge}</p>
 
         {picks === undefined || planLoading ? (
           <div className="h-[400px] rounded-xl bg-[#0f1117] border border-[#1e2a3a]/60 animate-pulse" />
@@ -169,49 +171,25 @@ export default function DailyOneDetailContent({ locale }: { locale: Locale }) {
               </span>
             </div>
 
-            {isLoggedIn ? (
-              <>
-                <div className="glass-card overflow-hidden mb-4" style={{ minHeight: isMobile === null ? 420 : undefined }}>
-                  {isMobile !== null && (
-                    <BogaChartEngine
-                      symbol={active.ticker}
-                      lang={locale}
-                      detailMode
-                      height={isMobile ? 420 : 600}
-                      defaultTimeframe="D"
-                      premiumGate={false}
-                    />
-                  )}
-                </div>
-                <div className="glass-card overflow-hidden">
-                  <TickerDetailPanel ticker={active.ticker} locale={locale} hideChart hidePermalink />
-                </div>
-              </>
-            ) : (
-              <div className="glass-card p-8 md:p-12 text-center relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]" />
-                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center">
-                  <svg className="w-7 h-7 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
-                <h2 className="text-xl font-bold text-white mb-2">{c.lockedTitle}</h2>
-                <p className="text-white/70 max-w-lg mx-auto mb-6">{c.lockedDesc}</p>
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="px-6 py-3 rounded-xl font-semibold text-sm bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-colors"
-                >
-                  {c.lockedCta}
-                </button>
-              </div>
-            )}
+            <div className="glass-card overflow-hidden mb-4" style={{ minHeight: isMobile === null ? 420 : undefined }}>
+              {isMobile !== null && (
+                <BogaChartEngine
+                  symbol={active.ticker}
+                  lang={locale}
+                  detailMode
+                  height={isMobile ? 420 : 600}
+                  defaultTimeframe="D"
+                  premiumGate={false}
+                />
+              )}
+            </div>
+            <div className="glass-card overflow-hidden">
+              <TickerDetailPanel ticker={active.ticker} locale={locale} hideChart hidePermalink />
+            </div>
           </>
         )}
       </main>
       <Footer hidePlatform locale={locale} />
-      {showModal && active && (
-        <FreeRegisterModal locale={locale} onClose={() => setShowModal(false)} />
-      )}
     </div>
   );
 }

@@ -10,7 +10,6 @@ import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
-import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -21,7 +20,7 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: { absolute: "AI-Powered Stock & Market Analysis | BogaStock" },
   alternates: { canonical: "https://bogastock.com/global/en/home" }, openGraph: { url: "https://bogastock.com/global/en/home" }
 };
 
@@ -197,7 +196,6 @@ export default async function EnHomePage() {
             </div>
 
             <HomeIndexHighlights locale="en" />
-            <DailyOnePickCard locale="en" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="en" />

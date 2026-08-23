@@ -12,6 +12,87 @@ import type { Locale } from "./i18n/copy";
 import { SUPABASE_TIMEOUT_MS } from "./supabaseFetch";
 import { GET as getWatchlistData } from "@/app/api/watchlist-data/route";
 import { NextRequest } from "next/server";
+import { getDailyOnePicks } from "./dailyOnePick";
+
+export interface FeaturedTrendStock {
+  ticker: string;
+  company: string;
+  sector: string;
+  score: number;
+  price: number;
+  change_pct: number;
+  change_pct_1w: number | null;
+  change_pct_1m: number | null;
+  change_pct_1y: number | null;
+  change_pct_5y: number | null;
+  sparkline: number[];
+  targetPct: number;
+  entryLow: number;
+  entryHigh: number;
+  riskReward: number;
+  selectionReasons: string[];
+  summary: string | null;
+}
+
+// Çoklu-dilli ai_summary objesi ise sadece o dilde gercek metin varsa gosterir
+// (Turkce metni baska dile sizdirmamak icin) — string/eski format ise sadece
+// TR sayfasinda dusuyor (kaynak veri Turkce yazilmis).
+function resolveFeaturedSummary(rawPick: any, locale: Locale): string | null {
+  const s = rawPick?.ai_summary;
+  if (s && typeof s === "object") return typeof s[locale] === "string" && s[locale].trim() ? s[locale] : null;
+  if (locale !== "tr") return null;
+  if (typeof s === "string" && s.trim()) return s;
+  return rawPick?.detail_reasoning || rawPick?.reasoning || null;
+}
+
+/**
+ * Ana sayfada eski Nasdaq 100 sutununun yerine gecen "Gunun Trend
+ * Hisselerinden" karti icin veri: getDailyOnePicks()'in zaten hacim-agirlikli
+ * formationScore'a gore siraladigi en iyi adayi (picks[0]) alir, haftalik/
+ * aylik/yillik/5 yillik degisim oranlari ve sparkline icin swing_all_picks
+ * ham verisiyle ve canli watchlist-data ile zenginlestirir.
+ */
+export async function getFeaturedTrendCardData(locale: Locale): Promise<FeaturedTrendStock | null> {
+  const [dailyOnePicks, swingData] = await Promise.all([
+    getDailyOnePicks(),
+    getSwingPicksBackfilled(30),
+  ]);
+  const top = dailyOnePicks?.[0];
+  if (!top) return null;
+
+  const rawPicks: any[] = swingData?.picks ?? [];
+  const raw = rawPicks.find((p) => p?.ticker === top.ticker) ?? null;
+
+  let live: any = null;
+  try {
+    const req = new NextRequest(new URL(`http://localhost/api?tickers=${top.ticker}`));
+    const res = await getWatchlistData(req);
+    const rows = await res.json();
+    live = Array.isArray(rows) ? rows[0] : null;
+  } catch {
+    live = null;
+  }
+
+  return {
+    ticker: top.ticker,
+    company: top.company,
+    sector: live?.sector ?? top.sector ?? raw?.sector ?? "",
+    score: top.score,
+    price: live?.price?.current ?? top.currentPrice ?? 0,
+    change_pct: live?.tracker_1h?.change_pct_1d ?? live?.price?.change_pct ?? raw?.change_1d ?? 0,
+    change_pct_1w: typeof raw?.change_1w === "number" ? raw.change_1w : null,
+    change_pct_1m: typeof raw?.change_1m === "number" ? raw.change_1m : null,
+    change_pct_1y: typeof raw?.change_1y === "number" ? raw.change_1y : null,
+    change_pct_5y: typeof raw?.change_5y === "number" ? raw.change_5y : null,
+    sparkline: live?.recent_closes ?? [],
+    targetPct: top.targetPct,
+    entryLow: top.entryLow,
+    entryHigh: top.entryHigh,
+    riskReward: top.riskReward,
+    selectionReasons: top.selectionReasons ?? [],
+    summary: resolveFeaturedSummary(raw, locale),
+  };
+}
 
 export async function getTrendStocksServerData() {
   const data = await getSwingPicksBackfilled(10);

@@ -10,7 +10,6 @@ import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
-import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -21,7 +20,12 @@ import CookieConsent from "@/components/global/CookieConsent";
 export const revalidate = 900; // 15 dk — canli veri bagimliligini gevseterek yuku azaltir
 
 export const metadata: Metadata = {
-  title: "Home",
+  // Anasayfa şablonun eklediği "| BogaStock | Yapay Zekâ Destekli Hisse,
+  // Borsa ve Piyasa Analizi" ekiyle çakışmasın diye `absolute` ile şablonu
+  // bypass ediyor — en değerli ilk kelime "Home" gibi anlamsız bir sözcüğe
+  // gitmesin, Google ~60 karakterde kestiği için asıl anahtar kelimeler
+  // baştan gelsin (2026-08-23 kullanıcı talebi).
+  title: { absolute: "Yapay Zekâ Destekli Hisse ve Borsa Analizi | BogaStock" },
   alternates: { canonical: "https://bogastock.com/global/tr/home" }, openGraph: { url: "https://bogastock.com/global/tr/home" }
 };
 
@@ -205,7 +209,6 @@ export default async function TrHomePage() {
             </div>
 
             <HomeIndexHighlights locale="tr" />
-            <DailyOnePickCard locale="tr" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="tr" />

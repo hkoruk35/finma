@@ -50,6 +50,21 @@ const STRINGS: Record<
   },
 };
 
+// Ana sayfada 4 farklı tarih formatı karışıyordu (2026-08-23 kullanıcı geri
+// bildirimi) — bu kart öncesinde ham ISO string'i ("2026-08-20") olduğu gibi
+// basıyordu; artık site genelindeki DD.MM.YYYY formatına (bkz.
+// HomeIndexHighlights.tsx "NY:" satırı) hizalandı.
+const REPORT_DATE_LANG: Record<Locale, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR", id: "id-ID" };
+function formatReportDate(dateStr: string, locale: Locale): string {
+  const d = new Date(`${dateStr}T00:00:00`);
+  if (isNaN(d.getTime())) return dateStr;
+  return new Intl.DateTimeFormat(REPORT_DATE_LANG[locale] ?? "en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d);
+}
+
 async function getRecent(locale: Locale) {
   const { data } = await supabaseAdmin
     .from("earnings_reports")
@@ -112,7 +127,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                     <div className="text-[11px] text-white/50 truncate max-w-[150px]">{item.companyName}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-[10px] text-white/40 font-mono">{item.reportDate}</div>
+                    <div className="text-[10px] text-white/40 font-mono">{formatReportDate(item.reportDate, locale)}</div>
                   </div>
                 </div>
 

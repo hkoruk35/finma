@@ -11,13 +11,19 @@ import { IndexStatTable } from "@/components/public/IndexStatTable";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { formatNumber } from "@/lib/formatNumber";
 import { ClientTime } from "@/components/global/ClientTime";
+import { getFeaturedTrendCardData } from "@/lib/homeFeed";
+import HomeFeaturedTrendCard from "@/components/global/HomeFeaturedTrendCard";
 
-// Ana sayfada iki sütun: S&P 500 (sol) + Nasdaq 100 (sağ). İçerik ve etiketler
-// /global/[locale]/[indexSlug] sayfasıyla (bkz. IndexDailySnapshotSection.tsx)
-// aynı kaynaktan (index_daily_snapshot, copy.ts:indices) geliyor — tekrar
-// yazılmıyor, sadece grafik ve Yükseliş/Nötr/Risk senaryo kartları çıkarılmış
-// halde tekrar kullanılıyor (grafiksiz + SEO metni ağırlıklı ana sayfa özeti).
-const HIGHLIGHT_SYMBOLS: IndexSymbol[] = ["SPX", "NDX"];
+// Ana sayfada iki sütun: S&P 500 (sol) + Günün Trend Hisselerinden (sağ).
+// Sol sütunun içeriği ve etiketleri /global/[locale]/[indexSlug]
+// sayfasıyla (bkz. IndexDailySnapshotSection.tsx) aynı kaynaktan
+// (index_daily_snapshot, copy.ts:indices) geliyor — tekrar yazılmıyor,
+// sadece grafik ve Yükseliş/Nötr/Risk senaryo kartları çıkarılmış halde
+// tekrar kullanılıyor (grafiksiz + SEO metni ağırlıklı ana sayfa özeti).
+// Sağ sütun eskiden Nasdaq 100 idi; 2026-08-23 kullanıcı talebiyle günün en
+// yüksek hacim artışlı trend hissesiyle (bkz. HomeFeaturedTrendCard.tsx,
+// getFeaturedTrendCardData) değiştirildi.
+const HIGHLIGHT_SYMBOLS: IndexSymbol[] = ["SPX"];
 
 const LINK_LABEL: Record<Locale, string> = {
   tr: "Tam Analizi Gör",
@@ -52,11 +58,14 @@ async function buildColumn(symbol: IndexSymbol, locale: Locale) {
 }
 
 export default async function HomeIndexHighlights({ locale }: { locale: Locale }) {
-  const columns = await Promise.all(HIGHLIGHT_SYMBOLS.map((sym) => buildColumn(sym, locale)));
-  const quotes = await getMultiQuote(HIGHLIGHT_SYMBOLS);
+  const [columns, quotes, featuredTrend] = await Promise.all([
+    Promise.all(HIGHLIGHT_SYMBOLS.map((sym) => buildColumn(sym, locale))),
+    getMultiQuote(HIGHLIGHT_SYMBOLS),
+    getFeaturedTrendCardData(locale).catch(() => null),
+  ]);
   const visible = columns.filter((c): c is NonNullable<typeof c> => c !== null);
 
-  if (visible.length === 0) return null;
+  if (visible.length === 0 && !featuredTrend) return null;
 
   return (
     <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
@@ -69,6 +78,7 @@ export default async function HomeIndexHighlights({ locale }: { locale: Locale }
           liveQuote={quotes[symbol]}
         />
       ))}
+      <HomeFeaturedTrendCard locale={locale} data={featuredTrend} />
     </div>
   );
 }

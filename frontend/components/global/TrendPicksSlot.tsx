@@ -224,9 +224,14 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                       <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                       <div className="min-w-0 flex-1">
                         {locked ? (
-                          <div className="text-[11px] font-bold text-[#fbbf24] truncate flex items-center gap-1">
-                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                            <span>{labels.premiumMember}</span>
+                          // Kimlik (ticker + sektör) her zaman gerçek gösterilir — kilit sadece
+                          // derin veriye (tam analiz, teknik detay) uygulanır. Önceden bu satır
+                          // "Premium Club" placeholder'ı gösteriyordu; 7 satırın hepsi aynı metni
+                          // tekrarlayınca sayfanın en değerli alanında bilgi değeri sıfır bir blok
+                          // oluşuyordu (2026-08-23 kullanıcı geri bildirimi).
+                          <div className={`${compactMode ? 'text-[13px]' : 'text-[15px]'} font-medium text-white truncate flex items-center gap-1`}>
+                            <span className="truncate">{stock.ticker}</span>
+                            <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor" className="text-[#fbbf24] shrink-0"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           </div>
                         ) : disableHoverChart ? (
                           <div className={`${compactMode ? 'text-[13px]' : 'text-[15px]'} font-medium text-white truncate`}>{stock.ticker}</div>

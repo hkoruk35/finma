@@ -11,11 +11,18 @@ const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
   id: { title: "Analisis Saham", all: "Semua", empty: "Belum ada analisis." },
 };
 
+// Ana sayfada 4 farklı tarih formatı karışıyordu (2026-08-23 kullanıcı geri
+// bildirimi) — bu artık site genelindeki DD.MM.YYYY HH:MM formatına
+// (bkz. HomeIndexHighlights.tsx "NY:" satırı) hizalandı; önceden
+// dateStyle:"medium" kullanıyordu ("21 Ağu 2026 22:30" gibi ayrı bir stil).
 function formatDate(iso: string, locale: Locale): string {
   const langMap: Record<Locale, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR", id: "id-ID" };
   const formatted = new Intl.DateTimeFormat(langMap[locale] ?? "en-US", {
-    dateStyle: "medium",
-    timeStyle: "short",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
     timeZone: "America/New_York",
   }).format(new Date(iso));
   return `${formatted} NY`;
