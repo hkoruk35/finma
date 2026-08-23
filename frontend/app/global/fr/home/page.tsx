@@ -7,6 +7,7 @@ import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
+import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
@@ -187,6 +188,7 @@ export default async function FrHomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
           <div className="min-w-0">
             <HomeSearchBar locale="fr" />
+            <HomeIndexHighlights locale="fr" />
             <DailyOnePickCard locale="fr" />
 
             <div className="mt-4">
