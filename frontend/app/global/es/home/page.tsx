@@ -9,6 +9,7 @@ import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCa
 import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
+import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import DailyOnePickCard from "@/components/global/DailyOnePickCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
@@ -187,15 +188,16 @@ export default async function EsHomePage() {
 
       {/* sm:pl-20 — fixed left "Feedback" tab clearance, see tr/home/page.tsx */}
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 sm:pl-20 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-5 items-start">
           <div className="min-w-0">
             <HomeSearchBar locale="es" />
-            <HomeIndexHighlights locale="es" />
-            <DailyOnePickCard locale="es" />
-
+            {/* Genel endeks tickerlari — arama cubugunun hemen altinda */}
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="es" />
             </div>
+
+            <HomeIndexHighlights locale="es" />
+            <DailyOnePickCard locale="es" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="es" />
@@ -210,11 +212,12 @@ export default async function EsHomePage() {
             </div>
 
             <div className="mt-4">
-              <HomeMoversGrid locale="es" initialData={homeMoversData} initialTrendStocks={trendStocksData} />
+              <HomeMoversGrid locale="es" initialData={homeMoversData} />
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
+            <TrendPicksSlot locale="es" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="es" initialVisible={5} />
             <HomeListCard title="Sectores" accent="#3b82f6" stocks={sectorStocks} locale="es" initialVisible={5} viewAllHref="/global/es/sectors" />
             <HomeIndexTextFeed locale="es" />

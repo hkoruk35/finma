@@ -36,7 +36,7 @@ interface LiveWatchData {
   recent_closes?: number[];
 }
 
-const ACCENT = '#f59e0b';
+const ACCENT = '#3b82f6'; // diger ana sayfa kart basliklariyla (Sektorler, Izleme Listem vb.) ayni logo-mavisi standardi
 
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {
@@ -172,7 +172,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium uppercase tracking-tight truncate`} style={{ color: ACCENT }}>{labels.title}</h3>
+          <h3 className="text-[16px] font-bold uppercase tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}

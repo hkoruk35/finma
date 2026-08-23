@@ -45,7 +45,7 @@ export default async function HomeIndexTextFeed({ locale }: { locale: Locale }) 
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden">
+    <div className="bg-[#0f1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
       <div className="flex items-center px-4 py-3 border-b border-[#1e2a3a]">
         <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6] mr-2" />
         <h3 className="text-[14px] font-bold text-[#3b82f6] truncate">{t.title}</h3>
@@ -61,7 +61,7 @@ export default async function HomeIndexTextFeed({ locale }: { locale: Locale }) 
             </div>
             <Link
               href={`/global/${locale}/${indexDef.slug}`}
-              className="text-[13px] font-bold text-white hover:text-[#3b82f6] transition-colors"
+              className="text-[13px] font-bold text-[#3b82f6] hover:underline transition-colors"
             >
               {indexDef.names[locale]}
             </Link>

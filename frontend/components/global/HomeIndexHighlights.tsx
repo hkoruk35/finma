@@ -59,7 +59,7 @@ export default async function HomeIndexHighlights({ locale }: { locale: Locale }
   if (visible.length === 0) return null;
 
   return (
-    <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
       {visible.map(({ symbol, snapshot }) => (
         <IndexHighlightCard
           key={symbol}
@@ -97,7 +97,7 @@ function IndexHighlightCard({
   const topLosers = Array.isArray(qs?.top_losers) ? (qs!.top_losers as Mover[]) : [];
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden">
+    <div className="bg-[#0f1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a]">
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
@@ -184,8 +184,8 @@ function IndexHighlightCard({
               positive:
                 snapshot.distance_from_20d_high_pct != null ? snapshot.distance_from_20d_high_pct >= 0 : undefined,
             },
-            { label: t.advancers, value: snapshot.advancers?.toString() ?? "—" },
-            { label: t.decliners, value: snapshot.decliners?.toString() ?? "—" },
+            { label: t.advancers, value: snapshot.advancers?.toString() ?? "—", positive: snapshot.advancers != null ? true : undefined },
+            { label: t.decliners, value: snapshot.decliners?.toString() ?? "—", positive: snapshot.decliners != null ? false : undefined },
             { label: t.volume, value: snapshot.volume != null ? formatNumber(snapshot.volume, 0) : "—" },
           ]}
         />
