@@ -244,7 +244,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 locale={locale}
                 targetHref={terminalHref}
                 title={terminalTooltip}
-                className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
               >
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
@@ -259,7 +259,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
                   />
                 </svg>
-                <span className="text-[9px] sm:text-[10px]">TERMINAL</span>
+                <span className="text-[9px] sm:text-[10px]">Terminal</span>
               </MobileTerminalLink>
 
               {/* Terminal Page Screenshot Preview Card */}
@@ -271,7 +271,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                       <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
                       <div className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
                       <span className="text-[11px] font-bold text-white ml-1.5 tracking-wide">
-                        {(locale === "tr" ? "Terminal Önizleme" : "Terminal Preview").toLocaleUpperCase(locale)}
+                        {locale === "tr" ? "Terminal Önizleme" : "Terminal Preview"}
                       </span>
                     </div>
                     <span className="text-[9px] font-mono font-bold text-[#38bdf8] bg-[#38bdf8]/10 px-1.5 py-0.5 rounded border border-[#38bdf8]/30">
@@ -313,7 +313,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 />
               </svg>
               <span>
-                {(locale === "tr"
+                {locale === "tr"
                   ? "Anasayfa"
                   : locale === "es"
                     ? "Inicio"
@@ -321,7 +321,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                       ? "Accueil"
                       : locale === "pt"
                         ? "Início"
-                        : "Home").toLocaleUpperCase(locale)}
+                        : "Home"}
               </span>
             </Link>
 
@@ -587,7 +587,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     />
                   </svg>
                   <span>
-                    {(locale === "tr"
+                    {locale === "tr"
                       ? "Giriş Yap"
                       : locale === "es"
                         ? "Entrar"
@@ -595,7 +595,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           ? "Connexion"
                           : locale === "pt"
                             ? "Entrar"
-                            : "Sign In").toLocaleUpperCase(locale)}
+                            : "Sign In"}
                   </span>
                 </Link>
               ))}

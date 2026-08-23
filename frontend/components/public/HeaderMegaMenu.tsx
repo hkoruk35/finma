@@ -26,7 +26,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Hisse Analizleri", earnings: "Bilançolar", earningsCalendar: "Bilanço Takvimi", insider: "İçeriden İşlemler",
     marketsAnalysis: "Piyasa Analizleri", sectorAnalysis: "Sektör Analizleri", sectorHeatmap: "Sektör Isı Haritası", stockAnalysis: "Hisse Analizleri",
     futuresAnalysis: "Vadeli Analizleri", stockBrokers: "Hisse Aracı Kurumları", fxBrokers: "FX Aracı Kurumları", cryptoBrokers: "Kripto Aracı Kurumları",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
   en: {
     markets: "Markets", watchlist: "My Watchlist", news: "News", analysis: "Analysis", brokers: "Brokers",
@@ -35,7 +35,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Stock Analyses", earnings: "Earnings", earningsCalendar: "Earnings Calendar", insider: "Insider Activity",
     marketsAnalysis: "Markets", sectorAnalysis: "Sector Analyses", sectorHeatmap: "Sector Heat Map", stockAnalysis: "Stock Analyses",
     futuresAnalysis: "Futures Analyses", stockBrokers: "Stock Brokers", fxBrokers: "FX Brokers", cryptoBrokers: "Crypto Brokers",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
   es: {
     markets: "Markets", watchlist: "Mi Lista", news: "News", analysis: "Análisis", brokers: "Brokers",
@@ -44,7 +44,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análisis de Acciones", earnings: "Resultados", earningsCalendar: "Calendario de Resultados", insider: "Actividad de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análisis Sectorial", sectorHeatmap: "Mapa de Calor Sectorial", stockAnalysis: "Análisis de Acciones",
     futuresAnalysis: "Análisis de Futuros", stockBrokers: "Brokers de Acciones", fxBrokers: "Brokers de Divisas", cryptoBrokers: "Brokers de Cripto",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
   fr: {
     markets: "Markets", watchlist: "Ma Liste", news: "News", analysis: "Analyses", brokers: "Brokers",
@@ -53,7 +53,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analyses d'Actions", earnings: "Résultats", earningsCalendar: "Calendrier des Résultats", insider: "Activité des Initiés",
     marketsAnalysis: "Markets", sectorAnalysis: "Analyses Sectorielles", sectorHeatmap: "Carte Sectorielle", stockAnalysis: "Analyses d'Actions",
     futuresAnalysis: "Analyses de Futures", stockBrokers: "Brokers d'Actions", fxBrokers: "Brokers Forex", cryptoBrokers: "Brokers Crypto",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
   pt: {
     markets: "Markets", watchlist: "Minha Lista", news: "News", analysis: "Análises", brokers: "Brokers",
@@ -62,7 +62,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Análises de Ações", earnings: "Resultados", earningsCalendar: "Calendário de Resultados", insider: "Atividade de Insiders",
     marketsAnalysis: "Markets", sectorAnalysis: "Análises Setoriais", sectorHeatmap: "Mapa de Calor Setorial", stockAnalysis: "Análises de Ações",
     futuresAnalysis: "Análises de Futuros", stockBrokers: "Brokers de Ações", fxBrokers: "Brokers de Câmbio", cryptoBrokers: "Brokers de Cripto",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
   id: {
     markets: "Pasar", watchlist: "Watchlist Saya", news: "Berita", analysis: "Analisis", brokers: "Broker",
@@ -71,7 +71,7 @@ const T: Record<Locale, Record<string, string>> = {
     stockAnalyses: "Analisis Saham", earnings: "Laba", earningsCalendar: "Kalender Laba", insider: "Aktivitas Insider",
     marketsAnalysis: "Pasar", sectorAnalysis: "Analisis Sektor", sectorHeatmap: "Peta Panas Sektor", stockAnalysis: "Analisis Saham",
     futuresAnalysis: "Analisis Futures", stockBrokers: "Broker Saham", fxBrokers: "Broker FX", cryptoBrokers: "Broker Kripto",
-    premium: "PREMIUM Club",
+    premium: "Premium Club",
   },
 };
 
@@ -180,7 +180,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                     : "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
                 }
               >
-                <span>{label.toLocaleUpperCase(locale)}</span>
+                <span>{label}</span>
                 {group.children && <span className="text-[8px] text-[#38bdf8]">▾</span>}
               </Link>
 
@@ -190,7 +190,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                     {group.children.map((child, idx) =>
                       child.heading ? (
                         <div key={idx} className="px-3 pt-2 pb-1 text-[9px] font-bold tracking-widest text-[#3b82f6]/80">
-                          {child.label.toLocaleUpperCase(locale)}
+                          {child.label}
                         </div>
                       ) : (
                         <Link
@@ -198,7 +198,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                           href={child.href!}
                           className="block px-4 py-2 text-[11px] font-medium tracking-wider text-[#94a3b8] hover:text-white hover:bg-[#1e2a3a]/70 transition-colors"
                         >
-                          {child.label.toLocaleUpperCase(locale)}
+                          {child.label}
                         </Link>
                       )
                     )}
@@ -245,10 +245,10 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                       }
                     >
                       {group.children ? (
-                        <span>{label.toLocaleUpperCase(locale)}</span>
+                        <span>{label}</span>
                       ) : (
                         <Link href={group.href} onClick={() => setIsMobileMenuOpen(false)} className="flex-1 text-left">
-                          {label.toLocaleUpperCase(locale)}
+                          {label}
                         </Link>
                       )}
                       {group.children && <span className="text-[9px] text-[#38bdf8]">{mobileOpenKey === group.key ? "▴" : "▾"}</span>}
@@ -258,7 +258,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                         {group.children.map((child, idx) =>
                           child.heading ? (
                             <div key={idx} className="px-5 pt-1.5 pb-0.5 text-[9px] font-bold tracking-widest text-[#3b82f6]/80">
-                              {child.label.toLocaleUpperCase(locale)}
+                              {child.label}
                             </div>
                           ) : (
                             <Link
@@ -267,7 +267,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
                               onClick={() => setIsMobileMenuOpen(false)}
                               className="block px-6 py-1.5 text-[11px] font-medium text-slate-400 hover:text-white"
                             >
-                              {child.label.toLocaleUpperCase(locale)}
+                              {child.label}
                             </Link>
                           )
                         )}

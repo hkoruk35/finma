@@ -356,7 +356,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const compareLabel = locale === 'tr' ? 'Seçili Hisse' : locale === 'es' ? 'Acción Seleccionada' : locale === 'fr' ? 'Action Sélectionnée' : locale === 'pt' ? 'Ação Selecionada' : locale === 'id' ? 'Saham Terpilih' : 'Selected Stock';
   const compareOpenLabel = locale === 'tr' ? 'Çoklu Ekranda Göster' : locale === 'es' ? 'Mostrar en Multigráfico' : locale === 'fr' ? 'Afficher en Multi-Graphiques' : locale === 'pt' ? 'Mostrar em Multigráficos' : locale === 'id' ? 'Tampilkan di Multi-Chart' : 'Show in Multi-Chart';
   const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : locale === 'id' ? 'Pilih untuk membandingkan' : 'Select to compare';
-  const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : locale === 'id' ? 'DASBOR' : 'DASHBOARD';
+  const dashboardLabel = locale === 'tr' ? 'Gösterge Paneli' : locale === 'es' ? 'Panel de Control' : locale === 'fr' ? 'Tableau de Bord' : locale === 'pt' ? 'Painel de Controle' : locale === 'id' ? 'Dasbor' : 'Dashboard';
   const multiTimeframeLabel = locale === 'tr' ? 'Çoklu Zaman Dilimi' : locale === 'es' ? 'Múltiples Marcos Temporales' : locale === 'fr' ? 'Multi-Périodes' : locale === 'pt' ? 'Múltiplos Períodos' : locale === 'id' ? 'Multi Kerangka Waktu' : 'Multi-Timeframe';
   const showMarketsPanelLabel = locale === 'tr' ? 'Piyasalar Panelini Göster' : locale === 'es' ? 'Mostrar Panel de Mercados' : locale === 'fr' ? 'Afficher le Panneau des Marchés' : locale === 'pt' ? 'Mostrar Painel de Mercados' : locale === 'id' ? 'Tampilkan Panel Pasar' : 'Show Markets Panel';
   const hideMarketsPanelLabel = locale === 'tr' ? 'Piyasalar Panelini Gizle' : locale === 'es' ? 'Ocultar Panel de Mercados' : locale === 'fr' ? 'Masquer le Panneau des Marchés' : locale === 'pt' ? 'Ocultar Painel de Mercados' : locale === 'id' ? 'Sembunyikan Panel Pasar' : 'Hide Markets Panel';
@@ -448,7 +448,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   <button
                     type="button"
                     onClick={() => toggleGroupCollapsed(group.group)}
-                    className="w-full flex items-center justify-between gap-2 px-3 mb-1 text-xs font-medium text-slate-500 uppercase tracking-widest hover:text-slate-300 transition-colors"
+                    className="w-full flex items-center justify-between gap-2 px-3 mb-1 text-xs font-medium text-slate-500 tracking-widest hover:text-slate-300 transition-colors"
                     title={isCollapsed
                       ? (locale === 'tr' ? 'Listeyi göster' : locale === 'es' ? 'Mostrar lista' : locale === 'fr' ? 'Afficher la liste' : locale === 'pt' ? 'Mostrar lista' : locale === 'id' ? 'Tampilkan daftar' : 'Show list')
                       : (locale === 'tr' ? 'Listeyi gizle' : locale === 'es' ? 'Ocultar lista' : locale === 'fr' ? 'Masquer la liste' : locale === 'pt' ? 'Ocultar lista' : locale === 'id' ? 'Sembunyikan daftar' : 'Hide list')}
@@ -529,7 +529,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   {showLeftSidebar ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />}
                 </svg>
               </button>
-              <div className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
+              <div className="text-[10px] md:text-xs font-medium text-slate-500 tracking-widest flex flex-wrap items-center gap-1.5">
                 <span>{dashboardLabel}</span>
                 <span className="opacity-30">/</span>
                 <span className="text-white italic">{getSymbolDisplayName(selectedTicker)}</span>
@@ -623,7 +623,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         {showMultiTimeframe && (
           <div className="hidden md:flex md:w-56 lg:w-64 flex-col shrink-0 border-l border-[#1e2a3a] md:h-[calc(100vh-64px)] md:overflow-y-auto bg-[#0a0e17]">
             <div className="px-3 py-2.5 border-b border-[#1e2a3a] flex items-center justify-between shrink-0">
-              <span className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">{multiTimeframeLabel}</span>
+              <span className="text-[10px] font-medium text-slate-500 tracking-widest">{multiTimeframeLabel}</span>
               <button onClick={() => setShowMultiTimeframe(false)} className="text-slate-500 hover:text-white text-xs leading-none">✕</button>
             </div>
             <div className="flex flex-col gap-2 p-2">
