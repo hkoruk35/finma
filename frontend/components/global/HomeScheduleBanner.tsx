@@ -28,7 +28,9 @@ export default async function HomeScheduleBanner({ locale }: { locale: Locale })
         key: s.index_symbol,
         name: def?.names[locale] ?? s.index_symbol,
         slug: def?.slug ?? "",
+        region: def?.region ?? "us",
         updatedAt: s.created_at,
+        changePct: s.change_pct,
       };
     })
     .filter((item) => !!item.slug);
