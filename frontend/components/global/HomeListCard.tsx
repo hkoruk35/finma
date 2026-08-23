@@ -18,11 +18,11 @@ export interface HomeListStock {
 }
 
 function getLabels(locale: Locale) {
-  if (locale === 'tr') return { all: 'TÜMÜ', stock: 'HİSSE / SEKTÖR', price: 'FİYAT', empty: 'Veri bulunmamaktadır', showMore: 'Daha Fazla', showLess: 'Daha Az' };
-  if (locale === 'pt') return { all: 'TODOS', stock: 'AÇÃO / SETOR', price: 'PREÇO', empty: 'Nenhum dado disponível', showMore: 'Ver Mais', showLess: 'Ver Menos' };
-  if (locale === 'es') return { all: 'TODO', stock: 'ACCIÓN / SECTOR', price: 'PRECIO', empty: 'No hay datos disponibles', showMore: 'Ver Más', showLess: 'Ver Menos' };
-  if (locale === 'fr') return { all: 'TOUT', stock: 'ACTION / SECTEUR', price: 'PRIX', empty: 'Aucune donnée disponible', showMore: 'Voir Plus', showLess: 'Voir Moins' };
-  return { all: 'ALL', stock: 'STOCK / SECTOR', price: 'PRICE', empty: 'No data available', showMore: 'Show More', showLess: 'Show Less' };
+  if (locale === 'tr') return { all: 'Tümü', stock: 'Hisse / Sektör', price: 'Fiyat', empty: 'Veri bulunmamaktadır', showMore: 'Daha Fazla', showLess: 'Daha Az' };
+  if (locale === 'pt') return { all: 'Todos', stock: 'Ação / Setor', price: 'Preço', empty: 'Nenhum dado disponível', showMore: 'Ver Mais', showLess: 'Ver Menos' };
+  if (locale === 'es') return { all: 'Todo', stock: 'Acción / Sector', price: 'Precio', empty: 'No hay datos disponibles', showMore: 'Ver Más', showLess: 'Ver Menos' };
+  if (locale === 'fr') return { all: 'Tout', stock: 'Action / Secteur', price: 'Prix', empty: 'Aucune donnée disponible', showMore: 'Voir Plus', showLess: 'Voir Moins' };
+  return { all: 'All', stock: 'Stock / Sector', price: 'Price', empty: 'No data available', showMore: 'Show More', showLess: 'Show Less' };
 }
 
 interface Props {
@@ -49,12 +49,12 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
       <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#1e2a3a]">
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: accent }} />
-          <h3 className="text-[16px] font-bold uppercase tracking-tight truncate" style={{ color: accent }}>{title}</h3>
+          <h3 className="text-[16px] font-bold tracking-tight truncate" style={{ color: accent }}>{title}</h3>
         </div>
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0"
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
             style={{ color: accent, borderColor: `${accent}4d` }}
           >
             {labels.all}

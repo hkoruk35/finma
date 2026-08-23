@@ -364,7 +364,7 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             {ai.key_takeaways?.length > 0 && (
                               <div className="md:col-span-2">
-                                <div className="text-xs font-bold text-white/50 uppercase tracking-wider mb-2">{t.keyTakeaways}</div>
+                                <div className="text-xs font-bold text-[#3b82f6] mb-2">{t.keyTakeaways}</div>
                                 <ul className="space-y-1.5">
                                   {ai.key_takeaways.map((k, i) => (
                                     <li key={i} className="text-sm text-white/70 flex gap-2">
@@ -378,7 +378,7 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
                             
                             {ai.bullish_signals?.length > 0 && (
                               <div className="bg-[#22c55e]/5 border border-[#22c55e]/10 p-4 rounded-xl">
-                                <div className="text-[11px] font-bold text-[#22c55e] uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <div className="text-[11px] font-bold text-[#22c55e] mb-2 flex items-center gap-1">
                                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
                                   {t.bullish}
                                 </div>
@@ -392,7 +392,7 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
 
                             {ai.bearish_signals?.length > 0 && (
                               <div className="bg-[#ef4444]/5 border border-[#ef4444]/10 p-4 rounded-xl">
-                                <div className="text-[11px] font-bold text-[#ef4444] uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <div className="text-[11px] font-bold text-[#ef4444] mb-2 flex items-center gap-1">
                                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
                                   {t.bearish}
                                 </div>
@@ -407,8 +407,7 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
                         </>
                       )}
                     </div>
-                    <div className="mt-4 pt-4 border-t border-[#1e2a3a]/40 flex items-center justify-between">
-                      <div className="text-[10px] text-white/30 uppercase tracking-widest">{t.source}</div>
+                    <div className="mt-4 pt-4 border-t border-[#1e2a3a]/40 flex items-center justify-end">
                       <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-xs font-bold text-[#3b82f6] hover:underline">
                         Analiz Detayı →
                       </Link>

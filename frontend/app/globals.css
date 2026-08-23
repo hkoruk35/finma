@@ -150,46 +150,62 @@ html, body {
 
 /* ================================================================
    BogaSmart Tipografi, Font ve Metin Renk Kuralları (Header/Footer Hariç)
-   ================================================================ */
+   ================================================================
+   NOT: Bu kurallar bilinçli olarak Tailwind'in "utilities" katmanindan
+   ONCE gelen @layer base icine alindi. Tailwind v4, ürettigi TÜM
+   utility siniflarini (text-white, text-[#3b82f6] gibi arbitrary-value
+   renkler dahil) @layer utilities icine yaziyor; CSS Cascade Layers
+   kuralina göre "layer'siz" (unlayered) bir kural, specificity'sinden
+   bagimsiz olarak HER ZAMAN layer'li bir kuralı yenar. Bu blok eskiden
+   layer'sizdi ve bu yüzden sitedeki neredeyse tüm text-[#hex] renk
+   siniflarini (basliklar, yüzde degisim renkleri vb.) sessizce ezip
+   griye çeviriyordu. @layer base içine alınca Tailwind'in normal
+   base < utilities siralamasına geri dönülüyor ve renk sınıfları
+   tekrar çalışıyor; !important olan alt kurallar (min. punto, .text-white
+   vb.) davranışını korumaya devam ediyor. */
+@layer base {
+  /* 1. Yazı Tipi Standardı (Inter): Header, Footer ve Kod Blokları hariç her yerde */
+  :not(header):not(footer):not(header *):not(footer *):not(code):not(pre):not(code *):not(pre *) {
+    font-family: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif) !important;
+  }
 
-/* 1. Yazı Tipi Standardı (Inter): Header, Footer ve Kod Blokları hariç her yerde */
-:not(header):not(footer):not(header *):not(footer *):not(code):not(pre):not(code *):not(pre *) {
-  font-family: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif) !important;
-}
+  /* 2. En Düşük 14px Punto Sınırı: Header ve Footer hariç, soldaki menüler dahil */
+  :not(header):not(footer):not(header *):not(footer *) .text-xs,
+  :not(header):not(footer):not(header *):not(footer *) .text-\[9px\],
+  :not(header):not(footer):not(header *):not(footer *) .text-\[10px\],
+  :not(header):not(footer):not(header *):not(footer *) .text-\[11px\],
+  :not(header):not(footer):not(header *):not(footer *) .text-\[12px\],
+  :not(header):not(footer):not(header *):not(footer *) .text-\[13px\] {
+    font-size: 14px !important;
+  }
 
-/* 2. En Düşük 14px Punto Sınırı: Header ve Footer hariç, soldaki menüler dahil */
-:not(header):not(footer):not(header *):not(footer *) .text-xs,
-:not(header):not(footer):not(header *):not(footer *) .text-\[9px\],
-:not(header):not(footer):not(header *):not(footer *) .text-\[10px\],
-:not(header):not(footer):not(header *):not(footer *) .text-\[11px\],
-:not(header):not(footer):not(header *):not(footer *) .text-\[12px\],
-:not(header):not(footer):not(header *):not(footer *) .text-\[13px\] {
-  font-size: 14px !important;
-}
+  /* 3. Metin Renk Standardı (Kırık Beyaz): Göz yorgunluğunu önleme —
+     sadece hiçbir renk sınıfı verilmemiş elemanlar için varsayılan;
+     text-[#hex] / text-slate-* gibi açık renk sınıfları artık normal
+     sekilde bunun üzerine yazabiliyor. */
+  :not(header):not(footer):not(header *):not(footer *) {
+    color: #e8e8e8;
+  }
 
-/* 3. Metin Renk Standardı (Kırık Beyaz): Göz yorgunluğunu önleme */
-:not(header):not(footer):not(header *):not(footer *) {
-  color: #e8e8e8;
-}
-
-:not(header):not(footer):not(header *):not(footer *) .text-white {
-  color: #e8e8e8 !important;
-}
-:not(header):not(footer):not(header *):not(footer *) .text-slate-100,
-:not(header):not(footer):not(header *):not(footer *) .text-slate-200,
-:not(header):not(footer):not(header *):not(footer *) .text-slate-300,
-:not(header):not(footer):not(header *):not(footer *) .text-gray-100,
-:not(header):not(footer):not(header *):not(footer *) .text-gray-200 {
-  color: #f0f0f0 !important;
-}
-:not(header):not(footer):not(header *):not(footer *) .text-slate-400,
-:not(header):not(footer):not(header *):not(footer *) .text-gray-400,
-:not(header):not(footer):not(header *):not(footer *) .text-neutral {
-  color: #d1d5db !important;
-}
-:not(header):not(footer):not(header *):not(footer *) .text-muted,
-:not(header):not(footer):not(header *):not(footer *) .text-slate-500,
-:not(header):not(footer):not(header *):not(footer *) .text-gray-500 {
-  color: #a3a3a3 !important;
+  :not(header):not(footer):not(header *):not(footer *) .text-white {
+    color: #e8e8e8 !important;
+  }
+  :not(header):not(footer):not(header *):not(footer *) .text-slate-100,
+  :not(header):not(footer):not(header *):not(footer *) .text-slate-200,
+  :not(header):not(footer):not(header *):not(footer *) .text-slate-300,
+  :not(header):not(footer):not(header *):not(footer *) .text-gray-100,
+  :not(header):not(footer):not(header *):not(footer *) .text-gray-200 {
+    color: #f0f0f0 !important;
+  }
+  :not(header):not(footer):not(header *):not(footer *) .text-slate-400,
+  :not(header):not(footer):not(header *):not(footer *) .text-gray-400,
+  :not(header):not(footer):not(header *):not(footer *) .text-neutral {
+    color: #d1d5db !important;
+  }
+  :not(header):not(footer):not(header *):not(footer *) .text-muted,
+  :not(header):not(footer):not(header *):not(footer *) .text-slate-500,
+  :not(header):not(footer):not(header *):not(footer *) .text-gray-500 {
+    color: #a3a3a3 !important;
+  }
 }
 

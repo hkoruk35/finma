@@ -107,7 +107,7 @@ function IndexHighlightCard({
         </div>
         <Link
           href={`/global/${locale}/${indexDef.slug}`}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
         >
           {LINK_LABEL[locale]}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -119,10 +119,10 @@ function IndexHighlightCard({
       <div className="p-4">
         <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-bold text-white/70 uppercase tracking-wide">
+            <span className="text-xs font-bold text-white/70 tracking-wide">
               {t.session}: {sessionLabel(snapshot.session, t)}
             </span>
-            <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
+            <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full font-bold tracking-wide">
               {LATEST_LABEL[locale]}
             </span>
           </div>
@@ -201,7 +201,7 @@ function IndexHighlightCard({
 
         {sectorLeaders && sectorLeaders.length > 0 && (
           <div className="mb-4">
-            <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-2">{t.sectorLeaders}</p>
+            <p className="text-[13px] font-bold text-[#3b82f6] mb-2">{t.sectorLeaders}</p>
             <div className="flex flex-wrap gap-2">
               {sectorLeaders.map((leader, i) => (
                 <span
@@ -258,7 +258,7 @@ function IndexHighlightCard({
 function HighlightMoverList({ title, movers, locale }: { title: string; movers: Mover[]; locale: Locale }) {
   return (
     <div className="rounded-lg bg-[#141924] border border-[#1e2a3a] p-3">
-      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-2">{title}</p>
+      <p className="text-[13px] font-bold text-[#3b82f6] mb-2">{title}</p>
       <div className="divide-y divide-[#1e2a3a]">
         {movers.map((m) => (
           <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
@@ -289,7 +289,7 @@ function HighlightNarrativeRow({ label, text }: { label: string; text?: string }
   if (!text) return null;
   return (
     <div>
-      <p className="text-[11px] text-slate-500 uppercase tracking-wide mb-1">{label}</p>
+      <p className="text-[13px] font-bold text-[#3b82f6] mb-1">{label}</p>
       <p className="text-sm text-slate-300 leading-relaxed">{text}</p>
     </div>
   );

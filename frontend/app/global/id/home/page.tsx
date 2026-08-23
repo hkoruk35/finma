@@ -162,13 +162,13 @@ export default async function IdHomePage() {
 
   const marketGroups: MarketGroup[] = [
     { key: "us", label: "US", items: toMarketItems(INDEX_ITEMS, quotes) },
-    { key: "europe", label: "EROPA", items: toMarketItems(EUROPE_ITEMS, quotes) },
-    { key: "asia", label: "ASIA", items: toMarketItems(ASIA_ITEMS, quotes) },
-    { key: "latam", label: "AMERIKA LATIN", items: toMarketItems(LATAM_ITEMS, quotes) },
-    { key: "fx", label: "VALUTA ASING", items: toMarketItems(FX_ITEMS, quotes) },
-    { key: "commodities", label: "KOMODITAS", items: toMarketItems(COMMODITY_ITEMS, quotes) },
-    { key: "crypto", label: "KRIPTO", items: toMarketItems(CRYPTO_ITEMS, quotes) },
-    { key: "futures", label: "FUTURES", items: toMarketItems(FUTURES_ITEMS, quotes) },
+    { key: "europe", label: "Eropa", items: toMarketItems(EUROPE_ITEMS, quotes) },
+    { key: "asia", label: "Asia", items: toMarketItems(ASIA_ITEMS, quotes) },
+    { key: "latam", label: "Amerika Latin", items: toMarketItems(LATAM_ITEMS, quotes) },
+    { key: "fx", label: "Valuta Asing", items: toMarketItems(FX_ITEMS, quotes) },
+    { key: "commodities", label: "Komoditas", items: toMarketItems(COMMODITY_ITEMS, quotes) },
+    { key: "crypto", label: "Kripto", items: toMarketItems(CRYPTO_ITEMS, quotes) },
+    { key: "futures", label: "Futures", items: toMarketItems(FUTURES_ITEMS, quotes) },
   ];
 
   const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);

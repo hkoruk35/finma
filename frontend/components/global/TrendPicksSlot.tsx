@@ -41,58 +41,58 @@ const ACCENT = '#3b82f6'; // diger ana sayfa kart basliklariyla (Sektorler, Izle
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {
     title: 'Trend Hisseleri',
-    all: 'TÜMÜ',
-    stock: 'HİSSE / SEKTÖR',
-    status: 'DURUM',
-    price: 'FİYAT',
+    all: 'Tümü',
+    stock: 'Hisse / Sektör',
+    status: 'Durum',
+    price: 'Fiyat',
     empty: 'Bugün için trend hisse bulunmuyor',
     loading: 'Yükleniyor...',
     href: '/global/tr/swing',
-    premiumMember: 'Premium Üye',
+    premiumMember: 'Premium Club',
   };
   if (locale === 'pt') return {
     title: 'Ações em Tendência',
-    all: 'TODOS',
-    stock: 'AÇÃO / SETOR',
-    status: 'STATUS',
-    price: 'PREÇO',
+    all: 'Todos',
+    stock: 'Ação / Setor',
+    status: 'Status',
+    price: 'Preço',
     empty: 'Nenhuma ação em tendência hoje',
     loading: 'Carregando...',
     href: '/global/pt/swing',
-    premiumMember: 'Membro Premium',
+    premiumMember: 'Premium Club',
   };
   if (locale === 'es') return {
     title: 'Acciones en Tendencia',
-    all: 'TODO',
-    stock: 'ACCIÓN / SECTOR',
-    status: 'ESTADO',
-    price: 'PRECIO',
+    all: 'Todo',
+    stock: 'Acción / Sector',
+    status: 'Estado',
+    price: 'Precio',
     empty: 'No hay acciones en tendencia hoy',
     loading: 'Cargando...',
     href: '/global/es/swing',
-    premiumMember: 'Miembro Premium',
+    premiumMember: 'Premium Club',
   };
   if (locale === 'fr') return {
     title: 'Actions Tendance',
-    all: 'TOUT',
-    stock: 'ACTION / SECTEUR',
-    status: 'STATUT',
-    price: 'PRIX',
+    all: 'Tout',
+    stock: 'Action / Secteur',
+    status: 'Statut',
+    price: 'Prix',
     empty: "Aucune action tendance aujourd'hui",
     loading: 'Chargement...',
     href: '/global/fr/swing',
-    premiumMember: 'Membre Premium',
+    premiumMember: 'Premium Club',
   };
   return {
     title: 'Trending Stocks',
-    all: 'ALL',
-    stock: 'STOCK / SECTOR',
-    status: 'STATUS',
-    price: 'PRICE',
+    all: 'All',
+    stock: 'Stock / Sector',
+    status: 'Status',
+    price: 'Price',
     empty: 'No trending stocks today',
     loading: 'Loading...',
     href: '/global/en/swing',
-    premiumMember: 'Premium Member',
+    premiumMember: 'Premium Club',
   };
 }
 
@@ -172,11 +172,11 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className="text-[16px] font-bold uppercase tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
+          <h3 className="text-[16px] font-bold tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
-          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
+          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium tracking-wide transition-all duration-200 hover:bg-white/5`}
           style={{ color: ACCENT, borderColor: `${ACCENT}4d` }}
         >
           {labels.all}
@@ -189,7 +189,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       {displayStocks.length > 0 ? (
         <>
           {/* Column labels */}
-          <div className={`grid ${gridCols} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
+          <div className={`grid ${gridCols} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium tracking-[0.5px] text-slate-500`}>
             {selectable && <span className="w-3.5" />}
             <span>{labels.stock}</span>
             <span />
@@ -224,7 +224,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                       <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                       <div className="min-w-0 flex-1">
                         {locked ? (
-                          <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
+                          <div className="text-[11px] font-bold text-[#fbbf24] truncate flex items-center gap-1">
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             <span>{labels.premiumMember}</span>
                           </div>

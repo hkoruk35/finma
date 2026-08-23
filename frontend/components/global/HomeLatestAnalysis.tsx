@@ -3,12 +3,12 @@ import type { Locale } from "@/lib/i18n/copy";
 import { getPublicPosts } from "@/lib/x/publicPosts";
 
 const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
-  tr: { title: "Hisse Analizleri", all: "TÜMÜ", empty: "Henüz analiz yok." },
-  en: { title: "Stock Analysis", all: "ALL", empty: "No analysis yet." },
-  es: { title: "Análisis de Acciones", all: "TODO", empty: "Aún no hay análisis." },
-  fr: { title: "Analyses d'Actions", all: "TOUT", empty: "Pas encore d'analyse." },
-  pt: { title: "Análises de Ações", all: "TODOS", empty: "Ainda sem análises." },
-  id: { title: "Analisis Saham", all: "SEMUA", empty: "Belum ada analisis." },
+  tr: { title: "Hisse Analizleri", all: "Tümü", empty: "Henüz analiz yok." },
+  en: { title: "Stock Analysis", all: "All", empty: "No analysis yet." },
+  es: { title: "Análisis de Acciones", all: "Todo", empty: "Aún no hay análisis." },
+  fr: { title: "Analyses d'Actions", all: "Tout", empty: "Pas encore d'analyse." },
+  pt: { title: "Análises de Ações", all: "Todos", empty: "Ainda sem análises." },
+  id: { title: "Analisis Saham", all: "Semua", empty: "Belum ada analisis." },
 };
 
 function formatDate(iso: string, locale: Locale): string {
@@ -39,7 +39,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
         </div>
         <Link
           href={newsHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

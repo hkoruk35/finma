@@ -19,32 +19,32 @@ const STRINGS: Record<
   }
 > = {
   tr: {
-    title: "Son Bilanço Analizleri", all: "TÜMÜ", revenue: "Gelir", eps: "EPS",
+    title: "Son Bilanço Analizleri", all: "Tümü", revenue: "Gelir", eps: "EPS",
     score: "BOGA AI Skoru", keyTakeaways: "Öne Çıkanlar", bullish: "Boğa Sinyalleri", bearish: "Ayı Sinyalleri",
     source: "SEC EDGAR", detail: "Analiz Detayı →",
   },
   en: {
-    title: "Recent Earnings Analysis", all: "ALL", revenue: "Rev", eps: "EPS",
+    title: "Recent Earnings Analysis", all: "All", revenue: "Rev", eps: "EPS",
     score: "BOGA AI Score", keyTakeaways: "Key Takeaways", bullish: "Bullish Signals", bearish: "Bearish Signals",
     source: "SEC EDGAR", detail: "Full Analysis →",
   },
   es: {
-    title: "Últimos Resultados", all: "TODO", revenue: "Ingr.", eps: "BPA",
+    title: "Últimos Resultados", all: "Todo", revenue: "Ingr.", eps: "BPA",
     score: "Puntuación BOGA AI", keyTakeaways: "Puntos Clave", bullish: "Señales Alcistas", bearish: "Señales Bajistas",
     source: "SEC EDGAR", detail: "Análisis Completo →",
   },
   fr: {
-    title: "Derniers Résultats", all: "TOUT", revenue: "CA", eps: "BPA",
+    title: "Derniers Résultats", all: "Tout", revenue: "CA", eps: "BPA",
     score: "Score BOGA AI", keyTakeaways: "Points Clés", bullish: "Signaux Haussiers", bearish: "Signaux Baissiers",
     source: "SEC EDGAR", detail: "Analyse Complète →",
   },
   pt: {
-    title: "Resultados Recentes", all: "TODOS", revenue: "Rec.", eps: "LPA",
+    title: "Resultados Recentes", all: "Todos", revenue: "Rec.", eps: "LPA",
     score: "Pontuação BOGA AI", keyTakeaways: "Principais Pontos", bullish: "Sinais de Alta", bearish: "Sinais de Baixa",
     source: "SEC EDGAR", detail: "Análise Completa →",
   },
   id: {
-    title: "Analisis Laba Terbaru", all: "SEMUA", revenue: "Pend.", eps: "EPS",
+    title: "Analisis Laba Terbaru", all: "Semua", revenue: "Pend.", eps: "EPS",
     score: "Skor BOGA AI", keyTakeaways: "Poin Utama", bullish: "Sinyal Bullish", bearish: "Sinyal Bearish",
     source: "SEC EDGAR", detail: "Analisis Lengkap →",
   },
@@ -84,7 +84,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
         </div>
         <Link
           href={allHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -143,7 +143,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
 
                     {Array.isArray(ai.key_takeaways) && ai.key_takeaways.length > 0 && (
                       <div className="mb-3">
-                        <div className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1">{t.keyTakeaways}</div>
+                        <div className="text-[12px] font-bold text-[#3b82f6] mb-1">{t.keyTakeaways}</div>
                         <ul className="space-y-1">
                           {ai.key_takeaways.slice(0, 2).map((k: string, i: number) => (
                             <li key={i} className="text-[11px] text-white/70 flex gap-1.5 leading-snug">
@@ -160,7 +160,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         {Array.isArray(ai.bullish_signals) && ai.bullish_signals.length > 0 && (
                           <div className="bg-[#22c55e]/5 border border-[#22c55e]/10 rounded-lg p-2">
-                            <div className="text-[9px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">{t.bullish}</div>
+                            <div className="text-[11px] font-bold text-[#22c55e] mb-1">{t.bullish}</div>
                             <div className="text-[10px] text-[#22c55e]/80 font-medium line-clamp-2 leading-snug">
                               {ai.bullish_signals[0]}
                             </div>
@@ -168,7 +168,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                         )}
                         {Array.isArray(ai.bearish_signals) && ai.bearish_signals.length > 0 && (
                           <div className="bg-[#ef4444]/5 border border-[#ef4444]/10 rounded-lg p-2">
-                            <div className="text-[9px] font-bold text-[#ef4444] uppercase tracking-wider mb-1">{t.bearish}</div>
+                            <div className="text-[11px] font-bold text-[#ef4444] mb-1">{t.bearish}</div>
                             <div className="text-[10px] text-[#ef4444]/80 font-medium line-clamp-2 leading-snug">
                               {ai.bearish_signals[0]}
                             </div>
@@ -177,8 +177,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                       </div>
                     )}
 
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[9px] text-white/30 uppercase tracking-widest">{t.source}</span>
+                    <div className="flex items-center justify-end mb-4">
                       <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#3b82f6] hover:underline">
                         {t.detail}
                       </Link>

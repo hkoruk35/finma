@@ -167,13 +167,13 @@ export default async function TrHomePage() {
 
   const marketGroups: MarketGroup[] = [
     { key: "us", label: "US", items: toMarketItems(INDEX_ITEMS, quotes) },
-    { key: "europe", label: "AVRUPA", items: toMarketItems(EUROPE_ITEMS, quotes) },
-    { key: "asia", label: "ASYA", items: toMarketItems(ASIA_ITEMS, quotes) },
-    { key: "latam", label: "LATİN AMERİKA", items: toMarketItems(LATAM_ITEMS, quotes) },
-    { key: "fx", label: "DÖVİZ", items: toMarketItems(FX_ITEMS, quotes) },
-    { key: "commodities", label: "EMTİA", items: toMarketItems(COMMODITY_ITEMS, quotes) },
-    { key: "crypto", label: "KRİPTO", items: toMarketItems(CRYPTO_ITEMS, quotes) },
-    { key: "futures", label: "VADELİLER", items: toMarketItems(FUTURES_ITEMS, quotes) },
+    { key: "europe", label: "Avrupa", items: toMarketItems(EUROPE_ITEMS, quotes) },
+    { key: "asia", label: "Asya", items: toMarketItems(ASIA_ITEMS, quotes) },
+    { key: "latam", label: "Latin Amerika", items: toMarketItems(LATAM_ITEMS, quotes) },
+    { key: "fx", label: "Döviz", items: toMarketItems(FX_ITEMS, quotes) },
+    { key: "commodities", label: "Emtia", items: toMarketItems(COMMODITY_ITEMS, quotes) },
+    { key: "crypto", label: "Kripto", items: toMarketItems(CRYPTO_ITEMS, quotes) },
+    { key: "futures", label: "Vadeliler", items: toMarketItems(FUTURES_ITEMS, quotes) },
   ];
 
   const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);
