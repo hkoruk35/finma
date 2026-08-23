@@ -208,11 +208,16 @@ export default async function TrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
             </div>
 
-            <HomeIndexHighlights locale="tr" />
-
+            {/* 2026-08-23 kullanıcı talebi: canlı analiz uyarısı endeks
+                ticker satırının (MarketOverviewTabs) hemen altına taşındı —
+                artık son 5 tamamlanmış analizi güncellenme saatiyle
+                dönen bir carousel olarak gösteriyor (bkz.
+                HomeScheduleBanner.tsx / HomeScheduleBannerCarousel.tsx). */}
             <div className="mt-4">
               <HomeScheduleBanner locale="tr" />
             </div>
+
+            <HomeIndexHighlights locale="tr" />
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="tr" />

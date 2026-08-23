@@ -384,6 +384,8 @@ export const copy = {
       nowRunning: "Running Now",
       upNext: "Up Next",
       at: "at",
+      liveBadge: "Live Analysis",
+      updatedLabel: "Updated",
     },
   },
   tr: {
@@ -769,6 +771,8 @@ export const copy = {
       nowRunning: "Şu an yapılıyor",
       upNext: "Sırada",
       at: "saat",
+      liveBadge: "Canlı Analiz",
+      updatedLabel: "Güncellendi",
     },
   },
   es: {
@@ -1154,6 +1158,8 @@ export const copy = {
       nowRunning: "Ahora",
       upNext: "Próximo",
       at: "a las",
+      liveBadge: "Análisis en Vivo",
+      updatedLabel: "Actualizado",
     },
   },
   fr: {
@@ -1539,6 +1545,8 @@ export const copy = {
       nowRunning: "En cours",
       upNext: "À suivre",
       at: "à",
+      liveBadge: "Analyse en Direct",
+      updatedLabel: "Mis à jour",
     },
   },
   pt: {
@@ -1924,6 +1932,8 @@ export const copy = {
       nowRunning: "Agora",
       upNext: "A seguir",
       at: "às",
+      liveBadge: "Análise ao Vivo",
+      updatedLabel: "Atualizado",
     },
   },
   id: {
@@ -2309,6 +2319,8 @@ export const copy = {
       nowRunning: "Sedang Berjalan",
       upNext: "Berikutnya",
       at: "pada",
+      liveBadge: "Analisis Langsung",
+      updatedLabel: "Diperbarui",
     },
   },
 } as const;

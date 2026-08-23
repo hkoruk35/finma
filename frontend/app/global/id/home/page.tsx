@@ -195,11 +195,11 @@ export default async function IdHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="id" />
             </div>
 
-            <HomeIndexHighlights locale="id" />
-
             <div className="mt-4">
               <HomeScheduleBanner locale="id" />
             </div>
+
+            <HomeIndexHighlights locale="id" />
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="id" />

@@ -195,11 +195,11 @@ export default async function FrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="fr" />
             </div>
 
-            <HomeIndexHighlights locale="fr" />
-
             <div className="mt-4">
               <HomeScheduleBanner locale="fr" />
             </div>
+
+            <HomeIndexHighlights locale="fr" />
 
             <div className="mt-4">
               <HomeLatestAnalysis locale="fr" />
