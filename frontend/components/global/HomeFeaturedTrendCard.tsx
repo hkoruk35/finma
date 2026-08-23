@@ -138,14 +138,6 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
 
         {periodItems.length > 0 && <IndexStatTable columns={2} items={periodItems} />}
 
-        <IndexStatTable
-          columns={2}
-          items={[
-            { label: t.entryZone, value: `$${formatNumber(data.entryLow, 2)} – $${formatNumber(data.entryHigh, 2)}` },
-            { label: t.riskReward, value: data.riskReward ? `${formatNumber(data.riskReward, 1)}x` : "—" },
-          ]}
-        />
-
         {data.selectionReasons.length > 0 && (
           <div className="mb-4">
             <p className="text-[13px] font-bold text-[#3b82f6] mb-2">{t.whySelected}</p>
