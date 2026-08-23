@@ -30,7 +30,9 @@ function formatDate(iso: string, locale: Locale): string {
 
 export default async function HomeLatestAnalysis({ locale }: { locale: Locale }) {
   const t = STRINGS[locale] ?? STRINGS.en;
-  const posts = await getPublicPosts(locale, 4);
+  // 2026-08-23 kullanıcı talebi: 4 kart yerine 3, ve metin /news sayfasındaki
+  // gibi TAM (kesilmemiş) gösterilsin — aşağıda line-clamp-2 kaldırıldı.
+  const posts = await getPublicPosts(locale, 3);
   const newsHref = `/global/${locale}/news`;
 
   if (posts.length === 0) return null;
@@ -55,7 +57,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
         </Link>
       </div>
 
-      <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+      <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
         {posts.map((post) => (
           <Link
             key={post.id}
@@ -63,7 +65,7 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
             className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
           >
             {post.content_text && (
-              <p className="text-white text-[13px] leading-snug font-medium line-clamp-2">{post.content_text}</p>
+              <p className="text-white text-[13px] leading-snug font-medium">{post.content_text}</p>
             )}
             {post.image_url && (
               /* eslint-disable-next-line @next/next/no-img-element */
