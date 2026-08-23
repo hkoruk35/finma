@@ -4,12 +4,12 @@ import { getUpcomingEarnings } from "@/lib/earningsCalendar";
 import { formatNumber } from "@/lib/formatNumber";
 
 const STRINGS: Record<Locale, { title: string; all: string; epsEst: string; revEst: string }> = {
-  tr: { title: "Yaklaşan Bilançolar", all: "TÜMÜ", epsEst: "EPS Tah.", revEst: "Gelir Tah." },
-  en: { title: "Upcoming Earnings", all: "ALL", epsEst: "EPS Est.", revEst: "Rev Est." },
-  es: { title: "Próximos Resultados", all: "TODO", epsEst: "BPA Est.", revEst: "Ingr. Est." },
-  fr: { title: "Résultats à Venir", all: "TOUT", epsEst: "BPA Est.", revEst: "CA Est." },
-  pt: { title: "Próximos Resultados", all: "TODOS", epsEst: "LPA Est.", revEst: "Rec. Est." },
-  id: { title: "Laba Mendatang", all: "SEMUA", epsEst: "Est. EPS", revEst: "Est. Pendapatan" },
+  tr: { title: "Yaklaşan Bilançolar", all: "Tümü", epsEst: "EPS Tah.", revEst: "Gelir Tah." },
+  en: { title: "Upcoming Earnings", all: "All", epsEst: "EPS Est.", revEst: "Rev Est." },
+  es: { title: "Próximos Resultados", all: "Todo", epsEst: "BPA Est.", revEst: "Ingr. Est." },
+  fr: { title: "Résultats à Venir", all: "Tout", epsEst: "BPA Est.", revEst: "CA Est." },
+  pt: { title: "Próximos Resultados", all: "Todos", epsEst: "LPA Est.", revEst: "Rec. Est." },
+  id: { title: "Laba Mendatang", all: "Semua", epsEst: "Est. EPS", revEst: "Est. Pendapatan" },
 };
 
 const WEEKDAY_LOCALE: Record<Locale, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR", id: "id-ID" };
@@ -38,7 +38,7 @@ export default async function HomeUpcomingEarnings({ locale }: { locale: Locale 
         </div>
         <Link
           href={allHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

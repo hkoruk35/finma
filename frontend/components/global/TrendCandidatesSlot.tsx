@@ -35,24 +35,24 @@ const ACCENT = '#a78bfa';
 
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {
-    title: 'Trend Adayları', all: 'TÜMÜ', stock: 'HİSSE / SEKTÖR', price: 'FİYAT',
-    empty: 'Bugün için trend adayı bulunmuyor', loading: 'Yükleniyor...', href: '/global/tr/watchlist', premiumMember: 'Premium Üye',
+    title: 'Trend Adayları', all: 'Tümü', stock: 'Hisse / Sektör', price: 'Fiyat',
+    empty: 'Bugün için trend adayı bulunmuyor', loading: 'Yükleniyor...', href: '/global/tr/watchlist', premiumMember: 'Premium Club',
   };
   if (locale === 'pt') return {
-    title: 'Candidatos em Tendência', all: 'TODOS', stock: 'AÇÃO / SETOR', price: 'PREÇO',
-    empty: 'Nenhum candidato hoje', loading: 'Carregando...', href: '/global/pt/watchlist', premiumMember: 'Membro Premium',
+    title: 'Candidatos em Tendência', all: 'Todos', stock: 'Ação / Setor', price: 'Preço',
+    empty: 'Nenhum candidato hoje', loading: 'Carregando...', href: '/global/pt/watchlist', premiumMember: 'Premium Club',
   };
   if (locale === 'es') return {
-    title: 'Candidatos en Tendencia', all: 'TODO', stock: 'ACCIÓN / SECTOR', price: 'PRECIO',
-    empty: 'No hay candidatos hoy', loading: 'Cargando...', href: '/global/es/watchlist', premiumMember: 'Miembro Premium',
+    title: 'Candidatos en Tendencia', all: 'Todo', stock: 'Acción / Sector', price: 'Precio',
+    empty: 'No hay candidatos hoy', loading: 'Cargando...', href: '/global/es/watchlist', premiumMember: 'Premium Club',
   };
   if (locale === 'fr') return {
-    title: 'Candidats Tendance', all: 'TOUT', stock: 'ACTION / SECTEUR', price: 'PRIX',
-    empty: "Aucun candidat aujourd'hui", loading: 'Chargement...', href: '/global/fr/watchlist', premiumMember: 'Membre Premium',
+    title: 'Candidats Tendance', all: 'Tout', stock: 'Action / Secteur', price: 'Prix',
+    empty: "Aucun candidat aujourd'hui", loading: 'Chargement...', href: '/global/fr/watchlist', premiumMember: 'Premium Club',
   };
   return {
-    title: 'Trend Candidates', all: 'ALL', stock: 'STOCK / SECTOR', price: 'PRICE',
-    empty: 'No trend candidates today', loading: 'Loading...', href: '/global/en/watchlist', premiumMember: 'Premium Member',
+    title: 'Trend Candidates', all: 'All', stock: 'Stock / Sector', price: 'Price',
+    empty: 'No trend candidates today', loading: 'Loading...', href: '/global/en/watchlist', premiumMember: 'Premium Club',
   };
 }
 
@@ -122,11 +122,11 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
+          <h3 className={`${compactMode ? 'text-[15px]' : 'text-[16px]'} font-bold text-white tracking-tight truncate`}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
-          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
+          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium tracking-wide transition-all duration-200 hover:bg-white/5`}
           style={{ color: ACCENT, borderColor: `${ACCENT}4d` }}
         >
           {labels.all}
@@ -138,7 +138,7 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
 
       {displayStocks.length > 0 ? (
         <>
-          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
+          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium tracking-[0.5px] text-slate-500`}>
             <span>{labels.stock}</span>
             <span>{labels.price}</span>
           </div>
@@ -156,7 +156,7 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
                     <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                     <div className="min-w-0 flex-1">
                       {locked ? (
-                        <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
+                        <div className="text-[11px] font-bold text-[#fbbf24] truncate flex items-center gap-1">
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           <span>{labels.premiumMember}</span>
                         </div>

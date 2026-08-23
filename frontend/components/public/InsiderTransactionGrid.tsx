@@ -204,11 +204,6 @@ export default function InsiderTransactionGrid({
         </table>
       </div>
 
-      {/* Data source attribution */}
-      <div className="text-xs text-slate-500 text-center pt-2">
-        {insiderT.dataSource || "Source: SEC EDGAR Form 4 Filings"}
-      </div>
-
       {/* Results count */}
       {filtered.length > 0 && (
         <div className="text-xs text-slate-400 text-center">

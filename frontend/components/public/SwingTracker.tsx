@@ -512,7 +512,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                     <Fragment key={r.ticker}>
                       <tr onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
                         <td style={{ padding: "6px 6px", whiteSpace: "nowrap" }}>
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 3, color: "#fbbf24", fontWeight: 700, fontSize: 11 }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
                           </span>
@@ -540,7 +540,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                         <td style={{ padding: "6px 6px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e", whiteSpace: "nowrap" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                         <td style={{ padding: "6px 6px", textAlign: "right", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                           <button onClick={() => setShowPremiumModal(true)}
-                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 4, padding: "2px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, whiteSpace: "nowrap", display: "inline-block" }}>
+                            style={{ background: "transparent", border: "1px solid #fbbf2444", color: "#fbbf24", borderRadius: 4, padding: "2px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, whiteSpace: "nowrap", display: "inline-block" }}>
                             🔒 Premium
                           </button>
                         </td>
@@ -629,7 +629,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                     <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>
                         {hmLocked ? (
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#fbbf24", fontWeight: 700, fontSize: 11 }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
                           </span>

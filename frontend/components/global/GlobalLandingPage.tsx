@@ -148,7 +148,7 @@ const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
   const router = useRouter();
-  const premiumMemberLabel = locale === 'tr' ? 'Premium Üye' : locale === 'es' ? 'Miembro Premium' : locale === 'fr' ? 'Membre Premium' : locale === 'pt' ? 'Membro Premium' : locale === 'id' ? 'Anggota Premium' : 'Premium Member';
+  const premiumMemberLabel = 'Premium Club';
   const upgradeToPremiumLabel = locale === 'tr' ? "Premium'a Geç" : locale === 'es' ? 'Actualizar a Premium' : locale === 'fr' ? 'Passer à Premium' : locale === 'pt' ? 'Atualizar para Premium' : locale === 'id' ? 'Tingkatkan ke Premium' : 'Upgrade to Premium';
   const watchlistGroupLabel = locale === 'tr' ? 'İzleme Listem ★ Kişisel (ilk 10)' : locale === 'es' ? 'Mi Lista ★ Personal (primeras 10)' : locale === 'fr' ? 'Ma Liste ★ Personnelle (10 premières)' : locale === 'pt' ? 'Minha Lista ★ Pessoal (primeiras 10)' : locale === 'id' ? 'Daftar Pantau Saya ★ Pribadi (10 pertama)' : 'My Watchlist ★ Personal (first 10)';
   const gainersGroupLabel = locale === 'tr' ? 'En Çok Yükselenler (ilk 7)' : locale === 'es' ? 'Mayores Alzas (primeras 7)' : locale === 'fr' ? 'Plus Fortes Hausses (7 premières)' : locale === 'pt' ? 'Maiores Altas (primeiras 7)' : locale === 'id' ? 'Top Penguat (7 pertama)' : 'Top Gainers (first 7)';
@@ -572,10 +572,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] shrink-0">
               {selectedLocked ? (
                 <div className="w-full h-full min-h-[400px] md:min-h-[600px] flex flex-col items-center justify-center gap-3 text-center px-6">
-                  <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor" style={{ color: "#f59e0b" }}>
+                  <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor" style={{ color: "#fbbf24" }}>
                     <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
                   </svg>
-                  <span className="text-lg font-medium" style={{ color: "#f59e0b" }}>{premiumMemberLabel}</span>
+                  <span className="text-lg font-bold" style={{ color: "#fbbf24" }}>{premiumMemberLabel}</span>
                   <button
                     type="button"
                     onClick={() => setShowPremiumModal(true)}
