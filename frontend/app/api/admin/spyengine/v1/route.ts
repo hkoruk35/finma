@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSnapshot } from "@/lib/v4/snapshot";
+import { getSnapshot, buildReplay } from "@/lib/v4/snapshot";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -63,6 +63,45 @@ export async function GET(request: Request) {
       reasoning = "Bearish bias building, waiting for trigger.";
     }
 
+    // Piyasa kapalıysa (hafta sonu / mesai dışı) getSnapshot zaten en son
+    // tamamlanmış seansı (örn. Cuma kapanışı) döndürür — burada bunu
+    // frontend'e açıkça bildiriyoruz ki grafik/başlık "canlı" gibi
+    // görünmesin.
+    let isLiveSession = (snapshot as any).isLiveSession ?? false;
+    let sessionDate: string | null = (snapshot as any).sessionDate ?? null;
+
+    // Grafik mumlarını da aynı yanıt içinde gönder: ayrı bir supertrade/v4
+    // çağrısına bağımlı kalmayı (ve oradaki yanıt şekli farkını) ortadan
+    // kaldırır. CompactBar = [time, open, high, low, close, volume].
+    const toBars = (compact: number[][]) =>
+      (compact || [])
+        .filter((b) => Array.isArray(b) && b.length >= 5 && Number.isFinite(b[1]) && Number.isFinite(b[4]))
+        .map((b) => ({ time: b[0], open: b[1], high: b[2], low: b[3], close: b[4] }));
+
+    let bars = toBars((snapshot as any).bars?.spot || []);
+
+    // Pazar akşamı Globex açıldığında sessionDate bir sonraki iş gününe
+    // (Pazartesi) devrediyor ama RTH mumları henüz yok — bu durumda grafik
+    // boş kalırdı. buildReplay tarihsiz çağrıldığında elde mevcut olan EN
+    // SON tamamlanmış seansı (örn. Cuma) getirir; boş mum durumunda buna
+    // düşüyoruz ki hafta sonu her zaman Cuma kapanış grafiği görünsün.
+    if (!bars.length) {
+      try {
+        const replay = await buildReplay(asset as any);
+        bars = toBars((replay as any).bars?.spot || []);
+        if (bars.length) {
+          isLiveSession = false;
+          sessionDate = (replay as any).date ?? sessionDate;
+        }
+      } catch {
+        // yeniden oynatma da başarısız olursa boş grafik ile devam et
+      }
+    }
+
+    const marketNote = isLiveSession
+      ? null
+      : `Piyasa kapalı — ${sessionDate ?? "son"} seansının kapanış grafiği gösteriliyor.`;
+
     const engineData = {
       asset,
       m15,
@@ -73,6 +112,10 @@ export async function GET(request: Request) {
       price: lastFrame?.spotPrice || snapshot.spotPrice,
       confidence,
       reasoning,
+      isLiveSession,
+      sessionDate,
+      marketNote,
+      bars,
     };
 
     return NextResponse.json({ ok: true, data: engineData });
