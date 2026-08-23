@@ -3,13 +3,51 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import type { Locale } from "@/lib/i18n/copy";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
-const STRINGS: Record<Locale, { title: string; all: string; revenue: string; eps: string }> = {
-  tr: { title: "Son Bilanço Analizleri", all: "TÜMÜ", revenue: "Gelir", eps: "EPS" },
-  en: { title: "Recent Earnings Analysis", all: "ALL", revenue: "Rev", eps: "EPS" },
-  es: { title: "Últimos Resultados", all: "TODO", revenue: "Ingr.", eps: "BPA" },
-  fr: { title: "Derniers Résultats", all: "TOUT", revenue: "CA", eps: "BPA" },
-  pt: { title: "Resultados Recentes", all: "TODOS", revenue: "Rec.", eps: "LPA" },
-  id: { title: "Analisis Laba Terbaru", all: "SEMUA", revenue: "Pend.", eps: "EPS" },
+const STRINGS: Record<
+  Locale,
+  {
+    title: string;
+    all: string;
+    revenue: string;
+    eps: string;
+    score: string;
+    keyTakeaways: string;
+    bullish: string;
+    bearish: string;
+    source: string;
+    detail: string;
+  }
+> = {
+  tr: {
+    title: "Son Bilanço Analizleri", all: "TÜMÜ", revenue: "Gelir", eps: "EPS",
+    score: "BOGA AI Skoru", keyTakeaways: "Öne Çıkanlar", bullish: "Boğa Sinyalleri", bearish: "Ayı Sinyalleri",
+    source: "SEC EDGAR", detail: "Analiz Detayı →",
+  },
+  en: {
+    title: "Recent Earnings Analysis", all: "ALL", revenue: "Rev", eps: "EPS",
+    score: "BOGA AI Score", keyTakeaways: "Key Takeaways", bullish: "Bullish Signals", bearish: "Bearish Signals",
+    source: "SEC EDGAR", detail: "Full Analysis →",
+  },
+  es: {
+    title: "Últimos Resultados", all: "TODO", revenue: "Ingr.", eps: "BPA",
+    score: "Puntuación BOGA AI", keyTakeaways: "Puntos Clave", bullish: "Señales Alcistas", bearish: "Señales Bajistas",
+    source: "SEC EDGAR", detail: "Análisis Completo →",
+  },
+  fr: {
+    title: "Derniers Résultats", all: "TOUT", revenue: "CA", eps: "BPA",
+    score: "Score BOGA AI", keyTakeaways: "Points Clés", bullish: "Signaux Haussiers", bearish: "Signaux Baissiers",
+    source: "SEC EDGAR", detail: "Analyse Complète →",
+  },
+  pt: {
+    title: "Resultados Recentes", all: "TODOS", revenue: "Rec.", eps: "LPA",
+    score: "Pontuação BOGA AI", keyTakeaways: "Principais Pontos", bullish: "Sinais de Alta", bearish: "Sinais de Baixa",
+    source: "SEC EDGAR", detail: "Análise Completa →",
+  },
+  id: {
+    title: "Analisis Laba Terbaru", all: "SEMUA", revenue: "Pend.", eps: "EPS",
+    score: "Skor BOGA AI", keyTakeaways: "Poin Utama", bullish: "Sinyal Bullish", bearish: "Sinyal Bearish",
+    source: "SEC EDGAR", detail: "Analisis Lengkap →",
+  },
 };
 
 async function getRecent(locale: Locale) {
@@ -80,10 +118,10 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
 
                 {ai && (
                   <>
-                    <p className="text-[12px] text-white/70 line-clamp-2 mb-3 leading-relaxed">
+                    <p className="text-[12px] text-white/70 line-clamp-3 mb-3 leading-relaxed">
                       {ai.summary}
                     </p>
-                    <div className="flex items-center gap-2 mb-4 flex-wrap">
+                    <div className="flex items-center gap-2 mb-3 flex-wrap">
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                         style={{
@@ -96,6 +134,54 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-white/70">
                         {t.eps}: {ai.eps_status}
                       </span>
+                      {typeof ai.ai_score === "number" && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30">
+                          {t.score}: {ai.ai_score}/10
+                        </span>
+                      )}
+                    </div>
+
+                    {Array.isArray(ai.key_takeaways) && ai.key_takeaways.length > 0 && (
+                      <div className="mb-3">
+                        <div className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1">{t.keyTakeaways}</div>
+                        <ul className="space-y-1">
+                          {ai.key_takeaways.slice(0, 2).map((k: string, i: number) => (
+                            <li key={i} className="text-[11px] text-white/70 flex gap-1.5 leading-snug">
+                              <span className="text-[#3b82f6] mt-0.5 shrink-0">•</span>
+                              <span className="line-clamp-1">{k}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {((Array.isArray(ai.bullish_signals) && ai.bullish_signals.length > 0) ||
+                      (Array.isArray(ai.bearish_signals) && ai.bearish_signals.length > 0)) && (
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        {Array.isArray(ai.bullish_signals) && ai.bullish_signals.length > 0 && (
+                          <div className="bg-[#22c55e]/5 border border-[#22c55e]/10 rounded-lg p-2">
+                            <div className="text-[9px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">{t.bullish}</div>
+                            <div className="text-[10px] text-[#22c55e]/80 font-medium line-clamp-2 leading-snug">
+                              {ai.bullish_signals[0]}
+                            </div>
+                          </div>
+                        )}
+                        {Array.isArray(ai.bearish_signals) && ai.bearish_signals.length > 0 && (
+                          <div className="bg-[#ef4444]/5 border border-[#ef4444]/10 rounded-lg p-2">
+                            <div className="text-[9px] font-bold text-[#ef4444] uppercase tracking-wider mb-1">{t.bearish}</div>
+                            <div className="text-[10px] text-[#ef4444]/80 font-medium line-clamp-2 leading-snug">
+                              {ai.bearish_signals[0]}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[9px] text-white/30 uppercase tracking-widest">{t.source}</span>
+                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#3b82f6] hover:underline">
+                        {t.detail}
+                      </Link>
                     </div>
                   </>
                 )}

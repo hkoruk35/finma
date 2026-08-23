@@ -416,14 +416,16 @@ export default function EarningsBoard({ locale }: { locale: Locale }) {
                   </div>
 
                   {/* Right: 1W Chart */}
-                  <div className="w-full lg:w-[450px] xl:w-[600px] h-[300px] lg:h-auto border-t lg:border-t-0 lg:border-l border-[#1e2a3a]/60 bg-black/20 shrink-0 relative overflow-hidden flex items-center justify-center p-4">
+                  <div className="w-full lg:w-[450px] xl:w-[600px] h-[320px] border-t lg:border-t-0 lg:border-l border-[#1e2a3a]/60 bg-black/20 shrink-0 relative overflow-hidden flex items-center justify-center p-4">
                     <div className="w-full h-full relative">
-                      <BogaChartEngine 
-                        symbol={item.ticker} 
-                        lang={locale} 
-                        defaultTimeframe="W" 
+                      <BogaChartEngine
+                        symbol={item.ticker}
+                        lang={locale}
+                        height={288}
+                        defaultTimeframe="W"
                         defaultCandleType="line"
                         compact={true}
+                        showToolbar={false}
                         hideIndicatorToggles={true}
                         indicators={[]}
                       />
