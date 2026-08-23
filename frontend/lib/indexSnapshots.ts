@@ -214,13 +214,26 @@ export async function getWeeklyArchiveList(
   return (data ?? []) as Pick<IndexWeeklySnapshot, "week_start" | "week_label" | "change_pct_week" | "close">[];
 }
 
-/** ai_narrative jsonb'den locale narrative objesini cikar, yoksa en (Ingilizce) fallback. */
+/**
+ * ai_narrative jsonb'den locale narrative objesini cikar.
+ *
+ * 2026-08-23 kullanıcı geri bildirimi: /global/id/nikkei-225 gibi sayfalarda
+ * başlık/metrik etiketleri Endonezce ama analiz paragrafları İngilizce
+ * kalmıştı. Kök neden buradaki `|| narrative.en` fallback'iydi — istenen
+ * locale'in bloğu eksikse (eski snapshot, "id" LOCALES'e eklenmeden önce
+ * üretilmiş, veya DeepSeek çağrısı o dil için başarısız olmuş) sessizce
+ * İngilizce metin gösteriliyordu. YMYL bir sitede tek sayfada iki dilin
+ * karışması güven sinyali açısından İngilizce fallback'ten daha kötü —
+ * bu yüzden artık SADECE istenen locale'in kaydı varsa gösteriliyor;
+ * yoksa çağıran taraf (bkz. `{narrative && (...)}` kullanan bileşenler)
+ * o bölümü tamamen atlıyor. en locale'i için davranış değişmedi.
+ */
 export function resolveNarrative(
   narrative: Partial<Record<IndexLocale, IndexNarrativeFields>> | null | undefined,
   locale: IndexLocale
 ): IndexNarrativeFields | null {
   if (!narrative) return null;
-  return narrative[locale] || narrative.en || null;
+  return narrative[locale] ?? null;
 }
 
 /** Distinct trade_date listesi tum semboller icin (sitemap generator'i icin). */

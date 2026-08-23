@@ -80,12 +80,15 @@ function buildSentence(locale: Locale, name: string, changePct: number | null): 
   return template.replace("{name}", name).replace("{pct}", formatNumber(Math.abs(changePct), 2));
 }
 
-// 2026-08-23 kullanıcı talebi: "zemin Parlak mavi, yazılar Beyaz olsun
-// dikkat çekmesi için ama ana tasarım sistemini de bozmasın." — beyaz metin
-// silik kaldığı için (kullanıcı geri bildirimi) koyu lacivert/mavi
-// (#0f1a2e) metne çevrildi; zemin aynı parlak mavi (#3b82f6) kaldı, sadece
-// metin kontrastı arttı.
-const TEXT_DARK = "#0f1a2e";
+// 2026-08-23 kullanıcı geri bildirimi (2. tur): koyu lacivert metin +
+// #3b82f6 (site geneli vurgu mavisi) zemin kombinasyonu istenmedi — "alt
+// rengini logo mavisi yap, yazı rengini beyaz ve kırık beyaz yap." Logo
+// PNG'sinden (bogastock02_logo.png) örneklenen gerçek marka mavisi
+// #0059cf kullanıldı (site genelindeki #3b82f6'dan daha koyu/doygun) —
+// bu koyulukta beyaz/kırık-beyaz metin yeterli kontrastla okunuyor.
+const LOGO_BLUE = "#0059cf";
+const TEXT_WHITE = "#ffffff";
+const TEXT_OFF_WHITE = "rgba(255,255,255,0.72)"; // "kırık beyaz"
 
 export default function HomeScheduleBannerCarousel({
   locale,
@@ -117,10 +120,10 @@ export default function HomeScheduleBannerCarousel({
   }).format(new Date(item.updatedAt));
 
   return (
-    <div className="bg-[#3b82f6] rounded-xl mb-4 shadow-lg shadow-blue-500/20 overflow-hidden">
+    <div className="rounded-xl mb-4 shadow-lg shadow-blue-900/30 overflow-hidden" style={{ backgroundColor: LOGO_BLUE }}>
       <Link
         href={`/global/${locale}/${item.slug}`}
-        className="group flex flex-col md:flex-row md:items-center justify-between gap-3 p-3 hover:bg-black/5 transition-colors duration-300"
+        className="group flex flex-col md:flex-row md:items-center justify-between gap-3 p-3 hover:bg-white/5 transition-colors duration-300"
       >
         <div className="flex items-start gap-3 w-full md:w-auto min-w-0">
           <span className="relative flex h-3 w-3 shrink-0 mt-1">
@@ -129,22 +132,22 @@ export default function HomeScheduleBannerCarousel({
           </span>
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] font-bold tracking-wide shrink-0" style={{ color: TEXT_DARK, opacity: 0.75 }}>
+              <span className="text-[10px] font-bold tracking-wide shrink-0" style={{ color: TEXT_OFF_WHITE }}>
                 {labels.badge}
               </span>
               <span
                 className="text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0"
-                style={{ color: TEXT_DARK, backgroundColor: "rgba(15,26,46,0.12)" }}
+                style={{ color: TEXT_WHITE, backgroundColor: "rgba(255,255,255,0.16)" }}
               >
                 {regionLabel}
               </span>
-              <span className="text-sm font-bold truncate" style={{ color: TEXT_DARK }}>
+              <span className="text-sm font-bold truncate" style={{ color: TEXT_WHITE }}>
                 {item.name}
               </span>
             </div>
-            <p className="text-[13px] font-semibold leading-snug mt-0.5" style={{ color: TEXT_DARK }}>
+            <p className="text-[13px] font-semibold leading-snug mt-0.5" style={{ color: TEXT_WHITE }}>
               {sentence}{" "}
-              <span className="font-medium whitespace-nowrap" style={{ color: TEXT_DARK, opacity: 0.7 }}>
+              <span className="font-medium whitespace-nowrap" style={{ color: TEXT_OFF_WHITE }}>
                 {labels.updated}: {timeStr}
               </span>
             </p>
@@ -153,9 +156,9 @@ export default function HomeScheduleBannerCarousel({
 
         <div
           className="hidden md:flex items-center text-xs font-bold px-4 py-1.5 rounded-lg group-hover:bg-white/90 transition-colors whitespace-nowrap shrink-0 bg-white"
-          style={{ color: TEXT_DARK }}
+          style={{ color: LOGO_BLUE }}
         >
-          {labels.viewAnalysis} <span className="ml-1.5">→</span>
+          {labels.viewAnalysis} <span className="ml-1.5" style={{ color: LOGO_BLUE }}>→</span>
         </div>
       </Link>
 
@@ -170,7 +173,7 @@ export default function HomeScheduleBannerCarousel({
               className="h-1.5 rounded-full transition-all"
               style={{
                 width: i === index ? "1.25rem" : "0.375rem",
-                backgroundColor: i === index ? TEXT_DARK : "rgba(15,26,46,0.35)",
+                backgroundColor: i === index ? TEXT_WHITE : "rgba(255,255,255,0.35)",
               }}
             />
           ))}

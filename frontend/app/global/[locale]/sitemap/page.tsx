@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
@@ -333,7 +334,12 @@ export default async function SitemapPage({ params }: { params: Promise<{ locale
         { href: `${base}/analysis-hub`, label: l.analysisHub },
         { href: `${base}/earning-calendar`, label: l.earningCalendar },
         { href: `${base}/insider`, label: l.insider },
-        { href: `${base}/themes`, label: l.themes },
+        // 2026-08-23 kullanıcı talebi: /themes 404 veriyordu — bu route'ta
+        // slug'sız bir sayfa (page.tsx) hiç yok, sadece
+        // app/global/[locale]/themes/[theme]/page.tsx var. Sitenin geri
+        // kalanı (ThemesBanner.tsx, HeaderMegaMenu.tsx) zaten ilk temanın
+        // slug'ına yönlendiriyor — burası da aynı desene uyduruldu.
+        { href: `${base}/themes/${HOT_THEMES_2026[0].slug}`, label: l.themes },
         { href: `${base}/sectors`, label: l.sectors },
         { href: `${base}/brokers`, label: l.brokers },
       ],
