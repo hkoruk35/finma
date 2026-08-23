@@ -43,3 +43,34 @@ export async function getPublicPosts(locale: string, limit = 60): Promise<Public
     throw err;
   }
 }
+
+// 2026-08-23 kullanıcı talebiyle eklendi: hisse detay sayfasının (graphic/[ticker])
+// "koordineli takip" bölümü için, TEK bir ticker'a ait yayınlanmış analiz
+// gönderilerini (o dilde) döndürür — getPublicPosts()'un ticker filtresi yoktu.
+export async function getPublicPostsByTicker(
+  ticker: string,
+  locale: string,
+  limit = 10
+): Promise<PublicPost[]> {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("x_posts")
+      .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
+      .eq("status", "posted")
+      .eq("locale", locale)
+      .eq("ticker", ticker.toUpperCase())
+      .not("posted_at", "is", null)
+      .order("posted_at", { ascending: false })
+      .limit(limit)
+      .abortSignal(AbortSignal.timeout(20000));
+
+    if (error) {
+      console.error("[x/publicPosts] getPublicPostsByTicker failed:", error.message);
+      return [];
+    }
+    return data ?? [];
+  } catch (err) {
+    console.error("[x/publicPosts] getPublicPostsByTicker exception:", err);
+    return [];
+  }
+}

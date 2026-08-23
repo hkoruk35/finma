@@ -8,19 +8,30 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const days = Math.min(90, Math.max(1, parseInt(searchParams.get("days") || "30", 10)));
+  // 2026-08-23 kullanıcı talebiyle eklendi: hisse detay sayfasının (graphic/[ticker])
+  // "koordineli takip" bölümü, o hissenin bilanço takvimindeki kaydını tek başına
+  // çekebilsin diye opsiyonel ticker filtresi — mevcut çağrı yerleri (ticker
+  // parametresi göndermeyen) etkilenmez.
+  const ticker = searchParams.get("ticker");
 
   const today = new Date().toISOString().split("T")[0];
   const until = new Date();
   until.setDate(until.getDate() + days);
   const untilStr = until.toISOString().split("T")[0];
 
-  const { data, error } = await supabaseAdmin
+  let query = supabaseAdmin
     .from("earnings_calendar")
     .select("*")
     .gte("earnings_date", today)
     .lte("earnings_date", untilStr)
     .order("earnings_date", { ascending: true })
     .limit(300);
+
+  if (ticker) {
+    query = query.eq("ticker", ticker.toUpperCase());
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

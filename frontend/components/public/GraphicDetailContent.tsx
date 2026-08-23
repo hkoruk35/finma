@@ -17,6 +17,7 @@ import { getIndexBySymbol } from "@/lib/indices";
 import { formatNumber } from "@/lib/formatNumber";
 import { ALL_ASSET_CLASS_TICKERS } from "@/lib/assetClasses";
 import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
+import TickerCoverageSection from "@/components/public/TickerCoverageSection";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -399,6 +400,12 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
         <div className="glass-card overflow-hidden">
           <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlanCard />
         </div>
+
+        {/* 2026-08-23 kullanici talebiyle: forecast/TickerDetailPanel'den SONRA,
+            sayfanin EN ALTINDA — bu hisseyle ilgili tum analizleri, bilanco
+            analizini, bilanco takvimini ve icerden islemleri tek yerde
+            derinlestiren "koordineli takip" bolumu. */}
+        {ticker && <TickerCoverageSection ticker={ticker} locale={locale} />}
       </main>
       <Footer hidePlatform locale={locale} />
     </div>
