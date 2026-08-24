@@ -487,7 +487,7 @@ export default function TickerTechnicalRefsPanel({ ticker, locale }: Props) {
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-slate-600 mt-2">{L(locale, "Kaynak: SEC 13F başvuruları (Yahoo Finance üzerinden)", "Source: SEC 13F filings (via Yahoo Finance)")}</p>
+          <p className="text-[10px] text-slate-600 mt-2">{L(locale, "Kaynak: SEC 13F başvuruları", "Source: SEC 13F filings")}</p>
         </div>
       )}
     </div>
