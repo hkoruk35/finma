@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import Footer from "@/components/Footer";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -46,6 +47,22 @@ export async function generateMetadata({
     ? snap.summary.slice(0, 160)
     : `${t} (${companyName}) için gerçek zamanlı teknik analiz: EMA/RSI/MACD, BOGA Skoru, giriş/stop/hedef seviyeleri.`;
 
+  // 2026-08-24 kullanıcı bildirimi: SSR anlık görüntüsü (fetchSSRSnapshot)
+  // alınamadığında sayfa Googlebot'a neredeyse boş ("Loading analysis...")
+  // gidiyordu — bu ticker'lar için gerçek deep-analysis içeriği yok demektir.
+  // Kullanıcının önerdiği iki temiz seçenekten ikincisi uygulandı: noindex +
+  // /graphic/{ticker} canonical'ı (gerçek içeriğin bulunduğu, her ticker'da
+  // çalışan sayfa) — böylece binlerce boş sayfa indekslenmez, link değeri de
+  // kaybolmaz.
+  if (!snap) {
+    return {
+      title: `${t} Hisse Analizi — BogaStock`,
+      description: `${t} için gerçek zamanlı teknik analiz: EMA/RSI/MACD, BOGA Skoru, giriş/stop/hedef seviyeleri.`,
+      robots: { index: false, follow: true },
+      alternates: { canonical: `https://bogastock.com/global/tr/graphic/${lower}` },
+    };
+  }
+
   return {
     title: `${t} Hisse Analizi — ${companyName} | BogaStock`,
     description,
@@ -84,7 +101,7 @@ export default async function TrAnalysisPage({
       <MemberHeader locale="tr" />
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
         {/* SEO için server-rendered içerik */}
-        {snap && (
+        {snap ? (
           <div className="mb-6">
             <h1 className="text-3xl font-medium text-white tracking-tighter">
               {snap.ticker}{" "}
@@ -101,6 +118,18 @@ export default async function TrAnalysisPage({
                 {snap.summary}
               </p>
             )}
+          </div>
+        ) : (
+          // 2026-08-24: bu ticker için SSR snapshot alınamadı (bkz.
+          // generateMetadata'daki noindex/canonical notu) — içerik burada
+          // değil, /graphic/{ticker}'da; ziyaretçiye (ve JS render eden
+          // crawler'lara) net bir yönlendirme.
+          <div className="mb-6 text-sm text-white/50">
+            {t} için detaylı analiz{" "}
+            <Link href={`/global/tr/graphic/${t}`} className="text-[#3b82f6] hover:underline">
+              hisse sayfasında
+            </Link>
+            .
           </div>
         )}
         <TickerDetailPanel ticker={t} locale="tr" fullPage hidePermalink />

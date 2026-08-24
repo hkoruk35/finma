@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import Footer from "@/components/Footer";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -47,6 +48,19 @@ export async function generateMetadata({
     ? snap.summary.slice(0, 160)
     : `Real-time technical analysis for ${t} (${companyName}): EMA/RSI/MACD, BOGA Score, entry/stop/target levels.`;
 
+  // 2026-08-24 kullanıcı bildirimi: SSR anlık görüntüsü alınamadığında sayfa
+  // Googlebot'a neredeyse boş ("Loading analysis...") gidiyordu. Kullanıcının
+  // önerdiği iki temiz seçenekten ikincisi: noindex + /graphic/{ticker}
+  // canonical'ı (gerçek içeriğin bulunduğu, her ticker'da çalışan sayfa).
+  if (!snap) {
+    return {
+      title: `${t} Stock Analysis — BogaStock`,
+      description: `Real-time technical analysis for ${t}: EMA/RSI/MACD, BOGA Score, entry/stop/target levels.`,
+      robots: { index: false, follow: true },
+      alternates: { canonical: `https://bogastock.com/global/en/graphic/${lower}` },
+    };
+  }
+
   return {
     title: `${t} Stock Analysis — ${companyName} | BogaStock`,
     description,
@@ -85,7 +99,7 @@ export default async function EnAnalysisPage({
       <MemberHeader locale="en" />
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
         {/* SEO için server-rendered içerik — Googlebot ilk HTML'de bunu görür */}
-        {snap && (
+        {snap ? (
           <div className="mb-6">
             <h1 className="text-3xl font-medium text-white tracking-tighter">
               {snap.ticker}{" "}
@@ -102,6 +116,17 @@ export default async function EnAnalysisPage({
                 {snap.summary}
               </p>
             )}
+          </div>
+        ) : (
+          // 2026-08-24: bu ticker için SSR snapshot alınamadı (bkz.
+          // generateMetadata'daki noindex/canonical notu) — içerik burada
+          // değil, /graphic/{ticker}'da.
+          <div className="mb-6 text-sm text-white/50">
+            Full detailed analysis for {t} is available on the{" "}
+            <Link href={`/global/en/graphic/${t}`} className="text-[#3b82f6] hover:underline">
+              stock page
+            </Link>
+            .
           </div>
         )}
         {/* Interactive panel — canlı veri, charts, Copilot (client side) */}

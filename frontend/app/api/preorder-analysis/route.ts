@@ -89,12 +89,18 @@ const WARNING_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
     pt: "O ATR% está alto — ajuste o tamanho da sua posição de acordo com a volatilidade",
     id: "ATR% tinggi — sesuaikan ukuran posisi dengan volatilitas",
   },
-  "Hacim ortalamanın çok altında — likidite riski": {
-    en: "Volume is well below average — liquidity risk",
-    es: "El volumen está muy por debajo del promedio — riesgo de liquidez",
-    fr: "Le volume est bien en dessous de la moyenne — risque de liquidité",
-    pt: "O volume está bem abaixo da média — risco de liquidez",
-    id: "Volume jauh di bawah rata-rata — risiko likuiditas",
+  // 2026-08-24 kullanici bildirimi: "likidite riski" yanlis bir iddiaydi —
+  // dusuk RVOL sadece o seansta zayif katilim/teyit anlamina gelir, hissenin
+  // likit olup olmadigi (Average Dollar Volume/spread/market cap) hakkinda
+  // TEK BASINA hicbir sey soylemez (bkz. lib/rvolClassification.ts). Ayrica
+  // bu ayni sayfada marketCommentaryEngine'in "hacim teyidi ortalama
+  // seviyelerde" cumlesiyle celisiyordu.
+  "Hacim ortalamanın çok altında — zayıf katılım / zayıf teyit": {
+    en: "Volume is well below average — weak participation / weak confirmation",
+    es: "El volumen está muy por debajo del promedio — participación débil / confirmación débil",
+    fr: "Le volume est bien en dessous de la moyenne — participation faible / confirmation faible",
+    pt: "O volume está bem abaixo da média — participação fraca / confirmação fraca",
+    id: "Volume jauh di bawah rata-rata — partisipasi lemah / konfirmasi lemah",
   },
 };
 
@@ -806,7 +812,9 @@ export async function GET(req: NextRequest) {
   if (d1_rsi > 78) warnings.push("RSI aşırı alım bölgesinde — kısa vadede geri çekilme riski");
   if (pct52h < -25) warnings.push("52 haftalık zirveden uzak — trend zayıf olabilir");
   if (atrPct > 8) warnings.push("ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla");
-  if (rvol < 0.5) warnings.push("Hacim ortalamanın çok altında — likidite riski");
+  // 2026-08-24: esik (rvol < 0.5) lib/rvolClassification.ts'teki "very_low"
+  // katilim sinirini birebir yansitiyor — bkz. o dosyadaki merkezi siniflama.
+  if (rvol < 0.5) warnings.push("Hacim ortalamanın çok altında — zayıf katılım / zayıf teyit");
 
   // ── 1H indicators ────────────────────────────────────────────────────────
   let h1_ema9 = 0, h1_ema20 = 0, h1_ema50 = 0, h1_rsi = 50, h1_pat = "—", h1_rvol = 1;

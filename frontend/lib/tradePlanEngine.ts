@@ -369,6 +369,10 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
   });
 
   // ── Hacim ───────────────────────────────────────────────────────────────
+  // 2026-08-24: 3 kademeli ternary yerine lib/rvolClassification.ts'teki
+  // merkezi 5 kademeli siniflama (very_low/below_average/normal/increasing/
+  // strong) kullanildi — marketCommentaryEngine.ts ve preorder-analysis
+  // route.ts ile AYNI esikler/anlatim, "likidite riski" iddiasi yok.
   const volume = rvol >= 1.5 ? pick(lang, {
     en: `Volume is ${formatNumber(rvol, 1)}x above the 30-day average — indicating active market participation and a high probability of confirmation.`,
     tr: `Hacim 30 günlük ortalamanın ${formatNumber(rvol, 1)} katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.`,
@@ -376,20 +380,27 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
     fr: `Le volume est de ${formatNumber(rvol, 1)}x supérieur à la moyenne de 30 jours — indique une forte participation et une haute probabilité de confirmation.`,
     pt: `O volume está ${formatNumber(rvol, 1)}x acima da média de 30 dias — indica alta participação e forte probabilidade de confirmação.`,
     id: `Volume ${formatNumber(rvol, 1)}x di atas rata-rata 30 hari — menunjukkan partisipasi pasar yang aktif dan probabilitas konfirmasi yang tinggi.`,
-  }) : rvol >= 1.0 ? pick(lang, {
-    en: `Volume is near its 30-day average — standard market participation observed.`,
-    tr: `Hacim 30 günlük ortalamaya yakın seviyede — standart piyasa katılımı gözleniyor.`,
-    es: `El volumen está cerca de su promedio de 30 días — se observa una participación de mercado estándar.`,
-    fr: `Le volume est proche de sa moyenne de 30 jours — participation standard au marché observée.`,
-    pt: `O volume está próximo da sua média de 30 dias — observada participação padrão do mercado.`,
-    id: `Volume mendekati rata-rata 30 harinya — partisipasi pasar standar teramati.`,
+  }) : rvol >= 0.8 ? pick(lang, {
+    en: `Volume is near its 30-day average (${formatNumber(rvol, 1)}x) — standard market participation observed.`,
+    tr: `Hacim 30 günlük ortalamaya yakın seviyede (${formatNumber(rvol, 1)}x) — standart piyasa katılımı gözleniyor.`,
+    es: `El volumen está cerca de su promedio de 30 días (${formatNumber(rvol, 1)}x) — se observa una participación de mercado estándar.`,
+    fr: `Le volume est proche de sa moyenne de 30 jours (${formatNumber(rvol, 1)}x) — participation standard au marché observée.`,
+    pt: `O volume está próximo da sua média de 30 dias (${formatNumber(rvol, 1)}x) — observada participação padrão do mercado.`,
+    id: `Volume mendekati rata-rata 30 harinya (${formatNumber(rvol, 1)}x) — partisipasi pasar standar teramati.`,
+  }) : rvol >= 0.5 ? pick(lang, {
+    en: `Volume is below average (${formatNumber(rvol, 1)}x) — volume confirmation is weaker here; position sizing can be managed according to risk preference.`,
+    tr: `Hacim ortalamanın altında (${formatNumber(rvol, 1)}x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
+    es: `El volumen está por debajo del promedio (${formatNumber(rvol, 1)}x) — la confirmación por volumen es más débil aquí; ajuste el tamaño de posición según su gestión de riesgo.`,
+    fr: `Le volume est inférieur à la moyenne (${formatNumber(rvol, 1)}x) — la confirmation par le volume est plus faible ici ; la taille de position peut être ajustée selon votre gestion du risque.`,
+    pt: `O volume está abaixo da média (${formatNumber(rvol, 1)}x) — a confirmação por volume é mais fraca aqui; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
+    id: `Volume di bawah rata-rata (${formatNumber(rvol, 1)}x) — konfirmasi volume lebih lemah di sini; ukuran posisi dapat disesuaikan menurut preferensi risiko.`,
   }) : pick(lang, {
-    en: `Volume is below average (${formatNumber(rvol, 1)}x) — volume confirmation is limited; position sizing can be managed according to risk preference.`,
-    tr: `Hacim ortalamanın altında (${formatNumber(rvol, 1)}x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
-    es: `El volumen está por debajo del promedio (${formatNumber(rvol, 1)}x) — la confirmación por volumen es limitada; ajuste el tamaño de posición según su gestión de riesgo.`,
-    fr: `Le volume est inférieur à la moyenne (${formatNumber(rvol, 1)}x) — la confirmation par le volume est limitée ; la taille de position peut être ajustée selon votre gestion du risque.`,
-    pt: `O volume está abaixo da média (${formatNumber(rvol, 1)}x) — a confirmação por volume é limitada; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
-    id: `Volume di bawah rata-rata (${formatNumber(rvol, 1)}x) — konfirmasi volume terbatas; ukuran posisi dapat disesuaikan menurut preferensi risiko.`,
+    en: `Volume is well below average (${formatNumber(rvol, 1)}x) — a weak-confirmation signal on its own, not an indicator of liquidity risk; position sizing can be managed according to risk preference.`,
+    tr: `Hacim ortalamanın çok altında (${formatNumber(rvol, 1)}x) — bu zayıf bir teyit sinyali, tek başına likidite riski göstergesi değildir; pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
+    es: `El volumen está muy por debajo del promedio (${formatNumber(rvol, 1)}x) — una señal de confirmación débil por sí sola, no un indicador de riesgo de liquidez; ajuste el tamaño de posición según su gestión de riesgo.`,
+    fr: `Le volume est bien inférieur à la moyenne (${formatNumber(rvol, 1)}x) — un signal de confirmation faible en soi, pas un indicateur de risque de liquidité ; la taille de position peut être ajustée selon votre gestion du risque.`,
+    pt: `O volume está bem abaixo da média (${formatNumber(rvol, 1)}x) — um sinal de confirmação fraco por si só, não um indicador de risco de liquidez; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
+    id: `Volume jauh di bawah rata-rata (${formatNumber(rvol, 1)}x) — sinyal konfirmasi yang lemah, bukan indikator risiko likuiditas; ukuran posisi dapat disesuaikan menurut preferensi risiko.`,
   });
 
   // ── RSI ─────────────────────────────────────────────────────────────────

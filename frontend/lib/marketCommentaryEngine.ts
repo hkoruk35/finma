@@ -1,5 +1,6 @@
 import { AssetCategory, formatAssetPrice } from "./symbols";
 import { formatNumber } from "@/lib/formatNumber";
+import { rvolParticipationClause } from "@/lib/rvolClassification";
 
 export type CommentaryLang = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
@@ -468,22 +469,22 @@ export function generateAiMarketCommentary(input: AiAiInput): AiMarketCommentary
   const liquidityVolume = pick(lang, {
     tr: category === "forex"
       ? `Döviz likidite akışı: Gün içi hacim ve spread dengesi standart seans aralığında. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Göreceli Hacim (RVOL): ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "İşlem aktivitesi ortalamanın üzerinde." : "Hacim teyidi ortalama seviyelerde; pozisyon büyüklüğü risk yönetimine göre ayarlanabilir."} ${volatilityLong}`,
+      : `Göreceli Hacim (RVOL): ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "tr")} ${volatilityLong}`,
     en: category === "forex"
       ? `Forex liquidity flow: Intraday order flow and spread dynamics are in standard session bounds. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Relative Volume (RVOL): ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "Trading activity is above average." : "Volume confirmation is moderate; position sizing can be managed according to risk preference."} ${volatilityLong}`,
+      : `Relative Volume (RVOL): ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "en")} ${volatilityLong}`,
     es: category === "forex"
       ? `Flujo de liquidez Forex: El flujo de órdenes intradía está en rangos estándar. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Volumen Relativo (RVOL): ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "La actividad de negociación está por encima del promedio." : "Confirmación de volumen moderada; gestione la posición según su riesgo."} ${volatilityLong}`,
+      : `Volumen Relativo (RVOL): ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "es")} ${volatilityLong}`,
     fr: category === "forex"
       ? `Flux de liquidité Forex : Flux d'ordres intrajournaliers dans les limites standards. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Volume Relatif (RVOL) : ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "L'activité de négociation est supérieure à la moyenne." : "Confirmation de volume modérée ; gérez la taille de position selon votre risque."} ${volatilityLong}`,
+      : `Volume Relatif (RVOL) : ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "fr")} ${volatilityLong}`,
     pt: category === "forex"
       ? `Fluxo de liquidez Forex: Fluxo de ordens intradiárias dentro dos limites padrão. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Volume Relativo (RVOL): ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "A atividade de negociação está acima da média." : "Confirmação de volume moderada; ajuste o tamanho da posição de acordo com o risco."} ${volatilityLong}`,
+      : `Volume Relativo (RVOL): ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "pt")} ${volatilityLong}`,
     id: category === "forex"
       ? `Aliran likuiditas Forex: Aliran order intraday dan dinamika spread berada dalam batas sesi standar. RVOL: ${formatNumber(rvol, 2)}x.`
-      : `Volume Relatif (RVOL): ${formatNumber(rvol, 2)}x. ${rvol >= 1.5 ? "Aktivitas perdagangan di atas rata-rata." : "Konfirmasi volume moderat; ukuran posisi dapat disesuaikan menurut preferensi risiko."} ${volatilityLong}`,
+      : `Volume Relatif (RVOL): ${formatNumber(rvol, 2)}x. ${rvolParticipationClause(rvol, "id")} ${volatilityLong}`,
   });
 
   // Localized "No Trade Plan Setup" Message

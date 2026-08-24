@@ -181,6 +181,41 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.redirect(newUrl, 308)
   }
 
+  // ── SEO: BogaSmart/BogaStock duplicate content düzeltmesi ──────────────────
+  // 2026-08-24 kullanıcı bildirimi: bogasmart.com ve bogastock.com AYNI Next.js
+  // uygulamasını serve ediyor, host'a göre hiçbir ayrım yoktu — bu yüzden
+  // BogaStock'un tüm finans sayfaları (ana sayfa, /graphic/*, endeks sayfaları,
+  // About/Terms/Disclaimer vb.) bogasmart.com altında da birebir indekslendi
+  // (Google'da "duplicate content" — bkz. Google'ın canonical/redirect
+  // önerisi). Mimari karar: BogaStock.com = finans, BogaSmart.com = genel AI /
+  // Discover / Today. Bu blok SADECE bogasmart.com host'unda çalışır:
+  //  - "/" kökü artık finans ana sayfasına DEĞİL, BogaSmart'ın kendi
+  //    "Today" panosuna gider.
+  //  - /global/{locale}/... altındaki her şey, BogaSmart'a ait 5 genel sayfa
+  //    (discover/search/sports/today/weather) DIŞINDA, aynı path ile
+  //    bogastock.com'a 301 kalıcı yönlendirilir (ör. bogasmart.com/global/en/
+  //    graphic/NVDA → bogastock.com/global/en/graphic/NVDA).
+  // /admin, /api, /auth, /daily, /en, /tr, /[lang]/[slug] gibi /global dışı
+  // eski/özel rotalara BİLEREK dokunulmadı — bu ayrı bir inceleme gerektirir.
+  const BOGASTOCK_HOST = 'bogastock.com'
+  const BOGASMART_GENERAL_SUBPATHS = ['discover', 'search', 'sports', 'today', 'weather']
+  if (host === 'bogasmart.com') {
+    if (pathname === '/') {
+      const locale = resolvePreferredLocale(request.headers.get('accept-language'))
+      return NextResponse.redirect(new URL(`/global/${locale}/today`, request.url), 308)
+    }
+    const globalMatch = pathname.match(/^\/global\/([a-z]{2})(\/([^/]+))?/)
+    if (globalMatch) {
+      const subpath = globalMatch[3] || ''
+      const isGeneralPath = BOGASMART_GENERAL_SUBPATHS.includes(subpath)
+      if (!isGeneralPath) {
+        const target = new URL(request.url)
+        target.host = BOGASTOCK_HOST
+        return NextResponse.redirect(target, 301)
+      }
+    }
+  }
+
   // ── SEO: /sector/* — eski BOGA AI sektör sayfaları artık yok (410 Gone) ─────
   // Önceki next.config.ts redirect'i /sector/* → /admin/stocks/sector/*
   // gönderiyordu; oradan da admin auth guard /admin/account/login'e atıyordu.
