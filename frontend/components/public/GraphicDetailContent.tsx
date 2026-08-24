@@ -18,6 +18,7 @@ import { formatNumber } from "@/lib/formatNumber";
 import { ALL_ASSET_CLASS_TICKERS } from "@/lib/assetClasses";
 import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
 import TickerCoverageSection from "@/components/public/TickerCoverageSection";
+import TickerTechnicalRefsPanel from "@/components/public/TickerTechnicalRefsPanel";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -206,7 +207,9 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const labels = PAGE_LABELS[locale];
   const registerHref = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
 
-  const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
+  // Not: "company/sector/industry" disinda kalan alanlar da (TickerTechnicalRefsPanel
+  // /api/deep-analysis'e AYNI stockData'yi POST ediyor) kullanildigi icin tip "any" birakildi.
+  const [stockData, setStockData] = useState<any>(null);
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
   // Herkese acik onizleme: giris yapmamis ziyaretcilerin ust kisayol
   // butonlariyla uye-kilitli sayfalara (Top100/Swing/Trend/Analiz)
@@ -400,6 +403,12 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
         <div className="glass-card overflow-hidden">
           <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlanCard />
         </div>
+
+        {/* 2026-08-24 kullanici talebiyle: Derin Analiz raporunun (artik admin-only)
+            Kritik Seviyeler / Katalizör Takvimi / 13F / Teknik Referanslar bolumlerini
+            AYNI veri kaynagindan (/api/deep-analysis) zenginlestirme olarak ekler —
+            mevcut Trade Plan kartina (yukarida) dokunmuyor, ek/tamamlayici bir panel. */}
+        {ticker && <TickerTechnicalRefsPanel ticker={ticker} stockData={stockData} locale={locale} />}
 
         {/* 2026-08-23 kullanici talebiyle: forecast/TickerDetailPanel'den SONRA,
             sayfanin EN ALTINDA — bu hisseyle ilgili tum analizleri, bilanco
