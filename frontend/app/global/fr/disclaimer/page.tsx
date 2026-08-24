@@ -63,7 +63,7 @@ export default function DisclaimerPageFr() {
               3. Lois de l'Union Européenne (UE) et Conformité Réglementaire
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> fonctionne en stricte conformité avec les réglementations financières de l'Union Européenne (UE), notamment les directives de l'<strong className="text-white">ESMA (Autorité Européenne des Marchés Financiers)</strong>, la directive <strong className="text-white">MiFID II</strong> et le règlement <strong className="text-white">MAR (Règlement UE Abus de Marché n° 596/2014)</strong>.
+              <strong className="text-white">BogaStock.com</strong> s'appuie sur les réglementations financières de l'Union Européenne (UE) comme référence, notamment les directives de l'<strong className="text-white">ESMA (Autorité Européenne des Marchés Financiers)</strong>, la directive <strong className="text-white">MiFID II</strong> et le règlement <strong className="text-white">MAR (Règlement UE Abus de Marché n° 596/2014)</strong>.
             </p>
             <p className="text-slate-300">
               Notre plateforme ne pratique aucune manipulation de marché, délit d'initié ou conseil non autorisé. Tous les balayages algorithmiques sont exécutés selon des critères mathématiques objectifs.
@@ -76,7 +76,7 @@ export default function DisclaimerPageFr() {
               4. Protection des Données (RGPD / GDPR et CCPA)
             </h2>
             <p className="text-slate-300">
-              La confidentialité des utilisateurs est garantie par <strong className="text-white">BogaStock.com</strong> conformément au Règlement Général sur la Protection des Données (<strong className="text-white">RGPD / GDPR</strong>) et au <strong className="text-white">CCPA</strong>. Nous ne vendons ni ne louons de données personnelles à des tiers.
+              <strong className="text-white">BogaStock.com</strong> s'engage à protéger la confidentialité des utilisateurs conformément à la réglementation applicable, notamment le Règlement Général sur la Protection des Données (<strong className="text-white">RGPD / GDPR</strong>) et le <strong className="text-white">CCPA</strong>. Nous ne vendons ni ne louons de données personnelles à des tiers.
             </p>
           </section>
 

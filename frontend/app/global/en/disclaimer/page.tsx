@@ -63,7 +63,7 @@ export default function DisclaimerPageEn() {
               3. European Union (EU) Laws & Regulatory Compliance
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> operates in strict adherence to European Union (EU) financial market standards, including guidelines from <strong className="text-white">ESMA (European Securities and Markets Authority)</strong>, <strong className="text-white">MiFID II (Markets in Financial Instruments Directive)</strong> transparency rules, and <strong className="text-white">MAR (EU Market Abuse Regulation No 596/2014)</strong>.
+              <strong className="text-white">BogaStock.com</strong> operates with reference to European Union (EU) financial market standards, including guidance from <strong className="text-white">ESMA (European Securities and Markets Authority)</strong>, the <strong className="text-white">MiFID II (Markets in Financial Instruments Directive)</strong> transparency framework, and <strong className="text-white">MAR (EU Market Abuse Regulation No 596/2014)</strong>.
             </p>
             <p className="text-slate-300">
               Our platform does not engage in market manipulation, insider dealing, or unauthorized advisory services. All algorithmic scanners execute through objective, rule-based mathematical criteria.
@@ -76,7 +76,7 @@ export default function DisclaimerPageEn() {
               4. Data Privacy & Global Compliance (GDPR & CCPA)
             </h2>
             <p className="text-slate-300">
-              User privacy is guaranteed under <strong className="text-white">BogaStock.com</strong>. We comply fully with the European Union General Data Protection Regulation (<strong className="text-white">GDPR</strong>) and the California Consumer Privacy Act (<strong className="text-white">CCPA</strong>). We do not sell or lease personal data to third-party data brokers.
+              <strong className="text-white">BogaStock.com</strong> is committed to protecting user privacy in line with applicable data protection laws, including the European Union General Data Protection Regulation (<strong className="text-white">GDPR</strong>) and the California Consumer Privacy Act (<strong className="text-white">CCPA</strong>). We do not sell or lease personal data to third-party data brokers.
             </p>
           </section>
 
@@ -94,7 +94,7 @@ export default function DisclaimerPageEn() {
           <section className="pt-6 border-t border-[#1e2a3a]">
             <h2 className="text-lg font-semibold text-white mb-2">User Acknowledgement</h2>
             <p className="text-xs text-slate-400">
-              By using BogaStock.com, you acknowledge that you have read, understood, and agreed to all legal terms, EU compliance statements, and disclaimers outlined above.
+              By using BogaStock.com, you acknowledge that you have read, understood, and agreed to all legal terms, regulatory references, and disclaimers outlined above.
             </p>
             <p className="mt-4 text-xs font-mono text-[#38bdf8]">
               Last Updated: August 18, 2026 | BogaStock.com Technical Analysis & Decision Support Platform

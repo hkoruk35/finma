@@ -63,7 +63,7 @@ export default function DisclaimerPageEs() {
               3. Leyes de la Unión Europea (UE) y Cumplimiento Normativo
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> opera de conformidad con las normativas financieras de la Unión Europea (UE), incluidas las directrices de la <strong className="text-white">ESMA (Autoridad Europea de Valores y Mercados)</strong>, la directiva <strong className="text-white">MiFID II</strong> y el reglamento <strong className="text-white">MAR (Reglamento sobre el Abuso de Mercado de la UE No 596/2014)</strong>.
+              <strong className="text-white">BogaStock.com</strong> toma como referencia las normativas financieras de la Unión Europea (UE), incluidas las directrices de la <strong className="text-white">ESMA (Autoridad Europea de Valores y Mercados)</strong>, la directiva <strong className="text-white">MiFID II</strong> y el reglamento <strong className="text-white">MAR (Reglamento sobre el Abuso de Mercado de la UE No 596/2014)</strong>.
             </p>
             <p className="text-slate-300">
               Nuestra plataforma no realiza manipulación de mercado, uso de información privilegiada ni asesoramiento no autorizado. Todos los escaneos algorítmicos se ejecutan según parámetros objetivos y programáticos.
@@ -76,7 +76,7 @@ export default function DisclaimerPageEs() {
               4. Privacidad de Datos (RGPD / GDPR y CCPA)
             </h2>
             <p className="text-slate-300">
-              Garantizamos la privacidad de los datos de acuerdo con el Reglamento General de Protección de Datos de la UE (<strong className="text-white">RGPD / GDPR</strong>) y la <strong className="text-white">CCPA</strong>. No vendemos ni alquilamos datos personales a terceros.
+              Nos comprometemos a proteger la privacidad de los datos conforme a la normativa aplicable, incluido el Reglamento General de Protección de Datos de la UE (<strong className="text-white">RGPD / GDPR</strong>) y la <strong className="text-white">CCPA</strong>. No vendemos ni alquilamos datos personales a terceros.
             </p>
           </section>
 

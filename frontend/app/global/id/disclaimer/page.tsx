@@ -63,7 +63,7 @@ export default function DisclaimerPageId() {
               3. Kepatuhan terhadap Hukum Uni Eropa (UE) dan Regulasi Internasional
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> dioperasikan dengan mengedepankan kepatuhan penuh terhadap regulasi pasar keuangan Uni Eropa (UE), prinsip-prinsip <strong className="text-white">ESMA (European Securities and Markets Authority)</strong>, standar keterbukaan informasi <strong className="text-white">MiFID II (Markets in Financial Instruments Directive)</strong>, dan ketentuan <strong className="text-white">MAR (EU Market Abuse Regulation - Regulation EU No 596/2014)</strong>.
+              <strong className="text-white">BogaStock.com</strong> dioperasikan dengan mengacu pada regulasi pasar keuangan Uni Eropa (UE), termasuk prinsip-prinsip <strong className="text-white">ESMA (European Securities and Markets Authority)</strong>, standar keterbukaan informasi <strong className="text-white">MiFID II (Markets in Financial Instruments Directive)</strong>, dan ketentuan <strong className="text-white">MAR (EU Market Abuse Regulation - Regulation EU No 596/2014)</strong>.
             </p>
             <p className="text-slate-300">
               Platform kami sama sekali tidak melakukan manipulasi pasar, mendorong perdagangan orang dalam (insider trading), atau memberikan arahan portofolio yang dipersonalisasi tanpa izin. Sistem pemindaian algoritmik kami didasarkan pada aturan indikator teknikal yang netral, programatis, dan objektif.
@@ -76,7 +76,7 @@ export default function DisclaimerPageId() {
               4. Privasi dan Standar Data (GDPR, KVKK, dan CCPA)
             </h2>
             <p className="text-slate-300">
-              Privasi data pengguna kami dijamin oleh <strong className="text-white">BogaStock.com</strong>. Platform kami mematuhi sepenuhnya Peraturan Perlindungan Data Umum Uni Eropa (<strong className="text-white">GDPR</strong>), Undang-Undang Perlindungan Data Pribadi Republik Turki No. 6698 (<strong className="text-white">KVKK</strong>), dan Undang-Undang Privasi Konsumen California (<strong className="text-white">CCPA</strong>). Data pribadi Anda tidak akan pernah dijual atau disewakan kepada pihak ketiga atau perantara data.
+              <strong className="text-white">BogaStock.com</strong> berkomitmen untuk melindungi privasi data pengguna sesuai dengan regulasi yang berlaku, termasuk Peraturan Perlindungan Data Umum Uni Eropa (<strong className="text-white">GDPR</strong>), Undang-Undang Perlindungan Data Pribadi Republik Turki No. 6698 (<strong className="text-white">KVKK</strong>), dan Undang-Undang Privasi Konsumen California (<strong className="text-white">CCPA</strong>). Data pribadi Anda tidak akan pernah dijual atau disewakan kepada pihak ketiga atau perantara data.
             </p>
           </section>
 

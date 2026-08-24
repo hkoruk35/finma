@@ -62,7 +62,7 @@ export default function TermsPagePt() {
               Nossa plataforma cobre mercados globais: <strong className="text-white">EUA (NYSE, NASDAQ, S&P 500)</strong>, <strong className="text-white">Europa (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">Ásia (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong> e <strong className="text-white">América Latina (S&P Latam 40, IBOVESPA)</strong>, além de Câmbio, Commodities e Criptomoedas.
             </p>
             <p className="text-slate-300">
-              O <strong className="text-white">BogaStock.com</strong> opera em estrita conformidade com as diretrizes financeiras da União Europeia (UE), incluindo normas da <strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong> e o regulamento <strong className="text-white">MAR (Abuso de Mercado No 596/2014)</strong>.
+              O <strong className="text-white">BogaStock.com</strong> opera com o compromisso de observar as diretrizes financeiras da União Europeia (UE), incluindo normas da <strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong> e o regulamento <strong className="text-white">MAR (Abuso de Mercado No 596/2014)</strong>.
             </p>
           </section>
 

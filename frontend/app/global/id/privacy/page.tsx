@@ -46,7 +46,7 @@ export default function PrivacyPageId() {
               2. Kerangka Kepatuhan Regulasi Internasional (AS, UE, Amerika Latin, Asia, dan Turki)
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> mematuhi sepenuhnya undang-undang perlindungan data dan standar keamanan data internasional di seluruh wilayah tempat kami melayani pengguna:
+              <strong className="text-white">BogaStock.com</strong> menyelaraskan praktik datanya dengan mengacu pada undang-undang perlindungan data dan standar keamanan data internasional di wilayah tempat kami melayani pengguna, termasuk:
             </p>
             <ul className="list-disc list-inside space-y-2 text-slate-300 ml-2">
               <li><strong className="text-white">Uni Eropa (UE):</strong> Peraturan Perlindungan Data Umum UE (<strong className="text-white">GDPR - General Data Protection Regulation</strong>) dan Direktif ePrivacy.</li>
@@ -87,7 +87,7 @@ export default function PrivacyPageId() {
               5. Standar Enkripsi dan Keamanan Infrastruktur
             </h2>
             <p className="text-slate-300">
-              Seluruh transmisi data dilindungi ujung ke ujung dengan protokol enkripsi tingkat tinggi <strong className="text-white">TLS 1.3 / SSL 256-bit</strong>. Pada lapisan basis data diterapkan enkripsi penyimpanan data <strong className="text-white">AES-256</strong> dan kontrol akses dua faktor.
+              Transmisi data dilindungi menggunakan protokol enkripsi standar industri seperti <strong className="text-white">TLS</strong>, dan pada lapisan basis data diterapkan metode enkripsi berbasis <strong className="text-white">AES</strong>. Keamanan akses didukung dengan kontrol akses multi-faktor.
             </p>
           </section>
 

@@ -69,7 +69,7 @@ export default function PrivacyPageFr() {
               4. Chiffrement et Droits des Utilisateurs
             </h2>
             <p className="text-slate-300">
-              Toutes les données sont chiffrées en transit via <strong className="text-white">TLS 1.3 / SSL</strong> et au repos via <strong className="text-white">AES-256</strong>. Les utilisateurs bénéficient du <strong className="text-white">Droit à l'Oubli</strong> (suppression complète des données).
+              Nous utilisons des protocoles de chiffrement standards du secteur, notamment <strong className="text-white">TLS</strong> pour les données en transit et un chiffrement basé sur <strong className="text-white">AES</strong> pour les données au repos. Les utilisateurs bénéficient du <strong className="text-white">Droit à l'Oubli</strong> (suppression complète des données).
             </p>
           </section>
 

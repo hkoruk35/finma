@@ -69,7 +69,7 @@ export default function PrivacyPageEs() {
               4. Cifrado y Derechos del Usuario
             </h2>
             <p className="text-slate-300">
-              Todas las transmisiones están protegidas mediante cifrado <strong className="text-white">TLS 1.3 / SSL</strong> y almacenamiento <strong className="text-white">AES-256</strong>. Los usuarios conservan el derecho de acceso, portabilidad y eliminación total de sus datos (<strong className="text-white">Derecho al Olvido</strong>).
+              Utilizamos protocolos de cifrado estándar del sector, entre ellos <strong className="text-white">TLS</strong> para los datos en tránsito y cifrado basado en <strong className="text-white">AES</strong> para los datos en reposo. Los usuarios conservan el derecho de acceso, portabilidad y eliminación total de sus datos (<strong className="text-white">Derecho al Olvido</strong>).
             </p>
           </section>
 

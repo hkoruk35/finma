@@ -63,7 +63,7 @@ export default function DisclaimerPageTr() {
               3. Avrupa Birliği (AB) Yasaları ve Uluslararası Mevzuata Uyum
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong>, Avrupa Birliği (AB) finansal piyasa düzenlemeleri, <strong className="text-white">ESMA (Avrupa Menkul Kıymetler ve Piyasalar Otoritesi)</strong> ilkeleri, <strong className="text-white">MiFID II (Finansal Araç Pazarları Direktifi)</strong> bilgilendirme standartları ve <strong className="text-white">MAR (AB Piyasa Suistimali Yönetmeliği - Regulation EU No 596/2014)</strong> esaslarına tam uyum gözetilerek işletilmektedir.
+              <strong className="text-white">BogaStock.com</strong>, Avrupa Birliği (AB) finansal piyasa düzenlemelerini, <strong className="text-white">ESMA (Avrupa Menkul Kıymetler ve Piyasalar Otoritesi)</strong> ilkelerini, <strong className="text-white">MiFID II (Finansal Araç Pazarları Direktifi)</strong> bilgilendirme standartlarını ve <strong className="text-white">MAR (AB Piyasa Suistimali Yönetmeliği - Regulation EU No 596/2014)</strong> esaslarını referans alarak faaliyet göstermektedir.
             </p>
             <p className="text-slate-300">
               Platformumuz hiçbir şekilde piyasa manipülasyonu, insider trading (içeriden öğrenenlerin ticareti) teşviki veya lisanssız kişiselleştirilmiş portföy yönlendirmesi yapmaz. Algoritmik tarama sistemimiz tarafsız, programatik ve nesnel teknik indikatör kurallarına dayanmaktadır.
@@ -76,7 +76,7 @@ export default function DisclaimerPageTr() {
               4. Veri Gizliliği ve Standartları (GDPR, KVKK ve CCPA)
             </h2>
             <p className="text-slate-300">
-              Kullanıcılarımızın veri gizliliği <strong className="text-white">BogaStock.com</strong> garantisi altındadır. Platformumuz, Avrupa Birliği Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR</strong>), Türkiye Cumhuriyeti 6698 Sayılı Kişisel Verilerin Korunması Kanunu (<strong className="text-white">KVKK</strong>) ve Kaliforniya Tüketici Gizliliği Yasası (<strong className="text-white">CCPA</strong>) ilkelerine tam uyum sağlar. Kişisel verileriniz kesinlikle üçüncü şahıslara veya veri aracılarına satılmaz veya kiralanmaz.
+              Kullanıcılarımızın veri gizliliği <strong className="text-white">BogaStock.com</strong> için önceliklidir. Platformumuz, Avrupa Birliği Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR</strong>), Türkiye Cumhuriyeti 6698 Sayılı Kişisel Verilerin Korunması Kanunu (<strong className="text-white">KVKK</strong>) ve Kaliforniya Tüketici Gizliliği Yasası (<strong className="text-white">CCPA</strong>) gibi ilgili mevzuata uygun şekilde faaliyet göstermeyi hedefler. Kişisel verileriniz kesinlikle üçüncü şahıslara veya veri aracılarına satılmaz veya kiralanmaz.
             </p>
           </section>
 

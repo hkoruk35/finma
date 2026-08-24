@@ -46,7 +46,7 @@ export default function PrivacyPageTr() {
               2. Uluslararası Mevzuat Uyum Çerçevesi (ABD, AB, Latin Amerika, Asya ve Türkiye)
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong>, hizmet sunduğu tüm coğrafyalardaki veri koruma kanunlarına ve uluslararası veri güvenliği standartlarına tam uyum sağlar:
+              <strong className="text-white">BogaStock.com</strong>, hizmet sunduğu coğrafyalardaki veri koruma mevzuatını ve uluslararası veri güvenliği standartlarını referans alarak faaliyet gösterir:
             </p>
             <ul className="list-disc list-inside space-y-2 text-slate-300 ml-2">
               <li><strong className="text-white">Avrupa Birliği (AB):</strong> AB Genel Veri Koruma Tüzüğü (<strong className="text-white">GDPR - General Data Protection Regulation</strong>) ve ePrivacy Direktifi.</li>
@@ -87,7 +87,7 @@ export default function PrivacyPageTr() {
               5. Şifreleme ve Altyapı Güvenliği Standartları
             </h2>
             <p className="text-slate-300">
-              Tüm veri iletimleri uçtan uca <strong className="text-white">TLS 1.3 / SSL 256-bit</strong> yüksek seviyeli şifreleme protokolleriyle korunur. Veritabanı katmanında <strong className="text-white">AES-256</strong> veri depolama şifrelemesi ve çift faktörlü erişim kontrolü uygulanır.
+              Veri iletiminde <strong className="text-white">TLS</strong> gibi endüstri standardı şifreleme protokolleri, veritabanı katmanında ise <strong className="text-white">AES tabanlı</strong> şifreleme yöntemleri kullanılmaktadır. Erişim güvenliği çok faktörlü kimlik doğrulama ile desteklenir.
             </p>
           </section>
 

@@ -62,7 +62,7 @@ export default function TermsPageId() {
               Platform kami mencakup pasar keuangan global: <strong className="text-white">Pasar AS (NYSE, NASDAQ, S&P 500, Dow, Russell)</strong>, <strong className="text-white">bursa Eropa (DAX, FTSE 100, CAC40, STOXX50)</strong>, <strong className="text-white">bursa Asia (Nikkei 225, SSE, HSI, SENSEX, NIFTY 50)</strong>, <strong className="text-white">bursa Amerika Latin (S&P Latam 40, IBOVESPA)</strong>, serta bursa Valuta Asing, Komoditas, dan Kripto.
             </p>
             <p className="text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> dioperasikan dengan kepatuhan penuh terhadap direktif regulasi keuangan Uni Eropa (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) dan <strong className="text-white">Peraturan Penyalahgunaan Pasar UE (MAR - Regulation EU No 596/2014)</strong>. Sistem kami tidak mengandung manipulasi pasar atau arahan portofolio tanpa izin.
+              <strong className="text-white">BogaStock.com</strong> dioperasikan dengan mengacu pada arahan regulasi keuangan Uni Eropa (<strong className="text-white">ESMA</strong>, <strong className="text-white">MiFID II</strong>) dan <strong className="text-white">Peraturan Penyalahgunaan Pasar UE (MAR - Regulation EU No 596/2014)</strong>. Sistem kami tidak mengandung manipulasi pasar atau arahan portofolio tanpa izin.
             </p>
           </section>
 
@@ -85,7 +85,7 @@ export default function TermsPageId() {
               5. Privasi Data (GDPR, KVKK, dan CCPA)
             </h2>
             <p className="text-slate-300">
-              Data pengguna diproses dengan kepatuhan penuh terhadap standar Peraturan Perlindungan Data Umum Uni Eropa (<strong className="text-white">GDPR</strong>), Undang-Undang Perlindungan Data Pribadi Republik Turki No. 6698 (<strong className="text-white">KVKK</strong>), dan Undang-Undang Privasi Konsumen California (<strong className="text-white">CCPA</strong>). BogaStock.com tidak menjual atau menyewakan data pribadi kepada pihak ketiga mana pun.
+              Data pengguna diproses dengan mengacu pada standar yang berlaku, termasuk Peraturan Perlindungan Data Umum Uni Eropa (<strong className="text-white">GDPR</strong>), Undang-Undang Perlindungan Data Pribadi Republik Turki No. 6698 (<strong className="text-white">KVKK</strong>), dan Undang-Undang Privasi Konsumen California (<strong className="text-white">CCPA</strong>). BogaStock.com tidak menjual atau menyewakan data pribadi kepada pihak ketiga mana pun.
             </p>
           </section>
 

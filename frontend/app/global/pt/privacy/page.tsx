@@ -69,7 +69,7 @@ export default function PrivacyPagePt() {
               4. Criptografia e Direitos do Usuário
             </h2>
             <p className="text-slate-300">
-              Todas as transmissões são protegidas por criptografia <strong className="text-white">TLS 1.3 / SSL</strong> e armazenamento <strong className="text-white">AES-256</strong>. Os usuários mantêm o direito de acesso, portabilidade e exclusão total dos dados (<strong className="text-white">Direito ao Esquecimento</strong>).
+              Utilizamos protocolos de criptografia padrão do setor, incluindo <strong className="text-white">TLS</strong> para dados em trânsito e criptografia baseada em <strong className="text-white">AES</strong> para dados em repouso. Os usuários mantêm o direito de acesso, portabilidade e exclusão total dos dados (<strong className="text-white">Direito ao Esquecimento</strong>).
             </p>
           </section>
 

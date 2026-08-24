@@ -46,7 +46,7 @@ export default function PrivacyPageEn() {
               2. Global Regulatory Compliance (USA, EU, Latin America, Asia, Turkey)
             </h2>
             <p className="mb-4 text-slate-300">
-              <strong className="text-white">BogaStock.com</strong> maintains full compliance with international privacy laws across all regions we operate:
+              <strong className="text-white">BogaStock.com</strong> structures its data practices with reference to the international privacy laws and regulations of the regions in which it operates, including:
             </p>
             <ul className="list-disc list-inside space-y-2 text-slate-300 ml-2">
               <li><strong className="text-white">European Union (EU):</strong> General Data Protection Regulation (<strong className="text-white">GDPR</strong>) & ePrivacy Directive.</li>
@@ -83,7 +83,7 @@ export default function PrivacyPageEn() {
               5. Encryption & Security Infrastructure
             </h2>
             <p className="text-slate-300">
-              All data transmissions are protected via end-to-end <strong className="text-white">TLS 1.3 / SSL 256-bit encryption</strong>. Data at rest is encrypted using <strong className="text-white">AES-256</strong> standards.
+              We use industry-standard encryption practices, including <strong className="text-white">TLS</strong> protocols to help protect data in transit and <strong className="text-white">AES-based encryption</strong> to help protect data at rest.
             </p>
           </section>
 
