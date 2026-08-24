@@ -211,7 +211,19 @@ export interface SessionBuild {
 export function buildSession(data: MarketData, sessionDate: string, asset: AssetClass): SessionBuild | null {
   const allDates = sessionDates(data.spot1m);
   const isFuture = allDates.length > 0 && sessionDate > allDates[allDates.length - 1];
-  if (!allDates.includes(sessionDate) && !isFuture) return null;
+  // latestSessionDate() ("bugüne devret") sessionDate'i, spot1m verisinde
+  // henüz o güne ait hiç bar yokken bile "bugün" olarak hesaplayabilir
+  // (ör. Yahoo'nun 1m/5d aralığı en son seansı henüz içermiyorsa). Böyle bir
+  // durumda sert hata vermek yerine, elimizdeki EN SON tamamlanmış seansa
+  // (allDates'teki en yeni tarih) düşerek "Motor hatası" yerine bir önceki
+  // günün verisini göstermek tercih edilir — kullanıcı için boş ekrandan
+  // çok daha az kötü, ve veri "geldiğinde" normal akış zaten devreye girer.
+  if (!allDates.includes(sessionDate) && !isFuture) {
+    if (allDates.length) {
+      return buildSession(data, allDates[allDates.length - 1], asset);
+    }
+    return null;
+  }
   const info = ASSET_MAP[asset];
   const scale = info.scale;
   const futuresLabel = info.futures.replace("=F", "");
@@ -219,9 +231,16 @@ export function buildSession(data: MarketData, sessionDate: string, asset: Asset
 
   const slices = buildSessionSlices(data.futures1m, data.spot1m, sessionDate, allDates);
   const { spxRth, esRth, esVwap, esOvernight } = slices;
-  
+
   if (!spxRth.length) {
-    if (!esOvernight.length) return null;
+    if (!esOvernight.length) {
+      // Aynı devir senaryosu: "bugün" için ne RTH ne de gece (Globex) barı
+      // henüz gelmemiş. Daha önce tamamlanmış bir seans varsa ona düş.
+      if (allDates.length && allDates[allDates.length - 1] !== sessionDate) {
+        return buildSession(data, allDates[allDates.length - 1], asset);
+      }
+      return null;
+    }
     
     const lastSpxDaily = data.spxDaily[data.spxDaily.length - 1];
     const prevSpxClose = lastSpxDaily ? lastSpxDaily.close : data.spxMarketPrice ?? 0;
@@ -874,7 +893,14 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
 
   const session = buildSession(data, sessionDate, asset);
   if (!session || !session.frames.length) {
-    const detail = notes.length ? ` — ${notes.join("; ")}` : " — sebep belirsiz (barlar geldi ama seans dilimi boş çıktı)";
+    // buildSession artık "bugüne devir" senaryosunda son tamamlanmış seansa
+    // otomatik düştüğü için (bkz. yukarıdaki fallback), bu noktaya gelinmesi
+    // artık yalnızca spot1m'de HİÇ RTH verisi yoksa (sessionDates() boş)
+    // mümkün — yani gerçekten hiçbir seans verisi çekilememiş demektir.
+    const allDates = sessionDates(data.spot1m);
+    const detail = notes.length
+      ? ` — ${notes.join("; ")}`
+      : ` — sebep belirsiz (barlar geldi ama seans dilimi boş çıktı; hesaplanan sessionDate=${sessionDate}, mevcut tarihler=[${allDates.join(", ")}])`;
     throw new Error(`Seans kareleri oluşturulamadı${detail}`);
   }
 
