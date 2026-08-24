@@ -28,8 +28,9 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
       {
-        // Disallow bad bots
-        userAgent: ["MJ12bot", "AhrefsBot", "SemrushBot"],
+        // Disallow bad bots — bkz. ops/indexation/INDEXATION_POLICY.md §5
+        // (tarama bütçesini agresif SEO/backlink botlarına harcamamak için)
+        userAgent: ["MJ12bot", "AhrefsBot", "SemrushBot", "DotBot"],
         disallow: "/",
       },
     ],

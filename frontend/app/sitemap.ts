@@ -154,6 +154,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ])
   );
 
+  // İndeksleme/sayfa-şişmesi politikası (bkz. ops/indexation/INDEXATION_POLICY.md §3):
+  // index_daily ailesinde sitemap'te yalnız SON 7 GÜN, index_weekly'de SON 12 HAFTA
+  // kalır — daha eskisi sitemap'ten çıkar (sayfa 200 kalmaya devam eder, sadece
+  // sitemap'ten ve dolayısıyla aktif taramadan düşer). Aksi halde her sembol × her
+  // dil × sınırsız geçmiş tarih sitemap'i kontrolsüz büyütür.
+  const SITEMAP_DAILY_DAYS_PER_SYMBOL = 7;
+  const SITEMAP_WEEKLY_WEEKS_PER_SYMBOL = 12;
+
   let indexDailyDetailRoutes: MetadataRoute.Sitemap = [];
   let indexWeeklyDetailRoutes: MetadataRoute.Sitemap = [];
   try {
@@ -162,32 +170,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getAllWeeklyLabels(),
     ]);
 
+    // getAllDailyTradeDates/getAllWeeklyLabels trade_date/week_start'a göre
+    // descending sıralı geliyor (bkz. lib/indexSnapshots.ts) — sembol başına
+    // ilk N satırı almak "en yeni N" demek.
+    const dailyPerSymbolCount = new Map<string, number>();
+    const recentDailyDates = dailyDates.filter((row) => {
+      if (!indexBySymbol.has(row.index_symbol as IndexSymbol)) return false;
+      const n = dailyPerSymbolCount.get(row.index_symbol) ?? 0;
+      if (n >= SITEMAP_DAILY_DAYS_PER_SYMBOL) return false;
+      dailyPerSymbolCount.set(row.index_symbol, n + 1);
+      return true;
+    });
+
+    const weeklyPerSymbolCount = new Map<string, number>();
+    const recentWeeklyLabels = weeklyLabels.filter((row) => {
+      if (!indexBySymbol.has(row.index_symbol as IndexSymbol)) return false;
+      const n = weeklyPerSymbolCount.get(row.index_symbol) ?? 0;
+      if (n >= SITEMAP_WEEKLY_WEEKS_PER_SYMBOL) return false;
+      weeklyPerSymbolCount.set(row.index_symbol, n + 1);
+      return true;
+    });
+
     indexDailyDetailRoutes = INDEX_LOCALES.flatMap((locale) =>
-      dailyDates
-        .filter((row) => indexBySymbol.has(row.index_symbol as IndexSymbol))
-        .map((row) => {
-          const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
-          return {
-            url: `${baseUrl}/global/${locale}/${idx.slug}/daily/${row.trade_date}`,
-            lastModified: new Date(row.trade_date),
-            changeFrequency: 'never' as const,
-            priority: 0.4,
-          };
-        })
+      recentDailyDates.map((row) => {
+        const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
+        return {
+          url: `${baseUrl}/global/${locale}/${idx.slug}/daily/${row.trade_date}`,
+          lastModified: new Date(row.trade_date),
+          changeFrequency: 'never' as const,
+          priority: 0.4,
+        };
+      })
     );
 
     indexWeeklyDetailRoutes = INDEX_LOCALES.flatMap((locale) =>
-      weeklyLabels
-        .filter((row) => indexBySymbol.has(row.index_symbol as IndexSymbol))
-        .map((row) => {
-          const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
-          return {
-            url: `${baseUrl}/global/${locale}/${idx.slug}/weekly/${row.week_label.toLowerCase()}`,
-            lastModified: now,
-            changeFrequency: 'never' as const,
-            priority: 0.4,
-          };
-        })
+      recentWeeklyLabels.map((row) => {
+        const idx = indexBySymbol.get(row.index_symbol as IndexSymbol)!;
+        return {
+          url: `${baseUrl}/global/${locale}/${idx.slug}/weekly/${row.week_label.toLowerCase()}`,
+          lastModified: now,
+          changeFrequency: 'never' as const,
+          priority: 0.4,
+        };
+      })
     );
   } catch {
     // Supabase erisilemez olabilir (build ortami) — statik/landing rotalari yine de eklenir.

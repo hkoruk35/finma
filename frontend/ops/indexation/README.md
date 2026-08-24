@@ -9,40 +9,59 @@ politikasının tasarım/uygulama tasarısıdır:
   `gsc_daily`, `family_uniqueness`, view'lar, koruyucu constraint'ler)
 - `index_score_job.py` — günlük skorlama işi (dry-run/commit modları)
 
-## Durum: uygulanmadı
+## Durum (2026-08-24 güncelleme): rota eşlemesi çözüldü, kod-seviyesi tedbirler uygulandı
 
-Bu dosyalar **repoya yalnızca referans olarak eklendi**. Aşağıdaki hiçbiri
-henüz yapılmadı:
+İlk halinde bu doküman kod tabanında **mevcut olmayan** bir rota şeması varsayıyordu
+(`/{lang}/stock/{symbol}`, `/{lang}/earnings/{symbol}/{YYYY-Qn}`). Gerçek rota
+envanteri çıkarıldı ve aşağıdaki eşleme netleştirildi; buna göre **DB/GSC gerektirmeyen,
+hemen uygulanabilir kısım** koda uygulandı. Supabase şema migrasyonu ve GSC
+entegrasyonu (aşağıda "Uygulanmadı" bölümü) hâlâ bekliyor — bu ortamdan üretim
+Supabase'ine veya Google Search Console API'sine ağ erişimi yok.
 
-- Şema Supabase'e migrate edilmedi (üretim veritabanına DDL çalıştırmak için
-  bu ortamdan ağ/kimlik bilgisi erişimi yok).
-- `index_score_job.py` hiç çalıştırılmadı (`DATABASE_URL` yok).
-- Google Search Console API entegrasyonu (`gsc_daily` besleme) yapılmadı.
-- `app/robots.ts`, `app/sitemap.ts` veya herhangi bir sayfa render dosyası
-  bu şemayı okuyacak şekilde **değiştirilmedi**.
+### Gerçek rota → politika ailesi eşlemesi
 
-## Bilinen uyumsuzluk — rota eşlemesi netleşmeden ilerlenmemeli
+| Politika ailesi | Doküman varsayımı | Depodaki gerçek rota | Not |
+|---|---|---|---|
+| `stock_main` (evergreen hisse sayfası) | `/{lang}/stock/{symbol}` | `/global/{locale}/graphic/{ticker}` (+ Terminal'de seçili sembol) | Kademeli hisse evreni (§4) burada anlamlı; henüz `tier` alanı DB'de yok. |
+| `stock_daily` (Kural 1: tarihli rota YAZILMAZ) | rota yok (bilinçli) | **Zaten var**: `/[lang]/[slug]/[ticker]` (güncel swing pick) ve `/[lang]/[slug]/[ticker]/[date]` (arşiv, `app/[lang]/[slug]/[ticker]/[date]/page.tsx`) | Kural 1'in önlemeye çalıştığı büyüme riski burada zaten gerçekleşmiş durumda — rotayı geri almak mümkün değil, bu yüzden **index_daily mantığı** (son 7 gün index, sonrası noindex) bu rotaya uygulandı (bkz. aşağı). |
+| `index_daily` | `/{lang}/{index}/daily/{YYYY-MM-DD}` | `/global/{locale}/{indexSlug}/daily/{date}` | Rota adı aynı; sitemap'te sembol başına son 7 güne kırpıldı. |
+| `index_weekly` | `/{lang}/{index}/weekly/{YYYY-Www}` | `/global/{locale}/{indexSlug}/weekly/{weekLabel}` | Rota adı aynı; sitemap'te sembol başına son 12 haftaya kırpıldı. |
+| `earnings` | `/{lang}/earnings/{symbol}/{YYYY-Qn}` | Yok — `earning` tek bir sayfa (`/global/{locale}/earning`), sembol bazlı ayrı rota değil | Bu aile depoda karşılıksız; uygulanmadı. |
+| `list` | `/{lang}/top100` vb. | `/global/{locale}/{forex\|commodities\|crypto\|futures}` ve benzeri sabit landing sayfaları | Zaten tek kalıcı URL, ISR ile — ek işlem gerekmedi. |
 
-Doküman, kod tabanında **mevcut olmayan** bir rota şeması varsayıyor:
+### Uygulandı (bu round, DB/GSC gerektirmeyen kısım)
 
-| Doküman varsayımı | Depoda gerçekte olan |
-|---|---|
-| `stock_main` → `/{lang}/stock/{symbol}` | Yok. Gerçek hisse sayfası `/global/{locale}/graphic/{ticker}`; Terminal sayfasında da seçili sembol gösteriliyor. |
-| `earnings` → `/{lang}/earnings/{symbol}/{YYYY-Qn}` | Yok. `earning` tek bir sayfa (`/global/{locale}/earning`), sembol bazlı ayrı rota değil. |
-| `stock_daily` (tarihli, kasıtlı olarak rota YOK) | Zaten `/[lang]/[slug]/[ticker]` (swing pick ana sayfası) ve `/[lang]/[slug]/[ticker]/[date]` (arşiv) rotaları `app/sitemap.ts`'te mevcut — Kural 1'in bahsettiği "9 milyon URL" riski muhtemelen bu ayrı sistemle ilgili, ayrıca değerlendirilmeli. |
+1. **`app/sitemap.ts`** — `index_daily`/`index_weekly` detay rotaları artık sembol
+   başına sırasıyla **son 7 gün** / **son 12 hafta** ile sınırlı (önceden `supabase`
+   sorgusundaki genel `limit(5000)`/`limit(2000)` dışında hiçbir kırpma yoktu — her
+   sembol × her dil × sınırsız geçmiş tarih sitemap'e giriyordu). `getAllDailyTradeDates`/
+   `getAllWeeklyLabels` zaten `trade_date`/`week_start`'a göre azalan sırayla geldiği
+   için sembol başına ilk N satırı almak "en yeni N" anlamına geliyor.
+2. **`app/[lang]/[slug]/[ticker]/[date]/page.tsx`** — `generateMetadata`'ya
+   `index_daily` mantığının analojisi uygulandı: tarih son **7 gün** içindeyse
+   `index,follow`, daha eskiyse `noindex,follow`. Sayfa hâlâ `200` dönüyor, silinmiyor
+   (Kural 4). Daha önce bu sayfada hiç `robots` alanı yoktu — yani her arşiv tarihi
+   varsayılan olarak indekslenebilirdi.
+3. **`app/robots.ts`** — kötü niyetli/backlink botları listesine `DotBot` eklendi
+   (§5'teki bad-bot listesiyle hizalandı; `AhrefsBot`/`SemrushBot`/`MJ12bot` zaten
+   engelliydi).
 
-Şemayı ve `index_score_job.py`'yi olduğu gibi devreye almak, `page_registry.url_path`
-hiçbir gerçek render edilen sayfayla eşleşmeyeceği için işlevsiz kalır (ya da yanlış
-sayfalar üzerinde karar üretir). İlerlemeden önce:
+Not: `?d=` query-parametresi engeli (§5) uygulanmadı — bu site geçmiş analizi query
+parametresiyle değil path segmentiyle (`/[date]`) sunuyor, dolayısıyla dokümandaki
+o kural bu mimaride karşılıksız.
 
-1. Her `family` için gerçek route pattern'i netleştirilmeli (yukarıdaki tablo
-   başlangıç noktası).
-2. `page_content` tablosunun (job'ın `body_text` okuduğu, U hesaplamasında
-   kullanılan) bu depoda karşılığı olup olmadığı teyit edilmeli — mevcut analiz
-   verisi `/api/preorder-analysis`'ten geliyor, ayrı bir `page_content` tablosu
-   şu an yok.
-3. Route eşlemesi netleştikten sonra §6'daki adımlar (şema migrasyonu → GSC
-   entegrasyonu → mevcut URL'lerin kaydı → cron kurulumu → render/sitemap/robots.txt
-   entegrasyonu) sırayla uygulanabilir.
+### Uygulanmadı — Supabase/GSC erişimi gerektiriyor
+
+- `page_registry_schema.sql` üretim Supabase'ine migrate edilmedi.
+- `index_score_job.py` hiç çalıştırılmadı (`DATABASE_URL` yok, ayrıca job'ın
+  okuduğu `page_content` tablosunun bu depoda karşılığı yok — mevcut analiz verisi
+  `/api/preorder-analysis`'ten canlı çekiliyor, ayrı bir içerik tablosu tutulmuyor).
+- Google Search Console API entegrasyonu (`gsc_daily` besleme) yapılmadı — bu
+  olmadan gerçek `D` (talep) skoru hiç hesaplanamaz; yukarıdaki 7 gün/12 hafta
+  eşikleri GSC verisi olmadan uygulanabilen, daha kaba ama anında etkili bir
+  "yaş bazlı" ön tedbir olarak düşünülmeli, `IndexScore`'un yerini tutmuyor.
+- `stock_main` (`/graphic/{ticker}`) için kademeli evren (§4, Kademe 1/2/3) hiç
+  uygulanmadı — bunun için `page_registry` + `tier` alanı ve terfi/tenzil job'ı
+  gerekiyor.
 
 Bkz. `INDEXATION_POLICY.md` başındaki "Uygulama notu".

@@ -55,12 +55,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = titles[langCode as string] || titles.en;
 
+  // İndeksleme/sayfa-şişmesi politikası (bkz. ops/indexation/INDEXATION_POLICY.md §3,
+  // index_daily analojisi): tarihli arşiv sayfaları son ARCHIVE_INDEX_WINDOW_DAYS gün
+  // index,follow kalır; daha eskisi noindex,follow olur — sayfa 200 dönmeye ve iç
+  // bağlantı akışını taşımaya devam eder, sadece arama sonuçlarında yarışmaz.
+  const ARCHIVE_INDEX_WINDOW_DAYS = 7;
+  const ageDays = Math.floor((Date.now() - new Date(date).getTime()) / 86400000);
+  const isRecent = Number.isFinite(ageDays) && ageDays >= 0 && ageDays <= ARCHIVE_INDEX_WINDOW_DAYS;
+
   return {
     metadataBase: new URL("https://bogastock.com"),
     title,
     alternates: {
       canonical: `https://bogastock.com/${lang}/${slug}/${ticker}/${date}`,
     },
+    robots: isRecent
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
   };
 }
 
