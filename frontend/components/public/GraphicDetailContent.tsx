@@ -19,6 +19,7 @@ import { ALL_ASSET_CLASS_TICKERS } from "@/lib/assetClasses";
 import HourlyForecastBadge from "@/components/global/HourlyForecastBadge";
 import TickerCoverageSection from "@/components/public/TickerCoverageSection";
 import TickerTechnicalRefsPanel from "@/components/public/TickerTechnicalRefsPanel";
+import TickerHeroCard from "@/components/public/TickerHeroCard";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -330,6 +331,12 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
         </div>
 
         <TickerSearchBox locale={locale} />
+
+        {/* 2026-08-24 kullanici talebiyle: search kutusunun hemen altina,
+            grafigin hemen ustune — ticker/skor/sirket/fiyat + hissenin en
+            cok tepki verdigi ortalamayi (EMA20/50/200) gosteren, HERKESE
+            acik (premium-gated DEGIL) bir "hero" karti. */}
+        {ticker && <TickerHeroCard ticker={ticker} locale={locale} sector={stockData?.sector} />}
 
         {/* Endeks şeridi — masaüstünde sabit satır, mobilde yer kaplamasın
             diye tek satır halinde yavaşça kayan (marquee) şerit. */}
