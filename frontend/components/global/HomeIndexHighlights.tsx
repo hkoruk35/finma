@@ -221,7 +221,7 @@ function IndexHighlightCard({
                   {leader.ticker ? (
                     <TickerHoverChart ticker={leader.ticker} locale={locale}>
                       <Link
-                        href={`/global/${locale}/analysis/${leader.ticker}`}
+                        href={`/global/${locale}/graphic/${leader.ticker}`}
                         className="hover:text-[#00d2ff] transition-colors"
                       >
                         {leader.sector || leader.name || leader.ticker}
@@ -274,7 +274,7 @@ function HighlightMoverList({ title, movers, locale }: { title: string; movers: 
           <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
             <span className="font-semibold text-slate-200">
               <TickerHoverChart ticker={m.ticker} locale={locale}>
-                <Link href={`/global/${locale}/analysis/${m.ticker}`} className="hover:text-[#3b82f6] transition-colors">
+                <Link href={`/global/${locale}/graphic/${m.ticker}`} className="hover:text-[#3b82f6] transition-colors">
                   {m.name || m.ticker}
                 </Link>
               </TickerHoverChart>

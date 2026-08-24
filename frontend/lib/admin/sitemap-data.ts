@@ -29,7 +29,6 @@ export const SITEMAP_EN: SitemapGroup[] = [
     { label: "Watchlist", path: "/global/en/watchlist" },
     { label: "Performance", path: "/global/en/performance" },
     { label: "AI Report", path: "/global/en/ai" },
-    { label: "Analysis (Ticker)", path: "/global/en/analysis/aapl" },
     { label: "Graphic (Ticker)", path: "/global/en/graphic/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
@@ -58,7 +57,6 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Watchlist", path: "/global/tr/watchlist" },
     { label: "Performans", path: "/global/tr/performance" },
     { label: "AI Rapor", path: "/global/tr/ai" },
-    { label: "Analiz (Hisse)", path: "/global/tr/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "Hakkında", path: "/global/tr/about" },
@@ -86,7 +84,6 @@ export const SITEMAP_ES: SitemapGroup[] = [
     { label: "Watchlist", path: "/global/es/watchlist" },
     { label: "Performance", path: "/global/es/performance" },
     { label: "AI Report", path: "/global/es/ai" },
-    { label: "Analysis (Ticker)", path: "/global/es/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/es/about" },
@@ -114,7 +111,6 @@ export const SITEMAP_FR: SitemapGroup[] = [
     { label: "Watchlist", path: "/global/fr/watchlist" },
     { label: "Performance", path: "/global/fr/performance" },
     { label: "AI Report", path: "/global/fr/ai" },
-    { label: "Analysis (Ticker)", path: "/global/fr/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/fr/about" },
@@ -142,7 +138,6 @@ export const SITEMAP_PT: SitemapGroup[] = [
     { label: "Watchlist", path: "/global/pt/watchlist" },
     { label: "Performance", path: "/global/pt/performance" },
     { label: "AI Report", path: "/global/pt/ai" },
-    { label: "Analysis (Ticker)", path: "/global/pt/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/pt/about" },

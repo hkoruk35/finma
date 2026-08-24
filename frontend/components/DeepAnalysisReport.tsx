@@ -358,7 +358,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           onSubmit={(e) => {
             e.preventDefault();
             if (searchTicker.trim()) {
-              router.push(`/global/${lang}/analysis/${searchTicker.trim().toUpperCase()}`);
+              const q = searchTicker.trim().toUpperCase();
+              // /global/{lang}/analysis/{ticker} artık kullanıcıya gösterilmiyor
+              // (admin altına taşındı). "page" modu yalnızca yeni admin
+              // rotasından render edilir; "overlay" (üye içi) modda ise gerçek
+              // genel ticker sayfasına (graphic) yönlendiriyoruz ki üye akışı
+              // kırılmasın.
+              router.push(mode === "page" ? `/admin/analysis/${q}` : `/global/${lang}/graphic/${q}`);
             }
           }}
           className="flex items-center gap-2 bg-[#0d1424] border border-[#3b82f6]/40 p-2.5 rounded-2xl shadow-lg"

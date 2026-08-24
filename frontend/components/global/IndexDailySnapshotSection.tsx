@@ -124,7 +124,7 @@ export function IndexDailySnapshotSection({
                 {leader.ticker ? (
                   <TickerHoverChart ticker={leader.ticker} locale={locale}>
                     <Link
-                      href={`/global/${locale}/analysis/${leader.ticker}`}
+                      href={`/global/${locale}/graphic/${leader.ticker}`}
                       className="hover:text-[#00d2ff] transition-colors"
                     >
                       {leader.sector || leader.name || leader.ticker}
@@ -172,7 +172,7 @@ function MoverList({ title, movers, locale }: { title: string; movers: { ticker:
             <span className="font-semibold text-slate-200">
               <TickerHoverChart ticker={m.ticker} locale={locale}>
                 <Link
-                  href={`/global/${locale}/analysis/${m.ticker}`}
+                  href={`/global/${locale}/graphic/${m.ticker}`}
                   className="hover:text-[#3b82f6] transition-colors"
                 >
                   {m.name || m.ticker}
