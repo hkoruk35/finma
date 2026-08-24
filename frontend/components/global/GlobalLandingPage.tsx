@@ -17,6 +17,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
 import { formatNumber } from "@/lib/formatNumber";
 import { translateSectorUppercase } from "@/lib/translationHelpers";
+import TickerCoverageSection from "@/components/public/TickerCoverageSection";
 
 const FREE_COMPARE_LIMIT = 9;
 const MAX_COMPARE = 9;
@@ -610,6 +611,16 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 unlockRationale={eligibleForRationale.has(selectedTicker)}
               />
             </div>
+
+            {/* 2026-08-24 kullanici talebiyle: Terminal sayfasinda da, secili
+                hissenin en altinda, /graphic/[ticker] sayfasindaki ile AYNI
+                "koordineli takip" bolumu (ilgili analizler, bilanco analizi,
+                bilanco takvimi, icerden islemler) devam etsin. */}
+            {selectedTicker && !selectedLocked && (
+              <div className="shrink-0">
+                <TickerCoverageSection ticker={selectedTicker} locale={locale} />
+              </div>
+            )}
           </div>
         </div>
 
