@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T17:03:53.422966-04:00",
+  "generated_at": "2026-08-24T19:27:25.857454-04:00",
   "picks": [
     {
       "ticker": "UHS",
@@ -11,19 +11,7 @@
       "ticker": "ARE",
       "sector": "Real Estate",
       "date_added": "2026-08-24",
-      "score": 46.0
-    },
-    {
-      "ticker": "DDS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-24",
-      "score": 36.5
-    },
-    {
-      "ticker": "USFD",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-24",
-      "score": 45.5
+      "score": 45.0
     },
     {
       "ticker": "SN",
@@ -32,16 +20,52 @@
       "score": 45.0
     },
     {
-      "ticker": "PCAR",
-      "sector": "Industrials",
-      "date_added": "2026-08-24",
-      "score": 43.0
-    },
-    {
       "ticker": "CNK",
       "sector": "Communication Services",
       "date_added": "2026-08-24",
       "score": 39.5
+    },
+    {
+      "ticker": "PLTR",
+      "sector": "Technology",
+      "date_added": "2026-08-24",
+      "score": 46.5
+    },
+    {
+      "ticker": "NEXA",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-24",
+      "score": 45.5
+    },
+    {
+      "ticker": "SPGI",
+      "sector": "Financial Services",
+      "date_added": "2026-08-24",
+      "score": 45.5
+    },
+    {
+      "ticker": "ALSN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-24",
+      "score": 45.0
+    },
+    {
+      "ticker": "ILMN",
+      "sector": "Healthcare",
+      "date_added": "2026-08-24",
+      "score": 44.0
+    },
+    {
+      "ticker": "HL",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-24",
+      "score": 40.0
+    },
+    {
+      "ticker": "OSCR",
+      "sector": "Healthcare",
+      "date_added": "2026-08-24",
+      "score": 39.0
     }
   ]
 }
