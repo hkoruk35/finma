@@ -408,7 +408,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             Kritik Seviyeler / Katalizör Takvimi / 13F / Teknik Referanslar bolumlerini
             AYNI veri kaynagindan (/api/deep-analysis) zenginlestirme olarak ekler —
             mevcut Trade Plan kartina (yukarida) dokunmuyor, ek/tamamlayici bir panel. */}
-        {ticker && <TickerTechnicalRefsPanel ticker={ticker} stockData={stockData} locale={locale} />}
+        {ticker && <TickerTechnicalRefsPanel ticker={ticker} locale={locale} />}
 
         {/* 2026-08-23 kullanici talebiyle: forecast/TickerDetailPanel'den SONRA,
             sayfanin EN ALTINDA — bu hisseyle ilgili tum analizleri, bilanco

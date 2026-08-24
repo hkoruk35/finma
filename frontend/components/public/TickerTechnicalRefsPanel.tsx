@@ -24,10 +24,20 @@ import { computeTechnicalRefs, type TechRefsHorizon } from "@/lib/technicalRefsE
 // hiçbir veri çekilmez/sızmaz. Mevcut premium modeli DEĞİŞTİRİLMEDİ, sadece
 // admin'e taşınan raporun Premium üyelere sunduğu değer artık normal grafik
 // sayfasında da (aynı erişim kuralıyla) görünüyor.
+//
+// 2026-08-24 DÜZELTME: İlk sürüm bu panele stockData'yı üst bileşenden
+// (GraphicDetailContent'in kendi /api/ask çağrısından) prop olarak alıyordu.
+// Canlıda /api/ask bazı ticker'larda 504 (timeout) veriyor — bu, üst
+// bileşenin stockData'sını hiç dolduramamasına ve panelin SESSİZCE hiç
+// render olmamasına yol açtı (kullanıcı: "hiçbir şey değişmedi"). Bu artık
+// KENDİ /api/preorder-analysis çağrısını yapıyor — bu uç nokta zaten aynı
+// sayfada TickerDetailPanel tarafından güvenilir şekilde kullanılıyor
+// (bkz. components/public/TickerDetailPanel.tsx) — ve dönen veriden
+// /api/deep-analysis'in beklediği stockData şeklini kendi inşa ediyor.
+// Böylece kırılgan /api/ask'e bağımlılık tamamen kaldırıldı.
 
 interface Props {
   ticker: string;
-  stockData: any;
   locale: Locale;
 }
 
@@ -70,7 +80,43 @@ function cacheKey(ticker: string, lang: string) {
   return `${ticker}_${lang}_${new Date().toISOString().slice(0, 10)}`;
 }
 
-export default function TickerTechnicalRefsPanel({ ticker, stockData, locale }: Props) {
+// /api/deep-analysis'in beklediği stockData şeklini, sayfada zaten
+// güvenilir çalışan /api/preorder-analysis yanıtından inşa eder — bkz.
+// yukarıdaki 2026-08-24 düzeltme notu. Alan eşlemesi app/api/deep-analysis/
+// route.ts'nin "const s = stockData || {}; const pr = s.price..." bloğuyla
+// birebir uyumlu.
+function buildStockDataFromPreorder(p: any): any {
+  if (!p || typeof p !== "object") return null;
+  const d1 = p.timeframes?.d1 || {};
+  const firstTarget = Array.isArray(p.tradePlan?.targets) ? p.tradePlan.targets[0] : null;
+  return {
+    company: p.company || undefined,
+    price: {
+      current: p.price,
+      volume: p.volume,
+      avg_volume_30d: p.avgVol30,
+    },
+    technical: {
+      rsi_14: d1.rsi,
+      ema_20: d1.ema20,
+      ema_50: d1.ema50,
+      ema_200: d1.ema200,
+      atr: p.context?.atr,
+      rvol: p.rvol,
+      "52w_low": p.context?.lo52,
+      "52w_high": p.context?.hi52,
+    },
+    scores: {
+      master_score: p.bogaScore ? Math.round(((p.bogaScore.trend ?? 0) + (p.bogaScore.momentum ?? 0) + (p.bogaScore.liquidity ?? 0)) / 3) : undefined,
+    },
+    scores_detail: {
+      stop_loss: p.tradePlan?.stop?.price,
+      target_price: firstTarget?.price,
+    },
+  };
+}
+
+export default function TickerTechnicalRefsPanel({ ticker, locale }: Props) {
   const { isPremium, loading: planLoading } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [horizon, setHorizon] = useState<TechRefsHorizon>("swing");
@@ -85,7 +131,7 @@ export default function TickerTechnicalRefsPanel({ ticker, stockData, locale }: 
   // göstermek yerine, aşağıdaki tek yükseltme (upsell) kartını gösterir —
   // tıpkı mevcut TickerDetailPanel'deki Trade Plan kilidi gibi.
   useEffect(() => {
-    if (!ticker || !stockData || planLoading || !isPremium) {
+    if (!ticker || planLoading || !isPremium) {
       setLoading(false);
       return;
     }
@@ -99,21 +145,33 @@ export default function TickerTechnicalRefsPanel({ ticker, stockData, locale }: 
     let cancelled = false;
     setLoading(true);
     setFailed(false);
-    fetch("/api/deep-analysis", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticker, stockData, lang: locale }),
-    })
+    const langParam = locale && locale !== "tr" ? `&lang=${locale}` : "";
+    fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(ticker)}${langParam}`)
       .then((r) => r.json())
-      .then((d) => {
+      .then((p) => {
         if (cancelled) return;
-        if (!d || d.error) {
+        const built = buildStockDataFromPreorder(p);
+        if (!built || !built.price?.current) {
           setFailed(true);
-        } else {
-          _cache.set(key, d);
-          setData(d);
+          setLoading(false);
+          return;
         }
-        setLoading(false);
+        return fetch("/api/deep-analysis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ticker, stockData: built, lang: locale }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            if (cancelled) return;
+            if (!d || d.error) {
+              setFailed(true);
+            } else {
+              _cache.set(key, d);
+              setData(d);
+            }
+            setLoading(false);
+          });
       })
       .catch(() => {
         if (!cancelled) {
@@ -124,7 +182,7 @@ export default function TickerTechnicalRefsPanel({ ticker, stockData, locale }: 
     return () => {
       cancelled = true;
     };
-  }, [ticker, stockData, locale, isPremium, planLoading]);
+  }, [ticker, locale, isPremium, planLoading]);
 
   if (!ticker || planLoading) return null;
 
@@ -158,10 +216,10 @@ export default function TickerTechnicalRefsPanel({ ticker, stockData, locale }: 
     );
   }
 
-  // stockData henüz gelmediyse (üst bileşen /api/ask'i beklemede) ya da
-  // analiz başarısız olduysa hiçbir şey render etmiyoruz — sayfanın geri
-  // kalanı (grafik, mevcut trade plan kartı vb.) zaten çalışmaya devam eder.
-  if (!stockData || failed) return null;
+  // Analiz başarısız olduysa (preorder-analysis veya deep-analysis hata
+  // verdiyse) hiçbir şey render etmiyoruz — sayfanın geri kalanı (grafik,
+  // mevcut trade plan kartı vb.) zaten çalışmaya devam eder.
+  if (failed) return null;
 
   if (loading || !data) {
     return (
