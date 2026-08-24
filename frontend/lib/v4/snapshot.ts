@@ -106,7 +106,12 @@ export interface MarketData {
   errors: string[];
 }
 
-export async function loadMarketData(asset: AssetClass, intradayTtlMs = 15000): Promise<MarketData> {
+// TTL, admin panellerinin (SPYEngine V1, SuperTrade V4) 60s'lik poll aralığıyla
+// hizalandı — önceki 15000ms değeri poll aralığından (15s/20s) kısa/eşitti,
+// yani önbellek fiilen hiçbir Yahoo isteğini engellemiyordu. Bu artış, olası
+// Yahoo rate-limit (HTTP 429) sorununu azaltmak için yapılan tedbirin bir
+// parçası (bkz. app/admin/spyengine/v1/page.tsx, app/admin/supertrade/v4/page.tsx).
+export async function loadMarketData(asset: AssetClass, intradayTtlMs = 60000): Promise<MarketData> {
   const info = ASSET_MAP[asset];
   // Çapraz kontrol her zaman DİĞER endeks ailesinin vadelisidir: SPX ailesi
   // (ES=F) için NQ, NDX ailesi (NQ=F) için ES. Aksi halde bir varlığın
@@ -1162,7 +1167,7 @@ const inFlightMap = new Map<string, Promise<AssetSnapshot>>();
 
 /**
  * Anlık görüntüyü önbellekten döndürür. Seans kapalıyken veri saatlerce
- * değişmediği için TTL 5 dakikaya çıkar; böylece kapalı piyasada her 20
+ * değişmediği için TTL 5 dakikaya çıkar; böylece kapalı piyasada her 60
  * saniyede bir 6 uzak istek yapılmaz. Eşzamanlı istekler tek yapıma
  * bağlanır (thundering herd koruması).
  */
@@ -1176,7 +1181,8 @@ export async function getSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
 
   inFlight = buildSnapshot(asset)
     .then((value) => {
-      const ttl = value.isLiveSession ? 10000 : 5 * 60 * 1000;
+      // 60s poll aralığıyla hizalı (önceki 10000ms) — bkz. loadMarketData TTL notu.
+      const ttl = value.isLiveSession ? 55000 : 5 * 60 * 1000;
       snapshotCache.set(cacheKey, { value, expires: Date.now() + ttl });
       return value;
     })

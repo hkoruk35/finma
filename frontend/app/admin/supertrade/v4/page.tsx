@@ -51,7 +51,11 @@ export default function SuperTradeV4Dashboard() {
     };
 
     fetchAll();
-    const id = setInterval(fetchAll, 20000);
+    // 60 saniyede bir güncelleme — önceki 20s aralık, SPYEngine V1 ile
+    // birlikte Yahoo Finance'e çok sık paralel istek atarak rate-limit'e
+    // (HTTP 429) yol açıyor olabilirdi. Cache TTL de aynı 60s'e hizalandı
+    // (bkz. lib/v4/snapshot.ts).
+    const id = setInterval(fetchAll, 60000);
     return () => clearInterval(id);
   }, [selectedAsset]);
 
