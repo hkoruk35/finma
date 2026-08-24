@@ -859,12 +859,18 @@ export async function buildSnapshot(asset: AssetClass): Promise<AssetSnapshot> {
 
   const sessionDate = latestSessionDate(data.spot1m, nowSec);
   if (!sessionDate) {
-    throw new Error(`${asset} seans verisi alınamadı`);
+    // notes = data.errors: her bir Yahoo isteğinin (futures/spot/cross/vix)
+    // gerçek hata nedenini taşır. Önceden bu bilgi burada atılıyordu ve
+    // yalnızca jenerik "seans verisi alınamadı" görünüyordu — kaynağın
+    // (rate limit mi, HTTP hatası mı, boş yanıt mı) teşhisi imkansızdı.
+    const detail = notes.length ? ` — ${notes.join("; ")}` : "";
+    throw new Error(`${asset} seans verisi alınamadı${detail}`);
   }
 
   const session = buildSession(data, sessionDate, asset);
   if (!session || !session.frames.length) {
-    throw new Error("Seans kareleri oluşturulamadı");
+    const detail = notes.length ? ` — ${notes.join("; ")}` : " — sebep belirsiz (barlar geldi ama seans dilimi boş çıktı)";
+    throw new Error(`Seans kareleri oluşturulamadı${detail}`);
   }
 
   const frames = session.frames;
