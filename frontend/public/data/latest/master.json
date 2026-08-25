@@ -1,8 +1,8 @@
 {
   "date": "2026-08-25",
-  "generated_at": "2026-08-25T09:10:07.486151-04:00",
+  "generated_at": "2026-08-25T14:07:46.496012-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 31,
+  "active_scores_count": 41,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 11,
       "tickers": [
         "TECK",
         "MSI",
@@ -32,7 +32,8 @@
         "UGI",
         "SYF",
         "FDX",
-        "DDS"
+        "DDS",
+        "EXK"
       ]
     },
     "value": {
@@ -71,25 +72,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 765.72,
-      "change_pct": 0.29
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 710.35,
-      "change_pct": 0.57
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 535.275,
-      "change_pct": 0.3
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.48,
-      "change_pct": -2.33
-    },
-    "RUSSELL2000": {
-      "value": 298.865,
-      "change_pct": 0.3
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-25T15:00:16.974826-04:00"
+  }
 }
