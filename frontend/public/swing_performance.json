@@ -1,15 +1,15 @@
 {
   "stats": {
     "total_picks": 1767,
-    "completed_count": 1083,
+    "completed_count": 1082,
     "win_rate": 85.5,
-    "avg_return_pct": 3.21,
+    "avg_return_pct": 3.2,
     "stop_loss_pct": "Min 7%",
-    "last_updated": "2026-08-25T13:00:07",
+    "last_updated": "2026-08-25T14:00:04",
     "counted_picks": 1387,
-    "duplicate_count": 389,
-    "pending_count": 304,
-    "above_5pct_rate": 64.2,
+    "duplicate_count": 380,
+    "pending_count": 305,
+    "above_5pct_rate": 64.1,
     "above_10pct_rate": 2.5
   },
   "history": [
@@ -77610,7 +77610,7 @@
       "max_price": 131.3800048828125,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-08-24",
@@ -77625,7 +77625,7 @@
       "max_price": 435.4200134277344,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-08-24",
@@ -77715,7 +77715,7 @@
       "max_price": 41.72999954223633,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-08-24",
@@ -78390,7 +78390,7 @@
       "max_price": 70.19999694824219,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-08-25",
@@ -78450,7 +78450,7 @@
       "max_price": 84.87000274658203,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-08-25",
