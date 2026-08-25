@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-24",
-  "generated_at": "2026-08-24T19:27:24.694596-04:00",
+  "date": "2026-08-25",
+  "generated_at": "2026-08-25T09:10:07.486151-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 31,
   "market_regime": "BULLISH",
@@ -71,25 +71,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 765.64,
-      "change_pct": 0.28
+      "value": 765.44,
+      "change_pct": 0.26
     },
     "NASDAQ": {
-      "value": 711.47,
-      "change_pct": 0.73
+      "value": 710.45,
+      "change_pct": 0.58
     },
     "DOW": {
-      "value": 533.9,
-      "change_pct": 0.05
+      "value": 534.82,
+      "change_pct": 0.22
     },
     "VIX": {
-      "value": 15.83,
-      "change_pct": -0.13
+      "value": 15.58,
+      "change_pct": -1.7
     },
     "RUSSELL2000": {
-      "value": 298.57,
-      "change_pct": 0.2
+      "value": 299.0101,
+      "change_pct": 0.35
     }
   },
-  "price_updated_at": "2026-08-25T10:00:14.067883-04:00"
+  "price_updated_at": "2026-08-25T12:00:26.140092-04:00"
 }
