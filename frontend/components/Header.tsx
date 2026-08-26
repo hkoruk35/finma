@@ -173,7 +173,7 @@ export default function Header({
   );
 
   return (
-    <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[#152238] bg-[#0a0e17]/95 backdrop-blur-lg sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3 relative">
 
         {/* Logo */}
@@ -203,7 +203,7 @@ export default function Header({
 
         {/* Divider */}
         {showNav && (
-          <div className="hidden md:block w-px h-6 bg-[#1e2a3a] flex-shrink-0" />
+          <div className="hidden md:block w-px h-6 bg-[#152238] flex-shrink-0" />
         )}
 
         {/* Desktop nav — inline, always visible */}
@@ -217,8 +217,8 @@ export default function Header({
                   href={link.href}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-medium uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${
                     active
-                      ? "bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30"
-                      : "text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent"
+                      ? "bg-[#3b82f6]/12 text-[#3b82f6] border-none"
+                      : "text-[#64748b] hover:text-white hover:bg-white/5 border-none"
                   }`}
                 >
                   <span className={active ? "text-[#3b82f6]" : "text-[#64748b] group-hover:text-white"}>
@@ -243,7 +243,7 @@ export default function Header({
                 locale={globalLocale ?? "tr"}
                 targetHref={globalLandingHref!}
                 title={terminalTooltip}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6]/20 hover:text-[#3b82f6] border-none transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
@@ -253,7 +253,7 @@ export default function Header({
 
               <Link
                 href={screenerHref}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa]/20 hover:text-[#a78bfa] border-none transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -263,7 +263,7 @@ export default function Header({
 
               <Link
                 href={`/global/${globalLocale}/insider`}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981] hover:text-white border border-[#10b981]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981]/20 hover:text-[#10b981] border-none transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6M5 20h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z" />
@@ -275,7 +275,7 @@ export default function Header({
 
           {/* Language Selector */}
           {globalLocale && (
-            <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-1 border border-[#1e2a3a]/60">
+            <div className="flex items-center gap-0.5 bg-[#152238]/40 rounded-lg p-0.5 mr-1 border border-[#152238]/40">
               {['EN', 'ES', 'FR', 'PT', 'ID', 'TR'].map((lang) => {
                 const isActive = globalLocale.toUpperCase() === lang;
                 const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT' || lang === 'ID';
@@ -312,7 +312,7 @@ export default function Header({
           {globalLocale && (
             <Link
               href={`/global/${globalLocale}/today`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_12px_rgba(59,130,246,0.2)] flex-shrink-0"
             >
               <span>📅</span>
               <span>{globalLocale === "tr" ? "Bugün Neler Oluyor" : globalLocale === "es" ? "¿Qué pasa hoy?" : globalLocale === "fr" ? "Aujourd'hui" : globalLocale === "pt" ? "Hoje" : "Today"}</span>
@@ -322,7 +322,7 @@ export default function Header({
           {onNewQueryClick && (
             <button
               onClick={onNewQueryClick}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-medium uppercase tracking-widest transition-all animate-pulse"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border-none text-[#3b82f6] hover:text-[#3b82f6] rounded-lg text-xs font-medium uppercase tracking-widest transition-all animate-pulse"
             >
               <span>+</span>
               <span>YENİ ARAMA</span>
@@ -336,7 +336,7 @@ export default function Header({
               onClick={handleLogout}
               disabled={loggingOut}
               title="Çıkış Yap"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border-none transition-all disabled:opacity-40"
             >
               <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
@@ -366,7 +366,7 @@ export default function Header({
 
       {/* Mobile dropdown */}
       {showNav && mobileOpen && (
-        <div className="md:hidden border-t border-[#1e2a3a] bg-[#0a0e17] px-3 py-2">
+        <div className="md:hidden border-t border-[#152238] bg-[#0a0e17] px-3 py-2">
           <nav className="grid grid-cols-2 gap-1">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href || pathname.startsWith(link.href + "/");
@@ -377,8 +377,8 @@ export default function Header({
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium uppercase tracking-wider transition-all ${
                     active
-                      ? "bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30"
-                      : "text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent"
+                      ? "bg-[#3b82f6]/12 text-[#3b82f6] border-none"
+                      : "text-[#64748b] hover:text-white hover:bg-white/5 border-none"
                   }`}
                 >
                   <span className={active ? "text-[#3b82f6]" : "text-[#64748b]"}>{link.icon}</span>
