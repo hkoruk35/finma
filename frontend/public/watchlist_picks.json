@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T17:06:53.275691-04:00",
+  "generated_at": "2026-08-26T09:09:00.768596-04:00",
   "picks": [
     {
       "ticker": "SN",
@@ -38,16 +38,10 @@
       "score": 33.0
     },
     {
-      "ticker": "FROG",
-      "sector": "Technology",
-      "date_added": "2026-08-25",
-      "score": 41.0
-    },
-    {
       "ticker": "MP",
       "sector": "Basic Materials",
       "date_added": "2026-08-25",
-      "score": 37.0
+      "score": 35.5
     },
     {
       "ticker": "CDW",
@@ -62,12 +56,6 @@
       "score": 24.0
     },
     {
-      "ticker": "MEOH",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-25",
-      "score": 42.0
-    },
-    {
       "ticker": "TEVA",
       "sector": "Healthcare",
       "date_added": "2026-08-25",
@@ -80,16 +68,34 @@
       "score": 39.5
     },
     {
-      "ticker": "BILL",
-      "sector": "Technology",
-      "date_added": "2026-08-25",
-      "score": 37.0
+      "ticker": "BXP",
+      "sector": "Real Estate",
+      "date_added": "2026-08-26",
+      "score": 41.0
     },
     {
-      "ticker": "SQM",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-25",
+      "ticker": "GEO",
+      "sector": "Industrials",
+      "date_added": "2026-08-26",
+      "score": 39.0
+    },
+    {
+      "ticker": "ZIM",
+      "sector": "Industrials",
+      "date_added": "2026-08-26",
+      "score": 38.5
+    },
+    {
+      "ticker": "SKY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-26",
       "score": 36.5
+    },
+    {
+      "ticker": "GH",
+      "sector": "Healthcare",
+      "date_added": "2026-08-26",
+      "score": 34.0
     }
   ]
 }
