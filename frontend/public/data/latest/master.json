@@ -1,8 +1,8 @@
 {
   "date": "2026-08-25",
-  "generated_at": "2026-08-25T14:07:46.496012-04:00",
+  "generated_at": "2026-08-25T17:06:51.173522-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 41,
+  "active_scores_count": 46,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 10,
       "tickers": [
         "TECK",
         "MSI",
@@ -31,7 +31,6 @@
         "RHI",
         "UGI",
         "SYF",
-        "FDX",
         "DDS",
         "EXK"
       ]
@@ -56,7 +55,7 @@
   "top_3_overall": [
     {
       "ticker": "ADBE",
-      "score": 54.5,
+      "score": 59.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -66,26 +65,31 @@
     },
     {
       "ticker": "TECK",
-      "score": 48.0,
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 766.72,
+      "change_pct": 0.11
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 711.9863,
+      "change_pct": 0.18
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 535.34,
+      "change_pct": 0.02
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.51,
+      "change_pct": 0.39
+    },
+    "RUSSELL2000": {
+      "value": 299.625,
+      "change_pct": 0.13
     }
-  }
+  },
+  "price_updated_at": "2026-08-26T10:00:20.187103-04:00"
 }
