@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T14:06:15.691617-04:00",
+  "generated_at": "2026-08-27T17:05:47.433536-04:00",
   "picks": [
     {
       "ticker": "MP",
@@ -32,22 +32,40 @@
       "score": 38.5
     },
     {
-      "ticker": "CRSP",
-      "sector": "Healthcare",
-      "date_added": "2026-08-27",
-      "score": 39.0
-    },
-    {
-      "ticker": "WSM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-27",
-      "score": 36.0
-    },
-    {
       "ticker": "HOOD",
       "sector": "Financial Services",
       "date_added": "2026-08-27",
       "score": 34.5
+    },
+    {
+      "ticker": "AXTA",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-27",
+      "score": 41.5
+    },
+    {
+      "ticker": "EZPW",
+      "sector": "Financial Services",
+      "date_added": "2026-08-27",
+      "score": 39.0
+    },
+    {
+      "ticker": "CLF",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-27",
+      "score": 36.0
+    },
+    {
+      "ticker": "IMO",
+      "sector": "Energy",
+      "date_added": "2026-08-27",
+      "score": 34.5
+    },
+    {
+      "ticker": "SWKS",
+      "sector": "Technology",
+      "date_added": "2026-08-27",
+      "score": 33.5
     }
   ]
 }
