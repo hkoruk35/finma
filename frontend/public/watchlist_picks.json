@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-08-26T17:05:22.380530-04:00",
+  "generated_at": "2026-08-27T09:04:10.793946-04:00",
   "picks": [
-    {
-      "ticker": "SN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-24",
-      "score": 45.0
-    },
-    {
-      "ticker": "HL",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-24",
-      "score": 40.0
-    },
     {
       "ticker": "MP",
       "sector": "Basic Materials",
@@ -26,12 +14,6 @@
       "score": 28.5
     },
     {
-      "ticker": "AXTA",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-26",
-      "score": 45.5
-    },
-    {
       "ticker": "ARGX",
       "sector": "Healthcare",
       "date_added": "2026-08-26",
@@ -42,12 +24,6 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-26",
       "score": 45.5
-    },
-    {
-      "ticker": "AMZN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-26",
-      "score": 44.5
     },
     {
       "ticker": "CXW",
@@ -66,6 +42,24 @@
       "sector": "Healthcare",
       "date_added": "2026-08-26",
       "score": 38.5
+    },
+    {
+      "ticker": "ARMK",
+      "sector": "Industrials",
+      "date_added": "2026-08-27",
+      "score": 41.0
+    },
+    {
+      "ticker": "LNC",
+      "sector": "Financial Services",
+      "date_added": "2026-08-27",
+      "score": 40.5
+    },
+    {
+      "ticker": "CLF",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-27",
+      "score": 40.0
     }
   ]
 }
