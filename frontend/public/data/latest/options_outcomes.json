@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T11:00:25.856001-04:00",
+  "updated_at": "2026-08-27T11:00:27.465987-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 395,
@@ -15,7 +15,7 @@
     "avg_loser_pct": -44.0,
     "best_trade_pct": 462.5,
     "worst_trade_pct": -100.0,
-    "avg_unrealized_pnl": -61.6,
+    "avg_unrealized_pnl": -61.5,
     "by_setup": {
       "HAFIF": {
         "total": 22,
@@ -14327,11 +14327,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.325,
-      "unrealized_pnl_pct": -87.8,
+      "current_premium": 0.35,
+      "unrealized_pnl_pct": -86.9,
       "days_held": 128,
       "peak_premium": 2.85,
-      "trough_premium": 0.325,
+      "trough_premium": 0.35,
       "underlying_current": null
     },
     {
