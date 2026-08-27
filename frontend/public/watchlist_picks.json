@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T09:04:10.793946-04:00",
+  "generated_at": "2026-08-27T14:06:15.691617-04:00",
   "picks": [
     {
       "ticker": "MP",
@@ -11,25 +11,13 @@
       "ticker": "CDW",
       "sector": "Technology",
       "date_added": "2026-08-25",
-      "score": 28.5
+      "score": 35.0
     },
     {
       "ticker": "ARGX",
       "sector": "Healthcare",
       "date_added": "2026-08-26",
       "score": 44.5
-    },
-    {
-      "ticker": "AVY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-26",
-      "score": 45.5
-    },
-    {
-      "ticker": "CXW",
-      "sector": "Industrials",
-      "date_added": "2026-08-26",
-      "score": 44.0
     },
     {
       "ticker": "NOV",
@@ -44,22 +32,22 @@
       "score": 38.5
     },
     {
-      "ticker": "ARMK",
-      "sector": "Industrials",
+      "ticker": "CRSP",
+      "sector": "Healthcare",
       "date_added": "2026-08-27",
-      "score": 41.0
+      "score": 39.0
     },
     {
-      "ticker": "LNC",
+      "ticker": "WSM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-27",
+      "score": 36.0
+    },
+    {
+      "ticker": "HOOD",
       "sector": "Financial Services",
       "date_added": "2026-08-27",
-      "score": 40.5
-    },
-    {
-      "ticker": "CLF",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-27",
-      "score": 40.0
+      "score": 34.5
     }
   ]
 }

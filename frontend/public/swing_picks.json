@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-08-27T09:04:09.387180-04:00",
+  "generated_at": "2026-08-27T14:06:14.036315-04:00",
   "date": "2026-08-27",
   "model": "BOGA AI v117.v4.0 (Hybrid Model)",
-  "market_regime": "BULLISH",
-  "regime_bucket": "NORMAL",
+  "market_regime": "STRONG",
+  "regime_bucket": "BULL",
   "total_picks": 0,
   "picks": [],
   "by_system": {},
