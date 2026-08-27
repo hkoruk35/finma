@@ -1,9 +1,9 @@
 {
   "date": "2026-08-27",
-  "generated_at": "2026-08-27T09:04:09.387180-04:00",
+  "generated_at": "2026-08-27T14:06:14.036315-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 29,
-  "market_regime": "BULLISH",
+  "active_scores_count": 39,
+  "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,14 +21,16 @@
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 8,
       "tickers": [
         "KNTK",
         "NCNO",
         "FLS",
         "HOG",
         "DK",
-        "P"
+        "P",
+        "INFQ",
+        "ECO"
       ]
     },
     "value": {
@@ -67,25 +69,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 769.56,
-      "change_pct": 0.45
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 718.04,
-      "change_pct": 0.94
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 534.7862,
-      "change_pct": 0.1
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 14.72,
-      "change_pct": -3.22
-    },
-    "RUSSELL2000": {
-      "value": 299.89,
-      "change_pct": 0.32
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-27T15:00:12.868745-04:00"
+  }
 }
