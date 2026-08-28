@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T14:08:51.531033-04:00",
+  "generated_at": "2026-08-28T17:05:42.932521-04:00",
   "picks": [
     {
       "ticker": "NOV",
@@ -8,22 +8,34 @@
       "score": 42.5
     },
     {
-      "ticker": "CLF",
-      "sector": "Basic Materials",
-      "date_added": "2026-08-27",
-      "score": 36.0
-    },
-    {
-      "ticker": "EL",
+      "ticker": "ADM",
       "sector": "Consumer Defensive",
       "date_added": "2026-08-28",
-      "score": 44.5
+      "score": 44.0
     },
     {
-      "ticker": "BTSG",
+      "ticker": "SM",
+      "sector": "Energy",
+      "date_added": "2026-08-28",
+      "score": 43.5
+    },
+    {
+      "ticker": "TGTX",
       "sector": "Healthcare",
       "date_added": "2026-08-28",
-      "score": 42.5
+      "score": 43.0
+    },
+    {
+      "ticker": "CRSP",
+      "sector": "Healthcare",
+      "date_added": "2026-08-28",
+      "score": 40.0
+    },
+    {
+      "ticker": "FROG",
+      "sector": "Technology",
+      "date_added": "2026-08-28",
+      "score": 37.0
     }
   ]
 }
