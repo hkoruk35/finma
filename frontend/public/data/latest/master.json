@@ -1,8 +1,8 @@
 {
   "date": "2026-08-28",
-  "generated_at": "2026-08-28T09:05:20.676355-04:00",
+  "generated_at": "2026-08-28T14:08:49.861756-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
+  "active_scores_count": 40,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 9,
+      "count": 10,
       "tickers": [
         "P",
         "INFQ",
@@ -31,7 +31,8 @@
         "BGC",
         "OMF",
         "WDAY",
-        "SM"
+        "SM",
+        "AFRM"
       ]
     },
     "value": {
@@ -70,25 +71,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 768.72,
-      "change_pct": -0.31
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 715.56,
-      "change_pct": -0.77
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 534.92,
-      "change_pct": -0.06
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 14.48,
-      "change_pct": -0.21
-    },
-    "RUSSELL2000": {
-      "value": 295.99,
-      "change_pct": -1.27
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-28T15:00:14.299000-04:00"
+  }
 }
