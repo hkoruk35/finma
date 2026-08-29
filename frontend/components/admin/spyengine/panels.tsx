@@ -147,7 +147,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
                 {/* Hover mini popup — bogastock tarzı */}
                 {hoverIdx === idx && (
-                  <div className="absolute top-0 left-full ml-2 z-50 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3 whitespace-normal">
+                  <div className="absolute top-0 left-full ml-2 z-50 w-80 max-h-96 overflow-y-auto bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3 whitespace-normal">
                     {/* Başlık + fiyat */}
                     <div className="mb-2 border-b border-[#1c2635] pb-2">
                       <div className="flex items-start justify-between mb-1">
@@ -165,7 +165,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                     </div>
 
                     {/* Mini sparkline grafik */}
-                    {sparklineData[q.symbol] && <Sparkline bars={sparklineData[q.symbol]} />}
+                    {sparklineData[q.symbol] && <Sparkline bars={sparklineData[q.symbol]} width={280} height={100} />}
 
                     {/* Mini stats grid */}
                     <div className="grid grid-cols-2 gap-2 mb-3 text-[9px]">
