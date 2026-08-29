@@ -8,7 +8,7 @@
  * kartta tahmini/son-bilinen değer gerçek veri gibi gösterilmez.
  */
 
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
   EVENT_LABEL, EVENT_STYLE, SETUP_LABEL, TRIGGER_LABEL,
@@ -86,6 +86,30 @@ export interface StripQuote {
 
 export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updatedAt: number | null }) {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [sparklineData, setSparklineData] = useState<Record<string, SparklinePoint[]>>({});
+
+  useEffect(() => {
+    if (hoverIdx === null) return;
+    const quote = quotes[hoverIdx];
+    if (!quote || sparklineData[quote.symbol]) return;
+
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/admin/spyengine/v2/ticker-sparkline?symbol=${encodeURIComponent(quote.symbol)}`, {
+          credentials: "include",
+          cache: "no-store",
+        });
+        const json = await res.json();
+        if (cancelled || !json.ok) return;
+        setSparklineData((prev) => ({ ...prev, [quote.symbol]: json.bars || [] }));
+      } catch {
+        // Sparkline hatası önemsiz
+      }
+    };
+    load();
+    return () => { cancelled = true; };
+  }, [hoverIdx, quotes, sparklineData]);
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
@@ -123,19 +147,48 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                   </>
                 )}
 
-                {/* Hover tooltip */}
+                {/* Hover mini popup — bogastock tarzı */}
                 {hoverIdx === idx && (
-                  <div className="absolute top-full left-0 z-20 mt-1 w-48 bg-[#0a0e17] border border-[#1c2635] rounded shadow-lg p-2">
-                    <div className="text-[9px] text-slate-400 space-y-1">
-                      <div className="flex justify-between"><span>Sembol:</span><span className="text-slate-200">{q.symbol}</span></div>
-                      <div className="flex justify-between"><span>Fiyat:</span><span className="text-slate-200">{num(q.price)}</span></div>
-                      <div className="flex justify-between"><span>Değişim:</span><span className={tone(q.changePct)}>{signed(q.change, 2)} ({signed(q.changePct, 2)}%)</span></div>
-                      {q.prevClose && (
-                        <>
-                          <div className="flex justify-between"><span>Önceki Kapanış:</span><span className="text-slate-200">{num(q.prevClose)}</span></div>
-                        </>
-                      )}
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 z-20 mt-1 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
+                    {/* Başlık + fiyat */}
+                    <div className="mb-2 border-b border-[#1c2635] pb-2">
+                      <div className="flex items-start justify-between mb-1">
+                        <div>
+                          <div className="text-[11px] font-semibold text-slate-200">{q.name}</div>
+                          <div className="text-[10px] text-slate-500">{q.symbol}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-[12px] font-bold text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</div>
+                          <div className={`text-[11px] font-semibold ${tone(q.changePct)}`}>
+                            {signed(q.change, 2)} ({signed(q.changePct, 2)}%)
+                          </div>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Mini sparkline grafik */}
+                    {sparklineData[q.symbol] && <Sparkline bars={sparklineData[q.symbol]} />}
+
+                    {/* Mini stats grid */}
+                    <div className="grid grid-cols-2 gap-2 mb-3 text-[9px]">
+                      <div>
+                        <div className="text-slate-500">Önceki Kapanış</div>
+                        <div className="text-slate-300 font-mono">{q.prevClose ? num(q.prevClose) : "—"}</div>
+                      </div>
+                      <div>
+                        <div className="text-slate-500">Seans Tipi</div>
+                        <div className="text-slate-300">{q.extended ? "Seans Dışı" : "Düzenli"}</div>
+                      </div>
+                    </div>
+
+                    {/* Detay buton */}
+                    <a
+                      href={q.symbol === "SPY" ? "/admin/spyengine/v1" : `https://finance.yahoo.com/quote/${q.symbol}`}
+                      target={q.symbol === "SPY" ? "_self" : "_blank"}
+                      className="block w-full text-center px-2 py-1.5 bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-[10px] font-semibold rounded transition-colors"
+                    >
+                      {q.symbol === "SPY" ? "SPY Engine" : "Detay Grafik"}
+                    </a>
                   </div>
                 )}
               </div>
@@ -569,6 +622,38 @@ export function StrategySchema({ state, closedPct }: { state: string; closedPct:
         ))}
       </div>
     </div>
+  );
+}
+
+// ── Mini Sparkline Grafik ───────────────────────────────────────
+
+interface SparklinePoint {
+  close: number;
+  time: number;
+}
+
+function Sparkline({ bars, width = 180, height = 40 }: { bars: SparklinePoint[]; width?: number; height?: number }) {
+  if (!bars.length) return <div className="text-[9px] text-slate-600">Grafik yükleniyor...</div>;
+
+  const closes = bars.map((b) => b.close);
+  const min = Math.min(...closes);
+  const max = Math.max(...closes);
+  const range = max - min || 1;
+
+  const points = closes
+    .map((close, i) => {
+      const x = (i / (closes.length - 1 || 1)) * width;
+      const y = height - ((close - min) / range) * height;
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  const isUp = closes[closes.length - 1] >= closes[0];
+
+  return (
+    <svg width={width} height={height} className="mt-1 mb-2" viewBox={`0 0 ${width} ${height}`}>
+      <polyline points={points} fill="none" stroke={isUp ? "#22c55e" : "#ef4444"} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+    </svg>
   );
 }
 
