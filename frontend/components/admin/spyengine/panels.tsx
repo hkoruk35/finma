@@ -147,7 +147,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
                 {/* Hover mini popup — bogastock tarzı */}
                 {hoverIdx === idx && (
-                  <div className="absolute top-0 left-full ml-2 z-50 w-80 max-h-96 overflow-y-auto bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3 whitespace-normal">
+                  <div className="absolute top-0 left-full ml-2 z-[9999] w-80 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
                     {/* Başlık + fiyat */}
                     <div className="mb-2 border-b border-[#1c2635] pb-2">
                       <div className="flex items-start justify-between mb-1">
@@ -180,12 +180,14 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                     </div>
 
                     {/* Detay buton */}
-                    <a
-                      href={`/global/tr/graphic/${q.symbol}`}
-                      className="block w-full text-center px-2 py-1.5 bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-[10px] font-semibold rounded transition-colors"
-                    >
-                      Detay Grafik
-                    </a>
+                    <div className="pt-2 border-t border-[#1c2635]">
+                      <a
+                        href={`/global/tr/graphic/${q.symbol}`}
+                        className="block w-full text-center px-3 py-2 bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-[10px] font-semibold rounded transition-colors z-[9999] relative"
+                      >
+                        Detay Grafik
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>
