@@ -125,7 +125,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
             return (
               <div
                 key={q.symbol}
-                className="relative bg-[#0f141d] px-2 py-1.5 cursor-pointer hover:bg-[#1c2635] transition-colors"
+                className="relative bg-[#0f141d] px-2 py-1.5 cursor-pointer hover:bg-[#1c2635] transition-colors group"
                 title={`${q.name} · ${q.symbol}`}
                 onMouseEnter={() => setHoverIdx(idx)}
                 onMouseLeave={() => setHoverIdx(null)}
@@ -147,7 +147,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
                 {/* Hover mini popup — bogastock tarzı */}
                 {hoverIdx === idx && (
-                  <div className="fixed top-20 left-20 z-50 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
+                  <div className="absolute top-0 left-full ml-2 z-50 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3 whitespace-normal">
                     {/* Başlık + fiyat */}
                     <div className="mb-2 border-b border-[#1c2635] pb-2">
                       <div className="flex items-start justify-between mb-1">
