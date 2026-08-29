@@ -229,7 +229,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
           </div>
 
           <a
-            href={`/global/tr/graphic/${hq.symbol}`}
+            href={`/global/tr/graphic/${encodeURIComponent(hq.symbol)}`}
             className="block rounded bg-[#1d4ed8] px-3 py-2 text-center text-[10px] font-semibold text-white transition-colors hover:bg-[#1e40af]"
           >
             Detay Grafik

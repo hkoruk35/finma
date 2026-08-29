@@ -326,7 +326,7 @@ export const STRIP_SYMBOLS: { label: string; symbol: string; name: string }[] = 
   { label: "DIA",  symbol: "DIA",   name: "Dow Jones ETF" },
   { label: "IWM",  symbol: "IWM",   name: "Russell 2000 ETF" },
   { label: "RSP",  symbol: "RSP",   name: "S&P Eşit Ağırlık" },
-  { label: "XSP",  symbol: "XSP",   name: "Mini S&P 500 Spot" },
+  { label: "XSP",  symbol: "^XSP",  name: "Mini S&P 500 Endeks" },
   { label: "VIX",  symbol: "^VIX",  name: "Volatilite Endeksi" },
   { label: "XLK",  symbol: "XLK",   name: "Teknoloji Sektörü" },
   { label: "XLF",  symbol: "XLF",   name: "Finans Sektörü" },

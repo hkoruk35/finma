@@ -202,9 +202,22 @@ function fmtChange(v: number | null | undefined) {
   return `${v >= 0 ? "+" : ""}${formatNumber(v, 2)}%`;
 }
 
+/** useParams'tan gelen ham segmenti guvenle decode eder (bozuk kacis dizisi -> ham deger). */
+function decodeSegment(raw: string | string[] | undefined): string {
+  const v = Array.isArray(raw) ? raw[0] : raw;
+  if (!v) return "";
+  try {
+    return decodeURIComponent(v);
+  } catch {
+    return v;
+  }
+}
+
 export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const params = useParams();
-  const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
+  // useParams URL segmentini decode ETMEZ: "MES=F" -> "MES%3DF", "^GSPC" -> "%5EGSPC"
+  // gelir. Decode edilmezse vadeli/endeks sembolleri grafik API'sine bozuk gider.
+  const ticker = decodeSegment(params?.ticker).toUpperCase();
   const labels = PAGE_LABELS[locale];
   const registerHref = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
 
