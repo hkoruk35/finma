@@ -22,7 +22,7 @@
 
 import "server-only";
 import type { Bar } from "./core";
-import { normalizeBars, snapToInterval, dropBadPrints } from "./core";
+import { normalizeBars, snapToInterval, dropBadPrints, nyParts, PRE_OPEN_MIN, POST_CLOSE_MIN } from "./core";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 const YF_HEADERS = {
@@ -256,19 +256,27 @@ export async function fetchSpyBundle(): Promise<SpyBundle> {
   if (c5.error) errors.push(`5m: ${c5.error}`);
   if (c15.error) errors.push(`15m: ${c15.error}`);
 
-  // Overnight (20:00–04:00 ET) — Yahoo bu pencereyi taşımıyor.
+  // Overnight (20:00–04:00 ET) — Yahoo bu pencereyi HİÇ taşımıyor.
+  //
+  // Kapsam bilinçli olarak SADECE overnight ile sınırlı: Robinhood
+  // historicals en ince 5 DAKİKALIK bar veriyor, Yahoo ise 04:00–20:00
+  // arasında gerçek 1 dakikalık bar veriyor. İkisini pre/after penceresinde
+  // karıştırmak "1m" dizisine 5 dakikalık bar sokardı — granülarite yalanı.
+  // Bu yüzden sadece Yahoo'nun hiç veri vermediği saatler doldurulur.
   let m1 = c1.bars;
   let overnightSource: "robinhood" | null = null;
   try {
     const since = Math.floor(Date.now() / 1000) - 3 * 24 * 60 * 60;
     const rh = await cached("overnight", TTL.overnight, () => fetchOvernightBars(since));
-    if (rh.length) {
-      const known = new Set(m1.map((b) => b.time));
-      const extra = rh.filter((b) => !known.has(b.time));
-      if (extra.length) {
-        m1 = normalizeBars([...m1, ...extra]);
-        overnightSource = "robinhood";
-      }
+    const known = new Set(m1.map((b) => b.time));
+    const extra = rh.filter((b) => {
+      if (known.has(b.time)) return false;
+      const min = nyParts(b.time).minutes;
+      return min >= POST_CLOSE_MIN || min < PRE_OPEN_MIN;
+    });
+    if (extra.length) {
+      m1 = normalizeBars([...m1, ...extra]);
+      overnightSource = "robinhood";
     }
   } catch {
     // Köprü yoksa sessizce saf Yahoo ile devam — bu bir hata değil.
