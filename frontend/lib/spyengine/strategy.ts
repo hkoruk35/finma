@@ -296,6 +296,7 @@ interface M1Context {
 function buildM1Context(m1: Bar[]): M1Context {
   const c = closes(m1);
   const e9 = ema(c, 9);
+  const r14 = rsi(c, 14);
   const volAvg = sma(m1.map((b) => b.volume || 0), 20);
 
   const trigger: TriggerKind[] = new Array(m1.length).fill("NONE");
@@ -305,6 +306,7 @@ function buildM1Context(m1: Bar[]): M1Context {
     const b = m1[i];
     const prev = m1[i - 1];
     const e = e9[i];
+    const rsi = r14[i];
     if (e == null) {
       note[i] = "EMA9 ısınıyor";
       continue;
@@ -313,31 +315,44 @@ function buildM1Context(m1: Bar[]): M1Context {
     const vol = b.volume || 0;
     const volSurge = va != null && va > 0 ? vol >= va * 1.2 : false;
 
+    // Kapalı 2 mumun yön tutarlılığı
+    const bullishCandle = b.close > b.open;
+    const bearishCandle = b.close < b.open;
+    const prevBullishCandle = prev.close > prev.open;
+    const prevBearishCandle = prev.close < prev.open;
+    const twoBarBullish = bullishCandle && prevBullishCandle;
+    const twoBarBearish = bearishCandle && prevBearishCandle;
+
+    // RSI yön kontrolü (RSI > 50 = yükseliş yönü, < 50 = düşüş yönü)
+    const rsiOk = rsi != null;
+    const rsiBullish = rsi != null && rsi > 50;
+    const rsiBearish = rsi != null && rsi < 50;
+
     const body = Math.abs(b.close - b.open);
     const lowerWick = Math.min(b.open, b.close) - b.low;
     const upperWick = b.high - Math.max(b.open, b.close);
     const range = b.high - b.low;
 
-    // Yükseliş tetikleri
-    if (b.close > prev.high && b.close > e) {
+    // Yükseliş tetikleri: 2 mum yön tutarlılığı + RSI yön tutarlılığı + hacim teyiti
+    if (b.close > prev.high && b.close > e && twoBarBullish && rsiBullish && volSurge) {
       trigger[i] = "BULL_CONFIRMATION";
-      note[i] = `Önceki 1m zirvesi (${r2(prev.high)}) aşıldı, EMA9 üstü${volSurge ? ", hacim patlaması" : ""}`;
+      note[i] = `Önceki 1m zirvesi (${r2(prev.high)}) aşıldı, 2 mum yükseliş, EMA9 üstü, RSI ${r2(rsi)}, hacim patlaması`;
       continue;
     }
-    if (range > 0 && lowerWick > body * 2 && lowerWick / range > 0.5 && b.close > e) {
+    if (range > 0 && lowerWick > body * 2 && lowerWick / range > 0.5 && b.close > e && twoBarBullish && rsiBullish) {
       trigger[i] = "BULL_REJECTION";
-      note[i] = `Alt fitil reddi (fitil gövdenin ${(lowerWick / Math.max(body, 0.0001)).toFixed(1)}×'i), EMA9 üstü`;
+      note[i] = `Alt fitil reddi (fitil gövdenin ${(lowerWick / Math.max(body, 0.0001)).toFixed(1)}×'i), 2 mum yükseliş, EMA9 üstü, RSI ${r2(rsi)}`;
       continue;
     }
-    // Düşüş tetikleri
-    if (b.close < prev.low && b.close < e) {
+    // Düşüş tetikleri: 2 mum yön tutarlılığı + RSI yön tutarlılığı + hacim teyiti
+    if (b.close < prev.low && b.close < e && twoBarBearish && rsiBearish && volSurge) {
       trigger[i] = "BEAR_CONFIRMATION";
-      note[i] = `Önceki 1m dibi (${r2(prev.low)}) kırıldı, EMA9 altı${volSurge ? ", hacim patlaması" : ""}`;
+      note[i] = `Önceki 1m dibi (${r2(prev.low)}) kırıldı, 2 mum düşüş, EMA9 altı, RSI ${r2(rsi)}, hacim patlaması`;
       continue;
     }
-    if (range > 0 && upperWick > body * 2 && upperWick / range > 0.5 && b.close < e) {
+    if (range > 0 && upperWick > body * 2 && upperWick / range > 0.5 && b.close < e && twoBarBearish && rsiBearish) {
       trigger[i] = "BEAR_REJECTION";
-      note[i] = `Üst fitil reddi (fitil gövdenin ${(upperWick / Math.max(body, 0.0001)).toFixed(1)}×'i), EMA9 altı`;
+      note[i] = `Üst fitil reddi (fitil gövdenin ${(upperWick / Math.max(body, 0.0001)).toFixed(1)}×'i), 2 mum düşüş, EMA9 altı, RSI ${r2(rsi)}`;
       continue;
     }
     note[i] = "Tetik yok";
