@@ -96,8 +96,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
     let cancelled = false;
     const load = async () => {
       try {
-        const res = await fetch(`/api/admin/spyengine/v2/ticker-sparkline?symbol=${encodeURIComponent(quote.symbol)}`, {
-          credentials: "include",
+        const res = await fetch(`/api/spyengine/v2/ticker-sparkline?symbol=${encodeURIComponent(quote.symbol)}`, {
           cache: "no-store",
         });
         const json = await res.json();
