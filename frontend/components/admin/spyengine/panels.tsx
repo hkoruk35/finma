@@ -85,6 +85,8 @@ export interface StripQuote {
 }
 
 export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updatedAt: number | null }) {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
@@ -93,29 +95,53 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
           {updatedAt ? `${nyClock(updatedAt, true)} ET` : "veri bekleniyor"}
         </span>
       </div>
-      <div className="grid grid-cols-2 gap-px bg-[#1c2635] sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-9">
-        {quotes.map((q) => {
-          const up = (q.changePct ?? 0) > 0;
-          const down = (q.changePct ?? 0) < 0;
-          return (
-            <div key={q.symbol} className="bg-[#0f141d] px-2 py-1.5" title={`${q.name} · ${q.symbol}`}>
-              <div className="flex items-baseline justify-between gap-1">
-                <span className="text-[10px] font-semibold text-slate-300">{q.label}</span>
-                {q.extended && <span className="text-[8px] text-amber-400/80" title="Seans dışı fiyat">EXT</span>}
-              </div>
-              {q.error || q.price == null ? (
-                <div className="font-mono text-[10px] text-slate-600">veri yok</div>
-              ) : (
-                <>
-                  <div className="font-mono text-[11px] text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</div>
-                  <div className={`font-mono text-[10px] ${tone(q.changePct)}`}>
-                    {up ? "▲" : down ? "▼" : "▬"} {signed(q.changePct, 2)}%
+      <div className="overflow-x-auto">
+        <div className="grid grid-cols-11 gap-px bg-[#1c2635]">
+          {quotes.map((q, idx) => {
+            const up = (q.changePct ?? 0) > 0;
+            const down = (q.changePct ?? 0) < 0;
+            return (
+              <div
+                key={q.symbol}
+                className="relative bg-[#0f141d] px-2 py-1.5 cursor-pointer hover:bg-[#1c2635] transition-colors"
+                title={`${q.name} · ${q.symbol}`}
+                onMouseEnter={() => setHoverIdx(idx)}
+                onMouseLeave={() => setHoverIdx(null)}
+              >
+                <div className="flex items-baseline justify-between gap-1">
+                  <span className="text-[10px] font-semibold text-slate-300">{q.label}</span>
+                  {q.extended && <span className="text-[8px] text-amber-400/80">EXT</span>}
+                </div>
+                {q.error || q.price == null ? (
+                  <div className="font-mono text-[10px] text-slate-600">veri yok</div>
+                ) : (
+                  <>
+                    <div className="font-mono text-[11px] text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</div>
+                    <div className={`font-mono text-[10px] ${tone(q.changePct)}`}>
+                      {up ? "▲" : down ? "▼" : "▬"} {signed(q.changePct, 2)}%
+                    </div>
+                  </>
+                )}
+
+                {/* Hover tooltip */}
+                {hoverIdx === idx && (
+                  <div className="absolute top-full left-0 z-20 mt-1 w-48 bg-[#0a0e17] border border-[#1c2635] rounded shadow-lg p-2">
+                    <div className="text-[9px] text-slate-400 space-y-1">
+                      <div className="flex justify-between"><span>Sembol:</span><span className="text-slate-200">{q.symbol}</span></div>
+                      <div className="flex justify-between"><span>Fiyat:</span><span className="text-slate-200">{num(q.price)}</span></div>
+                      <div className="flex justify-between"><span>Değişim:</span><span className={tone(q.changePct)}>{signed(q.change, 2)} ({signed(q.changePct, 2)}%)</span></div>
+                      {q.prevClose && (
+                        <>
+                          <div className="flex justify-between"><span>Önceki Kapanış:</span><span className="text-slate-200">{num(q.prevClose)}</span></div>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </>
-              )}
-            </div>
-          );
-        })}
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -541,6 +567,77 @@ export function StrategySchema({ state, closedPct }: { state: string; closedPct:
             <span>{EVENT_LABEL[k]}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ── 15 Günlük OHLC Tablosu ──────────────────────────────────────
+
+export interface OHLCRow {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export function OHLCTable({ data, loading }: { data: OHLCRow[] | null; loading: boolean }) {
+  if (loading) {
+    return (
+      <div className={SURFACE}>
+        <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+          <span className="text-[11px] font-semibold tracking-wide text-slate-300">Son 15 Gün OHLC</span>
+        </div>
+        <div className="p-3 text-center text-[11px] text-slate-600">Yükleniyor...</div>
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className={SURFACE}>
+        <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+          <span className="text-[11px] font-semibold tracking-wide text-slate-300">Son 15 Gün OHLC</span>
+        </div>
+        <div className="p-3 text-center text-[11px] text-slate-600">Veri yok</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={SURFACE}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">Son 15 Gün OHLC</span>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-[10px]">
+          <thead>
+            <tr className="border-b border-[#1c2635]">
+              <th className="px-2 py-1.5 text-left font-semibold text-slate-400">Tarih</th>
+              <th className="px-2 py-1.5 text-right font-semibold text-slate-400">Açılış</th>
+              <th className="px-2 py-1.5 text-right font-semibold text-slate-400">Zirve</th>
+              <th className="px-2 py-1.5 text-right font-semibold text-slate-400">Dip</th>
+              <th className="px-2 py-1.5 text-right font-semibold text-slate-400">Kapanış</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, i) => {
+              const change = row.close - row.open;
+              const changeTone = change > 0 ? "text-[#22c55e]" : change < 0 ? "text-[#ef4444]" : "text-slate-400";
+              return (
+                <tr key={i} className="border-b border-[#0f141d] hover:bg-[#0f141d]">
+                  <td className="px-2 py-1.5 text-slate-400">{row.date}</td>
+                  <td className="px-2 py-1.5 text-right font-mono text-slate-300">{num(row.open)}</td>
+                  <td className="px-2 py-1.5 text-right font-mono text-[#22c55e]">{num(row.high)}</td>
+                  <td className="px-2 py-1.5 text-right font-mono text-[#ef4444]">{num(row.low)}</td>
+                  <td className={`px-2 py-1.5 text-right font-mono font-semibold ${changeTone}`}>{num(row.close)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

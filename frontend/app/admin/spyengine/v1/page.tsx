@@ -22,8 +22,8 @@ import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyCha
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import {
   TickerStrip, InfoCards, LayerTable, PositionPanel, EventList, StrategySchema,
-  Panel, Disclosure, PhaseBadge, SURFACE, num, signed, tone,
-  type StripQuote, type SpotStats,
+  Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
+  type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
 import {
   fromCompact, nyClock, bucketAggregate, bollinger, rsi, macd, ema, lastNum,
@@ -66,7 +66,7 @@ interface StreamResponse {
   events: EngineEvent[];
 }
 
-type Tab = "command" | "signals" | "context";
+type Tab = "command" | "signals" | "context" | "ohlc";
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 
@@ -107,6 +107,9 @@ export default function SpyEngineCommandCenter() {
   const [quotes, setQuotes] = useState<StripQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
 
+  const [ohlcData, setOhlcData] = useState<OHLCRow[] | null>(null);
+  const [ohlcLoading, setOhlcLoading] = useState(false);
+
   const [lastFetch, setLastFetch] = useState<number | null>(null);
   const [failures, setFailures] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -115,11 +118,13 @@ export default function SpyEngineCommandCenter() {
    *  olsun (aksi hâlde saat bir saniye kaysa bile hydration uyuşmazlığı verir).
    *  İlk gerçek değer mount'tan sonraki ilk kalp atışında gelir. */
   const [nowSec, setNowSec] = useState(0);
+  const [manualModeSince, setManualModeSince] = useState<number | null>(null);
 
   const sinceRef = useRef<number | null>(null);
   const replayRef = useRef("");
   const inflightRef = useRef(false);
   const chartWrapRef = useRef<HTMLDivElement>(null);
+  const manualInteractTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // ── Ana akış ────────────────────────────────────────────────────
   const poll = useCallback(async () => {
@@ -209,6 +214,27 @@ export default function SpyEngineCommandCenter() {
     return () => { cancelled = true; clearInterval(id); };
   }, []);
 
+  // ── 15 günlük OHLC (sekme tıklanırsa yükle) ─────────────────────
+  useEffect(() => {
+    if (tab !== "ohlc" || ohlcData) return;
+    let cancelled = false;
+    const load = async () => {
+      setOhlcLoading(true);
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/ohlc", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (cancelled) return;
+        if (json.ok) setOhlcData(json.bars || []);
+      } catch {
+        // OHLC hatası, ana akışı etkilemesin
+      } finally {
+        setOhlcLoading(false);
+      }
+    };
+    load();
+    return () => { cancelled = true; };
+  }, [tab, ohlcData]);
+
   // ── 1 sn kalp atışı (canlı saat + "X sn önce") ──────────────────
   useEffect(() => {
     // İlk gerçek saati bir sonraki makro-göreve bırakıyoruz: effect gövdesinde
@@ -223,6 +249,33 @@ export default function SpyEngineCommandCenter() {
     const onFs = () => setFullscreen(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onFs);
     return () => document.removeEventListener("fullscreenchange", onFs);
+  }, []);
+
+  // ── Grafik zoom/pan sırasında autoScroll pause ─────────────────
+  useEffect(() => {
+    const wrap = chartWrapRef.current;
+    if (!wrap) return;
+
+    const onInteract = () => {
+      const now = Math.floor(Date.now() / 1000);
+      setManualModeSince(now);
+      setAutoScroll(false);
+
+      if (manualInteractTimeoutRef.current) clearTimeout(manualInteractTimeoutRef.current);
+      manualInteractTimeoutRef.current = setTimeout(() => {
+        setAutoScroll(true);
+        setManualModeSince(null);
+      }, 30000);
+    };
+
+    wrap.addEventListener("wheel", onInteract, { passive: true });
+    wrap.addEventListener("mousedown", onInteract);
+
+    return () => {
+      wrap.removeEventListener("wheel", onInteract);
+      wrap.removeEventListener("mousedown", onInteract);
+      if (manualInteractTimeoutRef.current) clearTimeout(manualInteractTimeoutRef.current);
+    };
   }, []);
 
   const toggleFullscreen = useCallback(() => {
@@ -370,6 +423,7 @@ export default function SpyEngineCommandCenter() {
           ["command", "Kumanda Merkezi"],
           ["signals", "Sinyaller & Arşiv"],
           ["context", "15m Bağlam & Veri"],
+          ["ohlc", "15 Gün OHLC"],
         ] as const).map(([id, label]) => (
           <button
             key={id}
@@ -627,6 +681,13 @@ export default function SpyEngineCommandCenter() {
               </div>
             </Panel>
           </div>
+        </div>
+      )}
+
+      {/* ═══ 15 GÜN OHLC ═══ */}
+      {tab === "ohlc" && (
+        <div className="flex flex-col gap-3">
+          <OHLCTable data={ohlcData} loading={ohlcLoading} />
         </div>
       )}
 
