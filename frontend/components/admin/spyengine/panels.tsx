@@ -93,6 +93,18 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
   const popRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
 
+  // Fare hücreden popup'a geçerken aradaki boşlukta popup kapanmasın diye
+  // kapanış geciktirilir; popup'ın üstüne girilince iptal edilir.
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelClose = () => {
+    if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
+  };
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setHover(null), 160);
+  };
+  useEffect(() => cancelClose, []);
+
   const hoverSymbol = hover ? quotes[hover.idx]?.symbol ?? null : null;
 
   useEffect(() => {
@@ -152,8 +164,8 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
               <div
                 key={q.symbol}
                 className="bg-[#0f141d] px-2 py-1.5 cursor-pointer transition-colors hover:bg-[#1c2635]"
-                onMouseEnter={(e) => setHover({ idx, rect: e.currentTarget.getBoundingClientRect() })}
-                onMouseLeave={() => setHover(null)}
+                onMouseEnter={(e) => { cancelClose(); setHover({ idx, rect: e.currentTarget.getBoundingClientRect() }); }}
+                onMouseLeave={scheduleClose}
               >
                 <div className="flex items-baseline justify-between gap-1">
                   <span className="text-[10px] font-semibold text-slate-300">{q.label}</span>
@@ -179,12 +191,14 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
       {hq && (
         <div
           ref={popRef}
-          className="pointer-events-none fixed z-[9999] w-[320px] rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
+          className="fixed z-[9999] w-[320px] rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
           style={{
             top: pos?.top ?? 0,
             left: pos?.left ?? 0,
             visibility: pos ? "visible" : "hidden",
           }}
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
         >
           <div className="mb-2 flex items-start justify-between gap-3 border-b border-[#1c2635] pb-2">
             <div className="min-w-0">
@@ -216,7 +230,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
           <a
             href={`/global/tr/graphic/${hq.symbol}`}
-            className="pointer-events-auto block rounded bg-[#1d4ed8] px-3 py-2 text-center text-[10px] font-semibold text-white transition-colors hover:bg-[#1e40af]"
+            className="block rounded bg-[#1d4ed8] px-3 py-2 text-center text-[10px] font-semibold text-white transition-colors hover:bg-[#1e40af]"
           >
             Detay Grafik
           </a>
