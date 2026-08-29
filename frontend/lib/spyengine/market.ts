@@ -11,7 +11,8 @@
  *      (premarket 04:00 ve afterhours 20:00 ET'ye kadar gerçek veri).
  *   2. `robinhood_spy_bars` (Supabase) — Yahoo'nun HİÇ taşımadığı overnight
  *      (20:00–04:00 ET) penceresi. Kullanıcının kendi makinesindeki poller
- *      yazar; tablo bayatsa (>6 dk) devreye girmez. Bkz. lib/v4/robinhoodBars.ts
+ *      yazar (bkz. app/api/internal/robinhood-spy-sync); tablo yoksa, boşsa
+ *      veya bayatsa (>6 dk) sessizce devre dışı kalır ve saf Yahoo'ya düşeriz.
  *   3. Yahoo v8 chart, OCC opsiyon sembolüyle — 0DTE kontrat primi mumları.
  *
  * Hız/limit dengesi: modül düzeyinde kısa ömürlü bir önbellek var. Sayfa
@@ -22,7 +23,7 @@
 import "server-only";
 import type { Bar } from "./core";
 import { normalizeBars, snapToInterval, dropBadPrints } from "./core";
-import { fetchRobinhoodSpyBars } from "@/lib/v4/robinhoodBars";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 const YF_HEADERS = {
   "User-Agent":
@@ -167,6 +168,49 @@ export function fetchChart(
   );
 }
 
+// ── Overnight köprüsü (Robinhood → Supabase) ──────────────────────
+
+/** Poller ~60-90 sn'de bir yazar; bundan eskisi "bayat" sayılır ve kullanılmaz. */
+const OVERNIGHT_STALE_AFTER_SEC = 6 * 60;
+
+/**
+ * `robinhood_spy_bars` tablosundan overnight barları okur. Bu katman
+ * Robinhood'a HİÇ canlı istek atmaz — OAuth/MFA karmaşıklığı tamamen
+ * kullanıcının kendi makinesindeki poller'da kalır, sunucu tarafı asla
+ * Robinhood kimlik bilgisi görmez.
+ *
+ * Tablo yoksa, boşsa veya son satır bayatsa boş dizi döner: bayat overnight
+ * verisiyle canlı motoru beslemektense Yahoo'ya düşmek daha güvenli.
+ */
+async function fetchOvernightBars(sinceUnixSec: number): Promise<Bar[]> {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("robinhood_spy_bars")
+      .select("time, open, high, low, close, volume")
+      .gte("time", sinceUnixSec)
+      .order("time", { ascending: true })
+      .limit(5000);
+
+    if (error || !data?.length) return [];
+
+    const newest = Number(data[data.length - 1].time);
+    if (Date.now() / 1000 - newest > OVERNIGHT_STALE_AFTER_SEC) return [];
+
+    return data
+      .map((r) => ({
+        time: Number(r.time),
+        open: Number(r.open),
+        high: Number(r.high),
+        low: Number(r.low),
+        close: Number(r.close),
+        volume: Number(r.volume) || 0,
+      }))
+      .filter((b) => Number.isFinite(b.open) && Number.isFinite(b.close));
+  } catch {
+    return [];
+  }
+}
+
 // ── SPY mum paketi ────────────────────────────────────────────────
 
 export interface SpyBundle {
@@ -217,12 +261,10 @@ export async function fetchSpyBundle(): Promise<SpyBundle> {
   let overnightSource: "robinhood" | null = null;
   try {
     const since = Math.floor(Date.now() / 1000) - 3 * 24 * 60 * 60;
-    const rh = await cached(`rh:${Math.floor(Date.now() / TTL.overnight)}`, TTL.overnight, () =>
-      fetchRobinhoodSpyBars(since)
-    );
-    if (rh.fresh && rh.bars.length) {
+    const rh = await cached("overnight", TTL.overnight, () => fetchOvernightBars(since));
+    if (rh.length) {
       const known = new Set(m1.map((b) => b.time));
-      const extra = rh.bars.filter((b) => !known.has(b.time));
+      const extra = rh.filter((b) => !known.has(b.time));
       if (extra.length) {
         m1 = normalizeBars([...m1, ...extra]);
         overnightSource = "robinhood";
