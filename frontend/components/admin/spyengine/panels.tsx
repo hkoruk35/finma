@@ -8,7 +8,7 @@
  * kartta tahmini/son-bilinen değer gerçek veri gibi gösterilmez.
  */
 
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
   EVENT_LABEL, EVENT_STYLE, SETUP_LABEL, TRIGGER_LABEL,
@@ -85,29 +85,55 @@ export interface StripQuote {
 }
 
 export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updatedAt: number | null }) {
-  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
-  const [sparklineData, setSparklineData] = useState<Record<string, SparklinePoint[]>>({});
+  // Şerit kabı overflow-hidden/overflow-x-auto olduğu için popup absolute
+  // konumlandırılırsa kırpılıyor. Bu yüzden popup fixed konumlandırılır ve
+  // hedef hücrenin ekran koordinatından hesaplanır.
+  const [hover, setHover] = useState<{ idx: number; rect: DOMRect } | null>(null);
+  const [chartData, setChartData] = useState<Record<string, MiniBar[]>>({});
+  const popRef = useRef<HTMLDivElement | null>(null);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+
+  const hoverSymbol = hover ? quotes[hover.idx]?.symbol ?? null : null;
 
   useEffect(() => {
-    if (hoverIdx === null) return;
-    const quote = quotes[hoverIdx];
-    if (!quote || sparklineData[quote.symbol]) return;
+    if (!hoverSymbol || chartData[hoverSymbol]) return;
 
     let cancelled = false;
-    const load = async () => {
+    (async () => {
       try {
-        const res = await fetch(`/api/spyengine/v2/ticker-sparkline?symbol=${encodeURIComponent(quote.symbol)}`);
-
+        const res = await fetch(`/api/spyengine/v2/ticker-sparkline?symbol=${encodeURIComponent(hoverSymbol)}`);
         const json = await res.json();
-        if (cancelled || !json.ok) return;
-        setSparklineData((prev) => ({ ...prev, [quote.symbol]: json.bars || [] }));
+        if (cancelled) return;
+        setChartData((prev) => ({ ...prev, [hoverSymbol]: json.ok ? json.bars ?? [] : [] }));
       } catch {
-        // Sparkline hatası önemsiz
+        if (!cancelled) setChartData((prev) => ({ ...prev, [hoverSymbol]: [] }));
       }
-    };
-    load();
+    })();
     return () => { cancelled = true; };
-  }, [hoverIdx, quotes, sparklineData]);
+  }, [hoverSymbol, chartData]);
+
+  // Popup ölçülüp ekran içine sığdırılır — hiçbir kenarı dışarı taşmaz.
+  useLayoutEffect(() => {
+    if (!hover || !popRef.current) { setPos(null); return; }
+    const el = popRef.current;
+    const w = el.offsetWidth;
+    const h = el.offsetHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const M = 8;
+
+    let left = hover.rect.left;
+    if (left + w + M > vw) left = hover.rect.right - w;
+    left = Math.min(Math.max(M, left), Math.max(M, vw - w - M));
+
+    let top = hover.rect.bottom + M;
+    if (top + h + M > vh) top = hover.rect.top - h - M;
+    top = Math.min(Math.max(M, top), Math.max(M, vh - h - M));
+
+    setPos({ top, left });
+  }, [hover, chartData]);
+
+  const hq = hover ? quotes[hover.idx] : null;
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
@@ -125,10 +151,9 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
             return (
               <div
                 key={q.symbol}
-                className="relative bg-[#0f141d] px-2 py-1.5 cursor-pointer hover:bg-[#1c2635] transition-colors group"
-                title={`${q.name} · ${q.symbol}`}
-                onMouseEnter={() => setHoverIdx(idx)}
-                onMouseLeave={() => setHoverIdx(null)}
+                className="bg-[#0f141d] px-2 py-1.5 cursor-pointer transition-colors hover:bg-[#1c2635]"
+                onMouseEnter={(e) => setHover({ idx, rect: e.currentTarget.getBoundingClientRect() })}
+                onMouseLeave={() => setHover(null)}
               >
                 <div className="flex items-baseline justify-between gap-1">
                   <span className="text-[10px] font-semibold text-slate-300">{q.label}</span>
@@ -144,57 +169,59 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                     </div>
                   </>
                 )}
-
-                {/* Hover mini popup — bogastock tarzı */}
-                {hoverIdx === idx && (
-                  <div className="absolute top-0 right-full mr-2 z-[9999] w-80 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
-                    {/* Başlık + fiyat */}
-                    <div className="mb-2 border-b border-[#1c2635] pb-2">
-                      <div className="flex items-start justify-between mb-1">
-                        <div>
-                          <div className="text-[11px] font-semibold text-slate-200">{q.name}</div>
-                          <div className="text-[10px] text-slate-500">{q.symbol}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-[12px] font-bold text-slate-100">{num(q.price, q.price != null && q.price > 1000 ? 0 : 2)}</div>
-                          <div className={`text-[11px] font-semibold ${tone(q.changePct)}`}>
-                            {signed(q.change, 2)} ({signed(q.changePct, 2)}%)
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Mini sparkline grafik */}
-                    {sparklineData[q.symbol] && <Sparkline bars={sparklineData[q.symbol]} width={280} height={100} />}
-
-                    {/* Mini stats grid */}
-                    <div className="grid grid-cols-2 gap-2 mb-3 text-[9px]">
-                      <div>
-                        <div className="text-slate-500">Önceki Kapanış</div>
-                        <div className="text-slate-300 font-mono">{q.prevClose ? num(q.prevClose) : "—"}</div>
-                      </div>
-                      <div>
-                        <div className="text-slate-500">Seans Tipi</div>
-                        <div className="text-slate-300">{q.extended ? "Seans Dışı" : "Düzenli"}</div>
-                      </div>
-                    </div>
-
-                    {/* Detay buton */}
-                    <div className="pt-2 border-t border-[#1c2635]">
-                      <a
-                        href={`/global/tr/graphic/${q.symbol}`}
-                        className="block w-full text-center px-3 py-2 bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-[10px] font-semibold rounded transition-colors z-[9999] relative"
-                      >
-                        Detay Grafik
-                      </a>
-                    </div>
-                  </div>
-                )}
               </div>
             );
           })}
         </div>
       </div>
+
+      {/* Hover popup — şerit kabının dışında, fixed; kırpılmaz */}
+      {hq && (
+        <div
+          ref={popRef}
+          className="pointer-events-none fixed z-[9999] w-[320px] rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
+          style={{
+            top: pos?.top ?? 0,
+            left: pos?.left ?? 0,
+            visibility: pos ? "visible" : "hidden",
+          }}
+        >
+          <div className="mb-2 flex items-start justify-between gap-3 border-b border-[#1c2635] pb-2">
+            <div className="min-w-0">
+              <div className="truncate text-[11px] font-semibold text-slate-200">{hq.name}</div>
+              <div className="text-[10px] text-slate-500">{hq.symbol}</div>
+            </div>
+            <div className="shrink-0 text-right">
+              <div className="font-mono text-[13px] font-bold text-slate-100">
+                {num(hq.price, hq.price != null && hq.price > 1000 ? 0 : 2)}
+              </div>
+              <div className={`font-mono text-[11px] font-semibold ${tone(hq.changePct)}`}>
+                {signed(hq.change, 2)} ({signed(hq.changePct, 2)}%)
+              </div>
+            </div>
+          </div>
+
+          <MiniCandles bars={chartData[hq.symbol]} />
+
+          <div className="mb-3 mt-2 grid grid-cols-2 gap-2 text-[9px]">
+            <div>
+              <div className="text-slate-500">Önceki Kapanış</div>
+              <div className="font-mono text-slate-300">{hq.prevClose != null ? num(hq.prevClose) : "—"}</div>
+            </div>
+            <div>
+              <div className="text-slate-500">Seans Tipi</div>
+              <div className="text-slate-300">{hq.extended ? "Seans Dışı" : "Düzenli"}</div>
+            </div>
+          </div>
+
+          <a
+            href={`/global/tr/graphic/${hq.symbol}`}
+            className="pointer-events-auto block rounded bg-[#1d4ed8] px-3 py-2 text-center text-[10px] font-semibold text-white transition-colors hover:bg-[#1e40af]"
+          >
+            Detay Grafik
+          </a>
+        </div>
+      )}
     </div>
   );
 }
@@ -626,33 +653,80 @@ export function StrategySchema({ state, closedPct }: { state: string; closedPct:
 
 // ── Mini Sparkline Grafik ───────────────────────────────────────
 
-interface SparklinePoint {
-  close: number;
+interface MiniBar {
   time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  ema: number | null;
 }
 
-function Sparkline({ bars, width = 180, height = 40 }: { bars: SparklinePoint[]; width?: number; height?: number }) {
-  if (!bars.length) return <div className="text-[9px] text-slate-600">Grafik yükleniyor...</div>;
+const MINI_W = 296;
+const MINI_H = 118;
 
-  const closes = bars.map((b) => b.close);
-  const min = Math.min(...closes);
-  const max = Math.max(...closes);
+/** Son 20 günlük 1d mum + EMA50. bars undefined = yükleniyor, [] = veri yok. */
+function MiniCandles({ bars }: { bars: MiniBar[] | undefined }) {
+  const box = "flex items-center justify-center rounded border border-[#1c2635] bg-[#0b0f18] text-[9px] text-slate-600";
+
+  if (bars === undefined) {
+    return <div className={box} style={{ width: MINI_W, height: MINI_H }}>Grafik yükleniyor…</div>;
+  }
+  if (!bars.length) {
+    return <div className={box} style={{ width: MINI_W, height: MINI_H }}>Mum verisi yok</div>;
+  }
+
+  const pad = 5;
+  const emas = bars.map((b) => b.ema).filter((v): v is number => v != null);
+  const min = Math.min(...bars.map((b) => b.low), ...emas);
+  const max = Math.max(...bars.map((b) => b.high), ...emas);
   const range = max - min || 1;
+  const innerH = MINI_H - pad * 2;
+  const y = (v: number) => pad + (1 - (v - min) / range) * innerH;
 
-  const points = closes
-    .map((close, i) => {
-      const x = (i / (closes.length - 1 || 1)) * width;
-      const y = height - ((close - min) / range) * height;
-      return `${x},${y}`;
-    })
+  const slot = MINI_W / bars.length;
+  const bw = Math.max(2, slot * 0.62);
+
+  // EMA50 çizgisi — sadece hesaplanabilmiş noktalar
+  const emaPts = bars
+    .map((b, i) => (b.ema == null ? null : `${slot * (i + 0.5)},${y(b.ema)}`))
+    .filter((p): p is string => p != null)
     .join(" ");
 
-  const isUp = closes[closes.length - 1] >= closes[0];
-
   return (
-    <svg width={width} height={height} className="mt-1 mb-2" viewBox={`0 0 ${width} ${height}`}>
-      <polyline points={points} fill="none" stroke={isUp ? "#22c55e" : "#ef4444"} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-    </svg>
+    <div className="rounded border border-[#1c2635] bg-[#0b0f18]">
+      <svg width={MINI_W} height={MINI_H} viewBox={`0 0 ${MINI_W} ${MINI_H}`} className="block">
+        {bars.map((b, i) => {
+          const cx = slot * (i + 0.5);
+          const rise = b.close >= b.open;
+          const color = rise ? "#22c55e" : "#ef4444";
+          const top = y(Math.max(b.open, b.close));
+          const bot = y(Math.min(b.open, b.close));
+          return (
+            <g key={b.time}>
+              <line x1={cx} x2={cx} y1={y(b.high)} y2={y(b.low)} stroke={color} strokeWidth={1} />
+              <rect
+                x={cx - bw / 2}
+                y={top}
+                width={bw}
+                height={Math.max(1, bot - top)}
+                fill={color}
+              />
+            </g>
+          );
+        })}
+        {emaPts && (
+          <polyline points={emaPts} fill="none" stroke="#eab308" strokeWidth={1.4} strokeLinejoin="round" />
+        )}
+      </svg>
+      <div className="flex items-center justify-between border-t border-[#1c2635] px-2 py-1 text-[8px] text-slate-500">
+        <span>son {bars.length} gün · 1d</span>
+        <span className="flex items-center gap-1">
+          <span className="inline-block h-[2px] w-3 bg-[#eab308]" />
+          EMA50 {emas.length ? num(emas[emas.length - 1]) : "—"}
+        </span>
+      </div>
+    </div>
   );
 }
 

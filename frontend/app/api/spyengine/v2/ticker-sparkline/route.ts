@@ -1,15 +1,22 @@
 /**
- * SPY Engine V2 — Public ticker sparkline (son 20 mum)
- * Admin olmayan kullanıcılar da sparkline görebilsin diye public
+ * SPY Engine V2 — Public ticker mini grafik verisi.
+ * Son 20 günlük 1d mum (OHLC) + tam seriden hesaplanan EMA50 değeri.
+ *
+ * EMA50 doğru çıksın diye 3 aylık seri çekilir, EMA tüm seri üzerinde
+ * hesaplanır, sonra son 20 mum dilimlenir. 50 mumdan az veri varsa
+ * ema alanı null döner — uydurma değer üretilmez.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { fetchChart } from "@/lib/spyengine/market";
+import { ema } from "@/lib/spyengine/core";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const maxDuration = 15;
+
+const WINDOW = 20;
 
 export async function GET(req: NextRequest) {
   const symbol = req.nextUrl.searchParams.get("symbol");
@@ -18,22 +25,30 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const bars = await fetchChart(symbol, "1d", "3mo", true, 600000);
+    const chart = await fetchChart(symbol, "1d", "6mo", false, 600000);
 
-    if (bars.error) {
-      return NextResponse.json(
-        { ok: false, error: bars.error },
-        { status: 500 }
-      );
+    if (chart.error) {
+      return NextResponse.json({ ok: false, error: chart.error }, { status: 502 });
+    }
+    if (!chart.bars.length) {
+      return NextResponse.json({ ok: false, error: "mum verisi yok" }, { status: 404 });
     }
 
-    const last20 = bars.bars.slice(-20).map((b) => ({
-      close: b.close,
+    const closes = chart.bars.map((b) => b.close);
+    const ema50 = ema(closes, 50);
+    const start = Math.max(0, chart.bars.length - WINDOW);
+
+    const bars = chart.bars.slice(start).map((b, i) => ({
       time: b.time,
+      open: b.open,
+      high: b.high,
+      low: b.low,
+      close: b.close,
+      ema: ema50[start + i] ?? null,
     }));
 
     return NextResponse.json(
-      { ok: true, bars: last20, low: Math.min(...last20.map(b => b.close)), high: Math.max(...last20.map(b => b.close)) },
+      { ok: true, symbol, bars },
       { headers: { "Cache-Control": "public, max-age=300" } }
     );
   } catch (e) {
