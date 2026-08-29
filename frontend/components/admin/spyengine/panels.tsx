@@ -158,7 +158,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                           <div className="text-[10px] text-slate-500">{q.symbol}</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-[12px] font-bold text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</div>
+                          <div className="text-[12px] font-bold text-slate-100">{num(q.price, q.price != null && q.price > 1000 ? 0 : 2)}</div>
                           <div className={`text-[11px] font-semibold ${tone(q.changePct)}`}>
                             {signed(q.change, 2)} ({signed(q.changePct, 2)}%)
                           </div>
