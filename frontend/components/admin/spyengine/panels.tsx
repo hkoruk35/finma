@@ -183,11 +183,10 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
                     {/* Detay buton */}
                     <a
-                      href={q.symbol === "SPY" ? "/admin/spyengine/v1" : `https://finance.yahoo.com/quote/${q.symbol}`}
-                      target={q.symbol === "SPY" ? "_self" : "_blank"}
+                      href={`/global/tr/graphic/${q.symbol}`}
                       className="block w-full text-center px-2 py-1.5 bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-[10px] font-semibold rounded transition-colors"
                     >
-                      {q.symbol === "SPY" ? "SPY Engine" : "Detay Grafik"}
+                      Detay Grafik
                     </a>
                   </div>
                 )}
