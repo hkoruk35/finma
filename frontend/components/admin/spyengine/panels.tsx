@@ -147,7 +147,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
                 {/* Hover mini popup — bogastock tarzı */}
                 {hoverIdx === idx && (
-                  <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
+                  <div className="fixed top-20 left-20 z-50 w-64 bg-[#0a0e17] border border-[#2d3748] rounded-lg shadow-2xl p-3">
                     {/* Başlık + fiyat */}
                     <div className="mb-2 border-b border-[#1c2635] pb-2">
                       <div className="flex items-start justify-between mb-1">
