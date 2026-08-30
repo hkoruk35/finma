@@ -51,7 +51,14 @@ export interface TrafficSession {
 }
 
 const NON_PAGE_PATHS = new Set(["/robots.txt", "/sitemap.xml", "/manifest.json", "/favicon.ico"]);
-const STATIC_FILE_EXT = /\.(png|jpe?g|gif|svg|ico|webp|avif|css|js|mjs|map|woff2?|ttf|eot|xml|txt|json|webmanifest|pdf|mp4|webm)$/i;
+
+// Regex KAYNAK STRING'i olarak tutulur (RegExp literal degil): admin dashboard
+// ayni eleme kuralini PostgREST tarafinda da (`landing_pathname=not.imatch.<src>`)
+// uygulayabilsin diye — boylece "hangi istek sayfa sayilir" tanimi tek yerde
+// kalir, JS tarafi ile veritabani tarafi birbirinden SAPMAZ.
+export const STATIC_ASSET_PATTERN_SOURCE =
+  String.raw`\.(png|jpe?g|gif|svg|ico|webp|avif|css|js|mjs|map|woff2?|ttf|eot|xml|txt|json|webmanifest|pdf|mp4|webm)$`;
+const STATIC_FILE_EXT = new RegExp(STATIC_ASSET_PATTERN_SOURCE, "i");
 
 // proxy.ts landing_request'i SADECE gercek sayfa navigasyonlarinda loglamali —
 // /logo/*.png, /robots.txt gibi statik dosya istekleri page-view sayisini
@@ -80,25 +87,97 @@ export function isPrefetchOrDataRequest(headers: { get(name: string): string | n
 // Ham loglar SILINMEZ (proxy.ts hala normal sekilde kaydeder); bu fonksiyon
 // SADECE dashboard'un funnel/source/visitor sayimlarindan hariç tutmak icin
 // kullanilir (bkz. admin route).
-const SCANNER_PROBE_PATTERNS = [
-  /^\/wp-admin/i,
-  /^\/wp-login\.php/i,
-  /^\/wp-content/i,
-  /^\/wp-includes/i,
-  /^\/xmlrpc\.php/i,
-  /^\/\.env/i,
-  /^\/\.git/i,
-  /^\/phpmyadmin/i,
-  /^\/administrator/i,
-  /^\/wordpress/i,
-  /^\/\.aws/i,
-  /^\/config\.php/i,
-  /^\/vendor\/phpunit/i,
-  /^\/cgi-bin/i,
+export const SCANNER_PROBE_PATTERN_SOURCES = [
+  "^/wp-admin",
+  String.raw`^/wp-login\.php`,
+  "^/wp-content",
+  "^/wp-includes",
+  String.raw`^/xmlrpc\.php`,
+  String.raw`^/\.env`,
+  String.raw`^/\.git`,
+  "^/phpmyadmin",
+  "^/administrator",
+  "^/wordpress",
+  String.raw`^/\.aws`,
+  String.raw`^/config\.php`,
+  "^/vendor/phpunit",
+  "^/cgi-bin",
 ];
+
+const SCANNER_PROBE_PATTERNS = SCANNER_PROBE_PATTERN_SOURCES.map((src) => new RegExp(src, "i"));
 
 export function isScannerProbePath(pathname: string): boolean {
   return SCANNER_PROBE_PATTERNS.some((re) => re.test(pathname));
+}
+
+// Dashboard'un funnel/rapor sayimlarindan cikardigi TUM path desenleri, tek
+// listede. NON_PAGE_PATHS'in dort uyesi (/robots.txt, /sitemap.xml,
+// /manifest.json, /favicon.ico) zaten STATIC_ASSET_PATTERN_SOURCE'a takildigi
+// icin ayrica listelenmez — NON_PAGE_PATHS'e uzantisiz bir path eklenirse
+// buraya da eklenmelidir.
+export const EXCLUDED_PATH_PATTERN_SOURCES = [STATIC_ASSET_PATTERN_SOURCE, ...SCANNER_PROBE_PATTERN_SOURCES];
+
+// Ayni elemenin PostgREST sorgu-string karsiligi. count(*) sorgularinda
+// (satirlari cekmeden) kullanilir — bkz. admin traffic-audit route.
+export function excludedPathQueryFilter(column = "landing_pathname"): string {
+  return EXCLUDED_PATH_PATTERN_SOURCES.map((src) => `&${column}=not.imatch.${encodeURIComponent(src)}`).join("");
+}
+
+// ── Timeframe ──────────────────────────────────────────────────────────────
+export const TIMEFRAMES = ["24h", "7d", "30d", "all"] as const;
+export type Timeframe = (typeof TIMEFRAMES)[number];
+
+const TIMEFRAME_HOURS: Record<Timeframe, number | null> = { "24h": 24, "7d": 24 * 7, "30d": 24 * 30, all: null };
+
+export function parseTimeframe(raw: string | null | undefined): Timeframe {
+  return (TIMEFRAMES as readonly string[]).includes(raw ?? "") ? (raw as Timeframe) : "24h";
+}
+
+export function timeframeHours(tf: Timeframe): number | null {
+  return TIMEFRAME_HOURS[tf];
+}
+
+// Zaman serisi kova boyutu: 24 saatlik rapor saatlik, digerleri gunluk kirilim.
+export function timeframeBucketMs(tf: Timeframe): number {
+  return tf === "24h" ? 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
+}
+
+// ── Bot siniflandirmasi (SADECE dashboard raporlamasi icin) ────────────────
+// DIKKAT: botUserAgents.ts'teki ALLOWED_CRAWLER_USER_AGENTS listesi robots.ts
+// izin listesini ve proxy.ts'in olcumlu giris kapisini besler — oraya bir UA
+// eklemek o crawler'in site davranisini degistirir. Bu liste ise SADECE
+// "gelen trafigin ne kadari bot" raporunu uretir, hicbir erisim karari vermez;
+// bu yuzden ayri ve cok daha genis tutulur.
+const REPORTING_BOT_UA_PATTERN =
+  /(bot|crawler|spider|crawl|slurp|scrap(er|y)|feedfetcher|archiver|archive\.org|monitor|uptime|preview|headless|phantomjs|selenium|playwright|puppeteer|python|curl\/|wget|java\/|go-http|okhttp|axios|node-fetch|aiohttp|httpx|libwww|lynx|zgrab|masscan|nmap|censys|expanse|internet-measurement|facebookexternalhit|whatsapp|telegram|discord|slackbot|embedly|semrush|ahrefs|mj12|dotbot|dataprovider|netcraft)/i;
+
+// Bozuk "(HTML, like Gecko" imzasi: gercek tarayicilar HER ZAMAN
+// "(KHTML, like Gecko" gonderir — bu tipo, UA'sini elle uyduran tarayici
+// taklidi istemcilerin guvenilir bir isaretidir.
+const MALFORMED_GECKO_TOKEN = /\(HTML, like Gecko/i;
+
+export function isLikelyBotUserAgent(userAgent: string | null | undefined): boolean {
+  if (!userAgent || userAgent.trim() === "" || userAgent === "Unknown") return true;
+  return REPORTING_BOT_UA_PATTERN.test(userAgent) || MALFORMED_GECKO_TOKEN.test(userAgent);
+}
+
+export type TrafficAudience = "bot" | "verified_human" | "unverified";
+
+// Bir session'in kitle sinifi:
+//  - bot           → User-Agent kendini bot olarak tanitiyor (veya bos/bozuk)
+//  - verified_human→ tarayicida JS calisti (page_loaded beacon'i geldi)
+//  - unverified    → UA insan gorunuyor ama JS hic calismadi (headless scraper
+//                    ya da sayfa acilmadan terk edilmis istek). "Insan" olarak
+//                    SAYILMAZ, ayri raporlanir.
+export function sessionAudience(
+  s: Pick<TrafficSession, "suspected_bot_ua" | "user_agent" | "page_loaded">
+): TrafficAudience {
+  // Bot kontrolu ONCE gelir: Googlebot/Bingbot gibi renderlayan crawler'lar
+  // page_loaded beacon'ini da gonderebilir — bunlari "dogrulanmis insan"
+  // saymak insan trafigi rakamini sisirir.
+  if (s.suspected_bot_ua || isLikelyBotUserAgent(s.user_agent)) return "bot";
+  if (s.page_loaded) return "verified_human";
+  return "unverified";
 }
 
 export function detectDevice(ua: string): string {
