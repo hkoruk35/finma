@@ -1,8 +1,8 @@
 {
   "date": "2026-08-31",
-  "generated_at": "2026-08-31T09:05:18.994493-04:00",
+  "generated_at": "2026-08-31T14:04:00.646995-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,12 +21,13 @@
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 5,
       "tickers": [
         "GENI",
         "BOX",
         "GIS",
-        "FDS"
+        "FDS",
+        "CNH"
       ]
     },
     "value": {
@@ -65,25 +66,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 765.82,
-      "change_pct": -0.46
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 714.52,
-      "change_pct": -0.27
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 531.76,
-      "change_pct": -0.62
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.17,
-      "change_pct": 5.13
-    },
-    "RUSSELL2000": {
-      "value": 293.23,
-      "change_pct": -0.85
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-31T15:00:14.905734-04:00"
+  }
 }
