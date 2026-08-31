@@ -48,8 +48,24 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const maxDuration = 30;
 
-/** Aynı seansta prim serisi çekilecek azami pozisyon sayısı (Yahoo yükünü sınırlar) */
-const MAX_TRACKED_POSITIONS = 8;
+/**
+ * Aynı seansta prim serisi çekilecek azami aday sayısı. V3'te giriş artık
+ * 1m seri tabanlı (V2'nin 5m-kapı sınırlaması yok) — tam bir RTH günü, her
+ * pozisyon kapanışının ardından bir düzeltme mumu beklense bile 8'den çok
+ * daha fazla Kontrat A/B tetiklenebilir. 8 ile sınırlı kalınsaydı sabahki
+ * sinyaller `.slice(-N)` yüzünden öğleden sonra sessizce ekrandan düşerdi.
+ */
+const MAX_TRACKED_POSITIONS = 40;
+
+/**
+ * Kapanmış bir pozisyonun sonucu ASLA değişmez (deterministik, non-repainting).
+ * Bu önbellek olmadan MAX_TRACKED_POSITIONS=40 ile her 2 sn'lik yoklamada
+ * 40 ayrı opsiyon kontratının prim serisi yeniden çekilirdi — çoğu saatler
+ * önce kapanmış, sonucu hiç değişmeyecek pozisyonlar için. Süreç sıcak
+ * kaldığı sürece (bkz. lib/spyengine/market.ts'teki aynı desendeki TTL
+ * önbelleği) kapanmış pozisyonlar bir daha hiç Yahoo'ya sorulmaz.
+ */
+const resolvedPositionCache = new Map<string, PositionState>();
 
 function spotStats(sessionBars: Bar[], date: string) {
   const rth = sessionBars.filter(isRthBar);
@@ -144,13 +160,18 @@ export async function GET(req: NextRequest) {
 
     // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
     const tracked = gen.candidates.slice(-MAX_TRACKED_POSITIONS);
+    const candKey = (c: { time: number; side: string; contractType: string }) =>
+      `${session.date}:${c.time}:${c.side}:${c.contractType}`;
     const positions: PositionState[] = await Promise.all(
       tracked.map(async (c) => {
+        const cached = resolvedPositionCache.get(candKey(c));
+        if (cached) return cached;
+
         const isCall = c.side === "LONG";
         const strike = atmStrike(c.spot);
         const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
         const series = await fetchOptionSeries(contract);
-        return runLifecycle({
+        const pos = runLifecycle({
           candidate: c,
           premiumBars: series.bars,
           contract: series.bars.length ? contract : null,
@@ -160,12 +181,19 @@ export async function GET(req: NextRequest) {
           nowSec: evalNow,
           livePremium: series.livePremium,
         });
+        if (pos.status === "CLOSED") {
+          if (resolvedPositionCache.size > 2000) resolvedPositionCache.clear();
+          resolvedPositionCache.set(candKey(c), pos);
+        }
+        return pos;
       })
     );
 
-    // Aynı anda tek pozisyon kuralı
-    const accepted = new Set(filterOverlapping(tracked, positions).map((c) => `${c.time}:${c.side}`));
-    const activePositions = positions.filter((p) => accepted.has(`${p.entryTime}:${p.side}`));
+    // Aynı anda tek pozisyon + talimat §5 yeniden giriş (düzeltme mumu) kuralı
+    const accepted = new Set(
+      filterOverlapping(tracked, positions, sessionM1).map((c) => `${c.time}:${c.side}:${c.contractType}`)
+    );
+    const activePositions = positions.filter((p) => accepted.has(`${p.entryTime}:${p.side}:${p.contractType}`));
     const openPosition = activePositions.find((p) => p.status !== "CLOSED") ?? null;
 
     // Çıkış olayları prim üzerinden tetiklenir; grafikte doğru yükseklikte

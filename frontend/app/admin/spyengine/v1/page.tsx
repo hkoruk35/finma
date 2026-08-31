@@ -29,17 +29,19 @@ import {
   fromCompact, nyClock, bucketAggregate, bollinger, rsi, macd, ema, lastNum,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
-import type { EngineEvent, PositionState, SetupKind, TriggerKind, Direction } from "@/lib/spyengine/strategy";
+import type { EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction } from "@/lib/spyengine/strategy";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
 
 interface EngineRead {
   m15Direction: Direction; m15Note: string;
-  m5Setup: SetupKind; m5Note: string;
-  m1Trigger: TriggerKind; m1Note: string;
+  m5Rsi: number | null; m5RsiDirection: Direction; m5Note: string;
+  m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
   action: "LONG" | "SHORT" | "BEKLE";
-  state: "WATCHING" | "ARMED" | "TRIGGERED" | "IN_POSITION";
+  contractType: ContractType | null;
+  state: "WATCHING" | "ARMED" | "TRIGGERED";
   confidence: number;
+  confidenceParts: ConfidencePart[];
   reasoning: string;
 }
 
@@ -322,9 +324,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#1c2635] pb-3">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V2</h1>
+            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3</h1>
             <p className="text-[10px] text-slate-500">
-              5m kurulum → 1m tetik · 0DTE pozisyon yönetimi · non-repainting
+              1m ardışık mum serisi → Kontrat A/B · 0DTE pozisyon yönetimi · non-repainting
             </p>
           </div>
 
@@ -503,6 +505,14 @@ export default function SpyEngineCommandCenter() {
                   >
                     ⟳ TAKİP
                   </button>
+                  {manualModeSince != null && nowSec > 0 && (
+                    <span
+                      className="rounded bg-amber-500/15 px-1.5 py-1 text-[10px] text-amber-300"
+                      title="Grafiği kaydırdın/yakınlaştırdın — 30 sn dokunmazsan otomatik takibe döner"
+                    >
+                      manuel inceleme · {Math.max(0, 30 - (nowSec - manualModeSince))}sn
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={toggleFullscreen}
@@ -541,13 +551,13 @@ export default function SpyEngineCommandCenter() {
             <div className="flex flex-col gap-3">
               {data && (
                 <LayerTable
-                  m15={data.engine.m15Direction} m15Note={data.engine.m15Note}
-                  m5={data.engine.m5Setup} m5Note={data.engine.m5Note}
-                  m1={data.engine.m1Trigger} m1Note={data.engine.m1Note}
-                  action={data.engine.action} state={data.engine.state} confidence={data.engine.confidence}
+                  m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
+                  m1StreakDir={data.engine.m1StreakDir} m1StreakLen={data.engine.m1StreakLen} m1Note={data.engine.m1Note}
+                  action={data.engine.action} contractType={data.engine.contractType}
+                  state={data.engine.state} confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
                 />
               )}
-              <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
+              <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} nowSec={nowSec} />
 
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
@@ -576,7 +586,7 @@ export default function SpyEngineCommandCenter() {
               )
             }
           >
-            <StrategySchema state={data?.engine.state ?? "WATCHING"} closedPct={openPosition?.closedPct ?? null} />
+            <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
 
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
@@ -587,8 +597,9 @@ export default function SpyEngineCommandCenter() {
               </div>
               <div className="mt-2 flex flex-col gap-1 text-[10px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
-                <div>· 15m yön yalnızca bağlam/güven skoru içindir — girişi tek başına engellemez veya tetiklemez.</div>
-                <div>· Stop/hedef/trailing seviyeleri GERÇEK 0DTE opsiyon primi üzerinden hesaplanır; prim verisi gelmezse seviye üretilmez.</div>
+                <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
+                <div>· Stop/hedef seviyeleri GERÇEK 0DTE opsiyon primi üzerinden hesaplanır; prim verisi gelmezse seviye üretilmez.</div>
+                <div>· Kontrat A: −%30 stop / +%60 hedef. Kontrat B: −%40 stop / +%100 hedef. Her ikisi de en fazla 45 dk taşınır, tam giriş/tam çıkış.</div>
               </div>
             </Panel>
 

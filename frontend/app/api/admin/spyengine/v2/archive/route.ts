@@ -27,6 +27,7 @@ const MAX_SESSIONS = 90;
 interface ArchivedTrade {
   id: string;
   side: "LONG" | "SHORT";
+  contractType: "A" | "B";
   entryTime: number;
   entrySpot: number;
   contract: string | null;
@@ -34,11 +35,8 @@ interface ArchivedTrade {
   entryPremium: number | null;
   stopLevel: number | null;
   targetLevel: number | null;
-  peakPremium: number | null;
-  trailLevel: number | null;
   exitTime: number | null;
   exitReason: string | null;
-  closedPct: number;
   status: string;
   realizedPnl: number;
   premiumDataMissing: boolean;

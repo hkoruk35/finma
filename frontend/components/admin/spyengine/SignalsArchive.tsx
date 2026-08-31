@@ -19,6 +19,7 @@ import { Panel, SURFACE, num, signed, tone } from "./panels";
 interface ArchiveTrade {
   id: string;
   side: "LONG" | "SHORT";
+  contractType: "A" | "B";
   entryTime: number;
   entrySpot: number;
   contract: string | null;
@@ -26,7 +27,6 @@ interface ArchiveTrade {
   entryPremium: number | null;
   exitTime: number | null;
   exitReason: string | null;
-  closedPct: number;
   status: string;
   realizedPnl: number;
   premiumDataMissing: boolean;
@@ -44,7 +44,8 @@ interface ArchiveSession {
 
 const REASON_LABEL: Record<string, string> = {
   STOP: "Stop",
-  TRAIL_EXIT: "Trailing",
+  TARGET: "Hedef",
+  TIME_EXIT: "Süre Doldu",
   EOD_EXIT: "Gün Sonu",
 };
 
@@ -52,6 +53,7 @@ function toArchiveTrade(p: PositionState) {
   return {
     id: p.id,
     side: p.side,
+    contractType: p.contractType,
     entryTime: p.entryTime,
     entrySpot: p.entrySpot,
     contract: p.contract,
@@ -59,11 +61,8 @@ function toArchiveTrade(p: PositionState) {
     entryPremium: p.entryPremium,
     stopLevel: p.stopLevel,
     targetLevel: p.targetLevel,
-    peakPremium: p.peakPremium,
-    trailLevel: p.trailLevel,
     exitTime: p.exitTime,
     exitReason: p.exitReason,
-    closedPct: p.closedPct,
     status: p.status,
     realizedPnl: p.realizedPnl,
     premiumDataMissing: p.premiumDataMissing,
@@ -216,7 +215,10 @@ export default function SignalsArchive({ positions, sessionDate }: {
                           {p.side === "LONG" ? "▲ LONG" : "▼ SHORT"}
                         </span>
                       </td>
-                      <td className="py-1.5 pr-2 text-[10px] text-slate-500">{p.contract ?? "prim yok"}</td>
+                      <td className="py-1.5 pr-2 text-[10px] text-slate-500">
+                        <span className={p.contractType === "A" ? "text-[#38bdf8]" : "text-[#a855f7]"}>{p.contractType}</span>
+                        {" · "}{p.contract ?? "prim yok"}
+                      </td>
                       <td className="py-1.5 pr-2 text-slate-300">{num(p.entrySpot)}</td>
                       <td className="py-1.5 pr-2 text-slate-300">{p.entryPremium == null ? "—" : num(p.entryPremium)}</td>
                       <td className="py-1.5 pr-2 text-[#ef4444]">{p.stopLevel == null ? "—" : num(p.stopLevel)}</td>
@@ -226,8 +228,6 @@ export default function SignalsArchive({ positions, sessionDate }: {
                           <span className="text-slate-400">
                             {REASON_LABEL[p.exitReason ?? ""] ?? "Kapandı"} · {p.exitTime ? nyClock(p.exitTime) : "—"}
                           </span>
-                        ) : p.status === "HALF" ? (
-                          <span className="text-[#38bdf8]">%50 kapalı</span>
                         ) : (
                           <span className="text-[#22c55e]">Açık</span>
                         )}
@@ -250,15 +250,6 @@ export default function SignalsArchive({ positions, sessionDate }: {
                                 </div>
                               );
                             })}
-                            {p.trailPath.length > 0 && (
-                              <div className="mt-1 flex flex-wrap gap-1">
-                                {p.trailPath.map((s, i) => (
-                                  <span key={i} className="rounded bg-[#1c2635] px-1 py-0.5 text-[9px] text-[#a855f7]">
-                                    {nyClock(s.time)} → {num(s.level)}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
                           </div>
                         </td>
                       </tr>
