@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T14:04:02.176096-04:00",
+  "generated_at": "2026-08-31T17:04:07.451842-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -8,28 +8,46 @@
       "score": 42.5
     },
     {
-      "ticker": "F",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-31",
-      "score": 45.5
-    },
-    {
       "ticker": "EQNR",
       "sector": "Energy",
       "date_added": "2026-08-31",
       "score": 43.0
     },
     {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-31",
-      "score": 40.5
-    },
-    {
       "ticker": "QCOM",
       "sector": "Technology",
       "date_added": "2026-08-31",
       "score": 38.2
+    },
+    {
+      "ticker": "FIGS",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-31",
+      "score": 46.0
+    },
+    {
+      "ticker": "CMG",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-31",
+      "score": 44.5
+    },
+    {
+      "ticker": "OII",
+      "sector": "Energy",
+      "date_added": "2026-08-31",
+      "score": 42.5
+    },
+    {
+      "ticker": "ULTA",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-31",
+      "score": 38.0
+    },
+    {
+      "ticker": "DAR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-31",
+      "score": 37.5
     }
   ]
 }
