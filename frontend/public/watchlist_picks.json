@@ -1,41 +1,29 @@
 {
-  "generated_at": "2026-08-28T17:05:42.932521-04:00",
+  "generated_at": "2026-08-31T09:05:19.117656-04:00",
   "picks": [
     {
-      "ticker": "NOV",
-      "sector": "Energy",
-      "date_added": "2026-08-26",
+      "ticker": "CLMT",
+      "sector": "Basic Materials",
+      "date_added": "2026-08-31",
       "score": 42.5
     },
     {
-      "ticker": "ADM",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-28",
-      "score": 44.0
+      "ticker": "SE",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-08-31",
+      "score": 42.5
     },
     {
-      "ticker": "SM",
+      "ticker": "BKR",
       "sector": "Energy",
-      "date_added": "2026-08-28",
-      "score": 43.5
+      "date_added": "2026-08-31",
+      "score": 42.5
     },
     {
-      "ticker": "TGTX",
-      "sector": "Healthcare",
-      "date_added": "2026-08-28",
-      "score": 43.0
-    },
-    {
-      "ticker": "CRSP",
-      "sector": "Healthcare",
-      "date_added": "2026-08-28",
-      "score": 40.0
-    },
-    {
-      "ticker": "FROG",
-      "sector": "Technology",
-      "date_added": "2026-08-28",
-      "score": 37.0
+      "ticker": "DAR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-08-31",
+      "score": 37.5
     }
   ]
 }
