@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T09:05:19.117656-04:00",
+  "generated_at": "2026-08-31T14:04:02.176096-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -8,22 +8,28 @@
       "score": 42.5
     },
     {
-      "ticker": "SE",
+      "ticker": "F",
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-31",
-      "score": 42.5
+      "score": 45.5
     },
     {
-      "ticker": "BKR",
+      "ticker": "EQNR",
       "sector": "Energy",
       "date_added": "2026-08-31",
-      "score": 42.5
+      "score": 43.0
     },
     {
-      "ticker": "DAR",
-      "sector": "Consumer Defensive",
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-08-31",
-      "score": 37.5
+      "score": 40.5
+    },
+    {
+      "ticker": "QCOM",
+      "sector": "Technology",
+      "date_added": "2026-08-31",
+      "score": 38.2
     }
   ]
 }
