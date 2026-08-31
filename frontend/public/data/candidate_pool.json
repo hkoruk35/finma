@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AAPL",
@@ -153,7 +153,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GENI",
@@ -299,7 +299,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BOX",
@@ -445,7 +445,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GEO",
@@ -590,7 +590,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "STT",
@@ -736,7 +736,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GIS",
@@ -881,7 +881,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CDW",
@@ -1027,7 +1027,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AG",
@@ -1171,7 +1171,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FDS",
@@ -1315,7 +1315,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-08-31 10:00",
+      "last_checked": "2026-08-31 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PARR",
