@@ -1,39 +1,32 @@
 {
-  "date": "2026-08-28",
-  "generated_at": "2026-08-28T17:05:41.857832-04:00",
+  "date": "2026-08-31",
+  "generated_at": "2026-08-31T09:05:18.994493-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 45,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "JKHY",
-        "SKY",
-        "WAT",
-        "AXTA",
-        "ARES",
-        "P",
-        "TRU",
-        "INFQ",
-        "ROP",
-        "CCJ"
+        "AAPL",
+        "GENI",
+        "BOX",
+        "GEO",
+        "STT",
+        "GIS",
+        "CDW",
+        "AG",
+        "FDS",
+        "PARR"
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 4,
       "tickers": [
-        "P",
-        "INFQ",
-        "ECO",
-        "A",
-        "SCCO",
-        "BGC",
-        "OMF",
-        "WDAY",
-        "SM",
-        "AFRM",
-        "WFRD"
+        "GENI",
+        "BOX",
+        "GIS",
+        "FDS"
       ]
     },
     "value": {
@@ -55,42 +48,42 @@
   },
   "top_3_overall": [
     {
-      "ticker": "JKHY",
-      "score": 59.0,
+      "ticker": "AAPL",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SKY",
-      "score": 49.5,
+      "ticker": "GENI",
+      "score": 53.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "WAT",
-      "score": 49.0,
+      "ticker": "BOX",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 766.1,
-      "change_pct": -0.42
+      "value": 766.01,
+      "change_pct": -0.43
     },
     "NASDAQ": {
-      "value": 715.065,
-      "change_pct": -0.19
+      "value": 714.63,
+      "change_pct": -0.25
     },
     "DOW": {
-      "value": 531.64,
-      "change_pct": -0.64
+      "value": 531.84,
+      "change_pct": -0.6
     },
     "VIX": {
-      "value": 15.42,
-      "change_pct": 6.86
+      "value": 15.24,
+      "change_pct": 5.61
     },
     "RUSSELL2000": {
-      "value": 293.375,
-      "change_pct": -0.8
+      "value": 293.41,
+      "change_pct": -0.79
     }
   },
-  "price_updated_at": "2026-08-31T10:00:16.703169-04:00"
+  "price_updated_at": "2026-08-31T11:00:16.649694-04:00"
 }
