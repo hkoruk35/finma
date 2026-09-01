@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T14:09:31.856344-04:00",
+  "generated_at": "2026-09-01T17:05:06.405207-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -38,22 +38,10 @@
       "score": 43.5
     },
     {
-      "ticker": "DHT",
-      "sector": "Energy",
-      "date_added": "2026-09-01",
-      "score": 43.0
-    },
-    {
       "ticker": "XP",
       "sector": "Financial Services",
       "date_added": "2026-09-01",
       "score": 42.5
-    },
-    {
-      "ticker": "PARR",
-      "sector": "Energy",
-      "date_added": "2026-09-01",
-      "score": 40.5
     },
     {
       "ticker": "MTCH",
@@ -68,28 +56,28 @@
       "score": 38.5
     },
     {
-      "ticker": "TRI",
-      "sector": "Industrials",
+      "ticker": "CNC",
+      "sector": "Healthcare",
       "date_added": "2026-09-01",
-      "score": 38.0
+      "score": 37.0
     },
     {
-      "ticker": "DDS",
+      "ticker": "BBY",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-01",
       "score": 36.0
     },
     {
-      "ticker": "MCO",
-      "sector": "Financial Services",
-      "date_added": "2026-09-01",
-      "score": 35.5
-    },
-    {
-      "ticker": "CRWD",
+      "ticker": "HPQ",
       "sector": "Technology",
       "date_added": "2026-09-01",
-      "score": 30.0
+      "score": 33.5
+    },
+    {
+      "ticker": "DLTR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-09-01",
+      "score": 33.5
     }
   ]
 }
