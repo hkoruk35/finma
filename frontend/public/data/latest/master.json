@@ -1,8 +1,8 @@
 {
   "date": "2026-08-31",
-  "generated_at": "2026-08-31T14:04:00.646995-04:00",
+  "generated_at": "2026-08-31T17:04:06.386274-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 25,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,13 +21,16 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 8,
       "tickers": [
         "GENI",
         "BOX",
-        "GIS",
+        "CDW",
         "FDS",
-        "CNH"
+        "CNH",
+        "SSRM",
+        "AVAH",
+        "DE"
       ]
     },
     "value": {
@@ -50,7 +53,7 @@
   "top_3_overall": [
     {
       "ticker": "AAPL",
-      "score": 54.0,
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -60,26 +63,31 @@
     },
     {
       "ticker": "BOX",
-      "score": 53.0,
+      "score": 60.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 761.79,
+      "change_pct": -0.69
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 707.03,
+      "change_pct": -1.36
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 528.93,
+      "change_pct": -0.5
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.82,
+      "change_pct": 6.03
+    },
+    "RUSSELL2000": {
+      "value": 291.28,
+      "change_pct": -0.9
     }
-  }
+  },
+  "price_updated_at": "2026-09-01T10:00:35.678096-04:00"
 }
