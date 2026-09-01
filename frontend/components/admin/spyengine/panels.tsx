@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SPY Engine V2 — kumanda merkezi panelleri.
+ * SPY Engine V3.1 — kumanda merkezi panelleri.
  * Ticker şeridi, bilgi kartları, pozisyon kutusu ve strateji şeması.
  *
  * Ortak kural: bir değer null ise "—" veya "veri yok" yazılır; hiçbir
@@ -11,9 +11,10 @@
 import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
-  EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE, FORCE_EXIT_MINUTES,
+  EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
+  EXIT_REVERSAL_BARS, ENTRY_STREAK_A,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
-  type ContractType, type ConfidencePart,
+  type ContractType, type ConfidencePart, type EngineState,
 } from "@/lib/spyengine/strategy";
 
 // ── Ortak küçük parçalar ──────────────────────────────────────────
@@ -396,36 +397,81 @@ function ConfidenceBreakdown({ parts, total }: { parts: ConfidencePart[]; total:
   );
 }
 
-export function LayerTable({ m5Rsi, m5RsiDirection, m5Note, m1StreakDir, m1StreakLen, m1Note, action, contractType, state, confidence, confidenceParts }: {
+/** Durumun görsel kimliği — teknik kod yerine insan diliyle */
+const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string; icon: string }> = {
+  WATCHING:    { dot: "bg-slate-500",  ring: "border-slate-600/40 bg-slate-700/25",   text: "text-slate-300",  icon: "👁" },
+  ARMED:       { dot: "bg-amber-400",  ring: "border-amber-500/30 bg-amber-500/10",   text: "text-amber-300",  icon: "⏳" },
+  TRIGGERED:   { dot: "bg-green-400",  ring: "border-green-500/35 bg-green-500/15",   text: "text-green-300",  icon: "🎯" },
+  IN_POSITION: { dot: "bg-sky-400",    ring: "border-sky-500/35 bg-sky-500/15",       text: "text-sky-300",    icon: "📈" },
+};
+
+export function LayerTable({
+  m5Rsi, m5RsiDirection, m5Note, m1StreakDir, m1StreakLen, m1Note,
+  action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
+}: {
   m5Rsi: number | null; m5RsiDirection: Direction; m5Note: string;
   m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
-  state: string;
+  state: EngineState;
+  stateLabel: string;
+  nextStep: string;
   confidence: number;
   confidenceParts: ConfidencePart[];
 }) {
   const rsiTone = m5RsiDirection === "BULLISH" ? "text-[#22c55e]" : m5RsiDirection === "BEARISH" ? "text-[#ef4444]" : "text-slate-400";
   const streakTone = m1StreakDir === "UP" ? "text-[#22c55e]" : m1StreakDir === "DOWN" ? "text-[#ef4444]" : "text-slate-400";
-  const actionTone = action === "LONG"
-    ? "bg-green-500/15 text-green-300 border-green-500/30"
-    : action === "SHORT"
-    ? "bg-red-500/15 text-red-300 border-red-500/30"
-    : "bg-slate-700/40 text-slate-300 border-slate-600/40";
+  const st = STATE_STYLE[state];
   const streakValue = m1StreakDir === "NONE" ? "Yok" : `${m1StreakLen} ${m1StreakDir === "UP" ? "▲ yükseliş" : "▼ düşüş"}`;
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">İki Katman Okuması</span>
-        <span className={`rounded border px-2 py-0.5 text-[11px] font-bold ${actionTone}`}>
-          {action}{contractType ? ` · Kontrat ${contractType}` : ""}
-        </span>
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">Motor Durumu</span>
+        {contractType && (
+          <span
+            className="rounded border px-2 py-0.5 text-[10px] font-bold"
+            style={{
+              borderColor: `${CONTRACT_TONE[contractType]}55`,
+              backgroundColor: `${CONTRACT_TONE[contractType]}22`,
+              color: CONTRACT_TONE[contractType],
+            }}
+          >
+            Kontrat {contractType}
+          </span>
+        )}
       </div>
-      <LayerRow tf="1m" tag="tetik · ana sürücü" value={streakValue} note={m1Note} t={streakTone} />
-      <LayerRow tf="5m" tag="destek (iptal etmez)" value={m5Rsi == null ? "veri yok" : `RSI ${m5Rsi.toFixed(1)}`} note={m5Note} t={rsiTone} />
+
+      {/* Büyük, tek bakışta okunan durum satırı — "ARMED" gibi kod yazmıyoruz */}
+      <div className={`m-3 rounded border px-3 py-2.5 ${st.ring}`}>
+        <div className="flex items-center gap-2">
+          <span className={`h-2 w-2 shrink-0 rounded-full ${st.dot} ${state === "TRIGGERED" || state === "IN_POSITION" ? "animate-pulse" : ""}`} />
+          <span className={`text-[13px] font-bold tracking-wide ${st.text}`}>
+            {st.icon} {stateLabel}
+          </span>
+        </div>
+        <div className="mt-1.5 text-[11px] leading-snug text-slate-300">{nextStep}</div>
+      </div>
+
+      <LayerRow
+        tf="1m"
+        tag="TETİK — girişi bu belirler"
+        value={streakValue}
+        note={`${m1Note} · ${ENTRY_STREAK_A} aynı yönlü mum = giriş, ${EXIT_REVERSAL_BARS} ters mum = çıkış`}
+        t={streakTone}
+      />
+      <LayerRow
+        tf="5m"
+        tag="DESTEK — sinyali iptal edemez"
+        value={m5Rsi == null ? "veri yok" : `RSI ${m5Rsi.toFixed(1)}`}
+        note={`${m5Note} · yalnızca güven puanını değiştirir`}
+        t={rsiTone}
+      />
+
       <div className="flex items-center justify-between px-3 py-2 text-[10px] text-slate-500">
-        <span>Durum: <b className="text-slate-300">{state}</b></span>
+        <span>Yön: <b className={action === "LONG" ? "text-[#22c55e]" : action === "SHORT" ? "text-[#ef4444]" : "text-slate-300"}>
+          {action === "BEKLE" ? "Henüz yok" : action === "LONG" ? "LONG (Call)" : "SHORT (Put)"}
+        </b></span>
         <span>Güven: <b className="text-slate-300">{confidence}/100</b></span>
       </div>
       <ConfidenceBreakdown parts={confidenceParts} total={confidence} />
@@ -444,14 +490,14 @@ function Stat({ k, v, t }: { k: string; v: ReactNode; t?: string }) {
   );
 }
 
-export function PositionPanel({ position, livePremium, nowSec }: {
-  position: PositionState | null; livePremium: number | null; nowSec: number;
+export function PositionPanel({ position, livePremium }: {
+  position: PositionState | null; livePremium: number | null;
 }) {
   if (!position) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
         <div className="text-[11px] font-semibold text-slate-300">Açık Pozisyon</div>
-        <div className="mt-1 text-[12px] text-slate-500">Açık pozisyon yok — motor seri arıyor.</div>
+        <div className="mt-1 text-[12px] text-slate-500">Açık pozisyon yok — motor giriş serisi arıyor.</div>
       </div>
     );
   }
@@ -461,12 +507,15 @@ export function PositionPanel({ position, livePremium, nowSec }: {
     prem != null && position.entryPremium ? ((prem - position.entryPremium) / position.entryPremium) * 100 : null;
   const total = position.realizedPnl + (position.unrealizedPnl ?? 0);
   const rules = CONTRACT_RULES[position.contractType];
-  const remainingSec = position.status === "OPEN" && nowSec > 0 ? Math.max(0, position.forceExitTime - nowSec) : null;
+  const pg = position.progress;
+  const isLong = position.side === "LONG";
 
   return (
     <div className={SURFACE}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">Açık Pozisyon</span>
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          {position.status === "OPEN" ? "Açık Pozisyon" : "Son Pozisyon (kapandı)"}
+        </span>
         <div className="flex items-center gap-1.5">
           <span
             className="rounded border px-2 py-0.5 text-[10px] font-bold"
@@ -476,12 +525,12 @@ export function PositionPanel({ position, livePremium, nowSec }: {
           </span>
           <span
             className={`rounded border px-2 py-0.5 text-[10px] font-bold ${
-              position.side === "LONG"
+              isLong
                 ? "border-green-500/30 bg-green-500/15 text-green-300"
                 : "border-red-500/30 bg-red-500/15 text-red-300"
             }`}
           >
-            {position.side === "LONG" ? "LONG · CALL" : "SHORT · PUT"}
+            {isLong ? "LONG GİRİŞ · CALL" : "SHORT GİRİŞ · PUT"}
           </span>
         </div>
       </div>
@@ -489,17 +538,47 @@ export function PositionPanel({ position, livePremium, nowSec }: {
       <div className="px-3 py-2">
         {position.premiumDataMissing && (
           <div className="mb-2 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-1.5 text-[10px] leading-snug text-amber-300">
-            Bu giriş için 0DTE opsiyon primi verisi Yahoo&apos;dan gelmedi. Stop/hedef seviyeleri
-            hesaplanmadı — teorik fiyat üretilmiyor.
+            Bu giriş için 0DTE opsiyon primi verisi Yahoo&apos;dan gelmedi. Giriş/çıkış zamanı ve gerekçesi
+            doğru, ama $ kâr/zarar hesaplanamıyor — teorik fiyat üretilmiyor.
           </div>
         )}
 
-        {remainingSec != null && (
-          <div className="mb-2 flex items-center justify-between rounded border border-amber-500/20 bg-amber-500/5 px-2 py-1.5 text-[10px]">
-            <span className="text-amber-300/80">Süre sınırı ({FORCE_EXIT_MINUTES} dk)</span>
-            <span className="font-mono font-semibold text-amber-300">
-              {nyClock(position.forceExitTime)} ET · {Math.floor(remainingSec / 60)}dk {remainingSec % 60}sn kaldı
-            </span>
+        {/* Çıkışa yakınlık — canlı takip için en önemli kutu */}
+        {position.status === "OPEN" ? (
+          <div className="mb-2 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-2">
+            <div className="mb-1.5 flex items-center justify-between text-[10px]">
+              <span className="font-semibold text-slate-400">Çıkışa yakınlık</span>
+              <span className="font-mono text-slate-500">{pg.barsHeld} mum taşındı</span>
+            </div>
+            <div className="mb-1.5 flex items-center gap-1">
+              {Array.from({ length: pg.reversalNeeded }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1.5 flex-1 rounded ${i < pg.againstBars ? "bg-[#ef4444]" : "bg-[#1c2635]"}`}
+                />
+              ))}
+              <span className="ml-1 font-mono text-[10px] text-slate-400">
+                {pg.againstBars}/{pg.reversalNeeded} ters mum
+              </span>
+            </div>
+            <div className="text-[10px] leading-snug text-slate-500">{pg.note}</div>
+            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px] text-slate-600">
+              <span>
+                5m RSI:{" "}
+                <b className={pg.rsiSupportive === true ? "text-[#22c55e]" : pg.rsiSupportive === false ? "text-[#ef4444]" : "text-slate-500"}>
+                  {pg.rsiSupportive == null ? "veri yok" : pg.rsiSupportive ? "destekliyor" : "karşı"}
+                </b>
+                {pg.rsiArmed ? " · dönüş kuralı aktif" : " · dönüş kuralı henüz silahlanmadı"}
+              </span>
+              {pg.bestSpot != null && (
+                <span>En iyi seviye: <b className="text-slate-400">${num(pg.bestSpot)}</b></span>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="mb-2 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-2">
+            <div className="text-[10px] font-semibold text-slate-400">Çıkış gerekçesi</div>
+            <div className="mt-0.5 text-[10px] leading-snug text-slate-500">{position.exitNote ?? "—"}</div>
           </div>
         )}
 
@@ -508,16 +587,13 @@ export function PositionPanel({ position, livePremium, nowSec }: {
         <Stat k="Giriş saati" v={`${nyClock(position.entryTime)} ET`} />
         <Stat k="Giriş SPY" v={`$${num(position.entrySpot)}`} />
         <Stat k="Giriş primi" v={position.entryPremium == null ? "veri yok" : `$${num(position.entryPremium)}`} />
-        <Stat
-          k={`Stop (×${rules.stopMult})`}
-          v={position.stopLevel == null ? "—" : `$${num(position.stopLevel)}`}
-          t="text-[#ef4444]"
-        />
-        <Stat
-          k={`Hedef (×${rules.targetMult})`}
-          v={position.targetLevel == null ? "—" : `$${num(position.targetLevel)}`}
-          t="text-[#38bdf8]"
-        />
+        {position.exitTime != null && (
+          <>
+            <Stat k="Çıkış saati" v={`${nyClock(position.exitTime)} ET`} />
+            <Stat k="Çıkış SPY" v={position.exitSpot == null ? "—" : `$${num(position.exitSpot)}`} />
+            <Stat k="Çıkış primi" v={position.exitPremium == null ? "veri yok" : `$${num(position.exitPremium)}`} />
+          </>
+        )}
         <Stat
           k="Anlık prim"
           v={prem == null ? "veri yok" : `$${num(prem)}${pctFromEntry != null ? ` (${signed(pctFromEntry, 1)}%)` : ""}`}
@@ -568,15 +644,14 @@ export function EventList({ events, emptyText }: { events: EngineEvent[]; emptyT
   );
 }
 
-// ── Strateji şeması (V3: 1m seri → Kontrat A/B → düz SL/TP/süre) ──
+// ── Strateji şeması (V3.1: 1m seri → giriş, sinyal tabanlı çıkış) ──
 
-export function StrategySchema({ state, contractType }: { state: string; contractType: string | null }) {
+export function StrategySchema({ state, contractType }: { state: EngineState; contractType: string | null }) {
   const active = (id: string) => {
-    if (id === "watch") return state === "WATCHING";
-    if (id === "armed") return state === "ARMED";
-    if (id === "trig") return state === "TRIGGERED";
+    if (id === "streak") return state === "ARMED" || state === "TRIGGERED";
     if (id === "a") return contractType === "A";
     if (id === "b") return contractType === "B";
+    if (id === "hold") return state === "IN_POSITION";
     return false;
   };
   const box = (id: string) => (active(id) ? "#22c55e" : "#2b3a52");
@@ -584,68 +659,75 @@ export function StrategySchema({ state, contractType }: { state: string; contrac
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 980 340" className="h-auto w-full min-w-[760px]" role="img" aria-label="SPY Engine V3 strateji akış şeması">
+      <svg viewBox="0 0 980 420" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V3.1 strateji akış şeması">
         <defs>
           <marker id="spyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#475569" />
           </marker>
-          <marker id="spyArrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#ef4444" />
-          </marker>
-          <marker id="spyArrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#22c55e" />
-          </marker>
         </defs>
 
-        {/* Sinyal üretimi */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · SİNYAL ÜRETİMİ — 1m ANA SÜRÜCÜ (non-repainting, 15m karara girmez)</text>
+        {/* 1 — Giriş */}
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · GİRİŞ — 1m ANA SÜRÜCÜ (non-repainting · 15m karara girmez)</text>
 
-        <rect x="14" y="34" width="220" height="60" rx="6" fill={boxFill("armed")} stroke={box("armed")} />
+        <rect x="14" y="34" width="220" height="64" rx="6" fill={boxFill("streak")} stroke={box("streak")} />
         <text x="124" y="56" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · ARDIŞIK MUM SERİSİ</text>
         <text x="124" y="72" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde art arda kapanan mumlar</text>
-        <text x="124" y="86" textAnchor="middle" fill="#64748b" fontSize="9">5m RSI/hacim yalnızca güveni ayarlar</text>
+        <text x="124" y="88" textAnchor="middle" fill="#64748b" fontSize="9">5m RSI + hacim yalnızca güveni ayarlar</text>
 
-        <path d="M234 64 L280 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="284" y="34" width="190" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="379" y="56" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">▲ KONTRAT A — 2. mum</text>
-        <text x="379" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9">SL −%30 · TP +%60</text>
-        <text x="379" y="86" textAnchor="middle" fill="#64748b" fontSize="9">hacim teyidi güveni artırır</text>
+        <path d="M234 66 L280 66" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="284" y="34" width="200" height="64" rx="6" fill={boxFill("a")} stroke={box("a")} />
+        <text x="384" y="56" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">▲ KONTRAT A — {ENTRY_STREAK_A}. mum</text>
+        <text x="384" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9">LONG GİRİŞ (Call) / SHORT GİRİŞ (Put)</text>
+        <text x="384" y="88" textAnchor="middle" fill="#64748b" fontSize="9">hacim teyidi güveni artırır</text>
 
-        <path d="M474 64 L520 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="524" y="34" width="230" height="60" rx="6" fill={boxFill("b")} stroke={box("b")} />
-        <text x="639" y="52" textAnchor="middle" fill="#a855f7" fontSize="11" fontWeight="700">▲ KONTRAT B — 4. mum</text>
-        <text x="639" y="68" textAnchor="middle" fill="#94a3b8" fontSize="9">+ 5m RSI teyidi + trend kırılmadı</text>
-        <text x="639" y="84" textAnchor="middle" fill="#94a3b8" fontSize="9">SL −%40 · TP +%100</text>
+        <path d="M484 66 L530 66" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="534" y="34" width="230" height="64" rx="6" fill={boxFill("b")} stroke={box("b")} />
+        <text x="649" y="56" textAnchor="middle" fill="#a855f7" fontSize="11" fontWeight="700">▲ KONTRAT B — 4. mum</text>
+        <text x="649" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9">+ 5m RSI teyidi + trend kırılmadı</text>
+        <text x="649" y="88" textAnchor="middle" fill="#64748b" fontSize="9">geç ama daha teyitli giriş</text>
 
-        {/* Çıkış */}
-        <text x="14" y="128" fill="#64748b" fontSize="11" fontWeight="600">2 · ÇIKIŞ — TAM giriş / TAM çıkış (kısmi kapama yok)</text>
+        {/* 2 — Taşıma */}
+        <text x="14" y="132" fill="#64748b" fontSize="11" fontWeight="600">2 · TAŞIMA — sabit hedef/stop YOK</text>
+        <rect x="14" y="144" width="952" height="46" rx="6" fill={boxFill("hold")} stroke={box("hold")} />
+        <text x="34" y="166" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon, trend devam ettiği sürece taşınır. Yüzde hedefi, yüzde stopu ve süre sınırı yoktur.</text>
+        <text x="34" y="182" fill="#64748b" fontSize="9.5">Çıkış da tıpkı giriş gibi bir SİNYALDİR — aşağıdaki dört koşuldan ilki oluştuğunda kapanır.</text>
 
-        <rect x="14" y="142" width="180" height="56" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
-        <text x="104" y="164" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">✕ STOP</text>
-        <text x="104" y="180" textAnchor="middle" fill="#94a3b8" fontSize="9">sabit SL seviyesine değdi</text>
+        {/* 3 — Çıkış sinyalleri */}
+        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ SİNYALLERİ (ilk oluşan kazanır)</text>
 
-        <rect x="210" y="142" width="180" height="56" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e7490" />
-        <text x="300" y="164" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">◆ HEDEF</text>
-        <text x="300" y="180" textAnchor="middle" fill="#94a3b8" fontSize="9">TP seviyesine ulaştı, tam kapandı</text>
+        <rect x="14" y="232" width="232" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
+        <text x="130" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TREND KIRILIMI</text>
+        <text x="130" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">{EXIT_REVERSAL_BARS} ardışık TERS yönlü 1m mum</text>
+        <text x="130" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">giriş {ENTRY_STREAK_A} mum ister, çıkış {EXIT_REVERSAL_BARS} —</text>
+        <text x="130" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">2 mumluk geri çekilme gürültüdür</text>
 
-        <rect x="406" y="142" width="180" height="56" rx="6" fill="rgba(245,158,11,0.08)" stroke="#92400e" />
-        <text x="496" y="160" textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="700">◷ SÜRE DOLDU</text>
-        <text x="496" y="176" textAnchor="middle" fill="#94a3b8" fontSize="9">45 dk taşıma sınırı,</text>
-        <text x="496" y="190" textAnchor="middle" fill="#94a3b8" fontSize="9">mevcut fiyattan kapama</text>
+        <rect x="256" y="232" width="232" height="72" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e7490" />
+        <text x="372" y="252" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">◆ 5m RSI DÖNÜŞÜ</text>
+        <text x="372" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">RSI 50 çizgisini tersine geçti</text>
+        <text x="372" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">yalnızca RSI önce desteklediyse</text>
+        <text x="372" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">silahlanır — rejim değişimi</text>
 
-        <rect x="602" y="142" width="364" height="56" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
-        <text x="784" y="164" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET — MUTLAK GÜN SONU KAPAMA</text>
-        <text x="784" y="180" textAnchor="middle" fill="#94a3b8" fontSize="9">diğer tüm kurallardan bağımsız, her zaman öncelikli</text>
+        <rect x="498" y="232" width="232" height="72" rx="6" fill="rgba(245,158,11,0.08)" stroke="#92400e" />
+        <text x="614" y="252" textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="700">◷ HACİM TÜKENDİ</text>
+        <text x="614" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">ters mum + hacim ort. %70 altı</text>
+        <text x="614" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">+ fiyat girişin gerisinde —</text>
+        <text x="614" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">hareket alıcısını kaybetti</text>
 
-        {/* Yeniden giriş */}
-        <text x="14" y="234" fill="#64748b" fontSize="11" fontWeight="600">3 · YENİDEN GİRİŞ (re-arm)</text>
-        <rect x="14" y="248" width="952" height="56" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="34" y="270" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon kapandığında sistem, o pozisyonun TERSİNE kapanan İLK 1m mumu görülene kadar yeni aday üretmez.</text>
-        <text x="34" y="288" fill="#64748b" fontSize="9.5">Bu &quot;düzeltme mumu&quot; beklemesi, aynı hareketin ardı ardına art arda sinyal üretmesini engeller — 09:30–15:45 ET boyunca döngü tekrarlar.</text>
+        <rect x="740" y="232" width="226" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
+        <text x="853" y="252" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET</text>
+        <text x="853" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">mutlak gün sonu kapaması</text>
+        <text x="853" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">0DTE — diğer tüm kurallardan</text>
+        <text x="853" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">bağımsız, her zaman öncelikli</text>
+
+        {/* 4 — Yeniden giriş */}
+        <text x="14" y="336" fill="#64748b" fontSize="11" fontWeight="600">4 · YENİDEN GİRİŞ (re-arm)</text>
+        <rect x="14" y="348" width="952" height="56" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="34" y="370" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon kapandığında sistem, o pozisyonun TERSİNE kapanan İLK 1m mumu görülene kadar yeni aday üretmez.</text>
+        <text x="34" y="388" fill="#64748b" fontSize="9.5">Bu &quot;düzeltme mumu&quot; beklemesi, aynı hareketin ardı ardına sinyal üretmesini engeller — 09:35–15:40 ET boyunca döngü tekrarlar.</text>
       </svg>
 
       <div className="mt-2 grid grid-cols-2 gap-2 text-[10px] text-slate-500 sm:grid-cols-5">
-        {(["ENTRY", "TARGET", "STOP", "TIME_EXIT", "EOD_EXIT"] as const).map((k) => (
+        {(["ENTRY", "REVERSAL_EXIT", "RSI_FLIP_EXIT", "VOLUME_FADE_EXIT", "EOD_EXIT"] as const).map((k) => (
           <div key={k} className="flex items-center gap-1.5">
             <span style={{ color: EVENT_STYLE[k].color }}>{EVENT_STYLE[k].glyph}</span>
             <span>{EVENT_LABEL[k]}</span>

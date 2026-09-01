@@ -34,6 +34,7 @@ import {
 } from "@/lib/spyengine/core";
 import {
   generateCandidates,
+  findExitSignal,
   runLifecycle,
   filterOverlapping,
   buildOptionSymbol,
@@ -159,6 +160,10 @@ export async function GET(req: NextRequest) {
     });
 
     // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
+    //
+    // V3.1: çıkış kararı artık GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor;
+    // opsiyon primi yalnızca $ kâr/zararı fiyatlıyor. Bu yüzden çıkış
+    // taraması prim isteğinden BAĞIMSIZ ve önce yapılır.
     const tracked = gen.candidates.slice(-MAX_TRACKED_POSITIONS);
     const candKey = (c: { time: number; side: string; contractType: string }) =>
       `${session.date}:${c.time}:${c.side}:${c.contractType}`;
@@ -167,18 +172,27 @@ export async function GET(req: NextRequest) {
         const cached = resolvedPositionCache.get(candKey(c));
         if (cached) return cached;
 
+        const exit = findExitSignal({
+          m1: sessionM1,
+          m5: m5All,
+          entryTime: c.time,
+          side: c.side,
+          entrySpot: c.spot,
+          session,
+          nowSec: evalNow,
+        });
+
         const isCall = c.side === "LONG";
         const strike = atmStrike(c.spot);
         const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
         const series = await fetchOptionSeries(contract);
         const pos = runLifecycle({
           candidate: c,
+          exit,
           premiumBars: series.bars,
           contract: series.bars.length ? contract : null,
           strike: series.bars.length ? strike : null,
           expiry: session.date,
-          session,
-          nowSec: evalNow,
           livePremium: series.livePremium,
         });
         if (pos.status === "CLOSED") {
@@ -196,22 +210,20 @@ export async function GET(req: NextRequest) {
     const activePositions = positions.filter((p) => accepted.has(`${p.entryTime}:${p.side}:${p.contractType}`));
     const openPosition = activePositions.find((p) => p.status !== "CLOSED") ?? null;
 
-    // Çıkış olayları prim üzerinden tetiklenir; grafikte doğru yükseklikte
-    // görünmeleri için o andaki SPY spot kapanışını geriye doldur.
-    const spotAt = (t: number): number => {
-      let best = sessionM1.length ? sessionM1[sessionM1.length - 1].close : NaN;
-      for (const b of sessionM1) {
-        if (b.time > t) break;
-        best = b.close;
-      }
-      return best;
-    };
-    for (const p of activePositions) {
-      for (const ev of p.events) {
-        if (!Number.isFinite(ev.spot)) ev.spot = r2(spotAt(ev.time));
-      }
+    // Motor okuması pozisyonlardan ÖNCE üretiliyor (adaylar oradan çıkıyor);
+    // açık pozisyon varsa durumu burada "POZİSYONDA"ya çekiyoruz ki panel
+    // "hazırlanıyor" derken aslında pozisyon taşıdığımızı gizlemesin.
+    if (openPosition) {
+      gen.read.state = "IN_POSITION";
+      gen.read.stateLabel = openPosition.side === "LONG" ? "LONG POZİSYONDA" : "SHORT POZİSYONDA";
+      gen.read.action = openPosition.side;
+      gen.read.contractType = openPosition.contractType;
+      gen.read.nextStep = openPosition.progress.note;
+      gen.read.reasoning = `Pozisyon açık (${nyParts(openPosition.entryTime).hhmm} ET girişi) — trend devam ettiği sürece taşınıyor.`;
     }
 
+    // Olayların spot değerleri artık SPY mumlarından geliyor (giriş adayın
+    // kapanışı, çıkış sinyalin kendi mumu) — geriye doldurmaya gerek yok.
     const events: EngineEvent[] = activePositions.flatMap((p) => p.events).sort((a, b) => a.time - b.time);
 
     // ── Açık pozisyon için canlı ATM zincir kotasyonu (gerçek bid/ask) ──

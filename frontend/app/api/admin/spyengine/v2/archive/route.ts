@@ -33,10 +33,11 @@ interface ArchivedTrade {
   contract: string | null;
   strike: number | null;
   entryPremium: number | null;
-  stopLevel: number | null;
-  targetLevel: number | null;
   exitTime: number | null;
+  exitSpot: number | null;
+  exitPremium: number | null;
   exitReason: string | null;
+  exitNote: string | null;
   status: string;
   realizedPnl: number;
   premiumDataMissing: boolean;

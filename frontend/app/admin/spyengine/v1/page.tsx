@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SPY Engine V2 — Kumanda Merkezi (/admin/spyengine/v1)
+ * SPY Engine V3.1 — Kumanda Merkezi (/admin/spyengine/v1)
  *
  * Talimat §1'in kök sorunu: sayfa piyasa açıkken donuyordu. Çözüm burada
  * üç parçalı:
@@ -29,7 +29,9 @@ import {
   fromCompact, nyClock, bucketAggregate, bollinger, rsi, macd, ema, lastNum,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
-import type { EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction } from "@/lib/spyengine/strategy";
+import type {
+  EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction, EngineState,
+} from "@/lib/spyengine/strategy";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
 
@@ -39,7 +41,9 @@ interface EngineRead {
   m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
-  state: "WATCHING" | "ARMED" | "TRIGGERED";
+  state: EngineState;
+  stateLabel: string;
+  nextStep: string;
   confidence: number;
   confidenceParts: ConfidencePart[];
   reasoning: string;
@@ -324,9 +328,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#1c2635] pb-3">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3</h1>
+            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3.1</h1>
             <p className="text-[10px] text-slate-500">
-              1m ardışık mum serisi → Kontrat A/B · 0DTE pozisyon yönetimi · non-repainting
+              1m ardışık mum serisi → LONG/SHORT giriş · sinyal tabanlı çıkış · sabit hedef/stop yok
             </p>
           </div>
 
@@ -554,10 +558,11 @@ export default function SpyEngineCommandCenter() {
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
                   m1StreakDir={data.engine.m1StreakDir} m1StreakLen={data.engine.m1StreakLen} m1Note={data.engine.m1Note}
                   action={data.engine.action} contractType={data.engine.contractType}
-                  state={data.engine.state} confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
+                  state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
+                  confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
                 />
               )}
-              <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} nowSec={nowSec} />
+              <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
 
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
@@ -574,21 +579,6 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* Strateji şeması */}
-          <Disclosure
-            title="Strateji Şeması — sinyal üretimi ve pozisyon durum makinesi"
-            defaultOpen
-            badge={
-              data && (
-                <span className="rounded bg-[#1c2635] px-1.5 py-0.5 font-mono text-[9px] text-slate-400">
-                  {data.engine.state}
-                </span>
-              )
-            }
-          >
-            <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
-          </Disclosure>
-
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             <Panel title="Motor Açıklaması">
               <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-3 font-mono text-[11px] leading-relaxed text-slate-400">
@@ -598,8 +588,9 @@ export default function SpyEngineCommandCenter() {
               <div className="mt-2 flex flex-col gap-1 text-[10px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
                 <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
-                <div>· Stop/hedef seviyeleri GERÇEK 0DTE opsiyon primi üzerinden hesaplanır; prim verisi gelmezse seviye üretilmez.</div>
-                <div>· Kontrat A: −%30 stop / +%60 hedef. Kontrat B: −%40 stop / +%100 hedef. Her ikisi de en fazla 45 dk taşınır, tam giriş/tam çıkış.</div>
+                <div>· Sabit yüzde hedef/stop ve süre sınırı YOK — pozisyon trend devam ettiği sürece taşınır.</div>
+                <div>· Çıkış da girişle aynı veriden üretilen bir SİNYALDİR: 3 ardışık ters 1m mum · 5m RSI dönüşü · hacim tükenmesi · 15:45 ET.</div>
+                <div>· $ kâr/zarar GERÇEK 0DTE opsiyon primiyle hesaplanır; prim verisi gelmezse giriş/çıkış yine doğrudur, sadece tutar üretilmez.</div>
               </div>
             </Panel>
 
@@ -610,6 +601,20 @@ export default function SpyEngineCommandCenter() {
               <EventList events={events} emptyText="Bu seansta henüz sinyal olayı yok." />
             </Panel>
           </div>
+
+          {/* Strateji şeması — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure
+            title="Strateji Şeması — giriş, taşıma ve çıkış kuralları"
+            badge={
+              data && (
+                <span className="rounded bg-[#1c2635] px-1.5 py-0.5 font-mono text-[9px] text-slate-400">
+                  {data.engine.stateLabel}
+                </span>
+              )
+            }
+          >
+            <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
+          </Disclosure>
         </div>
       )}
 
