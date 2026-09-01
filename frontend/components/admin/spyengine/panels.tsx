@@ -12,7 +12,7 @@ import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "re
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
-  EXIT_REVERSAL_BARS, ENTRY_STREAK_A,
+  EXIT_REVERSAL_BARS, EXIT_REVERSAL_FAST, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
   type ContractType, type ConfidencePart, type EngineState,
 } from "@/lib/spyengine/strategy";
@@ -457,7 +457,7 @@ export function LayerTable({
         tf="1m"
         tag="TETİK — girişi bu belirler"
         value={streakValue}
-        note={`${m1Note} · ${ENTRY_STREAK_A} aynı yönlü mum = giriş, ${EXIT_REVERSAL_BARS} ters mum = çıkış`}
+        note={`${m1Note} · ${ENTRY_STREAK} aynı yönlü mum + kapılar = giriş · ${EXIT_REVERSAL_BARS} ters mum = çıkış`}
         t={streakTone}
       />
       <LayerRow
@@ -667,67 +667,66 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         </defs>
 
         {/* 1 — Giriş */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · GİRİŞ — 1m ANA SÜRÜCÜ (non-repainting · 15m karara girmez)</text>
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · GİRİŞ KAPISI — hepsi ZORUNLU (biri sağlanmazsa giriş yok)</text>
 
-        <rect x="14" y="34" width="220" height="64" rx="6" fill={boxFill("streak")} stroke={box("streak")} />
-        <text x="124" y="56" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · ARDIŞIK MUM SERİSİ</text>
-        <text x="124" y="72" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde art arda kapanan mumlar</text>
-        <text x="124" y="88" textAnchor="middle" fill="#64748b" fontSize="9">5m RSI + hacim yalnızca güveni ayarlar</text>
+        <rect x="14" y="34" width="186" height="60" rx="6" fill={boxFill("streak")} stroke={box("streak")} />
+        <text x="107" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · {ENTRY_STREAK} ARDIŞIK MUM</text>
+        <text x="107" y="71" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde art arda kapanış</text>
+        <text x="107" y="85" textAnchor="middle" fill="#64748b" fontSize="9">2 mum denendi: 3× gürültü</text>
 
-        <path d="M234 66 L280 66" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="284" y="34" width="200" height="64" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="384" y="56" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">▲ KONTRAT A — {ENTRY_STREAK_A}. mum</text>
-        <text x="384" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9">LONG GİRİŞ (Call) / SHORT GİRİŞ (Put)</text>
-        <text x="384" y="88" textAnchor="middle" fill="#64748b" fontSize="9">hacim teyidi güveni artırır</text>
+        <path d="M200 64 L222 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="226" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
+        <text x="310" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">HACİM</text>
+        <text x="310" y="71" textAnchor="middle" fill="#64748b" fontSize="9">tetik mumu &gt; son 15 mum</text>
+        <text x="310" y="85" textAnchor="middle" fill="#64748b" fontSize="9">ortalaması</text>
 
-        <path d="M484 66 L530 66" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="534" y="34" width="230" height="64" rx="6" fill={boxFill("b")} stroke={box("b")} />
-        <text x="649" y="56" textAnchor="middle" fill="#a855f7" fontSize="11" fontWeight="700">▲ KONTRAT B — 4. mum</text>
-        <text x="649" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9">+ 5m RSI teyidi + trend kırılmadı</text>
-        <text x="649" y="88" textAnchor="middle" fill="#64748b" fontSize="9">geç ama daha teyitli giriş</text>
+        <path d="M394 64 L416 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="420" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
+        <text x="504" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m RSI YÖNÜ</text>
+        <text x="504" y="71" textAnchor="middle" fill="#64748b" fontSize="9">o yönde hareket ediyor</text>
+        <text x="504" y="85" textAnchor="middle" fill="#64748b" fontSize="9">(50 seviyesi ŞARTI YOK)</text>
+
+        <path d="M588 64 L610 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="614" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
+        <text x="698" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">5m MUM YÖNÜ</text>
+        <text x="698" y="71" textAnchor="middle" fill="#64748b" fontSize="9">son kapalı 5m mum</text>
+        <text x="698" y="85" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde</text>
+
+        <path d="M782 64 L804 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="808" y="34" width="158" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
+        <text x="887" y="55" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">5m RSI YÖNÜ</text>
+        <text x="887" y="71" textAnchor="middle" fill="#94a3b8" fontSize="9">→ LONG / SHORT GİRİŞ</text>
+        <text x="887" y="85" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR}</text>
 
         {/* 2 — Taşıma */}
-        <text x="14" y="132" fill="#64748b" fontSize="11" fontWeight="600">2 · TAŞIMA — sabit hedef/stop YOK</text>
+        <text x="14" y="132" fill="#64748b" fontSize="11" fontWeight="600">2 · TAŞIMA — sabit hedef/stop/süre YOK</text>
         <rect x="14" y="144" width="952" height="46" rx="6" fill={boxFill("hold")} stroke={box("hold")} />
-        <text x="34" y="166" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon, trend devam ettiği sürece taşınır. Yüzde hedefi, yüzde stopu ve süre sınırı yoktur.</text>
-        <text x="34" y="182" fill="#64748b" fontSize="9.5">Çıkış da tıpkı giriş gibi bir SİNYALDİR — aşağıdaki dört koşuldan ilki oluştuğunda kapanır.</text>
+        <text x="34" y="166" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon, trend devam ettiği sürece taşınır. Yüzde hedefi, yüzde stopu, süre sınırı ve prim trailing yoktur.</text>
+        <text x="34" y="182" fill="#64748b" fontSize="9.5">Hepsi 5 seans üzerinde ölçüldü; her biri net beklentiyi düşürdüğü için eklenmedi.</text>
 
-        {/* 3 — Çıkış sinyalleri */}
-        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ SİNYALLERİ (ilk oluşan kazanır)</text>
+        {/* 3 — Çıkış */}
+        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — girişin aynası (ilk oluşan kazanır)</text>
 
-        <rect x="14" y="232" width="232" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
-        <text x="130" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TREND KIRILIMI</text>
-        <text x="130" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">{EXIT_REVERSAL_BARS} ardışık TERS yönlü 1m mum</text>
-        <text x="130" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">giriş {ENTRY_STREAK_A} mum ister, çıkış {EXIT_REVERSAL_BARS} —</text>
-        <text x="130" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">2 mumluk geri çekilme gürültüdür</text>
+        <rect x="14" y="232" width="470" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
+        <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TREND KIRILIMI</text>
+        <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS yönlü 1m mum + 1m RSI de dönmüş olmalı</text>
+        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">5m mum VE 5m RSI de ters döndüyse eşik {EXIT_REVERSAL_FAST} muma iner —</text>
+        <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">üst zaman dilimi teyit ediyorsa tam kırılımı beklemeye gerek yok</text>
 
-        <rect x="256" y="232" width="232" height="72" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e7490" />
-        <text x="372" y="252" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">◆ 5m RSI DÖNÜŞÜ</text>
-        <text x="372" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">RSI 50 çizgisini tersine geçti</text>
-        <text x="372" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">yalnızca RSI önce desteklediyse</text>
-        <text x="372" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">silahlanır — rejim değişimi</text>
-
-        <rect x="498" y="232" width="232" height="72" rx="6" fill="rgba(245,158,11,0.08)" stroke="#92400e" />
-        <text x="614" y="252" textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="700">◷ HACİM TÜKENDİ</text>
-        <text x="614" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">ters mum + hacim ort. %70 altı</text>
-        <text x="614" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">+ fiyat girişin gerisinde —</text>
-        <text x="614" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">hareket alıcısını kaybetti</text>
-
-        <rect x="740" y="232" width="226" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
-        <text x="853" y="252" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET</text>
-        <text x="853" y="268" textAnchor="middle" fill="#94a3b8" fontSize="9">mutlak gün sonu kapaması</text>
-        <text x="853" y="282" textAnchor="middle" fill="#64748b" fontSize="8.5">0DTE — diğer tüm kurallardan</text>
-        <text x="853" y="294" textAnchor="middle" fill="#64748b" fontSize="8.5">bağımsız, her zaman öncelikli</text>
+        <rect x="496" y="232" width="470" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
+        <text x="731" y="252" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET — MUTLAK GÜN SONU KAPAMA</text>
+        <text x="731" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">0DTE · diğer tüm kurallardan bağımsız, her zaman öncelikli</text>
+        <text x="731" y="288" textAnchor="middle" fill="#64748b" fontSize="9">o saatte açık ne varsa kapatılır</text>
 
         {/* 4 — Yeniden giriş */}
         <text x="14" y="336" fill="#64748b" fontSize="11" fontWeight="600">4 · YENİDEN GİRİŞ (re-arm)</text>
         <rect x="14" y="348" width="952" height="56" rx="6" fill="#0f141d" stroke="#2b3a52" />
         <text x="34" y="370" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon kapandığında sistem, o pozisyonun TERSİNE kapanan İLK 1m mumu görülene kadar yeni aday üretmez.</text>
-        <text x="34" y="388" fill="#64748b" fontSize="9.5">Bu &quot;düzeltme mumu&quot; beklemesi, aynı hareketin ardı ardına sinyal üretmesini engeller — 09:35–15:40 ET boyunca döngü tekrarlar.</text>
+        <text x="34" y="388" fill="#64748b" fontSize="9.5">Bu &quot;düzeltme mumu&quot; beklemesi + saatlik kota, aynı hareketin ardı ardına sinyal üretmesini engeller — 09:35–15:40 ET boyunca döngü tekrarlar.</text>
       </svg>
 
-      <div className="mt-2 grid grid-cols-2 gap-2 text-[10px] text-slate-500 sm:grid-cols-5">
-        {(["ENTRY", "REVERSAL_EXIT", "RSI_FLIP_EXIT", "VOLUME_FADE_EXIT", "EOD_EXIT"] as const).map((k) => (
+      <div className="mt-2 grid grid-cols-3 gap-2 text-[10px] text-slate-500">
+        {(["ENTRY", "REVERSAL_EXIT", "EOD_EXIT"] as const).map((k) => (
           <div key={k} className="flex items-center gap-1.5">
             <span style={{ color: EVENT_STYLE[k].color }}>{EVENT_STYLE[k].glyph}</span>
             <span>{EVENT_LABEL[k]}</span>
