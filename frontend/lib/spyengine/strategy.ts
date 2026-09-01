@@ -193,6 +193,19 @@ export interface EntryCandidate {
   reasoning: string;
 }
 
+/** Tek bir kapının o anki durumu — canlı karar desteği için */
+export interface GateCheck {
+  label: string;
+  ok: boolean;
+  detail: string;
+}
+
+/** Her iki yön için kapıların anlık durumu */
+export interface GateStatus {
+  long: GateCheck[];
+  short: GateCheck[];
+}
+
 /** Motorun o anki okuması — panelde insan diliyle gösterilir */
 export type EngineState = "WATCHING" | "ARMED" | "TRIGGERED" | "IN_POSITION";
 
@@ -219,6 +232,12 @@ export interface EngineRead {
   confidence: number;
   confidenceParts: ConfidencePart[];
   reasoning: string;
+  /**
+   * Son kapalı 1m mum için kapıların LONG ve SHORT yönünde tek tek durumu.
+   * Motor kendi sinyalini üretmese bile burada "şu an LONG açsam hangi kapı
+   * geçer, hangisi geçmez" görülebilir — el ile işlem açarken veto listesi.
+   */
+  gateStatus: GateStatus;
 }
 
 // ── Yardımcılar ───────────────────────────────────────────────────
@@ -364,6 +383,65 @@ function checkGate(
   }
 
   return { ok: true, volRatio, rsi1: r1, rsi5: r5 };
+}
+
+
+/**
+ * Belirli bir 1m mumunda, verilen yön için kapıların tek tek durumu.
+ * `checkGate` ile AYNI eşikleri kullanır; fark, ilk hatada durmak yerine
+ * hepsini raporlamasıdır — el ile işlem açarken veto listesi olarak okunur.
+ */
+function gateChecksFor(
+  m1: Bar[], m5: Bar[],
+  m1Rsi: (number | null)[], m5Rsi: (number | null)[],
+  i: number, m5Cursor: number, side: Side
+): GateCheck[] {
+  if (i < 1) return [];
+  const bar = m1[i];
+  const rng = Math.max(1e-9, bar.high - bar.low);
+  const bodyR = Math.abs(bar.close - bar.open) / rng;
+  const posInRange = (bar.close - bar.low) / rng;
+  const closeStr = side === "LONG" ? posInRange : 1 - posInRange;
+  const va = avgVolume(m1, i, VOLUME_LOOKBACK);
+  const volRatio = va != null && va > 0 ? (bar.volume || 0) / va : 1;
+  const r1 = m1Rsi[i], r1p = m1Rsi[i - 1];
+  const c5 = m5Cursor >= 0 ? candleDir(m5[m5Cursor]) : "NONE";
+  const r5 = m5Cursor >= 1 ? m5Rsi[m5Cursor] : null;
+  const r5p = m5Cursor >= 1 ? m5Rsi[m5Cursor - 1] : null;
+  const wantDir: StreakDir = side === "LONG" ? "UP" : "DOWN";
+
+  return [
+    {
+      label: `Mum gövdesi ≥ %${BODY_MIN_RATIO * 100}`,
+      ok: bodyR >= BODY_MIN_RATIO,
+      detail: `%${(bodyR * 100).toFixed(0)}`,
+    },
+    {
+      label: `Kapanış ${side === "LONG" ? "tepeye" : "dibe"} yakın ≥ %${CLOSE_POSITION_MIN * 100}`,
+      ok: closeStr >= CLOSE_POSITION_MIN,
+      detail: `%${(closeStr * 100).toFixed(0)}`,
+    },
+    {
+      label: "Hacim ≥ son 15 mum ort.",
+      ok: va == null || va === 0 ? true : (bar.volume || 0) >= va,
+      detail: `ort.×${volRatio.toFixed(2)}`,
+    },
+    {
+      label: `1m RSI ${side === "LONG" ? "yükseliyor" : "düşüyor"}`,
+      ok: r1 != null && r1p != null && (side === "LONG" ? r1 > r1p : r1 < r1p),
+      detail: r1 == null ? "veri yok" : r1.toFixed(0),
+    },
+    {
+      label: `5m mum ${side === "LONG" ? "yeşil" : "kırmızı"}`,
+      ok: c5 === wantDir,
+      detail: c5 === "UP" ? "yeşil" : c5 === "DOWN" ? "kırmızı" : "doji",
+    },
+    {
+      label: `5m RSI ${side === "LONG" ? "yükseliyor" : "düşüyor"}`,
+      ok: r5 != null && r5p != null && (side === "LONG" ? r5 >= r5p : r5 <= r5p),
+      detail: r5 == null ? "veri yok" : r5.toFixed(0),
+    },
+  ];
 }
 
 /**
@@ -548,6 +626,10 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   }
 
   const m5RsiLast = m5Cursor >= 0 ? m5Rsi[m5Cursor] : null;
+  const gateStatus: GateStatus = {
+    long: gateChecksFor(m1, m5, m1Rsi, m5Rsi, lastM1Idx, m5Cursor, "LONG"),
+    short: gateChecksFor(m1, m5, m1Rsi, m5Rsi, lastM1Idx, m5Cursor, "SHORT"),
+  };
 
   return {
     candidates,
@@ -571,6 +653,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       confidence,
       confidenceParts,
       reasoning,
+      gateStatus,
     },
     lastClosed: {
       m1: lastM1 ? lastM1.time : null,

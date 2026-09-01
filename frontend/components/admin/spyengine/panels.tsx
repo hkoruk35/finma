@@ -14,7 +14,7 @@ import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
   EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
-  type ContractType, type ConfidencePart, type EngineState,
+  type ContractType, type ConfidencePart, type EngineState, type GateStatus,
 } from "@/lib/spyengine/strategy";
 
 // ── Ortak küçük parçalar ──────────────────────────────────────────
@@ -404,6 +404,78 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
   TRIGGERED:   { dot: "bg-green-400",  ring: "border-green-500/35 bg-green-500/15",   text: "text-green-300",  icon: "🎯" },
   IN_POSITION: { dot: "bg-sky-400",    ring: "border-sky-500/35 bg-sky-500/15",       text: "text-sky-300",    icon: "📈" },
 };
+
+/**
+ * KAPI DURUMU — el ile işlem açarken veto listesi.
+ * Motor kendi sinyalini üretmese bile "şu an LONG/SHORT açsam hangi kapı
+ * geçer, hangisi geçmez" burada tek bakışta görülür.
+ */
+export function GatePanel({ gates }: { gates: GateStatus | null }) {
+  const [side, setSide] = useState<"long" | "short">("long");
+  if (!gates || !gates.long.length) {
+    return (
+      <div className={`${SURFACE} px-3 py-4`}>
+        <div className="text-[11px] font-semibold text-slate-300">Kapı Durumu</div>
+        <div className="mt-1 text-[12px] text-slate-500">Mum verisi bekleniyor.</div>
+      </div>
+    );
+  }
+  const list = gates[side];
+  const passed = list.filter((g) => g.ok).length;
+  const allOk = passed === list.length;
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Kapı Durumu <span className="text-[9px] font-normal text-slate-600">· son kapalı 1m mum</span>
+        </span>
+        <div className="flex gap-1">
+          {(["long", "short"] as const).map((sd) => (
+            <button
+              key={sd}
+              type="button"
+              onClick={() => setSide(sd)}
+              className={`rounded px-2 py-0.5 text-[10px] font-bold transition-colors ${
+                side === sd
+                  ? sd === "long"
+                    ? "bg-green-500/20 text-green-300"
+                    : "bg-red-500/20 text-red-300"
+                  : "bg-[#111827] text-slate-500 hover:text-slate-300"
+              }`}
+            >
+              {sd === "long" ? "LONG" : "SHORT"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div
+        className={`m-3 rounded border px-3 py-2 text-[12px] font-bold ${
+          allOk
+            ? "border-green-500/35 bg-green-500/15 text-green-300"
+            : "border-slate-600/40 bg-slate-700/25 text-slate-300"
+        }`}
+      >
+        {allOk
+          ? `✓ ${side === "long" ? "LONG" : "SHORT"} için tüm kapılar açık`
+          : `✕ ${list.length - passed} kapı kapalı — ${passed}/${list.length} geçti`}
+      </div>
+
+      <div className="px-3 pb-3">
+        {list.map((g, i) => (
+          <div key={i} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-1 last:border-0">
+            <span className="flex items-center gap-1.5 text-[10px]">
+              <span className={g.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{g.ok ? "✓" : "✕"}</span>
+              <span className={g.ok ? "text-slate-400" : "text-slate-500"}>{g.label}</span>
+            </span>
+            <span className={`font-mono text-[10px] ${g.ok ? "text-slate-300" : "text-[#ef4444]"}`}>{g.detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function LayerTable({
   m5Rsi, m5RsiDirection, m5Note, m1StreakDir, m1StreakLen, m1Note,

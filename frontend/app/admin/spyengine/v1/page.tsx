@@ -21,7 +21,7 @@ import Link from "next/link";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import {
-  TickerStrip, InfoCards, LayerTable, PositionPanel, EventList, StrategySchema,
+  TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -30,7 +30,7 @@ import {
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import type {
-  EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction, EngineState,
+  EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction, EngineState, GateStatus,
 } from "@/lib/spyengine/strategy";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
@@ -47,6 +47,7 @@ interface EngineRead {
   confidence: number;
   confidenceParts: ConfidencePart[];
   reasoning: string;
+  gateStatus: GateStatus;
 }
 
 interface ChainQuote {
@@ -562,6 +563,7 @@ export default function SpyEngineCommandCenter() {
                   confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
                 />
               )}
+              <GatePanel gates={data?.engine.gateStatus ?? null} />
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
 
               {data?.liveChain && (
