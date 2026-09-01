@@ -63,32 +63,30 @@ export type ContractType = "A" | "B";
  * A = erken/hızlı giriş, B = teyitli/geç giriş.
  */
 export const CONTRACT_RULES: Record<ContractType, { label: string }> = {
-  A: { label: "Kapılı Giriş (3 mum + hacim + 5m teyidi)" },
+  A: { label: "Kapılı Giriş (2 mum + patern + hacim + 5m teyidi)" },
   B: { label: "Kontrat B (emekli)" },
 };
 
 /**
  * Girişi tetikleyen ardışık aynı yönlü KAPALI 1m mum sayısı.
- *
- * 5 seans (2026-08-25…08-31) üzerinde ölçüldü:
- *   2 mum → 2,4 işlem/saat · işlem başına +$0,107 SPY
- *   3 mum → 0,8 işlem/saat · işlem başına +$0,284 SPY   ← seçilen
- *   4 mum → 0,5 işlem/saat · işlem başına +$0,173 SPY
- * 3 mum, işlem sayısını üçte bire indirirken işlem başına beklentiyi 2,7
- * katına çıkarıyor. 0DTE'de her işlemin spread + theta maliyeti olduğu için
- * belirleyici olan toplam işlem sayısı değil, İŞLEM BAŞINA beklenti.
+ * İlk mum kapanır, İKİNCİ mumun kapanışında onay seti kontrol edilir.
  */
-export const ENTRY_STREAK = 3;
+export const ENTRY_STREAK = 2;
 
-/** Çıkışı tetikleyen ardışık TERS yönlü mum sayısı (girişle simetrik) */
-export const EXIT_REVERSAL_BARS = 3;
 /**
- * 5m mum yönü VE 5m RSI yönü birlikte pozisyonun tersine dönmüşse çıkış
- * eşiği buna düşer — üst zaman dilimi teyit ediyorsa tam kırılımı beklemeye
- * gerek yok. Ölçüm: isabet %52 → %55, ortalama taşıma 21 → 16 mum
- * (0DTE'de dörtte bir daha az theta erimesi).
+ * Çıkışı tetikleyen ardışık TERS yönlü mum sayısı — girişle SİMETRİK.
+ * Çıkışta da girişin AYNI onay seti (mum paterni + hacim + 1m RSI yönü +
+ * 5m mum yönü + 5m RSI yönü) ters yönde aranır.
  */
-export const EXIT_REVERSAL_FAST = 2;
+export const EXIT_REVERSAL_BARS = 2;
+
+/** Mum paterni: gövde, mumun toplam aralığının en az bu kadarı olmalı */
+export const BODY_MIN_RATIO = 0.5;
+/**
+ * Mum paterni: kapanış, hareketin yönünde mumun bu kadar ilerisinde olmalı.
+ * (LONG için tepeye, SHORT için dibe yakın kapanış = kararlı mum.)
+ */
+export const CLOSE_POSITION_MIN = 0.6;
 
 /** Hacim teyidi için bakılan geçmiş mum sayısı */
 export const VOLUME_LOOKBACK = 15;
@@ -96,8 +94,7 @@ export const VOLUME_LOOKBACK = 15;
 /**
  * Saatte azami giriş (kayan 60 dakikalık pencere).
  * Kural: "saatte 2-3'ten fazla işlem yakalamak fazla gürültüde zarar
- * üretmektir." Kapı zaten ~0,8 işlem/saat ürettiği için bu sınır pratikte
- * nadiren devreye girer; olağandışı hareketli bir günde tavan görevi görür.
+ * üretmektir." Kapı bunu zaten nadiren zorlar; tavan görevi görür.
  */
 export const MAX_ENTRIES_PER_HOUR = 3;
 
@@ -325,6 +322,18 @@ function checkGate(
   i: number, m5Cursor: number, side: Side
 ): { ok: true; volRatio: number; rsi1: number; rsi5: number } | { ok: false; blockedBy: string } {
   const bar = m1[i];
+
+  // 0) MUM PATERNİ — kararlı bir mum mu, yoksa fitilli/kararsız mı
+  const rng = Math.max(1e-9, bar.high - bar.low);
+  const bodyR = Math.abs(bar.close - bar.open) / rng;
+  if (bodyR < BODY_MIN_RATIO) {
+    return { ok: false, blockedBy: `mum gövdesi zayıf (aralığın %${(bodyR * 100).toFixed(0)}'i, en az %${BODY_MIN_RATIO * 100} gerek)` };
+  }
+  const posInRange = (bar.close - bar.low) / rng;
+  const closeStrength = side === "LONG" ? posInRange : 1 - posInRange;
+  if (closeStrength < CLOSE_POSITION_MIN) {
+    return { ok: false, blockedBy: `kapanış ${side === "LONG" ? "tepeye" : "dibe"} yakın değil (%${(closeStrength * 100).toFixed(0)})` };
+  }
 
   // 1) Hacim — tetik mumu son 15 mumun ortalamasının üzerinde olmalı
   const va = avgVolume(m1, i, VOLUME_LOOKBACK);
@@ -612,19 +621,22 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   const m1Rsi = rsi(closes(m1), 14);
   const m5Rsi = rsi(closes(m5), 14);
   const eodEpoch = eodEpochOf(session);
+  /** Çıkış, girişin aynası: aynı onay seti TERS yönde aranır */
+  const exitSide: Side = side === "LONG" ? "SHORT" : "LONG";
 
   let m5Cursor = -1;
   let against = 0;
   let barsHeld = 0;
   let bestSpot: number | null = null;
-  let fastArmed = false;          // 5m teyidi var mı (eşiği 2'ye düşürür)
+  let gateReady = false;          // ters seri tamam, onay seti bekleniyor
   let rsiSupportive: boolean | null = null;
+  let lastBlock: string | null = null;
 
   const progressOf = (note: string): ExitProgress => ({
     againstBars: against,
-    reversalNeeded: fastArmed ? EXIT_REVERSAL_FAST : EXIT_REVERSAL_BARS,
+    reversalNeeded: EXIT_REVERSAL_BARS,
     rsiSupportive,
-    rsiArmed: fastArmed,
+    rsiArmed: gateReady,
     barsHeld,
     bestSpot,
     note,
@@ -641,7 +653,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     const favorable = side === "LONG" ? bar.high : bar.low;
     bestSpot = bestSpot == null ? favorable : side === "LONG" ? Math.max(bestSpot, favorable) : Math.min(bestSpot, favorable);
 
-    // 1. 15:45 ET — mutlak öncelikli
+    // 1. 15:45 ET — mutlak öncelikli, hiçbir onay aranmaz
     if (bar.time >= eodEpoch) {
       return {
         signal: {
@@ -652,52 +664,44 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
       };
     }
 
+    // 5m RSI pozisyonu hâlâ destekliyor mu (yalnızca gösterge)
+    if (m5Cursor >= 1) {
+      const r5 = m5Rsi[m5Cursor], r5p = m5Rsi[m5Cursor - 1];
+      rsiSupportive = r5 == null || r5p == null ? null : side === "LONG" ? r5 >= r5p : r5 <= r5p;
+    }
+
     const dir = candleDir(bar);
     const isAgainst = side === "LONG" ? dir === "DOWN" : dir === "UP";
     if (isAgainst) against++;
     else if (dir !== "NONE") against = 0; // lehte mum seriyi sıfırlar; doji sayacı korur
 
-    // 5m mum yönü VE 5m RSI yönü birlikte döndü mü → çıkış eşiği 2'ye düşer
-    fastArmed = false;
-    if (m5Cursor >= 1) {
-      const r5 = m5Rsi[m5Cursor], r5p = m5Rsi[m5Cursor - 1];
-      const c5 = candleDir(m5[m5Cursor]);
-      rsiSupportive = r5 == null ? null : side === "LONG" ? r5 >= (r5p ?? r5) : r5 <= (r5p ?? r5);
-      if (
-        r5 != null && r5p != null &&
-        ((side === "LONG" && c5 === "DOWN" && r5 < r5p) ||
-         (side === "SHORT" && c5 === "UP" && r5 > r5p))
-      ) {
-        fastArmed = true;
-      }
-    }
+    gateReady = against >= EXIT_REVERSAL_BARS;
+    if (!gateReady) continue;
 
-    // 2. TREND KIRILIMI — ardışık ters mum + 1m RSI de dönmüş olmalı
-    const needed = fastArmed ? EXIT_REVERSAL_FAST : EXIT_REVERSAL_BARS;
-    if (against >= needed) {
-      const r1 = m1Rsi[i], r1p = m1Rsi[i - 1];
-      const rsiTurned = r1 != null && r1p != null && (side === "LONG" ? r1 < r1p : r1 > r1p);
-      if (rsiTurned) {
-        return {
-          signal: {
-            time: bar.time, spot: bar.close, reason: "REVERSAL_EXIT",
-            note: fastArmed
-              ? `${against} ardışık ters 1m mum + 1m RSI döndü + 5m mum ve 5m RSI de ters yönde — üst zaman dilimi teyit ettiği için eşik ${EXIT_REVERSAL_FAST} muma düştü.`
-              : `${against} ardışık ters yönlü 1m mum + 1m RSI döndü — trend kırıldı.`,
-          },
-          progress: progressOf("Trend kırılımıyla kapandı."),
-        };
-      }
-    }
+    // 2. ÇIKIŞ — girişin AYNI onay seti, ters yönde:
+    //    mum paterni + hacim + 1m RSI yönü + 5m mum yönü + 5m RSI yönü
+    const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, exitSide);
+    if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
+
+    return {
+      signal: {
+        time: bar.time, spot: bar.close, reason: "REVERSAL_EXIT",
+        note:
+          `${against} ardışık ters yönlü 1m mum + giriş onay setinin tamamı ters yönde: ` +
+          `mum paterni · hacim ort.×${gate.volRatio.toFixed(2)} · 1m RSI ${gate.rsi1.toFixed(0)} · 5m mum ve 5m RSI ters yönde.`,
+      },
+      progress: progressOf("Ters yönlü onay setiyle kapandı."),
+    };
   }
 
-  const remaining = Math.max(0, (fastArmed ? EXIT_REVERSAL_FAST : EXIT_REVERSAL_BARS) - against);
+  const remaining = Math.max(0, EXIT_REVERSAL_BARS - against);
   return {
     signal: null,
     progress: progressOf(
-      against > 0
-        ? `${against} ardışık ters mum oluştu — ${remaining} tane daha (ve 1m RSI dönüşü) gelirse çıkılır.` +
-          (fastArmed ? " 5m de ters döndüğü için eşik düşürüldü." : "")
+      against >= EXIT_REVERSAL_BARS
+        ? `${against} ters mum oluştu ama çıkış onayı tamamlanmadı: ${lastBlock ?? "onay bekleniyor"}.`
+        : against > 0
+        ? `${against} ardışık ters mum oluştu — ${remaining} tane daha ve ardından ters yönlü onay seti (patern + hacim + 1m/5m RSI) gerekiyor.`
         : "Trend devam ediyor — ters yönlü seri yok."
     ),
   };

@@ -328,9 +328,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#1c2635] pb-3">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3.2</h1>
+            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3.3</h1>
             <p className="text-[10px] text-slate-500">
-              3 mum + hacim + 1m/5m RSI kapısı → LONG/SHORT giriş · saatte max 3 · sinyal tabanlı çıkış
+              2. mum kapanışı + patern + hacim + 1m/5m RSI → LONG/SHORT giriş · çıkış girişin simetriği
             </p>
           </div>
 
@@ -588,9 +588,9 @@ export default function SpyEngineCommandCenter() {
               <div className="mt-2 flex flex-col gap-1 text-[10px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
                 <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
-                <div>· GİRİŞ KAPISI (hepsi zorunlu): 3 ardışık aynı yönlü 1m mum + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü.</div>
+                <div>· GİRİŞ (hepsi zorunlu): 2. 1m mumun kapanışı + mum paterni (gövde ≥%50, kapanış yön tarafında ≥%60) + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü.</div>
                 <div>· Saatte en fazla 3 giriş; bir pozisyon kapandıktan sonra ters yönlü ilk düzeltme mumu beklenir.</div>
-                <div>· ÇIKIŞ: 3 ardışık ters 1m mum + 1m RSI dönüşü. 5m mum ve 5m RSI de ters döndüyse eşik 2 muma iner. 15:45 ET mutlak.</div>
+                <div>· ÇIKIŞ girişin SİMETRİĞİ: 2 ardışık ters 1m mum + aynı onay setinin tamamı ters yönde. 15:45 ET mutlak.</div>
                 <div>· Sabit yüzde hedef/stop, süre sınırı ve prim trailing YOK — üçü de 5 seans üzerinde ölçüldü, net beklentiyi düşürdüler.</div>
                 <div>· $ kâr/zarar GERÇEK 0DTE opsiyon primiyle hesaplanır; prim verisi gelmezse giriş/çıkış yine doğrudur, sadece tutar üretilmez.</div>
               </div>

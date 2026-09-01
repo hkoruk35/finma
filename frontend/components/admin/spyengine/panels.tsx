@@ -12,7 +12,7 @@ import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "re
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
-  EXIT_REVERSAL_BARS, EXIT_REVERSAL_FAST, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
+  EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
   type ContractType, type ConfidencePart, type EngineState,
 } from "@/lib/spyengine/strategy";
@@ -457,7 +457,7 @@ export function LayerTable({
         tf="1m"
         tag="TETİK — girişi bu belirler"
         value={streakValue}
-        note={`${m1Note} · ${ENTRY_STREAK} aynı yönlü mum + kapılar = giriş · ${EXIT_REVERSAL_BARS} ters mum = çıkış`}
+        note={`${m1Note} · ${ENTRY_STREAK} aynı yönlü mum + kapılar = giriş · ${EXIT_REVERSAL_BARS} ters mum + aynı kapılar = çıkış`}
         t={streakTone}
       />
       <LayerRow
@@ -670,9 +670,9 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · GİRİŞ KAPISI — hepsi ZORUNLU (biri sağlanmazsa giriş yok)</text>
 
         <rect x="14" y="34" width="186" height="60" rx="6" fill={boxFill("streak")} stroke={box("streak")} />
-        <text x="107" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · {ENTRY_STREAK} ARDIŞIK MUM</text>
-        <text x="107" y="71" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde art arda kapanış</text>
-        <text x="107" y="85" textAnchor="middle" fill="#64748b" fontSize="9">2 mum denendi: 3× gürültü</text>
+        <text x="107" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · {ENTRY_STREAK}. MUM KAPANIŞI</text>
+        <text x="107" y="71" textAnchor="middle" fill="#64748b" fontSize="9">+ MUM PATERNİ: gövde ≥ %50,</text>
+        <text x="107" y="85" textAnchor="middle" fill="#64748b" fontSize="9">kapanış yön tarafında ≥ %60</text>
 
         <path d="M200 64 L222 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
         <rect x="226" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
@@ -705,13 +705,13 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <text x="34" y="182" fill="#64748b" fontSize="9.5">Hepsi 5 seans üzerinde ölçüldü; her biri net beklentiyi düşürdüğü için eklenmedi.</text>
 
         {/* 3 — Çıkış */}
-        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — girişin aynası (ilk oluşan kazanır)</text>
+        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — girişle SİMETRİK yöntem (ilk oluşan kazanır)</text>
 
         <rect x="14" y="232" width="470" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
-        <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TREND KIRILIMI</text>
-        <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS yönlü 1m mum + 1m RSI de dönmüş olmalı</text>
-        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">5m mum VE 5m RSI de ters döndüyse eşik {EXIT_REVERSAL_FAST} muma iner —</text>
-        <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">üst zaman dilimi teyit ediyorsa tam kırılımı beklemeye gerek yok</text>
+        <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TERS YÖNLÜ ONAY SETİ</text>
+        <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS 1m mum + GİRİŞİN AYNI KAPI SETİ ters yönde</text>
+        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">mum paterni · hacim · 1m RSI yönü · 5m mum yönü · 5m RSI yönü</text>
+        <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">çıkış, girişin tam aynasıdır — simetrik yöntem</text>
 
         <rect x="496" y="232" width="470" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
         <text x="731" y="252" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET — MUTLAK GÜN SONU KAPAMA</text>
