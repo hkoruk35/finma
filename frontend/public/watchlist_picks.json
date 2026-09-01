@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T09:06:00.726154-04:00",
+  "generated_at": "2026-09-01T14:09:31.856344-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -12,12 +12,6 @@
       "sector": "Energy",
       "date_added": "2026-08-31",
       "score": 43.0
-    },
-    {
-      "ticker": "CMG",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-31",
-      "score": 44.5
     },
     {
       "ticker": "OII",
@@ -36,24 +30,6 @@
       "sector": "Consumer Defensive",
       "date_added": "2026-08-31",
       "score": 37.5
-    },
-    {
-      "ticker": "OWL",
-      "sector": "Financial Services",
-      "date_added": "2026-09-01",
-      "score": 46.5
-    },
-    {
-      "ticker": "UMC",
-      "sector": "Technology",
-      "date_added": "2026-09-01",
-      "score": 46.0
-    },
-    {
-      "ticker": "MU",
-      "sector": "Technology",
-      "date_added": "2026-09-01",
-      "score": 44.5
     },
     {
       "ticker": "BG",
@@ -80,10 +56,40 @@
       "score": 40.5
     },
     {
-      "ticker": "KSS",
+      "ticker": "MTCH",
+      "sector": "Communication Services",
+      "date_added": "2026-09-01",
+      "score": 40.0
+    },
+    {
+      "ticker": "SQM",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-01",
+      "score": 38.5
+    },
+    {
+      "ticker": "TRI",
+      "sector": "Industrials",
+      "date_added": "2026-09-01",
+      "score": 38.0
+    },
+    {
+      "ticker": "DDS",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-01",
-      "score": 29.5
+      "score": 36.0
+    },
+    {
+      "ticker": "MCO",
+      "sector": "Financial Services",
+      "date_added": "2026-09-01",
+      "score": 35.5
+    },
+    {
+      "ticker": "CRWD",
+      "sector": "Technology",
+      "date_added": "2026-09-01",
+      "score": 30.0
     }
   ]
 }
