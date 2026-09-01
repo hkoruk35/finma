@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T17:04:07.451842-04:00",
+  "generated_at": "2026-09-01T09:06:00.726154-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -12,18 +12,6 @@
       "sector": "Energy",
       "date_added": "2026-08-31",
       "score": 43.0
-    },
-    {
-      "ticker": "QCOM",
-      "sector": "Technology",
-      "date_added": "2026-08-31",
-      "score": 38.2
-    },
-    {
-      "ticker": "FIGS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-08-31",
-      "score": 46.0
     },
     {
       "ticker": "CMG",
@@ -48,6 +36,54 @@
       "sector": "Consumer Defensive",
       "date_added": "2026-08-31",
       "score": 37.5
+    },
+    {
+      "ticker": "OWL",
+      "sector": "Financial Services",
+      "date_added": "2026-09-01",
+      "score": 46.5
+    },
+    {
+      "ticker": "UMC",
+      "sector": "Technology",
+      "date_added": "2026-09-01",
+      "score": 46.0
+    },
+    {
+      "ticker": "MU",
+      "sector": "Technology",
+      "date_added": "2026-09-01",
+      "score": 44.5
+    },
+    {
+      "ticker": "BG",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-09-01",
+      "score": 43.5
+    },
+    {
+      "ticker": "DHT",
+      "sector": "Energy",
+      "date_added": "2026-09-01",
+      "score": 43.0
+    },
+    {
+      "ticker": "XP",
+      "sector": "Financial Services",
+      "date_added": "2026-09-01",
+      "score": 42.5
+    },
+    {
+      "ticker": "PARR",
+      "sector": "Energy",
+      "date_added": "2026-09-01",
+      "score": 40.5
+    },
+    {
+      "ticker": "KSS",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-01",
+      "score": 29.5
     }
   ]
 }
