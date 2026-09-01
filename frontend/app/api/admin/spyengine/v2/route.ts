@@ -50,13 +50,12 @@ export const revalidate = 0;
 export const maxDuration = 30;
 
 /**
- * Aynı seansta prim serisi çekilecek azami aday sayısı. V3'te giriş artık
- * 1m seri tabanlı (V2'nin 5m-kapı sınırlaması yok) — tam bir RTH günü, her
- * pozisyon kapanışının ardından bir düzeltme mumu beklense bile 8'den çok
- * daha fazla Kontrat A/B tetiklenebilir. 8 ile sınırlı kalınsaydı sabahki
- * sinyaller `.slice(-N)` yüzünden öğleden sonra sessizce ekrandan düşerdi.
+ * Prim serisi çekilecek azami pozisyon sayısı — artık ADAYLARA değil, zincir
+ * çözüldükten sonra KABUL EDİLEN pozisyonlara uygulanır. Tipik bir seansta
+ * ~20 pozisyon kabul ediliyor, dolayısıyla bu sınır pratikte devreye girmez;
+ * yalnızca patolojik bir günde Yahoo'ya sınırsız istek gitmesini önler.
  */
-const MAX_TRACKED_POSITIONS = 40;
+const MAX_TRACKED_POSITIONS = 80;
 
 /**
  * Kapanmış bir pozisyonun sonucu ASLA değişmez (deterministik, non-repainting).
@@ -161,27 +160,46 @@ export async function GET(req: NextRequest) {
 
     // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
     //
-    // V3.1: çıkış kararı artık GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor;
-    // opsiyon primi yalnızca $ kâr/zararı fiyatlıyor. Bu yüzden çıkış
-    // taraması prim isteğinden BAĞIMSIZ ve önce yapılır.
-    const tracked = gen.candidates.slice(-MAX_TRACKED_POSITIONS);
+    // V3.1'de çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor;
+    // opsiyon primi yalnızca $ kâr/zararı fiyatlıyor. Bunun önemli bir
+    // sonucu var: tek-pozisyon/yeniden-giriş zinciri artık HİÇ ağ isteği
+    // olmadan, tüm adaylar üzerinde çözülebiliyor.
+    //
+    // Önceden adaylar `.slice(-N)` ile kırpılıp sonra zincire sokuluyordu.
+    // 1m seri tabanlı giriş günde ~85 aday ürettiği için bu, seansın İLK
+    // YARISINI sessizce düşürüyordu — ekranda yalnızca öğleden sonraki
+    // işlemler görünüyor, sabahki sinyaller hiç listelenmiyordu. Sıra
+    // tersine çevrildi: önce zincir çözülür (ücretsiz), sonra yalnızca
+    // KABUL EDİLEN pozisyonlar için prim çekilir (~20 istek, ~85 değil).
+    const scans = gen.candidates.map((c) =>
+      findExitSignal({
+        m1: sessionM1,
+        m5: m5All,
+        entryTime: c.time,
+        side: c.side,
+        entrySpot: c.spot,
+        session,
+        nowSec: evalNow,
+      })
+    );
+    const shells = gen.candidates.map((c, i) => ({
+      entryTime: c.time,
+      side: c.side,
+      contractType: c.contractType,
+      exitTime: scans[i].signal?.time ?? null,
+    }));
+    const scanByTime = new Map(gen.candidates.map((c, i) => [`${c.time}:${c.side}:${c.contractType}`, scans[i]]));
+
+    const accepted = filterOverlapping(gen.candidates, shells, sessionM1).slice(-MAX_TRACKED_POSITIONS);
+
     const candKey = (c: { time: number; side: string; contractType: string }) =>
       `${session.date}:${c.time}:${c.side}:${c.contractType}`;
-    const positions: PositionState[] = await Promise.all(
-      tracked.map(async (c) => {
+    const activePositions: PositionState[] = await Promise.all(
+      accepted.map(async (c) => {
         const cached = resolvedPositionCache.get(candKey(c));
         if (cached) return cached;
 
-        const exit = findExitSignal({
-          m1: sessionM1,
-          m5: m5All,
-          entryTime: c.time,
-          side: c.side,
-          entrySpot: c.spot,
-          session,
-          nowSec: evalNow,
-        });
-
+        const exit = scanByTime.get(`${c.time}:${c.side}:${c.contractType}`)!;
         const isCall = c.side === "LONG";
         const strike = atmStrike(c.spot);
         const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
@@ -203,11 +221,6 @@ export async function GET(req: NextRequest) {
       })
     );
 
-    // Aynı anda tek pozisyon + talimat §5 yeniden giriş (düzeltme mumu) kuralı
-    const accepted = new Set(
-      filterOverlapping(tracked, positions, sessionM1).map((c) => `${c.time}:${c.side}:${c.contractType}`)
-    );
-    const activePositions = positions.filter((p) => accepted.has(`${p.entryTime}:${p.side}:${p.contractType}`));
     const openPosition = activePositions.find((p) => p.status !== "CLOSED") ?? null;
 
     // Motor okuması pozisyonlardan ÖNCE üretiliyor (adaylar oradan çıkıyor);

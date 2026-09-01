@@ -804,8 +804,12 @@ export function runLifecycle(input: LifecycleInput): PositionState {
  * bir pozisyon kapandığında, o pozisyonun yönünün TERSİNE kapanan İLK 1m
  * mumu görülene kadar yeni aday kabul edilmez ("düzeltme mumu" beklenir).
  */
-export function filterOverlapping(candidates: EntryCandidate[], positions: PositionState[], m1: Bar[]): EntryCandidate[] {
-  const posByKey = new Map<string, PositionState>();
+export function filterOverlapping(
+  candidates: EntryCandidate[],
+  positions: Pick<PositionState, "entryTime" | "side" | "contractType" | "exitTime">[],
+  m1: Bar[]
+): EntryCandidate[] {
+  const posByKey = new Map<string, (typeof positions)[number]>();
   for (const p of positions) posByKey.set(`${p.entryTime}:${p.side}:${p.contractType}`, p);
 
   const out: EntryCandidate[] = [];
