@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T12:00:31.338864-04:00",
+  "updated_at": "2026-09-01T13:00:30.584550-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 398,
@@ -15,7 +15,7 @@
     "avg_loser_pct": -44.1,
     "best_trade_pct": 462.5,
     "worst_trade_pct": -100.0,
-    "avg_unrealized_pnl": -74.0,
+    "avg_unrealized_pnl": -74.9,
     "by_setup": {
       "BREAKOUT_YAKINI": {
         "total": 25,
@@ -14259,7 +14259,7 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.215,
+      "current_premium": 0.22,
       "unrealized_pnl_pct": -98.0,
       "days_held": 133,
       "peak_premium": 14.0,
@@ -14387,11 +14387,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.075,
-      "unrealized_pnl_pct": -98.6,
+      "current_premium": 0.065,
+      "unrealized_pnl_pct": -98.8,
       "days_held": 133,
       "peak_premium": 10.1,
-      "trough_premium": 0.07,
+      "trough_premium": 0.065,
       "underlying_current": null
     },
     {
@@ -14515,8 +14515,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 8.65,
-      "unrealized_pnl_pct": 33.1,
+      "current_premium": 8.3,
+      "unrealized_pnl_pct": 27.7,
       "days_held": 133,
       "peak_premium": 16.05,
       "trough_premium": 4.95,
