@@ -103,6 +103,14 @@ export default function SpyEngineCommandCenter() {
   const [pollMs, setPollMs] = useState(2000);
   const [autoScroll, setAutoScroll] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
+  /**
+   * Odak modu: referans blokları (ticker şeridi + bilgi kartları) katlanır,
+   * grafik + Motor Durumu + Kapı Durumu tek ekrana sığar. Hiçbir içerik
+   * silinmez — tek tuşla geri açılır.
+   */
+  const [focusMode, setFocusMode] = useState(false);
+  /** Odak modunda grafik yüksekliğini ekrana göre hesaplamak için */
+  const [viewportH, setViewportH] = useState(0);
   /** Boş = canlı. Dolu = o seansın geriye dönük oynatması (Yahoo 1m geçmişi ~5 gün). */
   const [replayDate, setReplayDate] = useState("");
 
@@ -251,6 +259,14 @@ export default function SpyEngineCommandCenter() {
     return () => { clearTimeout(first); clearInterval(id); };
   }, []);
 
+  // ── Ekran yüksekliği (odak modunda grafiği ekrana oturtmak için) ──
+  useEffect(() => {
+    const read = () => setViewportH(window.innerHeight);
+    const t = setTimeout(read, 0);
+    window.addEventListener("resize", read);
+    return () => { clearTimeout(t); window.removeEventListener("resize", read); };
+  }, []);
+
   // ── Tam ekran ───────────────────────────────────────────────────
   useEffect(() => {
     const onFs = () => setFullscreen(!!document.fullscreenElement);
@@ -320,7 +336,19 @@ export default function SpyEngineCommandCenter() {
     };
   }, [m15]);
 
-  const chartHeight = fullscreen ? Math.max(420, (typeof window !== "undefined" ? window.innerHeight : 900) - 96) : 560;
+  /**
+   * Odak modunda grafik ve sağ sütun AYNI yüksekliği paylaşır ve bu yükseklik
+   * ekrandan türetilir; böylece grafik + Motor Durumu + Kapı Durumu sayfayı
+   * kaydırmadan görünür.
+   *   ~190px = başlık (101) + sekmeler (35) + boşluklar ve alttaki bilgi satırı.
+   *   ~79px  = grafik araç çubuğu (40) + grafiğin altındaki kaynak satırı (39).
+   * Ölçüldü (1440×780): satır y=172'de başlıyor, bu değerlerle alt kenar 762'de
+   * kalıyor — katlamanın içinde.
+   */
+  const rowHeight = focusMode && viewportH ? Math.max(430, viewportH - 190) : 639;
+  const chartHeight = fullscreen
+    ? Math.max(420, (viewportH || 900) - 96)
+    : rowHeight - 79;
 
   // ── Render ──────────────────────────────────────────────────────
   return (
@@ -398,6 +426,19 @@ export default function SpyEngineCommandCenter() {
             </button>
           )}
 
+          <button
+            type="button"
+            onClick={() => setFocusMode((f) => !f)}
+            className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
+              focusMode
+                ? "border-[#eab308]/40 bg-[#eab308]/15 text-[#eab308]"
+                : "border-[#1c2635] bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
+            }`}
+            title="Şerit ve bilgi kartlarını katlar; grafik + Motor Durumu + Kapı Durumu tek ekrana sığar"
+          >
+            {focusMode ? "⛶ ODAK AÇIK" : "⛶ ODAK"}
+          </button>
+
           <Link
             href="/admin/supertrade/v4"
             className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 text-[10px] text-slate-400 transition-colors hover:bg-[#1c2635]"
@@ -408,7 +449,7 @@ export default function SpyEngineCommandCenter() {
       </header>
 
       {/* Uyarılar */}
-      {data && !data.session.isLive && data.session.note && (
+      {!focusMode && data && !data.session.isLive && data.session.note && (
         <div className="mb-3 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-300/90">
           <span>🕒</span><span>{data.session.note}</span>
         </div>
@@ -450,10 +491,14 @@ export default function SpyEngineCommandCenter() {
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
         <div className="flex flex-col gap-3">
-          <TickerStrip quotes={quotes} updatedAt={quotesAt} />
-          <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
+          {!focusMode && (
+            <>
+              <TickerStrip quotes={quotes} updatedAt={quotesAt} />
+              <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
+            </>
+          )}
 
-          <div className="grid grid-cols-1 gap-3 xl:grid-cols-[1fr_320px]">
+          <div className={`grid grid-cols-1 gap-3 ${focusMode ? "xl:grid-cols-[1fr_392px]" : "xl:grid-cols-[1fr_336px]"}`}>
             {/* Grafik */}
             <div ref={chartWrapRef} className={`${SURFACE} overflow-hidden ${fullscreen ? "flex flex-col" : ""}`}>
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-2">
@@ -552,8 +597,14 @@ export default function SpyEngineCommandCenter() {
               </div>
             </div>
 
-            {/* Sağ sütun */}
-            <div className="flex flex-col gap-3">
+            {/* Sağ sütun — grafikle aynı yüksekliğe sabit, taşarsa kendi
+                içinde kayar. Amaç: grafik + Motor Durumu + Kapı Durumu her
+                zaman tek ekranda görünsün, sayfayı kaydırmak gerekmesin. */}
+            <div
+              className="flex flex-col gap-2 overflow-y-auto pr-0.5 [&>*]:shrink-0"
+              style={fullscreen ? undefined : { maxHeight: rowHeight }}
+            >
+              <GatePanel gates={data?.engine.gateStatus ?? null} />
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
@@ -563,7 +614,6 @@ export default function SpyEngineCommandCenter() {
                   confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
                 />
               )}
-              <GatePanel gates={data?.engine.gateStatus ?? null} />
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
 
               {data?.liveChain && (
@@ -581,6 +631,7 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
+          {!focusMode && (
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             <Panel title="Motor Açıklaması">
               <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-3 font-mono text-[11px] leading-relaxed text-slate-400">
@@ -605,8 +656,10 @@ export default function SpyEngineCommandCenter() {
               <EventList events={events} emptyText="Bu seansta henüz sinyal olayı yok." />
             </Panel>
           </div>
+          )}
 
           {/* Strateji şeması — sayfanın en altı, varsayılan kapalı */}
+          {!focusMode && (
           <Disclosure
             title="Strateji Şeması — giriş, taşıma ve çıkış kuralları"
             badge={
@@ -619,6 +672,7 @@ export default function SpyEngineCommandCenter() {
           >
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
+          )}
         </div>
       )}
 

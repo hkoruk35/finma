@@ -150,7 +150,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">Canlı Piyasa Şeridi</span>
         <span className="font-mono text-[10px] text-slate-600">
           {updatedAt ? `${nyClock(updatedAt, true)} ET` : "veri bekleniyor"}
@@ -164,7 +164,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
             return (
               <div
                 key={q.symbol}
-                className="bg-[#0f141d] px-2 py-1.5 cursor-pointer transition-colors hover:bg-[#1c2635]"
+                className="bg-[#0f141d] px-2 py-1 cursor-pointer transition-colors hover:bg-[#1c2635]"
                 onMouseEnter={(e) => { cancelClose(); setHover({ idx, rect: e.currentTarget.getBoundingClientRect() }); }}
                 onMouseLeave={scheduleClose}
               >
@@ -175,12 +175,12 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                 {q.error || q.price == null ? (
                   <div className="font-mono text-[10px] text-slate-600">veri yok</div>
                 ) : (
-                  <>
-                    <div className="font-mono text-[11px] text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</div>
-                    <div className={`font-mono text-[10px] ${tone(q.changePct)}`}>
-                      {up ? "▲" : down ? "▼" : "▬"} {signed(q.changePct, 2)}%
-                    </div>
-                  </>
+                  <div className="flex items-baseline justify-between gap-1">
+                    <span className="font-mono text-[11px] text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</span>
+                    <span className={`font-mono text-[9.5px] ${tone(q.changePct)}`}>
+                      {up ? "▲" : down ? "▼" : "▬"}{signed(q.changePct, 2)}%
+                    </span>
+                  </div>
                 )}
               </div>
             );
@@ -278,10 +278,10 @@ export function PhaseBadge({ phase }: { phase: SessionPhase }) {
 
 function Card({ label, value, sub, tone: t }: { label: string; value: ReactNode; sub?: ReactNode; tone?: string }) {
   return (
-    <div className="bg-[#0f141d] px-3 py-2">
+    <div className="bg-[#0f141d] px-2.5 py-1.5">
       <div className="text-[9px] font-semibold tracking-wider text-slate-500">{label}</div>
-      <div className={`font-mono text-[14px] font-semibold ${t ?? "text-slate-100"}`}>{value}</div>
-      {sub != null && <div className="font-mono text-[10px] text-slate-500">{sub}</div>}
+      <div className={`font-mono text-[13px] font-semibold leading-tight ${t ?? "text-slate-100"}`}>{value}</div>
+      {sub != null && <div className="truncate font-mono text-[9.5px] leading-tight text-slate-500">{sub}</div>}
     </div>
   );
 }
@@ -362,14 +362,14 @@ export function InfoCards({ spot, lastFetch, phase }: {
 
 function LayerRow({ tf, tag, value, note, t }: { tf: string; tag: string; value: string; note: string; t: string }) {
   return (
-    <div className="grid grid-cols-[64px_1fr] items-start gap-2 border-b border-[#1c2635] px-3 py-2 last:border-0">
+    <div className="grid grid-cols-[58px_1fr] items-start gap-2 border-b border-[#1c2635] px-3 py-1.5 last:border-0">
       <div>
         <div className="text-[11px] font-semibold text-slate-200">{tf}</div>
         <div className="text-[9px] text-slate-600">{tag}</div>
       </div>
       <div>
         <div className={`text-[12px] font-semibold ${t}`}>{value}</div>
-        <div className="text-[10px] leading-snug text-slate-500">{note}</div>
+        <div className="text-[9.5px] leading-snug text-slate-500">{note}</div>
       </div>
     </div>
   );
@@ -377,22 +377,32 @@ function LayerRow({ tf, tag, value, note, t }: { tf: string; tag: string; value:
 
 /** Talimat §7 kabul kriteri: güven skoru kara kutu olmamalı, bileşenleri görülebilmeli */
 function ConfidenceBreakdown({ parts, total }: { parts: ConfidencePart[]; total: number }) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="border-t border-[#1c2635] px-3 py-2">
-      <div className="mb-1.5 flex items-center justify-between">
-        <span className="text-[10px] font-semibold text-slate-400">Güven Skoru Dökümü</span>
+    <div className="border-t border-[#1c2635] px-3 py-1.5">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center justify-between text-left transition-colors hover:opacity-80"
+      >
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-slate-400">
+          <span className={`text-[8px] text-slate-600 transition-transform ${open ? "rotate-90" : ""}`}>▶</span>
+          Güven Skoru Dökümü
+        </span>
         <span className="font-mono text-[12px] font-bold text-slate-200">{total}/100</span>
-      </div>
-      <div className="flex flex-col gap-0.5">
-        {parts.map((p, i) => (
-          <div key={i} className="flex items-center justify-between font-mono text-[10px]">
-            <span className="text-slate-500">{p.label}</span>
-            <span className={p.value > 0 ? "text-[#22c55e]" : p.value < 0 ? "text-[#ef4444]" : "text-slate-500"}>
-              {p.value >= 0 ? "+" : ""}{p.value}
-            </span>
-          </div>
-        ))}
-      </div>
+      </button>
+      {open && (
+        <div className="mt-1 flex flex-col gap-0.5">
+          {parts.map((p, i) => (
+            <div key={i} className="flex items-center justify-between font-mono text-[10px]">
+              <span className="text-slate-500">{p.label}</span>
+              <span className={p.value > 0 ? "text-[#22c55e]" : p.value < 0 ? "text-[#ef4444]" : "text-slate-500"}>
+                {p.value >= 0 ? "+" : ""}{p.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -426,9 +436,9 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Kapı Durumu <span className="text-[9px] font-normal text-slate-600">· son kapalı 1m mum</span>
+          Kapı Durumu <span className="text-[9px] font-normal text-slate-600">· son 1m mum</span>
         </span>
         <div className="flex gap-1">
           {(["long", "short"] as const).map((sd) => (
@@ -451,7 +461,7 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
       </div>
 
       <div
-        className={`m-3 rounded border px-3 py-2 text-[12px] font-bold ${
+        className={`m-2 rounded border px-2.5 py-1.5 text-[11px] font-bold ${
           allOk
             ? "border-green-500/35 bg-green-500/15 text-green-300"
             : "border-slate-600/40 bg-slate-700/25 text-slate-300"
@@ -462,10 +472,10 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
           : `✕ ${list.length - passed} kapı kapalı — ${passed}/${list.length} geçti`}
       </div>
 
-      <div className="px-3 pb-3">
+      <div className="px-3 pb-2">
         {list.map((g, i) => (
-          <div key={i} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-1 last:border-0">
-            <span className="flex items-center gap-1.5 text-[10px]">
+          <div key={i} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-0.5 last:border-0">
+            <span className="flex items-center gap-1.5 text-[9.5px] leading-tight">
               <span className={g.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{g.ok ? "✓" : "✕"}</span>
               <span className={g.ok ? "text-slate-400" : "text-slate-500"}>{g.label}</span>
             </span>
@@ -498,7 +508,7 @@ export function LayerTable({
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">Motor Durumu</span>
         {contractType && (
           <span
@@ -515,32 +525,32 @@ export function LayerTable({
       </div>
 
       {/* Büyük, tek bakışta okunan durum satırı — "ARMED" gibi kod yazmıyoruz */}
-      <div className={`m-3 rounded border px-3 py-2.5 ${st.ring}`}>
+      <div className={`m-2 rounded border px-2.5 py-2 ${st.ring}`}>
         <div className="flex items-center gap-2">
           <span className={`h-2 w-2 shrink-0 rounded-full ${st.dot} ${state === "TRIGGERED" || state === "IN_POSITION" ? "animate-pulse" : ""}`} />
-          <span className={`text-[13px] font-bold tracking-wide ${st.text}`}>
+          <span className={`text-[12px] font-bold tracking-wide ${st.text}`}>
             {st.icon} {stateLabel}
           </span>
         </div>
-        <div className="mt-1.5 text-[11px] leading-snug text-slate-300">{nextStep}</div>
+        <div className="mt-1 text-[10.5px] leading-snug text-slate-300">{nextStep}</div>
       </div>
 
       <LayerRow
         tf="1m"
         tag="TETİK — girişi bu belirler"
         value={streakValue}
-        note={`${m1Note} · ${ENTRY_STREAK} aynı yönlü mum + kapılar = giriş · ${EXIT_REVERSAL_BARS} ters mum + aynı kapılar = çıkış`}
+        note={m1Note}
         t={streakTone}
       />
       <LayerRow
         tf="5m"
         tag="DESTEK — sinyali iptal edemez"
         value={m5Rsi == null ? "veri yok" : `RSI ${m5Rsi.toFixed(1)}`}
-        note={`${m5Note} · yalnızca güven puanını değiştirir`}
+        note={m5Note}
         t={rsiTone}
       />
 
-      <div className="flex items-center justify-between px-3 py-2 text-[10px] text-slate-500">
+      <div className="flex items-center justify-between px-3 py-1.5 text-[10px] text-slate-500">
         <span>Yön: <b className={action === "LONG" ? "text-[#22c55e]" : action === "SHORT" ? "text-[#ef4444]" : "text-slate-300"}>
           {action === "BEKLE" ? "Henüz yok" : action === "LONG" ? "LONG (Call)" : "SHORT (Put)"}
         </b></span>
@@ -585,8 +595,8 @@ export function PositionPanel({ position, livePremium }: {
   return (
     <div className={SURFACE}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          {position.status === "OPEN" ? "Açık Pozisyon" : "Son Pozisyon (kapandı)"}
+        <span className="shrink-0 text-[11px] font-semibold tracking-wide text-slate-300">
+          {position.status === "OPEN" ? "Açık Pozisyon" : "Son Pozisyon"}
         </span>
         <div className="flex items-center gap-1.5">
           <span
