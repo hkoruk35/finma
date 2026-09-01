@@ -1,9 +1,9 @@
 {
   "date": "2026-09-01",
-  "generated_at": "2026-09-01T09:05:59.378950-04:00",
+  "generated_at": "2026-09-01T14:09:29.276823-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 31,
-  "market_regime": "STRONG",
+  "active_scores_count": 41,
+  "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 13,
       "tickers": [
         "GENI",
         "BOX",
@@ -34,7 +34,8 @@
         "AVAH",
         "DE",
         "CNQ",
-        "BKR"
+        "BKR",
+        "VALE"
       ]
     },
     "value": {
@@ -73,25 +74,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 760.98,
-      "change_pct": -0.79
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 706.755,
-      "change_pct": -1.4
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 527.39,
-      "change_pct": -0.79
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.74,
-      "change_pct": 12.2
-    },
-    "RUSSELL2000": {
-      "value": 290.6,
-      "change_pct": -1.13
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-01T15:00:30.625178-04:00"
+  }
 }
