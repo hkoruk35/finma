@@ -423,10 +423,10 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
  */
 /**
  * Kapı sırasına birebir denk kısa etiketler. Sıra `gateChecksFor` ile
- * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI); iki sütun
+ * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI, 5m RSI 50); iki sütun
  * yan yana sığsın diye kısaltıldı, tam metin `title` olarak durur.
  */
-export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI"];
+export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI", "5m RSI 50"];
 
 /** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
 export interface SideStanding {
@@ -991,7 +991,7 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <rect x="14" y="232" width="470" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
         <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TERS YÖNLÜ ONAY SETİ</text>
         <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS 1m mum + GİRİŞİN AYNI KAPI SETİ ters yönde</text>
-        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">mum paterni · hacim · 1m RSI yönü · 5m mum yönü · 5m RSI yönü</text>
+        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">patern · hacim · 1m RSI · 5m mum · 5m RSI yönü + 50 çizgisi</text>
         <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">çıkış, girişin tam aynasıdır — simetrik yöntem</text>
 
         <rect x="496" y="232" width="470" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />

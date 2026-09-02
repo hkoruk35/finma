@@ -7,13 +7,16 @@
  * çeviriyordu. V3.2 girişe ZORUNLU bir kalite kapısı koyar.
  *
  * ── GİRİŞ (hepsi zorunlu) ─────────────────────────────────────────
- *   1. 3 ardışık aynı yönlü KAPALI 1m mum
- *   2. Tetik mumu hacmi > son 15 mumun ortalaması
- *   3. 1m RSI(14) o yönde hareket ediyor   (YÖN — 50 seviyesi DEĞİL)
- *   4. Son kapalı 5m mum aynı yönde
- *   5. 5m RSI(14) o yönde hareket ediyor   (YÖN — 50 seviyesi DEĞİL)
- *   6. Saatte en fazla 3 giriş (kayan pencere)
- *   7. Aynı anda tek pozisyon + kapanıştan sonra düzeltme mumu beklenir
+ *   1. 2 ardışık aynı yönlü KAPALI 1m mum (ENTRY_STREAK)
+ *   2. Mum paterni: gövde ≥ %50, kapanış yön tarafında ≥ %60
+ *   3. Tetik mumu hacmi > son 15 mumun ortalaması
+ *   4. 1m RSI(14) o yönde hareket ediyor   (YÖN)
+ *   5. Son kapalı 5m mum aynı yönde
+ *   6. 5m RSI(14) o yönde hareket ediyor   (YÖN)
+ *   7. 5m RSI 50 çizgisinin doğru tarafında (LONG >50 / SHORT <50)
+ *      — REQUIRE_M5_RSI_LEVEL ile açılıp kapanır, ölçümü orada
+ *   8. Saatte en fazla 3 giriş (kayan pencere)
+ *   9. Aynı anda tek pozisyon + kapanıştan sonra düzeltme mumu beklenir
  *
  * ── ÇIKIŞ (ilk oluşan) ────────────────────────────────────────────
  *   1. 3 ardışık TERS yönlü 1m mum + 1m RSI de dönmüş
@@ -90,6 +93,16 @@ export const CLOSE_POSITION_MIN = 0.6;
 
 /** Hacim teyidi için bakılan geçmiş mum sayısı */
 export const VOLUME_LOOKBACK = 15;
+
+/**
+ * 5m RSI'ın 50 çizgisine göre konumu da şart mı (LONG'da >50, SHORT'ta <50).
+ *
+ * Kullanıcı talebiyle açıldı (2026-09-02). ÖLÇÜM (20 seans, gerçek SPY 1m,
+ * üretim çıkışıyla): işlem 87 → 65, isabet %45 → %45, işlem başına beklenti
+ * +0,018 → −0,011 puan, "yakalama" %41 → %37. Yani sinyali seyrekleştiriyor
+ * ve girişi bir miktar GECİKTİRİYOR. Kapatmak için tek satır: false yap.
+ */
+export const REQUIRE_M5_RSI_LEVEL = true;
 
 /**
  * Saatte azami giriş (kayan 60 dakikalık pencere).
@@ -382,6 +395,14 @@ function checkGate(
     return { ok: false, blockedBy: `5m RSI ${side === "LONG" ? "yükselmiyor" : "düşmüyor"} (${r5.toFixed(0)})` };
   }
 
+  // 5) 5m RSI SEVİYESİ — yön yetmez, 50 çizgisinin doğru tarafında da olmalı
+  if (REQUIRE_M5_RSI_LEVEL && (side === "LONG" ? r5 <= 50 : r5 >= 50)) {
+    return {
+      ok: false,
+      blockedBy: `5m RSI 50 çizgisinin ${side === "LONG" ? "üstünde" : "altında"} değil (${r5.toFixed(0)})`,
+    };
+  }
+
   return { ok: true, volRatio, rsi1: r1, rsi5: r5 };
 }
 
@@ -410,7 +431,7 @@ function gateChecksFor(
   const r5p = m5Cursor >= 1 ? m5Rsi[m5Cursor - 1] : null;
   const wantDir: StreakDir = side === "LONG" ? "UP" : "DOWN";
 
-  return [
+  const checks: GateCheck[] = [
     {
       label: `Mum gövdesi ≥ %${BODY_MIN_RATIO * 100}`,
       ok: bodyR >= BODY_MIN_RATIO,
@@ -442,6 +463,16 @@ function gateChecksFor(
       detail: r5 == null ? "veri yok" : r5.toFixed(0),
     },
   ];
+
+  if (REQUIRE_M5_RSI_LEVEL) {
+    checks.push({
+      label: `5m RSI 50 çizgisinin ${side === "LONG" ? "üstünde" : "altında"}`,
+      ok: r5 != null && (side === "LONG" ? r5 > 50 : r5 < 50),
+      detail: r5 == null ? "veri yok" : r5.toFixed(0),
+    });
+  }
+
+  return checks;
 }
 
 /**
