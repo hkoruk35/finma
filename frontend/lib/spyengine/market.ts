@@ -22,7 +22,10 @@
 
 import "server-only";
 import type { Bar } from "./core";
-import { normalizeBars, snapToInterval, dropBadPrints, nyParts, PRE_OPEN_MIN, POST_CLOSE_MIN } from "./core";
+import {
+  normalizeBars, snapToInterval, dropBadPrints, nyParts,
+  PRE_OPEN_MIN, POST_CLOSE_MIN, RTH_OPEN_MIN, RTH_CLOSE_MIN,
+} from "./core";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 const YF_HEADERS = {
@@ -230,11 +233,15 @@ export interface SpyBundle {
 
 /**
  * TTL'ler bilinçli olarak farklı: 1m mumlar sık (canlı akış için), 5m/15m
- * seyrek yenilenir. Sayfa 1 sn'de bir yoklar; 1m TTL 1,2 sn olduğu için
- * Yahoo'ya dakikada ~50 istek gider, 60 değil. 5m/15m yine seyrek.
+ * seyrek yenilenir. Sayfa 1 sn'de bir yoklar; RTH içinde 1m TTL 1,2 sn
+ * olduğu için Yahoo'ya dakikada ~50 istek gider, 60 değil. RTH dışında
+ * (pre/post/kapalı) fiyat zaten seyrek değiştiği için 1m TTL 4 sn'ye
+ * gevşer — sayfa yine 1 sn'de bir yoklasa bile Yahoo'ya giden istek
+ * dakikada ~15'e düşer. 5m/15m her durumda seyrek.
  */
 export const TTL = {
   m1: 1200,
+  m1Extended: 4000,
   m5: 20000,
   m15: 60000,
   option: 2500,
@@ -243,11 +250,18 @@ export const TTL = {
   overnight: 30000,
 };
 
+/** Regular Trading Hours (09:30–16:00 ET, hafta içi) — "borsa açık" */
+export function isRth(nowSec: number): boolean {
+  const p = nyParts(nowSec);
+  return p.weekday >= 1 && p.weekday <= 5 && p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN;
+}
+
 export async function fetchSpyBundle(): Promise<SpyBundle> {
   const errors: string[] = [];
+  const m1Ttl = isRth(Math.floor(Date.now() / 1000)) ? TTL.m1 : TTL.m1Extended;
 
   const [c1, c5, c15] = await Promise.all([
-    fetchChart("SPY", "1m", "5d", true, TTL.m1).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
+    fetchChart("SPY", "1m", "5d", true, m1Ttl).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
     fetchChart("SPY", "5m", "5d", true, TTL.m5).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
     fetchChart("SPY", "15m", "1mo", true, TTL.m15).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
   ]);

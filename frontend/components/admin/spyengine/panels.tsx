@@ -300,7 +300,7 @@ export function InfoCards({ spot, lastFetch, phase }: {
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      <div className="grid grid-cols-2 gap-px bg-[#1c2635] sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-px bg-[#1c2635] sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
         <Card
           label="SPY FİYAT"
           value={spot.price == null ? "veri yok" : `$${num(spot.price)}`}

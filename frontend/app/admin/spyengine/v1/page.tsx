@@ -15,7 +15,19 @@
  * V3.3 düzeni: en üstte ÖN UYARI çubuğu (kurulum oluşmadan haber verir),
  * altında küçültülmüş grafik + LONG/SHORT kapılarını AYNI ANDA gösteren
  * kapı tablosu. Dar ekranda (tablet) kapı tablosu grafiğin üstüne geçer.
- * Giriş/çıkış kurallarına DOKUNULMADI — bunlar yalnızca sunum katmanı.
+ * Ticker şeridi + bilgi kartları artık grafiğin ÜSTÜNDE ayrı yer kaplamıyor;
+ * sağ sütun (Kapı Durumu + Motor Durumu) grafikten uzun olduğu için grid
+ * grafik panelini aynı yüksekliğe geriyordu — o boşa giden alan artık
+ * grafiğin ALTINDA bu kartlarla dolduruluyor (bkz. flex flex-col + flex-1
+ * dolgu bölümü, aşağıda "command" sekmesinde). Giriş/çıkış kurallarına
+ * DOKUNULMADI — bunlar yalnızca sunum katmanı.
+ *
+ * Manuel grafik incelemesi (zoom/pan) 90 sn otomatik takibi durdurur, sonra
+ * kendiliğinden devam eder (bkz. MANUAL_PAUSE_MS).
+ *
+ * 1m mum TTL'i piyasa saatine göre değişir: RTH içinde 1200ms, dışında
+ * (pre/post/kapalı) 4000ms (bkz. lib/spyengine/market.ts TTL.m1Extended) —
+ * fiyat zaten seyrek değiştiği saatlerde Yahoo'ya gereksiz istek gitmesin.
  *
  * Yalnızca admin: /admin/** proxy.ts tarafından boga_auth ile korunur;
  * API uçları da ayrıca satır içi kontrol yapar.
@@ -82,6 +94,9 @@ interface StreamResponse {
 type Tab = "command" | "signals" | "context" | "ohlc";
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
+
+/** Grafiği elle incelerken (zoom/pan) otomatik takibin duraklama süresi */
+const MANUAL_PAUSE_MS = 90000;
 
 const DEFAULT_TOGGLES: ChartToggles = {
   candleType: "HA",
@@ -300,7 +315,7 @@ export default function SpyEngineCommandCenter() {
       manualInteractTimeoutRef.current = setTimeout(() => {
         setAutoScroll(true);
         setManualModeSince(null);
-      }, 30000);
+      }, MANUAL_PAUSE_MS);
     };
 
     wrap.addEventListener("wheel", onInteract, { passive: true });
@@ -611,13 +626,6 @@ export default function SpyEngineCommandCenter() {
             inPosition={!!openPosition}
           />
 
-          {!focusMode && (
-            <>
-              <TickerStrip quotes={quotes} updatedAt={quotesAt} />
-              <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
-            </>
-          )}
-
           <div
             className={`grid grid-cols-1 gap-3 ${
               focusMode
@@ -625,10 +633,14 @@ export default function SpyEngineCommandCenter() {
                 : "lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_460px]"
             }`}
           >
-            {/* Grafik */}
+            {/* Grafik — üstünde araç çubuğu, altında (eskiden sayfanın en
+                üstünde ayrı yer kaplayan) ticker şeridi + bilgi kartları.
+                Sağ sütun (Kapı Durumu + Motor Durumu) daha uzun olduğu için
+                grid bu paneli aynı yüksekliğe geriyor; o boşluk artık boşa
+                gitmiyor, bilgi kartlarıyla dolduruluyor. */}
             <div
               ref={chartWrapRef}
-              className={`${SURFACE} order-2 overflow-hidden lg:order-1 ${fullscreen ? "flex flex-col" : ""}`}
+              className={`${SURFACE} order-2 flex flex-col overflow-hidden lg:order-1`}
             >
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-2">
                 <div className="flex items-center gap-1">
@@ -687,9 +699,9 @@ export default function SpyEngineCommandCenter() {
                   {manualModeSince != null && nowSec > 0 && (
                     <span
                       className="rounded bg-amber-500/15 px-1.5 py-1 text-[10px] text-amber-300"
-                      title="Grafiği kaydırdın/yakınlaştırdın — 30 sn dokunmazsan otomatik takibe döner"
+                      title="Grafiği kaydırdın/yakınlaştırdın — 90 sn dokunmazsan otomatik takibe döner"
                     >
-                      manuel inceleme · {Math.max(0, 30 - (nowSec - manualModeSince))}sn
+                      manuel inceleme · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
                     </span>
                   )}
                   <button
@@ -702,7 +714,7 @@ export default function SpyEngineCommandCenter() {
                 </div>
               </div>
 
-              <div className={fullscreen ? "flex-1" : ""}>
+              <div className={fullscreen ? "min-h-0 flex-1" : "shrink-0"}>
                 <SpyChart
                   bars={chartBars}
                   timeframe={timeframe}
@@ -714,7 +726,14 @@ export default function SpyEngineCommandCenter() {
                 />
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px] text-slate-600">
+              {!focusMode && !fullscreen && (
+                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto border-t border-[#1c2635] p-2">
+                  <TickerStrip quotes={quotes} updatedAt={quotesAt} />
+                  <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
+                </div>
+              )}
+
+              <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px] text-slate-600">
                 <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
                 {data?.dataSource.overnight && <span className="text-sky-400">+ overnight: Robinhood köprüsü</span>}
                 {!!data?.dataSource.sanitized && (
