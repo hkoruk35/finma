@@ -1,8 +1,8 @@
 {
   "date": "2026-09-02",
-  "generated_at": "2026-09-02T09:09:23.741704-04:00",
+  "generated_at": "2026-09-02T14:08:16.242071-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 27,
+  "active_scores_count": 37,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 14,
       "tickers": [
         "CNQ",
         "BKR",
@@ -33,7 +33,10 @@
         "DRI",
         "MDT",
         "MTCH",
-        "SQM"
+        "SQM",
+        "VAL",
+        "TEVA",
+        "F"
       ]
     },
     "value": {
@@ -72,25 +75,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 764.811,
-      "change_pct": 0.4
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 708.23,
-      "change_pct": 0.08
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 530.0,
-      "change_pct": 0.43
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.23,
-      "change_pct": -6.79
-    },
-    "RUSSELL2000": {
-      "value": 294.07,
-      "change_pct": 1.2
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-02T15:00:18.753082-04:00"
+  }
 }
