@@ -795,7 +795,7 @@ export default function SpyEngineCommandCenter() {
               <div className="mt-2 flex flex-col gap-1 text-[10px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
                 <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
-                <div>· GİRİŞ (hepsi zorunlu): 2. 1m mumun kapanışı + mum paterni (gövde ≥%50, kapanış yön tarafında ≥%60) + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü + 5m RSI 50 çizgisinin doğru tarafında (LONG &gt;50 / SHORT &lt;50).</div>
+                <div>· GİRİŞ (hepsi zorunlu): 2. 1m mumun kapanışı + mum paterni (gövde ≥%50, kapanış yön tarafında ≥%60) + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü. RSI&apos;da yalnızca YÖN aranır, 50 seviyesi aranmaz.</div>
                 <div>· Saatte en fazla 3 giriş; bir pozisyon kapandıktan sonra ters yönlü ilk düzeltme mumu beklenir.</div>
                 <div>· ÇIKIŞ girişin SİMETRİĞİ: 2 ardışık ters 1m mum + aynı onay setinin tamamı ters yönde. 15:45 ET mutlak.</div>
                 <div>· Sabit yüzde hedef/stop, süre sınırı ve prim trailing YOK — üçü de 5 seans üzerinde ölçüldü, net beklentiyi düşürdüler.</div>

@@ -158,27 +158,27 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
         </span>
       </div>
       <div className="overflow-x-auto">
-        <div className="grid grid-cols-11 gap-px bg-[#1c2635]">
+        <div className="grid gap-px bg-[#1c2635] [grid-template-columns:repeat(auto-fit,minmax(104px,1fr))]">
           {quotes.map((q, idx) => {
             const up = (q.changePct ?? 0) > 0;
             const down = (q.changePct ?? 0) < 0;
             return (
               <div
                 key={q.symbol}
-                className="bg-[#0f141d] px-2 py-1 cursor-pointer transition-colors hover:bg-[#1c2635]"
+                className="cursor-pointer bg-[#0f141d] px-2.5 py-1.5 transition-colors hover:bg-[#1c2635]"
                 onMouseEnter={(e) => { cancelClose(); setHover({ idx, rect: e.currentTarget.getBoundingClientRect() }); }}
                 onMouseLeave={scheduleClose}
               >
-                <div className="flex items-baseline justify-between gap-1">
-                  <span className="text-[10px] font-semibold text-slate-300">{q.label}</span>
-                  {q.extended && <span className="text-[8px] text-amber-400/80">EXT</span>}
+                <div className="flex items-baseline justify-between gap-1.5 whitespace-nowrap">
+                  <span className="truncate text-[10px] font-semibold text-slate-300">{q.label}</span>
+                  {q.extended && <span className="shrink-0 text-[8px] text-amber-400/80">EXT</span>}
                 </div>
                 {q.error || q.price == null ? (
                   <div className="font-mono text-[10px] text-slate-600">veri yok</div>
                 ) : (
-                  <div className="flex items-baseline justify-between gap-1">
-                    <span className="font-mono text-[11px] text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</span>
-                    <span className={`font-mono text-[9.5px] ${tone(q.changePct)}`}>
+                  <div className="flex items-baseline justify-between gap-1.5 whitespace-nowrap">
+                    <span className="font-mono text-[11px] tabular-nums text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</span>
+                    <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${tone(q.changePct)}`}>
                       {up ? "▲" : down ? "▼" : "▬"}{signed(q.changePct, 2)}%
                     </span>
                   </div>
@@ -423,10 +423,10 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
  */
 /**
  * Kapı sırasına birebir denk kısa etiketler. Sıra `gateChecksFor` ile
- * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI, 5m RSI 50); iki sütun
+ * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI); iki sütun
  * yan yana sığsın diye kısaltıldı, tam metin `title` olarak durur.
  */
-export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI", "5m RSI 50"];
+export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI"];
 
 /** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
 export interface SideStanding {
@@ -991,7 +991,7 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <rect x="14" y="232" width="470" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
         <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TERS YÖNLÜ ONAY SETİ</text>
         <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS 1m mum + GİRİŞİN AYNI KAPI SETİ ters yönde</text>
-        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">patern · hacim · 1m RSI · 5m mum · 5m RSI yönü + 50 çizgisi</text>
+        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">mum paterni · hacim · 1m RSI yönü · 5m mum yönü · 5m RSI yönü</text>
         <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">çıkış, girişin tam aynasıdır — simetrik yöntem</text>
 
         <rect x="496" y="232" width="470" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
