@@ -1,8 +1,8 @@
 {
   "date": "2026-09-01",
-  "generated_at": "2026-09-01T14:09:29.276823-04:00",
+  "generated_at": "2026-09-01T17:05:04.616821-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 41,
+  "active_scores_count": 46,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,21 +21,23 @@
       ]
     },
     "breakout": {
-      "count": 13,
+      "count": 15,
       "tickers": [
         "GENI",
         "BOX",
         "CDW",
         "FDS",
         "NTR",
-        "OKE",
         "CNH",
         "SSRM",
         "AVAH",
         "DE",
         "CNQ",
         "BKR",
-        "VALE"
+        "VALE",
+        "BP",
+        "TYL",
+        "DRI"
       ]
     },
     "value": {
@@ -74,20 +76,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 763.2,
+      "change_pct": 0.19
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 706.09,
+      "change_pct": -0.22
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 530.45,
+      "change_pct": 0.51
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.9,
+      "change_pct": -2.69
+    },
+    "RUSSELL2000": {
+      "value": 292.47,
+      "change_pct": 0.65
     }
-  }
+  },
+  "price_updated_at": "2026-09-02T10:00:30.876602-04:00"
 }
