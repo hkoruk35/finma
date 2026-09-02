@@ -1,77 +1,26 @@
 /**
- * SPY Engine V2 — sinyal arşivi.
+ * SPY Engine V2 — sinyal arşivi uç noktası.
  *
- * Motor deterministik olduğu için (aynı mumlar → aynı sinyaller) arşiv
- * "kaynak" değil, KALICI KOPYA'dır: seans günü geçtikten ve Yahoo'nun 1m
- * geçmişi (~7 gün) düştükten sonra bile o günün sinyalleri ve sonuçları
- * okunabilsin diye tutulur.
+ * GET  → tüm seanslar + toplamlar
+ * POST → tek seansı yaz (idempotent; aynı gün tekrar gönderilirse üzerine yazar)
  *
- * Depolama: Supabase `shared_store` KV (bkz. docs/DATA_CONTRACTS.md) —
- * ayrı bir migration gerektirmez. Anahtar: spyengine_v2_archive.
- * Seans başına tek kayıt; aynı gün tekrar gönderilirse üzerine yazılır,
- * bu yüzden istemcinin defalarca göndermesi zararsızdır (idempotent).
+ * Tipler, dönüşüm ve depolama `lib/spyengine/archiveTypes.ts` +
+ * `archiveStore.ts` içinde — geri doldurma uç noktası (./backfill) da aynı
+ * kaynağı kullanır, iki yazıcı zamanla birbirinden kaymasın diye.
+ *
+ * Kimlik: /api/* proxy.ts matcher'ının dışında kaldığı için (bkz.
+ * frontend/AGENTS.md §3, tasks/active/001) boga_auth kontrolü burada satır
+ * içinde yapılır.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { isStaffAuthed, isStaffWriteAuthed } from "@/lib/apiAuth";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { readArchive, writeSession } from "@/lib/spyengine/archiveStore";
+import type { ArchivedTrade } from "@/lib/spyengine/archiveTypes";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
-const STORE_KEY = "spyengine_v2_archive";
-/** Kaç seans saklanacak */
-const MAX_SESSIONS = 90;
-
-interface ArchivedTrade {
-  id: string;
-  side: "LONG" | "SHORT";
-  contractType: "A" | "B";
-  entryTime: number;
-  entrySpot: number;
-  contract: string | null;
-  strike: number | null;
-  entryPremium: number | null;
-  exitTime: number | null;
-  exitSpot: number | null;
-  exitPremium: number | null;
-  exitReason: string | null;
-  exitNote: string | null;
-  status: string;
-  realizedPnl: number;
-  premiumDataMissing: boolean;
-  events: { kind: string; time: number; premium: number | null; label: string; note: string }[];
-}
-
-interface ArchiveSession {
-  date: string;
-  updatedAt: string;
-  trades: ArchivedTrade[];
-  totalPnl: number;
-  closed: number;
-  wins: number;
-  losses: number;
-}
-
-interface ArchivePayload {
-  sessions: Record<string, ArchiveSession>;
-}
-
-async function readArchive(): Promise<ArchivePayload> {
-  try {
-    const { data } = await supabaseAdmin
-      .from("shared_store")
-      .select("value")
-      .eq("key", STORE_KEY)
-      .maybeSingle();
-    const value = data?.value as ArchivePayload | undefined;
-    if (value && typeof value === "object" && value.sessions) return value;
-  } catch {
-    // Supabase erişilemiyorsa boş arşiv dön — sayfa yine de çalışsın.
-  }
-  return { sessions: {} };
-}
 
 export async function GET(req: NextRequest) {
   if (!isStaffAuthed(req)) {
@@ -115,30 +64,8 @@ export async function POST(req: NextRequest) {
   }
   const trades = Array.isArray(body.trades) ? body.trades : [];
 
-  const closedTrades = trades.filter((t) => t.status === "CLOSED");
-  const record: ArchiveSession = {
-    date,
-    updatedAt: new Date().toISOString(),
-    trades,
-    totalPnl: Math.round(closedTrades.reduce((s, t) => s + (t.realizedPnl || 0), 0) * 100) / 100,
-    closed: closedTrades.length,
-    wins: closedTrades.filter((t) => (t.realizedPnl || 0) > 0).length,
-    losses: closedTrades.filter((t) => (t.realizedPnl || 0) < 0).length,
-  };
-
-  const archive = await readArchive();
-  archive.sessions[date] = record;
-
-  // Sadece en yeni MAX_SESSIONS seansı sakla
-  const keys = Object.keys(archive.sessions).sort().reverse().slice(0, MAX_SESSIONS);
-  const trimmed: Record<string, ArchiveSession> = {};
-  for (const k of keys) trimmed[k] = archive.sessions[k];
-
   try {
-    const { error } = await supabaseAdmin
-      .from("shared_store")
-      .upsert({ key: STORE_KEY, value: { sessions: trimmed }, updated_at: new Date().toISOString() }, { onConflict: "key" });
-    if (error) throw new Error(error.message);
+    await writeSession(date, trades);
   } catch (e) {
     return NextResponse.json(
       { ok: false, error: `Arşiv yazılamadı: ${e instanceof Error ? e.message : String(e)}` },

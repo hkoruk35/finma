@@ -416,6 +416,15 @@ export interface OptionSeries {
  * sembollerini de v8/chart üzerinden servis eder — bu sayede pozisyon
  * yaşam döngüsü GERÇEK prim geçmişi üzerinde oynatılabilir; hiçbir
  * Black-Scholes modeli devreye girmez.
+ *
+ * SÜRESİ DOLMUŞ KONTRATLAR: prim geçmişi vade gününden sonra da geliyor —
+ * yaygın "Yahoo expired 0DTE primini siliyor" varsayımı yanlış. Ama SADECE
+ * doğru pencereyle (2026-09-02'de SPY260831C00765000 üzerinde ölçüldü):
+ *   range=5d   → 639 bar  ✓  (varsayılan; geriye dönük oynatmayı besleyen bu)
+ *   range=1d   → 0 bar    ✗  (vade günü "bugün" değil)
+ *   range=1mo  → 0 bar    ✗  ("Only 8 days worth of 1m granularity data")
+ * Daha eskisi için period1/period2'yi 8 günlük 1m sınırının içinde tutmak
+ * gerekir; o sınırın ötesinde veri gerçekten yok, uydurulmaz.
  */
 export async function fetchOptionSeries(contract: string, range = "5d"): Promise<OptionSeries> {
   try {

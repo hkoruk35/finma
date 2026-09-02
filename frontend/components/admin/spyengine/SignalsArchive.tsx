@@ -15,64 +15,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { nyClock } from "@/lib/spyengine/core";
 import { EVENT_LABEL, EVENT_STYLE, EXIT_LABEL_SHORT, type PositionState } from "@/lib/spyengine/strategy";
+import { toArchiveTrade, type ArchivedTrade, type ArchiveSession } from "@/lib/spyengine/archiveTypes";
 import { Panel, SURFACE, num, signed, tone } from "./panels";
 
-interface ArchiveTrade {
-  id: string;
-  side: "LONG" | "SHORT";
-  contractType: "A" | "B";
-  entryTime: number;
-  entrySpot: number;
-  contract: string | null;
-  strike: number | null;
-  entryPremium: number | null;
-  exitTime: number | null;
-  exitSpot: number | null;
-  exitPremium: number | null;
-  exitReason: string | null;
-  exitNote: string | null;
-  status: string;
-  realizedPnl: number;
-  premiumDataMissing: boolean;
-}
-
-interface ArchiveSession {
-  date: string;
-  updatedAt: string;
-  trades: ArchiveTrade[];
-  totalPnl: number;
-  closed: number;
-  wins: number;
-  losses: number;
-}
+type ArchiveTrade = ArchivedTrade;
 
 function reasonLabel(reason: string | null | undefined): string {
   if (!reason) return "—";
   return EXIT_LABEL_SHORT[reason as keyof typeof EXIT_LABEL_SHORT] ?? reason;
-}
-
-function toArchiveTrade(p: PositionState) {
-  return {
-    id: p.id,
-    side: p.side,
-    contractType: p.contractType,
-    entryTime: p.entryTime,
-    entrySpot: p.entrySpot,
-    contract: p.contract,
-    strike: p.strike,
-    entryPremium: p.entryPremium,
-    exitTime: p.exitTime,
-    exitSpot: p.exitSpot,
-    exitPremium: p.exitPremium,
-    exitReason: p.exitReason,
-    exitNote: p.exitNote,
-    status: p.status,
-    realizedPnl: p.realizedPnl,
-    premiumDataMissing: p.premiumDataMissing,
-    events: p.events.map((e) => ({
-      kind: e.kind, time: e.time, premium: e.premium, label: e.label, note: e.note,
-    })),
-  };
 }
 
 // ── Excel (.xls) dışa aktarma ─────────────────────────────────────
@@ -146,6 +96,7 @@ export default function SignalsArchive({ positions, sessionDate }: {
   const [sessions, setSessions] = useState<ArchiveSession[]>([]);
   const [totals, setTotals] = useState<{ pnl: number; closed: number; wins: number; losses: number } | null>(null);
   const [saving, setSaving] = useState(false);
+  const [backfilling, setBackfilling] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   /** Arşivde seçili seans — boş = tümü */
@@ -197,6 +148,40 @@ export default function SignalsArchive({ positions, sessionDate }: {
       setSaving(false);
     }
   }, [sessionDate, positions, loadArchive]);
+
+  /**
+   * Geçmiş seansları sunucuda yeniden oynatıp arşive yazar. Sayfanın açık
+   * OLMADIĞI günler böyle kurtarılır; motor deterministik olduğu için sonuç
+   * o gün canlı üretilenle aynıdır. Pencere Yahoo 1m geçmişiyle sınırlı
+   * (~5 seans) — ötesi için veri yok, uydurulmaz.
+   */
+  const backfill = useCallback(async () => {
+    setBackfilling(true);
+    setMessage(null);
+    try {
+      const res = await fetch("/api/admin/spyengine/v2/archive/backfill?days=5", {
+        method: "POST",
+        credentials: "include",
+      });
+      const json = await res.json();
+      if (json.ok) {
+        const skipped = (json.report ?? []).filter((r: { ok: boolean }) => !r.ok);
+        setMessage(
+          `${json.written} seans yazıldı · ${json.trades} işlem · ${json.withPremium} tanesinde gerçek prim` +
+            (skipped.length
+              ? ` · atlanan: ${skipped.map((r: { date: string; note: string }) => `${r.date} (${r.note})`).join(", ")}`
+              : ""),
+        );
+        await loadArchive();
+      } else {
+        setMessage(json.error || "Geri doldurulamadı");
+      }
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBackfilling(false);
+    }
+  }, [loadArchive]);
 
   // Kapanan işlem sayısı değiştiğinde otomatik arşivle — el ile
   // "kaydet"e basmayı beklemeden gün içi sonuçlar kalıcı olsun.
@@ -387,6 +372,15 @@ export default function SignalsArchive({ positions, sessionDate }: {
               className={btn}
             >
               ⭳ Excel
+            </button>
+            <button
+              type="button"
+              onClick={backfill}
+              disabled={backfilling}
+              className={btn}
+              title="Son 5 seansı sunucuda yeniden oynatıp gerçek 0DTE primiyle arşive yazar (sayfanın açık olmadığı günler için)"
+            >
+              {backfilling ? "Dolduruluyor…" : "↻ Geçmişi doldur"}
             </button>
             <button type="button" onClick={loadArchive} className={btn}>yenile</button>
           </div>
