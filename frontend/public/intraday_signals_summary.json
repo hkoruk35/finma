@@ -1,6 +1,6 @@
 {
   "date": "2026-09-02",
-  "last_updated": "2026-09-02T13:00:52.229080-04:00",
+  "last_updated": "2026-09-02T13:45:11.015099-04:00",
   "tickers": {
     "MDT": {
       "status_history": [
@@ -42,6 +42,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -90,6 +94,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -136,6 +144,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -184,6 +196,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -230,6 +246,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -278,6 +298,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -324,6 +348,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -372,6 +400,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -418,6 +450,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -466,6 +502,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -512,6 +552,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -560,6 +604,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -606,6 +654,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -654,6 +706,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -700,6 +756,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -748,6 +808,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -794,6 +858,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -842,6 +910,10 @@
         {
           "hour": "13:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -889,6 +961,10 @@
         {
           "hour": "13:00",
           "status": "WAIT"
+        },
+        {
+          "hour": "13:45",
+          "status": "WAIT"
         }
       ],
       "current_status": "WAIT",
@@ -935,6 +1011,10 @@
         },
         {
           "hour": "13:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:45",
           "status": "ENTRY_NOW"
         }
       ],
