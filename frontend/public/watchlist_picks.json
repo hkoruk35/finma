@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T09:09:25.494488-04:00",
+  "generated_at": "2026-09-02T14:08:17.985521-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -32,12 +32,6 @@
       "score": 37.5
     },
     {
-      "ticker": "BG",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-09-01",
-      "score": 43.5
-    },
-    {
       "ticker": "XP",
       "sector": "Financial Services",
       "date_added": "2026-09-01",
@@ -62,28 +56,16 @@
       "score": 42.0
     },
     {
-      "ticker": "ARGX",
-      "sector": "Healthcare",
+      "ticker": "VG",
+      "sector": "Energy",
       "date_added": "2026-09-02",
-      "score": 41.5
+      "score": 37.0
     },
     {
-      "ticker": "TRI",
-      "sector": "Industrials",
-      "date_added": "2026-09-02",
-      "score": 38.0
-    },
-    {
-      "ticker": "DDS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-02",
-      "score": 36.0
-    },
-    {
-      "ticker": "MU",
+      "ticker": "QRVO",
       "sector": "Technology",
       "date_added": "2026-09-02",
-      "score": 30.5
+      "score": 33.0
     }
   ]
 }
