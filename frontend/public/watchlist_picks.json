@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T14:08:17.985521-04:00",
+  "generated_at": "2026-09-02T17:04:50.512917-04:00",
   "picks": [
     {
       "ticker": "CLMT",
@@ -8,28 +8,10 @@
       "score": 42.5
     },
     {
-      "ticker": "EQNR",
-      "sector": "Energy",
-      "date_added": "2026-08-31",
-      "score": 43.0
-    },
-    {
-      "ticker": "OII",
-      "sector": "Energy",
-      "date_added": "2026-08-31",
-      "score": 42.5
-    },
-    {
       "ticker": "ULTA",
       "sector": "Consumer Cyclical",
       "date_added": "2026-08-31",
       "score": 38.0
-    },
-    {
-      "ticker": "DAR",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-08-31",
-      "score": 37.5
     },
     {
       "ticker": "XP",
@@ -44,28 +26,46 @@
       "score": 33.5
     },
     {
-      "ticker": "DLTR",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-09-01",
-      "score": 33.5
-    },
-    {
       "ticker": "CAH",
       "sector": "Healthcare",
       "date_added": "2026-09-02",
       "score": 42.0
     },
     {
-      "ticker": "VG",
-      "sector": "Energy",
-      "date_added": "2026-09-02",
-      "score": 37.0
-    },
-    {
       "ticker": "QRVO",
       "sector": "Technology",
       "date_added": "2026-09-02",
       "score": 33.0
+    },
+    {
+      "ticker": "CMCSA",
+      "sector": "Communication Services",
+      "date_added": "2026-09-02",
+      "score": 48.5
+    },
+    {
+      "ticker": "HOOD",
+      "sector": "Financial Services",
+      "date_added": "2026-09-02",
+      "score": 45.0
+    },
+    {
+      "ticker": "VSNT",
+      "sector": "Communication Services",
+      "date_added": "2026-09-02",
+      "score": 44.0
+    },
+    {
+      "ticker": "ALSN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-02",
+      "score": 40.5
+    },
+    {
+      "ticker": "AFRM",
+      "sector": "Financial Services",
+      "date_added": "2026-09-02",
+      "score": 29.5
     }
   ]
 }
