@@ -16,7 +16,7 @@
  *   3. Yahoo v8 chart, OCC opsiyon sembolüyle — 0DTE kontrat primi mumları.
  *
  * Hız/limit dengesi: modül düzeyinde kısa ömürlü bir önbellek var. Sayfa
- * 2 saniyede bir yoklasa bile Yahoo'ya giden istek sayısı TTL ile sınırlanır
+ * 1 saniyede bir yoklasa bile Yahoo'ya giden istek sayısı TTL ile sınırlanır
  * ve aynı anda birden fazla sekme açıksa istekler tekilleştirilir.
  */
 
@@ -230,14 +230,14 @@ export interface SpyBundle {
 
 /**
  * TTL'ler bilinçli olarak farklı: 1m mumlar sık (canlı akış için), 5m/15m
- * seyrek yenilenir. Böylece sayfa 2 sn'de bir yoklarken Yahoo'ya dakikada
- * ~20 istek gider, 60 değil.
+ * seyrek yenilenir. Sayfa 1 sn'de bir yoklar; 1m TTL 1,2 sn olduğu için
+ * Yahoo'ya dakikada ~50 istek gider, 60 değil. 5m/15m yine seyrek.
  */
 export const TTL = {
-  m1: 2500,
+  m1: 1200,
   m5: 20000,
   m15: 60000,
-  option: 4000,
+  option: 2500,
   chain: 60000,
   quotes: 12000,
   overnight: 30000,

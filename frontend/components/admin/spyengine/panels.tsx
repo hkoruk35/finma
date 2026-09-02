@@ -15,6 +15,7 @@ import {
   EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
+  type GateCheck, type Side,
 } from "@/lib/spyengine/strategy";
 
 // ── Ortak küçük parçalar ──────────────────────────────────────────
@@ -420,8 +421,246 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
  * Motor kendi sinyalini üretmese bile "şu an LONG/SHORT açsam hangi kapı
  * geçer, hangisi geçmez" burada tek bakışta görülür.
  */
-export function GatePanel({ gates }: { gates: GateStatus | null }) {
-  const [side, setSide] = useState<"long" | "short">("long");
+/**
+ * Kapı sırasına birebir denk kısa etiketler. Sıra `gateChecksFor` ile
+ * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI); iki sütun
+ * yan yana sığsın diye kısaltıldı, tam metin `title` olarak durur.
+ */
+export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI"];
+
+/** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
+export interface SideStanding {
+  side: Side;
+  /** Geçen kapı sayısı (mum serisi dahil) */
+  passed: number;
+  /** Toplam kapı sayısı (mum serisi dahil) */
+  total: number;
+  /** Bu yön için daha kaç aynı yönlü 1m mum kapanışı gerekiyor */
+  barsNeeded: number;
+  /** Şu an bu yönde biriken seri uzunluğu */
+  streakHave: number;
+  /** Kapalı kapıların kısa adları */
+  missing: string[];
+}
+
+export function standingFor(
+  list: GateCheck[], side: Side, streakDir: StreakDir, streakLen: number
+): SideStanding {
+  const matched = side === "LONG" ? streakDir === "UP" : streakDir === "DOWN";
+  const streakHave = matched ? Math.min(streakLen, ENTRY_STREAK) : 0;
+  const barsNeeded = Math.max(0, ENTRY_STREAK - streakHave);
+  const missing = list
+    .map((g, i) => ({ g, i }))
+    .filter((x) => !x.g.ok)
+    .map((x) => GATE_SHORT[x.i] ?? x.g.label);
+  return {
+    side,
+    passed: list.length - missing.length + (barsNeeded === 0 ? 1 : 0),
+    total: list.length + 1,
+    barsNeeded,
+    streakHave,
+    missing,
+  };
+}
+
+// ── Ön uyarı (kurulum oluşmadan haber ver) ────────────────────────
+
+export type AlertLevel = "FIRED" | "IMMINENT" | "NEAR" | "IDLE";
+
+export interface EntryAlert {
+  level: AlertLevel;
+  side: Side | null;
+  standing: SideStanding | null;
+}
+
+/**
+ * Kurulum HENÜZ oluşmadan haber veren ön uyarı. Motorun giriş/çıkış
+ * kurallarına dokunmaz — yalnızca aynı kapı verisini okuyup "ne kadar
+ * yakınız" sorusunu yanıtlar, böylece tetik mumu kapandığında hazır
+ * olunur (geç giriş insan tepkisinden doğar, kuraldan değil).
+ *
+ *   FIRED    = motor sinyali verdi (tüm kapılar + seri tamam)
+ *   IMMINENT = en fazla 1 mum ve en fazla 1 kapı eksik
+ *   NEAR     = en fazla 1 mum eksik ve en fazla 3 kapı kapalı
+ */
+export function computeEntryAlert(
+  gates: GateStatus | null,
+  streakDir: StreakDir,
+  streakLen: number,
+  state: EngineState,
+  action: "LONG" | "SHORT" | "BEKLE"
+): EntryAlert {
+  if (!gates || !gates.long.length) return { level: "IDLE", side: null, standing: null };
+
+  if (state === "TRIGGERED" && action !== "BEKLE") {
+    const list = action === "LONG" ? gates.long : gates.short;
+    return { level: "FIRED", side: action, standing: standingFor(list, action, streakDir, streakLen) };
+  }
+
+  const cands = (["LONG", "SHORT"] as const).map((s) =>
+    standingFor(s === "LONG" ? gates.long : gates.short, s, streakDir, streakLen)
+  );
+  cands.sort((a, b) => b.passed - a.passed || a.barsNeeded - b.barsNeeded);
+  const best = cands[0];
+
+  if (best.barsNeeded <= 1 && best.missing.length <= 1) return { level: "IMMINENT", side: best.side, standing: best };
+  if (best.barsNeeded <= 1 && best.missing.length <= 3) return { level: "NEAR", side: best.side, standing: best };
+  return { level: "IDLE", side: null, standing: best };
+}
+
+const ALERT_STYLE: Record<AlertLevel, { ring: string; text: string; icon: string }> = {
+  FIRED: { ring: "border-[#eab308]/60 bg-[#eab308]/15", text: "text-[#facc15]", icon: "🎯" },
+  IMMINENT: { ring: "border-orange-500/50 bg-orange-500/12", text: "text-orange-300", icon: "⚡" },
+  NEAR: { ring: "border-sky-500/35 bg-sky-500/8", text: "text-sky-300", icon: "👀" },
+  IDLE: { ring: "border-[#1c2635] bg-[#0f141d]", text: "text-slate-400", icon: "○" },
+};
+
+/**
+ * Sayfanın en üstündeki durum çubuğu: ne olduğu, ne eksik ve bir sonraki
+ * 1m kapanışa kaç saniye kaldığı. Tablette de tek bakışta okunur boyutta.
+ */
+export function AlertBanner({
+  alert, secondsToClose, stateLabel, nextStep, inPosition,
+}: {
+  alert: EntryAlert;
+  secondsToClose: number | null;
+  stateLabel: string;
+  nextStep: string;
+  inPosition: boolean;
+}) {
+  const st = inPosition
+    ? { ring: "border-[#3b82f6]/45 bg-[#3b82f6]/10", text: "text-sky-300", icon: "◆" }
+    : ALERT_STYLE[alert.level];
+  const s = alert.standing;
+  const sideTone =
+    alert.side === "LONG" ? "text-[#22c55e]" : alert.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
+
+  let headline: string;
+  if (inPosition) headline = "POZİSYON AÇIK — çıkış kuralı bekleniyor";
+  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — tüm kapılar açık`;
+  else if (alert.level === "IMMINENT")
+    headline = `${alert.side} KURULUMU ÇOK YAKIN${
+      s && s.barsNeeded > 0 ? ` — 1 mum kaldı` : " — son kapı bekleniyor"
+    }`;
+  else if (alert.level === "NEAR") headline = `${alert.side} kurulumu yaklaşıyor`;
+  else headline = stateLabel;
+
+  return (
+    <div className={`flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border px-3 py-2 ${st.ring}`}>
+      <span
+        className={`flex items-center gap-2 text-[13px] font-bold tracking-wide sm:text-[15px] ${
+          inPosition || alert.level === "IDLE" ? st.text : sideTone
+        } ${alert.level === "FIRED" || alert.level === "IMMINENT" ? "animate-pulse" : ""}`}
+      >
+        <span>{st.icon}</span>
+        <span>{headline}</span>
+      </span>
+
+      {s && !inPosition && (
+        <span className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-slate-400">
+          <span className="rounded bg-[#111827] px-1.5 py-0.5">
+            kapı {s.passed}/{s.total}
+          </span>
+          {s.missing.length > 0 && (
+            <span className="text-[#ef4444]/85" title="Kapalı kapılar">
+              eksik: {s.missing.join(", ")}
+            </span>
+          )}
+        </span>
+      )}
+
+      {secondsToClose != null && (
+        <span
+          className={`ml-auto rounded px-2 py-0.5 font-mono text-[11px] font-semibold ${
+            secondsToClose <= 10 ? "bg-orange-500/20 text-orange-300" : "bg-[#111827] text-slate-400"
+          }`}
+          title="Değerlendirilen 1m mumun kapanışına kalan süre — karar sadece kapalı mumla verilir"
+        >
+          1m kapanış · {secondsToClose}sn
+        </span>
+      )}
+
+      <div className="w-full text-[10.5px] leading-snug text-slate-500">{nextStep}</div>
+    </div>
+  );
+}
+
+// ── Kapı tablosu — LONG ve SHORT AYNI ANDA ────────────────────────
+
+function GateColumn({
+  side, list, streakDir, streakLen,
+}: {
+  side: Side; list: GateCheck[]; streakDir: StreakDir; streakLen: number;
+}) {
+  const st = standingFor(list, side, streakDir, streakLen);
+  const allOk = st.passed === st.total;
+  const isLong = side === "LONG";
+  const accent = isLong ? "#22c55e" : "#ef4444";
+  const rows: { label: string; full: string; ok: boolean; detail: string }[] = [
+    {
+      label: `${ENTRY_STREAK} ardışık mum`,
+      full: `${ENTRY_STREAK} ardışık ${isLong ? "yükseliş" : "düşüş"} 1m mumu`,
+      ok: st.barsNeeded === 0,
+      detail: `${st.streakHave}/${ENTRY_STREAK}`,
+    },
+    ...list.map((g, i) => ({ label: GATE_SHORT[i] ?? g.label, full: g.label, ok: g.ok, detail: g.detail })),
+  ];
+
+  return (
+    <div className="min-w-0 flex-1">
+      <div
+        className="flex items-center justify-between gap-2 px-2.5 py-1.5"
+        style={{ backgroundColor: allOk ? `${accent}22` : "transparent" }}
+      >
+        <span className="text-[12px] font-bold tracking-wide" style={{ color: accent }}>
+          {side}
+        </span>
+        <span className="font-mono text-[11px] font-semibold" style={{ color: allOk ? accent : "#64748b" }}>
+          {st.passed}/{st.total}
+        </span>
+      </div>
+
+      <div className="flex gap-0.5 px-2.5 pb-1">
+        {rows.map((r, i) => (
+          <span key={i} className="h-1 flex-1 rounded-sm" style={{ backgroundColor: r.ok ? accent : "#1c2635" }} />
+        ))}
+      </div>
+
+      <div className="px-2.5 pb-1 text-[9.5px] font-semibold" style={{ color: allOk ? accent : "#64748b" }}>
+        {allOk ? "tüm kapılar açık" : `${st.total - st.passed} kapı kapalı`}
+      </div>
+
+      <div className="px-2.5 pb-2">
+        {rows.map((r, i) => (
+          <div
+            key={i}
+            title={r.full}
+            className="flex items-center justify-between gap-1.5 border-b border-[#151c28] py-[3px] last:border-0"
+          >
+            <span className="flex min-w-0 items-center gap-1">
+              <span className={r.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{r.ok ? "✓" : "✕"}</span>
+              <span className={`truncate text-[10px] ${r.ok ? "text-slate-300" : "text-slate-500"}`}>{r.label}</span>
+            </span>
+            <span className={`shrink-0 font-mono text-[10px] ${r.ok ? "text-slate-300" : "text-[#ef4444]"}`}>
+              {r.detail}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Kapı Durumu — LONG ve SHORT sütunları YAN YANA. Sekme yok: hangi yönün
+ * öne çıktığı sütun başlığındaki sayaçtan (ör. 5/7) tek bakışta görünür,
+ * ikisi aynı anda izlenir.
+ */
+export function GatePanel({
+  gates, streakDir = "NONE", streakLen = 0,
+}: {
+  gates: GateStatus | null; streakDir?: StreakDir; streakLen?: number;
+}) {
   if (!gates || !gates.long.length) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
@@ -430,58 +669,18 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
       </div>
     );
   }
-  const list = gates[side];
-  const passed = list.filter((g) => g.ok).length;
-  const allOk = passed === list.length;
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Kapı Durumu <span className="text-[9px] font-normal text-slate-600">· son 1m mum</span>
+          Kapı Durumu{" "}
+          <span className="text-[9px] font-normal text-slate-600">· son kapalı 1m mum · iki yön birlikte</span>
         </span>
-        <div className="flex gap-1">
-          {(["long", "short"] as const).map((sd) => (
-            <button
-              key={sd}
-              type="button"
-              onClick={() => setSide(sd)}
-              className={`rounded px-2 py-0.5 text-[10px] font-bold transition-colors ${
-                side === sd
-                  ? sd === "long"
-                    ? "bg-green-500/20 text-green-300"
-                    : "bg-red-500/20 text-red-300"
-                  : "bg-[#111827] text-slate-500 hover:text-slate-300"
-              }`}
-            >
-              {sd === "long" ? "LONG" : "SHORT"}
-            </button>
-          ))}
-        </div>
       </div>
-
-      <div
-        className={`m-2 rounded border px-2.5 py-1.5 text-[11px] font-bold ${
-          allOk
-            ? "border-green-500/35 bg-green-500/15 text-green-300"
-            : "border-slate-600/40 bg-slate-700/25 text-slate-300"
-        }`}
-      >
-        {allOk
-          ? `✓ ${side === "long" ? "LONG" : "SHORT"} için tüm kapılar açık`
-          : `✕ ${list.length - passed} kapı kapalı — ${passed}/${list.length} geçti`}
-      </div>
-
-      <div className="px-3 pb-2">
-        {list.map((g, i) => (
-          <div key={i} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-0.5 last:border-0">
-            <span className="flex items-center gap-1.5 text-[9.5px] leading-tight">
-              <span className={g.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{g.ok ? "✓" : "✕"}</span>
-              <span className={g.ok ? "text-slate-400" : "text-slate-500"}>{g.label}</span>
-            </span>
-            <span className={`font-mono text-[10px] ${g.ok ? "text-slate-300" : "text-[#ef4444]"}`}>{g.detail}</span>
-          </div>
-        ))}
+      <div className="flex divide-x divide-[#1c2635]">
+        <GateColumn side="LONG" list={gates.long} streakDir={streakDir} streakLen={streakLen} />
+        <GateColumn side="SHORT" list={gates.short} streakDir={streakDir} streakLen={streakLen} />
       </div>
     </div>
   );

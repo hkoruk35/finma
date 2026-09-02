@@ -5,12 +5,17 @@
  *
  * Talimat §1'in kök sorunu: sayfa piyasa açıkken donuyordu. Çözüm burada
  * üç parçalı:
- *   1. Yoklama aralığı 60 sn → 2 sn (delta modu sayesinde yük artmıyor).
+ *   1. Yoklama aralığı 60 sn → 1 sn (delta modu sayesinde yük artmıyor).
  *   2. `lastFetch` her BAŞARILI yanıtta güncellenir — yeni mum gelmese bile
  *      saat ilerler, böylece "akış duruyor mu" sorusu tek bakışta yanıtlanır.
  *   3. Ayrı bir 1 sn'lik kalp atışı, "X sn önce" sayacını ve bağlantı
  *      durumunu (ARDIŞIK HATA sayısı) sürekli günceller; sekme arka plana
  *      alınıp geri gelince (visibilitychange) anında yeniden yoklar.
+ *
+ * V3.3 düzeni: en üstte ÖN UYARI çubuğu (kurulum oluşmadan haber verir),
+ * altında küçültülmüş grafik + LONG/SHORT kapılarını AYNI ANDA gösteren
+ * kapı tablosu. Dar ekranda (tablet) kapı tablosu grafiğin üstüne geçer.
+ * Giriş/çıkış kurallarına DOKUNULMADI — bunlar yalnızca sunum katmanı.
  *
  * Yalnızca admin: /admin/** proxy.ts tarafından boga_auth ile korunur;
  * API uçları da ayrıca satır içi kontrol yapar.
@@ -22,6 +27,7 @@ import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyCha
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
+  AlertBanner, computeEntryAlert,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -100,7 +106,7 @@ export default function SpyEngineCommandCenter() {
   const [tab, setTab] = useState<Tab>("command");
   const [timeframe, setTimeframe] = useState<"1m" | "5m">("1m");
   const [toggles, setToggles] = useState<ChartToggles>(DEFAULT_TOGGLES);
-  const [pollMs, setPollMs] = useState(2000);
+  const [pollMs, setPollMs] = useState(1000);
   const [autoScroll, setAutoScroll] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
   /**
@@ -111,6 +117,10 @@ export default function SpyEngineCommandCenter() {
   const [focusMode, setFocusMode] = useState(false);
   /** Odak modunda grafik yüksekliğini ekrana göre hesaplamak için */
   const [viewportH, setViewportH] = useState(0);
+  /** Tablet/masaüstü ayrımı — grafik yüksekliği buna göre küçülür */
+  const [viewportW, setViewportW] = useState(0);
+  /** Kurulum yaklaştığında sesli + titreşimli uyarı */
+  const [alertSound, setAlertSound] = useState(true);
   /** Boş = canlı. Dolu = o seansın geriye dönük oynatması (Yahoo 1m geçmişi ~5 gün). */
   const [replayDate, setReplayDate] = useState("");
 
@@ -140,6 +150,8 @@ export default function SpyEngineCommandCenter() {
   const inflightRef = useRef(false);
   const chartWrapRef = useRef<HTMLDivElement>(null);
   const manualInteractTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<AudioContext | null>(null);
+  const lastAlertKeyRef = useRef<string | null>(null);
 
   // ── Ana akış ────────────────────────────────────────────────────
   const poll = useCallback(async () => {
@@ -261,7 +273,7 @@ export default function SpyEngineCommandCenter() {
 
   // ── Ekran yüksekliği (odak modunda grafiği ekrana oturtmak için) ──
   useEffect(() => {
-    const read = () => setViewportH(window.innerHeight);
+    const read = () => { setViewportH(window.innerHeight); setViewportW(window.innerWidth); };
     const t = setTimeout(read, 0);
     window.addEventListener("resize", read);
     return () => { clearTimeout(t); window.removeEventListener("resize", read); };
@@ -319,6 +331,27 @@ export default function SpyEngineCommandCenter() {
   const positions = data?.positions ?? [];
   const events = data?.events ?? [];
 
+  /**
+   * Ön uyarı: kurulum HENÜZ oluşmadan haber verir. Motorun giriş/çıkış
+   * kurallarına dokunmaz — aynı kapı verisini okuyup "ne kadar yakınız"
+   * sorusunu yanıtlar. Amaç geç girişi önlemek: tetik mumu kapandığında
+   * ekrana yeni bakmaya başlamak yerine zaten hazır olunur.
+   */
+  const entryAlert = useMemo(
+    () =>
+      computeEntryAlert(
+        data?.engine.gateStatus ?? null,
+        data?.engine.m1StreakDir ?? "NONE",
+        data?.engine.m1StreakLen ?? 0,
+        data?.engine.state ?? "WATCHING",
+        data?.engine.action ?? "BEKLE",
+      ),
+    [data],
+  );
+
+  /** Değerlendirilen 1m mumun kapanışına kalan saniye (mumlar dakika başında kapanır) */
+  const secondsToClose = nowSec ? 60 - (nowSec % 60) : null;
+
   // 15m bağlam okuması (ikincil sekme)
   const m15Read = useMemo(() => {
     if (m15.length < 30) return null;
@@ -336,6 +369,63 @@ export default function SpyEngineCommandCenter() {
     };
   }, [m15]);
 
+  // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
+  // AudioContext yalnızca kullanıcı etkileşiminden sonra ses çalabilir;
+  // ilk dokunuşta açılır, sekme dönüşünde yeniden devam ettirilir.
+  useEffect(() => {
+    const unlock = () => {
+      if (!audioRef.current) {
+        const Ctx =
+          window.AudioContext ??
+          (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        if (Ctx) audioRef.current = new Ctx();
+      }
+      audioRef.current?.resume().catch(() => {});
+    };
+    window.addEventListener("pointerdown", unlock);
+    window.addEventListener("keydown", unlock);
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
+  }, []);
+
+  const chime = useCallback((kind: "fired" | "imminent") => {
+    const ctx = audioRef.current;
+    if (ctx) {
+      const t0 = ctx.currentTime;
+      const notes = kind === "fired" ? [880, 1175, 1568] : [660, 880];
+      for (let i = 0; i < notes.length; i++) {
+        const at = t0 + i * 0.16;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = notes[i];
+        gain.gain.setValueAtTime(0.0001, at);
+        gain.gain.exponentialRampToValueAtTime(0.16, at + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(at);
+        osc.stop(at + 0.17);
+      }
+    }
+    // Tablette ses kapalı olsa bile titreşim uyarısı gelsin.
+    if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+      navigator.vibrate(kind === "fired" ? [90, 60, 90, 60, 90] : [70, 50, 70]);
+    }
+  }, []);
+
+  // Uyarı seviyesi DEĞİŞTİĞİNDE bir kez çalar; aynı seviyede tekrar etmez.
+  useEffect(() => {
+    const key = `${entryAlert.level}:${entryAlert.side ?? ""}`;
+    const prev = lastAlertKeyRef.current;
+    lastAlertKeyRef.current = key;
+    if (prev == null || prev === key || !alertSound || openPosition) return;
+    if (entryAlert.level === "FIRED") chime("fired");
+    else if (entryAlert.level === "IMMINENT") chime("imminent");
+  }, [entryAlert.level, entryAlert.side, alertSound, openPosition, chime]);
+
   /**
    * Odak modunda grafik ve sağ sütun AYNI yüksekliği paylaşır ve bu yükseklik
    * ekrandan türetilir; böylece grafik + Motor Durumu + Kapı Durumu sayfayı
@@ -345,10 +435,19 @@ export default function SpyEngineCommandCenter() {
    * Ölçüldü (1440×780): satır y=172'de başlıyor, bu değerlerle alt kenar 762'de
    * kalıyor — katlamanın içinde.
    */
-  const rowHeight = focusMode && viewportH ? Math.max(430, viewportH - 190) : 639;
+  const rowHeight = focusMode && viewportH ? Math.max(430, viewportH - 190) : 470;
+  /**
+   * Normal modda grafik bilinçli olarak küçük: kararı Kapı Durumu + Motor
+   * Durumu veriyor, grafik teyit içindir. Detay gerekince ⤢ TAM EKRAN tek
+   * tuş uzakta. Tablette daha da kısalır ki kapı tablosu katlamanın içinde
+   * kalsın.
+   */
+  const compactChartH = viewportW && viewportW < 1024 ? 300 : 380;
   const chartHeight = fullscreen
     ? Math.max(420, (viewportH || 900) - 96)
-    : rowHeight - 79;
+    : focusMode
+    ? rowHeight - 79
+    : compactChartH;
 
   // ── Render ──────────────────────────────────────────────────────
   return (
@@ -428,6 +527,19 @@ export default function SpyEngineCommandCenter() {
 
           <button
             type="button"
+            onClick={() => setAlertSound((v) => !v)}
+            className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
+              alertSound
+                ? "border-orange-500/40 bg-orange-500/15 text-orange-300"
+                : "border-[#1c2635] bg-[#111827] text-slate-500 hover:bg-[#1c2635]"
+            }`}
+            title="Kurulum yaklaştığında sesli + titreşimli uyarı (tarayıcı sesi ilk dokunuştan sonra açar)"
+          >
+            {alertSound ? "🔔 UYARI AÇIK" : "🔕 UYARI KAPALI"}
+          </button>
+
+          <button
+            type="button"
             onClick={() => setFocusMode((f) => !f)}
             className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
               focusMode
@@ -466,7 +578,7 @@ export default function SpyEngineCommandCenter() {
       )}
 
       {/* ── Sekmeler ── */}
-      <nav className="mb-3 flex gap-1">
+      <nav className="mb-3 flex gap-1 overflow-x-auto">
         {([
           ["command", "Kumanda Merkezi"],
           ["signals", "Sinyaller & Arşiv"],
@@ -477,7 +589,7 @@ export default function SpyEngineCommandCenter() {
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`rounded-t border-b-2 px-3 py-1.5 text-[11px] font-medium transition-colors ${
+            className={`shrink-0 whitespace-nowrap rounded-t border-b-2 px-3 py-2 text-[11px] font-medium transition-colors ${
               tab === id
                 ? "border-[#eab308] bg-[#111827] text-slate-100"
                 : "border-transparent text-slate-500 hover:text-slate-300"
@@ -491,6 +603,14 @@ export default function SpyEngineCommandCenter() {
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
         <div className="flex flex-col gap-3">
+          <AlertBanner
+            alert={entryAlert}
+            secondsToClose={secondsToClose}
+            stateLabel={data?.engine.stateLabel ?? "VERİ BEKLENİYOR"}
+            nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
+            inPosition={!!openPosition}
+          />
+
           {!focusMode && (
             <>
               <TickerStrip quotes={quotes} updatedAt={quotesAt} />
@@ -498,9 +618,18 @@ export default function SpyEngineCommandCenter() {
             </>
           )}
 
-          <div className={`grid grid-cols-1 gap-3 ${focusMode ? "xl:grid-cols-[1fr_392px]" : "xl:grid-cols-[1fr_336px]"}`}>
+          <div
+            className={`grid grid-cols-1 gap-3 ${
+              focusMode
+                ? "xl:grid-cols-[minmax(0,1fr)_392px]"
+                : "lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_460px]"
+            }`}
+          >
             {/* Grafik */}
-            <div ref={chartWrapRef} className={`${SURFACE} overflow-hidden ${fullscreen ? "flex flex-col" : ""}`}>
+            <div
+              ref={chartWrapRef}
+              className={`${SURFACE} order-2 overflow-hidden lg:order-1 ${fullscreen ? "flex flex-col" : ""}`}
+            >
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-2">
                 <div className="flex items-center gap-1">
                   {(["1m", "5m"] as const).map((tf) => (
@@ -508,7 +637,7 @@ export default function SpyEngineCommandCenter() {
                       key={tf}
                       type="button"
                       onClick={() => setTimeframe(tf)}
-                      className={`rounded px-2 py-1 text-[11px] font-semibold transition-colors ${
+                      className={`rounded px-2.5 py-1.5 text-[11px] font-semibold transition-colors ${
                         timeframe === tf ? "bg-[#1d4ed8] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
                       }`}
                     >
@@ -538,7 +667,7 @@ export default function SpyEngineCommandCenter() {
                       key={key}
                       type="button"
                       onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
-                      className={`rounded px-1.5 py-1 text-[10px] transition-colors ${
+                      className={`rounded px-2 py-1.5 text-[10px] transition-colors ${
                         toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600 hover:text-slate-400"
                       }`}
                     >
@@ -548,7 +677,7 @@ export default function SpyEngineCommandCenter() {
                   <button
                     type="button"
                     onClick={() => setAutoScroll((a) => !a)}
-                    className={`rounded px-1.5 py-1 text-[10px] transition-colors ${
+                    className={`rounded px-2 py-1.5 text-[10px] transition-colors ${
                       autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600"
                     }`}
                     title="Yeni mum geldikçe sağa kaydır"
@@ -566,7 +695,7 @@ export default function SpyEngineCommandCenter() {
                   <button
                     type="button"
                     onClick={toggleFullscreen}
-                    className="rounded bg-[#111827] px-1.5 py-1 text-[10px] text-slate-400 transition-colors hover:bg-[#1c2635]"
+                    className="rounded bg-[#111827] px-2 py-1.5 text-[10px] text-slate-400 transition-colors hover:bg-[#1c2635]"
                   >
                     {fullscreen ? "⤡ ÇIK" : "⤢ TAM EKRAN"}
                   </button>
@@ -601,10 +730,16 @@ export default function SpyEngineCommandCenter() {
                 içinde kayar. Amaç: grafik + Motor Durumu + Kapı Durumu her
                 zaman tek ekranda görünsün, sayfayı kaydırmak gerekmesin. */}
             <div
-              className="flex flex-col gap-2 overflow-y-auto pr-0.5 [&>*]:shrink-0"
-              style={fullscreen ? undefined : { maxHeight: rowHeight }}
+              className={`order-1 flex flex-col gap-2 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
+                focusMode ? "overflow-y-auto" : ""
+              }`}
+              style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
             >
-              <GatePanel gates={data?.engine.gateStatus ?? null} />
+              <GatePanel
+                gates={data?.engine.gateStatus ?? null}
+                streakDir={data?.engine.m1StreakDir ?? "NONE"}
+                streakLen={data?.engine.m1StreakLen ?? 0}
+              />
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
