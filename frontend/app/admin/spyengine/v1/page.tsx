@@ -819,25 +819,13 @@ export default function SpyEngineCommandCenter() {
               </div>
             </div>
 
-            {/* Middle column — technical/strategy data (empty for now) */}
-            <div className="order-2 flex flex-col gap-1 overflow-y-auto" style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}>
-            </div>
-
-            {/* Sağ sütun — signals and explanations, scrollable */}
-            <div
-              className={`order-3 flex flex-col gap-1 [&>*]:shrink-0 overflow-y-auto ${
-                focusMode ? "" : ""
-              }`}
-              style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
-            >
+            {/* Middle column — critical strategy data (gates, position, levels) */}
+            <div className="order-2 flex flex-col gap-1 overflow-y-auto [&>*]:shrink-0" style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}>
               <GatePanel
                 gates={data?.engine.gateStatus ?? null}
                 streakDir={data?.engine.m1StreakDir ?? "NONE"}
                 streakLen={data?.engine.m1StreakLen ?? 0}
               />
-              <RegimePanel block={data?.regime ?? null} />
-              <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
-              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
@@ -849,6 +837,16 @@ export default function SpyEngineCommandCenter() {
                 />
               )}
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
+            </div>
+
+            {/* Sağ sütun — signals, context, explanations */}
+            <div
+              className={`order-3 flex flex-col gap-1 [&>*]:shrink-0 overflow-y-auto`}
+              style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
+            >
+              <RegimePanel block={data?.regime ?? null} />
+              <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
+              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
 
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
