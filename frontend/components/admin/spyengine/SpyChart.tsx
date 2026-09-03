@@ -185,7 +185,7 @@ export default function SpyChart({
         vertLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
         horzLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
       },
-      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.06, bottom: 0.1 } },
+      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.16, bottom: 0.1 } },
       timeScale: {
         borderColor: C.border,
         timeVisible: true,
@@ -319,8 +319,8 @@ export default function SpyChart({
     if (!chart) return;
     const panes = chart.panes();
     const sub = (toggles.rsi ? 1 : 0) + (toggles.macd ? 1 : 0);
-    const subH = sub ? Math.max(70, Math.round(height * 0.18)) : 0;
-    const priceH = Math.max(160, height - subH * sub - 30);
+    const subH = sub ? Math.max(60, Math.round(height * 0.14)) : 0;
+    const priceH = Math.max(200, height - subH * sub - 30);
     try {
       panes[0]?.setHeight(priceH);
       panes[1]?.setHeight(toggles.rsi ? subH : 1);

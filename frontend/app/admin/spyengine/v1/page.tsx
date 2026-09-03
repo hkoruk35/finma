@@ -400,15 +400,15 @@ export default function SpyEngineCommandCenter() {
   const positions = data?.positions ?? [];
   const events = data?.events ?? [];
 
-  /** 1m/5m grafik yükseklikleri — tam ekranda viewport'a, normalde sabit 320px'e oturur. */
+  /** 1m/5m grafik yükseklikleri — tam ekranda viewport'a, normalde sabit 400px'e oturur. */
   const chart1Height =
     fullscreenTarget === "1m" ? Math.max(400, viewportH - 70)
     : fullscreenTarget === "both" ? Math.max(360, viewportH - 90)
-    : 320;
+    : 400;
   const chart5Height =
     fullscreenTarget === "5m" ? Math.max(400, viewportH - 70)
     : fullscreenTarget === "both" ? Math.max(360, viewportH - 90)
-    : 320;
+    : 400;
 
   /**
    * Ön uyarı: kurulum HENÜZ oluşmadan haber verir. Motorun giriş/çıkış
