@@ -40,6 +40,7 @@ import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   AlertBanner, computeEntryAlert,
+  RegimeBanner, RegimePanel, M15Strip, type RegimeBlock,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -89,6 +90,8 @@ interface StreamResponse {
   openPosition: PositionState | null;
   liveChain: ChainQuote | null;
   events: EngineEvent[];
+  /** V4 -- rejim etiketi, kriter dokumu, gecisler, gun ozeti */
+  regime?: RegimeBlock;
 }
 
 type Tab = "command" | "signals" | "context" | "ohlc";
@@ -364,6 +367,17 @@ export default function SpyEngineCommandCenter() {
     [data],
   );
 
+  /** V4 -- RSI yon oklari icin son iki deger (istemcide, ayni core fonksiyonuyla) */
+  const rsiPair = useMemo(() => {
+    const r1 = rsi(m1.map((b) => b.close), 14);
+    const r5 = rsi(m5.map((b) => b.close), 14);
+    return {
+      m1: r1.length ? r1[r1.length - 1] : null,
+      m1Prev: r1.length > 1 ? r1[r1.length - 2] : null,
+      m5Prev: r5.length > 1 ? r5[r5.length - 2] : null,
+    };
+  }, [m1, m5]);
+
   /** Değerlendirilen 1m mumun kapanışına kalan saniye (mumlar dakika başında kapanır) */
   const secondsToClose = nowSec ? 60 - (nowSec % 60) : null;
 
@@ -375,6 +389,12 @@ export default function SpyEngineCommandCenter() {
       ema20: lastNum(ema(closes, 20)),
       ema50: lastNum(ema(closes, 50)),
       rsi: lastNum(rsi(closes, 14)),
+      rsiPrev: (() => { const r = rsi(closes, 14); return r.length > 1 ? r[r.length - 2] : null; })(),
+      greenOf4: (() => {
+        const last4 = m15.slice(-4);
+        const g = last4.filter((b) => b.close > b.open).length;
+        return `Son ${last4.length} mumun ${g} tanesi yesil`;
+      })(),
       macdHist: lastNum(macd(closes).hist),
       bb: (() => {
         const b = bollinger(closes, 20, 2);
@@ -471,9 +491,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#1c2635] pb-3">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V3.3</h1>
+            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V4</h1>
             <p className="text-[10px] text-slate-500">
-              2. mum kapanışı + patern + hacim + 1m/5m RSI → LONG/SHORT giriş · çıkış girişin simetriği
+              Rejim farkında: giriş V3.3 kapısı (değişmedi) · çıkış rejime göre uyarlanır
             </p>
           </div>
 
@@ -618,6 +638,8 @@ export default function SpyEngineCommandCenter() {
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
         <div className="flex flex-col gap-3">
+          <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
+
           <AlertBanner
             alert={entryAlert}
             secondsToClose={secondsToClose}
@@ -625,6 +647,16 @@ export default function SpyEngineCommandCenter() {
             nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
             inPosition={!!openPosition}
           />
+
+          {m15Read && (
+            <M15Strip
+              direction={data?.engine.m15Direction ?? "NEUTRAL"}
+              note={data?.engine.m15Note ?? ""}
+              rsi={m15Read.rsi}
+              rsiPrev={m15Read.rsiPrev}
+              greenOf4={m15Read.greenOf4}
+            />
+          )}
 
           <div
             className={`grid grid-cols-1 gap-3 ${
@@ -759,6 +791,7 @@ export default function SpyEngineCommandCenter() {
                 streakDir={data?.engine.m1StreakDir ?? "NONE"}
                 streakLen={data?.engine.m1StreakLen ?? 0}
               />
+              <RegimePanel block={data?.regime ?? null} />
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
@@ -766,6 +799,7 @@ export default function SpyEngineCommandCenter() {
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
                   confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
+                  m1Rsi={rsiPair.m1} m1RsiPrev={rsiPair.m1Prev} m5RsiPrev={rsiPair.m5Prev}
                 />
               )}
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />

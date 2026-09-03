@@ -46,6 +46,7 @@
  * fonksiyon saftır; aynı girdi her zaman aynı çıktıyı verir.
  */
 
+import type { Regime } from "./regime";
 import {
   Bar,
   SessionInfo,
@@ -108,6 +109,26 @@ export const MAX_ENTRIES_PER_HOUR = 3;
 /** "son swing high/low'a yakınlık" (trend kırılma riski) için pencere */
 export const SWING_LOOKBACK = 10;
 
+/**
+ * ── V4: REJİME BAĞLI ÇIKIŞ PARAMETRELERİ ──────────────────────────
+ * Giriş kuralları her rejimde AYNI kalır (V3.3'ün kapı sistemi). Değişen
+ * yalnızca çıkış. Gerekçe: 2 Eylül'de aynı çıkış mantığı trend penceresinde
+ * 89 dakikalık taşımayla +$141, sıkışma penceresinde 3 işlemde −$38 verdi.
+ */
+/** SIKIŞMA: primin bu kadarında pozisyonun YARISI kapanır */
+export const CHOP_HALF_TAKE_PCT = 0.20;
+/** SIKIŞMA: primin bu kadarında pozisyonun TAMAMI kapanır */
+export const CHOP_FULL_TAKE_PCT = 0.50;
+/** SIKIŞMA: sabit stop (prim yüzdesi) */
+export const CHOP_STOP_PCT = -0.30;
+/** SIKIŞMA: hiçbir pozisyon bundan uzun taşınmaz (dakika) */
+export const CHOP_MAX_MINUTES = 15;
+/**
+ * TREND: prim bu kâr eşiğini geçtiyse çıkış SIKILAŞTIRILIR — ters seri tek
+ * başına yeter, tam onay seti beklenmez. Büyük kârın geri verilmemesi için.
+ */
+export const TREND_TIGHTEN_PCT = 0.60;
+
 // ── Tipler ────────────────────────────────────────────────────────
 
 export type Side = "LONG" | "SHORT";
@@ -116,8 +137,8 @@ export type StreakDir = "UP" | "DOWN" | "NONE";
 
 export type Direction = "BULLISH" | "BEARISH" | "NEUTRAL";
 
-export type ExitKind = "REVERSAL_EXIT" | "EOD_EXIT";
-export type EventKind = "ENTRY" | ExitKind;
+export type ExitKind = "REVERSAL_EXIT" | "EOD_EXIT" | "STOP_EXIT" | "TARGET_EXIT" | "TIME_EXIT";
+export type EventKind = "ENTRY" | "HALF_TAKE" | ExitKind;
 
 export interface ConfidencePart {
   label: string;
@@ -155,6 +176,13 @@ export interface ExitProgress {
   barsHeld: number;
   /** Pozisyon lehine görülen en iyi SPY seviyesi */
   bestSpot: number | null;
+  /** V4 — pozisyonun taşındığı andaki rejim ve o rejimin çıkış modu */
+  regime?: Regime;
+  regimeNote?: string;
+  /** V4 — yarı kâr alma gerçekleşti mi */
+  halfTaken?: boolean;
+  /** V4 — primin giriş primine göre anlık yüzdesi (veri varsa) */
+  premiumPct?: number | null;
   /** İnsan okunur özet */
   note: string;
 }
@@ -182,6 +210,9 @@ export interface PositionState {
   exitTime: number | null;
   exitSpot: number | null;
   exitPremium: number | null;
+  /** V4 -- sikismada +%20de yarinin kapandigi an ve prim (yoksa null) */
+  halfExitTime: number | null;
+  halfExitPremium: number | null;
   exitReason: ExitKind | null;
   exitNote: string | null;
   /** Açık pozisyonun çıkışa yakınlığı (kapalıysa son durumu) */
@@ -683,6 +714,8 @@ export interface ExitScan {
   /** Çıkış oluştuysa sinyal, hâlâ açıksa null */
   signal: ExitSignal | null;
   progress: ExitProgress;
+  /** V4 -- sikismada +%20de yari kapamanin gerceklestigi an (yoksa null) */
+  halfTakeTime?: number | null;
 }
 
 export interface ExitScanInput {
@@ -693,6 +726,18 @@ export interface ExitScanInput {
   entrySpot: number;
   session: SessionInfo;
   nowSec: number;
+  /**
+   * V4 — o andaki rejim. Verilmezse TREND varsayılır, yani V3.3 davranışı
+   * birebir korunur (aday zincirini çözen ilk geçiş bunu kullanır).
+   */
+  regimeAt?: (time: number) => Regime;
+  /**
+   * V4 — GERÇEK 0DTE prim mumları. Sıkışma rejiminin hedef/stop kuralları
+   * prim yüzdesi üzerinden tanımlı olduğu için gerekli. Yoksa yüzde bazlı
+   * kurallar devreye girmez (uydurma prim üretilmez), yalnızca süre sınırı
+   * ve ters onay çalışır.
+   */
+  premiumBars?: Bar[];
 }
 
 /**
@@ -706,6 +751,22 @@ export interface ExitScanInput {
  */
 export function findExitSignal(input: ExitScanInput): ExitScan {
   const { side, entryTime, session, nowSec } = input;
+  const regimeAt = input.regimeAt ?? (() => "TREND" as Regime);
+  // Prim zaman -> kapanis eslemesi (yalnizca gercek veri; uydurma yok)
+  const premAt = new Map<number, number>();
+  for (const b of input.premiumBars ?? []) premAt.set(b.time, b.close);
+  const entryPremium = (() => {
+    for (const b of input.premiumBars ?? []) if (b.time >= entryTime) return b.close;
+    return null;
+  })();
+  /** Girisden bu yana prim yuzdesi -- prim yoksa null */
+  const pctAt = (t: number): number | null => {
+    if (entryPremium == null || entryPremium <= 0) return null;
+    const p = premAt.get(t);
+    return p == null ? null : p / entryPremium - 1;
+  };
+  let halfTaken = false;
+  let halfTakeTime: number | null = null;
   const m1 = closedBars(input.m1, 1, nowSec);
   const m5 = closedBars(input.m5, 5, nowSec);
   const m1Rsi = rsi(closes(m1), 14);
@@ -722,6 +783,15 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   let rsiSupportive: boolean | null = null;
   let lastBlock: string | null = null;
 
+  let lastRegime: Regime = "TREND";
+  let lastPct: number | null = null;
+  const regimeNoteOf = (r: Regime): string =>
+    r === "CHOP"
+      ? `Sikisma modu — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
+      : r === "TREND"
+      ? "Trend modu — zaman siniri yok, kirilim sinyali bekleniyor"
+      : "Belirsiz rejim — trend modu kurallari uygulaniyor";
+
   const progressOf = (note: string): ExitProgress => ({
     againstBars: against,
     reversalNeeded: EXIT_REVERSAL_BARS,
@@ -729,6 +799,10 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     rsiArmed: gateReady,
     barsHeld,
     bestSpot,
+    regime: lastRegime,
+    regimeNote: regimeNoteOf(lastRegime),
+    halfTaken,
+    premiumPct: lastPct,
     note,
   });
 
@@ -751,7 +825,55 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
           note: "15:45 ET zorunlu 0DTE kapaması — diğer tüm kurallardan önceliklidir.",
         },
         progress: progressOf("Gün sonu kapaması."),
+        halfTakeTime,
       };
+    }
+
+    // -- V4: rejime bagli cikis kurallari --------------------------
+    lastRegime = regimeAt(bar.time);
+    const pct = pctAt(bar.time);
+    if (pct != null) lastPct = pct;
+    const heldMin = (bar.time - entryTime) / 60;
+
+    if (lastRegime === "CHOP") {
+      // 1) Sabit stop -- asla tasinmaz
+      if (pct != null && pct <= CHOP_STOP_PCT) {
+        return {
+          signal: {
+            time: bar.time, spot: bar.close, reason: "STOP_EXIT",
+            note: `Sikisma rejimi sabit stopu: prim %${(pct * 100).toFixed(0)} (esik %${CHOP_STOP_PCT * 100}).`,
+          },
+          progress: progressOf("Sikisma stopuyla kapandi."),
+          halfTakeTime,
+        };
+      }
+      // 2) +%20 -> yari kapama (pozisyon devam eder, olay olarak islenir)
+      if (!halfTaken && pct != null && pct >= CHOP_HALF_TAKE_PCT) {
+        halfTaken = true;
+        halfTakeTime = bar.time;
+      }
+      // 3) +%50 -> tam kapama
+      if (pct != null && pct >= CHOP_FULL_TAKE_PCT) {
+        return {
+          signal: {
+            time: bar.time, spot: bar.close, reason: "TARGET_EXIT",
+            note: `Sikisma rejimi hedefi: prim +%${(pct * 100).toFixed(0)} (esik +%${CHOP_FULL_TAKE_PCT * 100}).`,
+          },
+          progress: progressOf("Sikisma hedefiyle kapandi."),
+          halfTakeTime,
+        };
+      }
+      // 4) Sure siniri -- sikismada hicbir pozisyon 15 dakikadan uzun tasinmaz
+      if (heldMin >= CHOP_MAX_MINUTES) {
+        return {
+          signal: {
+            time: bar.time, spot: bar.close, reason: "TIME_EXIT",
+            note: `Sikisma rejimi sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
+          },
+          progress: progressOf("Sikisma sure siniriyla kapandi."),
+          halfTakeTime,
+        };
+      }
     }
 
     // 5m RSI pozisyonu hâlâ destekliyor mu (yalnızca gösterge)
@@ -770,23 +892,35 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
 
     // 2. ÇIKIŞ — girişin AYNI onay seti, ters yönde:
     //    mum paterni + hacim + 1m RSI yönü + 5m mum yönü + 5m RSI yönü
-    const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, exitSide);
-    if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
+    //
+    // V4 istisnasi: TREND rejiminde kar +%60i gectiyse tam onay seti
+    // ARANMAZ, ters seri tek basina yeter -- buyuk karin geri
+    // verilmemesi icin (spec 2.1). Sikismada da ters seri tek basina
+    // yeter, cunku orada zaten hizli cikis hedefleniyor.
+    const tightened =
+      (lastRegime === "TREND" && lastPct != null && lastPct >= TREND_TIGHTEN_PCT) ||
+      lastRegime === "CHOP";
+    if (!tightened) {
+      const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, exitSide);
+      if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
+    }
 
     return {
       signal: {
         time: bar.time, spot: bar.close, reason: "REVERSAL_EXIT",
-        note:
-          `${against} ardışık ters yönlü 1m mum + giriş onay setinin tamamı ters yönde: ` +
-          `mum paterni · hacim ort.×${gate.volRatio.toFixed(2)} · 1m RSI ${gate.rsi1.toFixed(0)} · 5m mum ve 5m RSI ters yönde.`,
+        note: tightened
+          ? `${against} ardisik ters yonlu 1m mum — ${lastRegime === "CHOP" ? "sikisma rejiminde" : `kar +%${((lastPct ?? 0) * 100).toFixed(0)} oldugu icin`} tam onay seti beklenmedi.`
+          : `${against} ardisik ters yonlu 1m mum + giris onay setinin tamami ters yonde.`,
       },
       progress: progressOf("Ters yönlü onay setiyle kapandı."),
+      halfTakeTime,
     };
   }
 
   const remaining = Math.max(0, EXIT_REVERSAL_BARS - against);
   return {
     signal: null,
+    halfTakeTime,
     progress: progressOf(
       against >= EXIT_REVERSAL_BARS
         ? `${against} ters mum oluştu ama çıkış onayı tamamlanmadı: ${lastBlock ?? "onay bekleniyor"}.`
@@ -842,6 +976,8 @@ export function runLifecycle(input: LifecycleInput): PositionState {
     exitTime: exit.signal?.time ?? null,
     exitSpot: exit.signal?.spot ?? null,
     exitPremium: null,
+    halfExitTime: exit.halfTakeTime ?? null,
+    halfExitPremium: null,
     exitReason: exit.signal?.reason ?? null,
     exitNote: exit.signal?.note ?? null,
     progress: exit.progress,
@@ -872,8 +1008,16 @@ export function runLifecycle(input: LifecycleInput): PositionState {
     pos.exitPremium = exitPremium;
     pos.lastPremium = exitPremium;
 
+    // V4: sikismada +%20de yari kapandiysa K/Z iki parcanin agirlikli
+    // toplamidir -- yarisi hedefte, yarisi cikista.
+    if (pos.halfExitTime != null) {
+      const hIdx = premiumBars.findIndex((b) => b.time >= pos.halfExitTime!);
+      pos.halfExitPremium = hIdx >= 0 ? premiumBars[hIdx].close : null;
+    }
     if (entryPremium != null && exitPremium != null) {
-      pos.realizedPnl = r2((exitPremium - entryPremium) * 100);
+      pos.realizedPnl = pos.halfExitPremium != null
+        ? r2((0.5 * (pos.halfExitPremium - entryPremium) + 0.5 * (exitPremium - entryPremium)) * 100)
+        : r2((exitPremium - entryPremium) * 100);
     }
     pos.unrealizedPnl = 0;
 
@@ -949,21 +1093,32 @@ export function filterOverlapping(
 
 export const EVENT_LABEL: Record<EventKind, string> = {
   ENTRY: "Giriş",
+  HALF_TAKE: "Yarı Kâr Alındı",
   REVERSAL_EXIT: "Trend Kırılımı — Çıkış",
   EOD_EXIT: "Gün Sonu Kapama",
+  STOP_EXIT: "Sıkışma Stopu",
+  TARGET_EXIT: "Sıkışma Hedefi",
+  TIME_EXIT: "Süre Sınırı",
 };
 
 /** Kısa etiket — tablo hücreleri için */
 export const EXIT_LABEL_SHORT: Record<ExitKind, string> = {
   REVERSAL_EXIT: "Trend Kırılımı",
   EOD_EXIT: "Gün Sonu",
+  STOP_EXIT: "Stop",
+  TARGET_EXIT: "Hedef",
+  TIME_EXIT: "Süre",
 };
 
 /** Her olay tipinin kendi işareti ve rengi */
 export const EVENT_STYLE: Record<EventKind, { color: string; shape: "arrowUp" | "arrowDown" | "circle" | "square"; glyph: string }> = {
   ENTRY:         { color: "#22c55e", shape: "arrowUp",   glyph: "▲" },
+  HALF_TAKE:     { color: "#38bdf8", shape: "circle",    glyph: "◑" },
   REVERSAL_EXIT: { color: "#ef4444", shape: "arrowDown", glyph: "▼" },
   EOD_EXIT:      { color: "#94a3b8", shape: "square",    glyph: "■" },
+  STOP_EXIT:     { color: "#f97316", shape: "square",    glyph: "■" },
+  TARGET_EXIT:   { color: "#22c55e", shape: "circle",    glyph: "●" },
+  TIME_EXIT:     { color: "#a855f7", shape: "square",    glyph: "■" },
 };
 
 export const CONTRACT_TONE: Record<ContractType, string> = {

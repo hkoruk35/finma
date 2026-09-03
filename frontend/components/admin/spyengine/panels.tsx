@@ -11,6 +11,10 @@
 import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
 import {
+  REGIME_LABEL, regimeColor,
+  type Regime, type RegimeDirection, type RegimeCheck,
+} from "@/lib/spyengine/regime";
+import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
   EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
   type PositionState, type EngineEvent, type StreakDir, type Direction,
@@ -361,7 +365,9 @@ export function InfoCards({ spot, lastFetch, phase }: {
 
 // ── İki katman okuması (V3: 1m ana sürücü, 5m destek — 15m karara girmez) ──
 
-function LayerRow({ tf, tag, value, note, t }: { tf: string; tag: string; value: string; note: string; t: string }) {
+function LayerRow({ tf, tag, value, note, t, arrow }: {
+  tf: string; tag: string; value: string; note: string; t: string; arrow?: ReactNode;
+}) {
   return (
     <div className="grid grid-cols-[58px_1fr] items-start gap-2 border-b border-[#1c2635] px-3 py-1.5 last:border-0">
       <div>
@@ -369,7 +375,10 @@ function LayerRow({ tf, tag, value, note, t }: { tf: string; tag: string; value:
         <div className="text-[9px] text-slate-600">{tag}</div>
       </div>
       <div>
-        <div className={`text-[12px] font-semibold ${t}`}>{value}</div>
+        <div className={`flex items-center gap-1.5 text-[12px] font-semibold ${t}`}>
+          <span>{value}</span>
+          {arrow}
+        </div>
         <div className="text-[9.5px] leading-snug text-slate-500">{note}</div>
       </div>
     </div>
@@ -689,6 +698,7 @@ export function GatePanel({
 export function LayerTable({
   m5Rsi, m5RsiDirection, m5Note, m1StreakDir, m1StreakLen, m1Note,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
+  m1Rsi, m1RsiPrev, m5RsiPrev,
 }: {
   m5Rsi: number | null; m5RsiDirection: Direction; m5Note: string;
   m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
@@ -699,10 +709,20 @@ export function LayerTable({
   nextStep: string;
   confidence: number;
   confidenceParts: ConfidencePart[];
+  /** V4 -- RSI yon oklari icin onceki degerler */
+  m1Rsi?: number | null;
+  m1RsiPrev?: number | null;
+  m5RsiPrev?: number | null;
 }) {
   const rsiTone = m5RsiDirection === "BULLISH" ? "text-[#22c55e]" : m5RsiDirection === "BEARISH" ? "text-[#ef4444]" : "text-slate-400";
   const streakTone = m1StreakDir === "UP" ? "text-[#22c55e]" : m1StreakDir === "DOWN" ? "text-[#ef4444]" : "text-slate-400";
   const st = STATE_STYLE[state];
+  // Kabul kriteri 8: iki RSI'nin yonu celistiginde ayrica vurgula
+  const slope = (v?: number | null, p?: number | null) =>
+    v == null || p == null ? 0 : v > p + 0.15 ? 1 : v < p - 0.15 ? -1 : 0;
+  const s1 = slope(m1Rsi, m1RsiPrev);
+  const s5 = slope(m5Rsi, m5RsiPrev);
+  const rsiConflict = s1 !== 0 && s5 !== 0 && s1 !== s5;
   const streakValue = m1StreakDir === "NONE" ? "Yok" : `${m1StreakLen} ${m1StreakDir === "UP" ? "▲ yükseliş" : "▼ düşüş"}`;
 
   return (
@@ -738,16 +758,23 @@ export function LayerTable({
         tf="1m"
         tag="TETİK — girişi bu belirler"
         value={streakValue}
-        note={m1Note}
+        note={m1Rsi == null ? m1Note : `RSI ${m1Rsi.toFixed(0)} · ${rsiNote(m1Rsi, m1RsiPrev ?? null)}`}
         t={streakTone}
+        arrow={<RsiArrow value={m1Rsi ?? null} prev={m1RsiPrev ?? null} />}
       />
       <LayerRow
         tf="5m"
         tag="DESTEK — sinyali iptal edemez"
         value={m5Rsi == null ? "veri yok" : `RSI ${m5Rsi.toFixed(1)}`}
-        note={m5Note}
+        note={m5Rsi == null ? m5Note : `${rsiNote(m5Rsi, m5RsiPrev ?? null)} · ${m5Note}`}
         t={rsiTone}
+        arrow={<RsiArrow value={m5Rsi ?? null} prev={m5RsiPrev ?? null} />}
       />
+      {rsiConflict && (
+        <div className="mx-2 mb-2 rounded border border-amber-500/35 bg-amber-500/10 px-2 py-1 text-[10px] leading-snug text-amber-300">
+          ⚠ 1m ve 5m RSI ters yönde — sahte sinyalin en sık görüldüğü koşul.
+        </div>
+      )}
 
       <div className="flex items-center justify-between px-3 py-1.5 text-[10px] text-slate-500">
         <span>Yön: <b className={action === "LONG" ? "text-[#22c55e]" : action === "SHORT" ? "text-[#ef4444]" : "text-slate-300"}>
@@ -1164,6 +1191,239 @@ export function OHLCTable({ data, loading }: { data: OHLCRow[] | null; loading: 
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+// ── V4: REJİM PANELLERİ ───────────────────────────────────────────
+
+/** RSI yön oku — spec §5: değer tek başına yön anlatmıyor */
+export function RsiArrow({ value, prev }: { value: number | null; prev: number | null }) {
+  if (value == null || prev == null) return <span className="text-slate-600">—</span>;
+  const up = value > prev + 0.15;
+  const down = value < prev - 0.15;
+  const glyph = up ? "▲" : down ? "▼" : "►";
+  const color = up ? "text-[#22c55e]" : down ? "text-[#ef4444]" : "text-slate-500";
+  return <span className={`font-mono ${color}`}>{glyph}</span>;
+}
+
+/** RSI'ın bölgesel yorumu — "73 ▲ · aşırı alım bölgesine yaklaşıyor" */
+export function rsiNote(v: number | null, prev: number | null): string {
+  if (v == null) return "veri yok";
+  const dir = prev == null ? "" : v > prev + 0.15 ? "yükseliyor" : v < prev - 0.15 ? "zayıflıyor" : "yatay";
+  const zone =
+    v >= 70 ? "aşırı alım bölgesinde"
+    : v >= 60 ? "aşırı alıma yaklaşıyor"
+    : v <= 30 ? "aşırı satım bölgesinde"
+    : v <= 40 ? "aşırı satıma yaklaşıyor"
+    : "nötr bant";
+  return `${zone}${dir ? ` · ${dir}` : ""}`;
+}
+
+export interface RegimeBlock {
+  current: {
+    regime: Regime;
+    direction: RegimeDirection;
+    confidence: number;
+    trendChecks: RegimeCheck[];
+    chopChecks: RegimeCheck[];
+    timePrior: number;
+    timePriorNote: string;
+    note: string;
+  };
+  transitions: { time: number; from: Regime; to: Regime; confidence: number }[];
+  distribution: Record<Regime, number>;
+  cooldownUntil: number | null;
+  cooldownActive: boolean;
+}
+
+/**
+ * Rejim bandı — spec §1: "büyük, renkli, tartışmasız görünür".
+ * Ayrıca §7.4'ün strateji hatırlatması ve §7.2'nin soğuma uyarısı burada.
+ */
+export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; nowSec: number }) {
+  if (!block) {
+    return (
+      <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>Rejim verisi bekleniyor…</div>
+    );
+  }
+  const { regime, direction, confidence, note } = block.current;
+  const color = regimeColor(regime, direction);
+  const label = REGIME_LABEL[regime];
+  const arrow = regime === "TREND" ? (direction === "DOWN" ? "▼" : "▲") : regime === "CHOP" ? "≈" : "?";
+
+  const reminder =
+    regime === "TREND"
+      ? "Trend modu — pozisyonu erken kapatma, kırılım sinyalini bekle"
+      : regime === "CHOP"
+      ? "Sıkışma modu — hızlı al-sat, 15 dk üstü taşıma yok"
+      : "Belirsiz — yeni giriş üretilmiyor, sistem sadece izliyor";
+
+  const lastTransition = block.transitions[block.transitions.length - 1] ?? null;
+  const fresh = lastTransition != null && nowSec > 0 && nowSec - lastTransition.time < 300;
+
+  const cooldownLeft =
+    block.cooldownActive && block.cooldownUntil != null && nowSec > 0
+      ? Math.max(0, Math.ceil((block.cooldownUntil - nowSec) / 60))
+      : null;
+
+  return (
+    <div
+      className="rounded-lg border px-3 py-2.5"
+      style={{ borderColor: `${color}66`, backgroundColor: `${color}14` }}
+    >
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span className="flex items-center gap-2 text-[18px] font-bold tracking-wide sm:text-[22px]" style={{ color }}>
+          <span>{arrow}</span>
+          <span>
+            {label}
+            {regime === "TREND" && ` ${direction === "DOWN" ? "AŞAĞI" : "YUKARI"}`}
+          </span>
+        </span>
+
+        <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold" style={{ backgroundColor: `${color}22`, color }}>
+          güven %{confidence}
+        </span>
+
+        {fresh && lastTransition && (
+          <span className="animate-pulse rounded border border-[#eab308]/50 bg-[#eab308]/15 px-2 py-0.5 text-[11px] font-bold text-[#facc15]">
+            ⚡ REJİM DEĞİŞTİ: {REGIME_LABEL[lastTransition.from]} → {REGIME_LABEL[lastTransition.to]} ·{" "}
+            {regime === "CHOP" ? "çıkış modu hızlandırıldı" : "çıkış modu gevşetildi"}
+          </span>
+        )}
+
+        {cooldownLeft != null && (
+          <span className="rounded border border-red-500/40 bg-red-500/15 px-2 py-0.5 text-[11px] font-bold text-red-300">
+            ⛔ 3 ardışık kayıp — {cooldownLeft} dk sinyal durduruldu
+          </span>
+        )}
+
+        <span className="ml-auto text-[10.5px] text-slate-400">{reminder}</span>
+      </div>
+      <div className="mt-1 text-[10.5px] leading-snug text-slate-500">{note}</div>
+    </div>
+  );
+}
+
+function RegimeColumn({ title, checks, passed, accent }: {
+  title: string; checks: RegimeCheck[]; passed: number; accent: string;
+}) {
+  return (
+    <div className="min-w-0 flex-1">
+      <div className="flex items-center justify-between gap-2 px-2.5 py-1.5">
+        <span className="text-[11px] font-bold tracking-wide" style={{ color: accent }}>{title}</span>
+        <span className="font-mono text-[11px] font-semibold" style={{ color: accent }}>
+          {passed}/{checks.length}
+        </span>
+      </div>
+      <div className="flex gap-0.5 px-2.5 pb-1">
+        {checks.map((c, i) => (
+          <span key={i} className="h-1 flex-1 rounded-sm" style={{ backgroundColor: c.ok ? accent : "#1c2635" }} />
+        ))}
+      </div>
+      <div className="px-2.5 pb-2">
+        {checks.map((c, i) => (
+          <div key={i} className="flex items-center justify-between gap-1.5 border-b border-[#151c28] py-[3px] last:border-0">
+            <span className="flex min-w-0 items-center gap-1">
+              <span className={c.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{c.ok ? "✓" : "✕"}</span>
+              <span className={`truncate text-[10px] ${c.ok ? "text-slate-300" : "text-slate-500"}`} title={c.label}>{c.label}</span>
+            </span>
+            <span className={`shrink-0 font-mono text-[10px] ${c.ok ? "text-slate-300" : "text-[#ef4444]"}`}>{c.detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Rejim kriter dökümü — spec §1.3: rejim kara kutu olmamalı */
+export function RegimePanel({ block }: { block: RegimeBlock | null }) {
+  if (!block || !block.current.trendChecks.length) {
+    return (
+      <div className={`${SURFACE} px-3 py-4`}>
+        <div className="text-[11px] font-semibold text-slate-300">Rejim Kriterleri</div>
+        <div className="mt-1 text-[12px] text-slate-500">Yeterli mum yok (en az 35 kapalı 1m mum).</div>
+      </div>
+    );
+  }
+  const { trendChecks, chopChecks, timePrior, timePriorNote } = block.current;
+  const tp = trendChecks.filter((c) => c.ok).length;
+  const cp = chopChecks.filter((c) => c.ok).length;
+  const total = block.distribution.TREND + block.distribution.CHOP + block.distribution.UNCERTAIN || 1;
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· son 25 mum · iki hipotez birlikte</span>
+        </span>
+      </div>
+      <div className="flex divide-x divide-[#1c2635]">
+        <RegimeColumn title="TREND" checks={trendChecks} passed={tp} accent="#22c55e" />
+        <RegimeColumn title="SIKIŞMA" checks={chopChecks} passed={cp} accent="#f59e0b" />
+      </div>
+
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
+        Saat dilimi önseli: <b className={timePrior > 0 ? "text-[#22c55e]" : timePrior < 0 ? "text-[#ef4444]" : "text-slate-400"}>
+          {timePrior > 0 ? `+${timePrior}` : timePrior}
+        </b>{" "}
+        · {timePriorNote}
+      </div>
+
+      {/* Gün özeti — spec §7.3 */}
+      <div className="border-t border-[#1c2635] px-3 py-1.5">
+        <div className="mb-1 text-[9.5px] font-semibold text-slate-500">Bugünkü rejim dağılımı</div>
+        <div className="flex h-2 overflow-hidden rounded">
+          <span style={{ width: `${(block.distribution.TREND / total) * 100}%`, backgroundColor: "#22c55e" }} />
+          <span style={{ width: `${(block.distribution.CHOP / total) * 100}%`, backgroundColor: "#f59e0b" }} />
+          <span style={{ width: `${(block.distribution.UNCERTAIN / total) * 100}%`, backgroundColor: "#475569" }} />
+        </div>
+        <div className="mt-1 flex flex-wrap gap-x-3 font-mono text-[9.5px] text-slate-500">
+          <span className="text-[#22c55e]">TREND %{((block.distribution.TREND / total) * 100).toFixed(0)}</span>
+          <span className="text-[#f59e0b]">SIKIŞMA %{((block.distribution.CHOP / total) * 100).toFixed(0)}</span>
+          <span>BELİRSİZ %{((block.distribution.UNCERTAIN / total) * 100).toFixed(0)}</span>
+          <span className="text-slate-600">{total} mum</span>
+        </div>
+      </div>
+
+      {block.transitions.length > 0 && (
+        <div className="border-t border-[#1c2635] px-3 py-1.5">
+          <div className="mb-1 text-[9.5px] font-semibold text-slate-500">Son rejim geçişleri</div>
+          <div className="flex flex-col gap-0.5">
+            {block.transitions.slice(-5).reverse().map((t) => (
+              <div key={t.time} className="flex items-center gap-2 font-mono text-[9.5px] text-slate-500">
+                <span className="w-10 shrink-0 text-slate-600">{nyClock(t.time)}</span>
+                <span>{REGIME_LABEL[t.from]} → <b className="text-slate-300">{REGIME_LABEL[t.to]}</b></span>
+                <span className="text-slate-600">güven %{t.confidence}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * 15m bağlam şeridi — spec §6: SADECE BİLGİ.
+ * Motor mantığına girmez; V3'te 15m'nin kapı olarak kullanılması fırsatları
+ * geciktirmişti, o hata tekrarlanmıyor.
+ */
+export function M15Strip({ direction, note, rsi, rsiPrev, greenOf4 }: {
+  direction: Direction; note: string; rsi: number | null; rsiPrev: number | null; greenOf4: string;
+}) {
+  const tone15 = direction === "BULLISH" ? "#22c55e" : direction === "BEARISH" ? "#ef4444" : "#94a3b8";
+  const word = direction === "BULLISH" ? "▲ YUKARI" : direction === "BEARISH" ? "▼ AŞAĞI" : "▬ YATAY";
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded border border-[#1c2635] bg-[#0f141d] px-3 py-1.5 text-[10.5px]">
+      <span className="font-semibold text-slate-500">15m GENEL TREND</span>
+      <span className="font-bold" style={{ color: tone15 }}>{word}</span>
+      <span className="font-mono text-slate-400">
+        RSI {rsi == null ? "—" : rsi.toFixed(0)} <RsiArrow value={rsi} prev={rsiPrev} />
+      </span>
+      <span className="text-slate-500">{greenOf4}</span>
+      <span className="text-slate-600">{note}</span>
+      <span className="ml-auto text-[9px] text-slate-600">karar mekanizmasına girmez — yalnızca bağlam</span>
     </div>
   );
 }

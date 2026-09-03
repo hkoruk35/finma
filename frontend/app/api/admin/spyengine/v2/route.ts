@@ -33,6 +33,11 @@ import {
   type Bar,
 } from "@/lib/spyengine/core";
 import {
+  detectRegimeSeries,
+  type Regime,
+} from "@/lib/spyengine/regime";
+import {
+  closedBars,
   generateCandidates,
   findExitSignal,
   runLifecycle,
@@ -158,6 +163,25 @@ export async function GET(req: NextRequest) {
       nowSec: evalNow,
     });
 
+    // ── V4: rejim serisi ──────────────────────────────────
+    //
+    // Rejim YALNIZCA cikis davranisini surer; giris kapisina dokunmaz.
+    // Tek istisna: BELIRSIZ rejimde yeni giris URETILMEZ (spec 2.3).
+    const regimeM1 = closedBars(sessionM1, 1, evalNow);
+    const regimeSeries = detectRegimeSeries(regimeM1);
+    const regimeByTime = new Map(regimeSeries.bars.map((b) => [b.time, b.regime]));
+    /** Verilen ana ait rejim -- o dakikada etiket yoksa en son bilinen */
+    const regimeAt = (t: number): Regime => {
+      const hit = regimeByTime.get(t);
+      if (hit) return hit;
+      let last: Regime = "UNCERTAIN";
+      for (const b of regimeSeries.bars) {
+        if (b.time > t) break;
+        last = b.regime;
+      }
+      return last;
+    };
+
     // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
     //
     // V3.1'de çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor;
@@ -171,6 +195,9 @@ export async function GET(req: NextRequest) {
     // işlemler görünüyor, sabahki sinyaller hiç listelenmiyordu. Sıra
     // tersine çevrildi: önce zincir çözülür (ücretsiz), sonra yalnızca
     // KABUL EDİLEN pozisyonlar için prim çekilir (~20 istek, ~85 değil).
+    // BELIRSIZ rejimde yeni giris yok -- sistem yalnizca izler.
+    gen.candidates = gen.candidates.filter((c) => regimeAt(c.time) !== "UNCERTAIN");
+
     const scans = gen.candidates.map((c) =>
       findExitSignal({
         m1: sessionM1,
@@ -180,6 +207,7 @@ export async function GET(req: NextRequest) {
         entrySpot: c.spot,
         session,
         nowSec: evalNow,
+        regimeAt,
       })
     );
     const shells = gen.candidates.map((c, i) => ({
@@ -204,9 +232,26 @@ export async function GET(req: NextRequest) {
         const strike = atmStrike(c.spot);
         const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
         const series = await fetchOptionSeries(contract);
+        // V4 ikinci gecis: sikisma rejiminin hedef/stop kurallari PRIM
+        // yuzdesi uzerinden tanimli, ama prim ancak aday kabul edildikten
+        // sonra cekiliyor (aglayi ~20 istekte tutan bilincli sira). Bu
+        // yuzden cikis, prim elde edildikten sonra bir kez daha taranir.
+        const exitWithPremium = series.bars.length
+          ? findExitSignal({
+              m1: sessionM1,
+              m5: m5All,
+              entryTime: c.time,
+              side: c.side,
+              entrySpot: c.spot,
+              session,
+              nowSec: evalNow,
+              regimeAt,
+              premiumBars: series.bars,
+            })
+          : exit;
         const pos = runLifecycle({
           candidate: c,
-          exit,
+          exit: exitWithPremium,
           premiumBars: series.bars,
           contract: series.bars.length ? contract : null,
           strike: series.bars.length ? strike : null,
@@ -220,6 +265,34 @@ export async function GET(req: NextRequest) {
         return pos;
       })
     );
+
+    // ── V4: 3 ardisik kayip -> 15 dk sinyal durdurma (spec 7.2) ────
+    //
+    // "Kayip" burada SPOT sonucuyla tanimli, prim ile degil: prim her
+    // pozisyonda gelmeyebiliyor ve tanimin deterministik kalmasi gerek.
+    // 2 Eylul'de motor tam bu tuzaga dusmustu (11:39, 12:24, 14:03).
+    const COOLDOWN_AFTER_LOSSES = 3;
+    const COOLDOWN_MINUTES = 15;
+    let cooldownUntil: number | null = null;
+    {
+      let streak = 0;
+      const kept: PositionState[] = [];
+      for (const pos of activePositions) {
+        if (cooldownUntil != null && pos.entryTime < cooldownUntil) continue;
+        kept.push(pos);
+        if (pos.status !== "CLOSED" || pos.exitSpot == null) continue;
+        const spotPnl = (pos.exitSpot - pos.entrySpot) * (pos.side === "LONG" ? 1 : -1);
+        if (spotPnl < 0) streak++;
+        else streak = 0;
+        if (streak >= COOLDOWN_AFTER_LOSSES) {
+          cooldownUntil = (pos.exitTime ?? pos.entryTime) + COOLDOWN_MINUTES * 60;
+          streak = 0;
+        }
+      }
+      activePositions.length = 0;
+      activePositions.push(...kept);
+    }
+    const cooldownActive = cooldownUntil != null && evalNow < cooldownUntil;
 
     const openPosition = activePositions.find((p) => p.status !== "CLOSED") ?? null;
 
@@ -304,6 +377,14 @@ export async function GET(req: NextRequest) {
           m15: toCompact(m15Out),
         },
         engine: gen.read,
+        // V4 rejim bloku: etiket + kriter dokumu + gecisler + gun ozeti
+        regime: {
+          current: regimeSeries.current,
+          transitions: regimeSeries.transitions.slice(-12),
+          distribution: regimeSeries.distribution,
+          cooldownUntil,
+          cooldownActive,
+        },
         lastClosed: gen.lastClosed,
         positions: activePositions,
         openPosition,
