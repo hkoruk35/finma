@@ -514,23 +514,19 @@ export default function SpyEngineCommandCenter() {
    * Odak modunda grafik ve sağ sütun AYNI yüksekliği paylaşır ve bu yükseklik
    * ekrandan türetilir; böylece grafik + Motor Durumu + Kapı Durumu sayfayı
    * kaydırmadan görünür.
-   *   ~190px = başlık (101) + sekmeler (35) + boşluklar ve alttaki bilgi satırı.
-   *   ~79px  = grafik araç çubuğu (40) + grafiğin altındaki kaynak satırı (39).
-   * Ölçüldü (1440×780): satır y=172'de başlıyor, bu değerlerle alt kenar 762'de
-   * kalıyor — katlamanın içinde.
+   *   ~160px = başlık (80) + sekmeler (25) + minimal boşluk.
+   *   ~70px  = grafik araç çubuğu (30) + grafiğin altındaki kaynak satırı (25).
    */
-  const rowHeight = focusMode && viewportH ? Math.max(430, viewportH - 190) : 470;
+  const rowHeight = focusMode && viewportH ? Math.max(400, viewportH - 160) : 420;
   /**
-   * Normal modda grafik bilinçli olarak küçük: kararı Kapı Durumu + Motor
-   * Durumu veriyor, grafik teyit içindir. Detay gerekince ⤢ TAM EKRAN tek
-   * tuş uzakta. Tablette daha da kısalır ki kapı tablosu katlamanın içinde
-   * kalsın.
+   * Normal modda grafik küçük, Motor/Kapı verisi karar veriyor.
+   * Tablette daha kısalır. Boşluk bırakmayıp sağ panel tamamını göstermek için.
    */
-  const compactChartH = viewportW && viewportW < 1024 ? 300 : 380;
+  const compactChartH = viewportW && viewportW < 1024 ? 280 : 340;
   const chartHeight = fullscreen
-    ? Math.max(420, (viewportH || 900) - 96)
+    ? Math.max(400, (viewportH || 900) - 80)
     : focusMode
-    ? rowHeight - 79
+    ? rowHeight - 70
     : compactChartH;
 
   // ── Render ──────────────────────────────────────────────────────
@@ -686,7 +682,7 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
 
           <AlertBanner
@@ -708,10 +704,10 @@ export default function SpyEngineCommandCenter() {
           )}
 
           <div
-            className={`grid grid-cols-1 gap-2 ${
+            className={`grid grid-cols-1 gap-1 ${
               focusMode
-                ? "xl:grid-cols-[minmax(0,1fr)_392px]"
-                : "lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_460px]"
+                ? "xl:grid-cols-[minmax(0,1fr)_380px]"
+                : "lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px]"
             }`}
           >
             {/* Grafik — üstünde araç çubuğu, altında (eskiden sayfanın en
@@ -831,7 +827,7 @@ export default function SpyEngineCommandCenter() {
                 içinde kayar. Amaç: grafik + Motor Durumu + Kapı Durumu her
                 zaman tek ekranda görünsün, sayfayı kaydırmak gerekmesin. */}
             <div
-              className={`order-1 flex flex-col gap-1.5 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
+              className={`order-1 flex flex-col gap-1 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
                 focusMode ? "overflow-y-auto" : ""
               }`}
               style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
@@ -872,13 +868,13 @@ export default function SpyEngineCommandCenter() {
           </div>
 
           {!focusMode && (
-          <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
             <Panel title="Motor Açıklaması">
-              <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-2 font-mono text-[10px] leading-relaxed text-slate-400">
+              <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-1 font-mono text-[10px] leading-relaxed text-slate-400">
                 <span className="text-[#3b82f6]">{lastFetch ? nyClock(lastFetch, true) : "—"}</span>{" "}
                 — {data?.engine.reasoning ?? "Motor verisi bekleniyor."}
               </div>
-              <div className="mt-1.5 flex flex-col gap-0.5 text-[9px] text-slate-500">
+              <div className="mt-1 flex flex-col gap-0.5 text-[9px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
                 <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
                 <div>· GİRİŞ (hepsi zorunlu): 2. 1m mumun kapanışı + mum paterni (gövde ≥%50, kapanış yön tarafında ≥%60) + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü. RSI&apos;da yalnızca YÖN aranır, 50 seviyesi aranmaz.</div>
@@ -923,11 +919,11 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ 15m BAĞLAM ═══ */}
       {tab === "context" && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <div className={`${SURFACE} overflow-hidden`}>
-            <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1.5">
+            <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
               <span className="text-[10px] font-semibold tracking-wide text-slate-300">15m Grafik — yön/rejim (ikincil)</span>
-              <span className="text-[9px] text-slate-600">Karar mekanizmasının parçası değil (talimat §3)</span>
+              <span className="text-[9px] text-slate-600">Karar mekanizmasının parçası değil</span>
             </div>
             <SpyChart
               bars={m15}
@@ -935,12 +931,12 @@ export default function SpyEngineCommandCenter() {
               events={events}
               position={openPosition}
               toggles={{ ...toggles, markers: false, levels: false }}
-              height={420}
+              height={380}
               autoScroll={autoScroll}
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
             <Panel title="15m Gösterge Okuması">
               {!m15Read ? (
                 <div className="text-[11px] text-slate-600">15m verisi yetersiz.</div>
@@ -1000,7 +996,7 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ 15 GÜN OHLC ═══ */}
       {tab === "ohlc" && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <OHLCTable data={ohlcData} loading={ohlcLoading} />
         </div>
       )}
