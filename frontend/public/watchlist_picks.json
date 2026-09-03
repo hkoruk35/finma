@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:03:43.441261-04:00",
+  "generated_at": "2026-09-03T17:05:14.671991-04:00",
   "picks": [
     {
       "ticker": "XP",
@@ -74,12 +74,6 @@
       "score": 41.5
     },
     {
-      "ticker": "CPAY",
-      "sector": "Technology",
-      "date_added": "2026-09-03",
-      "score": 41.0
-    },
-    {
       "ticker": "AYA",
       "sector": "Basic Materials",
       "date_added": "2026-09-03",
@@ -90,6 +84,30 @@
       "sector": "Industrials",
       "date_added": "2026-09-03",
       "score": 39.0
+    },
+    {
+      "ticker": "TMO",
+      "sector": "Healthcare",
+      "date_added": "2026-09-03",
+      "score": 46.5
+    },
+    {
+      "ticker": "IDCC",
+      "sector": "Technology",
+      "date_added": "2026-09-03",
+      "score": 43.5
+    },
+    {
+      "ticker": "ARWR",
+      "sector": "Healthcare",
+      "date_added": "2026-09-03",
+      "score": 40.5
+    },
+    {
+      "ticker": "ITT",
+      "sector": "Industrials",
+      "date_added": "2026-09-03",
+      "score": 34.0
     }
   ]
 }
