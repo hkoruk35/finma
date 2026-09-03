@@ -651,17 +651,17 @@ export default function SpyEngineCommandCenter() {
           )}
 
           {/* ── Fiyat Şeridi + Bilgi Kartları — tam genişlik, gizlenebilir ── */}
-          <div className={`${SURFACE} overflow-hidden`}>
+          <div className="overflow-hidden rounded border border-[#1c2635]">
             <button
               type="button"
               onClick={() => setShowTickerStrip((v) => !v)}
-              className="flex w-full items-center justify-between border-b border-[#1c2635] px-2 py-1 text-left"
+              className="flex w-full items-center justify-between bg-[#111827] px-2 py-1 text-left"
             >
-              <span className="text-[10px] font-semibold tracking-wide text-slate-300">Canlı Piyasa Şeridi</span>
-              <span className="text-[9px] text-slate-500">{quotesAt ? nyClock(quotesAt, true) : "—"} ET {showTickerStrip ? "▲ gizle" : "▼ göster"}</span>
+              <span className="text-[9px] font-medium text-slate-500">Piyasa Şeridi &amp; Bilgi Kartları</span>
+              <span className="text-[9px] text-slate-500">{showTickerStrip ? "▲ gizle" : "▼ göster"}</span>
             </button>
             {showTickerStrip && (
-              <div className="grid grid-cols-1 gap-1 p-1.5 md:grid-cols-3">
+              <div className="grid grid-cols-1 gap-1 p-1 lg:grid-cols-2 lg:items-stretch">
                 <TickerStrip quotes={quotes} updatedAt={quotesAt} />
                 <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
               </div>
