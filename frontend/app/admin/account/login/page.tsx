@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +24,13 @@ export default function LoginPage() {
 
       if (res.ok) {
         localStorage.setItem("user_email", email);
-        router.push("/pro");
+        // Tam sayfa yönlendirme (router.push DEĞİL): AdminLayout sunucu
+        // bileşeni boga_auth cookie'sini okuyup sidebar'ı gösteriyor —
+        // yumuşak (client-side) geçişte Next.js önbelleklenmiş RSC
+        // yanıtını (henüz cookie yokken üretilmiş) yeniden kullanabilir
+        // ve sidebar giriş yapılmış olsa bile görünmez kalır. Ayrıca
+        // eski hedef "/pro" yanlıştı — gerçek admin kökü "/admin".
+        window.location.href = "/admin";
       } else {
         setError(data.error ?? "Giris basarisiz.");
       }
