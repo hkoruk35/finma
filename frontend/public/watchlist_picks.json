@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T09:09:18.829071-04:00",
+  "generated_at": "2026-09-03T14:03:43.441261-04:00",
   "picks": [
     {
       "ticker": "XP",
@@ -50,22 +50,10 @@
       "score": 40.5
     },
     {
-      "ticker": "RJF",
-      "sector": "Financial Services",
-      "date_added": "2026-09-03",
-      "score": 42.5
-    },
-    {
       "ticker": "DIS",
       "sector": "Communication Services",
       "date_added": "2026-09-03",
       "score": 40.0
-    },
-    {
-      "ticker": "EMN",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-03",
-      "score": 38.5
     },
     {
       "ticker": "ADT",
@@ -74,10 +62,34 @@
       "score": 38.0
     },
     {
-      "ticker": "PEB",
-      "sector": "Real Estate",
+      "ticker": "KSS",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-09-03",
-      "score": 37.5
+      "score": 43.5
+    },
+    {
+      "ticker": "SNAP",
+      "sector": "Communication Services",
+      "date_added": "2026-09-03",
+      "score": 41.5
+    },
+    {
+      "ticker": "CPAY",
+      "sector": "Technology",
+      "date_added": "2026-09-03",
+      "score": 41.0
+    },
+    {
+      "ticker": "AYA",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-03",
+      "score": 40.0
+    },
+    {
+      "ticker": "GWW",
+      "sector": "Industrials",
+      "date_added": "2026-09-03",
+      "score": 39.0
     }
   ]
 }
