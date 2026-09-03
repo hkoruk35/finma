@@ -72,25 +72,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 769.305,
-      "change_pct": 0.54
+      "value": 773.2,
+      "change_pct": 1.05
     },
     "NASDAQ": {
-      "value": 713.7294,
-      "change_pct": 0.63
+      "value": 717.63,
+      "change_pct": 1.18
     },
     "DOW": {
-      "value": 535.0,
-      "change_pct": 0.83
+      "value": 537.2428,
+      "change_pct": 1.25
     },
     "VIX": {
-      "value": 14.97,
-      "change_pct": -1.51
+      "value": 14.89,
+      "change_pct": -2.04
     },
     "RUSSELL2000": {
-      "value": 294.43,
-      "change_pct": 0.14
+      "value": 295.255,
+      "change_pct": 0.42
     }
   },
-  "price_updated_at": "2026-09-03T11:00:19.498378-04:00"
+  "price_updated_at": "2026-09-03T12:00:13.641737-04:00"
 }
