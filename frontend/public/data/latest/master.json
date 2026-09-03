@@ -1,8 +1,8 @@
 {
   "date": "2026-09-02",
-  "generated_at": "2026-09-02T14:08:16.242071-04:00",
+  "generated_at": "2026-09-02T17:04:48.643829-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 37,
+  "active_scores_count": 42,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -26,17 +26,17 @@
         "CNQ",
         "BKR",
         "RIG",
-        "EQT",
         "VALE",
         "BP",
         "TYL",
         "DRI",
-        "MDT",
         "MTCH",
         "SQM",
         "VAL",
         "TEVA",
-        "F"
+        "F",
+        "AJG",
+        "AMRX"
       ]
     },
     "value": {
@@ -75,20 +75,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 769.06,
+      "change_pct": 0.51
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 712.09,
+      "change_pct": 0.4
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 534.74,
+      "change_pct": 0.78
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 14.96,
+      "change_pct": -1.58
+    },
+    "RUSSELL2000": {
+      "value": 294.52,
+      "change_pct": 0.17
     }
-  }
+  },
+  "price_updated_at": "2026-09-03T10:00:19.876753-04:00"
 }
