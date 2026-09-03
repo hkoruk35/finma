@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import EngineNav from "@/components/admin/EngineNav";
 import { Badge, Panel, Table, TBody, Td, Th, THead, Tr, fmt, signed, titleCase, toneClass } from "@/components/admin/supertrade/ui";
 import type { AssetClass, AssetSnapshot } from "@/lib/v4/types";
 import { ASSET_MAP } from "@/lib/v4/types";
@@ -64,16 +64,16 @@ export default function SuperTradeV4Dashboard() {
     const selectedSnapshot = selectedData && selectedData.ok ? selectedData : null;
     const selectedError = selectedData && !selectedData.ok ? selectedData.error : null;
     return (
-      <div className="p-4 md:p-5 bg-[#0a0e17] min-h-screen text-slate-300">
-        <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="p-2 md:p-3 bg-[#0a0e17] min-h-screen text-slate-300">
+        <div className="mb-2 flex flex-wrap items-center gap-2">
           <button
             onClick={() => setSelectedAsset(null)}
-            className="flex items-center gap-2 text-[12px] text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-[11px] text-slate-400 hover:text-white transition-colors"
           >
             ← Dashboard&apos;a Dön
           </button>
-          <div className="h-4 w-px bg-[#1c2635]" />
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="h-3 w-px bg-[#1c2635]" />
+          <div className="flex flex-wrap items-center gap-1">
             {ASSETS.map((a) => {
               const meta = deriveAssetMeta(snapshots[a]);
               const active = a === selectedAsset;
@@ -89,13 +89,13 @@ export default function SuperTradeV4Dashboard() {
                   key={a}
                   onClick={() => setSelectedAsset(a)}
                   title={ASSET_MAP[a].name}
-                  className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                  className={`flex items-center gap-1 rounded-md border px-2 py-0.5 text-[10px] font-medium transition-colors ${
                     active
                       ? "border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
                       : "border-[#1c2635] text-slate-400 hover:border-[#2a3648] hover:text-slate-200"
                   }`}
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />
+                  <span className={`h-1 w-1 rounded-full ${dotClass}`} />
                   {a}
                 </button>
               );
@@ -122,30 +122,25 @@ export default function SuperTradeV4Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
-      <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#1c2635] pb-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3">
-            <h1 className="text-[18px] font-medium tracking-tight text-[#3b82f6]">
+    <div className="min-h-screen bg-[#0a0e17] p-2 md:p-3 text-slate-300">
+      <header className="mb-3 flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-[#1c2635] pb-2">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <h1 className="text-[16px] font-medium tracking-tight text-[#3b82f6]">
               Multi-Asset Fırsat Tarayıcı
             </h1>
             <Badge tone="brand">SuperTrade V4</Badge>
             {anyNextDay && <Badge tone="neutral">Sonraki seans için hazır</Badge>}
           </div>
-          <p className="text-[12px] text-slate-500">
+          <p className="text-[11px] text-slate-500">
             S&P 500 ve Nasdaq ekosistemindeki tüm endeks ve ETF&apos;lerin anlık kırılım ve yön teyidi.
           </p>
         </div>
-        <Link 
-          href="/admin/spyengine/v1" 
-          className="flex items-center gap-2 rounded bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 transition-colors px-3 py-1.5 text-[12px] font-medium text-[#3b82f6] whitespace-nowrap"
-        >
-          ⚡ SPYEngine'e Geç
-        </Link>
+        <EngineNav />
       </header>
 
       {loading && Object.keys(snapshots).length === 0 ? (
-        <div className="text-[13px] text-slate-400">Veriler yükleniyor...</div>
+        <div className="text-[11px] text-slate-400">Veriler yükleniyor...</div>
       ) : (
         <Panel padding="p-0">
           <Table bordered={false}>

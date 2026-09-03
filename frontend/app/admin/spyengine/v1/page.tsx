@@ -34,7 +34,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
+import EngineNav from "@/components/admin/EngineNav";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import {
@@ -535,23 +535,23 @@ export default function SpyEngineCommandCenter() {
 
   // ── Render ──────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#0a0e17] p-3 text-slate-300">
+    <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
       {/* ── Başlık ── */}
-      <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#1c2635] pb-3">
-        <div className="flex flex-wrap items-center gap-3">
+      <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div>
-            <h1 className="text-[16px] font-semibold tracking-tight text-[#eab308]">SPY Engine V4</h1>
-            <p className="text-[10px] text-slate-500">
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V4</h1>
+            <p className="text-[9px] text-slate-500">
               Rejim farkında: giriş V3.3 kapısı (değişmedi) · çıkış rejime göre uyarlanır
             </p>
           </div>
 
           {data && (
-            <div className="flex items-baseline gap-2">
-              <span className="font-mono text-[22px] font-bold text-slate-100">
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-mono text-[20px] font-bold text-slate-100">
                 {data.spot.price == null ? "—" : `$${num(data.spot.price)}`}
               </span>
-              <span className={`font-mono text-[13px] font-semibold ${tone(data.spot.changePct)}`}>
+              <span className={`font-mono text-[12px] font-semibold ${tone(data.spot.changePct)}`}>
                 {data.spot.changePct == null ? "" : `${signed(data.spot.change)} (${signed(data.spot.changePct)}%)`}
               </span>
             </div>
@@ -560,7 +560,7 @@ export default function SpyEngineCommandCenter() {
           {data && <PhaseBadge phase={data.session.phase} />}
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
           {/* Bağlantı durumu */}
           <span
             className={`flex items-center gap-1.5 rounded border px-2 py-1 font-mono text-[10px] ${
@@ -635,34 +635,29 @@ export default function SpyEngineCommandCenter() {
             {focusMode ? "⛶ ODAK AÇIK" : "⛶ ODAK"}
           </button>
 
-          <Link
-            href="/admin/supertrade/v4"
-            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 text-[10px] text-slate-400 transition-colors hover:bg-[#1c2635]"
-          >
-            SuperTrade V4
-          </Link>
+          <EngineNav />
         </div>
       </header>
 
       {/* Uyarılar */}
       {!focusMode && data && !data.session.isLive && data.session.note && (
-        <div className="mb-3 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-300/90">
+        <div className="mb-2 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300/90">
           <span>🕒</span><span>{data.session.note}</span>
         </div>
       )}
       {error && (
-        <div className="mb-3 rounded border border-red-500/25 bg-red-500/10 px-3 py-2 text-[11px] text-red-300">
+        <div className="mb-2 rounded border border-red-500/25 bg-red-500/10 px-2 py-1 text-[10px] text-red-300">
           Akış hatası: {error}{failures > 1 && ` · ardışık ${failures} deneme başarısız`}
         </div>
       )}
       {data && data.dataSource.errors.length > 0 && (
-        <div className="mb-3 rounded border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-[10px] text-amber-300/80">
+        <div className="mb-2 rounded border border-amber-500/20 bg-amber-500/5 px-2 py-1 text-[9px] text-amber-300/80">
           Veri kaynağı uyarısı: {data.dataSource.errors.join(" · ")} — eksik zaman dilimi için mum çizilmiyor.
         </div>
       )}
 
       {/* ── Sekmeler ── */}
-      <nav className="mb-3 flex gap-1 overflow-x-auto">
+      <nav className="mb-2 flex gap-0.5 overflow-x-auto">
         {([
           ["command", "Kumanda Merkezi"],
           ["signals", "Sinyaller & Arşiv"],
@@ -673,7 +668,7 @@ export default function SpyEngineCommandCenter() {
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`shrink-0 whitespace-nowrap rounded-t border-b-2 px-3 py-2 text-[11px] font-medium transition-colors ${
+            className={`shrink-0 whitespace-nowrap rounded-t border-b-2 px-2.5 py-1.5 text-[10px] font-medium transition-colors ${
               tab === id
                 ? "border-[#eab308] bg-[#111827] text-slate-100"
                 : "border-transparent text-slate-500 hover:text-slate-300"
@@ -686,7 +681,7 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
 
           <AlertBanner
@@ -708,7 +703,7 @@ export default function SpyEngineCommandCenter() {
           )}
 
           <div
-            className={`grid grid-cols-1 gap-3 ${
+            className={`grid grid-cols-1 gap-2 ${
               focusMode
                 ? "xl:grid-cols-[minmax(0,1fr)_392px]"
                 : "lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_460px]"
@@ -831,7 +826,7 @@ export default function SpyEngineCommandCenter() {
                 içinde kayar. Amaç: grafik + Motor Durumu + Kapı Durumu her
                 zaman tek ekranda görünsün, sayfayı kaydırmak gerekmesin. */}
             <div
-              className={`order-1 flex flex-col gap-2 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
+              className={`order-1 flex flex-col gap-1.5 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
                 focusMode ? "overflow-y-auto" : ""
               }`}
               style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
@@ -872,13 +867,13 @@ export default function SpyEngineCommandCenter() {
           </div>
 
           {!focusMode && (
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
             <Panel title="Motor Açıklaması">
-              <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-3 font-mono text-[11px] leading-relaxed text-slate-400">
+              <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-2 font-mono text-[10px] leading-relaxed text-slate-400">
                 <span className="text-[#3b82f6]">{lastFetch ? nyClock(lastFetch, true) : "—"}</span>{" "}
                 — {data?.engine.reasoning ?? "Motor verisi bekleniyor."}
               </div>
-              <div className="mt-2 flex flex-col gap-1 text-[10px] text-slate-500">
+              <div className="mt-1.5 flex flex-col gap-0.5 text-[9px] text-slate-500">
                 <div>· Kararlar SADECE kapanmış mumlarla verilir; çizilmiş bir işaret asla yerinden oynamaz.</div>
                 <div>· Giriş 1m mum serisinden üretilir; 15m kararın hiçbir yerinde kullanılmaz, 5m sadece güveni ayarlar, sinyali iptal etmez.</div>
                 <div>· GİRİŞ (hepsi zorunlu): 2. 1m mumun kapanışı + mum paterni (gövde ≥%50, kapanış yön tarafında ≥%60) + hacim &gt; son 15 mum ort. + 1m RSI yönü + 5m mum yönü + 5m RSI yönü. RSI&apos;da yalnızca YÖN aranır, 50 seviyesi aranmaz.</div>
@@ -923,11 +918,11 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ 15m BAĞLAM ═══ */}
       {tab === "context" && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className={`${SURFACE} overflow-hidden`}>
-            <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-2">
-              <span className="text-[11px] font-semibold tracking-wide text-slate-300">15m Grafik — yön/rejim (ikincil)</span>
-              <span className="text-[10px] text-slate-600">Karar mekanizmasının parçası değil (talimat §3)</span>
+            <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1.5">
+              <span className="text-[10px] font-semibold tracking-wide text-slate-300">15m Grafik — yön/rejim (ikincil)</span>
+              <span className="text-[9px] text-slate-600">Karar mekanizmasının parçası değil (talimat §3)</span>
             </div>
             <SpyChart
               bars={m15}
@@ -940,12 +935,12 @@ export default function SpyEngineCommandCenter() {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
             <Panel title="15m Gösterge Okuması">
               {!m15Read ? (
-                <div className="text-[12px] text-slate-600">15m verisi yetersiz.</div>
+                <div className="text-[11px] text-slate-600">15m verisi yetersiz.</div>
               ) : (
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[11px]">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 font-mono text-[10px]">
                   {[
                     ["Son kapanış", num(m15Read.last)],
                     ["EMA20", num(m15Read.ema20)],
@@ -967,7 +962,7 @@ export default function SpyEngineCommandCenter() {
             </Panel>
 
             <Panel title="Veri Kaynağı & Şeffaflık">
-              <div className="flex flex-col gap-1.5 text-[11px] text-slate-400">
+              <div className="flex flex-col gap-1 text-[10px] text-slate-400">
                 <div>Birincil: <b className="text-slate-200">{data?.dataSource.primary ?? "—"}</b></div>
                 <div>
                   Overnight (20:00–04:00 ET):{" "}
@@ -1000,12 +995,12 @@ export default function SpyEngineCommandCenter() {
 
       {/* ═══ 15 GÜN OHLC ═══ */}
       {tab === "ohlc" && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <OHLCTable data={ohlcData} loading={ohlcLoading} />
         </div>
       )}
 
-      <div className="mt-3 text-center font-mono text-[9px] text-slate-700">
+      <div className="mt-2 text-center font-mono text-[8px] text-slate-700">
         yoklama {pollMs / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt{" "}
         {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
       </div>
