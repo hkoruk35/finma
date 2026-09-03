@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isStaffAuthed } from "@/lib/apiAuth";
 import { getSnapshot, buildReplay } from "@/lib/v4/snapshot";
 import { buildForecast } from "@/lib/v4/forecast";
 import type { Bar } from "@/lib/v4/types";
@@ -8,7 +9,10 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const maxDuration = 60;
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  if (!isStaffAuthed(request)) {
+    return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  }
   try {
     const { searchParams } = new URL(request.url);
     const asset = (searchParams.get("symbol") || "SPY").toUpperCase();

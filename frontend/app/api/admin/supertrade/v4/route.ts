@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isStaffAuthed } from "@/lib/apiAuth";
 import { getSnapshot } from "@/lib/v4/snapshot";
 import { AssetClass, ASSET_MAP, AssetSnapshot } from "@/lib/v4/types";
 
@@ -9,7 +10,10 @@ export const maxDuration = 60;
 
 type AssetResult = AssetSnapshot | { ok: false; error: string };
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  if (!isStaffAuthed(request)) {
+    return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  }
   try {
     const { searchParams } = new URL(request.url);
     const symbolParam = (searchParams.get("symbol") || "SPX").toUpperCase();

@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { isStaffAuthed } from "@/lib/apiAuth";
 import { buildReplay } from "@/lib/spx/snapshot";
 
 export const runtime = "nodejs";
@@ -12,6 +13,9 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
 export async function GET(request: NextRequest) {
+  if (!isStaffAuthed(request)) {
+    return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  }
   const date = request.nextUrl.searchParams.get("date") || undefined;
 
   try {

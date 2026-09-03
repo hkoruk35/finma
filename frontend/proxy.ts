@@ -350,7 +350,11 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     pathname === '/admin/account/register' ||
     pathname?.startsWith('/admin/account/register/')
 
-  const requiresAdminAuth = pathname?.startsWith('/admin/') && !isAdminAuthPath
+  // '/admin' (trailing slash olmadan, kök yönetim paneli) startsWith('/admin/')
+  // ile eşleşmediği için ESKİDEN auth kontrolünden tamamen kaçıyordu — giriş
+  // yapmamış herkes doğrudan Yönetim Merkezi dashboard'unu görebiliyordu.
+  const isAdminPath = pathname === '/admin' || pathname?.startsWith('/admin/')
+  const requiresAdminAuth = isAdminPath && !isAdminAuthPath
   const hasBogaAuth = !!request.cookies.get('boga_auth')?.value
 
   if (requiresAdminAuth && !hasBogaAuth) {
