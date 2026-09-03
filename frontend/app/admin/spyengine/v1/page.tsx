@@ -723,44 +723,44 @@ export default function SpyEngineCommandCenter() {
               ref={chartWrapRef}
               className={`${SURFACE} order-2 flex flex-col overflow-hidden lg:order-1`}
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-2">
-                <div className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
+                <div className="flex items-center gap-0.5">
                   {(["1m", "5m"] as const).map((tf) => (
                     <button
                       key={tf}
                       type="button"
                       onClick={() => setTimeframe(tf)}
-                      className={`rounded px-2.5 py-1.5 text-[11px] font-semibold transition-colors ${
+                      className={`rounded px-2 py-1 text-[10px] font-semibold transition-colors ${
                         timeframe === tf ? "bg-[#1d4ed8] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
                       }`}
                     >
                       {tf}
                     </button>
                   ))}
-                  <span className="ml-1 text-[10px] text-slate-600">
+                  <span className="ml-0.5 text-[9px] text-slate-600">
                     {timeframe === "1m" ? "hassas tetik" : "kurulum motoru"}
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-1">
+                <div className="flex flex-wrap items-center gap-0.5">
                   <button
                     type="button"
                     onClick={() => setToggles((t) => ({ ...t, candleType: t.candleType === "HA" ? "NORMAL" : "HA" }))}
-                    className={`rounded px-2 py-1 text-[10px] font-medium transition-colors ${
+                    className={`rounded px-1.5 py-0.5 text-[9px] font-medium transition-colors ${
                       toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
                     }`}
                   >
-                    {toggles.candleType === "HA" ? "Heikin Ashi" : "Normal Mum"}
+                    {toggles.candleType === "HA" ? "HA" : "Normal"}
                   </button>
                   {([
-                    ["bb", "BB"], ["ema50", "EMA50"], ["vwap", "VWAP"], ["volume", "HACİM"],
-                    ["rsi", "RSI"], ["macd", "MACD"], ["markers", "SİNYAL"], ["levels", "SEVİYE"],
+                    ["bb", "BB"], ["ema50", "EMA50"], ["vwap", "VWAP"], ["volume", "VOL"],
+                    ["rsi", "RSI"], ["macd", "MACD"], ["markers", "SİN"], ["levels", "SEV"],
                   ] as const).map(([key, label]) => (
                     <button
                       key={key}
                       type="button"
                       onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
-                      className={`rounded px-2 py-1.5 text-[10px] transition-colors ${
+                      className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${
                         toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600 hover:text-slate-400"
                       }`}
                     >
@@ -770,27 +770,27 @@ export default function SpyEngineCommandCenter() {
                   <button
                     type="button"
                     onClick={() => setAutoScroll((a) => !a)}
-                    className={`rounded px-2 py-1.5 text-[10px] transition-colors ${
+                    className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${
                       autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600"
                     }`}
                     title="Yeni mum geldikçe sağa kaydır"
                   >
-                    ⟳ TAKİP
+                    ⟳
                   </button>
                   {manualModeSince != null && nowSec > 0 && (
                     <span
-                      className="rounded bg-amber-500/15 px-1.5 py-1 text-[10px] text-amber-300"
+                      className="rounded bg-amber-500/15 px-1 py-0.5 text-[8px] text-amber-300"
                       title="Grafiği kaydırdın/yakınlaştırdın — 90 sn dokunmazsan otomatik takibe döner"
                     >
-                      manuel inceleme · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
+                      manuel · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
                     </span>
                   )}
                   <button
                     type="button"
                     onClick={toggleFullscreen}
-                    className="rounded bg-[#111827] px-2 py-1.5 text-[10px] text-slate-400 transition-colors hover:bg-[#1c2635]"
+                    className="rounded bg-[#111827] px-1.5 py-0.5 text-[9px] text-slate-400 transition-colors hover:bg-[#1c2635]"
                   >
-                    {fullscreen ? "⤡ ÇIK" : "⤢ TAM EKRAN"}
+                    {fullscreen ? "⤡" : "⤢"}
                   </button>
                 </div>
               </div>
@@ -809,21 +809,21 @@ export default function SpyEngineCommandCenter() {
               </div>
 
               {!focusMode && !fullscreen && (
-                <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto border-t border-[#1c2635] p-2">
+                <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto border-t border-[#1c2635] p-1">
                   <TickerStrip quotes={quotes} updatedAt={quotesAt} />
                   <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
                 </div>
               )}
 
-              <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px] text-slate-600">
+              <div className="flex shrink-0 flex-wrap items-center gap-x-2 gap-y-0.5 border-t border-[#1c2635] px-2 py-1 font-mono text-[8px] text-slate-600">
                 <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
-                {data?.dataSource.overnight && <span className="text-sky-400">+ overnight: Robinhood köprüsü</span>}
+                {data?.dataSource.overnight && <span className="text-sky-400">+ overnight</span>}
                 {!!data?.dataSource.sanitized && (
-                  <span className="text-amber-400/80" title="Hacmi 0 olan ve hem önceki hem sonraki mumdan %0,2'den fazla kopuk Yahoo kayıtları atıldı — yerine mum uydurulmadı">
-                    {data.dataSource.sanitized} bozuk print atıldı
+                  <span className="text-amber-400/80" title="Bozuk print atıldı">
+                    {data.dataSource.sanitized} bozuk
                   </span>
                 )}
-                <span>Son kapalı mum — 1m: {data?.lastClosed.m1 ? nyClock(data.lastClosed.m1) : "—"} · 5m: {data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"} · 15m: {data?.lastClosed.m15 ? nyClock(data.lastClosed.m15) : "—"}</span>
+                <span>Kapalı: 1m:{data?.lastClosed.m1 ? nyClock(data.lastClosed.m1) : "—"} 5m:{data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"}</span>
               </div>
             </div>
 
