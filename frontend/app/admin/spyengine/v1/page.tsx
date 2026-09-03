@@ -135,6 +135,9 @@ export default function SpyEngineCommandCenter() {
   const [showTickerStrip, setShowTickerStrip] = useState(true);
   /** 1m + 5m grafikleri yan yana — gizlenebilir */
   const [showCharts, setShowCharts] = useState(true);
+  /** Hangi grafik şu an tam ekranda: ikisi birden, sadece 1m, sadece 5m ya da hiçbiri */
+  const [fullscreenTarget, setFullscreenTarget] = useState<"both" | "1m" | "5m" | null>(null);
+  const [viewportH, setViewportH] = useState(0);
   /** Kurulum yaklaştığında sesli + titreşimli uyarı */
   const [alertSound, setAlertSound] = useState(true);
   /** Boş = canlı. Dolu = o seansın geriye dönük oynatması (Yahoo 1m geçmişi ~5 gün). */
@@ -167,6 +170,8 @@ export default function SpyEngineCommandCenter() {
   const replayRef = useRef("");
   const inflightRef = useRef(false);
   const chartWrapRef = useRef<HTMLDivElement>(null);
+  const chart1WrapRef = useRef<HTMLDivElement>(null);
+  const chart5WrapRef = useRef<HTMLDivElement>(null);
   const manualInteractTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<AudioContext | null>(null);
   const lastAlertKeyRef = useRef<string | null>(null);
@@ -357,6 +362,35 @@ export default function SpyEngineCommandCenter() {
     };
   }, []);
 
+  // ── Ekran yüksekliği (tam ekran grafik hesaplaması için) ─────────
+  useEffect(() => {
+    const read = () => setViewportH(window.innerHeight);
+    const t = setTimeout(read, 0);
+    window.addEventListener("resize", read);
+    return () => { clearTimeout(t); window.removeEventListener("resize", read); };
+  }, []);
+
+  // ── Grafik tam ekran — hangi kutu tam ekranda, DOM'dan takip et ──
+  useEffect(() => {
+    const onFs = () => {
+      const el = document.fullscreenElement;
+      if (!el) { setFullscreenTarget(null); return; }
+      if (el === chart1WrapRef.current) setFullscreenTarget("1m");
+      else if (el === chart5WrapRef.current) setFullscreenTarget("5m");
+      else if (el === chartWrapRef.current) setFullscreenTarget("both");
+      else setFullscreenTarget(null);
+    };
+    document.addEventListener("fullscreenchange", onFs);
+    return () => document.removeEventListener("fullscreenchange", onFs);
+  }, []);
+
+  const enterFullscreen = useCallback((el: HTMLDivElement | null) => {
+    if (!el) return;
+    if (document.fullscreenElement === el) { document.exitFullscreen().catch(() => {}); return; }
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    el.requestFullscreen().catch(() => {});
+  }, []);
+
   // ── Türetilmiş ──────────────────────────────────────────────────
   const secondsSince = lastFetch && nowSec ? Math.max(0, nowSec - lastFetch) : null;
   const connection: "live" | "lagging" | "down" =
@@ -365,6 +399,16 @@ export default function SpyEngineCommandCenter() {
   const openPosition = data?.openPosition ?? null;
   const positions = data?.positions ?? [];
   const events = data?.events ?? [];
+
+  /** 1m/5m grafik yükseklikleri — tam ekranda viewport'a, normalde sabit 320px'e oturur. */
+  const chart1Height =
+    fullscreenTarget === "1m" ? Math.max(400, viewportH - 70)
+    : fullscreenTarget === "both" ? Math.max(360, viewportH - 90)
+    : 320;
+  const chart5Height =
+    fullscreenTarget === "5m" ? Math.max(400, viewportH - 70)
+    : fullscreenTarget === "both" ? Math.max(360, viewportH - 90)
+    : 320;
 
   /**
    * Ön uyarı: kurulum HENÜZ oluşmadan haber verir. Motorun giriş/çıkış
@@ -718,33 +762,63 @@ export default function SpyEngineCommandCenter() {
                     manuel · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
                   </span>
                 )}
+                <button
+                  type="button"
+                  onClick={() => enterFullscreen(chartWrapRef.current)}
+                  className={`rounded px-1.5 py-0.5 text-[9px] font-medium transition-colors ${
+                    fullscreenTarget === "both" ? "bg-[#eab308]/20 text-[#eab308]" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
+                  }`}
+                  title="1m ve 5m grafiklerini birlikte tam ekran göster"
+                >
+                  {fullscreenTarget === "both" ? "⤡ ÇIK" : "⤢ İKİSİ"}
+                </button>
               </div>
             </div>
 
             {showCharts && (
               <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
-                <div className="border-b border-[#1c2635] lg:border-b-0 lg:border-r">
-                  <div className="border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">1m — hassas tetik</div>
+                <div ref={chart1WrapRef} className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
+                  <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
+                    <span className="text-[9px] text-slate-500">1m — hassas tetik</span>
+                    <button
+                      type="button"
+                      onClick={() => enterFullscreen(chart1WrapRef.current)}
+                      className="rounded bg-[#111827] px-1.5 py-0.5 text-[9px] text-slate-400 transition-colors hover:bg-[#1c2635]"
+                      title="Yalnızca 1m grafiğini tam ekran göster"
+                    >
+                      {fullscreenTarget === "1m" ? "⤡ ÇIK" : "⤢"}
+                    </button>
+                  </div>
                   <SpyChart
                     bars={m1}
                     timeframe="1m"
                     events={events}
                     position={openPosition}
                     toggles={toggles}
-                    height={320}
+                    height={chart1Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
                   />
                 </div>
-                <div>
-                  <div className="border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">5m — kurulum motoru</div>
+                <div ref={chart5WrapRef} className="bg-[#0a0e17]">
+                  <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
+                    <span className="text-[9px] text-slate-500">5m — kurulum motoru</span>
+                    <button
+                      type="button"
+                      onClick={() => enterFullscreen(chart5WrapRef.current)}
+                      className="rounded bg-[#111827] px-1.5 py-0.5 text-[9px] text-slate-400 transition-colors hover:bg-[#1c2635]"
+                      title="Yalnızca 5m grafiğini tam ekran göster"
+                    >
+                      {fullscreenTarget === "5m" ? "⤡ ÇIK" : "⤢"}
+                    </button>
+                  </div>
                   <SpyChart
                     bars={m5.length ? m5 : bucketAggregate(m1, 5)}
                     timeframe="5m"
                     events={events}
                     position={openPosition}
                     toggles={toggles}
-                    height={320}
+                    height={chart5Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
                   />

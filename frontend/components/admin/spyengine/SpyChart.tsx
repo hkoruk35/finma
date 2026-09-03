@@ -185,7 +185,7 @@ export default function SpyChart({
         vertLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
         horzLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
       },
-      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.08, bottom: 0.22 } },
+      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.06, bottom: 0.1 } },
       timeScale: {
         borderColor: C.border,
         timeVisible: true,
