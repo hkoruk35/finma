@@ -41,6 +41,7 @@ import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   AlertBanner, computeEntryAlert,
   RegimeBanner, RegimePanel, M15Strip, type RegimeBlock,
+  LevelPanel, ForecastPanel,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -51,6 +52,7 @@ import {
 import type {
   EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction, EngineState, GateStatus,
 } from "@/lib/spyengine/strategy";
+import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
 
@@ -92,6 +94,10 @@ interface StreamResponse {
   events: EngineEvent[];
   /** V4 -- rejim etiketi, kriter dokumu, gecisler, gun ozeti */
   regime?: RegimeBlock;
+  /** V4 -- seviye takibi (spec 3) */
+  levels?: LevelRead;
+  /** V4 -- gun kapanis tahmini (spec 4) */
+  forecast?: CloseForecast | null;
 }
 
 type Tab = "command" | "signals" | "context" | "ohlc";
@@ -150,6 +156,8 @@ export default function SpyEngineCommandCenter() {
   const [quotes, setQuotes] = useState<StripQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
 
+  /** V4 -- kapanis tahmininin GERCEKLESEN isabeti (guven skoruyla ayni sey degil) */
+  const [forecastAccuracy, setForecastAccuracy] = useState<{ checked: number; hit: number } | null>(null);
   const [ohlcData, setOhlcData] = useState<OHLCRow[] | null>(null);
   const [ohlcLoading, setOhlcLoading] = useState(false);
 
@@ -258,6 +266,47 @@ export default function SpyEngineCommandCenter() {
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
   }, []);
+
+  // ── V4: kapanış tahminini kaydet + isabeti oku ───────────────
+  //
+  // Sunucu tahmini 5 dakikalık kovalara yuvarlıyor, bu yüzden sık POST
+  // zararsız (aynı kovaya ikinci kez yazılmıyor). Seans kapandığında
+  // gerçek kapanış bir kez yazılır ve isabet oradan hesaplanır.
+  const forecastKeyRef = useRef<string>("");
+  useEffect(() => {
+    const f = data?.forecast;
+    const date = data?.session.date;
+    if (!f || !date || replayDate) return;
+
+    const bucket = Math.floor((lastFetch ?? 0) / 300) * 300;
+    const sessionOver = data ? !data.session.isLive || data.session.phase === "POST" || data.session.phase === "CLOSED" : false;
+    const actualClose = sessionOver ? data?.spot.price ?? null : null;
+    const key = `${date}:${bucket}:${actualClose ?? ""}`;
+    if (!bucket || key === forecastKeyRef.current) return;
+    forecastKeyRef.current = key;
+
+    void (async () => {
+      try {
+        await fetch("/api/admin/spyengine/v2/forecast", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            date,
+            snapshot: f.remainingMin > 0
+              ? { at: bucket, remainingMin: f.remainingMin, low: f.low, high: f.high, mid: f.mid }
+              : undefined,
+            actualClose: actualClose ?? undefined,
+          }),
+        });
+        const res = await fetch("/api/admin/spyengine/v2/forecast", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (json.ok) setForecastAccuracy({ checked: json.checked, hit: json.hit });
+      } catch {
+        // Tahmin kaydı ana akışı etkilemesin — panel yine çalışır.
+      }
+    })();
+  }, [data, lastFetch, replayDate]);
 
   // ── 15 günlük OHLC (sekme tıklanırsa yükle) ─────────────────────
   useEffect(() => {
@@ -755,6 +804,7 @@ export default function SpyEngineCommandCenter() {
                   toggles={toggles}
                   height={chartHeight}
                   autoScroll={autoScroll}
+                  levelLines={data?.levels?.lines}
                 />
               </div>
 
@@ -792,6 +842,8 @@ export default function SpyEngineCommandCenter() {
                 streakLen={data?.engine.m1StreakLen ?? 0}
               />
               <RegimePanel block={data?.regime ?? null} />
+              <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
+              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}

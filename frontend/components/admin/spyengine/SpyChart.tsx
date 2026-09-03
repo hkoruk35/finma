@@ -86,6 +86,11 @@ export interface SpyChartProps {
   height: number;
   /** Yeni mum geldikçe sağa kaydır */
   autoScroll: boolean;
+  /**
+   * V4 -- Seviye panelindeki seviyeler (destek/direnç, premarket ve seans
+   * uçları, dünkü kapanış). SEVIYE düğmesiyle birlikte açılıp kapanır.
+   */
+  levelLines?: { price: number; label: string; color: string }[];
 }
 
 interface LegendState {
@@ -116,7 +121,7 @@ const num = (v: number | null | undefined, d = 2) =>
   v == null || !Number.isFinite(v) ? "—" : v.toFixed(d);
 
 export default function SpyChart({
-  bars, timeframe, events, position, toggles, height, autoScroll,
+  bars, timeframe, events, position, toggles, height, autoScroll, levelLines,
 }: SpyChartProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -444,7 +449,23 @@ export default function SpyChart({
     // ve varsa çıkış spotu işaretlenir.
     trailRef.current.setData([]);
 
-    if (!toggles.levels || !position) return;
+    if (!toggles.levels) return;
+
+    // V4 seviye çizgileri -- panelde görülenlerin AYNISI, ayrı hesap yok
+    for (const l of levelLines ?? []) {
+      priceLinesRef.current.push(
+        candle.createPriceLine({
+          price: l.price,
+          color: `${l.color}99`,
+          lineWidth: 1,
+          lineStyle: LineStyle.Dashed,
+          axisLabelVisible: true,
+          title: l.label,
+        })
+      );
+    }
+
+    if (!position) return;
 
     priceLinesRef.current.push(
       candle.createPriceLine({
@@ -456,7 +477,7 @@ export default function SpyChart({
         title: `Giriş ${position.side === "LONG" ? "L" : "S"}`,
       })
     );
-  }, [position, toggles.levels]);
+  }, [position, toggles.levels, levelLines]);
 
   const rsiVal = legend.rsi;
   const histVal = legend.hist;

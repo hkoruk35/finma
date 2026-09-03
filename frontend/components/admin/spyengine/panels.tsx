@@ -14,6 +14,7 @@ import {
   REGIME_LABEL, regimeColor,
   type Regime, type RegimeDirection, type RegimeCheck,
 } from "@/lib/spyengine/regime";
+import type { LevelRead, LevelRange, CloseForecast } from "@/lib/spyengine/levels";
 import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
   EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
@@ -1424,6 +1425,166 @@ export function M15Strip({ direction, note, rsi, rsiPrev, greenOf4 }: {
       <span className="text-slate-500">{greenOf4}</span>
       <span className="text-slate-600">{note}</span>
       <span className="ml-auto text-[9px] text-slate-600">karar mekanizmasına girmez — yalnızca bağlam</span>
+    </div>
+  );
+}
+
+// ── V4: SEVİYE PANELİ ve GÜN KAPANIŞ TAHMİNİ ──────────────────────
+
+function LevelRow({ k, v, sub, tone: t }: { k: string; v: string; sub?: string; tone?: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-2 border-b border-[#151c28] py-1 last:border-0">
+      <span className="shrink-0 text-[10px] text-slate-500">{k}</span>
+      <span className="min-w-0 text-right">
+        <span className={`font-mono text-[11px] ${t ?? "text-slate-200"}`}>{v}</span>
+        {sub && <span className="ml-1.5 font-mono text-[9px] text-slate-600">{sub}</span>}
+      </span>
+    </div>
+  );
+}
+
+const rng = (r: LevelRange) =>
+  r.high == null || r.low == null ? "veri yok" : `${num(r.high)} / ${num(r.low)}`;
+
+/** Seviye Takip Paneli — spec §3. Seviyeler ayrıca grafikte çizgi olarak da var. */
+export function LevelPanel({ levels, price }: { levels: LevelRead | null; price: number | null }) {
+  if (!levels) {
+    return (
+      <div className={`${SURFACE} px-3 py-4`}>
+        <div className="text-[11px] font-semibold text-slate-300">Seviye Takibi</div>
+        <div className="mt-1 text-[12px] text-slate-500">Seans verisi bekleniyor.</div>
+      </div>
+    );
+  }
+  const s = levels.support, r = levels.resistance;
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Seviye Takibi <span className="text-[9px] font-normal text-slate-600">· grafikte çizgi olarak da var</span>
+        </span>
+      </div>
+
+      {/* Aktif destek/direnç — panelin en önemli iki satırı */}
+      <div className="grid grid-cols-2 gap-px bg-[#1c2635]">
+        <div className="bg-[#0f141d] px-2.5 py-1.5">
+          <div className="text-[9px] font-semibold tracking-wider text-slate-500">AKTİF DİRENÇ</div>
+          <div className="font-mono text-[13px] font-semibold text-[#ef4444]">
+            {r ? num(r.price) : "yok"}
+          </div>
+          <div className="truncate font-mono text-[9px] text-slate-500">
+            {r ? `${r.source} · +${num(r.distance)}` : "fiyatın üstünde aday yok"}
+          </div>
+        </div>
+        <div className="bg-[#0f141d] px-2.5 py-1.5">
+          <div className="text-[9px] font-semibold tracking-wider text-slate-500">AKTİF DESTEK</div>
+          <div className="font-mono text-[13px] font-semibold text-[#22c55e]">
+            {s ? num(s.price) : "yok"}
+          </div>
+          <div className="truncate font-mono text-[9px] text-slate-500">
+            {s ? `${s.source} · −${num(s.distance)}` : "fiyatın altında aday yok"}
+          </div>
+        </div>
+      </div>
+
+      <div className="px-3 py-1.5">
+        <LevelRow k="Dünkü kapanış" v={levels.prevClose == null ? "veri yok" : num(levels.prevClose)} />
+        <LevelRow k="Gece zirve / dip" v={rng(levels.overnight)} sub="post + premarket" />
+        <LevelRow k="Premarket zirve / dip" v={rng(levels.premarket)} sub="04:00–09:30" />
+        <LevelRow k="RTH zirve / dip" v={rng(levels.rth)} sub="09:30–16:00" />
+        <LevelRow k="Seans zirve / dip" v={rng(levels.session)} sub="04:00–20:00" />
+        <LevelRow
+          k="Olası gün zirve / dip"
+          v={
+            levels.projectedHigh == null || levels.projectedLow == null
+              ? "veri yok"
+              : `${num(levels.projectedHigh)} / ${num(levels.projectedLow)}`
+          }
+          sub={levels.hourlyRange == null ? undefined : `ATR · saatlik ~${num(levels.hourlyRange)}`}
+          tone="text-slate-400"
+        />
+        {price != null && (
+          <LevelRow k="Şu anki fiyat" v={num(price)} tone="text-slate-100" />
+        )}
+      </div>
+
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9px] leading-snug text-slate-600">
+        Olası gün zirve/dip bir TAHMİN değil, ATR&apos;nin kalan süreye ölçeklenmiş aralığıdır
+        (1m ATR × √kalan dakika). Fiyatın oraya gideceğini söylemez.
+      </div>
+    </div>
+  );
+}
+
+/** Gün Kapanış Tahmini — spec §4 */
+export function ForecastPanel({
+  forecast, accuracy,
+}: {
+  forecast: CloseForecast | null;
+  accuracy: { checked: number; hit: number } | null;
+}) {
+  if (!forecast) {
+    return (
+      <div className={`${SURFACE} px-3 py-4`}>
+        <div className="text-[11px] font-semibold text-slate-300">Gün Kapanış Tahmini</div>
+        <div className="mt-1 text-[12px] text-slate-500">Seans verisi bekleniyor.</div>
+      </div>
+    );
+  }
+  const hours = Math.floor(forecast.remainingMin / 60);
+  const mins = forecast.remainingMin % 60;
+  const hitRate = accuracy && accuracy.checked > 0
+    ? Math.round((accuracy.hit / accuracy.checked) * 100) : null;
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">Gün Kapanış Tahmini</span>
+        <span className="font-mono text-[9.5px] text-slate-600">
+          kalan {hours}s {mins}dk
+        </span>
+      </div>
+
+      <div className="px-3 py-2">
+        <div className="font-mono text-[15px] font-bold text-slate-100">
+          {num(forecast.low)} – {num(forecast.high)}
+        </div>
+        <div className="mt-0.5 flex flex-wrap items-center gap-x-3 font-mono text-[10px] text-slate-500">
+          <span>orta nokta <b className="text-slate-300">{num(forecast.mid)}</b></span>
+          <span>güven <b className="text-slate-300">%{forecast.confidence}</b></span>
+          {hitRate != null && (
+            <span title={`${accuracy!.hit}/${accuracy!.checked} tahmin bandın içinde kapandı`}>
+              gerçekleşen isabet{" "}
+              <b className={hitRate >= forecast.confidence ? "text-[#22c55e]" : "text-amber-300"}>
+                %{hitRate}
+              </b>{" "}
+              <span className="text-slate-600">({accuracy!.checked} seans)</span>
+            </span>
+          )}
+        </div>
+
+        <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[9.5px] text-slate-500">
+          <span>
+            Gap:{" "}
+            <b className={forecast.gap == null ? "text-slate-500" : tone(forecast.gap)}>
+              {forecast.gap == null ? "veri yok" : signed(forecast.gap)}
+            </b>
+          </span>
+          <span>
+            Premarket kapanışı:{" "}
+            <b className="text-slate-400">
+              {forecast.premarketClosePos == null
+                ? "veri yok"
+                : forecast.premarketClosePos >= 0.66 ? "üst bantta"
+                : forecast.premarketClosePos <= 0.33 ? "alt bantta" : "orta bantta"}
+            </b>
+          </span>
+        </div>
+      </div>
+
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9px] leading-snug text-slate-600">
+        {forecast.note}
+      </div>
     </div>
   );
 }

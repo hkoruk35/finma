@@ -36,6 +36,7 @@ import {
   detectRegimeSeries,
   type Regime,
 } from "@/lib/spyengine/regime";
+import { readLevels, forecastClose } from "@/lib/spyengine/levels";
 import {
   closedBars,
   generateCandidates,
@@ -377,6 +378,23 @@ export async function GET(req: NextRequest) {
           m15: toCompact(m15Out),
         },
         engine: gen.read,
+        // V4 seviye paneli (spec 3) -- hepsi olculen veriden, uydurma yok
+        levels: readLevels({
+          sessionM1,
+          allM1: bundle.m1,
+          date: session.date,
+          prevClose,
+          nowSec: evalNow,
+        }),
+        // V4 gun kapanis tahmini (spec 4) -- bant genisligi olculmus
+        // kantilden geliyor, guven o bandin tanim geregi isabet orani
+        forecast: forecastClose({
+          sessionM1,
+          date: session.date,
+          nowSec: evalNow,
+          prevClose,
+          regime: regimeSeries.current.regime,
+        }),
         // V4 rejim bloku: etiket + kriter dokumu + gecisler + gun ozeti
         regime: {
           current: regimeSeries.current,
