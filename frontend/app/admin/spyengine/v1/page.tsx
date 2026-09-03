@@ -802,11 +802,9 @@ export default function SpyEngineCommandCenter() {
               </div>
 
               {!focusMode && !fullscreen && (
-                <div className="shrink-0 border-t border-[#1c2635] bg-[#0f1117] px-1 py-0.5">
-                  <div className="text-[8px] font-semibold text-slate-500 mb-0.5">Spot: ${data?.spot.price ? num(data.spot.price) : "—"} {data?.spot.changePct ? `${signed(data.spot.changePct)}%` : ""}</div>
-                  <div className="text-[8px] text-slate-600 truncate">
-                    {data?.session.phase ?? "—"} | {lastFetch ? nyClock(lastFetch, true) : "—"} ET
-                  </div>
+                <div className="grid grid-cols-2 gap-0.5 min-h-0 flex-1 border-t border-[#1c2635] px-1 py-0.5 overflow-y-auto">
+                  <div><TickerStrip quotes={quotes} updatedAt={quotesAt} /></div>
+                  <div><InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} /></div>
                 </div>
               )}
 
