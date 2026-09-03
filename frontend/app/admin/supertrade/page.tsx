@@ -7,6 +7,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import EngineNav from "@/components/admin/EngineNav";
 import ContextEnginePanel from "@/components/admin/ContextEnginePanel";
 import StrategyLab from "@/components/admin/StrategyLab";
 import SuperTradeForecast from "@/components/admin/SuperTradeForecast";
@@ -860,6 +861,9 @@ function Header({
         <p className="mt-1 text-[11px] text-slate-500">
           Yönetici konsolu — gün içi seviye, yapı ve kırılım teyidi takibi
         </p>
+        <div className="mt-2">
+          <EngineNav />
+        </div>
       </div>
       <Tabs
         value={mode}

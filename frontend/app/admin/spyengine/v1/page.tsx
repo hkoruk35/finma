@@ -128,21 +128,13 @@ function mergeBars(prev: Bar[], incoming: Bar[], full: boolean): Bar[] {
 
 export default function SpyEngineCommandCenter() {
   const [tab, setTab] = useState<Tab>("command");
-  const [timeframe, setTimeframe] = useState<"1m" | "5m">("1m");
   const [toggles, setToggles] = useState<ChartToggles>(DEFAULT_TOGGLES);
   const [pollMs, setPollMs] = useState(1000);
   const [autoScroll, setAutoScroll] = useState(true);
-  const [fullscreen, setFullscreen] = useState(false);
-  /**
-   * Odak modu: referans blokları (ticker şeridi + bilgi kartları) katlanır,
-   * grafik + Motor Durumu + Kapı Durumu tek ekrana sığar. Hiçbir içerik
-   * silinmez — tek tuşla geri açılır.
-   */
-  const [focusMode, setFocusMode] = useState(false);
-  /** Odak modunda grafik yüksekliğini ekrana göre hesaplamak için */
-  const [viewportH, setViewportH] = useState(0);
-  /** Tablet/masaüstü ayrımı — grafik yüksekliği buna göre küçülür */
-  const [viewportW, setViewportW] = useState(0);
+  /** Fiyat şeridi + bilgi kartları — tam genişlik, gizlenebilir */
+  const [showTickerStrip, setShowTickerStrip] = useState(true);
+  /** 1m + 5m grafikleri yan yana — gizlenebilir */
+  const [showCharts, setShowCharts] = useState(true);
   /** Kurulum yaklaştığında sesli + titreşimli uyarı */
   const [alertSound, setAlertSound] = useState(true);
   /** Boş = canlı. Dolu = o seansın geriye dönük oynatması (Yahoo 1m geçmişi ~5 gün). */
@@ -338,21 +330,6 @@ export default function SpyEngineCommandCenter() {
     return () => { clearTimeout(first); clearInterval(id); };
   }, []);
 
-  // ── Ekran yüksekliği (odak modunda grafiği ekrana oturtmak için) ──
-  useEffect(() => {
-    const read = () => { setViewportH(window.innerHeight); setViewportW(window.innerWidth); };
-    const t = setTimeout(read, 0);
-    window.addEventListener("resize", read);
-    return () => { clearTimeout(t); window.removeEventListener("resize", read); };
-  }, []);
-
-  // ── Tam ekran ───────────────────────────────────────────────────
-  useEffect(() => {
-    const onFs = () => setFullscreen(!!document.fullscreenElement);
-    document.addEventListener("fullscreenchange", onFs);
-    return () => document.removeEventListener("fullscreenchange", onFs);
-  }, []);
-
   // ── Grafik zoom/pan sırasında autoScroll pause ─────────────────
   useEffect(() => {
     const wrap = chartWrapRef.current;
@@ -380,16 +357,7 @@ export default function SpyEngineCommandCenter() {
     };
   }, []);
 
-  const toggleFullscreen = useCallback(() => {
-    const el = chartWrapRef.current;
-    if (!el) return;
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    else el.requestFullscreen().catch(() => {});
-  }, []);
-
   // ── Türetilmiş ──────────────────────────────────────────────────
-  const chartBars = timeframe === "1m" ? m1 : m5.length ? m5 : bucketAggregate(m1, 5);
-
   const secondsSince = lastFetch && nowSec ? Math.max(0, nowSec - lastFetch) : null;
   const connection: "live" | "lagging" | "down" =
     failures >= 3 ? "down" : secondsSince != null && secondsSince > Math.max(12, (pollMs / 1000) * 4) ? "lagging" : "live";
@@ -510,24 +478,6 @@ export default function SpyEngineCommandCenter() {
     else if (entryAlert.level === "IMMINENT") chime("imminent");
   }, [entryAlert.level, entryAlert.side, alertSound, openPosition, chime]);
 
-  /**
-   * Odak modunda grafik ve sağ sütun AYNI yüksekliği paylaşır ve bu yükseklik
-   * ekrandan türetilir; böylece grafik + Motor Durumu + Kapı Durumu sayfayı
-   * kaydırmadan görünür.
-   *   ~160px = başlık (80) + sekmeler (25) + minimal boşluk.
-   *   ~70px  = grafik araç çubuğu (30) + grafiğin altındaki kaynak satırı (25).
-   */
-  const rowHeight = focusMode && viewportH ? Math.max(400, viewportH - 160) : 420;
-  /**
-   * Chart minimal height - data panelleri dominant.
-   * 3-column layout: chart(left) | empty(center) | panels(right)
-   */
-  const compactChartH = 280;
-  const chartHeight = fullscreen
-    ? Math.max(400, (viewportH || 900) - 80)
-    : focusMode
-    ? rowHeight - 70
-    : compactChartH;
 
   // ── Render ──────────────────────────────────────────────────────
   return (
@@ -620,15 +570,11 @@ export default function SpyEngineCommandCenter() {
 
           <button
             type="button"
-            onClick={() => setFocusMode((f) => !f)}
-            className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
-              focusMode
-                ? "border-[#eab308]/40 bg-[#eab308]/15 text-[#eab308]"
-                : "border-[#1c2635] bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
-            }`}
-            title="Şerit ve bilgi kartlarını katlar; grafik + Motor Durumu + Kapı Durumu tek ekrana sığar"
+            onClick={() => { setShowTickerStrip((v) => !v); setShowCharts((v) => !v); }}
+            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 text-[10px] font-semibold text-slate-400 transition-colors hover:bg-[#1c2635]"
+            title="Fiyat şeridi ve grafikleri tek tuşla katla/aç"
           >
-            {focusMode ? "⛶ ODAK AÇIK" : "⛶ ODAK"}
+            ⛶ ODAK
           </button>
 
           <Link
@@ -641,7 +587,7 @@ export default function SpyEngineCommandCenter() {
       </header>
 
       {/* Uyarılar */}
-      {!focusMode && data && !data.session.isLive && data.session.note && (
+      {data && !data.session.isLive && data.session.note && (
         <div className="mb-2 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300/90">
           <span>🕒</span><span>{data.session.note}</span>
         </div>
@@ -704,129 +650,133 @@ export default function SpyEngineCommandCenter() {
             />
           )}
 
-          <div
-            className={`grid grid-cols-1 gap-1 ${
-              focusMode
-                ? "xl:grid-cols-[300px_minmax(0,1fr)_350px]"
-                : "lg:grid-cols-[320px_minmax(0,1fr)_380px] xl:grid-cols-[350px_minmax(0,1fr)_420px]"
-            }`}
-          >
-            {/* Grafik — compact, left column fixed width */}
-            <div
-              ref={chartWrapRef}
-              className={`${SURFACE} order-1 flex flex-col overflow-hidden`}
+          {/* ── Fiyat Şeridi + Bilgi Kartları — tam genişlik, gizlenebilir ── */}
+          <div className={`${SURFACE} overflow-hidden`}>
+            <button
+              type="button"
+              onClick={() => setShowTickerStrip((v) => !v)}
+              className="flex w-full items-center justify-between border-b border-[#1c2635] px-2 py-1 text-left"
             >
-              <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
-                <div className="flex items-center gap-0.5">
-                  {(["1m", "5m"] as const).map((tf) => (
-                    <button
-                      key={tf}
-                      type="button"
-                      onClick={() => setTimeframe(tf)}
-                      className={`rounded px-2 py-1 text-[10px] font-semibold transition-colors ${
-                        timeframe === tf ? "bg-[#1d4ed8] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
-                      }`}
-                    >
-                      {tf}
-                    </button>
-                  ))}
-                  <span className="ml-0.5 text-[9px] text-slate-600">
-                    {timeframe === "1m" ? "hassas tetik" : "kurulum motoru"}
-                  </span>
-                </div>
+              <span className="text-[10px] font-semibold tracking-wide text-slate-300">Canlı Piyasa Şeridi</span>
+              <span className="text-[9px] text-slate-500">{quotesAt ? nyClock(quotesAt, true) : "—"} ET {showTickerStrip ? "▲ gizle" : "▼ göster"}</span>
+            </button>
+            {showTickerStrip && (
+              <div className="grid grid-cols-1 gap-1 p-1.5 md:grid-cols-3">
+                <TickerStrip quotes={quotes} updatedAt={quotesAt} />
+                <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
+              </div>
+            )}
+          </div>
 
-                <div className="flex flex-wrap items-center gap-0.5">
+          {/* ── 1m + 5m grafikleri yan yana — gizlenebilir ── */}
+          <div className={`${SURFACE} overflow-hidden`} ref={chartWrapRef}>
+            <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
+              <button
+                type="button"
+                onClick={() => setShowCharts((v) => !v)}
+                className="text-[10px] font-semibold tracking-wide text-slate-300"
+              >
+                1m / 5m Grafikleri {showCharts ? "▲ gizle" : "▼ göster"}
+              </button>
+              <div className="flex flex-wrap items-center gap-0.5">
+                <button
+                  type="button"
+                  onClick={() => setToggles((t) => ({ ...t, candleType: t.candleType === "HA" ? "NORMAL" : "HA" }))}
+                  className={`rounded px-1.5 py-0.5 text-[9px] font-medium transition-colors ${
+                    toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
+                  }`}
+                >
+                  {toggles.candleType === "HA" ? "HA" : "Normal"}
+                </button>
+                {([
+                  ["bb", "BB"], ["ema50", "EMA50"], ["vwap", "VWAP"], ["volume", "VOL"],
+                  ["rsi", "RSI"], ["macd", "MACD"], ["markers", "SİN"], ["levels", "SEV"],
+                ] as const).map(([key, label]) => (
                   <button
+                    key={key}
                     type="button"
-                    onClick={() => setToggles((t) => ({ ...t, candleType: t.candleType === "HA" ? "NORMAL" : "HA" }))}
-                    className={`rounded px-1.5 py-0.5 text-[9px] font-medium transition-colors ${
-                      toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
-                    }`}
-                  >
-                    {toggles.candleType === "HA" ? "HA" : "Normal"}
-                  </button>
-                  {([
-                    ["bb", "BB"], ["ema50", "EMA50"], ["vwap", "VWAP"], ["volume", "VOL"],
-                    ["rsi", "RSI"], ["macd", "MACD"], ["markers", "SİN"], ["levels", "SEV"],
-                  ] as const).map(([key, label]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
-                      className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${
-                        toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600 hover:text-slate-400"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => setAutoScroll((a) => !a)}
+                    onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
                     className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${
-                      autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600"
+                      toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600 hover:text-slate-400"
                     }`}
-                    title="Yeni mum geldikçe sağa kaydır"
                   >
-                    ⟳
+                    {label}
                   </button>
-                  {manualModeSince != null && nowSec > 0 && (
-                    <span
-                      className="rounded bg-amber-500/15 px-1 py-0.5 text-[8px] text-amber-300"
-                      title="Grafiği kaydırdın/yakınlaştırdın — 90 sn dokunmazsan otomatik takibe döner"
-                    >
-                      manuel · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={toggleFullscreen}
-                    className="rounded bg-[#111827] px-1.5 py-0.5 text-[9px] text-slate-400 transition-colors hover:bg-[#1c2635]"
-                  >
-                    {fullscreen ? "⤡" : "⤢"}
-                  </button>
-                </div>
-              </div>
-
-              <div className={fullscreen ? "min-h-0 flex-1" : "shrink-0"}>
-                <SpyChart
-                  bars={chartBars}
-                  timeframe={timeframe}
-                  events={events}
-                  position={openPosition}
-                  toggles={toggles}
-                  height={chartHeight}
-                  autoScroll={autoScroll}
-                  levelLines={data?.levels?.lines}
-                />
-              </div>
-
-              {!focusMode && !fullscreen && (
-                <div className="grid grid-cols-2 gap-0.5 min-h-0 flex-1 border-t border-[#1c2635] px-1 py-0.5 overflow-y-auto">
-                  <div><TickerStrip quotes={quotes} updatedAt={quotesAt} /></div>
-                  <div><InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} /></div>
-                </div>
-              )}
-
-              <div className="flex shrink-0 flex-wrap items-center gap-x-2 gap-y-0.5 border-t border-[#1c2635] px-2 py-1 font-mono text-[8px] text-slate-600">
-                <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
-                {data?.dataSource.overnight && <span className="text-sky-400">+ overnight</span>}
-                {!!data?.dataSource.sanitized && (
-                  <span className="text-amber-400/80" title="Bozuk print atıldı">
-                    {data.dataSource.sanitized} bozuk
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setAutoScroll((a) => !a)}
+                  className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${
+                    autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600"
+                  }`}
+                  title="Yeni mum geldikçe sağa kaydır"
+                >
+                  ⟳
+                </button>
+                {manualModeSince != null && nowSec > 0 && (
+                  <span className="rounded bg-amber-500/15 px-1 py-0.5 text-[8px] text-amber-300">
+                    manuel · {Math.max(0, 90 - (nowSec - manualModeSince))}sn
                   </span>
                 )}
-                <span>Kapalı: 1m:{data?.lastClosed.m1 ? nyClock(data.lastClosed.m1) : "—"} 5m:{data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"}</span>
               </div>
             </div>
 
-            {/* Middle column — critical strategy data (gates, position, levels) */}
-            <div className="order-2 flex flex-col gap-1 overflow-y-auto [&>*]:shrink-0" style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}>
-              <GatePanel
-                gates={data?.engine.gateStatus ?? null}
-                streakDir={data?.engine.m1StreakDir ?? "NONE"}
-                streakLen={data?.engine.m1StreakLen ?? 0}
-              />
+            {showCharts && (
+              <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
+                <div className="border-b border-[#1c2635] lg:border-b-0 lg:border-r">
+                  <div className="border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">1m — hassas tetik</div>
+                  <SpyChart
+                    bars={m1}
+                    timeframe="1m"
+                    events={events}
+                    position={openPosition}
+                    toggles={toggles}
+                    height={320}
+                    autoScroll={autoScroll}
+                    levelLines={data?.levels?.lines}
+                  />
+                </div>
+                <div>
+                  <div className="border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">5m — kurulum motoru</div>
+                  <SpyChart
+                    bars={m5.length ? m5 : bucketAggregate(m1, 5)}
+                    timeframe="5m"
+                    events={events}
+                    position={openPosition}
+                    toggles={toggles}
+                    height={320}
+                    autoScroll={autoScroll}
+                    levelLines={data?.levels?.lines}
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex shrink-0 flex-wrap items-center gap-x-2 gap-y-0.5 border-t border-[#1c2635] px-2 py-1 font-mono text-[8px] text-slate-600">
+              <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
+              {data?.dataSource.overnight && <span className="text-sky-400">+ overnight</span>}
+              {!!data?.dataSource.sanitized && (
+                <span className="text-amber-400/80" title="Bozuk print atıldı">
+                  {data.dataSource.sanitized} bozuk
+                </span>
+              )}
+              <span>Kapalı: 1m:{data?.lastClosed.m1 ? nyClock(data.lastClosed.m1) : "—"} 5m:{data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"}</span>
+            </div>
+          </div>
+
+          {/* ── Kapı Durumu (sol) + Rejim Kriterleri (sağ) ── */}
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
+            <GatePanel
+              gates={data?.engine.gateStatus ?? null}
+              streakDir={data?.engine.m1StreakDir ?? "NONE"}
+              streakLen={data?.engine.m1StreakLen ?? 0}
+            />
+            <RegimePanel block={data?.regime ?? null} />
+          </div>
+
+          {/* ── Teknik veri (sol) + Seviye/Tahmin (sağ) ── */}
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
+            <div className="flex flex-col gap-1">
               {data && (
                 <LayerTable
                   m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
@@ -838,17 +788,6 @@ export default function SpyEngineCommandCenter() {
                 />
               )}
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
-            </div>
-
-            {/* Sağ sütun — signals, context, explanations */}
-            <div
-              className={`order-3 flex flex-col gap-1 [&>*]:shrink-0 overflow-y-auto`}
-              style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
-            >
-              <RegimePanel block={data?.regime ?? null} />
-              <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
-              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
-
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
                   <div className="flex flex-col gap-1 font-mono text-[11px]">
@@ -861,24 +800,22 @@ export default function SpyEngineCommandCenter() {
                   </div>
                 </Panel>
               )}
-
-              {!focusMode && (
-                <>
-                  <Panel title="Motor Açıklaması">
-                    <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-1 font-mono text-[9px] leading-relaxed text-slate-400">
-                      <span className="text-[#3b82f6]">{lastFetch ? nyClock(lastFetch, true) : "—"}</span> — {data?.engine.reasoning ?? "Motor verisi bekleniyor."}
-                    </div>
-                  </Panel>
-                  <Panel title="Oturum Sinyal Geçmişi" right={<span className="font-mono text-[9px] text-slate-600">{events.length}</span>}>
-                    <EventList events={events} emptyText="Sinyal yok." />
-                  </Panel>
-                </>
-              )}
+            </div>
+            <div className="flex flex-col gap-1">
+              <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
+              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
+              <Panel title="Motor Açıklaması">
+                <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-1 font-mono text-[9px] leading-relaxed text-slate-400">
+                  <span className="text-[#3b82f6]">{lastFetch ? nyClock(lastFetch, true) : "—"}</span> — {data?.engine.reasoning ?? "Motor verisi bekleniyor."}
+                </div>
+              </Panel>
+              <Panel title="Oturum Sinyal Geçmişi" right={<span className="font-mono text-[9px] text-slate-600">{events.length}</span>}>
+                <EventList events={events} emptyText="Sinyal yok." />
+              </Panel>
             </div>
           </div>
 
           {/* Strateji şeması — sayfanın en altı, varsayılan kapalı */}
-          {!focusMode && (
           <Disclosure
             title="Strateji Şeması — giriş, taşıma ve çıkış kuralları"
             badge={
@@ -891,7 +828,6 @@ export default function SpyEngineCommandCenter() {
           >
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
-          )}
         </div>
       )}
 
