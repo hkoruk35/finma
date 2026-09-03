@@ -519,10 +519,10 @@ export default function SpyEngineCommandCenter() {
    */
   const rowHeight = focusMode && viewportH ? Math.max(400, viewportH - 160) : 420;
   /**
-   * Normal modda grafik küçük, Motor/Kapı verisi karar veriyor.
-   * Tablette daha kısalır. Boşluk bırakmayıp sağ panel tamamını göstermek için.
+   * Chart minimal height - data panelleri dominant.
+   * 3-column layout: chart(left) | empty(center) | panels(right)
    */
-  const compactChartH = viewportW && viewportW < 1024 ? 280 : 340;
+  const compactChartH = 280;
   const chartHeight = fullscreen
     ? Math.max(400, (viewportH || 900) - 80)
     : focusMode
@@ -706,18 +706,14 @@ export default function SpyEngineCommandCenter() {
           <div
             className={`grid grid-cols-1 gap-1 ${
               focusMode
-                ? "xl:grid-cols-[minmax(0,1fr)_380px]"
-                : "lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px]"
+                ? "xl:grid-cols-[300px_minmax(0,1fr)_350px]"
+                : "lg:grid-cols-[320px_minmax(0,1fr)_380px] xl:grid-cols-[350px_minmax(0,1fr)_420px]"
             }`}
           >
-            {/* Grafik — üstünde araç çubuğu, altında (eskiden sayfanın en
-                üstünde ayrı yer kaplayan) ticker şeridi + bilgi kartları.
-                Sağ sütun (Kapı Durumu + Motor Durumu) daha uzun olduğu için
-                grid bu paneli aynı yüksekliğe geriyor; o boşluk artık boşa
-                gitmiyor, bilgi kartlarıyla dolduruluyor. */}
+            {/* Grafik — compact, left column fixed width */}
             <div
               ref={chartWrapRef}
-              className={`${SURFACE} order-2 flex flex-col overflow-hidden lg:order-1`}
+              className={`${SURFACE} order-1 flex flex-col overflow-hidden`}
             >
               <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
                 <div className="flex items-center gap-0.5">
@@ -823,12 +819,14 @@ export default function SpyEngineCommandCenter() {
               </div>
             </div>
 
-            {/* Sağ sütun — grafikle aynı yüksekliğe sabit, taşarsa kendi
-                içinde kayar. Amaç: grafik + Motor Durumu + Kapı Durumu her
-                zaman tek ekranda görünsün, sayfayı kaydırmak gerekmesin. */}
+            {/* Middle column — technical/strategy data (empty for now) */}
+            <div className="order-2 flex flex-col gap-1 overflow-y-auto" style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}>
+            </div>
+
+            {/* Sağ sütun — signals and explanations, scrollable */}
             <div
-              className={`order-1 flex flex-col gap-1 pr-0.5 lg:order-2 [&>*]:shrink-0 ${
-                focusMode ? "overflow-y-auto" : ""
+              className={`order-3 flex flex-col gap-1 [&>*]:shrink-0 overflow-y-auto ${
+                focusMode ? "" : ""
               }`}
               style={fullscreen || !focusMode ? undefined : { maxHeight: rowHeight }}
             >
