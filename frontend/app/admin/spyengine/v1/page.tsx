@@ -100,7 +100,7 @@ interface StreamResponse {
   forecast?: CloseForecast | null;
 }
 
-type Tab = "command" | "signals" | "context" | "ohlc";
+type Tab = "command" | "signals" | "context" | "ohlc" | "compare";
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 
@@ -661,6 +661,7 @@ export default function SpyEngineCommandCenter() {
       <nav className="mb-2 flex gap-0.5 overflow-x-auto">
         {([
           ["command", "Kumanda Merkezi"],
+          ["compare", "1m vs 5m"],
           ["signals", "Sinyaller & Arşiv"],
           ["context", "15m Bağlam & Veri"],
           ["ohlc", "15 Gün OHLC"],
@@ -801,7 +802,8 @@ export default function SpyEngineCommandCenter() {
               </div>
 
               {!focusMode && !fullscreen && (
-                <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto border-t border-[#1c2635] p-1">
+                <div className="flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto border-t border-[#1c2635] p-0.5">
+                  <div className="text-[9px] font-semibold text-slate-400 px-1">Fiyat & Veriler</div>
                   <TickerStrip quotes={quotes} updatedAt={quotesAt} />
                   <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
                 </div>
@@ -972,6 +974,52 @@ export default function SpyEngineCommandCenter() {
                 </div>
               </div>
             </Panel>
+          </div>
+        </div>
+      )}
+
+      {/* ═══ 1m vs 5m KARŞILAŞTIRMA ═══ */}
+      {tab === "compare" && (
+        <div className="flex flex-col gap-1">
+          <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
+          <AlertBanner
+            alert={entryAlert}
+            secondsToClose={secondsToClose}
+            stateLabel={data?.engine.stateLabel ?? "VERİ BEKLENİYOR"}
+            nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
+            inPosition={!!openPosition}
+          />
+          <div className="grid grid-cols-2 gap-1">
+            <div className={`${SURFACE} overflow-hidden`}>
+              <div className="border-b border-[#1c2635] px-2 py-1">
+                <span className="text-[10px] font-semibold text-slate-300">1m — Hassas Tetik</span>
+              </div>
+              <SpyChart
+                bars={m1}
+                timeframe="1m"
+                events={events}
+                position={openPosition}
+                toggles={toggles}
+                height={420}
+                autoScroll={autoScroll}
+                levelLines={data?.levels?.lines}
+              />
+            </div>
+            <div className={`${SURFACE} overflow-hidden`}>
+              <div className="border-b border-[#1c2635] px-2 py-1">
+                <span className="text-[10px] font-semibold text-slate-300">5m — Kurulum Motoru</span>
+              </div>
+              <SpyChart
+                bars={m5.length ? m5 : bucketAggregate(m1, 5)}
+                timeframe="5m"
+                events={events}
+                position={openPosition}
+                toggles={toggles}
+                height={420}
+                autoScroll={autoScroll}
+                levelLines={data?.levels?.lines}
+              />
+            </div>
           </div>
         </div>
       )}
