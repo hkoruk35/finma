@@ -216,10 +216,14 @@ export async function GET(req: NextRequest) {
       side: c.side,
       contractType: c.contractType,
       exitTime: scans[i].signal?.time ?? null,
+      // V4.1 (B.3): saf/senkron hesap — ağ isteği gerektirmez, filterOverlapping
+      // her adayın kendi "kontrat başına tek deneme" kontrolünü buradan yapar.
+      strike: atmStrike(c.spot),
     }));
     const scanByTime = new Map(gen.candidates.map((c, i) => [`${c.time}:${c.side}:${c.contractType}`, scans[i]]));
 
-    const accepted = filterOverlapping(gen.candidates, shells, sessionM1).slice(-MAX_TRACKED_POSITIONS);
+    const { accepted: acceptedAll, contractReuseBlocked } = filterOverlapping(gen.candidates, shells, sessionM1);
+    const accepted = acceptedAll.slice(-MAX_TRACKED_POSITIONS);
 
     const candKey = (c: { time: number; side: string; contractType: string }) =>
       `${session.date}:${c.time}:${c.side}:${c.contractType}`;
@@ -408,6 +412,10 @@ export async function GET(req: NextRequest) {
         openPosition,
         liveChain,
         events,
+        // V4.1 (B.3): bugun ayni kontrata (strike+yon) ikinci kez girmek
+        // isteyip reddedilen adaylar -- rejimden bagimsiz, aday cozumleme
+        // asamasina ait, o yuzden regime blokunun disinda.
+        contractReuseBlocked,
       },
       { headers: { "Cache-Control": "no-store, max-age=0" } }
     );

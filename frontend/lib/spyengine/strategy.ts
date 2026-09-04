@@ -129,6 +129,21 @@ export const CHOP_MAX_MINUTES = 15;
  */
 export const TREND_TIGHTEN_PCT = 0.60;
 
+/**
+ * ── V4.1: TREND ONAYI ──────────────────────────────────────────────
+ * TREND rejimi (regime.ts) piyasa genelini ölçer; bir pozisyonun kendisi
+ * hedefsiz taşınmadan ÖNCE ayrıca swing kırılımı + hacim teyidi gerekir
+ * (3 Eylül 2026 geriye dönük testi: 11:00 kırılımı, +$161). Onay
+ * gelene kadar TREND rejimindeki pozisyon da SIKIŞMA'nın sabit
+ * %/zaman kurallarıyla yönetilir — bkz. useChopRules (findExitSignal).
+ */
+/** Swing kırılımı için geriye bakılan pencere (dakika = 1m mum sayısı) */
+export const TREND_CONFIRM_WINDOW_MIN = 120;
+/** Kırılım mumunun hacim ortalaması için bakılan geçmiş mum sayısı */
+export const TREND_CONFIRM_VOL_LOOKBACK = 20;
+/** Kırılım mumunun hacmi, bu pencerenin ortalamasının en az kaç katı olmalı */
+export const TREND_CONFIRM_VOL_MULT = 2;
+
 // ── Tipler ────────────────────────────────────────────────────────
 
 export type Side = "LONG" | "SHORT";
@@ -183,6 +198,8 @@ export interface ExitProgress {
   halfTaken?: boolean;
   /** V4 — primin giriş primine göre anlık yüzdesi (veri varsa) */
   premiumPct?: number | null;
+  /** V4.1 — TREND rejiminde swing kırılımı + hacim×2 onayı geldi mi (bkz. TREND_CONFIRM_*) */
+  trendConfirmed?: boolean;
   /** İnsan okunur özet */
   note: string;
 }
@@ -765,6 +782,18 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     const p = premAt.get(t);
     return p == null ? null : p / entryPremium - 1;
   };
+  // V4.1 (bug A.1): stop SADECE bu haritayla kontrol edilir -- mum kapanisi
+  // degil, mumun EN KOTU (low) prim seviyesi. Kapanis-bazli pctAt mum ici
+  // esik asimini kacirip stopu geciktiriyordu (gozlemlenen: esik %-30 iken
+  // %-45'te tetiklendi). Yarı-kapama/tam-hedef/sure-siniri/TREND_TIGHTEN_PCT
+  // risk-sinirlayici olmadigi icin kapanis-bazli pctAt'i kullanmaya devam eder.
+  const premLowAt = new Map<number, number>();
+  for (const b of input.premiumBars ?? []) premLowAt.set(b.time, b.low);
+  const worstPctAt = (t: number): number | null => {
+    if (entryPremium == null || entryPremium <= 0) return null;
+    const p = premLowAt.get(t);
+    return p == null ? null : p / entryPremium - 1;
+  };
   let halfTaken = false;
   let halfTakeTime: number | null = null;
   const m1 = closedBars(input.m1, 1, nowSec);
@@ -785,12 +814,21 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
 
   let lastRegime: Regime = "TREND";
   let lastPct: number | null = null;
-  const regimeNoteOf = (r: Regime): string =>
-    r === "CHOP"
-      ? `Sikisma modu — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
+  // V4.1 (B.1): TREND rejiminde bile, pozisyon KENDI swing kırılımı + hacim
+  // teyidini görmeden hedefsiz taşınmaz -- bir kez true olunca (sticky)
+  // taramanın geri kalanında hep true kalır, bkz. döngü içindeki kontrol.
+  let trendConfirmed = false;
+  const regimeLabel = (r: Regime, confirmed: boolean): string =>
+    r === "CHOP" ? "Sikisma modu"
+    : r === "TREND" && !confirmed ? "Trend rejimi (henuz onaylanmadi)"
+    : r === "TREND" ? "Trend modu"
+    : "Belirsiz rejim";
+  const regimeNoteOf = (r: Regime, confirmed: boolean): string =>
+    r === "CHOP" || (r === "TREND" && !confirmed)
+      ? `${regimeLabel(r, confirmed)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
       : r === "TREND"
-      ? "Trend modu — zaman siniri yok, kirilim sinyali bekleniyor"
-      : "Belirsiz rejim — trend modu kurallari uygulaniyor";
+      ? "Trend modu (onaylandi) — zaman siniri yok, tam ters teyit bekleniyor"
+      : "Belirsiz rejim — sikisma kurallari uygulaniyor";
 
   const progressOf = (note: string): ExitProgress => ({
     againstBars: against,
@@ -800,9 +838,10 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     barsHeld,
     bestSpot,
     regime: lastRegime,
-    regimeNote: regimeNoteOf(lastRegime),
+    regimeNote: regimeNoteOf(lastRegime, trendConfirmed),
     halfTaken,
     premiumPct: lastPct,
+    trendConfirmed,
     note,
   });
 
@@ -835,15 +874,39 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     if (pct != null) lastPct = pct;
     const heldMin = (bar.time - entryTime) / 60;
 
-    if (lastRegime === "CHOP") {
-      // 1) Sabit stop -- asla tasinmaz
-      if (pct != null && pct <= CHOP_STOP_PCT) {
+    // V4.1 (B.1): TREND onayi -- son TREND_CONFIRM_WINDOW_MIN mumun
+    // zirvesini/dibini (yon yonunde) TREND_CONFIRM_VOL_MULT hacimle kiran
+    // ilk mumda bir kez tetiklenir, sonrasinda hep true kalir (sticky).
+    if (lastRegime === "TREND" && !trendConfirmed) {
+      const winStart = Math.max(0, i - TREND_CONFIRM_WINDOW_MIN);
+      const window = m1.slice(winStart, i); // mevcut mum HARIC -- sizinti yok
+      if (window.length) {
+        const brokeSwing = side === "LONG"
+          ? bar.high > Math.max(...window.map((b) => b.high))
+          : bar.low < Math.min(...window.map((b) => b.low));
+        const avgVol = avgVolume(m1, i, TREND_CONFIRM_VOL_LOOKBACK);
+        const volConfirmed = avgVol != null && avgVol > 0 && (bar.volume || 0) >= TREND_CONFIRM_VOL_MULT * avgVol;
+        if (brokeSwing && volConfirmed) trendConfirmed = true;
+      }
+    }
+
+    // V4.1 (B.2 + B.3): SIKIŞMA VE onaylanmamis TREND, AYNI sabit kurallarla
+    // yonetilir -- ikisi de asagidaki blokta kalir, REVERSAL_EXIT taramasina
+    // (asagida) HIC ulasmaz. Bug A.2'nin kok nedeni buydu: CHOP bu bloktan
+    // cikip asagidaki "ters seri" taramasina dusebiliyordu.
+    const useChopRules = lastRegime === "CHOP" || (lastRegime === "TREND" && !trendConfirmed);
+    if (useChopRules) {
+      const label = regimeLabel(lastRegime, trendConfirmed);
+      // 1) Sabit stop -- asla tasinmaz. V4.1 (A.1): kapanis degil, mumun
+      //    EN KOTU (low) prim seviyesi kullanilir -- bkz. worstPctAt yukarida.
+      const worstPct = worstPctAt(bar.time);
+      if (worstPct != null && worstPct <= CHOP_STOP_PCT) {
         return {
           signal: {
             time: bar.time, spot: bar.close, reason: "STOP_EXIT",
-            note: `Sikisma rejimi sabit stopu: prim %${(pct * 100).toFixed(0)} (esik %${CHOP_STOP_PCT * 100}).`,
+            note: `${label} sabit stopu: prim en kotu %${(worstPct * 100).toFixed(0)} (esik %${CHOP_STOP_PCT * 100}).`,
           },
-          progress: progressOf("Sikisma stopuyla kapandi."),
+          progress: progressOf(`${label} stopuyla kapandi.`),
           halfTakeTime,
         };
       }
@@ -857,20 +920,20 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
         return {
           signal: {
             time: bar.time, spot: bar.close, reason: "TARGET_EXIT",
-            note: `Sikisma rejimi hedefi: prim +%${(pct * 100).toFixed(0)} (esik +%${CHOP_FULL_TAKE_PCT * 100}).`,
+            note: `${label} hedefi: prim +%${(pct * 100).toFixed(0)} (esik +%${CHOP_FULL_TAKE_PCT * 100}).`,
           },
-          progress: progressOf("Sikisma hedefiyle kapandi."),
+          progress: progressOf(`${label} hedefiyle kapandi.`),
           halfTakeTime,
         };
       }
-      // 4) Sure siniri -- sikismada hicbir pozisyon 15 dakikadan uzun tasinmaz
+      // 4) Sure siniri -- bu modda hicbir pozisyon 15 dakikadan uzun tasinmaz
       if (heldMin >= CHOP_MAX_MINUTES) {
         return {
           signal: {
             time: bar.time, spot: bar.close, reason: "TIME_EXIT",
-            note: `Sikisma rejimi sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
+            note: `${label} sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
           },
-          progress: progressOf("Sikisma sure siniriyla kapandi."),
+          progress: progressOf(`${label} sure siniriyla kapandi.`),
           halfTakeTime,
         };
       }
@@ -890,16 +953,20 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     gateReady = against >= EXIT_REVERSAL_BARS;
     if (!gateReady) continue;
 
+    // V4.1 (B.2): SIKIŞMA ve onaylanmamis TREND yukaridaki blokta zaten
+    // ele alindi (kendi sabit kurallariyla) -- buraya ASLA ulasmamali.
+    // Bug A.2'nin duzeltmesi tam olarak bu satir: "Trend Kırılımı"
+    // etiketi artik SADECE onaylanmis TREND pozisyonlarina cikabilir.
+    if (useChopRules) continue;
+
     // 2. ÇIKIŞ — girişin AYNI onay seti, ters yönde:
     //    mum paterni + hacim + 1m RSI yönü + 5m mum yönü + 5m RSI yönü
     //
-    // V4 istisnasi: TREND rejiminde kar +%60i gectiyse tam onay seti
-    // ARANMAZ, ters seri tek basina yeter -- buyuk karin geri
-    // verilmemesi icin (spec 2.1). Sikismada da ters seri tek basina
-    // yeter, cunku orada zaten hizli cikis hedefleniyor.
-    const tightened =
-      (lastRegime === "TREND" && lastPct != null && lastPct >= TREND_TIGHTEN_PCT) ||
-      lastRegime === "CHOP";
+    // V4 istisnasi: TREND onaylandiktan sonra kar +%60i gectiyse tam onay
+    // seti ARANMAZ, ters seri tek basina yeter -- buyuk karin geri
+    // verilmemesi icin (spec 2.1). lastRegime buraya sadece "TREND" olarak
+    // ulasabilir (useChopRules yukarida CHOP ve onaysiz TREND'i elemis).
+    const tightened = lastPct != null && lastPct >= TREND_TIGHTEN_PCT;
     if (!tightened) {
       const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, exitSide);
       if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
@@ -909,7 +976,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
       signal: {
         time: bar.time, spot: bar.close, reason: "REVERSAL_EXIT",
         note: tightened
-          ? `${against} ardisik ters yonlu 1m mum — ${lastRegime === "CHOP" ? "sikisma rejiminde" : `kar +%${((lastPct ?? 0) * 100).toFixed(0)} oldugu icin`} tam onay seti beklenmedi.`
+          ? `${against} ardisik ters yonlu 1m mum — kar +%${((lastPct ?? 0) * 100).toFixed(0)} oldugu icin tam onay seti beklenmedi.`
           : `${against} ardisik ters yonlu 1m mum + giris onay setinin tamami ters yonde.`,
       },
       progress: progressOf("Ters yönlü onay setiyle kapandı."),
@@ -1045,8 +1112,15 @@ export function runLifecycle(input: LifecycleInput): PositionState {
   return pos;
 }
 
+export interface FilterOverlappingResult {
+  accepted: EntryCandidate[];
+  /** V4.1 (B.3): ayni gun ayni kontrata (strike+yon) ikinci kez girmek isteyip reddedilen adaylar */
+  contractReuseBlocked: { time: number; side: Side; strike: number }[];
+}
+
 /**
- * Aynı anda tek pozisyon + yeniden giriş (re-arm) + SAATLİK KOTA.
+ * Aynı anda tek pozisyon + yeniden giriş (re-arm) + SAATLİK KOTA + KONTRAT
+ * BAŞINA TEK DENEME.
  *
  * Bir pozisyon kapandığında, o pozisyonun yönünün TERSİNE kapanan İLK 1m
  * mumu görülene kadar yeni aday kabul edilmez ("düzeltme mumu" beklenir).
@@ -1055,20 +1129,38 @@ export function runLifecycle(input: LifecycleInput): PositionState {
  * içinde değil: kota gerçekten AÇILAN pozisyonları saymalı, üretilip
  * çakışma yüzünden zaten elenen adayları değil. Ölçüm de bu sırayla
  * yapıldı; aksi hâlde canlı davranış ölçümden sapardı.
+ *
+ * V4.1 (B.3): bir kontrat (aynı strike + aynı yön) o gün içinde kapandıktan
+ * sonra aynı kontrata ikinci kez girilmez — rejim ne olursa olsun. 3 Eylül
+ * geriye dönük testinde bu kural tek başına sonucu +$107'den +$161'e
+ * çıkardı (tekrar girişler her ikisinde de zarar etti). Reddedilen adaylar
+ * saatlik kotayı TÜKETMEZ, `blockedUntil`'i ETKİLEMEZ (düz `continue`).
  */
 export function filterOverlapping(
   candidates: EntryCandidate[],
-  positions: Pick<PositionState, "entryTime" | "side" | "contractType" | "exitTime">[],
+  positions: Pick<PositionState, "entryTime" | "side" | "contractType" | "exitTime" | "strike">[],
   m1: Bar[]
-): EntryCandidate[] {
+): FilterOverlappingResult {
   const posByKey = new Map<string, (typeof positions)[number]>();
   for (const p of positions) posByKey.set(`${p.entryTime}:${p.side}:${p.contractType}`, p);
 
+  const usedContracts = new Set<string>();
+  for (const p of positions) {
+    if (p.exitTime != null && p.strike != null) usedContracts.add(`${p.strike}:${p.side}`);
+  }
+
   const out: EntryCandidate[] = [];
+  const contractReuseBlocked: FilterOverlappingResult["contractReuseBlocked"] = [];
   let blockedUntil = -Infinity;
   const recent: number[] = []; // son 60 dakikadaki giriş zamanları
 
   for (const c of candidates) {
+    const strike = atmStrike(c.spot);
+    if (usedContracts.has(`${strike}:${c.side}`)) {
+      contractReuseBlocked.push({ time: c.time, side: c.side, strike });
+      continue;
+    }
+
     if (c.time < blockedUntil) continue;
 
     while (recent.length && c.time - recent[0] > 3600) recent.shift();
@@ -1086,7 +1178,7 @@ export function filterOverlapping(
     const correction = m1.find((b) => b.time > pos.exitTime! && candleDir(b) === (pos.side === "LONG" ? "DOWN" : "UP"));
     blockedUntil = correction ? correction.time : Infinity;
   }
-  return out;
+  return { accepted: out, contractReuseBlocked };
 }
 
 // ── Etiketler (UI) ────────────────────────────────────────────────

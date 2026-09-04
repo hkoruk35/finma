@@ -98,6 +98,8 @@ interface StreamResponse {
   levels?: LevelRead;
   /** V4 -- gun kapanis tahmini (spec 4) */
   forecast?: CloseForecast | null;
+  /** V4.1 -- bugun ayni kontrata (strike+yon) ikinci kez girmek isteyip reddedilen adaylar */
+  contractReuseBlocked?: { time: number; side: "LONG" | "SHORT"; strike: number }[];
 }
 
 type Tab = "command" | "signals" | "context" | "ohlc" | "compare";
@@ -674,7 +676,11 @@ export default function SpyEngineCommandCenter() {
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
         <div className="flex flex-col gap-1">
-          <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
+          {/* ── Rejim (TREND/SIKIŞMA) + Gün Kapanış Tahmini yan yana — tahmin daha belirgin ── */}
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-stretch">
+            <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
+            <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
+          </div>
 
           <AlertBanner
             alert={entryAlert}
@@ -683,6 +689,21 @@ export default function SpyEngineCommandCenter() {
             nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
             inPosition={!!openPosition}
           />
+
+          {!!data?.contractReuseBlocked?.length && (
+            <div className="flex items-center gap-2 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300">
+              <span>⚠</span>
+              <span>
+                Bu kontrat bugün zaten işlem gördü —{" "}
+                {data.contractReuseBlocked.map((b, i) => (
+                  <span key={`${b.time}:${b.side}`}>
+                    {i > 0 && ", "}
+                    {nyClock(b.time, true)} {b.side} {b.strike}
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
 
           {m15Read && (
             <M15Strip
@@ -838,17 +859,14 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* ── Kapı Durumu (sol) + Rejim Kriterleri (sağ) ── */}
-          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
-            <GatePanel
-              gates={data?.engine.gateStatus ?? null}
-              streakDir={data?.engine.m1StreakDir ?? "NONE"}
-              streakLen={data?.engine.m1StreakLen ?? 0}
-            />
-            <RegimePanel block={data?.regime ?? null} />
-          </div>
+          {/* ── Kapı Durumu — tam genişlik ── */}
+          <GatePanel
+            gates={data?.engine.gateStatus ?? null}
+            streakDir={data?.engine.m1StreakDir ?? "NONE"}
+            streakLen={data?.engine.m1StreakLen ?? 0}
+          />
 
-          {/* ── Teknik veri (sol) + Seviye/Tahmin (sağ) ── */}
+          {/* ── Teknik veri + Rejim Kriterleri (sol) + Seviye/Motor/Sinyaller (sağ) ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
             <div className="flex flex-col gap-1">
               {data && (
@@ -861,6 +879,7 @@ export default function SpyEngineCommandCenter() {
                   m1Rsi={rsiPair.m1} m1RsiPrev={rsiPair.m1Prev} m5RsiPrev={rsiPair.m5Prev}
                 />
               )}
+              <RegimePanel block={data?.regime ?? null} />
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
@@ -877,7 +896,6 @@ export default function SpyEngineCommandCenter() {
             </div>
             <div className="flex flex-col gap-1">
               <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
-              <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
               <Panel title="Motor Açıklaması">
                 <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-1 font-mono text-[9px] leading-relaxed text-slate-400">
                   <span className="text-[#3b82f6]">{lastFetch ? nyClock(lastFetch, true) : "—"}</span> — {data?.engine.reasoning ?? "Motor verisi bekleniyor."}
@@ -901,6 +919,33 @@ export default function SpyEngineCommandCenter() {
             }
           >
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
+          </Disclosure>
+
+          {/* Kabul Kriterleri (V4 §9) — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure title="Kabul Kriterleri (V4 §9)">
+            <ol className="flex list-decimal flex-col gap-1.5 pl-4 text-[10px] leading-relaxed text-slate-400 marker:text-slate-600">
+              <li>Rejim (TREND / SIKIŞMA / BELİRSİZ) her an ekranda büyük ve renkli olarak görünüyor.</li>
+              <li>Rejim değiştiğinde görünür uyarı çıkıyor ve açık pozisyonun çıkış kuralı anında güncelleniyor.</li>
+              <li>TREND rejiminde çıkış = trend kırılımı teyidi (zaman sınırı yok).</li>
+              <li>SIKIŞMA rejiminde çıkış = +%20 yarı / +%50 tam / −%30 stop / 15 dk zaman sınırı.</li>
+              <li>BELİRSİZ rejimde yeni giriş sinyali üretilmiyor.</li>
+              <li>Seviye paneli (destek, direnç, gece/premarket/seans dip-zirve, olası gün dibi/zirvesi) canlı güncelleniyor ve grafikte çizgi olarak görünüyor.</li>
+              <li>Kapanış tahmini aralık + orta nokta + güven skoru ile her 5 dakikada güncelleniyor.</li>
+              <li>1m ve 5m RSI değerleri ok işareti + açıklama metniyle gösteriliyor; iki RSI çeliştiğinde vurgulanıyor.</li>
+              <li>15m şeridi bilgi olarak var ama motor mantığına girmiyor (test: 15m &quot;aşağı&quot; iken 1m long sinyali üretilebilmeli).</li>
+              <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor.</li>
+              <li>Gün sonunda rejim dağılımı özeti üretiliyor.</li>
+              <li>Geriye dönük test: 2 Eylül verisiyle çalıştırıldığında, sistem 10:05-11:34 penceresini TREND, 11:39-14:37 penceresini SIKIŞMA olarak etiketlemeli. Etiketlemiyorsa rejim motoru kalibrasyonu hatalıdır.</li>
+              <li className="text-slate-300">Stop, eşiğin en fazla %5 fazlasıyla tetikleniyor (tik bazlı kontrol).</li>
+              <li className="text-slate-300">SIKIŞMA rejiminde açılan hiçbir pozisyon &quot;Trend Kırılımı&quot; etiketiyle kapanmıyor.</li>
+              <li className="text-slate-300">TREND modu (hedefsiz taşıma) sadece swing kırılımı + hacim×2 şartı sağlandığında devreye giriyor.</li>
+              <li className="text-slate-300">Trend çıkışı, 5 kriterin tamamı sağlanmadan tetiklenmiyor.</li>
+              <li className="text-slate-300">Aynı kontrata aynı gün ikinci giriş engelleniyor.</li>
+              <li className="text-slate-300">Geriye dönük test: 3 Eylül verisiyle çalıştırıldığında, 11:00&apos;deki 770,04 zirve kırılımı (hacim 312K, önceki ortalamanın ~3 katı) TREND onayı olarak işaretlenmeli ve pozisyon 11:35&apos;teki tam ters teyide kadar (5 kriterin tamamı) hedefsiz taşınmalı.</li>
+            </ol>
+            <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">
+              Madde 1-12: V4 orijinal. Madde 13-18 (koyu): V4.1 eki, 3 Eylül 2026 paper-trade sonuçlarından çıkarıldı.
+            </div>
           </Disclosure>
         </div>
       )}

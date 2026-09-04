@@ -859,6 +859,19 @@ export function PositionPanel({ position, livePremium }: {
               <span className="font-semibold text-slate-400">Çıkışa yakınlık</span>
               <span className="font-mono text-slate-500">{pg.barsHeld} mum taşındı</span>
             </div>
+            {pg.regime === "TREND" && (
+              <div className="mb-1.5">
+                <span
+                  className={`rounded px-1.5 py-0.5 text-[9px] font-semibold ${
+                    pg.trendConfirmed
+                      ? "bg-green-500/15 text-green-300"
+                      : "bg-amber-500/15 text-amber-300"
+                  }`}
+                >
+                  Trend onayı: {pg.trendConfirmed ? "onaylandı — hedefsiz taşınıyor" : "bekleniyor — sabit %/zaman kurallarıyla yönetiliyor"}
+                </span>
+              </div>
+            )}
             <div className="mb-1.5 flex items-center gap-1">
               {Array.from({ length: pg.reversalNeeded }).map((_, i) => (
                 <span
