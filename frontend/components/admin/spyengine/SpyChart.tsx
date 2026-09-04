@@ -149,6 +149,17 @@ export default function SpyChart({
   const markersRef = useRef<ISeriesMarkersPluginApi<Time> | null>(null);
   const priceLinesRef = useRef<IPriceLine[]>([]);
   const didFitRef = useRef(false);
+  /**
+   * Seviye çizgileri (destek/direnç, premarket/seans uçları, dünkü kapanış)
+   * candle serisine createPriceLine ile ekleniyor -- lightweight-charts
+   * varsayılan autoscale'i BUNLARI da fiyat aralığına dahil ediyor, uzak bir
+   * seviye (örn. premarket dip) mumlardan çok uzaktaysa eksen aşağı doğru
+   * gereksiz yere geriliyor ve mumlar panelin en üstüne sıkışıyor. Bu ref,
+   * candle serisinin autoscaleInfoProvider'ının SADECE görünür mumlardan
+   * fiyat aralığı hesaplamasını sağlar -- seviye çizgileri eksene dahil
+   * edilmez, mumlar dikeyde ortalanmış/dolgun görünür.
+   */
+  const barsForScaleRef = useRef<{ time: number; high: number; low: number }[]>([]);
 
   // Crosshair okuması: yalnızca fare hareketinde (harici olay) yazılır.
   // Fare grafiğin dışındayken son mumun değerleri gösterilir — bu, render
@@ -242,6 +253,25 @@ export default function SpyChart({
       upColor: C.up, downColor: C.down, borderVisible: false,
       wickUpColor: C.up, wickDownColor: C.down,
       priceLineColor: "#e2e8f0", priceLineStyle: LineStyle.Dotted,
+      // Fiyat aralığını SADECE görünür mumlardan hesapla -- seviye
+      // çizgileri (createPriceLine) uzakta olsa bile ekseni germesin.
+      autoscaleInfoProvider: () => {
+        const bars = barsForScaleRef.current;
+        if (!bars.length) return null;
+        const range = chart.timeScale().getVisibleRange();
+        const visible = range
+          ? bars.filter((b) => b.time >= (range.from as number) && b.time <= (range.to as number))
+          : bars;
+        const src = visible.length ? visible : bars;
+        let min = Infinity, max = -Infinity;
+        for (const b of src) {
+          if (b.low < min) min = b.low;
+          if (b.high > max) max = b.high;
+        }
+        if (!Number.isFinite(min) || !Number.isFinite(max)) return null;
+        const pad = Math.max((max - min) * 0.12, 0.05);
+        return { priceRange: { minValue: min - pad, maxValue: max + pad } };
+      },
     }, 0);
 
     // Trailing stop — kademeli (WithSteps) ve kesikli; her yükseliş
@@ -348,6 +378,7 @@ export default function SpyChart({
     const { display, bb, ema50, vwap, rsi14, macd: m } = computed;
     const T = (t: number) => t as unknown as Time;
 
+    barsForScaleRef.current = display.map((b) => ({ time: b.time, high: b.high, low: b.low }));
     candleRef.current.setData(
       display.map((b) => ({ time: T(b.time), open: b.open, high: b.high, low: b.low, close: b.close }))
     );
