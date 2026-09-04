@@ -228,25 +228,37 @@ export default function SpyChart({
     chartRef.current = chart;
 
     // ── Pane 0: fiyat ─────────────────────────────────────────────
+    // Dikey ölçeği SADECE mum serisi belirler (bkz. candleRef'in
+    // autoscaleInfoProvider'ı aşağıda) -- BB/EMA/VWAP overlay'leri kendi
+    // autoscale katkısını `null` döndürerek devre dışı bırakır, aksi
+    // halde örn. VWAP fiyattan uzaklaştığında ekseni geriyor, mumlar
+    // panelin üst diliminde sıkışıp altta boş alan kalıyordu.
+    const noAutoscale = () => null;
+
     // Bollinger alt bandı Area olarak çizilir: üstündeki dolgu bandın
     // içini Robinhood'daki gibi hafifçe boyar.
     bbLowRef.current = chart.addSeries(AreaSeries, {
       lineColor: C.bbBand, topColor: C.bbFill, bottomColor: "rgba(0,0,0,0)",
       lineWidth: 1, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
     }, 0);
     bbUpRef.current = chart.addSeries(LineSeries, {
       color: C.bbBand, lineWidth: 1, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
     }, 0);
     bbMidRef.current = chart.addSeries(LineSeries, {
       color: "#7c8da8", lineWidth: 1, lineStyle: LineStyle.Dotted,
       priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
     }, 0);
     emaRef.current = chart.addSeries(LineSeries, {
       color: C.ema, lineWidth: 2, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
     }, 0);
     vwapRef.current = chart.addSeries(LineSeries, {
       color: C.vwap, lineWidth: 1, lineStyle: LineStyle.LargeDashed,
       priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
     }, 0);
 
     candleRef.current = chart.addSeries(CandlestickSeries, {
@@ -279,6 +291,7 @@ export default function SpyChart({
     trailRef.current = chart.addSeries(LineSeries, {
       color: C.trail, lineWidth: 2, lineStyle: LineStyle.Dashed, lineType: LineType.WithSteps,
       priceLineVisible: false, lastValueVisible: true, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
       title: "Trailing",
     }, 0);
 
