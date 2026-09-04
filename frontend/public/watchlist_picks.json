@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-09-03T17:05:14.671991-04:00",
+  "generated_at": "2026-09-04T09:05:04.627331-04:00",
   "picks": [
-    {
-      "ticker": "XP",
-      "sector": "Financial Services",
-      "date_added": "2026-09-01",
-      "score": 42.5
-    },
-    {
-      "ticker": "HPQ",
-      "sector": "Technology",
-      "date_added": "2026-09-01",
-      "score": 33.5
-    },
     {
       "ticker": "CAH",
       "sector": "Healthcare",
@@ -83,7 +71,7 @@
       "ticker": "GWW",
       "sector": "Industrials",
       "date_added": "2026-09-03",
-      "score": 39.0
+      "score": 43.0
     },
     {
       "ticker": "TMO",
@@ -104,10 +92,34 @@
       "score": 40.5
     },
     {
-      "ticker": "ITT",
+      "ticker": "CLMT",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-04",
+      "score": 49.0
+    },
+    {
+      "ticker": "VTRS",
+      "sector": "Healthcare",
+      "date_added": "2026-09-04",
+      "score": 49.0
+    },
+    {
+      "ticker": "MHK",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-04",
+      "score": 46.5
+    },
+    {
+      "ticker": "FDX",
       "sector": "Industrials",
-      "date_added": "2026-09-03",
-      "score": 34.0
+      "date_added": "2026-09-04",
+      "score": 42.5
+    },
+    {
+      "ticker": "ILMN",
+      "sector": "Healthcare",
+      "date_added": "2026-09-04",
+      "score": 40.5
     }
   ]
 }
