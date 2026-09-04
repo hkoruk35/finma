@@ -402,6 +402,10 @@ export default function SpyEngineCommandCenter() {
   const positions = data?.positions ?? [];
   const events = data?.events ?? [];
 
+  /** V4.1 — seans kapandığında gerçekleşen SPY kapanışı (ForecastPanel başlığında gösterilir) */
+  const sessionOver = data ? !data.session.isLive || data.session.phase === "POST" || data.session.phase === "CLOSED" : false;
+  const actualCloseForForecast = sessionOver ? data?.spot.price ?? null : null;
+
   /** 1m/5m grafik yükseklikleri — tam ekranda viewport'a, normalde sabit 400px'e oturur. */
   const chart1Height =
     fullscreenTarget === "1m" ? Math.max(400, viewportH - 70)
@@ -679,7 +683,7 @@ export default function SpyEngineCommandCenter() {
           {/* ── Rejim (TREND/SIKIŞMA) + Gün Kapanış Tahmini yan yana — tahmin daha belirgin ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2 lg:items-stretch">
             <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
-            <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
+            <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} actualClose={actualCloseForForecast} />
           </div>
 
           <AlertBanner

@@ -310,7 +310,9 @@ export const REGIME_LABEL: Record<Regime, string> = {
 
 /** Rejim rengi — TREND yönüne göre yeşil/kırmızı, sıkışma amber, belirsiz gri */
 export function regimeColor(regime: Regime, direction: RegimeDirection): string {
-  if (regime === "TREND") return direction === "DOWN" ? "#ef4444" : "#22c55e";
+  // Pastel turkuaz -- yön zaten ok (▲/▼) + "YUKARI"/"AŞAĞI" metniyle net,
+  // renk burada sadece "TREND rejimindeyiz" durumunu okunur şekilde işaretler.
+  if (regime === "TREND") return "#5eead4";
   if (regime === "CHOP") return "#f59e0b";
   return "#64748b";
 }

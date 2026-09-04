@@ -520,7 +520,7 @@ export function computeEntryAlert(
 
 const ALERT_STYLE: Record<AlertLevel, { ring: string; text: string; icon: string }> = {
   FIRED: { ring: "border-[#eab308]/60 bg-[#eab308]/15", text: "text-[#facc15]", icon: "🎯" },
-  IMMINENT: { ring: "border-orange-500/50 bg-orange-500/12", text: "text-orange-300", icon: "⚡" },
+  IMMINENT: { ring: "border-blue-500/55 bg-blue-600/16", text: "text-blue-300", icon: "⚡" },
   NEAR: { ring: "border-sky-500/35 bg-sky-500/8", text: "text-sky-300", icon: "👀" },
   IDLE: { ring: "border-[#1c2635] bg-[#0f141d]", text: "text-slate-400", icon: "○" },
 };
@@ -590,7 +590,7 @@ export function AlertBanner({
         </span>
       )}
 
-      <div className="w-full text-[10.5px] leading-snug text-slate-500">{nextStep}</div>
+      <div className="w-full text-[11px] leading-snug text-slate-300">{nextStep}</div>
     </div>
   );
 }
@@ -1312,8 +1312,8 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
           </span>
         )}
       </div>
-      <div className="mt-1 text-[10.5px] text-slate-400">{reminder}</div>
-      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">{note}</div>
+      <div className="mt-1 text-[11px] text-slate-300">{reminder}</div>
+      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-400">{note}</div>
     </div>
   );
 }
@@ -1530,10 +1530,12 @@ export function LevelPanel({ levels, price }: { levels: LevelRead | null; price:
 
 /** Gün Kapanış Tahmini — spec §4 */
 export function ForecastPanel({
-  forecast, accuracy,
+  forecast, accuracy, actualClose,
 }: {
   forecast: CloseForecast | null;
   accuracy: { checked: number; hit: number } | null;
+  /** V4.1 -- seans kapandığında gerçekleşen SPY kapanışı (yoksa null/undefined) */
+  actualClose?: number | null;
 }) {
   if (!forecast) {
     return (
@@ -1551,7 +1553,18 @@ export function ForecastPanel({
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">Gün Kapanış Tahmini</span>
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Gün Kapanış Tahmini
+          {actualClose != null && (
+            <span
+              className={`ml-1.5 font-mono text-[10.5px] font-bold ${
+                actualClose >= forecast.low && actualClose <= forecast.high ? "text-[#2dd4bf]" : "text-rose-400"
+              }`}
+            >
+              (gerçekleşen: {num(actualClose)})
+            </span>
+          )}
+        </span>
         <span className="font-mono text-[9.5px] text-slate-600">
           kalan {hours}s {mins}dk
         </span>
