@@ -1283,10 +1283,10 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
 
   return (
     <div
-      className="rounded-lg border px-3 py-2.5"
+      className="flex flex-col items-center justify-center rounded-lg border px-3 py-2.5 text-center"
       style={{ borderColor: `${color}66`, backgroundColor: `${color}14` }}
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5">
         <span className="flex items-center gap-2 text-[18px] font-bold tracking-wide sm:text-[22px]" style={{ color }}>
           <span>{arrow}</span>
           <span>
@@ -1311,10 +1311,9 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
             ⛔ 3 ardışık kayıp — {cooldownLeft} dk sinyal durduruldu
           </span>
         )}
-
-        <span className="ml-auto text-[10.5px] text-slate-400">{reminder}</span>
       </div>
-      <div className="mt-1 text-[10.5px] leading-snug text-slate-500">{note}</div>
+      <div className="mt-1 text-[10.5px] text-slate-400">{reminder}</div>
+      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">{note}</div>
     </div>
   );
 }
