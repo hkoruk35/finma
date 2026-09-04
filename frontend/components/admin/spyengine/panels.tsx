@@ -88,6 +88,8 @@ export interface StripQuote {
   label: string; symbol: string; name: string;
   price: number | null; prevClose: number | null;
   change: number | null; changePct: number | null;
+  /** Son ~60 dakikaya göre yüzde değişim */
+  changePctHour?: number | null;
   time: number | null; extended: boolean; error: string | null;
 }
 
@@ -131,7 +133,11 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
     return () => { cancelled = true; };
   }, [hoverSymbol, chartData]);
 
-  // Popup ölçülüp ekran içine sığdırılır — hiçbir kenarı dışarı taşmaz.
+  // Popup, hücrenin HEMEN YANINDA açılır (üstte/altta değil) — böylece
+  // fare hücreden popup'a düz bir çizgide taşınabilir ve popup uzun
+  // (mini grafik + bilgiler) olduğunda dikey alan yetersiz kalıp ekranın
+  // en tepesine sıkışması sorunu ortadan kalkar. Sağda yer varsa sağda,
+  // yoksa solda; dikeyde hücreyle hizalanır, viewport dışına taşarsa kayar.
   useLayoutEffect(() => {
     if (!hover || !popRef.current) { setPos(null); return; }
     const el = popRef.current;
@@ -141,12 +147,11 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
     const vh = window.innerHeight;
     const M = 8;
 
-    let left = hover.rect.left;
-    if (left + w + M > vw) left = hover.rect.right - w;
+    let left = hover.rect.right + M;
+    if (left + w + M > vw) left = hover.rect.left - w - M;
     left = Math.min(Math.max(M, left), Math.max(M, vw - w - M));
 
-    let top = hover.rect.bottom + M;
-    if (top + h + M > vh) top = hover.rect.top - h - M;
+    let top = hover.rect.top;
     top = Math.min(Math.max(M, top), Math.max(M, vh - h - M));
 
     setPos({ top, left });
@@ -175,18 +180,27 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                 onMouseLeave={scheduleClose}
               >
                 <div className="flex items-baseline justify-between gap-1.5 whitespace-nowrap">
-                  <span className="truncate text-[10px] font-semibold text-slate-300">{q.label}</span>
+                  <span className="truncate text-[10px] font-semibold text-sky-300">{q.label}</span>
                   {q.extended && <span className="shrink-0 text-[8px] text-amber-400/80">EXT</span>}
                 </div>
                 {q.error || q.price == null ? (
                   <div className="font-mono text-[10px] text-slate-600">veri yok</div>
                 ) : (
-                  <div className="flex items-baseline justify-between gap-1.5 whitespace-nowrap">
-                    <span className="font-mono text-[11px] tabular-nums text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</span>
-                    <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${tone(q.changePct)}`}>
-                      {up ? "▲" : down ? "▼" : "▬"}{signed(q.changePct, 2)}%
-                    </span>
-                  </div>
+                  <>
+                    <div className="flex items-baseline justify-between gap-1.5 whitespace-nowrap">
+                      <span className="font-mono text-[11px] tabular-nums text-slate-100">{num(q.price, q.price > 1000 ? 0 : 2)}</span>
+                      <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${tone(q.changePct)}`}>
+                        {up ? "▲" : down ? "▼" : "▬"}{signed(q.changePct, 2)}%
+                      </span>
+                    </div>
+                    {q.changePctHour != null && (
+                      <div className="flex items-baseline justify-end whitespace-nowrap">
+                        <span className={`font-mono text-[8.5px] tabular-nums opacity-80 ${tone(q.changePctHour)}`}>
+                          1sa {signed(q.changePctHour, 2)}%
+                        </span>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             );
@@ -285,9 +299,9 @@ export function PhaseBadge({ phase }: { phase: SessionPhase }) {
 function Card({ label, value, sub, tone: t }: { label: string; value: ReactNode; sub?: ReactNode; tone?: string }) {
   return (
     <div className="bg-[#0f141d] px-2.5 py-1.5">
-      <div className="text-[9px] font-semibold tracking-wider text-slate-500">{label}</div>
+      <div className="text-[9px] font-semibold tracking-wider text-sky-300">{label}</div>
       <div className={`font-mono text-[13px] font-semibold leading-tight ${t ?? "text-slate-100"}`}>{value}</div>
-      {sub != null && <div className="truncate font-mono text-[9.5px] leading-tight text-slate-500">{sub}</div>}
+      {sub != null && <div className="truncate font-mono text-[9.5px] leading-tight text-slate-400">{sub}</div>}
     </div>
   );
 }

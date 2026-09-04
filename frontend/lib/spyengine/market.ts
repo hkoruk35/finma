@@ -321,6 +321,8 @@ export interface TickerQuote {
   prevClose: number | null;
   change: number | null;
   changePct: number | null;
+  /** Son ~60 dakikaya göre yüzde değişim -- ayrı bir istek gerektirmez, aynı 5m mumlardan hesaplanır */
+  changePctHour: number | null;
   /** Fiyatın alındığı an (unix sn) */
   time: number | null;
   /** Fiyat düzenli seans dışından mı geliyor */
@@ -355,7 +357,7 @@ export const STRIP_SYMBOLS: { label: string; symbol: string; name: string }[] = 
 async function quoteOne(entry: { label: string; symbol: string; name: string }): Promise<TickerQuote> {
   const base: TickerQuote = {
     label: entry.label, symbol: entry.symbol, name: entry.name,
-    price: null, prevClose: null, change: null, changePct: null,
+    price: null, prevClose: null, change: null, changePct: null, changePctHour: null,
     time: null, extended: false, error: null,
   };
   try {
@@ -382,12 +384,29 @@ async function quoteOne(entry: { label: string; symbol: string; name: string }):
     const change = prevClose != null ? price - prevClose : null;
     const changePct = prevClose != null && prevClose !== 0 ? (change as number) / prevClose * 100 : null;
 
+    // Saatlik değişim: ~60 dk önceki en yakın (kendisinden ÖNCEKİ) 5m mumun
+    // kapanışına göre -- 5m mumlar zaten çekilmiş, ek istek gerekmiyor.
+    // Yeterli geçmiş yoksa (örn. seans yeni açıldıysa) null kalır.
+    let changePctHour: number | null = null;
+    if (time != null) {
+      const target = time - 3600;
+      let hourBar: Bar | null = null;
+      for (const b of c.bars) {
+        if (b.time <= target) hourBar = b;
+        else break;
+      }
+      if (hourBar && hourBar.close) {
+        changePctHour = ((price - hourBar.close) / hourBar.close) * 100;
+      }
+    }
+
     return {
       ...base,
       price,
       prevClose,
       change,
       changePct,
+      changePctHour,
       time,
       extended: c.marketTime != null && time != null ? time > c.marketTime : false,
       error: null,
