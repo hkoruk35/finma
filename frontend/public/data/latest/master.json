@@ -1,8 +1,8 @@
 {
   "date": "2026-09-03",
-  "generated_at": "2026-09-03T14:03:41.641036-04:00",
+  "generated_at": "2026-09-03T17:05:12.047705-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 34,
+  "active_scores_count": 41,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,10 +21,9 @@
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 15,
       "tickers": [
         "MTCH",
-        "VAL",
         "BG",
         "TEVA",
         "EL",
@@ -33,7 +32,12 @@
         "AMRX",
         "IQV",
         "TNK",
-        "MRX"
+        "MRX",
+        "SPGI",
+        "WPM",
+        "ARES",
+        "NU",
+        "PAYX"
       ]
     },
     "value": {
@@ -72,20 +76,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 772.21,
+      "change_pct": -0.12
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 721.64,
+      "change_pct": 0.55
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 534.9949,
+      "change_pct": -0.36
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 14.15,
+      "change_pct": -1.19
+    },
+    "RUSSELL2000": {
+      "value": 294.65,
+      "change_pct": -0.18
     }
-  }
+  },
+  "price_updated_at": "2026-09-04T10:00:39.644911-04:00"
 }
