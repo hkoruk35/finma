@@ -1,8 +1,8 @@
 {
   "date": "2026-09-04",
-  "generated_at": "2026-09-04T09:05:02.404727-04:00",
+  "generated_at": "2026-09-04T14:05:30.229503-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 28,
+  "active_scores_count": 37,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,11 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 15,
       "tickers": [
         "IQV",
         "TNK",
         "MRX",
+        "INSW",
         "SPGI",
         "WPM",
         "ARES",
@@ -34,7 +35,9 @@
         "DOCU",
         "OWL",
         "BTG",
-        "DK"
+        "DK",
+        "MU",
+        "ICLR"
       ]
     },
     "value": {
@@ -73,25 +76,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 770.37,
-      "change_pct": -0.36
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 718.33,
-      "change_pct": 0.09
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 534.22,
-      "change_pct": -0.5
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 14.01,
-      "change_pct": -2.16
-    },
-    "RUSSELL2000": {
-      "value": 295.65,
-      "change_pct": 0.16
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-04T15:00:17.963372-04:00"
+  }
 }
