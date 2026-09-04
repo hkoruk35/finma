@@ -677,7 +677,7 @@ export default function SpyEngineCommandCenter() {
       {tab === "command" && (
         <div className="flex flex-col gap-1">
           {/* ── Rejim (TREND/SIKIŞMA) + Gün Kapanış Tahmini yan yana — tahmin daha belirgin ── */}
-          <div className="grid grid-cols-1 gap-1 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-stretch">
+          <div className="grid grid-cols-1 gap-1 lg:grid-cols-2 lg:items-stretch">
             <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
             <ForecastPanel forecast={data?.forecast ?? null} accuracy={forecastAccuracy} />
           </div>
