@@ -94,12 +94,20 @@ export interface StripQuote {
 }
 
 export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updatedAt: number | null }) {
-  // Şerit kabı overflow-hidden/overflow-x-auto olduğu için popup absolute
-  // konumlandırılırsa kırpılıyor. Bu yüzden popup fixed konumlandırılır ve
-  // hedef hücrenin ekran koordinatından hesaplanır.
+  // Popup, konum hesabı VİEWPORT'a göre olan `position: fixed` yerine,
+  // burada sahip olduğumuz `wrapRef` (position: relative, transform'suz,
+  // overflow'suz) sarmalayıcıya göre `position: absolute` kullanır. Neden:
+  // `fixed`, sayfadaki ÜST bir elemanda transform/filter/backdrop-filter
+  // varsa (CSS'in "containing block" kuralı gereği) viewport'a değil o
+  // elemana göre konumlanır -- bu, popup'ın beklenmedik yerlerde (örn.
+  // ekranın en tepesinde) açılmasına yol açabilir. `wrapRef` bizim
+  // kontrolümüzde, kesinlikle transform'suz bir kutu olduğu için bu sorunu
+  // kökten ortadan kaldırır. Popup yine de bu kutunun DIŞINDA, ayrı bir
+  // sibling olarak render edilir ki şeridin overflow-x-auto'su onu kırpmasın.
   const [hover, setHover] = useState<{ idx: number; rect: DOMRect } | null>(null);
   const [chartData, setChartData] = useState<Record<string, MiniBar[]>>({});
   const popRef = useRef<HTMLDivElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
 
   // Fare hücreden ayrılınca popup HEMEN kapanmaz -- 18 sn açık kalır (rahat
@@ -145,36 +153,39 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
   }, [hoverSymbol, chartData]);
 
   // Popup, hücrenin HEMEN YANINDA açılır (üstte/altta değil) — böylece
-  // fare hücreden popup'a düz bir çizgide taşınabilir ve popup uzun
-  // (mini grafik + bilgiler) olduğunda dikey alan yetersiz kalıp ekranın
-  // en tepesine sıkışması sorunu ortadan kalkar. Sağda yer varsa sağda,
-  // yoksa solda; dikeyde hücreyle hizalanır, viewport dışına taşarsa kayar.
+  // fare hücreden popup'a düz bir çizgide taşınabilir. Konum, wrapRef'in
+  // (yukarıdaki not) sol-üst köşesine göre hesaplanır; viewport sınırları
+  // için hâlâ window.innerWidth/innerHeight kullanılır, sadece sonuç
+  // wrapRef'in orijinine göre wrapRef içinde `absolute` konumlanacak
+  // şekilde ofsetlenir.
   useLayoutEffect(() => {
-    if (!hover || !popRef.current) { setPos(null); return; }
+    if (!hover || !popRef.current || !wrapRef.current) { setPos(null); return; }
     const el = popRef.current;
+    const wrapRect = wrapRef.current.getBoundingClientRect();
     const w = el.offsetWidth;
     const h = el.offsetHeight;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const M = 8;
 
-    let left = hover.rect.right + M;
-    if (left + w + M > vw) left = hover.rect.left - w - M;
-    left = Math.min(Math.max(M, left), Math.max(M, vw - w - M));
+    let leftAbs = hover.rect.right + M;
+    if (leftAbs + w + M > vw) leftAbs = hover.rect.left - w - M;
+    leftAbs = Math.min(Math.max(M, leftAbs), Math.max(M, vw - w - M));
 
     // Hücrenin DİKEY ORTASINA hizala (üst kenarına değil) -- böylece
     // viewport'a sığdırmak için kırpma gerektiğinde bile popup, hangi
     // hücrenin üzerinde durduğuna en yakın konumda kalır, ekranın rastgele
     // bir köşesine "zıplamaz".
-    let top = hover.rect.top + hover.rect.height / 2 - h / 2;
-    top = Math.min(Math.max(M, top), Math.max(M, vh - h - M));
+    let topAbs = hover.rect.top + hover.rect.height / 2 - h / 2;
+    topAbs = Math.min(Math.max(M, topAbs), Math.max(M, vh - h - M));
 
-    setPos({ top, left });
+    setPos({ top: topAbs - wrapRect.top, left: leftAbs - wrapRect.left });
   }, [hover, chartData]);
 
   const hq = hover ? quotes[hover.idx] : null;
 
   return (
+    <div ref={wrapRef} className="relative">
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">Canlı Piyasa Şeridi</span>
@@ -225,12 +236,14 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
           })}
         </div>
       </div>
+    </div>
 
-      {/* Hover popup — şerit kabının dışında, fixed; kırpılmaz */}
+      {/* Hover popup — wrapRef'e göre absolute, ticker kutusunun DIŞINDA
+          bir sibling; şeridin overflow-x-auto'sundan asla kırpılmaz. */}
       {hq && (
         <div
           ref={popRef}
-          className="fixed z-[9999] max-h-[80vh] w-[320px] overflow-y-auto rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
+          className="absolute z-[9999] max-h-[80vh] w-[320px] overflow-y-auto rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
           style={{
             top: pos?.top ?? 0,
             left: pos?.left ?? 0,
