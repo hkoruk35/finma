@@ -1,8 +1,8 @@
 {
   "version": "v243",
   "date": "2026-09-04",
-  "generated_at": "2026-09-04T11:02:51.266183-04:00",
-  "vix": 14.15999984741211,
+  "generated_at": "2026-09-04T15:32:28.365820-04:00",
+  "vix": 14.210000038146973,
   "dte_range": "1-30",
   "atm_strikes": 5,
   "earnings_hard_block_days": 14,
@@ -18,15 +18,15 @@
   "regime": {
     "regime": "bull",
     "score": 83,
-    "qqq_5d": 0.21,
-    "qqq_20d": -0.71,
+    "qqq_5d": 0.2,
+    "qqq_20d": -0.72,
     "qqq_above_ema20": true,
     "spy_gap_pct": -0.15,
     "spy_gap_up": false,
     "spy_gap_down": false
   },
   "universe_size": 833,
-  "scan_duration_sec": 157.6793942451477,
+  "scan_duration_sec": 138.93828868865967,
   "total_candidates": 0,
   "picks": []
 }
