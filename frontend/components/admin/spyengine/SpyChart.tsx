@@ -91,6 +91,14 @@ export interface SpyChartProps {
    * uçları, dünkü kapanış). SEVIYE düğmesiyle birlikte açılıp kapanır.
    */
   levelLines?: { price: number; label: string; color: string }[];
+  /**
+   * İlk yüklemede görünür aralığı SON N DAKİKA ile sınırlar (örn. 1m için
+   * 60, 5m için 120) — verilmezse eskisi gibi tüm seans fitContent() ile
+   * sığdırılır. Amaç: tüm günü tek pencereye sıkıştırıp mumları, üst
+   * etiketleri ve seviye çizgilerini iç içe geçirmemek; kullanıcı sonradan
+   * zoom/pan yaparsa dokunulmaz (bkz. didFitRef, yalnızca İLK yüklemede).
+   */
+  defaultWindowMin?: number;
 }
 
 interface LegendState {
@@ -121,7 +129,7 @@ const num = (v: number | null | undefined, d = 2) =>
   v == null || !Number.isFinite(v) ? "—" : v.toFixed(d);
 
 export default function SpyChart({
-  bars, timeframe, events, position, toggles, height, autoScroll, levelLines,
+  bars, timeframe, events, position, toggles, height, autoScroll, levelLines, defaultWindowMin,
 }: SpyChartProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -185,12 +193,16 @@ export default function SpyChart({
         vertLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
         horzLine: { color: "#3b82f6", width: 1, style: LineStyle.Dashed, labelBackgroundColor: "#1d4ed8" },
       },
-      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.16, bottom: 0.1 } },
+      // top 0.22: üst-sol OHLC/gösterge legend'ı (2 satır) için mumların
+      // üstünde net boşluk bırakır -- legend'in mumlarla iç içe geçmemesi.
+      rightPriceScale: { borderColor: C.border, scaleMargins: { top: 0.22, bottom: 0.1 } },
       timeScale: {
         borderColor: C.border,
         timeVisible: true,
         secondsVisible: false,
-        rightOffset: 6,
+        // Son mum ile sağdaki seviye etiketi sütunu arasında boşluk bırakır
+        // -- mum akışı seviye etiketlerine değmeden bitsin diye.
+        rightOffset: 10,
         barSpacing: 7,
         // GERÇEK zaman damgası korunur; sadece etiket NY'ye çevrilir.
         tickMarkFormatter: (t: Time) => nyClock(t as number),
@@ -378,13 +390,25 @@ export default function SpyChart({
 
     // İlk veri geldiğinde bir kez sığdır; sonrasında kullanıcının zoom'una dokunma.
     if (!didFitRef.current && display.length) {
-      chartRef.current.timeScale().fitContent();
+      if (defaultWindowMin) {
+        // Son N dakikayı göster (örn. 1m için 60, 5m için 120) -- tüm günü
+        // tek pencereye sıkıştırmak yerine son durumu okunur büyüklükte
+        // gösterir; üst etiketler ve seviye çizgileri hâlâ görünür kalır.
+        const lastT = display[display.length - 1].time;
+        const fromT = lastT - defaultWindowMin * 60;
+        chartRef.current.timeScale().setVisibleRange({
+          from: fromT as unknown as Time,
+          to: lastT as unknown as Time,
+        });
+      } else {
+        chartRef.current.timeScale().fitContent();
+      }
       didFitRef.current = true;
     } else if (autoScroll && display.length) {
       chartRef.current.timeScale().scrollToRealTime();
     }
 
-  }, [computed, bars, toggles, autoScroll]);
+  }, [computed, bars, toggles, autoScroll, defaultWindowMin]);
 
   // Fare grafiğin dışındayken gösterilen varsayılan okuma = son mum.
   const lastLegend = useMemo<LegendState>(() => {

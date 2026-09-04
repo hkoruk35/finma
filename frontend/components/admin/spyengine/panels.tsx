@@ -168,10 +168,12 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
         </span>
       </div>
       <div className="overflow-x-auto">
-        <div className="grid gap-px bg-[#1c2635] [grid-template-columns:repeat(auto-fit,minmax(104px,1fr))]">
+        <div className="grid gap-px bg-[#1c2635] [grid-template-columns:repeat(auto-fit,minmax(136px,1fr))]">
           {quotes.map((q, idx) => {
             const up = (q.changePct ?? 0) > 0;
             const down = (q.changePct ?? 0) < 0;
+            const hourUp = (q.changePctHour ?? 0) > 0;
+            const hourDown = (q.changePctHour ?? 0) < 0;
             return (
               <div
                 key={q.symbol}
@@ -194,9 +196,10 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
                       </span>
                     </div>
                     {q.changePctHour != null && (
-                      <div className="flex items-baseline justify-end whitespace-nowrap">
-                        <span className={`font-mono text-[8.5px] tabular-nums opacity-80 ${tone(q.changePctHour)}`}>
-                          1sa {signed(q.changePctHour, 2)}%
+                      <div className="mt-0.5 flex items-baseline justify-between gap-1.5 whitespace-nowrap border-t border-white/5 pt-0.5">
+                        <span className="text-[8px] font-medium text-slate-500">1sa</span>
+                        <span className={`shrink-0 font-mono text-[9.5px] tabular-nums ${tone(q.changePctHour)}`}>
+                          {hourUp ? "▲" : hourDown ? "▼" : "▬"}{signed(q.changePctHour, 2)}%
                         </span>
                       </div>
                     )}
@@ -301,7 +304,7 @@ function Card({ label, value, sub, tone: t }: { label: string; value: ReactNode;
     <div className="bg-[#0f141d] px-2.5 py-1.5">
       <div className="text-[9px] font-semibold tracking-wider text-sky-300">{label}</div>
       <div className={`font-mono text-[13px] font-semibold leading-tight ${t ?? "text-slate-100"}`}>{value}</div>
-      {sub != null && <div className="truncate font-mono text-[9.5px] leading-tight text-slate-400">{sub}</div>}
+      {sub != null && <div className="font-mono text-[9.5px] leading-snug text-slate-400">{sub}</div>}
     </div>
   );
 }
@@ -319,7 +322,7 @@ export function InfoCards({ spot, lastFetch, phase }: {
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      <div className="grid grid-cols-2 gap-px bg-[#1c2635] sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <div className="grid gap-px bg-[#1c2635] [grid-template-columns:repeat(auto-fit,minmax(148px,1fr))]">
         <Card
           label="SPY FİYAT"
           value={spot.price == null ? "veri yok" : `$${num(spot.price)}`}

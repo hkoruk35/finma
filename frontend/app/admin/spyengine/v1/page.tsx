@@ -823,6 +823,7 @@ export default function SpyEngineCommandCenter() {
                     height={chart1Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
+                    defaultWindowMin={60}
                   />
                 </div>
                 <div ref={chart5WrapRef} className="bg-[#0a0e17]">
@@ -846,6 +847,7 @@ export default function SpyEngineCommandCenter() {
                     height={chart5Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
+                    defaultWindowMin={120}
                   />
                 </div>
               </div>
@@ -1061,6 +1063,7 @@ export default function SpyEngineCommandCenter() {
                 height={420}
                 autoScroll={autoScroll}
                 levelLines={data?.levels?.lines}
+                defaultWindowMin={60}
               />
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
@@ -1076,6 +1079,7 @@ export default function SpyEngineCommandCenter() {
                 height={420}
                 autoScroll={autoScroll}
                 levelLines={data?.levels?.lines}
+                defaultWindowMin={120}
               />
             </div>
           </div>
