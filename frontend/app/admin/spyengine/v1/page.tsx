@@ -730,7 +730,7 @@ export default function SpyEngineCommandCenter() {
               <span className="text-[9px] text-slate-500">{showTickerStrip ? "▲ gizle" : "▼ göster"}</span>
             </button>
             {showTickerStrip && (
-              <div className="grid grid-cols-1 gap-1 p-1 lg:grid-cols-2 lg:items-stretch">
+              <div className="flex flex-col gap-1 p-1">
                 <TickerStrip quotes={quotes} updatedAt={quotesAt} />
                 <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
               </div>

@@ -102,17 +102,28 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
   const popRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
 
-  // Fare hücreden popup'a geçerken aradaki boşlukta popup kapanmasın diye
-  // kapanış geciktirilir; popup'ın üstüne girilince iptal edilir.
+  // Fare hücreden ayrılınca popup HEMEN kapanmaz -- 18 sn açık kalır (rahat
+  // okumak için) ya da kullanıcı herhangi bir yere tıklayınca hemen kapanır.
+  // Popup'ın üstüne tekrar girilirse (fare hücreden popup'a taşınırken)
+  // kapanma iptal edilir.
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelClose = () => {
     if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
   };
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setHover(null), 160);
+    closeTimer.current = setTimeout(() => setHover(null), 18000);
   };
   useEffect(() => cancelClose, []);
+
+  // Herhangi bir yere tıklayınca popup'ı hemen kapat.
+  useEffect(() => {
+    if (!hover) return;
+    const onClick = () => { cancelClose(); setHover(null); };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hover != null]);
 
   const hoverSymbol = hover ? quotes[hover.idx]?.symbol ?? null : null;
 
@@ -151,7 +162,11 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
     if (left + w + M > vw) left = hover.rect.left - w - M;
     left = Math.min(Math.max(M, left), Math.max(M, vw - w - M));
 
-    let top = hover.rect.top;
+    // Hücrenin DİKEY ORTASINA hizala (üst kenarına değil) -- böylece
+    // viewport'a sığdırmak için kırpma gerektiğinde bile popup, hangi
+    // hücrenin üzerinde durduğuna en yakın konumda kalır, ekranın rastgele
+    // bir köşesine "zıplamaz".
+    let top = hover.rect.top + hover.rect.height / 2 - h / 2;
     top = Math.min(Math.max(M, top), Math.max(M, vh - h - M));
 
     setPos({ top, left });
@@ -215,7 +230,7 @@ export function TickerStrip({ quotes, updatedAt }: { quotes: StripQuote[]; updat
       {hq && (
         <div
           ref={popRef}
-          className="fixed z-[9999] w-[320px] rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
+          className="fixed z-[9999] max-h-[80vh] w-[320px] overflow-y-auto rounded-lg border border-[#2d3748] bg-[#0a0e17] p-3 shadow-2xl"
           style={{
             top: pos?.top ?? 0,
             left: pos?.left ?? 0,
@@ -301,10 +316,10 @@ export function PhaseBadge({ phase }: { phase: SessionPhase }) {
 
 function Card({ label, value, sub, tone: t }: { label: string; value: ReactNode; sub?: ReactNode; tone?: string }) {
   return (
-    <div className="bg-[#0f141d] px-2.5 py-1.5">
+    <div className="rounded-md border border-[#1c4753]/50 bg-[#0f2e37] px-2.5 py-2 transition-colors hover:border-[#1c4753]">
       <div className="text-[9px] font-semibold tracking-wider text-sky-300">{label}</div>
-      <div className={`font-mono text-[13px] font-semibold leading-tight ${t ?? "text-slate-100"}`}>{value}</div>
-      {sub != null && <div className="font-mono text-[9.5px] leading-snug text-slate-400">{sub}</div>}
+      <div className={`mt-0.5 font-mono text-[13px] font-semibold leading-tight ${t ?? "text-slate-100"}`}>{value}</div>
+      {sub != null && <div className="mt-0.5 font-mono text-[9.5px] leading-snug text-slate-400">{sub}</div>}
     </div>
   );
 }
@@ -321,8 +336,8 @@ export function InfoCards({ spot, lastFetch, phase }: {
     spot.changePct == null ? "—" : spot.changePct > 0 ? "YUKARI ▲" : spot.changePct < 0 ? "AŞAĞI ▼" : "YATAY ▬";
 
   return (
-    <div className={`${SURFACE} overflow-hidden`}>
-      <div className="grid gap-px bg-[#1c2635] [grid-template-columns:repeat(auto-fit,minmax(148px,1fr))]">
+    <div className={`${SURFACE} overflow-hidden p-1.5`}>
+      <div className="grid gap-1.5 [grid-template-columns:repeat(auto-fit,minmax(148px,1fr))]">
         <Card
           label="SPY FİYAT"
           value={spot.price == null ? "veri yok" : `$${num(spot.price)}`}
