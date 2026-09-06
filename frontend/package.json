@@ -25,7 +25,7 @@
     "dotenv": "^17.4.2",
     "dotted-map": "^3.1.0",
     "fast-xml-parser": "^5.10.1",
-    "html2canvas": "^1.4.1",
+    "html2canvas-pro": "^1.5.11",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
     "lightweight-charts": "^5.2.0",
