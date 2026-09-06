@@ -52,6 +52,7 @@ import {
   SessionInfo,
   ema,
   rsi,
+  atr,
   nyParts,
   ENTRY_START_MIN,
   ENTRY_END_MIN,
@@ -97,6 +98,38 @@ export const CLOSE_POSITION_MIN = 0.6;
 
 /** Hacim teyidi için bakılan geçmiş mum sayısı */
 export const VOLUME_LOOKBACK = 15;
+
+/**
+ * ── V4.2 (2026-09-06): Madde 5 değişikliği — "5m mum yönü" yerine
+ * "5m EMA21 konumu" ────────────────────────────────────────────────
+ * 5m mum rengi (yeşil/kırmızı) tek bir mumun gürültüsüne açıktı; EMA21
+ * konumu 5m'nin genel yönünü daha kararlı yansıtır. Fiyat, EMA21'e sadece
+ * "hafif" bir ATR tamponuyla ayrılmış olmalı — çizginin tam üzerinde
+ * gidip gelen fiyatların gürültüyle giriş üretmesini önler.
+ * NOT: tampon çarpanı (0.1×) bu oturumda belirlendi, canlı ölçümle
+ * ayarlanabilir bir sabittir.
+ */
+export const M5_EMA_PERIOD = 21;
+export const M5_EMA_BUFFER_ATR_MULT = 0.1;
+
+/**
+ * ── V4.2 (2026-09-06): Onaylı TREND için sabitler ───────────────────
+ * "Sonsuza kadar onay bekleniyor" durumunu önlemek için hard backstop +
+ * kâr kilidi eklendi. İkisi de SADECE onaylı TREND rejiminde çalışır;
+ * SIKIŞMA/onaysız TREND zaten kendi sabit kurallarıyla (stop/hedef/süre)
+ * yönetiliyor ve DEĞİŞMEDİ.
+ */
+/** Onay bekleme fazı DAHİL toplam taşıma bu süreyi (dk) geçerse, ters-onay
+ *  beklentisi iptal olur ve pozisyon sabit-kural (SIKIŞMA) rejimine döner. */
+export const TREND_BACKSTOP_MAX_MINUTES = 45;
+/** Kâr kilidi 1. eşik: prim bu yüzdeye ulaşınca stop MALİYETE (breakeven) çekilir. */
+export const TREND_PROFIT_LOCK1_PCT = 0.30;
+export const TREND_PROFIT_LOCK1_FLOOR = 0.0;
+/** Kâr kilidi 2. eşik: prim bu yüzdeye ulaşınca taban 1. eşiğin seviyesine yükselir
+ *  (zirveden en fazla ~20 puan geri verilir). Taban değeri bu oturumda seçildi,
+ *  ölçümle ayarlanabilir bir sabittir. */
+export const TREND_PROFIT_LOCK2_PCT = 0.50;
+export const TREND_PROFIT_LOCK2_FLOOR = 0.30;
 
 
 /**
@@ -393,6 +426,7 @@ function trendBreakRisk(bars: Bar[], i: number, side: Side): number {
 function checkGate(
   m1: Bar[], m5: Bar[],
   m1Rsi: (number | null)[], m5Rsi: (number | null)[],
+  m5Ema: (number | null)[], m5Atr: (number | null)[],
   i: number, m5Cursor: number, side: Side
 ): { ok: true; volRatio: number; rsi1: number; rsi5: number } | { ok: false; blockedBy: string } {
   const bar = m1[i];
@@ -423,11 +457,17 @@ function checkGate(
     return { ok: false, blockedBy: `1m RSI ${side === "LONG" ? "yükselmiyor" : "düşmüyor"} (${r1.toFixed(0)})` };
   }
 
-  // 3) 5m mum yönü
+  // 3) 5m EMA21 konumu (V4.2 — eskiden 5m mum yönüydü). Fiyat, EMA21'e
+  //    hafif bir ATR tamponuyla ayrılmış olmalı (çizgi üzerindeki gürültü
+  //    yanlış onay vermesin).
   if (m5Cursor < 1) return { ok: false, blockedBy: "5m verisi yetersiz" };
-  const c5 = candleDir(m5[m5Cursor]);
-  if ((side === "LONG" && c5 !== "UP") || (side === "SHORT" && c5 !== "DOWN")) {
-    return { ok: false, blockedBy: `5m mum ters yönde (${c5 === "UP" ? "yeşil" : c5 === "DOWN" ? "kırmızı" : "doji"})` };
+  const e5 = m5Ema[m5Cursor];
+  const a5 = m5Atr[m5Cursor];
+  if (e5 == null) return { ok: false, blockedBy: "5m EMA21 ısınıyor" };
+  const buf5 = (a5 ?? 0) * M5_EMA_BUFFER_ATR_MULT;
+  const m5Close = m5[m5Cursor].close;
+  if (side === "LONG" ? m5Close <= e5 + buf5 : m5Close >= e5 - buf5) {
+    return { ok: false, blockedBy: `5m fiyat EMA21'in ${side === "LONG" ? "üstünde değil" : "altında değil"} (fiyat ${m5Close.toFixed(2)}, EMA21 ${e5.toFixed(2)})` };
   }
 
   // 4) 5m RSI yönü
@@ -449,6 +489,7 @@ function checkGate(
 function gateChecksFor(
   m1: Bar[], m5: Bar[],
   m1Rsi: (number | null)[], m5Rsi: (number | null)[],
+  m5Ema: (number | null)[], m5Atr: (number | null)[],
   i: number, m5Cursor: number, side: Side
 ): GateCheck[] {
   if (i < 1) return [];
@@ -460,10 +501,12 @@ function gateChecksFor(
   const va = avgVolume(m1, i, VOLUME_LOOKBACK);
   const volRatio = va != null && va > 0 ? (bar.volume || 0) / va : 1;
   const r1 = m1Rsi[i], r1p = m1Rsi[i - 1];
-  const c5 = m5Cursor >= 0 ? candleDir(m5[m5Cursor]) : "NONE";
+  const e5 = m5Cursor >= 1 ? m5Ema[m5Cursor] : null;
+  const a5 = m5Cursor >= 1 ? m5Atr[m5Cursor] : null;
+  const m5Close = m5Cursor >= 0 ? m5[m5Cursor].close : null;
+  const buf5 = (a5 ?? 0) * M5_EMA_BUFFER_ATR_MULT;
   const r5 = m5Cursor >= 1 ? m5Rsi[m5Cursor] : null;
   const r5p = m5Cursor >= 1 ? m5Rsi[m5Cursor - 1] : null;
-  const wantDir: StreakDir = side === "LONG" ? "UP" : "DOWN";
 
   return [
     {
@@ -487,9 +530,9 @@ function gateChecksFor(
       detail: r1 == null ? "veri yok" : r1.toFixed(0),
     },
     {
-      label: `5m mum ${side === "LONG" ? "yeşil" : "kırmızı"}`,
-      ok: c5 === wantDir,
-      detail: c5 === "UP" ? "yeşil" : c5 === "DOWN" ? "kırmızı" : "doji",
+      label: `5m fiyat EMA21'in ${side === "LONG" ? "üstünde" : "altında"} (+ATR tamponu)`,
+      ok: e5 != null && m5Close != null && (side === "LONG" ? m5Close > e5 + buf5 : m5Close < e5 - buf5),
+      detail: e5 == null ? "veri yok" : `fiyat ${m5Close?.toFixed(2)} / EMA21 ${e5.toFixed(2)}`,
     },
     {
       label: `5m RSI ${side === "LONG" ? "yükseliyor" : "düşüyor"}`,
@@ -578,6 +621,8 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const m15Read = readM15(m15);
   const m1Rsi = rsi(closes(m1), 14);
   const m5Rsi = rsi(closes(m5), 14);
+  const m5Ema = ema(closes(m5), M5_EMA_PERIOD);
+  const m5Atr = atr(m5, 14);
 
   const candidates: EntryCandidate[] = [];
 
@@ -606,7 +651,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     if (streakLen !== ENTRY_STREAK || firedThisStreak) continue;
 
     const side: Side = streakDir === "UP" ? "LONG" : "SHORT";
-    const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, side);
+    const gate = checkGate(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, i, m5Cursor, side);
     if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
 
     firedThisStreak = true;
@@ -622,7 +667,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       reasoning:
         `${ENTRY_STREAK} ardışık ${side === "LONG" ? "yükseliş" : "düşüş"} 1m mumu · ` +
         `hacim ort.×${gate.volRatio.toFixed(2)} · 1m RSI ${gate.rsi1.toFixed(0)} ${side === "LONG" ? "yükseliyor" : "düşüyor"} · ` +
-        `5m mum ${side === "LONG" ? "yeşil" : "kırmızı"} · 5m RSI ${gate.rsi5.toFixed(0)} aynı yönde`,
+        `5m fiyat EMA21'in ${side === "LONG" ? "üstünde" : "altında"} · 5m RSI ${gate.rsi5.toFixed(0)} aynı yönde`,
     });
   }
 
@@ -680,8 +725,8 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
 
   const m5RsiLast = m5Cursor >= 0 ? m5Rsi[m5Cursor] : null;
   const gateStatus: GateStatus = {
-    long: gateChecksFor(m1, m5, m1Rsi, m5Rsi, lastM1Idx, m5Cursor, "LONG"),
-    short: gateChecksFor(m1, m5, m1Rsi, m5Rsi, lastM1Idx, m5Cursor, "SHORT"),
+    long: gateChecksFor(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, lastM1Idx, m5Cursor, "LONG"),
+    short: gateChecksFor(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, lastM1Idx, m5Cursor, "SHORT"),
   };
 
   return {
@@ -798,6 +843,8 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   const m5 = closedBars(input.m5, 5, nowSec);
   const m1Rsi = rsi(closes(m1), 14);
   const m5Rsi = rsi(closes(m5), 14);
+  const m5Ema = ema(closes(m5), M5_EMA_PERIOD);
+  const m5Atr = atr(m5, 14);
   const eodEpoch = eodEpochOf(session);
   /** Çıkış, girişin aynası: aynı onay seti TERS yönde aranır */
   const exitSide: Side = side === "LONG" ? "SHORT" : "LONG";
@@ -816,19 +863,25 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   // teyidini görmeden hedefsiz taşınmaz -- bir kez true olunca (sticky)
   // taramanın geri kalanında hep true kalır, bkz. döngü içindeki kontrol.
   let trendConfirmed = false;
-  const regimeLabel = (r: Regime, confirmed: boolean): string =>
-    r === "CHOP" ? "Sikisma modu"
+  // V4.2: profit-lock tabanı -- yalnızca onaylı TREND'de, monoton (yalnızca
+  // yükselir) bir taban. null = henüz kilit yok.
+  let profitFloorPct: number | null = null;
+  const regimeLabel = (r: Regime, confirmed: boolean, backstopped: boolean): string =>
+    backstopped ? "Trend rejimi (45 dk hard backstop -- sabit kurallara donuldu)"
+    : r === "CHOP" ? "Sikisma modu"
     : r === "TREND" && !confirmed ? "Trend rejimi (henuz onaylanmadi)"
     : r === "TREND" ? "Trend modu"
     : "Belirsiz rejim";
-  const regimeNoteOf = (r: Regime, confirmed: boolean): string =>
-    r === "CHOP" || (r === "TREND" && !confirmed)
-      ? `${regimeLabel(r, confirmed)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
+  const regimeNoteOf = (r: Regime, confirmed: boolean, backstopped: boolean): string =>
+    backstopped
+      ? `${regimeLabel(r, confirmed, backstopped)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop`
+      : r === "CHOP" || (r === "TREND" && !confirmed)
+      ? `${regimeLabel(r, confirmed, backstopped)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
       : r === "TREND"
-      ? "Trend modu (onaylandi) — zaman siniri yok, tam ters teyit bekleniyor"
+      ? `Trend modu (onaylandi)${profitFloorPct != null ? ` — kar kilidi %${(profitFloorPct * 100).toFixed(0)}'de` : ""} — ${TREND_BACKSTOP_MAX_MINUTES} dk hard backstop, tam ters teyit bekleniyor`
       : "Belirsiz rejim — sikisma kurallari uygulaniyor";
 
-  const progressOf = (note: string): ExitProgress => ({
+  const progressOf = (note: string, backstopped = false): ExitProgress => ({
     againstBars: against,
     reversalNeeded: EXIT_REVERSAL_BARS,
     rsiSupportive,
@@ -836,7 +889,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     barsHeld,
     bestSpot,
     regime: lastRegime,
-    regimeNote: regimeNoteOf(lastRegime, trendConfirmed),
+    regimeNote: regimeNoteOf(lastRegime, trendConfirmed, backstopped),
     halfTaken,
     premiumPct: lastPct,
     trendConfirmed,
@@ -888,13 +941,20 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
       }
     }
 
+    // V4.2: hard backstop -- onay bekleme fazi DAHIL toplam tasima
+    // TREND_BACKSTOP_MAX_MINUTES'i gectiyse, "tam ters teyit" beklentisi
+    // iptal olur ve pozisyon sabit-kural (SIKISMA) rejimine doner. Boylece
+    // "sonsuza kadar onay bekleniyor" durumu artik mumkun degil.
+    const backstopped = heldMin >= TREND_BACKSTOP_MAX_MINUTES;
+
     // V4.1 (B.2 + B.3): SIKIŞMA VE onaylanmamis TREND, AYNI sabit kurallarla
     // yonetilir -- ikisi de asagidaki blokta kalir, REVERSAL_EXIT taramasina
     // (asagida) HIC ulasmaz. Bug A.2'nin kok nedeni buydu: CHOP bu bloktan
-    // cikip asagidaki "ters seri" taramasina dusebiliyordu.
-    const useChopRules = lastRegime === "CHOP" || (lastRegime === "TREND" && !trendConfirmed);
+    // cikip asagidaki "ters seri" taramasina dusebiliyordu. V4.2: backstopped
+    // da bu bloga dahil edildi (onaylanmis TREND bile olsa).
+    const useChopRules = lastRegime === "CHOP" || (lastRegime === "TREND" && !trendConfirmed) || backstopped;
     if (useChopRules) {
-      const label = regimeLabel(lastRegime, trendConfirmed);
+      const label = regimeLabel(lastRegime, trendConfirmed, backstopped);
       // 1) Sabit stop -- asla tasinmaz. V4.1 (A.1): kapanis degil, mumun
       //    EN KOTU (low) prim seviyesi kullanilir -- bkz. worstPctAt yukarida.
       const worstPct = worstPctAt(bar.time);
@@ -904,7 +964,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
             time: bar.time, spot: bar.close, reason: "STOP_EXIT",
             note: `${label} sabit stopu: prim en kotu %${(worstPct * 100).toFixed(0)} (esik %${CHOP_STOP_PCT * 100}).`,
           },
-          progress: progressOf(`${label} stopuyla kapandi.`),
+          progress: progressOf(`${label} stopuyla kapandi.`, backstopped),
           halfTakeTime,
         };
       }
@@ -920,18 +980,46 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
             time: bar.time, spot: bar.close, reason: "TARGET_EXIT",
             note: `${label} hedefi: prim +%${(pct * 100).toFixed(0)} (esik +%${CHOP_FULL_TAKE_PCT * 100}).`,
           },
-          progress: progressOf(`${label} hedefiyle kapandi.`),
+          progress: progressOf(`${label} hedefiyle kapandi.`, backstopped),
           halfTakeTime,
         };
       }
-      // 4) Sure siniri -- bu modda hicbir pozisyon 15 dakikadan uzun tasinmaz
-      if (heldMin >= CHOP_MAX_MINUTES) {
+      // 4) Sure siniri -- backstopped ise DERHAL (45 dk zaten dolmus demektir);
+      //    gercek SIKISMA/onaysiz-TREND'de 15 dakika siniri.
+      if (backstopped || heldMin >= CHOP_MAX_MINUTES) {
         return {
           signal: {
             time: bar.time, spot: bar.close, reason: "TIME_EXIT",
-            note: `${label} sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
+            note: backstopped
+              ? `${TREND_BACKSTOP_MAX_MINUTES} dk hard backstop doldu — ters teyit beklentisi iptal edildi, sabit kurallarla kapatildi.`
+              : `${label} sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
           },
-          progress: progressOf(`${label} sure siniriyla kapandi.`),
+          progress: progressOf(backstopped ? "Hard backstop ile kapandi." : `${label} sure siniriyla kapandi.`, backstopped),
+          halfTakeTime,
+        };
+      }
+    }
+
+    // V4.2: kar kilidi -- SADECE onayli TREND'de (chop kurallarina girmedi).
+    // Tam ters-onay setini beklemeden, prim belirli esikleri gectiyse taban
+    // yukari cekilir (monoton -- asla geri inmez). Mum-ici EN KOTU seviye
+    // (worstPctAt) kullanilir, ayni stop mantigi gibi.
+    if (!useChopRules && pct != null) {
+      if (pct >= TREND_PROFIT_LOCK2_PCT) {
+        profitFloorPct = Math.max(profitFloorPct ?? -Infinity, TREND_PROFIT_LOCK2_FLOOR);
+      } else if (pct >= TREND_PROFIT_LOCK1_PCT) {
+        profitFloorPct = Math.max(profitFloorPct ?? -Infinity, TREND_PROFIT_LOCK1_FLOOR);
+      }
+    }
+    if (!useChopRules && profitFloorPct != null) {
+      const worstPct = worstPctAt(bar.time);
+      if (worstPct != null && worstPct <= profitFloorPct) {
+        return {
+          signal: {
+            time: bar.time, spot: bar.close, reason: "STOP_EXIT",
+            note: `Kar kilidi: prim daha once +%${(profitFloorPct >= TREND_PROFIT_LOCK2_FLOOR && profitFloorPct === TREND_PROFIT_LOCK2_FLOOR ? TREND_PROFIT_LOCK2_PCT : TREND_PROFIT_LOCK1_PCT) * 100} esigini gecmisti, simdi taban %${(profitFloorPct * 100).toFixed(0)} seviyesine dondu.`,
+          },
+          progress: progressOf(`Kar kilidi tabaniyla (%${(profitFloorPct * 100).toFixed(0)}) kapandi.`),
           halfTakeTime,
         };
       }
@@ -966,7 +1054,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     // ulasabilir (useChopRules yukarida CHOP ve onaysiz TREND'i elemis).
     const tightened = lastPct != null && lastPct >= TREND_TIGHTEN_PCT;
     if (!tightened) {
-      const gate = checkGate(m1, m5, m1Rsi, m5Rsi, i, m5Cursor, exitSide);
+      const gate = checkGate(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, i, m5Cursor, exitSide);
       if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
     }
 
