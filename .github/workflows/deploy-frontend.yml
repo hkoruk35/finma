@@ -10,6 +10,19 @@ on:
       - "frontend/**"
       - "!frontend/public/data/**"
 
+# 2026-09-06: iki hizli ardisik push (ayni dakika icinde) iki paralel run
+# tetikledi, ikisi de ayni sunucuda ayni ".next" dizinine yazdi ve build'i
+# bozdu (birkac route "client reference manifest does not exist" hatasi
+# verdi -- temiz rebuild ile duzeltildi). Bu grup ayni anda sadece BIR
+# deploy'un surmesini garanti eder. cancel-in-progress BILINCLI OLARAK
+# false: SSH ortasinda calismayi iptal etmek uzak sunucuda npm
+# install/build'i yarim birakip node_modules/.next'i az once yasadigimizdan
+# daha kotu bir sekilde bozabilir. Bunun yerine yeni push kuyruga girer,
+# devam eden deploy guvenle bitince sirayla calisir.
+concurrency:
+  group: deploy-frontend-hetzner
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
