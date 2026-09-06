@@ -1,0 +1,30 @@
+name: Deploy Frontend to Hetzner
+
+# Sadece frontend kod degisikliklerinde tetiklenir. Bot veri commit'leri
+# (frontend/public/data/**) es gecilir — sunucu kendi cron botlariyla
+# kendi verisini uretiyor, bu path'lerin push'u deploy gerektirmez.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - "!frontend/public/data/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HETZNER_HOST }}
+          username: ${{ secrets.HETZNER_USER }}
+          key: ${{ secrets.HETZNER_SSH_KEY }}
+          script_stop: true
+          script: |
+            cd /root/finma
+            GIT_SSH_COMMAND='ssh -i /root/.ssh/github_finma -o StrictHostKeyChecking=accept-new' git pull origin main
+            cd frontend
+            npm install --no-audit --no-fund
+            npm run build
+            pm2 restart bogastock-next --update-env
