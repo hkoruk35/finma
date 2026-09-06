@@ -8,7 +8,7 @@
  * (tickMarkFormatter / timeFormatter) America/New_York'a çevirir. Bu yüzden
  * grafikteki 09:30 ile Yahoo'nun 09:30 mumu birebir aynı mumdur.
  *
- * Paneller: 0 = fiyat (mum + Bollinger + EMA50 + VWAP + hacim),
+ * Paneller: 0 = fiyat (mum + Bollinger + EMA21 + VWAP + hacim),
  *           1 = RSI(14), 2 = MACD(12,26,9).
  * Göstergeler lib/spyengine/core.ts'ten gelir — motorun karar verirken
  * kullandığı fonksiyonların TA KENDİSİ, ayrı bir kopyası değil.
@@ -68,7 +68,7 @@ const C = {
 export interface ChartToggles {
   candleType: "HA" | "NORMAL";
   bb: boolean;
-  ema50: boolean;
+  ema21: boolean;
   vwap: boolean;
   volume: boolean;
   rsi: boolean;
@@ -173,7 +173,7 @@ export default function SpyChart({
     return {
       display,
       bb: bollinger(closes, 20, 2),
-      ema50: ema(closes, 50),
+      ema21: ema(closes, 21),
       vwap: sessionVwap(bars),
       rsi14: rsi(closes, 14),
       macd: macd(closes, 12, 26, 9),
@@ -388,7 +388,7 @@ export default function SpyChart({
   // ── Veri yazımı ─────────────────────────────────────────────────
   useEffect(() => {
     if (!chartRef.current || !candleRef.current) return;
-    const { display, bb, ema50, vwap, rsi14, macd: m } = computed;
+    const { display, bb, ema21, vwap, rsi14, macd: m } = computed;
     const T = (t: number) => t as unknown as Time;
 
     barsForScaleRef.current = display.map((b) => ({ time: b.time, high: b.high, low: b.low }));
@@ -402,7 +402,7 @@ export default function SpyChart({
     bbUpRef.current?.setData(line(bb.upper, toggles.bb));
     bbMidRef.current?.setData(line(bb.mid, toggles.bb));
     bbLowRef.current?.setData(line(bb.lower, toggles.bb));
-    emaRef.current?.setData(line(ema50, toggles.ema50));
+    emaRef.current?.setData(line(ema21, toggles.ema21));
     vwapRef.current?.setData(line(vwap, toggles.vwap));
 
     volRef.current?.setData(
@@ -458,14 +458,14 @@ export default function SpyChart({
   const lastLegend = useMemo<LegendState>(() => {
     const li = bars.length - 1;
     if (li < 0) return EMPTY_LEGEND;
-    const { display, bb, ema50, vwap, rsi14, macd: m } = computed;
+    const { display, bb, ema21, vwap, rsi14, macd: m } = computed;
     return {
       time: bars[li].time,
       open: display[li].open, high: display[li].high, low: display[li].low, close: display[li].close,
       volume: bars[li].volume,
       rsi: rsi14[li], macd: m.macd[li], signal: m.signal[li], hist: m.hist[li],
       bbU: bb.upper[li], bbM: bb.mid[li], bbL: bb.lower[li],
-      ema: ema50[li], vwap: vwap[li],
+      ema: ema21[li], vwap: vwap[li],
     };
   }, [bars, computed]);
 
@@ -577,9 +577,9 @@ export default function SpyChart({
               BB(20,2) {num(legend.bbL)} / {num(legend.bbM)} / {num(legend.bbU)}
             </span>
           )}
-          {toggles.ema50 && (
+          {toggles.ema21 && (
             <span className="rounded bg-[#111827]/90 px-1.5 py-0.5" style={{ color: C.ema }}>
-              EMA50 {num(legend.ema)}
+              EMA21 {num(legend.ema)}
             </span>
           )}
           {toggles.vwap && (

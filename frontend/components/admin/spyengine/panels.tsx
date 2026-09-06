@@ -1118,7 +1118,7 @@ interface MiniBar {
 const MINI_W = 296;
 const MINI_H = 118;
 
-/** Son 20 günlük 1d mum + EMA50. bars undefined = yükleniyor, [] = veri yok. */
+/** Son 20 günlük 1d mum + EMA21. bars undefined = yükleniyor, [] = veri yok. */
 function MiniCandles({ bars }: { bars: MiniBar[] | undefined }) {
   const box = "flex items-center justify-center rounded border border-[#1c2635] bg-[#0b0f18] text-[9px] text-slate-600";
 
@@ -1140,7 +1140,7 @@ function MiniCandles({ bars }: { bars: MiniBar[] | undefined }) {
   const slot = MINI_W / bars.length;
   const bw = Math.max(2, slot * 0.62);
 
-  // EMA50 çizgisi — sadece hesaplanabilmiş noktalar
+  // EMA21 çizgisi — sadece hesaplanabilmiş noktalar
   const emaPts = bars
     .map((b, i) => (b.ema == null ? null : `${slot * (i + 0.5)},${y(b.ema)}`))
     .filter((p): p is string => p != null)
@@ -1176,7 +1176,7 @@ function MiniCandles({ bars }: { bars: MiniBar[] | undefined }) {
         <span>son {bars.length} gün · 1d</span>
         <span className="flex items-center gap-1">
           <span className="inline-block h-[2px] w-3 bg-[#eab308]" />
-          EMA50 {emas.length ? num(emas[emas.length - 1]) : "—"}
+          EMA21 {emas.length ? num(emas[emas.length - 1]) : "—"}
         </span>
       </div>
     </div>

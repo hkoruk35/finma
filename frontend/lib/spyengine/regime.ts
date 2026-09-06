@@ -21,14 +21,33 @@
  *    Oynaklık genişlemesi trendin değil, VOLATİL trendin işareti. Yerine
  *    Kaufman Yön Verimliliği (net hareket / kat edilen yol) kondu → %60.
  * 2. Spec 5m mum hizasını da trend kriteri sayıyordu; kriter setini
- *    5'e 5 simetrik tutmak için çıkarıldı (aynı bilgi ER ve EMA50 eğimi
+ *    5'e 5 simetrik tutmak için çıkarıldı (aynı bilgi ER ve EMA21 eğimi
  *    üzerinden zaten geliyor). 15m gibi 5m de rejim KARARINA girmez.
  *
  * Her kriter ayrı ayrı raporlanır — rejim kara kutu olmamalı, "neden
  * sıkışma dedin" sorusu panelde tek tek görülmeli (Kapı Durumu deseni).
+ *
+ * ── EMA21 (2026-09-06) ──────────────────────────────────────────────
+ * EMA50 tamamen kaldırıldı, tüm eğim/taraf kriterleri artık EMA21
+ * üzerinden. Kapanış fiyatları premarket dahil (04:00 ET'den itibaren)
+ * hesaplanır — bkz. `barsOfSessionDay` ile beslenen m1 girdisi.
+ *
+ * ── VWAP — TAVSİYE, KARAR DEĞİL (2026-09-06) ────────────────────────
+ * Günlük (seans başında sıfırlanan) VWAP artık okunuyor ve `vwapNote`
+ * alanında raporlanıyor, ama TREND/CHOP kriterlerine dahil DEĞİL — hiçbir
+ * MIN_PASS eşiğini etkilemez, yönü belirlemez. Yalnızca "fiyat VWAP'ın
+ * hangi tarafında" bilgisini şeffaf gösterir (panelde "tavsiye" etiketiyle).
+ *
+ * ── AÇILIŞ YÖNÜ ÇAPASI: 09:45–10:00 ET (2026-09-06) ─────────────────
+ * `openingBias`, seansın İLK resmi yön okumasını 09:45–10:00 ET
+ * penceresinde SABİTLER: o pencerede EMA21 eğimi + kapanışın EMA21'e göre
+ * konumu + VWAP'a göre konumu (tavsiye) birlikte değerlendirilir. Bu da
+ * KARAR MEKANİZMASINI değiştirmez — `readRegimeAt` yine her mumda aynı
+ * kriterlerle çalışır — yalnızca panelde "açılış yönü" olarak ayrı
+ * raporlanan, tek seferlik bir referans okumadır.
  */
 
-import { atr, ema, rsi, nyParts, RTH_OPEN_MIN, type Bar } from "./core";
+import { atr, ema, rsi, sessionVwap, nyParts, RTH_OPEN_MIN, type Bar } from "./core";
 
 export type Regime = "TREND" | "CHOP" | "UNCERTAIN";
 export type RegimeDirection = "UP" | "DOWN" | "NONE";
@@ -51,13 +70,18 @@ export interface RegimeRead {
   /** Saat dilimi önselinin güvene katkısı (+/−), şeffaflık için ayrı */
   timePrior: number;
   timePriorNote: string;
+  /** VWAP'a göre konum — TAVSİYE amaçlı, hiçbir kritere girmez */
+  vwapNote: string;
+  /** 09:45–10:00 ET açılış yön çapası — bu pencereden önce null */
+  openingBias: RegimeDirection | null;
+  openingBiasNote: string;
   /** İnsan okunur tek satır */
   note: string;
 }
 
 /** Rejim penceresi — "son 20-30 dakika" (spec §1.1) */
 export const REGIME_WINDOW = 25;
-/** EMA50 eğimi karşılaştırmasında kaç mum geriye bakılır */
+/** EMA21 eğimi karşılaştırmasında kaç mum geriye bakılır */
 const SLOPE_LOOKBACK = 10;
 
 /**
@@ -102,8 +126,11 @@ function efficiencyRatio(closes: number[], i: number, n: number): number | null 
  * skorunu ağırlıklandırır.
  */
 export function timePriorFor(minutesEt: number, regime: Regime): { delta: number; note: string } {
+  if (minutesEt < RTH_OPEN_MIN + 15) {
+    return { delta: -10, note: "09:30–09:45 · açılış gürültüsü, yön belirsiz" };
+  }
   if (minutesEt < RTH_OPEN_MIN + 30) {
-    return { delta: -10, note: "09:30–10:00 · yön belirsiz, güven düşürüldü" };
+    return { delta: -6, note: "09:45–10:00 · açılış yönü çapası bu pencerede tespit ediliyor" };
   }
   if (minutesEt < 11 * 60 + 30) {
     return regime === "TREND"
@@ -126,24 +153,61 @@ interface RegimeCtx {
   m1: Bar[];
   closes: number[];
   a: (number | null)[];
-  e50: (number | null)[];
+  e21: (number | null)[];
   r1: (number | null)[];
+  /** Günlük (seans başında sıfırlanan) VWAP — TAVSİYE amaçlı, karara girmez */
+  vw: (number | null)[];
 }
 
 export function buildRegimeCtx(m1: Bar[]): RegimeCtx {
   const closes = m1.map((b) => b.close);
-  return { m1, closes, a: atr(m1, 14), e50: ema(closes, 50), r1: rsi(closes, 14) };
+  return { m1, closes, a: atr(m1, 14), e21: ema(closes, 21), r1: rsi(closes, 14), vw: sessionVwap(m1) };
 }
 
 const EMPTY: RegimeRead = {
   regime: "UNCERTAIN", direction: "NONE", confidence: 0,
   trendChecks: [], chopChecks: [], timePrior: 0, timePriorNote: "",
+  vwapNote: "", openingBias: null, openingBiasNote: "",
   note: "Rejim için yeterli mum yok — en az 35 kapalı 1m mum gerekiyor.",
 };
 
+/**
+ * 09:45–10:00 ET açılış yön çapası (TAVSİYE amaçlı ek okuma — karar
+ * mekanizmasını DEĞİŞTİRMEZ). O pencerede EMA21 eğimi + kapanışın EMA21'e
+ * göre konumu + VWAP'a göre konumu birlikte aynı yönü gösteriyorsa yön
+ * ilan edilir; çelişirlerse NONE (belirsiz) kalır.
+ */
+const OPENING_BIAS_START_MIN = RTH_OPEN_MIN + 15; // 09:45
+const OPENING_BIAS_END_MIN = RTH_OPEN_MIN + 30;   // 10:00
+
+function openingBiasAt(ctx: RegimeCtx, idx: number): { direction: RegimeDirection; note: string } | null {
+  const minutesEt = nyParts(ctx.m1[idx].time).minutes;
+  if (minutesEt < OPENING_BIAS_START_MIN || minutesEt >= OPENING_BIAS_END_MIN) return null;
+  if (idx < SLOPE_LOOKBACK) return null;
+
+  const eNow = ctx.e21[idx], ePrev = ctx.e21[idx - SLOPE_LOOKBACK];
+  const close = ctx.closes[idx];
+  const vw = ctx.vw[idx];
+  if (eNow == null || ePrev == null) return { direction: "NONE", note: "09:45–10:00 · EMA21 için yeterli veri yok" };
+
+  const slopeDir: RegimeDirection = eNow > ePrev ? "UP" : eNow < ePrev ? "DOWN" : "NONE";
+  const priceSide: RegimeDirection = close > eNow ? "UP" : close < eNow ? "DOWN" : "NONE";
+  const vwapSide: RegimeDirection = vw == null ? "NONE" : close > vw ? "UP" : close < vw ? "DOWN" : "NONE";
+
+  if (slopeDir !== "NONE" && slopeDir === priceSide) {
+    const vwapAgrees = vwapSide === slopeDir;
+    return {
+      direction: slopeDir,
+      note: `09:45–10:00 · EMA21 eğimi + fiyat konumu ${slopeDir === "UP" ? "YUKARI" : "AŞAĞI"} yönde uyuştu` +
+        (vw == null ? " (VWAP verisi yok)" : vwapAgrees ? " · VWAP de destekliyor (tavsiye)" : " · VWAP ters tarafta (tavsiye, göz ardı edildi)"),
+    };
+  }
+  return { direction: "NONE", note: "09:45–10:00 · EMA21 eğimi ile fiyat konumu çelişiyor, açılış yönü belirsiz" };
+}
+
 /** `i` indeksli KAPALI 1m mum itibarıyla HAM rejim okuması (histerezissiz) */
 export function readRegimeAt(ctx: RegimeCtx, idx: number): RegimeRead {
-  const { m1, closes, a, e50, r1 } = ctx;
+  const { m1, closes, a, e21, r1, vw } = ctx;
   if (idx < REGIME_WINDOW + SLOPE_LOOKBACK || m1.length < 35) return EMPTY;
 
   const last20 = m1.slice(Math.max(0, idx - 19), idx + 1);
@@ -156,10 +220,10 @@ export function readRegimeAt(ctx: RegimeCtx, idx: number): RegimeRead {
   let flips = 0;
   for (let k = 1; k < dirs.length; k++) if (dirs[k] !== dirs[k - 1]) flips++;
 
-  // EMA50: tek tarafta kalma oranı + kesişim sayısı
+  // EMA21: tek tarafta kalma oranı + kesişim sayısı
   let crossings = 0, prevSide = 0, counted = 0, above = 0, below = 0;
   for (let k = idx - REGIME_WINDOW + 1; k <= idx; k++) {
-    const e = e50[k];
+    const e = e21[k];
     if (e == null) continue;
     const side = m1[k].close > e ? 1 : m1[k].close < e ? -1 : 0;
     if (side === 0) continue;
@@ -185,7 +249,7 @@ export function readRegimeAt(ctx: RegimeCtx, idx: number): RegimeRead {
   const net = Math.abs(closes[idx] - closes[idx - REGIME_WINDOW]);
   const netAtr = atrNow != null && atrNow > 0 ? net / atrNow : null;
 
-  const eNow = e50[idx], ePrev = e50[idx - SLOPE_LOOKBACK];
+  const eNow = e21[idx], ePrev = e21[idx - SLOPE_LOOKBACK];
   const emaSlopeOk =
     eNow != null && ePrev != null &&
     (dominant === "UP" ? eNow > ePrev : dominant === "DOWN" ? eNow < ePrev : false);
@@ -193,18 +257,29 @@ export function readRegimeAt(ctx: RegimeCtx, idx: number): RegimeRead {
   const trendChecks: RegimeCheck[] = [
     { label: `Yön verimliliği ≥ ${TREND_ER_MIN}`, ok: er != null && er >= TREND_ER_MIN, detail: er == null ? "veri yok" : er.toFixed(2) },
     { label: `Mumların ≥%${TREND_DIR_SHARE * 100}'i aynı yönde`, ok: dirShare >= TREND_DIR_SHARE, detail: `%${(dirShare * 100).toFixed(0)}` },
-    { label: "Fiyat EMA50'nin tek tarafında", ok: sameSide >= 0.75, detail: `%${(sameSide * 100).toFixed(0)}` },
-    { label: "EMA50 eğimi yönle uyumlu", ok: emaSlopeOk, detail: dominant === "NONE" ? "yön yok" : dominant === "UP" ? "yukarı" : "aşağı" },
+    { label: "Fiyat EMA21'in tek tarafında", ok: sameSide >= 0.75, detail: `%${(sameSide * 100).toFixed(0)}` },
+    { label: "EMA21 eğimi yönle uyumlu", ok: emaSlopeOk, detail: dominant === "NONE" ? "yön yok" : dominant === "UP" ? "yukarı" : "aşağı" },
     { label: "Net hareket ≥ 1,5 × ATR", ok: netAtr != null && netAtr >= 1.5, detail: netAtr == null ? "veri yok" : `${netAtr.toFixed(1)}×` },
   ];
 
   const chopChecks: RegimeCheck[] = [
     { label: `Yön verimliliği < ${CHOP_ER_MAX}`, ok: er != null && er < CHOP_ER_MAX, detail: er == null ? "veri yok" : er.toFixed(2) },
     { label: `Son 20 mumda ≥${CHOP_FLIPS_MIN} yön değişimi`, ok: flips >= CHOP_FLIPS_MIN, detail: `${flips} değişim` },
-    { label: "Fiyat EMA50 etrafında salınıyor", ok: crossings >= 3, detail: `${crossings} kesişim` },
+    { label: "Fiyat EMA21 etrafında salınıyor", ok: crossings >= 3, detail: `${crossings} kesişim` },
     { label: "Net hareket < 1,0 × ATR", ok: netAtr != null && netAtr < 1.0, detail: netAtr == null ? "veri yok" : `${netAtr.toFixed(1)}×` },
     { label: "1m RSI 40–60 bandında sıkışmış", ok: bandShare >= 0.6, detail: `%${(bandShare * 100).toFixed(0)}` },
   ];
+
+  // VWAP — TAVSİYE amaçlı, hiçbir kritere girmez, sadece raporlanır.
+  const vwNow = vw[idx];
+  const vwapNote =
+    vwNow == null
+      ? "VWAP verisi yok"
+      : closes[idx] > vwNow
+      ? `Fiyat günlük VWAP'ın üstünde (${vwNow.toFixed(2)}) — tavsiye: yukarı`
+      : closes[idx] < vwNow
+      ? `Fiyat günlük VWAP'ın altında (${vwNow.toFixed(2)}) — tavsiye: aşağı`
+      : "Fiyat VWAP'a eşit";
 
   const trendPassed = trendChecks.filter((c) => c.ok).length;
   const chopPassed = chopChecks.filter((c) => c.ok).length;
@@ -230,7 +305,16 @@ export function readRegimeAt(ctx: RegimeCtx, idx: number): RegimeRead {
       ? `Sıkışma · ${chopPassed}/${total} kriter · son 20 mumda ${flips} yön değişimi`
       : `Belirsiz · trend ${trendPassed}/${total}, sıkışma ${chopPassed}/${total} — kriterler çelişiyor`;
 
-  return { regime, direction, confidence, trendChecks, chopChecks, timePrior: prior.delta, timePriorNote: prior.note, note };
+  const opening = openingBiasAt(ctx, idx);
+
+  return {
+    regime, direction, confidence, trendChecks, chopChecks,
+    timePrior: prior.delta, timePriorNote: prior.note,
+    vwapNote,
+    openingBias: opening ? opening.direction : null,
+    openingBiasNote: opening ? opening.note : "",
+    note,
+  };
 }
 
 export interface RegimeBar {

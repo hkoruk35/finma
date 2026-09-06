@@ -111,7 +111,7 @@ const MANUAL_PAUSE_MS = 90000;
 
 const DEFAULT_TOGGLES: ChartToggles = {
   candleType: "HA",
-  bb: true, ema50: true, vwap: true, volume: true,
+  bb: true, ema21: true, vwap: true, volume: true,
   rsi: true, macd: true, markers: true, levels: true,
 };
 
@@ -454,7 +454,7 @@ export default function SpyEngineCommandCenter() {
     const closes = m15.map((b) => b.close);
     return {
       ema20: lastNum(ema(closes, 20)),
-      ema50: lastNum(ema(closes, 50)),
+      ema21: lastNum(ema(closes, 21)),
       rsi: lastNum(rsi(closes, 14)),
       rsiPrev: (() => { const r = rsi(closes, 14); return r.length > 1 ? r[r.length - 2] : null; })(),
       greenOf4: (() => {
@@ -758,7 +758,7 @@ export default function SpyEngineCommandCenter() {
                   {toggles.candleType === "HA" ? "HA" : "Normal"}
                 </button>
                 {([
-                  ["bb", "BB"], ["ema50", "EMA50"], ["vwap", "VWAP"], ["volume", "VOL"],
+                  ["bb", "BB"], ["ema21", "EMA21"], ["vwap", "VWAP"], ["volume", "VOL"],
                   ["rsi", "RSI"], ["macd", "MACD"], ["markers", "SİN"], ["levels", "SEV"],
                 ] as const).map(([key, label]) => (
                   <button
@@ -989,7 +989,7 @@ export default function SpyEngineCommandCenter() {
                   {[
                     ["Son kapanış", num(m15Read.last)],
                     ["EMA20", num(m15Read.ema20)],
-                    ["EMA50", num(m15Read.ema50)],
+                    ["EMA21", num(m15Read.ema21)],
                     ["RSI(14)", num(m15Read.rsi, 1)],
                     ["MACD hist", num(m15Read.macdHist, 3)],
                     ["BB üst", num(m15Read.bb.u)],

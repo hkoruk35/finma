@@ -58,7 +58,7 @@ function pivots(bars: Bar[], n = 3): { highs: number[]; lows: number[] } {
 
 /**
  * Aktif destek/direnç: fiyatın altındaki/üstündeki adayların EN YAKINI.
- * Adaylar (spec §3): son 2 saatin swing dip/zirveleri + 1m EMA50 +
+ * Adaylar (spec §3): son 2 saatin swing dip/zirveleri + 1m EMA21 +
  * BB alt/üst bandı + VWAP.
  */
 function nearest(
@@ -123,7 +123,7 @@ export function readLevels(input: LevelInput): LevelRead {
 
   const closes = sessionM1.map((b) => b.close);
   const price = closes[closes.length - 1];
-  const e50 = ema(closes, 50);
+  const e21 = ema(closes, 21);
   const bb = bollinger(closes, 20, 2);
   const vw = sessionVwap(sessionM1);
   const last = <T,>(a: (T | null)[]) => (a.length ? a[a.length - 1] : null);
@@ -132,11 +132,11 @@ export function readLevels(input: LevelInput): LevelRead {
   const recent = sessionM1.filter((b) => b.time >= nowSec - 2 * 3600);
   const pv = pivots(recent.length >= 20 ? recent : sessionM1.slice(-120));
 
-  const emaNow = last(e50), bbLow = last(bb.lower), bbUp = last(bb.upper), vwapNow = last(vw);
+  const emaNow = last(e21), bbLow = last(bb.lower), bbUp = last(bb.upper), vwapNow = last(vw);
   const candidates: { price: number; source: string }[] = [];
   for (const p of pv.lows) candidates.push({ price: p, source: "swing dip" });
   for (const p of pv.highs) candidates.push({ price: p, source: "swing zirve" });
-  if (emaNow != null) candidates.push({ price: emaNow, source: "EMA50" });
+  if (emaNow != null) candidates.push({ price: emaNow, source: "EMA21" });
   if (bbLow != null) candidates.push({ price: bbLow, source: "BB alt" });
   if (bbUp != null) candidates.push({ price: bbUp, source: "BB üst" });
   if (vwapNow != null) candidates.push({ price: vwapNow, source: "VWAP" });

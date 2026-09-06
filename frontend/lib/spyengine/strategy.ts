@@ -535,19 +535,17 @@ function buildConfidence(
 // ── 15m yön (SADECE bilgi — 15m Bağlam sekmesi için, karara girmez) ─
 
 export function readM15(m15: Bar[]): { direction: Direction; note: string } {
-  if (m15.length < 55) return { direction: "NEUTRAL", note: "Yeterli 15m geçmişi yok" };
+  if (m15.length < 26) return { direction: "NEUTRAL", note: "Yeterli 15m geçmişi yok" };
   const c = closes(m15);
-  const e20 = ema(c, 20);
-  const e50 = ema(c, 50);
+  const e21 = ema(c, 21);
   const i = c.length - 1;
-  const a = e20[i];
-  const b = e50[i];
-  if (a == null || b == null) return { direction: "NEUTRAL", note: "EMA hesaplanamadı" };
+  const e = e21[i];
+  if (e == null) return { direction: "NEUTRAL", note: "EMA21 hesaplanamadı" };
 
-  const spread = ((a - b) / b) * 100;
-  if (spread > 0.05 && c[i] > a) return { direction: "BULLISH", note: `EMA20 > EMA50 (+%${spread.toFixed(2)}), fiyat EMA20 üstünde` };
-  if (spread < -0.05 && c[i] < a) return { direction: "BEARISH", note: `EMA20 < EMA50 (%${spread.toFixed(2)}), fiyat EMA20 altında` };
-  return { direction: "NEUTRAL", note: `EMA20/EMA50 sıkışık (%${spread.toFixed(2)})` };
+  const spread = ((c[i] - e) / e) * 100;
+  if (spread > 0.05) return { direction: "BULLISH", note: `Fiyat EMA21 üstünde (+%${spread.toFixed(2)})` };
+  if (spread < -0.05) return { direction: "BEARISH", note: `Fiyat EMA21 altında (%${spread.toFixed(2)})` };
+  return { direction: "NEUTRAL", note: `Fiyat EMA21'e yakın (%${spread.toFixed(2)})` };
 }
 
 // ── Giriş adaylarının üretimi (1m ana sürücü) ─────────────────────

@@ -1,9 +1,9 @@
 /**
  * SPY Engine V2 — Public ticker mini grafik verisi.
- * Son 20 günlük 1d mum (OHLC) + tam seriden hesaplanan EMA50 değeri.
+ * Son 20 günlük 1d mum (OHLC) + tam seriden hesaplanan EMA21 değeri.
  *
- * EMA50 doğru çıksın diye 3 aylık seri çekilir, EMA tüm seri üzerinde
- * hesaplanır, sonra son 20 mum dilimlenir. 50 mumdan az veri varsa
+ * EMA21 doğru çıksın diye 3 aylık seri çekilir, EMA tüm seri üzerinde
+ * hesaplanır, sonra son 20 mum dilimlenir. 21 mumdan az veri varsa
  * ema alanı null döner — uydurma değer üretilmez.
  */
 
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
     }
 
     const closes = chart.bars.map((b) => b.close);
-    const ema50 = ema(closes, 50);
+    const ema21 = ema(closes, 21);
     const start = Math.max(0, chart.bars.length - WINDOW);
 
     const bars = chart.bars.slice(start).map((b, i) => ({
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
       high: b.high,
       low: b.low,
       close: b.close,
-      ema: ema50[start + i] ?? null,
+      ema: ema21[start + i] ?? null,
     }));
 
     return NextResponse.json(
