@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-// CI/CD auto-deploy testi — bu satir GitHub Actions -> Hetzner pipeline'inin
-// calistigini dogrulamak icin eklendi, gorevini tamamladiktan sonra silinebilir.
-
 // Next.js dev sunucusu (Fast Refresh/HMR) 'unsafe-eval' gerektirir; production
 // build'de bu izin kaldırılır.
 const isDev = process.env.NODE_ENV !== "production";
