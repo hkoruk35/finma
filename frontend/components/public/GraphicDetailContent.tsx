@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -32,6 +32,18 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
   fr: { dashboard: "Tableau de bord", loading: "Chargement..." },
   pt: { dashboard: "Painel", loading: "Carregando..." },
   id: { dashboard: "Dasbor", loading: "Memuat..." },
+};
+
+// 2026-09-06 kullanici talebiyle: grafik sayfasindaki tum bilgiyi (grafik dahil)
+// tek bir PDF olarak PC'ye indirmek icin buton — sadece bu sayfaya ozel, paylasilan
+// BogaChartEngine bileseni degistirilmedi.
+const PDF_LABELS: Record<Locale, { download: string; generating: string }> = {
+  en: { download: "Download PDF", generating: "Generating..." },
+  tr: { download: "PDF İndir", generating: "Oluşturuluyor..." },
+  es: { download: "Descargar PDF", generating: "Generando..." },
+  fr: { download: "Télécharger PDF", generating: "Génération..." },
+  pt: { download: "Baixar PDF", generating: "Gerando..." },
+  id: { download: "Unduh PDF", generating: "Membuat..." },
 };
 
 // Grafik sayfasindan evergreen /global/{locale}/{indexSlug} endeks analiz
@@ -263,6 +275,48 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Grafik dahil sayfanin tamamini tek PDF'e donusturmek icin sarmalayici ref.
+  const pdfContentRef = useRef<HTMLDivElement>(null);
+  const [pdfGenerating, setPdfGenerating] = useState(false);
+  const pdfLabels = PDF_LABELS[locale] || PDF_LABELS.en;
+
+  const handleDownloadPdf = async () => {
+    if (!pdfContentRef.current || pdfGenerating) return;
+    setPdfGenerating(true);
+    try {
+      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ]);
+      const canvas = await html2canvas(pdfContentRef.current, {
+        backgroundColor: "#0a0e17",
+        scale: 2,
+        useCORS: true,
+      });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save(`${ticker || "boga"}_${new Date().toISOString().split("T")[0]}.pdf`);
+    } catch (err) {
+      console.error("PDF export error:", err);
+    } finally {
+      setPdfGenerating(false);
+    }
+  };
+
   useEffect(() => {
     if (!ticker) return;
     fetch("/api/ask", {
@@ -298,7 +352,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale={locale} />
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
+      <main ref={pdfContentRef} className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-2">
           <nav className="flex flex-wrap items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest">
             <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">{labels.dashboard}</Link>
@@ -344,6 +398,17 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
         </div>
 
         <TickerSearchBox locale={locale} />
+
+        <div className="flex justify-end mt-2 mb-1">
+          <button
+            type="button"
+            onClick={handleDownloadPdf}
+            disabled={pdfGenerating}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-semibold !text-[#38bdf8] hover:border-[#38bdf8]/50 transition-all uppercase disabled:opacity-50"
+          >
+            {pdfGenerating ? pdfLabels.generating : pdfLabels.download}
+          </button>
+        </div>
 
         {/* 2026-08-24 kullanici talebiyle: search kutusunun hemen altina,
             grafigin hemen ustune — ticker/skor/sirket/fiyat + hissenin en
