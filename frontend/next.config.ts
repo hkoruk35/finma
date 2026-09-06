@@ -26,6 +26,15 @@ const nextConfig: NextConfig = {
   // Native N-API modul (resvg) turbopack ile bundle edilemiyor — external birak.
   serverExternalPackages: ["@resvg/resvg-js"],
 
+  // jsPDF'in optional dependency'si eski "html2canvas"i cekiyor (oklch/oklab
+  // renk fonksiyonlarini desteklemiyor, PDF export'ta hataya sebep oluyordu).
+  // Her "html2canvas" import'unu -pro fork'una yonlendir.
+  turbopack: {
+    resolveAlias: {
+      html2canvas: "html2canvas-pro",
+    },
+  },
+
   // Security headers for crawlers
   async headers() {
     return [
