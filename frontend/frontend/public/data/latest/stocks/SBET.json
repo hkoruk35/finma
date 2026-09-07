@@ -1,0 +1,89 @@
+{
+  "ticker": "SBET",
+  "company": "Sharplink, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:06:02.182Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 8.680000305175781,
+    "open": 8.600000381469727,
+    "high": 8.699999809265137,
+    "low": 8.350000381469727,
+    "prev_close": 8.979999542236328,
+    "change_pct": -3.340748912620064,
+    "change_pct_1w": 5.853664720434438,
+    "change_pct_1m": 4.957676236005666,
+    "change_pct_1y": -41.90093340716756,
+    "volume": 6256200,
+    "avg_volume_30d": 259672500
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 85,
+    "fundamental_score": 53.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.99%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.930711912445894,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 7.773671339438059,
+    "ema_50": 6.985541361102664,
+    "ema_200": 8.03969069152382,
+    "ema_stack_bullish": false,
+    "bb_upper": 9.11400032043457,
+    "bb_middle": 8.680000305175781,
+    "bb_lower": 8.246000289916992,
+    "bb_width": 10,
+    "atr": 0.6,
+    "atr_pct": 6.95,
+    "rvol": 0.9224711896716056,
+    "52w_high": 19.540000915527344,
+    "52w_low": 4.460000038146973
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.3351792,
+    "gross_margin": 0.97024,
+    "operating_margin": -27.52949,
+    "net_margin": 0,
+    "market_cap": 1883415168,
+    "revenue_growth_ttm": 15.539,
+    "fcf_yield": -0.4957231394666139,
+    "institutional_ownership_pct": 0.51528,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 8.32,
+    "entry_range_high": 8.74,
+    "target_range_low": 11.1,
+    "target_range_high": 18.67,
+    "target_1": 11.1,
+    "target_2": 12.29,
+    "target_3": 18.67,
+    "stop_loss": 7.9,
+    "risk_reward_ratio": 5.94,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $8.32 – $8.74 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $9.02 direnci veya $8.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.90 olarak belirlenmiştir. Fiyatın EMA20 ($7.77) veya günlük VWAP ($8.55) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($6.99) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($8.55) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

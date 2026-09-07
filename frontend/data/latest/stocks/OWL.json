@@ -1,0 +1,89 @@
+{
+  "ticker": "OWL",
+  "company": "Blue Owl Capital Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:06:24.689Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 11.75,
+    "open": 11.670000076293945,
+    "high": 11.970000267028809,
+    "low": 11.539999961853027,
+    "prev_close": 11.84000015258789,
+    "change_pct": -0.7601364140879603,
+    "change_pct_1w": -2.2462599624052397,
+    "change_pct_1m": 0.5993124400279308,
+    "change_pct_1y": -33.95166163401123,
+    "volume": 26843100,
+    "avg_volume_30d": 635238600
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 85,
+    "fundamental_score": 74.75,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.976532475891936,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 11.637901498202643,
+    "ema_50": 10.984406698854118,
+    "ema_200": 11.671367713798032,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.3375,
+    "bb_middle": 11.75,
+    "bb_lower": 11.1625,
+    "bb_width": 10,
+    "atr": 0.39,
+    "atr_pct": 3.28,
+    "rvol": 1.2602341860208117,
+    "52w_high": 19.288999557495117,
+    "52w_low": 7.949999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 97.91667,
+    "pb_ratio": 4.025351,
+    "gross_margin": 0.58491004,
+    "operating_margin": 0.28944,
+    "net_margin": 0.02706,
+    "market_cap": 18414088192,
+    "revenue_growth_ttm": 0.071,
+    "fcf_yield": 0.08441355899855571,
+    "institutional_ownership_pct": 0.96579003,
+    "dividend_rate": 0.71,
+    "dividend_yield": 0.059499998
+  },
+  "scores_detail": {
+    "entry_range_low": 11.52,
+    "entry_range_high": 11.79,
+    "target_range_low": 12.77,
+    "target_range_high": 17,
+    "target_1": 12.77,
+    "target_2": 16.11,
+    "target_3": 17,
+    "stop_loss": 11.16,
+    "risk_reward_ratio": 9.08,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.52 – $11.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $11.96 direnci veya $11.44 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.16 olarak belirlenmiştir. Fiyatın EMA50 ($10.98) veya günlük VWAP ($11.79) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($10.98) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.79) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MNRO",
+  "company": "Monro, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T20:28:46.302Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Parts",
+  "price": {
+    "current": 13.289999961853027,
+    "open": 12.550000190734863,
+    "high": 13.359999656677246,
+    "low": 12.470000267028809,
+    "prev_close": 12.600000381469727,
+    "change_pct": 5.476186980105598,
+    "change_pct_1w": 2.54629570011358,
+    "change_pct_1m": 3.3437038620177093,
+    "change_pct_1y": -24.83031825535428,
+    "volume": 833200,
+    "avg_volume_30d": 35521500
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 55,
+    "fundamental_score": 56.6,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.91827238202656,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.81479005150176,
+    "ema_50": 13.849444453582983,
+    "ema_200": 16.228466633886267,
+    "ema_stack_bullish": false,
+    "bb_upper": 13.954499959945679,
+    "bb_middle": 13.289999961853027,
+    "bb_lower": 12.625499963760376,
+    "bb_width": 10,
+    "atr": 0.8,
+    "atr_pct": 5.99,
+    "rvol": 0.5597905493855834,
+    "52w_high": 23.90999984741211,
+    "52w_low": 11.0600004196167
+  },
+  "fundamental": {
+    "pe_ratio": 57.782608,
+    "pb_ratio": 0.71328896,
+    "gross_margin": 0.34877998,
+    "operating_margin": 0.00751,
+    "net_margin": 0.0070599997,
+    "market_cap": 415499360,
+    "revenue_growth_ttm": -0.046,
+    "fcf_yield": 0.08069597026575444,
+    "institutional_ownership_pct": 1.16514,
+    "dividend_rate": 1.12,
+    "dividend_yield": 0.084300004
+  },
+  "scores_detail": {
+    "entry_range_low": 12.89,
+    "entry_range_high": 13.37,
+    "target_range_low": 14.06,
+    "target_range_high": 18.1,
+    "target_1": 14.06,
+    "target_2": 16.69,
+    "target_3": 18.1,
+    "stop_loss": 12.33,
+    "risk_reward_ratio": 4.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.89 – $13.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.06 direnci veya $12.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $12.33 olarak belirlenmiştir. Fiyatın EMA20 ($12.81) veya günlük VWAP ($13.06) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($13.85) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.06) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MS",
+  "company": "Morgan Stanley",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:53.480Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 217.72000122070312,
+    "open": 215.63999938964844,
+    "high": 218.22000122070312,
+    "low": 214.30999755859375,
+    "prev_close": 217.14999389648438,
+    "change_pct": 0.2624947456781754,
+    "change_pct_1w": 1.373560967340565,
+    "change_pct_1m": 1.7002986540148726,
+    "change_pct_1y": 47.018709301565984,
+    "volume": 3132000,
+    "avg_volume_30d": 132091800
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.74126080409332,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 214.7784321723189,
+    "ema_50": 213.488942215172,
+    "ema_200": 194.06798277800308,
+    "ema_stack_bullish": true,
+    "bb_upper": 228.6060012817383,
+    "bb_middle": 217.72000122070312,
+    "bb_lower": 206.83400115966796,
+    "bb_width": 10,
+    "atr": 4.7,
+    "atr_pct": 2.16,
+    "rvol": 0.8333204634958415,
+    "52w_high": 232.25,
+    "52w_low": 146.2899932861328
+  },
+  "fundamental": {
+    "pe_ratio": 17.572235,
+    "pb_ratio": 3.211162,
+    "gross_margin": 0.87641,
+    "operating_margin": 0.41567,
+    "net_margin": 0.25897,
+    "market_cap": 341943681024,
+    "revenue_growth_ttm": 0.28,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.63295,
+    "dividend_rate": 4.6,
+    "dividend_yield": 0.0211
+  },
+  "scores_detail": {
+    "entry_range_low": 215.26,
+    "entry_range_high": 218.19,
+    "target_range_low": 227.56,
+    "target_range_high": 249.23,
+    "target_1": 227.56,
+    "target_2": 238.4,
+    "target_3": 249.23,
+    "stop_loss": 206.83,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $215.26 – $218.19 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $220.53 direnci veya $214.32 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $206.83 olarak belirlenmiştir. Fiyatın EMA50 ($213.49) veya günlük VWAP ($216.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($216.57) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

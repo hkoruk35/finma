@@ -1,0 +1,89 @@
+{
+  "ticker": "DDS",
+  "company": "Dillard's, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:06:21.643Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Department Stores",
+  "price": {
+    "current": 656.6900024414062,
+    "open": 647.9500122070312,
+    "high": 661.8099975585938,
+    "low": 647.9500122070312,
+    "prev_close": 652.0700073242188,
+    "change_pct": 0.7085121329450093,
+    "change_pct_1w": 5.868227071767699,
+    "change_pct_1m": 2.1878837669830986,
+    "change_pct_1y": 13.818978340327472,
+    "volume": 93100,
+    "avg_volume_30d": 4877300
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.06031577213185,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 623.4886978480503,
+    "ema_50": 602.5894171972627,
+    "ema_200": 594.7171296720376,
+    "ema_stack_bullish": true,
+    "bb_upper": 689.5245025634766,
+    "bb_middle": 656.6900024414062,
+    "bb_lower": 623.8555023193359,
+    "bb_width": 10,
+    "atr": 22.66,
+    "atr_pct": 3.45,
+    "rvol": 1.3303262050724787,
+    "52w_high": 741.97998046875,
+    "52w_low": 503.05999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 15.037555,
+    "pb_ratio": 4.830663,
+    "gross_margin": 0.41213,
+    "operating_margin": 0.08116999,
+    "net_margin": 0.103310004,
+    "market_cap": 0,
+    "revenue_growth_ttm": -0.004,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.72183,
+    "dividend_rate": 1.2,
+    "dividend_yield": 0.0018000001
+  },
+  "scores_detail": {
+    "entry_range_low": 640.32,
+    "entry_range_high": 658.96,
+    "target_range_low": 682.12,
+    "target_range_high": 747.08,
+    "target_1": 682.12,
+    "target_2": 714.6,
+    "target_3": 747.08,
+    "stop_loss": 623.86,
+    "risk_reward_ratio": 2.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $640.32 – $658.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $661.81 direnci veya $635.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $623.86 olarak belirlenmiştir. Fiyatın EMA20 ($623.49) veya günlük VWAP ($656.99) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($656.99) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

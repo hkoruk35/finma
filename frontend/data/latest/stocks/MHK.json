@@ -1,0 +1,89 @@
+{
+  "ticker": "MHK",
+  "company": "Mohawk Industries, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T14:34:51.664Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "price": {
+    "current": 133.6300048828125,
+    "open": 131.50999450683594,
+    "high": 134.4499969482422,
+    "low": 131.36000061035156,
+    "prev_close": 131.6999969482422,
+    "change_pct": 1.4654578430467249,
+    "change_pct_1w": 2.879363700622299,
+    "change_pct_1m": -0.3281885711710309,
+    "change_pct_1y": -4.063456584202306,
+    "volume": 1032200,
+    "avg_volume_30d": 30453100
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 100,
+    "fundamental_score": 61.55,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.800583907124896,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 130.689399669927,
+    "ema_50": 125.08021272453814,
+    "ema_200": 118.3567913416407,
+    "ema_stack_bullish": true,
+    "bb_upper": 140.31150512695314,
+    "bb_middle": 133.6300048828125,
+    "bb_lower": 126.94850463867186,
+    "bb_width": 10,
+    "atr": 3.83,
+    "atr_pct": 2.87,
+    "rvol": 1.0477554009279844,
+    "52w_high": 143.1300048828125,
+    "52w_low": 92.98999786376953
+  },
+  "fundamental": {
+    "pe_ratio": 17.699337,
+    "pb_ratio": 0.9465959,
+    "gross_margin": 0.25641,
+    "operating_margin": 0.097849995,
+    "net_margin": 0.04152,
+    "market_cap": 9051848704,
+    "revenue_growth_ttm": 0.068,
+    "fcf_yield": 0.10681795505184793,
+    "institutional_ownership_pct": 0.83242995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 131.33,
+    "entry_range_high": 134.01,
+    "target_range_low": 139.31,
+    "target_range_high": 152.57,
+    "target_1": 139.31,
+    "target_2": 145.94,
+    "target_3": 152.57,
+    "stop_loss": 126.95,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $131.33 – $134.01 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $136.71 direnci veya $130.57 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $126.95 olarak belirlenmiştir. Fiyatın EMA50 ($125.08) veya günlük VWAP ($133.39) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($133.39) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

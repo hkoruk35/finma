@@ -1,0 +1,89 @@
+{
+  "ticker": "SLB",
+  "company": "SLB N.V.",
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T00:38:20.035Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 57.5099983215332,
+    "open": 57,
+    "high": 57.54999923706055,
+    "low": 56.2400016784668,
+    "prev_close": 57.40999984741211,
+    "change_pct": 0.17418302453732093,
+    "change_pct_1w": 0.3139656109011575,
+    "change_pct_1m": 6.499996891728153,
+    "change_pct_1y": 60.55276050112045,
+    "volume": 7609700,
+    "avg_volume_30d": 354213900
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 78,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.90%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.16724683422133,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 55.00404015649988,
+    "ema_50": 52.87765170376718,
+    "ema_200": 48.85075844254348,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.385498237609866,
+    "bb_middle": 57.5099983215332,
+    "bb_lower": 54.63449840545654,
+    "bb_width": 10,
+    "atr": 1.94,
+    "atr_pct": 3.37,
+    "rvol": 1.4305745765482383,
+    "52w_high": 60.459999084472656,
+    "52w_low": 31.639999389648438
+  },
+  "fundamental": {
+    "pe_ratio": 28.053658,
+    "pb_ratio": 3.2735653,
+    "gross_margin": 0.16991,
+    "operating_margin": 0.12706,
+    "net_margin": 0.08527,
+    "market_cap": 85353078784,
+    "revenue_growth_ttm": 0.05,
+    "fcf_yield": 0.03462235966295287,
+    "institutional_ownership_pct": 0.92773,
+    "dividend_rate": 1.18,
+    "dividend_yield": 0.020499999
+  },
+  "scores_detail": {
+    "entry_range_low": 56.69,
+    "entry_range_high": 57.7,
+    "target_range_low": 60.06,
+    "target_range_high": 65.77,
+    "target_1": 60.06,
+    "target_2": 62.92,
+    "target_3": 65.77,
+    "stop_loss": 54.63,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $56.69 – $57.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.36 direnci veya $56.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $54.63 olarak belirlenmiştir. Fiyatın EMA20 ($55.00) veya günlük VWAP ($56.99) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($56.99) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

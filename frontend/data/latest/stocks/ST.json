@@ -1,0 +1,89 @@
+{
+  "ticker": "ST",
+  "company": "Sensata Technologies Holding plc",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:25.752Z",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 43.08000183105469,
+    "open": 42.25,
+    "high": 43.13999938964844,
+    "low": 42.16999816894531,
+    "prev_close": 42.02000045776367,
+    "change_pct": 2.5226115224736234,
+    "change_pct_1w": 4.9963517249535325,
+    "change_pct_1m": 2.669215374212173,
+    "change_pct_1y": 34.498918117037725,
+    "volume": 1060300,
+    "avg_volume_30d": 46790900
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 55,
+    "fundamental_score": 63.2,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.14781248017434,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 43.114642900058335,
+    "ema_50": 44.45696974926374,
+    "ema_200": 41.284110436348925,
+    "ema_stack_bullish": false,
+    "bb_upper": 45.234001922607426,
+    "bb_middle": 43.08000183105469,
+    "bb_lower": 40.92600173950195,
+    "bb_width": 10,
+    "atr": 1.3,
+    "atr_pct": 3.03,
+    "rvol": 0.8813508609580067,
+    "52w_high": 53.88999938964844,
+    "52w_low": 28.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 69.48387,
+    "pb_ratio": 2.119036,
+    "gross_margin": 0.29497,
+    "operating_margin": 0.16394,
+    "net_margin": 0.023810001,
+    "market_cap": 6269684736,
+    "revenue_growth_ttm": 0.05,
+    "fcf_yield": 0.08039471284828571,
+    "institutional_ownership_pct": 1.10266,
+    "dividend_rate": 0.48,
+    "dividend_yield": 0.0111
+  },
+  "scores_detail": {
+    "entry_range_low": 42.3,
+    "entry_range_high": 43.21,
+    "target_range_low": 49.36,
+    "target_range_high": 53.89,
+    "target_1": 49.36,
+    "target_2": 51,
+    "target_3": 53.89,
+    "stop_loss": 40.93,
+    "risk_reward_ratio": 4.51,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $42.30 – $43.21 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $46.80 direnci veya $42.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $40.93 olarak belirlenmiştir. Fiyatın EMA200 ($41.28) veya günlük VWAP ($42.92) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($44.46) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.92) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

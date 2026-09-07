@@ -1,0 +1,89 @@
+{
+  "ticker": "CLMT",
+  "company": "Calumet, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:29.914Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 53.130001068115234,
+    "open": 53.380001068115234,
+    "high": 54.099998474121094,
+    "low": 52.5,
+    "prev_close": 53.5,
+    "change_pct": -0.6915867885696554,
+    "change_pct_1w": 11.267017943696827,
+    "change_pct_1m": 12.27810949019618,
+    "change_pct_1y": 197.81390478524258,
+    "volume": 572800,
+    "avg_volume_30d": 36121500
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 90,
+    "fundamental_score": 53.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.16888710248037,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 48.658368947318685,
+    "ema_50": 44.4596960161464,
+    "ema_200": 34.013465075738715,
+    "ema_stack_bullish": true,
+    "bb_upper": 55.786501121521,
+    "bb_middle": 53.130001068115234,
+    "bb_lower": 50.47350101470947,
+    "bb_width": 10,
+    "atr": 2.42,
+    "atr_pct": 4.55,
+    "rvol": 1.0497404592832524,
+    "52w_high": 54.70000076293945,
+    "52w_low": 16.75
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0.06921,
+    "operating_margin": -0.04567,
+    "net_margin": -0.029790001,
+    "market_cap": 4670033408,
+    "revenue_growth_ttm": 0.408,
+    "fcf_yield": 0.036951019601785255,
+    "institutional_ownership_pct": 0.53391,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 51.68,
+    "entry_range_high": 53.37,
+    "target_range_low": 55.15,
+    "target_range_high": 60.4,
+    "target_1": 55.15,
+    "target_2": 57.78,
+    "target_3": 60.4,
+    "stop_loss": 49.99,
+    "risk_reward_ratio": 2.07,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $51.68 – $53.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $54.61 direnci veya $51.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $49.99 olarak belirlenmiştir. Fiyatın EMA20 ($48.66) veya günlük VWAP ($53.35) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($53.35) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}
