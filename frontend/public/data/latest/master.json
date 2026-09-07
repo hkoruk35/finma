@@ -1,8 +1,8 @@
 {
   "date": "2026-09-04",
-  "generated_at": "2026-09-04T14:05:30.229503-04:00",
+  "generated_at": "2026-09-04T17:03:48.185110-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 37,
+  "active_scores_count": 43,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 17,
       "tickers": [
         "IQV",
         "TNK",
@@ -33,11 +33,13 @@
         "NU",
         "PAYX",
         "DOCU",
+        "DHT",
         "OWL",
         "BTG",
         "DK",
         "MU",
-        "ICLR"
+        "ICLR",
+        "EL"
       ]
     },
     "value": {
@@ -76,20 +78,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 770.19,
+      "change_pct": -0.39
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 718.96,
+      "change_pct": 0.18
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 534.08,
+      "change_pct": -0.53
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.11,
+      "change_pct": 3.99
+    },
+    "RUSSELL2000": {
+      "value": 296.01,
+      "change_pct": 0.28
     }
-  }
+  },
+  "price_updated_at": "2026-09-07T10:00:23.995707-04:00"
 }
