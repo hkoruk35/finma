@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "KGS",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "JXN",
@@ -297,7 +297,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "INSW",
@@ -441,7 +441,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "FIVE",
@@ -585,7 +585,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "QRVO",
@@ -732,7 +732,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "LFST",
@@ -878,7 +878,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "RSI",
@@ -1024,7 +1024,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "ICLR",
@@ -1169,7 +1169,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "IOT",
@@ -1314,7 +1314,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-07 16:00",
+      "last_checked": "2026-09-07",
       "last_pick": {
         "rank": 1,
         "ticker": "RS",
@@ -2913,26 +2913,40 @@
       "last_checked": "2026-09-07"
     },
     {
-      "ticker": "BDC",
-      "sector": "Technology",
+      "ticker": "FSM",
+      "sector": "Basic Materials",
+      "score": 43.5,
+      "first_seen_date": "2026-09-07",
+      "last_checked": "2026-09-07"
+    },
+    {
+      "ticker": "CBRL",
+      "sector": "Consumer Cyclical",
       "score": 39.5,
       "first_seen_date": "2026-09-07",
       "last_checked": "2026-09-07"
     },
     {
-      "ticker": "DLB",
-      "sector": "Industrials",
-      "score": 38.0,
-      "first_seen_date": "2026-09-07",
-      "last_checked": "2026-09-07"
-    },
-    {
-      "ticker": "SHOO",
+      "ticker": "KSS",
       "sector": "Consumer Cyclical",
       "score": 37.5,
       "first_seen_date": "2026-09-07",
       "last_checked": "2026-09-07"
+    },
+    {
+      "ticker": "MGNI",
+      "sector": "Communication Services",
+      "score": 36.5,
+      "first_seen_date": "2026-09-07",
+      "last_checked": "2026-09-07"
+    },
+    {
+      "ticker": "VIST",
+      "sector": "Energy",
+      "score": 35.5,
+      "first_seen_date": "2026-09-07",
+      "last_checked": "2026-09-07"
     }
   ],
-  "updated_at": "2026-09-07T14:05:29.225402-04:00"
+  "updated_at": "2026-09-07T17:09:14.547298-04:00"
 }

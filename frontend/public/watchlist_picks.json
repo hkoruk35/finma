@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T14:05:30.219422-04:00",
+  "generated_at": "2026-09-07T17:09:15.326164-04:00",
   "picks": [
     {
       "ticker": "SKM",
@@ -8,22 +8,34 @@
       "score": 39.5
     },
     {
-      "ticker": "BDC",
-      "sector": "Technology",
+      "ticker": "FSM",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-07",
+      "score": 43.5
+    },
+    {
+      "ticker": "CBRL",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-09-07",
       "score": 39.5
     },
     {
-      "ticker": "DLB",
-      "sector": "Industrials",
-      "date_added": "2026-09-07",
-      "score": 38.0
-    },
-    {
-      "ticker": "SHOO",
+      "ticker": "KSS",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-07",
       "score": 37.5
+    },
+    {
+      "ticker": "MGNI",
+      "sector": "Communication Services",
+      "date_added": "2026-09-07",
+      "score": 36.5
+    },
+    {
+      "ticker": "VIST",
+      "sector": "Energy",
+      "date_added": "2026-09-07",
+      "score": 35.5
     }
   ]
 }
