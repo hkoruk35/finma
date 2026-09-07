@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-09-07T09:04:38.533776-04:00",
+  "generated_at": "2026-09-07T14:05:30.219422-04:00",
   "picks": [
-    {
-      "ticker": "LTM",
-      "sector": "Industrials",
-      "date_added": "2026-09-07",
-      "score": 40.0
-    },
     {
       "ticker": "SKM",
       "sector": "Communication Services",
@@ -14,19 +8,19 @@
       "score": 39.5
     },
     {
-      "ticker": "CBRL",
-      "sector": "Consumer Cyclical",
+      "ticker": "BDC",
+      "sector": "Technology",
       "date_added": "2026-09-07",
       "score": 39.5
     },
     {
-      "ticker": "GPN",
+      "ticker": "DLB",
       "sector": "Industrials",
       "date_added": "2026-09-07",
-      "score": 39.5
+      "score": 38.0
     },
     {
-      "ticker": "KSS",
+      "ticker": "SHOO",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-07",
       "score": 37.5
