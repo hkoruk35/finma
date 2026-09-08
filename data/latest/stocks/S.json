@@ -1,0 +1,89 @@
+{
+  "ticker": "S",
+  "company": "SentinelOne, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T11:23:49.924Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 19.8799991607666,
+    "open": 19.989999771118164,
+    "high": 20.20800018310547,
+    "low": 19.735000610351562,
+    "prev_close": 19.799999237060547,
+    "change_pct": 0.40404003428603796,
+    "change_pct_1w": -7.706600205221495,
+    "change_pct_1m": -4.514892160595459,
+    "change_pct_1y": 6.139880654759298,
+    "volume": 6569200,
+    "avg_volume_30d": 229763800
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 85,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.68373508926476,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 20.795550819055496,
+    "ema_50": 19.804104826432216,
+    "ema_200": 17.373114554035944,
+    "ema_stack_bullish": true,
+    "bb_upper": 20.87399911880493,
+    "bb_middle": 19.8799991607666,
+    "bb_lower": 18.88599920272827,
+    "bb_width": 10,
+    "atr": 1.16,
+    "atr_pct": 5.86,
+    "rvol": 1.298886073437156,
+    "52w_high": 23.950000762939453,
+    "52w_low": 11.8100004196167
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.7491636,
+    "gross_margin": 0.72540003,
+    "operating_margin": -0.22719,
+    "net_margin": -0.30953,
+    "market_cap": 6919216128,
+    "revenue_growth_ttm": 0.206,
+    "fcf_yield": 0.04290668690035751,
+    "institutional_ownership_pct": 0.86530995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 19.18,
+    "entry_range_high": 20,
+    "target_range_low": 20.71,
+    "target_range_high": 24.43,
+    "target_1": 20.71,
+    "target_2": 23.95,
+    "target_3": 24.43,
+    "stop_loss": 18.37,
+    "risk_reward_ratio": 3.57,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $19.18 – $20.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $20.60 direnci veya $18.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.37 olarak belirlenmiştir. Fiyatın EMA200 ($17.37) veya günlük VWAP ($19.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($19.80) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($19.86) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}
