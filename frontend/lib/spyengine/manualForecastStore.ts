@@ -20,8 +20,11 @@ export const MANUAL_FORECAST_MAX_SESSIONS = 90;
 export interface ManualForecastPoint {
   /** "HH:MM" ET, 09:30–16:00 arası 5 dakikalık kova */
   time: string;
-  /** Kullanıcının o an için tahmin ettiği fiyat */
-  price: number;
+  /** Kapanış tahmini — tek zorunlu alan (mumlu grafik için open/high/low de girilebilir) */
+  close: number;
+  open?: number;
+  high?: number;
+  low?: number;
 }
 
 export interface ManualForecastSession {
@@ -29,12 +32,18 @@ export interface ManualForecastSession {
   createdAt: string;
   updatedAt: string;
   points: ManualForecastPoint[];
-  /** Kullanıcının yüklediği referans görsel (varsa) */
-  imageUrl: string | null;
 }
 
 export interface ManualForecastPayload {
   sessions: Record<string, ManualForecastSession>;
+}
+
+/** Eski format (`{time, price}`) noktalarını yeni `{time, close}` şekline çevirir — geriye dönük uyumluluk. */
+function normalizePoint(p: ManualForecastPoint | (ManualForecastPoint & { price?: number })): ManualForecastPoint {
+  if (p.close == null && typeof (p as { price?: number }).price === "number") {
+    return { time: p.time, close: (p as { price: number }).price };
+  }
+  return p;
 }
 
 export async function readManualForecasts(): Promise<ManualForecastPayload> {
@@ -45,7 +54,12 @@ export async function readManualForecasts(): Promise<ManualForecastPayload> {
       .eq("key", MANUAL_FORECAST_STORE_KEY)
       .maybeSingle();
     const value = data?.value as ManualForecastPayload | undefined;
-    if (value && typeof value === "object" && value.sessions) return value;
+    if (value && typeof value === "object" && value.sessions) {
+      for (const s of Object.values(value.sessions)) {
+        s.points = s.points.map(normalizePoint);
+      }
+      return value;
+    }
   } catch {
     // Supabase erişilemiyorsa boş dön — sayfa yine de çalışsın.
   }
@@ -54,8 +68,7 @@ export async function readManualForecasts(): Promise<ManualForecastPayload> {
 
 export async function writeManualForecastSession(
   date: string,
-  points: ManualForecastPoint[],
-  imageUrl: string | null
+  points: ManualForecastPoint[]
 ): Promise<ManualForecastSession> {
   const store = await readManualForecasts();
   const existing = store.sessions[date];
@@ -65,7 +78,6 @@ export async function writeManualForecastSession(
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
     points: points.slice().sort((a, b) => (a.time < b.time ? -1 : 1)),
-    imageUrl: imageUrl ?? existing?.imageUrl ?? null,
   };
   store.sessions[date] = rec;
 
