@@ -37,6 +37,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
+import DailyForecast from "@/components/admin/spyengine/DailyForecast";
 import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   AlertBanner, computeEntryAlert,
@@ -102,7 +103,7 @@ interface StreamResponse {
   contractReuseBlocked?: { time: number; side: "LONG" | "SHORT"; strike: number }[];
 }
 
-type Tab = "command" | "signals" | "context" | "ohlc" | "compare";
+type Tab = "command" | "signals" | "context" | "ohlc" | "compare" | "forecast";
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 
@@ -657,6 +658,7 @@ export default function SpyEngineCommandCenter() {
       <nav className="mb-2 flex gap-0.5 overflow-x-auto">
         {([
           ["command", "Kumanda Merkezi"],
+          ["forecast", "Daily Forecast"],
           ["compare", "1m vs 5m"],
           ["signals", "Sinyaller & Arşiv"],
           ["context", "15m Bağlam & Veri"],
@@ -676,6 +678,9 @@ export default function SpyEngineCommandCenter() {
           </button>
         ))}
       </nav>
+
+      {/* ═══ DAILY FORECAST ═══ */}
+      {tab === "forecast" && <DailyForecast />}
 
       {/* ═══ KUMANDA MERKEZİ ═══ */}
       {tab === "command" && (
