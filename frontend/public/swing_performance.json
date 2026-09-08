@@ -5,9 +5,9 @@
     "win_rate": 84.3,
     "avg_return_pct": 3.03,
     "stop_loss_pct": "Min 7%",
-    "last_updated": "2026-09-08T13:00:08",
+    "last_updated": "2026-09-08T14:00:05",
     "counted_picks": 1504,
-    "duplicate_count": 489,
+    "duplicate_count": 486,
     "pending_count": 327,
     "above_5pct_rate": 64.3,
     "above_10pct_rate": 2.5
@@ -87789,7 +87789,7 @@
       "max_price": 5.610000133514404,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-09-08",
@@ -87834,7 +87834,7 @@
       "max_price": 52.470001220703125,
       "days": 0,
       "holding_days": 0,
-      "is_duplicate": true
+      "is_duplicate": false
     },
     {
       "date": "2026-09-08",
