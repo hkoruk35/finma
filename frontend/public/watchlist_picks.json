@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T14:04:43.075559-04:00",
+  "generated_at": "2026-09-08T17:03:31.417744-04:00",
   "picks": [
     {
       "ticker": "MGNI",
@@ -14,24 +14,6 @@
       "score": 35.5
     },
     {
-      "ticker": "JBHT",
-      "sector": "Industrials",
-      "date_added": "2026-09-08",
-      "score": 36.5
-    },
-    {
-      "ticker": "BG",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-09-08",
-      "score": 33.5
-    },
-    {
-      "ticker": "ESI",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-08",
-      "score": 41.0
-    },
-    {
       "ticker": "FCX",
       "sector": "Basic Materials",
       "date_added": "2026-09-08",
@@ -44,22 +26,22 @@
       "score": 40.5
     },
     {
-      "ticker": "AMZN",
-      "sector": "Consumer Cyclical",
+      "ticker": "SCCO",
+      "sector": "Basic Materials",
       "date_added": "2026-09-08",
-      "score": 39.5
+      "score": 39.0
     },
     {
-      "ticker": "DLB",
+      "ticker": "EME",
       "sector": "Industrials",
       "date_added": "2026-09-08",
-      "score": 38.0
+      "score": 37.0
     },
     {
-      "ticker": "AMAT",
+      "ticker": "NTAP",
       "sector": "Technology",
       "date_added": "2026-09-08",
-      "score": 37.0
+      "score": 34.5
     }
   ]
 }
