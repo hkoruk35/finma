@@ -1,43 +1,37 @@
 {
-  "date": "2026-09-04",
-  "generated_at": "2026-09-04T14:05:30.229503-04:00",
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T14:05:29.208302-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 37,
+  "active_scores_count": 20,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "NOV",
-        "PD",
-        "IQV",
-        "TNK",
-        "ALM",
-        "PSMT",
-        "SWKS",
-        "WHD",
-        "FAF",
-        "JXN"
+        "KGS",
+        "JXN",
+        "INSW",
+        "FIVE",
+        "QRVO",
+        "LFST",
+        "RSI",
+        "ICLR",
+        "IOT",
+        "RS"
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 9,
       "tickers": [
-        "IQV",
-        "TNK",
-        "MRX",
+        "JXN",
         "INSW",
-        "SPGI",
-        "WPM",
-        "ARES",
-        "NU",
-        "PAYX",
-        "DOCU",
-        "OWL",
-        "BTG",
-        "DK",
-        "MU",
-        "ICLR"
+        "FIVE",
+        "ICLR",
+        "IOT",
+        "ZM",
+        "JHX",
+        "MHK",
+        "GM"
       ]
     },
     "value": {
@@ -59,18 +53,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "NOV",
-      "score": 54.0,
+      "ticker": "KGS",
+      "score": 57.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PD",
+      "ticker": "JXN",
+      "score": 54.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "INSW",
       "score": 51.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "IQV",
-      "score": 45.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

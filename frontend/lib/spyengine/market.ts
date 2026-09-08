@@ -54,6 +54,27 @@ interface CacheEntry<T> {
 
 const cache = new Map<string, CacheEntry<unknown>>();
 
+/**
+ * 2026-09-08: `/api/admin/spyengine/v2` sunucu tarafında SÜRESİZ asılı
+ * kalıyordu (CPU düşük — sonsuz döngü değil, çözülmeyen bir I/O bekleniyordu).
+ * Kök neden: `fetchOvernightBars`'ın Supabase sorgusunda HİÇ zaman aşımı
+ * yoktu; `cached()` ise bekleyen (inflight) promise'i aynı anahtarla gelen
+ * TÜM istekler arasında paylaşıyor — bir istek asılı kalınca "overnight"
+ * anahtarındaki HER istek kalıcı olarak aynı çözülmeyen promise'e takılıyordu
+ * (process yeniden başlayana kadar). Bu yardımcı, herhangi bir promise'i
+ * zaman aşımına uğratıp geri dönüş (fallback) değeriyle çözerek bu sınıftaki
+ * hataları kalıcı olarak önler — kaynak ne olursa olsun (Supabase, ağ, vb).
+ */
+function withTimeout<T>(promise: PromiseLike<T>, ms: number, fallback: T): Promise<T> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => resolve(fallback), ms);
+    Promise.resolve(promise).then(
+      (v) => { clearTimeout(timer); resolve(v); },
+      () => { clearTimeout(timer); resolve(fallback); }
+    );
+  });
+}
+
 async function cached<T>(key: string, ttlMs: number, loader: () => Promise<T>): Promise<T> {
   const now = Date.now();
   const hit = cache.get(key) as CacheEntry<T> | undefined;
@@ -175,6 +196,8 @@ export function fetchChart(
 
 /** Poller ~60-90 sn'de bir yazar; bundan eskisi "bayat" sayılır ve kullanılmaz. */
 const OVERNIGHT_STALE_AFTER_SEC = 6 * 60;
+/** Supabase sorgusu bu sürede dönmezse pes edilir, boş diziye düşülür. */
+const OVERNIGHT_QUERY_TIMEOUT_MS = 3000;
 
 /**
  * `robinhood_spy_bars` tablosundan overnight barları okur. Bu katman
@@ -184,15 +207,28 @@ const OVERNIGHT_STALE_AFTER_SEC = 6 * 60;
  *
  * Tablo yoksa, boşsa veya son satır bayatsa boş dizi döner: bayat overnight
  * verisiyle canlı motoru beslemektense Yahoo'ya düşmek daha güvenli.
+ *
+ * 2026-09-08: sorgu `withTimeout` ile sarmalandı — bkz. o fonksiyonun
+ * üzerindeki not. Supabase (veya altındaki ağ/istemci) yanıt vermeden
+ * asılı kalırsa artık `/api/admin/spyengine/v2`'nin TAMAMINI (ve `cached()`
+ * paylaşımı yüzünden SONRAKİ TÜM overnight isteklerini) süresiz kilitlemez.
  */
 async function fetchOvernightBars(sinceUnixSec: number): Promise<Bar[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("robinhood_spy_bars")
-      .select("time, open, high, low, close, volume")
-      .gte("time", sinceUnixSec)
-      .order("time", { ascending: true })
-      .limit(5000);
+    const query = async () => {
+      const { data, error } = await supabaseAdmin
+        .from("robinhood_spy_bars")
+        .select("time, open, high, low, close, volume")
+        .gte("time", sinceUnixSec)
+        .order("time", { ascending: true })
+        .limit(5000);
+      return { data, error };
+    };
+    const { data, error } = await withTimeout(
+      query(),
+      OVERNIGHT_QUERY_TIMEOUT_MS,
+      { data: null, error: new Error("overnight sorgu zaman aşımı") as unknown as null }
+    );
 
     if (error || !data?.length) return [];
 
