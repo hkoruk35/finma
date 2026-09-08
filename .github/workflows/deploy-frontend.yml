@@ -34,10 +34,32 @@ jobs:
           username: ${{ secrets.HETZNER_USER }}
           key: ${{ secrets.HETZNER_SSH_KEY }}
           script_stop: true
+          # 2026-09-08: sunucunun kendi cron botlari (run_morning_cycle.py vb.)
+          # yerel commit atip push EDEMIYORDU (repo'da SSH remote'a varsayilan
+          # anahtar tanimli degildi) -- main diverge etti, "git pull" sessizce
+          # (script_stop'a ragmen Action "success" gorundu) hicbir sey
+          # guncellemedi, kritik bir hata 20+ saat canlida kaldi. Kok neden
+          # sunucuda `git config core.sshCommand` ile duzeltildi (artik botlar
+          # da push edebiliyor). Burada AYRICA: pull'u `--ff-only` yapip
+          # divergence'ta ACIKCA patlat (sessiz-basari riskini bir daha
+          # yaratmasin), VE deploy sonunda sunucudaki HEAD'in bu commit'e
+          # esit oldugunu dogrula -- esit degilse job'u ACIKCA basarisiz say.
           script: |
             cd /root/finma
-            GIT_SSH_COMMAND='ssh -i /root/.ssh/github_finma -o StrictHostKeyChecking=accept-new' git pull origin main
+            git fetch origin main
+            if ! git merge-base --is-ancestor HEAD origin/main; then
+              echo "HATA: sunucu main'i origin/main ile diverge etmis (yerel commit'ler var). Once sunucuya SSH ile girip 'git merge origin/main' ile elle cozun."
+              exit 1
+            fi
+            git merge --ff-only origin/main
             cd frontend
             npm install --no-audit --no-fund
             npm run build
             pm2 restart bogastock-next --update-env
+            cd /root/finma
+            DEPLOYED_SHA=$(git rev-parse HEAD)
+            if [ "$DEPLOYED_SHA" != "${{ github.sha }}" ]; then
+              echo "HATA: sunucudaki HEAD ($DEPLOYED_SHA) beklenen commit'le (${{ github.sha }}) uyusmuyor."
+              exit 1
+            fi
+            echo "Dogrulandi: sunucu HEAD = ${{ github.sha }}"
