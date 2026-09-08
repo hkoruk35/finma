@@ -79,7 +79,10 @@ function buildComparison(
 }
 
 async function actualBarsFor(date: string): Promise<Map<string, Bar>> {
-  const chart = await fetchChart("SPY", "5m", "3mo", false, 20000);
+  // Yahoo 5m interval icin range'i 60 gunle sinirliyor -- "3mo" istegi
+  // 422 "must be within the last 60 days" ile reddediyordu, bu yuzden
+  // "Gercekleşen" hic dolmuyordu. "59d" guvenli sinirin icinde kalir.
+  const chart = await fetchChart("SPY", "5m", "59d", false, 20000);
   const dayBars = barsOfSessionDay(chart.bars, date).filter(isRthBar);
   const map = new Map<string, Bar>();
   for (const b of dayBars) {

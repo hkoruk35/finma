@@ -16,7 +16,7 @@ import {
   type IChartApi, type ISeriesApi, type Time,
 } from "lightweight-charts";
 import { Panel, num, signed, tone } from "./panels";
-import { nyDateTimeToEpoch } from "@/lib/spyengine/core";
+import { nyDateTimeToEpoch, nyClock } from "@/lib/spyengine/core";
 
 interface Ohlc {
   open: number;
@@ -152,12 +152,28 @@ export default function DailyForecast() {
   useEffect(() => {
     if (!chartRef.current || chartApiRef.current) return;
     const chart = createChart(chartRef.current, {
-      layout: { background: { color: "#0a0e17" }, textColor: "#8b949e" },
+      autoSize: true,
+      layout: {
+        background: { color: "#0a0e17" }, textColor: "#8b949e",
+        // SpyChart.tsx ile aynı motor/ayarlar — kendi grafik altyapımız,
+        // TradingView Lightweight Charts'ın varsayılan logosu kapatılır.
+        attributionLogo: false,
+      },
       grid: { vertLines: { color: "#151c28" }, horzLines: { color: "#151c28" } },
       crosshair: { mode: CrosshairMode.Normal },
-      timeScale: { timeVisible: true, secondsVisible: false, borderColor: "#1c2635" },
+      timeScale: {
+        timeVisible: true, secondsVisible: false, borderColor: "#1c2635",
+        // GERÇEK zaman damgası korunur; sadece etiket ET'ye çevrilir
+        // (SpyChart.tsx ile aynı yöntem) — varsayılan UTC eksen etiketi
+        // yanlış saat gösteriyordu.
+        tickMarkFormatter: (t: Time) => nyClock(t as number),
+      },
+      localization: {
+        timeFormatter: (t: Time) => `${nyClock(t as number, true)} ET`,
+        priceFormatter: (p: number) => p.toFixed(2),
+      },
       rightPriceScale: { borderColor: "#1c2635" },
-      height: 320,
+      height: 380,
     });
     forecastSeriesRef.current = chart.addSeries(CandlestickSeries, {
       upColor: "rgba(34,197,94,0.35)", downColor: "rgba(239,68,68,0.35)",
@@ -225,56 +241,53 @@ export default function DailyForecast() {
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="grid grid-cols-1 gap-1 lg:grid-cols-3">
-        <Panel title="Tahmin Girişi" className="lg:col-span-1">
-          <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2 text-[10px] text-slate-400">
-              Seans tarihi
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="rounded border border-[#1c2635] bg-[#0b0f18] px-1.5 py-1 text-[10px] text-slate-200"
-              />
-            </label>
+      <Panel title="Tahmin vs Gerçekleşen — 09:30-16:00 ET (mumlu)">
+        <div className="mb-2 flex items-center gap-4 text-[10px] text-slate-400">
+          <span className="flex items-center gap-1">
+            <span className="inline-block h-2 w-2 rounded-sm" style={{ background: C_UP }} /> Tahmin
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block h-2 w-2 rounded-sm" style={{ background: C_ACTUAL_UP }} /> Gerçekleşen
+          </span>
+          {avgAbsDiffPct != null && (
+            <span className="ml-auto">
+              Ort. mutlak sapma: <b className={tone(-avgAbsDiffPct)}>%{num(avgAbsDiffPct, 2)}</b> ({checked} nokta karşılaştırıldı)
+            </span>
+          )}
+        </div>
+        <div ref={chartRef} className="w-full" />
+      </Panel>
 
-            <textarea
-              value={textInput}
-              onChange={(e) => setTextInput(e.target.value)}
-              placeholder={"HH:MM,fiyat\nveya\nHH:MM açılış yüksek düşük kapanış\n\n09:30,767.50\n09:35 767.80 768.10 767.60 768.00\n..."}
-              rows={16}
-              className="w-full rounded border border-[#1c2635] bg-[#0b0f18] p-2 font-mono text-[10px] text-slate-200"
+      <Panel title="Tahmin Girişi">
+        <div className="flex items-center gap-3">
+          <label className="flex shrink-0 items-center gap-2 text-[10px] text-slate-400">
+            Seans tarihi
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="rounded border border-[#1c2635] bg-[#0b0f18] px-1.5 py-1 text-[10px] text-slate-200"
             />
+          </label>
+          <button
+            type="button"
+            onClick={save}
+            disabled={loading}
+            className="shrink-0 rounded bg-[#0e7490] px-4 py-1.5 text-[10px] font-semibold text-white hover:bg-[#0891b2] disabled:opacity-50"
+          >
+            {loading ? "Kaydediliyor…" : "Güncelle"}
+          </button>
+          {msg && <div className="text-[10px] text-slate-400">{msg}</div>}
+        </div>
 
-            <button
-              type="button"
-              onClick={save}
-              disabled={loading}
-              className="rounded bg-[#0e7490] px-2 py-1.5 text-[10px] font-semibold text-white hover:bg-[#0891b2] disabled:opacity-50"
-            >
-              {loading ? "Kaydediliyor…" : "Güncelle"}
-            </button>
-            {msg && <div className="text-[10px] text-slate-400">{msg}</div>}
-          </div>
-        </Panel>
-
-        <Panel title="Tahmin vs Gerçekleşen — 09:30-16:00 (mumlu)" className="lg:col-span-2">
-          <div className="mb-2 flex items-center gap-4 text-[10px] text-slate-400">
-            <span className="flex items-center gap-1">
-              <span className="inline-block h-2 w-2 rounded-sm" style={{ background: C_UP }} /> Tahmin
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="inline-block h-2 w-2 rounded-sm" style={{ background: C_ACTUAL_UP }} /> Gerçekleşen
-            </span>
-            {avgAbsDiffPct != null && (
-              <span className="ml-auto">
-                Ort. mutlak sapma: <b className={tone(-avgAbsDiffPct)}>%{num(avgAbsDiffPct, 2)}</b> ({checked} nokta karşılaştırıldı)
-              </span>
-            )}
-          </div>
-          <div ref={chartRef} className="w-full" />
-        </Panel>
-      </div>
+        <textarea
+          value={textInput}
+          onChange={(e) => setTextInput(e.target.value)}
+          placeholder={"HH:MM,fiyat  veya  HH:MM açılış yüksek düşük kapanış — örn: 09:30,767.50  /  09:35 767.80 768.10 767.60 768.00"}
+          rows={8}
+          className="mt-2 w-full rounded border border-[#1c2635] bg-[#0b0f18] p-2 font-mono text-[10px] text-slate-200"
+        />
+      </Panel>
 
       <Panel title="Kritik İzleme Noktaları — Tahmin / Gerçekleşen / Fark">
         <div className="max-h-96 overflow-y-auto">
