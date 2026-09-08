@@ -1,0 +1,89 @@
+{
+  "ticker": "QRVO",
+  "company": "Qorvo, Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:06:05.486Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 102.83999633789062,
+    "open": 101,
+    "high": 103.55000305175781,
+    "low": 100.48500061035156,
+    "prev_close": 100.37999725341797,
+    "change_pct": 2.450686542919678,
+    "change_pct_1w": 8.561166149650976,
+    "change_pct_1m": 7.8326448318953314,
+    "change_pct_1y": 10.71159114395581,
+    "volume": 718100,
+    "avg_volume_30d": 34235200
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 90,
+    "fundamental_score": 76.4,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.08409112645809,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 96.77882813472235,
+    "ema_50": 94.53238547009335,
+    "ema_200": 90.64821941345164,
+    "ema_stack_bullish": true,
+    "bb_upper": 107.98199615478516,
+    "bb_middle": 102.83999633789062,
+    "bb_lower": 97.69799652099609,
+    "bb_width": 10,
+    "atr": 2.83,
+    "atr_pct": 2.75,
+    "rvol": 1.0241038463335983,
+    "52w_high": 109.48999786376953,
+    "52w_low": 74.91999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 23.860788,
+    "pb_ratio": 2.6130705,
+    "gross_margin": 0.48535,
+    "operating_margin": 0.1578,
+    "net_margin": 0.10953,
+    "market_cap": 9072712704,
+    "revenue_growth_ttm": -0.042,
+    "fcf_yield": 0.05248066719781365,
+    "institutional_ownership_pct": 0.99874,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 100.97,
+    "entry_range_high": 103.12,
+    "target_range_low": 107.15,
+    "target_range_high": 117.35,
+    "target_1": 107.15,
+    "target_2": 112.25,
+    "target_3": 117.35,
+    "stop_loss": 97.7,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $100.97 – $103.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $103.55 direnci veya $100.40 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $97.70 olarak belirlenmiştir. Fiyatın EMA20 ($96.78) veya günlük VWAP ($102.55) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($102.55) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "TSM",
+  "company": "Taiwan Semiconductor Manufacturing Company Limited",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:32.847Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 428.9100036621094,
+    "open": 421.8800048828125,
+    "high": 429.82000732421875,
+    "low": 419.4200134277344,
+    "prev_close": 417.010009765625,
+    "change_pct": 2.8536470630939075,
+    "change_pct_1w": 2.72801660953879,
+    "change_pct_1m": 4.581588015369216,
+    "change_pct_1y": 76.20886455328377,
+    "volume": 12276300,
+    "avg_volume_30d": 331251200
+  },
+  "scores": {
+    "master_score": 88,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.770450657806165,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 418.44083242010373,
+    "ema_50": 417.4923789063023,
+    "ema_200": 377.43511691347794,
+    "ema_stack_bullish": true,
+    "bb_upper": 450.35550384521486,
+    "bb_middle": 428.9100036621094,
+    "bb_lower": 407.4645034790039,
+    "bb_width": 10,
+    "atr": 10.62,
+    "atr_pct": 2.48,
+    "rvol": 0.7439773803083581,
+    "52w_high": 479,
+    "52w_low": 237.89999389648438
+  },
+  "fundamental": {
+    "pe_ratio": 31.841871,
+    "pb_ratio": 88.28834,
+    "gross_margin": 0.6423,
+    "operating_margin": 0.60344005,
+    "net_margin": 0.49923,
+    "market_cap": 2224530653184,
+    "revenue_growth_ttm": 0.36,
+    "fcf_yield": 0.32853043120532377,
+    "institutional_ownership_pct": 0.1548,
+    "dividend_rate": 4.08,
+    "dividend_yield": 0.0095
+  },
+  "scores_detail": {
+    "entry_range_low": 422.54,
+    "entry_range_high": 429.97,
+    "target_range_low": 447.57,
+    "target_range_high": 490.19,
+    "target_1": 447.57,
+    "target_2": 468.88,
+    "target_3": 490.19,
+    "stop_loss": 407.46,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $422.54 – $429.97 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $435.71 direnci veya $420.42 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $407.46 olarak belirlenmiştir. Fiyatın EMA50 ($417.49) veya günlük VWAP ($427.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($427.19) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

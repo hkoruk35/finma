@@ -1,0 +1,89 @@
+{
+  "ticker": "EL",
+  "company": "The Estée Lauder Companies Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:28.931Z",
+  "sector": "Consumer Defensive",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 103.86000061035156,
+    "open": 100.51000213623047,
+    "high": 104.18000030517578,
+    "low": 100.44999694824219,
+    "prev_close": 100.86000061035156,
+    "change_pct": 2.9744199701026983,
+    "change_pct_1w": 0.45459060206763313,
+    "change_pct_1m": -0.2592880535753052,
+    "change_pct_1y": 16.434982246261466,
+    "volume": 4712900,
+    "avg_volume_30d": 101737100
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 90,
+    "fundamental_score": 68.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.67059472731779,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 97.68797411270047,
+    "ema_50": 91.6456871830415,
+    "ema_200": 89.64906039176302,
+    "ema_stack_bullish": true,
+    "bb_upper": 109.05300064086914,
+    "bb_middle": 103.86000061035156,
+    "bb_lower": 98.66700057983398,
+    "bb_width": 10,
+    "atr": 4.23,
+    "atr_pct": 4.07,
+    "rvol": 1.0253427707296552,
+    "52w_high": 121.63999938964844,
+    "52w_low": 66.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 207.72,
+    "pb_ratio": 9.872623,
+    "gross_margin": 0.75487,
+    "operating_margin": 0.07003,
+    "net_margin": 0.01209,
+    "market_cap": 37576396800,
+    "revenue_growth_ttm": 0.063,
+    "fcf_yield": 0.04822508836185166,
+    "institutional_ownership_pct": 0.95792,
+    "dividend_rate": 1.4,
+    "dividend_yield": 0.0135
+  },
+  "scores_detail": {
+    "entry_range_low": 101.32,
+    "entry_range_high": 104.28,
+    "target_range_low": 110.37,
+    "target_range_high": 120.27,
+    "target_1": 110.37,
+    "target_2": 117.57,
+    "target_3": 120.27,
+    "stop_loss": 98.36,
+    "risk_reward_ratio": 3.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $101.32 – $104.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $107.43 direnci veya $100.47 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $98.36 olarak belirlenmiştir. Fiyatın EMA20 ($97.69) veya günlük VWAP ($103.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($103.13) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}

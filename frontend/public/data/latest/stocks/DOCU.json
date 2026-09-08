@@ -1,0 +1,89 @@
+{
+  "ticker": "DOCU",
+  "company": "DocuSign, Inc.",
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T00:16:01.577Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 68.41000366210938,
+    "open": 68.5199966430664,
+    "high": 70.4000015258789,
+    "low": 64.16000366210938,
+    "prev_close": 65.97000122070312,
+    "change_pct": 3.698654534268089,
+    "change_pct_1w": 6.890630722045898,
+    "change_pct_1m": 9.351026471230103,
+    "change_pct_1y": -14.337586852908215,
+    "volume": 7993800,
+    "avg_volume_30d": 99908200
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 95,
+    "fundamental_score": 68.15,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.29383166382861,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.42432597357118,
+    "ema_50": 57.538018524042265,
+    "ema_200": 56.35868448098612,
+    "ema_stack_bullish": true,
+    "bb_upper": 71.83050384521485,
+    "bb_middle": 68.41000366210938,
+    "bb_lower": 64.9895034790039,
+    "bb_width": 10,
+    "atr": 2.61,
+    "atr_pct": 3.82,
+    "rvol": 1.3992064715408745,
+    "52w_high": 86.6500015258789,
+    "52w_low": 40.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 41.713417,
+    "pb_ratio": 7.257586,
+    "gross_margin": 0.79609,
+    "operating_margin": 0.13430999,
+    "net_margin": 0.09816,
+    "market_cap": 13062520832,
+    "revenue_growth_ttm": 0.094,
+    "fcf_yield": 0.10049598365302725,
+    "institutional_ownership_pct": 0.96112996,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 66.86,
+    "entry_range_high": 68.67,
+    "target_range_low": 71.16,
+    "target_range_high": 77.93,
+    "target_1": 71.16,
+    "target_2": 74.54,
+    "target_3": 77.93,
+    "stop_loss": 64.99,
+    "risk_reward_ratio": 2.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $66.86 – $68.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $70.40 direnci veya $66.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $64.99 olarak belirlenmiştir. Fiyatın EMA20 ($62.42) veya günlük VWAP ($67.75) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($67.75) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

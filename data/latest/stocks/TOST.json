@@ -1,0 +1,89 @@
+{
+  "ticker": "TOST",
+  "company": "Toast, Inc.",
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T08:32:00.539Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 33.95000076293945,
+    "open": 33.38999938964844,
+    "high": 33.994998931884766,
+    "low": 33.029998779296875,
+    "prev_close": 33.93000030517578,
+    "change_pct": 0.05894623514229957,
+    "change_pct_1w": -3.4139422783693543,
+    "change_pct_1m": -7.518382975663457,
+    "change_pct_1y": -17.637069972021852,
+    "volume": 5808400,
+    "avg_volume_30d": 287512800
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 85,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.3537738158806,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 34.43891293992513,
+    "ema_50": 32.55062289476603,
+    "ema_200": 31.404311028914716,
+    "ema_stack_bullish": true,
+    "bb_upper": 35.64750080108643,
+    "bb_middle": 33.95000076293945,
+    "bb_lower": 32.252500724792476,
+    "bb_width": 10,
+    "atr": 1.19,
+    "atr_pct": 3.51,
+    "rvol": 0.8062054976334967,
+    "52w_high": 42.150001525878906,
+    "52w_low": 22.260000228881836
+  },
+  "fundamental": {
+    "pe_ratio": 42.97468,
+    "pb_ratio": 9.895075,
+    "gross_margin": 0.26646,
+    "operating_margin": 0.07442,
+    "net_margin": 0.07143,
+    "market_cap": 19623100416,
+    "revenue_growth_ttm": 0.231,
+    "fcf_yield": 0.024167943594342153,
+    "institutional_ownership_pct": 0.95642996,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 33.27,
+    "entry_range_high": 34.07,
+    "target_range_low": 36.36,
+    "target_range_high": 38.72,
+    "target_1": 36.36,
+    "target_2": 37.09,
+    "target_3": 38.72,
+    "stop_loss": 32.25,
+    "risk_reward_ratio": 2.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $33.27 – $34.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $34.97 direnci veya $33.03 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $32.25 olarak belirlenmiştir. Fiyatın EMA50 ($32.55) veya günlük VWAP ($33.66) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($32.55) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($33.66) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "VTRS",
+  "company": "Viatris Inc.",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T21:05:27.216Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "price": {
+    "current": 16.8799991607666,
+    "open": 16.809999465942383,
+    "high": 17.020000457763672,
+    "low": 16.670000076293945,
+    "prev_close": 16.940000534057617,
+    "change_pct": -0.3541993589101946,
+    "change_pct_1w": 3.3047674610528515,
+    "change_pct_1m": 2.0556120097918247,
+    "change_pct_1y": 60.76189676920573,
+    "volume": 5732600,
+    "avg_volume_30d": 286403500
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 100,
+    "fundamental_score": 50,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.89349671122532,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 16.683565769866185,
+    "ema_50": 16.583164245652615,
+    "ema_200": 14.908338648102916,
+    "ema_stack_bullish": true,
+    "bb_upper": 17.723999118804933,
+    "bb_middle": 16.8799991607666,
+    "bb_lower": 16.03599920272827,
+    "bb_width": 10,
+    "atr": 0.42,
+    "atr_pct": 2.46,
+    "rvol": 0.85461874593013,
+    "52w_high": 18.389999389648438,
+    "52w_low": 9.430000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.3409595,
+    "gross_margin": 0.40307,
+    "operating_margin": 0.12550999,
+    "net_margin": -0.02787,
+    "market_cap": 19388213248,
+    "revenue_growth_ttm": 0.049,
+    "fcf_yield": 0.1380909919729804,
+    "institutional_ownership_pct": 0.93599,
+    "dividend_rate": 0.48,
+    "dividend_yield": 0.028399998
+  },
+  "scores_detail": {
+    "entry_range_low": 16.63,
+    "entry_range_high": 16.92,
+    "target_range_low": 17.61,
+    "target_range_high": 19.29,
+    "target_1": 17.61,
+    "target_2": 18.45,
+    "target_3": 19.29,
+    "stop_loss": 16.04,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $16.63 – $16.92 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $17.09 direnci veya $16.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $16.04 olarak belirlenmiştir. Fiyatın EMA50 ($16.58) veya günlük VWAP ($16.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($16.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}
