@@ -178,7 +178,7 @@ export async function GET(req: NextRequest) {
       m5History: rvolHistory.bars,
     });
 
-    // ── V5.0: rejim (TREND/SIKIŞMA) motoru artık karar mekanizmasının
+    // ── V6.0: rejim (TREND/SIKIŞMA) motoru artık karar mekanizmasının
     // parçası DEĞİL — yalnızca Gün Kapanış Tahmini panelinin bant genişliği
     // notunda kozmetik amaçla kullanılıyor (bkz. levels.ts forecastClose).
     // Giriş/çıkış kararları artık generateCandidates/findExitSignal
@@ -392,13 +392,13 @@ export async function GET(req: NextRequest) {
           prevClose,
           regime: regimeSeries.current.regime,
         }),
-        // V5.0 rejim bloku: 15m veto + 5m Layer1/Layer2 + kayip sonrasi
-        // soguma -- karar mekanizmasinin GERCEK durumu (gen.read icinden).
+        // V6.0 rejim bloku: 15m veto + hacim vetosu + 5m Layer1 + kayip
+        // sonrasi soguma -- karar mekanizmasinin GERCEK durumu (gen.read
+        // icinden). Layer2 (3'te 2 oylama) V6.0'da kaldirildi.
         regime: {
           veto: gen.read.veto,
           volumeVeto: gen.read.volumeVeto,
           layer1: gen.read.layer1,
-          layer2: gen.read.layer2,
           current: gen.read.regime,
           cooldownUntil,
           cooldownActive,

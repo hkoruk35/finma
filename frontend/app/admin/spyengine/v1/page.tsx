@@ -52,7 +52,7 @@ import {
 } from "@/lib/spyengine/core";
 import type {
   EngineEvent, PositionState, ContractType, ConfidencePart, EngineState, GateStatus,
-  RegimeState, M15VetoRead, VolumeVetoRead, Layer1Read, Layer2Read, Layer3Read,
+  RegimeState, M15VetoRead, VolumeVetoRead, Layer1Read, Layer3Read,
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 
@@ -62,7 +62,6 @@ interface EngineRead {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
-  layer2: Layer2Read;
   regime: RegimeState;
   layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
@@ -529,9 +528,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-2">
           <div>
-            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V5.0</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V6.0</h1>
             <p className="text-[9px] text-slate-500">
-              15m veto (yön izni) · 5m rejim (ana karar, Layer 1+2) · 1m tetik (zamanlama) · öncelik sıralı çıkış
+              15m veto (yön izni) · hacim vetosu (RVOL) · 5m trend (ana karar, Layer 1) · 1m breakout+RSI (zamanlama) · öncelik sıralı çıkış
             </p>
           </div>
 
@@ -863,7 +862,7 @@ export default function SpyEngineCommandCenter() {
               {data && (
                 <LayerTable
                   veto={data.engine.veto} volumeVeto={data.engine.volumeVeto}
-                  layer1={data.engine.layer1} layer2={data.engine.layer2}
+                  layer1={data.engine.layer1}
                   regime={data.engine.regime} layer3={data.engine.layer3}
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
@@ -912,33 +911,31 @@ export default function SpyEngineCommandCenter() {
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
 
-          {/* Kabul Kriterleri (V5.0) — sayfanın en altı, varsayılan kapalı */}
-          <Disclosure title="Kabul Kriterleri (V5.0)">
+          {/* Kabul Kriterleri (V6.0) — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure title="Kabul Kriterleri (V6.0)">
             <ol className="flex list-decimal flex-col gap-1.5 pl-4 text-[10px] leading-relaxed text-slate-400 marker:text-slate-600">
               <li>15m veto SADECE yön izni verir/engeller — kendi başına karar üretmez (Katman 0).</li>
               <li>LONG, 15m kapanış &lt; 15m EMA21 iken; SHORT, 15m kapanış &gt; 15m EMA21 iken üretilmiyor.</li>
-              <li>5m REJİM (LONG/SHORT/YOK) ana karar katmanıdır — Layer 1 (trend) VE Layer 2 (filtre, en az 2/3 oy) kapalı 5m barda birlikte geçmeden açılmıyor.</li>
-              <li>Rejim, açıldıktan sonra tek bir bara değil bir DURUMA bağlıdır: her yeni kapanan 5m barda Layer 1+2 yeniden kontrol edilir, biri bile düşerse rejim hemen kapanır.</li>
+              <li>Hacim vetosu (RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 15m veto ile aynı kategoride. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
+              <li>5m REJİM (LONG/SHORT/YOK) ana karar katmanıdır — sadece Layer 1 (trend: EMA21 konumu + RSI/MACD yönlü) kapalı 5m barda geçtiğinde açılır. Eski Layer 2 (3&apos;te 2 oylama) KALDIRILDI.</li>
+              <li>Rejim, açıldıktan sonra tek bir bara değil bir DURUMA bağlıdır: her yeni kapanan 5m barda Layer 1 yeniden kontrol edilir, düşerse (veya hacim vetosu aktifleşirse) rejim hemen kapanır.</li>
               <li>1m artık karar verme zamanı değil — ana zaman dilimi 5m&apos;dir. 1m yalnızca ZAMANLAMA sağlar: rejim aktifken her kapalı 1m barda bağımsız kontrol edilir.</li>
-              <li>1m STRUCTURE (EMA21 konumu + önceki 2 kapalı mumun kırılımı) olmadan sadece RSI7 veya sadece hacimle giriş açılmıyor.</li>
-              <li>1m CONFIRMATION (RSI7 yönlü VEYA 5m RVOL ≥ 1.0) en az biri sağlanmadan giriş açılmıyor — hacim bacağı 1m DEĞİL 5m RVOL&apos;a bakar (Yahoo&apos;nun 1m hacmi sık sık null döner).</li>
+              <li>1m STRUCTURE = breakout (Close &gt; önceki 2 kapalı mumun zirvesi/dibi). Eski EMA21(1m) konum şartı KALDIRILDI.</li>
+              <li>1m CONFIRMATION = RSI7 yönlü, ZORUNLU (artık &quot;RSI7 VEYA hacim&quot; değil — hacim alternatifi KALDIRILDI). fired = breakout VE RSI7.</li>
               <li>Zaman filtresi (açılış/öğlen/kapanış hariç tutma) UYGULANMIYOR — RTH içinde (09:30–16:00 ET) her an giriş üretilebilir.</li>
               <li>15:45 ET zorunlu 0DTE kapaması, diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
               <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü (kapalı bar) → sabit stop (anlık, mum içi en kötü seviye) → trailing kilit (kapalı bar).</li>
               <li>Stop eşiği −%25 ile −%30 arasında kalibre edilir; mevcut sabit −%28, mum kapanışı değil mum içi en kötü seviyeyle kontrol edilir.</li>
               <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>
               <li>Strike seçimi: RSI VE MACD ikisi de + RVOL&gt;2.0 → Süper Güçlü (Kontrat S, ATM+2); RSI VE MACD ikisi de → Güçlü (Kontrat A, ATM+1); yalnızca biri → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
-              <li>RVOL (aynı saat diliminin geçmiş günlerdeki ortalamasına göre hacim), Katman 2&apos;nin hacim bileşeninin YERİNE geçer — basit &quot;son 20 mum ortalaması&quot; DEĞİL, açılış/kapanış patlaması ile öğlen durgunluğunu karıştırmaz.</li>
-              <li>RVOL &lt; 0.8: iki yönü de engelleyen ayrı bir VETO (2/3 oylamaya gömülmez — diğer 2 kriter geçse bile giriş engellenir). RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
               <li>Aynı anda tek pozisyon; kapanıştan sonra düzeltme mumu beklenir; saatte en fazla 3 giriş; aynı kontrata (strike+yön) aynı gün ikinci giriş engellenir.</li>
               <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
-              <li>Kapı Durumu paneli LONG/SHORT için tüm katmanları (15m veto, hacim vetosu, 5m trend, 5m filtre, 5m rejim, 1m yapı/konfirmasyon) tek listede gösteriyor.</li>
+              <li>Kapı Durumu paneli LONG/SHORT için 5 kalemi (15m veto, hacim vetosu, 5m trend, 1m breakout, 1m RSI7) tek listede gösteriyor — veri üretemeyen/redundan kalemler (5m filtre, 5m rejim aktif, 1m EMA21 konumu, 1m RVOL) kaldırıldı.</li>
               <li>Motor Durumu paneli 15m/RVOL/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
-              <li>1m hacim konfirmasyonu tamamen 5m RVOL&apos;a taşındı (eşik bilinçli olarak gevşek — 1.0, Katman 2&apos;nin 1.2 eşiğinden düşük — çünkü piyasa son dönemde düşük hacimle hareket ediyor); 1m hacim verisindeki Yahoo boşluğu artık hiçbir kontrolü etkilemiyor.</li>
               <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">
-              V4.1 → V5.0: Layer 2 mantığı düzeltildi, rejim (5m, süregelen durum) ile zamanlama (1m, bağımsız) katmanları ayrıldı, zaman filtresi kaldırıldı, çıkış öncelik sıralı + asimetrik hızlı hale getirildi.
+              V5.0 → V6.0: Layer 2 (3&apos;te 2 oylama), &quot;5m rejim aktif&quot; kapı satırı, 1m&apos;in EMA21 konum şartı ve RVOL konfirmasyonu KALDIRILDI — kalan 5 kalem (15m veto + hacim vetosu + trend + breakout + RSI) daha hızlı, daha az AND şartlı, aynı derecede kanıta dayalı bir sinyal üretiyor.
             </div>
           </Disclosure>
         </div>

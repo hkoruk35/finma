@@ -17,7 +17,7 @@ import {
   type PositionState, type EngineEvent,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
   type GateCheck, type Side, type RegimeSide, type RegimeState,
-  type M15VetoRead, type VolumeVetoRead, type Layer1Read, type Layer2Read, type Layer3Read,
+  type M15VetoRead, type VolumeVetoRead, type Layer1Read, type Layer3Read,
 } from "@/lib/spyengine/strategy";
 
 /** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
@@ -715,13 +715,12 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
 }
 
 export function LayerTable({
-  veto, volumeVeto, layer1, layer2, regime, layer3,
+  veto, volumeVeto, layer1, regime, layer3,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
 }: {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
-  layer2: Layer2Read;
   regime: RegimeState;
   layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
@@ -735,7 +734,6 @@ export function LayerTable({
   const st = STATE_STYLE[state];
   const vetoTone = veto.direction === "LONG" ? "text-[#22c55e]" : veto.direction === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
   const regimeTone = regime.side === "LONG" ? "text-[#22c55e]" : regime.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
-  const l2Best = Math.max(layer2.longPassed, layer2.shortPassed);
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
@@ -782,15 +780,15 @@ export function LayerTable({
       />
       <LayerRow
         tf="5m"
-        tag="ANA KARAR — trend + filtre (2/3 oy)"
+        tag="ANA KARAR — trend (Layer 1)"
         value={regime.side === "NONE" ? "Rejim yok" : `${regime.side} rejimi aktif`}
-        note={`${layer1.note} · ${layer2.note}`}
+        note={layer1.note}
         t={regimeTone}
       />
       <LayerRow
         tf="1m"
         tag="ZAMANLAMA — sadece rejim aktifken bakılır"
-        value={layer3.fired ? "Tetik ateşlendi" : layer3.structureOk ? "Yapı kırıldı, konfirmasyon bekliyor" : "Yapı kırılımı bekleniyor"}
+        value={layer3.fired ? "Tetik ateşlendi" : layer3.structureOk ? "Breakout oluştu, RSI7 bekliyor" : "Breakout bekleniyor"}
         note={layer3.note}
         t={layer3.fired ? "text-[#22c55e]" : "text-slate-400"}
       />
@@ -805,7 +803,6 @@ export function LayerTable({
         <span>Yön: <b className={action === "LONG" ? "text-[#22c55e]" : action === "SHORT" ? "text-[#ef4444]" : "text-slate-300"}>
           {action === "BEKLE" ? "Henüz yok" : action === "LONG" ? "LONG (Call)" : "SHORT (Put)"}
         </b></span>
-        <span>5m filtre: <b className="text-slate-300">{l2Best}/3</b></span>
         <span>Güven: <b className="text-slate-300">{confidence}/100</b></span>
       </div>
       <ConfidenceBreakdown parts={confidenceParts} total={confidence} />
@@ -983,7 +980,7 @@ export function EventList({ events, emptyText }: { events: EngineEvent[]; emptyT
   );
 }
 
-// ── Strateji şeması (V5.0: 15m veto → 5m rejim → 1m zamanlama → çıkış) ──
+// ── Strateji şeması (V6.0: 15m veto → hacim vetosu → 5m rejim → 1m zamanlama → çıkış) ──
 
 export function StrategySchema({ state, contractType }: { state: EngineState; contractType: string | null }) {
   const active = (id: string) => {
@@ -998,7 +995,7 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V5.0 strateji akış şeması">
+      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V6.0 strateji akış şeması">
         <defs>
           <marker id="spyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#475569" />
@@ -1013,32 +1010,26 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <text x="733" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">RVOL &lt; 0.8: İKİ YÖNÜ DE engelleyen ikili veto (oylamaya girmez)</text>
 
         {/* 1 — 5m Rejim (ana karar) */}
-        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 5m REJİM (ana karar katmanı) — Layer 1 + Layer 2 birlikte gerekli</text>
+        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 5m REJİM (ana karar katmanı) — Layer 1 tek başına yeterli</text>
 
-        <rect x="14" y="106" width="466" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
-        <text x="247" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 1 — TREND</text>
-        <text x="247" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(5m) vs EMA21 + (RSI14 yönlü VEYA MACD_hist yönlü)</text>
-        <text x="247" y="160" textAnchor="middle" fill="#64748b" fontSize="9">kapanmış 5m mum, non-repainting</text>
-        <text x="247" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de + RVOL&gt;2.0 → Süper (S) · ikisi de → Güçlü (A)</text>
-
-        <rect x="500" y="106" width="466" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
-        <text x="733" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 2 — FİLTRE (3&apos;te 2 oylama)</text>
-        <text x="733" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">RVOL ≥ 1.2 (aynı saat dilimi ort.) · Gövde &gt; ATR×0.40 · Karşı gölge &lt; Gövde×0.40</text>
-        <text x="733" y="160" textAnchor="middle" fill="#64748b" fontSize="9">en az 2/3 sağlanmalı</text>
-        <text x="733" y="174" textAnchor="middle" fill="#64748b" fontSize="9">Layer 1+2 geçerli kaldığı sürece REJİM AKTİF kalır</text>
+        <rect x="14" y="106" width="952" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
+        <text x="490" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 1 — TREND</text>
+        <text x="490" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(5m) vs EMA21 + (RSI14 yönlü VEYA MACD_hist yönlü)</text>
+        <text x="490" y="160" textAnchor="middle" fill="#64748b" fontSize="9">kapanmış 5m mum, non-repainting · Layer 1 geçerli kaldığı sürece REJİM AKTİF kalır</text>
+        <text x="490" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de + RVOL&gt;2.0 → Süper (S) · ikisi de → Güçlü (A) · biri → Orta (B)</text>
 
         {/* 2 — 1m Tetik (zamanlama) */}
         <text x="14" y="204" fill="#64748b" fontSize="11" fontWeight="600">2 · 1m TETİK (zamanlama) — SADECE rejim aktifken, her kapalı barda bağımsız kontrol</text>
 
         <rect x="14" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">STRUCTURE (zorunlu)</text>
-        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(1m) vs EMA21(1m) + önceki 2 KAPALI mumun zirve/dip kırılımı</text>
-        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">structure olmadan sadece RSI/hacimle giriş açılmaz</text>
+        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">STRUCTURE (zorunlu) — breakout</text>
+        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(1m) &gt; önceki 2 KAPALI mumun zirvesi (LONG) / dibi (SHORT)</text>
+        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">breakout olmadan RSI7&apos;yle giriş açılmaz</text>
 
         <path d="M480 250 L500 250" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
         <rect x="500" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">CONFIRMATION (en az biri) → GİRİŞ</text>
-        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü VEYA 5m RVOL ≥ 1.0 (1m hacim yerine)</text>
+        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">CONFIRMATION (zorunlu) — RSI7 → GİRİŞ</text>
+        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü (50 çizgisi + yön)</text>
         <text x="733" y="270" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR} giriş</text>
 
         {/* 3 — Çıkış */}
@@ -1259,14 +1250,13 @@ export interface RegimeBlock {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
-  layer2: Layer2Read;
   current: RegimeState;
   cooldownUntil: number | null;
   cooldownActive: boolean;
 }
 
 /**
- * Rejim bandı — V5.0 mimarisinin merkezi kutusu: 15m veto + 5m Layer1/2'nin
+ * Rejim bandı — V6.0 mimarisinin merkezi kutusu: 15m veto + 5m Layer1'in
  * ürettiği REJİM DURUMU (LONG/SHORT/YOK), "büyük, renkli, tartışmasız
  * görünür" (eski TREND/SIKIŞMA piyasa-geneli rejim artık karar üretmiyor —
  * bkz. strategy.ts başlığı).
@@ -1363,9 +1353,9 @@ function RegimeColumn({ title, checks, passed, accent }: {
   );
 }
 
-/** 5m rejim kriter dökümü (Layer 1 + Layer 2) — rejim kara kutu olmamalı */
+/** 5m rejim kriter dökümü (Layer 1) — rejim kara kutu olmamalı */
 export function RegimePanel({ block }: { block: RegimeBlock | null }) {
-  if (!block || !block.layer2.longVotes.length) {
+  if (!block || block.layer1.rsi == null) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
         <div className="text-[11px] font-semibold text-slate-300">5m Rejim Kriterleri</div>
@@ -1373,7 +1363,7 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
       </div>
     );
   }
-  const { layer1, layer2, current } = block;
+  const { layer1, current } = block;
   const l1Checks: GateCheck[] = [
     { label: "Fiyat EMA21 üstünde (LONG)", ok: layer1.closeAboveEma, detail: layer1.closeAboveEma ? "evet" : "hayır" },
     { label: "RSI14 > 50 ve yükseliyor (LONG)", ok: !!(layer1.rsi != null && layer1.rsi > 50 && layer1.rsiRising), detail: layer1.rsi == null ? "veri yok" : layer1.rsi.toFixed(0) },
@@ -1391,7 +1381,7 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          5m Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· Layer 1 (trend) + Layer 2 (filtre, 2/3 oy)</span>
+          5m Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· Layer 1 (trend)</span>
         </span>
       </div>
       <div className="border-b border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
@@ -1403,10 +1393,6 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
       <div className="flex divide-x divide-[#1c2635]">
         <RegimeColumn title="LAYER 1 · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
         <RegimeColumn title="LAYER 1 · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
-      </div>
-      <div className="flex divide-x divide-[#1c2635] border-t border-[#1c2635]">
-        <RegimeColumn title="LAYER 2 · LONG (2/3 yeter)" checks={layer2.longVotes} passed={layer2.longPassed} accent="#22c55e" />
-        <RegimeColumn title="LAYER 2 · SHORT (2/3 yeter)" checks={layer2.shortVotes} passed={layer2.shortPassed} accent="#ef4444" />
       </div>
     </div>
   );

@@ -1,15 +1,18 @@
 /**
- * SPY Engine V5.0 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
+ * SPY Engine V6.0 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
  *
  * V4.2'den TAM MİMARİ DEĞİŞİKLİK: artık üç zaman dilimi ayrı roller taşıyor.
  *
  *   15m VETO       → yön izni (LONG/SHORT/NÖTR). Karar üretmez, sadece
  *                     ters yöndeki girişleri engeller.
- *   5m TREND+FİLTRE → ANA KARAR KATMANI. İkisi birlikte geçerse bir yönde
- *                     "REJİM" açılır; bu rejim, Layer 1+2 geçerli kaldığı
- *                     sürece (her yeni kapanan 5m barda yeniden kontrol
- *                     edilerek) AKTİF kalan bir DURUMDUR — tek bir bara
- *                     değil, bir pencereye bağlıdır.
+ *   5m TREND        → ANA KARAR KATMANI. Geçerse bir yönde "REJİM" açılır;
+ *                     bu rejim, Layer 1 geçerli kaldığı sürece (her yeni
+ *                     kapanan 5m barda yeniden kontrol edilerek) AKTİF
+ *                     kalan bir DURUMDUR — tek bir bara değil, bir
+ *                     pencereye bağlıdır. (V6.0: eski Katman 2 "3'te 2
+ *                     oylama" filtresi kaldırıldı — ekstra AND şartları
+ *                     sinyal sayısını hızla sıfıra yaklaştırıyordu, kanıtı
+ *                     olmayan bir sıkılaştırmaydı.)
  *   1m TETİK        → ZAMANLAMA. Karar vermez — rejim aktifken HER kapanan
  *                     1m barda bağımsız olarak "şimdi mi?" sorusunu sorar.
  *                     Eskiden üç katman aynı anda hizalanmayı beklediği için
@@ -30,34 +33,27 @@
  *   LONG: Close>EMA21 AND (RSI14>50 ve yükseliyor OR MACD_hist>0 ve yükseliyor)
  *   SHORT: simetrik ters.
  *
- * ── KATMAN 2 — 5m FİLTRE (rejim kalite onayı, 3'te 2 oylama) ────────
- *   A) RVOL ≥ 1.2   B) Gövde > ATR14×0.40   C) Karşı gölge < Gövde×0.40
- *   En az 2/3 sağlanmalı. Layer 1 + Layer 2 birlikte REJİMİ açar/sürdürür.
- *
  * ── HACİM VETOSU (RVOL, Katman 0 ile aynı kategoride) ───────────────
  *   RVOL = o 5m barın hacmi / AYNI SAAT DİLİMİNİN geçmiş günlerdeki
  *   ortalaması (basit "son 20 mum" ortalaması DEĞİL — açılış/kapanış hacim
  *   patlamaları ile öğlen durgunluğunu aynı eşikle ölçmek yanlış sinyal
- *   kaynağıydı). Üç eşik, üç farklı işlev görür:
+ *   kaynağıydı).
  *     RVOL < 0.8  → "piyasa şu an anlamsız" — İKİ YÖNÜ DE ENGELLEYEN,
- *                   nadiren tetiklenen ikili (binary) bir VETO. Oylamaya
- *                   GÖMÜLMEZ — 2/3 diğer kriter geçse bile giriş engellenir.
- *     RVOL ≥ 1.2  → Katman 2'nin A bileşeni (katılım onayı, oylamaya girer).
- *     RVOL > 2.0  → oylamayı etkilemez; yalnızca strike seçiminde "güçlü
- *                   rejim + kurumsal katılım" ekstra girdisi olarak kullanılır.
+ *                   nadiren tetiklenen ikili (binary) bir VETO.
+ *     RVOL > 2.0  → giriş kararını etkilemez; yalnızca strike seçiminde
+ *                   "güçlü rejim + kurumsal katılım" ekstra girdisi olarak
+ *                   kullanılır (bkz. STRIKE_OFFSET).
  *   RVOL, en az RVOL_MIN_SAMPLE_DAYS gün geçmiş veri gerektirir; yoksa
- *   `null` döner ve hiçbir eşik (veto dahil) tetiklenmez — uydurma yok.
+ *   `null` döner ve veto hiç tetiklenmez — uydurma yok.
  *
  * ── KATMAN 3 — 1m TETİK (zamanlama, sadece rejim aktifken) ──────────
- *   STRUCTURE (zorunlu): Close>EMA21(1m) AND Close > önceki 2 KAPALI 1m
- *   mumun en yükseği (LONG) / en düşüğü (SHORT).
- *   CONFIRMATION (en az biri): RSI7 yönlü VEYA 5m RVOL ≥ RVOL_M1_CONFIRM_MIN.
- *   Hacim bacağı BİLİNÇLİ OLARAK 1m DEĞİL 5m RVOL'a bakar — Yahoo'nun 1m
- *   hacmi sık sık null/0 döner (bkz. HACİM VETOSU notu), bu da "1m hacim >
- *   ortalama" kontrolünü pratikte hep "veri yok"a düşürüyordu. Eşik ayrıca
- *   Katman 2'nin katılım eşiğinden (1.2) BİLİNÇLİ OLARAK daha gevşek (1.0):
- *   piyasa son dönemde düşük hacimle hareket ediyor, sert bir eşik bu OR
- *   dalını sürekli devre dışı bırakırdı.
+ *   STRUCTURE (zorunlu): Close > önceki 2 KAPALI 1m mumun en yükseği (LONG)
+ *   / en düşüğü (SHORT) — "breakout".
+ *   CONFIRMATION (zorunlu): RSI7 yönlü — "RSI".
+ *   fired = STRUCTURE && CONFIRMATION.
+ *   (V6.0: eski EMA21(1m) konum şartı ve "RSI7 VEYA 5m RVOL" OR dalı
+ *   kaldırıldı — LONG'u 5/9'dan gereksiz yere geriye çeken, kanıtı olmayan
+ *   ekstra katmanlardı; kalan iki şart tek başına yeterli.)
  *
  * ── ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş konfirmasyonlu/yavaş,
  *   çıkış hızlı) ───────────────────────────────────────────────────────
@@ -131,12 +127,6 @@ export const M5_MACD_FAST = 12;
 export const M5_MACD_SLOW = 26;
 export const M5_MACD_SIGNAL = 9;
 
-/** 5m Katman 2 — filtre (3'te 2 oylama) */
-export const M5_ATR_PERIOD = 14;
-export const M5_FILTER_BODY_ATR_MULT = 0.4;
-export const M5_FILTER_WICK_BODY_MULT = 0.4;
-export const M5_FILTER_MIN_VOTES = 2;
-
 /**
  * RVOL (relative volume) — aynı saat diliminin GEÇMİŞ günlerdeki ortalamasına
  * göre hacim oranı. Basit "son 20 mumun ortalaması" DEĞİL: açılış/kapanış
@@ -144,28 +134,17 @@ export const M5_FILTER_MIN_VOTES = 2;
  */
 /** RVOL bucket genişliği — 5m barla aynı hizada */
 export const RVOL_BUCKET_MIN = 5;
-/** Bu eşiğin altı: ikili VETO — iki yönü de engeller, oylamaya girmez */
+/** Bu eşiğin altı: ikili VETO — iki yönü de engeller */
 export const RVOL_VETO_MIN = 0.8;
-/** Bu eşik ve üstü: Katman 2'nin A bileşeni (katılım) geçer */
-export const RVOL_PARTICIPATION_MIN = 1.2;
 /** Bu eşik üstü: strike seçiminde "güçlü + kurumsal katılım" ekstra girdisi */
 export const RVOL_STRONG_MIN = 2.0;
 /** RVOL güvenilir sayılmadan önce gereken asgari geçmiş gün sayısı */
 export const RVOL_MIN_SAMPLE_DAYS = 5;
 
 /** 1m Katman 3 — tetik (zamanlama) */
-export const M1_EMA_PERIOD = 21;
 /** Spec RSI7 diyor — eski katmanların RSI14'ünden BİLİNÇLİ OLARAK farklı */
 export const M1_RSI_PERIOD = 7;
 export const M1_STRUCTURE_LOOKBACK = 2;
-/**
- * 1m CONFIRMATION'ın hacim bacağı 5m RVOL'a bakar (1m hacim yerine — bkz.
- * layer3At). Eşik BİLİNÇLİ OLARAK RVOL_PARTICIPATION_MIN'den (1.2, Katman
- * 2'nin oylaması) daha gevşek: piyasa son dönemde düşük hacimle hareket
- * ediyor, bu OR dalının sert bir eşikle sürekli devre dışı kalmasını
- * istemiyoruz — RSI7 zaten diğer dal, ikisi birden gereksiz sıkılaştırır.
- */
-export const RVOL_M1_CONFIRM_MIN = 1.0;
 
 /** Saatte azami giriş (kayan 60 dakikalık pencere) — V4'ten korundu */
 export const MAX_ENTRIES_PER_HOUR = 3;
@@ -305,16 +284,6 @@ export interface VolumeVetoRead {
   note: string;
 }
 
-export interface Layer2Read {
-  longVotes: GateCheck[];
-  longPassed: number;
-  passLong: boolean;
-  shortVotes: GateCheck[];
-  shortPassed: number;
-  passShort: boolean;
-  note: string;
-}
-
 export interface RegimeState {
   side: RegimeSide;
   since: number | null;
@@ -333,7 +302,6 @@ export interface EngineRead {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
-  layer2: Layer2Read;
   regime: RegimeState;
   layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
@@ -525,95 +493,29 @@ function layer1At(
   };
 }
 
-// ── KATMAN 2 — 5m FİLTRE (3'te 2 oylama) ────────────────────────────
-
-function layer2At(m5: Bar[], m5Atr: (number | null)[], rvol: number | null, idx: number): Layer2Read {
-  if (idx < 1 || idx >= m5.length) {
-    return { longVotes: [], longPassed: 0, passLong: false, shortVotes: [], shortPassed: 0, passShort: false, note: "5m verisi yetersiz" };
-  }
-  const bar = m5[idx];
-  const body = Math.abs(bar.close - bar.open);
-  const bullish = bar.close > bar.open;
-  const bearish = bar.close < bar.open;
-  const upperWick = bar.high - Math.max(bar.open, bar.close);
-  const lowerWick = Math.min(bar.open, bar.close) - bar.low;
-  const a = m5Atr[idx] ?? 0;
-  const volOk = rvol != null && rvol >= RVOL_PARTICIPATION_MIN;
-
-  const longBodyOk = bullish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
-  const longWickOk = bullish && body > 0 && upperWick < body * M5_FILTER_WICK_BODY_MULT;
-  const longVotes: GateCheck[] = [
-    { label: `RVOL ≥ ${RVOL_PARTICIPATION_MIN}× (aynı saat diliminin ort.)`, ok: volOk, detail: rvol == null ? "veri yok" : `RVOL ${rvol.toFixed(2)}×` },
-    { label: `Gövde (yükseliş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: longBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
-    { label: `Üst gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: longWickOk, detail: body > 0 ? `%${((upperWick / body) * 100).toFixed(0)}` : "veri yok" },
-  ];
-  const longPassed = longVotes.filter((v) => v.ok).length;
-
-  const shortBodyOk = bearish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
-  const shortWickOk = bearish && body > 0 && lowerWick < body * M5_FILTER_WICK_BODY_MULT;
-  const shortVotes: GateCheck[] = [
-    { label: `RVOL ≥ ${RVOL_PARTICIPATION_MIN}× (aynı saat diliminin ort.)`, ok: volOk, detail: rvol == null ? "veri yok" : `RVOL ${rvol.toFixed(2)}×` },
-    { label: `Gövde (düşüş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: shortBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
-    { label: `Alt gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: shortWickOk, detail: body > 0 ? `%${((lowerWick / body) * 100).toFixed(0)}` : "veri yok" },
-  ];
-  const shortPassed = shortVotes.filter((v) => v.ok).length;
-
-  const passLong = longPassed >= M5_FILTER_MIN_VOTES;
-  const passShort = shortPassed >= M5_FILTER_MIN_VOTES;
-
-  return {
-    longVotes, longPassed, passLong,
-    shortVotes, shortPassed, passShort,
-    note: passLong
-      ? `5m filtre LONG'u ${longPassed}/3 oyla onayladı`
-      : passShort
-      ? `5m filtre SHORT'u ${shortPassed}/3 oyla onayladı`
-      : `5m filtre onaylamadı (LONG ${longPassed}/3 · SHORT ${shortPassed}/3, en az 2 gerekli)`,
-  };
-}
-
 // ── KATMAN 3 — 1m TETİK (zamanlama) ─────────────────────────────────
 
-function layer3At(
-  m1: Bar[], m1Ema: (number | null)[], m1Rsi7: (number | null)[], idx: number, side: Side, rvol: number | null
-): Layer3Read {
+function layer3At(m1: Bar[], m1Rsi7: (number | null)[], idx: number, side: Side): Layer3Read {
   if (idx < M1_STRUCTURE_LOOKBACK) {
     return { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "1m verisi yetersiz" };
   }
   const bar = m1[idx];
-  const e = m1Ema[idx];
   const prevBars = m1.slice(idx - M1_STRUCTURE_LOOKBACK, idx); // önceki 2 KAPALI mum, mevcut hariç
   const isLong = side === "LONG";
 
-  const emaOk = e != null && (isLong ? bar.close > e : bar.close < e);
   const extreme = isLong
     ? Math.max(...prevBars.map((b) => b.high))
     : Math.min(...prevBars.map((b) => b.low));
   const breakOk = isLong ? bar.close > extreme : bar.close < extreme;
-  const structureOk = emaOk && breakOk;
+  const structureOk = breakOk;
 
   const r = m1Rsi7[idx], rp = m1Rsi7[idx - 1];
   const rsiOk = isLong ? r != null && r > 50 && rising(r, rp) : r != null && r < 50 && falling(r, rp);
-  // Hacim konfirmasyonu 1m DEĞİL 5m RVOL üzerinden kontrol edilir: Yahoo'nun
-  // 1m hacmi (özellikle sabah erken/seyrek işlem dakikalarında) sık sık
-  // null/0 döndürüyor, bu da "Hacim > ort.×N" kontrolünü pratikte hep
-  // "veri yok"a düşürüyordu. 5m RVOL (bkz. Katman 2) zaten hesaplanıyor ve
-  // Yahoo'nun 5m hacim verisi 1m'ye göre çok daha güvenilir. Eşik BİLİNÇLİ
-  // OLARAK gevşek (RVOL_M1_CONFIRM_MIN, Katman 2'nin 1.2 eşiğinden düşük):
-  // piyasa son dönemde genel olarak düşük hacimle hareket ediyor, sert bir
-  // eşik bu OR dalını sürekli devre dışı bırakırdı.
-  const volOk = rvol != null && rvol >= RVOL_M1_CONFIRM_MIN;
-  const confirmationOk = rsiOk || volOk;
-  const volDetail = rvol == null ? "RVOL verisi yok" : `5m RVOL ${rvol.toFixed(2)}×`;
+  const confirmationOk = rsiOk;
 
   const checks: GateCheck[] = [
     {
-      label: `1m fiyat EMA21'in ${isLong ? "üstünde" : "altında"}`,
-      ok: emaOk,
-      detail: e == null ? "veri yok" : `${bar.close.toFixed(2)} / EMA21 ${e.toFixed(2)}`,
-    },
-    {
-      label: `Kapanış önceki 2 mumun ${isLong ? "zirvesini" : "dibini"} kırdı`,
+      label: `Kapanış önceki 2 mumun ${isLong ? "zirvesini" : "dibini"} kırdı (breakout)`,
       ok: breakOk,
       detail: `${bar.close.toFixed(2)} vs ${extreme.toFixed(2)}`,
     },
@@ -622,45 +524,28 @@ function layer3At(
       ok: rsiOk,
       detail: r == null ? "veri yok" : r.toFixed(0),
     },
-    {
-      label: `5m RVOL ≥ ${RVOL_M1_CONFIRM_MIN} (1m hacim yerine — Yahoo 1m veri boşluğu)`,
-      ok: volOk,
-      detail: volDetail,
-    },
   ];
 
   return {
     checks, structureOk, confirmationOk, fired: structureOk && confirmationOk,
     note: !structureOk
-      ? "Yapı kırılımı yok — EMA21 konumu ve önceki 2 mum kırılımı ikisi de gerekli"
+      ? "Breakout yok — önceki 2 mumun zirvesi/dibi kırılmadı"
       : !confirmationOk
-      ? "Yapı kırıldı, konfirmasyon (RSI7 veya 5m RVOL) bekleniyor"
+      ? "Breakout oluştu, RSI7 konfirmasyonu bekleniyor"
       : `1m tetik ateşlendi (${side})`,
   };
 }
 
 // ── Güven skoru ──────────────────────────────────────────────────
 
-function buildConfidence(
-  l1: Layer1Read, l2: Layer2Read, l3: Layer3Read, side: Side, rvol: number | null
-): { total: number; parts: ConfidencePart[] } {
-  const parts: ConfidencePart[] = [{ label: "Rejim + tetik geçildi (taban)", value: 50 }];
-  let total = 50;
+function buildConfidence(l1: Layer1Read, side: Side, rvol: number | null): { total: number; parts: ConfidencePart[] } {
+  const parts: ConfidencePart[] = [{ label: "Rejim + breakout + RSI7 geçildi (taban)", value: 65 }];
+  let total = 65;
 
   const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
   const strongPts = strong ? 20 : 10;
   parts.push({ label: strong ? "Güçlü kurulum (RSI + MACD ikisi de)" : "Orta kurulum (RSI veya MACD)", value: strongPts });
   total += strongPts;
-
-  const l2Passed = side === "LONG" ? l2.longPassed : l2.shortPassed;
-  const l2Pts = l2Passed >= 3 ? 15 : 8;
-  parts.push({ label: `5m filtre ${l2Passed}/3`, value: l2Pts });
-  total += l2Pts;
-
-  const bothConfirm = l3.checks.filter((c) => c.ok).length >= 4;
-  const confirmPts = bothConfirm ? 15 : 8;
-  parts.push({ label: bothConfirm ? "1m RSI7 + hacim ikisi de destekliyor" : "1m konfirmasyonlarından biri", value: confirmPts });
-  total += confirmPts;
 
   if (rvol != null && rvol > RVOL_STRONG_MIN) {
     parts.push({ label: `RVOL ${rvol.toFixed(2)}× > ${RVOL_STRONG_MIN} — kurumsal katılım onayı`, value: 5 });
@@ -672,19 +557,21 @@ function buildConfidence(
 
 // ── Kapı Durumu (manuel işlem için birleşik veto listesi) ───────────
 
+/**
+ * Kapı Durumu listesi V6.0'da 5 kalemle sınırlı: 15m veto + hacim + trend +
+ * breakout + RSI. "5m filtre (2/3 oy)", "5m rejim aktif" (Layer1'in kendisiyle
+ * birebir aynı bilgiyi tekrarlıyordu) ve 1m'nin EMA21 alt-şartı KALDIRILDI —
+ * ekstra AND şartları sinyal sayısını hızla sıfıra yaklaştırıyordu.
+ */
 function gateChecksFor(
-  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l2: Layer2Read, regime: RegimeState, l3ForSide: Layer3Read, side: Side
+  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l3ForSide: Layer3Read, side: Side
 ): GateCheck[] {
   const isLong = side === "LONG";
   const l1Pass = isLong ? l1.passLong : l1.passShort;
-  const l2Pass = isLong ? l2.passLong : l2.passShort;
-  const l2Passed = isLong ? l2.longPassed : l2.shortPassed;
   return [
     { label: "15m veto izin veriyor", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
     { label: `Hacim vetosu yok (RVOL ≥ ${RVOL_VETO_MIN})`, ok: !volVeto.active, detail: volVeto.rvol == null ? "veri yok" : `RVOL ${volVeto.rvol.toFixed(2)}×` },
     { label: "5m trend (EMA21 konumu + RSI/MACD)", ok: l1Pass, detail: l1Pass ? "geçti" : "geçmedi" },
-    { label: "5m filtre (en az 2/3 oy)", ok: l2Pass, detail: `${l2Passed}/3` },
-    { label: `5m rejim ${side} aktif`, ok: regime.side === side, detail: regime.side === "NONE" ? "yok" : regime.side },
     ...l3ForSide.checks,
   ];
 }
@@ -726,10 +613,8 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const m5Ema = ema(m5Closes, M5_EMA_PERIOD);
   const m5Rsi = rsi(m5Closes, M5_RSI_PERIOD);
   const m5MacdHist = macd(m5Closes, M5_MACD_FAST, M5_MACD_SLOW, M5_MACD_SIGNAL).hist;
-  const m5Atr = atr(m5, M5_ATR_PERIOD);
 
   const m1Closes = closes(m1);
-  const m1Ema = ema(m1Closes, M1_EMA_PERIOD);
   const m1Rsi7 = rsi(m1Closes, M1_RSI_PERIOD);
 
   // ── RVOL: her 5m bar için, AYNI SAAT DİLİMİNİN geçmiş günlerdeki ortalamasına
@@ -744,9 +629,9 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   }
 
   // ── Rejim zaman çizelgesi: her kapalı 5m barda yeniden değerlendirilir,
-  //    Layer 1+2 geçerli kaldığı sürece AKTİF kalan bir DURUM olarak.
-  //    RVOL vetosu (<0.8) 15m veto ile aynı kategoride — oylamaya girmeden
-  //    rejimi doğrudan kapatır ─────────────────────────────────────────
+  //    Layer 1 geçerli kaldığı sürece AKTİF kalan bir DURUM olarak.
+  //    RVOL vetosu (<0.8) 15m veto ile aynı kategoride — Layer 1 geçse
+  //    bile rejimi doğrudan kapatır ─────────────────────────────────────
   const regimeTimeline: RegimeState[] = new Array(m5.length);
   const volVetoTimeline: VolumeVetoRead[] = new Array(m5.length);
   {
@@ -754,11 +639,10 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     let since: number | null = null;
     for (let j = 0; j < m5.length; j++) {
       const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, j);
-      const l2 = layer2At(m5, m5Atr, m5Rvol[j], j);
       const volVeto = volumeVetoOf(m5Rvol[j], m5RvolDays[j]);
       volVetoTimeline[j] = volVeto;
-      const passLong = l1.passLong && l2.passLong && !volVeto.active;
-      const passShort = l1.passShort && l2.passShort && !volVeto.active;
+      const passLong = l1.passLong && !volVeto.active;
+      const passShort = l1.passShort && !volVeto.active;
 
       if (side === "LONG" && passLong) {
         // aktif kalır
@@ -774,7 +658,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       regimeTimeline[j] = {
         side, since,
         note: side === "NONE"
-          ? volVeto.active ? `Rejim yok — ${volVeto.note}` : "Rejim yok — Layer 1+2 ikisi de geçmedi"
+          ? volVeto.active ? `Rejim yok — ${volVeto.note}` : "Rejim yok — 5m trend (Layer 1) geçmedi"
           : `${side} rejimi ${since ? nyParts(since).hhmm + " ET'den beri" : ""} aktif`,
       };
     }
@@ -802,14 +686,13 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
 
     const side = regime.side;
     const rvol = m5Rvol[m5Cursor];
-    const l3 = layer3At(m1, m1Ema, m1Rsi7, i, side, rvol);
+    const l3 = layer3At(m1, m1Rsi7, i, side);
     if (!l3.fired) continue;
 
     const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
-    const l2 = layer2At(m5, m5Atr, rvol, m5Cursor);
     const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
     const contractType: ContractType = strong && rvol != null && rvol > RVOL_STRONG_MIN ? "S" : strong ? "A" : "B";
-    const { total, parts } = buildConfidence(l1, l2, l3, side, rvol);
+    const { total, parts } = buildConfidence(l1, side, rvol);
 
     candidates.push({
       time: bar.time,
@@ -819,8 +702,8 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       confidence: total,
       confidenceParts: parts,
       reasoning:
-        `5m rejim ${side} aktif (${l1.note}) · ${l2.note} · ` +
-        `1m tetik: yapı kırılımı + ${l3.checks[2]?.ok ? "RSI7" : "hacim"} konfirmasyonu · ` +
+        `5m rejim ${side} aktif (${l1.note}) · ` +
+        `1m tetik: breakout + RSI7 konfirmasyonu · ` +
         `15m veto ${side} yönünü serbest bırakıyor`,
     });
   }
@@ -828,15 +711,13 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   // ── Canlı okuma (son kapalı mumlar üzerinden, panel için) ────────
   const lastM1Idx = m1.length - 1;
   const lastVeto = m15VetoAt(m15, m15Ema, m15Atr, m15Cursor);
-  const lastRvol = m5Cursor >= 0 ? m5Rvol[m5Cursor] : null;
   const lastVolVeto: VolumeVetoRead = m5Cursor >= 0 && volVetoTimeline[m5Cursor]
     ? volVetoTimeline[m5Cursor]
     : volumeVetoOf(null, 0);
   const lastL1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
-  const lastL2 = layer2At(m5, m5Atr, lastRvol, m5Cursor);
   const lastRegime: RegimeState = m5Cursor >= 0 && regimeTimeline[m5Cursor] ? regimeTimeline[m5Cursor] : { side: "NONE", since: null, note: "Rejim için 5m verisi yetersiz" };
-  const lastL3Long = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "LONG", lastRvol);
-  const lastL3Short = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "SHORT", lastRvol);
+  const lastL3Long = layer3At(m1, m1Rsi7, lastM1Idx, "LONG");
+  const lastL3Short = layer3At(m1, m1Rsi7, lastM1Idx, "SHORT");
   const lastL3ForRegime = lastRegime.side === "SHORT" ? lastL3Short : lastL3Long;
 
   const lastCandidate =
@@ -849,11 +730,11 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   let contractType: ContractType | null = null;
   let confidence = 30;
   let confidenceParts: ConfidencePart[] = [{ label: "Taban (rejim yok)", value: 30 }];
-  let reasoning = "5m rejim aranıyor — Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmedi.";
+  let reasoning = "5m rejim aranıyor — Layer 1 (trend) geçmedi.";
   let stateLabel = "İZLEMEDE";
   let nextStep = lastVolVeto.active
     ? `Hacim vetosu aktif: ${lastVolVeto.note}. Rejim aranmıyor.`
-    : "5m kapanışında Layer 1 (trend) + Layer 2 (filtre) ikisinin de geçmesi bekleniyor.";
+    : "5m kapanışında Layer 1 (trend) geçmesi bekleniyor.";
 
   if (input.hasOpenPosition) {
     state = "IN_POSITION";
@@ -877,18 +758,18 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       { label: "Taban", value: 30 },
       { label: `5m rejim ${lastRegime.side} aktif`, value: 25 },
     ];
-    reasoning = `5m rejim ${lastRegime.side} aktif — 1m tetik (yapı kırılımı + RSI7/hacim konfirmasyonu) bekleniyor.`;
+    reasoning = `5m rejim ${lastRegime.side} aktif — 1m tetik (breakout + RSI7 konfirmasyonu) bekleniyor.`;
     stateLabel = "HAZIRLANIYOR";
     nextStep = vetoBlocks
       ? `5m rejim ${lastRegime.side} aktif ama 15m veto bu yönü engelliyor (${lastVeto.note}). Motor bekliyor.`
       : !lastL3ForRegime.structureOk
-      ? `5m rejim ${lastRegime.side} aktif. 1m'de yapı kırılımı (EMA21 konumu + önceki 2 mumun ${lastRegime.side === "LONG" ? "zirvesi" : "dibi"}) bekleniyor.`
-      : `5m rejim ${lastRegime.side} aktif, 1m yapı kırıldı. RSI7 veya hacim konfirmasyonu bekleniyor.`;
+      ? `5m rejim ${lastRegime.side} aktif. 1m'de breakout (önceki 2 mumun ${lastRegime.side === "LONG" ? "zirvesi" : "dibi"}) bekleniyor.`
+      : `5m rejim ${lastRegime.side} aktif, 1m breakout oluştu. RSI7 konfirmasyonu bekleniyor.`;
   }
 
   const gateStatus: GateStatus = {
-    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL2, lastRegime, lastL3Long, "LONG"),
-    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL2, lastRegime, lastL3Short, "SHORT"),
+    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Long, "LONG"),
+    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Short, "SHORT"),
   };
 
   return {
@@ -897,7 +778,6 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       veto: lastVeto,
       volumeVeto: lastVolVeto,
       layer1: lastL1,
-      layer2: lastL2,
       regime: lastRegime,
       layer3: lastL3ForRegime,
       action,
