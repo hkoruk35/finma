@@ -30,6 +30,7 @@ import {
   PRE_OPEN_MIN,
   RTH_OPEN_MIN,
   RTH_CLOSE_MIN,
+  POST_CLOSE_MIN,
   type Bar,
 } from "@/lib/spyengine/core";
 import { detectRegimeSeries } from "@/lib/spyengine/regime";
@@ -147,13 +148,25 @@ export async function GET(req: NextRequest) {
     // "henüz kapanmadı" sayılıp motor hiç sinyal üretmezdi.
     const evalNow = session.isLive ? nowSec : Math.min(nowSec, session.rthClose + 4 * 60 * 60);
 
-    // Seans günü mumları (04:00–20:00 ET, pre + RTH + post)
+    // Seans günü mumları (04:00–20:00 ET, pre + RTH + post) — MOTOR bu
+    // pencereyle çalışır, tarihi hiç değişmez.
     const sessionM1 = barsOfSessionDay(bundle.m1, session.date);
     // 5m/15m: Yahoo'nun kendi mumları (aynı epoch hizası → kayma yok).
     // 1m'den türetilmiş 5m ile karşılaştırıldığında sınırlar birebir örtüşür.
     const m5All = bundle.m5;
     const m15All = bundle.m15;
-    const sessionM5 = barsOfSessionDay(m5All, session.date);
+
+    // ── GRAFİK için ayrı, GENİŞ pencere ──────────────────────────────
+    // Sadece bugünün seansıyla sınırlı (sessionM1) grafiğe verilirse
+    // EMA21/BB20/RSI14/MACD gibi göstergeler her yeni seansın İLK 20-35
+    // barı boyunca "—" görünür — ısınma verisi yok demektir. `bundle.m1`/
+    // `m5All` zaten ~5 günlük geçmiş taşıyor; grafik bu geçmişi ISINMA için
+    // kullanır, sadece hedef günün (session.date) SONRASINI (oynatma
+    // modunda gelecek günleri) keser. Motor kararına (gen/regimeM1/levels/
+    // forecast) DOKUNMAZ — onlar hâlâ sessionM1 kullanır.
+    const chartCutoff = nyDateTimeToEpoch(session.date, POST_CLOSE_MIN);
+    const chartM1 = bundle.m1.filter((b) => b.time <= chartCutoff);
+    const chartM5 = m5All.filter((b) => b.time <= chartCutoff);
 
     // ── Motor ──────────────────────────────────────────────────────
     const gen = generateCandidates({
@@ -314,7 +327,8 @@ export async function GET(req: NextRequest) {
     const cut = (bars: Bar[]) => (since ? bars.filter((b) => b.time >= since) : bars);
     const full = !since;
 
-    const m5Out = cut(sessionM5.length ? sessionM5 : bucketAggregate(sessionM1, 5));
+    const m1Out = cut(chartM1);
+    const m5Out = cut(chartM5.length ? chartM5 : bucketAggregate(chartM1, 5));
     const m15Out = cut(m15All.slice(-260));
 
     const stats = spotStats(sessionM1, session.date);
@@ -356,7 +370,7 @@ export async function GET(req: NextRequest) {
           ...stats,
         },
         bars: {
-          m1: toCompact(cut(sessionM1)),
+          m1: toCompact(m1Out),
           m5: toCompact(m5Out),
           m15: toCompact(m15Out),
         },
