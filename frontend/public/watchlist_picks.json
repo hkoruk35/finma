@@ -1,41 +1,11 @@
 {
-  "generated_at": "2026-09-09T14:06:39.350798-04:00",
+  "generated_at": "2026-09-09T17:05:03.056837-04:00",
   "picks": [
-    {
-      "ticker": "MGNI",
-      "sector": "Communication Services",
-      "date_added": "2026-09-07",
-      "score": 36.5
-    },
-    {
-      "ticker": "VIST",
-      "sector": "Energy",
-      "date_added": "2026-09-07",
-      "score": 35.5
-    },
-    {
-      "ticker": "SCCO",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-08",
-      "score": 39.0
-    },
-    {
-      "ticker": "AMAT",
-      "sector": "Technology",
-      "date_added": "2026-09-09",
-      "score": 39.0
-    },
     {
       "ticker": "MU",
       "sector": "Technology",
       "date_added": "2026-09-09",
       "score": 38.5
-    },
-    {
-      "ticker": "ILMN",
-      "sector": "Healthcare",
-      "date_added": "2026-09-09",
-      "score": 38.0
     },
     {
       "ticker": "OKTA",
@@ -44,22 +14,10 @@
       "score": 37.5
     },
     {
-      "ticker": "SHOO",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-09",
-      "score": 35.5
-    },
-    {
       "ticker": "ZETA",
       "sector": "Technology",
       "date_added": "2026-09-09",
       "score": 33.5
-    },
-    {
-      "ticker": "ZIM",
-      "sector": "Industrials",
-      "date_added": "2026-09-09",
-      "score": 33.0
     },
     {
       "ticker": "HOOD",
@@ -80,10 +38,22 @@
       "score": 29.0
     },
     {
-      "ticker": "BLTE",
+      "ticker": "THC",
       "sector": "Healthcare",
       "date_added": "2026-09-09",
-      "score": 27.5
+      "score": 36.0
+    },
+    {
+      "ticker": "EQIX",
+      "sector": "Real Estate",
+      "date_added": "2026-09-09",
+      "score": 36.0
+    },
+    {
+      "ticker": "DLR",
+      "sector": "Real Estate",
+      "date_added": "2026-09-09",
+      "score": 35.5
     }
   ]
 }
