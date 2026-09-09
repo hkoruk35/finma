@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T17:03:31.417744-04:00",
+  "generated_at": "2026-09-09T09:05:14.055764-04:00",
   "picks": [
     {
       "ticker": "MGNI",
@@ -12,12 +12,6 @@
       "sector": "Energy",
       "date_added": "2026-09-07",
       "score": 35.5
-    },
-    {
-      "ticker": "FCX",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-08",
-      "score": 40.5
     },
     {
       "ticker": "CEG",
@@ -38,10 +32,34 @@
       "score": 37.0
     },
     {
-      "ticker": "NTAP",
+      "ticker": "WSM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-09",
+      "score": 40.5
+    },
+    {
+      "ticker": "HPQ",
       "sector": "Technology",
-      "date_added": "2026-09-08",
-      "score": 34.5
+      "date_added": "2026-09-09",
+      "score": 39.0
+    },
+    {
+      "ticker": "AMAT",
+      "sector": "Technology",
+      "date_added": "2026-09-09",
+      "score": 39.0
+    },
+    {
+      "ticker": "DLB",
+      "sector": "Industrials",
+      "date_added": "2026-09-09",
+      "score": 39.0
+    },
+    {
+      "ticker": "CNK",
+      "sector": "Communication Services",
+      "date_added": "2026-09-09",
+      "score": 30.0
     }
   ]
 }
