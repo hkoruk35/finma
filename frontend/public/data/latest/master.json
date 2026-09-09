@@ -1,9 +1,9 @@
 {
   "date": "2026-09-08",
-  "generated_at": "2026-09-08T14:04:41.903676-04:00",
+  "generated_at": "2026-09-08T17:03:30.209156-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 34,
-  "market_regime": "STRONG",
+  "active_scores_count": 43,
+  "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 15,
       "tickers": [
         "JXN",
         "INSW",
@@ -32,7 +32,12 @@
         "JHX",
         "MHK",
         "GM",
-        "GPN"
+        "GPN",
+        "BG",
+        "PBR",
+        "PARR",
+        "BKR",
+        "GOLD"
       ]
     },
     "value": {
@@ -71,20 +76,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 764.08,
+      "change_pct": -0.25
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 718.93,
+      "change_pct": 0.08
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 524.275,
+      "change_pct": -0.71
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 16.13,
+      "change_pct": 2.61
+    },
+    "RUSSELL2000": {
+      "value": 292.93,
+      "change_pct": -0.59
     }
-  }
+  },
+  "price_updated_at": "2026-09-09T10:00:19.530546-04:00"
 }
