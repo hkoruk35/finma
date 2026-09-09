@@ -1,0 +1,89 @@
+{
+  "ticker": "APO",
+  "company": "Apollo Global Management, Inc.",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T02:36:42.661Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 131.80999755859375,
+    "open": 132.0500030517578,
+    "high": 135.07000732421875,
+    "low": 131.58999633789062,
+    "prev_close": 133.6699981689453,
+    "change_pct": -1.391486972267861,
+    "change_pct_1w": -3.492461713656504,
+    "change_pct_1m": -1.0286793756797026,
+    "change_pct_1y": -1.9562666133978612,
+    "volume": 3094000,
+    "avg_volume_30d": 98805100
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.542405726923164,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 132.77987669547718,
+    "ema_50": 130.0959867932143,
+    "ema_200": 128.01947281629313,
+    "ema_stack_bullish": true,
+    "bb_upper": 138.40049743652344,
+    "bb_middle": 131.80999755859375,
+    "bb_lower": 125.21949768066406,
+    "bb_width": 10,
+    "atr": 3.66,
+    "atr_pct": 2.78,
+    "rvol": 0.7058198412834965,
+    "52w_high": 153.2899932861328,
+    "52w_low": 99.55999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 46.907475,
+    "pb_ratio": 3.871868,
+    "gross_margin": 0.36141998,
+    "operating_margin": 0.21952,
+    "net_margin": 0.052670002,
+    "market_cap": 77839491072,
+    "revenue_growth_ttm": 0.638,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.68016,
+    "dividend_rate": 2.25,
+    "dividend_yield": 0.0168
+  },
+  "scores_detail": {
+    "entry_range_low": 129.61,
+    "entry_range_high": 132.18,
+    "target_range_low": 137.44,
+    "target_range_high": 150.53,
+    "target_1": 137.44,
+    "target_2": 143.98,
+    "target_3": 150.53,
+    "stop_loss": 125.22,
+    "risk_reward_ratio": 2.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $129.61 – $132.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $134.05 direnci veya $128.88 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $125.22 olarak belirlenmiştir. Fiyatın EMA200 ($128.02) veya günlük VWAP ($133.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($130.10) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($133.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

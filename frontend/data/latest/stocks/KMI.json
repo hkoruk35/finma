@@ -1,0 +1,89 @@
+{
+  "ticker": "KMI",
+  "company": "Kinder Morgan, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:45.355Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 31.979999542236328,
+    "open": 31.440000534057617,
+    "high": 32.119998931884766,
+    "low": 31.100000381469727,
+    "prev_close": 31.399999618530273,
+    "change_pct": 1.8471335374277384,
+    "change_pct_1w": -0.8064581969427286,
+    "change_pct_1m": 3.3613412741668123,
+    "change_pct_1y": 20.77039310830557,
+    "volume": 17757672,
+    "avg_volume_30d": 318034672
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.87061970378406,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 31.77059182367951,
+    "ema_50": 31.879677318100157,
+    "ema_200": 31.028507518649942,
+    "ema_stack_bullish": false,
+    "bb_upper": 33.578999519348145,
+    "bb_middle": 31.979999542236328,
+    "bb_lower": 30.38099956512451,
+    "bb_width": 10,
+    "atr": 0.84,
+    "atr_pct": 2.62,
+    "rvol": 0.9659960345455669,
+    "52w_high": 34.810001373291016,
+    "52w_low": 25.600000381469727
+  },
+  "fundamental": {
+    "pe_ratio": 20.632257,
+    "pb_ratio": 2.2494197,
+    "gross_margin": 0.49407002,
+    "operating_margin": 0.30065,
+    "net_margin": 0.19305,
+    "market_cap": 71213129728,
+    "revenue_growth_ttm": 0.108,
+    "fcf_yield": 0.015095531794571937,
+    "institutional_ownership_pct": 0.70879,
+    "dividend_rate": 1.18,
+    "dividend_yield": 0.0376
+  },
+  "scores_detail": {
+    "entry_range_low": 31.48,
+    "entry_range_high": 32.06,
+    "target_range_low": 33.36,
+    "target_range_high": 36.54,
+    "target_1": 33.36,
+    "target_2": 34.95,
+    "target_3": 36.54,
+    "stop_loss": 30.38,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $31.48 – $32.06 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $32.70 direnci veya $31.31 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $30.38 olarak belirlenmiştir. Fiyatın EMA200 ($31.03) veya günlük VWAP ($31.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($31.88) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "FICO",
+  "company": "Fair Isaac Corporation",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:01:56.029Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 933.2999877929688,
+    "open": 920.510009765625,
+    "high": 938.739990234375,
+    "low": 899,
+    "prev_close": 932.260009765625,
+    "change_pct": 0.11155450372747468,
+    "change_pct_1w": -18.64610493529223,
+    "change_pct_1m": -17.92567531083573,
+    "change_pct_1y": -39.325184149048,
+    "volume": 667161,
+    "avg_volume_30d": 11817361
+  },
+  "scores": {
+    "master_score": 59,
+    "technical_score": 35,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.06%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 30.39011858532578,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1093.755015119272,
+    "ema_50": 1132.3020602883894,
+    "ema_200": 1260.633039404424,
+    "ema_stack_bullish": false,
+    "bb_upper": 979.9649871826173,
+    "bb_middle": 933.2999877929688,
+    "bb_lower": 886.6349884033202,
+    "bb_width": 10,
+    "atr": 56.43,
+    "atr_pct": 6.05,
+    "rvol": 1.3803899195429503,
+    "52w_high": 1998.010009765625,
+    "52w_low": 870.010009765625
+  },
+  "fundamental": {
+    "pe_ratio": 27.060017,
+    "pb_ratio": 0,
+    "gross_margin": 0.851,
+    "operating_margin": 0.53787,
+    "net_margin": 0.3405,
+    "market_cap": 20157073408,
+    "revenue_growth_ttm": 0.257,
+    "fcf_yield": 0.03841894546520074,
+    "institutional_ownership_pct": 1.02556,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 899.44,
+    "entry_range_high": 938.94,
+    "target_range_low": 1130.51,
+    "target_range_high": 1323.35,
+    "target_1": 1130.51,
+    "target_2": 1188.8,
+    "target_3": 1323.35,
+    "stop_loss": 859.94,
+    "risk_reward_ratio": 4.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $899.44 – $938.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,102.02 direnci veya $888.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $859.94 olarak belirlenmiştir. Fiyatın EMA20 ($1,093.76) veya günlük VWAP ($913.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,132.30) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($913.29) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 30 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

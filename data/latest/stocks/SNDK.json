@@ -1,0 +1,89 @@
+{
+  "ticker": "SNDK",
+  "company": "Sandisk Corporation",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T02:44:01.880Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 1737.989990234375,
+    "open": 1769.4300537109375,
+    "high": 1807.3800048828125,
+    "low": 1733.780029296875,
+    "prev_close": 1740,
+    "change_pct": -0.11551780262212642,
+    "change_pct_1w": 10.933174468689865,
+    "change_pct_1m": 17.370690067357664,
+    "change_pct_1y": 2365.4087843391735,
+    "volume": 11138500,
+    "avg_volume_30d": 452522700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 53,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.112081468044416,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1554.214469343781,
+    "ema_50": 1531.3617877091606,
+    "ema_200": 1120.74176923397,
+    "ema_stack_bullish": true,
+    "bb_upper": 1824.889489746094,
+    "bb_middle": 1737.989990234375,
+    "bb_lower": 1651.090490722656,
+    "bb_width": 10,
+    "atr": 101.75,
+    "atr_pct": 5.85,
+    "rvol": 0.7564765259289755,
+    "52w_high": 2354.389892578125,
+    "52w_low": 67.86000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 23.556385,
+    "pb_ratio": 16.456524,
+    "gross_margin": 0.71474,
+    "operating_margin": 0.78472,
+    "net_margin": 0.56465,
+    "market_cap": 254474764288,
+    "revenue_growth_ttm": 3.716,
+    "fcf_yield": 0.030340434854522372,
+    "institutional_ownership_pct": 0.80844,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 1554.92,
+    "entry_range_high": 1748.17,
+    "target_range_low": 1827.99,
+    "target_range_high": 2401.48,
+    "target_1": 1827.99,
+    "target_2": 2354.39,
+    "target_3": 2401.48,
+    "stop_loss": 1483.69,
+    "risk_reward_ratio": 4.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,554.92 – $1,748.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,801.98 direnci veya $1,534.57 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,483.69 olarak belirlenmiştir. Fiyatın EMA50 ($1,531.36) veya günlük VWAP ($1,781.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,781.19) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

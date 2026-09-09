@@ -1,0 +1,89 @@
+{
+  "ticker": "LULU",
+  "company": "lululemon athletica inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T21:02:37.580Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 103.19000244140625,
+    "open": 100.62999725341797,
+    "high": 103.7499008178711,
+    "low": 100.18000030517578,
+    "prev_close": 100.61000061035156,
+    "change_pct": 2.564359224135852,
+    "change_pct_1w": -14.194245294863151,
+    "change_pct_1m": -12.794725898225309,
+    "change_pct_1y": -38.61392106204799,
+    "volume": 11157105,
+    "avg_volume_30d": 152956105
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 35,
+    "fundamental_score": 69.8,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.236074979273,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 116.4321942314876,
+    "ema_50": 119.325348168346,
+    "ema_200": 141.0230809634438,
+    "ema_stack_bullish": false,
+    "bb_upper": 108.34950256347656,
+    "bb_middle": 103.19000244140625,
+    "bb_lower": 98.03050231933594,
+    "bb_width": 10,
+    "atr": 5.89,
+    "atr_pct": 5.71,
+    "rvol": 2.86969800911183,
+    "52w_high": 225.97999572753906,
+    "52w_low": 97.98999786376953
+  },
+  "fundamental": {
+    "pe_ratio": 8.493005,
+    "pb_ratio": 2.4468262,
+    "gross_margin": 0.54895,
+    "operating_margin": 0.13212,
+    "net_margin": 0.12782,
+    "market_cap": 11424167936,
+    "revenue_growth_ttm": -0.043,
+    "fcf_yield": 0.10053387226397299,
+    "institutional_ownership_pct": 0.80928004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 99.65,
+    "entry_range_high": 103.78,
+    "target_range_low": 122,
+    "target_range_high": 136.14,
+    "target_1": 122,
+    "target_2": 128.86,
+    "target_3": 136.14,
+    "stop_loss": 95.53,
+    "risk_reward_ratio": 4.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $99.65 – $103.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $117.16 direnci veya $98.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $95.53 olarak belirlenmiştir. Fiyatın EMA20 ($116.43) veya günlük VWAP ($102.26) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($119.33) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($102.26) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.9 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

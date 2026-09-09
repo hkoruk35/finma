@@ -1,0 +1,89 @@
+{
+  "ticker": "SMCI",
+  "company": "Super Micro Computer, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:48.618Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 40.2599983215332,
+    "open": 39.731998443603516,
+    "high": 41.529998779296875,
+    "low": 39.68000030517578,
+    "prev_close": 39.59000015258789,
+    "change_pct": 1.6923419205935935,
+    "change_pct_1w": 7.9935612655954404,
+    "change_pct_1m": 4.680185335176608,
+    "change_pct_1y": 0.5494440583804915,
+    "volume": 42112848,
+    "avg_volume_30d": 1464934648
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 100,
+    "fundamental_score": 46.7,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.14745673147542,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.68958632696399,
+    "ema_50": 34.203002200445084,
+    "ema_200": 33.513973466628265,
+    "ema_stack_bullish": true,
+    "bb_upper": 42.27299823760986,
+    "bb_middle": 40.2599983215332,
+    "bb_lower": 38.246998405456544,
+    "bb_width": 10,
+    "atr": 2.22,
+    "atr_pct": 5.52,
+    "rvol": 0.779090104502737,
+    "52w_high": 58.779998779296875,
+    "52w_low": 19.479999542236328
+  },
+  "fundamental": {
+    "pe_ratio": 12.349692,
+    "pb_ratio": 2.4089034,
+    "gross_margin": 0.108219996,
+    "operating_margin": 0.13382,
+    "net_margin": 0.0571,
+    "market_cap": 26449424384,
+    "revenue_growth_ttm": 0.932,
+    "fcf_yield": -0.3118700714330071,
+    "institutional_ownership_pct": 0.6948,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 38.93,
+    "entry_range_high": 40.48,
+    "target_range_low": 42.31,
+    "target_range_high": 58.78,
+    "target_1": 42.31,
+    "target_2": 51.4,
+    "target_3": 58.78,
+    "stop_loss": 37.37,
+    "risk_reward_ratio": 5.01,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $38.93 – $40.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.53 direnci veya $38.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $37.37 olarak belirlenmiştir. Fiyatın EMA20 ($36.69) veya günlük VWAP ($40.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.76) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

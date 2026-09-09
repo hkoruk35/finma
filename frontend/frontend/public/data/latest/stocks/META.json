@@ -1,0 +1,89 @@
+{
+  "ticker": "META",
+  "company": "Meta Platforms, Inc.",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T00:11:06.562Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 616.77001953125,
+    "open": 612.3499755859375,
+    "high": 617.4600219726562,
+    "low": 605.27001953125,
+    "prev_close": 610.6799926757812,
+    "change_pct": 0.9972533779573212,
+    "change_pct_1w": 6.703920053050173,
+    "change_pct_1m": 10.330578151463088,
+    "change_pct_1y": -18.01541545405638,
+    "volume": 15942700,
+    "avg_volume_30d": 514053699.99999994
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 70,
+    "fundamental_score": 79.7,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.39578751693416,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 583.577138408805,
+    "ema_50": 589.7420183397842,
+    "ema_200": 626.2187333930191,
+    "ema_stack_bullish": false,
+    "bb_upper": 647.6085205078125,
+    "bb_middle": 616.77001953125,
+    "bb_lower": 585.9315185546875,
+    "bb_width": 10,
+    "atr": 18.7,
+    "atr_pct": 3.03,
+    "rvol": 0.9502493611076042,
+    "52w_high": 790.7999877929688,
+    "52w_low": 520.260009765625
+  },
+  "fundamental": {
+    "pe_ratio": 23.132729,
+    "pb_ratio": 5.984003,
+    "gross_margin": 0.81747,
+    "operating_margin": 0.34827,
+    "net_margin": 0.29834998,
+    "market_cap": 1562844069888,
+    "revenue_growth_ttm": 0.28,
+    "fcf_yield": 0.013791283150560647,
+    "institutional_ownership_pct": 0.79103994,
+    "dividend_rate": 2.1,
+    "dividend_yield": 0.0034
+  },
+  "scores_detail": {
+    "entry_range_low": 605.55,
+    "entry_range_high": 618.64,
+    "target_range_low": 643,
+    "target_range_high": 703.91,
+    "target_1": 643,
+    "target_2": 673.31,
+    "target_3": 703.91,
+    "stop_loss": 585.93,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $605.55 – $618.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $619.46 direnci veya $601.81 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $585.93 olarak belirlenmiştir. Fiyatın EMA20 ($583.58) veya günlük VWAP ($616.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($589.74) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($616.22) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "CAI",
+  "company": "Caris Life Sciences, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:24.055Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 24.81999969482422,
+    "open": 25.030000686645508,
+    "high": 25.68000030517578,
+    "low": 24.739999771118164,
+    "prev_close": 25.06999969482422,
+    "change_pct": -0.9972078302482521,
+    "change_pct_1w": -2.628482080463175,
+    "change_pct_1m": -11.388791531562806,
+    "change_pct_1y": -28.698653502874937,
+    "volume": 4583072,
+    "avg_volume_30d": 165156172
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 85,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.339502874035745,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 23.99890787610977,
+    "ema_50": 21.452705335789172,
+    "ema_200": 21.86163199456723,
+    "ema_stack_bullish": false,
+    "bb_upper": 26.06099967956543,
+    "bb_middle": 24.81999969482422,
+    "bb_lower": 23.578999710083007,
+    "bb_width": 10,
+    "atr": 1.51,
+    "atr_pct": 6.1,
+    "rvol": 0.9169892361031473,
+    "52w_high": 35.470001220703125,
+    "52w_low": 14.1899995803833
+  },
+  "fundamental": {
+    "pe_ratio": 2.5935214,
+    "pb_ratio": 11.852912,
+    "gross_margin": 0.69848996,
+    "operating_margin": 0.1021,
+    "net_margin": 0.10624,
+    "market_cap": 7016135168,
+    "revenue_growth_ttm": 0.454,
+    "fcf_yield": 0.009016733926184245,
+    "institutional_ownership_pct": 0.55698,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 23.92,
+    "entry_range_high": 24.97,
+    "target_range_low": 28.32,
+    "target_range_high": 29.46,
+    "target_1": 28.32,
+    "target_2": 28.89,
+    "target_3": 29.46,
+    "stop_loss": 22.86,
+    "risk_reward_ratio": 2.8,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.92 – $24.97 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $25.61 direnci veya $23.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $22.86 olarak belirlenmiştir. Fiyatın EMA200 ($21.86) veya günlük VWAP ($25.25) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($21.45) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($25.25) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

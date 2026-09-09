@@ -1,0 +1,89 @@
+{
+  "ticker": "GPN",
+  "company": "Global Payments Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:52.264Z",
+  "sector": "Industrials",
+  "industry": "Specialty Business Services",
+  "price": {
+    "current": 89.41999816894531,
+    "open": 90.63999938964844,
+    "high": 91.20999908447266,
+    "low": 89.13500213623047,
+    "prev_close": 92.54000091552734,
+    "change_pct": -3.371517955170588,
+    "change_pct_1w": -1.7902304537935225,
+    "change_pct_1m": -4.689833234055789,
+    "change_pct_1y": 2.2878060419709216,
+    "volume": 2575475,
+    "avg_volume_30d": 88469875
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 85,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.841298747293706,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 90.60957187523051,
+    "ema_50": 85.64935418212764,
+    "ema_200": 78.93760588974482,
+    "ema_stack_bullish": true,
+    "bb_upper": 93.89099807739258,
+    "bb_middle": 89.41999816894531,
+    "bb_lower": 84.94899826049804,
+    "bb_width": 10,
+    "atr": 2.6,
+    "atr_pct": 2.91,
+    "rvol": 0.7542414861555982,
+    "52w_high": 95.87999725341797,
+    "52w_low": 61.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 42.379147,
+    "pb_ratio": 1.028478,
+    "gross_margin": 0.63959,
+    "operating_margin": 0.16108,
+    "net_margin": -0.091529995,
+    "market_cap": 23662176256,
+    "revenue_growth_ttm": 0.686,
+    "fcf_yield": 0.3325037864175734,
+    "institutional_ownership_pct": 1.13017,
+    "dividend_rate": 1,
+    "dividend_yield": 0.0108
+  },
+  "scores_detail": {
+    "entry_range_low": 87.86,
+    "entry_range_high": 89.68,
+    "target_range_low": 95.88,
+    "target_range_high": 102.09,
+    "target_1": 95.88,
+    "target_2": 97.8,
+    "target_3": 102.09,
+    "stop_loss": 84.95,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $87.86 – $89.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $92.00 direnci veya $87.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $84.95 olarak belirlenmiştir. Fiyatın EMA50 ($85.65) veya günlük VWAP ($89.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($85.65) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($89.69) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "CNK",
+  "company": "Cinemark Holdings, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:25.844Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 36.16999816894531,
+    "open": 34.43000030517578,
+    "high": 36.189998626708984,
+    "low": 34.29199981689453,
+    "prev_close": 35.040000915527344,
+    "change_pct": 3.2248779220700046,
+    "change_pct_1w": 1.5725850856373278,
+    "change_pct_1m": -3.2887788950556427,
+    "change_pct_1y": 31.718861525373292,
+    "volume": 2115676,
+    "avg_volume_30d": 74692276
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.15%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.35999558925689,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 35.996974635699985,
+    "ema_50": 34.77227643464833,
+    "ema_200": 30.602499102150638,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.97849807739258,
+    "bb_middle": 36.16999816894531,
+    "bb_lower": 34.361498260498045,
+    "bb_width": 10,
+    "atr": 1.19,
+    "atr_pct": 3.29,
+    "rvol": 0.986879232331868,
+    "52w_high": 38.97999954223633,
+    "52w_low": 21.600000381469727
+  },
+  "fundamental": {
+    "pe_ratio": 20.206703,
+    "pb_ratio": 8.370747,
+    "gross_margin": 0.49416,
+    "operating_margin": 0.21705,
+    "net_margin": 0.0644,
+    "market_cap": 4192531712,
+    "revenue_growth_ttm": 0.155,
+    "fcf_yield": 0.0542840268443508,
+    "institutional_ownership_pct": 1.08157,
+    "dividend_rate": 0.36,
+    "dividend_yield": 0.010299999
+  },
+  "scores_detail": {
+    "entry_range_low": 35.46,
+    "entry_range_high": 36.29,
+    "target_range_low": 38.83,
+    "target_range_high": 41.25,
+    "target_1": 38.83,
+    "target_2": 39.61,
+    "target_3": 41.25,
+    "stop_loss": 34.36,
+    "risk_reward_ratio": 2.47,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $35.46 – $36.29 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $36.97 direnci veya $35.22 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $34.36 olarak belirlenmiştir. Fiyatın EMA50 ($34.77) veya günlük VWAP ($35.24) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($35.24) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "BKR",
+  "company": "Baker Hughes Company",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:03.763Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 63.91999816894531,
+    "open": 63.790000915527344,
+    "high": 64.83999633789062,
+    "low": 63.36000061035156,
+    "prev_close": 63.5,
+    "change_pct": 0.6614144392839567,
+    "change_pct_1w": 0.5822170516549634,
+    "change_pct_1m": 3.3969564614813685,
+    "change_pct_1y": 40.052583312354166,
+    "volume": 5850306,
+    "avg_volume_30d": 209820106
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.144180231649834,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.933406023991424,
+    "ema_50": 61.78232624129853,
+    "ema_200": 58.47135287406716,
+    "ema_stack_bullish": true,
+    "bb_upper": 67.11599807739258,
+    "bb_middle": 63.91999816894531,
+    "bb_lower": 60.72399826049804,
+    "bb_width": 10,
+    "atr": 1.56,
+    "atr_pct": 2.44,
+    "rvol": 0.7865596827026673,
+    "52w_high": 70.41000366210938,
+    "52w_low": 43.91999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 20.553055,
+    "pb_ratio": 3.186123,
+    "gross_margin": 0.23657,
+    "operating_margin": 0.1283,
+    "net_margin": 0.111669995,
+    "market_cap": 63451721728,
+    "revenue_growth_ttm": -0.024,
+    "fcf_yield": 0.0695804612351716,
+    "institutional_ownership_pct": 1.00161,
+    "dividend_rate": 0.92,
+    "dividend_yield": 0.0145000005
+  },
+  "scores_detail": {
+    "entry_range_low": 62.99,
+    "entry_range_high": 64.08,
+    "target_range_low": 66.71,
+    "target_range_high": 73.06,
+    "target_1": 66.71,
+    "target_2": 69.88,
+    "target_3": 73.06,
+    "stop_loss": 60.72,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $62.99 – $64.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $64.80 direnci veya $62.67 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $60.72 olarak belirlenmiştir. Fiyatın EMA50 ($61.78) veya günlük VWAP ($64.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($64.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

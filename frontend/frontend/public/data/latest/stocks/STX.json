@@ -1,0 +1,89 @@
+{
+  "ticker": "STX",
+  "company": "Seagate Technology Holdings plc",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T02:12:45.565Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 904.3800048828125,
+    "open": 880.6500244140625,
+    "high": 925.4400024414062,
+    "low": 860.010009765625,
+    "prev_close": 849.280029296875,
+    "change_pct": 6.487845432036729,
+    "change_pct_1w": 9.174533372609762,
+    "change_pct_1m": 10.066087808114563,
+    "change_pct_1y": 377.9010667041444,
+    "volume": 5181800,
+    "avg_volume_30d": 135500500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.101757529764264,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 846.5707381069249,
+    "ema_50": 845.5509896014869,
+    "ema_200": 650.0255941414742,
+    "ema_stack_bullish": true,
+    "bb_upper": 949.5990051269532,
+    "bb_middle": 904.3800048828125,
+    "bb_lower": 859.1610046386718,
+    "bb_width": 10,
+    "atr": 48.01,
+    "atr_pct": 5.31,
+    "rvol": 0.6990704831347486,
+    "52w_high": 1145,
+    "52w_low": 187.17999267578125
+  },
+  "fundamental": {
+    "pe_ratio": 64.92319,
+    "pb_ratio": 94.64992,
+    "gross_margin": 0.45576,
+    "operating_margin": 0.4307,
+    "net_margin": 0.26108998,
+    "market_cap": 204972769280,
+    "revenue_growth_ttm": 0.485,
+    "fcf_yield": 0.009482967044001681,
+    "institutional_ownership_pct": 0.8538,
+    "dividend_rate": 2.96,
+    "dividend_yield": 0.0034999999
+  },
+  "scores_detail": {
+    "entry_range_low": 843.27,
+    "entry_range_high": 909.18,
+    "target_range_low": 936.49,
+    "target_range_high": 1013.99,
+    "target_1": 936.49,
+    "target_2": 966.8,
+    "target_3": 1013.99,
+    "stop_loss": 809.67,
+    "risk_reward_ratio": 1.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $843.27 – $909.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $961.27 direnci veya $833.67 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $809.67 olarak belirlenmiştir. Fiyatın EMA50 ($845.55) veya günlük VWAP ($901.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($901.37) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "OKE",
+  "company": "ONEOK, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:47.142Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 97.51000213623047,
+    "open": 96.0999984741211,
+    "high": 97.83000183105469,
+    "low": 95,
+    "prev_close": 95.43000030517578,
+    "change_pct": 2.1796100014702353,
+    "change_pct_1w": 1.5623372217736446,
+    "change_pct_1m": 6.335883731018656,
+    "change_pct_1y": 36.645181197049425,
+    "volume": 2963141,
+    "avg_volume_30d": 109435141
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.56322790770515,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 94.4144146861527,
+    "ema_50": 92.36512052610273,
+    "ema_200": 85.96004550666395,
+    "ema_stack_bullish": true,
+    "bb_upper": 102.385502243042,
+    "bb_middle": 97.51000213623047,
+    "bb_lower": 92.63450202941894,
+    "bb_width": 10,
+    "atr": 2.49,
+    "atr_pct": 2.55,
+    "rvol": 0.9156953158218164,
+    "52w_high": 99.8499984741211,
+    "52w_low": 64.0199966430664
+  },
+  "fundamental": {
+    "pe_ratio": 16.841106,
+    "pb_ratio": 2.6798031,
+    "gross_margin": 0.27214,
+    "operating_margin": 0.13254,
+    "net_margin": 0.09287,
+    "market_cap": 61467348992,
+    "revenue_growth_ttm": 0.528,
+    "fcf_yield": 0.014639886423556661,
+    "institutional_ownership_pct": 0.84932,
+    "dividend_rate": 4.28,
+    "dividend_yield": 0.0448
+  },
+  "scores_detail": {
+    "entry_range_low": 96.02,
+    "entry_range_high": 97.76,
+    "target_range_low": 101.73,
+    "target_range_high": 111.42,
+    "target_1": 101.73,
+    "target_2": 106.58,
+    "target_3": 111.42,
+    "stop_loss": 92.63,
+    "risk_reward_ratio": 2.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $96.02 – $97.76 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $99.85 direnci veya $95.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $92.63 olarak belirlenmiştir. Fiyatın EMA50 ($92.37) veya günlük VWAP ($97.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($97.10) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

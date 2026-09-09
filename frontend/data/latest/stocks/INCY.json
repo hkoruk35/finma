@@ -1,0 +1,89 @@
+{
+  "ticker": "INCY",
+  "company": "Incyte Corporation",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:16.060Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 124.4000015258789,
+    "open": 124.1050033569336,
+    "high": 126.4000015258789,
+    "low": 122.22200012207031,
+    "prev_close": 126.75,
+    "change_pct": -1.8540421886556955,
+    "change_pct_1w": 0.9576369854616755,
+    "change_pct_1m": -4.101140645052009,
+    "change_pct_1y": 43.71534777559426,
+    "volume": 1276410,
+    "avg_volume_30d": 47903410
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 85,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.84794473838668,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 125.0722285259447,
+    "ema_50": 120.13227861528352,
+    "ema_200": 106.6004851810175,
+    "ema_stack_bullish": true,
+    "bb_upper": 130.62000160217286,
+    "bb_middle": 124.4000015258789,
+    "bb_lower": 118.18000144958495,
+    "bb_width": 10,
+    "atr": 3.42,
+    "atr_pct": 2.75,
+    "rvol": 0.8433483127819085,
+    "52w_high": 132.60000610351562,
+    "52w_low": 81.08999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 15.847135,
+    "pb_ratio": 3.9406993,
+    "gross_margin": 0.55659,
+    "operating_margin": 0.41899,
+    "net_margin": 0.27706,
+    "market_cap": 25215600640,
+    "revenue_growth_ttm": 0.377,
+    "fcf_yield": 0.04682278216792063,
+    "institutional_ownership_pct": 1.03634,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 122.35,
+    "entry_range_high": 124.74,
+    "target_range_low": 130.8,
+    "target_range_high": 142.08,
+    "target_1": 130.8,
+    "target_2": 135.9,
+    "target_3": 142.08,
+    "stop_loss": 118.18,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $122.35 – $124.74 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $126.40 direnci veya $121.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $118.18 olarak belirlenmiştir. Fiyatın EMA50 ($120.13) veya günlük VWAP ($125.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($120.13) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($125.29) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

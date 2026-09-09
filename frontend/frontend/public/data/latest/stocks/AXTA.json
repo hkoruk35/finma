@@ -1,0 +1,89 @@
+{
+  "ticker": "AXTA",
+  "company": "Axalta Coating Systems Ltd.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:19.525Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 35.529998779296875,
+    "open": 35.88999938964844,
+    "high": 36.41999816894531,
+    "low": 35.4900016784668,
+    "prev_close": 35.779998779296875,
+    "change_pct": -0.6987143894053337,
+    "change_pct_1w": -2.4437106930096557,
+    "change_pct_1m": -2.3901173354717997,
+    "change_pct_1y": 9.728219911281784,
+    "volume": 2326676,
+    "avg_volume_30d": 48116076
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 85,
+    "fundamental_score": 63.2,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.4170169938259,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.01159886808658,
+    "ema_50": 35.09052844616665,
+    "ema_200": 32.50990509405537,
+    "ema_stack_bullish": true,
+    "bb_upper": 37.30649871826172,
+    "bb_middle": 35.529998779296875,
+    "bb_lower": 33.75349884033203,
+    "bb_width": 10,
+    "atr": 0.87,
+    "atr_pct": 2.44,
+    "rvol": 0.9253717198385005,
+    "52w_high": 38.61000061035156,
+    "52w_low": 24.937000274658203
+  },
+  "fundamental": {
+    "pe_ratio": 21.797544,
+    "pb_ratio": 3.0148494,
+    "gross_margin": 0.34039003,
+    "operating_margin": 0.15156001,
+    "net_margin": 0.06777,
+    "market_cap": 7604130304,
+    "revenue_growth_ttm": 0.031,
+    "fcf_yield": 0.07094828868413879,
+    "institutional_ownership_pct": 1.08067,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 35.01,
+    "entry_range_high": 35.62,
+    "target_range_low": 37.32,
+    "target_range_high": 40.61,
+    "target_1": 37.32,
+    "target_2": 38.84,
+    "target_3": 40.61,
+    "stop_loss": 33.75,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $35.01 – $35.62 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $36.17 direnci veya $34.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $33.75 olarak belirlenmiştir. Fiyatın EMA200 ($32.51) veya günlük VWAP ($35.87) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($35.09) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($35.87) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

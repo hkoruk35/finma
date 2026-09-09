@@ -1,0 +1,89 @@
+{
+  "ticker": "BTBT",
+  "company": "Bit Digital, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T16:13:12.751Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 1.715000033378601,
+    "open": 1.6399999856948853,
+    "high": 1.7300000190734863,
+    "low": 1.6200000047683716,
+    "prev_close": 1.6399999856948853,
+    "change_pct": 4.573173679141071,
+    "change_pct_1w": 19.930076663246833,
+    "change_pct_1m": 8.544302961799987,
+    "change_pct_1y": -32.74509547261809,
+    "volume": 15470226,
+    "avg_volume_30d": 878458826
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 70,
+    "fundamental_score": 40.1,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+3.94%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.10366997379857,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1.5196298731556432,
+    "ema_50": 1.550425011672051,
+    "ema_200": 1.8430866299757411,
+    "ema_stack_bullish": false,
+    "bb_upper": 1.8007500350475312,
+    "bb_middle": 1.715000033378601,
+    "bb_lower": 1.629250031709671,
+    "bb_width": 10,
+    "atr": 0.15,
+    "atr_pct": 8.8,
+    "rvol": 0.9379161909632859,
+    "52w_high": 4.550000190734863,
+    "52w_low": 1.1799999475479126
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.5762867,
+    "gross_margin": 0.57068,
+    "operating_margin": -2.44966,
+    "net_margin": -2.4025,
+    "market_cap": 618486464,
+    "revenue_growth_ttm": 0.256,
+    "fcf_yield": -0.9057474085641428,
+    "institutional_ownership_pct": 0.51889,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 1.65,
+    "entry_range_high": 1.73,
+    "target_range_low": 1.77,
+    "target_range_high": 2.15,
+    "target_1": 1.77,
+    "target_2": 1.9,
+    "target_3": 2.15,
+    "stop_loss": 1.54,
+    "risk_reward_ratio": 1.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1.65 – $1.73 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1.74 direnci veya $1.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1.54 olarak belirlenmiştir. Fiyatın EMA50 ($1.55) veya günlük VWAP ($1.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1.55) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

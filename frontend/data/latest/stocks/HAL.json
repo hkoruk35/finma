@@ -1,0 +1,89 @@
+{
+  "ticker": "HAL",
+  "company": "Halliburton Company",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:14.253Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 36.79999923706055,
+    "open": 37.439998626708984,
+    "high": 37.72999954223633,
+    "low": 36.56999969482422,
+    "prev_close": 37.06999969482422,
+    "change_pct": -0.728353007786428,
+    "change_pct_1w": -0.13568314553841893,
+    "change_pct_1m": 8.87573984531515,
+    "change_pct_1y": 69.03995619318805,
+    "volume": 7575354,
+    "avg_volume_30d": 322360554
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.64784126621772,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 35.586634452019915,
+    "ema_50": 35.180760796438,
+    "ema_200": 33.879358223919404,
+    "ema_stack_bullish": true,
+    "bb_upper": 38.63999919891358,
+    "bb_middle": 36.79999923706055,
+    "bb_lower": 34.959999275207515,
+    "bb_width": 10,
+    "atr": 1.09,
+    "atr_pct": 2.97,
+    "rvol": 0.9409418126263674,
+    "52w_high": 43.59000015258789,
+    "52w_low": 21.459999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 19.267015,
+    "pb_ratio": 2.7876675,
+    "gross_margin": 0.15076,
+    "operating_margin": 0.12793,
+    "net_margin": 0.0716,
+    "market_cap": 30659196928,
+    "revenue_growth_ttm": 0.037,
+    "fcf_yield": 0.06693749966183067,
+    "institutional_ownership_pct": 0.90553004,
+    "dividend_rate": 0.68,
+    "dividend_yield": 0.0183
+  },
+  "scores_detail": {
+    "entry_range_low": 36.31,
+    "entry_range_high": 36.91,
+    "target_range_low": 41.18,
+    "target_range_high": 43.59,
+    "target_1": 41.18,
+    "target_2": 42.46,
+    "target_3": 43.59,
+    "stop_loss": 34.96,
+    "risk_reward_ratio": 3.54,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $36.31 – $36.91 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $37.49 direnci veya $36.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $34.96 olarak belirlenmiştir. Fiyatın EMA50 ($35.18) veya günlük VWAP ($36.99) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($36.99) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

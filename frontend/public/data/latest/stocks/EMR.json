@@ -1,0 +1,89 @@
+{
+  "ticker": "EMR",
+  "company": "Emerson Electric Co.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:05.414Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 152.14999389648438,
+    "open": 153.17999267578125,
+    "high": 153.9499969482422,
+    "low": 151.6999969482422,
+    "prev_close": 152.82000732421875,
+    "change_pct": -0.4384330556357669,
+    "change_pct_1w": -0.19024438485780418,
+    "change_pct_1m": -1.8133793854123188,
+    "change_pct_1y": 14.631205299523728,
+    "volume": 1930125,
+    "avg_volume_30d": 80261525
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 85,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.69568234444586,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 153.81552622864416,
+    "ema_50": 151.130119771767,
+    "ema_200": 143.49689748803712,
+    "ema_stack_bullish": true,
+    "bb_upper": 159.7574935913086,
+    "bb_middle": 152.14999389648438,
+    "bb_lower": 144.54249420166016,
+    "bb_width": 10,
+    "atr": 3.49,
+    "atr_pct": 2.29,
+    "rvol": 0.8334746941327118,
+    "52w_high": 166.35000610351562,
+    "52w_low": 122.63999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 33.293213,
+    "pb_ratio": 4.1644998,
+    "gross_margin": 0.53161,
+    "operating_margin": 0.26924,
+    "net_margin": 0.13828,
+    "market_cap": 84869267456,
+    "revenue_growth_ttm": 0.07,
+    "fcf_yield": 0.0436701069196984,
+    "institutional_ownership_pct": 0.84212,
+    "dividend_rate": 2.22,
+    "dividend_yield": 0.0145000005
+  },
+  "scores_detail": {
+    "entry_range_low": 150.27,
+    "entry_range_high": 152.5,
+    "target_range_low": 165.15,
+    "target_range_high": 174.09,
+    "target_1": 165.15,
+    "target_2": 168.45,
+    "target_3": 174.09,
+    "stop_loss": 144.54,
+    "risk_reward_ratio": 2.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $150.27 – $152.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $153.95 direnci veya $149.57 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $144.54 olarak belirlenmiştir. Fiyatın EMA200 ($143.50) veya günlük VWAP ($152.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($151.13) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($152.72) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

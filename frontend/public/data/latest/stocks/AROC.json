@@ -1,0 +1,89 @@
+{
+  "ticker": "AROC",
+  "company": "Archrock, Inc.",
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T22:49:08.025Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 33.36000061035156,
+    "open": 32.93000030517578,
+    "high": 33.56999969482422,
+    "low": 32.58000183105469,
+    "prev_close": 32.689998626708984,
+    "change_pct": 2.0495625934201196,
+    "change_pct_1w": 5.837563851096586,
+    "change_pct_1m": 8.629116264672177,
+    "change_pct_1y": 37.6805664077721,
+    "volume": 1815693,
+    "avg_volume_30d": 55101193
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 70,
+    "fundamental_score": 76.4,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.46499872248013,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.76101732448015,
+    "ema_50": 34.17849658383358,
+    "ema_200": 33.127906511920386,
+    "ema_stack_bullish": false,
+    "bb_upper": 35.028000640869145,
+    "bb_middle": 33.36000061035156,
+    "bb_lower": 31.692000579833984,
+    "bb_width": 10,
+    "atr": 1.21,
+    "atr_pct": 3.63,
+    "rvol": 0.8985750635199496,
+    "52w_high": 42.22999954223633,
+    "52w_low": 22.8799991607666
+  },
+  "fundamental": {
+    "pe_ratio": 17.935484,
+    "pb_ratio": 3.7660873,
+    "gross_margin": 0.67337996,
+    "operating_margin": 0.35931998,
+    "net_margin": 0.21837,
+    "market_cap": 5849282048,
+    "revenue_growth_ttm": -0.031,
+    "fcf_yield": 0.04125369473036565,
+    "institutional_ownership_pct": 1.02347,
+    "dividend_rate": 0.92,
+    "dividend_yield": 0.028099999
+  },
+  "scores_detail": {
+    "entry_range_low": 32.63,
+    "entry_range_high": 33.48,
+    "target_range_low": 34.91,
+    "target_range_high": 38.02,
+    "target_1": 34.91,
+    "target_2": 37.01,
+    "target_3": 38.02,
+    "stop_loss": 31.69,
+    "risk_reward_ratio": 2.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $32.63 – $33.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $34.91 direnci veya $32.39 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $31.69 olarak belirlenmiştir. Fiyatın EMA20 ($32.76) veya günlük VWAP ($32.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($34.18) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.93) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}
