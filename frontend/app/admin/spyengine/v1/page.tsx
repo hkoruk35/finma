@@ -51,16 +51,19 @@ import {
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import type {
-  EngineEvent, PositionState, StreakDir, ContractType, ConfidencePart, Direction, EngineState, GateStatus,
+  EngineEvent, PositionState, ContractType, ConfidencePart, EngineState, GateStatus,
+  RegimeState, M15VetoRead, Layer1Read, Layer2Read, Layer3Read,
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
 
 interface EngineRead {
-  m15Direction: Direction; m15Note: string;
-  m5Rsi: number | null; m5RsiDirection: Direction; m5Note: string;
-  m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
+  veto: M15VetoRead;
+  layer1: Layer1Read;
+  layer2: Layer2Read;
+  regime: RegimeState;
+  layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
   state: EngineState;
@@ -427,24 +430,12 @@ export default function SpyEngineCommandCenter() {
     () =>
       computeEntryAlert(
         data?.engine.gateStatus ?? null,
-        data?.engine.m1StreakDir ?? "NONE",
-        data?.engine.m1StreakLen ?? 0,
+        data?.engine.regime.side ?? "NONE",
         data?.engine.state ?? "WATCHING",
         data?.engine.action ?? "BEKLE",
       ),
     [data],
   );
-
-  /** V4 -- RSI yon oklari icin son iki deger (istemcide, ayni core fonksiyonuyla) */
-  const rsiPair = useMemo(() => {
-    const r1 = rsi(m1.map((b) => b.close), 14);
-    const r5 = rsi(m5.map((b) => b.close), 14);
-    return {
-      m1: r1.length ? r1[r1.length - 1] : null,
-      m1Prev: r1.length > 1 ? r1[r1.length - 2] : null,
-      m5Prev: r5.length > 1 ? r5[r5.length - 2] : null,
-    };
-  }, [m1, m5]);
 
   /** Değerlendirilen 1m mumun kapanışına kalan saniye (mumlar dakika başında kapanır) */
   const secondsToClose = nowSec ? 60 - (nowSec % 60) : null;
@@ -537,9 +528,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-2">
           <div>
-            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V4</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V5.0</h1>
             <p className="text-[9px] text-slate-500">
-              Rejim farkında: giriş V3.3 kapısı (değişmedi) · çıkış rejime göre uyarlanır
+              15m veto (yön izni) · 5m rejim (ana karar, Layer 1+2) · 1m tetik (zamanlama) · öncelik sıralı çıkış
             </p>
           </div>
 
@@ -714,15 +705,7 @@ export default function SpyEngineCommandCenter() {
             </div>
           )}
 
-          {m15Read && (
-            <M15Strip
-              direction={data?.engine.m15Direction ?? "NEUTRAL"}
-              note={data?.engine.m15Note ?? ""}
-              rsi={m15Read.rsi}
-              rsiPrev={m15Read.rsiPrev}
-              greenOf4={m15Read.greenOf4}
-            />
-          )}
+          {data?.engine.veto && <M15Strip veto={data.engine.veto} />}
 
           {/* ── Fiyat Şeridi + Bilgi Kartları — tam genişlik, gizlenebilir ── */}
           <div className="overflow-hidden rounded border border-[#1c2635]">
@@ -871,23 +854,18 @@ export default function SpyEngineCommandCenter() {
           </div>
 
           {/* ── Kapı Durumu — tam genişlik ── */}
-          <GatePanel
-            gates={data?.engine.gateStatus ?? null}
-            streakDir={data?.engine.m1StreakDir ?? "NONE"}
-            streakLen={data?.engine.m1StreakLen ?? 0}
-          />
+          <GatePanel gates={data?.engine.gateStatus ?? null} />
 
           {/* ── Teknik veri + Rejim Kriterleri (sol) + Seviye/Motor/Sinyaller (sağ) ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
             <div className="flex flex-col gap-1">
               {data && (
                 <LayerTable
-                  m5Rsi={data.engine.m5Rsi} m5RsiDirection={data.engine.m5RsiDirection} m5Note={data.engine.m5Note}
-                  m1StreakDir={data.engine.m1StreakDir} m1StreakLen={data.engine.m1StreakLen} m1Note={data.engine.m1Note}
+                  veto={data.engine.veto} layer1={data.engine.layer1} layer2={data.engine.layer2}
+                  regime={data.engine.regime} layer3={data.engine.layer3}
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
                   confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
-                  m1Rsi={rsiPair.m1} m1RsiPrev={rsiPair.m1Prev} m5RsiPrev={rsiPair.m5Prev}
                 />
               )}
               <RegimePanel block={data?.regime ?? null} />
@@ -932,30 +910,30 @@ export default function SpyEngineCommandCenter() {
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
 
-          {/* Kabul Kriterleri (V4 §9) — sayfanın en altı, varsayılan kapalı */}
-          <Disclosure title="Kabul Kriterleri (V4 §9)">
+          {/* Kabul Kriterleri (V5.0) — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure title="Kabul Kriterleri (V5.0)">
             <ol className="flex list-decimal flex-col gap-1.5 pl-4 text-[10px] leading-relaxed text-slate-400 marker:text-slate-600">
-              <li>Rejim (TREND / SIKIŞMA / BELİRSİZ) her an ekranda büyük ve renkli olarak görünüyor.</li>
-              <li>Rejim değiştiğinde görünür uyarı çıkıyor ve açık pozisyonun çıkış kuralı anında güncelleniyor.</li>
-              <li>TREND rejiminde çıkış = trend kırılımı teyidi (zaman sınırı yok).</li>
-              <li>SIKIŞMA rejiminde çıkış = +%20 yarı / +%50 tam / −%30 stop / 15 dk zaman sınırı.</li>
-              <li>BELİRSİZ rejimde yeni giriş sinyali üretilmiyor.</li>
-              <li>Seviye paneli (destek, direnç, gece/premarket/seans dip-zirve, olası gün dibi/zirvesi) canlı güncelleniyor ve grafikte çizgi olarak görünüyor.</li>
-              <li>Kapanış tahmini aralık + orta nokta + güven skoru ile her 5 dakikada güncelleniyor.</li>
-              <li>1m ve 5m RSI değerleri ok işareti + açıklama metniyle gösteriliyor; iki RSI çeliştiğinde vurgulanıyor.</li>
-              <li>15m şeridi bilgi olarak var ama motor mantığına girmiyor (test: 15m &quot;aşağı&quot; iken 1m long sinyali üretilebilmeli).</li>
-              <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor.</li>
-              <li>Gün sonunda rejim dağılımı özeti üretiliyor.</li>
-              <li>Geriye dönük test: 2 Eylül verisiyle çalıştırıldığında, sistem 10:05-11:34 penceresini TREND, 11:39-14:37 penceresini SIKIŞMA olarak etiketlemeli. Etiketlemiyorsa rejim motoru kalibrasyonu hatalıdır.</li>
-              <li className="text-slate-300">Stop, eşiğin en fazla %5 fazlasıyla tetikleniyor (tik bazlı kontrol).</li>
-              <li className="text-slate-300">SIKIŞMA rejiminde açılan hiçbir pozisyon &quot;Trend Kırılımı&quot; etiketiyle kapanmıyor.</li>
-              <li className="text-slate-300">TREND modu (hedefsiz taşıma) sadece swing kırılımı + hacim×2 şartı sağlandığında devreye giriyor.</li>
-              <li className="text-slate-300">Trend çıkışı, 5 kriterin tamamı sağlanmadan tetiklenmiyor.</li>
-              <li className="text-slate-300">Aynı kontrata aynı gün ikinci giriş engelleniyor.</li>
-              <li className="text-slate-300">Geriye dönük test: 3 Eylül verisiyle çalıştırıldığında, 11:00&apos;deki 770,04 zirve kırılımı (hacim 312K, önceki ortalamanın ~3 katı) TREND onayı olarak işaretlenmeli ve pozisyon 11:35&apos;teki tam ters teyide kadar (5 kriterin tamamı) hedefsiz taşınmalı.</li>
+              <li>15m veto SADECE yön izni verir/engeller — kendi başına karar üretmez (Katman 0).</li>
+              <li>LONG, 15m kapanış &lt; 15m EMA21 iken; SHORT, 15m kapanış &gt; 15m EMA21 iken üretilmiyor.</li>
+              <li>5m REJİM (LONG/SHORT/YOK) ana karar katmanıdır — Layer 1 (trend) VE Layer 2 (filtre, en az 2/3 oy) kapalı 5m barda birlikte geçmeden açılmıyor.</li>
+              <li>Rejim, açıldıktan sonra tek bir bara değil bir DURUMA bağlıdır: her yeni kapanan 5m barda Layer 1+2 yeniden kontrol edilir, biri bile düşerse rejim hemen kapanır.</li>
+              <li>1m artık karar verme zamanı değil — ana zaman dilimi 5m&apos;dir. 1m yalnızca ZAMANLAMA sağlar: rejim aktifken her kapalı 1m barda bağımsız kontrol edilir.</li>
+              <li>1m STRUCTURE (EMA21 konumu + önceki 2 kapalı mumun kırılımı) olmadan sadece RSI7 veya sadece hacimle giriş açılmıyor.</li>
+              <li>1m CONFIRMATION (RSI7 yönlü VEYA hacim &gt; ort.×1.3) en az biri sağlanmadan giriş açılmıyor.</li>
+              <li>Zaman filtresi (açılış/öğlen/kapanış hariç tutma) UYGULANMIYOR — RTH içinde (09:30–16:00 ET) her an giriş üretilebilir.</li>
+              <li>15:45 ET zorunlu 0DTE kapaması, diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
+              <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü (kapalı bar) → sabit stop (anlık, mum içi en kötü seviye) → trailing kilit (kapalı bar).</li>
+              <li>Stop eşiği −%25 ile −%30 arasında kalibre edilir; mevcut sabit −%28, mum kapanışı değil mum içi en kötü seviyeyle kontrol edilir.</li>
+              <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>
+              <li>Strike seçimi: RSI VE MACD ikisi de aynı yönde → Güçlü kurulum (Kontrat A, ATM ±1, 0DTE); yalnızca biri → Orta kurulum (Kontrat B, ATM ±0.5, 0DTE/1DTE).</li>
+              <li>Aynı anda tek pozisyon; kapanıştan sonra düzeltme mumu beklenir; saatte en fazla 3 giriş; aynı kontrata (strike+yön) aynı gün ikinci giriş engellenir.</li>
+              <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
+              <li>Kapı Durumu paneli LONG/SHORT için tüm katmanları (15m veto, 5m trend, 5m filtre, 5m rejim, 1m yapı/konfirmasyon) tek listede gösteriyor.</li>
+              <li>Motor Durumu paneli 15m/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
+              <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">
-              Madde 1-12: V4 orijinal. Madde 13-18 (koyu): V4.1 eki, 3 Eylül 2026 paper-trade sonuçlarından çıkarıldı.
+              V4.1 → V5.0: Layer 2 mantığı düzeltildi, rejim (5m, süregelen durum) ile zamanlama (1m, bağımsız) katmanları ayrıldı, zaman filtresi kaldırıldı, çıkış öncelik sıralı + asimetrik hızlı hale getirildi.
             </div>
           </Disclosure>
         </div>

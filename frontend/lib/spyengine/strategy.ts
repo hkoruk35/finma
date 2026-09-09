@@ -1,239 +1,181 @@
 /**
- * SPY Engine V3.2 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
+ * SPY Engine V5.0 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
  *
- * V3.1'in sorunu ölçülerek bulundu: giriş kapısı yoktu. Sadece "2 ardışık
- * mum" arandığı için günde ~85 aday / saatte 2,4 işlem üretiliyor, 0DTE'de
- * her işlemin spread + theta maliyeti bu gürültüyü doğrudan zarara
- * çeviriyordu. V3.2 girişe ZORUNLU bir kalite kapısı koyar.
+ * V4.2'den TAM MİMARİ DEĞİŞİKLİK: artık üç zaman dilimi ayrı roller taşıyor.
  *
- * ── GİRİŞ (hepsi zorunlu) ─────────────────────────────────────────
- *   1. 2 ardışık aynı yönlü KAPALI 1m mum (ENTRY_STREAK)
- *   2. Mum paterni: gövde ≥ %50, kapanış yön tarafında ≥ %60
- *   3. Tetik mumu hacmi > son 15 mumun ortalaması
- *   4. 1m RSI(14) o yönde hareket ediyor   (YÖN)
- *   5. Son kapalı 5m mum aynı yönde
- *   6. 5m RSI(14) o yönde hareket ediyor   (YÖN)
- *   7. Saatte en fazla 3 giriş (kayan pencere)
- *   8. Aynı anda tek pozisyon + kapanıştan sonra düzeltme mumu beklenir
+ *   15m VETO       → yön izni (LONG/SHORT/NÖTR). Karar üretmez, sadece
+ *                     ters yöndeki girişleri engeller.
+ *   5m TREND+FİLTRE → ANA KARAR KATMANI. İkisi birlikte geçerse bir yönde
+ *                     "REJİM" açılır; bu rejim, Layer 1+2 geçerli kaldığı
+ *                     sürece (her yeni kapanan 5m barda yeniden kontrol
+ *                     edilerek) AKTİF kalan bir DURUMDUR — tek bir bara
+ *                     değil, bir pencereye bağlıdır.
+ *   1m TETİK        → ZAMANLAMA. Karar vermez — rejim aktifken HER kapanan
+ *                     1m barda bağımsız olarak "şimdi mi?" sorusunu sorar.
+ *                     Eskiden üç katman aynı anda hizalanmayı beklediği için
+ *                     giriş hareketin geç bir noktasında oluşuyordu; artık
+ *                     rejim aktifken herhangi bir 1m barda tetiklenebilir.
  *
- * RSI'da SADECE YÖN aranır, 50 seviyesi ARANMAZ. Seviye şartı iki kez
- * denendi, iki kez kaldırıldı: 20 seansta işlem 87 → 65'e düşüyor, işlem
- * başına beklenti +0,018 → −0,011 puana geriliyor ve "yakalama" %41 → %37
- * oluyor, yani girişi geciktiriyor. Tekrar eklenmesin.
+ * Zaman filtresi (açılış/öğlen/kapanış hariç tutma) BİLİNÇLİ OLARAK
+ * UYGULANMADI — kanıtsız varsayım olarak değerlendirildi, RTH içinde her an
+ * giriş üretilebilir. Yalnızca 15:45 ET zorunlu 0DTE kapaması (EOD) mutlak
+ * kalır — bu bir "giriş kısıtı" değil, gün sonu pozisyon tasfiyesidir.
  *
- * ── ÇIKIŞ (ilk oluşan) ────────────────────────────────────────────
- *   1. 3 ardışık TERS yönlü 1m mum + 1m RSI de dönmüş
- *      → 5m mum VE 5m RSI de ters döndüyse eşik 2 muma iner
- *   2. 15:45 ET — mutlak, koşulsuz (0DTE)
- * Sabit yüzde hedef/stop, süre sınırı ve prim trailing YOK — hepsi ölçüldü
- * ve net beklentiyi düşürdüğü görüldü (aşağıdaki ölçüm notlarına bakın).
+ * ── KATMAN 0 — 15m VETO (kapanmış mum) ─────────────────────────────
+ *   LONG yasak eğer 15m kapanış < 15m EMA21; SHORT yasak eğer > EMA21.
+ *   Nötr tampon (ATR×çarpan) varsayılan KAPALI (M15_VETO_BUFFER_ATR_MULT=0)
+ *   — spec'in "ilk testte kapalı bırakılabilir" notuna göre.
  *
- * ── ÖLÇÜM (2026-08-25…08-31, 5 seans, gerçek SPY 1m/5m) ───────────
- *   giriş serisi   2 mum: 2,4 işlem/saat · +$0,107/işlem
- *                  3 mum: 0,8 işlem/saat · +$0,284/işlem   ← seçilen
- *                  4 mum: 0,5 işlem/saat · +$0,173/işlem
- *   RSI seviye (50 çizgisi) şartı: +$0,284 → +$0,181  (ZARARLI, eklenmedi)
- *   RSI yön şartı:                 +$0,284 → +$0,284  (bedava, eklendi)
- *   5m bağımsız çıkış tetikleyici: +$0,284 → +$0,119  (çok erken, eklenmedi)
- *   5m hızlandırıcı (eşiği 2'ye):  isabet %52 → %55, taşıma 21 → 16 mum ✓
- *   prim trailing (tüm varyantlar): net beklentiyi düşürdü, eklenmedi
+ * ── KATMAN 1 — 5m TREND (rejim yönü, kapanmış mum) ──────────────────
+ *   LONG: Close>EMA21 AND (RSI14>50 ve yükseliyor OR MACD_hist>0 ve yükseliyor)
+ *   SHORT: simetrik ters.
  *
- * Çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretilir; opsiyon primi
- * yalnızca $ kâr/zararı FİYATLAMAK için kullanılır. Bu yüzden prim verisi
- * gelmese bile çıkış zamanı ve gerekçesi her zaman bilinir.
+ * ── KATMAN 2 — 5m FİLTRE (rejim kalite onayı, 3'te 2 oylama) ────────
+ *   A) Hacim > Avg20×1.0   B) Gövde > ATR14×0.40   C) Karşı gölge < Gövde×0.40
+ *   En az 2/3 sağlanmalı. Layer 1 + Layer 2 birlikte REJİMİ açar/sürdürür.
  *
- * NON-REPAINTING: tüm kararlar SADECE kapanmış mumlarla verilir. Her
- * fonksiyon saftır; aynı girdi her zaman aynı çıktıyı verir.
+ * ── KATMAN 3 — 1m TETİK (zamanlama, sadece rejim aktifken) ──────────
+ *   STRUCTURE (zorunlu): Close>EMA21(1m) AND Close > önceki 2 KAPALI 1m
+ *   mumun en yükseği (LONG) / en düşüğü (SHORT).
+ *   CONFIRMATION (en az biri): RSI7 yönlü VEYA Hacim > Avg10×1.3.
+ *
+ * ── ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş konfirmasyonlu/yavaş,
+ *   çıkış hızlı) ───────────────────────────────────────────────────────
+ *   0 (mutlak)  15:45 ET zorunlu 0DTE kapaması.
+ *   1 (ACİL)    5m EMA21 zıt yönde kesilirse → anlık (her kapalı 1m barda
+ *               en güncel 5m EMA21'e göre kontrol edilir, 5m kapanışı
+ *               beklenmez).
+ *   2 (NORMAL)  5m RSI yön değiştirirse → kapanmış 5m bar.
+ *   3 (STOP)    Opsiyon değeri EXIT_STOP_PCT'ye (−%25/−%30 aralığı,
+ *               kalibre edilecek) ulaşırsa → anlık (mum içi en kötü seviye).
+ *   4 (TRAILING) Kâr +%40'ı geçince taban breakeven'e, +%50'yi geçince
+ *               tabana yükselir; her kapanmış 5m barda güncellenir.
+ *
+ * NON-REPAINTING: tüm kararlar SADECE kapanmış mumlarla verilir (1m/5m/15m
+ * ayrı ayrı). Her fonksiyon saftır; aynı girdi her zaman aynı çıktıyı verir.
  */
 
-import type { Regime } from "./regime";
 import {
   Bar,
   SessionInfo,
   ema,
   rsi,
+  macd,
   atr,
   nyParts,
-  ENTRY_START_MIN,
-  ENTRY_END_MIN,
-  EOD_FORCE_MIN,
   RTH_OPEN_MIN,
+  RTH_CLOSE_MIN,
+  EOD_FORCE_MIN,
   r2,
 } from "./core";
-
-// ── Sabitler ────────────────────────────────────────────────────────
-
-export type ContractType = "A" | "B";
-
-/**
- * A ve B artık yalnızca GİRİŞ ZAMANLAMASI bakımından ayrışır (V3.1'de
- * sabit SL/TP kaldırıldığı için ikisinin risk profili aynıdır).
- * A = erken/hızlı giriş, B = teyitli/geç giriş.
- */
-export const CONTRACT_RULES: Record<ContractType, { label: string }> = {
-  A: { label: "Kapılı Giriş (2 mum + patern + hacim + 5m teyidi)" },
-  B: { label: "Kontrat B (emekli)" },
-};
-
-/**
- * Girişi tetikleyen ardışık aynı yönlü KAPALI 1m mum sayısı.
- * İlk mum kapanır, İKİNCİ mumun kapanışında onay seti kontrol edilir.
- */
-export const ENTRY_STREAK = 2;
-
-/**
- * Çıkışı tetikleyen ardışık TERS yönlü mum sayısı — girişle SİMETRİK.
- * Çıkışta da girişin AYNI onay seti (mum paterni + hacim + 1m RSI yönü +
- * 5m mum yönü + 5m RSI yönü) ters yönde aranır.
- */
-export const EXIT_REVERSAL_BARS = 2;
-
-/** Mum paterni: gövde, mumun toplam aralığının en az bu kadarı olmalı */
-export const BODY_MIN_RATIO = 0.5;
-/**
- * Mum paterni: kapanış, hareketin yönünde mumun bu kadar ilerisinde olmalı.
- * (LONG için tepeye, SHORT için dibe yakın kapanış = kararlı mum.)
- */
-export const CLOSE_POSITION_MIN = 0.6;
-
-/** Hacim teyidi için bakılan geçmiş mum sayısı */
-export const VOLUME_LOOKBACK = 15;
-
-/**
- * ── V4.2 (2026-09-06): Madde 5 değişikliği — "5m mum yönü" yerine
- * "5m EMA21 konumu" ────────────────────────────────────────────────
- * 5m mum rengi (yeşil/kırmızı) tek bir mumun gürültüsüne açıktı; EMA21
- * konumu 5m'nin genel yönünü daha kararlı yansıtır. Fiyat, EMA21'e sadece
- * "hafif" bir ATR tamponuyla ayrılmış olmalı — çizginin tam üzerinde
- * gidip gelen fiyatların gürültüyle giriş üretmesini önler.
- * NOT: tampon çarpanı (0.1×) bu oturumda belirlendi, canlı ölçümle
- * ayarlanabilir bir sabittir.
- */
-export const M5_EMA_PERIOD = 21;
-export const M5_EMA_BUFFER_ATR_MULT = 0.1;
-
-/**
- * ── V4.2 (2026-09-06): Onaylı TREND için sabitler ───────────────────
- * "Sonsuza kadar onay bekleniyor" durumunu önlemek için hard backstop +
- * kâr kilidi eklendi. İkisi de SADECE onaylı TREND rejiminde çalışır;
- * SIKIŞMA/onaysız TREND zaten kendi sabit kurallarıyla (stop/hedef/süre)
- * yönetiliyor ve DEĞİŞMEDİ.
- */
-/** Onay bekleme fazı DAHİL toplam taşıma bu süreyi (dk) geçerse, ters-onay
- *  beklentisi iptal olur ve pozisyon sabit-kural (SIKIŞMA) rejimine döner. */
-export const TREND_BACKSTOP_MAX_MINUTES = 45;
-/** Kâr kilidi 1. eşik: prim bu yüzdeye ulaşınca stop MALİYETE (breakeven) çekilir. */
-export const TREND_PROFIT_LOCK1_PCT = 0.30;
-export const TREND_PROFIT_LOCK1_FLOOR = 0.0;
-/** Kâr kilidi 2. eşik: prim bu yüzdeye ulaşınca taban 1. eşiğin seviyesine yükselir
- *  (zirveden en fazla ~20 puan geri verilir). Taban değeri bu oturumda seçildi,
- *  ölçümle ayarlanabilir bir sabittir. */
-export const TREND_PROFIT_LOCK2_PCT = 0.50;
-export const TREND_PROFIT_LOCK2_FLOOR = 0.30;
-
-
-/**
- * Saatte azami giriş (kayan 60 dakikalık pencere).
- * Kural: "saatte 2-3'ten fazla işlem yakalamak fazla gürültüde zarar
- * üretmektir." Kapı bunu zaten nadiren zorlar; tavan görevi görür.
- */
-export const MAX_ENTRIES_PER_HOUR = 3;
-
-/** "son swing high/low'a yakınlık" (trend kırılma riski) için pencere */
-export const SWING_LOOKBACK = 10;
-
-/**
- * ── V4: REJİME BAĞLI ÇIKIŞ PARAMETRELERİ ──────────────────────────
- * Giriş kuralları her rejimde AYNI kalır (V3.3'ün kapı sistemi). Değişen
- * yalnızca çıkış. Gerekçe: 2 Eylül'de aynı çıkış mantığı trend penceresinde
- * 89 dakikalık taşımayla +$141, sıkışma penceresinde 3 işlemde −$38 verdi.
- */
-/** SIKIŞMA: primin bu kadarında pozisyonun YARISI kapanır */
-export const CHOP_HALF_TAKE_PCT = 0.20;
-/** SIKIŞMA: primin bu kadarında pozisyonun TAMAMI kapanır */
-export const CHOP_FULL_TAKE_PCT = 0.50;
-/** SIKIŞMA: sabit stop (prim yüzdesi) */
-export const CHOP_STOP_PCT = -0.30;
-/** SIKIŞMA: hiçbir pozisyon bundan uzun taşınmaz (dakika) */
-export const CHOP_MAX_MINUTES = 15;
-/**
- * TREND: prim bu kâr eşiğini geçtiyse çıkış SIKILAŞTIRILIR — ters seri tek
- * başına yeter, tam onay seti beklenmez. Büyük kârın geri verilmemesi için.
- */
-export const TREND_TIGHTEN_PCT = 0.60;
-
-/**
- * ── V4.1: TREND ONAYI ──────────────────────────────────────────────
- * TREND rejimi (regime.ts) piyasa genelini ölçer; bir pozisyonun kendisi
- * hedefsiz taşınmadan ÖNCE ayrıca swing kırılımı + hacim teyidi gerekir
- * (3 Eylül 2026 geriye dönük testi: 11:00 kırılımı, +$161). Onay
- * gelene kadar TREND rejimindeki pozisyon da SIKIŞMA'nın sabit
- * %/zaman kurallarıyla yönetilir — bkz. useChopRules (findExitSignal).
- */
-/** Swing kırılımı için geriye bakılan pencere (dakika = 1m mum sayısı) */
-export const TREND_CONFIRM_WINDOW_MIN = 120;
-/** Kırılım mumunun hacim ortalaması için bakılan geçmiş mum sayısı */
-export const TREND_CONFIRM_VOL_LOOKBACK = 20;
-/** Kırılım mumunun hacmi, bu pencerenin ortalamasının en az kaç katı olmalı */
-export const TREND_CONFIRM_VOL_MULT = 2;
 
 // ── Tipler ────────────────────────────────────────────────────────
 
 export type Side = "LONG" | "SHORT";
+export type VetoDirection = "LONG" | "SHORT" | "NEUTRAL";
+export type RegimeSide = "LONG" | "SHORT" | "NONE";
 
-export type StreakDir = "UP" | "DOWN" | "NONE";
+/**
+ * Strike seçim kademesi — spec §5. "A" = Güçlü kurulum (RSI VE MACD ikisi de
+ * aynı yönde), "B" = Orta kurulum (yalnızca biri). İsimlendirme eski V3/V4
+ * "kontrat türü" alanıyla uyumluluk için korundu, anlamı değişti.
+ */
+export type ContractType = "A" | "B";
 
-export type Direction = "BULLISH" | "BEARISH" | "NEUTRAL";
+export const CONTRACT_RULES: Record<ContractType, { label: string }> = {
+  A: { label: "Güçlü Kurulum (5m RSI + MACD ikisi de yönlü, ATM ±1, 0DTE)" },
+  B: { label: "Orta Kurulum (5m RSI veya MACD, ATM ±0.5, 0DTE/1DTE)" },
+};
 
-export type ExitKind = "REVERSAL_EXIT" | "EOD_EXIT" | "STOP_EXIT" | "TARGET_EXIT" | "TIME_EXIT";
-export type EventKind = "ENTRY" | "HALF_TAKE" | ExitKind;
+// ── Katman sabitleri ─────────────────────────────────────────────
+
+/** 15m veto — EMA21 üzerinden yön izni */
+export const M15_EMA_PERIOD = 21;
+/**
+ * Nötr tampon çarpanı (ATR×bu değer). Spec: "önerilir, ilk testte kapalı
+ * bırakılabilir". Varsayılan 0 = tampon YOK, her zaman kesin LONG/SHORT
+ * yönü var (fiyat==EMA21 dışında). Canlı ölçümde flip-flop görülürse >0
+ * yapılabilir.
+ */
+export const M15_VETO_BUFFER_ATR_MULT = 0;
+
+/** 5m Katman 1 — trend */
+export const M5_EMA_PERIOD = 21;
+export const M5_RSI_PERIOD = 14;
+export const M5_MACD_FAST = 12;
+export const M5_MACD_SLOW = 26;
+export const M5_MACD_SIGNAL = 9;
+
+/** 5m Katman 2 — filtre (3'te 2 oylama) */
+export const M5_ATR_PERIOD = 14;
+export const M5_VOL_AVG_PERIOD = 20;
+export const M5_FILTER_VOL_MULT = 1.0;
+export const M5_FILTER_BODY_ATR_MULT = 0.4;
+export const M5_FILTER_WICK_BODY_MULT = 0.4;
+export const M5_FILTER_MIN_VOTES = 2;
+
+/** 1m Katman 3 — tetik (zamanlama) */
+export const M1_EMA_PERIOD = 21;
+/** Spec RSI7 diyor — eski katmanların RSI14'ünden BİLİNÇLİ OLARAK farklı */
+export const M1_RSI_PERIOD = 7;
+export const M1_STRUCTURE_LOOKBACK = 2;
+export const M1_VOL_AVG_PERIOD = 10;
+export const M1_VOL_MULT = 1.3;
+
+/** Saatte azami giriş (kayan 60 dakikalık pencere) — V4'ten korundu */
+export const MAX_ENTRIES_PER_HOUR = 3;
+
+// ── Çıkış sabitleri (spec §6) ───────────────────────────────────────
+
+/**
+ * Sabit stop, opsiyon primi yüzdesi olarak. Spec bir ARALIK veriyor
+ * (−%25 ile −%30 arası, "backtest ile kalibre edilecek"); tek sabit gerekli
+ * olduğu için aralığın ortası seçildi. Canlı/backtest ölçümüyle ayarlanabilir.
+ */
+export const EXIT_STOP_PCT = -0.28;
+/** Trailing kilit 1. eşik: prim bu yüzdeye ulaşınca taban breakeven'e çekilir */
+export const EXIT_TRAIL_ARM1_PCT = 0.4;
+export const EXIT_TRAIL_FLOOR1 = 0.0;
+/** Trailing kilit 2. eşik: prim bu yüzdeye ulaşınca taban yükselir */
+export const EXIT_TRAIL_ARM2_PCT = 0.5;
+export const EXIT_TRAIL_FLOOR2 = 0.2;
+
+// ── Ortak tipler ──────────────────────────────────────────────────
 
 export interface ConfidencePart {
   label: string;
-  /** Puana katkısı (+/−) — güven skoru kara kutu olmamalı, her bileşen görülebilir */
   value: number;
 }
+
+export type ExitKind = "EMA_CROSS_EXIT" | "RSI_FLIP_EXIT" | "STOP_EXIT" | "TRAIL_EXIT" | "EOD_EXIT";
+export type EventKind = "ENTRY" | ExitKind;
 
 export interface EngineEvent {
   id: string;
   kind: EventKind;
-  /** Olayın gerçekleştiği kapalı mumun zamanı (unix sn, UTC) */
   time: number;
   side: Side;
-  /** SPY spot fiyatı (grafikte işaretin oturduğu seviye) */
   spot: number;
-  /** 0DTE opsiyon primi — veri yoksa null (uydurma yok) */
   premium: number | null;
-  /** Bu olaya kadarki kümülatif kâr/zarar (kontrat başına $, prim × 100) */
   pnl: number | null;
   label: string;
   note: string;
 }
 
-/** Açık pozisyonun çıkışa ne kadar yaklaştığı — canlı takip için şeffaflık */
 export interface ExitProgress {
-  /** Şu ana kadar biriken ardışık ters yönlü mum sayısı */
-  againstBars: number;
-  /** Çıkış için gereken ardışık ters mum sayısı */
-  reversalNeeded: number;
-  /** 5m RSI pozisyonu destekliyor mu (null = 5m verisi yok) */
+  /** Fiyat, 5m EMA21'e göre hâlâ pozisyon LEHİNDE mi (ACİL çıkış tetikleyicisi) */
+  emaFavor: boolean | null;
+  emaGapPct: number | null;
+  /** 5m RSI pozisyonu destekliyor mu (NORMAL çıkış tetikleyicisi) */
   rsiSupportive: boolean | null;
-  /** 5m mum + 5m RSI birlikte ters döndü mü (çıkış eşiğini 2 muma düşürür) */
-  rsiArmed: boolean;
+  rsi5: number | null;
   /** Girişten bu yana taşınan 1m mum sayısı */
   barsHeld: number;
-  /** Pozisyon lehine görülen en iyi SPY seviyesi */
   bestSpot: number | null;
-  /** V4 — pozisyonun taşındığı andaki rejim ve o rejimin çıkış modu */
-  regime?: Regime;
-  regimeNote?: string;
-  /** V4 — yarı kâr alma gerçekleşti mi */
-  halfTaken?: boolean;
-  /** V4 — primin giriş primine göre anlık yüzdesi (veri varsa) */
-  premiumPct?: number | null;
-  /** V4.1 — TREND rejiminde swing kırılımı + hacim×2 onayı geldi mi (bkz. TREND_CONFIRM_*) */
-  trendConfirmed?: boolean;
-  /** İnsan okunur özet */
+  /** Primin giriş primine göre anlık/en son bilinen yüzdesi (veri yoksa null) */
+  premiumPct: number | null;
+  /** Trailing kilidi aktifse (yalnızca yükselir) taban yüzdesi */
+  trailFloorPct: number | null;
   note: string;
 }
 
@@ -243,31 +185,21 @@ export interface PositionState {
   contractType: ContractType;
   entryTime: number;
   entrySpot: number;
-  /** 0DTE kontrat sembolü (OCC) — prim takibi bu sembolden yapılır */
   contract: string | null;
   strike: number | null;
   expiry: string | null;
-  /** Gerçek giriş primi (Yahoo'dan). Veri yoksa null. */
   entryPremium: number | null;
   status: "OPEN" | "CLOSED";
-  /** Son bilinen prim (canlıysa anlık) */
   lastPremium: number | null;
-  /** Kontrat başına gerçekleşen kâr/zarar ($) */
   realizedPnl: number;
-  /** Açıkken anlık kâr/zarar ($) */
   unrealizedPnl: number | null;
   events: EngineEvent[];
   exitTime: number | null;
   exitSpot: number | null;
   exitPremium: number | null;
-  /** V4 -- sikismada +%20de yarinin kapandigi an ve prim (yoksa null) */
-  halfExitTime: number | null;
-  halfExitPremium: number | null;
   exitReason: ExitKind | null;
   exitNote: string | null;
-  /** Açık pozisyonun çıkışa yakınlığı (kapalıysa son durumu) */
   progress: ExitProgress;
-  /** Prim verisi hiç gelmediyse true — panelde açıkça belirtilir */
   premiumDataMissing: boolean;
 }
 
@@ -281,50 +213,83 @@ export interface EntryCandidate {
   reasoning: string;
 }
 
-/** Tek bir kapının o anki durumu — canlı karar desteği için */
 export interface GateCheck {
   label: string;
   ok: boolean;
   detail: string;
 }
 
-/** Her iki yön için kapıların anlık durumu */
 export interface GateStatus {
   long: GateCheck[];
   short: GateCheck[];
 }
 
-/** Motorun o anki okuması — panelde insan diliyle gösterilir */
 export type EngineState = "WATCHING" | "ARMED" | "TRIGGERED" | "IN_POSITION";
 
+// ── Katman okumaları (panelde şeffaf gösterim için) ─────────────────
+
+export interface M15VetoRead {
+  direction: VetoDirection;
+  close: number | null;
+  ema21: number | null;
+  note: string;
+}
+
+export interface Layer1Read {
+  passLong: boolean;
+  passShort: boolean;
+  closeAboveEma: boolean;
+  closeBelowEma: boolean;
+  rsi: number | null;
+  rsiRising: boolean;
+  rsiFalling: boolean;
+  macdHist: number | null;
+  macdRising: boolean;
+  macdFalling: boolean;
+  /** Güçlü kurulum: RSI VE MACD ikisi de aynı yönde */
+  strongLong: boolean;
+  strongShort: boolean;
+  note: string;
+}
+
+export interface Layer2Read {
+  longVotes: GateCheck[];
+  longPassed: number;
+  passLong: boolean;
+  shortVotes: GateCheck[];
+  shortPassed: number;
+  passShort: boolean;
+  note: string;
+}
+
+export interface RegimeState {
+  side: RegimeSide;
+  since: number | null;
+  note: string;
+}
+
+export interface Layer3Read {
+  checks: GateCheck[];
+  structureOk: boolean;
+  confirmationOk: boolean;
+  fired: boolean;
+  note: string;
+}
+
 export interface EngineRead {
-  /** 15m yön/rejim — KARAR MEKANİZMASININ PARÇASI DEĞİL, sadece 15m Bağlam sekmesi için */
-  m15Direction: Direction;
-  m15Note: string;
-  /** 5m RSI — "destek" katmanı: sinyali iptal etmez, sadece güveni ayarlar */
-  m5Rsi: number | null;
-  m5RsiDirection: Direction;
-  m5Note: string;
-  /** 1m ardışık mum serisi — "ana sürücü" */
-  m1StreakDir: StreakDir;
-  m1StreakLen: number;
-  m1Note: string;
+  veto: M15VetoRead;
+  layer1: Layer1Read;
+  layer2: Layer2Read;
+  regime: RegimeState;
+  layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
-  /** Son barda tetiklenen kontrat türü (varsa) */
   contractType: ContractType | null;
   state: EngineState;
-  /** Durumun Türkçe, teknik olmayan karşılığı (ekranda "ARMED" yazmasın diye) */
   stateLabel: string;
-  /** Bir sonraki adımın ne olduğu — "şimdi ne bekleniyor" */
   nextStep: string;
   confidence: number;
   confidenceParts: ConfidencePart[];
   reasoning: string;
-  /**
-   * Son kapalı 1m mum için kapıların LONG ve SHORT yönünde tek tek durumu.
-   * Motor kendi sinyalini üretmese bile burada "şu an LONG açsam hangi kapı
-   * geçer, hangisi geçmez" görülebilir — el ile işlem açarken veto listesi.
-   */
   gateStatus: GateStatus;
 }
 
@@ -346,34 +311,24 @@ function idOf(prefix: string, t: number, side: string) {
   return `${prefix}-${t}-${side}`;
 }
 
-/** OCC opsiyon sembolü: SPY + YYMMDD + C/P + strike×1000 (8 hane) */
 export function buildOptionSymbol(underlying: string, ymd: string, isCall: boolean, strike: number): string {
   const [y, m, d] = ymd.split("-");
   const strikePart = String(Math.round(strike * 1000)).padStart(8, "0");
   return `${underlying}${y.slice(2)}${m}${d}${isCall ? "C" : "P"}${strikePart}`;
 }
 
-/** SPY 0DTE için ATM strike — $1 adım */
 export function atmStrike(spot: number): number {
   return Math.round(spot);
 }
 
-/** 15:45 ET zorunlu kapama anı (unix sn) */
 function eodEpochOf(session: SessionInfo): number {
   return session.rthOpen + (EOD_FORCE_MIN - RTH_OPEN_MIN) * 60;
 }
 
-function candleDir(b: Bar): StreakDir {
+function candleDir(b: Bar): "UP" | "DOWN" | "NONE" {
   if (b.close > b.open) return "UP";
   if (b.close < b.open) return "DOWN";
   return "NONE";
-}
-
-/** Gövde/aralık oranı (0..1) — "1m mum paterni gücü" */
-function bodyRatio(b: Bar): number {
-  const range = b.high - b.low;
-  if (range <= 0) return 0;
-  return Math.min(1, Math.abs(b.close - b.open) / range);
 }
 
 /** `uptoExclusive` mumundan ÖNCEKİ `n` mumun ortalama hacmi (bakış-ileri sızıntısı yok) */
@@ -385,224 +340,229 @@ function avgVolume(bars: Bar[], uptoExclusive: number, n: number): number | null
   return slice.reduce((s, b) => s + (b.volume || 0), 0) / slice.length;
 }
 
-/**
- * "Trend kırılması riski (son swing high/low'a yakınlık)".
- * Pozisyonun yönüne karşıt en yakın swing noktasına mesafe, o pencerenin
- * ortalama mum aralığına oranlanır. 0 = güvenli mesafe, 1 = swing noktasına
- * yapışık/kırılmış (yüksek risk).
- */
-function trendBreakRisk(bars: Bar[], i: number, side: Side): number {
-  const start = Math.max(0, i - SWING_LOOKBACK);
-  const window = bars.slice(start, i); // mevcut mum hariç — sızıntı yok
-  if (!window.length) return 0;
-  const bar = bars[i];
-  const avgRange = window.reduce((s, b) => s + (b.high - b.low), 0) / window.length || 0.01;
-  if (side === "LONG") {
-    const swingLow = Math.min(...window.map((b) => b.low));
-    const dist = bar.low - swingLow;
-    return dist <= 0 ? 1 : Math.max(0, 1 - dist / (avgRange * 2));
+const rising = (v: number | null, p: number | null) => v != null && p != null && v > p;
+const falling = (v: number | null, p: number | null) => v != null && p != null && v < p;
+
+// ── KATMAN 0 — 15m VETO ─────────────────────────────────────────────
+
+function m15VetoAt(m15: Bar[], m15Ema: (number | null)[], m15Atr: (number | null)[], idx: number): M15VetoRead {
+  if (idx < 0 || idx >= m15.length) {
+    return { direction: "NEUTRAL", close: null, ema21: null, note: "15m verisi yetersiz — henüz veto okunamıyor" };
   }
-  const swingHigh = Math.max(...window.map((b) => b.high));
-  const dist = swingHigh - bar.high;
-  return dist <= 0 ? 1 : Math.max(0, 1 - dist / (avgRange * 2));
+  const e = m15Ema[idx];
+  if (e == null) return { direction: "NEUTRAL", close: m15[idx].close, ema21: null, note: "15m EMA21 ısınıyor" };
+  const close = m15[idx].close;
+  const buf = (m15Atr[idx] ?? 0) * M15_VETO_BUFFER_ATR_MULT;
+
+  if (M15_VETO_BUFFER_ATR_MULT > 0 && Math.abs(close - e) < buf) {
+    return { direction: "NEUTRAL", close, ema21: e, note: `Fiyat 15m EMA21'e çok yakın (tampon içinde) — nötr, giriş yok` };
+  }
+  if (close > e) return { direction: "LONG", close, ema21: e, note: `15m kapanış EMA21 üstünde (${close.toFixed(2)} > ${e.toFixed(2)}) — LONG serbest, SHORT veto` };
+  if (close < e) return { direction: "SHORT", close, ema21: e, note: `15m kapanış EMA21 altında (${close.toFixed(2)} < ${e.toFixed(2)}) — SHORT serbest, LONG veto` };
+  return { direction: "NEUTRAL", close, ema21: e, note: "Fiyat EMA21'e eşit — nötr" };
 }
 
-/**
- * GİRİŞ KAPISI — hepsi ZORUNLU. Biri bile sağlanmazsa giriş üretilmez.
- *
- * Eskiden yalnızca mum serisine bakılıyor, hacim/RSI sadece güven puanını
- * değiştiriyordu; bu, günde ~85 aday ve saatte 2,4 işlem üretiyordu. 0DTE'de
- * her işlemin spread + theta maliyeti olduğu için gürültülü girişler
- * doğrudan zarar demek. 5 seanslık ölçümde bu kapı işlem sayısını üçte bire
- * indirirken işlem başına beklentiyi 2,7 katına çıkardı.
- *
- * ÖNEMLİ AYRINTI — RSI'da YÖN kontrol edilir, SEVİYE (50 çizgisi) DEĞİL.
- * "RSI > 50" şartı denendi ve ZARAR verdi (+$0,284 → +$0,181): dipten dönen
- * erken girişleri eliyordu. Yön kontrolü ise bedava — 3 mumluk seri + hacim
- * + 5m uyumu varken RSI zaten o yönde hareket ediyor, dolayısıyla hiçbir
- * geçerli girişi yanlışlıkla engellemiyor ama uyumsuz bir sapma olursa
- * güvenlik ağı görevi görüyor.
- */
-function checkGate(
-  m1: Bar[], m5: Bar[],
-  m1Rsi: (number | null)[], m5Rsi: (number | null)[],
-  m5Ema: (number | null)[], m5Atr: (number | null)[],
-  i: number, m5Cursor: number, side: Side
-): { ok: true; volRatio: number; rsi1: number; rsi5: number } | { ok: false; blockedBy: string } {
-  const bar = m1[i];
+// ── KATMAN 1 — 5m TREND ──────────────────────────────────────────────
 
-  // 0) MUM PATERNİ — kararlı bir mum mu, yoksa fitilli/kararsız mı
-  const rng = Math.max(1e-9, bar.high - bar.low);
-  const bodyR = Math.abs(bar.close - bar.open) / rng;
-  if (bodyR < BODY_MIN_RATIO) {
-    return { ok: false, blockedBy: `mum gövdesi zayıf (aralığın %${(bodyR * 100).toFixed(0)}'i, en az %${BODY_MIN_RATIO * 100} gerek)` };
+function layer1At(
+  m5: Bar[], m5Ema: (number | null)[], m5Rsi: (number | null)[], m5MacdHist: (number | null)[], idx: number
+): Layer1Read {
+  if (idx < 1 || idx >= m5.length) {
+    return {
+      passLong: false, passShort: false, closeAboveEma: false, closeBelowEma: false,
+      rsi: null, rsiRising: false, rsiFalling: false, macdHist: null, macdRising: false, macdFalling: false,
+      strongLong: false, strongShort: false, note: "5m verisi yetersiz",
+    };
   }
-  const posInRange = (bar.close - bar.low) / rng;
-  const closeStrength = side === "LONG" ? posInRange : 1 - posInRange;
-  if (closeStrength < CLOSE_POSITION_MIN) {
-    return { ok: false, blockedBy: `kapanış ${side === "LONG" ? "tepeye" : "dibe"} yakın değil (%${(closeStrength * 100).toFixed(0)})` };
-  }
+  const close = m5[idx].close;
+  const e = m5Ema[idx];
+  const r = m5Rsi[idx], rp = m5Rsi[idx - 1];
+  const h = m5MacdHist[idx], hp = m5MacdHist[idx - 1];
 
-  // 1) Hacim — tetik mumu son 15 mumun ortalamasının üzerinde olmalı
-  const va = avgVolume(m1, i, VOLUME_LOOKBACK);
-  const volRatio = va != null && va > 0 ? (bar.volume || 0) / va : 1;
-  if (va != null && va > 0 && (bar.volume || 0) < va) {
-    return { ok: false, blockedBy: `hacim zayıf (ortalamanın ×${volRatio.toFixed(2)}'i)` };
-  }
+  const closeAboveEma = e != null && close > e;
+  const closeBelowEma = e != null && close < e;
+  const rsiRising = rising(r, rp);
+  const rsiFalling = falling(r, rp);
+  const macdRising = h != null && hp != null && h > 0 && h > hp;
+  const macdFalling = h != null && hp != null && h < 0 && h < hp;
+  const rsiCondLong = r != null && r > 50 && rsiRising;
+  const rsiCondShort = r != null && r < 50 && rsiFalling;
 
-  // 2) 1m RSI yönü
-  const r1 = m1Rsi[i], r1p = m1Rsi[i - 1];
-  if (r1 == null || r1p == null) return { ok: false, blockedBy: "1m RSI ısınıyor" };
-  if (side === "LONG" ? r1 <= r1p : r1 >= r1p) {
-    return { ok: false, blockedBy: `1m RSI ${side === "LONG" ? "yükselmiyor" : "düşmüyor"} (${r1.toFixed(0)})` };
-  }
+  const passLong = closeAboveEma && (rsiCondLong || macdRising);
+  const passShort = closeBelowEma && (rsiCondShort || macdFalling);
 
-  // 3) 5m EMA21 konumu (V4.2 — eskiden 5m mum yönüydü). Fiyat, EMA21'e
-  //    hafif bir ATR tamponuyla ayrılmış olmalı (çizgi üzerindeki gürültü
-  //    yanlış onay vermesin).
-  if (m5Cursor < 1) return { ok: false, blockedBy: "5m verisi yetersiz" };
-  const e5 = m5Ema[m5Cursor];
-  const a5 = m5Atr[m5Cursor];
-  if (e5 == null) return { ok: false, blockedBy: "5m EMA21 ısınıyor" };
-  const buf5 = (a5 ?? 0) * M5_EMA_BUFFER_ATR_MULT;
-  const m5Close = m5[m5Cursor].close;
-  if (side === "LONG" ? m5Close <= e5 + buf5 : m5Close >= e5 - buf5) {
-    return { ok: false, blockedBy: `5m fiyat EMA21'in ${side === "LONG" ? "üstünde değil" : "altında değil"} (fiyat ${m5Close.toFixed(2)}, EMA21 ${e5.toFixed(2)})` };
-  }
-
-  // 4) 5m RSI yönü
-  const r5 = m5Rsi[m5Cursor], r5p = m5Rsi[m5Cursor - 1];
-  if (r5 == null || r5p == null) return { ok: false, blockedBy: "5m RSI ısınıyor" };
-  if (side === "LONG" ? r5 < r5p : r5 > r5p) {
-    return { ok: false, blockedBy: `5m RSI ${side === "LONG" ? "yükselmiyor" : "düşmüyor"} (${r5.toFixed(0)})` };
-  }
-
-  return { ok: true, volRatio, rsi1: r1, rsi5: r5 };
+  return {
+    passLong, passShort, closeAboveEma, closeBelowEma,
+    rsi: r, rsiRising, rsiFalling, macdHist: h, macdRising, macdFalling,
+    strongLong: rsiCondLong && macdRising,
+    strongShort: rsiCondShort && macdFalling,
+    note: passLong
+      ? `5m fiyat EMA21 üstünde + ${rsiCondLong && macdRising ? "RSI ve MACD ikisi de" : rsiCondLong ? "RSI" : "MACD"} yukarı`
+      : passShort
+      ? `5m fiyat EMA21 altında + ${rsiCondShort && macdFalling ? "RSI ve MACD ikisi de" : rsiCondShort ? "RSI" : "MACD"} aşağı`
+      : "5m trend şartı sağlanmıyor",
+  };
 }
 
+// ── KATMAN 2 — 5m FİLTRE (3'te 2 oylama) ────────────────────────────
 
-/**
- * Belirli bir 1m mumunda, verilen yön için kapıların tek tek durumu.
- * `checkGate` ile AYNI eşikleri kullanır; fark, ilk hatada durmak yerine
- * hepsini raporlamasıdır — el ile işlem açarken veto listesi olarak okunur.
- */
-function gateChecksFor(
-  m1: Bar[], m5: Bar[],
-  m1Rsi: (number | null)[], m5Rsi: (number | null)[],
-  m5Ema: (number | null)[], m5Atr: (number | null)[],
-  i: number, m5Cursor: number, side: Side
-): GateCheck[] {
-  if (i < 1) return [];
-  const bar = m1[i];
-  const rng = Math.max(1e-9, bar.high - bar.low);
-  const bodyR = Math.abs(bar.close - bar.open) / rng;
-  const posInRange = (bar.close - bar.low) / rng;
-  const closeStr = side === "LONG" ? posInRange : 1 - posInRange;
-  const va = avgVolume(m1, i, VOLUME_LOOKBACK);
-  const volRatio = va != null && va > 0 ? (bar.volume || 0) / va : 1;
-  const r1 = m1Rsi[i], r1p = m1Rsi[i - 1];
-  const e5 = m5Cursor >= 1 ? m5Ema[m5Cursor] : null;
-  const a5 = m5Cursor >= 1 ? m5Atr[m5Cursor] : null;
-  const m5Close = m5Cursor >= 0 ? m5[m5Cursor].close : null;
-  const buf5 = (a5 ?? 0) * M5_EMA_BUFFER_ATR_MULT;
-  const r5 = m5Cursor >= 1 ? m5Rsi[m5Cursor] : null;
-  const r5p = m5Cursor >= 1 ? m5Rsi[m5Cursor - 1] : null;
+function layer2At(m5: Bar[], m5Atr: (number | null)[], idx: number): Layer2Read {
+  if (idx < 1 || idx >= m5.length) {
+    return { longVotes: [], longPassed: 0, passLong: false, shortVotes: [], shortPassed: 0, passShort: false, note: "5m verisi yetersiz" };
+  }
+  const bar = m5[idx];
+  const body = Math.abs(bar.close - bar.open);
+  const bullish = bar.close > bar.open;
+  const bearish = bar.close < bar.open;
+  const upperWick = bar.high - Math.max(bar.open, bar.close);
+  const lowerWick = Math.min(bar.open, bar.close) - bar.low;
+  const a = m5Atr[idx] ?? 0;
+  const avgVol = avgVolume(m5, idx, M5_VOL_AVG_PERIOD);
+  const volRatio = avgVol != null && avgVol > 0 ? (bar.volume || 0) / avgVol : null;
+  const volOk = volRatio != null && volRatio > M5_FILTER_VOL_MULT;
 
-  return [
+  const longBodyOk = bullish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
+  const longWickOk = bullish && body > 0 && upperWick < body * M5_FILTER_WICK_BODY_MULT;
+  const longVotes: GateCheck[] = [
+    { label: `Hacim > ort.×${M5_FILTER_VOL_MULT}`, ok: volOk, detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}` },
+    { label: `Gövde (yükseliş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: longBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
+    { label: `Üst gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: longWickOk, detail: body > 0 ? `%${((upperWick / body) * 100).toFixed(0)}` : "veri yok" },
+  ];
+  const longPassed = longVotes.filter((v) => v.ok).length;
+
+  const shortBodyOk = bearish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
+  const shortWickOk = bearish && body > 0 && lowerWick < body * M5_FILTER_WICK_BODY_MULT;
+  const shortVotes: GateCheck[] = [
+    { label: `Hacim > ort.×${M5_FILTER_VOL_MULT}`, ok: volOk, detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}` },
+    { label: `Gövde (düşüş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: shortBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
+    { label: `Alt gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: shortWickOk, detail: body > 0 ? `%${((lowerWick / body) * 100).toFixed(0)}` : "veri yok" },
+  ];
+  const shortPassed = shortVotes.filter((v) => v.ok).length;
+
+  const passLong = longPassed >= M5_FILTER_MIN_VOTES;
+  const passShort = shortPassed >= M5_FILTER_MIN_VOTES;
+
+  return {
+    longVotes, longPassed, passLong,
+    shortVotes, shortPassed, passShort,
+    note: passLong
+      ? `5m filtre LONG'u ${longPassed}/3 oyla onayladı`
+      : passShort
+      ? `5m filtre SHORT'u ${shortPassed}/3 oyla onayladı`
+      : `5m filtre onaylamadı (LONG ${longPassed}/3 · SHORT ${shortPassed}/3, en az 2 gerekli)`,
+  };
+}
+
+// ── KATMAN 3 — 1m TETİK (zamanlama) ─────────────────────────────────
+
+function layer3At(
+  m1: Bar[], m1Ema: (number | null)[], m1Rsi7: (number | null)[], idx: number, side: Side
+): Layer3Read {
+  if (idx < M1_STRUCTURE_LOOKBACK) {
+    return { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "1m verisi yetersiz" };
+  }
+  const bar = m1[idx];
+  const e = m1Ema[idx];
+  const prevBars = m1.slice(idx - M1_STRUCTURE_LOOKBACK, idx); // önceki 2 KAPALI mum, mevcut hariç
+  const isLong = side === "LONG";
+
+  const emaOk = e != null && (isLong ? bar.close > e : bar.close < e);
+  const extreme = isLong
+    ? Math.max(...prevBars.map((b) => b.high))
+    : Math.min(...prevBars.map((b) => b.low));
+  const breakOk = isLong ? bar.close > extreme : bar.close < extreme;
+  const structureOk = emaOk && breakOk;
+
+  const r = m1Rsi7[idx], rp = m1Rsi7[idx - 1];
+  const rsiOk = isLong ? r != null && r > 50 && rising(r, rp) : r != null && r < 50 && falling(r, rp);
+  const avgVol = avgVolume(m1, idx, M1_VOL_AVG_PERIOD);
+  const volRatio = avgVol != null && avgVol > 0 ? (bar.volume || 0) / avgVol : null;
+  const volOk = volRatio != null && volRatio > M1_VOL_MULT;
+  const confirmationOk = rsiOk || volOk;
+
+  const checks: GateCheck[] = [
     {
-      label: `Mum gövdesi ≥ %${BODY_MIN_RATIO * 100}`,
-      ok: bodyR >= BODY_MIN_RATIO,
-      detail: `%${(bodyR * 100).toFixed(0)}`,
+      label: `1m fiyat EMA21'in ${isLong ? "üstünde" : "altında"}`,
+      ok: emaOk,
+      detail: e == null ? "veri yok" : `${bar.close.toFixed(2)} / EMA21 ${e.toFixed(2)}`,
     },
     {
-      label: `Kapanış ${side === "LONG" ? "tepeye" : "dibe"} yakın ≥ %${CLOSE_POSITION_MIN * 100}`,
-      ok: closeStr >= CLOSE_POSITION_MIN,
-      detail: `%${(closeStr * 100).toFixed(0)}`,
+      label: `Kapanış önceki 2 mumun ${isLong ? "zirvesini" : "dibini"} kırdı`,
+      ok: breakOk,
+      detail: `${bar.close.toFixed(2)} vs ${extreme.toFixed(2)}`,
     },
     {
-      label: "Hacim ≥ son 15 mum ort.",
-      ok: va == null || va === 0 ? true : (bar.volume || 0) >= va,
-      detail: `ort.×${volRatio.toFixed(2)}`,
+      label: `1m RSI7 ${isLong ? "yükseliyor (>50)" : "düşüyor (<50)"}`,
+      ok: rsiOk,
+      detail: r == null ? "veri yok" : r.toFixed(0),
     },
     {
-      label: `1m RSI ${side === "LONG" ? "yükseliyor" : "düşüyor"}`,
-      ok: r1 != null && r1p != null && (side === "LONG" ? r1 > r1p : r1 < r1p),
-      detail: r1 == null ? "veri yok" : r1.toFixed(0),
-    },
-    {
-      label: `5m fiyat EMA21'in ${side === "LONG" ? "üstünde" : "altında"} (+ATR tamponu)`,
-      ok: e5 != null && m5Close != null && (side === "LONG" ? m5Close > e5 + buf5 : m5Close < e5 - buf5),
-      detail: e5 == null ? "veri yok" : `fiyat ${m5Close?.toFixed(2)} / EMA21 ${e5.toFixed(2)}`,
-    },
-    {
-      label: `5m RSI ${side === "LONG" ? "yükseliyor" : "düşüyor"}`,
-      ok: r5 != null && r5p != null && (side === "LONG" ? r5 >= r5p : r5 <= r5p),
-      detail: r5 == null ? "veri yok" : r5.toFixed(0),
+      label: `Hacim > ort.×${M1_VOL_MULT}`,
+      ok: volOk,
+      detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}`,
     },
   ];
+
+  return {
+    checks, structureOk, confirmationOk, fired: structureOk && confirmationOk,
+    note: !structureOk
+      ? "Yapı kırılımı yok — EMA21 konumu ve önceki 2 mum kırılımı ikisi de gerekli"
+      : !confirmationOk
+      ? "Yapı kırıldı, konfirmasyon (RSI7 veya hacim) bekleniyor"
+      : `1m tetik ateşlendi (${side})`,
+  };
 }
 
-/**
- * Güven skoru — kapıyı GEÇMİŞ bir girişin ne kadar güçlü olduğunu anlatır.
- * Kapı zaten zorunlu olduğu için buradaki bileşenler artık "geçti/kaldı"
- * değil, "ne kadar iyi geçti" ölçüsüdür. Kara kutu değil: her bileşen
- * panelde tek tek görünür.
- */
-function buildConfidence(
-  bar: Bar, volRatio: number, risk: number, rsi1: number, rsi5: number
-): { total: number; parts: ConfidencePart[] } {
-  const parts: ConfidencePart[] = [{ label: "Kapı geçildi (taban)", value: 50 }];
+// ── Güven skoru ──────────────────────────────────────────────────
+
+function buildConfidence(l1: Layer1Read, l2: Layer2Read, l3: Layer3Read, side: Side): { total: number; parts: ConfidencePart[] } {
+  const parts: ConfidencePart[] = [{ label: "Rejim + tetik geçildi (taban)", value: 50 }];
   let total = 50;
 
-  const bodyPts = Math.round(bodyRatio(bar) * 20);
-  parts.push({ label: "1m mum gövde gücü", value: bodyPts });
-  total += bodyPts;
+  const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
+  const strongPts = strong ? 20 : 10;
+  parts.push({ label: strong ? "Güçlü kurulum (RSI + MACD ikisi de)" : "Orta kurulum (RSI veya MACD)", value: strongPts });
+  total += strongPts;
 
-  // Hacim ortalamanın 2 katına kadar puan verir
-  const volPts = Math.round(Math.min(1, Math.max(0, volRatio - 1)) * 20);
-  parts.push({ label: `Hacim fazlası (ort.×${volRatio.toFixed(2)})`, value: volPts });
-  total += volPts;
+  const l2Passed = side === "LONG" ? l2.longPassed : l2.shortPassed;
+  const l2Pts = l2Passed >= 3 ? 15 : 8;
+  parts.push({ label: `5m filtre ${l2Passed}/3`, value: l2Pts });
+  total += l2Pts;
 
-  // RSI'ın 50'den uzaklığı — momentum ne kadar yerleşmiş
-  const rsiPts = Math.round((Math.min(20, Math.abs(rsi5 - 50)) / 20) * 10);
-  parts.push({ label: `5m RSI momentumu (${rsi5.toFixed(0)})`, value: rsiPts });
-  total += rsiPts;
-
-  const riskPts = -Math.round(risk * 15);
-  parts.push({ label: "Trend kırılma riski", value: riskPts });
-  total += riskPts;
+  const bothConfirm = l3.checks.filter((c) => c.ok).length >= 4;
+  const confirmPts = bothConfirm ? 15 : 8;
+  parts.push({ label: bothConfirm ? "1m RSI7 + hacim ikisi de destekliyor" : "1m konfirmasyonlarından biri", value: confirmPts });
+  total += confirmPts;
 
   return { total: Math.max(0, Math.min(100, total)), parts };
 }
 
-// ── 15m yön (SADECE bilgi — 15m Bağlam sekmesi için, karara girmez) ─
+// ── Kapı Durumu (manuel işlem için birleşik veto listesi) ───────────
 
-export function readM15(m15: Bar[]): { direction: Direction; note: string } {
-  if (m15.length < 26) return { direction: "NEUTRAL", note: "Yeterli 15m geçmişi yok" };
-  const c = closes(m15);
-  const e21 = ema(c, 21);
-  const i = c.length - 1;
-  const e = e21[i];
-  if (e == null) return { direction: "NEUTRAL", note: "EMA21 hesaplanamadı" };
-
-  const spread = ((c[i] - e) / e) * 100;
-  if (spread > 0.05) return { direction: "BULLISH", note: `Fiyat EMA21 üstünde (+%${spread.toFixed(2)})` };
-  if (spread < -0.05) return { direction: "BEARISH", note: `Fiyat EMA21 altında (%${spread.toFixed(2)})` };
-  return { direction: "NEUTRAL", note: `Fiyat EMA21'e yakın (%${spread.toFixed(2)})` };
+function gateChecksFor(
+  veto: M15VetoRead, l1: Layer1Read, l2: Layer2Read, regime: RegimeState, l3ForSide: Layer3Read, side: Side
+): GateCheck[] {
+  const isLong = side === "LONG";
+  const l1Pass = isLong ? l1.passLong : l1.passShort;
+  const l2Pass = isLong ? l2.passLong : l2.passShort;
+  const l2Passed = isLong ? l2.longPassed : l2.shortPassed;
+  return [
+    { label: "15m veto izin veriyor", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
+    { label: "5m trend (EMA21 konumu + RSI/MACD)", ok: l1Pass, detail: l1Pass ? "geçti" : "geçmedi" },
+    { label: "5m filtre (en az 2/3 oy)", ok: l2Pass, detail: `${l2Passed}/3` },
+    { label: `5m rejim ${side} aktif`, ok: regime.side === side, detail: regime.side === "NONE" ? "yok" : regime.side },
+    ...l3ForSide.checks,
+  ];
 }
 
-// ── Giriş adaylarının üretimi (1m ana sürücü) ─────────────────────
+// ── Giriş adaylarının üretimi (5m ana karar, 1m zamanlama) ─────────
 
 export interface GenerateInput {
-  /** Bugünkü seansa ait 1m mumlar (pre/post dahil) */
   m1: Bar[];
-  /** 5m mumlar — RSI destek okuması için */
   m5: Bar[];
-  /** 15m mumlar — sadece 15m Bağlam sekmesi için */
   m15: Bar[];
   session: SessionInfo;
   nowSec: number;
-  /** Şu an açık bir pozisyon var mı (yalnızca durum etiketi için) */
   hasOpenPosition?: boolean;
 }
 
@@ -618,84 +578,121 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const m5 = closedBars(input.m5, 5, nowSec);
   const m15 = closedBars(input.m15, 15, nowSec);
 
-  const m15Read = readM15(m15);
-  const m1Rsi = rsi(closes(m1), 14);
-  const m5Rsi = rsi(closes(m5), 14);
-  const m5Ema = ema(closes(m5), M5_EMA_PERIOD);
-  const m5Atr = atr(m5, 14);
+  const m15Ema = ema(closes(m15), M15_EMA_PERIOD);
+  const m15Atr = atr(m15, 14);
+
+  const m5Closes = closes(m5);
+  const m5Ema = ema(m5Closes, M5_EMA_PERIOD);
+  const m5Rsi = rsi(m5Closes, M5_RSI_PERIOD);
+  const m5MacdHist = macd(m5Closes, M5_MACD_FAST, M5_MACD_SLOW, M5_MACD_SIGNAL).hist;
+  const m5Atr = atr(m5, M5_ATR_PERIOD);
+
+  const m1Closes = closes(m1);
+  const m1Ema = ema(m1Closes, M1_EMA_PERIOD);
+  const m1Rsi7 = rsi(m1Closes, M1_RSI_PERIOD);
+
+  // ── Rejim zaman çizelgesi: her kapalı 5m barda yeniden değerlendirilir,
+  //    Layer 1+2 geçerli kaldığı sürece AKTİF kalan bir DURUM olarak ──────
+  const regimeTimeline: RegimeState[] = new Array(m5.length);
+  {
+    let side: RegimeSide = "NONE";
+    let since: number | null = null;
+    for (let j = 0; j < m5.length; j++) {
+      const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, j);
+      const l2 = layer2At(m5, m5Atr, j);
+      const passLong = l1.passLong && l2.passLong;
+      const passShort = l1.passShort && l2.passShort;
+
+      if (side === "LONG" && passLong) {
+        // aktif kalır
+      } else if (side === "SHORT" && passShort) {
+        // aktif kalır
+      } else if (passLong) {
+        side = "LONG"; since = m5[j].time;
+      } else if (passShort) {
+        side = "SHORT"; since = m5[j].time;
+      } else {
+        side = "NONE"; since = null;
+      }
+      regimeTimeline[j] = {
+        side, since,
+        note: side === "NONE" ? "Rejim yok — Layer 1+2 ikisi de geçmedi" : `${side} rejimi ${since ? nyParts(since).hhmm + " ET'den beri" : ""} aktif`,
+      };
+    }
+  }
 
   const candidates: EntryCandidate[] = [];
-
-  let streakDir: StreakDir = "NONE";
-  let streakLen = 0;
-  let firedThisStreak = false;
   let m5Cursor = -1;
-  /** En son değerlendirilen mumda hangi kapının engellediği — panel için */
-  let lastBlock: string | null = null;
+  let m15Cursor = -1;
 
   for (let i = 1; i < m1.length; i++) {
     const bar = m1[i];
     while (m5Cursor + 1 < m5.length && m5[m5Cursor + 1].time + 300 <= bar.time + 60) m5Cursor++;
-
-    const dir = candleDir(bar);
-    if (dir === "NONE") {
-      streakDir = "NONE"; streakLen = 0; firedThisStreak = false;
-      continue;
-    }
-    if (dir === streakDir) streakLen++;
-    else { streakDir = dir; streakLen = 1; firedThisStreak = false; }
+    while (m15Cursor + 1 < m15.length && m15[m15Cursor + 1].time + 900 <= bar.time + 60) m15Cursor++;
 
     const p = nyParts(bar.time);
-    const inWindow = p.ymd === session.date && p.minutes >= ENTRY_START_MIN && p.minutes < ENTRY_END_MIN;
-    if (!inWindow) continue;
-    if (streakLen !== ENTRY_STREAK || firedThisStreak) continue;
+    const inRth = p.ymd === session.date && p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN;
+    if (!inRth) continue;
+    if (m5Cursor < 1 || m15Cursor < 0) continue;
 
-    const side: Side = streakDir === "UP" ? "LONG" : "SHORT";
-    const gate = checkGate(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, i, m5Cursor, side);
-    if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
+    const regime = regimeTimeline[m5Cursor];
+    if (regime.side === "NONE") continue;
 
-    firedThisStreak = true;
-    const risk = trendBreakRisk(m1, i, side);
-    const { total, parts } = buildConfidence(bar, gate.volRatio, risk, gate.rsi1, gate.rsi5);
+    const veto = m15VetoAt(m15, m15Ema, m15Atr, m15Cursor);
+    if (veto.direction !== regime.side) continue; // 15m veto engelliyor
+
+    const side = regime.side;
+    const l3 = layer3At(m1, m1Ema, m1Rsi7, i, side);
+    if (!l3.fired) continue;
+
+    const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
+    const l2 = layer2At(m5, m5Atr, m5Cursor);
+    const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
+    const { total, parts } = buildConfidence(l1, l2, l3, side);
+
     candidates.push({
       time: bar.time,
       side,
       spot: bar.close,
-      contractType: "A",
+      contractType: strong ? "A" : "B",
       confidence: total,
       confidenceParts: parts,
       reasoning:
-        `${ENTRY_STREAK} ardışık ${side === "LONG" ? "yükseliş" : "düşüş"} 1m mumu · ` +
-        `hacim ort.×${gate.volRatio.toFixed(2)} · 1m RSI ${gate.rsi1.toFixed(0)} ${side === "LONG" ? "yükseliyor" : "düşüyor"} · ` +
-        `5m fiyat EMA21'in ${side === "LONG" ? "üstünde" : "altında"} · 5m RSI ${gate.rsi5.toFixed(0)} aynı yönde`,
+        `5m rejim ${side} aktif (${l1.note}) · ${l2.note} · ` +
+        `1m tetik: yapı kırılımı + ${l3.checks[2]?.ok ? "RSI7" : "hacim"} konfirmasyonu · ` +
+        `15m veto ${side} yönünü serbest bırakıyor`,
     });
   }
 
   // ── Canlı okuma (son kapalı mumlar üzerinden, panel için) ────────
   const lastM1Idx = m1.length - 1;
-  const lastM1 = lastM1Idx >= 0 ? m1[lastM1Idx] : null;
+  const lastVeto = m15VetoAt(m15, m15Ema, m15Atr, m15Cursor);
+  const lastL1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
+  const lastL2 = layer2At(m5, m5Atr, m5Cursor);
+  const lastRegime: RegimeState = m5Cursor >= 0 && regimeTimeline[m5Cursor] ? regimeTimeline[m5Cursor] : { side: "NONE", since: null, note: "Rejim için 5m verisi yetersiz" };
+  const lastL3Long = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "LONG");
+  const lastL3Short = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "SHORT");
+  const lastL3ForRegime = lastRegime.side === "SHORT" ? lastL3Short : lastL3Long;
+
   const lastCandidate =
-    candidates.length && lastM1 && candidates[candidates.length - 1].time === lastM1.time
+    candidates.length && lastM1Idx >= 0 && candidates[candidates.length - 1].time === m1[lastM1Idx].time
       ? candidates[candidates.length - 1]
       : null;
-
-  const dirWord = streakDir === "UP" ? "yükseliş" : "düşüş";
-  const sideWord = streakDir === "UP" ? "LONG" : "SHORT";
 
   let state: EngineState = "WATCHING";
   let action: EngineRead["action"] = "BEKLE";
   let contractType: ContractType | null = null;
-  let confidence = 40;
-  let confidenceParts: ConfidencePart[] = [{ label: "Taban (seri yok)", value: 40 }];
-  let reasoning = "Kurulum aranıyor — net yönlü mum serisi yok.";
+  let confidence = 30;
+  let confidenceParts: ConfidencePart[] = [{ label: "Taban (rejim yok)", value: 30 }];
+  let reasoning = "5m rejim aranıyor — Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmedi.";
   let stateLabel = "İZLEMEDE";
-  let nextStep = `Arka arkaya ${ENTRY_STREAK} aynı yönlü 1m mum bekleniyor. Şu an yönlü seri yok.`;
+  let nextStep = "5m kapanışında Layer 1 (trend) + Layer 2 (filtre) ikisinin de geçmesi bekleniyor.";
 
   if (input.hasOpenPosition) {
     state = "IN_POSITION";
     stateLabel = "POZİSYONDA";
-    nextStep = "Açık pozisyon taşınıyor — çıkış sinyali bekleniyor (Açık Pozisyon kutusuna bak).";
-    reasoning = "Pozisyon açık; trend devam ettiği sürece taşınıyor.";
+    nextStep = "Açık pozisyon taşınıyor — çıkış öncelik sırasına göre izleniyor (Açık Pozisyon kutusuna bak).";
+    reasoning = "Pozisyon açık; çıkış önceliği: 15:45 EOD > 5m EMA21 kesişimi > 5m RSI dönüşü > stop > trailing.";
   } else if (lastCandidate) {
     state = "TRIGGERED";
     action = lastCandidate.side;
@@ -704,45 +701,37 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     confidenceParts = lastCandidate.confidenceParts;
     reasoning = lastCandidate.reasoning;
     stateLabel = lastCandidate.side === "LONG" ? "LONG GİRİŞ SİNYALİ" : "SHORT GİRİŞ SİNYALİ";
-    nextStep = "Tüm kapılar geçildi — pozisyon açılıyor.";
-  } else if (streakLen >= 1) {
+    nextStep = "1m tetik ateşlendi — pozisyon açılıyor.";
+  } else if (lastRegime.side !== "NONE") {
+    const vetoBlocks = lastVeto.direction !== lastRegime.side;
     state = "ARMED";
-    confidence = Math.min(55, 40 + streakLen * 5);
+    confidence = 55;
     confidenceParts = [
-      { label: "Taban", value: 40 },
-      { label: `${streakLen} mumluk seri`, value: confidence - 40 },
+      { label: "Taban", value: 30 },
+      { label: `5m rejim ${lastRegime.side} aktif`, value: 25 },
     ];
-    const need = Math.max(0, ENTRY_STREAK - streakLen);
-    reasoning = `${streakLen} ardışık ${dirWord} mumu.`;
+    reasoning = `5m rejim ${lastRegime.side} aktif — 1m tetik (yapı kırılımı + RSI7/hacim konfirmasyonu) bekleniyor.`;
     stateLabel = "HAZIRLANIYOR";
-    nextStep =
-      need > 0
-        ? `${streakLen} ${dirWord} mumu oluştu. ${need} tane daha aynı yönde kapanmalı, ardından hacim + 1m RSI + 5m mum + 5m RSI kapıları da geçilirse ${sideWord} giriş açılır.`
-        : lastBlock
-        ? `Seri tamam ama kapı geçilemedi: ${lastBlock}. Yeni bir seri bekleniyor.`
-        : `Seri ${streakLen} muma ulaştı, kapı kontrolü yapılıyor.`;
+    nextStep = vetoBlocks
+      ? `5m rejim ${lastRegime.side} aktif ama 15m veto bu yönü engelliyor (${lastVeto.note}). Motor bekliyor.`
+      : !lastL3ForRegime.structureOk
+      ? `5m rejim ${lastRegime.side} aktif. 1m'de yapı kırılımı (EMA21 konumu + önceki 2 mumun ${lastRegime.side === "LONG" ? "zirvesi" : "dibi"}) bekleniyor.`
+      : `5m rejim ${lastRegime.side} aktif, 1m yapı kırıldı. RSI7 veya hacim konfirmasyonu bekleniyor.`;
   }
 
-  const m5RsiLast = m5Cursor >= 0 ? m5Rsi[m5Cursor] : null;
   const gateStatus: GateStatus = {
-    long: gateChecksFor(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, lastM1Idx, m5Cursor, "LONG"),
-    short: gateChecksFor(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, lastM1Idx, m5Cursor, "SHORT"),
+    long: gateChecksFor(lastVeto, lastL1, lastL2, lastRegime, lastL3Long, "LONG"),
+    short: gateChecksFor(lastVeto, lastL1, lastL2, lastRegime, lastL3Short, "SHORT"),
   };
 
   return {
     candidates,
     read: {
-      m15Direction: m15Read.direction,
-      m15Note: m15Read.note,
-      m5Rsi: m5RsiLast,
-      m5RsiDirection: m5RsiLast == null ? "NEUTRAL" : m5RsiLast > 50 ? "BULLISH" : m5RsiLast < 50 ? "BEARISH" : "NEUTRAL",
-      m5Note:
-        m5RsiLast == null
-          ? "5m RSI verisi yok"
-          : `RSI ${m5RsiLast.toFixed(1)} · 5m mum ${m5Cursor >= 0 ? (candleDir(m5[m5Cursor]) === "UP" ? "yeşil" : candleDir(m5[m5Cursor]) === "DOWN" ? "kırmızı" : "nötr") : "—"}`,
-      m1StreakDir: streakDir,
-      m1StreakLen: streakLen,
-      m1Note: streakLen >= 1 ? `${streakLen} ardışık ${dirWord} 1m mumu` : "Net yönlü seri yok",
+      veto: lastVeto,
+      layer1: lastL1,
+      layer2: lastL2,
+      regime: lastRegime,
+      layer3: lastL3ForRegime,
       action,
       contractType,
       state,
@@ -754,14 +743,14 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       gateStatus,
     },
     lastClosed: {
-      m1: lastM1 ? lastM1.time : null,
+      m1: lastM1Idx >= 0 ? m1[lastM1Idx].time : null,
       m5: m5.length ? m5[m5.length - 1].time : null,
       m15: m15.length ? m15[m15.length - 1].time : null,
     },
   };
 }
 
-// ── Çıkış sinyali (girişin aynası — SPY mumlarından üretilir) ──────
+// ── Çıkış sinyali (öncelik sıralı, spec §6) ─────────────────────────
 
 export interface ExitSignal {
   time: number;
@@ -771,11 +760,8 @@ export interface ExitSignal {
 }
 
 export interface ExitScan {
-  /** Çıkış oluştuysa sinyal, hâlâ açıksa null */
   signal: ExitSignal | null;
   progress: ExitProgress;
-  /** V4 -- sikismada +%20de yari kapamanin gerceklestigi an (yoksa null) */
-  halfTakeTime?: number | null;
 }
 
 export interface ExitScanInput {
@@ -786,114 +772,51 @@ export interface ExitScanInput {
   entrySpot: number;
   session: SessionInfo;
   nowSec: number;
-  /**
-   * V4 — o andaki rejim. Verilmezse TREND varsayılır, yani V3.3 davranışı
-   * birebir korunur (aday zincirini çözen ilk geçiş bunu kullanır).
-   */
-  regimeAt?: (time: number) => Regime;
-  /**
-   * V4 — GERÇEK 0DTE prim mumları. Sıkışma rejiminin hedef/stop kuralları
-   * prim yüzdesi üzerinden tanımlı olduğu için gerekli. Yoksa yüzde bazlı
-   * kurallar devreye girmez (uydurma prim üretilmez), yalnızca süre sınırı
-   * ve ters onay çalışır.
-   */
+  /** 0DTE prim mumları — GERÇEK veri, yoksa $ kâr/zarar hesaplanmaz (uydurma yok) */
   premiumBars?: Bar[];
 }
 
-/**
- * Girişten sonraki kapalı 1m mumları sırayla tarar ve ilk çıkış koşulunu
- * bulur. Hiçbiri oluşmadıysa `signal: null` döner ve `progress` içinde
- * pozisyonun çıkışa ne kadar yaklaştığını bildirir (canlı takip için).
- *
- * Öncelik sırası bilinçlidir: aynı mumda birden fazla koşul sağlanırsa
- * kanıtı en güçlü olan etiket kullanılır (fiyat aynı mum olduğu için
- * kâr/zarar değişmez, yalnızca gerekçe etiketi değişir).
- */
 export function findExitSignal(input: ExitScanInput): ExitScan {
   const { side, entryTime, session, nowSec } = input;
-  const regimeAt = input.regimeAt ?? (() => "TREND" as Regime);
-  // Prim zaman -> kapanis eslemesi (yalnizca gercek veri; uydurma yok)
   const premAt = new Map<number, number>();
   for (const b of input.premiumBars ?? []) premAt.set(b.time, b.close);
+  const premLowAt = new Map<number, number>();
+  for (const b of input.premiumBars ?? []) premLowAt.set(b.time, b.low);
   const entryPremium = (() => {
     for (const b of input.premiumBars ?? []) if (b.time >= entryTime) return b.close;
     return null;
   })();
-  /** Girisden bu yana prim yuzdesi -- prim yoksa null */
   const pctAt = (t: number): number | null => {
     if (entryPremium == null || entryPremium <= 0) return null;
     const p = premAt.get(t);
     return p == null ? null : p / entryPremium - 1;
   };
-  // V4.1 (bug A.1): stop SADECE bu haritayla kontrol edilir -- mum kapanisi
-  // degil, mumun EN KOTU (low) prim seviyesi. Kapanis-bazli pctAt mum ici
-  // esik asimini kacirip stopu geciktiriyordu (gozlemlenen: esik %-30 iken
-  // %-45'te tetiklendi). Yarı-kapama/tam-hedef/sure-siniri/TREND_TIGHTEN_PCT
-  // risk-sinirlayici olmadigi icin kapanis-bazli pctAt'i kullanmaya devam eder.
-  const premLowAt = new Map<number, number>();
-  for (const b of input.premiumBars ?? []) premLowAt.set(b.time, b.low);
+  /** Stop, mum kapanışı değil mum içi EN KÖTÜ (low) seviyeyle kontrol edilir */
   const worstPctAt = (t: number): number | null => {
     if (entryPremium == null || entryPremium <= 0) return null;
     const p = premLowAt.get(t);
     return p == null ? null : p / entryPremium - 1;
   };
-  let halfTaken = false;
-  let halfTakeTime: number | null = null;
+
   const m1 = closedBars(input.m1, 1, nowSec);
   const m5 = closedBars(input.m5, 5, nowSec);
-  const m1Rsi = rsi(closes(m1), 14);
-  const m5Rsi = rsi(closes(m5), 14);
-  const m5Ema = ema(closes(m5), M5_EMA_PERIOD);
-  const m5Atr = atr(m5, 14);
+  const m5Closes = closes(m5);
+  const m5Ema = ema(m5Closes, M5_EMA_PERIOD);
+  const m5Rsi = rsi(m5Closes, M5_RSI_PERIOD);
   const eodEpoch = eodEpochOf(session);
-  /** Çıkış, girişin aynası: aynı onay seti TERS yönde aranır */
-  const exitSide: Side = side === "LONG" ? "SHORT" : "LONG";
 
   let m5Cursor = -1;
-  let against = 0;
   let barsHeld = 0;
   let bestSpot: number | null = null;
-  let gateReady = false;          // ters seri tamam, onay seti bekleniyor
+  let emaFavor: boolean | null = null;
+  let emaGapPct: number | null = null;
   let rsiSupportive: boolean | null = null;
-  let lastBlock: string | null = null;
-
-  let lastRegime: Regime = "TREND";
+  let rsi5: number | null = null;
   let lastPct: number | null = null;
-  // V4.1 (B.1): TREND rejiminde bile, pozisyon KENDI swing kırılımı + hacim
-  // teyidini görmeden hedefsiz taşınmaz -- bir kez true olunca (sticky)
-  // taramanın geri kalanında hep true kalır, bkz. döngü içindeki kontrol.
-  let trendConfirmed = false;
-  // V4.2: profit-lock tabanı -- yalnızca onaylı TREND'de, monoton (yalnızca
-  // yükselir) bir taban. null = henüz kilit yok.
-  let profitFloorPct: number | null = null;
-  const regimeLabel = (r: Regime, confirmed: boolean, backstopped: boolean): string =>
-    backstopped ? "Trend rejimi (45 dk hard backstop -- sabit kurallara donuldu)"
-    : r === "CHOP" ? "Sikisma modu"
-    : r === "TREND" && !confirmed ? "Trend rejimi (henuz onaylanmadi)"
-    : r === "TREND" ? "Trend modu"
-    : "Belirsiz rejim";
-  const regimeNoteOf = (r: Regime, confirmed: boolean, backstopped: boolean): string =>
-    backstopped
-      ? `${regimeLabel(r, confirmed, backstopped)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop`
-      : r === "CHOP" || (r === "TREND" && !confirmed)
-      ? `${regimeLabel(r, confirmed, backstopped)} — +%${CHOP_HALF_TAKE_PCT * 100} yari, +%${CHOP_FULL_TAKE_PCT * 100} tam, %${CHOP_STOP_PCT * 100} stop, ${CHOP_MAX_MINUTES} dk sinir`
-      : r === "TREND"
-      ? `Trend modu (onaylandi)${profitFloorPct != null ? ` — kar kilidi %${(profitFloorPct * 100).toFixed(0)}'de` : ""} — ${TREND_BACKSTOP_MAX_MINUTES} dk hard backstop, tam ters teyit bekleniyor`
-      : "Belirsiz rejim — sikisma kurallari uygulaniyor";
+  let trailFloorPct: number | null = null;
 
-  const progressOf = (note: string, backstopped = false): ExitProgress => ({
-    againstBars: against,
-    reversalNeeded: EXIT_REVERSAL_BARS,
-    rsiSupportive,
-    rsiArmed: gateReady,
-    barsHeld,
-    bestSpot,
-    regime: lastRegime,
-    regimeNote: regimeNoteOf(lastRegime, trendConfirmed, backstopped),
-    halfTaken,
-    premiumPct: lastPct,
-    trendConfirmed,
-    note,
+  const progressOf = (note: string): ExitProgress => ({
+    emaFavor, emaGapPct, rsiSupportive, rsi5, barsHeld, bestSpot, premiumPct: lastPct, trailFloorPct, note,
   });
 
   for (let i = 1; i < m1.length; i++) {
@@ -903,183 +826,92 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     while (m5Cursor + 1 < m5.length && m5[m5Cursor + 1].time + 300 <= bar.time + 60) m5Cursor++;
     barsHeld++;
 
-    // Pozisyon lehine görülen en iyi seviye (şeffaflık — karar vermez)
     const favorable = side === "LONG" ? bar.high : bar.low;
     bestSpot = bestSpot == null ? favorable : side === "LONG" ? Math.max(bestSpot, favorable) : Math.min(bestSpot, favorable);
 
-    // 1. 15:45 ET — mutlak öncelikli, hiçbir onay aranmaz
+    const pct = pctAt(bar.time);
+    if (pct != null) lastPct = pct;
+
+    // 0 (MUTLAK) — 15:45 ET zorunlu 0DTE kapaması
     if (bar.time >= eodEpoch) {
       return {
-        signal: {
-          time: bar.time, spot: bar.close, reason: "EOD_EXIT",
-          note: "15:45 ET zorunlu 0DTE kapaması — diğer tüm kurallardan önceliklidir.",
-        },
+        signal: { time: bar.time, spot: bar.close, reason: "EOD_EXIT", note: "15:45 ET zorunlu 0DTE kapaması — diğer tüm kurallardan önceliklidir." },
         progress: progressOf("Gün sonu kapaması."),
-        halfTakeTime,
       };
     }
 
-    // -- V4: rejime bagli cikis kurallari --------------------------
-    lastRegime = regimeAt(bar.time);
-    const pct = pctAt(bar.time);
-    if (pct != null) lastPct = pct;
-    const heldMin = (bar.time - entryTime) / 60;
-
-    // V4.1 (B.1): TREND onayi -- son TREND_CONFIRM_WINDOW_MIN mumun
-    // zirvesini/dibini (yon yonunde) TREND_CONFIRM_VOL_MULT hacimle kiran
-    // ilk mumda bir kez tetiklenir, sonrasinda hep true kalir (sticky).
-    if (lastRegime === "TREND" && !trendConfirmed) {
-      const winStart = Math.max(0, i - TREND_CONFIRM_WINDOW_MIN);
-      const window = m1.slice(winStart, i); // mevcut mum HARIC -- sizinti yok
-      if (window.length) {
-        const brokeSwing = side === "LONG"
-          ? bar.high > Math.max(...window.map((b) => b.high))
-          : bar.low < Math.min(...window.map((b) => b.low));
-        const avgVol = avgVolume(m1, i, TREND_CONFIRM_VOL_LOOKBACK);
-        const volConfirmed = avgVol != null && avgVol > 0 && (bar.volume || 0) >= TREND_CONFIRM_VOL_MULT * avgVol;
-        if (brokeSwing && volConfirmed) trendConfirmed = true;
+    // 1 (ACİL) — 5m EMA21 zıt yönde kesildi (anlık: en güncel 5m EMA21, 1m granülerlikte kontrol)
+    if (m5Cursor >= 0) {
+      const e5 = m5Ema[m5Cursor];
+      if (e5 != null) {
+        const against = side === "LONG" ? bar.close < e5 : bar.close > e5;
+        emaFavor = !against;
+        emaGapPct = ((bar.close - e5) / e5) * 100;
+        if (against) {
+          return {
+            signal: {
+              time: bar.time, spot: bar.close, reason: "EMA_CROSS_EXIT",
+              note: `5m EMA21 ${side === "LONG" ? "altına" : "üstüne"} zıt yönde kesildi (fiyat ${bar.close.toFixed(2)}, EMA21 ${e5.toFixed(2)}) — acil çıkış.`,
+            },
+            progress: progressOf("5m EMA21 kesişimiyle acil çıkış."),
+          };
+        }
       }
     }
 
-    // V4.2: hard backstop -- onay bekleme fazi DAHIL toplam tasima
-    // TREND_BACKSTOP_MAX_MINUTES'i gectiyse, "tam ters teyit" beklentisi
-    // iptal olur ve pozisyon sabit-kural (SIKISMA) rejimine doner. Boylece
-    // "sonsuza kadar onay bekleniyor" durumu artik mumkun degil.
-    const backstopped = heldMin >= TREND_BACKSTOP_MAX_MINUTES;
-
-    // V4.1 (B.2 + B.3): SIKIŞMA VE onaylanmamis TREND, AYNI sabit kurallarla
-    // yonetilir -- ikisi de asagidaki blokta kalir, REVERSAL_EXIT taramasina
-    // (asagida) HIC ulasmaz. Bug A.2'nin kok nedeni buydu: CHOP bu bloktan
-    // cikip asagidaki "ters seri" taramasina dusebiliyordu. V4.2: backstopped
-    // da bu bloga dahil edildi (onaylanmis TREND bile olsa).
-    const useChopRules = lastRegime === "CHOP" || (lastRegime === "TREND" && !trendConfirmed) || backstopped;
-    if (useChopRules) {
-      const label = regimeLabel(lastRegime, trendConfirmed, backstopped);
-      // 1) Sabit stop -- asla tasinmaz. V4.1 (A.1): kapanis degil, mumun
-      //    EN KOTU (low) prim seviyesi kullanilir -- bkz. worstPctAt yukarida.
-      const worstPct = worstPctAt(bar.time);
-      if (worstPct != null && worstPct <= CHOP_STOP_PCT) {
-        return {
-          signal: {
-            time: bar.time, spot: bar.close, reason: "STOP_EXIT",
-            note: `${label} sabit stopu: prim en kotu %${(worstPct * 100).toFixed(0)} (esik %${CHOP_STOP_PCT * 100}).`,
-          },
-          progress: progressOf(`${label} stopuyla kapandi.`, backstopped),
-          halfTakeTime,
-        };
-      }
-      // 2) +%20 -> yari kapama (pozisyon devam eder, olay olarak islenir)
-      if (!halfTaken && pct != null && pct >= CHOP_HALF_TAKE_PCT) {
-        halfTaken = true;
-        halfTakeTime = bar.time;
-      }
-      // 3) +%50 -> tam kapama
-      if (pct != null && pct >= CHOP_FULL_TAKE_PCT) {
-        return {
-          signal: {
-            time: bar.time, spot: bar.close, reason: "TARGET_EXIT",
-            note: `${label} hedefi: prim +%${(pct * 100).toFixed(0)} (esik +%${CHOP_FULL_TAKE_PCT * 100}).`,
-          },
-          progress: progressOf(`${label} hedefiyle kapandi.`, backstopped),
-          halfTakeTime,
-        };
-      }
-      // 4) Sure siniri -- backstopped ise DERHAL (45 dk zaten dolmus demektir);
-      //    gercek SIKISMA/onaysiz-TREND'de 15 dakika siniri.
-      if (backstopped || heldMin >= CHOP_MAX_MINUTES) {
-        return {
-          signal: {
-            time: bar.time, spot: bar.close, reason: "TIME_EXIT",
-            note: backstopped
-              ? `${TREND_BACKSTOP_MAX_MINUTES} dk hard backstop doldu — ters teyit beklentisi iptal edildi, sabit kurallarla kapatildi.`
-              : `${label} sure siniri: ${CHOP_MAX_MINUTES} dk doldu, hareket gelmedi.`,
-          },
-          progress: progressOf(backstopped ? "Hard backstop ile kapandi." : `${label} sure siniriyla kapandi.`, backstopped),
-          halfTakeTime,
-        };
-      }
-    }
-
-    // V4.2: kar kilidi -- SADECE onayli TREND'de (chop kurallarina girmedi).
-    // Tam ters-onay setini beklemeden, prim belirli esikleri gectiyse taban
-    // yukari cekilir (monoton -- asla geri inmez). Mum-ici EN KOTU seviye
-    // (worstPctAt) kullanilir, ayni stop mantigi gibi.
-    if (!useChopRules && pct != null) {
-      if (pct >= TREND_PROFIT_LOCK2_PCT) {
-        profitFloorPct = Math.max(profitFloorPct ?? -Infinity, TREND_PROFIT_LOCK2_FLOOR);
-      } else if (pct >= TREND_PROFIT_LOCK1_PCT) {
-        profitFloorPct = Math.max(profitFloorPct ?? -Infinity, TREND_PROFIT_LOCK1_FLOOR);
-      }
-    }
-    if (!useChopRules && profitFloorPct != null) {
-      const worstPct = worstPctAt(bar.time);
-      if (worstPct != null && worstPct <= profitFloorPct) {
-        return {
-          signal: {
-            time: bar.time, spot: bar.close, reason: "STOP_EXIT",
-            note: `Kar kilidi: prim daha once +%${(profitFloorPct >= TREND_PROFIT_LOCK2_FLOOR && profitFloorPct === TREND_PROFIT_LOCK2_FLOOR ? TREND_PROFIT_LOCK2_PCT : TREND_PROFIT_LOCK1_PCT) * 100} esigini gecmisti, simdi taban %${(profitFloorPct * 100).toFixed(0)} seviyesine dondu.`,
-          },
-          progress: progressOf(`Kar kilidi tabaniyla (%${(profitFloorPct * 100).toFixed(0)}) kapandi.`),
-          halfTakeTime,
-        };
-      }
-    }
-
-    // 5m RSI pozisyonu hâlâ destekliyor mu (yalnızca gösterge)
+    // 2 (NORMAL) — 5m RSI yön değiştirdi (yalnızca kapalı 5m bar)
     if (m5Cursor >= 1) {
       const r5 = m5Rsi[m5Cursor], r5p = m5Rsi[m5Cursor - 1];
-      rsiSupportive = r5 == null || r5p == null ? null : side === "LONG" ? r5 >= r5p : r5 <= r5p;
+      rsi5 = r5;
+      if (r5 != null && r5p != null) {
+        const flipped = side === "LONG" ? r5 < r5p : r5 > r5p;
+        rsiSupportive = !flipped;
+        if (flipped) {
+          return {
+            signal: {
+              time: bar.time, spot: bar.close, reason: "RSI_FLIP_EXIT",
+              note: `5m RSI yön değiştirdi (${r5.toFixed(0)}, önceki ${r5p.toFixed(0)}) — normal çıkış.`,
+            },
+            progress: progressOf("5m RSI yön değişimiyle çıkış."),
+          };
+        }
+      }
     }
 
-    const dir = candleDir(bar);
-    const isAgainst = side === "LONG" ? dir === "DOWN" : dir === "UP";
-    if (isAgainst) against++;
-    else if (dir !== "NONE") against = 0; // lehte mum seriyi sıfırlar; doji sayacı korur
-
-    gateReady = against >= EXIT_REVERSAL_BARS;
-    if (!gateReady) continue;
-
-    // V4.1 (B.2): SIKIŞMA ve onaylanmamis TREND yukaridaki blokta zaten
-    // ele alindi (kendi sabit kurallariyla) -- buraya ASLA ulasmamali.
-    // Bug A.2'nin duzeltmesi tam olarak bu satir: "Trend Kırılımı"
-    // etiketi artik SADECE onaylanmis TREND pozisyonlarina cikabilir.
-    if (useChopRules) continue;
-
-    // 2. ÇIKIŞ — girişin AYNI onay seti, ters yönde:
-    //    mum paterni + hacim + 1m RSI yönü + 5m mum yönü + 5m RSI yönü
-    //
-    // V4 istisnasi: TREND onaylandiktan sonra kar +%60i gectiyse tam onay
-    // seti ARANMAZ, ters seri tek basina yeter -- buyuk karin geri
-    // verilmemesi icin (spec 2.1). lastRegime buraya sadece "TREND" olarak
-    // ulasabilir (useChopRules yukarida CHOP ve onaysiz TREND'i elemis).
-    const tightened = lastPct != null && lastPct >= TREND_TIGHTEN_PCT;
-    if (!tightened) {
-      const gate = checkGate(m1, m5, m1Rsi, m5Rsi, m5Ema, m5Atr, i, m5Cursor, exitSide);
-      if (!gate.ok) { lastBlock = gate.blockedBy; continue; }
+    // 3 (STOP) — opsiyon değeri eşiği geçti (anlık: mum içi en kötü seviye)
+    const worstPct = worstPctAt(bar.time);
+    if (worstPct != null && worstPct <= EXIT_STOP_PCT) {
+      return {
+        signal: {
+          time: bar.time, spot: bar.close, reason: "STOP_EXIT",
+          note: `Sabit stop: prim en kötü %${(worstPct * 100).toFixed(0)} (eşik %${EXIT_STOP_PCT * 100}).`,
+        },
+        progress: progressOf("Sabit stopla kapandı."),
+      };
     }
 
-    return {
-      signal: {
-        time: bar.time, spot: bar.close, reason: "REVERSAL_EXIT",
-        note: tightened
-          ? `${against} ardisik ters yonlu 1m mum — kar +%${((lastPct ?? 0) * 100).toFixed(0)} oldugu icin tam onay seti beklenmedi.`
-          : `${against} ardisik ters yonlu 1m mum + giris onay setinin tamami ters yonde.`,
-      },
-      progress: progressOf("Ters yönlü onay setiyle kapandı."),
-      halfTakeTime,
-    };
+    // 4 (TRAILING) — kâr +%40/+%50 sonrası taban yükselir (yalnızca kapalı 5m bar güncellemesi)
+    if (m5Cursor >= 1 && pct != null) {
+      if (pct >= EXIT_TRAIL_ARM2_PCT) trailFloorPct = Math.max(trailFloorPct ?? -Infinity, EXIT_TRAIL_FLOOR2);
+      else if (pct >= EXIT_TRAIL_ARM1_PCT) trailFloorPct = Math.max(trailFloorPct ?? -Infinity, EXIT_TRAIL_FLOOR1);
+    }
+    if (trailFloorPct != null && worstPct != null && worstPct <= trailFloorPct) {
+      return {
+        signal: {
+          time: bar.time, spot: bar.close, reason: "TRAIL_EXIT",
+          note: `Trailing kilit: prim daha önce +%${(trailFloorPct >= EXIT_TRAIL_FLOOR2 ? EXIT_TRAIL_ARM2_PCT : EXIT_TRAIL_ARM1_PCT) * 100} eşiğini geçmişti, taban %${(trailFloorPct * 100).toFixed(0)} seviyesine döndü.`,
+        },
+        progress: progressOf(`Trailing kilit tabanıyla (%${(trailFloorPct * 100).toFixed(0)}) kapandı.`),
+      };
+    }
   }
 
-  const remaining = Math.max(0, EXIT_REVERSAL_BARS - against);
   return {
     signal: null,
-    halfTakeTime,
     progress: progressOf(
-      against >= EXIT_REVERSAL_BARS
-        ? `${against} ters mum oluştu ama çıkış onayı tamamlanmadı: ${lastBlock ?? "onay bekleniyor"}.`
-        : against > 0
-        ? `${against} ardışık ters mum oluştu — ${remaining} tane daha ve ardından ters yönlü onay seti (patern + hacim + 1m/5m RSI) gerekiyor.`
-        : "Trend devam ediyor — ters yönlü seri yok."
+      barsHeld === 0
+        ? "Pozisyon henüz taşınmaya başlamadı."
+        : `${barsHeld} mum taşındı — 5m EMA21 ${emaFavor === false ? "aleyhte (acil çıkış tetiklenmek üzere)" : "lehte"}, 5m RSI ${rsiSupportive === false ? "aleyhte" : "destekliyor"}.`
     ),
   };
 }
@@ -1088,23 +920,14 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
 
 export interface LifecycleInput {
   candidate: EntryCandidate;
-  /** SPY mumlarından hesaplanan çıkış taraması */
   exit: ExitScan;
-  /** Giriş anında seçilen 0DTE kontratın 1m prim mumları (Yahoo, GERÇEK veri) */
   premiumBars: Bar[];
   contract: string | null;
   strike: number | null;
   expiry: string | null;
-  /** Canlı anlık prim (varsa) — son kapalı prim mumundan daha taze olabilir */
   livePremium?: number | null;
 }
 
-/**
- * Bir pozisyonun yaşam döngüsünü kurar. ÇIKIŞ KARARI zaten `exit` içinde
- * SPY mumlarından verilmiştir; burada yapılan tek şey o karara GERÇEK
- * opsiyon primi fiyatı iliştirmektir. Prim verisi yoksa çıkış zamanı ve
- * gerekçesi yine bilinir, sadece $ kâr/zarar hesaplanmaz — uydurulmaz.
- */
 export function runLifecycle(input: LifecycleInput): PositionState {
   const { candidate, exit, premiumBars } = input;
   const events: EngineEvent[] = [];
@@ -1129,8 +952,6 @@ export function runLifecycle(input: LifecycleInput): PositionState {
     exitTime: exit.signal?.time ?? null,
     exitSpot: exit.signal?.spot ?? null,
     exitPremium: null,
-    halfExitTime: exit.halfTakeTime ?? null,
-    halfExitPremium: null,
     exitReason: exit.signal?.reason ?? null,
     exitNote: exit.signal?.note ?? null,
     progress: exit.progress,
@@ -1155,22 +976,13 @@ export function runLifecycle(input: LifecycleInput): PositionState {
   });
 
   if (exit.signal) {
-    // Çıkış primi: çıkış anındaki (veya hemen sonrasındaki) ilk prim mumu
     const exitIdx = premiumBars.findIndex((b) => b.time >= exit.signal!.time);
     const exitPremium = exitIdx >= 0 ? premiumBars[exitIdx].close : null;
     pos.exitPremium = exitPremium;
     pos.lastPremium = exitPremium;
 
-    // V4: sikismada +%20de yari kapandiysa K/Z iki parcanin agirlikli
-    // toplamidir -- yarisi hedefte, yarisi cikista.
-    if (pos.halfExitTime != null) {
-      const hIdx = premiumBars.findIndex((b) => b.time >= pos.halfExitTime!);
-      pos.halfExitPremium = hIdx >= 0 ? premiumBars[hIdx].close : null;
-    }
     if (entryPremium != null && exitPremium != null) {
-      pos.realizedPnl = pos.halfExitPremium != null
-        ? r2((0.5 * (pos.halfExitPremium - entryPremium) + 0.5 * (exitPremium - entryPremium)) * 100)
-        : r2((exitPremium - entryPremium) * 100);
+      pos.realizedPnl = r2((exitPremium - entryPremium) * 100);
     }
     pos.unrealizedPnl = 0;
 
@@ -1186,7 +998,6 @@ export function runLifecycle(input: LifecycleInput): PositionState {
       note: exit.signal.note,
     });
   } else {
-    // Açık pozisyon — anlık prim ile kâğıt üstü kâr/zarar
     const lastBar = premiumBars.length ? premiumBars[premiumBars.length - 1] : null;
     const live = input.livePremium ?? lastBar?.close ?? null;
     pos.lastPremium = live;
@@ -1200,27 +1011,13 @@ export function runLifecycle(input: LifecycleInput): PositionState {
 
 export interface FilterOverlappingResult {
   accepted: EntryCandidate[];
-  /** V4.1 (B.3): ayni gun ayni kontrata (strike+yon) ikinci kez girmek isteyip reddedilen adaylar */
   contractReuseBlocked: { time: number; side: Side; strike: number }[];
 }
 
 /**
- * Aynı anda tek pozisyon + yeniden giriş (re-arm) + SAATLİK KOTA + KONTRAT
- * BAŞINA TEK DENEME.
- *
- * Bir pozisyon kapandığında, o pozisyonun yönünün TERSİNE kapanan İLK 1m
- * mumu görülene kadar yeni aday kabul edilmez ("düzeltme mumu" beklenir).
- *
- * Saatlik kota bilinçli olarak BURADA uygulanır, `generateCandidates`
- * içinde değil: kota gerçekten AÇILAN pozisyonları saymalı, üretilip
- * çakışma yüzünden zaten elenen adayları değil. Ölçüm de bu sırayla
- * yapıldı; aksi hâlde canlı davranış ölçümden sapardı.
- *
- * V4.1 (B.3): bir kontrat (aynı strike + aynı yön) o gün içinde kapandıktan
- * sonra aynı kontrata ikinci kez girilmez — rejim ne olursa olsun. 3 Eylül
- * geriye dönük testinde bu kural tek başına sonucu +$107'den +$161'e
- * çıkardı (tekrar girişler her ikisinde de zarar etti). Reddedilen adaylar
- * saatlik kotayı TÜKETMEZ, `blockedUntil`'i ETKİLEMEZ (düz `continue`).
+ * Aynı anda tek pozisyon + yeniden giriş (re-arm) + saatlik kota + kontrat
+ * başına tek deneme. Mantık V4'ten değişmedi — bu, giriş/çıkış KATMANLARINA
+ * değil, pozisyon YÖNETİMİNE ait bir kural.
  */
 export function filterOverlapping(
   candidates: EntryCandidate[],
@@ -1238,7 +1035,7 @@ export function filterOverlapping(
   const out: EntryCandidate[] = [];
   const contractReuseBlocked: FilterOverlappingResult["contractReuseBlocked"] = [];
   let blockedUntil = -Infinity;
-  const recent: number[] = []; // son 60 dakikadaki giriş zamanları
+  const recent: number[] = [];
 
   for (const c of candidates) {
     const strike = atmStrike(c.spot);
@@ -1257,7 +1054,6 @@ export function filterOverlapping(
 
     const pos = posByKey.get(`${c.time}:${c.side}:${c.contractType}`);
     if (!pos || pos.exitTime == null) {
-      // Pozisyon hâlâ açık veya sonucu bilinmiyor — sonrasındaki her şeyi blokla
       blockedUntil = Infinity;
       continue;
     }
@@ -1271,32 +1067,28 @@ export function filterOverlapping(
 
 export const EVENT_LABEL: Record<EventKind, string> = {
   ENTRY: "Giriş",
-  HALF_TAKE: "Yarı Kâr Alındı",
-  REVERSAL_EXIT: "Trend Kırılımı — Çıkış",
+  EMA_CROSS_EXIT: "5m EMA21 Kesişimi — Acil Çıkış",
+  RSI_FLIP_EXIT: "5m RSI Dönüşü — Çıkış",
+  STOP_EXIT: "Sabit Stop",
+  TRAIL_EXIT: "Trailing Kilit",
   EOD_EXIT: "Gün Sonu Kapama",
-  STOP_EXIT: "Sıkışma Stopu",
-  TARGET_EXIT: "Sıkışma Hedefi",
-  TIME_EXIT: "Süre Sınırı",
 };
 
-/** Kısa etiket — tablo hücreleri için */
 export const EXIT_LABEL_SHORT: Record<ExitKind, string> = {
-  REVERSAL_EXIT: "Trend Kırılımı",
-  EOD_EXIT: "Gün Sonu",
+  EMA_CROSS_EXIT: "EMA21 Kesişimi",
+  RSI_FLIP_EXIT: "RSI Dönüşü",
   STOP_EXIT: "Stop",
-  TARGET_EXIT: "Hedef",
-  TIME_EXIT: "Süre",
+  TRAIL_EXIT: "Trailing",
+  EOD_EXIT: "Gün Sonu",
 };
 
-/** Her olay tipinin kendi işareti ve rengi */
 export const EVENT_STYLE: Record<EventKind, { color: string; shape: "arrowUp" | "arrowDown" | "circle" | "square"; glyph: string }> = {
-  ENTRY:         { color: "#22c55e", shape: "arrowUp",   glyph: "▲" },
-  HALF_TAKE:     { color: "#38bdf8", shape: "circle",    glyph: "◑" },
-  REVERSAL_EXIT: { color: "#ef4444", shape: "arrowDown", glyph: "▼" },
-  EOD_EXIT:      { color: "#94a3b8", shape: "square",    glyph: "■" },
-  STOP_EXIT:     { color: "#f97316", shape: "square",    glyph: "■" },
-  TARGET_EXIT:   { color: "#22c55e", shape: "circle",    glyph: "●" },
-  TIME_EXIT:     { color: "#a855f7", shape: "square",    glyph: "■" },
+  ENTRY:          { color: "#22c55e", shape: "arrowUp",   glyph: "▲" },
+  EMA_CROSS_EXIT: { color: "#ef4444", shape: "arrowDown", glyph: "▼" },
+  RSI_FLIP_EXIT:  { color: "#f97316", shape: "arrowDown", glyph: "▼" },
+  STOP_EXIT:      { color: "#f97316", shape: "square",    glyph: "■" },
+  TRAIL_EXIT:     { color: "#38bdf8", shape: "circle",    glyph: "●" },
+  EOD_EXIT:       { color: "#94a3b8", shape: "square",    glyph: "■" },
 };
 
 export const CONTRACT_TONE: Record<ContractType, string> = {

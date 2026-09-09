@@ -113,13 +113,11 @@ export const POST_CLOSE_MIN = 20 * 60;   // 20:00
 /** 0DTE zorunlu kapama saati (talimat §4.4) */
 export const EOD_FORCE_MIN = 15 * 60 + 45; // 15:45
 /**
- * Giriş sinyali üretilebilen pencere — açılış gürültüsü ve kapanış hariç.
- * 2026-09-06: bitiş 15:40 -> 15:30'a çekildi — 15:30 sonrası YENİ pozisyon
- * açılmaz (mevcut pozisyonlar 15:45 EOD_FORCE_MIN'e kadar yönetilmeye devam
- * eder, bkz. strategy.ts findExitSignal).
+ * V5.0: ayrı bir "giriş penceresi" (açılış/öğlen/kapanış hariç tutma) artık
+ * UYGULANMIYOR — kanıtsız varsayım olarak değerlendirildi (bkz.
+ * strategy.ts başlık yorumu). Giriş, RTH_OPEN_MIN–RTH_CLOSE_MIN arasında
+ * her an üretilebilir; yalnızca EOD_FORCE_MIN (15:45) mutlak kalır.
  */
-export const ENTRY_START_MIN = 9 * 60 + 35;
-export const ENTRY_END_MIN = 15 * 60 + 30;
 
 /**
  * Bir NY tarihi (YYYY-MM-DD) + ET dakikası → unix saniye.

@@ -10,18 +10,28 @@
 
 import { useState, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import { nyClock, type SessionPhase } from "@/lib/spyengine/core";
-import {
-  REGIME_LABEL, regimeColor,
-  type Regime, type RegimeDirection, type RegimeCheck,
-} from "@/lib/spyengine/regime";
 import type { LevelRead, LevelRange, CloseForecast } from "@/lib/spyengine/levels";
 import {
   EVENT_LABEL, EVENT_STYLE, CONTRACT_RULES, CONTRACT_TONE,
-  EXIT_REVERSAL_BARS, ENTRY_STREAK, MAX_ENTRIES_PER_HOUR,
-  type PositionState, type EngineEvent, type StreakDir, type Direction,
+  MAX_ENTRIES_PER_HOUR, EXIT_STOP_PCT,
+  type PositionState, type EngineEvent,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
-  type GateCheck, type Side,
+  type GateCheck, type Side, type RegimeSide, type RegimeState,
+  type M15VetoRead, type Layer1Read, type Layer2Read, type Layer3Read,
 } from "@/lib/spyengine/strategy";
+
+/** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
+export const REGIME_LABEL: Record<RegimeSide, string> = {
+  LONG: "LONG REJİMİ",
+  SHORT: "SHORT REJİMİ",
+  NONE: "REJİM YOK",
+};
+
+export function regimeColor(side: RegimeSide): string {
+  if (side === "LONG") return "#22c55e";
+  if (side === "SHORT") return "#ef4444";
+  return "#64748b";
+}
 
 // ── Ortak küçük parçalar ──────────────────────────────────────────
 
@@ -474,48 +484,22 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
 /**
  * KAPI DURUMU — el ile işlem açarken veto listesi.
  * Motor kendi sinyalini üretmese bile "şu an LONG/SHORT açsam hangi kapı
- * geçer, hangisi geçmez" burada tek bakışta görülür.
+ * geçer, hangisi geçmez" burada tek bakışta görülür. Liste artık dört
+ * katmanı birlikte gösterir: 15m veto, 5m trend, 5m filtre, 5m rejim
+ * durumu, 1m yapı kırılımı + konfirmasyon (bkz. strategy.ts gateChecksFor).
  */
-/**
- * Kapı sırasına birebir denk kısa etiketler. Sıra `gateChecksFor` ile
- * aynıdır (gövde, kapanış yeri, hacim, 1m RSI, 5m mum, 5m RSI); iki sütun
- * yan yana sığsın diye kısaltıldı, tam metin `title` olarak durur.
- */
-export const GATE_SHORT = ["Gövde", "Kapanış yeri", "Hacim", "1m RSI", "5m mum", "5m RSI"];
 
 /** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
 export interface SideStanding {
   side: Side;
-  /** Geçen kapı sayısı (mum serisi dahil) */
   passed: number;
-  /** Toplam kapı sayısı (mum serisi dahil) */
   total: number;
-  /** Bu yön için daha kaç aynı yönlü 1m mum kapanışı gerekiyor */
-  barsNeeded: number;
-  /** Şu an bu yönde biriken seri uzunluğu */
-  streakHave: number;
-  /** Kapalı kapıların kısa adları */
   missing: string[];
 }
 
-export function standingFor(
-  list: GateCheck[], side: Side, streakDir: StreakDir, streakLen: number
-): SideStanding {
-  const matched = side === "LONG" ? streakDir === "UP" : streakDir === "DOWN";
-  const streakHave = matched ? Math.min(streakLen, ENTRY_STREAK) : 0;
-  const barsNeeded = Math.max(0, ENTRY_STREAK - streakHave);
-  const missing = list
-    .map((g, i) => ({ g, i }))
-    .filter((x) => !x.g.ok)
-    .map((x) => GATE_SHORT[x.i] ?? x.g.label);
-  return {
-    side,
-    passed: list.length - missing.length + (barsNeeded === 0 ? 1 : 0),
-    total: list.length + 1,
-    barsNeeded,
-    streakHave,
-    missing,
-  };
+export function standingFor(list: GateCheck[], side: Side): SideStanding {
+  const missing = list.filter((g) => !g.ok).map((g) => g.label);
+  return { side, passed: list.length - missing.length, total: list.length, missing };
 }
 
 // ── Ön uyarı (kurulum oluşmadan haber ver) ────────────────────────
@@ -531,17 +515,16 @@ export interface EntryAlert {
 /**
  * Kurulum HENÜZ oluşmadan haber veren ön uyarı. Motorun giriş/çıkış
  * kurallarına dokunmaz — yalnızca aynı kapı verisini okuyup "ne kadar
- * yakınız" sorusunu yanıtlar, böylece tetik mumu kapandığında hazır
- * olunur (geç giriş insan tepkisinden doğar, kuraldan değil).
+ * yakınız" sorusunu yanıtlar.
  *
- *   FIRED    = motor sinyali verdi (tüm kapılar + seri tamam)
- *   IMMINENT = en fazla 1 mum ve en fazla 1 kapı eksik
- *   NEAR     = en fazla 1 mum eksik ve en fazla 3 kapı kapalı
+ *   FIRED    = motor sinyali verdi (1m tetik ateşlendi)
+ *   IMMINENT = 5m rejim bu yönde AKTİF — 1m tetik herhangi bir kapalı barda
+ *              ateşlenebilir (bekleme yok, sadece zamanlama meselesi)
+ *   NEAR     = rejim henüz yok ama bir yönün kapıları çoğunlukla geçti
  */
 export function computeEntryAlert(
   gates: GateStatus | null,
-  streakDir: StreakDir,
-  streakLen: number,
+  regimeSide: RegimeSide,
   state: EngineState,
   action: "LONG" | "SHORT" | "BEKLE"
 ): EntryAlert {
@@ -549,17 +532,18 @@ export function computeEntryAlert(
 
   if (state === "TRIGGERED" && action !== "BEKLE") {
     const list = action === "LONG" ? gates.long : gates.short;
-    return { level: "FIRED", side: action, standing: standingFor(list, action, streakDir, streakLen) };
+    return { level: "FIRED", side: action, standing: standingFor(list, action) };
   }
 
-  const cands = (["LONG", "SHORT"] as const).map((s) =>
-    standingFor(s === "LONG" ? gates.long : gates.short, s, streakDir, streakLen)
-  );
-  cands.sort((a, b) => b.passed - a.passed || a.barsNeeded - b.barsNeeded);
-  const best = cands[0];
+  if (regimeSide !== "NONE") {
+    const list = regimeSide === "LONG" ? gates.long : gates.short;
+    return { level: "IMMINENT", side: regimeSide, standing: standingFor(list, regimeSide) };
+  }
 
-  if (best.barsNeeded <= 1 && best.missing.length <= 1) return { level: "IMMINENT", side: best.side, standing: best };
-  if (best.barsNeeded <= 1 && best.missing.length <= 3) return { level: "NEAR", side: best.side, standing: best };
+  const cands = (["LONG", "SHORT"] as const).map((s) => standingFor(s === "LONG" ? gates.long : gates.short, s));
+  cands.sort((a, b) => b.passed - a.passed);
+  const best = cands[0];
+  if (best.total > 0 && best.passed / best.total >= 0.6) return { level: "NEAR", side: best.side, standing: best };
   return { level: "IDLE", side: null, standing: best };
 }
 
@@ -592,11 +576,8 @@ export function AlertBanner({
 
   let headline: string;
   if (inPosition) headline = "POZİSYON AÇIK — çıkış kuralı bekleniyor";
-  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — tüm kapılar açık`;
-  else if (alert.level === "IMMINENT")
-    headline = `${alert.side} KURULUMU ÇOK YAKIN${
-      s && s.barsNeeded > 0 ? ` — 1 mum kaldı` : " — son kapı bekleniyor"
-    }`;
+  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — 1m tetik ateşlendi`;
+  else if (alert.level === "IMMINENT") headline = `${alert.side} REJİMİ AKTİF — 1m tetik herhangi bir barda ateşlenebilir`;
   else if (alert.level === "NEAR") headline = `${alert.side} kurulumu yaklaşıyor`;
   else headline = stateLabel;
 
@@ -643,23 +624,17 @@ export function AlertBanner({
 // ── Kapı tablosu — LONG ve SHORT AYNI ANDA ────────────────────────
 
 function GateColumn({
-  side, list, streakDir, streakLen,
+  side, list,
 }: {
-  side: Side; list: GateCheck[]; streakDir: StreakDir; streakLen: number;
+  side: Side; list: GateCheck[];
 }) {
-  const st = standingFor(list, side, streakDir, streakLen);
+  const st = standingFor(list, side);
   const allOk = st.passed === st.total;
   const isLong = side === "LONG";
   const accent = isLong ? "#22c55e" : "#ef4444";
-  const rows: { label: string; full: string; ok: boolean; detail: string }[] = [
-    {
-      label: `${ENTRY_STREAK} ardışık mum`,
-      full: `${ENTRY_STREAK} ardışık ${isLong ? "yükseliş" : "düşüş"} 1m mumu`,
-      ok: st.barsNeeded === 0,
-      detail: `${st.streakHave}/${ENTRY_STREAK}`,
-    },
-    ...list.map((g, i) => ({ label: GATE_SHORT[i] ?? g.label, full: g.label, ok: g.ok, detail: g.detail })),
-  ];
+  const rows: { label: string; full: string; ok: boolean; detail: string }[] = list.map((g) => ({
+    label: g.label, full: g.label, ok: g.ok, detail: g.detail,
+  }));
 
   return (
     <div className="min-w-0 flex-1">
@@ -711,11 +686,7 @@ function GateColumn({
  * öne çıktığı sütun başlığındaki sayaçtan (ör. 5/7) tek bakışta görünür,
  * ikisi aynı anda izlenir.
  */
-export function GatePanel({
-  gates, streakDir = "NONE", streakLen = 0,
-}: {
-  gates: GateStatus | null; streakDir?: StreakDir; streakLen?: number;
-}) {
+export function GatePanel({ gates }: { gates: GateStatus | null }) {
   if (!gates || !gates.long.length) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
@@ -730,24 +701,28 @@ export function GatePanel({
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
           Kapı Durumu{" "}
-          <span className="text-[9px] font-normal text-slate-600">· son kapalı 1m mum · iki yön birlikte</span>
+          <span className="text-[9px] font-normal text-slate-600">
+            · 15m veto + 5m trend/filtre + 5m rejim + 1m yapı/konfirmasyon · iki yön birlikte
+          </span>
         </span>
       </div>
       <div className="flex divide-x divide-[#1c2635]">
-        <GateColumn side="LONG" list={gates.long} streakDir={streakDir} streakLen={streakLen} />
-        <GateColumn side="SHORT" list={gates.short} streakDir={streakDir} streakLen={streakLen} />
+        <GateColumn side="LONG" list={gates.long} />
+        <GateColumn side="SHORT" list={gates.short} />
       </div>
     </div>
   );
 }
 
 export function LayerTable({
-  m5Rsi, m5RsiDirection, m5Note, m1StreakDir, m1StreakLen, m1Note,
+  veto, layer1, layer2, regime, layer3,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
-  m1Rsi, m1RsiPrev, m5RsiPrev,
 }: {
-  m5Rsi: number | null; m5RsiDirection: Direction; m5Note: string;
-  m1StreakDir: StreakDir; m1StreakLen: number; m1Note: string;
+  veto: M15VetoRead;
+  layer1: Layer1Read;
+  layer2: Layer2Read;
+  regime: RegimeState;
+  layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
   state: EngineState;
@@ -755,21 +730,11 @@ export function LayerTable({
   nextStep: string;
   confidence: number;
   confidenceParts: ConfidencePart[];
-  /** V4 -- RSI yon oklari icin onceki degerler */
-  m1Rsi?: number | null;
-  m1RsiPrev?: number | null;
-  m5RsiPrev?: number | null;
 }) {
-  const rsiTone = m5RsiDirection === "BULLISH" ? "text-[#22c55e]" : m5RsiDirection === "BEARISH" ? "text-[#ef4444]" : "text-slate-400";
-  const streakTone = m1StreakDir === "UP" ? "text-[#22c55e]" : m1StreakDir === "DOWN" ? "text-[#ef4444]" : "text-slate-400";
   const st = STATE_STYLE[state];
-  // Kabul kriteri 8: iki RSI'nin yonu celistiginde ayrica vurgula
-  const slope = (v?: number | null, p?: number | null) =>
-    v == null || p == null ? 0 : v > p + 0.15 ? 1 : v < p - 0.15 ? -1 : 0;
-  const s1 = slope(m1Rsi, m1RsiPrev);
-  const s5 = slope(m5Rsi, m5RsiPrev);
-  const rsiConflict = s1 !== 0 && s5 !== 0 && s1 !== s5;
-  const streakValue = m1StreakDir === "NONE" ? "Yok" : `${m1StreakLen} ${m1StreakDir === "UP" ? "▲ yükseliş" : "▼ düşüş"}`;
+  const vetoTone = veto.direction === "LONG" ? "text-[#22c55e]" : veto.direction === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
+  const regimeTone = regime.side === "LONG" ? "text-[#22c55e]" : regime.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
+  const l2Best = Math.max(layer2.longPassed, layer2.shortPassed);
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
@@ -801,24 +766,30 @@ export function LayerTable({
       </div>
 
       <LayerRow
-        tf="1m"
-        tag="TETİK — girişi bu belirler"
-        value={streakValue}
-        note={m1Rsi == null ? m1Note : `RSI ${m1Rsi.toFixed(0)} · ${rsiNote(m1Rsi, m1RsiPrev ?? null)}`}
-        t={streakTone}
-        arrow={<RsiArrow value={m1Rsi ?? null} prev={m1RsiPrev ?? null} />}
+        tf="15m"
+        tag="VETO — yön izni, karar üretmez"
+        value={veto.direction === "NEUTRAL" ? "NÖTR" : `${veto.direction} serbest`}
+        note={veto.note}
+        t={vetoTone}
       />
       <LayerRow
         tf="5m"
-        tag="DESTEK — sinyali iptal edemez"
-        value={m5Rsi == null ? "veri yok" : `RSI ${m5Rsi.toFixed(1)}`}
-        note={m5Rsi == null ? m5Note : `${rsiNote(m5Rsi, m5RsiPrev ?? null)} · ${m5Note}`}
-        t={rsiTone}
-        arrow={<RsiArrow value={m5Rsi ?? null} prev={m5RsiPrev ?? null} />}
+        tag="ANA KARAR — trend + filtre (2/3 oy)"
+        value={regime.side === "NONE" ? "Rejim yok" : `${regime.side} rejimi aktif`}
+        note={`${layer1.note} · ${layer2.note}`}
+        t={regimeTone}
       />
-      {rsiConflict && (
+      <LayerRow
+        tf="1m"
+        tag="ZAMANLAMA — sadece rejim aktifken bakılır"
+        value={layer3.fired ? "Tetik ateşlendi" : layer3.structureOk ? "Yapı kırıldı, konfirmasyon bekliyor" : "Yapı kırılımı bekleniyor"}
+        note={layer3.note}
+        t={layer3.fired ? "text-[#22c55e]" : "text-slate-400"}
+      />
+
+      {regime.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== regime.side && (
         <div className="mx-2 mb-2 rounded border border-amber-500/35 bg-amber-500/10 px-2 py-1 text-[10px] leading-snug text-amber-300">
-          ⚠ 1m ve 5m RSI ters yönde — sahte sinyalin en sık görüldüğü koşul.
+          ⚠ 5m rejim {regime.side} aktif ama 15m veto bu yönü engelliyor — giriş üretilmiyor.
         </div>
       )}
 
@@ -826,6 +797,7 @@ export function LayerTable({
         <span>Yön: <b className={action === "LONG" ? "text-[#22c55e]" : action === "SHORT" ? "text-[#ef4444]" : "text-slate-300"}>
           {action === "BEKLE" ? "Henüz yok" : action === "LONG" ? "LONG (Call)" : "SHORT (Put)"}
         </b></span>
+        <span>5m filtre: <b className="text-slate-300">{l2Best}/3</b></span>
         <span>Güven: <b className="text-slate-300">{confidence}/100</b></span>
       </div>
       <ConfidenceBreakdown parts={confidenceParts} total={confidence} />
@@ -897,50 +869,42 @@ export function PositionPanel({ position, livePremium }: {
           </div>
         )}
 
-        {/* Çıkışa yakınlık — canlı takip için en önemli kutu */}
+        {/* Çıkışa yakınlık — canlı takip için en önemli kutu (öncelik sırası: EOD > EMA kesişimi > RSI dönüşü > stop > trailing) */}
         {position.status === "OPEN" ? (
           <div className="mb-2 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-2">
             <div className="mb-1.5 flex items-center justify-between text-[10px]">
               <span className="font-semibold text-slate-400">Çıkışa yakınlık</span>
               <span className="font-mono text-slate-500">{pg.barsHeld} mum taşındı</span>
             </div>
-            {pg.regime === "TREND" && (
-              <div className="mb-1.5">
-                <span
-                  className={`rounded px-1.5 py-0.5 text-[9px] font-semibold ${
-                    pg.trendConfirmed
-                      ? "bg-green-500/15 text-green-300"
-                      : "bg-amber-500/15 text-amber-300"
-                  }`}
-                >
-                  Trend onayı: {pg.trendConfirmed ? "onaylandı — hedefsiz taşınıyor" : "bekleniyor — sabit %/zaman kurallarıyla yönetiliyor"}
-                </span>
-              </div>
-            )}
-            <div className="mb-1.5 flex items-center gap-1">
-              {Array.from({ length: pg.reversalNeeded }).map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 flex-1 rounded ${i < pg.againstBars ? "bg-[#ef4444]" : "bg-[#1c2635]"}`}
-                />
-              ))}
-              <span className="ml-1 font-mono text-[10px] text-slate-400">
-                {pg.againstBars}/{pg.reversalNeeded} ters mum
+            <div className="mb-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px]">
+              <span>
+                5m EMA21 (ACİL):{" "}
+                <b className={pg.emaFavor === true ? "text-[#22c55e]" : pg.emaFavor === false ? "text-[#ef4444]" : "text-slate-500"}>
+                  {pg.emaFavor == null ? "veri yok" : pg.emaFavor ? "lehte" : "ALEYHTE — çıkış tetiklenmek üzere"}
+                </b>
+                {pg.emaGapPct != null && <span className="ml-1 font-mono text-slate-600">({signed(pg.emaGapPct, 2)}%)</span>}
+              </span>
+              <span>
+                5m RSI (NORMAL):{" "}
+                <b className={pg.rsiSupportive === true ? "text-[#22c55e]" : pg.rsiSupportive === false ? "text-[#ef4444]" : "text-slate-500"}>
+                  {pg.rsiSupportive == null ? "veri yok" : pg.rsiSupportive ? "destekliyor" : "aleyhte"}
+                </b>
+                {pg.rsi5 != null && <span className="ml-1 font-mono text-slate-600">({pg.rsi5.toFixed(0)})</span>}
               </span>
             </div>
-            <div className="text-[10px] leading-snug text-slate-500">{pg.note}</div>
-            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[9px] text-slate-600">
+            <div className="mb-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px]">
               <span>
-                5m RSI:{" "}
-                <b className={pg.rsiSupportive === true ? "text-[#22c55e]" : pg.rsiSupportive === false ? "text-[#ef4444]" : "text-slate-500"}>
-                  {pg.rsiSupportive == null ? "veri yok" : pg.rsiSupportive ? "destekliyor" : "karşı"}
-                </b>
-                {pg.rsiArmed ? " · dönüş kuralı aktif" : " · dönüş kuralı henüz silahlanmadı"}
+                Stop eşiği (%{EXIT_STOP_PCT * 100}) — anlık:{" "}
+                <b className={tone(pg.premiumPct)}>{pg.premiumPct == null ? "veri yok" : `${signed(pg.premiumPct * 100, 0)}%`}</b>
               </span>
-              {pg.bestSpot != null && (
-                <span>En iyi seviye: <b className="text-slate-400">${num(pg.bestSpot)}</b></span>
+              {pg.trailFloorPct != null && (
+                <span>Trailing taban: <b className="text-sky-300">+{(pg.trailFloorPct * 100).toFixed(0)}%</b></span>
               )}
             </div>
+            <div className="text-[10px] leading-snug text-slate-500">{pg.note}</div>
+            {pg.bestSpot != null && (
+              <div className="mt-1 text-[9px] text-slate-600">En iyi seviye: <b className="text-slate-400">${num(pg.bestSpot)}</b></div>
+            )}
           </div>
         ) : (
           <div className="mb-2 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-2">
@@ -1011,11 +975,11 @@ export function EventList({ events, emptyText }: { events: EngineEvent[]; emptyT
   );
 }
 
-// ── Strateji şeması (V3.1: 1m seri → giriş, sinyal tabanlı çıkış) ──
+// ── Strateji şeması (V5.0: 15m veto → 5m rejim → 1m zamanlama → çıkış) ──
 
 export function StrategySchema({ state, contractType }: { state: EngineState; contractType: string | null }) {
   const active = (id: string) => {
-    if (id === "streak") return state === "ARMED" || state === "TRIGGERED";
+    if (id === "regime") return state === "ARMED" || state === "TRIGGERED";
     if (id === "a") return contractType === "A";
     if (id === "b") return contractType === "B";
     if (id === "hold") return state === "IN_POSITION";
@@ -1026,74 +990,76 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 980 420" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V3.1 strateji akış şeması">
+      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V5.0 strateji akış şeması">
         <defs>
           <marker id="spyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#475569" />
           </marker>
         </defs>
 
-        {/* 1 — Giriş */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">1 · GİRİŞ KAPISI — hepsi ZORUNLU (biri sağlanmazsa giriş yok)</text>
+        {/* 0 — 15m Veto */}
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · 15m VETO — yön izni, karar üretmez</text>
+        <rect x="14" y="34" width="952" height="40" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="34" y="58" fill="#e2e8f0" fontSize="10.5" fontWeight="600">LONG yasak eğer 15m kapanış &lt; EMA21 · SHORT yasak eğer 15m kapanış &gt; EMA21</text>
 
-        <rect x="14" y="34" width="186" height="60" rx="6" fill={boxFill("streak")} stroke={box("streak")} />
-        <text x="107" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m · {ENTRY_STREAK}. MUM KAPANIŞI</text>
-        <text x="107" y="71" textAnchor="middle" fill="#64748b" fontSize="9">+ MUM PATERNİ: gövde ≥ %50,</text>
-        <text x="107" y="85" textAnchor="middle" fill="#64748b" fontSize="9">kapanış yön tarafında ≥ %60</text>
+        {/* 1 — 5m Rejim (ana karar) */}
+        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 5m REJİM (ana karar katmanı) — Layer 1 + Layer 2 birlikte gerekli</text>
 
-        <path d="M200 64 L222 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="226" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="310" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">HACİM</text>
-        <text x="310" y="71" textAnchor="middle" fill="#64748b" fontSize="9">tetik mumu &gt; son 15 mum</text>
-        <text x="310" y="85" textAnchor="middle" fill="#64748b" fontSize="9">ortalaması</text>
+        <rect x="14" y="106" width="466" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
+        <text x="247" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 1 — TREND</text>
+        <text x="247" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(5m) vs EMA21 + (RSI14 yönlü VEYA MACD_hist yönlü)</text>
+        <text x="247" y="160" textAnchor="middle" fill="#64748b" fontSize="9">kapanmış 5m mum, non-repainting</text>
+        <text x="247" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de → Güçlü kurulum (Kontrat A)</text>
 
-        <path d="M394 64 L416 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="420" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="504" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">1m RSI YÖNÜ</text>
-        <text x="504" y="71" textAnchor="middle" fill="#64748b" fontSize="9">o yönde hareket ediyor</text>
-        <text x="504" y="85" textAnchor="middle" fill="#64748b" fontSize="9">(50 seviyesi ŞARTI YOK)</text>
+        <rect x="500" y="106" width="466" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
+        <text x="733" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 2 — FİLTRE (3&apos;te 2 oylama)</text>
+        <text x="733" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Hacim &gt; ort.×1.0 · Gövde &gt; ATR×0.40 · Karşı gölge &lt; Gövde×0.40</text>
+        <text x="733" y="160" textAnchor="middle" fill="#64748b" fontSize="9">en az 2/3 sağlanmalı</text>
+        <text x="733" y="174" textAnchor="middle" fill="#64748b" fontSize="9">Layer 1+2 geçerli kaldığı sürece REJİM AKTİF kalır</text>
 
-        <path d="M588 64 L610 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="614" y="34" width="168" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="698" y="55" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">5m MUM YÖNÜ</text>
-        <text x="698" y="71" textAnchor="middle" fill="#64748b" fontSize="9">son kapalı 5m mum</text>
-        <text x="698" y="85" textAnchor="middle" fill="#64748b" fontSize="9">aynı yönde</text>
+        {/* 2 — 1m Tetik (zamanlama) */}
+        <text x="14" y="204" fill="#64748b" fontSize="11" fontWeight="600">2 · 1m TETİK (zamanlama) — SADECE rejim aktifken, her kapalı barda bağımsız kontrol</text>
 
-        <path d="M782 64 L804 64" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="808" y="34" width="158" height="60" rx="6" fill={boxFill("a")} stroke={box("a")} />
-        <text x="887" y="55" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">5m RSI YÖNÜ</text>
-        <text x="887" y="71" textAnchor="middle" fill="#94a3b8" fontSize="9">→ LONG / SHORT GİRİŞ</text>
-        <text x="887" y="85" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR}</text>
+        <rect x="14" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">STRUCTURE (zorunlu)</text>
+        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(1m) vs EMA21(1m) + önceki 2 KAPALI mumun zirve/dip kırılımı</text>
+        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">structure olmadan sadece RSI/hacimle giriş açılmaz</text>
 
-        {/* 2 — Taşıma */}
-        <text x="14" y="132" fill="#64748b" fontSize="11" fontWeight="600">2 · TAŞIMA — sabit hedef/stop/süre YOK</text>
-        <rect x="14" y="144" width="952" height="46" rx="6" fill={boxFill("hold")} stroke={box("hold")} />
-        <text x="34" y="166" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon, trend devam ettiği sürece taşınır. Yüzde hedefi, yüzde stopu, süre sınırı ve prim trailing yoktur.</text>
-        <text x="34" y="182" fill="#64748b" fontSize="9.5">Hepsi 5 seans üzerinde ölçüldü; her biri net beklentiyi düşürdüğü için eklenmedi.</text>
+        <path d="M480 250 L500 250" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
+        <rect x="500" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">CONFIRMATION (en az biri) → GİRİŞ</text>
+        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü VEYA Hacim &gt; ort.×1.3</text>
+        <text x="733" y="270" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR} giriş</text>
 
         {/* 3 — Çıkış */}
-        <text x="14" y="220" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — girişle SİMETRİK yöntem (ilk oluşan kazanır)</text>
+        <text x="14" y="312" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş yavaş/konfirmasyonlu, çıkış hızlı)</text>
 
-        <rect x="14" y="232" width="470" height="72" rx="6" fill="rgba(239,68,68,0.08)" stroke="#7f1d1d" />
-        <text x="249" y="252" textAnchor="middle" fill="#f87171" fontSize="11" fontWeight="700">▼ TERS YÖNLÜ ONAY SETİ</text>
-        <text x="249" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">{EXIT_REVERSAL_BARS} ardışık TERS 1m mum + GİRİŞİN AYNI KAPI SETİ ters yönde</text>
-        <text x="249" y="286" textAnchor="middle" fill="#64748b" fontSize="9">mum paterni · hacim · 1m RSI yönü · 5m mum yönü · 5m RSI yönü</text>
-        <text x="249" y="298" textAnchor="middle" fill="#64748b" fontSize="9">çıkış, girişin tam aynasıdır — simetrik yöntem</text>
+        <rect x="14" y="324" width="230" height="60" rx="6" fill="rgba(239,68,68,0.1)" stroke="#7f1d1d" />
+        <text x="129" y="343" textAnchor="middle" fill="#f87171" fontSize="10.5" fontWeight="700">1 · ACİL</text>
+        <text x="129" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">5m EMA21 zıt yönde kesilirse</text>
+        <text x="129" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">anlık (1m granülerlikte)</text>
 
-        <rect x="496" y="232" width="470" height="72" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
-        <text x="731" y="252" textAnchor="middle" fill="#cbd5e1" fontSize="11" fontWeight="700">■ 15:45 ET — MUTLAK GÜN SONU KAPAMA</text>
-        <text x="731" y="270" textAnchor="middle" fill="#94a3b8" fontSize="9.5">0DTE · diğer tüm kurallardan bağımsız, her zaman öncelikli</text>
-        <text x="731" y="288" textAnchor="middle" fill="#64748b" fontSize="9">o saatte açık ne varsa kapatılır</text>
+        <rect x="252" y="324" width="230" height="60" rx="6" fill="rgba(249,115,22,0.08)" stroke="#7c2d12" />
+        <text x="367" y="343" textAnchor="middle" fill="#fb923c" fontSize="10.5" fontWeight="700">2 · NORMAL</text>
+        <text x="367" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">5m RSI yön değiştirirse</text>
+        <text x="367" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">kapanmış 5m bar</text>
 
-        {/* 4 — Yeniden giriş */}
-        <text x="14" y="336" fill="#64748b" fontSize="11" fontWeight="600">4 · YENİDEN GİRİŞ (re-arm)</text>
-        <rect x="14" y="348" width="952" height="56" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="34" y="370" fill="#e2e8f0" fontSize="10.5" fontWeight="600">Pozisyon kapandığında sistem, o pozisyonun TERSİNE kapanan İLK 1m mumu görülene kadar yeni aday üretmez.</text>
-        <text x="34" y="388" fill="#64748b" fontSize="9.5">Bu &quot;düzeltme mumu&quot; beklemesi + saatlik kota, aynı hareketin ardı ardına sinyal üretmesini engeller — 09:35–15:40 ET boyunca döngü tekrarlar.</text>
+        <rect x="490" y="324" width="230" height="60" rx="6" fill="rgba(249,115,22,0.08)" stroke="#7c2d12" />
+        <text x="605" y="343" textAnchor="middle" fill="#fb923c" fontSize="10.5" fontWeight="700">3 · STOP</text>
+        <text x="605" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Prim %{Math.round(-28)} eşiğinde (−%25/−%30)</text>
+        <text x="605" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">anlık, mum içi en kötü seviye</text>
+
+        <rect x="728" y="324" width="238" height="60" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e5a76" />
+        <text x="847" y="343" textAnchor="middle" fill="#38bdf8" fontSize="10.5" fontWeight="700">4 · TRAILING</text>
+        <text x="847" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Kâr +%40/+%50 sonrası taban yükselir</text>
+        <text x="847" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">kapanmış 5m bar</text>
+
+        <rect x="14" y="396" width="952" height="40" rx="6" fill="rgba(148,163,184,0.06)" stroke="#334155" strokeDasharray="4 3" />
+        <text x="490" y="420" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="700">0 (MUTLAK) · 15:45 ET zorunlu 0DTE kapaması — diğer tüm kurallardan önceliklidir</text>
       </svg>
 
       <div className="mt-2 grid grid-cols-3 gap-2 text-[10px] text-slate-500">
-        {(["ENTRY", "REVERSAL_EXIT", "EOD_EXIT"] as const).map((k) => (
+        {(["ENTRY", "EMA_CROSS_EXIT", "EOD_EXIT"] as const).map((k) => (
           <div key={k} className="flex items-center gap-1.5">
             <span style={{ color: EVENT_STYLE[k].color }}>{EVENT_STYLE[k].glyph}</span>
             <span>{EVENT_LABEL[k]}</span>
@@ -1280,25 +1246,19 @@ export function rsiNote(v: number | null, prev: number | null): string {
 }
 
 export interface RegimeBlock {
-  current: {
-    regime: Regime;
-    direction: RegimeDirection;
-    confidence: number;
-    trendChecks: RegimeCheck[];
-    chopChecks: RegimeCheck[];
-    timePrior: number;
-    timePriorNote: string;
-    note: string;
-  };
-  transitions: { time: number; from: Regime; to: Regime; confidence: number }[];
-  distribution: Record<Regime, number>;
+  veto: M15VetoRead;
+  layer1: Layer1Read;
+  layer2: Layer2Read;
+  current: RegimeState;
   cooldownUntil: number | null;
   cooldownActive: boolean;
 }
 
 /**
- * Rejim bandı — spec §1: "büyük, renkli, tartışmasız görünür".
- * Ayrıca §7.4'ün strateji hatırlatması ve §7.2'nin soğuma uyarısı burada.
+ * Rejim bandı — V5.0 mimarisinin merkezi kutusu: 15m veto + 5m Layer1/2'nin
+ * ürettiği REJİM DURUMU (LONG/SHORT/YOK), "büyük, renkli, tartışmasız
+ * görünür" (eski TREND/SIKIŞMA piyasa-geneli rejim artık karar üretmiyor —
+ * bkz. strategy.ts başlığı).
  */
 export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; nowSec: number }) {
   if (!block) {
@@ -1306,20 +1266,18 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>Rejim verisi bekleniyor…</div>
     );
   }
-  const { regime, direction, confidence, note } = block.current;
-  const color = regimeColor(regime, direction);
-  const label = REGIME_LABEL[regime];
-  const arrow = regime === "TREND" ? (direction === "DOWN" ? "▼" : "▲") : regime === "CHOP" ? "≈" : "?";
+  const { current, veto } = block;
+  const color = regimeColor(current.side);
+  const label = REGIME_LABEL[current.side];
+  const arrow = current.side === "LONG" ? "▲" : current.side === "SHORT" ? "▼" : "?";
+  const vetoBlocks = current.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== current.side;
 
   const reminder =
-    regime === "TREND"
-      ? "Trend modu — pozisyonu erken kapatma, kırılım sinyalini bekle"
-      : regime === "CHOP"
-      ? "Sıkışma modu — hızlı al-sat, 15 dk üstü taşıma yok"
-      : "Belirsiz — yeni giriş üretilmiyor, sistem sadece izliyor";
-
-  const lastTransition = block.transitions[block.transitions.length - 1] ?? null;
-  const fresh = lastTransition != null && nowSec > 0 && nowSec - lastTransition.time < 300;
+    current.side === "NONE"
+      ? "Rejim yok — 5m Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmeden yeni giriş üretilmez"
+      : vetoBlocks
+      ? "15m veto bu yönü engelliyor — rejim aktif ama giriş üretilmiyor"
+      : "Rejim aktif — 1m tetik (yapı kırılımı + konfirmasyon) her kapalı barda bağımsız kontrol ediliyor";
 
   const cooldownLeft =
     block.cooldownActive && block.cooldownUntil != null && nowSec > 0
@@ -1334,20 +1292,12 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5">
         <span className="flex items-center gap-2 text-[18px] font-bold tracking-wide sm:text-[22px]" style={{ color }}>
           <span>{arrow}</span>
-          <span>
-            {label}
-            {regime === "TREND" && ` ${direction === "DOWN" ? "AŞAĞI" : "YUKARI"}`}
-          </span>
+          <span>{label}</span>
         </span>
 
-        <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold" style={{ backgroundColor: `${color}22`, color }}>
-          güven %{confidence}
-        </span>
-
-        {fresh && lastTransition && (
-          <span className="animate-pulse rounded border border-[#eab308]/50 bg-[#eab308]/15 px-2 py-0.5 text-[11px] font-bold text-[#facc15]">
-            ⚡ REJİM DEĞİŞTİ: {REGIME_LABEL[lastTransition.from]} → {REGIME_LABEL[lastTransition.to]} ·{" "}
-            {regime === "CHOP" ? "çıkış modu hızlandırıldı" : "çıkış modu gevşetildi"}
+        {vetoBlocks && (
+          <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-amber-300" style={{ backgroundColor: "#eab30822" }}>
+            15m veto engelliyor
           </span>
         )}
 
@@ -1358,13 +1308,13 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
         )}
       </div>
       <div className="mt-1 text-[11px] text-slate-300">{reminder}</div>
-      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-400">{note}</div>
+      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-400">{current.note} · {veto.note}</div>
     </div>
   );
 }
 
 function RegimeColumn({ title, checks, passed, accent }: {
-  title: string; checks: RegimeCheck[]; passed: number; accent: string;
+  title: string; checks: GateCheck[]; passed: number; accent: string;
 }) {
   return (
     <div className="min-w-0 flex-1">
@@ -1394,94 +1344,72 @@ function RegimeColumn({ title, checks, passed, accent }: {
   );
 }
 
-/** Rejim kriter dökümü — spec §1.3: rejim kara kutu olmamalı */
+/** 5m rejim kriter dökümü (Layer 1 + Layer 2) — rejim kara kutu olmamalı */
 export function RegimePanel({ block }: { block: RegimeBlock | null }) {
-  if (!block || !block.current.trendChecks.length) {
+  if (!block || !block.layer2.longVotes.length) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
-        <div className="text-[11px] font-semibold text-slate-300">Rejim Kriterleri</div>
-        <div className="mt-1 text-[12px] text-slate-500">Yeterli mum yok (en az 35 kapalı 1m mum).</div>
+        <div className="text-[11px] font-semibold text-slate-300">5m Rejim Kriterleri</div>
+        <div className="mt-1 text-[12px] text-slate-500">Yeterli 5m mum yok.</div>
       </div>
     );
   }
-  const { trendChecks, chopChecks, timePrior, timePriorNote } = block.current;
-  const tp = trendChecks.filter((c) => c.ok).length;
-  const cp = chopChecks.filter((c) => c.ok).length;
-  const total = block.distribution.TREND + block.distribution.CHOP + block.distribution.UNCERTAIN || 1;
+  const { layer1, layer2, current } = block;
+  const l1Checks: GateCheck[] = [
+    { label: "Fiyat EMA21 üstünde (LONG)", ok: layer1.closeAboveEma, detail: layer1.closeAboveEma ? "evet" : "hayır" },
+    { label: "RSI14 > 50 ve yükseliyor (LONG)", ok: !!(layer1.rsi != null && layer1.rsi > 50 && layer1.rsiRising), detail: layer1.rsi == null ? "veri yok" : layer1.rsi.toFixed(0) },
+    { label: "MACD_hist > 0 ve yükseliyor (LONG)", ok: layer1.macdRising, detail: layer1.macdHist == null ? "veri yok" : layer1.macdHist.toFixed(3) },
+  ];
+  const l1ChecksShort: GateCheck[] = [
+    { label: "Fiyat EMA21 altında (SHORT)", ok: layer1.closeBelowEma, detail: layer1.closeBelowEma ? "evet" : "hayır" },
+    { label: "RSI14 < 50 ve düşüyor (SHORT)", ok: !!(layer1.rsi != null && layer1.rsi < 50 && layer1.rsiFalling), detail: layer1.rsi == null ? "veri yok" : layer1.rsi.toFixed(0) },
+    { label: "MACD_hist < 0 ve düşüyor (SHORT)", ok: layer1.macdFalling, detail: layer1.macdHist == null ? "veri yok" : layer1.macdHist.toFixed(3) },
+  ];
+  const tpL = l1Checks.filter((c) => c.ok).length;
+  const tpS = l1ChecksShort.filter((c) => c.ok).length;
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· son 25 mum · iki hipotez birlikte</span>
+          5m Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· Layer 1 (trend) + Layer 2 (filtre, 2/3 oy)</span>
         </span>
       </div>
-      <div className="flex divide-x divide-[#1c2635]">
-        <RegimeColumn title="TREND" checks={trendChecks} passed={tp} accent="#22c55e" />
-        <RegimeColumn title="SIKIŞMA" checks={chopChecks} passed={cp} accent="#f59e0b" />
-      </div>
-
-      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
-        Saat dilimi önseli: <b className={timePrior > 0 ? "text-[#22c55e]" : timePrior < 0 ? "text-[#ef4444]" : "text-slate-400"}>
-          {timePrior > 0 ? `+${timePrior}` : timePrior}
+      <div className="border-b border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
+        Rejim durumu: <b className={current.side === "LONG" ? "text-[#22c55e]" : current.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400"}>
+          {REGIME_LABEL[current.side]}
         </b>{" "}
-        · {timePriorNote}
+        · {current.note}
       </div>
-
-      {/* Gün özeti — spec §7.3 */}
-      <div className="border-t border-[#1c2635] px-3 py-1.5">
-        <div className="mb-1 text-[9.5px] font-semibold text-slate-500">Bugünkü rejim dağılımı</div>
-        <div className="flex h-2 overflow-hidden rounded">
-          <span style={{ width: `${(block.distribution.TREND / total) * 100}%`, backgroundColor: "#22c55e" }} />
-          <span style={{ width: `${(block.distribution.CHOP / total) * 100}%`, backgroundColor: "#f59e0b" }} />
-          <span style={{ width: `${(block.distribution.UNCERTAIN / total) * 100}%`, backgroundColor: "#475569" }} />
-        </div>
-        <div className="mt-1 flex flex-wrap gap-x-3 font-mono text-[9.5px] text-slate-500">
-          <span className="text-[#22c55e]">TREND %{((block.distribution.TREND / total) * 100).toFixed(0)}</span>
-          <span className="text-[#f59e0b]">SIKIŞMA %{((block.distribution.CHOP / total) * 100).toFixed(0)}</span>
-          <span>BELİRSİZ %{((block.distribution.UNCERTAIN / total) * 100).toFixed(0)}</span>
-          <span className="text-slate-600">{total} mum</span>
-        </div>
+      <div className="flex divide-x divide-[#1c2635]">
+        <RegimeColumn title="LAYER 1 · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
+        <RegimeColumn title="LAYER 1 · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
       </div>
-
-      {block.transitions.length > 0 && (
-        <div className="border-t border-[#1c2635] px-3 py-1.5">
-          <div className="mb-1 text-[9.5px] font-semibold text-slate-500">Son rejim geçişleri</div>
-          <div className="flex flex-col gap-0.5">
-            {block.transitions.slice(-5).reverse().map((t) => (
-              <div key={t.time} className="flex items-center gap-2 font-mono text-[9.5px] text-slate-500">
-                <span className="w-10 shrink-0 text-slate-600">{nyClock(t.time)}</span>
-                <span>{REGIME_LABEL[t.from]} → <b className="text-slate-300">{REGIME_LABEL[t.to]}</b></span>
-                <span className="text-slate-600">güven %{t.confidence}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="flex divide-x divide-[#1c2635] border-t border-[#1c2635]">
+        <RegimeColumn title="LAYER 2 · LONG (2/3 yeter)" checks={layer2.longVotes} passed={layer2.longPassed} accent="#22c55e" />
+        <RegimeColumn title="LAYER 2 · SHORT (2/3 yeter)" checks={layer2.shortVotes} passed={layer2.shortPassed} accent="#ef4444" />
+      </div>
     </div>
   );
 }
 
 /**
- * 15m bağlam şeridi — spec §6: SADECE BİLGİ.
- * Motor mantığına girmez; V3'te 15m'nin kapı olarak kullanılması fırsatları
- * geciktirmişti, o hata tekrarlanmıyor.
+ * 15m veto şeridi — sadece yön İZNİ, karar üretmez. Eskiden "bilgi amaçlı,
+ * motor mantığına girmez" idi; V5.0'da veto GERÇEKTEN karar mekanizmasının
+ * parçası (Katman 0) ama yine de kendi başına giriş üretmiyor.
  */
-export function M15Strip({ direction, note, rsi, rsiPrev, greenOf4 }: {
-  direction: Direction; note: string; rsi: number | null; rsiPrev: number | null; greenOf4: string;
-}) {
-  const tone15 = direction === "BULLISH" ? "#22c55e" : direction === "BEARISH" ? "#ef4444" : "#94a3b8";
-  const word = direction === "BULLISH" ? "▲ YUKARI" : direction === "BEARISH" ? "▼ AŞAĞI" : "▬ YATAY";
+export function M15Strip({ veto }: { veto: M15VetoRead }) {
+  const tone15 = veto.direction === "LONG" ? "#22c55e" : veto.direction === "SHORT" ? "#ef4444" : "#94a3b8";
+  const word = veto.direction === "LONG" ? "▲ LONG SERBEST" : veto.direction === "SHORT" ? "▼ SHORT SERBEST" : "▬ NÖTR";
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded border border-[#1c2635] bg-[#0f141d] px-3 py-1.5 text-[10.5px]">
-      <span className="font-semibold text-slate-500">15m GENEL TREND</span>
+      <span className="font-semibold text-slate-500">15m VETO (Katman 0)</span>
       <span className="font-bold" style={{ color: tone15 }}>{word}</span>
       <span className="font-mono text-slate-400">
-        RSI {rsi == null ? "—" : rsi.toFixed(0)} <RsiArrow value={rsi} prev={rsiPrev} />
+        Kapanış {veto.close == null ? "—" : num(veto.close)} / EMA21 {veto.ema21 == null ? "—" : num(veto.ema21)}
       </span>
-      <span className="text-slate-500">{greenOf4}</span>
-      <span className="text-slate-600">{note}</span>
-      <span className="ml-auto text-[9px] text-slate-600">karar mekanizmasına girmez — yalnızca bağlam</span>
+      <span className="text-slate-600">{veto.note}</span>
+      <span className="ml-auto text-[9px] text-slate-600">yalnızca yön izni verir/engeller — kendi başına karar üretmez</span>
     </div>
   );
 }

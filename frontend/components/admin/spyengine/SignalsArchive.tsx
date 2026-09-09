@@ -306,7 +306,7 @@ export default function SignalsArchive({ positions, sessionDate }: {
                           <span className="text-slate-400">{reasonLabel(p.exitReason)}</span>
                         ) : (
                           <span className="text-[#22c55e]">
-                            Açık · {p.progress.againstBars}/{p.progress.reversalNeeded} ters mum
+                            Açık · {p.progress.barsHeld} mum taşındı
                           </span>
                         )}
                       </td>

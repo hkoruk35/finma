@@ -32,10 +32,7 @@ import {
   RTH_CLOSE_MIN,
   type Bar,
 } from "@/lib/spyengine/core";
-import {
-  detectRegimeSeries,
-  type Regime,
-} from "@/lib/spyengine/regime";
+import { detectRegimeSeries } from "@/lib/spyengine/regime";
 import { readLevels, forecastClose } from "@/lib/spyengine/levels";
 import {
   closedBars,
@@ -164,41 +161,21 @@ export async function GET(req: NextRequest) {
       nowSec: evalNow,
     });
 
-    // ── V4: rejim serisi ──────────────────────────────────
-    //
-    // Rejim YALNIZCA cikis davranisini surer; giris kapisina dokunmaz.
-    // Tek istisna: BELIRSIZ rejimde yeni giris URETILMEZ (spec 2.3).
+    // ── V5.0: rejim (TREND/SIKIŞMA) motoru artık karar mekanizmasının
+    // parçası DEĞİL — yalnızca Gün Kapanış Tahmini panelinin bant genişliği
+    // notunda kozmetik amaçla kullanılıyor (bkz. levels.ts forecastClose).
+    // Giriş/çıkış kararları artık generateCandidates/findExitSignal
+    // içindeki 15m veto + 5m Layer1/2 rejimi + 1m tetik zincirinden gelir.
     const regimeM1 = closedBars(sessionM1, 1, evalNow);
     const regimeSeries = detectRegimeSeries(regimeM1);
-    const regimeByTime = new Map(regimeSeries.bars.map((b) => [b.time, b.regime]));
-    /** Verilen ana ait rejim -- o dakikada etiket yoksa en son bilinen */
-    const regimeAt = (t: number): Regime => {
-      const hit = regimeByTime.get(t);
-      if (hit) return hit;
-      let last: Regime = "UNCERTAIN";
-      for (const b of regimeSeries.bars) {
-        if (b.time > t) break;
-        last = b.regime;
-      }
-      return last;
-    };
 
     // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
     //
-    // V3.1'de çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor;
-    // opsiyon primi yalnızca $ kâr/zararı fiyatlıyor. Bunun önemli bir
-    // sonucu var: tek-pozisyon/yeniden-giriş zinciri artık HİÇ ağ isteği
-    // olmadan, tüm adaylar üzerinde çözülebiliyor.
-    //
-    // Önceden adaylar `.slice(-N)` ile kırpılıp sonra zincire sokuluyordu.
-    // 1m seri tabanlı giriş günde ~85 aday ürettiği için bu, seansın İLK
-    // YARISINI sessizce düşürüyordu — ekranda yalnızca öğleden sonraki
-    // işlemler görünüyor, sabahki sinyaller hiç listelenmiyordu. Sıra
-    // tersine çevrildi: önce zincir çözülür (ücretsiz), sonra yalnızca
-    // KABUL EDİLEN pozisyonlar için prim çekilir (~20 istek, ~85 değil).
-    // BELIRSIZ rejimde yeni giris yok -- sistem yalnizca izler.
-    gen.candidates = gen.candidates.filter((c) => regimeAt(c.time) !== "UNCERTAIN");
-
+    // Çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor; opsiyon
+    // primi yalnızca $ kâr/zararı fiyatlıyor. Bunun önemli bir sonucu var:
+    // tek-pozisyon/yeniden-giriş zinciri HİÇ ağ isteği olmadan, tüm adaylar
+    // üzerinde çözülebiliyor. Önce zincir çözülür (ücretsiz), sonra yalnızca
+    // KABUL EDİLEN pozisyonlar için prim çekilir.
     const scans = gen.candidates.map((c) =>
       findExitSignal({
         m1: sessionM1,
@@ -208,7 +185,6 @@ export async function GET(req: NextRequest) {
         entrySpot: c.spot,
         session,
         nowSec: evalNow,
-        regimeAt,
       })
     );
     const shells = gen.candidates.map((c, i) => ({
@@ -250,7 +226,6 @@ export async function GET(req: NextRequest) {
               entrySpot: c.spot,
               session,
               nowSec: evalNow,
-              regimeAt,
               premiumBars: series.bars,
             })
           : exit;
@@ -399,11 +374,13 @@ export async function GET(req: NextRequest) {
           prevClose,
           regime: regimeSeries.current.regime,
         }),
-        // V4 rejim bloku: etiket + kriter dokumu + gecisler + gun ozeti
+        // V5.0 rejim bloku: 15m veto + 5m Layer1/Layer2 + kayip sonrasi
+        // soguma -- karar mekanizmasinin GERCEK durumu (gen.read icinden).
         regime: {
-          current: regimeSeries.current,
-          transitions: regimeSeries.transitions.slice(-12),
-          distribution: regimeSeries.distribution,
+          veto: gen.read.veto,
+          layer1: gen.read.layer1,
+          layer2: gen.read.layer2,
+          current: gen.read.regime,
           cooldownUntil,
           cooldownActive,
         },
