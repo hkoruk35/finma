@@ -41,6 +41,7 @@ if '%errorlevel%' NEQ '0' (
     echo 4. Performans Takibi:           10:00-16:30 NY (Saatlik)
     echo 5. Terminal Pulse (Saatlik):    09:00-17:00 NY
     echo 6. Saglik Raporu:               Her 4 Saatte Bir (7/24)
+    echo 7. SPY 0DTE Options Sync:       09:45-15:45 NY (Saatlik)
     echo ==================================================
     echo.
     pause

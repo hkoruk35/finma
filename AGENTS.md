@@ -90,6 +90,7 @@ Confirmed against actual `Get-ScheduledTask` state (2026-07-27), not script clai
 | `run_midnight_update.py` | `BOGA_MidnightUniverseUpdate` | universe_builder.py, update_top100_fixed.py |
 | `run_copilot_tasks_cron.py` | `BOGA_Copilot_Tasks_Cron` | Calls Next.js Copilot API (not Python) |
 | `run_options_scanner.py` | `BOGA_AI_Options_Scanner` | opsiyon242.py |
+| `run_spy_0dte_options_sync.py` | `BOGA_AI_SPY_0DTE_Options` (09:45 NY + hourly to 15:45) | spy_0dte_options_sync.py — SPY-only, independent of opsiyon242.py (see tasks/active/013). Added 2026-09-09 to `scratch/setup_boga_tasks.ps1`; **pending actual registration** — run `SISTEMI_GUNCELLE.bat` as Administrator to apply, then this note can be updated to "confirmed". |
 
 **Standalone scripts** (not orchestrated): site_health_checker.py, inday313.py, update_top100_hourly.py, update_top100_swing.py, pre_catalyst_scanner.py.
 

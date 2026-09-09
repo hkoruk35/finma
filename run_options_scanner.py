@@ -72,22 +72,11 @@ def main():
     except Exception as e:
         log.error(f"❌ options_pnl_tracker.py hatası: {e}")
 
-    # SPY 0DTE Greeks + prim eğrisi -> Supabase (tasks/active/013, Faz 2).
-    # opsiyon242.py'den TAMAMEN BAĞIMSIZ, kendi dosyası hiçbir yerel dosya
-    # yazmıyor/git-push tetiklemiyor -- başarısız olsa bile ana taramayı
-    # ETKİLEMEZ, sadece loglanır.
-    log.info("▶ Çalıştırılıyor: spy_0dte_options_sync.py")
-    try:
-        result = subprocess.run(
-            [VENV_PYTHON, "spy_0dte_options_sync.py"], cwd=FINMA_DIR,
-            capture_output=True, text=True, encoding="utf-8",
-        )
-        if result.returncode == 0:
-            log.info(f"✅ spy_0dte_options_sync.py tamamlandı. {result.stdout.strip()}")
-        else:
-            log.warning(f"⚠️ spy_0dte_options_sync.py exit code: {result.returncode} — {result.stdout.strip()} {result.stderr.strip()[-300:]}")
-    except Exception as e:
-        log.error(f"❌ spy_0dte_options_sync.py hatası: {e}")
+    # NOT: SPY 0DTE Greeks senkronizasyonu (spy_0dte_options_sync.py) artık
+    # BURADAN çağrılmıyor -- kendi bağımsız zamanlamasına (09:45 NY + saat
+    # başı, BOGA_AI_SPY_0DTE_Options) taşındı, çünkü bu görevin 11:00/15:30
+    # NY döngüsü 0DTE için çok seyrek. Bkz. run_spy_0dte_options_sync.py ve
+    # scratch/setup_boga_tasks.ps1 (tasks/active/013, Faz 2).
 
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")

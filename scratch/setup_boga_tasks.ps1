@@ -55,6 +55,12 @@ Set-BogaTask -Name "BOGA_AI_Terminal_Pulse" -Script "run_terminal_pulse.py" -Arg
 # 4. BOGA AI OPTIONS SCANNER - 11:00 NY
 Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "run_options_scanner.py" -Args "" -StartTime "11:00:00"
 
+# 4b. BOGA AI SPY 0DTE OPTIONS (spy_0dte_options_sync.py, bkz. tasks/active/013
+#     Faz 2) - 09:45 NY, ardindan saat basi 15:45 NY'ye kadar (7 calisma/gun).
+#     BOGA_AI_Options_Scanner'dan (11:00 & 15:30, gunde 2 kez) BAGIMSIZ ve
+#     daha sik -- 0DTE Greeks gun icinde hizla degistigi icin.
+Set-BogaTask -Name "BOGA_AI_SPY_0DTE_Options" -Script "run_spy_0dte_options_sync.py" -Args "" -StartTime "09:45:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 6)
+
 # 5. BOGA AI HEALTH CHECK - Every 4 hours (7/24)
 Set-BogaTask -Name "BOGA_AI_Health_Check" -Script "site_health_checker.py" -Args "--daily" -StartTime "00:00:00" -RepetitionInterval (New-TimeSpan -Hours 4) -RepetitionDuration (New-TimeSpan -Days 3650)
 
