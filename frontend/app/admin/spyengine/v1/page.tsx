@@ -856,20 +856,19 @@ export default function SpyEngineCommandCenter() {
           {/* ── Kapı Durumu — tam genişlik ── */}
           <GatePanel gates={data?.engine.gateStatus ?? null} />
 
-          {/* ── Teknik veri + Rejim Kriterleri (sol) + Seviye/Motor/Sinyaller (sağ) ── */}
+          {/* ── Motor Durumu + Pozisyon (sol) + Rejim Kriterleri/Seviye/Motor Açıklaması/Sinyaller (sağ) ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
             <div className="flex flex-col gap-1">
               {data && (
                 <LayerTable
                   veto={data.engine.veto} volumeVeto={data.engine.volumeVeto}
                   layer1={data.engine.layer1}
-                  regime={data.engine.regime} layer3={data.engine.layer3}
+                  regime={data.engine.regime}
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
                   confidence={data.engine.confidence} confidenceParts={data.engine.confidenceParts}
                 />
               )}
-              <RegimePanel block={data?.regime ?? null} />
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
@@ -885,6 +884,7 @@ export default function SpyEngineCommandCenter() {
               )}
             </div>
             <div className="flex flex-col gap-1">
+              <RegimePanel block={data?.regime ?? null} />
               <LevelPanel levels={data?.levels ?? null} price={data?.spot.price ?? null} />
               <Panel title="Motor Açıklaması">
                 <div className="rounded border border-[#1c2635] bg-[#0a0e17] p-1 font-mono text-[9px] leading-relaxed text-slate-400">

@@ -17,7 +17,7 @@ import {
   type PositionState, type EngineEvent,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
   type GateCheck, type Side, type RegimeSide, type RegimeState,
-  type M15VetoRead, type VolumeVetoRead, type Layer1Read, type Layer3Read,
+  type M15VetoRead, type VolumeVetoRead, type Layer1Read,
 } from "@/lib/spyengine/strategy";
 
 /** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
@@ -715,14 +715,13 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
 }
 
 export function LayerTable({
-  veto, volumeVeto, layer1, regime, layer3,
+  veto, volumeVeto, layer1, regime,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
 }: {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
   regime: RegimeState;
-  layer3: Layer3Read;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
   state: EngineState;
@@ -785,14 +784,6 @@ export function LayerTable({
         note={layer1.note}
         t={regimeTone}
       />
-      <LayerRow
-        tf="1m"
-        tag="ZAMANLAMA — sadece rejim aktifken bakılır"
-        value={layer3.fired ? "Tetik ateşlendi" : layer3.structureOk ? "Breakout oluştu, RSI7 bekliyor" : "Breakout bekleniyor"}
-        note={layer3.note}
-        t={layer3.fired ? "text-[#22c55e]" : "text-slate-400"}
-      />
-
       {regime.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== regime.side && (
         <div className="mx-2 mb-2 rounded border border-amber-500/35 bg-amber-500/10 px-2 py-1 text-[10px] leading-snug text-amber-300">
           ⚠ 5m rejim {regime.side} aktif ama 15m veto bu yönü engelliyor — giriş üretilmiyor.
