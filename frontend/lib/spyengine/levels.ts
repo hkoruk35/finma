@@ -7,7 +7,7 @@
  */
 
 import {
-  ema, bollinger, sessionVwap, atr, nyParts, nyDateTimeToEpoch, isRthBar,
+  ema, bollinger, sessionVwap, atr, bucketAggregate, nyParts, nyDateTimeToEpoch, isRthBar,
   PRE_OPEN_MIN, RTH_OPEN_MIN, RTH_CLOSE_MIN, POST_CLOSE_MIN, r2, type Bar,
 } from "./core";
 
@@ -141,20 +141,28 @@ export function readLevels(input: LevelInput): LevelRead {
   if (bbUp != null) candidates.push({ price: bbUp, source: "BB üst" });
   if (vwapNow != null) candidates.push({ price: vwapNow, source: "VWAP" });
 
+  // Saatlik ATR — GERÇEK 60 dakikalık barlardan, 1m ATR'yi √60 ile
+  // ÖLÇEKLEMEDEN. Rassal yürüyüş varsayımı (√zaman) piyasada sistematik
+  // olarak GERÇEK saatlik hareketi hafife alır (fiyat serileri momentum/
+  // trend taşır, 1 dakikalık bar-içi gürültü bunu yakalamaz) — ölçümde bu
+  // yöntem gerçek saatlik ATR'nin yaklaşık yarısını veriyordu. `allM1`
+  // (çok günlük geçmiş) 60 dakikalık kovalara toplanıp ATR(14) doğrudan bu
+  // barlar üzerinden hesaplanır — bugünün seansı tek başına 14 saatlik bar
+  // biriktiremeyeceği için ısınma da bu geçmişten gelir.
+  const hourlyBars = bucketAggregate(allM1, 60);
+  const aHourly = atr(hourlyBars, 14);
+  const lastHourlyAtr = aHourly.length ? aHourly[aHourly.length - 1] : null;
+  const hourlyRange = lastHourlyAtr != null ? r2(lastHourlyAtr) : null;
+
   // Asgari mesafe: saatlik hareketin çeyreği (en az 10 sent). Seviye,
   // fiyatın normal nefes alma aralığının DIŞINDA olmalı ki anlam taşısın.
-  const aPre = atr(sessionM1, 14);
-  const atrPre = aPre.length ? aPre[aPre.length - 1] : null;
-  const minDist = Math.max(0.10, (atrPre ?? 0.1) * Math.sqrt(60) * 0.25);
+  const minDist = Math.max(0.10, (hourlyRange ?? 0.4) * 0.25);
   const support = nearest(candidates, price, true, minDist);
   const resistance = nearest(candidates, price, false, minDist);
 
   // ATR tabanlı gün dibi/zirvesi projeksiyonu (spec §3 son satır)
-  const atrNow = atrPre;
   const rthClose = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
   const remainingMin = Math.max(0, Math.round((rthClose - nowSec) / 60));
-  // Ortalama saatlik hareket = 1m ATR × 60 mumun karekökü (rassal yürüyüş ölçeği)
-  const hourlyRange = atrNow != null ? r2(atrNow * Math.sqrt(60)) : null;
   const projSpan = hourlyRange != null ? hourlyRange * Math.sqrt(remainingMin / 60) : null;
 
   const sessionHigh = hiOf(sessionM1), sessionLow = loOf(sessionM1);

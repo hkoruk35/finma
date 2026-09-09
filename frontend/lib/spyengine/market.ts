@@ -166,9 +166,17 @@ async function fetchChartRaw(
         sanitized: clean.dropped,
         marketPrice: Number.isFinite(result.meta?.regularMarketPrice) ? result.meta.regularMarketPrice : null,
         marketTime: Number.isFinite(result.meta?.regularMarketTime) ? result.meta.regularMarketTime : null,
+        // Yahoo'nun `chartPreviousClose` alanı DÜNKÜ kapanış DEĞİL — istenen
+        // `range`'in BAŞLANGICINDAN ÖNCEKİ kapanış (5d/1mo/60d gibi geniş
+        // aralıklarda günler/haftalar öncesine düşer). `previousClose` /
+        // `regularMarketPreviousClose` her zaman GERÇEK önceki iş günü
+        // kapanışıdır ve range'den bağımsızdır — bu yüzden önce onlar
+        // denenir, `chartPreviousClose` yalnızca ikisi de yoksa (örn.
+        // range=1d'de zaten doğru olduğu durum) son çare olarak kullanılır.
         previousClose:
-          Number.isFinite(result.meta?.chartPreviousClose) ? result.meta.chartPreviousClose
-          : Number.isFinite(result.meta?.previousClose) ? result.meta.previousClose
+          Number.isFinite(result.meta?.previousClose) ? result.meta.previousClose
+          : Number.isFinite(result.meta?.regularMarketPreviousClose) ? result.meta.regularMarketPreviousClose
+          : Number.isFinite(result.meta?.chartPreviousClose) ? result.meta.chartPreviousClose
           : null,
         currency: result.meta?.currency ?? null,
         error: null,
