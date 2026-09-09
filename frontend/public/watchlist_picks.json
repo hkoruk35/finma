@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T09:05:14.055764-04:00",
+  "generated_at": "2026-09-09T14:06:39.350798-04:00",
   "picks": [
     {
       "ticker": "MGNI",
@@ -14,33 +14,9 @@
       "score": 35.5
     },
     {
-      "ticker": "CEG",
-      "sector": "Utilities",
-      "date_added": "2026-09-08",
-      "score": 40.5
-    },
-    {
       "ticker": "SCCO",
       "sector": "Basic Materials",
       "date_added": "2026-09-08",
-      "score": 39.0
-    },
-    {
-      "ticker": "EME",
-      "sector": "Industrials",
-      "date_added": "2026-09-08",
-      "score": 37.0
-    },
-    {
-      "ticker": "WSM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-09",
-      "score": 40.5
-    },
-    {
-      "ticker": "HPQ",
-      "sector": "Technology",
-      "date_added": "2026-09-09",
       "score": 39.0
     },
     {
@@ -50,16 +26,64 @@
       "score": 39.0
     },
     {
-      "ticker": "DLB",
-      "sector": "Industrials",
+      "ticker": "MU",
+      "sector": "Technology",
       "date_added": "2026-09-09",
-      "score": 39.0
+      "score": 38.5
     },
     {
-      "ticker": "CNK",
-      "sector": "Communication Services",
+      "ticker": "ILMN",
+      "sector": "Healthcare",
       "date_added": "2026-09-09",
-      "score": 30.0
+      "score": 38.0
+    },
+    {
+      "ticker": "OKTA",
+      "sector": "Technology",
+      "date_added": "2026-09-09",
+      "score": 37.5
+    },
+    {
+      "ticker": "SHOO",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-09",
+      "score": 35.5
+    },
+    {
+      "ticker": "ZETA",
+      "sector": "Technology",
+      "date_added": "2026-09-09",
+      "score": 33.5
+    },
+    {
+      "ticker": "ZIM",
+      "sector": "Industrials",
+      "date_added": "2026-09-09",
+      "score": 33.0
+    },
+    {
+      "ticker": "HOOD",
+      "sector": "Financial Services",
+      "date_added": "2026-09-09",
+      "score": 32.0
+    },
+    {
+      "ticker": "HCA",
+      "sector": "Healthcare",
+      "date_added": "2026-09-09",
+      "score": 29.3
+    },
+    {
+      "ticker": "NUTX",
+      "sector": "Healthcare",
+      "date_added": "2026-09-09",
+      "score": 29.0
+    },
+    {
+      "ticker": "BLTE",
+      "sector": "Healthcare",
+      "date_added": "2026-09-09",
+      "score": 27.5
     }
   ]
 }
