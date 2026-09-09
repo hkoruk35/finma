@@ -1,22 +1,22 @@
 {
   "ticker": "FICO",
   "company": "Fair Isaac Corporation",
-  "date": "2026-09-08",
-  "generated_at": "2026-09-08T22:01:56.029Z",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T12:29:24.749Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
     "current": 933.2999877929688,
     "open": 920.510009765625,
-    "high": 938.739990234375,
+    "high": 938.8400268554688,
     "low": 899,
     "prev_close": 932.260009765625,
     "change_pct": 0.11155450372747468,
     "change_pct_1w": -18.64610493529223,
     "change_pct_1m": -17.92567531083573,
     "change_pct_1y": -39.325184149048,
-    "volume": 667161,
-    "avg_volume_30d": 11817361
+    "volume": 667400,
+    "avg_volume_30d": 11817600
   },
   "scores": {
     "master_score": 59,
@@ -45,14 +45,14 @@
     "bb_middle": 933.2999877929688,
     "bb_lower": 886.6349884033202,
     "bb_width": 10,
-    "atr": 56.43,
+    "atr": 56.44,
     "atr_pct": 6.05,
-    "rvol": 1.3803899195429503,
+    "rvol": 1.3804833468724613,
     "52w_high": 1998.010009765625,
     "52w_low": 870.010009765625
   },
   "fundamental": {
-    "pe_ratio": 27.060017,
+    "pe_ratio": 27.028671,
     "pb_ratio": 0,
     "gross_margin": 0.851,
     "operating_margin": 0.53787,
@@ -60,7 +60,7 @@
     "market_cap": 20157073408,
     "revenue_growth_ttm": 0.257,
     "fcf_yield": 0.03841894546520074,
-    "institutional_ownership_pct": 1.02556,
+    "institutional_ownership_pct": 1.02516,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -72,7 +72,7 @@
     "target_1": 1130.51,
     "target_2": 1188.8,
     "target_3": 1323.35,
-    "stop_loss": 859.94,
+    "stop_loss": 859.93,
     "risk_reward_ratio": 4.55,
     "entry_engine": {
       "valid": false,
@@ -80,7 +80,7 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $899.44 – $938.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,102.02 direnci veya $888.15 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $859.94 olarak belirlenmiştir. Fiyatın EMA20 ($1,093.76) veya günlük VWAP ($913.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $859.93 olarak belirlenmiştir. Fiyatın EMA20 ($1,093.76) veya günlük VWAP ($913.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,132.30) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
     "rationale_vwap": "Fiyat gün içi VWAP'ın ($913.29) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",

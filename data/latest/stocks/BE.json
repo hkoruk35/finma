@@ -1,8 +1,8 @@
 {
   "ticker": "BE",
   "company": "Bloom Energy Corporation",
-  "date": "2026-09-08",
-  "generated_at": "2026-09-08T20:19:34.694Z",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T09:21:17.818Z",
   "sector": "Industrials",
   "industry": "Electrical Equipment & Parts",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 34.3771193019093,
     "change_pct_1m": 27.486780920345332,
     "change_pct_1y": 418.75001561498965,
-    "volume": 27362047,
-    "avg_volume_30d": 475259847
+    "volume": 27416700,
+    "avg_volume_30d": 475768500
   },
   "scores": {
     "master_score": 35,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 16.16,
     "atr_pct": 5.83,
-    "rvol": 0.9972196999002948,
+    "rvol": 1.0025682658687995,
     "52w_high": 351.2799987792969,
     "52w_low": 52
   },
@@ -60,7 +60,7 @@
     "market_cap": 81648877568,
     "revenue_growth_ttm": 1.655,
     "fcf_yield": 0.00651126530866556,
-    "institutional_ownership_pct": 0.86146003,
+    "institutional_ownership_pct": 0.86140996,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

@@ -1,22 +1,22 @@
 {
   "ticker": "LULU",
   "company": "lululemon athletica inc.",
-  "date": "2026-09-08",
-  "generated_at": "2026-09-08T21:02:37.580Z",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T11:38:56.140Z",
   "sector": "Consumer Cyclical",
   "industry": "Apparel Retail",
   "price": {
     "current": 103.19000244140625,
-    "open": 100.62999725341797,
-    "high": 103.7499008178711,
+    "open": 100.58000183105469,
+    "high": 103.75,
     "low": 100.18000030517578,
     "prev_close": 100.61000061035156,
     "change_pct": 2.564359224135852,
     "change_pct_1w": -14.194245294863151,
     "change_pct_1m": -12.794725898225309,
     "change_pct_1y": -38.61392106204799,
-    "volume": 11157105,
-    "avg_volume_30d": 152956105
+    "volume": 11198200,
+    "avg_volume_30d": 153111100
   },
   "scores": {
     "master_score": 50,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 5.89,
     "atr_pct": 5.71,
-    "rvol": 2.86969800911183,
+    "rvol": 2.872866826768275,
     "52w_high": 225.97999572753906,
     "52w_low": 97.98999786376953
   },
@@ -60,7 +60,7 @@
     "market_cap": 11424167936,
     "revenue_growth_ttm": -0.043,
     "fcf_yield": 0.10053387226397299,
-    "institutional_ownership_pct": 0.80928004,
+    "institutional_ownership_pct": 0.80947,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

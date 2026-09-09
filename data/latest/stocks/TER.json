@@ -1,0 +1,89 @@
+{
+  "ticker": "TER",
+  "company": "Teradyne, Inc.",
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T10:09:46.995Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 372.05999755859375,
+    "open": 365.0299987792969,
+    "high": 377.760009765625,
+    "low": 364.4200134277344,
+    "prev_close": 357.0299987792969,
+    "change_pct": 4.209729947255183,
+    "change_pct_1w": 6.354518434552777,
+    "change_pct_1m": 1.536447614918343,
+    "change_pct_1y": 212.9184127702588,
+    "volume": 2790300,
+    "avg_volume_30d": 91868600
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.34579701741189,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 365.159680037197,
+    "ema_50": 370.35933958396873,
+    "ema_200": 318.5777878767116,
+    "ema_stack_bullish": false,
+    "bb_upper": 390.6629974365234,
+    "bb_middle": 372.05999755859375,
+    "bb_lower": 353.4569976806641,
+    "bb_width": 10,
+    "atr": 18.54,
+    "atr_pct": 4.98,
+    "rvol": 0.7268489995493564,
+    "52w_high": 487.9100036621094,
+    "52w_low": 109.55999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 51.10714,
+    "pb_ratio": 18.526115,
+    "gross_margin": 0.59242,
+    "operating_margin": 0.33161,
+    "net_margin": 0.25766,
+    "market_cap": 58168139776,
+    "revenue_growth_ttm": 1.039,
+    "fcf_yield": 0.007519257959500059,
+    "institutional_ownership_pct": 1.00682,
+    "dividend_rate": 0.52,
+    "dividend_yield": 0.0015
+  },
+  "scores_detail": {
+    "entry_range_low": 360.94,
+    "entry_range_high": 373.91,
+    "target_range_low": 385.8,
+    "target_range_high": 444.17,
+    "target_1": 385.8,
+    "target_2": 420.6,
+    "target_3": 444.17,
+    "stop_loss": 347.96,
+    "risk_reward_ratio": 2.73,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $360.94 – $373.91 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $424.76 direnci veya $357.23 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $347.96 olarak belirlenmiştir. Fiyatın EMA20 ($365.16) veya günlük VWAP ($373.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($370.36) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($373.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}
