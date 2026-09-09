@@ -17,7 +17,7 @@ export const ARCHIVE_MAX_SESSIONS = 90;
 export interface ArchivedTrade {
   id: string;
   side: "LONG" | "SHORT";
-  contractType: "A" | "B";
+  contractType: "S" | "A" | "B";
   entryTime: number;
   entrySpot: number;
   contract: string | null;

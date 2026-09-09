@@ -31,8 +31,22 @@
  *   SHORT: simetrik ters.
  *
  * ── KATMAN 2 — 5m FİLTRE (rejim kalite onayı, 3'te 2 oylama) ────────
- *   A) Hacim > Avg20×1.0   B) Gövde > ATR14×0.40   C) Karşı gölge < Gövde×0.40
+ *   A) RVOL ≥ 1.2   B) Gövde > ATR14×0.40   C) Karşı gölge < Gövde×0.40
  *   En az 2/3 sağlanmalı. Layer 1 + Layer 2 birlikte REJİMİ açar/sürdürür.
+ *
+ * ── HACİM VETOSU (RVOL, Katman 0 ile aynı kategoride) ───────────────
+ *   RVOL = o 5m barın hacmi / AYNI SAAT DİLİMİNİN geçmiş günlerdeki
+ *   ortalaması (basit "son 20 mum" ortalaması DEĞİL — açılış/kapanış hacim
+ *   patlamaları ile öğlen durgunluğunu aynı eşikle ölçmek yanlış sinyal
+ *   kaynağıydı). Üç eşik, üç farklı işlev görür:
+ *     RVOL < 0.8  → "piyasa şu an anlamsız" — İKİ YÖNÜ DE ENGELLEYEN,
+ *                   nadiren tetiklenen ikili (binary) bir VETO. Oylamaya
+ *                   GÖMÜLMEZ — 2/3 diğer kriter geçse bile giriş engellenir.
+ *     RVOL ≥ 1.2  → Katman 2'nin A bileşeni (katılım onayı, oylamaya girer).
+ *     RVOL > 2.0  → oylamayı etkilemez; yalnızca strike seçiminde "güçlü
+ *                   rejim + kurumsal katılım" ekstra girdisi olarak kullanılır.
+ *   RVOL, en az RVOL_MIN_SAMPLE_DAYS gün geçmiş veri gerektirir; yoksa
+ *   `null` döner ve hiçbir eşik (veto dahil) tetiklenmez — uydurma yok.
  *
  * ── KATMAN 3 — 1m TETİK (zamanlama, sadece rejim aktifken) ──────────
  *   STRUCTURE (zorunlu): Close>EMA21(1m) AND Close > önceki 2 KAPALI 1m
@@ -76,16 +90,21 @@ export type VetoDirection = "LONG" | "SHORT" | "NEUTRAL";
 export type RegimeSide = "LONG" | "SHORT" | "NONE";
 
 /**
- * Strike seçim kademesi — spec §5. "A" = Güçlü kurulum (RSI VE MACD ikisi de
- * aynı yönde), "B" = Orta kurulum (yalnızca biri). İsimlendirme eski V3/V4
+ * Strike seçim kademesi. "S" = Süper güçlü (RSI VE MACD ikisi de + RVOL>2.0
+ * kurumsal katılım onayı), "A" = Güçlü kurulum (RSI VE MACD ikisi de, RVOL
+ * normal), "B" = Orta kurulum (yalnızca biri). İsimlendirme eski V3/V4
  * "kontrat türü" alanıyla uyumluluk için korundu, anlamı değişti.
  */
-export type ContractType = "A" | "B";
+export type ContractType = "S" | "A" | "B";
 
 export const CONTRACT_RULES: Record<ContractType, { label: string }> = {
-  A: { label: "Güçlü Kurulum (5m RSI + MACD ikisi de yönlü, ATM ±1, 0DTE)" },
-  B: { label: "Orta Kurulum (5m RSI veya MACD, ATM ±0.5, 0DTE/1DTE)" },
+  S: { label: "Süper Güçlü Kurulum (RSI + MACD + RVOL>2.0, ATM+2, 0DTE)" },
+  A: { label: "Güçlü Kurulum (5m RSI + MACD ikisi de yönlü, ATM+1, 0DTE)" },
+  B: { label: "Orta Kurulum (5m RSI veya MACD, ATM, 0DTE)" },
 };
+
+/** Strike, ATM'den yön tarafında (LONG: yukarı, SHORT: aşağı) bu kadar $ ötelenir */
+export const STRIKE_OFFSET: Record<ContractType, number> = { S: 2, A: 1, B: 0 };
 
 // ── Katman sabitleri ─────────────────────────────────────────────
 
@@ -108,11 +127,25 @@ export const M5_MACD_SIGNAL = 9;
 
 /** 5m Katman 2 — filtre (3'te 2 oylama) */
 export const M5_ATR_PERIOD = 14;
-export const M5_VOL_AVG_PERIOD = 20;
-export const M5_FILTER_VOL_MULT = 1.0;
 export const M5_FILTER_BODY_ATR_MULT = 0.4;
 export const M5_FILTER_WICK_BODY_MULT = 0.4;
 export const M5_FILTER_MIN_VOTES = 2;
+
+/**
+ * RVOL (relative volume) — aynı saat diliminin GEÇMİŞ günlerdeki ortalamasına
+ * göre hacim oranı. Basit "son 20 mumun ortalaması" DEĞİL: açılış/kapanış
+ * hacim patlamaları ile öğlen durgunluğunu aynı eşikle karıştırmaz.
+ */
+/** RVOL bucket genişliği — 5m barla aynı hizada */
+export const RVOL_BUCKET_MIN = 5;
+/** Bu eşiğin altı: ikili VETO — iki yönü de engeller, oylamaya girmez */
+export const RVOL_VETO_MIN = 0.8;
+/** Bu eşik ve üstü: Katman 2'nin A bileşeni (katılım) geçer */
+export const RVOL_PARTICIPATION_MIN = 1.2;
+/** Bu eşik üstü: strike seçiminde "güçlü + kurumsal katılım" ekstra girdisi */
+export const RVOL_STRONG_MIN = 2.0;
+/** RVOL güvenilir sayılmadan önce gereken asgari geçmiş gün sayısı */
+export const RVOL_MIN_SAMPLE_DAYS = 5;
 
 /** 1m Katman 3 — tetik (zamanlama) */
 export const M1_EMA_PERIOD = 21;
@@ -252,6 +285,14 @@ export interface Layer1Read {
   note: string;
 }
 
+/** RVOL vetosu — 15m veto ile aynı kategoride: ikili, iki yönü de engelleyebilen blok */
+export interface VolumeVetoRead {
+  rvol: number | null;
+  sampleDays: number;
+  active: boolean;
+  note: string;
+}
+
 export interface Layer2Read {
   longVotes: GateCheck[];
   longPassed: number;
@@ -278,6 +319,7 @@ export interface Layer3Read {
 
 export interface EngineRead {
   veto: M15VetoRead;
+  volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
   layer2: Layer2Read;
   regime: RegimeState;
@@ -321,6 +363,13 @@ export function atmStrike(spot: number): number {
   return Math.round(spot);
 }
 
+/** Strike, kademeye göre ATM'den yön tarafında ötelenir (LONG: yukarı/OTM call, SHORT: aşağı/OTM put) */
+export function strikeFor(spot: number, side: Side, contractType: ContractType): number {
+  const offset = STRIKE_OFFSET[contractType];
+  const base = atmStrike(spot);
+  return side === "LONG" ? base + offset : base - offset;
+}
+
 function eodEpochOf(session: SessionInfo): number {
   return session.rthOpen + (EOD_FORCE_MIN - RTH_OPEN_MIN) * 60;
 }
@@ -342,6 +391,75 @@ function avgVolume(bars: Bar[], uptoExclusive: number, n: number): number | null
 
 const rising = (v: number | null, p: number | null) => v != null && p != null && v > p;
 const falling = (v: number | null, p: number | null) => v != null && p != null && v < p;
+
+// ── RVOL (aynı saat diliminin geçmiş günlerdeki ortalamasına göre hacim) ──
+
+export interface RvolBaseline {
+  /** bucket anahtarı (ET gün-içi dakika, RVOL_BUCKET_MIN'e hizalı) → ortalama hacim */
+  bucketAvg: Map<number, number>;
+  /** bucket anahtarı → o bucket'a katkı veren farklı gün sayısı */
+  bucketDays: Map<number, number>;
+}
+
+/**
+ * Çok günlü 5m geçmişinden, HER SAAT DİLİMİ için ayrı bir ortalama hacim
+ * tablosu kurar. `excludeDate` (bugünkü/canlı seans) hariç tutulur — kendi
+ * kendine referans olup gürültüyü büyütmesin diye.
+ */
+export function buildRvolBaseline(history: Bar[], excludeDate: string): RvolBaseline {
+  const sums = new Map<number, number>();
+  const counts = new Map<number, number>();
+  const daysSeen = new Map<number, Set<string>>();
+
+  for (const b of history) {
+    const p = nyParts(b.time);
+    if (p.ymd === excludeDate) continue;
+    const bucket = Math.floor(p.minutes / RVOL_BUCKET_MIN) * RVOL_BUCKET_MIN;
+    sums.set(bucket, (sums.get(bucket) ?? 0) + (b.volume || 0));
+    counts.set(bucket, (counts.get(bucket) ?? 0) + 1);
+    if (!daysSeen.has(bucket)) daysSeen.set(bucket, new Set());
+    daysSeen.get(bucket)!.add(p.ymd);
+  }
+
+  const bucketAvg = new Map<number, number>();
+  const bucketDays = new Map<number, number>();
+  for (const [bucket, sum] of sums) {
+    const n = counts.get(bucket) ?? 1;
+    bucketAvg.set(bucket, sum / n);
+    bucketDays.set(bucket, daysSeen.get(bucket)?.size ?? 0);
+  }
+  return { bucketAvg, bucketDays };
+}
+
+export const EMPTY_RVOL_BASELINE: RvolBaseline = { bucketAvg: new Map(), bucketDays: new Map() };
+
+/** Bir 5m barın RVOL'u. Yeterli geçmiş yoksa `null` — uydurma yok. */
+function rvolOf(baseline: RvolBaseline, bar: Bar): { rvol: number | null; sampleDays: number } {
+  const p = nyParts(bar.time);
+  const bucket = Math.floor(p.minutes / RVOL_BUCKET_MIN) * RVOL_BUCKET_MIN;
+  const avg = baseline.bucketAvg.get(bucket);
+  const days = baseline.bucketDays.get(bucket) ?? 0;
+  if (avg == null || avg <= 0 || days < RVOL_MIN_SAMPLE_DAYS) return { rvol: null, sampleDays: days };
+  return { rvol: (bar.volume || 0) / avg, sampleDays: days };
+}
+
+/**
+ * Hacim vetosu — 15m veto ile aynı kategoride: RVOL < 0.8 iki yönü de
+ * engeller. Oylamaya GÖMÜLMEZ; "2/3 diğer kriter geçti ama katılım yok"
+ * durumunda bile kesin blok olması gerektiği için ayrı bir katman.
+ */
+function volumeVetoOf(rvol: number | null, sampleDays: number): VolumeVetoRead {
+  if (rvol == null) {
+    return { rvol: null, sampleDays, active: false, note: "RVOL geçmişi yetersiz (< 5 gün) — hacim vetosu devre dışı" };
+  }
+  const active = rvol < RVOL_VETO_MIN;
+  return {
+    rvol, sampleDays, active,
+    note: active
+      ? `RVOL ${rvol.toFixed(2)}× < ${RVOL_VETO_MIN} — piyasa katılımı çok düşük, her iki yönde de giriş engellendi`
+      : `RVOL ${rvol.toFixed(2)}× (${sampleDays} gün ortalaması)`,
+  };
+}
 
 // ── KATMAN 0 — 15m VETO ─────────────────────────────────────────────
 
@@ -406,7 +524,7 @@ function layer1At(
 
 // ── KATMAN 2 — 5m FİLTRE (3'te 2 oylama) ────────────────────────────
 
-function layer2At(m5: Bar[], m5Atr: (number | null)[], idx: number): Layer2Read {
+function layer2At(m5: Bar[], m5Atr: (number | null)[], rvol: number | null, idx: number): Layer2Read {
   if (idx < 1 || idx >= m5.length) {
     return { longVotes: [], longPassed: 0, passLong: false, shortVotes: [], shortPassed: 0, passShort: false, note: "5m verisi yetersiz" };
   }
@@ -417,14 +535,12 @@ function layer2At(m5: Bar[], m5Atr: (number | null)[], idx: number): Layer2Read 
   const upperWick = bar.high - Math.max(bar.open, bar.close);
   const lowerWick = Math.min(bar.open, bar.close) - bar.low;
   const a = m5Atr[idx] ?? 0;
-  const avgVol = avgVolume(m5, idx, M5_VOL_AVG_PERIOD);
-  const volRatio = avgVol != null && avgVol > 0 ? (bar.volume || 0) / avgVol : null;
-  const volOk = volRatio != null && volRatio > M5_FILTER_VOL_MULT;
+  const volOk = rvol != null && rvol >= RVOL_PARTICIPATION_MIN;
 
   const longBodyOk = bullish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
   const longWickOk = bullish && body > 0 && upperWick < body * M5_FILTER_WICK_BODY_MULT;
   const longVotes: GateCheck[] = [
-    { label: `Hacim > ort.×${M5_FILTER_VOL_MULT}`, ok: volOk, detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}` },
+    { label: `RVOL ≥ ${RVOL_PARTICIPATION_MIN}× (aynı saat diliminin ort.)`, ok: volOk, detail: rvol == null ? "veri yok" : `RVOL ${rvol.toFixed(2)}×` },
     { label: `Gövde (yükseliş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: longBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
     { label: `Üst gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: longWickOk, detail: body > 0 ? `%${((upperWick / body) * 100).toFixed(0)}` : "veri yok" },
   ];
@@ -433,7 +549,7 @@ function layer2At(m5: Bar[], m5Atr: (number | null)[], idx: number): Layer2Read 
   const shortBodyOk = bearish && a > 0 && body > a * M5_FILTER_BODY_ATR_MULT;
   const shortWickOk = bearish && body > 0 && lowerWick < body * M5_FILTER_WICK_BODY_MULT;
   const shortVotes: GateCheck[] = [
-    { label: `Hacim > ort.×${M5_FILTER_VOL_MULT}`, ok: volOk, detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}` },
+    { label: `RVOL ≥ ${RVOL_PARTICIPATION_MIN}× (aynı saat diliminin ort.)`, ok: volOk, detail: rvol == null ? "veri yok" : `RVOL ${rvol.toFixed(2)}×` },
     { label: `Gövde (düşüş) > ATR×${M5_FILTER_BODY_ATR_MULT}`, ok: shortBodyOk, detail: a > 0 ? `${(body / a).toFixed(2)}×ATR` : "veri yok" },
     { label: `Alt gölge < gövde×${M5_FILTER_WICK_BODY_MULT}`, ok: shortWickOk, detail: body > 0 ? `%${((lowerWick / body) * 100).toFixed(0)}` : "veri yok" },
   ];
@@ -476,9 +592,19 @@ function layer3At(
   const r = m1Rsi7[idx], rp = m1Rsi7[idx - 1];
   const rsiOk = isLong ? r != null && r > 50 && rising(r, rp) : r != null && r < 50 && falling(r, rp);
   const avgVol = avgVolume(m1, idx, M1_VOL_AVG_PERIOD);
+  // avgVol === 0 GERÇEK bir ölçüm (Yahoo'nun 1m hacmi genellikle seans dışı/
+  // bazı dakikalarda null döndürmesi yüzünden), avgVol === null ise YETERSİZ
+  // GEÇMİŞ (henüz 10 kapalı mum yok) — ikisi ayrı ayrı raporlanır, "veri yok"
+  // ikisine de aynı etiketle basılırsa hangisinin gerçekten sorun olduğu
+  // (pipeline mi, yoksa henüz erken mi) panelde görünmez olurdu.
   const volRatio = avgVol != null && avgVol > 0 ? (bar.volume || 0) / avgVol : null;
   const volOk = volRatio != null && volRatio > M1_VOL_MULT;
   const confirmationOk = rsiOk || volOk;
+  const volDetail =
+    avgVol == null ? "yetersiz geçmiş"
+    : avgVol === 0 ? "ort. hacim 0 (Yahoo 1m veri boşluğu)"
+    : volRatio != null ? `ort.×${volRatio.toFixed(2)}`
+    : "veri yok";
 
   const checks: GateCheck[] = [
     {
@@ -499,7 +625,7 @@ function layer3At(
     {
       label: `Hacim > ort.×${M1_VOL_MULT}`,
       ok: volOk,
-      detail: volRatio == null ? "veri yok" : `ort.×${volRatio.toFixed(2)}`,
+      detail: volDetail,
     },
   ];
 
@@ -515,7 +641,9 @@ function layer3At(
 
 // ── Güven skoru ──────────────────────────────────────────────────
 
-function buildConfidence(l1: Layer1Read, l2: Layer2Read, l3: Layer3Read, side: Side): { total: number; parts: ConfidencePart[] } {
+function buildConfidence(
+  l1: Layer1Read, l2: Layer2Read, l3: Layer3Read, side: Side, rvol: number | null
+): { total: number; parts: ConfidencePart[] } {
   const parts: ConfidencePart[] = [{ label: "Rejim + tetik geçildi (taban)", value: 50 }];
   let total = 50;
 
@@ -534,13 +662,18 @@ function buildConfidence(l1: Layer1Read, l2: Layer2Read, l3: Layer3Read, side: S
   parts.push({ label: bothConfirm ? "1m RSI7 + hacim ikisi de destekliyor" : "1m konfirmasyonlarından biri", value: confirmPts });
   total += confirmPts;
 
+  if (rvol != null && rvol > RVOL_STRONG_MIN) {
+    parts.push({ label: `RVOL ${rvol.toFixed(2)}× > ${RVOL_STRONG_MIN} — kurumsal katılım onayı`, value: 5 });
+    total += 5;
+  }
+
   return { total: Math.max(0, Math.min(100, total)), parts };
 }
 
 // ── Kapı Durumu (manuel işlem için birleşik veto listesi) ───────────
 
 function gateChecksFor(
-  veto: M15VetoRead, l1: Layer1Read, l2: Layer2Read, regime: RegimeState, l3ForSide: Layer3Read, side: Side
+  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l2: Layer2Read, regime: RegimeState, l3ForSide: Layer3Read, side: Side
 ): GateCheck[] {
   const isLong = side === "LONG";
   const l1Pass = isLong ? l1.passLong : l1.passShort;
@@ -548,6 +681,7 @@ function gateChecksFor(
   const l2Passed = isLong ? l2.longPassed : l2.shortPassed;
   return [
     { label: "15m veto izin veriyor", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
+    { label: `Hacim vetosu yok (RVOL ≥ ${RVOL_VETO_MIN})`, ok: !volVeto.active, detail: volVeto.rvol == null ? "veri yok" : `RVOL ${volVeto.rvol.toFixed(2)}×` },
     { label: "5m trend (EMA21 konumu + RSI/MACD)", ok: l1Pass, detail: l1Pass ? "geçti" : "geçmedi" },
     { label: "5m filtre (en az 2/3 oy)", ok: l2Pass, detail: `${l2Passed}/3` },
     { label: `5m rejim ${side} aktif`, ok: regime.side === side, detail: regime.side === "NONE" ? "yok" : regime.side },
@@ -564,6 +698,13 @@ export interface GenerateInput {
   session: SessionInfo;
   nowSec: number;
   hasOpenPosition?: boolean;
+  /**
+   * Çok günlü 5m geçmişi (RVOL baseline için) — bugünkü seans HARİÇ olmak
+   * üzere en az RVOL_MIN_SAMPLE_DAYS gün içermeli. Verilmezse RVOL hiçbir
+   * yerde hesaplanamaz (`null` kalır) ve o katmanlar sessizce devre dışı
+   * kalır — uydurma değer üretilmez.
+   */
+  m5History?: Bar[];
 }
 
 export interface GenerateOutput {
@@ -591,17 +732,33 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const m1Ema = ema(m1Closes, M1_EMA_PERIOD);
   const m1Rsi7 = rsi(m1Closes, M1_RSI_PERIOD);
 
+  // ── RVOL: her 5m bar için, AYNI SAAT DİLİMİNİN geçmiş günlerdeki ortalamasına
+  //    göre hacim oranı (bkz. dosya başlığı "HACİM VETOSU") ─────────────────
+  const rvolBaseline = input.m5History?.length ? buildRvolBaseline(input.m5History, session.date) : EMPTY_RVOL_BASELINE;
+  const m5Rvol: (number | null)[] = new Array(m5.length);
+  const m5RvolDays: number[] = new Array(m5.length);
+  for (let j = 0; j < m5.length; j++) {
+    const { rvol, sampleDays } = rvolOf(rvolBaseline, m5[j]);
+    m5Rvol[j] = rvol;
+    m5RvolDays[j] = sampleDays;
+  }
+
   // ── Rejim zaman çizelgesi: her kapalı 5m barda yeniden değerlendirilir,
-  //    Layer 1+2 geçerli kaldığı sürece AKTİF kalan bir DURUM olarak ──────
+  //    Layer 1+2 geçerli kaldığı sürece AKTİF kalan bir DURUM olarak.
+  //    RVOL vetosu (<0.8) 15m veto ile aynı kategoride — oylamaya girmeden
+  //    rejimi doğrudan kapatır ─────────────────────────────────────────
   const regimeTimeline: RegimeState[] = new Array(m5.length);
+  const volVetoTimeline: VolumeVetoRead[] = new Array(m5.length);
   {
     let side: RegimeSide = "NONE";
     let since: number | null = null;
     for (let j = 0; j < m5.length; j++) {
       const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, j);
-      const l2 = layer2At(m5, m5Atr, j);
-      const passLong = l1.passLong && l2.passLong;
-      const passShort = l1.passShort && l2.passShort;
+      const l2 = layer2At(m5, m5Atr, m5Rvol[j], j);
+      const volVeto = volumeVetoOf(m5Rvol[j], m5RvolDays[j]);
+      volVetoTimeline[j] = volVeto;
+      const passLong = l1.passLong && l2.passLong && !volVeto.active;
+      const passShort = l1.passShort && l2.passShort && !volVeto.active;
 
       if (side === "LONG" && passLong) {
         // aktif kalır
@@ -616,7 +773,9 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       }
       regimeTimeline[j] = {
         side, since,
-        note: side === "NONE" ? "Rejim yok — Layer 1+2 ikisi de geçmedi" : `${side} rejimi ${since ? nyParts(since).hhmm + " ET'den beri" : ""} aktif`,
+        note: side === "NONE"
+          ? volVeto.active ? `Rejim yok — ${volVeto.note}` : "Rejim yok — Layer 1+2 ikisi de geçmedi"
+          : `${side} rejimi ${since ? nyParts(since).hhmm + " ET'den beri" : ""} aktif`,
       };
     }
   }
@@ -646,15 +805,17 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     if (!l3.fired) continue;
 
     const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
-    const l2 = layer2At(m5, m5Atr, m5Cursor);
+    const l2 = layer2At(m5, m5Atr, m5Rvol[m5Cursor], m5Cursor);
+    const rvol = m5Rvol[m5Cursor];
     const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
-    const { total, parts } = buildConfidence(l1, l2, l3, side);
+    const contractType: ContractType = strong && rvol != null && rvol > RVOL_STRONG_MIN ? "S" : strong ? "A" : "B";
+    const { total, parts } = buildConfidence(l1, l2, l3, side, rvol);
 
     candidates.push({
       time: bar.time,
       side,
       spot: bar.close,
-      contractType: strong ? "A" : "B",
+      contractType,
       confidence: total,
       confidenceParts: parts,
       reasoning:
@@ -667,8 +828,12 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   // ── Canlı okuma (son kapalı mumlar üzerinden, panel için) ────────
   const lastM1Idx = m1.length - 1;
   const lastVeto = m15VetoAt(m15, m15Ema, m15Atr, m15Cursor);
+  const lastRvol = m5Cursor >= 0 ? m5Rvol[m5Cursor] : null;
+  const lastVolVeto: VolumeVetoRead = m5Cursor >= 0 && volVetoTimeline[m5Cursor]
+    ? volVetoTimeline[m5Cursor]
+    : volumeVetoOf(null, 0);
   const lastL1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
-  const lastL2 = layer2At(m5, m5Atr, m5Cursor);
+  const lastL2 = layer2At(m5, m5Atr, lastRvol, m5Cursor);
   const lastRegime: RegimeState = m5Cursor >= 0 && regimeTimeline[m5Cursor] ? regimeTimeline[m5Cursor] : { side: "NONE", since: null, note: "Rejim için 5m verisi yetersiz" };
   const lastL3Long = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "LONG");
   const lastL3Short = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "SHORT");
@@ -686,7 +851,9 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   let confidenceParts: ConfidencePart[] = [{ label: "Taban (rejim yok)", value: 30 }];
   let reasoning = "5m rejim aranıyor — Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmedi.";
   let stateLabel = "İZLEMEDE";
-  let nextStep = "5m kapanışında Layer 1 (trend) + Layer 2 (filtre) ikisinin de geçmesi bekleniyor.";
+  let nextStep = lastVolVeto.active
+    ? `Hacim vetosu aktif: ${lastVolVeto.note}. Rejim aranmıyor.`
+    : "5m kapanışında Layer 1 (trend) + Layer 2 (filtre) ikisinin de geçmesi bekleniyor.";
 
   if (input.hasOpenPosition) {
     state = "IN_POSITION";
@@ -720,14 +887,15 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   }
 
   const gateStatus: GateStatus = {
-    long: gateChecksFor(lastVeto, lastL1, lastL2, lastRegime, lastL3Long, "LONG"),
-    short: gateChecksFor(lastVeto, lastL1, lastL2, lastRegime, lastL3Short, "SHORT"),
+    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL2, lastRegime, lastL3Long, "LONG"),
+    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL2, lastRegime, lastL3Short, "SHORT"),
   };
 
   return {
     candidates,
     read: {
       veto: lastVeto,
+      volumeVeto: lastVolVeto,
       layer1: lastL1,
       layer2: lastL2,
       regime: lastRegime,
@@ -1038,7 +1206,7 @@ export function filterOverlapping(
   const recent: number[] = [];
 
   for (const c of candidates) {
-    const strike = atmStrike(c.spot);
+    const strike = strikeFor(c.spot, c.side, c.contractType);
     if (usedContracts.has(`${strike}:${c.side}`)) {
       contractReuseBlocked.push({ time: c.time, side: c.side, strike });
       continue;
@@ -1092,6 +1260,7 @@ export const EVENT_STYLE: Record<EventKind, { color: string; shape: "arrowUp" | 
 };
 
 export const CONTRACT_TONE: Record<ContractType, string> = {
+  S: "#facc15",
   A: "#38bdf8",
   B: "#a855f7",
 };

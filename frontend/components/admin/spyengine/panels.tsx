@@ -17,7 +17,7 @@ import {
   type PositionState, type EngineEvent,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
   type GateCheck, type Side, type RegimeSide, type RegimeState,
-  type M15VetoRead, type Layer1Read, type Layer2Read, type Layer3Read,
+  type M15VetoRead, type VolumeVetoRead, type Layer1Read, type Layer2Read, type Layer3Read,
 } from "@/lib/spyengine/strategy";
 
 /** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
@@ -715,10 +715,11 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
 }
 
 export function LayerTable({
-  veto, layer1, layer2, regime, layer3,
+  veto, volumeVeto, layer1, layer2, regime, layer3,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
 }: {
   veto: M15VetoRead;
+  volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
   layer2: Layer2Read;
   regime: RegimeState;
@@ -771,6 +772,13 @@ export function LayerTable({
         value={veto.direction === "NEUTRAL" ? "NÖTR" : `${veto.direction} serbest`}
         note={veto.note}
         t={vetoTone}
+      />
+      <LayerRow
+        tf="RVOL"
+        tag="HACİM VETOSU — ikisini de engelleyebilir"
+        value={volumeVeto.active ? "VETO AKTİF" : volumeVeto.rvol == null ? "veri yok" : `RVOL ${volumeVeto.rvol.toFixed(2)}×`}
+        note={volumeVeto.note}
+        t={volumeVeto.active ? "text-[#ef4444]" : volumeVeto.rvol == null ? "text-slate-500" : "text-slate-300"}
       />
       <LayerRow
         tf="5m"
@@ -997,10 +1005,12 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
           </marker>
         </defs>
 
-        {/* 0 — 15m Veto */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · 15m VETO — yön izni, karar üretmez</text>
-        <rect x="14" y="34" width="952" height="40" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="34" y="58" fill="#e2e8f0" fontSize="10.5" fontWeight="600">LONG yasak eğer 15m kapanış &lt; EMA21 · SHORT yasak eğer 15m kapanış &gt; EMA21</text>
+        {/* 0 — 15m Veto + RVOL Vetosu */}
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · VETOLAR — yön izni / katılım izni, karar üretmez</text>
+        <rect x="14" y="34" width="466" height="40" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="247" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">15m: LONG yasak &lt; EMA21 · SHORT yasak &gt; EMA21</text>
+        <rect x="500" y="34" width="466" height="40" rx="6" fill="rgba(239,68,68,0.06)" stroke="#7f1d1d" />
+        <text x="733" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">RVOL &lt; 0.8: İKİ YÖNÜ DE engelleyen ikili veto (oylamaya girmez)</text>
 
         {/* 1 — 5m Rejim (ana karar) */}
         <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 5m REJİM (ana karar katmanı) — Layer 1 + Layer 2 birlikte gerekli</text>
@@ -1009,11 +1019,11 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <text x="247" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 1 — TREND</text>
         <text x="247" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(5m) vs EMA21 + (RSI14 yönlü VEYA MACD_hist yönlü)</text>
         <text x="247" y="160" textAnchor="middle" fill="#64748b" fontSize="9">kapanmış 5m mum, non-repainting</text>
-        <text x="247" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de → Güçlü kurulum (Kontrat A)</text>
+        <text x="247" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de + RVOL&gt;2.0 → Süper (S) · ikisi de → Güçlü (A)</text>
 
         <rect x="500" y="106" width="466" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
         <text x="733" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 2 — FİLTRE (3&apos;te 2 oylama)</text>
-        <text x="733" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Hacim &gt; ort.×1.0 · Gövde &gt; ATR×0.40 · Karşı gölge &lt; Gövde×0.40</text>
+        <text x="733" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">RVOL ≥ 1.2 (aynı saat dilimi ort.) · Gövde &gt; ATR×0.40 · Karşı gölge &lt; Gövde×0.40</text>
         <text x="733" y="160" textAnchor="middle" fill="#64748b" fontSize="9">en az 2/3 sağlanmalı</text>
         <text x="733" y="174" textAnchor="middle" fill="#64748b" fontSize="9">Layer 1+2 geçerli kaldığı sürece REJİM AKTİF kalır</text>
 
@@ -1247,6 +1257,7 @@ export function rsiNote(v: number | null, prev: number | null): string {
 
 export interface RegimeBlock {
   veto: M15VetoRead;
+  volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
   layer2: Layer2Read;
   current: RegimeState;
@@ -1266,14 +1277,16 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>Rejim verisi bekleniyor…</div>
     );
   }
-  const { current, veto } = block;
+  const { current, veto, volumeVeto } = block;
   const color = regimeColor(current.side);
   const label = REGIME_LABEL[current.side];
   const arrow = current.side === "LONG" ? "▲" : current.side === "SHORT" ? "▼" : "?";
   const vetoBlocks = current.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== current.side;
 
   const reminder =
-    current.side === "NONE"
+    volumeVeto.active
+      ? `Hacim vetosu aktif — ${volumeVeto.note}`
+      : current.side === "NONE"
       ? "Rejim yok — 5m Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmeden yeni giriş üretilmez"
       : vetoBlocks
       ? "15m veto bu yönü engelliyor — rejim aktif ama giriş üretilmiyor"
@@ -1298,6 +1311,12 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
         {vetoBlocks && (
           <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-amber-300" style={{ backgroundColor: "#eab30822" }}>
             15m veto engelliyor
+          </span>
+        )}
+
+        {volumeVeto.active && (
+          <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-red-300" style={{ backgroundColor: "#ef444422" }}>
+            ⛔ Hacim vetosu (RVOL {volumeVeto.rvol?.toFixed(2)}×)
           </span>
         )}
 

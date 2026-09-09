@@ -284,6 +284,8 @@ export const TTL = {
   chain: 60000,
   quotes: 12000,
   overnight: 30000,
+  /** RVOL baseline'ı gün içinde değişmez — nadiren yenilenir (istek başına maliyet yok) */
+  m5History: 6 * 60 * 60 * 1000,
 };
 
 /** Regular Trading Hours (09:30–16:00 ET, hafta içi) — "borsa açık" */
@@ -343,6 +345,16 @@ export async function fetchSpyBundle(): Promise<SpyBundle> {
     sanitized: c1.sanitized + c5.sanitized + c15.sanitized,
     errors,
   };
+}
+
+/**
+ * RVOL baseline için çok günlü 5m geçmişi. Yahoo'nun 5m aralığı için izin
+ * verdiği azami pencere ("60d") istenir — bugünkü canlı akıştan (fetchChart
+ * "5m"/"5d") AYRI bir istek: farklı `range`, farklı önbellek anahtarı, çok
+ * uzun TTL (bkz. TTL.m5History) — hot polling yoluna ek yük bindirmez.
+ */
+export async function fetchSpy5mHistory(): Promise<ChartFetch> {
+  return fetchChart("SPY", "5m", "60d", true, TTL.m5History);
 }
 
 // ── Ticker şeridi ─────────────────────────────────────────────────

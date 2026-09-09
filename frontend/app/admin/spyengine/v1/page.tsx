@@ -52,7 +52,7 @@ import {
 } from "@/lib/spyengine/core";
 import type {
   EngineEvent, PositionState, ContractType, ConfidencePart, EngineState, GateStatus,
-  RegimeState, M15VetoRead, Layer1Read, Layer2Read, Layer3Read,
+  RegimeState, M15VetoRead, VolumeVetoRead, Layer1Read, Layer2Read, Layer3Read,
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 
@@ -60,6 +60,7 @@ import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 
 interface EngineRead {
   veto: M15VetoRead;
+  volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
   layer2: Layer2Read;
   regime: RegimeState;
@@ -861,7 +862,8 @@ export default function SpyEngineCommandCenter() {
             <div className="flex flex-col gap-1">
               {data && (
                 <LayerTable
-                  veto={data.engine.veto} layer1={data.engine.layer1} layer2={data.engine.layer2}
+                  veto={data.engine.veto} volumeVeto={data.engine.volumeVeto}
+                  layer1={data.engine.layer1} layer2={data.engine.layer2}
                   regime={data.engine.regime} layer3={data.engine.layer3}
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}
@@ -925,11 +927,14 @@ export default function SpyEngineCommandCenter() {
               <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü (kapalı bar) → sabit stop (anlık, mum içi en kötü seviye) → trailing kilit (kapalı bar).</li>
               <li>Stop eşiği −%25 ile −%30 arasında kalibre edilir; mevcut sabit −%28, mum kapanışı değil mum içi en kötü seviyeyle kontrol edilir.</li>
               <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>
-              <li>Strike seçimi: RSI VE MACD ikisi de aynı yönde → Güçlü kurulum (Kontrat A, ATM ±1, 0DTE); yalnızca biri → Orta kurulum (Kontrat B, ATM ±0.5, 0DTE/1DTE).</li>
+              <li>Strike seçimi: RSI VE MACD ikisi de + RVOL&gt;2.0 → Süper Güçlü (Kontrat S, ATM+2); RSI VE MACD ikisi de → Güçlü (Kontrat A, ATM+1); yalnızca biri → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
+              <li>RVOL (aynı saat diliminin geçmiş günlerdeki ortalamasına göre hacim), Katman 2&apos;nin hacim bileşeninin YERİNE geçer — basit &quot;son 20 mum ortalaması&quot; DEĞİL, açılış/kapanış patlaması ile öğlen durgunluğunu karıştırmaz.</li>
+              <li>RVOL &lt; 0.8: iki yönü de engelleyen ayrı bir VETO (2/3 oylamaya gömülmez — diğer 2 kriter geçse bile giriş engellenir). RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
               <li>Aynı anda tek pozisyon; kapanıştan sonra düzeltme mumu beklenir; saatte en fazla 3 giriş; aynı kontrata (strike+yön) aynı gün ikinci giriş engellenir.</li>
               <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
-              <li>Kapı Durumu paneli LONG/SHORT için tüm katmanları (15m veto, 5m trend, 5m filtre, 5m rejim, 1m yapı/konfirmasyon) tek listede gösteriyor.</li>
-              <li>Motor Durumu paneli 15m/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
+              <li>Kapı Durumu paneli LONG/SHORT için tüm katmanları (15m veto, hacim vetosu, 5m trend, 5m filtre, 5m rejim, 1m yapı/konfirmasyon) tek listede gösteriyor.</li>
+              <li>Motor Durumu paneli 15m/RVOL/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
+              <li>1m hacim konfirmasyonunda &quot;yetersiz geçmiş&quot; (henüz 10 kapalı mum yok) ile &quot;ortalama hacim 0&quot; (Yahoo 1m veri boşluğu) ayrı ayrı raporlanıyor — ikisi de aynı &quot;veri yok&quot; etiketiyle gizlenmiyor.</li>
               <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">

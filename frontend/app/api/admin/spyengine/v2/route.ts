@@ -41,11 +41,11 @@ import {
   runLifecycle,
   filterOverlapping,
   buildOptionSymbol,
-  atmStrike,
+  strikeFor,
   type PositionState,
   type EngineEvent,
 } from "@/lib/spyengine/strategy";
-import { fetchSpyBundle, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
+import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -128,7 +128,10 @@ export async function GET(req: NextRequest) {
   const replayDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : null;
 
   try {
-    const bundle = await fetchSpyBundle();
+    const [bundle, rvolHistory] = await Promise.all([
+      fetchSpyBundle(),
+      fetchSpy5mHistory().catch(() => ({ bars: [] as Bar[] })),
+    ]);
     const liveSession = detectSession(bundle.m1, nowSec);
     const session: typeof liveSession = replayDate && replayDate !== liveSession.date
       ? {
@@ -159,6 +162,7 @@ export async function GET(req: NextRequest) {
       m15: m15All,
       session,
       nowSec: evalNow,
+      m5History: rvolHistory.bars,
     });
 
     // ── V5.0: rejim (TREND/SIKIŞMA) motoru artık karar mekanizmasının
@@ -194,7 +198,7 @@ export async function GET(req: NextRequest) {
       exitTime: scans[i].signal?.time ?? null,
       // V4.1 (B.3): saf/senkron hesap — ağ isteği gerektirmez, filterOverlapping
       // her adayın kendi "kontrat başına tek deneme" kontrolünü buradan yapar.
-      strike: atmStrike(c.spot),
+      strike: strikeFor(c.spot, c.side, c.contractType),
     }));
     const scanByTime = new Map(gen.candidates.map((c, i) => [`${c.time}:${c.side}:${c.contractType}`, scans[i]]));
 
@@ -210,7 +214,7 @@ export async function GET(req: NextRequest) {
 
         const exit = scanByTime.get(`${c.time}:${c.side}:${c.contractType}`)!;
         const isCall = c.side === "LONG";
-        const strike = atmStrike(c.spot);
+        const strike = strikeFor(c.spot, c.side, c.contractType);
         const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
         const series = await fetchOptionSeries(contract);
         // V4 ikinci gecis: sikisma rejiminin hedef/stop kurallari PRIM
@@ -378,6 +382,7 @@ export async function GET(req: NextRequest) {
         // soguma -- karar mekanizmasinin GERCEK durumu (gen.read icinden).
         regime: {
           veto: gen.read.veto,
+          volumeVeto: gen.read.volumeVeto,
           layer1: gen.read.layer1,
           layer2: gen.read.layer2,
           current: gen.read.regime,
