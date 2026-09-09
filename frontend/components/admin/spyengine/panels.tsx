@@ -1038,7 +1038,7 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <path d="M480 250 L500 250" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
         <rect x="500" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
         <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">CONFIRMATION (en az biri) → GİRİŞ</text>
-        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü VEYA Hacim &gt; ort.×1.3</text>
+        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü VEYA 5m RVOL ≥ 1.0 (1m hacim yerine)</text>
         <text x="733" y="270" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR} giriş</text>
 
         {/* 3 — Çıkış */}

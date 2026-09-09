@@ -921,7 +921,7 @@ export default function SpyEngineCommandCenter() {
               <li>Rejim, açıldıktan sonra tek bir bara değil bir DURUMA bağlıdır: her yeni kapanan 5m barda Layer 1+2 yeniden kontrol edilir, biri bile düşerse rejim hemen kapanır.</li>
               <li>1m artık karar verme zamanı değil — ana zaman dilimi 5m&apos;dir. 1m yalnızca ZAMANLAMA sağlar: rejim aktifken her kapalı 1m barda bağımsız kontrol edilir.</li>
               <li>1m STRUCTURE (EMA21 konumu + önceki 2 kapalı mumun kırılımı) olmadan sadece RSI7 veya sadece hacimle giriş açılmıyor.</li>
-              <li>1m CONFIRMATION (RSI7 yönlü VEYA hacim &gt; ort.×1.3) en az biri sağlanmadan giriş açılmıyor.</li>
+              <li>1m CONFIRMATION (RSI7 yönlü VEYA 5m RVOL ≥ 1.0) en az biri sağlanmadan giriş açılmıyor — hacim bacağı 1m DEĞİL 5m RVOL&apos;a bakar (Yahoo&apos;nun 1m hacmi sık sık null döner).</li>
               <li>Zaman filtresi (açılış/öğlen/kapanış hariç tutma) UYGULANMIYOR — RTH içinde (09:30–16:00 ET) her an giriş üretilebilir.</li>
               <li>15:45 ET zorunlu 0DTE kapaması, diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
               <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü (kapalı bar) → sabit stop (anlık, mum içi en kötü seviye) → trailing kilit (kapalı bar).</li>
@@ -934,7 +934,7 @@ export default function SpyEngineCommandCenter() {
               <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
               <li>Kapı Durumu paneli LONG/SHORT için tüm katmanları (15m veto, hacim vetosu, 5m trend, 5m filtre, 5m rejim, 1m yapı/konfirmasyon) tek listede gösteriyor.</li>
               <li>Motor Durumu paneli 15m/RVOL/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
-              <li>1m hacim konfirmasyonunda &quot;yetersiz geçmiş&quot; (henüz 10 kapalı mum yok) ile &quot;ortalama hacim 0&quot; (Yahoo 1m veri boşluğu) ayrı ayrı raporlanıyor — ikisi de aynı &quot;veri yok&quot; etiketiyle gizlenmiyor.</li>
+              <li>1m hacim konfirmasyonu tamamen 5m RVOL&apos;a taşındı (eşik bilinçli olarak gevşek — 1.0, Katman 2&apos;nin 1.2 eşiğinden düşük — çünkü piyasa son dönemde düşük hacimle hareket ediyor); 1m hacim verisindeki Yahoo boşluğu artık hiçbir kontrolü etkilemiyor.</li>
               <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">

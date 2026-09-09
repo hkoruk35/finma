@@ -51,7 +51,13 @@
  * ── KATMAN 3 — 1m TETİK (zamanlama, sadece rejim aktifken) ──────────
  *   STRUCTURE (zorunlu): Close>EMA21(1m) AND Close > önceki 2 KAPALI 1m
  *   mumun en yükseği (LONG) / en düşüğü (SHORT).
- *   CONFIRMATION (en az biri): RSI7 yönlü VEYA Hacim > Avg10×1.3.
+ *   CONFIRMATION (en az biri): RSI7 yönlü VEYA 5m RVOL ≥ RVOL_M1_CONFIRM_MIN.
+ *   Hacim bacağı BİLİNÇLİ OLARAK 1m DEĞİL 5m RVOL'a bakar — Yahoo'nun 1m
+ *   hacmi sık sık null/0 döner (bkz. HACİM VETOSU notu), bu da "1m hacim >
+ *   ortalama" kontrolünü pratikte hep "veri yok"a düşürüyordu. Eşik ayrıca
+ *   Katman 2'nin katılım eşiğinden (1.2) BİLİNÇLİ OLARAK daha gevşek (1.0):
+ *   piyasa son dönemde düşük hacimle hareket ediyor, sert bir eşik bu OR
+ *   dalını sürekli devre dışı bırakırdı.
  *
  * ── ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş konfirmasyonlu/yavaş,
  *   çıkış hızlı) ───────────────────────────────────────────────────────
@@ -152,8 +158,14 @@ export const M1_EMA_PERIOD = 21;
 /** Spec RSI7 diyor — eski katmanların RSI14'ünden BİLİNÇLİ OLARAK farklı */
 export const M1_RSI_PERIOD = 7;
 export const M1_STRUCTURE_LOOKBACK = 2;
-export const M1_VOL_AVG_PERIOD = 10;
-export const M1_VOL_MULT = 1.3;
+/**
+ * 1m CONFIRMATION'ın hacim bacağı 5m RVOL'a bakar (1m hacim yerine — bkz.
+ * layer3At). Eşik BİLİNÇLİ OLARAK RVOL_PARTICIPATION_MIN'den (1.2, Katman
+ * 2'nin oylaması) daha gevşek: piyasa son dönemde düşük hacimle hareket
+ * ediyor, bu OR dalının sert bir eşikle sürekli devre dışı kalmasını
+ * istemiyoruz — RSI7 zaten diğer dal, ikisi birden gereksiz sıkılaştırır.
+ */
+export const RVOL_M1_CONFIRM_MIN = 1.0;
 
 /** Saatte azami giriş (kayan 60 dakikalık pencere) — V4'ten korundu */
 export const MAX_ENTRIES_PER_HOUR = 3;
@@ -380,15 +392,6 @@ function candleDir(b: Bar): "UP" | "DOWN" | "NONE" {
   return "NONE";
 }
 
-/** `uptoExclusive` mumundan ÖNCEKİ `n` mumun ortalama hacmi (bakış-ileri sızıntısı yok) */
-function avgVolume(bars: Bar[], uptoExclusive: number, n: number): number | null {
-  const start = Math.max(0, uptoExclusive - n);
-  if (start >= uptoExclusive) return null;
-  const slice = bars.slice(start, uptoExclusive);
-  if (!slice.length) return null;
-  return slice.reduce((s, b) => s + (b.volume || 0), 0) / slice.length;
-}
-
 const rising = (v: number | null, p: number | null) => v != null && p != null && v > p;
 const falling = (v: number | null, p: number | null) => v != null && p != null && v < p;
 
@@ -572,7 +575,7 @@ function layer2At(m5: Bar[], m5Atr: (number | null)[], rvol: number | null, idx:
 // ── KATMAN 3 — 1m TETİK (zamanlama) ─────────────────────────────────
 
 function layer3At(
-  m1: Bar[], m1Ema: (number | null)[], m1Rsi7: (number | null)[], idx: number, side: Side
+  m1: Bar[], m1Ema: (number | null)[], m1Rsi7: (number | null)[], idx: number, side: Side, rvol: number | null
 ): Layer3Read {
   if (idx < M1_STRUCTURE_LOOKBACK) {
     return { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "1m verisi yetersiz" };
@@ -591,20 +594,17 @@ function layer3At(
 
   const r = m1Rsi7[idx], rp = m1Rsi7[idx - 1];
   const rsiOk = isLong ? r != null && r > 50 && rising(r, rp) : r != null && r < 50 && falling(r, rp);
-  const avgVol = avgVolume(m1, idx, M1_VOL_AVG_PERIOD);
-  // avgVol === 0 GERÇEK bir ölçüm (Yahoo'nun 1m hacmi genellikle seans dışı/
-  // bazı dakikalarda null döndürmesi yüzünden), avgVol === null ise YETERSİZ
-  // GEÇMİŞ (henüz 10 kapalı mum yok) — ikisi ayrı ayrı raporlanır, "veri yok"
-  // ikisine de aynı etiketle basılırsa hangisinin gerçekten sorun olduğu
-  // (pipeline mi, yoksa henüz erken mi) panelde görünmez olurdu.
-  const volRatio = avgVol != null && avgVol > 0 ? (bar.volume || 0) / avgVol : null;
-  const volOk = volRatio != null && volRatio > M1_VOL_MULT;
+  // Hacim konfirmasyonu 1m DEĞİL 5m RVOL üzerinden kontrol edilir: Yahoo'nun
+  // 1m hacmi (özellikle sabah erken/seyrek işlem dakikalarında) sık sık
+  // null/0 döndürüyor, bu da "Hacim > ort.×N" kontrolünü pratikte hep
+  // "veri yok"a düşürüyordu. 5m RVOL (bkz. Katman 2) zaten hesaplanıyor ve
+  // Yahoo'nun 5m hacim verisi 1m'ye göre çok daha güvenilir. Eşik BİLİNÇLİ
+  // OLARAK gevşek (RVOL_M1_CONFIRM_MIN, Katman 2'nin 1.2 eşiğinden düşük):
+  // piyasa son dönemde genel olarak düşük hacimle hareket ediyor, sert bir
+  // eşik bu OR dalını sürekli devre dışı bırakırdı.
+  const volOk = rvol != null && rvol >= RVOL_M1_CONFIRM_MIN;
   const confirmationOk = rsiOk || volOk;
-  const volDetail =
-    avgVol == null ? "yetersiz geçmiş"
-    : avgVol === 0 ? "ort. hacim 0 (Yahoo 1m veri boşluğu)"
-    : volRatio != null ? `ort.×${volRatio.toFixed(2)}`
-    : "veri yok";
+  const volDetail = rvol == null ? "RVOL verisi yok" : `5m RVOL ${rvol.toFixed(2)}×`;
 
   const checks: GateCheck[] = [
     {
@@ -623,7 +623,7 @@ function layer3At(
       detail: r == null ? "veri yok" : r.toFixed(0),
     },
     {
-      label: `Hacim > ort.×${M1_VOL_MULT}`,
+      label: `5m RVOL ≥ ${RVOL_M1_CONFIRM_MIN} (1m hacim yerine — Yahoo 1m veri boşluğu)`,
       ok: volOk,
       detail: volDetail,
     },
@@ -634,7 +634,7 @@ function layer3At(
     note: !structureOk
       ? "Yapı kırılımı yok — EMA21 konumu ve önceki 2 mum kırılımı ikisi de gerekli"
       : !confirmationOk
-      ? "Yapı kırıldı, konfirmasyon (RSI7 veya hacim) bekleniyor"
+      ? "Yapı kırıldı, konfirmasyon (RSI7 veya 5m RVOL) bekleniyor"
       : `1m tetik ateşlendi (${side})`,
   };
 }
@@ -801,12 +801,12 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     if (veto.direction !== regime.side) continue; // 15m veto engelliyor
 
     const side = regime.side;
-    const l3 = layer3At(m1, m1Ema, m1Rsi7, i, side);
+    const rvol = m5Rvol[m5Cursor];
+    const l3 = layer3At(m1, m1Ema, m1Rsi7, i, side, rvol);
     if (!l3.fired) continue;
 
     const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
-    const l2 = layer2At(m5, m5Atr, m5Rvol[m5Cursor], m5Cursor);
-    const rvol = m5Rvol[m5Cursor];
+    const l2 = layer2At(m5, m5Atr, rvol, m5Cursor);
     const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
     const contractType: ContractType = strong && rvol != null && rvol > RVOL_STRONG_MIN ? "S" : strong ? "A" : "B";
     const { total, parts } = buildConfidence(l1, l2, l3, side, rvol);
@@ -835,8 +835,8 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const lastL1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
   const lastL2 = layer2At(m5, m5Atr, lastRvol, m5Cursor);
   const lastRegime: RegimeState = m5Cursor >= 0 && regimeTimeline[m5Cursor] ? regimeTimeline[m5Cursor] : { side: "NONE", since: null, note: "Rejim için 5m verisi yetersiz" };
-  const lastL3Long = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "LONG");
-  const lastL3Short = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "SHORT");
+  const lastL3Long = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "LONG", lastRvol);
+  const lastL3Short = layer3At(m1, m1Ema, m1Rsi7, lastM1Idx, "SHORT", lastRvol);
   const lastL3ForRegime = lastRegime.side === "SHORT" ? lastL3Short : lastL3Long;
 
   const lastCandidate =
