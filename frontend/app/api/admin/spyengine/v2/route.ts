@@ -47,6 +47,8 @@ import {
   type EngineEvent,
 } from "@/lib/spyengine/strategy";
 import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
+import { realizedVolPerBar, buildSeasonalityProfile, seasonalityMultiplierAt, EMPTY_SEASONALITY } from "@/lib/spyengine/volatility";
+import { runMonteCarlo, seedFromBar } from "@/lib/spyengine/monteCarlo";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -346,6 +348,50 @@ export async function GET(req: NextRequest) {
 
     const prevClose = bundle.previousClose;
 
+    // ── Faz 1 (tasks/active/013): Monte Carlo 5m fiyat yolu ──────────
+    // Girdi SADECE gerçek ölçümden gelir: gerçekleşen volatilite (VIX
+    // DEĞİL — bkz. volatility.ts başlığı) × gün-içi mevsimsellik (RVOL
+    // baseline'ıyla AYNI çok günlü 5m veri seti, ek istek yok). Sigma
+    // hesaplanamıyorsa (yetersiz geçmiş) `monteCarlo: null` döner —
+    // uydurma olasılık üretilmez.
+    const m5ClosedForVol = closedBars(m5All, 5, evalNow);
+    const sigmaRaw = realizedVolPerBar(m5ClosedForVol);
+    const seasonalityProfile = rvolHistory.bars.length
+      ? buildSeasonalityProfile(rvolHistory.bars, session.date)
+      : EMPTY_SEASONALITY;
+    const seasonality = seasonalityMultiplierAt(seasonalityProfile, evalNow);
+    const sigmaAdj = sigmaRaw != null ? sigmaRaw * seasonality.multiplier : null;
+    const lastM5ForSeed = m5ClosedForVol.length ? m5ClosedForVol[m5ClosedForVol.length - 1] : null;
+
+    const monteCarlo = sigmaAdj != null && price != null && lastM5ForSeed
+      ? (() => {
+          const steps = 6; // 6 × 5m = 30 dakika ufuk
+          const nSims = 3000;
+          const seed = seedFromBar(lastM5ForSeed.time, price);
+          const mc = runMonteCarlo({ spot: price, sigmaPerStep: sigmaAdj, steps, nSims, seed });
+          const center = Math.round(price);
+          const levels = [];
+          for (let off = -3; off <= 3; off++) {
+            const lvl = center + off;
+            levels.push({
+              price: lvl,
+              touchProbability: r2(mc.touchProbability(lvl) * 100),
+              densityPct: r2(mc.densityInBand(lvl - 0.5, lvl + 0.5) * 100),
+            });
+          }
+          return {
+            sigmaPerBarRaw: sigmaRaw,
+            seasonalityMultiplier: r2(seasonality.multiplier),
+            seasonalitySampleDays: seasonality.sampleDays,
+            sigmaPerBarAdj: sigmaAdj,
+            horizonMin: mc.horizonMin,
+            nSims,
+            asOfBarTime: lastM5ForSeed.time,
+            levels,
+          };
+        })()
+      : null;
+
     return NextResponse.json(
       {
         ok: true,
@@ -383,6 +429,10 @@ export async function GET(req: NextRequest) {
           prevClose,
           nowSec: evalNow,
         }),
+        // Faz 1 (tasks/active/013) -- 5m Monte Carlo (erisim + yogunluk
+        // olasiliklari ayri ayri, birbirine donusturulemez). Deneysel --
+        // Karar Sayfasi sekmesi henuz yok, bu alan sadece dogrulama icin.
+        monteCarlo,
         // V4 gun kapanis tahmini (spec 4) -- bant genisligi olculmus
         // kantilden geliyor, guven o bandin tanim geregi isabet orani
         forecast: forecastClose({

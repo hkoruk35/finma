@@ -104,6 +104,17 @@ interface StreamResponse {
   forecast?: CloseForecast | null;
   /** V4.1 -- bugun ayni kontrata (strike+yon) ikinci kez girmek isteyip reddedilen adaylar */
   contractReuseBlocked?: { time: number; side: "LONG" | "SHORT"; strike: number }[];
+  /** Faz 1 (tasks/active/013) -- 5m Monte Carlo, deneysel dogrulama alani */
+  monteCarlo?: {
+    sigmaPerBarRaw: number | null;
+    seasonalityMultiplier: number;
+    seasonalitySampleDays: number;
+    sigmaPerBarAdj: number;
+    horizonMin: number;
+    nSims: number;
+    asOfBarTime: number;
+    levels: { price: number; touchProbability: number; densityPct: number }[];
+  } | null;
 }
 
 type Tab = "command" | "signals" | "context" | "ohlc" | "compare" | "forecast";
@@ -896,6 +907,47 @@ export default function SpyEngineCommandCenter() {
               </Panel>
             </div>
           </div>
+
+          {/* Faz 1 (tasks/active/013) — Monte Carlo doğrulama, Karar Sayfası henüz yok */}
+          <Disclosure title="Faz 1 — 5m Monte Carlo (deneysel, Karar Sayfası ön izleme)">
+            {!data?.monteCarlo ? (
+              <div className="text-[11px] text-slate-500">
+                Sigma hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
+                  <span>Ham sigma (5m): <b className="text-slate-300">{data.monteCarlo.sigmaPerBarRaw == null ? "veri yok" : `%${(data.monteCarlo.sigmaPerBarRaw * 100).toFixed(3)}`}</b></span>
+                  <span>Mevsimsellik çarpanı: <b className="text-slate-300">{data.monteCarlo.seasonalityMultiplier.toFixed(2)}×</b> ({data.monteCarlo.seasonalitySampleDays} gün)</span>
+                  <span>Ayarlı sigma: <b className="text-slate-300">%{(data.monteCarlo.sigmaPerBarAdj * 100).toFixed(3)}</b></span>
+                  <span>Ufuk: <b className="text-slate-300">{data.monteCarlo.horizonMin} dk</b> · {data.monteCarlo.nSims} yol</span>
+                </div>
+                <table className="w-full text-[10px]">
+                  <thead>
+                    <tr className="border-b border-[#1c2635] text-slate-500">
+                      <th className="py-1 text-left font-semibold">Seviye</th>
+                      <th className="py-1 text-right font-semibold">Erişim olasılığı</th>
+                      <th className="py-1 text-right font-semibold">Yoğunluk</th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-mono">
+                    {[...data.monteCarlo.levels].reverse().map((l) => (
+                      <tr key={l.price} className="border-b border-[#0f141d]">
+                        <td className="py-1 text-slate-300">${l.price}</td>
+                        <td className="py-1 text-right text-slate-300">%{l.touchProbability.toFixed(0)}</td>
+                        <td className="py-1 text-right text-slate-300">%{l.densityPct.toFixed(0)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="text-[9px] leading-snug text-slate-600">
+                  &quot;Erişim olasılığı&quot; ve &quot;yoğunluk&quot; matematiksel olarak farklı büyüklükler — birbirine
+                  dönüştürülemez (bkz. tasks/active/013 §2.1). Bu panel henüz karar üretmiyor, sadece Faz 1
+                  modülünün doğru çalıştığını göstermek için var — Karar Sayfası ayrı bir sekmede (Faz 5) gelecek.
+                </div>
+              </div>
+            )}
+          </Disclosure>
 
           {/* Strateji şeması — sayfanın en altı, varsayılan kapalı */}
           <Disclosure
