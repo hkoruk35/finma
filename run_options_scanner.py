@@ -72,6 +72,23 @@ def main():
     except Exception as e:
         log.error(f"❌ options_pnl_tracker.py hatası: {e}")
 
+    # SPY 0DTE Greeks + prim eğrisi -> Supabase (tasks/active/013, Faz 2).
+    # opsiyon242.py'den TAMAMEN BAĞIMSIZ, kendi dosyası hiçbir yerel dosya
+    # yazmıyor/git-push tetiklemiyor -- başarısız olsa bile ana taramayı
+    # ETKİLEMEZ, sadece loglanır.
+    log.info("▶ Çalıştırılıyor: spy_0dte_options_sync.py")
+    try:
+        result = subprocess.run(
+            [VENV_PYTHON, "spy_0dte_options_sync.py"], cwd=FINMA_DIR,
+            capture_output=True, text=True, encoding="utf-8",
+        )
+        if result.returncode == 0:
+            log.info(f"✅ spy_0dte_options_sync.py tamamlandı. {result.stdout.strip()}")
+        else:
+            log.warning(f"⚠️ spy_0dte_options_sync.py exit code: {result.returncode} — {result.stdout.strip()} {result.stderr.strip()[-300:]}")
+    except Exception as e:
+        log.error(f"❌ spy_0dte_options_sync.py hatası: {e}")
+
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
     # opsiyon242.py'nin çıktı dosya adındaki sürüm öneki zamanla değişiyor

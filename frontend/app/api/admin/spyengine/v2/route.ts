@@ -48,6 +48,7 @@ import {
 } from "@/lib/spyengine/strategy";
 import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
 import { realizedVolPerBar, buildSeasonalityProfile, seasonalityMultiplierAt, EMPTY_SEASONALITY } from "@/lib/spyengine/volatility";
+import { readOptionDecision } from "@/lib/spyengine/optionDecisionStore";
 import { runMonteCarlo, seedFromBar } from "@/lib/spyengine/monteCarlo";
 
 export const runtime = "nodejs";
@@ -131,9 +132,10 @@ export async function GET(req: NextRequest) {
   const replayDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : null;
 
   try {
-    const [bundle, rvolHistory] = await Promise.all([
+    const [bundle, rvolHistory, optionDecision] = await Promise.all([
       fetchSpyBundle(),
       fetchSpy5mHistory().catch(() => ({ bars: [] as Bar[] })),
+      readOptionDecision().catch(() => null),
     ]);
     const liveSession = detectSession(bundle.m1, nowSec);
     const session: typeof liveSession = replayDate && replayDate !== liveSession.date
@@ -433,6 +435,10 @@ export async function GET(req: NextRequest) {
         // olasiliklari ayri ayri, birbirine donusturulemez). Deneysel --
         // Karar Sayfasi sekmesi henuz yok, bu alan sadece dogrulama icin.
         monteCarlo,
+        // Faz 2 (tasks/active/013) -- SPY 0DTE Black-Scholes Greeks + prim
+        // egrisi (spy_0dte_options_sync.py -> Supabase). opsiyon242.py'den
+        // BAGIMSIZ. Script hic calismadiysa/veri bayatsa null.
+        optionDecision,
         // V4 gun kapanis tahmini (spec 4) -- bant genisligi olculmus
         // kantilden geliyor, guven o bandin tanim geregi isabet orani
         forecast: forecastClose({
