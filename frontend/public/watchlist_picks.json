@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-09-10T09:08:04.048917-04:00",
+  "generated_at": "2026-09-10T14:08:37.087327-04:00",
   "picks": [
-    {
-      "ticker": "MU",
-      "sector": "Technology",
-      "date_added": "2026-09-09",
-      "score": 30.5
-    },
     {
       "ticker": "OKTA",
       "sector": "Technology",
@@ -38,40 +32,52 @@
       "score": 33.0
     },
     {
-      "ticker": "THC",
-      "sector": "Healthcare",
-      "date_added": "2026-09-09",
-      "score": 36.0
-    },
-    {
-      "ticker": "DLO",
-      "sector": "Technology",
-      "date_added": "2026-09-10",
-      "score": 35.5
-    },
-    {
-      "ticker": "WHD",
-      "sector": "Energy",
-      "date_added": "2026-09-10",
-      "score": 35.5
-    },
-    {
       "ticker": "ZIM",
       "sector": "Industrials",
       "date_added": "2026-09-10",
       "score": 33.0
     },
     {
-      "ticker": "BLTE",
-      "sector": "Healthcare",
+      "ticker": "SNEX",
+      "sector": "Financial Services",
       "date_added": "2026-09-10",
-      "score": 27.5
+      "score": 34.0
     },
     {
-      "ticker": "RNG",
-      "sector": "Technology",
+      "ticker": "HL",
+      "sector": "Basic Materials",
       "date_added": "2026-09-10",
-      "score": 27.0
+      "score": 33.5
+    },
+    {
+      "ticker": "ANF",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-10",
+      "score": 31.5
+    },
+    {
+      "ticker": "CMPS",
+      "sector": "Healthcare",
+      "date_added": "2026-09-10",
+      "score": 31.0
+    },
+    {
+      "ticker": "CNH",
+      "sector": "Industrials",
+      "date_added": "2026-09-10",
+      "score": 30.0
+    },
+    {
+      "ticker": "OSCR",
+      "sector": "Healthcare",
+      "date_added": "2026-09-10",
+      "score": 30.0
+    },
+    {
+      "ticker": "GH",
+      "sector": "Healthcare",
+      "date_added": "2026-09-10",
+      "score": 28.0
     }
   ]
 }
