@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -135,7 +134,6 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
-import { getHomeMoversServerData } from "@/app/api/home-movers/route";
 import { getTrendStocksServerData } from "@/lib/homeFeed";
 
 export default async function IdHomePage() {
@@ -151,11 +149,10 @@ export default async function IdHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes, homeMoversData, trendStocksData] = await Promise.all([
+  const [lastUpdated, indices, quotes, trendStocksData] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
-    getHomeMoversServerData(7),
     getTrendStocksServerData(),
   ]);
 
@@ -208,18 +205,17 @@ export default async function IdHomePage() {
             <div className="mt-4">
               <HomeRecentEarnings locale="id" />
             </div>
-
-            <div className="mt-4">
-              <HomeMoversGrid locale="id" initialData={homeMoversData} />
-            </div>
           </div>
 
           <div className="flex flex-col gap-4">
             <TrendPicksSlot locale="id" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="id" initialVisible={5} />
             <HomeListCard title="Sektor" accent="#3b82f6" stocks={sectorStocks} locale="id" initialVisible={5} viewAllHref="/global/id/sectors" />
-            <HomeIndexTextFeed locale="id" />
           </div>
+        </div>
+
+        <div className="mt-5">
+          <HomeIndexTextFeed locale="id" />
         </div>
 
         {/* Info pembaruan */}

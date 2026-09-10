@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -135,7 +134,6 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
-import { getHomeMoversServerData } from "@/app/api/home-movers/route";
 import { getTrendStocksServerData } from "@/lib/homeFeed";
 
 export default async function EnHomePage() {
@@ -151,11 +149,10 @@ export default async function EnHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes, homeMoversData, trendStocksData] = await Promise.all([
+  const [lastUpdated, indices, quotes, trendStocksData] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
-    getHomeMoversServerData(7),
     getTrendStocksServerData(),
   ]);
 
@@ -208,18 +205,23 @@ export default async function EnHomePage() {
             <div className="mt-4">
               <HomeRecentEarnings locale="en" />
             </div>
-
-            <div className="mt-4">
-              <HomeMoversGrid locale="en" initialData={homeMoversData} />
-            </div>
           </div>
 
           <div className="flex flex-col gap-4">
             <TrendPicksSlot locale="en" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="en" initialVisible={5} />
             <HomeListCard title="Sectors" accent="#3b82f6" stocks={sectorStocks} locale="en" initialVisible={5} viewAllHref="/global/en/sectors" />
-            <HomeIndexTextFeed locale="en" />
           </div>
+        </div>
+
+        {/* 2026-09-10 kullanıcı talebi: sayfa sonundaki Top Gainers/Losers/
+            Top100 liste ızgaraları (HomeMoversGrid) kaldırıldı — bunlar
+            kendi sayfalarında (/gainers /losers /top100) zaten var. Yerine
+            tam genişlikte, daha okunaklı "Latest World Market Analyses"
+            metin bloğu taşındı (daha metin-odaklı, SEO için daha kolay
+            taranabilir bir ana sayfa hedefiyle). */}
+        <div className="mt-5">
+          <HomeIndexTextFeed locale="en" />
         </div>
 
         {/* Update info */}

@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -145,7 +144,6 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
-import { getHomeMoversServerData } from "@/app/api/home-movers/route";
 import { getTrendStocksServerData } from "@/lib/homeFeed";
 
 export default async function TrHomePage() {
@@ -161,11 +159,10 @@ export default async function TrHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes, homeMoversData, trendStocksData] = await Promise.all([
+  const [lastUpdated, indices, quotes, trendStocksData] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
-    getHomeMoversServerData(7),
     getTrendStocksServerData(),
   ]);
 
@@ -226,18 +223,20 @@ export default async function TrHomePage() {
             <div className="mt-4">
               <HomeRecentEarnings locale="tr" />
             </div>
-
-            <div className="mt-4">
-              <HomeMoversGrid locale="tr" initialData={homeMoversData} />
-            </div>
           </div>
 
           <div className="flex flex-col gap-4">
             <TrendPicksSlot locale="tr" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="tr" initialVisible={5} />
             <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
-            <HomeIndexTextFeed locale="tr" />
           </div>
+        </div>
+
+        {/* 2026-09-10 kullanıcı talebi: sayfa sonundaki liste ızgaraları
+            (HomeMoversGrid) kaldırıldı, yerine tam genişlikte "Son Dünya
+            Borsası Analizleri" metin bloğu taşındı. */}
+        <div className="mt-5">
+          <HomeIndexTextFeed locale="tr" />
         </div>
 
         {/* Güncelleme bilgisi */}

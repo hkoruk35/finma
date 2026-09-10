@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { getPublicPosts } from "@/lib/x/publicPosts";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
   tr: { title: "Hisse Analizleri", all: "Tümü", empty: "Henüz analiz yok." },
@@ -59,27 +60,26 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
 
       <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
         {posts.map((post) => (
-          <Link
+          <div
             key={post.id}
-            href={newsHref}
             className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
           >
-            {post.content_text && (
-              <p className="text-white text-[13px] leading-snug font-medium">{post.content_text}</p>
+            {post.ticker && (
+              <TickerHoverChart ticker={post.ticker} locale={locale}>
+                <Link href={newsHref} className="text-[11px] font-bold text-[#3b82f6] tracking-wide hover:underline">
+                  ${post.ticker}
+                </Link>
+              </TickerHoverChart>
             )}
-            {post.image_url && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={post.image_url}
-                alt={`${post.ticker ?? "BOGASTOCK"} chart`}
-                loading="lazy"
-                className="w-full rounded-lg border border-white/10 mt-1"
-              />
-            )}
-            <time dateTime={post.posted_at} className="text-[9px] text-slate-500 mt-1">
-              {formatDate(post.posted_at, locale)}
-            </time>
-          </Link>
+            <Link href={newsHref} className="contents">
+              {post.content_text && (
+                <p className="text-white text-[13px] leading-snug font-medium">{post.content_text}</p>
+              )}
+              <time dateTime={post.posted_at} className="text-[9px] text-slate-500 mt-1">
+                {formatDate(post.posted_at, locale)}
+              </time>
+            </Link>
+          </div>
         ))}
       </div>
     </div>
