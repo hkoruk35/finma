@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-09T17:05:03.056837-04:00",
+  "generated_at": "2026-09-10T09:08:04.048917-04:00",
   "picks": [
     {
       "ticker": "MU",
       "sector": "Technology",
       "date_added": "2026-09-09",
-      "score": 38.5
+      "score": 30.5
     },
     {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-09-09",
-      "score": 37.5
+      "score": 34.5
     },
     {
       "ticker": "ZETA",
@@ -35,7 +35,7 @@
       "ticker": "NUTX",
       "sector": "Healthcare",
       "date_added": "2026-09-09",
-      "score": 29.0
+      "score": 33.0
     },
     {
       "ticker": "THC",
@@ -44,16 +44,34 @@
       "score": 36.0
     },
     {
-      "ticker": "EQIX",
-      "sector": "Real Estate",
-      "date_added": "2026-09-09",
-      "score": 36.0
+      "ticker": "DLO",
+      "sector": "Technology",
+      "date_added": "2026-09-10",
+      "score": 35.5
     },
     {
-      "ticker": "DLR",
-      "sector": "Real Estate",
-      "date_added": "2026-09-09",
+      "ticker": "WHD",
+      "sector": "Energy",
+      "date_added": "2026-09-10",
       "score": 35.5
+    },
+    {
+      "ticker": "ZIM",
+      "sector": "Industrials",
+      "date_added": "2026-09-10",
+      "score": 33.0
+    },
+    {
+      "ticker": "BLTE",
+      "sector": "Healthcare",
+      "date_added": "2026-09-10",
+      "score": 27.5
+    },
+    {
+      "ticker": "RNG",
+      "sector": "Technology",
+      "date_added": "2026-09-10",
+      "score": 27.0
     }
   ]
 }
