@@ -50,6 +50,7 @@ import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract 
 import { realizedVolPerBar, buildSeasonalityProfile, seasonalityMultiplierAt, EMPTY_SEASONALITY } from "@/lib/spyengine/volatility";
 import { readOptionDecision } from "@/lib/spyengine/optionDecisionStore";
 import { computeExhaustion, computeReversalScore, computeEdgeScore } from "@/lib/spyengine/heuristics";
+import { appendDecisionSnapshot } from "@/lib/spyengine/decisionLogStore";
 import { runMonteCarlo, seedFromBar } from "@/lib/spyengine/monteCarlo";
 
 export const runtime = "nodejs";
@@ -74,6 +75,17 @@ const MAX_TRACKED_POSITIONS = 80;
  * önbelleği) kapanmış pozisyonlar bir daha hiç Yahoo'ya sorulmaz.
  */
 const resolvedPositionCache = new Map<string, PositionState>();
+
+/**
+ * Karar Sayfası (Faz 4 hazırlığı) anlık görüntüsü, YENİ kapanan bir 5m
+ * bardan başka değişmez — ama sayfa saniyede bir yokluyor. Bu bellek-içi
+ * koruma olmadan her yoklamada Supabase'e bir okuma+yazma gidip aynı barı
+ * tekrar tekrar loglamaya çalışırdı. `decisionLogStore.ts`'in kendi
+ * `barTime` eşitlik kontrolü de var (sunucu yeniden başladığında veya
+ * birden fazla süreç çalışırken doğru davranış için) — bu sadece HOT
+ * PATH'teki gereksiz Supabase trafiğini önlüyor.
+ */
+let lastLoggedDecisionBarTime: number | null = null;
 
 function spotStats(sessionBars: Bar[], date: string) {
   const rth = sessionBars.filter(isRthBar);
@@ -468,6 +480,31 @@ export async function GET(req: NextRequest) {
           };
         })()
       : null;
+
+    // ── Faz 4 hazırlığı: yeni kapanan HER 5m barda bir kez, karar sayfası
+    // anlık görüntüsünü logla (bkz. decisionLogStore.ts başlığı). Fire-and
+    // -forget: yanıtı ASLA bloklamaz/etkilemez, hata olursa sessizce yutulur.
+    if (decisionPage && decisionPage.asOfBarTime !== lastLoggedDecisionBarTime) {
+      lastLoggedDecisionBarTime = decisionPage.asOfBarTime;
+      const nearest2 = decisionPage.tier2.length
+        ? decisionPage.tier2.reduce((a, b) => (Math.abs(b.strike - decisionPage.spot) < Math.abs(a.strike - decisionPage.spot) ? b : a))
+        : null;
+      const atm5 = decisionPage.tier5.find((t) => t.price === Math.round(decisionPage.spot)) ?? null;
+      appendDecisionSnapshot(session.date, {
+        barTime: decisionPage.asOfBarTime,
+        loggedAt: new Date().toISOString(),
+        spot: decisionPage.spot,
+        tier1_30: (decisionPage.tier1["30"] ?? []).map((l) => ({ price: l.price, touchProbability: l.touchProbability })),
+        tier2Nearest: nearest2 ? { strike: nearest2.strike, callImpliedProb: nearest2.callImpliedProb, putImpliedProb: nearest2.putImpliedProb } : null,
+        tier3: {
+          reversalLong: decisionPage.tier3.long.reversal.score,
+          reversalShort: decisionPage.tier3.short.reversal.score,
+          exhaustionLong: decisionPage.tier3.long.exhaustion.score,
+          exhaustionShort: decisionPage.tier3.short.exhaustion.score,
+        },
+        tier5Atm: atm5 ? { edgeLong: atm5.edgeLong, edgeShort: atm5.edgeShort } : null,
+      }).catch(() => {});
+    }
 
     return NextResponse.json(
       {
