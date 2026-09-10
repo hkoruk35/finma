@@ -150,6 +150,13 @@ interface StreamResponse {
       };
     };
     tier5: { price: number; edgeLong: number; edgeShort: number }[];
+    targetBand: {
+      horizonMin: number;
+      offsetRange: [number, number];
+      up: { level: number; touchProbability: number; expectedReturnPct: number; expectedReturnSource: "premium" | "priceMove"; expectedValuePct: number };
+      down: { level: number; touchProbability: number; expectedReturnPct: number; expectedReturnSource: "premium" | "priceMove"; expectedValuePct: number };
+      combinedProbability: number;
+    };
   } | null;
 }
 
@@ -1042,6 +1049,35 @@ export default function SpyEngineCommandCenter() {
                   levelLines={decisionLevelLines}
                   defaultWindowMin={120}
                 />
+              </div>
+
+              {/* ±2-3 strike hedef bandı — asil hedef, genis izgara degil */}
+              <div className={`${SURFACE} px-3 py-2.5`}>
+                <div className="mb-1.5 text-[10px] text-slate-500">
+                  ±2-3 strike hedef bandı — {data.decisionPage.targetBand.horizonMin} dk içinde
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded border border-[#22c55e]/20 bg-[#22c55e]/5 px-2.5 py-2">
+                    <div className="text-[9px] text-slate-500">YUKARI · ${data.decisionPage.targetBand.up.level}</div>
+                    <div className="font-mono text-lg text-[#22c55e]">%{data.decisionPage.targetBand.up.touchProbability.toFixed(0)}</div>
+                    <div className="text-[9px] text-slate-500">
+                      beklenen getiri {data.decisionPage.targetBand.up.expectedReturnPct >= 0 ? "+" : ""}%{data.decisionPage.targetBand.up.expectedReturnPct.toFixed(2)}
+                      {data.decisionPage.targetBand.up.expectedReturnSource === "priceMove" ? " (fiyat hareketi, prim verisi yok)" : " (prim)"}
+                    </div>
+                  </div>
+                  <div className="rounded border border-[#ef4444]/20 bg-[#ef4444]/5 px-2.5 py-2">
+                    <div className="text-[9px] text-slate-500">AŞAĞI · ${data.decisionPage.targetBand.down.level}</div>
+                    <div className="font-mono text-lg text-[#ef4444]">%{data.decisionPage.targetBand.down.touchProbability.toFixed(0)}</div>
+                    <div className="text-[9px] text-slate-500">
+                      beklenen getiri {data.decisionPage.targetBand.down.expectedReturnPct >= 0 ? "+" : ""}%{data.decisionPage.targetBand.down.expectedReturnPct.toFixed(2)}
+                      {data.decisionPage.targetBand.down.expectedReturnSource === "priceMove" ? " (fiyat hareketi, prim verisi yok)" : " (prim)"}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
+                  Herhangi bir yöne ±2-3 strike ulaşma olasılığı (birleşik, bağımsızlık varsayımıyla yaklaşık):
+                  %{data.decisionPage.targetBand.combinedProbability.toFixed(0)}
+                </div>
               </div>
 
               {/* Tier 1 — Fiyat Modeli: fiyat × zaman dilimi matrisi */}

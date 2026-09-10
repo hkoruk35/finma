@@ -378,20 +378,28 @@ export async function GET(req: NextRequest) {
     const sigmaAdj = sigmaRaw != null ? sigmaRaw * seasonality.multiplier : null;
     const lastM5ForSeed = m5ClosedForVol.length ? m5ClosedForVol[m5ClosedForVol.length - 1] : null;
 
-    const monteCarlo = sigmaAdj != null && price != null && lastM5ForSeed
+    // Faz 1 ham veri paneli VE Tier 1'in 30dk sütunu AYNI hesabı okumalı --
+    // önceden ikisi ayrı tohum/örnek sayısıyla ayrı ayrı simüle ediliyordu,
+    // bu da aynı ufuk için iki farklı sayı üretiyordu (bkz. görev listesi
+    // #2). Tek bir 30dk Monte Carlo nesnesi kurulup HER İKİSİ de bunu okur.
+    const MC_NSIMS = 3000;
+    const mc30 = sigmaAdj != null && price != null && lastM5ForSeed
+      ? runMonteCarlo({
+          spot: price, sigmaPerStep: sigmaAdj, steps: 6, nSims: MC_NSIMS,
+          seed: seedFromBar(lastM5ForSeed.time, price),
+        })
+      : null;
+
+    const monteCarlo = mc30 && sigmaAdj != null && lastM5ForSeed
       ? (() => {
-          const steps = 6; // 6 × 5m = 30 dakika ufuk
-          const nSims = 3000;
-          const seed = seedFromBar(lastM5ForSeed.time, price);
-          const mc = runMonteCarlo({ spot: price, sigmaPerStep: sigmaAdj, steps, nSims, seed });
-          const center = Math.round(price);
+          const center = Math.round(price!);
           const levels = [];
           for (let off = -3; off <= 3; off++) {
             const lvl = center + off;
             levels.push({
               price: lvl,
-              touchProbability: r2(mc.touchProbability(lvl) * 100),
-              densityPct: r2(mc.densityInBand(lvl - 0.5, lvl + 0.5) * 100),
+              touchProbability: r2(mc30.touchProbability(lvl) * 100),
+              densityPct: r2(mc30.densityInBand(lvl - 0.5, lvl + 0.5) * 100),
             });
           }
           return {
@@ -399,8 +407,8 @@ export async function GET(req: NextRequest) {
             seasonalityMultiplier: r2(seasonality.multiplier),
             seasonalitySampleDays: seasonality.sampleDays,
             sigmaPerBarAdj: sigmaAdj,
-            horizonMin: mc.horizonMin,
-            nSims,
+            horizonMin: mc30.horizonMin,
+            nSims: MC_NSIMS,
             asOfBarTime: lastM5ForSeed.time,
             levels,
           };
@@ -410,12 +418,13 @@ export async function GET(req: NextRequest) {
     // ── SPY Option Sayfası (Faz 3 + 5, tasks/active/013) ──────────────
     // Tier 1 (fiyat modeli): AYNI sigma/tohumla, TEK bir ufuk yerine
     // birden fazla zaman dilimi (5-30 dk) için ayrı ayrı simülasyon --
-    // "fiyatlar VE saat dilimlerinde" tahmin matrisi budur. Tier 2 (piyasa
-    // beklentisi): optionDecision'daki GERÇEK delta'lardan, ikinci bir
-    // opsiyon isteği YOK. Tier 3 (rejim+skor): Layer 1 + RVOL + BVC
-    // tükenme skorundan, VIX/SPX KULLANILMAZ (bkz. heuristics.ts).
-    // Tier 4: optionDecision'ın kendisi (tekrar hesaplanmaz). Tier 5:
-    // 1-3'ün sürekli birleşimi, hard-gate YOK.
+    // "fiyatlar VE saat dilimlerinde" tahmin matrisi budur. 30dk sütunu
+    // yukarıdaki mc30 nesnesinden okunur (Faz 1 paneliyle birebir aynı
+    // kaynak). Tier 2 (piyasa beklentisi): optionDecision'daki GERÇEK
+    // delta'lardan, ikinci bir opsiyon isteği YOK. Tier 3 (rejim+skor):
+    // Layer 1 + RVOL + BVC tükenme skorundan, VIX/SPX KULLANILMAZ (bkz.
+    // heuristics.ts). Tier 4: optionDecision'ın kendisi (tekrar
+    // hesaplanmaz). Tier 5: 1-3'ün sürekli birleşimi, hard-gate YOK.
     const decisionPage = sigmaAdj != null && price != null && lastM5ForSeed
       ? (() => {
           const HORIZON_STEPS = [1, 2, 3, 4, 5, 6]; // 5,10,...,30 dk
@@ -425,8 +434,14 @@ export async function GET(req: NextRequest) {
 
           const tier1: Record<string, { price: number; touchProbability: number; densityPct: number }[]> = {};
           for (const steps of HORIZON_STEPS) {
-            const seed = seedFromBar(lastM5ForSeed.time, price) + steps; // ufka göre farklı ama deterministik dizi
-            const mc = runMonteCarlo({ spot: price, sigmaPerStep: sigmaAdj, steps, nSims: 2000, seed });
+            // 30dk (steps=6) icin mc30'u yeniden kullan -- Faz 1 paneliyle
+            // AYNI kaynak, ikinci bir simulasyon calistirilmaz.
+            const mc = steps === 6 && mc30
+              ? mc30
+              : runMonteCarlo({
+                  spot: price, sigmaPerStep: sigmaAdj, steps, nSims: MC_NSIMS,
+                  seed: seedFromBar(lastM5ForSeed.time, price) + steps, // ufka göre farklı ama deterministik dizi
+                });
             tier1[String(steps * 5)] = priceGrid.map((lvl) => ({
               price: lvl,
               touchProbability: r2(mc.touchProbability(lvl) * 100),
@@ -453,16 +468,72 @@ export async function GET(req: NextRequest) {
           const reversalLong = computeReversalScore(gen.read.layer1, rvolForReversal, exhaustionLong, "LONG");
           const reversalShort = computeReversalScore(gen.read.layer1, rvolForReversal, exhaustionShort, "SHORT");
 
-          // Tier 5 -- Tier1(30dk ufku) + Tier2 + Tier3'un surekli birlesimi
+          // Tier 5 -- Tier1(30dk ufku) + Tier2 + Tier3'un surekli birlesimi.
+          // LONG ve SHORT ARTIK BAGIMSIZ: her ikisi de ayni seviyeyi degil,
+          // spot'tan AYNI MESAFEDEKI KARSIT YONDEKI seviyeyi okur (yukari
+          // hareket vs asagi hareket) -- lognormal dagilim simetrik
+          // olmadigindan bu ikisi ayni sayiyi vermez (bkz. gorev listesi #1).
           const tier1_30 = tier1["30"] ?? [];
+          const touchAt = (lvl: number) => (tier1_30.find((x) => x.price === lvl)?.touchProbability ?? 0) / 100;
           const tier5 = priceGrid.map((lvl) => {
-            const t1 = tier1_30.find((x) => x.price === lvl);
-            const touchProb = (t1?.touchProbability ?? 0) / 100;
-            const implied = impliedProbAt(lvl);
-            const edgeLong = computeEdgeScore({ touchProbability: touchProb, marketImpliedProbability: implied, reversalScore: reversalLong.score });
-            const edgeShort = computeEdgeScore({ touchProbability: touchProb, marketImpliedProbability: implied, reversalScore: reversalShort.score });
+            const absOffset = Math.abs(lvl - center);
+            const upLvl = center + absOffset;
+            const downLvl = center - absOffset;
+            const touchUp = touchAt(upLvl);
+            const touchDown = touchAt(downLvl);
+            const impliedUp = impliedProbAt(upLvl); // call delta -- yukari hareket
+            const impliedDown = impliedProbAt(downLvl); // put delta -- asagi hareket
+            const edgeLong = computeEdgeScore({ touchProbability: touchUp, marketImpliedProbability: impliedUp, reversalScore: reversalLong.score });
+            const edgeShort = computeEdgeScore({ touchProbability: touchDown, marketImpliedProbability: impliedDown, reversalScore: reversalShort.score });
             return { price: lvl, edgeLong, edgeShort };
           });
+
+          // ── ±2-3 strike hedef bandı (görev listesi #4 + #5) ──────────
+          // Asil hedef genis izgara degil, spot'a en yakin +2/+3 ve -2/-3
+          // strike'lik bant. "Hedefe ulasma olasiligi" = offset 2'ye
+          // erismek (offset 3'e erismek icin path'in zaten 2'den gecmesi
+          // gerekir, yani touchProbability(offset 2) bandin tamamini kapsar).
+          // "Beklenen getiri" ATM kontratin GERCEK prim egrisinden (Tier 4,
+          // optionDecision.premiumCurve) okunur; opsiyon verisi bayatsa/yoksa
+          // uydurma sayi uretilmez, sadece ham fiyat hareketi yuzdesi (%) ile
+          // yer degistirir ve bu acikca etiketlenir.
+          const atmContract = optionDecision?.contracts.length
+            ? optionDecision.contracts.reduce((a, b) => (Math.abs(b.strike - price) < Math.abs(a.strike - price) ? b : a))
+            : null;
+          const premiumAt = (leg: "call" | "put", targetPrice: number): number | null => {
+            const point = atmContract?.premiumCurve.find((p) => p.targetPrice === targetPrice);
+            if (!point) return null;
+            const v = leg === "call" ? point.callPremium : point.putPremium;
+            return v > 0 ? v : null;
+          };
+          const bandOffset = 2;
+          const upBandLvl = center + bandOffset;
+          const downBandLvl = center - bandOffset;
+          const touchUpBand = touchAt(upBandLvl);
+          const touchDownBand = touchAt(downBandLvl);
+
+          const buildTargetSide = (level: number, touchProbability: number, leg: "call" | "put") => {
+            const atmPremium = atmContract ? premiumAt(leg, center) : null;
+            const targetPremium = atmContract ? premiumAt(leg, level) : null;
+            const returnFromPremium = atmPremium != null && targetPremium != null
+              ? (targetPremium - atmPremium) / atmPremium
+              : null;
+            const expectedReturnPct = returnFromPremium ?? Math.abs(level - center) / price!; // uydurma degil: gercek prim yoksa ham fiyat hareketi % ile ikame edilir, kaynagi etiketlenir
+            return {
+              level,
+              touchProbability: r2(touchProbability * 100),
+              expectedReturnPct: r2(expectedReturnPct * 100),
+              expectedReturnSource: returnFromPremium != null ? ("premium" as const) : ("priceMove" as const),
+              expectedValuePct: r2(touchProbability * expectedReturnPct * 100),
+            };
+          };
+          const targetBand = {
+            horizonMin: 30,
+            offsetRange: [2, 3] as [number, number],
+            up: buildTargetSide(upBandLvl, touchUpBand, "call"),
+            down: buildTargetSide(downBandLvl, touchDownBand, "put"),
+            combinedProbability: r2((1 - (1 - touchUpBand) * (1 - touchDownBand)) * 100),
+          };
 
           return {
             generatedAt: nowSec,
@@ -477,6 +548,7 @@ export async function GET(req: NextRequest) {
               short: { reversal: reversalShort, exhaustion: exhaustionShort },
             },
             tier5,
+            targetBand,
           };
         })()
       : null;

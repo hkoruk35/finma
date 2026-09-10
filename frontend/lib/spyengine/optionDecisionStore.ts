@@ -18,7 +18,7 @@ import "server-only";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export const OPTION_DECISION_STORE_KEY = "spyengine_option_decision";
-/** Script günde 2 kez (11:00 & 15:30 NY) çalışıyor — 6 saatten eski veri bayat sayılır */
+/** Script 09:45 NY'de ve saatlik 15:45'e kadar çalışıyor (BOGA_AI_SPY_0DTE_Options) — 6 saatten eski veri bayat sayılır */
 export const OPTION_DECISION_STALE_AFTER_SEC = 6 * 60 * 60;
 
 export interface OptionGreeks {

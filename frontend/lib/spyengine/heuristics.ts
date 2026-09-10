@@ -137,24 +137,39 @@ export function computeReversalScore(
   const parts: ReversalScoreParts[] = [{ label: "Taban", value: 30 }];
   let total = 30;
 
-  // RSI14 (5m) — asiri satim/alimdan donus
+  // RSI14 (5m) — SUREKLI olcek: 50'den ne kadar uzaksa o kadar puan (eskiden
+  // yalnizca 40/60 esiginin OTESINDE puan veriliyordu, 5m RSI çoğu zaman bu
+  // bandın içinde kaldığı için bileşen pratikte hep +0 dönüyordu). Dönüş
+  // teyidi (rising/falling) ayrı bir bonus olarak eklenir, gate değildir.
   const rsi = layer1.rsi;
   let rsiPts = 0;
   if (rsi != null) {
-    if (isLong && rsi < 40) rsiPts = Math.round(((40 - rsi) / 40) * 20);
-    if (!isLong && rsi > 60) rsiPts = Math.round(((rsi - 60) / 40) * 20);
+    const distance = isLong ? Math.max(0, 50 - rsi) : Math.max(0, rsi - 50);
+    rsiPts = Math.round(Math.min(1, distance / 25) * 14); // 0-14, surekli
+    const turning = isLong ? layer1.rsiRising : layer1.rsiFalling;
+    if (turning && distance > 0) rsiPts = Math.min(20, rsiPts + 6); // donus teyidi bonusu
   }
   parts.push({ label: `RSI14 ${rsi == null ? "veri yok" : rsi.toFixed(0)}`, value: rsiPts });
   total += rsiPts;
 
-  // MACD histogram yon degisimi (Layer1'in kendi rising/falling bayraklari)
-  const macdPts = isLong ? (layer1.macdRising ? 15 : 0) : (layer1.macdFalling ? 15 : 0);
+  // MACD histogram momentumu — SUREKLI: eskiden yalnizca histogram ZATEN
+  // pozitifken/negatifken YUKSELIYORSA/DUSUYORSA puan veriliyordu (gate),
+  // artik favor yonundeki HER momentum degisimi (isaretten bagimsiz) puan
+  // getirir, buyukluguyle olceklenir.
+  const h = layer1.macdHist;
+  let macdPts = 0;
+  if (h != null) {
+    const priorHist = isLong ? (layer1.macdRising ? h : null) : (layer1.macdFalling ? h : null);
+    // rising/falling bayraklari zaten "onceki degere gore dogru yonde" bilgisini tasiyor
+    if (priorHist != null) macdPts = Math.min(15, 8 + Math.round(Math.min(1, Math.abs(h) * 20) * 7));
+  }
   parts.push({ label: `MACD histogram ${isLong ? "yükseliyor" : "düşüyor"}`, value: macdPts });
   total += macdPts;
 
-  // RVOL — donus mumunun hacim katilimi
+  // RVOL — SUREKLI ve gevsetilmis taban (0.6): piyasa son donemde dusuk
+  // hacimle hareket ediyor, eski esik (rvol>1) bileseni surekli +0 birakiyordu.
   let rvolPts = 0;
-  if (rvol != null) rvolPts = Math.round(Math.max(0, Math.min(1, (rvol - 1) / 1.5)) * 15);
+  if (rvol != null) rvolPts = Math.round(Math.max(0, Math.min(1, (rvol - 0.6) / 1.4)) * 15);
   parts.push({ label: `RVOL ${rvol == null ? "veri yok" : `${rvol.toFixed(2)}×`}`, value: rvolPts });
   total += rvolPts;
 
