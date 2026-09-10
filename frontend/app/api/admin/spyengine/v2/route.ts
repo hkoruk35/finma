@@ -49,6 +49,7 @@ import {
 import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
 import { realizedVolPerBar, buildSeasonalityProfile, seasonalityMultiplierAt, EMPTY_SEASONALITY } from "@/lib/spyengine/volatility";
 import { readOptionDecision } from "@/lib/spyengine/optionDecisionStore";
+import { computeExhaustion, computeReversalScore, computeEdgeScore } from "@/lib/spyengine/heuristics";
 import { runMonteCarlo, seedFromBar } from "@/lib/spyengine/monteCarlo";
 
 export const runtime = "nodejs";
@@ -394,6 +395,80 @@ export async function GET(req: NextRequest) {
         })()
       : null;
 
+    // ── SPY Option Sayfası (Faz 3 + 5, tasks/active/013) ──────────────
+    // Tier 1 (fiyat modeli): AYNI sigma/tohumla, TEK bir ufuk yerine
+    // birden fazla zaman dilimi (5-30 dk) için ayrı ayrı simülasyon --
+    // "fiyatlar VE saat dilimlerinde" tahmin matrisi budur. Tier 2 (piyasa
+    // beklentisi): optionDecision'daki GERÇEK delta'lardan, ikinci bir
+    // opsiyon isteği YOK. Tier 3 (rejim+skor): Layer 1 + RVOL + BVC
+    // tükenme skorundan, VIX/SPX KULLANILMAZ (bkz. heuristics.ts).
+    // Tier 4: optionDecision'ın kendisi (tekrar hesaplanmaz). Tier 5:
+    // 1-3'ün sürekli birleşimi, hard-gate YOK.
+    const decisionPage = sigmaAdj != null && price != null && lastM5ForSeed
+      ? (() => {
+          const HORIZON_STEPS = [1, 2, 3, 4, 5, 6]; // 5,10,...,30 dk
+          const center = Math.round(price);
+          const gridOffsets = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+          const priceGrid = gridOffsets.map((o) => center + o);
+
+          const tier1: Record<string, { price: number; touchProbability: number; densityPct: number }[]> = {};
+          for (const steps of HORIZON_STEPS) {
+            const seed = seedFromBar(lastM5ForSeed.time, price) + steps; // ufka göre farklı ama deterministik dizi
+            const mc = runMonteCarlo({ spot: price, sigmaPerStep: sigmaAdj, steps, nSims: 2000, seed });
+            tier1[String(steps * 5)] = priceGrid.map((lvl) => ({
+              price: lvl,
+              touchProbability: r2(mc.touchProbability(lvl) * 100),
+              densityPct: r2(mc.densityInBand(lvl - 0.5, lvl + 0.5) * 100),
+            }));
+          }
+
+          // Tier 2 -- optionDecision'daki gercek delta'lardan piyasa-ortuk olasilik
+          const tier2 = (optionDecision?.contracts ?? []).map((c) => ({
+            strike: c.strike,
+            callImpliedProb: c.call.greeks.delta || null,
+            putImpliedProb: c.put.greeks.delta ? Math.abs(c.put.greeks.delta) : null,
+          }));
+          const impliedProbAt = (level: number): number | null => {
+            if (!tier2.length) return null;
+            const nearest = tier2.reduce((a, b) => (Math.abs(b.strike - level) < Math.abs(a.strike - level) ? b : a));
+            return level >= price ? nearest.callImpliedProb : nearest.putImpliedProb;
+          };
+
+          // Tier 3 -- Layer1 + RVOL + BVC tukenme skoru, her iki yon icin ayri ayri
+          const exhaustionLong = computeExhaustion(m5ClosedForVol, sigmaRaw, "LONG");
+          const exhaustionShort = computeExhaustion(m5ClosedForVol, sigmaRaw, "SHORT");
+          const rvolForReversal = gen.read.volumeVeto.rvol;
+          const reversalLong = computeReversalScore(gen.read.layer1, rvolForReversal, exhaustionLong, "LONG");
+          const reversalShort = computeReversalScore(gen.read.layer1, rvolForReversal, exhaustionShort, "SHORT");
+
+          // Tier 5 -- Tier1(30dk ufku) + Tier2 + Tier3'un surekli birlesimi
+          const tier1_30 = tier1["30"] ?? [];
+          const tier5 = priceGrid.map((lvl) => {
+            const t1 = tier1_30.find((x) => x.price === lvl);
+            const touchProb = (t1?.touchProbability ?? 0) / 100;
+            const implied = impliedProbAt(lvl);
+            const edgeLong = computeEdgeScore({ touchProbability: touchProb, marketImpliedProbability: implied, reversalScore: reversalLong.score });
+            const edgeShort = computeEdgeScore({ touchProbability: touchProb, marketImpliedProbability: implied, reversalScore: reversalShort.score });
+            return { price: lvl, edgeLong, edgeShort };
+          });
+
+          return {
+            generatedAt: nowSec,
+            spot: price,
+            asOfBarTime: lastM5ForSeed.time,
+            horizonsMin: HORIZON_STEPS.map((s) => s * 5),
+            priceGrid,
+            tier1,
+            tier2,
+            tier3: {
+              long: { reversal: reversalLong, exhaustion: exhaustionLong },
+              short: { reversal: reversalShort, exhaustion: exhaustionShort },
+            },
+            tier5,
+          };
+        })()
+      : null;
+
     return NextResponse.json(
       {
         ok: true,
@@ -439,6 +514,11 @@ export async function GET(req: NextRequest) {
         // egrisi (spy_0dte_options_sync.py -> Supabase). opsiyon242.py'den
         // BAGIMSIZ. Script hic calismadiysa/veri bayatsa null.
         optionDecision,
+        // Faz 3+5 (tasks/active/013) -- "SPY Option Sayfasi" icin birlesik
+        // Tier 1-5 veri seti (bkz. yukaridaki yorum). Chart Faz 1/2'deki
+        // ham monteCarlo/optionDecision alanlarini AYRICA kullanmaya devam
+        // ediyor -- bu alan onlari GENISLETIR, YERINE GECMEZ.
+        decisionPage,
         // V4 gun kapanis tahmini (spec 4) -- bant genisligi olculmus
         // kantilden geliyor, guven o bandin tanim geregi isabet orani
         forecast: forecastClose({

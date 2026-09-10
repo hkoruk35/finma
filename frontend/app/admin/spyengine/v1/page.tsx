@@ -130,9 +130,30 @@ interface StreamResponse {
       premiumCurve: { targetPrice: number; callPremium: number; putPremium: number }[];
     }[];
   } | null;
+  /** Faz 3+5 (tasks/active/013) -- "SPY Option Sayfası" için Tier 1-5 birleşik veri seti */
+  decisionPage?: {
+    generatedAt: number;
+    spot: number;
+    asOfBarTime: number;
+    horizonsMin: number[];
+    priceGrid: number[];
+    tier1: Record<string, { price: number; touchProbability: number; densityPct: number }[]>;
+    tier2: { strike: number; callImpliedProb: number | null; putImpliedProb: number | null }[];
+    tier3: {
+      long: {
+        reversal: { side: "LONG" | "SHORT"; score: number; parts: { label: string; value: number }[]; note: string };
+        exhaustion: { side: "LONG" | "SHORT"; score: number; recentOpposingVolume: number; priorOpposingVolume: number; note: string };
+      };
+      short: {
+        reversal: { side: "LONG" | "SHORT"; score: number; parts: { label: string; value: number }[]; note: string };
+        exhaustion: { side: "LONG" | "SHORT"; score: number; recentOpposingVolume: number; priorOpposingVolume: number; note: string };
+      };
+    };
+    tier5: { price: number; edgeLong: number; edgeShort: number }[];
+  } | null;
 }
 
-type Tab = "command" | "signals" | "context" | "ohlc" | "compare" | "forecast";
+type Tab = "command" | "spyoption" | "signals" | "context" | "ohlc" | "compare" | "forecast";
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 
@@ -466,6 +487,24 @@ export default function SpyEngineCommandCenter() {
   /** Değerlendirilen 1m mumun kapanışına kalan saniye (mumlar dakika başında kapanır) */
   const secondsToClose = nowSec ? 60 - (nowSec % 60) : null;
 
+  /** SPY Option sayfası — Tier 1 (30dk erişim olasılığı) + Tier 5 (edge skoru) grafik üzerinde çizgi olarak */
+  const decisionLevelLines = useMemo(() => {
+    const dp = data?.decisionPage;
+    if (!dp) return undefined;
+    const tier1_30 = dp.tier1["30"] ?? [];
+    return dp.priceGrid.map((lvl) => {
+      const t1 = tier1_30.find((x) => x.price === lvl);
+      const edge = dp.tier5.find((x) => x.price === lvl);
+      const bestEdge = edge ? Math.max(edge.edgeLong, edge.edgeShort) : 0;
+      const color = bestEdge >= 65 ? "#22c55e" : bestEdge >= 45 ? "#eab308" : "#64748b";
+      return {
+        price: lvl,
+        label: `$${lvl} · T%${t1?.touchProbability.toFixed(0) ?? "—"} · Edge${bestEdge}`,
+        color,
+      };
+    });
+  }, [data?.decisionPage]);
+
   // 15m bağlam okuması (ikincil sekme)
   const m15Read = useMemo(() => {
     if (m15.length < 30) return null;
@@ -675,6 +714,7 @@ export default function SpyEngineCommandCenter() {
       <nav className="mb-2 flex gap-0.5 overflow-x-auto">
         {([
           ["command", "Kumanda Merkezi"],
+          ["spyoption", "SPY Option"],
           ["forecast", "Daily Forecast"],
           ["compare", "1m vs 5m"],
           ["signals", "Sinyaller & Arşiv"],
@@ -1059,6 +1099,226 @@ export default function SpyEngineCommandCenter() {
               V5.0 → V6.0: Layer 2 (3&apos;te 2 oylama), &quot;5m rejim aktif&quot; kapı satırı, 1m&apos;in EMA21 konum şartı ve RVOL konfirmasyonu KALDIRILDI — kalan 5 kalem (15m veto + hacim vetosu + trend + breakout + RSI) daha hızlı, daha az AND şartlı, aynı derecede kanıta dayalı bir sinyal üretiyor.
             </div>
           </Disclosure>
+        </div>
+      )}
+
+      {/* ═══ SPY OPTION SAYFASI (Faz 0-5, tasks/active/013) ═══ */}
+      {tab === "spyoption" && (
+        <div className="flex flex-col gap-1">
+          {!data?.decisionPage ? (
+            <div className={`${SURFACE} px-3 py-6 text-center text-[12px] text-slate-500`}>
+              Sigma/Monte Carlo hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
+            </div>
+          ) : (
+            <>
+              <div className="rounded border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-[10px] leading-snug text-amber-300">
+                Bu sayfa yatırım tavsiyesi DEĞİLDİR. Tier 1 (Fiyat Modeli) ve Tier 2 (Piyasa Beklentisi) gerçek
+                istatistiksel/piyasa verisinden gelir; Tier 3 (Skor) ve buna dayanan Tier 5 (Edge Skoru) KALİBRE
+                EDİLMEMİŞ sezgisel göstergelerdir — &quot;olasılık&quot; değil &quot;skor&quot; olarak okuyun (bkz.
+                tasks/active/013). 0DTE&apos;de spread genişlemesi ve likidite riski ciddi olabilir.
+              </div>
+
+              {/* Grafik — kendi grafik motorumuz (SpyChart), Tier 1 seviyeleri çizgi olarak */}
+              <div className={`${SURFACE} overflow-hidden`}>
+                <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
+                  <span className="text-[10px] text-slate-500">
+                    5m — Monte Carlo seviyeleri (30 dk ufuk) · her kapalı 5m barda güncellenir
+                  </span>
+                  <span className="font-mono text-[9px] text-slate-600">
+                    tohum barı: {nyClock(data.decisionPage.asOfBarTime, true)} ET
+                  </span>
+                </div>
+                <SpyChart
+                  bars={m5.length ? m5 : bucketAggregate(m1, 5)}
+                  timeframe="5m"
+                  events={events}
+                  position={openPosition}
+                  toggles={toggles}
+                  height={360}
+                  autoScroll={autoScroll}
+                  levelLines={decisionLevelLines}
+                  defaultWindowMin={120}
+                />
+              </div>
+
+              {/* Tier 1 — Fiyat Modeli: fiyat × zaman dilimi matrisi */}
+              <Panel title="Tier 1 — Fiyat Modeli (Monte Carlo, gerçek istatistiksel &quot;Olasılık&quot;)">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[10px]">
+                    <thead>
+                      <tr className="border-b border-[#1c2635] text-slate-500">
+                        <th className="py-1 text-left font-semibold">Seviye</th>
+                        {data.decisionPage.horizonsMin.map((h) => (
+                          <th key={h} className="py-1 text-right font-semibold">{h} dk</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="font-mono">
+                      {[...data.decisionPage.priceGrid].reverse().map((lvl) => (
+                        <tr key={lvl} className={`border-b border-[#0f141d] ${lvl === Math.round(data!.decisionPage!.spot) ? "bg-[#1c2635]/40" : ""}`}>
+                          <td className="py-1 text-slate-300">${lvl}</td>
+                          {data.decisionPage!.horizonsMin.map((h) => {
+                            const cell = data.decisionPage!.tier1[String(h)]?.find((x) => x.price === lvl);
+                            return (
+                              <td key={h} className="py-1 text-right text-slate-300">
+                                {cell ? (
+                                  <span title={`Yoğunluk: %${cell.densityPct.toFixed(0)}`}>
+                                    %{cell.touchProbability.toFixed(0)}
+                                  </span>
+                                ) : "—"}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
+                  Hücreler ERİŞİM olasılığı (%) gösterir — fiyatın o ufuk içinde en az bir an o seviyeye ulaşma
+                  ihtimali. Üzerine gelince YOĞUNLUK (o bantta geçirilen zaman oranı) görünür. İkisi matematiksel
+                  olarak farklıdır, birbirine dönüştürülemez.
+                </div>
+              </Panel>
+
+              <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
+                {/* Tier 2 — Piyasa Beklentisi */}
+                <Panel title="Tier 2 — Piyasa Beklentisi (opsiyon delta-örtük olasılık)">
+                  {!data.decisionPage.tier2.length ? (
+                    <div className="text-[11px] text-slate-500">Veri yok — Faz 2 opsiyon verisi bekleniyor.</div>
+                  ) : (
+                    <table className="w-full text-[10px]">
+                      <thead>
+                        <tr className="border-b border-[#1c2635] text-slate-500">
+                          <th className="py-1 text-left font-semibold">Strike</th>
+                          <th className="py-1 text-right font-semibold">Call (üstünde kapanış)</th>
+                          <th className="py-1 text-right font-semibold">Put (altında kapanış)</th>
+                        </tr>
+                      </thead>
+                      <tbody className="font-mono">
+                        {data.decisionPage.tier2.map((t) => (
+                          <tr key={t.strike} className="border-b border-[#0f141d]">
+                            <td className="py-1 text-slate-300">${t.strike}</td>
+                            <td className="py-1 text-right text-slate-300">{t.callImpliedProb == null ? "—" : `%${(t.callImpliedProb * 100).toFixed(0)}`}</td>
+                            <td className="py-1 text-right text-slate-300">{t.putImpliedProb == null ? "—" : `%${(t.putImpliedProb * 100).toFixed(0)}`}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                  <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
+                    Delta, piyasanın o strike&apos;ın ITM bitme olasılığına dair KABA bir tahminidir (tam N(d2)
+                    değil, standart trader kısayolu N(d1)) — gerçek opsiyon fiyatlarından, uydurma değil.
+                  </div>
+                </Panel>
+
+                {/* Tier 4 — Opsiyon Motoru (Faz 2 verisiyle aynı kaynak) */}
+                <Panel title="Tier 4 — Opsiyon Motoru (Black-Scholes, gerçek IV)">
+                  {!data.optionDecision ? (
+                    <div className="text-[11px] text-slate-500">Veri yok.</div>
+                  ) : (
+                    <div className="flex flex-col gap-1">
+                      <div className="font-mono text-[10px] text-slate-500">
+                        Vade: <b className="text-slate-300">{data.optionDecision.expiry}</b>
+                        {" · "}Spot: <b className="text-slate-300">${num(data.optionDecision.spot)}</b>
+                      </div>
+                      <table className="w-full text-[10px]">
+                        <thead>
+                          <tr className="border-b border-[#1c2635] text-slate-500">
+                            <th className="py-1 text-left font-semibold">Strike</th>
+                            <th className="py-1 text-right font-semibold">Call Δ/Θ</th>
+                            <th className="py-1 text-right font-semibold">Put Δ/Θ</th>
+                          </tr>
+                        </thead>
+                        <tbody className="font-mono">
+                          {data.optionDecision.contracts.map((c) => (
+                            <tr key={c.strike} className="border-b border-[#0f141d]">
+                              <td className="py-1 text-slate-300">${c.strike}</td>
+                              <td className="py-1 text-right text-slate-300">{c.call.greeks.delta.toFixed(2)}/{c.call.greeks.theta.toFixed(2)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.put.greeks.delta.toFixed(2)}/{c.put.greeks.theta.toFixed(2)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </Panel>
+              </div>
+
+              {/* Tier 3 — Rejim + Skor */}
+              <Panel title="Tier 3 — Rejim + Skor (KALİBRE EDİLMEMİŞ — olasılık değil)">
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                  {([["long", "LONG (yukarı dönüş)"], ["short", "SHORT (aşağı dönüş)"]] as const).map(([key, title]) => {
+                    const t3 = data.decisionPage!.tier3[key];
+                    return (
+                      <div key={key} className="rounded border border-[#1c2635] bg-[#0a0e17] p-2">
+                        <div className="mb-1 text-[10px] font-semibold text-slate-300">{title}</div>
+                        <div className="mb-1.5 flex items-center gap-3">
+                          <div>
+                            <div className="text-[9px] text-slate-500">Reversal Score</div>
+                            <div className="font-mono text-[16px] font-bold text-slate-100">{t3.reversal.score}/100</div>
+                          </div>
+                          <div>
+                            <div className="text-[9px] text-slate-500">{key === "long" ? "Satıcı" : "Alıcı"} Tükenmesi</div>
+                            <div className="font-mono text-[16px] font-bold text-slate-100">{t3.exhaustion.score.toFixed(0)}/100</div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          {t3.reversal.parts.map((p, i) => (
+                            <div key={i} className="flex items-center justify-between text-[9.5px] text-slate-500">
+                              <span>{p.label}</span>
+                              <span className={p.value > 0 ? "text-[#22c55e]" : "text-slate-600"}>+{p.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-1 text-[9px] leading-snug text-slate-600">{t3.exhaustion.note}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Panel>
+
+              {/* Tier 5 — Edge Skoru: sürekli, hard-gate yok */}
+              <Panel title="Tier 5 — Edge Skoru (Tier 1-3 birleşimi, sürekli 0-100, hard-gate YOK)">
+                <table className="w-full text-[10px]">
+                  <thead>
+                    <tr className="border-b border-[#1c2635] text-slate-500">
+                      <th className="py-1 text-left font-semibold">Seviye</th>
+                      <th className="py-1 text-left font-semibold">LONG Edge</th>
+                      <th className="py-1 text-left font-semibold">SHORT Edge</th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-mono">
+                    {[...data.decisionPage.tier5].reverse().map((t) => (
+                      <tr key={t.price} className="border-b border-[#0f141d]">
+                        <td className="py-1.5 text-slate-300">${t.price}</td>
+                        <td className="py-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
+                              <div className="h-full bg-[#22c55e]" style={{ width: `${t.edgeLong}%` }} />
+                            </div>
+                            <span className="w-7 text-right text-slate-300">{t.edgeLong}</span>
+                          </div>
+                        </td>
+                        <td className="py-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
+                              <div className="h-full bg-[#ef4444]" style={{ width: `${t.edgeShort}%` }} />
+                            </div>
+                            <span className="w-7 text-right text-slate-300">{t.edgeShort}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
+                  Sabit bir &quot;işlem yok&quot; bandı YOK — düşük skorlu seviyeler sadece kısa bir çubukla görsel
+                  olarak sönük görünür, sistem hiçbir zaman veri gizlemez.
+                </div>
+              </Panel>
+            </>
+          )}
         </div>
       )}
 
