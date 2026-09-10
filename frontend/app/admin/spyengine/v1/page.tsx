@@ -963,101 +963,6 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* Faz 1 (tasks/active/013) — Monte Carlo doğrulama, Karar Sayfası henüz yok */}
-          <Disclosure title="Faz 1 — 5m Monte Carlo (deneysel, Karar Sayfası ön izleme)">
-            {!data?.monteCarlo ? (
-              <div className="text-[11px] text-slate-500">
-                Sigma hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
-                  <span>Ham sigma (5m): <b className="text-slate-300">{data.monteCarlo.sigmaPerBarRaw == null ? "veri yok" : `%${(data.monteCarlo.sigmaPerBarRaw * 100).toFixed(3)}`}</b></span>
-                  <span>Mevsimsellik çarpanı: <b className="text-slate-300">{data.monteCarlo.seasonalityMultiplier.toFixed(2)}×</b> ({data.monteCarlo.seasonalitySampleDays} gün)</span>
-                  <span>Ayarlı sigma: <b className="text-slate-300">%{(data.monteCarlo.sigmaPerBarAdj * 100).toFixed(3)}</b></span>
-                  <span>Ufuk: <b className="text-slate-300">{data.monteCarlo.horizonMin} dk</b> · {data.monteCarlo.nSims} yol</span>
-                </div>
-                <table className="w-full text-[10px]">
-                  <thead>
-                    <tr className="border-b border-[#1c2635] text-slate-500">
-                      <th className="py-1 text-left font-semibold">Seviye</th>
-                      <th className="py-1 text-right font-semibold">Erişim olasılığı</th>
-                      <th className="py-1 text-right font-semibold">Yoğunluk</th>
-                    </tr>
-                  </thead>
-                  <tbody className="font-mono">
-                    {[...data.monteCarlo.levels].reverse().map((l) => (
-                      <tr key={l.price} className="border-b border-[#0f141d]">
-                        <td className="py-1 text-slate-300">${l.price}</td>
-                        <td className="py-1 text-right text-slate-300">%{l.touchProbability.toFixed(0)}</td>
-                        <td className="py-1 text-right text-slate-300">%{l.densityPct.toFixed(0)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="text-[9px] leading-snug text-slate-600">
-                  &quot;Erişim olasılığı&quot; ve &quot;yoğunluk&quot; matematiksel olarak farklı büyüklükler — birbirine
-                  dönüştürülemez (bkz. tasks/active/013 §2.1). Bu panel henüz karar üretmiyor, sadece Faz 1
-                  modülünün doğru çalıştığını göstermek için var — Karar Sayfası ayrı bir sekmede (Faz 5) gelecek.
-                </div>
-              </div>
-            )}
-          </Disclosure>
-
-          {/* Faz 2 (tasks/active/013) — SPY 0DTE Greeks, opsiyon242.py'den BAĞIMSIZ kaynak */}
-          <Disclosure title="Faz 2 — SPY 0DTE Opsiyon Greeks (deneysel, spy_0dte_options_sync.py)">
-            {!data?.optionDecision ? (
-              <div className="text-[11px] text-slate-500">
-                Veri yok — script henüz çalışmadı veya sonuç bayat (&gt;6 saat). Uydurma değer üretilmez.
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
-                  <span>Vade: <b className="text-slate-300">{data.optionDecision.expiry}</b> ({data.optionDecision.isZeroDte ? "0DTE" : "0DTE yok — en yakın vade"})</span>
-                  <span>Spot: <b className="text-slate-300">${num(data.optionDecision.spot)}</b></span>
-                  <span>Kalan süre: <b className="text-slate-300">{(data.optionDecision.yearsToExpiry * 365 * 24 * 60).toFixed(0)} dk</b></span>
-                  <span>r: <b className="text-slate-300">%{(data.optionDecision.riskFreeRate * 100).toFixed(1)}</b></span>
-                  <span>Üretim: <b className="text-slate-300">{nyClock(Math.floor(Date.parse(data.optionDecision.generatedAt) / 1000), true)} ET</b></span>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-[10px]">
-                    <thead>
-                      <tr className="border-b border-[#1c2635] text-slate-500">
-                        <th className="py-1 text-left font-semibold">Strike</th>
-                        <th className="py-1 text-right font-semibold">Call Δ</th>
-                        <th className="py-1 text-right font-semibold">Call Γ</th>
-                        <th className="py-1 text-right font-semibold">Call Θ</th>
-                        <th className="py-1 text-right font-semibold">Call IV</th>
-                        <th className="py-1 text-right font-semibold">Put Δ</th>
-                        <th className="py-1 text-right font-semibold">Put Θ</th>
-                        <th className="py-1 text-right font-semibold">Put IV</th>
-                      </tr>
-                    </thead>
-                    <tbody className="font-mono">
-                      {data.optionDecision.contracts.map((c) => (
-                        <tr key={c.strike} className="border-b border-[#0f141d]">
-                          <td className="py-1 text-slate-300">${c.strike}</td>
-                          <td className="py-1 text-right text-slate-300">{c.call.greeks.delta.toFixed(3)}</td>
-                          <td className="py-1 text-right text-slate-300">{c.call.greeks.gamma.toFixed(4)}</td>
-                          <td className="py-1 text-right text-slate-300">{c.call.greeks.theta.toFixed(3)}</td>
-                          <td className="py-1 text-right text-slate-300">{c.call.impliedVolatility == null ? "—" : `%${(c.call.impliedVolatility * 100).toFixed(0)}`}</td>
-                          <td className="py-1 text-right text-slate-300">{c.put.greeks.delta.toFixed(3)}</td>
-                          <td className="py-1 text-right text-slate-300">{c.put.greeks.theta.toFixed(3)}</td>
-                          <td className="py-1 text-right text-slate-300">{c.put.impliedVolatility == null ? "—" : `%${(c.put.impliedVolatility * 100).toFixed(0)}`}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="text-[9px] leading-snug text-slate-600">
-                  Prim değerleri Yahoo&apos;nun kendi ima edilen volatilitesinden (IV) Black-Scholes ile hesaplanıyor
-                  — tahmini/HV ile ikame edilmiyor. Tek nokta değil, ATM ±{data.optionDecision.contracts.length > 1 ? Math.floor(data.optionDecision.contracts.length / 2) : 0} strike birlikte gösteriliyor. opsiyon242.py&apos;nin
-                  tarama/skor motoruna DOKUNULMADI — bu ayrı, SPY&apos;a özel bir kaynak (bkz. tasks/active/013).
-                </div>
-              </div>
-            )}
-          </Disclosure>
-
           {/* Strateji şeması — sayfanın en altı, varsayılan kapalı */}
           <Disclosure
             title="Strateji Şeması — giriş, taşıma ve çıkış kuralları"
@@ -1111,11 +1016,9 @@ export default function SpyEngineCommandCenter() {
             </div>
           ) : (
             <>
-              <div className="rounded border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-[10px] leading-snug text-amber-300">
-                Bu sayfa yatırım tavsiyesi DEĞİLDİR. Tier 1 (Fiyat Modeli) ve Tier 2 (Piyasa Beklentisi) gerçek
-                istatistiksel/piyasa verisinden gelir; Tier 3 (Skor) ve buna dayanan Tier 5 (Edge Skoru) KALİBRE
-                EDİLMEMİŞ sezgisel göstergelerdir — &quot;olasılık&quot; değil &quot;skor&quot; olarak okuyun (bkz.
-                tasks/active/013). 0DTE&apos;de spread genişlemesi ve likidite riski ciddi olabilir.
+              <div className="rounded border border-[#1c2635] bg-[#0f141d] px-3 py-2 text-[10px] leading-snug text-slate-400">
+                Tier 1-2 gerçek fiyat/piyasa verisinden hesaplanır; Tier 3 ve Tier 5 sezgisel skordur, olasılık değildir.
+                Grafik ve tüm veriler her kapalı 5m barda otomatik güncellenir.
               </div>
 
               {/* Grafik — kendi grafik motorumuz (SpyChart), Tier 1 seviyeleri çizgi olarak */}
@@ -1317,6 +1220,100 @@ export default function SpyEngineCommandCenter() {
                   olarak sönük görünür, sistem hiçbir zaman veri gizlemez.
                 </div>
               </Panel>
+
+              {/* Faz 1 (tasks/active/013) — Monte Carlo doğrulama, ham veri görünümü */}
+              <Disclosure title="Faz 1 — 5m Monte Carlo (ham veri)">
+                {!data?.monteCarlo ? (
+                  <div className="text-[11px] text-slate-500">
+                    Sigma hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
+                      <span>Ham sigma (5m): <b className="text-slate-300">{data.monteCarlo.sigmaPerBarRaw == null ? "veri yok" : `%${(data.monteCarlo.sigmaPerBarRaw * 100).toFixed(3)}`}</b></span>
+                      <span>Mevsimsellik çarpanı: <b className="text-slate-300">{data.monteCarlo.seasonalityMultiplier.toFixed(2)}×</b> ({data.monteCarlo.seasonalitySampleDays} gün)</span>
+                      <span>Ayarlı sigma: <b className="text-slate-300">%{(data.monteCarlo.sigmaPerBarAdj * 100).toFixed(3)}</b></span>
+                      <span>Ufuk: <b className="text-slate-300">{data.monteCarlo.horizonMin} dk</b> · {data.monteCarlo.nSims} yol</span>
+                    </div>
+                    <table className="w-full text-[10px]">
+                      <thead>
+                        <tr className="border-b border-[#1c2635] text-slate-500">
+                          <th className="py-1 text-left font-semibold">Seviye</th>
+                          <th className="py-1 text-right font-semibold">Erişim olasılığı</th>
+                          <th className="py-1 text-right font-semibold">Yoğunluk</th>
+                        </tr>
+                      </thead>
+                      <tbody className="font-mono">
+                        {[...data.monteCarlo.levels].reverse().map((l) => (
+                          <tr key={l.price} className="border-b border-[#0f141d]">
+                            <td className="py-1 text-slate-300">${l.price}</td>
+                            <td className="py-1 text-right text-slate-300">%{l.touchProbability.toFixed(0)}</td>
+                            <td className="py-1 text-right text-slate-300">%{l.densityPct.toFixed(0)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="text-[9px] leading-snug text-slate-600">
+                      &quot;Erişim olasılığı&quot; ve &quot;yoğunluk&quot; matematiksel olarak farklı büyüklükler — birbirine
+                      dönüştürülemez.
+                    </div>
+                  </div>
+                )}
+              </Disclosure>
+
+              {/* Faz 2 (tasks/active/013) — SPY 0DTE Greeks, opsiyon242.py'den BAĞIMSIZ kaynak */}
+              <Disclosure title="Faz 2 — SPY 0DTE Opsiyon Greeks (ham veri, spy_0dte_options_sync.py)">
+                {!data?.optionDecision ? (
+                  <div className="text-[11px] text-slate-500">
+                    Veri yok — script henüz çalışmadı veya sonuç bayat (&gt;6 saat). Uydurma değer üretilmez.
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
+                      <span>Vade: <b className="text-slate-300">{data.optionDecision.expiry}</b> ({data.optionDecision.isZeroDte ? "0DTE" : "0DTE yok — en yakın vade"})</span>
+                      <span>Spot: <b className="text-slate-300">${num(data.optionDecision.spot)}</b></span>
+                      <span>Kalan süre: <b className="text-slate-300">{(data.optionDecision.yearsToExpiry * 365 * 24 * 60).toFixed(0)} dk</b></span>
+                      <span>r: <b className="text-slate-300">%{(data.optionDecision.riskFreeRate * 100).toFixed(1)}</b></span>
+                      <span>Üretim: <b className="text-slate-300">{nyClock(Math.floor(Date.parse(data.optionDecision.generatedAt) / 1000), true)} ET</b></span>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-[10px]">
+                        <thead>
+                          <tr className="border-b border-[#1c2635] text-slate-500">
+                            <th className="py-1 text-left font-semibold">Strike</th>
+                            <th className="py-1 text-right font-semibold">Call Δ</th>
+                            <th className="py-1 text-right font-semibold">Call Γ</th>
+                            <th className="py-1 text-right font-semibold">Call Θ</th>
+                            <th className="py-1 text-right font-semibold">Call IV</th>
+                            <th className="py-1 text-right font-semibold">Put Δ</th>
+                            <th className="py-1 text-right font-semibold">Put Θ</th>
+                            <th className="py-1 text-right font-semibold">Put IV</th>
+                          </tr>
+                        </thead>
+                        <tbody className="font-mono">
+                          {data.optionDecision.contracts.map((c) => (
+                            <tr key={c.strike} className="border-b border-[#0f141d]">
+                              <td className="py-1 text-slate-300">${c.strike}</td>
+                              <td className="py-1 text-right text-slate-300">{c.call.greeks.delta.toFixed(3)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.call.greeks.gamma.toFixed(4)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.call.greeks.theta.toFixed(3)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.call.impliedVolatility == null ? "—" : `%${(c.call.impliedVolatility * 100).toFixed(0)}`}</td>
+                              <td className="py-1 text-right text-slate-300">{c.put.greeks.delta.toFixed(3)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.put.greeks.theta.toFixed(3)}</td>
+                              <td className="py-1 text-right text-slate-300">{c.put.impliedVolatility == null ? "—" : `%${(c.put.impliedVolatility * 100).toFixed(0)}`}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="text-[9px] leading-snug text-slate-600">
+                      Prim değerleri Yahoo&apos;nun kendi ima edilen volatilitesinden (IV) Black-Scholes ile hesaplanıyor
+                      — tahmini/HV ile ikame edilmiyor. opsiyon242.py&apos;nin tarama/skor motoruna DOKUNULMADI — bu ayrı,
+                      SPY&apos;a özel bir kaynak.
+                    </div>
+                  </div>
+                )}
+              </Disclosure>
             </>
           )}
         </div>
