@@ -1,71 +1,11 @@
 {
-  "generated_at": "2026-09-10T14:08:37.087327-04:00",
+  "generated_at": "2026-09-10T17:06:04.897222-04:00",
   "picks": [
-    {
-      "ticker": "OKTA",
-      "sector": "Technology",
-      "date_added": "2026-09-09",
-      "score": 34.5
-    },
-    {
-      "ticker": "ZETA",
-      "sector": "Technology",
-      "date_added": "2026-09-09",
-      "score": 33.5
-    },
-    {
-      "ticker": "HOOD",
-      "sector": "Financial Services",
-      "date_added": "2026-09-09",
-      "score": 32.0
-    },
-    {
-      "ticker": "HCA",
-      "sector": "Healthcare",
-      "date_added": "2026-09-09",
-      "score": 29.3
-    },
     {
       "ticker": "NUTX",
       "sector": "Healthcare",
       "date_added": "2026-09-09",
       "score": 33.0
-    },
-    {
-      "ticker": "ZIM",
-      "sector": "Industrials",
-      "date_added": "2026-09-10",
-      "score": 33.0
-    },
-    {
-      "ticker": "SNEX",
-      "sector": "Financial Services",
-      "date_added": "2026-09-10",
-      "score": 34.0
-    },
-    {
-      "ticker": "HL",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-10",
-      "score": 33.5
-    },
-    {
-      "ticker": "ANF",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-10",
-      "score": 31.5
-    },
-    {
-      "ticker": "CMPS",
-      "sector": "Healthcare",
-      "date_added": "2026-09-10",
-      "score": 31.0
-    },
-    {
-      "ticker": "CNH",
-      "sector": "Industrials",
-      "date_added": "2026-09-10",
-      "score": 30.0
     },
     {
       "ticker": "OSCR",
@@ -74,10 +14,40 @@
       "score": 30.0
     },
     {
-      "ticker": "GH",
-      "sector": "Healthcare",
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-09-10",
-      "score": 28.0
+      "score": 35.0
+    },
+    {
+      "ticker": "OKTA",
+      "sector": "Technology",
+      "date_added": "2026-09-10",
+      "score": 34.5
+    },
+    {
+      "ticker": "BTG",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-10",
+      "score": 34.5
+    },
+    {
+      "ticker": "PEB",
+      "sector": "Real Estate",
+      "date_added": "2026-09-10",
+      "score": 34.0
+    },
+    {
+      "ticker": "HOOD",
+      "sector": "Financial Services",
+      "date_added": "2026-09-10",
+      "score": 32.0
+    },
+    {
+      "ticker": "MU",
+      "sector": "Technology",
+      "date_added": "2026-09-10",
+      "score": 27.5
     }
   ]
 }
