@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T10:00:19.212131-04:00",
+  "updated_at": "2026-09-10T11:00:17.481904-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 407,
@@ -14727,11 +14727,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.125,
-      "unrealized_pnl_pct": -98.9,
+      "current_premium": 0.105,
+      "unrealized_pnl_pct": -99.0,
       "days_held": 142,
       "peak_premium": 14.0,
-      "trough_premium": 0.125,
+      "trough_premium": 0.105,
       "underlying_current": null
     },
     {
@@ -14855,11 +14855,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.02,
-      "unrealized_pnl_pct": -99.6,
+      "current_premium": 0.015,
+      "unrealized_pnl_pct": -99.7,
       "days_held": 142,
       "peak_premium": 10.1,
-      "trough_premium": 0.02,
+      "trough_premium": 0.015,
       "underlying_current": null
     },
     {
@@ -14951,11 +14951,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.125,
-      "unrealized_pnl_pct": -95.3,
+      "current_premium": 0.1,
+      "unrealized_pnl_pct": -96.3,
       "days_held": 142,
       "peak_premium": 2.85,
-      "trough_premium": 0.125,
+      "trough_premium": 0.1,
       "underlying_current": null
     },
     {
@@ -14983,8 +14983,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 5.15,
-      "unrealized_pnl_pct": -20.8,
+      "current_premium": 5.5,
+      "unrealized_pnl_pct": -15.4,
       "days_held": 142,
       "peak_premium": 16.05,
       "trough_premium": 4.95,
@@ -15015,8 +15015,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.1425,
-      "unrealized_pnl_pct": -88.4,
+      "current_premium": 0.095,
+      "unrealized_pnl_pct": -92.3,
       "days_held": 142,
       "peak_premium": 1.625,
       "trough_premium": 0.075,
