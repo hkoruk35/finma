@@ -1,8 +1,8 @@
 {
   "version": "v243",
-  "date": "2026-09-09",
-  "generated_at": "2026-09-09T15:32:10.276991-04:00",
-  "vix": 16.329999923706055,
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T11:02:49.832600-04:00",
+  "vix": 17.420000076293945,
   "dte_range": "1-30",
   "atm_strikes": 5,
   "earnings_hard_block_days": 14,
@@ -16,17 +16,17 @@
     "ARKK"
   ],
   "regime": {
-    "regime": "bull",
-    "score": 73,
-    "qqq_5d": 1.22,
-    "qqq_20d": -0.3,
-    "qqq_above_ema20": true,
-    "spy_gap_pct": -0.25,
+    "regime": "neutral",
+    "score": 58,
+    "qqq_5d": 0.35,
+    "qqq_20d": -1.66,
+    "qqq_above_ema20": false,
+    "spy_gap_pct": -0.57,
     "spy_gap_up": false,
-    "spy_gap_down": false
+    "spy_gap_down": true
   },
   "universe_size": 836,
-  "scan_duration_sec": 124.862295627594,
+  "scan_duration_sec": 163.47126412391663,
   "total_candidates": 0,
   "picks": []
 }
