@@ -1,8 +1,8 @@
 {
   "date": "2026-09-09",
-  "generated_at": "2026-09-09T14:06:38.286037-04:00",
+  "generated_at": "2026-09-09T17:05:01.390785-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 37,
+  "active_scores_count": 45,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 17,
       "tickers": [
         "GPN",
         "BG",
@@ -33,7 +33,13 @@
         "FCX",
         "VG",
         "FNV",
-        "FIGR"
+        "FIGR",
+        "EQNR",
+        "HPQ",
+        "ADM",
+        "WFC",
+        "MTCH",
+        "PAAS"
       ]
     },
     "value": {
@@ -72,20 +78,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 757.0099,
+      "change_pct": -0.71
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 708.21,
+      "change_pct": -1.13
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 521.1201,
+      "change_pct": -0.56
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 17.7,
+      "change_pct": 7.53
+    },
+    "RUSSELL2000": {
+      "value": 288.135,
+      "change_pct": -0.86
     }
-  }
+  },
+  "price_updated_at": "2026-09-10T10:00:13.411669-04:00"
 }
