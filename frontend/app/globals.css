@@ -18,6 +18,19 @@
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
   --color-gold: #f59e0b;
+
+  /* BOGA dark-grey "AI market intelligence terminal" repalette (2026-09) */
+  --color-boga-bg: #151719;
+  --color-boga-bg-alt: #181A1D;
+  --color-boga-card: #202327;
+  --color-boga-card-secondary: #25282C;
+  --color-boga-border: #30343A;
+  --color-boga-text-primary: #E7E9EC;
+  --color-boga-text-secondary: #969CA5;
+  --color-boga-gain: #4CAF7D;
+  --color-boga-loss: #E2726B;
+  --color-boga-accent: #D9A441;
+
   --font-sans: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
   --font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
   --animate-ticker: ticker 30s linear infinite;

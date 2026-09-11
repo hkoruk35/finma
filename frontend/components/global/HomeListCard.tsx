@@ -45,8 +45,8 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
   const visibleStocks = initialVisible && !expanded ? stocks.slice(0, initialVisible) : stocks;
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden flex flex-col h-full">
-      <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#1e2a3a]">
+    <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden flex flex-col h-full">
+      <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: accent }} />
           <h3 className="text-[16px] font-bold tracking-tight truncate" style={{ color: accent }}>{title}</h3>
@@ -67,7 +67,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
 
       {visibleStocks.length > 0 ? (
         <>
-          <div className="flex-1 min-h-0 divide-y divide-[#1e2a3a]/70">
+          <div className="flex-1 min-h-0 divide-y divide-[#30343A]/70">
             {visibleStocks.map((stock, idx) => {
               return (
                 <div
@@ -108,7 +108,7 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="flex items-center justify-center gap-1 px-3 py-2 text-[10px] font-medium text-slate-400 hover:text-white hover:bg-white/[0.03] border-t border-[#1e2a3a] transition-colors"
+              className="flex items-center justify-center gap-1 px-3 py-2 text-[10px] font-medium text-slate-400 hover:text-white hover:bg-white/[0.03] border-t border-[#30343A] transition-colors"
             >
               {expanded ? labels.showLess : labels.showMore}
               <svg className={`w-2.5 h-2.5 transition-transform ${expanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

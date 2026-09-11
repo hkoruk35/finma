@@ -73,15 +73,15 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
     }));
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a]">
+    <div className="bg-[#202327] border border-[#30343A] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
-          <h3 className="text-[16px] font-bold text-[#3b82f6] truncate">{t.title}</h3>
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
+          <h3 className="text-[16px] font-bold text-[#D9A441] truncate">{t.title}</h3>
         </div>
         <Link
           href={detailHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
         >
           {t.linkLabel}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -94,18 +94,18 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
         <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
           <div className="flex items-center gap-2 flex-wrap min-w-0">
             <TickerHoverChart ticker={data.ticker} locale={locale}>
-              <Link href={detailHref} className="text-xl font-black text-white hover:text-[#3b82f6] transition-colors">
+              <Link href={detailHref} className="text-xl font-black text-white hover:text-[#D9A441] transition-colors">
                 {data.ticker}
               </Link>
             </TickerHoverChart>
             {data.sector && <span className="text-xs font-bold text-white/50 truncate">{data.sector}</span>}
-            <span className="text-[10px] bg-[#3b82f6]/20 text-[#3b82f6] px-2 py-0.5 rounded-full font-bold tracking-wide">
+            <span className="text-[10px] bg-[#D9A441]/20 text-[#D9A441] px-2 py-0.5 rounded-full font-bold tracking-wide">
               {t.latest}
             </span>
           </div>
           <span className="text-sm font-mono font-bold shrink-0">
             {data.price > 0 ? `$${formatNumber(data.price, 2)}` : "—"}{" "}
-            <span className={data.change_pct >= 0 ? "text-[#3fb950]" : "text-[#f85149]"}>
+            <span className={data.change_pct >= 0 ? "text-[#4CAF7D]" : "text-[#E2726B]"}>
               {data.change_pct >= 0 ? "+" : ""}
               {formatNumber(data.change_pct, 2)}%
             </span>
@@ -113,7 +113,7 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4">
-          <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1e2a3a] border border-white/10 text-xs">
+          <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-[#30343A] border border-white/10 text-xs">
             <span className="text-white/70">{t.score}:</span>
             <span className="font-bold text-white">{Math.round(data.score)}/100</span>
           </span>
@@ -130,11 +130,11 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
 
         {data.selectionReasons.length > 0 && (
           <div className="mb-4">
-            <p className="text-[13px] font-bold text-[#3b82f6] mb-2">{t.whySelected}</p>
+            <p className="text-[13px] font-bold text-[#D9A441] mb-2">{t.whySelected}</p>
             <ul className="space-y-1">
               {data.selectionReasons.slice(0, 4).map((reason, i) => (
                 <li key={i} className="text-sm text-slate-300 leading-relaxed flex gap-1.5">
-                  <span className="text-[#3b82f6] mt-0.5 shrink-0">•</span>
+                  <span className="text-[#D9A441] mt-0.5 shrink-0">•</span>
                   <span>{reason}</span>
                 </li>
               ))}

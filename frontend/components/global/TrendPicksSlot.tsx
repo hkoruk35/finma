@@ -36,7 +36,7 @@ interface LiveWatchData {
   recent_closes?: number[];
 }
 
-const ACCENT = '#3b82f6'; // diger ana sayfa kart basliklariyla (Sektorler, Izleme Listem vb.) ayni logo-mavisi standardi
+const ACCENT = '#D9A441'; // diger ana sayfa kart basliklariyla (Sektorler, Izleme Listem vb.) ayni logo-mavisi standardi
 
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {
@@ -167,9 +167,9 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className={`bg-gradient-to-br from-[#0a1428] to-[#050b14] border border-[#1e2a3a]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
+      <div className={`bg-gradient-to-br from-[#0a1428] to-[#050b14] border border-[#30343A]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
       {/* Header */}
-      <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
+      <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#30343A]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
           <h3 className="text-[16px] font-bold tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>
@@ -189,7 +189,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       {displayStocks.length > 0 ? (
         <>
           {/* Column labels */}
-          <div className={`grid ${gridCols} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium tracking-[0.5px] text-slate-500`}>
+          <div className={`grid ${gridCols} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#30343A] font-medium tracking-[0.5px] text-slate-500`}>
             {selectable && <span className="w-3.5" />}
             <span>{labels.stock}</span>
             <span />
@@ -197,7 +197,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
           </div>
 
           {/* Rows */}
-          <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
+          <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#30343A]/70">
             {displayStocks.map((stock, idx) => {
               const st = STATUS_STYLE[stock.status];
               const slabel = statusLabel(stock.status, locale);

@@ -91,15 +91,15 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden mb-4">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a]">
+    <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden mb-4">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
-          <h3 className="text-[16px] font-bold text-[#3b82f6] truncate">{t.title}</h3>
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
+          <h3 className="text-[16px] font-bold text-[#D9A441] truncate">{t.title}</h3>
         </div>
         <Link
           href={allHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -108,19 +108,19 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
         </Link>
       </div>
 
-      <div className="flex md:grid md:grid-cols-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:divide-x divide-[#1e2a3a]/70">
+      <div className="flex md:grid md:grid-cols-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:divide-x divide-[#30343A]/70">
         {items.map((item) => {
           const ai = item.ai;
           const revenuePositive = ai?.revenue_status && !/below|altı|bajas?|baisse|baixo/i.test(ai.revenue_status);
 
           return (
-            <div key={item.id} className="flex-none w-[90%] md:w-auto snap-center p-4 hover:bg-white/[0.02] transition-colors flex flex-col justify-between border-r border-[#1e2a3a]/70 last:border-r-0 md:border-r-0">
+            <div key={item.id} className="flex-none w-[90%] md:w-auto snap-center p-4 hover:bg-white/[0.02] transition-colors flex flex-col justify-between border-r border-[#30343A]/70 last:border-r-0 md:border-r-0">
               <div>
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-lg font-bold text-white hover:text-[#3b82f6] transition-colors flex items-center gap-2">
+                    <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-lg font-bold text-white hover:text-[#D9A441] transition-colors flex items-center gap-2">
                       {item.ticker}
-                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 uppercase">
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#D9A441]/10 text-[#D9A441] border border-[#D9A441]/20 uppercase">
                         {item.formType}
                       </span>
                     </Link>
@@ -150,7 +150,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                         {t.eps}: {ai.eps_status}
                       </span>
                       {typeof ai.ai_score === "number" && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D9A441]/10 text-[#D9A441] border border-[#D9A441]/30">
                           {t.score}: {ai.ai_score}/10
                         </span>
                       )}
@@ -158,11 +158,11 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
 
                     {Array.isArray(ai.key_takeaways) && ai.key_takeaways.length > 0 && (
                       <div className="mb-3">
-                        <div className="text-[12px] font-bold text-[#3b82f6] mb-1">{t.keyTakeaways}</div>
+                        <div className="text-[12px] font-bold text-[#D9A441] mb-1">{t.keyTakeaways}</div>
                         <ul className="space-y-1">
                           {ai.key_takeaways.slice(0, 2).map((k: string, i: number) => (
                             <li key={i} className="text-[11px] text-white/70 flex gap-1.5 leading-snug">
-                              <span className="text-[#3b82f6] mt-0.5 shrink-0">•</span>
+                              <span className="text-[#D9A441] mt-0.5 shrink-0">•</span>
                               <span className="line-clamp-1">{k}</span>
                             </li>
                           ))}
@@ -193,7 +193,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                     )}
 
                     <div className="flex items-center justify-end mb-4">
-                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#3b82f6] hover:underline">
+                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#D9A441] hover:underline">
                         {t.detail}
                       </Link>
                     </div>
@@ -202,7 +202,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
               </div>
 
               {/* Mini Chart Area */}
-              <div className="h-[180px] w-full mt-4 relative border border-[#1e2a3a]/40 rounded-lg overflow-hidden bg-black/30">
+              <div className="h-[180px] w-full mt-4 relative border border-[#30343A]/40 rounded-lg overflow-hidden bg-black/30">
                 <BogaChartEngine 
                   symbol={item.ticker}
                   lang={locale}

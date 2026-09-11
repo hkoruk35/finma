@@ -38,7 +38,7 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
               onClick={() => setActive(g.key)}
               className={`px-3.5 py-1.5 rounded-lg text-[13px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? 'bg-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]'
+                  ? 'bg-[#D9A441] text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]'
                   : 'bg-[#38bdf8]/10 text-[#38bdf8] hover:bg-[#38bdf8]/25 hover:text-white shadow-[0_0_8px_rgba(56,189,248,0.15)]'
               }`}
             >
@@ -55,13 +55,13 @@ export default function MarketOverviewTabs({ groups, locale }: { groups: MarketG
         {activeGroup.items.map((item) => {
           const changePct = item.quote?.change_pct ?? 0;
           const positive = changePct >= 0;
-          const color = !item.quote ? '#8b949e' : positive ? '#3fb950' : '#f85149';
+          const color = !item.quote ? '#8b949e' : positive ? '#4CAF7D' : '#E2726B';
           return (
             <div key={item.ticker} className="shrink-0 snap-start w-[45%] min-w-[155px] md:w-auto">
               <TickerHoverChart ticker={item.ticker} locale={locale}>
                 <Link
                   href={`/global/${locale}/graphic/${item.ticker}`}
-                  className="group block rounded-xl bg-[#0d131f]/80 border border-[#1e2a3a] p-3 md:p-3.5 hover:border-[#3b82f6]/50 hover:bg-[#141b2a] transition-all duration-200 shadow-sm"
+                  className="group block rounded-xl bg-[#181A1D]/80 border border-[#30343A] p-3 md:p-3.5 hover:border-[#D9A441]/50 hover:bg-[#25282C] transition-all duration-200 shadow-sm"
                 >
                   <div className="text-[11px] font-medium text-slate-400 truncate group-hover:text-slate-200 transition-colors">
                     {item.label}

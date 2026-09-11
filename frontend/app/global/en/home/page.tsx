@@ -7,6 +7,7 @@ import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlist
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
+import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
@@ -177,7 +178,7 @@ export default async function EnHomePage() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
+    <div className="min-h-screen flex flex-col bg-boga-bg font-manrope">
       <MemberHeader locale="en" />
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
       <CookieConsent locale="en" />
@@ -191,6 +192,12 @@ export default async function EnHomePage() {
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="en" />
             </div>
+
+            <TodaysMarketPicture
+              locale="en"
+              sectors={SECTOR_ITEMS.map((it) => ({ label: it.label, change_pct: quotes[it.ticker]?.change_pct ?? NaN }))}
+              vixChangePct={quotes["VIX"]?.change_pct}
+            />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="en" />

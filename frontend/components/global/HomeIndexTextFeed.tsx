@@ -48,18 +48,18 @@ export default async function HomeIndexTextFeed({ locale }: { locale: Locale }) 
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
-      <div className="flex items-center px-4 py-3.5 border-b border-[#1e2a3a]">
-        <span className="w-1 h-5 rounded-full shrink-0 bg-[#3b82f6] mr-2.5" />
-        <h3 className="text-[18px] font-bold text-[#3b82f6]">{t.title}</h3>
+    <div className="bg-[#202327] border border-[#30343A] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
+      <div className="flex items-center px-4 py-3.5 border-b border-[#30343A]">
+        <span className="w-1 h-5 rounded-full shrink-0 bg-[#D9A441] mr-2.5" />
+        <h3 className="text-[18px] font-bold text-[#D9A441]">{t.title}</h3>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3">
         {items.map(({ snapshot, narrative, indexDef }) => (
-          <div key={snapshot.index_symbol} className="rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3.5 flex flex-col">
+          <div key={snapshot.index_symbol} className="rounded-lg border border-[#30343A]/60 bg-white/[0.02] p-3.5 flex flex-col">
             <Link
               href={`/global/${locale}/${indexDef.slug}`}
-              className="text-[15px] font-bold text-[#3b82f6] hover:underline transition-colors"
+              className="text-[15px] font-bold text-[#D9A441] hover:underline transition-colors"
             >
               {indexDef.names[locale]}
             </Link>
@@ -76,7 +76,7 @@ export default async function HomeIndexTextFeed({ locale }: { locale: Locale }) 
             </p>
             <Link
               href={`/global/${locale}/${indexDef.slug}`}
-              className="text-[11px] font-bold text-[#3b82f6] hover:underline self-start"
+              className="text-[11px] font-bold text-[#D9A441] hover:underline self-start"
             >
               {t.readMore}
             </Link>

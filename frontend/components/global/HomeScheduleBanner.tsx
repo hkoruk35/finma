@@ -18,9 +18,19 @@ export default async function HomeScheduleBanner({ locale }: { locale: Locale })
   const t = copy[locale].schedule;
   const snapshots = await getLatestSnapshotPerSymbol(ALL_SYMBOLS, 300);
 
+  // 2026-09-10: Kart saf "en son güncellenen" rotasyonuyla seçildiğinde
+  // EN/global anasayfada bile ABD dışı bir endeks (örn. IPC México) ilk
+  // sırada çıkabiliyordu. ABD piyasası artık her zaman öncelikli — aynı
+  // rotasyon içinde en yeni güncellenen ABD endeksi öne alınır, kalan
+  // sıralama yine "en son güncellenen" mantığıyla devam eder.
   const items: ScheduleCarouselItem[] = snapshots
     .filter((s) => !!s.created_at)
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .sort((a, b) => {
+      const aUs = INDEX_DEFINITIONS[a.index_symbol]?.region === "us";
+      const bUs = INDEX_DEFINITIONS[b.index_symbol]?.region === "us";
+      if (aUs !== bUs) return aUs ? -1 : 1;
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    })
     .slice(0, CAROUSEL_SIZE)
     .map((s) => {
       const def = INDEX_DEFINITIONS[s.index_symbol];

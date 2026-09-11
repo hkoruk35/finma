@@ -6,7 +6,7 @@ import type { Locale } from '@/lib/i18n/copy';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import HomeListCard, { type HomeListStock } from './HomeListCard';
 
-const ACCENT = '#3b82f6';
+const ACCENT = '#D9A441';
 
 interface LiveWatchRow {
   ticker: string;
@@ -97,8 +97,8 @@ export default function HomePersonalWatchlistCard({ locale, initialVisible }: { 
 
   if (stocks.length === 0) {
     return (
-      <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#1e2a3a]">
+      <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between px-3 py-2.5 border-b border-[#30343A]">
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
             <h3 className="text-[16px] font-bold uppercase tracking-tight truncate" style={{ color: ACCENT }}>{labels.title}</h3>

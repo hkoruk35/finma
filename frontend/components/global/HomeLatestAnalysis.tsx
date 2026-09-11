@@ -39,17 +39,17 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
   if (posts.length === 0) return null;
 
   return (
-    <div className="bg-[#0f1117] border border-[#1e2a3a]/60 rounded-xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a]">
+    <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#3b82f6]" />
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
           <div className="min-w-0">
-            <h3 className="text-[16px] font-bold tracking-tight text-[#3b82f6] truncate">{t.title}</h3>
+            <h3 className="text-[16px] font-bold tracking-tight text-[#D9A441] truncate">{t.title}</h3>
           </div>
         </div>
         <Link
           href={newsHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#3b82f6]/30 text-[#3b82f6] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -62,11 +62,11 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
         {posts.map((post) => (
           <div
             key={post.id}
-            className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#1e2a3a]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#3b82f6]/40 transition-colors"
+            className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#30343A]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#D9A441]/40 transition-colors"
           >
             {post.ticker && (
               <TickerHoverChart ticker={post.ticker} locale={locale}>
-                <Link href={newsHref} className="text-[11px] font-bold text-[#3b82f6] tracking-wide hover:underline">
+                <Link href={newsHref} className="text-[11px] font-bold text-[#D9A441] tracking-wide hover:underline">
                   ${post.ticker}
                 </Link>
               </TickerHoverChart>

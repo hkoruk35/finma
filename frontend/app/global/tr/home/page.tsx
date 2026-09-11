@@ -7,6 +7,7 @@ import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlist
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
+import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
@@ -187,7 +188,7 @@ export default async function TrHomePage() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
+    <div className="min-h-screen flex flex-col bg-boga-bg font-manrope">
       <MemberHeader locale="tr" />
       <TickerTape indices={sectorIndices} labels={SECTOR_LABELS} />
       <CookieConsent locale="tr" />
@@ -204,6 +205,12 @@ export default async function TrHomePage() {
             <div className="mt-4">
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
             </div>
+
+            <TodaysMarketPicture
+              locale="tr"
+              sectors={SECTOR_ITEMS.map((it) => ({ label: it.label, change_pct: quotes[it.ticker]?.change_pct ?? NaN }))}
+              vixChangePct={quotes["VIX"]?.change_pct}
+            />
 
             {/* 2026-08-23 kullanıcı talebi: canlı analiz uyarısı endeks
                 ticker satırının (MarketOverviewTabs) hemen altına taşındı —
