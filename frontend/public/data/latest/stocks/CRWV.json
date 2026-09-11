@@ -1,0 +1,89 @@
+{
+  "ticker": "CRWV",
+  "company": "CoreWeave, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T22:54:18.236Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 89.12000274658203,
+    "open": 89.9000015258789,
+    "high": 92.19000244140625,
+    "low": 88.7301025390625,
+    "prev_close": 94.94000244140625,
+    "change_pct": -6.1301870077537925,
+    "change_pct_1w": 10.11985964478301,
+    "change_pct_1m": 2.67281061435082,
+    "change_pct_1y": -23.92009287097752,
+    "volume": 27607391,
+    "avg_volume_30d": 850517191
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 40,
+    "fundamental_score": 40.1,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.1420056878364,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 89.12801589026022,
+    "ema_50": 89.8304195447198,
+    "ema_200": 96.06967130429204,
+    "ema_stack_bullish": false,
+    "bb_upper": 93.57600288391113,
+    "bb_middle": 89.12000274658203,
+    "bb_lower": 84.66400260925293,
+    "bb_width": 10,
+    "atr": 5.32,
+    "atr_pct": 5.97,
+    "rvol": 0.9906867902450192,
+    "52w_high": 153.1999969482422,
+    "52w_low": 60.54999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 9.774074,
+    "gross_margin": 0.67418,
+    "operating_margin": -0.01903,
+    "net_margin": -0.25402,
+    "market_cap": 49152942080,
+    "revenue_growth_ttm": 1.125,
+    "fcf_yield": -0.1849048101578053,
+    "institutional_ownership_pct": 0.7658,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 85.93,
+    "entry_range_high": 89.65,
+    "target_range_low": 92.18,
+    "target_range_high": 114.45,
+    "target_1": 92.18,
+    "target_2": 103.44,
+    "target_3": 114.45,
+    "stop_loss": 82.2,
+    "risk_reward_ratio": 2.8,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $85.93 – $89.65 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $92.00 direnci veya $84.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $82.20 olarak belirlenmiştir. Fiyatın EMA20 ($89.13) veya günlük VWAP ($90.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($89.83) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($90.44) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

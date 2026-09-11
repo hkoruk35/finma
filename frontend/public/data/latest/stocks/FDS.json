@@ -1,0 +1,89 @@
+{
+  "ticker": "FDS",
+  "company": "FactSet Research Systems Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T23:24:59.529Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 262.92999267578125,
+    "open": 279.260009765625,
+    "high": 283.1600036621094,
+    "low": 262.2900085449219,
+    "prev_close": 279.1700134277344,
+    "change_pct": -5.817251126850341,
+    "change_pct_1w": -14.094819360310417,
+    "change_pct_1m": -13.643383051984323,
+    "change_pct_1y": -27.319221147155865,
+    "volume": 1495967,
+    "avg_volume_30d": 25460167
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.960560334478956,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 291.1483532627246,
+    "ema_50": 277.4735267846773,
+    "ema_200": 264.69641462917855,
+    "ema_stack_bullish": true,
+    "bb_upper": 276.0764923095703,
+    "bb_middle": 262.92999267578125,
+    "bb_lower": 249.7834930419922,
+    "bb_width": 10,
+    "atr": 11.65,
+    "atr_pct": 4.43,
+    "rvol": 1.25859355125204,
+    "52w_high": 371.5299987792969,
+    "52w_low": 185
+  },
+  "fundamental": {
+    "pe_ratio": 17.309414,
+    "pb_ratio": 4.628723,
+    "gross_margin": 0.51382,
+    "operating_margin": 0.30542,
+    "net_margin": 0.2321,
+    "market_cap": 9351247872,
+    "revenue_growth_ttm": 0.064,
+    "fcf_yield": 0.06642550304541858,
+    "institutional_ownership_pct": 1.15329,
+    "dividend_rate": 4.64,
+    "dividend_yield": 0.0161
+  },
+  "scores_detail": {
+    "entry_range_low": 255.94,
+    "entry_range_high": 264.09,
+    "target_range_low": 273.02,
+    "target_range_high": 299.02,
+    "target_1": 273.02,
+    "target_2": 286.02,
+    "target_3": 299.02,
+    "stop_loss": 247.79,
+    "risk_reward_ratio": 2.13,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $255.94 – $264.09 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $282.50 direnci veya $253.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $247.79 olarak belirlenmiştir. Fiyatın EMA200 ($264.70) veya günlük VWAP ($275.35) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($277.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($275.35) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 37 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

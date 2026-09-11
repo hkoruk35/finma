@@ -1,0 +1,89 @@
+{
+  "ticker": "ARM",
+  "company": "Arm Holdings plc",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:14.775Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 264.2300109863281,
+    "open": 262.2749938964844,
+    "high": 274.79998779296875,
+    "low": 261.489990234375,
+    "prev_close": 261.5299987792969,
+    "change_pct": 1.0323910142751038,
+    "change_pct_1w": 12.524488009875,
+    "change_pct_1m": 5.245763385567104,
+    "change_pct_1y": 71.42209162618758,
+    "volume": 3320200,
+    "avg_volume_30d": 139292600
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 70,
+    "fundamental_score": 73.1,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.42446545673,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 253.66826280352055,
+    "ema_50": 265.82843676453234,
+    "ema_200": 227.56116567535358,
+    "ema_stack_bullish": false,
+    "bb_upper": 277.44151153564457,
+    "bb_middle": 264.2300109863281,
+    "bb_lower": 251.0185104370117,
+    "bb_width": 10,
+    "atr": 12.65,
+    "atr_pct": 4.79,
+    "rvol": 0.8169393061799406,
+    "52w_high": 452.70001220703125,
+    "52w_low": 100.0199966430664
+  },
+  "fundamental": {
+    "pe_ratio": 270.40424,
+    "pb_ratio": 31.454025,
+    "gross_margin": 0.97537005,
+    "operating_margin": 0.07603,
+    "net_margin": 0.20247999,
+    "market_cap": 271463874560,
+    "revenue_growth_ttm": 0.224,
+    "fcf_yield": 0.004915939441898166,
+    "institutional_ownership_pct": 0.96232,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 256.31,
+    "entry_range_high": 265.49,
+    "target_range_low": 299.29,
+    "target_range_high": 452.7,
+    "target_1": 299.29,
+    "target_2": 427.99,
+    "target_3": 452.7,
+    "stop_loss": 247.46,
+    "risk_reward_ratio": 12.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $256.31 – $265.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $274.77 direnci veya $253.78 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $247.46 olarak belirlenmiştir. Fiyatın EMA20 ($253.67) veya günlük VWAP ($255.48) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($265.83) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($255.48) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

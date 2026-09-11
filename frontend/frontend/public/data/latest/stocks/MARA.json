@@ -1,0 +1,89 @@
+{
+  "ticker": "MARA",
+  "company": "MARA Holdings, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T16:43:14.078Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 11.53499984741211,
+    "open": 11.640000343322754,
+    "high": 11.795000076293945,
+    "low": 11.220000267028809,
+    "prev_close": 11.920000076293945,
+    "change_pct": -3.2298676712889467,
+    "change_pct_1w": 10.171915503546858,
+    "change_pct_1m": -2.822241292137923,
+    "change_pct_1y": -27.26986067395191,
+    "volume": 17622112,
+    "avg_volume_30d": 1355862412
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 70,
+    "fundamental_score": 43.4,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.14659325395391,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 11.112321002421908,
+    "ema_50": 11.34928154805376,
+    "ema_200": 12.006566659366518,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.111749839782716,
+    "bb_middle": 11.53499984741211,
+    "bb_lower": 10.958249855041503,
+    "bb_width": 10,
+    "atr": 0.9,
+    "atr_pct": 7.83,
+    "rvol": 0.9563656758411561,
+    "52w_high": 23.450000762939453,
+    "52w_low": 6.659999847412109
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.6529438,
+    "gross_margin": 0.40122002,
+    "operating_margin": -2.65211,
+    "net_margin": 0,
+    "market_cap": 4455962112,
+    "revenue_growth_ttm": -0.267,
+    "fcf_yield": -0.26214123070173895,
+    "institutional_ownership_pct": 0.75813,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 10.99,
+    "entry_range_high": 11.63,
+    "target_range_low": 11.87,
+    "target_range_high": 13.01,
+    "target_1": 11.87,
+    "target_2": 12.47,
+    "target_3": 13.01,
+    "stop_loss": 10.36,
+    "risk_reward_ratio": 1.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.99 – $11.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $11.99 direnci veya $10.81 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.36 olarak belirlenmiştir. Fiyatın EMA20 ($11.11) veya günlük VWAP ($11.70) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($11.35) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.70) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

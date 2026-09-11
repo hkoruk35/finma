@@ -1,0 +1,89 @@
+{
+  "ticker": "DBX",
+  "company": "Dropbox, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:11.775Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 34.59000015258789,
+    "open": 33.84000015258789,
+    "high": 34.61000061035156,
+    "low": 33.61000061035156,
+    "prev_close": 33.810001373291016,
+    "change_pct": 2.3070060562406627,
+    "change_pct_1w": 0.9632278085877013,
+    "change_pct_1m": -0.603445658266038,
+    "change_pct_1y": 12.634324922780637,
+    "volume": 4083600,
+    "avg_volume_30d": 119012800
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 100,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.41563264870026,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 34.38536067460537,
+    "ema_50": 32.588575685611644,
+    "ema_200": 29.218583307134946,
+    "ema_stack_bullish": true,
+    "bb_upper": 36.31950016021729,
+    "bb_middle": 34.59000015258789,
+    "bb_lower": 32.86050014495849,
+    "bb_width": 10,
+    "atr": 0.99,
+    "atr_pct": 2.87,
+    "rvol": 0.8533250205019964,
+    "52w_high": 36.36600112915039,
+    "52w_low": 21.69499969482422
+  },
+  "fundamental": {
+    "pe_ratio": 19.153004,
+    "pb_ratio": 0,
+    "gross_margin": 0.79732,
+    "operating_margin": 0.26097,
+    "net_margin": 0.17491,
+    "market_cap": 7621363712,
+    "revenue_growth_ttm": 0.009,
+    "fcf_yield": 0.10274736091744732,
+    "institutional_ownership_pct": 1.30903,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 33.99,
+    "entry_range_high": 34.69,
+    "target_range_low": 36.3,
+    "target_range_high": 39.49,
+    "target_1": 36.3,
+    "target_2": 37.78,
+    "target_3": 39.49,
+    "stop_loss": 32.86,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $33.99 – $34.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $35.25 direnci veya $33.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $32.86 olarak belirlenmiştir. Fiyatın EMA50 ($32.59) veya günlük VWAP ($35.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($35.07) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

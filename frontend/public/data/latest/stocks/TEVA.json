@@ -1,0 +1,89 @@
+{
+  "ticker": "TEVA",
+  "company": "Teva Pharmaceutical Industries Limited",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T19:37:51.010Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "price": {
+    "current": 36.275001525878906,
+    "open": 36.369998931884766,
+    "high": 36.7400016784668,
+    "low": 36.040000915527344,
+    "prev_close": 36.849998474121094,
+    "change_pct": -1.5603717016324836,
+    "change_pct_1w": -3.240864492374116,
+    "change_pct_1m": -3.5752191499024986,
+    "change_pct_1y": 85.36025596092752,
+    "volume": 2800747,
+    "avg_volume_30d": 154832547
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 85,
+    "fundamental_score": 63.2,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.60351643260615,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.46330387987037,
+    "ema_50": 35.413701994700034,
+    "ema_200": 31.880749227774064,
+    "ema_stack_bullish": true,
+    "bb_upper": 38.088751602172856,
+    "bb_middle": 36.275001525878906,
+    "bb_lower": 34.46125144958496,
+    "bb_width": 10,
+    "atr": 1.08,
+    "atr_pct": 2.97,
+    "rvol": 0.880824378610784,
+    "52w_high": 38.369998931884766,
+    "52w_low": 18.209999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 60.458332,
+    "pb_ratio": 5.452428,
+    "gross_margin": 0.52457,
+    "operating_margin": 0.04032,
+    "net_margin": 0.04077,
+    "market_cap": 42271117312,
+    "revenue_growth_ttm": -0.008,
+    "fcf_yield": 0.05251517379148665,
+    "institutional_ownership_pct": 0.64471,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 35.63,
+    "entry_range_high": 36.38,
+    "target_range_low": 37.81,
+    "target_range_high": 41.41,
+    "target_1": 37.81,
+    "target_2": 39.61,
+    "target_3": 41.41,
+    "stop_loss": 34.46,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $35.63 – $36.38 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $36.90 direnci veya $35.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $34.46 olarak belirlenmiştir. Fiyatın EMA50 ($35.41) veya günlük VWAP ($36.27) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($35.41) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($36.27) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

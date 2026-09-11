@@ -1,0 +1,89 @@
+{
+  "ticker": "COST",
+  "company": "Costco Wholesale Corporation",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T01:48:07.777Z",
+  "sector": "Consumer Defensive",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 902.5999755859375,
+    "open": 907,
+    "high": 909.22998046875,
+    "low": 898.4299926757812,
+    "prev_close": 910.1799926757812,
+    "change_pct": -0.8328041871761794,
+    "change_pct_1w": -3.9746420606604866,
+    "change_pct_1m": -5.597625800586911,
+    "change_pct_1y": -5.614406056221481,
+    "volume": 2065600,
+    "avg_volume_30d": 55574500
+  },
+  "scores": {
+    "master_score": 42,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.15406028567928,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 935.751819544151,
+    "ema_50": 946.6735622776844,
+    "ema_200": 959.7289843391393,
+    "ema_stack_bullish": false,
+    "bb_upper": 947.7299743652344,
+    "bb_middle": 902.5999755859375,
+    "bb_lower": 857.4699768066406,
+    "bb_width": 10,
+    "atr": 16.61,
+    "atr_pct": 1.84,
+    "rvol": 1.1565880034908096,
+    "52w_high": 1096.5,
+    "52w_low": 844.0599975585938
+  },
+  "fundamental": {
+    "pe_ratio": 45.437057,
+    "pb_ratio": 24.206772,
+    "gross_margin": 0.12876001,
+    "operating_margin": 0.036730003,
+    "net_margin": 0.0301,
+    "market_cap": 400186408960,
+    "revenue_growth_ttm": 0.215,
+    "fcf_yield": 0.017377839457549178,
+    "institutional_ownership_pct": 0.74517,
+    "dividend_rate": 5.88,
+    "dividend_yield": 0.0064999997
+  },
+  "scores_detail": {
+    "entry_range_low": 892.64,
+    "entry_range_high": 904.26,
+    "target_range_low": 943.37,
+    "target_range_high": 1033.22,
+    "target_1": 943.37,
+    "target_2": 988.29,
+    "target_3": 1033.22,
+    "stop_loss": 857.47,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $892.64 – $904.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $912.09 direnci veya $889.32 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $857.47 olarak belirlenmiştir. Fiyatın EMA20 ($935.75) veya günlük VWAP ($902.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($946.67) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($902.53) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 34 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

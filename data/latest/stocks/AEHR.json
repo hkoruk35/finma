@@ -1,0 +1,89 @@
+{
+  "ticker": "AEHR",
+  "company": "Aehr Test Systems, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T02:16:34.964Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 93.80999755859375,
+    "open": 93.29000091552734,
+    "high": 100.44999694824219,
+    "low": 92,
+    "prev_close": 95.55999755859375,
+    "change_pct": -1.8313102184069927,
+    "change_pct_1w": 16.911764775795728,
+    "change_pct_1m": 3.703292624392826,
+    "change_pct_1y": 255.3409049776959,
+    "volume": 3374900,
+    "avg_volume_30d": 81311300
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 90,
+    "fundamental_score": 40.1,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.145646271032966,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 92.70229394512842,
+    "ema_50": 93.35673179021404,
+    "ema_200": 71.69302297895713,
+    "ema_stack_bullish": false,
+    "bb_upper": 98.50049743652345,
+    "bb_middle": 93.80999755859375,
+    "bb_lower": 89.11949768066405,
+    "bb_width": 10,
+    "atr": 7.85,
+    "atr_pct": 8.37,
+    "rvol": 1.5240390941972395,
+    "52w_high": 147.39999389648438,
+    "52w_low": 18.700000762939453
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 13.881326,
+    "gross_margin": 0.35301,
+    "operating_margin": -0.06403,
+    "net_margin": -0.14252,
+    "market_cap": 3060124416,
+    "revenue_growth_ttm": 0.337,
+    "fcf_yield": -0.0006389854575115419,
+    "institutional_ownership_pct": 0.75637,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 89.1,
+    "entry_range_high": 94.59,
+    "target_range_low": 102.48,
+    "target_range_high": 121.8,
+    "target_1": 102.48,
+    "target_2": 110.2,
+    "target_3": 121.8,
+    "stop_loss": 83.61,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $89.10 – $94.59 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $100.45 direnci veya $87.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $83.61 olarak belirlenmiştir. Fiyatın EMA20 ($92.70) veya günlük VWAP ($97.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($93.36) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($97.57) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

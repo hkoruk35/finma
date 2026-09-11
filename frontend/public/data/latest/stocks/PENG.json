@@ -1,0 +1,89 @@
+{
+  "ticker": "PENG",
+  "company": "Penguin Solutions, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T15:57:37.540Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 49.56999969482422,
+    "open": 49.189998626708984,
+    "high": 50.4900016784668,
+    "low": 48.53049850463867,
+    "prev_close": 51.060001373291016,
+    "change_pct": -2.9181387355900115,
+    "change_pct_1w": 4.160536952905763,
+    "change_pct_1m": -5.490945712531254,
+    "change_pct_1y": 93.33073664126907,
+    "volume": 376764,
+    "avg_volume_30d": 47377664
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 45,
+    "fundamental_score": 46.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.02424124319617,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 51.97931537818334,
+    "ema_50": 54.35268891967204,
+    "ema_200": 42.96221128755896,
+    "ema_stack_bullish": false,
+    "bb_upper": 52.04849967956543,
+    "bb_middle": 49.56999969482422,
+    "bb_lower": 47.091499710083006,
+    "bb_width": 10,
+    "atr": 2.73,
+    "atr_pct": 5.5,
+    "rvol": 0.6006329058351211,
+    "52w_high": 89.86000061035156,
+    "52w_low": 16.040000915527344
+  },
+  "fundamental": {
+    "pe_ratio": 35.920288,
+    "pb_ratio": 5.7848053,
+    "gross_margin": 0.27924,
+    "operating_margin": 0.108260006,
+    "net_margin": 0.06445,
+    "market_cap": 2540100608,
+    "revenue_growth_ttm": 0.476,
+    "fcf_yield": -0.04234792892108941,
+    "institutional_ownership_pct": 1.23767,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 47.93,
+    "entry_range_high": 49.84,
+    "target_range_low": 65.75,
+    "target_range_high": 77.4,
+    "target_1": 65.75,
+    "target_2": 73.24,
+    "target_3": 77.4,
+    "stop_loss": 46.02,
+    "risk_reward_ratio": 8.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $47.93 – $49.84 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $51.44 direnci veya $47.39 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $46.02 olarak belirlenmiştir. Fiyatın EMA200 ($42.96) veya günlük VWAP ($50.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($54.35) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($50.46) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

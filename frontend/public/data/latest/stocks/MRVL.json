@@ -1,0 +1,89 @@
+{
+  "ticker": "MRVL",
+  "company": "Marvell Technology, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T01:12:46.044Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 235.00999450683594,
+    "open": 223.8000030517578,
+    "high": 241.8800048828125,
+    "low": 223.60000610351562,
+    "prev_close": 225.41000366210938,
+    "change_pct": 4.258901862721671,
+    "change_pct_1w": 11.702074808028565,
+    "change_pct_1m": -4.120601394625054,
+    "change_pct_1y": 250.2384498525344,
+    "volume": 20477900,
+    "avg_volume_30d": 721174800
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.54237998587707,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 222.63138075712814,
+    "ema_50": 220.3879315884869,
+    "ema_200": 170.69334555247673,
+    "ema_stack_bullish": true,
+    "bb_upper": 246.76049423217773,
+    "bb_middle": 235.00999450683594,
+    "bb_lower": 223.25949478149414,
+    "bb_width": 10,
+    "atr": 14.27,
+    "atr_pct": 6.07,
+    "rvol": 0.8012584466345746,
+    "52w_high": 329.8800048828125,
+    "52w_low": 66.13999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 77.460754,
+    "pb_ratio": 10.90944,
+    "gross_margin": 0.52216,
+    "operating_margin": 0.16679001,
+    "net_margin": 0.27934998,
+    "market_cap": 203970002944,
+    "revenue_growth_ttm": 0.365,
+    "fcf_yield": 0.011805902266232406,
+    "institutional_ownership_pct": 0.81974,
+    "dividend_rate": 0.24,
+    "dividend_yield": 0.001
+  },
+  "scores_detail": {
+    "entry_range_low": 226.45,
+    "entry_range_high": 236.44,
+    "target_range_low": 254.6,
+    "target_range_high": 330.68,
+    "target_1": 254.6,
+    "target_2": 324.2,
+    "target_3": 330.68,
+    "stop_loss": 216.46,
+    "risk_reward_ratio": 6.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $226.45 – $236.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $246.38 direnci veya $223.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $216.46 olarak belirlenmiştir. Fiyatın EMA50 ($220.39) veya günlük VWAP ($230.04) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($230.04) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

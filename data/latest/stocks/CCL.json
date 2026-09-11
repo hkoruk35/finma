@@ -1,0 +1,89 @@
+{
+  "ticker": "CCL",
+  "company": "Carnival Corporation Ltd.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T06:01:20.828Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Travel Services",
+  "price": {
+    "current": 22.469999313354492,
+    "open": 22.399999618530273,
+    "high": 22.799999237060547,
+    "low": 22.280000686645508,
+    "prev_close": 22.700000762939453,
+    "change_pct": -1.0132222108136075,
+    "change_pct_1w": -5.349622872822186,
+    "change_pct_1m": -9.939885265529679,
+    "change_pct_1y": -28.348217869812753,
+    "volume": 20303400,
+    "avg_volume_30d": 551878400
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 40,
+    "fundamental_score": 74.75,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 26.60977428116894,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.70837761151601,
+    "ema_50": 26.0479694884045,
+    "ema_200": 27.593103965079386,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.593499279022218,
+    "bb_middle": 22.469999313354492,
+    "bb_lower": 21.346499347686766,
+    "bb_width": 10,
+    "atr": 0.67,
+    "atr_pct": 2.98,
+    "rvol": 1.0299627599123284,
+    "52w_high": 34.029998779296875,
+    "52w_low": 22.280000686645508
+  },
+  "fundamental": {
+    "pe_ratio": 10.213635,
+    "pb_ratio": 2.3772748,
+    "gross_margin": 0.55676997,
+    "operating_margin": 0.12787,
+    "net_margin": 0.11237001,
+    "market_cap": 30776014848,
+    "revenue_growth_ttm": 0.053,
+    "fcf_yield": 0.061716079400820543,
+    "institutional_ownership_pct": 0.71692,
+    "dividend_rate": 0.45,
+    "dividend_yield": 0.0198
+  },
+  "scores_detail": {
+    "entry_range_low": 22.07,
+    "entry_range_high": 22.54,
+    "target_range_low": 28.05,
+    "target_range_high": 30.16,
+    "target_1": 28.05,
+    "target_2": 28.61,
+    "target_3": 30.16,
+    "stop_loss": 21.35,
+    "risk_reward_ratio": 6.6,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $22.07 – $22.54 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $22.85 direnci veya $21.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $21.35 olarak belirlenmiştir. Fiyatın EMA20 ($24.71) veya günlük VWAP ($22.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($26.05) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($22.46) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 27 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

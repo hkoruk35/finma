@@ -1,0 +1,89 @@
+{
+  "ticker": "KYMR",
+  "company": "Kymera Therapeutics, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:32.293Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 115.43000030517578,
+    "open": 115.33999633789062,
+    "high": 120.66500091552734,
+    "low": 113.1780014038086,
+    "prev_close": 116.47000122070312,
+    "change_pct": -0.8929345794000716,
+    "change_pct_1w": -3.040741414351926,
+    "change_pct_1m": -8.060535643643174,
+    "change_pct_1y": 165.4783843616361,
+    "volume": 767400,
+    "avg_volume_30d": 19806700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 85,
+    "fundamental_score": 33.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.15746101819559,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 117.4120129809072,
+    "ema_50": 111.95327049460427,
+    "ema_200": 90.95693453612648,
+    "ema_stack_bullish": true,
+    "bb_upper": 121.20150032043458,
+    "bb_middle": 115.43000030517578,
+    "bb_lower": 109.65850028991699,
+    "bb_width": 10,
+    "atr": 5.28,
+    "atr_pct": 4.57,
+    "rvol": 1.0155351471976655,
+    "52w_high": 130.0500030517578,
+    "52w_low": 42.70500183105469
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.4179926,
+    "gross_margin": -2.57685,
+    "operating_margin": -1.16318,
+    "net_margin": -2.8533401,
+    "market_cap": 9624137728,
+    "revenue_growth_ttm": 4.664,
+    "fcf_yield": -0.014969315285343348,
+    "institutional_ownership_pct": 1.19346,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 112.26,
+    "entry_range_high": 115.96,
+    "target_range_low": 127.85,
+    "target_range_high": 133.02,
+    "target_1": 127.85,
+    "target_2": 130.41,
+    "target_3": 133.02,
+    "stop_loss": 108.57,
+    "risk_reward_ratio": 2.94,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $112.26 – $115.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $118.18 direnci veya $111.21 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $108.57 olarak belirlenmiştir. Fiyatın EMA50 ($111.95) veya günlük VWAP ($117.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($111.95) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($117.74) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "PEP",
+  "company": "PepsiCo, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T14:28:06.372Z",
+  "sector": "Consumer Defensive",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 137.48159790039062,
+    "open": 137.3699951171875,
+    "high": 137.7899932861328,
+    "low": 136.47999572753906,
+    "prev_close": 136.69000244140625,
+    "change_pct": 0.5791173054691411,
+    "change_pct_1w": -2.1622589522407085,
+    "change_pct_1m": -1.6020636277956337,
+    "change_pct_1y": -3.6298931927576694,
+    "volume": 1301090,
+    "avg_volume_30d": 202763790
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 30,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.055387734228646,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 139.5890694671796,
+    "ema_50": 140.61000660630955,
+    "ema_200": 145.50004210280125,
+    "ema_stack_bullish": false,
+    "bb_upper": 144.35567779541017,
+    "bb_middle": 137.48159790039062,
+    "bb_lower": 130.60751800537108,
+    "bb_width": 10,
+    "atr": 2.06,
+    "atr_pct": 1.5,
+    "rvol": 1.0421384409908692,
+    "52w_high": 171.47999572753906,
+    "52w_low": 133.72999572753906
+  },
+  "fundamental": {
+    "pe_ratio": 18.04456,
+    "pb_ratio": 8.510848,
+    "gross_margin": 0.54171,
+    "operating_margin": 0.16836001,
+    "net_margin": 0.10785,
+    "market_cap": 188070871040,
+    "revenue_growth_ttm": 0.064,
+    "fcf_yield": 0.041643211565358634,
+    "institutional_ownership_pct": 0.81628,
+    "dividend_rate": 5.92,
+    "dividend_yield": 0.0433
+  },
+  "scores_detail": {
+    "entry_range_low": 136.24,
+    "entry_range_high": 137.69,
+    "target_range_low": 143.81,
+    "target_range_high": 157.51,
+    "target_1": 143.81,
+    "target_2": 150.66,
+    "target_3": 157.51,
+    "stop_loss": 130.61,
+    "risk_reward_ratio": 2.15,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $136.24 – $137.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $138.80 direnci veya $135.83 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $130.61 olarak belirlenmiştir. Fiyatın EMA20 ($139.59) veya günlük VWAP ($136.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($140.61) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($136.94) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

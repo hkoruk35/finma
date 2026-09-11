@@ -1,0 +1,89 @@
+{
+  "ticker": "ACN",
+  "company": "Accenture plc",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T02:26:25.074Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 177.91000366210938,
+    "open": 177.6300048828125,
+    "high": 179.38999938964844,
+    "low": 175.49000549316406,
+    "prev_close": 175.8000030517578,
+    "change_pct": 1.2002278576356742,
+    "change_pct_1w": -5.205663573607238,
+    "change_pct_1m": -5.0539016831735415,
+    "change_pct_1y": -26.81913404818855,
+    "volume": 3961100,
+    "avg_volume_30d": 160505400
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 55,
+    "fundamental_score": 74.75,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.58%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.46247478114699,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 180.86793050604646,
+    "ema_50": 173.05757472420655,
+    "ema_200": 191.72300537138577,
+    "ema_stack_bullish": false,
+    "bb_upper": 186.80550384521484,
+    "bb_middle": 177.91000366210938,
+    "bb_lower": 169.0145034790039,
+    "bb_width": 10,
+    "atr": 6.03,
+    "atr_pct": 3.39,
+    "rvol": 0.9183018141445708,
+    "52w_high": 291.0899963378906,
+    "52w_low": 118.1500015258789
+  },
+  "fundamental": {
+    "pe_ratio": 14.041831,
+    "pb_ratio": 3.4134035,
+    "gross_margin": 0.32013,
+    "operating_margin": 0.16964,
+    "net_margin": 0.10656,
+    "market_cap": 108870615040,
+    "revenue_growth_ttm": 0.056,
+    "fcf_yield": 0.11104356175041592,
+    "institutional_ownership_pct": 0.82654,
+    "dividend_rate": 6.52,
+    "dividend_yield": 0.037100002
+  },
+  "scores_detail": {
+    "entry_range_low": 174.29,
+    "entry_range_high": 178.51,
+    "target_range_low": 198,
+    "target_range_high": 218.6,
+    "target_1": 198,
+    "target_2": 202.16,
+    "target_3": 218.6,
+    "stop_loss": 169.01,
+    "risk_reward_ratio": 3.49,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $174.29 – $178.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $180.97 direnci veya $173.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $169.01 olarak belirlenmiştir. Fiyatın EMA50 ($173.06) veya günlük VWAP ($177.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($173.06) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($177.86) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

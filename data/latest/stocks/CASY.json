@@ -1,0 +1,89 @@
+{
+  "ticker": "CASY",
+  "company": "Casey's General Stores, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T06:09:46.898Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 627.6400146484375,
+    "open": 632,
+    "high": 656.5,
+    "low": 627.5900268554688,
+    "prev_close": 629.030029296875,
+    "change_pct": -0.22097747066085982,
+    "change_pct_1w": -16.71333320752495,
+    "change_pct_1m": -17.781444282813332,
+    "change_pct_1y": 16.553391763869545,
+    "volume": 1119000,
+    "avg_volume_30d": 13106000
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 45,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 19.906482326258555,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 762.8233894818317,
+    "ema_50": 798.6464660813938,
+    "ema_200": 742.0198394181506,
+    "ema_stack_bullish": false,
+    "bb_upper": 659.0220153808594,
+    "bb_middle": 627.6400146484375,
+    "bb_lower": 596.2580139160156,
+    "bb_width": 10,
+    "atr": 34.42,
+    "atr_pct": 5.48,
+    "rvol": 2.4818098580802683,
+    "52w_high": 927.8499755859375,
+    "52w_low": 497.3800048828125
+  },
+  "fundamental": {
+    "pe_ratio": 30.306135,
+    "pb_ratio": 5.861412,
+    "gross_margin": 0.2382,
+    "operating_margin": 0.065,
+    "net_margin": 0.041389998,
+    "market_cap": 23197679616,
+    "revenue_growth_ttm": 0.243,
+    "fcf_yield": 0.021696432071286003,
+    "institutional_ownership_pct": 0.90788,
+    "dividend_rate": 2.6,
+    "dividend_yield": 0.0041
+  },
+  "scores_detail": {
+    "entry_range_low": 601.9,
+    "entry_range_high": 631.08,
+    "target_range_low": 647.99,
+    "target_range_high": 774.23,
+    "target_1": 647.99,
+    "target_2": 696.66,
+    "target_3": 774.23,
+    "stop_loss": 577.81,
+    "risk_reward_ratio": 2.07,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $601.90 – $631.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $656.45 direnci veya $595.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $577.81 olarak belirlenmiştir. Fiyatın EMA200 ($742.02) veya günlük VWAP ($635.56) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($798.65) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($635.56) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 20 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

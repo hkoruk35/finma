@@ -1,0 +1,89 @@
+{
+  "ticker": "NBIS",
+  "company": "NBIS Corp.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T03:33:39.235Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 228.11000061035156,
+    "open": 232,
+    "high": 238.3300018310547,
+    "low": 226.02999877929688,
+    "prev_close": 240.35000610351562,
+    "change_pct": -5.092575486722663,
+    "change_pct_1w": 11.769319762588221,
+    "change_pct_1m": 4.407728428749073,
+    "change_pct_1y": 144.25527583378033,
+    "volume": 13013800,
+    "avg_volume_30d": 671720700
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.70162338832551,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 221.44643168163793,
+    "ema_50": 216.70170258831055,
+    "ema_200": 173.92790261918415,
+    "ema_stack_bullish": true,
+    "bb_upper": 239.51550064086916,
+    "bb_middle": 228.11000061035156,
+    "bb_lower": 216.70450057983396,
+    "bb_width": 10,
+    "atr": 13.78,
+    "atr_pct": 6.04,
+    "rvol": 0.6860029771302268,
+    "52w_high": 299.8599853515625,
+    "52w_low": 73.5199966430664
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.0471344,
+    "gross_margin": 0.7426,
+    "operating_margin": -0.00223,
+    "net_margin": 0.03129,
+    "market_cap": 62012895232,
+    "revenue_growth_ttm": 4.54,
+    "fcf_yield": -0.1550427589621494,
+    "institutional_ownership_pct": 0.69251,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 218.17,
+    "entry_range_high": 229.49,
+    "target_range_low": 235.02,
+    "target_range_high": 278.84,
+    "target_1": 235.02,
+    "target_2": 246.21,
+    "target_3": 278.84,
+    "stop_loss": 208.52,
+    "risk_reward_ratio": 1.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $218.17 – $229.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $246.33 direnci veya $215.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $208.52 olarak belirlenmiştir. Fiyatın EMA50 ($216.70) veya günlük VWAP ($229.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($229.22) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

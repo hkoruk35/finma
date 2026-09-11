@@ -1,0 +1,89 @@
+{
+  "ticker": "EC",
+  "company": "Ecopetrol S.A.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:38.710Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 17.829999923706055,
+    "open": 18,
+    "high": 18.06999969482422,
+    "low": 17.729999542236328,
+    "prev_close": 17.780000686645508,
+    "change_pct": 0.2812105462858678,
+    "change_pct_1w": 2.1776455252291385,
+    "change_pct_1m": 7.92977862979865,
+    "change_pct_1y": 88.87712623163154,
+    "volume": 1418900,
+    "avg_volume_30d": 55752000
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.81802988066653,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 17.1729826205036,
+    "ema_50": 16.594908865582926,
+    "ema_200": 14.20575467939736,
+    "ema_stack_bullish": true,
+    "bb_upper": 18.721499919891357,
+    "bb_middle": 17.829999923706055,
+    "bb_lower": 16.938499927520752,
+    "bb_width": 10,
+    "atr": 0.53,
+    "atr_pct": 2.96,
+    "rvol": 0.8443499784761085,
+    "52w_high": 18.190000534057617,
+    "52w_low": 8.569999694824219
+  },
+  "fundamental": {
+    "pe_ratio": 11.658065,
+    "pb_ratio": 0.009205078,
+    "gross_margin": 0.371,
+    "operating_margin": 0,
+    "net_margin": 0.102299996,
+    "market_cap": 37148934144,
+    "revenue_growth_ttm": 0.355,
+    "fcf_yield": 327.0662783789827,
+    "institutional_ownership_pct": 0.01441,
+    "dividend_rate": 0.65,
+    "dividend_yield": 0.0364
+  },
+  "scores_detail": {
+    "entry_range_low": 17.51,
+    "entry_range_high": 17.88,
+    "target_range_low": 18.58,
+    "target_range_high": 20.35,
+    "target_1": 18.58,
+    "target_2": 19.47,
+    "target_3": 20.35,
+    "stop_loss": 16.94,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $17.51 – $17.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $18.14 direnci veya $17.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $16.94 olarak belirlenmiştir. Fiyatın EMA20 ($17.17) veya günlük VWAP ($18.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($18.01) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

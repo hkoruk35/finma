@@ -1,0 +1,89 @@
+{
+  "ticker": "NOK",
+  "company": "Nokia Oyj",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T18:28:26.212Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 10.649999618530273,
+    "open": 10.539999961853027,
+    "high": 10.75,
+    "low": 10.449999809265137,
+    "prev_close": 10.760000228881836,
+    "change_pct": -1.022310483379921,
+    "change_pct_1w": 8.231701762010191,
+    "change_pct_1m": 0.5665671867598668,
+    "change_pct_1y": 133.0415583914207,
+    "volume": 51657491,
+    "avg_volume_30d": 2140872691
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 85,
+    "fundamental_score": 61.55,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.3069817581961,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 10.26235826581233,
+    "ema_50": 10.634847977829263,
+    "ema_200": 9.815324523978406,
+    "ema_stack_bullish": false,
+    "bb_upper": 11.182499599456788,
+    "bb_middle": 10.649999618530273,
+    "bb_lower": 10.117499637603759,
+    "bb_width": 10,
+    "atr": 0.39,
+    "atr_pct": 3.62,
+    "rvol": 1.0695236366112346,
+    "52w_high": 17.450000762939453,
+    "52w_low": 4.480000019073486
+  },
+  "fundamental": {
+    "pe_ratio": 76.07143,
+    "pb_ratio": 2.4108837,
+    "gross_margin": 0.45504,
+    "operating_margin": 0.07934,
+    "net_margin": 0.03472,
+    "market_cap": 59625566208,
+    "revenue_growth_ttm": 0.084,
+    "fcf_yield": 0.019838386169342453,
+    "institutional_ownership_pct": 0.158,
+    "dividend_rate": 0.16,
+    "dividend_yield": 0.0152
+  },
+  "scores_detail": {
+    "entry_range_low": 10.42,
+    "entry_range_high": 10.69,
+    "target_range_low": 11.13,
+    "target_range_high": 17.8,
+    "target_1": 11.13,
+    "target_2": 17.45,
+    "target_3": 17.8,
+    "stop_loss": 10.12,
+    "risk_reward_ratio": 15.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.42 – $10.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $10.97 direnci veya $10.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.12 olarak belirlenmiştir. Fiyatın EMA20 ($10.26) veya günlük VWAP ($10.68) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($10.63) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($10.68) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

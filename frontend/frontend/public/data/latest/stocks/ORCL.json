@@ -1,0 +1,89 @@
+{
+  "ticker": "ORCL",
+  "company": "Oracle Corporation",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T23:44:02.187Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 152.94000244140625,
+    "open": 158.375,
+    "high": 159.22000122070312,
+    "low": 152.61000061035156,
+    "prev_close": 161.6300048828125,
+    "change_pct": -5.376478487213318,
+    "change_pct_1w": 4.933106306282161,
+    "change_pct_1m": 0.6581545241093684,
+    "change_pct_1y": -53.41881378606761,
+    "volume": 50925752,
+    "avg_volume_30d": 809193752
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 70,
+    "fundamental_score": 66.5,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.45514135170912,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 150.24799343446796,
+    "ema_50": 149.98453856587122,
+    "ema_200": 180.49654538612663,
+    "ema_stack_bullish": false,
+    "bb_upper": 160.58700256347657,
+    "bb_middle": 152.94000244140625,
+    "bb_lower": 145.29300231933593,
+    "bb_width": 10,
+    "atr": 6.78,
+    "atr_pct": 4.43,
+    "rvol": 1.243208946576246,
+    "52w_high": 345.7200012207031,
+    "52w_low": 114.5
+  },
+  "fundamental": {
+    "pe_ratio": 26.233276,
+    "pb_ratio": 11.728528,
+    "gross_margin": 0.65822,
+    "operating_margin": 0.36202,
+    "net_margin": 0.25368,
+    "market_cap": 440539250688,
+    "revenue_growth_ttm": 0.206,
+    "fcf_yield": -0.05569708043421876,
+    "institutional_ownership_pct": 0.45806998,
+    "dividend_rate": 2,
+    "dividend_yield": 0.0124
+  },
+  "scores_detail": {
+    "entry_range_low": 148.87,
+    "entry_range_high": 153.62,
+    "target_range_low": 159.26,
+    "target_range_high": 189.18,
+    "target_1": 159.26,
+    "target_2": 171.76,
+    "target_3": 189.18,
+    "stop_loss": 144.13,
+    "risk_reward_ratio": 2.88,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $148.87 – $153.62 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $156.77 direnci veya $147.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $144.13 olarak belirlenmiştir. Fiyatın EMA50 ($149.98) veya günlük VWAP ($156.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($149.98) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($156.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

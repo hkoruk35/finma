@@ -1,0 +1,89 @@
+{
+  "ticker": "COHR",
+  "company": "Coherent Corp.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T17:35:23.692Z",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 296.0199890136719,
+    "open": 296.0849914550781,
+    "high": 309.9898986816406,
+    "low": 290.260009765625,
+    "prev_close": 303.4800109863281,
+    "change_pct": -2.458159253524057,
+    "change_pct_1w": 10.192068520047494,
+    "change_pct_1m": 0.21326867327731022,
+    "change_pct_1y": 186.03729357820822,
+    "volume": 3654297,
+    "avg_volume_30d": 205357097
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 70,
+    "fundamental_score": 59.9,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.85926860333259,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 293.1085202682196,
+    "ema_50": 306.32731773924934,
+    "ema_200": 276.58683258772385,
+    "ema_stack_bullish": false,
+    "bb_upper": 310.8209884643555,
+    "bb_middle": 296.0199890136719,
+    "bb_lower": 281.21898956298827,
+    "bb_width": 10,
+    "atr": 16.91,
+    "atr_pct": 5.71,
+    "rvol": 0.7780358426083517,
+    "52w_high": 440,
+    "52w_low": 100.62999725341797
+  },
+  "fundamental": {
+    "pe_ratio": 71.6707,
+    "pb_ratio": 5.314183,
+    "gross_margin": 0.37495998,
+    "operating_margin": 0.118269995,
+    "net_margin": 0.11309,
+    "market_cap": 57966342144,
+    "revenue_growth_ttm": 0.337,
+    "fcf_yield": -0.011213086904557744,
+    "institutional_ownership_pct": 0.87477994,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 283.02,
+    "entry_range_high": 297.71,
+    "target_range_low": 304.89,
+    "target_range_high": 364.8,
+    "target_1": 304.89,
+    "target_2": 327.78,
+    "target_3": 364.8,
+    "stop_loss": 271.18,
+    "risk_reward_ratio": 1.95,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $283.02 – $297.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $308.98 direnci veya $279.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $271.18 olarak belirlenmiştir. Fiyatın EMA200 ($276.59) veya günlük VWAP ($301.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($306.33) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($301.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}
