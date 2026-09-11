@@ -136,7 +136,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/95 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-[#30343A] bg-[#151719]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="w-full max-w-[1800px] mx-auto pl-1 pr-2 sm:px-3 h-14 sm:h-20 flex items-center justify-between gap-1 sm:gap-2 relative">
           <Link
             href={`/global/${locale}/home`}
@@ -157,7 +157,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 <button
                   type="button"
                   onClick={() => setIsMobileLangOpen((v) => !v)}
-                  className="flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
+                  className="flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-medium tracking-wider text-[#969CA5] hover:text-white hover:bg-white/10 border border-[#30343A]/60"
                   aria-label="Language"
                 >
                   🌐 {locale.toLocaleUpperCase(locale)}
@@ -168,7 +168,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                       className="fixed inset-0 z-40"
                       onClick={() => setIsMobileLangOpen(false)}
                     />
-                    <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[88px]">
+                    <div className="absolute right-0 top-full mt-1 z-50 bg-[#202327] border border-[#30343A] rounded-lg shadow-xl overflow-hidden min-w-[88px]">
                       {["EN", "ES", "FR", "PT", "ID", "TR"].map((lang) => {
                         const isActive = locale.toUpperCase() === lang;
                         return (
@@ -178,8 +178,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             onClick={() => setIsMobileLangOpen(false)}
                             className={`block px-3 py-2 text-[11px] font-medium tracking-wider ${
                               isActive
-                                ? "bg-[#3b82f6] text-white"
-                                : "text-[#94a3b8] hover:bg-white/10 hover:text-white"
+                                ? "bg-[#D9A441] text-white"
+                                : "text-[#969CA5] hover:bg-white/10 hover:text-white"
                             }`}
                           >
                             {lang.toLocaleUpperCase(locale)}
@@ -201,18 +201,18 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setIsDesktopLangOpen((v) => !v); }}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium tracking-wider text-[#969CA5] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{locale.toLocaleUpperCase(locale)}</span>
-                  <span className="text-[9px] text-[#38bdf8]">▾</span>
+                  <span className="text-[9px] text-[#D9A441]">▾</span>
                 </button>
                 {isDesktopLangOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsDesktopLangOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[100px]">
+                    <div className="absolute right-0 top-full mt-1 z-50 bg-[#202327] border border-[#30343A] rounded-lg shadow-xl overflow-hidden min-w-[100px]">
                       {["EN", "ES", "FR", "PT", "ID", "TR"].map((lang) => {
                         const isActive = locale.toUpperCase() === lang;
                         return (
@@ -221,7 +221,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             href={getLangHref(lang)}
                             onClick={() => setIsDesktopLangOpen(false)}
                             className={`block px-3 py-2 text-[11px] font-medium tracking-wider ${
-                              isActive ? "bg-[#3b82f6] text-white" : "text-[#94a3b8] hover:bg-white/10 hover:text-white"
+                              isActive ? "bg-[#D9A441] text-white" : "text-[#969CA5] hover:bg-white/10 hover:text-white"
                             }`}
                           >
                             {lang.toLocaleUpperCase(locale)}
@@ -244,7 +244,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 locale={locale}
                 targetHref={terminalHref}
                 title={terminalTooltip}
-                className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] font-bold tracking-wider bg-[#D9A441]/10 text-[#D9A441] hover:bg-[#D9A441] hover:text-white border border-[#D9A441]/40 transition-all shrink-0 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
               >
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"
@@ -264,7 +264,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
               {/* Terminal Page Screenshot Preview Card */}
               {isTerminalHovered && (
-                <div className="absolute right-0 top-full mt-2 z-[100] w-96 p-2 rounded-xl bg-[#0d131f] border-2 border-[#3b82f6] shadow-[0_12px_45px_rgba(0,0,0,0.95)] backdrop-blur-xl animate-fadeIn pointer-events-none">
+                <div className="absolute right-0 top-full mt-2 z-[100] w-96 p-2 rounded-xl bg-[#181A1D] border-2 border-[#D9A441] shadow-[0_12px_45px_rgba(0,0,0,0.95)] backdrop-blur-xl animate-fadeIn pointer-events-none">
                   <div className="flex items-center justify-between px-2 py-1 border-b border-white/10 mb-1.5">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
@@ -274,18 +274,18 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                         {locale === "tr" ? "Terminal Önizleme" : "Terminal Preview"}
                       </span>
                     </div>
-                    <span className="text-[9px] font-mono font-bold text-[#38bdf8] bg-[#38bdf8]/10 px-1.5 py-0.5 rounded border border-[#38bdf8]/30">
+                    <span className="text-[9px] font-mono font-bold text-[#D9A441] bg-[#D9A441]/10 px-1.5 py-0.5 rounded border border-[#D9A441]/30">
                       LIVE UI
                     </span>
                   </div>
-                  <div className="relative rounded-lg overflow-hidden border border-[#1e2a3a] aspect-[16/9] bg-[#0a0e17]">
+                  <div className="relative rounded-lg overflow-hidden border border-[#30343A] aspect-[16/9] bg-[#151719]">
                     <img
                       src="/terminal_preview.jpg"
                       alt="BOGASTOCK Terminal Live Preview"
                       className="w-full h-full object-cover shadow-inner"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17]/80 via-transparent to-transparent flex items-end p-2.5">
-                      <span className="text-[10px] font-extrabold text-white bg-[#3b82f6] px-2 py-1 rounded-md shadow-md">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#151719]/80 via-transparent to-transparent flex items-end p-2.5">
+                      <span className="text-[10px] font-extrabold text-white bg-[#D9A441] px-2 py-1 rounded-md shadow-md">
                         {locale === "tr" ? "Terminale Git ➔" : "Go to Terminal ➔"}
                       </span>
                     </div>
@@ -297,7 +297,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             {/* Desktop-only Quick Navigation */}
             <Link
               href={homeHref}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium tracking-wider text-[#969CA5] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
             >
               <svg
                 className="w-4 h-4 flex-shrink-0"
@@ -340,16 +340,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                         e.stopPropagation();
                         setIsDesktopUserMenuOpen((v) => !v);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1e2a3a]/80 hover:bg-[#1e2a3a] border border-[#3b82f6]/50 text-white transition-all shadow-md cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#30343A]/80 hover:bg-[#30343A] border border-[#D9A441]/50 text-white transition-all shadow-md cursor-pointer"
                     >
                       {member?.avatar_url ? (
                         <img
                           src={member.avatar_url}
                           alt={usernameText}
-                          className="w-5 h-5 rounded-full object-cover border border-[#3b82f6]"
+                          className="w-5 h-5 rounded-full object-cover border border-[#D9A441]"
                         />
                       ) : (
-                        <div className="w-5 h-5 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[10px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-[#D9A441] text-white flex items-center justify-center text-[10px] font-bold">
                           {usernameText.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -361,7 +361,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           PRO
                         </span>
                       )}
-                      <span className="text-xs text-[#38bdf8] font-bold ml-0.5">▾</span>
+                      <span className="text-xs text-[#D9A441] font-bold ml-0.5">▾</span>
                     </button>
 
                     {/* Desktop User Dropdown Menu */}
@@ -371,16 +371,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           className="fixed inset-0 z-40"
                           onClick={() => setIsDesktopUserMenuOpen(false)}
                         />
-                        <div className="absolute right-0 top-full mt-2 z-50 w-60 bg-[#0d131f] border-2 border-[#3b82f6]/60 rounded-xl shadow-[0_10px_35px_rgba(0,0,0,0.9)] overflow-hidden p-3 space-y-2.5 backdrop-blur-xl">
+                        <div className="absolute right-0 top-full mt-2 z-50 w-60 bg-[#181A1D] border-2 border-[#D9A441]/60 rounded-xl shadow-[0_10px_35px_rgba(0,0,0,0.9)] overflow-hidden p-3 space-y-2.5 backdrop-blur-xl">
                           <div className="flex items-center gap-2.5 pb-2.5 border-b border-white/10 px-1">
                             {member?.avatar_url ? (
                               <img
                                 src={member.avatar_url}
                                 alt={usernameText}
-                                className="w-8 h-8 rounded-full object-cover border border-[#3b82f6]"
+                                className="w-8 h-8 rounded-full object-cover border border-[#D9A441]"
                               />
                             ) : (
-                              <div className="w-8 h-8 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-xs font-bold shadow-md">
+                              <div className="w-8 h-8 rounded-full bg-[#D9A441] text-white flex items-center justify-center text-xs font-bold shadow-md">
                                 {usernameText.charAt(0).toUpperCase()}
                               </div>
                             )}
@@ -398,7 +398,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             <Link
                               href={accountHref}
                               onClick={() => setIsDesktopUserMenuOpen(false)}
-                              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-200 hover:bg-[#30343A] hover:text-white transition-all"
                             >
                               <span>👤</span>
                               <span>{locale === "tr" ? "Hesabım" : "Account"}</span>
@@ -420,8 +420,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                                       onClick={() => setIsDesktopUserMenuOpen(false)}
                                       className={`px-2 py-1 rounded-md text-[9px] font-bold tracking-wider transition-all ${
                                         isActive
-                                          ? "bg-[#3b82f6] text-white"
-                                          : "bg-[#1e2a3a]/60 text-slate-400 hover:text-white hover:bg-[#1e2a3a]"
+                                          ? "bg-[#D9A441] text-white"
+                                          : "bg-[#30343A]/60 text-slate-400 hover:text-white hover:bg-[#30343A]"
                                       }`}
                                     >
                                       {lang.toLocaleUpperCase(locale)}
@@ -451,16 +451,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     <button
                       type="button"
                       onClick={() => setIsMobileUserMenuOpen((v) => !v)}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1e2a3a]/80 border border-[#3b82f6]/40 text-white"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#30343A]/80 border border-[#D9A441]/40 text-white"
                     >
                       {member?.avatar_url ? (
                         <img
                           src={member.avatar_url}
                           alt={usernameText}
-                          className="w-5 h-5 rounded-full object-cover border border-[#3b82f6]"
+                          className="w-5 h-5 rounded-full object-cover border border-[#D9A441]"
                         />
                       ) : (
-                        <div className="w-5 h-5 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-[10px] font-bold">
+                        <div className="w-5 h-5 rounded-full bg-[#D9A441] text-white flex items-center justify-center text-[10px] font-bold">
                           {usernameText.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -482,17 +482,17 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs"
                           onClick={() => setIsMobileUserMenuOpen(false)}
                         />
-                        <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-[#0f172a] border border-[#1e2a3a] rounded-2xl shadow-2xl overflow-hidden p-3 space-y-3">
+                        <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-[#202327] border border-[#30343A] rounded-2xl shadow-2xl overflow-hidden p-3 space-y-3">
                           {/* User Header */}
                           <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
                             {member?.avatar_url ? (
                               <img
                                 src={member.avatar_url}
                                 alt={usernameText}
-                                className="w-9 h-9 rounded-full object-cover border border-[#3b82f6]"
+                                className="w-9 h-9 rounded-full object-cover border border-[#D9A441]"
                               />
                             ) : (
-                              <div className="w-9 h-9 rounded-full bg-[#3b82f6] text-white flex items-center justify-center text-sm font-bold shadow-md">
+                              <div className="w-9 h-9 rounded-full bg-[#D9A441] text-white flex items-center justify-center text-sm font-bold shadow-md">
                                 {usernameText.charAt(0).toUpperCase()}
                               </div>
                             )}
@@ -503,7 +503,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                               <span className="text-[10px] text-slate-400 truncate">
                                 {member?.email || ""}
                               </span>
-                              <span className="inline-block mt-1 text-[8px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 px-1.5 py-0.5 rounded border border-[#3b82f6]/30 w-max uppercase">
+                              <span className="inline-block mt-1 text-[8px] font-bold text-[#D9A441] bg-[#D9A441]/10 px-1.5 py-0.5 rounded border border-[#D9A441]/30 w-max uppercase">
                                 {member?.plan === "premium" ? "PRO ÜYE" : "ÜCRETSİZ PLAN"}
                               </span>
                             </div>
@@ -514,7 +514,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             <Link
                               href={terminalHref}
                               onClick={() => setIsMobileUserMenuOpen(false)}
-                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#30343A] hover:text-white transition-all"
                             >
                               <span className="text-sm">💻</span>
                               <span>TERMINAL</span>
@@ -523,7 +523,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             <Link
                               href={homeHref}
                               onClick={() => setIsMobileUserMenuOpen(false)}
-                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#30343A] hover:text-white transition-all"
                             >
                               <span className="text-sm">🏠</span>
                               <span>{locale === "tr" ? "Anasayfa" : "Home"}</span>
@@ -532,7 +532,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                             <Link
                               href={accountHref}
                               onClick={() => setIsMobileUserMenuOpen(false)}
-                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#30343A] hover:text-white transition-all"
                             >
                               <span className="text-sm">👤</span>
                               <span>{locale === "tr" ? "Hesabım" : "Account"}</span>
@@ -547,7 +547,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                                     : `/global/${locale}/faq`
                               }
                               onClick={() => setIsMobileUserMenuOpen(false)}
-                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#1e2a3a] hover:text-white transition-all"
+                              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-[#30343A] hover:text-white transition-all"
                             >
                               <span className="text-sm">❓</span>
                               <span>{locale === "tr" ? "SSS (Sıkça Sorulan Sorular)" : "FAQ"}</span>
@@ -571,7 +571,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               ) : (
                 <Link
                   href={loginHref}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 shrink-0"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium tracking-wider bg-[#D9A441]/10 text-[#D9A441] hover:bg-[#D9A441] hover:text-white transition-all border border-[#D9A441]/20 shrink-0"
                 >
                   <svg
                     className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"

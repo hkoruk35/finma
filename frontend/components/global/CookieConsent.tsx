@@ -74,11 +74,11 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] bg-[#0f1117] border-t border-[#1e2a3a] shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+    <div className="fixed bottom-0 left-0 right-0 z-[100] bg-[#202327] border-t border-[#30343A] shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
       <div className="max-w-[1600px] mx-auto px-4 py-3.5 flex flex-col sm:flex-row items-center gap-3">
         <p className="text-[12px] text-white/70 flex-1 text-center sm:text-left">
           {t.message}{' '}
-          <Link href={`/global/${locale}/privacy`} className="text-[#3b82f6] hover:underline">
+          <Link href={`/global/${locale}/privacy`} className="text-[#D9A441] hover:underline">
             {t.policy}
           </Link>
         </p>
@@ -86,14 +86,14 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => choose('rejected')}
-            className="px-5 py-2 rounded-lg bg-transparent border border-[#1e2a3a] hover:border-white/30 text-white/70 hover:text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
+            className="px-5 py-2 rounded-lg bg-transparent border border-[#30343A] hover:border-white/30 text-white/70 hover:text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
           >
             {t.reject}
           </button>
           <button
             type="button"
             onClick={() => choose('accepted')}
-            className="px-5 py-2 rounded-lg bg-[#3b82f6] hover:bg-[#2563eb] text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
+            className="px-5 py-2 rounded-lg bg-[#D9A441] hover:bg-[#c48f37] text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
           >
             {t.accept}
           </button>

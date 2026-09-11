@@ -124,7 +124,7 @@ export default function Footer({
   locale?: "en" | "tr" | "es" | "fr" | "pt" | "id";
 }) {
   return (
-    <footer className="border-t border-[#152238] bg-[#0a0e17] mt-12">
+    <footer className="border-t border-[#30343A] bg-[#151719] mt-12">
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
@@ -133,14 +133,14 @@ export default function Footer({
             <Link href={`/global/${locale ?? "en"}`} className="flex items-start mb-3 group w-fit">
               <Image src="/logo/bogastock02_logo.png" alt="BogaStock" width={1000} height={193} className="h-7 sm:h-11 w-auto" />
             </Link>
-            <p className="text-xs text-[#3b82f6] mb-3">
+            <p className="text-xs text-[#D9A441] mb-3">
               {BRAND_TAGLINE[locale ?? "en"]}
             </p>
             <MobileTerminalLink
               locale={locale ?? "en"}
               targetHref={`/global/${locale ?? "en"}/terminal`}
               title={TERMINAL_TOOLTIP[locale ?? "en"]}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6]/20 hover:text-[#3b82f6] border-none transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#D9A441]/10 text-[#D9A441] hover:bg-[#D9A441]/20 hover:text-[#D9A441] border-none transition-all"
             >
               <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
@@ -156,7 +156,7 @@ export default function Footer({
             <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : locale === "id" ? "Sumber Daya" : "Resources"}</h4>
             <div className="flex flex-col gap-2">
               {RESOURCES_LINKS[locale ?? "en"].map((item) => (
-                <Link key={item.href} href={item.href} className="text-xs text-[#3b82f6] hover:text-white transition-colors">
+                <Link key={item.href} href={item.href} className="text-xs text-[#D9A441] hover:text-white transition-colors">
                   {item.label}
                 </Link>
               ))}
@@ -168,7 +168,7 @@ export default function Footer({
             <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Yasal" : locale === "id" ? "Hukum" : "Legal"}</h4>
             <div className="flex flex-col gap-1.5">
               {LEGAL_LINKS[locale ?? "en"].map((item) => (
-                <Link key={item.href} href={item.href} className="text-xs text-[#3b82f6] hover:text-white transition-colors">
+                <Link key={item.href} href={item.href} className="text-xs text-[#D9A441] hover:text-white transition-colors">
                   {item.label}
                 </Link>
               ))}
@@ -176,7 +176,7 @@ export default function Footer({
           </div>
         </div>
 
-        <div className="border-t border-[#152238] mt-8 pt-4 text-center">
+        <div className="border-t border-[#30343A] mt-8 pt-4 text-center">
           {locale && (
             <p className="text-[11px] text-slate-500 leading-relaxed max-w-3xl mx-auto mb-3">
               {DISCLAIMER[locale]}
@@ -195,7 +195,7 @@ export default function Footer({
               ? "Semua data tertunda 15 menit dan diperbarui di setiap awal jam."
               : "All data is delayed by 15 minutes and updated at the top of each hour."}
           </p>
-          <p className="text-xs text-[#3b82f6]">
+          <p className="text-xs text-[#D9A441]">
             {locale === "tr"
               ? "\u00A9 Blue One Global Analysis. 2021-2026 BogaStock.com - Powered by AFK DaSYS T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
               : locale === "es"

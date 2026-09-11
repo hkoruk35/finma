@@ -167,7 +167,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className={`bg-gradient-to-br from-[#0a1428] to-[#050b14] border border-[#30343A]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
+      <div className={`bg-[#202327] border border-[#30343A]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
       {/* Header */}
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#30343A]`}>
         <div className="flex items-center gap-2 min-w-0">
@@ -176,7 +176,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
         </div>
         <Link
           href={labels.href}
-          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium tracking-wide transition-all duration-200 hover:bg-white/5`}
+          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#25282C] border rounded-full font-medium tracking-wide transition-all duration-200 hover:bg-white/5`}
           style={{ color: ACCENT, borderColor: `${ACCENT}4d` }}
         >
           {labels.all}
@@ -246,7 +246,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                   </div>
 
                   <div className="justify-self-center">
-                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} width={68} height={compactMode ? 24 : 26} />
+                    <Sparkline data={stock.sparkline ?? []} color={stock.change_pct >= 0 ? '#4CAF7D' : '#E2726B'} width={68} height={compactMode ? 24 : 26} />
                   </div>
 
                   <div className="text-right shrink-0">
@@ -255,7 +255,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                     </div>
                     <div
                       className={`${compactMode ? 'text-[11px]' : 'text-[9px]'} font-medium font-mono`}
-                      style={{ color: stock.change_pct >= 0 ? '#22c55e' : '#ef4444' }}
+                      style={{ color: stock.change_pct >= 0 ? '#4CAF7D' : '#E2726B' }}
                     >
                       {stock.change_pct >= 0 ? '+' : ''}{formatNumber(stock.change_pct, 2, locale)}%
                     </div>
