@@ -164,13 +164,15 @@ Competitor and theme commentary should draw on well-known, general market knowle
       ? marketAssetPrompt(input)
       : input.weekly
       ? weeklyStockPrompt(input)
-      : `Write a short, engaging one-sentence mini analysis (max 220 chars) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${formatNumber(input.rvol, 1)}x average` : "N/A"}.
+      : `Write an in-depth DAILY mini analysis (at least 60-70 words, roughly 420-600 characters — do not go shorter than that, use the space to say something genuinely useful) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${formatNumber(input.rvol, 1)}x average` : "N/A"}.
 
-Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. above-average volume confirming the move, or thin volume suggesting caution) rather than just repeating the trend. ${
+This is the "why was this stock picked today" analysis shown to readers on the homepage and news page — it needs to earn its place, not read like a one-liner. Cover, in natural flowing prose (not a bullet list): (1) WHY this ticker stood out today specifically — tie it directly to the trend/signal/volume context given above, don't just restate the labels; (2) how it sits within its sector right now — is the sector itself hot, rotating, or lagging, and does that support or complicate the setup; (3) the volume story in more depth (e.g. above-average volume confirming institutional interest, or thin volume meaning the move needs more confirmation before it's trustworthy); and (4) a clear, strategic medium-to-long-term read on what this means for someone watching the name. Sector/market context should draw on general, well-known market knowledge and stay qualitative — do not invent specific sector data, competitor names, or numbers beyond what's given.
+
+Take a strategic, medium-to-long-term view throughout. ${
           input.opportunity
-            ? "Volume and trend both support this — explicitly call it out as a swing-trade or investment opportunity worth watching, and briefly say why (momentum + volume confirmation)."
-            : "Don't force an opportunity framing if the setup doesn't clearly support it — a neutral \"worth watching\" or \"stay on radar\" tone is fine here."
-        } Do NOT mention or imply any specific price level, entry range, or dollar figure — keep it qualitative and strategic, not tactical. Avoid generic filler like "worth a look"; be specific and analytical.${
+            ? "Volume and trend both support this — explicitly call it out as a swing-trade or investment opportunity worth watching, and explain why (momentum + volume confirmation + sector backdrop)."
+            : "Don't force an opportunity framing if the setup doesn't clearly support it — a neutral \"worth watching\" or \"stay on radar\" tone is fine here, but still explain the reasoning in full rather than hedging in one line."
+        } Do NOT mention or imply any specific price level, entry range, or dollar figure — keep it qualitative and strategic, not tactical. Avoid generic filler like "worth a look"; be specific and analytical, and avoid padding — every sentence should add real information.${
           input.customInstruction ? ` Additional instruction from the analyst (follow this closely): ${input.customInstruction}` : ""
         } Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
 
