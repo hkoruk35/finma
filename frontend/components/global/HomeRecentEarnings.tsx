@@ -94,12 +94,12 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
     <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden mb-4">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
-          <h3 className="text-[16px] font-bold text-[#D9A441] truncate">{t.title}</h3>
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#FFFFFF]" />
+          <h3 className="text-[16px] font-bold text-[#FFFFFF] truncate">{t.title}</h3>
         </div>
         <Link
           href={allHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[12px] bg-[#1e293b] border border-[#FFFFFF]/30 text-[#FFFFFF] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0"
         >
           {t.all}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -118,9 +118,9 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
               <div>
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-lg font-bold text-white hover:text-[#D9A441] transition-colors flex items-center gap-2">
+                    <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-lg font-bold text-white hover:text-[#FFFFFF] transition-colors flex items-center gap-2">
                       {item.ticker}
-                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#D9A441]/10 text-[#D9A441] border border-[#D9A441]/20 uppercase">
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#FFFFFF]/10 text-[#FFFFFF] border border-[#FFFFFF]/20 uppercase">
                         {item.formType}
                       </span>
                     </Link>
@@ -150,7 +150,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                         {t.eps}: {ai.eps_status}
                       </span>
                       {typeof ai.ai_score === "number" && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D9A441]/10 text-[#D9A441] border border-[#D9A441]/30">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFFFFF]/10 text-[#FFFFFF] border border-[#FFFFFF]/30">
                           {t.score}: {ai.ai_score}/10
                         </span>
                       )}
@@ -158,11 +158,11 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
 
                     {Array.isArray(ai.key_takeaways) && ai.key_takeaways.length > 0 && (
                       <div className="mb-3">
-                        <div className="text-[12px] font-bold text-[#D9A441] mb-1">{t.keyTakeaways}</div>
+                        <div className="text-[12px] font-bold text-[#FFFFFF] mb-1">{t.keyTakeaways}</div>
                         <ul className="space-y-1">
                           {ai.key_takeaways.slice(0, 2).map((k: string, i: number) => (
                             <li key={i} className="text-[11px] text-white/70 flex gap-1.5 leading-snug">
-                              <span className="text-[#D9A441] mt-0.5 shrink-0">•</span>
+                              <span className="text-[#FFFFFF] mt-0.5 shrink-0">•</span>
                               <span className="line-clamp-1">{k}</span>
                             </li>
                           ))}
@@ -193,7 +193,7 @@ export default async function HomeRecentEarnings({ locale }: { locale: Locale })
                     )}
 
                     <div className="flex items-center justify-end mb-4">
-                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#D9A441] hover:underline">
+                      <Link href={`/global/${locale}/graphic/${item.ticker}`} className="text-[10px] font-bold text-[#FFFFFF] hover:underline">
                         {t.detail}
                       </Link>
                     </div>

@@ -78,7 +78,7 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
       <div className="max-w-[1600px] mx-auto px-4 py-3.5 flex flex-col sm:flex-row items-center gap-3">
         <p className="text-[12px] text-white/70 flex-1 text-center sm:text-left">
           {t.message}{' '}
-          <Link href={`/global/${locale}/privacy`} className="text-[#D9A441] hover:underline">
+          <Link href={`/global/${locale}/privacy`} className="text-[#FFFFFF] hover:underline">
             {t.policy}
           </Link>
         </p>
@@ -93,7 +93,7 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => choose('accepted')}
-            className="px-5 py-2 rounded-lg bg-[#D9A441] hover:bg-[#c48f37] text-white text-[12px] font-bold uppercase tracking-wide transition-colors"
+            className="px-5 py-2 rounded-lg bg-white hover:bg-white/85 text-[#151719] text-[12px] font-bold uppercase tracking-wide transition-colors"
           >
             {t.accept}
           </button>

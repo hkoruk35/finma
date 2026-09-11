@@ -110,14 +110,14 @@ function IndexHighlightCard({
     <div className="bg-[#202327] border border-[#30343A] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
-          <h3 className="text-[16px] font-bold text-[#D9A441] truncate">
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#FFFFFF]" />
+          <h3 className="text-[16px] font-bold text-[#FFFFFF] truncate">
             {name} — {t.dailyAnalysis}
           </h3>
         </div>
         <Link
           href={`/global/${locale}/${indexDef.slug}`}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#FFFFFF]/30 text-[#FFFFFF] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
         >
           {LINK_LABEL[locale]}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -132,7 +132,7 @@ function IndexHighlightCard({
             <span className="text-xs font-bold text-white/70 tracking-wide">
               {t.session}: {sessionLabel(snapshot.session, t)}
             </span>
-            <span className="text-[10px] bg-[#D9A441]/20 text-[#D9A441] px-2 py-0.5 rounded-full font-bold tracking-wide">
+            <span className="text-[10px] bg-[#FFFFFF]/20 text-[#FFFFFF] px-2 py-0.5 rounded-full font-bold tracking-wide">
               {LATEST_LABEL[locale]}
             </span>
           </div>
@@ -211,7 +211,7 @@ function IndexHighlightCard({
 
         {sectorLeaders && sectorLeaders.length > 0 && (
           <div className="mb-4">
-            <p className="text-[13px] font-bold text-[#D9A441] mb-2">{t.sectorLeaders}</p>
+            <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{t.sectorLeaders}</p>
             <div className="flex flex-wrap gap-2">
               {sectorLeaders.map((leader, i) => (
                 <span
@@ -268,13 +268,13 @@ function IndexHighlightCard({
 function HighlightMoverList({ title, movers, locale }: { title: string; movers: Mover[]; locale: Locale }) {
   return (
     <div className="rounded-lg bg-[#25282C] border border-[#30343A] p-3">
-      <p className="text-[13px] font-bold text-[#D9A441] mb-2">{title}</p>
+      <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{title}</p>
       <div className="divide-y divide-[#30343A]">
         {movers.map((m) => (
           <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
             <span className="font-semibold text-slate-200">
               <TickerHoverChart ticker={m.ticker} locale={locale}>
-                <Link href={`/global/${locale}/graphic/${m.ticker}`} className="hover:text-[#D9A441] transition-colors">
+                <Link href={`/global/${locale}/graphic/${m.ticker}`} className="hover:text-[#FFFFFF] transition-colors">
                   {m.name || m.ticker}
                 </Link>
               </TickerHoverChart>
@@ -299,7 +299,7 @@ function HighlightNarrativeRow({ label, text }: { label: string; text?: string }
   if (!text) return null;
   return (
     <div>
-      <p className="text-[13px] font-bold text-[#D9A441] mb-1">{label}</p>
+      <p className="text-[13px] font-bold text-[#FFFFFF] mb-1">{label}</p>
       <p className="text-sm text-slate-300 leading-relaxed">{text}</p>
     </div>
   );

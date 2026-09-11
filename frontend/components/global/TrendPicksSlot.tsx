@@ -36,7 +36,7 @@ interface LiveWatchData {
   recent_closes?: number[];
 }
 
-const ACCENT = '#D9A441'; // diger ana sayfa kart basliklariyla (Sektorler, Izleme Listem vb.) ayni logo-mavisi standardi
+const ACCENT = '#FFFFFF'; // diger ana sayfa kart basliklariyla (Sektorler, Izleme Listem vb.) ayni logo-mavisi standardi
 
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {

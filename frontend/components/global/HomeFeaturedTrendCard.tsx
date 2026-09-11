@@ -76,12 +76,12 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
     <div className="bg-[#202327] border border-[#30343A] rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.15)]">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-1 h-4 rounded-full shrink-0 bg-[#D9A441]" />
-          <h3 className="text-[16px] font-bold text-[#D9A441] truncate">{t.title}</h3>
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#FFFFFF]" />
+          <h3 className="text-[16px] font-bold text-[#FFFFFF] truncate">{t.title}</h3>
         </div>
         <Link
           href={detailHref}
-          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#D9A441]/30 text-[#D9A441] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
+          className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] bg-[#1e293b] border border-[#FFFFFF]/30 text-[#FFFFFF] rounded-full font-bold tracking-wide transition-all duration-200 hover:bg-white/5 shrink-0 whitespace-nowrap"
         >
           {t.linkLabel}
           <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -94,12 +94,12 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
         <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
           <div className="flex items-center gap-2 flex-wrap min-w-0">
             <TickerHoverChart ticker={data.ticker} locale={locale}>
-              <Link href={detailHref} className="text-xl font-black text-white hover:text-[#D9A441] transition-colors">
+              <Link href={detailHref} className="text-xl font-black text-white hover:text-[#FFFFFF] transition-colors">
                 {data.ticker}
               </Link>
             </TickerHoverChart>
             {data.sector && <span className="text-xs font-bold text-white/50 truncate">{data.sector}</span>}
-            <span className="text-[10px] bg-[#D9A441]/20 text-[#D9A441] px-2 py-0.5 rounded-full font-bold tracking-wide">
+            <span className="text-[10px] bg-[#FFFFFF]/20 text-[#FFFFFF] px-2 py-0.5 rounded-full font-bold tracking-wide">
               {t.latest}
             </span>
           </div>
@@ -130,11 +130,11 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
 
         {data.selectionReasons.length > 0 && (
           <div className="mb-4">
-            <p className="text-[13px] font-bold text-[#D9A441] mb-2">{t.whySelected}</p>
+            <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{t.whySelected}</p>
             <ul className="space-y-1">
               {data.selectionReasons.slice(0, 4).map((reason, i) => (
                 <li key={i} className="text-sm text-slate-300 leading-relaxed flex gap-1.5">
-                  <span className="text-[#D9A441] mt-0.5 shrink-0">•</span>
+                  <span className="text-[#FFFFFF] mt-0.5 shrink-0">•</span>
                   <span>{reason}</span>
                 </li>
               ))}
