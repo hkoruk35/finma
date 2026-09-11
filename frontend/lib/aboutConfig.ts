@@ -14,6 +14,11 @@ export interface AboutStat {
 }
 
 export interface AboutConfig {
+  founder?: {
+    name: string;
+    title: string;
+    photo_url: string;
+  };
   hero: {
     subtitle: string;
     title_html: string; // allow raw html like "Gateway to Markets<br />"

@@ -37,6 +37,19 @@ export default async function AboutPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         {/* Hero */}
         <div className="text-center mb-16">
+          {config.founder?.photo_url && (
+            <div className="mb-6 flex flex-col items-center">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-[#3b82f6]/50 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
+                <img
+                  src={config.founder.photo_url}
+                  alt={config.founder.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-4 text-lg font-bold text-white">{config.founder.name}</p>
+              <p className="text-sm text-[#3b82f6] font-medium">{config.founder.title}</p>
+            </div>
+          )}
           <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">{config.hero.subtitle}</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
             <span dangerouslySetInnerHTML={{ __html: config.hero.title_html }} />

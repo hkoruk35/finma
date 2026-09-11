@@ -1,34 +1,39 @@
 {
   "tr": {
+    "founder": {
+      "name": "Hasan Körük",
+      "title": "Kurucu & CEO",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Hikayemiz",
-      "title_html": "Global Piyasalara Açılan Kapınız<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock, dünya borsalarını analiz etmek için tasarlanmış gelişmiş bir finansal terminaldir. Başlangıçta otonom sistemler için derin veri işleme projesi olarak doğan vizyonumuz, bugün yatırımcılar için kapsamlı bir platforma dönüşmüştür.",
+      "subtitle": "Kurucumuzun Ağzından",
+      "title_html": "Merhaba, Ben Hasan Körük.<br />",
+      "title_highlight": "BogaStock'u Ben Kurdum.",
+      "description": "BogaStock'u, dünya borsalarını herkesin anlayabileceği bir dille analiz etmek için kurdum. Hikaye, otonom sistemler için geliştirdiğimiz derin veri işleme teknolojisiyle başladı; bugün aynı teknolojiyi, yatırımcılara güvenilir ve şeffaf bir platform sunmak için kullanıyorum.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "AFK DaSYS ile Başlayan Yolculuk",
-        "description": "BogaStock'un temelleri, ana şirketimiz olan AFK DaSYS'in büyük veri işleme uzmanlığına dayanır. Başlangıçta otonom araçlar için geliştirilen yüksek kapasiteli veri işleme teknolojisi, finans piyasalarının karmaşık yapısını analiz etmek üzere yeniden tasarlandı.",
+        "title": "AFK DaSYS ile Başlayan Yolculuğum",
+        "description": "BogaStock'un temelleri, kendi şirketim AFK DaSYS'teki büyük veri işleme uzmanlığıma dayanıyor. Başlangıçta otonom araçlar için geliştirdiğimiz yüksek kapasiteli veri işleme teknolojisini, finans piyasalarının karmaşık yapısını analiz etmek üzere kendi ellerimle yeniden tasarladım.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Gelişmiş Grafik Sistemleri ve Terminal",
-        "description": "Bugün BogaStock, tam donanımlı bir finansal terminal olarak hizmet vermektedir. Gelişmiş grafik sistemlerimiz ve gerçek zamanlı veri analizimizle, her gün binlerce hisse senedini tarayarak piyasaları şeffaf ve anlaşılır hale getiriyoruz.",
+        "title": "Kurduğum Gelişmiş Grafik Sistemleri ve Terminal",
+        "description": "Bugün BogaStock, ekibimle birlikte geliştirdiğimiz tam donanımlı bir finansal terminal olarak hizmet veriyor. Gelişmiş grafik sistemlerimiz ve gerçek zamanlı veri analizimizle, her gün binlerce hisse senedini tarayarak piyasaları şeffaf ve anlaşılır hale getiriyoruz.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot: 100+ Dilde Yapay Zeka",
-        "description": "Sistemimizin kalbinde, en gelişmiş yapay zeka teknolojileriyle desteklenen eşsiz Boga Copilot yer alır. Copilot, 100'den fazla dilde akıcı iletişim kurarak profesyonel analizleri kendi anadilinizde almanızı sağlar.",
+        "title": "Boga Copilot: 100+ Dilde Yapay Zeka Vizyonum",
+        "description": "Sistemin kalbine, en gelişmiş yapay zeka teknolojileriyle desteklenen eşsiz Boga Copilot'u yerleştirdim. Copilot, 100'den fazla dilde akıcı iletişim kurarak profesyonel analizleri kendi anadilinizde almanızı sağlıyor.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "Bugün BogaStock",
+      "title": "Bugün Geldiğimiz Nokta",
       "items": [
         {
           "number": "100+",
@@ -49,41 +54,46 @@
       ]
     },
     "mission": {
-      "title": "Neye İnanıyoruz",
-      "description": "\"Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock olarak amacımız, global finans verilerini herkesin anlayabileceği net bir yola dönüştürüp, kendi kararınızı güvenle vermenize yardımcı olmaktır.\" ABD merkezli, 7/24 aktif küresel bir şirketiz. Varsayılan dilimiz İngilizce'dir, ancak 6 dilde yerelleştirilmiş içerik sunuyoruz ve gelişmiş Copilot yapay zekamız 100'den fazla dili desteklemektedir. Sektör endeksleri, insider takibi ve bilanço analizleri dahil olmak üzere yeni analitik araçlarla sürekli olarak gelişmeye devam ediyoruz.",
+      "title": "Benim İnandığım Şey",
+      "description": "\"Algoritmaların yönettiği bir dünyada, verinin doğru işlenmesi kadar onu anlaşılır kılmak da önemli. BogaStock'u kurarken amacım, global finans verilerini herkesin anlayabileceği net bir yola dönüştürüp, sizin kendi kararınızı güvenle vermenize yardımcı olmaktı.\" Bugün ABD merkezli, 7/24 aktif bir ekiple bu vizyonu büyütüyorum. Varsayılan dilimiz İngilizce, ancak platformumuzu 6 dilde yerelleştirdim ve Copilot yapay zekamız 100'den fazla dili destekliyor. Sektör endeksleri, insider takibi ve bilanço analizleri gibi yeni araçlarla platformu geliştirmeye kendi elimle devam ediyorum.",
       "image_url": ""
     }
   },
   "en": {
+    "founder": {
+      "name": "Hasan Koruk",
+      "title": "Founder & CEO",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Our Story",
-      "title_html": "Your Gateway to Global Markets<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock is an advanced financial terminal designed to analyze global stock markets. What started as a deep data-processing project for autonomous systems has evolved into a comprehensive platform for investors worldwide.",
+      "subtitle": "From Our Founder",
+      "title_html": "Hi, I'm Hasan Koruk.<br />",
+      "title_highlight": "I Built BogaStock.",
+      "description": "I founded BogaStock to analyze global stock markets in a language anyone can understand. The story started with deep data-processing technology I built for autonomous systems — today I use that same technology to give investors a trustworthy, transparent platform.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "The Journey with AFK DaSYS",
-        "description": "The foundation of BogaStock rests on the deep data-processing expertise of our parent company, AFK DaSYS. High-capacity technology originally developed for autonomous vehicles was repurposed to analyze the complex structure of financial markets.",
+        "title": "My Journey with AFK DaSYS",
+        "description": "The foundation of BogaStock rests on the deep data-processing expertise I built at my own company, AFK DaSYS. I took high-capacity technology originally developed for autonomous vehicles and redesigned it myself to analyze the complex structure of financial markets.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Advanced Charting and Terminal",
-        "description": "Today, BogaStock serves as a fully equipped financial terminal. With our advanced charting systems and real-time data analysis, we scan thousands of equities daily, making markets transparent and understandable.",
+        "title": "The Charting Systems and Terminal I Built",
+        "description": "Today, BogaStock serves as a fully equipped financial terminal that my team and I built together. With our advanced charting systems and real-time data analysis, we scan thousands of equities daily, making markets transparent and understandable.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot: AI in 100+ Languages",
-        "description": "At the heart of our system lies the unique Boga Copilot, powered by the most advanced AI technologies. Our Copilot communicates fluently in over 100 languages, bringing professional analysis to your native language.",
+        "title": "Boga Copilot: My Vision for AI in 100+ Languages",
+        "description": "At the heart of the system, I placed the unique Boga Copilot, powered by the most advanced AI technologies. Our Copilot communicates fluently in over 100 languages, bringing professional analysis to your native language.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "BogaStock Today",
+      "title": "Where We Stand Today",
       "items": [
         {
           "number": "100+",
@@ -104,41 +114,46 @@
       ]
     },
     "mission": {
-      "title": "What We Believe",
-      "description": "\"In a world increasingly run by algorithms, processing data correctly is only half the job — making it understandable matters just as much. At BogaStock, our goal is to turn global financial data into a clear path anyone can follow.\" We are a US-based global company with a 24/7 active structure. Our default language is English, but we offer localized content in 6 languages, and our advanced Copilot AI supports over 100 languages. We continuously evolve with new analytical tools, including sector indices, insider tracking, and earnings analysis.",
+      "title": "What I Believe",
+      "description": "\"In a world increasingly run by algorithms, processing data correctly is only half the job — making it understandable matters just as much. When I founded BogaStock, my goal was to turn global financial data into a clear path anyone can follow, so you could make your own decisions with confidence.\" Today I run a US-based, 24/7 active global team built around that vision. Our default language is English, but I localized the platform into 6 languages, and our Copilot AI supports over 100 languages. I keep personally pushing the platform forward with new analytical tools, including sector indices, insider tracking, and earnings analysis.",
       "image_url": ""
     }
   },
   "es": {
+    "founder": {
+      "name": "Hasan Koruk",
+      "title": "Fundador y CEO",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Nuestra Historia",
-      "title_html": "Su Puerta a los Mercados Globales<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock es un terminal financiero avanzado diseñado para analizar los mercados bursátiles globales. Lo que comenzó como un proyecto de procesamiento de datos profundos para sistemas autónomos se ha convertido en una plataforma integral para inversores de todo el mundo.",
+      "subtitle": "De Nuestro Fundador",
+      "title_html": "Hola, Soy Hasan Koruk.<br />",
+      "title_highlight": "Yo Construí BogaStock.",
+      "description": "Fundé BogaStock para analizar los mercados bursátiles globales en un lenguaje que cualquiera pueda entender. La historia comenzó con la tecnología de procesamiento de datos que desarrollé para sistemas autónomos; hoy uso esa misma tecnología para ofrecer a los inversores una plataforma confiable y transparente.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "El Viaje con AFK DaSYS",
-        "description": "La base de BogaStock descansa en la profunda experiencia de procesamiento de datos de nuestra empresa matriz, AFK DaSYS. La tecnología de alta capacidad desarrollada originalmente para vehículos autónomos se rediseñó para analizar los mercados financieros.",
+        "title": "Mi Camino con AFK DaSYS",
+        "description": "La base de BogaStock descansa en la experiencia de procesamiento de datos que construí en mi propia empresa, AFK DaSYS. Tomé la tecnología de alta capacidad desarrollada originalmente para vehículos autónomos y la rediseñé yo mismo para analizar los mercados financieros.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Gráficos Avanzados y Terminal",
-        "description": "Hoy en día, BogaStock sirve como un terminal financiero totalmente equipado. Con nuestros avanzados sistemas de gráficos y análisis de datos en tiempo real, escaneamos miles de acciones diariamente, haciendo que los mercados sean transparentes.",
+        "title": "Los Gráficos y el Terminal que Construí",
+        "description": "Hoy en día, BogaStock sirve como un terminal financiero totalmente equipado que construí junto a mi equipo. Con nuestros avanzados sistemas de gráficos y análisis de datos en tiempo real, escaneamos miles de acciones diariamente, haciendo que los mercados sean transparentes.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot: IA en 100+ Idiomas",
-        "description": "En el corazón de nuestro sistema se encuentra el único Boga Copilot, impulsado por las tecnologías de IA más avanzadas. Nuestro Copilot se comunica con fluidez en más de 100 idiomas, llevando el análisis profesional a su idioma nativo.",
+        "title": "Boga Copilot: Mi Visión de IA en 100+ Idiomas",
+        "description": "En el corazón del sistema, coloqué al único Boga Copilot, impulsado por las tecnologías de IA más avanzadas. Nuestro Copilot se comunica con fluidez en más de 100 idiomas, llevando el análisis profesional a su idioma nativo.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "BogaStock Hoy",
+      "title": "Dónde Estamos Hoy",
       "items": [
         {
           "number": "100+",
@@ -159,41 +174,46 @@
       ]
     },
     "mission": {
-      "title": "Lo Que Creemos",
-      "description": "\"En un mundo cada vez más dirigido por algoritmos, procesar los datos correctamente es solo la mitad del trabajo. En BogaStock, nuestro objetivo es convertir los datos financieros en un camino claro que cualquiera pueda seguir.\" Somos una empresa global con sede en EE. UU. y una estructura activa las 24 horas, los 7 días de la semana. Nuestro idioma predeterminado es el inglés, pero ofrecemos contenido localizado en 6 idiomas, y nuestra avanzada IA Copilot admite más de 100 idiomas. Evolucionamos continuamente con nuevas herramientas analíticas, incluidos índices sectoriales, seguimiento de transacciones de directivos (insiders) y análisis de ganancias.",
+      "title": "Lo Que Creo",
+      "description": "\"En un mundo cada vez más dirigido por algoritmos, procesar los datos correctamente es solo la mitad del trabajo. Cuando fundé BogaStock, mi objetivo era convertir los datos financieros globales en un camino claro que cualquiera pueda seguir, para que usted pueda tomar sus propias decisiones con confianza.\" Hoy dirijo un equipo global con sede en EE. UU., activo las 24 horas, los 7 días de la semana. Nuestro idioma predeterminado es el inglés, pero yo mismo localicé la plataforma en 6 idiomas, y nuestra IA Copilot admite más de 100 idiomas. Sigo impulsando personalmente la plataforma con nuevas herramientas, incluidos índices sectoriales, seguimiento de insiders y análisis de resultados.",
       "image_url": ""
     }
   },
   "fr": {
+    "founder": {
+      "name": "Hasan Koruk",
+      "title": "Fondateur et PDG",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Notre Histoire",
-      "title_html": "Votre Passerelle vers les Marchés Mondiaux<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock est un terminal financier avancé conçu pour analyser les marchés boursiers mondiaux. Ce qui a commencé comme un projet de traitement de données pour les systèmes autonomes est devenu une plateforme complète pour les investisseurs.",
+      "subtitle": "Le Mot de Notre Fondateur",
+      "title_html": "Bonjour, Je suis Hasan Koruk.<br />",
+      "title_highlight": "J'ai Créé BogaStock.",
+      "description": "J'ai fondé BogaStock pour analyser les marchés boursiers mondiaux dans un langage accessible à tous. Cette histoire a commencé avec la technologie de traitement de données que j'ai développée pour des systèmes autonomes ; aujourd'hui, j'utilise cette même technologie pour offrir aux investisseurs une plateforme fiable et transparente.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "Le Parcours avec AFK DaSYS",
-        "description": "Les fondations de BogaStock reposent sur l'expertise de notre société mère, AFK DaSYS. La technologie développée à l'origine pour les véhicules autonomes a été réadaptée pour analyser la structure complexe des marchés financiers.",
+        "title": "Mon Parcours avec AFK DaSYS",
+        "description": "Les fondations de BogaStock reposent sur l'expertise en traitement de données que j'ai bâtie au sein de ma propre société, AFK DaSYS. J'ai repris la technologie développée à l'origine pour les véhicules autonomes et je l'ai moi-même réadaptée pour analyser la structure complexe des marchés financiers.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Graphiques Avancés et Terminal",
-        "description": "Aujourd'hui, BogaStock fonctionne comme un terminal financier complet. Grâce à nos systèmes graphiques avancés et à l'analyse des données en temps réel, nous analysons des milliers d'actions chaque jour.",
+        "title": "Les Graphiques et le Terminal que J'ai Construits",
+        "description": "Aujourd'hui, BogaStock fonctionne comme un terminal financier complet que j'ai bâti avec mon équipe. Grâce à nos systèmes graphiques avancés et à l'analyse des données en temps réel, nous analysons des milliers d'actions chaque jour.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot : l'IA dans Plus de 50 Langues",
-        "description": "Au cœur de notre système se trouve Boga Copilot, propulsé par les technologies d'IA les plus avancées. Notre Copilot communique couramment dans plus de 100 langues, apportant une analyse professionnelle dans votre langue maternelle.",
+        "title": "Boga Copilot : Ma Vision de l'IA dans Plus de 100 Langues",
+        "description": "Au cœur du système, j'ai placé Boga Copilot, propulsé par les technologies d'IA les plus avancées. Notre Copilot communique couramment dans plus de 100 langues, apportant une analyse professionnelle dans votre langue maternelle.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "BogaStock Aujourd'hui",
+      "title": "Où Nous en Sommes Aujourd'hui",
       "items": [
         {
           "number": "100+",
@@ -214,41 +234,46 @@
       ]
     },
     "mission": {
-      "title": "Ce Que Nous Croyons",
-      "description": "\"Dans un monde dirigé par les algorithmes, traiter les données correctement n'est que la moitié du travail. Chez BogaStock, notre objectif est de transformer les données financières en un chemin clair pour vous aider à prendre vos propres décisions en toute confiance.\" Nous sommes une entreprise mondiale basée aux États-Unis avec une structure active 24h/24 et 7j/7. Notre langue par défaut est l'anglais, mais nous proposons un contenu localisé dans 6 langues, et notre IA avancée Copilot prend en charge plus de 100 langues. Nous évoluons continuellement avec de nouveaux outils analytiques, notamment des indices sectoriels, le suivi des transactions d'initiés (insiders) et l'analyse des résultats (bilans).",
+      "title": "Ce en Quoi Je Crois",
+      "description": "\"Dans un monde dirigé par les algorithmes, traiter les données correctement n'est que la moitié du travail. Quand j'ai fondé BogaStock, mon objectif était de transformer les données financières mondiales en un chemin clair que chacun puisse suivre, pour que vous puissiez prendre vos propres décisions en toute confiance.\" Aujourd'hui, je dirige une équipe mondiale basée aux États-Unis, active 24h/24 et 7j/7. Notre langue par défaut est l'anglais, mais j'ai moi-même localisé la plateforme dans 6 langues, et notre IA Copilot prend en charge plus de 100 langues. Je continue personnellement à faire évoluer la plateforme avec de nouveaux outils, notamment des indices sectoriels, le suivi des initiés et l'analyse des résultats.",
       "image_url": ""
     }
   },
   "pt": {
+    "founder": {
+      "name": "Hasan Koruk",
+      "title": "Fundador e CEO",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Nossa História",
-      "title_html": "Sua Porta de Entrada para os Mercados Globais<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock é um terminal financeiro avançado projetado para analisar os mercados de ações globais. O que começou como um projeto de processamento de dados para sistemas autônomos evoluiu para uma plataforma abrangente para investidores.",
+      "subtitle": "Direto do Nosso Fundador",
+      "title_html": "Olá, Eu Sou Hasan Koruk.<br />",
+      "title_highlight": "Eu Construí a BogaStock.",
+      "description": "Fundei a BogaStock para analisar os mercados de ações globais em uma linguagem que qualquer pessoa possa entender. A história começou com a tecnologia de processamento de dados que desenvolvi para sistemas autônomos; hoje uso essa mesma tecnologia para oferecer aos investidores uma plataforma confiável e transparente.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "A Jornada com a AFK DaSYS",
-        "description": "A base do BogaStock repousa na profunda experiência de processamento de dados de nossa empresa controladora, AFK DaSYS. A tecnologia originalmente desenvolvida para veículos autônomos foi redirecionada para analisar os mercados financeiros.",
+        "title": "Minha Jornada com a AFK DaSYS",
+        "description": "A base da BogaStock repousa na experiência de processamento de dados que construí na minha própria empresa, AFK DaSYS. Peguei a tecnologia originalmente desenvolvida para veículos autônomos e a redesenhei eu mesmo para analisar os mercados financeiros.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Gráficos Avançados e Terminal",
-        "description": "Hoje, o BogaStock serve como um terminal financeiro totalmente equipado. Com nossos sistemas de gráficos avançados e análise de dados em tempo real, analisamos milhares de ações diariamente, tornando os mercados transparentes.",
+        "title": "Os Gráficos e o Terminal que Construí",
+        "description": "Hoje, a BogaStock serve como um terminal financeiro totalmente equipado que construí junto com minha equipe. Com nossos sistemas de gráficos avançados e análise de dados em tempo real, analisamos milhares de ações diariamente, tornando os mercados transparentes.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot: IA em 100+ Idiomas",
-        "description": "No coração do nosso sistema está o Boga Copilot, alimentado pelas mais avançadas tecnologias de IA. Nosso Copilot se comunica fluentemente em mais de 100 idiomas, trazendo análises profissionais para o seu idioma nativo.",
+        "title": "Boga Copilot: Minha Visão de IA em 100+ Idiomas",
+        "description": "No coração do sistema, coloquei o Boga Copilot, alimentado pelas mais avançadas tecnologias de IA. Nosso Copilot se comunica fluentemente em mais de 100 idiomas, trazendo análises profissionais para o seu idioma nativo.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "BogaStock Hoje",
+      "title": "Onde Estamos Hoje",
       "items": [
         {
           "number": "100+",
@@ -269,41 +294,46 @@
       ]
     },
     "mission": {
-      "title": "No Que Acreditamos",
-      "description": "\"Em um mundo cada vez mais administrado por algoritmos, processar dados corretamente é apenas metade do trabalho. Na BogaStock, nosso objetivo é transformar os dados financeiros em um caminho claro para ajudá-lo a tomar suas decisões com confiança.\" Somos uma empresa global com sede nos EUA e uma estrutura ativa 24 horas por dia, 7 dias por semana. Nosso idioma padrão é o inglês, mas oferecemos conteúdo localizado em 6 idiomas, e nossa IA avançada Copilot oferece suporte a mais de 100 idiomas. Continuamos a evoluir com novas ferramentas analíticas, incluindo índices do setor, rastreamento de transações de insiders e análise de lucros.",
+      "title": "No Que Eu Acredito",
+      "description": "\"Em um mundo cada vez mais administrado por algoritmos, processar dados corretamente é apenas metade do trabalho. Quando fundei a BogaStock, meu objetivo era transformar os dados financeiros globais em um caminho claro que qualquer pessoa pudesse seguir, para que você pudesse tomar suas próprias decisões com confiança.\" Hoje eu lidero uma equipe global com sede nos EUA, ativa 24 horas por dia, 7 dias por semana. Nosso idioma padrão é o inglês, mas eu mesmo localizei a plataforma em 6 idiomas, e nossa IA Copilot oferece suporte a mais de 100 idiomas. Continuo pessoalmente evoluindo a plataforma com novas ferramentas, incluindo índices do setor, rastreamento de insiders e análise de lucros.",
       "image_url": ""
     }
   },
   "id": {
+    "founder": {
+      "name": "Hasan Koruk",
+      "title": "Pendiri & CEO",
+      "photo_url": "/team/hasan-koruk.jpg"
+    },
     "hero": {
-      "subtitle": "Kisah Kami",
-      "title_html": "Gerbang Anda Menuju Pasar Global<br />",
-      "title_highlight": "BogaStock.",
-      "description": "BogaStock adalah terminal keuangan canggih yang dirancang untuk menganalisis pasar saham global. Apa yang dimulai sebagai proyek pemrosesan data mendalam untuk sistem otonom kini telah berkembang menjadi platform komprehensif bagi investor di seluruh dunia.",
+      "subtitle": "Dari Pendiri Kami",
+      "title_html": "Hai, Saya Hasan Koruk.<br />",
+      "title_highlight": "Saya Membangun BogaStock.",
+      "description": "Saya mendirikan BogaStock untuk menganalisis pasar saham global dalam bahasa yang dapat dipahami siapa saja. Kisah ini dimulai dengan teknologi pemrosesan data mendalam yang saya bangun untuk sistem otonom — kini saya menggunakan teknologi yang sama untuk memberikan platform yang tepercaya dan transparan bagi para investor.",
       "image_url": ""
     },
     "sections": [
       {
-        "title": "Perjalanan Bersama AFK DaSYS",
-        "description": "Fondasi BogaStock dibangun di atas keahlian pemrosesan data besar dari perusahaan induk kami, AFK DaSYS. Teknologi berkapasitas tinggi yang awalnya dikembangkan untuk kendaraan otonom kini dirancang ulang untuk menganalisis struktur kompleks pasar keuangan.",
+        "title": "Perjalanan Saya Bersama AFK DaSYS",
+        "description": "Fondasi BogaStock dibangun di atas keahlian pemrosesan data besar yang saya bangun di perusahaan saya sendiri, AFK DaSYS. Saya mengambil teknologi berkapasitas tinggi yang awalnya dikembangkan untuk kendaraan otonom dan merancangnya sendiri untuk menganalisis struktur kompleks pasar keuangan.",
         "image_url": "",
         "gradient": "from-[#3b82f6] to-[#8b5cf6]"
       },
       {
-        "title": "Sistem Grafik Canggih dan Terminal",
-        "description": "Saat ini, BogaStock berfungsi sebagai terminal keuangan yang lengkap. Dengan sistem grafik canggih dan analisis data real-time kami, kami memindai ribuan saham setiap hari, membuat pasar menjadi transparan dan mudah dipahami.",
+        "title": "Sistem Grafik dan Terminal yang Saya Bangun",
+        "description": "Saat ini, BogaStock berfungsi sebagai terminal keuangan lengkap yang saya bangun bersama tim saya. Dengan sistem grafik canggih dan analisis data real-time kami, kami memindai ribuan saham setiap hari, membuat pasar menjadi transparan dan mudah dipahami.",
         "image_url": "",
         "gradient": "from-[#8b5cf6] to-[#06b6d4]"
       },
       {
-        "title": "Boga Copilot: Kecerdasan Buatan dalam 100+ Bahasa",
-        "description": "Di jantung sistem kami terdapat Boga Copilot yang unik, didukung oleh teknologi AI paling canggih. Copilot kami berkomunikasi secara lancar dalam lebih dari 100 bahasa, menghadirkan analisis profesional dalam bahasa ibu Anda.",
+        "title": "Boga Copilot: Visi Saya untuk AI dalam 100+ Bahasa",
+        "description": "Di jantung sistem, saya menempatkan Boga Copilot yang unik, didukung oleh teknologi AI paling canggih. Copilot kami berkomunikasi secara lancar dalam lebih dari 100 bahasa, menghadirkan analisis profesional dalam bahasa ibu Anda.",
         "image_url": "",
         "gradient": "from-[#06b6d4] to-[#22c55e]"
       }
     ],
     "stats": {
-      "title": "BogaStock Hari Ini",
+      "title": "Posisi Kami Hari Ini",
       "items": [
         {
           "number": "100+",
@@ -324,8 +354,8 @@
       ]
     },
     "mission": {
-      "title": "Apa yang Kami Yakini",
-      "description": "\"Di dunia yang semakin dijalankan oleh algoritma, memproses data dengan benar hanyalah setengah dari pekerjaan — membuatnya mudah dipahami sama pentingnya. Di BogaStock, tujuan kami adalah mengubah data keuangan global menjadi jalur yang jelas yang dapat diikuti siapa saja.\" Kami adalah perusahaan global berbasis di AS dengan struktur aktif 24/7. Bahasa default kami adalah Inggris, namun kami menyediakan konten terlokalisasi dalam 6 bahasa, dan AI Copilot canggih kami mendukung lebih dari 100 bahasa. Kami terus berkembang dengan alat analisis baru, termasuk indeks sektor, pelacakan insider, dan analisis laporan keuangan.",
+      "title": "Apa yang Saya Yakini",
+      "description": "\"Di dunia yang semakin dijalankan oleh algoritma, memproses data dengan benar hanyalah setengah dari pekerjaan — membuatnya mudah dipahami sama pentingnya. Ketika saya mendirikan BogaStock, tujuan saya adalah mengubah data keuangan global menjadi jalur yang jelas yang dapat diikuti siapa saja, agar Anda dapat mengambil keputusan sendiri dengan percaya diri.\" Kini saya memimpin tim global berbasis di AS yang aktif 24/7. Bahasa default kami adalah Inggris, namun saya sendiri melokalkan platform ini ke dalam 6 bahasa, dan AI Copilot kami mendukung lebih dari 100 bahasa. Saya terus secara pribadi mengembangkan platform ini dengan alat analisis baru, termasuk indeks sektor, pelacakan insider, dan analisis laporan keuangan.",
       "image_url": ""
     }
   }
