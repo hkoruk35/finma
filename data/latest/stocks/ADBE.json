@@ -1,0 +1,89 @@
+{
+  "ticker": "ADBE",
+  "company": "Adobe Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T08:51:29.693Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 248.8300018310547,
+    "open": 251.80999755859375,
+    "high": 255,
+    "low": 247.19000244140625,
+    "prev_close": 254.86000061035156,
+    "change_pct": -2.3660043807800086,
+    "change_pct_1w": -11.065444000262211,
+    "change_pct_1m": -13.944317107564677,
+    "change_pct_1y": -28.93819990041871,
+    "volume": 10261000,
+    "avg_volume_30d": 140984100
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.154962906397145,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 267.9338156657962,
+    "ema_50": 257.5780870235341,
+    "ema_200": 267.96222428458054,
+    "ema_stack_bullish": false,
+    "bb_upper": 261.27150192260746,
+    "bb_middle": 248.8300018310547,
+    "bb_lower": 236.38850173950195,
+    "bb_width": 10,
+    "atr": 9.98,
+    "atr_pct": 4.01,
+    "rvol": 1.280455030035302,
+    "52w_high": 370.8599853515625,
+    "52w_low": 190.1199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 14.577036,
+    "pb_ratio": 8.619877,
+    "gross_margin": 0.89404,
+    "operating_margin": 0.35327998,
+    "net_margin": 0.28689,
+    "market_cap": 98909929472,
+    "revenue_growth_ttm": 0.127,
+    "fcf_yield": 0.09319968890089636,
+    "institutional_ownership_pct": 0.87337,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 242.84,
+    "entry_range_high": 249.83,
+    "target_range_low": 258.75,
+    "target_range_high": 283.28,
+    "target_1": 258.75,
+    "target_2": 270.97,
+    "target_3": 283.28,
+    "stop_loss": 235.85,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $242.84 – $249.83 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $257.71 direnci veya $240.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $235.85 olarak belirlenmiştir. Fiyatın EMA50 ($257.58) veya günlük VWAP ($250.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($257.58) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($250.03) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
