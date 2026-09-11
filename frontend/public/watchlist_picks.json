@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T14:06:56.274760-04:00",
+  "generated_at": "2026-09-11T17:07:55.668798-04:00",
   "picks": [
     {
       "ticker": "NUTX",
@@ -8,40 +8,70 @@
       "score": 33.0
     },
     {
-      "ticker": "OSCR",
-      "sector": "Healthcare",
-      "date_added": "2026-09-10",
-      "score": 30.0
-    },
-    {
       "ticker": "GM",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-10",
       "score": 35.0
     },
     {
-      "ticker": "PEB",
-      "sector": "Real Estate",
-      "date_added": "2026-09-10",
-      "score": 34.0
-    },
-    {
-      "ticker": "VALE",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-11",
-      "score": 35.5
-    },
-    {
-      "ticker": "DOCU",
-      "sector": "Technology",
-      "date_added": "2026-09-11",
-      "score": 30.5
-    },
-    {
       "ticker": "AVAH",
       "sector": "Healthcare",
       "date_added": "2026-09-11",
       "score": 30.5
+    },
+    {
+      "ticker": "MRVL",
+      "sector": "Technology",
+      "date_added": "2026-09-11",
+      "score": 43.0
+    },
+    {
+      "ticker": "CXT",
+      "sector": "Industrials",
+      "date_added": "2026-09-11",
+      "score": 41.5
+    },
+    {
+      "ticker": "GCT",
+      "sector": "Technology",
+      "date_added": "2026-09-11",
+      "score": 40.5
+    },
+    {
+      "ticker": "OII",
+      "sector": "Energy",
+      "date_added": "2026-09-11",
+      "score": 39.5
+    },
+    {
+      "ticker": "ARMK",
+      "sector": "Industrials",
+      "date_added": "2026-09-11",
+      "score": 35.5
+    },
+    {
+      "ticker": "TMO",
+      "sector": "Healthcare",
+      "date_added": "2026-09-11",
+      "score": 34.0
+    },
+    {
+      "ticker": "SLM",
+      "sector": "Financial Services",
+      "date_added": "2026-09-11",
+      "score": 33.0
+    },
+    {
+      "ticker": "CECO",
+      "sector": "Industrials",
+      "date_added": "2026-09-11",
+      "score": 31.5
+    },
+    {
+      "ticker": "TNK",
+      "sector": "Energy",
+      "date_added": "2026-09-11",
+      "score": 26.0
     }
   ]
 }
