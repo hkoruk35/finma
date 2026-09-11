@@ -1,8 +1,8 @@
 {
   "date": "2026-09-11",
-  "generated_at": "2026-09-11T09:09:10.208545-04:00",
+  "generated_at": "2026-09-11T14:06:54.569253-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 25,
+  "active_scores_count": 35,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 8,
       "tickers": [
         "EC",
         "KYMR",
@@ -29,7 +29,8 @@
         "SRRK",
         "EQT",
         "F",
-        "DIS"
+        "DIS",
+        "PI"
       ]
     },
     "value": {
@@ -68,25 +69,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 765.0172,
-      "change_pct": 0.95
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 715.99,
-      "change_pct": 1.03
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 526.01,
-      "change_pct": 1.01
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.71,
-      "change_pct": -11.94
-    },
-    "RUSSELL2000": {
-      "value": 289.295,
-      "change_pct": 0.55
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-11T15:00:15.997507-04:00"
+  }
 }
