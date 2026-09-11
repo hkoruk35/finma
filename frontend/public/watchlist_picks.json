@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:09:11.890229-04:00",
+  "generated_at": "2026-09-11T14:06:56.274760-04:00",
   "picks": [
     {
       "ticker": "NUTX",
@@ -26,40 +26,10 @@
       "score": 34.0
     },
     {
-      "ticker": "KEX",
-      "sector": "Industrials",
-      "date_added": "2026-09-11",
-      "score": 37.4
-    },
-    {
-      "ticker": "ARM",
-      "sector": "Technology",
-      "date_added": "2026-09-11",
-      "score": 35.5
-    },
-    {
       "ticker": "VALE",
       "sector": "Basic Materials",
       "date_added": "2026-09-11",
       "score": 35.5
-    },
-    {
-      "ticker": "EBAY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-11",
-      "score": 35.5
-    },
-    {
-      "ticker": "SBET",
-      "sector": "Financial Services",
-      "date_added": "2026-09-11",
-      "score": 34.5
-    },
-    {
-      "ticker": "CMPS",
-      "sector": "Healthcare",
-      "date_added": "2026-09-11",
-      "score": 31.0
     },
     {
       "ticker": "DOCU",
@@ -72,12 +42,6 @@
       "sector": "Healthcare",
       "date_added": "2026-09-11",
       "score": 30.5
-    },
-    {
-      "ticker": "GH",
-      "sector": "Healthcare",
-      "date_added": "2026-09-11",
-      "score": 28.0
     }
   ]
 }
