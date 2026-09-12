@@ -15,6 +15,11 @@ jobs:
     steps:
       - name: Call scheduled-publish cron endpoint
         run: |
-          curl -sf -X GET "https://bogastock.com/api/cron/x-scheduled-publish" \
-            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}" \
-            || echo "Scheduled publish call failed (non-fatal)"
+          response=$(curl -s -w "\nHTTP_STATUS=%{http_code}" -X GET "https://bogastock.com/api/cron/x-scheduled-publish" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::Scheduled publish call returned HTTP $status"
+            exit 1
+          fi

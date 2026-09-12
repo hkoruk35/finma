@@ -1,0 +1,24 @@
+name: Market Picture Generation
+
+on:
+  schedule:
+    # Saatte bir dener — endpoint kendi icinde mode'a gore (intraday: ~2 saatte
+    # bir, day_close/week_close: gunde/haftada bir) gercekten uretip
+    # uretmeyecegine karar verir, gereksiz cagrilar "skipped" doner.
+    - cron: '20 * * * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call market picture generation endpoint
+        run: |
+          response=$(curl -s -w "\nHTTP_STATUS=%{http_code}" -X GET "https://bogastock.com/api/cron/generate-market-picture" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::Market picture generation call returned HTTP $status"
+            exit 1
+          fi

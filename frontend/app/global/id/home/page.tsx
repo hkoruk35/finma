@@ -193,11 +193,7 @@ export default async function IdHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="id" />
             </div>
 
-            <TodaysMarketPicture
-              locale="id"
-              sectors={SECTOR_ITEMS.map((it) => ({ label: it.label, change_pct: quotes[it.ticker]?.change_pct ?? NaN }))}
-              vixChangePct={quotes["VIX"]?.change_pct}
-            />
+            <TodaysMarketPicture locale="id" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="id" />

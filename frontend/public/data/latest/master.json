@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-10",
-  "generated_at": "2026-09-10T14:08:35.385612-04:00",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T14:06:54.569253-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 35,
   "market_regime": "BULLISH",
@@ -8,31 +8,29 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "MS",
-        "SQM",
-        "ESI",
-        "AMZN",
-        "FCX",
-        "VG",
-        "FNV",
-        "MLI",
-        "BB",
-        "RIG"
+        "SBET",
+        "GS",
+        "SMCI",
+        "EC",
+        "U",
+        "AVAH",
+        "KEX",
+        "KYMR",
+        "JEF",
+        "LGND"
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 8,
       "tickers": [
-        "SQM",
-        "FCX",
-        "VG",
-        "STNG",
-        "EQNR",
-        "HPQ",
-        "ADM",
-        "WFC",
-        "MTCH",
-        "PAAS"
+        "EC",
+        "KYMR",
+        "DBX",
+        "SRRK",
+        "EQT",
+        "F",
+        "DIS",
+        "PI"
       ]
     },
     "value": {
@@ -54,18 +52,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "MS",
-      "score": 50.0,
+      "ticker": "SBET",
+      "score": 44.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SQM",
-      "score": 44.5,
+      "ticker": "GS",
+      "score": 43.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ESI",
-      "score": 41.5,
+      "ticker": "SMCI",
+      "score": 38.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
