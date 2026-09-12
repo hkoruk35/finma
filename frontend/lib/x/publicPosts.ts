@@ -4,6 +4,7 @@ import { isProductionBuild } from "@/lib/buildPhase";
 export interface PublicPost {
   id: string;
   ticker: string | null;
+  company: string | null;
   sector: string | null;
   theme: string | null;
   locale: string;
@@ -21,7 +22,7 @@ export async function getPublicPosts(locale: string, limit = 60): Promise<Public
   try {
     const { data, error } = await supabaseAdmin
       .from("x_posts")
-      .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
+      .select("id, ticker, company, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
       .eq("status", "posted")
       .eq("locale", locale)
       .not("posted_at", "is", null)
@@ -55,7 +56,7 @@ export async function getPublicPostsByTicker(
   try {
     const { data, error } = await supabaseAdmin
       .from("x_posts")
-      .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
+      .select("id, ticker, company, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
       .eq("status", "posted")
       .eq("locale", locale)
       .eq("ticker", ticker.toUpperCase())

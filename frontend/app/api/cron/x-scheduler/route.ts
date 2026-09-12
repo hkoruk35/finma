@@ -90,6 +90,7 @@ async function startNewCycle(): Promise<string | null> {
         cycle_id: cycleId,
         content_type: "stock" as const,
         ticker: poolItem.ticker,
+        company: poolItem.company,
         sector: poolItem.sector,
         theme: poolItem.theme,
         source: poolItem.source,

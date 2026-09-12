@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { getPublicPosts } from "@/lib/x/publicPosts";
+import { getMultiQuote } from "@/lib/homeFeed";
+import { formatNumber } from "@/lib/formatNumber";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
 const STRINGS: Record<Locale, { title: string; all: string; empty: string }> = {
@@ -38,6 +40,9 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
 
   if (posts.length === 0) return null;
 
+  const tickers = [...new Set(posts.map((p) => p.ticker).filter((t): t is string => !!t))];
+  const quotes = tickers.length ? await getMultiQuote(tickers) : {};
+
   return (
     <div className="bg-[#202327] border border-[#30343A]/60 rounded-xl overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#30343A]">
@@ -65,11 +70,25 @@ export default async function HomeLatestAnalysis({ locale }: { locale: Locale })
             className="flex-none w-[85%] sm:w-auto snap-center flex flex-col gap-2 rounded-lg border border-[#30343A]/60 bg-white/[0.02] p-3 hover:bg-white/[0.04] hover:border-[#FFFFFF]/40 transition-colors"
           >
             {post.ticker && (
-              <TickerHoverChart ticker={post.ticker} locale={locale}>
-                <Link href={newsHref} className="text-[11px] font-bold text-[#FFFFFF] tracking-wide hover:underline">
-                  ${post.ticker}
-                </Link>
-              </TickerHoverChart>
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <TickerHoverChart ticker={post.ticker} locale={locale}>
+                    <Link href={newsHref} className="text-[11px] font-bold text-[#FFFFFF] tracking-wide hover:underline shrink-0">
+                      ${post.ticker}
+                    </Link>
+                  </TickerHoverChart>
+                  {post.company && <span className="text-[11px] text-white/50 truncate">{post.company}</span>}
+                </div>
+                {quotes[post.ticker] && (
+                  <span className="text-[11px] font-mono font-semibold shrink-0">
+                    {formatNumber(quotes[post.ticker].value, 2)}{" "}
+                    <span className={quotes[post.ticker].change_pct >= 0 ? "text-[#4CAF7D]" : "text-[#E2726B]"}>
+                      {quotes[post.ticker].change_pct >= 0 ? "+" : ""}
+                      {formatNumber(quotes[post.ticker].change_pct, 2)}%
+                    </span>
+                  </span>
+                )}
+              </div>
             )}
             <Link href={newsHref} className="contents">
               {post.content_text && (
