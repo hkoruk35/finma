@@ -126,8 +126,8 @@ function IndexHighlightCard({
         </Link>
       </div>
 
-      <div className="p-4">
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+      <div className="p-3.5">
+        <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-bold text-white/70 tracking-wide">
               {t.session}: {sessionLabel(snapshot.session, t)}
@@ -146,7 +146,7 @@ function IndexHighlightCard({
             </span>
           )}
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400 font-medium mb-4">
+        <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400 font-medium mb-2.5">
           <div className="flex items-center gap-1">
             <svg className="w-3 h-3 text-[#00d2ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             <span>NY: {new Intl.DateTimeFormat(locale, { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(snapshot.created_at))}</span>
@@ -158,6 +158,7 @@ function IndexHighlightCard({
         </div>
 
         <IndexStatTable
+          dense
           columns={2}
           items={[
             { label: t.close, value: formatNumber(snapshot.close, 2) ?? "—" },
@@ -201,6 +202,7 @@ function IndexHighlightCard({
         />
 
         <IndexStatTable
+          dense
           columns={3}
           items={[
             { label: "VIX", value: formatNumber(snapshot.vix, 2) ?? "—" },
@@ -210,8 +212,8 @@ function IndexHighlightCard({
         />
 
         {sectorLeaders && sectorLeaders.length > 0 && (
-          <div className="mb-4">
-            <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{t.sectorLeaders}</p>
+          <div className="mb-2.5">
+            <p className="text-[13px] font-bold text-[#FFFFFF] mb-1.5">{t.sectorLeaders}</p>
             <div className="flex flex-wrap gap-2">
               {sectorLeaders.map((leader, i) => (
                 <span
@@ -244,14 +246,14 @@ function IndexHighlightCard({
         )}
 
         {(topGainers.length > 0 || topLosers.length > 0) && (
-          <div className="grid sm:grid-cols-2 gap-3 mb-4">
+          <div className="grid sm:grid-cols-2 gap-2.5 mb-2.5">
             {topGainers.length > 0 && <HighlightMoverList title={t.topGainers} movers={topGainers} locale={locale} />}
             {topLosers.length > 0 && <HighlightMoverList title={t.topLosers} movers={topLosers} locale={locale} />}
           </div>
         )}
 
         {narrative && (
-          <div className="space-y-3">
+          <div className="space-y-2">
             <p className="text-sm text-slate-300 leading-relaxed">{narrative.summary}</p>
             <HighlightNarrativeRow label={t.narrativeMarketDrivers} text={narrative.market_drivers} />
             <HighlightNarrativeRow label={t.narrativeTrendInterpretation} text={narrative.trend_interpretation} />
@@ -267,11 +269,11 @@ function IndexHighlightCard({
 
 function HighlightMoverList({ title, movers, locale }: { title: string; movers: Mover[]; locale: Locale }) {
   return (
-    <div className="rounded-lg bg-[#25282C] border border-[#30343A] p-3">
-      <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{title}</p>
+    <div className="rounded-lg bg-[#25282C] border border-[#30343A] p-2.5">
+      <p className="text-[13px] font-bold text-[#FFFFFF] mb-1.5">{title}</p>
       <div className="divide-y divide-[#30343A]">
         {movers.map((m) => (
-          <div key={m.ticker} className="flex items-center justify-between py-1.5 text-sm">
+          <div key={m.ticker} className="flex items-center justify-between py-1 text-sm">
             <span className="font-semibold text-slate-200">
               <TickerHoverChart ticker={m.ticker} locale={locale}>
                 <Link href={`/global/${locale}/graphic/${m.ticker}`} className="hover:text-[#FFFFFF] transition-colors">

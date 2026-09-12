@@ -90,15 +90,14 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
         </Link>
       </div>
 
-      <div className="p-4">
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+      <div className="p-3.5">
+        <div className="flex items-center justify-between flex-wrap gap-2 mb-0.5">
           <div className="flex items-center gap-2 flex-wrap min-w-0">
             <TickerHoverChart ticker={data.ticker} locale={locale}>
               <Link href={detailHref} className="text-xl font-black text-white hover:text-[#FFFFFF] transition-colors">
                 {data.ticker}
               </Link>
             </TickerHoverChart>
-            {data.sector && <span className="text-xs font-bold text-white/50 truncate">{data.sector}</span>}
             <span className="text-[10px] bg-[#FFFFFF]/20 text-[#FFFFFF] px-2 py-0.5 rounded-full font-bold tracking-wide">
               {t.latest}
             </span>
@@ -112,7 +111,15 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-4">
+        {(data.company || data.sector) && (
+          <p className="text-xs text-white/50 truncate mb-2.5">
+            {data.company}
+            {data.company && data.sector ? " · " : ""}
+            {data.sector}
+          </p>
+        )}
+
+        <div className="grid grid-cols-2 gap-2 mb-2.5">
           <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-[#30343A] border border-white/10 text-xs">
             <span className="text-white/70">{t.score}:</span>
             <span className="font-bold text-white">{Math.round(data.score)}/100</span>
@@ -126,12 +133,12 @@ export default function HomeFeaturedTrendCard({ locale, data }: { locale: Locale
           </span>
         </div>
 
-        {periodItems.length > 0 && <IndexStatTable columns={2} items={periodItems} />}
+        {periodItems.length > 0 && <IndexStatTable dense columns={2} items={periodItems} />}
 
         {data.selectionReasons.length > 0 && (
-          <div className="mb-4">
-            <p className="text-[13px] font-bold text-[#FFFFFF] mb-2">{t.whySelected}</p>
-            <ul className="space-y-1">
+          <div className="mb-2.5">
+            <p className="text-[13px] font-bold text-[#FFFFFF] mb-1.5">{t.whySelected}</p>
+            <ul className="space-y-0.5">
               {data.selectionReasons.slice(0, 4).map((reason, i) => (
                 <li key={i} className="text-sm text-slate-300 leading-relaxed flex gap-1.5">
                   <span className="text-[#FFFFFF] mt-0.5 shrink-0">•</span>

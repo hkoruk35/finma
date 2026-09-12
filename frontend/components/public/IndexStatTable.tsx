@@ -9,14 +9,26 @@ export type IndexStatItem = {
   positive?: boolean; // true => yesil, false => kirmizi, undefined => notr (beyaz)
 };
 
-export function IndexStatTable({ items, columns = 2 }: { items: IndexStatItem[]; columns?: 2 | 3 }) {
+export function IndexStatTable({
+  items,
+  columns = 2,
+  dense = false,
+}: {
+  items: IndexStatItem[];
+  columns?: 2 | 3;
+  // Ana sayfadaki kompakt kartlar (S&P 500 Daily Analysis, Today's Trending
+  // Stock) icin daha siki satir araligi — /global/{locale}/{indexSlug} tam
+  // sayfalarindaki varsayilan aralik degismesin diye ayri bir prop (2026-09-12
+  // kullanici talebi: ana sayfa daha derli toplu gorunsun).
+  dense?: boolean;
+}) {
   const colClass = columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2";
   return (
-    <dl className={`grid grid-cols-1 ${colClass} gap-x-6 rounded-lg border border-[#1e2a3a] bg-[#0a0e17]/40 overflow-hidden mb-4`}>
+    <dl className={`grid grid-cols-1 ${colClass} gap-x-6 rounded-lg border border-[#1e2a3a] bg-[#0a0e17]/40 overflow-hidden ${dense ? "mb-3" : "mb-4"}`}>
       {items.map((item, i) => (
         <div
           key={`${item.label}-${i}`}
-          className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-[#1e2a3a]/70 last:border-b-0"
+          className={`flex items-center justify-between gap-3 px-4 border-b border-[#1e2a3a]/70 last:border-b-0 ${dense ? "py-1.5" : "py-2.5"}`}
         >
           {/* 2026-08-23 kullanıcı talebi: teknik terim/kısaltma olmayan
               etiketler (Kapanış, Değişim, Hacim, vb.) büyük harfle

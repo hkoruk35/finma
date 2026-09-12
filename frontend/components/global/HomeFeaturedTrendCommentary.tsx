@@ -46,12 +46,12 @@ export default function HomeFeaturedTrendCommentary({ ticker, locale }: { ticker
 
   return (
     <div>
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 mb-1.5">
         <span className="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
         <p className="text-[13px] font-bold text-[#3b82f6]">{t.title}</p>
       </div>
-      <p className="text-sm text-slate-300 leading-relaxed mb-3">{data.summary}</p>
-      <div className="flex flex-col gap-2">
+      <p className="text-sm text-slate-300 leading-relaxed mb-2">{data.summary}</p>
+      <div className="flex flex-col gap-1.5">
         {data.keyLevels && (
           <div className="bg-white/[0.02] border border-[#1e2a3a] rounded-lg p-2.5">
             <p className="text-[12px] font-bold text-[#3b82f6] mb-1">🎯 {t.keyLevels}</p>
