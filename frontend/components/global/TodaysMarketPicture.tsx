@@ -3,12 +3,12 @@ import type { Locale } from "@/lib/i18n/copy";
 import type { BogaView, MarketPictureLocale } from "@/lib/marketBiasEngine";
 
 const LABEL: Record<Locale, string> = {
-  en: "BOGA Market Read",
-  tr: "BOGA Piyasa Yorumu",
-  es: "Lectura de Mercado BOGA",
-  fr: "Lecture de Marché BOGA",
-  pt: "Leitura de Mercado BOGA",
-  id: "Pembacaan Pasar BOGA",
+  en: "Current Market Analysis",
+  tr: "Güncel Piyasa Analizi",
+  es: "Análisis de Mercado Actual",
+  fr: "Analyse de Marché Actuelle",
+  pt: "Análise de Mercado Atual",
+  id: "Analisis Pasar Terkini",
 };
 
 const BOGA_VIEW_LABEL: Record<Locale, string> = {

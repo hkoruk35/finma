@@ -94,10 +94,11 @@ export async function GET(req: NextRequest) {
 
   const mode = determineMode();
   const tradeDate = nyDateString();
+  const force = req.nextUrl.searchParams.get("force") === "1";
 
   const { data: existing } = await supabaseAdmin.from("market_picture").select("*").eq("id", 1).maybeSingle();
 
-  if (existing) {
+  if (existing && !force) {
     const sameDay = existing.trade_date === tradeDate;
     if (mode === "intraday") {
       const elapsedMin = (Date.now() - new Date(existing.generated_at).getTime()) / 60000;
