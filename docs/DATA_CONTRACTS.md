@@ -69,6 +69,10 @@ A generic `{key, value: jsonb, updated_at}` KV table, gated by an `ALLOWED_KEYS`
 
 Added by migration `0034_daily_one_picks.sql`. Backs the Home "Today's AI Stock Pick" widget and `/global/{locale}/dailyone` full-detail page. `period_key` (text, primary key) is a New York calendar date — `frontend/lib/dailyOnePick.ts:getEffectivePeriodKey()` rolls it over at 12:12 PM ET, not via a scheduled job: the first request to `GET /api/daily-one` after that boundary each day ranks the current `swing_all_picks.json` candidates by a candle+volume formation heuristic (`formationScore()` — relative volume, BOGA score, factor-score composite/momentum, risk/reward; excludes exhausted trends), upserts the winner, and every subsequent request that day reads the stored row instead of recomputing. Public read (RLS policy), service-role write only.
 
+## `market_picture` — homepage "Today's market picture" (2026-09-12)
+
+Added by migration `0037_market_picture.sql`. Single row (`id=1`), holds a 6-locale AI-written ~90-100 word US market summary. Written only by `POST/GET /api/cron/generate-market-picture` (service-role); `mode` is one of `intraday` / `day_close` / `week_close` and gates both the regeneration cadence and the framing the AI is asked to use (live snapshot / day recap + next-day outlook / Friday week summary + next-open outlook). `facts` stores the real sector/index/breadth/standout-stock data fed to the prompt — the AI never invents a number not present there (see `docs/AI_BEHAVIOR.md`). Read by `TodaysMarketPicture.tsx` via the public anon client (RLS: public select).
+
 ## BOGA score / conviction — where it's actually computed
 
 `frontend/app/api/preorder-analysis/route.ts` is the single live-scoring engine (conviction 0–100, Weinstein stage, Wyckoff phase/score, trade-plan zones via `frontend/lib/tradePlanEngine.ts`). Everything else (Copilot's stock card, `TickerDetailPanel`, graphic pages) calls this endpoint — never reimplements the math. See `docs/FINANCIAL_CALCULATIONS.md` for the full formula trace (not yet written — `tasks/active/006`).

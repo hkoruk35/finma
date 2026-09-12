@@ -193,11 +193,7 @@ export default async function PtHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="pt" />
             </div>
 
-            <TodaysMarketPicture
-              locale="pt"
-              sectors={SECTOR_ITEMS.map((it) => ({ label: it.label, change_pct: quotes[it.ticker]?.change_pct ?? NaN }))}
-              vixChangePct={quotes["VIX"]?.change_pct}
-            />
+            <TodaysMarketPicture locale="pt" />
 
             <div className="mt-4">
               <HomeScheduleBanner locale="pt" />

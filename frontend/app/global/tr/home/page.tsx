@@ -206,11 +206,7 @@ export default async function TrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
             </div>
 
-            <TodaysMarketPicture
-              locale="tr"
-              sectors={SECTOR_ITEMS.map((it) => ({ label: it.label, change_pct: quotes[it.ticker]?.change_pct ?? NaN }))}
-              vixChangePct={quotes["VIX"]?.change_pct}
-            />
+            <TodaysMarketPicture locale="tr" />
 
             {/* 2026-08-23 kullanıcı talebi: canlı analiz uyarısı endeks
                 ticker satırının (MarketOverviewTabs) hemen altına taşındı —

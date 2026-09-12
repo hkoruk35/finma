@@ -68,8 +68,32 @@ export interface GenerateMarketAssetInput {
   sectorRotation?: { label: string; changePct: number }[]; // sadece category="index" + weekly
 }
 
+export type MarketPictureMode = "intraday" | "day_close" | "week_close";
+
+export interface GenerateMarketPictureInput {
+  contentType: "market_picture";
+  mode: MarketPictureMode;
+  // Gerçek endeks değişimleri (SPX/NDX/DJI/RUT/VIX) — AI sadece bunları kullanır.
+  indices: { label: string; changePct: number }[];
+  // Gerçek sektör ETF değişimleri (11 sektör).
+  sectors: { label: string; changePct: number }[];
+  advancers?: number | null;
+  decliners?: number | null;
+  topGainers?: { ticker: string; changePct: number }[];
+  topLosers?: { ticker: string; changePct: number }[];
+  // Sadece mode="week_close" için: haftalık SPX değişimi + sektör rotasyonu.
+  weekChangePct?: number | null;
+  weekSectorRotation?: { label: string; changePct: number }[];
+}
+
 export async function generateLocalizedTexts(
-  input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput | GenerateMarketAssetInput
+  input:
+    | GenerateStockInput
+    | GeneratePromoInput
+    | GenerateListInput
+    | GenerateTranslationInput
+    | GenerateMarketAssetInput
+    | GenerateMarketPictureInput
 ): Promise<Record<Locale, string>> {
   const listPrompt = (input: GenerateListInput) => {
     const tickerLine = input.items
@@ -153,6 +177,55 @@ Competitor and theme commentary should draw on well-known, general market knowle
     } Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
   };
 
+  const marketPicturePrompt = (input: GenerateMarketPictureInput) => {
+    const fmtPct = (p: number) => `${p >= 0 ? "+" : ""}${formatNumber(p, 2)}%`;
+    const indexLine = input.indices.map((i) => `${i.label} ${fmtPct(i.changePct)}`).join(", ");
+    const sectorLine = input.sectors.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ");
+    const breadthLine =
+      input.advancers != null && input.decliners != null
+        ? `Market breadth: ${input.advancers} advancing vs ${input.decliners} declining stocks (S&P 500).`
+        : "";
+    const gainersLine = input.topGainers?.length
+      ? `Top gainers today: ${input.topGainers.map((g) => `${g.ticker} ${fmtPct(g.changePct)}`).join(", ")}.`
+      : "";
+    const losersLine = input.topLosers?.length
+      ? `Top losers today: ${input.topLosers.map((l) => `${l.ticker} ${fmtPct(l.changePct)}`).join(", ")}.`
+      : "";
+
+    const modeInstruction =
+      input.mode === "intraday"
+        ? `This is a LIVE, mid-session update — write in the present tense, describing what's happening in the market RIGHT NOW. Do not reference "today's close" or "tomorrow" since the session is still open.`
+        : input.mode === "day_close"
+        ? `The US market has just closed for the day. Write this as an end-of-day recap: summarize how the session went, then close with a brief, qualitative expectation for tomorrow's session based on today's momentum/tone — do not invent a specific catalyst or event, just a reasonable qualitative read (e.g. "watch for follow-through" or "eyes on whether today's rotation persists").`
+        : `It's Friday and the US market has just closed for the week. Write this as a WEEKLY WRAP-UP: summarize how the week went overall (use the weekly change/rotation data given below), then close with a brief, qualitative expectation for next week's open based on this week's tone — do not invent a specific catalyst, just a reasonable qualitative read.`;
+
+    const weekLine =
+      input.mode === "week_close" && input.weekChangePct != null
+        ? `This week's S&P 500 change: ${fmtPct(input.weekChangePct)}.`
+        : "";
+    const weekRotationLine =
+      input.mode === "week_close" && input.weekSectorRotation?.length
+        ? `This week's sector performance, best to worst: ${input.weekSectorRotation.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ")}.`
+        : "";
+
+    return `Write the "Today's market picture" card for BogaStock's homepage — a snapshot of the overall US stock market that a visitor reads in the first few seconds to understand what's happening and what to expect.
+
+STRICT LENGTH REQUIREMENT: exactly 90 to 100 words. Not shorter, not longer — this is a hard constraint, count carefully.
+
+${modeInstruction}
+
+Real data (use ONLY this — never invent a number, ticker, or event not listed here):
+Major indices: ${indexLine}.
+Sector ETF performance: ${sectorLine}.
+${breadthLine}
+${gainersLine}
+${losersLine}
+${weekLine}
+${weekRotationLine}
+
+Write it as natural flowing prose (2-4 sentences, not a bullet list). Name at least one standout sector (best or worst mover) and at least one standout stock from the gainers/losers lists above by ticker. Mention overall market breadth/tone (risk-on vs risk-off) if the VIX-style signal is clear from the index data. Write like a sharp market analyst, not an AI — direct, specific, no filler like "it's worth noting" or "in today's dynamic market". Return a JSON object with keys: ${LOCALES.join(", ")}, each value independently written (not a literal translation of each other) in that language, each hitting the same 90-100 word target.`;
+  };
+
   const prompt =
     input.contentType === "promo"
       ? `Write a short, exciting promotional sentence (max 220 chars) inviting people to subscribe to BogaStock for AI-powered stock analysis, mini charts and trend tracking. Return a JSON object with keys: ${LOCALES.join(", ")}.`
@@ -162,6 +235,8 @@ Competitor and theme commentary should draw on well-known, general market knowle
       ? translatePrompt(input)
       : input.contentType === "market_asset"
       ? marketAssetPrompt(input)
+      : input.contentType === "market_picture"
+      ? marketPicturePrompt(input)
       : input.weekly
       ? weeklyStockPrompt(input)
       : `Write an in-depth DAILY mini analysis (at least 60-70 words, roughly 420-600 characters — do not go shorter than that, use the space to say something genuinely useful) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${formatNumber(input.rvol, 1)}x average` : "N/A"}.
