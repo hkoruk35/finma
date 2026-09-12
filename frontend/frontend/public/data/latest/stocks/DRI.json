@@ -1,0 +1,89 @@
+{
+  "ticker": "DRI",
+  "company": "Darden Restaurants, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T15:28:04.421Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 207.50999450683594,
+    "open": 208.27000427246094,
+    "high": 209.5800018310547,
+    "low": 206.85000610351562,
+    "prev_close": 209.4199981689453,
+    "change_pct": -0.9120445415000521,
+    "change_pct_1w": -5.690135136990681,
+    "change_pct_1m": -1.7145883068519066,
+    "change_pct_1y": -1.867971286114697,
+    "volume": 248089,
+    "avg_volume_30d": 29771389
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 60,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.70914153510461,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 214.903755154442,
+    "ema_50": 211.84641672742157,
+    "ema_200": 204.73829616039407,
+    "ema_stack_bullish": true,
+    "bb_upper": 217.88549423217773,
+    "bb_middle": 207.50999450683594,
+    "bb_lower": 197.13449478149414,
+    "bb_width": 10,
+    "atr": 5.08,
+    "atr_pct": 2.45,
+    "rvol": 0.7815333708480986,
+    "52w_high": 229.75999450683594,
+    "52w_low": 169
+  },
+  "fundamental": {
+    "pe_ratio": 19.857416,
+    "pb_ratio": 10.723476,
+    "gross_margin": 0.21667999,
+    "operating_margin": 0.14142,
+    "net_margin": 0.09134,
+    "market_cap": 23561050112,
+    "revenue_growth_ttm": 0.137,
+    "fcf_yield": 0.03357129551696613,
+    "institutional_ownership_pct": 1.01418,
+    "dividend_rate": 6.48,
+    "dividend_yield": 0.0304
+  },
+  "scores_detail": {
+    "entry_range_low": 204.46,
+    "entry_range_high": 208.02,
+    "target_range_low": 216.55,
+    "target_range_high": 237.18,
+    "target_1": 216.55,
+    "target_2": 226.86,
+    "target_3": 237.18,
+    "stop_loss": 197.13,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $204.46 – $208.02 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $213.05 direnci veya $203.45 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $197.13 olarak belirlenmiştir. Fiyatın EMA200 ($204.74) veya günlük VWAP ($210.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($211.85) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($210.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

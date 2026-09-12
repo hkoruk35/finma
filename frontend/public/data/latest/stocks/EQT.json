@@ -1,0 +1,89 @@
+{
+  "ticker": "EQT",
+  "company": "EQT Corporation",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:08.959Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 54.630001068115234,
+    "open": 55.130001068115234,
+    "high": 55.439998626708984,
+    "low": 53.75,
+    "prev_close": 55.119998931884766,
+    "change_pct": -0.8889656626718232,
+    "change_pct_1w": -1.7269276521632915,
+    "change_pct_1m": -0.29202380861206706,
+    "change_pct_1y": 6.761780384955675,
+    "volume": 6326200,
+    "avg_volume_30d": 182058800
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 70,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.381230232304034,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 54.387824000081835,
+    "ema_50": 53.7671499996598,
+    "ema_200": 54.80474827496145,
+    "ema_stack_bullish": false,
+    "bb_upper": 57.361501121521,
+    "bb_middle": 54.630001068115234,
+    "bb_lower": 51.89850101470947,
+    "bb_width": 10,
+    "atr": 1.45,
+    "atr_pct": 2.65,
+    "rvol": 0.9552968601352969,
+    "52w_high": 68.23999786376953,
+    "52w_low": 47.939998626708984
+  },
+  "fundamental": {
+    "pe_ratio": 12.663594,
+    "pb_ratio": 1.3610361,
+    "gross_margin": 0.80748004,
+    "operating_margin": 0.23372999,
+    "net_margin": 0.29176,
+    "market_cap": 34378358784,
+    "revenue_growth_ttm": -0.039,
+    "fcf_yield": 0.07158293830900755,
+    "institutional_ownership_pct": 0.95852,
+    "dividend_rate": 0.66,
+    "dividend_yield": 0.0121
+  },
+  "scores_detail": {
+    "entry_range_low": 53.76,
+    "entry_range_high": 54.77,
+    "target_range_low": 57.55,
+    "target_range_high": 62.41,
+    "target_1": 57.55,
+    "target_2": 59.7,
+    "target_3": 62.41,
+    "stop_loss": 51.9,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $53.76 – $54.77 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $55.37 direnci veya $53.47 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $51.90 olarak belirlenmiştir. Fiyatın EMA50 ($53.77) veya günlük VWAP ($54.83) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($53.77) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($54.83) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

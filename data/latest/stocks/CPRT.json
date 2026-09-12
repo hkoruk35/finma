@@ -1,0 +1,89 @@
+{
+  "ticker": "CPRT",
+  "company": "Copart, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T09:15:17.214Z",
+  "sector": "Industrials",
+  "industry": "Specialty Business Services",
+  "price": {
+    "current": 30.75,
+    "open": 31.90999984741211,
+    "high": 32.2599983215332,
+    "low": 30.540000915527344,
+    "prev_close": 32.029998779296875,
+    "change_pct": -3.9962498535099025,
+    "change_pct_1w": -4.384327904546216,
+    "change_pct_1m": -6.135526326361341,
+    "change_pct_1y": -36.624073145325575,
+    "volume": 15163300,
+    "avg_volume_30d": 292909000
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.34637949858294,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.10004570117016,
+    "ema_50": 31.308173383989843,
+    "ema_200": 34.471907680437056,
+    "ema_stack_bullish": false,
+    "bb_upper": 32.2875,
+    "bb_middle": 30.75,
+    "bb_lower": 29.2125,
+    "bb_width": 10,
+    "atr": 1,
+    "atr_pct": 3.25,
+    "rvol": 0.9219600626815836,
+    "52w_high": 49.04999923706055,
+    "52w_low": 26.809999465942383
+  },
+  "fundamental": {
+    "pe_ratio": 19.83871,
+    "pb_ratio": 3.2446976,
+    "gross_margin": 0.47522998,
+    "operating_margin": 0.37530997,
+    "net_margin": 0.33481997,
+    "market_cap": 28468703232,
+    "revenue_growth_ttm": 0.021,
+    "fcf_yield": 0.035125490046065196,
+    "institutional_ownership_pct": 0.87985003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 30.15,
+    "entry_range_high": 30.85,
+    "target_range_low": 32.03,
+    "target_range_high": 35.08,
+    "target_1": 32.03,
+    "target_2": 34.05,
+    "target_3": 35.08,
+    "stop_loss": 29.21,
+    "risk_reward_ratio": 2.76,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.15 – $30.85 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $32.15 direnci veya $29.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.21 olarak belirlenmiştir. Fiyatın EMA50 ($31.31) veya günlük VWAP ($31.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($31.31) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.78) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

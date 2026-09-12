@@ -1,0 +1,89 @@
+{
+  "ticker": "ORBS",
+  "company": "Eightco Holdings Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T09:19:00.725Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 0.9380000233650208,
+    "open": 0.9789999723434448,
+    "high": 1.0199999809265137,
+    "low": 0.9319999814033508,
+    "prev_close": 1.0399999618530273,
+    "change_pct": -9.807686752821363,
+    "change_pct_1w": 11.933177076224313,
+    "change_pct_1m": 14.250919153012894,
+    "change_pct_1y": -96.10949813513363,
+    "volume": 9699200,
+    "avg_volume_30d": 405670800
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 75,
+    "fundamental_score": 36.8,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.62447874110932,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 0.8579614013149457,
+    "ema_50": 0.8043558650644475,
+    "ema_200": 3.191423343474725,
+    "ema_stack_bullish": false,
+    "bb_upper": 0.9849000245332719,
+    "bb_middle": 0.9380000233650208,
+    "bb_lower": 0.8911000221967696,
+    "bb_width": 10,
+    "atr": 0.1,
+    "atr_pct": 10.37,
+    "rvol": 1.3865050183547842,
+    "52w_high": 38.939998626708984,
+    "52w_low": 0.5659999847412109
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.0215687,
+    "gross_margin": -0.04812,
+    "operating_margin": -3.18994,
+    "net_margin": 0,
+    "market_cap": 403045248,
+    "revenue_growth_ttm": -0.727,
+    "fcf_yield": -0.5768775618959785,
+    "institutional_ownership_pct": 0.33960998,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 0.88,
+    "entry_range_high": 0.95,
+    "target_range_low": 1.13,
+    "target_range_high": 1.32,
+    "target_1": 1.13,
+    "target_2": 1.21,
+    "target_3": 1.32,
+    "stop_loss": 0.81,
+    "risk_reward_ratio": 2.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $0.88 – $0.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1.03 direnci veya $0.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $0.81 olarak belirlenmiştir. Fiyatın EMA50 ($0.80) veya günlük VWAP ($0.98) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($0.80) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($0.98) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

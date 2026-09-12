@@ -1,0 +1,89 @@
+{
+  "ticker": "CMPR",
+  "company": "Cimpress plc",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T01:20:16.702Z",
+  "sector": "Industrials",
+  "industry": "Specialty Business Services",
+  "price": {
+    "current": 85.30000305175781,
+    "open": 84.9000015258789,
+    "high": 87.69000244140625,
+    "low": 84.2699966430664,
+    "prev_close": 84.9000015258789,
+    "change_pct": 0.4711443094108535,
+    "change_pct_1w": -3.1012106843072114,
+    "change_pct_1m": -2.234953522340616,
+    "change_pct_1y": 44.600780852147345,
+    "volume": 143900,
+    "avg_volume_30d": 6406600
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 45,
+    "fundamental_score": 68.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.15206191784858,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 89.65250971772487,
+    "ema_50": 92.14442831345767,
+    "ema_200": 84.4719455407218,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.5650032043457,
+    "bb_middle": 85.30000305175781,
+    "bb_lower": 81.03500289916992,
+    "bb_width": 10,
+    "atr": 3.05,
+    "atr_pct": 3.58,
+    "rvol": 1.084412949146193,
+    "52w_high": 106.58000183105469,
+    "52w_low": 56.34000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 22.538874,
+    "pb_ratio": 0,
+    "gross_margin": 0.46106,
+    "operating_margin": 0.06321,
+    "net_margin": 0.02566,
+    "market_cap": 2047060480,
+    "revenue_growth_ttm": 0.087,
+    "fcf_yield": 0.046330273544238416,
+    "institutional_ownership_pct": 0.90449995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 83.47,
+    "entry_range_high": 85.61,
+    "target_range_low": 96,
+    "target_range_high": 106.08,
+    "target_1": 96,
+    "target_2": 104,
+    "target_3": 106.08,
+    "stop_loss": 81.04,
+    "risk_reward_ratio": 5.56,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $83.47 – $85.61 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $87.65 direnci veya $82.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $81.04 olarak belirlenmiştir. Fiyatın EMA200 ($84.47) veya günlük VWAP ($84.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($92.14) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($84.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

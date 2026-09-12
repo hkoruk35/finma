@@ -1,0 +1,89 @@
+{
+  "ticker": "U",
+  "company": "Unity Software Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:37.386Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 42.540000915527344,
+    "open": 43.18000030517578,
+    "high": 43.18000030517578,
+    "low": 41.79999923706055,
+    "prev_close": 42.75,
+    "change_pct": -0.4912259285910088,
+    "change_pct_1w": 3.958951170754135,
+    "change_pct_1m": -4.146011961026826,
+    "change_pct_1y": -1.299298325799232,
+    "volume": 7206500,
+    "avg_volume_30d": 353413500
+  },
+  "scores": {
+    "master_score": 73,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.40711653742522,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.21749930548387,
+    "ema_50": 38.382851430441676,
+    "ema_200": 33.89232032760653,
+    "ema_stack_bullish": true,
+    "bb_upper": 44.667000961303714,
+    "bb_middle": 42.540000915527344,
+    "bb_lower": 40.413000869750974,
+    "bb_width": 10,
+    "atr": 1.65,
+    "atr_pct": 3.87,
+    "rvol": 0.6907427135635735,
+    "52w_high": 52.150001525878906,
+    "52w_low": 16.780000686645508
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.101523,
+    "gross_margin": 0.76133,
+    "operating_margin": -0.05179,
+    "net_margin": -0.28966,
+    "market_cap": 18514540544,
+    "revenue_growth_ttm": 0.239,
+    "fcf_yield": 0.032386497443725064,
+    "institutional_ownership_pct": 0.86745,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 41.55,
+    "entry_range_high": 42.7,
+    "target_range_low": 44.24,
+    "target_range_high": 52.15,
+    "target_1": 44.24,
+    "target_2": 48.46,
+    "target_3": 52.15,
+    "stop_loss": 40.4,
+    "risk_reward_ratio": 3.66,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $41.55 – $42.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $43.54 direnci veya $41.22 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $40.40 olarak belirlenmiştir. Fiyatın EMA20 ($42.22) veya günlük VWAP ($42.14) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.14) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

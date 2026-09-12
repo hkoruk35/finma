@@ -1,0 +1,89 @@
+{
+  "ticker": "AVAH",
+  "company": "Aveanna Healthcare Holdings Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:35.645Z",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 14.020000457763672,
+    "open": 13.65999984741211,
+    "high": 14.045000076293945,
+    "low": 13.470000267028809,
+    "prev_close": 13.65999984741211,
+    "change_pct": 2.6354364156143437,
+    "change_pct_1w": 4.160478588630035,
+    "change_pct_1m": 2.936861788293403,
+    "change_pct_1y": 69.73365701300438,
+    "volume": 3135800,
+    "avg_volume_30d": 98755100
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 90,
+    "fundamental_score": 73.1,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 73.25471499340466,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.830856829071168,
+    "ema_50": 11.228872492104207,
+    "ema_200": 9.033324612672681,
+    "ema_stack_bullish": true,
+    "bb_upper": 14.721000480651856,
+    "bb_middle": 14.020000457763672,
+    "bb_lower": 13.319000434875488,
+    "bb_width": 10,
+    "atr": 0.59,
+    "atr_pct": 4.18,
+    "rvol": 0.8871582328406331,
+    "52w_high": 14.045000076293945,
+    "52w_low": 5.929999828338623
+  },
+  "fundamental": {
+    "pe_ratio": 11,
+    "pb_ratio": 10.499999,
+    "gross_margin": 0.32037,
+    "operating_margin": 0.12583,
+    "net_margin": 0.10556,
+    "market_cap": 3025508864,
+    "revenue_growth_ttm": 0.137,
+    "fcf_yield": 0.034312450786460495,
+    "institutional_ownership_pct": 0.93678004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 13.67,
+    "entry_range_high": 14.08,
+    "target_range_low": 14.57,
+    "target_range_high": 15.95,
+    "target_1": 14.57,
+    "target_2": 15.26,
+    "target_3": 15.95,
+    "stop_loss": 13.26,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $13.67 – $14.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.05 direnci veya $13.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.26 olarak belirlenmiştir. Fiyatın EMA20 ($12.83) veya günlük VWAP ($13.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.94) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 73 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

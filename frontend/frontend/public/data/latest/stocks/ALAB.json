@@ -1,0 +1,89 @@
+{
+  "ticker": "ALAB",
+  "company": "Astera Labs, Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T06:22:49.808Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 284.5299987792969,
+    "open": 287.7250061035156,
+    "high": 294.8699951171875,
+    "low": 280.5299987792969,
+    "prev_close": 300.5400085449219,
+    "change_pct": -5.327081024299623,
+    "change_pct_1w": 3.7938181560716986,
+    "change_pct_1m": -6.432305499737516,
+    "change_pct_1y": 23.510007731066967,
+    "volume": 3222900,
+    "avg_volume_30d": 123552400
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 55,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.44067039732756,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 296.37822930150895,
+    "ema_50": 307.32645676596303,
+    "ema_200": 259.879454235323,
+    "ema_stack_bullish": false,
+    "bb_upper": 298.75649871826175,
+    "bb_middle": 284.5299987792969,
+    "bb_lower": 270.303498840332,
+    "bb_width": 10,
+    "atr": 19.14,
+    "atr_pct": 6.73,
+    "rvol": 1.0399101919509455,
+    "52w_high": 499.47601318359375,
+    "52w_low": 97.88999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 147.42488,
+    "pb_ratio": 28.604605,
+    "gross_margin": 0.75128996,
+    "operating_margin": 0.22744,
+    "net_margin": 0.30742002,
+    "market_cap": 49361715200,
+    "revenue_growth_ttm": 1.045,
+    "fcf_yield": 0.0018620327034340979,
+    "institutional_ownership_pct": 0.75908,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 273.05,
+    "entry_range_high": 286.44,
+    "target_range_low": 354,
+    "target_range_high": 499.48,
+    "target_1": 354,
+    "target_2": 367.85,
+    "target_3": 499.48,
+    "stop_loss": 259.65,
+    "risk_reward_ratio": 4.38,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $273.05 – $286.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $294.87 direnci veya $269.22 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $259.65 olarak belirlenmiştir. Fiyatın EMA200 ($259.88) veya günlük VWAP ($289.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($307.33) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($289.10) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 45 ile dengeli/nötr bir görünümde."
+  }
+}

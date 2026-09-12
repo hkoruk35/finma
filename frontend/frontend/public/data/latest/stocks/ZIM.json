@@ -1,0 +1,89 @@
+{
+  "ticker": "ZIM",
+  "company": "ZIM Integrated Shipping Services Ltd.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:07.357Z",
+  "sector": "Industrials",
+  "industry": "Marine Shipping",
+  "price": {
+    "current": 29.3799991607666,
+    "open": 29.78499984741211,
+    "high": 30.125,
+    "low": 29.100000381469727,
+    "prev_close": 30.079999923706055,
+    "change_pct": -2.327130201844789,
+    "change_pct_1w": 8.774523923737409,
+    "change_pct_1m": 6.2952236235208385,
+    "change_pct_1y": 122.57575443406184,
+    "volume": 1962300,
+    "avg_volume_30d": 58543500
+  },
+  "scores": {
+    "master_score": 89,
+    "technical_score": 100,
+    "fundamental_score": 61.55,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.51%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.09326072858321,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 27.799522831961088,
+    "ema_50": 26.769151271442922,
+    "ema_200": 24.019363073092126,
+    "ema_stack_bullish": true,
+    "bb_upper": 30.848999118804933,
+    "bb_middle": 29.3799991607666,
+    "bb_lower": 27.91099920272827,
+    "bb_width": 10,
+    "atr": 0.86,
+    "atr_pct": 2.92,
+    "rvol": 1.016095723692639,
+    "52w_high": 30.399999618530273,
+    "52w_low": 12.329999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 25.626087,
+    "pb_ratio": 0.92874473,
+    "gross_margin": 0.30961,
+    "operating_margin": 0.08379,
+    "net_margin": 0.02152,
+    "market_cap": 3551714304,
+    "revenue_growth_ttm": 0.089,
+    "fcf_yield": 0.27916800371114536,
+    "institutional_ownership_pct": 0.49327,
+    "dividend_rate": 1.99,
+    "dividend_yield": 0.0788
+  },
+  "scores_detail": {
+    "entry_range_low": 29.02,
+    "entry_range_high": 29.47,
+    "target_range_low": 30.71,
+    "target_range_high": 33.63,
+    "target_1": 30.71,
+    "target_2": 32.17,
+    "target_3": 33.63,
+    "stop_loss": 27.91,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $29.02 – $29.47 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $29.97 direnci veya $28.85 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $27.91 olarak belirlenmiştir. Fiyatın EMA20 ($27.80) veya günlük VWAP ($29.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($29.13) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

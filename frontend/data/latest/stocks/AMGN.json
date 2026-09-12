@@ -1,0 +1,89 @@
+{
+  "ticker": "AMGN",
+  "company": "Amgen Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T22:04:30.562Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 382.4700012207031,
+    "open": 387.8399963378906,
+    "high": 391.6659851074219,
+    "low": 381.510009765625,
+    "prev_close": 391.2699890136719,
+    "change_pct": -2.2490832519897808,
+    "change_pct_1w": -13.632462202245321,
+    "change_pct_1m": -12.476255802662815,
+    "change_pct_1y": 37.327201109419285,
+    "volume": 3346481,
+    "avg_volume_30d": 80042281
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 60,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.112936841112955,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 418.09827485693694,
+    "ema_50": 402.2359446524042,
+    "ema_200": 360.45902523250686,
+    "ema_stack_bullish": true,
+    "bb_upper": 401.59350128173827,
+    "bb_middle": 382.4700012207031,
+    "bb_lower": 363.346501159668,
+    "bb_width": 10,
+    "atr": 11.09,
+    "atr_pct": 2.9,
+    "rvol": 1.2431490551849718,
+    "52w_high": 447.0299987792969,
+    "52w_low": 269.7699890136719
+  },
+  "fundamental": {
+    "pe_ratio": 23.785448,
+    "pb_ratio": 17.690563,
+    "gross_margin": 0.71891,
+    "operating_margin": 0.35548002,
+    "net_margin": 0.22951001,
+    "market_cap": 206775517184,
+    "revenue_growth_ttm": 0.095,
+    "fcf_yield": 0.04181164651280576,
+    "institutional_ownership_pct": 0.85137004,
+    "dividend_rate": 10.08,
+    "dividend_yield": 0.025799999
+  },
+  "scores_detail": {
+    "entry_range_low": 375.81,
+    "entry_range_high": 383.58,
+    "target_range_low": 398.68,
+    "target_range_high": 455.97,
+    "target_1": 398.68,
+    "target_2": 447.03,
+    "target_3": 455.97,
+    "stop_loss": 363.35,
+    "risk_reward_ratio": 4.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $375.81 – $383.58 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $392.84 direnci veya $373.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $363.35 olarak belirlenmiştir. Fiyatın EMA200 ($360.46) veya günlük VWAP ($383.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($402.24) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($383.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

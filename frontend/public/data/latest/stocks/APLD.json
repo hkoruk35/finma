@@ -1,0 +1,89 @@
+{
+  "ticker": "APLD",
+  "company": "Applied Digital Corporation",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T10:14:46.809Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 25.780000686645508,
+    "open": 26.297000885009766,
+    "high": 27.079999923706055,
+    "low": 25.739999771118164,
+    "prev_close": 27.139999389648438,
+    "change_pct": -5.011049128916531,
+    "change_pct_1w": 3.4925766542057306,
+    "change_pct_1m": -6.049562008396365,
+    "change_pct_1y": 51.8256854042894,
+    "volume": 12008700,
+    "avg_volume_30d": 484030900
+  },
+  "scores": {
+    "master_score": 29,
+    "technical_score": 30,
+    "fundamental_score": 33.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.436214595049954,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 27.201281582898552,
+    "ema_50": 29.56448071185611,
+    "ema_200": 30.84790547563744,
+    "ema_stack_bullish": false,
+    "bb_upper": 27.069000720977783,
+    "bb_middle": 25.780000686645508,
+    "bb_lower": 24.491000652313232,
+    "bb_width": 10,
+    "atr": 1.69,
+    "atr_pct": 6.55,
+    "rvol": 0.907650317366102,
+    "52w_high": 50.724998474121094,
+    "52w_low": 15.42199993133545
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.321153,
+    "gross_margin": 0.25879,
+    "operating_margin": -0.48219,
+    "net_margin": -0.39915,
+    "market_cap": 7329352192,
+    "revenue_growth_ttm": 4.066,
+    "fcf_yield": -0.6769273177260356,
+    "institutional_ownership_pct": 0.7606,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 24.77,
+    "entry_range_high": 25.95,
+    "target_range_low": 29.42,
+    "target_range_high": 33.04,
+    "target_1": 29.42,
+    "target_2": 31.48,
+    "target_3": 33.04,
+    "stop_loss": 23.59,
+    "risk_reward_ratio": 3.45,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $24.77 – $25.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $27.07 direnci veya $24.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $23.59 olarak belirlenmiştir. Fiyatın EMA20 ($27.20) veya günlük VWAP ($26.24) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($29.56) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($26.24) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

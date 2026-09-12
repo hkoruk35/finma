@@ -1,0 +1,89 @@
+{
+  "ticker": "JEF",
+  "company": "Jefferies Financial Group Inc.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:28.404Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 55.25,
+    "open": 55.79999923706055,
+    "high": 55.849998474121094,
+    "low": 54.279998779296875,
+    "prev_close": 55.720001220703125,
+    "change_pct": -0.8435054027394618,
+    "change_pct_1w": 6.290882044172845,
+    "change_pct_1m": 3.9902105952657982,
+    "change_pct_1y": -15.751755935699027,
+    "volume": 1379100,
+    "avg_volume_30d": 53945800
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.15376507250151,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 54.03033811575398,
+    "ema_50": 54.13462282343537,
+    "ema_200": 54.52308251316025,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.0125,
+    "bb_middle": 55.25,
+    "bb_lower": 52.4875,
+    "bb_width": 10,
+    "atr": 1.5,
+    "atr_pct": 2.71,
+    "rvol": 0.8068876539044745,
+    "52w_high": 71.04000091552734,
+    "52w_low": 35.529998779296875
+  },
+  "fundamental": {
+    "pe_ratio": 15.452723,
+    "pb_ratio": 1.0380536,
+    "gross_margin": 0.02625,
+    "operating_margin": 0.16941,
+    "net_margin": 0.23019,
+    "market_cap": 10968930304,
+    "revenue_growth_ttm": 0.35,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.68807,
+    "dividend_rate": 1.6,
+    "dividend_yield": 0.029000001
+  },
+  "scores_detail": {
+    "entry_range_low": 54.35,
+    "entry_range_high": 55.4,
+    "target_range_low": 57.62,
+    "target_range_high": 63.11,
+    "target_1": 57.62,
+    "target_2": 60.36,
+    "target_3": 63.11,
+    "stop_loss": 52.49,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $54.35 – $55.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $56.14 direnci veya $54.05 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $52.49 olarak belirlenmiştir. Fiyatın EMA20 ($54.03) veya günlük VWAP ($54.27) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($54.13) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($54.27) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

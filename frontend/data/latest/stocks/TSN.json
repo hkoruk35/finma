@@ -1,0 +1,89 @@
+{
+  "ticker": "TSN",
+  "company": "Tyson Foods, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T23:52:23.816Z",
+  "sector": "Consumer Defensive",
+  "industry": "Farm Products",
+  "price": {
+    "current": 52.459999084472656,
+    "open": 52.290000915527344,
+    "high": 53.0099983215332,
+    "low": 51.63909912109375,
+    "prev_close": 51.7400016784668,
+    "change_pct": 1.3915681922088312,
+    "change_pct_1w": -6.00251246440852,
+    "change_pct_1m": -5.221317921082974,
+    "change_pct_1y": -5.3410306428542915,
+    "volume": 3584641,
+    "avg_volume_30d": 100291841
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 35,
+    "fundamental_score": 56.6,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.89665112438273,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 54.94794427271069,
+    "ema_50": 56.86822159770369,
+    "ema_200": 58.89592997452793,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.08299903869629,
+    "bb_middle": 52.459999084472656,
+    "bb_lower": 49.83699913024902,
+    "bb_width": 10,
+    "atr": 1.4,
+    "atr_pct": 2.66,
+    "rvol": 1.550198345646083,
+    "52w_high": 69.4800033569336,
+    "52w_low": 50.560001373291016
+  },
+  "fundamental": {
+    "pe_ratio": 32.382717,
+    "pb_ratio": 1.0208212,
+    "gross_margin": 0.06554,
+    "operating_margin": 0.02711,
+    "net_margin": 0.01031,
+    "market_cap": 18455506944,
+    "revenue_growth_ttm": -0.001,
+    "fcf_yield": 0.06454713227952173,
+    "institutional_ownership_pct": 0.94107,
+    "dividend_rate": 2.04,
+    "dividend_yield": 0.0394
+  },
+  "scores_detail": {
+    "entry_range_low": 51.62,
+    "entry_range_high": 52.6,
+    "target_range_low": 54.84,
+    "target_range_high": 59.93,
+    "target_1": 54.84,
+    "target_2": 57.32,
+    "target_3": 59.93,
+    "stop_loss": 49.84,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $51.62 – $52.60 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $55.06 direnci veya $51.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $49.84 olarak belirlenmiştir. Fiyatın EMA20 ($54.95) veya günlük VWAP ($52.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($56.87) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($52.53) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

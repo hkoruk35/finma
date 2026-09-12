@@ -1,0 +1,89 @@
+{
+  "ticker": "SRRK",
+  "company": "Scholar Rock Holding Corporation",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:10.248Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 54.619998931884766,
+    "open": 57.29999923706055,
+    "high": 57.650001525878906,
+    "low": 54.439998626708984,
+    "prev_close": 57.41999816894531,
+    "change_pct": -4.876348530736947,
+    "change_pct_1w": -2.2723214736675996,
+    "change_pct_1m": -9.027318289465375,
+    "change_pct_1y": 74.83994664552384,
+    "volume": 1601800,
+    "avg_volume_30d": 33164400
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 85,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.88967413542291,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 55.52968497721146,
+    "ema_50": 53.49400384659189,
+    "ema_200": 47.43535530709313,
+    "ema_stack_bullish": true,
+    "bb_upper": 57.350998878479004,
+    "bb_middle": 54.619998931884766,
+    "bb_lower": 51.88899898529053,
+    "bb_width": 10,
+    "atr": 2.36,
+    "atr_pct": 4.32,
+    "rvol": 1.0792054130332525,
+    "52w_high": 61.7599983215332,
+    "52w_low": 27.06999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 26.674654,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 6779786240,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.0226962719107793,
+    "institutional_ownership_pct": 1.1761299,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 53.2,
+    "entry_range_high": 54.86,
+    "target_range_low": 58.49,
+    "target_range_high": 63,
+    "target_1": 58.49,
+    "target_2": 61.76,
+    "target_3": 63,
+    "stop_loss": 51.55,
+    "risk_reward_ratio": 3.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $53.20 – $54.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $56.17 direnci veya $52.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $51.55 olarak belirlenmiştir. Fiyatın EMA50 ($53.49) veya günlük VWAP ($55.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($53.49) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($55.76) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "NOW",
+  "company": "ServiceNow, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T12:43:33.948Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 131.11000061035156,
+    "open": 133.5800018310547,
+    "high": 134.60000610351562,
+    "low": 130.85000610351562,
+    "prev_close": 134.2100067138672,
+    "change_pct": -2.3098174118452808,
+    "change_pct_1w": -8.25052049664424,
+    "change_pct_1m": 4.220983648473411,
+    "change_pct_1y": -29.787823774520238,
+    "volume": 10641300,
+    "avg_volume_30d": 569217900
+  },
+  "scores": {
+    "master_score": 73,
+    "technical_score": 70,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.52377242119632,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 132.30139255076313,
+    "ema_50": 122.26802622996473,
+    "ema_200": 124.32271958144192,
+    "ema_stack_bullish": false,
+    "bb_upper": 137.66550064086914,
+    "bb_middle": 131.11000061035156,
+    "bb_lower": 124.55450057983398,
+    "bb_width": 10,
+    "atr": 6.53,
+    "atr_pct": 4.98,
+    "rvol": 0.7436624884776111,
+    "52w_high": 194.7259979248047,
+    "52w_low": 81.23999786376953
+  },
+  "fundamental": {
+    "pe_ratio": 81.94375,
+    "pb_ratio": 10.830167,
+    "gross_margin": 0.74768996,
+    "operating_margin": 0.04063,
+    "net_margin": 0.11336,
+    "market_cap": 135549648896,
+    "revenue_growth_ttm": 0.24,
+    "fcf_yield": 0.03798884776124238,
+    "institutional_ownership_pct": 0.85069,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 126.65,
+    "entry_range_high": 131.76,
+    "target_range_low": 139.2,
+    "target_range_high": 192.97,
+    "target_1": 139.2,
+    "target_2": 175,
+    "target_3": 192.97,
+    "stop_loss": 122.08,
+    "risk_reward_ratio": 6.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $126.65 – $131.76 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $134.60 direnci veya $125.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $122.08 olarak belirlenmiştir. Fiyatın EMA50 ($122.27) veya günlük VWAP ($131.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($122.27) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($131.89) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

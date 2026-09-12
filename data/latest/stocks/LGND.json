@@ -1,0 +1,89 @@
+{
+  "ticker": "LGND",
+  "company": "Ligand Pharmaceuticals Incorporated",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:27.327Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 288.04998779296875,
+    "open": 288.0299987792969,
+    "high": 291.82000732421875,
+    "low": 285.4800109863281,
+    "prev_close": 288.8299865722656,
+    "change_pct": -0.27005463960083603,
+    "change_pct_1w": 1.3297213653865787,
+    "change_pct_1m": 0.06947426965876397,
+    "change_pct_1y": 73.55545319899494,
+    "volume": 310000,
+    "avg_volume_30d": 6911100
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 73.1,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.585043467864274,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 287.90372012707036,
+    "ema_50": 285.38180812356984,
+    "ema_200": 243.95010879196457,
+    "ema_stack_bullish": true,
+    "bb_upper": 302.4524871826172,
+    "bb_middle": 288.04998779296875,
+    "bb_lower": 273.6474884033203,
+    "bb_width": 10,
+    "atr": 8.09,
+    "atr_pct": 2.81,
+    "rvol": 0.9017667230976255,
+    "52w_high": 326.6300048828125,
+    "52w_low": 161.82000732421875
+  },
+  "fundamental": {
+    "pe_ratio": 29.788877,
+    "pb_ratio": 5.9553223,
+    "gross_margin": 0.81198996,
+    "operating_margin": 0.13488,
+    "net_margin": 0.6788,
+    "market_cap": 5766374400,
+    "revenue_growth_ttm": 0.337,
+    "fcf_yield": 0.024235138113820706,
+    "institutional_ownership_pct": 1.16003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 283.2,
+    "entry_range_high": 288.86,
+    "target_range_low": 317.49,
+    "target_range_high": 333.16,
+    "target_1": 317.49,
+    "target_2": 326.63,
+    "target_3": 333.16,
+    "stop_loss": 273.65,
+    "risk_reward_ratio": 3.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $283.20 – $288.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $294.61 direnci veya $281.58 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $273.65 olarak belirlenmiştir. Fiyatın EMA50 ($285.38) veya günlük VWAP ($288.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($288.69) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

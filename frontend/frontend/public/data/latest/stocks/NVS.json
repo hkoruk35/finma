@@ -1,0 +1,89 @@
+{
+  "ticker": "NVS",
+  "company": "Novartis AG",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T03:10:53.532Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 137.47999572753906,
+    "open": 138.75999450683594,
+    "high": 139.42999267578125,
+    "low": 137.4600067138672,
+    "prev_close": 137.47999572753906,
+    "change_pct": 0,
+    "change_pct_1w": -15.376098703679231,
+    "change_pct_1m": -11.102488746580956,
+    "change_pct_1y": 8.636896414226857,
+    "volume": 2419800,
+    "avg_volume_30d": 60905200
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 35,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.736996077166538,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 152.2693615121125,
+    "ema_50": 153.44679546140503,
+    "ema_200": 148.51542003087772,
+    "ema_stack_bullish": false,
+    "bb_upper": 144.35399551391603,
+    "bb_middle": 137.47999572753906,
+    "bb_lower": 130.6059959411621,
+    "bb_width": 10,
+    "atr": 4.69,
+    "atr_pct": 3.41,
+    "rvol": 1.9085069911928703,
+    "52w_high": 170.4600067138672,
+    "52w_low": 121.56999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 20.736048,
+    "pb_ratio": 6.290263,
+    "gross_margin": 0.74976,
+    "operating_margin": 0.3462,
+    "net_margin": 0.22502,
+    "market_cap": 261310267392,
+    "revenue_growth_ttm": 0.008,
+    "fcf_yield": 0.04554069088356199,
+    "institutional_ownership_pct": 0.07266,
+    "dividend_rate": 4.74,
+    "dividend_yield": 0.0345
+  },
+  "scores_detail": {
+    "entry_range_low": 134.67,
+    "entry_range_high": 137.95,
+    "target_range_low": 143.12,
+    "target_range_high": 156.75,
+    "target_1": 143.12,
+    "target_2": 152.55,
+    "target_3": 156.75,
+    "stop_loss": 130.61,
+    "risk_reward_ratio": 2.85,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $134.67 – $137.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $152.74 direnci veya $133.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $130.61 olarak belirlenmiştir. Fiyatın EMA200 ($148.52) veya günlük VWAP ($138.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($153.45) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($138.11) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.9 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 32 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

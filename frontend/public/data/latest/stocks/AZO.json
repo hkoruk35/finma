@@ -1,0 +1,89 @@
+{
+  "ticker": "AZO",
+  "company": "AutoZone, Inc.",
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T21:42:14.422Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Parts",
+  "price": {
+    "current": 2881.469970703125,
+    "open": 2905.469970703125,
+    "high": 2917.070068359375,
+    "low": 2876.25,
+    "prev_close": 2910.969970703125,
+    "change_pct": -1.0134079120326507,
+    "change_pct_1w": -1.8077930453716595,
+    "change_pct_1m": -1.7344605166140141,
+    "change_pct_1y": -32.24693651700661,
+    "volume": 256253,
+    "avg_volume_30d": 7396153
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 35,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.20502517400542,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 2974.3413183541343,
+    "ema_50": 3032.1997199066445,
+    "ema_200": 3353.575156602776,
+    "ema_stack_bullish": false,
+    "bb_upper": 3025.5434692382814,
+    "bb_middle": 2881.469970703125,
+    "bb_lower": 2737.3964721679686,
+    "bb_width": 10,
+    "atr": 57.78,
+    "atr_pct": 2.01,
+    "rvol": 1.3447420571207762,
+    "52w_high": 4388.10986328125,
+    "52w_low": 2876.25
+  },
+  "fundamental": {
+    "pe_ratio": 19.836637,
+    "pb_ratio": 0,
+    "gross_margin": 0.51754004,
+    "operating_margin": 0.19082001,
+    "net_margin": 0.12399,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0.084,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.98146003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2846.8,
+    "entry_range_high": 2887.25,
+    "target_range_low": 3160,
+    "target_range_high": 3496.76,
+    "target_1": 3160,
+    "target_2": 3239.14,
+    "target_3": 3496.76,
+    "stop_loss": 2737.4,
+    "risk_reward_ratio": 2.87,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2,846.80 – $2,887.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2,919.98 direnci veya $2,835.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2,737.40 olarak belirlenmiştir. Fiyatın EMA20 ($2,974.34) veya günlük VWAP ($2,889.54) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($3,032.20) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2,889.54) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

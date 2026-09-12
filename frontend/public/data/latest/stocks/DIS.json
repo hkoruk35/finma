@@ -1,0 +1,89 @@
+{
+  "ticker": "DIS",
+  "company": "The Walt Disney Company",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T00:54:03.415Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 104.18000030517578,
+    "open": 104.44999694824219,
+    "high": 104.93000030517578,
+    "low": 102.98999786376953,
+    "prev_close": 105.05999755859375,
+    "change_pct": -0.837614005204197,
+    "change_pct_1w": -1.9205431106036661,
+    "change_pct_1m": -4.971264329820341,
+    "change_pct_1y": -10.026773053418873,
+    "volume": 7038100,
+    "avg_volume_30d": 283681400
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 55,
+    "fundamental_score": 68.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.89%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.464288768637076,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 105.72779683034042,
+    "ema_50": 103.50785720167549,
+    "ema_200": 104.39583483163265,
+    "ema_stack_bullish": false,
+    "bb_upper": 109.38900032043458,
+    "bb_middle": 104.18000030517578,
+    "bb_lower": 98.97100028991699,
+    "bb_width": 10,
+    "atr": 2.19,
+    "atr_pct": 2.1,
+    "rvol": 0.7261766192637233,
+    "52w_high": 117.51000213623047,
+    "52w_low": 92.19000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 21.818558,
+    "pb_ratio": 1.6637841,
+    "gross_margin": 0.37595,
+    "operating_margin": 0.19301,
+    "net_margin": 0.086990006,
+    "market_cap": 182718005248,
+    "revenue_growth_ttm": 0.068,
+    "fcf_yield": 0.026600416490991662,
+    "institutional_ownership_pct": 0.78709,
+    "dividend_rate": 1.5,
+    "dividend_yield": 0.014400001
+  },
+  "scores_detail": {
+    "entry_range_low": 102.87,
+    "entry_range_high": 104.4,
+    "target_range_low": 108.81,
+    "target_range_high": 119.18,
+    "target_1": 108.81,
+    "target_2": 114,
+    "target_3": 119.18,
+    "stop_loss": 98.97,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $102.87 – $104.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $106.09 direnci veya $102.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $98.97 olarak belirlenmiştir. Fiyatın EMA50 ($103.51) veya günlük VWAP ($104.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($103.51) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($104.89) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}
