@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMultiQuote } from "@/lib/homeFeed";
 import { getLatestDailySnapshots, getLatestWeeklySnapshot } from "@/lib/indexSnapshots";
 import { generateLocalizedTexts, LOCALES, type MarketPictureMode } from "@/lib/x/generateContent";
+import { computeBogaView } from "@/lib/marketBiasEngine";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -168,12 +169,20 @@ export async function GET(req: NextRequest) {
       weekSectorRotation,
     });
 
+    const bogaView = computeBogaView({
+      indices,
+      sectors,
+      advancers: latestSpx?.advancers ?? null,
+      decliners: latestSpx?.decliners ?? null,
+    });
+
     await supabaseAdmin.from("market_picture").upsert({
       id: 1,
       mode,
       trade_date: tradeDate,
       facts,
       texts,
+      boga_view: bogaView,
       generated_at: new Date().toISOString(),
     });
 

@@ -208,7 +208,7 @@ Competitor and theme commentary should draw on well-known, general market knowle
         ? `This week's sector performance, best to worst: ${input.weekSectorRotation.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ")}.`
         : "";
 
-    return `Write the "Today's market picture" card for BogaStock's homepage — a snapshot of the overall US stock market that a visitor reads in the first few seconds to understand what's happening and what to expect.
+    return `Write the "Today's market picture" card for BogaStock's homepage — a RELATIONAL analysis of the overall US market, not a numbers recap. The reader already sees every raw number (index levels, % changes, sector list) elsewhere on the same page in cards next to this one. Your job is to supply the meaning those numbers don't speak for themselves: why the move happened, how the signals connect to each other, and what that combination implies. If you just restate "X rose Y%, Z fell W%" you have failed the assignment — a plain recap is explicitly NOT what's wanted here.
 
 STRICT LENGTH REQUIREMENT: exactly 90 to 100 words. Not shorter, not longer — this is a hard constraint, count carefully.
 
@@ -223,7 +223,12 @@ ${losersLine}
 ${weekLine}
 ${weekRotationLine}
 
-Write it as natural flowing prose (2-4 sentences, not a bullet list). Name at least one standout sector (best or worst mover) and at least one standout stock from the gainers/losers lists above by ticker. Mention overall market breadth/tone (risk-on vs risk-off) if the VIX-style signal is clear from the index data. Write like a sharp market analyst, not an AI — direct, specific, no filler like "it's worth noting" or "in today's dynamic market". Return a JSON object with keys: ${LOCALES.join(", ")}, each value independently written (not a literal translation of each other) in that language, each hitting the same 90-100 word target.`;
+Structure it as flowing prose in 3 short paragraphs (no headers, no bullet list, no bold labels — just natural paragraph breaks), covering in order:
+1. Mood + driver in one beat: state the overall tone in a single sentence, then immediately name what's actually carrying it — which sector or stock is doing the work, referencing at least one standout sector and one standout ticker from the data above.
+2. The relationship: this is the core of the analysis — explicitly connect at least two of {index direction, VIX move, breadth (advancers vs decliners), sector leadership} to each other and say what that combination signals together (e.g. "falling volatility alongside broad participation, not just a couple of large names, points to X" — reason about them jointly, don't list them separately).
+3. What to watch next: a short, concrete forward statement — what would confirm this move continuing, and what would be the first sign it's fading. Stay qualitative, don't invent a specific event or date.
+
+Do NOT include any kind of overall verdict, score, confidence number, or bias label (like "bullish" or "risk-on" as a standalone tag) — that judgment is rendered separately by the app, not by you. Just explain the mechanics and relationships. Write like a sharp market analyst thinking out loud, not an AI — direct, specific, no filler like "it's worth noting" or "in today's dynamic market". Return a JSON object with keys: ${LOCALES.join(", ")}, each value independently written (not a literal translation of each other) in that language, each hitting the same 90-100 word target.`;
   };
 
   const prompt =
