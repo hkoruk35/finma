@@ -43,6 +43,7 @@ import {
   AlertBanner, computeEntryAlert,
   RegimeBanner, RegimePanel, M15Strip, type RegimeBlock,
   LevelPanel, ForecastPanel,
+  ReversalGatePanel, ExitGatePanel,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -55,6 +56,7 @@ import type {
   RegimeState, M15VetoRead, VolumeVetoRead, Layer1Read, Layer3Read,
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
+import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi ────────────────────────────────────────────────────
 
@@ -104,6 +106,8 @@ interface StreamResponse {
   forecast?: CloseForecast | null;
   /** V4.1 -- bugun ayni kontrata (strike+yon) ikinci kez girmek isteyip reddedilen adaylar */
   contractReuseBlocked?: { time: number; side: "LONG" | "SHORT"; strike: number }[];
+  /** Tier 3 -- Dönüş Yakalama: puanlama tabanlı Kapı Durumu ve Çıkış Takip için */
+  reversalCatch?: ReversalState;
   /** Faz 1 (tasks/active/013) -- 5m Monte Carlo, deneysel dogrulama alani */
   monteCarlo?: {
     sigmaPerBarRaw: number | null;
@@ -926,8 +930,13 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* ── Kapı Durumu — tam genişlik ── */}
-          <GatePanel gates={data?.engine.gateStatus ?? null} />
+          {/* ── Kapı Durumu — Dönüş Yakalama (puanlama tabanlı) ── */}
+          <ReversalGatePanel reversal={data?.reversalCatch ?? null} />
+
+          {/* ── Çıkış Takibi — pozisyon açıkken gösterilir ── */}
+          {data?.openPosition && (
+            <ExitGatePanel reversal={data?.reversalCatch ?? null} />
+          )}
 
           {/* ── Motor Durumu + Pozisyon (sol) + Rejim Kriterleri/Seviye/Motor Açıklaması/Sinyaller (sağ) ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">

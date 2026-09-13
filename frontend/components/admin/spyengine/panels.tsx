@@ -19,6 +19,7 @@ import {
   type GateCheck, type Side, type RegimeSide, type RegimeState,
   type M15VetoRead, type VolumeVetoRead, type Layer1Read,
 } from "@/lib/spyengine/strategy";
+import type { ReversalState, WatchState } from "@/lib/spyengine/reversal";
 
 /** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
 export const REGIME_LABEL: Record<RegimeSide, string> = {
@@ -709,6 +710,224 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
       <div className="flex divide-x divide-[#1c2635]">
         <GateColumn side="LONG" list={gates.long} />
         <GateColumn side="SHORT" list={gates.short} />
+      </div>
+    </div>
+  );
+}
+
+// ── Reversal Gate Column (tek yön, puanlama tabanlı) ────────────────
+
+function ReversalColumn({
+  title, accent, checks, score, threshold, trigger,
+}: {
+  title: string;
+  accent: string;
+  checks: { label: string; ok: boolean; detail: string }[];
+  score: number;
+  threshold: number;
+  trigger: boolean;
+}) {
+  const allOk = trigger;
+  return (
+    <div className="min-w-0 flex-1">
+      <div
+        className="flex items-center justify-between gap-2 px-2.5 py-1.5"
+        style={{ backgroundColor: allOk ? `${accent}22` : "transparent" }}
+      >
+        <span className="text-[12px] font-bold tracking-wide" style={{ color: allOk ? accent : "#94a3b8" }}>
+          {title}
+        </span>
+        <span className="font-mono text-[11px] font-semibold" style={{ color: allOk ? accent : "#64748b" }}>
+          {score}/{checks.length}
+          {trigger && <span className="ml-1">✓</span>}
+        </span>
+      </div>
+
+      <div className="flex gap-0.5 px-2.5 pb-1">
+        {checks.map((c, i) => (
+          <span key={i} className="h-1 flex-1 rounded-sm" style={{ backgroundColor: c.ok ? accent : "#1c2635" }} />
+        ))}
+      </div>
+
+      <div className="px-2.5 pb-1 text-[9.5px] font-semibold" style={{ color: allOk ? accent : "#64748b" }}>
+        {trigger
+          ? "tetiklendi ✓"
+          : `${score}/${threshold} (eşik ${threshold})`}
+      </div>
+
+      <div className="px-2.5 pb-2">
+        {checks.map((c, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-between gap-1.5 border-b border-[#151c28] py-[3px] last:border-0"
+          >
+            <span className="flex min-w-0 items-center gap-1">
+              <span className={c.ok ? "text-[#22c55e]" : "text-[#ef4444]"}>{c.ok ? "✓" : "✕"}</span>
+              <span className={`truncate text-[10px] ${c.ok ? "text-slate-300" : "text-slate-500"}`} title={c.label}>
+                {c.label}
+              </span>
+            </span>
+            <span className={`shrink-0 font-mono text-[10px] ${c.ok ? "text-slate-300" : "text-[#ef4444]"}`}>
+              {c.detail}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Kapı Durumu — Puanlama Tabanlı Dönüş Yakalama
+ *
+ * AND yerine ağırlıklı puanlama: 3 kriterden 2'si yeterli.
+ * Katman 0 (izleme) ve Katman 1 (giriş) aşamaları yan yana.
+ * Piyasa kapalıyken takip modunda; uyarılar 09:30-16:00 NY'de aktif.
+ */
+export function ReversalGatePanel({ reversal }: { reversal: ReversalState | null }) {
+  if (!reversal) {
+    return (
+      <div className={`${SURFACE} px-3 py-4`}>
+        <div className="text-[11px] font-semibold text-slate-300">Kapı Durumu · Dönüş Modülü</div>
+        <div className="mt-1 text-[12px] text-slate-500">5m veri bekleniyor.</div>
+      </div>
+    );
+  }
+
+  const { watchState, watchScore, watchChecks, entryTrigger, entryScore, entryChecks,
+          isMarketHours, rsi5m, bbUpper, bbLower, volSma20, note } = reversal;
+
+  const watchAccent = watchState === "WATCH_PUT" ? "#ef4444"
+    : watchState === "WATCH_CALL" ? "#22c55e"
+    : "#64748b";
+
+  const watchLabel = watchState === "WATCH_PUT" ? "KATMAN 0 · PUT İZLEME"
+    : watchState === "WATCH_CALL" ? "KATMAN 0 · CALL İZLEME"
+    : "KATMAN 0 · BEKLEMEDE";
+
+  const entryAccent = entryTrigger
+    ? (watchState === "WATCH_PUT" ? "#ef4444" : "#22c55e")
+    : "#64748b";
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Kapı Durumu{" "}
+          <span className="text-[9px] font-normal text-slate-600">
+            · Dönüş Yakalama · puanlama tabanlı (3'ten 2'si yeterli)
+          </span>
+        </span>
+        {!isMarketHours && (
+          <span className="rounded bg-slate-700/40 px-2 py-0.5 text-[9px] text-slate-500">
+            piyasa kapalı
+          </span>
+        )}
+        {isMarketHours && (
+          <span className="rounded bg-green-500/15 px-2 py-0.5 text-[9px] font-semibold text-green-400">
+            ● NY 09:30–16:00 aktif
+          </span>
+        )}
+      </div>
+
+      {/* Gösterge özeti */}
+      <div className="flex flex-wrap gap-x-4 gap-y-0.5 border-b border-[#1c2635] px-3 py-1.5 font-mono text-[9.5px] text-slate-500">
+        <span>RSI14: <span className={rsi5m == null ? "" : rsi5m >= 65 ? "text-[#ef4444]" : rsi5m <= 35 ? "text-[#22c55e]" : "text-slate-300"}>
+          {rsi5m == null ? "—" : rsi5m.toFixed(0)}
+        </span></span>
+        <span>BB Üst: <span className="text-slate-300">{bbUpper == null ? "—" : bbUpper.toFixed(2)}</span></span>
+        <span>BB Alt: <span className="text-slate-300">{bbLower == null ? "—" : bbLower.toFixed(2)}</span></span>
+        <span>Vol SMA20: <span className="text-slate-300">{volSma20 == null ? "—" : Math.round(volSma20).toLocaleString()}</span></span>
+      </div>
+
+      <div className="flex divide-x divide-[#1c2635]">
+        <ReversalColumn
+          title={watchLabel}
+          accent={watchAccent}
+          checks={watchChecks}
+          score={watchScore}
+          threshold={2}
+          trigger={watchState !== "NONE"}
+        />
+        <ReversalColumn
+          title="KATMAN 1 · GİRİŞ TETİK"
+          accent={entryAccent}
+          checks={entryChecks}
+          score={entryScore}
+          threshold={2}
+          trigger={entryTrigger}
+        />
+      </div>
+
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[10px] leading-snug text-slate-400">
+        {note}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Çıkış Takip Paneli — açık pozisyon varsa çıkış uyarı sinyallerini
+ * aşama aşama gösterir. GatePanel'deki girişin çıkış karşılığı.
+ */
+export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) {
+  if (!reversal || !reversal.openSide) return null;
+
+  const { exitWarn, exitScore, exitChecks, isMarketHours, openSide } = reversal;
+  const accent = exitWarn ? "#f97316" : "#64748b";
+  const sideWord = openSide === "LONG" ? "LONG" : "SHORT";
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Çıkış Takibi{" "}
+          <span className="text-[9px] font-normal text-slate-600">
+            · {sideWord} pozisyon · ters dönüş sinyali izleniyor
+          </span>
+        </span>
+        {exitWarn && (
+          <span className="animate-pulse rounded border border-orange-500/50 bg-orange-500/15 px-2 py-0.5 text-[10px] font-bold text-orange-300">
+            ⚠ ÇIKIŞ UYARISI
+          </span>
+        )}
+      </div>
+
+      <div className="px-2.5 py-2">
+        <div className="mb-1.5 flex items-center gap-2">
+          <div className="flex gap-0.5">
+            {exitChecks.map((c, i) => (
+              <span key={i} className="h-1 w-8 rounded-sm" style={{ backgroundColor: c.ok ? accent : "#1c2635" }} />
+            ))}
+          </div>
+          <span className="font-mono text-[11px]" style={{ color: accent }}>
+            {exitScore}/{exitChecks.length}
+            {exitWarn ? " — çıkış sinyali" : " — sinyal yok"}
+          </span>
+        </div>
+
+        {exitChecks.map((c, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-between gap-1.5 border-b border-[#151c28] py-[3px] last:border-0"
+          >
+            <span className="flex min-w-0 items-center gap-1">
+              <span className={c.ok ? "text-[#f97316]" : "text-[#64748b]"}>{c.ok ? "⚠" : "○"}</span>
+              <span className={`truncate text-[10px] ${c.ok ? "text-slate-300" : "text-slate-500"}`} title={c.label}>
+                {c.label}
+              </span>
+            </span>
+            <span className={`shrink-0 font-mono text-[10px] ${c.ok ? "text-orange-300" : "text-slate-600"}`}>
+              {c.detail}
+            </span>
+          </div>
+        ))}
+
+        {!isMarketHours && (
+          <div className="mt-1.5 text-[9.5px] text-slate-600">
+            Piyasa saatleri dışında — izleme modunda, uyarı susturulmuş.
+          </div>
+        )}
       </div>
     </div>
   );

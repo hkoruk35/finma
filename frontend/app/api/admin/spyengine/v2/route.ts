@@ -52,6 +52,7 @@ import { readOptionDecision } from "@/lib/spyengine/optionDecisionStore";
 import { computeExhaustion, computeReversalScore, computeEdgeScore } from "@/lib/spyengine/heuristics";
 import { appendDecisionSnapshot } from "@/lib/spyengine/decisionLogStore";
 import { runMonteCarlo, seedFromBar } from "@/lib/spyengine/monteCarlo";
+import { checkReversalCatch } from "@/lib/spyengine/reversal";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -648,6 +649,14 @@ export async function GET(req: NextRequest) {
           cooldownUntil,
           cooldownActive,
         },
+        // Tier 3 — Dönüş Yakalama: AND-tabanlı yerine puanlama tabanlı
+        // giriş/çıkış katmanı. Mevcut rejim mekanizmasini degistirmez,
+        // paralel panel olarak Kapı Durumu ve Çıkış Takip'te görünür.
+        reversalCatch: checkReversalCatch({
+          m5: closedBars(m5All, 5, evalNow),
+          nowSec: evalNow,
+          openSide: openPosition?.side ?? null,
+        }),
         lastClosed: gen.lastClosed,
         positions: activePositions,
         openPosition,
