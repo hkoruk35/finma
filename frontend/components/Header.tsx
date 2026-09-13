@@ -163,7 +163,7 @@ export default function Header({
 
   const logoContent = (
     <div className="flex flex-col items-start flex-shrink-0">
-      <span className="text-lg tracking-tight font-medium">
+      <span className="text-lg md:text-sm tracking-tight font-medium">
         <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
       </span>
       <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
