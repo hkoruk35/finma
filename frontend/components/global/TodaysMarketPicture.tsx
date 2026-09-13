@@ -30,6 +30,24 @@ const RISK_LABEL: Record<Locale, string> = {
   en: "Risk to this view", tr: "Bu görüşe karşı risk", es: "Riesgo para esta visión", fr: "Risque pour cette lecture", pt: "Risco para esta visão", id: "Risiko terhadap pandangan ini",
 };
 
+const UPDATED_LABEL: Record<Locale, string> = {
+  en: "Updated", tr: "Güncellendi", es: "Actualizado", fr: "Mis à jour", pt: "Atualizado", id: "Diperbarui",
+};
+
+const DATE_LOCALE: Record<Locale, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR", id: "id-ID" };
+
+function formatUpdatedAt(iso: string, locale: Locale): string {
+  const formatted = new Intl.DateTimeFormat(DATE_LOCALE[locale] ?? "en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(iso));
+  return `${formatted} NY`;
+}
+
 const BIAS_DOT: Record<BogaView["bias"], string> = {
   risk_on: "🟢",
   risk_off: "🔴",
@@ -57,9 +75,14 @@ export default async function TodaysMarketPicture({ locale }: { locale: Locale }
 
   return (
     <div className="mt-4 rounded-xl bg-boga-card-secondary border border-boga-border px-4 py-3.5">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="w-1 h-4 rounded-full shrink-0 bg-[#FFFFFF]" />
-        <h3 className="text-[16px] font-bold text-[#FFFFFF] tracking-tight">{LABEL[locale] ?? LABEL.en}</h3>
+      <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="w-1 h-4 rounded-full shrink-0 bg-[#FFFFFF]" />
+          <h3 className="text-[16px] font-bold text-[#FFFFFF] tracking-tight">{LABEL[locale] ?? LABEL.en}</h3>
+        </div>
+        <span className="text-[10px] text-boga-text-secondary shrink-0">
+          {UPDATED_LABEL[locale] ?? UPDATED_LABEL.en}: {formatUpdatedAt(row!.generated_at, locale)}
+        </span>
       </div>
 
       <div className="text-[13px] leading-relaxed text-boga-text-primary space-y-2 whitespace-pre-line">{text}</div>
