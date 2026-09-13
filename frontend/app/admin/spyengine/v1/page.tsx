@@ -933,10 +933,8 @@ export default function SpyEngineCommandCenter() {
           {/* ── Kapı Durumu — Dönüş Yakalama (puanlama tabanlı) ── */}
           <ReversalGatePanel reversal={data?.reversalCatch ?? null} />
 
-          {/* ── Çıkış Takibi — pozisyon açıkken gösterilir ── */}
-          {data?.openPosition && (
-            <ExitGatePanel reversal={data?.reversalCatch ?? null} />
-          )}
+          {/* ── Çıkış Takibi — her zaman gösterilir, pozisyon yoksa placeholder ── */}
+          <ExitGatePanel reversal={data?.reversalCatch ?? null} />
 
           {/* ── Motor Durumu + Pozisyon (sol) + Rejim Kriterleri/Seviye/Motor Açıklaması/Sinyaller (sağ) ── */}
           <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">

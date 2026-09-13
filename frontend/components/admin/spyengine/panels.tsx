@@ -593,18 +593,6 @@ export function AlertBanner({
         <span>{headline}</span>
       </span>
 
-      {s && !inPosition && (
-        <span className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-slate-400">
-          <span className="rounded bg-[#111827] px-1.5 py-0.5">
-            kapı {s.passed}/{s.total}
-          </span>
-          {s.missing.length > 0 && (
-            <span className="text-[#ef4444]/85" title="Kapalı kapılar">
-              eksik: {s.missing.join(", ")}
-            </span>
-          )}
-        </span>
-      )}
 
       {secondsToClose != null && (
         <span
@@ -871,9 +859,25 @@ export function ReversalGatePanel({ reversal }: { reversal: ReversalState | null
  * aşama aşama gösterir. GatePanel'deki girişin çıkış karşılığı.
  */
 export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) {
-  if (!reversal || !reversal.openSide) return null;
+  const openSide = reversal?.openSide ?? null;
 
-  const { exitWarn, exitScore, exitChecks, isMarketHours, openSide } = reversal;
+  if (!openSide) {
+    return (
+      <div className={`${SURFACE} overflow-hidden`}>
+        <div className="border-b border-[#1c2635] px-3 py-1.5">
+          <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+            Çıkış Takibi{" "}
+            <span className="text-[9px] font-normal text-slate-600">· pozisyon açılınca aktifleşir</span>
+          </span>
+        </div>
+        <div className="px-2.5 py-3 text-[11px] text-slate-600">
+          Aktif pozisyon yok. Bir LONG veya SHORT girildiğinde burada ters dönüş sinyalleri izlenecek.
+        </div>
+      </div>
+    );
+  }
+
+  const { exitWarn, exitScore, exitChecks, isMarketHours } = reversal!;
   const accent = exitWarn ? "#f97316" : "#64748b";
   const sideWord = openSide === "LONG" ? "LONG" : "SHORT";
 
