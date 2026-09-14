@@ -1,8 +1,8 @@
 {
   "date": "2026-09-11",
-  "generated_at": "2026-09-11T14:06:54.569253-04:00",
+  "generated_at": "2026-09-11T17:07:54.412867-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 35,
+  "active_scores_count": 42,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,8 +21,9 @@
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 11,
       "tickers": [
+        "SBET",
         "EC",
         "KYMR",
         "DBX",
@@ -30,7 +31,9 @@
         "EQT",
         "F",
         "DIS",
-        "PI"
+        "PI",
+        "WTTR",
+        "MATX"
       ]
     },
     "value": {
@@ -53,7 +56,7 @@
   "top_3_overall": [
     {
       "ticker": "SBET",
-      "score": 44.0,
+      "score": 46.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -69,20 +72,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 760.175,
+      "change_pct": -0.54
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 705.9592,
+      "change_pct": -1.25
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 524.54,
+      "change_pct": -0.24
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 17.42,
+      "change_pct": 9.97
+    },
+    "RUSSELL2000": {
+      "value": 288.22,
+      "change_pct": -0.23
     }
-  }
+  },
+  "price_updated_at": "2026-09-14T10:00:13.851560-04:00"
 }
