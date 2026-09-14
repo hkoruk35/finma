@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T14:06:59.543926-04:00",
+  "generated_at": "2026-09-14T17:04:33.501009-04:00",
   "picks": [
     {
       "ticker": "SIG",
@@ -20,16 +20,22 @@
       "score": 30.0
     },
     {
-      "ticker": "ASO",
-      "sector": "Consumer Cyclical",
+      "ticker": "TEVA",
+      "sector": "Healthcare",
       "date_added": "2026-09-14",
-      "score": 29.5
+      "score": 43.5
     },
     {
-      "ticker": "SWKS",
-      "sector": "Technology",
+      "ticker": "KMX",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-09-14",
-      "score": 24.5
+      "score": 42.5
+    },
+    {
+      "ticker": "MHK",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-14",
+      "score": 32.5
     }
   ]
 }
