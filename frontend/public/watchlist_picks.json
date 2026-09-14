@@ -1,77 +1,65 @@
 {
-  "generated_at": "2026-09-11T17:07:55.668798-04:00",
+  "generated_at": "2026-09-14T09:08:41.099568-04:00",
   "picks": [
     {
-      "ticker": "NUTX",
-      "sector": "Healthcare",
-      "date_added": "2026-09-09",
-      "score": 33.0
-    },
-    {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-10",
-      "score": 35.0
-    },
-    {
-      "ticker": "AVAH",
-      "sector": "Healthcare",
-      "date_added": "2026-09-11",
-      "score": 30.5
-    },
-    {
-      "ticker": "MRVL",
-      "sector": "Technology",
-      "date_added": "2026-09-11",
-      "score": 43.0
-    },
-    {
-      "ticker": "CXT",
-      "sector": "Industrials",
-      "date_added": "2026-09-11",
-      "score": 41.5
-    },
-    {
-      "ticker": "GCT",
-      "sector": "Technology",
-      "date_added": "2026-09-11",
-      "score": 40.5
-    },
-    {
-      "ticker": "OII",
-      "sector": "Energy",
-      "date_added": "2026-09-11",
-      "score": 39.5
-    },
-    {
-      "ticker": "ARMK",
-      "sector": "Industrials",
-      "date_added": "2026-09-11",
-      "score": 35.5
-    },
-    {
-      "ticker": "TMO",
-      "sector": "Healthcare",
-      "date_added": "2026-09-11",
-      "score": 34.0
-    },
-    {
-      "ticker": "SLM",
+      "ticker": "XP",
       "sector": "Financial Services",
-      "date_added": "2026-09-11",
+      "date_added": "2026-09-14",
+      "score": 36.0
+    },
+    {
+      "ticker": "KYMR",
+      "sector": "Healthcare",
+      "date_added": "2026-09-14",
+      "score": 34.5
+    },
+    {
+      "ticker": "KMX",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-14",
+      "score": 33.5
+    },
+    {
+      "ticker": "DE",
+      "sector": "Industrials",
+      "date_added": "2026-09-14",
       "score": 33.0
     },
     {
-      "ticker": "CECO",
-      "sector": "Industrials",
-      "date_added": "2026-09-11",
-      "score": 31.5
+      "ticker": "FCX",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-14",
+      "score": 33.0
     },
     {
-      "ticker": "TNK",
-      "sector": "Energy",
-      "date_added": "2026-09-11",
-      "score": 26.0
+      "ticker": "META",
+      "sector": "Communication Services",
+      "date_added": "2026-09-14",
+      "score": 32.0
+    },
+    {
+      "ticker": "ABVX",
+      "sector": "Healthcare",
+      "date_added": "2026-09-14",
+      "score": 32.0
+    },
+    {
+      "ticker": "BCO",
+      "sector": "Industrials",
+      "date_added": "2026-09-14",
+      "score": 32.0
+    },
+    {
+      "ticker": "RGEN",
+      "sector": "Healthcare",
+      "date_added": "2026-09-14",
+      "score": 29.5
+    },
+    {
+      "ticker": "GLW",
+      "sector": "Technology",
+      "date_added": "2026-09-14",
+      "score": 25.5
     }
   ]
 }
