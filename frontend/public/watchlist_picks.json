@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-09-14T17:04:33.501009-04:00",
+  "generated_at": "2026-09-15T09:07:29.328514-04:00",
   "picks": [
     {
       "ticker": "SIG",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-14",
-      "score": 35.0
-    },
-    {
-      "ticker": "BBY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-14",
-      "score": 35.0
+      "score": 35.5
     },
     {
       "ticker": "FIVE",
@@ -35,6 +29,60 @@
       "ticker": "MHK",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-14",
+      "score": 32.5
+    },
+    {
+      "ticker": "XP",
+      "sector": "Financial Services",
+      "date_added": "2026-09-15",
+      "score": 38.0
+    },
+    {
+      "ticker": "KYMR",
+      "sector": "Healthcare",
+      "date_added": "2026-09-15",
+      "score": 37.5
+    },
+    {
+      "ticker": "CDW",
+      "sector": "Technology",
+      "date_added": "2026-09-15",
+      "score": 37.0
+    },
+    {
+      "ticker": "SWKS",
+      "sector": "Technology",
+      "date_added": "2026-09-15",
+      "score": 36.5
+    },
+    {
+      "ticker": "CHEF",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-09-15",
+      "score": 35.5
+    },
+    {
+      "ticker": "ASO",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-15",
+      "score": 33.5
+    },
+    {
+      "ticker": "PCAR",
+      "sector": "Industrials",
+      "date_added": "2026-09-15",
+      "score": 33.5
+    },
+    {
+      "ticker": "GPN",
+      "sector": "Industrials",
+      "date_added": "2026-09-15",
+      "score": 33.0
+    },
+    {
+      "ticker": "BB",
+      "sector": "Technology",
+      "date_added": "2026-09-15",
       "score": 32.5
     }
   ]
