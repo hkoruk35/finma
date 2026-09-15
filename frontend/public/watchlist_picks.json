@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T09:07:29.328514-04:00",
+  "generated_at": "2026-09-15T14:07:52.469654-04:00",
   "picks": [
     {
       "ticker": "SIG",
@@ -8,22 +8,10 @@
       "score": 35.5
     },
     {
-      "ticker": "FIVE",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-14",
-      "score": 30.0
-    },
-    {
       "ticker": "TEVA",
       "sector": "Healthcare",
       "date_added": "2026-09-14",
       "score": 43.5
-    },
-    {
-      "ticker": "KMX",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-14",
-      "score": 42.5
     },
     {
       "ticker": "MHK",
@@ -38,52 +26,40 @@
       "score": 38.0
     },
     {
-      "ticker": "KYMR",
-      "sector": "Healthcare",
-      "date_added": "2026-09-15",
-      "score": 37.5
-    },
-    {
       "ticker": "CDW",
       "sector": "Technology",
       "date_added": "2026-09-15",
       "score": 37.0
     },
     {
-      "ticker": "SWKS",
-      "sector": "Technology",
-      "date_added": "2026-09-15",
-      "score": 36.5
-    },
-    {
-      "ticker": "CHEF",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-09-15",
-      "score": 35.5
-    },
-    {
-      "ticker": "ASO",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-15",
-      "score": 33.5
-    },
-    {
-      "ticker": "PCAR",
-      "sector": "Industrials",
-      "date_added": "2026-09-15",
-      "score": 33.5
-    },
-    {
-      "ticker": "GPN",
-      "sector": "Industrials",
-      "date_added": "2026-09-15",
-      "score": 33.0
-    },
-    {
       "ticker": "BB",
       "sector": "Technology",
       "date_added": "2026-09-15",
       "score": 32.5
+    },
+    {
+      "ticker": "BG",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-09-15",
+      "score": 40.5
+    },
+    {
+      "ticker": "WHD",
+      "sector": "Energy",
+      "date_added": "2026-09-15",
+      "score": 36.5
+    },
+    {
+      "ticker": "DELL",
+      "sector": "Technology",
+      "date_added": "2026-09-15",
+      "score": 31.5
+    },
+    {
+      "ticker": "CMPS",
+      "sector": "Healthcare",
+      "date_added": "2026-09-15",
+      "score": 29.5
     }
   ]
 }
