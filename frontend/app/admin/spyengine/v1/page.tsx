@@ -907,8 +907,8 @@ export default function SpyEngineCommandCenter() {
                     position={openPosition}
                     toggles={toggles}
                     height={chart1Height}
-                    autoScroll={false}
-                    defaultWindowMin={240}
+                    autoScroll={autoScroll}
+                    defaultWindowMin={480}
                     levelLines={data?.levels?.lines}
                     trendDirection={m15Trend}
                   />
@@ -1412,8 +1412,8 @@ export default function SpyEngineCommandCenter() {
               position={openPosition}
               toggles={{ ...toggles, markers: false, levels: false }}
               height={380}
-              autoScroll={false}
-              defaultWindowMin={240}
+              autoScroll={autoScroll}
+              defaultWindowMin={480}
             />
           </div>
 
@@ -1505,8 +1505,8 @@ export default function SpyEngineCommandCenter() {
                 position={openPosition}
                 toggles={toggles}
                 height={420}
-                autoScroll={false}
-                defaultWindowMin={240}
+                autoScroll={autoScroll}
+                defaultWindowMin={480}
                 levelLines={data?.levels?.lines}
                 trendDirection={m15Trend}
               />
