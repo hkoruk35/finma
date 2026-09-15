@@ -1,0 +1,89 @@
+{
+  "ticker": "SES",
+  "company": "SES AI Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:03:12.396Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Parts",
+  "price": {
+    "current": 0.6140000224113464,
+    "open": 0.5270000100135803,
+    "high": 0.6200000047683716,
+    "low": 0.5199999809265137,
+    "prev_close": 0.5299999713897705,
+    "change_pct": 15.849067086043469,
+    "change_pct_1w": 22.06759379732526,
+    "change_pct_1m": 18.076931717833435,
+    "change_pct_1y": -50.87999820709228,
+    "volume": 39236300,
+    "avg_volume_30d": 455115200
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 60,
+    "fundamental_score": 33.5,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+4.39%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.984501455788866,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 0.5456137087442056,
+    "ema_50": 0.630583473359145,
+    "ema_200": 1.073204050788392,
+    "ema_stack_bullish": false,
+    "bb_upper": 0.6447000235319138,
+    "bb_middle": 0.6140000224113464,
+    "bb_lower": 0.5833000212907791,
+    "bb_width": 10,
+    "atr": 0.04,
+    "atr_pct": 5.93,
+    "rvol": 2.0044234954139086,
+    "52w_high": 3.7300000190734863,
+    "52w_low": 0.4909999966621399
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.2176586,
+    "gross_margin": 0.27754,
+    "operating_margin": -3.7847,
+    "net_margin": -2.89639,
+    "market_cap": 227859056,
+    "revenue_growth_ttm": 0.438,
+    "fcf_yield": -0.12382819667259572,
+    "institutional_ownership_pct": 0.37072,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 0.53,
+    "entry_range_high": 0.62,
+    "target_range_low": 0.66,
+    "target_range_high": 1.35,
+    "target_1": 0.66,
+    "target_2": 0.68,
+    "target_3": 1.35,
+    "stop_loss": 0.5,
+    "risk_reward_ratio": 1.49,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $0.53 – $0.62 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $0.62 direnci veya $0.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $0.50 olarak belirlenmiştir. Fiyatın EMA20 ($0.55) veya günlük VWAP ($0.59) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($0.63) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($0.59) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.0 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

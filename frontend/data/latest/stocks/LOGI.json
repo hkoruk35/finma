@@ -1,0 +1,89 @@
+{
+  "ticker": "LOGI",
+  "company": "Logitech International S.A.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:20:05.681Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 102.69999694824219,
+    "open": 99.7699966430664,
+    "high": 103.5,
+    "low": 99.61000061035156,
+    "prev_close": 99.7699966430664,
+    "change_pct": 2.9367549401229773,
+    "change_pct_1w": 0.9733535273629426,
+    "change_pct_1m": 4.838707541924482,
+    "change_pct_1y": -5.214583853666028,
+    "volume": 994200,
+    "avg_volume_30d": 23282600
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 85,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.76277665013563,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 100.23470200079896,
+    "ema_50": 101.40911662682765,
+    "ema_200": 102.38073022468267,
+    "ema_stack_bullish": false,
+    "bb_upper": 107.8349967956543,
+    "bb_middle": 102.69999694824219,
+    "bb_lower": 97.56499710083007,
+    "bb_width": 10,
+    "atr": 2.51,
+    "atr_pct": 2.45,
+    "rvol": 0.9273964247979178,
+    "52w_high": 129.66000366210938,
+    "52w_low": 83.31999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 18.41468,
+    "pb_ratio": 6.12661,
+    "gross_margin": 0.45239,
+    "operating_margin": 0.21221,
+    "net_margin": 0.16277,
+    "market_cap": 14370381824,
+    "revenue_growth_ttm": 0.069,
+    "fcf_yield": 0.05033883113612667,
+    "institutional_ownership_pct": 0.7325,
+    "dividend_rate": 1.7,
+    "dividend_yield": 0.0166
+  },
+  "scores_detail": {
+    "entry_range_low": 101.6,
+    "entry_range_high": 102.95,
+    "target_range_low": 110.47,
+    "target_range_high": 117.62,
+    "target_1": 110.47,
+    "target_2": 112.68,
+    "target_3": 117.62,
+    "stop_loss": 97.56,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $101.60 – $102.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $103.50 direnci veya $101.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $97.56 olarak belirlenmiştir. Fiyatın EMA20 ($100.23) veya günlük VWAP ($100.75) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($101.41) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($100.75) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

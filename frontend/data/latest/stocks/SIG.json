@@ -1,0 +1,89 @@
+{
+  "ticker": "SIG",
+  "company": "Signet Jewelers Limited",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:07:36.757Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Luxury Goods",
+  "price": {
+    "current": 100.75,
+    "open": 97.69000244140625,
+    "high": 101.36000061035156,
+    "low": 97.3499984741211,
+    "prev_close": 100.26000213623047,
+    "change_pct": 0.4887271627061567,
+    "change_pct_1w": 18.112539736801104,
+    "change_pct_1m": 22.447741242979344,
+    "change_pct_1y": 10.629186710896546,
+    "volume": 1352100,
+    "avg_volume_30d": 25949300
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 80,
+    "fundamental_score": 63.2,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.28170097563793,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 89.99985538744681,
+    "ema_50": 88.88635309032689,
+    "ema_200": 89.18253146766084,
+    "ema_stack_bullish": false,
+    "bb_upper": 105.78750000000001,
+    "bb_middle": 100.75,
+    "bb_lower": 95.71249999999999,
+    "bb_width": 10,
+    "atr": 4.63,
+    "atr_pct": 4.6,
+    "rvol": 2.401452062290698,
+    "52w_high": 110.19999694824219,
+    "52w_low": 71.62000274658203
+  },
+  "fundamental": {
+    "pe_ratio": 11.70151,
+    "pb_ratio": 2.10827,
+    "gross_margin": 0.39293,
+    "operating_margin": 0.06256,
+    "net_margin": 0.05189,
+    "market_cap": 3860462336,
+    "revenue_growth_ttm": -0.005,
+    "fcf_yield": 0.10932304663728236,
+    "institutional_ownership_pct": 1.1746601,
+    "dividend_rate": 1.4,
+    "dividend_yield": 0.0139999995
+  },
+  "scores_detail": {
+    "entry_range_low": 98.52,
+    "entry_range_high": 101.21,
+    "target_range_low": 104.86,
+    "target_range_high": 114.84,
+    "target_1": 104.86,
+    "target_2": 109.85,
+    "target_3": 114.84,
+    "stop_loss": 95.27,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $98.52 – $101.21 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $103.49 direnci veya $97.59 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $95.27 olarak belirlenmiştir. Fiyatın EMA20 ($90.00) veya günlük VWAP ($99.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($88.89) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($99.44) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.4 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

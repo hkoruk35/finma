@@ -1,0 +1,89 @@
+{
+  "ticker": "WEN",
+  "company": "The Wendy's Company",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T03:57:44.221Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 7.630000114440918,
+    "open": 7.599999904632568,
+    "high": 7.699999809265137,
+    "low": 7.579999923706055,
+    "prev_close": 7.630000114440918,
+    "change_pct": 0,
+    "change_pct_1w": -4.981315464904369,
+    "change_pct_1m": -8.072289890328605,
+    "change_pct_1y": -21.0144903212915,
+    "volume": 5093600,
+    "avg_volume_30d": 270612600
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 45,
+    "fundamental_score": 56.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.607631020045396,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 7.989074352429748,
+    "ema_50": 7.9152091137823755,
+    "ema_200": 7.89414704938859,
+    "ema_stack_bullish": true,
+    "bb_upper": 8.011500120162964,
+    "bb_middle": 7.630000114440918,
+    "bb_lower": 7.248500108718872,
+    "bb_width": 10,
+    "atr": 0.39,
+    "atr_pct": 5.07,
+    "rvol": 0.6295782236303853,
+    "52w_high": 10.119999885559082,
+    "52w_low": 6.070000171661377
+  },
+  "fundamental": {
+    "pe_ratio": 11.560606,
+    "pb_ratio": 0,
+    "gross_margin": 0.33111,
+    "operating_margin": 0.14292,
+    "net_margin": 0.0572,
+    "market_cap": 1454811648,
+    "revenue_growth_ttm": 0.017,
+    "fcf_yield": 0.11914926873062814,
+    "institutional_ownership_pct": 0.87105006,
+    "dividend_rate": 0.28,
+    "dividend_yield": 0.0367
+  },
+  "scores_detail": {
+    "entry_range_low": 7.4,
+    "entry_range_high": 7.67,
+    "target_range_low": 8.03,
+    "target_range_high": 8.66,
+    "target_1": 8.03,
+    "target_2": 8.29,
+    "target_3": 8.66,
+    "stop_loss": 7.13,
+    "risk_reward_ratio": 1.85,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $7.40 – $7.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $7.92 direnci veya $7.32 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.13 olarak belirlenmiştir. Fiyatın EMA200 ($7.89) veya günlük VWAP ($7.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($7.92) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($7.65) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

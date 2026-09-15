@@ -1,0 +1,89 @@
+{
+  "ticker": "CAR",
+  "company": "Avis Budget Group, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T03:57:04.287Z",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 118.69999694824219,
+    "open": 121.01000213623047,
+    "high": 122.69999694824219,
+    "low": 117.80999755859375,
+    "prev_close": 121.73999786376953,
+    "change_pct": -2.4971258163887846,
+    "change_pct_1w": -14.438116770820855,
+    "change_pct_1m": -19.519972521972853,
+    "change_pct_1y": -23.68032027269408,
+    "volume": 407800,
+    "avg_volume_30d": 10106000
+  },
+  "scores": {
+    "master_score": 39,
+    "technical_score": 40,
+    "fundamental_score": 43.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 27.79856239541111,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 135.91863916705472,
+    "ema_50": 146.4560380420254,
+    "ema_200": 158.8807817654209,
+    "ema_stack_bullish": false,
+    "bb_upper": 124.6349967956543,
+    "bb_middle": 118.69999694824219,
+    "bb_lower": 112.76499710083007,
+    "bb_width": 10,
+    "atr": 5.76,
+    "atr_pct": 4.85,
+    "rvol": 1.1305956857312487,
+    "52w_high": 847.7000122070312,
+    "52w_low": 85.95999908447266
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0.27385,
+    "operating_margin": 0.1491,
+    "net_margin": -0.05431,
+    "market_cap": 4193166592,
+    "revenue_growth_ttm": -0.013,
+    "fcf_yield": 0.26069200162128925,
+    "institutional_ownership_pct": 1.1801,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 115.24,
+    "entry_range_high": 119.28,
+    "target_range_low": 126.16,
+    "target_range_high": 139.02,
+    "target_1": 126.16,
+    "target_2": 129.5,
+    "target_3": 139.02,
+    "stop_loss": 111.21,
+    "risk_reward_ratio": 2.02,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $115.24 – $119.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $122.45 direnci veya $114.09 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $111.21 olarak belirlenmiştir. Fiyatın EMA20 ($135.92) veya günlük VWAP ($119.31) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($146.46) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($119.31) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 28 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

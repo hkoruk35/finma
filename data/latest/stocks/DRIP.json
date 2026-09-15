@@ -1,0 +1,89 @@
+{
+  "ticker": "DRIP",
+  "company": "Direxion Daily S&P Oil & Gas Exp. & Prod. Bear 2X Shares",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:34:57.873Z",
+  "sector": "Unknown",
+  "industry": "Unknown",
+  "price": {
+    "current": 33.099998474121094,
+    "open": 31.389999389648438,
+    "high": 33.18000030517578,
+    "low": 31.09000015258789,
+    "prev_close": 32.369998931884766,
+    "change_pct": 2.255173204585038,
+    "change_pct_1w": -2.4462181656039554,
+    "change_pct_1m": -4.418141919732295,
+    "change_pct_1y": -63.4657847333455,
+    "volume": 1594500,
+    "avg_volume_30d": 21536800
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 35,
+    "fundamental_score": 56.6,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.64%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.360087423125435,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 34.91876252877463,
+    "ema_50": 39.04154995751152,
+    "ema_200": 53.772018117412486,
+    "ema_stack_bullish": false,
+    "bb_upper": 34.75499839782715,
+    "bb_middle": 33.099998474121094,
+    "bb_lower": 31.444998550415036,
+    "bb_width": 10,
+    "atr": 1.54,
+    "atr_pct": 4.65,
+    "rvol": 1.3550759630028602,
+    "52w_high": 99,
+    "52w_low": 31.09000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 32.18,
+    "entry_range_high": 33.25,
+    "target_range_low": 45.95,
+    "target_range_high": 55.4,
+    "target_1": 45.95,
+    "target_2": 49.8,
+    "target_3": 55.4,
+    "stop_loss": 31.1,
+    "risk_reward_ratio": 10.58,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $32.18 – $33.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $34.23 direnci veya $31.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $31.10 olarak belirlenmiştir. Fiyatın EMA20 ($34.92) veya günlük VWAP ($32.34) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.04) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.34) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

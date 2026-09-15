@@ -1,0 +1,89 @@
+{
+  "ticker": "LNC",
+  "company": "Lincoln National Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:22.680Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 43.84000015258789,
+    "open": 44.27000045776367,
+    "high": 44.5,
+    "low": 42.93000030517578,
+    "prev_close": 43.560001373291016,
+    "change_pct": 0.6427887292688593,
+    "change_pct_1w": -3.9859827001891057,
+    "change_pct_1m": 1.2704994812399555,
+    "change_pct_1y": 4.009486513710737,
+    "volume": 1647300,
+    "avg_volume_30d": 55122200
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.79%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.636968805183685,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 43.73439036573512,
+    "ema_50": 42.55368449012258,
+    "ema_200": 40.1392198322471,
+    "ema_stack_bullish": true,
+    "bb_upper": 46.03200016021729,
+    "bb_middle": 43.84000015258789,
+    "bb_lower": 41.648000144958495,
+    "bb_width": 10,
+    "atr": 1.2,
+    "atr_pct": 2.75,
+    "rvol": 0.9256089198181494,
+    "52w_high": 47.66999816894531,
+    "52w_low": 32.18000030517578
+  },
+  "fundamental": {
+    "pe_ratio": 3.7101939,
+    "pb_ratio": 0.8135067,
+    "gross_margin": 0.27076998,
+    "operating_margin": 0.046079997,
+    "net_margin": 0.12169,
+    "market_cap": 8431340544,
+    "revenue_growth_ttm": 0.126,
+    "fcf_yield": 0.2454384288240653,
+    "institutional_ownership_pct": 0.86963,
+    "dividend_rate": 1.8,
+    "dividend_yield": 0.041100003
+  },
+  "scores_detail": {
+    "entry_range_low": 43.12,
+    "entry_range_high": 43.96,
+    "target_range_low": 46.71,
+    "target_range_high": 50.07,
+    "target_1": 46.71,
+    "target_2": 47.89,
+    "target_3": 50.07,
+    "stop_loss": 41.65,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $43.12 – $43.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $44.50 direnci veya $42.88 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.65 olarak belirlenmiştir. Fiyatın EMA50 ($42.55) veya günlük VWAP ($43.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($43.72) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

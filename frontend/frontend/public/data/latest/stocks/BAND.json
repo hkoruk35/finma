@@ -1,0 +1,89 @@
+{
+  "ticker": "BAND",
+  "company": "Bandwidth Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:35.116Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 56.869998931884766,
+    "open": 52.54999923706055,
+    "high": 57.27000045776367,
+    "low": 52.54999923706055,
+    "prev_close": 51.619998931884766,
+    "change_pct": 10.170476769919434,
+    "change_pct_1w": 20.768738049705448,
+    "change_pct_1m": 16.061222309968908,
+    "change_pct_1y": 246.55697416629337,
+    "volume": 1302300,
+    "avg_volume_30d": 25417000
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 85,
+    "fundamental_score": 73.1,
+    "momentum_score": 53,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.09318090285912,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 49.73600889348266,
+    "ema_50": 51.503236681726634,
+    "ema_200": 39.78225403800008,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.71349887847901,
+    "bb_middle": 56.869998931884766,
+    "bb_lower": 54.02649898529052,
+    "bb_width": 10,
+    "atr": 3.86,
+    "atr_pct": 6.79,
+    "rvol": 1.1805484518235825,
+    "52w_high": 79.08000183105469,
+    "52w_low": 12.5
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.16695,
+    "gross_margin": 0.37238997,
+    "operating_margin": -0.02071,
+    "net_margin": 0.00273,
+    "market_cap": 1575893248,
+    "revenue_growth_ttm": 0.222,
+    "fcf_yield": 0.04595893541134076,
+    "institutional_ownership_pct": 1.03188,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 52.13,
+    "entry_range_high": 57.26,
+    "target_range_low": 75.98,
+    "target_range_high": 80.66,
+    "target_1": 75.98,
+    "target_2": 79.08,
+    "target_3": 80.66,
+    "stop_loss": 49.43,
+    "risk_reward_ratio": 4.63,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $52.13 – $57.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $57.27 direnci veya $51.36 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $49.43 olarak belirlenmiştir. Fiyatın EMA20 ($49.74) veya günlük VWAP ($51.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($51.50) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($51.94) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

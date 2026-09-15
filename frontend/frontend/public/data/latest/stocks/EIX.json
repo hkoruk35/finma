@@ -1,0 +1,89 @@
+{
+  "ticker": "EIX",
+  "company": "Edison International",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:37:01.490Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 56.130001068115234,
+    "open": 56.4900016784668,
+    "high": 57.56999969482422,
+    "low": 55.95000076293945,
+    "prev_close": 56,
+    "change_pct": 0.23214476449148996,
+    "change_pct_1w": -1.127354913665345,
+    "change_pct_1m": 3.9829595111364355,
+    "change_pct_1y": -0.1245546154340613,
+    "volume": 3955900,
+    "avg_volume_30d": 173780800
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 30,
+    "fundamental_score": 69.8,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.03822119551778,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.64460349648499,
+    "ema_50": 67.7394649447526,
+    "ema_200": 67.84256582975044,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.936501121521,
+    "bb_middle": 56.130001068115234,
+    "bb_lower": 53.32350101470947,
+    "bb_width": 10,
+    "atr": 4.01,
+    "atr_pct": 7.15,
+    "rvol": 0.8607498641967353,
+    "52w_high": 81.62000274658203,
+    "52w_low": 52
+  },
+  "fundamental": {
+    "pe_ratio": 5.79257,
+    "pb_ratio": 1.2380071,
+    "gross_margin": 0.61005,
+    "operating_margin": 0.26899,
+    "net_margin": 0.19281,
+    "market_cap": 21599608832,
+    "revenue_growth_ttm": -0.041,
+    "fcf_yield": 0.0038137264725813347,
+    "institutional_ownership_pct": 0.95943,
+    "dividend_rate": 3.51,
+    "dividend_yield": 0.0627
+  },
+  "scores_detail": {
+    "entry_range_low": 53.72,
+    "entry_range_high": 56.53,
+    "target_range_low": 57.88,
+    "target_range_high": 63.4,
+    "target_1": 57.88,
+    "target_2": 60.64,
+    "target_3": 63.4,
+    "stop_loss": 50.91,
+    "risk_reward_ratio": 1.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $53.72 – $56.53 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $58.45 direnci veya $52.92 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $50.91 olarak belirlenmiştir. Fiyatın EMA20 ($62.64) veya günlük VWAP ($56.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($67.74) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($56.53) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 34 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

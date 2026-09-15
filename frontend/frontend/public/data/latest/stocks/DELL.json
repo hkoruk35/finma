@@ -1,0 +1,89 @@
+{
+  "ticker": "DELL",
+  "company": "Dell Technologies Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:20:39.926Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 534.280029296875,
+    "open": 538.5700073242188,
+    "high": 546.2899780273438,
+    "low": 525.8499755859375,
+    "prev_close": 567.2899780273438,
+    "change_pct": -5.818884522736562,
+    "change_pct_1w": 1.9346003672775927,
+    "change_pct_1m": 17.164101194067726,
+    "change_pct_1y": 327.2872883756742,
+    "volume": 9145200,
+    "avg_volume_30d": 240577200
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 32,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.26789799104711,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 493.23950479544334,
+    "ema_50": 452.5971139338689,
+    "ema_200": 311.21087990661954,
+    "ema_stack_bullish": true,
+    "bb_upper": 560.9940307617188,
+    "bb_middle": 534.280029296875,
+    "bb_lower": 507.56602783203124,
+    "bb_width": 10,
+    "atr": 33.91,
+    "atr_pct": 6.35,
+    "rvol": 1.0844094951641303,
+    "52w_high": 567.75,
+    "52w_low": 110.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 31.080862,
+    "pb_ratio": 0,
+    "gross_margin": 0.19910999,
+    "operating_margin": 0.12020001,
+    "net_margin": 0.07525,
+    "market_cap": 339702054912,
+    "revenue_growth_ttm": 0.577,
+    "fcf_yield": 0.017760785207975704,
+    "institutional_ownership_pct": 0.77892995,
+    "dividend_rate": 2.52,
+    "dividend_yield": 0.0044
+  },
+  "scores_detail": {
+    "entry_range_low": 513.93,
+    "entry_range_high": 537.67,
+    "target_range_low": 552.09,
+    "target_range_high": 604.67,
+    "target_1": 552.09,
+    "target_2": 578.38,
+    "target_3": 604.67,
+    "stop_loss": 490.19,
+    "risk_reward_ratio": 1.48,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $513.93 – $537.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $562.99 direnci veya $507.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $490.19 olarak belirlenmiştir. Fiyatın EMA20 ($493.24) veya günlük VWAP ($537.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($537.90) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

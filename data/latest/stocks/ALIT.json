@@ -1,0 +1,89 @@
+{
+  "ticker": "ALIT",
+  "company": "Alight, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:34:49.788Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 12.369999885559082,
+    "open": 12.100000381469727,
+    "high": 12.515000343322754,
+    "low": 12.017000198364258,
+    "prev_close": 11.960000038146973,
+    "change_pct": 3.4280923587324077,
+    "change_pct_1w": -17.091154006000988,
+    "change_pct_1m": -13.556956514118546,
+    "change_pct_1y": -83.19293458965414,
+    "volume": 439900,
+    "avg_volume_30d": 15330000
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 30,
+    "fundamental_score": 50,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.3361438353895,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 13.825889918606201,
+    "ema_50": 14.948884067587507,
+    "ema_200": 24.274561323065488,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.988499879837036,
+    "bb_middle": 12.369999885559082,
+    "bb_lower": 11.751499891281128,
+    "bb_width": 10,
+    "atr": 0.81,
+    "atr_pct": 6.57,
+    "rvol": 0.831545988258317,
+    "52w_high": 75.4000015258789,
+    "52w_low": 9.579999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.31890482,
+    "gross_margin": 0.37517,
+    "operating_margin": -0.04697,
+    "net_margin": -0.90901,
+    "market_cap": 455393632,
+    "revenue_growth_ttm": -0.032,
+    "fcf_yield": 0.2926040037380233,
+    "institutional_ownership_pct": 0.76273,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 11.88,
+    "entry_range_high": 12.45,
+    "target_range_low": 15.54,
+    "target_range_high": 20.4,
+    "target_1": 15.54,
+    "target_2": 19.98,
+    "target_3": 20.4,
+    "stop_loss": 11.31,
+    "risk_reward_ratio": 9.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.88 – $12.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.71 direnci veya $11.72 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.31 olarak belirlenmiştir. Fiyatın EMA20 ($13.83) veya günlük VWAP ($12.23) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($14.95) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.23) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "CDNS",
+  "company": "Cadence Design Systems, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:54:41.106Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 279.05999755859375,
+    "open": 288,
+    "high": 288.79998779296875,
+    "low": 278.1000061035156,
+    "prev_close": 289.3699951171875,
+    "change_pct": -3.5629117505491417,
+    "change_pct_1w": -4.660066306655876,
+    "change_pct_1m": -17.627959571370262,
+    "change_pct_1y": -18.75509822034405,
+    "volume": 2337700,
+    "avg_volume_30d": 67530700
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 40,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 28.924543942967134,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 307.7158085581586,
+    "ema_50": 326.2973716435278,
+    "ema_200": 333.5821266607508,
+    "ema_stack_bullish": false,
+    "bb_upper": 293.01299743652345,
+    "bb_middle": 279.05999755859375,
+    "bb_lower": 265.10699768066405,
+    "bb_width": 10,
+    "atr": 12.46,
+    "atr_pct": 4.47,
+    "rvol": 1.2009737793329551,
+    "52w_high": 416.69000244140625,
+    "52w_low": 262.75
+  },
+  "fundamental": {
+    "pe_ratio": 55.36905,
+    "pb_ratio": 11.206328,
+    "gross_margin": 0.85871005,
+    "operating_margin": 0.28575,
+    "net_margin": 0.23605,
+    "market_cap": 76851167232,
+    "revenue_growth_ttm": 0.242,
+    "fcf_yield": 0.020945375353124733,
+    "institutional_ownership_pct": 0.91609,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 271.58,
+    "entry_range_high": 280.31,
+    "target_range_low": 311.24,
+    "target_range_high": 331.69,
+    "target_1": 311.24,
+    "target_2": 325.19,
+    "target_3": 331.69,
+    "stop_loss": 262.86,
+    "risk_reward_ratio": 3.76,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $271.58 – $280.31 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $287.26 direnci veya $269.09 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $262.86 olarak belirlenmiştir. Fiyatın EMA20 ($307.72) veya günlük VWAP ($281.98) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($326.30) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($281.98) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 29 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

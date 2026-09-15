@@ -1,0 +1,89 @@
+{
+  "ticker": "GOOGL",
+  "company": "Alphabet Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:41.209Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 338.5,
+    "open": 335.0299987792969,
+    "high": 342.9800109863281,
+    "low": 335.0299987792969,
+    "prev_close": 332.6000061035156,
+    "change_pct": 1.7739007180439168,
+    "change_pct_1w": -1.1621148267502852,
+    "change_pct_1m": -2.3341690248912106,
+    "change_pct_1y": 40.5730879194559,
+    "volume": 24677500,
+    "avg_volume_30d": 762133600
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 55,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.78988128555855,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 340.6427252300387,
+    "ema_50": 345.96483596170225,
+    "ema_200": 331.3072507671382,
+    "ema_stack_bullish": false,
+    "bb_upper": 355.425,
+    "bb_middle": 338.5,
+    "bb_lower": 321.575,
+    "bb_width": 10,
+    "atr": 7.32,
+    "atr_pct": 2.16,
+    "rvol": 1.0036964647668074,
+    "52w_high": 408.6099853515625,
+    "52w_low": 235.83999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 17.522066,
+    "pb_ratio": 6.8647833,
+    "gross_margin": 0.60897,
+    "operating_margin": 0.34033,
+    "net_margin": 0.54771,
+    "market_cap": 4273017192448,
+    "revenue_growth_ttm": 0.242,
+    "fcf_yield": 0.005304214782954169,
+    "institutional_ownership_pct": 0.81016,
+    "dividend_rate": 0.88,
+    "dividend_yield": 0.0026
+  },
+  "scores_detail": {
+    "entry_range_low": 334.94,
+    "entry_range_high": 339.23,
+    "target_range_low": 353.94,
+    "target_range_high": 387.65,
+    "target_1": 353.94,
+    "target_2": 375.27,
+    "target_3": 387.65,
+    "stop_loss": 321.57,
+    "risk_reward_ratio": 2.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $334.94 – $339.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $342.97 direnci veya $333.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $321.57 olarak belirlenmiştir. Fiyatın EMA200 ($331.31) veya günlük VWAP ($346.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($345.96) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($346.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

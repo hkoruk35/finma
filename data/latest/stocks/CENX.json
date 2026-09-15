@@ -1,0 +1,89 @@
+{
+  "ticker": "CENX",
+  "company": "Century Aluminum Company",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:49:57.455Z",
+  "sector": "Basic Materials",
+  "industry": "Aluminum",
+  "price": {
+    "current": 44.04999923706055,
+    "open": 44.939998626708984,
+    "high": 45.47999954223633,
+    "low": 43.279998779296875,
+    "prev_close": 44.36000061035156,
+    "change_pct": -0.6988308589397894,
+    "change_pct_1w": -7.2826756613553965,
+    "change_pct_1m": -5.451815641143021,
+    "change_pct_1y": 68.83863158080966,
+    "volume": 1222100,
+    "avg_volume_30d": 60282300
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.17358494538776,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 46.06156832064691,
+    "ema_50": 47.289315469431116,
+    "ema_200": 47.27461524376413,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.252499198913576,
+    "bb_middle": 44.04999923706055,
+    "bb_lower": 41.84749927520752,
+    "bb_width": 10,
+    "atr": 2.19,
+    "atr_pct": 4.98,
+    "rvol": 0.7263425582633708,
+    "52w_high": 70.43000030517578,
+    "52w_low": 24.579999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 7.174439,
+    "pb_ratio": 2.9307184,
+    "gross_margin": 0.18889,
+    "operating_margin": 0.28135002,
+    "net_margin": 0.22559,
+    "market_cap": 4112181504,
+    "revenue_growth_ttm": 0.197,
+    "fcf_yield": -0.01125619089404863,
+    "institutional_ownership_pct": 0.78363997,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 42.73,
+    "entry_range_high": 44.27,
+    "target_range_low": 47.35,
+    "target_range_high": 59.12,
+    "target_1": 47.35,
+    "target_2": 55.55,
+    "target_3": 59.12,
+    "stop_loss": 41.2,
+    "risk_reward_ratio": 5.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $42.73 – $44.27 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $45.48 direnci veya $42.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.20 olarak belirlenmiştir. Fiyatın EMA20 ($46.06) veya günlük VWAP ($42.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($47.29) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

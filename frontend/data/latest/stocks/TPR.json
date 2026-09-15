@@ -1,0 +1,89 @@
+{
+  "ticker": "TPR",
+  "company": "Tapestry, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:07:39.869Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Luxury Goods",
+  "price": {
+    "current": 117.91000366210938,
+    "open": 118.69000244140625,
+    "high": 118.95999908447266,
+    "low": 117.58000183105469,
+    "prev_close": 118.48999786376953,
+    "change_pct": -0.48948789949932137,
+    "change_pct_1w": -3.463235425476481,
+    "change_pct_1m": -4.441199250057534,
+    "change_pct_1y": 10.744812914665149,
+    "volume": 2374300,
+    "avg_volume_30d": 103816400
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 30,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.94909049759487,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 125.32892407809382,
+    "ema_50": 133.83576058514961,
+    "ema_200": 134.91275767048796,
+    "ema_stack_bullish": false,
+    "bb_upper": 123.80550384521484,
+    "bb_middle": 117.91000366210938,
+    "bb_lower": 112.0145034790039,
+    "bb_width": 10,
+    "atr": 3.56,
+    "atr_pct": 3.02,
+    "rvol": 0.9727653819627727,
+    "52w_high": 164.8000030517578,
+    "52w_low": 93
+  },
+  "fundamental": {
+    "pe_ratio": 16.196428,
+    "pb_ratio": 34.137234,
+    "gross_margin": 0.76595,
+    "operating_margin": 0.19823,
+    "net_margin": 0.19086,
+    "market_cap": 23510274048,
+    "revenue_growth_ttm": 0.089,
+    "fcf_yield": 0.05954524346002213,
+    "institutional_ownership_pct": 1.02346,
+    "dividend_rate": 1.85,
+    "dividend_yield": 0.0156
+  },
+  "scores_detail": {
+    "entry_range_low": 115.99,
+    "entry_range_high": 118.27,
+    "target_range_low": 136.04,
+    "target_range_high": 156.74,
+    "target_1": 136.04,
+    "target_2": 149.31,
+    "target_3": 156.74,
+    "stop_loss": 112.01,
+    "risk_reward_ratio": 6.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $115.99 – $118.27 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $122.88 direnci veya $115.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $112.01 olarak belirlenmiştir. Fiyatın EMA20 ($125.33) veya günlük VWAP ($118.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($133.84) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($118.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 34 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

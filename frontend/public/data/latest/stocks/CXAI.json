@@ -1,0 +1,89 @@
+{
+  "ticker": "CXAI",
+  "company": "CXApp Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T03:18:33.055Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 2.690000057220459,
+    "open": 2.8299999237060547,
+    "high": 2.940000057220459,
+    "low": 2.674999952316284,
+    "prev_close": 2.8399999141693115,
+    "change_pct": -5.281685263456316,
+    "change_pct_1w": -21.11436980902113,
+    "change_pct_1m": -26.502732400621632,
+    "change_pct_1y": -92.93963211298393,
+    "volume": 277300,
+    "avg_volume_30d": 8949616
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 40,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 24.998461166600705,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.8919978343094783,
+    "ema_50": 5.486541814121984,
+    "ema_200": 12.296256424382776,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.824500060081482,
+    "bb_middle": 2.690000057220459,
+    "bb_lower": 2.555500054359436,
+    "bb_width": 10,
+    "atr": 0.28,
+    "atr_pct": 10.49,
+    "rvol": 0.5941930916365574,
+    "52w_high": 52,
+    "52w_low": 2.674999952316284
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.32546884,
+    "gross_margin": 0.78242993,
+    "operating_margin": -2.43152,
+    "net_margin": 0,
+    "market_cap": 6287622,
+    "revenue_growth_ttm": 0.385,
+    "fcf_yield": -0.7472618423944697,
+    "institutional_ownership_pct": 0.115059994,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2.52,
+    "entry_range_high": 2.72,
+    "target_range_low": 9.45,
+    "target_range_high": 15.9,
+    "target_1": 9.45,
+    "target_2": 13.25,
+    "target_3": 15.9,
+    "stop_loss": 2.32,
+    "risk_reward_ratio": 35.88,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.52 – $2.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.94 direnci veya $2.46 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.32 olarak belirlenmiştir. Fiyatın EMA20 ($3.89) veya günlük VWAP ($2.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.49) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 25 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

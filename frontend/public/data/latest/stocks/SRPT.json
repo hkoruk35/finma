@@ -1,0 +1,89 @@
+{
+  "ticker": "SRPT",
+  "company": "Sarepta Therapeutics, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:35:04.076Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 20.920000076293945,
+    "open": 20.549999237060547,
+    "high": 21.399999618530273,
+    "low": 20.3799991607666,
+    "prev_close": 20.450000762939453,
+    "change_pct": 2.298285065134321,
+    "change_pct_1w": -7.0222218831380205,
+    "change_pct_1m": -0.5230651771752685,
+    "change_pct_1y": 20.29902708764196,
+    "volume": 2192900,
+    "avg_volume_30d": 92543100
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 100,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.059968499155545,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 20.418687226573667,
+    "ema_50": 19.1558856822238,
+    "ema_200": 18.800722295994525,
+    "ema_stack_bullish": true,
+    "bb_upper": 21.966000080108643,
+    "bb_middle": 20.920000076293945,
+    "bb_lower": 19.874000072479248,
+    "bb_width": 10,
+    "atr": 1.66,
+    "atr_pct": 7.95,
+    "rvol": 1.077182415544757,
+    "52w_high": 25.31999969482422,
+    "52w_low": 14.680000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.4462496,
+    "gross_margin": 0.19108,
+    "operating_margin": 0.13032,
+    "net_margin": -0.06925,
+    "market_cap": 2209717248,
+    "revenue_growth_ttm": -0.343,
+    "fcf_yield": 0.010019325332251739,
+    "institutional_ownership_pct": 1.03797,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 19.84,
+    "entry_range_high": 21.09,
+    "target_range_low": 21.49,
+    "target_range_high": 23.53,
+    "target_1": 21.49,
+    "target_2": 22.97,
+    "target_3": 23.53,
+    "stop_loss": 18.68,
+    "risk_reward_ratio": 1.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $19.84 – $21.09 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $21.82 direnci veya $19.51 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.68 olarak belirlenmiştir. Fiyatın EMA200 ($18.80) veya günlük VWAP ($20.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($20.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

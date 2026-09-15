@@ -1,0 +1,89 @@
+{
+  "ticker": "GENI",
+  "company": "Genius Sports Limited",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:11:11.363Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 6.800000190734863,
+    "open": 6.849999904632568,
+    "high": 6.920000076293945,
+    "low": 6.684999942779541,
+    "prev_close": 6.820000171661377,
+    "change_pct": -0.2932548449136124,
+    "change_pct_1w": -9.212277723211363,
+    "change_pct_1m": -8.355793520001583,
+    "change_pct_1y": -45.51281698591833,
+    "volume": 4080300,
+    "avg_volume_30d": 180922000
+  },
+  "scores": {
+    "master_score": 42,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.69482648647564,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 7.331271398460706,
+    "ema_50": 7.146062131157151,
+    "ema_200": 7.417749864061893,
+    "ema_stack_bullish": false,
+    "bb_upper": 7.140000200271607,
+    "bb_middle": 6.800000190734863,
+    "bb_lower": 6.46000018119812,
+    "bb_width": 10,
+    "atr": 0.4,
+    "atr_pct": 5.93,
+    "rvol": 0.8616729861487271,
+    "52w_high": 13.6899995803833,
+    "52w_low": 3.825000047683716
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.660407,
+    "gross_margin": 0.27446,
+    "operating_margin": -0.12399,
+    "net_margin": -0.22985001,
+    "market_cap": 1819863424,
+    "revenue_growth_ttm": 0.647,
+    "fcf_yield": 0.08839152096723496,
+    "institutional_ownership_pct": 0.91901,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 6.56,
+    "entry_range_high": 6.84,
+    "target_range_low": 7.03,
+    "target_range_high": 8.41,
+    "target_1": 7.03,
+    "target_2": 7.37,
+    "target_3": 8.41,
+    "stop_loss": 6.28,
+    "risk_reward_ratio": 1.58,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $6.56 – $6.84 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $7.14 direnci veya $6.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $6.28 olarak belirlenmiştir. Fiyatın EMA50 ($7.15) veya günlük VWAP ($6.77) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($7.15) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($6.77) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

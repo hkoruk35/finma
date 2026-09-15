@@ -1,0 +1,89 @@
+{
+  "ticker": "CHRW",
+  "company": "C.H. Robinson Worldwide, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:03:59.482Z",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 157.30999755859375,
+    "open": 152.77999877929688,
+    "high": 157.82000732421875,
+    "low": 151.92999267578125,
+    "prev_close": 152.77999877929688,
+    "change_pct": 2.965047005819673,
+    "change_pct_1w": 6.549714311109183,
+    "change_pct_1m": 5.111582058861853,
+    "change_pct_1y": 18.805221061714832,
+    "volume": 1659500,
+    "avg_volume_30d": 42661900
+  },
+  "scores": {
+    "master_score": 64,
+    "technical_score": 55,
+    "fundamental_score": 59.9,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.034843068661765,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 151.24202180011386,
+    "ema_50": 159.40741776684715,
+    "ema_200": 165.65712810601715,
+    "ema_stack_bullish": false,
+    "bb_upper": 165.17549743652344,
+    "bb_middle": 157.30999755859375,
+    "bb_lower": 149.44449768066406,
+    "bb_width": 10,
+    "atr": 4.08,
+    "atr_pct": 2.59,
+    "rvol": 1.0815130127818968,
+    "52w_high": 210.3300018310547,
+    "52w_low": 123.63999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 30.020992,
+    "pb_ratio": 11.318894,
+    "gross_margin": 0.08447,
+    "operating_margin": 0.05337,
+    "net_margin": 0.03726,
+    "market_cap": 18381871104,
+    "revenue_growth_ttm": 0.193,
+    "fcf_yield": 0.026146324565153475,
+    "institutional_ownership_pct": 1.05187,
+    "dividend_rate": 2.52,
+    "dividend_yield": 0.0165
+  },
+  "scores_detail": {
+    "entry_range_low": 152.79,
+    "entry_range_high": 157.72,
+    "target_range_low": 163.01,
+    "target_range_high": 178.54,
+    "target_1": 163.01,
+    "target_2": 170.78,
+    "target_3": 178.54,
+    "stop_loss": 149.44,
+    "risk_reward_ratio": 2.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $152.79 – $157.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $157.82 direnci veya $151.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $149.44 olarak belirlenmiştir. Fiyatın EMA20 ($151.24) veya günlük VWAP ($156.63) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($159.41) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($156.63) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

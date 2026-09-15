@@ -1,0 +1,89 @@
+{
+  "ticker": "NWSA",
+  "company": "News Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:20:00.904Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 29.440000534057617,
+    "open": 29.469999313354492,
+    "high": 29.68000030517578,
+    "low": 29.229999542236328,
+    "prev_close": 29.3799991607666,
+    "change_pct": 0.204225238274139,
+    "change_pct_1w": -4.87883745285706,
+    "change_pct_1m": -4.940260940325976,
+    "change_pct_1y": 0.7184433633597734,
+    "volume": 3480200,
+    "avg_volume_30d": 117641200
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 85,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.14377600480721,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 29.88577718554021,
+    "ema_50": 28.92723647647807,
+    "ema_200": 27.27428393367295,
+    "ema_stack_bullish": true,
+    "bb_upper": 30.9120005607605,
+    "bb_middle": 29.440000534057617,
+    "bb_lower": 27.968000507354734,
+    "bb_width": 10,
+    "atr": 0.6,
+    "atr_pct": 2.06,
+    "rvol": 0.9515798886784561,
+    "52w_high": 31.65999984741211,
+    "52w_low": 22.200000762939453
+  },
+  "fundamental": {
+    "pe_ratio": 29.669903,
+    "pb_ratio": 1.9478616,
+    "gross_margin": 0.57167,
+    "operating_margin": 0.12537,
+    "net_margin": 0.06347,
+    "market_cap": 16391471104,
+    "revenue_growth_ttm": 0.108,
+    "fcf_yield": 0.06376029249412268,
+    "institutional_ownership_pct": 1.08499,
+    "dividend_rate": 0.2,
+    "dividend_yield": 0.0068
+  },
+  "scores_detail": {
+    "entry_range_low": 29.08,
+    "entry_range_high": 29.5,
+    "target_range_low": 30.88,
+    "target_range_high": 33.68,
+    "target_1": 30.88,
+    "target_2": 32.22,
+    "target_3": 33.68,
+    "stop_loss": 27.97,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $29.08 – $29.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $29.77 direnci veya $28.96 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $27.97 olarak belirlenmiştir. Fiyatın EMA200 ($27.27) veya günlük VWAP ($30.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($28.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($30.42) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "BTSG",
+  "company": "BrightSpring Health Services, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:33.288Z",
+  "sector": "Healthcare",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 58.72999954223633,
+    "open": 59.04499816894531,
+    "high": 59.900001525878906,
+    "low": 58.07500076293945,
+    "prev_close": 57.880001068115234,
+    "change_pct": 1.4685529689620866,
+    "change_pct_1w": -4.395247842302167,
+    "change_pct_1m": -0.6764781306499921,
+    "change_pct_1y": 122.04157976632708,
+    "volume": 2489900,
+    "avg_volume_30d": 79694200
+  },
+  "scores": {
+    "master_score": 53,
+    "technical_score": 45,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.05350664751555,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 60.54895598928651,
+    "ema_50": 61.779439249658495,
+    "ema_200": 52.55306205075915,
+    "ema_stack_bullish": false,
+    "bb_upper": 61.66649951934815,
+    "bb_middle": 58.72999954223633,
+    "bb_lower": 55.793499565124506,
+    "bb_width": 10,
+    "atr": 2.47,
+    "atr_pct": 4.2,
+    "rvol": 0.906735998353707,
+    "52w_high": 73.75,
+    "52w_low": 25.93000030517578
+  },
+  "fundamental": {
+    "pe_ratio": 53.839283,
+    "pb_ratio": 6.064568,
+    "gross_margin": 0.12382,
+    "operating_margin": 0.03367,
+    "net_margin": 0.02547,
+    "market_cap": 11931213824,
+    "revenue_growth_ttm": 0.23,
+    "fcf_yield": 0.08619734682243844,
+    "institutional_ownership_pct": 1.0835099,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 57.25,
+    "entry_range_high": 58.98,
+    "target_range_low": 62.11,
+    "target_range_high": 73.75,
+    "target_1": 62.11,
+    "target_2": 63.92,
+    "target_3": 73.75,
+    "stop_loss": 55.52,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $57.25 – $58.98 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.98 direnci veya $56.76 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $55.52 olarak belirlenmiştir. Fiyatın EMA200 ($52.55) veya günlük VWAP ($60.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($61.78) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($60.10) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

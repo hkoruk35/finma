@@ -1,0 +1,89 @@
+{
+  "ticker": "WDS",
+  "company": "Woodside Energy Group Ltd",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:12:33.627Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 23.739999771118164,
+    "open": 23.739999771118164,
+    "high": 23.8700008392334,
+    "low": 23.59000015258789,
+    "prev_close": 23.690000534057617,
+    "change_pct": 0.21105629351365415,
+    "change_pct_1w": 4.259988115300018,
+    "change_pct_1m": 1.9759410262239947,
+    "change_pct_1y": 47.82067596865345,
+    "volume": 828400,
+    "avg_volume_30d": 16211899.999999998
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.482516901504226,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 23.460302595981396,
+    "ema_50": 22.84589065120631,
+    "ema_200": 20.925677107799018,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.92699975967407,
+    "bb_middle": 23.739999771118164,
+    "bb_lower": 22.552999782562257,
+    "bb_width": 10,
+    "atr": 0.58,
+    "atr_pct": 2.45,
+    "rvol": 1.2630351778631748,
+    "52w_high": 25.190000534057617,
+    "52w_low": 14.270000457763672
+  },
+  "fundamental": {
+    "pe_ratio": 14.745341,
+    "pb_ratio": 1.256683,
+    "gross_margin": 0.34921002,
+    "operating_margin": 0.23905,
+    "net_margin": 0.22211,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0.13,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.01652,
+    "dividend_rate": 1.16,
+    "dividend_yield": 0.049000002
+  },
+  "scores_detail": {
+    "entry_range_low": 23.39,
+    "entry_range_high": 23.8,
+    "target_range_low": 24.77,
+    "target_range_high": 27.13,
+    "target_1": 24.77,
+    "target_2": 25.95,
+    "target_3": 27.13,
+    "stop_loss": 22.55,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.39 – $23.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $24.25 direnci veya $23.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $22.55 olarak belirlenmiştir. Fiyatın EMA50 ($22.85) veya günlük VWAP ($23.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($23.72) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

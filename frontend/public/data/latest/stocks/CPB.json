@@ -1,0 +1,89 @@
+{
+  "ticker": "CPB",
+  "company": "The Campbell's Company",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:04:02.765Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 21.25,
+    "open": 21.200000762939453,
+    "high": 21.600000381469727,
+    "low": 21.149999618530273,
+    "prev_close": 21,
+    "change_pct": 1.1904761904761905,
+    "change_pct_1w": -0.6080410003249986,
+    "change_pct_1m": -10.26182548082422,
+    "change_pct_1y": -36.05175957649168,
+    "volume": 5734400,
+    "avg_volume_30d": 218672200
+  },
+  "scores": {
+    "master_score": 40,
+    "technical_score": 30,
+    "fundamental_score": 56.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.31685681309282,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 22.353833691981812,
+    "ema_50": 22.4667885065274,
+    "ema_200": 24.17311467528848,
+    "ema_stack_bullish": false,
+    "bb_upper": 22.3125,
+    "bb_middle": 21.25,
+    "bb_lower": 20.1875,
+    "bb_width": 10,
+    "atr": 0.82,
+    "atr_pct": 3.88,
+    "rvol": 1.1570579159124936,
+    "52w_high": 34.16999816894531,
+    "52w_low": 19.559999465942383
+  },
+  "fundamental": {
+    "pe_ratio": 16.221375,
+    "pb_ratio": 1.6448642,
+    "gross_margin": 0.28570998,
+    "operating_margin": 0.10342,
+    "net_margin": 0.04085,
+    "market_cap": 6336882688,
+    "revenue_growth_ttm": -0.079,
+    "fcf_yield": 0.11794047843354995,
+    "institutional_ownership_pct": 0.63821,
+    "dividend_rate": 1,
+    "dividend_yield": 0.0476
+  },
+  "scores_detail": {
+    "entry_range_low": 20.76,
+    "entry_range_high": 21.33,
+    "target_range_low": 22.46,
+    "target_range_high": 24.2,
+    "target_1": 22.46,
+    "target_2": 23.24,
+    "target_3": 24.2,
+    "stop_loss": 20.18,
+    "risk_reward_ratio": 2.54,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $20.76 – $21.33 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $21.75 direnci veya $20.59 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.18 olarak belirlenmiştir. Fiyatın EMA20 ($22.35) veya günlük VWAP ($21.38) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($22.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($21.38) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

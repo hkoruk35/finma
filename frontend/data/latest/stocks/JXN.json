@@ -1,0 +1,89 @@
+{
+  "ticker": "JXN",
+  "company": "Jackson Financial Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:38.408Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Life",
+  "price": {
+    "current": 138.1199951171875,
+    "open": 140.6300048828125,
+    "high": 140.89999389648438,
+    "low": 137.1300048828125,
+    "prev_close": 138.36000061035156,
+    "change_pct": -0.17346450715909162,
+    "change_pct_1w": -0.8826773824569595,
+    "change_pct_1m": 2.9516930135538897,
+    "change_pct_1y": 41.25587731796115,
+    "volume": 572500,
+    "avg_volume_30d": 17473100
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.12%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.333589503986644,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 134.67481751130086,
+    "ema_50": 128.17702417941746,
+    "ema_200": 114.9833027774715,
+    "ema_stack_bullish": true,
+    "bb_upper": 145.02599487304687,
+    "bb_middle": 138.1199951171875,
+    "bb_lower": 131.21399536132813,
+    "bb_width": 10,
+    "atr": 3.2,
+    "atr_pct": 2.32,
+    "rvol": 1.20874944915327,
+    "52w_high": 140.89999389648438,
+    "52w_low": 89.66999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 152.5055,
+    "pb_ratio": 1.0035795,
+    "gross_margin": 0.48801,
+    "operating_margin": -8.101191,
+    "net_margin": 0.01573,
+    "market_cap": 9399395328,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.1306201062043467,
+    "institutional_ownership_pct": 0.97469,
+    "dividend_rate": 3.6,
+    "dividend_yield": 0.026099999
+  },
+  "scores_detail": {
+    "entry_range_low": 136.2,
+    "entry_range_high": 138.44,
+    "target_range_low": 144.19,
+    "target_range_high": 157.92,
+    "target_1": 144.19,
+    "target_2": 151.05,
+    "target_3": 157.92,
+    "stop_loss": 131.21,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $136.20 – $138.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $139.80 direnci veya $135.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $131.21 olarak belirlenmiştir. Fiyatın EMA50 ($128.18) veya günlük VWAP ($137.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($137.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

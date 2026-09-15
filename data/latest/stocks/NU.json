@@ -1,0 +1,89 @@
+{
+  "ticker": "NU",
+  "company": "Nu Holdings Ltd.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:05:03.203Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 14.40999984741211,
+    "open": 14.350000381469727,
+    "high": 14.550000190734863,
+    "low": 14.220999717712402,
+    "prev_close": 14.619999885559082,
+    "change_pct": -1.4363887810587495,
+    "change_pct_1w": -6.245933931651768,
+    "change_pct_1m": -0.962201659707903,
+    "change_pct_1y": -8.158060976442178,
+    "volume": 48568100,
+    "avg_volume_30d": 2044021299.9999998
+  },
+  "scores": {
+    "master_score": 59,
+    "technical_score": 55,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.5525330458496,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 14.776381046442609,
+    "ema_50": 14.397557378927313,
+    "ema_200": 14.600412170138886,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.130499839782715,
+    "bb_middle": 14.40999984741211,
+    "bb_lower": 13.689499855041504,
+    "bb_width": 10,
+    "atr": 0.56,
+    "atr_pct": 3.92,
+    "rvol": 0.9807796034219409,
+    "52w_high": 18.979999542236328,
+    "52w_low": 11.199999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 19.739725,
+    "pb_ratio": 5.253372,
+    "gross_margin": 0,
+    "operating_margin": 0.50154,
+    "net_margin": 0.42728,
+    "market_cap": 69610225664,
+    "revenue_growth_ttm": 0.521,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.81961,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 14.07,
+    "entry_range_high": 14.47,
+    "target_range_low": 14.98,
+    "target_range_high": 16.41,
+    "target_1": 14.98,
+    "target_2": 15.81,
+    "target_3": 16.41,
+    "stop_loss": 13.68,
+    "risk_reward_ratio": 2.6,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $14.07 – $14.47 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.94 direnci veya $13.96 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.68 olarak belirlenmiştir. Fiyatın EMA50 ($14.40) veya günlük VWAP ($14.40) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($14.40) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.40) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

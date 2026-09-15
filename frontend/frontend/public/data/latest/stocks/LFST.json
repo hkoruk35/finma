@@ -1,0 +1,89 @@
+{
+  "ticker": "LFST",
+  "company": "LifeStance Health Group, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:24.856Z",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 12.970000267028809,
+    "open": 13.050000190734863,
+    "high": 13.279999732971191,
+    "low": 12.9399995803833,
+    "prev_close": 13,
+    "change_pct": -0.23076717670147237,
+    "change_pct_1w": 1.0911951999631315,
+    "change_pct_1m": 5.361493297436135,
+    "change_pct_1y": 147.99235601774419,
+    "volume": 7055400,
+    "avg_volume_30d": 138339400
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.476753597765,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.447634614525974,
+    "ema_50": 11.548932352990944,
+    "ema_200": 8.89581901525032,
+    "ema_stack_bullish": true,
+    "bb_upper": 13.61850028038025,
+    "bb_middle": 12.970000267028809,
+    "bb_lower": 12.321500253677367,
+    "bb_width": 10,
+    "atr": 0.44,
+    "atr_pct": 3.4,
+    "rvol": 1.3285152313802142,
+    "52w_high": 13.279999732971191,
+    "52w_low": 4.769999980926514
+  },
+  "fundamental": {
+    "pe_ratio": 102.92308,
+    "pb_ratio": 3.4600465,
+    "gross_margin": 0.33558998,
+    "operating_margin": 0.0725,
+    "net_margin": 0.03193,
+    "market_cap": 5113222656,
+    "revenue_growth_ttm": 0.261,
+    "fcf_yield": 0.03370792543089287,
+    "institutional_ownership_pct": 0.95618,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 12.71,
+    "entry_range_high": 13.01,
+    "target_range_low": 13.5,
+    "target_range_high": 14.79,
+    "target_1": 13.5,
+    "target_2": 14.15,
+    "target_3": 14.79,
+    "stop_loss": 12.32,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.71 – $13.01 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.20 direnci veya $12.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $12.32 olarak belirlenmiştir. Fiyatın EMA20 ($12.45) veya günlük VWAP ($13.39) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.39) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

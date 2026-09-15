@@ -1,0 +1,89 @@
+{
+  "ticker": "TTD",
+  "company": "The Trade Desk, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T02:05:05.128Z",
+  "sector": "Communication Services",
+  "industry": "Advertising Agencies",
+  "price": {
+    "current": 14.970000267028809,
+    "open": 14.550000190734863,
+    "high": 14.984999656677246,
+    "low": 14.3149995803833,
+    "prev_close": 14.34000015258789,
+    "change_pct": 4.393306190636435,
+    "change_pct_1w": 3.74220339870221,
+    "change_pct_1m": 9.110786994690773,
+    "change_pct_1y": -66.84385434970946,
+    "volume": 19382600,
+    "avg_volume_30d": 790354400
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 55,
+    "fundamental_score": 69.8,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.70%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.9008189735348,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 14.372464422176495,
+    "ema_50": 15.829246092287443,
+    "ema_200": 24.028539394003342,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.71850028038025,
+    "bb_middle": 14.970000267028809,
+    "bb_lower": 14.221500253677368,
+    "bb_width": 10,
+    "atr": 0.61,
+    "atr_pct": 4.09,
+    "rvol": 0.5871684904898359,
+    "52w_high": 56.38999938964844,
+    "52w_low": 12.829999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 17.82143,
+    "pb_ratio": 2.7307553,
+    "gross_margin": 0.76872003,
+    "operating_margin": 0.14205,
+    "net_margin": 0.13608,
+    "market_cap": 7034106368,
+    "revenue_growth_ttm": 0.03,
+    "fcf_yield": 0.08288085756737877,
+    "institutional_ownership_pct": 0.89695,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 14.5,
+    "entry_range_high": 15.03,
+    "target_range_low": 19.55,
+    "target_range_high": 23.57,
+    "target_1": 19.55,
+    "target_2": 20.53,
+    "target_3": 23.57,
+    "stop_loss": 14.07,
+    "risk_reward_ratio": 8.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $14.50 – $15.03 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $15.26 direnci veya $14.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $14.07 olarak belirlenmiştir. Fiyatın EMA20 ($14.37) veya günlük VWAP ($14.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($15.83) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.72) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

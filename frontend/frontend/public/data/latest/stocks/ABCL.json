@@ -1,0 +1,89 @@
+{
+  "ticker": "ABCL",
+  "company": "AbCellera Biologics Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:50:15.354Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 11.170000076293945,
+    "open": 10.65999984741211,
+    "high": 11.305000305175781,
+    "low": 10.65999984741211,
+    "prev_close": 10.890000343322754,
+    "change_pct": 2.5711636744150734,
+    "change_pct_1w": -2.274717602274267,
+    "change_pct_1m": -2.700343887661813,
+    "change_pct_1y": 149.88815661253162,
+    "volume": 4446200,
+    "avg_volume_30d": 245998200
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 100,
+    "fundamental_score": 23.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.94231960472918,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 10.831003710759855,
+    "ema_50": 9.294880327042444,
+    "ema_200": 6.324872702907308,
+    "ema_stack_bullish": true,
+    "bb_upper": 11.728500080108644,
+    "bb_middle": 11.170000076293945,
+    "bb_lower": 10.611500072479247,
+    "bb_width": 10,
+    "atr": 0.69,
+    "atr_pct": 6.2,
+    "rvol": 0.4569374897865106,
+    "52w_high": 12.579999923706055,
+    "52w_low": 2.744999885559082
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.8201094,
+    "gross_margin": -1.98877,
+    "operating_margin": -15.500489,
+    "net_margin": -2.48838,
+    "market_cap": 3619609088,
+    "revenue_growth_ttm": -0.763,
+    "fcf_yield": -0.012827662565532822,
+    "institutional_ownership_pct": 0.36695,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 10.75,
+    "entry_range_high": 11.24,
+    "target_range_low": 12.58,
+    "target_range_high": 13.09,
+    "target_1": 12.58,
+    "target_2": 12.83,
+    "target_3": 13.09,
+    "stop_loss": 10.27,
+    "risk_reward_ratio": 2.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.75 – $11.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $11.56 direnci veya $10.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.27 olarak belirlenmiştir. Fiyatın EMA20 ($10.83) veya günlük VWAP ($11.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.07) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın çok altında (0.5x) — bu zayıf bir teyit sinyali, tek başına likidite riski göstergesi değildir; pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

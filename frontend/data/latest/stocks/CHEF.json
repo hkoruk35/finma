@@ -1,0 +1,89 @@
+{
+  "ticker": "CHEF",
+  "company": "The Chefs' Warehouse, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:31.427Z",
+  "sector": "Consumer Defensive",
+  "industry": "Food Distribution",
+  "price": {
+    "current": 110.44999694824219,
+    "open": 111.8499984741211,
+    "high": 112.9000015258789,
+    "low": 110.05999755859375,
+    "prev_close": 109.7699966430664,
+    "change_pct": 0.6194773854160751,
+    "change_pct_1w": -3.29218296679039,
+    "change_pct_1m": -3.9565243928328804,
+    "change_pct_1y": 66.91854315341091,
+    "volume": 421100,
+    "avg_volume_30d": 20691900
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 85,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.51904272098556,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 110.75191927288743,
+    "ema_50": 105.30268248863126,
+    "ema_200": 85.06528442237475,
+    "ema_stack_bullish": true,
+    "bb_upper": 115.97249679565431,
+    "bb_middle": 110.44999694824219,
+    "bb_lower": 104.92749710083007,
+    "bb_width": 10,
+    "atr": 3.68,
+    "atr_pct": 3.33,
+    "rvol": 1.0461484928885216,
+    "52w_high": 117.6500015258789,
+    "52w_low": 53.20000076293945
+  },
+  "fundamental": {
+    "pe_ratio": 53.733334,
+    "pb_ratio": 7.099534,
+    "gross_margin": 0.24457,
+    "operating_margin": 0.05017,
+    "net_margin": 0.02094,
+    "market_cap": 4603429888,
+    "revenue_growth_ttm": 0.129,
+    "fcf_yield": 0.02327471181418371,
+    "institutional_ownership_pct": 1.00484,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 108.78,
+    "entry_range_high": 110.82,
+    "target_range_low": 117.33,
+    "target_range_high": 126.27,
+    "target_1": 117.33,
+    "target_2": 120.78,
+    "target_3": 126.27,
+    "stop_loss": 104.93,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $108.78 – $110.82 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $112.90 direnci veya $108.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $104.93 olarak belirlenmiştir. Fiyatın EMA50 ($105.30) veya günlük VWAP ($113.33) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($105.30) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($113.33) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

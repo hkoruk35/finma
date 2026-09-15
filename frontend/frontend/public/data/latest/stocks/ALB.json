@@ -1,0 +1,89 @@
+{
+  "ticker": "ALB",
+  "company": "Albemarle Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:23:46.139Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 115.02999877929688,
+    "open": 116.05999755859375,
+    "high": 117,
+    "low": 114.2699966430664,
+    "prev_close": 117.5199966430664,
+    "change_pct": -2.1187865341182675,
+    "change_pct_1w": -8.908774238794493,
+    "change_pct_1m": -14.773655079694583,
+    "change_pct_1y": 51.39509567921038,
+    "volume": 2099600,
+    "avg_volume_30d": 68591400
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.9870209584132,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 128.23994041112078,
+    "ema_50": 132.8946649052723,
+    "ema_200": 141.00386884692333,
+    "ema_stack_bullish": false,
+    "bb_upper": 120.78149871826173,
+    "bb_middle": 115.02999877929688,
+    "bb_lower": 109.27849884033202,
+    "bb_width": 10,
+    "atr": 5.8,
+    "atr_pct": 5.04,
+    "rvol": 1.2294281790428538,
+    "52w_high": 221,
+    "52w_low": 73.08999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 426.03702,
+    "pb_ratio": 1.6881421,
+    "gross_margin": 0.23959999,
+    "operating_margin": 0.2771,
+    "net_margin": 0.03795,
+    "market_cap": 13574121472,
+    "revenue_growth_ttm": 0.311,
+    "fcf_yield": 0.09830030081522464,
+    "institutional_ownership_pct": 1.01727,
+    "dividend_rate": 1.64,
+    "dividend_yield": 0.0139999995
+  },
+  "scores_detail": {
+    "entry_range_low": 111.55,
+    "entry_range_high": 115.61,
+    "target_range_low": 144.06,
+    "target_range_high": 186.96,
+    "target_1": 144.06,
+    "target_2": 174.33,
+    "target_3": 186.96,
+    "stop_loss": 107.49,
+    "risk_reward_ratio": 9.98,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $111.55 – $115.61 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $119.44 direnci veya $110.39 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $107.49 olarak belirlenmiştir. Fiyatın EMA20 ($128.24) veya günlük VWAP ($115.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($132.89) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($115.22) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

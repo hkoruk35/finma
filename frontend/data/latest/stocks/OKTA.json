@@ -1,0 +1,89 @@
+{
+  "ticker": "OKTA",
+  "company": "Okta, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T02:45:41.405Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 186.4499969482422,
+    "open": 172.8000030517578,
+    "high": 189.72000122070312,
+    "low": 170.2169952392578,
+    "prev_close": 166.5,
+    "change_pct": 11.981980149094406,
+    "change_pct_1w": 9.290732870847146,
+    "change_pct_1m": 7.749655676381741,
+    "change_pct_1y": 106.38698749873745,
+    "volume": 6671900,
+    "avg_volume_30d": 109761100
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 90,
+    "fundamental_score": 73.1,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.82513068731498,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 161.99086065016016,
+    "ema_50": 148.43918248519583,
+    "ema_200": 115.28707396470384,
+    "ema_stack_bullish": true,
+    "bb_upper": 195.7724967956543,
+    "bb_middle": 186.4499969482422,
+    "bb_lower": 177.12749710083008,
+    "bb_width": 10,
+    "atr": 11.35,
+    "atr_pct": 6.09,
+    "rvol": 1.0915615823821008,
+    "52w_high": 189.72000122070312,
+    "52w_low": 62.65999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 111.646706,
+    "pb_ratio": 4.674455,
+    "gross_margin": 0.78132004,
+    "operating_margin": 0.13292,
+    "net_margin": 0.09632,
+    "market_cap": 32595361792,
+    "revenue_growth_ttm": 0.106,
+    "fcf_yield": 0.03183351762196633,
+    "institutional_ownership_pct": 0.99383,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 173.15,
+    "entry_range_high": 187.59,
+    "target_range_low": 189.39,
+    "target_range_high": 207.42,
+    "target_1": 189.39,
+    "target_2": 198.4,
+    "target_3": 207.42,
+    "stop_loss": 165.2,
+    "risk_reward_ratio": 1.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $173.15 – $187.59 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $189.72 direnci veya $170.88 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $165.20 olarak belirlenmiştir. Fiyatın EMA20 ($161.99) veya günlük VWAP ($186.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($186.07) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

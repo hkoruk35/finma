@@ -1,0 +1,89 @@
+{
+  "ticker": "SM",
+  "company": "SM Energy Company",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:19:21.276Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 38.099998474121094,
+    "open": 37.4900016784668,
+    "high": 38.25,
+    "low": 37.41999816894531,
+    "prev_close": 38.18000030517578,
+    "change_pct": -0.20953858149614066,
+    "change_pct_1w": 1.329787288007829,
+    "change_pct_1m": 4.041506240863659,
+    "change_pct_1y": 42.48316679221833,
+    "volume": 3515200,
+    "avg_volume_30d": 113012200
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.2608584771119,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.43095827957722,
+    "ema_50": 34.01687212011312,
+    "ema_200": 29.266607690117777,
+    "ema_stack_bullish": true,
+    "bb_upper": 40.00499839782715,
+    "bb_middle": 38.099998474121094,
+    "bb_lower": 36.194998550415036,
+    "bb_width": 10,
+    "atr": 1.32,
+    "atr_pct": 3.46,
+    "rvol": 0.8757302308954255,
+    "52w_high": 38.939998626708984,
+    "52w_low": 17.450000762939453
+  },
+  "fundamental": {
+    "pe_ratio": 6.9202127,
+    "pb_ratio": 1.1863943,
+    "gross_margin": 0.86457,
+    "operating_margin": 0.60323,
+    "net_margin": 0.20153,
+    "market_cap": 9283443712,
+    "revenue_growth_ttm": 1.761,
+    "fcf_yield": 0.1585707836087971,
+    "institutional_ownership_pct": 0.99581003,
+    "dividend_rate": 0.88,
+    "dividend_yield": 0.0231
+  },
+  "scores_detail": {
+    "entry_range_low": 37.31,
+    "entry_range_high": 38.23,
+    "target_range_low": 39.66,
+    "target_range_high": 43.44,
+    "target_1": 39.66,
+    "target_2": 41.55,
+    "target_3": 43.44,
+    "stop_loss": 36.19,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $37.31 – $38.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $38.76 direnci veya $37.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $36.19 olarak belirlenmiştir. Fiyatın EMA20 ($36.43) veya günlük VWAP ($39.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($39.28) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

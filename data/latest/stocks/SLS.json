@@ -1,0 +1,89 @@
+{
+  "ticker": "SLS",
+  "company": "SELLAS Life Sciences Group, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T00:22:56.218Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 11.550000190734863,
+    "open": 13.550000190734863,
+    "high": 13.739999771118164,
+    "low": 11.380000114440918,
+    "prev_close": 13.489999771118164,
+    "change_pct": -14.381020113408773,
+    "change_pct_1w": -15.69342809097162,
+    "change_pct_1m": -12.566236507331343,
+    "change_pct_1y": 524.324326588343,
+    "volume": 14605000,
+    "avg_volume_30d": 206642900
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 60,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.783777921231305,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 13.287657568007521,
+    "ema_50": 12.345778036801057,
+    "ema_200": 8.133970964045925,
+    "ema_stack_bullish": true,
+    "bb_upper": 12.127500200271607,
+    "bb_middle": 11.550000190734863,
+    "bb_lower": 10.97250018119812,
+    "bb_width": 10,
+    "atr": 1.18,
+    "atr_pct": 10.22,
+    "rvol": 1.0309669482958281,
+    "52w_high": 15.880000114440918,
+    "52w_low": 1.3899999856948853
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 17.192083,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 2367813632,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.006917087890133408,
+    "institutional_ownership_pct": 0.3685,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 10.84,
+    "entry_range_high": 11.67,
+    "target_range_low": 15.67,
+    "target_range_high": 16.3,
+    "target_1": 15.67,
+    "target_2": 15.98,
+    "target_3": 16.3,
+    "stop_loss": 10.02,
+    "risk_reward_ratio": 3.82,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.84 – $11.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.28 direnci veya $10.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.02 olarak belirlenmiştir. Fiyatın EMA200 ($8.13) veya günlük VWAP ($11.98) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($12.35) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.98) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "ANF",
+  "company": "Abercrombie & Fitch Co.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T02:51:02.476Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 140.6199951171875,
+    "open": 143.16000366210938,
+    "high": 144.9499969482422,
+    "low": 140.52000427246094,
+    "prev_close": 145.22999572753906,
+    "change_pct": -3.1742758011232226,
+    "change_pct_1w": -6.046638045349811,
+    "change_pct_1m": -1.7193225345159713,
+    "change_pct_1y": 60.745301464419846,
+    "volume": 1375600,
+    "avg_volume_30d": 59925700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.075552996096285,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 134.6680430379635,
+    "ema_50": 118.4125411335466,
+    "ema_200": 99.24464290462443,
+    "ema_stack_bullish": true,
+    "bb_upper": 147.65099487304687,
+    "bb_middle": 140.6199951171875,
+    "bb_lower": 133.58899536132813,
+    "bb_width": 10,
+    "atr": 9.16,
+    "atr_pct": 6.51,
+    "rvol": 0.8071995821492282,
+    "52w_high": 155.22000122070312,
+    "52w_low": 65.44999694824219
+  },
+  "fundamental": {
+    "pe_ratio": 12.153846,
+    "pb_ratio": 4.4052505,
+    "gross_margin": 0.63675,
+    "operating_margin": 0.19941,
+    "net_margin": 0.10035,
+    "market_cap": 5967121920,
+    "revenue_growth_ttm": 0.048,
+    "fcf_yield": 0.07304388377571477,
+    "institutional_ownership_pct": 1.15544,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 135.13,
+    "entry_range_high": 141.54,
+    "target_range_low": 154.58,
+    "target_range_high": 160.83,
+    "target_1": 154.58,
+    "target_2": 157.67,
+    "target_3": 160.83,
+    "stop_loss": 128.72,
+    "risk_reward_ratio": 2.01,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $135.13 – $141.54 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $146.61 direnci veya $133.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $128.72 olarak belirlenmiştir. Fiyatın EMA20 ($134.67) veya günlük VWAP ($142.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($142.76) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

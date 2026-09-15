@@ -1,0 +1,89 @@
+{
+  "ticker": "ON",
+  "company": "ON Semiconductor Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:13:44.746Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 71.6500015258789,
+    "open": 72.37999725341797,
+    "high": 73.13999938964844,
+    "low": 71.45999908447266,
+    "prev_close": 76.13999938964844,
+    "change_pct": -5.897029025166982,
+    "change_pct_1w": -3.6703358810807316,
+    "change_pct_1m": -3.2932851027337313,
+    "change_pct_1y": 48.46664736395003,
+    "volume": 12415400,
+    "avg_volume_30d": 271188900
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.85880514380384,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 74.67372578078621,
+    "ema_50": 81.43901245716893,
+    "ema_200": 79.50386836547295,
+    "ema_stack_bullish": false,
+    "bb_upper": 75.23250160217286,
+    "bb_middle": 71.6500015258789,
+    "bb_lower": 68.06750144958495,
+    "bb_width": 10,
+    "atr": 2.77,
+    "atr_pct": 3.87,
+    "rvol": 1.1706496836706812,
+    "52w_high": 134.9199981689453,
+    "52w_low": 44.560001373291016
+  },
+  "fundamental": {
+    "pe_ratio": 46.830067,
+    "pb_ratio": 3.863992,
+    "gross_margin": 0.42776,
+    "operating_margin": 0.19532,
+    "net_margin": 0.10168,
+    "market_cap": 27894679552,
+    "revenue_growth_ttm": 0.092,
+    "fcf_yield": 0.05938946102290754,
+    "institutional_ownership_pct": 1.05962,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 70.09,
+    "entry_range_high": 71.93,
+    "target_range_low": 74.56,
+    "target_range_high": 102.64,
+    "target_1": 74.56,
+    "target_2": 85.55,
+    "target_3": 102.64,
+    "stop_loss": 68.07,
+    "risk_reward_ratio": 4.94,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $70.09 – $71.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $73.10 direnci veya $69.54 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $68.07 olarak belirlenmiştir. Fiyatın EMA20 ($74.67) veya günlük VWAP ($72.33) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($81.44) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($72.33) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "KEEL",
+  "company": "Keel Infrastructure Corp.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T02:23:49.769Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 3.450000047683716,
+    "open": 3.299999952316284,
+    "high": 3.5299999713897705,
+    "low": 3.2760000228881836,
+    "prev_close": 3.569999933242798,
+    "change_pct": -3.361341395042563,
+    "change_pct_1w": -0.5763683216603277,
+    "change_pct_1m": 9.523807721703918,
+    "change_pct_1y": 54.70852099441288,
+    "volume": 27415500,
+    "avg_volume_30d": 1080683600
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 40,
+    "fundamental_score": 23.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.6880406018015,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.4880675072221146,
+    "ema_50": 3.7875548196972653,
+    "ema_200": 3.604464959488514,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.622500050067902,
+    "bb_middle": 3.450000047683716,
+    "bb_lower": 3.2775000452995298,
+    "bb_width": 10,
+    "atr": 0.27,
+    "atr_pct": 7.75,
+    "rvol": 0.8774923576151245,
+    "52w_high": 7.369999885559082,
+    "52w_low": 1.6799999475479126
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.4727955,
+    "gross_margin": -0.32257998,
+    "operating_margin": -1.80976,
+    "net_margin": -2.30594,
+    "market_cap": 2130627456,
+    "revenue_growth_ttm": -0.5,
+    "fcf_yield": -0.08478347516422881,
+    "institutional_ownership_pct": 0.64996004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 3.29,
+    "entry_range_high": 3.48,
+    "target_range_low": 3.55,
+    "target_range_high": 6.45,
+    "target_1": 3.55,
+    "target_2": 5.05,
+    "target_3": 6.45,
+    "stop_loss": 3.1,
+    "risk_reward_ratio": 5.94,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.29 – $3.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.63 direnci veya $3.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $3.10 olarak belirlenmiştir. Fiyatın EMA20 ($3.49) veya günlük VWAP ($3.47) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($3.79) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.47) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

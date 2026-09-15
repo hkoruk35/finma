@@ -1,0 +1,89 @@
+{
+  "ticker": "APPS",
+  "company": "Digital Turbine, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:19:32.753Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 11.729999542236328,
+    "open": 11.75,
+    "high": 11.9399995803833,
+    "low": 11.399999618530273,
+    "prev_close": 11.8100004196167,
+    "change_pct": -0.6773994457060957,
+    "change_pct_1w": 9.523804859536062,
+    "change_pct_1m": 9.014863315251928,
+    "change_pct_1y": 153.89610027699905,
+    "volume": 2495900,
+    "avg_volume_30d": 112639500
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.995860017227166,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 11.167941905395793,
+    "ema_50": 10.55475698872988,
+    "ema_200": 7.64953132397514,
+    "ema_stack_bullish": true,
+    "bb_upper": 12.316499519348145,
+    "bb_middle": 11.729999542236328,
+    "bb_lower": 11.143499565124511,
+    "bb_width": 10,
+    "atr": 0.7,
+    "atr_pct": 5.97,
+    "rvol": 0.688895103405111,
+    "52w_high": 15.34000015258789,
+    "52w_low": 2.740000009536743
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 7.4444447,
+    "gross_margin": 0.49080002,
+    "operating_margin": 0.13894,
+    "net_margin": -0.058229998,
+    "market_cap": 1418915584,
+    "revenue_growth_ttm": 0.268,
+    "fcf_yield": 0.02038123361678435,
+    "institutional_ownership_pct": 0.70719004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 11.31,
+    "entry_range_high": 11.8,
+    "target_range_low": 13.6,
+    "target_range_high": 15.65,
+    "target_1": 13.6,
+    "target_2": 15.34,
+    "target_3": 15.65,
+    "stop_loss": 10.82,
+    "risk_reward_ratio": 5.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.31 – $11.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.18 direnci veya $11.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.82 olarak belirlenmiştir. Fiyatın EMA50 ($10.55) veya günlük VWAP ($11.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

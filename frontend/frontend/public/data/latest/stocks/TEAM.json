@@ -1,0 +1,89 @@
+{
+  "ticker": "TEAM",
+  "company": "Atlassian Corporation",
+  "date": "2026-09-14",
+  "generated_at": "2026-09-14T18:28:37.828Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 191.24000549316406,
+    "open": 187.52999877929688,
+    "high": 192.39999389648438,
+    "low": 181.7949981689453,
+    "prev_close": 179.6999969482422,
+    "change_pct": 6.421818998831517,
+    "change_pct_1w": 0.8756217143560832,
+    "change_pct_1m": -1.5089832123456548,
+    "change_pct_1y": 9.361245973047778,
+    "volume": 2459066,
+    "avg_volume_30d": 144219666
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 90,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.21%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.87080238410661,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 174.3713050697031,
+    "ema_50": 147.12977682709368,
+    "ema_200": 122.10502248140897,
+    "ema_stack_bullish": true,
+    "bb_upper": 200.80200576782227,
+    "bb_middle": 191.24000549316406,
+    "bb_lower": 181.67800521850586,
+    "bb_width": 10,
+    "atr": 9.97,
+    "atr_pct": 5.21,
+    "rvol": 0.6122354769563813,
+    "52w_high": 198.60000610351562,
+    "52w_low": 56.0099983215332
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 45.784058,
+    "gross_margin": 0.85643,
+    "operating_margin": 0.122609995,
+    "net_margin": -0.00819,
+    "market_cap": 48410267648,
+    "revenue_growth_ttm": 0.276,
+    "fcf_yield": 0.034197288807354786,
+    "institutional_ownership_pct": 1.0486,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 185.26,
+    "entry_range_high": 192.24,
+    "target_range_low": 198.19,
+    "target_range_high": 217.06,
+    "target_1": 198.19,
+    "target_2": 207.62,
+    "target_3": 217.06,
+    "stop_loss": 178.28,
+    "risk_reward_ratio": 1.8,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $185.26 – $192.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $196.93 direnci veya $183.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $178.28 olarak belirlenmiştir. Fiyatın EMA20 ($174.37) veya günlük VWAP ($186.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($186.08) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "RBLX",
+  "company": "Roblox Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T06:44:59.005Z",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 51.290000915527344,
+    "open": 47.5,
+    "high": 51.29999923706055,
+    "low": 46.72999954223633,
+    "prev_close": 45.5,
+    "change_pct": 12.725276737422734,
+    "change_pct_1w": 18.425304292780602,
+    "change_pct_1m": 24.218938673453607,
+    "change_pct_1y": -61.525765617853345,
+    "volume": 18621100,
+    "avg_volume_30d": 372825500
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 60,
+    "fundamental_score": 53.3,
+    "momentum_score": 53,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 75.16282899001914,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.788720163152874,
+    "ema_50": 43.691224779432545,
+    "ema_200": 61.75320961399054,
+    "ema_stack_bullish": false,
+    "bb_upper": 53.854500961303714,
+    "bb_middle": 51.290000915527344,
+    "bb_lower": 48.725500869750974,
+    "bb_width": 10,
+    "atr": 2.25,
+    "atr_pct": 4.39,
+    "rvol": 0.8693740100931938,
+    "52w_high": 142,
+    "52w_low": 33.880001068115234
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 240.79813,
+    "gross_margin": 0.25674,
+    "operating_margin": -0.13274,
+    "net_margin": -0.17607,
+    "market_cap": 36640342016,
+    "revenue_growth_ttm": 0.359,
+    "fcf_yield": 0.04029314702781185,
+    "institutional_ownership_pct": 0.8646,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 49.94,
+    "entry_range_high": 51.52,
+    "target_range_low": 58.43,
+    "target_range_high": 71.53,
+    "target_1": 58.43,
+    "target_2": 64.42,
+    "target_3": 71.53,
+    "stop_loss": 48.36,
+    "risk_reward_ratio": 5.79,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $49.94 – $51.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $51.30 direnci veya $49.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $48.36 olarak belirlenmiştir. Fiyatın EMA50 ($43.69) veya günlük VWAP ($50.32) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($43.69) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($50.32) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 75 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

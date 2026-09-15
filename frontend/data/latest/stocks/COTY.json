@@ -1,0 +1,89 @@
+{
+  "ticker": "COTY",
+  "company": "Coty Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T07:08:28.044Z",
+  "sector": "Consumer Defensive",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 2.7200000286102295,
+    "open": 2.7200000286102295,
+    "high": 2.759999990463257,
+    "low": 2.680000066757202,
+    "prev_close": 2.700000047683716,
+    "change_pct": 0.7407400212333817,
+    "change_pct_1w": -7.1672366335264845,
+    "change_pct_1m": -4.561399311313272,
+    "change_pct_1y": -33.496334299909805,
+    "volume": 4572900,
+    "avg_volume_30d": 217728500
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 55,
+    "fundamental_score": 50,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.473036135596075,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 2.764493238975064,
+    "ema_50": 2.657797362113745,
+    "ema_200": 2.7247202307925162,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.856000030040741,
+    "bb_middle": 2.7200000286102295,
+    "bb_lower": 2.584000027179718,
+    "bb_width": 10,
+    "atr": 0.12,
+    "atr_pct": 4.39,
+    "rvol": 0.647322697763499,
+    "52w_high": 4.559999942779541,
+    "52w_low": 1.8200000524520874
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.8011782,
+    "gross_margin": 0.62894,
+    "operating_margin": -0.024419999,
+    "net_margin": -0.10416,
+    "market_cap": 2394868736,
+    "revenue_growth_ttm": 0.013,
+    "fcf_yield": 0.151443577072944,
+    "institutional_ownership_pct": 0.4293,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2.67,
+    "entry_range_high": 2.73,
+    "target_range_low": 2.96,
+    "target_range_high": 3.4,
+    "target_1": 2.96,
+    "target_2": 3.09,
+    "target_3": 3.4,
+    "stop_loss": 2.58,
+    "risk_reward_ratio": 3.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.67 – $2.73 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.78 direnci veya $2.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.58 olarak belirlenmiştir. Fiyatın EMA50 ($2.66) veya günlük VWAP ($2.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($2.66) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.71) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}
