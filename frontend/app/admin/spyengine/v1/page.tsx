@@ -727,7 +727,7 @@ export default function SpyEngineCommandCenter() {
           ["command", "Kumanda Merkezi"],
           ["spyoption", "SPY Option"],
           ["forecast", "Daily Forecast"],
-          ["compare", "1m vs 5m"],
+          ["compare", "15m vs 5m"],
           ["signals", "Sinyaller & Arşiv"],
           ["context", "15m Bağlam & Veri"],
           ["ohlc", "15 Gün OHLC"],
@@ -869,26 +869,26 @@ export default function SpyEngineCommandCenter() {
               <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
                 <div ref={chart1WrapRef} className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
                   <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
-                    <span className="text-[9px] text-slate-500">1m — hassas tetik</span>
+                    <span className="text-[9px] text-slate-500">15m — mum teyit</span>
                     <button
                       type="button"
                       onClick={() => enterFullscreen(chart1WrapRef.current)}
                       className="rounded bg-[#111827] px-1.5 py-0.5 text-[9px] text-slate-400 transition-colors hover:bg-[#1c2635]"
-                      title="Yalnızca 1m grafiğini tam ekran göster"
+                      title="Yalnızca 15m grafiğini tam ekran göster"
                     >
                       {fullscreenTarget === "1m" ? "⤡ ÇIK" : "⤢"}
                     </button>
                   </div>
                   <SpyChart
-                    bars={m1}
-                    timeframe="1m"
+                    bars={m15}
+                    timeframe="15m"
                     events={events}
                     position={openPosition}
                     toggles={toggles}
                     height={chart1Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
-                    defaultWindowMin={60}
+                    defaultWindowMin={240}
                   />
                 </div>
                 <div ref={chart5WrapRef} className="bg-[#0a0e17]">
@@ -1444,7 +1444,7 @@ export default function SpyEngineCommandCenter() {
         </div>
       )}
 
-      {/* ═══ 1m vs 5m KARŞILAŞTIRMA ═══ */}
+      {/* ═══ 15m vs 5m KARŞILAŞTIRMA ═══ */}
       {tab === "compare" && (
         <div className="flex flex-col gap-1">
           <RegimeBanner block={data?.regime ?? null} nowSec={nowSec} />
@@ -1458,18 +1458,18 @@ export default function SpyEngineCommandCenter() {
           <div className="grid grid-cols-2 gap-1">
             <div className={`${SURFACE} overflow-hidden`}>
               <div className="border-b border-[#1c2635] px-2 py-1">
-                <span className="text-[10px] font-semibold text-slate-300">1m — Hassas Tetik</span>
+                <span className="text-[10px] font-semibold text-slate-300">15m — Mum Teyit</span>
               </div>
               <SpyChart
-                bars={m1}
-                timeframe="1m"
+                bars={m15}
+                timeframe="15m"
                 events={events}
                 position={openPosition}
                 toggles={toggles}
                 height={420}
                 autoScroll={autoScroll}
                 levelLines={data?.levels?.lines}
-                defaultWindowMin={60}
+                defaultWindowMin={240}
               />
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
