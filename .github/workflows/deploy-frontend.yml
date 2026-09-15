@@ -1,14 +1,15 @@
 name: Deploy Frontend to Hetzner
 
-# Sadece frontend kod degisikliklerinde tetiklenir. Bot veri commit'leri
-# (frontend/public/data/**) es gecilir — sunucu kendi cron botlariyla
-# kendi verisini uretiyor, bu path'lerin push'u deploy gerektirmez.
+# Sadece frontend KOD degisikliklerinde tetiklenir. Bot veri commit'leri
+# (frontend/public/**) es gecilir — sunucu kendi cron botlariyla kendi
+# verisini uretiyor. Hem frontend/public/data/** hem de intraday/daytrade/
+# swing/options JSON'lari burada hariç tutulur.
 on:
   push:
     branches: [main]
     paths:
       - "frontend/**"
-      - "!frontend/public/data/**"
+      - "!frontend/public/**"
 
 # 2026-09-06: iki hizli ardisik push (ayni dakika icinde) iki paralel run
 # tetikledi, ikisi de ayni sunucuda ayni ".next" dizinine yazdi ve build'i
