@@ -1,8 +1,8 @@
 {
   "date": "2026-09-14",
-  "generated_at": "2026-09-14T14:06:58.051257-04:00",
+  "generated_at": "2026-09-14T17:04:32.543578-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 27,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,11 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 7,
       "tickers": [
         "DK",
+        "VRNS",
         "IDCC",
-        "ITT"
+        "ITT",
+        "OSCR",
+        "LFST",
+        "SM"
       ]
     },
     "value": {
@@ -53,31 +57,36 @@
     },
     {
       "ticker": "SIRI",
-      "score": 45.0,
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "VRNS",
-      "score": 43.0,
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 759.355,
+      "change_pct": -0.2
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 708.77,
+      "change_pct": -0.06
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 521.2,
+      "change_pct": -0.63
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 16.91,
+      "change_pct": -1.11
+    },
+    "RUSSELL2000": {
+      "value": 285.765,
+      "change_pct": -0.75
     }
-  }
+  },
+  "price_updated_at": "2026-09-15T10:00:18.023395-04:00"
 }
