@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-09-15T14:07:52.469654-04:00",
+  "generated_at": "2026-09-15T17:07:09.614014-04:00",
   "picks": [
-    {
-      "ticker": "SIG",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-14",
-      "score": 35.5
-    },
     {
       "ticker": "TEVA",
       "sector": "Healthcare",
@@ -20,28 +14,10 @@
       "score": 32.5
     },
     {
-      "ticker": "XP",
-      "sector": "Financial Services",
-      "date_added": "2026-09-15",
-      "score": 38.0
-    },
-    {
-      "ticker": "CDW",
-      "sector": "Technology",
-      "date_added": "2026-09-15",
-      "score": 37.0
-    },
-    {
       "ticker": "BB",
       "sector": "Technology",
       "date_added": "2026-09-15",
       "score": 32.5
-    },
-    {
-      "ticker": "BG",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-09-15",
-      "score": 40.5
     },
     {
       "ticker": "WHD",
@@ -56,10 +32,34 @@
       "score": 31.5
     },
     {
-      "ticker": "CMPS",
-      "sector": "Healthcare",
+      "ticker": "SIG",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-09-15",
-      "score": 29.5
+      "score": 36.5
+    },
+    {
+      "ticker": "ICE",
+      "sector": "Financial Services",
+      "date_added": "2026-09-15",
+      "score": 34.5
+    },
+    {
+      "ticker": "ALLE",
+      "sector": "Industrials",
+      "date_added": "2026-09-15",
+      "score": 33.5
+    },
+    {
+      "ticker": "W",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-15",
+      "score": 32.5
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "date_added": "2026-09-15",
+      "score": 29.0
     }
   ]
 }
