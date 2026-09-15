@@ -781,20 +781,6 @@ export default function SpyEngineCommandCenter() {
             inPosition={!!openPosition}
           />
 
-          {!!data?.contractReuseBlocked?.length && (
-            <div className="flex items-center gap-2 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300">
-              <span>⚠</span>
-              <span>
-                Bu kontrat bugün zaten işlem gördü —{" "}
-                {data.contractReuseBlocked.map((b, i) => (
-                  <span key={`${b.time}:${b.side}`}>
-                    {i > 0 && ", "}
-                    {nyClock(b.time, true)} {b.side} {b.strike}
-                  </span>
-                ))}
-              </span>
-            </div>
-          )}
 
           {data?.engine.veto && <M15Strip veto={data.engine.veto} />}
 
