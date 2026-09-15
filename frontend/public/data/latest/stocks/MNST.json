@@ -1,22 +1,22 @@
 {
   "ticker": "MNST",
   "company": "Monster Beverage Corporation",
-  "date": "2026-09-14",
-  "generated_at": "2026-09-14T20:32:58.509Z",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T10:05:50.118Z",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
     "current": 44.20000076293945,
-    "open": 43.512001037597656,
+    "open": 43.5099983215332,
     "high": 44.40999984741211,
-    "low": 43.512001037597656,
+    "low": 43.5099983215332,
     "prev_close": 43.400001525878906,
     "change_pct": 1.843316149616992,
     "change_pct_1w": 0.8671863778221753,
     "change_pct_1m": -3.745639099718118,
     "change_pct_1y": 36.65172080639242,
-    "volume": 8693420,
-    "avg_volume_30d": 309254620
+    "volume": 9009900,
+    "avg_volume_30d": 309571100
   },
   "scores": {
     "master_score": 56,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.96,
     "atr_pct": 2.17,
-    "rvol": 0.8842620362470252,
+    "rvol": 0.88949194546907,
     "52w_high": 50.16999816894531,
     "52w_low": 31.5049991607666
   },

@@ -1,0 +1,89 @@
+{
+  "ticker": "XRX",
+  "company": "Xerox Holdings Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T10:10:36.472Z",
+  "sector": "Industrials",
+  "industry": "Business Equipment & Supplies",
+  "price": {
+    "current": 3.309999942779541,
+    "open": 3.380000114440918,
+    "high": 3.440000057220459,
+    "low": 3.259999990463257,
+    "prev_close": 3.430000066757202,
+    "change_pct": -3.498545820470257,
+    "change_pct_1w": -0.30120453808230596,
+    "change_pct_1m": 2.476777809091233,
+    "change_pct_1y": -10.054351012653742,
+    "volume": 2331000,
+    "avg_volume_30d": 70580000
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.68277230418348,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.1549187775865772,
+    "ema_50": 3.0345712554390656,
+    "ema_200": 2.7907964436988504,
+    "ema_stack_bullish": true,
+    "bb_upper": 3.4754999399185182,
+    "bb_middle": 3.309999942779541,
+    "bb_lower": 3.144499945640564,
+    "bb_width": 10,
+    "atr": 0.19,
+    "atr_pct": 5.76,
+    "rvol": 1.1781864550864267,
+    "52w_high": 4.269999980926514,
+    "52w_low": 1.190000057220459
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.3449817,
+    "gross_margin": 0.30552998,
+    "operating_margin": 0.07284,
+    "net_margin": -0.11925,
+    "market_cap": 434651040,
+    "revenue_growth_ttm": 0.22,
+    "fcf_yield": 2.919583342075979,
+    "institutional_ownership_pct": 0.73363,
+    "dividend_rate": 0.1,
+    "dividend_yield": 0.0292
+  },
+  "scores_detail": {
+    "entry_range_low": 3.2,
+    "entry_range_high": 3.33,
+    "target_range_low": 3.7,
+    "target_range_high": 4.27,
+    "target_1": 3.7,
+    "target_2": 3.77,
+    "target_3": 4.27,
+    "stop_loss": 3.06,
+    "risk_reward_ratio": 2.56,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.20 – $3.33 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.41 direnci veya $3.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $3.06 olarak belirlenmiştir. Fiyatın EMA50 ($3.03) veya günlük VWAP ($3.35) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.35) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

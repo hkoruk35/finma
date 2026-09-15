@@ -1,0 +1,89 @@
+{
+  "ticker": "AKAM",
+  "company": "Akamai Technologies, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T08:19:36.361Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 105.56999969482422,
+    "open": 105.43000030517578,
+    "high": 107.86000061035156,
+    "low": 102.5,
+    "prev_close": 106.79000091552734,
+    "change_pct": -1.1424301996852366,
+    "change_pct_1w": 0.33263492687759816,
+    "change_pct_1m": -2.807957074788223,
+    "change_pct_1y": 37.38938668164215,
+    "volume": 4585200,
+    "avg_volume_30d": 103232800
+  },
+  "scores": {
+    "master_score": 43,
+    "technical_score": 30,
+    "fundamental_score": 68.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.01536277938631,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 109.266733330047,
+    "ema_50": 114.15374237083631,
+    "ema_200": 109.81725696610468,
+    "ema_stack_bullish": false,
+    "bb_upper": 110.84849967956544,
+    "bb_middle": 105.56999969482422,
+    "bb_lower": 100.291499710083,
+    "bb_width": 10,
+    "atr": 4.38,
+    "atr_pct": 4.15,
+    "rvol": 1.1354646972667601,
+    "52w_high": 165.4499969482422,
+    "52w_low": 70.81999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 38.25,
+    "pb_ratio": 3.1923194,
+    "gross_margin": 0.57452,
+    "operating_margin": 0.076290004,
+    "net_margin": 0.09507,
+    "market_cap": 15172162560,
+    "revenue_growth_ttm": 0.054,
+    "fcf_yield": 0.0468001903612612,
+    "institutional_ownership_pct": 1.1375,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 103.43,
+    "entry_range_high": 106.01,
+    "target_range_low": 113.5,
+    "target_range_high": 127.04,
+    "target_1": 113.5,
+    "target_2": 121.12,
+    "target_3": 127.04,
+    "stop_loss": 100.29,
+    "risk_reward_ratio": 3.71,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $103.43 – $106.01 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $107.86 direnci veya $102.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $100.29 olarak belirlenmiştir. Fiyatın EMA20 ($109.27) veya günlük VWAP ($106.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($114.15) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($106.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

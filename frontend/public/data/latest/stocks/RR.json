@@ -2,7 +2,7 @@
   "ticker": "RR",
   "company": "Richtech Robotics Inc.",
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:54:24.704Z",
+  "generated_at": "2026-09-15T12:21:59.821Z",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 366916160,
     "revenue_growth_ttm": 0.167,
     "fcf_yield": -0.07421688922068737,
-    "institutional_ownership_pct": 0.4241,
+    "institutional_ownership_pct": 0.42414,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
