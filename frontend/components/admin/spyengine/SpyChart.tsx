@@ -99,6 +99,8 @@ export interface SpyChartProps {
    * zoom/pan yaparsa dokunulmaz (bkz. didFitRef, yalnızca İLK yüklemede).
    */
   defaultWindowMin?: number;
+  /** Son mumun üstünde/altında yön oku marker'ı — header okuna ek olarak grafik içinde gösterilir */
+  trendDirection?: "UP" | "DOWN" | null;
 }
 
 interface LegendState {
@@ -129,7 +131,7 @@ const num = (v: number | null | undefined, d = 2) =>
   v == null || !Number.isFinite(v) ? "—" : v.toFixed(d);
 
 export default function SpyChart({
-  bars, timeframe, events, position, toggles, height, autoScroll, levelLines, defaultWindowMin,
+  bars, timeframe, events, position, toggles, height, autoScroll, levelLines, defaultWindowMin, trendDirection,
 }: SpyChartProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -500,6 +502,25 @@ export default function SpyChart({
     }
     markersRef.current.setMarkers(marks);
   }, [events, bars, timeframe, toggles.markers]);
+
+  // ── Trend yön oku — son mumun üstünde/altında sabit marker ──────
+  useEffect(() => {
+    if (!markersRef.current || !bars.length || !trendDirection) return;
+    const lastBar = bars[bars.length - 1];
+    const T = (t: number) => t as unknown as Time;
+    const existing = markersRef.current.markers() as SeriesMarker<Time>[];
+    const filtered = existing.filter((m) => m.id !== "__trend__");
+    const trendMark: SeriesMarker<Time> = {
+      id: "__trend__",
+      time: T(lastBar.time),
+      position: trendDirection === "UP" ? "aboveBar" : "belowBar",
+      color: trendDirection === "UP" ? "#22c55e" : "#ef4444",
+      shape: trendDirection === "UP" ? "arrowUp" : "arrowDown",
+      size: 3,
+      text: "",
+    };
+    markersRef.current.setMarkers([...filtered, trendMark]);
+  }, [bars, trendDirection]);
 
   // ── Trailing stop çizgisi + seviye çizgileri ────────────────────
   useEffect(() => {
