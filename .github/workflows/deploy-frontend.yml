@@ -48,12 +48,7 @@ jobs:
           script: |
             cd /root/finma
             git fetch origin main
-            if ! git merge-base --is-ancestor HEAD origin/main; then
-              echo "UYARI: sunucu main'i diverge etmis — origin/main'e hard reset yapiliyor."
-              git reset --hard origin/main
-            else
-              git merge --ff-only origin/main
-            fi
+            git reset --hard origin/main
             cd frontend
             npm install --no-audit --no-fund
             npm run build
