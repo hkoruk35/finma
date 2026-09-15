@@ -539,6 +539,20 @@ export default function SpyEngineCommandCenter() {
     };
   }, [m15]);
 
+  // Son 6 bar kapanış karşılaştırması — grafik başlığı ok işareti için
+  const m15Trend = useMemo<"UP" | "DOWN" | null>(() => {
+    if (m15.length < 6) return null;
+    const last = m15[m15.length - 1].close;
+    const prev = m15[m15.length - 6].close;
+    return last > prev ? "UP" : last < prev ? "DOWN" : null;
+  }, [m15]);
+  const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
+    if (m5.length < 6) return null;
+    const last = m5[m5.length - 1].close;
+    const prev = m5[m5.length - 6].close;
+    return last > prev ? "UP" : last < prev ? "DOWN" : null;
+  }, [m5]);
+
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   // AudioContext yalnızca kullanıcı etkileşiminden sonra ses çalabilir;
   // ilk dokunuşta açılır, sekme dönüşünde yeniden devam ettirilir.
@@ -810,7 +824,7 @@ export default function SpyEngineCommandCenter() {
                 onClick={() => setShowCharts((v) => !v)}
                 className="text-[10px] font-semibold tracking-wide text-slate-300"
               >
-                1m / 5m Grafikleri {showCharts ? "▲ gizle" : "▼ göster"}
+                15m / 5m Grafikleri {showCharts ? "▲ gizle" : "▼ göster"}
               </button>
               <div className="flex flex-wrap items-center gap-0.5">
                 <button
@@ -869,7 +883,14 @@ export default function SpyEngineCommandCenter() {
               <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
                 <div ref={chart1WrapRef} className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
                   <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
-                    <span className="text-[9px] text-slate-500">15m — mum teyit</span>
+                    <span className="flex items-center gap-1.5 text-[9px] text-slate-500">
+                      15m — mum teyit
+                      {m15Trend && (
+                        <span className={`text-[13px] font-bold leading-none ${m15Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                          {m15Trend === "UP" ? "↑" : "↓"}
+                        </span>
+                      )}
+                    </span>
                     <button
                       type="button"
                       onClick={() => enterFullscreen(chart1WrapRef.current)}
@@ -888,12 +909,18 @@ export default function SpyEngineCommandCenter() {
                     height={chart1Height}
                     autoScroll={autoScroll}
                     levelLines={data?.levels?.lines}
-                    defaultWindowMin={240}
                   />
                 </div>
                 <div ref={chart5WrapRef} className="bg-[#0a0e17]">
                   <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
-                    <span className="text-[9px] text-slate-500">5m — kurulum motoru</span>
+                    <span className="flex items-center gap-1.5 text-[9px] text-slate-500">
+                      5m — kurulum motoru
+                      {m5Trend && (
+                        <span className={`text-[13px] font-bold leading-none ${m5Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                          {m5Trend === "UP" ? "↑" : "↓"}
+                        </span>
+                      )}
+                    </span>
                     <button
                       type="button"
                       onClick={() => enterFullscreen(chart5WrapRef.current)}
@@ -1458,7 +1485,14 @@ export default function SpyEngineCommandCenter() {
           <div className="grid grid-cols-2 gap-1">
             <div className={`${SURFACE} overflow-hidden`}>
               <div className="border-b border-[#1c2635] px-2 py-1">
-                <span className="text-[10px] font-semibold text-slate-300">15m — Mum Teyit</span>
+                <span className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-300">
+                  15m — Mum Teyit
+                  {m15Trend && (
+                    <span className={`text-[14px] font-bold leading-none ${m15Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                      {m15Trend === "UP" ? "↑" : "↓"}
+                    </span>
+                  )}
+                </span>
               </div>
               <SpyChart
                 bars={m15}
@@ -1469,12 +1503,18 @@ export default function SpyEngineCommandCenter() {
                 height={420}
                 autoScroll={autoScroll}
                 levelLines={data?.levels?.lines}
-                defaultWindowMin={240}
               />
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
               <div className="border-b border-[#1c2635] px-2 py-1">
-                <span className="text-[10px] font-semibold text-slate-300">5m — Kurulum Motoru</span>
+                <span className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-300">
+                  5m — Kurulum Motoru
+                  {m5Trend && (
+                    <span className={`text-[14px] font-bold leading-none ${m5Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                      {m5Trend === "UP" ? "↑" : "↓"}
+                    </span>
+                  )}
+                </span>
               </div>
               <SpyChart
                 bars={m5.length ? m5 : bucketAggregate(m1, 5)}
