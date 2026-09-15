@@ -1,8 +1,8 @@
 {
-  "date": "2026-09-14",
-  "generated_at": "2026-09-14T17:04:32.543578-04:00",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T09:07:28.450934-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 27,
+  "active_scores_count": 30,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,15 +21,16 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 8,
       "tickers": [
-        "DK",
         "VRNS",
-        "IDCC",
         "ITT",
         "OSCR",
+        "NWSA",
         "LFST",
-        "SM"
+        "SM",
+        "RVTY",
+        "BBY"
       ]
     },
     "value": {
@@ -52,7 +53,7 @@
   "top_3_overall": [
     {
       "ticker": "DK",
-      "score": 54.0,
+      "score": 41.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -68,25 +69,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 759.355,
-      "change_pct": -0.2
+      "value": 757.225,
+      "change_pct": -0.48
     },
     "NASDAQ": {
-      "value": 708.77,
-      "change_pct": -0.06
+      "value": 705.46,
+      "change_pct": -0.52
     },
     "DOW": {
-      "value": 521.2,
-      "change_pct": -0.63
+      "value": 519.8,
+      "change_pct": -0.89
     },
     "VIX": {
-      "value": 16.91,
-      "change_pct": -1.11
+      "value": 17.56,
+      "change_pct": 2.69
     },
     "RUSSELL2000": {
-      "value": 285.765,
-      "change_pct": -0.75
+      "value": 284.545,
+      "change_pct": -1.17
     }
   },
-  "price_updated_at": "2026-09-15T10:00:18.023395-04:00"
+  "price_updated_at": "2026-09-15T12:00:14.868246-04:00"
 }
