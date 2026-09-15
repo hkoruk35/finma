@@ -1,8 +1,8 @@
 {
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T09:07:28.450934-04:00",
+  "generated_at": "2026-09-15T14:07:50.364118-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
+  "active_scores_count": 40,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 11,
       "tickers": [
         "VRNS",
         "ITT",
@@ -30,7 +30,10 @@
         "LFST",
         "SM",
         "RVTY",
-        "BBY"
+        "BBY",
+        "MEOH",
+        "VIST",
+        "BWIN"
       ]
     },
     "value": {
@@ -69,25 +72,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 757.41,
-      "change_pct": -0.46
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 704.75,
-      "change_pct": -0.62
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 521.055,
-      "change_pct": -0.65
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 17.47,
-      "change_pct": 2.16
-    },
-    "RUSSELL2000": {
-      "value": 285.45,
-      "change_pct": -0.85
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-15T15:00:15.795771-04:00"
+  }
 }
