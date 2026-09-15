@@ -20,6 +20,15 @@ const INDEX_ITEMS = [
   { ticker: "VIX", label: "VIX" },
 ];
 
+const COMMODITY_FX_ITEMS = [
+  { ticker: "CL=F", label: "WTI Crude Oil" },
+  { ticker: "GC=F", label: "Gold" },
+  { ticker: "SI=F", label: "Silver" },
+  { ticker: "EURUSD=X", label: "EUR/USD" },
+  { ticker: "DX-Y.NYB", label: "US Dollar Index" },
+  { ticker: "^TNX", label: "10Y Treasury Yield" },
+];
+
 const SECTOR_ITEMS = [
   { ticker: "XLK", label: "Technology" },
   { ticker: "XLF", label: "Financials" },
@@ -116,19 +125,23 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const allTickers = [...INDEX_ITEMS, ...SECTOR_ITEMS].map((i) => i.ticker);
+  const allTickers = [...INDEX_ITEMS, ...SECTOR_ITEMS, ...COMMODITY_FX_ITEMS].map((i) => i.ticker);
   const quotes = await getMultiQuote(allTickers);
 
   const indices = INDEX_ITEMS.map((i) => ({ label: i.label, changePct: quotes[i.ticker]?.change_pct ?? 0 }));
   const sectors = SECTOR_ITEMS.map((s) => ({ label: s.label, changePct: quotes[s.ticker]?.change_pct ?? 0 }));
+  const commoditiesFx = COMMODITY_FX_ITEMS.map((c) => ({ label: c.label, changePct: quotes[c.ticker]?.change_pct ?? 0 }));
 
   const spxSnapshots = await getLatestDailySnapshots("SPX");
   const latestSpx = spxSnapshots[spxSnapshots.length - 1] ?? null;
   const quant = (latestSpx?.quant_snapshot ?? null) as Record<string, unknown> | null;
   const rawGainers = Array.isArray(quant?.top_gainers) ? (quant!.top_gainers as any[]) : [];
   const rawLosers = Array.isArray(quant?.top_losers) ? (quant!.top_losers as any[]) : [];
-  const topGainers = rawGainers.slice(0, 3).map((g) => ({ ticker: g.ticker, changePct: g.change_pct ?? 0 })).filter((g) => g.ticker);
-  const topLosers = rawLosers.slice(0, 3).map((l) => ({ ticker: l.ticker, changePct: l.change_pct ?? 0 })).filter((l) => l.ticker);
+  const topGainers = rawGainers.slice(0, 5).map((g) => ({ ticker: g.ticker, changePct: g.change_pct ?? 0 })).filter((g) => g.ticker);
+  const topLosers = rawLosers.slice(0, 5).map((l) => ({ ticker: l.ticker, changePct: l.change_pct ?? 0 })).filter((l) => l.ticker);
+
+  // Önceki analizin İngilizce metnini bir sonraki için süreklilik bağlamı olarak çek.
+  const previousSummary = (existing as any)?.previous_summary as string | null ?? null;
 
   let weekChangePct: number | null = null;
   let weekSectorRotation: { label: string; changePct: number }[] | undefined;
@@ -148,6 +161,7 @@ export async function GET(req: NextRequest) {
     tradeDate,
     indices,
     sectors,
+    commoditiesFx,
     advancers: latestSpx?.advancers ?? null,
     decliners: latestSpx?.decliners ?? null,
     topGainers,
@@ -162,12 +176,14 @@ export async function GET(req: NextRequest) {
       mode,
       indices,
       sectors,
+      commoditiesFx,
       advancers: latestSpx?.advancers ?? null,
       decliners: latestSpx?.decliners ?? null,
       topGainers,
       topLosers,
       weekChangePct,
       weekSectorRotation,
+      previousSummary,
     });
 
     const bogaView = computeBogaView({
@@ -177,7 +193,11 @@ export async function GET(req: NextRequest) {
       decliners: latestSpx?.decliners ?? null,
     });
 
-    await supabaseAdmin.from("market_picture").upsert({
+    // Bir sonraki çalışma için süreklilik: mevcut İngilizce metni kısa özet
+    // olarak sakla (max 600 karakter) — prompt'ta "önceki analiz" bağlamı olarak kullanılacak.
+    const newSummary = typeof texts.en === "string" ? texts.en.slice(0, 600) : null;
+
+    const upsertPayload: Record<string, unknown> = {
       id: 1,
       mode,
       trade_date: tradeDate,
@@ -185,7 +205,19 @@ export async function GET(req: NextRequest) {
       texts,
       boga_view: bogaView,
       generated_at: new Date().toISOString(),
-    });
+    };
+
+    // previous_summary kolonu 0040 migration ile eklendi — eğer henüz
+    // uygulanmadıysa upsert yine de çalışsın diye ayrı bir try içinde ekliyoruz.
+    try {
+      const { error } = await supabaseAdmin.from("market_picture").upsert({ ...upsertPayload, previous_summary: newSummary });
+      if (error) {
+        console.warn("[cron/generate-market-picture] upsert with previous_summary failed, retrying without:", error.message);
+        await supabaseAdmin.from("market_picture").upsert(upsertPayload);
+      }
+    } catch {
+      await supabaseAdmin.from("market_picture").upsert(upsertPayload);
+    }
 
     return NextResponse.json({ generated: true, mode, tradeDate, locales: LOCALES });
   } catch (err: any) {

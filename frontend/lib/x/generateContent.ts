@@ -77,6 +77,8 @@ export interface GenerateMarketPictureInput {
   indices: { label: string; changePct: number }[];
   // Gerçek sektör ETF değişimleri (11 sektör).
   sectors: { label: string; changePct: number }[];
+  // Emtia ve para birimleri (petrol, altın, EUR/USD, faiz vb.)
+  commoditiesFx?: { label: string; changePct: number }[];
   advancers?: number | null;
   decliners?: number | null;
   topGainers?: { ticker: string; changePct: number }[];
@@ -84,6 +86,8 @@ export interface GenerateMarketPictureInput {
   // Sadece mode="week_close" için: haftalık SPX değişimi + sektör rotasyonu.
   weekChangePct?: number | null;
   weekSectorRotation?: { label: string; changePct: number }[];
+  // Önceki analizin kısa özeti — devamlılık ve fikir takibi için.
+  previousSummary?: string | null;
 }
 
 export async function generateLocalizedTexts(
@@ -181,23 +185,29 @@ Competitor and theme commentary should draw on well-known, general market knowle
     const fmtPct = (p: number) => `${p >= 0 ? "+" : ""}${formatNumber(p, 2)}%`;
     const indexLine = input.indices.map((i) => `${i.label} ${fmtPct(i.changePct)}`).join(", ");
     const sectorLine = input.sectors.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ");
+    const commodityLine = input.commoditiesFx?.length
+      ? `Commodities & FX: ${input.commoditiesFx.map((c) => `${c.label} ${fmtPct(c.changePct)}`).join(", ")}.`
+      : "";
     const breadthLine =
       input.advancers != null && input.decliners != null
         ? `Market breadth: ${input.advancers} advancing vs ${input.decliners} declining stocks (S&P 500).`
         : "";
     const gainersLine = input.topGainers?.length
-      ? `Top gainers today: ${input.topGainers.map((g) => `${g.ticker} ${fmtPct(g.changePct)}`).join(", ")}.`
+      ? `Today's top gaining stocks: ${input.topGainers.map((g) => `${g.ticker} ${fmtPct(g.changePct)}`).join(", ")}.`
       : "";
     const losersLine = input.topLosers?.length
-      ? `Top losers today: ${input.topLosers.map((l) => `${l.ticker} ${fmtPct(l.changePct)}`).join(", ")}.`
+      ? `Today's top losing stocks: ${input.topLosers.map((l) => `${l.ticker} ${fmtPct(l.changePct)}`).join(", ")}.`
+      : "";
+    const previousLine = input.previousSummary
+      ? `\nPREVIOUS ANALYSIS CONTEXT (for continuity of thought — reference how conditions have evolved since then, but don't repeat it):\n"${input.previousSummary}"\n`
       : "";
 
     const modeInstruction =
       input.mode === "intraday"
-        ? `This is a LIVE, mid-session update — write in the present tense, describing what's happening in the market RIGHT NOW. Do not reference "today's close" or "tomorrow" since the session is still open.`
+        ? `This is a LIVE, mid-session update — write in present tense, describing what's happening RIGHT NOW.`
         : input.mode === "day_close"
-        ? `The US market has just closed for the day. Write this as an end-of-day recap: summarize how the session went, then close with a brief, qualitative expectation for tomorrow's session based on today's momentum/tone — do not invent a specific catalyst or event, just a reasonable qualitative read (e.g. "watch for follow-through" or "eyes on whether today's rotation persists").`
-        : `It's Friday and the US market has just closed for the week. Write this as a WEEKLY WRAP-UP: summarize how the week went overall (use the weekly change/rotation data given below), then close with a brief, qualitative expectation for next week's open based on this week's tone — do not invent a specific catalyst, just a reasonable qualitative read.`;
+        ? `The US market has just closed. Write this as an end-of-day recap, then close with a brief forward-looking read for tomorrow.`
+        : `It's end of week. Write a WEEKLY WRAP-UP summarizing the week, then a brief read for next week's open.`;
 
     const weekLine =
       input.mode === "week_close" && input.weekChangePct != null
@@ -205,30 +215,51 @@ Competitor and theme commentary should draw on well-known, general market knowle
         : "";
     const weekRotationLine =
       input.mode === "week_close" && input.weekSectorRotation?.length
-        ? `This week's sector performance, best to worst: ${input.weekSectorRotation.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ")}.`
+        ? `This week's sector performance: ${input.weekSectorRotation.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ")}.`
         : "";
 
-    return `Write the "Today's market picture" card for BogaStock's homepage — a RELATIONAL analysis of the overall US market, not a numbers recap. The reader already sees every raw number (index levels, % changes, sector list) elsewhere on the same page in cards next to this one. Your job is to supply the meaning those numbers don't speak for themselves: why the move happened, how the signals connect to each other, and what that combination implies. If you just restate "X rose Y%, Z fell W%" you have failed the assignment — a plain recap is explicitly NOT what's wanted here.
-
-STRICT LENGTH REQUIREMENT: 120 to 140 words. Not shorter, not longer — this is a hard constraint, count carefully. Use the extra room to actually explain the reasoning in each of the 3 paragraphs below, not to pad with filler — every added sentence should carry real information.
+    return `Write a comprehensive "Current Market Analysis" for BogaStock's homepage. This is the main editorial piece — 380 to 480 words, structured with clear section headings. Readers come here for depth, not a numbers rehash. Raw numbers are already shown in cards next to this. Your job: explain the WHY, the relationships between signals, and what it all means for the next session or week.
 
 ${modeInstruction}
-
-Real data (use ONLY this — never invent a number, ticker, or event not listed here):
+${previousLine}
+REAL DATA ONLY — never invent tickers, prices, or news not listed here:
 Major indices: ${indexLine}.
-Sector ETF performance: ${sectorLine}.
+Sector ETFs: ${sectorLine}.
+${commodityLine}
 ${breadthLine}
 ${gainersLine}
 ${losersLine}
 ${weekLine}
 ${weekRotationLine}
 
-Structure it as flowing prose in 3 short paragraphs (no headers, no bullet list, no bold labels — just natural paragraph breaks), covering in order:
-1. Mood + driver in one beat: state the overall tone in a single sentence, then immediately name what's actually carrying it — which sector or stock is doing the work, referencing at least one standout sector and one standout ticker from the data above.
-2. The relationship: this is the core of the analysis — explicitly connect at least two of {index direction, VIX move, breadth (advancers vs decliners), sector leadership} to each other and say what that combination signals together (e.g. "falling volatility alongside broad participation, not just a couple of large names, points to X" — reason about them jointly, don't list them separately).
-3. What to watch next: a short, concrete forward statement — what would confirm this move continuing, and what would be the first sign it's fading. Stay qualitative, don't invent a specific event or date.
+STRUCTURE — use these EXACT section headings (in the target language), in this order:
 
-Do NOT include any kind of overall verdict, score, confidence number, or bias label (like "bullish" or "risk-on" as a standalone tag) — that judgment is rendered separately by the app, not by you. Just explain the mechanics and relationships. Write like a sharp market analyst thinking out loud, not an AI — direct, specific, no filler like "it's worth noting" or "in today's dynamic market". Return a JSON object with keys: ${LOCALES.join(", ")}, each value independently written (not a literal translation of each other) in that language, each hitting the same 120-140 word target.`;
+## [S&P 500 / Genel Tablo]
+2-3 sentences. Overall tone, what's driving the index. Name at least 2 specific stocks from the gainers/losers data and explain their role. Connect VIX and breadth to the index move — don't list them separately, reason about them together.
+
+## [Nasdaq 100 & Teknoloji]
+2-3 sentences. Tech sector tone and what's leading or lagging within it. Name at least 2 tech/growth stocks by ticker. Is this growth rotation, AI-driven, rate-sensitive? Say which.
+
+## [Dow Jones & Sanayi / Russell 2000 & Küçük Şirketler]
+2-3 sentences. How the Dow and Russell are behaving vs the S&P — divergence or confirmation? What does small-cap strength/weakness signal about risk appetite? Name at least 1-2 relevant stocks if visible in the data.
+
+## [Sektörler]
+3-4 sentences. Call out the top 2-3 and bottom 2-3 sectors. Explain what the rotation pattern signals (e.g. defensive vs cyclical positioning, risk-on vs risk-off). Name stocks from leading sectors if data permits.
+
+## [Emtia & Para Birimleri]
+2-3 sentences. Crude oil, gold, dollar index, 10Y yield — how are they moving and what do they tell us about macro sentiment? If oil is up alongside defensive sectors, say what that combination implies.
+
+## [Beklenti]
+2-3 sentences. What to watch next session/week. What would confirm the current move, and what would be the first signal it's fading. Stay qualitative, no invented events or dates.
+
+RULES:
+- Name at least 10 individual stock tickers across the whole piece (use only those given in gainers/losers data — do NOT invent tickers).
+- Section headings must be in the target language (e.g. Turkish headings for the tr key, Spanish for es, etc.) but use the ## markdown format.
+- Write like a seasoned market analyst posting for fellow traders — direct, specific, no filler phrases like "it's worth noting" or "in today's dynamic market". Vary sentence length. Contractions are fine.
+- Do NOT include an overall verdict tag, score, or confidence label — that's rendered separately.
+- Do NOT reference the previous analysis directly by date — just evolve the narrative naturally if conditions changed.
+
+Return a JSON object with keys: ${LOCALES.join(", ")}, each value independently written (not translated from each other) in that language, hitting the 380-480 word target in its own language.`;
   };
 
   const prompt =
