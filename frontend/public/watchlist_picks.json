@@ -1,36 +1,6 @@
 {
-  "generated_at": "2026-09-16T14:08:23.561797-04:00",
+  "generated_at": "2026-09-16T17:08:09.192818-04:00",
   "picks": [
-    {
-      "ticker": "TEVA",
-      "sector": "Healthcare",
-      "date_added": "2026-09-14",
-      "score": 43.5
-    },
-    {
-      "ticker": "MHK",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-14",
-      "score": 32.5
-    },
-    {
-      "ticker": "BB",
-      "sector": "Technology",
-      "date_added": "2026-09-15",
-      "score": 35.5
-    },
-    {
-      "ticker": "NET",
-      "sector": "Technology",
-      "date_added": "2026-09-15",
-      "score": 29.0
-    },
-    {
-      "ticker": "PANW",
-      "sector": "Technology",
-      "date_added": "2026-09-16",
-      "score": 32.0
-    },
     {
       "ticker": "QCOM",
       "sector": "Technology",
@@ -38,16 +8,22 @@
       "score": 38.0
     },
     {
-      "ticker": "PTGX",
+      "ticker": "KYMR",
       "sector": "Healthcare",
       "date_added": "2026-09-16",
-      "score": 34.5
+      "score": 36.5
     },
     {
-      "ticker": "RSI",
+      "ticker": "HOG",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-16",
-      "score": 33.5
+      "score": 32.0
+    },
+    {
+      "ticker": "TPC",
+      "sector": "Industrials",
+      "date_added": "2026-09-16",
+      "score": 28.5
     }
   ]
 }
