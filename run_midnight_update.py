@@ -17,9 +17,10 @@ from zoneinfo import ZoneInfo
 NY_TZ = ZoneInfo("America/New_York")
 
 FINMA_DIR   = os.path.dirname(os.path.abspath(__file__))
-VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
+VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")  # Windows
 if not os.path.exists(VENV_PYTHON):
-    VENV_PYTHON = sys.executable
+    _linux = os.path.join(FINMA_DIR, "venv313", "bin", "python")  # Linux/Ubuntu
+    VENV_PYTHON = _linux if os.path.exists(_linux) else sys.executable
 
 os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
 

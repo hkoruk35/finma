@@ -30,7 +30,11 @@ logging.basicConfig(
 )
 log = logging.getLogger("performance_hourly")
 
-VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
+VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")  # Windows
+if not os.path.exists(VENV_PYTHON):
+    _linux = os.path.join(FINMA_DIR, "venv313", "bin", "python")  # Linux/Ubuntu
+    import sys as _sys
+    VENV_PYTHON = _linux if os.path.exists(_linux) else _sys.executable
 
 # 2026-08-18 17:00'dan sonra .git/index.lock sikisip kalinca bu script (ve
 # ayni sorunu yasayan run_swing_hourly.py) sessizce her saat basarisiz oldu —
