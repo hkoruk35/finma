@@ -1,0 +1,89 @@
+{
+  "ticker": "NTAP",
+  "company": "NetApp, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T15:30:18.300Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 192.97999572753906,
+    "open": 189.75999450683594,
+    "high": 193.8000030517578,
+    "low": 188.9199981689453,
+    "prev_close": 188.27999877929688,
+    "change_pct": 2.4962805283165292,
+    "change_pct_1w": 2.035631970248226,
+    "change_pct_1m": 5.361428187971349,
+    "change_pct_1y": 55.42847135597491,
+    "volume": 653122,
+    "avg_volume_30d": 74947222
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.523001714913626,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 188.76234513291675,
+    "ema_50": 181.07041827016684,
+    "ema_200": 147.0804453416241,
+    "ema_stack_bullish": true,
+    "bb_upper": 202.62899551391604,
+    "bb_middle": 192.97999572753906,
+    "bb_lower": 183.3309959411621,
+    "bb_width": 10,
+    "atr": 9.11,
+    "atr_pct": 4.72,
+    "rvol": 0.7363119075981228,
+    "52w_high": 209.05999755859375,
+    "52w_low": 93.69000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 27.256708,
+    "pb_ratio": 25.29857,
+    "gross_margin": 0.70625997,
+    "operating_margin": 0.26667,
+    "net_margin": 0.19184999,
+    "market_cap": 37904449536,
+    "revenue_growth_ttm": 0.299,
+    "fcf_yield": 0.030903363334362076,
+    "institutional_ownership_pct": 1.0193,
+    "dividend_rate": 2.08,
+    "dividend_yield": 0.011
+  },
+  "scores_detail": {
+    "entry_range_low": 187.52,
+    "entry_range_high": 193.89,
+    "target_range_low": 209.06,
+    "target_range_high": 219.31,
+    "target_1": 209.06,
+    "target_2": 213.24,
+    "target_3": 219.31,
+    "stop_loss": 181.14,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $187.52 – $193.89 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $199.62 direnci veya $185.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $181.14 olarak belirlenmiştir. Fiyatın EMA50 ($181.07) veya günlük VWAP ($191.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($191.69) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

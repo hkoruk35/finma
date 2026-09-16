@@ -1,8 +1,8 @@
 {
   "ticker": "ETSY",
   "company": "Etsy, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:03:34.438Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:39:21.586Z",
   "sector": "Consumer Cyclical",
   "industry": "Internet Retail",
   "price": {
@@ -14,7 +14,7 @@
     "change_pct": 2.3364443352533697,
     "change_pct_1w": -2.6793922291462806,
     "change_pct_1m": -8.44707068967361,
-    "change_pct_1y": 26.33186430162334,
+    "change_pct_1y": 28.82352952823216,
     "volume": 2654700,
     "avg_volume_30d": 96937500
   },
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 40.79803658871287,
+    "rsi_14": 40.798036713794446,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 78.01996340345937,
-    "ema_50": 78.27144426209772,
-    "ema_200": 68.91714106918238,
+    "ema_20": 78.01996340344535,
+    "ema_50": 78.27139460212173,
+    "ema_200": 68.82449726389886,
     "ema_stack_bullish": false,
     "bb_upper": 78.1829990386963,
     "bb_middle": 74.45999908447266,
@@ -52,14 +52,14 @@
     "52w_low": 44
   },
   "fundamental": {
-    "pe_ratio": 23.56329,
+    "pe_ratio": 23.41772,
     "pb_ratio": 0,
     "gross_margin": 0.71401,
     "operating_margin": 0.18744,
     "net_margin": 0.07114,
-    "market_cap": 6834068480,
+    "market_cap": 6791848960,
     "revenue_growth_ttm": 0.062,
-    "fcf_yield": 0.024826408529052376,
+    "fcf_yield": 0.024980734553908573,
     "institutional_ownership_pct": 1.26253,
     "dividend_rate": 0,
     "dividend_yield": 0
@@ -79,10 +79,10 @@
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
-    "entry_condition": "Hesaplanan giriş aralığı $72.69 – $74.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $78.71 direnci veya $72.04 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $70.43 olarak belirlenmiştir. Fiyatın EMA200 ($68.92) veya günlük VWAP ($74.35) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "entry_condition": "Hesaplanan giriş aralığı $72.69 – $74.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $76.43 direnci veya $72.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $70.43 olarak belirlenmiştir. Fiyatın EMA200 ($68.82) veya günlük VWAP ($74.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($78.27) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($74.35) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($74.29) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
   }

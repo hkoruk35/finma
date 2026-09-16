@@ -1,8 +1,8 @@
 {
   "ticker": "PD",
   "company": "PagerDuty, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T09:04:32.780Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:15:42.856Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -14,12 +14,12 @@
     "change_pct": 5.322924001972055,
     "change_pct_1w": 8.957417601172978,
     "change_pct_1m": 4.95049358040287,
-    "change_pct_1y": -9.732362101540787,
+    "change_pct_1y": -7.133913781632685,
     "volume": 2079400,
     "avg_volume_30d": 43905200
   },
   "scores": {
-    "master_score": 86,
+    "master_score": 83,
     "technical_score": 90,
     "fundamental_score": 69.8,
     "momentum_score": 89,
@@ -28,18 +28,18 @@
     "score_type": "HIGH_CONVICTION",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": 1,
-      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
     }
   },
   "technical": {
-    "rsi_14": 72.49191433717459,
+    "rsi_14": 72.49191449199992,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 13.216533257968416,
-    "ema_50": 11.859877932438232,
-    "ema_200": 10.79656567307244,
+    "ema_20": 13.216533257962755,
+    "ema_50": 11.85985789414837,
+    "ema_200": 10.759182984359205,
     "ema_stack_bullish": true,
     "bb_upper": 15.582000160217286,
     "bb_middle": 14.84000015258789,
@@ -52,15 +52,15 @@
     "52w_low": 5.699999809265137
   },
   "fundamental": {
-    "pe_ratio": 7.310345,
-    "pb_ratio": 4.979866,
+    "pe_ratio": 7.1477833,
+    "pb_ratio": 4.8691278,
     "gross_margin": 0.84980005,
     "operating_margin": 0.082279995,
     "net_margin": 0.37504002,
-    "market_cap": 1167164160,
+    "market_cap": 1141209600,
     "revenue_growth_ttm": 0.008,
-    "fcf_yield": 0.10023579202431987,
-    "institutional_ownership_pct": 0.97772,
+    "fcf_yield": 0.1025154572832195,
+    "institutional_ownership_pct": 0.97777003,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $14.02 – $14.91 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.85 direnci veya $13.89 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.56 olarak belirlenmiştir. Fiyatın EMA20 ($13.22) veya günlük VWAP ($14.60) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.56 olarak belirlenmiştir. Fiyatın EMA20 ($13.22) veya günlük VWAP ($14.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.60) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 72 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
   }

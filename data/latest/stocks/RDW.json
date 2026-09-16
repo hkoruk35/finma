@@ -1,0 +1,89 @@
+{
+  "ticker": "RDW",
+  "company": "Redwire Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T19:04:43.894Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 10.734999656677246,
+    "open": 10.329999923706055,
+    "high": 10.939800262451172,
+    "low": 10.281399726867676,
+    "prev_close": 10.489999771118164,
+    "change_pct": 2.3355566339823346,
+    "change_pct_1w": -4.407835313771601,
+    "change_pct_1m": 4.6296239493084,
+    "change_pct_1y": 18.487849442411076,
+    "volume": 7224393,
+    "avg_volume_30d": 429746993
+  },
+  "scores": {
+    "master_score": 45,
+    "technical_score": 40,
+    "fundamental_score": 33.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.439643317557135,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 10.970260846606855,
+    "ema_50": 11.296315853235669,
+    "ema_200": 10.932851579887465,
+    "ema_stack_bullish": false,
+    "bb_upper": 11.271749639511109,
+    "bb_middle": 10.734999656677246,
+    "bb_lower": 10.198249673843383,
+    "bb_width": 10,
+    "atr": 0.59,
+    "atr_pct": 5.53,
+    "rvol": 0.771357481028378,
+    "52w_high": 26.639999389648438,
+    "52w_low": 4.869999885559082
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.6346886,
+    "gross_margin": 0.22729,
+    "operating_margin": -0.18858999,
+    "net_margin": -0.57263,
+    "market_cap": 2683670528,
+    "revenue_growth_ttm": 0.896,
+    "fcf_yield": -0.009672713445694628,
+    "institutional_ownership_pct": 0.69403,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 10.38,
+    "entry_range_high": 10.79,
+    "target_range_low": 11.85,
+    "target_range_high": 14.19,
+    "target_1": 11.85,
+    "target_2": 12.3,
+    "target_3": 14.19,
+    "stop_loss": 9.96,
+    "risk_reward_ratio": 2.75,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.38 – $10.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $11.18 direnci veya $10.26 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $9.96 olarak belirlenmiştir. Fiyatın EMA200 ($10.93) veya günlük VWAP ($10.61) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($11.30) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($10.61) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}

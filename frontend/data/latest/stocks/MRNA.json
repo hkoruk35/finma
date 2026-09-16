@@ -2,7 +2,7 @@
   "ticker": "MRNA",
   "company": "Moderna, Inc.",
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T02:23:20.893Z",
+  "generated_at": "2026-09-15T11:33:25.952Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 58563915776,
     "revenue_growth_ttm": 0.021,
     "fcf_yield": 0.005109801488421565,
-    "institutional_ownership_pct": 0.8044,
+    "institutional_ownership_pct": 0.80439,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

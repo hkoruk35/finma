@@ -1,8 +1,8 @@
 {
   "ticker": "BIDU",
   "company": "Baidu, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T08:35:19.495Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:28:03.902Z",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
@@ -14,12 +14,12 @@
     "change_pct": 0.5470459427272881,
     "change_pct_1w": -7.610334374107398,
     "change_pct_1m": -3.5474362895902964,
-    "change_pct_1y": -19.93378419302169,
+    "change_pct_1y": -19.96167760831172,
     "volume": 1703400,
     "avg_volume_30d": 91550500
   },
   "scores": {
-    "master_score": 38,
+    "master_score": 41,
     "technical_score": 30,
     "fundamental_score": 50,
     "momentum_score": 50,
@@ -28,18 +28,18 @@
     "score_type": "UNDERPERFORM",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": -2,
-      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
     }
   },
   "technical": {
-    "rsi_14": 38.5810382184569,
+    "rsi_14": 38.58103836002556,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 95.65716479105134,
-    "ema_50": 102.34574773665207,
-    "ema_200": 115.90467186464363,
+    "ema_20": 95.65716479105184,
+    "ema_50": 102.3457494791482,
+    "ema_200": 115.90792260062028,
     "ema_stack_bullish": false,
     "bb_upper": 96.49500160217285,
     "bb_middle": 91.9000015258789,
@@ -53,14 +53,14 @@
   },
   "fundamental": {
     "pe_ratio": 0,
-    "pb_ratio": 0.7702047,
+    "pb_ratio": 0.7575495,
     "gross_margin": 0.40870997,
     "operating_margin": 0.096540004,
     "net_margin": -0.02895,
-    "market_cap": 31376541696,
+    "market_cap": 30842091520,
     "revenue_growth_ttm": -0.042,
     "fcf_yield": 0.04,
-    "institutional_ownership_pct": 0.23423,
+    "institutional_ownership_pct": 0.23416,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $90.22 – $92.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $94.12 direnci veya $89.67 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $87.31 olarak belirlenmiştir. Fiyatın EMA20 ($95.66) veya günlük VWAP ($92.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $87.31 olarak belirlenmiştir. Fiyatın EMA20 ($95.66) veya günlük VWAP ($90.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($102.35) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($92.12) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($90.57) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
   }

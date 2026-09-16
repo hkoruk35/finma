@@ -1,0 +1,89 @@
+{
+  "ticker": "FTNT",
+  "company": "Fortinet, Inc.",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T00:12:43.171Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 170.17999267578125,
+    "open": 162.3300018310547,
+    "high": 170.9499969482422,
+    "low": 160.0800018310547,
+    "prev_close": 156.07000732421875,
+    "change_pct": 9.040805208812808,
+    "change_pct_1w": 8.887324836094198,
+    "change_pct_1m": -0.4387761259795959,
+    "change_pct_1y": 110.0987563898534,
+    "volume": 5929500,
+    "avg_volume_30d": 132030200.00000001
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.88350419619948,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 159.67360174204168,
+    "ema_50": 155.50116406528596,
+    "ema_200": 123.67153027851228,
+    "ema_stack_bullish": true,
+    "bb_upper": 178.68899230957032,
+    "bb_middle": 170.17999267578125,
+    "bb_lower": 161.67099304199218,
+    "bb_width": 10,
+    "atr": 7.86,
+    "atr_pct": 4.62,
+    "rvol": 0.826492726664051,
+    "52w_high": 173.88999938964844,
+    "52w_low": 73.55000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 61.124115,
+    "pb_ratio": 81.53736,
+    "gross_margin": 0.80204004,
+    "operating_margin": 0.33595002,
+    "net_margin": 0.28173,
+    "market_cap": 126470217728,
+    "revenue_growth_ttm": 0.256,
+    "fcf_yield": 0.01791399980723215,
+    "institutional_ownership_pct": 0.71559,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 162.19,
+    "entry_range_high": 170.97,
+    "target_range_low": 174.91,
+    "target_range_high": 191.56,
+    "target_1": 174.91,
+    "target_2": 183.24,
+    "target_3": 191.56,
+    "stop_loss": 156.68,
+    "risk_reward_ratio": 1.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $162.19 – $170.97 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $173.89 direnci veya $160.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $156.68 olarak belirlenmiştir. Fiyatın EMA50 ($155.50) veya günlük VWAP ($171.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($171.62) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

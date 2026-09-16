@@ -1,8 +1,8 @@
 {
   "ticker": "PBR",
   "company": "Petróleo Brasileiro S.A. - Petrobras",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T09:16:10.905Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:00:25.799Z",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -14,9 +14,9 @@
     "change_pct": -0.2358544462724201,
     "change_pct_1w": 5.119278013589384,
     "change_pct_1m": 9.302321455167993,
-    "change_pct_1y": 67.45842776634451,
-    "volume": 13611000,
-    "avg_volume_30d": 613233200
+    "change_pct_1y": 64.59143183395945,
+    "volume": 13638700,
+    "avg_volume_30d": 613260900
   },
   "scores": {
     "master_score": 85,
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 66.38456295836824,
+    "rsi_14": 66.38456290460181,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 19.8790671550747,
-    "ema_50": 19.062902141541326,
-    "ema_200": 17.446389010537228,
+    "ema_20": 19.879067155077404,
+    "ema_50": 19.062911725062225,
+    "ema_200": 17.46426767089969,
     "ema_stack_bullish": true,
     "bb_upper": 22.20749959945679,
     "bb_middle": 21.149999618530273,
@@ -47,22 +47,22 @@
     "bb_width": 10,
     "atr": 0.69,
     "atr_pct": 3.24,
-    "rvol": 1.1976122623497878,
+    "rvol": 1.1978291784132984,
     "52w_high": 22.239999771118164,
     "52w_low": 11.430000305175781
   },
   "fundamental": {
-    "pe_ratio": 5.340909,
-    "pb_ratio": 1.4418312,
+    "pe_ratio": 5.4974747,
+    "pb_ratio": 1.4840977,
     "gross_margin": 0.50595003,
     "operating_margin": 0.44679,
     "net_margin": 0.24317,
-    "market_cap": 136298348544,
+    "market_cap": 140293865472,
     "revenue_growth_ttm": 0.423,
-    "fcf_yield": 0.691425318286797,
+    "fcf_yield": 0.6717337832765649,
     "institutional_ownership_pct": 0.22346,
     "dividend_rate": 1.68,
-    "dividend_yield": 0.0793
+    "dividend_yield": 0.0795
   },
   "scores_detail": {
     "entry_range_low": 20.74,
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $20.74 – $21.22 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $21.51 direnci veya $20.60 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.09 olarak belirlenmiştir. Fiyatın EMA20 ($19.88) veya günlük VWAP ($21.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.09 olarak belirlenmiştir. Fiyatın EMA20 ($19.88) veya günlük VWAP ($21.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($21.13) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($21.74) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
   }

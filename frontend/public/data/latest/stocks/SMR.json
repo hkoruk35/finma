@@ -1,0 +1,89 @@
+{
+  "ticker": "SMR",
+  "company": "NuScale Power Corporation",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T18:43:01.067Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 8.446999549865723,
+    "open": 8.364999771118164,
+    "high": 8.670000076293945,
+    "low": 8.239999771118164,
+    "prev_close": 8.510000228881836,
+    "change_pct": -0.7403134820407777,
+    "change_pct_1w": -24.445444371274444,
+    "change_pct_1m": -8.284478665808601,
+    "change_pct_1y": -78.390894047345,
+    "volume": 21883098,
+    "avg_volume_30d": 1024498497.9999999
+  },
+  "scores": {
+    "master_score": 29,
+    "technical_score": 30,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.97963087652629,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 9.409985579946829,
+    "ema_50": 9.524097977993431,
+    "ema_200": 14.669787954342826,
+    "ema_stack_bullish": false,
+    "bb_upper": 8.86934952735901,
+    "bb_middle": 8.446999549865723,
+    "bb_lower": 8.024649572372436,
+    "bb_width": 10,
+    "atr": 0.73,
+    "atr_pct": 8.62,
+    "rvol": 1.1556901160044455,
+    "52w_high": 57.41999816894531,
+    "52w_low": 7.210000038146973
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.6816643,
+    "gross_margin": 0.23545,
+    "operating_margin": -853.37335,
+    "net_margin": 0,
+    "market_cap": 3466560256,
+    "revenue_growth_ttm": -0.991,
+    "fcf_yield": -0.05901931162046992,
+    "institutional_ownership_pct": 0.59471,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 8.01,
+    "entry_range_high": 8.52,
+    "target_range_low": 10.14,
+    "target_range_high": 11.85,
+    "target_1": 10.14,
+    "target_2": 10.34,
+    "target_3": 11.85,
+    "stop_loss": 7.5,
+    "risk_reward_ratio": 2.71,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $8.01 – $8.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $8.93 direnci veya $7.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.50 olarak belirlenmiştir. Fiyatın EMA20 ($9.41) veya günlük VWAP ($8.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($9.52) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($8.46) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

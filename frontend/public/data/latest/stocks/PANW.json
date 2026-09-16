@@ -1,8 +1,8 @@
 {
   "ticker": "PANW",
   "company": "Palo Alto Networks, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:46:38.681Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T00:34:33.629Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -14,12 +14,12 @@
     "change_pct": 13.09239659580171,
     "change_pct_1w": 12.20668291535809,
     "change_pct_1m": -2.143250290936424,
-    "change_pct_1y": 90.50385410952263,
-    "volume": 12013600,
-    "avg_volume_30d": 186755600
+    "change_pct_1y": 85.78100392947177,
+    "volume": 12027300,
+    "avg_volume_30d": 186769300
   },
   "scores": {
-    "master_score": 75,
+    "master_score": 78,
     "technical_score": 100,
     "fundamental_score": 66.5,
     "momentum_score": 56,
@@ -28,18 +28,18 @@
     "score_type": "HIGH_CONVICTION",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": -2,
-      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
     }
   },
   "technical": {
-    "rsi_14": 57.70620996904058,
+    "rsi_14": 57.70620994177489,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 350.18563253322816,
-    "ema_50": 339.60884688611236,
-    "ema_200": 266.34023437044095,
+    "ema_20": 350.18563253328955,
+    "ema_50": 339.6090642577667,
+    "ema_200": 266.74575484832013,
     "ema_stack_bullish": true,
     "bb_upper": 392.6370025634766,
     "bb_middle": 373.94000244140625,
@@ -47,20 +47,20 @@
     "bb_width": 10,
     "atr": 22.01,
     "atr_pct": 5.88,
-    "rvol": 1.024727504824487,
+    "rvol": 1.0250924536312982,
     "52w_high": 398.8800048828125,
     "52w_low": 139.57000732421875
   },
   "fundamental": {
-    "pe_ratio": 934.85,
-    "pb_ratio": 11.11263,
+    "pe_ratio": 914.85364,
+    "pb_ratio": 11.146805,
     "gross_margin": 0.70383,
     "operating_margin": 0.05396,
     "net_margin": 0.02674,
-    "market_cap": 305882923008,
+    "market_cap": 306823626752,
     "revenue_growth_ttm": 0.345,
-    "fcf_yield": 0.013863555553538017,
-    "institutional_ownership_pct": 0.84473,
+    "fcf_yield": 0.013821050682735135,
+    "institutional_ownership_pct": 0.84475,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $361.67 – $376.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $387.33 direnci veya $357.27 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $346.27 olarak belirlenmiştir. Fiyatın EMA20 ($350.19) veya günlük VWAP ($373.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $346.27 olarak belirlenmiştir. Fiyatın EMA20 ($350.19) veya günlük VWAP ($375.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($373.10) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($375.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
   }

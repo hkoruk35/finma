@@ -2,7 +2,7 @@
   "ticker": "ALB",
   "company": "Albemarle Corporation",
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T07:23:46.139Z",
+  "generated_at": "2026-09-15T11:40:32.054Z",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 73.08999633789062
   },
   "fundamental": {
-    "pe_ratio": 426.03702,
+    "pe_ratio": 442.4231,
     "pb_ratio": 1.6881421,
     "gross_margin": 0.23959999,
     "operating_margin": 0.2771,
@@ -60,9 +60,9 @@
     "market_cap": 13574121472,
     "revenue_growth_ttm": 0.311,
     "fcf_yield": 0.09830030081522464,
-    "institutional_ownership_pct": 1.01727,
+    "institutional_ownership_pct": 1.01747,
     "dividend_rate": 1.64,
-    "dividend_yield": 0.0139999995
+    "dividend_yield": 0.0143
   },
   "scores_detail": {
     "entry_range_low": 111.55,

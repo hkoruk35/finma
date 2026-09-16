@@ -1,8 +1,8 @@
 {
   "ticker": "ACHR",
   "company": "Archer Aviation Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T10:54:22.725Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T00:53:02.699Z",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -14,9 +14,9 @@
     "change_pct": -1.2544748347904497,
     "change_pct_1w": -3.502623606462204,
     "change_pct_1m": -4.6712797772626065,
-    "change_pct_1y": -37.028568812779014,
-    "volume": 29857100,
-    "avg_volume_30d": 1016716699.9999999
+    "change_pct_1y": -39.58333006553478,
+    "volume": 29869900,
+    "avg_volume_30d": 1016729500.0000001
   },
   "scores": {
     "master_score": 42,
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 45.51858794005876,
+    "rsi_14": 45.51858779536404,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 5.721154958416271,
-    "ema_50": 5.659148445857141,
-    "ema_200": 6.399792535393973,
+    "ema_20": 5.721154958420824,
+    "ema_50": 5.659164563572295,
+    "ema_200": 6.429861145661588,
     "ema_stack_bullish": false,
     "bb_upper": 5.785500240325928,
     "bb_middle": 5.510000228881836,
@@ -47,20 +47,20 @@
     "bb_width": 10,
     "atr": 0.25,
     "atr_pct": 4.52,
-    "rvol": 0.6990608101548839,
+    "rvol": 0.6991275457238134,
     "52w_high": 14.619999885559082,
     "52w_low": 4.300000190734863
   },
   "fundamental": {
     "pe_ratio": 0,
-    "pb_ratio": 2.24166,
+    "pb_ratio": 2.2253864,
     "gross_margin": 0.14493,
     "operating_margin": -55.14,
     "net_margin": 0,
-    "market_cap": 4242848000,
+    "market_cap": 4212046592,
     "revenue_growth_ttm": 0,
-    "fcf_yield": -0.0887228352276584,
-    "institutional_ownership_pct": 0.5004,
+    "fcf_yield": -0.08937163817583905,
+    "institutional_ownership_pct": 0.50033003,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $5.36 – $5.53 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $5.65 direnci veya $5.31 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.19 olarak belirlenmiştir. Fiyatın EMA50 ($5.66) veya günlük VWAP ($5.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.19 olarak belirlenmiştir. Fiyatın EMA50 ($5.66) veya günlük VWAP ($5.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.66) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($5.52) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($5.42) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
     "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
   }

@@ -1,25 +1,25 @@
 {
   "ticker": "MNST",
   "company": "Monster Beverage Corporation",
-  "date": "2026-09-14",
-  "generated_at": "2026-09-14T20:32:58.509Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T02:00:57.984Z",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Non-Alcoholic",
   "price": {
     "current": 44.20000076293945,
-    "open": 43.512001037597656,
+    "open": 43.5099983215332,
     "high": 44.40999984741211,
-    "low": 43.512001037597656,
+    "low": 43.5099983215332,
     "prev_close": 43.400001525878906,
     "change_pct": 1.843316149616992,
     "change_pct_1w": 0.8671863778221753,
     "change_pct_1m": -3.745639099718118,
-    "change_pct_1y": 36.65172080639242,
-    "volume": 8693420,
-    "avg_volume_30d": 309254620
+    "change_pct_1y": 37.37374300238675,
+    "volume": 9009900,
+    "avg_volume_30d": 309571100
   },
   "scores": {
-    "master_score": 56,
+    "master_score": 53,
     "technical_score": 45,
     "fundamental_score": 79.7,
     "momentum_score": 50,
@@ -28,18 +28,18 @@
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": 1,
-      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
     }
   },
   "technical": {
-    "rsi_14": 41.303167105698975,
+    "rsi_14": 41.303167153748376,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 45.10554823965726,
-    "ema_50": 45.83556977850988,
-    "ema_200": 42.34223344426539,
+    "ema_20": 45.105548239655164,
+    "ema_50": 45.83556237298449,
+    "ema_200": 42.32841797136829,
     "ema_stack_bullish": false,
     "bb_upper": 46.410000801086426,
     "bb_middle": 44.20000076293945,
@@ -47,20 +47,20 @@
     "bb_width": 10,
     "atr": 0.96,
     "atr_pct": 2.17,
-    "rvol": 0.8842620362470252,
+    "rvol": 0.88949194546907,
     "52w_high": 50.16999816894531,
     "52w_low": 31.5049991607666
   },
   "fundamental": {
-    "pe_ratio": 40.925926,
-    "pb_ratio": 9.246861,
+    "pe_ratio": 41.324074,
+    "pb_ratio": 9.33682,
     "gross_margin": 0.55546004,
     "operating_margin": 0.2918,
     "net_margin": 0.23079,
-    "market_cap": 86590087168,
+    "market_cap": 87432486912,
     "revenue_growth_ttm": 0.202,
-    "fcf_yield": 0.019415976574063448,
-    "institutional_ownership_pct": 0.69593,
+    "fcf_yield": 0.019228906363971367,
+    "institutional_ownership_pct": 0.69592005,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -79,10 +79,10 @@
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
-    "entry_condition": "Hesaplanan giriş aralığı $43.63 – $44.30 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $45.19 direnci veya $43.43 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.99 olarak belirlenmiştir. Fiyatın EMA200 ($42.34) veya günlük VWAP ($44.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "entry_condition": "Hesaplanan giriş aralığı $43.63 – $44.30 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $44.94 direnci veya $43.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.99 olarak belirlenmiştir. Fiyatın EMA200 ($42.33) veya günlük VWAP ($44.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($45.84) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($44.22) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($44.62) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
   }

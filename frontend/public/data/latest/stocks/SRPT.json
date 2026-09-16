@@ -1,8 +1,8 @@
 {
   "ticker": "SRPT",
   "company": "Sarepta Therapeutics, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:35:04.076Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T02:10:55.800Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -14,32 +14,32 @@
     "change_pct": 2.298285065134321,
     "change_pct_1w": -7.0222218831380205,
     "change_pct_1m": -0.5230651771752685,
-    "change_pct_1y": 20.29902708764196,
+    "change_pct_1y": 19.748144811329148,
     "volume": 2192900,
     "avg_volume_30d": 92543100
   },
   "scores": {
-    "master_score": 72,
+    "master_score": 35,
     "technical_score": 100,
     "fundamental_score": 36.8,
     "momentum_score": 50,
     "sentiment_score": 70,
-    "signal_type": "STRONG_BUY",
-    "score_type": "HIGH_CONVICTION",
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
     "micro_15m": {
-      "is_valid": true,
-      "score_bonus": 1,
-      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
     }
   },
   "technical": {
-    "rsi_14": 55.059968499155545,
+    "rsi_14": 55.05996852434478,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 20.418687226573667,
-    "ema_50": 19.1558856822238,
-    "ema_200": 18.800722295994525,
+    "ema_20": 20.418687226574654,
+    "ema_50": 19.155889167132937,
+    "ema_200": 18.80722361294418,
     "ema_stack_bullish": true,
     "bb_upper": 21.966000080108643,
     "bb_middle": 20.920000076293945,
@@ -53,13 +53,13 @@
   },
   "fundamental": {
     "pe_ratio": 0,
-    "pb_ratio": 1.4462496,
+    "pb_ratio": 1.432423,
     "gross_margin": 0.19108,
     "operating_margin": 0.13032,
     "net_margin": -0.06925,
-    "market_cap": 2209717248,
+    "market_cap": 2188591872,
     "revenue_growth_ttm": -0.343,
-    "fcf_yield": 0.010019325332251739,
+    "fcf_yield": 0.010116036837771826,
     "institutional_ownership_pct": 1.03797,
     "dividend_rate": 0,
     "dividend_yield": 0
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $19.84 – $21.09 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $21.82 direnci veya $19.51 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.68 olarak belirlenmiştir. Fiyatın EMA200 ($18.80) veya günlük VWAP ($20.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.68 olarak belirlenmiştir. Fiyatın EMA200 ($18.81) veya günlük VWAP ($20.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($20.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($20.76) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
   }

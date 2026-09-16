@@ -1,8 +1,8 @@
 {
   "ticker": "APP",
   "company": "AppLovin Corporation",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T09:43:45.058Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:07:01.435Z",
   "sector": "Communication Services",
   "industry": "Advertising Agencies",
   "price": {
@@ -14,7 +14,7 @@
     "change_pct": 3.1732309700107986,
     "change_pct_1w": 4.267529566998061,
     "change_pct_1m": 7.107605219927825,
-    "change_pct_1y": -42.57044841333763,
+    "change_pct_1y": -43.64905722429066,
     "volume": 5056600,
     "avg_volume_30d": 172767700
   },
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 50.73244618452037,
+    "rsi_14": 50.73244614304447,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 323.8239987963284,
-    "ema_50": 364.2092020600147,
-    "ema_200": 459.4767276858682,
+    "ema_20": 323.8239987964654,
+    "ema_50": 364.20968733471307,
+    "ema_200": 460.3820381249056,
     "ema_stack_bullish": false,
     "bb_upper": 350.9519897460938,
     "bb_middle": 334.239990234375,
@@ -52,37 +52,37 @@
     "52w_low": 297.5
   },
   "fundamental": {
-    "pe_ratio": 25.710768,
-    "pb_ratio": 35.4293,
+    "pe_ratio": 25.496922,
+    "pb_ratio": 35.134617,
     "gross_margin": 0.88464,
     "operating_margin": 0.77678,
     "net_margin": 0.64575994,
-    "market_cap": 112284418048,
+    "market_cap": 111350513664,
     "revenue_growth_ttm": 0.528,
-    "fcf_yield": 0.028320547759713318,
+    "fcf_yield": 0.028558074133322033,
     "institutional_ownership_pct": 0.76069,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
   "scores_detail": {
-    "entry_range_low": 323.27,
+    "entry_range_low": 326.67,
     "entry_range_high": 335.68,
     "target_range_low": 437.79,
     "target_range_high": 491.99,
     "target_1": 437.79,
     "target_2": 473,
     "target_3": 491.99,
-    "stop_loss": 313.22,
-    "risk_reward_ratio": 8.83,
+    "stop_loss": 316.63,
+    "risk_reward_ratio": 9.75,
     "entry_engine": {
       "valid": false,
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
-    "entry_condition": "Hesaplanan giriş aralığı $323.27 – $335.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $338.34 direnci veya $320.40 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $313.22 olarak belirlenmiştir. Fiyatın EMA20 ($323.82) veya günlük VWAP ($332.54) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "entry_condition": "Hesaplanan giriş aralığı $326.67 – $335.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $338.34 direnci veya $323.80 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $316.63 olarak belirlenmiştir. Fiyatın EMA20 ($323.82) veya günlük VWAP ($329.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($364.21) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($332.54) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($329.86) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
     "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
   }

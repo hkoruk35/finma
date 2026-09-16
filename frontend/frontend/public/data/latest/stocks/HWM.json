@@ -1,0 +1,89 @@
+{
+  "ticker": "HWM",
+  "company": "Howmet Aerospace Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T10:01:26.621Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 227.1300048828125,
+    "open": 226.24000549316406,
+    "high": 229.3800048828125,
+    "low": 223.02999877929688,
+    "prev_close": 229.61000061035156,
+    "change_pct": -1.0800904668554128,
+    "change_pct_1w": -12.396337984634451,
+    "change_pct_1m": -7.274950923634853,
+    "change_pct_1y": 22.26408982027616,
+    "volume": 2859000,
+    "avg_volume_30d": 95543200
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 45,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 29.237652392727682,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 252.60481864030814,
+    "ema_50": 263.55311127845533,
+    "ema_200": 248.11580943204717,
+    "ema_stack_bullish": false,
+    "bb_upper": 238.48650512695315,
+    "bb_middle": 227.1300048828125,
+    "bb_lower": 215.77350463867185,
+    "bb_width": 10,
+    "atr": 10.1,
+    "atr_pct": 4.45,
+    "rvol": 1.7854959850622545,
+    "52w_high": 310,
+    "52w_low": 182.77999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 48.95043,
+    "pb_ratio": 15.849965,
+    "gross_margin": 0.36032,
+    "operating_margin": 0.28504,
+    "net_margin": 0.20522,
+    "market_cap": 90579763200,
+    "revenue_growth_ttm": 0.241,
+    "fcf_yield": 0.013136211687513001,
+    "institutional_ownership_pct": 0.93311995,
+    "dividend_rate": 0.56,
+    "dividend_yield": 0.0023999999
+  },
+  "scores_detail": {
+    "entry_range_low": 221.07,
+    "entry_range_high": 228.14,
+    "target_range_low": 259.82,
+    "target_range_high": 280.74,
+    "target_1": 259.82,
+    "target_2": 267.31,
+    "target_3": 280.74,
+    "stop_loss": 214,
+    "risk_reward_ratio": 4.03,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $221.07 – $228.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $232.36 direnci veya $219.05 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $214.00 olarak belirlenmiştir. Fiyatın EMA200 ($248.12) veya günlük VWAP ($227.63) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($263.55) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($227.63) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.8 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 29 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

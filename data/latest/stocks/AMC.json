@@ -1,8 +1,8 @@
 {
   "ticker": "AMC",
   "company": "AMC Entertainment Holdings, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T05:03:22.909Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T02:21:04.157Z",
   "sector": "Communication Services",
   "industry": "Entertainment",
   "price": {
@@ -14,9 +14,9 @@
     "change_pct": 1.6260146842582102,
     "change_pct_1w": -5.66038075355743,
     "change_pct_1m": -5.303034065949647,
-    "change_pct_1y": -11.032026658082467,
-    "volume": 16389800,
-    "avg_volume_30d": 663573600
+    "change_pct_1y": -13.793106283217258,
+    "volume": 16446800,
+    "avg_volume_30d": 663630600
   },
   "scores": {
     "master_score": 64,
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 49.34608677185408,
+    "rsi_14": 49.34608670194157,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 2.5289939800321877,
-    "ema_50": 2.413688813500095,
-    "ema_200": 2.102152968355545,
+    "ema_20": 2.5289939800332957,
+    "ema_50": 2.413692734033263,
+    "ema_200": 2.109466969299359,
     "ema_stack_bullish": true,
     "bb_upper": 2.625,
     "bb_middle": 2.5,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.16,
     "atr_pct": 6.57,
-    "rvol": 0.9145644130507904,
+    "rvol": 0.915001206996784,
     "52w_high": 3.180000066757202,
     "52w_low": 0.9300000071525574
   },
@@ -57,10 +57,10 @@
     "gross_margin": 0.18208,
     "operating_margin": 0.14899,
     "net_margin": -0.10593,
-    "market_cap": 2231511552,
+    "market_cap": 2276141824,
     "revenue_growth_ttm": 0.142,
-    "fcf_yield": 0.063902873311229,
-    "institutional_ownership_pct": 0.49655,
+    "fcf_yield": 0.06264987466791525,
+    "institutional_ownership_pct": 0.49662998,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

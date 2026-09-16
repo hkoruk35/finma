@@ -2,7 +2,7 @@
   "ticker": "DDOG",
   "company": "Datadog, Inc.",
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:54:44.801Z",
+  "generated_at": "2026-09-15T12:19:31.241Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 82605203456,
     "revenue_growth_ttm": 0.356,
     "fcf_yield": 0.01272816127812141,
-    "institutional_ownership_pct": 0.92817,
+    "institutional_ownership_pct": 0.92800003,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

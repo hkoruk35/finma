@@ -1,26 +1,26 @@
 {
   "ticker": "DRIP",
   "company": "Direxion Daily S&P Oil & Gas Exp. & Prod. Bear 2X Shares",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T06:34:57.873Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T03:11:04.319Z",
   "sector": "Unknown",
   "industry": "Unknown",
   "price": {
-    "current": 33.099998474121094,
-    "open": 31.389999389648438,
-    "high": 33.18000030517578,
-    "low": 31.09000015258789,
-    "prev_close": 32.369998931884766,
-    "change_pct": 2.255173204585038,
-    "change_pct_1w": -2.4462181656039554,
-    "change_pct_1m": -4.418141919732295,
-    "change_pct_1y": -63.4657847333455,
-    "volume": 1594500,
-    "avg_volume_30d": 21536800
+    "current": 30.90999984741211,
+    "open": 32.619998931884766,
+    "high": 32.619998931884766,
+    "low": 30.524999618530273,
+    "prev_close": 33.099998474121094,
+    "change_pct": -6.616310355486007,
+    "change_pct_1w": -5.762193395153916,
+    "change_pct_1m": -7.093479344394924,
+    "change_pct_1y": -66.29225640557164,
+    "volume": 1191200,
+    "avg_volume_30d": 22306300
   },
   "scores": {
-    "master_score": 50,
-    "technical_score": 35,
+    "master_score": 51,
+    "technical_score": 45,
     "fundamental_score": 56.6,
     "momentum_score": 60,
     "sentiment_score": 70,
@@ -28,28 +28,28 @@
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": 4,
-      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.64%)"
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
     }
   },
   "technical": {
-    "rsi_14": 35.360087423125435,
+    "rsi_14": 28.99873697736905,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 34.91876252877463,
-    "ema_50": 39.04154995751152,
-    "ema_200": 53.772018117412486,
+    "ema_20": 34.53697560675236,
+    "ema_50": 38.72271167783145,
+    "ema_200": 53.6330389345869,
     "ema_stack_bullish": false,
-    "bb_upper": 34.75499839782715,
-    "bb_middle": 33.099998474121094,
-    "bb_lower": 31.444998550415036,
+    "bb_upper": 32.45549983978272,
+    "bb_middle": 30.90999984741211,
+    "bb_lower": 29.3644998550415,
     "bb_width": 10,
-    "atr": 1.54,
-    "atr_pct": 4.65,
-    "rvol": 1.3550759630028602,
+    "atr": 1.62,
+    "atr_pct": 5.25,
+    "rvol": 1.4219211612862732,
     "52w_high": 99,
-    "52w_low": 31.09000015258789
+    "52w_low": 30.524999618530273
   },
   "fundamental": {
     "pe_ratio": 0,
@@ -65,25 +65,25 @@
     "dividend_yield": 0
   },
   "scores_detail": {
-    "entry_range_low": 32.18,
-    "entry_range_high": 33.25,
+    "entry_range_low": 29.94,
+    "entry_range_high": 31.07,
     "target_range_low": 45.95,
     "target_range_high": 55.4,
     "target_1": 45.95,
     "target_2": 49.8,
     "target_3": 55.4,
-    "stop_loss": 31.1,
-    "risk_reward_ratio": 10.58,
+    "stop_loss": 28.8,
+    "risk_reward_ratio": 11.32,
     "entry_engine": {
       "valid": false,
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
-    "entry_condition": "Hesaplanan giriş aralığı $32.18 – $33.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $34.23 direnci veya $31.87 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $31.10 olarak belirlenmiştir. Fiyatın EMA20 ($34.92) veya günlük VWAP ($32.34) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
-    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.04) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.34) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "entry_condition": "Hesaplanan giriş aralığı $29.94 – $31.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $32.55 direnci veya $29.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $28.80 olarak belirlenmiştir. Fiyatın EMA20 ($34.54) veya günlük VWAP ($31.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($38.72) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.16) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
-    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+    "rationale_rsi": "RSI 29 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
   }
 }

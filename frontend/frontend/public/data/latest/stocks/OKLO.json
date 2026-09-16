@@ -1,0 +1,89 @@
+{
+  "ticker": "OKLO",
+  "company": "Oklo Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T16:50:22.616Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 36.227500915527344,
+    "open": 36,
+    "high": 36.470001220703125,
+    "low": 35.27000045776367,
+    "prev_close": 36.209999084472656,
+    "change_pct": 0.04833424881856052,
+    "change_pct_1w": -16.353036788706735,
+    "change_pct_1m": -5.975857608920353,
+    "change_pct_1y": -62.136809364571434,
+    "volume": 3756937,
+    "avg_volume_30d": 300259937
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 30,
+    "fundamental_score": 43.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.16%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.687957734165586,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 40.32334675983176,
+    "ema_50": 44.007071516835396,
+    "ema_200": 62.13094884538762,
+    "ema_stack_bullish": false,
+    "bb_upper": 38.03887596130371,
+    "bb_middle": 36.227500915527344,
+    "bb_lower": 34.41612586975098,
+    "bb_width": 10,
+    "atr": 2.56,
+    "atr_pct": 7.06,
+    "rvol": 1.1256254343382481,
+    "52w_high": 193.83999633789062,
+    "52w_low": 34.380001068115234
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.0483716,
+    "gross_margin": 0.40412998,
+    "operating_margin": -60.4876,
+    "net_margin": 0,
+    "market_cap": 6738954752,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.035513649936434535,
+    "institutional_ownership_pct": 0.47547,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 34.89,
+    "entry_range_high": 36.48,
+    "target_range_low": 46.2,
+    "target_range_high": 63,
+    "target_1": 46.2,
+    "target_2": 49.48,
+    "target_3": 63,
+    "stop_loss": 33.1,
+    "risk_reward_ratio": 5.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $34.89 – $36.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $39.18 direnci veya $34.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $33.10 olarak belirlenmiştir. Fiyatın EMA20 ($40.32) veya günlük VWAP ($36.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($44.01) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($36.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

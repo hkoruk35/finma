@@ -1,0 +1,89 @@
+{
+  "ticker": "NET",
+  "company": "Cloudflare, Inc.",
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T08:29:10.051Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 330.3599853515625,
+    "open": 313.0199890136719,
+    "high": 334.6000061035156,
+    "low": 309,
+    "prev_close": 306.5299987792969,
+    "change_pct": 7.774112376330035,
+    "change_pct_1w": 18.442553222218223,
+    "change_pct_1m": 8.27570424183454,
+    "change_pct_1y": 49.26801663602315,
+    "volume": 4402900,
+    "avg_volume_30d": 113347500
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.32005196956975,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 297.73049326377213,
+    "ema_50": 283.7889658864539,
+    "ema_200": 242.79161060741427,
+    "ema_stack_bullish": true,
+    "bb_upper": 346.87798461914065,
+    "bb_middle": 330.3599853515625,
+    "bb_lower": 313.84198608398435,
+    "bb_width": 10,
+    "atr": 17.37,
+    "atr_pct": 5.26,
+    "rvol": 0.9367140872096871,
+    "52w_high": 334.6000061035156,
+    "52w_low": 158.8300018310547
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 72.57469,
+    "gross_margin": 0.72577006,
+    "operating_margin": -0.07603,
+    "net_margin": -0.082100004,
+    "market_cap": 117634490368,
+    "revenue_growth_ttm": 0.359,
+    "fcf_yield": 0.005882172531502967,
+    "institutional_ownership_pct": 0.90185,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 313.98,
+    "entry_range_high": 332.1,
+    "target_range_low": 339.19,
+    "target_range_high": 371.5,
+    "target_1": 339.19,
+    "target_2": 355.34,
+    "target_3": 371.5,
+    "stop_loss": 301.83,
+    "risk_reward_ratio": 1.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $313.98 – $332.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $334.60 direnci veya $310.51 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $301.83 olarak belirlenmiştir. Fiyatın EMA20 ($297.73) veya günlük VWAP ($328.92) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($328.92) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}
