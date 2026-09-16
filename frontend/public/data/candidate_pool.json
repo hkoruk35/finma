@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15 16:00",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CRC",
@@ -151,7 +151,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15 16:00",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RVTY",
@@ -296,7 +296,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BBY",
@@ -440,7 +440,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MEOH",
@@ -585,7 +585,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VIST",
@@ -729,7 +729,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SNAP",
@@ -874,7 +874,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15 16:00",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AGCO",
@@ -1018,7 +1018,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15 16:00",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RGEN",
@@ -1163,7 +1163,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RNG",
@@ -1310,7 +1310,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15 16:00",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MAN",
@@ -1456,7 +1456,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VTRS",
@@ -1602,7 +1602,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CNH",
@@ -1746,7 +1746,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BWIN",
@@ -1892,7 +1892,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EPAM",
@@ -2038,7 +2038,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WAT",
@@ -2183,7 +2183,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CVLT",
@@ -2329,7 +2329,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FFIV",
@@ -2474,7 +2474,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SBLK",
@@ -2618,7 +2618,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RUM",
@@ -2762,7 +2762,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CTVA",
@@ -2907,7 +2907,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-15",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GGB",
@@ -3051,7 +3051,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MEDP",
@@ -3197,7 +3197,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WHD",
@@ -3342,7 +3342,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-09-16",
+      "last_checked": "2026-09-16 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BG",
