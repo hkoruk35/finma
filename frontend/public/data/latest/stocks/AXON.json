@@ -2,7 +2,7 @@
   "ticker": "AXON",
   "company": "Axon Enterprise, Inc.",
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T05:25:49.750Z",
+  "generated_at": "2026-09-16T10:27:45.943Z",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 35913437184,
     "revenue_growth_ttm": 0.353,
     "fcf_yield": 0.0061859854533493595,
-    "institutional_ownership_pct": 0.91202,
+    "institutional_ownership_pct": 0.91179,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

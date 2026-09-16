@@ -2,7 +2,7 @@
   "ticker": "HUBS",
   "company": "HubSpot, Inc.",
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T06:31:03.080Z",
+  "generated_at": "2026-09-16T12:07:46.878Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 169.6300048828125
   },
   "fundamental": {
-    "pe_ratio": 89.284134,
+    "pe_ratio": 86.106766,
     "pb_ratio": 7.252346,
     "gross_margin": 0.83248,
     "operating_margin": 0.04869,
@@ -60,7 +60,7 @@
     "market_cap": 12386104320,
     "revenue_growth_ttm": 0.198,
     "fcf_yield": 0.05382249259143976,
-    "institutional_ownership_pct": 1.00213,
+    "institutional_ownership_pct": 1.0021399,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

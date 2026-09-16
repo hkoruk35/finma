@@ -1,8 +1,8 @@
 {
   "ticker": "RXT",
   "company": "Rackspace Technology, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T21:46:46.186Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T08:36:57.238Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 3.4055694875004447,
     "change_pct_1m": 11.333330472310383,
     "change_pct_1y": 143.7956133243964,
-    "volume": 4675353,
-    "avg_volume_30d": 224417253
+    "volume": 4693400,
+    "avg_volume_30d": 224435300
   },
   "scores": {
     "master_score": 35,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.26,
     "atr_pct": 7.84,
-    "rvol": 1.3071415592097992,
+    "rvol": 1.307518915250854,
     "52w_high": 8.600000381469727,
     "52w_low": 0.3930000066757202
   },

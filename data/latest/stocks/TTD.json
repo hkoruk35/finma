@@ -2,7 +2,7 @@
   "ticker": "TTD",
   "company": "The Trade Desk, Inc.",
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T02:29:55.111Z",
+  "generated_at": "2026-09-16T10:42:38.852Z",
   "sector": "Communication Services",
   "industry": "Advertising Agencies",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 7048202752,
     "revenue_growth_ttm": 0.03,
     "fcf_yield": 0.08271509610511273,
-    "institutional_ownership_pct": 0.89696,
+    "institutional_ownership_pct": 0.89695,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

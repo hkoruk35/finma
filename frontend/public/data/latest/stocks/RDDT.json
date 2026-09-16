@@ -1,22 +1,22 @@
 {
   "ticker": "RDDT",
   "company": "Reddit, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T23:04:06.342Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T12:16:25.684Z",
   "sector": "Communication Services",
   "industry": "Internet Content & Information",
   "price": {
     "current": 159.6300048828125,
     "open": 157.89999389648438,
     "high": 164.16000366210938,
-    "low": 157.3052978515625,
+    "low": 157.30499267578125,
     "prev_close": 162.3800048828125,
     "change_pct": -1.6935582690643707,
     "change_pct_1w": 6.8616947817353795,
     "change_pct_1m": 10.363665345975425,
     "change_pct_1y": -39.45152631868943,
-    "volume": 5061408,
-    "avg_volume_30d": 185518908
+    "volume": 5089400,
+    "avg_volume_30d": 185546900
   },
   "scores": {
     "master_score": 60,
@@ -47,12 +47,12 @@
     "bb_width": 10,
     "atr": 7.54,
     "atr_pct": 4.72,
-    "rvol": 0.7580060141363058,
+    "rvol": 0.758796832498953,
     "52w_high": 282.95001220703125,
     "52w_low": 119.2699966430664
   },
   "fundamental": {
-    "pe_ratio": 37.123257,
+    "pe_ratio": 37.209793,
     "pb_ratio": 9.343831,
     "gross_margin": 0.91442,
     "operating_margin": 0.28788,
@@ -60,7 +60,7 @@
     "market_cap": 30712256512,
     "revenue_growth_ttm": 0.611,
     "fcf_yield": 0.022078115156893882,
-    "institutional_ownership_pct": 0.89097,
+    "institutional_ownership_pct": 0.89096,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

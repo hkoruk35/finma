@@ -1,8 +1,8 @@
 {
   "ticker": "MDB",
   "company": "MongoDB, Inc.",
-  "date": "2026-09-15",
-  "generated_at": "2026-09-15T23:24:33.194Z",
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T09:07:11.913Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 6.087082423520892,
     "change_pct_1m": -13.02134431266149,
     "change_pct_1y": 13.085011242717043,
-    "volume": 1013931,
-    "avg_volume_30d": 56082831
+    "volume": 1014000,
+    "avg_volume_30d": 56082900
   },
   "scores": {
     "master_score": 59,
@@ -47,12 +47,12 @@
     "bb_width": 10,
     "atr": 22.62,
     "atr_pct": 5.99,
-    "rvol": 0.8378319204321194,
+    "rvol": 0.8378382715587104,
     "52w_high": 473.1000061035156,
     "52w_low": 215.67999267578125
   },
   "fundamental": {
-    "pe_ratio": 517.35614,
+    "pe_ratio": 524.5417,
     "pb_ratio": 10.219173,
     "gross_margin": 0.72688,
     "operating_margin": 0.0368,
@@ -60,7 +60,7 @@
     "market_cap": 30376726528,
     "revenue_growth_ttm": 0.305,
     "fcf_yield": 0.018479812941087158,
-    "institutional_ownership_pct": 0.96771,
+    "institutional_ownership_pct": 0.96773005,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
