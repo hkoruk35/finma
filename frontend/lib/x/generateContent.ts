@@ -222,7 +222,12 @@ Competitor and theme commentary should draw on well-known, general market knowle
 
 ${modeInstruction}
 ${previousLine}
-REAL DATA ONLY — never invent tickers, prices, or news not listed here:
+⚠️ CRITICAL DATA RULES — violation makes this analysis wrong and harmful to traders:
+1. The percentage numbers below are GROUND TRUTH. Use them verbatim. Do NOT round, approximate, invent, or change them.
+2. If S&P 500 data says "-0.45%", write about a decline. Never flip the sign.
+3. Do NOT invent any ticker symbol, stock move, or macro event not listed in the data below.
+4. If data shows a negative index move, do NOT describe it as positive or neutral — the directional accuracy is non-negotiable.
+
 Major indices: ${indexLine}.
 Sector ETFs: ${sectorLine}.
 ${commodityLine}

@@ -132,6 +132,17 @@ export async function GET(req: NextRequest) {
   const sectors = SECTOR_ITEMS.map((s) => ({ label: s.label, changePct: quotes[s.ticker]?.change_pct ?? 0 }));
   const commoditiesFx = COMMODITY_FX_ITEMS.map((c) => ({ label: c.label, changePct: quotes[c.ticker]?.change_pct ?? 0 }));
 
+  // Veri kalitesi kontrolü: tüm ana endeksler 0 ise quote fetch'i başarısız olmuştur.
+  // Sıfır veriye dayalı analiz üretmek yanlış analiz doğurur — atla.
+  const majorIndicesAllZero = ["SPX", "NDX", "DJI"].every((t) => (quotes[t]?.change_pct ?? 0) === 0);
+  if (majorIndicesAllZero && !force) {
+    console.error("[cron/generate-market-picture] Quote fetch returned all-zero major indices — skipping generation to prevent bad analysis. quotes:", JSON.stringify({ SPX: quotes["SPX"], NDX: quotes["NDX"], DJI: quotes["DJI"] }));
+    return NextResponse.json({ skipped: "all-zero quotes, likely fetch failure" }, { status: 200 });
+  }
+
+  // Hangi veriyle üretim yapıldığını her zaman logla — yanlış analiz debugı için.
+  console.log("[cron/generate-market-picture] Generating with data:", JSON.stringify({ mode, tradeDate, indices, commoditiesFx: commoditiesFx.slice(0, 3) }));
+
   const spxSnapshots = await getLatestDailySnapshots("SPX");
   const latestSpx = spxSnapshots[spxSnapshots.length - 1] ?? null;
   const quant = (latestSpx?.quant_snapshot ?? null) as Record<string, unknown> | null;
