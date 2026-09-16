@@ -52,6 +52,8 @@ import {
 } from "./scoring";
 import { buildContext } from "./context";
 import { buildChain, expectedMove, impliedVolFor, minutesToClose, priceOption, roundToStep, simulateRunners } from "./options";
+import { fetchRobinhoodSpyBars } from "./robinhoodBars";
+import type { FetchBarsResult } from "./yahoo";
 
 // ── Basit bellek içi önbellek ────────────────────────────────────
 
@@ -106,6 +108,46 @@ export interface MarketData {
   errors: string[];
 }
 
+/**
+ * SPY için Yahoo (5d geçmiş) + Robinhood (overnight dahil son ~güncel barlar,
+ * bkz. lib/v4/robinhoodBars.ts) barlarını birleştirir. Aynı dakikada ikisi de
+ * varsa Robinhood kazanır (overnight kapsıyor, Yahoo o dakikayı hiç görmüyor
+ * olabilir). Robinhood tablosu boş/bayatsa (poller kapalı) fonksiyon sessizce
+ * SAF Yahoo sonucuna döner — Yahoo her zaman fallback, tek nokta arıza değil.
+ * Diğer semboller (ES=F, NQ=F, ^VIX, ...) bu fonksiyona hiç girmez, aynen
+ * eskisi gibi sadece Yahoo kullanır.
+ */
+async function fetchSpotBarsWithRobinhoodOverlay(
+  symbol: string,
+  range: string,
+  ttlMs: number
+): Promise<FetchBarsResult> {
+  const yahoo = await cached(`spot1m-yahoo-${symbol}`, ttlMs, () => fetchBars(symbol, "1m", range, false));
+  if (symbol !== "SPY") return yahoo;
+
+  // Robinhood tarafını Yahoo geçmişinin en eski noktasından itibaren iste —
+  // pratikte sadece son birkaç saatlik overnight barları taşıyor, ama
+  // sorguyu geniş tutmak zararsız (tablo zaten ~10 gün ile sınırlı).
+  const since = yahoo.bars.length ? yahoo.bars[0].time : Math.floor(Date.now() / 1000) - 5 * 24 * 60 * 60;
+  const rh = await cached(`spot1m-robinhood-${symbol}`, Math.min(ttlMs, 60000), () => fetchRobinhoodSpyBars(since));
+
+  if (!rh.fresh || !rh.bars.length) return yahoo;
+
+  const byTime = new Map<number, Bar>();
+  for (const b of yahoo.bars) byTime.set(b.time, b);
+  for (const b of rh.bars) byTime.set(b.time, b); // overnight/daha güncel Robinhood barı Yahoo'nun üzerine yazar
+  const merged = [...byTime.values()].sort((a, b) => a.time - b.time);
+  const lastRh = rh.bars[rh.bars.length - 1];
+
+  return {
+    bars: merged,
+    marketPrice: lastRh.close,
+    marketTime: lastRh.time,
+    previousClose: yahoo.previousClose,
+    error: null,
+  };
+}
+
 // TTL, admin panellerinin (SPYEngine V1, SuperTrade V4) 60s'lik poll aralığıyla
 // hizalandı — önceki 15000ms değeri poll aralığından (15s/20s) kısa/eşitti,
 // yani önbellek fiilen hiçbir Yahoo isteğini engellemiyordu. Bu artış, olası
@@ -121,7 +163,7 @@ export async function loadMarketData(asset: AssetClass, intradayTtlMs = 60000): 
 
   const [es, spx, nq, vix, spxD, vixD] = await Promise.all([
     cached(`futures1m-${info.futures}`, intradayTtlMs, () => fetchBars(info.futures, "1m", "5d", true)),
-    cached(`spot1m-${info.spot}`, intradayTtlMs, () => fetchBars(info.spot, "1m", "5d", false)),
+    fetchSpotBarsWithRobinhoodOverlay(info.spot, "5d", intradayTtlMs),
     cached(`futures1m-${crossFutures}`, intradayTtlMs, () => fetchBars(crossFutures, "1m", "2d", true)),
     cached(`vix1m-${info.vix}`, intradayTtlMs, () => fetchBars(info.vix, "1m", "2d", false)),
     cached(`spot1d-${info.spot}`, 6 * 60 * 60 * 1000, () => fetchBars(info.spot, "1d", "2y", false)),

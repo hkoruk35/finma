@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import EngineNav from "@/components/admin/EngineNav";
 import { Badge, Panel, Row, toneClass, signed } from "@/components/admin/supertrade/ui";
 
 interface TradeLog {
@@ -48,11 +49,14 @@ export default function PerformancePage() {
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-4 text-slate-300 md:p-5">
-      <header className="mb-4">
-        <h1 className="text-[18px] font-medium text-slate-100">SuperTrade Öğrenme ve Performans</h1>
-        <p className="mt-1 text-[13px] text-slate-500">
-          Sistemin geçmişte ürettiği sinyaller, hedeflerine ulaşıp ulaşmadığı ve strateji dersleri.
-        </p>
+      <header className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h1 className="text-[18px] font-medium text-slate-100">SuperTrade Öğrenme ve Performans</h1>
+          <p className="mt-1 text-[13px] text-slate-500">
+            Sistemin geçmişte ürettiği sinyaller, hedeflerine ulaşıp ulaşmadığı ve strateji dersleri.
+          </p>
+        </div>
+        <EngineNav />
       </header>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">

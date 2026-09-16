@@ -73,6 +73,8 @@ export type MarketPictureMode = "intraday" | "day_close" | "week_close";
 export interface GenerateMarketPictureInput {
   contentType: "market_picture";
   mode: MarketPictureMode;
+  // NY saatiyle zaman damgası — prompt'ta verilerin ne zaman çekildiğini gösterir.
+  nyTime?: string;
   // Gerçek endeks değişimleri (SPX/NDX/DJI/RUT/VIX) — AI sadece bunları kullanır.
   indices: { label: string; changePct: number }[];
   // Gerçek sektör ETF değişimleri (11 sektör).
@@ -218,15 +220,20 @@ Competitor and theme commentary should draw on well-known, general market knowle
         ? `This week's sector performance: ${input.weekSectorRotation.map((s) => `${s.label} ${fmtPct(s.changePct)}`).join(", ")}.`
         : "";
 
+    const timestampLine = input.nyTime
+      ? `Data fetched directly from Yahoo Finance at ${input.nyTime} ET on ${new Date().toISOString().slice(0, 10)} — these are the actual live/closing values, not estimates.`
+      : "";
+
     return `Write a comprehensive "Current Market Analysis" for BogaStock's homepage. This is the main editorial piece — 380 to 480 words, structured with clear section headings. Readers come here for depth, not a numbers rehash. Raw numbers are already shown in cards next to this. Your job: explain the WHY, the relationships between signals, and what it all means for the next session or week.
 
 ${modeInstruction}
+${timestampLine}
 ${previousLine}
 ⚠️ CRITICAL DATA RULES — violation makes this analysis wrong and harmful to traders:
-1. The percentage numbers below are GROUND TRUTH. Use them verbatim. Do NOT round, approximate, invent, or change them.
-2. If S&P 500 data says "-0.45%", write about a decline. Never flip the sign.
-3. Do NOT invent any ticker symbol, stock move, or macro event not listed in the data below.
-4. If data shows a negative index move, do NOT describe it as positive or neutral — the directional accuracy is non-negotiable.
+1. The percentage numbers below are GROUND TRUTH fetched live from Yahoo Finance. Use them verbatim.
+2. NEVER flip the sign — if S&P 500 is "-0.45%", the session was a DOWN day. Write accordingly.
+3. Do NOT invent any ticker symbol, percentage, price level, or macro event not listed below.
+4. If indices are mixed (some up, some down), reflect that nuance — do not pick a single direction.
 
 Major indices: ${indexLine}.
 Sector ETFs: ${sectorLine}.

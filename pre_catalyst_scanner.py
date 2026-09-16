@@ -34,7 +34,7 @@ log = logging.getLogger("pre_catalyst")
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
 
-SCREENER_API = "http://localhost:3000/api/screener"  # Dev: localhost | Prod: https://bogastock.com
+SCREENER_API = os.environ.get("SCREENER_API_BASE", "https://bogastock.com") + "/api/screener"  # 2026-08-24: unattended (Task Scheduler) calismalarda localhost dev sunucusu ayakta olmadigi icin WinError 10061 aliniyordu; varsayilan artik prod, gerekirse SCREENER_API_BASE ile override edilebilir
 PRESET = "pre_catalyst"
 SCAN_LIMIT = 1000  # Tüm pre-catalyst aday hisseleri tara
 

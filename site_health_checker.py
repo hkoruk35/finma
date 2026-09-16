@@ -230,7 +230,7 @@ async def check_main_pages():
         "Ana Sayfa": "https://bogastock.com/",
         "Swing Picks": "https://bogastock.com/global/tr/swing",
         "Swing Performance": "https://bogastock.com/global/tr/swingperformance",
-        "Sektör": "https://bogastock.com/sector/technology",
+        "Sektör": "https://bogastock.com/global/tr/sectors",  # 2026-08-24: /sector/technology rotasi kaldirilmis (410 Gone), site /global/{locale}/sectors listeleme sayfasina tasinmis - saglik kontrolu guncellendi
         "Hisse Detay": "https://bogastock.com/global/tr/graphic/AAPL",
     }
 

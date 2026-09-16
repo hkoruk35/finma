@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getMultiQuote } from "@/lib/homeFeed";
 import { getLatestDailySnapshots, getLatestWeeklySnapshot } from "@/lib/indexSnapshots";
 import { generateLocalizedTexts, LOCALES, type MarketPictureMode } from "@/lib/x/generateContent";
 import { computeBogaView } from "@/lib/marketBiasEngine";
@@ -13,84 +12,128 @@ const CRON_SECRET = process.env.CRON_SECRET;
 // Sayfalardaki (app/global/{locale}/home/page.tsx) endeks/sektör listeleriyle
 // aynı ticker seti — tek kaynak burada, homepage widget'ı bu tabloyu okur.
 const INDEX_ITEMS = [
-  { ticker: "SPX", label: "S&P 500" },
-  { ticker: "NDX", label: "Nasdaq 100" },
-  { ticker: "DJI", label: "Dow Jones" },
-  { ticker: "RUT", label: "Russell 2000" },
-  { ticker: "VIX", label: "VIX" },
+  { ticker: "^GSPC", label: "S&P 500" },
+  { ticker: "^NDX",  label: "Nasdaq 100" },
+  { ticker: "^DJI",  label: "Dow Jones" },
+  { ticker: "^RUT",  label: "Russell 2000" },
+  { ticker: "^VIX",  label: "VIX" },
 ];
 
 const COMMODITY_FX_ITEMS = [
-  { ticker: "CL=F", label: "WTI Crude Oil" },
-  { ticker: "GC=F", label: "Gold" },
-  { ticker: "SI=F", label: "Silver" },
+  { ticker: "CL=F",    label: "WTI Crude Oil" },
+  { ticker: "GC=F",    label: "Gold" },
+  { ticker: "SI=F",    label: "Silver" },
   { ticker: "EURUSD=X", label: "EUR/USD" },
   { ticker: "DX-Y.NYB", label: "US Dollar Index" },
-  { ticker: "^TNX", label: "10Y Treasury Yield" },
+  { ticker: "^TNX",   label: "10Y Treasury Yield" },
 ];
 
 const SECTOR_ITEMS = [
-  { ticker: "XLK", label: "Technology" },
-  { ticker: "XLF", label: "Financials" },
-  { ticker: "XLE", label: "Energy" },
-  { ticker: "XLV", label: "Health Care" },
-  { ticker: "XLY", label: "Consumer Discretionary" },
-  { ticker: "XLP", label: "Consumer Staples" },
-  { ticker: "XLI", label: "Industrials" },
-  { ticker: "XLB", label: "Materials" },
+  { ticker: "XLK",  label: "Technology" },
+  { ticker: "XLF",  label: "Financials" },
+  { ticker: "XLE",  label: "Energy" },
+  { ticker: "XLV",  label: "Health Care" },
+  { ticker: "XLY",  label: "Consumer Discretionary" },
+  { ticker: "XLP",  label: "Consumer Staples" },
+  { ticker: "XLI",  label: "Industrials" },
+  { ticker: "XLB",  label: "Materials" },
   { ticker: "XLRE", label: "Real Estate" },
-  { ticker: "XLU", label: "Utilities" },
-  { ticker: "XLC", label: "Communication Services" },
+  { ticker: "XLU",  label: "Utilities" },
+  { ticker: "XLC",  label: "Communication Services" },
 ];
 
-// Otonom modda (piyasa saatleri disinda) tekrar tekrar ayni gunu/haftayi
-// yeniden uretmemek icin: intraday 110 dk'da bir (2 saatlik hedefin altinda,
-// saatlik cron'un kacirma payi icin), day_close/week_close ise gunde/haftada
-// sadece bir kez.
 const INTRADAY_MIN_GAP_MIN = 110;
+
+const YF_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "Accept": "application/json",
+  "Referer": "https://finance.yahoo.com/",
+  "Accept-Language": "en-US,en;q=0.9",
+};
+
+// Yahoo Finance'den cache'SİZ (no-store) doğrudan veri çeker.
+// getMultiQuote kullanılmıyor çünkü o 15 dakika Next.js cache'i kullanıyor —
+// kapanış saatinde eski intraday değeri gelebilir ve AI yanlış analiz üretir.
+async function fetchYFChangePct(yahooSymbol: string): Promise<number | null> {
+  try {
+    const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?interval=1d&range=5d`;
+    const res = await fetch(url, {
+      headers: YF_HEADERS,
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const result = data?.chart?.result?.[0];
+    if (!result) return null;
+
+    const meta = result.meta;
+    // regularMarketChangePercent: piyasa kapandıysa günlük kapanış değişimi
+    if (meta?.regularMarketChangePercent != null) {
+      return +meta.regularMarketChangePercent.toFixed(2);
+    }
+    // Fallback: closes dizisinden hesapla
+    const rawCloses: (number | null)[] = result.indicators?.quote?.[0]?.close ?? [];
+    const closes = rawCloses.filter((c): c is number => c != null && c > 0);
+    if (closes.length >= 2) {
+      const today = closes[closes.length - 1];
+      const prev  = closes[closes.length - 2];
+      if (prev > 0) return +(((today - prev) / prev) * 100).toFixed(2);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchFreshQuotes(
+  items: { ticker: string; label: string }[]
+): Promise<{ label: string; changePct: number }[]> {
+  const results = await Promise.all(
+    items.map(async (item) => {
+      const pct = await fetchYFChangePct(item.ticker);
+      return { label: item.label, changePct: pct ?? 0, raw: pct };
+    })
+  );
+  return results;
+}
 
 function nowInNY(): Date {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    weekday: "short",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+    hour12: false, weekday: "short",
   }).formatToParts(new Date());
   const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "0";
-  return new Date(
-    `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`
-  );
+  return new Date(`${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`);
 }
 
 function nyWeekday(): number {
-  // 0=Sun..6=Sat, based on the NY wall-clock date.
   const short = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" }).format(new Date());
   return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(short);
 }
 
 function nyDateString(): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date()); // YYYY-MM-DD
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
+}
+
+function nyTimeString(): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  }).format(new Date());
 }
 
 function determineMode(): MarketPictureMode {
   const ny = nowInNY();
-  const weekday = nyWeekday(); // 0 Sun .. 6 Sat
+  const weekday = nyWeekday();
   const minutesOfDay = ny.getHours() * 60 + ny.getMinutes();
-  const marketOpenMin = 9 * 60 + 30;
+  const marketOpenMin  = 9 * 60 + 30;
   const marketCloseMin = 16 * 60;
 
-  if (weekday === 0 || weekday === 6) return "week_close"; // weekend keeps showing the weekly wrap
-  if (minutesOfDay < marketOpenMin) {
-    // Before today's open: previous session's close still applies. Friday
-    // pre-market (or Monday pre-market) both fall back to the last
-    // completed week's wrap since there's no fresher "day_close" yet today.
-    return weekday === 1 ? "week_close" : "day_close";
-  }
+  if (weekday === 0 || weekday === 6) return "week_close";
+  if (minutesOfDay < marketOpenMin) return weekday === 1 ? "week_close" : "day_close";
   if (minutesOfDay < marketCloseMin) return "intraday";
   return weekday === 5 ? "week_close" : "day_close";
 }
@@ -103,6 +146,7 @@ export async function GET(req: NextRequest) {
 
   const mode = determineMode();
   const tradeDate = nyDateString();
+  const nyTime = nyTimeString();
   const force = req.nextUrl.searchParams.get("force") === "1";
 
   const { data: existing } = await supabaseAdmin.from("market_picture").select("*").eq("id", 1).maybeSingle();
@@ -117,7 +161,6 @@ export async function GET(req: NextRequest) {
     } else if (existing.mode === mode && sameDay) {
       return NextResponse.json({ skipped: `${mode} already generated for ${tradeDate}` });
     } else if (mode === "week_close" && existing.mode === "week_close") {
-      // Haftasonu/Pazartesi sabahi ayni haftalik ozeti tekrar tekrar uretmesin.
       const elapsedHours = (Date.now() - new Date(existing.generated_at).getTime()) / 3600_000;
       if (elapsedHours < 60) {
         return NextResponse.json({ skipped: "week_close already generated recently", elapsedHours });
@@ -125,33 +168,32 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const allTickers = [...INDEX_ITEMS, ...SECTOR_ITEMS, ...COMMODITY_FX_ITEMS].map((i) => i.ticker);
-  const quotes = await getMultiQuote(allTickers);
+  // Yahoo Finance'den CACHE'SİZ doğrudan çek — 15dk cache'li getMultiQuote değil.
+  // Bu, kapanış saatinde hâlâ intraday yüksek değerin AI'ya gitmesini engeller.
+  const [indicesRaw, sectorsRaw, commoditiesFxRaw] = await Promise.all([
+    fetchFreshQuotes(INDEX_ITEMS),
+    fetchFreshQuotes(SECTOR_ITEMS),
+    fetchFreshQuotes(COMMODITY_FX_ITEMS),
+  ]);
 
-  const indices = INDEX_ITEMS.map((i) => ({ label: i.label, changePct: quotes[i.ticker]?.change_pct ?? 0 }));
-  const sectors = SECTOR_ITEMS.map((s) => ({ label: s.label, changePct: quotes[s.ticker]?.change_pct ?? 0 }));
-  const commoditiesFx = COMMODITY_FX_ITEMS.map((c) => ({ label: c.label, changePct: quotes[c.ticker]?.change_pct ?? 0 }));
-
-  // Veri kalitesi kontrolü: tüm ana endeksler 0 ise quote fetch'i başarısız olmuştur.
-  // Sıfır veriye dayalı analiz üretmek yanlış analiz doğurur — atla.
-  const majorIndicesAllZero = ["SPX", "NDX", "DJI"].every((t) => (quotes[t]?.change_pct ?? 0) === 0);
-  if (majorIndicesAllZero && !force) {
-    console.error("[cron/generate-market-picture] Quote fetch returned all-zero major indices — skipping generation to prevent bad analysis. quotes:", JSON.stringify({ SPX: quotes["SPX"], NDX: quotes["NDX"], DJI: quotes["DJI"] }));
-    return NextResponse.json({ skipped: "all-zero quotes, likely fetch failure" }, { status: 200 });
+  // Veri kalitesi kontrolü: tüm ana endeksler 0 ise YF fetch başarısız olmuştur.
+  const majorAllZero = indicesRaw.slice(0, 3).every((i) => i.changePct === 0);
+  if (majorAllZero && !force) {
+    console.error("[cron/generate-market-picture] All major indices returned 0 from Yahoo Finance — skipping to prevent wrong analysis.", JSON.stringify(indicesRaw.slice(0, 3)));
+    return NextResponse.json({ skipped: "all-zero quotes, YF fetch likely failed" }, { status: 200 });
   }
 
-  // Hangi veriyle üretim yapıldığını her zaman logla — yanlış analiz debugı için.
-  console.log("[cron/generate-market-picture] Generating with data:", JSON.stringify({ mode, tradeDate, indices, commoditiesFx: commoditiesFx.slice(0, 3) }));
+  // Hangi verilerle analiz üretildiğini logla — yanlış analiz debug için kritik.
+  console.log(`[cron/generate-market-picture] mode=${mode} date=${tradeDate} time=${nyTime} ET — indices:`, JSON.stringify(indicesRaw));
 
   const spxSnapshots = await getLatestDailySnapshots("SPX");
   const latestSpx = spxSnapshots[spxSnapshots.length - 1] ?? null;
   const quant = (latestSpx?.quant_snapshot ?? null) as Record<string, unknown> | null;
   const rawGainers = Array.isArray(quant?.top_gainers) ? (quant!.top_gainers as any[]) : [];
-  const rawLosers = Array.isArray(quant?.top_losers) ? (quant!.top_losers as any[]) : [];
+  const rawLosers  = Array.isArray(quant?.top_losers)  ? (quant!.top_losers  as any[]) : [];
   const topGainers = rawGainers.slice(0, 5).map((g) => ({ ticker: g.ticker, changePct: g.change_pct ?? 0 })).filter((g) => g.ticker);
-  const topLosers = rawLosers.slice(0, 5).map((l) => ({ ticker: l.ticker, changePct: l.change_pct ?? 0 })).filter((l) => l.ticker);
+  const topLosers  = rawLosers.slice(0, 5).map((l)  => ({ ticker: l.ticker, changePct: l.change_pct ?? 0 })).filter((l) => l.ticker);
 
-  // Önceki analizin İngilizce metnini bir sonraki için süreklilik bağlamı olarak çek.
   const previousSummary = (existing as any)?.previous_summary as string | null ?? null;
 
   let weekChangePct: number | null = null;
@@ -170,11 +212,12 @@ export async function GET(req: NextRequest) {
   const facts = {
     mode,
     tradeDate,
-    indices,
-    sectors,
-    commoditiesFx,
-    advancers: latestSpx?.advancers ?? null,
-    decliners: latestSpx?.decliners ?? null,
+    nyTime,
+    indices:      indicesRaw,
+    sectors:      sectorsRaw,
+    commoditiesFx: commoditiesFxRaw,
+    advancers:    latestSpx?.advancers ?? null,
+    decliners:    latestSpx?.decliners ?? null,
     topGainers,
     topLosers,
     weekChangePct,
@@ -185,11 +228,12 @@ export async function GET(req: NextRequest) {
     const texts = await generateLocalizedTexts({
       contentType: "market_picture",
       mode,
-      indices,
-      sectors,
-      commoditiesFx,
-      advancers: latestSpx?.advancers ?? null,
-      decliners: latestSpx?.decliners ?? null,
+      nyTime,
+      indices:      indicesRaw,
+      sectors:      sectorsRaw,
+      commoditiesFx: commoditiesFxRaw,
+      advancers:    latestSpx?.advancers ?? null,
+      decliners:    latestSpx?.decliners ?? null,
       topGainers,
       topLosers,
       weekChangePct,
@@ -198,14 +242,12 @@ export async function GET(req: NextRequest) {
     });
 
     const bogaView = computeBogaView({
-      indices,
-      sectors,
+      indices:  indicesRaw,
+      sectors:  sectorsRaw,
       advancers: latestSpx?.advancers ?? null,
       decliners: latestSpx?.decliners ?? null,
     });
 
-    // Bir sonraki çalışma için süreklilik: mevcut İngilizce metni kısa özet
-    // olarak sakla (max 600 karakter) — prompt'ta "önceki analiz" bağlamı olarak kullanılacak.
     const newSummary = typeof texts.en === "string" ? texts.en.slice(0, 600) : null;
 
     const upsertPayload: Record<string, unknown> = {
@@ -218,8 +260,6 @@ export async function GET(req: NextRequest) {
       generated_at: new Date().toISOString(),
     };
 
-    // previous_summary kolonu 0040 migration ile eklendi — eğer henüz
-    // uygulanmadıysa upsert yine de çalışsın diye ayrı bir try içinde ekliyoruz.
     try {
       const { error } = await supabaseAdmin.from("market_picture").upsert({ ...upsertPayload, previous_summary: newSummary });
       if (error) {
@@ -230,7 +270,7 @@ export async function GET(req: NextRequest) {
       await supabaseAdmin.from("market_picture").upsert(upsertPayload);
     }
 
-    return NextResponse.json({ generated: true, mode, tradeDate, locales: LOCALES });
+    return NextResponse.json({ generated: true, mode, tradeDate, nyTime, locales: LOCALES });
   } catch (err: any) {
     console.error("[cron/generate-market-picture] failed:", err?.message || err);
     return NextResponse.json({ error: err?.message || "generation failed" }, { status: 500 });
