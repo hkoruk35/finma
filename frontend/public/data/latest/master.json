@@ -1,8 +1,8 @@
 {
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T14:08:22.102143-04:00",
+  "generated_at": "2026-09-16T17:08:07.441279-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 34,
+  "active_scores_count": 38,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -25,8 +25,7 @@
       "tickers": [
         "RVTY",
         "MEOH",
-        "VIST",
-        "BWIN",
+        "VTRS",
         "WAT",
         "FFIV",
         "SBLK",
@@ -35,7 +34,8 @@
         "GGB",
         "WHD",
         "ILMN",
-        "DELL"
+        "DELL",
+        "HCA"
       ]
     },
     "value": {
@@ -74,20 +74,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 761.16,
+      "change_pct": 0.94
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 715.37,
+      "change_pct": 1.51
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 517.5,
+      "change_pct": 0.44
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.77,
+      "change_pct": -10.95
+    },
+    "RUSSELL2000": {
+      "value": 286.87,
+      "change_pct": 1.04
     }
-  }
+  },
+  "price_updated_at": "2026-09-17T10:00:23.023638-04:00"
 }
