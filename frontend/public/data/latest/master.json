@@ -1,41 +1,34 @@
 {
-  "date": "2026-09-16",
-  "generated_at": "2026-09-16T17:08:07.441279-04:00",
+  "date": "2026-09-17",
+  "generated_at": "2026-09-17T09:08:44.045363-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 38,
+  "active_scores_count": 22,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "CRC",
-        "RVTY",
-        "BBY",
-        "MEOH",
-        "VIST",
-        "SNAP",
-        "AGCO",
-        "RGEN",
-        "RNG",
-        "MAN"
+        "MEDP",
+        "WHD",
+        "BG",
+        "MTCH",
+        "NOW",
+        "AAPL",
+        "ILMN",
+        "GRMN",
+        "ADM",
+        "BP"
       ]
     },
     "breakout": {
-      "count": 13,
+      "count": 6,
       "tickers": [
-        "RVTY",
-        "MEOH",
-        "VTRS",
-        "WAT",
-        "FFIV",
-        "SBLK",
-        "RUM",
-        "CTVA",
-        "GGB",
         "WHD",
         "ILMN",
         "DELL",
-        "HCA"
+        "HCA",
+        "JKHY",
+        "PI"
       ]
     },
     "value": {
@@ -57,42 +50,42 @@
   },
   "top_3_overall": [
     {
-      "ticker": "CRC",
-      "score": 48.0,
+      "ticker": "MEDP",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RVTY",
-      "score": 41.0,
+      "ticker": "WHD",
+      "score": 48.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BBY",
-      "score": 37.0,
+      "ticker": "BG",
+      "score": 40.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 761.16,
-      "change_pct": 0.94
+      "value": 762.57,
+      "change_pct": 1.13
     },
     "NASDAQ": {
-      "value": 715.37,
-      "change_pct": 1.51
+      "value": 716.71,
+      "change_pct": 1.7
     },
     "DOW": {
-      "value": 517.5,
-      "change_pct": 0.44
+      "value": 518.7,
+      "change_pct": 0.68
     },
     "VIX": {
-      "value": 15.77,
-      "change_pct": -10.95
+      "value": 15.69,
+      "change_pct": -11.41
     },
     "RUSSELL2000": {
-      "value": 286.87,
-      "change_pct": 1.04
+      "value": 287.1801,
+      "change_pct": 1.15
     }
   },
-  "price_updated_at": "2026-09-17T10:00:23.023638-04:00"
+  "price_updated_at": "2026-09-17T12:00:22.757719-04:00"
 }
