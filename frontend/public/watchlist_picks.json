@@ -1,17 +1,53 @@
 {
-  "generated_at": "2026-09-17T09:08:44.767953-04:00",
+  "generated_at": "2026-09-17T14:09:15.918215-04:00",
   "picks": [
-    {
-      "ticker": "CRGY",
-      "sector": "Energy",
-      "date_added": "2026-09-17",
-      "score": 32.5
-    },
     {
       "ticker": "DELL",
       "sector": "Technology",
       "date_added": "2026-09-17",
       "score": 30.5
+    },
+    {
+      "ticker": "AGCO",
+      "sector": "Industrials",
+      "date_added": "2026-09-17",
+      "score": 37.5
+    },
+    {
+      "ticker": "BB",
+      "sector": "Technology",
+      "date_added": "2026-09-17",
+      "score": 36.5
+    },
+    {
+      "ticker": "PWR",
+      "sector": "Industrials",
+      "date_added": "2026-09-17",
+      "score": 36.5
+    },
+    {
+      "ticker": "OKTA",
+      "sector": "Technology",
+      "date_added": "2026-09-17",
+      "score": 33.5
+    },
+    {
+      "ticker": "EW",
+      "sector": "Healthcare",
+      "date_added": "2026-09-17",
+      "score": 33.5
+    },
+    {
+      "ticker": "SN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-17",
+      "score": 33.0
+    },
+    {
+      "ticker": "WHD",
+      "sector": "Energy",
+      "date_added": "2026-09-17",
+      "score": 32.5
     }
   ]
 }
