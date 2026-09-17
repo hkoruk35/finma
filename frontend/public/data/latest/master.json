@@ -1,9 +1,9 @@
 {
   "date": "2026-09-17",
-  "generated_at": "2026-09-17T09:08:44.045363-04:00",
+  "generated_at": "2026-09-17T14:09:15.093744-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 22,
-  "market_regime": "BULLISH",
+  "active_scores_count": 31,
+  "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,14 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 7,
       "tickers": [
         "WHD",
         "ILMN",
         "DELL",
         "HCA",
         "JKHY",
-        "PI"
+        "PI",
+        "S"
       ]
     },
     "value": {
@@ -67,25 +68,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 762.46,
-      "change_pct": 1.12
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 716.24,
-      "change_pct": 1.63
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 518.51,
-      "change_pct": 0.64
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.57,
-      "change_pct": -12.08
-    },
-    "RUSSELL2000": {
-      "value": 286.15,
-      "change_pct": 0.79
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-17T15:00:15.541139-04:00"
+  }
 }
