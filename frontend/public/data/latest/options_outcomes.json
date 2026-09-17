@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-16T17:00:16.984347-04:00",
+  "updated_at": "2026-09-16T20:30:05.428915-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 407,
@@ -14729,7 +14729,7 @@
       "pnl_pct": null,
       "current_premium": 0.038,
       "unrealized_pnl_pct": -99.7,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 14.0,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14857,7 +14857,7 @@
       "pnl_pct": null,
       "current_premium": 0.0095,
       "unrealized_pnl_pct": -99.8,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 10.1,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14889,7 +14889,7 @@
       "pnl_pct": null,
       "current_premium": 0.0095,
       "unrealized_pnl_pct": -99.7,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 7.175,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14953,7 +14953,7 @@
       "pnl_pct": null,
       "current_premium": 0.0475,
       "unrealized_pnl_pct": -98.2,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 2.85,
       "trough_premium": 0.0475,
       "underlying_current": null
@@ -14985,7 +14985,7 @@
       "pnl_pct": null,
       "current_premium": 1.9,
       "unrealized_pnl_pct": -70.8,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 16.05,
       "trough_premium": 1.9,
       "underlying_current": null
@@ -15017,7 +15017,7 @@
       "pnl_pct": null,
       "current_premium": 0.0475,
       "unrealized_pnl_pct": -96.1,
-      "days_held": 148,
+      "days_held": 149,
       "peak_premium": 1.625,
       "trough_premium": 0.0475,
       "underlying_current": null
