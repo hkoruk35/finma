@@ -321,6 +321,17 @@ export async function GET(req: NextRequest) {
       gen.read.contractType = openPosition.contractType;
       gen.read.nextStep = openPosition.progress.note;
       gen.read.reasoning = `Pozisyon açık (${nyParts(openPosition.entryTime).hhmm} ET girişi) — trend devam ettiği sürece taşınıyor.`;
+    } else if (cooldownActive) {
+      // Soğuma penceresinde üretilen adaylar yukarıdaki döngüde zaten
+      // pozisyona çevrilmiyor; motor okuması bunu yansıtmadığı için panel
+      // "LONG GİRİŞ SİNYALİ" derken arkada hiçbir şey açılmıyordu. İki
+      // gösterge artık aynı gerçeği söylüyor.
+      gen.read.state = "WATCHING";
+      gen.read.action = "BEKLE";
+      gen.read.contractType = null;
+      gen.read.stateLabel = "SOĞUMA — SİNYAL DURDURULDU";
+      gen.read.nextStep = `3 ardışık kayıp sonrası ${COOLDOWN_MINUTES} dk sinyal durdurma aktif — ${nyParts(cooldownUntil!).hhmm} ET'ye kadar yeni giriş üretilmiyor.`;
+      gen.read.reasoning = "Motor soğuma penceresinde; bu sürede oluşan tetikler pozisyona çevrilmiyor.";
     }
 
     // Olayların spot değerleri artık SPY mumlarından geliyor (giriş adayın

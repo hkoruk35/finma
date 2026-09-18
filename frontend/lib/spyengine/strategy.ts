@@ -19,10 +19,16 @@
  *                     giriş hareketin geç bir noktasında oluşuyordu; artık
  *                     rejim aktifken herhangi bir 1m barda tetiklenebilir.
  *
- * Zaman filtresi (açılış/öğlen/kapanış hariç tutma) BİLİNÇLİ OLARAK
- * UYGULANMADI — kanıtsız varsayım olarak değerlendirildi, RTH içinde her an
- * giriş üretilebilir. Yalnızca 15:45 ET zorunlu 0DTE kapaması (EOD) mutlak
- * kalır — bu bir "giriş kısıtı" değil, gün sonu pozisyon tasfiyesidir.
+ * ── GİRİŞ PENCERESİ — 09:45 – 15:00 ET (2026-09-18) ─────────────────
+ *   09:45'ten önce giriş yok: açılışın ilk çeyreği fiyat keşfidir.
+ *   15:00'ten sonra YENİ giriş yok. 15:45 ET zorunlu 0DTE kapaması bundan
+ *   ayrı ve mutlak kalır; 15:00–15:45 arasında açık pozisyonlar normal
+ *   çıkış öncelik sırasıyla yönetilmeye devam eder, sadece giriş kapısı
+ *   kapanır.
+ *
+ * VWAP hiçbir katmanda GİRİŞ KAPISI DEĞİLDİR — yalnızca panelde teyit/
+ * seviye olarak gösterilir (bkz. regime.ts "VWAP — TAVSİYE, KARAR DEĞİL"
+ * ve levels.ts). Erken girişleri kaçırmamak için bilinçli böyledir.
  *
  * ── KATMAN 0 — 15m VETO (kapanmış mum) ─────────────────────────────
  *   LONG yasak eğer 15m kapanış < 15m EMA21; SHORT yasak eğer > EMA21.
@@ -56,12 +62,17 @@
  *   ekstra katmanlardı; kalan iki şart tek başına yeterli.)
  *
  * ── ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş konfirmasyonlu/yavaş,
- *   çıkış hızlı) ───────────────────────────────────────────────────────
+ *   çıkış hızlı). Hız garantisi 0/1/3 numaralı kurallardadır: bunlar HİÇBİR
+ *   teyit beklemez. 2 numaralı kural 5m'in kararını 1m'e zamanlatır. ──────
  *   0 (mutlak)  15:45 ET zorunlu 0DTE kapaması.
  *   1 (ACİL)    5m EMA21 zıt yönde kesilirse → anlık (her kapalı 1m barda
  *               en güncel 5m EMA21'e göre kontrol edilir, 5m kapanışı
  *               beklenmez).
- *   2 (NORMAL)  5m RSI yön değiştirirse → kapanmış 5m bar.
+ *   2 (NORMAL)  5m RSI yön değiştirirse çıkış HAZIRLANIR (kapanmış 5m bar),
+ *               uygulama 1m ters tetiği bekler: kapanışın önceki 2 kapalı 1m
+ *               mumun dibini/zirvesini kırması VEYA 1m RSI7'nin ters dönmesi
+ *               (girişin aynası, ama VE değil VEYA — çıkışa hız). 5m RSI
+ *               aynı yöne dönerse hazırlık kendiliğinden iptal olur.
  *   3 (STOP)    Opsiyon değeri EXIT_STOP_PCT'ye (−%25/−%30 aralığı,
  *               kalibre edilecek) ulaşırsa → anlık (mum içi en kötü seviye).
  *   4 (TRAILING) Kâr +%40'ı geçince taban breakeven'e, +%50'yi geçince
@@ -80,7 +91,6 @@ import {
   atr,
   nyParts,
   RTH_OPEN_MIN,
-  RTH_CLOSE_MIN,
   EOD_FORCE_MIN,
   r2,
 } from "./core";
@@ -148,6 +158,23 @@ export const M1_STRUCTURE_LOOKBACK = 2;
 
 /** Saatte azami giriş (kayan 60 dakikalık pencere) — V4'ten korundu */
 export const MAX_ENTRIES_PER_HOUR = 3;
+
+// ── Giriş penceresi (kullanıcı kuralı, 2026-09-18) ──────────────────
+
+/**
+ * İlk giriş 09:45 ET'den önce olamaz. Açılışın ilk 15 dakikası fiyat
+ * keşfidir: 1m tetiğin "önceki 2 mumun zirvesi/dibi" şartı 09:30–09:45
+ * arasında premarket'in dar mumlarına bakıp neredeyse otomatik geçiyordu.
+ */
+export const ENTRY_OPEN_MIN = 9 * 60 + 45; // 09:45
+/**
+ * 15:00 ET'den itibaren YENİ pozisyon açılmaz. Bu, 15:45'teki zorunlu 0DTE
+ * kapamasından AYRI bir kuraldır: kapanışa 45 dakika kala açılan bir 0DTE
+ * pozisyonunun taşıma süresi, çıkış kurallarının çalışmasına yetmiyor.
+ * Açık pozisyonlar bu saatten sonra da normal çıkış öncelik sırasıyla
+ * yönetilmeye devam eder — kapanan yalnızca GİRİŞ kapısıdır.
+ */
+export const ENTRY_CUTOFF_MIN = 15 * 60; // 15:00
 
 // ── Çıkış sabitleri (spec §6) ───────────────────────────────────────
 
@@ -536,6 +563,85 @@ function layer3At(m1: Bar[], m1Rsi7: (number | null)[], idx: number, side: Side)
   };
 }
 
+// ── 1m ÇIKIŞ TEYİDİ (girişin aynası) ────────────────────────────────
+
+/**
+ * Pozisyonun ALEYHİNE 1m tetik oluştu mu?
+ *
+ * Giriş tarafındaki `layer3At`in birebir aynası — ama iki farkla:
+ *
+ *   1. Giriş iki şartı birden arar (yapı VE konfirmasyon), çıkış ise
+ *      HERHANGİ BİRİ yeter (yapı VEYA konfirmasyon). Motorun kurucu
+ *      ilkesi bu asimetridir: girişe yavaş, çıkışa hızlı.
+ *   2. Yapı şartı ters yöne bakar: LONG'da kapanışın önceki 2 kapalı 1m
+ *      mumun DİBİNİ kırması (girişte zirveyi kırması aranıyordu).
+ *
+ * Bu teyit yalnızca 2 numaralı (NORMAL) çıkışa, yani 5m RSI'nin yön
+ * kaybetmesine bağlanır. 5m EMA21 ters kesişimi, sabit stop, trailing
+ * kilit ve 15:45 EOD kapaması TEYİT BEKLEMEZ — anında çalışmaya devam eder.
+ */
+function m1ExitTriggerAt(
+  m1: Bar[], m1Rsi7: (number | null)[], idx: number, side: Side
+): { fired: boolean; detail: string } {
+  const isLong = side === "LONG";
+  const bar = m1[idx];
+
+  let structureOk = false;
+  let structureDetail = "1m verisi yetersiz";
+  if (idx >= M1_STRUCTURE_LOOKBACK) {
+    const prevBars = m1.slice(idx - M1_STRUCTURE_LOOKBACK, idx);
+    const extreme = isLong
+      ? Math.min(...prevBars.map((b) => b.low))
+      : Math.max(...prevBars.map((b) => b.high));
+    structureOk = isLong ? bar.close < extreme : bar.close > extreme;
+    structureDetail = `kapanış ${bar.close.toFixed(2)} vs önceki 2 mumun ${isLong ? "dibi" : "zirvesi"} ${extreme.toFixed(2)}`;
+  }
+
+  const r = m1Rsi7[idx];
+  const rp = m1Rsi7[idx - 1] ?? null;
+  const rsiOk = isLong
+    ? r != null && r < 50 && falling(r, rp)
+    : r != null && r > 50 && rising(r, rp);
+
+  if (structureOk) return { fired: true, detail: `1m yapı bozuldu (${structureDetail})` };
+  if (rsiOk) return { fired: true, detail: `1m RSI7 ters döndü (${r!.toFixed(0)})` };
+  return { fired: false, detail: `1m teyit yok — ${structureDetail}, RSI7 ${r == null ? "veri yok" : r.toFixed(0)}` };
+}
+
+// ── Giriş/çıkış çelişkisi koruması ────────────────────────────────
+
+/**
+ * Bir giriş, DOĞDUĞU ANDA kendi çıkış kuralı tarafından geçersiz kılınıyor mu?
+ *
+ * Kapsam, ANINDA çalışan çıkış kurallarıyla sınırlıdır — bugün bu yalnızca
+ * 1 numaralı (ACİL) kural: fiyatın 5m EMA21'in ters tarafında olması.
+ * Layer 1, rejimi "5m KAPANIŞ EMA21 üstünde" diye açarken 1m tetik çok daha
+ * sonra, fiyat EMA21'in altına dönmüşken gelebiliyor; o giriş bir sonraki
+ * 1m mumda EMA_CROSS_EXIT ile kapanıyordu.
+ *
+ * 5m RSI dönüşü burada DEĞERLENDİRİLMEZ: 2 numaralı kural artık 1m ters
+ * tetik beklediği için (bkz. m1ExitTriggerAt) girişte ters bir RSI, çıkışı
+ * garanti etmiyor — yalnızca hazırda bekletiyor.
+ *
+ * Bu kontrol çıkış kurallarına DOKUNMAZ; yalnızca girişte zaten geçersiz
+ * olan adayı üretmez. Girişin kendi imleci (m5Cursor) kullanılır: girişten
+ * SONRA kapanan yeni bir 5m barda oluşan kesişim hâlâ meşru bir çıkıştır.
+ */
+function exitAlreadyActive(
+  m5Ema: (number | null)[], idx: number, side: Side, triggerClose: number
+): { blocked: boolean; detail: string } {
+  if (idx < 1) return { blocked: false, detail: "5m verisi yetersiz" };
+  const isLong = side === "LONG";
+  const e5 = m5Ema[idx];
+  if (e5 != null && (isLong ? triggerClose < e5 : triggerClose > e5)) {
+    return {
+      blocked: true,
+      detail: `fiyat ${triggerClose.toFixed(2)} zaten 5m EMA21'in ${isLong ? "altında" : "üstünde"} (${e5.toFixed(2)}) — acil çıkış koşulu aktif`,
+    };
+  }
+  return { blocked: false, detail: "acil çıkış koşulu girişte aktif değil" };
+}
+
 // ── Güven skoru ──────────────────────────────────────────────────
 
 function buildConfidence(l1: Layer1Read, side: Side, rvol: number | null): { total: number; parts: ConfidencePart[] } {
@@ -564,7 +670,8 @@ function buildConfidence(l1: Layer1Read, side: Side, rvol: number | null): { tot
  * ekstra AND şartları sinyal sayısını hızla sıfıra yaklaştırıyordu.
  */
 function gateChecksFor(
-  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l3ForSide: Layer3Read, side: Side
+  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l3ForSide: Layer3Read, side: Side,
+  exitClash: { blocked: boolean; detail: string }
 ): GateCheck[] {
   const isLong = side === "LONG";
   const l1Pass = isLong ? l1.passLong : l1.passShort;
@@ -573,6 +680,7 @@ function gateChecksFor(
     { label: `Hacim vetosu yok (RVOL ≥ ${RVOL_VETO_MIN})`, ok: !volVeto.active, detail: volVeto.rvol == null ? "veri yok" : `RVOL ${volVeto.rvol.toFixed(2)}×` },
     { label: "5m trend (EMA21 konumu + RSI/MACD)", ok: l1Pass, detail: l1Pass ? "geçti" : "geçmedi" },
     ...l3ForSide.checks,
+    { label: "Acil çıkış (5m EMA21) girişte aktif değil", ok: !exitClash.blocked, detail: exitClash.detail },
   ];
 }
 
@@ -674,8 +782,10 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     while (m15Cursor + 1 < m15.length && m15[m15Cursor + 1].time + 900 <= bar.time + 60) m15Cursor++;
 
     const p = nyParts(bar.time);
-    const inRth = p.ymd === session.date && p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN;
-    if (!inRth) continue;
+    // Giriş penceresi 09:45 – 15:00 ET (bkz. ENTRY_OPEN_MIN / ENTRY_CUTOFF_MIN).
+    const inEntryWindow =
+      p.ymd === session.date && p.minutes >= ENTRY_OPEN_MIN && p.minutes < ENTRY_CUTOFF_MIN;
+    if (!inEntryWindow) continue;
     if (m5Cursor < 1 || m15Cursor < 0) continue;
 
     const regime = regimeTimeline[m5Cursor];
@@ -688,6 +798,9 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     const rvol = m5Rvol[m5Cursor];
     const l3 = layer3At(m1, m1Rsi7, i, side);
     if (!l3.fired) continue;
+
+    // Doğduğu anda kendi çıkış kuralıyla çelişen aday üretilmez
+    if (exitAlreadyActive(m5Ema, m5Cursor, side, bar.close).blocked) continue;
 
     const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, m5Cursor);
     const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
@@ -720,6 +833,14 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   const lastL3Short = layer3At(m1, m1Rsi7, lastM1Idx, "SHORT");
   const lastL3ForRegime = lastRegime.side === "SHORT" ? lastL3Short : lastL3Long;
 
+  const lastClose = lastM1Idx >= 0 ? m1[lastM1Idx].close : null;
+  const clashLong = lastClose == null
+    ? { blocked: false, detail: "1m verisi yok" }
+    : exitAlreadyActive(m5Ema, m5Cursor, "LONG", lastClose);
+  const clashShort = lastClose == null
+    ? { blocked: false, detail: "1m verisi yok" }
+    : exitAlreadyActive(m5Ema, m5Cursor, "SHORT", lastClose);
+
   const lastCandidate =
     candidates.length && lastM1Idx >= 0 && candidates[candidates.length - 1].time === m1[lastM1Idx].time
       ? candidates[candidates.length - 1]
@@ -736,11 +857,24 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     ? `Hacim vetosu aktif: ${lastVolVeto.note}. Rejim aranmıyor.`
     : "5m kapanışında Layer 1 (trend) geçmesi bekleniyor.";
 
+  // Giriş penceresi (09:45–15:00 ET) kapalıyken panel "1m breakout bekleniyor"
+  // demesin — o tetik gelse bile giriş üretilmeyecek.
+  const nowMin = nyParts(nowSec).minutes;
+  const entryWindowOpen = nowMin >= ENTRY_OPEN_MIN && nowMin < ENTRY_CUTOFF_MIN;
+
   if (input.hasOpenPosition) {
     state = "IN_POSITION";
     stateLabel = "POZİSYONDA";
     nextStep = "Açık pozisyon taşınıyor — çıkış öncelik sırasına göre izleniyor (Açık Pozisyon kutusuna bak).";
     reasoning = "Pozisyon açık; çıkış önceliği: 15:45 EOD > 5m EMA21 kesişimi > 5m RSI dönüşü > stop > trailing.";
+  } else if (!entryWindowOpen) {
+    state = "WATCHING";
+    stateLabel = "GİRİŞ PENCERESİ KAPALI";
+    nextStep =
+      nowMin < ENTRY_OPEN_MIN
+        ? "Giriş penceresi 09:45 ET'de açılıyor — açılışın ilk çeyreğinde giriş üretilmiyor."
+        : "Giriş penceresi 15:00 ET'de kapandı — yeni pozisyon açılmıyor (15:45 zorunlu 0DTE kapaması ayrıca geçerli).";
+    reasoning = `Giriş penceresi dışında (09:45–15:00 ET). Rejim ve tetik okumaları bilgi amaçlı gösterilmeye devam ediyor: ${lastRegime.note}`;
   } else if (lastCandidate) {
     state = "TRIGGERED";
     action = lastCandidate.side;
@@ -760,16 +894,19 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     ];
     reasoning = `5m rejim ${lastRegime.side} aktif — 1m tetik (breakout + RSI7 konfirmasyonu) bekleniyor.`;
     stateLabel = "HAZIRLANIYOR";
+    const clashForRegime = lastRegime.side === "SHORT" ? clashShort : clashLong;
     nextStep = vetoBlocks
       ? `5m rejim ${lastRegime.side} aktif ama 15m veto bu yönü engelliyor (${lastVeto.note}). Motor bekliyor.`
+      : lastL3ForRegime.fired && clashForRegime.blocked
+      ? `5m rejim ${lastRegime.side} aktif, 1m tetik ateşlendi — ama ${clashForRegime.detail}. Giriş, doğduğu anda kapanacağı için üretilmedi.`
       : !lastL3ForRegime.structureOk
       ? `5m rejim ${lastRegime.side} aktif. 1m'de breakout (önceki 2 mumun ${lastRegime.side === "LONG" ? "zirvesi" : "dibi"}) bekleniyor.`
       : `5m rejim ${lastRegime.side} aktif, 1m breakout oluştu. RSI7 konfirmasyonu bekleniyor.`;
   }
 
   const gateStatus: GateStatus = {
-    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Long, "LONG"),
-    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Short, "SHORT"),
+    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Long, "LONG", clashLong),
+    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastL3Short, "SHORT", clashShort),
   };
 
   return {
@@ -847,6 +984,7 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   };
 
   const m1 = closedBars(input.m1, 1, nowSec);
+  const m1Rsi7 = rsi(closes(m1), M1_RSI_PERIOD);
   const m5 = closedBars(input.m5, 5, nowSec);
   const m5Closes = closes(m5);
   const m5Ema = ema(m5Closes, M5_EMA_PERIOD);
@@ -862,6 +1000,8 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
   let rsi5: number | null = null;
   let lastPct: number | null = null;
   let trailFloorPct: number | null = null;
+  /** 5m RSI ters döndü ama 1m teyidi henüz gelmedi — çıkış hazırda bekliyor */
+  let rsiExitArmed = false;
 
   const progressOf = (note: string): ExitProgress => ({
     emaFavor, emaGapPct, rsiSupportive, rsi5, barsHeld, bestSpot, premiumPct: lastPct, trailFloorPct, note,
@@ -907,7 +1047,19 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
       }
     }
 
-    // 2 (NORMAL) — 5m RSI yön değiştirdi (yalnızca kapalı 5m bar)
+    // 2 (NORMAL) — 5m RSI yön değiştirdi (karar) + 1m ters tetik (zamanlama)
+    //
+    // Girişin aynası: 5m KARAR verir, 1m ZAMANLAR. Tek başına bir 5m RSI
+    // tikinde çıkmak, çıkışların %82'sini üretip medyan tutma süresini 10
+    // dakikaya indiriyordu — 0DTE'de o sürenin büyük kısmını spread + theta
+    // yiyor. Artık 5m RSI ters döndüğünde çıkış HAZIRLANIR; 1m ters tetik
+    // gelene kadar pozisyon taşınır. RSI aynı yöne dönerse hazırlık
+    // kendiliğinden iptal olur (`flipped` her barda yeniden hesaplanır).
+    //
+    // Hassasiyet buradan DEĞİL, değişmeyen hızlı kurallardan gelir:
+    // 5m EMA21 ters kesişimi (1 — ACİL), sabit stop (3) ve 15:45 EOD (0)
+    // teyit beklemez.
+    rsiExitArmed = false;
     if (m5Cursor >= 1) {
       const r5 = m5Rsi[m5Cursor], r5p = m5Rsi[m5Cursor - 1];
       rsi5 = r5;
@@ -915,13 +1067,17 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
         const flipped = side === "LONG" ? r5 < r5p : r5 > r5p;
         rsiSupportive = !flipped;
         if (flipped) {
-          return {
-            signal: {
-              time: bar.time, spot: bar.close, reason: "RSI_FLIP_EXIT",
-              note: `5m RSI yön değiştirdi (${r5.toFixed(0)}, önceki ${r5p.toFixed(0)}) — normal çıkış.`,
-            },
-            progress: progressOf("5m RSI yön değişimiyle çıkış."),
-          };
+          rsiExitArmed = true;
+          const trig = m1ExitTriggerAt(m1, m1Rsi7, i, side);
+          if (trig.fired) {
+            return {
+              signal: {
+                time: bar.time, spot: bar.close, reason: "RSI_FLIP_EXIT",
+                note: `5m RSI yön değiştirdi (${r5.toFixed(0)}, önceki ${r5p.toFixed(0)}) ve ${trig.detail} — normal çıkış.`,
+              },
+              progress: progressOf("5m RSI dönüşü + 1m teyidiyle çıkış."),
+            };
+          }
         }
       }
     }
@@ -959,7 +1115,9 @@ export function findExitSignal(input: ExitScanInput): ExitScan {
     progress: progressOf(
       barsHeld === 0
         ? "Pozisyon henüz taşınmaya başlamadı."
-        : `${barsHeld} mum taşındı — 5m EMA21 ${emaFavor === false ? "aleyhte (acil çıkış tetiklenmek üzere)" : "lehte"}, 5m RSI ${rsiSupportive === false ? "aleyhte" : "destekliyor"}.`
+        : `${barsHeld} mum taşındı — 5m EMA21 ${emaFavor === false ? "aleyhte (acil çıkış tetiklenmek üzere)" : "lehte"}, 5m RSI ${
+            rsiExitArmed ? "ters döndü: çıkış hazırda, 1m teyidi bekleniyor" : "destekliyor"
+          }.`
     ),
   };
 }
@@ -1075,10 +1233,18 @@ export function filterOverlapping(
   const posByKey = new Map<string, (typeof positions)[number]>();
   for (const p of positions) posByKey.set(`${p.entryTime}:${p.side}:${p.contractType}`, p);
 
+  /**
+   * "Kontrat başına tek deneme" — bir strike+yön İKİNCİ kez denenmez.
+   *
+   * Bu küme, KABUL EDİLEN adaylarla birlikte adım adım doldurulur. Önceden
+   * `positions` listesinin TAMAMINDAN (ki çağıran taraf oraya her adayın
+   * kabuğunu veriyor) önden dolduruluyordu; o hâliyle her aday kendi
+   * strike'ını daha döngüye girmeden "kullanılmış" yapıp KENDİNİ
+   * engelliyordu — 2026-09-03'ten beri çıkışı çözülmüş hiçbir aday
+   * pozisyona dönüşemiyordu (5 seanslık ölçümde 111 adayın 111'i bloklandı,
+   * kabul edilen 0). Tek doğru zaman, adayın gerçekten kabul edildiği andır.
+   */
   const usedContracts = new Set<string>();
-  for (const p of positions) {
-    if (p.exitTime != null && p.strike != null) usedContracts.add(`${p.strike}:${p.side}`);
-  }
 
   const out: EntryCandidate[] = [];
   const contractReuseBlocked: FilterOverlappingResult["contractReuseBlocked"] = [];
@@ -1099,6 +1265,7 @@ export function filterOverlapping(
 
     out.push(c);
     recent.push(c.time);
+    usedContracts.add(`${strike}:${c.side}`);
 
     const pos = posByKey.get(`${c.time}:${c.side}:${c.contractType}`);
     if (!pos || pos.exitTime == null) {

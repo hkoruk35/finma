@@ -115,8 +115,9 @@ export const EOD_FORCE_MIN = 15 * 60 + 45; // 15:45
 /**
  * V5.0: ayrı bir "giriş penceresi" (açılış/öğlen/kapanış hariç tutma) artık
  * UYGULANMIYOR — kanıtsız varsayım olarak değerlendirildi (bkz.
- * strategy.ts başlık yorumu). Giriş, RTH_OPEN_MIN–RTH_CLOSE_MIN arasında
- * her an üretilebilir; yalnızca EOD_FORCE_MIN (15:45) mutlak kalır.
+ * strategy.ts başlık yorumu). Giriş, RTH_OPEN_MIN–EOD_FORCE_MIN (09:30–15:45)
+ * arasında her an üretilebilir; üst sınır ayrı bir kural değil, zorunlu 0DTE
+ * kapamasının sonucudur.
  */
 
 /**
