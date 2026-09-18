@@ -1,3 +1,5 @@
+> **Superseded by `tasks/active/014-spy-signal-engine-realtime.md`** (2026-09-18) — the Tier1-5/Monte Carlo "SPY Option" tab this document describes was replaced by a real-time 5m/1m signal panel backed by a new `spy_signal_engine/` service. This document is kept as-is for history.
+
 # 013 — SPY Options Decision Page ("Karar Sayfası")
 
 Status: active

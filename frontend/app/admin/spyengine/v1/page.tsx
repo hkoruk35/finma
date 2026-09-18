@@ -36,6 +36,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
+import { useSpySignalSocket, type SpySignalMessage } from "@/lib/spyengine/useSpySignalSocket";
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import DailyForecast from "@/components/admin/spyengine/DailyForecast";
 import {
@@ -165,6 +166,245 @@ interface StreamResponse {
 }
 
 type Tab = "command" | "spyoption" | "signals" | "context" | "ohlc" | "compare" | "forecast";
+
+// ═══ SPY Option tab — real-time 5m/1m signal panel (tasks/active/014) ═══
+// Backed by the standalone spy_signal_engine/ service (repo root, Python),
+// reached via an nginx-only route (wss://<host>/admin/spyengine/live/ws +
+// GET .../history) that sits OUTSIDE proxy.ts's boga_auth check — see the
+// known-gap note in tasks/active/014-spy-signal-engine-realtime.md.
+
+const SPY_DECISION_TONE: Record<string, { bg: string; border: string; text: string; label: string }> = {
+  "CALL SETUP": { bg: "bg-[#22c55e]/10", border: "border-[#22c55e]/40", text: "text-[#22c55e]", label: "🟢 CALL SETUP" },
+  "PUT SETUP": { bg: "bg-[#ef4444]/10", border: "border-[#ef4444]/40", text: "text-[#ef4444]", label: "🔴 PUT SETUP" },
+  "NO TRADE": { bg: "bg-[#1c2635]/40", border: "border-[#1c2635]", text: "text-slate-400", label: "⚪ NO TRADE" },
+};
+
+const MARKET_STATUS_LABEL: Record<string, string> = {
+  open: "Piyasa açık",
+  pre: "Piyasa öncesi (pre-market)",
+  post: "Piyasa sonrası (after-hours)",
+  closed: "Piyasa kapalı",
+};
+
+/** Web Audio API ile kısa bir bip — harici mp3 dosyası kullanılmıyor. */
+function playAlertBeep() {
+  try {
+    const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.35);
+    osc.onended = () => ctx.close();
+  } catch {
+    // sessizce yut — ses opsiyonel bir yardımcı, akışı bozmamalı
+  }
+}
+
+function requestBrowserNotification(msg: SpySignalMessage) {
+  if (typeof window === "undefined" || !("Notification" in window)) return;
+  if (Notification.permission === "denied") return;
+  const fire = () => {
+    try {
+      new Notification(`SPY ${msg.decision}`, {
+        body: `Trend ${msg.trend ?? "?"} · Entry ${msg.entry_zone ?? "—"} · ${msg.time_utc ?? ""}`,
+      });
+    } catch {
+      // no-op
+    }
+  };
+  if (Notification.permission === "granted") {
+    fire();
+  } else if (Notification.permission === "default") {
+    Notification.requestPermission().then((perm) => {
+      if (perm === "granted") fire();
+    });
+  }
+}
+
+function SpySignalHistoryTable({ rows }: { rows: SpySignalMessage[] }) {
+  if (!rows.length) {
+    return <div className="text-[11px] text-slate-500">Henüz geçmiş sinyal yok.</div>;
+  }
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-[10px]">
+        <thead>
+          <tr className="border-b border-[#1c2635] text-slate-500">
+            <th className="py-1 text-left font-semibold">Saat (UTC)</th>
+            <th className="py-1 text-left font-semibold">Karar</th>
+            <th className="py-1 text-left font-semibold">Trend</th>
+            <th className="py-1 text-right font-semibold">RSI</th>
+            <th className="py-1 text-right font-semibold">Hacim</th>
+            <th className="py-1 text-left font-semibold">1m Tetik</th>
+            <th className="py-1 text-right font-semibold">Kapanış</th>
+          </tr>
+        </thead>
+        <tbody className="font-mono">
+          {rows.map((r, i) => {
+            const tone = SPY_DECISION_TONE[r.decision] ?? SPY_DECISION_TONE["NO TRADE"];
+            return (
+              <tr key={`${r.time_utc ?? i}-${i}`} className="border-b border-[#0f141d]">
+                <td className="py-1 text-slate-400">{r.time_utc ?? "—"}</td>
+                <td className={`py-1 ${tone.text}`}>{r.decision}</td>
+                <td className="py-1 text-slate-300">{r.trend ?? "—"}</td>
+                <td className="py-1 text-right text-slate-300">
+                  {r.rsi_prev != null && r.rsi_now != null ? `${r.rsi_prev} → ${r.rsi_now}` : "—"}
+                </td>
+                <td className="py-1 text-right text-slate-300">{r.vol_ratio_pct != null ? `${r.vol_ratio_pct >= 0 ? "+" : ""}${r.vol_ratio_pct}%` : "—"}</td>
+                <td className="py-1 text-slate-300">{r.trigger_1m ?? "—"}</td>
+                <td className="py-1 text-right text-slate-300">{r.last_close != null ? `$${r.last_close}` : "—"}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function SpyOptionLiveTab({
+  bars5m, events, openPosition, toggles, autoScroll,
+}: {
+  bars5m: Bar[];
+  events: EngineEvent[];
+  openPosition: PositionState | null;
+  toggles: ChartToggles;
+  autoScroll: boolean;
+}) {
+  const { status, lastMessage } = useSpySignalSocket();
+  const [history, setHistory] = useState<SpySignalMessage[]>([]);
+  const [historyError, setHistoryError] = useState<string | null>(null);
+  const notifiedKeyRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/spyengine/live-history?limit=20", { credentials: "include", cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        if (cancelled) return;
+        const rows = Array.isArray(json?.rows) ? (json.rows as SpySignalMessage[]) : [];
+        setHistory(rows);
+        if (json?.error) setHistoryError(String(json.error));
+      })
+      .catch((err) => {
+        if (!cancelled) setHistoryError(err instanceof Error ? err.message : "geçmiş sinyaller alınamadı");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!lastMessage || !lastMessage.time_utc) return;
+    setHistory((prev) => {
+      if (prev.length && prev[0].time_utc === lastMessage.time_utc && prev[0].decision === lastMessage.decision) {
+        return prev;
+      }
+      return [lastMessage, ...prev].slice(0, 20);
+    });
+
+    const dedupeKey = `${lastMessage.time_utc}-${lastMessage.decision}`;
+    if (
+      (lastMessage.decision === "CALL SETUP" || lastMessage.decision === "PUT SETUP") &&
+      notifiedKeyRef.current !== dedupeKey
+    ) {
+      notifiedKeyRef.current = dedupeKey;
+      requestBrowserNotification(lastMessage);
+      playAlertBeep();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMessage]);
+
+  // İlk kullanıcı etkileşiminde bildirim izni iste (tarayıcılar gesture olmadan
+  // izin istemini reddedebilir/engelleyebilir).
+  useEffect(() => {
+    const askOnce = () => {
+      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission().catch(() => {});
+      }
+      window.removeEventListener("click", askOnce);
+    };
+    window.addEventListener("click", askOnce, { once: true });
+    return () => window.removeEventListener("click", askOnce);
+  }, []);
+
+  const tone = lastMessage ? (SPY_DECISION_TONE[lastMessage.decision] ?? SPY_DECISION_TONE["NO TRADE"]) : null;
+  const statusLabel = status === "connected" ? "🟢 bağlı" : status === "connecting" ? "🟡 bağlanıyor" : "🔴 koptu";
+
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="flex items-center justify-between rounded border border-[#1c2635] bg-[#0f141d] px-3 py-2 text-[10px] leading-snug text-slate-400">
+        <span>Gerçek zamanlı SPY 5m trend + 1m tetik sinyal motoru — spy_signal_engine servisinden canlı.</span>
+        <span className="font-mono text-[10px]">{statusLabel}</span>
+      </div>
+
+      {/* Grafik — kendi grafik motorumuz (SpyChart), seviye çizgisi yok */}
+      <div className={`${SURFACE} overflow-hidden`}>
+        <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
+          <span className="text-[10px] text-slate-500">5m grafik</span>
+        </div>
+        <SpyChart
+          bars={bars5m}
+          timeframe="5m"
+          events={events}
+          position={openPosition}
+          toggles={toggles}
+          height={360}
+          autoScroll={autoScroll}
+          defaultWindowMin={120}
+        />
+      </div>
+
+      {/* Sinyal durumu kartı */}
+      {!lastMessage ? (
+        <div className={`${SURFACE} px-3 py-6 text-center text-[12px] text-slate-500`}>
+          Henüz sinyal alınmadı — bağlantı kuruluyor.
+        </div>
+      ) : (
+        <div className={`rounded-lg border ${tone!.border} ${tone!.bg} px-3 py-2.5`}>
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-semibold text-slate-300">{lastMessage.symbol ?? "SPY"}</span>
+            <span className="font-mono text-[10px] text-slate-500">{lastMessage.time_utc ?? "—"} UTC</span>
+            <span className={`text-[13px] font-bold ${tone!.text}`}>{tone!.label}</span>
+          </div>
+          <div className="mt-1.5 grid grid-cols-2 gap-x-4 gap-y-1 text-[11px] text-slate-300 sm:grid-cols-3">
+            <div>5M Trend: <b className="text-slate-100">{lastMessage.trend ?? "—"}</b></div>
+            <div>RSI: <b className="text-slate-100">{lastMessage.rsi_prev ?? "—"} → {lastMessage.rsi_now ?? "—"}</b></div>
+            <div>MACD: <b className="text-slate-100">{lastMessage.macd_dir ?? "—"}</b></div>
+            <div>Hacim: <b className="text-slate-100">{lastMessage.vol_ratio_pct != null ? `${lastMessage.vol_ratio_pct >= 0 ? "+" : ""}${lastMessage.vol_ratio_pct}%` : "—"}</b></div>
+            <div>VWAP: <b className="text-slate-100">{lastMessage.above_vwap == null ? "—" : lastMessage.above_vwap ? "üstünde" : "altında"} ({lastMessage.vwap ?? "—"})</b></div>
+            <div>1M Tetik: <b className="text-slate-100">{lastMessage.trigger_1m ?? "—"}</b></div>
+            <div>Entry zone: <b className="text-slate-100">{lastMessage.entry_zone ?? "—"}</b></div>
+            <div>Destek/Direnç: <b className="text-slate-100">{lastMessage.support ?? "—"} / {lastMessage.resistance ?? "—"}</b></div>
+            <div>Mum yapısı: <b className="text-slate-100">{lastMessage.candle_shape ?? "—"}</b></div>
+          </div>
+          {lastMessage.market_status && lastMessage.market_status !== "open" && (
+            <div className="mt-1.5 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300">
+              {MARKET_STATUS_LABEL[lastMessage.market_status] ?? lastMessage.market_status} — düşük hacim, sinyal güvenilirliği azalmış olabilir.
+            </div>
+          )}
+          {lastMessage.reason && (
+            <div className="mt-1.5 text-[10px] text-slate-500">{lastMessage.reason}</div>
+          )}
+        </div>
+      )}
+
+      {/* Geçmiş sinyaller tablosu */}
+      <Panel title="Geçmiş sinyaller (son 20)">
+        {historyError && <div className="mb-1.5 text-[10px] text-amber-400">Geçmiş yüklenemedi: {historyError}</div>}
+        <SpySignalHistoryTable rows={history} />
+      </Panel>
+    </div>
+  );
+}
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 
@@ -1071,345 +1311,15 @@ export default function SpyEngineCommandCenter() {
         </div>
       )}
 
-      {/* ═══ SPY OPTION SAYFASI (Faz 0-5, tasks/active/013) ═══ */}
+      {/* ═══ SPY OPTION SAYFASI (gerçek zamanlı 5m/1m sinyal motoru, tasks/active/014) ═══ */}
       {tab === "spyoption" && (
-        <div className="flex flex-col gap-1">
-          {!data?.decisionPage ? (
-            <div className={`${SURFACE} px-3 py-6 text-center text-[12px] text-slate-500`}>
-              Sigma/Monte Carlo hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
-            </div>
-          ) : (
-            <>
-              <div className="rounded border border-[#1c2635] bg-[#0f141d] px-3 py-2 text-[10px] leading-snug text-slate-400">
-                Tier 1-2 gerçek fiyat/piyasa verisinden hesaplanır; Tier 3 ve Tier 5 sezgisel skordur, olasılık değildir.
-                Grafik ve tüm veriler her kapalı 5m barda otomatik güncellenir.
-              </div>
-
-              {/* Grafik — kendi grafik motorumuz (SpyChart), Tier 1 seviyeleri çizgi olarak */}
-              <div className={`${SURFACE} overflow-hidden`}>
-                <div className="flex items-center justify-between border-b border-[#1c2635] px-2 py-1">
-                  <span className="text-[10px] text-slate-500">
-                    5m — Monte Carlo seviyeleri (30 dk ufuk) · her kapalı 5m barda güncellenir
-                  </span>
-                  <span className="font-mono text-[9px] text-slate-600">
-                    tohum barı: {nyClock(data.decisionPage.asOfBarTime, true)} ET
-                  </span>
-                </div>
-                <SpyChart
-                  bars={m5.length ? m5 : bucketAggregate(m1, 5)}
-                  timeframe="5m"
-                  events={events}
-                  position={openPosition}
-                  toggles={toggles}
-                  height={360}
-                  autoScroll={autoScroll}
-                  levelLines={decisionLevelLines}
-                  defaultWindowMin={120}
-                />
-              </div>
-
-              {/* ±2-3 strike hedef bandı — asil hedef, genis izgara degil */}
-              <div className={`${SURFACE} px-3 py-2.5`}>
-                <div className="mb-1.5 text-[10px] text-slate-500">
-                  ±2-3 strike hedef bandı — {data.decisionPage.targetBand.horizonMin} dk içinde
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded border border-[#22c55e]/20 bg-[#22c55e]/5 px-2.5 py-2">
-                    <div className="text-[9px] text-slate-500">YUKARI · ${data.decisionPage.targetBand.up.level}</div>
-                    <div className="font-mono text-lg text-[#22c55e]">%{data.decisionPage.targetBand.up.touchProbability.toFixed(0)}</div>
-                    <div className="text-[9px] text-slate-500">
-                      beklenen getiri {data.decisionPage.targetBand.up.expectedReturnPct >= 0 ? "+" : ""}%{data.decisionPage.targetBand.up.expectedReturnPct.toFixed(2)}
-                      {data.decisionPage.targetBand.up.expectedReturnSource === "priceMove" ? " (fiyat hareketi, prim verisi yok)" : " (prim)"}
-                    </div>
-                  </div>
-                  <div className="rounded border border-[#ef4444]/20 bg-[#ef4444]/5 px-2.5 py-2">
-                    <div className="text-[9px] text-slate-500">AŞAĞI · ${data.decisionPage.targetBand.down.level}</div>
-                    <div className="font-mono text-lg text-[#ef4444]">%{data.decisionPage.targetBand.down.touchProbability.toFixed(0)}</div>
-                    <div className="text-[9px] text-slate-500">
-                      beklenen getiri {data.decisionPage.targetBand.down.expectedReturnPct >= 0 ? "+" : ""}%{data.decisionPage.targetBand.down.expectedReturnPct.toFixed(2)}
-                      {data.decisionPage.targetBand.down.expectedReturnSource === "priceMove" ? " (fiyat hareketi, prim verisi yok)" : " (prim)"}
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
-                  Herhangi bir yöne ±2-3 strike ulaşma olasılığı (birleşik, bağımsızlık varsayımıyla yaklaşık):
-                  %{data.decisionPage.targetBand.combinedProbability.toFixed(0)}
-                </div>
-              </div>
-
-              {/* Tier 1 — Fiyat Modeli: fiyat × zaman dilimi matrisi */}
-              <Panel title="Tier 1 — Fiyat Modeli (Monte Carlo, gerçek istatistiksel &quot;Olasılık&quot;)">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-[10px]">
-                    <thead>
-                      <tr className="border-b border-[#1c2635] text-slate-500">
-                        <th className="py-1 text-left font-semibold">Seviye</th>
-                        {data.decisionPage.horizonsMin.map((h) => (
-                          <th key={h} className="py-1 text-right font-semibold">{h} dk</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody className="font-mono">
-                      {[...data.decisionPage.priceGrid].reverse().map((lvl) => (
-                        <tr key={lvl} className={`border-b border-[#0f141d] ${lvl === Math.round(data!.decisionPage!.spot) ? "bg-[#1c2635]/40" : ""}`}>
-                          <td className="py-1 text-slate-300">${lvl}</td>
-                          {data.decisionPage!.horizonsMin.map((h) => {
-                            const cell = data.decisionPage!.tier1[String(h)]?.find((x) => x.price === lvl);
-                            return (
-                              <td key={h} className="py-1 text-right text-slate-300">
-                                {cell ? (
-                                  <span title={`Yoğunluk: %${cell.densityPct.toFixed(0)}`}>
-                                    %{cell.touchProbability.toFixed(0)}
-                                  </span>
-                                ) : "—"}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
-                  Hücreler ERİŞİM olasılığı (%) gösterir — fiyatın o ufuk içinde en az bir an o seviyeye ulaşma
-                  ihtimali. Üzerine gelince YOĞUNLUK (o bantta geçirilen zaman oranı) görünür. İkisi matematiksel
-                  olarak farklıdır, birbirine dönüştürülemez.
-                </div>
-              </Panel>
-
-              <div className="grid grid-cols-1 gap-1 lg:grid-cols-2">
-                {/* Tier 2 — Piyasa Beklentisi */}
-                <Panel title="Tier 2 — Piyasa Beklentisi (opsiyon delta-örtük olasılık)">
-                  {!data.decisionPage.tier2.length ? (
-                    <div className="text-[11px] text-slate-500">Veri yok — Faz 2 opsiyon verisi bekleniyor.</div>
-                  ) : (
-                    <table className="w-full text-[10px]">
-                      <thead>
-                        <tr className="border-b border-[#1c2635] text-slate-500">
-                          <th className="py-1 text-left font-semibold">Strike</th>
-                          <th className="py-1 text-right font-semibold">Call (üstünde kapanış)</th>
-                          <th className="py-1 text-right font-semibold">Put (altında kapanış)</th>
-                        </tr>
-                      </thead>
-                      <tbody className="font-mono">
-                        {data.decisionPage.tier2.map((t) => (
-                          <tr key={t.strike} className="border-b border-[#0f141d]">
-                            <td className="py-1 text-slate-300">${t.strike}</td>
-                            <td className="py-1 text-right text-slate-300">{t.callImpliedProb == null ? "—" : `%${(t.callImpliedProb * 100).toFixed(0)}`}</td>
-                            <td className="py-1 text-right text-slate-300">{t.putImpliedProb == null ? "—" : `%${(t.putImpliedProb * 100).toFixed(0)}`}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                  <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
-                    Delta, piyasanın o strike&apos;ın ITM bitme olasılığına dair KABA bir tahminidir (tam N(d2)
-                    değil, standart trader kısayolu N(d1)) — gerçek opsiyon fiyatlarından, uydurma değil.
-                  </div>
-                </Panel>
-
-                {/* Tier 4 — Opsiyon Motoru (Faz 2 verisiyle aynı kaynak) */}
-                <Panel title="Tier 4 — Opsiyon Motoru (Black-Scholes, gerçek IV)">
-                  {!data.optionDecision ? (
-                    <div className="text-[11px] text-slate-500">Veri yok.</div>
-                  ) : (
-                    <div className="flex flex-col gap-1">
-                      <div className="font-mono text-[10px] text-slate-500">
-                        Vade: <b className="text-slate-300">{data.optionDecision.expiry}</b>
-                        {" · "}Spot: <b className="text-slate-300">${num(data.optionDecision.spot)}</b>
-                      </div>
-                      <table className="w-full text-[10px]">
-                        <thead>
-                          <tr className="border-b border-[#1c2635] text-slate-500">
-                            <th className="py-1 text-left font-semibold">Strike</th>
-                            <th className="py-1 text-right font-semibold">Call Δ/Θ</th>
-                            <th className="py-1 text-right font-semibold">Put Δ/Θ</th>
-                          </tr>
-                        </thead>
-                        <tbody className="font-mono">
-                          {data.optionDecision.contracts.map((c) => (
-                            <tr key={c.strike} className="border-b border-[#0f141d]">
-                              <td className="py-1 text-slate-300">${c.strike}</td>
-                              <td className="py-1 text-right text-slate-300">{c.call.greeks.delta.toFixed(2)}/{c.call.greeks.theta.toFixed(2)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.put.greeks.delta.toFixed(2)}/{c.put.greeks.theta.toFixed(2)}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </Panel>
-              </div>
-
-              {/* Tier 3 — Rejim + Skor */}
-              <Panel title="Tier 3 — Rejim + Skor (KALİBRE EDİLMEMİŞ — olasılık değil)">
-                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-                  {([["long", "LONG (yukarı dönüş)"], ["short", "SHORT (aşağı dönüş)"]] as const).map(([key, title]) => {
-                    const t3 = data.decisionPage!.tier3[key];
-                    return (
-                      <div key={key} className="rounded border border-[#1c2635] bg-[#0a0e17] p-2">
-                        <div className="mb-1 text-[10px] font-semibold text-slate-300">{title}</div>
-                        <div className="mb-1.5 flex items-center gap-3">
-                          <div>
-                            <div className="text-[9px] text-slate-500">Reversal Score</div>
-                            <div className="font-mono text-[16px] font-bold text-slate-100">{t3.reversal.score}/100</div>
-                          </div>
-                          <div>
-                            <div className="text-[9px] text-slate-500">{key === "long" ? "Satıcı" : "Alıcı"} Tükenmesi</div>
-                            <div className="font-mono text-[16px] font-bold text-slate-100">{t3.exhaustion.score.toFixed(0)}/100</div>
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-0.5">
-                          {t3.reversal.parts.map((p, i) => (
-                            <div key={i} className="flex items-center justify-between text-[9.5px] text-slate-500">
-                              <span>{p.label}</span>
-                              <span className={p.value > 0 ? "text-[#22c55e]" : "text-slate-600"}>+{p.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="mt-1 text-[9px] leading-snug text-slate-600">{t3.exhaustion.note}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </Panel>
-
-              {/* Tier 5 — Edge Skoru: sürekli, hard-gate yok */}
-              <Panel title="Tier 5 — Edge Skoru (Tier 1-3 birleşimi, sürekli 0-100, hard-gate YOK)">
-                <table className="w-full text-[10px]">
-                  <thead>
-                    <tr className="border-b border-[#1c2635] text-slate-500">
-                      <th className="py-1 text-left font-semibold">Seviye</th>
-                      <th className="py-1 text-left font-semibold">LONG Edge</th>
-                      <th className="py-1 text-left font-semibold">SHORT Edge</th>
-                    </tr>
-                  </thead>
-                  <tbody className="font-mono">
-                    {[...data.decisionPage.tier5].reverse().map((t) => (
-                      <tr key={t.price} className="border-b border-[#0f141d]">
-                        <td className="py-1.5 text-slate-300">${t.price}</td>
-                        <td className="py-1.5">
-                          <div className="flex items-center gap-1.5">
-                            <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
-                              <div className="h-full bg-[#22c55e]" style={{ width: `${t.edgeLong}%` }} />
-                            </div>
-                            <span className="w-7 text-right text-slate-300">{t.edgeLong}</span>
-                          </div>
-                        </td>
-                        <td className="py-1.5">
-                          <div className="flex items-center gap-1.5">
-                            <div className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
-                              <div className="h-full bg-[#ef4444]" style={{ width: `${t.edgeShort}%` }} />
-                            </div>
-                            <span className="w-7 text-right text-slate-300">{t.edgeShort}</span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
-                  Sabit bir &quot;işlem yok&quot; bandı YOK — düşük skorlu seviyeler sadece kısa bir çubukla görsel
-                  olarak sönük görünür, sistem hiçbir zaman veri gizlemez.
-                </div>
-              </Panel>
-
-              {/* Faz 1 (tasks/active/013) — Monte Carlo doğrulama, ham veri görünümü */}
-              <Disclosure title="Faz 1 — 5m Monte Carlo (ham veri)">
-                {!data?.monteCarlo ? (
-                  <div className="text-[11px] text-slate-500">
-                    Sigma hesaplanamadı — yeterli 5m geçmişi yok. Uydurma değer üretilmez.
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
-                      <span>Ham sigma (5m): <b className="text-slate-300">{data.monteCarlo.sigmaPerBarRaw == null ? "veri yok" : `%${(data.monteCarlo.sigmaPerBarRaw * 100).toFixed(3)}`}</b></span>
-                      <span>Mevsimsellik çarpanı: <b className="text-slate-300">{data.monteCarlo.seasonalityMultiplier.toFixed(2)}×</b> ({data.monteCarlo.seasonalitySampleDays} gün)</span>
-                      <span>Ayarlı sigma: <b className="text-slate-300">%{(data.monteCarlo.sigmaPerBarAdj * 100).toFixed(3)}</b></span>
-                      <span>Ufuk: <b className="text-slate-300">{data.monteCarlo.horizonMin} dk</b> · {data.monteCarlo.nSims} yol</span>
-                    </div>
-                    <table className="w-full text-[10px]">
-                      <thead>
-                        <tr className="border-b border-[#1c2635] text-slate-500">
-                          <th className="py-1 text-left font-semibold">Seviye</th>
-                          <th className="py-1 text-right font-semibold">Erişim olasılığı</th>
-                          <th className="py-1 text-right font-semibold">Yoğunluk</th>
-                        </tr>
-                      </thead>
-                      <tbody className="font-mono">
-                        {[...data.monteCarlo.levels].reverse().map((l) => (
-                          <tr key={l.price} className="border-b border-[#0f141d]">
-                            <td className="py-1 text-slate-300">${l.price}</td>
-                            <td className="py-1 text-right text-slate-300">%{l.touchProbability.toFixed(0)}</td>
-                            <td className="py-1 text-right text-slate-300">%{l.densityPct.toFixed(0)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <div className="text-[9px] leading-snug text-slate-600">
-                      &quot;Erişim olasılığı&quot; ve &quot;yoğunluk&quot; matematiksel olarak farklı büyüklükler — birbirine
-                      dönüştürülemez.
-                    </div>
-                  </div>
-                )}
-              </Disclosure>
-
-              {/* Faz 2 (tasks/active/013) — SPY 0DTE Greeks, opsiyon242.py'den BAĞIMSIZ kaynak */}
-              <Disclosure title="Faz 2 — SPY 0DTE Opsiyon Greeks (ham veri, spy_0dte_options_sync.py)">
-                {!data?.optionDecision ? (
-                  <div className="text-[11px] text-slate-500">
-                    Veri yok — script henüz çalışmadı veya sonuç bayat (&gt;6 saat). Uydurma değer üretilmez.
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-slate-500">
-                      <span>Vade: <b className="text-slate-300">{data.optionDecision.expiry}</b> ({data.optionDecision.isZeroDte ? "0DTE" : "0DTE yok — en yakın vade"})</span>
-                      <span>Spot: <b className="text-slate-300">${num(data.optionDecision.spot)}</b></span>
-                      <span>Kalan süre: <b className="text-slate-300">{(data.optionDecision.yearsToExpiry * 365 * 24 * 60).toFixed(0)} dk</b></span>
-                      <span>r: <b className="text-slate-300">%{(data.optionDecision.riskFreeRate * 100).toFixed(1)}</b></span>
-                      <span>Üretim: <b className="text-slate-300">{nyClock(Math.floor(Date.parse(data.optionDecision.generatedAt) / 1000), true)} ET</b></span>
-                    </div>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-[10px]">
-                        <thead>
-                          <tr className="border-b border-[#1c2635] text-slate-500">
-                            <th className="py-1 text-left font-semibold">Strike</th>
-                            <th className="py-1 text-right font-semibold">Call Δ</th>
-                            <th className="py-1 text-right font-semibold">Call Γ</th>
-                            <th className="py-1 text-right font-semibold">Call Θ</th>
-                            <th className="py-1 text-right font-semibold">Call IV</th>
-                            <th className="py-1 text-right font-semibold">Put Δ</th>
-                            <th className="py-1 text-right font-semibold">Put Θ</th>
-                            <th className="py-1 text-right font-semibold">Put IV</th>
-                          </tr>
-                        </thead>
-                        <tbody className="font-mono">
-                          {data.optionDecision.contracts.map((c) => (
-                            <tr key={c.strike} className="border-b border-[#0f141d]">
-                              <td className="py-1 text-slate-300">${c.strike}</td>
-                              <td className="py-1 text-right text-slate-300">{c.call.greeks.delta.toFixed(3)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.call.greeks.gamma.toFixed(4)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.call.greeks.theta.toFixed(3)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.call.impliedVolatility == null ? "—" : `%${(c.call.impliedVolatility * 100).toFixed(0)}`}</td>
-                              <td className="py-1 text-right text-slate-300">{c.put.greeks.delta.toFixed(3)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.put.greeks.theta.toFixed(3)}</td>
-                              <td className="py-1 text-right text-slate-300">{c.put.impliedVolatility == null ? "—" : `%${(c.put.impliedVolatility * 100).toFixed(0)}`}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="text-[9px] leading-snug text-slate-600">
-                      Prim değerleri Yahoo&apos;nun kendi ima edilen volatilitesinden (IV) Black-Scholes ile hesaplanıyor
-                      — tahmini/HV ile ikame edilmiyor. opsiyon242.py&apos;nin tarama/skor motoruna DOKUNULMADI — bu ayrı,
-                      SPY&apos;a özel bir kaynak.
-                    </div>
-                  </div>
-                )}
-              </Disclosure>
-            </>
-          )}
-        </div>
+        <SpyOptionLiveTab
+          bars5m={m5.length ? m5 : bucketAggregate(m1, 5)}
+          events={events}
+          openPosition={openPosition}
+          toggles={toggles}
+          autoScroll={autoScroll}
+        />
       )}
 
       {/* ═══ SİNYALLER & ARŞİV ═══ */}
