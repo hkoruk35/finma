@@ -1,8 +1,8 @@
 {
   "date": "2026-09-17",
-  "generated_at": "2026-09-17T14:09:15.093744-04:00",
+  "generated_at": "2026-09-17T17:07:37.528522-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 31,
+  "active_scores_count": 35,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 11,
       "tickers": [
         "WHD",
         "ILMN",
@@ -29,7 +29,11 @@
         "HCA",
         "JKHY",
         "PI",
-        "S"
+        "QCOM",
+        "S",
+        "ORKA",
+        "ITT",
+        "RIG"
       ]
     },
     "value": {
@@ -68,20 +72,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 759.76,
+      "change_pct": -0.37
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 718.06,
+      "change_pct": 0.16
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 514.96,
+      "change_pct": -0.65
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 15.23,
+      "change_pct": -1.36
+    },
+    "RUSSELL2000": {
+      "value": 283.005,
+      "change_pct": -0.85
     }
-  }
+  },
+  "price_updated_at": "2026-09-18T10:00:20.565531-04:00"
 }
