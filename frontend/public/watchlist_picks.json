@@ -1,24 +1,6 @@
 {
-  "generated_at": "2026-09-18T14:04:29.503961-04:00",
+  "generated_at": "2026-09-18T17:03:15.653280-04:00",
   "picks": [
-    {
-      "ticker": "DELL",
-      "sector": "Technology",
-      "date_added": "2026-09-17",
-      "score": 30.5
-    },
-    {
-      "ticker": "EW",
-      "sector": "Healthcare",
-      "date_added": "2026-09-17",
-      "score": 33.5
-    },
-    {
-      "ticker": "MU",
-      "sector": "Technology",
-      "date_added": "2026-09-18",
-      "score": 33.5
-    },
     {
       "ticker": "HOOD",
       "sector": "Financial Services",
@@ -26,22 +8,40 @@
       "score": 31.5
     },
     {
-      "ticker": "EQIX",
-      "sector": "Real Estate",
-      "date_added": "2026-09-18",
-      "score": 37.0
-    },
-    {
-      "ticker": "OKTA",
-      "sector": "Technology",
-      "date_added": "2026-09-18",
-      "score": 36.5
-    },
-    {
       "ticker": "EMR",
       "sector": "Industrials",
       "date_added": "2026-09-18",
       "score": 36.5
+    },
+    {
+      "ticker": "KLAC",
+      "sector": "Technology",
+      "date_added": "2026-09-18",
+      "score": 45.5
+    },
+    {
+      "ticker": "GH",
+      "sector": "Healthcare",
+      "date_added": "2026-09-18",
+      "score": 45.5
+    },
+    {
+      "ticker": "CAMT",
+      "sector": "Technology",
+      "date_added": "2026-09-18",
+      "score": 45.0
+    },
+    {
+      "ticker": "NDAQ",
+      "sector": "Financial Services",
+      "date_added": "2026-09-18",
+      "score": 43.5
+    },
+    {
+      "ticker": "WCC",
+      "sector": "Industrials",
+      "date_added": "2026-09-18",
+      "score": 43.0
     }
   ]
 }
