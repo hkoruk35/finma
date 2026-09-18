@@ -1,0 +1,89 @@
+{
+  "ticker": "CEG",
+  "company": "Constellation Energy Corporation",
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T03:24:27.060Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 262.79998779296875,
+    "open": 264.8699951171875,
+    "high": 269.3999938964844,
+    "low": 259.32000732421875,
+    "prev_close": 259.5299987792969,
+    "change_pct": 1.2599657184342141,
+    "change_pct_1w": -8.102253148522545,
+    "change_pct_1m": -7.805648466177144,
+    "change_pct_1y": -18.200920462037708,
+    "volume": 3418600,
+    "avg_volume_30d": 79464800
+  },
+  "scores": {
+    "master_score": 39,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.7165710213248,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 275.73095813082347,
+    "ema_50": 273.9166550471027,
+    "ema_200": 289.23050703397826,
+    "ema_stack_bullish": false,
+    "bb_upper": 275.9399871826172,
+    "bb_middle": 262.79998779296875,
+    "bb_lower": 249.6599884033203,
+    "bb_width": 10,
+    "atr": 10.78,
+    "atr_pct": 4.1,
+    "rvol": 1.0980559946039001,
+    "52w_high": 412.70001220703125,
+    "52w_low": 228.6300048828125
+  },
+  "fundamental": {
+    "pe_ratio": 25.68915,
+    "pb_ratio": 2.9200323,
+    "gross_margin": 0.22107,
+    "operating_margin": 0.086619996,
+    "net_margin": 0.110810004,
+    "market_cap": 93111975936,
+    "revenue_growth_ttm": 0.23,
+    "fcf_yield": -0.07115223146541046,
+    "institutional_ownership_pct": 0.82957,
+    "dividend_rate": 1.71,
+    "dividend_yield": 0.0066000004
+  },
+  "scores_detail": {
+    "entry_range_low": 256.33,
+    "entry_range_high": 263.88,
+    "target_range_low": 279.6,
+    "target_range_high": 299.12,
+    "target_1": 279.6,
+    "target_2": 286.12,
+    "target_3": 299.12,
+    "stop_loss": 248.79,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $256.33 – $263.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $269.40 direnci veya $254.18 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $248.79 olarak belirlenmiştir. Fiyatın EMA50 ($273.92) veya günlük VWAP ($264.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($273.92) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($264.07) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
