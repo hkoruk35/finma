@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/root/finma/spy_signal_engine
+WorkingDirectory=/root/finma
 EnvironmentFile=/root/finma/spy_signal_engine/.env
-ExecStart=/root/finma/spy_signal_engine/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8787
+ExecStart=/root/finma/spy_signal_engine/venv/bin/uvicorn spy_signal_engine.app:app --host 127.0.0.1 --port 8787
 Restart=on-failure
 RestartSec=5
 User=root
