@@ -578,20 +578,54 @@ export default function SpyEngineCommandCenter() {
     const ctx = audioRef.current;
     if (ctx) {
       const t0 = ctx.currentTime;
-      const notes = kind === "fired" ? [880, 1175, 1568] : [660, 880];
-      for (let i = 0; i < notes.length; i++) {
-        const at = t0 + i * 0.16;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.value = notes[i];
-        gain.gain.setValueAtTime(0.0001, at);
-        gain.gain.exponentialRampToValueAtTime(0.16, at + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.15);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(at);
-        osc.stop(at + 0.17);
+      if (kind === "fired") {
+        // "Para sesi" — motor GERÇEK bir işlem önerisi verdiğinde ("imminent"
+        // ön uyarısından bilinçli olarak farklı ve daha çarpıcı): önce kısa
+        // sönümlü bir kasa çanı ("cling"), ardından bozuk para şıngırtısını
+        // taklit eden art arda kısa tıklamalar.
+        for (const f of [1318.5, 1975.5]) { // E6 + B6 — parlak "cling"
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.value = f;
+          gain.gain.setValueAtTime(0.0001, t0);
+          gain.gain.exponentialRampToValueAtTime(0.22, t0 + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.55);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t0);
+          osc.stop(t0 + 0.6);
+        }
+        [3200, 3800, 3000, 4200, 3500].forEach((f, i) => {
+          const at = t0 + 0.12 + i * 0.045;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "square";
+          osc.frequency.value = f;
+          gain.gain.setValueAtTime(0.0001, at);
+          gain.gain.exponentialRampToValueAtTime(0.06, at + 0.006);
+          gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.05);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(at);
+          osc.stop(at + 0.06);
+        });
+      } else {
+        const notes = [660, 880];
+        for (let i = 0; i < notes.length; i++) {
+          const at = t0 + i * 0.16;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = notes[i];
+          gain.gain.setValueAtTime(0.0001, at);
+          gain.gain.exponentialRampToValueAtTime(0.16, at + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(at);
+          osc.stop(at + 0.17);
+        }
       }
     }
     // Tablette ses kapalı olsa bile titreşim uyarısı gelsin.

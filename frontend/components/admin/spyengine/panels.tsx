@@ -549,7 +549,10 @@ export function computeEntryAlert(
 }
 
 const ALERT_STYLE: Record<AlertLevel, { ring: string; text: string; icon: string }> = {
-  FIRED: { ring: "border-[#eab308]/60 bg-[#eab308]/15", text: "text-[#facc15]", icon: "🎯" },
+  // FIRED = motor GERÇEK bir işlem önerisi verdiği tek an; diğer üç seviye
+  // sadece durum bilgisidir. Bu yüzden yalnızca FIRED yeşil zemine geçer —
+  // IMMINENT/NEAR ile karıştırılmasın diye bilinçli olarak farklı renk.
+  FIRED: { ring: "border-[#22c55e]/70 bg-[#22c55e]/20", text: "text-[#4ade80]", icon: "🎯" },
   IMMINENT: { ring: "border-blue-500/55 bg-blue-600/16", text: "text-blue-300", icon: "⚡" },
   NEAR: { ring: "border-sky-500/35 bg-sky-500/8", text: "text-sky-300", icon: "👀" },
   IDLE: { ring: "border-[#1c2635] bg-[#0f141d]", text: "text-slate-400", icon: "○" },
@@ -574,6 +577,8 @@ export function AlertBanner({
   const s = alert.standing;
   const sideTone =
     alert.side === "LONG" ? "text-[#22c55e]" : alert.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400";
+  /** Gerçek işlem önerisi anı — büyük/yeşil vurgu yalnızca burada devreye girer */
+  const isFired = !inPosition && alert.level === "FIRED";
 
   let headline: string;
   if (inPosition) headline = "POZİSYON AÇIK — çıkış kuralı bekleniyor";
@@ -583,11 +588,17 @@ export function AlertBanner({
   else headline = stateLabel;
 
   return (
-    <div className={`flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border px-3 py-2 ${st.ring}`}>
+    <div
+      className={`flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg border px-3 py-2 ${st.ring} ${
+        isFired ? "border-2 py-3 shadow-[0_0_26px_-4px_rgba(34,197,94,0.6)]" : ""
+      }`}
+    >
       <span
-        className={`flex items-center gap-2 text-[13px] font-bold tracking-wide sm:text-[15px] ${
-          inPosition || alert.level === "IDLE" ? st.text : sideTone
-        } ${alert.level === "FIRED" || alert.level === "IMMINENT" ? "animate-pulse" : ""}`}
+        className={`flex items-center gap-2 font-bold tracking-wide ${
+          isFired ? "text-[19px] sm:text-[24px]" : "text-[13px] sm:text-[15px]"
+        } ${inPosition || alert.level === "IDLE" ? st.text : isFired ? "text-[#4ade80]" : sideTone} ${
+          alert.level === "FIRED" || alert.level === "IMMINENT" ? "animate-pulse" : ""
+        }`}
       >
         <span>{st.icon}</span>
         <span>{headline}</span>
@@ -605,7 +616,13 @@ export function AlertBanner({
         </span>
       )}
 
-      <div className="w-full text-[11px] leading-snug text-slate-300">{nextStep}</div>
+      <div
+        className={`w-full leading-snug ${
+          isFired ? "text-[13px] font-semibold text-[#bbf7d0] sm:text-[14px]" : "text-[11px] text-slate-300"
+        }`}
+      >
+        {isFired ? `⚠️ İŞLEM ÖNERİSİ — ${nextStep}` : nextStep}
+      </div>
     </div>
   );
 }
