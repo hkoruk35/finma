@@ -1289,7 +1289,7 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
 
         <rect x="490" y="324" width="230" height="60" rx="6" fill="rgba(249,115,22,0.08)" stroke="#7c2d12" />
         <text x="605" y="343" textAnchor="middle" fill="#fb923c" fontSize="10.5" fontWeight="700">3 · ATR STOP</text>
-        <text x="605" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Stop_SPY = swing ∓ 0.25×ATR_15m</text>
+        <text x="605" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Stop_SPY = swing ∓ (0.25–0.50)×ATR_15m · Hedef 1,5R</text>
         <text x="605" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">anlık, mum içi en kötü seviye · her 15m kapanışta yenilenir</text>
 
         <rect x="728" y="324" width="238" height="60" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e5a76" />
@@ -1664,15 +1664,17 @@ export function M15Strip({ veto }: { veto: M15VetoRead }) {
 // ── V7.0 — POZİSYON & GÜNLÜK LİMİT KARTI ───────────────────────────
 
 const INTRADAY_CHECKLIST = [
+  "Açılış öncesi: VIX normal mi (12–30) ve bugün yüksek etkili haber/veri (FOMC/CPI/NFP) var mı?",
   "09:30–10:00 ilk 30m mum kapanıyor (30m rejim belirleniyor)",
   "09:45–10:00 ikinci 15m mum EMA21/VWAP ile rejimi teyit ediyor",
   "10:00–11:15 tarama penceresi (15m ana tetik aranıyor)",
   "Tetik mumu kapanmadan ~60sn önce 5m hacim/fiyatı kontrol et",
   "15m kapanışta dört şart (yön+kırılım+hacim+ATR) sağlandıysa 2. mumu beklemeden gir",
-  "Giriş sonrası Stop_prem'i +0.10 tamponuyla hesapla",
-  "Her 15m kapanışta yeni swing seviyesi var mı kontrol et, stopu yeniden yerleştir",
+  "Giriş sonrası Stop_prem'i +0.10 tamponuyla hesapla + 1,5R hedefini kur (bracket/stop-limit)",
+  "Her 15m kapanışta yeni swing seviyesi var mı kontrol et, stopu yeniden yerleştir (TP'ye dokunma)",
+  "Hedef (1,5R) geldi → hemen kapat; hızlı geldiyse (<60dk) tereddüt etme",
   "11:30–13:30 yeni giriş yok",
-  "13:45–15:15 ikinci tarama penceresi",
+  "13:45–15:15 ikinci tarama penceresi (30m rejim hâlâ net ise)",
   "15:15 sonrası yeni giriş yok",
   "15:45 açık pozisyon zorunlu kapama",
   "Gün sonu: 2-stop/risk-tavanı kontrolü + yarının tezini not et",
@@ -1698,12 +1700,12 @@ function ChecklistItem({ label, checked, onToggle }: { label: string; checked: b
 }
 
 /**
- * Pozisyon & Günlük Limit Kartı — hesap $5.000, işlem başı risk %4–6,
- * günlük risk tavanı %10. `positionSize`/`pickDte`/`dailyLimitState`
- * (tradingPlan.ts) burada doğrudan çağrılır; sayfanın geri kalanı gibi
- * gerçek veri yoksa "—" gösterir, uydurma sayı üretmez. Stop mesafesi
- * canlı bir Stop_SPY varsa ondan, yoksa örnek/varsayılan bir mesafeden
- * hesaplanır (açıkça etiketlenir).
+ * Pozisyon & Günlük Limit Kartı — hesap $5.000, işlem başı risk %3–4 (v2),
+ * günlük risk tavanı %8 (~$400 = 2 stop). `positionSize`/`pickDte`/
+ * `dailyLimitState` (tradingPlan.ts) burada doğrudan çağrılır; sayfanın geri
+ * kalanı gibi gerçek veri yoksa "—" gösterir, uydurma sayı üretmez. Stop
+ * mesafesi canlı bir Stop_SPY varsa ondan, yoksa örnek/varsayılan bir
+ * mesafeden hesaplanır (açıkça etiketlenir).
  */
 export function PositionSizeCard({
   positions, spot, stopSpy, nowMinutesEt,
@@ -1722,7 +1724,7 @@ export function PositionSizeCard({
 
   const sizeResult: PositionSizeResult | null =
     stopDistanceSpy != null && stopDistanceSpy > 0
-      ? positionSize(stopDistanceSpy, DEFAULT_DELTA, ACCOUNT_SIZE * 0.04, ACCOUNT_SIZE * 0.06)
+      ? positionSize(stopDistanceSpy, DEFAULT_DELTA, ACCOUNT_SIZE * 0.03, ACCOUNT_SIZE * 0.04)
       : null;
 
   const highConfidence = false; // panel bilgi amaçlı; gerçek "yüksek güven" bayrağı ayrı bir görevde bağlanabilir
@@ -1744,8 +1746,8 @@ export function PositionSizeCard({
     >
       <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-[10.5px] text-slate-300 sm:grid-cols-3">
         <div>Hesap: <b className="text-slate-100">${ACCOUNT_SIZE.toLocaleString("en-US")}</b></div>
-        <div>İşlem başı risk: <b className="text-slate-100">%4–6</b></div>
-        <div>Günlük risk tavanı: <b className="text-slate-100">%10 (${(ACCOUNT_SIZE * 0.1).toFixed(0)})</b></div>
+        <div>İşlem başı risk: <b className="text-slate-100">%3–4 (${(ACCOUNT_SIZE * 0.03).toFixed(0)}–${(ACCOUNT_SIZE * 0.04).toFixed(0)})</b></div>
+        <div>Günlük risk tavanı: <b className="text-slate-100">%8 (${(ACCOUNT_SIZE * 0.08).toFixed(0)}) = 2 stop</b></div>
         <div>
           Kontrat sayısı:{" "}
           <b className="text-slate-100">{sizeResult ? sizeResult.contracts : "—"}</b>

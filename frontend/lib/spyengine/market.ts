@@ -584,3 +584,140 @@ export async function fetchAtmContract(
     return null;
   });
 }
+
+// ── Çok-vadeli opsiyon zinciri (SL/TP hesaplayıcı için) ─────────────
+
+export interface ChainRow {
+  contractSymbol: string;
+  strike: number;
+  isCall: boolean;
+  bid: number | null;
+  ask: number | null;
+  last: number | null;
+  mid: number | null;
+  impliedVolatility: number | null;
+}
+
+export interface ChainExpiry {
+  expiryEpoch: number;
+  /** YYYY-MM-DD (NY) */
+  expiryDate: string;
+  /** Bugünden takvim günü farkı (0DTE = bugün) */
+  dte: number;
+  calls: ChainRow[];
+  puts: ChainRow[];
+}
+
+const num2 = (v: unknown) => (Number.isFinite(Number(v)) ? Number(v) : null);
+
+function rowsOf(raw: Record<string, unknown>[], isCall: boolean, spot: number, strikesPerSide: number): ChainRow[] {
+  const withDist = raw
+    .map((r) => ({ r, k: Number(r.strike) }))
+    .filter((x) => Number.isFinite(x.k))
+    .sort((a, b) => Math.abs(a.k - spot) - Math.abs(b.k - spot))
+    .slice(0, strikesPerSide * 2 + 1);
+  return withDist
+    .map(({ r }) => {
+      const bid = num2(r.bid);
+      const ask = num2(r.ask);
+      return {
+        contractSymbol: String(r.contractSymbol),
+        strike: Number(r.strike),
+        isCall,
+        bid,
+        ask,
+        last: num2(r.lastPrice),
+        mid: bid != null && ask != null && ask > 0 ? (bid + ask) / 2 : null,
+        impliedVolatility: num2(r.impliedVolatility),
+      } as ChainRow;
+    })
+    .sort((a, b) => a.strike - b.strike);
+}
+
+/**
+ * SPY opsiyon zincirini birden çok vade için çeker (0DTE'den `maxDte` takvim
+ * gününe kadar). Her vade için ATM'ye en yakın ±`strikesPerSide` strike'ı hem
+ * CALL hem PUT olarak döndürür. Delta burada HESAPLANMAZ — route katmanı IV +
+ * kalan süreyle Black-Scholes delta üretir (bkz. optionMath.ts). Zincir
+ * gelmezse boş dizi; teorik fiyat/strike uydurulmaz.
+ */
+export async function fetchSpyOptionChainMulti(
+  spot: number,
+  maxDte = 5,
+  strikesPerSide = 6
+): Promise<ChainExpiry[]> {
+  // 1) Vade listesini al (tarihsiz istek `expirationDates` döndürür).
+  let expirations: number[] = [];
+  for (const host of HOSTS) {
+    try {
+      const res = await fetch(`https://${host}/v7/finance/options/SPY`, {
+        headers: YF_HEADERS,
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) continue;
+      const raw = await res.json();
+      const dates = raw?.optionChain?.result?.[0]?.expirationDates;
+      if (Array.isArray(dates) && dates.length) {
+        expirations = dates.map((d: unknown) => Number(d)).filter((d) => Number.isFinite(d));
+        break;
+      }
+    } catch {
+      // sıradaki host
+    }
+  }
+  if (!expirations.length) return [];
+
+  const nowSec = Math.floor(Date.now() / 1000);
+  const todayYmd = nyParts(nowSec).ymd;
+  // maxDte takvim günü içindeki vadeler (0DTE dahil).
+  const wanted = expirations
+    .map((e) => ({ e, ymd: nyParts(e).ymd }))
+    .filter((x) => {
+      const dte = daysBetweenYmd(todayYmd, x.ymd);
+      return dte >= 0 && dte <= maxDte;
+    })
+    .slice(0, 6); // en fazla 6 vade (0/1/2/3/4/5DTE dengi)
+
+  const out: ChainExpiry[] = [];
+  for (const { e, ymd } of wanted) {
+    const expiry = await cached(`chainmulti:${e}:${Math.round(spot)}`, TTL.chain, async () => {
+      for (const host of HOSTS) {
+        try {
+          const res = await fetch(`https://${host}/v7/finance/options/SPY?date=${e}`, {
+            headers: YF_HEADERS,
+            cache: "no-store",
+            signal: AbortSignal.timeout(8000),
+          });
+          if (!res.ok) continue;
+          const raw = await res.json();
+          const chain = raw?.optionChain?.result?.[0]?.options?.[0];
+          const calls: Record<string, unknown>[] = chain?.calls || [];
+          const puts: Record<string, unknown>[] = chain?.puts || [];
+          if (!calls.length && !puts.length) continue;
+          return {
+            expiryEpoch: e,
+            expiryDate: ymd,
+            dte: daysBetweenYmd(todayYmd, ymd),
+            calls: rowsOf(calls, true, spot, strikesPerSide),
+            puts: rowsOf(puts, false, spot, strikesPerSide),
+          } as ChainExpiry;
+        } catch {
+          // sıradaki host
+        }
+      }
+      return null;
+    });
+    if (expiry) out.push(expiry);
+  }
+  return out.sort((a, b) => a.dte - b.dte);
+}
+
+/** İki NY tarihi (YYYY-MM-DD) arasındaki takvim günü farkı. */
+function daysBetweenYmd(a: string, b: string): number {
+  const [ay, am, ad] = a.split("-").map(Number);
+  const [by, bm, bd] = b.split("-").map(Number);
+  const ta = Date.UTC(ay, am - 1, ad);
+  const tb = Date.UTC(by, bm - 1, bd);
+  return Math.round((tb - ta) / 86400000);
+}

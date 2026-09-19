@@ -39,6 +39,7 @@ import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyCha
 import { useSpySignalSocket, type SpySignalMessage } from "@/lib/spyengine/useSpySignalSocket";
 import SignalsArchive from "@/components/admin/spyengine/SignalsArchive";
 import DailyForecast from "@/components/admin/spyengine/DailyForecast";
+import OptionCalculator from "@/components/admin/spyengine/OptionCalculator";
 import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   AlertBanner, computeEntryAlert,
@@ -409,6 +410,9 @@ function SpyOptionLiveTab({
         {historyError && <div className="mb-1.5 text-[10px] text-amber-400">Geçmiş yüklenemedi: {historyError}</div>}
         <SpySignalHistoryTable rows={history} />
       </Panel>
+
+      {/* SL/TP hesaplayıcı + canlı opsiyon zinciri (0–5DTE) */}
+      <OptionCalculator />
     </div>
   );
 }
@@ -1302,7 +1306,10 @@ export default function SpyEngineCommandCenter() {
               <li>15m ANA TETİK dört şartın hepsini birden arar: (1) 15m kapanış rejim yönünde, (2) chop bandı dışındaki son swing dip/tepe kırılır, (3) hacim ≥ son 8×15m ortalamasının 1.15 katı, (4) gövde ≤ 15m ATR&apos;nin 2 katı.</li>
               <li>5m artık bağımsız bir karar katmanı DEĞİL — SADECE zamanlama. 15m tetik ateşlendiğinde, o 15m mumun İÇİNDEKİ 5m barlarda en erken güvenli giriş anını arar (fiyat + RSI teyidi). Bağımsız sinyal/stop üretmez.</li>
               <li>Hacim vetosu (çok-günlü RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 15m tetiğin kendi hacim şartından bağımsız, ek bir güvenlik katmanı. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
-              <li>Stop her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ 0.25×ATR_15m. Her kapanan 15m barda yeniden hesaplanır (trailing yapı stopu).</li>
+              <li>Stop her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ (çarpan)×ATR_15m. Çarpan v2&apos;de dinamik: normal 0,25 · yüksek oynaklık (VIX≥25 veya ATR ort. 1,5x üstü) 0,40 · veri/FOMC günü 0,50. Her kapanan 15m barda yeniden hesaplanır (trailing yapı stopu).</li>
+              <li>Hedef (Take-Profit) = 1,5R: Hedef_SPY = giriş ± 1,5×risk mesafesi; Hedef_prim delta ile çevrilir. Hedef gelince (hızlı geldiyse bile) hemen kapatılır; 15:45 zorunlu kapama mutlaktır.</li>
+              <li>Risk yönetimi (v2): işlem başı %3–4 ($150–200), günlük tavan %8 (~$400 = 2 stop), günde max 1–2 işlem. VIX filtresi (&lt;12 seçici/pas · 12–25 normal · 25–30 yarı boyut · &gt;30 işlem yok) ve haber/veri günü filtresi (FOMC/CPI/NFP/PCE öncesi 0 işlem) işlem öncesi bir kez kontrol edilir.</li>
+              <li>SL/TP Hesaplayıcı (SPY Option sekmesi altı): vade + strike seçilince canlı SPY, 15m/5m ATR(14), Black-Scholes delta ve prim ile Stop_SPY, Stop_prem (+0,10), Hedef (1,5R), R:R ve kontrat sayısını hesaplar; 0–5DTE opsiyon zinciri her 15m kapanışında yenilenir.</li>
               <li>Giriş penceresi 09:45–15:00 ET; 15:45 ET zorunlu 0DTE kapaması diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
               <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü + 1m ters mum (kapalı bar) → 15m yapı stopu (anlık, mum içi en kötü seviye; swing/ATR verisi henüz yoksa sabit −%28 prim güvenlik ağı) → trailing kilit (kapalı bar).</li>
               <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>

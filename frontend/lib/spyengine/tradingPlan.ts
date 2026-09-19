@@ -217,9 +217,94 @@ export function fiveMinuteRefinement(
 
 // ── Stop hesabı ──────────────────────────────────────────────────────
 
-/** Stop_SPY = son geçerli 15m dip/tepe ∓ 0.25×ATR_15m */
-export function stopSpyOf(swingLevel: number, atr15m: number, side: "LONG" | "SHORT"): number {
-  return side === "LONG" ? swingLevel - 0.25 * atr15m : swingLevel + 0.25 * atr15m;
+/**
+ * Stop_SPY = son geçerli 15m dip/tepe ∓ (çarpan)×ATR_15m
+ * CALL: son 15m DİP − çarpan×ATR ; PUT: son 15m TEPE + çarpan×ATR.
+ * `atrMult` v2'de dinamiktir (dynamicAtrMultiplier): normal 0.25, yüksek
+ * oynaklık 0.40, veri/FOMC günü 0.50. Varsayılan 0.25 (geriye uyumlu).
+ */
+export function stopSpyOf(
+  swingLevel: number,
+  atr15m: number,
+  side: "LONG" | "SHORT",
+  atrMult = 0.25
+): number {
+  return side === "LONG" ? swingLevel - atrMult * atr15m : swingLevel + atrMult * atr15m;
+}
+
+/**
+ * Dinamik ATR tamponu çarpanı (v2 §Volatilite):
+ *   veri günü / FOMC sonrası → 0.50
+ *   yüksek oynaklık (VIX ≥ 25 veya ATR ort. 1.5x üstünde) → 0.40
+ *   normal → 0.25
+ * Geniş tampon erken stopu azaltır; risk büyür, bu yüzden aynı anda
+ * pozisyon boyutu da düşürülür (risk bandı korunur).
+ */
+export function dynamicAtrMultiplier(input: {
+  vix?: number | null;
+  atrRatio?: number | null; // güncel ATR / ortalama ATR
+  isDataDay?: boolean;
+}): number {
+  if (input.isDataDay) return 0.50;
+  const highVix = input.vix != null && input.vix >= 25;
+  const highAtr = input.atrRatio != null && input.atrRatio >= 1.5;
+  if (highVix || highAtr) return 0.40;
+  return 0.25;
+}
+
+// ── Hedef (Take-Profit, 1.5R) ────────────────────────────────────────
+
+/**
+ * Hedef_SPY = giriş ± R×(giriş − stop mesafesi), yön işlemin yönünde.
+ * risk mesafesi = |giriş − stop|; hedef = giriş + R×riskMesafesi (CALL),
+ * giriş − R×riskMesafesi (PUT). Varsayılan R = 1.5 (v2).
+ */
+export function takeProfitSpy(
+  entrySpy: number,
+  stopSpy: number,
+  side: "LONG" | "SHORT",
+  rMultiple = 1.5
+): number {
+  const riskDist = Math.abs(entrySpy - stopSpy);
+  return side === "LONG" ? entrySpy + rMultiple * riskDist : entrySpy - rMultiple * riskDist;
+}
+
+/** Hedef_prim = giriş_prim + (hedef_SPY − giriş_SPY yönlü mesafe) × |delta| */
+export function targetPremiumOf(
+  entryPremium: number,
+  entrySpy: number,
+  targetSpy: number,
+  delta: number,
+  side: "LONG" | "SHORT"
+): number {
+  const absDelta = Math.abs(delta);
+  const spyMove = side === "LONG" ? targetSpy - entrySpy : entrySpy - targetSpy;
+  return entryPremium + spyMove * absDelta;
+}
+
+// ── VIX / oynaklık ve RSI aşırı-uzama filtreleri (v2) ───────────────
+
+export type VixBand = "olu" | "normal" | "yuksek" | "panik";
+
+export interface VixRegime {
+  band: VixBand;
+  /** Pozisyon boyutu çarpanı (1 = tam, 0.5 = yarı, 0 = işlem yok) */
+  sizeMult: number;
+  action: string;
+}
+
+export function vixRegime(vix: number | null | undefined): VixRegime {
+  if (vix == null) return { band: "normal", sizeMult: 1, action: "VIX verisi yok — normal kabul edilir" };
+  if (vix < 12) return { band: "olu", sizeMult: 0.5, action: "Ölü piyasa — çok seçici ol, tercihen pas" };
+  if (vix <= 25) return { band: "normal", sizeMult: 1, action: "Normal — sistem standart çalışır" };
+  if (vix <= 30) return { band: "yuksek", sizeMult: 0.5, action: "Yüksek oynaklık — boyutu düşür, ATR tamponunu büyüt" };
+  return { band: "panik", sizeMult: 0, action: "Panik — 0 işlem, yapı ve stop güvenilmez" };
+}
+
+/** RSI(14) 80 üzeri / 20 altı → aşırı uzama uyarısı (giriş şartı değil, gözdür). */
+export function rsiOverextended(rsi: number | null | undefined): boolean {
+  if (rsi == null) return false;
+  return rsi >= 80 || rsi <= 20;
 }
 
 /**
@@ -281,15 +366,15 @@ export interface PositionSizeResult {
 }
 
 /**
- * risk = stopMesafesi(SPY) × delta × 100 × kontratSayısı
- * Kontrat sayısı, riski hedef bandında ($200–300 varsayılan) tutacak
- * şekilde seçilir — stop mesafesi daraltılmaz.
+ * risk = stopMesafesi(SPY) × |delta| × 100 × kontratSayısı
+ * Kontrat sayısı, riski hedef bandında ($150–200 varsayılan, v2 %3–4)
+ * tutacak şekilde seçilir — stop mesafesi daraltılmaz.
  */
 export function positionSize(
   stopDistanceSpy: number,
   delta: number,
-  riskMinDollars = 200,
-  riskMaxDollars = 300
+  riskMinDollars = 150,
+  riskMaxDollars = 200
 ): PositionSizeResult {
   const perContractRisk = Math.abs(stopDistanceSpy) * Math.abs(delta) * 100;
   if (perContractRisk <= 0) return { contracts: 0, riskDollars: 0 };
@@ -316,9 +401,9 @@ export interface DailyLimitState {
 
 export function dailyLimitState(input: DailyLimitInput): DailyLimitState {
   const accountSize = input.accountSize ?? 5000;
-  const dailyCap = accountSize * 0.10;
+  const dailyCap = accountSize * 0.08; // v2: %8 (~$400) = 2 stop
   if (input.stopsToday >= 2) return { canTrade: false, reason: "2 stop yendi — gün bitti" };
   if (input.tradesToday >= 2) return { canTrade: false, reason: "günlük işlem limiti doldu (max 2)" };
-  if (input.riskUsedDollars >= dailyCap) return { canTrade: false, reason: "günlük risk tavanı (%10) aşıldı" };
+  if (input.riskUsedDollars >= dailyCap) return { canTrade: false, reason: "günlük risk tavanı (%8) aşıldı" };
   return { canTrade: true, reason: null };
 }
