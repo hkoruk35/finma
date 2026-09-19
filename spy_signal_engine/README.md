@@ -1,7 +1,9 @@
 # spy_signal_engine
 
-Standalone FastAPI + asyncio service: polls SPY 5m/1m bars from Yahoo
-Finance, runs `signal_engine.SignalEngine` (5m trend+filter -> 1m trigger),
+Standalone FastAPI + asyncio service: polls SPY 5m bars from Yahoo Finance,
+runs `signal_engine.SignalEngine` (30m opening-range regime -> 15m primary
+trigger -> 5m entry-timing refinement — see
+`tasks/active/014-spy-signal-engine-realtime.md`),
 writes every result to Supabase (`spy_signals` table) and broadcasts it over
 a WebSocket. Deployed on the Hetzner Ubuntu box, independent of the Next.js
 app and of every other root-level Python bot (no imports either direction —

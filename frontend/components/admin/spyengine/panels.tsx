@@ -20,6 +20,10 @@ import {
   type M15VetoRead, type VolumeVetoRead, type Layer1Read,
 } from "@/lib/spyengine/strategy";
 import type { ReversalState, WatchState } from "@/lib/spyengine/reversal";
+import {
+  positionSize, pickDte, dailyLimitState,
+  type PositionSizeResult, type DteChoice, type DailyLimitState,
+} from "@/lib/spyengine/tradingPlan";
 
 /** Rejim (5m Layer1+2) etiket ve rengi — eski TREND/SIKIŞMA/BELİRSİZ yerine */
 export const REGIME_LABEL: Record<RegimeSide, string> = {
@@ -485,9 +489,10 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
 /**
  * KAPI DURUMU — el ile işlem açarken veto listesi.
  * Motor kendi sinyalini üretmese bile "şu an LONG/SHORT açsam hangi kapı
- * geçer, hangisi geçmez" burada tek bakışta görülür. Liste artık dört
- * katmanı birlikte gösterir: 15m veto, 5m trend, 5m filtre, 5m rejim
- * durumu, 1m yapı kırılımı + konfirmasyon (bkz. strategy.ts gateChecksFor).
+ * geçer, hangisi geçmez" burada tek bakışta görülür. Liste V7.0 mimarisini
+ * gösterir: 30m rejim + 15m teyit, hacim vetosu, 5m bağlam (bilgi amaçlı),
+ * 15m ana tetiğin dört şartı, acil çıkış çakışması kontrolü (bkz.
+ * strategy.ts gateChecksFor).
  */
 
 /** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
@@ -518,9 +523,10 @@ export interface EntryAlert {
  * kurallarına dokunmaz — yalnızca aynı kapı verisini okuyup "ne kadar
  * yakınız" sorusunu yanıtlar.
  *
- *   FIRED    = motor sinyali verdi (1m tetik ateşlendi)
- *   IMMINENT = 5m rejim bu yönde AKTİF — 1m tetik herhangi bir kapalı barda
- *              ateşlenebilir (bekleme yok, sadece zamanlama meselesi)
+ *   FIRED    = motor sinyali verdi (15m ana tetik ateşlendi, 5m zamanlama
+ *              teyidi geldi)
+ *   IMMINENT = 30m rejim + 15m teyit bu yönde SERBEST — 15m ana tetik
+ *              herhangi bir kapalı 15m barda ateşlenebilir
  *   NEAR     = rejim henüz yok ama bir yönün kapıları çoğunlukla geçti
  */
 export function computeEntryAlert(
@@ -560,7 +566,8 @@ const ALERT_STYLE: Record<AlertLevel, { ring: string; text: string; icon: string
 
 /**
  * Sayfanın en üstündeki durum çubuğu: ne olduğu, ne eksik ve bir sonraki
- * 1m kapanışa kaç saniye kaldığı. Tablette de tek bakışta okunur boyutta.
+ * 1m kapanışa kaç saniye kaldığı (canlı zamanlayıcı hâlâ 1m granülerliğinde
+ * çalışıyor). Tablette de tek bakışta okunur boyutta.
  */
 export function AlertBanner({
   alert, secondsToClose, stateLabel, nextStep, inPosition,
@@ -582,8 +589,8 @@ export function AlertBanner({
 
   let headline: string;
   if (inPosition) headline = "POZİSYON AÇIK — çıkış kuralı bekleniyor";
-  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — 1m tetik ateşlendi`;
-  else if (alert.level === "IMMINENT") headline = `${alert.side} REJİMİ AKTİF — 1m tetik herhangi bir barda ateşlenebilir`;
+  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — 15m tetik ateşlendi`;
+  else if (alert.level === "IMMINENT") headline = `${alert.side} REJİMİ SERBEST — 15m ana tetik herhangi bir barda ateşlenebilir`;
   else if (alert.level === "NEAR") headline = `${alert.side} kurulumu yaklaşıyor`;
   else headline = stateLabel;
 
@@ -1004,8 +1011,8 @@ export function LayerTable({
       </div>
 
       <LayerRow
-        tf="15m"
-        tag="VETO — yön izni, karar üretmez"
+        tf="30m"
+        tag="REJİM — günün karakteri + 15m teyit"
         value={veto.direction === "NEUTRAL" ? "NÖTR" : `${veto.direction} serbest`}
         note={veto.note}
         t={vetoTone}
@@ -1018,15 +1025,15 @@ export function LayerTable({
         t={volumeVeto.active ? "text-[#ef4444]" : volumeVeto.rvol == null ? "text-slate-500" : "text-slate-300"}
       />
       <LayerRow
-        tf="5m"
-        tag="ANA KARAR — trend (Layer 1)"
-        value={regime.side === "NONE" ? "Rejim yok" : `${regime.side} rejimi aktif`}
+        tf="15m"
+        tag="ANA TETİK — yön+kırılım+hacim+ATR (4 şart)"
+        value={regime.side === "NONE" ? "Tetik yok" : `${regime.side} tetik ateşlendi`}
         note={layer1.note}
         t={regimeTone}
       />
       {regime.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== regime.side && (
         <div className="mx-2 mb-2 rounded border border-amber-500/35 bg-amber-500/10 px-2 py-1 text-[10px] leading-snug text-amber-300">
-          ⚠ 5m rejim {regime.side} aktif ama 15m veto bu yönü engelliyor — giriş üretilmiyor.
+          ⚠ 15m tetik {regime.side} yönünde ateşlendi ama 30m rejim bu yönü engelliyor — giriş üretilmiyor.
         </div>
       )}
 
@@ -1130,8 +1137,12 @@ export function PositionPanel({ position, livePremium }: {
             </div>
             <div className="mb-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px]">
               <span>
-                Stop eşiği (%{EXIT_STOP_PCT * 100}) — anlık:{" "}
-                <b className={tone(pg.premiumPct)}>{pg.premiumPct == null ? "veri yok" : `${signed(pg.premiumPct * 100, 0)}%`}</b>
+                {pg.stopSpy != null ? (
+                  <>15m yapı stopu (Stop_SPY): <b className="text-orange-300">{num(pg.stopSpy)}</b></>
+                ) : (
+                  <>Güvenlik ağı (%{EXIT_STOP_PCT * 100}, swing/ATR verisi henüz yok) — anlık:{" "}
+                  <b className={tone(pg.premiumPct)}>{pg.premiumPct == null ? "veri yok" : `${signed(pg.premiumPct * 100, 0)}%`}</b></>
+                )}
               </span>
               {pg.trailFloorPct != null && (
                 <span>Trailing taban: <b className="text-sky-300">+{(pg.trailFloorPct * 100).toFixed(0)}%</b></span>
@@ -1211,7 +1222,7 @@ export function EventList({ events, emptyText }: { events: EngineEvent[]; emptyT
   );
 }
 
-// ── Strateji şeması (V6.0: 15m veto → hacim vetosu → 5m rejim → 1m zamanlama → çıkış) ──
+// ── Strateji şeması (V7.0: 30m rejim → hacim vetosu → 15m ana tetik → 5m zamanlama → ATR stop → çıkış) ──
 
 export function StrategySchema({ state, contractType }: { state: EngineState; contractType: string | null }) {
   const active = (id: string) => {
@@ -1226,41 +1237,41 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V6.0 strateji akış şeması">
+      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V7.0 strateji akış şeması">
         <defs>
           <marker id="spyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#475569" />
           </marker>
         </defs>
 
-        {/* 0 — 15m Veto + RVOL Vetosu */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · VETOLAR — yön izni / katılım izni, karar üretmez</text>
+        {/* 0 — 30m Rejim + RVOL Vetosu */}
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · 30m REJİM + HACİM VETOSU — günün karakteri / katılım izni</text>
         <rect x="14" y="34" width="466" height="40" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="247" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">15m: LONG yasak &lt; EMA21 · SHORT yasak &gt; EMA21</text>
+        <text x="247" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">İlk 30m mum YUKARI/AŞAĞI/BELİRSİZ + 2. 15m mum EMA21/VWAP teyidi</text>
         <rect x="500" y="34" width="466" height="40" rx="6" fill="rgba(239,68,68,0.06)" stroke="#7f1d1d" />
         <text x="733" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">RVOL &lt; 0.8: İKİ YÖNÜ DE engelleyen ikili veto (oylamaya girmez)</text>
 
-        {/* 1 — 5m Rejim (ana karar) */}
-        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 5m REJİM (ana karar katmanı) — Layer 1 tek başına yeterli</text>
+        {/* 1 — 15m Ana Tetik (dört şart) */}
+        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 15m ANA TETİK — dört şart birden, bağımsız ve tek başına yeterli</text>
 
         <rect x="14" y="106" width="952" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
-        <text x="490" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">LAYER 1 — TREND</text>
-        <text x="490" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(5m) vs EMA21 + (RSI14 yönlü VEYA MACD_hist yönlü)</text>
-        <text x="490" y="160" textAnchor="middle" fill="#64748b" fontSize="9">kapanmış 5m mum, non-repainting · Layer 1 geçerli kaldığı sürece REJİM AKTİF kalır</text>
-        <text x="490" y="174" textAnchor="middle" fill="#64748b" fontSize="9">RSI+MACD ikisi de + RVOL&gt;2.0 → Süper (S) · ikisi de → Güçlü (A) · biri → Orta (B)</text>
+        <text x="490" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">15m TETİK — yön + kırılım + hacim + gövde/ATR</text>
+        <text x="490" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">(1) 15m kapanış rejim yönünde (2) chop bandı dışı son swing dip/tepe kırılır</text>
+        <text x="490" y="160" textAnchor="middle" fill="#64748b" fontSize="9">(3) hacim ≥ son 8×15m ortalamasının 1.15 katı (4) gövde ≤ 15m ATR&apos;nin 2 katı — dördü BİRDEN</text>
+        <text x="490" y="174" textAnchor="middle" fill="#64748b" fontSize="9">5m RSI+MACD ikisi de + hacim oranı&gt;2.0 → Süper (S) · ikisi de → Güçlü (A) · biri → Orta (B)</text>
 
-        {/* 2 — 1m Tetik (zamanlama) */}
-        <text x="14" y="204" fill="#64748b" fontSize="11" fontWeight="600">2 · 1m TETİK (zamanlama) — SADECE rejim aktifken, her kapalı barda bağımsız kontrol</text>
+        {/* 2 — 5m Zamanlama */}
+        <text x="14" y="204" fill="#64748b" fontSize="11" fontWeight="600">2 · 5m ZAMANLAMA — SADECE 15m tetik onaylıyken, bağımsız sinyal/stop üretmez</text>
 
         <rect x="14" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">STRUCTURE (zorunlu) — breakout</text>
-        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Close(1m) &gt; önceki 2 KAPALI mumun zirvesi (LONG) / dibi (SHORT)</text>
-        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">breakout olmadan RSI7&apos;yle giriş açılmaz</text>
+        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">TETİK MUMU İÇİNDE — en erken giriş anı</text>
+        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">15m tetik mumunun süresi içindeki 5m barlarda fiyat + RSI teyidi aranır</text>
+        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">tetik onaylanmadan 5m tek başına giriş açmaz</text>
 
         <path d="M480 250 L500 250" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
         <rect x="500" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">CONFIRMATION (zorunlu) — RSI7 → GİRİŞ</text>
-        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">1m RSI7 yönlü (50 çizgisi + yön)</text>
+        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">FİYAT + RSI TEYİDİ → GİRİŞ</text>
+        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">5m mum tetik yönünde kapanır + RSI 50 çizgisinin doğru tarafında</text>
         <text x="733" y="270" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR} giriş</text>
 
         {/* 3 — Çıkış */}
@@ -1277,9 +1288,9 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
         <text x="367" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">kapanmış 5m bar</text>
 
         <rect x="490" y="324" width="230" height="60" rx="6" fill="rgba(249,115,22,0.08)" stroke="#7c2d12" />
-        <text x="605" y="343" textAnchor="middle" fill="#fb923c" fontSize="10.5" fontWeight="700">3 · STOP</text>
-        <text x="605" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Prim %{Math.round(-28)} eşiğinde (−%25/−%30)</text>
-        <text x="605" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">anlık, mum içi en kötü seviye</text>
+        <text x="605" y="343" textAnchor="middle" fill="#fb923c" fontSize="10.5" fontWeight="700">3 · ATR STOP</text>
+        <text x="605" y="360" textAnchor="middle" fill="#94a3b8" fontSize="9">Stop_SPY = swing ∓ 0.25×ATR_15m</text>
+        <text x="605" y="374" textAnchor="middle" fill="#64748b" fontSize="8.5">anlık, mum içi en kötü seviye · her 15m kapanışta yenilenir</text>
 
         <rect x="728" y="324" width="238" height="60" rx="6" fill="rgba(56,189,248,0.08)" stroke="#0e5a76" />
         <text x="847" y="343" textAnchor="middle" fill="#38bdf8" fontSize="10.5" fontWeight="700">4 · TRAILING</text>
@@ -1487,10 +1498,10 @@ export interface RegimeBlock {
 }
 
 /**
- * Rejim bandı — V6.0 mimarisinin merkezi kutusu: 15m veto + 5m Layer1'in
- * ürettiği REJİM DURUMU (LONG/SHORT/YOK), "büyük, renkli, tartışmasız
- * görünür" (eski TREND/SIKIŞMA piyasa-geneli rejim artık karar üretmiyor —
- * bkz. strategy.ts başlığı).
+ * Rejim bandı — V7.0 mimarisinin merkezi kutusu: 30m açılış rejimi + 15m
+ * teyidin ürettiği REJİM DURUMU (LONG/SHORT/YOK), "büyük, renkli,
+ * tartışmasız görünür". `current` artık "15m ana tetik ateşlendi mi"
+ * durumunu taşıyor (bkz. strategy.ts başlığı).
  */
 export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; nowSec: number }) {
   if (!block) {
@@ -1508,10 +1519,10 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
     volumeVeto.active
       ? `Hacim vetosu aktif — ${volumeVeto.note}`
       : current.side === "NONE"
-      ? "Rejim yok — 5m Layer 1 (trend) + Layer 2 (filtre) ikisi de geçmeden yeni giriş üretilmez"
+      ? "15m ana tetik henüz ateşlenmedi — dört şart (yön+kırılım+hacim+ATR) birden gerekiyor"
       : vetoBlocks
-      ? "15m veto bu yönü engelliyor — rejim aktif ama giriş üretilmiyor"
-      : "Rejim aktif — 1m tetik (yapı kırılımı + konfirmasyon) her kapalı barda bağımsız kontrol ediliyor";
+      ? "30m rejim bu yönü engelliyor — 15m tetik ateşlendi ama giriş üretilmiyor"
+      : "15m tetik ateşlendi — 5m zamanlama katmanı en erken giriş anını arıyor";
 
   const cooldownLeft =
     block.cooldownActive && block.cooldownUntil != null && nowSec > 0
@@ -1531,7 +1542,7 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
 
         {vetoBlocks && (
           <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-amber-300" style={{ backgroundColor: "#eab30822" }}>
-            15m veto engelliyor
+            30m rejim engelliyor
           </span>
         )}
 
@@ -1584,12 +1595,12 @@ function RegimeColumn({ title, checks, passed, accent }: {
   );
 }
 
-/** 5m rejim kriter dökümü (Layer 1) — rejim kara kutu olmamalı */
+/** 5m bağlam kriter dökümü (Layer 1) — artık ana karar değil, bilgi/zamanlama girdisi; kara kutu olmamalı */
 export function RegimePanel({ block }: { block: RegimeBlock | null }) {
   if (!block || block.layer1.rsi == null) {
     return (
       <div className={`${SURFACE} px-3 py-4`}>
-        <div className="text-[11px] font-semibold text-slate-300">5m Rejim Kriterleri</div>
+        <div className="text-[11px] font-semibold text-slate-300">5m Bağlam Kriterleri</div>
         <div className="mt-1 text-[12px] text-slate-500">Yeterli 5m mum yok.</div>
       </div>
     );
@@ -1612,11 +1623,11 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          5m Rejim Kriterleri <span className="text-[9px] font-normal text-slate-600">· Layer 1 (trend)</span>
+          5m Bağlam Kriterleri <span className="text-[9px] font-normal text-slate-600">· zamanlama girdisi, ana karar değil</span>
         </span>
       </div>
       <div className="border-b border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
-        Rejim durumu: <b className={current.side === "LONG" ? "text-[#22c55e]" : current.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400"}>
+        15m tetik durumu: <b className={current.side === "LONG" ? "text-[#22c55e]" : current.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400"}>
           {REGIME_LABEL[current.side]}
         </b>{" "}
         · {current.note}
@@ -1630,23 +1641,137 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
 }
 
 /**
- * 15m veto şeridi — sadece yön İZNİ, karar üretmez. Eskiden "bilgi amaçlı,
- * motor mantığına girmez" idi; V5.0'da veto GERÇEKTEN karar mekanizmasının
- * parçası (Katman 0) ama yine de kendi başına giriş üretmiyor.
+ * 30m Rejim şeridi — günün karakteri + 15m EMA21/VWAP teyidi. Kendi başına
+ * giriş üretmez, sadece 15m ana tetiğin hangi yönde aranacağını belirler
+ * (bkz. strategy.ts regimeLayerAt).
  */
 export function M15Strip({ veto }: { veto: M15VetoRead }) {
   const tone15 = veto.direction === "LONG" ? "#22c55e" : veto.direction === "SHORT" ? "#ef4444" : "#94a3b8";
   const word = veto.direction === "LONG" ? "▲ LONG SERBEST" : veto.direction === "SHORT" ? "▼ SHORT SERBEST" : "▬ NÖTR";
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded border border-[#1c2635] bg-[#0f141d] px-3 py-1.5 text-[10.5px]">
-      <span className="font-semibold text-slate-500">15m VETO (Katman 0)</span>
+      <span className="font-semibold text-slate-500">30m REJİM</span>
       <span className="font-bold" style={{ color: tone15 }}>{word}</span>
       <span className="font-mono text-slate-400">
-        Kapanış {veto.close == null ? "—" : num(veto.close)} / EMA21 {veto.ema21 == null ? "—" : num(veto.ema21)}
+        Açılış {veto.ema21 == null ? "—" : num(veto.ema21)} / Kapanış {veto.close == null ? "—" : num(veto.close)}
       </span>
       <span className="text-slate-600">{veto.note}</span>
       <span className="ml-auto text-[9px] text-slate-600">yalnızca yön izni verir/engeller — kendi başına karar üretmez</span>
     </div>
+  );
+}
+
+// ── V7.0 — POZİSYON & GÜNLÜK LİMİT KARTI ───────────────────────────
+
+const INTRADAY_CHECKLIST = [
+  "09:30–10:00 ilk 30m mum kapanıyor (30m rejim belirleniyor)",
+  "09:45–10:00 ikinci 15m mum EMA21/VWAP ile rejimi teyit ediyor",
+  "10:00–11:15 tarama penceresi (15m ana tetik aranıyor)",
+  "Tetik mumu kapanmadan ~60sn önce 5m hacim/fiyatı kontrol et",
+  "15m kapanışta dört şart (yön+kırılım+hacim+ATR) sağlandıysa 2. mumu beklemeden gir",
+  "Giriş sonrası Stop_prem'i +0.10 tamponuyla hesapla",
+  "Her 15m kapanışta yeni swing seviyesi var mı kontrol et, stopu yeniden yerleştir",
+  "11:30–13:30 yeni giriş yok",
+  "13:45–15:15 ikinci tarama penceresi",
+  "15:15 sonrası yeni giriş yok",
+  "15:45 açık pozisyon zorunlu kapama",
+  "Gün sonu: 2-stop/risk-tavanı kontrolü + yarının tezini not et",
+];
+
+function ChecklistItem({ label, checked, onToggle }: { label: string; checked: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="flex w-full items-start gap-2 rounded px-1 py-1 text-left transition-colors hover:bg-[#141b26]"
+    >
+      <span
+        className={`mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm border text-[9px] ${
+          checked ? "border-[#22c55e] bg-[#22c55e]/20 text-[#22c55e]" : "border-[#2b3a52] text-transparent"
+        }`}
+      >
+        ✓
+      </span>
+      <span className={`text-[10px] leading-snug ${checked ? "text-slate-500 line-through" : "text-slate-300"}`}>{label}</span>
+    </button>
+  );
+}
+
+/**
+ * Pozisyon & Günlük Limit Kartı — hesap $5.000, işlem başı risk %4–6,
+ * günlük risk tavanı %10. `positionSize`/`pickDte`/`dailyLimitState`
+ * (tradingPlan.ts) burada doğrudan çağrılır; sayfanın geri kalanı gibi
+ * gerçek veri yoksa "—" gösterir, uydurma sayı üretmez. Stop mesafesi
+ * canlı bir Stop_SPY varsa ondan, yoksa örnek/varsayılan bir mesafeden
+ * hesaplanır (açıkça etiketlenir).
+ */
+export function PositionSizeCard({
+  positions, spot, stopSpy, nowMinutesEt,
+}: {
+  positions: PositionState[];
+  spot: number | null;
+  stopSpy: number | null;
+  nowMinutesEt: number | null;
+}) {
+  const [checked, setChecked] = useState<boolean[]>(() => INTRADAY_CHECKLIST.map(() => false));
+  const toggle = (i: number) => setChecked((c) => c.map((v, idx) => (idx === i ? !v : v)));
+
+  const ACCOUNT_SIZE = 5000;
+  const DEFAULT_DELTA = 0.5; // 0DTE ATM civarı için kaba varsayım — gerçek delta akışı yok
+  const stopDistanceSpy = spot != null && stopSpy != null ? Math.abs(spot - stopSpy) : null;
+
+  const sizeResult: PositionSizeResult | null =
+    stopDistanceSpy != null && stopDistanceSpy > 0
+      ? positionSize(stopDistanceSpy, DEFAULT_DELTA, ACCOUNT_SIZE * 0.04, ACCOUNT_SIZE * 0.06)
+      : null;
+
+  const highConfidence = false; // panel bilgi amaçlı; gerçek "yüksek güven" bayrağı ayrı bir görevde bağlanabilir
+  const dte: DteChoice | null = nowMinutesEt != null ? pickDte(nowMinutesEt, highConfidence) : null;
+
+  const tradesToday = positions.length;
+  const stopsToday = positions.filter((p) => p.exitReason === "STOP_EXIT").length;
+  const riskUsedDollars = positions.reduce((sum, p) => sum + Math.max(0, -p.realizedPnl), 0);
+  const limit: DailyLimitState = dailyLimitState({ tradesToday, stopsToday, riskUsedDollars, accountSize: ACCOUNT_SIZE });
+
+  return (
+    <Panel
+      title="Pozisyon & Günlük Limit Kartı"
+      right={
+        <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold ${limit.canTrade ? "bg-[#22c55e]/15 text-[#22c55e]" : "bg-[#ef4444]/15 text-[#ef4444]"}`}>
+          {limit.canTrade ? "İŞLEME AÇIK" : "GÜN KAPALI"}
+        </span>
+      }
+    >
+      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-[10.5px] text-slate-300 sm:grid-cols-3">
+        <div>Hesap: <b className="text-slate-100">${ACCOUNT_SIZE.toLocaleString("en-US")}</b></div>
+        <div>İşlem başı risk: <b className="text-slate-100">%4–6</b></div>
+        <div>Günlük risk tavanı: <b className="text-slate-100">%10 (${(ACCOUNT_SIZE * 0.1).toFixed(0)})</b></div>
+        <div>
+          Kontrat sayısı:{" "}
+          <b className="text-slate-100">{sizeResult ? sizeResult.contracts : "—"}</b>
+          {sizeResult && <span className="ml-1 text-slate-500">(~${sizeResult.riskDollars.toFixed(0)} risk)</span>}
+        </div>
+        <div>DTE önerisi: <b className="text-slate-100">{dte == null ? "—" : dte === 0 ? "0DTE" : `${dte}DTE`}</b></div>
+        <div>Bugün işlem/stop: <b className="text-slate-100">{tradesToday} / {stopsToday}</b></div>
+      </div>
+      <div className="mt-1.5 text-[9px] leading-snug text-slate-600">
+        {stopDistanceSpy != null
+          ? `Stop mesafesi (SPY) ${stopDistanceSpy.toFixed(2)} üzerinden, varsayılan delta ${DEFAULT_DELTA} ile hesaplandı — gerçek opsiyon deltası akışı yok.`
+          : "Kontrat sayısı için canlı Stop_SPY/spot verisi bekleniyor."}
+        {" "}{limit.reason ? `⛔ ${limit.reason}` : "Günlük limitler içinde."}
+      </div>
+
+      <div className="mt-2 border-t border-[#1c2635] pt-2">
+        <div className="mb-1 text-[9.5px] font-semibold tracking-wide text-slate-500">
+          Gün İçi Kontrol Listesi <span className="font-normal text-slate-600">(sayfa yenilenince sıfırlanır)</span>
+        </div>
+        <div className="flex flex-col">
+          {INTRADAY_CHECKLIST.map((label, i) => (
+            <ChecklistItem key={i} label={label} checked={checked[i]} onToggle={() => toggle(i)} />
+          ))}
+        </div>
+      </div>
+    </Panel>
   );
 }
 

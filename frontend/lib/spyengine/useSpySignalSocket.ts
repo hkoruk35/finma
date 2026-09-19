@@ -22,21 +22,42 @@ import { useEffect, useRef, useState } from "react";
 export type SpySignalDecision = "CALL SETUP" | "PUT SETUP" | "NO TRADE";
 export type SpyMarketStatus = "open" | "closed" | "pre" | "post";
 
+/**
+ * V7.0 alan şeması (30m rejim + 15m ana tetik + 5m zamanlama — bkz.
+ * lib/spyengine/tradingPlan.ts ve app/admin/spyengine/v1/page.tsx başlığı).
+ * Eski alanlar (trend, rsi_prev/now, macd_dir, vol_ratio_pct, support/
+ * resistance, trigger_1m) Python tarafında (spy_signal_engine/) KALDIRILDI —
+ * bu arayüz onların yerini alan yeni isimlerle güncellendi.
+ */
 export interface SpySignalMessage {
   symbol?: string;
   time_utc?: string;
   decision: SpySignalDecision | string;
-  trend?: "UP" | "DOWN" | "FLAT";
-  rsi_prev?: number | null;
-  rsi_now?: number | null;
-  macd_dir?: string | null;
-  vol_ratio_pct?: number | null;
+  /** 30m açılış rejimi — günün karakteri */
+  regime_30m?: "YUKARI" | "AŞAĞI" | "BELİRSİZ";
+  /** 15m ana tetik ateşlendi mi */
+  trigger_15m?: "ON" | "OFF" | string;
+  /** Chop bandı dışındaki son geçerli 15m dip/tepe */
+  chop_band_hi?: number | null;
+  chop_band_lo?: number | null;
+  /** 15m ATR(14) */
+  atr_15m?: number | null;
+  /** Son 8×15m ortalama hacim */
+  avg_vol_8_15m?: number | null;
+  /** O 15m barın hacminin 8 mumluk ortalamaya oranı (%) */
+  vol_ratio_15m_pct?: number | null;
+  /** Stop_SPY = swing ∓ 0.25×ATR_15m */
+  stop_spy?: number | null;
+  /** Stop_prem — açık pozisyon varsa */
+  stop_premium?: number | null;
+  /** 5m zamanlama katmanı: 15m tetik onaylıyken en erken giriş anı hazır mı */
+  refinement_5m?: "READY" | "WAIT" | string;
+  /** 5m RSI — artık sadece zamanlama bağlamı, karar üretmez */
+  rsi_5m_prev?: number | null;
+  rsi_5m_now?: number | null;
   vwap?: number | null;
   above_vwap?: boolean | null;
   candle_shape?: string | null;
-  support?: number | null;
-  resistance?: number | null;
-  trigger_1m?: string | null;
   last_close?: number | null;
   entry_zone?: string | null;
   market_status?: SpyMarketStatus | string;

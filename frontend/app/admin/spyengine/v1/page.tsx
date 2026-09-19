@@ -42,14 +42,14 @@ import DailyForecast from "@/components/admin/spyengine/DailyForecast";
 import {
   TickerStrip, InfoCards, LayerTable, GatePanel, PositionPanel, EventList, StrategySchema,
   AlertBanner, computeEntryAlert,
-  RegimeBanner, RegimePanel, M15Strip, type RegimeBlock,
+  RegimeBanner, RegimePanel, M15Strip, PositionSizeCard, type RegimeBlock,
   LevelPanel, ForecastPanel,
   ReversalGatePanel, ExitGatePanel,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
 import {
-  fromCompact, nyClock, bucketAggregate, bollinger, rsi, macd, ema, lastNum,
+  fromCompact, nyClock, nyParts, bucketAggregate, bollinger, rsi, macd, ema, lastNum,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import type {
@@ -76,6 +76,8 @@ interface EngineRead {
   confidenceParts: ConfidencePart[];
   reasoning: string;
   gateStatus: GateStatus;
+  refinement5m: { readyToEnter: boolean; note: string };
+  stopSpy: number | null;
 }
 
 interface ChainQuote {
@@ -167,7 +169,7 @@ interface StreamResponse {
 
 type Tab = "command" | "spyoption" | "signals" | "context" | "ohlc" | "compare" | "forecast";
 
-// ═══ SPY Option tab — real-time 5m/1m signal panel (tasks/active/014) ═══
+// ═══ SPY Option tab — real-time 15m trigger + 5m timing signal panel (tasks/active/014) ═══
 // Backed by the standalone spy_signal_engine/ service (repo root, Python),
 // reached via an nginx-only route (wss://<host>/admin/spyengine/live/ws +
 // GET .../history) that sits OUTSIDE proxy.ts's boga_auth check — see the
@@ -214,7 +216,7 @@ function requestBrowserNotification(msg: SpySignalMessage) {
   const fire = () => {
     try {
       new Notification(`SPY ${msg.decision}`, {
-        body: `Trend ${msg.trend ?? "?"} · Entry ${msg.entry_zone ?? "—"} · ${msg.time_utc ?? ""}`,
+        body: `Rejim ${msg.regime_30m ?? "?"} · Entry ${msg.entry_zone ?? "—"} · ${msg.time_utc ?? ""}`,
       });
     } catch {
       // no-op
@@ -240,10 +242,11 @@ function SpySignalHistoryTable({ rows }: { rows: SpySignalMessage[] }) {
           <tr className="border-b border-[#1c2635] text-slate-500">
             <th className="py-1 text-left font-semibold">Saat (UTC)</th>
             <th className="py-1 text-left font-semibold">Karar</th>
-            <th className="py-1 text-left font-semibold">Trend</th>
-            <th className="py-1 text-right font-semibold">RSI</th>
-            <th className="py-1 text-right font-semibold">Hacim</th>
-            <th className="py-1 text-left font-semibold">1m Tetik</th>
+            <th className="py-1 text-left font-semibold">30m Rejim</th>
+            <th className="py-1 text-left font-semibold">15m Tetik</th>
+            <th className="py-1 text-right font-semibold">5m RSI</th>
+            <th className="py-1 text-right font-semibold">15m Hacim</th>
+            <th className="py-1 text-left font-semibold">5m Zamanlama</th>
             <th className="py-1 text-right font-semibold">Kapanış</th>
           </tr>
         </thead>
@@ -254,12 +257,13 @@ function SpySignalHistoryTable({ rows }: { rows: SpySignalMessage[] }) {
               <tr key={`${r.time_utc ?? i}-${i}`} className="border-b border-[#0f141d]">
                 <td className="py-1 text-slate-400">{r.time_utc ?? "—"}</td>
                 <td className={`py-1 ${tone.text}`}>{r.decision}</td>
-                <td className="py-1 text-slate-300">{r.trend ?? "—"}</td>
+                <td className="py-1 text-slate-300">{r.regime_30m ?? "—"}</td>
+                <td className="py-1 text-slate-300">{r.trigger_15m ?? "—"}</td>
                 <td className="py-1 text-right text-slate-300">
-                  {r.rsi_prev != null && r.rsi_now != null ? `${r.rsi_prev} → ${r.rsi_now}` : "—"}
+                  {r.rsi_5m_prev != null && r.rsi_5m_now != null ? `${r.rsi_5m_prev} → ${r.rsi_5m_now}` : "—"}
                 </td>
-                <td className="py-1 text-right text-slate-300">{r.vol_ratio_pct != null ? `${r.vol_ratio_pct >= 0 ? "+" : ""}${r.vol_ratio_pct}%` : "—"}</td>
-                <td className="py-1 text-slate-300">{r.trigger_1m ?? "—"}</td>
+                <td className="py-1 text-right text-slate-300">{r.vol_ratio_15m_pct != null ? `${r.vol_ratio_15m_pct >= 0 ? "+" : ""}${r.vol_ratio_15m_pct}%` : "—"}</td>
+                <td className="py-1 text-slate-300">{r.refinement_5m ?? "—"}</td>
                 <td className="py-1 text-right text-slate-300">{r.last_close != null ? `$${r.last_close}` : "—"}</td>
               </tr>
             );
@@ -342,7 +346,7 @@ function SpyOptionLiveTab({
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between rounded border border-[#1c2635] bg-[#0f141d] px-3 py-2 text-[10px] leading-snug text-slate-400">
-        <span>Gerçek zamanlı SPY 5m trend + 1m tetik sinyal motoru — spy_signal_engine servisinden canlı.</span>
+        <span>Gerçek zamanlı SPY 15m tetik + 5m zamanlama sinyal motoru — spy_signal_engine servisinden canlı.</span>
         <span className="font-mono text-[10px]">{statusLabel}</span>
       </div>
 
@@ -376,14 +380,17 @@ function SpyOptionLiveTab({
             <span className={`text-[13px] font-bold ${tone!.text}`}>{tone!.label}</span>
           </div>
           <div className="mt-1.5 grid grid-cols-2 gap-x-4 gap-y-1 text-[11px] text-slate-300 sm:grid-cols-3">
-            <div>5M Trend: <b className="text-slate-100">{lastMessage.trend ?? "—"}</b></div>
-            <div>RSI: <b className="text-slate-100">{lastMessage.rsi_prev ?? "—"} → {lastMessage.rsi_now ?? "—"}</b></div>
-            <div>MACD: <b className="text-slate-100">{lastMessage.macd_dir ?? "—"}</b></div>
-            <div>Hacim: <b className="text-slate-100">{lastMessage.vol_ratio_pct != null ? `${lastMessage.vol_ratio_pct >= 0 ? "+" : ""}${lastMessage.vol_ratio_pct}%` : "—"}</b></div>
+            <div>30m Rejim: <b className="text-slate-100">{lastMessage.regime_30m ?? "—"}</b></div>
+            <div>15m Tetik: <b className="text-slate-100">{lastMessage.trigger_15m ?? "—"}</b></div>
+            <div>5m Zamanlama: <b className="text-slate-100">{lastMessage.refinement_5m ?? "—"}</b></div>
+            <div>5m RSI: <b className="text-slate-100">{lastMessage.rsi_5m_prev ?? "—"} → {lastMessage.rsi_5m_now ?? "—"}</b></div>
+            <div>15m Hacim: <b className="text-slate-100">{lastMessage.vol_ratio_15m_pct != null ? `${lastMessage.vol_ratio_15m_pct >= 0 ? "+" : ""}${lastMessage.vol_ratio_15m_pct}%` : "—"} (8 mum ort. {lastMessage.avg_vol_8_15m ?? "—"})</b></div>
+            <div>15m ATR: <b className="text-slate-100">{lastMessage.atr_15m ?? "—"}</b></div>
             <div>VWAP: <b className="text-slate-100">{lastMessage.above_vwap == null ? "—" : lastMessage.above_vwap ? "üstünde" : "altında"} ({lastMessage.vwap ?? "—"})</b></div>
-            <div>1M Tetik: <b className="text-slate-100">{lastMessage.trigger_1m ?? "—"}</b></div>
+            <div>Chop Bandı: <b className="text-slate-100">{lastMessage.chop_band_lo ?? "—"} / {lastMessage.chop_band_hi ?? "—"}</b></div>
+            <div>Stop_SPY: <b className="text-slate-100">{lastMessage.stop_spy ?? "—"}</b></div>
+            <div>Stop_prem: <b className="text-slate-100">{lastMessage.stop_premium ?? "—"}</b></div>
             <div>Entry zone: <b className="text-slate-100">{lastMessage.entry_zone ?? "—"}</b></div>
-            <div>Destek/Direnç: <b className="text-slate-100">{lastMessage.support ?? "—"} / {lastMessage.resistance ?? "—"}</b></div>
             <div>Mum yapısı: <b className="text-slate-100">{lastMessage.candle_shape ?? "—"}</b></div>
           </div>
           {lastMessage.market_status && lastMessage.market_status !== "open" && (
@@ -892,9 +899,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-2">
           <div>
-            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V6.0</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V7.0</h1>
             <p className="text-[9px] text-slate-500">
-              15m veto (yön izni) · hacim vetosu (RVOL) · 5m trend (ana karar, Layer 1) · 1m breakout+RSI (zamanlama) · öncelik sıralı çıkış
+              30m açılış rejimi (gün karakteri) · 15m ana tetik (yön+kırılım+hacim+ATR) · 5m giriş zamanlaması · ATR-bazlı stop · öncelik sıralı çıkış
             </p>
           </div>
 
@@ -1240,6 +1247,12 @@ export default function SpyEngineCommandCenter() {
                 />
               )}
               <PositionPanel position={openPosition} livePremium={openPosition?.lastPremium ?? null} />
+              <PositionSizeCard
+                positions={positions}
+                spot={data?.spot.price ?? null}
+                stopSpy={data?.engine.stopSpy ?? null}
+                nowMinutesEt={nowSec ? nyParts(nowSec).minutes : null}
+              />
               {data?.liveChain && (
                 <Panel title="Canlı 0DTE Kotasyonu">
                   <div className="flex flex-col gap-1 font-mono text-[11px]">
@@ -1281,37 +1294,33 @@ export default function SpyEngineCommandCenter() {
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
 
-          {/* Kabul Kriterleri (V6.0) — sayfanın en altı, varsayılan kapalı */}
-          <Disclosure title="Kabul Kriterleri (V6.0)">
+          {/* Kabul Kriterleri (V7.0) — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure title="Kabul Kriterleri (V7.0)">
             <ol className="flex list-decimal flex-col gap-1.5 pl-4 text-[10px] leading-relaxed text-slate-400 marker:text-slate-600">
-              <li>15m veto SADECE yön izni verir/engeller — kendi başına karar üretmez (Katman 0).</li>
-              <li>LONG, 15m kapanış &lt; 15m EMA21 iken; SHORT, 15m kapanış &gt; 15m EMA21 iken üretilmiyor.</li>
-              <li>Hacim vetosu (RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 15m veto ile aynı kategoride. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
-              <li>5m REJİM (LONG/SHORT/YOK) ana karar katmanıdır — sadece Layer 1 (trend: EMA21 konumu + RSI/MACD yönlü) kapalı 5m barda geçtiğinde açılır. Eski Layer 2 (3&apos;te 2 oylama) KALDIRILDI.</li>
-              <li>Rejim, açıldıktan sonra tek bir bara değil bir DURUMA bağlıdır: her yeni kapanan 5m barda Layer 1 yeniden kontrol edilir, düşerse (veya hacim vetosu aktifleşirse) rejim hemen kapanır.</li>
-              <li>1m artık karar verme zamanı değil — ana zaman dilimi 5m&apos;dir. 1m yalnızca ZAMANLAMA sağlar: rejim aktifken her kapalı 1m barda bağımsız kontrol edilir.</li>
-              <li>1m STRUCTURE = breakout (Close &gt; önceki 2 kapalı mumun zirvesi/dibi). Eski EMA21(1m) konum şartı KALDIRILDI.</li>
-              <li>1m CONFIRMATION = RSI7 yönlü, ZORUNLU (artık &quot;RSI7 VEYA hacim&quot; değil — hacim alternatifi KALDIRILDI). fired = breakout VE RSI7.</li>
-              <li>Zaman filtresi (açılış/öğlen/kapanış hariç tutma) UYGULANMIYOR — RTH içinde (09:30–16:00 ET) her an giriş üretilebilir.</li>
-              <li>15:45 ET zorunlu 0DTE kapaması, diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
-              <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü (kapalı bar) → sabit stop (anlık, mum içi en kötü seviye) → trailing kilit (kapalı bar).</li>
-              <li>Stop eşiği −%25 ile −%30 arasında kalibre edilir; mevcut sabit −%28, mum kapanışı değil mum içi en kötü seviyeyle kontrol edilir.</li>
+              <li>30m REJİM günün karakterini belirler: ilk 30 dakikalık mum (09:30–10:00 ET) YUKARI/AŞAĞI/BELİRSİZ olur (açılış/kapanış + VWAP karşılaştırması).</li>
+              <li>2. 15m mum (09:45–10:00) EMA21/VWAP ile aynı yönde kapanarak rejimi TEYİT etmezse — tez bozuldu, o gün işlem yok.</li>
+              <li>15m ANA TETİK dört şartın hepsini birden arar: (1) 15m kapanış rejim yönünde, (2) chop bandı dışındaki son swing dip/tepe kırılır, (3) hacim ≥ son 8×15m ortalamasının 1.15 katı, (4) gövde ≤ 15m ATR&apos;nin 2 katı.</li>
+              <li>5m artık bağımsız bir karar katmanı DEĞİL — SADECE zamanlama. 15m tetik ateşlendiğinde, o 15m mumun İÇİNDEKİ 5m barlarda en erken güvenli giriş anını arar (fiyat + RSI teyidi). Bağımsız sinyal/stop üretmez.</li>
+              <li>Hacim vetosu (çok-günlü RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 15m tetiğin kendi hacim şartından bağımsız, ek bir güvenlik katmanı. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
+              <li>Stop her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ 0.25×ATR_15m. Her kapanan 15m barda yeniden hesaplanır (trailing yapı stopu).</li>
+              <li>Giriş penceresi 09:45–15:00 ET; 15:45 ET zorunlu 0DTE kapaması diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
+              <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü + 1m ters mum (kapalı bar) → 15m yapı stopu (anlık, mum içi en kötü seviye; swing/ATR verisi henüz yoksa sabit −%28 prim güvenlik ağı) → trailing kilit (kapalı bar).</li>
               <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>
-              <li>Strike seçimi: RSI VE MACD ikisi de + RVOL&gt;2.0 → Süper Güçlü (Kontrat S, ATM+2); RSI VE MACD ikisi de → Güçlü (Kontrat A, ATM+1); yalnızca biri → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
+              <li>Strike seçimi: 5m RSI VE MACD ikisi de + 15m hacim oranı&gt;2.0 → Süper Güçlü (Kontrat S, ATM+2); RSI VE MACD ikisi de → Güçlü (Kontrat A, ATM+1); yalnızca biri → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
               <li>Aynı anda tek pozisyon; kapanıştan sonra düzeltme mumu beklenir; saatte en fazla 3 giriş; aynı kontrata (strike+yön) aynı gün ikinci giriş engellenir.</li>
               <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
-              <li>Kapı Durumu paneli LONG/SHORT için 5 kalemi (15m veto, hacim vetosu, 5m trend, 1m breakout, 1m RSI7) tek listede gösteriyor — veri üretemeyen/redundan kalemler (5m filtre, 5m rejim aktif, 1m EMA21 konumu, 1m RVOL) kaldırıldı.</li>
-              <li>Motor Durumu paneli 15m/RVOL/5m/1m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (veto/ana karar/zamanlama) etiketliyor.</li>
+              <li>Kapı Durumu paneli LONG/SHORT için: 30m rejim + 15m teyit, hacim vetosu, 5m bağlam (bilgi amaçlı), 15m tetiğin 4 şartı ve acil çıkış çakışması kontrolünü tek listede gösteriyor.</li>
+              <li>Motor Durumu paneli 30m/15m/5m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (rejim/ana tetik/zamanlama) etiketliyor.</li>
               <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">
-              V5.0 → V6.0: Layer 2 (3&apos;te 2 oylama), &quot;5m rejim aktif&quot; kapı satırı, 1m&apos;in EMA21 konum şartı ve RVOL konfirmasyonu KALDIRILDI — kalan 5 kalem (15m veto + hacim vetosu + trend + breakout + RSI) daha hızlı, daha az AND şartlı, aynı derecede kanıta dayalı bir sinyal üretiyor.
+              V6.0 → V7.0: mimari tamamen tersine döndü — 5m &quot;ana karar&quot; ve 1m &quot;breakout+RSI zamanlama&quot; KALDIRILDI. Artık 30m açılış rejimi günün karakterini, 15m dört şartlı tetik ANA sinyali, 5m ise SADECE giriş zamanlamasını belirliyor. Stop artık sabit prim yüzdesi değil, 15m yapısından (Stop_SPY) geliyor.
             </div>
           </Disclosure>
         </div>
       )}
 
-      {/* ═══ SPY OPTION SAYFASI (gerçek zamanlı 5m/1m sinyal motoru, tasks/active/014) ═══ */}
+      {/* ═══ SPY OPTION SAYFASI (gerçek zamanlı 15m tetik + 5m zamanlama sinyal motoru, tasks/active/014) ═══ */}
       {tab === "spyoption" && (
         <SpyOptionLiveTab
           bars5m={m5.length ? m5 : bucketAggregate(m1, 5)}

@@ -46,7 +46,7 @@ const hiOf = (bs: Bar[]) => (bs.length ? Math.max(...bs.map((b) => b.high)) : nu
 const loOf = (bs: Bar[]) => (bs.length ? Math.min(...bs.map((b) => b.low)) : null);
 
 /** Pivot: kendi ±n mumunun en yükseği/en düşüğü olan mum */
-function pivots(bars: Bar[], n = 3): { highs: number[]; lows: number[] } {
+export function pivots(bars: Bar[], n = 3): { highs: number[]; lows: number[] } {
   const highs: number[] = [], lows: number[] = [];
   for (let i = n; i < bars.length - n; i++) {
     const w = bars.slice(i - n, i + n + 1);
