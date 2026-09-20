@@ -16,6 +16,7 @@ import {
   type IChartApi, type ISeriesApi, type Time,
 } from "lightweight-charts";
 import { Panel, num, signed, tone } from "./panels";
+import AutoDailyForecast from "./AutoDailyForecast";
 import { nyDateTimeToEpoch, nyClock } from "@/lib/spyengine/core";
 
 interface Ohlc {
@@ -241,7 +242,10 @@ export default function DailyForecast() {
 
   return (
     <div className="flex flex-col gap-1">
-      <Panel title="Tahmin vs Gerçekleşen — 09:30-16:00 ET (mumlu)">
+      {/* Otomatik çoklu-kaynak tahmin (ES=F + Kalshi + VIX + NASDAQ + 15m yapı) */}
+      <AutoDailyForecast />
+
+      <Panel title="Elle Tahmin — Tahmin vs Gerçekleşen · 09:30-16:00 ET (mumlu)">
         <div className="mb-2 flex items-center gap-4 text-[10px] text-slate-400">
           <span className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-sm" style={{ background: C_UP }} /> Tahmin
