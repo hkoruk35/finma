@@ -661,7 +661,7 @@ function gateChecksFor(
   return [
     { label: "30m rejim + 15m teyit izin veriyor", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
     { label: `Hacim vetosu yok (RVOL ≥ ${RVOL_VETO_MIN})`, ok: !volVeto.active, detail: volVeto.rvol == null ? "veri yok" : `RVOL ${volVeto.rvol.toFixed(2)}×` },
-    { label: "5m bağlam (EMA21 konumu + RSI/MACD) — bilgi amaçlı", ok: l1Pass, detail: l1Pass ? "geçti" : "geçmedi" },
+    { label: "5m zamanlama (EMA21 konumu) — bilgi amaçlı, karar vermez", ok: l1Pass, detail: l1Pass ? "hazır" : "beklemede" },
     ...l3ForSide.checks,
     { label: "Acil çıkış (5m EMA21) girişte aktif değil", ok: !exitClash.blocked, detail: exitClash.detail },
   ];

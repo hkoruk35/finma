@@ -45,7 +45,7 @@ import {
   AlertBanner, computeEntryAlert,
   RegimeBanner, RegimePanel, M15Strip, PositionSizeCard, type RegimeBlock,
   LevelPanel, ForecastPanel,
-  ReversalGatePanel, ExitGatePanel,
+  ExitGatePanel,
   Panel, Disclosure, PhaseBadge, OHLCTable, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats, type OHLCRow,
 } from "@/components/admin/spyengine/panels";
@@ -422,10 +422,12 @@ const POLL_OPTIONS = [1000, 2000, 5000, 15000];
 /** Grafiği elle incelerken (zoom/pan) otomatik takibin duraklama süresi */
 const MANUAL_PAUSE_MS = 90000;
 
+// V7.0/v2: RSI ve MACD karar mekanizmasından çıkarıldı — grafikte varsayılan
+// KAPALI. Önemli olan EMA21, VWAP, mum yapısı ve hacim (kullanıcı talebi).
 const DEFAULT_TOGGLES: ChartToggles = {
   candleType: "HA",
   bb: true, ema21: true, vwap: true, volume: true,
-  rsi: true, macd: true, markers: true, levels: true,
+  rsi: false, macd: false, markers: true, levels: true,
 };
 
 // ── Yardımcı: mumları birleştir (delta) ───────────────────────────
@@ -1231,8 +1233,8 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* ── Kapı Durumu — Dönüş Yakalama (puanlama tabanlı) ── */}
-          <ReversalGatePanel reversal={data?.reversalCatch ?? null} />
+          {/* ── Kapı Durumu — V7.0 giriş kapısı: 30m rejim + 15m 4 şart + hacim vetosu ── */}
+          <GatePanel gates={data?.engine.gateStatus ?? null} />
 
           {/* ── Çıkış Takibi — her zaman gösterilir, pozisyon yoksa placeholder ── */}
           <ExitGatePanel reversal={data?.reversalCatch ?? null} />
@@ -1244,6 +1246,7 @@ export default function SpyEngineCommandCenter() {
                 <LayerTable
                   veto={data.engine.veto} volumeVeto={data.engine.volumeVeto}
                   layer1={data.engine.layer1}
+                  layer3={data.engine.layer3}
                   regime={data.engine.regime}
                   action={data.engine.action} contractType={data.engine.contractType}
                   state={data.engine.state} stateLabel={data.engine.stateLabel} nextStep={data.engine.nextStep}

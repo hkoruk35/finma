@@ -17,7 +17,7 @@ import {
   type PositionState, type EngineEvent,
   type ContractType, type ConfidencePart, type EngineState, type GateStatus,
   type GateCheck, type Side, type RegimeSide, type RegimeState,
-  type M15VetoRead, type VolumeVetoRead, type Layer1Read,
+  type M15VetoRead, type VolumeVetoRead, type Layer1Read, type Layer3Read,
 } from "@/lib/spyengine/strategy";
 import type { ReversalState, WatchState } from "@/lib/spyengine/reversal";
 import {
@@ -715,7 +715,7 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
           Kapı Durumu{" "}
           <span className="text-[9px] font-normal text-slate-600">
-            · 15m veto + 5m trend/filtre + 5m rejim + 1m yapı/konfirmasyon · iki yön birlikte
+            · 30m rejim + 15m ana tetik (yön+kırılım+hacim+ATR) + hacim vetosu · iki yön birlikte
           </span>
         </span>
       </div>
@@ -962,12 +962,13 @@ export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) 
 }
 
 export function LayerTable({
-  veto, volumeVeto, layer1, regime,
+  veto, volumeVeto, layer1, layer3, regime,
   action, contractType, state, stateLabel, nextStep, confidence, confidenceParts,
 }: {
   veto: M15VetoRead;
   volumeVeto: VolumeVetoRead;
   layer1: Layer1Read;
+  layer3: Layer3Read;
   regime: RegimeState;
   action: "LONG" | "SHORT" | "BEKLE";
   contractType: ContractType | null;
@@ -1028,7 +1029,7 @@ export function LayerTable({
         tf="15m"
         tag="ANA TETİK — yön+kırılım+hacim+ATR (4 şart)"
         value={regime.side === "NONE" ? "Tetik yok" : `${regime.side} tetik ateşlendi`}
-        note={layer1.note}
+        note={layer3.note}
         t={regimeTone}
       />
       {regime.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== regime.side && (
@@ -1606,24 +1607,24 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
     );
   }
   const { layer1, current } = block;
+  // V7.0/v2: 5m yalnızca ZAMANLAMA. RSI/MACD karar mekanizmasından çıkarıldı;
+  // yön bağlamı için EMA21 konumu kullanılır (VWAP/hacim/mum yapısı grafikte
+  // izlenir). RSI aşağıda yalnızca "aşırı uzama gözü" olarak bilgi amaçlı.
   const l1Checks: GateCheck[] = [
-    { label: "Fiyat EMA21 üstünde (LONG)", ok: layer1.closeAboveEma, detail: layer1.closeAboveEma ? "evet" : "hayır" },
-    { label: "RSI14 > 50 ve yükseliyor (LONG)", ok: !!(layer1.rsi != null && layer1.rsi > 50 && layer1.rsiRising), detail: layer1.rsi == null ? "veri yok" : layer1.rsi.toFixed(0) },
-    { label: "MACD_hist > 0 ve yükseliyor (LONG)", ok: layer1.macdRising, detail: layer1.macdHist == null ? "veri yok" : layer1.macdHist.toFixed(3) },
+    { label: "Fiyat EMA21 üstünde (LONG yönü)", ok: layer1.closeAboveEma, detail: layer1.closeAboveEma ? "evet" : "hayır" },
   ];
   const l1ChecksShort: GateCheck[] = [
-    { label: "Fiyat EMA21 altında (SHORT)", ok: layer1.closeBelowEma, detail: layer1.closeBelowEma ? "evet" : "hayır" },
-    { label: "RSI14 < 50 ve düşüyor (SHORT)", ok: !!(layer1.rsi != null && layer1.rsi < 50 && layer1.rsiFalling), detail: layer1.rsi == null ? "veri yok" : layer1.rsi.toFixed(0) },
-    { label: "MACD_hist < 0 ve düşüyor (SHORT)", ok: layer1.macdFalling, detail: layer1.macdHist == null ? "veri yok" : layer1.macdHist.toFixed(3) },
+    { label: "Fiyat EMA21 altında (SHORT yönü)", ok: layer1.closeBelowEma, detail: layer1.closeBelowEma ? "evet" : "hayır" },
   ];
   const tpL = l1Checks.filter((c) => c.ok).length;
   const tpS = l1ChecksShort.filter((c) => c.ok).length;
+  const rsiOverext = layer1.rsi != null && (layer1.rsi >= 80 || layer1.rsi <= 20);
 
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          5m Bağlam Kriterleri <span className="text-[9px] font-normal text-slate-600">· zamanlama girdisi, ana karar değil</span>
+          5m Zamanlama Bağlamı <span className="text-[9px] font-normal text-slate-600">· sadece giriş anını hassaslaştırır, karar vermez</span>
         </span>
       </div>
       <div className="border-b border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
@@ -1633,8 +1634,13 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
         · {current.note}
       </div>
       <div className="flex divide-x divide-[#1c2635]">
-        <RegimeColumn title="LAYER 1 · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
-        <RegimeColumn title="LAYER 1 · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
+        <RegimeColumn title="5m ZAMANLAMA · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
+        <RegimeColumn title="5m ZAMANLAMA · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
+      </div>
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
+        RSI14 (bilgi): <b className={rsiOverext ? "text-amber-300" : "text-slate-400"}>{layer1.rsi == null ? "—" : layer1.rsi.toFixed(0)}</b>
+        {rsiOverext && <span className="ml-1 text-amber-300">⚠ aşırı uzama (≥80/≤20) — bir tur temkinli, sonraki mum onayını bekle</span>}
+        <span className="ml-2 text-slate-600">· MACD karar dışı, gösterilmiyor</span>
       </div>
     </div>
   );
