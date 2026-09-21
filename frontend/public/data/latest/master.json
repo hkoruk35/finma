@@ -1,42 +1,32 @@
 {
-  "date": "2026-09-18",
-  "generated_at": "2026-09-18T17:03:14.645729-04:00",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T09:06:18.007339-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 42,
+  "active_scores_count": 10,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "JKHY",
-        "PI",
-        "QCOM",
-        "RSI",
-        "MORN",
-        "S",
-        "RAL",
-        "DXCM",
-        "PBR",
-        "ST"
+        "ANET",
+        "CAT",
+        "KEYS",
+        "A",
+        "WTTR",
+        "BGC",
+        "MSGE",
+        "GEF",
+        "ARXS",
+        "AU"
       ]
     },
     "breakout": {
-      "count": 14,
+      "count": 4,
       "tickers": [
-        "JKHY",
-        "PI",
-        "QCOM",
-        "RAL",
-        "HPQ",
-        "ORKA",
-        "ITT",
-        "RIG",
-        "EGO",
-        "ADM",
-        "ARE",
-        "CMPS",
-        "MU",
-        "SMMT"
+        "WTTR",
+        "MSGE",
+        "ARXS",
+        "AU"
       ]
     },
     "value": {
@@ -58,42 +48,42 @@
   },
   "top_3_overall": [
     {
-      "ticker": "JKHY",
-      "score": 40.0,
+      "ticker": "ANET",
+      "score": 62.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PI",
-      "score": 50.0,
+      "ticker": "CAT",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "QCOM",
-      "score": 46.0,
+      "ticker": "KEYS",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 767.64,
-      "change_pct": 0.78
+      "value": 769.22,
+      "change_pct": 0.99
     },
     "NASDAQ": {
-      "value": 732.62,
-      "change_pct": 1.55
+      "value": 735.7488,
+      "change_pct": 1.98
     },
     "DOW": {
-      "value": 517.085,
-      "change_pct": 0.23
+      "value": 517.92,
+      "change_pct": 0.4
     },
     "VIX": {
-      "value": 14.9,
-      "change_pct": 0.61
+      "value": 14.69,
+      "change_pct": -0.81
     },
     "RUSSELL2000": {
-      "value": 285.35,
-      "change_pct": 0.44
+      "value": 285.485,
+      "change_pct": 0.49
     }
   },
-  "price_updated_at": "2026-09-21T10:00:14.698820-04:00"
+  "price_updated_at": "2026-09-21T11:00:10.073578-04:00"
 }
