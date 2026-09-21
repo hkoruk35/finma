@@ -1,0 +1,89 @@
+{
+  "ticker": "AVY",
+  "company": "Avery Dennison Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:15:50.471Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 167.7100067138672,
+    "open": 171.5,
+    "high": 171.5,
+    "low": 167.69000244140625,
+    "prev_close": 171.08999633789062,
+    "change_pct": -1.9755623919403196,
+    "change_pct_1w": -0.9859476448242637,
+    "change_pct_1m": -4.198555322306841,
+    "change_pct_1y": 1.6177978286180155,
+    "volume": 2698600,
+    "avg_volume_30d": 31123400
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 45,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.46480706460078,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 172.63590924937765,
+    "ema_50": 171.5569350946974,
+    "ema_200": 170.05566670719367,
+    "ema_stack_bullish": true,
+    "bb_upper": 176.09550704956055,
+    "bb_middle": 167.7100067138672,
+    "bb_lower": 159.32450637817382,
+    "bb_width": 10,
+    "atr": 3.98,
+    "atr_pct": 2.37,
+    "rvol": 1.1640502001709325,
+    "52w_high": 199.5399932861328,
+    "52w_low": 152.4199981689453
+  },
+  "fundamental": {
+    "pe_ratio": 18.349016,
+    "pb_ratio": 5.480361,
+    "gross_margin": 0.28978002,
+    "operating_margin": 0.13586001,
+    "net_margin": 0.076220006,
+    "market_cap": 12828203008,
+    "revenue_growth_ttm": 0.109,
+    "fcf_yield": 0.07831182585538328,
+    "institutional_ownership_pct": 1.00421,
+    "dividend_rate": 4,
+    "dividend_yield": 0.0239
+  },
+  "scores_detail": {
+    "entry_range_low": 165.32,
+    "entry_range_high": 168.11,
+    "target_range_low": 176.51,
+    "target_range_high": 191.72,
+    "target_1": 176.51,
+    "target_2": 185.25,
+    "target_3": 191.72,
+    "stop_loss": 159.32,
+    "risk_reward_ratio": 2.51,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $165.32 – $168.11 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $170.21 direnci veya $164.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $159.32 olarak belirlenmiştir. Fiyatın EMA200 ($170.06) veya günlük VWAP ($168.99) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($171.56) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($168.99) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

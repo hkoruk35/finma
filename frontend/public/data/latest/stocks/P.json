@@ -1,0 +1,89 @@
+{
+  "ticker": "P",
+  "company": "Everpure, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:37:05.240Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 104.13999938964844,
+    "open": 105.3499984741211,
+    "high": 108.30999755859375,
+    "low": 102.12999725341797,
+    "prev_close": 103.98999786376953,
+    "change_pct": 0.14424610920313066,
+    "change_pct_1w": 6.070481835350392,
+    "change_pct_1m": 4.652795853706689,
+    "change_pct_1y": 19.618656455347796,
+    "volume": 73094300,
+    "avg_volume_30d": 170653200
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.5760399208464,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 98.78506389954515,
+    "ema_50": 93.53202923409589,
+    "ema_200": 82.43433982165794,
+    "ema_stack_bullish": true,
+    "bb_upper": 109.34699935913086,
+    "bb_middle": 104.13999938964844,
+    "bb_lower": 98.93299942016601,
+    "bb_width": 10,
+    "atr": 5.07,
+    "atr_pct": 4.87,
+    "rvol": 2.9980768013726085,
+    "52w_high": 119.0999984741211,
+    "52w_low": 56.779998779296875
+  },
+  "fundamental": {
+    "pe_ratio": 142.65753,
+    "pb_ratio": 23.797989,
+    "gross_margin": 0.69734,
+    "operating_margin": 0.053260002,
+    "net_margin": 0.05943,
+    "market_cap": 34702286848,
+    "revenue_growth_ttm": 0.377,
+    "fcf_yield": -0.003295222372544893,
+    "institutional_ownership_pct": 0.85326,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 101.1,
+    "entry_range_high": 104.65,
+    "target_range_low": 119.1,
+    "target_range_high": 123.91,
+    "target_1": 119.1,
+    "target_2": 121.48,
+    "target_3": 123.91,
+    "stop_loss": 97.55,
+    "risk_reward_ratio": 3.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $101.10 – $104.65 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $106.70 direnci veya $100.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $97.55 olarak belirlenmiştir. Fiyatın EMA20 ($98.79) veya günlük VWAP ($104.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($104.01) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 3.0 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "CLF",
+  "company": "Cleveland-Cliffs Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:19:29.979Z",
+  "sector": "Basic Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 12.5,
+    "open": 12.699999809265137,
+    "high": 12.819999694824219,
+    "low": 12.359999656677246,
+    "prev_close": 12.760000228881836,
+    "change_pct": -2.0376193120540393,
+    "change_pct_1w": 3.648420937594671,
+    "change_pct_1m": 0,
+    "change_pct_1y": 9.361326913873283,
+    "volume": 20232000,
+    "avg_volume_30d": 411739800
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 100,
+    "fundamental_score": 41.75,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.345694142808576,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.012466867957878,
+    "ema_50": 11.687765728898185,
+    "ema_200": 11.402093761130459,
+    "ema_stack_bullish": true,
+    "bb_upper": 13.125,
+    "bb_middle": 12.5,
+    "bb_lower": 11.875,
+    "bb_width": 10,
+    "atr": 0.54,
+    "atr_pct": 4.34,
+    "rvol": 1.0303672367840078,
+    "52w_high": 16.700000762939453,
+    "52w_low": 7.730000019073486
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.2726533,
+    "gross_margin": -0.01052,
+    "operating_margin": 0.0034400001,
+    "net_margin": -0.045640003,
+    "market_cap": 7131750400,
+    "revenue_growth_ttm": 0.059,
+    "fcf_yield": 0.0008588354410159952,
+    "institutional_ownership_pct": 0.84459996,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 12.17,
+    "entry_range_high": 12.55,
+    "target_range_low": 12.98,
+    "target_range_high": 14.22,
+    "target_1": 12.98,
+    "target_2": 13.6,
+    "target_3": 14.22,
+    "stop_loss": 11.79,
+    "risk_reward_ratio": 2.17,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.17 – $12.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.02 direnci veya $12.06 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.79 olarak belirlenmiştir. Fiyatın EMA50 ($11.69) veya günlük VWAP ($12.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.46) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

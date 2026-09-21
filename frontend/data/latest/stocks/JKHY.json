@@ -1,0 +1,89 @@
+{
+  "ticker": "JKHY",
+  "company": "Jack Henry & Associates, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T13:26:21.654Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 154.85000610351562,
+    "open": 155.82000732421875,
+    "high": 156.8699951171875,
+    "low": 153.97999572753906,
+    "prev_close": 156.2100067138672,
+    "change_pct": -0.8706232327629952,
+    "change_pct_1w": -3.8915027331719565,
+    "change_pct_1m": -6.514122993173064,
+    "change_pct_1y": 0.24600561909076307,
+    "volume": 2667000,
+    "avg_volume_30d": 31134100
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 50,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.98120679538617,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 160.66518888871317,
+    "ema_50": 157.37521768534745,
+    "ema_200": 155.30132331671805,
+    "ema_stack_bullish": true,
+    "bb_upper": 162.5925064086914,
+    "bb_middle": 154.85000610351562,
+    "bb_lower": 147.10750579833984,
+    "bb_width": 10,
+    "atr": 5.01,
+    "atr_pct": 3.23,
+    "rvol": 1.5863313858438175,
+    "52w_high": 193.38999938964844,
+    "52w_low": 121.04000091552734
+  },
+  "fundamental": {
+    "pe_ratio": 22.184814,
+    "pb_ratio": 5.287871,
+    "gross_margin": 0.43897998,
+    "operating_margin": 0.22503,
+    "net_margin": 0.19760999,
+    "market_cap": 10856937472,
+    "revenue_growth_ttm": 0.047,
+    "fcf_yield": 0.0324422743437902,
+    "institutional_ownership_pct": 1.0263,
+    "dividend_rate": 2.44,
+    "dividend_yield": 0.015800001
+  },
+  "scores_detail": {
+    "entry_range_low": 152.64,
+    "entry_range_high": 155.35,
+    "target_range_low": 161.7,
+    "target_range_high": 177.1,
+    "target_1": 161.7,
+    "target_2": 169.4,
+    "target_3": 177.1,
+    "stop_loss": 147.11,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $152.64 – $155.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $157.92 direnci veya $151.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $147.11 olarak belirlenmiştir. Fiyatın EMA200 ($155.30) veya günlük VWAP ($155.56) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($157.38) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($155.56) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

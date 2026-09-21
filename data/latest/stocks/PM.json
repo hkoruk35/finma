@@ -1,0 +1,89 @@
+{
+  "ticker": "PM",
+  "company": "Philip Morris International Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:50:46.432Z",
+  "sector": "Consumer Defensive",
+  "industry": "Tobacco",
+  "price": {
+    "current": 188.6199951171875,
+    "open": 188,
+    "high": 191,
+    "low": 186.55999755859375,
+    "prev_close": 190.47999572753906,
+    "change_pct": -0.9764808127211906,
+    "change_pct_1w": -1.2770870263713663,
+    "change_pct_1m": 3.3364358618411227,
+    "change_pct_1y": 16.604847627647803,
+    "volume": 7793200,
+    "avg_volume_30d": 126385500
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 85,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.69125428569218,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 189.6418309058217,
+    "ema_50": 187.9871727300794,
+    "ema_200": 177.9740299772631,
+    "ema_stack_bullish": true,
+    "bb_upper": 198.05099487304688,
+    "bb_middle": 188.6199951171875,
+    "bb_lower": 179.18899536132812,
+    "bb_width": 10,
+    "atr": 4.69,
+    "atr_pct": 2.49,
+    "rvol": 0.9902560024686377,
+    "52w_high": 207.75999450683594,
+    "52w_low": 142.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 25.90934,
+    "pb_ratio": 0,
+    "gross_margin": 0.67481005,
+    "operating_margin": 0.40002,
+    "net_margin": 0.25559,
+    "market_cap": 293985648640,
+    "revenue_growth_ttm": 0.104,
+    "fcf_yield": 0.033043703666962784,
+    "institutional_ownership_pct": 0.84418,
+    "dividend_rate": 5.88,
+    "dividend_yield": 0.0312
+  },
+  "scores_detail": {
+    "entry_range_low": 185.8,
+    "entry_range_high": 189.09,
+    "target_range_low": 196.82,
+    "target_range_high": 215.56,
+    "target_1": 196.82,
+    "target_2": 206.19,
+    "target_3": 215.56,
+    "stop_loss": 179.19,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $185.80 – $189.09 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $191.00 direnci veya $184.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $179.19 olarak belirlenmiştir. Fiyatın EMA200 ($177.97) veya günlük VWAP ($189.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($187.99) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($189.57) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

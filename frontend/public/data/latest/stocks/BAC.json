@@ -1,0 +1,89 @@
+{
+  "ticker": "BAC",
+  "company": "Bank of America Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:16:40.476Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 57.72999954223633,
+    "open": 57.52000045776367,
+    "high": 58.22999954223633,
+    "low": 57.52000045776367,
+    "prev_close": 58.18000030517578,
+    "change_pct": -0.7734629779632717,
+    "change_pct_1w": -7.911946391971137,
+    "change_pct_1m": -7.897257081746869,
+    "change_pct_1y": 10.742371684980213,
+    "volume": 52425000,
+    "avg_volume_30d": 981301000
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 75,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 29.161893803794314,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 60.919699562793305,
+    "ema_50": 60.79138672570505,
+    "ema_200": 56.51354227440175,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.616499519348146,
+    "bb_middle": 57.72999954223633,
+    "bb_lower": 54.84349956512451,
+    "bb_width": 10,
+    "atr": 1.36,
+    "atr_pct": 2.36,
+    "rvol": 1.5587694295634063,
+    "52w_high": 65.2300033569336,
+    "52w_low": 46.119998931884766
+  },
+  "fundamental": {
+    "pe_ratio": 13.332563,
+    "pb_ratio": 1.4673885,
+    "gross_margin": 0,
+    "operating_margin": 0.38305,
+    "net_margin": 0.29524,
+    "market_cap": 403691372544,
+    "revenue_growth_ttm": 0.168,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.71269,
+    "dividend_rate": 1.28,
+    "dividend_yield": 0.0222
+  },
+  "scores_detail": {
+    "entry_range_low": 56.91,
+    "entry_range_high": 57.87,
+    "target_range_low": 65.23,
+    "target_range_high": 67.87,
+    "target_1": 65.23,
+    "target_2": 66.53,
+    "target_3": 67.87,
+    "stop_loss": 54.84,
+    "risk_reward_ratio": 3.59,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $56.91 – $57.87 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $58.45 direnci veya $56.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $54.84 olarak belirlenmiştir. Fiyatın EMA200 ($56.51) veya günlük VWAP ($57.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($60.79) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($57.86) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 29 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

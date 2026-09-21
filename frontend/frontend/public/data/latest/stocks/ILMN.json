@@ -1,0 +1,89 @@
+{
+  "ticker": "ILMN",
+  "company": "Illumina, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:35:58.247Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 239.6199951171875,
+    "open": 249.1300048828125,
+    "high": 250.05999755859375,
+    "low": 236.4199981689453,
+    "prev_close": 245.17999267578125,
+    "change_pct": -2.26772074585471,
+    "change_pct_1w": 16.066843622798,
+    "change_pct_1m": 9.806614323515134,
+    "change_pct_1y": 132.57303499583986,
+    "volume": 32586500,
+    "avg_volume_30d": 87612700
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 95,
+    "fundamental_score": 74.75,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.70911615973382,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 217.48879819869197,
+    "ema_50": 204.05860378966347,
+    "ema_200": 163.7626686329272,
+    "ema_stack_bullish": true,
+    "bb_upper": 251.6009948730469,
+    "bb_middle": 239.6199951171875,
+    "bb_lower": 227.6389953613281,
+    "bb_width": 10,
+    "atr": 10.12,
+    "atr_pct": 4.22,
+    "rvol": 3.0709178007298026,
+    "52w_high": 250.05999755859375,
+    "52w_low": 88
+  },
+  "fundamental": {
+    "pe_ratio": 44.621975,
+    "pb_ratio": 12.749135,
+    "gross_margin": 0.67934996,
+    "operating_margin": 0.21139,
+    "net_margin": 0.18336001,
+    "market_cap": 36182618112,
+    "revenue_growth_ttm": 0.094,
+    "fcf_yield": 0.02204442535172619,
+    "institutional_ownership_pct": 1.06479,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 228.44,
+    "entry_range_high": 240.63,
+    "target_range_low": 246.27,
+    "target_range_high": 269.72,
+    "target_1": 246.27,
+    "target_2": 257.99,
+    "target_3": 269.72,
+    "stop_loss": 221.36,
+    "risk_reward_ratio": 1.78,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $228.44 – $240.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $246.76 direnci veya $226.42 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $221.36 olarak belirlenmiştir. Fiyatın EMA20 ($217.49) veya günlük VWAP ($240.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($240.22) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 3.1 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

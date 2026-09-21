@@ -1,0 +1,89 @@
+{
+  "ticker": "FIX",
+  "company": "Comfort Systems USA, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T13:32:21.501Z",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 1651.3699951171875,
+    "open": 1592.800048828125,
+    "high": 1679.8199462890625,
+    "low": 1581,
+    "prev_close": 1573.9599609375,
+    "change_pct": 4.918170480879301,
+    "change_pct_1w": -2.333184633790134,
+    "change_pct_1m": 2.547911010578078,
+    "change_pct_1y": 106.58134867399829,
+    "volume": 831300,
+    "avg_volume_30d": 10937200
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 70,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.61%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.73146732424613,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1619.2452963927817,
+    "ema_50": 1668.2003461981537,
+    "ema_200": 1527.3313183137761,
+    "ema_stack_bullish": false,
+    "bb_upper": 1733.938494873047,
+    "bb_middle": 1651.3699951171875,
+    "bb_lower": 1568.801495361328,
+    "bb_width": 10,
+    "atr": 69.02,
+    "atr_pct": 4.18,
+    "rvol": 1.1111619061551403,
+    "52w_high": 2073.989990234375,
+    "52w_low": 757
+  },
+  "fundamental": {
+    "pe_ratio": 40.654114,
+    "pb_ratio": 18.037903,
+    "gross_margin": 0.25661,
+    "operating_margin": 0.17062001,
+    "net_margin": 0.12775,
+    "market_cap": 58118856704,
+    "revenue_growth_ttm": 0.503,
+    "fcf_yield": 0.03169221654481085,
+    "institutional_ownership_pct": 0.9597,
+    "dividend_rate": 3.6,
+    "dividend_yield": 0.0022
+  },
+  "scores_detail": {
+    "entry_range_low": 1609.96,
+    "entry_range_high": 1658.27,
+    "target_range_low": 1879.99,
+    "target_range_high": 2072.31,
+    "target_1": 1879.99,
+    "target_2": 1972.68,
+    "target_3": 2072.31,
+    "stop_loss": 1561.65,
+    "risk_reward_ratio": 4.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,609.96 – $1,658.27 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,690.00 direnci veya $1,596.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,561.65 olarak belirlenmiştir. Fiyatın EMA200 ($1,527.33) veya günlük VWAP ($1,612.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,668.20) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,612.97) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

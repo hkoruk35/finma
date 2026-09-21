@@ -1,0 +1,89 @@
+{
+  "ticker": "JNJ",
+  "company": "Johnson & Johnson",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:34:22.790Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 269.989990234375,
+    "open": 269.45001220703125,
+    "high": 272.1099853515625,
+    "low": 267.20001220703125,
+    "prev_close": 270.2200012207031,
+    "change_pct": -0.08511989685776913,
+    "change_pct_1w": 1.660518068031979,
+    "change_pct_1m": -1.9038696881836115,
+    "change_pct_1y": 55.02410688862118,
+    "volume": 16409300,
+    "avg_volume_30d": 193931500
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 100,
+    "fundamental_score": 74.75,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.62742760888035,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 268.1976254268641,
+    "ema_50": 262.77872115245503,
+    "ema_200": 238.74953806817223,
+    "ema_stack_bullish": true,
+    "bb_upper": 283.48948974609374,
+    "bb_middle": 269.989990234375,
+    "bb_lower": 256.49049072265626,
+    "bb_width": 10,
+    "atr": 5.3,
+    "atr_pct": 1.96,
+    "rvol": 1.1722603084078658,
+    "52w_high": 281.07000732421875,
+    "52w_low": 173.3300018310547
+  },
+  "fundamental": {
+    "pe_ratio": 31.357723,
+    "pb_ratio": 7.65191,
+    "gross_margin": 0.6814,
+    "operating_margin": 0.2919,
+    "net_margin": 0.21482,
+    "market_cap": 650648485888,
+    "revenue_growth_ttm": 0.066,
+    "fcf_yield": 0.02595122479529836,
+    "institutional_ownership_pct": 0.76726997,
+    "dividend_rate": 5.36,
+    "dividend_yield": 0.0199
+  },
+  "scores_detail": {
+    "entry_range_low": 266.81,
+    "entry_range_high": 270.52,
+    "target_range_low": 282.1,
+    "target_range_high": 308.97,
+    "target_1": 282.1,
+    "target_2": 295.53,
+    "target_3": 308.97,
+    "stop_loss": 256.49,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $266.81 – $270.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $276.76 direnci veya $265.75 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $256.49 olarak belirlenmiştir. Fiyatın EMA50 ($262.78) veya günlük VWAP ($269.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($269.90) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

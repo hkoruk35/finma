@@ -1,0 +1,89 @@
+{
+  "ticker": "PGR",
+  "company": "The Progressive Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:49:26.593Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Property & Casualty",
+  "price": {
+    "current": 213.47999572753906,
+    "open": 214.05999755859375,
+    "high": 215.13999938964844,
+    "low": 212.38999938964844,
+    "prev_close": 216.2899932861328,
+    "change_pct": -1.2991805658232038,
+    "change_pct_1w": -1.9023984388103055,
+    "change_pct_1m": -2.498287872548445,
+    "change_pct_1y": -11.785125732421875,
+    "volume": 6113500,
+    "avg_volume_30d": 68949800
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 50,
+    "fundamental_score": 74.75,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.3260283159059,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 217.39293154679316,
+    "ema_50": 215.6950067109248,
+    "ema_200": 214.48784804078682,
+    "ema_stack_bullish": true,
+    "bb_upper": 224.15399551391602,
+    "bb_middle": 213.47999572753906,
+    "bb_lower": 202.8059959411621,
+    "bb_width": 10,
+    "atr": 3.81,
+    "atr_pct": 1.78,
+    "rvol": 1.3250683830845051,
+    "52w_high": 248.1699981689453,
+    "52w_low": 189.1999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 10.706118,
+    "pb_ratio": 3.6126106,
+    "gross_margin": 0.18521,
+    "operating_margin": 0.18208,
+    "net_margin": 0.12849,
+    "market_cap": 123903787008,
+    "revenue_growth_ttm": 0.073,
+    "fcf_yield": 0.12198577994249775,
+    "institutional_ownership_pct": 0.89761,
+    "dividend_rate": 0.4,
+    "dividend_yield": 0.0019
+  },
+  "scores_detail": {
+    "entry_range_low": 211.2,
+    "entry_range_high": 213.86,
+    "target_range_low": 223.15,
+    "target_range_high": 244.41,
+    "target_1": 223.15,
+    "target_2": 233.78,
+    "target_3": 244.41,
+    "stop_loss": 202.81,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $211.20 – $213.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $215.95 direnci veya $210.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $202.81 olarak belirlenmiştir. Fiyatın EMA200 ($214.49) veya günlük VWAP ($213.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($215.70) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($213.57) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

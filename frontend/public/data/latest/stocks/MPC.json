@@ -1,0 +1,89 @@
+{
+  "ticker": "MPC",
+  "company": "Marathon Petroleum Corporation",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:41:20.992Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 424.8900146484375,
+    "open": 420.2699890136719,
+    "high": 428,
+    "low": 419.1499938964844,
+    "prev_close": 421.9599914550781,
+    "change_pct": 0.69438412472603,
+    "change_pct_1w": 7.314429951855404,
+    "change_pct_1m": 9.254312501103506,
+    "change_pct_1y": 129.63304191297368,
+    "volume": 9855700,
+    "avg_volume_30d": 83967500
+  },
+  "scores": {
+    "master_score": 88,
+    "technical_score": 95,
+    "fundamental_score": 66.5,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.52%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 83.03691496879193,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 389.40121401839286,
+    "ema_50": 352.65496394644185,
+    "ema_200": 273.47965358698826,
+    "ema_stack_bullish": true,
+    "bb_upper": 446.1345153808594,
+    "bb_middle": 424.8900146484375,
+    "bb_lower": 403.6455139160156,
+    "bb_width": 10,
+    "atr": 13.48,
+    "atr_pct": 3.17,
+    "rvol": 1.5624259386071992,
+    "52w_high": 428,
+    "52w_low": 161.92999267578125
+  },
+  "fundamental": {
+    "pe_ratio": 14.727556,
+    "pb_ratio": 6.3030705,
+    "gross_margin": 0.12819,
+    "operating_margin": 0.13561,
+    "net_margin": 0.05549,
+    "market_cap": 124040962048,
+    "revenue_growth_ttm": 0.537,
+    "fcf_yield": 0.0745671033123782,
+    "institutional_ownership_pct": 0.79488,
+    "dividend_rate": 4,
+    "dividend_yield": 0.0094
+  },
+  "scores_detail": {
+    "entry_range_low": 416.8,
+    "entry_range_high": 426.24,
+    "target_range_low": 442.6,
+    "target_range_high": 484.75,
+    "target_1": 442.6,
+    "target_2": 463.67,
+    "target_3": 484.75,
+    "stop_loss": 403.65,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $416.80 – $426.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $428.00 direnci veya $414.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $403.65 olarak belirlenmiştir. Fiyatın EMA20 ($389.40) veya günlük VWAP ($424.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($424.36) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 83 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

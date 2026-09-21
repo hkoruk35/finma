@@ -1,0 +1,89 @@
+{
+  "ticker": "AZTA",
+  "company": "Azenta, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:39:47.626Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 33.2400016784668,
+    "open": 33.439998626708984,
+    "high": 33.81999969482422,
+    "low": 33.029998779296875,
+    "prev_close": 33.630001068115234,
+    "change_pct": -1.1596770064280426,
+    "change_pct_1w": 7.74716780370817,
+    "change_pct_1m": 6.096398849064556,
+    "change_pct_1y": 7.018680779163597,
+    "volume": 1430300,
+    "avg_volume_30d": 23803600
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.32815294933787,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.25722517195974,
+    "ema_50": 30.699529485271132,
+    "ema_200": 28.43655389812411,
+    "ema_stack_bullish": true,
+    "bb_upper": 34.902001762390135,
+    "bb_middle": 33.2400016784668,
+    "bb_lower": 31.578001594543455,
+    "bb_width": 10,
+    "atr": 1.22,
+    "atr_pct": 3.67,
+    "rvol": 1.0884320018820681,
+    "52w_high": 41.72999954223633,
+    "52w_low": 15.930000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.9633108,
+    "gross_margin": 0.44048,
+    "operating_margin": -0.022739999,
+    "net_margin": -0.20021999,
+    "market_cap": 1456190976,
+    "revenue_growth_ttm": 0.12,
+    "fcf_yield": 0.04351489677134217,
+    "institutional_ownership_pct": 1.17205,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 31.41,
+    "entry_range_high": 33.36,
+    "target_range_low": 34.01,
+    "target_range_high": 38.24,
+    "target_1": 34.01,
+    "target_2": 37.49,
+    "target_3": 38.24,
+    "stop_loss": 30.56,
+    "risk_reward_ratio": 2.79,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $31.41 – $33.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $33.85 direnci veya $31.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $30.56 olarak belirlenmiştir. Fiyatın EMA50 ($30.70) veya günlük VWAP ($33.43) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($33.43) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "VLO",
+  "company": "Valero Energy Corporation",
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T18:04:47.941Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 410.94000244140625,
+    "open": 412,
+    "high": 416.6600036621094,
+    "low": 409.1499938964844,
+    "prev_close": 412.5299987792969,
+    "change_pct": -0.38542562785628387,
+    "change_pct_1w": 5.255875290181574,
+    "change_pct_1m": 10.849158688030618,
+    "change_pct_1y": 150.80255546758198,
+    "volume": 2265756,
+    "avg_volume_30d": 80418356
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 95,
+    "fundamental_score": 66.5,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 78.35092509920528,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 376.9109146104451,
+    "ema_50": 342.6398277905144,
+    "ema_200": 266.9563996607366,
+    "ema_stack_bullish": true,
+    "bb_upper": 431.4870025634766,
+    "bb_middle": 410.94000244140625,
+    "bb_lower": 390.3930023193359,
+    "bb_width": 10,
+    "atr": 13.71,
+    "atr_pct": 3.34,
+    "rvol": 1.30572099733051,
+    "52w_high": 416.6600036621094,
+    "52w_low": 155.2899932861328
+  },
+  "fundamental": {
+    "pe_ratio": 17.14393,
+    "pb_ratio": 4.732696,
+    "gross_margin": 0.16118999,
+    "operating_margin": 0.12269,
+    "net_margin": 0.05446,
+    "market_cap": 118320906240,
+    "revenue_growth_ttm": 0.517,
+    "fcf_yield": 0.0711317640428512,
+    "institutional_ownership_pct": 0.87031996,
+    "dividend_rate": 4.8,
+    "dividend_yield": 0.0116
+  },
+  "scores_detail": {
+    "entry_range_low": 403.98,
+    "entry_range_high": 412.31,
+    "target_range_low": 428.55,
+    "target_range_high": 469.37,
+    "target_1": 428.55,
+    "target_2": 448.96,
+    "target_3": 469.37,
+    "stop_loss": 390.39,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $403.98 – $412.31 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $416.66 direnci veya $401.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $390.39 olarak belirlenmiştir. Fiyatın EMA20 ($376.91) veya günlük VWAP ($412.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($412.57) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 78 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

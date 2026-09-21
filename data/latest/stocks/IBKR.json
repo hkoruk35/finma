@@ -1,0 +1,89 @@
+{
+  "ticker": "IBKR",
+  "company": "Interactive Brokers Group, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:30:10.591Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 90.69000244140625,
+    "open": 89.91000366210938,
+    "high": 91.05999755859375,
+    "low": 88.75,
+    "prev_close": 88.37999725341797,
+    "change_pct": 2.6137194611634196,
+    "change_pct_1w": -0.7442270819032221,
+    "change_pct_1m": -2.0837834678719056,
+    "change_pct_1y": 39.69501694285029,
+    "volume": 6224200,
+    "avg_volume_30d": 119011000
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 70,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.1739013545825,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 90.86251468988077,
+    "ema_50": 90.81415111437084,
+    "ema_200": 82.5210607614793,
+    "ema_stack_bullish": true,
+    "bb_upper": 95.22450256347656,
+    "bb_middle": 90.69000244140625,
+    "bb_lower": 86.15550231933594,
+    "bb_width": 10,
+    "atr": 3.05,
+    "atr_pct": 3.36,
+    "rvol": 1.1466301434321198,
+    "52w_high": 98.75,
+    "52w_low": 58.95000076293945
+  },
+  "fundamental": {
+    "pe_ratio": 35.9881,
+    "pb_ratio": 6.921316,
+    "gross_margin": 0.93036,
+    "operating_margin": 0.76532996,
+    "net_margin": 0.16474001,
+    "market_cap": 154519044096,
+    "revenue_growth_ttm": 0.263,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.88549006,
+    "dividend_rate": 0.35,
+    "dividend_yield": 0.0039
+  },
+  "scores_detail": {
+    "entry_range_low": 88.86,
+    "entry_range_high": 90.99,
+    "target_range_low": 97.77,
+    "target_range_high": 103.42,
+    "target_1": 97.77,
+    "target_2": 99.73,
+    "target_3": 103.42,
+    "stop_loss": 86.16,
+    "risk_reward_ratio": 2.6,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $88.86 – $90.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $92.31 direnci veya $88.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $86.16 olarak belirlenmiştir. Fiyatın EMA200 ($82.52) veya günlük VWAP ($90.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($90.81) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($90.08) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MCO",
+  "company": "Moody's Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:40:53.617Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 468.5899963378906,
+    "open": 460,
+    "high": 470.989990234375,
+    "low": 456.9700012207031,
+    "prev_close": 461.8800048828125,
+    "change_pct": 1.452756426808425,
+    "change_pct_1w": -1.3390916318933133,
+    "change_pct_1m": -5.05723676880085,
+    "change_pct_1y": -2.846660055115383,
+    "volume": 1408100,
+    "avg_volume_30d": 21077100
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.69908911264381,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 480.9090515729109,
+    "ema_50": 482.15680118122447,
+    "ema_200": 474.3830148246214,
+    "ema_stack_bullish": false,
+    "bb_upper": 492.0194961547852,
+    "bb_middle": 468.5899963378906,
+    "bb_lower": 445.16049652099605,
+    "bb_width": 10,
+    "atr": 11.44,
+    "atr_pct": 2.44,
+    "rvol": 1.1530808318032366,
+    "52w_high": 546.8800048828125,
+    "52w_low": 402.2799987792969
+  },
+  "fundamental": {
+    "pe_ratio": 29.770649,
+    "pb_ratio": 26.827162,
+    "gross_margin": 0.74974996,
+    "operating_margin": 0.49473998,
+    "net_margin": 0.34252,
+    "market_cap": 81150877696,
+    "revenue_growth_ttm": 0.151,
+    "fcf_yield": 0.031781849626589156,
+    "institutional_ownership_pct": 0.78913003,
+    "dividend_rate": 4.12,
+    "dividend_yield": 0.0088
+  },
+  "scores_detail": {
+    "entry_range_low": 461.72,
+    "entry_range_high": 469.73,
+    "target_range_low": 489.02,
+    "target_range_high": 535.59,
+    "target_1": 489.02,
+    "target_2": 512.3,
+    "target_3": 535.59,
+    "stop_loss": 445.16,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $461.72 – $469.73 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $476.93 direnci veya $459.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $445.16 olarak belirlenmiştir. Fiyatın EMA200 ($474.38) veya günlük VWAP ($466.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($482.16) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($466.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

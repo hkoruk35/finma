@@ -1,0 +1,89 @@
+{
+  "ticker": "MORN",
+  "company": "Morningstar, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:09:47.017Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 203.8300018310547,
+    "open": 202.11000061035156,
+    "high": 204,
+    "low": 198.89999389648438,
+    "prev_close": 202.85000610351562,
+    "change_pct": 0.4831134819088764,
+    "change_pct_1w": 6.706102644790144,
+    "change_pct_1m": -2.659977186142221,
+    "change_pct_1y": -12.781341680463454,
+    "volume": 840500,
+    "avg_volume_30d": 9341800
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 81.35,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.56%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.06272608588863,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 203.77528382338076,
+    "ema_50": 197.70757925955948,
+    "ema_200": 192.9596250769091,
+    "ema_stack_bullish": true,
+    "bb_upper": 214.02150192260743,
+    "bb_middle": 203.8300018310547,
+    "bb_lower": 193.63850173950195,
+    "bb_width": 10,
+    "atr": 7.37,
+    "atr_pct": 3.62,
+    "rvol": 1.2656019182598643,
+    "52w_high": 250.5399932861328,
+    "52w_low": 141.49000549316406
+  },
+  "fundamental": {
+    "pe_ratio": 19.375475,
+    "pb_ratio": 7.4687624,
+    "gross_margin": 0.62240005,
+    "operating_margin": 0.24215999,
+    "net_margin": 0.16427,
+    "market_cap": 7646391296,
+    "revenue_growth_ttm": 0.096,
+    "fcf_yield": 0.06510260601761388,
+    "institutional_ownership_pct": 0.666,
+    "dividend_rate": 2,
+    "dividend_yield": 0.0098
+  },
+  "scores_detail": {
+    "entry_range_low": 199.41,
+    "entry_range_high": 204.57,
+    "target_range_low": 220,
+    "target_range_high": 250.54,
+    "target_1": 220,
+    "target_2": 224.4,
+    "target_3": 250.54,
+    "stop_loss": 193.64,
+    "risk_reward_ratio": 2.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $199.41 – $204.57 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $211.47 direnci veya $197.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $193.64 olarak belirlenmiştir. Fiyatın EMA200 ($192.96) veya günlük VWAP ($202.83) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($202.83) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

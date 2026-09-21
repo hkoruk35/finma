@@ -1,0 +1,89 @@
+{
+  "ticker": "CCI",
+  "company": "Crown Castle Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:18:12.065Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 73.05999755859375,
+    "open": 73.48999786376953,
+    "high": 73.94000244140625,
+    "low": 72.47000122070312,
+    "prev_close": 73.73999786376953,
+    "change_pct": -0.9221593773735162,
+    "change_pct_1w": -3.3853545292339886,
+    "change_pct_1m": -3.6529133661797393,
+    "change_pct_1y": -21.407058650888967,
+    "volume": 7108000,
+    "avg_volume_30d": 85225800
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 35,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.9916334449983,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 74.76683468069133,
+    "ema_50": 76.56557250930943,
+    "ema_200": 83.11614491403826,
+    "ema_stack_bullish": false,
+    "bb_upper": 76.71299743652344,
+    "bb_middle": 73.05999755859375,
+    "bb_lower": 69.40699768066406,
+    "bb_width": 10,
+    "atr": 2.01,
+    "atr_pct": 2.75,
+    "rvol": 1.7202889265926515,
+    "52w_high": 100.5,
+    "52w_low": 69.72000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 29.820406,
+    "pb_ratio": 0,
+    "gross_margin": 0.73732,
+    "operating_margin": 0.46825,
+    "net_margin": 0.20716,
+    "market_cap": 31083771904,
+    "revenue_growth_ttm": -0.049,
+    "fcf_yield": 0.03333733072036379,
+    "institutional_ownership_pct": 1.01776,
+    "dividend_rate": 4.25,
+    "dividend_yield": 0.0582
+  },
+  "scores_detail": {
+    "entry_range_low": 71.86,
+    "entry_range_high": 73.26,
+    "target_range_low": 77.75,
+    "target_range_high": 83.44,
+    "target_1": 77.75,
+    "target_2": 79.95,
+    "target_3": 83.44,
+    "stop_loss": 69.41,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $71.86 – $73.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $74.11 direnci veya $71.45 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $69.41 olarak belirlenmiştir. Fiyatın EMA20 ($74.77) veya günlük VWAP ($73.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($76.57) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($73.51) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

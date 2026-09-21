@@ -1,0 +1,89 @@
+{
+  "ticker": "GM",
+  "company": "General Motors Company",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:27:34.429Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 82.19999694824219,
+    "open": 86.16000366210938,
+    "high": 86.48999786376953,
+    "low": 81.4000015258789,
+    "prev_close": 86.62000274658203,
+    "change_pct": -5.102754165537422,
+    "change_pct_1w": -3.9944004772604043,
+    "change_pct_1m": -6.3354661037467235,
+    "change_pct_1y": 38.71076489445886,
+    "volume": 21137500,
+    "avg_volume_30d": 183383600
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 65,
+    "fundamental_score": 56.6,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.907473033289925,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 85.51605436083506,
+    "ema_50": 84.58143441662368,
+    "ema_200": 78.95558528647247,
+    "ema_stack_bullish": true,
+    "bb_upper": 86.3099967956543,
+    "bb_middle": 82.19999694824219,
+    "bb_lower": 78.08999710083008,
+    "bb_width": 10,
+    "atr": 2.62,
+    "atr_pct": 3.18,
+    "rvol": 1.5788085739400906,
+    "52w_high": 91.8499984741211,
+    "52w_low": 54.33000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 36.696426,
+    "pb_ratio": 1.1627249,
+    "gross_margin": 0.10177,
+    "operating_margin": 0.03202,
+    "net_margin": 0.01051,
+    "market_cap": 74345914368,
+    "revenue_growth_ttm": 0.019,
+    "fcf_yield": 0.2950229405133355,
+    "institutional_ownership_pct": 0.90193003,
+    "dividend_rate": 0.72,
+    "dividend_yield": 0.0088
+  },
+  "scores_detail": {
+    "entry_range_low": 80.63,
+    "entry_range_high": 82.46,
+    "target_range_low": 85.62,
+    "target_range_high": 93.78,
+    "target_1": 85.62,
+    "target_2": 89.7,
+    "target_3": 93.78,
+    "stop_loss": 78.09,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $80.63 – $82.46 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $85.16 direnci veya $80.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $78.09 olarak belirlenmiştir. Fiyatın EMA200 ($78.96) veya günlük VWAP ($82.32) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($84.58) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($82.32) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

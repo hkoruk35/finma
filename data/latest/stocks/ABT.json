@@ -1,0 +1,89 @@
+{
+  "ticker": "ABT",
+  "company": "Abbott Laboratories",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:13:13.411Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 102.61000061035156,
+    "open": 101.83000183105469,
+    "high": 103.19000244140625,
+    "low": 101.5,
+    "prev_close": 102.2300033569336,
+    "change_pct": 0.37170814921253353,
+    "change_pct_1w": 0.6473797762293653,
+    "change_pct_1m": -5.2801635041266906,
+    "change_pct_1y": -23.749725031125344,
+    "volume": 27061600,
+    "avg_volume_30d": 246044500
+  },
+  "scores": {
+    "master_score": 53,
+    "technical_score": 35,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 37.83628065188787,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 105.92499518030158,
+    "ema_50": 104.92914854365415,
+    "ema_200": 106.75341446115297,
+    "ema_stack_bullish": false,
+    "bb_upper": 107.74050064086914,
+    "bb_middle": 102.61000061035156,
+    "bb_lower": 97.47950057983398,
+    "bb_width": 10,
+    "atr": 2.73,
+    "atr_pct": 2.66,
+    "rvol": 1.363775252037741,
+    "52w_high": 137.49000549316406,
+    "52w_low": 81.97000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 33.20712,
+    "pb_ratio": 3.4739478,
+    "gross_margin": 0.56847,
+    "operating_margin": 0.14706999,
+    "net_margin": 0.116450004,
+    "market_cap": 178727452672,
+    "revenue_growth_ttm": 0.13,
+    "fcf_yield": 0.04033585639040109,
+    "institutional_ownership_pct": 0.81823,
+    "dividend_rate": 2.52,
+    "dividend_yield": 0.024600001
+  },
+  "scores_detail": {
+    "entry_range_low": 100.97,
+    "entry_range_high": 102.88,
+    "target_range_low": 110.04,
+    "target_range_high": 129.46,
+    "target_1": 110.04,
+    "target_2": 116.82,
+    "target_3": 129.46,
+    "stop_loss": 97.48,
+    "risk_reward_ratio": 3.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $100.97 – $102.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $104.18 direnci veya $100.42 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $97.48 olarak belirlenmiştir. Fiyatın EMA50 ($104.93) veya günlük VWAP ($102.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($104.93) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($102.62) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

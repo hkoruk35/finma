@@ -1,0 +1,89 @@
+{
+  "ticker": "SAP",
+  "company": "SAP SE",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:53:53.989Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 209.4499969482422,
+    "open": 212.5800018310547,
+    "high": 213.1199951171875,
+    "low": 209.3300018310547,
+    "prev_close": 213.66000366210938,
+    "change_pct": -1.970423402465659,
+    "change_pct_1w": 1.4973814347505978,
+    "change_pct_1m": -2.6312136330480786,
+    "change_pct_1y": -22.35115128229496,
+    "volume": 1890000,
+    "avg_volume_30d": 67973100
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 70,
+    "fundamental_score": 81.35,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.7971049846926,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 211.10368012530898,
+    "ema_50": 200.32710803377122,
+    "ema_200": 200.72436617142512,
+    "ema_stack_bullish": false,
+    "bb_upper": 219.9224967956543,
+    "bb_middle": 209.4499969482422,
+    "bb_lower": 198.97749710083008,
+    "bb_width": 10,
+    "atr": 5.91,
+    "atr_pct": 2.82,
+    "rvol": 0.7229683507152094,
+    "52w_high": 281.3699951171875,
+    "52w_low": 144.97000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 27.307692,
+    "pb_ratio": 65.923035,
+    "gross_margin": 0.73658997,
+    "operating_margin": 0.2762,
+    "net_margin": 0.20413,
+    "market_cap": 241748082688,
+    "revenue_growth_ttm": 0.094,
+    "fcf_yield": 0.037603708831611946,
+    "institutional_ownership_pct": 0.07749,
+    "dividend_rate": 2.93,
+    "dividend_yield": 0.0139999995
+  },
+  "scores_detail": {
+    "entry_range_low": 206.7,
+    "entry_range_high": 210.04,
+    "target_range_low": 218.79,
+    "target_range_high": 246.59,
+    "target_1": 218.79,
+    "target_2": 229.21,
+    "target_3": 246.59,
+    "stop_loss": 198.98,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $206.70 – $210.04 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $215.14 direnci veya $205.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $198.98 olarak belirlenmiştir. Fiyatın EMA50 ($200.33) veya günlük VWAP ($210.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($200.33) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($210.01) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

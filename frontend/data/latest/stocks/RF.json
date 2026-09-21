@@ -1,0 +1,89 @@
+{
+  "ticker": "RF",
+  "company": "Regions Financial Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:52:43.942Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 28.5,
+    "open": 28.670000076293945,
+    "high": 28.760000228881836,
+    "low": 28.290000915527344,
+    "prev_close": 28.479999542236328,
+    "change_pct": 0.07022632754614638,
+    "change_pct_1w": -5.409887839920966,
+    "change_pct_1m": -6.311637315840065,
+    "change_pct_1y": 4.014599988263541,
+    "volume": 16414600,
+    "avg_volume_30d": 222859000
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 45,
+    "fundamental_score": 69.8,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 29.982524455578357,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 29.814461926225555,
+    "ema_50": 30.129938850700086,
+    "ema_200": 28.893339803490345,
+    "ema_stack_bullish": false,
+    "bb_upper": 29.925,
+    "bb_middle": 28.5,
+    "bb_lower": 27.075,
+    "bb_width": 10,
+    "atr": 0.62,
+    "atr_pct": 2.19,
+    "rvol": 1.3384076927564066,
+    "52w_high": 32.470001220703125,
+    "52w_low": 22.700000762939453
+  },
+  "fundamental": {
+    "pe_ratio": 11.585365,
+    "pb_ratio": 1.3910581,
+    "gross_margin": 0,
+    "operating_margin": 0.39314997,
+    "net_margin": 0.30837,
+    "market_cap": 24279992320,
+    "revenue_growth_ttm": 0.034,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.87178004,
+    "dividend_rate": 1.1,
+    "dividend_yield": 0.038399998
+  },
+  "scores_detail": {
+    "entry_range_low": 28.2,
+    "entry_range_high": 28.56,
+    "target_range_low": 29.8,
+    "target_range_high": 32.64,
+    "target_1": 29.8,
+    "target_2": 31.53,
+    "target_3": 32.64,
+    "stop_loss": 27.07,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $28.20 – $28.56 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $28.83 direnci veya $28.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $27.07 olarak belirlenmiştir. Fiyatın EMA200 ($28.89) veya günlük VWAP ($28.43) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($30.13) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($28.43) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 30 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

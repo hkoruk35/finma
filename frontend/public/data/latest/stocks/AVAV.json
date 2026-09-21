@@ -1,0 +1,89 @@
+{
+  "ticker": "AVAV",
+  "company": "AeroVironment, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:05:52.002Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 159.9499969482422,
+    "open": 165.57000732421875,
+    "high": 168,
+    "low": 159.39999389648438,
+    "prev_close": 163.3800048828125,
+    "change_pct": -2.0994049651489193,
+    "change_pct_1w": 9.0245992968955,
+    "change_pct_1m": 10.577258000236714,
+    "change_pct_1y": -43.566312288195,
+    "volume": 2434800,
+    "avg_volume_30d": 58499800
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 70,
+    "fundamental_score": 28.55,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.65176880501653,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 154.81321803607634,
+    "ema_50": 159.21217678261874,
+    "ema_200": 199.5104744514268,
+    "ema_stack_bullish": false,
+    "bb_upper": 167.9474967956543,
+    "bb_middle": 159.9499969482422,
+    "bb_lower": 151.95249710083007,
+    "bb_width": 10,
+    "atr": 9.08,
+    "atr_pct": 5.67,
+    "rvol": 1.1561680552754028,
+    "52w_high": 417.8599853515625,
+    "52w_low": 135.1999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.8423386,
+    "gross_margin": 0.26471,
+    "operating_margin": -0.02269,
+    "net_margin": -0.10127,
+    "market_cap": 8128771584,
+    "revenue_growth_ttm": 0.057,
+    "fcf_yield": -0.003188781445282643,
+    "institutional_ownership_pct": 0.87999,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 154.5,
+    "entry_range_high": 160.86,
+    "target_range_low": 165.57,
+    "target_range_high": 207.83,
+    "target_1": 165.57,
+    "target_2": 200.38,
+    "target_3": 207.83,
+    "stop_loss": 148.15,
+    "risk_reward_ratio": 4.48,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $154.50 – $160.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $165.39 direnci veya $152.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $148.15 olarak belirlenmiştir. Fiyatın EMA20 ($154.81) veya günlük VWAP ($160.91) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($159.21) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($160.91) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

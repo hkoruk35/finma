@@ -1,0 +1,89 @@
+{
+  "ticker": "TFC",
+  "company": "Truist Financial Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:57:46.458Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 48.560001373291016,
+    "open": 48.47999954223633,
+    "high": 48.91999816894531,
+    "low": 48.20000076293945,
+    "prev_close": 48.45000076293945,
+    "change_pct": 0.22703943987489997,
+    "change_pct_1w": -3.650793843018249,
+    "change_pct_1m": -5.9825751428868115,
+    "change_pct_1y": 5.381943237174489,
+    "volume": 17188700,
+    "avg_volume_30d": 195641600
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 35,
+    "fundamental_score": 74.75,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.9223280369155,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 50.15634195372308,
+    "ema_50": 50.63193178513409,
+    "ema_200": 49.53177911520757,
+    "ema_stack_bullish": false,
+    "bb_upper": 50.98800144195557,
+    "bb_middle": 48.560001373291016,
+    "bb_lower": 46.13200130462646,
+    "bb_width": 10,
+    "atr": 1.16,
+    "atr_pct": 2.39,
+    "rvol": 1.6381976021459648,
+    "52w_high": 56.20000076293945,
+    "52w_low": 40.779998779296875
+  },
+  "fundamental": {
+    "pe_ratio": 11.1632185,
+    "pb_ratio": 1.0108665,
+    "gross_margin": 0,
+    "operating_margin": 0.39815,
+    "net_margin": 0.30692,
+    "market_cap": 59322171392,
+    "revenue_growth_ttm": 0.082,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.78355,
+    "dividend_rate": 2.08,
+    "dividend_yield": 0.0428
+  },
+  "scores_detail": {
+    "entry_range_low": 47.87,
+    "entry_range_high": 48.68,
+    "target_range_low": 51.52,
+    "target_range_high": 55.51,
+    "target_1": 51.52,
+    "target_2": 53.1,
+    "target_3": 55.51,
+    "stop_loss": 46.13,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $47.87 – $48.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $49.75 direnci veya $47.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $46.13 olarak belirlenmiştir. Fiyatın EMA200 ($49.53) veya günlük VWAP ($48.47) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($50.63) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($48.47) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

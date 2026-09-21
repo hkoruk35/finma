@@ -1,0 +1,89 @@
+{
+  "ticker": "XNCR",
+  "company": "Xencor, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:38:27.584Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 24.719999313354492,
+    "open": 24.450000762939453,
+    "high": 25.023000717163086,
+    "low": 24.128000259399414,
+    "prev_close": 24.59000015258789,
+    "change_pct": 0.5286667749488413,
+    "change_pct_1w": 1.2699691433027527,
+    "change_pct_1m": -7.102597721331281,
+    "change_pct_1y": 146.46061786116994,
+    "volume": 5207400,
+    "avg_volume_30d": 43914100
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 90,
+    "fundamental_score": 33.5,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.76716119798923,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.95535469756338,
+    "ema_50": 22.746038483982787,
+    "ema_200": 16.771206732920696,
+    "ema_stack_bullish": true,
+    "bb_upper": 25.95599927902222,
+    "bb_middle": 24.719999313354492,
+    "bb_lower": 23.483999347686765,
+    "bb_width": 10,
+    "atr": 1.27,
+    "atr_pct": 5.14,
+    "rvol": 1.3857052746156702,
+    "52w_high": 30.610000610351562,
+    "52w_low": 9.449999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.6514032,
+    "gross_margin": -1.4364799,
+    "operating_margin": -0.72369003,
+    "net_margin": -1.55588,
+    "market_cap": 1838016000,
+    "revenue_growth_ttm": 0.175,
+    "fcf_yield": -0.05143453811065845,
+    "institutional_ownership_pct": 1.1450801,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 23.96,
+    "entry_range_high": 24.85,
+    "target_range_low": 30.61,
+    "target_range_high": 31.85,
+    "target_1": 30.61,
+    "target_2": 31.22,
+    "target_3": 31.85,
+    "stop_loss": 23.07,
+    "risk_reward_ratio": 5.11,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.96 – $24.85 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $25.50 direnci veya $23.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $23.07 olarak belirlenmiştir. Fiyatın EMA50 ($22.75) veya günlük VWAP ($24.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($22.75) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($24.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

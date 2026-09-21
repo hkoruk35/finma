@@ -1,0 +1,89 @@
+{
+  "ticker": "PNR",
+  "company": "Pentair plc",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:51:40.346Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 55.91999816894531,
+    "open": 55.7400016784668,
+    "high": 56.08000183105469,
+    "low": 55.34000015258789,
+    "prev_close": 55.720001220703125,
+    "change_pct": 0.3589320600514943,
+    "change_pct_1w": -1.1664963604633947,
+    "change_pct_1m": -7.125063910910566,
+    "change_pct_1y": -49.85652810955132,
+    "volume": 5840300,
+    "avg_volume_30d": 105199600
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 40,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 26.68015292853873,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 59.117901319280946,
+    "ema_50": 63.579104058564965,
+    "ema_200": 79.89578273499883,
+    "ema_stack_bullish": false,
+    "bb_upper": 58.715998077392584,
+    "bb_middle": 55.91999816894531,
+    "bb_lower": 53.12399826049804,
+    "bb_width": 10,
+    "atr": 1.53,
+    "atr_pct": 2.74,
+    "rvol": 0.9399674523477275,
+    "52w_high": 113.94999694824219,
+    "52w_low": 55.34000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 14.412371,
+    "pb_ratio": 2.380993,
+    "gross_margin": 0.41388,
+    "operating_margin": 0.2344,
+    "net_margin": 0.16237,
+    "market_cap": 9036981248,
+    "revenue_growth_ttm": -0.17,
+    "fcf_yield": 0.06178086428181554,
+    "institutional_ownership_pct": 1.00639,
+    "dividend_rate": 1.06,
+    "dividend_yield": 0.019
+  },
+  "scores_detail": {
+    "entry_range_low": 55,
+    "entry_range_high": 56.07,
+    "target_range_low": 70.97,
+    "target_range_high": 77.96,
+    "target_1": 70.97,
+    "target_2": 75.66,
+    "target_3": 77.96,
+    "stop_loss": 53.12,
+    "risk_reward_ratio": 8.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $55.00 – $56.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $56.90 direnci veya $54.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $53.12 olarak belirlenmiştir. Fiyatın EMA20 ($59.12) veya günlük VWAP ($55.80) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($63.58) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($55.80) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 27 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

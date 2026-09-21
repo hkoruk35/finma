@@ -1,0 +1,89 @@
+{
+  "ticker": "JBHT",
+  "company": "J.B. Hunt Transport Services, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:32:03.969Z",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 234.25,
+    "open": 236.8000030517578,
+    "high": 237.75,
+    "low": 232.92999267578125,
+    "prev_close": 236.8000030517578,
+    "change_pct": -1.076859382979169,
+    "change_pct_1w": -13.38510281867538,
+    "change_pct_1m": -14.435471600102332,
+    "change_pct_1y": 73.44143657219759,
+    "volume": 2270900,
+    "avg_volume_30d": 30421400
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 35,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 30.082290808357754,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 260.99201296591195,
+    "ema_50": 266.97761920354014,
+    "ema_200": 240.7625699935132,
+    "ema_stack_bullish": false,
+    "bb_upper": 245.9625,
+    "bb_middle": 234.25,
+    "bb_lower": 222.5375,
+    "bb_width": 10,
+    "atr": 9.35,
+    "atr_pct": 3.99,
+    "rvol": 2.02815123564333,
+    "52w_high": 299.760009765625,
+    "52w_low": 130.1199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 33.368946,
+    "pb_ratio": 6.0155106,
+    "gross_margin": 0.18505,
+    "operating_margin": 0.07423,
+    "net_margin": 0.05311,
+    "market_cap": 21996075008,
+    "revenue_growth_ttm": 0.194,
+    "fcf_yield": 0.04105406767669084,
+    "institutional_ownership_pct": 0.78829,
+    "dividend_rate": 1.8,
+    "dividend_yield": 0.0077
+  },
+  "scores_detail": {
+    "entry_range_low": 228.64,
+    "entry_range_high": 235.18,
+    "target_range_low": 256.18,
+    "target_range_high": 287.93,
+    "target_1": 256.18,
+    "target_2": 276.54,
+    "target_3": 287.93,
+    "stop_loss": 222.1,
+    "risk_reward_ratio": 4.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $228.64 – $235.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $239.58 direnci veya $226.77 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $222.10 olarak belirlenmiştir. Fiyatın EMA200 ($240.76) veya günlük VWAP ($234.64) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($266.98) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($234.64) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.0 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 30 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

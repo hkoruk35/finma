@@ -1,0 +1,89 @@
+{
+  "ticker": "SEI",
+  "company": "Solaris Energy Infrastructure, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T13:30:51.576Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 69.66000366210938,
+    "open": 69,
+    "high": 70.33999633789062,
+    "low": 68.20500183105469,
+    "prev_close": 69.22000122070312,
+    "change_pct": 0.6356579509487915,
+    "change_pct_1w": 3.322464482349754,
+    "change_pct_1m": 26.65455211292614,
+    "change_pct_1y": 92.27161066038907,
+    "volume": 5082300,
+    "avg_volume_30d": 80604000
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 42,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.55204555664862,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.293996035802536,
+    "ema_50": 60.98033092545078,
+    "ema_200": 59.279509407813286,
+    "ema_stack_bullish": true,
+    "bb_upper": 73.14300384521485,
+    "bb_middle": 69.66000366210938,
+    "bb_lower": 66.1770034790039,
+    "bb_width": 10,
+    "atr": 4.42,
+    "atr_pct": 6.35,
+    "rvol": 1.2562751228226887,
+    "52w_high": 86.19000244140625,
+    "52w_low": 34.08000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 88.177216,
+    "pb_ratio": 4.851313,
+    "gross_margin": 0.49943,
+    "operating_margin": 0.26487,
+    "net_margin": 0.07192,
+    "market_cap": 7009632768,
+    "revenue_growth_ttm": 0.469,
+    "fcf_yield": -0.11506711787843549,
+    "institutional_ownership_pct": 1.0478901,
+    "dividend_rate": 0.48,
+    "dividend_yield": 0.0069
+  },
+  "scores_detail": {
+    "entry_range_low": 67.01,
+    "entry_range_high": 70.1,
+    "target_range_low": 71.98,
+    "target_range_high": 86.19,
+    "target_1": 71.98,
+    "target_2": 81.24,
+    "target_3": 86.19,
+    "stop_loss": 63.91,
+    "risk_reward_ratio": 2.73,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $67.01 – $70.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $70.34 direnci veya $66.12 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $63.91 olarak belirlenmiştir. Fiyatın EMA20 ($61.29) veya günlük VWAP ($69.21) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($69.21) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

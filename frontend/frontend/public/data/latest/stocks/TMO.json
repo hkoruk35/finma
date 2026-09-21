@@ -1,0 +1,89 @@
+{
+  "ticker": "TMO",
+  "company": "Thermo Fisher Scientific Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:58:18.276Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 651.4500122070312,
+    "open": 656.6099853515625,
+    "high": 660.0999755859375,
+    "low": 646.8099975585938,
+    "prev_close": 658.3200073242188,
+    "change_pct": -1.0435646859816714,
+    "change_pct_1w": 6.826605290547539,
+    "change_pct_1m": 6.137375136383905,
+    "change_pct_1y": 35.408439813418404,
+    "volume": 4579500,
+    "avg_volume_30d": 58182000
+  },
+  "scores": {
+    "master_score": 90,
+    "technical_score": 95,
+    "fundamental_score": 79.7,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.5849704400641,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 621.6122603958595,
+    "ema_50": 591.7071496613725,
+    "ema_200": 541.0360770754083,
+    "ema_stack_bullish": true,
+    "bb_upper": 684.0225128173828,
+    "bb_middle": 651.4500122070312,
+    "bb_lower": 618.8775115966797,
+    "bb_width": 10,
+    "atr": 15.45,
+    "atr_pct": 2.37,
+    "rvol": 1.6451170465092297,
+    "52w_high": 663.5700073242188,
+    "52w_low": 435.2699890136719
+  },
+  "fundamental": {
+    "pe_ratio": 35.080776,
+    "pb_ratio": 4.5724454,
+    "gross_margin": 0.40987998,
+    "operating_margin": 0.18751,
+    "net_margin": 0.15036,
+    "market_cap": 240871882752,
+    "revenue_growth_ttm": 0.105,
+    "fcf_yield": 0.025894471271359756,
+    "institutional_ownership_pct": 0.94088,
+    "dividend_rate": 1.88,
+    "dividend_yield": 0.0029
+  },
+  "scores_detail": {
+    "entry_range_low": 637.93,
+    "entry_range_high": 652.99,
+    "target_range_low": 677.74,
+    "target_range_high": 742.28,
+    "target_1": 677.74,
+    "target_2": 710.01,
+    "target_3": 742.28,
+    "stop_loss": 618.88,
+    "risk_reward_ratio": 2.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $637.93 – $652.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $659.48 direnci veya $634.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $618.88 olarak belirlenmiştir. Fiyatın EMA20 ($621.61) veya günlük VWAP ($652.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($652.42) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

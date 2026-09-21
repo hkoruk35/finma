@@ -1,0 +1,89 @@
+{
+  "ticker": "MRSH",
+  "company": "Marsh & McLennan Companies, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:42:43.752Z",
+  "sector": "Financial Services",
+  "industry": "Insurance Brokers",
+  "price": {
+    "current": 175.00999450683594,
+    "open": 173.75999450683594,
+    "high": 176.24000549316406,
+    "low": 172.6300048828125,
+    "prev_close": 174.5800018310547,
+    "change_pct": 0.24630122079925534,
+    "change_pct_1w": -1.0739975783971916,
+    "change_pct_1m": -5.776898174326279,
+    "change_pct_1y": -10.777466249020023,
+    "volume": 7168100,
+    "avg_volume_30d": 66167299.99999999
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 35,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.92192812732601,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 182.01835078702862,
+    "ema_50": 182.5450213892546,
+    "ema_200": 180.32269329079855,
+    "ema_stack_bullish": false,
+    "bb_upper": 183.76049423217773,
+    "bb_middle": 175.00999450683594,
+    "bb_lower": 166.25949478149414,
+    "bb_width": 10,
+    "atr": 3.67,
+    "atr_pct": 2.1,
+    "rvol": 1.623584459393084,
+    "52w_high": 207.8300018310547,
+    "52w_low": 156.60000610351562
+  },
+  "fundamental": {
+    "pe_ratio": 21.368742,
+    "pb_ratio": 5.508829,
+    "gross_margin": 0.43994,
+    "operating_margin": 0.26323998,
+    "net_margin": 0.14241,
+    "market_cap": 83516743680,
+    "revenue_growth_ttm": 0.062,
+    "fcf_yield": 0.05729689139144368,
+    "institutional_ownership_pct": 0.94158,
+    "dividend_rate": 3.96,
+    "dividend_yield": 0.0226
+  },
+  "scores_detail": {
+    "entry_range_low": 172.81,
+    "entry_range_high": 175.38,
+    "target_range_low": 182.8,
+    "target_range_high": 200.21,
+    "target_1": 182.8,
+    "target_2": 191.5,
+    "target_3": 200.21,
+    "stop_loss": 166.26,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $172.81 – $175.38 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $177.26 direnci veya $172.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $166.26 olarak belirlenmiştir. Fiyatın EMA200 ($180.32) veya günlük VWAP ($174.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($182.55) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($174.42) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

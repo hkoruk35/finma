@@ -1,0 +1,89 @@
+{
+  "ticker": "LRCX",
+  "company": "Lam Research Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:38:52.909Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 288.1099853515625,
+    "open": 274.4100036621094,
+    "high": 288.2699890136719,
+    "low": 272.6400146484375,
+    "prev_close": 269.30999755859375,
+    "change_pct": 6.980798322898665,
+    "change_pct_1w": -3.3901199878470005,
+    "change_pct_1m": -6.3513762173180925,
+    "change_pct_1y": 128.07946963869995,
+    "volume": 19608300,
+    "avg_volume_30d": 251659000.00000003
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.07%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.522758035547945,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 294.6312286665956,
+    "ema_50": 305.9974355536132,
+    "ema_200": 270.2230924130047,
+    "ema_stack_bullish": false,
+    "bb_upper": 302.51548461914064,
+    "bb_middle": 288.1099853515625,
+    "bb_lower": 273.70448608398436,
+    "bb_width": 10,
+    "atr": 13.93,
+    "atr_pct": 4.83,
+    "rvol": 1.4566878196289423,
+    "52w_high": 438.5,
+    "52w_low": 125
+  },
+  "fundamental": {
+    "pe_ratio": 50.019093,
+    "pb_ratio": 28.90639,
+    "gross_margin": 0.50469,
+    "operating_margin": 0.37390998,
+    "net_margin": 0.31272,
+    "market_cap": 360518057984,
+    "revenue_growth_ttm": 0.3,
+    "fcf_yield": 0.008572343081181131,
+    "institutional_ownership_pct": 0.88834,
+    "dividend_rate": 1.32,
+    "dividend_yield": 0.0046
+  },
+  "scores_detail": {
+    "entry_range_low": 279.75,
+    "entry_range_high": 289.5,
+    "target_range_low": 322.21,
+    "target_range_high": 438.5,
+    "target_1": 322.21,
+    "target_2": 345.28,
+    "target_3": 438.5,
+    "stop_loss": 270.01,
+    "risk_reward_ratio": 4.15,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $279.75 – $289.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $301.51 direnci veya $276.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $270.01 olarak belirlenmiştir. Fiyatın EMA200 ($270.22) veya günlük VWAP ($282.77) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($306.00) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($282.77) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}

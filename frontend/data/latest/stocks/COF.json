@@ -1,0 +1,89 @@
+{
+  "ticker": "COF",
+  "company": "Capital One Financial Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:20:23.753Z",
+  "sector": "Financial Services",
+  "industry": "Credit Services",
+  "price": {
+    "current": 202.42999267578125,
+    "open": 201.3000030517578,
+    "high": 202.97000122070312,
+    "low": 200.27999877929688,
+    "prev_close": 202.0399932861328,
+    "change_pct": 0.1930307872739399,
+    "change_pct_1w": -2.8180558281211345,
+    "change_pct_1m": -7.818767281655142,
+    "change_pct_1y": -11.887356213280592,
+    "volume": 8066400,
+    "avg_volume_30d": 96845500
+  },
+  "scores": {
+    "master_score": 57,
+    "technical_score": 50,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.747537655677206,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 210.320360757922,
+    "ema_50": 210.1199743198527,
+    "ema_200": 208.0728329299443,
+    "ema_stack_bullish": true,
+    "bb_upper": 212.55149230957034,
+    "bb_middle": 202.42999267578125,
+    "bb_lower": 192.30849304199216,
+    "bb_width": 10,
+    "atr": 4.88,
+    "atr_pct": 2.41,
+    "rvol": 1.4029748413710497,
+    "52w_high": 259.6400146484375,
+    "52w_low": 174.24000549316406
+  },
+  "fundamental": {
+    "pe_ratio": 11.147026,
+    "pb_ratio": 1.2059526,
+    "gross_margin": 0,
+    "operating_margin": 0.33629,
+    "net_margin": 0.21867001,
+    "market_cap": 124190810112,
+    "revenue_growth_ttm": 11.11,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.89218,
+    "dividend_rate": 3.2,
+    "dividend_yield": 0.015800001
+  },
+  "scores_detail": {
+    "entry_range_low": 199.5,
+    "entry_range_high": 202.92,
+    "target_range_low": 211.27,
+    "target_range_high": 231.39,
+    "target_1": 211.27,
+    "target_2": 221.33,
+    "target_3": 231.39,
+    "stop_loss": 192.31,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $199.50 – $202.92 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $206.55 direnci veya $198.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $192.31 olarak belirlenmiştir. Fiyatın EMA200 ($208.07) veya günlük VWAP ($201.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($210.12) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($201.97) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

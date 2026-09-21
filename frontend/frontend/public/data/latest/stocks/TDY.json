@@ -1,0 +1,89 @@
+{
+  "ticker": "TDY",
+  "company": "Teledyne Technologies Incorporated",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:56:46.922Z",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 603.4600219726562,
+    "open": 604.260009765625,
+    "high": 606,
+    "low": 597.9400024414062,
+    "prev_close": 601.97998046875,
+    "change_pct": 0.24586224657400912,
+    "change_pct_1w": -0.0546474878177851,
+    "change_pct_1m": -1.1774342346592517,
+    "change_pct_1y": 7.2569924702732544,
+    "volume": 379600,
+    "avg_volume_30d": 7570500
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.17798640566847,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 613.5092991696866,
+    "ema_50": 628.0518465575642,
+    "ema_200": 618.0441412451189,
+    "ema_stack_bullish": false,
+    "bb_upper": 633.6330230712891,
+    "bb_middle": 603.4600219726562,
+    "bb_lower": 573.2870208740234,
+    "bb_width": 10,
+    "atr": 10.27,
+    "atr_pct": 1.7,
+    "rvol": 1.1660788587279571,
+    "52w_high": 697.6699829101562,
+    "52w_low": 483.0199890136719
+  },
+  "fundamental": {
+    "pe_ratio": 29.152657,
+    "pb_ratio": 2.562028,
+    "gross_margin": 0.43339002,
+    "operating_margin": 0.20198,
+    "net_margin": 0.15292,
+    "market_cap": 27957780480,
+    "revenue_growth_ttm": 0.098,
+    "fcf_yield": 0.03264475907352142,
+    "institutional_ownership_pct": 1.00628,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 597.3,
+    "entry_range_high": 604.49,
+    "target_range_low": 630.94,
+    "target_range_high": 691.03,
+    "target_1": 630.94,
+    "target_2": 660.98,
+    "target_3": 691.03,
+    "stop_loss": 573.29,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $597.30 – $604.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $608.82 direnci veya $595.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $573.29 olarak belirlenmiştir. Fiyatın EMA20 ($613.51) veya günlük VWAP ($600.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($628.05) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($600.78) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

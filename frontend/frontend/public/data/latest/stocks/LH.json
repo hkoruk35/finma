@@ -1,0 +1,89 @@
+{
+  "ticker": "LH",
+  "company": "Labcorp Holdings Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T13:32:19.655Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 320.7099914550781,
+    "open": 322,
+    "high": 322.70001220703125,
+    "low": 319.3800048828125,
+    "prev_close": 322.7300109863281,
+    "change_pct": -0.6259162341538713,
+    "change_pct_1w": 2.943436688271774,
+    "change_pct_1m": -1.8905512302068463,
+    "change_pct_1y": 15.717120157997702,
+    "volume": 1737900,
+    "avg_volume_30d": 20165500
+  },
+  "scores": {
+    "master_score": 73,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.58501437262744,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 322.4903398029357,
+    "ema_50": 312.95863719130926,
+    "ema_200": 286.7793511930982,
+    "ema_stack_bullish": true,
+    "bb_upper": 336.74549102783203,
+    "bb_middle": 320.7099914550781,
+    "bb_lower": 304.6744918823242,
+    "bb_width": 10,
+    "atr": 8.2,
+    "atr_pct": 2.56,
+    "rvol": 1.3226451117006768,
+    "52w_high": 341.79998779296875,
+    "52w_low": 244.52000427246094
+  },
+  "fundamental": {
+    "pe_ratio": 26.52688,
+    "pb_ratio": 3.0145316,
+    "gross_margin": 0.28882998,
+    "operating_margin": 0.1224,
+    "net_margin": 0.069860004,
+    "market_cap": 26009579520,
+    "revenue_growth_ttm": 0.058,
+    "fcf_yield": 0.03429697828502227,
+    "institutional_ownership_pct": 1.0192701,
+    "dividend_rate": 2.88,
+    "dividend_yield": 0.009
+  },
+  "scores_detail": {
+    "entry_range_low": 311.27,
+    "entry_range_high": 321.53,
+    "target_range_low": 341.8,
+    "target_range_high": 363.86,
+    "target_1": 341.8,
+    "target_2": 348.64,
+    "target_3": 363.86,
+    "stop_loss": 304.67,
+    "risk_reward_ratio": 2.75,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $311.27 – $321.53 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $324.99 direnci veya $309.63 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $304.67 olarak belirlenmiştir. Fiyatın EMA50 ($312.96) veya günlük VWAP ($321.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($312.96) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($321.28) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

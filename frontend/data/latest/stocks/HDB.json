@@ -1,0 +1,89 @@
+{
+  "ticker": "HDB",
+  "company": "HDFC Bank Limited",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:29:40.231Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 23.15999984741211,
+    "open": 23.030000686645508,
+    "high": 23.350000381469727,
+    "low": 22.920000076293945,
+    "prev_close": 22.65999984741211,
+    "change_pct": 2.206531347603264,
+    "change_pct_1w": -0.7712095287018377,
+    "change_pct_1m": -0.08628325064864664,
+    "change_pct_1y": -34.980346597706536,
+    "volume": 9359000,
+    "avg_volume_30d": 292116200
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 55,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.13196677580958,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 22.915898948813897,
+    "ema_50": 23.509182516144413,
+    "ema_200": 27.030302809003672,
+    "ema_stack_bullish": false,
+    "bb_upper": 24.317999839782715,
+    "bb_middle": 23.15999984741211,
+    "bb_lower": 22.001999855041504,
+    "bb_width": 10,
+    "atr": 0.58,
+    "atr_pct": 2.52,
+    "rvol": 0.8625143008159083,
+    "52w_high": 37.45000076293945,
+    "52w_low": 21.770000457763672
+  },
+  "fundamental": {
+    "pe_ratio": 16.195805,
+    "pb_ratio": 9.322433,
+    "gross_margin": 0,
+    "operating_margin": 0.33291999,
+    "net_margin": 0.26787,
+    "market_cap": 119015997440,
+    "revenue_growth_ttm": 0.166,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.13568,
+    "dividend_rate": 0.41,
+    "dividend_yield": 0.0176
+  },
+  "scores_detail": {
+    "entry_range_low": 22.81,
+    "entry_range_high": 23.22,
+    "target_range_low": 24.16,
+    "target_range_high": 26.47,
+    "target_1": 24.16,
+    "target_2": 25.32,
+    "target_3": 26.47,
+    "stop_loss": 22,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $22.81 – $23.22 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $23.46 direnci veya $22.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $22.00 olarak belirlenmiştir. Fiyatın EMA20 ($22.92) veya günlük VWAP ($23.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($23.51) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($23.12) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

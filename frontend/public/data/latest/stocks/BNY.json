@@ -1,0 +1,89 @@
+{
+  "ticker": "BNY",
+  "company": "The Bank of New York Mellon Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:17:29.085Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 153.7899932861328,
+    "open": 152.25999450683594,
+    "high": 153.89999389648438,
+    "low": 151.77999877929688,
+    "prev_close": 153.02000427246094,
+    "change_pct": 0.5031950020736277,
+    "change_pct_1w": -5.453098596015079,
+    "change_pct_1m": -6.703472031816483,
+    "change_pct_1y": 41.71581095045934,
+    "volume": 8457000,
+    "avg_volume_30d": 88601600
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 65,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.76%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.10589687040315,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 158.8820371467343,
+    "ema_50": 157.02971524677517,
+    "ema_200": 139.34037484805384,
+    "ema_stack_bullish": true,
+    "bb_upper": 161.47949295043946,
+    "bb_middle": 153.7899932861328,
+    "bb_lower": 146.10049362182616,
+    "bb_width": 10,
+    "atr": 3.14,
+    "atr_pct": 2.04,
+    "rvol": 1.7628101524125976,
+    "52w_high": 165.83999633789062,
+    "52w_low": 103.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 17.945158,
+    "pb_ratio": 2.6145422,
+    "gross_margin": 0,
+    "operating_margin": 0.40046,
+    "net_margin": 0.29413998,
+    "market_cap": 104347148288,
+    "revenue_growth_ttm": 0.131,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.87214994,
+    "dividend_rate": 2.22,
+    "dividend_yield": 0.014400001
+  },
+  "scores_detail": {
+    "entry_range_low": 151.91,
+    "entry_range_high": 154.1,
+    "target_range_low": 163.77,
+    "target_range_high": 175.96,
+    "target_1": 163.77,
+    "target_2": 168.31,
+    "target_3": 175.96,
+    "stop_loss": 146.1,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $151.91 – $154.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $155.63 direnci veya $151.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $146.10 olarak belirlenmiştir. Fiyatın EMA200 ($139.34) veya günlük VWAP ($152.73) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($157.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($152.73) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.8 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

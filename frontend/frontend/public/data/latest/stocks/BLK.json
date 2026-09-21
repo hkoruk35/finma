@@ -1,0 +1,89 @@
+{
+  "ticker": "BLK",
+  "company": "BlackRock, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:17:04.570Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 1069.780029296875,
+    "open": 1047.1400146484375,
+    "high": 1070.1099853515625,
+    "low": 1041.9100341796875,
+    "prev_close": 1053.9599609375,
+    "change_pct": 1.501012272354541,
+    "change_pct_1w": -0.9141846796645099,
+    "change_pct_1m": -4.678827035610955,
+    "change_pct_1y": -5.922803487441024,
+    "volume": 1086200,
+    "avg_volume_30d": 16784800
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.41833312916729,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1094.0488548681685,
+    "ema_50": 1095.6720934994573,
+    "ema_200": 1076.1315624771687,
+    "ema_stack_bullish": false,
+    "bb_upper": 1123.2690307617188,
+    "bb_middle": 1069.780029296875,
+    "bb_lower": 1016.2910278320312,
+    "bb_width": 10,
+    "atr": 25.56,
+    "atr_pct": 2.39,
+    "rvol": 1.1557599733091843,
+    "52w_high": 1219.93994140625,
+    "52w_low": 917.3900146484375
+  },
+  "fundamental": {
+    "pe_ratio": 25.6419,
+    "pb_ratio": 2.8780427,
+    "gross_margin": 0.47152,
+    "operating_margin": 0.35079,
+    "net_margin": 0.24089001,
+    "market_cap": 173813792768,
+    "revenue_growth_ttm": 0.306,
+    "fcf_yield": 0.04359909923900568,
+    "institutional_ownership_pct": 0.84615,
+    "dividend_rate": 22.92,
+    "dividend_yield": 0.0214
+  },
+  "scores_detail": {
+    "entry_range_low": 1054.44,
+    "entry_range_high": 1072.34,
+    "target_range_low": 1116.56,
+    "target_range_high": 1222.9,
+    "target_1": 1116.56,
+    "target_2": 1169.73,
+    "target_3": 1222.9,
+    "stop_loss": 1016.29,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,054.44 – $1,072.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,090.66 direnci veya $1,049.33 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,016.29 olarak belirlenmiştir. Fiyatın EMA200 ($1,076.13) veya günlük VWAP ($1,057.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,095.67) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,057.52) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
