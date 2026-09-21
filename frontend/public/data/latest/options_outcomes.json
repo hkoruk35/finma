@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T23:30:04.607120-04:00",
+  "updated_at": "2026-09-21T00:30:06.232452-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 407,
@@ -10,9 +10,9 @@
     "time_stop": 110,
     "expired": 15,
     "win_rate": 24.8,
-    "avg_pnl_pct": 2.0,
+    "avg_pnl_pct": 1.9,
     "avg_winner_pct": 92.0,
-    "avg_loser_pct": -45.1,
+    "avg_loser_pct": -45.2,
     "best_trade_pct": 462.5,
     "worst_trade_pct": -100.0,
     "avg_unrealized_pnl": null,
@@ -63,7 +63,7 @@
         "total": 30,
         "wins": 14,
         "win_rate": 46.7,
-        "avg_pnl": -3.6
+        "avg_pnl": -3.8
       },
       "EMA50_BOUNCE": {
         "total": 7,
@@ -81,7 +81,7 @@
         "total": 53,
         "wins": 18,
         "win_rate": 34.0,
-        "avg_pnl": -7.1
+        "avg_pnl": -7.6
       },
       "TREND_START": {
         "total": 24,
@@ -90,7 +90,7 @@
         "avg_pnl": 1.7
       }
     },
-    "expectancy": -6.2
+    "expectancy": -6.3
   },
   "positions": [
     {
@@ -14723,13 +14723,13 @@
       "delta_at_entry": 0.563,
       "expected_move": null,
       "status": "expired",
-      "exit_premium": 0.0475,
+      "exit_premium": 0.02,
       "exit_date": "2026-09-18",
       "exit_reason": "Expiry — worthless",
       "pnl_pct": -100.0,
-      "current_premium": 0.0475,
-      "unrealized_pnl_pct": -99.9,
-      "days_held": 151,
+      "current_premium": 0.02,
+      "unrealized_pnl_pct": -99.6,
+      "days_held": 153,
       "peak_premium": 14.0,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14851,13 +14851,13 @@
       "delta_at_entry": 0.595,
       "expected_move": null,
       "status": "expired",
-      "exit_premium": 0.2185,
+      "exit_premium": 0.03,
       "exit_date": "2026-09-18",
-      "exit_reason": "Expiry — $0.22",
-      "pnl_pct": -95.9,
-      "current_premium": 0.2185,
+      "exit_reason": "Expiry — worthless",
+      "pnl_pct": -100.0,
+      "current_premium": 0.03,
       "unrealized_pnl_pct": -99.8,
-      "days_held": 151,
+      "days_held": 153,
       "peak_premium": 10.1,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14883,13 +14883,13 @@
       "delta_at_entry": 0.449,
       "expected_move": null,
       "status": "expired",
-      "exit_premium": 0.065,
+      "exit_premium": 0.05,
       "exit_date": "2026-09-18",
-      "exit_reason": "Expiry — $0.07",
-      "pnl_pct": -98.2,
-      "current_premium": 0.065,
+      "exit_reason": "Expiry — $0.05",
+      "pnl_pct": -100.0,
+      "current_premium": 0.05,
       "unrealized_pnl_pct": -99.7,
-      "days_held": 151,
+      "days_held": 153,
       "peak_premium": 7.175,
       "trough_premium": 0.0095,
       "underlying_current": null
@@ -14952,8 +14952,8 @@
       "exit_reason": "Expiry — worthless",
       "pnl_pct": -100.0,
       "current_premium": 0.0,
-      "unrealized_pnl_pct": -98.2,
-      "days_held": 151,
+      "unrealized_pnl_pct": -99.6,
+      "days_held": 153,
       "peak_premium": 2.85,
       "trough_premium": 0.01,
       "underlying_current": null
@@ -14979,13 +14979,13 @@
       "delta_at_entry": 0.497,
       "expected_move": null,
       "status": "expired",
-      "exit_premium": 6.1,
+      "exit_premium": 4.2,
       "exit_date": "2026-09-18",
-      "exit_reason": "Expiry — $6.10",
-      "pnl_pct": -6.2,
-      "current_premium": 6.1,
-      "unrealized_pnl_pct": -8.5,
-      "days_held": 151,
+      "exit_reason": "Expiry — $4.20",
+      "pnl_pct": -35.4,
+      "current_premium": 4.2,
+      "unrealized_pnl_pct": -41.8,
+      "days_held": 153,
       "peak_premium": 16.05,
       "trough_premium": 1.9,
       "underlying_current": null
@@ -15016,8 +15016,8 @@
       "exit_reason": "Expiry — worthless",
       "pnl_pct": -100.0,
       "current_premium": 0.0,
-      "unrealized_pnl_pct": -96.1,
-      "days_held": 151,
+      "unrealized_pnl_pct": -91.9,
+      "days_held": 153,
       "peak_premium": 1.625,
       "trough_premium": 0.0475,
       "underlying_current": null
