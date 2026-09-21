@@ -1,47 +1,23 @@
 {
-  "generated_at": "2026-09-18T17:03:15.653280-04:00",
+  "generated_at": "2026-09-21T09:06:18.050659-04:00",
   "picks": [
     {
-      "ticker": "HOOD",
+      "ticker": "MGNI",
+      "sector": "Communication Services",
+      "date_added": "2026-09-21",
+      "score": 41.0
+    },
+    {
+      "ticker": "JXN",
       "sector": "Financial Services",
-      "date_added": "2026-09-18",
-      "score": 31.5
+      "date_added": "2026-09-21",
+      "score": 41.0
     },
     {
-      "ticker": "EMR",
-      "sector": "Industrials",
-      "date_added": "2026-09-18",
-      "score": 36.5
-    },
-    {
-      "ticker": "KLAC",
+      "ticker": "OKTA",
       "sector": "Technology",
-      "date_added": "2026-09-18",
-      "score": 45.5
-    },
-    {
-      "ticker": "GH",
-      "sector": "Healthcare",
-      "date_added": "2026-09-18",
-      "score": 45.5
-    },
-    {
-      "ticker": "CAMT",
-      "sector": "Technology",
-      "date_added": "2026-09-18",
-      "score": 45.0
-    },
-    {
-      "ticker": "NDAQ",
-      "sector": "Financial Services",
-      "date_added": "2026-09-18",
-      "score": 43.5
-    },
-    {
-      "ticker": "WCC",
-      "sector": "Industrials",
-      "date_added": "2026-09-18",
-      "score": 43.0
+      "date_added": "2026-09-21",
+      "score": 40.5
     }
   ]
 }
