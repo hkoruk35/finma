@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-21T14:06:03.291761-04:00",
+  "generated_at": "2026-09-21T17:05:58.931696-04:00",
   "picks": [
     {
       "ticker": "MGNI",
       "sector": "Communication Services",
       "date_added": "2026-09-21",
-      "score": 41.0
+      "score": 39.0
     },
     {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-09-21",
-      "score": 40.5
+      "score": 38.5
     },
     {
       "ticker": "CRWD",
@@ -32,16 +32,40 @@
       "score": 29.5
     },
     {
-      "ticker": "SMTC",
-      "sector": "Technology",
-      "date_added": "2026-09-21",
-      "score": 26.0
-    },
-    {
       "ticker": "AMD",
       "sector": "Technology",
       "date_added": "2026-09-21",
       "score": 21.2
+    },
+    {
+      "ticker": "MATX",
+      "sector": "Industrials",
+      "date_added": "2026-09-21",
+      "score": 46.0
+    },
+    {
+      "ticker": "URI",
+      "sector": "Industrials",
+      "date_added": "2026-09-21",
+      "score": 44.5
+    },
+    {
+      "ticker": "BGC",
+      "sector": "Financial Services",
+      "date_added": "2026-09-21",
+      "score": 44.1
+    },
+    {
+      "ticker": "CSCO",
+      "sector": "Technology",
+      "date_added": "2026-09-21",
+      "score": 41.0
+    },
+    {
+      "ticker": "BE",
+      "sector": "Industrials",
+      "date_added": "2026-09-21",
+      "score": 38.0
     }
   ]
 }
