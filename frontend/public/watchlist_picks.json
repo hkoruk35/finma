@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T09:06:18.050659-04:00",
+  "generated_at": "2026-09-21T14:06:03.291761-04:00",
   "picks": [
     {
       "ticker": "MGNI",
@@ -8,16 +8,40 @@
       "score": 41.0
     },
     {
-      "ticker": "JXN",
-      "sector": "Financial Services",
-      "date_added": "2026-09-21",
-      "score": 41.0
-    },
-    {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-09-21",
       "score": 40.5
+    },
+    {
+      "ticker": "CRWD",
+      "sector": "Technology",
+      "date_added": "2026-09-21",
+      "score": 36.5
+    },
+    {
+      "ticker": "AMZN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-21",
+      "score": 33.5
+    },
+    {
+      "ticker": "RVTY",
+      "sector": "Healthcare",
+      "date_added": "2026-09-21",
+      "score": 29.5
+    },
+    {
+      "ticker": "SMTC",
+      "sector": "Technology",
+      "date_added": "2026-09-21",
+      "score": 26.0
+    },
+    {
+      "ticker": "AMD",
+      "sector": "Technology",
+      "date_added": "2026-09-21",
+      "score": 21.2
     }
   ]
 }
