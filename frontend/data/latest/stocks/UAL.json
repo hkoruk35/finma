@@ -1,0 +1,89 @@
+{
+  "ticker": "UAL",
+  "company": "United Airlines Holdings, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:00:43.739Z",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 108.70999908447266,
+    "open": 107.70999908447266,
+    "high": 109.41999816894531,
+    "low": 107.06999969482422,
+    "prev_close": 107.63999938964844,
+    "change_pct": 0.9940539770451902,
+    "change_pct_1w": -1.0107454138008676,
+    "change_pct_1m": -2.397197194097953,
+    "change_pct_1y": 3.159994228360715,
+    "volume": 4656100,
+    "avg_volume_30d": 98998200
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.91572461107546,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 110.49001963745712,
+    "ema_50": 114.11422656940397,
+    "ema_200": 110.07332510802755,
+    "ema_stack_bullish": false,
+    "bb_upper": 114.1454990386963,
+    "bb_middle": 108.70999908447266,
+    "bb_lower": 103.27449913024901,
+    "bb_width": 10,
+    "atr": 3.59,
+    "atr_pct": 3.3,
+    "rvol": 1.2030400552737321,
+    "52w_high": 138.77000427246094,
+    "52w_low": 84.63999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 10.178839,
+    "pb_ratio": 2.1132948,
+    "gross_margin": 0.31816,
+    "operating_margin": 0.05534,
+    "net_margin": 0.05558,
+    "market_cap": 35283976192,
+    "revenue_growth_ttm": 0.16,
+    "fcf_yield": 0.025794286535267368,
+    "institutional_ownership_pct": 0.90689003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 106.56,
+    "entry_range_high": 109.07,
+    "target_range_low": 116.32,
+    "target_range_high": 123.98,
+    "target_1": 116.32,
+    "target_2": 118.65,
+    "target_3": 123.98,
+    "stop_loss": 103.27,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $106.56 – $109.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $110.64 direnci veya $105.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $103.27 olarak belirlenmiştir. Fiyatın EMA200 ($110.07) veya günlük VWAP ($108.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($114.11) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($108.37) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

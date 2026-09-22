@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-21T08:00:17.200284",
+  "generated_at": "2026-09-22T08:00:19.047145",
   "options": {
     "RIOT": {
       "dte_30": {
         "strike": 20.0,
-        "lastPrice": 4.66,
+        "lastPrice": 5.0,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 6,
+        "volume": 5,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-23",
@@ -15,10 +15,10 @@
       },
       "dte_45": {
         "strike": 20.0,
-        "lastPrice": 4.72,
+        "lastPrice": 5.3,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 8,
+        "volume": 5,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-30",
@@ -26,10 +26,10 @@
       },
       "dte_60": {
         "strike": 20.0,
-        "lastPrice": 5.57,
+        "lastPrice": 5.5,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 22,
+        "volume": 34,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",
@@ -39,10 +39,10 @@
     "SMCI": {
       "dte_30": {
         "strike": 37.0,
-        "lastPrice": 4.23,
+        "lastPrice": 5.93,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 12,
+        "volume": 3,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-23",
@@ -50,10 +50,10 @@
       },
       "dte_45": {
         "strike": 37.0,
-        "lastPrice": 4.62,
+        "lastPrice": 5.81,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 17,
+        "volume": 4,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-30",
@@ -61,10 +61,10 @@
       },
       "dte_60": {
         "strike": 37.0,
-        "lastPrice": 6.0,
+        "lastPrice": 7.45,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 158,
+        "volume": 37,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",

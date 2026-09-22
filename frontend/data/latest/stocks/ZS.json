@@ -1,8 +1,8 @@
 {
   "ticker": "ZS",
   "company": "Zscaler, Inc.",
-  "date": "2026-09-21",
-  "generated_at": "2026-09-21T02:51:50.244Z",
+  "date": "2026-09-22",
+  "generated_at": "2026-09-22T00:18:33.392Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -14,7 +14,7 @@
     "change_pct": -0.0810268198310012,
     "change_pct_1w": 19.916133225722422,
     "change_pct_1m": 16.20140990130044,
-    "change_pct_1y": -32.2214944567051,
+    "change_pct_1y": -32.94933057226346,
     "volume": 4865000,
     "avg_volume_30d": 94942800
   },
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 63.29517915709654,
+    "rsi_14": 63.29517912407009,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 180.53696509064775,
-    "ema_50": 170.1844394726873,
-    "ema_200": 180.32636563472323,
+    "ema_20": 180.5369650906867,
+    "ema_50": 170.1845771268891,
+    "ema_200": 180.5831681967473,
     "ema_stack_bullish": false,
     "bb_upper": 207.17549743652344,
     "bb_middle": 197.30999755859375,
@@ -53,13 +53,13 @@
   },
   "fundamental": {
     "pe_ratio": 0,
-    "pb_ratio": 12.382177,
+    "pb_ratio": 12.998431,
     "gross_margin": 0.76872003,
     "operating_margin": -0.01008,
     "net_margin": -0.01885,
-    "market_cap": 32172322816,
+    "market_cap": 33773520896,
     "revenue_growth_ttm": 0.249,
-    "fcf_yield": 0.03341119775987766,
+    "fcf_yield": 0.03182717737099506,
     "institutional_ownership_pct": 0.53185004,
     "dividend_rate": 0,
     "dividend_yield": 0
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $191.29 – $198.31 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $199.76 direnci veya $189.28 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $184.26 olarak belirlenmiştir. Fiyatın EMA20 ($180.54) veya günlük VWAP ($197.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $184.26 olarak belirlenmiştir. Fiyatın EMA200 ($180.58) veya günlük VWAP ($205.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($170.18) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($197.01) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($205.00) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
   }
