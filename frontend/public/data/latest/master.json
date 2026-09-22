@@ -1,8 +1,8 @@
 {
   "date": "2026-09-21",
-  "generated_at": "2026-09-21T14:06:02.619668-04:00",
+  "generated_at": "2026-09-21T17:05:57.725195-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 27,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,12 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 7,
       "tickers": [
+        "ANET",
         "WTTR",
         "MSGE",
         "ARXS",
-        "AU"
+        "AU",
+        "TEVA",
+        "DHR"
       ]
     },
     "value": {
@@ -49,36 +52,41 @@
   "top_3_overall": [
     {
       "ticker": "ANET",
-      "score": 62.5,
+      "score": 47.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "CAT",
-      "score": 61.0,
+      "score": 49.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "KEYS",
-      "score": 57.0,
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 773.85,
+      "change_pct": 0.05
     },
     "NASDAQ": {
-      "value": 16000,
-      "change_pct": 0.8
+      "value": 745.024,
+      "change_pct": 0.48
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 518.99,
+      "change_pct": -0.15
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 14.72,
+      "change_pct": -1.01
+    },
+    "RUSSELL2000": {
+      "value": 288.18,
+      "change_pct": 0.91
     }
-  }
+  },
+  "price_updated_at": "2026-09-22T10:00:15.896230-04:00"
 }
