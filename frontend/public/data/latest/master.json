@@ -1,8 +1,8 @@
 {
-  "date": "2026-09-21",
-  "generated_at": "2026-09-21T17:05:57.725195-04:00",
+  "date": "2026-09-22",
+  "generated_at": "2026-09-22T09:07:54.951371-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 27,
+  "active_scores_count": 30,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 8,
       "tickers": [
         "ANET",
         "WTTR",
@@ -29,7 +29,8 @@
         "ARXS",
         "AU",
         "TEVA",
-        "DHR"
+        "DHR",
+        "CRWD"
       ]
     },
     "value": {
@@ -68,25 +69,25 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 773.85,
-      "change_pct": 0.05
+      "value": 773.41,
+      "change_pct": -0.01
     },
     "NASDAQ": {
-      "value": 745.024,
-      "change_pct": 0.48
+      "value": 744.8519,
+      "change_pct": 0.46
     },
     "DOW": {
-      "value": 518.99,
-      "change_pct": -0.15
+      "value": 517.405,
+      "change_pct": -0.46
     },
     "VIX": {
-      "value": 14.72,
-      "change_pct": -1.01
+      "value": 14.47,
+      "change_pct": -2.69
     },
     "RUSSELL2000": {
-      "value": 288.18,
-      "change_pct": 0.91
+      "value": 286.3301,
+      "change_pct": 0.26
     }
   },
-  "price_updated_at": "2026-09-22T10:00:15.896230-04:00"
+  "price_updated_at": "2026-09-22T11:00:10.615506-04:00"
 }
