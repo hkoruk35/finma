@@ -1,23 +1,11 @@
 {
-  "generated_at": "2026-09-22T09:07:56.277675-04:00",
+  "generated_at": "2026-09-22T14:04:57.072675-04:00",
   "picks": [
-    {
-      "ticker": "MGNI",
-      "sector": "Communication Services",
-      "date_added": "2026-09-21",
-      "score": 39.0
-    },
     {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-09-21",
       "score": 38.5
-    },
-    {
-      "ticker": "AMZN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-21",
-      "score": 37.5
     },
     {
       "ticker": "RVTY",
@@ -38,18 +26,6 @@
       "score": 44.5
     },
     {
-      "ticker": "BGC",
-      "sector": "Financial Services",
-      "date_added": "2026-09-21",
-      "score": 44.1
-    },
-    {
-      "ticker": "CSCO",
-      "sector": "Technology",
-      "date_added": "2026-09-21",
-      "score": 41.0
-    },
-    {
       "ticker": "BE",
       "sector": "Industrials",
       "date_added": "2026-09-21",
@@ -68,22 +44,70 @@
       "score": 37.5
     },
     {
-      "ticker": "SMTC",
-      "sector": "Technology",
-      "date_added": "2026-09-22",
-      "score": 35.0
-    },
-    {
-      "ticker": "ARE",
-      "sector": "Real Estate",
-      "date_added": "2026-09-22",
-      "score": 34.5
-    },
-    {
       "ticker": "WTTR",
       "sector": "Energy",
       "date_added": "2026-09-22",
       "score": 34.0
+    },
+    {
+      "ticker": "EMR",
+      "sector": "Industrials",
+      "date_added": "2026-09-22",
+      "score": 51.0
+    },
+    {
+      "ticker": "WSM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-22",
+      "score": 50.5
+    },
+    {
+      "ticker": "CNK",
+      "sector": "Communication Services",
+      "date_added": "2026-09-22",
+      "score": 48.5
+    },
+    {
+      "ticker": "EQIX",
+      "sector": "Real Estate",
+      "date_added": "2026-09-22",
+      "score": 48.5
+    },
+    {
+      "ticker": "RGEN",
+      "sector": "Healthcare",
+      "date_added": "2026-09-22",
+      "score": 47.0
+    },
+    {
+      "ticker": "DE",
+      "sector": "Industrials",
+      "date_added": "2026-09-22",
+      "score": 46.5
+    },
+    {
+      "ticker": "IAG",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-22",
+      "score": 45.0
+    },
+    {
+      "ticker": "CRCL",
+      "sector": "Financial Services",
+      "date_added": "2026-09-22",
+      "score": 45.0
+    },
+    {
+      "ticker": "CLF",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-22",
+      "score": 42.5
+    },
+    {
+      "ticker": "NBIS",
+      "sector": "Communication Services",
+      "date_added": "2026-09-22",
+      "score": 38.0
     }
   ]
 }
