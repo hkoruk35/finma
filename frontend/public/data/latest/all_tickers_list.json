@@ -7,9 +7,9 @@
       "sector": "Technology",
       "master_score": 47.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 205.18,
-      "change_pct": -0.12,
-      "volume": 2637329,
+      "price": 205.4199981689453,
+      "change_pct": 3.02,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.5 | System: BREAKOUT"
     },
     {
@@ -18,9 +18,9 @@
       "sector": "Industrials",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 806.0,
-      "change_pct": -1.29,
-      "volume": 1217916,
+      "price": 816.5,
+      "change_pct": 0.93,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
     {
@@ -29,9 +29,9 @@
       "sector": "Technology",
       "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 347.31,
-      "change_pct": 1.54,
-      "volume": 375310,
+      "price": 342.0299987792969,
+      "change_pct": 2.1,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
@@ -40,9 +40,9 @@
       "sector": "Healthcare",
       "master_score": 56.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 166.08,
-      "change_pct": 2.56,
-      "volume": 1455505,
+      "price": 156.47000122070312,
+      "change_pct": 0.08,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
     },
     {
@@ -51,9 +51,9 @@
       "sector": "Energy",
       "master_score": 55.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 20.195,
-      "change_pct": -1.97,
-      "volume": 577964,
+      "price": 20.780000686645508,
+      "change_pct": 2.06,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 55.0 | System: BREAKOUT"
     },
     {
@@ -62,9 +62,9 @@
       "sector": "Financial Services",
       "master_score": 54.6,
       "score_type": "POSITIVE_BIAS",
-      "price": 12.345,
-      "change_pct": -0.84,
-      "volume": 1251030,
+      "price": 12.220000267028809,
+      "change_pct": 1.92,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 54.6 | System: SQUEEZE"
     },
     {
@@ -73,9 +73,9 @@
       "sector": "Communication Services",
       "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 80.33,
-      "change_pct": -1.07,
-      "volume": 131361,
+      "price": 79.0199966430664,
+      "change_pct": 2.38,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
     },
     {
@@ -84,9 +84,9 @@
       "sector": "Consumer Cyclical",
       "master_score": 45.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 85.06,
-      "change_pct": 2.09,
-      "volume": 183922,
+      "price": 82.70999908447266,
+      "change_pct": -0.46,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.5 | System: TREND_CONT"
     },
     {
@@ -95,9 +95,9 @@
       "sector": "Industrials",
       "master_score": 45.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 51.14,
-      "change_pct": -0.14,
-      "volume": 451681,
+      "price": 52.02000045776367,
+      "change_pct": 4.67,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
     },
     {
@@ -106,9 +106,9 @@
       "sector": "Basic Materials",
       "master_score": 42.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 104.01,
-      "change_pct": 2.04,
-      "volume": 1178382,
+      "price": 103.29000091552734,
+      "change_pct": 0.91,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 42.5 | System: BREAKOUT"
     },
     {
@@ -117,9 +117,9 @@
       "sector": "Technology",
       "master_score": 55.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 460.18,
-      "change_pct": 2.68,
-      "volume": 5425761,
+      "price": 444.510009765625,
+      "change_pct": 0.71,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
     },
     {
@@ -128,9 +128,9 @@
       "sector": "Technology",
       "master_score": 58.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 395.495,
-      "change_pct": 3.66,
-      "volume": 1193799,
+      "price": 381.5400085449219,
+      "change_pct": 2.71,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 58.5 | System: TREND_CONT"
     },
     {
@@ -139,9 +139,9 @@
       "sector": "Industrials",
       "master_score": 53.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 300.495,
-      "change_pct": 1.45,
-      "volume": 105966,
+      "price": 296.19000244140625,
+      "change_pct": 1.26,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
     },
     {
@@ -150,9 +150,9 @@
       "sector": "Communication Services",
       "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 352.3892,
-      "change_pct": -0.73,
-      "volume": 20584409,
+      "price": 354.9700012207031,
+      "change_pct": 1.55,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
     },
     {
@@ -161,9 +161,9 @@
       "sector": "Technology",
       "master_score": 49.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 47.39,
-      "change_pct": -2.2,
-      "volume": 883042,
+      "price": 48.45500183105469,
+      "change_pct": 1.88,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.5 | System: DEFAULT"
     },
     {
@@ -172,9 +172,9 @@
       "sector": "Technology",
       "master_score": 45.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 184.185,
-      "change_pct": 0.6,
-      "volume": 13849740,
+      "price": 183.08999633789062,
+      "change_pct": 3.07,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.0 | System: TREND_CONT"
     },
     {
@@ -183,9 +183,9 @@
       "sector": "Industrials",
       "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 181.6625,
-      "change_pct": 0.7,
-      "volume": 115826,
+      "price": 180.39999389648438,
+      "change_pct": 1.41,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 48.0 | System: SQUEEZE"
     },
     {
@@ -194,9 +194,9 @@
       "sector": "Consumer Cyclical",
       "master_score": 50.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 84.19,
-      "change_pct": 3.14,
-      "volume": 836205,
+      "price": 81.62999725341797,
+      "change_pct": 4.75,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
     },
     {
@@ -205,9 +205,9 @@
       "sector": "Technology",
       "master_score": 44.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 283.08,
-      "change_pct": 0.99,
-      "volume": 764314,
+      "price": 279.6050109863281,
+      "change_pct": 2.02,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
     },
     {
@@ -216,9 +216,9 @@
       "sector": "Healthcare",
       "master_score": 44.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 90.17,
-      "change_pct": 1.12,
-      "volume": 3719852,
+      "price": 89.33000183105469,
+      "change_pct": -0.02,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
     },
     {
@@ -227,9 +227,9 @@
       "sector": "Technology",
       "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 1381.9399,
-      "change_pct": 8.16,
-      "volume": 841486,
+      "price": 1277.6800537109375,
+      "change_pct": 4.92,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
@@ -238,9 +238,9 @@
       "sector": "Technology",
       "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 306.64,
-      "change_pct": -4.63,
-      "volume": 5662380,
+      "price": 321.5199890136719,
+      "change_pct": 1.31,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
     },
     {
@@ -249,9 +249,9 @@
       "sector": "Healthcare",
       "master_score": 51.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 39.545,
-      "change_pct": -1.29,
-      "volume": 3277558,
+      "price": 40.060001373291016,
+      "change_pct": 2.77,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
     },
     {
@@ -260,9 +260,9 @@
       "sector": "Healthcare",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 58.57,
-      "change_pct": 0.41,
-      "volume": 1267766,
+      "price": 58.33000183105469,
+      "change_pct": 3.13,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: EMA_CROSS"
     },
     {
@@ -271,9 +271,9 @@
       "sector": "Industrials",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 245.05,
-      "change_pct": 1.58,
-      "volume": 619459,
+      "price": 241.22999572753906,
+      "change_pct": 1.51,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
     {
@@ -282,9 +282,9 @@
       "sector": "Healthcare",
       "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 220.74,
-      "change_pct": 2.27,
-      "volume": 2372287,
+      "price": 215.83999633789062,
+      "change_pct": 1.9,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 48.0 | System: BREAKOUT"
     },
     {
@@ -293,9 +293,9 @@
       "sector": "Technology",
       "master_score": 46.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 468.68,
-      "change_pct": 0.96,
-      "volume": 3402474,
+      "price": 464.239990234375,
+      "change_pct": 4.42,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 46.5 | System: DEFAULT"
     },
     {
@@ -304,9 +304,9 @@
       "sector": "Technology",
       "master_score": 47.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 26.69,
-      "change_pct": -0.93,
-      "volume": 439226,
+      "price": 26.940000534057617,
+      "change_pct": 3.02,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
     },
     {
@@ -315,9 +315,9 @@
       "sector": "Energy",
       "master_score": 47.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 35.845,
-      "change_pct": 0.72,
-      "volume": 264046,
+      "price": 35.59000015258789,
+      "change_pct": -1.0,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
     },
     {
@@ -326,11 +326,120 @@
       "sector": "Technology",
       "master_score": 44.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 248.525,
-      "change_pct": -0.33,
-      "volume": 6386794,
+      "price": 249.35000610351562,
+      "change_pct": 4.92,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "LSCC",
+      "company": "LSCC",
+      "sector": "Technology",
+      "master_score": 63.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 121.13500213623047,
+      "change_pct": 3.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "VSAT",
+      "company": "VSAT",
+      "sector": "Technology",
+      "master_score": 60.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 76.41000366210938,
+      "change_pct": 0.04,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 60.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "UAL",
+      "company": "UAL",
+      "sector": "Industrials",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 115.9000015258789,
+      "change_pct": 1.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "MRVL",
+      "sector": "Technology",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 262.81439208984375,
+      "change_pct": 2.11,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "AIT",
+      "company": "AIT",
+      "sector": "Industrials",
+      "master_score": 57.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 329.0450134277344,
+      "change_pct": 2.7,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "FFIV",
+      "company": "FFIV",
+      "sector": "Technology",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 449.69000244140625,
+      "change_pct": -0.09,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ENTG",
+      "company": "ENTG",
+      "sector": "Technology",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 149.63499450683594,
+      "change_pct": 4.54,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "FIVN",
+      "company": "FIVN",
+      "sector": "Technology",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 37.68000030517578,
+      "change_pct": 1.81,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PEB",
+      "company": "PEB",
+      "sector": "Real Estate",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 18.329999923706055,
+      "change_pct": 0.55,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TGTX",
+      "company": "TGTX",
+      "sector": "Healthcare",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 58.470001220703125,
+      "change_pct": 2.29,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
     }
-  ],
-  "price_updated_at": "2026-09-22T15:00:11.904852-04:00"
+  ]
 }
