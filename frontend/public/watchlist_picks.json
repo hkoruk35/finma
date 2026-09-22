@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-09-22T14:04:57.072675-04:00",
+  "generated_at": "2026-09-22T17:03:19.878743-04:00",
   "picks": [
     {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-09-21",
       "score": 38.5
-    },
-    {
-      "ticker": "RVTY",
-      "sector": "Healthcare",
-      "date_added": "2026-09-21",
-      "score": 29.5
     },
     {
       "ticker": "AMD",
@@ -32,24 +26,6 @@
       "score": 38.0
     },
     {
-      "ticker": "DXCM",
-      "sector": "Healthcare",
-      "date_added": "2026-09-22",
-      "score": 42.0
-    },
-    {
-      "ticker": "SYRE",
-      "sector": "Healthcare",
-      "date_added": "2026-09-22",
-      "score": 37.5
-    },
-    {
-      "ticker": "WTTR",
-      "sector": "Energy",
-      "date_added": "2026-09-22",
-      "score": 34.0
-    },
-    {
       "ticker": "EMR",
       "sector": "Industrials",
       "date_added": "2026-09-22",
@@ -60,12 +36,6 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-22",
       "score": 50.5
-    },
-    {
-      "ticker": "CNK",
-      "sector": "Communication Services",
-      "date_added": "2026-09-22",
-      "score": 48.5
     },
     {
       "ticker": "EQIX",
@@ -108,6 +78,42 @@
       "sector": "Communication Services",
       "date_added": "2026-09-22",
       "score": 38.0
+    },
+    {
+      "ticker": "ADI",
+      "sector": "Technology",
+      "date_added": "2026-09-22",
+      "score": 46.0
+    },
+    {
+      "ticker": "INFQ",
+      "sector": "Technology",
+      "date_added": "2026-09-22",
+      "score": 45.0
+    },
+    {
+      "ticker": "MTD",
+      "sector": "Healthcare",
+      "date_added": "2026-09-22",
+      "score": 44.0
+    },
+    {
+      "ticker": "PANW",
+      "sector": "Technology",
+      "date_added": "2026-09-22",
+      "score": 43.0
+    },
+    {
+      "ticker": "TTC",
+      "sector": "Industrials",
+      "date_added": "2026-09-22",
+      "score": 42.0
+    },
+    {
+      "ticker": "SSRM",
+      "sector": "Basic Materials",
+      "date_added": "2026-09-22",
+      "score": 39.5
     }
   ]
 }
