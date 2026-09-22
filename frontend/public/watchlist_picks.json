@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T17:05:58.931696-04:00",
+  "generated_at": "2026-09-22T09:07:56.277675-04:00",
   "picks": [
     {
       "ticker": "MGNI",
@@ -14,16 +14,10 @@
       "score": 38.5
     },
     {
-      "ticker": "CRWD",
-      "sector": "Technology",
-      "date_added": "2026-09-21",
-      "score": 36.5
-    },
-    {
       "ticker": "AMZN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-09-21",
-      "score": 33.5
+      "score": 37.5
     },
     {
       "ticker": "RVTY",
@@ -36,12 +30,6 @@
       "sector": "Technology",
       "date_added": "2026-09-21",
       "score": 21.2
-    },
-    {
-      "ticker": "MATX",
-      "sector": "Industrials",
-      "date_added": "2026-09-21",
-      "score": 46.0
     },
     {
       "ticker": "URI",
@@ -66,6 +54,36 @@
       "sector": "Industrials",
       "date_added": "2026-09-21",
       "score": 38.0
+    },
+    {
+      "ticker": "DXCM",
+      "sector": "Healthcare",
+      "date_added": "2026-09-22",
+      "score": 42.0
+    },
+    {
+      "ticker": "SYRE",
+      "sector": "Healthcare",
+      "date_added": "2026-09-22",
+      "score": 37.5
+    },
+    {
+      "ticker": "SMTC",
+      "sector": "Technology",
+      "date_added": "2026-09-22",
+      "score": 35.0
+    },
+    {
+      "ticker": "ARE",
+      "sector": "Real Estate",
+      "date_added": "2026-09-22",
+      "score": 34.5
+    },
+    {
+      "ticker": "WTTR",
+      "sector": "Energy",
+      "date_added": "2026-09-22",
+      "score": 34.0
     }
   ]
 }
