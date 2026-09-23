@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-22T08:00:19.047145",
+  "generated_at": "2026-09-23T08:00:13.164009",
   "options": {
     "RIOT": {
       "dte_30": {
         "strike": 20.0,
-        "lastPrice": 5.0,
+        "lastPrice": 5.12,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 5,
+        "volume": 1,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-23",
@@ -15,10 +15,10 @@
       },
       "dte_45": {
         "strike": 20.0,
-        "lastPrice": 5.3,
+        "lastPrice": 4.5,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 5,
+        "volume": 1,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-30",
@@ -26,10 +26,10 @@
       },
       "dte_60": {
         "strike": 20.0,
-        "lastPrice": 5.5,
+        "lastPrice": 6.0,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 34,
+        "volume": 12,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",
@@ -39,10 +39,10 @@
     "SMCI": {
       "dte_30": {
         "strike": 37.0,
-        "lastPrice": 5.93,
+        "lastPrice": 6.15,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 3,
+        "volume": 7,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-23",
@@ -50,10 +50,10 @@
       },
       "dte_45": {
         "strike": 37.0,
-        "lastPrice": 5.81,
+        "lastPrice": 5.9,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 4,
+        "volume": 9,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-30",
@@ -61,10 +61,10 @@
       },
       "dte_60": {
         "strike": 37.0,
-        "lastPrice": 7.45,
+        "lastPrice": 7.75,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 37,
+        "volume": 65,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",
