@@ -1,9 +1,19 @@
 /**
- * SPY Opsiyon Trading Yol Haritası — hesaplama çekirdeği (19 Eyl 2026, @hasan).
+ * SPY Opsiyon Trading Yol Haritası — hesaplama çekirdeği.
  *
- * Mimari: 30m açılış rejimi (gün karakteri) → 15m ANA tetik (yön onayı olmuş
- * rejim + swing kırılımı + hacim + gövde/ATR filtresi) → 5m SADECE giriş
- * zamanlaması (bağımsız sinyal/stop üretmez) → stop 15m yapısından.
+ * V8.0 (22 Eyl 2026, @hasan) — MİMARİ TERSİNE DÖNDÜ: 30m açılış rejimi hiç
+ * KULLANILMIYOR (aşağıdaki `openingRangeRegime`/`regimeConfirmation15m` artık
+ * strategy.ts'in canlı akışından çağrılmıyor — geriye dönük referans için
+ * dosyada kalıyor). Yeni sıralama:
+ *   5m  → ANA KARAR. VWAP konumu (birincil karar indikatörü) + hacim anomalisi
+ *         + mum formasyonu (bkz. candlePatterns.ts) + RSI(14) yönü birlikte
+ *         puanlanır (bkz. `setup5mScore`). EMA21(5m) yalnızca trend BİLGİSİ —
+ *         skora küçük bonus verir, tek başına karar vermez/engellemez.
+ *   15m → YÖN + TEYİT (zorunlu kapı). 15m VWAP+EMA21 konumu 5m sinyalle AYNI
+ *         yönde olmalı; aksi halde giriş üretilmez (bkz. `trend15mDirection`).
+ *   30m → KULLANILMIYOR.
+ * Stop hâlâ 15m yapısından (Stop_SPY, `stopSpyOf`) — bu, giriş mantığından
+ * bağımsız bir risk-yönetim kuralı, değişmedi.
  *
  * İzomorfik: fetch/DOM yok, hem frontend (TS) hem gerekirse sunucu tarafında
  * çalışır. Tüm fonksiyonlar saftır (yan etkisiz) — girdi bar dizisi + index,
@@ -407,3 +417,126 @@ export function dailyLimitState(input: DailyLimitInput): DailyLimitState {
   if (input.riskUsedDollars >= dailyCap) return { canTrade: false, reason: "günlük risk tavanı (%8) aşıldı" };
   return { canTrade: true, reason: null };
 }
+
+// ── V8.0 — 5m ANA KARAR + 15m YÖN TEYİDİ (30m kullanılmıyor) ────────
+
+import type { CandlePatternHit, PatternDirection } from "./candlePatterns";
+import { strongestPatternFor } from "./candlePatterns";
+
+/** Fiyatın VWAP'a göre konumu — V8.0'da BİRİNCİL karar indikatörü. */
+export function vwapDirectionOf(close: number, vwap: number | null): PatternDirection | "NÖTR" {
+  if (vwap == null) return "NÖTR";
+  if (close > vwap) return "LONG";
+  if (close < vwap) return "SHORT";
+  return "NÖTR";
+}
+
+/** RSI(14) yönü: seviye + eğim birlikte (tek başına EMA21 gibi "bilgi" değil, skora girer). */
+export function rsiDirectionOf(rsiNow: number | null, rsiPrev: number | null): PatternDirection | "NÖTR" {
+  if (rsiNow == null || rsiPrev == null) return "NÖTR";
+  if (rsiNow > 50 && rsiNow >= rsiPrev) return "LONG";
+  if (rsiNow < 50 && rsiNow <= rsiPrev) return "SHORT";
+  return "NÖTR";
+}
+
+/**
+ * 15m YÖN + TEYİT — zorunlu kapı, tetik değil. VWAP konumu birincil, EMA21
+ * ikincil/bilgi girdisi olarak aynı yöndeyse teyidi güçlendirir ama tek
+ * başına ne üretir ne engeller.
+ */
+export function trend15mDirection(
+  close15: number, vwap15: number | null, ema21_15: number | null
+): { direction: PatternDirection | "NÖTR"; strong: boolean; note: string } {
+  const vwapDir = vwapDirectionOf(close15, vwap15);
+  if (vwapDir === "NÖTR") {
+    return { direction: "NÖTR", strong: false, note: "15m VWAP verisi yok" };
+  }
+  const emaAgrees =
+    ema21_15 != null && (vwapDir === "LONG" ? close15 > ema21_15 : close15 < ema21_15);
+  return {
+    direction: vwapDir,
+    strong: emaAgrees,
+    note: `15m fiyat VWAP'ın ${vwapDir === "LONG" ? "üstünde" : "altında"}${emaAgrees ? " ve EMA21 aynı yönü destekliyor" : ""}`,
+  };
+}
+
+/** Hacim, son N (varsayılan 10) kapalı 5m mumun ortalamasına göre kaç kat. */
+export function volumeRatio5m(bars: Bar[], idx: number, window = 10): number | null {
+  const start = idx - window;
+  if (start < 0) return null;
+  let sum = 0;
+  for (let i = start; i < idx; i++) sum += bars[i].volume || 0;
+  const avg = sum / window;
+  if (avg <= 0) return null;
+  return (bars[idx].volume || 0) / avg;
+}
+
+export interface Setup5mScoreInput {
+  side: PatternDirection;
+  vwapDir: PatternDirection | "NÖTR";
+  rsiDir: PatternDirection | "NÖTR";
+  ema21Agrees: boolean | null;
+  volumeRatio: number | null;
+  pattern: CandlePatternHit | null;
+}
+
+export interface Setup5mScore {
+  side: PatternDirection;
+  score: number; // 0-100+ (EMA21 bonus dahil 110'a kadar çıkabilir)
+  fired: boolean;
+  parts: { label: string; value: number }[];
+}
+
+/** Ateşleme eşiği — 30m'siz, ölçekli skor modelinde v8.0 varsayılanı. */
+export const SETUP_FIRE_THRESHOLD = 60;
+
+/**
+ * 5m ANA KARAR skoru: VWAP(35) + mum formasyonu(30) + hacim(20) + RSI
+ * yönü(15) = 100 taban; EMA21 aynı yöndeyse +10 bilgi bonusu (karar
+ * vermez, sadece skoru güçlendirir). 15m teyidi bu fonksiyonun DIŞINDA,
+ * zorunlu bir kapı olarak strategy.ts'te uygulanır.
+ */
+export function setup5mScore(input: Setup5mScoreInput): Setup5mScore {
+  const parts: Setup5mScore["parts"] = [];
+  let score = 0;
+
+  if (input.vwapDir === input.side) {
+    parts.push({ label: "VWAP konumu yönü destekliyor (ana karar)", value: 35 });
+    score += 35;
+  } else {
+    parts.push({ label: "VWAP konumu yönü desteklemiyor", value: 0 });
+  }
+
+  if (input.pattern) {
+    const pts = Math.round(30 * input.pattern.strength);
+    parts.push({ label: `Mum formasyonu: ${input.pattern.label} (${input.pattern.detail})`, value: pts });
+    score += pts;
+  } else {
+    parts.push({ label: "Mum formasyonu yok", value: 0 });
+  }
+
+  if (input.volumeRatio != null && input.volumeRatio >= 1.15) {
+    const pts = input.volumeRatio >= 1.6 ? 20 : 12;
+    parts.push({ label: `Hacim ${input.volumeRatio.toFixed(2)}× ortalama`, value: pts });
+    score += pts;
+  } else {
+    parts.push({ label: input.volumeRatio == null ? "Hacim verisi yok" : `Hacim ${input.volumeRatio.toFixed(2)}× — zayıf`, value: 0 });
+  }
+
+  if (input.rsiDir === input.side) {
+    parts.push({ label: "RSI(14) yönü destekliyor", value: 15 });
+    score += 15;
+  } else {
+    parts.push({ label: "RSI(14) yönü desteklemiyor", value: 0 });
+  }
+
+  if (input.ema21Agrees) {
+    parts.push({ label: "EMA21 trend bilgisi aynı yönde (bonus)", value: 10 });
+    score += 10;
+  }
+
+  return { side: input.side, score, fired: score >= SETUP_FIRE_THRESHOLD, parts };
+}
+
+export { strongestPatternFor };
+export type { CandlePatternHit, PatternDirection };

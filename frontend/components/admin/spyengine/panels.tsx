@@ -489,10 +489,10 @@ const STATE_STYLE: Record<EngineState, { dot: string; ring: string; text: string
 /**
  * KAPI DURUMU — el ile işlem açarken veto listesi.
  * Motor kendi sinyalini üretmese bile "şu an LONG/SHORT açsam hangi kapı
- * geçer, hangisi geçmez" burada tek bakışta görülür. Liste V7.0 mimarisini
- * gösterir: 30m rejim + 15m teyit, hacim vetosu, 5m bağlam (bilgi amaçlı),
- * 15m ana tetiğin dört şartı, acil çıkış çakışması kontrolü (bkz.
- * strategy.ts gateChecksFor).
+ * geçer, hangisi geçmez" burada tek bakışta görülür. Liste V8.0 mimarisini
+ * gösterir: 15m yön teyidi (zorunlu kapı, 30m yok), hacim vetosu, 5m ana
+ * karar skorunun bileşenleri (VWAP/formasyon/hacim/RSI/EMA21), acil çıkış
+ * çakışması kontrolü (bkz. strategy.ts gateChecksFor).
  */
 
 /** Bir yönün o anki duruşu — hem sütun başlığı hem ön uyarı bunu kullanır. */
@@ -523,11 +523,11 @@ export interface EntryAlert {
  * kurallarına dokunmaz — yalnızca aynı kapı verisini okuyup "ne kadar
  * yakınız" sorusunu yanıtlar.
  *
- *   FIRED    = motor sinyali verdi (15m ana tetik ateşlendi, 5m zamanlama
- *              teyidi geldi)
- *   IMMINENT = 30m rejim + 15m teyit bu yönde SERBEST — 15m ana tetik
- *              herhangi bir kapalı 15m barda ateşlenebilir
- *   NEAR     = rejim henüz yok ama bir yönün kapıları çoğunlukla geçti
+ *   FIRED    = motor sinyali verdi (5m ana karar skoru eşiği geçti, 15m
+ *              yön teyidi de aynı yönde)
+ *   IMMINENT = 5m ana karar bu yönde ateşlendi ama giriş penceresi/çakışma
+ *              gibi bir sebeple henüz TRIGGERED'a dönmedi
+ *   NEAR     = henüz ateşlenmedi ama bir yönün kapıları çoğunlukla geçti
  */
 export function computeEntryAlert(
   gates: GateStatus | null,
@@ -715,7 +715,7 @@ export function GatePanel({ gates }: { gates: GateStatus | null }) {
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
           Kapı Durumu{" "}
           <span className="text-[9px] font-normal text-slate-600">
-            · 30m rejim + 15m ana tetik (yön+kırılım+hacim+ATR) + hacim vetosu · iki yön birlikte
+            · 5m ana karar (VWAP+formasyon+hacim+RSI) + 15m yön teyidi (zorunlu) + hacim vetosu · iki yön birlikte
           </span>
         </span>
       </div>
@@ -1012,8 +1012,8 @@ export function LayerTable({
       </div>
 
       <LayerRow
-        tf="30m"
-        tag="REJİM — günün karakteri + 15m teyit"
+        tf="15m"
+        tag="YÖN + TEYİT — zorunlu kapı, tetik değil (30m yok)"
         value={veto.direction === "NEUTRAL" ? "NÖTR" : `${veto.direction} serbest`}
         note={veto.note}
         t={vetoTone}
@@ -1026,15 +1026,15 @@ export function LayerTable({
         t={volumeVeto.active ? "text-[#ef4444]" : volumeVeto.rvol == null ? "text-slate-500" : "text-slate-300"}
       />
       <LayerRow
-        tf="15m"
-        tag="ANA TETİK — yön+kırılım+hacim+ATR (4 şart)"
+        tf="5m"
+        tag="ANA KARAR — VWAP+formasyon+hacim+RSI (puanlama)"
         value={regime.side === "NONE" ? "Tetik yok" : `${regime.side} tetik ateşlendi`}
         note={layer3.note}
         t={regimeTone}
       />
       {regime.side !== "NONE" && veto.direction !== "NEUTRAL" && veto.direction !== regime.side && (
         <div className="mx-2 mb-2 rounded border border-amber-500/35 bg-amber-500/10 px-2 py-1 text-[10px] leading-snug text-amber-300">
-          ⚠ 15m tetik {regime.side} yönünde ateşlendi ama 30m rejim bu yönü engelliyor — giriş üretilmiyor.
+          ⚠ 5m ana karar {regime.side} yönünde ateşlendi ama 15m yön teyidi bu yönü desteklemiyor — giriş üretilmiyor.
         </div>
       )}
 
@@ -1223,7 +1223,7 @@ export function EventList({ events, emptyText }: { events: EngineEvent[]; emptyT
   );
 }
 
-// ── Strateji şeması (V7.0: 30m rejim → hacim vetosu → 15m ana tetik → 5m zamanlama → ATR stop → çıkış) ──
+// ── Strateji şeması (V8.0: 5m ana karar (puanlama) → 15m yön teyidi (kapı) → kontrat seçimi → ATR stop → çıkış) ──
 
 export function StrategySchema({ state, contractType }: { state: EngineState; contractType: string | null }) {
   const active = (id: string) => {
@@ -1238,42 +1238,43 @@ export function StrategySchema({ state, contractType }: { state: EngineState; co
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V7.0 strateji akış şeması">
+      <svg viewBox="0 0 980 460" className="h-auto w-full min-w-[780px]" role="img" aria-label="SPY Engine V8.0 strateji akış şeması">
         <defs>
           <marker id="spyArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#475569" />
           </marker>
         </defs>
 
-        {/* 0 — 30m Rejim + RVOL Vetosu */}
-        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · 30m REJİM + HACİM VETOSU — günün karakteri / katılım izni</text>
-        <rect x="14" y="34" width="466" height="40" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="247" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">İlk 30m mum YUKARI/AŞAĞI/BELİRSİZ + 2. 15m mum EMA21/VWAP teyidi</text>
-        <rect x="500" y="34" width="466" height="40" rx="6" fill="rgba(239,68,68,0.06)" stroke="#7f1d1d" />
-        <text x="733" y="58" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">RVOL &lt; 0.8: İKİ YÖNÜ DE engelleyen ikili veto (oylamaya girmez)</text>
+        {/* 0 — 5m Ana Karar (puanlama) */}
+        <text x="14" y="22" fill="#64748b" fontSize="11" fontWeight="600">0 · 5m ANA KARAR — VWAP+formasyon+hacim+RSI, ağırlıklı puanlama (30m YOK)</text>
 
-        {/* 1 — 15m Ana Tetik (dört şart) */}
-        <text x="14" y="94" fill="#64748b" fontSize="11" fontWeight="600">1 · 15m ANA TETİK — dört şart birden, bağımsız ve tek başına yeterli</text>
+        <rect x="14" y="34" width="952" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
+        <text x="490" y="54" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">VWAP konumu (35p, birincil) + mum formasyonu (30p) + hacim anomalisi (20p) + RSI(14) yönü (15p)</text>
+        <text x="490" y="72" textAnchor="middle" fill="#94a3b8" fontSize="9.5">Formasyonlar: yutan mum, çekiç/yıldız, iç mum, kırılım+retest, başarısız kırılım, hacim doruğu, düşük-hacim-kırılımı</text>
+        <text x="490" y="88" textAnchor="middle" fill="#64748b" fontSize="9">EMA21 tek başına karar vermez — aynı yöndeyse +10 bilgi bonusu · skor ≥ 60 olunca aday üretilir</text>
+        <text x="490" y="102" textAnchor="middle" fill="#64748b" fontSize="9">RVOL &lt; 0.8: İKİ YÖNÜ DE engelleyen ayrı ikili veto (oylamaya girmez)</text>
 
-        <rect x="14" y="106" width="952" height="72" rx="6" fill={boxFill("regime")} stroke={box("regime")} />
-        <text x="490" y="126" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">15m TETİK — yön + kırılım + hacim + gövde/ATR</text>
-        <text x="490" y="144" textAnchor="middle" fill="#94a3b8" fontSize="9.5">(1) 15m kapanış rejim yönünde (2) chop bandı dışı son swing dip/tepe kırılır</text>
-        <text x="490" y="160" textAnchor="middle" fill="#64748b" fontSize="9">(3) hacim ≥ son 8×15m ortalamasının 1.15 katı (4) gövde ≤ 15m ATR&apos;nin 2 katı — dördü BİRDEN</text>
-        <text x="490" y="174" textAnchor="middle" fill="#64748b" fontSize="9">5m RSI+MACD ikisi de + hacim oranı&gt;2.0 → Süper (S) · ikisi de → Güçlü (A) · biri → Orta (B)</text>
+        {/* 1 — 15m Yön + Teyit (zorunlu kapı) */}
+        <text x="14" y="130" fill="#64748b" fontSize="11" fontWeight="600">1 · 15m YÖN + TEYİT — zorunlu kapı, tetik değil</text>
 
-        {/* 2 — 5m Zamanlama */}
-        <text x="14" y="204" fill="#64748b" fontSize="11" fontWeight="600">2 · 5m ZAMANLAMA — SADECE 15m tetik onaylıyken, bağımsız sinyal/stop üretmez</text>
+        <rect x="14" y="142" width="952" height="52" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="490" y="164" textAnchor="middle" fill="#e2e8f0" fontSize="10.5" fontWeight="600">15m VWAP konumu (birincil) + EMA21 (ikincil) — 5m sinyalle AYNI yönde olmalı</text>
+        <text x="490" y="182" textAnchor="middle" fill="#64748b" fontSize="9">Eşleşmezse skor eşiği geçse bile giriş üretilmez — &quot;15m onayı olmadan işlem açılmaz&quot;</text>
 
-        <rect x="14" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="247" y="236" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="700">TETİK MUMU İÇİNDE — en erken giriş anı</text>
-        <text x="247" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">15m tetik mumunun süresi içindeki 5m barlarda fiyat + RSI teyidi aranır</text>
-        <text x="247" y="270" textAnchor="middle" fill="#64748b" fontSize="9">tetik onaylanmadan 5m tek başına giriş açmaz</text>
+        {/* 2 — Kontrat Seçimi */}
+        <text x="14" y="210" fill="#64748b" fontSize="11" fontWeight="600">2 · KONTRAT SEÇİMİ — 5m ana karar skoruna göre</text>
 
-        <path d="M480 250 L500 250" fill="none" stroke="#475569" strokeWidth="1.5" markerEnd="url(#spyArrow)" />
-        <rect x="500" y="216" width="466" height="68" rx="6" fill="#0f141d" stroke="#2b3a52" />
-        <text x="733" y="236" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="700">FİYAT + RSI TEYİDİ → GİRİŞ</text>
-        <text x="733" y="254" textAnchor="middle" fill="#94a3b8" fontSize="9.5">5m mum tetik yönünde kapanır + RSI 50 çizgisinin doğru tarafında</text>
-        <text x="733" y="270" textAnchor="middle" fill="#64748b" fontSize="9">saatte en fazla {MAX_ENTRIES_PER_HOUR} giriş</text>
+        <rect x="14" y="222" width="308" height="62" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="168" y="244" textAnchor="middle" fill="#facc15" fontSize="10.5" fontWeight="700">S · Süper Güçlü</text>
+        <text x="168" y="262" textAnchor="middle" fill="#94a3b8" fontSize="9">skor ≥ 85 — ATM+2, 0DTE</text>
+
+        <rect x="336" y="222" width="308" height="62" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="490" y="244" textAnchor="middle" fill="#38bdf8" fontSize="10.5" fontWeight="700">A · Güçlü</text>
+        <text x="490" y="262" textAnchor="middle" fill="#94a3b8" fontSize="9">skor ≥ 70 — ATM+1, 0DTE</text>
+
+        <rect x="658" y="222" width="308" height="62" rx="6" fill="#0f141d" stroke="#2b3a52" />
+        <text x="812" y="244" textAnchor="middle" fill="#a855f7" fontSize="10.5" fontWeight="700">B · Orta</text>
+        <text x="812" y="262" textAnchor="middle" fill="#94a3b8" fontSize="9">skor ≥ 60 (eşik) — ATM, 0DTE</text>
 
         {/* 3 — Çıkış */}
         <text x="14" y="312" fill="#64748b" fontSize="11" fontWeight="600">3 · ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş yavaş/konfirmasyonlu, çıkış hızlı)</text>
@@ -1499,10 +1500,10 @@ export interface RegimeBlock {
 }
 
 /**
- * Rejim bandı — V7.0 mimarisinin merkezi kutusu: 30m açılış rejimi + 15m
- * teyidin ürettiği REJİM DURUMU (LONG/SHORT/YOK), "büyük, renkli,
- * tartışmasız görünür". `current` artık "15m ana tetik ateşlendi mi"
- * durumunu taşıyor (bkz. strategy.ts başlığı).
+ * Rejim bandı — V8.0 mimarisinin merkezi kutusu: 5m ana karar skorunun
+ * ürettiği DURUM (LONG/SHORT/YOK), "büyük, renkli, tartışmasız görünür".
+ * `current` "5m ana karar ateşlendi mi" durumunu taşır (bkz. strategy.ts
+ * başlığı) — 30m hiç yok, 15m yalnızca zorunlu yön teyidi.
  */
 export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; nowSec: number }) {
   if (!block) {
@@ -1520,10 +1521,10 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
     volumeVeto.active
       ? `Hacim vetosu aktif — ${volumeVeto.note}`
       : current.side === "NONE"
-      ? "15m ana tetik henüz ateşlenmedi — dört şart (yön+kırılım+hacim+ATR) birden gerekiyor"
+      ? "5m ana karar henüz eşiği geçmedi — VWAP+formasyon+hacim+RSI puanlaması izleniyor"
       : vetoBlocks
-      ? "30m rejim bu yönü engelliyor — 15m tetik ateşlendi ama giriş üretilmiyor"
-      : "15m tetik ateşlendi — 5m zamanlama katmanı en erken giriş anını arıyor";
+      ? "15m yön teyidi bu yönü desteklemiyor — 5m ana karar ateşlendi ama giriş üretilmiyor"
+      : "5m ana karar ateşlendi — 15m yön teyidi de aynı yönde, pozisyon açılıyor";
 
   const cooldownLeft =
     block.cooldownActive && block.cooldownUntil != null && nowSec > 0
@@ -1543,7 +1544,7 @@ export function RegimeBanner({ block, nowSec }: { block: RegimeBlock | null; now
 
         {vetoBlocks && (
           <span className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-amber-300" style={{ backgroundColor: "#eab30822" }}>
-            30m rejim engelliyor
+            15m yön teyidi engelliyor
           </span>
         )}
 
@@ -1607,9 +1608,9 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
     );
   }
   const { layer1, current } = block;
-  // V7.0/v2: 5m yalnızca ZAMANLAMA. RSI/MACD karar mekanizmasından çıkarıldı;
-  // yön bağlamı için EMA21 konumu kullanılır (VWAP/hacim/mum yapısı grafikte
-  // izlenir). RSI aşağıda yalnızca "aşırı uzama gözü" olarak bilgi amaçlı.
+  // V8.0: EMA21 SADECE trend bilgisi — tek başına karar vermez/engellemez,
+  // 5m ana karar skoruna (bkz. Kapı Durumu / setup5mScore) +10 bonus verir.
+  // RSI aşağıda yalnızca "aşırı uzama gözü" olarak bilgi amaçlı.
   const l1Checks: GateCheck[] = [
     { label: "Fiyat EMA21 üstünde (LONG yönü)", ok: layer1.closeAboveEma, detail: layer1.closeAboveEma ? "evet" : "hayır" },
   ];
@@ -1624,18 +1625,18 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          5m Zamanlama Bağlamı <span className="text-[9px] font-normal text-slate-600">· sadece giriş anını hassaslaştırır, karar vermez</span>
+          5m EMA21 Trend Bilgisi <span className="text-[9px] font-normal text-slate-600">· bonus puan, tek başına karar vermez</span>
         </span>
       </div>
       <div className="border-b border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
-        15m tetik durumu: <b className={current.side === "LONG" ? "text-[#22c55e]" : current.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400"}>
+        5m ana karar durumu: <b className={current.side === "LONG" ? "text-[#22c55e]" : current.side === "SHORT" ? "text-[#ef4444]" : "text-slate-400"}>
           {REGIME_LABEL[current.side]}
         </b>{" "}
         · {current.note}
       </div>
       <div className="flex divide-x divide-[#1c2635]">
-        <RegimeColumn title="5m ZAMANLAMA · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
-        <RegimeColumn title="5m ZAMANLAMA · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
+        <RegimeColumn title="EMA21 BONUSU · LONG" checks={l1Checks} passed={tpL} accent="#22c55e" />
+        <RegimeColumn title="EMA21 BONUSU · SHORT" checks={l1ChecksShort} passed={tpS} accent="#ef4444" />
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1.5 text-[9.5px] text-slate-500">
         RSI14 (bilgi): <b className={rsiOverext ? "text-amber-300" : "text-slate-400"}>{layer1.rsi == null ? "—" : layer1.rsi.toFixed(0)}</b>
@@ -1647,22 +1648,22 @@ export function RegimePanel({ block }: { block: RegimeBlock | null }) {
 }
 
 /**
- * 30m Rejim şeridi — günün karakteri + 15m EMA21/VWAP teyidi. Kendi başına
- * giriş üretmez, sadece 15m ana tetiğin hangi yönde aranacağını belirler
- * (bkz. strategy.ts regimeLayerAt).
+ * 15m Yön + Teyit şeridi — zorunlu kapı (VWAP birincil, EMA21 ikincil).
+ * Kendi başına giriş üretmez, 5m ana karar skorunun hangi yönde
+ * geçerli sayılacağını belirler (bkz. strategy.ts trend15mLayerAt). 30m yok.
  */
 export function M15Strip({ veto }: { veto: M15VetoRead }) {
   const tone15 = veto.direction === "LONG" ? "#22c55e" : veto.direction === "SHORT" ? "#ef4444" : "#94a3b8";
   const word = veto.direction === "LONG" ? "▲ LONG SERBEST" : veto.direction === "SHORT" ? "▼ SHORT SERBEST" : "▬ NÖTR";
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded border border-[#1c2635] bg-[#0f141d] px-3 py-1.5 text-[10.5px]">
-      <span className="font-semibold text-slate-500">30m REJİM</span>
+      <span className="font-semibold text-slate-500">15m YÖN TEYİDİ</span>
       <span className="font-bold" style={{ color: tone15 }}>{word}</span>
       <span className="font-mono text-slate-400">
-        Açılış {veto.ema21 == null ? "—" : num(veto.ema21)} / Kapanış {veto.close == null ? "—" : num(veto.close)}
+        EMA21 {veto.ema21 == null ? "—" : num(veto.ema21)} / Kapanış {veto.close == null ? "—" : num(veto.close)}
       </span>
       <span className="text-slate-600">{veto.note}</span>
-      <span className="ml-auto text-[9px] text-slate-600">yalnızca yön izni verir/engeller — kendi başına karar üretmez</span>
+      <span className="ml-auto text-[9px] text-slate-600">zorunlu kapı — 5m ana karar bu yönle eşleşmezse giriş yok</span>
     </div>
   );
 }
@@ -1671,16 +1672,14 @@ export function M15Strip({ veto }: { veto: M15VetoRead }) {
 
 const INTRADAY_CHECKLIST = [
   "Açılış öncesi: VIX normal mi (12–30) ve bugün yüksek etkili haber/veri (FOMC/CPI/NFP) var mı?",
-  "09:30–10:00 ilk 30m mum kapanıyor (30m rejim belirleniyor)",
-  "09:45–10:00 ikinci 15m mum EMA21/VWAP ile rejimi teyit ediyor",
-  "10:00–11:15 tarama penceresi (15m ana tetik aranıyor)",
-  "Tetik mumu kapanmadan ~60sn önce 5m hacim/fiyatı kontrol et",
-  "15m kapanışta dört şart (yön+kırılım+hacim+ATR) sağlandıysa 2. mumu beklemeden gir",
+  "09:45'ten itibaren 5m ana karar sürekli taranıyor (30m yok) — VWAP+formasyon+hacim+RSI her 3dk yeniden okunur",
+  "5m skor 60'ı geçtiğinde 15m yön teyidini kontrol et — eşleşmiyorsa giriş yok",
+  "5m skoru + 15m teyidi aynı yönde ise 2. mumu beklemeden gir (formasyon güçlüyse hemen)",
   "Giriş sonrası Stop_prem'i +0.10 tamponuyla hesapla + 1,5R hedefini kur (bracket/stop-limit)",
   "Her 15m kapanışta yeni swing seviyesi var mı kontrol et, stopu yeniden yerleştir (TP'ye dokunma)",
   "Hedef (1,5R) geldi → hemen kapat; hızlı geldiyse (<60dk) tereddüt etme",
-  "11:30–13:30 yeni giriş yok",
-  "13:45–15:15 ikinci tarama penceresi (30m rejim hâlâ net ise)",
+  "11:30–13:30 tarama devam eder ama sinyal seyrekleşebilir — skor eşiği aynı kalır",
+  "13:45–15:15 ikinci yoğun tarama penceresi",
   "15:15 sonrası yeni giriş yok",
   "15:45 açık pozisyon zorunlu kapama",
   "Gün sonu: 2-stop/risk-tavanı kontrolü + yarının tezini not et",

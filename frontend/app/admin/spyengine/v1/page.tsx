@@ -905,9 +905,9 @@ export default function SpyEngineCommandCenter() {
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-2">
           <div>
-            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V7.0</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V8.0</h1>
             <p className="text-[9px] text-slate-500">
-              30m açılış rejimi (gün karakteri) · 15m ana tetik (yön+kırılım+hacim+ATR) · 5m giriş zamanlaması · ATR-bazlı stop · öncelik sıralı çıkış
+              5m ana karar (VWAP+mum formasyonu+hacim+RSI) · 15m yön teyidi (zorunlu kapı) · EMA21 sadece trend bilgisi · ATR-bazlı stop · öncelik sıralı çıkış
             </p>
           </div>
 
@@ -1233,7 +1233,7 @@ export default function SpyEngineCommandCenter() {
             </div>
           </div>
 
-          {/* ── Kapı Durumu — V7.0 giriş kapısı: 30m rejim + 15m 4 şart + hacim vetosu ── */}
+          {/* ── Kapı Durumu — V8.0 giriş kapısı: 5m ana karar skoru + 15m yön teyidi + hacim vetosu ── */}
           <GatePanel gates={data?.engine.gateStatus ?? null} />
 
           {/* ── Çıkış Takibi — her zaman gösterilir, pozisyon yoksa placeholder ── */}
@@ -1301,30 +1301,30 @@ export default function SpyEngineCommandCenter() {
             <StrategySchema state={data?.engine.state ?? "WATCHING"} contractType={data?.engine.contractType ?? null} />
           </Disclosure>
 
-          {/* Kabul Kriterleri (V7.0) — sayfanın en altı, varsayılan kapalı */}
-          <Disclosure title="Kabul Kriterleri (V7.0)">
+          {/* Kabul Kriterleri (V8.0) — sayfanın en altı, varsayılan kapalı */}
+          <Disclosure title="Kabul Kriterleri (V8.0)">
             <ol className="flex list-decimal flex-col gap-1.5 pl-4 text-[10px] leading-relaxed text-slate-400 marker:text-slate-600">
-              <li>30m REJİM günün karakterini belirler: ilk 30 dakikalık mum (09:30–10:00 ET) YUKARI/AŞAĞI/BELİRSİZ olur (açılış/kapanış + VWAP karşılaştırması).</li>
-              <li>2. 15m mum (09:45–10:00) EMA21/VWAP ile aynı yönde kapanarak rejimi TEYİT etmezse — tez bozuldu, o gün işlem yok.</li>
-              <li>15m ANA TETİK dört şartın hepsini birden arar: (1) 15m kapanış rejim yönünde, (2) chop bandı dışındaki son swing dip/tepe kırılır, (3) hacim ≥ son 8×15m ortalamasının 1.15 katı, (4) gövde ≤ 15m ATR&apos;nin 2 katı.</li>
-              <li>5m artık bağımsız bir karar katmanı DEĞİL — SADECE zamanlama. 15m tetik ateşlendiğinde, o 15m mumun İÇİNDEKİ 5m barlarda en erken güvenli giriş anını arar (fiyat + RSI teyidi). Bağımsız sinyal/stop üretmez.</li>
-              <li>Hacim vetosu (çok-günlü RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 15m tetiğin kendi hacim şartından bağımsız, ek bir güvenlik katmanı. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
-              <li>Stop her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ (çarpan)×ATR_15m. Çarpan v2&apos;de dinamik: normal 0,25 · yüksek oynaklık (VIX≥25 veya ATR ort. 1,5x üstü) 0,40 · veri/FOMC günü 0,50. Her kapanan 15m barda yeniden hesaplanır (trailing yapı stopu).</li>
+              <li>5m ANA KARAR: VWAP konumu (birincil, 35 puan) + mum formasyonu (yutan mum/çekiç/yıldız/iç mum/kırılım+retest/başarısız kırılım/hacim doruğu/düşük-hacim-kırılımı, en güçlüsü 30 puan) + hacim anomalisi (son 10×5m ortalamasına göre, 20 puan) + RSI(14) yönü (15 puan) = 100 taban; EMA21 aynı yöndeyse +10 bilgi bonusu.</li>
+              <li>Skor ≥ 60 (SETUP_FIRE_THRESHOLD) olunca giriş adayı üretilir — 30m yok, tek bir katı VE-kapısı yok; ağırlıklı puanlama, eski modelden çok daha sık tetiklenir.</li>
+              <li>15m YÖN + TEYİT zorunlu bir kapıdır, tetik değil: 15m VWAP (birincil) + EMA21 (ikincil) konumu 5m sinyalle AYNI yönde olmalı — aksi halde skor eşiği geçse bile giriş üretilmez.</li>
+              <li>EMA21(5m) tek başına karar vermez/engellemez — sadece skora +10 bonus verir (kullanıcı kuralı).</li>
+              <li>Hacim vetosu (çok-günlü RVOL &lt; 0.8) iki yönü de engelleyen ayrı bir ikili bloktur — 5m ana karar skorundan bağımsız, ek bir güvenlik katmanı. RVOL verisi yetersizse (&lt;5 gün geçmiş) veto hiç tetiklenmez.</li>
+              <li>Stop her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ (çarpan)×ATR_15m. Çarpan dinamik: normal 0,25 · yüksek oynaklık (VIX≥25 veya ATR ort. 1,5x üstü) 0,40 · veri/FOMC günü 0,50. Her kapanan 15m barda yeniden hesaplanır (trailing yapı stopu) — giriş mantığından bağımsız bir risk kuralı, değişmedi.</li>
               <li>Hedef (Take-Profit) = 1,5R: Hedef_SPY = giriş ± 1,5×risk mesafesi; Hedef_prim delta ile çevrilir. Hedef gelince (hızlı geldiyse bile) hemen kapatılır; 15:45 zorunlu kapama mutlaktır.</li>
-              <li>Risk yönetimi (v2): işlem başı %3–4 ($150–200), günlük tavan %8 (~$400 = 2 stop), günde max 1–2 işlem. VIX filtresi (&lt;12 seçici/pas · 12–25 normal · 25–30 yarı boyut · &gt;30 işlem yok) ve haber/veri günü filtresi (FOMC/CPI/NFP/PCE öncesi 0 işlem) işlem öncesi bir kez kontrol edilir.</li>
+              <li>Risk yönetimi: işlem başı %3–4 ($150–200), günlük tavan %8 (~$400 = 2 stop), günde max 1–2 işlem. VIX filtresi ve haber/veri günü filtresi işlem öncesi bir kez kontrol edilir.</li>
               <li>SL/TP Hesaplayıcı (SPY Option sekmesi altı): vade + strike seçilince canlı SPY, 15m/5m ATR(14), Black-Scholes delta ve prim ile Stop_SPY, Stop_prem (+0,10), Hedef (1,5R), R:R ve kontrat sayısını hesaplar; 0–5DTE opsiyon zinciri her 15m kapanışında yenilenir.</li>
               <li>Giriş penceresi 09:45–15:00 ET; 15:45 ET zorunlu 0DTE kapaması diğer tüm çıkış kurallarından ÖNCELİKLİDİR ve mutlaktır.</li>
               <li>Çıkış önceliği (hızdan yavaşa): 5m EMA21 zıt kesişim (anlık) → 5m RSI dönüşü + 1m ters mum (kapalı bar) → 15m yapı stopu (anlık, mum içi en kötü seviye; swing/ATR verisi henüz yoksa sabit −%28 prim güvenlik ağı) → trailing kilit (kapalı bar).</li>
               <li>Trailing kilit +%40 kârda tabanı breakeven&apos;e, +%50 kârda daha yükseğe çeker; taban asla geri inmez.</li>
-              <li>Strike seçimi: 5m RSI VE MACD ikisi de + 15m hacim oranı&gt;2.0 → Süper Güçlü (Kontrat S, ATM+2); RSI VE MACD ikisi de → Güçlü (Kontrat A, ATM+1); yalnızca biri → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
+              <li>Strike seçimi artık 5m ana karar skoruna göre: skor ≥85 → Süper Güçlü (Kontrat S, ATM+2); ≥70 → Güçlü (Kontrat A, ATM+1); ≥60 (eşik) → Orta (Kontrat B, ATM). Hepsi 0DTE.</li>
               <li>Aynı anda tek pozisyon; kapanıştan sonra düzeltme mumu beklenir; saatte en fazla 3 giriş; aynı kontrata (strike+yön) aynı gün ikinci giriş engellenir.</li>
               <li>3 ardışık kayıp sonrası 15 dakika sinyal durdurma çalışıyor (spot PnL&apos;e dayalı, prim verisinden bağımsız).</li>
-              <li>Kapı Durumu paneli LONG/SHORT için: 30m rejim + 15m teyit, hacim vetosu, 5m bağlam (bilgi amaçlı), 15m tetiğin 4 şartı ve acil çıkış çakışması kontrolünü tek listede gösteriyor.</li>
-              <li>Motor Durumu paneli 30m/15m/5m&apos;i ayrı satırlarda, katmanın gerçek rolüyle (rejim/ana tetik/zamanlama) etiketliyor.</li>
+              <li>Kapı Durumu paneli LONG/SHORT için: 15m yön teyidi, hacim vetosu, 5m ana karar skorunun bileşenleri (VWAP/formasyon/hacim/RSI/EMA21) ve acil çıkış çakışması kontrolünü tek listede gösteriyor.</li>
+              <li>Motor Durumu paneli 5m ana karar ve 15m yön teyidini ayrı satırlarda, gerçek rolleriyle etiketliyor (30m yok).</li>
               <li>Hiçbir karar oluşmakta olan (kapanmamış) muma dayanmıyor — non-repainting, tüm fonksiyonlar saf.</li>
             </ol>
             <div className="mt-2 border-t border-[#1c2635] pt-2 text-[9px] text-slate-600">
-              V6.0 → V7.0: mimari tamamen tersine döndü — 5m &quot;ana karar&quot; ve 1m &quot;breakout+RSI zamanlama&quot; KALDIRILDI. Artık 30m açılış rejimi günün karakterini, 15m dört şartlı tetik ANA sinyali, 5m ise SADECE giriş zamanlamasını belirliyor. Stop artık sabit prim yüzdesi değil, 15m yapısından (Stop_SPY) geliyor.
+              V7.0 → V8.0 (22 Eyl 2026): mimari yeniden tersine döndü — 30m açılış rejimi 2 gün boyunca hiç işlem üretmeyen aşırı katı bir kapı olduğu için TAMAMEN KALDIRILDI. 5m yeniden ANA KARAR (VWAP+mum formasyonu+hacim+RSI, ağırlıklı puanlama), 15m ZORUNLU YÖN TEYİDİ (VWAP birincil, EMA21 ikincil/bilgi). Stop mekaniği (Stop_SPY, 15m yapı) değişmedi.
             </div>
           </Disclosure>
         </div>

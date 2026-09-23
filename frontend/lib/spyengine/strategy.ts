@@ -1,37 +1,37 @@
 /**
- * SPY Engine V7.0 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
+ * SPY Engine V8.0 — Strateji ve Pozisyon Durum Makinesi (izomorfik, saf)
  *
- * V6.0'dan TAM MİMARİ DEĞİŞİKLİK (19 Eyl 2026, @hasan yol haritası —
- * bkz. lib/spyengine/tradingPlan.ts): artık üç zaman dilimi ayrı roller
- * taşıyor, ama sıralama tersine döndü.
+ * V7.0'dan MİMARİ TERSİNE DÖNDÜ (22 Eyl 2026, @hasan): 30m açılış rejimi
+ * hiçbir yerde kullanılmıyor — 2 gün boyunca hiç işlem üretmeyen, aşırı katı
+ * bir AND-kapısı olduğu için tamamen terk edildi. Yeni sıralama:
  *
- *   30m REJİM       → günün karakteri. İlk 30 dakikalık mum (09:30–10:00 ET)
- *                     YUKARI/AŞAĞI/BELİRSİZ belirler; ikinci 15m mum (09:45–
- *                     10:00) EMA21/VWAP ile bu rejimi TEYİT etmezse gün için
- *                     işlem yok.
- *   15m TETİK       → ANA SİNYAL KATMANI. Dört şart birden: (1) 15m kapanış
- *                     rejim yönünde, (2) chop bandı dışındaki son swing dip/
- *                     tepe kırılır, (3) hacim ≥ son 8×15m ortalamasının 1.15
- *                     katı, (4) gövde ≤ 15m ATR'nin 2 katı. Eskiden bu rolü
- *                     5m "Layer 1" (ana karar) üstleniyordu.
- *   5m ZAMANLAMA     → SADECE giriş zamanlaması. 15m tetik zaten onaylanmış
- *                     bir mumun İÇİNDE en erken güvenli giriş anını bulur.
- *                     Bağımsız sinyal ÜRETMEZ, bağımsız stop ÜRETMEZ. Eskiden
- *                     bu rolü 1m "Layer 3" (breakout+RSI7) üstleniyordu.
+ *   5m ANA KARAR    → VWAP konumu (BİRİNCİL karar indikatörü — fiyat VWAP
+ *                     üstünde/altında) + mum formasyonu (bkz.
+ *                     candlePatterns.ts: yutan mum, çekiç, yıldız, iç mum,
+ *                     kırılım+retest, başarısız kırılım, hacim doruğu,
+ *                     düşük-hacim-konsolidasyon-kırılımı) + hacim anomalisi
+ *                     (son 10×5m ortalamasına göre) + RSI(14) yönü birlikte
+ *                     AĞIRLIKLI PUANLANIR (bkz. tradingPlan.ts setup5mScore:
+ *                     VWAP 35 + formasyon 30 + hacim 20 + RSI 15 = 100 taban,
+ *                     +10 EMA21 bonusu). Skor ≥ SETUP_FIRE_THRESHOLD (60)
+ *                     olunca giriş adayı üretilir — eski "dördü de VE"
+ *                     modelinden çok daha sık tetiklenir.
+ *   15m YÖN+TEYİT   → ZORUNLU KAPI, tetik değil. 15m VWAP (birincil) + EMA21
+ *                     (ikincil) konumu 5m sinyalle AYNI yönde olmalı; aksi
+ *                     halde giriş üretilmez ("15m onayı olmadan işlem
+ *                     açılmaz" — kullanıcı kuralı).
+ *   30m             → KULLANILMIYOR.
+ *   EMA21(5m)       → SADECE trend bilgisi/bonus — tek başına karar vermez,
+ *                     engellemez (kullanıcı kuralı).
  *
- * STOP artık her zaman 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe
- * ∓ 0.25×ATR_15m (bkz. tradingPlan.ts stopSpyOf). Her kapanan 15m barda
- * yeniden hesaplanır (trailing yapı stopu) — sabit prim yüzdesi (eski
- * EXIT_STOP_PCT) artık yalnızca erken barlarda (henüz swing/ATR verisi
- * yokken) devreye giren bir güvenlik ağı.
+ * STOP hâlâ 15m yapısından: Stop_SPY = son geçerli 15m dip/tepe ∓ 0.25×
+ * ATR_15m (bkz. tradingPlan.ts stopSpyOf) — bu risk-yönetim kuralı giriş
+ * mantığından bağımsız, DEĞİŞMEDİ.
  *
  * ── GİRİŞ PENCERESİ — 09:45 – 15:00 ET (değişmedi) ──────────────────
  *   09:45'ten önce giriş yok: açılışın ilk çeyreği fiyat keşfidir.
  *   15:00'ten sonra YENİ giriş yok. 15:45 ET zorunlu 0DTE kapaması bundan
  *   ayrı ve mutlak kalır.
- *
- * VWAP hiçbir katmanda GİRİŞ KAPISI DEĞİLDİR — 30m rejim teyidinde girdi
- * olarak kullanılır, panelde ayrıca teyit/seviye olarak gösterilir.
  *
  * ── ÇIKIŞ — öncelik sıralı, asimetrik hız (giriş konfirmasyonlu/yavaş,
  *   çıkış hızlı) — DEĞİŞMEDİ. ──────────────────────────────────────────
@@ -57,20 +57,21 @@
  * `VolumeVetoRead`, `RegimeState`, `Layer3Read`, `EngineRead`, `PositionState`
  * tiplerinin ALAN ADLARI/ŞEKLİ korunuyor — sadece İÇERİKLERİ yeni mimariye
  * göre yeniden yorumlanıyor:
- *   - `veto` (M15VetoRead)     → şimdi "30m Rejim + 15m teyit" katmanı.
+ *   - `veto` (M15VetoRead)     → şimdi "15m Yön + Teyit" (zorunlu kapı).
  *   - `layer1` (Layer1Read)    → DEĞİŞMEDİ: gerçek 5m EMA21/RSI14/MACD
  *                                (heuristics.ts'in reversal/tükenme skoru
- *                                bunu okumaya devam ediyor; ayrıca yeni 5m
- *                                zamanlama bağlamı için de kullanılıyor).
+ *                                bunu okumaya devam ediyor).
  *   - `volumeVeto` (VolumeVetoRead) → DEĞİŞMEDİ: gerçek çok-günlü 5m RVOL
  *                                (heuristics.ts `rvolForReversal` için gerçek
  *                                sayı okumaya devam ediyor); "aktif" bayrağı
  *                                hâlâ RVOL<0.8 piyasa-ölü vetosu.
- *   - `regime` (RegimeState)   → şimdi "15m tetik ateşlendi mi" durumu.
- *   - `layer3` (Layer3Read)    → şimdi 15m tetiğin dört şartlık kontrol
- *                                listesi (eskiden 1m breakout+RSI7).
+ *   - `regime` (RegimeState)   → şimdi "5m ana karar ateşlendi mi" durumu.
+ *   - `layer3` (Layer3Read)    → şimdi 5m ana karar skorunun bileşen
+ *                                dökümü (VWAP/formasyon/hacim/RSI/EMA21).
  * `EngineRead`e SADECE EKLEME yapıldı (`refinement5m`, `stopSpy`) — route.ts
- * bu alanlara dokunmuyor, ekleme onu bozmaz.
+ * bu alanlara dokunmuyor, ekleme onu bozmaz. `refinement5m` artık kullanılan
+ * bir "zamanlama" katmanı değil (5m zaten ana karar) — geriye uyumluluk için
+ * her zaman `{readyToEnter: true, note: "5m ana karar katmanı"}` döner.
  */
 
 import {
@@ -89,21 +90,21 @@ import {
   r2,
 } from "./core";
 import {
-  openingRangeRegime,
-  regimeConfirmation15m,
   chopBandOf,
-  rollingVolumeAvg,
   atr15mSeries,
   ema21Of15m,
-  trigger15mAt,
-  fiveMinuteRefinement,
   stopSpyOf,
   stopPremiumOf,
-  type RegimeDir,
-  type ChopBand,
-  type Trigger15mRead,
+  vwapDirectionOf,
+  rsiDirectionOf,
+  trend15mDirection,
+  volumeRatio5m,
+  setup5mScore,
+  SETUP_FIRE_THRESHOLD,
+  type Setup5mScore,
   type FiveMinuteRefinement,
 } from "./tradingPlan";
+import { detectCandlePatterns, strongestPatternFor, type CandlePatternHit } from "./candlePatterns";
 
 // ── Tipler ────────────────────────────────────────────────────────
 
@@ -112,18 +113,18 @@ export type VetoDirection = "LONG" | "SHORT" | "NEUTRAL";
 export type RegimeSide = "LONG" | "SHORT" | "NONE";
 
 /**
- * Strike seçim kademesi. "S" = Süper güçlü (5m RSI VE MACD ikisi de + 15m
- * hacim oranı > RVOL_STRONG_MIN eşiği — kurumsal katılım onayı), "A" = Güçlü
- * kurulum (5m RSI VE MACD ikisi de, hacim normal), "B" = Orta kurulum
- * (yalnızca biri). İsimlendirme eski V3/V4 "kontrat türü" alanıyla uyumluluk
- * için korundu, girdileri V7.0'da güncellendi (15m tetik + 5m bağlam).
+ * Strike seçim kademesi. "S" = Süper güçlü (5m ana karar skoru ≥85 — VWAP+
+ * formasyon+hacim+RSI'nin çoğu birden hizalı), "A" = Güçlü kurulum (skor
+ * ≥70), "B" = Orta kurulum (eşiği geçen taban, skor ≥60). İsimlendirme eski
+ * V3/V4 "kontrat türü" alanıyla uyumluluk için korundu, girdileri V8.0'da
+ * güncellendi (5m ana karar skoru + 15m yön teyidi).
  */
 export type ContractType = "S" | "A" | "B";
 
 export const CONTRACT_RULES: Record<ContractType, { label: string }> = {
-  S: { label: "Süper Güçlü Kurulum (15m tetik + 5m RSI/MACD ikisi de + hacim>2.0×, ATM+2, 0DTE)" },
-  A: { label: "Güçlü Kurulum (15m tetik + 5m RSI/MACD ikisi de yönlü, ATM+1, 0DTE)" },
-  B: { label: "Orta Kurulum (15m tetik + 5m RSI veya MACD, ATM, 0DTE)" },
+  S: { label: "Süper Güçlü Kurulum (5m skor ≥85: VWAP+formasyon+hacim+RSI çoğu hizalı, ATM+2, 0DTE)" },
+  A: { label: "Güçlü Kurulum (5m skor ≥70, ATM+1, 0DTE)" },
+  B: { label: "Orta Kurulum (5m skor ≥60 — eşik, ATM, 0DTE)" },
 };
 
 /** Strike, ATM'den yön tarafında (LONG: yukarı, SHORT: aşağı) bu kadar $ ötelenir */
@@ -131,7 +132,7 @@ export const STRIKE_OFFSET: Record<ContractType, number> = { S: 2, A: 1, B: 0 };
 
 // ── Katman sabitleri ─────────────────────────────────────────────
 
-/** 30m rejim + 15m teyit katmanı — EMA21(15m) periyodu */
+/** 15m yön + teyit katmanı (zorunlu kapı) — EMA21(15m) periyodu */
 export const M15_EMA_PERIOD = 21;
 
 /** 5m bağlam katmanı (zamanlama girdisi + Faz 1 reversal skoru) — DEĞİŞMEDİ */
@@ -459,40 +460,24 @@ function volumeVetoOf(rvol: number | null, sampleDays: number): VolumeVetoRead {
   };
 }
 
-// ── V7.0 — REJİM KATMANI (30m açılış + 15m teyit) ───────────────────
-
-function regimeDirToSide(d: RegimeDir): VetoDirection {
-  if (d === "YUKARI") return "LONG";
-  if (d === "AŞAĞI") return "SHORT";
-  return "NEUTRAL";
-}
+// ── V8.0 — 15m YÖN + TEYİT (zorunlu kapı, 30m KULLANILMIYOR) ────────
 
 /**
- * "Katman 0" artık 30m açılış rejimi + 2. 15m mumun EMA21/VWAP teyidi.
- * `m5Session` seans başından itibaren (bugünün) 5m mumlar olmalı.
+ * "Katman 0" artık 15m'in kendi VWAP (birincil) + EMA21 (ikincil) konumu.
+ * 30m açılış rejimi hiç hesaba katılmıyor. `idx` -1 ise (henüz 15m barı
+ * yoksa) nötr döner.
  */
-function regimeLayerAt(
-  m5Session: Bar[], m15: Bar[], m15Ema21: Series, m15Vwap: Series, idx: number
-): M15VetoRead {
-  const orr = openingRangeRegime(m5Session);
-  if (!orr) {
-    return { direction: "NEUTRAL", close: null, ema21: null, note: "30m açılış rejimi için 5m verisi yetersiz" };
+function trend15mLayerAt(m15: Bar[], m15Ema21: Series, m15Vwap: Series, idx: number): M15VetoRead {
+  if (idx < 0 || idx >= m15.length) {
+    return { direction: "NEUTRAL", close: null, ema21: null, note: "15m verisi yetersiz" };
   }
-  if (orr.regime === "BELİRSİZ") {
-    return {
-      direction: "NEUTRAL", close: orr.rangeClose, ema21: orr.rangeOpen,
-      note: `30m açılış rejimi BELİRSİZ (aralık ${orr.rangeLow.toFixed(2)}–${orr.rangeHigh.toFixed(2)}) — bugün işlem yok`,
-    };
-  }
-  const side = regimeDirToSide(orr.regime);
-  const confirmed = idx >= 0 && regimeConfirmation15m(m15, m15Ema21, m15Vwap, idx, orr.regime);
+  const bar = m15[idx];
+  const t = trend15mDirection(bar.close, m15Vwap[idx], m15Ema21[idx]);
   return {
-    direction: confirmed ? side : "NEUTRAL",
-    close: orr.rangeClose,
-    ema21: orr.rangeOpen,
-    note: confirmed
-      ? `30m açılış rejimi ${orr.regime} (${orr.rangeOpen.toFixed(2)}→${orr.rangeClose.toFixed(2)}), 2. 15m mum EMA21/VWAP ile teyitli — ${side} serbest`
-      : `30m açılış rejimi ${orr.regime} ama 2. 15m mum EMA21/VWAP teyidi henüz yok — tez bozuk olabilir, giriş yok`,
+    direction: t.direction === "NÖTR" ? "NEUTRAL" : t.direction,
+    close: bar.close,
+    ema21: m15Ema21[idx],
+    note: t.note,
   };
 }
 
@@ -538,49 +523,21 @@ function layer1At(
   };
 }
 
-// ── V7.0 — 15m ANA TETİK (dört şart) ─────────────────────────────────
+// ── V8.0 — 5m ANA KARAR skorunu Layer3Read (kontrol listesi) şekline çevir ──
 
-function trigger15mRead(
-  m15: Bar[], idx: number, regimeSide: RegimeDir, chopBand: ChopBand, atr15Series: Series
-): { read: Layer3Read; raw: Trigger15mRead } {
-  const raw = trigger15mAt(m15, idx, regimeSide, chopBand, atr15Series, 8);
-  if (regimeSide === "BELİRSİZ" || !raw.side) {
-    return {
-      raw,
-      read: { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "Rejim yok — 15m tetik aranmıyor" },
-    };
+function setup5mReadOf(scored: Setup5mScore | null, side: Side): Layer3Read {
+  if (!scored) {
+    return { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "5m verisi yetersiz" };
   }
-  const checks: GateCheck[] = [
-    { label: "15m kapanış rejim yönünde", ok: raw.regimeOk, detail: raw.regimeOk ? "evet" : "hayır" },
-    {
-      label: `15m kırılım (chop bandı dışı son swing ${raw.side === "LONG" ? "tepe" : "dip"})`,
-      ok: raw.breakoutOk,
-      detail: raw.swingLevel != null ? raw.swingLevel.toFixed(2) : "swing seviyesi yok",
-    },
-    {
-      label: "Hacim ≥ son 8×15m ortalamasının 1.15 katı",
-      ok: raw.volumeOk,
-      detail: raw.avgVol != null ? `8 mum ort. ${raw.avgVol.toFixed(0)}` : "veri yok",
-    },
-    {
-      label: "Gövde ≤ 15m ATR'nin 2 katı",
-      ok: raw.bodyOk,
-      detail: raw.atr15m != null ? `ATR ${raw.atr15m.toFixed(2)}` : "veri yok",
-    },
-  ];
+  const checks: GateCheck[] = scored.parts.map((p) => ({ label: p.label, ok: p.value > 0, detail: p.value > 0 ? `+${p.value}` : "0" }));
   return {
-    raw,
-    read: {
-      checks,
-      structureOk: raw.regimeOk && raw.breakoutOk,
-      confirmationOk: raw.volumeOk && raw.bodyOk,
-      fired: raw.fired,
-      note: raw.fired
-        ? `15m tetik ateşlendi (${raw.side})`
-        : !raw.regimeOk || !raw.breakoutOk
-        ? "15m kırılım henüz oluşmadı"
-        : "15m kırılım oluştu, hacim/gövde filtresi bekleniyor",
-    },
+    checks,
+    structureOk: scored.score >= SETUP_FIRE_THRESHOLD,
+    confirmationOk: scored.fired,
+    fired: scored.fired,
+    note: scored.fired
+      ? `5m ana karar ${side} ateşlendi (skor ${scored.score})`
+      : `5m ana karar skoru ${scored.score}/100 — eşik ${SETUP_FIRE_THRESHOLD}`,
   };
 }
 
@@ -631,43 +588,21 @@ function exitAlreadyActive(
   return { blocked: false, detail: "acil çıkış koşulu girişte aktif değil" };
 }
 
-// ── Güven skoru ──────────────────────────────────────────────────
-
-function buildConfidence(l1: Layer1Read, side: Side, volRatio: number | null): { total: number; parts: ConfidencePart[] } {
-  const parts: ConfidencePart[] = [{ label: "30m rejim + 15m tetik (4 şart) geçildi (taban)", value: 65 }];
-  let total = 65;
-
-  const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
-  const strongPts = strong ? 20 : 10;
-  parts.push({ label: strong ? "5m bağlam güçlü (RSI + MACD ikisi de)" : "5m bağlam orta (RSI veya MACD)", value: strongPts });
-  total += strongPts;
-
-  if (volRatio != null && volRatio > RVOL_STRONG_MIN) {
-    parts.push({ label: `15m hacim oranı ${volRatio.toFixed(2)}× > ${RVOL_STRONG_MIN} — kurumsal katılım onayı`, value: 5 });
-    total += 5;
-  }
-
-  return { total: Math.max(0, Math.min(100, total)), parts };
-}
-
 // ── Kapı Durumu (manuel işlem için birleşik veto listesi) ───────────
 
 function gateChecksFor(
-  veto: M15VetoRead, volVeto: VolumeVetoRead, l1: Layer1Read, l3ForSide: Layer3Read, side: Side,
+  veto: M15VetoRead, volVeto: VolumeVetoRead, l3ForSide: Layer3Read, side: Side,
   exitClash: { blocked: boolean; detail: string }
 ): GateCheck[] {
-  const isLong = side === "LONG";
-  const l1Pass = isLong ? l1.passLong : l1.passShort;
   return [
-    { label: "30m rejim + 15m teyit izin veriyor", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
+    { label: "15m yön + teyit aynı yönde (zorunlu kapı)", ok: veto.direction === side, detail: veto.direction === "NEUTRAL" ? "nötr" : veto.direction },
     { label: `Hacim vetosu yok (RVOL ≥ ${RVOL_VETO_MIN})`, ok: !volVeto.active, detail: volVeto.rvol == null ? "veri yok" : `RVOL ${volVeto.rvol.toFixed(2)}×` },
-    { label: "5m zamanlama (EMA21 konumu) — bilgi amaçlı, karar vermez", ok: l1Pass, detail: l1Pass ? "hazır" : "beklemede" },
     ...l3ForSide.checks,
     { label: "Acil çıkış (5m EMA21) girişte aktif değil", ok: !exitClash.blocked, detail: exitClash.detail },
   ];
 }
 
-// ── Giriş adaylarının üretimi (30m rejim → 15m ana tetik → 5m zamanlama) ─
+// ── Giriş adaylarının üretimi (5m ANA KARAR skoru + 15m yön teyidi kapısı) ─
 
 export interface GenerateInput {
   m1: Bar[];
@@ -691,34 +626,39 @@ export interface GenerateOutput {
   lastClosed: { m1: number | null; m5: number | null; m15: number | null };
 }
 
+/** Mum formasyonu + hacim anomalisi için geriye dönük bakılan bar sayısı */
+const PATTERN_LOOKBACK = 10;
+const VOLUME_LOOKBACK = 10;
+
 export function generateCandidates(input: GenerateInput): GenerateOutput {
   const { session, nowSec } = input;
   const m1 = closedBars(input.m1, 1, nowSec);
   const m5 = closedBars(input.m5, 5, nowSec);
   const m15 = closedBars(input.m15, 15, nowSec);
 
-  // Bugünün seansına ait 5m mumlar — 30m açılış rejimi bunun üzerinden kurulur.
-  const m5Session = m5.filter((b) => nyParts(b.time).ymd === session.date);
-
-  const m15Closes = closes(m15);
+  // ── 15m YÖN + TEYİT (zorunlu kapı) — VWAP birincil, EMA21 ikincil ────
   const m15Ema21 = ema21Of15m(m15);
-  const m15Vwap = sessionVwap(m15.filter((b) => nyParts(b.time).ymd === session.date));
-  // sessionVwap yalnızca bugünün 15m barlarını kapsar; index hizası için
-  // bugünün ilk 15m barının m15 içindeki konumunu bul.
-  const todayStartIdx15 = m15.findIndex((b) => nyParts(b.time).ymd === session.date);
-  const m15VwapAligned: Series = m15.map((_, i) =>
-    todayStartIdx15 >= 0 && i >= todayStartIdx15 ? m15Vwap[i - todayStartIdx15] ?? null : null
-  );
-  const m15Atr = atr15mSeries(m15);
+  const m15Vwap = sessionVwap(m15); // gün başına otomatik sıfırlanır (core.ts)
+  const vetoTimeline: M15VetoRead[] = m15.map((_, j) => trend15mLayerAt(m15, m15Ema21, m15Vwap, j));
 
+  /** Verilen zamana kadar en son TAM KAPANMIŞ 15m barın yön teyidi (non-repainting). */
+  function confirming15mAt(t: number): M15VetoRead {
+    let idx = -1;
+    for (let i = 0; i < m15.length; i++) {
+      if (m15[i].time + 900 <= t) idx = i;
+      else break;
+    }
+    return idx >= 0 ? vetoTimeline[idx] : { direction: "NEUTRAL", close: null, ema21: null, note: "15m verisi henüz yok" };
+  }
+
+  // ── 5m ANA KARAR girdileri — VWAP + mum formasyonu + hacim + RSI ─────
   const m5Closes = closes(m5);
   const m5Ema = ema(m5Closes, M5_EMA_PERIOD);
   const m5Rsi = rsi(m5Closes, M5_RSI_PERIOD);
   const m5MacdHist = macd(m5Closes, M5_MACD_FAST, M5_MACD_SLOW, M5_MACD_SIGNAL).hist;
-  const m5TimeIndex = new Map<number, number>(m5.map((b, i) => [b.time, i]));
+  const m5Vwap = sessionVwap(m5);
 
-  // ── RVOL: her 5m bar için, AYNI SAAT DİLİMİNİN geçmiş günlerdeki ortalamasına
-  //    göre hacim oranı (heuristics.ts + volumeVeto — DEĞİŞMEDİ) ────────────
+  // ── RVOL (çok-günlü, DEĞİŞMEDİ) — hâlâ ikili "piyasa ölü" vetosu ─────
   const rvolBaseline = input.m5History?.length ? buildRvolBaseline(input.m5History, session.date) : EMPTY_RVOL_BASELINE;
   const m5Rvol: (number | null)[] = new Array(m5.length);
   const m5RvolDays: number[] = new Array(m5.length);
@@ -729,107 +669,87 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   }
   const volVetoTimeline: VolumeVetoRead[] = m5.map((_, j) => volumeVetoOf(m5Rvol[j], m5RvolDays[j]));
 
-  // ── 30m rejim (sabit — gün boyunca bir kez belirlenir) ────────────────
-  const orr = openingRangeRegime(m5Session);
-  const regimeSide: RegimeDir = orr?.regime ?? "BELİRSİZ";
-
-  // ── 15m tetik + rejim-teyit zaman çizelgesi ───────────────────────────
-  const vetoTimeline: M15VetoRead[] = new Array(m15.length);
-  const triggerTimeline: { read: Layer3Read; raw: Trigger15mRead }[] = new Array(m15.length);
-  const regimeStateTimeline: RegimeState[] = new Array(m15.length);
-  for (let j = 0; j < m15.length; j++) {
-    vetoTimeline[j] = regimeLayerAt(m5Session, m15, m15Ema21, m15VwapAligned, j);
-    const chop = chopBandOf(m15.slice(0, j), 3);
-    const confirmedSide = vetoTimeline[j].direction;
-    const trigSideRegime: RegimeDir = confirmedSide === "LONG" ? "YUKARI" : confirmedSide === "SHORT" ? "AŞAĞI" : "BELİRSİZ";
-    triggerTimeline[j] = trigger15mRead(m15, j, trigSideRegime, chop, m15Atr);
-    const raw = triggerTimeline[j].raw;
-    regimeStateTimeline[j] = {
-      side: raw.fired && raw.side ? raw.side : "NONE",
-      since: raw.fired ? m15[j].time : null,
-      note: raw.fired
-        ? `15m tetik ${raw.side} ateşlendi (${nyParts(m15[j].time).hhmm} ET)`
-        : "15m tetik ateşlenmedi",
-    };
-  }
-
   const stopSeriesLong = buildM15StopSeries(m5, "LONG");
   const stopSeriesShort = buildM15StopSeries(m5, "SHORT");
   const m15StopTimeIndex = new Map<number, number>(bucketAggregate(m5, 15).map((b, i) => [b.time, i]));
 
-  // ── Giriş adayları: her ateşlenen 15m tetik için, tetik mumunun İÇİNDE
-  //    en erken 5m zamanlama teyidini ara ────────────────────────────────
+  /** 15m yapı stopu — atTime'dan önce TAM KAPANMIŞ son 15m bucket'tan (non-repainting). */
+  function stopFor(side: Side, atTime: number): number | null {
+    const stopSeries = side === "LONG" ? stopSeriesLong : stopSeriesShort;
+    let stopIdx = -1;
+    for (const [t15, idx15] of m15StopTimeIndex) {
+      if (t15 + 900 <= atTime && idx15 > stopIdx) stopIdx = idx15;
+    }
+    return stopAt(stopSeries, stopIdx)?.stopSpy ?? null;
+  }
+
+  /** Verilen 5m bar index'inde bir yön için 5m ana karar skoru. */
+  function scoreAt(idx: number, side: Side): Setup5mScore | null {
+    if (idx < PATTERN_LOOKBACK || idx >= m5.length) return null;
+    const bar = m5[idx];
+    const vwapDir = vwapDirectionOf(bar.close, m5Vwap[idx]);
+    const patterns = detectCandlePatterns(m5, idx, PATTERN_LOOKBACK);
+    const pattern = strongestPatternFor(patterns, side);
+    const volRatio = volumeRatio5m(m5, idx, VOLUME_LOOKBACK);
+    const rsiDir = rsiDirectionOf(m5Rsi[idx], m5Rsi[idx - 1] ?? null);
+    const e = m5Ema[idx];
+    const ema21Agrees = e != null && (side === "LONG" ? bar.close > e : bar.close < e);
+    return setup5mScore({ side, vwapDir, rsiDir, ema21Agrees, volumeRatio: volRatio, pattern });
+  }
+
+  // ── Giriş adayları: her 5m bar için, 15m teyidiyle AYNI yönde skor ────
+  //    eşiği geçince aday üretilir (30m yok, AND-kapısı yok — puanlama).
   const candidates: EntryCandidate[] = [];
 
-  for (let mi = 0; mi < m15.length; mi++) {
-    const bar15 = m15[mi];
-    const p = nyParts(bar15.time);
+  for (let i = PATTERN_LOOKBACK; i < m5.length; i++) {
+    const bar = m5[i];
+    const p = nyParts(bar.time);
     const inEntryWindow = p.ymd === session.date && p.minutes >= ENTRY_OPEN_MIN && p.minutes < ENTRY_CUTOFF_MIN;
     if (!inEntryWindow) continue;
 
-    const trig = triggerTimeline[mi].raw;
-    if (!trig.fired || !trig.side) continue;
-    const side = trig.side;
+    const vwapDir = vwapDirectionOf(bar.close, m5Vwap[i]);
+    if (vwapDir === "NÖTR") continue;
+    const side: Side = vwapDir;
 
-    // 5m zamanlama: tetik mumunun zaman aralığı [bar15.time, bar15.time+900) içindeki 5m barlar
-    const m5Idx: number[] = [];
-    for (let i = 0; i < m5.length; i++) {
-      if (m5[i].time >= bar15.time && m5[i].time < bar15.time + 900) m5Idx.push(i);
-    }
-    if (!m5Idx.length) continue;
+    const confirm15 = confirming15mAt(bar.time);
+    if (confirm15.direction !== side) continue; // 15m onayı olmadan işlem açılmaz (zorunlu kapı)
 
-    let entryGlobalIdx: number | null = null;
-    for (let k = 0; k < m5Idx.length; k++) {
-      const sliceIdx = m5Idx.slice(0, k + 1);
-      const slice = sliceIdx.map((i) => m5[i]);
-      const rsiSlice: Series = sliceIdx.map((i) => m5Rsi[i]);
-      const ref = fiveMinuteRefinement(slice, rsiSlice, side);
-      if (ref.readyToEnter) {
-        entryGlobalIdx = m5Idx[k];
-        break;
-      }
-    }
-    if (entryGlobalIdx == null) continue;
-
-    const entryBar = m5[entryGlobalIdx];
-    const volVeto = volVetoTimeline[entryGlobalIdx];
+    const volVeto = volVetoTimeline[i];
     if (volVeto.active) continue; // piyasa katılımı çok düşük — RVOL vetosu
 
-    if (exitAlreadyActive(m5Ema, entryGlobalIdx, side, entryBar.close).blocked) continue;
+    if (exitAlreadyActive(m5Ema, i, side, bar.close).blocked) continue;
 
-    const l1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, entryGlobalIdx);
-    const strong = side === "LONG" ? l1.strongLong : l1.strongShort;
-    const volRatio = trig.avgVol != null && trig.avgVol > 0 ? (bar15.volume || 0) / trig.avgVol : null;
-    const contractType: ContractType = strong && volRatio != null && volRatio > RVOL_STRONG_MIN ? "S" : strong ? "A" : "B";
-    const { total, parts } = buildConfidence(l1, side, volRatio);
+    const scored = scoreAt(i, side);
+    if (!scored || !scored.fired) continue;
 
-    const stopSeries = side === "LONG" ? stopSeriesLong : stopSeriesShort;
-    const stopIdx = m15StopTimeIndex.get(bar15.time) ?? -1;
-    const stopPoint = stopAt(stopSeries, stopIdx);
+    const pattern = strongestPatternFor(detectCandlePatterns(m5, i, PATTERN_LOOKBACK), side);
+    const volRatio = volumeRatio5m(m5, i, VOLUME_LOOKBACK);
+    const rsiDir = rsiDirectionOf(m5Rsi[i], m5Rsi[i - 1] ?? null);
+    const contractType: ContractType = scored.score >= 85 ? "S" : scored.score >= 70 ? "A" : "B";
 
     candidates.push({
-      time: entryBar.time,
+      time: bar.time,
       side,
-      spot: entryBar.close,
+      spot: bar.close,
       contractType,
-      confidence: total,
-      confidenceParts: parts,
-      stopSpy: stopPoint?.stopSpy ?? null,
+      confidence: scored.score,
+      confidenceParts: scored.parts,
+      stopSpy: stopFor(side, bar.time),
       reasoning:
-        `30m açılış rejimi ${regimeSide} · ` +
-        `15m tetik: ${triggerTimeline[mi].read.note} · ` +
-        `5m zamanlama teyidi ${nyParts(entryBar.time).hhmm} ET'de geldi`,
+        `5m ana karar (skor ${scored.score}/100): VWAP ${side === "LONG" ? "üstünde" : "altında"}` +
+        (pattern ? ` + ${pattern.label} (${pattern.detail})` : "") +
+        (volRatio != null ? ` + hacim ${volRatio.toFixed(2)}×` : "") +
+        (rsiDir === side ? " + RSI(14) aynı yönde" : "") +
+        ` · 15m teyit: ${confirm15.note}`,
     });
   }
 
-  // ── Canlı okuma (son kapalı mumlar üzerinden, panel için) ────────
-  const lastM15Idx = m15.length - 1;
+  // ── Canlı okuma (son kapalı mumlar üzerinden, panel için) ────────────
   const lastM5Idx = m5.length - 1;
+  const lastM15Idx = m15.length - 1;
   const lastVeto = lastM15Idx >= 0 ? vetoTimeline[lastM15Idx] : { direction: "NEUTRAL" as VetoDirection, close: null, ema21: null, note: "15m verisi yetersiz" };
   const lastVolVeto: VolumeVetoRead = lastM5Idx >= 0 ? volVetoTimeline[lastM5Idx] : volumeVetoOf(null, 0);
   const lastL1 = layer1At(m5, m5Ema, m5Rsi, m5MacdHist, lastM5Idx);
-  const lastRegime: RegimeState = lastM15Idx >= 0 ? regimeStateTimeline[lastM15Idx] : { side: "NONE", since: null, note: "15m tetik için veri yetersiz" };
-  const lastLayer3 = lastM15Idx >= 0 ? triggerTimeline[lastM15Idx].read : { checks: [], structureOk: false, confirmationOk: false, fired: false, note: "15m verisi yetersiz" };
 
   const lastClose = lastM5Idx >= 0 ? m5[lastM5Idx].close : null;
   const clashLong = lastClose == null
@@ -839,22 +759,22 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     ? { blocked: false, detail: "5m verisi yok" }
     : exitAlreadyActive(m5Ema, lastM5Idx, "SHORT", lastClose);
 
-  // 5m zamanlama okuması: aktif bir 15m tetik varsa o tetik mumunun içindeki
-  // 5m barlarla; yoksa "tetik bekleniyor" notu
-  let lastRefinement: FiveMinuteRefinement = { readyToEnter: false, note: "15m tetik onayı bekleniyor" };
-  if (lastM15Idx >= 0 && triggerTimeline[lastM15Idx].raw.fired && triggerTimeline[lastM15Idx].raw.side) {
-    const bar15 = m15[lastM15Idx];
-    const side = triggerTimeline[lastM15Idx].raw.side!;
-    const idxInBar: number[] = [];
-    for (let i = 0; i < m5.length; i++) {
-      if (m5[i].time >= bar15.time && m5[i].time < bar15.time + 900) idxInBar.push(i);
-    }
-    if (idxInBar.length) {
-      const slice = idxInBar.map((i) => m5[i]);
-      const rsiSlice: Series = idxInBar.map((i) => m5Rsi[i]);
-      lastRefinement = fiveMinuteRefinement(slice, rsiSlice, side);
-    }
-  }
+  // Sürekli okuma: son 5m barda HER İKİ yön için de skor — sadece ateşlenince
+  // değil, her zaman bir "şu an nereye yakın" görünümü verir.
+  const lastLongScore = scoreAt(lastM5Idx, "LONG");
+  const lastShortScore = scoreAt(lastM5Idx, "SHORT");
+  const leaderSide: Side | null =
+    lastLongScore && lastShortScore
+      ? (lastLongScore.score >= lastShortScore.score ? "LONG" : "SHORT")
+      : lastLongScore ? "LONG" : lastShortScore ? "SHORT" : null;
+  const leaderScore = leaderSide === "LONG" ? lastLongScore : leaderSide === "SHORT" ? lastShortScore : null;
+
+  const lastRegime: RegimeState = {
+    side: leaderScore?.fired && leaderSide ? leaderSide : "NONE",
+    since: leaderScore?.fired && lastM5Idx >= 0 ? m5[lastM5Idx].time : null,
+    note: leaderScore ? `5m ana karar skoru ${leaderSide}: ${leaderScore.score}/100` : "5m verisi yetersiz",
+  };
+  const lastLayer3 = setup5mReadOf(leaderScore, leaderSide ?? "LONG");
 
   const lastCandidate =
     candidates.length && lastM5Idx >= 0 && candidates[candidates.length - 1].time === m5[lastM5Idx].time
@@ -864,13 +784,13 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
   let state: EngineState = "WATCHING";
   let action: EngineRead["action"] = "BEKLE";
   let contractType: ContractType | null = null;
-  let confidence = 30;
-  let confidenceParts: ConfidencePart[] = [{ label: "Taban (rejim yok)", value: 30 }];
-  let reasoning = "30m açılış rejimi aranıyor.";
+  let confidence = leaderScore?.score ?? 0;
+  let confidenceParts: ConfidencePart[] = leaderScore?.parts ?? [{ label: "5m verisi bekleniyor", value: 0 }];
+  let reasoning = "5m ana karar (VWAP + mum formasyonu + hacim + RSI) taranıyor.";
   let stateLabel = "İZLEMEDE";
   let nextStep = lastVolVeto.active
-    ? `Hacim vetosu aktif: ${lastVolVeto.note}. Tetik aranmıyor.`
-    : "30m açılış rejimi + 15m teyidi bekleniyor.";
+    ? `Hacim vetosu aktif: ${lastVolVeto.note}. Tarama duraklatıldı.`
+    : "5m ana karar skoru izleniyor, 15m yön teyidi bekleniyor.";
   let liveStopSpy: number | null = null;
 
   const nowMin = nyParts(nowSec).minutes;
@@ -888,7 +808,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       nowMin < ENTRY_OPEN_MIN
         ? "Giriş penceresi 09:45 ET'de açılıyor — açılışın ilk çeyreğinde giriş üretilmiyor."
         : "Giriş penceresi 15:00 ET'de kapandı — yeni pozisyon açılmıyor (15:45 zorunlu 0DTE kapaması ayrıca geçerli).";
-    reasoning = `Giriş penceresi dışında (09:45–15:00 ET). Rejim ve tetik okumaları bilgi amaçlı gösterilmeye devam ediyor: ${lastVeto.note}`;
+    reasoning = `Giriş penceresi dışında (09:45–15:00 ET). 5m/15m okumaları bilgi amaçlı gösterilmeye devam ediyor.`;
   } else if (lastCandidate) {
     state = "TRIGGERED";
     action = lastCandidate.side;
@@ -897,33 +817,28 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
     confidenceParts = lastCandidate.confidenceParts;
     reasoning = lastCandidate.reasoning;
     stateLabel = lastCandidate.side === "LONG" ? "LONG GİRİŞ SİNYALİ" : "SHORT GİRİŞ SİNYALİ";
-    nextStep = "5m zamanlama teyidi geldi — pozisyon açılıyor.";
+    nextStep = "5m ana karar skoru eşiği geçti, 15m yön teyidi de var — pozisyon açılıyor.";
     liveStopSpy = lastCandidate.stopSpy;
-  } else if (lastVeto.direction !== "NEUTRAL") {
-    const side = lastVeto.direction;
+  } else if (leaderSide && leaderScore && leaderScore.score > 0 && lastM5Idx >= 0) {
+    const atTime = m5[lastM5Idx].time;
+    const confirm15 = confirming15mAt(atTime);
+    const gated = confirm15.direction === leaderSide;
     state = "ARMED";
-    confidence = 55;
-    confidenceParts = [
-      { label: "Taban", value: 30 },
-      { label: `30m rejim + 15m teyit ${side} serbest`, value: 25 },
-    ];
-    reasoning = `30m rejim + 15m teyit ${side} yönünü serbest bıraktı — 15m ana tetik (4 şart) bekleniyor.`;
-    stateLabel = "HAZIRLANIYOR";
-    const stopSeries = side === "LONG" ? stopSeriesLong : stopSeriesShort;
-    const stopIdx = lastM15Idx >= 0 ? (m15StopTimeIndex.get(m15[lastM15Idx].time) ?? -1) : -1;
-    liveStopSpy = stopAt(stopSeries, stopIdx)?.stopSpy ?? null;
-    nextStep = lastLayer3.fired
-      ? lastRefinement.readyToEnter
-        ? "15m tetik ateşlendi, 5m zamanlama teyidi de tamam — giriş üretiliyor."
-        : `15m tetik ateşlendi (${side}). 5m zamanlama teyidi bekleniyor: ${lastRefinement.note}`
-      : !lastLayer3.structureOk
-      ? `30m rejim + 15m teyit ${side} serbest. 15m'de kırılım (chop bandı dışı swing) bekleniyor.`
-      : `30m rejim + 15m teyit ${side} serbest, 15m kırılım oluştu. Hacim/gövde filtresi bekleniyor.`;
+    confidence = leaderScore.score;
+    confidenceParts = leaderScore.parts;
+    stateLabel = leaderScore.score >= SETUP_FIRE_THRESHOLD - 15 ? "HAZIRLANIYOR" : "İZLEMEDE";
+    liveStopSpy = stopFor(leaderSide, atTime);
+    reasoning = `5m ana karar ${leaderSide} yönünde şekilleniyor (skor ${leaderScore.score}/100)${gated ? ", 15m teyidi de aynı yönde" : ", 15m teyidi henüz eşleşmiyor"}.`;
+    nextStep = !gated
+      ? `5m skor ${leaderScore.score}/100 ama 15m yön teyidi ${confirm15.direction === "NEUTRAL" ? "nötr" : confirm15.direction} — eşleşmiyor, giriş yok.`
+      : leaderScore.score >= SETUP_FIRE_THRESHOLD
+      ? "Eşik geçildi — giriş üretiliyor."
+      : `Eşiğe (${SETUP_FIRE_THRESHOLD}/100) ${SETUP_FIRE_THRESHOLD - leaderScore.score} puan kaldı.`;
   }
 
   const gateStatus: GateStatus = {
-    long: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastM15Idx >= 0 ? triggerTimeline[lastM15Idx].read : lastLayer3, "LONG", clashLong),
-    short: gateChecksFor(lastVeto, lastVolVeto, lastL1, lastM15Idx >= 0 ? triggerTimeline[lastM15Idx].read : lastLayer3, "SHORT", clashShort),
+    long: gateChecksFor(lastVeto, lastVolVeto, setup5mReadOf(lastLongScore, "LONG"), "LONG", clashLong),
+    short: gateChecksFor(lastVeto, lastVolVeto, setup5mReadOf(lastShortScore, "SHORT"), "SHORT", clashShort),
   };
 
   return {
@@ -943,7 +858,7 @@ export function generateCandidates(input: GenerateInput): GenerateOutput {
       confidenceParts,
       reasoning,
       gateStatus,
-      refinement5m: lastRefinement,
+      refinement5m: { readyToEnter: true, note: "5m ana karar katmanı — ayrı zamanlama katmanı yok (V8.0)" },
       stopSpy: liveStopSpy,
     },
     lastClosed: {
