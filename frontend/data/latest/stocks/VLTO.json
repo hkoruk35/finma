@@ -1,0 +1,89 @@
+{
+  "ticker": "VLTO",
+  "company": "Veralto Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:02:48.795Z",
+  "sector": "Industrials",
+  "industry": "Pollution & Treatment Controls",
+  "price": {
+    "current": 94.48999786376953,
+    "open": 95,
+    "high": 95.20999908447266,
+    "low": 94.19000244140625,
+    "prev_close": 95.25,
+    "change_pct": -0.7979025052288387,
+    "change_pct_1w": 0.41445206798350076,
+    "change_pct_1m": -1.8897308077668202,
+    "change_pct_1y": -11.741079751047707,
+    "volume": 4958000,
+    "avg_volume_30d": 45652200
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 65,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.3703393101659,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 96.01929995526442,
+    "ema_50": 95.10269158043174,
+    "ema_200": 94.48666168822936,
+    "ema_stack_bullish": true,
+    "bb_upper": 99.21449775695801,
+    "bb_middle": 94.48999786376953,
+    "bb_lower": 89.76549797058105,
+    "bb_width": 10,
+    "atr": 1.79,
+    "atr_pct": 1.9,
+    "rvol": 1.308843823517815,
+    "52w_high": 108,
+    "52w_low": 80.02999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 23.801006,
+    "pb_ratio": 7.4507174,
+    "gross_margin": 0.60183,
+    "operating_margin": 0.21370001,
+    "net_margin": 0.17346,
+    "market_cap": 23036033024,
+    "revenue_growth_ttm": 0.075,
+    "fcf_yield": 0.035037499345442855,
+    "institutional_ownership_pct": 1.01396,
+    "dividend_rate": 0.52,
+    "dividend_yield": 0.0055
+  },
+  "scores_detail": {
+    "entry_range_low": 93.77,
+    "entry_range_high": 94.67,
+    "target_range_low": 98.93,
+    "target_range_high": 108.35,
+    "target_1": 98.93,
+    "target_2": 103.64,
+    "target_3": 108.35,
+    "stop_loss": 89.77,
+    "risk_reward_ratio": 2.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $93.77 – $94.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $95.44 direnci veya $93.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $89.77 olarak belirlenmiştir. Fiyatın EMA200 ($94.49) veya günlük VWAP ($94.87) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($95.10) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($94.87) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

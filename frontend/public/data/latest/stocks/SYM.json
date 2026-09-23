@@ -1,0 +1,89 @@
+{
+  "ticker": "SYM",
+  "company": "Symbotic Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:12:15.057Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 41.88999938964844,
+    "open": 44.70000076293945,
+    "high": 44.86000061035156,
+    "low": 41.599998474121094,
+    "prev_close": 44.61000061035156,
+    "change_pct": -6.0972902566424985,
+    "change_pct_1w": -0.5696692911988427,
+    "change_pct_1m": -2.4452707746651856,
+    "change_pct_1y": -18.279358639675635,
+    "volume": 3917800,
+    "avg_volume_30d": 50673000
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 45,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.78280808690761,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.01060433396779,
+    "ema_50": 42.469441441767415,
+    "ema_200": 48.75228436543581,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.98449935913086,
+    "bb_middle": 41.88999938964844,
+    "bb_lower": 39.79549942016602,
+    "bb_width": 10,
+    "atr": 1.8,
+    "atr_pct": 4.29,
+    "rvol": 1.341921733467527,
+    "52w_high": 87.87999725341797,
+    "52w_low": 37.68000030517578
+  },
+  "fundamental": {
+    "pe_ratio": 1047.25,
+    "pb_ratio": 7.754535,
+    "gross_margin": 0.21268,
+    "operating_margin": 0.045939997,
+    "net_margin": 0.0031,
+    "market_cap": 25358731264,
+    "revenue_growth_ttm": 0.217,
+    "fcf_yield": 0.021593375563601698,
+    "institutional_ownership_pct": 0.78968,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 40.66,
+    "entry_range_high": 42.07,
+    "target_range_low": 45.1,
+    "target_range_high": 48.24,
+    "target_1": 45.1,
+    "target_2": 47.06,
+    "target_3": 48.24,
+    "stop_loss": 39.4,
+    "risk_reward_ratio": 2.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $40.66 – $42.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $42.86 direnci veya $40.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.40 olarak belirlenmiştir. Fiyatın EMA20 ($42.01) veya günlük VWAP ($42.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($42.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.16) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

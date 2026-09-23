@@ -1,0 +1,89 @@
+{
+  "ticker": "VMRK",
+  "company": "Vivmark Residential",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:03:24.389Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 61.220001220703125,
+    "open": 62.119998931884766,
+    "high": 62.5099983215332,
+    "low": 61.09000015258789,
+    "prev_close": 63.0099983215332,
+    "change_pct": -2.8408143921793436,
+    "change_pct_1w": -6.591394010494667,
+    "change_pct_1m": -6.3198123180576165,
+    "change_pct_1y": -5.626640005146636,
+    "volume": 15378200,
+    "avg_volume_30d": 188947400
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 35,
+    "fundamental_score": 69.8,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.261830046540283,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 64.86039303794837,
+    "ema_50": 65.73148393352739,
+    "ema_200": 64.87292470938911,
+    "ema_stack_bullish": false,
+    "bb_upper": 64.28100128173828,
+    "bb_middle": 61.220001220703125,
+    "bb_lower": 58.159001159667966,
+    "bb_width": 10,
+    "atr": 1.28,
+    "atr_pct": 2.09,
+    "rvol": 1.3211645145686048,
+    "52w_high": 71.5,
+    "52w_low": 57.56999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 23.45594,
+    "pb_ratio": 0,
+    "gross_margin": 0.62325,
+    "operating_margin": 0.29499,
+    "net_margin": 0.33253,
+    "market_cap": 47370760192,
+    "revenue_growth_ttm": 0.033,
+    "fcf_yield": 0.029282198435866724,
+    "institutional_ownership_pct": 0.48814,
+    "dividend_rate": 2.55,
+    "dividend_yield": 0.0416
+  },
+  "scores_detail": {
+    "entry_range_low": 60.45,
+    "entry_range_high": 61.35,
+    "target_range_low": 63.95,
+    "target_range_high": 70.04,
+    "target_1": 63.95,
+    "target_2": 66.99,
+    "target_3": 70.04,
+    "stop_loss": 58.16,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $60.45 – $61.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $63.71 direnci veya $60.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $58.16 olarak belirlenmiştir. Fiyatın EMA20 ($64.86) veya günlük VWAP ($61.83) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($65.73) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($61.83) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

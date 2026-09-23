@@ -1,0 +1,89 @@
+{
+  "ticker": "ONDS",
+  "company": "Ondas Inc.",
+  "date": "2026-09-19",
+  "generated_at": "2026-09-19T03:29:29.467Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 7.389999866485596,
+    "open": 7.510000228881836,
+    "high": 7.519999980926514,
+    "low": 7.210000038146973,
+    "prev_close": 7.389999866485596,
+    "change_pct": 0,
+    "change_pct_1w": 2.2129992668051623,
+    "change_pct_1m": -3.0183729990517074,
+    "change_pct_1y": 11.969696564669993,
+    "volume": 63805100,
+    "avg_volume_30d": 2039438199.9999998
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.72%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.92877983671085,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 7.640997229473315,
+    "ema_50": 8.062101222854736,
+    "ema_200": 8.71540658250731,
+    "ema_stack_bullish": false,
+    "bb_upper": 7.759499859809876,
+    "bb_middle": 7.389999866485596,
+    "bb_lower": 7.020499873161316,
+    "bb_width": 10,
+    "atr": 0.37,
+    "atr_pct": 4.94,
+    "rvol": 1.0243017905617342,
+    "52w_high": 15.279999732971191,
+    "52w_low": 4.949999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.4940937,
+    "gross_margin": 0.43724,
+    "operating_margin": -1.66299,
+    "net_margin": 0.96248,
+    "market_cap": 4303129600,
+    "revenue_growth_ttm": 12.354,
+    "fcf_yield": -0.016060210689447976,
+    "institutional_ownership_pct": 0.5729,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 7.17,
+    "entry_range_high": 7.43,
+    "target_range_low": 8.58,
+    "target_range_high": 10.06,
+    "target_1": 8.58,
+    "target_2": 9.86,
+    "target_3": 10.06,
+    "stop_loss": 6.92,
+    "risk_reward_ratio": 6.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $7.17 – $7.43 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $7.84 direnci veya $7.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $6.92 olarak belirlenmiştir. Fiyatın EMA20 ($7.64) veya günlük VWAP ($7.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($8.06) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($7.29) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

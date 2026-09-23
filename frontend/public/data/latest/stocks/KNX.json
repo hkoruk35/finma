@@ -1,0 +1,89 @@
+{
+  "ticker": "KNX",
+  "company": "Knight-Swift Transportation Holdings Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:37:34.834Z",
+  "sector": "Industrials",
+  "industry": "Trucking",
+  "price": {
+    "current": 66.68000030517578,
+    "open": 66.6500015258789,
+    "high": 66.87999725341797,
+    "low": 65.62000274658203,
+    "prev_close": 66.66999816894531,
+    "change_pct": 0.015002454635026098,
+    "change_pct_1w": -1.897897443518685,
+    "change_pct_1m": -7.3760212754029215,
+    "change_pct_1y": 61.37463891009703,
+    "volume": 3962600,
+    "avg_volume_30d": 98485300
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 50,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.86%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.29752225040117,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 68.5756264981684,
+    "ema_50": 69.99718045299247,
+    "ema_200": 64.37778377249285,
+    "ema_stack_bullish": false,
+    "bb_upper": 70.01400032043458,
+    "bb_middle": 66.68000030517578,
+    "bb_lower": 63.34600028991699,
+    "bb_width": 10,
+    "atr": 2.49,
+    "atr_pct": 3.73,
+    "rvol": 1.5114824242805778,
+    "52w_high": 82.86000061035156,
+    "52w_low": 38.630001068115234
+  },
+  "fundamental": {
+    "pe_ratio": 246.96295,
+    "pb_ratio": 1.5543487,
+    "gross_margin": 0.24333,
+    "operating_margin": 0.051810004,
+    "net_margin": 0.00555,
+    "market_cap": 10852570112,
+    "revenue_growth_ttm": 0.126,
+    "fcf_yield": 0.04526628097585886,
+    "institutional_ownership_pct": 1.02303,
+    "dividend_rate": 0.8,
+    "dividend_yield": 0.012
+  },
+  "scores_detail": {
+    "entry_range_low": 65.19,
+    "entry_range_high": 66.93,
+    "target_range_low": 69.36,
+    "target_range_high": 75.97,
+    "target_1": 69.36,
+    "target_2": 72.66,
+    "target_3": 75.97,
+    "stop_loss": 63.35,
+    "risk_reward_ratio": 2.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $65.19 – $66.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $68.01 direnci veya $64.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $63.35 olarak belirlenmiştir. Fiyatın EMA200 ($64.38) veya günlük VWAP ($66.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($70.00) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($66.16) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

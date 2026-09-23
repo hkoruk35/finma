@@ -1,0 +1,89 @@
+{
+  "ticker": "PKG",
+  "company": "Packaging Corporation of America",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:49:53.313Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 232.77000427246094,
+    "open": 232.50999450683594,
+    "high": 235.2899932861328,
+    "low": 231.3300018310547,
+    "prev_close": 235.57000732421875,
+    "change_pct": -1.1886076175665792,
+    "change_pct_1w": -0.6953880829635485,
+    "change_pct_1m": -1.8883016765180454,
+    "change_pct_1y": 8.79136145464265,
+    "volume": 1118500,
+    "avg_volume_30d": 16707300
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 45,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.331442361496926,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 236.60017784880824,
+    "ema_50": 238.34996373117963,
+    "ema_200": 227.6422666217157,
+    "ema_stack_bullish": false,
+    "bb_upper": 244.40850448608398,
+    "bb_middle": 232.77000427246094,
+    "bb_lower": 221.1315040588379,
+    "bb_width": 10,
+    "atr": 5.73,
+    "atr_pct": 2.46,
+    "rvol": 1.1640660070747517,
+    "52w_high": 259.9800109863281,
+    "52w_low": 191.5
+  },
+  "fundamental": {
+    "pe_ratio": 30.229872,
+    "pb_ratio": 4.421755,
+    "gross_margin": 0.21385999,
+    "operating_margin": 0.13121,
+    "net_margin": 0.07256,
+    "market_cap": 20739409920,
+    "revenue_growth_ttm": 0.147,
+    "fcf_yield": 0.020875715252751028,
+    "institutional_ownership_pct": 1.00063,
+    "dividend_rate": 6,
+    "dividend_yield": 0.025799999
+  },
+  "scores_detail": {
+    "entry_range_low": 229.33,
+    "entry_range_high": 233.34,
+    "target_range_low": 243.5,
+    "target_range_high": 266.04,
+    "target_1": 243.5,
+    "target_2": 254.47,
+    "target_3": 266.04,
+    "stop_loss": 221.13,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $229.33 – $233.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $235.73 direnci veya $228.19 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $221.13 olarak belirlenmiştir. Fiyatın EMA200 ($227.64) veya günlük VWAP ($233.64) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($238.35) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($233.64) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

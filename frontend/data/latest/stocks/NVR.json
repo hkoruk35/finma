@@ -1,0 +1,89 @@
+{
+  "ticker": "NVR",
+  "company": "NVR, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:47:43.417Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Residential Construction",
+  "price": {
+    "current": 6150.47021484375,
+    "open": 6211.2099609375,
+    "high": 6250,
+    "low": 6142.14990234375,
+    "prev_close": 6242.22998046875,
+    "change_pct": -1.4699837383772498,
+    "change_pct_1w": -0.16701756232506074,
+    "change_pct_1m": -2.3556662011644147,
+    "change_pct_1y": -24.796903220013316,
+    "volume": 123800,
+    "avg_volume_30d": 1111100
+  },
+  "scores": {
+    "master_score": 45,
+    "technical_score": 35,
+    "fundamental_score": 63.2,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.03630440066311,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 6255.0518418666925,
+    "ema_50": 6314.904516412339,
+    "ema_200": 6713.98944607592,
+    "ema_stack_bullish": false,
+    "bb_upper": 6457.993725585938,
+    "bb_middle": 6150.47021484375,
+    "bb_lower": 5842.946704101562,
+    "bb_width": 10,
+    "atr": 136.77,
+    "atr_pct": 2.22,
+    "rvol": 1.3910539105391055,
+    "52w_high": 8200.009765625,
+    "52w_low": 5501.009765625
+  },
+  "fundamental": {
+    "pe_ratio": 15.974418,
+    "pb_ratio": 4.857255,
+    "gross_margin": 0.2184,
+    "operating_margin": 0.13889,
+    "net_margin": 0.1185,
+    "market_cap": 16390141952,
+    "revenue_growth_ttm": -0.109,
+    "fcf_yield": 0.05602839088821578,
+    "institutional_ownership_pct": 0.91196,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 6089.93,
+    "entry_range_high": 6164.15,
+    "target_range_low": 6526.86,
+    "target_range_high": 7046.09,
+    "target_1": 6526.86,
+    "target_2": 6832.43,
+    "target_3": 7046.09,
+    "stop_loss": 5842.95,
+    "risk_reward_ratio": 2.48,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $6,089.93 – $6,164.15 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $6,228.04 direnci veya $6,062.58 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5,842.95 olarak belirlenmiştir. Fiyatın EMA20 ($6,255.05) veya günlük VWAP ($6,206.25) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($6,314.90) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($6,206.25) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "ELV",
+  "company": "Elevance Health, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:24:09.681Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 410.95001220703125,
+    "open": 414.67999267578125,
+    "high": 415.3599853515625,
+    "low": 406.3800048828125,
+    "prev_close": 414.260009765625,
+    "change_pct": -0.7990145031055351,
+    "change_pct_1w": -1.8556527013326003,
+    "change_pct_1m": 0.8466287624616564,
+    "change_pct_1y": 30.142200495576027,
+    "volume": 2074600,
+    "avg_volume_30d": 31138200
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.76401489054869,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 407.8040694379771,
+    "ema_50": 400.14894291053866,
+    "ema_200": 370.5453828025803,
+    "ema_stack_bullish": true,
+    "bb_upper": 431.4975128173828,
+    "bb_middle": 410.95001220703125,
+    "bb_lower": 390.4025115966797,
+    "bb_width": 10,
+    "atr": 10.9,
+    "atr_pct": 2.65,
+    "rvol": 1.3440468620536832,
+    "52w_high": 436.239990234375,
+    "52w_low": 274.8399963378906
+  },
+  "fundamental": {
+    "pe_ratio": 18.183628,
+    "pb_ratio": 1.9854001,
+    "gross_margin": 0.2599,
+    "operating_margin": 0.04559,
+    "net_margin": 0.02468,
+    "market_cap": 89122439168,
+    "revenue_growth_ttm": 0.014,
+    "fcf_yield": 0.04831976333011129,
+    "institutional_ownership_pct": 0.9413,
+    "dividend_rate": 6.88,
+    "dividend_yield": 0.0167
+  },
+  "scores_detail": {
+    "entry_range_low": 404.41,
+    "entry_range_high": 412.04,
+    "target_range_low": 428.63,
+    "target_range_high": 469.46,
+    "target_1": 428.63,
+    "target_2": 449.05,
+    "target_3": 469.46,
+    "stop_loss": 390.4,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $404.41 – $412.04 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $417.71 direnci veya $402.23 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $390.40 olarak belirlenmiştir. Fiyatın EMA50 ($400.15) veya günlük VWAP ($408.45) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($408.45) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

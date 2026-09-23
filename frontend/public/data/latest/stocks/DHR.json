@@ -1,0 +1,89 @@
+{
+  "ticker": "DHR",
+  "company": "Danaher Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:22:32.063Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 211.80999755859375,
+    "open": 212.63999938964844,
+    "high": 214.97999572753906,
+    "low": 210.10000610351562,
+    "prev_close": 212.5,
+    "change_pct": -0.32470703125,
+    "change_pct_1w": 5.830917460045173,
+    "change_pct_1m": 1.9984560451212214,
+    "change_pct_1y": 8.470319518739037,
+    "volume": 8830000,
+    "avg_volume_30d": 103814000
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 74.75,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.64321281374083,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 207.88993942012013,
+    "ema_50": 203.58750751732754,
+    "ema_200": 199.2438322893179,
+    "ema_stack_bullish": true,
+    "bb_upper": 222.40049743652344,
+    "bb_middle": 211.80999755859375,
+    "bb_lower": 201.21949768066406,
+    "bb_width": 10,
+    "atr": 5.58,
+    "atr_pct": 2.63,
+    "rvol": 1.474321382472499,
+    "52w_high": 242.8000030517578,
+    "52w_low": 160.92999267578125
+  },
+  "fundamental": {
+    "pe_ratio": 37.75579,
+    "pb_ratio": 2.8314574,
+    "gross_margin": 0.58752996,
+    "operating_margin": 0.19777,
+    "net_margin": 0.15948,
+    "market_cap": 148899479552,
+    "revenue_growth_ttm": 0.055,
+    "fcf_yield": 0.02904728164942673,
+    "institutional_ownership_pct": 0.84393996,
+    "dividend_rate": 1.6,
+    "dividend_yield": 0.0076
+  },
+  "scores_detail": {
+    "entry_range_low": 208.09,
+    "entry_range_high": 212.37,
+    "target_range_low": 220.74,
+    "target_range_high": 241.76,
+    "target_1": 220.74,
+    "target_2": 232.35,
+    "target_3": 241.76,
+    "stop_loss": 201.22,
+    "risk_reward_ratio": 2.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $208.09 – $212.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $214.98 direnci veya $206.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $201.22 olarak belirlenmiştir. Fiyatın EMA200 ($199.24) veya günlük VWAP ($211.70) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($211.70) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "VZ",
+  "company": "Verizon Communications Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:04:15.105Z",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 48.09000015258789,
+    "open": 47.5,
+    "high": 48.189998626708984,
+    "low": 47.20000076293945,
+    "prev_close": 48.33000183105469,
+    "change_pct": -0.4965894255617069,
+    "change_pct_1w": -4.979253956476422,
+    "change_pct_1m": -4.08855058239944,
+    "change_pct_1y": 10.121369748043035,
+    "volume": 45485700,
+    "avg_volume_30d": 562999900
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 65,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.00863659460468,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 49.55400285658846,
+    "ema_50": 48.389714848333725,
+    "ema_200": 46.38150261966973,
+    "ema_stack_bullish": true,
+    "bb_upper": 50.494500160217285,
+    "bb_middle": 48.09000015258789,
+    "bb_lower": 45.685500144958496,
+    "bb_width": 10,
+    "atr": 1.01,
+    "atr_pct": 2.11,
+    "rvol": 1.4422649098161475,
+    "52w_high": 51.68000030517578,
+    "52w_low": 38.38999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 12.5234375,
+    "pb_ratio": 1.9226772,
+    "gross_margin": 0.59453,
+    "operating_margin": 0.22999,
+    "net_margin": 0.11643,
+    "market_cap": 199803142144,
+    "revenue_growth_ttm": -0.007,
+    "fcf_yield": 0.08741916574771201,
+    "institutional_ownership_pct": 0.71181,
+    "dividend_rate": 2.83,
+    "dividend_yield": 0.0588
+  },
+  "scores_detail": {
+    "entry_range_low": 47.4,
+    "entry_range_high": 48.19,
+    "target_range_low": 50.93,
+    "target_range_high": 54.97,
+    "target_1": 50.93,
+    "target_2": 52.58,
+    "target_3": 54.97,
+    "stop_loss": 45.69,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $47.40 – $48.19 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $48.74 direnci veya $47.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $45.69 olarak belirlenmiştir. Fiyatın EMA200 ($46.38) veya günlük VWAP ($48.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($48.39) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($48.01) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

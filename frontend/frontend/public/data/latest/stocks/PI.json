@@ -1,0 +1,89 @@
+{
+  "ticker": "PI",
+  "company": "Impinj, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T13:26:23.443Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 181.22999572753906,
+    "open": 182.2899932861328,
+    "high": 183.33999633789062,
+    "low": 180.36000061035156,
+    "prev_close": 179.72999572753906,
+    "change_pct": 0.834585230989444,
+    "change_pct_1w": 2.4940550959451766,
+    "change_pct_1m": 5.018246529392687,
+    "change_pct_1y": -7.427087003934456,
+    "volume": 576800,
+    "avg_volume_30d": 11711900
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.862583569427045,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 172.3039150111488,
+    "ema_50": 162.95924591812576,
+    "ema_200": 152.7955014322495,
+    "ema_stack_bullish": true,
+    "bb_upper": 190.29149551391603,
+    "bb_middle": 181.22999572753906,
+    "bb_lower": 172.1684959411621,
+    "bb_width": 10,
+    "atr": 8.6,
+    "atr_pct": 4.75,
+    "rvol": 1.0913515313484574,
+    "52w_high": 247.06399536132812,
+    "52w_low": 87.36000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 23.905817,
+    "gross_margin": 0.52856,
+    "operating_margin": 0.09693,
+    "net_margin": -0.07265,
+    "market_cap": 5537375744,
+    "revenue_growth_ttm": 0.107,
+    "fcf_yield": 0.01014666127016574,
+    "institutional_ownership_pct": 1.09201,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 176.07,
+    "entry_range_high": 182.09,
+    "target_range_low": 188.03,
+    "target_range_high": 219.56,
+    "target_1": 188.03,
+    "target_2": 215.25,
+    "target_3": 219.56,
+    "stop_loss": 170.05,
+    "risk_reward_ratio": 4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $176.07 – $182.09 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $183.49 direnci veya $174.35 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $170.05 olarak belirlenmiştir. Fiyatın EMA20 ($172.30) veya günlük VWAP ($182.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($182.00) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MOH",
+  "company": "Molina Healthcare, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:41:59.672Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 200.7899932861328,
+    "open": 205.4600067138672,
+    "high": 205.7899932861328,
+    "low": 200.5800018310547,
+    "prev_close": 205.08999633789062,
+    "change_pct": -2.096642024739937,
+    "change_pct_1w": -1.6843766896981767,
+    "change_pct_1m": -0.004984942964577497,
+    "change_pct_1y": 11.730001549568138,
+    "volume": 860000,
+    "avg_volume_30d": 17496000
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 70,
+    "fundamental_score": 43.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.12712630193452,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 202.59684584107438,
+    "ema_50": 202.56383527923347,
+    "ema_200": 188.12980221888697,
+    "ema_stack_bullish": true,
+    "bb_upper": 210.82949295043946,
+    "bb_middle": 200.7899932861328,
+    "bb_lower": 190.75049362182617,
+    "bb_width": 10,
+    "atr": 7.01,
+    "atr_pct": 3.49,
+    "rvol": 1.0359739368998628,
+    "52w_high": 244.88999938964844,
+    "52w_low": 121.05999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 1254.9375,
+    "pb_ratio": 2.5032413,
+    "gross_margin": 0.08427,
+    "operating_margin": 0.01398,
+    "net_margin": -0.00016000001,
+    "market_cap": 10481238016,
+    "revenue_growth_ttm": -0.057,
+    "fcf_yield": 0.06680985423010548,
+    "institutional_ownership_pct": 1.1180301,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 196.56,
+    "entry_range_high": 201.49,
+    "target_range_low": 208.98,
+    "target_range_high": 228.88,
+    "target_1": 208.98,
+    "target_2": 218.93,
+    "target_3": 228.88,
+    "stop_loss": 190.75,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $196.56 – $201.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $204.48 direnci veya $195.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $190.75 olarak belirlenmiştir. Fiyatın EMA200 ($188.13) veya günlük VWAP ($202.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($202.56) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($202.89) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

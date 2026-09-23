@@ -1,0 +1,89 @@
+{
+  "ticker": "KO",
+  "company": "The Coca-Cola Company",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:37:59.411Z",
+  "sector": "Consumer Defensive",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 88.25,
+    "open": 87.80000305175781,
+    "high": 88.29000091552734,
+    "low": 87.5199966430664,
+    "prev_close": 88.05999755859375,
+    "change_pct": 0.21576475888478802,
+    "change_pct_1w": -0.04530628056694117,
+    "change_pct_1m": 0.20438322447996973,
+    "change_pct_1y": 32.78664040881433,
+    "volume": 28016400,
+    "avg_volume_30d": 441987700
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 85,
+    "fundamental_score": 74.75,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.642288050621026,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 88.36478180795476,
+    "ema_50": 86.93096693013274,
+    "ema_200": 80.24371625061121,
+    "ema_stack_bullish": true,
+    "bb_upper": 92.66250000000001,
+    "bb_middle": 88.25,
+    "bb_lower": 83.83749999999999,
+    "bb_width": 10,
+    "atr": 1.21,
+    "atr_pct": 1.37,
+    "rvol": 1.206410947634968,
+    "52w_high": 92.48999786376953,
+    "52w_low": 65.3499984741211
+  },
+  "fundamental": {
+    "pe_ratio": 26.501503,
+    "pb_ratio": 10.504702,
+    "gross_margin": 0.61888003,
+    "operating_margin": 0.34873,
+    "net_margin": 0.28558,
+    "market_cap": 379699953664,
+    "revenue_growth_ttm": 0.067,
+    "fcf_yield": 0.013744405027286678,
+    "institutional_ownership_pct": 0.68241,
+    "dividend_rate": 2.12,
+    "dividend_yield": 0.024
+  },
+  "scores_detail": {
+    "entry_range_low": 87.52,
+    "entry_range_high": 88.37,
+    "target_range_low": 92.34,
+    "target_range_high": 101.14,
+    "target_1": 92.34,
+    "target_2": 96.74,
+    "target_3": 101.14,
+    "stop_loss": 83.84,
+    "risk_reward_ratio": 2.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $87.52 – $88.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $88.89 direnci veya $87.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $83.84 olarak belirlenmiştir. Fiyatın EMA50 ($86.93) veya günlük VWAP ($87.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($86.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($87.93) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

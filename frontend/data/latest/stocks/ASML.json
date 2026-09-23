@@ -1,0 +1,89 @@
+{
+  "ticker": "ASML",
+  "company": "ASML Holding N.V.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:15:21.172Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 1679.9200439453125,
+    "open": 1630,
+    "high": 1681.6099853515625,
+    "low": 1628.27001953125,
+    "prev_close": 1629.6700439453125,
+    "change_pct": 3.083446258749925,
+    "change_pct_1w": -1.0822589857131089,
+    "change_pct_1m": -2.0386243257812673,
+    "change_pct_1y": 81.06489179219233,
+    "volume": 2523800,
+    "avg_volume_30d": 37421000
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.08%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.59059960379813,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1681.7206585929812,
+    "ema_50": 1704.864509441611,
+    "ema_200": 1524.5623571974534,
+    "ema_stack_bullish": false,
+    "bb_upper": 1763.9160461425781,
+    "bb_middle": 1679.9200439453125,
+    "bb_lower": 1595.9240417480469,
+    "bb_width": 10,
+    "atr": 54.72,
+    "atr_pct": 3.26,
+    "rvol": 1.4110205499585793,
+    "52w_high": 1999.9599609375,
+    "52w_low": 916.030029296875
+  },
+  "fundamental": {
+    "pe_ratio": 57.808674,
+    "pb_ratio": 1431.3035,
+    "gross_margin": 0.52733004,
+    "operating_margin": 0.37057,
+    "net_margin": 0.30114,
+    "market_cap": 645257297920,
+    "revenue_growth_ttm": 0.213,
+    "fcf_yield": 0.01307645033260223,
+    "institutional_ownership_pct": 0.204,
+    "dividend_rate": 9.08,
+    "dividend_yield": 0.0054
+  },
+  "scores_detail": {
+    "entry_range_low": 1654.1,
+    "entry_range_high": 1685.39,
+    "target_range_low": 1790,
+    "target_range_high": 1999.96,
+    "target_1": 1790,
+    "target_2": 1896.35,
+    "target_3": 1999.96,
+    "stop_loss": 1595.92,
+    "risk_reward_ratio": 3.07,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,654.10 – $1,685.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,715.00 direnci veya $1,643.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,595.92 olarak belirlenmiştir. Fiyatın EMA200 ($1,524.56) veya günlük VWAP ($1,649.91) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,704.86) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,649.91) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

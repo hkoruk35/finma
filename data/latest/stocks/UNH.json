@@ -1,0 +1,89 @@
+{
+  "ticker": "UNH",
+  "company": "UnitedHealth Group Incorporated",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:01:16.433Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 376.8999938964844,
+    "open": 375.2900085449219,
+    "high": 378.489990234375,
+    "low": 372.4200134277344,
+    "prev_close": 375.2099914550781,
+    "change_pct": 0.45041509551820796,
+    "change_pct_1w": -0.5776998766947826,
+    "change_pct_1m": -5.096444580098612,
+    "change_pct_1y": 12.567942671214984,
+    "volume": 8606300,
+    "avg_volume_30d": 139312900
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 45,
+    "fundamental_score": 56.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.86581718541027,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 388.5180594458121,
+    "ema_50": 395.6907077423212,
+    "ema_200": 370.1150852818634,
+    "ema_stack_bullish": false,
+    "bb_upper": 395.7449935913086,
+    "bb_middle": 376.8999938964844,
+    "bb_lower": 358.0549942016601,
+    "bb_width": 10,
+    "atr": 10.2,
+    "atr_pct": 2.7,
+    "rvol": 1.1508036944173872,
+    "52w_high": 461.6199951171875,
+    "52w_low": 255.97000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 24.206808,
+    "pb_ratio": 3.4647596,
+    "gross_margin": 0.19723,
+    "operating_margin": 0.071329996,
+    "net_margin": 0.03135,
+    "market_cap": 338303483904,
+    "revenue_growth_ttm": 0.004,
+    "fcf_yield": 0.07174697286560522,
+    "institutional_ownership_pct": 0.89699,
+    "dividend_rate": 9.28,
+    "dividend_yield": 0.024600001
+  },
+  "scores_detail": {
+    "entry_range_low": 370.78,
+    "entry_range_high": 377.92,
+    "target_range_low": 404.15,
+    "target_range_high": 461.62,
+    "target_1": 404.15,
+    "target_2": 415.98,
+    "target_3": 461.62,
+    "stop_loss": 358.05,
+    "risk_reward_ratio": 2.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $370.78 – $377.92 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $385.22 direnci veya $368.74 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $358.05 olarak belirlenmiştir. Fiyatın EMA200 ($370.12) veya günlük VWAP ($374.84) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($395.69) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($374.84) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 37 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

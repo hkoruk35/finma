@@ -1,0 +1,89 @@
+{
+  "ticker": "PLD",
+  "company": "Prologis, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:50:18.765Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Industrial",
+  "price": {
+    "current": 134.83999633789062,
+    "open": 133.3699951171875,
+    "high": 134.91000366210938,
+    "low": 133.25,
+    "prev_close": 135.17999267578125,
+    "change_pct": -0.2515138010889525,
+    "change_pct_1w": -0.6703526056054327,
+    "change_pct_1m": -1.8203000339750826,
+    "change_pct_1y": 17.08926020315548,
+    "volume": 7641300,
+    "avg_volume_30d": 98117600
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 35,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.527892292813746,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 137.38592268614966,
+    "ema_50": 139.69441393094763,
+    "ema_200": 136.66540875455928,
+    "ema_stack_bullish": false,
+    "bb_upper": 141.58199615478517,
+    "bb_middle": 134.83999633789062,
+    "bb_lower": 128.09799652099608,
+    "bb_width": 10,
+    "atr": 2.26,
+    "atr_pct": 1.68,
+    "rvol": 1.3047567408905232,
+    "52w_high": 153.35000610351562,
+    "52w_low": 111.02999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 30.031181,
+    "pb_ratio": 2.3444319,
+    "gross_margin": 0.75549006,
+    "operating_margin": 0.43030998,
+    "net_margin": 0.43575,
+    "market_cap": 131076800512,
+    "revenue_growth_ttm": 0.123,
+    "fcf_yield": 0.04125017671227791,
+    "institutional_ownership_pct": 0.96102,
+    "dividend_rate": 4.28,
+    "dividend_yield": 0.0317
+  },
+  "scores_detail": {
+    "entry_range_low": 133.48,
+    "entry_range_high": 135.07,
+    "target_range_low": 143.82,
+    "target_range_high": 154.42,
+    "target_1": 143.82,
+    "target_2": 147.7,
+    "target_3": 154.42,
+    "stop_loss": 128.1,
+    "risk_reward_ratio": 2.17,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $133.48 – $135.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $136.00 direnci veya $133.03 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $128.10 olarak belirlenmiştir. Fiyatın EMA200 ($136.67) veya günlük VWAP ($134.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($139.69) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($134.44) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

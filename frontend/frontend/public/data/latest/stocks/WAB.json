@@ -1,0 +1,89 @@
+{
+  "ticker": "WAB",
+  "company": "Westinghouse Air Brake Technologies Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T08:04:45.865Z",
+  "sector": "Industrials",
+  "industry": "Railroads",
+  "price": {
+    "current": 280.2300109863281,
+    "open": 278.9700012207031,
+    "high": 280.3800048828125,
+    "low": 276.3699951171875,
+    "prev_close": 278.82000732421875,
+    "change_pct": 0.5057039039776612,
+    "change_pct_1w": -1.055712951588122,
+    "change_pct_1m": -0.9297795734400603,
+    "change_pct_1y": 47.202825116334544,
+    "volume": 1544300,
+    "avg_volume_30d": 25705900
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.79%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.815220658490944,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 283.60877461388355,
+    "ema_50": 283.28351406705247,
+    "ema_200": 259.1011590649183,
+    "ema_stack_bullish": true,
+    "bb_upper": 294.2415115356445,
+    "bb_middle": 280.2300109863281,
+    "bb_lower": 266.21851043701173,
+    "bb_width": 10,
+    "atr": 6.02,
+    "atr_pct": 2.15,
+    "rvol": 1.0126002201829152,
+    "52w_high": 306.6400146484375,
+    "52w_low": 185.9499969482422
+  },
+  "fundamental": {
+    "pe_ratio": 37.71602,
+    "pb_ratio": 4.225677,
+    "gross_margin": 0.35735,
+    "operating_margin": 0.19188,
+    "net_margin": 0.10593,
+    "market_cap": 47333888000,
+    "revenue_growth_ttm": 0.175,
+    "fcf_yield": 0.023268212744323898,
+    "institutional_ownership_pct": 0.95798,
+    "dividend_rate": 1.24,
+    "dividend_yield": 0.0044
+  },
+  "scores_detail": {
+    "entry_range_low": 276.62,
+    "entry_range_high": 280.83,
+    "target_range_low": 292.66,
+    "target_range_high": 320.53,
+    "target_1": 292.66,
+    "target_2": 306.6,
+    "target_3": 320.53,
+    "stop_loss": 266.22,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $276.62 – $280.83 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $283.29 direnci veya $275.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $266.22 olarak belirlenmiştir. Fiyatın EMA200 ($259.10) veya günlük VWAP ($277.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($283.28) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($277.89) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

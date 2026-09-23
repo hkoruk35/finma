@@ -1,0 +1,89 @@
+{
+  "ticker": "AA",
+  "company": "Alcoa Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:12:47.803Z",
+  "sector": "Basic Materials",
+  "industry": "Aluminum",
+  "price": {
+    "current": 44.43000030517578,
+    "open": 46.95500183105469,
+    "high": 47.132999420166016,
+    "low": 43.97999954223633,
+    "prev_close": 46.970001220703125,
+    "change_pct": -5.40770885568506,
+    "change_pct_1w": -7.936175195945892,
+    "change_pct_1m": -11.086653552515944,
+    "change_pct_1y": 35.78850442420924,
+    "volume": 10860300,
+    "avg_volume_30d": 136816200
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.34155712467242,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 48.493612176310606,
+    "ema_50": 50.362690258819285,
+    "ema_200": 53.1213430660039,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.65150032043457,
+    "bb_middle": 44.43000030517578,
+    "bb_lower": 42.20850028991699,
+    "bb_width": 10,
+    "atr": 1.95,
+    "atr_pct": 4.39,
+    "rvol": 1.0733728900524937,
+    "52w_high": 84.37999725341797,
+    "52w_low": 30.809999465942383
+  },
+  "fundamental": {
+    "pe_ratio": 9.237006,
+    "pb_ratio": 1.5909904,
+    "gross_margin": 0.19790001,
+    "operating_margin": 0.18356001,
+    "net_margin": 0.09388,
+    "market_cap": 11725496320,
+    "revenue_growth_ttm": 0.314,
+    "fcf_yield": 0.08193683148075048,
+    "institutional_ownership_pct": 0.85874003,
+    "dividend_rate": 0.4,
+    "dividend_yield": 0.009
+  },
+  "scores_detail": {
+    "entry_range_low": 43.26,
+    "entry_range_high": 44.63,
+    "target_range_low": 53.17,
+    "target_range_high": 64.78,
+    "target_1": 53.17,
+    "target_2": 55.05,
+    "target_3": 64.78,
+    "stop_loss": 41.9,
+    "risk_reward_ratio": 5.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $43.26 – $44.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $46.54 direnci veya $42.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.90 olarak belirlenmiştir. Fiyatın EMA20 ($48.49) veya günlük VWAP ($45.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($50.36) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($45.01) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "GWRE",
+  "company": "Guidewire Software, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:01:07.625Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 144.2899932861328,
+    "open": 144.97999572753906,
+    "high": 145.61000061035156,
+    "low": 140.11000061035156,
+    "prev_close": 144.97999572753906,
+    "change_pct": -0.47592941215350265,
+    "change_pct_1w": 2.3914243265510837,
+    "change_pct_1m": -11.162421553504828,
+    "change_pct_1y": -41.497732061627346,
+    "volume": 2157700,
+    "avg_volume_30d": 44858300
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.13150599148056,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 161.37676323707328,
+    "ema_50": 160.97773171548795,
+    "ema_200": 164.48124287136656,
+    "ema_stack_bullish": false,
+    "bb_upper": 151.50449295043947,
+    "bb_middle": 144.2899932861328,
+    "bb_lower": 137.07549362182615,
+    "bb_width": 10,
+    "atr": 10.51,
+    "atr_pct": 7.28,
+    "rvol": 1.0693806943196689,
+    "52w_high": 255.88999938964844,
+    "52w_low": 102.30000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 88.52147,
+    "pb_ratio": 9.911388,
+    "gross_margin": 0.64212996,
+    "operating_margin": 0.15159,
+    "net_margin": 0.09441,
+    "market_cap": 11830722560,
+    "revenue_growth_ttm": 0.153,
+    "fcf_yield": 0.028994995213546787,
+    "institutional_ownership_pct": 1.05208,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 137.99,
+    "entry_range_high": 145.34,
+    "target_range_low": 148.75,
+    "target_range_high": 172.48,
+    "target_1": 148.75,
+    "target_2": 155.83,
+    "target_3": 172.48,
+    "stop_loss": 130.63,
+    "risk_reward_ratio": 1.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $137.99 – $145.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $149.83 direnci veya $135.89 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $130.63 olarak belirlenmiştir. Fiyatın EMA50 ($160.98) veya günlük VWAP ($143.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($160.98) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($143.42) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

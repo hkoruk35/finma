@@ -1,0 +1,89 @@
+{
+  "ticker": "DINO",
+  "company": "HF Sinclair Corporation",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:34:34.201Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Refining & Marketing",
+  "price": {
+    "current": 115.9000015258789,
+    "open": 115.9000015258789,
+    "high": 117.69999694824219,
+    "low": 114.58999633789062,
+    "prev_close": 116.62000274658203,
+    "change_pct": -0.6173908452632301,
+    "change_pct_1w": 7.474040672937524,
+    "change_pct_1m": 9.951615121269805,
+    "change_pct_1y": 118.22632309156683,
+    "volume": 5638900,
+    "avg_volume_30d": 76278600
+  },
+  "scores": {
+    "master_score": 86,
+    "technical_score": 90,
+    "fundamental_score": 66.5,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.55%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 77.89676838902389,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 105.89670936423188,
+    "ema_50": 95.94824810379633,
+    "ema_200": 74.66240252088758,
+    "ema_stack_bullish": true,
+    "bb_upper": 121.69500160217285,
+    "bb_middle": 115.9000015258789,
+    "bb_lower": 110.10500144958496,
+    "bb_width": 10,
+    "atr": 4.36,
+    "atr_pct": 3.76,
+    "rvol": 1.2714758792112073,
+    "52w_high": 117.69999694824219,
+    "52w_low": 45.709999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 11.048618,
+    "pb_ratio": 2.0034225,
+    "gross_margin": 0.12892,
+    "operating_margin": 0.11694,
+    "net_margin": 0.06132,
+    "market_cap": 20605149184,
+    "revenue_growth_ttm": 0.532,
+    "fcf_yield": 0.09879205153150131,
+    "institutional_ownership_pct": 0.89611,
+    "dividend_rate": 2.1,
+    "dividend_yield": 0.018099999
+  },
+  "scores_detail": {
+    "entry_range_low": 113.86,
+    "entry_range_high": 116.34,
+    "target_range_low": 120.85,
+    "target_range_high": 132.36,
+    "target_1": 120.85,
+    "target_2": 126.61,
+    "target_3": 132.36,
+    "stop_loss": 110.11,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $113.86 – $116.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $117.70 direnci veya $112.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $110.11 olarak belirlenmiştir. Fiyatın EMA20 ($105.90) veya günlük VWAP ($116.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($116.03) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 78 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

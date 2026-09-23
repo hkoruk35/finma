@@ -1,0 +1,89 @@
+{
+  "ticker": "FHN",
+  "company": "First Horizon Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:25:53.616Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 23.940000534057617,
+    "open": 24.049999237060547,
+    "high": 24.100000381469727,
+    "low": 23.809999465942383,
+    "prev_close": 24.010000228881836,
+    "change_pct": -0.29154391568899496,
+    "change_pct_1w": -2.16591252214555,
+    "change_pct_1m": -4.009623009568175,
+    "change_pct_1y": 3.0563969255805588,
+    "volume": 8004200,
+    "avg_volume_30d": 142335000
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 35,
+    "fundamental_score": 74.75,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 37.844893458660295,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.53452563001983,
+    "ema_50": 24.847684282047616,
+    "ema_200": 24.377073763793504,
+    "ema_stack_bullish": false,
+    "bb_upper": 25.137000560760498,
+    "bb_middle": 23.940000534057617,
+    "bb_lower": 22.743000507354736,
+    "bb_width": 10,
+    "atr": 0.47,
+    "atr_pct": 1.96,
+    "rvol": 1.4081483823374434,
+    "52w_high": 26.559999465942383,
+    "52w_low": 19.799999237060547
+  },
+  "fundamental": {
+    "pe_ratio": 11.509616,
+    "pb_ratio": 1.336982,
+    "gross_margin": 0,
+    "operating_margin": 0.41284,
+    "net_margin": 0.30191,
+    "market_cap": 11342225408,
+    "revenue_growth_ttm": 0.09,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.9311,
+    "dividend_rate": 0.68,
+    "dividend_yield": 0.028399998
+  },
+  "scores_detail": {
+    "entry_range_low": 23.62,
+    "entry_range_high": 23.99,
+    "target_range_low": 25,
+    "target_range_high": 27.38,
+    "target_1": 25,
+    "target_2": 26.19,
+    "target_3": 27.38,
+    "stop_loss": 22.74,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.62 – $23.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $24.25 direnci veya $23.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $22.74 olarak belirlenmiştir. Fiyatın EMA200 ($24.38) veya günlük VWAP ($23.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($24.85) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($23.90) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

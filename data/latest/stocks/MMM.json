@@ -1,0 +1,89 @@
+{
+  "ticker": "MMM",
+  "company": "3M Company",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:41:32.233Z",
+  "sector": "Industrials",
+  "industry": "Conglomerates",
+  "price": {
+    "current": 165.88999938964844,
+    "open": 163.8000030517578,
+    "high": 166.0500030517578,
+    "low": 163.22999572753906,
+    "prev_close": 164.7100067138672,
+    "change_pct": 0.7164061852241456,
+    "change_pct_1w": 0.5576760393633653,
+    "change_pct_1m": -1.5840046319514123,
+    "change_pct_1y": 6.750325550303242,
+    "volume": 4551900,
+    "avg_volume_30d": 83443700
+  },
+  "scores": {
+    "master_score": 58,
+    "technical_score": 45,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.870350309582676,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 168.57394979146017,
+    "ema_50": 169.45583973317406,
+    "ema_200": 162.47843317011882,
+    "ema_stack_bullish": false,
+    "bb_upper": 174.18449935913085,
+    "bb_middle": 165.88999938964844,
+    "bb_lower": 157.59549942016602,
+    "bb_width": 10,
+    "atr": 3.42,
+    "atr_pct": 2.06,
+    "rvol": 1.223423697654826,
+    "52w_high": 184.89999389648438,
+    "52w_low": 139.33999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 29.517794,
+    "pb_ratio": 28.981482,
+    "gross_margin": 0.39408,
+    "operating_margin": 0.20354,
+    "net_margin": 0.11902001,
+    "market_cap": 85553192960,
+    "revenue_growth_ttm": 0.025,
+    "fcf_yield": 0.07422429059975554,
+    "institutional_ownership_pct": 0.76693,
+    "dividend_rate": 3.12,
+    "dividend_yield": 0.0188
+  },
+  "scores_detail": {
+    "entry_range_low": 163.84,
+    "entry_range_high": 166.23,
+    "target_range_low": 173.29,
+    "target_range_high": 189.79,
+    "target_1": 173.29,
+    "target_2": 181.54,
+    "target_3": 189.79,
+    "stop_loss": 157.6,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $163.84 – $166.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $167.85 direnci veya $163.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $157.60 olarak belirlenmiştir. Fiyatın EMA200 ($162.48) veya günlük VWAP ($164.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($169.46) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($164.78) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

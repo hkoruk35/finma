@@ -1,0 +1,89 @@
+{
+  "ticker": "MXL",
+  "company": "MaxLinear, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:25:48.702Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 81.12000274658203,
+    "open": 76.08999633789062,
+    "high": 81.93000030517578,
+    "low": 75.83999633789062,
+    "prev_close": 74.98999786376953,
+    "change_pct": 8.174430000582964,
+    "change_pct_1w": 8.783697302619725,
+    "change_pct_1m": 29.29550617851433,
+    "change_pct_1y": 385.74849724919227,
+    "volume": 4906400,
+    "avg_volume_30d": 71271300
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 85,
+    "fundamental_score": 53.3,
+    "momentum_score": 48,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.44%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.75803458965732,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 69.30943054788813,
+    "ema_50": 71.25576371532175,
+    "ema_200": 56.27437639717304,
+    "ema_stack_bullish": false,
+    "bb_upper": 85.17600288391114,
+    "bb_middle": 81.12000274658203,
+    "bb_lower": 77.06400260925292,
+    "bb_width": 10,
+    "atr": 5.23,
+    "atr_pct": 6.45,
+    "rvol": 1.2905531399034393,
+    "52w_high": 128.3000030517578,
+    "52w_low": 12.770000457763672
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 15.173962,
+    "gross_margin": 0.57477003,
+    "operating_margin": -0.02441,
+    "net_margin": -0.18238,
+    "market_cap": 7357031936,
+    "revenue_growth_ttm": 0.552,
+    "fcf_yield": 0.001957973694461342,
+    "institutional_ownership_pct": 0.84228,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 77.98,
+    "entry_range_high": 81.64,
+    "target_range_low": 89,
+    "target_range_high": 106.36,
+    "target_1": 89,
+    "target_2": 104.27,
+    "target_3": 106.36,
+    "stop_loss": 74.32,
+    "risk_reward_ratio": 4.45,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $77.98 – $81.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $81.93 direnci veya $76.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $74.32 olarak belirlenmiştir. Fiyatın EMA50 ($71.26) veya günlük VWAP ($79.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($71.26) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($79.89) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

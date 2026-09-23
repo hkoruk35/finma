@@ -1,0 +1,89 @@
+{
+  "ticker": "DXCM",
+  "company": "DexCom, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:08:17.748Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 89.3499984741211,
+    "open": 87.83000183105469,
+    "high": 89.91999816894531,
+    "low": 87.38999938964844,
+    "prev_close": 87.93000030517578,
+    "change_pct": 1.6149188718491654,
+    "change_pct_1w": 7.611706356426058,
+    "change_pct_1m": 1.649598319762588,
+    "change_pct_1y": 17.907099384292348,
+    "volume": 14573000,
+    "avg_volume_30d": 134168400
+  },
+  "scores": {
+    "master_score": 91,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.51137321451554,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 87.0530592414385,
+    "ema_50": 83.87238807004088,
+    "ema_200": 75.03187849326369,
+    "ema_stack_bullish": true,
+    "bb_upper": 93.81749839782715,
+    "bb_middle": 89.3499984741211,
+    "bb_lower": 84.88249855041504,
+    "bb_width": 10,
+    "atr": 2.49,
+    "atr_pct": 2.79,
+    "rvol": 1.319935245557076,
+    "52w_high": 92.58999633789062,
+    "52w_low": 54.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 35.316204,
+    "pb_ratio": 12.863518,
+    "gross_margin": 0.62473,
+    "operating_margin": 0.24327,
+    "net_margin": 0.20118,
+    "market_cap": 33717184512,
+    "revenue_growth_ttm": 0.131,
+    "fcf_yield": 0.030286114062595192,
+    "institutional_ownership_pct": 1.06399,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 87.86,
+    "entry_range_high": 89.6,
+    "target_range_low": 93.16,
+    "target_range_high": 102.04,
+    "target_1": 93.16,
+    "target_2": 97.6,
+    "target_3": 102.04,
+    "stop_loss": 84.88,
+    "risk_reward_ratio": 2.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $87.86 – $89.60 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $92.34 direnci veya $87.36 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $84.88 olarak belirlenmiştir. Fiyatın EMA50 ($83.87) veya günlük VWAP ($89.04) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($89.04) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

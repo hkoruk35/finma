@@ -1,0 +1,89 @@
+{
+  "ticker": "ZS",
+  "company": "Zscaler, Inc.",
+  "date": "2026-09-22",
+  "generated_at": "2026-09-22T12:51:17.752Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 207.1300048828125,
+    "open": 196.97999572753906,
+    "high": 207.75,
+    "low": 194.24000549316406,
+    "prev_close": 197.30999755859375,
+    "change_pct": 4.976943614477808,
+    "change_pct_1w": 8.032133468128725,
+    "change_pct_1m": 27.90539814753743,
+    "change_pct_1y": -29.612256561715107,
+    "volume": 2539900,
+    "avg_volume_30d": 95399400
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 75,
+    "fundamental_score": 59.9,
+    "momentum_score": 38,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.6167736243452,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 183.06963554707963,
+    "ema_50": 171.63341743104297,
+    "ema_200": 180.84731582546436,
+    "ema_stack_bullish": false,
+    "bb_upper": 217.48650512695315,
+    "bb_middle": 207.1300048828125,
+    "bb_lower": 196.77350463867185,
+    "bb_width": 10,
+    "atr": 10.53,
+    "atr_pct": 5.08,
+    "rvol": 1.1198120742897755,
+    "52w_high": 336.989990234375,
+    "52w_low": 114.625
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 12.998431,
+    "gross_margin": 0.76872003,
+    "operating_margin": -0.01008,
+    "net_margin": -0.01885,
+    "market_cap": 33773520896,
+    "revenue_growth_ttm": 0.249,
+    "fcf_yield": 0.03182717737099506,
+    "institutional_ownership_pct": 0.53115004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 196.36,
+    "entry_range_high": 208.18,
+    "target_range_low": 229,
+    "target_range_high": 319.89,
+    "target_1": 229,
+    "target_2": 233.58,
+    "target_3": 319.89,
+    "stop_loss": 188.99,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $196.36 – $208.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $207.75 direnci veya $194.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $188.99 olarak belirlenmiştir. Fiyatın EMA20 ($183.07) veya günlük VWAP ($205.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($171.63) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($205.00) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "NFLX",
+  "company": "Netflix, Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:46:11.793Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 71.79000091552734,
+    "open": 71.2699966430664,
+    "high": 72.37999725341797,
+    "low": 70.11000061035156,
+    "prev_close": 75.30999755859375,
+    "change_pct": -4.674009769191306,
+    "change_pct_1w": -7.248062661182046,
+    "change_pct_1m": -8.255589884310103,
+    "change_pct_1y": -40.56036613614607,
+    "volume": 114273800,
+    "avg_volume_30d": 911446000
+  },
+  "scores": {
+    "master_score": 53,
+    "technical_score": 35,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.281859899737995,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 77.41591967107088,
+    "ema_50": 77.60812673651566,
+    "ema_200": 86.91690248911294,
+    "ema_stack_bullish": false,
+    "bb_upper": 75.37950096130372,
+    "bb_middle": 71.79000091552734,
+    "bb_lower": 68.20050086975097,
+    "bb_width": 10,
+    "atr": 2.42,
+    "atr_pct": 3.37,
+    "rvol": 1.4929476897150242,
+    "52w_high": 124.86000061035156,
+    "52w_low": 65.08000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 22.575472,
+    "pb_ratio": 9.914376,
+    "gross_margin": 0.49118,
+    "operating_margin": 0.33381,
+    "net_margin": 0.28219,
+    "market_cap": 298929225728,
+    "revenue_growth_ttm": 0.134,
+    "fcf_yield": 0.08492830604358671,
+    "institutional_ownership_pct": 0.84012,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 70.59,
+    "entry_range_high": 72.03,
+    "target_range_low": 78.44,
+    "target_range_high": 91.48,
+    "target_1": 78.44,
+    "target_2": 83.6,
+    "target_3": 91.48,
+    "stop_loss": 68.2,
+    "risk_reward_ratio": 3.95,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $70.59 – $72.03 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $75.81 direnci veya $70.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $68.20 olarak belirlenmiştir. Fiyatın EMA20 ($77.42) veya günlük VWAP ($71.87) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($77.61) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($71.87) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

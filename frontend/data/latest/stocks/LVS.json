@@ -1,0 +1,89 @@
+{
+  "ticker": "LVS",
+  "company": "Las Vegas Sands Corp.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:39:51.652Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Resorts & Casinos",
+  "price": {
+    "current": 39.97999954223633,
+    "open": 40.5099983215332,
+    "high": 40.790000915527344,
+    "low": 39.72999954223633,
+    "prev_close": 40.66999816894531,
+    "change_pct": -1.6965789470722221,
+    "change_pct_1w": -6.654219395227558,
+    "change_pct_1m": -9.89407143414136,
+    "change_pct_1y": -24.86374698340675,
+    "volume": 18101900,
+    "avg_volume_30d": 155221500
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 45,
+    "fundamental_score": 76.4,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 24.30956917340866,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 43.195550987549616,
+    "ema_50": 45.13222161625833,
+    "ema_200": 50.4726483310384,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.97899951934814,
+    "bb_middle": 39.97999954223633,
+    "bb_lower": 37.98099956512451,
+    "bb_width": 10,
+    "atr": 1.02,
+    "atr_pct": 2.56,
+    "rvol": 1.4758496728868102,
+    "52w_high": 70.44999694824219,
+    "52w_low": 39.72999954223633
+  },
+  "fundamental": {
+    "pe_ratio": 15.496124,
+    "pb_ratio": 44.57079,
+    "gross_margin": 0.79335,
+    "operating_margin": 0.19658001,
+    "net_margin": 0.12588,
+    "market_cap": 25895092224,
+    "revenue_growth_ttm": -0.007,
+    "fcf_yield": 0.08545538238898685,
+    "institutional_ownership_pct": 0.42655,
+    "dividend_rate": 1.2,
+    "dividend_yield": 0.03
+  },
+  "scores_detail": {
+    "entry_range_low": 39.37,
+    "entry_range_high": 40.08,
+    "target_range_low": 47.5,
+    "target_range_high": 53.54,
+    "target_1": 47.5,
+    "target_2": 50.08,
+    "target_3": 53.54,
+    "stop_loss": 37.98,
+    "risk_reward_ratio": 5.94,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $39.37 – $40.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.39 direnci veya $39.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $37.98 olarak belirlenmiştir. Fiyatın EMA20 ($43.20) veya günlük VWAP ($40.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($45.13) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.10) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 24 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

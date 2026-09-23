@@ -1,0 +1,89 @@
+{
+  "ticker": "QLYS",
+  "company": "Qualys, Inc.",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T20:31:56.560Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 174.9600067138672,
+    "open": 178.44000244140625,
+    "high": 179.7100067138672,
+    "low": 172.22999572753906,
+    "prev_close": 178.0800018310547,
+    "change_pct": -1.7520188034069393,
+    "change_pct_1w": 16.42268308160934,
+    "change_pct_1m": 1.9283500932595172,
+    "change_pct_1y": 28.855507649735156,
+    "volume": 1537500,
+    "avg_volume_30d": 21434100
+  },
+  "scores": {
+    "master_score": 86,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.09747531715503,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 174.571293441955,
+    "ema_50": 165.18886079863836,
+    "ema_200": 136.76465730495298,
+    "ema_stack_bullish": true,
+    "bb_upper": 183.70800704956056,
+    "bb_middle": 174.9600067138672,
+    "bb_lower": 166.2120063781738,
+    "bb_width": 10,
+    "atr": 10.34,
+    "atr_pct": 5.91,
+    "rvol": 1.5010287345864768,
+    "52w_high": 201.5399932861328,
+    "52w_low": 74.51000213623047
+  },
+  "fundamental": {
+    "pe_ratio": 30.427828,
+    "pb_ratio": 10.78336,
+    "gross_margin": 0.83417,
+    "operating_margin": 0.33979,
+    "net_margin": 0.29381,
+    "market_cap": 6161567744,
+    "revenue_growth_ttm": 0.11,
+    "fcf_yield": 0.03966240965831699,
+    "institutional_ownership_pct": 1.10331,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 168.76,
+    "entry_range_high": 175.99,
+    "target_range_low": 190.99,
+    "target_range_high": 205.57,
+    "target_1": 190.99,
+    "target_2": 201.54,
+    "target_3": 205.57,
+    "stop_loss": 161.52,
+    "risk_reward_ratio": 2.69,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $168.76 – $175.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $184.39 direnci veya $166.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $161.52 olarak belirlenmiştir. Fiyatın EMA50 ($165.19) veya günlük VWAP ($174.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($174.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

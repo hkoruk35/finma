@@ -1,0 +1,89 @@
+{
+  "ticker": "MSCI",
+  "company": "MSCI Inc.",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:44:38.823Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 552.8699951171875,
+    "open": 546.4299926757812,
+    "high": 555.4000244140625,
+    "low": 544.1799926757812,
+    "prev_close": 549.469970703125,
+    "change_pct": 0.6187825714500258,
+    "change_pct_1w": -0.31373222270277645,
+    "change_pct_1m": -3.514775362593623,
+    "change_pct_1y": -0.5593700242480769,
+    "volume": 841000,
+    "avg_volume_30d": 16938900
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 40,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.5340032992766,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 557.4508580533512,
+    "ema_50": 567.28312924775,
+    "ema_200": 571.8869383538325,
+    "ema_stack_bullish": false,
+    "bb_upper": 580.5134948730469,
+    "bb_middle": 552.8699951171875,
+    "bb_lower": 525.2264953613281,
+    "bb_width": 10,
+    "atr": 13.23,
+    "atr_pct": 2.39,
+    "rvol": 1.248463595628996,
+    "52w_high": 644.77001953125,
+    "52w_low": 501.0799865722656
+  },
+  "fundamental": {
+    "pe_ratio": 30.211477,
+    "pb_ratio": 0,
+    "gross_margin": 0.82975,
+    "operating_margin": 0.56298,
+    "net_margin": 0.40735,
+    "market_cap": 40193650688,
+    "revenue_growth_ttm": 0.122,
+    "fcf_yield": 0.02972374739666743,
+    "institutional_ownership_pct": 0.95662004,
+    "dividend_rate": 8.2,
+    "dividend_yield": 0.0148
+  },
+  "scores_detail": {
+    "entry_range_low": 544.93,
+    "entry_range_high": 554.19,
+    "target_range_low": 577.04,
+    "target_range_high": 632,
+    "target_1": 577.04,
+    "target_2": 604.52,
+    "target_3": 632,
+    "stop_loss": 525.23,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $544.93 – $554.19 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $564.77 direnci veya $542.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $525.23 olarak belirlenmiştir. Fiyatın EMA20 ($557.45) veya günlük VWAP ($551.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($567.28) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($551.94) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}

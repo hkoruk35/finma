@@ -1,0 +1,89 @@
+{
+  "ticker": "RAL",
+  "company": "Ralliant Corporation",
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21T07:10:10.303Z",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 67.95999908447266,
+    "open": 67.55000305175781,
+    "high": 68.19000244140625,
+    "low": 66.88999938964844,
+    "prev_close": 67.3499984741211,
+    "change_pct": 0.9057173335882884,
+    "change_pct_1w": 1.0557607204054367,
+    "change_pct_1m": 7.091081098204832,
+    "change_pct_1y": 55.30164920283198,
+    "volume": 2410900,
+    "avg_volume_30d": 41186200
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 78,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.562841840616386,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 65.73011187653385,
+    "ema_50": 65.61508465895025,
+    "ema_200": 57.92788527534391,
+    "ema_stack_bullish": true,
+    "bb_upper": 71.35799903869629,
+    "bb_middle": 67.95999908447266,
+    "bb_lower": 64.56199913024902,
+    "bb_width": 10,
+    "atr": 2.45,
+    "atr_pct": 3.61,
+    "rvol": 1.4130655413706534,
+    "52w_high": 75.41000366210938,
+    "52w_low": 37.27000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.900137,
+    "gross_margin": 0.50952,
+    "operating_margin": 0.14477,
+    "net_margin": -0.56386,
+    "market_cap": 7519094784,
+    "revenue_growth_ttm": 0.128,
+    "fcf_yield": 0.04441359307115233,
+    "institutional_ownership_pct": 1.03529,
+    "dividend_rate": 0.2,
+    "dividend_yield": 0.0029
+  },
+  "scores_detail": {
+    "entry_range_low": 66.98,
+    "entry_range_high": 68.21,
+    "target_range_low": 72.46,
+    "target_range_high": 77.73,
+    "target_1": 72.46,
+    "target_2": 74.35,
+    "target_3": 77.73,
+    "stop_loss": 64.56,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $66.98 – $68.21 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $69.41 direnci veya $66.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $64.56 olarak belirlenmiştir. Fiyatın EMA50 ($65.62) veya günlük VWAP ($67.48) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($67.48) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}
