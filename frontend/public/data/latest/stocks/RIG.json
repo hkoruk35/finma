@@ -2,7 +2,7 @@
   "ticker": "RIG",
   "company": "Transocean Ltd.",
   "date": "2026-09-24",
-  "generated_at": "2026-09-24T05:53:41.183Z",
+  "generated_at": "2026-09-24T11:19:26.312Z",
   "sector": "Energy",
   "industry": "Oil & Gas Drilling",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 6109334016,
     "revenue_growth_ttm": -0.022,
     "fcf_yield": 0.14283472170856013,
-    "institutional_ownership_pct": 0.95093,
+    "institutional_ownership_pct": 0.95115995,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
