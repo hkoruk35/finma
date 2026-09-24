@@ -1,0 +1,89 @@
+{
+  "ticker": "RIG",
+  "company": "Transocean Ltd.",
+  "date": "2026-09-24",
+  "generated_at": "2026-09-24T05:53:41.183Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Drilling",
+  "price": {
+    "current": 5.46999979019165,
+    "open": 5.53000020980835,
+    "high": 5.570000171661377,
+    "low": 5.449999809265137,
+    "prev_close": 5.489999771118164,
+    "change_pct": -0.3642983927199731,
+    "change_pct_1w": -1.2635410134184044,
+    "change_pct_1m": -5.199310081915996,
+    "change_pct_1y": 54.519769749612,
+    "volume": 34259200,
+    "avg_volume_30d": 1277497900
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 60,
+    "fundamental_score": 56.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.84341412704133,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 5.652495898881135,
+    "ema_50": 5.645656440032494,
+    "ema_200": 5.435005824001605,
+    "ema_stack_bullish": true,
+    "bb_upper": 5.743499779701233,
+    "bb_middle": 5.46999979019165,
+    "bb_lower": 5.1964998006820675,
+    "bb_width": 10,
+    "atr": 0.25,
+    "atr_pct": 4.6,
+    "rvol": 1.030054922203786,
+    "52w_high": 7.659999847412109,
+    "52w_low": 3.0299999713897705
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.7300146,
+    "gross_margin": 0.41646,
+    "operating_margin": 0.17391,
+    "net_margin": -0.40238,
+    "market_cap": 6109334016,
+    "revenue_growth_ttm": -0.022,
+    "fcf_yield": 0.14283472170856013,
+    "institutional_ownership_pct": 0.95093,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 5.32,
+    "entry_range_high": 5.5,
+    "target_range_low": 6.14,
+    "target_range_high": 6.96,
+    "target_1": 6.14,
+    "target_2": 6.27,
+    "target_3": 6.96,
+    "stop_loss": 5.14,
+    "risk_reward_ratio": 3.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $5.32 – $5.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $5.65 direnci veya $5.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.14 olarak belirlenmiştir. Fiyatın EMA200 ($5.44) veya günlük VWAP ($5.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.65) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($5.51) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 45 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-09-24T04:00:01.836587-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 6.0,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
+  "picks": [
+    {
+      "ticker": "PLTR",
+      "price": 191.79,
+      "change_pct": 3.68,
+      "dt_score": 25.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 190.8,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1790236807.2466738
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 191.6,
+          "high": 192.75
+        },
+        "stop": 188.91,
+        "tp1": 198.71,
+        "tp2": 203.6,
+        "rr_ratio": 2.0,
+        "avg_entry": 192.18,
+        "risk_per_sh": 3.27,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 191.79
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.7%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +0.52%",
+        "🔴 Açılış Barı: Kırmızı (0.2% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    }
+  ]
+}
