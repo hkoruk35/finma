@@ -1,8 +1,8 @@
 {
   "ticker": "RIG",
   "company": "Transocean Ltd.",
-  "date": "2026-09-24",
-  "generated_at": "2026-09-24T11:19:26.312Z",
+  "date": "2026-09-25",
+  "generated_at": "2026-09-25T01:31:11.682Z",
   "sector": "Energy",
   "industry": "Oil & Gas Drilling",
   "price": {
@@ -14,7 +14,7 @@
     "change_pct": -0.3642983927199731,
     "change_pct_1w": -1.2635410134184044,
     "change_pct_1m": -5.199310081915996,
-    "change_pct_1y": 54.519769749612,
+    "change_pct_1y": 50.274715179868146,
     "volume": 34259200,
     "avg_volume_30d": 1277497900
   },
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 44.84341412704133,
+    "rsi_14": 44.84341404532189,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 5.652495898881135,
-    "ema_50": 5.645656440032494,
-    "ema_200": 5.435005824001605,
+    "ema_20": 5.652495898882366,
+    "ema_50": 5.6456607961793015,
+    "ema_200": 5.443132489564131,
     "ema_stack_bullish": true,
     "bb_upper": 5.743499779701233,
     "bb_middle": 5.46999979019165,
@@ -53,13 +53,13 @@
   },
   "fundamental": {
     "pe_ratio": 0,
-    "pb_ratio": 0.7300146,
+    "pb_ratio": 0.7246763,
     "gross_margin": 0.41646,
     "operating_margin": 0.17391,
     "net_margin": -0.40238,
-    "market_cap": 6109334016,
+    "market_cap": 6064658944,
     "revenue_growth_ttm": -0.022,
-    "fcf_yield": 0.14283472170856013,
+    "fcf_yield": 0.14388690807804147,
     "institutional_ownership_pct": 0.95115995,
     "dividend_rate": 0,
     "dividend_yield": 0
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $5.32 – $5.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $5.65 direnci veya $5.27 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.14 olarak belirlenmiştir. Fiyatın EMA200 ($5.44) veya günlük VWAP ($5.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.14 olarak belirlenmiştir. Fiyatın EMA200 ($5.44) veya günlük VWAP ($5.50) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.65) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($5.51) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($5.50) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 45 seviyesinde zayıf momentum görünümü sergiliyor."
   }
