@@ -11,6 +11,7 @@ import subprocess
 import shutil
 import glob
 import re
+import sys
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -34,7 +35,16 @@ logging.basicConfig(
 )
 log = logging.getLogger("options_scanner")
 
-VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
+VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")  # Windows
+if not os.path.exists(VENV_PYTHON):
+    _dotvenv = os.path.join(FINMA_DIR, ".venv", "bin", "python3")  # Linux/Ubuntu (guncel venv)
+    _venv313 = os.path.join(FINMA_DIR, "venv313", "bin", "python")  # Linux eski venv (fallback)
+    if os.path.exists(_dotvenv):
+        VENV_PYTHON = _dotvenv
+    elif os.path.exists(_venv313):
+        VENV_PYTHON = _venv313
+    else:
+        VENV_PYTHON = sys.executable
 
 def run_git(args):
     return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
