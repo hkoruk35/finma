@@ -1,0 +1,89 @@
+{
+  "ticker": "MTDR",
+  "company": "Matador Resources Company",
+  "date": "2026-09-28",
+  "generated_at": "2026-09-28T05:02:09.432Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 51.54999923706055,
+    "open": 52,
+    "high": 52.54999923706055,
+    "low": 51.099998474121094,
+    "prev_close": 52.970001220703125,
+    "change_pct": -2.6807663789284106,
+    "change_pct_1w": -9.25893682288034,
+    "change_pct_1m": -15.740439718991867,
+    "change_pct_1y": 7.261751485735644,
+    "volume": 1443800,
+    "avg_volume_30d": 57180900
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 45,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.059923229295386,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 56.0157134417508,
+    "ema_50": 55.47127719828346,
+    "ema_200": 53.029560290750986,
+    "ema_stack_bullish": true,
+    "bb_upper": 54.127499198913576,
+    "bb_middle": 51.54999923706055,
+    "bb_lower": 48.97249927520752,
+    "bb_width": 10,
+    "atr": 2.19,
+    "atr_pct": 4.25,
+    "rvol": 0.992397811157222,
+    "52w_high": 66.83999633789062,
+    "52w_low": 37.13999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 8.8421955,
+    "pb_ratio": 1.0781811,
+    "gross_margin": 0.8239,
+    "operating_margin": 0.492,
+    "net_margin": 0.18847999,
+    "market_cap": 6379529728,
+    "revenue_growth_ttm": 0.268,
+    "fcf_yield": -0.1422932420889567,
+    "institutional_ownership_pct": 0.98733,
+    "dividend_rate": 1.5,
+    "dividend_yield": 0.0291
+  },
+  "scores_detail": {
+    "entry_range_low": 50.24,
+    "entry_range_high": 51.77,
+    "target_range_low": 56.2,
+    "target_range_high": 62.4,
+    "target_1": 56.2,
+    "target_2": 60.38,
+    "target_3": 62.4,
+    "stop_loss": 48.7,
+    "risk_reward_ratio": 4.08,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $50.24 – $51.77 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $53.08 direnci veya $49.80 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $48.70 olarak belirlenmiştir. Fiyatın EMA200 ($53.03) veya günlük VWAP ($51.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($55.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($51.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
