@@ -4826,6 +4826,7 @@ WATCHLIST_MAX_DAYS = 3
 ACTIVE_SCAN_HOURS_NY = set(range(9, 18))
 FULL_SCAN_HOURS_NY = {9, 14, 17}
 COOLDOWN_DAYS = 20
+EARNINGS_MIN_DAYS = 5  # is_earnings_safe_for_swing default (satır 1474) ile eşleşiyor
 BASE_BREAKOUT_LOOKBACK = 60
 BASE_BREAKOUT_BUFFER = 5
 
