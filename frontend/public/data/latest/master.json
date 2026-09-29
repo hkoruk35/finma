@@ -1,8 +1,8 @@
 {
   "date": "2026-09-29",
-  "generated_at": "2026-09-29T14:04:15.670548-04:00",
+  "generated_at": "2026-09-29T17:03:25.818825-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 30,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,12 +21,17 @@
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 9,
       "tickers": [
         "SMCI",
         "WAT",
         "HUM",
-        "ASX"
+        "ASX",
+        "ZBRA",
+        "PD",
+        "MXL",
+        "MEDP",
+        "FORM"
       ]
     },
     "value": {

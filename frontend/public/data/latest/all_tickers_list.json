@@ -220,6 +220,116 @@
       "change_pct": 0.54,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 41.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "TXN",
+      "company": "TXN",
+      "sector": "Technology",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 281.69000244140625,
+      "change_pct": 1.21,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GOOG",
+      "company": "GOOG",
+      "sector": "Communication Services",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 337.32000732421875,
+      "change_pct": -0.54,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ZBRA",
+      "company": "ZBRA",
+      "sector": "Technology",
+      "master_score": 48.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 375.9700012207031,
+      "change_pct": 1.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PD",
+      "company": "PD",
+      "sector": "Technology",
+      "master_score": 48.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 14.949999809265137,
+      "change_pct": 3.25,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "MXL",
+      "company": "MXL",
+      "sector": "Technology",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 92.72000122070312,
+      "change_pct": 3.02,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EHC",
+      "company": "EHC",
+      "sector": "Healthcare",
+      "master_score": 47.7,
+      "score_type": "POSITIVE_BIAS",
+      "price": 123.55999755859375,
+      "change_pct": -0.37,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.7 | System: SQUEEZE"
+    },
+    {
+      "ticker": "MEDP",
+      "company": "MEDP",
+      "sector": "Healthcare",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 622.1099853515625,
+      "change_pct": 1.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "FFIV",
+      "company": "FFIV",
+      "sector": "Technology",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 438.07000732421875,
+      "change_pct": 0.58,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "FORM",
+      "company": "FORM",
+      "sector": "Technology",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 136.25,
+      "change_pct": 4.03,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "MTN",
+      "company": "MTN",
+      "sector": "Consumer Cyclical",
+      "master_score": 45.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 141.2899932861328,
+      "change_pct": 2.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.5 | System: DEFAULT"
     }
   ]
 }
