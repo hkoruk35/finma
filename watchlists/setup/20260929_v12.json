@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "CRWD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 260.26,
+        "entry_zone": "253.93 - 266.59",
+        "SL": 234.92,
+        "TP": 310.94
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "PANW",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 385.6,
+        "entry_zone": "376.17 - 395.03",
+        "SL": 347.9,
+        "TP": 461.01
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "ABCL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 14.85,
+        "entry_zone": "14.45 - 15.26",
+        "SL": 13.25,
+        "TP": 18.07
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "AMRX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 20.16,
+        "entry_zone": "19.67 - 20.65",
+        "SL": 18.22,
+        "TP": 24.05
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 8.73,
+        "entry_zone": "8.47 - 9.00",
+        "SL": 7.67,
+        "TP": 10.86
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "CLS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 366.49,
+        "entry_zone": "356.75 - 376.24",
+        "SL": 327.51,
+        "TP": 424.97
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "CNK",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 38.08,
+        "entry_zone": "37.52 - 38.63",
+        "SL": 35.84,
+        "TP": 42.55
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "WAT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 441.22,
+        "entry_zone": "435.64 - 446.80",
+        "SL": 418.91,
+        "TP": 474.69
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 81.94,
+        "entry_zone": "80.57 - 83.31",
+        "SL": 76.46,
+        "TP": 92.89
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "FORM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 135.76,
+        "entry_zone": "132.38 - 139.14",
+        "SL": 122.23,
+        "TP": 162.82
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.37,
+        "entry_zone": "13.01 - 13.73",
+        "SL": 11.95,
+        "TP": 16.21
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "APH",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 84.5,
+        "entry_zone": "83.06 - 85.94",
+        "SL": 78.72,
+        "TP": 96.06
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "NVAX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 10.79,
+        "entry_zone": "10.49 - 11.09",
+        "SL": 9.61,
+        "TP": 13.16
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 90.07,
+        "entry_zone": "87.29 - 92.85",
+        "SL": 78.96,
+        "TP": 112.29
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "BFLY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 9.21,
+        "entry_zone": "8.87 - 9.55",
+        "SL": 7.84,
+        "TP": 11.95
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "GME",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 23.46,
+        "entry_zone": "22.96 - 23.96",
+        "SL": 21.46,
+        "TP": 27.45
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "SUPN",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 43.83,
+        "entry_zone": "43.13 - 44.53",
+        "SL": 41.04,
+        "TP": 49.42
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "BURL",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 267.97,
+        "entry_zone": "263.73 - 272.21",
+        "SL": 251.02,
+        "TP": 301.87
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 70.54,
+        "entry_zone": "68.84 - 72.23",
+        "SL": 63.74,
+        "TP": 84.13
+    },
+    {
+        "date": "2026-09-29 18:30",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 89.5,
+        "entry_zone": "86.08 - 92.92",
+        "SL": 75.84,
+        "TP": 116.82
+    }
+]

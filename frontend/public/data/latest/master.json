@@ -1,8 +1,8 @@
 {
   "date": "2026-09-29",
-  "generated_at": "2026-09-29T09:03:51.258412-04:00",
+  "generated_at": "2026-09-29T14:04:15.670548-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,11 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 4,
       "tickers": [
         "SMCI",
         "WAT",
-        "HUM"
+        "HUM",
+        "ASX"
       ]
     },
     "value": {
@@ -64,25 +65,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 763.925,
-      "change_pct": -0.22
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 737.615,
-      "change_pct": 0.15
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 511.975,
-      "change_pct": -0.4
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.17,
-      "change_pct": 0.62
-    },
-    "RUSSELL2000": {
-      "value": 278.3,
-      "change_pct": -0.61
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-29T14:30:06.621156-04:00"
+  }
 }
