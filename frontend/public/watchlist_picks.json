@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T14:04:15.926742-04:00",
+  "generated_at": "2026-09-29T17:03:26.313923-04:00",
   "picks": [
     {
       "ticker": "APPS",
@@ -38,22 +38,40 @@
       "score": 38.0
     },
     {
-      "ticker": "NET",
-      "sector": "Technology",
-      "date_added": "2026-09-29",
-      "score": 36.0
-    },
-    {
-      "ticker": "TGTX",
-      "sector": "Healthcare",
-      "date_added": "2026-09-29",
-      "score": 35.5
-    },
-    {
       "ticker": "AEHR",
       "sector": "Technology",
       "date_added": "2026-09-29",
       "score": 32.0
+    },
+    {
+      "ticker": "JXN",
+      "sector": "Financial Services",
+      "date_added": "2026-09-29",
+      "score": 40.0
+    },
+    {
+      "ticker": "SMTC",
+      "sector": "Technology",
+      "date_added": "2026-09-29",
+      "score": 37.5
+    },
+    {
+      "ticker": "GME",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-09-29",
+      "score": 35.0
+    },
+    {
+      "ticker": "HNGE",
+      "sector": "Healthcare",
+      "date_added": "2026-09-29",
+      "score": 33.5
+    },
+    {
+      "ticker": "GNRC",
+      "sector": "Industrials",
+      "date_added": "2026-09-29",
+      "score": 29.0
     }
   ]
 }
