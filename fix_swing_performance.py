@@ -6,10 +6,11 @@ swing_performance.json temizleyici:
 """
 
 import json
+import os
 from datetime import datetime, timedelta
 
-# Dosya yolunu ayarla
-perf_file = r"C:\Users\afksm\finma\frontend\public\swing_performance.json"
+# Dosya yolunu ayarla (repo-relative, calisma dizininden bagimsiz)
+perf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend", "public", "swing_performance.json")
 
 print("[*] swing_performance.json yukleniyor...")
 with open(perf_file, 'r', encoding='utf-8') as f:

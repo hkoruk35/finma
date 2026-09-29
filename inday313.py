@@ -395,7 +395,7 @@ LAST_PRE_GAP_ALERT_DATE = None
 # ------------------------------------------------
 # 🔹 SHARED PATHS
 # ------------------------------------------------
-FINMA_DIR = r"C:\Users\afksm\finma"
+FINMA_DIR = os.path.dirname(os.path.abspath(__file__))
 PUBLIC_DIR = os.path.join(FINMA_DIR, "frontend", "public")
 INTRADAY_HISTORY_DIR = os.path.join(PUBLIC_DIR, "intraday_history")
 INDAY_UNIVERSE_FILE = os.path.join(PUBLIC_DIR, "inday_universe_today.json")
@@ -425,7 +425,7 @@ def load_swing_universe() -> List[str]:
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
 
-    swing_file = r"C:\Users\afksm\finma\frontend\public\swing_all_picks.json"
+    swing_file = os.path.join(FINMA_DIR, "frontend", "public", "swing_all_picks.json")
     
     if not os.path.exists(swing_file):
         logging.error(f"❌ {swing_file} bulunamadı! Swing botun çalışmış olduğundan emin olun.")
@@ -2596,7 +2596,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
             }, f, indent=2, ensure_ascii=False)
 
         # Push to GitHub (since Vercel revalidate endpoint is not working)
-        finma_dir = r"C:\Users\afksm\finma"
+        finma_dir = FINMA_DIR
         try:
             # First, pull latest to prevent conflicts
             subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=finma_dir, capture_output=True)
@@ -2626,7 +2626,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
 
 def save_to_setup_folder(results: List[Dict[str, Any]]):
     """Creates versioned and detailed JSON records in the specified folder."""
-    SETUP_DIR = r"C:\Users\afksm\finma\watchlists\setup"
+    SETUP_DIR = os.path.join(FINMA_DIR, "watchlists", "setup")
     if not os.path.exists(SETUP_DIR):
         os.makedirs(SETUP_DIR, exist_ok=True)
 
@@ -2659,7 +2659,7 @@ def save_to_setup_folder(results: List[Dict[str, Any]]):
 
 def save_txt_for_archive(results: List[Dict[str, Any]]):
     """Boga Finance AI - Symbol-based TXT archive record."""
-    INDAY_DIR = r"C:\Users\afksm\finma\watchlists\inday"
+    INDAY_DIR = os.path.join(FINMA_DIR, "watchlists", "inday")
     if not os.path.exists(INDAY_DIR):
         os.makedirs(INDAY_DIR, exist_ok=True)
 

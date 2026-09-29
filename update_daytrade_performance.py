@@ -21,7 +21,7 @@ def get_ticker_info(ticker, cache):
 def update_daytrade_performance():
     performance_file = 'frontend/public/daytrade_performance.json'
     picks_file = 'frontend/public/daytrade_all_picks.json'
-    cache_file = r'C:\Users\afksm\finma\scratch\financial_tracker\watchlists\persistent_info_cache.json'
+    cache_file = 'scratch/financial_tracker/watchlists/persistent_info_cache.json'
 
     # 1. Load history
     if os.path.exists(performance_file):

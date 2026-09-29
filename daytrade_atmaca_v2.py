@@ -119,7 +119,7 @@ MIN_RR_DAYTRADE = 1.8
 
 # Çıktı
 TOP_CANDIDATES = 10
-OUTPUT_DIR      = r"C:\Users\afksm\finma\frontend\public"
+OUTPUT_DIR      = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend", "public")
 OUTPUT_JSON     = "daytrade_picks.json"
 OUTPUT_ALL_JSON = "daytrade_all_picks.json"
 
