@@ -1,119 +1,23 @@
 {
-  "generated_at": "2026-09-22T17:03:19.878743-04:00",
+  "generated_at": "2026-09-28T20:51:58.300396-04:00",
   "picks": [
     {
-      "ticker": "OKTA",
+      "ticker": "APPS",
       "sector": "Technology",
-      "date_added": "2026-09-21",
-      "score": 38.5
+      "date_added": "2026-09-28",
+      "score": 47.5
     },
     {
-      "ticker": "AMD",
-      "sector": "Technology",
-      "date_added": "2026-09-21",
-      "score": 21.2
-    },
-    {
-      "ticker": "URI",
+      "ticker": "ROK",
       "sector": "Industrials",
-      "date_added": "2026-09-21",
+      "date_added": "2026-09-28",
       "score": 44.5
     },
     {
-      "ticker": "BE",
-      "sector": "Industrials",
-      "date_added": "2026-09-21",
-      "score": 38.0
-    },
-    {
-      "ticker": "EMR",
-      "sector": "Industrials",
-      "date_added": "2026-09-22",
-      "score": 51.0
-    },
-    {
-      "ticker": "WSM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-09-22",
-      "score": 50.5
-    },
-    {
-      "ticker": "EQIX",
-      "sector": "Real Estate",
-      "date_added": "2026-09-22",
-      "score": 48.5
-    },
-    {
-      "ticker": "RGEN",
-      "sector": "Healthcare",
-      "date_added": "2026-09-22",
-      "score": 47.0
-    },
-    {
-      "ticker": "DE",
-      "sector": "Industrials",
-      "date_added": "2026-09-22",
-      "score": 46.5
-    },
-    {
-      "ticker": "IAG",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-22",
-      "score": 45.0
-    },
-    {
-      "ticker": "CRCL",
-      "sector": "Financial Services",
-      "date_added": "2026-09-22",
-      "score": 45.0
-    },
-    {
-      "ticker": "CLF",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-22",
-      "score": 42.5
-    },
-    {
-      "ticker": "NBIS",
-      "sector": "Communication Services",
-      "date_added": "2026-09-22",
-      "score": 38.0
-    },
-    {
-      "ticker": "ADI",
+      "ticker": "AVT",
       "sector": "Technology",
-      "date_added": "2026-09-22",
-      "score": 46.0
-    },
-    {
-      "ticker": "INFQ",
-      "sector": "Technology",
-      "date_added": "2026-09-22",
-      "score": 45.0
-    },
-    {
-      "ticker": "MTD",
-      "sector": "Healthcare",
-      "date_added": "2026-09-22",
-      "score": 44.0
-    },
-    {
-      "ticker": "PANW",
-      "sector": "Technology",
-      "date_added": "2026-09-22",
-      "score": 43.0
-    },
-    {
-      "ticker": "TTC",
-      "sector": "Industrials",
-      "date_added": "2026-09-22",
-      "score": 42.0
-    },
-    {
-      "ticker": "SSRM",
-      "sector": "Basic Materials",
-      "date_added": "2026-09-22",
-      "score": 39.5
+      "date_added": "2026-09-28",
+      "score": 41.5
     }
   ]
 }
