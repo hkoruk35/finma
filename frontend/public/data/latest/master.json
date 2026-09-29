@@ -1,40 +1,31 @@
 {
-  "date": "2026-09-22",
-  "generated_at": "2026-09-22T17:03:17.745065-04:00",
+  "date": "2026-09-28",
+  "generated_at": "2026-09-28T20:51:58.286853-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 47,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "ANET",
-        "CAT",
-        "KEYS",
-        "A",
-        "WTTR",
-        "BGC",
-        "MSGE",
-        "GEF",
-        "ARXS",
-        "AU"
+        "PYPL",
+        "SMCI",
+        "TT",
+        "MRVL",
+        "CROX",
+        "LECO",
+        "ALAB",
+        "WAT",
+        "CAKE",
+        "HUM"
       ]
     },
     "breakout": {
-      "count": 12,
+      "count": 3,
       "tickers": [
-        "ANET",
-        "WTTR",
-        "MSGE",
-        "ARXS",
-        "AU",
-        "GRMN",
-        "TEVA",
-        "DHR",
-        "CRWD",
-        "FIVN",
-        "RNG",
-        "WST"
+        "SMCI",
+        "WAT",
+        "HUM"
       ]
     },
     "value": {
@@ -56,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ANET",
-      "score": 47.5,
+      "ticker": "PYPL",
+      "score": 63.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CAT",
-      "score": 49.0,
+      "ticker": "SMCI",
+      "score": 59.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "KEYS",
-      "score": 53.0,
+      "ticker": "TT",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
