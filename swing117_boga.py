@@ -53,6 +53,11 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 
+# Repo kökü, calisma dizinine/isletim sistemine bagli olmadan cozulur (Windows'ta
+# hardcoded "C:\Users\afksm\finma" yolu Hetzner/Linux'ta hicbir zaman var olamiyordu —
+# universe/watchlist okumalari sessizce bos donuyor, yeni aday hic bulunamiyordu).
+FINMA_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Simple HTML escape workaround for Python 3.14 html.entities issue
 def html_escape(text: str, quote: bool = True) -> str:
     """Escape &, <, >, and quotes in text."""
@@ -129,7 +134,7 @@ alpha_vantage_cache: Dict[str, dict] = {}
 LONG_HISTORY_CACHE: Dict[str, Dict[str, float]] = {}
 LONG_HISTORY_TTL = 12 * 3600  # 12 hours
 
-WATCHLIST_DIR = r"C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists"
+WATCHLIST_DIR = os.path.join(FINMA_DIR, ".cache", "swing_watchlists")
 INFO_CACHE_FILE = os.path.join(WATCHLIST_DIR, "persistent_info_cache.json")
 WATCHLIST_KEEP_DAYS = 180
 WATCHLIST_MAX_ROLLING = 6000
@@ -335,7 +340,7 @@ async def fetch_all_us_tickers() -> List[str]:
     """Fetches Universe from SEC daily_universe.json"""
     all_tickers: set = set()
     try:
-        universe_path = r"C:\Users\afksm\finma\frontend\public\data\daily_universe.json"
+        universe_path = os.path.join(FINMA_DIR, "frontend", "public", "data", "daily_universe.json")
         with open(universe_path, "r", encoding="utf-8") as f:
             data = json.load(f)
             tickers = data.get("tickers", [])
@@ -358,8 +363,8 @@ async def get_recently_picked_tickers(days=5) -> set:
     Reads files in swing_YYYYMMDD.json format from the SWING2026 year folder.
     """
     recent_tickers = set()
-    # [OK] FIX 1: Use absolute path
-    base_data_dir = r"C:\Users\afksm\finma\frontend\public\data"
+    # [OK] FIX 1: Use absolute path (repo-relative, calisma dizininden bagimsiz)
+    base_data_dir = os.path.join(FINMA_DIR, "frontend", "public", "data")
     current_year = datetime.now(NY_TZ).strftime("%Y")
     swing_year_dir = os.path.join(base_data_dir, f"swing{current_year}")
 
@@ -4592,7 +4597,7 @@ def track_pick_peak_performance():
     Böylece hangi sistemin ne kadar kazandırdığı zamanla görünür hale gelir.
     """
     try:
-        public_dir = r"C:\Users\afksm\finma\frontend\public"
+        public_dir = os.path.join(FINMA_DIR, "frontend", "public")
         perf_file  = os.path.join(public_dir, "swing_performance.json")
         
         if not os.path.exists(perf_file):
@@ -4707,7 +4712,7 @@ async def send_weekly_performance_report():
     swing_performance.json içindeki system_stats ve history'den üretilir.
     """
     try:
-        perf_file = os.path.join(r"C:\Users\afksm\finma\frontend\public", "swing_performance.json")
+        perf_file = os.path.join(FINMA_DIR, "frontend", "public", "swing_performance.json")
         if not os.path.exists(perf_file):
             logging.warning("⚠️ Haftalık rapor: swing_performance.json bulunamadı.")
             return
@@ -4812,7 +4817,7 @@ async def send_weekly_performance_report():
 # ================================================================
 # ================================================================
 
-FRONTEND_PUBLIC_DIR = r"C:\Users\afksm\finma\frontend\public"
+FRONTEND_PUBLIC_DIR = os.path.join(FINMA_DIR, "frontend", "public")
 BASE_DATA_DIR = os.path.join(FRONTEND_PUBLIC_DIR, "data")
 CANDIDATE_POOL_FILE = os.path.join(BASE_DATA_DIR, "candidate_pool.json")
 WATCHLIST_PICKS_FILE = "watchlist_picks.json"
