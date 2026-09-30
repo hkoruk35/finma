@@ -1,5 +1,5 @@
 /**
- * SPY Engine V9.0 — Açılış Rejimi · 3 Mum Yönü · Mum Yorumları · Tahmin Haritası
+ * SPY Engine V9.0 — Açılış Rejimi · Canlı Yön · Mum Yorumları · Tahmin Haritası
  * (saf, izomorfik — DOM/ağ yok).
  *
  * Motorun giriş/çıkış kurallarına (strategy.ts) DOKUNMAZ; yalnızca sunum
@@ -222,48 +222,64 @@ export function openingRegime(m5: DaySeries, m15: DaySeries): OpeningRegime {
   };
 }
 
-// ── 3 ardışık 5m mum yönü ────────────────────────────────────────────
+// ── Canlı yön (her kapanan 5m + 15m mumla güncellenir) ───────────────
 
-export interface ThreeCandle {
-  dir: "UP" | "DOWN" | "FLAT";
-  strength: "GÜÇLÜ" | "ZAYIF" | "YOK";
-  closes: { clock: string; close: number; color: "bull" | "bear" | "doji" }[];
-  /** Son kapanışın 5m VWAP'a göre konumu */
-  vwapSide: VwapSide | null;
+export interface LiveDirection {
+  dir: "UP" | "DOWN" | "MIXED";
+  strength: "GÜÇLÜ" | "ZAYIF" | "ÇELİŞKİ";
+  side5: VwapSide | null;
+  side15: VwapSide | null;
+  /** Aynı VWAP tarafında üst üste kapanan mum sayısı */
+  streak5: number;
+  streak15: number;
+  asOf5: string;
+  asOf15: string | null;
+  /** Yön VWAP ile teyitli mi (5m ve 15m aynı tarafta) */
   aligned: boolean;
   text: string;
 }
 
-export function threeCandle(m5: DaySeries): ThreeCandle | null {
-  const n = m5.bars.length;
-  if (n < 3) return null;
-  const last3 = m5.bars.slice(-3);
-  const closes = last3.map((b) => ({
-    clock: nyClock(b.time), close: b.close,
-    color: (Math.abs(b.close - b.open) / Math.max(0.01, b.high - b.low) < 0.15 ? "doji" : b.close > b.open ? "bull" : "bear") as "bull" | "bear" | "doji",
-  }));
-  const [a, b, c] = last3.map((x) => x.close);
-  const greens = closes.filter((x) => x.color === "bull").length;
-  const reds = closes.filter((x) => x.color === "bear").length;
+function streakOf(s: DaySeries): { side: VwapSide | null; count: number; crossed: boolean } {
+  const n = s.bars.length;
+  if (!n) return { side: null, count: 0, crossed: false };
+  const side = sideOf(s.bars[n - 1].close, s.vwap[n - 1]);
+  let count = 0;
+  for (let i = n - 1; i >= 0 && sideOf(s.bars[i].close, s.vwap[i]) === side; i--) count++;
+  const prev = n - count - 1 >= 0 ? sideOf(s.bars[n - count - 1].close, s.vwap[n - count - 1]) : null;
+  const crossed = count === 1 && prev != null && prev !== "AT" && side != null && side !== "AT" && prev !== side;
+  return { side, count, crossed };
+}
 
-  let dir: ThreeCandle["dir"] = "FLAT";
-  let strength: ThreeCandle["strength"] = "YOK";
-  if (a < b && b < c) { dir = "UP"; strength = "GÜÇLÜ"; }
-  else if (a > b && b > c) { dir = "DOWN"; strength = "GÜÇLÜ"; }
-  else if (c > a && greens >= 2) { dir = "UP"; strength = "ZAYIF"; }
-  else if (c < a && reds >= 2) { dir = "DOWN"; strength = "ZAYIF"; }
+/**
+ * Yön, HER kapanan 5m ve 15m mumun VWAP konumundan okunur (sabit mum sayısı
+ * yok). Açılışta karar için 3×5m + 15m beklenir (openingRegime) — bu
+ * fonksiyon açılış rejimi oluştuktan sonra çağrılır.
+ */
+export function liveDirection(s5: DaySeries, s15: DaySeries): LiveDirection | null {
+  if (!s5.bars.length) return null;
+  const a = streakOf(s5);
+  const b = streakOf(s15);
+  const asOf5 = nyClock(s5.bars[s5.bars.length - 1].time);
+  const asOf15 = s15.bars.length ? nyClock(s15.bars[s15.bars.length - 1].time) : null;
 
-  const vwapSide = sideOf(c, m5.vwap[n - 1]);
-  const aligned =
-    dir === "FLAT" ? false : (dir === "UP" && vwapSide === "ABOVE") || (dir === "DOWN" && vwapSide === "BELOW");
+  const up5 = a.side === "ABOVE", dn5 = a.side === "BELOW";
+  const up15 = b.side === "ABOVE", dn15 = b.side === "BELOW";
+  let dir: LiveDirection["dir"] = "MIXED";
+  let strength: LiveDirection["strength"] = "ÇELİŞKİ";
+  if (up5 && up15) dir = "UP";
+  else if (dn5 && dn15) dir = "DOWN";
+  const aligned = dir !== "MIXED";
+  if (aligned) strength = a.count >= 2 ? "GÜÇLÜ" : "ZAYIF";
 
-  const dirTxt = dir === "UP" ? "YUKARI" : dir === "DOWN" ? "AŞAĞI" : "YATAY";
-  const vw = vwapSide === "ABOVE" ? "VWAP üstünde" : vwapSide === "BELOW" ? "VWAP altında" : vwapSide === "AT" ? "VWAP'ta" : "VWAP yok";
-  const text =
-    dir === "FLAT" ? `Son 3 kapanış (${fmt(a)} → ${fmt(b)} → ${fmt(c)}) tek yönde ilerlemedi — yön yok, ${vw}.`
-    : `Son 3 kapanış ${fmt(a)} → ${fmt(b)} → ${fmt(c)}: ${strength === "GÜÇLÜ" ? "3 ardışık" : "çoğunlukla"} ${dir === "UP" ? "yükselen" : "düşen"} kapanış, ${vw}. ${aligned ? "Yön VWAP ile teyitli." : "Yön VWAP konumuyla çelişiyor — teyit bekle."}`;
+  const nm = (side: VwapSide | null) => (side === "ABOVE" ? "VWAP üstünde" : side === "BELOW" ? "VWAP altında" : side === "AT" ? "VWAP'ta" : "VWAP yok");
+  const t5 = `5m (${asOf5}): ${nm(a.side)}${a.count > 1 ? `, ${a.count} mumdur üst üste` : a.crossed ? ", VWAP'ı yeni kesti" : ""}`;
+  const t15 = asOf15 ? `15m (${asOf15}): ${nm(b.side)}${b.count > 1 ? `, ${b.count} mumdur üst üste` : b.crossed ? ", VWAP'ı yeni kesti" : ""}` : "15m: henüz kapanış yok";
+  const verdict =
+    dir === "UP" ? (strength === "GÜÇLÜ" ? "İki zaman dilimi de yukarı — yön teyitli." : "Yeni kesişim — bir sonraki 5m kapanışı teyit etmeli.")
+    : dir === "DOWN" ? (strength === "GÜÇLÜ" ? "İki zaman dilimi de aşağı — yön teyitli." : "Yeni kesişim — bir sonraki 5m kapanışı teyit etmeli.")
+    : "5m ve 15m farklı tarafta / VWAP'ta — yön yok, bekle.";
 
-  return { dir, strength, closes, vwapSide, aligned, text: `${dirTxt} · ${text}` };
+  return { dir, strength, side5: a.side, side15: b.side, streak5: a.count, streak15: b.count, asOf5, asOf15, aligned, text: `${t5} · ${t15}. ${verdict}` };
 }
 
 // ── Tahmin haritası ──────────────────────────────────────────────────
@@ -302,11 +318,11 @@ export function buildForecastMap(input: {
   date: string;
   nowSec: number;
   opening: OpeningRegime;
-  three: ThreeCandle | null;
+  live: LiveDirection | null;
   levels: LevelRead | null;
   forecast: CloseForecast | null;
 }): ForecastMapData | null {
-  const { price, vwap, date, nowSec, opening, three, levels, forecast } = input;
+  const { price, vwap, date, nowSec, opening, live, levels, forecast } = input;
   if (!Number.isFinite(price)) return null;
 
   const closeSec = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
@@ -319,9 +335,9 @@ export function buildForecastMap(input: {
   if (opening.side === "UP" || opening.side === "DOWN") {
     bias = opening.side;
     biasText = `Açılış rejimi ${opening.label} → gün yönü ${bias === "UP" ? "yukarı" : "aşağı"} eğilimli.`;
-  } else if (vwap != null && three && three.dir !== "FLAT" && three.aligned) {
-    bias = three.dir;
-    biasText = `Açılış rejimi ${opening.label}; ancak son 3 mum ${three.dir === "UP" ? "yukarı" : "aşağı"} ve VWAP teyitli → kısa vadeli ${bias === "UP" ? "yukarı" : "aşağı"} eğilim.`;
+  } else if (vwap != null && live && live.aligned && live.strength === "GÜÇLÜ" && opening.status !== "WAITING") {
+    bias = live.dir as "UP" | "DOWN";
+    biasText = `Açılış rejimi ${opening.label}; ancak 5m ve 15m kapanışlar VWAP ${bias === "UP" ? "üstünde" : "altında"} teyitli → kısa vadeli ${bias === "UP" ? "yukarı" : "aşağı"} eğilim.`;
   }
 
   // — seviyeler (yalnızca ölçülmüş veriden) —

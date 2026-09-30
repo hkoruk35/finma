@@ -6,7 +6,7 @@
  * V8.0'ın 7 sekmesi kaldırıldı; tek ekranda şunlar var:
  *   1. Açılış rejimi — 09:30 5m/15m kapanışları VWAP'a göre izlenir,
  *      09:45–10:00 arası YÜKSELİŞ / DÜŞÜŞ / BELİRSİZ kararı verilir.
- *   2. 3 ardışık 5m mum yönü — her 3 dakikada yeniden kontrol edilir.
+ *   2. Canlı yön — her kapanan 5m ve 15m mumun VWAP konumundan güncellenir.
  *   3. Motor sinyali (ön uyarı + giriş) — motor kuralları DEĞİŞMEDİ.
  *   4. Tahmin haritası — destek/direnç, yolculuk, kapanış beklentisi.
  *   5. 15m + 5m grafik (ana sayfadaki iki grafik).
@@ -33,7 +33,7 @@ import {
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
-  daySeries, liveVwap, commentAll, openingRegime, threeCandle, buildForecastMap,
+  daySeries, liveVwap, commentAll, openingRegime, liveDirection, buildForecastMap,
   type CandleComment, type Tone,
 } from "@/lib/spyengine/openingMap";
 import type {
@@ -73,8 +73,6 @@ interface StreamResponse {
 }
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
-/** Karar kontrol periyodu (kullanıcı talebi: her 3 dk) */
-const CHECK_SEC = 180;
 
 const DEFAULT_TOGGLES: ChartToggles = {
   candleType: "NORMAL",
@@ -309,9 +307,8 @@ export default function SpyEngineV9() {
   /** Değerlendirme "anı": replay'de sunucunun zamanı, canlıda saat */
   const evalNow = replayDate ? (data?.serverTime ?? 0) : (nowSec || data?.serverTime || 0);
 
-  /** Her 3 dakikada bir yeniden kontrol dilimi (180 sn'ye hizalı) */
-  const checkSlot = evalNow ? Math.floor(evalNow / CHECK_SEC) : 0;
-  const nextCheckIn = evalNow ? CHECK_SEC - (evalNow % CHECK_SEC) : null;
+  /** Haritanın "şimdi" çizgisi için dakikalık dilim */
+  const minuteSlot = evalNow ? Math.floor(evalNow / 60) : 0;
 
   const lc = data?.lastClosed;
   const analysis = useMemo(() => {
@@ -319,11 +316,12 @@ export default function SpyEngineV9() {
     const s5 = daySeries(m5Bars, "5m", date, lc?.m5 ?? null, evalNow);
     const s15 = daySeries(m15Bars, "15m", date, lc?.m15 ?? null, evalNow);
     const opening = openingRegime(s5, s15);
-    const three = threeCandle(s5);
-    return { s5, s15, opening, three, c5: commentAll(s5, "5m"), c15: commentAll(s15, "15m") };
-    // checkSlot: 3 dk'lık kontrol dilimi + her yeni kapanışta (lastClosed) yeniden hesaplanır
+    // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
+    const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
+    return { s5, s15, opening, live, c5: commentAll(s5, "5m"), c15: commentAll(s15, "15m") };
+    // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5Bars, m15Bars, date, lc?.m5, lc?.m15, checkSlot]);
+  }, [m5Bars, m15Bars, date, lc?.m5, lc?.m15]);
 
   const price = data?.spot.price ?? null;
   const vwapNow = useMemo(() => (date ? liveVwap(m5Bars, date) : null), [m5Bars, date]);
@@ -332,11 +330,11 @@ export default function SpyEngineV9() {
     if (!analysis || price == null || !date) return null;
     return buildForecastMap({
       price, vwap: vwapNow, date, nowSec: evalNow,
-      opening: analysis.opening, three: analysis.three,
+      opening: analysis.opening, live: analysis.live,
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, checkSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, minuteSlot]);
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
@@ -427,10 +425,10 @@ export default function SpyEngineV9() {
 
   // ── Render ──────────────────────────────────────────────────────
   const op = analysis?.opening ?? null;
-  const three = analysis?.three ?? null;
+  const live = analysis?.live ?? null;
   const opColor = op?.side === "UP" ? "#22c55e" : op?.side === "DOWN" ? "#ef4444" : op?.side === "UNCERTAIN" ? "#eab308" : "#64748b";
   const opArrow = op?.side === "UP" ? "▲" : op?.side === "DOWN" ? "▼" : op?.side === "UNCERTAIN" ? "◆" : "…";
-  const threeColor = three?.dir === "UP" ? "#22c55e" : three?.dir === "DOWN" ? "#ef4444" : "#64748b";
+  const liveColor = live?.dir === "UP" ? "#22c55e" : live?.dir === "DOWN" ? "#ef4444" : "#eab308";
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
@@ -440,7 +438,7 @@ export default function SpyEngineV9() {
           <div>
             <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V9.0</h1>
             <p className="text-[9px] text-slate-500">
-              5m kapanış kararı · 3 ardışık mum yönü (her 3 dk) · 5m + 15m VWAP · 09:45–10:00 açılış rejimi · tahmin haritası
+              her kapanan 5m + 15m mum analizi · VWAP odaklı · açılışta 3×5m + 15m sonrası 09:45–10:00 rejim kararı · tahmin haritası
             </p>
           </div>
           {data && (
@@ -583,41 +581,43 @@ export default function SpyEngineV9() {
             )}
           </div>
 
-          <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${threeColor}55` }}>
+          <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                3 Ardışık 5m Mum Yönü <span className="text-[9px] font-normal text-slate-600">· her 3 dk kontrol</span>
+                Canlı Yön <span className="text-[9px] font-normal text-slate-600">· her kapanan 5m ve 15m mumla güncellenir</span>
               </span>
-              <span className="font-mono text-[9px] text-slate-500">
-                kontrol {checkSlot ? nyClock(checkSlot * CHECK_SEC) : "—"} · sonraki {nextCheckIn != null ? `${Math.floor(nextCheckIn / 60)}:${String(nextCheckIn % 60).padStart(2, "0")}` : "—"}
-              </span>
+              {live && (
+                <span className="font-mono text-[9px] text-slate-500">
+                  5m {live.asOf5} · 15m {live.asOf15 ?? "—"} kapanışı
+                </span>
+              )}
             </div>
-            {!three ? (
-              <div className="px-4 py-6 text-[11px] text-slate-500">3 adet kapanmış 5m seans mumu bekleniyor (ilk karar 09:45 ET).</div>
+            {!live ? (
+              <div className="px-4 py-6 text-[11px] text-slate-500">
+                Açılış rejimi oluşana kadar (ilk 3×5m + 15m kapanış, 09:45 ET) yön kararı verilmez. Kapanan mumların yorumu aşağıda akıyor.
+              </div>
             ) : (
               <>
                 <div className="flex items-center gap-4 px-4 py-3">
                   <div className="text-center">
-                    <div className="text-[34px] font-black leading-none" style={{ color: threeColor }}>
-                      {three.dir === "UP" ? "▲" : three.dir === "DOWN" ? "▼" : "◆"}
+                    <div className="text-[34px] font-black leading-none" style={{ color: liveColor }}>
+                      {live.dir === "UP" ? "▲" : live.dir === "DOWN" ? "▼" : "◆"}
                     </div>
-                    <div className="mt-1 text-[18px] font-extrabold tracking-wide" style={{ color: threeColor }}>
-                      {three.dir === "UP" ? "YUKARI" : three.dir === "DOWN" ? "AŞAĞI" : "YATAY"}
+                    <div className="mt-1 text-[18px] font-extrabold tracking-wide" style={{ color: liveColor }}>
+                      {live.dir === "UP" ? "YUKARI" : live.dir === "DOWN" ? "AŞAĞI" : "BEKLE"}
                     </div>
-                    <div className="text-[9px] text-slate-500">{three.strength}</div>
+                    <div className="text-[9px] text-slate-500">{live.strength}</div>
                   </div>
-                  <div className="min-w-0 flex-1 text-[11px] leading-relaxed text-slate-400">
-                    {three.text.replace(/^(YUKARI|AŞAĞI|YATAY) · /, "")}
-                  </div>
+                  <div className="min-w-0 flex-1 text-[11px] leading-relaxed text-slate-400">{live.text}</div>
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
-                  {three.closes.map((c) => (
-                    <span key={c.clock} className={`rounded border px-1.5 py-0.5 ${c.color === "bull" ? SIDE_CHIP.ABOVE : c.color === "bear" ? SIDE_CHIP.BELOW : SIDE_CHIP.AT}`}>
-                      {c.clock} · {num(c.close)}
+                  {([["5m", live.side5, live.streak5], ["15m", live.side15, live.streak15]] as const).map(([tf, side, n]) => (
+                    <span key={tf} className={`rounded border px-1.5 py-0.5 ${side ? SIDE_CHIP[side] : "border-slate-700 text-slate-500"}`}>
+                      {tf} {side === "ABOVE" ? "VWAP ÜSTÜ" : side === "BELOW" ? "VWAP ALTI" : side === "AT" ? "VWAP'TA" : "—"} · {n} mum
                     </span>
                   ))}
-                  <span className={`ml-auto rounded border px-1.5 py-0.5 font-semibold ${three.aligned ? SIDE_CHIP.ABOVE : "border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
-                    {three.aligned ? "VWAP ile TEYİTLİ" : "VWAP teyidi yok"}
+                  <span className={`ml-auto rounded border px-1.5 py-0.5 font-semibold ${live.aligned ? SIDE_CHIP.ABOVE : "border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
+                    {live.aligned ? "5m + 15m TEYİTLİ" : "teyit yok"}
                   </span>
                 </div>
               </>
