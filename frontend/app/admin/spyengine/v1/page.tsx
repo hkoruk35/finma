@@ -322,31 +322,35 @@ export default function SpyEngineV9() {
   /** Haritanın "şimdi" çizgisi için dakikalık dilim */
   const minuteSlot = evalNow ? Math.floor(evalNow / 60) : 0;
 
-  const lc = data?.lastClosed;
+  /** Analiz mumları 1m akıştan türetilir (1,2 sn taze) — Yahoo'nun 5m/15m serisine bağlı değil */
+  const m5D = useMemo(() => bucketAggregate(m1, 5), [m1]);
+  const m15D = useMemo(() => bucketAggregate(m1, 15), [m1]);
+  const lastM1Time = m1.length ? m1[m1.length - 1].time : null;
+
   const analysis = useMemo(() => {
     if (!date || !evalNow) return null;
-    const s5 = daySeries(m5Bars, "5m", date, lc?.m5 ?? null, evalNow);
-    const s15 = daySeries(m15Bars, "15m", date, lc?.m15 ?? null, evalNow);
+    const s5 = daySeries(m5D, "5m", date, evalNow, lastM1Time);
+    const s15 = daySeries(m15D, "15m", date, evalNow, lastM1Time);
     const opening = openingRegime(s5, s15);
     // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
     const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
     return { s5, s15, opening, live, c5: commentAll(s5, "5m"), c15: commentAll(s15, "15m") };
     // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5Bars, m15Bars, date, lc?.m5, lc?.m15]);
+  }, [m5D, m15D, date, lastM1Time, minuteSlot]);
 
   /** Oluşmakta olan mumların canlı yorumu (yalnızca canlı modda; karar mumu değil) */
   const forming5 = useMemo(
-    () => (analysis && date && !replayDate && nowSec ? commentForming(m5Bars, analysis.s5, "5m", date, nowSec) : null),
-    [analysis, m5Bars, date, replayDate, nowSec],
+    () => (analysis && date && !replayDate && nowSec ? commentForming(m5D, analysis.s5, "5m", date, nowSec) : null),
+    [analysis, m5D, date, replayDate, nowSec],
   );
   const forming15 = useMemo(
-    () => (analysis && date && !replayDate && nowSec ? commentForming(m15Bars, analysis.s15, "15m", date, nowSec) : null),
-    [analysis, m15Bars, date, replayDate, nowSec],
+    () => (analysis && date && !replayDate && nowSec ? commentForming(m15D, analysis.s15, "15m", date, nowSec) : null),
+    [analysis, m15D, date, replayDate, nowSec],
   );
 
   const price = data?.spot.price ?? null;
-  const vwapNow = useMemo(() => (date ? liveVwap(m5Bars, date) : null), [m5Bars, date]);
+  const vwapNow = useMemo(() => (date ? liveVwap(m5D, date) : null), [m5D, date]);
 
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
@@ -361,7 +365,7 @@ export default function SpyEngineV9() {
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
     if (!date) return { bars: [] as Bar[], vwap: [] as (number | null)[] };
-    const bars = m5Bars.filter((b) => isRthBar(b) && nyParts(b.time).ymd === date);
+    const bars = m5D.filter((b) => isRthBar(b) && nyParts(b.time).ymd === date);
     let pv = 0, vol = 0;
     const vwap = bars.map((b) => {
       const v = b.volume || 0;
@@ -370,7 +374,7 @@ export default function SpyEngineV9() {
       return vol > 0 ? pv / vol : null;
     });
     return { bars, vwap };
-  }, [m5Bars, date]);
+  }, [m5D, date]);
 
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
@@ -606,13 +610,12 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                Canlı Yön <span className="text-[9px] font-normal text-slate-600">· her kapanan 5m ve 15m mumla güncellenir</span>
+                Canlı Yön <span className="text-[9px] font-normal text-slate-600">· her dakika kontrol · her kapanan 5m ve 15m mumla güncellenir</span>
               </span>
-              {live && (
-                <span className="font-mono text-[9px] text-slate-500">
-                  5m {live.asOf5} · 15m {live.asOf15 ?? "—"} kapanışı
-                </span>
-              )}
+              <span className="font-mono text-[9px] text-slate-500">
+                {live ? `5m ${live.asOf5} · 15m ${live.asOf15 ?? "—"} kapanışı · ` : ""}
+                kontrol {minuteSlot ? nyClock(minuteSlot * 60) : "—"} · sonraki {evalNow ? 60 - (evalNow % 60) : "—"}sn
+              </span>
             </div>
             {!live ? (
               <div className="px-4 py-6 text-[11px] text-slate-500">

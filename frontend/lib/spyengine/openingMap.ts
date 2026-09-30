@@ -37,11 +37,19 @@ export interface DaySeries {
   vwap: (number | null)[];
 }
 
-/** Bugünün (ymd) KAPANMIŞ RTH mumları + 09:30'dan kümülatif VWAP */
-export function daySeries(all: Bar[], tf: Tf, ymd: string, lastClosedTime: number | null, nowSec: number): DaySeries {
+/**
+ * Bugünün (ymd) KAPANMIŞ RTH mumları + 09:30'dan kümülatif VWAP.
+ *
+ * Kapanış kuralı (veri güdümlü): mumun bitiş anı geçmiş VE 1m akışında bitişten
+ * sonraki bir dakika mumu görülmüş olmalı (`lastM1Time >= bitiş`). Böylece
+ * mum, son 1m verisi kesinleşir kesinleşmez — ne bir dakika erken ne geç —
+ * kapanmış sayılır.
+ */
+export function daySeries(all: Bar[], tf: Tf, ymd: string, nowSec: number, lastM1Time: number | null): DaySeries {
   const bars = all.filter((b) => {
     if (!isRthBar(b) || nyParts(b.time).ymd !== ymd) return false;
-    return lastClosedTime != null ? b.time <= lastClosedTime : b.time + SPAN[tf] <= nowSec;
+    const end = b.time + SPAN[tf];
+    return end <= nowSec && (lastM1Time == null || lastM1Time >= end);
   });
   let pv = 0, vol = 0;
   const vwap = bars.map((b) => {
