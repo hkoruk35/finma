@@ -1,8 +1,8 @@
 {
   "date": "2026-09-30",
-  "generated_at": "2026-09-30T14:03:36.701869-04:00",
+  "generated_at": "2026-09-30T17:03:56.605160-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 28,
+  "active_scores_count": 36,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,13 +21,14 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 6,
       "tickers": [
         "ZBRA",
         "PD",
         "MXL",
         "MEDP",
-        "FORM"
+        "FORM",
+        "S"
       ]
     },
     "value": {
