@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "DHT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 22.89,
+        "entry_zone": "22.45 - 23.32",
+        "SL": 21.13,
+        "TP": 26.39
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "ABCL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 14.9,
+        "entry_zone": "14.51 - 15.30",
+        "SL": 13.32,
+        "TP": 18.08
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "LRCX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 325.71,
+        "entry_zone": "319.04 - 332.38",
+        "SL": 299.02,
+        "TP": 379.08
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "MRVL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 260.52,
+        "entry_zone": "254.24 - 266.80",
+        "SL": 235.4,
+        "TP": 310.75
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "UCTT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 81.35,
+        "entry_zone": "79.40 - 83.29",
+        "SL": 73.55,
+        "TP": 96.93
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "KLAC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 195.15,
+        "entry_zone": "191.63 - 198.68",
+        "SL": 181.07,
+        "TP": 223.33
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "AMAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 508.69,
+        "entry_zone": "499.42 - 517.97",
+        "SL": 471.59,
+        "TP": 582.89
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "SMTC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 177.88,
+        "entry_zone": "171.97 - 183.79",
+        "SL": 154.22,
+        "TP": 225.19
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "VIAV",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 41.08,
+        "entry_zone": "39.91 - 42.24",
+        "SL": 36.4,
+        "TP": 50.43
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "ONTO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 307.31,
+        "entry_zone": "300.05 - 314.57",
+        "SL": 278.27,
+        "TP": 365.38
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "FORM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 147.49,
+        "entry_zone": "143.80 - 151.19",
+        "SL": 132.72,
+        "TP": 169.66
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "NTAP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 212.18,
+        "entry_zone": "208.20 - 216.15",
+        "SL": 196.29,
+        "TP": 243.94
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "CCL",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 24.94,
+        "entry_zone": "24.48 - 25.41",
+        "SL": 23.07,
+        "TP": 28.69
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "LITE",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 955.51,
+        "entry_zone": "924.94 - 986.08",
+        "SL": 833.22,
+        "TP": 1200.08
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "INSP",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 69.75,
+        "entry_zone": "67.90 - 71.59",
+        "SL": 62.37,
+        "TP": 84.49
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "RCL",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 267.39,
+        "entry_zone": "261.77 - 273.01",
+        "SL": 244.89,
+        "TP": 312.38
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "NCLH",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 14.73,
+        "entry_zone": "14.44 - 15.03",
+        "SL": 13.54,
+        "TP": 17.12
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "AIG",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 74.61,
+        "entry_zone": "73.87 - 75.36",
+        "SL": 71.63,
+        "TP": 80.59
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 92.1,
+        "entry_zone": "88.35 - 95.84",
+        "SL": 77.13,
+        "TP": 122.03
+    },
+    {
+        "date": "2026-09-30 17:00",
+        "symbol": "BE",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 279.92,
+        "entry_zone": "269.21 - 290.63",
+        "SL": 237.07,
+        "TP": 365.63
+    }
+]
