@@ -286,8 +286,8 @@ export interface SpyBundle {
 export const TTL = {
   m1: 1200,
   m1Extended: 4000,
-  m5: 20000,
-  m15: 60000,
+  m5: 6000,
+  m15: 15000,
   option: 2500,
   chain: 60000,
   quotes: 12000,
