@@ -1,14 +1,8 @@
 {
-  "generated_at": "2026-09-30T14:03:37.291883-04:00",
+  "generated_at": "2026-09-30T17:03:57.171221-04:00",
   "picks": [
     {
       "ticker": "BB",
-      "sector": "Technology",
-      "date_added": "2026-09-29",
-      "score": 40.0
-    },
-    {
-      "ticker": "SHOP",
       "sector": "Technology",
       "date_added": "2026-09-29",
       "score": 40.0
@@ -20,22 +14,10 @@
       "score": 39.0
     },
     {
-      "ticker": "BRKR",
-      "sector": "Healthcare",
-      "date_added": "2026-09-29",
-      "score": 38.0
-    },
-    {
       "ticker": "AEHR",
       "sector": "Technology",
       "date_added": "2026-09-29",
-      "score": 32.0
-    },
-    {
-      "ticker": "SMTC",
-      "sector": "Technology",
-      "date_added": "2026-09-29",
-      "score": 37.5
+      "score": 34.0
     },
     {
       "ticker": "GME",
@@ -50,28 +32,46 @@
       "score": 33.5
     },
     {
-      "ticker": "FLYW",
-      "sector": "Technology",
-      "date_added": "2026-09-30",
-      "score": 40.5
-    },
-    {
       "ticker": "XP",
       "sector": "Financial Services",
       "date_added": "2026-09-30",
       "score": 39.5
     },
     {
-      "ticker": "ECO",
-      "sector": "Industrials",
+      "ticker": "FEIM",
+      "sector": "Technology",
       "date_added": "2026-09-30",
-      "score": 38.5
+      "score": 42.5
     },
     {
-      "ticker": "OSCR",
+      "ticker": "ALRM",
+      "sector": "Technology",
+      "date_added": "2026-09-30",
+      "score": 41.5
+    },
+    {
+      "ticker": "BRKR",
       "sector": "Healthcare",
       "date_added": "2026-09-30",
-      "score": 34.5
+      "score": 40.0
+    },
+    {
+      "ticker": "NUTX",
+      "sector": "Healthcare",
+      "date_added": "2026-09-30",
+      "score": 35.0
+    },
+    {
+      "ticker": "WRBY",
+      "sector": "Healthcare",
+      "date_added": "2026-09-30",
+      "score": 31.5
+    },
+    {
+      "ticker": "PARR",
+      "sector": "Energy",
+      "date_added": "2026-09-30",
+      "score": 27.5
     }
   ]
 }
