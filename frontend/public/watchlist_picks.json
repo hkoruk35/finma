@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-09-30T09:04:59.052663-04:00",
+  "generated_at": "2026-09-30T14:03:37.291883-04:00",
   "picks": [
-    {
-      "ticker": "APPS",
-      "sector": "Technology",
-      "date_added": "2026-09-28",
-      "score": 47.5
-    },
-    {
-      "ticker": "AVT",
-      "sector": "Technology",
-      "date_added": "2026-09-28",
-      "score": 41.5
-    },
     {
       "ticker": "BB",
       "sector": "Technology",
@@ -44,12 +32,6 @@
       "score": 32.0
     },
     {
-      "ticker": "JXN",
-      "sector": "Financial Services",
-      "date_added": "2026-09-29",
-      "score": 40.0
-    },
-    {
       "ticker": "SMTC",
       "sector": "Technology",
       "date_added": "2026-09-29",
@@ -68,10 +50,28 @@
       "score": 33.5
     },
     {
-      "ticker": "GNRC",
+      "ticker": "FLYW",
+      "sector": "Technology",
+      "date_added": "2026-09-30",
+      "score": 40.5
+    },
+    {
+      "ticker": "XP",
+      "sector": "Financial Services",
+      "date_added": "2026-09-30",
+      "score": 39.5
+    },
+    {
+      "ticker": "ECO",
       "sector": "Industrials",
-      "date_added": "2026-09-29",
-      "score": 29.0
+      "date_added": "2026-09-30",
+      "score": 38.5
+    },
+    {
+      "ticker": "OSCR",
+      "sector": "Healthcare",
+      "date_added": "2026-09-30",
+      "score": 34.5
     }
   ]
 }
