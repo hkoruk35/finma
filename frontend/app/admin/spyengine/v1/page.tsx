@@ -29,11 +29,11 @@ import {
   type StripQuote, type SpotStats,
 } from "@/components/admin/spyengine/panels";
 import {
-  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate,
+  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
-  daySeries, liveVwap, commentAll, commentForming, fmtVol, openingRegime, liveDirection, buildForecastMap,
+  daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
   type CandleComment, type Tone,
 } from "@/lib/spyengine/openingMap";
 import type {
@@ -165,6 +165,8 @@ export default function SpyEngineV9() {
   const [showTickers, setShowTickers] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
+  /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
+  const [stopMult, setStopMult] = useState(0.25);
 
   const [data, setData] = useState<StreamResponse | null>(null);
   const [m1, setM1] = useState<Bar[]>([]);
@@ -349,6 +351,14 @@ export default function SpyEngineV9() {
     [analysis, m15D, date, replayDate, nowSec],
   );
 
+  /** 15m yapı stopu: ATR15 yalnızca KAPANMIŞ seans 15m mumlarından */
+  const stops = useMemo(() => {
+    if (!analysis || !evalNow) return null;
+    const closed = m15D.filter((b) => isRthBar(b) && b.time + 900 <= evalNow && (lastM1Time == null || lastM1Time >= b.time + 900));
+    const a = closed.length >= 15 ? lastNum(atr(closed, 14)) : null;
+    return stopZones(analysis.s15, a, stopMult);
+  }, [analysis, m15D, evalNow, lastM1Time, stopMult]);
+
   const price = data?.spot.price ?? null;
   const vwapNow = useMemo(() => (date ? liveVwap(m5D, date) : null), [m5D, date]);
 
@@ -397,6 +407,17 @@ export default function SpyEngineV9() {
     [data],
   );
   const secondsToClose = nowSec ? 60 - (nowSec % 60) : null;
+
+  /** Yön lehine olan SL çizgisi (yön belirsizse ikisi) grafiklere eklenir */
+  const chartLines = useMemo(() => {
+    const base = data?.levels?.lines ?? [];
+    if (!stops) return base;
+    const dir = analysis?.live?.dir ?? "MIXED";
+    const out = [...base];
+    if (stops.long && dir !== "DOWN") out.push({ price: stops.long.stop, label: `LONG SL ${stops.long.stop.toFixed(2)}`, color: "#22c55e" });
+    if (stops.short && dir !== "UP") out.push({ price: stops.short.stop, label: `SHORT SL ${stops.short.stop.toFixed(2)}`, color: "#ef4444" });
+    return out;
+  }, [data?.levels?.lines, stops, analysis?.live?.dir]);
 
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   useEffect(() => {
@@ -665,6 +686,78 @@ export default function SpyEngineV9() {
           </div>
         )}
 
+        {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
+        <div className={`${SURFACE} overflow-hidden`}>
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
+            <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+              Trend Stop Bölgesi <span className="text-[9px] font-normal text-slate-600">· son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir</span>
+            </span>
+            <span className="flex items-center gap-1 font-mono text-[9px] text-slate-500">
+              tampon çarpanı
+              {([[0.25, "normal"], [0.4, "yüksek vol."], [0.5, "veri günü"]] as const).map(([m, l]) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setStopMult(m)}
+                  className={`rounded px-1.5 py-0.5 transition-colors ${stopMult === m ? "bg-[#eab308]/20 text-[#eab308]" : "bg-[#111827] text-slate-500 hover:text-slate-300"}`}
+                  title={`ATR₁₅ × ${m}`}
+                >
+                  {m} · {l}
+                </button>
+              ))}
+            </span>
+          </div>
+          {!stops || !stops.long || !stops.short ? (
+            <div className="px-3 py-4 text-[11px] text-slate-500">İlk 15m mum 09:45 ET&apos;de kapanınca stop bölgesi oluşur.</div>
+          ) : (
+            <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-2">
+              {([stops.long, stops.short] as const).map((z) => {
+                const isLong = z.side === "LONG";
+                const dir = analysis?.live?.dir ?? "MIXED";
+                const active = dir === "MIXED" || (isLong ? dir === "UP" : dir === "DOWN");
+                const col = isLong ? "#22c55e" : "#ef4444";
+                const dist = price != null ? (isLong ? price - z.stop : z.stop - price) : null;
+                const hit = dist != null && dist <= 0;
+                return (
+                  <div key={z.side} className={`bg-[#0f141d] px-3 py-2 ${active ? "" : "opacity-45"}`}>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[12px] font-bold" style={{ color: col }}>
+                        {isLong ? "LONG taşıyorsan" : "SHORT taşıyorsan"}
+                        {active && dir !== "MIXED" && <span className="ml-1.5 rounded px-1 text-[8px] font-semibold" style={{ backgroundColor: `${col}22` }}>YÖN LEHİNE</span>}
+                      </span>
+                      <span className="font-mono text-[9px] text-slate-500">dayanak: {z.anchorClock} 15m {isLong ? "dip" : "zirve"} {num(z.anchor)}</span>
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-baseline gap-x-3">
+                      <span className="font-mono text-[22px] font-black" style={{ color: col }}>${num(z.stop)}</span>
+                      <span className="font-mono text-[10px] text-slate-400">
+                        SL alanı {num(z.zoneLo)} – {num(z.zoneHi)} · tampon {num(z.buffer)} (ATR₁₅ {stops.atr15 != null ? num(stops.atr15) : "—"} × {stops.mult})
+                      </span>
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] leading-snug text-slate-400">
+                      {dist != null && (
+                        <span className={hit ? "font-semibold text-amber-300" : ""}>
+                          {hit ? "⚠ Fiyat stop seviyesine ulaştı/geçti" : `Fiyata uzaklık ${num(dist)} puan (%${num((dist / (price as number)) * 100)})`}
+                        </span>
+                      )}
+                      {z.move && z.prevStop != null && (
+                        <span>
+                          Önceki 15m stopu {num(z.prevStop)} →{" "}
+                          {z.move === "UP" ? <b style={{ color: col }}>stopu {isLong ? "yukarı" : "aşağı"} çek ({num(z.stop)})</b>
+                            : z.move === "DOWN" ? <b className="text-slate-300">yeni seviye geride — mevcut stopu KORU</b>
+                            : <b className="text-slate-300">değişmedi</b>}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          <div className="border-t border-[#1c2635] px-3 py-1 text-[9px] leading-snug text-slate-600">
+            Kural: stop yalnızca trend yönünde çekilir (LONG&apos;da yukarı, SHORT&apos;ta aşağı), asla geri gevşetilmez. Yalnızca KAPANMIŞ 15m mum kullanılır; oluşan mumun fitili stopu oynatmaz. Seviyeler grafikte SL çizgisi olarak görünür.
+          </div>
+        </div>
+
         {/* ── 3) Tahmin haritası ── */}
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
@@ -746,7 +839,7 @@ export default function SpyEngineV9() {
               <SpyChart
                 bars={m15Bars} timeframe="15m" events={events} position={openPosition} toggles={toggles}
                 height={380} autoScroll={autoScroll} defaultWindowMin={480}
-                levelLines={data?.levels?.lines} trendDirection={m15Trend}
+                levelLines={chartLines} trendDirection={m15Trend}
               />
             </div>
             <div className="bg-[#0a0e17]">
@@ -757,7 +850,7 @@ export default function SpyEngineV9() {
               <SpyChart
                 bars={m5Bars} timeframe="5m" events={events} position={openPosition} toggles={toggles}
                 height={380} autoScroll={autoScroll} defaultWindowMin={120}
-                levelLines={data?.levels?.lines} trendDirection={m5Trend}
+                levelLines={chartLines} trendDirection={m5Trend}
               />
             </div>
           </div>

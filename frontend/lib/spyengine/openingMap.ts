@@ -499,3 +499,58 @@ export function buildForecastMap(input: {
 
   return { bias, biasText, price, vwap, supports, resistances, path, closeExpect, closeLow, closeHigh, steps, alt };
 }
+
+// ── 15m yapı stopu (trend taşıma) ─────────────────────────────────────
+
+export interface StopZone {
+  side: "LONG" | "SHORT";
+  /** Dayanak mumun saati ve seviyesi (LONG: son kapanmış 15m dibi · SHORT: zirvesi) */
+  anchorClock: string;
+  anchor: number;
+  /** ATR₁₅ × çarpan (asgari 0,10) */
+  buffer: number;
+  /** Stop seviyesi: LONG dip − tampon · SHORT zirve + tampon */
+  stop: number;
+  /** SL alanı: dip/zirve ile stop arasındaki bölge */
+  zoneLo: number;
+  zoneHi: number;
+  /** Bir önceki kapanmış 15m mumun stopu ve değişim yönü ("UP" = stop trend yönünde çekilmeli) */
+  prevStop: number | null;
+  move: "UP" | "DOWN" | "SAME" | null;
+}
+
+export interface StopZones {
+  long: StopZone | null;
+  short: StopZone | null;
+  buffer: number;
+  atr15: number | null;
+  mult: number;
+}
+
+/**
+ * Tampon = ATR₁₅ × çarpan — motorun stop kuralıyla aynı (normal 0,25 ·
+ * yüksek oynaklık 0,40 · veri/FOMC günü 0,50). Yalnızca KAPANMIŞ 15m mumlardan.
+ */
+export function stopZones(s15: DaySeries, atr15: number | null, mult: number): StopZones {
+  const buffer = Math.max(0.1, r2((atr15 ?? 0) * mult));
+  const n = s15.bars.length;
+  if (!n) return { long: null, short: null, buffer, atr15, mult };
+  const last = s15.bars[n - 1];
+  const prev = n > 1 ? s15.bars[n - 2] : null;
+  const clock = nyClock(last.time);
+
+  const long: StopZone = {
+    side: "LONG", anchorClock: clock, anchor: last.low, buffer,
+    stop: r2(last.low - buffer), zoneLo: r2(last.low - buffer), zoneHi: last.low,
+    prevStop: prev ? r2(prev.low - buffer) : null, move: null,
+  };
+  const short: StopZone = {
+    side: "SHORT", anchorClock: clock, anchor: last.high, buffer,
+    stop: r2(last.high + buffer), zoneLo: last.high, zoneHi: r2(last.high + buffer),
+    prevStop: prev ? r2(prev.high + buffer) : null, move: null,
+  };
+  // LONG: stop yukarı çıktıysa çek · SHORT: stop aşağı indiyse çek (trend yönünde)
+  if (long.prevStop != null) long.move = long.stop > long.prevStop ? "UP" : long.stop < long.prevStop ? "DOWN" : "SAME";
+  if (short.prevStop != null) short.move = short.stop < short.prevStop ? "UP" : short.stop > short.prevStop ? "DOWN" : "SAME";
+  return { long, short, buffer, atr15, mult };
+}
