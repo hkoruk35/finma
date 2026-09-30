@@ -1,31 +1,28 @@
 {
-  "date": "2026-09-29",
-  "generated_at": "2026-09-29T17:03:25.818825-04:00",
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T09:04:58.948298-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
+  "active_scores_count": 20,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "PYPL",
-        "SMCI",
-        "TT",
-        "MRVL",
-        "CROX",
-        "LECO",
-        "ALAB",
-        "WAT",
-        "CAKE",
-        "HUM"
+        "CRL",
+        "DDOG",
+        "DDS",
+        "PWR",
+        "ASX",
+        "HLT",
+        "SEI",
+        "CLS",
+        "TEM",
+        "LSCC"
       ]
     },
     "breakout": {
-      "count": 9,
+      "count": 6,
       "tickers": [
-        "SMCI",
-        "WAT",
-        "HUM",
         "ASX",
         "ZBRA",
         "PD",
@@ -53,42 +50,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "PYPL",
-      "score": 63.0,
+      "ticker": "CRL",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SMCI",
-      "score": 59.0,
+      "ticker": "DDOG",
+      "score": 50.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "TT",
-      "score": 55.0,
+      "ticker": "DDS",
+      "score": 49.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 766.32,
-      "change_pct": 0.28
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 737.93,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 514.05,
-      "change_pct": 0.23
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.81,
-      "change_pct": -1.43
-    },
-    "RUSSELL2000": {
-      "value": 280.01,
-      "change_pct": 0.36
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-09-30T09:30:09.234663-04:00"
+  }
 }
