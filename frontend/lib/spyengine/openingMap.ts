@@ -74,75 +74,101 @@ export interface CandleComment {
   time: number;
   clock: string;
   tone: Tone;
-  /** Tek satır sonuç: "Boğa mumu · VWAP üstünde kapandı → alıcı lehine" */
+  /** Oluşmakta olan (henüz kapanmamış) mum */
+  forming: boolean;
+  /** Tek satır sonuç: "Yeşil mum · VWAP üstünde → alıcı lehine" */
   headline: string;
   close: number;
   vwap: number | null;
   vwapSide: VwapSide | null;
+  /** Fitil uzunlukları (puan) */
+  upperWick: number;
+  lowerWick: number;
+  /** Kapanışın mum aralığındaki konumu: 0 = dip, 1 = tepe */
+  closePos: number;
+  volume: number;
+  /** Önceki ≤10 kapanmış mum ortalamasına oran (kıyas yoksa null) */
+  volRatio: number | null;
   lines: string[];
 }
 
-export function commentCandle(s: DaySeries, i: number, tf: Tf): CandleComment {
-  const b = s.bars[i];
-  const v = s.vwap[i];
+export const fmtVol = (v: number): string =>
+  v >= 1e6 ? `${(v / 1e6).toFixed(2)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(0)}K` : String(Math.round(v));
+
+/**
+ * Tek mumun yorumu. `priorVols` kıyas için önceki KAPANMIŞ mumların hacmi;
+ * `elapsedFrac` yalnızca oluşan mumda (0-1) hacmi tempo olarak yıllandırır.
+ */
+function analyseCandle(
+  b: Bar, v: number | null, prev: Bar | null, pv: number | null,
+  priorVols: number[], tf: Tf, forming: boolean, elapsedFrac: number,
+): CandleComment {
   const range = Math.max(0.01, b.high - b.low);
   const body = Math.abs(b.close - b.open);
   const bodyPct = body / range;
   const upW = b.high - Math.max(b.open, b.close);
   const loW = Math.min(b.open, b.close) - b.low;
+  const upPct = upW / range, loPct = loW / range;
+  const closePos = (b.close - b.low) / range;
   const color: "bull" | "bear" | "doji" = bodyPct < 0.15 ? "doji" : b.close > b.open ? "bull" : "bear";
-  const mid = (b.high + b.low) / 2;
+  const kap = forming ? "Fiyat" : "Kapanış";
 
   const lines: string[] = [];
   let score = color === "bull" ? 1 : color === "bear" ? -1 : 0;
 
-  // — şekil —
+  // — gövde —
   if (color === "doji") lines.push("Kararsızlık mumu (doji) — alıcı/satıcı dengede.");
   else if (bodyPct >= 0.7) lines.push(`Güçlü gövdeli ${color === "bull" ? "yeşil" : "kırmızı"} mum — ${color === "bull" ? "alıcılar" : "satıcılar"} baskın (gövde %${Math.round(bodyPct * 100)}).`);
-  else if (loW / range >= 0.5 && b.close >= mid) { lines.push("Uzun alt fitil — dipte alıcı tepkisi."); score += 0.5; }
-  else if (upW / range >= 0.5 && b.close <= mid) { lines.push("Uzun üst fitil — tepede satıcı baskısı."); score -= 0.5; }
   else lines.push(`${color === "bull" ? "Yeşil" : "Kırmızı"} mum, normal gövde (%${Math.round(bodyPct * 100)}).`);
 
-  // — VWAP konumu (en önemli satır) —
+  // — fitiller —
+  const wickTxt = `Fitil: üst ${fmt(upW)} (%${Math.round(upPct * 100)}) · alt ${fmt(loW)} (%${Math.round(loPct * 100)})`;
+  if (loPct >= 0.4 && loPct > upPct * 1.5) { lines.push(`${wickTxt} → uzun alt fitil: dip satışı geri alındı, alıcı tepkisi.`); score += 0.75; }
+  else if (upPct >= 0.4 && upPct > loPct * 1.5) { lines.push(`${wickTxt} → uzun üst fitil: tepe reddedildi, satıcı baskısı.`); score -= 0.75; }
+  else if (upPct >= 0.3 && loPct >= 0.3) lines.push(`${wickTxt} → iki yönlü fitil: iki taraf da denedi, kararsız.`);
+  else lines.push(`${wickTxt} → fitiller kısa, hareket temiz.`);
+
+  // — kapanış / fiyat konumu —
+  if (closePos >= 0.75) { lines.push(`${kap} aralığın üst %${Math.round((1 - closePos) * 100)}'lik diliminde (tepeye yakın) → alıcılar kontrolde.`); score += 0.75; }
+  else if (closePos <= 0.25) { lines.push(`${kap} aralığın alt %${Math.round(closePos * 100)}'lik diliminde (dibe yakın) → satıcılar kontrolde.`); score -= 0.75; }
+  else lines.push(`${kap} aralığın ortasında (%${Math.round(closePos * 100)}) → net üstünlük yok.`);
+
+  // — VWAP konumu (en önemli) —
   const side = sideOf(b.close, v);
-  const prev = i > 0 ? s.bars[i - 1] : null;
-  const pv = i > 0 ? s.vwap[i - 1] : null;
   const prevSide = prev ? sideOf(prev.close, pv) : null;
-  if (v == null || side == null) {
-    lines.push("VWAP verisi yok.");
-  } else {
+  if (v == null || side == null) lines.push("VWAP verisi yok.");
+  else {
     const d = b.close - v;
-    if (prevSide === "BELOW" && side === "ABOVE") { lines.push(`VWAP'ı (${fmt(v)}) yukarı kesip üstünde kapattı (${sgn(d)}) → alıcı kontrolü ele geçirdi.`); score += 2; }
-    else if (prevSide === "ABOVE" && side === "BELOW") { lines.push(`VWAP'ın (${fmt(v)}) altına kapandı (${sgn(d)}) → satıcı kontrolü ele geçirdi.`); score -= 2; }
+    if (prevSide === "BELOW" && side === "ABOVE") { lines.push(`VWAP'ı (${fmt(v)}) yukarı kesip üstünde ${forming ? "seyrediyor" : "kapattı"} (${sgn(d)}) → alıcı kontrolü ele geçirdi.`); score += 2; }
+    else if (prevSide === "ABOVE" && side === "BELOW") { lines.push(`VWAP'ın (${fmt(v)}) altına ${forming ? "sarktı" : "kapandı"} (${sgn(d)}) → satıcı kontrolü ele geçirdi.`); score -= 2; }
     else if (side === "ABOVE") {
-      if (b.low <= v) lines.push(`VWAP'a (${fmt(v)}) değdi ve üstünde kapattı (${sgn(d)}) → VWAP destek olarak tuttu.`);
-      else lines.push(`VWAP üstünde kapanış (${fmt(v)}, ${sgn(d)}) → yükseliş yapısı sürüyor.`);
+      if (b.low <= v) lines.push(`VWAP'a (${fmt(v)}) değdi ve üstünde ${forming ? "tutunuyor" : "kapattı"} (${sgn(d)}) → VWAP destek olarak tuttu.`);
+      else lines.push(`VWAP üstünde ${forming ? "seyir" : "kapanış"} (${fmt(v)}, ${sgn(d)}) → yükseliş yapısı sürüyor.`);
       score += 1.5;
     } else if (side === "BELOW") {
-      if (b.high >= v) lines.push(`VWAP'a (${fmt(v)}) değdi ama altında kapattı (${sgn(d)}) → VWAP direnç oldu, reddedildi.`);
-      else lines.push(`VWAP altında kapanış (${fmt(v)}, ${sgn(d)}) → düşüş yapısı sürüyor.`);
+      if (b.high >= v) lines.push(`VWAP'a (${fmt(v)}) değdi ama altında ${forming ? "kalıyor" : "kapattı"} (${sgn(d)}) → VWAP direnç oldu, reddedildi.`);
+      else lines.push(`VWAP altında ${forming ? "seyir" : "kapanış"} (${fmt(v)}, ${sgn(d)}) → düşüş yapısı sürüyor.`);
       score -= 1.5;
-    } else lines.push(`Kapanış VWAP'ın (${fmt(v)}) tam üzerinde → yön kararsız.`);
+    } else lines.push(`VWAP'ın (${fmt(v)}) tam üzerinde → yön kararsız.`);
   }
 
-  // — hacim —
-  const from = Math.max(0, i - 10);
-  if (i - from >= 3) {
-    const avg = s.bars.slice(from, i).reduce((a, x) => a + (x.volume || 0), 0) / (i - from);
-    if (avg > 0) {
-      const r = (b.volume || 0) / avg;
-      if (r >= 1.5) lines.push(`Hacim yüksek (${fmt(r, 1)}× ort.) → hareket teyitli.`);
-      else if (r <= 0.6) lines.push(`Hacim zayıf (${fmt(r, 1)}× ort.) → hareket güvenilir değil.`);
-    }
-  }
-
-  // — formasyon —
-  const hits = detectCandlePatterns(s.bars, i);
-  if (hits.length) {
-    const top = hits.reduce((a, x) => (x.strength >= a.strength ? x : a));
-    lines.push(`Formasyon: ${top.label} — ${top.detail}.`);
-    score += top.direction === "LONG" ? 1 : -1;
-  }
+  // — hacim (mutlak + kıyas + tempo) —
+  let volRatio: number | null = null;
+  const avg = priorVols.length >= 3 ? priorVols.reduce((a, x) => a + x, 0) / priorVols.length : 0;
+  const vol = b.volume || 0;
+  const pace = forming && elapsedFrac >= 0.1 ? vol / elapsedFrac : vol; // mum sonundaki tahmini hacim
+  if (avg > 0) {
+    volRatio = pace / avg;
+    const prevVol = prev ? prev.volume || 0 : 0;
+    const vsPrev = prevVol > 0 ? ` · önceki muma göre ${pace >= prevVol ? "+" : "−"}%${Math.round(Math.abs(pace / prevVol - 1) * 100)}` : "";
+    const head = forming
+      ? `Canlı hacim ${fmtVol(vol)} (tempo → mum sonu ≈ ${fmtVol(pace)}, ort. ${fmtVol(avg)}, ${fmt(volRatio, 1)}×${vsPrev})`
+      : `Hacim ${fmtVol(vol)} (ort. ${fmtVol(avg)}, ${fmt(volRatio, 1)}×${vsPrev})`;
+    const dirTxt = color === "bull" ? "alım" : color === "bear" ? "satış" : "iki yön";
+    if (volRatio >= 1.5) { lines.push(`${head} → hacim yüksek: ${dirTxt} hareketi teyitli.`); score += color === "bull" ? 0.5 : color === "bear" ? -0.5 : 0; }
+    else if (volRatio <= 0.6) lines.push(`${head} → hacim zayıf: hareket güvenilir değil.`);
+    else lines.push(`${head} → normal hacim.`);
+  } else lines.push(`${forming ? "Canlı hacim" : "Hacim"} ${fmtVol(vol)} (kıyas için henüz yeterli mum yok).`);
 
   const tone: Tone = score >= 2 ? "bull" : score <= -2 ? "bear" : "neutral";
   const colorTxt = color === "bull" ? "Yeşil mum" : color === "bear" ? "Kırmızı mum" : "Doji";
@@ -150,9 +176,41 @@ export function commentCandle(s: DaySeries, i: number, tf: Tf): CandleComment {
   const meaning = tone === "bull" ? "alıcı lehine" : tone === "bear" ? "satıcı lehine" : "nötr / kararsız";
 
   return {
-    tf, time: b.time, clock: nyClock(b.time), tone, close: b.close, vwap: v, vwapSide: side, lines,
+    tf, time: b.time, clock: nyClock(b.time), tone, forming, close: b.close, vwap: v, vwapSide: side,
+    upperWick: upW, lowerWick: loW, closePos, volume: vol, volRatio, lines,
     headline: `${colorTxt} · ${vwapTxt} → ${meaning}`,
   };
+}
+
+export function commentCandle(s: DaySeries, i: number, tf: Tf): CandleComment {
+  const priorVols = s.bars.slice(Math.max(0, i - 10), i).map((x) => x.volume || 0);
+  const c = analyseCandle(s.bars[i], s.vwap[i], i > 0 ? s.bars[i - 1] : null, i > 0 ? s.vwap[i - 1] : null, priorVols, tf, false, 1);
+  // formasyon (yalnızca kapanmış mumlarda)
+  const hits = detectCandlePatterns(s.bars, i);
+  if (hits.length) {
+    const top = hits.reduce((a, x) => (x.strength >= a.strength ? x : a));
+    c.lines.push(`Formasyon: ${top.label} — ${top.detail}.`);
+  }
+  return c;
+}
+
+/**
+ * Oluşmakta olan mumun CANLI yorumu (kapanmamış — karar mumu DEĞİL, bilgi).
+ * VWAP, oluşan mum dahil kümülatif hesaplanır; hacim tempo olarak yıllandırılır.
+ */
+export function commentForming(all: Bar[], s: DaySeries, tf: Tf, ymd: string, nowSec: number): CandleComment | null {
+  const span = SPAN[tf];
+  const cur = all.find((b) => isRthBar(b) && nyParts(b.time).ymd === ymd && b.time <= nowSec && b.time + span > nowSec);
+  if (!cur || (s.bars.length && cur.time <= s.bars[s.bars.length - 1].time)) return null;
+  let pv = 0, vol = 0;
+  for (const b of s.bars) { const v = b.volume || 0; pv += ((b.high + b.low + b.close) / 3) * v; vol += v; }
+  pv += ((cur.high + cur.low + cur.close) / 3) * (cur.volume || 0);
+  vol += cur.volume || 0;
+  const vw = vol > 0 ? pv / vol : null;
+  const n = s.bars.length;
+  const prior = s.bars.slice(Math.max(0, n - 10)).map((x) => x.volume || 0);
+  const elapsed = Math.min(1, Math.max(0, (nowSec - cur.time) / span));
+  return analyseCandle(cur, vw, n ? s.bars[n - 1] : null, n ? s.vwap[n - 1] : null, prior, tf, true, elapsed);
 }
 
 /** Bugünün tüm kapanmış mumları için yorum — EN YENİ başta */

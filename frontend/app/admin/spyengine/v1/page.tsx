@@ -33,7 +33,7 @@ import {
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
-  daySeries, liveVwap, commentAll, openingRegime, liveDirection, buildForecastMap,
+  daySeries, liveVwap, commentAll, commentForming, fmtVol, openingRegime, liveDirection, buildForecastMap,
   type CandleComment, type Tone,
 } from "@/lib/spyengine/openingMap";
 import type {
@@ -101,43 +101,55 @@ const SIDE_CHIP: Record<string, string> = {
   AT: "border-slate-600 bg-slate-700/20 text-slate-300",
 };
 
-function CommentFeed({ title, items }: { title: string; items: CandleComment[] }) {
+function CommentCard({ c, latest }: { c: CandleComment; latest: boolean }) {
+  const st = TONE_STYLE[c.tone];
+  return (
+    <div className={`rounded border px-2 py-1.5 ${st.ring} ${c.forming ? "border-dashed" : ""} ${latest ? "ring-1 ring-[#eab308]/40" : ""}`}>
+      <div className="flex flex-wrap items-center justify-between gap-1">
+        <span className="flex items-center gap-1.5">
+          <span className={`h-1.5 w-1.5 rounded-full ${st.dot} ${c.forming ? "animate-pulse" : ""}`} />
+          <span className="font-mono text-[11px] font-bold text-slate-200">{c.clock}</span>
+          <span className="text-[9px] text-slate-500">{c.tf} {c.forming ? "oluşuyor" : "kapanış"} {num(c.close)}</span>
+          {c.forming && <span className="rounded bg-sky-500/15 px-1 text-[8px] font-semibold text-sky-300">CANLI</span>}
+          {latest && !c.forming && <span className="rounded bg-[#eab308]/15 px-1 text-[8px] font-semibold text-[#eab308]">SON</span>}
+        </span>
+        {c.vwapSide && (
+          <span className={`rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold ${SIDE_CHIP[c.vwapSide]}`}>
+            {c.vwapSide === "ABOVE" ? "VWAP ÜSTÜ" : c.vwapSide === "BELOW" ? "VWAP ALTI" : "VWAP'TA"} {c.vwap != null && num(c.vwap)}
+          </span>
+        )}
+      </div>
+      <div className={`mt-0.5 text-[11px] font-semibold ${st.text}`}>{c.headline}</div>
+      <div className="mt-0.5 flex flex-wrap gap-1 font-mono text-[9px] text-slate-400">
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">üst fitil {num(c.upperWick)}</span>
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">alt fitil {num(c.lowerWick)}</span>
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">kapanış konumu %{Math.round(c.closePos * 100)}</span>
+        <span className={`rounded bg-[#0a0e17] px-1 py-0.5 ${c.volRatio != null && c.volRatio >= 1.5 ? "text-sky-300" : c.volRatio != null && c.volRatio <= 0.6 ? "text-amber-300" : ""}`}>
+          hacim {fmtVol(c.volume)}{c.volRatio != null ? ` · ${c.volRatio.toFixed(1)}×` : ""}
+        </span>
+      </div>
+      <ul className="mt-0.5 flex flex-col gap-0.5 text-[10px] leading-snug text-slate-400">
+        {c.lines.map((l, i) => <li key={i}>• {l}</li>)}
+      </ul>
+    </div>
+  );
+}
+
+function CommentFeed({ title, items, forming }: { title: string; items: CandleComment[]; forming: CandleComment | null }) {
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">{title}</span>
-        <span className="font-mono text-[9px] text-slate-600">{items.length} mum · en yeni üstte</span>
+        <span className="font-mono text-[9px] text-slate-600">{items.length} kapanmış mum · en yeni üstte</span>
       </div>
-      <div className="flex max-h-[420px] flex-col gap-1 overflow-y-auto p-1.5">
-        {items.length === 0 && (
+      <div className="flex max-h-[520px] flex-col gap-1 overflow-y-auto p-1.5">
+        {forming && <CommentCard c={forming} latest={false} />}
+        {items.length === 0 && !forming && (
           <div className="px-2 py-4 text-center text-[11px] text-slate-600">
             Henüz kapanmış seans mumu yok — 09:30 ET&apos;den sonra ilk kapanışla yorumlar gelir.
           </div>
         )}
-        {items.map((c, idx) => {
-          const st = TONE_STYLE[c.tone];
-          return (
-            <div key={`${c.tf}-${c.time}`} className={`rounded border px-2 py-1.5 ${st.ring} ${idx === 0 ? "ring-1 ring-[#eab308]/40" : ""}`}>
-              <div className="flex flex-wrap items-center justify-between gap-1">
-                <span className="flex items-center gap-1.5">
-                  <span className={`h-1.5 w-1.5 rounded-full ${st.dot}`} />
-                  <span className="font-mono text-[11px] font-bold text-slate-200">{c.clock}</span>
-                  <span className="text-[9px] text-slate-500">{c.tf} kapanış {num(c.close)}</span>
-                  {idx === 0 && <span className="rounded bg-[#eab308]/15 px-1 text-[8px] font-semibold text-[#eab308]">SON</span>}
-                </span>
-                {c.vwapSide && (
-                  <span className={`rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold ${SIDE_CHIP[c.vwapSide]}`}>
-                    {c.vwapSide === "ABOVE" ? "VWAP ÜSTÜ" : c.vwapSide === "BELOW" ? "VWAP ALTI" : "VWAP'TA"} {c.vwap != null && num(c.vwap)}
-                  </span>
-                )}
-              </div>
-              <div className={`mt-0.5 text-[11px] font-semibold ${st.text}`}>{c.headline}</div>
-              <ul className="mt-0.5 flex flex-col gap-0.5 text-[10px] leading-snug text-slate-400">
-                {c.lines.map((l, i) => <li key={i}>• {l}</li>)}
-              </ul>
-            </div>
-          );
-        })}
+        {items.map((c, idx) => <CommentCard key={`${c.tf}-${c.time}`} c={c} latest={idx === 0} />)}
       </div>
     </div>
   );
@@ -322,6 +334,16 @@ export default function SpyEngineV9() {
     // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [m5Bars, m15Bars, date, lc?.m5, lc?.m15]);
+
+  /** Oluşmakta olan mumların canlı yorumu (yalnızca canlı modda; karar mumu değil) */
+  const forming5 = useMemo(
+    () => (analysis && date && !replayDate && nowSec ? commentForming(m5Bars, analysis.s5, "5m", date, nowSec) : null),
+    [analysis, m5Bars, date, replayDate, nowSec],
+  );
+  const forming15 = useMemo(
+    () => (analysis && date && !replayDate && nowSec ? commentForming(m15Bars, analysis.s15, "15m", date, nowSec) : null),
+    [analysis, m15Bars, date, replayDate, nowSec],
+  );
 
   const price = data?.spot.price ?? null;
   const vwapNow = useMemo(() => (date ? liveVwap(m5Bars, date) : null), [m5Bars, date]);
@@ -744,8 +766,8 @@ export default function SpyEngineV9() {
 
         {/* ── 5) Anlık mum yorumları ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
-          <CommentFeed title="5m Mum Yorumları — kapanan her mum" items={analysis?.c5 ?? []} />
-          <CommentFeed title="15m Mum Yorumları — kapanan her mum" items={analysis?.c15 ?? []} />
+          <CommentFeed title="5m Mum Yorumları — fitil · konum · hacim · VWAP" items={analysis?.c5 ?? []} forming={forming5} />
+          <CommentFeed title="15m Mum Yorumları — fitil · konum · hacim · VWAP" items={analysis?.c15 ?? []} forming={forming15} />
         </div>
 
         {/* Motor kapıları — ayrıntı, varsayılan kapalı */}
