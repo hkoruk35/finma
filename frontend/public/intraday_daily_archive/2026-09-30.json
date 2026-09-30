@@ -1,0 +1,1055 @@
+{
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T09:03:33.583286-04:00",
+  "market_regime": "Bull",
+  "vix_level": 15.779999732971191,
+  "total": 20,
+  "signals": [
+    {
+      "ticker": "BE",
+      "company": "BE",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "CCL",
+      "company": "CCL",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "LITE",
+      "company": "LITE",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "RCL",
+      "company": "RCL",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "ONTO",
+      "company": "ONTO",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "INSP",
+      "company": "INSP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "company": "AMAT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "ABCL",
+      "company": "ABCL",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "AIG",
+      "company": "AIG",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "NCLH",
+      "company": "NCLH",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "company": "DHT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "LRCX",
+      "company": "LRCX",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "NTAP",
+      "company": "NTAP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "FORM",
+      "company": "FORM",
+      "sector": "Technology",
+      "swing_pick_date": "2026-09-29",
+      "days_since_pick": 1,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "KLAC",
+      "company": "KLAC",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "company": "MRVL",
+      "sector": "Technology",
+      "swing_pick_date": "2026-09-29",
+      "days_since_pick": 1,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "SMTC",
+      "company": "SMTC",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "KOD",
+      "company": "KOD",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "UCTT",
+      "company": "UCTT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "VIAV",
+      "company": "VIAV",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-09-30",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-09-30",
+    "last_updated": "2026-09-30T09:03:33.583286-04:00",
+    "tickers": {
+      "BE": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "CCL": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "LITE": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "RCL": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "ONTO": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "INSP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "AMAT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "ABCL": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "AIG": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "NCLH": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "DHT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "LRCX": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "NTAP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "FORM": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "KLAC": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "MRVL": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "SMTC": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "KOD": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "UCTT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "VIAV": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      }
+    }
+  }
+}
