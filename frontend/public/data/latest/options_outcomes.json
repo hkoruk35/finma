@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T19:30:28.188031-04:00",
+  "updated_at": "2026-09-30T20:30:05.179720-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 408,
@@ -121,7 +121,7 @@
       "pnl_pct": null,
       "current_premium": 20.95,
       "unrealized_pnl_pct": 0.0,
-      "days_held": 1,
+      "days_held": 2,
       "peak_premium": 20.95,
       "trough_premium": 20.95,
       "underlying_current": null,
