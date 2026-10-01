@@ -253,7 +253,7 @@ export async function GET(req: NextRequest) {
   const campaign = searchParams.get("campaign") || "";
   const content = searchParams.get("content") || "";
   const device = searchParams.get("device") || "";
-  const segment = searchParams.get("segment") || "all"; // all | verified_human | bot | unverified
+  const segment = searchParams.get("segment") || "all"; // all | bot | non_bot (non-bot user agent)
 
   const hours = timeframeHours(timeframe);
   const windowEnd = Date.now();
@@ -291,7 +291,8 @@ export async function GET(req: NextRequest) {
     if (content && s.utm_content !== content) return false;
     if (device && s.device !== device) return false;
     if (source && classifySource(s) !== source) return false;
-    if (segment !== "all" && sessionAudience(s) !== segment) return false;
+    if (segment === "bot" && sessionAudience(s) !== "bot") return false;
+    if (segment === "non_bot" && sessionAudience(s) === "bot") return false;
     return true;
   });
 
@@ -328,7 +329,7 @@ export async function GET(req: NextRequest) {
       humanVisitors.add(s.visitor_id);
     } else if (audience === "bot") {
       bots++;
-      const ua = s.user_agent ?? "(bilinmiyor)";
+      const ua = s.user_agent ?? "(unknown)";
       botAgentMap.set(ua, (botAgentMap.get(ua) ?? 0) + 1);
     } else {
       unverified++;
@@ -349,8 +350,8 @@ export async function GET(req: NextRequest) {
     if (s.signup_completed) bucket.conversions++;
 
     push(sourceMap, classifySource(s), s);
-    push(countryMap, s.country || "Bilinmiyor", s);
-    push(deviceMap, s.device || "Bilinmiyor", s);
+    push(countryMap, s.country || "Unknown", s);
+    push(deviceMap, s.device || "Unknown", s);
     push(pageMap, s.landing_pathname, s);
     push(referrerMap, s.referrer ? referrerHost(s.referrer) : "(doğrudan)", s);
 
@@ -405,35 +406,35 @@ export async function GET(req: NextRequest) {
             : [
                 {
                   key: "sessions",
-                  label: "Oturum",
+                  label: "Sessions",
                   current: sessions.length,
                   previous: prevSessions,
                   changePct: changePct(sessions.length, prevSessions),
                 },
                 {
                   key: "pageViews",
-                  label: "Sayfa Görüntüleme",
+                  label: "Page Views",
                   current: pageViews,
                   previous: prevPageViews,
                   changePct: changePct(pageViews, prevPageViews),
                 },
                 {
                   key: "loaded",
-                  label: "Tarayıcıda Yüklendi",
+                  label: "Browser Loaded",
                   current: loaded,
                   previous: prevLoaded,
                   changePct: changePct(loaded, prevLoaded),
                 },
                 {
                   key: "engaged",
-                  label: "5sn Aktif",
+                  label: "Active 5s",
                   current: engaged,
                   previous: prevEngaged,
                   changePct: changePct(engaged, prevEngaged),
                 },
                 {
                   key: "conversions",
-                  label: "Kayıt Tamamlandı",
+                  label: "Signup Completed",
                   current: conversions,
                   previous: prevConversions,
                   changePct: changePct(conversions, prevConversions),
