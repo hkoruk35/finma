@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-09-30T04:00:01.809759-04:00",
+  "generated_at": "2026-10-01T04:00:02.335179-04:00",
   "scan_mode": "intraday",
-  "scan_duration_s": 5.0,
-  "total_scanned": 3,
-  "layer1_passed": 3,
-  "final_picks": 3,
+  "scan_duration_s": 18.3,
+  "total_scanned": 2,
+  "layer1_passed": 2,
+  "final_picks": 2,
   "picks": [
     {
-      "ticker": "MRNA",
-      "price": 203.46,
-      "change_pct": 3.13,
-      "dt_score": 40.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "SOUN",
+      "price": 6.02,
+      "change_pct": 3.08,
+      "dt_score": 15.0,
+      "signal": "PULLBACK_VWAP",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 200.79,
+      "vwap": 6.06,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1790755206.7754405
+        "ts": 1790841620.6225233
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,17 +37,17 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 203.26,
-          "high": 204.48
+          "low": 6.05,
+          "high": 6.08
         },
-        "stop": 200.41,
-        "tp1": 210.79,
-        "tp2": 215.98,
-        "rr_ratio": 2.0,
-        "avg_entry": 203.87,
-        "risk_per_sh": 3.46,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 203.46
+        "stop": 5.97,
+        "tp1": 6.25,
+        "tp2": 6.4,
+        "rr_ratio": 1.95,
+        "avg_entry": 6.06,
+        "risk_per_sh": 0.09,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 6.02
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
@@ -55,30 +55,30 @@
         "↗️ Küçük Gap: +3.1%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.33%",
-        "🔥 Açılış Barı: Güçlü (4.6x hacim)",
+        "🔄 VWAP Testi: -0.58%",
+        "🔴 Açılış Barı: Kırmızı (0.2% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "GRND",
-      "price": 16.12,
-      "change_pct": 3.27,
-      "dt_score": 35.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "HIMS",
+      "price": 29.79,
+      "change_pct": 3.8,
+      "dt_score": 12.0,
+      "signal": "MOMENTUM",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 15.93,
+      "vwap": 30.28,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1790755206.7069702
+        "ts": 1790841620.4983563
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,81 +92,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 16.1,
-          "high": 16.2
+          "low": 29.66,
+          "high": 29.83
         },
-        "stop": 15.88,
-        "tp1": 16.69,
-        "tp2": 17.09,
-        "rr_ratio": 2.0,
-        "avg_entry": 16.15,
-        "risk_per_sh": 0.27,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 16.12
+        "stop": 28.82,
+        "tp1": 31.59,
+        "tp2": 32.98,
+        "rr_ratio": 1.99,
+        "avg_entry": 29.74,
+        "risk_per_sh": 0.92,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 29.79
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.3%",
+        "↗️ Küçük Gap: +3.8%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.18%",
+        "🔴 VWAP Altında: -1.62%",
         "✅ Açılış Barı: Yeşil",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "AFRM",
-      "price": 69.3,
-      "change_pct": 3.11,
-      "dt_score": 25.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 69.06,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1790755206.6037579
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 69.23,
-          "high": 69.65
-        },
-        "stop": 68.26,
-        "tp1": 71.8,
-        "tp2": 73.57,
-        "rr_ratio": 2.0,
-        "avg_entry": 69.44,
-        "risk_per_sh": 1.18,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 69.3
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.1%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.35%",
-        "🔴 Açılış Barı: Kırmızı (1.2% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
