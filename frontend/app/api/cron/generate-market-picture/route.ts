@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getLatestDailySnapshots, getLatestWeeklySnapshot } from "@/lib/indexSnapshots";
 import { generateLocalizedTexts, LOCALES, type MarketPictureMode } from "@/lib/x/generateContent";
 import { computeBogaView } from "@/lib/marketBiasEngine";
+import { buildFallbackTexts } from "@/lib/marketPictureFallback";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -151,7 +152,12 @@ export async function GET(req: NextRequest) {
 
   const { data: existing } = await supabaseAdmin.from("market_picture").select("*").eq("id", 1).maybeSingle();
 
-  if (existing && !force) {
+  // A rule-based fallback text (AI providers were down) must NOT block the next
+  // run: retry the AI every call until it succeeds, then it stays.
+  const existingRow = existing as { facts?: { textSource?: string }; previous_summary?: string | null } | null;
+  const existingIsFallback = existingRow?.facts?.textSource === "rules";
+
+  if (existing && !force && !existingIsFallback) {
     const sameDay = existing.trade_date === tradeDate;
     if (mode === "intraday") {
       const elapsedMin = (Date.now() - new Date(existing.generated_at).getTime()) / 60000;
@@ -225,21 +231,43 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const texts = await generateLocalizedTexts({
-      contentType: "market_picture",
-      mode,
-      nyTime,
-      indices:      indicesRaw,
-      sectors:      sectorsRaw,
-      commoditiesFx: commoditiesFxRaw,
-      advancers:    latestSpx?.advancers ?? null,
-      decliners:    latestSpx?.decliners ?? null,
-      topGainers,
-      topLosers,
-      weekChangePct,
-      weekSectorRotation,
-      previousSummary,
-    });
+    let textSource: "ai" | "rules" = "ai";
+    let texts: Record<string, string>;
+    try {
+      texts = await generateLocalizedTexts({
+        contentType: "market_picture",
+        mode,
+        nyTime,
+        indices:      indicesRaw,
+        sectors:      sectorsRaw,
+        commoditiesFx: commoditiesFxRaw,
+        advancers:    latestSpx?.advancers ?? null,
+        decliners:    latestSpx?.decliners ?? null,
+        topGainers,
+        topLosers,
+        weekChangePct,
+        weekSectorRotation,
+        previousSummary,
+      });
+    } catch (aiErr: unknown) {
+      // Every AI provider failed (balance/key/quota). Do NOT leave the homepage
+      // frozen on an old day: publish the deterministic data summary instead and
+      // keep retrying the AI on the next calls (see existingIsFallback above).
+      console.error("[cron/generate-market-picture] AI failed — publishing rule-based fallback:", aiErr instanceof Error ? aiErr.message : aiErr);
+      texts = buildFallbackTexts({
+        mode,
+        indices: indicesRaw,
+        sectors: sectorsRaw,
+        commoditiesFx: commoditiesFxRaw,
+        advancers: latestSpx?.advancers ?? null,
+        decliners: latestSpx?.decliners ?? null,
+        topGainers,
+        topLosers,
+        weekChangePct,
+      });
+      textSource = "rules";
+    }
+    (facts as Record<string, unknown>).textSource = textSource;
 
     const bogaView = computeBogaView({
       indices:  indicesRaw,
@@ -248,7 +276,8 @@ export async function GET(req: NextRequest) {
       decliners: latestSpx?.decliners ?? null,
     });
 
-    const newSummary = typeof texts.en === "string" ? texts.en.slice(0, 600) : null;
+    // Only AI text feeds the next prompt's continuity context
+    const newSummary = textSource === "ai" && typeof texts.en === "string" ? texts.en.slice(0, 600) : existingRow?.previous_summary ?? null;
 
     const upsertPayload: Record<string, unknown> = {
       id: 1,
@@ -270,7 +299,7 @@ export async function GET(req: NextRequest) {
       await supabaseAdmin.from("market_picture").upsert(upsertPayload);
     }
 
-    return NextResponse.json({ generated: true, mode, tradeDate, nyTime, locales: LOCALES });
+    return NextResponse.json({ generated: true, textSource, mode, tradeDate, nyTime, locales: LOCALES });
   } catch (err: any) {
     console.error("[cron/generate-market-picture] failed:", err?.message || err);
     return NextResponse.json({ error: err?.message || "generation failed" }, { status: 500 });
