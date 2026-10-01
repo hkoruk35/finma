@@ -264,6 +264,116 @@
       "change_pct": 1.25,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "AMAT",
+      "company": "AMAT",
+      "sector": "Technology",
+      "master_score": 56.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 529.2999877929688,
+      "change_pct": 3.5,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ASX",
+      "company": "ASX",
+      "sector": "Technology",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 44.72999954223633,
+      "change_pct": 0.61,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "FIGS",
+      "company": "FIGS",
+      "sector": "Consumer Cyclical",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 14.079999923706055,
+      "change_pct": 1.59,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PI",
+      "company": "PI",
+      "sector": "Technology",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 183.8699951171875,
+      "change_pct": 2.55,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TEVA",
+      "company": "TEVA",
+      "sector": "Healthcare",
+      "master_score": 48.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 39.310001373291016,
+      "change_pct": -0.73,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "LION",
+      "company": "LION",
+      "sector": "Unknown",
+      "master_score": 46.8,
+      "score_type": "POSITIVE_BIAS",
+      "price": 11.25,
+      "change_pct": 0.45,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.8 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RL",
+      "company": "RL",
+      "sector": "Consumer Cyclical",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 362.6600036621094,
+      "change_pct": 2.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "OUST",
+      "company": "OUST",
+      "sector": "Technology",
+      "master_score": 45.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 40.869998931884766,
+      "change_pct": 1.31,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "EME",
+      "company": "EME",
+      "sector": "Industrials",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 769.030029296875,
+      "change_pct": 1.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "J",
+      "company": "J",
+      "sector": "Industrials",
+      "master_score": 42.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 139.7899932861328,
+      "change_pct": 3.34,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.5 | System: BREAKOUT"
     }
   ]
 }
