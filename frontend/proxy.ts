@@ -4,6 +4,7 @@ import { createServerClient } from '@supabase/ssr'
 import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
 import { createTimeoutFetch } from './lib/supabaseFetch'
 import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
+import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
@@ -61,7 +62,8 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
     const { pathname } = request.nextUrl
     const now = Date.now()
     const ua = request.headers.get('user-agent') || 'Unknown'
-    const country = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'Unknown'
+    // CDN header first; on the self-hosted server there is none, so a new session falls back to the offline GeoIP lookup below.
+    let country = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'Unknown'
     const city = request.headers.get('x-vercel-ip-city') || 'Unknown'
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'Unknown'
     const referrer = request.headers.get('referer') || null
@@ -115,6 +117,7 @@ async function trackLanding(request: NextRequest, response: NextResponse, event:
       // tek session'in ilk page_loaded'i kaybolabilir (landing_request/PATCH
       // zaten fire-and-forget, bunlardan etkilenmez).
       const url = request.nextUrl
+      if (country === 'Unknown') country = (await lookupCountry(ip)) ?? 'Unknown'
       await fetch(`${supabaseUrl}/rest/v1/traffic_sessions`, {
         method: 'POST',
         headers: { ...restHeaders, Prefer: 'resolution=ignore-duplicates' },

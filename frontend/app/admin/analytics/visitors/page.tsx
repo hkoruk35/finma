@@ -640,7 +640,7 @@ function CountryStats({ monthly }: { monthly: MonthlyResponse | null }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 6, fontSize: 10, color: TEXT_SECONDARY }}>
         <span>
           {known.length} countries with data · page views = every page request (landing_request) of sessions that started in the period; “Unknown” =
-          period total minus all known countries · * = partial period · page views are recounted every 6 hours
+          period total minus all known countries · * = partial period · page views are recounted every 6 hours · country lookup: IP Geolocation by DB-IP.com (CC BY 4.0)
         </span>
         {all.length > COUNTRY_ROWS && (
           <button
