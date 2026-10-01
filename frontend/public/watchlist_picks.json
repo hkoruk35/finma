@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T17:03:57.171221-04:00",
+  "generated_at": "2026-10-01T14:03:56.437308-04:00",
   "picks": [
     {
       "ticker": "BB",
@@ -38,30 +38,6 @@
       "score": 39.5
     },
     {
-      "ticker": "FEIM",
-      "sector": "Technology",
-      "date_added": "2026-09-30",
-      "score": 42.5
-    },
-    {
-      "ticker": "ALRM",
-      "sector": "Technology",
-      "date_added": "2026-09-30",
-      "score": 41.5
-    },
-    {
-      "ticker": "BRKR",
-      "sector": "Healthcare",
-      "date_added": "2026-09-30",
-      "score": 40.0
-    },
-    {
-      "ticker": "NUTX",
-      "sector": "Healthcare",
-      "date_added": "2026-09-30",
-      "score": 35.0
-    },
-    {
       "ticker": "WRBY",
       "sector": "Healthcare",
       "date_added": "2026-09-30",
@@ -72,6 +48,30 @@
       "sector": "Energy",
       "date_added": "2026-09-30",
       "score": 27.5
+    },
+    {
+      "ticker": "PSX",
+      "sector": "Energy",
+      "date_added": "2026-10-01",
+      "score": 44.0
+    },
+    {
+      "ticker": "GKOS",
+      "sector": "Healthcare",
+      "date_added": "2026-10-01",
+      "score": 41.0
+    },
+    {
+      "ticker": "BOX",
+      "sector": "Technology",
+      "date_added": "2026-10-01",
+      "score": 41.0
+    },
+    {
+      "ticker": "KYMR",
+      "sector": "Healthcare",
+      "date_added": "2026-10-01",
+      "score": 38.5
     }
   ]
 }
