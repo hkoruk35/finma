@@ -57,8 +57,8 @@ const D: Record<Locale, Dict> = {
     sess: (l, p, n, c) => `${l} ${c ? "closed" : "is trading"} ${dir(p) === "up" ? "up" : dir(p) === "down" ? "down" : "flat"} ${n}%`,
     breadth: (a, d) => `Breadth is ${a > d * 1.5 ? "strong" : d > a * 1.5 ? "weak" : "mixed"}: ${a} advancers against ${d} decliners in the S&P 500.`,
     vix: (p, n) => `The VIX is ${dir(p) === "up" ? "rising" : dir(p) === "down" ? "easing" : "unchanged"} (${n}%), ${dir(p) === "up" ? "a sign hedging demand is picking up" : dir(p) === "down" ? "pointing to calmer positioning" : "so volatility positioning is steady"}.`,
-    leaders: (s) => `Biggest gainers: ${s}.`,
-    laggards: (s) => `Biggest decliners: ${s}.`,
+    leaders: (s) => `Notable gainers: ${s}.`,
+    laggards: (s) => `Notable decliners: ${s}.`,
     vsIndex: (l, r, b) => `${l} is ${r === "out" ? "outperforming" : r === "under" ? "lagging" : "moving in line with"} the ${b}.`,
     smallCaps: (r) => r === "out" ? "Small caps are beating large caps, a sign of improving risk appetite." : r === "under" ? "Small caps are lagging large caps, a more cautious risk tone." : "Small caps and large caps are moving together.",
     sectorsLine: (b, w, u, t) => `${u} of ${t} sectors are higher. Strongest: ${b}. Weakest: ${w}.`,
@@ -76,8 +76,8 @@ const D: Record<Locale, Dict> = {
     sess: (l, p, n, c) => `${l} ${c ? "cerró" : "cotiza"} ${dir(p) === "up" ? "al alza" : dir(p) === "down" ? "a la baja" : "sin cambios"} ${n}%`,
     breadth: (a, d) => `La amplitud es ${a > d * 1.5 ? "fuerte" : d > a * 1.5 ? "débil" : "mixta"}: ${a} alzas frente a ${d} bajas en el S&P 500.`,
     vix: (p, n) => `El VIX ${dir(p) === "up" ? "sube" : dir(p) === "down" ? "baja" : "se mantiene"} (${n}%), ${dir(p) === "up" ? "señal de mayor demanda de cobertura" : dir(p) === "down" ? "con posicionamiento más calmado" : "con posicionamiento estable"}.`,
-    leaders: (s) => `Mayores subidas: ${s}.`,
-    laggards: (s) => `Mayores caídas: ${s}.`,
+    leaders: (s) => `Subidas destacadas: ${s}.`,
+    laggards: (s) => `Caídas destacadas: ${s}.`,
     vsIndex: (l, r, b) => `${l} ${r === "out" ? "supera al" : r === "under" ? "queda por detrás del" : "se mueve en línea con el"} ${b}.`,
     smallCaps: (r) => r === "out" ? "Las small caps superan a las grandes, señal de mayor apetito por el riesgo." : r === "under" ? "Las small caps rinden menos que las grandes, tono más cauteloso." : "Small caps y grandes se mueven juntas.",
     sectorsLine: (b, w, u, t) => `${u} de ${t} sectores suben. Más fuerte: ${b}. Más débil: ${w}.`,
@@ -95,8 +95,8 @@ const D: Record<Locale, Dict> = {
     sess: (l, p, n, c) => `${l} ${c ? "a clôturé" : "évolue"} ${dir(p) === "up" ? "en hausse" : dir(p) === "down" ? "en baisse" : "stable"} ${n}%`,
     breadth: (a, d) => `La largeur du marché est ${a > d * 1.5 ? "solide" : d > a * 1.5 ? "faible" : "mitigée"} : ${a} valeurs en hausse contre ${d} en baisse sur le S&P 500.`,
     vix: (p, n) => `Le VIX ${dir(p) === "up" ? "monte" : dir(p) === "down" ? "recule" : "est stable"} (${n}%), ${dir(p) === "up" ? "signe d'une demande de couverture accrue" : dir(p) === "down" ? "avec un positionnement plus calme" : "avec un positionnement stable"}.`,
-    leaders: (s) => `Plus fortes hausses : ${s}.`,
-    laggards: (s) => `Plus fortes baisses : ${s}.`,
+    leaders: (s) => `Hausses notables : ${s}.`,
+    laggards: (s) => `Baisses notables : ${s}.`,
     vsIndex: (l, r, b) => `${l} ${r === "out" ? "surperforme" : r === "under" ? "sous-performe" : "évolue comme"} le ${b}.`,
     smallCaps: (r) => r === "out" ? "Les petites capitalisations devancent les grandes, signe d'un appétit pour le risque en amélioration." : r === "under" ? "Les petites capitalisations sont à la traîne, ton plus prudent." : "Petites et grandes capitalisations évoluent de concert.",
     sectorsLine: (b, w, u, t) => `${u} secteurs sur ${t} sont en hausse. Plus fort : ${b}. Plus faible : ${w}.`,
@@ -114,8 +114,8 @@ const D: Record<Locale, Dict> = {
     sess: (l, p, n, c) => `${l} ${c ? "fechou" : "negocia"} ${dir(p) === "up" ? "em alta" : dir(p) === "down" ? "em baixa" : "estável"} ${n}%`,
     breadth: (a, d) => `A amplitude é ${a > d * 1.5 ? "forte" : d > a * 1.5 ? "fraca" : "mista"}: ${a} em alta contra ${d} em baixa no S&P 500.`,
     vix: (p, n) => `O VIX ${dir(p) === "up" ? "sobe" : dir(p) === "down" ? "recua" : "está estável"} (${n}%), ${dir(p) === "up" ? "sinal de maior procura por proteção" : dir(p) === "down" ? "com posicionamento mais calmo" : "com posicionamento estável"}.`,
-    leaders: (s) => `Maiores altas: ${s}.`,
-    laggards: (s) => `Maiores quedas: ${s}.`,
+    leaders: (s) => `Altas de destaque: ${s}.`,
+    laggards: (s) => `Quedas de destaque: ${s}.`,
     vsIndex: (l, r, b) => `${l} ${r === "out" ? "supera o" : r === "under" ? "fica atrás do" : "acompanha o"} ${b}.`,
     smallCaps: (r) => r === "out" ? "As small caps superam as grandes, sinal de maior apetite por risco." : r === "under" ? "As small caps ficam atrás das grandes, tom mais cauteloso." : "Small caps e grandes caminham juntas.",
     sectorsLine: (b, w, u, t) => `${u} de ${t} setores sobem. Mais forte: ${b}. Mais fraco: ${w}.`,
@@ -135,8 +135,8 @@ const D: Record<Locale, Dict> = {
       : `${l} ${c ? "günü" : "şu an"} %${n} ${dir(p) === "up" ? "yükselişle" : "düşüşle"} ${c ? "tamamladı" : "işlem görüyor"}`,
     breadth: (a, d) => `Piyasa genişliği ${a > d * 1.5 ? "güçlü" : d > a * 1.5 ? "zayıf" : "karışık"}: S&P 500'de ${a} yükselen, ${d} düşen hisse var.`,
     vix: (p, n) => `VIX ${dir(p) === "up" ? "yükseliyor" : dir(p) === "down" ? "geriliyor" : "yatay"} (%${n}); ${dir(p) === "up" ? "korunma talebinin arttığına işaret ediyor" : dir(p) === "down" ? "daha sakin bir pozisyonlanmaya işaret ediyor" : "oynaklık pozisyonlaması sabit"}.`,
-    leaders: (s) => `En çok yükselenler: ${s}.`,
-    laggards: (s) => `En çok düşenler: ${s}.`,
+    leaders: (s) => `Öne çıkan yükselenler: ${s}.`,
+    laggards: (s) => `Öne çıkan düşenler: ${s}.`,
     vsIndex: (l, r, b) => `${l}, ${b} endeksine göre ${r === "out" ? "daha güçlü" : r === "under" ? "daha zayıf" : "benzer"} seyrediyor.`,
     smallCaps: (r) => r === "out" ? "Küçük şirketler büyüklerin önünde; risk iştahının iyileştiğine işaret." : r === "under" ? "Küçük şirketler büyüklerin gerisinde; daha temkinli bir risk tonu." : "Küçük ve büyük şirketler birlikte hareket ediyor.",
     sectorsLine: (b, w, u, t) => `${t} sektörün ${u} tanesi yükselişte. En güçlü: ${b}. En zayıf: ${w}.`,
@@ -154,8 +154,8 @@ const D: Record<Locale, Dict> = {
     sess: (l, p, n, c) => `${l} ${c ? "ditutup" : "diperdagangkan"} ${dir(p) === "up" ? "naik" : dir(p) === "down" ? "turun" : "datar"} ${n}%`,
     breadth: (a, d) => `Keluasan pasar ${a > d * 1.5 ? "kuat" : d > a * 1.5 ? "lemah" : "beragam"}: ${a} saham naik berbanding ${d} turun di S&P 500.`,
     vix: (p, n) => `VIX ${dir(p) === "up" ? "naik" : dir(p) === "down" ? "turun" : "stabil"} (${n}%), ${dir(p) === "up" ? "tanda permintaan lindung nilai meningkat" : dir(p) === "down" ? "menunjukkan posisi yang lebih tenang" : "posisi volatilitas stabil"}.`,
-    leaders: (s) => `Kenaikan terbesar: ${s}.`,
-    laggards: (s) => `Penurunan terbesar: ${s}.`,
+    leaders: (s) => `Kenaikan menonjol: ${s}.`,
+    laggards: (s) => `Penurunan menonjol: ${s}.`,
     vsIndex: (l, r, b) => `${l} ${r === "out" ? "mengungguli" : r === "under" ? "tertinggal dari" : "bergerak searah dengan"} ${b}.`,
     smallCaps: (r) => r === "out" ? "Saham kecil mengungguli saham besar, tanda selera risiko membaik." : r === "under" ? "Saham kecil tertinggal dari saham besar, nada lebih berhati-hati." : "Saham kecil dan besar bergerak bersama.",
     sectorsLine: (b, w, u, t) => `${u} dari ${t} sektor menguat. Terkuat: ${b}. Terlemah: ${w}.`,
@@ -195,7 +195,8 @@ export function buildFallbackTexts(f: FallbackFacts): Record<Locale, string> {
     // 1) S&P 500 / big picture
     const p1: string[] = [];
     if (spx) p1.push(`${d.sess("S&P 500", spx.changePct, n(spx.changePct), closed)}.`);
-    if (f.advancers != null && f.decliners != null) p1.push(d.breadth(f.advancers, f.decliners));
+    // The advancers/decliners snapshot sometimes covers only a tiny sample — only state breadth when it plausibly describes the whole index.
+    if (f.advancers != null && f.decliners != null && f.advancers + f.decliners >= 100) p1.push(d.breadth(f.advancers, f.decliners));
     if (vix) p1.push(d.vix(vix.changePct, nf.format(vix.changePct)));
     if (f.topGainers?.length) p1.push(d.leaders(f.topGainers.slice(0, 3).map((g) => `${g.ticker} ${sg(g.changePct)}`).join(", ")));
     if (f.topLosers?.length) p1.push(d.laggards(f.topLosers.slice(0, 3).map((g) => `${g.ticker} ${sg(g.changePct)}`).join(", ")));
