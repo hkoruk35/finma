@@ -17,12 +17,14 @@ const H = 340;
 const PAD = { l: 8, r: 118, t: 14, b: 22 };
 
 export default function ForecastMap({
-  bars, vwapSeries, map, date, nowSec,
+  bars, vwapSeries, emaSeries, map, date, nowSec,
 }: {
   /** Bugünün RTH 5m mumları (oluşmakta olan dahil) */
   bars: Bar[];
   /** bars ile aynı uzunlukta VWAP */
   vwapSeries: (number | null)[];
+  /** bars ile aynı uzunlukta EMA20 (çok günlük akıştan ısınmış) */
+  emaSeries?: (number | null)[];
   map: ForecastMapData;
   date: string;
   nowSec: number;
@@ -55,6 +57,10 @@ export default function ForecastMap({
 
   const vwapPts = bars
     .map((b, i) => (vwapSeries[i] != null ? `${X(b.time + 150).toFixed(1)},${Y(vwapSeries[i] as number).toFixed(1)}` : null))
+    .filter(Boolean)
+    .join(" ");
+  const emaPts = (emaSeries ?? [])
+    .map((e, i) => (e != null && bars[i] ? `${X(bars[i].time + 150).toFixed(1)},${Y(e).toFixed(1)}` : null))
     .filter(Boolean)
     .join(" ");
 
@@ -116,6 +122,14 @@ export default function ForecastMap({
 
       {/* VWAP */}
       {vwapPts && <polyline points={vwapPts} fill="none" stroke="#e879f9" strokeWidth={1.4} />}
+      {/* EMA20 */}
+      {emaPts && <polyline points={emaPts} fill="none" stroke="#22d3ee" strokeWidth={1.2} />}
+      <g fontSize={8} fontFamily="monospace">
+        <line x1={PAD.l + 4} x2={PAD.l + 18} y1={PAD.t + 4} y2={PAD.t + 4} stroke="#e879f9" strokeWidth={1.4} />
+        <text x={PAD.l + 21} y={PAD.t + 7} fill="#e879f9">VWAP</text>
+        <line x1={PAD.l + 50} x2={PAD.l + 64} y1={PAD.t + 4} y2={PAD.t + 4} stroke="#22d3ee" strokeWidth={1.2} />
+        <text x={PAD.l + 67} y={PAD.t + 7} fill="#22d3ee">EMA20</text>
+      </g>
 
       {/* tahmin konisi + yolculuk */}
       <polygon points={cone} fill={biasColor} opacity={0.09} />

@@ -8,7 +8,7 @@
  * (tickMarkFormatter / timeFormatter) America/New_York'a çevirir. Bu yüzden
  * grafikteki 09:30 ile Yahoo'nun 09:30 mumu birebir aynı mumdur.
  *
- * Paneller: 0 = fiyat (mum + Bollinger + EMA21 + VWAP + hacim),
+ * Paneller: 0 = fiyat (mum + Bollinger + EMA20 + EMA21 + VWAP + hacim),
  *           1 = RSI(14), 2 = MACD(12,26,9).
  * Göstergeler lib/spyengine/core.ts'ten gelir — motorun karar verirken
  * kullandığı fonksiyonların TA KENDİSİ, ayrı bir kopyası değil.
@@ -56,6 +56,7 @@ const C = {
   bbBand: "#3b82f6",
   bbFill: "rgba(59,130,246,0.06)",
   ema: "#f59e0b",
+  ema20: "#22d3ee",
   vwap: "#e879f9",
   volUp: "rgba(34,197,94,0.35)",
   volDown: "rgba(239,68,68,0.35)",
@@ -68,6 +69,7 @@ const C = {
 export interface ChartToggles {
   candleType: "HA" | "NORMAL";
   bb: boolean;
+  ema20: boolean;
   ema21: boolean;
   vwap: boolean;
   volume: boolean;
@@ -118,13 +120,14 @@ interface LegendState {
   bbM: number | null;
   bbL: number | null;
   ema: number | null;
+  ema20: number | null;
   vwap: number | null;
 }
 
 const EMPTY_LEGEND: LegendState = {
   time: null, open: null, high: null, low: null, close: null, volume: null,
   rsi: null, macd: null, signal: null, hist: null,
-  bbU: null, bbM: null, bbL: null, ema: null, vwap: null,
+  bbU: null, bbM: null, bbL: null, ema: null, ema20: null, vwap: null,
 };
 
 const num = (v: number | null | undefined, d = 2) =>
@@ -141,6 +144,7 @@ export default function SpyChart({
   const bbMidRef = useRef<ISeriesApi<"Line"> | null>(null);
   const bbLowRef = useRef<ISeriesApi<"Area"> | null>(null);
   const emaRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const ema20Ref = useRef<ISeriesApi<"Line"> | null>(null);
   const vwapRef = useRef<ISeriesApi<"Line"> | null>(null);
   const volRef = useRef<ISeriesApi<"Histogram"> | null>(null);
   const trailRef = useRef<ISeriesApi<"Line"> | null>(null);
@@ -175,6 +179,7 @@ export default function SpyChart({
     return {
       display,
       bb: bollinger(closes, 20, 2),
+      ema20: ema(closes, 20),
       ema21: ema(closes, 21),
       vwap: sessionVwap(bars),
       rsi14: rsi(closes, 14),
@@ -255,6 +260,10 @@ export default function SpyChart({
     }, 0);
     emaRef.current = chart.addSeries(LineSeries, {
       color: C.ema, lineWidth: 2, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+      autoscaleInfoProvider: noAutoscale,
+    }, 0);
+    ema20Ref.current = chart.addSeries(LineSeries, {
+      color: C.ema20, lineWidth: 1, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
       autoscaleInfoProvider: noAutoscale,
     }, 0);
     vwapRef.current = chart.addSeries(LineSeries, {
@@ -355,6 +364,7 @@ export default function SpyChart({
         bbM: (param.seriesData.get(bbMidRef.current!) as { value: number } | undefined)?.value ?? null,
         bbL: (param.seriesData.get(bbLowRef.current!) as { value: number } | undefined)?.value ?? null,
         ema: (param.seriesData.get(emaRef.current!) as { value: number } | undefined)?.value ?? null,
+        ema20: (param.seriesData.get(ema20Ref.current!) as { value: number } | undefined)?.value ?? null,
         vwap: (param.seriesData.get(vwapRef.current!) as { value: number } | undefined)?.value ?? null,
       });
     };
@@ -390,7 +400,7 @@ export default function SpyChart({
   // ── Veri yazımı ─────────────────────────────────────────────────
   useEffect(() => {
     if (!chartRef.current || !candleRef.current) return;
-    const { display, bb, ema21, vwap, rsi14, macd: m } = computed;
+    const { display, bb, ema20, ema21, vwap, rsi14, macd: m } = computed;
     const T = (t: number) => t as unknown as Time;
 
     barsForScaleRef.current = display.map((b) => ({ time: b.time, high: b.high, low: b.low }));
@@ -405,6 +415,7 @@ export default function SpyChart({
     bbMidRef.current?.setData(line(bb.mid, toggles.bb));
     bbLowRef.current?.setData(line(bb.lower, toggles.bb));
     emaRef.current?.setData(line(ema21, toggles.ema21));
+    ema20Ref.current?.setData(line(ema20, toggles.ema20));
     vwapRef.current?.setData(line(vwap, toggles.vwap));
 
     volRef.current?.setData(
@@ -460,14 +471,14 @@ export default function SpyChart({
   const lastLegend = useMemo<LegendState>(() => {
     const li = bars.length - 1;
     if (li < 0) return EMPTY_LEGEND;
-    const { display, bb, ema21, vwap, rsi14, macd: m } = computed;
+    const { display, bb, ema20, ema21, vwap, rsi14, macd: m } = computed;
     return {
       time: bars[li].time,
       open: display[li].open, high: display[li].high, low: display[li].low, close: display[li].close,
       volume: bars[li].volume,
       rsi: rsi14[li], macd: m.macd[li], signal: m.signal[li], hist: m.hist[li],
       bbU: bb.upper[li], bbM: bb.mid[li], bbL: bb.lower[li],
-      ema: ema21[li], vwap: vwap[li],
+      ema: ema21[li], ema20: ema20[li], vwap: vwap[li],
     };
   }, [bars, computed]);
 
@@ -606,6 +617,11 @@ export default function SpyChart({
           {toggles.vwap && (
             <span className="rounded bg-[#111827]/90 px-1.5 py-0.5" style={{ color: C.vwap }}>
               VWAP {num(legend.vwap)}
+            </span>
+          )}
+          {toggles.ema20 && (
+            <span className="rounded bg-[#111827]/90 px-1.5 py-0.5" style={{ color: C.ema20 }}>
+              EMA20 {num(legend.ema20)}
             </span>
           )}
           {toggles.rsi && (
