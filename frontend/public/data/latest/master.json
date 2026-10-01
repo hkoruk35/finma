@@ -1,34 +1,32 @@
 {
-  "date": "2026-09-30",
-  "generated_at": "2026-09-30T17:03:56.605160-04:00",
+  "date": "2026-10-01",
+  "generated_at": "2026-10-01T14:03:55.795033-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 36,
+  "active_scores_count": 24,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "CRL",
-        "DDOG",
-        "DDS",
-        "PWR",
-        "ASX",
-        "HLT",
-        "SEI",
-        "CLS",
-        "TEM",
-        "LSCC"
+        "STM",
+        "ACLS",
+        "SAP",
+        "GOOGL",
+        "ASML",
+        "MHK",
+        "NAT",
+        "NET",
+        "ATEN",
+        "SHOO"
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 4,
       "tickers": [
-        "ZBRA",
-        "PD",
-        "MXL",
-        "MEDP",
-        "FORM",
-        "S"
+        "S",
+        "MU",
+        "CLMT",
+        "EMR"
       ]
     },
     "value": {
@@ -50,42 +48,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "CRL",
-      "score": 53.0,
+      "ticker": "STM",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "DDOG",
-      "score": 50.0,
+      "ticker": "ACLS",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "DDS",
-      "score": 49.5,
+      "ticker": "SAP",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 764.129,
-      "change_pct": 0.2
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 742.705,
-      "change_pct": 0.4
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 508.28,
-      "change_pct": -0.05
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.66,
-      "change_pct": 1.96
-    },
-    "RUSSELL2000": {
-      "value": 279.305,
-      "change_pct": 0.51
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-01T14:30:07.393955-04:00"
+  }
 }
