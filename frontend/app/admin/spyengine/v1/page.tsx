@@ -34,13 +34,14 @@ import {
 } from "@/lib/spyengine/core";
 import {
   daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
-  emaByTime, decisionRead, FACTOR_MAX,
+  emaByTime, decisionRead, tfRead, FACTOR_MAX,
   type CandleComment, type Tone, type DecisionRead, type TfRead, type PlanSide,
 } from "@/lib/spyengine/openingMap";
 import type {
   EngineEvent, PositionState, ContractType, EngineState, GateStatus, RegimeState,
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
+import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
@@ -239,6 +240,10 @@ function PlanCell({ side, p, active, price }: { side: "LONG" | "SHORT"; p: PlanS
         <div title={p.targetLabel ?? ""}><div className="text-[8.5px] text-slate-600">hedef 1</div><b className="text-[12px] text-slate-200">{p.target != null ? num(p.target) : "—"}</b></div>
         <div><div className="text-[8.5px] text-slate-600">risk/ödül</div><b className={`text-[12px] ${p.rr == null ? "text-slate-500" : p.rr >= 1.5 ? "text-[#4ade80]" : p.rr >= 1 ? "text-amber-300" : "text-[#f87171]"}`}>{p.rr != null ? `${p.rr.toFixed(1)}R` : "—"}</b></div>
       </div>
+      <div className="mt-0.5 font-mono text-[9.5px] text-slate-500">
+        sıkı stop (son 2×5m {isLong ? "dip" : "tepe"}): <b className="text-slate-300">{num(p.tightStop)}</b>
+        {p.rrTight != null && <> → <b className={p.rrTight >= 1.5 ? "text-[#4ade80]" : p.rrTight >= 1 ? "text-amber-300" : "text-[#f87171]"}>{p.rrTight.toFixed(1)}R</b></>}
+      </div>
       {p.targetLabel && <div className="mt-0.5 truncate text-[9px] text-slate-600">hedef: {p.targetLabel}</div>}
     </div>
   );
@@ -267,10 +272,10 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
       {/* başlık + karar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Karar Desteği <span className="text-[9px] font-normal text-slate-600">· her 5m kapanışında fiyat + hacim · 5m karar · 15m teyit · gün geneli</span>
+          Karar Desteği <span className="text-[9px] font-normal text-slate-600">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m teyit · 5m karar · erken uyarı</span>
         </span>
         <span className="font-mono text-[9px] text-slate-500">
-          son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
+          son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · 30m {d.r30?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
         </span>
       </div>
       <div className="px-3 py-2" style={{ backgroundColor: `${col}10` }}>
@@ -284,9 +289,10 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
       </div>
 
       {/* 5m · 15m · gün */}
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-3">
-        <TfColumn title="5m" sub="karar mumu" r={d.r5} />
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
+        <TfColumn title="30m" sub="genel gidişat" r={d.r30} />
         <TfColumn title="15m" sub="yön teyidi" r={d.r15} />
+        <TfColumn title="5m" sub="karar mumu" r={d.r5} />
         <div className="bg-[#0f141d] px-3 py-2">
           <div className="flex items-baseline justify-between gap-2">
             <span className="text-[11px] font-semibold text-slate-300">Gün geneli <span className="text-[9px] font-normal text-slate-600">· seans</span></span>
@@ -356,6 +362,155 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         Skor: VWAP · EMA20 · EMA20 eğimi · 3 mum yapısı · hacim akışı · son mumun hacim teyidi — her biri ±1, yalnızca KAPANMIŞ mumdan. Tetik = son
         5m tepe/dip, VWAP ve EMA20&apos;nin ötesi; stop = Trend Stop Bölgesi; hedef = tahmin haritasındaki ilk seviye. Alıcı/satıcı hacmi kapanış
         konumundan tahmin edilir (tick verisi değil). Karar desteğidir — motor sinyali ayrıca aşağıda.
+      </div>
+    </div>
+  );
+}
+
+// ── Erken uyarı · likidite · akıllı para paneli ───────────────────
+
+const EVENT_TAG: Record<FlowRead["events"][number]["kind"], string> = {
+  SWEEP_HIGH: "TEPE SÜPÜRME",
+  SWEEP_LOW: "DİP SÜPÜRME",
+  ABSORB_BUY: "ALICI EMİLİMİ",
+  ABSORB_SELL: "SATICI EMİLİMİ",
+  PUSH_UP: "KURUMSAL ALIM",
+  PUSH_DOWN: "KURUMSAL SATIŞ",
+  DIV_BULL: "+ UYUMSUZLUK",
+  DIV_BEAR: "− UYUMSUZLUK",
+};
+
+function MiniCard({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="bg-[#0f141d] px-3 py-2">
+      <div className="mb-1 text-[10px] font-semibold text-slate-300">{title}</div>
+      <div className="flex flex-col gap-0.5 text-[10px] leading-snug text-slate-400">{children}</div>
+    </div>
+  );
+}
+
+function FlowPanel({ f, price }: { f: FlowRead | null; price: number | null }) {
+  if (!f) {
+    return (
+      <div className={`${SURFACE} px-3 py-3 text-[11px] text-slate-500`}>
+        <span className="font-semibold text-slate-300">Erken Uyarı · Likidite · Akıllı Para</span> — ilk 5m kapanışla başlar.
+      </div>
+    );
+  }
+  const w = f.warning;
+  const col = w.side === "LONG" ? "#22c55e" : w.side === "SHORT" ? "#ef4444" : f.compression.active ? "#eab308" : "#64748b";
+  const tot = Math.max(1, w.bull + w.bear);
+  const px = price ?? 0;
+  const prof = f.profile;
+  const above = f.pools.filter((p) => !p.swept && p.price > px).sort((a, b) => a.price - b.price).slice(0, 3);
+  const below = f.pools.filter((p) => !p.swept && p.price < px).sort((a, b) => b.price - a.price).slice(0, 3);
+  const fmtD = (v: number) => `${v >= 0 ? "+" : "−"}${fmtVol(Math.abs(v))}`;
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
+          Erken Uyarı · Likidite · Akıllı Para <span className="text-[9px] font-normal text-slate-600">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
+        </span>
+        <span className="font-mono text-[9px] text-slate-500">alıcı {w.bull} · satıcı {w.bear} puan</span>
+      </div>
+
+      <div className="px-3 py-2" style={{ backgroundColor: `${col}12` }}>
+        <div className={`text-[15px] font-extrabold tracking-wide sm:text-[17px] ${w.level === "STARTED" ? "animate-pulse" : ""}`} style={{ color: col }}>
+          {w.headline}
+        </div>
+        <div className="mt-1 flex h-1.5 overflow-hidden rounded bg-[#1c2635]">
+          <span className="bg-[#22c55e]" style={{ width: `${(w.bull / tot) * 100}%` }} />
+          <span className="bg-[#ef4444]" style={{ width: `${(w.bear / tot) * 100}%` }} />
+        </div>
+        {(w.targets.length > 0 || w.invalidation != null) && (
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+            <span className="text-slate-500">{w.side ? "hareket sürerse duraklar:" : "olası duraklar:"}</span>
+            {w.targets.map((t, i) => (
+              <span key={i} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5 text-slate-200" title={t.label}>
+                {i + 1}) <b>{num(t.price)}</b> <span className="text-slate-500">{t.label} · {num(t.dist)} puan</span>
+              </span>
+            ))}
+            {w.invalidation != null && (
+              <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">iptal: 5m kapanış {w.side === "LONG" ? "<" : ">"} {num(w.invalidation)}</span>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-2">
+        {([["Alıcı izleri", w.bullWhy, "#4ade80"], ["Satıcı izleri", w.bearWhy, "#f87171"]] as const).map(([t, list, c]) => (
+          <div key={t} className="bg-[#0f141d] px-3 py-2">
+            <div className="mb-0.5 text-[10px] font-semibold" style={{ color: c }}>{t}</div>
+            {list.length === 0 ? (
+              <div className="text-[10px] text-slate-600">belirgin iz yok</div>
+            ) : (
+              <ul className="flex flex-col gap-0.5 text-[10px] leading-snug text-slate-300">
+                {list.map((x, i) => <li key={i}>• {x}</li>)}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
+        <MiniCard title="Hacim profili (POC)">
+          {prof ? (
+            <>
+              <span>POC <b className="text-[#fb923c]">{num(prof.poc)}</b> · değer alanı {num(prof.val)} – {num(prof.vah)}</span>
+              <span>
+                Fiyat{" "}
+                {px > prof.vah ? <b className="text-[#4ade80]">değer alanı ÜSTÜNDE → yukarıda kabul arıyor</b>
+                  : px < prof.val ? <b className="text-[#f87171]">değer alanı ALTINDA → aşağıda kabul arıyor</b>
+                  : <b className="text-slate-300">değer alanı içinde → POC&apos;a dönüş eğilimi</b>}
+              </span>
+              <span>Son 1 saat POC kayması: <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></span>
+              <span className="font-mono text-[8.5px] text-slate-600">{prof.pocPath.map((p) => `${p.clock} ${num(p.poc)}`).join(" → ")}</span>
+            </>
+          ) : <span>veri yok</span>}
+        </MiniCard>
+        <MiniCard title="Kümülatif delta (alıcı − satıcı)">
+          <span>Seans: <b className={f.cumDelta >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.cumDelta)}</b></span>
+          <span>
+            Son 30 dk: <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>
+            {f.deltaPct30 != null && <> (%{Math.round(f.deltaPct30 * 100)} → {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"})</>}
+          </span>
+          <span className="text-[9px] text-slate-600">Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir.</span>
+        </MiniCard>
+        <MiniCard title="Sıkışma · ivme">
+          <span>
+            {f.compression.active ? <b className="text-amber-300">SIKIŞMA</b> : "Sıkışma yok"}
+            {f.compression.ratio != null && <> · son 30 dk mum boyu ortalamanın {f.compression.ratio.toFixed(2)}×</>}
+          </span>
+          {f.compression.boxHigh != null && f.compression.boxLow != null && (
+            <span>Kutu {num(f.compression.boxLow)} – {num(f.compression.boxHigh)} → hacimli kapanışla kırılan yön ivmelenir</span>
+          )}
+          <span>{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : "İvme artışı yok (son 3 mum aynı yönde büyümüyor)"}</span>
+        </MiniCard>
+        <MiniCard title="Likidite havuzları (stop kümeleri)">
+          {above.map((p) => <span key={`a${p.price}`}>▲ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-600">+{num(p.price - px)}</span></span>)}
+          {below.map((p) => <span key={`b${p.price}`}>▼ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-600">−{num(px - p.price)}</span></span>)}
+          {above.length + below.length === 0 && <span>yakında süpürülmemiş havuz yok</span>}
+          <span className="text-[9px] text-slate-600">Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.</span>
+        </MiniCard>
+      </div>
+
+      {f.events.length > 0 && (
+        <div className="border-t border-[#1c2635] px-3 py-1.5">
+          <div className="mb-0.5 text-[10px] font-semibold text-slate-300">Akıllı para olayları <span className="font-normal text-slate-600">· en yeni üstte</span></div>
+          <ul className="flex max-h-[140px] flex-col gap-0.5 overflow-y-auto text-[10px] leading-snug">
+            {f.events.slice().reverse().slice(0, 12).map((e) => (
+              <li key={`${e.kind}${e.time}`} className="flex gap-1.5">
+                <span className="font-mono text-slate-500">{e.clock}</span>
+                <span className={`shrink-0 rounded px-1 font-mono text-[8.5px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
+                <span className="text-slate-400">{e.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="border-t border-[#1c2635] px-3 py-1 text-[9px] leading-snug text-slate-600">
+        Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla. Hareket başladı: buna ek olarak son 2 mumda kurumsal itki, açılış aralığı ya da 30 dk kutusu hacimle kırıldı.
+        Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
       </div>
     </div>
   );
@@ -533,22 +688,26 @@ export default function SpyEngineV9() {
   /** Analiz mumları 1m akıştan türetilir (1,2 sn taze) — Yahoo'nun 5m/15m serisine bağlı değil */
   const m5D = useMemo(() => bucketAggregate(m1, 5), [m1]);
   const m15D = useMemo(() => bucketAggregate(m1, 15), [m1]);
+  /** 30m — açılış ve gün içi genel gidişat */
+  const m30D = useMemo(() => bucketAggregate(m1, 30), [m1]);
   const lastM1Time = m1.length ? m1[m1.length - 1].time : null;
   /** EMA20 — çok günlük akıştan ısınmış (seansın ilk mumlarında da değer var) */
   const ema5 = useMemo(() => emaByTime(m5D), [m5D]);
   const ema15 = useMemo(() => emaByTime(m15D), [m15D]);
+  const ema30 = useMemo(() => emaByTime(m30D), [m30D]);
 
   const analysis = useMemo(() => {
     if (!date || !evalNow) return null;
     const s5 = daySeries(m5D, "5m", date, evalNow, lastM1Time);
     const s15 = daySeries(m15D, "15m", date, evalNow, lastM1Time);
-    const opening = openingRegime(s5, s15);
+    const s30 = daySeries(m30D, "30m", date, evalNow, lastM1Time);
+    const opening = openingRegime(s5, s15, s30);
     // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
     const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
-    return { s5, s15, opening, live, c5: commentAll(s5, "5m", 40, ema5), c15: commentAll(s15, "15m", 40, ema15) };
+    return { s5, s15, s30, opening, live, c5: commentAll(s5, "5m", 40, ema5), c15: commentAll(s15, "15m", 40, ema15) };
     // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5D, m15D, ema5, ema15, date, lastM1Time, minuteSlot]);
+  }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot]);
 
   /** Oluşmakta olan mumların canlı yorumu (yalnızca canlı modda; karar mumu değil) */
   const forming5 = useMemo(
@@ -571,15 +730,35 @@ export default function SpyEngineV9() {
   const price = data?.spot.price ?? null;
   const vwapNow = useMemo(() => (date ? liveVwap(m5D, date) : null), [m5D, date]);
 
+  /** Akış: hacim profili, likidite havuzları/süpürmeler, delta, akıllı para, erken uyarı */
+  const flow = useMemo<FlowRead | null>(() => {
+    if (!analysis || !date) return null;
+    return flowRead({ m1, ymd: date, s5: analysis.s5, price, premarket: data?.levels?.premarket ?? null });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analysis, m1, date, data?.levels?.premarket, minuteSlot]);
+
+  /** 30m + 15m birlikte aynı yöndeyse harita bu gidişatı kullanır */
+  const trend = useMemo<"UP" | "DOWN" | null>(() => {
+    if (!analysis) return null;
+    const a = tfRead(analysis.s30, "30m", ema30), b = tfRead(analysis.s15, "15m", ema15);
+    return a && b && a.dir !== "FLAT" && a.dir === b.dir ? a.dir : null;
+  }, [analysis, ema30, ema15]);
+
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
     return buildForecastMap({
       price, vwap: vwapNow, date, nowSec: evalNow,
       opening: analysis.opening, live: analysis.live,
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
+      trend,
+      early: flow?.warning ?? null,
+      extra: flow ? [
+        ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
+        ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
+      ] : [],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, minuteSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, trend, flow, minuteSlot]);
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
@@ -599,11 +778,11 @@ export default function SpyEngineV9() {
   const decision = useMemo<DecisionRead | null>(() => {
     if (!analysis || analysis.opening.status === "WAITING") return null;
     return decisionRead({
-      s5: analysis.s5, s15: analysis.s15, ema5, ema15, price, vwapNow,
+      s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, ema30, warning: flow?.warning ?? null, price, vwapNow,
       opening: analysis.opening, stops,
       supports: map?.supports ?? [], resistances: map?.resistances ?? [],
     });
-  }, [analysis, ema5, ema15, price, vwapNow, stops, map]);
+  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map]);
 
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
@@ -704,7 +883,7 @@ export default function SpyEngineV9() {
           <div>
             <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V9.0</h1>
             <p className="text-[9px] text-slate-500">
-              her kapanan 5m + 15m mum analizi · VWAP odaklı · açılışta 3×5m + 15m sonrası 09:45–10:00 rejim kararı · tahmin haritası
+              her kapanan 5m · 15m · 30m mum analizi · VWAP + EMA20 · POC / likidite / akıllı para · erken uyarı · 09:45–10:00 rejim kararı · tahmin haritası
             </p>
           </div>
           {data && (
@@ -809,7 +988,7 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${opColor}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                Açılış Rejimi <span className="text-[9px] font-normal text-slate-600">· 09:30 kapanışları → 09:45–10:00 kararı</span>
+                Açılış Rejimi <span className="text-[9px] font-normal text-slate-600">· hareket · açılış aralığı · VWAP · 15m · 30m mum · hacim → 09:45–10:00 kararı</span>
               </span>
               {op && (
                 <span className="rounded px-1.5 py-0.5 text-[9px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
@@ -824,6 +1003,20 @@ export default function SpyEngineV9() {
               </div>
               <div className="min-w-0 flex-1 text-[11px] leading-relaxed text-slate-400">{op?.summary ?? "Mum verisi bekleniyor."}</div>
             </div>
+            {op && op.votes.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
+                <span className="text-slate-600">oylar {op.score > 0 ? "+" : ""}{op.score}/{op.maxScore}</span>
+                {op.votes.map((v) => (
+                  <span
+                    key={v.label}
+                    className={`rounded border px-1 py-0.5 ${v.vote > 0 ? SIDE_CHIP.ABOVE : v.vote < 0 ? SIDE_CHIP.BELOW : "border-slate-700 text-slate-500"}`}
+                    title={v.value}
+                  >
+                    {v.label}: {v.value} ({v.vote > 0 ? "+" : ""}{v.vote})
+                  </span>
+                ))}
+              </div>
+            )}
             {op && (op.closes5.length > 0 || op.closes15.length > 0) && (
               <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
                 <div className="flex flex-wrap items-center gap-1">
@@ -898,6 +1091,9 @@ export default function SpyEngineV9() {
           forming={forming5}
           waiting={!analysis || analysis.opening.status === "WAITING"}
         />
+
+        {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
+        <FlowPanel f={flow} price={price} />
 
         {/* ── 2) Motor sinyali (ön uyarı / giriş) ── */}
         <AlertBanner
@@ -1004,7 +1200,7 @@ export default function SpyEngineV9() {
             <div className="px-3 py-8 text-center text-[11px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
           ) : (
             <>
-              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} map={map} date={date} nowSec={evalNow} />
+              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} map={map} date={date} nowSec={evalNow} />
               <div className="grid grid-cols-1 gap-2 border-t border-[#1c2635] px-3 py-2 lg:grid-cols-2">
                 <div>
                   <div className="mb-0.5 text-[10px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>

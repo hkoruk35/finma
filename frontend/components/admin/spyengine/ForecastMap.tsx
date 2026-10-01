@@ -5,19 +5,22 @@
  *
  * Bugünün 5m mumları + VWAP üzerine: destek/direnç çizgileri, tahmini
  * yolculuk (kesikli çizgi), kapanış beklentisi ve tahmin bandı (koni).
+ * Akış katmanı (flow.ts): salınım dip/tepeleri, gün tepesi/dibi, hacim
+ * profili (POC/VAH/VAL), süpürülmemiş likidite havuzları ve süpürme işaretleri.
  * Yolculuk bir TAHMİNDİR; çizimdeki her seviye ölçülmüş veriden gelir.
  */
 
 import { useMemo } from "react";
 import { nyClock, nyDateTimeToEpoch, RTH_OPEN_MIN, RTH_CLOSE_MIN, type Bar } from "@/lib/spyengine/core";
 import type { ForecastMapData } from "@/lib/spyengine/openingMap";
+import type { FlowRead } from "@/lib/spyengine/flow";
 
 const W = 920;
 const H = 340;
-const PAD = { l: 8, r: 118, t: 14, b: 22 };
+const PAD = { l: 8, r: 118, t: 26, b: 22 };
 
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, map, date, nowSec,
+  bars, vwapSeries, emaSeries, flow, map, date, nowSec,
 }: {
   /** Bugünün RTH 5m mumları (oluşmakta olan dahil) */
   bars: Bar[];
@@ -25,6 +28,7 @@ export default function ForecastMap({
   vwapSeries: (number | null)[];
   /** bars ile aynı uzunlukta EMA20 (çok günlük akıştan ısınmış) */
   emaSeries?: (number | null)[];
+  flow?: FlowRead | null;
   map: ForecastMapData;
   date: string;
   nowSec: number;
@@ -70,6 +74,25 @@ export default function ForecastMap({
   const cone = `${X(first.t)},${Y(first.price)} ${X(last.t)},${Y(map.closeHigh)} ${X(last.t)},${Y(map.closeLow)}`;
   const biasColor = map.bias === "UP" ? "#22c55e" : map.bias === "DOWN" ? "#ef4444" : "#eab308";
   const nowX = X(Math.min(Math.max(nowSec, g.x0), g.x1));
+  const inY = (p: number) => p >= g.lo && p <= g.hi;
+  const plotR = W - PAD.r;
+
+  // gün tepesi / dibi (oluşan mum dahil)
+  let dayHi: { t: number; p: number } | null = null, dayLo: { t: number; p: number } | null = null;
+  for (const b of bars) {
+    if (!dayHi || b.high > dayHi.p) dayHi = { t: b.time, p: b.high };
+    if (!dayLo || b.low < dayLo.p) dayLo = { t: b.time, p: b.low };
+  }
+  const swings = (flow?.swings ?? []).filter((sw) => !(dayHi && sw.kind === "HIGH" && sw.time === dayHi.t) && !(dayLo && sw.kind === "LOW" && sw.time === dayLo.t));
+  // fiyata en yakın süpürülmemiş havuzlar (her yönde 2)
+  const pools = flow
+    ? [
+        ...flow.pools.filter((pl) => !pl.swept && pl.side === "BUY" && pl.price > map.price && inY(pl.price)).sort((a, b) => a.price - b.price).slice(0, 2),
+        ...flow.pools.filter((pl) => !pl.swept && pl.side === "SELL" && pl.price < map.price && inY(pl.price)).sort((a, b) => b.price - a.price).slice(0, 2),
+      ]
+    : [];
+  const sweeps = (flow?.events ?? []).filter((e) => e.kind === "SWEEP_HIGH" || e.kind === "SWEEP_LOW");
+  const prof = flow?.profile ?? null;
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="Tahmin haritası">
@@ -106,6 +129,33 @@ export default function ForecastMap({
         </g>
       ))}
 
+      {/* hacim profili: POC + değer alanı */}
+      {prof && inY(prof.vah) && inY(prof.val) && (
+        <rect x={PAD.l} y={Y(prof.vah)} width={plotR - PAD.l} height={Math.max(1, Y(prof.val) - Y(prof.vah))} fill="#f97316" opacity={0.05} />
+      )}
+      {prof && inY(prof.poc) && (
+        <g>
+          <line x1={PAD.l} x2={plotR} y1={Y(prof.poc)} y2={Y(prof.poc)} stroke="#f97316" strokeWidth={1.1} opacity={0.85} />
+          <text x={PAD.l + 108} y={Y(prof.poc) - 3} fontSize={8} fill="#fb923c" fontFamily="monospace">POC {prof.poc.toFixed(2)}</text>
+        </g>
+      )}
+      {prof && [["VAH", prof.vah], ["VAL", prof.val]].map(([l, p]) => inY(p as number) && (
+        <g key={l as string}>
+          <line x1={PAD.l} x2={plotR} y1={Y(p as number)} y2={Y(p as number)} stroke="#f97316" strokeWidth={0.7} strokeDasharray="2 3" opacity={0.6} />
+          <text x={PAD.l + 108} y={Y(p as number) + (l === "VAL" ? 9 : -3)} fontSize={7.5} fill="#c2410c" fontFamily="monospace">{l} {(p as number).toFixed(2)}</text>
+        </g>
+      ))}
+
+      {/* süpürülmemiş likidite havuzları (stop kümeleri) */}
+      {pools.map((pl) => (
+        <g key={`p${pl.side}${pl.price}`}>
+          <line x1={X(Math.max(pl.from, g.x0))} x2={plotR} y1={Y(pl.price)} y2={Y(pl.price)} stroke="#facc15" strokeWidth={0.9} strokeDasharray="1 2.5" opacity={0.9} />
+          <text x={plotR - 3} y={Y(pl.price) + (pl.side === "BUY" ? -3 : 9)} fontSize={7.5} fill="#facc15" textAnchor="end" fontFamily="monospace">
+            $ {pl.price.toFixed(2)} {pl.side === "BUY" ? "alış stopları" : "satış stopları"} · {pl.label}
+          </text>
+        </g>
+      ))}
+
       {/* 5m mumlar */}
       {bars.map((b) => {
         const up = b.close >= b.open;
@@ -120,15 +170,56 @@ export default function ForecastMap({
         );
       })}
 
+      {/* salınım dip / tepeleri */}
+      {swings.map((sw) => {
+        const cx = X(sw.time + 150);
+        const hi = sw.kind === "HIGH";
+        const y = Y(sw.price) + (hi ? -4 : 4);
+        return (
+          <g key={`${sw.kind}${sw.time}`}>
+            <path d={hi ? `M${cx - 3},${y - 4} L${cx + 3},${y - 4} L${cx},${y}` : `M${cx - 3},${y + 4} L${cx + 3},${y + 4} L${cx},${y}`} fill={hi ? "#f87171" : "#4ade80"} />
+            <text x={cx} y={hi ? y - 6 : y + 12} fontSize={7} fill={hi ? "#fca5a5" : "#86efac"} textAnchor="middle" fontFamily="monospace">{sw.price.toFixed(2)}</text>
+          </g>
+        );
+      })}
+      {dayHi && (
+        <g>
+          <path d={`M${X(dayHi.t + 150) - 4},${Y(dayHi.p) - 9} L${X(dayHi.t + 150) + 4},${Y(dayHi.p) - 9} L${X(dayHi.t + 150)},${Y(dayHi.p) - 3}`} fill="#ef4444" />
+          <text x={X(dayHi.t + 150)} y={Math.max(PAD.t - 2, Y(dayHi.p) - 12)} fontSize={8.5} fontWeight={700} fill="#f87171" textAnchor="middle" fontFamily="monospace">TEPE {dayHi.p.toFixed(2)}</text>
+        </g>
+      )}
+      {dayLo && (
+        <g>
+          <path d={`M${X(dayLo.t + 150) - 4},${Y(dayLo.p) + 9} L${X(dayLo.t + 150) + 4},${Y(dayLo.p) + 9} L${X(dayLo.t + 150)},${Y(dayLo.p) + 3}`} fill="#22c55e" />
+          <text x={X(dayLo.t + 150)} y={Math.min(H - PAD.b - 2, Y(dayLo.p) + 19)} fontSize={8.5} fontWeight={700} fill="#4ade80" textAnchor="middle" fontFamily="monospace">DİP {dayLo.p.toFixed(2)}</text>
+        </g>
+      )}
+      {/* likidite süpürmeleri */}
+      {sweeps.map((e) => (
+        <text key={`sw${e.time}${e.kind}`} x={X(e.time + 150)} y={Y(e.price) + (e.kind === "SWEEP_HIGH" ? -2 : 7)} fontSize={9} fontWeight={700} fill="#facc15" textAnchor="middle">✕</text>
+      ))}
+
       {/* VWAP */}
       {vwapPts && <polyline points={vwapPts} fill="none" stroke="#e879f9" strokeWidth={1.4} />}
       {/* EMA20 */}
       {emaPts && <polyline points={emaPts} fill="none" stroke="#22d3ee" strokeWidth={1.2} />}
       <g fontSize={8} fontFamily="monospace">
-        <line x1={PAD.l + 4} x2={PAD.l + 18} y1={PAD.t + 4} y2={PAD.t + 4} stroke="#e879f9" strokeWidth={1.4} />
-        <text x={PAD.l + 21} y={PAD.t + 7} fill="#e879f9">VWAP</text>
-        <line x1={PAD.l + 50} x2={PAD.l + 64} y1={PAD.t + 4} y2={PAD.t + 4} stroke="#22d3ee" strokeWidth={1.2} />
-        <text x={PAD.l + 67} y={PAD.t + 7} fill="#22d3ee">EMA20</text>
+        <line x1={PAD.l + 4} x2={PAD.l + 18} y1={8} y2={8} stroke="#e879f9" strokeWidth={1.4} />
+        <text x={PAD.l + 21} y={11} fill="#e879f9">VWAP</text>
+        <line x1={PAD.l + 50} x2={PAD.l + 64} y1={8} y2={8} stroke="#22d3ee" strokeWidth={1.2} />
+        <text x={PAD.l + 67} y={11} fill="#22d3ee">EMA20</text>
+        {prof && (
+          <>
+            <line x1={PAD.l + 100} x2={PAD.l + 114} y1={8} y2={8} stroke="#f97316" strokeWidth={1.1} />
+            <text x={PAD.l + 117} y={11} fill="#fb923c">POC / değer alanı</text>
+          </>
+        )}
+        {flow && (
+          <>
+            <line x1={PAD.l + 196} x2={PAD.l + 210} y1={8} y2={8} stroke="#facc15" strokeWidth={0.9} strokeDasharray="1 2.5" />
+            <text x={PAD.l + 213} y={11} fill="#facc15">$ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
+          </>
+        )}
       </g>
 
       {/* tahmin konisi + yolculuk */}

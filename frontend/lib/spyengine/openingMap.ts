@@ -18,16 +18,17 @@ import {
 import { detectCandlePatterns } from "./candlePatterns";
 import type { LevelRead, CloseForecast } from "./levels";
 
-export type Tf = "5m" | "15m";
+export type Tf = "5m" | "15m" | "30m";
 export type VwapSide = "ABOVE" | "BELOW" | "AT";
 
-const SPAN: Record<Tf, number> = { "5m": 300, "15m": 900 };
+const SPAN: Record<Tf, number> = { "5m": 300, "15m": 900, "30m": 1800 };
 const AT_EPS = 0.02;
 
 const sideOf = (close: number, vwap: number | null): VwapSide | null =>
   vwap == null ? null : Math.abs(close - vwap) <= AT_EPS ? "AT" : close > vwap ? "ABOVE" : "BELOW";
 
 const fmt = (n: number, d = 2) => n.toFixed(d);
+const num2 = (n: number) => n.toFixed(2);
 const sgn = (n: number) => `${n >= 0 ? "+" : "−"}${Math.abs(n).toFixed(2)}`;
 
 // ── Seans mumları + VWAP ─────────────────────────────────────────────
@@ -262,12 +263,23 @@ export function commentAll(s: DaySeries, tf: Tf, limit = 40, emaMap?: EmaMap): C
 
 export type OpeningSide = "UP" | "DOWN" | "UNCERTAIN";
 
+export interface OpeningVote {
+  label: string;
+  value: string;
+  /** Ağırlıklı oy: + yükseliş · − düşüş */
+  vote: number;
+}
+
 export interface OpeningRegime {
   /** WAITING: 09:45'ten önce · FORMING: 09:45-10:00 (her 5m kapanışta güncellenir) · LOCKED: 10:00 sonrası sabit */
   status: "WAITING" | "FORMING" | "LOCKED";
   side: OpeningSide | null;
   label: string;
   summary: string;
+  /** Toplam oy ve olası en yüksek mutlak oy */
+  score: number;
+  maxScore: number;
+  votes: OpeningVote[];
   /** 09:30'dan itibaren her 5m kapanışın VWAP konumu */
   closes5: { clock: string; side: VwapSide | null; close: number }[];
   closes15: { clock: string; side: VwapSide | null; close: number }[];
@@ -275,7 +287,19 @@ export interface OpeningRegime {
 
 const OPEN_WINDOW_END = 10 * 60; // 10:00
 
-export function openingRegime(m5: DaySeries, m15: DaySeries): OpeningRegime {
+/**
+ * Açılış rejimi — yalnızca VWAP sayımı DEĞİL (VWAP açılışta fiyatın hemen
+ * yanında olduğundan ilk mumlar kolayca iki tarafa düşer ve gerçek bir
+ * düşüş/yükseliş "belirsiz" görünür). Ağırlıklı oylar:
+ *   • yer değiştirme: son 5m kapanış − 09:30 açılışı (±1 / ±2)
+ *   • açılış aralığı (ilk 3×5m) kırılımı (±1)
+ *   • son 3 5m kapanışın çoğunluğu VWAP'ın hangi tarafında (±1)
+ *   • son 5m kapanış VWAP'a göre (±1) · son 15m kapanış VWAP'a göre (±1)
+ *   • 30m açılış mumu (09:30–10:00) gövdesi + kapanış konumu (±1 / ±2)
+ *   • tahmini alıcı/satıcı hacmi payı (±1)
+ * Toplam ≥ +3 YÜKSELİŞ, ≤ −3 DÜŞÜŞ, arası BELİRSİZ. 10:00'da kilitlenir.
+ */
+export function openingRegime(m5: DaySeries, m15: DaySeries, m30?: DaySeries): OpeningRegime {
   const win5 = m5.bars
     .map((b, i) => ({ b, v: m5.vwap[i] }))
     .filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
@@ -289,31 +313,79 @@ export function openingRegime(m5: DaySeries, m15: DaySeries): OpeningRegime {
   const base = { closes5, closes15 };
   if (win5.length < 3) {
     return {
-      ...base, status: "WAITING", side: null, label: "BEKLENİYOR",
+      ...base, status: "WAITING", side: null, label: "BEKLENİYOR", score: 0, maxScore: 9, votes: [],
       summary: `İlk 3 adet 5m kapanış (09:30·09:35·09:40) ve 15m 09:30 kapanışı bekleniyor — karar 09:45 ET'de başlar (${win5.length}/3 mum kapandı).`,
     };
   }
 
-  const above = closes5.filter((c) => c.side === "ABOVE").length;
-  const below = closes5.filter((c) => c.side === "BELOW").length;
-  const n = closes5.length;
+  const n = win5.length;
+  const open = win5[0].b.open;
+  const lastBar = win5[n - 1].b;
+  const votes: OpeningVote[] = [];
+
+  // 1) yer değiştirme
+  const disp = lastBar.close - open;
+  votes.push({
+    label: "Açılıştan hareket",
+    value: `${sgn(disp)} puan (${fmt(open)} → ${fmt(lastBar.close)})`,
+    vote: Math.abs(disp) >= 1.5 ? Math.sign(disp) * 2 : Math.abs(disp) >= 0.6 ? Math.sign(disp) : 0,
+  });
+
+  // 2) açılış aralığı kırılımı (ilk 3 mum sonrası)
+  const or = win5.slice(0, 3).map((x) => x.b);
+  const orHi = Math.max(...or.map((b) => b.high)), orLo = Math.min(...or.map((b) => b.low));
+  if (n >= 4) {
+    const v = lastBar.close > orHi ? 1 : lastBar.close < orLo ? -1 : 0;
+    votes.push({ label: "Açılış aralığı", value: v > 0 ? `tepe (${fmt(orHi)}) yukarı kırıldı` : v < 0 ? `dip (${fmt(orLo)}) aşağı kırıldı` : `içinde (${fmt(orLo)} – ${fmt(orHi)})`, vote: v });
+  } else votes.push({ label: "Açılış aralığı", value: `oluştu: ${fmt(orLo)} – ${fmt(orHi)}`, vote: 0 });
+
+  // 3) son 3 kapanışın VWAP çoğunluğu · 4) son kapanış
+  const last3 = closes5.slice(-3);
+  const ab = last3.filter((c) => c.side === "ABOVE").length, be = last3.filter((c) => c.side === "BELOW").length;
+  votes.push({ label: "Son 3 kapanış / VWAP", value: `${ab} üstte · ${be} altta`, vote: ab >= 2 ? 1 : be >= 2 ? -1 : 0 });
   const lastSide = closes5[n - 1].side;
+  votes.push({ label: "Son 5m / VWAP", value: lastSide === "ABOVE" ? "üstünde" : lastSide === "BELOW" ? "altında" : "üzerinde", vote: lastSide === "ABOVE" ? 1 : lastSide === "BELOW" ? -1 : 0 });
   const side15 = closes15.length ? closes15[closes15.length - 1].side : null;
+  votes.push({ label: "Son 15m / VWAP", value: side15 == null ? "—" : side15 === "ABOVE" ? "üstünde" : side15 === "BELOW" ? "altında" : "üzerinde", vote: side15 === "ABOVE" ? 1 : side15 === "BELOW" ? -1 : 0 });
 
-  let side: OpeningSide = "UNCERTAIN";
-  if (above / n >= 0.8 && lastSide === "ABOVE" && side15 === "ABOVE") side = "UP";
-  else if (below / n >= 0.8 && lastSide === "BELOW" && side15 === "BELOW") side = "DOWN";
+  // 5) 30m açılış mumu (kapanmışsa)
+  const c30 = m30?.bars.find((b) => nyParts(b.time).minutes === 9 * 60 + 30) ?? null;
+  if (c30) {
+    const rg = Math.max(0.01, c30.high - c30.low);
+    const bodyPct = Math.abs(c30.close - c30.open) / rg;
+    const pos = (c30.close - c30.low) / rg;
+    const dir = Math.sign(c30.close - c30.open);
+    const strong = bodyPct >= 0.5 && (dir > 0 ? pos >= 0.7 : pos <= 0.3);
+    votes.push({
+      label: "30m açılış mumu",
+      value: `${dir > 0 ? "yeşil" : dir < 0 ? "kırmızı" : "doji"} · gövde %${Math.round(bodyPct * 100)} · kapanış ${pos <= 0.3 ? "dibe yakın" : pos >= 0.7 ? "tepeye yakın" : "ortada"}`,
+      vote: strong ? dir * 2 : bodyPct >= 0.3 ? dir : 0,
+    });
+  } else votes.push({ label: "30m açılış mumu", value: "10:00'da kapanır", vote: 0 });
 
+  // 6) alıcı/satıcı hacmi payı
+  let buy = 0, tot = 0;
+  for (const { b } of win5) {
+    const rg = b.high - b.low;
+    buy += (b.volume || 0) * (rg > 0 ? (b.close - b.low) / rg : 0.5);
+    tot += b.volume || 0;
+  }
+  const share = tot > 0 ? buy / tot : 0.5;
+  votes.push({ label: "Hacim payı", value: `alıcı %${Math.round(share * 100)} · satıcı %${Math.round((1 - share) * 100)}`, vote: share >= 0.55 ? 1 : share <= 0.45 ? -1 : 0 });
+
+  const score = votes.reduce((a, v) => a + v.vote, 0);
+  const maxScore = 9;
+  const side: OpeningSide = score >= 3 ? "UP" : score <= -3 ? "DOWN" : "UNCERTAIN";
   const status: OpeningRegime["status"] = n >= 6 ? "LOCKED" : "FORMING";
   const label = side === "UP" ? "YÜKSELİŞ" : side === "DOWN" ? "DÜŞÜŞ" : "BELİRSİZ";
-
+  const key = votes.filter((v) => v.vote !== 0 && Math.sign(v.vote) === Math.sign(score)).map((v) => `${v.label.toLowerCase()} ${v.value}`);
   const why =
-    side === "UP" ? `${n} 5m kapanışın ${above}'i VWAP üstünde, son kapanış VWAP üstünde, 15m kapanış VWAP üstünde.`
-    : side === "DOWN" ? `${n} 5m kapanışın ${below}'i VWAP altında, son kapanış VWAP altında, 15m kapanış VWAP altında.`
-    : `${n} 5m kapanış: ${above} VWAP üstü / ${below} VWAP altı${side15 ? `, 15m kapanış VWAP ${side15 === "ABOVE" ? "üstünde" : side15 === "BELOW" ? "altında" : "üzerinde"}` : ""} — kapanışlar tek yönde toplanmadı (VWAP etrafında gidip geliyor).`;
+    side === "UNCERTAIN"
+      ? `Oylar dengede (toplam ${score > 0 ? "+" : ""}${score}/${maxScore}) — açılış tek yöne itmedi; aralık ${fmt(orLo)} – ${fmt(orHi)} kırılımını bekle.`
+      : `Toplam ${score > 0 ? "+" : ""}${score}/${maxScore}: ${key.slice(0, 3).join("; ")}.`;
 
   return {
-    ...base, status, side, label,
+    ...base, status, side, label, score, maxScore, votes,
     summary: `${status === "LOCKED" ? "10:00 kararı (kilitli): " : "Oluşuyor — 10:00'a kadar her 5m kapanışta güncellenir: "}${why}`,
   };
 }
@@ -417,8 +489,14 @@ export function buildForecastMap(input: {
   live: LiveDirection | null;
   levels: LevelRead | null;
   forecast: CloseForecast | null;
+  /** 30m + 15m birlikte aynı yöndeyse gün içi gidişat — açılış rejiminden önceliklidir */
+  trend?: "UP" | "DOWN" | null;
+  /** Ek ölçülmüş seviyeler (POC/VAH/VAL, süpürülmemiş likidite havuzları) */
+  extra?: MapLevel[];
+  /** Erken uyarı (flow.ts) — başlamış/biriken hareketin yönü */
+  early?: { side: "LONG" | "SHORT" | null; level: "STARTED" | "BUILDING" | "NONE"; headline: string } | null;
 }): ForecastMapData | null {
-  const { price, vwap, date, nowSec, opening, live, levels, forecast } = input;
+  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early } = input;
   if (!Number.isFinite(price)) return null;
 
   const closeSec = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
@@ -428,7 +506,13 @@ export function buildForecastMap(input: {
   // — bias —
   let bias: ForecastMapData["bias"] = "FLAT";
   let biasText = "Yön belirsiz — fiyat VWAP etrafında; aralık senaryosu.";
-  if (opening.side === "UP" || opening.side === "DOWN") {
+  if (trend) {
+    bias = trend;
+    biasText = `30m ve 15m gidişat ${trend === "UP" ? "yukarı" : "aşağı"} (açılış rejimi ${opening.label}) → ${trend === "UP" ? "yükseliş" : "düşüş"} senaryosu.`;
+  } else if (early?.side && early.level !== "NONE") {
+    bias = early.side === "LONG" ? "UP" : "DOWN";
+    biasText = `Erken uyarı: ${early.headline} → ${bias === "UP" ? "yukarı" : "aşağı"} senaryo (30m henüz teyit etmedi).`;
+  } else if ((opening.side === "UP" || opening.side === "DOWN") && nyParts(nowSec).minutes < 11 * 60 + 30) {
     bias = opening.side;
     biasText = `Açılış rejimi ${opening.label} → gün yönü ${bias === "UP" ? "yukarı" : "aşağı"} eğilimli.`;
   } else if (vwap != null && live && live.aligned && live.strength === "GÜÇLÜ" && opening.status !== "WAITING") {
@@ -453,6 +537,9 @@ export function buildForecastMap(input: {
     add(levels.projectedLow, "ATR dip projeksiyonu");
   }
   add(vwap, "VWAP");
+  // ek seviyeler yalnızca yakın çevrede (uzak bir havuz ölçeği germesin)
+  const reach = Math.max(2.5, (levels?.hourlyRange ?? DEFAULT_HOURLY) * 2.5);
+  for (const l of extra ?? []) if (Math.abs(l.price - price) <= reach) add(l.price, l.label);
   const whole = Math.floor(price);
   add(whole, `${whole} yuvarlak`);
   add(whole + 1, `${whole + 1} yuvarlak`);
@@ -656,7 +743,7 @@ export function tfRead(s: DaySeries, tf: Tf, emaMap: EmaMap, i = s.bars.length -
 
   // 3) EMA20 eğimi (3 mum önceye göre)
   const ePrev = emaMap.get(b.time - 3 * SPAN[tf]) ?? null;
-  const slopeEps = tf === "5m" ? 0.03 : 0.05;
+  const slopeEps = tf === "5m" ? 0.03 : tf === "15m" ? 0.05 : 0.08;
   const slope = e != null && ePrev != null ? e - ePrev : null;
   factors.push({
     label: "EMA20 eğimi",
@@ -726,11 +813,16 @@ export interface PlanSide {
   targetLabel: string | null;
   /** (hedef − tetik) / (tetik − stop) */
   rr: number | null;
+  /** Sıkı stop: son 2 kapanmış 5m mumun dibi/tepesi ± 0,05 (agresif giriş için) */
+  tightStop: number;
+  rrTight: number | null;
 }
 
 export interface DecisionRead {
   r5: TfRead | null;
   r15: TfRead | null;
+  /** 30m — genel gidişat */
+  r30: TfRead | null;
   /** Bir önceki kapanmış 5m mumun skoru (değişim yönü için) */
   prev5: number | null;
   /** Son ≤12 kapanmış 5m mumun skor geçmişi (eskiden yeniye) */
@@ -769,8 +861,12 @@ export interface DecisionRead {
 export function decisionRead(input: {
   s5: DaySeries;
   s15: DaySeries;
+  s30?: DaySeries;
   ema5: EmaMap;
   ema15: EmaMap;
+  ema30?: EmaMap;
+  /** flow.ts erken uyarısı (yapısal tip — döngüsel import yok) */
+  warning?: { level: "STARTED" | "BUILDING" | "NONE"; side: "LONG" | "SHORT" | null; headline: string } | null;
   price: number | null;
   vwapNow: number | null;
   opening: OpeningRegime;
@@ -778,11 +874,12 @@ export function decisionRead(input: {
   supports: MapLevel[];
   resistances: MapLevel[];
 }): DecisionRead | null {
-  const { s5, s15, ema5, ema15, price, vwapNow, opening, stops, supports, resistances } = input;
+  const { s5, s15, s30, ema5, ema15, ema30, warning, price, vwapNow, opening, stops, supports, resistances } = input;
   const n5 = s5.bars.length;
   if (!n5) return null;
   const r5 = tfRead(s5, "5m", ema5);
   const r15 = tfRead(s15, "15m", ema15);
+  const r30 = s30 && ema30 ? tfRead(s30, "30m", ema30) : null;
   const history5: DecisionRead["history5"] = [];
   for (let i = Math.max(0, n5 - 12); i < n5; i++) {
     const r = tfRead(s5, "5m", ema5, i);
@@ -816,7 +913,7 @@ export function decisionRead(input: {
     `${dayBuy == null ? "" : `, seans alıcı hacmi %${Math.round(dayBuy * 100)}`} · açılış rejimi ${opening.label}.`;
 
   // — karar —
-  const d5 = r5?.dir ?? "FLAT", d15 = r15?.dir ?? "FLAT";
+  const d5 = r5?.dir ?? "FLAT", d15 = r15?.dir ?? "FLAT", d30 = r30?.dir ?? "FLAT";
   const why: string[] = [];
   const watch: string[] = [];
   let action: DecisionRead["action"] = "BEKLE";
@@ -824,33 +921,67 @@ export function decisionRead(input: {
   let title: string;
   const tr = (d: Dir3) => (d === "UP" ? "YUKARI" : d === "DOWN" ? "AŞAĞI" : "YATAY");
   const sc = (x: number) => `${x > 0 ? "+" : ""}${x}/${FACTOR_MAX}`;
+  const sideOfDir = (d: Dir3) => (d === "UP" ? "LONG" : "SHORT") as "LONG" | "SHORT";
+  const dirOfSide = (x: "LONG" | "SHORT"): Dir3 => (x === "LONG" ? "UP" : "DOWN");
+  const opp = (d: Dir3) => (d === "UP" ? "DOWN" : d === "DOWN" ? "UP" : "FLAT");
+  const scores = `5m ${r5 ? sc(r5.score) : "—"} · 15m ${r15 ? sc(r15.score) : "—"} · 30m ${r30 ? sc(r30.score) : "—"}`;
+  const entryWatch = (x: "LONG" | "SHORT") =>
+    `Giriş: 5m mum ${x === "LONG" ? "LONG tetiğinin üstünde" : "SHORT tetiğinin altında"} kapanırsa. 5m kapanış VWAP + EMA20'nin ${x === "LONG" ? "altına" : "üstüne"} dönerse senaryo zayıflar.`;
+  const ewDir = warning?.side ? dirOfSide(warning.side) : "FLAT";
 
-  if (r5 && r15 && d5 !== "FLAT" && d5 === d15) {
-    action = d5 === "UP" ? "LONG" : "SHORT";
+  // erken uyarı: hareket başladı — öne alınır; 30m karşıysa 15m'nin de dönmüş olması gerekir (ana gidişata karşı gürültüyü süzer)
+  const ewOk = warning?.level === "STARTED" && !!warning.side && d15 !== opp(ewDir) && (d30 !== opp(ewDir) || d15 === ewDir);
+  if (ewOk && warning?.side) {
+    action = warning.side;
+    title = `${action} — HAREKET BAŞLADI (erken uyarı)`;
+    why.push(`${warning.headline}. Skorlar: ${scores}.`);
+    if (d15 !== ewDir) why.push(`15m henüz ${tr(d15)} — erken giriş; pozisyonu küçük tut, 15m kapanışı teyit etmeli.`);
+    watch.push(entryWatch(action));
+  } else if (r5 && r15 && d5 !== "FLAT" && d5 === d15) {
+    action = sideOfDir(d5);
     title = `${action} TARAFI — 5m ve 15m birlikte ${tr(d5)}`;
-    why.push(`5m skor ${sc(r5.score)} ve 15m skor ${sc(r15.score)} aynı yönde.`);
-    if (dayDir === d5) why.push("Gün geneli de aynı yönde — trend günü lehine.");
-    else if (dayDir !== "FLAT") why.push(`Dikkat: gün geneli ${tr(dayDir)} — ana trende karşı işlem, hedefi kısa tut.`);
-    watch.push(`Giriş: 5m mum ${action === "LONG" ? "LONG tetiğinin üstünde" : "SHORT tetiğinin altında"} kapanırsa. Ters yönde 5m kapanış VWAP/EMA20'nin ${action === "LONG" ? "altına" : "üstüne"} inerse senaryo zayıflar.`);
+    why.push(`Skorlar: ${scores}.`);
+    if (d30 === d5) why.push("30m genel gidişat da aynı yönde — trend teyitli, geri çekilmeler alım/satım fırsatı.");
+    else if (d30 !== "FLAT") why.push(`Dikkat: 30m ${tr(d30)} — ana gidişata karşı işlem, hedefi kısa tut.`);
+    watch.push(entryWatch(action));
+  } else if (d15 !== "FLAT" && d15 === d30 && d5 === "FLAT") {
+    action = sideOfDir(d15);
+    title = `${action} TARAFI — 30m + 15m ${tr(d15)}, 5m dinleniyor (tetikte gir)`;
+    why.push(`Ana gidişat (30m + 15m) ${tr(d15)}; 5m sıkışma/geri çekilme. Skorlar: ${scores}.`);
+    watch.push(entryWatch(action));
+  } else if (d5 !== "FLAT" && d5 === d30 && d15 === "FLAT") {
+    action = sideOfDir(d5);
+    title = `${action} TARAFI — 5m + 30m ${tr(d5)}, 15m geride`;
+    why.push(`5m ve 30m aynı yönde; 15m henüz dönmedi (genelde bir sonraki 15m kapanışta yetişir). Skorlar: ${scores}.`);
+    watch.push(entryWatch(action));
   } else if (d15 !== "FLAT" && d5 === "FLAT") {
-    lean = d15 === "UP" ? "LONG" : "SHORT";
+    lean = sideOfDir(d15);
     title = `BEKLE — 15m ${tr(d15)}, 5m dinleniyor (${lean} yatkın)`;
-    why.push(`Ana yön (15m) ${tr(d15)}; 5m kararsız → geri çekilme ya da sıkışma.`);
+    why.push(`Ana yön (15m) ${tr(d15)}; 5m kararsız → geri çekilme ya da sıkışma. Skorlar: ${scores}.`);
     watch.push(`5m mum ${lean === "LONG" ? "LONG tetiğinin üstünde" : "SHORT tetiğinin altında"} kapanırsa ${lean} teyit olur.`);
   } else if (d15 !== "FLAT" && d5 !== "FLAT" && d5 !== d15) {
-    lean = d15 === "UP" ? "LONG" : "SHORT";
-    title = `BEKLE — 15m ${tr(d15)} ama 5m ${tr(d5)} (geri çekilme)`;
-    why.push("5m ana yönün (15m) tersine dönmüş — geri çekilme ya da dönüş başlangıcı.");
+    lean = sideOfDir(d30 !== "FLAT" ? d30 : d15);
+    title = `BEKLE — 15m ${tr(d15)} ama 5m ${tr(d5)} (${d30 === d5 ? "dönüş başlıyor olabilir" : "geri çekilme"})`;
+    why.push(`5m, 15m'nin tersine dönmüş. Skorlar: ${scores}.`);
     watch.push(`5m, EMA20/VWAP'ta tutunup ${lean === "LONG" ? "yeşil" : "kırmızı"} kapanırsa ${lean} fırsatı; 15m de ${tr(d5)} dönerse yön değişti demektir.`);
   } else if (d15 === "FLAT" && d5 !== "FLAT") {
-    lean = d5 === "UP" ? "LONG" : "SHORT";
+    lean = sideOfDir(d5);
     title = `BEKLE — yalnızca 5m ${tr(d5)}, 15m teyidi yok`;
-    why.push("Kısa vadeli hareket var ama 15m henüz katılmadı — hareket erken ya da zayıf.");
+    why.push(`Kısa vadeli hareket var ama 15m henüz katılmadı. Skorlar: ${scores}.`);
     watch.push(`Bir sonraki 15m kapanış VWAP + EMA20 ${d5 === "UP" ? "üstünde" : "altında"} olursa ${lean} teyitli olur.`);
   } else {
-    title = "BEKLE — 5m ve 15m yatay, net yön yok";
-    why.push("İki zaman dilimi de kararsız: fiyat VWAP/EMA20 etrafında gidip geliyor.");
+    if (d30 !== "FLAT") lean = sideOfDir(d30);
+    title = d30 !== "FLAT" ? `BEKLE — 5m/15m yatay, 30m ${tr(d30)} (${lean} yatkın)` : "BEKLE — 5m, 15m ve 30m yatay, net yön yok";
+    why.push(`Fiyat VWAP/EMA20 etrafında gidip geliyor. Skorlar: ${scores}.`);
     watch.push("Aralık kırılımını bekle: 5m kapanış LONG ya da SHORT tetiğinin ötesine geçmeli.");
+  }
+
+  // erken uyarı hazırlığı (henüz başlamadı) — karar dışı bilgi
+  if (warning?.level === "BUILDING" && warning.side) {
+    if (action === "BEKLE") {
+      lean = lean ?? warning.side;
+      watch.unshift(`Erken uyarı: ${warning.headline}.`);
+    } else if (warning.side !== action) why.push(`Uyarı: akış ters yönde hazırlık gösteriyor — ${warning.headline}. Stopu sık tut.`);
   }
 
   // hacim / momentum uyarıları
@@ -873,28 +1004,41 @@ export function decisionRead(input: {
   const dns = [last5.low, v5, e5].filter((x): x is number => x != null);
   const longTrig = r2(Math.max(...ups) + 0.01);
   const shortTrig = r2(Math.min(...dns) - 0.01);
-  const pick = (list: MapLevel[], beyond: number, up: boolean) =>
-    list
-      .filter((l) => (up ? l.price > beyond + 0.1 : l.price < beyond - 0.1))
-      .sort((a, b) => (up ? a.price - b.price : b.price - a.price))[0] ?? null;
+  // hedef: tetiğin en az 0,30 ötesindeki ilk ölçülmüş seviye — yuvarlak sayılar yalnızca başka seviye yoksa
+  const pick = (list: MapLevel[], beyond: number, up: boolean) => {
+    const c = list
+      .filter((l) => (up ? l.price > beyond + 0.3 : l.price < beyond - 0.3))
+      .sort((a, b) => (up ? a.price - b.price : b.price - a.price));
+    return c.find((l) => !l.label.includes("yuvarlak")) ?? c[0] ?? null;
+  };
   const tL = pick(resistances, longTrig, true);
   const tS = pick(supports, shortTrig, false);
   const sL = stops?.long && stops.long.stop < longTrig ? stops.long.stop : null;
   const sS = stops?.short && stops.short.stop > shortTrig ? stops.short.stop : null;
+  const prev5b = n5 >= 2 ? s5.bars[n5 - 2] : last5;
+  const tightL = r2(Math.min(Math.min(last5.low, prev5b.low) - 0.05, longTrig - 0.25));
+  const tightS = r2(Math.max(Math.max(last5.high, prev5b.high) + 0.05, shortTrig + 0.25));
   const long: PlanSide = {
     trigger: longTrig, stop: sL, target: tL?.price ?? null, targetLabel: tL?.label ?? null,
     rr: tL && sL != null ? r2((tL.price - longTrig) / (longTrig - sL)) : null,
+    tightStop: tightL, rrTight: tL ? r2((tL.price - longTrig) / (longTrig - tightL)) : null,
   };
   const short: PlanSide = {
     trigger: shortTrig, stop: sS, target: tS?.price ?? null, targetLabel: tS?.label ?? null,
     rr: tS && sS != null ? r2((shortTrig - tS.price) / (sS - shortTrig)) : null,
+    tightStop: tightS, rrTight: tS ? r2((shortTrig - tS.price) / (tightS - shortTrig)) : null,
   };
   const side = action !== "BEKLE" ? action : lean;
   const plan = side === "LONG" ? long : side === "SHORT" ? short : null;
-  if (plan?.rr != null && plan.rr < 1) watch.push(`Risk/ödül zayıf (${plan.rr.toFixed(1)}R): hedef stoba göre yakın — girişi geri çekilmeye sakla ya da pas geç.`);
+  if (plan) {
+    const best = Math.max(plan.rr ?? -1, plan.rrTight ?? -1);
+    if (best >= 0 && best < 1) watch.push(`Risk/ödül zayıf (en iyi ${best.toFixed(1)}R): hedef stoba göre yakın — girişi geri çekilmeye sakla ya da pas geç.`);
+    else if (plan.rr != null && plan.rr < 1 && plan.rrTight != null && plan.rrTight >= 1)
+      watch.push(`15m yapı stobu uzak (${plan.rr.toFixed(1)}R); 5m sıkı stopla (${num2(plan.tightStop)}) ${plan.rrTight.toFixed(1)}R — küçük pozisyon.`);
+  }
 
   return {
-    r5, r15, prev5, history5,
+    r5, r15, r30, prev5, history5,
     day: { open, high, low, rangePos, vsOpen: r2(vsOpen), vsVwap: vsVwap == null ? null : r2(vsVwap), buyShare: dayBuy, dir: dayDir, text: dayText },
     action, lean, title, why, watch, long, short,
   };
