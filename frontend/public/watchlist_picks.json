@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-10-02T14:02:22.445216-04:00",
+  "generated_at": "2026-10-02T17:04:03.682823-04:00",
   "picks": [
     {
       "ticker": "XP",
       "sector": "Financial Services",
       "date_added": "2026-09-30",
       "score": 39.5
-    },
-    {
-      "ticker": "PARR",
-      "sector": "Energy",
-      "date_added": "2026-09-30",
-      "score": 27.5
     },
     {
       "ticker": "BOX",
@@ -24,12 +18,6 @@
       "sector": "Energy",
       "date_added": "2026-10-01",
       "score": 41.5
-    },
-    {
-      "ticker": "UAL",
-      "sector": "Industrials",
-      "date_added": "2026-10-01",
-      "score": 41.0
     },
     {
       "ticker": "NBIS",
@@ -62,10 +50,28 @@
       "score": 39.5
     },
     {
-      "ticker": "ZIM",
-      "sector": "Industrials",
+      "ticker": "VIRT",
+      "sector": "Financial Services",
       "date_added": "2026-10-02",
-      "score": 37.0
+      "score": 46.0
+    },
+    {
+      "ticker": "LPG",
+      "sector": "Energy",
+      "date_added": "2026-10-02",
+      "score": 43.5
+    },
+    {
+      "ticker": "CHEF",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-02",
+      "score": 43.0
+    },
+    {
+      "ticker": "AMZN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-02",
+      "score": 37.5
     }
   ]
 }
