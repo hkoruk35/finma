@@ -27,12 +27,12 @@
       "ticker": "BHE",
       "company": "BHE",
       "sector": "Technology",
-      "master_score": 53.0,
+      "master_score": 63.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 85.03500366210938,
-      "change_pct": 2.56,
+      "price": 87.38999938964844,
+      "change_pct": 3.27,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
     },
     {
       "ticker": "BAND",
@@ -286,6 +286,105 @@
       "change_pct": 1.11,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WTS",
+      "company": "WTS",
+      "sector": "Industrials",
+      "master_score": 54.6,
+      "score_type": "POSITIVE_BIAS",
+      "price": 363.07000732421875,
+      "change_pct": 1.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.6 | System: SQUEEZE"
+    },
+    {
+      "ticker": "KLAC",
+      "company": "KLAC",
+      "sector": "Technology",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 206.88999938964844,
+      "change_pct": 3.27,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SNOW",
+      "company": "SNOW",
+      "sector": "Technology",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 341.0400085449219,
+      "change_pct": -0.28,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SNDR",
+      "company": "SNDR",
+      "sector": "Industrials",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 32.88999938964844,
+      "change_pct": 1.8,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "INTC",
+      "company": "INTC",
+      "sector": "Technology",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 119.33000183105469,
+      "change_pct": -0.56,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ALNT",
+      "company": "ALNT",
+      "sector": "Technology",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 118.30000305175781,
+      "change_pct": 2.03,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EXTR",
+      "company": "EXTR",
+      "sector": "Technology",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 23.1200008392334,
+      "change_pct": 5.23,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "LNG",
+      "company": "LNG",
+      "sector": "Energy",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 269.95001220703125,
+      "change_pct": -0.9,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "HAFN",
+      "company": "HAFN",
+      "sector": "Industrials",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 10.25,
+      "change_pct": 1.79,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
     }
   ]
 }

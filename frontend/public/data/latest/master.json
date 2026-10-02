@@ -1,8 +1,8 @@
 {
   "date": "2026-10-02",
-  "generated_at": "2026-10-02T14:02:22.019973-04:00",
+  "generated_at": "2026-10-02T17:04:03.140979-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 26,
+  "active_scores_count": 35,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 9,
       "tickers": [
         "MU",
         "CLMT",
@@ -30,7 +30,8 @@
         "FIGS",
         "J",
         "ARM",
-        "QRVO"
+        "QRVO",
+        "ALNT"
       ]
     },
     "value": {
@@ -63,7 +64,7 @@
     },
     {
       "ticker": "BHE",
-      "score": 53.0,
+      "score": 63.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
