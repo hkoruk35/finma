@@ -477,12 +477,14 @@ export function buildForecastMap(input: {
   trend?: "UP" | "DOWN" | null;
   /** Ek ölçülmüş seviyeler (POC/VAH/VAL, süpürülmemiş likidite havuzları) */
   extra?: MapLevel[];
+  /** Seans oyun planının yönü (karar paneliyle aynı) — verilirse diğer yön kaynaklarından önceliklidir */
+  playBias?: { bias: "UP" | "DOWN" | "FLAT"; text: string } | null;
   /** Gün ortası aralık dilimi (10:30–14:00, trend günü değil): harita aralık / VWAP'a dönüş senaryosu çizer */
   rangeMode?: boolean;
   /** Erken uyarı (flow.ts) — başlamış/biriken hareketin yönü */
   early?: { side: "LONG" | "SHORT" | null; level: "STARTED" | "BUILDING" | "NONE"; headline: string } | null;
 }): ForecastMapData | null {
-  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early, rangeMode } = input;
+  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early, rangeMode, playBias } = input;
   if (!Number.isFinite(price)) return null;
 
   const closeSec = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
@@ -492,7 +494,10 @@ export function buildForecastMap(input: {
   // — bias —
   let bias: ForecastMapData["bias"] = "FLAT";
   let biasText = "Yön belirsiz — fiyat VWAP etrafında; aralık senaryosu.";
-  if (rangeMode) {
+  if (playBias) {
+    bias = playBias.bias;
+    biasText = playBias.text;
+  } else if (rangeMode) {
     biasText = "Gün ortası aralık dilimi (10:30–14:00): fiyat VWAP etrafında salınır — uçlardan VWAP'a dönüş senaryosu.";
   } else if (trend) {
     bias = trend;
@@ -527,7 +532,11 @@ export function buildForecastMap(input: {
   add(vwap, "VWAP");
   // ek seviyeler yalnızca yakın çevrede (uzak bir havuz ölçeği germesin)
   const reach = Math.max(4, (levels?.hourlyRange ?? DEFAULT_HOURLY) * 4);
-  for (const l of extra ?? []) if (Math.abs(l.price - price) <= reach) add(l.price, l.label);
+  // opsiyon duvarları / max pain daha geniş çevrede hedef olabilir (8 puan ≈ %1)
+  for (const l of extra ?? []) {
+    const isOpt = /duvarı|Max pain/.test(l.label);
+    if (Math.abs(l.price - price) <= (isOpt ? Math.max(reach, 8) : reach)) add(l.price, l.label);
+  }
   const whole = Math.floor(price);
   add(whole, `${whole} yuvarlak`);
   add(whole + 1, `${whole + 1} yuvarlak`);
@@ -801,6 +810,8 @@ export interface PlanSide {
   targetLabel: string | null;
   /** (hedef − tetik) / (tetik − stop) */
   rr: number | null;
+  /** Tetikten hedefe tahmini süre (dk) — ortalama saatlik hareketten (haritanın yolculuk hesabıyla aynı) */
+  etaMin: number | null;
   /** Sıkı stop: son 2 kapanmış 5m mumun dibi/tepesi ± 0,05 (agresif giriş için) */
   tightStop: number;
   rrTight: number | null;
@@ -838,6 +849,34 @@ export const SESSION_MODE_LABEL: Record<SessionMode, string> = {
   MIDDAY_RANGE: "GÜN ORTASI · aralık / ortalamaya dönüş",
   CLOSE_TREND: "ÖĞLEDEN SONRA · trend",
 };
+
+/**
+ * Seans dilimi — karar paneli VE tahmin haritası aynı fonksiyonu kullanır
+ * (ikisi farklı yön göstermesin diye). minsNow: son kapanmış 5m mumun bitişi.
+ */
+export function sessionModeOf(input: { opening: OpeningRegime; s5: DaySeries; price: number; minsNow: number }): {
+  mode: SessionMode;
+  orHi: number | null;
+  orLo: number | null;
+  /** Açılış yönü açılış aralığının karşı ucu geçilerek bozuldu */
+  broken: boolean;
+} {
+  const { opening, s5, price, minsNow } = input;
+  const freeToRange = (): SessionMode => (minsNow >= RANGE_FALLBACK_START && minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "OPEN_FREE");
+  let mode: SessionMode =
+    minsNow < OPEN_TREND_END ? (opening.status === "LOCKED" && (opening.side === "UP" || opening.side === "DOWN") ? "OPEN_TREND" : "OPEN_FREE")
+    : minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "CLOSE_TREND";
+  if (mode === "OPEN_FREE") mode = freeToRange();
+  const orB = s5.bars.slice(0, 3);
+  const orHi = orB.length ? Math.max(...orB.map((x) => x.high)) : null;
+  const orLo = orB.length ? Math.min(...orB.map((x) => x.low)) : null;
+  let broken = false;
+  if (mode === "OPEN_TREND" && orHi != null && orLo != null && (opening.side === "UP" ? price < orLo : price > orHi)) {
+    broken = true;
+    mode = freeToRange();
+  }
+  return { mode, orHi, orLo, broken };
+}
 
 export interface DecisionRead {
   r5: TfRead | null;
@@ -890,6 +929,8 @@ export function decisionRead(input: {
   ema5: EmaMap;
   ema15: EmaMap;
   ema30?: EmaMap;
+  /** Ortalama saatlik hareket (levels.hourlyRange) — hedefe tahmini süre için */
+  hourlyRange?: number | null;
   /** ATR(14) — kapanmış 5m mumlardan; öğlen ortalamaya dönüş mesafesi bununla ölçülür */
   atr5?: number | null;
   /** Hacim profili (flow.ts) */
@@ -1011,15 +1052,10 @@ export function decisionRead(input: {
 
   // — seans dilimi oyun planı (yukarıdaki genel okumayı dilime göre düzeltir) —
   const minsNow = nyParts(s5.bars[n5 - 1].time + 300).minutes;
-  let mode: SessionMode =
-    minsNow < OPEN_TREND_END ? (opening.status === "LOCKED" && (opening.side === "UP" || opening.side === "DOWN") ? "OPEN_TREND" : "OPEN_FREE")
-    : minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "CLOSE_TREND";
-  const freeToRange = (): SessionMode => (minsNow >= RANGE_FALLBACK_START && minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "OPEN_FREE");
-  if (mode === "OPEN_FREE") mode = freeToRange();
+  const sm = sessionModeOf({ opening, s5, price: px, minsNow });
+  const mode: SessionMode = sm.mode;
   let modeText = "";
-  // rejim iptali: fiyat açılış aralığının (ilk 15 dk) karşı ucunu geçti
-  const orB = s5.bars.slice(0, 3);
-  const orHi = Math.max(...orB.map((x) => x.high)), orLo = Math.min(...orB.map((x) => x.low));
+  const orHi = sm.orHi ?? px, orLo = sm.orLo ?? px;
   // ikinci bozulma: 10:30 sonrası son 15m + son 2 adet 5m kapanış VWAP ve EMA20'nin TERS tarafında
   const oDir = opening.side === "UP" ? 1 : opening.side === "DOWN" ? -1 : 0;
   const against = (b: Bar, v: number | null, e: number | null) => v != null && e != null && Math.sign(b.close - v) === -oDir && Math.sign(b.close - e) === -oDir;
@@ -1031,8 +1067,7 @@ export function decisionRead(input: {
     against(s15.bars[n15b - 1], s15.vwap[n15b - 1], ema15.get(s15.bars[n15b - 1].time) ?? null);
   // NOT: bu durumda yönü otomatik çevirmek 60 seansta sonucu kötüleştirdi (+32,5 → +15,5) —
   // yön korunur, yalnızca belirgin uyarı verilir.
-  if (mode === "OPEN_TREND" && (opening.side === "UP" ? px < orLo : px > orHi)) {
-    mode = freeToRange();
+  if (sm.broken) {
     modeText = `Açılış yönü ${opening.label} bozuldu: fiyat açılış aralığının ${opening.side === "UP" ? `dibinin (${fmt(orLo)}) altına` : `tepesinin (${fmt(orHi)}) üstüne`} geçti.`;
   }
   let fade: { side: "LONG" | "SHORT"; target: number } | null = null;
@@ -1246,11 +1281,13 @@ export function decisionRead(input: {
   const long: PlanSide = {
     trigger: longTrig, stop: sL, target: tL?.price ?? null, targetLabel: tL?.label ?? null,
     rr: tL && sL != null ? r2((tL.price - longTrig) / (longTrig - sL)) : null,
+    etaMin: null,
     tightStop: tightL, rrTight: tL ? r2((tL.price - longTrig) / (longTrig - tightL)) : null,
   };
   const short: PlanSide = {
     trigger: shortTrig, stop: sS, target: tS?.price ?? null, targetLabel: tS?.label ?? null,
     rr: tS && sS != null ? r2((shortTrig - tS.price) / (sS - shortTrig)) : null,
+    etaMin: null,
     tightStop: tightS, rrTight: tS ? r2((shortTrig - tS.price) / (tightS - shortTrig)) : null,
   };
   if (fade) {
@@ -1265,6 +1302,8 @@ export function decisionRead(input: {
     p.rr = risk > 0 && rew > 0 ? r2(rew / risk) : null;
     p.rrTight = p.rr;
   }
+  const hr = Math.max(0.3, input.hourlyRange ?? 1);
+  for (const p of [long, short]) p.etaMin = p.target != null ? Math.max(5, Math.round((Math.abs(p.target - p.trigger) / hr) * 60 / 5) * 5) : null;
   const side = action !== "BEKLE" ? action : lean;
   const plan = side === "LONG" ? long : side === "SHORT" ? short : null;
   if (plan) {

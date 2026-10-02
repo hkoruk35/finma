@@ -34,7 +34,7 @@ import {
 } from "@/lib/spyengine/core";
 import {
   daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
-  emaByTime, decisionRead, tfRead, FACTOR_MAX, OPEN_TREND_END, CLOSE_TREND_START,
+  emaByTime, decisionRead, FACTOR_MAX, CLOSE_TREND_START, sessionModeOf,
   type CandleComment, type Tone, type DecisionRead, type TfRead, type PlanSide,
 } from "@/lib/spyengine/openingMap";
 import type {
@@ -42,6 +42,7 @@ import type {
 } from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
+import { optionLevelList, type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
@@ -244,7 +245,11 @@ function PlanCell({ side, p, active, price }: { side: "LONG" | "SHORT"; p: PlanS
         sıkı stop (son 2×5m {isLong ? "dip" : "tepe"}): <b className="text-slate-300">{num(p.tightStop)}</b>
         {p.rrTight != null && <> → <b className={p.rrTight >= 1.5 ? "text-[#4ade80]" : p.rrTight >= 1 ? "text-amber-300" : "text-[#f87171]"}>{p.rrTight.toFixed(1)}R</b></>}
       </div>
-      {p.targetLabel && <div className="mt-0.5 truncate text-[9px] text-slate-600">hedef: {p.targetLabel}</div>}
+      {p.targetLabel && (
+        <div className="mt-0.5 truncate text-[9px] text-slate-600">
+          hedef: {p.targetLabel}{p.etaMin != null && <> · tetikten <b className="text-slate-400">~{p.etaMin} dk</b> (ort. saatlik harekete göre)</>}
+        </div>
+      )}
     </div>
   );
 }
@@ -393,7 +398,7 @@ function MiniCard({ title, children }: { title: string; children: React.ReactNod
   );
 }
 
-function FlowPanel({ f, price, nowMin }: { f: FlowRead | null; price: number | null; nowMin: number }) {
+function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: number | null; nowMin: number; opt: OptionLevels | null }) {
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[11px] text-slate-500`}>
@@ -503,6 +508,37 @@ function FlowPanel({ f, price, nowMin }: { f: FlowRead | null; price: number | n
         </MiniCard>
       </div>
 
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[10px] leading-snug text-slate-400">
+        <span className="font-semibold text-slate-300">Opsiyon seviyeleri</span>{" "}
+        <span className="text-slate-600">(yalnızca seviye — yön kararına girmez)</span>
+        {!opt ? (
+          <span className="ml-1 text-slate-600">· Yahoo zinciri alınamadı</span>
+        ) : (
+          <div className="mt-0.5 flex flex-wrap items-center gap-1.5 font-mono">
+            <span className="text-slate-500">{opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`}:</span>
+            {opt.callWalls.map((w, i) => (
+              <span key={`c${w.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
+                call duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">OI {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+              </span>
+            ))}
+            {opt.putWalls.map((w, i) => (
+              <span key={`p${w.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
+                put duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">OI {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+              </span>
+            ))}
+            {opt.maxPain != null && (
+              <span className="rounded border border-slate-600 bg-slate-700/20 px-1.5 py-0.5 text-slate-200" title="Vade sonunda opsiyon yazarlarının kaybını en aza indiren fiyat — gün sonuna doğru mıknatıs etkisi">
+                max pain <b>{num(opt.maxPain)}</b> <span className="text-slate-500">{num(opt.maxPain - (price ?? opt.spot))}</span>
+              </span>
+            )}
+            {opt.callPutOi != null && <span className="text-slate-500">C/P OI {opt.callPutOi.toFixed(2)}</span>}
+          </div>
+        )}
+        <div className="mt-0.5 text-[9px] text-slate-600">
+          OI dünkü kapanış değeridir (vade günü değişmez); ±%3 pencere; Yahoo gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
+        </div>
+      </div>
+
       {f.events.length > 0 && (
         <div className="border-t border-[#1c2635] px-3 py-1.5">
           <div className="mb-0.5 text-[10px] font-semibold text-slate-300">Akıllı para olayları <span className="font-normal text-slate-600">· en yeni üstte</span></div>
@@ -545,6 +581,8 @@ export default function SpyEngineV9() {
 
   const [quotes, setQuotes] = useState<StripQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
+  /** 0DTE opsiyon duvarları + max pain — yalnızca seviye (5 dk'da bir) */
+  const [optLevelsLive, setOptLevels] = useState<OptionLevels | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<{ checked: number; hit: number } | null>(null);
 
   const [lastFetch, setLastFetch] = useState<number | null>(null);
@@ -636,6 +674,24 @@ export default function SpyEngineV9() {
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
   }, [showTickers]);
+
+  // Opsiyon seviyeleri: canlı modda 5 dk'da bir (sunucu da 5 dk önbellekler); replay'de güncel zincir anlamsız
+  useEffect(() => {
+    if (replayDate) return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/optlevels", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok && json.levels) setOptLevels(json.levels as OptionLevels);
+      } catch {
+        // opsiyon seviyeleri ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 5 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, [replayDate]);
 
   // Kapanış tahmini kaydı + isabet oranı (V4 — sunucu 5 dk kovalara yuvarlıyor)
   const forecastKeyRef = useRef<string>("");
@@ -746,20 +802,31 @@ export default function SpyEngineV9() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [analysis, m1, date, data?.levels?.premarket, minuteSlot]);
 
-  /** 30m + 15m birlikte aynı yöndeyse harita bu gidişatı kullanır */
-  const trend = useMemo<"UP" | "DOWN" | null>(() => {
-    if (!analysis) return null;
-    const a = tfRead(analysis.s30, "30m", ema30), b = tfRead(analysis.s15, "15m", ema15);
-    return a && b && a.dir !== "FLAT" && a.dir === b.dir ? a.dir : null;
-  }, [analysis, ema30, ema15]);
-
-  /** Seans dilimi: 10:30–14:00 aralık (güçlü 30m trend günü hariç) · 14:00+ kapanış trendi */
   const nowMin = evalNow ? nyParts(evalNow).minutes : 0;
-  const rangeMode = useMemo(() => {
-    if (!analysis || nowMin < OPEN_TREND_END || nowMin >= CLOSE_TREND_START) return false;
-    const a = tfRead(analysis.s30, "30m", ema30);
-    return !(a && Math.abs(a.score) >= 5);
-  }, [analysis, ema30, nowMin]);
+
+  /**
+   * Haritanın yönü = karar panelindeki seans planının yönü (aynı sessionModeOf).
+   * Böylece harita ile karar asla farklı yön göstermez.
+   */
+  const playBias = useMemo<{ bias: "UP" | "DOWN" | "FLAT"; text: string } | null>(() => {
+    if (!analysis || price == null || !analysis.s5.bars.length) return null;
+    const s5 = analysis.s5;
+    const minsNow = nyParts(s5.bars[s5.bars.length - 1].time + 300).minutes;
+    const { mode } = sessionModeOf({ opening: analysis.opening, s5, price, minsNow });
+    const op = analysis.opening;
+    if (mode === "OPEN_TREND" && (op.side === "UP" || op.side === "DOWN"))
+      return { bias: op.side, text: `Gün yönü ${op.label}${op.strength ? ` (${op.strength})` : ""} → 14:00'e kadar ${op.side === "UP" ? "yükseliş" : "düşüş"} senaryosu.` };
+    if (mode === "MIDDAY_RANGE") return { bias: "FLAT", text: "Açılış yönü bozuldu / yok: gün ortası aralık — uçlardan VWAP'a dönüş senaryosu." };
+    if (mode === "CLOSE_TREND") {
+      const v = vwapNow, poc = flow?.profile?.poc ?? null;
+      if (v != null && poc != null && Math.sign(price - v) === Math.sign(price - poc) && price !== v)
+        return { bias: price > v ? "UP" : "DOWN", text: `Öğleden sonra: fiyat VWAP ve POC'un ${price > v ? "üstünde" : "altında"} → ${price > v ? "yükseliş" : "düşüş"} senaryosu.` };
+      if (flow?.warning.level === "STARTED" && flow.warning.side)
+        return { bias: flow.warning.side === "LONG" ? "UP" : "DOWN", text: `Öğleden sonra erken uyarı: ${flow.warning.headline}.` };
+      return { bias: "FLAT", text: "Öğleden sonra: fiyat VWAP ile POC arasında — yön yok, aralık senaryosu." };
+    }
+    return { bias: "FLAT", text: op.status === "LOCKED" ? "Açılış yönsüz: 10:30'a kadar bekle — aralık senaryosu." : `Ön okuma (${op.label}) — gün yönü 09:55'te.` };
+  }, [analysis, price, vwapNow, flow]);
 
   /** ATR(14) — kapanmış 5m mumlardan (önceki günler dahil, ısınmış) */
   const atr5 = useMemo(() => {
@@ -768,20 +835,21 @@ export default function SpyEngineV9() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [m5D, lastM1Time, minuteSlot]);
 
+  /** Replay'de güncel zincir anlamsız — gizlenir */
+  const optLevels = replayDate ? null : optLevelsLive;
+
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
     return buildForecastMap({
       price, vwap: vwapNow, date, nowSec: evalNow,
       opening: analysis.opening, live: analysis.live,
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
-      trend,
-      // erken uyarı yalnızca 14:00 sonrası haritayı yönlendirir (öncesinde geçmiş isabeti %40)
-      early: nowMin >= CLOSE_TREND_START ? flow?.warning ?? null : null,
-      rangeMode,
+      playBias,
       extra: flow ? [
         ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
         ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
         ...(flow.leg?.levels ?? []),
+        ...optionLevelList(optLevels),
         ...(flow.adr ? [
           { price: flow.adr.downTo, label: `ADR alt potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
           { price: flow.adr.upTo, label: `ADR üst potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
@@ -789,7 +857,7 @@ export default function SpyEngineV9() {
       ] : [],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, trend, flow, rangeMode, nowMin, minuteSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, flow, playBias, optLevels, minuteSlot]);
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
@@ -810,11 +878,11 @@ export default function SpyEngineV9() {
     if (!analysis || analysis.opening.status === "WAITING") return null;
     return decisionRead({
       s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, ema30, warning: flow?.warning ?? null, price, vwapNow,
-      atr5, profile: flow?.profile ?? null,
+      atr5, profile: flow?.profile ?? null, hourlyRange: data?.levels?.hourlyRange ?? null,
       opening: analysis.opening, stops,
       supports: map?.supports ?? [], resistances: map?.resistances ?? [],
     });
-  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5]);
+  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange]);
 
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
@@ -842,12 +910,13 @@ export default function SpyEngineV9() {
   const chartLines = useMemo(() => {
     const base = data?.levels?.lines ?? [];
     if (!stops) return base;
-    const dir = analysis?.live?.dir ?? "MIXED";
+    // karar panelinin yönü (Canlı Yön kartının ham VWAP okuması değil)
+    const dir = decision?.action === "LONG" ? "UP" : decision?.action === "SHORT" ? "DOWN" : "MIXED";
     const out = [...base];
     if (stops.long && dir !== "DOWN") out.push({ price: stops.long.stop, label: `LONG SL ${stops.long.stop.toFixed(2)}`, color: "#22c55e" });
     if (stops.short && dir !== "UP") out.push({ price: stops.short.stop, label: `SHORT SL ${stops.short.stop.toFixed(2)}`, color: "#ef4444" });
     return out;
-  }, [data?.levels?.lines, stops, analysis?.live?.dir]);
+  }, [data?.levels?.lines, stops, decision?.action]);
 
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   useEffect(() => {
@@ -1075,7 +1144,7 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                Canlı Yön <span className="text-[9px] font-normal text-slate-600">· her dakika kontrol · her kapanan 5m ve 15m mumla güncellenir</span>
+                VWAP Konumu <span className="text-[9px] font-normal text-slate-600">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
               </span>
               <span className="font-mono text-[9px] text-slate-500">
                 {live ? `5m ${live.asOf5} · 15m ${live.asOf15 ?? "—"} kapanışı · ` : ""}
@@ -1125,7 +1194,7 @@ export default function SpyEngineV9() {
         />
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
-        <FlowPanel f={flow} price={price} nowMin={nowMin} />
+        <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} />
 
         {/* ── 2) Motor sinyali (ön uyarı / giriş) ── */}
         <AlertBanner
@@ -1169,7 +1238,7 @@ export default function SpyEngineV9() {
             <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-2">
               {([stops.long, stops.short] as const).map((z) => {
                 const isLong = z.side === "LONG";
-                const dir = analysis?.live?.dir ?? "MIXED";
+                const dir = decision?.action === "LONG" ? "UP" : decision?.action === "SHORT" ? "DOWN" : "MIXED";
                 const active = dir === "MIXED" || (isLong ? dir === "UP" : dir === "DOWN");
                 const col = isLong ? "#22c55e" : "#ef4444";
                 const dist = price != null ? (isLong ? price - z.stop : z.stop - price) : null;
@@ -1232,7 +1301,7 @@ export default function SpyEngineV9() {
             <div className="px-3 py-8 text-center text-[11px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
           ) : (
             <>
-              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} map={map} date={date} nowSec={evalNow} />
+              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} />
               <div className="grid grid-cols-1 gap-2 border-t border-[#1c2635] px-3 py-2 lg:grid-cols-2">
                 <div>
                   <div className="mb-0.5 text-[10px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>

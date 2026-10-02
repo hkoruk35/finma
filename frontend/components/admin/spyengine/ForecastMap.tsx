@@ -14,13 +14,14 @@ import { useMemo } from "react";
 import { nyClock, nyDateTimeToEpoch, RTH_OPEN_MIN, RTH_CLOSE_MIN, type Bar } from "@/lib/spyengine/core";
 import type { ForecastMapData } from "@/lib/spyengine/openingMap";
 import type { FlowRead } from "@/lib/spyengine/flow";
+import type { OptionLevels } from "@/lib/spyengine/optionLevels";
 
 const W = 920;
 const H = 340;
 const PAD = { l: 8, r: 118, t: 26, b: 22 };
 
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, flow, map, date, nowSec,
+  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec,
 }: {
   /** Bugünün RTH 5m mumları (oluşmakta olan dahil) */
   bars: Bar[];
@@ -29,6 +30,8 @@ export default function ForecastMap({
   /** bars ile aynı uzunlukta EMA20 (çok günlük akıştan ısınmış) */
   emaSeries?: (number | null)[];
   flow?: FlowRead | null;
+  /** 0DTE opsiyon duvarları + max pain — yalnızca seviye çizgisi */
+  optLevels?: OptionLevels | null;
   map: ForecastMapData;
   date: string;
   nowSec: number;
@@ -156,6 +159,18 @@ export default function ForecastMap({
         </g>
       ))}
 
+      {/* 0DTE opsiyon seviyeleri: call/put duvarı + max pain (yalnızca seviye) */}
+      {optLevels && [
+        ...optLevels.callWalls.map((w, i) => ({ p: w.strike, t: `C${i ? "2" : ""} duvar`, c: "#f472b6" })),
+        ...optLevels.putWalls.map((w, i) => ({ p: w.strike, t: `P${i ? "2" : ""} duvar`, c: "#38bdf8" })),
+        ...(optLevels.maxPain != null ? [{ p: optLevels.maxPain, t: "max pain", c: "#e2e8f0" }] : []),
+      ].filter((l) => inY(l.p)).map((l) => (
+        <g key={`o${l.t}${l.p}`}>
+          <line x1={PAD.l} x2={plotR} y1={Y(l.p)} y2={Y(l.p)} stroke={l.c} strokeWidth={0.9} strokeDasharray="8 3 1 3" opacity={0.85} />
+          <text x={PAD.l + 3} y={Y(l.p) - 2} fontSize={7.5} fill={l.c} fontFamily="monospace">{l.t} {l.p.toFixed(2)}</text>
+        </g>
+      ))}
+
       {/* 5m mumlar */}
       {bars.map((b) => {
         const up = b.close >= b.open;
@@ -218,6 +233,12 @@ export default function ForecastMap({
           <>
             <line x1={PAD.l + 196} x2={PAD.l + 210} y1={8} y2={8} stroke="#facc15" strokeWidth={0.9} strokeDasharray="1 2.5" />
             <text x={PAD.l + 213} y={11} fill="#facc15">$ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
+          </>
+        )}
+        {optLevels && (
+          <>
+            <line x1={PAD.l + 400} x2={PAD.l + 414} y1={8} y2={8} stroke="#f472b6" strokeWidth={0.9} strokeDasharray="8 3 1 3" />
+            <text x={PAD.l + 417} y={11} fill="#f472b6">opsiyon duvarı / max pain</text>
           </>
         )}
       </g>
