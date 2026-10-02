@@ -34,7 +34,7 @@ import {
 } from "@/lib/spyengine/core";
 import {
   daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
-  emaByTime, decisionRead, tfRead, FACTOR_MAX,
+  emaByTime, decisionRead, tfRead, FACTOR_MAX, OPEN_TREND_END, CLOSE_TREND_START,
   type CandleComment, type Tone, type DecisionRead, type TfRead, type PlanSide,
 } from "@/lib/spyengine/openingMap";
 import type {
@@ -278,6 +278,10 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
           son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · 30m {d.r30?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
         </span>
       </div>
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#1c2635] bg-[#0b1220] px-3 py-1 text-[10px]">
+        <span className="rounded bg-sky-500/15 px-1.5 py-0.5 font-mono text-[9px] font-semibold text-sky-300">{d.modeLabel}</span>
+        <span className="text-slate-400">{d.modeText}</span>
+      </div>
       <div className="px-3 py-2" style={{ backgroundColor: `${col}10` }}>
         <div className="text-[15px] font-extrabold tracking-wide sm:text-[17px]" style={{ color: col }}>
           {d.action === "LONG" ? "▲" : d.action === "SHORT" ? "▼" : "◆"} {d.title}
@@ -389,7 +393,7 @@ function MiniCard({ title, children }: { title: string; children: React.ReactNod
   );
 }
 
-function FlowPanel({ f, price }: { f: FlowRead | null; price: number | null }) {
+function FlowPanel({ f, price, nowMin }: { f: FlowRead | null; price: number | null; nowMin: number }) {
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[11px] text-slate-500`}>
@@ -422,6 +426,11 @@ function FlowPanel({ f, price }: { f: FlowRead | null; price: number | null }) {
           <span className="bg-[#22c55e]" style={{ width: `${(w.bull / tot) * 100}%` }} />
           <span className="bg-[#ef4444]" style={{ width: `${(w.bear / tot) * 100}%` }} />
         </div>
+        {w.level !== "NONE" && nowMin > 0 && nowMin < CLOSE_TREND_START && (
+          <div className="mt-1 text-[10px] text-amber-300/90">
+            ⚠ Bu saatte (14:00 öncesi) erken uyarı geçmiş ölçümde zayıf (%40 isabet) — kararı Karar Desteği&apos;ndeki seans planı verir; bu uyarı yalnızca bilgi.
+          </div>
+        )}
         {(w.targets.length > 0 || w.invalidation != null) && (
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
             <span className="text-slate-500">{w.side ? "hareket sürerse duraklar:" : "olası duraklar:"}</span>
@@ -744,6 +753,21 @@ export default function SpyEngineV9() {
     return a && b && a.dir !== "FLAT" && a.dir === b.dir ? a.dir : null;
   }, [analysis, ema30, ema15]);
 
+  /** Seans dilimi: 10:30–14:00 aralık (güçlü 30m trend günü hariç) · 14:00+ kapanış trendi */
+  const nowMin = evalNow ? nyParts(evalNow).minutes : 0;
+  const rangeMode = useMemo(() => {
+    if (!analysis || nowMin < OPEN_TREND_END || nowMin >= CLOSE_TREND_START) return false;
+    const a = tfRead(analysis.s30, "30m", ema30);
+    return !(a && Math.abs(a.score) >= 5);
+  }, [analysis, ema30, nowMin]);
+
+  /** ATR(14) — kapanmış 5m mumlardan (önceki günler dahil, ısınmış) */
+  const atr5 = useMemo(() => {
+    const closed = m5D.filter((b) => b.time + 300 <= (evalNow || Infinity) && (lastM1Time == null || lastM1Time >= b.time + 300));
+    return closed.length >= 15 ? lastNum(atr(closed, 14)) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [m5D, lastM1Time, minuteSlot]);
+
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
     return buildForecastMap({
@@ -751,14 +775,16 @@ export default function SpyEngineV9() {
       opening: analysis.opening, live: analysis.live,
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
       trend,
-      early: flow?.warning ?? null,
+      // erken uyarı yalnızca 14:00 sonrası haritayı yönlendirir (öncesinde geçmiş isabeti %40)
+      early: nowMin >= CLOSE_TREND_START ? flow?.warning ?? null : null,
+      rangeMode,
       extra: flow ? [
         ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
         ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
       ] : [],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, trend, flow, minuteSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, trend, flow, rangeMode, nowMin, minuteSlot]);
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
@@ -779,10 +805,11 @@ export default function SpyEngineV9() {
     if (!analysis || analysis.opening.status === "WAITING") return null;
     return decisionRead({
       s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, ema30, warning: flow?.warning ?? null, price, vwapNow,
+      atr5, profile: flow?.profile ?? null,
       opening: analysis.opening, stops,
       supports: map?.supports ?? [], resistances: map?.resistances ?? [],
     });
-  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map]);
+  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5]);
 
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
@@ -1093,7 +1120,7 @@ export default function SpyEngineV9() {
         />
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
-        <FlowPanel f={flow} price={price} />
+        <FlowPanel f={flow} price={price} nowMin={nowMin} />
 
         {/* ── 2) Motor sinyali (ön uyarı / giriş) ── */}
         <AlertBanner

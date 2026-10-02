@@ -493,10 +493,12 @@ export function buildForecastMap(input: {
   trend?: "UP" | "DOWN" | null;
   /** Ek ölçülmüş seviyeler (POC/VAH/VAL, süpürülmemiş likidite havuzları) */
   extra?: MapLevel[];
+  /** Gün ortası aralık dilimi (10:30–14:00, trend günü değil): harita aralık / VWAP'a dönüş senaryosu çizer */
+  rangeMode?: boolean;
   /** Erken uyarı (flow.ts) — başlamış/biriken hareketin yönü */
   early?: { side: "LONG" | "SHORT" | null; level: "STARTED" | "BUILDING" | "NONE"; headline: string } | null;
 }): ForecastMapData | null {
-  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early } = input;
+  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early, rangeMode } = input;
   if (!Number.isFinite(price)) return null;
 
   const closeSec = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
@@ -506,7 +508,9 @@ export function buildForecastMap(input: {
   // — bias —
   let bias: ForecastMapData["bias"] = "FLAT";
   let biasText = "Yön belirsiz — fiyat VWAP etrafında; aralık senaryosu.";
-  if (trend) {
+  if (rangeMode) {
+    biasText = "Gün ortası aralık dilimi (10:30–14:00): fiyat VWAP etrafında salınır — uçlardan VWAP'a dönüş senaryosu.";
+  } else if (trend) {
     bias = trend;
     biasText = `30m ve 15m gidişat ${trend === "UP" ? "yukarı" : "aşağı"} (açılış rejimi ${opening.label}) → ${trend === "UP" ? "yükseliş" : "düşüş"} senaryosu.`;
   } else if (early?.side && early.level !== "NONE") {
@@ -818,6 +822,33 @@ export interface PlanSide {
   rrTight: number | null;
 }
 
+/**
+ * Seans dilimi — 18 seanslık geriye dönük ölçümle (2026-09-08 → 10-01, 5 dk
+ * adım, 30/60 dk ileri getiri) belirlendi:
+ *   - Sabah: açılış rejimi yönü işe yarıyor AMA kovalamak değil, geri çekilmede
+ *     girmek (5m ters/yatay ya da fiyat VWAP'ın yanlış tarafında: %55-60,
+ *     +0,4-0,6 puan / 60 dk). Kovalamak %50.
+ *   - Öğlen (11:30-14:00): trend sinyalleri TERS çalışıyor (5m yönü %40, VWAP
+ *     %42, değer alanı dışı %37) → ortalamaya dönüş: VWAP'tan ≥1 ATR₅ ya da
+ *     değer alanı dışı → VWAP/POC'a doğru (%60-63). Aralık içinde işlem yok.
+ *   - Öğleden sonra (14:00+): momentum geri geliyor — fiyat VWAP ve POC'un aynı
+ *     tarafındaysa o yönde (%56, +0,19 puan / 30 dk).
+ * Örneklem küçüktür (18 gün); kurallar bilinen gün içi davranışla (açılış
+ * itkisi, öğle ortalamaya dönüşü, kapanış trendi) uyumlu olduğu için seçildi.
+ */
+/** 09:45–10:30 açılış trendi · 10:30–14:00 aralık / ortalamaya dönüş · 14:00+ kapanış trendi */
+export const OPEN_TREND_END = 10 * 60 + 30;
+export const CLOSE_TREND_START = 14 * 60;
+
+export type SessionMode = "OPEN_TREND" | "OPEN_FREE" | "MIDDAY_RANGE" | "CLOSE_TREND";
+
+export const SESSION_MODE_LABEL: Record<SessionMode, string> = {
+  OPEN_TREND: "SABAH · açılış trendi",
+  OPEN_FREE: "SABAH · rejimsiz",
+  MIDDAY_RANGE: "GÜN ORTASI · aralık / ortalamaya dönüş",
+  CLOSE_TREND: "ÖĞLEDEN SONRA · trend",
+};
+
 export interface DecisionRead {
   r5: TfRead | null;
   r15: TfRead | null;
@@ -843,6 +874,10 @@ export interface DecisionRead {
   action: "LONG" | "SHORT" | "BEKLE";
   /** BEKLE iken hangi tarafa yatkın */
   lean: "LONG" | "SHORT" | null;
+  /** Seans dilimi oyun planı */
+  mode: SessionMode;
+  modeLabel: string;
+  modeText: string;
   title: string;
   why: string[];
   /** Bir sonraki kapanışta neye bakılacağı */
@@ -865,6 +900,12 @@ export function decisionRead(input: {
   ema5: EmaMap;
   ema15: EmaMap;
   ema30?: EmaMap;
+  /** ATR(14) — kapanmış 5m mumlardan; öğlen ortalamaya dönüş mesafesi bununla ölçülür */
+  atr5?: number | null;
+  /** Hacim profili (flow.ts) */
+  profile?: { poc: number; vah: number; val: number } | null;
+  /** false: seans dilimi oyun planını kapat (yalnızca kıyas/test için) */
+  playbook?: boolean;
   /** flow.ts erken uyarısı (yapısal tip — döngüsel import yok) */
   warning?: { level: "STARTED" | "BUILDING" | "NONE"; side: "LONG" | "SHORT" | null; headline: string } | null;
   price: number | null;
@@ -874,7 +915,7 @@ export function decisionRead(input: {
   supports: MapLevel[];
   resistances: MapLevel[];
 }): DecisionRead | null {
-  const { s5, s15, s30, ema5, ema15, ema30, warning, price, vwapNow, opening, stops, supports, resistances } = input;
+  const { s5, s15, s30, ema5, ema15, ema30, warning, price, vwapNow, opening, stops, supports, resistances, atr5, profile } = input;
   const n5 = s5.bars.length;
   if (!n5) return null;
   const r5 = tfRead(s5, "5m", ema5);
@@ -930,7 +971,9 @@ export function decisionRead(input: {
   const ewDir = warning?.side ? dirOfSide(warning.side) : "FLAT";
 
   // erken uyarı: hareket başladı — öne alınır; 30m karşıysa 15m'nin de dönmüş olması gerekir (ana gidişata karşı gürültüyü süzer)
-  const ewOk = warning?.level === "STARTED" && !!warning.side && d15 !== opp(ewDir) && (d30 !== opp(ewDir) || d15 === ewDir);
+  // geçmiş ölçüm: erken uyarı yalnızca 14:00 sonrasında pozitif (sabah/öğlen %40) — öncesinde karara karışmaz
+  const afterClose = nyParts(s5.bars[n5 - 1].time + 300).minutes >= CLOSE_TREND_START;
+  const ewOk = afterClose && warning?.level === "STARTED" && !!warning.side && d15 !== opp(ewDir) && (d30 !== opp(ewDir) || d15 === ewDir);
   if (ewOk && warning?.side) {
     action = warning.side;
     title = `${action} — HAREKET BAŞLADI (erken uyarı)`;
@@ -976,8 +1019,123 @@ export function decisionRead(input: {
     watch.push("Aralık kırılımını bekle: 5m kapanış LONG ya da SHORT tetiğinin ötesine geçmeli.");
   }
 
+  // — seans dilimi oyun planı (yukarıdaki genel okumayı dilime göre düzeltir) —
+  const minsNow = nyParts(s5.bars[n5 - 1].time + 300).minutes;
+  let mode: SessionMode =
+    minsNow < OPEN_TREND_END ? (opening.side === "UP" || opening.side === "DOWN" ? "OPEN_TREND" : "OPEN_FREE")
+    : minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "CLOSE_TREND";
+  let modeText = "";
+  let fade: { side: "LONG" | "SHORT"; target: number } | null = null;
+  const vwC = s5.vwap[n5 - 1];
+  const d5s = d5 === "UP" ? 1 : d5 === "DOWN" ? -1 : 0;
+  if (input.playbook !== false) {
+    if (mode === "OPEN_TREND") {
+      const o = opening.side === "UP" ? 1 : -1;
+      const oSide: "LONG" | "SHORT" = o > 0 ? "LONG" : "SHORT";
+      const orB = s5.bars.slice(0, 3);
+      const orHi = Math.max(...orB.map((x) => x.high)), orLo = Math.min(...orB.map((x) => x.low));
+      // rejim iptali: fiyat açılış aralığının karşı ucunu geçti
+      if (o > 0 ? px < orLo : px > orHi) {
+        mode = "OPEN_FREE";
+        modeText = `Açılış rejimi ${opening.label} bozuldu: fiyat açılış aralığının ${o > 0 ? `dibinin (${fmt(orLo)}) altına` : `tepesinin (${fmt(orHi)}) üstüne`} geçti — genel okuma geçerli.`;
+      } else {
+        const vS = vwC != null ? Math.sign(px - vwC) : 0;
+        const pull = d5s === -o || d5s === 0 || vS === -o;
+        modeText = `Sabah dilimi: açılış rejimi ${opening.label} → ${oSide} tarafı. Geçmiş ölçüm: trend yönünde GERİ ÇEKİLMEDE girmek işe yarıyor (%55–60), kovalamak yaramıyor (%50).`;
+        why.length = 0;
+        watch.length = 0;
+        if (pull) {
+          action = oSide;
+          lean = null;
+          title = `${oSide} — açılış ${opening.label} trendi, geri çekilme bölgesi (giriş alanı)`;
+          why.push(`5m ${tr(d5)}${vS === -o ? `, fiyat VWAP'ın ${o > 0 ? "altında" : "üstünde"}` : ""} → trend yönüne karşı soluklanma; giriş için uygun bölge. Skorlar: ${scores}.`);
+          watch.push(`Giriş: 5m mum ${oSide === "LONG" ? "LONG tetiğinin üstünde" : "SHORT tetiğinin altında"} kapanınca (trend yeniden başlıyor). İptal: açılış aralığının ${o > 0 ? `dibi ${fmt(orLo)} altında` : `tepesi ${fmt(orHi)} üstünde`} 5m kapanış.`);
+        } else {
+          // trend kendi yönünde ilerliyor: pozisyon TAŞINIR (BEKLE demek kazanan pozisyondan çıkmak olurdu); yeni giriş kovalanmaz
+          action = oSide;
+          lean = null;
+          title = `${oSide} — ${opening.label} trendi sürüyor: pozisyonu taşı, yeni giriş için kovalama`;
+          why.push(`5m trend yönünde uzamış — açık pozisyon taşınır; yeni giriş buradan geç kalmış olur. Skorlar: ${scores}.`);
+          watch.push(`Yeni giriş: 5m mum ${o > 0 ? "kırmızı kapanır ya da VWAP/EMA20'ye inerse" : "yeşil kapanır ya da VWAP/EMA20'ye çıkarsa"} geri çekilme bölgesi açılır. İptal: açılış aralığının ${o > 0 ? `dibi ${fmt(orLo)} altında` : `tepesi ${fmt(orHi)} üstünde`} 5m kapanış.`);
+        }
+      }
+    } else if (mode === "MIDDAY_RANGE") {
+      modeText = "Öğlen dilimi (11:30–14:00): geçmiş ölçümde trend sinyalleri bu saatte TERS çalışıyor (%37–42) — ortalamaya dönüş oynanır, VWAP çevresinde işlem yapılmaz.";
+      why.length = 0;
+      watch.length = 0;
+      if (vwC != null && atr5 != null && atr5 > 0) {
+        const z = (px - vwC) / atr5;
+        const outVA = profile ? (px > profile.vah ? 1 : px < profile.val ? -1 : 0) : 0;
+        const pb2 = n5 >= 2 ? s5.bars[n5 - 2] : null, pv2 = n5 >= 2 ? s5.vwap[n5 - 2] : null;
+        const zPrev = pb2 && pv2 != null ? (pb2.close - pv2) / atr5 : 0;
+        // histerezis: tetik ±1 ATR'de açılır, fiyat VWAP'a ±0,3 ATR yaklaşana kadar sürer
+        const stretch =
+          Math.abs(z) >= 1 || outVA !== 0 ? Math.sign(z || outVA)
+          : Math.abs(zPrev) >= 1 && Math.abs(z) >= 0.3 && Math.sign(zPrev) === Math.sign(z) ? Math.sign(z) : 0;
+        const trendDay = !!r30 && stretch !== 0 && Math.sign(r30.score) === stretch && Math.abs(r30.score) >= 5;
+        if (stretch && !trendDay) {
+          const fs: "LONG" | "SHORT" = stretch > 0 ? "SHORT" : "LONG";
+          action = fs;
+          lean = null;
+          // hedef: fiyatın dönüş yönündeki en yakın denge seviyesi (VWAP ya da POC); POC ters taraftaysa VWAP
+          const inDir = (lvl: number) => (fs === "LONG" ? lvl > px : lvl < px);
+          const tgt = profile && inDir(profile.poc) && Math.abs(profile.poc - px) < Math.abs(vwC - px) ? profile.poc : vwC;
+          fade = { side: fs, target: r2(tgt) };
+          title = `${fs} — öğlen ortalamaya dönüş: fiyat VWAP'tan ${Math.abs(z).toFixed(1)}×ATR ${stretch > 0 ? "yukarıda" : "aşağıda"}, hedef ${fmt(tgt)}`;
+          why.push(`VWAP ${fmt(vwC)}, ATR₅ ${fmt(atr5)}${profile ? `, değer alanı ${fmt(profile.val)} – ${fmt(profile.vah)}` : ""}${outVA ? " (fiyat değer alanı DIŞINDA)" : ""}. Skorlar: ${scores}.`);
+          watch.push(`Giriş: 5m mum ${fs === "LONG" ? "son mumun tepesi üstünde" : "son mumun dibi altında"} kapanınca (dönüş teyidi). Hedef ${fmt(tgt)}; fiyat VWAP'a ±0,3 ATR yaklaşınca çık.`);
+        } else if (trendDay) {
+          action = "BEKLE";
+          lean = stretch > 0 ? "LONG" : "SHORT";
+          title = `BEKLE — öğlen ama güçlü trend günü (30m ${r30!.score > 0 ? "+" : ""}${r30!.score}/6): ters işlem yok`;
+          why.push(`30m güçlü ${tr(r30!.dir)} — ortalamaya dönüş trend günlerinde tutmaz. Skorlar: ${scores}.`);
+          watch.push(`Trend yönünde (${lean}) yalnızca VWAP/EMA20'ye geri çekilmede bak.`);
+        } else {
+          action = "BEKLE";
+          lean = null;
+          title = `BEKLE — öğlen aralığı: fiyat VWAP çevresinde (${z >= 0 ? "+" : "−"}${Math.abs(z).toFixed(1)}×ATR)`;
+          why.push(`Fiyat VWAP'a 1 ATR'den yakın — bu saatte buradan yön işlemi isabetsiz (%45). Skorlar: ${scores}.`);
+          watch.push(`Fiyat VWAP'tan 1 ATR uzaklaşırsa (${fmt(vwC + atr5)} üstü / ${fmt(vwC - atr5)} altı) ya da değer alanı dışına çıkarsa ters yönde ortalamaya dönüş fırsatı.`);
+        }
+      } else {
+        action = "BEKLE";
+        lean = null;
+        title = "BEKLE — öğlen aralığı (ATR/VWAP verisi bekleniyor)";
+      }
+    } else if (mode === "CLOSE_TREND") {
+      modeText = "Öğleden sonra dilimi (14:00+): momentum geri geliyor — fiyat VWAP ve POC'un aynı tarafındaysa o yönde (geçmiş isabet %56); erken uyarı da bu saatte pozitif.";
+      if (vwC != null && profile) {
+        // ölü bölge: VWAP'a ATR₅'in 0,15'inden yakın fiyat taraf değiştirmiş sayılmaz (çizgi etrafında gidip gelme)
+        const aS = Math.sign(px - vwC), bS = Math.sign(px - profile.poc);
+        why.length = 0;
+        watch.length = 0;
+        if (aS && aS === bS) {
+          const cs: "LONG" | "SHORT" = aS > 0 ? "LONG" : "SHORT";
+          action = cs;
+          lean = null;
+          title = `${cs} — öğleden sonra trendi: fiyat VWAP (${fmt(vwC)}) ve POC'un (${fmt(profile.poc)}) ${aS > 0 ? "üstünde" : "altında"}`;
+          why.push(`Kabul ${aS > 0 ? "yukarıda" : "aşağıda"}: iki denge seviyesi de arkada kaldı. Skorlar: ${scores}.`);
+          watch.push(`İptal: 5m kapanış VWAP'ın ${aS > 0 ? "altına" : "üstüne"} dönerse.`);
+        } else if (warning?.level === "STARTED" && warning.side) {
+          action = warning.side;
+          lean = null;
+          title = `${warning.side} — öğleden sonra erken uyarı: hareket başladı`;
+          why.push(`${warning.headline}. Fiyat VWAP ile POC arasında — teyit için birini geçmeli. Skorlar: ${scores}.`);
+          watch.push(`5m kapanış ${warning.side === "LONG" ? `${fmt(Math.max(vwC, profile.poc))} üstünde` : `${fmt(Math.min(vwC, profile.poc))} altında`} olursa teyitli.`);
+        } else {
+          action = "BEKLE";
+          lean = null;
+          title = `BEKLE — fiyat VWAP (${fmt(vwC)}) ile POC (${fmt(profile.poc)}) arasında, yön yok`;
+          why.push(`Skorlar: ${scores}.`);
+          watch.push(`5m kapanış ${fmt(Math.max(vwC, profile.poc))} üstünde → LONG · ${fmt(Math.min(vwC, profile.poc))} altında → SHORT.`);
+        }
+      }
+    }
+  }
+  if (!modeText && mode === "OPEN_FREE") modeText = "Sabah dilimi, açılış rejimi BELİRSİZ: 30m/15m/5m genel okuması kullanılır.";
+
   // erken uyarı hazırlığı (henüz başlamadı) — karar dışı bilgi
-  if (warning?.level === "BUILDING" && warning.side) {
+  if (warning?.level === "BUILDING" && warning.side && mode === "CLOSE_TREND") {
     if (action === "BEKLE") {
       lean = lean ?? warning.side;
       watch.unshift(`Erken uyarı: ${warning.headline}.`);
@@ -1028,6 +1186,18 @@ export function decisionRead(input: {
     rr: tS && sS != null ? r2((shortTrig - tS.price) / (sS - shortTrig)) : null,
     tightStop: tightS, rrTight: tS ? r2((shortTrig - tS.price) / (tightS - shortTrig)) : null,
   };
+  if (fade) {
+    // ortalamaya dönüş: tetik = son mumun tepesi/dibi (dönüş teyidi), hedef = VWAP/POC, stop = son 2 mumun ucu
+    const p = fade.side === "LONG" ? long : short;
+    p.trigger = fade.side === "LONG" ? r2(last5.high + 0.01) : r2(last5.low - 0.01);
+    p.target = fade.target;
+    p.targetLabel = "VWAP/POC (ortalamaya dönüş)";
+    p.stop = p.tightStop;
+    const risk = fade.side === "LONG" ? p.trigger - p.tightStop : p.tightStop - p.trigger;
+    const rew = fade.side === "LONG" ? fade.target - p.trigger : p.trigger - fade.target;
+    p.rr = risk > 0 && rew > 0 ? r2(rew / risk) : null;
+    p.rrTight = p.rr;
+  }
   const side = action !== "BEKLE" ? action : lean;
   const plan = side === "LONG" ? long : side === "SHORT" ? short : null;
   if (plan) {
@@ -1040,6 +1210,6 @@ export function decisionRead(input: {
   return {
     r5, r15, r30, prev5, history5,
     day: { open, high, low, rangePos, vsOpen: r2(vsOpen), vsVwap: vsVwap == null ? null : r2(vsVwap), buyShare: dayBuy, dir: dayDir, text: dayText },
-    action, lean, title, why, watch, long, short,
+    action, lean, mode, modeLabel: SESSION_MODE_LABEL[mode], modeText, title, why, watch, long, short,
   };
 }
