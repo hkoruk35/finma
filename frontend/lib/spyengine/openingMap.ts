@@ -271,12 +271,17 @@ export interface OpeningVote {
 }
 
 export interface OpeningRegime {
-  /** WAITING: 09:45'ten önce · FORMING: 09:45-10:00 (her 5m kapanışta güncellenir) · LOCKED: 10:00 sonrası sabit */
+  /** WAITING: 09:45'ten önce · FORMING: 09:45–09:55 (15m kapandı, 5m teyidi bekleniyor) · LOCKED: 09:55 kararı */
   status: "WAITING" | "FORMING" | "LOCKED";
   side: OpeningSide | null;
+  /** Kural tam sağlanmadıysa EMA20 tarafından gelen yön (side bununla doldurulur, weak = true) */
+  lean: "UP" | "DOWN" | null;
+  /** true: yön kuraldan değil EMA20 tarafından (zayıf) */
+  weak: boolean;
+  /** GÜÇLÜ: kural + EMA20 + hacim aynı yönde */
+  strength: "GÜÇLÜ" | "NORMAL" | "ZAYIF" | null;
   label: string;
   summary: string;
-  /** Toplam oy ve olası en yüksek mutlak oy */
   score: number;
   maxScore: number;
   votes: OpeningVote[];
@@ -288,18 +293,15 @@ export interface OpeningRegime {
 const OPEN_WINDOW_END = 10 * 60; // 10:00
 
 /**
- * Açılış rejimi — yalnızca VWAP sayımı DEĞİL (VWAP açılışta fiyatın hemen
- * yanında olduğundan ilk mumlar kolayca iki tarafa düşer ve gerçek bir
- * düşüş/yükseliş "belirsiz" görünür). Ağırlıklı oylar:
- *   • yer değiştirme: son 5m kapanış − 09:30 açılışı (±1 / ±2)
- *   • açılış aralığı (ilk 3×5m) kırılımı (±1)
- *   • son 3 5m kapanışın çoğunluğu VWAP'ın hangi tarafında (±1)
- *   • son 5m kapanış VWAP'a göre (±1) · son 15m kapanış VWAP'a göre (±1)
- *   • 30m açılış mumu (09:30–10:00) gövdesi + kapanış konumu (±1 / ±2)
- *   • tahmini alıcı/satıcı hacmi payı (±1)
- * Toplam ≥ +3 YÜKSELİŞ, ≤ −3 DÜŞÜŞ, arası BELİRSİZ. 10:00'da kilitlenir.
+ * Açılış rejimi — kullanıcının kuralı:
+ *   09:45'te 15m (09:30–09:45) mum VWAP'ın neresinde kapandı; 09:50 ve 09:55'te
+ *   kapanan 5m mumlar da aynı tarafta kapanırsa yön o taraftır.
+ * Teyit: 5m EMA20 da aynı tarafta + 09:45–09:55 mumlarının hacmi yön tarafında
+ * → GÜÇLÜ. Kural sağlanmazsa yön EMA20 tarafıdır (ZAYIF).
+ * 60 seans (2026-07 → 10): kural %65 gün yönünü tuttu (+1,08 puan), hacim
+ * teyidiyle %75 (+1,99); kural yokken EMA20 tarafı 30–60 dk'da %62.
  */
-export function openingRegime(m5: DaySeries, m15: DaySeries, m30?: DaySeries): OpeningRegime {
+export function openingRegime(m5: DaySeries, m15: DaySeries, ema5?: EmaMap | null): OpeningRegime {
   const win5 = m5.bars
     .map((b, i) => ({ b, v: m5.vwap[i] }))
     .filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
@@ -309,85 +311,67 @@ export function openingRegime(m5: DaySeries, m15: DaySeries, m30?: DaySeries): O
 
   const closes5 = win5.map((x) => ({ clock: nyClock(x.b.time), side: sideOf(x.b.close, x.v), close: x.b.close }));
   const closes15 = win15.map((x) => ({ clock: nyClock(x.b.time), side: sideOf(x.b.close, x.v), close: x.b.close }));
-
   const base = { closes5, closes15 };
-  if (win5.length < 3) {
+  const dirOf = (s: VwapSide | null) => (s === "ABOVE" ? 1 : s === "BELOW" ? -1 : 0);
+
+  if (!closes15.length) {
     return {
-      ...base, status: "WAITING", side: null, label: "BEKLENİYOR", score: 0, maxScore: 9, votes: [],
-      summary: `İlk 3 adet 5m kapanış (09:30·09:35·09:40) ve 15m 09:30 kapanışı bekleniyor — karar 09:45 ET'de başlar (${win5.length}/3 mum kapandı).`,
+      ...base, status: "WAITING", side: null, lean: null, weak: false, strength: null, label: "BEKLENİYOR", score: 0, maxScore: 4, votes: [],
+      summary: "09:45'te 15m (09:30–09:45) mumun VWAP'a göre kapanışı bekleniyor; 09:50 ve 09:55 5m kapanışları teyit eder.",
     };
   }
 
-  const n = win5.length;
-  const open = win5[0].b.open;
-  const lastBar = win5[n - 1].b;
-  const votes: OpeningVote[] = [];
+  const s15 = dirOf(closes15[0].side);
+  const c50 = closes5[3] ?? null; // 09:45 mumu → 09:50'de kapanır
+  const c55 = closes5[4] ?? null; // 09:50 mumu → 09:55'te kapanır
+  const locked = !!c55;
+  const d50 = c50 ? dirOf(c50.side) : 0, d55 = c55 ? dirOf(c55.side) : 0;
+  const ruleOk = s15 !== 0 && (c50 ? d50 === s15 : true) && (c55 ? d55 === s15 : true);
 
-  // 1) yer değiştirme
-  const disp = lastBar.close - open;
-  votes.push({
-    label: "Açılıştan hareket",
-    value: `${sgn(disp)} puan (${fmt(open)} → ${fmt(lastBar.close)})`,
-    vote: Math.abs(disp) >= 1.5 ? Math.sign(disp) * 2 : Math.abs(disp) >= 0.6 ? Math.sign(disp) : 0,
-  });
+  // teyitler (son kapanmış 5m mum üzerinden)
+  const last = win5[win5.length - 1].b;
+  const e = ema5?.get(last.time) ?? null;
+  const dE = e == null ? 0 : Math.sign(last.close - e);
+  const recent = win5.slice(3).map((x) => x.b);
+  const volDir = Math.sign(recent.reduce((a, b) => a + (b.close > b.open ? b.volume : b.close < b.open ? -b.volume : 0), 0));
 
-  // 2) açılış aralığı kırılımı (ilk 3 mum sonrası)
-  const or = win5.slice(0, 3).map((x) => x.b);
-  const orHi = Math.max(...or.map((b) => b.high)), orLo = Math.min(...or.map((b) => b.low));
-  if (n >= 4) {
-    const v = lastBar.close > orHi ? 1 : lastBar.close < orLo ? -1 : 0;
-    votes.push({ label: "Açılış aralığı", value: v > 0 ? `tepe (${fmt(orHi)}) yukarı kırıldı` : v < 0 ? `dip (${fmt(orLo)}) aşağı kırıldı` : `içinde (${fmt(orLo)} – ${fmt(orHi)})`, vote: v });
-  } else votes.push({ label: "Açılış aralığı", value: `oluştu: ${fmt(orLo)} – ${fmt(orHi)}`, vote: 0 });
+  const votes: OpeningVote[] = [
+    { label: "15m 09:45 / VWAP", value: closes15[0].side === "ABOVE" ? "üstünde" : closes15[0].side === "BELOW" ? "altında" : "üzerinde", vote: s15 },
+    { label: "5m 09:50 / VWAP", value: c50 ? (c50.side === "ABOVE" ? "üstünde" : c50.side === "BELOW" ? "altında" : "üzerinde") : "bekleniyor", vote: d50 },
+    { label: "5m 09:55 / VWAP", value: c55 ? (c55.side === "ABOVE" ? "üstünde" : c55.side === "BELOW" ? "altında" : "üzerinde") : "bekleniyor", vote: d55 },
+    { label: "EMA20 (5m)", value: e == null ? "—" : `${dE > 0 ? "üstünde" : dE < 0 ? "altında" : "üzerinde"} (${fmt(e)})`, vote: dE },
+  ];
+  if (recent.length) votes.push({ label: "Hacim (09:45 sonrası)", value: volDir > 0 ? "alıcı ağır" : volDir < 0 ? "satıcı ağır" : "dengede", vote: volDir });
 
-  // 3) son 3 kapanışın VWAP çoğunluğu · 4) son kapanış
-  const last3 = closes5.slice(-3);
-  const ab = last3.filter((c) => c.side === "ABOVE").length, be = last3.filter((c) => c.side === "BELOW").length;
-  votes.push({ label: "Son 3 kapanış / VWAP", value: `${ab} üstte · ${be} altta`, vote: ab >= 2 ? 1 : be >= 2 ? -1 : 0 });
-  const lastSide = closes5[n - 1].side;
-  votes.push({ label: "Son 5m / VWAP", value: lastSide === "ABOVE" ? "üstünde" : lastSide === "BELOW" ? "altında" : "üzerinde", vote: lastSide === "ABOVE" ? 1 : lastSide === "BELOW" ? -1 : 0 });
-  const side15 = closes15.length ? closes15[closes15.length - 1].side : null;
-  votes.push({ label: "Son 15m / VWAP", value: side15 == null ? "—" : side15 === "ABOVE" ? "üstünde" : side15 === "BELOW" ? "altında" : "üzerinde", vote: side15 === "ABOVE" ? 1 : side15 === "BELOW" ? -1 : 0 });
-
-  // 5) 30m açılış mumu (kapanmışsa)
-  const c30 = m30?.bars.find((b) => nyParts(b.time).minutes === 9 * 60 + 30) ?? null;
-  if (c30) {
-    const rg = Math.max(0.01, c30.high - c30.low);
-    const bodyPct = Math.abs(c30.close - c30.open) / rg;
-    const pos = (c30.close - c30.low) / rg;
-    const dir = Math.sign(c30.close - c30.open);
-    const strong = bodyPct >= 0.5 && (dir > 0 ? pos >= 0.7 : pos <= 0.3);
-    votes.push({
-      label: "30m açılış mumu",
-      value: `${dir > 0 ? "yeşil" : dir < 0 ? "kırmızı" : "doji"} · gövde %${Math.round(bodyPct * 100)} · kapanış ${pos <= 0.3 ? "dibe yakın" : pos >= 0.7 ? "tepeye yakın" : "ortada"}`,
-      vote: strong ? dir * 2 : bodyPct >= 0.3 ? dir : 0,
-    });
-  } else votes.push({ label: "30m açılış mumu", value: "10:00'da kapanır", vote: 0 });
-
-  // 6) alıcı/satıcı hacmi payı
-  let buy = 0, tot = 0;
-  for (const { b } of win5) {
-    const rg = b.high - b.low;
-    buy += (b.volume || 0) * (rg > 0 ? (b.close - b.low) / rg : 0.5);
-    tot += b.volume || 0;
+  let side: OpeningSide;
+  let weak = false;
+  let lean: OpeningRegime["lean"] = null;
+  let strength: OpeningRegime["strength"];
+  if (ruleOk) {
+    side = s15 > 0 ? "UP" : "DOWN";
+    strength = dE === s15 && volDir === s15 ? "GÜÇLÜ" : "NORMAL";
+  } else if (dE !== 0) {
+    side = dE > 0 ? "UP" : "DOWN";
+    lean = side;
+    weak = true;
+    strength = "ZAYIF";
+  } else {
+    side = "UNCERTAIN";
+    strength = null;
   }
-  const share = tot > 0 ? buy / tot : 0.5;
-  votes.push({ label: "Hacim payı", value: `alıcı %${Math.round(share * 100)} · satıcı %${Math.round((1 - share) * 100)}`, vote: share >= 0.55 ? 1 : share <= 0.45 ? -1 : 0 });
 
+  const status: OpeningRegime["status"] = locked ? "LOCKED" : "FORMING";
+  const word = side === "UP" ? "YÜKSELİŞ" : side === "DOWN" ? "DÜŞÜŞ" : "BELİRSİZ";
+  const label = weak ? `${word} (EMA20)` : word;
   const score = votes.reduce((a, v) => a + v.vote, 0);
-  const maxScore = 9;
-  const side: OpeningSide = score >= 3 ? "UP" : score <= -3 ? "DOWN" : "UNCERTAIN";
-  const status: OpeningRegime["status"] = n >= 6 ? "LOCKED" : "FORMING";
-  const label = side === "UP" ? "YÜKSELİŞ" : side === "DOWN" ? "DÜŞÜŞ" : "BELİRSİZ";
-  const key = votes.filter((v) => v.vote !== 0 && Math.sign(v.vote) === Math.sign(score)).map((v) => `${v.label.toLowerCase()} ${v.value}`);
-  const why =
-    side === "UNCERTAIN"
-      ? `Oylar dengede (toplam ${score > 0 ? "+" : ""}${score}/${maxScore}) — açılış tek yöne itmedi; aralık ${fmt(orLo)} – ${fmt(orHi)} kırılımını bekle.`
-      : `Toplam ${score > 0 ? "+" : ""}${score}/${maxScore}: ${key.slice(0, 3).join("; ")}.`;
+  const why = ruleOk
+    ? `15m 09:45${c50 ? " + 5m 09:50" : ""}${c55 ? " + 5m 09:55" : ""} VWAP'ın ${s15 > 0 ? "üstünde" : "altında"} kapandı → ${word}${strength === "GÜÇLÜ" ? " · EMA20 ve hacim de teyit ediyor (GÜÇLÜ)" : dE === s15 ? " · EMA20 teyitli" : dE ? " · EMA20 henüz ters (dikkat)" : ""}.`
+    : weak
+      ? `Kural tam sağlanmadı (15m ile 5m kapanışlar farklı tarafta) → yön EMA20 tarafından: ${word} (zayıf).`
+      : "Kural sağlanmadı ve fiyat EMA20 üzerinde — yön için bir sonraki 5m kapanışı izle.";
+  const summary = locked ? `09:55 kararı: ${why}` : `Ön okuma (${c50 ? "09:50" : "09:45"}) — karar 09:55'te: ${why}`;
 
-  return {
-    ...base, status, side, label, score, maxScore, votes,
-    summary: `${status === "LOCKED" ? "10:00 kararı (kilitli): " : "Oluşuyor — 10:00'a kadar her 5m kapanışta güncellenir: "}${why}`,
-  };
+  return { ...base, status, side, lean, weak, strength, label, score, maxScore: votes.length, votes, summary };
 }
 
 // ── Canlı yön (her kapanan 5m + 15m mumla güncellenir) ───────────────
@@ -542,7 +526,7 @@ export function buildForecastMap(input: {
   }
   add(vwap, "VWAP");
   // ek seviyeler yalnızca yakın çevrede (uzak bir havuz ölçeği germesin)
-  const reach = Math.max(2.5, (levels?.hourlyRange ?? DEFAULT_HOURLY) * 2.5);
+  const reach = Math.max(4, (levels?.hourlyRange ?? DEFAULT_HOURLY) * 4);
   for (const l of extra ?? []) if (Math.abs(l.price - price) <= reach) add(l.price, l.label);
   const whole = Math.floor(price);
   add(whole, `${whole} yuvarlak`);
@@ -836,15 +820,21 @@ export interface PlanSide {
  * Örneklem küçüktür (18 gün); kurallar bilinen gün içi davranışla (açılış
  * itkisi, öğle ortalamaya dönüşü, kapanış trendi) uyumlu olduğu için seçildi.
  */
-/** 09:45–10:30 açılış trendi · 10:30–14:00 aralık / ortalamaya dönüş · 14:00+ kapanış trendi */
-export const OPEN_TREND_END = 10 * 60 + 30;
+/**
+ * 09:55–14:00 açılış yönü (kullanıcı kuralı) taşınır · yön bozulursa 10:30
+ * sonrası ortalamaya dönüş · 14:00+ kapanış trendi.
+ * 60 seans: +32,5 puan; ayar görmemiş 42 gün +15,1, ayar verisi 18 gün +17,3.
+ */
+export const OPEN_TREND_END = 14 * 60;
+/** Açılış yönü bozulursa bu saatten sonra ortalamaya dönüş moduna geçilir (öncesi BEKLE) */
+const RANGE_FALLBACK_START = 10 * 60 + 30;
 export const CLOSE_TREND_START = 14 * 60;
 
 export type SessionMode = "OPEN_TREND" | "OPEN_FREE" | "MIDDAY_RANGE" | "CLOSE_TREND";
 
 export const SESSION_MODE_LABEL: Record<SessionMode, string> = {
-  OPEN_TREND: "SABAH · açılış trendi",
-  OPEN_FREE: "SABAH · rejimsiz",
+  OPEN_TREND: "GÜN YÖNÜ · 09:55 kuralı (14:00'e kadar)",
+  OPEN_FREE: "AÇILIŞ · ön okuma / yönsüz",
   MIDDAY_RANGE: "GÜN ORTASI · aralık / ortalamaya dönüş",
   CLOSE_TREND: "ÖĞLEDEN SONRA · trend",
 };
@@ -1022,9 +1012,29 @@ export function decisionRead(input: {
   // — seans dilimi oyun planı (yukarıdaki genel okumayı dilime göre düzeltir) —
   const minsNow = nyParts(s5.bars[n5 - 1].time + 300).minutes;
   let mode: SessionMode =
-    minsNow < OPEN_TREND_END ? (opening.side === "UP" || opening.side === "DOWN" ? "OPEN_TREND" : "OPEN_FREE")
+    minsNow < OPEN_TREND_END ? (opening.status === "LOCKED" && (opening.side === "UP" || opening.side === "DOWN") ? "OPEN_TREND" : "OPEN_FREE")
     : minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "CLOSE_TREND";
+  const freeToRange = (): SessionMode => (minsNow >= RANGE_FALLBACK_START && minsNow < CLOSE_TREND_START ? "MIDDAY_RANGE" : "OPEN_FREE");
+  if (mode === "OPEN_FREE") mode = freeToRange();
   let modeText = "";
+  // rejim iptali: fiyat açılış aralığının (ilk 15 dk) karşı ucunu geçti
+  const orB = s5.bars.slice(0, 3);
+  const orHi = Math.max(...orB.map((x) => x.high)), orLo = Math.min(...orB.map((x) => x.low));
+  // ikinci bozulma: 10:30 sonrası son 15m + son 2 adet 5m kapanış VWAP ve EMA20'nin TERS tarafında
+  const oDir = opening.side === "UP" ? 1 : opening.side === "DOWN" ? -1 : 0;
+  const against = (b: Bar, v: number | null, e: number | null) => v != null && e != null && Math.sign(b.close - v) === -oDir && Math.sign(b.close - e) === -oDir;
+  const n15b = s15.bars.length;
+  const flipped =
+    oDir !== 0 && minsNow >= RANGE_FALLBACK_START && n5 >= 2 && n15b >= 1 &&
+    against(s5.bars[n5 - 1], s5.vwap[n5 - 1], ema5.get(s5.bars[n5 - 1].time) ?? null) &&
+    against(s5.bars[n5 - 2], s5.vwap[n5 - 2], ema5.get(s5.bars[n5 - 2].time) ?? null) &&
+    against(s15.bars[n15b - 1], s15.vwap[n15b - 1], ema15.get(s15.bars[n15b - 1].time) ?? null);
+  // NOT: bu durumda yönü otomatik çevirmek 60 seansta sonucu kötüleştirdi (+32,5 → +15,5) —
+  // yön korunur, yalnızca belirgin uyarı verilir.
+  if (mode === "OPEN_TREND" && (opening.side === "UP" ? px < orLo : px > orHi)) {
+    mode = freeToRange();
+    modeText = `Açılış yönü ${opening.label} bozuldu: fiyat açılış aralığının ${opening.side === "UP" ? `dibinin (${fmt(orLo)}) altına` : `tepesinin (${fmt(orHi)}) üstüne`} geçti.`;
+  }
   let fade: { side: "LONG" | "SHORT"; target: number } | null = null;
   const vwC = s5.vwap[n5 - 1];
   const d5s = d5 === "UP" ? 1 : d5 === "DOWN" ? -1 : 0;
@@ -1032,16 +1042,10 @@ export function decisionRead(input: {
     if (mode === "OPEN_TREND") {
       const o = opening.side === "UP" ? 1 : -1;
       const oSide: "LONG" | "SHORT" = o > 0 ? "LONG" : "SHORT";
-      const orB = s5.bars.slice(0, 3);
-      const orHi = Math.max(...orB.map((x) => x.high)), orLo = Math.min(...orB.map((x) => x.low));
-      // rejim iptali: fiyat açılış aralığının karşı ucunu geçti
-      if (o > 0 ? px < orLo : px > orHi) {
-        mode = "OPEN_FREE";
-        modeText = `Açılış rejimi ${opening.label} bozuldu: fiyat açılış aralığının ${o > 0 ? `dibinin (${fmt(orLo)}) altına` : `tepesinin (${fmt(orHi)}) üstüne`} geçti — genel okuma geçerli.`;
-      } else {
+      {
         const vS = vwC != null ? Math.sign(px - vwC) : 0;
         const pull = d5s === -o || d5s === 0 || vS === -o;
-        modeText = `Sabah dilimi: açılış rejimi ${opening.label} → ${oSide} tarafı. Geçmiş ölçüm: trend yönünde GERİ ÇEKİLMEDE girmek işe yarıyor (%55–60), kovalamak yaramıyor (%50).`;
+        modeText = `Gün yönü (09:55 kuralı): ${opening.label}${opening.strength ? ` · ${opening.strength}` : ""} → 14:00'e kadar ${oSide} tarafı. Yeni giriş geri çekilmede (VWAP/EMA20'ye dönüş), açık pozisyon taşınır. Bozulma: fiyat açılış aralığının ${o > 0 ? `dibi ${fmt(orLo)} altına` : `tepesi ${fmt(orHi)} üstüne`} geçerse.`;
         why.length = 0;
         watch.length = 0;
         if (pull) {
@@ -1132,7 +1136,69 @@ export function decisionRead(input: {
       }
     }
   }
-  if (!modeText && mode === "OPEN_FREE") modeText = "Sabah dilimi, açılış rejimi BELİRSİZ: 30m/15m/5m genel okuması kullanılır.";
+  // 5m erken dönüş işaretleri: trend yönündeki pozisyona karşı ilk uyarılar (15m teyidinden önce)
+  const actDir = action === "LONG" ? 1 : action === "SHORT" ? -1 : 0;
+  if (input.playbook !== false && actDir !== 0 && (mode === "OPEN_TREND" || mode === "CLOSE_TREND") && !(mode === "OPEN_TREND" && flipped) && n5 >= 2) {
+    const c = s5.bars[n5 - 1], p = s5.bars[n5 - 2];
+    const rg = Math.max(0.01, c.high - c.low);
+    const pos = (c.close - c.low) / rg;
+    const loW = Math.min(c.open, c.close) - c.low, upW = c.high - Math.max(c.open, c.close);
+    const signs: string[] = [];
+    if (actDir < 0 && loW / rg >= 0.5 && pos >= 0.5) signs.push(`uzun alt fitil reddi (${fmt(c.low)} altı alınmadı)`);
+    if (actDir > 0 && upW / rg >= 0.5 && pos <= 0.5) signs.push(`uzun üst fitil reddi (${fmt(c.high)} üstü tutunamadı)`);
+    const eC = ema5.get(c.time) ?? null, eP = ema5.get(p.time) ?? null;
+    if (eC != null && eP != null && Math.sign(c.close - eC) === -actDir && Math.sign(p.close - eP) === actDir)
+      signs.push(`5m EMA20'nin (${fmt(eC)}) ${actDir < 0 ? "üstüne" : "altına"} kapandı`);
+    const pBody = p.close - p.open, cBody = c.close - c.open;
+    if (Math.sign(pBody) === actDir && Math.sign(cBody) === -actDir && Math.abs(cBody) > Math.abs(pBody) &&
+        Math.max(c.open, c.close) >= Math.max(p.open, p.close) && Math.min(c.open, c.close) <= Math.min(p.open, p.close))
+      signs.push(`${actDir < 0 ? "yükselen" : "düşen"} yutan mum`);
+    const vC = s5.vwap[n5 - 1];
+    if (eC != null && vC != null && Math.sign(c.close - eC) === -actDir && Math.sign(c.close - vC) === -actDir)
+      signs.push(`fiyat VWAP (${fmt(vC)}) ve EMA20'nin ${actDir < 0 ? "üstünde" : "altında"}`);
+    if (r5 && Math.sign(r5.score) === -actDir && Math.abs(r5.score) >= 4)
+      signs.push(`5m skor ${r5.score > 0 ? "+" : ""}${r5.score}/${FACTOR_MAX} (ters yönde güçlü)`);
+    if (signs.length) {
+      const n15c = s15.bars.length;
+      const e15 = n15c ? ema15.get(s15.bars[n15c - 1].time) ?? null : null;
+      const v15 = n15c ? s15.vwap[n15c - 1] : null;
+      const lv = [e15, v15].filter((x): x is number => x != null);
+      const conf = lv.length ? (actDir < 0 ? Math.max(...lv) : Math.min(...lv)) : null;
+      const confTxt = conf != null ? ` Dönüş teyidi: 15m kapanış ${fmt(conf)} ${actDir < 0 ? "üstünde" : "altında"} (15m EMA20/VWAP).` : "";
+      if (signs.length >= 2) {
+        title = `${action} — gün yönü korunuyor, ama 5m dönüş işaretleri: yeni giriş yok, stopu sıkılaştır`;
+        // "geri çekilmede gir" önerisi bu durumda geçersiz
+        for (let k = why.length - 1; k >= 0; k--) if (why[k].includes("uygun bölge")) why.splice(k, 1);
+        watch.length = 0;
+        watch.push(`Dönüş teyidi: 15m kapanış${conf != null ? ` ${fmt(conf)} ${actDir < 0 ? "üstünde" : "altında"}` : " 15m EMA20/VWAP'ın ters tarafında"}. Teyit gelmeden yön değiştirme; işaretler kaybolursa (5m tekrar EMA20'nin ${actDir < 0 ? "altına" : "üstüne"} kapanırsa) gün yönü devam eder.`);
+        why.unshift(`⚡ ERKEN DÖNÜŞ İŞARETİ (5m ${nyClock(c.time)}): ${signs.join(" + ")} — ${actDir < 0 ? "düşüş" : "yükseliş"} ivmesi kesiliyor; yeni giriş yapma, stopu sıkılaştır.${confTxt}`);
+      } else {
+        why.push(`5m dikkat (${nyClock(c.time)}): ${signs[0]}.${confTxt}`);
+      }
+    }
+  }
+  if (input.playbook !== false && mode === "OPEN_TREND" && flipped) {
+    title = `${action} — gün yönü (${opening.label}) korunuyor, ama güçlü karşı hareket: yeni giriş yok, stopu sıkılaştır`;
+    why.unshift(`⚠ DİKKAT: son 15m ve 2×5m kapanış VWAP + EMA20'nin ${oDir > 0 ? "ALTINDA" : "ÜSTÜNDE"} — gün yönüne karşı güçlü ${oDir > 0 ? "düşüş" : "toparlanma"}. Sistem yönü korur (otomatik çevirmek geçmişte kaybettirdi); yeni giriş yapma, açık pozisyonda stopu sıkılaştır.`);
+  }
+  // 09:55 öncesi ön okuma ya da 10:30'dan önce bozulan açılış yönü: yön işlemi yok
+  // (60 seansta bu dilimde genel okuma −6,4 puan / %44'tü)
+  if (input.playbook !== false && mode === "OPEN_FREE") {
+    action = "BEKLE";
+    lean = opening.side === "UP" ? "LONG" : opening.side === "DOWN" ? "SHORT" : opening.lean === "UP" ? "LONG" : opening.lean === "DOWN" ? "SHORT" : null;
+    title =
+      opening.status !== "LOCKED" ? `ÖN OKUMA — ${opening.label}; gün yönü 09:55'te (5m 09:50 + 09:55 teyidi)`
+      : opening.side === "UNCERTAIN" ? "BEKLE — açılış kararsız, fiyat EMA20 üzerinde: 10:30'da ortalamaya dönüş planı başlar"
+      : "BEKLE — açılış yönü bozuldu: 10:30'da ortalamaya dönüş planı başlar";
+    why.length = 0;
+    why.push(`Skorlar: ${scores}.`);
+    watch.length = 0;
+    watch.push(opening.status !== "LOCKED" ? "09:50 ve 09:55 5m kapanışları 15m ile aynı VWAP tarafındaysa gün yönü kilitlenir; değilse EMA20 tarafı (zayıf)." : "10:30'dan sonra aralık planı (VWAP ±1 ATR'den ortalamaya dönüş) devreye girer.");
+  }
+  if (!modeText && mode === "OPEN_FREE")
+    modeText = opening.status !== "LOCKED"
+      ? "09:45–09:55 ön okuma: 15m kapanışı görüldü, 5m teyitleri bekleniyor."
+      : "Açılış yönü yok/bozuldu: 10:30'a kadar yön işlemi geçmişte zarar ettirdi — beklenir, sonra ortalamaya dönüş.";
 
   // erken uyarı hazırlığı (henüz başlamadı) — karar dışı bilgi
   if (warning?.level === "BUILDING" && warning.side && mode === "CLOSE_TREND") {
@@ -1171,8 +1237,9 @@ export function decisionRead(input: {
   };
   const tL = pick(resistances, longTrig, true);
   const tS = pick(supports, shortTrig, false);
-  const sL = stops?.long && stops.long.stop < longTrig ? stops.long.stop : null;
-  const sS = stops?.short && stops.short.stop > shortTrig ? stops.short.stop : null;
+  // stop, fiyatın zaten ötesindeyse (aşılmış) geçersiz sayılır
+  const sL = stops?.long && stops.long.stop < longTrig && stops.long.stop < px ? stops.long.stop : null;
+  const sS = stops?.short && stops.short.stop > shortTrig && stops.short.stop > px ? stops.short.stop : null;
   const prev5b = n5 >= 2 ? s5.bars[n5 - 2] : last5;
   const tightL = r2(Math.min(Math.min(last5.low, prev5b.low) - 0.05, longTrig - 0.25));
   const tightS = r2(Math.max(Math.max(last5.high, prev5b.high) + 0.05, shortTrig + 0.25));

@@ -175,6 +175,10 @@ export interface FlowRead {
   /** Son 3 mum aynı yönde, gövde ve hacim büyüyor */
   accel: { dir: 1 | -1 | 0; text: string | null };
   warning: EarlyWarning;
+  /** Son bacak (5m salınımından) — Fibonacci geri çekilme / uzantı seviyeleri */
+  leg: { dir: 1 | -1; from: number; to: number; levels: { price: number; label: string }[] } | null;
+  /** Önceki ≤5 RTH gününün ortalama aralığı ve bugünkü kalan potansiyel seviyeleri */
+  adr: { avg: number; used: number; downTo: number; upTo: number } | null;
 }
 
 const RECENT_BARS = 4;
@@ -447,8 +451,53 @@ export function flowRead(input: {
     : compression.active ? "◆ SIKIŞMA — fiyat daralıyor, kırılım yakın (yön için kutu kırılımını bekle)"
     : "Sakin — belirgin akıllı para / likidite izi yok";
 
+  // — son bacak: en son teyitli salınımdan bugüne; ≥0,5 puanlık hareket için Fibonacci —
+  let leg: FlowRead["leg"] = null;
+  const lastSw = swings.length ? swings[swings.length - 1] : null;
+  if (lastSw) {
+    const after = bars.filter((b) => b.time > lastSw.time);
+    const dir: 1 | -1 = lastSw.kind === "HIGH" ? -1 : 1;
+    const ext = after.length ? (dir < 0 ? Math.min(...after.map((b) => b.low), price) : Math.max(...after.map((b) => b.high), price)) : price;
+    const L = Math.abs(ext - lastSw.price);
+    if (L >= 0.5) {
+      const word = dir < 0 ? "düşüş" : "yükseliş";
+      // geri çekilme: bacağın ucundan geriye · uzantı: bacağın başından ileriye
+      const retr = (k: number) => r2(ext - dir * L * k);
+      const extn = (k: number) => r2(lastSw.price + dir * L * k);
+      leg = {
+        dir, from: lastSw.price, to: r2(ext),
+        levels: [
+          { price: retr(0.5), label: `Fib %50 geri çekilme (${word} bacağı)` },
+          { price: retr(0.618), label: `Fib %61.8 geri çekilme (${word} bacağı)` },
+          { price: extn(1.272), label: `Fib 1.272 uzantı (${word} hedefi)` },
+          { price: extn(1.618), label: `Fib 1.618 uzantı (${word} hedefi)` },
+        ],
+      };
+    }
+  }
+
+  // — ADR: önceki ≤5 RTH gününün ortalama aralığı; bugünkü aralık bunun ne kadarını kullandı —
+  let adr: FlowRead["adr"] = null;
+  {
+    const byDay = new Map<string, { hi: number; lo: number }>();
+    for (const b of m1) {
+      if (!isRthBar(b)) continue;
+      const d = nyParts(b.time).ymd;
+      if (d >= ymd) continue;
+      const x = byDay.get(d);
+      if (!x) byDay.set(d, { hi: b.high, lo: b.low });
+      else { x.hi = Math.max(x.hi, b.high); x.lo = Math.min(x.lo, b.low); }
+    }
+    const ranges5 = Array.from(byDay.entries()).sort((a, b) => a[0].localeCompare(b[0])).slice(-5).map(([, v]) => v.hi - v.lo);
+    if (ranges5.length >= 2) {
+      const a = avg(ranges5);
+      adr = { avg: r2(a), used: r2(dayHi - dayLo), downTo: r2(dayHi - a), upTo: r2(dayLo + a) };
+    }
+  }
+
   return {
     profile, swings, pools, events, cumDelta, delta30, deltaPct30, deltaSeries, compression, accel,
     warning: { level, side, bull: r2(bull), bear: r2(bear), bullWhy, bearWhy, headline, targets, invalidation },
+    leg, adr,
   };
 }

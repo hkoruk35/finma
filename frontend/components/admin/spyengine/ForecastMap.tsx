@@ -228,7 +228,7 @@ export default function ForecastMap({
       {map.path.map((p, i) => (
         <g key={i}>
           <circle cx={X(p.t)} cy={Y(p.price)} r={3.5} fill={i === 0 ? "#e2e8f0" : biasColor} stroke="#0a0e17" strokeWidth={1} />
-          {i > 0 && (
+          {i > 0 && (i === map.path.length - 1 || X(map.path[map.path.length - 1].t) - X(p.t) > 70) && (
             <text
               x={Math.min(X(p.t), W - PAD.r - 4)}
               y={Y(p.price) + (i % 2 ? -8 : 14)}

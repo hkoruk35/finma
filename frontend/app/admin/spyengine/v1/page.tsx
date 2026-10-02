@@ -710,7 +710,7 @@ export default function SpyEngineV9() {
     const s5 = daySeries(m5D, "5m", date, evalNow, lastM1Time);
     const s15 = daySeries(m15D, "15m", date, evalNow, lastM1Time);
     const s30 = daySeries(m30D, "30m", date, evalNow, lastM1Time);
-    const opening = openingRegime(s5, s15, s30);
+    const opening = openingRegime(s5, s15, ema5);
     // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
     const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
     return { s5, s15, s30, opening, live, c5: commentAll(s5, "5m", 40, ema5), c15: commentAll(s15, "15m", 40, ema15) };
@@ -781,6 +781,11 @@ export default function SpyEngineV9() {
       extra: flow ? [
         ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
         ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
+        ...(flow.leg?.levels ?? []),
+        ...(flow.adr ? [
+          { price: flow.adr.downTo, label: `ADR alt potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
+          { price: flow.adr.upTo, label: `ADR üst potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
+        ] : []),
       ] : [],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -910,7 +915,7 @@ export default function SpyEngineV9() {
           <div>
             <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V9.0</h1>
             <p className="text-[9px] text-slate-500">
-              her kapanan 5m · 15m · 30m mum analizi · VWAP + EMA20 · POC / likidite / akıllı para · erken uyarı · 09:45–10:00 rejim kararı · tahmin haritası
+              her kapanan 5m · 15m · 30m mum analizi · VWAP + EMA20 · POC / likidite / akıllı para · erken uyarı · 09:55 gün yönü (15m + 2×5m VWAP) · tahmin haritası
             </p>
           </div>
           {data && (
@@ -1015,11 +1020,11 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${opColor}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                Açılış Rejimi <span className="text-[9px] font-normal text-slate-600">· hareket · açılış aralığı · VWAP · 15m · 30m mum · hacim → 09:45–10:00 kararı</span>
+                Açılış Rejimi <span className="text-[9px] font-normal text-slate-600">· 15m 09:45 + 5m 09:50 · 09:55 VWAP tarafı · EMA20 + hacim teyidi → 09:55 gün yönü</span>
               </span>
               {op && (
                 <span className="rounded px-1.5 py-0.5 text-[9px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
-                  {op.status === "LOCKED" ? "KİLİTLİ 10:00" : op.status === "FORMING" ? "OLUŞUYOR" : "BEKLİYOR"}
+                  {op.status === "LOCKED" ? `KİLİTLİ 09:55${op.strength ? ` · ${op.strength}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
                 </span>
               )}
             </div>
@@ -1079,7 +1084,7 @@ export default function SpyEngineV9() {
             </div>
             {!live ? (
               <div className="px-4 py-6 text-[11px] text-slate-500">
-                Açılış rejimi oluşana kadar (ilk 3×5m + 15m kapanış, 09:45 ET) yön kararı verilmez. Kapanan mumların yorumu aşağıda akıyor.
+                09:45 ET 15m kapanışına kadar yön okuması başlamaz. Kapanan mumların yorumu aşağıda akıyor.
               </div>
             ) : (
               <>
