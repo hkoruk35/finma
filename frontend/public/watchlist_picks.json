@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T09:03:59.942710-04:00",
+  "generated_at": "2026-10-02T14:02:22.445216-04:00",
   "picks": [
     {
       "ticker": "XP",
@@ -12,12 +12,6 @@
       "sector": "Energy",
       "date_added": "2026-09-30",
       "score": 27.5
-    },
-    {
-      "ticker": "PSX",
-      "sector": "Energy",
-      "date_added": "2026-10-01",
-      "score": 44.0
     },
     {
       "ticker": "BOX",
@@ -38,16 +32,40 @@
       "score": 41.0
     },
     {
-      "ticker": "EXPD",
-      "sector": "Industrials",
-      "date_added": "2026-10-01",
+      "ticker": "NBIS",
+      "sector": "Communication Services",
+      "date_added": "2026-10-02",
+      "score": 43.5
+    },
+    {
+      "ticker": "FCX",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-02",
+      "score": 42.5
+    },
+    {
+      "ticker": "CVSA",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-02",
+      "score": 41.0
+    },
+    {
+      "ticker": "CLMT",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-02",
       "score": 39.5
     },
     {
-      "ticker": "AMRX",
-      "sector": "Healthcare",
-      "date_added": "2026-10-01",
-      "score": 39.0
+      "ticker": "LITE",
+      "sector": "Technology",
+      "date_added": "2026-10-02",
+      "score": 39.5
+    },
+    {
+      "ticker": "ZIM",
+      "sector": "Industrials",
+      "date_added": "2026-10-02",
+      "score": 37.0
     }
   ]
 }
