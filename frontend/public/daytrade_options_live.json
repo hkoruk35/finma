@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-01T08:01:02.215806",
+  "generated_at": "2026-10-02T08:00:12.694421",
   "options": {
     "SOUN": {
       "dte_30": {
         "strike": 6.0,
-        "lastPrice": 0.4,
+        "lastPrice": 0.38,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 122,
+        "volume": 192,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-10-30",
@@ -18,7 +18,7 @@
         "lastPrice": 0.62,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 1505,
+        "volume": 205,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",
@@ -29,7 +29,7 @@
         "lastPrice": 0.62,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 1505,
+        "volume": 205,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-20",
@@ -39,34 +39,34 @@
     "HIMS": {
       "dte_30": {
         "strike": 30.0,
-        "lastPrice": 2.35,
+        "lastPrice": 1.99,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 160,
+        "volume": 207,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-10-30",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 30.0,
-        "lastPrice": 3.62,
+        "lastPrice": 3.25,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 451,
+        "volume": 74,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.015634843750000002,
         "expiry": "2026-11-20",
         "type": "CALL"
       },
       "dte_60": {
         "strike": 30.0,
-        "lastPrice": 3.62,
+        "lastPrice": 3.25,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 451,
+        "volume": 74,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.015634843750000002,
         "expiry": "2026-11-20",
         "type": "CALL"
       }
