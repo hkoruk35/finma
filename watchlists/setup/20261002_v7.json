@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "VICR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 311.22,
+        "entry_zone": "301.39 - 321.05",
+        "SL": 271.91,
+        "TP": 389.84
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "VIAV",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 48.23,
+        "entry_zone": "47.04 - 49.42",
+        "SL": 43.47,
+        "TP": 57.75
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "SMTC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 200.17,
+        "entry_zone": "194.36 - 205.98",
+        "SL": 176.93,
+        "TP": 246.65
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "UTHR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 548.53,
+        "entry_zone": "538.46 - 558.61",
+        "SL": 508.25,
+        "TP": 629.11
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "TER",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 450.23,
+        "entry_zone": "441.23 - 459.23",
+        "SL": 414.21,
+        "TP": 504.25
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "COHR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 335.62,
+        "entry_zone": "325.93 - 345.32",
+        "SL": 296.85,
+        "TP": 413.17
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "LITE",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 1091.61,
+        "entry_zone": "1060.53 - 1122.69",
+        "SL": 967.29,
+        "TP": 1340.25
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "SNPS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 491.96,
+        "entry_zone": "482.66 - 501.26",
+        "SL": 454.74,
+        "TP": 566.4
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "CDNS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 349.13,
+        "entry_zone": "343.23 - 355.03",
+        "SL": 325.54,
+        "TP": 396.3
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "CIEN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 386.26,
+        "entry_zone": "375.96 - 396.56",
+        "SL": 345.05,
+        "TP": 468.69
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "MTSI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 326.17,
+        "entry_zone": "319.40 - 332.94",
+        "SL": 299.11,
+        "TP": 380.3
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "CRDO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 223.84,
+        "entry_zone": "217.68 - 230.00",
+        "SL": 199.2,
+        "TP": 273.12
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "MTRN",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 301.12,
+        "entry_zone": "296.03 - 306.21",
+        "SL": 280.75,
+        "TP": 341.85
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "EFXT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 24.94,
+        "entry_zone": "24.44 - 25.45",
+        "SL": 22.94,
+        "TP": 28.95
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "MU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 1080.5,
+        "entry_zone": "1059.41 - 1101.59",
+        "SL": 996.13,
+        "TP": 1207.06
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "PARR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 84.51,
+        "entry_zone": "82.29 - 86.73",
+        "SL": 75.64,
+        "TP": 102.25
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "SNAP",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 5.68,
+        "entry_zone": "5.54 - 5.81",
+        "SL": 5.15,
+        "TP": 6.73
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "TDAY",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 7.03,
+        "entry_zone": "6.89 - 7.16",
+        "SL": 6.49,
+        "TP": 8.09
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "WOLF",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 34.63,
+        "entry_zone": "33.55 - 35.71",
+        "SL": 30.31,
+        "TP": 43.27
+    },
+    {
+        "date": "2026-10-02 16:00",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 90.2,
+        "entry_zone": "85.90 - 94.50",
+        "SL": 73.01,
+        "TP": 124.58
+    }
+]
