@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemberSession } from "@/hooks/useMemberSession";
+import { MY_WATCHLIST_DISABLED } from "@/lib/siteMode";
 
 type Locale = "tr" | "en" | "es" | "fr" | "pt" | "id";
 
@@ -34,7 +35,7 @@ export default function GlobalBottomNav() {
 
   const navItems = [
     { label: HOME_LABEL[locale], href: `/global/${locale}/home` },
-    isLoggedIn
+    isLoggedIn && !MY_WATCHLIST_DISABLED
       ? { label: MY_WATCHLIST_LABEL[locale], href: `/global/${locale}/my-watchlist` }
       : { label: TOP7_LABEL[locale], href: `/global/${locale}/top7` },
     { label: "Trend", href: `/global/${locale}/swing` },

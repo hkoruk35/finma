@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { Locale } from '@/lib/i18n/copy';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
+import { MY_WATCHLIST_DISABLED } from '@/lib/siteMode';
 import HomeListCard, { type HomeListStock } from './HomeListCard';
 
 const ACCENT = '#FFFFFF';
@@ -32,7 +33,13 @@ function getLabels(locale: Locale) {
  * TEKRARLAMAZ — burada gerçekten boşsa boş durumu ("+" ile ekle) gösterilir,
  * yoksa bu kart ortadaki Top7 kartıyla aynı içeriği tekrarlamış olurdu.
  */
-export default function HomePersonalWatchlistCard({ locale, initialVisible }: { locale: Locale; initialVisible?: number }) {
+export default function HomePersonalWatchlistCard(props: { locale: Locale; initialVisible?: number }) {
+  // Geçici kapatma (lib/siteMode.ts): kişisel izleme listesi kartı gizli.
+  if (MY_WATCHLIST_DISABLED) return null;
+  return <HomePersonalWatchlistCardInner {...props} />;
+}
+
+function HomePersonalWatchlistCardInner({ locale, initialVisible }: { locale: Locale; initialVisible?: number }) {
   const { plan, loading: planLoading } = useMemberPlan();
   const isLoggedIn = plan !== null;
   const [stocks, setStocks] = useState<HomeListStock[] | null>(null);

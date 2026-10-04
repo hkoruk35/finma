@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { COPILOT_DISABLED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -355,6 +356,7 @@ KURALLAR:
 }
 
 export async function POST(req: NextRequest) {
+  if (COPILOT_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   // catch bloğunun da doğru dilde hata dönebilmesi için try dışında,
   // gövdeyi henüz okuyamadan patlarsa bile güvenli bir varsayılanla tutulur.
   let locale = "en";

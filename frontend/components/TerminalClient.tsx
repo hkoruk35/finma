@@ -2,6 +2,7 @@
 // Build: 2026-05-25T11:35 - Custom watchlists rebuild
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { MEMBERSHIP_DISABLED, MY_WATCHLIST_DISABLED } from "@/lib/siteMode";
 import Link from "next/link";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
@@ -450,6 +451,8 @@ export default function TerminalClient() {
 
   // ── Mount ────────────────────────────────────────────────────────────────────
   useEffect(() => {
+    // Geçici kapatma (lib/siteMode.ts): kişisel listeler yüklenmez/göç edilmez.
+    if (MY_WATCHLIST_DISABLED) return;
     cloudLoad("/api/csp-watchlist/active",     "t_active",    setWatchlistActive);
     cloudLoad("/api/csp-watchlist/portfolio",  "t_portfolio", setWatchlistPortfolio);
     cloudLoad("/api/csp-watchlist/long_term",  "t_long_term", setWatchlistLongTerm);
@@ -477,7 +480,7 @@ export default function TerminalClient() {
   }, []);
 
   const session = useMemberSession();
-  const maxAllowedScreens = !session.isLoggedIn ? 2 : 9;
+  const maxAllowedScreens = !session.isLoggedIn && !MEMBERSHIP_DISABLED ? 2 : 9;
 
   const addToTracker = () => {
     if (!session.isLoggedIn) {
@@ -642,7 +645,7 @@ export default function TerminalClient() {
       <div className={`${sidebarOpen ? "w-[220px]" : "w-0"} transition-all duration-300 shrink-0 border-r border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden relative`}>
         {/* Left Panel Tabs */}
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["market", "active"] as const).map((tab) => (
+          {(MY_WATCHLIST_DISABLED ? (["market"] as const) : (["market", "active"] as const)).map((tab) => (
             <button
               key={tab}
               onClick={() => setLeftTab(tab)}
@@ -882,7 +885,7 @@ export default function TerminalClient() {
       {/* ── Right Panel ─────────────────────────────────────────────────────── */}
       <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["swing", "portfolio", "long_term", "tracker"] as const).map((tab) => (
+          {(MY_WATCHLIST_DISABLED ? (["swing"] as const) : (["swing", "portfolio", "long_term", "tracker"] as const)).map((tab) => (
             <button
               key={tab}
               onClick={() => setRightTab(tab)}

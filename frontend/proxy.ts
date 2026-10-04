@@ -6,6 +6,7 @@ import { createTimeoutFetch } from './lib/supabaseFetch'
 import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, VISITOR_MAX_AGE_SECONDS } from './lib/trafficAudit'
 import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
+import { MEMBERSHIP_DISABLED } from './lib/siteMode'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
 const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
@@ -292,6 +293,20 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     // sahip olsa da, sayfa yuklemesi HICBIR sekilde tracking'e bagimli
     // kalmamali — 3sn'de sonuclanmazsa vazgecilir, response normal devam eder.
     await Promise.race([trackLanding(request, response, event), new Promise((resolve) => setTimeout(resolve, 3000))])
+  }
+
+  // Geçici kapatma (lib/siteMode.ts): üyelik, premium ve My Watchlist sayfaları
+  // pasif — /global/{locale}/{login,register,account,my-watchlist,premium_club,...}
+  // doğrudan ana sayfaya döner. Admin (/admin/**) etkilenmez.
+  if (MEMBERSHIP_DISABLED) {
+    const m = pathname.match(/^\/global\/([a-z]{2})\/(login|register|giris|kayit|account|hesabim|my-watchlist|premium_club)(\/|$)/)
+    const legacy = pathname.match(/^\/(en|tr)\/(login|register|giris|kayit|account|hesabim)(\/|$)/)
+    if (m || legacy) {
+      const loc = m ? m[1] : legacy![1]
+      const res = NextResponse.redirect(new URL(`/global/${loc}/home`, request.url))
+      response.cookies.getAll().forEach((c) => res.cookies.set(c))
+      return res
+    }
   }
 
   const redirectTo = (url: URL) => {

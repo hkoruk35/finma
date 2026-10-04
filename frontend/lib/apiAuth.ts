@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 
 /** İç yönetim paneli (staff) kimliği — customer/Supabase oturumundan tamamen ayrı. */
 export function isStaffAuthed(req: NextRequest): boolean {
@@ -41,6 +42,10 @@ const NO_ACCESS: MemberAccess = {
  * erişim) bunlardan bağımsız, sadece plan'a göre hesaplanır.
  */
 export async function getMemberAccess(): Promise<MemberAccess> {
+  // Geçici kapatma (lib/siteMode.ts): üyelik pasif, herkes ücretli içeriğe erişir.
+  if (MEMBERSHIP_DISABLED) {
+    return { authenticated: true, plan: "premium", isPremium: true, hasAccess: true, monthlyCredits: 0, topupCredits: 0 };
+  }
   try {
     const supabase = await createSupabaseServerClient();
     const { data: userData } = await supabase.auth.getUser();

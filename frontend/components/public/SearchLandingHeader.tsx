@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberSession } from "@/hooks/useMemberSession";
+import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 
 // /global/{locale}/search'in kendi başlığı — bu bileşen SADECE bu tek URL
 // şeklinde render olur, bu yüzden MemberHeader.tsx'in genel getLangHref'i
@@ -75,7 +76,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
           <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
         </button>
 
-        {authChecked && (
+        {authChecked && !MEMBERSHIP_DISABLED && (
           <Link
             href={isLoggedIn ? accountHref : loginHref}
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex-shrink-0"

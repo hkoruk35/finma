@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
@@ -162,7 +163,9 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
       .catch(() => {});
   }, []);
 
-  const groups = buildGroups(locale).filter((g) => toggles[g.key]?.enabled !== false);
+  const groups = buildGroups(locale).filter(
+    (g) => toggles[g.key]?.enabled !== false && !(MEMBERSHIP_DISABLED && (g.key === "watchlist" || g.key === "premium")),
+  );
 
   return (
     <>

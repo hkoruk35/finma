@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemberSession } from "./useMemberSession";
+import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 
 export type MemberTier = "anonymous" | "free" | "premium" | "admin";
 
@@ -22,8 +23,17 @@ function tierFor(plan: string | null, authenticated: boolean): MemberTier {
 // onbellekli /api/members/me sonucunu turetilmis bir sekle donusturuyor
 // (bkz. 2026-08-08: MemberHeader/GlobalBottomNav/CopilotContext ile birlikte
 // sayfa basina TEK auth cagrisina indirgeme).
+const OPEN_ACCESS: MemberPlanData & { loading: boolean } = {
+  plan: "premium",
+  isPremium: true,
+  tier: "premium",
+  loading: false,
+};
+
 export function useMemberPlan(): MemberPlanData & { loading: boolean } {
   const session = useMemberSession();
+  // Geçici kapatma (lib/siteMode.ts): herkes premium içerik görür.
+  if (MEMBERSHIP_DISABLED) return OPEN_ACCESS;
   const plan: string | null = session.isLoggedIn ? (session.member?.plan ?? null) : null;
   const isPremium = plan === "premium" || plan === "admin";
 

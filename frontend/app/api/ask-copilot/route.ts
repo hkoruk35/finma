@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { COPILOT_DISABLED } from "@/lib/siteMode";
+import { isStaffAuthed } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { createOpenAI } from "@ai-sdk/openai";
@@ -164,6 +166,10 @@ If a tool or data source fails, explain the limitation in friendly, human langua
 }
 
 export async function POST(req: NextRequest) {
+  // Geçici kapatma (lib/siteMode.ts): staff (admin paneli) hariç herkese kapalı.
+  if (COPILOT_DISABLED && !isStaffAuthed(req)) {
+    return Response.json({ error: "temporarily_disabled", text: "This feature is temporarily unavailable. / Bu özellik geçici olarak devre dışı." }, { status: 503 });
+  }
   const clientIp = getClientIp(req);
   if (isRateLimited(clientIp, ASK_MAX_REQUESTS, ASK_WINDOW_MS)) {
     return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });

@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
+import { MY_WATCHLIST_DISABLED } from "@/lib/siteMode";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 
 export async function GET() {
+  if (MY_WATCHLIST_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   const supabase = await createSupabaseServerClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
@@ -26,6 +28,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  if (MY_WATCHLIST_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   const supabase = await createSupabaseServerClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
 

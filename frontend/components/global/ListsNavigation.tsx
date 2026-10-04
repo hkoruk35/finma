@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MY_WATCHLIST_DISABLED } from "@/lib/siteMode";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
@@ -77,7 +78,7 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
     { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
     { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` },
     { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }
-  ];
+  ].filter((l) => !(MY_WATCHLIST_DISABLED && l.id === "my-watchlist"));
 
   return (
     <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">

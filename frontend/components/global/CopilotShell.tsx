@@ -4,6 +4,7 @@ import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { CopilotProvider, useCopilot } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
+import { COPILOT_DISABLED } from "@/lib/siteMode";
 
 function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; isFinancePage: boolean }) {
   const { isOpen } = useCopilot();
@@ -30,6 +31,9 @@ function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; i
 
 export default function CopilotShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
+  // Geçici kapatma: Provider/Drawer hiç mount edilmez (usage/chat çağrısı da yok).
+  if (COPILOT_DISABLED) return <>{children}</>;
 
   // Exclude non-money pages: /search (ask), /discover, /sports, /weather, /today, /admin
   const isExcluded = !!pathname && (

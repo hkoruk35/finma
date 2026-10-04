@@ -10,6 +10,7 @@ import MobileTerminalLink from "@/components/global/MobileTerminalLink";
 import HeaderMegaMenu from "@/components/public/HeaderMegaMenu";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { useMemberSession } from "@/hooks/useMemberSession";
+import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
@@ -26,6 +27,10 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isTerminalHovered, setIsTerminalHovered] = useState(false);
 
   useEffect(() => {
+    if (MEMBERSHIP_DISABLED) {
+      setAuthChecked(true);
+      return;
+    }
     if (!session.authChecked) return;
     if (session.isLoggedIn) {
       setIsLoggedIn(true);
@@ -568,7 +573,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                     )}
                   </div>
                 </div>
-              ) : (
+              ) : MEMBERSHIP_DISABLED ? null : (
                 <Link
                   href={loginHref}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium tracking-wider bg-[#D9A441]/10 text-[#D9A441] hover:bg-[#D9A441] hover:text-white transition-all border border-[#D9A441]/20 shrink-0"

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { COPILOT_DISABLED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -8,6 +9,7 @@ const ANON_DAILY_LIMIT = 3;
 const FREE_DAILY_TOKEN_LIMIT = 15_000;
 
 export async function GET() {
+  if (COPILOT_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   const access = await getMemberAccess();
 
   // Anonim (hesapsız) ziyaretçi — copilot/chat/route.ts'teki ANON_DAILY_LIMIT
