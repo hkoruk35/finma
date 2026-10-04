@@ -171,7 +171,8 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
     <>
       {/* Masaüstü: hover ile açılan mega menü */}
       <nav className="hidden sm:flex items-center gap-0.5">
-        {groups.map((group) => {
+        {groups.map((group, groupIdx) => {
+          const isLast = groupIdx === groups.length - 1;
           const label = toggles[group.key]?.labelOverride || group.label;
           return (
             <div key={group.key} className="relative" onMouseEnter={() => setHoveredKey(group.key)} onMouseLeave={() => setHoveredKey(null)}>
@@ -188,7 +189,7 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
               </Link>
 
               {group.children && hoveredKey === group.key && (
-                <div className="absolute left-0 top-full pt-1 z-50">
+                <div className={`absolute ${isLast ? "right-0" : "left-0"} top-full pt-1 z-50`}>
                   <div className="w-56 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden py-1">
                     {group.children.map((child, idx) =>
                       child.heading ? (
