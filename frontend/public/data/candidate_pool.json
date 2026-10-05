@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SMCI",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "LRCX",
@@ -298,7 +298,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AXTI",
@@ -443,7 +443,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SNX",
@@ -588,7 +588,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AVPT",
@@ -733,7 +733,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BTSG",
@@ -878,7 +878,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "DXPE",
@@ -1024,7 +1024,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "KEX",
@@ -1169,7 +1169,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PSX",
@@ -1315,7 +1315,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-05",
+      "last_checked": "2026-10-05 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GMAB",
