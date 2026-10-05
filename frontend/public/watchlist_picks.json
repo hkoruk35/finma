@@ -1,23 +1,41 @@
 {
-  "generated_at": "2026-10-05T14:02:44.975321-04:00",
+  "generated_at": "2026-10-05T17:02:19.387317-04:00",
   "picks": [
     {
-      "ticker": "CVSA",
-      "sector": "Consumer Defensive",
+      "ticker": "FTDR",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-10-05",
       "score": 43.0
     },
     {
-      "ticker": "AAPL",
-      "sector": "Technology",
+      "ticker": "XMTR",
+      "sector": "Industrials",
       "date_added": "2026-10-05",
-      "score": 42.5
+      "score": 40.0
     },
     {
-      "ticker": "WTTR",
-      "sector": "Energy",
+      "ticker": "FCX",
+      "sector": "Basic Materials",
       "date_added": "2026-10-05",
-      "score": 40.5
+      "score": 39.5
+    },
+    {
+      "ticker": "EXPO",
+      "sector": "Industrials",
+      "date_added": "2026-10-05",
+      "score": 39.0
+    },
+    {
+      "ticker": "GH",
+      "sector": "Healthcare",
+      "date_added": "2026-10-05",
+      "score": 38.5
+    },
+    {
+      "ticker": "W",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-05",
+      "score": 37.0
     }
   ]
 }
