@@ -270,22 +270,54 @@ export interface OpeningVote {
   vote: number;
 }
 
+export type StageDir = "UP" | "DOWN" | "MIXED";
+
+/** Açılış aşaması — 09:35'ten 10:00'a her kapanışta neyin bilindiği (şeffaf) */
+export interface OpeningStage {
+  /** "09:35" … "10:00" — aşamanın tamamlandığı an (mum kapanışı) */
+  clock: string;
+  title: string;
+  /** null: henüz kapanmadı · MIXED: zaman dilimleri uyuşmuyor */
+  dir: StageDir | null;
+  detail: string;
+  /** Ölçülmüş isabet (59 seans, 60 dk sonra / kapanışta); günlük kayıtla güncellenir */
+  hit60: number;
+  hitClose: number;
+  /** Bu aşama kararı belirleyen aşama mı */
+  decisive: boolean;
+  /** Atlandı (önceki aşama kararı verdi) */
+  skipped?: boolean;
+}
+
+/** Aşamaların ölçülmüş isabetleri (2026-07 → 10, 59 seans). Günlük kayıt N≥20 olunca bunların yerine geçer. */
+export const STAGE_BASE: Record<string, { hit60: number; hitClose: number }> = {
+  "09:35": { hit60: 39, hitClose: 44 },
+  "09:40": { hit60: 45, hitClose: 45 },
+  "09:45": { hit60: 47, hitClose: 47 },
+  "09:50": { hit60: 54, hitClose: 54 },
+  "09:55": { hit60: 47, hitClose: 59 },
+  "10:00": { hit60: 83, hitClose: 50 },
+  EMA: { hit60: 60, hitClose: 40 },
+};
+
 export interface OpeningRegime {
-  /** WAITING: 09:45'ten önce · FORMING: 09:45–09:55 (15m kapandı, 5m teyidi bekleniyor) · LOCKED: 09:55 kararı */
+  /** WAITING: 09:35'ten önce · FORMING: 09:35–09:55 (09:55 kararsızsa 10:00'a kadar) · LOCKED: karar verildi */
   status: "WAITING" | "FORMING" | "LOCKED";
   side: OpeningSide | null;
+  /** FORMING iken son aşamanın geçici yönü (işlem kararı değil) */
+  provisional: StageDir | null;
   /** Kural tam sağlanmadıysa EMA20 tarafından gelen yön (side bununla doldurulur, weak = true) */
   lean: "UP" | "DOWN" | null;
-  /** true: yön kuraldan değil EMA20 tarafından (zayıf) */
   weak: boolean;
-  /** GÜÇLÜ: kural + EMA20 + hacim aynı yönde */
   strength: "GÜÇLÜ" | "NORMAL" | "ZAYIF" | null;
+  /** Kararı veren aşama */
+  decidedAt: "09:55" | "10:00" | "EMA" | null;
+  stages: OpeningStage[];
   label: string;
   summary: string;
   score: number;
   maxScore: number;
   votes: OpeningVote[];
-  /** 09:30'dan itibaren her 5m kapanışın VWAP konumu */
   closes5: { clock: string; side: VwapSide | null; close: number }[];
   closes15: { clock: string; side: VwapSide | null; close: number }[];
 }
@@ -293,85 +325,150 @@ export interface OpeningRegime {
 const OPEN_WINDOW_END = 10 * 60; // 10:00
 
 /**
- * Açılış rejimi — kullanıcının kuralı:
- *   09:45'te 15m (09:30–09:45) mum VWAP'ın neresinde kapandı; 09:50 ve 09:55'te
- *   kapanan 5m mumlar da aynı tarafta kapanırsa yön o taraftır.
- * Teyit: 5m EMA20 da aynı tarafta + 09:45–09:55 mumlarının hacmi yön tarafında
- * → GÜÇLÜ. Kural sağlanmazsa yön EMA20 tarafıdır (ZAYIF).
- * 60 seans (2026-07 → 10): kural %65 gün yönünü tuttu (+1,08 puan), hacim
- * teyidiyle %75 (+1,99); kural yokken EMA20 tarafı 30–60 dk'da %62.
+ * Açılış rejimi — kullanıcının aşamalı okuması (59 seansla ölçüldü):
+ *   09:35  ilk 5m kapanışı VWAP'a göre            → izleme (%39 — tek başına TERS çalışıyor)
+ *   09:40  2×5m aynı tarafta mı                    → izleme (%45)
+ *   09:45  15m kapanışı VWAP'a göre                → izleme (%47)
+ *   09:50  15m + 5m 09:50 aynı mı                  → güçlenen okuma (%54)
+ *   09:55  15m + 5m 09:50 + 09:55 aynı → KARAR     (kapanışta %59, +0,64 puan)
+ *   10:00  09:55 kararsızsa: 30m + son 15m + 6×5m'nin ≥4'ü aynı → KARAR (60 dk %83, n=12)
+ *          o da yoksa EMA20 tarafı (ZAYIF, 60 dk %60)
+ * Teyit (yalnız 09:55): 5m EMA20 ve hacim aynı yöndeyse GÜÇLÜ.
+ * İsabetler `stageStats` ile (günlük kayıttan) güncellenebilir.
  */
-export function openingRegime(m5: DaySeries, m15: DaySeries, ema5?: EmaMap | null): OpeningRegime {
-  const win5 = m5.bars
-    .map((b, i) => ({ b, v: m5.vwap[i] }))
-    .filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
-  const win15 = m15.bars
-    .map((b, i) => ({ b, v: m15.vwap[i] }))
-    .filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
+export function openingRegime(
+  m5: DaySeries, m15: DaySeries, ema5?: EmaMap | null, m30?: DaySeries | null,
+  stageStats?: Record<string, { hit60: number; hitClose: number }> | null,
+): OpeningRegime {
+  const win5 = m5.bars.map((b, i) => ({ b, v: m5.vwap[i] })).filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
+  const win15 = m15.bars.map((b, i) => ({ b, v: m15.vwap[i] })).filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
+  const c30 = m30?.bars.length && nyParts(m30.bars[0].time).minutes === 9 * 60 + 30 ? { b: m30.bars[0], v: m30.vwap[0] } : null;
 
   const closes5 = win5.map((x) => ({ clock: nyClock(x.b.time), side: sideOf(x.b.close, x.v), close: x.b.close }));
   const closes15 = win15.map((x) => ({ clock: nyClock(x.b.time), side: sideOf(x.b.close, x.v), close: x.b.close }));
   const base = { closes5, closes15 };
-  const dirOf = (s: VwapSide | null) => (s === "ABOVE" ? 1 : s === "BELOW" ? -1 : 0);
+  const dOf = (s: VwapSide | null) => (s === "ABOVE" ? 1 : s === "BELOW" ? -1 : 0);
+  const sd5 = (i: number) => (closes5[i] ? dOf(closes5[i].side) : null);
+  const sd15 = (i: number) => (closes15[i] ? dOf(closes15[i].side) : null);
+  const same = (...xs: (number | null)[]): number | null => (xs.some((x) => x == null) ? null : xs.every((x) => x !== 0 && x === xs[0]) ? (xs[0] as number) : 0);
+  const asDir = (x: number | null): StageDir | null => (x == null ? null : x > 0 ? "UP" : x < 0 ? "DOWN" : "MIXED");
+  const where = (x: number | null) => (x == null ? "bekleniyor" : x > 0 ? "VWAP üstü" : x < 0 ? "VWAP altı" : "VWAP'ta");
+  const st = (k: string) => stageStats?.[k] ?? STAGE_BASE[k];
 
-  if (!closes15.length) {
+  // — aşamalar —
+  const s1 = sd5(0), s2 = same(sd5(0), sd5(1)), s3 = sd15(0), s4 = same(sd15(0), sd5(3)), s5 = same(sd15(0), sd5(3), sd5(4));
+  const six = [0, 1, 2, 3, 4, 5].map(sd5);
+  const up6 = six.filter((x) => x === 1).length, dn6 = six.filter((x) => x === -1).length;
+  const s30 = c30 ? dOf(sideOf(c30.b.close, c30.v)) : null;
+  const s6 = six.some((x) => x == null) || s30 == null || sd15(1) == null ? null
+    : s30 !== 0 && s30 === sd15(1) && ((s30 > 0 && up6 >= 4) || (s30 < 0 && dn6 >= 4)) ? s30 : 0;
+  const ruleDecided = s5 != null && s5 !== 0;
+
+  const stages: OpeningStage[] = [
+    { clock: "09:35", title: "İlk 5m", dir: asDir(s1), detail: `09:30 mumu ${where(s1)}`, ...st("09:35"), decisive: false },
+    { clock: "09:40", title: "2×5m", dir: asDir(s2), detail: `09:30 ${where(sd5(0))} · 09:35 ${where(sd5(1))}`, ...st("09:40"), decisive: false },
+    { clock: "09:45", title: "15m", dir: asDir(s3), detail: `15m (09:30–09:45) ${where(s3)}`, ...st("09:45"), decisive: false },
+    { clock: "09:50", title: "15m + 5m", dir: asDir(s4), detail: `15m ${where(s3)} · 5m 09:45 ${where(sd5(3))}`, ...st("09:50"), decisive: false },
+    { clock: "09:55", title: "Büyük resim", dir: asDir(s5), detail: `15m ${where(s3)} · 5m 09:50 ${where(sd5(3))} · 5m 09:55 ${where(sd5(4))}`, ...st("09:55"), decisive: ruleDecided },
+    {
+      clock: "10:00", title: "30m teyidi", dir: ruleDecided ? null : asDir(s6), skipped: ruleDecided,
+      detail: ruleDecided ? "09:55 kararı verildi — gerekmedi" : `30m ${where(s30)} · 15m 09:45 ${where(sd15(1))} · 6×5m ${up6} üst / ${dn6} alt`,
+      ...st("10:00"), decisive: !ruleDecided && s6 != null && s6 !== 0,
+    },
+  ];
+
+  if (!closes5.length) {
     return {
-      ...base, status: "WAITING", side: null, lean: null, weak: false, strength: null, label: "BEKLENİYOR", score: 0, maxScore: 4, votes: [],
-      summary: "09:45'te 15m (09:30–09:45) mumun VWAP'a göre kapanışı bekleniyor; 09:50 ve 09:55 5m kapanışları teyit eder.",
+      ...base, status: "WAITING", side: null, provisional: null, lean: null, weak: false, strength: null, decidedAt: null, stages,
+      label: "BEKLENİYOR", score: 0, maxScore: 3, votes: [],
+      summary: "09:35'te ilk 5m kapanışıyla okuma başlar; 09:45 15m, 09:55 büyük resim (karar), gerekirse 10:00 30m teyidi.",
     };
   }
 
-  const s15 = dirOf(closes15[0].side);
-  const c50 = closes5[3] ?? null; // 09:45 mumu → 09:50'de kapanır
-  const c55 = closes5[4] ?? null; // 09:50 mumu → 09:55'te kapanır
-  const locked = !!c55;
-  const d50 = c50 ? dirOf(c50.side) : 0, d55 = c55 ? dirOf(c55.side) : 0;
-  const ruleOk = s15 !== 0 && (c50 ? d50 === s15 : true) && (c55 ? d55 === s15 : true);
-
-  // teyitler (son kapanmış 5m mum üzerinden)
+  // teyitler (09:55 kararı için)
   const last = win5[win5.length - 1].b;
   const e = ema5?.get(last.time) ?? null;
   const dE = e == null ? 0 : Math.sign(last.close - e);
   const recent = win5.slice(3).map((x) => x.b);
   const volDir = Math.sign(recent.reduce((a, b) => a + (b.close > b.open ? b.volume : b.close < b.open ? -b.volume : 0), 0));
 
+  let side: OpeningSide = "UNCERTAIN";
+  let status: OpeningRegime["status"] = "FORMING";
+  let decidedAt: OpeningRegime["decidedAt"] = null;
+  let strength: OpeningRegime["strength"] = null;
+  let weak = false;
+  let lean: OpeningRegime["lean"] = null;
+
+  if (ruleDecided) {
+    side = s5! > 0 ? "UP" : "DOWN";
+    status = "LOCKED";
+    decidedAt = "09:55";
+    strength = dE === s5 && volDir === s5 ? "GÜÇLÜ" : "NORMAL";
+  } else if (s5 === 0 && dE !== 0) {
+    // 09:55 belirsiz: EMA20 tarafı ZAYIF yön olarak hemen verilir (erken pozisyon için);
+    // 10:00'da 30m teyidi aynıysa NORMAL'e yükselir, net TERS ise yön çevrilir.
+    // 60 seans: bu sıra +31,9 puan; 10:00'ı beklemek +22,9; 30m'yi yalnız uyarı yapmak +32,5.
+    side = dE > 0 ? "UP" : "DOWN";
+    status = "LOCKED";
+    weak = true;
+    lean = side;
+    decidedAt = "EMA";
+    strength = "ZAYIF";
+    if (s6 != null && s6 !== 0) {
+      side = s6 > 0 ? "UP" : "DOWN";
+      weak = false;
+      lean = null;
+      decidedAt = "10:00";
+      strength = "NORMAL";
+    }
+  } else if (s6 != null) {
+    status = "LOCKED";
+    if (s6 !== 0) {
+      side = s6 > 0 ? "UP" : "DOWN";
+      decidedAt = "10:00";
+      strength = "NORMAL";
+    } else if (dE !== 0) {
+      side = dE > 0 ? "UP" : "DOWN";
+      lean = side;
+      weak = true;
+      decidedAt = "EMA";
+      strength = "ZAYIF";
+    }
+  }
+
+  // geçici yön: en son tamamlanan aşamanın yönü
+  const done = stages.filter((s) => s.dir != null && !s.skipped);
+  const provisional = status === "FORMING" && done.length ? (done[done.length - 1].dir as StageDir) : null;
+
   const votes: OpeningVote[] = [
-    { label: "15m 09:45 / VWAP", value: closes15[0].side === "ABOVE" ? "üstünde" : closes15[0].side === "BELOW" ? "altında" : "üzerinde", vote: s15 },
-    { label: "5m 09:50 / VWAP", value: c50 ? (c50.side === "ABOVE" ? "üstünde" : c50.side === "BELOW" ? "altında" : "üzerinde") : "bekleniyor", vote: d50 },
-    { label: "5m 09:55 / VWAP", value: c55 ? (c55.side === "ABOVE" ? "üstünde" : c55.side === "BELOW" ? "altında" : "üzerinde") : "bekleniyor", vote: d55 },
+    { label: "15m 09:45 / VWAP", value: where(s3), vote: s3 ?? 0 },
+    { label: "5m 09:50 / VWAP", value: where(sd5(3)), vote: sd5(3) ?? 0 },
+    { label: "5m 09:55 / VWAP", value: where(sd5(4)), vote: sd5(4) ?? 0 },
     { label: "EMA20 (5m)", value: e == null ? "—" : `${dE > 0 ? "üstünde" : dE < 0 ? "altında" : "üzerinde"} (${fmt(e)})`, vote: dE },
   ];
   if (recent.length) votes.push({ label: "Hacim (09:45 sonrası)", value: volDir > 0 ? "alıcı ağır" : volDir < 0 ? "satıcı ağır" : "dengede", vote: volDir });
 
-  let side: OpeningSide;
-  let weak = false;
-  let lean: OpeningRegime["lean"] = null;
-  let strength: OpeningRegime["strength"];
-  if (ruleOk) {
-    side = s15 > 0 ? "UP" : "DOWN";
-    strength = dE === s15 && volDir === s15 ? "GÜÇLÜ" : "NORMAL";
-  } else if (dE !== 0) {
-    side = dE > 0 ? "UP" : "DOWN";
-    lean = side;
-    weak = true;
-    strength = "ZAYIF";
-  } else {
-    side = "UNCERTAIN";
-    strength = null;
-  }
-
-  const status: OpeningRegime["status"] = locked ? "LOCKED" : "FORMING";
   const word = side === "UP" ? "YÜKSELİŞ" : side === "DOWN" ? "DÜŞÜŞ" : "BELİRSİZ";
-  const label = weak ? `${word} (EMA20)` : word;
-  const score = votes.reduce((a, v) => a + v.vote, 0);
-  const why = ruleOk
-    ? `15m 09:45${c50 ? " + 5m 09:50" : ""}${c55 ? " + 5m 09:55" : ""} VWAP'ın ${s15 > 0 ? "üstünde" : "altında"} kapandı → ${word}${strength === "GÜÇLÜ" ? " · EMA20 ve hacim de teyit ediyor (GÜÇLÜ)" : dE === s15 ? " · EMA20 teyitli" : dE ? " · EMA20 henüz ters (dikkat)" : ""}.`
-    : weak
-      ? `Kural tam sağlanmadı (15m ile 5m kapanışlar farklı tarafta) → yön EMA20 tarafından: ${word} (zayıf).`
-      : "Kural sağlanmadı ve fiyat EMA20 üzerinde — yön için bir sonraki 5m kapanışı izle.";
-  const summary = locked ? `09:55 kararı: ${why}` : `Ön okuma (${c50 ? "09:50" : "09:45"}) — karar 09:55'te: ${why}`;
+  const provWord = provisional === "UP" ? "yukarı" : provisional === "DOWN" ? "aşağı" : "karışık";
+  const label = status === "FORMING" ? `ÖN OKUMA · ${provWord}` : weak ? `${word} (EMA20)` : word;
+  const nextStage = stages.find((s) => s.dir == null && !s.skipped);
+  const summary =
+    status === "LOCKED"
+      ? decidedAt === "09:55"
+        ? `09:55 kararı: 15m + 5m 09:50 + 09:55 VWAP'ın ${s5! > 0 ? "üstünde" : "altında"} → ${word}${strength === "GÜÇLÜ" ? " · EMA20 ve hacim de teyit ediyor (GÜÇLÜ)" : ""}.`
+        : decidedAt === "10:00"
+          ? `09:55'te belirsizdi (EMA20 ${dE > 0 ? "yukarı" : dE < 0 ? "aşağı" : "nötr"}); 10:00 30m + 15m + 6×5m VWAP'ın ${side === "UP" ? "üstünde" : "altında"} → ${word}${dE !== 0 && dE !== (side === "UP" ? 1 : -1) ? " (yön ÇEVRİLDİ)" : " (teyit edildi)"}.`
+          : decidedAt === "EMA"
+            ? s6 == null
+              ? `09:55 belirsiz → şimdilik EMA20 tarafı: ${word} (ZAYIF). 10:00 30m kapanışı teyit edecek ya da çevirecek.`
+              : `09:55 ve 10:00 aşamaları yön vermedi → EMA20 tarafı: ${word} (ZAYIF).`
+            : "09:55 ve 10:00 aşamaları yön vermedi, fiyat EMA20 üzerinde — yönsüz açılış."
+      : `Ön okuma (${done.length ? done[done.length - 1].clock : "—"}): ${provWord}. ${nextStage ? `Sonraki aşama ${nextStage.clock} (${nextStage.title}).` : ""} Erken aşamalar tek başına güvenilir değil — karar 09:55'te${s5 === 0 ? ", bugün 10:00 30m teyidi bekleniyor" : ""}.`;
 
-  return { ...base, status, side, lean, weak, strength, label, score, maxScore: votes.length, votes, summary };
+  return {
+    ...base, status, side, provisional, lean, weak, strength, decidedAt, stages, label,
+    score: votes.reduce((a, v) => a + v.vote, 0), maxScore: votes.length, votes, summary,
+  };
 }
 
 // ── Canlı yön (her kapanan 5m + 15m mumla güncellenir) ───────────────

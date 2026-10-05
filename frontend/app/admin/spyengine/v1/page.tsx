@@ -43,6 +43,8 @@ import type {
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
 import { optionLevelList, type OptionLevels } from "@/lib/spyengine/optionLevels";
+import type { OpenForecastRead } from "@/lib/spyengine/openForecastFetch";
+import type { JournalDay, JournalStats } from "@/lib/spyengine/journal";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
@@ -111,19 +113,19 @@ function CommentCard({ c, latest }: { c: CandleComment; latest: boolean }) {
       <div className="flex flex-wrap items-center justify-between gap-1">
         <span className="flex items-center gap-1.5">
           <span className={`h-1.5 w-1.5 rounded-full ${st.dot} ${c.forming ? "animate-pulse" : ""}`} />
-          <span className="font-mono text-[11px] font-bold text-slate-200">{c.clock}</span>
-          <span className="text-[9px] text-slate-500">{c.tf} {c.forming ? "oluşuyor" : "kapanış"} {num(c.close)}</span>
-          {c.forming && <span className="rounded bg-sky-500/15 px-1 text-[8px] font-semibold text-sky-300">CANLI</span>}
-          {latest && !c.forming && <span className="rounded bg-[#eab308]/15 px-1 text-[8px] font-semibold text-[#eab308]">SON</span>}
+          <span className="font-mono text-[12px] font-bold text-slate-200">{c.clock}</span>
+          <span className="text-[10.5px] text-slate-500">{c.tf} {c.forming ? "oluşuyor" : "kapanış"} {num(c.close)}</span>
+          {c.forming && <span className="rounded bg-sky-500/15 px-1 text-[9.5px] font-semibold text-sky-300">CANLI</span>}
+          {latest && !c.forming && <span className="rounded bg-[#eab308]/15 px-1 text-[9.5px] font-semibold text-[#eab308]">SON</span>}
         </span>
         {c.vwapSide && (
-          <span className={`rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold ${SIDE_CHIP[c.vwapSide]}`}>
+          <span className={`rounded border px-1.5 py-0.5 font-mono text-[10.5px] font-semibold ${SIDE_CHIP[c.vwapSide]}`}>
             {c.vwapSide === "ABOVE" ? "VWAP ÜSTÜ" : c.vwapSide === "BELOW" ? "VWAP ALTI" : "VWAP'TA"} {c.vwap != null && num(c.vwap)}
           </span>
         )}
       </div>
-      <div className={`mt-0.5 text-[11px] font-semibold ${st.text}`}>{c.headline}</div>
-      <div className="mt-0.5 flex flex-wrap gap-1 font-mono text-[9px] text-slate-400">
+      <div className={`mt-0.5 text-[12px] font-semibold ${st.text}`}>{c.headline}</div>
+      <div className="mt-0.5 flex flex-wrap gap-1 font-mono text-[10.5px] text-slate-400">
         <span className="rounded bg-[#0a0e17] px-1 py-0.5">üst fitil {num(c.upperWick)}</span>
         <span className="rounded bg-[#0a0e17] px-1 py-0.5">alt fitil {num(c.lowerWick)}</span>
         <span className="rounded bg-[#0a0e17] px-1 py-0.5">kapanış konumu %{Math.round(c.closePos * 100)}</span>
@@ -131,7 +133,7 @@ function CommentCard({ c, latest }: { c: CandleComment; latest: boolean }) {
           hacim {fmtVol(c.volume)}{c.volRatio != null ? ` · ${c.volRatio.toFixed(1)}×` : ""}
         </span>
       </div>
-      <ul className="mt-0.5 flex flex-col gap-0.5 text-[10px] leading-snug text-slate-400">
+      <ul className="mt-0.5 flex flex-col gap-0.5 text-[11px] leading-snug text-slate-400">
         {c.lines.map((l, i) => <li key={i}>• {l}</li>)}
       </ul>
     </div>
@@ -142,13 +144,13 @@ function CommentFeed({ title, items, forming }: { title: string; items: CandleCo
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">{title}</span>
-        <span className="font-mono text-[9px] text-slate-600">{items.length} kapanmış mum · en yeni üstte</span>
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">{title}</span>
+        <span className="font-mono text-[10.5px] text-slate-500">{items.length} kapanmış mum · en yeni üstte</span>
       </div>
       <div className="flex max-h-[520px] flex-col gap-1 overflow-y-auto p-1.5">
         {forming && <CommentCard c={forming} latest={false} />}
         {items.length === 0 && !forming && (
-          <div className="px-2 py-4 text-center text-[11px] text-slate-600">
+          <div className="px-2 py-4 text-center text-[12px] text-slate-500">
             Henüz kapanmış seans mumu yok — 09:30 ET&apos;den sonra ilk kapanışla yorumlar gelir.
           </div>
         )}
@@ -167,8 +169,8 @@ function TfColumn({ title, sub, r }: { title: string; sub: string; r: TfRead | n
   if (!r) {
     return (
       <div className="bg-[#0f141d] px-3 py-2">
-        <div className="text-[11px] font-semibold text-slate-300">{title}</div>
-        <div className="mt-2 text-[10px] text-slate-600">Henüz kapanmış mum yok.</div>
+        <div className="text-[12px] font-semibold text-slate-300">{title}</div>
+        <div className="mt-2 text-[11px] text-slate-500">Henüz kapanmış mum yok.</div>
       </div>
     );
   }
@@ -176,16 +178,16 @@ function TfColumn({ title, sub, r }: { title: string; sub: string; r: TfRead | n
   return (
     <div className="bg-[#0f141d] px-3 py-2">
       <div className="flex items-baseline justify-between gap-2">
-        <span className="text-[11px] font-semibold text-slate-300">
-          {title} <span className="text-[9px] font-normal text-slate-600">· {sub}</span>
+        <span className="text-[12px] font-semibold text-slate-300">
+          {title} <span className="text-[10.5px] font-normal text-slate-500">· {sub}</span>
         </span>
-        <span className="font-mono text-[9px] text-slate-500">{r.clock} kapanış {num(r.close)}</span>
+        <span className="font-mono text-[10.5px] text-slate-500">{r.clock} kapanış {num(r.close)}</span>
       </div>
       <div className="mt-1 flex items-center gap-2">
         <span className="text-[16px] font-extrabold tracking-wide" style={{ color: col }}>
           {r.dir === "UP" ? "▲" : r.dir === "DOWN" ? "▼" : "◆"} {r.label}
         </span>
-        <span className="ml-auto rounded px-1.5 py-0.5 font-mono text-[10px] font-bold" style={{ color: col, backgroundColor: `${col}1f` }}>
+        <span className="ml-auto rounded px-1.5 py-0.5 font-mono text-[11px] font-bold" style={{ color: col, backgroundColor: `${col}1f` }}>
           {scoreTxt(r.score)}/{FACTOR_MAX}
         </span>
       </div>
@@ -203,9 +205,9 @@ function TfColumn({ title, sub, r }: { title: string; sub: string; r: TfRead | n
       </div>
       <div className="mt-1.5 flex flex-col">
         {r.factors.map((f) => (
-          <div key={f.label} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-[3px] text-[10px] last:border-0">
+          <div key={f.label} className="flex items-center justify-between gap-2 border-b border-[#151c28] py-[3px] text-[11px] last:border-0">
             <span className="flex items-center gap-1.5 text-slate-400">
-              <span className={`w-3 text-center font-bold ${f.vote > 0 ? "text-[#22c55e]" : f.vote < 0 ? "text-[#ef4444]" : "text-slate-600"}`}>
+              <span className={`w-3 text-center font-bold ${f.vote > 0 ? "text-[#22c55e]" : f.vote < 0 ? "text-[#ef4444]" : "text-slate-500"}`}>
                 {f.vote > 0 ? "▲" : f.vote < 0 ? "▼" : "•"}
               </span>
               {f.label}
@@ -225,28 +227,28 @@ function PlanCell({ side, p, active, price }: { side: "LONG" | "SHORT"; p: PlanS
   return (
     <div className={`bg-[#0f141d] px-3 py-2 ${active ? "" : "opacity-50"}`}>
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-bold" style={{ color: col }}>
+        <span className="text-[12px] font-bold" style={{ color: col }}>
           {side} planı
-          {active && <span className="ml-1.5 rounded px-1 text-[8px] font-semibold" style={{ backgroundColor: `${col}22` }}>ÖNCELİKLİ</span>}
+          {active && <span className="ml-1.5 rounded px-1 text-[9.5px] font-semibold" style={{ backgroundColor: `${col}22` }}>ÖNCELİKLİ</span>}
         </span>
         {dist != null && (
-          <span className="font-mono text-[9px] text-slate-500">
+          <span className="font-mono text-[10.5px] text-slate-500">
             {dist <= 0 ? <b style={{ color: col }}>fiyat tetiğin ötesinde — 5m kapanışı bekle</b> : `tetiğe ${num(dist)} puan`}
           </span>
         )}
       </div>
-      <div className="mt-1 grid grid-cols-4 gap-1 font-mono text-[10px]">
-        <div><div className="text-[8.5px] text-slate-600">5m kapanış {isLong ? "≥" : "≤"}</div><b className="text-[13px]" style={{ color: col }}>{num(p.trigger)}</b></div>
-        <div><div className="text-[8.5px] text-slate-600">stop (15m yapı)</div><b className="text-[12px] text-slate-200">{p.stop != null ? num(p.stop) : "—"}</b></div>
-        <div title={p.targetLabel ?? ""}><div className="text-[8.5px] text-slate-600">hedef 1</div><b className="text-[12px] text-slate-200">{p.target != null ? num(p.target) : "—"}</b></div>
-        <div><div className="text-[8.5px] text-slate-600">risk/ödül</div><b className={`text-[12px] ${p.rr == null ? "text-slate-500" : p.rr >= 1.5 ? "text-[#4ade80]" : p.rr >= 1 ? "text-amber-300" : "text-[#f87171]"}`}>{p.rr != null ? `${p.rr.toFixed(1)}R` : "—"}</b></div>
+      <div className="mt-1 grid grid-cols-4 gap-1 font-mono text-[11px]">
+        <div><div className="text-[10px] text-slate-500">5m kapanış {isLong ? "≥" : "≤"}</div><b className="text-[13px]" style={{ color: col }}>{num(p.trigger)}</b></div>
+        <div><div className="text-[10px] text-slate-500">stop (15m yapı)</div><b className="text-[12px] text-slate-200">{p.stop != null ? num(p.stop) : "—"}</b></div>
+        <div title={p.targetLabel ?? ""}><div className="text-[10px] text-slate-500">hedef 1</div><b className="text-[12px] text-slate-200">{p.target != null ? num(p.target) : "—"}</b></div>
+        <div><div className="text-[10px] text-slate-500">risk/ödül</div><b className={`text-[12px] ${p.rr == null ? "text-slate-500" : p.rr >= 1.5 ? "text-[#4ade80]" : p.rr >= 1 ? "text-amber-300" : "text-[#f87171]"}`}>{p.rr != null ? `${p.rr.toFixed(1)}R` : "—"}</b></div>
       </div>
-      <div className="mt-0.5 font-mono text-[9.5px] text-slate-500">
+      <div className="mt-0.5 font-mono text-[11px] text-slate-500">
         sıkı stop (son 2×5m {isLong ? "dip" : "tepe"}): <b className="text-slate-300">{num(p.tightStop)}</b>
         {p.rrTight != null && <> → <b className={p.rrTight >= 1.5 ? "text-[#4ade80]" : p.rrTight >= 1 ? "text-amber-300" : "text-[#f87171]"}>{p.rrTight.toFixed(1)}R</b></>}
       </div>
       {p.targetLabel && (
-        <div className="mt-0.5 truncate text-[9px] text-slate-600">
+        <div className="mt-0.5 truncate text-[10.5px] text-slate-500">
           hedef: {p.targetLabel}{p.etaMin != null && <> · tetikten <b className="text-slate-400">~{p.etaMin} dk</b> (ort. saatlik harekete göre)</>}
         </div>
       )}
@@ -263,9 +265,9 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
 }) {
   if (!d) {
     return (
-      <div className={`${SURFACE} px-3 py-3 text-[11px] text-slate-500`}>
+      <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
         <span className="font-semibold text-slate-300">Karar Desteği</span> —{" "}
-        {waiting ? "açılış rejimi oluşunca (09:45 ET) 5m · 15m · gün okuması başlar." : "mum verisi bekleniyor."}
+        {waiting ? "09:35 ET ilk 5m kapanışıyla okuma başlar." : "mum verisi bekleniyor."}
       </div>
     );
   }
@@ -276,22 +278,22 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
       {/* başlık + karar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Karar Desteği <span className="text-[9px] font-normal text-slate-600">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m teyit · 5m karar · erken uyarı</span>
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+          Karar Desteği <span className="text-[10.5px] font-normal text-slate-500">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m teyit · 5m karar · erken uyarı</span>
         </span>
-        <span className="font-mono text-[9px] text-slate-500">
+        <span className="font-mono text-[10.5px] text-slate-500">
           son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · 30m {d.r30?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
         </span>
       </div>
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#1c2635] bg-[#0b1220] px-3 py-1 text-[10px]">
-        <span className="rounded bg-sky-500/15 px-1.5 py-0.5 font-mono text-[9px] font-semibold text-sky-300">{d.modeLabel}</span>
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#1c2635] bg-[#0b1220] px-3 py-1 text-[11px]">
+        <span className="rounded bg-sky-500/15 px-1.5 py-0.5 font-mono text-[10.5px] font-semibold text-sky-300">{d.modeLabel}</span>
         <span className="text-slate-400">{d.modeText}</span>
       </div>
       <div className="px-3 py-2" style={{ backgroundColor: `${col}10` }}>
         <div className="text-[15px] font-extrabold tracking-wide sm:text-[17px]" style={{ color: col }}>
           {d.action === "LONG" ? "▲" : d.action === "SHORT" ? "▼" : "◆"} {d.title}
         </div>
-        <ul className="mt-1 flex flex-col gap-0.5 text-[11px] leading-snug text-slate-300">
+        <ul className="mt-1 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-300">
           {d.why.map((w, i) => <li key={`w${i}`}>• {w}</li>)}
           {d.watch.map((w, i) => <li key={`a${i}`} className="text-sky-300">→ {w}</li>)}
         </ul>
@@ -304,15 +306,15 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         <TfColumn title="5m" sub="karar mumu" r={d.r5} />
         <div className="bg-[#0f141d] px-3 py-2">
           <div className="flex items-baseline justify-between gap-2">
-            <span className="text-[11px] font-semibold text-slate-300">Gün geneli <span className="text-[9px] font-normal text-slate-600">· seans</span></span>
-            <span className="font-mono text-[9px] text-slate-500">açılış {num(d.day.open)}</span>
+            <span className="text-[12px] font-semibold text-slate-300">Gün geneli <span className="text-[10.5px] font-normal text-slate-500">· seans</span></span>
+            <span className="font-mono text-[10.5px] text-slate-500">açılış {num(d.day.open)}</span>
           </div>
           <div className="mt-1 text-[16px] font-extrabold tracking-wide" style={{ color: dayCol }}>
             {d.day.dir === "UP" ? "▲ YUKARI" : d.day.dir === "DOWN" ? "▼ AŞAĞI" : "◆ YATAY"}
           </div>
           {/* gün aralığı konumu */}
           <div className="mt-1.5">
-            <div className="flex justify-between font-mono text-[8.5px] text-slate-600">
+            <div className="flex justify-between font-mono text-[10px] text-slate-500">
               <span>dip {num(d.day.low)}</span><span>tepe {num(d.day.high)}</span>
             </div>
             <div className="relative h-1.5 rounded bg-[#1c2635]">
@@ -323,7 +325,7 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
           </div>
           {d.day.buyShare != null && (
             <div className="mt-1.5">
-              <div className="flex justify-between font-mono text-[8.5px]">
+              <div className="flex justify-between font-mono text-[10px]">
                 <span className="text-[#4ade80]">alıcı hacmi %{Math.round(d.day.buyShare * 100)}</span>
                 <span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span>
               </div>
@@ -333,14 +335,14 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
               </div>
             </div>
           )}
-          <div className="mt-1.5 text-[10px] leading-snug text-slate-400">{d.day.text}</div>
+          <div className="mt-1.5 text-[11px] leading-snug text-slate-400">{d.day.text}</div>
           {/* 5m skor geçmişi */}
-          <div className="mt-1.5 text-[8.5px] text-slate-600">5m skor geçmişi (eski → yeni)</div>
+          <div className="mt-1.5 text-[10px] text-slate-500">5m skor geçmişi (eski → yeni)</div>
           <div className="mt-0.5 flex flex-wrap gap-0.5">
             {d.history5.map((h) => {
               const c = h.score >= 3 ? "#22c55e" : h.score <= -3 ? "#ef4444" : "#64748b";
               return (
-                <span key={h.clock} title={h.clock} className="rounded px-1 py-0.5 font-mono text-[8.5px] font-semibold" style={{ color: c, backgroundColor: `${c}1f` }}>
+                <span key={h.clock} title={h.clock} className="rounded px-1 py-0.5 font-mono text-[10px] font-semibold" style={{ color: c, backgroundColor: `${c}1f` }}>
                   {h.clock.slice(-5)} {scoreTxt(h.score)}
                 </span>
               );
@@ -351,8 +353,8 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
 
       {/* oluşan 5m mum — bilgi, karar mumu değil */}
       {forming && (
-        <div className="border-t border-[#1c2635] px-3 py-1.5 text-[10px] text-slate-400">
-          <span className="mr-1 rounded bg-sky-500/15 px-1 text-[8px] font-semibold text-sky-300">CANLI</span>
+        <div className="border-t border-[#1c2635] px-3 py-1.5 text-[11px] text-slate-400">
+          <span className="mr-1 rounded bg-sky-500/15 px-1 text-[9.5px] font-semibold text-sky-300">CANLI</span>
           Oluşan 5m mum ({forming.clock}): fiyat <b className="text-slate-200">{num(price ?? forming.close)}</b> ·{" "}
           {forming.vwapSide === "ABOVE" ? "VWAP üstünde" : forming.vwapSide === "BELOW" ? "VWAP altında" : "VWAP'ta"} ·{" "}
           {price != null && price >= d.long.trigger ? <b className="text-[#4ade80]">LONG tetiği üstünde — kapanışta orada kalırsa teyit</b>
@@ -367,7 +369,7 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         <PlanCell side="LONG" p={d.long} active={prio !== "SHORT"} price={price} />
         <PlanCell side="SHORT" p={d.short} active={prio !== "LONG"} price={price} />
       </div>
-      <div className="border-t border-[#1c2635] px-3 py-1 text-[9px] leading-snug text-slate-600">
+      <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
         Skor: VWAP · EMA20 · EMA20 eğimi · 3 mum yapısı · hacim akışı · son mumun hacim teyidi — her biri ±1, yalnızca KAPANMIŞ mumdan. Tetik = son
         5m tepe/dip, VWAP ve EMA20&apos;nin ötesi; stop = Trend Stop Bölgesi; hedef = tahmin haritasındaki ilk seviye. Alıcı/satıcı hacmi kapanış
         konumundan tahmin edilir (tick verisi değil). Karar desteğidir — motor sinyali ayrıca aşağıda.
@@ -392,8 +394,8 @@ const EVENT_TAG: Record<FlowRead["events"][number]["kind"], string> = {
 function MiniCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-[#0f141d] px-3 py-2">
-      <div className="mb-1 text-[10px] font-semibold text-slate-300">{title}</div>
-      <div className="flex flex-col gap-0.5 text-[10px] leading-snug text-slate-400">{children}</div>
+      <div className="mb-1 text-[11px] font-semibold text-slate-300">{title}</div>
+      <div className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-400">{children}</div>
     </div>
   );
 }
@@ -401,7 +403,7 @@ function MiniCard({ title, children }: { title: string; children: React.ReactNod
 function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: number | null; nowMin: number; opt: OptionLevels | null }) {
   if (!f) {
     return (
-      <div className={`${SURFACE} px-3 py-3 text-[11px] text-slate-500`}>
+      <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
         <span className="font-semibold text-slate-300">Erken Uyarı · Likidite · Akıllı Para</span> — ilk 5m kapanışla başlar.
       </div>
     );
@@ -417,10 +419,10 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
   return (
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-          Erken Uyarı · Likidite · Akıllı Para <span className="text-[9px] font-normal text-slate-600">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+          Erken Uyarı · Likidite · Akıllı Para <span className="text-[10.5px] font-normal text-slate-500">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
         </span>
-        <span className="font-mono text-[9px] text-slate-500">alıcı {w.bull} · satıcı {w.bear} puan</span>
+        <span className="font-mono text-[10.5px] text-slate-500">alıcı {w.bull} · satıcı {w.bear} puan</span>
       </div>
 
       <div className="px-3 py-2" style={{ backgroundColor: `${col}12` }}>
@@ -432,12 +434,12 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
           <span className="bg-[#ef4444]" style={{ width: `${(w.bear / tot) * 100}%` }} />
         </div>
         {w.level !== "NONE" && nowMin > 0 && nowMin < CLOSE_TREND_START && (
-          <div className="mt-1 text-[10px] text-amber-300/90">
+          <div className="mt-1 text-[11px] text-amber-300/90">
             ⚠ Bu saatte (14:00 öncesi) erken uyarı geçmiş ölçümde zayıf (%40 isabet) — kararı Karar Desteği&apos;ndeki seans planı verir; bu uyarı yalnızca bilgi.
           </div>
         )}
         {(w.targets.length > 0 || w.invalidation != null) && (
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
             <span className="text-slate-500">{w.side ? "hareket sürerse duraklar:" : "olası duraklar:"}</span>
             {w.targets.map((t, i) => (
               <span key={i} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5 text-slate-200" title={t.label}>
@@ -454,11 +456,11 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
       <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-2">
         {([["Alıcı izleri", w.bullWhy, "#4ade80"], ["Satıcı izleri", w.bearWhy, "#f87171"]] as const).map(([t, list, c]) => (
           <div key={t} className="bg-[#0f141d] px-3 py-2">
-            <div className="mb-0.5 text-[10px] font-semibold" style={{ color: c }}>{t}</div>
+            <div className="mb-0.5 text-[11px] font-semibold" style={{ color: c }}>{t}</div>
             {list.length === 0 ? (
-              <div className="text-[10px] text-slate-600">belirgin iz yok</div>
+              <div className="text-[11px] text-slate-500">belirgin iz yok</div>
             ) : (
-              <ul className="flex flex-col gap-0.5 text-[10px] leading-snug text-slate-300">
+              <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-300">
                 {list.map((x, i) => <li key={i}>• {x}</li>)}
               </ul>
             )}
@@ -478,7 +480,7 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
                   : <b className="text-slate-300">değer alanı içinde → POC&apos;a dönüş eğilimi</b>}
               </span>
               <span>Son 1 saat POC kayması: <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></span>
-              <span className="font-mono text-[8.5px] text-slate-600">{prof.pocPath.map((p) => `${p.clock} ${num(p.poc)}`).join(" → ")}</span>
+              <span className="font-mono text-[10px] text-slate-500">{prof.pocPath.map((p) => `${p.clock} ${num(p.poc)}`).join(" → ")}</span>
             </>
           ) : <span>veri yok</span>}
         </MiniCard>
@@ -488,7 +490,7 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
             Son 30 dk: <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>
             {f.deltaPct30 != null && <> (%{Math.round(f.deltaPct30 * 100)} → {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"})</>}
           </span>
-          <span className="text-[9px] text-slate-600">Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir.</span>
+          <span className="text-[10.5px] text-slate-500">Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir.</span>
         </MiniCard>
         <MiniCard title="Sıkışma · ivme">
           <span>
@@ -501,18 +503,18 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
           <span>{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : "İvme artışı yok (son 3 mum aynı yönde büyümüyor)"}</span>
         </MiniCard>
         <MiniCard title="Likidite havuzları (stop kümeleri)">
-          {above.map((p) => <span key={`a${p.price}`}>▲ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-600">+{num(p.price - px)}</span></span>)}
-          {below.map((p) => <span key={`b${p.price}`}>▼ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-600">−{num(px - p.price)}</span></span>)}
+          {above.map((p) => <span key={`a${p.price}`}>▲ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-500">+{num(p.price - px)}</span></span>)}
+          {below.map((p) => <span key={`b${p.price}`}>▼ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-500">−{num(px - p.price)}</span></span>)}
           {above.length + below.length === 0 && <span>yakında süpürülmemiş havuz yok</span>}
-          <span className="text-[9px] text-slate-600">Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.</span>
+          <span className="text-[10.5px] text-slate-500">Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.</span>
         </MiniCard>
       </div>
 
-      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[10px] leading-snug text-slate-400">
+      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[11px] leading-snug text-slate-400">
         <span className="font-semibold text-slate-300">Opsiyon seviyeleri</span>{" "}
-        <span className="text-slate-600">(yalnızca seviye — yön kararına girmez)</span>
+        <span className="text-slate-500">(yalnızca seviye — yön kararına girmez)</span>
         {!opt ? (
-          <span className="ml-1 text-slate-600">· Yahoo zinciri alınamadı</span>
+          <span className="ml-1 text-slate-500">· Yahoo zinciri alınamadı</span>
         ) : (
           <div className="mt-0.5 flex flex-wrap items-center gap-1.5 font-mono">
             <span className="text-slate-500">{opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`}:</span>
@@ -534,28 +536,278 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
             {opt.callPutOi != null && <span className="text-slate-500">C/P OI {opt.callPutOi.toFixed(2)}</span>}
           </div>
         )}
-        <div className="mt-0.5 text-[9px] text-slate-600">
+        <div className="mt-0.5 text-[10.5px] text-slate-500">
           OI dünkü kapanış değeridir (vade günü değişmez); ±%3 pencere; Yahoo gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
         </div>
       </div>
 
       {f.events.length > 0 && (
         <div className="border-t border-[#1c2635] px-3 py-1.5">
-          <div className="mb-0.5 text-[10px] font-semibold text-slate-300">Akıllı para olayları <span className="font-normal text-slate-600">· en yeni üstte</span></div>
-          <ul className="flex max-h-[140px] flex-col gap-0.5 overflow-y-auto text-[10px] leading-snug">
+          <div className="mb-0.5 text-[11px] font-semibold text-slate-300">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte</span></div>
+          <ul className="flex max-h-[140px] flex-col gap-0.5 overflow-y-auto text-[11px] leading-snug">
             {f.events.slice().reverse().slice(0, 12).map((e) => (
               <li key={`${e.kind}${e.time}`} className="flex gap-1.5">
                 <span className="font-mono text-slate-500">{e.clock}</span>
-                <span className={`shrink-0 rounded px-1 font-mono text-[8.5px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
+                <span className={`shrink-0 rounded px-1 font-mono text-[10px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
                 <span className="text-slate-400">{e.text}</span>
               </li>
             ))}
           </ul>
         </div>
       )}
-      <div className="border-t border-[#1c2635] px-3 py-1 text-[9px] leading-snug text-slate-600">
+      <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
         Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla. Hareket başladı: buna ek olarak son 2 mumda kurumsal itki, açılış aralığı ya da 30 dk kutusu hacimle kırıldı.
         Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
+      </div>
+    </div>
+  );
+}
+
+// ── Açılış tahmini paneli (04:00 Londra → 09:30 New York) ─────────
+
+const pctTxt = (v: number | null) => (v == null ? "—" : `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`);
+const pctCls = (v: number | null) => (v == null ? "text-slate-500" : v > 0.02 ? "text-[#4ade80]" : v < -0.02 ? "text-[#f87171]" : "text-slate-300");
+
+function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact: boolean }) {
+  if (!r) {
+    return (
+      <div className={`${SURFACE} px-4 py-3 text-[12px] text-slate-400`}>
+        <span className="font-semibold text-slate-200">Açılış Tahmini</span> — vadeli işlem verisi bekleniyor (ES · NQ · RTY · YM · VIX).
+      </div>
+    );
+  }
+  const f = r.now ?? [...r.checkpoints].reverse().find((c) => c.forecast)?.forecast ?? null;
+
+  // Açılıştan sonra: tek satır sonuç
+  if (compact) {
+    const a = r.actual;
+    return (
+      <div className={`${SURFACE} flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 text-[12px]`}>
+        <span className="font-semibold text-slate-200">Açılış Tahmini · {r.session}</span>
+        {a ? (
+          <>
+            <span className="text-slate-400">son tahmin (09:25) <b className="font-mono text-slate-100">{a.lastForecast != null ? num(a.lastForecast) : "—"}</b></span>
+            <span className="text-slate-400">gerçek açılış <b className="font-mono text-slate-100">{num(a.open)}</b></span>
+            {a.error != null && (
+              <span className={a.inBand ? "text-[#4ade80]" : "text-amber-300"}>
+                hata {a.error >= 0 ? "+" : ""}{num(a.error)} puan · {a.inBand ? "%80 aralık içinde ✓" : "aralık dışında"}
+              </span>
+            )}
+          </>
+        ) : (
+          <span className="text-slate-500">açılış verisi bekleniyor</span>
+        )}
+      </div>
+    );
+  }
+
+  const col = f?.dir === "UP" ? "#22c55e" : f?.dir === "DOWN" ? "#ef4444" : "#eab308";
+  const confCls =
+    f?.confidence === "YÜKSEK" ? "border-[#22c55e]/40 bg-[#22c55e]/10 text-[#4ade80]"
+    : f?.confidence === "ORTA" ? "border-amber-500/40 bg-amber-500/10 text-amber-300"
+    : "border-slate-600 bg-slate-700/20 text-slate-300";
+
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
+        <span className="text-[13px] font-semibold text-slate-200">
+          Açılış Tahmini <span className="text-[11px] font-normal text-slate-400">· {r.session} seansı · ES fair value (dünkü kapanış {num(r.prevClose)} × ES değişimi)</span>
+        </span>
+        <span className="flex flex-wrap gap-1 font-mono text-[11px]">
+          {r.checkpoints.map((c) => (
+            <span
+              key={c.label}
+              title={c.name}
+              className={`rounded border px-1.5 py-0.5 ${c.forecast ? "border-[#1c2635] bg-[#0a0e17] text-slate-200" : "border-[#1c2635] text-slate-600"}`}
+            >
+              {c.label} {c.forecast ? `${num(c.forecast.center)} ±${num((c.forecast.hi - c.forecast.lo) / 2)}` : "—"}
+            </span>
+          ))}
+        </span>
+      </div>
+
+      {!f ? (
+        <div className="px-4 py-4 text-[12px] text-slate-400">Vadeli işlemlerde dünkü 16:00 referansı bulunamadı.</div>
+      ) : (
+        <>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3" style={{ backgroundColor: `${col}10` }}>
+            <div>
+              <div className="text-[22px] font-extrabold leading-none tracking-wide" style={{ color: col }}>
+                {f.dir === "UP" ? "▲ YUKARI AÇILIŞ" : f.dir === "DOWN" ? "▼ AŞAĞI AÇILIŞ" : "◆ YATAY AÇILIŞ"}
+              </div>
+              <div className="mt-1 text-[12px] text-slate-400">
+                gap {f.gap >= 0 ? "+" : ""}{num(f.gap)} puan ({pctTxt(f.gapPct)}) · açılışa {f.minutesToOpen} dk
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] text-slate-400">beklenen açılış</div>
+              <div className="font-mono text-[26px] font-black leading-none text-slate-100">${num(f.center)}</div>
+            </div>
+            <div>
+              <div className="text-[11px] text-slate-400">%80 aralık</div>
+              <div className="font-mono text-[16px] font-bold text-slate-200">{num(f.lo)} – {num(f.hi)}</div>
+            </div>
+            <div className={`rounded border px-2.5 py-1 text-[12px] font-semibold ${confCls}`}>
+              güven {f.confidence} · geçmiş yön isabeti %{f.dirHitPct}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-3">
+            <div className="bg-[#0f141d] px-4 py-2">
+              <div className="mb-1 text-[11px] font-semibold text-slate-300">Vadeliler (dünkü 16:00&apos;dan)</div>
+              <div className="flex flex-wrap gap-1.5 font-mono text-[12px]">
+                {(["ES", "NQ", "RTY", "YM", "VIX"] as const).map((k) => (
+                  <span key={k} className="rounded bg-[#0a0e17] px-1.5 py-0.5">
+                    <span className="text-slate-400">{k}</span> <b className={k === "VIX" ? "text-slate-200" : pctCls(f.changes[k])}>{pctTxt(f.changes[k])}</b>
+                  </span>
+                ))}
+              </div>
+              <div className="mt-1 text-[11px] text-slate-400">ES ile aynı yönde: {f.agree}/3 (NQ · RTY · YM)</div>
+            </div>
+            <div className="bg-[#0f141d] px-4 py-2">
+              <div className="mb-1 text-[11px] font-semibold text-slate-300">ES eğilimi (bağlam)</div>
+              <div className="flex flex-wrap gap-1.5 text-[12px]">
+                {r.trend.map((t) => (
+                  <span
+                    key={t.tf}
+                    title={t.text}
+                    className={`rounded border px-1.5 py-0.5 ${t.dir === "UP" ? SIDE_CHIP.ABOVE : t.dir === "DOWN" ? SIDE_CHIP.BELOW : SIDE_CHIP.AT}`}
+                  >
+                    {t.tf} {t.dir === "UP" ? "▲ yukarı" : t.dir === "DOWN" ? "▼ aşağı" : "◆ yatay"}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-1 text-[11px] text-slate-500">Tahmine girmez — yalnızca gece boyunca oluşan eğilim.</div>
+            </div>
+            <div className="bg-[#0f141d] px-4 py-2">
+              <div className="mb-1 text-[11px] font-semibold text-slate-300">SPY premarket</div>
+              <div className="font-mono text-[13px] text-slate-200">
+                {f.spyPre != null ? <>son {num(f.spyPre)} · fair value&apos;dan {f.spyPrePremium != null && f.spyPrePremium >= 0 ? "+" : ""}{num(f.spyPrePremium)}</> : "henüz işlem yok"}
+              </div>
+              <div className="mt-1 text-[11px] text-slate-500">Çapraz kontrol — premarket likiditesi ince; ölçümde ES daha isabetli.</div>
+            </div>
+          </div>
+
+          <ul className="flex flex-col gap-0.5 border-t border-[#1c2635] px-4 py-2 text-[12px] leading-snug text-slate-300">
+            {f.notes.map((n, i) => <li key={i}>• {n}</li>)}
+          </ul>
+          <div className="border-t border-[#1c2635] px-4 py-1.5 text-[11px] leading-snug text-slate-500">
+            58 seans ölçümü (ES fair value): ort. hata 04:00 1,79 · 07:00 1,41 · 08:30 0,79 · 09:00 0,50 · 09:25 0,31 puan; gap yönü %74 → %100.
+            Aralık bu ölçümün %80 kapsamasıdır. Açılış yönü işlem kararı değildir — gün yönü 09:55 kuralıyla belirlenir.
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Tahmin günlüğü paneli ─────────────────────────────────────────
+
+interface JournalResp {
+  stats: JournalStats;
+  learned: { stageStats: Record<string, { hit60: number; hitClose: number }> | null; bandScale: Record<string, number> | null };
+  minN: number;
+  recent: JournalDay[];
+}
+
+const okMark = (v: boolean | null) => (v == null ? <span className="text-slate-600">·</span> : v ? <span className="text-[#4ade80]">✓</span> : <span className="text-[#f87171]">✕</span>);
+const dirMark = (d: string | null) => (d === "UP" ? "▲" : d === "DOWN" ? "▼" : d === "MIXED" ? "◆" : "·");
+
+function JournalPanel({ j }: { j: JournalResp | null }) {
+  if (!j) {
+    return <div className={`${SURFACE} px-4 py-3 text-[12px] text-slate-400`}><b className="text-slate-200">Tahmin Günlüğü</b> — yükleniyor.</div>;
+  }
+  const st = j.stats;
+  const f925 = st.forecast["09:25"], f400 = st.forecast["04:00"];
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
+        <span className="text-[13px] font-semibold text-slate-200">
+          Tahmin Günlüğü <span className="text-[11px] font-normal text-slate-400">· her seans kaydedilir, gerçekleşenle kıyaslanır · {st.n} gün ({st.liveN} canlı, {st.n - st.liveN} geriye dönük)</span>
+        </span>
+        <span className="text-[11px] text-slate-400">
+          öğrenme: {j.minN}+ kayıtta aşama isabetleri ve açılış aralığı gerçekleşenden hesaplanır
+          {j.learned.stageStats ? " · AKTİF" : " · bekleniyor"}
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 gap-px bg-[#1c2635] md:grid-cols-3">
+        <div className="bg-[#0f141d] px-4 py-2 text-[12px] text-slate-300">
+          <div className="mb-1 text-[11px] font-semibold text-slate-400">Açılış tahmini (gerçekleşen)</div>
+          {(["04:00", "07:00", "08:30", "09:25"] as const).map((k) => {
+            const f = st.forecast[k];
+            return f ? (
+              <div key={k} className="font-mono text-[12px]">
+                {k} · ort. hata {num(f.meanErr)} · aralık içi %{f.inBandPct} · gap yönü {f.dirPct != null ? `%${f.dirPct}` : "—"}
+              </div>
+            ) : null;
+          })}
+          {!f925 && !f400 && <div className="text-slate-500">henüz kayıt yok</div>}
+        </div>
+        <div className="bg-[#0f141d] px-4 py-2 text-[12px] text-slate-300">
+          <div className="mb-1 text-[11px] font-semibold text-slate-400">Açılış aşamaları (yön verdiği günler)</div>
+          {Object.entries(st.stages).map(([k, v]) => (
+            <div key={k} className="font-mono text-[12px]">
+              {k} · 60 dk %{v.hit60} · kapanış %{v.hitClose} <span className="text-slate-500">(n={v.n})</span>
+            </div>
+          ))}
+        </div>
+        <div className="bg-[#0f141d] px-4 py-2 text-[12px] text-slate-300">
+          <div className="mb-1 text-[11px] font-semibold text-slate-400">Gün yönü kararı</div>
+          <div className="font-mono">60 dk %{st.decision.hit60} · kapanış %{st.decision.hitClose} <span className="text-slate-500">(n={st.decision.n})</span></div>
+          {Object.entries(st.decision.byWhen).map(([k, v]) => (
+            <div key={k} className="font-mono text-[12px] text-slate-400">
+              {k === "EMA" ? "EMA20 (zayıf)" : `${k} kararı`} · kapanış %{v.hitClose} <span className="text-slate-500">(n={v.n})</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="overflow-x-auto border-t border-[#1c2635]">
+        <table className="w-full text-left font-mono text-[11.5px]">
+          <thead className="text-slate-500">
+            <tr className="border-b border-[#1c2635]">
+              <th className="px-3 py-1 font-normal">gün</th>
+              <th className="px-2 py-1 font-normal">09:25 tahmin → açılış</th>
+              <th className="px-2 py-1 font-normal">hata</th>
+              <th className="px-2 py-1 font-normal">09:35 · 09:40 · 09:45 · 09:50 · 09:55 · 10:00</th>
+              <th className="px-2 py-1 font-normal">gün yönü</th>
+              <th className="px-2 py-1 font-normal">60 dk</th>
+              <th className="px-2 py-1 font-normal">kapanış</th>
+            </tr>
+          </thead>
+          <tbody>
+            {j.recent.slice(0, 10).map((d) => {
+              const f = d.forecasts.find((x) => x.label === "09:25");
+              return (
+                <tr key={d.date} className="border-b border-[#151c28] text-slate-300">
+                  <td className="px-3 py-1">{d.date.slice(5)}{d.backfill && <span className="text-slate-600">*</span>}</td>
+                  <td className="px-2 py-1">{f ? `${num(f.center)} → ${num(d.open)}` : "—"}</td>
+                  <td className="px-2 py-1">{f ? <>{f.error >= 0 ? "+" : ""}{num(f.error)} {okMark(f.inBand)}</> : "—"}</td>
+                  <td className="px-2 py-1 tracking-wider">
+                    {d.stages.map((x) => (
+                      <span key={x.clock} title={`${x.clock}: ${x.dir ?? "—"}`} className={x.dir === "UP" ? "text-[#4ade80]" : x.dir === "DOWN" ? "text-[#f87171]" : "text-slate-500"}>
+                        {dirMark(x.dir)}{" "}
+                      </span>
+                    ))}
+                  </td>
+                  <td className="px-2 py-1">
+                    <span className={d.decision.side === "UP" ? "text-[#4ade80]" : d.decision.side === "DOWN" ? "text-[#f87171]" : "text-slate-500"}>
+                      {d.decision.side === "UP" ? "▲ YÜKSELİŞ" : d.decision.side === "DOWN" ? "▼ DÜŞÜŞ" : "◆ yok"}
+                    </span>
+                    <span className="text-slate-500"> {d.decision.decidedAt ?? ""}</span>
+                  </td>
+                  <td className="px-2 py-1">{okMark(d.decision.ok60)}</td>
+                  <td className="px-2 py-1">{okMark(d.decision.okClose)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className="border-t border-[#1c2635] px-4 py-1.5 text-[11px] leading-snug text-slate-500">
+        * geriye dönük doldurulan gün (o günün kodu değil, bugünkü kurallarla hesaplandı). Canlı kayıtlar dondurulur — sonradan değişmez.
+        Seans 16:05 ET&apos;den sonra kaydedilir.
       </div>
     </div>
   );
@@ -581,6 +833,10 @@ export default function SpyEngineV9() {
 
   const [quotes, setQuotes] = useState<StripQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
+  /** Açılış tahmini (04:00 → 09:30): ES fair value, 60 sn'de bir */
+  const [openFc, setOpenFc] = useState<OpenForecastRead | null>(null);
+  /** Tahmin günlüğü + öğrenilen aşama isabetleri (30 dk'da bir) */
+  const [journal, setJournal] = useState<JournalResp | null>(null);
   /** 0DTE opsiyon duvarları + max pain — yalnızca seviye (5 dk'da bir) */
   const [optLevelsLive, setOptLevels] = useState<OptionLevels | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<{ checked: number; hit: number } | null>(null);
@@ -675,6 +931,41 @@ export default function SpyEngineV9() {
     return () => { cancelled = true; clearInterval(id); };
   }, [showTickers]);
 
+  // Tahmin günlüğü: açılışta bir kez + 30 dk'da bir (sunucu eksik seansları kendisi ekler)
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/journal", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok) setJournal(json as JournalResp);
+      } catch {
+        // günlük ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 30 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
+
+  // Açılış tahmini: canlı modda 60 sn'de bir (sunucu 60 sn önbellekler); replay'de anlamsız
+  useEffect(() => {
+    if (replayDate) return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/openforecast", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok && json.read) setOpenFc(json.read as OpenForecastRead);
+      } catch {
+        // açılış tahmini ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, [replayDate]);
+
   // Opsiyon seviyeleri: canlı modda 5 dk'da bir (sunucu da 5 dk önbellekler); replay'de güncel zincir anlamsız
   useEffect(() => {
     if (replayDate) return;
@@ -766,13 +1057,13 @@ export default function SpyEngineV9() {
     const s5 = daySeries(m5D, "5m", date, evalNow, lastM1Time);
     const s15 = daySeries(m15D, "15m", date, evalNow, lastM1Time);
     const s30 = daySeries(m30D, "30m", date, evalNow, lastM1Time);
-    const opening = openingRegime(s5, s15, ema5);
+    const opening = openingRegime(s5, s15, ema5, s30, journal?.learned.stageStats ?? null);
     // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
     const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
     return { s5, s15, s30, opening, live, c5: commentAll(s5, "5m", 40, ema5), c15: commentAll(s15, "15m", 40, ema15) };
     // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot]);
+  }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot, journal?.learned.stageStats]);
 
   /** Oluşmakta olan mumların canlı yorumu (yalnızca canlı modda; karar mumu değil) */
   const forming5 = useMemo(
@@ -803,6 +1094,8 @@ export default function SpyEngineV9() {
   }, [analysis, m1, date, data?.levels?.premarket, minuteSlot]);
 
   const nowMin = evalNow ? nyParts(evalNow).minutes : 0;
+  /** 09:45 15m kapanışından sonra seans kartları açılır; öncesi tek satır + açılış tahmini */
+  const sessionActive = !!analysis && analysis.opening.status !== "WAITING";
 
   /**
    * Haritanın yönü = karar panelindeki seans planının yönü (aynı sessionModeOf).
@@ -983,7 +1276,7 @@ export default function SpyEngineV9() {
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V9.0</h1>
-            <p className="text-[9px] text-slate-500">
+            <p className="text-[10.5px] text-slate-500">
               her kapanan 5m · 15m · 30m mum analizi · VWAP + EMA20 · POC / likidite / akıllı para · erken uyarı · 09:55 gün yönü (15m + 2×5m VWAP) · tahmin haritası
             </p>
           </div>
@@ -1002,7 +1295,7 @@ export default function SpyEngineV9() {
 
         <div className="flex flex-wrap items-center gap-1.5">
           <span
-            className={`flex items-center gap-1.5 rounded border px-2 py-1 font-mono text-[10px] ${
+            className={`flex items-center gap-1.5 rounded border px-2 py-1 font-mono text-[11px] ${
               connection === "live" ? "border-green-500/25 bg-green-500/10 text-green-300"
               : connection === "lagging" ? "border-amber-500/25 bg-amber-500/10 text-amber-300"
               : "border-red-500/25 bg-red-500/10 text-red-300"
@@ -1013,13 +1306,13 @@ export default function SpyEngineV9() {
             {connection === "down" ? `BAĞLANTI YOK (${failures})` : connection === "lagging" ? "GECİKME" : "CANLI"}
             {secondsSince != null && ` · ${secondsSince}sn`}
           </span>
-          <span className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[10px] text-slate-400">
+          <span className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400">
             {nowSec ? `${nyClock(nowSec, true)} ET` : "—"}
           </span>
           <select
             value={pollMs}
             onChange={(e) => setPollMs(Number(e.target.value))}
-            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[10px] text-slate-400"
+            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400"
             title="Yoklama aralığı"
           >
             {POLL_OPTIONS.map((ms) => <option key={ms} value={ms}>{ms / 1000} sn</option>)}
@@ -1028,18 +1321,18 @@ export default function SpyEngineV9() {
             type="date"
             value={replayDate}
             onChange={(e) => setReplayDate(e.target.value)}
-            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[10px] text-slate-400"
+            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400"
             title="Geriye dönük seans oynatma (boş = canlı)"
           />
           {replayDate && (
-            <button type="button" onClick={() => setReplayDate("")} className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300">
+            <button type="button" onClick={() => setReplayDate("")} className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-1 text-[11px] text-amber-300">
               canlıya dön
             </button>
           )}
           <button
             type="button"
             onClick={() => setAlertSound((v) => !v)}
-            className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
+            className={`rounded border px-2 py-1 text-[11px] font-semibold transition-colors ${
               alertSound ? "border-orange-500/40 bg-orange-500/15 text-orange-300" : "border-[#1c2635] bg-[#111827] text-slate-500 hover:bg-[#1c2635]"
             }`}
             title="Kurulum yaklaştığında sesli + titreşimli uyarı"
@@ -1049,7 +1342,7 @@ export default function SpyEngineV9() {
           <button
             type="button"
             onClick={() => setShowTickers((v) => !v)}
-            className={`rounded border px-2 py-1 text-[10px] font-semibold transition-colors ${
+            className={`rounded border px-2 py-1 text-[11px] font-semibold transition-colors ${
               showTickers ? "border-sky-500/40 bg-sky-500/10 text-sky-300" : "border-[#1c2635] bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
             }`}
           >
@@ -1060,17 +1353,17 @@ export default function SpyEngineV9() {
 
       {/* Uyarılar */}
       {data && !data.session.isLive && data.session.note && (
-        <div className="mb-2 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[10px] text-amber-300/90">
+        <div className="mb-2 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[11px] text-amber-300/90">
           <span>🕒</span><span>{data.session.note}</span>
         </div>
       )}
       {error && (
-        <div className="mb-2 rounded border border-red-500/25 bg-red-500/10 px-2 py-1 text-[10px] text-red-300">
+        <div className="mb-2 rounded border border-red-500/25 bg-red-500/10 px-2 py-1 text-[11px] text-red-300">
           Akış hatası: {error}{failures > 1 && ` · ardışık ${failures} deneme başarısız`}
         </div>
       )}
       {data && data.dataSource.errors.length > 0 && (
-        <div className="mb-2 rounded border border-amber-500/20 bg-amber-500/5 px-2 py-1 text-[9px] text-amber-300/80">
+        <div className="mb-2 rounded border border-amber-500/20 bg-amber-500/5 px-2 py-1 text-[10.5px] text-amber-300/80">
           Veri kaynağı uyarısı: {data.dataSource.errors.join(" · ")} — eksik zaman dilimi için mum çizilmiyor.
         </div>
       )}
@@ -1084,16 +1377,27 @@ export default function SpyEngineV9() {
           </div>
         )}
 
+        {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
+        {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
+
+        {!sessionActive && (
+          <div className={`${SURFACE} px-4 py-2.5 text-[12px] text-slate-400`}>
+            <b className="text-slate-200">Seans analizi 09:35 ET&apos;de başlar</b> — 09:35 ilk 5m · 09:45 15m · 09:55 büyük resim (gün yönü kararı) · belirsizse 10:00 30m teyidi.
+            Açılış Rejimi, Karar Desteği, Erken Uyarı ve Trend Stop kartları ilk 5m kapanışında açılır.
+          </div>
+        )}
+
+        {sessionActive && (<>
         {/* ── 1) Açılış rejimi + 3 mum yönü ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${opColor}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-              <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                Açılış Rejimi <span className="text-[9px] font-normal text-slate-600">· 15m 09:45 + 5m 09:50 · 09:55 VWAP tarafı · EMA20 + hacim teyidi → 09:55 gün yönü</span>
+              <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+                Açılış Rejimi <span className="text-[10.5px] font-normal text-slate-500">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → gerekirse 10:00 30m teyidi</span>
               </span>
               {op && (
-                <span className="rounded px-1.5 py-0.5 text-[9px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
-                  {op.status === "LOCKED" ? `KİLİTLİ 09:55${op.strength ? ` · ${op.strength}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
+                <span className="rounded px-1.5 py-0.5 text-[10.5px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
+                  {op.status === "LOCKED" ? `KARAR ${op.decidedAt === "EMA" ? "09:55 (EMA20)" : op.decidedAt ?? ""}${op.strength ? ` · ${op.strength}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
                 </span>
               )}
             </div>
@@ -1102,26 +1406,34 @@ export default function SpyEngineV9() {
                 <div className="text-[34px] font-black leading-none" style={{ color: opColor }}>{opArrow}</div>
                 <div className="mt-1 text-[18px] font-extrabold tracking-wide" style={{ color: opColor }}>{op?.label ?? "VERİ BEKLENİYOR"}</div>
               </div>
-              <div className="min-w-0 flex-1 text-[11px] leading-relaxed text-slate-400">{op?.summary ?? "Mum verisi bekleniyor."}</div>
+              <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{op?.summary ?? "Mum verisi bekleniyor."}</div>
             </div>
-            {op && op.votes.length > 0 && (
-              <div className="flex flex-wrap items-center gap-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
-                <span className="text-slate-600">oylar {op.score > 0 ? "+" : ""}{op.score}/{op.maxScore}</span>
-                {op.votes.map((v) => (
-                  <span
-                    key={v.label}
-                    className={`rounded border px-1 py-0.5 ${v.vote > 0 ? SIDE_CHIP.ABOVE : v.vote < 0 ? SIDE_CHIP.BELOW : "border-slate-700 text-slate-500"}`}
-                    title={v.value}
-                  >
-                    {v.label}: {v.value} ({v.vote > 0 ? "+" : ""}{v.vote})
-                  </span>
-                ))}
+            {op && (
+              <div className="grid grid-cols-3 gap-1 border-t border-[#1c2635] p-1.5 sm:grid-cols-6">
+                {op.stages.map((st) => {
+                  const c = st.skipped ? "#334155" : st.dir === "UP" ? "#22c55e" : st.dir === "DOWN" ? "#ef4444" : st.dir === "MIXED" ? "#eab308" : "#334155";
+                  return (
+                    <div
+                      key={st.clock}
+                      title={st.detail}
+                      className={`rounded border px-1.5 py-1 ${st.decisive ? "ring-1 ring-[#eab308]/60" : ""}`}
+                      style={{ borderColor: `${c}66`, backgroundColor: `${c}14` }}
+                    >
+                      <div className="flex items-center justify-between font-mono text-[11px]">
+                        <b className="text-slate-200">{st.clock}</b>
+                        <span style={{ color: c }}>{st.skipped ? "—" : st.dir === "UP" ? "▲" : st.dir === "DOWN" ? "▼" : st.dir === "MIXED" ? "◆" : "…"}</span>
+                      </div>
+                      <div className="text-[10.5px] text-slate-400">{st.title}{st.decisive ? " · KARAR" : ""}</div>
+                      <div className="font-mono text-[10px] text-slate-500">60dk %{st.hit60} · kap. %{st.hitClose}</div>
+                    </div>
+                  );
+                })}
               </div>
             )}
             {op && (op.closes5.length > 0 || op.closes15.length > 0) && (
-              <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
+              <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
                 <div className="flex flex-wrap items-center gap-1">
-                  <span className="text-slate-600">5m</span>
+                  <span className="text-slate-500">5m</span>
                   {op.closes5.map((c) => (
                     <span key={c.clock} className={`rounded border px-1 py-0.5 ${c.side ? SIDE_CHIP[c.side] : "border-slate-700 text-slate-500"}`}>
                       {c.clock} {c.side === "ABOVE" ? "▲" : c.side === "BELOW" ? "▼" : "•"}
@@ -1129,30 +1441,30 @@ export default function SpyEngineV9() {
                   ))}
                 </div>
                 <div className="flex flex-wrap items-center gap-1">
-                  <span className="text-slate-600">15m</span>
+                  <span className="text-slate-500">15m</span>
                   {op.closes15.map((c) => (
                     <span key={c.clock} className={`rounded border px-1 py-0.5 ${c.side ? SIDE_CHIP[c.side] : "border-slate-700 text-slate-500"}`}>
                       {c.clock} {c.side === "ABOVE" ? "▲" : c.side === "BELOW" ? "▼" : "•"}
                     </span>
                   ))}
                 </div>
-                <span className="text-slate-600">▲ VWAP üstü kapanış · ▼ VWAP altı kapanış</span>
+                <span className="text-slate-500">▲ VWAP üstü kapanış · ▼ VWAP altı kapanış</span>
               </div>
             )}
           </div>
 
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-              <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-                VWAP Konumu <span className="text-[9px] font-normal text-slate-600">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
+              <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+                VWAP Konumu <span className="text-[10.5px] font-normal text-slate-500">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
               </span>
-              <span className="font-mono text-[9px] text-slate-500">
+              <span className="font-mono text-[10.5px] text-slate-500">
                 {live ? `5m ${live.asOf5} · 15m ${live.asOf15 ?? "—"} kapanışı · ` : ""}
                 kontrol {minuteSlot ? nyClock(minuteSlot * 60) : "—"} · sonraki {evalNow ? 60 - (evalNow % 60) : "—"}sn
               </span>
             </div>
             {!live ? (
-              <div className="px-4 py-6 text-[11px] text-slate-500">
+              <div className="px-4 py-6 text-[12px] text-slate-500">
                 09:45 ET 15m kapanışına kadar yön okuması başlamaz. Kapanan mumların yorumu aşağıda akıyor.
               </div>
             ) : (
@@ -1165,11 +1477,11 @@ export default function SpyEngineV9() {
                     <div className="mt-1 text-[18px] font-extrabold tracking-wide" style={{ color: liveColor }}>
                       {live.dir === "UP" ? "YUKARI" : live.dir === "DOWN" ? "AŞAĞI" : "BEKLE"}
                     </div>
-                    <div className="text-[9px] text-slate-500">{live.strength}</div>
+                    <div className="text-[10.5px] text-slate-500">{live.strength}</div>
                   </div>
-                  <div className="min-w-0 flex-1 text-[11px] leading-relaxed text-slate-400">{live.text}</div>
+                  <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{live.text}</div>
                 </div>
-                <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[9px]">
+                <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
                   {([["5m", live.side5, live.streak5], ["15m", live.side15, live.streak15]] as const).map(([tf, side, n]) => (
                     <span key={tf} className={`rounded border px-1.5 py-0.5 ${side ? SIDE_CHIP[side] : "border-slate-700 text-slate-500"}`}>
                       {tf} {side === "ABOVE" ? "VWAP ÜSTÜ" : side === "BELOW" ? "VWAP ALTI" : side === "AT" ? "VWAP'TA" : "—"} · {n} mum
@@ -1195,6 +1507,7 @@ export default function SpyEngineV9() {
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
         <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} />
+        </>)}
 
         {/* ── 2) Motor sinyali (ön uyarı / giriş) ── */}
         <AlertBanner
@@ -1212,12 +1525,13 @@ export default function SpyEngineV9() {
         )}
 
         {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
+        {sessionActive && (
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-            <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-              Trend Stop Bölgesi <span className="text-[9px] font-normal text-slate-600">· son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir</span>
+            <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+              Trend Stop Bölgesi <span className="text-[10.5px] font-normal text-slate-500">· son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir</span>
             </span>
-            <span className="flex items-center gap-1 font-mono text-[9px] text-slate-500">
+            <span className="flex items-center gap-1 font-mono text-[10.5px] text-slate-500">
               tampon çarpanı
               {([[0.25, "normal"], [0.4, "yüksek vol."], [0.5, "veri günü"]] as const).map(([m, l]) => (
                 <button
@@ -1233,7 +1547,7 @@ export default function SpyEngineV9() {
             </span>
           </div>
           {!stops || !stops.long || !stops.short ? (
-            <div className="px-3 py-4 text-[11px] text-slate-500">İlk 15m mum 09:45 ET&apos;de kapanınca stop bölgesi oluşur.</div>
+            <div className="px-3 py-4 text-[12px] text-slate-500">İlk 15m mum 09:45 ET&apos;de kapanınca stop bölgesi oluşur.</div>
           ) : (
             <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-2">
               {([stops.long, stops.short] as const).map((z) => {
@@ -1248,17 +1562,17 @@ export default function SpyEngineV9() {
                     <div className="flex items-center justify-between">
                       <span className="text-[12px] font-bold" style={{ color: col }}>
                         {isLong ? "LONG taşıyorsan" : "SHORT taşıyorsan"}
-                        {active && dir !== "MIXED" && <span className="ml-1.5 rounded px-1 text-[8px] font-semibold" style={{ backgroundColor: `${col}22` }}>YÖN LEHİNE</span>}
+                        {active && dir !== "MIXED" && <span className="ml-1.5 rounded px-1 text-[9.5px] font-semibold" style={{ backgroundColor: `${col}22` }}>YÖN LEHİNE</span>}
                       </span>
-                      <span className="font-mono text-[9px] text-slate-500">dayanak: {z.anchorClock} 15m {isLong ? "dip" : "zirve"} {num(z.anchor)}</span>
+                      <span className="font-mono text-[10.5px] text-slate-500">dayanak: {z.anchorClock} 15m {isLong ? "dip" : "zirve"} {num(z.anchor)}</span>
                     </div>
                     <div className="mt-1 flex flex-wrap items-baseline gap-x-3">
                       <span className="font-mono text-[22px] font-black" style={{ color: col }}>${num(z.stop)}</span>
-                      <span className="font-mono text-[10px] text-slate-400">
+                      <span className="font-mono text-[11px] text-slate-400">
                         SL alanı {num(z.zoneLo)} – {num(z.zoneHi)} · tampon {num(z.buffer)} (ATR₁₅ {stops.atr15 != null ? num(stops.atr15) : "—"} × {stops.mult})
                       </span>
                     </div>
-                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] leading-snug text-slate-400">
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] leading-snug text-slate-400">
                       {dist != null && (
                         <span className={hit ? "font-semibold text-amber-300" : ""}>
                           {hit ? "⚠ Fiyat stop seviyesine ulaştı/geçti" : `Fiyata uzaklık ${num(dist)} puan (%${num((dist / (price as number)) * 100)})`}
@@ -1278,42 +1592,44 @@ export default function SpyEngineV9() {
               })}
             </div>
           )}
-          <div className="border-t border-[#1c2635] px-3 py-1 text-[9px] leading-snug text-slate-600">
+          <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
             Kural: stop yalnızca trend yönünde çekilir (LONG&apos;da yukarı, SHORT&apos;ta aşağı), asla geri gevşetilmez. Yalnızca KAPANMIŞ 15m mum kullanılır; oluşan mumun fitili stopu oynatmaz. Seviyeler grafikte SL çizgisi olarak görünür.
           </div>
         </div>
 
+        )}
+
         {/* ── 3) Tahmin haritası ── */}
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-            <span className="text-[11px] font-semibold tracking-wide text-slate-300">
-              Tahmin Haritası <span className="text-[9px] font-normal text-slate-600">· destek / direnç · yolculuk · kapanış beklentisi</span>
+            <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+              Tahmin Haritası <span className="text-[10.5px] font-normal text-slate-500">· destek / direnç · yolculuk · kapanış beklentisi</span>
             </span>
             {map && (
-              <span className="flex items-center gap-2 font-mono text-[10px]">
+              <span className="flex items-center gap-2 font-mono text-[11px]">
                 <span className="text-slate-500">gün sonu kapanış ≈</span>
                 <b className="text-[14px] text-slate-100">${num(map.closeExpect)}</b>
-                <span className="text-slate-600">({num(map.closeLow)} – {num(map.closeHigh)})</span>
+                <span className="text-slate-500">({num(map.closeLow)} – {num(map.closeHigh)})</span>
               </span>
             )}
           </div>
           {!map || !date ? (
-            <div className="px-3 py-8 text-center text-[11px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
+            <div className="px-3 py-8 text-center text-[12px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
           ) : (
             <>
               <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} />
               <div className="grid grid-cols-1 gap-2 border-t border-[#1c2635] px-3 py-2 lg:grid-cols-2">
                 <div>
-                  <div className="mb-0.5 text-[10px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>
+                  <div className="mb-0.5 text-[11px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>
                     {map.biasText}
                   </div>
-                  <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[10.5px] leading-snug text-slate-300 marker:text-slate-600">
+                  <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[11.5px] leading-snug text-slate-300 marker:text-slate-500">
                     {map.steps.map((s, i) => <li key={i}>{s}</li>)}
                   </ol>
                 </div>
-                <ul className="flex flex-col gap-0.5 text-[10px] leading-snug text-slate-500">
+                <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-500">
                   {map.alt.map((a, i) => <li key={i}>⚠ {a}</li>)}
-                  <li className="mt-0.5 text-slate-600">
+                  <li className="mt-0.5 text-slate-500">
                     Bu bir TAHMİNDİR. Seviyeler ölçülmüş veriden, yolculuk süresi ortalama saatlik hareketten, kapanış bandı 20 seanslık
                     dağılımdan gelir{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} seans)` : ""}.
                   </li>
@@ -1326,12 +1642,12 @@ export default function SpyEngineV9() {
         {/* ── 4) 15m + 5m grafik ── */}
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
-            <span className="text-[10px] font-semibold tracking-wide text-slate-300">15m / 5m Grafikleri</span>
+            <span className="text-[11px] font-semibold tracking-wide text-slate-300">15m / 5m Grafikleri</span>
             <div className="flex flex-wrap items-center gap-0.5">
               <button
                 type="button"
                 onClick={() => setToggles((t) => ({ ...t, candleType: t.candleType === "HA" ? "NORMAL" : "HA" }))}
-                className={`rounded px-1.5 py-0.5 text-[9px] font-medium transition-colors ${toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"}`}
+                className={`rounded px-1.5 py-0.5 text-[10.5px] font-medium transition-colors ${toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"}`}
               >
                 {toggles.candleType === "HA" ? "HA" : "Normal"}
               </button>
@@ -1340,7 +1656,7 @@ export default function SpyEngineV9() {
                   key={key}
                   type="button"
                   onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
-                  className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600 hover:text-slate-400"}`}
+                  className={`rounded px-1.5 py-0.5 text-[10.5px] transition-colors ${toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-500 hover:text-slate-400"}`}
                 >
                   {label}
                 </button>
@@ -1348,7 +1664,7 @@ export default function SpyEngineV9() {
               <button
                 type="button"
                 onClick={() => setAutoScroll((a) => !a)}
-                className={`rounded px-1.5 py-0.5 text-[9px] transition-colors ${autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-600"}`}
+                className={`rounded px-1.5 py-0.5 text-[10.5px] transition-colors ${autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-500"}`}
                 title="Yeni mum geldikçe sağa kaydır"
               >
                 ⟳
@@ -1357,7 +1673,7 @@ export default function SpyEngineV9() {
           </div>
           <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
             <div className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
-              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">
+              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
                 15m — yön teyidi
                 {m15Trend && <span className={`text-[13px] font-bold leading-none ${m15Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{m15Trend === "UP" ? "↑" : "↓"}</span>}
               </div>
@@ -1368,7 +1684,7 @@ export default function SpyEngineV9() {
               />
             </div>
             <div className="bg-[#0a0e17]">
-              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[9px] text-slate-500">
+              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
                 5m — karar mumu
                 {m5Trend && <span className={`text-[13px] font-bold leading-none ${m5Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{m5Trend === "UP" ? "↑" : "↓"}</span>}
               </div>
@@ -1379,7 +1695,7 @@ export default function SpyEngineV9() {
               />
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-2 border-t border-[#1c2635] px-2 py-1 font-mono text-[8px] text-slate-600">
+          <div className="flex flex-wrap items-center gap-x-2 border-t border-[#1c2635] px-2 py-1 font-mono text-[9.5px] text-slate-500">
             <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
             <span>Son kapanan: 5m {data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"} · 15m {data?.lastClosed.m15 ? nyClock(data.lastClosed.m15) : "—"}</span>
           </div>
@@ -1392,12 +1708,15 @@ export default function SpyEngineV9() {
         </div>
 
         {/* Motor kapıları — ayrıntı, varsayılan kapalı */}
+        {/* ── 6) Tahmin günlüğü — gerçekleşenle kıyas ── */}
+        <JournalPanel j={journal} />
+
         <Disclosure title="Motor kapı detayı (LONG / SHORT giriş kapıları)">
           <GatePanel gates={data?.engine.gateStatus ?? null} />
         </Disclosure>
       </div>
 
-      <div className="mt-2 text-center font-mono text-[8px] text-slate-700">
+      <div className="mt-2 text-center font-mono text-[9.5px] text-slate-700">
         yoklama {pollMs / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
       </div>
     </div>
