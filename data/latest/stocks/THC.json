@@ -1,0 +1,89 @@
+{
+  "ticker": "THC",
+  "company": "Tenet Healthcare Corporation",
+  "date": "2026-10-04",
+  "generated_at": "2026-10-04T19:47:04.243Z",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 258.6199951171875,
+    "open": 255.3800048828125,
+    "high": 260.989990234375,
+    "low": 254.97999572753906,
+    "prev_close": 253.97000122070312,
+    "change_pct": 1.83092250034817,
+    "change_pct_1w": -0.41969749865367073,
+    "change_pct_1m": -0.9004889805431,
+    "change_pct_1y": 27.16097399358618,
+    "volume": 574600,
+    "avg_volume_30d": 23280200
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 85,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.80311507520514,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 259.23796790278885,
+    "ema_50": 251.83165395383193,
+    "ema_200": 221.98300317174298,
+    "ema_stack_bullish": true,
+    "bb_upper": 271.5509948730469,
+    "bb_middle": 258.6199951171875,
+    "bb_lower": 245.68899536132812,
+    "bb_width": 10,
+    "atr": 7.39,
+    "atr_pct": 2.86,
+    "rvol": 0.6651231518629566,
+    "52w_high": 283.04998779296875,
+    "52w_low": 157.5800018310547
+  },
+  "fundamental": {
+    "pe_ratio": 10.000773,
+    "pb_ratio": 4.4699087,
+    "gross_margin": 0.41661,
+    "operating_margin": 0.18159,
+    "net_margin": 0.102740005,
+    "market_cap": 20823824384,
+    "revenue_growth_ttm": 0.068,
+    "fcf_yield": 0.1079472737835398,
+    "institutional_ownership_pct": 1.02042,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 254.19,
+    "entry_range_high": 259.36,
+    "target_range_low": 283.05,
+    "target_range_high": 295.29,
+    "target_1": 283.05,
+    "target_2": 288.71,
+    "target_3": 295.29,
+    "stop_loss": 245.69,
+    "risk_reward_ratio": 2.88,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $254.19 – $259.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $263.19 direnci veya $252.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $245.69 olarak belirlenmiştir. Fiyatın EMA50 ($251.83) veya günlük VWAP ($258.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($251.83) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($258.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

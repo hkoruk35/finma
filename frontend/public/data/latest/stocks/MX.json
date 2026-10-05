@@ -1,0 +1,89 @@
+{
+  "ticker": "MX",
+  "company": "Magnachip Semiconductor Corporation",
+  "date": "2026-10-05",
+  "generated_at": "2026-10-05T03:44:49.054Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 3.680000066757202,
+    "open": 3.7200000286102295,
+    "high": 3.7899999618530273,
+    "low": 3.6500000953674316,
+    "prev_close": 3.640000104904175,
+    "change_pct": 1.0989000192372347,
+    "change_pct_1w": 11.515155149447631,
+    "change_pct_1m": 15.000000372529025,
+    "change_pct_1y": 14.285715343471947,
+    "volume": 1083900,
+    "avg_volume_30d": 35819900
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 90,
+    "fundamental_score": 23.6,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.22970465444005,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.363814540684232,
+    "ema_50": 3.472823629408374,
+    "ema_200": 3.6651932138450287,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.8640000700950625,
+    "bb_middle": 3.680000066757202,
+    "bb_lower": 3.4960000634193418,
+    "bb_width": 10,
+    "atr": 0.27,
+    "atr_pct": 7.2,
+    "rvol": 2.9043632170944083,
+    "52w_high": 9.859999656677246,
+    "52w_low": 2.180000066757202
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.59307015,
+    "gross_margin": 0.15872,
+    "operating_margin": -0.20334,
+    "net_margin": -0.17264,
+    "market_cap": 274094528,
+    "revenue_growth_ttm": -0.061,
+    "fcf_yield": -0.08707989967607088,
+    "institutional_ownership_pct": 0.43254003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 3.36,
+    "entry_range_high": 3.71,
+    "target_range_low": 4.1,
+    "target_range_high": 5.64,
+    "target_1": 4.1,
+    "target_2": 4.76,
+    "target_3": 5.64,
+    "stop_loss": 3.17,
+    "risk_reward_ratio": 3.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.36 – $3.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.92 direnci veya $3.31 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $3.17 olarak belirlenmiştir. Fiyatın EMA20 ($3.36) veya günlük VWAP ($3.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($3.47) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.9 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}
