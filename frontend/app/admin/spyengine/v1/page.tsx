@@ -520,12 +520,12 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
             <span className="text-slate-500">{opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`}:</span>
             {opt.callWalls.map((w, i) => (
               <span key={`c${w.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
-                call duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">OI {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+                call duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">{opt.basis} {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
               </span>
             ))}
             {opt.putWalls.map((w, i) => (
               <span key={`p${w.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
-                put duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">OI {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+                put duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">{opt.basis} {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
               </span>
             ))}
             {opt.maxPain != null && (
@@ -533,11 +533,12 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
                 max pain <b>{num(opt.maxPain)}</b> <span className="text-slate-500">{num(opt.maxPain - (price ?? opt.spot))}</span>
               </span>
             )}
-            {opt.callPutOi != null && <span className="text-slate-500">C/P OI {opt.callPutOi.toFixed(2)}</span>}
+            {opt.callPutOi != null && <span className="text-slate-500">C/P {opt.basis} {opt.callPutOi.toFixed(2)}</span>}
+            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
           </div>
         )}
         <div className="mt-0.5 text-[10.5px] text-slate-500">
-          OI dünkü kapanış değeridir (vade günü değişmez); ±%3 pencere; Yahoo gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
+          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; Yahoo gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
         </div>
       </div>
 
