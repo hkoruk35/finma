@@ -45,6 +45,7 @@ import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
 import { optionLevelList, type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { OpenForecastRead } from "@/lib/spyengine/openForecastFetch";
 import type { JournalDay, JournalStats } from "@/lib/spyengine/journal";
+import { buildScenario, dayTypeOf, type Scenario, type DayType, type Leg } from "@/lib/spyengine/scenario";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
@@ -814,6 +815,69 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
   );
 }
 
+// ── Senaryo paneli: gün tipi + iki bacak (yön → direnç/destek → dönüş) + 0DTE prim tahmini ──
+
+function LegBox({ n, leg, conditional }: { n: number; leg: Leg; conditional: boolean }) {
+  const col = leg.side === "CALL" ? "#22c55e" : "#ef4444";
+  return (
+    <div className="bg-[#0f141d] px-4 py-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="text-[13px] font-bold" style={{ color: col }}>
+          {n}. bacak · {leg.side === "CALL" ? "▲ CALL" : "▼ PUT"} {leg.strike}
+          {conditional && <span className="ml-2 rounded bg-amber-500/15 px-1.5 py-0.5 text-[10.5px] font-semibold text-amber-300">KOŞULLU</span>}
+        </span>
+        <span className="font-mono text-[12px] text-slate-400">~{leg.etaMin} dk</span>
+      </div>
+      <div className="mt-1 font-mono text-[15px] text-slate-100">
+        {num(leg.from)} → <b style={{ color: col }}>{num(leg.to)}</b> <span className="text-[12px] text-slate-400">({num(leg.dist)} puan · {leg.toLabel})</span>
+      </div>
+      <div className="mt-1 font-mono text-[12px] text-slate-300">
+        prim ≈ {num(leg.premiumIn)} → {num(leg.premiumOut)} · <b className={leg.multiple >= 2 ? "text-[#4ade80]" : leg.multiple >= 1.3 ? "text-amber-300" : "text-[#f87171]"}>{leg.multiple.toFixed(1)}x</b>
+        <span className="text-slate-500"> ({leg.source})</span>
+      </div>
+      <div className="mt-1 text-[11.5px] leading-snug text-slate-400">{leg.odds}</div>
+    </div>
+  );
+}
+
+function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayType | null; waitReason: string | null }) {
+  const dayCol = day?.type === "HAREKETLİ" ? "#22c55e" : day ? "#eab308" : "#64748b";
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${dayCol}55` }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
+        <span className="text-[13px] font-semibold text-slate-200">
+          Senaryo · 1–2 saatlik plan <span className="text-[11px] font-normal text-slate-400">· yön → ilk hedef → dönüş hedefi · süre · tahmini 0DTE prim</span>
+        </span>
+        {day && (
+          <span className="rounded border px-2 py-0.5 text-[12px] font-semibold" style={{ color: dayCol, borderColor: `${dayCol}66`, backgroundColor: `${dayCol}14` }}>
+            Gün tipi: {day.type}
+          </span>
+        )}
+      </div>
+      {day && <div className="border-b border-[#1c2635] px-4 py-1.5 text-[12px] text-slate-300">{day.text}</div>}
+      {waitReason || !sc ? (
+        <div className="px-4 py-3 text-[12.5px] text-slate-300">
+          <b className="text-amber-300">◆ BEKLE</b> — {waitReason ?? "yön ya da hedef seviyesi yok."}
+        </div>
+      ) : (
+        <>
+          <div className="px-4 py-1.5 text-[12px] text-slate-400">
+            Yön: <b className={sc.dir === "UP" ? "text-[#4ade80]" : "text-[#f87171]"}>{sc.dir === "UP" ? "▲ YUKARI" : "▼ AŞAĞI"}</b> · kaynak: {sc.dirSource}
+          </div>
+          <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
+            {sc.leg1 ? <LegBox n={1} leg={sc.leg1} conditional={false} /> : <div className="bg-[#0f141d] px-4 py-3 text-[12px] text-slate-400">1. bacak için hedef seviye yok.</div>}
+            {sc.leg2 ? <LegBox n={2} leg={sc.leg2} conditional /> : <div className="bg-[#0f141d] px-4 py-3 text-[12px] text-slate-400">2. bacak (dönüş) için girişin öbür tarafında seviye yok.</div>}
+          </div>
+          <ul className="border-t border-[#1c2635] px-4 py-1.5 text-[11.5px] leading-snug text-slate-500">
+            {sc.notes.map((x, i) => <li key={i}>• {x}</li>)}
+            <li>• 2. bacak yalnızca 1. hedefte Karar Desteği&apos;nde &quot;⚡ ERKEN DÖNÜŞ İŞARETİ&quot; çıkarsa düşünülmeli — tek başına hedefe ulaşmak dönüş sinyali değil.</li>
+          </ul>
+        </>
+      )}
+    </div>
+  );
+}
+
 // ── Sayfa ─────────────────────────────────────────────────────────
 
 export default function SpyEngineV9() {
@@ -1178,6 +1242,46 @@ export default function SpyEngineV9() {
     });
   }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange]);
 
+  /** Gün tipi (VIX) + iki bacaklı senaryo — seans öncesi açılış tahmininden, seans içinde karar yönünden */
+  const dayType = useMemo(() => dayTypeOf(openFc?.vixNow ?? null), [openFc?.vixNow]);
+  const scenarioRead = useMemo<{ sc: Scenario | null; wait: string | null }>(() => {
+    if (!map) return { sc: null, wait: "Seviye verisi bekleniyor." };
+    let dir: "UP" | "DOWN" | null = null;
+    let src = "";
+    let entry = price;
+    let minutesToClose = 0;
+    if (!sessionActive) {
+      const f = openFc?.now;
+      if (!f) return { sc: null, wait: "Açılış tahmini bekleniyor." };
+      if (f.dir === "FLAT") return { sc: null, wait: `Açılış tahmini YATAY (gap ${f.gap >= 0 ? "+" : ""}${f.gap.toFixed(2)}) — yön için 09:35–09:55 aşamalarını bekle.` };
+      dir = f.dir;
+      src = `açılış tahmini (${f.confidence}, gap yönü geçmiş isabet %${f.dirHitPct}) — giriş 09:30 açılışında varsayıldı`;
+      entry = f.center;
+      minutesToClose = 390;
+    } else {
+      const d = decision;
+      const act = d?.action === "LONG" ? "UP" : d?.action === "SHORT" ? "DOWN" : d?.lean === "LONG" ? "UP" : d?.lean === "SHORT" ? "DOWN" : null;
+      const prov = analysis?.opening.provisional;
+      dir = act ?? (prov === "UP" || prov === "DOWN" ? prov : null);
+      if (!dir) return { sc: null, wait: "Karar Desteği yön vermiyor (BEKLE) — aralık günü ya da açılış aşamaları bekleniyor." };
+      src = act
+        ? `Karar Desteği (${d?.action !== "BEKLE" ? d?.action : `BEKLE, ${d?.lean} yatkın`} · ${d?.modeLabel})`
+        : `açılış ön okuması (${analysis?.opening.label}) — karar 09:55'te, şimdilik izleme`;
+      minutesToClose = Math.max(0, 16 * 60 - nowMin);
+      if (minutesToClose < 60) return { sc: null, wait: "Kapanışa 1 saatten az — 1–2 saatlik senaryo için süre yok." };
+    }
+    if (entry == null) return { sc: null, wait: "Fiyat bekleniyor." };
+    if (dayType?.type === "SIKIŞMA RİSKİ" && sessionActive && decision?.mode === "MIDDAY_RANGE")
+      return { sc: null, wait: "Sıkışma riski + gün ortası aralık modu — dar aralıkta bekleme tercihin geçerli." };
+    const sc = buildScenario({
+      dir, dirSource: src, price: entry,
+      supports: map.supports, resistances: map.resistances, vwap: vwapNow,
+      hourlyRange: data?.levels?.hourlyRange ?? null, vix: openFc?.vixNow ?? null,
+      minutesToClose, quotes: sessionActive ? optLevels?.quotes ?? null : null,
+    });
+    return { sc, wait: null };
+  }, [map, price, sessionActive, openFc, decision, analysis?.opening, nowMin, dayType, vwapNow, data?.levels?.hourlyRange, optLevels]);
+
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
     const last = m5Bars[m5Bars.length - 1].close, prev = m5Bars[m5Bars.length - 6].close;
@@ -1381,6 +1485,8 @@ export default function SpyEngineV9() {
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
         {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
 
+        {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} day={dayType} waitReason={scenarioRead.wait} />}
+
         {!sessionActive && (
           <div className={`${SURFACE} px-4 py-2.5 text-[12px] text-slate-400`}>
             <b className="text-slate-200">Seans analizi 09:35 ET&apos;de başlar</b> — 09:35 ilk 5m · 09:45 15m · 09:55 büyük resim (gün yönü kararı) · belirsizse 10:00 30m teyidi.
@@ -1505,6 +1611,9 @@ export default function SpyEngineV9() {
           forming={forming5}
           waiting={!analysis || analysis.opening.status === "WAITING"}
         />
+
+        {/* ── 1b2) Senaryo — gün tipi, iki bacak, süre, prim ── */}
+        {!replayDate && <ScenarioPanel sc={scenarioRead.sc} day={dayType} waitReason={scenarioRead.wait} />}
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
         <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} />

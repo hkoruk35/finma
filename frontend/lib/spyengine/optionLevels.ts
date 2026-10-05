@@ -23,6 +23,19 @@ export interface OptionRow {
   strike: number;
   openInterest: number;
   volume: number;
+  bid?: number;
+  ask?: number;
+  /** Yahoo implied volatility (açılış öncesi bozuk gelir: ~1e-5) */
+  iv?: number;
+}
+
+/** Fiyata yakın strike'ların canlı call/put orta fiyatı ve IV'si (senaryo prim tahmini için) */
+export interface StrikeQuote {
+  strike: number;
+  callMid: number | null;
+  putMid: number | null;
+  callIv: number | null;
+  putIv: number | null;
 }
 
 export interface OptionWall {
@@ -51,6 +64,8 @@ export interface OptionLevels {
   basis: "OI" | "hacim";
   /** Hesapta kullanılan pencere (strike aralığı) */
   window: { lo: number; hi: number };
+  /** Fiyata en yakın ±8 strike'ın canlı kotasyonu (bid/ask sıfırsa null) */
+  quotes: StrikeQuote[];
   fetchedAt: number;
 }
 
@@ -106,8 +121,23 @@ export function computeOptionLevels(input: {
     callPutOi: totalPut > 0 ? Math.round((totalCall / totalPut) * 100) / 100 : null,
     basis,
     window: { lo: Math.round(lo * 100) / 100, hi: Math.round(hi * 100) / 100 },
+    quotes: quotesNear(input.calls, input.puts, spot),
     fetchedAt: input.fetchedAt,
   };
+}
+
+function quotesNear(callsAll: OptionRow[], putsAll: OptionRow[], spot: number): StrikeQuote[] {
+  const mid = (r?: OptionRow) => (r && r.bid != null && r.ask != null && r.ask > 0 && r.bid > 0 ? Math.round(((r.bid + r.ask) / 2) * 100) / 100 : null);
+  const ivOk = (r?: OptionRow) => (r && r.iv != null && r.iv > 0.02 && r.iv < 3 ? r.iv : null);
+  const ks = Array.from(new Set([...callsAll, ...putsAll].map((r) => r.strike)))
+    .filter(Number.isFinite)
+    .sort((a, b) => Math.abs(a - spot) - Math.abs(b - spot))
+    .slice(0, 17)
+    .sort((a, b) => a - b);
+  return ks.map((k) => {
+    const c = callsAll.find((r) => r.strike === k), p = putsAll.find((r) => r.strike === k);
+    return { strike: k, callMid: mid(c), putMid: mid(p), callIv: ivOk(c), putIv: ivOk(p) };
+  });
 }
 
 /** Harita / hedef listesi için seviye etiketleri (yön kararı DEĞİL) */

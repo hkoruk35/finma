@@ -74,6 +74,8 @@ export interface OpenForecastRead {
   actual: { open: number; lastForecast: number | null; error: number | null; inBand: boolean | null } | null;
   /** ES çoklu zaman dilimi eğilimi (bağlam — tahmine girmez) */
   trend: TrendChip[];
+  /** Son VIX değeri — gün tipi (hareketli / sıkışma) ve senaryo prim tahmini için */
+  vixNow: number | null;
   serverTime: number;
 }
 
@@ -173,6 +175,7 @@ export async function fetchOpenForecast(bandScale?: Record<string, number> | nul
     now: nowSec < openSec ? at(nowSec) : null,
     checkpoints, actual,
     trend: trendChips(S.ES, nowSec),
+    vixNow: closeAt(S.VIX, nowSec + 300),
     serverTime: nowSec,
   };
   cache = { at: Date.now(), value };

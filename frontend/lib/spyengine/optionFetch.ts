@@ -65,7 +65,7 @@ const n = (v: unknown) => (Number.isFinite(Number(v)) ? Number(v) : 0);
 const rowsOf = (raw: unknown): OptionRow[] =>
   (Array.isArray(raw) ? raw : []).map((r) => {
     const x = r as Record<string, unknown>;
-    return { strike: n(x.strike), openInterest: n(x.openInterest), volume: n(x.volume) };
+    return { strike: n(x.strike), openInterest: n(x.openInterest), volume: n(x.volume), bid: n(x.bid), ask: n(x.ask), iv: n(x.impliedVolatility) };
   });
 
 /** 0DTE (yoksa en yakın) vadenin duvar / max pain seviyeleri. Zincir gelmezse null — uydurma yok. */
