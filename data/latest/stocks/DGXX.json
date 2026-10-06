@@ -1,0 +1,89 @@
+{
+  "ticker": "DGXX",
+  "company": "Digi Power X Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T18:37:53.356Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 3.5899999141693115,
+    "open": 3.815000057220459,
+    "high": 3.859999895095825,
+    "low": 3.5799999237060547,
+    "prev_close": 3.7300000190734863,
+    "change_pct": -3.7533539996857734,
+    "change_pct_1w": -15.529413784251494,
+    "change_pct_1m": -14.928907756977106,
+    "change_pct_1y": 23.367691006253366,
+    "volume": 2120264,
+    "avg_volume_30d": 69266864
+  },
+  "scores": {
+    "master_score": 33,
+    "technical_score": 30,
+    "fundamental_score": 23.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.777390101110825,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.979715764447516,
+    "ema_50": 4.083401922120758,
+    "ema_200": 4.102581930888679,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.7694999098777773,
+    "bb_middle": 3.5899999141693115,
+    "bb_lower": 3.4104999184608458,
+    "bb_width": 10,
+    "atr": 0.33,
+    "atr_pct": 9.14,
+    "rvol": 1.0420016127769258,
+    "52w_high": 9.199999809265137,
+    "52w_low": 1.8600000143051147
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.3440659,
+    "gross_margin": 0.025309999,
+    "operating_margin": -2.26563,
+    "net_margin": -1.14764,
+    "market_cap": 364014112,
+    "revenue_growth_ttm": -0.183,
+    "fcf_yield": -0.32092476678486576,
+    "institutional_ownership_pct": 0.24700001,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 3.39,
+    "entry_range_high": 3.62,
+    "target_range_low": 3.78,
+    "target_range_high": 4.36,
+    "target_1": 3.78,
+    "target_2": 4.27,
+    "target_3": 4.36,
+    "stop_loss": 3.16,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.39 – $3.62 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.77 direnci veya $3.33 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $3.16 olarak belirlenmiştir. Fiyatın EMA20 ($3.98) veya günlük VWAP ($3.66) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($4.08) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.66) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

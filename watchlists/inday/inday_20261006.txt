@@ -1,4 +1,5 @@
-# BOGA AI Swing Watchlist - 2026-10-06 18:30
+# BOGA AI Swing Watchlist - 2026-10-06 19:00
+GMAB
 BBD
 XP
 ITUB
@@ -6,12 +7,11 @@ PBR
 NU
 VIV
 HOG
-GMAB
 ANF
-VST
-ASO
 CEG
+VST
 TLN
+ASO
 TWLO
 RIG
 BEAM
