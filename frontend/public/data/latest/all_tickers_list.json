@@ -60,12 +60,12 @@
       "ticker": "BTSG",
       "company": "BTSG",
       "sector": "Healthcare",
-      "master_score": 61.0,
+      "master_score": 62.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 62.0,
-      "change_pct": 2.9,
+      "price": 63.75,
+      "change_pct": 2.82,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: EMA_CROSS"
+      "ai_short_summary": "BOGA AI Score: 62.0 | System: TREND_CONT"
     },
     {
       "ticker": "DXPE",
@@ -363,6 +363,105 @@
       "change_pct": 0.29,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ARW",
+      "company": "ARW",
+      "sector": "Technology",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 240.39999389648438,
+      "change_pct": 0.07,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NTCT",
+      "company": "NTCT",
+      "sector": "Technology",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 40.9900016784668,
+      "change_pct": -0.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ANET",
+      "company": "ANET",
+      "sector": "Technology",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 215.36000061035156,
+      "change_pct": 4.09,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "BLFS",
+      "company": "BLFS",
+      "sector": "Healthcare",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 38.61000061035156,
+      "change_pct": 3.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ACIW",
+      "company": "ACIW",
+      "sector": "Technology",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 50.709999084472656,
+      "change_pct": -1.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "KSS",
+      "company": "KSS",
+      "sector": "Consumer Cyclical",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 19.6299991607666,
+      "change_pct": 0.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BHP",
+      "company": "BHP",
+      "sector": "Basic Materials",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 87.0,
+      "change_pct": 0.2,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SAP",
+      "company": "SAP",
+      "sector": "Technology",
+      "master_score": 45.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 210.4600067138672,
+      "change_pct": 1.31,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "CROX",
+      "company": "CROX",
+      "sector": "Consumer Cyclical",
+      "master_score": 44.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 120.22000122070312,
+      "change_pct": 1.72,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
     }
   ]
 }
