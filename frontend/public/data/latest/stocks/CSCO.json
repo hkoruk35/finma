@@ -1,0 +1,89 @@
+{
+  "ticker": "CSCO",
+  "company": "Cisco Systems, Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T17:06:52.054Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 116.2699966430664,
+    "open": 113.54000091552734,
+    "high": 116.2699966430664,
+    "low": 113.30999755859375,
+    "prev_close": 112.81999969482422,
+    "change_pct": 3.057965748603402,
+    "change_pct_1w": 8.724512800317333,
+    "change_pct_1m": 9.245510015668108,
+    "change_pct_1y": 68.72731165881251,
+    "volume": 7417939,
+    "avg_volume_30d": 502765739
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 75,
+    "fundamental_score": 79.7,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.75%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.39976248497125,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 110.06476849135468,
+    "ema_50": 110.91501283865553,
+    "ema_200": 100.83173559339262,
+    "ema_stack_bullish": false,
+    "bb_upper": 122.08349647521973,
+    "bb_middle": 116.2699966430664,
+    "bb_lower": 110.45649681091308,
+    "bb_width": 10,
+    "atr": 2.62,
+    "atr_pct": 2.25,
+    "rvol": 0.8737282593553973,
+    "52w_high": 130.3699951171875,
+    "52w_low": 66.80999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 34.915916,
+    "pb_ratio": 9.124225,
+    "gross_margin": 0.64524,
+    "operating_margin": 0.27719,
+    "net_margin": 0.20951,
+    "market_cap": 458404560896,
+    "revenue_growth_ttm": 0.176,
+    "fcf_yield": 0.024394662972249626,
+    "institutional_ownership_pct": 0.83356005,
+    "dividend_rate": 1.68,
+    "dividend_yield": 0.0149
+  },
+  "scores_detail": {
+    "entry_range_low": 112.91,
+    "entry_range_high": 116.53,
+    "target_range_low": 121.61,
+    "target_range_high": 131.93,
+    "target_1": 121.61,
+    "target_2": 126.19,
+    "target_3": 131.93,
+    "stop_loss": 110.46,
+    "risk_reward_ratio": 2.69,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $112.91 – $116.53 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $116.27 direnci veya $112.39 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $110.46 olarak belirlenmiştir. Fiyatın EMA20 ($110.06) veya günlük VWAP ($114.30) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($110.92) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($114.30) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}
