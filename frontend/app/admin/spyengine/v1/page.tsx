@@ -817,10 +817,13 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
 
 // ── Senaryo paneli: gün tipi + iki bacak (yön → direnç/destek → dönüş) + 0DTE prim tahmini ──
 
+/** Senaryo paneline özel petrol mavisi zemin (okunurluk için diğer kartlardan ayrışır) */
+const PETROL = { bg: "#0b2f3a", cell: "#0e3a47" };
+
 function LegBox({ n, leg, conditional }: { n: number; leg: Leg; conditional: boolean }) {
   const col = leg.side === "CALL" ? "#22c55e" : "#ef4444";
   return (
-    <div className="bg-[#0f141d] px-4 py-2.5">
+    <div className="px-4 py-2.5" style={{ backgroundColor: PETROL.cell }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-[13px] font-bold" style={{ color: col }}>
           {n}. bacak · {leg.side === "CALL" ? "▲ CALL" : "▼ PUT"} {leg.strike}
@@ -833,7 +836,7 @@ function LegBox({ n, leg, conditional }: { n: number; leg: Leg; conditional: boo
       </div>
       <div className="mt-1 font-mono text-[12px] text-slate-300">
         prim ≈ {num(leg.premiumIn)} → {num(leg.premiumOut)} · <b className={leg.multiple >= 2 ? "text-[#4ade80]" : leg.multiple >= 1.3 ? "text-amber-300" : "text-[#f87171]"}>{leg.multiple.toFixed(1)}x</b>
-        <span className="text-slate-500"> ({leg.source})</span>
+        <span className="text-slate-400"> ({leg.source})</span>
       </div>
       <div className="mt-1 text-[11.5px] leading-snug text-slate-400">{leg.odds}</div>
     </div>
@@ -843,8 +846,8 @@ function LegBox({ n, leg, conditional }: { n: number; leg: Leg; conditional: boo
 function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayType | null; waitReason: string | null }) {
   const dayCol = day?.type === "HAREKETLİ" ? "#22c55e" : day ? "#eab308" : "#64748b";
   return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${dayCol}55` }}>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${dayCol}55`, backgroundColor: PETROL.bg }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
           Senaryo · 1–2 saatlik plan <span className="text-[11px] font-normal text-slate-400">· yön → ilk hedef → dönüş hedefi · süre · tahmini 0DTE prim</span>
         </span>
@@ -854,7 +857,7 @@ function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayT
           </span>
         )}
       </div>
-      {day && <div className="border-b border-[#1c2635] px-4 py-1.5 text-[12px] text-slate-300">{day.text}</div>}
+      {day && <div className="border-b border-[#1d5a68] px-4 py-1.5 text-[12px] text-slate-300">{day.text}</div>}
       {waitReason || !sc ? (
         <div className="px-4 py-3 text-[12.5px] text-slate-300">
           <b className="text-amber-300">◆ BEKLE</b> — {waitReason ?? "yön ya da hedef seviyesi yok."}
@@ -864,11 +867,11 @@ function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayT
           <div className="px-4 py-1.5 text-[12px] text-slate-400">
             Yön: <b className={sc.dir === "UP" ? "text-[#4ade80]" : "text-[#f87171]"}>{sc.dir === "UP" ? "▲ YUKARI" : "▼ AŞAĞI"}</b> · kaynak: {sc.dirSource}
           </div>
-          <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
-            {sc.leg1 ? <LegBox n={1} leg={sc.leg1} conditional={false} /> : <div className="bg-[#0f141d] px-4 py-3 text-[12px] text-slate-400">1. bacak için hedef seviye yok.</div>}
-            {sc.leg2 ? <LegBox n={2} leg={sc.leg2} conditional /> : <div className="bg-[#0f141d] px-4 py-3 text-[12px] text-slate-400">2. bacak (dönüş) için girişin öbür tarafında seviye yok.</div>}
+          <div className="grid grid-cols-1 gap-px border-t border-[#1d5a68] bg-[#1d5a68] md:grid-cols-2">
+            {sc.leg1 ? <LegBox n={1} leg={sc.leg1} conditional={false} /> : <div className="px-4 py-3 text-[12px] text-slate-300" style={{ backgroundColor: PETROL.cell }}>1. bacak için hedef seviye yok.</div>}
+            {sc.leg2 ? <LegBox n={2} leg={sc.leg2} conditional /> : <div className="px-4 py-3 text-[12px] text-slate-300" style={{ backgroundColor: PETROL.cell }}>2. bacak (dönüş) için girişin öbür tarafında seviye yok.</div>}
           </div>
-          <ul className="border-t border-[#1c2635] px-4 py-1.5 text-[11.5px] leading-snug text-slate-500">
+          <ul className="border-t border-[#1d5a68] px-4 py-1.5 text-[11.5px] leading-snug text-slate-400">
             {sc.notes.map((x, i) => <li key={i}>• {x}</li>)}
             <li>• 2. bacak yalnızca 1. hedefte Karar Desteği&apos;nde &quot;⚡ ERKEN DÖNÜŞ İŞARETİ&quot; çıkarsa düşünülmeli — tek başına hedefe ulaşmak dönüş sinyali değil.</li>
           </ul>
