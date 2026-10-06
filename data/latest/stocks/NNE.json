@@ -1,0 +1,89 @@
+{
+  "ticker": "NNE",
+  "company": "NANO Nuclear Energy Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T16:28:39.333Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 16.799999237060547,
+    "open": 16.100000381469727,
+    "high": 16.899999618530273,
+    "low": 16,
+    "prev_close": 15.510000228881836,
+    "change_pct": 8.317208182734573,
+    "change_pct_1w": 6.3964488768053895,
+    "change_pct_1m": -1.2345737154354737,
+    "change_pct_1y": -68.67425153372095,
+    "volume": 1933331,
+    "avg_volume_30d": 55130431
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 55,
+    "fundamental_score": 36.8,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.96920987570937,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 16.56291135400584,
+    "ema_50": 17.62226305854494,
+    "ema_200": 24.53033146785475,
+    "ema_stack_bullish": false,
+    "bb_upper": 17.639999198913575,
+    "bb_middle": 16.799999237060547,
+    "bb_lower": 15.959999275207519,
+    "bb_width": 10,
+    "atr": 0.98,
+    "atr_pct": 5.81,
+    "rvol": 0.9968793097227917,
+    "52w_high": 60.869998931884766,
+    "52w_low": 14.710000038146973
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.4644351,
+    "gross_margin": 0.29065,
+    "operating_margin": -73.782745,
+    "net_margin": 0,
+    "market_cap": 902128768,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.03930485453712967,
+    "institutional_ownership_pct": 0.45014,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 16.21,
+    "entry_range_high": 16.9,
+    "target_range_low": 17.44,
+    "target_range_high": 21.13,
+    "target_1": 17.44,
+    "target_2": 19.6,
+    "target_3": 21.13,
+    "stop_loss": 15.53,
+    "risk_reward_ratio": 2.97,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $16.21 – $16.90 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $17.38 direnci veya $16.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $15.53 olarak belirlenmiştir. Fiyatın EMA20 ($16.56) veya günlük VWAP ($16.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($17.62) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($16.12) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

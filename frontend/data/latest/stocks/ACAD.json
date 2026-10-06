@@ -1,0 +1,89 @@
+{
+  "ticker": "ACAD",
+  "company": "Acadia Pharmaceuticals Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T16:19:42.407Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 19.950000762939453,
+    "open": 20.15999984741211,
+    "high": 20.360000610351562,
+    "low": 19.829999923706055,
+    "prev_close": 20.110000610351562,
+    "change_pct": -0.7956232847141235,
+    "change_pct_1w": -1.3353044489804504,
+    "change_pct_1m": -21.54934910134854,
+    "change_pct_1y": -7.5961064291695175,
+    "volume": 374053,
+    "avg_volume_30d": 60341853
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 40,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 17.74321720151663,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 23.1980352706099,
+    "ema_50": 25.115496467880664,
+    "ema_200": 24.429408546635166,
+    "ema_stack_bullish": false,
+    "bb_upper": 20.947500801086427,
+    "bb_middle": 19.950000762939453,
+    "bb_lower": 18.95250072479248,
+    "bb_width": 10,
+    "atr": 1.03,
+    "atr_pct": 5.14,
+    "rvol": 1.1888517576680981,
+    "52w_high": 30.959999084472656,
+    "52w_low": 19.56999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 8.946189,
+    "pb_ratio": 2.6281123,
+    "gross_margin": 0.62061,
+    "operating_margin": 0.12286,
+    "net_margin": 0.33416,
+    "market_cap": 3416155904,
+    "revenue_growth_ttm": 0.164,
+    "fcf_yield": 0.020094808881415734,
+    "institutional_ownership_pct": 0.99636,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 19.33,
+    "entry_range_high": 20.05,
+    "target_range_low": 22.89,
+    "target_range_high": 26.51,
+    "target_1": 22.89,
+    "target_2": 25.36,
+    "target_3": 26.51,
+    "stop_loss": 18.62,
+    "risk_reward_ratio": 5.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $19.33 – $20.05 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $20.58 direnci veya $19.13 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.62 olarak belirlenmiştir. Fiyatın EMA20 ($23.20) veya günlük VWAP ($20.05) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($25.12) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($20.05) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 18 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}
