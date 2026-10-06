@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "XP",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 28.2,
+        "entry_zone": "27.55 - 28.85",
+        "SL": 25.6,
+        "TP": 33.4
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "BBD",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 4.36,
+        "entry_zone": "4.28 - 4.44",
+        "SL": 4.04,
+        "TP": 4.99
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "PBR",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 24.04,
+        "entry_zone": "23.66 - 24.42",
+        "SL": 22.52,
+        "TP": 27.08
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "TWLO",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 303.02,
+        "entry_zone": "295.02 - 311.02",
+        "SL": 271.02,
+        "TP": 367.02
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "NU",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 15.32,
+        "entry_zone": "15.00 - 15.64",
+        "SL": 14.05,
+        "TP": 17.86
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "ITUB",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 9.86,
+        "entry_zone": "9.68 - 10.04",
+        "SL": 9.16,
+        "TP": 11.26
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "GMAB",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 39.23,
+        "entry_zone": "38.66 - 39.80",
+        "SL": 36.94,
+        "TP": 42.66
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "HOG",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 26.5,
+        "entry_zone": "25.99 - 27.01",
+        "SL": 24.46,
+        "TP": 30.59
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "TWST",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 210.0,
+        "entry_zone": "203.26 - 216.74",
+        "SL": 183.03,
+        "TP": 263.95
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "CRSP",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 59.84,
+        "entry_zone": "58.24 - 61.44",
+        "SL": 53.45,
+        "TP": 72.63
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "ANF",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 141.93,
+        "entry_zone": "139.42 - 144.44",
+        "SL": 131.88,
+        "TP": 162.04
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "TLN",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 348.05,
+        "entry_zone": "341.23 - 354.87",
+        "SL": 320.78,
+        "TP": 402.59
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "VST",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 151.5,
+        "entry_zone": "149.14 - 153.86",
+        "SL": 142.05,
+        "TP": 170.39
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "ASO",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 52.9,
+        "entry_zone": "52.01 - 53.79",
+        "SL": 49.35,
+        "TP": 60.01
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "VIV",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 12.54,
+        "entry_zone": "12.37 - 12.71",
+        "SL": 11.87,
+        "TP": 13.87
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "NVAX",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 12.07,
+        "entry_zone": "11.69 - 12.45",
+        "SL": 10.55,
+        "TP": 15.11
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "BEAM",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 26.9,
+        "entry_zone": "26.23 - 27.57",
+        "SL": 24.21,
+        "TP": 32.28
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "CEG",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 289.44,
+        "entry_zone": "284.20 - 294.67",
+        "SL": 268.5,
+        "TP": 331.31
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "RIG",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 5.47,
+        "entry_zone": "5.37 - 5.57",
+        "SL": 5.07,
+        "TP": 6.27
+    },
+    {
+        "date": "2026-10-06 13:04",
+        "symbol": "ABSI",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 11.94,
+        "entry_zone": "11.49 - 12.39",
+        "SL": 10.16,
+        "TP": 15.5
+    }
+]

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "tickers": [
     {
       "ticker": "SMCI",
@@ -16,12 +16,12 @@
       "ticker": "LRCX",
       "company": "LRCX",
       "sector": "Technology",
-      "master_score": 56.5,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 346.20001220703125,
-      "change_pct": -0.37,
+      "price": 345.79998779296875,
+      "change_pct": -0.49,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
       "ticker": "AXTI",
@@ -29,8 +29,8 @@
       "sector": "Technology",
       "master_score": 56.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 86.0999984741211,
-      "change_pct": 0.27,
+      "price": 86.66000366210938,
+      "change_pct": 0.92,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
     },
@@ -49,56 +49,56 @@
       "ticker": "AVPT",
       "company": "AVPT",
       "sector": "Technology",
-      "master_score": 54.0,
+      "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 14.390000343322754,
-      "change_pct": 2.27,
+      "price": 14.65999984741211,
+      "change_pct": 4.19,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
     },
     {
       "ticker": "BTSG",
       "company": "BTSG",
       "sector": "Healthcare",
-      "master_score": 50.0,
+      "master_score": 61.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 61.68000030517578,
-      "change_pct": 2.37,
+      "price": 62.0,
+      "change_pct": 2.9,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: EMA_CROSS"
     },
     {
       "ticker": "DXPE",
       "company": "DXPE",
       "sector": "Industrials",
-      "master_score": 49.0,
+      "master_score": 43.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 196.2899932861328,
-      "change_pct": 1.19,
+      "price": 195.8000030517578,
+      "change_pct": 0.94,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: BREAKOUT"
     },
     {
       "ticker": "KEX",
       "company": "KEX",
       "sector": "Industrials",
-      "master_score": 49.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 139.86000061035156,
+      "price": 139.85000610351562,
       "change_pct": 1.44,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
       "ticker": "PSX",
       "company": "PSX",
       "sector": "Energy",
-      "master_score": 49.0,
+      "master_score": 43.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 271.239990234375,
-      "change_pct": 2.52,
+      "price": 269.7200012207031,
+      "change_pct": 1.94,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: TREND_CONT"
     },
     {
       "ticker": "GMAB",
@@ -220,6 +220,39 @@
       "change_pct": 0.18,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "U",
+      "company": "U",
+      "sector": "Technology",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 45.68000030517578,
+      "change_pct": 4.75,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NET",
+      "company": "NET",
+      "sector": "Technology",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 359.489990234375,
+      "change_pct": 2.99,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "CVSA",
+      "company": "CVSA",
+      "sector": "Consumer Defensive",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 125.38999938964844,
+      "change_pct": -0.07,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
     }
   ]
 }
