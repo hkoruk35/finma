@@ -1,0 +1,89 @@
+{
+  "ticker": "LEU",
+  "company": "Centrus Energy Corp.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T16:35:21.442Z",
+  "sector": "Energy",
+  "industry": "Uranium",
+  "price": {
+    "current": 157.60000610351562,
+    "open": 146.89999389648438,
+    "high": 159.4199981689453,
+    "low": 146.89999389648438,
+    "prev_close": 141.44000244140625,
+    "change_pct": 11.425341758463212,
+    "change_pct_1w": 14.054142753720173,
+    "change_pct_1m": 4.157034331116232,
+    "change_pct_1y": -55.76512668589534,
+    "volume": 925644,
+    "avg_volume_30d": 21893044
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 55,
+    "fundamental_score": 53.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.03%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.41381514121214,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 150.7630929784036,
+    "ema_50": 161.5402547209656,
+    "ema_200": 202.552011340775,
+    "ema_stack_bullish": false,
+    "bb_upper": 165.48000640869142,
+    "bb_middle": 157.60000610351562,
+    "bb_lower": 149.72000579833983,
+    "bb_width": 10,
+    "atr": 8.12,
+    "atr_pct": 5.15,
+    "rvol": 0.8640399206250169,
+    "52w_high": 464.25,
+    "52w_low": 135.75
+  },
+  "fundamental": {
+    "pe_ratio": 73.64486,
+    "pb_ratio": 3.719613,
+    "gross_margin": 0.23655,
+    "operating_margin": 0.053379998,
+    "net_margin": 0.102340005,
+    "market_cap": 3223409920,
+    "revenue_growth_ttm": 0.14,
+    "fcf_yield": -0.03949233983867618,
+    "institutional_ownership_pct": 0.89602995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 148.54,
+    "entry_range_high": 158.41,
+    "target_range_low": 179.82,
+    "target_range_high": 203.18,
+    "target_1": 179.82,
+    "target_2": 192.36,
+    "target_3": 203.18,
+    "stop_loss": 142.86,
+    "risk_reward_ratio": 3.66,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $148.54 – $158.41 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $159.42 direnci veya $146.92 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $142.86 olarak belirlenmiştir. Fiyatın EMA20 ($150.76) veya günlük VWAP ($149.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($161.54) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($149.22) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

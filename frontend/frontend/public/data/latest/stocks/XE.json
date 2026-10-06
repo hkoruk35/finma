@@ -1,0 +1,89 @@
+{
+  "ticker": "XE",
+  "company": "X-Energy, Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T16:35:46.214Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 15.34000015258789,
+    "open": 14.800000190734863,
+    "high": 15.550000190734863,
+    "low": 14.800000190734863,
+    "prev_close": 14.40999984741211,
+    "change_pct": 6.453853678165028,
+    "change_pct_1w": 7.347797015660079,
+    "change_pct_1m": -6.349200619434208,
+    "change_pct_1y": -47.46575427471437,
+    "volume": 4547684,
+    "avg_volume_30d": 198802184
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 40,
+    "fundamental_score": 53.3,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.492265020830594,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 15.49812608514503,
+    "ema_50": 16.984848074966695,
+    "ema_200": 22.426451231697207,
+    "ema_stack_bullish": false,
+    "bb_upper": 16.107000160217286,
+    "bb_middle": 15.34000015258789,
+    "bb_lower": 14.573000144958495,
+    "bb_width": 10,
+    "atr": 0.93,
+    "atr_pct": 6.09,
+    "rvol": 0.6697406503341029,
+    "52w_high": 37.099998474121094,
+    "52w_low": 13.289999961853027
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.429137,
+    "gross_margin": -0.65384,
+    "operating_margin": -2.19545,
+    "net_margin": -2.98698,
+    "market_cap": 6233656320,
+    "revenue_growth_ttm": 1.962,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.42986,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 14.67,
+    "entry_range_high": 15.43,
+    "target_range_low": 17.98,
+    "target_range_high": 23.94,
+    "target_1": 17.98,
+    "target_2": 19.69,
+    "target_3": 23.94,
+    "stop_loss": 14.02,
+    "risk_reward_ratio": 4.48,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $14.67 – $15.43 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $16.03 direnci veya $14.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $14.02 olarak belirlenmiştir. Fiyatın EMA20 ($15.50) veya günlük VWAP ($14.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($16.98) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.86) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}
