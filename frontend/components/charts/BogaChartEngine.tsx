@@ -552,6 +552,10 @@ export default function BogaChartEngine({
   const isIndex = symbol.startsWith("^") || !!INDEX_DISPLAY_NAMES[symbol.toUpperCase()] || !!getIndexBySymbol(symbol) || ["SPX", "NDX", "DJI", "RUT", "VIX", "N225", "SSE", "HSI", "SENSEX", "NIFTY50", "SPLATA40", "SPLATA_BMI", "IBOVESPA", "IGCX", "IBXX", "STOXX50"].includes(symbol.toUpperCase());
   const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (isIndex ? "line" : (detailMode ? "heikin-ashi" : "candle")));
   const [range, setRange] = useState<RangeKey>("3M");
+  // Kullanici bir "Görünüm" (1D/1W/1M...) dugmesine BASTI mi — basmadiysa ve grafik
+  // seans disi (extendedHours) gun ici modundaysa, varsayilan pencere "son ~2 seans"
+  // olur (asagida applyVisibleRange); 3M penceresi gun ici mumlari sag koseye sikistiriyordu.
+  const [rangeChosen, setRangeChosen] = useState(false);
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
   // Mobilde toolbar kalabalığını azaltmak için: mum tipi ve gösterge satırları
   // masaüstünde (md:) her zaman açık kalır, mobilde ise varsayılan kapalı
@@ -1452,6 +1456,18 @@ export default function BogaChartEngine({
     }
     // Detail mode: independent "Görünüm" (range/zoom) row, user-selectable.
     // Otherwise: auto-pick a sensible window per interval (spec: 4H opens to 1W).
+    // Terminal (extendedHours) gun ici grafigi: kullanici aralik secmediyse son ~2 seans
+    // (5m: 192, 15m: 128, 30m: 64 mum; 1H: ~4 gun = 64 mum) — Robinhood/TradingView gibi.
+    const INTRADAY_DEFAULT_BARS: Record<string, number> = { "5": 192, "15": 128, "30": 64, "60": 64 };
+    const intradayBars = detailMode && extendedHours && !rangeChosen ? INTRADAY_DEFAULT_BARS[interval] : undefined;
+    if (intradayBars && bars.length > intradayBars) {
+      let right = lastBar.time;
+      if (active.has("volumeProfile") && bars.length > 1) {
+        right = lastBar.time + (bars[bars.length - 1].time - bars[bars.length - 2].time) * (VP_MARGIN_BARS + 2);
+      }
+      chart.timeScale().setVisibleRange({ from: bars[bars.length - intradayBars].time as UTCTimestamp, to: right as UTCTimestamp });
+      return;
+    }
     const windowSeconds = detailMode
       ? RANGE_WINDOW_SECONDS[range]
       : compactWindowDays
@@ -1517,7 +1533,7 @@ export default function BogaChartEngine({
       recomputeVolumeProfile(barsRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [range]);
+  }, [range, rangeChosen]);
 
   // ── Polling for the latest bar (Yahoo data is ~15min delayed, so this
   // just keeps the last visible candle current rather than simulating ticks) ──
@@ -1902,7 +1918,7 @@ export default function BogaChartEngine({
                 {RANGE_KEYS.map((r) => (
                   <button
                     key={r}
-                    onClick={() => setRange(r)}
+                    onClick={() => { setRangeChosen(true); setRange(r); }}
                     style={{ fontSize: 9 }}
                     className={`px-2.5 py-1 rounded font-medium transition-all ${
                       range === r ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"

@@ -44,8 +44,11 @@ const TIMEFRAME_MAP: Record<string, { yInterval: string; yRange: string; resampl
 // fiyattan %5-7 uzakta BOZUK mumlar donduruyor (2026-09-30 16:45-17:00 SPY:
 // low 711.46, fiyat 763 — grafik asagi dev bir fitille bozuluyordu).
 // Seans disi (09:30-16:00 NY disi) mumlarda, fitil ucu hem ONCEKI hem SONRAKI
-// kapanisa gore %1'den fazla uzaksa (yani izole bir sapma) gövdeye cekilir.
+// kapanisa gore %0,5'ten fazla uzaksa (yani izole bir sapma) gövdeye cekilir.
 // Normal seans mumlarina ve gercek (komsulara da yansiyan) hareketlere dokunmaz.
+// Esik 2026-10-06'da Robinhood 5m verisiyle (24_5) karsilastirilarak ayarlandi:
+// %1'de 16:00/16:30 SPY mumlarindaki low 769,45 (gercek 774,64) geciyordu;
+// %0,5'te yakalaniyor, Robinhood'a gore medyan fark degismiyor (0,03).
 const NY_HM = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false });
 function isRegularSession(t: number): boolean {
   const parts = NY_HM.formatToParts(new Date(t * 1000));
@@ -55,7 +58,7 @@ function isRegularSession(t: number): boolean {
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
 }
 function cleanExtendedHoursBars(bars: Bar[]): Bar[] {
-  const TOL = 0.01;
+  const TOL = 0.005;
   const far = (x: number, ref: number) => Math.abs(x - ref) / ref > TOL;
   return bars.map((b, i) => {
     if (isRegularSession(b.time)) return b;
