@@ -1,0 +1,89 @@
+{
+  "ticker": "SNPS",
+  "company": "Synopsys, Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T17:33:29.396Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 503.3299865722656,
+    "open": 489.260009765625,
+    "high": 506.20001220703125,
+    "low": 486.5,
+    "prev_close": 488.4700012207031,
+    "change_pct": 3.0421490192697385,
+    "change_pct_1w": 21.25803825986355,
+    "change_pct_1m": 21.85396541597249,
+    "change_pct_1y": 5.250718348765593,
+    "volume": 1154785,
+    "avg_volume_30d": 69496985
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 80,
+    "fundamental_score": 79.7,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 75.99365585227737,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 437.0110166611223,
+    "ema_50": 423.7654790382287,
+    "ema_200": 438.7573722618771,
+    "ema_stack_bullish": false,
+    "bb_upper": 528.496485900879,
+    "bb_middle": 503.3299865722656,
+    "bb_lower": 478.1634872436523,
+    "bb_width": 10,
+    "atr": 19.89,
+    "atr_pct": 3.95,
+    "rvol": 1.5929857964341907,
+    "52w_high": 539.47998046875,
+    "52w_low": 362.54998779296875
+  },
+  "fundamental": {
+    "pe_ratio": 88.92756,
+    "pb_ratio": 3.0957577,
+    "gross_margin": 0.82921,
+    "operating_margin": 0.14521,
+    "net_margin": 0.11432999,
+    "market_cap": 96456466432,
+    "revenue_growth_ttm": 0.424,
+    "fcf_yield": 0.03551386990124652,
+    "institutional_ownership_pct": 0.93035007,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 490.58,
+    "entry_range_high": 505.32,
+    "target_range_low": 522.85,
+    "target_range_high": 572.64,
+    "target_1": 522.85,
+    "target_2": 547.74,
+    "target_3": 572.64,
+    "stop_loss": 476.66,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $490.58 – $505.32 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $508.38 direnci veya $486.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $476.66 olarak belirlenmiştir. Fiyatın EMA200 ($438.76) veya günlük VWAP ($496.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($423.77) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($496.72) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 76 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}
