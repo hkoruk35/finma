@@ -596,6 +596,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   defaultCandleType="candle"
                   defaultIndicators={["ema50", "rsi", "volume", "ema20", "vwap"]}
                   pinnedIndicators={["ema20", "vwap"]}
+                  extendedHours
                   premiumGate
                   externalMultiChartTickers={compareSelection}
                   externalMultiChartTrigger={multiChartTrigger}
@@ -652,6 +653,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   showToolbar={false}
                   defaultTimeframe="15"
                   defaultIndicators={["ema50"]}
+                  extendedHours
                   height={200}
                   compactWindowDays={1}
                 />
@@ -667,6 +669,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   showToolbar={false}
                   defaultTimeframe="60"
                   defaultIndicators={[]}
+                  extendedHours
                   height={200}
                   compactWindowDays={5}
                 />
@@ -682,6 +685,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   showToolbar={false}
                   defaultTimeframe="240"
                   defaultIndicators={["ema50"]}
+                  extendedHours
                   height={200}
                   compactWindowDays={20}
                 />

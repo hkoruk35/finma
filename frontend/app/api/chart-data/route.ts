@@ -40,6 +40,36 @@ const TIMEFRAME_MAP: Record<string, { yInterval: string; yRange: string; resampl
   "W":   { yInterval: "1wk", yRange: "5y" },
 };
 
+// Premarket/aftermarket'te Yahoo bazen hacmi sifir, dusuk/yuksek degeri gercek
+// fiyattan %5-7 uzakta BOZUK mumlar donduruyor (2026-09-30 16:45-17:00 SPY:
+// low 711.46, fiyat 763 — grafik asagi dev bir fitille bozuluyordu).
+// Seans disi (09:30-16:00 NY disi) mumlarda, fitil ucu hem ONCEKI hem SONRAKI
+// kapanisa gore %1'den fazla uzaksa (yani izole bir sapma) gövdeye cekilir.
+// Normal seans mumlarina ve gercek (komsulara da yansiyan) hareketlere dokunmaz.
+const NY_HM = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false });
+function isRegularSession(t: number): boolean {
+  const parts = NY_HM.formatToParts(new Date(t * 1000));
+  const h = Number(parts.find((x) => x.type === "hour")?.value) % 24;
+  const m = Number(parts.find((x) => x.type === "minute")?.value);
+  const mins = h * 60 + m;
+  return mins >= 9 * 60 + 30 && mins < 16 * 60;
+}
+function cleanExtendedHoursBars(bars: Bar[]): Bar[] {
+  const TOL = 0.01;
+  const far = (x: number, ref: number) => Math.abs(x - ref) / ref > TOL;
+  return bars.map((b, i) => {
+    if (isRegularSession(b.time)) return b;
+    const prev = bars[i - 1]?.close ?? b.open;
+    const next = bars[i + 1]?.close ?? b.close;
+    const bodyHi = Math.max(b.open, b.close);
+    const bodyLo = Math.min(b.open, b.close);
+    let { high, low } = b;
+    if (low < bodyLo && far(low, prev) && far(low, next)) low = bodyLo;
+    if (high > bodyHi && far(high, prev) && far(high, next)) high = bodyHi;
+    return low === b.low && high === b.high ? b : { ...b, high, low };
+  });
+}
+
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
   const ticker = sp.get("ticker") || "";
@@ -93,6 +123,8 @@ export async function GET(req: NextRequest) {
         });
       }
     }
+
+    if (extendedHours) bars = cleanExtendedHoursBars(bars);
 
     if (resampleTo) bars = resampleBars(bars, resampleTo);
 

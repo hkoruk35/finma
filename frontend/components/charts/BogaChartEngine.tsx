@@ -954,7 +954,9 @@ export default function BogaChartEngine({
     const indicatorsParam = [wanted, active.has("sr") ? "sr" : ""].filter(Boolean).join(",");
     const params = new URLSearchParams({ ticker: symbol, timeframe: interval });
     if (indicatorsParam) params.set("indicators", indicatorsParam);
-    if (extendedHours) params.set("extendedHours", "true");
+    // Premarket/aftermarket yalnızca gün içi zaman dilimlerinde anlamlı;
+    // günlük/haftalık mumlar seans dışı veriyle değişmesin diye hariç.
+    if (extendedHours && interval !== "D" && interval !== "W") params.set("extendedHours", "true");
 
     try {
       const res = await fetch(`/api/chart-data?${params.toString()}`);
