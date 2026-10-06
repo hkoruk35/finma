@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "CEG",
+        "sector": "Utilities",
+        "action": "CLOSE",
+        "price": 301.67,
+        "entry_zone": "295.24 - 308.09",
+        "SL": 275.97,
+        "TP": 353.06
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "XP",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 29.07,
+        "entry_zone": "28.38 - 29.75",
+        "SL": 26.34,
+        "TP": 34.51
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "BBD",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 4.48,
+        "entry_zone": "4.40 - 4.57",
+        "SL": 4.14,
+        "TP": 5.16
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "ITUB",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 10.01,
+        "entry_zone": "9.83 - 10.19",
+        "SL": 9.3,
+        "TP": 11.44
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "NU",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 15.48,
+        "entry_zone": "15.17 - 15.80",
+        "SL": 14.23,
+        "TP": 17.99
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "PBR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 23.9,
+        "entry_zone": "23.54 - 24.25",
+        "SL": 22.46,
+        "TP": 26.77
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "GMAB",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 37.51,
+        "entry_zone": "36.88 - 38.14",
+        "SL": 35.01,
+        "TP": 41.27
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 26.74,
+        "entry_zone": "26.24 - 27.24",
+        "SL": 24.75,
+        "TP": 30.72
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 142.2,
+        "entry_zone": "139.86 - 144.53",
+        "SL": 132.87,
+        "TP": 160.85
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "VST",
+        "sector": "Utilities",
+        "action": "CLOSE",
+        "price": 158.89,
+        "entry_zone": "156.11 - 161.67",
+        "SL": 147.77,
+        "TP": 181.14
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "TLN",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 373.38,
+        "entry_zone": "365.45 - 381.31",
+        "SL": 341.64,
+        "TP": 436.86
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "VIV",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 12.66,
+        "entry_zone": "12.49 - 12.83",
+        "SL": 11.98,
+        "TP": 14.02
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "ASO",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 52.44,
+        "entry_zone": "51.58 - 53.30",
+        "SL": 49.02,
+        "TP": 59.29
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "TWLO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 287.73,
+        "entry_zone": "279.29 - 296.16",
+        "SL": 253.97,
+        "TP": 355.23
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "RIG",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 5.45,
+        "entry_zone": "5.37 - 5.54",
+        "SL": 5.1,
+        "TP": 6.17
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "BEAM",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 25.52,
+        "entry_zone": "24.81 - 26.23",
+        "SL": 22.67,
+        "TP": 31.22
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "CRSP",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 54.49,
+        "entry_zone": "52.72 - 56.27",
+        "SL": 47.39,
+        "TP": 68.7
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "NVAX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 11.43,
+        "entry_zone": "10.98 - 11.88",
+        "SL": 9.62,
+        "TP": 15.06
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "ABSI",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 10.78,
+        "entry_zone": "10.30 - 11.26",
+        "SL": 8.85,
+        "TP": 14.64
+    },
+    {
+        "date": "2026-10-06 15:00",
+        "symbol": "TWST",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 183.71,
+        "entry_zone": "176.01 - 191.41",
+        "SL": 152.91,
+        "TP": 245.31
+    }
+]
