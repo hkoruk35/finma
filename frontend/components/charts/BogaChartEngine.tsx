@@ -353,6 +353,7 @@ interface Props {
   hideIndicatorToggles?: boolean; // hides the block of indicator toggle buttons
   detailMode?: boolean; // unlocks the full toolbar: candle type, range, OHLCV readout, share, fullscreen
   defaultIndicators?: IndicatorKey[]; // initial active set (uncontrolled mode only)
+  pinnedIndicators?: IndicatorKey[]; // always active on open, even if an old saved preference lacks them (user can still toggle off within the session)
   defaultTimeframe?: string; // initial interval value
   defaultCandleType?: CandleType; // initial candle style (overrides the detailMode-based default)
   premiumGate?: boolean; // non-premium viewers may only toggle FREE_INDICATOR_KEYS; everything else (incl. Trade Plan values) prompts PremiumModal instead
@@ -444,6 +445,7 @@ export default function BogaChartEngine({
   hideIndicatorToggles = false,
   detailMode = false,
   defaultIndicators,
+  pinnedIndicators,
   defaultTimeframe,
   defaultCandleType,
   premiumGate = false,
@@ -474,6 +476,9 @@ export default function BogaChartEngine({
   const chartRef = useRef<IChartApi | null>(null);
   const mainSeriesRef = useRef<ISeriesApi<any> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
+  /** Hacim ortalaması (20 mum) — hacim çubuklarıyla aynı panelde ve aynı ölçekte çizgi */
+  const volumeMaSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const [volumeMaByTime, setVolumeMaByTime] = useState<Map<number, number>>(() => new Map());
   const lineSeriesRefs = useRef<Partial<Record<IndicatorKey, ISeriesApi<"Line">[]>>>({});
   const priceLinesRef = useRef<any[]>([]);
   const barsRef = useRef<Bar[]>([]);
@@ -525,6 +530,7 @@ export default function BogaChartEngine({
   // uzerinde tek ziyarette 6000'den fazla istek olculdu).
   // Icerige gore memoize edince referans stabil kaliyor ve dongu kiriliyor.
   const indicatorsKey = indicatorsProp ? indicatorsProp.join(",") : null;
+  const pinnedKey = pinnedIndicators ? pinnedIndicators.join(",") : "";
   const active = useMemo(() => {
     const base =
       indicatorsKey !== null
@@ -602,11 +608,14 @@ export default function BogaChartEngine({
           // garantisi artik bir eski kayittan dolayi bozulmuyor.
           const restored = new Set(saved.indicators as IndicatorKey[]);
           restored.add("rsi");
+          // 2026-10-05: terminalde VWAP + EMA20 acilista HER ZAMAN acik
+          // (RSI ile ayni mantik — eski bir kayit bunlari gizlemesin).
+          for (const k of pinnedKey ? (pinnedKey.split(",") as IndicatorKey[]) : []) restored.add(k);
           setInternalActive(restored);
         }
       }
     } catch {}
-  }, [compact]);
+  }, [compact, pinnedKey]);
 
   // nyTimeFormatter (crosshair time label) is interval-aware — the chart is
   // only created once, so it reads the current interval from this ref
@@ -637,7 +646,7 @@ export default function BogaChartEngine({
       setInterval_(defaultTimeframe || "240");
       setCandleType("candle");
       setRange("3M");
-      setInternalActive(new Set(["ema50", "rsi", "volume"] as IndicatorKey[]));
+      setInternalActive(new Set([...(defaultIndicators ?? (["ema50", "rsi", "volume"] as IndicatorKey[])), ...((pinnedKey ? pinnedKey.split(",") : []) as IndicatorKey[])]));
       setToastMsg(lang === "tr" ? "↺ Varsayılan Ayarlara Sıfırlandı!" : "↺ Reset to Factory Defaults!");
       setTimeout(() => setToastMsg(null), 2500);
     } catch {}
@@ -848,9 +857,21 @@ export default function BogaChartEngine({
       const isMobileViewport = typeof window !== "undefined" && window.innerWidth < 768;
       const volumeSeries = chart.addSeries(
         HistogramSeries,
-        { priceFormat: { type: "volume" }, priceScaleId: "" },
+        { priceFormat: { type: "volume" }, priceScaleId: "vol" },
         1
       );
+      // Hacim ortalaması çizgisi: çubuklarla AYNI ölçek kimliği ("vol") —
+      // farklı ölçekte olsaydı çizgi çubuklarla hizasız çıkardı.
+      const volumeMaSeries = chart.addSeries(
+        LineSeries,
+        {
+          priceFormat: { type: "volume" }, priceScaleId: "vol",
+          color: "#fbbf24", lineWidth: 2,
+          priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false,
+        },
+        1
+      );
+      volumeMaSeriesRef.current = volumeMaSeries;
       volumeSeries.priceScale().applyOptions({
         scaleMargins: {
           // 2026-08-20 kullanıcı geri bildirimi: hacim çubukları genel
@@ -914,6 +935,7 @@ export default function BogaChartEngine({
       chartRef.current = null;
       mainSeriesRef.current = null;
       volumeSeriesRef.current = null;
+      volumeMaSeriesRef.current = null;
       lineSeriesRefs.current = {};
       priceLinesRef.current = [];
     };
@@ -1123,6 +1145,26 @@ export default function BogaChartEngine({
         }))
       );
       volumeSeries.applyOptions({ visible: active.has("volume") });
+      // 20 mumluk hacim ortalaması (ilk 19 mum için çizgi yok — yetersiz veri)
+      const maSeries = volumeMaSeriesRef.current;
+      if (maSeries) {
+        const N = 20;
+        const pts: { time: UTCTimestamp; value: number }[] = [];
+        const byTime = new Map<number, number>();
+        let sum = 0;
+        for (let i = 0; i < bars.length; i++) {
+          sum += bars[i].volume || 0;
+          if (i >= N) sum -= bars[i - N].volume || 0;
+          if (i >= N - 1) {
+            const v = sum / N;
+            pts.push({ time: bars[i].time as UTCTimestamp, value: v });
+            byTime.set(bars[i].time as number, v);
+          }
+        }
+        setVolumeMaByTime(byTime);
+        maSeries.setData(pts);
+        maSeries.applyOptions({ visible: active.has("volume") });
+      }
     }
 
     // Pane yukseklikleri asenkron oturuyor (yukaridaki PANE_STRETCH_* notu):
@@ -1955,6 +1997,9 @@ export default function BogaChartEngine({
               <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
               <span className="text-slate-400">C <span className="text-white">{fmt(hoverBar?.close)}</span></span>
               <span className="text-slate-400">{t.vol} <span className="text-white">{fmtVol(hoverBar?.volume)}</span></span>
+              {hoverBar && volumeMaByTime.get(hoverBar.time as number) != null && (
+                <span className="text-slate-400">MA20 <span style={{ color: "#fbbf24" }}>{fmtVol(volumeMaByTime.get(hoverBar.time as number))}</span></span>
+              )}
             </div>
           )}
 

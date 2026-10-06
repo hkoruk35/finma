@@ -37,6 +37,7 @@ const getGroups = (locale: Locale) => {
       group: t("US Equity Markets", "ABD HİSSE SENEDİ PİYASALARI", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA", "Pasar Saham AS"),
       items: [
         { ticker: "SPX", label: "S&P 500", ySymbol: "^GSPC" },
+        { ticker: "SPY", label: "SPY ETF", ySymbol: "SPY" },
         { ticker: "NDX", label: "NASDAQ", ySymbol: "^IXIC" },
         { ticker: "DJI", label: "Dow Jones", ySymbol: "^DJI" },
         { ticker: "RUT", label: "Russell 2000", ySymbol: "^RUT" },
@@ -593,6 +594,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   height={600}
                   defaultTimeframe="D"
                   defaultCandleType="candle"
+                  defaultIndicators={["ema50", "rsi", "volume", "ema20", "vwap"]}
+                  pinnedIndicators={["ema20", "vwap"]}
                   premiumGate
                   externalMultiChartTickers={compareSelection}
                   externalMultiChartTrigger={multiChartTrigger}
