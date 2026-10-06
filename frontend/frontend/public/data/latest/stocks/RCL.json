@@ -1,0 +1,89 @@
+{
+  "ticker": "RCL",
+  "company": "Royal Caribbean Cruises Ltd.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T15:42:38.517Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Travel Services",
+  "price": {
+    "current": 285.8900146484375,
+    "open": 279.79998779296875,
+    "high": 286.7300109863281,
+    "low": 278,
+    "prev_close": 275.0299987792969,
+    "change_pct": 3.9486659336589147,
+    "change_pct_1w": 9.675068063666968,
+    "change_pct_1m": 24.138085479827954,
+    "change_pct_1y": -9.899140987369204,
+    "volume": 598476,
+    "avg_volume_30d": 83649976
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 85,
+    "fundamental_score": 61.55,
+    "momentum_score": 38,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.08569014579227,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 263.26410270374134,
+    "ema_50": 272.3222852190246,
+    "ema_200": 285.5512295947693,
+    "ema_stack_bullish": false,
+    "bb_upper": 300.1845153808594,
+    "bb_middle": 285.8900146484375,
+    "bb_lower": 271.5955139160156,
+    "bb_width": 10,
+    "atr": 11.83,
+    "atr_pct": 4.14,
+    "rvol": 1.0345879358052656,
+    "52w_high": 356.3900146484375,
+    "52w_low": 222.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 17.647532,
+    "pb_ratio": 7.4697576,
+    "gross_margin": 0.50284,
+    "operating_margin": 0.2707,
+    "net_margin": 0.23541,
+    "market_cap": 76461875200,
+    "revenue_growth_ttm": 0.065,
+    "fcf_yield": -0.01983014384664215,
+    "institutional_ownership_pct": 0.90765,
+    "dividend_rate": 6,
+    "dividend_yield": 0.0218
+  },
+  "scores_detail": {
+    "entry_range_low": 276.95,
+    "entry_range_high": 287.07,
+    "target_range_low": 296.11,
+    "target_range_high": 324.31,
+    "target_1": 296.11,
+    "target_2": 310.21,
+    "target_3": 324.31,
+    "stop_loss": 268.66,
+    "risk_reward_ratio": 2.11,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $276.95 – $287.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $286.73 direnci veya $274.58 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $268.66 olarak belirlenmiştir. Fiyatın EMA50 ($272.32) veya günlük VWAP ($277.48) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($272.32) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($277.48) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}
