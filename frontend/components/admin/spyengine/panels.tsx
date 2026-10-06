@@ -521,8 +521,8 @@ export function AlertBanner({
 
   let headline: string;
   if (inPosition) headline = "POZİSYON AÇIK — çıkış kuralı bekleniyor";
-  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ — 15m tetik ateşlendi`;
-  else if (alert.level === "IMMINENT") headline = `${alert.side} REJİMİ SERBEST — 15m ana tetik herhangi bir barda ateşlenebilir`;
+  else if (alert.level === "FIRED") headline = `${alert.side} GİRİŞ SİNYALİ (eski motor) — 5m puan eşiği geçti, 15m kapısı açık`;
+  else if (alert.level === "IMMINENT") headline = `${alert.side} REJİMİ SERBEST (eski motor) — 5m puanı herhangi bir mumda eşiği geçebilir`;
   else if (alert.level === "NEAR") headline = `${alert.side} kurulumu yaklaşıyor`;
   else headline = stateLabel;
 

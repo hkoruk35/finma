@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SPY Engine V9.0 — Tek sayfa, sonuç odaklı (/admin/spyengine/v1)
+ * SPY Engine V10 (Senaryo Takibi) — Tek sayfa, sonuç odaklı (/admin/spyengine/v1)
  *
  * V8.0'ın 7 sekmesi kaldırıldı; tek ekranda şunlar var:
  *   1. Açılış rejimi — 09:30 5m/15m kapanışları VWAP'a göre izlenir,
@@ -20,7 +20,7 @@
  * API uçları da ayrıca satır içi kontrol yapar.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import ForecastMap from "@/components/admin/spyengine/ForecastMap";
 import {
@@ -29,7 +29,7 @@ import {
   type StripQuote, type SpotStats,
 } from "@/components/admin/spyengine/panels";
 import {
-  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum,
+  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum, nyDateTimeToEpoch,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
@@ -45,7 +45,9 @@ import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
 import { optionLevelList, type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { OpenForecastRead } from "@/lib/spyengine/openForecastFetch";
 import type { JournalDay, JournalStats } from "@/lib/spyengine/journal";
-import { buildScenario, dayTypeOf, type Scenario, type DayType, type Leg } from "@/lib/spyengine/scenario";
+import { buildScenario, type Scenario, type Leg } from "@/lib/spyengine/scenario";
+import { dayTypeLive, vixExpectation, type DayTypeLive } from "@/lib/spyengine/dayType";
+import { buildLegChain, pickTargets, optionFor, realizedIV, type Anchor, type LegChain, type TrackState, type TrackStatus } from "@/lib/spyengine/scenarioTrack";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
@@ -365,10 +367,15 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         </div>
       )}
 
-      {/* plan */}
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-2">
-        <PlanCell side="LONG" p={d.long} active={prio !== "SHORT"} price={price} />
-        <PlanCell side="SHORT" p={d.short} active={prio !== "LONG"} price={price} />
+      {/* plan: senaryo takibi varken YENİ GİRİŞ planı pasif (taşıma modunda kovalama/FOMO riski) */}
+      {d.tracking && (
+        <div className="border-t border-[#1c2635] bg-[#0b1220] px-3 py-1.5 text-[11.5px] text-sky-300">
+          Senaryo taşınıyor — aşağıdaki yeni-giriş tetikleri bilgi amaçlıdır, kullanma (trend içinde yeni giriş = FOMO riski). Taşıma kuralları: Senaryo Takibi.
+        </div>
+      )}
+      <div className={`grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-2 ${d.tracking ? "opacity-40" : ""}`}>
+        <PlanCell side="LONG" p={d.long} active={!d.tracking && prio !== "SHORT"} price={price} />
+        <PlanCell side="SHORT" p={d.short} active={!d.tracking && prio !== "LONG"} price={price} />
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
         Skor: VWAP · EMA20 · EMA20 eğimi · 3 mum yapısı · hacim akışı · son mumun hacim teyidi — her biri ±1, yalnızca KAPANMIŞ mumdan. Tetik = son
@@ -401,7 +408,7 @@ function MiniCard({ title, children }: { title: string; children: React.ReactNod
   );
 }
 
-function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: number | null; nowMin: number; opt: OptionLevels | null }) {
+function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null; price: number | null; nowMin: number; opt: OptionLevels | null; scenarioDir: "UP" | "DOWN" | null }) {
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
@@ -428,7 +435,11 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
 
       <div className="px-3 py-2" style={{ backgroundColor: `${col}12` }}>
         <div className={`text-[15px] font-extrabold tracking-wide sm:text-[17px] ${w.level === "STARTED" ? "animate-pulse" : ""}`} style={{ color: col }}>
-          {w.headline}
+          {scenarioDir && w.side && w.level !== "NONE" ? (
+            (w.side === "LONG") === (scenarioDir === "UP")
+              ? `${w.headline} — senaryoyu DESTEKLİYOR (yeni giriş değil, taşı)`
+              : `${w.headline} — senaryoya TERS: erken uyarı, trend değişimi koşullarını izle`
+          ) : w.headline}
         </div>
         <div className="mt-1 flex h-1.5 overflow-hidden rounded bg-[#1c2635]">
           <span className="bg-[#22c55e]" style={{ width: `${(w.bull / tot) * 100}%` }} />
@@ -843,21 +854,15 @@ function LegBox({ n, leg, conditional }: { n: number; leg: Leg; conditional: boo
   );
 }
 
-function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayType | null; waitReason: string | null }) {
-  const dayCol = day?.type === "HAREKETLİ" ? "#22c55e" : day ? "#eab308" : "#64748b";
+function ScenarioPanel({ sc, expectation, waitReason }: { sc: Scenario | null; expectation: string | null; waitReason: string | null }) {
   return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${dayCol}55`, backgroundColor: PETROL.bg }}>
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: "#1d5a68", backgroundColor: PETROL.bg }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
-          Senaryo · 1–2 saatlik plan <span className="text-[11px] font-normal text-slate-400">· yön → ilk hedef → dönüş hedefi · süre · tahmini 0DTE prim</span>
+          Senaryo · ön plan <span className="text-[11px] font-normal text-slate-400">· gün yönü 09:55–10:00&apos;da kilitlenince bu plan günün senaryosuna dönüşür ve gün boyu TAKİP edilir</span>
         </span>
-        {day && (
-          <span className="rounded border px-2 py-0.5 text-[12px] font-semibold" style={{ color: dayCol, borderColor: `${dayCol}66`, backgroundColor: `${dayCol}14` }}>
-            Gün tipi: {day.type}
-          </span>
-        )}
       </div>
-      {day && <div className="border-b border-[#1d5a68] px-4 py-1.5 text-[12px] text-slate-300">{day.text}</div>}
+      {expectation && <div className="border-b border-[#1d5a68] px-4 py-1.5 text-[12px] text-slate-300">Beklenti: {expectation}</div>}
       {waitReason || !sc ? (
         <div className="px-4 py-3 text-[12.5px] text-slate-300">
           <b className="text-amber-300">◆ BEKLE</b> — {waitReason ?? "yön ya da hedef seviyesi yok."}
@@ -865,7 +870,7 @@ function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayT
       ) : (
         <>
           <div className="px-4 py-1.5 text-[12px] text-slate-400">
-            Yön: <b className={sc.dir === "UP" ? "text-[#4ade80]" : "text-[#f87171]"}>{sc.dir === "UP" ? "▲ YUKARI" : "▼ AŞAĞI"}</b> · kaynak: {sc.dirSource}
+            Ön yön: <b className={sc.dir === "UP" ? "text-[#4ade80]" : "text-[#f87171]"}>{sc.dir === "UP" ? "▲ YUKARI" : "▼ AŞAĞI"}</b> · kaynak: {sc.dirSource}
           </div>
           <div className="grid grid-cols-1 gap-px border-t border-[#1d5a68] bg-[#1d5a68] md:grid-cols-2">
             {sc.leg1 ? <LegBox n={1} leg={sc.leg1} conditional={false} /> : <div className="px-4 py-3 text-[12px] text-slate-300" style={{ backgroundColor: PETROL.cell }}>1. bacak için hedef seviye yok.</div>}
@@ -873,10 +878,191 @@ function ScenarioPanel({ sc, day, waitReason }: { sc: Scenario | null; day: DayT
           </div>
           <ul className="border-t border-[#1d5a68] px-4 py-1.5 text-[11.5px] leading-snug text-slate-400">
             {sc.notes.map((x, i) => <li key={i}>• {x}</li>)}
-            <li>• 2. bacak yalnızca 1. hedefte Karar Desteği&apos;nde &quot;⚡ ERKEN DÖNÜŞ İŞARETİ&quot; çıkarsa düşünülmeli — tek başına hedefe ulaşmak dönüş sinyali değil.</li>
+            <li>• 2. bacak yalnızca trend değişimi teyit edilirse (Senaryo Takibi: &quot;TREND DEĞİŞTİ&quot;) ve 5m dönüş işareti gelirse düşünülmeli.</li>
           </ul>
         </>
       )}
+    </div>
+  );
+}
+
+// ── Senaryo TAKİBİ: günün ilk senaryosu, gün boyu aynı çapa ──────────
+
+const STATUS_STYLE: Record<TrackStatus, { col: string; icon: string }> = {
+  "TREND ONAYLI": { col: "#22c55e", icon: "✔" },
+  "ONAY BEKLENİYOR": { col: "#60a5fa", icon: "…" },
+  ONAYSIZ: { col: "#eab308", icon: "◆" },
+  ZAYIFLIYOR: { col: "#f97316", icon: "⚠" },
+  DEĞİŞTİ: { col: "#ef4444", icon: "✕" },
+};
+
+function LegStrip({ chain }: { chain: LegChain }) {
+  if (!chain.legs.length && !chain.pending) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-1.5 border-b border-[#1d5a68] px-4 py-1.5 font-mono text-[11.5px]">
+      <span className="font-sans text-[11px] font-semibold text-slate-400">Günün bacakları:</span>
+      {chain.legs.map((L, i) => {
+        const up = L.anchor.dir === "UP";
+        const done = !!L.exit;
+        const res = L.exit ? L.exit.pnl : null;
+        return (
+          <span key={i} className={`rounded border px-1.5 py-0.5 ${done ? "border-slate-600 text-slate-400" : up ? "border-[#22c55e]/60 bg-[#22c55e]/10 text-[#4ade80]" : "border-[#ef4444]/60 bg-[#ef4444]/10 text-[#f87171]"}`}
+            title={L.exit ? `${L.exit.clock}: ${L.exit.why}` : L.status}>
+            {L.anchor.legNo}. {L.anchor.kind === "AÇILIŞ" ? "açılış" : "gün içi"} {L.anchor.clock} {up ? "▲" : "▼"} {num(L.anchor.entry)}
+            {done ? <> → {L.exit!.clock} <b className={res! >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{res! >= 0 ? "+" : "−"}{Math.abs(res!).toFixed(2)}</b> <span className="text-slate-500">(tepe +{L.mfe.toFixed(2)})</span></> : <> · <b>{L.status}</b></>}
+          </span>
+        );
+      })}
+      {chain.pending && (
+        <span className="rounded border border-amber-500/60 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">… {chain.pending.dir === "UP" ? "▲ LONG" : "▼ SHORT"} tetiği hazırlanıyor</span>
+      )}
+    </div>
+  );
+}
+
+function DayChip({ day, recent }: { day: DayTypeLive | null; recent: DayTypeLive | null }) {
+  if (!day) return null;
+  const col = (d: DayTypeLive) => (d.kind === "TREND" ? "#22c55e" : d.kind === "SIKIŞMA" ? "#eab308" : "#64748b");
+  const c = col(day);
+  const showRecent = recent && recent.kind !== day.kind && recent.kind !== "OLUŞUYOR";
+  return (
+    <>
+      <span className="rounded border px-2 py-0.5 text-[12px] font-semibold" style={{ color: c, borderColor: `${c}66`, backgroundColor: `${c}14` }} title={day.text}>
+        Gün tipi: {day.headline}
+      </span>
+      {showRecent && (
+        <span className="rounded border px-2 py-0.5 text-[12px] font-semibold" style={{ color: col(recent), borderColor: `${col(recent)}66`, backgroundColor: `${col(recent)}14` }} title={`Son 2 saat (24×5m): ${recent.text}`}>
+          Son 2 saat: {recent.headline}
+        </span>
+      )}
+    </>
+  );
+}
+
+function ScenarioTrackPanel({ t, chain, day, recent }: { t: TrackState | null; chain: LegChain; day: DayTypeLive | null; recent: DayTypeLive | null }) {
+  const pending = chain.pending;
+  const pendingBox = pending && (
+    <div className="border-b border-amber-500/40 bg-amber-500/10 px-4 py-2">
+      <div className="text-[13.5px] font-extrabold text-amber-300">{pending.text}</div>
+      <ul className="mt-1 flex flex-col gap-0.5 text-[12px] text-slate-200">
+        {pending.have.map((h, i) => <li key={`h${i}`}>✔ {h}</li>)}
+        {pending.need.map((h, i) => <li key={`n${i}`} className="text-amber-200">○ {h}</li>)}
+      </ul>
+      <div className="mt-1 text-[11px] text-slate-400">Koşulların hepsi kapanışla sağlanınca yeni bacak açılır (ilk stop: 5m kapanış VWAP&apos;ın ters tarafı). Kapanış gelmeden girmek erken giriştir.</div>
+    </div>
+  );
+  if (!t) {
+    return (
+      <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: "#1d5a68", backgroundColor: PETROL.bg }}>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
+          <span className="text-[13px] font-semibold text-slate-200">
+            Senaryo Takibi <span className="text-[11px] font-normal text-slate-400">· sabah yön çıkmadı — gün içi yeni bacak tetiği aranıyor (alıcı/satıcı hamlesi, katalizör)</span>
+          </span>
+          <span className="flex flex-wrap gap-1.5"><DayChip day={day} recent={recent} /></span>
+        </div>
+        <LegStrip chain={chain} />
+        {pendingBox}
+        {!pending && (
+          <div className="px-4 py-3 text-[12.5px] text-slate-300">
+            <b className="text-amber-300">◆ BEKLE</b> — yön yok. Yeni bacak tetiği: 2×5m kapanış VWAP + EMA20&apos;nin aynı tarafında VE son 15m kapanış VWAP + EMA20(15m)&apos;nin aynı tarafında.
+          </div>
+        )}
+        <LegFooter />
+      </div>
+    );
+  }
+  return <TrackCard t={t} chain={chain} day={day} recent={recent} pendingBox={pendingBox} />;
+}
+
+function LegFooter() {
+  return (
+    <div className="border-t border-[#1d5a68] px-4 py-1.5 text-[11px] leading-snug text-slate-400">
+      Ölçüm (57 seans, 5m): açılış bacağında ilk hedefte çıkmak ort. +0,47 puan (%61); 10:30&apos;da trend onaylıysa taşımak +1,0 puan (%60), trend değişimi çıkışı en kötü günü −5,5 → −2,4&apos;e indirdi.
+      Gün içi yeni bacaklar (54): ortalama tepe +1,6 puan ama kazanç oranı %31 ve ortalama ~0 — bunlar erken uyarıdır, kesin sinyal değil: seviyede kâr al, ilk stopa uy, taşıma.
+      Tahmin/karar desteğidir; strike ve çıkış kararı sende.
+    </div>
+  );
+}
+
+function TrackCard({ t, chain, day, recent, pendingBox }: { t: TrackState; chain: LegChain; day: DayTypeLive | null; recent: DayTypeLive | null; pendingBox: ReactNode }) {
+  const st = STATUS_STYLE[t.status];
+  const a = t.anchor;
+  const dirCol = a.dir === "UP" ? "#22c55e" : "#ef4444";
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${st.col}88`, backgroundColor: PETROL.bg }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
+        <span className="text-[13px] font-semibold text-slate-200">
+          Senaryo Takibi <span className="text-[11px] font-normal text-slate-400">· {a.kind === "GÜN İÇİ" ? `${a.legNo}. bacak (gün içi, ${a.clock})` : `açılış senaryosu (${a.clock})`} — her dakika yeniden üretilmez, takip edilir; trend değişirse yeni bacak aranır</span>
+        </span>
+        <span className="flex flex-wrap items-center gap-1.5">
+          <DayChip day={day} recent={recent} />
+          <span className="rounded border px-2 py-0.5 text-[12px] font-bold" style={{ color: st.col, borderColor: `${st.col}77`, backgroundColor: `${st.col}18` }}>
+            {st.icon} {t.status}
+          </span>
+        </span>
+      </div>
+      <LegStrip chain={chain} />
+      {pendingBox}
+
+      <div className="px-4 py-2.5" style={{ backgroundColor: `${st.col}12` }}>
+        <div className="text-[15px] font-extrabold leading-snug sm:text-[17px]" style={{ color: st.col }}>{t.title}</div>
+        <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[12.5px] text-slate-200">
+          <span>
+            <b style={{ color: dirCol }}>{a.dir === "UP" ? "▲ LONG" : "▼ SHORT"}</b> {a.clock} giriş <b>{num(a.entry)}</b> → {t.exit ? <>çıkış <b>{num(t.exit.price)}</b> ({t.exit.clock})</> : <>şimdi <b>{num(t.price)}</b></>}
+          </span>
+          <span className={t.pnl >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{t.pnl >= 0 ? "+" : "−"}{Math.abs(t.pnl).toFixed(2)} puan ({t.pnlPct >= 0 ? "+" : ""}{t.pnlPct.toFixed(2)}%)</span>
+          {t.mfe > 0.05 && <span className="text-slate-400">tepe +{t.mfe.toFixed(2)}{t.mfeClock ? ` (${t.mfeClock})` : ""}</span>}
+          <span className="text-slate-400">önerilen: {a.option.side === "CALL" ? "▲ CALL" : "▼ PUT"} {a.option.strike}{t.optionMultiple != null ? <> · tahmini kat <b className="text-slate-200">≈{t.optionMultiple.toFixed(1)}x</b> <span className="text-slate-500">(model, gerçek prim farklı olabilir)</span></> : null}</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-px border-t border-[#1d5a68] bg-[#1d5a68] md:grid-cols-2">
+        <div className="px-4 py-2" style={{ backgroundColor: PETROL.cell }}>
+          <div className="mb-1 text-[11.5px] font-semibold text-slate-300">Ne yapmalı</div>
+          <ul className="flex flex-col gap-1 text-[12px] leading-snug text-slate-200">
+            {t.lines.slice(1).map((l, i) => <li key={i} className={l.startsWith("⚠") ? "font-semibold text-orange-300" : ""}>• {l}</li>)}
+            {t.ifNotIn && <li className="text-sky-300">• {t.ifNotIn}</li>}
+          </ul>
+        </div>
+        <div className="px-4 py-2" style={{ backgroundColor: PETROL.cell }}>
+          <div className="mb-1 text-[11.5px] font-semibold text-slate-300">Hedefler (girişte sabitlendi)</div>
+          <div className="flex flex-wrap gap-1.5 font-mono text-[12px]">
+            {t.targets.length === 0 && !t.nextLevel && <span className="text-slate-400">ölçülmüş hedef seviyesi yok</span>}
+            {t.targets.map((x, i) => (
+              <span key={i} title={x.label} className={`rounded border px-1.5 py-0.5 ${x.hitClock ? "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]" : "border-[#1d5a68] text-slate-200"}`}>
+                T{i + 1} <b>{num(x.price)}</b> {x.hitClock ? `✓ ${x.hitClock}` : <span className="text-slate-400">{x.label.slice(0, 22)}</span>}
+              </span>
+            ))}
+          </div>
+          {t.nextLevel && t.status !== "DEĞİŞTİ" && (
+            <div className="mt-1.5 text-[12px] text-slate-300">
+              Sıradaki seviye (güncel): <b className="font-mono text-slate-100">{num(t.nextLevel.price)}</b> <span className="text-slate-400">{t.nextLevel.label}</span>
+            </div>
+          )}
+          <div className="mb-1 mt-2 text-[11.5px] font-semibold text-slate-300">Trend değişimi koşulları (15m kapanışla)</div>
+          <div className="flex flex-col gap-1 text-[12px]">
+            {t.rules.map((r, i) => {
+              const c = r.state === "tetiklendi" ? "#ef4444" : r.state === "yakın" ? "#f97316" : "#22c55e";
+              return (
+                <div key={i} className="flex flex-wrap items-baseline justify-between gap-2" title={r.detail}>
+                  <span className="text-slate-300">{r.label}</span>
+                  <span className="font-mono" style={{ color: c }}>
+                    {r.level != null ? num(r.level) : "—"}
+                    {r.cushion != null && <span className="text-slate-400"> · pay {r.cushion >= 0 ? "+" : ""}{r.cushion.toFixed(2)}</span>} · {r.state === "ok" ? "güvenli" : r.state === "yakın" && r.cushion != null && r.cushion < 0 ? "fiyat geçti — 15m kapanış bekleniyor" : r.state}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {t.watch.length > 0 && (
+        <ul className="border-t border-[#1d5a68] px-4 py-1.5 text-[11.5px] leading-snug text-slate-300">
+          {t.watch.map((w, i) => <li key={i}>→ {w}</li>)}
+        </ul>
+      )}
+      <LegFooter />
     </div>
   );
 }
@@ -1165,12 +1351,132 @@ export default function SpyEngineV9() {
   /** 09:45 15m kapanışından sonra seans kartları açılır; öncesi tek satır + açılış tahmini */
   const sessionActive = !!analysis && analysis.opening.status !== "WAITING";
 
+  /** ATR(14) — kapanmış 5m mumlardan (önceki günler dahil, ısınmış) */
+  const atr5 = useMemo(() => {
+    const closed = m5D.filter((b) => b.time + 300 <= (evalNow || Infinity) && (lastM1Time == null || lastM1Time >= b.time + 300));
+    return closed.length >= 15 ? lastNum(atr(closed, 14)) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [m5D, lastM1Time, minuteSlot]);
+
+  /** Replay'de güncel zincir anlamsız — gizlenir */
+  const optLevels = replayDate ? null : optLevelsLive;
+
+  /**
+   * ÇAPA: günün ilk senaryosu. 09:55 kuralı (15m + 2×5m VWAP tarafı), belirsizse 10:00 kararından
+   * DETERMİNİSTİK olarak (kapanmış mumlardan) hesaplanır — sayfa gün ortasında açılsa da aynı çapa çıkar.
+   * Hedefler çapa anındaki seviyelerden sabitlenir (gelecekten sızma yok: gün zirvesi/dibi ve canlı
+   * destek/direnç çıkarılır). Sonradan YENİDEN ÜRETİLMEZ.
+   */
+  const anchorStage = !date || !evalNow ? 0 : evalNow >= nyDateTimeToEpoch(date, 10 * 60) ? 2 : evalNow >= nyDateTimeToEpoch(date, 9 * 60 + 55) ? 1 : 0;
+  const anchorDataReady = !!date && lastM1Time != null && lastM1Time >= nyDateTimeToEpoch(date, anchorStage === 1 ? 9 * 60 + 55 : 10 * 60) - 60;
+  const optReady = !!optLevels;
+
+  /** Ölçülmüş ek seviyeler (POC/VA, likidite, Fibonacci, opsiyon duvarları, ADR) — harita ve "sıradaki seviye" ortak kaynağı */
+  const lvl = data?.levels ?? null;
+  const extraLevels = useMemo(() => {
+    if (!flow) return [] as { price: number; label: string }[];
+    return [
+      ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
+      ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
+      ...(flow.leg?.levels ?? []),
+      ...optionLevelList(optLevels),
+      ...(flow.adr ? [
+        { price: flow.adr.downTo, label: `ADR alt potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
+        { price: flow.adr.upTo, label: `ADR üst potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
+      ] : []),
+      ...(lvl ? [
+        ...(lvl.premarket.high != null ? [{ price: lvl.premarket.high, label: "Premarket zirvesi" }] : []),
+        ...(lvl.premarket.low != null ? [{ price: lvl.premarket.low, label: "Premarket dibi" }] : []),
+        ...(lvl.rth.high != null ? [{ price: lvl.rth.high, label: "Gün zirvesi" }] : []),
+        ...(lvl.rth.low != null ? [{ price: lvl.rth.low, label: "Gün dibi" }] : []),
+      ] : []),
+    ];
+  }, [flow, optLevels, lvl]);
+
+  const anchor = useMemo<Anchor | null>(() => {
+    if (!date || anchorStage === 0 || !anchorDataReady) return null;
+    const tryAt = (min: number, clock: "09:55" | "10:00"): Anchor | null => {
+      const tc = nyDateTimeToEpoch(date, min);
+      const s5c = daySeries(m5D, "5m", date, tc, null);
+      if (s5c.bars.length < (clock === "09:55" ? 5 : 6)) return null;
+      const s15c = daySeries(m15D, "15m", date, tc, null);
+      const s30c = daySeries(m30D, "30m", date, tc, null);
+      const opc = openingRegime(s5c, s15c, ema5, s30c, null);
+      if (opc.status !== "LOCKED" || (opc.side !== "UP" && opc.side !== "DOWN")) return null;
+      if (clock === "09:55" && opc.decidedAt !== "09:55") return null;
+      const dir = opc.side;
+      const entry = s5c.bars[s5c.bars.length - 1].close;
+      const vw = s5c.vwap[s5c.vwap.length - 1] ?? null;
+      const fl = flowRead({ m1: m1.filter((b) => b.time < tc), ymd: date, s5: s5c, price: entry, premarket: data?.levels?.premarket ?? null });
+      const lv = data?.levels ? { ...data.levels, rth: { high: null, low: null }, support: null, resistance: null, projectedHigh: null, projectedLow: null } : null;
+      const mp = buildForecastMap({
+        price: entry, vwap: vw, date, nowSec: tc, opening: opc, live: null, levels: lv, forecast: null,
+        playBias: { bias: dir, text: "" },
+        extra: fl ? [
+          ...(fl.profile ? [{ price: fl.profile.poc, label: "POC" }, { price: fl.profile.vah, label: "VAH" }, { price: fl.profile.val, label: "VAL" }] : []),
+          ...fl.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
+          ...(fl.leg?.levels ?? []),
+          ...optionLevelList(optLevels),
+          ...(fl.adr ? [
+            { price: fl.adr.downTo, label: `ADR alt potansiyeli (ort. ${fl.adr.avg.toFixed(2)} puan)` },
+            { price: fl.adr.upTo, label: `ADR üst potansiyeli (ort. ${fl.adr.avg.toFixed(2)} puan)` },
+          ] : []),
+        ] : [],
+      });
+      if (!mp) return null;
+      return {
+        date, dir, t0: tc, clock, entry, decidedAt: clock, strength: opc.strength, weak: opc.weak, kind: "AÇILIŞ", legNo: 1,
+        targets: pickTargets(dir, entry, mp.supports, mp.resistances), option: optionFor(dir, entry), iv: realizedIV(m5D, tc),
+      };
+    };
+    return tryAt(9 * 60 + 55, "09:55") ?? (anchorStage === 2 ? tryAt(10 * 60, "10:00") : null);
+    // çapa yalnızca gün/aşama/veri/opsiyon-seviyesi değişince yeniden kurulur (dakikada bir DEĞİL)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, anchorStage, anchorDataReady, optReady]);
+
+  /**
+   * Bacak zinciri: 1. bacak = açılış çapası; trend değişince (ya da sabah yön yoksa 10:00'dan sonra)
+   * yeni bacak tetiği aranır — 2×5m kapanış VWAP + EMA20 aynı tarafta VE 15m kapanış VWAP + EMA20(15m) aynı tarafta.
+   * Her kapanışta günün tamamı yeniden oynatılır (deterministik; sayfa gün ortasında açılsa da aynı zincir).
+   */
+  const chain = useMemo<LegChain | null>(() => {
+    if (!analysis || price == null || !date || anchorStage < 2 && !anchor) return null;
+    if (!analysis.s5.bars.length) return null;
+    const legLevels = extraLevels.filter((l) => !l.label.startsWith("Gün zirvesi") && !l.label.startsWith("Gün dibi"));
+    return buildLegChain({
+      date, first: anchor, s5: analysis.s5, s15: analysis.s15, ema5, ema15, price, atr5,
+      vix: openFc?.vixNow ?? null, nowSec: minuteSlot ? minuteSlot * 60 : evalNow,
+      levels: legLevels, nextLevels: extraLevels, iv: realizedIV(m5D, evalNow || 0), adrAvg: flow?.adr?.avg ?? null,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [anchor, anchorStage, analysis, ema15, ema5, price, atr5, openFc?.vixNow, minuteSlot, evalNow, extraLevels, flow?.adr?.avg, date]);
+  /** Güncel bacağın takibi (yoksa null) */
+  const track: TrackState | null = chain?.current ?? null;
+  /** Güncel bacağın çapası (açılış ya da gün içi) */
+  const legAnchor: Anchor | null = track?.anchor ?? null;
+
+  /** Gün tipi: DAVRANIŞ temelli (VWAP tarafı + kesişim); VIX yalnızca seans öncesi beklenti */
+  const dayLive = useMemo(() => (analysis && analysis.s5.bars.length ? dayTypeLive(analysis.s5, atr5) : null), [analysis, atr5]);
+  /** Son 2 saatin (24×5m) davranışı — gün ortasında rejim değişince tüm-gün etiketi geride kalır */
+  const dayRecent = useMemo(() => {
+    if (!analysis || analysis.s5.bars.length < 36) return null;
+    const s = analysis.s5;
+    return dayTypeLive({ bars: s.bars.slice(-24), vwap: s.vwap.slice(-24) }, atr5);
+  }, [analysis, atr5]);
+
   /**
    * Haritanın yönü = karar panelindeki seans planının yönü (aynı sessionModeOf).
    * Böylece harita ile karar asla farklı yön göstermez.
    */
   const playBias = useMemo<{ bias: "UP" | "DOWN" | "FLAT"; text: string } | null>(() => {
     if (!analysis || price == null || !analysis.s5.bars.length) return null;
+    // günün çapa senaryosu varsa harita da ONU gösterir (bozulana kadar)
+    if (legAnchor && track && track.status !== "DEĞİŞTİ")
+      return {
+        bias: legAnchor.dir,
+        text: `${legAnchor.kind === "GÜN İÇİ" ? `${legAnchor.legNo}. bacak` : "Senaryo"} (${legAnchor.clock}) ${legAnchor.dir === "UP" ? "yukarı" : "aşağı"} — ${track.status}: ${track.status === "TREND ONAYLI" ? "taşı, yeni giriş yok" : track.status === "ZAYIFLIYOR" ? "zayıflıyor, stopu sıkılaştır" : "hedefte kâr al"}.`,
+        alt: track.rules.map((r) => `${r.label}${r.level != null ? ` → ${r.level.toFixed(2)}` : ""} (${r.state === "ok" ? "güvenli" : r.state}).`),
+      };
     const s5 = analysis.s5;
     const minsNow = nyParts(s5.bars[s5.bars.length - 1].time + 300).minutes;
     const { mode } = sessionModeOf({ opening: analysis.opening, s5, price, minsNow });
@@ -1187,17 +1493,8 @@ export default function SpyEngineV9() {
       return { bias: "FLAT", text: "Öğleden sonra: fiyat VWAP ile POC arasında — yön yok, aralık senaryosu." };
     }
     return { bias: "FLAT", text: op.status === "LOCKED" ? "Açılış yönsüz: 10:30'a kadar bekle — aralık senaryosu." : `Ön okuma (${op.label}) — gün yönü 09:55'te.` };
-  }, [analysis, price, vwapNow, flow]);
+  }, [analysis, price, vwapNow, flow, legAnchor, track]);
 
-  /** ATR(14) — kapanmış 5m mumlardan (önceki günler dahil, ısınmış) */
-  const atr5 = useMemo(() => {
-    const closed = m5D.filter((b) => b.time + 300 <= (evalNow || Infinity) && (lastM1Time == null || lastM1Time >= b.time + 300));
-    return closed.length >= 15 ? lastNum(atr(closed, 14)) : null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5D, lastM1Time, minuteSlot]);
-
-  /** Replay'de güncel zincir anlamsız — gizlenir */
-  const optLevels = replayDate ? null : optLevelsLive;
 
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
@@ -1206,19 +1503,10 @@ export default function SpyEngineV9() {
       opening: analysis.opening, live: analysis.live,
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
       playBias,
-      extra: flow ? [
-        ...(flow.profile ? [{ price: flow.profile.poc, label: "POC" }, { price: flow.profile.vah, label: "VAH" }, { price: flow.profile.val, label: "VAL" }] : []),
-        ...flow.pools.filter((p) => !p.swept).map((p) => ({ price: p.price, label: `${p.label} likiditesi` })),
-        ...(flow.leg?.levels ?? []),
-        ...optionLevelList(optLevels),
-        ...(flow.adr ? [
-          { price: flow.adr.downTo, label: `ADR alt potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
-          { price: flow.adr.upTo, label: `ADR üst potansiyeli (ort. ${flow.adr.avg.toFixed(2)} puan)` },
-        ] : []),
-      ] : [],
+      extra: extraLevels,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, flow, playBias, optLevels, minuteSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, extraLevels, playBias, minuteSlot]);
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
@@ -1234,19 +1522,21 @@ export default function SpyEngineV9() {
     return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null) };
   }, [m5D, ema5, date]);
 
+  const pendingLeg = chain?.pending ?? null;
   /** Karar desteği — her kapanan 5m/15m mumda yeniden okunur */
   const decision = useMemo<DecisionRead | null>(() => {
     if (!analysis || analysis.opening.status === "WAITING") return null;
     return decisionRead({
       s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, ema30, warning: flow?.warning ?? null, price, vwapNow,
       atr5, profile: flow?.profile ?? null, hourlyRange: data?.levels?.hourlyRange ?? null,
+      dayKind: dayLive ? { kind: dayLive.kind, side: dayLive.side } : null,
+      track: legAnchor && track ? { status: track.status, dir: legAnchor.dir, clock: legAnchor.clock, title: track.title, lines: track.lines, watch: pendingLeg ? [pendingLeg.text, ...track.watch] : track.watch, ifNotIn: track.ifNotIn, changeLevel: track.rules[1]?.level ?? null } : null,
       opening: analysis.opening, stops,
       supports: map?.supports ?? [], resistances: map?.resistances ?? [],
     });
-  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange]);
+  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange, legAnchor, track, dayLive, pendingLeg]);
 
-  /** Gün tipi (VIX) + iki bacaklı senaryo — seans öncesi açılış tahmininden, seans içinde karar yönünden */
-  const dayType = useMemo(() => dayTypeOf(openFc?.vixNow ?? null), [openFc?.vixNow]);
+  /** ÖN PLAN senaryosu (çapa kilitlenmeden önce): seans öncesi açılış tahmininden, 09:35–10:00 ön okumadan. Çapa varsa Senaryo Takibi gösterilir. */
   const scenarioRead = useMemo<{ sc: Scenario | null; wait: string | null }>(() => {
     if (!map) return { sc: null, wait: "Seviye verisi bekleniyor." };
     let dir: "UP" | "DOWN" | null = null;
@@ -1274,16 +1564,18 @@ export default function SpyEngineV9() {
       if (minutesToClose < 60) return { sc: null, wait: "Kapanışa 1 saatten az — 1–2 saatlik senaryo için süre yok." };
     }
     if (entry == null) return { sc: null, wait: "Fiyat bekleniyor." };
-    if (dayType?.type === "SIKIŞMA RİSKİ" && sessionActive && decision?.mode === "MIDDAY_RANGE")
-      return { sc: null, wait: "Sıkışma riski + gün ortası aralık modu — dar aralıkta bekleme tercihin geçerli." };
+    if (dayLive?.kind === "SIKIŞMA" && sessionActive)
+      return { sc: null, wait: `Sıkışma günü (${dayLive.crosses} VWAP kesişimi) — dar aralıkta bekleme tercihin geçerli.` };
     const sc = buildScenario({
       dir, dirSource: src, price: entry,
       supports: map.supports, resistances: map.resistances, vwap: vwapNow,
       hourlyRange: data?.levels?.hourlyRange ?? null, vix: openFc?.vixNow ?? null,
+      iv: realizedIV(m5D, evalNow || data?.serverTime || 0),
       minutesToClose, quotes: sessionActive ? optLevels?.quotes ?? null : null,
     });
     return { sc, wait: null };
-  }, [map, price, sessionActive, openFc, decision, analysis?.opening, nowMin, dayType, vwapNow, data?.levels?.hourlyRange, optLevels]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, price, sessionActive, openFc, decision, analysis?.opening, nowMin, dayLive, vwapNow, data?.levels?.hourlyRange, optLevels, m5D]);
 
   const m5Trend = useMemo<"UP" | "DOWN" | null>(() => {
     if (m5Bars.length < 6) return null;
@@ -1361,14 +1653,25 @@ export default function SpyEngineV9() {
     }
   }, []);
 
+  const anchorFresh = !!legAnchor && !!evalNow && evalNow - legAnchor.t0 <= 180;
+  // Sesli uyarı: yeni sisteme bağlı — senaryo kurulunca (yön kilitlendi), zayıflayınca (EMA20 kaybı) ve
+  // trend değişince. İlk yüklemede (prev == null) çalmaz; eski motor uyarısı artık sesli değildir.
   useEffect(() => {
-    const key = `${entryAlert.level}:${entryAlert.side ?? ""}`;
+    const key = legAnchor
+      ? `${legAnchor.clock}:${legAnchor.dir}:${track?.status ?? ""}:${track?.counterWarn ? "w" : ""}:${chain?.pending?.dir ?? ""}`
+      : `-:${chain?.pending?.dir ?? ""}`;
     const prev = lastAlertKeyRef.current;
     lastAlertKeyRef.current = key;
-    if (prev == null || prev === key || !alertSound || openPosition) return;
-    if (entryAlert.level === "FIRED") chime("fired");
-    else if (entryAlert.level === "IMMINENT") chime("imminent");
-  }, [entryAlert.level, entryAlert.side, alertSound, openPosition, chime]);
+    if (prev == null || prev === key || !alertSound || replayDate) return;
+    const [pc, , ps, pw, pp] = prev.split(":");
+    if (legAnchor && track) {
+      // yeni bacak: yalnızca GERÇEKTEN yeni kurulduysa (≤3 dk) çal — geç yüklenen sayfada çalma
+      if (pc !== legAnchor.clock) { if (anchorFresh) chime("fired"); return; }
+      if (track.status === "DEĞİŞTİ" && ps !== "DEĞİŞTİ") { chime("fired"); return; }
+      if ((track.status === "ZAYIFLIYOR" && ps !== "ZAYIFLIYOR") || (track.counterWarn && pw !== "w")) { chime("imminent"); return; }
+    }
+    if (chain?.pending && (pp ?? "") !== chain.pending.dir) chime("imminent");
+  }, [legAnchor, track, chain?.pending, anchorFresh, alertSound, replayDate, chime]);
 
   // ── Render ──────────────────────────────────────────────────────
   const op = analysis?.opening ?? null;
@@ -1383,9 +1686,9 @@ export default function SpyEngineV9() {
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-3">
           <div>
-            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V9.0</h1>
+            <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V10 · Senaryo Takibi</h1>
             <p className="text-[10.5px] text-slate-500">
-              her kapanan 5m · 15m · 30m mum analizi · VWAP + EMA20 · POC / likidite / akıllı para · erken uyarı · 09:55 gün yönü (15m + 2×5m VWAP) · tahmin haritası
+              30m genel yön · 15m karar · 5m tetik (giriş/çıkış zamanlaması) · 09:55 gün yönü kilitlenir, o senaryo gün boyu takip edilir · trend değişimi uyarısı · VWAP + EMA20 · POC / likidite / akıllı para · tahmin haritası
             </p>
           </div>
           {data && (
@@ -1443,7 +1746,7 @@ export default function SpyEngineV9() {
             className={`rounded border px-2 py-1 text-[11px] font-semibold transition-colors ${
               alertSound ? "border-orange-500/40 bg-orange-500/15 text-orange-300" : "border-[#1c2635] bg-[#111827] text-slate-500 hover:bg-[#1c2635]"
             }`}
-            title="Kurulum yaklaştığında sesli + titreşimli uyarı"
+            title="Yeni bacak kurulduğunda, ters bacak hazırlanırken (2×5m EMA20 ters), zayıflamada (15m EMA20 kaybı) ve trend değişiminde sesli + titreşimli uyarı"
           >
             {alertSound ? "🔔 UYARI AÇIK" : "🔕 UYARI KAPALI"}
           </button>
@@ -1488,7 +1791,7 @@ export default function SpyEngineV9() {
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
         {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
 
-        {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} day={dayType} waitReason={scenarioRead.wait} />}
+        {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} expectation={vixExpectation(openFc?.vixNow ?? null)} waitReason={scenarioRead.wait} />}
 
         {!sessionActive && (
           <div className={`${SURFACE} px-4 py-2.5 text-[12px] text-slate-400`}>
@@ -1615,34 +1918,19 @@ export default function SpyEngineV9() {
           waiting={!analysis || analysis.opening.status === "WAITING"}
         />
 
-        {/* ── 1b2) Senaryo — gün tipi, iki bacak, süre, prim ── */}
-        {!replayDate && <ScenarioPanel sc={scenarioRead.sc} day={dayType} waitReason={scenarioRead.wait} />}
+        {/* ── 1b2) Senaryo Takibi (çapa varsa) — yoksa ön plan ── */}
+        {chain ? <ScenarioTrackPanel t={track} chain={chain} day={dayLive} recent={dayRecent} /> : !replayDate && <ScenarioPanel sc={scenarioRead.sc} expectation={null} waitReason={scenarioRead.wait} />}
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
-        <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} />
+        <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} scenarioDir={legAnchor && track && track.status !== "DEĞİŞTİ" ? legAnchor.dir : null} />
         </>)}
-
-        {/* ── 2) Motor sinyali (ön uyarı / giriş) ── */}
-        <AlertBanner
-          alert={entryAlert}
-          secondsToClose={secondsToClose}
-          stateLabel={data?.engine.stateLabel ?? "VERİ BEKLENİYOR"}
-          nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
-          inPosition={!!openPosition}
-        />
-        {openPosition && (
-          <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
-            <PositionPanel position={openPosition} livePremium={openPosition.lastPremium ?? null} />
-            <ExitGatePanel reversal={data?.reversalCatch ?? null} />
-          </div>
-        )}
 
         {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
         {sessionActive && (
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Trend Stop Bölgesi <span className="text-[10.5px] font-normal text-slate-500">· son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir</span>
+              Trend Stop Bölgesi <span className="text-[10.5px] font-normal text-slate-500">· taşıma stopu referansı: son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir · trend DEĞİŞİMİ kuralı için Senaryo Takibi</span>
             </span>
             <span className="flex items-center gap-1 font-mono text-[10.5px] text-slate-500">
               tampon çarpanı
@@ -1824,8 +2112,27 @@ export default function SpyEngineV9() {
         {/* ── 6) Tahmin günlüğü — gerçekleşenle kıyas ── */}
         <JournalPanel j={journal} />
 
-        <Disclosure title="Motor kapı detayı (LONG / SHORT giriş kapıları)">
-          <GatePanel gates={data?.engine.gateStatus ?? null} />
+        <Disclosure title="Eski motor sinyali — 5m puan + 15m kapı (referans; karar desteği ve senaryo takibinden bağımsız)">
+          <div className="flex flex-col gap-1.5">
+            <div className="rounded border border-slate-700 bg-[#0f141d] px-3 py-1.5 text-[11.5px] text-slate-400">
+              Bu bölüm eski giriş motorudur: ana karar 5m puanlama, 15m yalnızca teyit kapısıdır (ve 09:45 öncesi giriş üretmez). Sayfanın güncel rol dağılımı farklıdır:
+              <b className="text-slate-200"> 30m genel yön · 15m karar · 5m tetik (giriş/çıkış zamanlaması)</b>. Çelişirse Senaryo Takibi ve Karar Desteği geçerlidir.
+            </div>
+            <AlertBanner
+              alert={entryAlert}
+              secondsToClose={secondsToClose}
+              stateLabel={data?.engine.stateLabel ?? "VERİ BEKLENİYOR"}
+              nextStep={data?.engine.nextStep ?? "Motor verisi bekleniyor."}
+              inPosition={!!openPosition}
+            />
+            {openPosition && (
+              <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
+                <PositionPanel position={openPosition} livePremium={openPosition.lastPremium ?? null} />
+                <ExitGatePanel reversal={data?.reversalCatch ?? null} />
+              </div>
+            )}
+            <GatePanel gates={data?.engine.gateStatus ?? null} />
+          </div>
         </Disclosure>
       </div>
 

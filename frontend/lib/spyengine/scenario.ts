@@ -8,36 +8,13 @@
  *
  * 58–60 seanslık ölçüm (2026-07 → 10, 5m):
  *   • 09:55 kararından sonra 2 saat içinde yönde ≥3 puan: %24 (ort. 55 dk)
- *     — VIX ≥ 16 iken %43 (gün aralığı ort. 6,9) · VIX < 16 iken %11 (4,9)
+ *     (gün tipi artık davranıştan okunur: bkz. dayType.ts — VIX eşiği yanlış alarm veriyordu)
  *   • İlk hedefe (≥1 puan uzaktaki ilk seviye, ort. 2,3 puan) 2 saatte ulaşma %48, ort. 52 dk
  *   • Hedefe ulaşınca 90 dk içinde ≥3 puan DÖNÜŞ yalnızca %7; dönüş>devam %53 (yazı-tura)
  *     → 2. bacak ancak 5m dönüş işaretleri GELİRSE düşünülmeli.
  * Prim tahmini Black-Scholes'tur (IV ≈ VIX); gerçek 0DTE fiyatı spread, IV
  * eğrisi ve likiditeyle farklı olabilir — yalnızca büyüklük fikri verir.
  */
-
-export interface DayType {
-  type: "HAREKETLİ" | "SIKIŞMA RİSKİ";
-  vix: number;
-  /** 09:55 kararından sonra 2 saatte yönde ≥3 puan (ölçülen) */
-  move3Pct: number;
-  avgRange: number;
-  text: string;
-}
-
-export function dayTypeOf(vix: number | null): DayType | null {
-  if (vix == null || !Number.isFinite(vix)) return null;
-  if (vix >= 16) {
-    return {
-      type: "HAREKETLİ", vix, move3Pct: vix >= 18 ? 50 : 43, avgRange: vix >= 18 ? 8.1 : 6.9,
-      text: `VIX ${vix.toFixed(1)} ≥ 16 — geçmişte bu günlerde 09:55 kararından sonra 2 saatte ≥3 puan hareket %${vix >= 18 ? 50 : 43}, gün aralığı ort. ${vix >= 18 ? "8,1" : "6,9"} puan.`,
-    };
-  }
-  return {
-    type: "SIKIŞMA RİSKİ", vix, move3Pct: 11, avgRange: 4.9,
-    text: `VIX ${vix.toFixed(1)} < 16 — geçmişte bu günlerde 2 saatte ≥3 puan hareket yalnızca %11, gün aralığı ort. 4,9 puan. Dar aralık beklentisi: bekle ya da hedefi küçült.`,
-  };
-}
 
 // ── Black-Scholes (r ≈ 0; 0DTE için faiz etkisi ihmal edilebilir) ──
 function ncdf(x: number): number {
@@ -92,6 +69,8 @@ export function buildScenario(input: {
   vwap: number | null;
   hourlyRange: number | null;
   vix: number | null;
+  /** Gerçekleşen volatiliteden IV (scenarioTrack.realizedIV) — verilirse VIX yerine kullanılır */
+  iv?: number | null;
   /** Kapanışa kalan işlem dakikası */
   minutesToClose: number;
   /** Canlı 0DTE kotasyonları (varsa giriş primi ve IV buradan) */
@@ -99,7 +78,8 @@ export function buildScenario(input: {
 }): Scenario | null {
   const { dir, price, supports, resistances } = input;
   if (!Number.isFinite(price) || input.minutesToClose <= 0) return null;
-  const iv = Math.max(0.08, (input.vix ?? 16) / 100);
+  // VIX 30 günlük vadedir; 0DTE için gerçekleşen volatilite daha doğru (verilmezse VIX'in %65'i)
+  const iv = input.iv != null ? input.iv : Math.max(0.08, ((input.vix ?? 16) / 100) * 0.65);
   const hr = Math.max(0.5, input.hourlyRange ?? 1.2);
   const eta = (d: number) => Math.max(10, Math.round(((Math.abs(d) / hr) * 60) / 5) * 5);
   const real = (l: { label: string }) => !l.label.includes("yuvarlak");

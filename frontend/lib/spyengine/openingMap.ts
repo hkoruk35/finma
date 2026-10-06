@@ -575,7 +575,7 @@ export function buildForecastMap(input: {
   /** Ek ölçülmüş seviyeler (POC/VAH/VAL, süpürülmemiş likidite havuzları) */
   extra?: MapLevel[];
   /** Seans oyun planının yönü (karar paneliyle aynı) — verilirse diğer yön kaynaklarından önceliklidir */
-  playBias?: { bias: "UP" | "DOWN" | "FLAT"; text: string } | null;
+  playBias?: { bias: "UP" | "DOWN" | "FLAT"; text: string; alt?: string[] } | null;
   /** Gün ortası aralık dilimi (10:30–14:00, trend günü değil): harita aralık / VWAP'a dönüş senaryosu çizer */
   rangeMode?: boolean;
   /** Erken uyarı (flow.ts) — başlamış/biriken hareketin yönü */
@@ -708,7 +708,9 @@ export function buildForecastMap(input: {
   }
   path.push({ t: closeSec, price: closeExpect, label: `Kapanış ≈ ${fmt(closeExpect)}` });
 
-  return { bias, biasText, price, vwap, supports, resistances, path, closeExpect, closeLow, closeHigh, steps, alt };
+  // senaryo takibi varsa iptal/bozulma koşulları O sistemin (15m kapanış) koşullarıdır — eski 5m-VWAP iptali değil
+  const altOut = playBias?.alt && playBias.alt.length ? playBias.alt : alt;
+  return { bias, biasText, price, vwap, supports, resistances, path, closeExpect, closeLow, closeHigh, steps, alt: altOut };
 }
 
 // ── 15m yapı stopu (trend taşıma) ─────────────────────────────────────
@@ -1000,6 +1002,8 @@ export interface DecisionRead {
   action: "LONG" | "SHORT" | "BEKLE";
   /** BEKLE iken hangi tarafa yatkın */
   lean: "LONG" | "SHORT" | null;
+  /** Günün ilk senaryosu takip ediliyor: yeni giriş planı devre dışı, mesaj senaryo takibinden gelir */
+  tracking: boolean;
   /** Seans dilimi oyun planı */
   mode: SessionMode;
   modeLabel: string;
@@ -1026,6 +1030,23 @@ export function decisionRead(input: {
   ema5: EmaMap;
   ema15: EmaMap;
   ema30?: EmaMap;
+  /** Davranış temelli gün tipi (dayType.ts): TREND günlerinde trendin tersine ortalamaya-dönüş işlemi üretilmez */
+  dayKind?: { kind: string; side: "UP" | "DOWN" | null } | null;
+  /**
+   * Günün çapa senaryosunun takip durumu (scenarioTrack.ts). Verilirse ve senaryo
+   * bozulmadıysa karar = senaryoyu TAŞI (yeni giriş / ortalamaya dönüş üretilmez).
+   */
+  track?: {
+    status: string;
+    dir: "UP" | "DOWN";
+    clock: string;
+    title: string;
+    lines: string[];
+    watch: string[];
+    ifNotIn: string | null;
+    /** Trend değişimi seviyesi (15m kapanış bu seviyenin ötesinde → senaryo bozulur) */
+    changeLevel?: number | null;
+  } | null;
   /** Ortalama saatlik hareket (levels.hourlyRange) — hedefe tahmini süre için */
   hourlyRange?: number | null;
   /** ATR(14) — kapanmış 5m mumlardan; öğlen ortalamaya dönüş mesafesi bununla ölçülür */
@@ -1180,7 +1201,14 @@ export function decisionRead(input: {
         modeText = `Gün yönü (09:55 kuralı): ${opening.label}${opening.strength ? ` · ${opening.strength}` : ""} → 14:00'e kadar ${oSide} tarafı. Yeni giriş geri çekilmede (VWAP/EMA20'ye dönüş), açık pozisyon taşınır. Bozulma: fiyat açılış aralığının ${o > 0 ? `dibi ${fmt(orLo)} altına` : `tepesi ${fmt(orHi)} üstüne`} geçerse.`;
         why.length = 0;
         watch.length = 0;
-        if (pull) {
+        if (opening.weak && minsNow < 10 * 60) {
+          // 09:55 kuralı oluşmadı, yön yalnızca EMA20 tarafından: 10:00 30m teyidi gelmeden "giriş alanı" önerilmez
+          action = oSide;
+          lean = null;
+          title = `${oSide} (ZAYIF · yalnız EMA20) — 09:55 kuralı oluşmadı; 10:00'da 30m teyit edecek ya da çevirecek`;
+          why.push(`15m ile 5m kapanışlar VWAP'ın aynı tarafında değil; yön yalnızca fiyatın EMA20 tarafından geliyor (geçmişte zayıf). Skorlar: ${scores}.`);
+          watch.push("Teyitten önce büyük giriş yok. 10:00 kapanışında 30m + 15m + 6×5m VWAP tarafı aynıysa yön NORMAL'e yükselir; ters çıkarsa yön çevrilir.");
+        } else if (pull) {
           action = oSide;
           lean = null;
           title = `${oSide} — açılış ${opening.label} trendi, geri çekilme bölgesi (giriş alanı)`;
@@ -1208,7 +1236,9 @@ export function decisionRead(input: {
         const stretch =
           Math.abs(z) >= 1 || outVA !== 0 ? Math.sign(z || outVA)
           : Math.abs(zPrev) >= 1 && Math.abs(z) >= 0.3 && Math.sign(zPrev) === Math.sign(z) ? Math.sign(z) : 0;
-        const trendDay = !!r30 && stretch !== 0 && Math.sign(r30.score) === stretch && Math.abs(r30.score) >= 5;
+        const trendDay =
+          (!!r30 && stretch !== 0 && Math.sign(r30.score) === stretch && Math.abs(r30.score) >= 5) ||
+          (stretch !== 0 && input.dayKind?.kind === "TREND" && input.dayKind.side === (stretch > 0 ? "UP" : "DOWN"));
         if (stretch && !trendDay) {
           const fs: "LONG" | "SHORT" = stretch > 0 ? "SHORT" : "LONG";
           action = fs;
@@ -1269,8 +1299,15 @@ export function decisionRead(input: {
     }
   }
   // 5m erken dönüş işaretleri: trend yönündeki pozisyona karşı ilk uyarılar (15m teyidinden önce)
+  // senaryo takibi varken (bozulmadıysa) işaretler ÇAPA yönüne göre aranır; ortalamaya dönüş planı kapanır
+  const trackLive = !!input.track && input.track.status !== "DEĞİŞTİ" && input.playbook !== false;
+  if (trackLive) {
+    action = input.track!.dir === "UP" ? "LONG" : "SHORT";
+    lean = null;
+    fade = null;
+  }
   const actDir = action === "LONG" ? 1 : action === "SHORT" ? -1 : 0;
-  if (input.playbook !== false && actDir !== 0 && (mode === "OPEN_TREND" || mode === "CLOSE_TREND") && !(mode === "OPEN_TREND" && flipped) && n5 >= 2) {
+  if (input.playbook !== false && actDir !== 0 && (trackLive || mode === "OPEN_TREND" || mode === "CLOSE_TREND") && !(mode === "OPEN_TREND" && flipped && !trackLive) && n5 >= 2) {
     const c = s5.bars[n5 - 1], p = s5.bars[n5 - 2];
     const rg = Math.max(0.01, c.high - c.low);
     const pos = (c.close - c.low) / rg;
@@ -1303,7 +1340,13 @@ export function decisionRead(input: {
         for (let k = why.length - 1; k >= 0; k--) if (why[k].includes("uygun bölge")) why.splice(k, 1);
         watch.length = 0;
         watch.push(`Dönüş teyidi: 15m kapanış${conf != null ? ` ${fmt(conf)} ${actDir < 0 ? "üstünde" : "altında"}` : " 15m EMA20/VWAP'ın ters tarafında"}. Teyit gelmeden yön değiştirme; işaretler kaybolursa (5m tekrar EMA20'nin ${actDir < 0 ? "altına" : "üstüne"} kapanırsa) gün yönü devam eder.`);
-        why.unshift(`⚡ ERKEN DÖNÜŞ İŞARETİ (5m ${nyClock(c.time)}): ${signs.join(" + ")} — ${actDir < 0 ? "düşüş" : "yükseliş"} ivmesi kesiliyor; yeni giriş yapma, stopu sıkılaştır.${confTxt}`);
+        if (trackLive && input.track!.status === "TREND ONAYLI") {
+          // trend ONAYLI günde 5m dönüş işaretleri çoğunlukla sağlıklı geri çekilmedir — panik değil, seviyeye bak
+          const cl = input.track!.changeLevel;
+          why.unshift(`⚡ 5m geri çekilme işaretleri (${nyClock(c.time)}): ${signs.join(" + ")} — trend onaylı günde bu çoğu zaman sağlıklı geri çekilmedir. Senaryo yalnızca 15m kapanış ${cl != null ? fmt(cl) + " " : "son 15m dip/zirvenin "}${actDir > 0 ? "altına" : "üstüne"} geçerse bozulur; taşımaya devam, yeni giriş yok.`);
+        } else {
+          why.unshift(`⚡ ERKEN DÖNÜŞ İŞARETİ (5m ${nyClock(c.time)}): ${signs.join(" + ")} — ${actDir < 0 ? "düşüş" : "yükseliş"} ivmesi kesiliyor; yeni giriş yapma, stopu sıkılaştır.${confTxt}`);
+        }
       } else {
         why.push(`5m dikkat (${nyClock(c.time)}): ${signs[0]}.${confTxt}`);
       }
@@ -1410,9 +1453,53 @@ export function decisionRead(input: {
       watch.push(`15m yapı stobu uzak (${plan.rr.toFixed(1)}R); 5m sıkı stopla (${num2(plan.tightStop)}) ${plan.rrTight.toFixed(1)}R — küçük pozisyon.`);
   }
 
+  // — Senaryo takibi: günün ilk senaryosu varsa karar ONU TAŞIMAKTIR (yeniden üretmek değil) —
+  let tracking = false;
+  let modeLabelOut: string = SESSION_MODE_LABEL[mode];
+  let modeTextOut = modeText;
+  const tr0 = input.track;
+  if (tr0 && input.playbook !== false) {
+    const tAct: "LONG" | "SHORT" = tr0.dir === "UP" ? "LONG" : "SHORT";
+    // erken dönüş / dikkat satırları (5m) takip mesajının ALTINDA korunur
+    const keep = why.filter((w) => w.startsWith("⚡") || w.startsWith("5m dikkat") || w.startsWith("Uyarı:"));
+    if (tr0.status !== "DEĞİŞTİ") {
+      tracking = true;
+      action = tAct;
+      lean = null;
+      title = tr0.title;
+      why.length = 0;
+      why.push(...tr0.lines, ...keep);
+      watch.length = 0;
+      watch.push(...tr0.watch);
+      if (tr0.ifNotIn) watch.push(tr0.ifNotIn);
+      modeLabelOut = "SENARYO TAKİBİ";
+      modeTextOut = `Güncel bacak (${tr0.clock}: ${tr0.dir === "UP" ? "yukarı" : "aşağı"}) takip ediliyor — dakikada bir yeniden üretilmez. Bacak sürdükçe yeni giriş değil, taşıma/kâr alma; trend değişirse bacak biter ve yeni bacak tetiği aranır (Senaryo Takibi).`;
+    } else {
+      // bozuldu: eski yönde sinyal VERİLMEZ; ters yön ancak genel mantık kendi koşullarıyla üretirse görünür
+      modeLabelOut = "SENARYO BOZULDU";
+      modeTextOut = `${tr0.clock} bacağı bitti. Eski yönde yeni giriş yok; yeni bacak tetiği: 2×5m kapanış VWAP + EMA20 aynı tarafta ve 15m kapanış VWAP + EMA20(15m) aynı tarafta.`;
+      const prevTitle = title;
+      const prevWhy = why.slice();
+      if (action === tAct) { action = "BEKLE"; lean = null; }
+      if (action === "BEKLE") {
+        title = tr0.title;
+        why.length = 0;
+        why.push(...tr0.lines, ...keep);
+        watch.length = 0;
+        watch.push(...tr0.watch);
+      } else {
+        // genel mantık TERS yönde kendi koşullarıyla sinyal üretti: yeni yön, ama eski senaryonun bozulduğu açıkça yazılır
+        title = `${action} (YENİ YÖN) — ${tr0.clock} senaryosu bozuldu · ${prevTitle}`;
+        why.length = 0;
+        why.push(...tr0.lines.slice(0, 2), ...prevWhy);
+        watch.unshift(...tr0.watch.slice(0, 1));
+      }
+    }
+  }
+
   return {
     r5, r15, r30, prev5, history5,
     day: { open, high, low, rangePos, vsOpen: r2(vsOpen), vsVwap: vsVwap == null ? null : r2(vsVwap), buyShare: dayBuy, dir: dayDir, text: dayText },
-    action, lean, mode, modeLabel: SESSION_MODE_LABEL[mode], modeText, title, why, watch, long, short,
+    action, lean, tracking, mode, modeLabel: modeLabelOut, modeText: modeTextOut, title, why, watch, long, short,
   };
 }
