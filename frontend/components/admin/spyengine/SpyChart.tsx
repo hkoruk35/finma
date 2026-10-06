@@ -641,7 +641,7 @@ export default function SpyChart({
 
       {!bars.length && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-[#0a0e17]/80 text-[12px] text-slate-500">
-          Bu zaman dilimi için Yahoo&apos;dan mum verisi gelmedi — uydurma mum çizilmiyor.
+          Bu zaman dilimi için mum verisi gelmedi — uydurma mum çizilmiyor.
         </div>
       )}
     </div>

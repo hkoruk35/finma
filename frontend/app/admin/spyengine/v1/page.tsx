@@ -280,7 +280,7 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
       {/* başlık + karar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Karar Desteği <span className="text-[10.5px] font-normal text-slate-500">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m teyit · 5m karar · erken uyarı</span>
+          Karar Desteği <span className="text-[10.5px] font-normal text-slate-500">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m karar · 5m tetik (giriş/çıkış) · erken uyarı</span>
         </span>
         <span className="font-mono text-[10.5px] text-slate-500">
           son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · 30m {d.r30?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
@@ -303,8 +303,8 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
       {/* 5m · 15m · gün */}
       <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
         <TfColumn title="30m" sub="genel gidişat" r={d.r30} />
-        <TfColumn title="15m" sub="yön teyidi" r={d.r15} />
-        <TfColumn title="5m" sub="karar mumu" r={d.r5} />
+        <TfColumn title="15m" sub="karar" r={d.r15} />
+        <TfColumn title="5m" sub="tetik · giriş/çıkış zamanlaması" r={d.r5} />
         <div className="bg-[#0f141d] px-3 py-2">
           <div className="flex items-baseline justify-between gap-2">
             <span className="text-[12px] font-semibold text-slate-300">Gün geneli <span className="text-[10.5px] font-normal text-slate-500">· seans</span></span>
@@ -515,7 +515,7 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
         <span className="font-semibold text-slate-300">Opsiyon seviyeleri</span>{" "}
         <span className="text-slate-500">(yalnızca seviye — yön kararına girmez)</span>
         {!opt ? (
-          <span className="ml-1 text-slate-500">· Yahoo zinciri alınamadı</span>
+          <span className="ml-1 text-slate-500">· opsiyon zinciri alınamadı</span>
         ) : (
           <div className="mt-0.5 flex flex-wrap items-center gap-1.5 font-mono">
             <span className="text-slate-500">{opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`}:</span>
@@ -539,7 +539,7 @@ function FlowPanel({ f, price, nowMin, opt }: { f: FlowRead | null; price: numbe
           </div>
         )}
         <div className="mt-0.5 text-[10.5px] text-slate-500">
-          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; Yahoo gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
+          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
         </div>
       </div>
 
@@ -1787,7 +1787,7 @@ export default function SpyEngineV9() {
           <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
             <div className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
               <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
-                15m — yön teyidi
+                15m — karar
                 {m15Trend && <span className={`text-[13px] font-bold leading-none ${m15Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{m15Trend === "UP" ? "↑" : "↓"}</span>}
               </div>
               <SpyChart
@@ -1798,7 +1798,7 @@ export default function SpyEngineV9() {
             </div>
             <div className="bg-[#0a0e17]">
               <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
-                5m — karar mumu
+                5m — tetik (giriş / çıkış zamanlaması)
                 {m5Trend && <span className={`text-[13px] font-bold leading-none ${m5Trend === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{m5Trend === "UP" ? "↑" : "↓"}</span>}
               </div>
               <SpyChart
@@ -1816,8 +1816,8 @@ export default function SpyEngineV9() {
 
         {/* ── 5) Anlık mum yorumları ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
-          <CommentFeed title="5m Mum Yorumları — fitil · konum · hacim · VWAP" items={analysis?.c5 ?? []} forming={forming5} />
-          <CommentFeed title="15m Mum Yorumları — fitil · konum · hacim · VWAP" items={analysis?.c15 ?? []} forming={forming15} />
+          <CommentFeed title="15m Mum Yorumları (karar) — fitil · konum · hacim · VWAP" items={analysis?.c15 ?? []} forming={forming15} />
+          <CommentFeed title="5m Mum Yorumları (tetik) — fitil · konum · hacim · VWAP" items={analysis?.c5 ?? []} forming={forming5} />
         </div>
 
         {/* Motor kapıları — ayrıntı, varsayılan kapalı */}

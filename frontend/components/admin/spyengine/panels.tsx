@@ -410,7 +410,7 @@ export function InfoCards({ spot, lastFetch, phase }: {
         <Card
           label="ÖNCEKİ KAPANIŞ"
           value={spot.prevClose == null ? "veri yok" : num(spot.prevClose)}
-          sub="Yahoo chartPreviousClose"
+          sub="dünkü kapanış"
         />
       </div>
     </div>
@@ -803,7 +803,7 @@ export function PositionPanel({ position, livePremium }: {
       <div className="px-3 py-2">
         {position.premiumDataMissing && (
           <div className="mb-2 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-1.5 text-[10px] leading-snug text-amber-300">
-            Bu giriş için 0DTE opsiyon primi verisi Yahoo&apos;dan gelmedi. Giriş/çıkış zamanı ve gerekçesi
+            Bu giriş için 0DTE opsiyon primi verisi gelmedi. Giriş/çıkış zamanı ve gerekçesi
             doğru, ama $ kâr/zarar hesaplanamıyor — teorik fiyat üretilmiyor.
           </div>
         )}

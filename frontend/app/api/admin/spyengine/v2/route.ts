@@ -365,7 +365,7 @@ export async function GET(req: NextRequest) {
         full,
         session,
         dataSource: {
-          primary: "Yahoo Finance v8 (includePrePost)",
+          primary: "canlı piyasa verisi (premarket + aftermarket dahil)",
           overnight: bundle.overnightSource,
           sanitized: bundle.sanitized,
           errors: bundle.errors,

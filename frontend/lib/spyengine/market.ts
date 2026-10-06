@@ -134,13 +134,13 @@ async function fetchChartRaw(
         signal: AbortSignal.timeout(timeoutMs),
       });
       if (!res.ok) {
-        lastError = `Yahoo HTTP ${res.status}`;
+        lastError = `veri kaynağı HTTP ${res.status}`;
         continue;
       }
       const raw = await res.json();
       const result = raw?.chart?.result?.[0];
       if (!result) {
-        lastError = raw?.chart?.error?.description || "Yahoo boş yanıt";
+        lastError = raw?.chart?.error?.description || "veri kaynağı boş yanıt";
         continue;
       }
 
