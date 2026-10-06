@@ -1,0 +1,89 @@
+{
+  "ticker": "INSP",
+  "company": "Inspire Medical Systems, Inc.",
+  "date": "2026-10-06",
+  "generated_at": "2026-10-06T13:26:06.062Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 70.75,
+    "open": 69.66000366210938,
+    "high": 71.36000061035156,
+    "low": 68.6729965209961,
+    "prev_close": 69.97000122070312,
+    "change_pct": 1.1147617060010635,
+    "change_pct_1w": 1.0714285714285714,
+    "change_pct_1m": -0.7713927464470886,
+    "change_pct_1y": -7.612955982837947,
+    "volume": 632100,
+    "avg_volume_30d": 24062100
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.324157959970464,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 69.58641002847905,
+    "ema_50": 64.43845380338584,
+    "ema_200": 62.652172215702926,
+    "ema_stack_bullish": true,
+    "bb_upper": 74.28750000000001,
+    "bb_middle": 70.75,
+    "bb_lower": 67.21249999999999,
+    "bb_width": 10,
+    "atr": 3.69,
+    "atr_pct": 5.22,
+    "rvol": 1.3173663146608152,
+    "52w_high": 147.02999877929688,
+    "52w_low": 38.90999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 15.413943,
+    "pb_ratio": 2.477241,
+    "gross_margin": 0.86132,
+    "operating_margin": -0.0025600002,
+    "net_margin": 0.15026,
+    "market_cap": 2045409152,
+    "revenue_growth_ttm": -0.076,
+    "fcf_yield": 0.04626812582092133,
+    "institutional_ownership_pct": 1.30194,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 68.53,
+    "entry_range_high": 71.12,
+    "target_range_low": 78.8,
+    "target_range_high": 86,
+    "target_1": 78.8,
+    "target_2": 84.23,
+    "target_3": 86,
+    "stop_loss": 65.95,
+    "risk_reward_ratio": 3.71,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $68.53 – $71.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $73.25 direnci veya $67.80 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $65.95 olarak belirlenmiştir. Fiyatın EMA50 ($64.44) veya günlük VWAP ($70.27) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($70.27) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}
