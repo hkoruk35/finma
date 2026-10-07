@@ -2,7 +2,7 @@
   "ticker": "RCL",
   "company": "Royal Caribbean Cruises Ltd.",
   "date": "2026-10-07",
-  "generated_at": "2026-10-07T01:28:59.092Z",
+  "generated_at": "2026-10-07T08:10:29.094Z",
   "sector": "Consumer Cyclical",
   "industry": "Travel Services",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 77234814976,
     "revenue_growth_ttm": 0.065,
     "fcf_yield": -0.01963169050733352,
-    "institutional_ownership_pct": 0.90765,
+    "institutional_ownership_pct": 0.90879,
     "dividend_rate": 6,
-    "dividend_yield": 0.0218
+    "dividend_yield": 0.0208
   },
   "scores_detail": {
     "entry_range_low": 276.98,
