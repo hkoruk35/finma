@@ -1,53 +1,35 @@
 {
-  "generated_at": "2026-10-07T14:03:02.955025-04:00",
+  "generated_at": "2026-10-07T17:03:05.509589-04:00",
   "picks": [
-    {
-      "ticker": "NUE",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-06",
-      "score": 43.0
-    },
-    {
-      "ticker": "HCSG",
-      "sector": "Healthcare",
-      "date_added": "2026-10-06",
-      "score": 43.0
-    },
-    {
-      "ticker": "S",
-      "sector": "Technology",
-      "date_added": "2026-10-07",
-      "score": 43.0
-    },
-    {
-      "ticker": "FWONK",
-      "sector": "Communication Services",
-      "date_added": "2026-10-07",
-      "score": 42.0
-    },
-    {
-      "ticker": "EL",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-10-07",
-      "score": 40.0
-    },
-    {
-      "ticker": "EW",
-      "sector": "Healthcare",
-      "date_added": "2026-10-07",
-      "score": 40.0
-    },
-    {
-      "ticker": "ADUS",
-      "sector": "Healthcare",
-      "date_added": "2026-10-07",
-      "score": 34.0
-    },
     {
       "ticker": "SMMT",
       "sector": "Healthcare",
       "date_added": "2026-10-07",
       "score": 33.5
+    },
+    {
+      "ticker": "A",
+      "sector": "Healthcare",
+      "date_added": "2026-10-07",
+      "score": 47.5
+    },
+    {
+      "ticker": "SWKS",
+      "sector": "Technology",
+      "date_added": "2026-10-07",
+      "score": 39.5
+    },
+    {
+      "ticker": "SNDK",
+      "sector": "Technology",
+      "date_added": "2026-10-07",
+      "score": 36.0
+    },
+    {
+      "ticker": "PTGX",
+      "sector": "Healthcare",
+      "date_added": "2026-10-07",
+      "score": 35.5
     }
   ]
 }
