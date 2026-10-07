@@ -36,6 +36,7 @@ import {
   daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
   emaByTime, decisionRead, FACTOR_MAX, CLOSE_TREND_START, sessionModeOf,
   type CandleComment, type Tone, type DecisionRead, type TfRead, type PlanSide,
+  type DaySeries, type EmaMap, type OpeningRegime,
 } from "@/lib/spyengine/openingMap";
 import type {
   EngineEvent, PositionState, ContractType, EngineState, GateStatus, RegimeState,
@@ -276,7 +277,6 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
   }
   const col = d.action === "LONG" ? "#22c55e" : d.action === "SHORT" ? "#ef4444" : "#eab308";
   const prio = d.action !== "BEKLE" ? d.action : d.lean;
-  const dayCol = DIR_COLOR[d.day.dir];
   return (
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
       {/* başlık + karar */}
@@ -302,46 +302,15 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         </ul>
       </div>
 
-      {/* 5m · 15m · gün */}
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
+      {/* 30m · 15m · 5m */}
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-3">
         <TfColumn title="30m" sub="genel gidişat" r={d.r30} />
         <TfColumn title="15m" sub="karar" r={d.r15} />
         <TfColumn title="5m" sub="tetik · giriş/çıkış zamanlaması" r={d.r5} />
-        <div className="bg-[#0f141d] px-3 py-2">
-          <div className="flex items-baseline justify-between gap-2">
-            <span className="text-[12px] font-semibold text-slate-300">Gün geneli <span className="text-[10.5px] font-normal text-slate-500">· seans</span></span>
-            <span className="font-mono text-[10.5px] text-slate-500">açılış {num(d.day.open)}</span>
-          </div>
-          <div className="mt-1 text-[16px] font-extrabold tracking-wide" style={{ color: dayCol }}>
-            {d.day.dir === "UP" ? "▲ YUKARI" : d.day.dir === "DOWN" ? "▼ AŞAĞI" : "◆ YATAY"}
-          </div>
-          {/* gün aralığı konumu */}
-          <div className="mt-1.5">
-            <div className="flex justify-between font-mono text-[10px] text-slate-500">
-              <span>dip {num(d.day.low)}</span><span>tepe {num(d.day.high)}</span>
-            </div>
-            <div className="relative h-1.5 rounded bg-[#1c2635]">
-              {d.day.rangePos != null && (
-                <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(d.day.rangePos * 100)}% - 2px)` }} />
-              )}
-            </div>
-          </div>
-          {d.day.buyShare != null && (
-            <div className="mt-1.5">
-              <div className="flex justify-between font-mono text-[10px]">
-                <span className="text-[#4ade80]">alıcı hacmi %{Math.round(d.day.buyShare * 100)}</span>
-                <span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span>
-              </div>
-              <div className="flex h-1.5 overflow-hidden rounded">
-                <span className="bg-[#22c55e]" style={{ width: `${d.day.buyShare * 100}%` }} />
-                <span className="flex-1 bg-[#ef4444]" />
-              </div>
-            </div>
-          )}
-          <div className="mt-1.5 text-[11px] leading-snug text-slate-400">{d.day.text}</div>
-          {/* 5m skor geçmişi */}
-          <div className="mt-1.5 text-[10px] text-slate-500">5m skor geçmişi (eski → yeni)</div>
-          <div className="mt-0.5 flex flex-wrap gap-0.5">
+      </div>
+      {/* 5m skor geçmişi (gün geneli kartı yukarıya, VWAP/EMA20 konumunun yanına taşındı) */}
+      <div className="flex flex-wrap items-center gap-1 border-t border-[#1c2635] px-3 py-1.5">
+        <span className="mr-1 text-[10.5px] text-slate-500">5m skor geçmişi (eski → yeni)</span>
             {d.history5.map((h) => {
               const c = h.score >= 3 ? "#22c55e" : h.score <= -3 ? "#ef4444" : "#64748b";
               return (
@@ -350,8 +319,6 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
                 </span>
               );
             })}
-          </div>
-        </div>
       </div>
 
       {/* oluşan 5m mum — bilgi, karar mumu değil */}
@@ -1067,11 +1034,223 @@ function TrackCard({ t, chain, day, recent, pendingBox }: { t: TrackState; chain
   );
 }
 
+
+// ── EMA20 konumu: 5m + 15m kapanışların EMA20'ye göre tarafı, seri, mesafe, eğim ──
+
+interface EmaTf {
+  side: 1 | -1 | 0;
+  streak: number;
+  ema: number | null;
+  dist: number | null;
+  slope: number | null;
+  clock: string | null;
+}
+interface EmaPos {
+  m5: EmaTf;
+  m15: EmaTf;
+  dir: "UP" | "DOWN" | "MIXED";
+  headline: string;
+  text: string;
+}
+
+function emaTf(s: DaySeries, ema: EmaMap, tfSec: number): EmaTf {
+  const bars = s.bars;
+  const n = bars.length;
+  if (!n) return { side: 0, streak: 0, ema: null, dist: null, slope: null, clock: null };
+  const last = bars[n - 1];
+  const e = ema.get(last.time) ?? null;
+  const sideOfBar = (i: number) => {
+    const ee = ema.get(bars[i].time);
+    return ee == null ? 0 : bars[i].close > ee ? 1 : bars[i].close < ee ? -1 : 0;
+  };
+  const side = sideOfBar(n - 1) as 1 | -1 | 0;
+  let streak = 0;
+  for (let i = n - 1; i >= 0 && side !== 0 && sideOfBar(i) === side; i--) streak++;
+  const e3 = n >= 4 ? ema.get(bars[n - 4].time) ?? null : null;
+  return {
+    side, streak, ema: e,
+    dist: e != null ? Math.round((last.close - e) * 100) / 100 : null,
+    slope: e != null && e3 != null ? Math.round((e - e3) * 100) / 100 : null,
+    clock: nyClock(last.time + tfSec),
+  };
+}
+
+function emaPosition(s5: DaySeries, s15: DaySeries, ema5: EmaMap, ema15: EmaMap): EmaPos {
+  const m5 = emaTf(s5, ema5, 300);
+  const m15 = emaTf(s15, ema15, 900);
+  const w = (x: EmaTf) => (x.side > 0 ? "üstünde" : x.side < 0 ? "altında" : "üzerinde");
+  const sl = (x: EmaTf) => (x.slope == null ? "" : x.slope > 0.05 ? "yükselen" : x.slope < -0.05 ? "düşen" : "yatay");
+  let dir: EmaPos["dir"] = "MIXED";
+  let headline: string;
+  let verdict: string;
+  if (m5.side !== 0 && m5.side === m15.side) {
+    dir = m5.side > 0 ? "UP" : "DOWN";
+    const slopeOk = (m15.slope ?? 0) * m5.side > 0;
+    headline = m5.side > 0 ? "YUKARI" : "AŞAĞI";
+    verdict = slopeOk
+      ? `İki zaman dilimi de EMA20 ${w(m5)} ve 15m EMA20 ${sl(m15)} — trend sağlıklı; geri çekilmelerde EMA20 destek/direnç.`
+      : `İki zaman dilimi de EMA20 ${w(m5)} ama 15m EMA20 henüz ${sl(m15) || "yatay"} — yön yeni, teyit 15m eğimiyle gelir.`;
+  } else if (m15.side !== 0 && m5.side === -m15.side) {
+    headline = "GERİ ÇEKİLME";
+    verdict = `5m EMA20 ${w(m5)}, 15m hâlâ ${w(m15)} → 15m yönüne karşı geri çekilme. 15m kapanış da EMA20'yi (${m15.ema != null ? num(m15.ema) : "—"}) kırarsa yön döner; kırmazsa 5m tekrar ${m15.side > 0 ? "üstüne" : "altına"} kapanış = devam tetiği.`;
+  } else {
+    headline = "KARARSIZ";
+    verdict = "Kapanışlar EMA20 üzerinde — yön yok, kırılım yönünü bekle.";
+  }
+  const part = (tf: string, x: EmaTf) => `${tf} (${x.clock ?? "—"}): EMA20 ${x.ema != null ? num(x.ema) : "—"} ${w(x)}${x.streak ? `, ${x.streak} mumdur` : ""}${x.dist != null ? ` · mesafe ${x.dist >= 0 ? "+" : ""}${x.dist.toFixed(2)}` : ""}${x.slope != null ? ` · eğim ${x.slope >= 0 ? "+" : ""}${x.slope.toFixed(2)}/3 mum` : ""}`;
+  return { m5, m15, dir, headline, text: `${part("5m", m5)}. ${part("15m", m15)}. ${verdict}` };
+}
+
+function EmaPositionCard({ e }: { e: EmaPos | null }) {
+  const col = e?.dir === "UP" ? "#22c55e" : e?.dir === "DOWN" ? "#ef4444" : "#eab308";
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${e ? col : "#64748b"}55` }}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+          EMA20 Konumu <span className="text-[10.5px] font-normal text-slate-500">· 5m + 15m kapanışın EMA20&apos;ye göre tarafı, eğimi, mesafesi</span>
+        </span>
+      </div>
+      {!e ? (
+        <div className="px-4 py-6 text-[12px] text-slate-500">Kapanmış mum bekleniyor.</div>
+      ) : (
+        <>
+          <div className="flex items-center gap-4 px-4 py-3">
+            <div className="text-center">
+              <div className="text-[34px] font-black leading-none" style={{ color: col }}>{e.dir === "UP" ? "▲" : e.dir === "DOWN" ? "▼" : "◆"}</div>
+              <div className="mt-1 text-[16px] font-extrabold tracking-wide" style={{ color: col }}>{e.headline}</div>
+            </div>
+            <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{e.text}</div>
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
+            {([["5m", e.m5], ["15m", e.m15]] as const).map(([tf, x]) => (
+              <span key={tf} className={`rounded border px-1.5 py-0.5 ${x.side > 0 ? SIDE_CHIP.ABOVE : x.side < 0 ? SIDE_CHIP.BELOW : "border-slate-700 text-slate-500"}`}>
+                {tf} EMA20 {x.side > 0 ? "ÜSTÜ" : x.side < 0 ? "ALTI" : "ÜZERİ"} · {x.streak} mum{x.slope != null ? ` · eğim ${x.slope >= 0 ? "+" : ""}${x.slope.toFixed(2)}` : ""}
+              </span>
+            ))}
+            <span className={`ml-auto rounded border px-1.5 py-0.5 font-semibold ${e.dir !== "MIXED" ? SIDE_CHIP.ABOVE : "border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
+              {e.dir !== "MIXED" ? "5m + 15m AYNI TARAF" : e.headline === "GERİ ÇEKİLME" ? "geri çekilme" : "teyit yok"}
+            </span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function Row({ k, children }: { k: string; children: ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-2 border-b border-[#151c28] py-[3px] text-[11.5px] last:border-0">
+      <span className="shrink-0 text-slate-500">{k}</span>
+      <span className="min-w-0 text-right text-slate-200">{children}</span>
+    </div>
+  );
+}
+
+// ── Gün geneli: davranış (gün tipi) + açılış kararı + bacak takibi + aralık/hacim ──
+
+function DayOverviewCard({ d, day, recent, chain, op }: {
+  d: DecisionRead | null;
+  day: DayTypeLive | null;
+  recent: DayTypeLive | null;
+  chain: LegChain | null;
+  op: OpeningRegime | null;
+}) {
+  const kindCol = (x: DayTypeLive | null) => (x?.kind === "TREND" ? (x.side === "DOWN" ? "#ef4444" : "#22c55e") : x?.kind === "SIKIŞMA" ? "#eab308" : "#94a3b8");
+  const col = kindCol(day);
+  const cur = chain?.current ?? null;
+  const curLive = cur && cur.status !== "DEĞİŞTİ" ? cur : null;
+  const legDone = chain?.legs.filter((l) => l.exit) ?? [];
+  const sgn = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)}`;
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}55` }}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+          Gün Geneli <span className="text-[10.5px] font-normal text-slate-500">· davranış + açılış kararı + bacaklar</span>
+        </span>
+        {d && <span className="font-mono text-[10.5px] text-slate-500">açılış {num(d.day.open)}</span>}
+      </div>
+      <div className="px-3 py-2">
+        <div className="text-[16px] font-extrabold tracking-wide" style={{ color: col }} title={day?.text}>
+          {day ? (day.kind === "TREND" ? `${day.side === "DOWN" ? "▼" : "▲"} ${day.headline}` : day.kind === "SIKIŞMA" ? `◆ ${day.headline}` : `◆ ${day.headline}`) : "◆ —"}
+        </div>
+        {recent && day && recent.kind !== day.kind && recent.kind !== "OLUŞUYOR" && (
+          <div className="text-[11.5px] font-semibold" style={{ color: kindCol(recent) }}>Son 2 saat: {recent.headline}</div>
+        )}
+        <div className="mt-1.5">
+          <Row k="Açılış kararı">
+            {!op || op.status === "WAITING" ? "—"
+              : op.waitFor10 ? <span className="text-amber-300">{op.decidedAt === "09:55" ? "09:55 teyitsiz · giriş yok" : "10:00 bekleniyor"}</span>
+              : op.net ? <b style={{ color: op.side === "UP" ? "#4ade80" : "#f87171" }}>NET {op.decidedAt} {op.side === "UP" ? "▲" : "▼"} · 2–3 saat güveni {op.dayHold?.level ?? "—"}</b>
+              : <span className="text-amber-300">işlem yok (eğilim {op.side === "UP" ? "▲" : op.side === "DOWN" ? "▼" : "—"})</span>}
+          </Row>
+          <Row k="Güncel bacak">
+            {curLive ? (
+              <b style={{ color: curLive.anchor.dir === "UP" ? "#4ade80" : "#f87171" }}>
+                {curLive.anchor.legNo}. {curLive.anchor.kind === "AÇILIŞ" ? "açılış" : "gün içi"} {curLive.anchor.dir === "UP" ? "▲" : "▼"} {curLive.anchor.clock} · {curLive.status} · {sgn(curLive.pnl)}
+                {curLive.counterWarn ? <span className="text-orange-300"> · ⚠ ters bacak hazırlanıyor</span> : null}
+              </b>
+            ) : chain?.pending ? (
+              <span className="text-amber-300">yok · {chain.pending.dir === "UP" ? "▲ LONG" : "▼ SHORT"} tetiği hazırlanıyor</span>
+            ) : <span className="text-slate-400">yok · tetik bekleniyor</span>}
+          </Row>
+          {legDone.length > 0 && (
+            <Row k="Biten bacaklar">
+              <span className="font-mono text-[11px]">
+                {legDone.map((l, i) => (
+                  <span key={i} className={l.exit!.pnl >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>
+                    {i ? " · " : ""}{l.anchor.dir === "UP" ? "▲" : "▼"}{l.anchor.clock} {sgn(l.exit!.pnl)}
+                  </span>
+                ))}
+              </span>
+            </Row>
+          )}
+          {day && day.kind !== "OLUŞUYOR" && (
+            <Row k="VWAP davranışı">%{Math.round(day.sideFrac * 100)} {day.side === "DOWN" || (day.devNow ?? 0) < 0 ? "altında" : "üstünde"} · {day.crosses} kesişim</Row>
+          )}
+          {d && (
+            <Row k="Açılışa / VWAP'a göre">
+              <span className={d.day.vsOpen >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsOpen)}</span>
+              {" / "}
+              {d.day.vsVwap != null ? <span className={d.day.vsVwap >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsVwap)}</span> : "—"}
+            </Row>
+          )}
+        </div>
+        {d && (
+          <div className="mt-1.5">
+            <div className="flex justify-between font-mono text-[10px] text-slate-500">
+              <span>dip {num(d.day.low)}</span><span>aralık {num(d.day.high - d.day.low)}</span><span>tepe {num(d.day.high)}</span>
+            </div>
+            <div className="relative h-1.5 rounded bg-[#1c2635]">
+              {d.day.rangePos != null && (
+                <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(d.day.rangePos * 100)}% - 2px)` }} />
+              )}
+            </div>
+          </div>
+        )}
+        {d?.day.buyShare != null && (
+          <div className="mt-1.5">
+            <div className="flex justify-between font-mono text-[10px]">
+              <span className="text-[#4ade80]">alıcı hacmi %{Math.round(d.day.buyShare * 100)}</span>
+              <span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span>
+            </div>
+            <div className="flex h-1.5 overflow-hidden rounded">
+              <span className="bg-[#22c55e]" style={{ width: `${d.day.buyShare * 100}%` }} />
+              <span className="flex-1 bg-[#ef4444]" />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Sayfa ─────────────────────────────────────────────────────────
 
 export default function SpyEngineV9() {
   const [toggles, setToggles] = useState<ChartToggles>(DEFAULT_TOGGLES);
   const [pollMs, setPollMs] = useState(1000);
+  /** Açılış Rejimi kartı: göster / gizle */
+  const [regimeOpen, setRegimeOpen] = useState(true);
   const [autoScroll, setAutoScroll] = useState(true);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
@@ -1458,6 +1637,8 @@ export default function SpyEngineV9() {
   /** Güncel bacağın çapası (açılış ya da gün içi) */
   const legAnchor: Anchor | null = track?.anchor ?? null;
 
+  /** EMA20 konumu: 5m + 15m kapanışın EMA20'ye göre tarafı / seri / eğim */
+  const emaPos = useMemo(() => (analysis && analysis.s5.bars.length ? emaPosition(analysis.s5, analysis.s15, ema5, ema15) : null), [analysis, ema5, ema15]);
   /** Gün tipi: DAVRANIŞ temelli (VWAP tarafı + kesişim); VIX yalnızca seans öncesi beklenti */
   const dayLive = useMemo(() => (analysis && analysis.s5.bars.length ? dayTypeLive(analysis.s5, atr5) : null), [analysis, atr5]);
   /** Son 2 saatin (24×5m) davranışı — gün ortasında rejim değişince tüm-gün etiketi geride kalır */
@@ -1679,7 +1860,7 @@ export default function SpyEngineV9() {
   // ── Render ──────────────────────────────────────────────────────
   const op = analysis?.opening ?? null;
   const live = analysis?.live ?? null;
-  const opColor = op?.side === "UP" ? "#22c55e" : op?.side === "DOWN" ? "#ef4444" : op?.side === "UNCERTAIN" ? "#eab308" : "#64748b";
+  const opColor = op && op.status === "LOCKED" && !op.net ? "#eab308" : op?.side === "UP" ? "#22c55e" : op?.side === "DOWN" ? "#ef4444" : op?.side === "UNCERTAIN" ? "#eab308" : "#64748b";
   const opArrow = op?.side === "UP" ? "▲" : op?.side === "DOWN" ? "▼" : op?.side === "UNCERTAIN" ? "◆" : "…";
   const liveColor = live?.dir === "UP" ? "#22c55e" : live?.dir === "DOWN" ? "#ef4444" : "#eab308";
 
@@ -1804,13 +1985,35 @@ export default function SpyEngineV9() {
         )}
 
         {sessionActive && (<>
-        {/* ── 1) Açılış rejimi + 3 mum yönü ── */}
-        <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
-          <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${opColor}55` }}>
-            <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-              <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-                Açılış Rejimi <span className="text-[10.5px] font-normal text-slate-500">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → gerekirse 10:00 30m teyidi</span>
+        {/* ── 1) Açılış rejimi — tam genişlik, siyah zemin, gizle/göster ── */}
+          <div className="overflow-hidden rounded-lg border bg-black" style={{ borderColor: `${opColor}55` }}>
+            <div className={`flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 ${regimeOpen ? "border-b border-[#1c2635]" : ""}`}>
+              <span className="flex min-w-0 flex-wrap items-center gap-2 text-[12px] font-semibold tracking-wide text-slate-300">
+                Açılış Rejimi
+                {regimeOpen ? (
+                  <span className="text-[10.5px] font-normal text-slate-500">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → 09:55 net değilse 10:00 30m kararı</span>
+                ) : op ? (
+                  <>
+                    <b className="text-[13px]" style={{ color: opColor }}>{opArrow} {op.label}</b>
+                    {op.dayHold && (
+                      <span className="text-[11px] font-normal" style={{ color: op.dayHold.level === "YÜKSEK" ? "#4ade80" : op.dayHold.level === "DÜŞÜK" ? "#fbbf24" : "#cbd5e1" }}>
+                        · ilk 2–3 saat güveni {op.dayHold.level}
+                      </span>
+                    )}
+                    <span className="flex gap-0.5">
+                      {op.stages.map((st) => {
+                        const c = st.skipped ? "#334155" : st.dir === "UP" ? "#22c55e" : st.dir === "DOWN" ? "#ef4444" : st.dir === "MIXED" ? "#eab308" : "#334155";
+                        return (
+                          <span key={st.clock} title={st.detail} className="rounded px-1 font-mono text-[10px]" style={{ color: c, backgroundColor: `${c}1f` }}>
+                            {st.clock} {st.skipped ? "—" : st.dir === "UP" ? "▲" : st.dir === "DOWN" ? "▼" : st.dir === "MIXED" ? "◆" : "…"}
+                          </span>
+                        );
+                      })}
+                    </span>
+                  </>
+                ) : null}
               </span>
+              <span className="flex items-center gap-1.5">
               {op && (
                 <span className="rounded px-1.5 py-0.5 text-[10.5px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
                   {op.waitFor10
@@ -1822,7 +2025,16 @@ export default function SpyEngineV9() {
                       : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
                 </span>
               )}
+                <button
+                  type="button"
+                  onClick={() => setRegimeOpen((v) => !v)}
+                  className="rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]"
+                >
+                  {regimeOpen ? "▴ gizle" : "▾ göster"}
+                </button>
+              </span>
             </div>
+            {regimeOpen && (<>
             <div className="flex items-center gap-4 px-4 py-3">
               <div className="text-center">
                 <div className="text-[34px] font-black leading-none" style={{ color: opColor }}>{opArrow}</div>
@@ -1881,8 +2093,11 @@ export default function SpyEngineV9() {
                 <span className="text-slate-500">▲ VWAP üstü kapanış · ▼ VWAP altı kapanış</span>
               </div>
             )}
+            </>)}
           </div>
 
+        {/* ── 1a) VWAP konumu · EMA20 konumu · gün geneli ── */}
+        <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-3">
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[12px] font-semibold tracking-wide text-slate-300">
@@ -1924,6 +2139,8 @@ export default function SpyEngineV9() {
               </>
             )}
           </div>
+          <EmaPositionCard e={emaPos} />
+          <DayOverviewCard d={decision} day={dayLive} recent={dayRecent} chain={chain} op={analysis?.opening ?? null} />
         </div>
 
         {/* ── 1b) Karar desteği — 5m · 15m · gün geneli (fiyat + hacim) ── */}
