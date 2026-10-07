@@ -1,59 +1,11 @@
 {
-  "generated_at": "2026-10-07T09:03:55.055612-04:00",
+  "generated_at": "2026-10-07T14:03:02.955025-04:00",
   "picks": [
-    {
-      "ticker": "FTDR",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-05",
-      "score": 43.0
-    },
-    {
-      "ticker": "XMTR",
-      "sector": "Industrials",
-      "date_added": "2026-10-05",
-      "score": 40.0
-    },
-    {
-      "ticker": "W",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-05",
-      "score": 37.0
-    },
-    {
-      "ticker": "CON",
-      "sector": "Healthcare",
-      "date_added": "2026-10-06",
-      "score": 45.0
-    },
-    {
-      "ticker": "VMI",
-      "sector": "Industrials",
-      "date_added": "2026-10-06",
-      "score": 45.0
-    },
-    {
-      "ticker": "GGB",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-06",
-      "score": 42.5
-    },
     {
       "ticker": "NUE",
       "sector": "Basic Materials",
       "date_added": "2026-10-06",
-      "score": 39.5
-    },
-    {
-      "ticker": "TSEM",
-      "sector": "Technology",
-      "date_added": "2026-10-06",
-      "score": 29.0
-    },
-    {
-      "ticker": "CLMT",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-06",
-      "score": 43.5
+      "score": 43.0
     },
     {
       "ticker": "HCSG",
@@ -62,16 +14,40 @@
       "score": 43.0
     },
     {
-      "ticker": "Q",
+      "ticker": "S",
       "sector": "Technology",
-      "date_added": "2026-10-06",
-      "score": 42.5
+      "date_added": "2026-10-07",
+      "score": 43.0
     },
     {
-      "ticker": "ZIM",
-      "sector": "Industrials",
-      "date_added": "2026-10-06",
-      "score": 36.0
+      "ticker": "FWONK",
+      "sector": "Communication Services",
+      "date_added": "2026-10-07",
+      "score": 42.0
+    },
+    {
+      "ticker": "EL",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-07",
+      "score": 40.0
+    },
+    {
+      "ticker": "EW",
+      "sector": "Healthcare",
+      "date_added": "2026-10-07",
+      "score": 40.0
+    },
+    {
+      "ticker": "ADUS",
+      "sector": "Healthcare",
+      "date_added": "2026-10-07",
+      "score": 34.0
+    },
+    {
+      "ticker": "SMMT",
+      "sector": "Healthcare",
+      "date_added": "2026-10-07",
+      "score": 33.5
     }
   ]
 }
