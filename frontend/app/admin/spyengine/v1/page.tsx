@@ -969,6 +969,11 @@ function TrackCard({ t, chain, day, recent, pendingBox }: { t: TrackState; chain
         </span>
       </div>
       <LegStrip chain={chain} />
+      {chain.counter && (
+        <div className={`border-b px-4 py-2 ${chain.counter.level === "TAM" ? "border-orange-500/60 bg-orange-500/15" : "border-amber-500/40 bg-amber-500/10"}`}>
+          <div className={`text-[13.5px] font-extrabold ${chain.counter.level === "TAM" ? "animate-pulse text-orange-300" : "text-amber-300"}`}>{chain.counter.text}</div>
+        </div>
+      )}
       {pendingBox}
 
       <div className="px-4 py-2.5" style={{ backgroundColor: `${st.col}12` }}>
@@ -1187,7 +1192,7 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
             {curLive ? (
               <b style={{ color: curLive.anchor.dir === "UP" ? "#4ade80" : "#f87171" }}>
                 {curLive.anchor.legNo}. {curLive.anchor.kind === "AÇILIŞ" ? "açılış" : "gün içi"} {curLive.anchor.dir === "UP" ? "▲" : "▼"} {curLive.anchor.clock} · {curLive.status} · {sgn(curLive.pnl)}
-                {curLive.counterWarn ? <span className="text-orange-300"> · ⚠ ters bacak hazırlanıyor</span> : null}
+                {chain?.counter ? <span className="text-orange-300"> · ⚡ ters tetik ({chain.counter.level.toLowerCase()})</span> : curLive.counterWarn ? <span className="text-orange-300"> · ⚠ ters bacak hazırlanıyor</span> : null}
               </b>
             ) : chain?.pending ? (
               <span className="text-amber-300">yok · {chain.pending.dir === "UP" ? "▲ LONG" : "▼ SHORT"} tetiği hazırlanıyor</span>
@@ -1707,6 +1712,7 @@ export default function SpyEngineV9() {
   }, [m5D, ema5, date]);
 
   const pendingLeg = chain?.pending ?? null;
+  const counterTrig = chain?.counter ?? null;
   /** Karar desteği — her kapanan 5m/15m mumda yeniden okunur */
   const decision = useMemo<DecisionRead | null>(() => {
     if (!analysis || analysis.opening.status === "WAITING") return null;
@@ -1714,11 +1720,11 @@ export default function SpyEngineV9() {
       s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, ema30, warning: flow?.warning ?? null, price, vwapNow,
       atr5, profile: flow?.profile ?? null, hourlyRange: data?.levels?.hourlyRange ?? null,
       dayKind: dayLive ? { kind: dayLive.kind, side: dayLive.side } : null,
-      track: legAnchor && track ? { status: track.status, dir: legAnchor.dir, clock: legAnchor.clock, title: track.title, lines: track.lines, watch: pendingLeg ? [pendingLeg.text, ...track.watch] : track.watch, ifNotIn: track.ifNotIn, changeLevel: track.rules[1]?.level ?? null } : null,
+      track: legAnchor && track ? { status: track.status, dir: legAnchor.dir, clock: legAnchor.clock, title: track.title, lines: track.lines, watch: [...(counterTrig ? [counterTrig.text] : []), ...(pendingLeg ? [pendingLeg.text] : []), ...track.watch], ifNotIn: track.ifNotIn, changeLevel: track.rules[1]?.level ?? null } : null,
       opening: analysis.opening, stops,
       supports: map?.supports ?? [], resistances: map?.resistances ?? [],
     });
-  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange, legAnchor, track, dayLive, pendingLeg]);
+  }, [analysis, ema5, ema15, ema30, flow, price, vwapNow, stops, map, atr5, data?.levels?.hourlyRange, legAnchor, track, dayLive, pendingLeg, counterTrig]);
 
   /** ÖN PLAN senaryosu (çapa kilitlenmeden önce): seans öncesi açılış tahmininden, 09:35–10:00 ön okumadan. Çapa varsa Senaryo Takibi gösterilir. */
   const scenarioRead = useMemo<{ sc: Scenario | null; wait: string | null }>(() => {
@@ -1842,7 +1848,7 @@ export default function SpyEngineV9() {
   // trend değişince. İlk yüklemede (prev == null) çalmaz; eski motor uyarısı artık sesli değildir.
   useEffect(() => {
     const key = legAnchor
-      ? `${legAnchor.clock}:${legAnchor.dir}:${track?.status ?? ""}:${track?.counterWarn ? "w" : ""}:${chain?.pending?.dir ?? ""}`
+      ? `${legAnchor.clock}:${legAnchor.dir}:${track?.status ?? ""}:${chain?.counter ? `c${chain.counter.level}` : track?.counterWarn ? "w" : ""}:${chain?.pending?.dir ?? ""}`
       : `-:${chain?.pending?.dir ?? ""}`;
     const prev = lastAlertKeyRef.current;
     lastAlertKeyRef.current = key;
@@ -1852,10 +1858,11 @@ export default function SpyEngineV9() {
       // yeni bacak: yalnızca GERÇEKTEN yeni kurulduysa (≤3 dk) çal — geç yüklenen sayfada çalma
       if (pc !== legAnchor.clock) { if (anchorFresh) chime("fired"); return; }
       if (track.status === "DEĞİŞTİ" && ps !== "DEĞİŞTİ") { chime("fired"); return; }
+      if (chain?.counter && pw !== `c${chain.counter.level}`) { chime(chain.counter.level === "TAM" ? "fired" : "imminent"); return; }
       if ((track.status === "ZAYIFLIYOR" && ps !== "ZAYIFLIYOR") || (track.counterWarn && pw !== "w")) { chime("imminent"); return; }
     }
     if (chain?.pending && (pp ?? "") !== chain.pending.dir) chime("imminent");
-  }, [legAnchor, track, chain?.pending, anchorFresh, alertSound, replayDate, chime]);
+  }, [legAnchor, track, chain?.pending, chain?.counter, anchorFresh, alertSound, replayDate, chime]);
 
   // ── Render ──────────────────────────────────────────────────────
   const op = analysis?.opening ?? null;

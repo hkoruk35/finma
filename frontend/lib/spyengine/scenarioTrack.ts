@@ -40,6 +40,8 @@ export interface Anchor {
   kind?: "AÇILIŞ" | "GÜN İÇİ";
   /** Gün içindeki sıra (1 = ilk bacak) */
   legNo?: number;
+  /** Gün içi bacakta ilk stop seviyesi (5m kapanış bunun ötesine geçerse) — yoksa VWAP */
+  initStop?: number | null;
   /** Açılış kararının gün geneli güveni (openingRegime.dayHold) — yalnız açılış bacağında */
   dayHold?: { level: "YÜKSEK" | "ORTA" | "DÜŞÜK"; text: string } | null;
   strength: string | null;
@@ -176,9 +178,9 @@ export function trackScenario(input: {
     const end = b.time + 300;
     if (intraday) {
       // gün içi bacak: ilk stop = 5m kapanış VWAP'ın ters tarafında (onaydan önce)
-      const v = s5.vwap[i];
+      const v = anchor.initStop ?? s5.vwap[i];
       if (!exit && !confirmedClock && v != null && dir * (b.close - v) < 0) {
-        exit = { clock: nyClock(end), price: r2(b.close), pnl: r2(dir * (b.close - anchor.entry)), why: "ilk stop: 5m kapanış VWAP'ın ters tarafında" };
+        exit = { clock: nyClock(end), price: r2(b.close), pnl: r2(dir * (b.close - anchor.entry)), why: anchor.initStop != null ? `ilk stop: 5m kapanış tetik mumlarının ${dir > 0 ? "dibinin" : "tepesinin"} (${anchor.initStop.toFixed(2)}) ötesinde` : "ilk stop: 5m kapanış VWAP'ın ters tarafında" };
       }
       // onay: bacak başından beri ≥6 mum, kapanışların ≥%80'i VWAP'ın yön tarafında, son 15m kapanış EMA20(15m) yön tarafında
       if (!exit && !confirmedClock && i - startIdx + 1 >= 6) {
@@ -218,7 +220,8 @@ export function trackScenario(input: {
   const e15Now = kNow >= 0 ? ema15.get(bars15[kNow].time) ?? null : null;
   const close15 = kNow >= 0 ? bars15[kNow].close : null;
   const v5 = bars5.length ? s5.vwap[bars5.length - 1] : null;
-  const weakening = close15 != null && e15Now != null && dir * (close15 - e15Now) < 0;
+  // gün içi bacakta zayıflama ancak bacak onaylandıktan sonra anlamlı (tetik anında 15m EMA20 gecikmeli olabilir)
+  const weakening = close15 != null && e15Now != null && dir * (close15 - e15Now) < 0 && (!intraday || !!confirmedClock);
 
   const cushion = (lvl: number | null) => (lvl == null ? null : r2(dir * (price - lvl)));
   const rules: ChangeRule[] = [
@@ -411,8 +414,21 @@ export interface PendingTrigger {
   text: string;
 }
 
+/** Aktif bacağa TERS tetik (erken uyarı — bacağı otomatik bitirmez) */
+export interface CounterTrigger {
+  dir: Dir;
+  level: "ERKEN" | "TAM";
+  clock: string;
+  price: number;
+  /** TAM teyit için gereken 15m kapanış seviyesi (ERKEN'de) */
+  confirmLevel: number | null;
+  text: string;
+}
+
 export interface LegChain {
   legs: LegSummary[];
+  /** Aktif bacağa ters tetik oluştu mu (son kapanmış 5m mumda) */
+  counter: CounterTrigger | null;
   /** Güncel (son) bacağın takibi — yoksa null */
   current: TrackState | null;
   /** Aktif bacak yokken (ya da bacak biterken) oluşan tetik hazırlığı */
@@ -432,11 +448,6 @@ function sliceDay(s: DaySeries, upToEnd: number, tf: number): DaySeries {
 function side5(s5: DaySeries, ema5: EmaMap, i: number): number {
   const b = s5.bars[i], v = s5.vwap[i], e = ema5.get(b.time);
   if (v == null || e == null) return 0;
-  return b.close > v && b.close > e ? 1 : b.close < v && b.close < e ? -1 : 0;
-}
-function side15(s15: DaySeries, ema15: EmaMap, k: number): number {
-  const b = s15.bars[k], v = s15.vwap[k], e = ema15.get(b.time);
-  if (!b || v == null || e == null) return 0;
   return b.close > v && b.close > e ? 1 : b.close < v && b.close < e ? -1 : 0;
 }
 
@@ -465,6 +476,14 @@ export function buildLegChain(input: {
   /** "Sıradaki seviye" için güncel ölçülmüş seviyeler (gün zirvesi/dibi dahil olabilir) */
   nextLevels?: { price: number; label: string }[];
   adrAvg?: number | null;
+  /** 15m teyidi: "or" = 15m kapanış VWAP VEYA EMA20(15m) yön tarafında (erken) · "and" = ikisi birden */
+  trig15?: "and" | "or";
+  /** Aktif bacağa TERS tam tetik gelince bacağı kapatıp ters bacağı hemen aç (dönüşü erken yakala) */
+  flip?: boolean;
+  /** Gün içi bacak ilk stopu: "vwap" = 5m kapanış VWAP ters · "trig" = tetik mumlarının dibi/tepesi */
+  stopMode?: "vwap" | "trig";
+  /** Aynı yönde yeni bacak için önceki çıkıştan sonra beklenecek 5m mum sayısı */
+  sameDirGap?: number;
 }): LegChain {
   const { s5, s15, ema5, ema15 } = input;
   const legs: LegSummary[] = [];
@@ -479,6 +498,25 @@ export function buildLegChain(input: {
       nextLevel: last ? nextFor(a, price) : null, adrAvg: input.adrAvg ?? null,
     });
 
+  // Varsayılanlar 58 seans ölçümünün en iyisi (tüm bacaklar T1'de çıkış +17,4):
+  //   "or" 15m teyidi ~aynı (+20,4, yarılar dengesiz) · ters tetikte otomatik bacak değiştirme +6,3
+  //   (açılış bacaklarını erken kesiyor) · tetik mumu stopu −1,1. Bu yüzden ters tetik yalnız UYARI.
+  const trig15 = input.trig15 ?? "and";
+  const flip = input.flip ?? false;
+  const ok15 = (k: number, sd: number, mode: "and" | "or" = trig15) => {
+    const b = s15.bars[k], v = s15.vwap[k], e = ema15.get(b.time);
+    if (!b || v == null || e == null) return false;
+    const a = sd * (b.close - v) > 0, c = sd * (b.close - e) > 0;
+    return mode === "and" ? a && c : a || c;
+  };
+  /** i. 5m kapanışında tetik yönü (±1) ya da 0 */
+  const triggerAt = (i: number, end: number, mode: "and" | "or" = trig15): number => {
+    if (i < 1) return 0;
+    const sd = side5(s5, ema5, i);
+    if (!sd || side5(s5, ema5, i - 1) !== sd) return 0;
+    const k = s15.bars.filter((b) => b.time + 900 <= end).length - 1;
+    return k >= 0 && ok15(k, sd, mode) ? sd : 0;
+  };
   let cur: Anchor | null = input.first;
   let curDone = false;
   let lastExitIdx = -99, lastExitDir = 0;
@@ -492,24 +530,38 @@ export function buildLegChain(input: {
     if (cur && !curDone) {
       if (end <= cur.t0) continue;
       const st = track(cur, end, s5.bars[i].close, false);
+      const cd = cur.dir === "UP" ? 1 : -1;
       if (st.exit) {
         legs.push({ anchor: cur, exit: st.exit, status: "DEĞİŞTİ", mfe: st.mfe, targetsHit: st.targets.filter((t) => t.hitClock).length });
         curDone = true;
         lastExitIdx = i;
-        lastExitDir = cur.dir === "UP" ? 1 : -1;
+        lastExitDir = cd;
+        continue;
       }
-      continue;
+      // ters tam tetik: bacak 15m dip/zirve kırılımını beklemeden kapanır, ters bacak bu mumda açılır
+      if (flip && mins >= LEG_START_MIN && mins <= LEG_LAST_MIN && triggerAt(i, end) === -cd) {
+        const c = s5.bars[i].close;
+        legs.push({
+          anchor: cur, status: "DEĞİŞTİ", mfe: st.mfe, targetsHit: st.targets.filter((t) => t.hitClock).length,
+          exit: { clock: nyClock(end), price: r2(c), pnl: r2(cd * (c - cur.entry)), why: "ters bacak tetiği (2×5m VWAP + EMA20 ve 15m ters tarafta) → bacak kapandı, ters bacak açıldı" },
+        });
+        curDone = true;
+        lastExitIdx = i;
+        lastExitDir = cd;
+        // düşmeden aşağıdaki tetik bloğuna geç (aynı mumda ters bacak)
+      } else {
+        continue;
+      }
     }
     // yeni bacak tetiği
     if (mins < LEG_START_MIN || mins > LEG_LAST_MIN || i < 1) continue;
     if (cur && !curDone) continue;
     if (!cur && firstIdx >= 0 && i < firstIdx) continue;
-    const sd = side5(s5, ema5, i);
-    if (!sd || side5(s5, ema5, i - 1) !== sd) continue;
-    if (sd === lastExitDir && i - lastExitIdx < SAME_DIR_GAP) continue;
-    if (i === lastExitIdx) continue;
-    const k = s15.bars.filter((b) => b.time + 900 <= end).length - 1;
-    if (k < 0 || side15(s15, ema15, k) !== sd) continue;
+    const sd = triggerAt(i, end);
+    if (!sd) continue;
+    if (sd === lastExitDir && i - lastExitIdx < (input.sameDirGap ?? SAME_DIR_GAP)) continue;
+    if (i === lastExitIdx && sd === lastExitDir) continue;
+    if (triggerAt(i, end) !== sd) continue;
     const dir: Dir = sd > 0 ? "UP" : "DOWN";
     const entry = s5.bars[i].close;
     const sofar = s5.bars.slice(0, i + 1);
@@ -520,8 +572,36 @@ export function buildLegChain(input: {
     cur = {
       date: input.date, dir, t0: end, clock: nyClock(end), entry, decidedAt: nyClock(end), strength: null, weak: false,
       kind: "GÜN İÇİ", legNo: legs.length + 1, targets, option: optionFor(dir, entry), iv: input.iv,
+      initStop: (input.stopMode ?? "vwap") === "trig"
+        ? r2(sd > 0 ? Math.min(s5.bars[i].low, s5.bars[i - 1].low) - 0.01 : Math.max(s5.bars[i].high, s5.bars[i - 1].high) + 0.01)
+        : null,
     };
     curDone = false;
+  }
+
+  // aktif bacağa ters tetik (son kapanmış 5m mumda) — bacak 15m kuralıyla biter, bu yalnız erken uyarı
+  let counter: CounterTrigger | null = null;
+  if (cur && !curDone && n >= 2) {
+    const i = n - 1, end = s5.bars[i].time + 300, mm = nyParts(end).minutes;
+    const cd = cur.dir === "UP" ? 1 : -1;
+    if (end > cur.t0 && mm >= LEG_START_MIN && mm <= LEG_LAST_MIN) {
+      const full = triggerAt(i, end, "and") === -cd;
+      const early = !full && triggerAt(i, end, "or") === -cd;
+      if (full || early) {
+        const k = s15.bars.length - 1;
+        const v15 = k >= 0 ? s15.vwap[k] : null, e15 = k >= 0 ? ema15.get(s15.bars[k].time) ?? null : null;
+        const conf = v15 != null && e15 != null ? r2(-cd > 0 ? Math.max(v15, e15) : Math.min(v15, e15)) : null;
+        const nd: Dir = cd > 0 ? "DOWN" : "UP";
+        const nw = nd === "UP" ? "LONG ▲" : "SHORT ▼";
+        const c = s5.bars[i].close;
+        counter = {
+          dir: nd, level: full ? "TAM" : "ERKEN", clock: nyClock(end), price: r2(c), confirmLevel: full ? null : conf,
+          text: full
+            ? `⚡ TERS TETİK (TAM, ${nyClock(end)}): 2×5m VWAP + EMA20 ve 15m VWAP + EMA20(15m) ${nd === "UP" ? "üstünde" : "altında"} → ${nw} dönüşü. Mevcut bacakta kârı al / stopu girişe çek. Ters yönde küçük pozisyon mümkün: geçmişte bu anda girmek ilk hedefte ort. +0,14 puan, tepe +1,3 (23 olay, %39). Mevcut bacak 15m dip/zirve kırılınca resmen biter.`
+            : `⚡ TERS TETİK (ERKEN, ${nyClock(end)}): 2×5m VWAP + EMA20 ${nd === "UP" ? "üstünde" : "altında"}, 15m yalnız kısmen teyitli → ${nw} dönüşü başlıyor olabilir. Mevcut bacakta kârı koru (stop girişe). Ters yönde giriş için ERKEN: geçmişte bu anda girmek ort. ~0 (34 olay, %29). Teyit: 15m kapanış ${conf != null ? conf.toFixed(2) : "VWAP + EMA20(15m)"} ${nd === "UP" ? "üstünde" : "altında"}.`,
+        };
+      }
+    }
   }
 
   // güncel bacak
@@ -553,9 +633,12 @@ export function buildLegChain(input: {
         if (k >= 0) {
           const b15 = s15.bars[k], v15 = s15.vwap[k], e15 = ema15.get(b15.time) ?? null;
           const lvl = v15 != null && e15 != null ? (cand > 0 ? Math.max(v15, e15) : Math.min(v15, e15)) : null;
-          (side15(s15, ema15, k) === cand ? have : need).push(`15m kapanış VWAP + EMA20(15m) ${w}${lvl != null ? ` (${lvl.toFixed(2)})` : ""}`);
+          const lvlOr = v15 != null && e15 != null ? (cand > 0 ? Math.min(v15, e15) : Math.max(v15, e15)) : null;
+          (ok15(k, cand) ? have : need).push(trig15 === "or"
+            ? `15m kapanış VWAP ya da EMA20(15m) ${w}${lvlOr != null ? ` (${lvlOr.toFixed(2)})` : ""}`
+            : `15m kapanış VWAP + EMA20(15m) ${w}${lvl != null ? ` (${lvl.toFixed(2)})` : ""}`);
         }
-        if (need.length && (c1 || side15(s15, ema15, Math.max(0, s15.bars.length - 1)) === cand)) {
+        if (need.length && (c1 || ok15(Math.max(0, s15.bars.length - 1), cand))) {
           const dirW = cand > 0 ? "LONG (yukarı)" : "SHORT (aşağı)";
           pending = {
             dir: cand > 0 ? "UP" : "DOWN", have, need,
@@ -565,5 +648,5 @@ export function buildLegChain(input: {
       }
     }
   }
-  return { legs, current, pending };
+  return { legs, current, pending, counter };
 }
