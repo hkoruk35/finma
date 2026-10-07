@@ -20,7 +20,8 @@
  * API uçları da ayrıca satır içi kontrol yapar.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotRead } from "@/lib/spyengine/pivots";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import ForecastMap from "@/components/admin/spyengine/ForecastMap";
 import {
@@ -183,7 +184,7 @@ function TfColumn({ title, sub, r }: { title: string; sub: string; r: TfRead | n
     <div className="bg-[#0f141d] px-3 py-2">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-[12px] font-semibold text-slate-300">
-          {title} <span className="text-[10.5px] font-normal text-slate-500">· {sub}</span>
+          {title} <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· {sub}</span>
         </span>
         <span className="font-mono text-[10.5px] text-slate-500">{r.clock} kapanış {num(r.close)}</span>
       </div>
@@ -282,7 +283,7 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
       {/* başlık + karar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Karar Desteği <span className="text-[10.5px] font-normal text-slate-500">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m karar · 5m tetik (giriş/çıkış) · erken uyarı</span>
+          Karar Desteği <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· her 5m kapanışında fiyat + hacim · 30m gidişat · 15m karar · 5m tetik (giriş/çıkış) · erken uyarı</span>
         </span>
         <span className="font-mono text-[10.5px] text-slate-500">
           son 5m {d.r5?.clock ?? "—"} · 15m {d.r15?.clock ?? "—"} · 30m {d.r30?.clock ?? "—"} · sonraki 5m kapanış {secTo5 != null ? `${Math.floor(secTo5 / 60)}:${String(secTo5 % 60).padStart(2, "0")}` : "—"}
@@ -395,7 +396,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Erken Uyarı · Likidite · Akıllı Para <span className="text-[10.5px] font-normal text-slate-500">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
+          Erken Uyarı · Likidite · Akıllı Para <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
         </span>
         <span className="font-mono text-[10.5px] text-slate-500">alıcı {w.bull} · satıcı {w.bear} puan</span>
       </div>
@@ -591,7 +592,7 @@ function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
-          Açılış Tahmini <span className="text-[11px] font-normal text-slate-400">· {r.session} seansı · ES fair value (dünkü kapanış {num(r.prevClose)} × ES değişimi)</span>
+          Açılış Tahmini <span className="hidden text-[11px] font-normal text-slate-400 sm:inline">· {r.session} seansı · ES fair value (dünkü kapanış {num(r.prevClose)} × ES değişimi)</span>
         </span>
         <span className="flex flex-wrap gap-1 font-mono text-[11px]">
           {r.checkpoints.map((c) => (
@@ -703,7 +704,7 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
-          Tahmin Günlüğü <span className="text-[11px] font-normal text-slate-400">· her seans kaydedilir, gerçekleşenle kıyaslanır · {st.n} gün ({st.liveN} canlı, {st.n - st.liveN} geriye dönük)</span>
+          Tahmin Günlüğü <span className="hidden text-[11px] font-normal text-slate-400 sm:inline">· her seans kaydedilir, gerçekleşenle kıyaslanır · {st.n} gün ({st.liveN} canlı, {st.n - st.liveN} geriye dönük)</span>
         </span>
         <span className="text-[11px] text-slate-400">
           öğrenme: {j.minN}+ kayıtta aşama isabetleri ve açılış aralığı gerçekleşenden hesaplanır
@@ -826,7 +827,7 @@ function ScenarioPanel({ sc, expectation, waitReason }: { sc: Scenario | null; e
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: "#1d5a68", backgroundColor: PETROL.bg }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
-          Senaryo · ön plan <span className="text-[11px] font-normal text-slate-400">· gün yönü 09:55–10:00&apos;da kilitlenince bu plan günün senaryosuna dönüşür ve gün boyu TAKİP edilir</span>
+          Senaryo · ön plan <span className="hidden text-[11px] font-normal text-slate-400 sm:inline">· gün yönü 09:55–10:00&apos;da kilitlenince bu plan günün senaryosuna dönüşür ve gün boyu TAKİP edilir</span>
         </span>
       </div>
       {expectation && <div className="border-b border-[#1d5a68] px-4 py-1.5 text-[12px] text-slate-300">Beklenti: {expectation}</div>}
@@ -923,7 +924,7 @@ function ScenarioTrackPanel({ t, chain, day, recent }: { t: TrackState | null; c
       <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: "#1d5a68", backgroundColor: PETROL.bg }}>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
           <span className="text-[13px] font-semibold text-slate-200">
-            Senaryo Takibi <span className="text-[11px] font-normal text-slate-400">· sabah yön çıkmadı — gün içi yeni bacak tetiği aranıyor (alıcı/satıcı hamlesi, katalizör)</span>
+            Senaryo Takibi <span className="hidden text-[11px] font-normal text-slate-400 sm:inline">· sabah yön çıkmadı — gün içi yeni bacak tetiği aranıyor (alıcı/satıcı hamlesi, katalizör)</span>
           </span>
           <span className="flex flex-wrap gap-1.5"><DayChip day={day} recent={recent} /></span>
         </div>
@@ -959,7 +960,7 @@ function TrackCard({ t, chain, day, recent, pendingBox }: { t: TrackState; chain
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${st.col}88`, backgroundColor: PETROL.bg }}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1d5a68] px-4 py-2">
         <span className="text-[13px] font-semibold text-slate-200">
-          Senaryo Takibi <span className="text-[11px] font-normal text-slate-400">· {a.kind === "GÜN İÇİ" ? `${a.legNo}. bacak (gün içi, ${a.clock})` : `açılış senaryosu (${a.clock})`} — her dakika yeniden üretilmez, takip edilir; trend değişirse yeni bacak aranır</span>
+          Senaryo Takibi <span className="hidden text-[11px] font-normal text-slate-400 sm:inline">· {a.kind === "GÜN İÇİ" ? `${a.legNo}. bacak (gün içi, ${a.clock})` : `açılış senaryosu (${a.clock})`} — her dakika yeniden üretilmez, takip edilir; trend değişirse yeni bacak aranır</span>
         </span>
         <span className="flex flex-wrap items-center gap-1.5">
           <DayChip day={day} recent={recent} />
@@ -1112,7 +1113,7 @@ function EmaPositionCard({ e }: { e: EmaPos | null }) {
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${e ? col : "#64748b"}55` }}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          EMA20 Konumu <span className="text-[10.5px] font-normal text-slate-500">· 5m + 15m kapanışın EMA20&apos;ye göre tarafı, eğimi, mesafesi</span>
+          EMA20 Konumu <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 5m + 15m kapanışın EMA20&apos;ye göre tarafı, eğimi, mesafesi</span>
         </span>
       </div>
       {!e ? (
@@ -1170,7 +1171,7 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}55` }}>
       <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Gün Geneli <span className="text-[10.5px] font-normal text-slate-500">· davranış + açılış kararı + bacaklar</span>
+          Gün Geneli <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· davranış + açılış kararı + bacaklar</span>
         </span>
         {d && <span className="font-mono text-[10.5px] text-slate-500">açılış {num(d.day.open)}</span>}
       </div>
@@ -1244,6 +1245,172 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+
+// ── SPY anlık fiyat şeridi (yapışkan): fiyat · son 1 saat · gün · VWAP/EMA20 · en yakın pivotlar ──
+
+interface HiLo { hi: number; lo: number; hiClock: string; loClock: string }
+
+function RangeBar({ label, r, price }: { label: string; r: HiLo | null; price: number | null }) {
+  const pos = r && price != null && r.hi > r.lo ? Math.min(1, Math.max(0, (price - r.lo) / (r.hi - r.lo))) : null;
+  return (
+    <div className="min-w-0">
+      <div className="flex items-baseline justify-between gap-2 text-[10.5px] text-slate-500">
+        <span>{label}</span>
+        {r && <span className="font-mono">aralık {num(r.hi - r.lo)}</span>}
+      </div>
+      {r ? (
+        <>
+          <div className="flex justify-between font-mono text-[11.5px]">
+            <span className="text-[#f87171]" title={`dip ${r.loClock}`}>▼ {num(r.lo)} <span className="text-[10px] text-slate-500">{r.loClock}</span></span>
+            <span className="text-[#4ade80]" title={`tepe ${r.hiClock}`}><span className="text-[10px] text-slate-500">{r.hiClock}</span> {num(r.hi)} ▲</span>
+          </div>
+          <div className="relative mt-0.5 h-1.5 rounded bg-gradient-to-r from-[#ef4444]/40 via-[#1c2635] to-[#22c55e]/40">
+            {pos != null && <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(pos * 100)}% - 2px)` }} />}
+          </div>
+        </>
+      ) : <div className="font-mono text-[11.5px] text-slate-500">—</div>}
+    </div>
+  );
+}
+
+function DistRow({ k, v, price }: { k: string; v: number | null; price: number | null }) {
+  const x = v == null || price == null ? null : price - v;
+  return (
+    <div className="flex items-baseline justify-between gap-2 font-mono text-[11.5px]">
+      <span className="font-sans text-[10.5px] text-slate-500">{k}</span>
+      <span className="text-slate-300">{v != null ? num(v) : "—"}</span>
+      <span className={x == null ? "text-slate-500" : x >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{x == null ? "" : `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)}`}</span>
+    </div>
+  );
+}
+
+function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv }: {
+  price: number | null;
+  change: number | null;
+  changePct: number | null;
+  badge: ReactNode;
+  hour: HiLo | null;
+  day: HiLo | null;
+  vwap: number | null;
+  ema: number | null;
+  piv: PivotRead | null;
+}) {
+  return (
+    <div className="-mx-2 mb-2 border-b border-[#1c2635] bg-[#0a0e17]/95 px-2 py-1.5 backdrop-blur sm:mx-0 sm:rounded-lg sm:border lg:sticky lg:top-0 lg:z-30">
+      <div className="grid grid-cols-2 items-center gap-x-4 gap-y-1.5 sm:grid-cols-[auto_1fr_1fr_auto] lg:grid-cols-[auto_1fr_1fr_auto_minmax(200px,auto)]">
+        <div className="col-span-2 flex flex-wrap items-baseline gap-x-2 sm:col-span-1">
+          <span className="text-[11px] font-semibold tracking-wide text-slate-500">SPY</span>
+          <span className="font-mono text-[26px] font-bold leading-none text-slate-50">{price == null ? "—" : `$${num(price)}`}</span>
+          <span className={`font-mono text-[13px] font-semibold ${tone(changePct)}`}>
+            {changePct == null ? "" : `${signed(change)} (${signed(changePct)}%)`}
+          </span>
+          <span className="ml-1">{badge}</span>
+        </div>
+        <RangeBar label="Son 1 saat" r={hour} price={price} />
+        <RangeBar label="Gün (seans)" r={day} price={price} />
+        <div className="min-w-[150px]">
+          <DistRow k="VWAP" v={vwap} price={price} />
+          <DistRow k="EMA20 5m" v={ema} price={price} />
+        </div>
+        <div className="col-span-2 min-w-0 sm:col-span-4 lg:col-span-1">
+          {piv ? (
+            <div className="font-mono text-[11.5px]">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="font-sans text-[10.5px] text-slate-500">Pivot · {piv.zone}</span>
+                <span className={piv.heading === "UP" ? "text-[#4ade80]" : piv.heading === "DOWN" ? "text-[#f87171]" : "text-slate-400"}>
+                  {piv.heading === "UP" ? "▲" : piv.heading === "DOWN" ? "▼" : "◆"} 30dk {piv.speed30 >= 0 ? "+" : ""}{piv.speed30.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between gap-2">
+                <span className="text-[#f87171]">{piv.below ? `${piv.below.key} ${num(piv.below.price)} (−${Math.abs(piv.below.dist).toFixed(2)})` : "—"}</span>
+                <span className="text-[#4ade80]">{piv.above ? `${piv.above.key} ${num(piv.above.price)} (+${Math.abs(piv.above.dist).toFixed(2)})` : "—"}</span>
+              </div>
+            </div>
+          ) : <span className="text-[10.5px] text-slate-500">Pivot: önceki seans verisi bekleniyor</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Pivot noktaları kartı: merdiven + fiyatın pivotlara hareketi ──
+
+const PIVOT_COLOR: Record<PivotKey, string> = { R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626" };
+
+function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) {
+  if (!p) {
+    return (
+      <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — önceki seansın yüksek/düşük/kapanışı bekleniyor.
+      </div>
+    );
+  }
+  const hcol = p.heading === "UP" ? "#22c55e" : p.heading === "DOWN" ? "#ef4444" : "#eab308";
+  const stCls = (s: string) => s.startsWith("KIRILDI ▲") ? "text-[#4ade80]" : s.startsWith("KIRILDI ▼") ? "text-[#f87171]" : s === "TEST · TUTTU" ? "text-amber-300" : s === "ÜZERİNDE" ? "text-sky-300" : "text-slate-500";
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${hcol}55` }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
+          Pivot Noktaları <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· klasik günlük pivot ({p.base.date}: Y {num(p.base.H)} · D {num(p.base.L)} · K {num(p.base.C)}) · seviye bilgisidir, yön kararına girmez</span>
+        </span>
+      </div>
+      <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        {/* merdiven */}
+        <div className="bg-[#0f141d] px-3 py-1.5">
+          <table className="w-full font-mono text-[11.5px]">
+            <thead>
+              <tr className="text-left text-[10px] text-slate-500">
+                <th className="py-0.5 font-normal">seviye</th><th className="font-normal">fiyat</th><th className="text-right font-normal">mesafe</th><th className="text-right font-normal">bugün</th>
+              </tr>
+            </thead>
+            <tbody>
+              {p.ladder.map((l, i) => {
+                const next = p.ladder[i + 1];
+                const priceHere = price != null && l.price >= price && (!next || next.price < price);
+                return (
+                  <Fragment key={l.key}>
+                    <tr className="border-t border-[#151c28]">
+                      <td className="py-[3px] font-bold" style={{ color: PIVOT_COLOR[l.key] }}>{l.key}</td>
+                      <td className="text-slate-200">{num(l.price)}</td>
+                      <td className={`text-right ${l.dist >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}`}>{l.dist >= 0 ? "+" : "−"}{Math.abs(l.dist).toFixed(2)}</td>
+                      <td className={`text-right text-[10.5px] ${stCls(l.state)}`}>{l.state}{l.touched ? ` · ${l.touched}` : ""}</td>
+                    </tr>
+                    {priceHere && (
+                      <tr><td colSpan={4} className="py-[2px]"><div className="flex items-center gap-1 text-[10.5px] text-sky-300"><span className="h-px flex-1 bg-sky-400/60" />fiyat {num(price!)}<span className="h-px flex-1 bg-sky-400/60" /></div></td></tr>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {/* hareket */}
+        <div className="bg-[#0f141d] px-3 py-2">
+          <div className="text-[11px] text-slate-500">Fiyatın pivotlara hareketi</div>
+          <div className="mt-0.5 text-[15px] font-extrabold" style={{ color: hcol }}>
+            {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `${p.target.key} ${num(p.target.price)} hedefinde` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı trend"}
+            {p.etaMin != null && <span className="ml-2 text-[12px] font-semibold text-slate-400">~{p.etaMin} dk</span>}
+          </div>
+          <div className="mt-1 text-[12px] leading-snug text-slate-300">{p.text}</div>
+          <div className="mt-2 grid grid-cols-2 gap-1.5 font-mono text-[11.5px]">
+            <div className="rounded border border-[#ef4444]/30 bg-[#ef4444]/5 px-2 py-1">
+              <div className="font-sans text-[10px] text-slate-500">alttaki pivot</div>
+              {p.below ? <><b className="text-[#f87171]">{p.below.key} {num(p.below.price)}</b> <span className="text-slate-400">−{Math.abs(p.below.dist).toFixed(2)}</span><div className="text-[10px] text-slate-500">{p.below.state}</div></> : "—"}
+            </div>
+            <div className="rounded border border-[#22c55e]/30 bg-[#22c55e]/5 px-2 py-1">
+              <div className="font-sans text-[10px] text-slate-500">üstteki pivot</div>
+              {p.above ? <><b className="text-[#4ade80]">{p.above.key} {num(p.above.price)}</b> <span className="text-slate-400">+{Math.abs(p.above.dist).toFixed(2)}</span><div className="text-[10px] text-slate-500">{p.above.state}</div></> : "—"}
+            </div>
+          </div>
+          <div className="mt-1.5 text-[10.5px] leading-snug text-slate-500">
+            TEST · TUTTU = bugün değdi, fiyat aynı tarafta kaldı (tepki seviyesi) · KIRILDI = açılıştaki tarafından öbür tarafa geçti (artık destek/direnç rolü değişti). Hız son 30 dk kapanış değişimidir; varış süresi hız sabit kalırsa tahminidir.
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -1711,6 +1878,34 @@ export default function SpyEngineV9() {
     return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null) };
   }, [m5D, ema5, date]);
 
+  /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
+  const hourHiLo = useMemo<HiLo | null>(() => {
+    const t = evalNow || lastM1Time || 0;
+    const bs = m1.filter((b) => b.time > t - 3600 && b.time <= t);
+    if (!bs.length) return null;
+    let hi = bs[0], lo = bs[0];
+    for (const b of bs) { if (b.high > hi.high) hi = b; if (b.low < lo.low) lo = b; }
+    return { hi: hi.high, lo: lo.low, hiClock: nyClock(hi.time), loClock: nyClock(lo.time) };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [m1, minuteSlot, evalNow]);
+  const dayHiLo = useMemo<HiLo | null>(() => {
+    const bs = todayRth5.bars;
+    if (!bs.length) return null;
+    let hi = bs[0], lo = bs[0];
+    for (const b of bs) { if (b.high > hi.high) hi = b; if (b.low < lo.low) lo = b; }
+    return { hi: hi.high, lo: lo.low, hiClock: nyClock(hi.time), loClock: nyClock(lo.time) };
+  }, [todayRth5]);
+  /** Klasik günlük pivotlar (önceki seans Y/D/K) + fiyatın pivotlara hareketi */
+  const pivBase = useMemo(() => (date ? prevDayPivots(m1, date, data?.levels?.prevClose ?? null) : null), [m1, date, data?.levels?.prevClose]);
+  const pivR = useMemo<PivotRead | null>(() => {
+    if (!pivBase || price == null) return null;
+    return pivotRead(pivBase, analysis?.s5 ?? { bars: [], vwap: [] }, price);
+  }, [pivBase, analysis?.s5, price]);
+  const ema5Now = useMemo(() => {
+    const bs = analysis?.s5.bars;
+    return bs && bs.length ? ema5.get(bs[bs.length - 1].time) ?? null : null;
+  }, [analysis?.s5, ema5]);
+
   const pendingLeg = chain?.pending ?? null;
   const counterTrig = chain?.counter ?? null;
   /** Karar desteği — her kapanan 5m/15m mumda yeniden okunur */
@@ -1791,7 +1986,11 @@ export default function SpyEngineV9() {
 
   /** Yön lehine olan SL çizgisi (yön belirsizse ikisi) grafiklere eklenir */
   const chartLines = useMemo(() => {
-    const base = data?.levels?.lines ?? [];
+    const pivLines = pivBase && price != null
+      ? PIVOT_ORDER.filter((k) => Math.abs(pivBase.levels[k] - price) / price <= 0.012)
+        .map((k: PivotKey) => ({ price: pivBase.levels[k], label: `Pivot ${k} ${pivBase.levels[k].toFixed(2)}`, color: PIVOT_COLOR[k] }))
+      : [];
+    const base = [...(data?.levels?.lines ?? []), ...pivLines];
     if (!stops) return base;
     // karar panelinin yönü (Canlı Yön kartının ham VWAP okuması değil)
     const dir = decision?.action === "LONG" ? "UP" : decision?.action === "SHORT" ? "DOWN" : "MIXED";
@@ -1799,7 +1998,7 @@ export default function SpyEngineV9() {
     if (stops.long && dir !== "DOWN") out.push({ price: stops.long.stop, label: `LONG SL ${stops.long.stop.toFixed(2)}`, color: "#22c55e" });
     if (stops.short && dir !== "UP") out.push({ price: stops.short.stop, label: `SHORT SL ${stops.short.stop.toFixed(2)}`, color: "#ef4444" });
     return out;
-  }, [data?.levels?.lines, stops, decision?.action]);
+  }, [data?.levels?.lines, stops, decision?.action, pivBase, price]);
 
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   useEffect(() => {
@@ -1878,21 +2077,10 @@ export default function SpyEngineV9() {
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="text-[15px] font-semibold tracking-tight text-[#eab308]">SPY Engine V10 · Senaryo Takibi</h1>
-            <p className="text-[10.5px] text-slate-500">
+            <p className="hidden text-[10.5px] text-slate-500 sm:block">
               30m genel yön · 15m karar · 5m tetik (giriş/çıkış zamanlaması) · 09:55 gün yönü kilitlenir, o senaryo gün boyu takip edilir · trend değişimi uyarısı · VWAP + EMA20 · POC / likidite / akıllı para · tahmin haritası
             </p>
           </div>
-          {data && (
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-mono text-[22px] font-bold text-slate-100">
-                {data.spot.price == null ? "—" : `$${num(data.spot.price)}`}
-              </span>
-              <span className={`font-mono text-[12px] font-semibold ${tone(data.spot.changePct)}`}>
-                {data.spot.changePct == null ? "" : `${signed(data.spot.change)} (${signed(data.spot.changePct)}%)`}
-              </span>
-            </div>
-          )}
-          {data && <PhaseBadge phase={data.session.phase} />}
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
@@ -1953,6 +2141,19 @@ export default function SpyEngineV9() {
         </div>
       </header>
 
+      {/* SPY anlık fiyat şeridi — kaydırınca üstte sabit kalır */}
+      <PriceStrip
+        price={price}
+        change={data?.spot.change ?? null}
+        changePct={data?.spot.changePct ?? null}
+        badge={data ? <PhaseBadge phase={data.session.phase} /> : null}
+        hour={hourHiLo}
+        day={dayHiLo}
+        vwap={vwapNow}
+        ema={ema5Now}
+        piv={pivR}
+      />
+
       {/* Uyarılar */}
       {data && !data.session.isLive && data.session.note && (
         <div className="mb-2 flex items-center gap-2 rounded border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-[11px] text-amber-300/90">
@@ -1983,6 +2184,7 @@ export default function SpyEngineV9() {
         {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
 
         {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} expectation={vixExpectation(openFc?.vixNow ?? null)} waitReason={scenarioRead.wait} />}
+        {!sessionActive && <PivotCard p={pivR} price={price} />}
 
         {!sessionActive && (
           <div className={`${SURFACE} px-4 py-2.5 text-[12px] text-slate-400`}>
@@ -1998,7 +2200,7 @@ export default function SpyEngineV9() {
               <span className="flex min-w-0 flex-wrap items-center gap-2 text-[12px] font-semibold tracking-wide text-slate-300">
                 Açılış Rejimi
                 {regimeOpen ? (
-                  <span className="text-[10.5px] font-normal text-slate-500">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → 09:55 net değilse 10:00 30m kararı</span>
+                  <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → 09:55 net değilse 10:00 30m kararı</span>
                 ) : op ? (
                   <>
                     <b className="text-[13px]" style={{ color: opColor }}>{opArrow} {op.label}</b>
@@ -2108,7 +2310,7 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
             <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
               <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-                VWAP Konumu <span className="text-[10.5px] font-normal text-slate-500">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
+                VWAP Konumu <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
               </span>
               <span className="font-mono text-[10.5px] text-slate-500">
                 {live ? `5m ${live.asOf5} · 15m ${live.asOf15 ?? "—"} kapanışı · ` : ""}
@@ -2150,6 +2352,9 @@ export default function SpyEngineV9() {
           <DayOverviewCard d={decision} day={dayLive} recent={dayRecent} chain={chain} op={analysis?.opening ?? null} />
         </div>
 
+        {/* ── 1a2) Pivot noktaları ── */}
+        <PivotCard p={pivR} price={price} />
+
         {/* ── 1b) Karar desteği — 5m · 15m · gün geneli (fiyat + hacim) ── */}
         <DecisionPanel
           d={decision}
@@ -2171,7 +2376,7 @@ export default function SpyEngineV9() {
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Trend Stop Bölgesi <span className="text-[10.5px] font-normal text-slate-500">· taşıma stopu referansı: son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir · trend DEĞİŞİMİ kuralı için Senaryo Takibi</span>
+              Trend Stop Bölgesi <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· taşıma stopu referansı: son kapanan 15m dip/zirve ± ATR tamponu · her 15m kapanışta yenilenir · trend DEĞİŞİMİ kuralı için Senaryo Takibi</span>
             </span>
             <span className="flex items-center gap-1 font-mono text-[10.5px] text-slate-500">
               tampon çarpanı
@@ -2245,7 +2450,7 @@ export default function SpyEngineV9() {
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Tahmin Haritası <span className="text-[10.5px] font-normal text-slate-500">· destek / direnç · yolculuk · kapanış beklentisi</span>
+              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· destek / direnç · yolculuk · kapanış beklentisi</span>
             </span>
             {map && (
               <span className="flex items-center gap-2 font-mono text-[11px]">
