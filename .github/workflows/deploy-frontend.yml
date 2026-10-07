@@ -47,13 +47,39 @@ jobs:
           # yaratmasin), VE deploy sonunda sunucudaki HEAD'in bu commit'e
           # esit oldugunu dogrula -- esit degilse job'u ACIKCA basarisiz say.
           script: |
+            set -e
             cd /root/finma
             git fetch origin main
             git reset --hard origin/main
             cd frontend
             npm install --no-audit --no-fund
-            npm run build
-            pm2 restart bogastock-next --update-env
+            # Kesintisiz deploy: canlı sunucunun kullandığı klasöre DOKUNMADAN diğer klasöre derle.
+            # Derleme başarısız olursa script burada durur, canlı site eski derlemeyle çalışmaya devam eder.
+            CUR=$(cat .dist-current 2>/dev/null || echo .next)
+            if [ "$CUR" = ".next-a" ]; then NEW=.next-b; else NEW=.next-a; fi
+            rm -rf "$NEW"
+            # Başarısız deploy'lar hep saat başıydı (sunucudaki saatlik bot aynı anda dosya yazıyor):
+            # ilk deneme düşerse 90 sn sonra bir kez daha dene.
+            NEXT_DIST_DIR="$NEW" npm run build || { echo "Derleme basarisiz — 90 sn sonra tekrar"; sleep 90; rm -rf "$NEW"; NEXT_DIST_DIR="$NEW" npm run build; }
+            test -f "$NEW/BUILD_ID"
+            echo "$NEW" > .dist-current
+            NEXT_DIST_DIR="$NEW" pm2 restart bogastock-next --update-env
+            # Sağlık kontrolü: yeni derleme yanıt vermezse eski klasöre geri dön
+            OK=0
+            for i in $(seq 1 20); do
+              if curl -fsS -o /dev/null --max-time 10 http://127.0.0.1:3000/global/tr; then OK=1; break; fi
+              sleep 3
+            done
+            if [ "$OK" != "1" ]; then
+              echo "HATA: yeni derleme ($NEW) yanit vermedi — $CUR klasorune geri donuluyor"
+              echo "$CUR" > .dist-current
+              NEXT_DIST_DIR="$CUR" pm2 restart bogastock-next --update-env
+              pm2 save
+              exit 1
+            fi
+            # yeniden başlatmalarda (sunucu reboot) doğru klasörle açılsın
+            pm2 save
+            echo "Canli derleme: $NEW (onceki: $CUR, geri donus icin saklaniyor)"
             cd /root/finma
             DEPLOYED_SHA=$(git rev-parse HEAD)
             if [ "$DEPLOYED_SHA" != "${{ github.sha }}" ]; then

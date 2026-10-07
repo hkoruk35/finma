@@ -9,6 +9,13 @@
 5. If the change touches a scoring/threshold engine (`/api/preorder-analysis`, `tradePlanEngine.ts`, `top100-engine.ts`): re-read `docs/AI_BEHAVIOR.md` Rule 2 first — threshold-based classifiers need hysteresis, not just a correctness check.
 6. If the change touches a "list" feature (theme, tracker, watchlist): re-read `docs/AI_BEHAVIOR.md` Rule 3 — check whether admin and public read the same merge function.
 
+## Frontend deploy (Hetzner, `.github/workflows/deploy-frontend.yml`)
+
+- Push to `main` touching `frontend/**` (except `frontend/public/**`) deploys automatically.
+- **Zero-downtime swap (2026-10-07):** the server builds into the *inactive* dist dir (`.next-a` / `.next-b`, via `NEXT_DIST_DIR` → `distDir` in `next.config.ts`); the live dir is never touched during the build. Only after a successful build is pm2 restarted with the new `NEXT_DIST_DIR`, then a health check hits `/global/tr`; on failure it rolls back to the previous dir. `frontend/.dist-current` (gitignored) records the live dir. A failed build retries once after 90 s (failures clustered at :00, when the server's hourly bot writes files).
+- Before this, a failed build left a half-written `.next` and the whole site returned 500 ("client reference manifest does not exist") until a manual rebuild.
+- Manual rebuild on the server: `cd /root/finma/frontend && NEW=.next-a; [ "$(cat .dist-current)" = .next-a ] && NEW=.next-b; NEXT_DIST_DIR=$NEW npm run build && echo $NEW > .dist-current && NEXT_DIST_DIR=$NEW pm2 restart bogastock-next --update-env && pm2 save`
+
 ## Before touching anything in the root Python layer
 
 1. Never delete a script without confirming it against the live `Get-ScheduledTask` state (`schtasks /query /fo LIST /v` via PowerShell — Git Bash mangles the `/query` flag into a path, use the PowerShell tool) — a filename claiming to be "the current version" isn't proof.

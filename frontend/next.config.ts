@@ -19,6 +19,10 @@ const CONTENT_SECURITY_POLICY = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // Sunucuda kesintisiz deploy: her derleme ayrı klasöre (.next-a / .next-b) yapılır, yalnızca
+  // başarılı olursa çalışan sunucu o klasöre geçirilir (bkz. .github/workflows/deploy-frontend.yml).
+  // Ortam değişkeni yoksa (yerel geliştirme) varsayılan .next kullanılır.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // SEO Optimizations
   poweredByHeader: false, // Remove X-Powered-By header for security
   reactStrictMode: true,

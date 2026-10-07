@@ -318,6 +318,13 @@ export interface OpeningRegime {
   check10: "AYNI" | "TERS" | "YOK" | null;
   /** 09:55'te netlik yetersiz (kural teyitsiz ya da yok) → 10:00 30m kapanışı beklenmeli */
   waitFor10: boolean;
+  /**
+   * NET açılış kararı: 09:55 GÜÇLÜ (kural + EMA20 + hacim + gap) ya da 09:55 belirsizken 10:00 kuralı.
+   * Yalnız bu günlerde açılış yönünde işlem önerilir; diğer günler "açılış işlemi yok" (gün içi bacak beklenir).
+   * 58 seans: NET günler 28 (%48) — 09:55 NET 3 saatte %80, 10:00 kararı 2 saatte %72;
+   * NET olmayan 09:55 kuralları 2 saatte %44 (10:00 teyidi de düzeltmedi: %47).
+   */
+  net: boolean;
   /** İlk 2–3 saat güveni: kararın tipine göre ölçülmüş okuma (yön DEĞİŞTİRMEZ) */
   dayHold: { level: "YÜKSEK" | "ORTA" | "DÜŞÜK"; text: string } | null;
   stages: OpeningStage[];
@@ -388,7 +395,7 @@ export function openingRegime(
 
   if (!closes5.length) {
     return {
-      ...base, status: "WAITING", side: null, provisional: null, lean: null, weak: false, strength: null, decidedAt: null, gap: null, dayHold: null, check10: null, waitFor10: false, stages,
+      ...base, status: "WAITING", side: null, provisional: null, lean: null, weak: false, strength: null, decidedAt: null, gap: null, dayHold: null, check10: null, waitFor10: false, net: false, stages,
       label: "BEKLENİYOR", score: 0, maxScore: 3, votes: [],
       summary: "09:35'te ilk 5m kapanışıyla okuma başlar; 09:45 15m, 09:55 büyük resim (karar), gerekirse 10:00 30m teyidi.",
     };
@@ -493,6 +500,7 @@ export function openingRegime(
   // — ilk 2–3 saat güveni (yön değiştirmez; hedef ufku karardan sonraki 2–3 saat, sonrası seans içinde yeniden yön) —
   // 58 seans, 5m: karar fiyatından +2s / +3s yönde kapanış ve "önce +1,5 mi −1,5 mi geldi"
   const gap = gapPts != null && sideN !== 0 ? { pts: gapPts, agree: gapDir === sideN } : null;
+  const net = status === "LOCKED" && sideN !== 0 && ((decidedAt === "09:55" && strength === "GÜÇLÜ") || decidedAt === "10:00");
   const missing: string[] = [];
   if (sideN !== 0) {
     if (dE !== sideN) missing.push("EMA20 ters/nötr");
@@ -501,24 +509,26 @@ export function openingRegime(
   }
   let dayHold: OpeningRegime["dayHold"] = null;
   if (waitFor10) {
-    dayHold = { level: "ORTA", text: decidedAt === "09:55"
-      ? `09:55 kuralı oluştu ama teyitsiz (eksik: ${missing.join(", ") || "—"}) → NETLİK YETERSİZ: 10:00 30m kapanışını bekle. Geçmişte bu günlerde 09:55'te girmek 2 saatte %44, önce −1,5 puan %56.`
+    dayHold = { level: decidedAt === "09:55" ? "DÜŞÜK" : "ORTA", text: decidedAt === "09:55"
+      ? `09:55 kuralı oluştu ama teyitsiz (eksik: ${missing.join(", ") || "—"}) → NETLİK YETERSİZ, giriş yok. Geçmişte bu günlerde açılış yönü 2 saatte yalnız %44 tuttu, önce −1,5 puan %56 geldi; 10:00 teyidi de düzeltmedi. 10:00'dan sonra gün içi bacak tetiği beklenir.`
       : "09:55'te netlik yok → 10:00 30m kapanışını bekle. 10:00 kuralı (30m + 15m + 6×5m aynı taraf) oluşursa geçmişte 2 saatte yönde %72, önce −1,5 puan yalnız %22 (18 gün)." };
   } else if (status === "LOCKED" && sideN !== 0) {
     if (decidedAt === "09:55" && strength === "GÜÇLÜ")
       dayHold = { level: "YÜKSEK", text: `09:55 NET: kural + EMA20 + hacim + gap aynı yönde → 10:00'ı beklemek gerekmez. Geçmişte 3 saat sonra yönde %80 (ort. +2,0 puan), önce +1,5 %70 / önce −1,5 %30 (10 gün).${check10 === "TERS" ? " ⚠ 10:00 kuralı TERS okuyor — stopu sıkılaştır." : ""}` };
     else if (decidedAt === "09:55" && check10 === "TERS")
-      dayHold = { level: "DÜŞÜK", text: "09:55 kuralı teyitsizdi ve 10:00 30m TERS okuyor → ÇELİŞKİ: açılış yönü yok say, gün içi bacak tetiğini bekle." };
+      dayHold = { level: "DÜŞÜK", text: "AÇILIŞ İŞLEMİ YOK — 09:55 kuralı teyitsizdi ve 10:00 30m TERS okuyor (çelişki). Gün içi bacak tetiğini bekle." };
     else if (decidedAt === "09:55")
-      dayHold = { level: "ORTA", text: `09:55 kuralı teyitsiz${check10 === "AYNI" ? ", 10:00 aynı yönü gösterdi" : ", 10:00 kuralı oluşmadı"} → dikkat: geçmişte bu günlerde 10:00 teyidi isabeti artırmadı (2 saatte %47, önce −1,5 puan %60; 15 gün). Küçük pozisyon, VWAP/EMA20 geri çekilmesinde gir, ilk hedefte kâr al.` };
+      dayHold = { level: "DÜŞÜK", text: `AÇILIŞ İŞLEMİ YOK — 09:55 kuralı teyitsiz (eksik: ${missing.join(", ") || "—"})${check10 === "AYNI" ? "; 10:00 aynı yönü gösterdi ama geçmişte bu günlerde isabeti artırmadı (2 saatte %47, önce −1,5 puan %60)" : "; 10:00 kuralı oluşmadı"}. Yön eğilimi ${side === "UP" ? "yukarı" : "aşağı"}, ama işlem için gün içi bacak tetiğini bekle.` };
     else if (decidedAt === "10:00")
       dayHold = { level: "YÜKSEK", text: "10:00 KARARI: 09:55'te netlik yoktu, 30m + 15m + 6×5m aynı tarafta kapandı → geçmişte 2 saat sonra yönde %72, önce −1,5 puan yalnız %22 (18 gün). Hedef 2–3 saat içinde." };
     else
-      dayHold = { level: "DÜŞÜK", text: "Yön yalnız EMA20 tarafından (09:55 ve 10:00 kuralı oluşmadı) → geçmişte 2 saat sonra yönde %50, 3 saatte %38 (16 gün). Yön yok say; gün içi bacak tetiğini bekle." };
+      dayHold = { level: "DÜŞÜK", text: "AÇILIŞ İŞLEMİ YOK — 09:55 ve 10:00 kuralı oluşmadı, yön yalnız EMA20 tarafından (geçmişte 2 saatte %50, 3 saatte %38). Gün içi bacak tetiğini bekle." };
   }
 
+  // NET olmayan kararda büyük başlık yönü "eğilim" olarak gösterir (işlem kararı değil)
+  const labelOut = status === "LOCKED" && sideN !== 0 && !net ? (waitFor10 && decidedAt !== "09:55" ? `${word}? · 10:00 bekle` : `${word} eğilimi · NET DEĞİL`) : label;
   return {
-    ...base, status, side, provisional, lean, weak, strength, decidedAt, gap, dayHold, check10, waitFor10, stages, label,
+    ...base, status, side, provisional, lean, weak, strength, decidedAt, gap, dayHold, check10, waitFor10, net, stages, label: labelOut,
     score: votes.reduce((a, v) => a + v.vote, 0), maxScore: votes.length, votes, summary,
   };
 }
@@ -1082,6 +1092,8 @@ export function decisionRead(input: {
   ema5: EmaMap;
   ema15: EmaMap;
   ema30?: EmaMap;
+  /** NET açılış düzeni (varsayılan açık): NET olmayan açılışta açılış yönünde işlem önerilmez */
+  netRule?: boolean;
   /** Davranış temelli gün tipi (dayType.ts): TREND günlerinde trendin tersine ortalamaya-dönüş işlemi üretilmez */
   dayKind?: { kind: string; side: "UP" | "DOWN" | null } | null;
   /**
@@ -1505,10 +1517,26 @@ export function decisionRead(input: {
       watch.push(`15m yapı stobu uzak (${plan.rr.toFixed(1)}R); 5m sıkı stopla (${num2(plan.tightStop)}) ${plan.rrTight.toFixed(1)}R — küçük pozisyon.`);
   }
 
-  // — 09:55 netlik yetersizse 10:00 30m kapanışına kadar başlık "bekle" der (aksiyon değişmez; panel ölçümü aynı) —
-  if (opening.waitFor10 && input.playbook !== false && !input.track) {
-    title = `ÖN KARAR ${opening.side === "UP" ? "▲ yukarı" : opening.side === "DOWN" ? "▼ aşağı" : "—"} — 09:55'te netlik yetersiz: 10:00 30m kapanışını bekle`;
-    watch.unshift("10:00'da 30m + 15m (09:45–10:00) + 6×5m'nin ≥4'ü VWAP'ın aynı tarafında kapanırsa yön kesinleşir; erken pozisyon alma.");
+  // — NET açılış düzeni: açılış yönünde işlem yalnız NET kararda (09:55 GÜÇLÜ ya da 10:00 kararı) —
+  if (input.playbook !== false && !input.track && input.netRule !== false) {
+    const oWord = opening.side === "UP" ? "▲ yukarı" : opening.side === "DOWN" ? "▼ aşağı" : "—";
+    if (opening.waitFor10) {
+      action = "BEKLE";
+      lean = opening.side === "UP" ? "LONG" : opening.side === "DOWN" ? "SHORT" : null;
+      title = opening.decidedAt === "09:55"
+        ? `BEKLE — 09:55 kuralı ${oWord} ama teyitsiz: açılış işlemi yok, 10:00'dan sonra gün içi bacak`
+        : `BEKLE — 09:55'te netlik yok: 10:00 30m kapanışını bekle`;
+      watch.unshift(opening.decidedAt === "09:55"
+        ? "Teyitsiz 09:55 kuralında giriş yok (geçmişte 2 saatte %44). 10:00'dan sonra yeni bacak tetiği: 2×5m + 15m kapanış VWAP + EMA20'nin aynı tarafında."
+        : "10:00'da 30m + 15m (09:45–10:00) + 6×5m'nin ≥4'ü VWAP'ın aynı tarafında kapanırsa yön kesinleşir (geçmişte 2 saatte %72).");
+    } else if (opening.status === "LOCKED" && !opening.net && mode === "OPEN_TREND") {
+      action = "BEKLE";
+      lean = opening.side === "UP" ? "LONG" : opening.side === "DOWN" ? "SHORT" : null;
+      title = `AÇILIŞ İŞLEMİ YOK — yön eğilimi ${oWord} ama karar NET değil; gün içi bacak tetiğini bekle`;
+    }
+    if (opening.waitFor10 || (opening.status === "LOCKED" && !opening.net && mode === "OPEN_TREND")) {
+      modeText = `Açılış kararı NET değil (${opening.label}) → açılış yönünde işlem yok. NET karar = 09:55 kural + EMA20 + hacim + gap, ya da 09:55 belirsizken 10:00 kuralı. İşlem gün içi bacak tetiğiyle gelir (Senaryo Takibi).`;
+    }
   }
   // — Senaryo takibi: günün ilk senaryosu varsa karar ONU TAŞIMAKTIR (yeniden üretmek değil) —
   let tracking = false;

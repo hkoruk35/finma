@@ -1403,8 +1403,10 @@ export default function SpyEngineV9() {
       const s30c = daySeries(m30D, "30m", date, tc, null);
       const opc = openingRegime(s5c, s15c, ema5, s30c, null, data?.levels?.prevClose ?? null);
       if (opc.status !== "LOCKED" || (opc.side !== "UP" && opc.side !== "DOWN")) return null;
-      // 09:55 çapası yalnız NET kararda (GÜÇLÜ); netlik yoksa çapa 10:00 30m kapanışıyla kurulur
-      if (clock === "09:55" && (opc.decidedAt !== "09:55" || opc.strength !== "GÜÇLÜ")) return null;
+      // çapa yalnız NET kararda: 09:55 GÜÇLÜ ya da 09:55 belirsizken 10:00 kuralı.
+      // NET olmayan günlerde açılış çapası kurulmaz; senaryo gün içi bacak tetikleriyle başlar.
+      if (!opc.net) return null;
+      if (clock === "09:55" && opc.decidedAt !== "09:55") return null;
       const dir = opc.side;
       const entry = s5c.bars[s5c.bars.length - 1].close;
       const vw = s5c.vwap[s5c.vwap.length - 1] ?? null;
@@ -1811,7 +1813,13 @@ export default function SpyEngineV9() {
               </span>
               {op && (
                 <span className="rounded px-1.5 py-0.5 text-[10.5px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
-                  {op.waitFor10 ? "ÖN KARAR · 10:00'ı bekle" : op.status === "LOCKED" ? `KARAR ${op.decidedAt === "EMA" ? "EMA20 (zayıf)" : op.decidedAt ?? ""}${op.strength ? ` · ${op.strength}` : ""}${op.check10 && op.decidedAt === "09:55" ? ` · 10:00 ${op.check10}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
+                  {op.waitFor10
+                    ? op.decidedAt === "09:55" ? "09:55 TEYİTSİZ · giriş yok" : "ÖN KARAR · 10:00'ı bekle"
+                    : op.status === "LOCKED"
+                      ? op.net
+                        ? `NET KARAR ${op.decidedAt}${op.decidedAt === "09:55" && op.check10 ? ` · 10:00 ${op.check10}` : ""}`
+                        : "AÇILIŞ İŞLEMİ YOK"
+                      : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
                 </span>
               )}
             </div>
