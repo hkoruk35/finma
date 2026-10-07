@@ -426,7 +426,7 @@
   },
   "BOIL": {
     "market_cap": 0,
-    "avg_volume": 5384226,
+    "avg_volume": 5403990,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 20921785,
+    "avg_volume": 20980815,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2326,7 +2326,7 @@
   },
   "QQQ": {
     "market_cap": 0,
-    "avg_volume": 35333573,
+    "avg_volume": 35084132,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 44119376,
+    "avg_volume": 43999618,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2751,7 +2751,7 @@
   },
   "MDY": {
     "market_cap": 0,
-    "avg_volume": 600898,
+    "avg_volume": 599293,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11151,7 +11151,7 @@
   },
   "VXX": {
     "market_cap": 0,
-    "avg_volume": 7783498,
+    "avg_volume": 7826309,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -13451,12 +13451,12 @@
   },
   "STRC": {
     "market_cap": 0,
-    "avg_volume": 1410310,
+    "avg_volume": 1405118,
     "beta": 3.571,
     "short_float": 0.0,
     "sector": "Technology",
     "industry": "Software - Application",
-    "heldPercentInstitutions": 0.12764,
+    "heldPercentInstitutions": 0.13520001,
     "grossMargins": 0.67600995,
     "operatingMargins": -68.081116,
     "profitMargins": 0.0,
@@ -17401,7 +17401,7 @@
   },
   "GLDM": {
     "market_cap": 0,
-    "avg_volume": 4487909,
+    "avg_volume": 4492503,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -27101,7 +27101,7 @@
   },
   "GOOGN": {
     "market_cap": 0,
-    "avg_volume": 1674551,
+    "avg_volume": 1667090,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -36701,7 +36701,7 @@
   },
   "UUP": {
     "market_cap": 0,
-    "avg_volume": 1744307,
+    "avg_volume": 1735151,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -38951,7 +38951,7 @@
   },
   "SIVR": {
     "market_cap": 0,
-    "avg_volume": 1250423,
+    "avg_volume": 1263903,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -39501,7 +39501,7 @@
   },
   "TSLG": {
     "market_cap": 0,
-    "avg_volume": 43395409,
+    "avg_volume": 43873781,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -41326,7 +41326,7 @@
   },
   "AGQ": {
     "market_cap": 0,
-    "avg_volume": 2540503,
+    "avg_volume": 2538832,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -41976,7 +41976,7 @@
   },
   "MSBT": {
     "market_cap": 0,
-    "avg_volume": 620548,
+    "avg_volume": 623973,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",

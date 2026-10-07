@@ -1,33 +1,28 @@
 {
-  "date": "2026-10-06",
-  "generated_at": "2026-10-06T17:02:05.255710-04:00",
+  "date": "2026-10-07",
+  "generated_at": "2026-10-07T09:03:54.911967-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 42,
+  "active_scores_count": 22,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SMCI",
-        "LRCX",
-        "AXTI",
-        "SNX",
-        "AVPT",
-        "BTSG",
-        "DXPE",
-        "KEX",
-        "PSX",
-        "GMAB"
+        "U",
+        "NET",
+        "CVSA",
+        "FFIV",
+        "ENTG",
+        "AMPL",
+        "BB",
+        "PLXS",
+        "CPA",
+        "CR"
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 5,
       "tickers": [
-        "AVPT",
-        "DXPE",
-        "GMAB",
-        "ZETA",
-        "WST",
         "NET",
         "BB",
         "ANET",
@@ -54,42 +49,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SMCI",
-      "score": 64.5,
+      "ticker": "U",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "LRCX",
-      "score": 54.5,
+      "ticker": "NET",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AXTI",
-      "score": 56.5,
+      "ticker": "CVSA",
+      "score": 46.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 775.79,
-      "change_pct": -0.42
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 759.66,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 514.56,
-      "change_pct": 0.0
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.78,
-      "change_pct": 5.13
-    },
-    "RUSSELL2000": {
-      "value": 281.34,
-      "change_pct": 0.0
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-07T09:30:09.800998-04:00"
+  }
 }
