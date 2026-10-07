@@ -5,12 +5,12 @@
       "ticker": "U",
       "company": "U",
       "sector": "Technology",
-      "master_score": 58.0,
+      "master_score": 61.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 45.68000030517578,
-      "change_pct": 4.75,
+      "price": 45.439998626708984,
+      "change_pct": 1.09,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
     },
     {
       "ticker": "NET",
@@ -38,12 +38,12 @@
       "ticker": "FFIV",
       "company": "FFIV",
       "sector": "Technology",
-      "master_score": 58.0,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 466.8599853515625,
-      "change_pct": 1.82,
+      "price": 466.6499938964844,
+      "change_pct": -0.67,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
       "ticker": "ENTG",
@@ -117,10 +117,10 @@
       "sector": "Technology",
       "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 379.1600036621094,
-      "change_pct": 4.59,
+      "price": 376.510009765625,
+      "change_pct": 0.19,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.0 | System: EMA_CROSS"
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
     },
     {
       "ticker": "KALU",
@@ -341,6 +341,83 @@
       "change_pct": 0.55,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 43.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DXC",
+      "company": "DXC",
+      "sector": "Technology",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 12.020000457763672,
+      "change_pct": 1.61,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "MSM",
+      "company": "MSM",
+      "sector": "Industrials",
+      "master_score": 56.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 130.3800048828125,
+      "change_pct": 0.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SIMO",
+      "company": "SIMO",
+      "sector": "Technology",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 285.7799987792969,
+      "change_pct": 0.29,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WKC",
+      "company": "WKC",
+      "sector": "Energy",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 36.68000030517578,
+      "change_pct": 0.44,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "DIOD",
+      "company": "DIOD",
+      "sector": "Technology",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 100.6500015258789,
+      "change_pct": -6.58,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "MELI",
+      "company": "MELI",
+      "sector": "Consumer Cyclical",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 1872.780029296875,
+      "change_pct": 0.8,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NVDA",
+      "company": "NVIDIA Corp",
+      "sector": "Technology",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 237.47000122070312,
+      "change_pct": -0.74,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     }
   ]
 }
