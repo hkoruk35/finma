@@ -312,6 +312,14 @@ export interface OpeningRegime {
   strength: "GÜÇLÜ" | "NORMAL" | "ZAYIF" | null;
   /** Kararı veren aşama */
   decidedAt: "09:55" | "10:00" | "EMA" | null;
+  /** Açılış gap'i (09:30 açılış − dünkü kapanış) ve karar yönüyle uyumu — dünkü kapanış verilmediyse null */
+  gap: { pts: number; agree: boolean } | null;
+  /** 10:00 kuralının (30m + 15m 09:45 + ≥4/6 5m) bugünkü okuması — 09:55 kararı verilmiş olsa da hesaplanır */
+  check10: "AYNI" | "TERS" | "YOK" | null;
+  /** 09:55'te netlik yetersiz (kural teyitsiz ya da yok) → 10:00 30m kapanışı beklenmeli */
+  waitFor10: boolean;
+  /** İlk 2–3 saat güveni: kararın tipine göre ölçülmüş okuma (yön DEĞİŞTİRMEZ) */
+  dayHold: { level: "YÜKSEK" | "ORTA" | "DÜŞÜK"; text: string } | null;
   stages: OpeningStage[];
   label: string;
   summary: string;
@@ -339,6 +347,7 @@ const OPEN_WINDOW_END = 10 * 60; // 10:00
 export function openingRegime(
   m5: DaySeries, m15: DaySeries, ema5?: EmaMap | null, m30?: DaySeries | null,
   stageStats?: Record<string, { hit60: number; hitClose: number }> | null,
+  prevClose?: number | null,
 ): OpeningRegime {
   const win5 = m5.bars.map((b, i) => ({ b, v: m5.vwap[i] })).filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
   const win15 = m15.bars.map((b, i) => ({ b, v: m15.vwap[i] })).filter((x) => nyParts(x.b.time).minutes < OPEN_WINDOW_END);
@@ -379,7 +388,7 @@ export function openingRegime(
 
   if (!closes5.length) {
     return {
-      ...base, status: "WAITING", side: null, provisional: null, lean: null, weak: false, strength: null, decidedAt: null, stages,
+      ...base, status: "WAITING", side: null, provisional: null, lean: null, weak: false, strength: null, decidedAt: null, gap: null, dayHold: null, check10: null, waitFor10: false, stages,
       label: "BEKLENİYOR", score: 0, maxScore: 3, votes: [],
       summary: "09:35'te ilk 5m kapanışıyla okuma başlar; 09:45 15m, 09:55 büyük resim (karar), gerekirse 10:00 30m teyidi.",
     };
@@ -399,11 +408,19 @@ export function openingRegime(
   let weak = false;
   let lean: OpeningRegime["lean"] = null;
 
+  // açılış gap'i: 09:30 açılışı − dünkü kapanış
+  const open0 = m5.bars.length ? m5.bars[0].open : null;
+  const gapPts = open0 != null && prevClose != null && Number.isFinite(prevClose) ? Math.round((open0 - prevClose) * 100) / 100 : null;
+  const gapDir = gapPts == null ? null : Math.sign(gapPts);
+
   if (ruleDecided) {
     side = s5! > 0 ? "UP" : "DOWN";
     status = "LOCKED";
     decidedAt = "09:55";
-    strength = dE === s5 && volDir === s5 ? "GÜÇLÜ" : "NORMAL";
+    // GÜÇLÜ = EMA20 + hacim + gap aynı yönde (gap bilinmiyorsa eskisi gibi EMA + hacim).
+    // 58 seans: bu üçlü teyitle 3 saat sonra yönde %80 (ort. +2,0, iki yarıda da olumlu);
+    // teyidi eksik 09:55 kararları 2 saatte %44.
+    strength = dE === s5 && volDir === s5 && (gapDir == null || gapDir === s5) ? "GÜÇLÜ" : "NORMAL";
   } else if (s5 === 0 && dE !== 0) {
     // 09:55 belirsiz: EMA20 tarafı ZAYIF yön olarak hemen verilir (erken pozisyon için);
     // 10:00'da 30m teyidi aynıysa NORMAL'e yükselir, net TERS ise yön çevrilir.
@@ -465,8 +482,43 @@ export function openingRegime(
             : "09:55 ve 10:00 aşamaları yön vermedi, fiyat EMA20 üzerinde — yönsüz açılış."
       : `Ön okuma (${done.length ? done[done.length - 1].clock : "—"}): ${provWord}. ${nextStage ? `Sonraki aşama ${nextStage.clock} (${nextStage.title}).` : ""} Erken aşamalar tek başına güvenilir değil — karar 09:55'te${s5 === 0 ? ", bugün 10:00 30m teyidi bekleniyor" : ""}.`;
 
+  // — 10:00 kuralı her gün okunur (09:55 kararı verilmiş olsa da) —
+  const r10 = six.some((x) => x == null) || s30 == null || sd15(1) == null ? null
+    : s30 !== 0 && s30 === sd15(1) && ((s30 > 0 && up6 >= 4) || (s30 < 0 && dn6 >= 4)) ? s30 : 0;
+  const sideN = side === "UP" ? 1 : side === "DOWN" ? -1 : 0;
+  const check10: OpeningRegime["check10"] = r10 == null || sideN === 0 ? null : r10 === 0 ? "YOK" : r10 === sideN ? "AYNI" : "TERS";
+  // 09:55'te yeterli netlik = kural + EMA20 + hacim + gap (GÜÇLÜ). Değilse 10:00 30m kapanışı beklenir.
+  const waitFor10 = closes5.length >= 5 && !(decidedAt === "09:55" && strength === "GÜÇLÜ") && r10 == null;
+
+  // — ilk 2–3 saat güveni (yön değiştirmez; hedef ufku karardan sonraki 2–3 saat, sonrası seans içinde yeniden yön) —
+  // 58 seans, 5m: karar fiyatından +2s / +3s yönde kapanış ve "önce +1,5 mi −1,5 mi geldi"
+  const gap = gapPts != null && sideN !== 0 ? { pts: gapPts, agree: gapDir === sideN } : null;
+  const missing: string[] = [];
+  if (sideN !== 0) {
+    if (dE !== sideN) missing.push("EMA20 ters/nötr");
+    if (volDir !== sideN) missing.push("hacim ters/dengede");
+    if (gapDir != null && gapDir !== sideN) missing.push("gap ters");
+  }
+  let dayHold: OpeningRegime["dayHold"] = null;
+  if (waitFor10) {
+    dayHold = { level: "ORTA", text: decidedAt === "09:55"
+      ? `09:55 kuralı oluştu ama teyitsiz (eksik: ${missing.join(", ") || "—"}) → NETLİK YETERSİZ: 10:00 30m kapanışını bekle. Geçmişte bu günlerde 09:55'te girmek 2 saatte %44, önce −1,5 puan %56.`
+      : "09:55'te netlik yok → 10:00 30m kapanışını bekle. 10:00 kuralı (30m + 15m + 6×5m aynı taraf) oluşursa geçmişte 2 saatte yönde %72, önce −1,5 puan yalnız %22 (18 gün)." };
+  } else if (status === "LOCKED" && sideN !== 0) {
+    if (decidedAt === "09:55" && strength === "GÜÇLÜ")
+      dayHold = { level: "YÜKSEK", text: `09:55 NET: kural + EMA20 + hacim + gap aynı yönde → 10:00'ı beklemek gerekmez. Geçmişte 3 saat sonra yönde %80 (ort. +2,0 puan), önce +1,5 %70 / önce −1,5 %30 (10 gün).${check10 === "TERS" ? " ⚠ 10:00 kuralı TERS okuyor — stopu sıkılaştır." : ""}` };
+    else if (decidedAt === "09:55" && check10 === "TERS")
+      dayHold = { level: "DÜŞÜK", text: "09:55 kuralı teyitsizdi ve 10:00 30m TERS okuyor → ÇELİŞKİ: açılış yönü yok say, gün içi bacak tetiğini bekle." };
+    else if (decidedAt === "09:55")
+      dayHold = { level: "ORTA", text: `09:55 kuralı teyitsiz${check10 === "AYNI" ? ", 10:00 aynı yönü gösterdi" : ", 10:00 kuralı oluşmadı"} → dikkat: geçmişte bu günlerde 10:00 teyidi isabeti artırmadı (2 saatte %47, önce −1,5 puan %60; 15 gün). Küçük pozisyon, VWAP/EMA20 geri çekilmesinde gir, ilk hedefte kâr al.` };
+    else if (decidedAt === "10:00")
+      dayHold = { level: "YÜKSEK", text: "10:00 KARARI: 09:55'te netlik yoktu, 30m + 15m + 6×5m aynı tarafta kapandı → geçmişte 2 saat sonra yönde %72, önce −1,5 puan yalnız %22 (18 gün). Hedef 2–3 saat içinde." };
+    else
+      dayHold = { level: "DÜŞÜK", text: "Yön yalnız EMA20 tarafından (09:55 ve 10:00 kuralı oluşmadı) → geçmişte 2 saat sonra yönde %50, 3 saatte %38 (16 gün). Yön yok say; gün içi bacak tetiğini bekle." };
+  }
+
   return {
-    ...base, status, side, provisional, lean, weak, strength, decidedAt, stages, label,
+    ...base, status, side, provisional, lean, weak, strength, decidedAt, gap, dayHold, check10, waitFor10, stages, label,
     score: votes.reduce((a, v) => a + v.vote, 0), maxScore: votes.length, votes, summary,
   };
 }
@@ -1453,6 +1505,11 @@ export function decisionRead(input: {
       watch.push(`15m yapı stobu uzak (${plan.rr.toFixed(1)}R); 5m sıkı stopla (${num2(plan.tightStop)}) ${plan.rrTight.toFixed(1)}R — küçük pozisyon.`);
   }
 
+  // — 09:55 netlik yetersizse 10:00 30m kapanışına kadar başlık "bekle" der (aksiyon değişmez; panel ölçümü aynı) —
+  if (opening.waitFor10 && input.playbook !== false && !input.track) {
+    title = `ÖN KARAR ${opening.side === "UP" ? "▲ yukarı" : opening.side === "DOWN" ? "▼ aşağı" : "—"} — 09:55'te netlik yetersiz: 10:00 30m kapanışını bekle`;
+    watch.unshift("10:00'da 30m + 15m (09:45–10:00) + 6×5m'nin ≥4'ü VWAP'ın aynı tarafında kapanırsa yön kesinleşir; erken pozisyon alma.");
+  }
   // — Senaryo takibi: günün ilk senaryosu varsa karar ONU TAŞIMAKTIR (yeniden üretmek değil) —
   let tracking = false;
   let modeLabelOut: string = SESSION_MODE_LABEL[mode];

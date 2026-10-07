@@ -1311,13 +1311,13 @@ export default function SpyEngineV9() {
     const s5 = daySeries(m5D, "5m", date, evalNow, lastM1Time);
     const s15 = daySeries(m15D, "15m", date, evalNow, lastM1Time);
     const s30 = daySeries(m30D, "30m", date, evalNow, lastM1Time);
-    const opening = openingRegime(s5, s15, ema5, s30, journal?.learned.stageStats ?? null);
+    const opening = openingRegime(s5, s15, ema5, s30, journal?.learned.stageStats ?? null, data?.levels?.prevClose ?? null);
     // Açılışta (09:45'ten önce) karar verilmez; sonrası her kapanan 5m/15m mumla güncellenir
     const live = opening.status === "WAITING" ? null : liveDirection(s5, s15);
     return { s5, s15, s30, opening, live, c5: commentAll(s5, "5m", 40, ema5), c15: commentAll(s15, "15m", 40, ema15) };
     // her yeni kapanışta (lastClosed) yeniden hesaplanır
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot, journal?.learned.stageStats]);
+  }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot, journal?.learned.stageStats, data?.levels?.prevClose]);
 
   /** Oluşmakta olan mumların canlı yorumu (yalnızca canlı modda; karar mumu değil) */
   const forming5 = useMemo(
@@ -1401,9 +1401,10 @@ export default function SpyEngineV9() {
       if (s5c.bars.length < (clock === "09:55" ? 5 : 6)) return null;
       const s15c = daySeries(m15D, "15m", date, tc, null);
       const s30c = daySeries(m30D, "30m", date, tc, null);
-      const opc = openingRegime(s5c, s15c, ema5, s30c, null);
+      const opc = openingRegime(s5c, s15c, ema5, s30c, null, data?.levels?.prevClose ?? null);
       if (opc.status !== "LOCKED" || (opc.side !== "UP" && opc.side !== "DOWN")) return null;
-      if (clock === "09:55" && opc.decidedAt !== "09:55") return null;
+      // 09:55 çapası yalnız NET kararda (GÜÇLÜ); netlik yoksa çapa 10:00 30m kapanışıyla kurulur
+      if (clock === "09:55" && (opc.decidedAt !== "09:55" || opc.strength !== "GÜÇLÜ")) return null;
       const dir = opc.side;
       const entry = s5c.bars[s5c.bars.length - 1].close;
       const vw = s5c.vwap[s5c.vwap.length - 1] ?? null;
@@ -1425,14 +1426,14 @@ export default function SpyEngineV9() {
       });
       if (!mp) return null;
       return {
-        date, dir, t0: tc, clock, entry, decidedAt: clock, strength: opc.strength, weak: opc.weak, kind: "AÇILIŞ", legNo: 1,
+        date, dir, t0: tc, clock, entry, decidedAt: clock, strength: opc.strength, weak: opc.weak, kind: "AÇILIŞ", legNo: 1, dayHold: opc.dayHold,
         targets: pickTargets(dir, entry, mp.supports, mp.resistances), option: optionFor(dir, entry), iv: realizedIV(m5D, tc),
       };
     };
     return tryAt(9 * 60 + 55, "09:55") ?? (anchorStage === 2 ? tryAt(10 * 60, "10:00") : null);
     // çapa yalnızca gün/aşama/veri/opsiyon-seviyesi değişince yeniden kurulur (dakikada bir DEĞİL)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date, anchorStage, anchorDataReady, optReady]);
+  }, [date, anchorStage, anchorDataReady, optReady, data?.levels?.prevClose]);
 
   /**
    * Bacak zinciri: 1. bacak = açılış çapası; trend değişince (ya da sabah yön yoksa 10:00'dan sonra)
@@ -1810,7 +1811,7 @@ export default function SpyEngineV9() {
               </span>
               {op && (
                 <span className="rounded px-1.5 py-0.5 text-[10.5px] font-semibold" style={{ color: opColor, backgroundColor: `${opColor}1f` }}>
-                  {op.status === "LOCKED" ? `KARAR ${op.decidedAt === "EMA" ? "09:55 (EMA20)" : op.decidedAt ?? ""}${op.strength ? ` · ${op.strength}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
+                  {op.waitFor10 ? "ÖN KARAR · 10:00'ı bekle" : op.status === "LOCKED" ? `KARAR ${op.decidedAt === "EMA" ? "EMA20 (zayıf)" : op.decidedAt ?? ""}${op.strength ? ` · ${op.strength}` : ""}${op.check10 && op.decidedAt === "09:55" ? ` · 10:00 ${op.check10}` : ""}` : op.status === "FORMING" ? "ÖN OKUMA" : "BEKLİYOR"}
                 </span>
               )}
             </div>
@@ -1821,6 +1822,14 @@ export default function SpyEngineV9() {
               </div>
               <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{op?.summary ?? "Mum verisi bekleniyor."}</div>
             </div>
+            {op?.dayHold && (
+              <div
+                className="border-t border-[#1c2635] px-4 py-1.5 text-[12px] leading-snug"
+                style={{ color: op.dayHold.level === "YÜKSEK" ? "#4ade80" : op.dayHold.level === "DÜŞÜK" ? "#fbbf24" : "#cbd5e1" }}
+              >
+                <b>İlk 2–3 saat güveni: {op.dayHold.level}</b> — {op.dayHold.text} <span className="text-slate-500">Sonrası seans içinde yeniden yön (Senaryo Takibi bacakları).</span>
+              </div>
+            )}
             {op && (
               <div className="grid grid-cols-3 gap-1 border-t border-[#1c2635] p-1.5 sm:grid-cols-6">
                 {op.stages.map((st) => {

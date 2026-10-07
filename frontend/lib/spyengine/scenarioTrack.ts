@@ -40,6 +40,8 @@ export interface Anchor {
   kind?: "AÇILIŞ" | "GÜN İÇİ";
   /** Gün içindeki sıra (1 = ilk bacak) */
   legNo?: number;
+  /** Açılış kararının gün geneli güveni (openingRegime.dayHold) — yalnız açılış bacağında */
+  dayHold?: { level: "YÜKSEK" | "ORTA" | "DÜŞÜK"; text: string } | null;
   strength: string | null;
   weak: boolean;
   targets: Target[];
@@ -343,6 +345,18 @@ export function trackScenario(input: {
     watch.push(`Trend onayı sonradan gelirse (≥%80 ${dir > 0 ? "VWAP üstü" : "VWAP altı"}, ≤2 kesişim) taşıma moduna geçilir.`);
   }
 
+  // açılış bacağında ilk 2–3 saat güveni DÜŞÜK/ORTA ise "taşı" yerine "hedefte kâr al"
+  if (!intraday && anchor.dayHold && status !== "DEĞİŞTİ") {
+    lines.splice(1, 0, `İlk 2–3 saat güveni ${anchor.dayHold.level}: ${anchor.dayHold.text}`);
+    if (anchor.dayHold.level !== "YÜKSEK" && status === "TREND ONAYLI") {
+      title = `${side} SENARYOSU ONAYLI ama açılış güveni ${anchor.dayHold.level} — hedefte kârın çoğunu al`;
+      for (let k = lines.length - 1; k >= 0; k--) if (lines[k].includes("elde tut")) lines[k] = "Yeni giriş yok (FOMO). Açılış kararı teyitsiz olduğu için taşıma yerine hedefte kârın çoğunu al; kalanını trend değişimi stopuyla tut.";
+    }
+  }
+  // açılış bacağının hedef ufku 2–3 saat: sonrası seans içinde yeniden yön okunur
+  if (!intraday && status !== "DEĞİŞTİ" && input.nowSec - anchor.t0 >= 3 * 3600) {
+    lines.splice(1, 0, "⏱ Açılış senaryosunun 2–3 saatlik ufku doldu: kalan kârı koru (stop: trend değişimi seviyesi); yeni yön kararı gün içi bacak tetiklerinden gelir.");
+  }
   if (counterWarn) {
     for (let k = lines.length - 1; k >= 0; k--) if (lines[k].includes("elde tut") || lines[k].startsWith("Gün içi bacak onaylandı")) lines.splice(k, 1);
     lines.splice(1, 0, `⚠ ${counterWarn}`);
