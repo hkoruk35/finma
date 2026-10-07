@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "CIEN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 438.73,
+        "entry_zone": "428.40 - 449.06",
+        "SL": 397.39,
+        "TP": 521.4
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "MRVL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 281.32,
+        "entry_zone": "274.82 - 287.81",
+        "SL": 255.33,
+        "TP": 333.28
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "CEG",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 294.72,
+        "entry_zone": "288.14 - 301.30",
+        "SL": 268.42,
+        "TP": 347.32
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "ALAB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 373.42,
+        "entry_zone": "361.73 - 385.11",
+        "SL": 326.67,
+        "TP": 466.91
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "NTAP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 235.58,
+        "entry_zone": "231.55 - 239.61",
+        "SL": 219.47,
+        "TP": 267.79
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "FFIV",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 470.36,
+        "entry_zone": "464.01 - 476.71",
+        "SL": 444.96,
+        "TP": 508.47
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "NOK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 10.62,
+        "entry_zone": "10.41 - 10.83",
+        "SL": 9.77,
+        "TP": 12.32
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "MTSI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 338.41,
+        "entry_zone": "331.03 - 345.79",
+        "SL": 308.87,
+        "TP": 397.49
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "GEV",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 992.73,
+        "entry_zone": "976.08 - 1009.39",
+        "SL": 926.13,
+        "TP": 1125.94
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 9.25,
+        "entry_zone": "8.97 - 9.53",
+        "SL": 8.12,
+        "TP": 10.95
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "NBIS",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 234.34,
+        "entry_zone": "226.59 - 242.09",
+        "SL": 203.34,
+        "TP": 296.34
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "UAA",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 4.84,
+        "entry_zone": "4.74 - 4.93",
+        "SL": 4.44,
+        "TP": 5.63
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "FTAI",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 172.99,
+        "entry_zone": "169.22 - 176.76",
+        "SL": 157.92,
+        "TP": 203.14
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "NRG",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 105.42,
+        "entry_zone": "103.46 - 107.38",
+        "SL": 97.59,
+        "TP": 121.08
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "NXT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 85.45,
+        "entry_zone": "83.62 - 87.27",
+        "SL": 78.15,
+        "TP": 100.05
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "STRL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 518.31,
+        "entry_zone": "504.99 - 531.63",
+        "SL": 465.05,
+        "TP": 624.84
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "LNC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 40.82,
+        "entry_zone": "40.26 - 41.38",
+        "SL": 38.57,
+        "TP": 45.32
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "CCJ",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 89.76,
+        "entry_zone": "88.05 - 91.47",
+        "SL": 82.91,
+        "TP": 103.46
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "CRWV",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 87.62,
+        "entry_zone": "85.37 - 89.87",
+        "SL": 78.64,
+        "TP": 105.59
+    },
+    {
+        "date": "2026-10-07 15:30",
+        "symbol": "PEG",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 71.3,
+        "entry_zone": "70.65 - 71.95",
+        "SL": 68.69,
+        "TP": 76.51
+    }
+]
