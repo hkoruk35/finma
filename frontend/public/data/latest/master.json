@@ -1,8 +1,8 @@
 {
   "date": "2026-10-07",
-  "generated_at": "2026-10-07T09:03:54.911967-04:00",
+  "generated_at": "2026-10-07T14:03:02.375756-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 22,
+  "active_scores_count": 31,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,13 +21,14 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 6,
       "tickers": [
         "NET",
         "BB",
         "ANET",
         "BLFS",
-        "SAP"
+        "SAP",
+        "SMCI"
       ]
     },
     "value": {
@@ -66,25 +67,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 777.53,
-      "change_pct": -0.2
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 757.63,
-      "change_pct": -0.27
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 511.49,
-      "change_pct": -0.6
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.14,
-      "change_pct": 0.87
-    },
-    "RUSSELL2000": {
-      "value": 278.18,
-      "change_pct": -1.12
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-07T14:30:09.948577-04:00"
+  }
 }
