@@ -2476,7 +2476,10 @@ export default function SpyEngineV9() {
         {/* ── 1a2) Pivot noktaları ── */}
         <PivotCard p={pivR} price={price} />
 
-        {/* ── 1b) Karar desteği — 5m · 15m · gün geneli (fiyat + hacim) ── */}
+        {/* ── 1b) Erken uyarı · likidite · akıllı para (Karar Desteği'nin üstünde) ── */}
+        <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} scenarioDir={legAnchor && track && track.status !== "DEĞİŞTİ" ? legAnchor.dir : null} />
+
+        {/* ── 1c) Karar desteği — 5m · 15m · gün geneli (fiyat + hacim) ── */}
         <DecisionPanel
           d={decision}
           r1h={r1h}
@@ -2490,8 +2493,6 @@ export default function SpyEngineV9() {
         {/* ── 1b2) Senaryo Takibi (çapa varsa) — yoksa ön plan ── */}
         {chain ? <ScenarioTrackPanel t={track} chain={chain} day={dayLive} recent={dayRecent} /> : !replayDate && <ScenarioPanel sc={scenarioRead.sc} expectation={null} waitReason={scenarioRead.wait} />}
 
-        {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
-        <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} scenarioDir={legAnchor && track && track.status !== "DEĞİŞTİ" ? legAnchor.dir : null} />
         </>
 
         {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
