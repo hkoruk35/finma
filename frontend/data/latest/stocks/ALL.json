@@ -1,8 +1,8 @@
 {
   "ticker": "ALL",
   "company": "The Allstate Corporation",
-  "date": "2026-10-07",
-  "generated_at": "2026-10-07T03:04:55.353Z",
+  "date": "2026-10-08",
+  "generated_at": "2026-10-08T01:13:31.037Z",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
   "price": {
@@ -14,12 +14,12 @@
     "change_pct": -0.19580901084059144,
     "change_pct_1w": -0.5101561111816221,
     "change_pct_1m": -0.6159706492470612,
-    "change_pct_1y": 7.393574824510775,
+    "change_pct_1y": 5.892634865646066,
     "volume": 1809400,
     "avg_volume_30d": 63146500.00000001
   },
   "scores": {
-    "master_score": 56,
+    "master_score": 50,
     "technical_score": 40,
     "fundamental_score": 86.3,
     "momentum_score": 50,
@@ -28,18 +28,18 @@
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": 4,
-      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.83%)"
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
     }
   },
   "technical": {
-    "rsi_14": 29.641073246750565,
+    "rsi_14": 29.6410731032843,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 235.0360403018157,
-    "ema_50": 243.20294960409777,
-    "ema_200": 230.86139945869996,
+    "ema_20": 235.0360403018521,
+    "ema_50": 243.20307854548668,
+    "ema_200": 231.1019477208263,
     "ema_stack_bullish": false,
     "bb_upper": 235.483504486084,
     "bb_middle": 224.27000427246094,
@@ -52,17 +52,17 @@
     "52w_low": 188.0800018310547
   },
   "fundamental": {
-    "pe_ratio": 4.487195,
-    "pb_ratio": 1.7971649,
+    "pe_ratio": 4.4807925,
+    "pb_ratio": 1.7946005,
     "gross_margin": 0.36800998,
     "operating_margin": 0.22827,
     "net_margin": 0.18971,
-    "market_cap": 56708452352,
+    "market_cap": 56627535872,
     "revenue_growth_ttm": 0.118,
-    "fcf_yield": 0.26730804053525514,
-    "institutional_ownership_pct": 0.86127996,
+    "fcf_yield": 0.2676900035746623,
+    "institutional_ownership_pct": 0.86114,
     "dividend_rate": 4.32,
-    "dividend_yield": 0.019199999
+    "dividend_yield": 0.019299999
   },
   "scores_detail": {
     "entry_range_low": 220.92,
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $220.92 – $224.83 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $228.57 direnci veya $219.80 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $213.06 olarak belirlenmiştir. Fiyatın EMA200 ($230.86) veya günlük VWAP ($223.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $213.06 olarak belirlenmiştir. Fiyatın EMA200 ($231.10) veya günlük VWAP ($224.64) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($243.20) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($223.53) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($224.64) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 30 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
   }
