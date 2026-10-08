@@ -1,36 +1,33 @@
 {
-  "date": "2026-10-07",
-  "generated_at": "2026-10-07T17:03:05.104445-04:00",
+  "date": "2026-10-08",
+  "generated_at": "2026-10-08T14:03:19.549858-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 38,
+  "active_scores_count": 24,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "U",
-        "NET",
-        "CVSA",
-        "FFIV",
-        "ENTG",
-        "AMPL",
-        "BB",
-        "PLXS",
-        "CPA",
-        "CR"
+        "SMCI",
+        "SCSC",
+        "GOOGL",
+        "AMD",
+        "CON",
+        "TILE",
+        "LRCX",
+        "CRDO",
+        "FRSH",
+        "DXC"
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 5,
       "tickers": [
-        "U",
-        "NET",
-        "BB",
-        "ANET",
-        "BLFS",
-        "SAP",
         "SMCI",
-        "DXC"
+        "DXC",
+        "STNG",
+        "FIGS",
+        "GME"
       ]
     },
     "value": {
@@ -52,42 +49,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "U",
+      "ticker": "SMCI",
       "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "NET",
-      "score": 53.0,
+      "ticker": "SCSC",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CVSA",
-      "score": 46.0,
+      "ticker": "GOOGL",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 773.19,
-      "change_pct": -0.52
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 748.18,
-      "change_pct": -1.26
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 510.585,
-      "change_pct": -0.09
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.78,
-      "change_pct": 4.64
-    },
-    "RUSSELL2000": {
-      "value": 277.42,
-      "change_pct": -0.1
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-08T14:30:09.647447-04:00"
+  }
 }
