@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "U",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "NET",
@@ -296,7 +296,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CVSA",
@@ -442,7 +442,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FFIV",
@@ -587,7 +587,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ENTG",
@@ -733,7 +733,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AMPL",
@@ -879,7 +879,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BB",
@@ -1024,7 +1024,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PLXS",
@@ -1170,7 +1170,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CPA",
@@ -1315,7 +1315,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CR",
@@ -1461,7 +1461,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AVGO",
@@ -1606,7 +1606,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "KALU",
@@ -1752,7 +1752,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EMR",
@@ -1898,7 +1898,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ARW",
@@ -2043,7 +2043,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "NTCT",
@@ -2188,7 +2188,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ANET",
@@ -2332,7 +2332,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BLFS",
@@ -2477,7 +2477,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ACIW",
@@ -2622,7 +2622,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "KSS",
@@ -2767,7 +2767,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BHP",
@@ -2913,7 +2913,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SAP",
@@ -3058,7 +3058,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CROX",
@@ -3203,7 +3203,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SMCI",
@@ -3347,7 +3347,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SCSC",
@@ -3491,7 +3491,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GOOGL",
@@ -3637,7 +3637,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AMD",
@@ -3783,7 +3783,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CON",
@@ -3928,7 +3928,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TILE",
@@ -4073,7 +4073,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "LRCX",
@@ -4217,7 +4217,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CRDO",
@@ -4361,7 +4361,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07 16:00",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FRSH",
@@ -4505,7 +4505,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "DXC",
@@ -4649,7 +4649,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MSM",
@@ -4795,7 +4795,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SIMO",
@@ -4940,7 +4940,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WKC",
@@ -5087,7 +5087,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "DIOD",
@@ -5231,7 +5231,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MELI",
@@ -5376,7 +5376,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-07",
+      "last_checked": "2026-10-08 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "NVDA",
