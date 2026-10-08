@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-10-08T14:03:19.977827-04:00",
+  "generated_at": "2026-10-08T17:03:30.004241-04:00",
   "picks": [
-    {
-      "ticker": "PTGX",
-      "sector": "Healthcare",
-      "date_added": "2026-10-07",
-      "score": 35.5
-    },
-    {
-      "ticker": "EL",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-10-08",
-      "score": 44.0
-    },
     {
       "ticker": "NU",
       "sector": "Financial Services",
@@ -20,16 +8,22 @@
       "score": 44.0
     },
     {
-      "ticker": "LION",
-      "sector": "Unknown",
+      "ticker": "S",
+      "sector": "Technology",
       "date_added": "2026-10-08",
-      "score": 42.5
+      "score": 38.0
     },
     {
-      "ticker": "MMM",
-      "sector": "Industrials",
+      "ticker": "LITE",
+      "sector": "Technology",
       "date_added": "2026-10-08",
-      "score": 37.5
+      "score": 30.5
+    },
+    {
+      "ticker": "TLN",
+      "sector": "Utilities",
+      "date_added": "2026-10-08",
+      "score": 30.0
     }
   ]
 }
