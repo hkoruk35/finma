@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "CTVA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 14.13,
+        "entry_zone": "13.75 - 14.51",
+        "SL": 12.61,
+        "TP": 17.17
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "MPC",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 460.75,
+        "entry_zone": "451.95 - 469.55",
+        "SL": 425.55,
+        "TP": 531.15
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "SLDE",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 24.73,
+        "entry_zone": "24.33 - 25.13",
+        "SL": 23.13,
+        "TP": 27.93
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "KSS",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 20.1,
+        "entry_zone": "19.63 - 20.58",
+        "SL": 18.21,
+        "TP": 22.95
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "PM",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 200.5,
+        "entry_zone": "198.31 - 202.69",
+        "SL": 191.73,
+        "TP": 218.04
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 27.21,
+        "entry_zone": "26.71 - 27.71",
+        "SL": 25.23,
+        "TP": 31.18
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "SPOT",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 518.88,
+        "entry_zone": "510.71 - 527.04",
+        "SL": 486.23,
+        "TP": 584.17
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "MU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 1072.73,
+        "entry_zone": "1051.37 - 1094.09",
+        "SL": 987.3,
+        "TP": 1243.59
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "CBOE",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 291.01,
+        "entry_zone": "285.20 - 296.82",
+        "SL": 267.79,
+        "TP": 337.45
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "STGW",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 8.63,
+        "entry_zone": "8.50 - 8.76",
+        "SL": 8.11,
+        "TP": 9.68
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 82.61,
+        "entry_zone": "81.29 - 83.93",
+        "SL": 77.31,
+        "TP": 93.2
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "BKH",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 75.03,
+        "entry_zone": "74.00 - 76.06",
+        "SL": 70.92,
+        "TP": 83.25
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "SMCI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 43.14,
+        "entry_zone": "42.06 - 44.22",
+        "SL": 38.84,
+        "TP": 49.59
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "KODK",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 9.59,
+        "entry_zone": "9.43 - 9.75",
+        "SL": 8.96,
+        "TP": 10.86
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 16.93,
+        "entry_zone": "16.48 - 17.38",
+        "SL": 15.11,
+        "TP": 20.57
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "FRSH",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 13.34,
+        "entry_zone": "13.08 - 13.60",
+        "SL": 12.29,
+        "TP": 14.92
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "STZ",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 122.19,
+        "entry_zone": "120.67 - 123.71",
+        "SL": 116.13,
+        "TP": 134.32
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "NRG",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 105.92,
+        "entry_zone": "103.78 - 108.06",
+        "SL": 97.38,
+        "TP": 123.01
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 197.55,
+        "entry_zone": "189.70 - 205.41",
+        "SL": 166.13,
+        "TP": 260.41
+    },
+    {
+        "date": "2026-10-08 16:30",
+        "symbol": "PG",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 148.78,
+        "entry_zone": "147.60 - 149.96",
+        "SL": 144.07,
+        "TP": 158.2
+    }
+]
