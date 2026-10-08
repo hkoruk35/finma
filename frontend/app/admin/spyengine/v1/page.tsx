@@ -390,7 +390,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Erken Uyarı · Likidite · Akıllı Para</span> — ilk 5m kapanışla başlar.
+        <span className="font-semibold text-slate-300">Erken Uyarı · Likidite · Akıllı Para</span> — güncel veri yok; ilk 5m kapanışla başlar.
       </div>
     );
   }
@@ -1219,7 +1219,7 @@ const sgnTxt = (x: number | null, d = 2) => (x == null ? <span className="text-s
 
 function VwapPositionCard({ live, vwap, price, info }: { live: LiveDirection | null; vwap: number | null; price: number | null; info: string }) {
   if (!live) {
-    return <StateCard title="VWAP Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="09:45 ET 15m kapanışına kadar yön okuması başlamaz." />;
+    return <StateCard title="VWAP Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="Güncel veri yok — 09:45 ET 15m kapanışına kadar yön okuması başlamaz." />;
   }
   const d = live.dir === "UP" ? 1 : live.dir === "DOWN" ? -1 : 0;
   return (
@@ -1251,7 +1251,7 @@ function VwapPositionCard({ live, vwap, price, info }: { live: LiveDirection | n
 }
 
 function EmaPositionCard({ e }: { e: EmaPos | null }) {
-  if (!e) return <StateCard title="EMA20 Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="Kapanmış mum bekleniyor." />;
+  if (!e) return <StateCard title="EMA20 Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="Güncel veri yok — kapanmış mum bekleniyor." />;
   const d = e.dir === "UP" ? 1 : e.dir === "DOWN" ? -1 : 0;
   const col = e.headline === "GERİ ÇEKİLME" ? MXC : dirCol(d);
   const row = (tf: string, x: EmaTf) => ({
@@ -1312,7 +1312,7 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
       chip={showRecent ? `son 2 saat: ${recent!.headline}` : d ? `açılış ${num(d.day.open)}` : undefined}
       chipCol={showRecent ? kindCol(recent) : "#94a3b8"}
       arrow={day?.kind === "TREND" ? (day.side === "DOWN" ? "▼" : "▲") : "◆"}
-      label={day ? day.headline.replace(/^TREND GÜNÜ.*/, "TREND GÜNÜ") : "—"}
+      label={day ? day.headline.replace(/^TREND GÜNÜ.*/, "TREND GÜNÜ") : "GÜNCEL VERİ YOK"}
       sub={day && day.kind !== "OLUŞUYOR" ? `VWAP ${day.side === "DOWN" || (day.devNow ?? 0) < 0 ? "altında" : "üstünde"} %${Math.round(day.sideFrac * 100)} · ${day.crosses} kesişim` : day?.text}
       col={col}
       verdict={
@@ -1392,7 +1392,7 @@ function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) 
   if (!p) {
     return (
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — önceki seansın yüksek/düşük/kapanışı bekleniyor.
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; önceki seansın yüksek/düşük/kapanışı bekleniyor.
       </div>
     );
   }
@@ -2345,16 +2345,16 @@ export default function SpyEngineV9() {
         {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
 
         {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} expectation={vixExpectation(openFc?.vixNow ?? null)} waitReason={scenarioRead.wait} />}
-        {!sessionActive && <PivotCard p={pivR} price={price} />}
 
+        {/* Seans kartları HER ZAMAN görünür; veri yokken kendi "güncel veri yok / bekleniyor" durumunu gösterir */}
         {!sessionActive && (
-          <div className={`${SURFACE} px-4 py-2.5 text-[12px] text-slate-400`}>
-            <b className="text-slate-200">Seans analizi 09:35 ET&apos;de başlar</b> — 09:35 ilk 5m · 09:45 15m · 09:55 büyük resim (gün yönü kararı) · belirsizse 10:00 30m teyidi.
-            Açılış Rejimi, Karar Desteği, Erken Uyarı ve Trend Stop kartları ilk 5m kapanışında açılır.
+          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-[12px] text-amber-200">
+            <b>Güncel seans verisi yok</b> — {data?.session.isLive === false ? "piyasa kapalı ya da veri gelmedi" : "09:35 ET ilk 5m kapanışı bekleniyor"}. Kartlar aşağıda yerinde; veri gelince dolacak
+            (09:35 ilk 5m · 09:45 15m · 09:55 büyük resim · belirsizse 10:00 30m teyidi).
           </div>
         )}
 
-        {sessionActive && (<>
+        <>
         {/* ── 1) Açılış rejimi — tam genişlik, siyah zemin, gizle/göster ── */}
           <div className="overflow-hidden rounded-lg border bg-black" style={{ borderColor: `${opColor}55` }}>
             <div className={`flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 ${regimeOpen ? "border-b border-[#1c2635]" : ""}`}>
@@ -2492,10 +2492,10 @@ export default function SpyEngineV9() {
 
         {/* ── 1c) Erken uyarı · likidite · akıllı para ── */}
         <FlowPanel f={flow} price={price} nowMin={nowMin} opt={optLevels} scenarioDir={legAnchor && track && track.status !== "DEĞİŞTİ" ? legAnchor.dir : null} />
-        </>)}
+        </>
 
         {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
-        {sessionActive && (
+        {(
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
@@ -2517,7 +2517,7 @@ export default function SpyEngineV9() {
             </span>
           </div>
           {!stops || !stops.long || !stops.short ? (
-            <div className="px-3 py-4 text-[12px] text-slate-500">İlk 15m mum 09:45 ET&apos;de kapanınca stop bölgesi oluşur.</div>
+            <div className="px-3 py-4 text-[12px] text-slate-500">Güncel veri yok — ilk 15m mum 09:45 ET&apos;de kapanınca stop bölgesi oluşur.</div>
           ) : (
             <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-2">
               {([stops.long, stops.short] as const).map((z) => {
