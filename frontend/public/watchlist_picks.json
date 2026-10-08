@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-10-07T17:03:05.509589-04:00",
+  "generated_at": "2026-10-08T14:03:19.977827-04:00",
   "picks": [
-    {
-      "ticker": "SMMT",
-      "sector": "Healthcare",
-      "date_added": "2026-10-07",
-      "score": 33.5
-    },
-    {
-      "ticker": "A",
-      "sector": "Healthcare",
-      "date_added": "2026-10-07",
-      "score": 47.5
-    },
-    {
-      "ticker": "SWKS",
-      "sector": "Technology",
-      "date_added": "2026-10-07",
-      "score": 39.5
-    },
-    {
-      "ticker": "SNDK",
-      "sector": "Technology",
-      "date_added": "2026-10-07",
-      "score": 36.0
-    },
     {
       "ticker": "PTGX",
       "sector": "Healthcare",
       "date_added": "2026-10-07",
       "score": 35.5
+    },
+    {
+      "ticker": "EL",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-08",
+      "score": 44.0
+    },
+    {
+      "ticker": "NU",
+      "sector": "Financial Services",
+      "date_added": "2026-10-08",
+      "score": 44.0
+    },
+    {
+      "ticker": "LION",
+      "sector": "Unknown",
+      "date_added": "2026-10-08",
+      "score": 42.5
+    },
+    {
+      "ticker": "MMM",
+      "sector": "Industrials",
+      "date_added": "2026-10-08",
+      "score": 37.5
     }
   ]
 }
