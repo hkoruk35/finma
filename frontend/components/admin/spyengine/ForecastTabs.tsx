@@ -9,12 +9,23 @@
  * Model arşivden öğrenir (forecastModel.ts); her yeni seans günlüğe eklenince güncellenir.
  */
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useSyncExternalStore, type ReactNode } from "react";
 import { nyClock, nyDateTimeToEpoch, nyParts, type Bar } from "@/lib/spyengine/core";
 import {
   DAY_POINTS, CLOSE_CHECKS, HOUR_STARTS, makeLog, pathOf,
   type ForecastModel, type ForecastStats, type PathFacts,
 } from "@/lib/spyengine/forecastModel";
+
+const TAB_KEY = "spyengine_fc_tab";
+const tabListeners = new Set<() => void>();
+function subscribeTab(l: () => void) {
+  tabListeners.add(l);
+  window.addEventListener("storage", l);
+  return () => { tabListeners.delete(l); window.removeEventListener("storage", l); };
+}
+function readTab(): number {
+  try { const v = window.localStorage.getItem(TAB_KEY); return v == null ? -1 : Number(v); } catch { return -1; }
+}
 
 const W = 920, H = 300, PAD = { l: 8, r: 70, t: 18, b: 22 };
 const num = (x: number) => x.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -102,7 +113,13 @@ export default function ForecastTabs({ bars, date, nowSec, model, fstats, facts,
   mapTab: ReactNode;
   initialTab?: 0 | 1 | 2;
 }) {
-  const [tab, setTab] = useState<0 | 1 | 2>(initialTab);
+  // son seçilen sekme tarayıcıda hatırlanır (yalnız kişisel kolaylık; okunamazsa varsayılan)
+  const stored = useSyncExternalStore(subscribeTab, readTab, () => -1);
+  const tab: 0 | 1 | 2 = stored === 0 || stored === 1 || stored === 2 ? stored : initialTab;
+  const setTab = (v: 0 | 1 | 2) => {
+    try { window.localStorage.setItem(TAB_KEY, String(v)); } catch { /* depolama kapalıysa yok say */ }
+    tabListeners.forEach((l) => l());
+  };
   const log = useMemo(() => (model && facts ? makeLog(model, facts) : null), [model, facts]);
   const t = (m: number) => nyDateTimeToEpoch(date, m);
 

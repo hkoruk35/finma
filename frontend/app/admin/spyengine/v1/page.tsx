@@ -381,7 +381,7 @@ function FlowTile({ title, value, tone: tcol, status, note, children }: { title:
       {value != null && <div className="font-mono text-[16px] font-bold" style={{ color: tcol ?? "#e2e8f0" }}>{value}</div>}
       {status && <div className="text-[12px] leading-snug text-slate-200">{status}</div>}
       {children}
-      {note && <div className="mt-0.5 hidden text-[10.5px] leading-snug text-slate-500 sm:block">{note}</div>}
+      {note && <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">{note}</div>}
     </div>
   );
 }
@@ -411,7 +411,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
       {/* başlık */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[13px] font-semibold text-slate-200">
-          Erken Uyarı · Likidite · Akıllı Para <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· süpürme · emilim · kurumsal itki · delta · POC göçü · sıkışma/ivme</span>
+          Erken Uyarı · Likidite · Akıllı Para <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
         </span>
         <span className="flex items-center gap-1.5 text-[11px] font-semibold">
           <span className="rounded border px-1.5 py-0.5" style={{ color: col, borderColor: `${col}66`, backgroundColor: `${col}14` }}>{levelChip}</span>
@@ -428,7 +428,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
           <span className="bg-[#ef4444]" style={{ width: `${(w.bear / tot) * 100}%` }} />
         </div>
         {w.level !== "NONE" && nowMin > 0 && nowMin < CLOSE_TREND_START && (
-          <div className="mt-1 text-[11.5px] text-amber-300/90">⚠ 14:00 öncesi erken uyarı geçmişte zayıf (%40 isabet) — karar Karar Desteği&apos;nden; bu yalnız bilgi.</div>
+          <div className="mt-1 text-[11.5px] text-amber-300/90">⚠ Bu saatte (14:00 öncesi) erken uyarı geçmiş ölçümde zayıf (%40 isabet) — kararı Karar Desteği&apos;ndeki seans planı verir; bu uyarı yalnızca bilgi.</div>
         )}
         {(w.targets.length > 0 || w.invalidation != null) && (
           <div className="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-3">
@@ -479,7 +479,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
             <>
               <div className="font-mono text-[11.5px] text-slate-400">alan {num(prof.val)} – {num(prof.vah)} · 1 saat kayma <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></div>
               <div className="flex flex-wrap gap-1 font-mono text-[10.5px] text-slate-500">
-                {prof.pocPath.slice(-4).map((pp) => <span key={pp.clock} className="rounded bg-[#151c28] px-1">{pp.clock} {num(pp.poc)}</span>)}
+                {prof.pocPath.map((pp) => <span key={pp.clock} className="rounded bg-[#151c28] px-1">{pp.clock} {num(pp.poc)}</span>)}
               </div>
             </>
           )}
@@ -489,7 +489,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
           value={fmtD(f.cumDelta)}
           tone={f.cumDelta >= 0 ? "#4ade80" : "#f87171"}
           status={<>son 30 dk <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>{f.deltaPct30 != null && <> · %{Math.round(f.deltaPct30 * 100)} {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"}</>}</>}
-          note="Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk)."
+          note="Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir."
         />
         <FlowTile
           title="Sıkışma · ivme"
@@ -499,7 +499,7 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
         >
           <div className="text-[12px]">{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : <span className="text-slate-400">ivme artışı yok</span>}</div>
         </FlowTile>
-        <FlowTile title="Likidite havuzları" note="Fiyat stop kümelerine çekilir; fitille geçip geri dönerse = süpürme → dönüş sinyali.">
+        <FlowTile title="Likidite havuzları · stop kümeleri" note="Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.">
           <div className="flex flex-col gap-0.5 font-mono text-[12px]">
             {above.map((p) => <div key={`a${p.price}`} className="flex justify-between gap-2"><span className="text-[#4ade80]">▲ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">+{num(p.price - px)}</span></div>)}
             {below.map((p) => <div key={`b${p.price}`} className="flex justify-between gap-2"><span className="text-[#f87171]">▼ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">−{num(px - p.price)}</span></div>)}
@@ -532,9 +532,12 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
               </span>
             )}
             {opt.callPutOi != null && <span className="text-slate-500">C/P {opt.basis} {opt.callPutOi.toFixed(2)}</span>}
-            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok — son işlem günü hacmiyle</span>}
+            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
           </div>
         )}
+        <div className="mt-1 text-[10.5px] leading-snug text-slate-500">
+          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
+        </div>
       </div>
 
       {/* olaylar */}
@@ -553,8 +556,8 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
         </div>
       )}
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla · Hareket başladı: ek olarak son 2 mumda kurumsal itki ya da açılış aralığı / 30 dk kutusu hacimle kırıldı. Etiketler fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
-        Opsiyon OI dünkü kapanış değeridir; ±%3 pencere, veri gecikmeli olabilir.
+        Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla. Hareket başladı: buna ek olarak son 2 mumda kurumsal itki, açılış aralığı ya da 30 dk kutusu hacimle kırıldı.
+        Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
       </div>
     </div>
   );
@@ -1229,7 +1232,7 @@ function VwapPositionCard({ live, vwap, price, info }: { live: LiveDirection | n
       label={d > 0 ? "YUKARI" : d < 0 ? "AŞAĞI" : "KARARSIZ"}
       sub={`${live.strength} · ${info}`}
       col={dirCol(d)}
-      verdict={live.aligned ? `İki zaman dilimi de VWAP'ın ${d > 0 ? "üstünde" : "altında"} — yön teyitli.` : "5m ve 15m VWAP'ın farklı tarafında — teyit için iki kapanışın aynı tarafta olmasını bekle."}
+      verdict={<>{live.text}{!live.aligned && <span className="text-slate-400"> Teyit için 5m ve 15m kapanışın aynı tarafta olmasını bekle.</span>}</>}
     >
       <TfTable
         head={["kapanış", "taraf", "seri"]}
@@ -1274,6 +1277,7 @@ function EmaPositionCard({ e }: { e: EmaPos | null }) {
       verdict={e.verdict}
     >
       <TfTable head={["EMA20", "taraf", "seri", "mesafe", "eğim"]} rows={[row("5m", e.m5), row("15m", e.m15)]} />
+      <div className="mt-1 text-[11px] leading-snug text-slate-500">{e.text.slice(0, e.text.length - e.verdict.length).trim()}</div>
     </StateCard>
   );
 }
@@ -1320,6 +1324,7 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
                 {d.day.rangePos != null && <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(d.day.rangePos * 100)}% - 2px)` }} />}
               </div>
             </div>
+            <div className="text-[11.5px] leading-snug text-slate-400">{d.day.text}</div>
             {d.day.buyShare != null && (
               <div>
                 <div className="flex justify-between font-mono text-[10.5px]"><span className="text-[#4ade80]">alıcı %{Math.round(d.day.buyShare * 100)}</span><span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span></div>
@@ -1331,6 +1336,11 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
       }
     >
       <div className="flex flex-col">
+        {d && (
+          <Row k="Seans yönü (fiyat + hacim)">
+            <b style={{ color: DIR_COLOR[d.day.dir] }}>{d.day.dir === "UP" ? "▲ YUKARI" : d.day.dir === "DOWN" ? "▼ AŞAĞI" : "◆ YATAY"}</b>
+          </Row>
+        )}
         <Row k="Açılış kararı">
           {!op || op.status === "WAITING" ? "—"
             : op.waitFor10 ? <span className="text-amber-300">{op.decidedAt === "09:55" ? "09:55 teyitsiz · giriş yok" : "10:00 bekleniyor"}</span>
@@ -2560,7 +2570,9 @@ export default function SpyEngineV9() {
         )}
 
         {/* ── 3) Tahmin: günlük yol · 1 saatlik · harita (mevcut, aynen) ── */}
-        {date && (
+        {!date ? (
+          <div className={`${SURFACE} px-3 py-8 text-center text-[12px] text-slate-500`}>Tahmin bölümü için fiyat ve seviye verisi bekleniyor.</div>
+        ) : (
           <ForecastTabs
             bars={todayRth5.bars}
             date={date}
