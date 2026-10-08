@@ -18,10 +18,10 @@ import {
 import { detectCandlePatterns } from "./candlePatterns";
 import type { LevelRead, CloseForecast } from "./levels";
 
-export type Tf = "5m" | "15m" | "30m";
+export type Tf = "5m" | "15m" | "30m" | "1h" | "4h";
 export type VwapSide = "ABOVE" | "BELOW" | "AT";
 
-const SPAN: Record<Tf, number> = { "5m": 300, "15m": 900, "30m": 1800 };
+const SPAN: Record<Tf, number> = { "5m": 300, "15m": 900, "30m": 1800, "1h": 3600, "4h": 14400 };
 const AT_EPS = 0.02;
 
 const sideOf = (close: number, vwap: number | null): VwapSide | null =>
@@ -46,6 +46,26 @@ export interface DaySeries {
  * mum, son 1m verisi kesinleşir kesinleşmez — ne bir dakika erken ne geç —
  * kapanmış sayılır.
  */
+/**
+ * Çok günlük seri (1h / 4h genel yapı için): KAPANMIŞ mumlar, VWAP = mumun kendi seansının
+ * RTH kümülatif VWAP'ı (RTH dışı mumlarda null). Son `keep` mum döner.
+ */
+export function multiDaySeries(all: Bar[], tf: Tf, nowSec: number, keep = 60): DaySeries {
+  const span = SPAN[tf];
+  const closed = all.filter((b) => b.time + span <= nowSec);
+  let day = "", pv = 0, vv = 0;
+  const vwap = closed.map((b) => {
+    const p = nyParts(b.time);
+    if (p.ymd !== day) { day = p.ymd; pv = 0; vv = 0; }
+    const rth = p.minutes + span / 60 > 9 * 60 + 30 && p.minutes < 16 * 60;
+    if (!rth) return null;
+    pv += ((b.high + b.low + b.close) / 3) * (b.volume || 0);
+    vv += b.volume || 0;
+    return vv > 0 ? pv / vv : null;
+  });
+  return { bars: closed.slice(-keep), vwap: vwap.slice(-keep) };
+}
+
 export function daySeries(all: Bar[], tf: Tf, ymd: string, nowSec: number, lastM1Time: number | null): DaySeries {
   const bars = all.filter((b) => {
     if (!isRthBar(b) || nyParts(b.time).ymd !== ymd) return false;
@@ -901,7 +921,7 @@ export function tfRead(s: DaySeries, tf: Tf, emaMap: EmaMap, i = s.bars.length -
 
   // 3) EMA20 eğimi (3 mum önceye göre)
   const ePrev = emaMap.get(b.time - 3 * SPAN[tf]) ?? null;
-  const slopeEps = tf === "5m" ? 0.03 : tf === "15m" ? 0.05 : 0.08;
+  const slopeEps = tf === "5m" ? 0.03 : tf === "15m" ? 0.05 : tf === "30m" ? 0.08 : tf === "1h" ? 0.12 : 0.2;
   const slope = e != null && ePrev != null ? e - ePrev : null;
   factors.push({
     label: "EMA20 eğimi",

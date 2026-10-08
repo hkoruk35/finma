@@ -24,6 +24,8 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotRead } from "@/lib/spyengine/pivots";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import ForecastMap from "@/components/admin/spyengine/ForecastMap";
+import ForecastTabs from "@/components/admin/spyengine/ForecastTabs";
+import { factsOf, type ForecastModel, type ForecastStats } from "@/lib/spyengine/forecastModel";
 import {
   TickerStrip, InfoCards, GatePanel, PositionPanel, ExitGatePanel,
   AlertBanner, computeEntryAlert, Disclosure, PhaseBadge, SURFACE, num, signed, tone,
@@ -35,9 +37,9 @@ import {
 } from "@/lib/spyengine/core";
 import {
   daySeries, liveVwap, commentAll, commentForming, fmtVol, stopZones, openingRegime, liveDirection, buildForecastMap,
-  emaByTime, decisionRead, FACTOR_MAX, CLOSE_TREND_START, sessionModeOf,
+  emaByTime, decisionRead, FACTOR_MAX, CLOSE_TREND_START, sessionModeOf, tfRead, multiDaySeries,
   type CandleComment, type Tone, type DecisionRead, type TfRead, type PlanSide,
-  type DaySeries, type EmaMap, type OpeningRegime,
+  type DaySeries, type EmaMap, type OpeningRegime, type VwapSide, type LiveDirection,
 } from "@/lib/spyengine/openingMap";
 import type {
   EngineEvent, PositionState, ContractType, EngineState, GateStatus, RegimeState,
@@ -261,8 +263,11 @@ function PlanCell({ side, p, active, price }: { side: "LONG" | "SHORT"; p: PlanS
   );
 }
 
-function DecisionPanel({ d, price, secTo5, forming, waiting }: {
+function DecisionPanel({ d, price, secTo5, forming, waiting, r1h, r4h }: {
   d: DecisionRead | null;
+  /** 1h / 4h genel yapı (bilgi; karar mantığına girmez) */
+  r1h?: TfRead | null;
+  r4h?: TfRead | null;
   price: number | null;
   secTo5: number | null;
   forming: CandleComment | null;
@@ -303,8 +308,10 @@ function DecisionPanel({ d, price, secTo5, forming, waiting }: {
         </ul>
       </div>
 
-      {/* 30m · 15m · 5m */}
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-3">
+      {/* 4h · 1h (genel yapı) · 30m · 15m · 5m */}
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
+        <TfColumn title="4h" sub="ana yapı (çok günlük)" r={r4h ?? null} />
+        <TfColumn title="1h" sub="genel yapı (çok günlük)" r={r1h ?? null} />
         <TfColumn title="30m" sub="genel gidişat" r={d.r30} />
         <TfColumn title="15m" sub="karar" r={d.r15} />
         <TfColumn title="5m" sub="tetik · giriş/çıkış zamanlaması" r={d.r5} />
@@ -367,11 +374,14 @@ const EVENT_TAG: Record<FlowRead["events"][number]["kind"], string> = {
   DIV_BEAR: "− UYUMSUZLUK",
 };
 
-function MiniCard({ title, children }: { title: string; children: React.ReactNode }) {
+function FlowTile({ title, value, tone: tcol, status, note, children }: { title: string; value?: ReactNode; tone?: string; status?: ReactNode; note?: string; children?: ReactNode }) {
   return (
-    <div className="bg-[#0f141d] px-3 py-2">
-      <div className="mb-1 text-[11px] font-semibold text-slate-300">{title}</div>
-      <div className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-400">{children}</div>
+    <div className="flex flex-col gap-0.5 bg-[#0f141d] px-3 py-2">
+      <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{title}</div>
+      {value != null && <div className="font-mono text-[16px] font-bold" style={{ color: tcol ?? "#e2e8f0" }}>{value}</div>}
+      {status && <div className="text-[12px] leading-snug text-slate-200">{status}</div>}
+      {children}
+      {note && <div className="mt-0.5 hidden text-[10.5px] leading-snug text-slate-500 sm:block">{note}</div>}
     </div>
   );
 }
@@ -392,120 +402,128 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
   const above = f.pools.filter((p) => !p.swept && p.price > px).sort((a, b) => a.price - b.price).slice(0, 3);
   const below = f.pools.filter((p) => !p.swept && p.price < px).sort((a, b) => b.price - a.price).slice(0, 3);
   const fmtD = (v: number) => `${v >= 0 ? "+" : "−"}${fmtVol(Math.abs(v))}`;
+  const headline = scenarioDir && w.side && w.level !== "NONE"
+    ? ((w.side === "LONG") === (scenarioDir === "UP") ? `${w.headline} — senaryoyu DESTEKLİYOR (yeni giriş değil, taşı)` : `${w.headline} — senaryoya TERS: erken uyarı, trend değişimi koşullarını izle`)
+    : w.headline;
+  const levelChip = w.level === "STARTED" ? "HAREKET BAŞLADI" : w.level === "NONE" ? "SAKİN" : "HAZIRLIK";
   return (
     <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}66` }}>
+      {/* başlık */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Erken Uyarı · Likidite · Akıllı Para <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
+        <span className="text-[13px] font-semibold text-slate-200">
+          Erken Uyarı · Likidite · Akıllı Para <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· süpürme · emilim · kurumsal itki · delta · POC göçü · sıkışma/ivme</span>
         </span>
-        <span className="font-mono text-[10.5px] text-slate-500">alıcı {w.bull} · satıcı {w.bear} puan</span>
+        <span className="flex items-center gap-1.5 text-[11px] font-semibold">
+          <span className="rounded border px-1.5 py-0.5" style={{ color: col, borderColor: `${col}66`, backgroundColor: `${col}14` }}>{levelChip}</span>
+          <span className="rounded border border-[#22c55e]/40 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]">alıcı {w.bull}</span>
+          <span className="rounded border border-[#ef4444]/40 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]">satıcı {w.bear}</span>
+        </span>
       </div>
 
+      {/* ana mesaj */}
       <div className="px-3 py-2" style={{ backgroundColor: `${col}12` }}>
-        <div className={`text-[15px] font-extrabold tracking-wide sm:text-[17px] ${w.level === "STARTED" ? "animate-pulse" : ""}`} style={{ color: col }}>
-          {scenarioDir && w.side && w.level !== "NONE" ? (
-            (w.side === "LONG") === (scenarioDir === "UP")
-              ? `${w.headline} — senaryoyu DESTEKLİYOR (yeni giriş değil, taşı)`
-              : `${w.headline} — senaryoya TERS: erken uyarı, trend değişimi koşullarını izle`
-          ) : w.headline}
-        </div>
-        <div className="mt-1 flex h-1.5 overflow-hidden rounded bg-[#1c2635]">
+        <div className={`text-[15px] font-extrabold leading-snug sm:text-[17px] ${w.level === "STARTED" ? "animate-pulse" : ""}`} style={{ color: col }}>{headline}</div>
+        <div className="mt-1.5 flex h-2 overflow-hidden rounded bg-[#1c2635]" title={`alıcı ${w.bull} · satıcı ${w.bear}`}>
           <span className="bg-[#22c55e]" style={{ width: `${(w.bull / tot) * 100}%` }} />
           <span className="bg-[#ef4444]" style={{ width: `${(w.bear / tot) * 100}%` }} />
         </div>
         {w.level !== "NONE" && nowMin > 0 && nowMin < CLOSE_TREND_START && (
-          <div className="mt-1 text-[11px] text-amber-300/90">
-            ⚠ Bu saatte (14:00 öncesi) erken uyarı geçmiş ölçümde zayıf (%40 isabet) — kararı Karar Desteği&apos;ndeki seans planı verir; bu uyarı yalnızca bilgi.
-          </div>
+          <div className="mt-1 text-[11.5px] text-amber-300/90">⚠ 14:00 öncesi erken uyarı geçmişte zayıf (%40 isabet) — karar Karar Desteği&apos;nden; bu yalnız bilgi.</div>
         )}
         {(w.targets.length > 0 || w.invalidation != null) && (
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-            <span className="text-slate-500">{w.side ? "hareket sürerse duraklar:" : "olası duraklar:"}</span>
+          <div className="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-3">
             {w.targets.map((t, i) => (
-              <span key={i} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5 text-slate-200" title={t.label}>
-                {i + 1}) <b>{num(t.price)}</b> <span className="text-slate-500">{t.label} · {num(t.dist)} puan</span>
-              </span>
+              <div key={i} className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1" title={t.label}>
+                <div className="text-[10.5px] text-slate-500">{i + 1}. durak · {num(t.dist)} puan</div>
+                <div className="font-mono text-[13px] font-bold text-slate-100">{num(t.price)}</div>
+                <div className="truncate text-[11px] text-slate-400">{t.label}</div>
+              </div>
             ))}
             {w.invalidation != null && (
-              <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 text-amber-300">iptal: 5m kapanış {w.side === "LONG" ? "<" : ">"} {num(w.invalidation)}</span>
+              <div className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-1">
+                <div className="text-[10.5px] text-amber-300/80">iptal</div>
+                <div className="font-mono text-[13px] font-bold text-amber-300">5m kapanış {w.side === "LONG" ? "<" : ">"} {num(w.invalidation)}</div>
+              </div>
             )}
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] lg:grid-cols-2">
-        {([["Alıcı izleri", w.bullWhy, "#4ade80"], ["Satıcı izleri", w.bearWhy, "#f87171"]] as const).map(([t, list, c]) => (
+      {/* alıcı / satıcı izleri */}
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
+        {([["▲ Alıcı izleri", w.bullWhy, "#4ade80"], ["▼ Satıcı izleri", w.bearWhy, "#f87171"]] as const).map(([t, list, c]) => (
           <div key={t} className="bg-[#0f141d] px-3 py-2">
-            <div className="mb-0.5 text-[11px] font-semibold" style={{ color: c }}>{t}</div>
-            {list.length === 0 ? (
-              <div className="text-[11px] text-slate-500">belirgin iz yok</div>
-            ) : (
-              <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-300">
-                {list.map((x, i) => <li key={i}>• {x}</li>)}
+            <div className="mb-1 text-[12px] font-semibold" style={{ color: c }}>{t}</div>
+            {list.length === 0 ? <div className="text-[12px] text-slate-500">belirgin iz yok</div> : (
+              <ul className="flex flex-col gap-1 text-[12px] leading-snug text-slate-200">
+                {list.map((x, i) => <li key={i} className="flex gap-1.5"><span style={{ color: c }}>•</span><span>{x}</span></li>)}
               </ul>
             )}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
-        <MiniCard title="Hacim profili (POC)">
-          {prof ? (
+      {/* ölçüm kutucukları */}
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] sm:grid-cols-2 xl:grid-cols-4">
+        <FlowTile
+          title="Hacim profili · POC"
+          value={prof ? num(prof.poc) : "—"}
+          tone="#fb923c"
+          status={prof ? (
+            px > prof.vah ? <b className="text-[#4ade80]">değer alanı ÜSTÜNDE → yukarıda kabul arıyor</b>
+              : px < prof.val ? <b className="text-[#f87171]">değer alanı ALTINDA → aşağıda kabul arıyor</b>
+              : <span>değer alanı içinde → POC&apos;a dönüş eğilimi</span>
+          ) : "veri yok"}
+        >
+          {prof && (
             <>
-              <span>POC <b className="text-[#fb923c]">{num(prof.poc)}</b> · değer alanı {num(prof.val)} – {num(prof.vah)}</span>
-              <span>
-                Fiyat{" "}
-                {px > prof.vah ? <b className="text-[#4ade80]">değer alanı ÜSTÜNDE → yukarıda kabul arıyor</b>
-                  : px < prof.val ? <b className="text-[#f87171]">değer alanı ALTINDA → aşağıda kabul arıyor</b>
-                  : <b className="text-slate-300">değer alanı içinde → POC&apos;a dönüş eğilimi</b>}
-              </span>
-              <span>Son 1 saat POC kayması: <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></span>
-              <span className="font-mono text-[10px] text-slate-500">{prof.pocPath.map((p) => `${p.clock} ${num(p.poc)}`).join(" → ")}</span>
+              <div className="font-mono text-[11.5px] text-slate-400">alan {num(prof.val)} – {num(prof.vah)} · 1 saat kayma <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></div>
+              <div className="flex flex-wrap gap-1 font-mono text-[10.5px] text-slate-500">
+                {prof.pocPath.slice(-4).map((pp) => <span key={pp.clock} className="rounded bg-[#151c28] px-1">{pp.clock} {num(pp.poc)}</span>)}
+              </div>
             </>
-          ) : <span>veri yok</span>}
-        </MiniCard>
-        <MiniCard title="Kümülatif delta (alıcı − satıcı)">
-          <span>Seans: <b className={f.cumDelta >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.cumDelta)}</b></span>
-          <span>
-            Son 30 dk: <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>
-            {f.deltaPct30 != null && <> (%{Math.round(f.deltaPct30 * 100)} → {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"})</>}
-          </span>
-          <span className="text-[10.5px] text-slate-500">Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir.</span>
-        </MiniCard>
-        <MiniCard title="Sıkışma · ivme">
-          <span>
-            {f.compression.active ? <b className="text-amber-300">SIKIŞMA</b> : "Sıkışma yok"}
-            {f.compression.ratio != null && <> · son 30 dk mum boyu ortalamanın {f.compression.ratio.toFixed(2)}×</>}
-          </span>
-          {f.compression.boxHigh != null && f.compression.boxLow != null && (
-            <span>Kutu {num(f.compression.boxLow)} – {num(f.compression.boxHigh)} → hacimli kapanışla kırılan yön ivmelenir</span>
           )}
-          <span>{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : "İvme artışı yok (son 3 mum aynı yönde büyümüyor)"}</span>
-        </MiniCard>
-        <MiniCard title="Likidite havuzları (stop kümeleri)">
-          {above.map((p) => <span key={`a${p.price}`}>▲ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-500">+{num(p.price - px)}</span></span>)}
-          {below.map((p) => <span key={`b${p.price}`}>▼ <b className="text-[#facc15]">{num(p.price)}</b> {p.label} <span className="text-slate-500">−{num(px - p.price)}</span></span>)}
-          {above.length + below.length === 0 && <span>yakında süpürülmemiş havuz yok</span>}
-          <span className="text-[10.5px] text-slate-500">Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.</span>
-        </MiniCard>
+        </FlowTile>
+        <FlowTile
+          title="Kümülatif delta"
+          value={fmtD(f.cumDelta)}
+          tone={f.cumDelta >= 0 ? "#4ade80" : "#f87171"}
+          status={<>son 30 dk <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>{f.deltaPct30 != null && <> · %{Math.round(f.deltaPct30 * 100)} {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"}</>}</>}
+          note="Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk)."
+        />
+        <FlowTile
+          title="Sıkışma · ivme"
+          value={f.compression.active ? "SIKIŞMA" : "yok"}
+          tone={f.compression.active ? "#fbbf24" : "#94a3b8"}
+          status={<>{f.compression.ratio != null && <>mum boyu ortalamanın {f.compression.ratio.toFixed(2)}×</>}{f.compression.boxHigh != null && f.compression.boxLow != null && <> · kutu {num(f.compression.boxLow)} – {num(f.compression.boxHigh)}</>}</>}
+        >
+          <div className="text-[12px]">{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : <span className="text-slate-400">ivme artışı yok</span>}</div>
+        </FlowTile>
+        <FlowTile title="Likidite havuzları" note="Fiyat stop kümelerine çekilir; fitille geçip geri dönerse = süpürme → dönüş sinyali.">
+          <div className="flex flex-col gap-0.5 font-mono text-[12px]">
+            {above.map((p) => <div key={`a${p.price}`} className="flex justify-between gap-2"><span className="text-[#4ade80]">▲ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">+{num(p.price - px)}</span></div>)}
+            {below.map((p) => <div key={`b${p.price}`} className="flex justify-between gap-2"><span className="text-[#f87171]">▼ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">−{num(px - p.price)}</span></div>)}
+            {above.length + below.length === 0 && <span className="font-sans text-slate-500">yakında süpürülmemiş havuz yok</span>}
+          </div>
+        </FlowTile>
       </div>
 
-      <div className="border-t border-[#1c2635] px-3 py-1.5 text-[11px] leading-snug text-slate-400">
-        <span className="font-semibold text-slate-300">Opsiyon seviyeleri</span>{" "}
-        <span className="text-slate-500">(yalnızca seviye — yön kararına girmez)</span>
-        {!opt ? (
-          <span className="ml-1 text-slate-500">· opsiyon zinciri alınamadı</span>
-        ) : (
-          <div className="mt-0.5 flex flex-wrap items-center gap-1.5 font-mono">
-            <span className="text-slate-500">{opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`}:</span>
-            {opt.callWalls.map((w, i) => (
-              <span key={`c${w.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
-                call duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">{opt.basis} {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+      {/* opsiyon seviyeleri */}
+      <div className="border-t border-[#1c2635] px-3 py-2">
+        <div className="mb-1 flex flex-wrap items-baseline gap-2">
+          <span className="text-[12px] font-semibold text-slate-200">Opsiyon seviyeleri</span>
+          <span className="text-[11px] text-slate-500">{opt ? (opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`) : "opsiyon zinciri alınamadı"} · yalnız seviye, yön vermez</span>
+        </div>
+        {opt && (
+          <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11.5px]">
+            {opt.callWalls.map((cw, i) => (
+              <span key={`c${cw.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
+                call{i ? " 2" : ""} <b>{num(cw.strike)}</b> <span className="text-slate-500">{Math.round(cw.openInterest / 1000)}K · {num(cw.strike - (price ?? opt.spot))}</span>
               </span>
             ))}
-            {opt.putWalls.map((w, i) => (
-              <span key={`p${w.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
-                put duvarı{i ? " 2" : ""} <b>{num(w.strike)}</b> <span className="text-slate-500">{opt.basis} {Math.round(w.openInterest / 1000)}K · {num(w.strike - (price ?? opt.spot))}</span>
+            {opt.putWalls.map((pw, i) => (
+              <span key={`p${pw.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
+                put{i ? " 2" : ""} <b>{num(pw.strike)}</b> <span className="text-slate-500">{Math.round(pw.openInterest / 1000)}K · {num(pw.strike - (price ?? opt.spot))}</span>
               </span>
             ))}
             {opt.maxPain != null && (
@@ -514,31 +532,29 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
               </span>
             )}
             {opt.callPutOi != null && <span className="text-slate-500">C/P {opt.basis} {opt.callPutOi.toFixed(2)}</span>}
-            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
+            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok — son işlem günü hacmiyle</span>}
           </div>
         )}
-        <div className="mt-0.5 text-[10.5px] text-slate-500">
-          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
-        </div>
       </div>
 
+      {/* olaylar */}
       {f.events.length > 0 && (
-        <div className="border-t border-[#1c2635] px-3 py-1.5">
-          <div className="mb-0.5 text-[11px] font-semibold text-slate-300">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte</span></div>
-          <ul className="flex max-h-[140px] flex-col gap-0.5 overflow-y-auto text-[11px] leading-snug">
+        <div className="border-t border-[#1c2635] px-3 py-2">
+          <div className="mb-1 text-[12px] font-semibold text-slate-200">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte</span></div>
+          <div className="flex max-h-[170px] flex-col overflow-y-auto">
             {f.events.slice().reverse().slice(0, 12).map((e) => (
-              <li key={`${e.kind}${e.time}`} className="flex gap-1.5">
-                <span className="font-mono text-slate-500">{e.clock}</span>
-                <span className={`shrink-0 rounded px-1 font-mono text-[10px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
-                <span className="text-slate-400">{e.text}</span>
-              </li>
+              <div key={`${e.kind}${e.time}`} className="grid grid-cols-[44px_118px_minmax(0,1fr)] items-baseline gap-2 border-b border-[#151c28] py-1 text-[12px] last:border-0">
+                <span className="font-mono text-slate-400">{e.clock}</span>
+                <span className={`rounded px-1.5 py-[1px] text-center font-mono text-[10.5px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
+                <span className="leading-snug text-slate-300">{e.text}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla. Hareket başladı: buna ek olarak son 2 mumda kurumsal itki, açılış aralığı ya da 30 dk kutusu hacimle kırıldı.
-        Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
+        Hazırlık: bir tarafın puanı ≥ 3 ve karşı taraftan 1,5 fazla · Hareket başladı: ek olarak son 2 mumda kurumsal itki ya da açılış aralığı / 30 dk kutusu hacimle kırıldı. Etiketler fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir.
+        Opsiyon OI dünkü kapanış değeridir; ±%3 pencere, veri gecikmeli olabilir.
       </div>
     </div>
   );
@@ -686,9 +702,12 @@ function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact
 
 interface JournalResp {
   stats: JournalStats;
-  learned: { stageStats: Record<string, { hit60: number; hitClose: number }> | null; bandScale: Record<string, number> | null };
+  learned: { stageStats: Record<string, { hit60: number; hitClose: number }> | null; bandScale: Record<string, number> | null; openBias?: Record<string, number> | null };
+  openBiasAll?: Record<string, { n: number; bias: number; sig: boolean }>;
   minN: number;
   recent: JournalDay[];
+  model?: ForecastModel;
+  fstats?: ForecastStats;
 }
 
 const okMark = (v: boolean | null) => (v == null ? <span className="text-slate-600">·</span> : v ? <span className="text-[#4ade80]">✓</span> : <span className="text-[#f87171]">✕</span>);
@@ -720,6 +739,11 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
             return f ? (
               <div key={k} className="font-mono text-[12px]">
                 {k} · ort. hata {num(f.meanErr)} · aralık içi %{f.inBandPct} · gap yönü {f.dirPct != null ? `%${f.dirPct}` : "—"}
+                {j.openBiasAll?.[k] && (
+                  <span className={j.openBiasAll[k].sig ? "text-sky-300" : "text-slate-500"}>
+                    {" "}· sapma {j.openBiasAll[k].bias >= 0 ? "+" : ""}{num(j.openBiasAll[k].bias)}{j.openBiasAll[k].sig ? " (öğrenildi, tahmine uygulanıyor)" : " (anlamsız, uygulanmıyor)"}
+                  </span>
+                )}
               </div>
             ) : null;
           })}
@@ -755,6 +779,8 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
               <th className="px-2 py-1 font-normal">gün yönü</th>
               <th className="px-2 py-1 font-normal">60 dk</th>
               <th className="px-2 py-1 font-normal">kapanış</th>
+              <th className="px-2 py-1 font-normal">12:00 kapanış tahmini → gerçek</th>
+              <th className="px-2 py-1 font-normal">saatlik bant isabeti</th>
             </tr>
           </thead>
           <tbody>
@@ -780,6 +806,21 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
                   </td>
                   <td className="px-2 py-1">{okMark(d.decision.ok60)}</td>
                   <td className="px-2 py-1">{okMark(d.decision.okClose)}</td>
+                  <td className="px-2 py-1">
+                    {(() => {
+                      const c = d.fl?.close.find((x) => x.at === 720);
+                      if (!c) return "—";
+                      const inB = d.close >= c.lo && d.close <= c.hi;
+                      return <>{num(c.lo)}–{num(c.hi)} → {num(d.close)} {okMark(inB)}</>;
+                    })()}
+                  </td>
+                  <td className="px-2 py-1">
+                    {(() => {
+                      const hs = d.fl?.hours ?? [];
+                      const ok = hs.filter((h) => { const f = d.fm?.hours.find((x) => x.h === h.h); const a = f && f.next.length === 12 ? f.next[11] : null; return a != null && a >= h.lo && a <= h.hi; }).length;
+                      return hs.length ? `${ok}/${hs.length}` : "—";
+                    })()}
+                  </td>
                 </tr>
               );
             })}
@@ -1057,6 +1098,8 @@ interface EmaPos {
   dir: "UP" | "DOWN" | "MIXED";
   headline: string;
   text: string;
+  /** Tek cümlelik sonuç */
+  verdict: string;
 }
 
 function emaTf(s: DaySeries, ema: EmaMap, tfSec: number): EmaTf {
@@ -1104,42 +1147,134 @@ function emaPosition(s5: DaySeries, s15: DaySeries, ema5: EmaMap, ema15: EmaMap)
     verdict = "Kapanışlar EMA20 üzerinde — yön yok, kırılım yönünü bekle.";
   }
   const part = (tf: string, x: EmaTf) => `${tf} (${x.clock ?? "—"}): EMA20 ${x.ema != null ? num(x.ema) : "—"} ${w(x)}${x.streak ? `, ${x.streak} mumdur` : ""}${x.dist != null ? ` · mesafe ${x.dist >= 0 ? "+" : ""}${x.dist.toFixed(2)}` : ""}${x.slope != null ? ` · eğim ${x.slope >= 0 ? "+" : ""}${x.slope.toFixed(2)}/3 mum` : ""}`;
-  return { m5, m15, dir, headline, text: `${part("5m", m5)}. ${part("15m", m15)}. ${verdict}` };
+  return { m5, m15, dir, headline, text: `${part("5m", m5)}. ${part("15m", m15)}. ${verdict}`, verdict };
+}
+
+
+// ── Ortak durum kartı düzeni: başlık + etiket · büyük durum · tablo · sonuç ──
+
+const UPC = "#22c55e", DNC = "#ef4444", MXC = "#eab308";
+const dirCol = (d: number) => (d > 0 ? UPC : d < 0 ? DNC : MXC);
+
+function StateCard({ title, hint, chip, chipCol, arrow, label, sub, col, children, verdict }: {
+  title: string;
+  hint?: string;
+  chip?: string;
+  chipCol?: string;
+  arrow: string;
+  label: string;
+  sub?: string;
+  col: string;
+  children?: ReactNode;
+  verdict?: ReactNode;
+}) {
+  return (
+    <div className={`${SURFACE} flex flex-col overflow-hidden`} style={{ borderColor: `${col}55` }}>
+      <div className="flex items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
+        <span className="min-w-0 truncate text-[13px] font-semibold text-slate-200" title={hint}>{title}</span>
+        {chip && (
+          <span className="shrink-0 rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: chipCol ?? col, borderColor: `${chipCol ?? col}66`, backgroundColor: `${chipCol ?? col}14` }}>{chip}</span>
+        )}
+      </div>
+      <div className="flex items-center gap-3 px-3 py-2" style={{ backgroundColor: `${col}0d` }}>
+        <span className="text-[30px] font-black leading-none" style={{ color: col }}>{arrow}</span>
+        <div className="min-w-0">
+          <div className="text-[18px] font-extrabold leading-tight tracking-wide" style={{ color: col }}>{label}</div>
+          {sub && <div className="text-[11.5px] text-slate-400">{sub}</div>}
+        </div>
+      </div>
+      {children && <div className="flex-1 px-3 py-1.5">{children}</div>}
+      {verdict && <div className="border-t border-[#1c2635] px-3 py-1.5 text-[12px] leading-snug text-slate-300">{verdict}</div>}
+    </div>
+  );
+}
+
+/** Zaman dilimi tablosu: satır = 5m/15m, sütunlar serbest */
+function TfTable({ head, rows }: { head: string[]; rows: { tf: string; cells: ReactNode[] }[] }) {
+  return (
+    <table className="w-full text-[12px]">
+      <thead>
+        <tr className="text-left text-[10.5px] text-slate-500">
+          <th className="py-0.5 pr-2 font-normal" />
+          {head.map((h) => <th key={h} className="py-0.5 pr-2 font-normal">{h}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr key={r.tf} className="border-t border-[#151c28]">
+            <td className="py-1 pr-2 font-mono font-bold text-slate-300">{r.tf}</td>
+            {r.cells.map((c, i) => <td key={i} className="py-1 pr-2 font-mono">{c}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+const sideTxt = (s: VwapSide | null) => (s === "ABOVE" ? <span className="text-[#4ade80]">▲ üstünde</span> : s === "BELOW" ? <span className="text-[#f87171]">▼ altında</span> : s === "AT" ? <span className="text-slate-300">◆ üzerinde</span> : <span className="text-slate-500">—</span>);
+const sgnTxt = (x: number | null, d = 2) => (x == null ? <span className="text-slate-500">—</span> : <span className={x > 0 ? "text-[#4ade80]" : x < 0 ? "text-[#f87171]" : "text-slate-300"}>{x >= 0 ? "+" : "−"}{Math.abs(x).toFixed(d)}</span>);
+
+function VwapPositionCard({ live, vwap, price, info }: { live: LiveDirection | null; vwap: number | null; price: number | null; info: string }) {
+  if (!live) {
+    return <StateCard title="VWAP Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="09:45 ET 15m kapanışına kadar yön okuması başlamaz." />;
+  }
+  const d = live.dir === "UP" ? 1 : live.dir === "DOWN" ? -1 : 0;
+  return (
+    <StateCard
+      title="VWAP Konumu"
+      hint="ham okuma: 5m + 15m kapanışın VWAP tarafı · işlem yönü Karar Desteği'nden"
+      chip={live.aligned ? "5m + 15m TEYİTLİ" : "teyit yok"}
+      chipCol={live.aligned ? dirCol(d) : MXC}
+      arrow={d > 0 ? "▲" : d < 0 ? "▼" : "◆"}
+      label={d > 0 ? "YUKARI" : d < 0 ? "AŞAĞI" : "KARARSIZ"}
+      sub={`${live.strength} · ${info}`}
+      col={dirCol(d)}
+      verdict={live.aligned ? `İki zaman dilimi de VWAP'ın ${d > 0 ? "üstünde" : "altında"} — yön teyitli.` : "5m ve 15m VWAP'ın farklı tarafında — teyit için iki kapanışın aynı tarafta olmasını bekle."}
+    >
+      <TfTable
+        head={["kapanış", "taraf", "seri"]}
+        rows={[
+          { tf: "5m", cells: [<span key="c" className="text-slate-400">{live.asOf5}</span>, sideTxt(live.side5), <span key="s" className="text-slate-200">{live.streak5} mum</span>] },
+          { tf: "15m", cells: [<span key="c" className="text-slate-400">{live.asOf15 ?? "—"}</span>, sideTxt(live.side15), <span key="s" className="text-slate-200">{live.streak15} mum</span>] },
+        ]}
+      />
+      <div className="mt-1 flex justify-between font-mono text-[12px]">
+        <span className="font-sans text-slate-500">VWAP</span>
+        <span className="text-slate-200">{vwap != null ? num(vwap) : "—"}</span>
+        <span>fiyat farkı {sgnTxt(vwap != null && price != null ? price - vwap : null)}</span>
+      </div>
+    </StateCard>
+  );
 }
 
 function EmaPositionCard({ e }: { e: EmaPos | null }) {
-  const col = e?.dir === "UP" ? "#22c55e" : e?.dir === "DOWN" ? "#ef4444" : "#eab308";
+  if (!e) return <StateCard title="EMA20 Konumu" arrow="…" label="BEKLENİYOR" col="#64748b" verdict="Kapanmış mum bekleniyor." />;
+  const d = e.dir === "UP" ? 1 : e.dir === "DOWN" ? -1 : 0;
+  const col = e.headline === "GERİ ÇEKİLME" ? MXC : dirCol(d);
+  const row = (tf: string, x: EmaTf) => ({
+    tf,
+    cells: [
+      <span key="e" className="text-slate-200">{x.ema != null ? num(x.ema) : "—"}</span>,
+      x.side > 0 ? <span key="s" className="text-[#4ade80]">▲ üstünde</span> : x.side < 0 ? <span key="s" className="text-[#f87171]">▼ altında</span> : <span key="s" className="text-slate-300">◆ üzerinde</span>,
+      <span key="n" className="text-slate-300">{x.streak}</span>,
+      sgnTxt(x.dist),
+      sgnTxt(x.slope),
+    ],
+  });
   return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${e ? col : "#64748b"}55` }}>
-      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          EMA20 Konumu <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 5m + 15m kapanışın EMA20&apos;ye göre tarafı, eğimi, mesafesi</span>
-        </span>
-      </div>
-      {!e ? (
-        <div className="px-4 py-6 text-[12px] text-slate-500">Kapanmış mum bekleniyor.</div>
-      ) : (
-        <>
-          <div className="flex items-center gap-4 px-4 py-3">
-            <div className="text-center">
-              <div className="text-[34px] font-black leading-none" style={{ color: col }}>{e.dir === "UP" ? "▲" : e.dir === "DOWN" ? "▼" : "◆"}</div>
-              <div className="mt-1 text-[16px] font-extrabold tracking-wide" style={{ color: col }}>{e.headline}</div>
-            </div>
-            <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{e.text}</div>
-          </div>
-          <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
-            {([["5m", e.m5], ["15m", e.m15]] as const).map(([tf, x]) => (
-              <span key={tf} className={`rounded border px-1.5 py-0.5 ${x.side > 0 ? SIDE_CHIP.ABOVE : x.side < 0 ? SIDE_CHIP.BELOW : "border-slate-700 text-slate-500"}`}>
-                {tf} EMA20 {x.side > 0 ? "ÜSTÜ" : x.side < 0 ? "ALTI" : "ÜZERİ"} · {x.streak} mum{x.slope != null ? ` · eğim ${x.slope >= 0 ? "+" : ""}${x.slope.toFixed(2)}` : ""}
-              </span>
-            ))}
-            <span className={`ml-auto rounded border px-1.5 py-0.5 font-semibold ${e.dir !== "MIXED" ? SIDE_CHIP.ABOVE : "border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
-              {e.dir !== "MIXED" ? "5m + 15m AYNI TARAF" : e.headline === "GERİ ÇEKİLME" ? "geri çekilme" : "teyit yok"}
-            </span>
-          </div>
-        </>
-      )}
-    </div>
+    <StateCard
+      title="EMA20 Konumu"
+      hint="5m + 15m kapanışın EMA20'ye göre tarafı, seri, mesafe, eğim (3 mum)"
+      chip={e.dir !== "MIXED" ? "5m + 15m AYNI TARAF" : e.headline === "GERİ ÇEKİLME" ? "geri çekilme" : "teyit yok"}
+      chipCol={col}
+      arrow={e.headline === "GERİ ÇEKİLME" ? "↺" : d > 0 ? "▲" : d < 0 ? "▼" : "◆"}
+      label={e.headline}
+      sub={`5m ${e.m5.clock ?? "—"} · 15m ${e.m15.clock ?? "—"} kapanışı`}
+      col={col}
+      verdict={e.verdict}
+    >
+      <TfTable head={["EMA20", "taraf", "seri", "mesafe", "eğim"]} rows={[row("5m", e.m5), row("15m", e.m15)]} />
+    </StateCard>
   );
 }
 
@@ -1152,8 +1287,6 @@ function Row({ k, children }: { k: string; children: ReactNode }) {
   );
 }
 
-// ── Gün geneli: davranış (gün tipi) + açılış kararı + bacak takibi + aralık/hacim ──
-
 function DayOverviewCard({ d, day, recent, chain, op }: {
   d: DecisionRead | null;
   day: DayTypeLive | null;
@@ -1161,95 +1294,178 @@ function DayOverviewCard({ d, day, recent, chain, op }: {
   chain: LegChain | null;
   op: OpeningRegime | null;
 }) {
-  const kindCol = (x: DayTypeLive | null) => (x?.kind === "TREND" ? (x.side === "DOWN" ? "#ef4444" : "#22c55e") : x?.kind === "SIKIŞMA" ? "#eab308" : "#94a3b8");
+  const kindCol = (x: DayTypeLive | null) => (x?.kind === "TREND" ? (x.side === "DOWN" ? DNC : UPC) : x?.kind === "SIKIŞMA" ? MXC : "#94a3b8");
   const col = kindCol(day);
   const cur = chain?.current ?? null;
   const curLive = cur && cur.status !== "DEĞİŞTİ" ? cur : null;
   const legDone = chain?.legs.filter((l) => l.exit) ?? [];
   const sgn = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)}`;
+  const showRecent = recent && day && recent.kind !== day.kind && recent.kind !== "OLUŞUYOR";
   return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${col}55` }}>
-      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Gün Geneli <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· davranış + açılış kararı + bacaklar</span>
-        </span>
-        {d && <span className="font-mono text-[10.5px] text-slate-500">açılış {num(d.day.open)}</span>}
-      </div>
-      <div className="px-3 py-2">
-        <div className="text-[16px] font-extrabold tracking-wide" style={{ color: col }} title={day?.text}>
-          {day ? (day.kind === "TREND" ? `${day.side === "DOWN" ? "▼" : "▲"} ${day.headline}` : day.kind === "SIKIŞMA" ? `◆ ${day.headline}` : `◆ ${day.headline}`) : "◆ —"}
-        </div>
-        {recent && day && recent.kind !== day.kind && recent.kind !== "OLUŞUYOR" && (
-          <div className="text-[11.5px] font-semibold" style={{ color: kindCol(recent) }}>Son 2 saat: {recent.headline}</div>
+    <StateCard
+      title="Gün Geneli"
+      hint="davranış temelli gün tipi + açılış kararı + bacak takibi"
+      chip={showRecent ? `son 2 saat: ${recent!.headline}` : d ? `açılış ${num(d.day.open)}` : undefined}
+      chipCol={showRecent ? kindCol(recent) : "#94a3b8"}
+      arrow={day?.kind === "TREND" ? (day.side === "DOWN" ? "▼" : "▲") : "◆"}
+      label={day ? day.headline.replace(/^TREND GÜNÜ.*/, "TREND GÜNÜ") : "—"}
+      sub={day && day.kind !== "OLUŞUYOR" ? `VWAP ${day.side === "DOWN" || (day.devNow ?? 0) < 0 ? "altında" : "üstünde"} %${Math.round(day.sideFrac * 100)} · ${day.crosses} kesişim` : day?.text}
+      col={col}
+      verdict={
+        d ? (
+          <div className="flex flex-col gap-1">
+            <div>
+              <div className="flex justify-between font-mono text-[10.5px] text-slate-500"><span>dip {num(d.day.low)}</span><span>aralık {num(d.day.high - d.day.low)}</span><span>tepe {num(d.day.high)}</span></div>
+              <div className="relative h-1.5 rounded bg-gradient-to-r from-[#ef4444]/40 via-[#1c2635] to-[#22c55e]/40">
+                {d.day.rangePos != null && <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(d.day.rangePos * 100)}% - 2px)` }} />}
+              </div>
+            </div>
+            {d.day.buyShare != null && (
+              <div>
+                <div className="flex justify-between font-mono text-[10.5px]"><span className="text-[#4ade80]">alıcı %{Math.round(d.day.buyShare * 100)}</span><span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span></div>
+                <div className="flex h-1.5 overflow-hidden rounded"><span className="bg-[#22c55e]" style={{ width: `${d.day.buyShare * 100}%` }} /><span className="flex-1 bg-[#ef4444]" /></div>
+              </div>
+            )}
+          </div>
+        ) : undefined
+      }
+    >
+      <div className="flex flex-col">
+        <Row k="Açılış kararı">
+          {!op || op.status === "WAITING" ? "—"
+            : op.waitFor10 ? <span className="text-amber-300">{op.decidedAt === "09:55" ? "09:55 teyitsiz · giriş yok" : "10:00 bekleniyor"}</span>
+            : op.net ? <b style={{ color: op.side === "UP" ? "#4ade80" : "#f87171" }}>NET {op.decidedAt} {op.side === "UP" ? "▲" : "▼"} · güven {op.dayHold?.level ?? "—"}</b>
+            : <span className="text-amber-300">işlem yok (eğilim {op.side === "UP" ? "▲" : op.side === "DOWN" ? "▼" : "—"})</span>}
+        </Row>
+        <Row k="Güncel bacak">
+          {curLive ? (
+            <b style={{ color: curLive.anchor.dir === "UP" ? "#4ade80" : "#f87171" }}>
+              {curLive.anchor.legNo}. {curLive.anchor.dir === "UP" ? "▲" : "▼"} {curLive.anchor.clock} · {curLive.status} · {sgn(curLive.pnl)}
+            </b>
+          ) : chain?.pending ? <span className="text-amber-300">yok · {chain.pending.dir === "UP" ? "▲ LONG" : "▼ SHORT"} tetiği hazırlanıyor</span>
+            : <span className="text-slate-400">yok · tetik bekleniyor</span>}
+        </Row>
+        {(chain?.counter || curLive?.counterWarn) && (
+          <Row k="Uyarı"><span className="text-orange-300">{chain?.counter ? `⚡ ters tetik (${chain.counter.level.toLowerCase()})` : "⚠ ters bacak hazırlanıyor"}</span></Row>
         )}
-        <div className="mt-1.5">
-          <Row k="Açılış kararı">
-            {!op || op.status === "WAITING" ? "—"
-              : op.waitFor10 ? <span className="text-amber-300">{op.decidedAt === "09:55" ? "09:55 teyitsiz · giriş yok" : "10:00 bekleniyor"}</span>
-              : op.net ? <b style={{ color: op.side === "UP" ? "#4ade80" : "#f87171" }}>NET {op.decidedAt} {op.side === "UP" ? "▲" : "▼"} · 2–3 saat güveni {op.dayHold?.level ?? "—"}</b>
-              : <span className="text-amber-300">işlem yok (eğilim {op.side === "UP" ? "▲" : op.side === "DOWN" ? "▼" : "—"})</span>}
+        {legDone.length > 0 && (
+          <Row k="Biten bacaklar">
+            <span className="font-mono">
+              {legDone.map((l, i) => (
+                <span key={i} className={l.exit!.pnl >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{i ? " · " : ""}{l.anchor.dir === "UP" ? "▲" : "▼"}{l.anchor.clock} {sgn(l.exit!.pnl)}</span>
+              ))}
+            </span>
           </Row>
-          <Row k="Güncel bacak">
-            {curLive ? (
-              <b style={{ color: curLive.anchor.dir === "UP" ? "#4ade80" : "#f87171" }}>
-                {curLive.anchor.legNo}. {curLive.anchor.kind === "AÇILIŞ" ? "açılış" : "gün içi"} {curLive.anchor.dir === "UP" ? "▲" : "▼"} {curLive.anchor.clock} · {curLive.status} · {sgn(curLive.pnl)}
-                {chain?.counter ? <span className="text-orange-300"> · ⚡ ters tetik ({chain.counter.level.toLowerCase()})</span> : curLive.counterWarn ? <span className="text-orange-300"> · ⚠ ters bacak hazırlanıyor</span> : null}
-              </b>
-            ) : chain?.pending ? (
-              <span className="text-amber-300">yok · {chain.pending.dir === "UP" ? "▲ LONG" : "▼ SHORT"} tetiği hazırlanıyor</span>
-            ) : <span className="text-slate-400">yok · tetik bekleniyor</span>}
-          </Row>
-          {legDone.length > 0 && (
-            <Row k="Biten bacaklar">
-              <span className="font-mono text-[11px]">
-                {legDone.map((l, i) => (
-                  <span key={i} className={l.exit!.pnl >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>
-                    {i ? " · " : ""}{l.anchor.dir === "UP" ? "▲" : "▼"}{l.anchor.clock} {sgn(l.exit!.pnl)}
-                  </span>
-                ))}
-              </span>
-            </Row>
-          )}
-          {day && day.kind !== "OLUŞUYOR" && (
-            <Row k="VWAP davranışı">%{Math.round(day.sideFrac * 100)} {day.side === "DOWN" || (day.devNow ?? 0) < 0 ? "altında" : "üstünde"} · {day.crosses} kesişim</Row>
-          )}
-          {d && (
-            <Row k="Açılışa / VWAP'a göre">
-              <span className={d.day.vsOpen >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsOpen)}</span>
-              {" / "}
-              {d.day.vsVwap != null ? <span className={d.day.vsVwap >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsVwap)}</span> : "—"}
-            </Row>
-          )}
-        </div>
+        )}
         {d && (
-          <div className="mt-1.5">
-            <div className="flex justify-between font-mono text-[10px] text-slate-500">
-              <span>dip {num(d.day.low)}</span><span>aralık {num(d.day.high - d.day.low)}</span><span>tepe {num(d.day.high)}</span>
+          <Row k="Açılışa / VWAP'a göre">
+            <span className="font-mono"><span className={d.day.vsOpen >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsOpen)}</span>{" / "}{d.day.vsVwap != null ? <span className={d.day.vsVwap >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(d.day.vsVwap)}</span> : "—"}</span>
+          </Row>
+        )}
+      </div>
+    </StateCard>
+  );
+}
+
+// ── Pivot noktaları kartı: görsel merdiven + fiyatın pivotlara hareketi ──
+
+const PIVOT_COLOR: Record<PivotKey, string> = { R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626" };
+const PIVOT_STATE_CLS: Record<string, string> = {
+  "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
+  "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
+  "TEST · TUTTU": "border-amber-500/50 bg-amber-500/15 text-amber-300",
+  "ÜZERİNDE": "border-sky-500/50 bg-sky-500/15 text-sky-300",
+  "DEĞMEDİ": "border-slate-700 text-slate-500",
+};
+
+function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) {
+  if (!p) {
+    return (
+      <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — önceki seansın yüksek/düşük/kapanışı bekleniyor.
+      </div>
+    );
+  }
+  const hcol = p.heading === "UP" ? UPC : p.heading === "DOWN" ? DNC : MXC;
+  const maxAbs = Math.max(...p.ladder.map((l) => Math.abs(l.dist)), 0.5);
+  // hedefe ilerleme: önceki pivot (ters taraftaki) → hedef
+  const from = p.heading === "UP" ? p.below : p.heading === "DOWN" ? p.above : null;
+  const prog = p.target && from && price != null ? Math.min(1, Math.max(0, (price - from.price) / (p.target.price - from.price))) : null;
+  return (
+    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${hcol}55` }}>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[13px] font-semibold text-slate-200">
+          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· klasik günlük · {p.base.date}: Y {num(p.base.H)} · D {num(p.base.L)} · K {num(p.base.C)} · yalnız seviye, yön kararına girmez</span>
+        </span>
+        <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: hcol, borderColor: `${hcol}66`, backgroundColor: `${hcol}14` }}>bölge {p.zone}</span>
+      </div>
+      <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        {/* görsel merdiven */}
+        <div className="bg-[#0f141d] px-3 py-1.5">
+          {p.ladder.map((l, i) => {
+            const next = p.ladder[i + 1];
+            const here = price != null && l.price >= price && (!next || next.price < price);
+            const w = Math.round((Math.abs(l.dist) / maxAbs) * 100);
+            const near = p.above?.key === l.key || p.below?.key === l.key;
+            return (
+              <Fragment key={l.key}>
+                <div className={`grid grid-cols-[34px_72px_minmax(0,1fr)_auto] items-center gap-2 rounded px-1 py-[3px] ${near ? "bg-[#151c28]" : ""}`}>
+                  <span className="font-mono text-[12.5px] font-bold" style={{ color: PIVOT_COLOR[l.key] }}>{l.key}</span>
+                  <span className="font-mono text-[12.5px] text-slate-100">{num(l.price)}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
+                      <span className="block h-full rounded" style={{ width: `${w}%`, backgroundColor: l.dist >= 0 ? "#22c55e88" : "#ef444488" }} />
+                    </span>
+                    <span className={`w-12 text-right font-mono text-[11.5px] ${l.dist >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}`}>{l.dist >= 0 ? "+" : "−"}{Math.abs(l.dist).toFixed(2)}</span>
+                  </span>
+                  <span className={`rounded border px-1.5 py-[1px] text-right text-[10.5px] font-semibold ${PIVOT_STATE_CLS[l.state] ?? ""}`}>{l.state}{l.touched ? ` · ${l.touched}` : ""}</span>
+                </div>
+                {here && (
+                  <div className="my-0.5 flex items-center gap-1 text-[11px] font-semibold text-sky-300"><span className="h-px flex-1 bg-sky-400/70" />▶ fiyat {num(price!)}<span className="h-px flex-1 bg-sky-400/70" /></div>
+                )}
+              </Fragment>
+            );
+          })}
+        </div>
+        {/* hareket */}
+        <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
+          <div>
+            <div className="text-[11px] text-slate-500">Fiyatın pivotlara hareketi</div>
+            <div className="text-[17px] font-extrabold leading-tight" style={{ color: hcol }}>
+              {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `${p.target.key} ${num(p.target.price)}'e gidiyor` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı trend"}
             </div>
-            <div className="relative h-1.5 rounded bg-[#1c2635]">
-              {d.day.rangePos != null && (
-                <span className="absolute top-[-3px] h-3 w-1 rounded bg-slate-100" style={{ left: `calc(${Math.round(d.day.rangePos * 100)}% - 2px)` }} />
-              )}
+            <div className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-[12px] text-slate-300">
+              <span>30 dk hız {p.speed30 >= 0 ? "+" : ""}{p.speed30.toFixed(2)}</span>
+              {p.target && price != null && <span>kalan {Math.abs(p.target.price - price).toFixed(2)} puan</span>}
+              {p.etaMin != null && <span className="text-slate-400">~{p.etaMin} dk</span>}
             </div>
           </div>
-        )}
-        {d?.day.buyShare != null && (
-          <div className="mt-1.5">
-            <div className="flex justify-between font-mono text-[10px]">
-              <span className="text-[#4ade80]">alıcı hacmi %{Math.round(d.day.buyShare * 100)}</span>
-              <span className="text-[#f87171]">satıcı %{Math.round((1 - d.day.buyShare) * 100)}</span>
+          {prog != null && from && p.target && (
+            <div>
+              <div className="flex justify-between font-mono text-[10.5px] text-slate-500"><span>{from.key} {num(from.price)}</span><span>%{Math.round(prog * 100)}</span><span>{p.target.key} {num(p.target.price)}</span></div>
+              <div className="h-2 overflow-hidden rounded bg-[#1c2635]"><span className="block h-full rounded" style={{ width: `${Math.round(prog * 100)}%`, backgroundColor: hcol }} /></div>
             </div>
-            <div className="flex h-1.5 overflow-hidden rounded">
-              <span className="bg-[#22c55e]" style={{ width: `${d.day.buyShare * 100}%` }} />
-              <span className="flex-1 bg-[#ef4444]" />
-            </div>
+          )}
+          <div className="grid grid-cols-2 gap-1.5 font-mono text-[12px]">
+            {([["alttaki pivot", p.below, DNC], ["üstteki pivot", p.above, UPC]] as const).map(([t, l, c]) => (
+              <div key={t} className="rounded border px-2 py-1" style={{ borderColor: `${c}44`, backgroundColor: `${c}0d` }}>
+                <div className="font-sans text-[10.5px] text-slate-500">{t}</div>
+                {l ? (
+                  <>
+                    <div><b style={{ color: c }}>{l.key} {num(l.price)}</b> <span className="text-slate-400">{l.dist >= 0 ? "−" : "+"}{Math.abs(l.dist).toFixed(2)}</span></div>
+                    <span className={`mt-0.5 inline-block rounded border px-1 text-[10px] ${PIVOT_STATE_CLS[l.state] ?? ""}`}>{l.state}</span>
+                  </>
+                ) : "—"}
+              </div>
+            ))}
           </div>
-        )}
+          <div className="text-[12px] leading-snug text-slate-300">{p.text}</div>
+          <div className="text-[10.5px] leading-snug text-slate-500">TEST · TUTTU = değdi, aynı tarafta kaldı (tepki seviyesi) · KIRILDI = açılıştaki tarafından öbür tarafa geçti · varış süresi son 30 dk hızı sabit kalırsa tahminidir.</div>
+        </div>
       </div>
     </div>
   );
 }
-
 
 // ── SPY anlık fiyat şeridi (yapışkan): fiyat · son 1 saat · gün · VWAP/EMA20 · en yakın pivotlar ──
 
@@ -1332,84 +1548,6 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
               </div>
             </div>
           ) : <span className="text-[10.5px] text-slate-500">Pivot: önceki seans verisi bekleniyor</span>}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Pivot noktaları kartı: merdiven + fiyatın pivotlara hareketi ──
-
-const PIVOT_COLOR: Record<PivotKey, string> = { R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626" };
-
-function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) {
-  if (!p) {
-    return (
-      <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — önceki seansın yüksek/düşük/kapanışı bekleniyor.
-      </div>
-    );
-  }
-  const hcol = p.heading === "UP" ? "#22c55e" : p.heading === "DOWN" ? "#ef4444" : "#eab308";
-  const stCls = (s: string) => s.startsWith("KIRILDI ▲") ? "text-[#4ade80]" : s.startsWith("KIRILDI ▼") ? "text-[#f87171]" : s === "TEST · TUTTU" ? "text-amber-300" : s === "ÜZERİNDE" ? "text-sky-300" : "text-slate-500";
-  return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${hcol}55` }}>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-          Pivot Noktaları <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· klasik günlük pivot ({p.base.date}: Y {num(p.base.H)} · D {num(p.base.L)} · K {num(p.base.C)}) · seviye bilgisidir, yön kararına girmez</span>
-        </span>
-      </div>
-      <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        {/* merdiven */}
-        <div className="bg-[#0f141d] px-3 py-1.5">
-          <table className="w-full font-mono text-[11.5px]">
-            <thead>
-              <tr className="text-left text-[10px] text-slate-500">
-                <th className="py-0.5 font-normal">seviye</th><th className="font-normal">fiyat</th><th className="text-right font-normal">mesafe</th><th className="text-right font-normal">bugün</th>
-              </tr>
-            </thead>
-            <tbody>
-              {p.ladder.map((l, i) => {
-                const next = p.ladder[i + 1];
-                const priceHere = price != null && l.price >= price && (!next || next.price < price);
-                return (
-                  <Fragment key={l.key}>
-                    <tr className="border-t border-[#151c28]">
-                      <td className="py-[3px] font-bold" style={{ color: PIVOT_COLOR[l.key] }}>{l.key}</td>
-                      <td className="text-slate-200">{num(l.price)}</td>
-                      <td className={`text-right ${l.dist >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}`}>{l.dist >= 0 ? "+" : "−"}{Math.abs(l.dist).toFixed(2)}</td>
-                      <td className={`text-right text-[10.5px] ${stCls(l.state)}`}>{l.state}{l.touched ? ` · ${l.touched}` : ""}</td>
-                    </tr>
-                    {priceHere && (
-                      <tr><td colSpan={4} className="py-[2px]"><div className="flex items-center gap-1 text-[10.5px] text-sky-300"><span className="h-px flex-1 bg-sky-400/60" />fiyat {num(price!)}<span className="h-px flex-1 bg-sky-400/60" /></div></td></tr>
-                    )}
-                  </Fragment>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        {/* hareket */}
-        <div className="bg-[#0f141d] px-3 py-2">
-          <div className="text-[11px] text-slate-500">Fiyatın pivotlara hareketi</div>
-          <div className="mt-0.5 text-[15px] font-extrabold" style={{ color: hcol }}>
-            {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `${p.target.key} ${num(p.target.price)} hedefinde` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı trend"}
-            {p.etaMin != null && <span className="ml-2 text-[12px] font-semibold text-slate-400">~{p.etaMin} dk</span>}
-          </div>
-          <div className="mt-1 text-[12px] leading-snug text-slate-300">{p.text}</div>
-          <div className="mt-2 grid grid-cols-2 gap-1.5 font-mono text-[11.5px]">
-            <div className="rounded border border-[#ef4444]/30 bg-[#ef4444]/5 px-2 py-1">
-              <div className="font-sans text-[10px] text-slate-500">alttaki pivot</div>
-              {p.below ? <><b className="text-[#f87171]">{p.below.key} {num(p.below.price)}</b> <span className="text-slate-400">−{Math.abs(p.below.dist).toFixed(2)}</span><div className="text-[10px] text-slate-500">{p.below.state}</div></> : "—"}
-            </div>
-            <div className="rounded border border-[#22c55e]/30 bg-[#22c55e]/5 px-2 py-1">
-              <div className="font-sans text-[10px] text-slate-500">üstteki pivot</div>
-              {p.above ? <><b className="text-[#4ade80]">{p.above.key} {num(p.above.price)}</b> <span className="text-slate-400">+{Math.abs(p.above.dist).toFixed(2)}</span><div className="text-[10px] text-slate-500">{p.above.state}</div></> : "—"}
-            </div>
-          </div>
-          <div className="mt-1.5 text-[10.5px] leading-snug text-slate-500">
-            TEST · TUTTU = bugün değdi, fiyat aynı tarafta kaldı (tepki seviyesi) · KIRILDI = açılıştaki tarafından öbür tarafa geçti (artık destek/direnç rolü değişti). Hız son 30 dk kapanış değişimidir; varış süresi hız sabit kalırsa tahminidir.
-          </div>
         </div>
       </div>
     </div>
@@ -1809,6 +1947,13 @@ export default function SpyEngineV9() {
   /** Güncel bacağın çapası (açılış ya da gün içi) */
   const legAnchor: Anchor | null = track?.anchor ?? null;
 
+  /** 1h / 4h genel yapı: çok günlük 1m akışından (seans dışı dahil), yalnız KAPANMIŞ mumlar */
+  const m60 = useMemo(() => bucketAggregate(m1, 60), [m1]);
+  const m240 = useMemo(() => bucketAggregate(m1, 240), [m1]);
+  const ema60 = useMemo(() => emaByTime(m60), [m60]);
+  const ema240 = useMemo(() => emaByTime(m240), [m240]);
+  const r1h = useMemo(() => (evalNow ? tfRead(multiDaySeries(m60, "1h", evalNow), "1h", ema60) : null), [m60, ema60, evalNow]);
+  const r4h = useMemo(() => (evalNow ? tfRead(multiDaySeries(m240, "4h", evalNow), "4h", ema240) : null), [m240, ema240, evalNow]);
   /** EMA20 konumu: 5m + 15m kapanışın EMA20'ye göre tarafı / seri / eğim */
   const emaPos = useMemo(() => (analysis && analysis.s5.bars.length ? emaPosition(analysis.s5, analysis.s15, ema5, ema15) : null), [analysis, ema5, ema15]);
   /** Gün tipi: DAVRANIŞ temelli (VWAP tarafı + kesişim); VIX yalnızca seans öncesi beklenti */
@@ -1877,6 +2022,13 @@ export default function SpyEngineV9() {
     });
     return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null) };
   }, [m5D, ema5, date]);
+
+  /** Bugünün (kısmi) ham gerçekleri — günlük / saatlik tahmin sekmeleri için (yalnız KAPANMIŞ 5m mumlar) */
+  const todayFacts = useMemo(
+    () => (date && evalNow ? factsOf(m5D, date, data?.levels?.prevClose ?? null, evalNow) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [m5D, date, data?.levels?.prevClose, minuteSlot],
+  );
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
   const hourHiLo = useMemo<HiLo | null>(() => {
@@ -2068,7 +2220,6 @@ export default function SpyEngineV9() {
   const live = analysis?.live ?? null;
   const opColor = op && op.status === "LOCKED" && !op.net ? "#eab308" : op?.side === "UP" ? "#22c55e" : op?.side === "DOWN" ? "#ef4444" : op?.side === "UNCERTAIN" ? "#eab308" : "#64748b";
   const opArrow = op?.side === "UP" ? "▲" : op?.side === "DOWN" ? "▼" : op?.side === "UNCERTAIN" ? "◆" : "…";
-  const liveColor = live?.dir === "UP" ? "#22c55e" : live?.dir === "DOWN" ? "#ef4444" : "#eab308";
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
@@ -2307,47 +2458,7 @@ export default function SpyEngineV9() {
 
         {/* ── 1a) VWAP konumu · EMA20 konumu · gün geneli ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-3">
-          <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${live ? liveColor : "#64748b"}55` }}>
-            <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
-              <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-                VWAP Konumu <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· ham okuma (yalnızca 5m + 15m VWAP tarafı) · işlem yönü: Karar Desteği</span>
-              </span>
-              <span className="font-mono text-[10.5px] text-slate-500">
-                {live ? `5m ${live.asOf5} · 15m ${live.asOf15 ?? "—"} kapanışı · ` : ""}
-                kontrol {minuteSlot ? nyClock(minuteSlot * 60) : "—"} · sonraki {evalNow ? 60 - (evalNow % 60) : "—"}sn
-              </span>
-            </div>
-            {!live ? (
-              <div className="px-4 py-6 text-[12px] text-slate-500">
-                09:45 ET 15m kapanışına kadar yön okuması başlamaz. Kapanan mumların yorumu aşağıda akıyor.
-              </div>
-            ) : (
-              <>
-                <div className="flex items-center gap-4 px-4 py-3">
-                  <div className="text-center">
-                    <div className="text-[34px] font-black leading-none" style={{ color: liveColor }}>
-                      {live.dir === "UP" ? "▲" : live.dir === "DOWN" ? "▼" : "◆"}
-                    </div>
-                    <div className="mt-1 text-[18px] font-extrabold tracking-wide" style={{ color: liveColor }}>
-                      {live.dir === "UP" ? "YUKARI" : live.dir === "DOWN" ? "AŞAĞI" : "BEKLE"}
-                    </div>
-                    <div className="text-[10.5px] text-slate-500">{live.strength}</div>
-                  </div>
-                  <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{live.text}</div>
-                </div>
-                <div className="flex flex-wrap items-center gap-1.5 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
-                  {([["5m", live.side5, live.streak5], ["15m", live.side15, live.streak15]] as const).map(([tf, side, n]) => (
-                    <span key={tf} className={`rounded border px-1.5 py-0.5 ${side ? SIDE_CHIP[side] : "border-slate-700 text-slate-500"}`}>
-                      {tf} {side === "ABOVE" ? "VWAP ÜSTÜ" : side === "BELOW" ? "VWAP ALTI" : side === "AT" ? "VWAP'TA" : "—"} · {n} mum
-                    </span>
-                  ))}
-                  <span className={`ml-auto rounded border px-1.5 py-0.5 font-semibold ${live.aligned ? SIDE_CHIP.ABOVE : "border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
-                    {live.aligned ? "5m + 15m TEYİTLİ" : "teyit yok"}
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
+          <VwapPositionCard live={live} vwap={vwapNow} price={price} info={`kontrol ${minuteSlot ? nyClock(minuteSlot * 60) : "—"}`} />
           <EmaPositionCard e={emaPos} />
           <DayOverviewCard d={decision} day={dayLive} recent={dayRecent} chain={chain} op={analysis?.opening ?? null} />
         </div>
@@ -2358,6 +2469,8 @@ export default function SpyEngineV9() {
         {/* ── 1b) Karar desteği — 5m · 15m · gün geneli (fiyat + hacim) ── */}
         <DecisionPanel
           d={decision}
+          r1h={r1h}
+          r4h={r4h}
           price={price}
           secTo5={evalNow ? 300 - (evalNow % 300) : null}
           forming={forming5}
@@ -2446,8 +2559,17 @@ export default function SpyEngineV9() {
 
         )}
 
-        {/* ── 3) Tahmin haritası ── */}
-        <div className={`${SURFACE} overflow-hidden`}>
+        {/* ── 3) Tahmin: günlük yol · 1 saatlik · harita (mevcut, aynen) ── */}
+        {date && (
+          <ForecastTabs
+            bars={todayRth5.bars}
+            date={date}
+            nowSec={evalNow}
+            model={journal?.model ?? null}
+            fstats={journal?.fstats ?? null}
+            facts={todayFacts}
+            mapTab={
+        <div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
               Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· destek / direnç · yolculuk · kapanış beklentisi</span>
@@ -2485,6 +2607,9 @@ export default function SpyEngineV9() {
             </>
           )}
         </div>
+            }
+          />
+        )}
 
         {/* ── 4) 15m + 5m grafik ── */}
         <div className={`${SURFACE} overflow-hidden`}>

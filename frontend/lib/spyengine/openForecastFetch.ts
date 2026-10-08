@@ -112,7 +112,7 @@ function trendChips(es: Bar[], nowSec: number): TrendChip[] {
  * Bir seans için açılış tahmin hesaplayıcısı — canlı panel ve günlük kaydı
  * (journal.ts) AYNI fonksiyonu kullanır. null: önceki seans/kapanış bulunamadı.
  */
-export function sessionForecaster(S: Record<Key, Bar[]>, session: string, bandScale?: Record<string, number> | null) {
+export function sessionForecaster(S: Record<Key, Bar[]>, session: string, bandScale?: Record<string, number> | null, bias?: Record<string, number> | null) {
   const rthDays = Array.from(new Set(S.SPY.filter(isRthBar).map((b) => nyParts(b.time).ymd))).sort();
   const prevSession = rthDays.filter((d) => d < session).pop();
   if (!prevSession) return null;
@@ -127,16 +127,25 @@ export function sessionForecaster(S: Record<Key, Bar[]>, session: string, bandSc
     // günlük kayıttan öğrenilen bant ölçeği: en yakın kontrol noktasınınki
     const nowMin = 9 * 60 + 30 - mto;
     const cp = CHECKPOINTS.reduce((a, c) => (Math.abs(c.minutes - nowMin) < Math.abs(a.minutes - nowMin) ? c : a));
-    return openForecast({
+    const f = openForecast({
       at: t, minutesToOpen: mto, prevClose,
       es: fq("ES", t), nq: fq("NQ", t), rty: fq("RTY", t), ym: fq("YM", t), vix: fq("VIX", t), spyPre: closeAt(pre, t),
       bandScale: bandScale?.[cp.label] ?? null,
     });
+    // günlükten öğrenilen SİSTEMATİK sapma (yalnız anlamlıysa verilir): merkez ve bant kaydırılır
+    const b = bias?.[cp.label];
+    if (f && b) {
+      const sh = (x: number) => Math.round((x + b) * 100) / 100;
+      f.center = sh(f.center); f.lo = sh(f.lo); f.hi = sh(f.hi);
+      f.gap = Math.round((f.center - prevClose) * 100) / 100;
+      f.notes = [...f.notes, `Günlükten öğrenilen sapma düzeltmesi: ${b >= 0 ? "+" : ""}${b.toFixed(2)} puan (geçmişte gerçek açılış tahminden sistematik olarak ${b >= 0 ? "yukarıda" : "aşağıda"}).`];
+    }
+    return f;
   };
   return { prevSession, prevClose, openSec, at };
 }
 
-export async function fetchOpenForecast(bandScale?: Record<string, number> | null): Promise<OpenForecastRead | null> {
+export async function fetchOpenForecast(bandScale?: Record<string, number> | null, bias?: Record<string, number> | null): Promise<OpenForecastRead | null> {
   if (cache && Date.now() - cache.at < 60_000) return cache.value;
   const entries = await Promise.all((Object.keys(SYMBOLS) as Key[]).map(async (k) => [k, await chart(SYMBOLS[k])] as const));
   const S = Object.fromEntries(entries) as Record<Key, Bar[]>;
@@ -148,7 +157,7 @@ export async function fetchOpenForecast(bandScale?: Record<string, number> | nul
   let session = np.ymd;
   if ([0, 6].includes(weekday(session)) || np.minutes >= 16 * 60) session = nextWeekday(session);
 
-  const fc = sessionForecaster(S, session, bandScale);
+  const fc = sessionForecaster(S, session, bandScale, bias);
   if (!fc) return cache?.value ?? null;
   const { prevSession, prevClose, openSec, at } = fc;
 

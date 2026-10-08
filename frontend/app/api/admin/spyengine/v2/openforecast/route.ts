@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isStaffAuthed } from "@/lib/apiAuth";
 import { fetchOpenForecast } from "@/lib/spyengine/openForecastFetch";
-import { updateJournal, learned } from "@/lib/spyengine/journal";
+import { updateJournal, learned, openBias } from "@/lib/spyengine/journal";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,7 +20,9 @@ export async function GET(req: NextRequest) {
   try {
     // günlükten öğrenilen bant ölçeği (N ≥ 20 kontrol noktalarında); günlük hatası tahmini engellemez
     const j = await updateJournal().catch(() => null);
-    const read = await fetchOpenForecast(learned(j?.stats ?? null).bandScale);
+    const ob = j ? openBias(j.days) : {};
+    const bias = Object.fromEntries(Object.entries(ob).filter(([, v]) => v.sig).map(([k, v]) => [k, v.bias]));
+    const read = await fetchOpenForecast(learned(j?.stats ?? null).bandScale, Object.keys(bias).length ? bias : null);
     return NextResponse.json(
       { ok: !!read, read, error: read ? undefined : "Vadeli işlem verisi alınamadı" },
       { headers: { "Cache-Control": "no-store, max-age=0" } }
