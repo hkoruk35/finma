@@ -1,8 +1,8 @@
 {
   "date": "2026-10-08",
-  "generated_at": "2026-10-08T14:03:19.549858-04:00",
+  "generated_at": "2026-10-08T17:03:29.653739-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 24,
+  "active_scores_count": 33,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,13 +21,16 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 8,
       "tickers": [
         "SMCI",
         "DXC",
         "STNG",
         "FIGS",
-        "GME"
+        "GME",
+        "ACN",
+        "TDC",
+        "DNOW"
       ]
     },
     "value": {

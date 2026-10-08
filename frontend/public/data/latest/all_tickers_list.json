@@ -38,12 +38,12 @@
       "ticker": "AMD",
       "company": "AMD",
       "sector": "Technology",
-      "master_score": 50.5,
+      "master_score": 41.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 643.8599853515625,
-      "change_pct": -0.86,
+      "price": 620.6799926757812,
+      "change_pct": -3.9,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: DEFAULT"
     },
     {
       "ticker": "CON",
@@ -264,6 +264,105 @@
       "change_pct": 3.42,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ACN",
+      "company": "ACN",
+      "sector": "Technology",
+      "master_score": 62.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 208.36000061035156,
+      "change_pct": 5.96,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 62.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "TDC",
+      "company": "TDC",
+      "sector": "Technology",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 30.290000915527344,
+      "change_pct": 3.88,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "KFY",
+      "company": "KFY",
+      "sector": "Industrials",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 72.93000030517578,
+      "change_pct": 3.4,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GNW",
+      "company": "GNW",
+      "sector": "Financial Services",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 9.739999771118164,
+      "change_pct": 1.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "HNGE",
+      "company": "HNGE",
+      "sector": "Healthcare",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 98.0,
+      "change_pct": 0.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ACLS",
+      "company": "ACLS",
+      "sector": "Technology",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 133.47999572753906,
+      "change_pct": -3.55,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DNOW",
+      "company": "DNOW",
+      "sector": "Industrials",
+      "master_score": 40.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 15.649999618530273,
+      "change_pct": 1.89,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 40.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "USFD",
+      "company": "USFD",
+      "sector": "Consumer Defensive",
+      "master_score": 39.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 97.12000274658203,
+      "change_pct": 1.11,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 39.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "CVLT",
+      "company": "CVLT",
+      "sector": "Technology",
+      "master_score": 38.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 151.0,
+      "change_pct": 0.48,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 38.5 | System: DEFAULT"
     }
   ]
 }
