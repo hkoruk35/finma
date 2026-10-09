@@ -291,7 +291,7 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Adım 4 · risk</div>
           <ul className="flex flex-col gap-0.5 text-[11.5px] leading-snug text-slate-300">
-            <li>• Stop: son 3 mumun {"dibi/tepesi"} ∓ {LADDER_CFG.risk.stopPadAtr} ATR; trend modlarında bu &gt; {LADDER_CFG.risk.maxStopAtr} ATR ise VWAP/EMA20 çizgisinin ötesi; o da genişse işlem yok</li>
+            <li>• Stop: son 3 mumun {"dibi/tepesi"} ∓ {LADDER_CFG.risk.stopPadAtr} ATR (açılış bacağında 10:00–11:00: yalnızca tetik mumunun ucu, ≤ {LADDER_CFG.risk.openLeg.maxStopAtr} ATR); trend modlarında bu &gt; {LADDER_CFG.risk.maxStopAtr} ATR ise VWAP/EMA20 çizgisinin ötesi; o da genişse işlem yok</li>
             <li>• Hedef: {LADDER_CFG.risk.rr}R · öğlen dönüşünde VWAP (en az {LADDER_CFG.risk.fadeMinR}R)</li>
             <li>• Günde en fazla {LADDER_CFG.risk.maxAttempts} deneme · çıkıştan sonra {LADDER_CFG.risk.cooldownBars} mum bekle</li>
             <li>• 10:00 öncesi ve 15:30 sonrası yeni giriş yok · 15:50&apos;de kalan pozisyon kapanır</li>
@@ -324,9 +324,9 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
         })}
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Kalibrasyon (SPY 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): ayarlar ilk 39 günde seçildi, son 20 günde (görülmemiş) +12,9R.
-        Tüm dönem 128 işlem (2,2/gün) · %47 kazanç · toplam +48,9R · üç dönem ayrı ayrı +18,7R / +15,8R / +14,4R · tetiklerin %70&apos;inden önce erken uyarı yanmıştı.
-        Mod bazında: açılış yönü +17,2R (35) · öğlen dönüş +24,6R (48) · kapanış yönü +3,1R (43) · tepe/dip reddi +4,0R (2 — nadir).
+        Kalibrasyon (SPY 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): ayarlar ilk 39 günde seçildi, son 20 günde (görülmemiş) +17,9R.
+        Tüm dönem 139 işlem (2,4/gün) · %48 kazanç · toplam +59,4R · üç dönem ayrı ayrı +23,1R / +16,9R / +19,4R · tetiklerin %70&apos;inden önce erken uyarı yanmıştı.
+        Mod bazında: açılış yönü +28,4R (47) · öğlen dönüş +24,6R (48) · kapanış yönü +2,4R (42) · tepe/dip reddi +4,0R (2 — nadir).
         Ardışık 2 hacimli 5m mumu TEK BAŞINA kovalamak ölçümde yazı-tura çıktı (yön isabeti %50–56, görülmemiş dönemde ≈ 0R); bu yüzden yön izninin içinde tetik olarak kullanılıyor. Hacimli kırılımı kovalamak −5,4R verdi.
         Geçmiş sonuç geleceği garanti etmez. Eşikler: lib/spyengine/ladder.ts · LADDER_CFG. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>

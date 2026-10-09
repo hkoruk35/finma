@@ -23,8 +23,10 @@
  *
  * CALIBRATION (2026-10-09, SPY 5m, 59 seans 07-17 → 10-08, spot fiyat, opsiyon spread'i hariç):
  *   Ayarlar ilk 39 günde taranıp seçildi; son 20 gün (görülmemiş) ayrı doğrulandı.
- *   Tüm dönem: 128 işlem (2,2/gün), %47 kazanç, toplam +48,9R; görülmemiş son 20 gün +12,9R; üç dönem +18,7 / +15,8 / +14,4R.
- *   Mod bazında: AÇILIŞ +17,2R (35), ÖĞLEN +24,6R (48), KAPANIŞ +3,1R (43), TEPE/DİP REDDİ +4,0R (2 — çok nadir).
+ *   Tüm dönem: 139 işlem (2,4/gün), %48 kazanç, toplam +59,4R; görülmemiş son 20 gün +17,9R; üç dönem +23,1 / +16,9 / +19,4R.
+ *   Mod bazında: AÇILIŞ +28,4R (47), ÖĞLEN +24,6R (48), KAPANIŞ +2,4R (42), TEPE/DİP REDDİ +4,0R (2 — çok nadir).
+ *   AÇILIŞ BACAĞI (10:00–11:00): stop yalnızca tetik mumunun ucu (açılışta son 3 mumun fitili stopu aşırı genişletiyordu; ilk bacak
+ *   iptal oluyordu) ve üst sınır 2,5 ATR: açılış modu +17,2R(35) → +28,4R(47); geniş stop (3,5–5 ATR) denemeleri kaybettirdi.
  *   Trend modlarında yapısal stop 2 ATR'den genişse stop VWAP/EMA20 çizgisinin ötesine konur (lineStop): +2,8R, OOS +0,6R.
  *   Tetikten önceki 4 mumda ERKEN UYARI: %70. Üst TF teyidi (15m VWAP+EMA20, 30m/1h EMA20) YALNIZCA BİLGİ (minConfirm 0): filtre yapınca +3R kazandırdı ama günlük işlemi 2,2→1,8'e düşürüp erken girişleri kaçırtıyor.
  *   Denenip eklenmeyenler: ardışık 2 hacimli 5m mumu TEK BAŞINA kovalama (yön isabeti %50–56, OOS ≈ 0R; yalnızca izin içinde tetik),
@@ -108,6 +110,8 @@ export const LADDER_CFG = {
     maxStopAtr: 2.0,
     rr: 2.0,
     /** İz süren stop (koşucu): +afterR'de stop girişe, sonra son N mumun ucuna; hedef rr yerine trailRR */
+    /** Açılış bacağı: bu dakikaya kadar trend modunda daha geniş stop ve daha kısa stop penceresi (açılışta ATR küçük, ilk bacak hızlı) */
+    openLeg: { on: true, until: 11 * 60, maxStopAtr: 2.5, stopBars: 1 },
     /** Trend modlarında stop: VWAP/EMA20'nin alt (üst) çizgisi ∓ pad — yapısal stop çok genişse yedek */
     lineStop: { on: true, maxAtr: 2.0 },
     trail: { on: false, afterR: 1.0, bars: 2, rr: 4 },
@@ -561,16 +565,18 @@ export function ladderRead(inp: LadderInput): LadderRead {
       const fired = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && !(clx && lastClx && i <= lastClx.i);
       if (fired && !full && !cooling) {
         // tükenme reddinde yapısal stop: spike'tan sonraki mumların ucu (spike'ın kendisi hariç)
-        const from = clx && lastClx ? lastClx.i + 1 : Math.max(0, i - 2);
+        const openLeg = C.risk.openLeg.on && endMin <= C.risk.openLeg.until && mode === "AÇILIŞ YÖNÜ";
+        const from = clx && lastClx ? lastClx.i + 1 : Math.max(0, i - (openLeg ? C.risk.openLeg.stopBars - 1 : 2));
         const ext = d > 0 ? Math.min(...bars.slice(from, i + 1).map((x) => x.low)) : Math.max(...bars.slice(from, i + 1).map((x) => x.high));
         let stop = ext - d * C.risk.stopPadAtr * A5;
-        if (C.risk.lineStop.on && !fade && !clx && Math.abs(b.close - stop) > C.risk.maxStopAtr * A5) {
+        if (C.risk.lineStop.on && !fade && !clx && Math.abs(b.close - stop) > (openLeg ? C.risk.openLeg.maxStopAtr : C.risk.maxStopAtr) * A5) {
           const line = (d > 0 ? Math.min(vw, e5) : Math.max(vw, e5)) - d * C.risk.stopPadAtr * A5;
           if (Math.abs(b.close - line) <= C.risk.lineStop.maxAtr * A5 && (b.close - line) * d > 0) stop = line;
         }
         const risk = Math.abs(b.close - stop);
         const tgt = fade ? vw : b.close + d * (C.risk.trail.on ? C.risk.trail.rr : C.risk.rr) * risk;
-        if (risk > C.risk.maxStopAtr * A5 || risk < C.risk.minStopPts) {
+        const maxStop = (openLeg ? C.risk.openLeg.maxStopAtr : C.risk.maxStopAtr) * A5;
+        if (risk > maxStop || risk < C.risk.minStopPts) {
           status = "İPTAL";
           message = `${word(d)} tetiği geldi ama stop ${risk < C.risk.minStopPts ? "çok dar" : `çok geniş (${f2(risk)} = ${(risk / A5).toFixed(2)} ATR > ${C.risk.maxStopAtr})`} — işlem açılmaz.`;
           change = "Sonraki kurulum beklenir.";
