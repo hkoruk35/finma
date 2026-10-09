@@ -7,9 +7,9 @@
       "sector": "Consumer Defensive",
       "master_score": 63.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 64.95999908447266,
-      "change_pct": 2.7,
-      "volume": 0,
+      "price": 64.56,
+      "change_pct": -0.95,
+      "volume": 183240,
       "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
     },
     {
@@ -18,9 +18,9 @@
       "sector": "Financial Services",
       "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 116.00499725341797,
-      "change_pct": 1.89,
-      "volume": 0,
+      "price": 126.065,
+      "change_pct": 7.55,
+      "volume": 229881,
       "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
@@ -29,9 +29,9 @@
       "sector": "Energy",
       "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 71.20500183105469,
-      "change_pct": -6.87,
-      "volume": 0,
+      "price": 75.97,
+      "change_pct": 3.95,
+      "volume": 347704,
       "ai_short_summary": "BOGA AI Score: 52.0 | System: DEFAULT"
     },
     {
@@ -40,9 +40,9 @@
       "sector": "Energy",
       "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 88.27999877929688,
-      "change_pct": 4.46,
-      "volume": 0,
+      "price": 87.7,
+      "change_pct": -0.51,
+      "volume": 201512,
       "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
     },
     {
@@ -51,9 +51,9 @@
       "sector": "Consumer Cyclical",
       "master_score": 50.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 14.529999732971191,
-      "change_pct": 3.34,
-      "volume": 0,
+      "price": 15.38,
+      "change_pct": 2.67,
+      "volume": 531386,
       "ai_short_summary": "BOGA AI Score: 50.5 | System: BREAKOUT"
     },
     {
@@ -62,9 +62,9 @@
       "sector": "Communication Services",
       "master_score": 47.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 522.6749877929688,
-      "change_pct": 1.9,
-      "volume": 0,
+      "price": 527.09,
+      "change_pct": 0.13,
+      "volume": 439087,
       "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
     },
     {
@@ -73,9 +73,9 @@
       "sector": "Healthcare",
       "master_score": 45.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 32.880001068115234,
-      "change_pct": -0.09,
-      "volume": 0,
+      "price": 33.03,
+      "change_pct": -0.21,
+      "volume": 2089491,
       "ai_short_summary": "BOGA AI Score: 45.5 | System: TREND_CONT"
     },
     {
@@ -84,9 +84,9 @@
       "sector": "Consumer Cyclical",
       "master_score": 44.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 25.420000076293945,
-      "change_pct": 3.42,
-      "volume": 0,
+      "price": 26.345,
+      "change_pct": 4.21,
+      "volume": 4772406,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: BREAKOUT"
     },
     {
@@ -95,9 +95,9 @@
       "sector": "Technology",
       "master_score": 62.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 208.36000061035156,
-      "change_pct": 5.96,
-      "volume": 0,
+      "price": 207.775,
+      "change_pct": -0.28,
+      "volume": 1054638,
       "ai_short_summary": "BOGA AI Score: 62.0 | System: BREAKOUT"
     },
     {
@@ -106,9 +106,9 @@
       "sector": "Technology",
       "master_score": 61.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 30.290000915527344,
-      "change_pct": 3.88,
-      "volume": 0,
+      "price": 30.6,
+      "change_pct": 1.02,
+      "volume": 196484,
       "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
     },
     {
@@ -117,9 +117,9 @@
       "sector": "Industrials",
       "master_score": 51.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 72.93000030517578,
-      "change_pct": 3.4,
-      "volume": 0,
+      "price": 72.195,
+      "change_pct": -1.01,
+      "volume": 61649,
       "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
     },
     {
@@ -128,9 +128,9 @@
       "sector": "Financial Services",
       "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 9.739999771118164,
-      "change_pct": 1.14,
-      "volume": 0,
+      "price": 9.4699,
+      "change_pct": -2.77,
+      "volume": 914991,
       "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
     },
     {
@@ -139,9 +139,9 @@
       "sector": "Healthcare",
       "master_score": 46.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 98.0,
-      "change_pct": 0.14,
-      "volume": 0,
+      "price": 100.76,
+      "change_pct": 2.82,
+      "volume": 860404,
       "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
     },
     {
@@ -150,9 +150,9 @@
       "sector": "Technology",
       "master_score": 44.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 133.47999572753906,
-      "change_pct": -3.55,
-      "volume": 0,
+      "price": 135.15,
+      "change_pct": 1.25,
+      "volume": 62146,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
     },
     {
@@ -161,9 +161,9 @@
       "sector": "Industrials",
       "master_score": 40.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 15.649999618530273,
-      "change_pct": 1.89,
-      "volume": 0,
+      "price": 15.65,
+      "change_pct": 0.0,
+      "volume": 514567,
       "ai_short_summary": "BOGA AI Score: 40.5 | System: BREAKOUT"
     },
     {
@@ -172,9 +172,9 @@
       "sector": "Consumer Defensive",
       "master_score": 39.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 97.12000274658203,
-      "change_pct": 1.11,
-      "volume": 0,
+      "price": 97.53,
+      "change_pct": 0.42,
+      "volume": 233050,
       "ai_short_summary": "BOGA AI Score: 39.5 | System: DEFAULT"
     },
     {
@@ -183,10 +183,11 @@
       "sector": "Technology",
       "master_score": 38.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 151.0,
-      "change_pct": 0.48,
-      "volume": 0,
+      "price": 153.19,
+      "change_pct": 1.45,
+      "volume": 85971,
       "ai_short_summary": "BOGA AI Score: 38.5 | System: DEFAULT"
     }
-  ]
+  ],
+  "price_updated_at": "2026-10-09T11:30:08.003966-04:00"
 }
