@@ -5,7 +5,7 @@
  *
  * Ekranda aynı anda TEK durum görünür (lib/spyengine/ladder.ts):
  *   İŞLEM YOK · İZLE · ERKEN UYARI · TETİK · TERS UYARI · İPTAL
- *   1) yön izni = seans planı (açılış yönü · öğlen VWAP'a dönüş · kapanış VWAP+POC) → 2) 5m erken uyarı → 3) 5m tetik → 4) risk.
+ *   1) yön izni = seans planı (açılış yönü · öğlen VWAP'a dönüş · kapanış VWAP+POC · tepe/dip reddi) → 2) 5m erken uyarı → 3) 5m tetik → 4) risk.
  * Diğer kartlar (VWAP, EMA20/yapı, hacim/RVOL, likidite/akış, pivot, açılış aşamaları,
  * 15m/5m mum yorumları) yalnızca GEREKÇE gösterir; kendi yön hükmü vermez.
  * Kaldırılanlar (çelişkili ikinci hüküm üretiyorlardı): Karar Desteği, Senaryo Takibi,
@@ -255,6 +255,17 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
             <div className="text-[18px] font-extrabold" style={{ color: permCol }}>{rg.permission === "NÖTR" ? "NÖTR" : `${rg.permission} izni`}</div>
             <div className="text-[11px] font-semibold text-slate-300">{rg.mode}</div>
             <div className="text-[11px] leading-snug text-slate-400">{rg.modeText}</div>
+            <div className="mt-1 font-mono text-[11px] text-slate-400">
+              Üst TF teyidi{s.confirm ? ` ${s.confirm.n}/3` : ""}:{" "}
+              {s.confirm ? (
+                <>
+                  <span className={s.confirm.m15 ? "text-sky-300" : "text-slate-600"}>15m {s.confirm.m15 ? "✓" : "✗"}</span>{" · "}
+                  <span className={s.confirm.m30 ? "text-sky-300" : "text-slate-600"}>30m {s.confirm.m30 ? "✓" : "✗"}</span>{" · "}
+                  <span className={s.confirm.h1 ? "text-sky-300" : "text-slate-600"}>1h {s.confirm.h1 ? "✓" : "✗"}</span>
+                </>
+              ) : "yön yok"}
+            </div>
+            <div className="text-[10.5px] leading-snug text-slate-500">15m VWAP+EMA20 · 30m/1h EMA20 aynı tarafta. Tetik 5m&apos;den gelir; teyit yalnızca bilgidir, giriş engellemez (filtre yapınca günlük işlem 2,2→1,8&apos;e düşüp erken girişler kaçıyor).</div>
           </div>
           <CondList title="Seans planı (hangisi aktif)" conds={rg.conds} empty="—" />
           <div className="text-[10.5px] leading-snug text-slate-500">
@@ -272,15 +283,15 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
         </div>
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Adım 3 · 5m tetik</div>
-          <CondList title="3 şartın hepsi, kapanmış 5m mumda" conds={s.trigConds} empty={rg.permission === "NÖTR" ? "Yön izni yokken tetik aranmaz." : "Pozisyon açık."} />
+          <CondList title="5m tetik: 3 şart ya da 2 mum formasyonu (kapanmış mum)" conds={s.trigConds} empty={rg.permission === "NÖTR" ? "Yön izni yokken tetik aranmaz." : "Pozisyon açık."} />
           <div className="text-[10.5px] leading-snug text-slate-500">
-            Giriş tetik mumunun kapanışında. Ölçüm: tetiklerin ~%57&apos;sinden önceki 3 mumda erken uyarı yanmıştı.
+            Giriş tetik mumunun kapanışında. Ölçüm: tetiklerin ~%70&apos;inden önceki 4 mumda erken uyarı yanmıştı.
           </div>
         </div>
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Adım 4 · risk</div>
           <ul className="flex flex-col gap-0.5 text-[11.5px] leading-snug text-slate-300">
-            <li>• Stop: son 3 mumun {"dibi/tepesi"} ∓ {LADDER_CFG.risk.stopPadAtr} ATR; &gt; {LADDER_CFG.risk.maxStopAtr} ATR ise işlem yok</li>
+            <li>• Stop: son 3 mumun {"dibi/tepesi"} ∓ {LADDER_CFG.risk.stopPadAtr} ATR; trend modlarında bu &gt; {LADDER_CFG.risk.maxStopAtr} ATR ise VWAP/EMA20 çizgisinin ötesi; o da genişse işlem yok</li>
             <li>• Hedef: {LADDER_CFG.risk.rr}R · öğlen dönüşünde VWAP (en az {LADDER_CFG.risk.fadeMinR}R)</li>
             <li>• Günde en fazla {LADDER_CFG.risk.maxAttempts} deneme · çıkıştan sonra {LADDER_CFG.risk.cooldownBars} mum bekle</li>
             <li>• 10:00 öncesi ve 15:30 sonrası yeni giriş yok · 15:50&apos;de kalan pozisyon kapanır</li>
@@ -313,10 +324,11 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
         })}
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Kalibrasyon (SPY 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): ilk 39 günde ayar seçildi, son 20 günde (görülmemiş) +12,4R.
-        Tüm dönem 124 işlem (2,1/gün) · %44 kazanç · ort. +0,29R · üç dönem ayrı ayrı +12,7R / +9,8R / +13,4R.
-        Mod bazında: açılış yönü +11,3R (37) · öğlen dönüş +24,6R (48) · kapanış yönü 0R (39 — kenarı yok). Geçmiş sonuç geleceği garanti etmez.
-        Eşikler: lib/spyengine/ladder.ts · LADDER_CFG. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
+        Kalibrasyon (SPY 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): ayarlar ilk 39 günde seçildi, son 20 günde (görülmemiş) +12,9R.
+        Tüm dönem 128 işlem (2,2/gün) · %47 kazanç · toplam +48,9R · üç dönem ayrı ayrı +18,7R / +15,8R / +14,4R · tetiklerin %70&apos;inden önce erken uyarı yanmıştı.
+        Mod bazında: açılış yönü +17,2R (35) · öğlen dönüş +24,6R (48) · kapanış yönü +3,1R (43) · tepe/dip reddi +4,0R (2 — nadir).
+        Ardışık 2 hacimli 5m mumu TEK BAŞINA kovalamak ölçümde yazı-tura çıktı (yön isabeti %50–56, görülmemiş dönemde ≈ 0R); bu yüzden yön izninin içinde tetik olarak kullanılıyor. Hacimli kırılımı kovalamak −5,4R verdi.
+        Geçmiş sonuç geleceği garanti etmez. Eşikler: lib/spyengine/ladder.ts · LADDER_CFG. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>
     </div>
   );
@@ -1480,10 +1492,13 @@ export default function SpyEngineV9() {
     return out;
   }, [pivBase, lvl]);
   const rvolBase = data?.rvolBase ?? null;
+  /** Üst zaman dilimi teyidi için 30m / 1h mumlar + EMA20 (yalnızca doğrulama; tetik 5m'den gelir) */
+  const m60D = useMemo(() => bucketAggregate(m1, 60), [m1]);
+  const htf = useMemo(() => ({ m30: m30D, e30: emaByTime(m30D), m60: m60D, e60: emaByTime(m60D) }), [m30D, m60D]);
   const ladderInput = useMemo(() => {
     if (!analysis || !date) return null;
-    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, staticLevels };
-  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, staticLevels, data?.levels?.prevClose]);
+    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels };
+  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, data?.levels?.prevClose]);
   const ladder = useMemo<LadderRead | null>(() => (ladderInput ? ladderRead(ladderInput) : null), [ladderInput]);
   const lad = ladder?.current ?? null;
 

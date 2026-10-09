@@ -9,6 +9,7 @@
  *      · AÇILIŞ  (10:00–14:00): 09:55/10:00 NET açılış yönü — açılış aralığının karşı ucu kapanışla kırılırsa biter
  *      · ÖĞLEN   (10:30–14:00, açılış yönü yoksa/bittiyse): VWAP'tan ≥ k×ATR5 uzaklaşan fiyatta VWAP'a dönüş
  *      · KAPANIŞ (14:00–15:30): fiyat VWAP ve POC'un aynı tarafındaysa o yön
+ *      · TEPE/DİP REDDİ (her an): aralığı ≥2 ATR, hacmi ≥3× ve uzun fitilli spike geri dönerse ters yön (ekstremi aşılana ya da 2 saate kadar)
  *   2) ERKEN UYARI (5m): izin yönünde geri çekilme VWAP/EMA20'ye geldi ya da öğlen uzaması doldu — emri hazırla
  *   3) TETİK (5m kapanmış mum): gövdeli mum (gövde ≥ %30, kapanış iyi tarafta) + hacim ≥ önceki 3 mumun ortalaması
  *      · trend modlarında kapanış VWAP ve EMA20'nin doğru tarafında · öğlen modunda kapanış VWAP'a doğru dönmüş
@@ -21,10 +22,14 @@
  * (deterministik — sayfa gün ortasında açılsa da aynı sonuç).
  *
  * CALIBRATION (2026-10-09, SPY 5m, 59 seans 07-17 → 10-08, spot fiyat, opsiyon spread'i hariç):
- *   600 rastgele ayar ilk 39 günde tarandı; seçilen ayar son 20 günde (görülmemiş) +12,4R.
- *   Tüm dönem: 125 işlem (2,1/gün), %43 kazanç, ort. +0,29R, toplam +36R.
- *   Üç dönem ayrı ayrı: +12,7R / +10,0R / +13,4R. Mod bazında: AÇILIŞ +12,5R (37), ÖĞLEN +24,6R (48),
- *   KAPANIŞ −1,0R (40 — kenar yok, bilgi için açık bırakıldı). Komşu ayarların hepsi pozitif (+25…+45R).
+ *   Ayarlar ilk 39 günde taranıp seçildi; son 20 gün (görülmemiş) ayrı doğrulandı.
+ *   Tüm dönem: 128 işlem (2,2/gün), %47 kazanç, toplam +48,9R; görülmemiş son 20 gün +12,9R; üç dönem +18,7 / +15,8 / +14,4R.
+ *   Mod bazında: AÇILIŞ +17,2R (35), ÖĞLEN +24,6R (48), KAPANIŞ +3,1R (43), TEPE/DİP REDDİ +4,0R (2 — çok nadir).
+ *   Trend modlarında yapısal stop 2 ATR'den genişse stop VWAP/EMA20 çizgisinin ötesine konur (lineStop): +2,8R, OOS +0,6R.
+ *   Tetikten önceki 4 mumda ERKEN UYARI: %70. Üst TF teyidi (15m VWAP+EMA20, 30m/1h EMA20) YALNIZCA BİLGİ (minConfirm 0): filtre yapınca +3R kazandırdı ama günlük işlemi 2,2→1,8'e düşürüp erken girişleri kaçırtıyor.
+ *   Denenip eklenmeyenler: ardışık 2 hacimli 5m mumu TEK BAŞINA kovalama (yön isabeti %50–56, OOS ≈ 0R; yalnızca izin içinde tetik),
+ *   KIRILIM kovalama (−5,4R), kırılıma karşı fade engeli (iyileştirmedi), iz süren stop/4R hedef (fark gürültü),
+ *   üst TF teyidini TÜM modlara filtre yapmak (OOS +12,9R → +2R: öğlen dönüşü trende karşı çalışır).
  */
 
 import { nyParts, nyClock, r2, type Bar } from "./core";
@@ -49,7 +54,35 @@ export const LADDER_CFG = {
     /** açılış aralığı (kırılma kontrolü): ilk N adet 5m */
     orBars: 3,
   },
+  /** Momentum kırılımı: hacimli gövdeli mum VWAP+EMA20'yi kendi yönünde aşar */
+  impulse: {
+    /** KAPALI: 59 seanslık ölçümde kırılımı kovalamak −5,4R verdi (20 işlem); karşı yönde dönüş engeli de toplamı iyileştirmedi */
+    on: false,
+    /** true: kırılım yönünde işlem aç (KIRILIM modu) · false: yalnızca karşı yönde dönüş (fade) engeli */
+    trade: false,
+    bodyFrac: 0.5,
+    minBodyAtr: 0.8,
+    volRatio: 2.0,
+    /** izin süresi (5m mum) — fiyat VWAP'ın doğru tarafında kaldığı sürece */
+    life: 12,
+    /** bu mum sayısı boyunca KARŞI yönde VWAP'a dönüş (fade) aranmaz */
+    fadeBlock: 12,
+  },
+  /** Tükenme/tepe-dip reddi: dev hacimli, uzun fitilli spike geri döner */
+  climax: {
+    on: true,
+    rangeAtr: 2.0,
+    volRatio: 3.0,
+    wickFrac: 0.55,
+    life: 24,
+    /** tetikte hacim şartı gevşer (spike sonrası hacim sönük olur) */
+    trigVolRatio: 0.5,
+  },
   trig: {
+    /** Ardışık 2 gövdeli mum, hacim artarak (5m formasyon tetiği) */
+    pair: { on: true, bodyFrac: 0.3 },
+    /** Üst zaman dilimi (15m VWAP+EMA20, 30m EMA20, 1h EMA20) teyidi en az — 0: yalnızca bilgi */
+    minConfirm: 0,
     minBodyFrac: 0.3,
     /** kapanış mumun iyi tarafında (CALL: aralığın ≥ %55'inde) */
     closeTop: 0.55,
@@ -74,6 +107,10 @@ export const LADDER_CFG = {
     minStopPts: 0.15,
     maxStopAtr: 2.0,
     rr: 2.0,
+    /** İz süren stop (koşucu): +afterR'de stop girişe, sonra son N mumun ucuna; hedef rr yerine trailRR */
+    /** Trend modlarında stop: VWAP/EMA20'nin alt (üst) çizgisi ∓ pad — yapısal stop çok genişse yedek */
+    lineStop: { on: true, maxAtr: 2.0 },
+    trail: { on: false, afterR: 1.0, bars: 2, rr: 4 },
     /** öğlen modunda hedef VWAP (en az 0,8R uzakta olmalı) */
     fadeMinR: 0.8,
     maxAttempts: 4,
@@ -142,7 +179,7 @@ export function rvolText(r: number | null): string {
 // ── Tipler ───────────────────────────────────────────────────────────
 
 export type Permission = "CALL" | "PUT" | "NÖTR";
-export type PlanMode = "AÇILIŞ TOPLANIYOR" | "AÇILIŞ YÖNÜ" | "ÖĞLEN DÖNÜŞ" | "KAPANIŞ YÖNÜ" | "BEKLE";
+export type PlanMode = "AÇILIŞ TOPLANIYOR" | "AÇILIŞ YÖNÜ" | "KIRILIM" | "TEPE/DİP REDDİ" | "ÖĞLEN DÖNÜŞ" | "KAPANIŞ YÖNÜ" | "BEKLE";
 export type LadderStatus = "İŞLEM YOK" | "İZLE" | "ERKEN UYARI" | "TETİK" | "TERS UYARI" | "İPTAL";
 
 export interface Cond {
@@ -197,6 +234,8 @@ export interface Attempt {
   result: "KÂR" | "ZARAR" | "ZAMAN" | null;
   r: number | null;
   mfe: number;
+  /** girişte üst zaman dilimi teyidi (0–3) */
+  confirm: number;
 }
 
 export interface LadderStep {
@@ -211,6 +250,8 @@ export interface LadderStep {
   trigConds: Cond[] | null;
   reverse: string[];
   plan: Plan | null;
+  /** Seçili yönde 15m / 30m / 1h teyidi (yön yoksa null) */
+  confirm: { n: number; m15: boolean; m30: boolean; h1: boolean } | null;
   rvol: number | null;
   dayRvol: number | null;
   localRatio: number | null;
@@ -238,6 +279,8 @@ export interface LadderInput {
   atr15: Map<number, number>;
   rvol: RvolBase | null;
   prevClose: number | null;
+  /** Üst zaman dilimi teyidi için çok günlük 30m / 1h mumlar ve EMA20'leri (kapanmış) */
+  htf?: { m30: Bar[]; e30: EmaMap; m60: Bar[]; e60: EmaMap };
   staticLevels: { price: number; label: string }[];
 }
 
@@ -267,6 +310,11 @@ function crossesIn(s5: DaySeries, from: number, to: number): number {
   return c;
 }
 
+function lastClosedBar(bars: Bar[], span: number, t: number): Bar | null {
+  for (let i = bars.length - 1; i >= 0; i--) if (bars[i].time + span <= t) return bars[i];
+  return null;
+}
+
 // ── Ana oynatma ──────────────────────────────────────────────────────
 
 export function ladderRead(inp: LadderInput): LadderRead {
@@ -286,6 +334,9 @@ export function ladderRead(inp: LadderInput): LadderRead {
   let broken = false;
   let pos: { att: Attempt; d: 1 | -1; stop: number; target: number; risk: number } | null = null;
   let cooldownUntil = -1;
+  let lastImp: { i: number; d: 1 | -1 } | null = null;
+  let lastClx: { i: number; d: 1 | -1; extreme: number } | null = null;
+  let clxUsed = -1;
   let reverseUntil = -1;
   let reverseWhy: string[] = [];
   const sweptFlag = new Set<number>();
@@ -320,6 +371,20 @@ export function ladderRead(inp: LadderInput): LadderRead {
       if (endMin === 10 * 60) opening = op;
     }
 
+    // ── momentum kırılımı / tükenme reddi tespiti (bu mum dahil) ──
+    if (A5 && pv > 0 && endMin >= 10 * 60 && endMin <= C.risk.lastEntryMin) {
+      const dd: 1 | -1 = b.close >= b.open ? 1 : -1;
+      if (C.impulse.on && rg > 0 && body / rg >= C.impulse.bodyFrac && body >= C.impulse.minBodyAtr * A5 && (b.volume || 0) >= C.impulse.volRatio * pv
+        && e5 != null && (b.close - vw) * dd > 0 && (b.close - e5) * dd > 0) lastImp = { i, d: dd };
+      if (C.climax.on && rg >= C.climax.rangeAtr * A5 && (b.volume || 0) >= C.climax.volRatio * pv) {
+        const wUp = b.high - Math.max(b.open, b.close), wDn = Math.min(b.open, b.close) - b.low;
+        if (wUp / rg >= C.climax.wickFrac && closePos <= 0.5) lastClx = { i, d: -1, extreme: b.high };
+        else if (wDn / rg >= C.climax.wickFrac && closePos >= 0.5) lastClx = { i, d: 1, extreme: b.low };
+      }
+    }
+    const impValid = !!lastImp && i - lastImp.i <= C.impulse.life && (b.close - vw) * lastImp.d > 0;
+    const clxValid = !!lastClx && clxUsed !== lastClx.i && i - lastClx.i <= C.climax.life && (lastClx.d < 0 ? b.close < lastClx.extreme : b.close > lastClx.extreme);
+
     // ── seans planı: izin ──
     let permission: Permission = "NÖTR";
     let mode: PlanMode = "BEKLE";
@@ -334,11 +399,20 @@ export function ladderRead(inp: LadderInput): LadderRead {
       mode = "AÇILIŞ TOPLANIYOR";
       const op = openingProvisional;
       modeText = op ? `Açılış okuması: ${op.label} — karar 09:55 / 10:00'da` : "09:30–10:00 açılış aşamaları toplanıyor";
+    } else if (impValid && lastImp && C.impulse.trade) {
+      permission = word(lastImp.d);
+      mode = "KIRILIM";
+      modeText = `${nyClock(bars[lastImp.i].time + 300)} hacimli ${lastImp.d > 0 ? "yeşil" : "kırmızı"} mum VWAP ve EMA20'yi ${lastImp.d > 0 ? "yukarı" : "aşağı"} kırdı (${(bars[lastImp.i].volume / Math.max(1, mean(bars.slice(Math.max(0, lastImp.i - 3), lastImp.i).map((x) => x.volume || 0)))).toFixed(1)}× hacim) — fiyat VWAP'ın ${lastImp.d > 0 ? "üstünde" : "altında"} kaldığı sürece momentum yönü`;
     } else if (opD && endMin < C.plan.openEnd && !broken) {
       permission = word(opD);
       mode = "AÇILIŞ YÖNÜ";
       modeText = `${opening!.decidedAt} NET açılış yönü ${opD > 0 ? "yukarı" : "aşağı"} — açılış aralığı ${opD > 0 ? `dibi ${f2(orLo!)}` : `tepesi ${f2(orHi!)}`} kapanışla kırılana kadar (en geç 14:00)`;
-    } else if (endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK) {
+    } else if (clxValid && lastClx && !(opD && !broken && endMin < C.plan.openEnd && opD === -lastClx.d && false)) {
+      permission = word(lastClx.d);
+      mode = "TEPE/DİP REDDİ";
+      modeText = `${nyClock(bars[lastClx.i].time + 300)} ${lastClx.d < 0 ? "tepe" : "dip"} reddi: dev hacimli spike ${f2(lastClx.extreme)}'ten geri döndü (uzun ${lastClx.d < 0 ? "üst" : "alt"} fitil) — ${lastClx.d < 0 ? "aşağı" : "yukarı"} dönüş; ${f2(lastClx.extreme)} aşılırsa geçersiz`;
+    } else if (endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK
+      && !(lastImp && i - lastImp.i <= C.impulse.fadeBlock && lastImp.d === (dev > 0 ? 1 : -1))) {
       permission = dev > 0 ? "PUT" : "CALL";
       mode = "ÖĞLEN DÖNÜŞ";
       modeText = `Öğlen: fiyat VWAP'tan ${sgn(devAtr)} ATR uzakta (eşik ±${C.plan.fadeK}) — VWAP ${f2(vw)}'a dönüş`;
@@ -356,6 +430,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
     conds.push(
       { key: "p1", required: false, label: "09:55/10:00 NET açılış yönü (ilk 2–3 saat)", ok: mode === "AÇILIŞ YÖNÜ", value: opening ? `${opening.label}${opening.net ? " · NET" : " · net değil"}${broken ? " · aralık kırıldı (bitti)" : ""}` : openingProvisional ? `ön okuma: ${openingProvisional.label}` : "—" },
       { key: "p2", required: false, label: `Öğlen (10:30–14:00): VWAP'tan ≥ ${C.plan.fadeK} ATR uzama → VWAP'a dönüş`, ok: mode === "ÖĞLEN DÖNÜŞ", value: devAtr != null ? `${sgn(dev)} (${sgn(devAtr)} ATR)` : "—" },
+      ...(C.impulse.on && C.impulse.trade ? [{ key: "p4", required: false, label: "Momentum kırılımı: hacimli gövdeli mum VWAP+EMA20'yi aştı (son 1 saat)", ok: mode === "KIRILIM", value: lastImp && i - lastImp.i <= C.impulse.life ? `${nyClock(bars[lastImp.i].time + 300)} · ${lastImp.d > 0 ? "yukarı" : "aşağı"}` : "yok" }] : []),
+      { key: "p5", required: false, label: "Tükenme reddi: dev hacimli, uzun fitilli spike geri döndü (son 2 saat)", ok: mode === "TEPE/DİP REDDİ", value: lastClx && i - lastClx.i <= C.climax.life ? `${nyClock(bars[lastClx.i].time + 300)} · ${lastClx.d < 0 ? "tepe" : "dip"} ${f2(lastClx.extreme)}` : "yok" },
       { key: "p3", required: false, label: "14:00 sonrası: VWAP ve POC aynı tarafta", ok: mode === "KAPANIŞ YÖNÜ", value: `VWAP ${f2(vw)} · POC ${poc != null ? f2(poc) : "—"}` },
     );
     const regime: RegimeRead = {
@@ -369,6 +445,22 @@ export function ladderRead(inp: LadderInput): LadderRead {
     };
     const d: 1 | -1 | 0 = permission === "CALL" ? 1 : permission === "PUT" ? -1 : 0;
 
+    // ── üst zaman dilimi teyidi (yalnızca doğrulama; tetik 5m'den gelir) ──
+    let confirm: LadderStep["confirm"] = null;
+    if (d !== 0) {
+      const c15 = lastClosedBar(inp.s15.bars, 900, end);
+      const k15 = c15 ? inp.s15.bars.indexOf(c15) : -1;
+      const e15 = c15 ? inp.ema15.get(c15.time) : undefined;
+      const v15 = k15 >= 0 ? inp.s15.vwap[k15] : null;
+      const m15ok = !!c15 && e15 != null && v15 != null && (c15.close - v15) * d > 0 && (c15.close - e15) * d > 0;
+      const h = inp.htf;
+      const c30 = h ? lastClosedBar(h.m30, 1800, end) : null;
+      const c60 = h ? lastClosedBar(h.m60, 3600, end) : null;
+      const m30ok = !!c30 && !!h && h.e30.get(c30.time) != null && (c30.close - (h.e30.get(c30.time) as number)) * d > 0;
+      const h1ok = !!c60 && !!h && h.e60.get(c60.time) != null && (c60.close - (h.e60.get(c60.time) as number)) * d > 0;
+      confirm = { n: (m15ok ? 1 : 0) + (m30ok ? 1 : 0) + (h1ok ? 1 : 0), m15: m15ok, m30: m30ok, h1: h1ok };
+    }
+
     // ── pozisyon yönetimi (stop öncelikli) ──
     let exitedNow: Attempt | null = null;
     if (pos) {
@@ -380,6 +472,12 @@ export function ladderRead(inp: LadderInput): LadderRead {
       else if (hitTgt) ex = { price: P.target, result: "KÂR" };
       else if (endMin >= C.risk.exitMin) ex = { price: b.close, result: "ZAMAN" };
       P.att.mfe = Math.max(P.att.mfe, P.d > 0 ? b.high - P.att.entry : P.att.entry - b.low);
+      if (!ex && C.risk.trail.on && P.att.mfe >= C.risk.trail.afterR * P.risk) {
+        const tb = bars.slice(Math.max(0, i - C.risk.trail.bars + 1), i + 1);
+        const ts = P.d > 0 ? Math.min(...tb.map((x) => x.low)) - C.risk.stopPadAtr * (A5 ?? 0) : Math.max(...tb.map((x) => x.high)) + C.risk.stopPadAtr * (A5 ?? 0);
+        const nb = (ts - P.att.entry) * P.d >= 0 ? ts : P.att.entry; // en az başabaş
+        if ((nb - P.stop) * P.d > 0) P.stop = r2(nb);
+      }
       if (ex) {
         P.att.exitClock = clock;
         P.att.exit = r2(ex.price);
@@ -445,7 +543,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
       }
     } else if (d && A5 && e5 != null && !exitedNow) {
       const quality = rg > 0 && body / rg >= C.trig.minBodyFrac && (d > 0 ? closePos >= C.trig.closeTop && b.close > b.open : closePos <= 1 - C.trig.closeTop && b.close < b.open);
-      const volOk = pv > 0 && (b.volume || 0) >= C.trig.volRatio * pv;
+      const clx = mode === "TEPE/DİP REDDİ";
+      const volOk = pv > 0 && (b.volume || 0) >= (clx ? C.climax.trigVolRatio : C.trig.volRatio) * pv;
       const fade = mode === "ÖĞLEN DÖNÜŞ";
       const placeOk = fade ? i > 0 && (b.close - bars[i - 1].close) * d > 0 : (b.close - e5) * d > 0 && (b.close - vw) * d > 0;
       trigConds = [
@@ -453,12 +552,24 @@ export function ladderRead(inp: LadderInput): LadderRead {
         { key: "t2", required: true, label: `Gövdeli ${d > 0 ? "yeşil" : "kırmızı"} mum (gövde ≥ %${Math.round(C.trig.minBodyFrac * 100)}, kapanış iyi tarafta)`, ok: quality, value: `gövde %${rg > 0 ? Math.round((body / rg) * 100) : 0} · kapanış %${Math.round(closePos * 100)}${pat ? ` · ${pat.label}` : ""}` },
         { key: "t3", required: true, label: `Hacim ≥ önceki 3 mumun ortalaması`, ok: volOk, value: `${local != null ? local.toFixed(2) : "—"}× · RVOL ${rv != null ? rv.toFixed(2) : "—"}` },
       ];
-      const fired = trigConds.every((c) => c.ok) && inWindow;
+      // 5m formasyon: ardışık 2 gövdeli mum, ikincisinde hacim artıyor, kapanış VWAP+EMA20'nin doğru tarafında
+      const b1 = i > 0 ? bars[i - 1] : null;
+      const goodCandle = (x: Bar) => { const r = x.high - x.low; return r > 0 && Math.abs(x.close - x.open) / r >= C.trig.pair.bodyFrac && (x.close > x.open ? 1 : -1) === d && (d > 0 ? (x.close - x.low) / r >= C.trig.closeTop : (x.close - x.low) / r <= 1 - C.trig.closeTop); };
+      const pairOk = C.trig.pair.on && !fade && !!b1 && goodCandle(b) && goodCandle(b1) && (b.close - b1.close) * d > 0 && (b.volume || 0) > (b1.volume || 0) && placeOk;
+      trigConds.push({ key: "t4", required: false, label: "ya da: ardışık 2 gövdeli mum, ikincisinde hacim artıyor (formasyon)", ok: pairOk, value: b1 ? `önceki ${f2(b1.close)} → ${f2(b.close)} · hacim ${(b1.volume / 1000).toFixed(0)}K → ${((b.volume || 0) / 1000).toFixed(0)}K` : "—" });
+      const confOk = fade || clx || (confirm?.n ?? 3) >= C.trig.minConfirm;
+      const fired = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && !(clx && lastClx && i <= lastClx.i);
       if (fired && !full && !cooling) {
-        const ext = d > 0 ? Math.min(...bars.slice(Math.max(0, i - 2), i + 1).map((x) => x.low)) : Math.max(...bars.slice(Math.max(0, i - 2), i + 1).map((x) => x.high));
-        const stop = ext - d * C.risk.stopPadAtr * A5;
+        // tükenme reddinde yapısal stop: spike'tan sonraki mumların ucu (spike'ın kendisi hariç)
+        const from = clx && lastClx ? lastClx.i + 1 : Math.max(0, i - 2);
+        const ext = d > 0 ? Math.min(...bars.slice(from, i + 1).map((x) => x.low)) : Math.max(...bars.slice(from, i + 1).map((x) => x.high));
+        let stop = ext - d * C.risk.stopPadAtr * A5;
+        if (C.risk.lineStop.on && !fade && !clx && Math.abs(b.close - stop) > C.risk.maxStopAtr * A5) {
+          const line = (d > 0 ? Math.min(vw, e5) : Math.max(vw, e5)) - d * C.risk.stopPadAtr * A5;
+          if (Math.abs(b.close - line) <= C.risk.lineStop.maxAtr * A5 && (b.close - line) * d > 0) stop = line;
+        }
         const risk = Math.abs(b.close - stop);
-        const tgt = fade ? vw : b.close + d * C.risk.rr * risk;
+        const tgt = fade ? vw : b.close + d * (C.risk.trail.on ? C.risk.trail.rr : C.risk.rr) * risk;
         if (risk > C.risk.maxStopAtr * A5 || risk < C.risk.minStopPts) {
           status = "İPTAL";
           message = `${word(d)} tetiği geldi ama stop ${risk < C.risk.minStopPts ? "çok dar" : `çok geniş (${f2(risk)} = ${(risk / A5).toFixed(2)} ATR > ${C.risk.maxStopAtr})`} — işlem açılmaz.`;
@@ -468,10 +579,11 @@ export function ladderRead(inp: LadderInput): LadderRead {
           message = `${word(d)} tetiği geldi ama hedef (VWAP ${f2(vw)}) stoba göre çok yakın — işlem açılmaz.`;
           change = "Fiyat VWAP'tan yeniden uzaklaşırsa tekrar aranır.";
         } else {
-          const setup = fade ? "VWAP'a dönüş mumu" : mode === "AÇILIŞ YÖNÜ" ? "açılış yönünde VWAP/EMA20 üstü gövdeli mum" : "kapanış yönünde VWAP/EMA20 üstü gövdeli mum";
+          const setup = fade ? "VWAP'a dönüş mumu" : mode === "KIRILIM" ? "hacimli kırılım mumu (VWAP+EMA20 aşıldı)" : clx ? `${d < 0 ? "tepe" : "dip"} reddi sonrası VWAP+EMA20 ${d < 0 ? "kaybı" : "geri alımı"}` : mode === "AÇILIŞ YÖNÜ" ? "açılış yönünde VWAP/EMA20 üstü gövdeli mum" : "kapanış yönünde VWAP/EMA20 üstü gövdeli mum";
           plan = { side: word(d), entry: r2(b.close), stop: r2(stop), target: r2(tgt), targetLabel: fade ? "VWAP" : `${C.risk.rr}R`, stopAtr: r2(risk / A5), setup };
-          const att: Attempt = { side: word(d), mode, setup, clock, time: b.time, entry: r2(b.close), stop: r2(stop), target: r2(tgt), exitClock: null, exit: null, result: null, r: null, mfe: 0 };
+          const att: Attempt = { side: word(d), mode, setup: pairOk && !(quality && volOk) ? `${setup} (2 mum hacim artışı)` : setup, clock, time: b.time, entry: r2(b.close), stop: r2(stop), target: r2(tgt), exitClock: null, exit: null, result: null, r: null, mfe: 0, confirm: confirm?.n ?? 0 };
           attempts.push(att);
+          if (clx && lastClx) clxUsed = lastClx.i;
           pos = { att, d, stop: r2(stop), target: r2(tgt), risk };
           status = "TETİK";
           message = `${word(d)} · ${mode} · ${setup}${pat ? ` (${pat.label})` : ""} — giriş ${f2(b.close)}, stop ${f2(stop)} (${f2(risk)}), hedef ${f2(tgt)} (${fade ? "VWAP" : `${C.risk.rr}R`}).`;
@@ -495,12 +607,16 @@ export function ladderRead(inp: LadderInput): LadderRead {
           { key: "w2", required: false, label: fade ? "Satış/alış yavaşlıyor (hacim önceki 3 mumdan düşük)" : "Geri çekilme hacimsiz (hacim önceki 3 mumdan düşük)", ok: local != null && local < 1, value: `${local != null ? local.toFixed(2) : "—"}×` },
           { key: "w3", required: false, label: fade ? `Dönüş formasyonu (${d > 0 ? "çekiç/yutan boğa" : "kayan yıldız/yutan ayı"})` : "Seviyede tutunma formasyonu", ok: !!pat, value: pat ? pat.label : "yok" },
         ];
-        // öğlende: uzama dolu VE hız kesiliyor (hacim düşüyor ya da formasyon) · trendde: geri çekilme seviyeye geldi
-        const ready = fade ? stretched && ((local != null && local < 1) || !!pat) : near && pulled;
+        // formasyonun ilk mumu: gövdeli, hacim bir öncekinden büyük, kapanış VWAP+EMA20'nin doğru tarafında → ikinci mum tetik olur
+        const bPrev = i > 0 ? bars[i - 1] : null;
+        const firstGood = C.trig.pair.on && !fade && !clx && !!bPrev && rg > 0 && body / rg >= C.trig.pair.bodyFrac && (b.close > b.open ? 1 : -1) === d && (d > 0 ? closePos >= C.trig.closeTop : closePos <= 1 - C.trig.closeTop) && (b.volume || 0) > (bPrev.volume || 0) && (b.close - e5) * d > 0 && (b.close - vw) * d > 0;
+        warnSigns.push({ key: "w4", required: false, label: "Formasyonun ilk mumu: gövdeli, hacim artıyor, VWAP+EMA20'nin doğru tarafında kapandı", ok: firstGood, value: bPrev ? `hacim ${(bPrev.volume / 1000).toFixed(0)}K → ${((b.volume || 0) / 1000).toFixed(0)}K` : "—" });
+        // öğlende: uzama dolu VE hız kesiliyor (hacim düşüyor ya da formasyon) · trendde: geri çekilme seviyeye geldi ya da formasyonun ilk mumu
+        const ready = clx ? true : fade ? stretched && ((local != null && local < 1) || !!pat) : (near && pulled) || firstGood;
         if (ready && inWindow && !full) {
           status = "ERKEN UYARI";
-          message = `${word(d)} · ${mode} · ${fade ? `fiyat VWAP'tan ${devAtr != null ? sgn(devAtr) : ""} ATR uzakta, dönüş mumu bekleniyor` : `geri çekilme ${L.label} ${f2(L.price)} yakınında`}. Tetik: ${turnTxt}.`;
-          change = fade ? `Uzama ${C.plan.fadeK} ATR'nin altına inerse ya da 14:00 olursa iptal.` : `Açılış yönü bitmezse tetik beklenir; 15m kapanış ${d > 0 ? "VWAP altına" : "VWAP üstüne"} geçerse dikkat.`;
+          message = `${word(d)} · ${mode} · ${clx && lastClx ? `${lastClx.d < 0 ? "tepe" : "dip"} ${f2(lastClx.extreme)} reddedildi, ${word(d)} hazırlan` : firstGood && !fade ? `ilk ${d > 0 ? "yeşil" : "kırmızı"} gövdeli mum hacimle VWAP+EMA20'nin ${d > 0 ? "üstünde" : "altında"} kapandı; ikinci mum aynı yönde ve hacim artarak kapanırsa TETİK` : fade ? `fiyat VWAP'tan ${devAtr != null ? sgn(devAtr) : ""} ATR uzakta, dönüş mumu bekleniyor` : `geri çekilme ${L.label} ${f2(L.price)} yakınında`}. Tetik: ${turnTxt}.`;
+          change = clx && lastClx ? `${f2(lastClx.extreme)} aşılırsa iptal; 2 saat içinde tetik gelmezse söner.` : fade ? `Uzama ${C.plan.fadeK} ATR'nin altına inerse ya da 14:00 olursa iptal.` : `Açılış yönü bitmezse tetik beklenir; 15m kapanış ${d > 0 ? "VWAP altına" : "VWAP üstüne"} geçerse dikkat.`;
         } else {
           status = reverseActive ? "TERS UYARI" : "İZLE";
           message = reverseActive
@@ -548,7 +664,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
 
     steps.push({
       time: b.time, clock, status, side: status === "İŞLEM YOK" ? null : side, message, change, regime,
-      warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan,
+      warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm,
       rvol: rv != null ? r2(rv) : null, dayRvol: dayRv != null ? r2(dayRv) : null, localRatio: local != null ? r2(local) : null,
     });
   }
