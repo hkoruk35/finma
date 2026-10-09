@@ -48,6 +48,7 @@ import {
 } from "@/lib/spyengine/strategy";
 import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
 import { checkReversalCatch } from "@/lib/spyengine/reversal";
+import { rvolBaseline } from "@/lib/spyengine/ladder";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -71,6 +72,9 @@ const MAX_TRACKED_POSITIONS = 80;
  * önbelleği) kapanmış pozisyonlar bir daha hiç Yahoo'ya sorulmaz.
  */
 const resolvedPositionCache = new Map<string, PositionState>();
+
+/** RVOL tabanı gün içinde değişmez — 60 günlük geçmiş değişmedikçe yeniden hesaplanmaz */
+let rvolCache: { key: string; value: { slot: number[]; cum: number[]; days: number } | null } | null = null;
 
 function spotStats(sessionBars: Bar[], date: string) {
   const rth = sessionBars.filter(isRthBar);
@@ -428,6 +432,16 @@ export async function GET(req: NextRequest) {
         openPosition,
         liveChain,
         events,
+        // Karar merdiveni RVOL tabanı: son 20 seansta AYNI SAATTEKİ 5m mumların ortalama hacmi
+        // (78 dilim) + aynı saate kadar ortalama toplam hacim. Yalnızca seans tarihinden ÖNCEKİ günler.
+        rvolBase: (() => {
+          const key = `${session.date}:${rvolHistory.bars.length}:${rvolHistory.bars[rvolHistory.bars.length - 1]?.time ?? 0}`;
+          if (rvolCache?.key === key) return rvolCache.value;
+          const b = rvolBaseline(rvolHistory.bars, session.date);
+          const value = b ? { slot: b.slot.map(Math.round), cum: b.cum.map(Math.round), days: b.days } : null;
+          rvolCache = { key, value };
+          return value;
+        })(),
         // V4.1 (B.3): bugun ayni kontrata (strike+yon) ikinci kez girmek
         // isteyip reddedilen adaylar -- rejimden bagimsiz, aday cozumleme
         // asamasina ait, o yuzden regime blokunun disinda.
