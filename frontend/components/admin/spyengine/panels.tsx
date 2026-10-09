@@ -83,7 +83,7 @@ export function Disclosure({ title, badge, defaultOpen = false, children }: {
           <span className="text-[11px] font-semibold tracking-wide text-slate-300">{title}</span>
           {badge}
         </span>
-        <span className="text-[10px] text-slate-600">{open ? "gizle" : "aç"}</span>
+        <span className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300">{open ? "▴ gizle" : "▾ göster"}</span>
       </button>
       {open && <div className="border-t border-[#1c2635] p-3">{children}</div>}
     </section>

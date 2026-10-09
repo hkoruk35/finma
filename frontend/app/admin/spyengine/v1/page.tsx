@@ -387,6 +387,7 @@ function FlowTile({ title, value, tone: tcol, status, note, children }: { title:
 }
 
 function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null; price: number | null; nowMin: number; opt: OptionLevels | null; scenarioDir: "UP" | "DOWN" | null }) {
+  const [optOpen, setOptOpen] = useState(false);
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
@@ -508,13 +509,14 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
         </FlowTile>
       </div>
 
-      {/* opsiyon seviyeleri */}
+      {/* opsiyon seviyeleri — varsayılan gizli */}
       <div className="border-t border-[#1c2635] px-3 py-2">
-        <div className="mb-1 flex flex-wrap items-baseline gap-2">
+        <div className="mb-1 flex flex-wrap items-center gap-2">
+          <button type="button" onClick={() => setOptOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{optOpen ? "▴ gizle" : "▾ göster"}</button>
           <span className="text-[12px] font-semibold text-slate-200">Opsiyon seviyeleri</span>
           <span className="text-[11px] text-slate-500">{opt ? (opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`) : "opsiyon zinciri alınamadı"} · yalnız seviye, yön vermez</span>
         </div>
-        {opt && (
+        {optOpen && opt && (
           <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11.5px]">
             {opt.callWalls.map((cw, i) => (
               <span key={`c${cw.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
@@ -535,9 +537,9 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
             {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
           </div>
         )}
-        <div className="mt-1 text-[10.5px] leading-snug text-slate-500">
+        {optOpen && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">
           OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
-        </div>
+        </div>}
       </div>
 
       {/* olaylar */}
@@ -572,7 +574,7 @@ function Hideable({ title, open, onToggle, children }: { title: string; open: bo
   if (open) {
     return (
       <div className="flex flex-col gap-1">
-        <button type="button" onClick={onToggle} className="self-end rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]">▴ {title} gizle</button>
+        <button type="button" onClick={onToggle} className="self-end rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">▴ {title} gizle</button>
         {children}
       </div>
     );
@@ -580,7 +582,7 @@ function Hideable({ title, open, onToggle, children }: { title: string; open: bo
   return (
     <div className={`${SURFACE} flex items-center justify-between px-3 py-1.5`}>
       <span className="text-[12px] font-semibold text-slate-300">{title}</span>
-      <button type="button" onClick={onToggle} className="rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]">▾ göster</button>
+      <button type="button" onClick={onToggle} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">▾ göster</button>
     </div>
   );
 }
@@ -1587,7 +1589,7 @@ export default function SpyEngineV9() {
   const [toggles, setToggles] = useState<ChartToggles>(DEFAULT_TOGGLES);
   const [pollMs, setPollMs] = useState(1000);
   /** Açılış Rejimi kartı: göster / gizle */
-  const [regimeOpen, setRegimeOpen] = useState(true);
+  const [regimeOpen, setRegimeOpen] = useState(false);
   const [autoScroll, setAutoScroll] = useState(true);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
@@ -1595,6 +1597,8 @@ export default function SpyEngineV9() {
   const [showOpenFc, setShowOpenFc] = useState(false);
   const [showCharts, setShowCharts] = useState(false);
   const [showJournal, setShowJournal] = useState(false);
+  const [showScenario, setShowScenario] = useState(false);
+  const [showStops, setShowStops] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
@@ -2315,7 +2319,7 @@ export default function SpyEngineV9() {
             type="button"
             onClick={() => setShowTickers((v) => !v)}
             className={`rounded border px-2 py-1 text-[11px] font-semibold transition-colors ${
-              showTickers ? "border-sky-500/40 bg-sky-500/10 text-sky-300" : "border-[#1c2635] bg-[#111827] text-slate-400 hover:bg-[#1c2635]"
+              showTickers ? "border-sky-500/60 bg-sky-500/15 text-sky-300 font-bold" : "border-sky-500/60 bg-sky-500/15 text-sky-300 font-bold hover:bg-sky-500/30"
             }`}
           >
             Tickerlar: {showTickers ? "gizle" : "göster"}
@@ -2419,7 +2423,7 @@ export default function SpyEngineV9() {
                 <button
                   type="button"
                   onClick={() => setRegimeOpen((v) => !v)}
-                  className="rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]"
+                  className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30"
                 >
                   {regimeOpen ? "▴ gizle" : "▾ göster"}
                 </button>
@@ -2512,12 +2516,14 @@ export default function SpyEngineV9() {
         />
 
         {/* ── 1b2) Senaryo Takibi (çapa varsa) — yoksa ön plan ── */}
-        {chain ? <ScenarioTrackPanel t={track} chain={chain} day={dayLive} recent={dayRecent} /> : !replayDate && <ScenarioPanel sc={scenarioRead.sc} expectation={null} waitReason={scenarioRead.wait} />}
+        <Hideable title="Senaryo Takibi" open={showScenario} onToggle={() => setShowScenario((v) => !v)}>
+          {chain ? <ScenarioTrackPanel t={track} chain={chain} day={dayLive} recent={dayRecent} /> : !replayDate && <ScenarioPanel sc={scenarioRead.sc} expectation={null} waitReason={scenarioRead.wait} />}
+        </Hideable>
 
         </>
 
         {/* ── 2b) 15m yapı stopu — trend taşırken stopu nereye çekeceğini gösterir ── */}
-        {(
+        <Hideable title="Trend Stop Bölgesi" open={showStops} onToggle={() => setShowStops((v) => !v)}>
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
@@ -2589,7 +2595,7 @@ export default function SpyEngineV9() {
           </div>
         </div>
 
-        )}
+        </Hideable>
 
         {/* ── 3) Tahmin: günlük yol · 1 saatlik · harita (mevcut, aynen) ── */}
         {!date ? (
