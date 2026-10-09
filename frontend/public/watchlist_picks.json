@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T14:03:55.478895-04:00",
+  "generated_at": "2026-10-09T17:03:28.643627-04:00",
   "picks": [
     {
       "ticker": "NU",
@@ -14,26 +14,8 @@
       "score": 38.0
     },
     {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-10-09",
-      "score": 44.0
-    },
-    {
-      "ticker": "TXN",
-      "sector": "Technology",
-      "date_added": "2026-10-09",
-      "score": 43.0
-    },
-    {
       "ticker": "CRDO",
       "sector": "Technology",
-      "date_added": "2026-10-09",
-      "score": 42.5
-    },
-    {
-      "ticker": "STNG",
-      "sector": "Energy",
       "date_added": "2026-10-09",
       "score": 42.5
     },
@@ -44,22 +26,10 @@
       "score": 42.0
     },
     {
-      "ticker": "ARCB",
-      "sector": "Industrials",
-      "date_added": "2026-10-09",
-      "score": 41.0
-    },
-    {
       "ticker": "VST",
       "sector": "Utilities",
       "date_added": "2026-10-09",
       "score": 40.5
-    },
-    {
-      "ticker": "LION",
-      "sector": "Unknown",
-      "date_added": "2026-10-09",
-      "score": 38.2
     },
     {
       "ticker": "CEG",
@@ -72,6 +42,30 @@
       "sector": "Healthcare",
       "date_added": "2026-10-09",
       "score": 24.2
+    },
+    {
+      "ticker": "SONO",
+      "sector": "Technology",
+      "date_added": "2026-10-09",
+      "score": 35.5
+    },
+    {
+      "ticker": "QLYS",
+      "sector": "Technology",
+      "date_added": "2026-10-09",
+      "score": 34.5
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "date_added": "2026-10-09",
+      "score": 33.0
+    },
+    {
+      "ticker": "GME",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-09",
+      "score": 26.5
     }
   ]
 }
