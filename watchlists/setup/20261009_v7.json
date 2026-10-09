@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "CBOE",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 306.47,
+        "entry_zone": "300.33 - 312.61",
+        "SL": 281.93,
+        "TP": 355.56
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "GTLB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 54.78,
+        "entry_zone": "53.82 - 55.75",
+        "SL": 50.92,
+        "TP": 62.51
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "BP",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 46.54,
+        "entry_zone": "45.99 - 47.09",
+        "SL": 44.33,
+        "TP": 50.97
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "DHT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 24.99,
+        "entry_zone": "24.52 - 25.46",
+        "SL": 23.11,
+        "TP": 28.75
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "FIGS",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 15.62,
+        "entry_zone": "15.25 - 15.99",
+        "SL": 14.16,
+        "TP": 17.81
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "CHRD",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 143.54,
+        "entry_zone": "141.59 - 145.50",
+        "SL": 135.74,
+        "TP": 159.15
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "EGY",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 6.05,
+        "entry_zone": "5.97 - 6.14",
+        "SL": 5.71,
+        "TP": 6.74
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "PVH",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 81.34,
+        "entry_zone": "80.06 - 82.62",
+        "SL": 76.2,
+        "TP": 91.62
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "APEI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 47.99,
+        "entry_zone": "47.08 - 48.90",
+        "SL": 44.36,
+        "TP": 55.26
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "LPG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 58.86,
+        "entry_zone": "57.73 - 59.99",
+        "SL": 54.32,
+        "TP": 67.93
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "PRIM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 83.25,
+        "entry_zone": "81.27 - 85.24",
+        "SL": 75.31,
+        "TP": 99.15
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "KDP",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 31.14,
+        "entry_zone": "30.71 - 31.56",
+        "SL": 29.43,
+        "TP": 34.55
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "FRPT",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 64.46,
+        "entry_zone": "63.44 - 65.48",
+        "SL": 60.39,
+        "TP": 70.57
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "VNOM",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 43.31,
+        "entry_zone": "42.78 - 43.84",
+        "SL": 41.19,
+        "TP": 47.56
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "TDC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 30.52,
+        "entry_zone": "30.10 - 30.94",
+        "SL": 28.85,
+        "TP": 33.03
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "CNQ",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 49.78,
+        "entry_zone": "49.20 - 50.35",
+        "SL": 47.48,
+        "TP": 54.36
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "HG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 34.5,
+        "entry_zone": "34.11 - 34.89",
+        "SL": 32.95,
+        "TP": 37.6
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 17.36,
+        "entry_zone": "16.92 - 17.80",
+        "SL": 15.59,
+        "TP": 20.89
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "RBA",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 84.8,
+        "entry_zone": "83.68 - 85.92",
+        "SL": 80.32,
+        "TP": 93.76
+    },
+    {
+        "date": "2026-10-09 16:00",
+        "symbol": "CVX",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 213.15,
+        "entry_zone": "211.12 - 215.17",
+        "SL": 205.04,
+        "TP": 229.37
+    }
+]
