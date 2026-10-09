@@ -302,14 +302,23 @@ export function isRth(nowSec: number): boolean {
   return p.weekday >= 1 && p.weekday <= 5 && p.minutes >= RTH_OPEN_MIN && p.minutes < RTH_CLOSE_MIN;
 }
 
-export async function fetchSpyBundle(): Promise<SpyBundle> {
+/** SPY mum paketi (geriye uyumlu). Diğer semboller için `fetchBundle`. */
+export function fetchSpyBundle(): Promise<SpyBundle> {
+  return fetchBundle("SPY");
+}
+
+/**
+ * Herhangi bir sembolün 1m/5m/15m paketi (QQQ Engine ile ortak). Overnight köprüsü
+ * (Robinhood → Supabase) yalnızca SPY içindir; diğer sembollerde saf Yahoo kullanılır.
+ */
+export async function fetchBundle(symbol: string): Promise<SpyBundle> {
   const errors: string[] = [];
   const m1Ttl = isRth(Math.floor(Date.now() / 1000)) ? TTL.m1 : TTL.m1Extended;
 
   const [c1, c5, c15] = await Promise.all([
-    fetchChart("SPY", "1m", "5d", true, m1Ttl).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
-    fetchChart("SPY", "5m", "5d", true, TTL.m5).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
-    fetchChart("SPY", "15m", "1mo", true, TTL.m15).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
+    fetchChart(symbol, "1m", "5d", true, m1Ttl).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
+    fetchChart(symbol, "5m", "5d", true, TTL.m5).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
+    fetchChart(symbol, "15m", "1mo", true, TTL.m15).catch((e) => ({ ...EMPTY_CHART, error: String(e) })),
   ]);
 
   if (c1.error) errors.push(`1m: ${c1.error}`);
@@ -326,6 +335,7 @@ export async function fetchSpyBundle(): Promise<SpyBundle> {
   let m1 = c1.bars;
   let overnightSource: "robinhood" | null = null;
   try {
+    if (symbol !== "SPY") throw new Error("overnight köprüsü yalnızca SPY");
     const since = Math.floor(Date.now() / 1000) - 3 * 24 * 60 * 60;
     const rh = await cached("overnight", TTL.overnight, () => fetchOvernightBars(since));
     const known = new Set(m1.map((b) => b.time));
@@ -362,7 +372,11 @@ export async function fetchSpyBundle(): Promise<SpyBundle> {
  * uzun TTL (bkz. TTL.m5History) — hot polling yoluna ek yük bindirmez.
  */
 export async function fetchSpy5mHistory(): Promise<ChartFetch> {
-  return fetchChart("SPY", "5m", "60d", true, TTL.m5History);
+  return fetch5mHistory("SPY");
+}
+
+export async function fetch5mHistory(symbol: string): Promise<ChartFetch> {
+  return fetchChart(symbol, "5m", "60d", true, TTL.m5History);
 }
 
 // ── Ticker şeridi ─────────────────────────────────────────────────

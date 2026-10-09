@@ -44,6 +44,10 @@ import { detectCandlePatterns } from "./candlePatterns";
 export const LADDER_CFG = {
   rvolDays: 20,
   plan: {
+    /** mod anahtarları (sembol bazlı kalibrasyon: ölçümde kenarı olmayan mod kapatılabilir) */
+    openOn: true,
+    fadeOn: true,
+    closeOn: true,
     /** açılış yönünün geçerli olduğu son dakika (14:00) */
     openEnd: 14 * 60,
     /** öğlen VWAP'a dönüş penceresi */
@@ -80,6 +84,8 @@ export const LADDER_CFG = {
     /** tetikte hacim şartı gevşer (spike sonrası hacim sönük olur) */
     trigVolRatio: 0.5,
   },
+  /** Büyük teknoloji liderleri (QQQ Engine): ağırlıklı VWAP/EMA20 genişliği ve 15 dk momentum işlem yönüne TERS ise tetik açılmaz */
+  tech: { on: false, minVw: -0.3, minMom: -9 },
   trig: {
     /** Ardışık 2 gövdeli mum, hacim artarak (5m formasyon tetiği) */
     pair: { on: true, bodyFrac: 0.3 },
@@ -125,6 +131,7 @@ export const LADDER_CFG = {
   },
 };
 
+export type LadderCfg = typeof LADDER_CFG;
 const C = LADDER_CFG;
 const OPEN_MIN = 9 * 60 + 30;
 
@@ -256,6 +263,8 @@ export interface LadderStep {
   plan: Plan | null;
   /** Seçili yönde 15m / 30m / 1h teyidi (yön yoksa null) */
   confirm: { n: number; m15: boolean; m30: boolean; h1: boolean } | null;
+  /** Teknoloji liderleri genişliği (yön işaretli: + işlem yönüyle uyumlu) — QQQ Engine */
+  tech: { vw: number; mom: number } | null;
   rvol: number | null;
   dayRvol: number | null;
   localRatio: number | null;
@@ -286,6 +295,10 @@ export interface LadderInput {
   /** Üst zaman dilimi teyidi için çok günlük 30m / 1h mumlar ve EMA20'leri (kapanmış) */
   htf?: { m30: Bar[]; e30: EmaMap; m60: Bar[]; e60: EmaMap };
   staticLevels: { price: number; label: string }[];
+  /** Teknoloji liderleri genişliği: 5m mum başlangıç zamanı → {vw: −1…+1 VWAP/EMA20 tarafı, mom: −1…+1 son 15 dk} */
+  tech?: Map<number, { vw: number; mom: number }>;
+  /** Sembole özel eşikler (varsayılan: SPY ayarı) */
+  cfg?: LadderCfg;
 }
 
 // ── Yardımcılar ──────────────────────────────────────────────────────
@@ -322,6 +335,7 @@ function lastClosedBar(bars: Bar[], span: number, t: number): Bar | null {
 // ── Ana oynatma ──────────────────────────────────────────────────────
 
 export function ladderRead(inp: LadderInput): LadderRead {
+  const C: LadderCfg = inp.cfg ?? LADDER_CFG;
   const { s5, ema5, atr5, rvol, date } = inp;
   const bars = s5.bars;
   const n = bars.length;
@@ -407,7 +421,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
       permission = word(lastImp.d);
       mode = "KIRILIM";
       modeText = `${nyClock(bars[lastImp.i].time + 300)} hacimli ${lastImp.d > 0 ? "yeşil" : "kırmızı"} mum VWAP ve EMA20'yi ${lastImp.d > 0 ? "yukarı" : "aşağı"} kırdı (${(bars[lastImp.i].volume / Math.max(1, mean(bars.slice(Math.max(0, lastImp.i - 3), lastImp.i).map((x) => x.volume || 0)))).toFixed(1)}× hacim) — fiyat VWAP'ın ${lastImp.d > 0 ? "üstünde" : "altında"} kaldığı sürece momentum yönü`;
-    } else if (opD && endMin < C.plan.openEnd && !broken) {
+    } else if (C.plan.openOn && opD && endMin < C.plan.openEnd && !broken) {
       permission = word(opD);
       mode = "AÇILIŞ YÖNÜ";
       modeText = `${opening!.decidedAt} NET açılış yönü ${opD > 0 ? "yukarı" : "aşağı"} — açılış aralığı ${opD > 0 ? `dibi ${f2(orLo!)}` : `tepesi ${f2(orHi!)}`} kapanışla kırılana kadar (en geç 14:00)`;
@@ -415,12 +429,12 @@ export function ladderRead(inp: LadderInput): LadderRead {
       permission = word(lastClx.d);
       mode = "TEPE/DİP REDDİ";
       modeText = `${nyClock(bars[lastClx.i].time + 300)} ${lastClx.d < 0 ? "tepe" : "dip"} reddi: dev hacimli spike ${f2(lastClx.extreme)}'ten geri döndü (uzun ${lastClx.d < 0 ? "üst" : "alt"} fitil) — ${lastClx.d < 0 ? "aşağı" : "yukarı"} dönüş; ${f2(lastClx.extreme)} aşılırsa geçersiz`;
-    } else if (endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK
+    } else if (C.plan.fadeOn && endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK
       && !(lastImp && i - lastImp.i <= C.impulse.fadeBlock && lastImp.d === (dev > 0 ? 1 : -1))) {
       permission = dev > 0 ? "PUT" : "CALL";
       mode = "ÖĞLEN DÖNÜŞ";
       modeText = `Öğlen: fiyat VWAP'tan ${sgn(devAtr)} ATR uzakta (eşik ±${C.plan.fadeK}) — VWAP ${f2(vw)}'a dönüş`;
-    } else if (endMin >= C.plan.closeStart && poc != null && Math.sign(b.close - vw) === Math.sign(b.close - poc) && b.close !== vw) {
+    } else if (C.plan.closeOn && endMin >= C.plan.closeStart && poc != null && Math.sign(b.close - vw) === Math.sign(b.close - poc) && b.close !== vw) {
       permission = b.close > vw ? "CALL" : "PUT";
       mode = "KAPANIŞ YÖNÜ";
       modeText = `Kapanış saatleri: fiyat VWAP (${f2(vw)}) ve POC'un (${f2(poc)}) ${b.close > vw ? "üstünde" : "altında"}`;
@@ -561,8 +575,13 @@ export function ladderRead(inp: LadderInput): LadderRead {
       const goodCandle = (x: Bar) => { const r = x.high - x.low; return r > 0 && Math.abs(x.close - x.open) / r >= C.trig.pair.bodyFrac && (x.close > x.open ? 1 : -1) === d && (d > 0 ? (x.close - x.low) / r >= C.trig.closeTop : (x.close - x.low) / r <= 1 - C.trig.closeTop); };
       const pairOk = C.trig.pair.on && !fade && !!b1 && goodCandle(b) && goodCandle(b1) && (b.close - b1.close) * d > 0 && (b.volume || 0) > (b1.volume || 0) && placeOk;
       trigConds.push({ key: "t4", required: false, label: "ya da: ardışık 2 gövdeli mum, ikincisinde hacim artıyor (formasyon)", ok: pairOk, value: b1 ? `önceki ${f2(b1.close)} → ${f2(b.close)} · hacim ${(b1.volume / 1000).toFixed(0)}K → ${((b.volume || 0) / 1000).toFixed(0)}K` : "—" });
+      const tk = inp.tech?.get(b.time) ?? null;
+      const techVw = tk ? tk.vw * d : 0, techMom = tk ? tk.mom * d : 0;
+      const techBlock = C.tech.on && !!tk && (techVw < C.tech.minVw || techMom < C.tech.minMom);
+      if (C.tech.on) trigConds.push({ key: "t5", required: true, label: `Teknoloji liderleri ters değil (VWAP/EMA20 genişliği ≥ ${C.tech.minVw}${C.tech.minMom > -2 ? `, momentum ≥ ${C.tech.minMom}` : ""})`, ok: !techBlock, value: tk ? `genişlik ${techVw >= 0 ? "+" : "−"}${Math.abs(techVw).toFixed(2)} · momentum ${techMom >= 0 ? "+" : "−"}${Math.abs(techMom).toFixed(2)}` : "veri yok" });
       const confOk = fade || clx || (confirm?.n ?? 3) >= C.trig.minConfirm;
-      const fired = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && !(clx && lastClx && i <= lastClx.i);
+      const firedBase = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && !(clx && lastClx && i <= lastClx.i);
+      const fired = firedBase && !techBlock;
       if (fired && !full && !cooling) {
         // tükenme reddinde yapısal stop: spike'tan sonraki mumların ucu (spike'ın kendisi hariç)
         const openLeg = C.risk.openLeg.on && endMin <= C.risk.openLeg.until && mode === "AÇILIŞ YÖNÜ";
@@ -595,6 +614,10 @@ export function ladderRead(inp: LadderInput): LadderRead {
           message = `${word(d)} · ${mode} · ${setup}${pat ? ` (${pat.label})` : ""} — giriş ${f2(b.close)}, stop ${f2(stop)} (${f2(risk)}), hedef ${f2(tgt)} (${fade ? "VWAP" : `${C.risk.rr}R`}).`;
           change = `Stop ${f2(stop)} — kırılırsa çık; hedef ${f2(tgt)}. 15:50'de kalan kapanır.`;
         }
+      } else if (firedBase && techBlock && !full && !cooling) {
+        status = "İPTAL";
+        message = `${word(d)} tetiği geldi ama işlem açılmaz — teknoloji liderleri ters yönde (genişlik ${techVw >= 0 ? "+" : "−"}${Math.abs(techVw).toFixed(2)}, momentum ${techMom >= 0 ? "+" : "−"}${Math.abs(techMom).toFixed(2)}).`;
+        change = "Liderler yönle uyumlu hale gelirse (VWAP/EMA20 üstünde/altında) kurulum yeniden aranır.";
       } else if (fired) {
         status = "İPTAL";
         message = `${word(d)} tetiği geldi ama işlem açılmaz — ${full ? `günlük ${C.risk.maxAttempts} deneme doldu` : "çıkış sonrası kısa bekleme"}.`;
@@ -670,7 +693,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
 
     steps.push({
       time: b.time, clock, status, side: status === "İŞLEM YOK" ? null : side, message, change, regime,
-      warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm,
+      warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm, tech: inp.tech?.get(b.time) ?? null,
       rvol: rv != null ? r2(rv) : null, dayRvol: dayRv != null ? r2(dayRv) : null, localRatio: local != null ? r2(local) : null,
     });
   }
@@ -684,6 +707,7 @@ const toneOf = (s: LadderStep | undefined): Tone => (s?.status === "TETİK" ? (s
 
 /** 5m mum yorumu: o anki merdiven durumu · mum kalitesi · formasyon · RVOL · VWAP/EMA20 */
 export function ladderComment5(inp: LadderInput, lr: LadderRead, i: number): CandleComment {
+  const C: LadderCfg = inp.cfg ?? LADDER_CFG;
   const b = inp.s5.bars[i];
   const st = lr.steps[i];
   const vw = inp.s5.vwap[i];

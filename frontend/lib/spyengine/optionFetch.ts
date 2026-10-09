@@ -19,7 +19,7 @@ const HOSTS = ["query2.finance.yahoo.com", "query1.finance.yahoo.com"];
 const CACHE_MS = 5 * 60 * 1000;
 
 let auth: { crumb: string; cookie: string; ts: number } | null = null;
-let cache: { at: number; value: OptionLevels } | null = null;
+const cacheBySymbol = new Map<string, { at: number; value: OptionLevels }>();
 
 async function getAuth(force = false): Promise<{ crumb: string; cookie: string } | null> {
   if (!force && auth && Date.now() - auth.ts < 50 * 60 * 1000) return auth;
@@ -69,7 +69,8 @@ const rowsOf = (raw: unknown): OptionRow[] =>
   });
 
 /** 0DTE (yoksa en yakın) vadenin duvar / max pain seviyeleri. Zincir gelmezse null — uydurma yok. */
-export async function fetchOptionLevels(): Promise<OptionLevels | null> {
+export async function fetchOptionLevels(symbol = "SPY"): Promise<OptionLevels | null> {
+  const cache = cacheBySymbol.get(symbol) ?? null;
   if (cache && Date.now() - cache.at < CACHE_MS) return cache.value;
 
   let a = await getAuth();
@@ -85,7 +86,7 @@ export async function fetchOptionLevels(): Promise<OptionLevels | null> {
     return r;
   };
 
-  const list = await call("/v7/finance/options/SPY");
+  const list = await call(`/v7/finance/options/${symbol}`);
   const res0 = (list.json as { optionChain?: { result?: { expirationDates?: number[] }[] } } | null)?.optionChain?.result?.[0];
   const dates = (res0?.expirationDates ?? []).map(Number).filter(Number.isFinite);
   if (!dates.length) return cache?.value ?? null;
@@ -95,7 +96,7 @@ export async function fetchOptionLevels(): Promise<OptionLevels | null> {
   const pick = withYmd.find((x) => x.ymd >= todayNy);
   if (!pick) return cache?.value ?? null;
 
-  const chain = await call(`/v7/finance/options/SPY?date=${pick.e}`);
+  const chain = await call(`/v7/finance/options/${symbol}?date=${pick.e}`);
   const r = (chain.json as {
     optionChain?: { result?: { quote?: { regularMarketPrice?: number }; options?: { calls?: unknown; puts?: unknown }[] }[] };
   } | null)?.optionChain?.result?.[0];
@@ -112,6 +113,6 @@ export async function fetchOptionLevels(): Promise<OptionLevels | null> {
     fetchedAt: Math.floor(Date.now() / 1000),
   });
   if (!value) return cache?.value ?? null;
-  cache = { at: Date.now(), value };
+  cacheBySymbol.set(symbol, { at: Date.now(), value });
   return value;
 }
