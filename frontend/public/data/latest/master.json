@@ -1,8 +1,8 @@
 {
   "date": "2026-10-09",
-  "generated_at": "2026-10-09T09:04:23.851639-04:00",
+  "generated_at": "2026-10-09T14:03:55.159245-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 17,
+  "active_scores_count": 26,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,14 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 7,
       "tickers": [
         "STNG",
         "FIGS",
         "GME",
         "ACN",
         "TDC",
-        "DNOW"
+        "DNOW",
+        "TEVA"
       ]
     },
     "value": {
@@ -67,25 +68,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 778.6156,
-      "change_pct": 0.61
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 751.271,
-      "change_pct": 0.49
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 516.29,
-      "change_pct": 0.91
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 14.83,
-      "change_pct": -3.76
-    },
-    "RUSSELL2000": {
-      "value": 279.23,
-      "change_pct": 0.6
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-09T14:30:06.840387-04:00"
+  }
 }
