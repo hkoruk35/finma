@@ -1,8 +1,8 @@
 {
   "date": "2026-10-09",
-  "generated_at": "2026-10-09T14:03:55.159245-04:00",
+  "generated_at": "2026-10-09T17:03:28.047375-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 26,
+  "active_scores_count": 36,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 10,
       "tickers": [
         "STNG",
         "FIGS",
@@ -29,7 +29,10 @@
         "ACN",
         "TDC",
         "DNOW",
-        "TEVA"
+        "TEVA",
+        "VTRS",
+        "CIEN",
+        "SPCX"
       ]
     },
     "value": {

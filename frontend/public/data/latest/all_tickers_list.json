@@ -286,6 +286,116 @@
       "change_pct": 0.73,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.2 | System: SQUEEZE"
+    },
+    {
+      "ticker": "BKH",
+      "company": "BKH",
+      "sector": "Utilities",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 76.08000183105469,
+      "change_pct": -0.58,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PCOR",
+      "company": "PCOR",
+      "sector": "Technology",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 56.209999084472656,
+      "change_pct": 2.61,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: EMA_CROSS"
+    },
+    {
+      "ticker": "MTSI",
+      "company": "MTSI",
+      "sector": "Technology",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 330.05999755859375,
+      "change_pct": 2.44,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "MORN",
+      "company": "MORN",
+      "sector": "Financial Services",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 204.4499969482422,
+      "change_pct": 0.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GMAB",
+      "company": "GMAB",
+      "sector": "Healthcare",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 37.06999969482422,
+      "change_pct": 2.83,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "VTRS",
+      "company": "VTRS",
+      "sector": "Healthcare",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 17.639999389648438,
+      "change_pct": 1.15,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "CIEN",
+      "company": "CIEN",
+      "sector": "Technology",
+      "master_score": 41.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 449.7699890136719,
+      "change_pct": 5.6,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "SPCX",
+      "company": "SPCX",
+      "sector": "Industrials",
+      "master_score": 41.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 162.57000732421875,
+      "change_pct": 1.25,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "GPN",
+      "company": "GPN",
+      "sector": "Industrials",
+      "master_score": 41.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 82.19999694824219,
+      "change_pct": -0.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "DHT",
+      "company": "DHT",
+      "sector": "Energy",
+      "master_score": 39.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 24.639999389648438,
+      "change_pct": -1.16,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 39.0 | System: DEFAULT"
     }
   ]
 }
