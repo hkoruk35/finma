@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
   }
 
   const email = body.email?.toLowerCase().trim();
-  const role = body.role === "readonly" ? "readonly" : "admin";
+  // "engine": yalnızca SPY / QQQ Engine sayfaları
+  const role = body.role === "readonly" ? "readonly" : body.role === "engine" ? "engine" : "admin";
   if (!email || !body.password || body.password.length < 8) {
     return NextResponse.json({ error: "Email ve en az 8 karakterli şifre gerekli." }, { status: 400 });
   }

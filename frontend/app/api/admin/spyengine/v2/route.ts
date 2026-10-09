@@ -14,7 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import {
   detectSession,
   barsOfSessionDay,
@@ -119,7 +119,7 @@ function spotStats(sessionBars: Bar[], date: string) {
 }
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) {
+  if (!isEngineAuthed(req)) {
     return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   }
 

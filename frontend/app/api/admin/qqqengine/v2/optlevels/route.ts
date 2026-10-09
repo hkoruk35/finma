@@ -3,7 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import { fetchOptionLevels } from "@/lib/spyengine/optionFetch";
 
 export const runtime = "nodejs";
@@ -12,7 +12,7 @@ export const revalidate = 0;
 export const maxDuration = 30;
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  if (!isEngineAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   try {
     const levels = await fetchOptionLevels("QQQ");
     return NextResponse.json(

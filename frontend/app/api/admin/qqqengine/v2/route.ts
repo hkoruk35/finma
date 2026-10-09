@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import {
   detectSession, barsOfSessionDay, bucketAggregate, toCompact, nyDateTimeToEpoch, nyParts, sessionVwap, atr, lastNum,
   isRthBar, r2, PRE_OPEN_MIN, RTH_OPEN_MIN, RTH_CLOSE_MIN, POST_CLOSE_MIN, type Bar,
@@ -57,7 +57,7 @@ function spotStats(sessionBars: Bar[], date: string) {
 }
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  if (!isEngineAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
 
   const nowSec = Math.floor(Date.now() / 1000);
   const params = new URL(req.url).searchParams;

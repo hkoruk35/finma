@@ -5,7 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import { fetchChart, TTL } from "@/lib/spyengine/market";
 import { nyDateTimeToEpoch, nyParts, type Bar } from "@/lib/spyengine/core";
 import { buildTechSnapshot, TECH_HOLDINGS } from "@/lib/qqqengine/techs";
@@ -16,7 +16,7 @@ export const revalidate = 0;
 export const maxDuration = 30;
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
+  if (!isEngineAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   const nowReal = Math.floor(Date.now() / 1000);
   const dateParam = new URL(req.url).searchParams.get("date");
   const replay = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : null;

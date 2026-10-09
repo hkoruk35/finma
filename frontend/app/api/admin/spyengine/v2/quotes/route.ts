@@ -10,7 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import { fetchStripQuotes } from "@/lib/spyengine/market";
 
 export const runtime = "nodejs";
@@ -19,7 +19,7 @@ export const revalidate = 0;
 export const maxDuration = 30;
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) {
+  if (!isEngineAuthed(req)) {
     return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   }
   try {

@@ -8,6 +8,15 @@ export function isStaffAuthed(req: NextRequest): boolean {
   return role === "admin" || role === "readonly";
 }
 
+/**
+ * SPY/QQQ Engine uçları: staff (admin/readonly) + yalnızca motor sayfalarına erişebilen "engine" rolü.
+ * "engine" rolü genel isStaffAuthed'e GİRMEZ — diğer tüm yönetim API'leri ona kapalı kalır.
+ */
+export function isEngineAuthed(req: NextRequest): boolean {
+  const role = req.cookies.get("boga_auth")?.value;
+  return role === "admin" || role === "readonly" || role === "engine";
+}
+
 export function isStaffWriteAuthed(req: NextRequest): boolean {
   return req.cookies.get("boga_auth")?.value === "admin";
 }

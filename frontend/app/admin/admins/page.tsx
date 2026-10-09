@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 interface AdminRow {
   id: string;
   email: string;
-  role: "admin" | "readonly";
+  role: "admin" | "readonly" | "engine";
   created_at: string;
 }
 
@@ -24,7 +24,7 @@ export default function AdminsPage() {
   const [admins, setAdmins] = useState<AdminRow[]>([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"admin" | "readonly">("admin");
+  const [role, setRole] = useState<"admin" | "readonly" | "engine">("admin");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -79,9 +79,10 @@ export default function AdminsPage() {
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <input style={{ ...inputStyle, flex: 1, minWidth: 160 }} placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input style={{ ...inputStyle, flex: 1, minWidth: 140 }} placeholder="şifre (min 8)" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <select style={inputStyle} value={role} onChange={(e) => setRole(e.target.value as "admin" | "readonly")}>
+          <select style={inputStyle} value={role} onChange={(e) => setRole(e.target.value as "admin" | "readonly" | "engine")}>
             <option value="admin">admin</option>
             <option value="readonly">readonly</option>
+            <option value="engine">engine (yalnız SPY/QQQ Engine)</option>
           </select>
           <button
             onClick={addAdmin}

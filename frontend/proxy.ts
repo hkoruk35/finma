@@ -379,6 +379,12 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     return redirectTo(new URL('/admin/account/login', request.url))
   }
 
+  // "engine" rolü: yalnızca SPY / QQQ Engine sayfaları. Başka her yönetim sayfası motor ekranına yönlendirilir.
+  if (requiresAdminAuth && request.cookies.get('boga_auth')?.value === 'engine') {
+    const engineOk = pathname?.startsWith('/admin/spyengine/') || pathname?.startsWith('/admin/qqqengine/')
+    if (!engineOk) return redirectTo(new URL('/admin/spyengine/v1', request.url))
+  }
+
   return response
 }
 
