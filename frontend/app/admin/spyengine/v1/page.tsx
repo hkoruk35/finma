@@ -349,6 +349,8 @@ function FlowTile({ title, value, tone: tcol, status, note, children }: { title:
 
 function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number | null; opt: OptionLevels | null; step: LadderStep | null }) {
   const [optOpen, setOptOpen] = useState(false);
+  const [tracesOpen, setTracesOpen] = useState(false);
+  const [eventsOpen, setEventsOpen] = useState(false);
   if (!f) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
@@ -378,6 +380,13 @@ function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number 
       </div>
 
       {/* alıcı / satıcı izleri */}
+      <div className="border-t border-[#1c2635] px-3 py-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button type="button" onClick={() => setTracesOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{tracesOpen ? "▴ gizle" : "▾ göster"}</button>
+          <span className="text-[12px] font-semibold text-slate-200">Alıcı / satıcı izleri <span className="font-normal text-slate-500">· kanıt</span></span>
+        </div>
+      </div>
+      {tracesOpen && (
       <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
         {([["Alıcı izleri (kanıt)", w.bullWhy, "#cbd5e1"], ["Satıcı izleri (kanıt)", w.bearWhy, "#cbd5e1"]] as const).map(([t, list, c]) => (
           <div key={t} className="bg-[#0f141d] px-3 py-2">
@@ -390,6 +399,7 @@ function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number 
           </div>
         ))}
       </div>
+      )}
 
       {/* ölçüm kutucukları */}
       <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] sm:grid-cols-2 xl:grid-cols-4">
@@ -469,11 +479,14 @@ function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number 
         </div>}
       </div>
 
-      {/* olaylar */}
+      {/* olaylar — varsayılan gizli */}
       {f.events.length > 0 && (
         <div className="border-t border-[#1c2635] px-3 py-2">
-          <div className="mb-1 text-[12px] font-semibold text-slate-200">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte</span></div>
-          <div className="flex max-h-[170px] flex-col overflow-y-auto">
+          <div className="mb-1 flex flex-wrap items-center gap-2">
+            <button type="button" onClick={() => setEventsOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{eventsOpen ? "▴ gizle" : "▾ göster"}</button>
+            <span className="text-[12px] font-semibold text-slate-200">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte · {f.events.length} olay</span></span>
+          </div>
+          {eventsOpen && <div className="flex max-h-[170px] flex-col overflow-y-auto">
             {f.events.slice().reverse().slice(0, 12).map((e) => (
               <div key={`${e.kind}${e.time}${e.price}`} className="grid grid-cols-[44px_118px_minmax(0,1fr)] items-baseline gap-2 border-b border-[#151c28] py-1 text-[12px] last:border-0">
                 <span className="font-mono text-slate-400">{e.clock}</span>
@@ -481,7 +494,7 @@ function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number 
                 <span className="leading-snug text-slate-300">{e.text}</span>
               </div>
             ))}
-          </div>
+          </div>}
         </div>
       )}
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
