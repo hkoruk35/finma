@@ -71,7 +71,7 @@ export interface VolumeProfile {
 
 const BIN = 0.05;
 
-export function profileOf(bars: Bar[]): { poc: number; vah: number; val: number } | null {
+function profileOf(bars: Bar[]): { poc: number; vah: number; val: number } | null {
   const hist = new Map<number, number>();
   let total = 0;
   for (const b of bars) {

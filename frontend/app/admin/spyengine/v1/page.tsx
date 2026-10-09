@@ -568,6 +568,23 @@ function FlowPanel({ f, price, nowMin, opt, scenarioDir }: { f: FlowRead | null;
 const pctTxt = (v: number | null) => (v == null ? "—" : `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`);
 const pctCls = (v: number | null) => (v == null ? "text-slate-500" : v > 0.02 ? "text-[#4ade80]" : v < -0.02 ? "text-[#f87171]" : "text-slate-300");
 
+function Hideable({ title, open, onToggle, children }: { title: string; open: boolean; onToggle: () => void; children: ReactNode }) {
+  if (open) {
+    return (
+      <div className="flex flex-col gap-1">
+        <button type="button" onClick={onToggle} className="self-end rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]">▴ {title} gizle</button>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div className={`${SURFACE} flex items-center justify-between px-3 py-1.5`}>
+      <span className="text-[12px] font-semibold text-slate-300">{title}</span>
+      <button type="button" onClick={onToggle} className="rounded border border-[#1c2635] bg-[#0b0f16] px-2 py-0.5 text-[10.5px] font-semibold text-slate-300 hover:bg-[#1c2635]">▾ göster</button>
+    </div>
+  );
+}
+
 function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact: boolean }) {
   if (!r) {
     return (
@@ -1574,6 +1591,10 @@ export default function SpyEngineV9() {
   const [autoScroll, setAutoScroll] = useState(true);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
+  /** Açılış Tahmini / 15m-5m Grafikleri / Tahmin Günlüğü varsayılan GİZLİ */
+  const [showOpenFc, setShowOpenFc] = useState(false);
+  const [showCharts, setShowCharts] = useState(false);
+  const [showJournal, setShowJournal] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
@@ -2342,7 +2363,7 @@ export default function SpyEngineV9() {
         )}
 
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
-        {!replayDate && <OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} />}
+        {!replayDate && <Hideable title="Açılış Tahmini" open={showOpenFc} onToggle={() => setShowOpenFc((v) => !v)}><OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} /></Hideable>}
 
         {!replayDate && !sessionActive && <ScenarioPanel sc={scenarioRead.sc} expectation={vixExpectation(openFc?.vixNow ?? null)} waitReason={scenarioRead.wait} />}
 
@@ -2625,6 +2646,7 @@ export default function SpyEngineV9() {
         )}
 
         {/* ── 4) 15m + 5m grafik ── */}
+        <Hideable title="15m / 5m Grafikleri" open={showCharts} onToggle={() => setShowCharts((v) => !v)}>
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
             <span className="text-[11px] font-semibold tracking-wide text-slate-300">15m / 5m Grafikleri</span>
@@ -2685,6 +2707,7 @@ export default function SpyEngineV9() {
             <span>Son kapanan: 5m {data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"} · 15m {data?.lastClosed.m15 ? nyClock(data.lastClosed.m15) : "—"}</span>
           </div>
         </div>
+        </Hideable>
 
         {/* ── 5) Anlık mum yorumları ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
@@ -2694,7 +2717,7 @@ export default function SpyEngineV9() {
 
         {/* Motor kapıları — ayrıntı, varsayılan kapalı */}
         {/* ── 6) Tahmin günlüğü — gerçekleşenle kıyas ── */}
-        <JournalPanel j={journal} />
+        <Hideable title="Tahmin Günlüğü" open={showJournal} onToggle={() => setShowJournal((v) => !v)}><JournalPanel j={journal} /></Hideable>
 
         <Disclosure title="Eski motor sinyali — 5m puan + 15m kapı (referans; karar desteği ve senaryo takibinden bağımsız)">
           <div className="flex flex-col gap-1.5">
