@@ -10,6 +10,7 @@ import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
+import HomeEducationCard from "@/components/global/HomeEducationCard";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -232,6 +233,7 @@ export default async function TrHomePage() {
             <TrendPicksSlot locale="tr" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="tr" initialVisible={5} />
             <HomeListCard title="Sektörler" accent="#3b82f6" stocks={sectorStocks} locale="tr" initialVisible={5} viewAllHref="/global/tr/sectors" />
+            <HomeEducationCard />
           </div>
         </div>
 

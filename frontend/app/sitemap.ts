@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/global/tr/contact',            priority: 0.5, cf: 'monthly' },
     { route: '/global/en/disclaimer',         priority: 0.3, cf: 'monthly' },
     { route: '/global/tr/disclaimer',         priority: 0.3, cf: 'monthly' },
+    { route: '/global/tr/egitim',             priority: 0.6, cf: 'monthly' },
     { route: '/global/en/privacy',            priority: 0.3, cf: 'monthly' },
     { route: '/global/tr/privacy',            priority: 0.3, cf: 'monthly' },
     { route: '/global/en/terms',              priority: 0.3, cf: 'monthly' },
