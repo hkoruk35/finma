@@ -13,7 +13,7 @@ export default function HomeEducationCard() {
         <span className="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-[#2a2e35] text-[#94a3b8]">Tümü</span>
       </div>
       <p className="text-sm text-white font-medium leading-snug">ABD Borsası: Sıfırdan Profesyonelliğe</p>
-      <p className="text-xs text-[#94a3b8] mt-1 leading-relaxed">16 bölüm, Türkçe video eğitimleri ve uygulamalı örnekler.</p>
+      <p className="text-xs text-[#94a3b8] mt-1 leading-relaxed">21 bölüm, infografikler ve Türkçe video eğitimleri.</p>
     </Link>
   );
 }

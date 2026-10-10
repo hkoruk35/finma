@@ -1,14 +1,9 @@
 /**
  * ABD Borsası Eğitim Rehberi — içerik (yalnızca Türkçe, /global/tr/egitim).
  *
- * Kaynak: ABD_Borsasi_Egitim_Rehberi.md (kullanıcı dökümanı). Düzenleme notları:
- *  - Yazım hataları ve bozuk cümleler düzeltildi, anlam korundu.
- *  - Bilgi hataları düzeltildi: Kelly formülü, %60/%40 portföy tablosunun toplamı (%105 → %100),
- *    trailing stop örneği, OTCBB'nin bugünkü adı (OTC Pazarları), 2008 krizinin süresi.
- *  - VİDEO BAĞLANTILARI: dökümandaki 62 YouTube bağlantısının 61'i YouTube'da bulunmuyor (oEmbed 404), kalan
- *    1'i İngilizce bir TED-Ed videosu — hiçbiri Türkçe başlıkla eşleşmiyor. Ölü bağlantı yayınlanmaz; her video
- *    başlığı için YouTube'un Türkçe arama sonucuna giden bağlantı üretilir. Gerçek bir video bulunduğunda
- *    `url` alanı doldurulursa doğrudan o video açılır (alan boşsa arama bağlantısı kullanılır).
+ * Kaynak: ABD_Borsasi_Egitim_Rehberi.md + infografik görseller (public/egitim/*.webp, BogaStock.com filigranlı).
+ * Videolar: yalnızca YouTube @SidarDemirgil kanalından, bölüm başına TEK bağlantı. Konuyla eşleşen video yoksa
+ * kanalın video sayfasına gidilir (özgün dökümandaki uydurma bağlantılar kullanılmadı).
  */
 
 export type Block =
@@ -21,10 +16,13 @@ export type Block =
 
 export interface EgitimVideo {
   title: string;
-  /** Doğrulanmış doğrudan video bağlantısı (yoksa arama bağlantısı üretilir) */
-  url?: string;
-  /** Aramada başlığa eklenen ek terim (varsayılan: "Türkçe") */
-  extraQuery?: string;
+  /** YouTube video kimliği (@SidarDemirgil kanalı); yoksa kanal video sayfası açılır */
+  id?: string;
+}
+
+export interface EgitimImage {
+  src: string;
+  alt: string;
 }
 
 export type Level = "Başlangıç" | "Orta" | "İleri";
@@ -35,17 +33,18 @@ export interface EgitimSection {
   level: Level;
   group: "Temeller" | "Analiz" | "Strateji ve Risk" | "Pratik" | "Disiplin";
   blocks: Block[];
-  videos: EgitimVideo[];
+  images?: EgitimImage[];
+  video: EgitimVideo;
 }
 
 export const EGITIM_TITLE = "ABD Borsası Eğitim Rehberi: Sıfırdan Profesyonelliğe";
 export const EGITIM_INTRO =
-  "ABD borsasını tamamen yeni başlayanlar için hazırlanmış kapsamlı bir rehber. Her bölümün altında, konuyla ilgili Türkçe video eğitimlerine giden bağlantıları bulacaksınız.";
+  "ABD borsasını tamamen yeni başlayanlar için hazırlanmış kapsamlı bir rehber. Her bölümde özet infografik ve Sidar Demirgil kanalından konuyla ilgili bir eğitim videosu bulacaksınız.";
+
+export const CHANNEL_URL = "https://www.youtube.com/@SidarDemirgil/videos";
 
 export function videoHref(v: EgitimVideo): string {
-  if (v.url) return v.url;
-  const q = `${v.title} ${v.extraQuery ?? "Türkçe"}`;
-  return `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+  return v.id ? `https://www.youtube.com/watch?v=${v.id}` : CHANNEL_URL;
 }
 
 export const EGITIM_SECTIONS: EgitimSection[] = [
@@ -54,6 +53,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
     title: "Borsaya Giriş: Temel Kavramlar",
     level: "Başlangıç",
     group: "Temeller",
+    images: [{ src: "/egitim/panel-1.webp", alt: "Özet infografik" }],
     blocks: [
       {
         t: "p",
@@ -69,17 +69,14 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Borsa Nedir? Başlayanlar İçin Tam Rehber" },
-      { title: "Hisse Senedi Piyasası'na Giriş" },
-      { title: "Stock Market Temel Kavramları" },
-    ],
+    video: { title: "Borsada Hisse Senedini Nerede Alıp Nerede Satıyorum?", id: "_4WmAaRmRwY" },
   },
   {
     id: "abd-borsalari",
     title: "ABD Borsası'nın Yapısı: NYSE, NASDAQ ve OTC",
     level: "Başlangıç",
     group: "Temeller",
+    images: [{ src: "/egitim/panel-2.webp", alt: "Özet infografik" }],
     blocks: [
       { t: "p", text: "ABD'de hisse senetlerinin işlem gördüğü başlıca üç pazar vardır:" },
       {
@@ -100,17 +97,14 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "NYSE vs NASDAQ: Farklar ve Benzerlikler" },
-      { title: "Amerikan Borsası Nerede İşlem Görür?" },
-      { title: "Stock Exchange Türleri ve İşleyişi" },
-    ],
+    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
   },
   {
     id: "endeksler",
     title: "Borsa Endeksleri: S&P 500, Dow Jones, Nasdaq-100",
     level: "Başlangıç",
     group: "Temeller",
+    images: [{ src: "/egitim/panel-3.webp", alt: "Özet infografik" }],
     blocks: [
       {
         t: "p",
@@ -134,17 +128,14 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "S&P 500 nedir? Yatırımcılar için Rehber" },
-      { title: "Dow Jones, S&P 500, Nasdaq Farkları" },
-      { title: "Borsa Endekslerini Anlamak" },
-    ],
+    video: { title: "Endeks Üstü Getiri İçin Sektör Bulmak", id: "hxqZkNxVlZ0" },
   },
   {
     id: "hisse-turleri",
     title: "Hisse Senedi Türleri: Growth, Value ve Dividend",
     level: "Başlangıç",
     group: "Temeller",
+    images: [{ src: "/egitim/panel-4.webp", alt: "Özet infografik" }],
     blocks: [
       { t: "p", text: "Farklı yatırım stratejileri için farklı hisse türleri vardır." },
       {
@@ -169,17 +160,14 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Growth Stocks vs Value Stocks" },
-      { title: "Dividend Stocks Nasıl Çalışır?" },
-      { title: "Blue Chip Stocks Yatırımı" },
-    ],
+    video: { title: "Gün İçi Hisseleri Nasıl Seçiyorum, Filtreliyorum?", id: "i6QfoPxP8Es" },
   },
   {
     id: "finansal-metrikler",
     title: "Temel Finansal Metrikler: P/E, EPS, Piyasa Değeri",
     level: "Başlangıç",
     group: "Temeller",
+    images: [{ src: "/egitim/panel-5.webp", alt: "Özet infografik" }],
     blocks: [
       { t: "p", text: "Bir şirketi değerlendirirken sık kullanılan temel metrikler:" },
       {
@@ -208,17 +196,14 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "P/E Ratio Nasıl Kullanılır?" },
-      { title: "Finansal Metrikler 101" },
-      { title: "Market Cap Açıklaması" },
-    ],
+    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
   },
   {
     id: "teknik-analiz",
     title: "Teknik Analiz: Grafik Desenleri ve İndikatörler",
     level: "Orta",
     group: "Analiz",
+    images: [{ src: "/egitim/panel-6.webp", alt: "Özet infografik" }],
     blocks: [
       {
         t: "p",
@@ -261,14 +246,97 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Hiçbir indikatör tek başına güvenilir bir sinyal vermez. Birden fazla teyit arayın ve her işlemde risk yönetimi uygulayın.",
       },
     ],
-    videos: [
-      { title: "Teknik Analiz Başlangıç Rehberi" },
-      { title: "Grafik Desenleri: Head and Shoulders" },
-      { title: "Moving Average Nasıl Kullanılır" },
-      { title: "RSI İndikatörü Açıklaması" },
-      { title: "MACD Stratejisi" },
-      { title: "Bollinger Bands Tam Rehber" },
+    video: { title: "Teknik Analiz Nedir?", id: "UWfiZU9uIOU" },
+  },
+  {
+    id: "mum-formasyonlari",
+    title: "Mum Formasyonları: Fiyatın Dili",
+    level: "Orta",
+    group: "Analiz",
+    images: [{ src: "/egitim/panel-7.webp", alt: "Mum formasyonları infografiği" }],
+    blocks: [
+      {
+        t: "p",
+        text: "Mum formasyonları, fiyat hareketlerinin psikolojisini gösterir ve olası dönüş ya da devam sinyalleri verir. Tek başına yeterli değildir; hacim ve trend yönüyle birlikte değerlendirin.",
+      },
+      {
+        t: "terms",
+        items: [
+          { term: "Tek mum formasyonları", text: "Doji (kararsızlık), Hammer (yükseliş dönüşü), Shooting Star (düşüş dönüşü), Long Green (güçlü yükseliş), Long Red (güçlü düşüş)." },
+          { term: "İkili mum formasyonları", text: "Bullish Engulfing (yükseliş), Bearish Engulfing (düşüş), Harami (ters dönüş), Piercing Line (yükseliş)." },
+          { term: "Devam formasyonları", text: "Three White Soldiers (yükseliş devamı), Three Black Crows (düşüş devamı)." },
+        ],
+      },
     ],
+    video: { title: "Tepe ve Dip Dönüş Mum Formasyonları", id: "gnQk2bXKgaE" },
+  },
+  {
+    id: "breakout",
+    title: "Breakout Senaryosu: Yeni Trendin İlk Adımı",
+    level: "Orta",
+    group: "Analiz",
+    images: [{ src: "/egitim/panel-8.webp", alt: "Breakout senaryosu infografiği" }],
+    blocks: [
+      { t: "p", text: "Breakout, fiyatın önemli bir direnç veya destek seviyesini kırarak yeni bir trend başlatmasıdır." },
+      {
+        t: "terms",
+        items: [
+          { term: "Yukarı yönlü breakout", text: "Direnç seviyesi kırılır, hacim artar ve yeni bir yükseliş trendi başlar." },
+          { term: "Aşağı yönlü breakout", text: "Destek seviyesi kırılır, hacim artar ve yeni bir düşüş trendi başlar." },
+        ],
+      },
+      { t: "note", tone: "info", text: "Kırılımın gücü hacimle ölçülür. Hacimsiz kırılımlar çoğunlukla yanlış kırılımdır (false breakout); güçlü bir mum kapanışıyla teyit bekleyin." },
+    ],
+    video: { title: "Breakout Stratejisi ve Fırsatları", id: "z4q8vvYXJN4" },
+  },
+  {
+    id: "pullback",
+    title: "Pullback Senaryosu: Sağlıklı Düzeltme, Güçlü Devam",
+    level: "Orta",
+    group: "Analiz",
+    images: [{ src: "/egitim/panel-9.webp", alt: "Pullback senaryosu infografiği" }],
+    blocks: [
+      { t: "p", text: "Pullback, trend yönünde ilerleyen fiyatın kısa süreli geri çekilme yaşayıp trendine devam etmesidir. Trend içinde daha iyi bir giriş noktası sunar." },
+      {
+        t: "terms",
+        items: [
+          { term: "Yükseliş trendinde pullback", text: "Trend yönü yukarıdır; fiyat trend çizgisine geri gelir, destek bölgesinden yeniden güçlenir ve trend devam eder." },
+          { term: "Düşüş trendinde pullback", text: "Trend yönü aşağıdır; fiyat trend çizgisine geri gelir, direnç bölgesinden yeniden zayıflar ve trend devam eder." },
+        ],
+      },
+      { t: "note", tone: "info", text: "Pullback'te 5m/15m gibi küçük zaman dilimleri, trend yönü için üst zaman dilimiyle birlikte kullanılabilir. Girişte hacmin azalıp mum onayının gelmesini bekleyin." },
+    ],
+    video: { title: "Fiyatı Sakın Kovalama! (Pullback Formasyonu)", id: "TaCnJRuuOoE" },
+  },
+  {
+    id: "senaryolar",
+    title: "Senaryo Karşılaştırması: Hangi Durumda Ne Yapmalı?",
+    level: "Orta",
+    group: "Analiz",
+    images: [
+      { src: "/egitim/panel-10.webp", alt: "Breakout ve pullback adımları" },
+      { src: "/egitim/panel-ozet.webp", alt: "Tüm senaryoların özeti: olay, sinyal, strateji" },
+    ],
+    blocks: [
+      {
+        t: "ul",
+        title: "Breakout + pullback birlikte",
+        items: ["Direnç seviyesi kırılır (hacim artar).", "Fiyat kısa süreli geri çekilir (pullback).", "Destek bölgesinden tekrar güçlenir.", "Trend yönünde işlem açılır."],
+      },
+      {
+        t: "table",
+        caption: "Tüm senaryoların özeti",
+        head: ["Senaryo", "Ne olur?", "Sinyal", "Strateji"],
+        rows: [
+          ["Breakout (Yukarı)", "Direnç kırılır, yeni trend başlar", "Hacim artışı + kapanış", "Kırılım yönünde giriş, stop altında destek"],
+          ["Breakout (Aşağı)", "Destek kırılır, yeni trend başlar", "Hacim artışı + kapanış", "Kırılım yönünde giriş, stop üstünde direnç"],
+          ["Pullback (Yukarı)", "Trend içinde kısa geri çekilme", "Destek + mum onayı", "Trend yönünde giriş, stop altında destek"],
+          ["Pullback (Aşağı)", "Trend içinde kısa tekrar yükseliş", "Direnç + mum onayı", "Trend yönünde giriş, stop üstünde direnç"],
+        ],
+      },
+      { t: "note", tone: "info", text: "Tüm senaryolarda hacim, trend ve zaman dilimi uyumu önemlidir. Stop-loss ve kâr hedefi mutlaka belirlenmelidir. Disiplin, başarıyı getirir." },
+    ],
+    video: { title: "Destek Direnç Bölgelerindeki En Önemli Strateji", id: "gzH-G-rFlgI" },
   },
   {
     id: "temel-analiz",
@@ -307,12 +375,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Fundamental Analiz 101" },
-      { title: "Finansal Tabloları Nasıl Okursunuz?" },
-      { title: "Şirket Analizi: P/E Oranından Satış Büyümesine" },
-      { title: "Cash Flow Nedir ve Neden Önemlidir?" },
-    ],
+    video: { title: "Neden Temel Analiz Kullanmıyorum?", id: "PsKA930AaYk" },
   },
   {
     id: "islem-tarzlari",
@@ -348,12 +411,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Pattern Day Trader (PDT) kuralı: ABD'de marjin hesabında 5 iş günü içinde 4 veya daha fazla gün içi işlem yapan hesaplar için en az 25.000 $ özsermaye şartı aranır. Kural değişikliği gündemde olabilir; güncel koşulları mutlaka brokerınızdan teyit edin.",
       },
     ],
-    videos: [
-      { title: "Day Trading vs Swing Trading: Hangisi Daha İyi?" },
-      { title: "Swing Trading Stratejileri" },
-      { title: "Long-Term Investing Rehberi" },
-      { title: "Pattern Day Trading Kuralı Açıklanmıştır" },
-    ],
+    video: { title: "En İyi Swing Trade Yöntemi", id: "5DLRGM1Ds9o" },
   },
   {
     id: "portfoy",
@@ -397,12 +455,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Rebalancing (yeniden dengeleme): Portföyü yılda bir kez gözden geçirin. Fiyat hareketleri yüzdeleri kaydırmış olabilir; amaç risk seviyesini sabit tutmaktır.",
       },
     ],
-    videos: [
-      { title: "Portföy Oluşturma Başlayanlar İçin" },
-      { title: "Çeşitlendirme Nedir ve Neden Önemlidir" },
-      { title: "İndeks Fonları ile Yatırım" },
-      { title: "Modern Portföy Teorisi" },
-    ],
+    video: { title: "Bunları Bilmeden Yatırım Yapma: ETF ve Yatırım Fonları", id: "-2QauzfZ9II" },
   },
   {
     id: "risk-yonetimi",
@@ -447,12 +500,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Stop Loss Stratejileri" },
-      { title: "Position Sizing ve Risk Yönetimi" },
-      { title: "Risk/Reward Oranı Nedir?" },
-      { title: "Trailing Stop Loss Nasıl Çalışır?" },
-    ],
+    video: { title: "Risk Yönetimi ve Pozisyon Büyüklüğü", id: "HDShsdJgmZM" },
   },
   {
     id: "vergi",
@@ -487,12 +535,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Yatırımcılar İçin Vergi Rehberi" },
-      { title: "Kısa Vadeli vs Uzun Vadeli Kazanç" },
-      { title: "Tax-Loss Harvesting Stratejisi" },
-      { title: "Brokerage Statements Nasıl Okunur?" },
-    ],
+    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
   },
   {
     id: "broker",
@@ -528,12 +571,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Türkiye'den hesap açabilme koşulları brokera göre değişir; hesap açmadan önce brokerın kabul ettiği ülkeleri ve şartlarını kontrol edin.",
       },
     ],
-    videos: [
-      { title: "En İyi Broker Seçimi" },
-      { title: "Robinhood vs Fidelity vs Charles Schwab" },
-      { title: "Thinkorswim Platformu Rehberi" },
-      { title: "Başlayanlar için Broker Karşılaştırması" },
-    ],
+    video: { title: "Aracı Kurum Seçerken Dikkat!", id: "HW6WevfTqPk" },
   },
   {
     id: "piyasa-donguleri",
@@ -573,12 +611,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Bull Market vs Bear Market Açıklanmıştır" },
-      { title: "Piyasa Döngüleri" },
-      { title: "Market Crash Sırasında Ne Yapmalı?" },
-      { title: "Tarihsel Piyasa Çöküşleri" },
-    ],
+    video: { title: "Piyasa Yapısını Anlamayan Kaybeder", id: "Gix1u7Mnvk4" },
   },
   {
     id: "ortak-hatalar",
@@ -655,13 +688,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Yatırımcıların Yaptığı 10 Büyük Hata" },
-      { title: "Emotional Trading Kontrolü" },
-      { title: "Overtrading Neden Kötüdür?" },
-      { title: "Stop Loss Neden Önemlidir?" },
-      { title: "Ticaret Günlüğü Nasıl Tutulur" },
-    ],
+    video: { title: "Bunu Yaparsan Piyasadan Silinirsin", id: "2eWib7bfGf8" },
   },
   {
     id: "strateji-gelistirme",
@@ -706,13 +733,29 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    videos: [
-      { title: "Backtest Nedir ve Nasıl Yapılır" },
-      { title: "TradingView'da Backtesting" },
-      { title: "Paper Trading Rehberi" },
-      { title: "Kendi Trading Stratejini Geliştir" },
-      { title: "Golden Cross Stratejisi" },
+    video: { title: "Stratejini Test Etmeden Piyasaya Girme: Backtest", id: "W_0VrI16juc" },
+  },
+  {
+    id: "sss",
+    title: "Sık Sorulan Sorular (SSS): Başlangıçtan İleriye",
+    level: "Başlangıç",
+    group: "Disiplin",
+    images: [{ src: "/egitim/panel-sss.webp", alt: "Sık sorulan sorular infografiği" }],
+    blocks: [
+      {
+        t: "terms",
+        items: [
+          { term: "Borsa için ne kadar para gerekir?", text: "Brokerlara göre değişir. Küçük miktarlarla (ör. 100-500 $) başlayabilirsiniz." },
+          { term: "Hangi hisseyi almalıyım?", text: "Yatırım hedefinize ve risk toleransınıza göre (growth, value, dividend vb.) seçim yapın." },
+          { term: "Kısa vadeli mi, uzun vadeli mi?", text: "Her ikisinin de avantajı var. Kısa vadeli daha fazla zaman ve dikkat ister." },
+          { term: "Teknik analiz mi, temel analiz mi?", text: "En iyi sonuç için ikisini birlikte kullanın." },
+          { term: "Hareketli ortalama nedir?", text: "Fiyat trendini gösteren bir indikatördür (EMA, SMA vb.)." },
+          { term: "Piyasa neden düşer?", text: "Kâr realizasyonu, ekonomik veriler, jeopolitik riskler gibi birçok sebep olabilir." },
+        ],
+      },
+      { t: "note", tone: "info", text: "Unutmayın: Borsa bir maraton, sprint değil." },
     ],
+    video: { title: "Soru Cevap: Teknik Analiz Eğitimi", id: "Fv1FU5py58o" },
   },
   {
     id: "sonuc",
@@ -769,18 +812,13 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Yasal uyarı: Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi değildir. Tüm yatırımlar risk içerir; geçmiş performans gelecekteki sonuçları garanti etmez. Kendi araştırmanızı yapın.",
       },
     ],
-    videos: [
-      { title: "Başlangıç Rehberi Özet" },
-      { title: "İlk 1 Yılda Neleri Beklemelisin" },
-      { title: "Yatırımcı Mindset" },
-      { title: "Warren Buffett'tan Başlangıç Tavsiyesi" },
-    ],
+    video: { title: "Kazanan Bir Trader Olman İçin Yapman Gerekenler", id: "q-Ewi1LYmCo" },
   },
 ];
 
 export const EGITIM_GROUPS: EgitimSection["group"][] = ["Temeller", "Analiz", "Strateji ve Risk", "Pratik", "Disiplin"];
 
 export function egitimStats() {
-  const videos = EGITIM_SECTIONS.reduce((a, s) => a + s.videos.length, 0);
+  const videos = EGITIM_SECTIONS.filter((s) => s.video.id).length;
   return { sections: EGITIM_SECTIONS.length, videos };
 }

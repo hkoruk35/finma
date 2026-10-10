@@ -9,6 +9,7 @@ import {
   EGITIM_TITLE,
   egitimStats,
   videoHref,
+  CHANNEL_URL,
   type Block,
   type Level,
 } from "@/lib/egitim/abdBorsasiRehberi";
@@ -131,7 +132,7 @@ export default function EgitimPage() {
           <p className="mt-4 text-[#94a3b8] text-base md:text-lg max-w-3xl">{EGITIM_INTRO}</p>
           <div className="mt-5 flex flex-wrap gap-2 text-xs">
             <span className="px-3 py-1 rounded-full bg-[#1e2a3a]/60 border border-[#1e2a3a] text-[#94a3b8]">{stats.sections} bölüm</span>
-            <span className="px-3 py-1 rounded-full bg-[#1e2a3a]/60 border border-[#1e2a3a] text-[#94a3b8]">{stats.videos} video bağlantısı</span>
+            <span className="px-3 py-1 rounded-full bg-[#1e2a3a]/60 border border-[#1e2a3a] text-[#94a3b8]">{stats.videos} eğitim videosu</span>
             <span className="px-3 py-1 rounded-full bg-[#1e2a3a]/60 border border-[#1e2a3a] text-[#94a3b8]">Yalnızca Türkçe</span>
           </div>
         </header>
@@ -169,40 +170,48 @@ export default function EgitimPage() {
                   <span className={`text-[11px] px-2 py-0.5 rounded-full border ${LEVEL_STYLE[s.level]}`}>{s.level}</span>
                 </div>
                 <h2 className="text-xl md:text-2xl font-bold text-white mb-4 leading-snug">{s.title}</h2>
-                <div className="space-y-4">
-                  {s.blocks.map((b, bi) => (
-                    <BlockView key={bi} b={b} />
-                  ))}
+                <div className={s.images ? "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,340px)] md:gap-6 md:items-start" : ""}>
+                  <div className="space-y-4">
+                    {s.blocks.map((b, bi) => (
+                      <BlockView key={bi} b={b} />
+                    ))}
+                  </div>
+                  {s.images && (
+                    <div className="mt-5 md:mt-0 space-y-4">
+                      {s.images.map((im) => (
+                        <a key={im.src} href={im.src} target="_blank" rel="noopener noreferrer" className="block rounded-xl overflow-hidden border border-[#1e2a3a] hover:border-[#3b82f6]/60 transition-colors">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={im.src} alt={im.alt} loading="lazy" decoding="async" className="w-full h-auto block" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-6 pt-5 border-t border-[#1e2a3a]">
-                  <h3 className="text-sm font-semibold text-white mb-3">Eğitim Videoları</h3>
-                  <ul className="grid gap-2 sm:grid-cols-2">
-                    {s.videos.map((v) => (
-                      <li key={v.title}>
-                        <a
-                          href={videoHref(v)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-3 rounded-lg bg-[#0a0e17]/60 border border-[#1e2a3a] hover:border-[#ef4444]/50 px-3 py-2.5 transition-colors group"
-                        >
-                          <span className="w-8 h-8 rounded-md bg-[#ef4444]/15 text-[#ef4444] flex items-center justify-center shrink-0">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                              <path d="M8 5v14l11-7z" />
-                            </svg>
-                          </span>
-                          <span className="text-sm text-[#cbd5e1] group-hover:text-white transition-colors leading-snug">{v.title}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-sm font-semibold text-white mb-3">Eğitim Videosu</h3>
+                  <a
+                    href={videoHref(s.video)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-lg bg-[#0a0e17]/60 border border-[#1e2a3a] hover:border-[#ef4444]/50 px-3 py-2.5 transition-colors group"
+                  >
+                    <span className="w-8 h-8 rounded-md bg-[#ef4444]/15 text-[#ef4444] flex items-center justify-center shrink-0">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                    <span className="text-sm text-[#cbd5e1] group-hover:text-white transition-colors leading-snug">{s.video.title}</span>
+                    <span className="ml-auto text-[11px] text-[#64748b] shrink-0">Sidar Demirgil · YouTube</span>
+                  </a>
                 </div>
               </section>
             ))}
 
             <p className="text-xs text-[#64748b] leading-relaxed">
-              Video bağlantıları YouTube&apos;da ilgili konunun Türkçe arama sonuçlarını açar. Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi
-              değildir. Ayrıntılar için{" "}
+              Videolar YouTube&apos;daki{" "}
+              <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Sidar Demirgil</a>{" "}
+              kanalına aittir. Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi değildir. Ayrıntılar için{" "}
               <Link href="/global/tr/disclaimer" className="underline hover:text-white">
                 yasal uyarıyı
               </Link>{" "}
