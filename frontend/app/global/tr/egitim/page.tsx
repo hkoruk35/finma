@@ -9,7 +9,6 @@ import {
   EGITIM_TITLE,
   egitimStats,
   videoHref,
-  CHANNEL_URL,
   type Block,
   type Level,
 } from "@/lib/egitim/abdBorsasiRehberi";
@@ -202,16 +201,13 @@ export default function EgitimPage() {
                       </svg>
                     </span>
                     <span className="text-sm text-[#cbd5e1] group-hover:text-white transition-colors leading-snug">{s.video.title}</span>
-                    <span className="ml-auto text-[11px] text-[#64748b] shrink-0">Sidar Demirgil · YouTube</span>
                   </a>
                 </div>
               </section>
             ))}
 
             <p className="text-xs text-[#64748b] leading-relaxed">
-              Videolar YouTube&apos;daki{" "}
-              <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Sidar Demirgil</a>{" "}
-              kanalına aittir. Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi değildir. Ayrıntılar için{" "}
+              Video bağlantıları YouTube&apos;da ilgili konunun Türkçe arama sonuçlarını açar. Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi değildir. Ayrıntılar için{" "}
               <Link href="/global/tr/disclaimer" className="underline hover:text-white">
                 yasal uyarıyı
               </Link>{" "}

@@ -2,8 +2,7 @@
  * ABD Borsası Eğitim Rehberi — içerik (yalnızca Türkçe, /global/tr/egitim).
  *
  * Kaynak: ABD_Borsasi_Egitim_Rehberi.md + infografik görseller (public/egitim/*.webp, BogaStock.com filigranlı).
- * Videolar: yalnızca YouTube @SidarDemirgil kanalından, bölüm başına TEK bağlantı. Konuyla eşleşen video yoksa
- * kanalın video sayfasına gidilir (özgün dökümandaki uydurma bağlantılar kullanılmadı).
+ * Videolar: dökümandaki bağlantılar geçersiz olduğu için her bölüm, ABD borsası odaklı Türkçe YouTube aramasına gider.
  */
 
 export type Block =
@@ -16,8 +15,6 @@ export type Block =
 
 export interface EgitimVideo {
   title: string;
-  /** YouTube video kimliği (@SidarDemirgil kanalı); yoksa kanal video sayfası açılır */
-  id?: string;
 }
 
 export interface EgitimImage {
@@ -39,12 +36,10 @@ export interface EgitimSection {
 
 export const EGITIM_TITLE = "ABD Borsası Eğitim Rehberi: Sıfırdan Profesyonelliğe";
 export const EGITIM_INTRO =
-  "ABD borsasını tamamen yeni başlayanlar için hazırlanmış kapsamlı bir rehber. Her bölümde özet infografik ve Sidar Demirgil kanalından konuyla ilgili bir eğitim videosu bulacaksınız.";
-
-export const CHANNEL_URL = "https://www.youtube.com/@SidarDemirgil/videos";
+  "ABD borsasını tamamen yeni başlayanlar için hazırlanmış kapsamlı bir rehber. Her bölümde özet infografik ve konuyla ilgili Türkçe video eğitimlerine giden bir bağlantı bulacaksınız.";
 
 export function videoHref(v: EgitimVideo): string {
-  return v.id ? `https://www.youtube.com/watch?v=${v.id}` : CHANNEL_URL;
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(`${v.title} Türkçe`)}`;
 }
 
 export const EGITIM_SECTIONS: EgitimSection[] = [
@@ -69,7 +64,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Borsada Hisse Senedini Nerede Alıp Nerede Satıyorum?", id: "_4WmAaRmRwY" },
+    video: { title: "ABD Borsası Nedir? Yeni Başlayanlar İçin" },
   },
   {
     id: "abd-borsalari",
@@ -97,7 +92,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
+    video: { title: "NYSE ve NASDAQ Farkları" },
   },
   {
     id: "endeksler",
@@ -128,7 +123,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Endeks Üstü Getiri İçin Sektör Bulmak", id: "hxqZkNxVlZ0" },
+    video: { title: "S&P 500, Dow Jones ve Nasdaq-100 Nedir?" },
   },
   {
     id: "hisse-turleri",
@@ -160,7 +155,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Gün İçi Hisseleri Nasıl Seçiyorum, Filtreliyorum?", id: "i6QfoPxP8Es" },
+    video: { title: "Growth, Value ve Dividend Hisseleri" },
   },
   {
     id: "finansal-metrikler",
@@ -196,7 +191,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
+    video: { title: "P/E, EPS ve Piyasa Değeri Nedir?" },
   },
   {
     id: "teknik-analiz",
@@ -246,7 +241,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Hiçbir indikatör tek başına güvenilir bir sinyal vermez. Birden fazla teyit arayın ve her işlemde risk yönetimi uygulayın.",
       },
     ],
-    video: { title: "Teknik Analiz Nedir?", id: "UWfiZU9uIOU" },
+    video: { title: "ABD Hisselerinde Teknik Analiz" },
   },
   {
     id: "mum-formasyonlari",
@@ -268,7 +263,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Tepe ve Dip Dönüş Mum Formasyonları", id: "gnQk2bXKgaE" },
+    video: { title: "Mum Formasyonları (ABD Hisseleri)" },
   },
   {
     id: "breakout",
@@ -287,7 +282,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
       },
       { t: "note", tone: "info", text: "Kırılımın gücü hacimle ölçülür. Hacimsiz kırılımlar çoğunlukla yanlış kırılımdır (false breakout); güçlü bir mum kapanışıyla teyit bekleyin." },
     ],
-    video: { title: "Breakout Stratejisi ve Fırsatları", id: "z4q8vvYXJN4" },
+    video: { title: "Breakout Stratejisi (ABD Hisseleri)" },
   },
   {
     id: "pullback",
@@ -306,7 +301,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
       },
       { t: "note", tone: "info", text: "Pullback'te 5m/15m gibi küçük zaman dilimleri, trend yönü için üst zaman dilimiyle birlikte kullanılabilir. Girişte hacmin azalıp mum onayının gelmesini bekleyin." },
     ],
-    video: { title: "Fiyatı Sakın Kovalama! (Pullback Formasyonu)", id: "TaCnJRuuOoE" },
+    video: { title: "Pullback Stratejisi (ABD Hisseleri)" },
   },
   {
     id: "senaryolar",
@@ -336,7 +331,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
       },
       { t: "note", tone: "info", text: "Tüm senaryolarda hacim, trend ve zaman dilimi uyumu önemlidir. Stop-loss ve kâr hedefi mutlaka belirlenmelidir. Disiplin, başarıyı getirir." },
     ],
-    video: { title: "Destek Direnç Bölgelerindeki En Önemli Strateji", id: "gzH-G-rFlgI" },
+    video: { title: "Breakout ve Pullback ile Giriş Stratejisi" },
   },
   {
     id: "temel-analiz",
@@ -375,7 +370,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Neden Temel Analiz Kullanmıyorum?", id: "PsKA930AaYk" },
+    video: { title: "ABD Hisselerinde Temel Analiz" },
   },
   {
     id: "islem-tarzlari",
@@ -405,13 +400,8 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
           },
         ],
       },
-      {
-        t: "note",
-        tone: "warn",
-        text: "Pattern Day Trader (PDT) kuralı: ABD'de marjin hesabında 5 iş günü içinde 4 veya daha fazla gün içi işlem yapan hesaplar için en az 25.000 $ özsermaye şartı aranır. Kural değişikliği gündemde olabilir; güncel koşulları mutlaka brokerınızdan teyit edin.",
-      },
     ],
-    video: { title: "En İyi Swing Trade Yöntemi", id: "5DLRGM1Ds9o" },
+    video: { title: "Day Trading ve Swing Trading (ABD Borsası)" },
   },
   {
     id: "portfoy",
@@ -455,7 +445,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Rebalancing (yeniden dengeleme): Portföyü yılda bir kez gözden geçirin. Fiyat hareketleri yüzdeleri kaydırmış olabilir; amaç risk seviyesini sabit tutmaktır.",
       },
     ],
-    video: { title: "Bunları Bilmeden Yatırım Yapma: ETF ve Yatırım Fonları", id: "-2QauzfZ9II" },
+    video: { title: "ETF ve Portföy Çeşitlendirme (ABD)" },
   },
   {
     id: "risk-yonetimi",
@@ -500,7 +490,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Risk Yönetimi ve Pozisyon Büyüklüğü", id: "HDShsdJgmZM" },
+    video: { title: "Stop Loss ve Risk Yönetimi (ABD Borsası)" },
   },
   {
     id: "vergi",
@@ -535,7 +525,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Sidar Demirgil kanalındaki tüm eğitim videoları" },
+    video: { title: "ABD Borsası Vergilendirme" },
   },
   {
     id: "broker",
@@ -571,7 +561,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Türkiye'den hesap açabilme koşulları brokera göre değişir; hesap açmadan önce brokerın kabul ettiği ülkeleri ve şartlarını kontrol edin.",
       },
     ],
-    video: { title: "Aracı Kurum Seçerken Dikkat!", id: "HW6WevfTqPk" },
+    video: { title: "ABD Borsası İçin Broker Seçimi" },
   },
   {
     id: "piyasa-donguleri",
@@ -611,7 +601,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Piyasa Yapısını Anlamayan Kaybeder", id: "Gix1u7Mnvk4" },
+    video: { title: "Boğa ve Ayı Piyasası (ABD)" },
   },
   {
     id: "ortak-hatalar",
@@ -688,7 +678,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Bunu Yaparsan Piyasadan Silinirsin", id: "2eWib7bfGf8" },
+    video: { title: "ABD Borsasında Yeni Başlayanların Hataları" },
   },
   {
     id: "strateji-gelistirme",
@@ -733,7 +723,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         ],
       },
     ],
-    video: { title: "Stratejini Test Etmeden Piyasaya Girme: Backtest", id: "W_0VrI16juc" },
+    video: { title: "Backtest ve Paper Trading (ABD Hisseleri)" },
   },
   {
     id: "sss",
@@ -755,7 +745,7 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
       },
       { t: "note", tone: "info", text: "Unutmayın: Borsa bir maraton, sprint değil." },
     ],
-    video: { title: "Soru Cevap: Teknik Analiz Eğitimi", id: "Fv1FU5py58o" },
+    video: { title: "ABD Borsası Sık Sorulan Sorular" },
   },
   {
     id: "sonuc",
@@ -812,13 +802,13 @@ export const EGITIM_SECTIONS: EgitimSection[] = [
         text: "Yasal uyarı: Bu sayfadaki içerik genel eğitim amaçlıdır ve yatırım tavsiyesi değildir. Tüm yatırımlar risk içerir; geçmiş performans gelecekteki sonuçları garanti etmez. Kendi araştırmanızı yapın.",
       },
     ],
-    video: { title: "Kazanan Bir Trader Olman İçin Yapman Gerekenler", id: "q-Ewi1LYmCo" },
+    video: { title: "ABD Borsasında Başarı İçin Tavsiyeler" },
   },
 ];
 
 export const EGITIM_GROUPS: EgitimSection["group"][] = ["Temeller", "Analiz", "Strateji ve Risk", "Pratik", "Disiplin"];
 
 export function egitimStats() {
-  const videos = EGITIM_SECTIONS.filter((s) => s.video.id).length;
+  const videos = EGITIM_SECTIONS.length;
   return { sections: EGITIM_SECTIONS.length, videos };
 }
