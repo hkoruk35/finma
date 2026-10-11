@@ -116,3 +116,118 @@ export async function fetchOptionLevels(symbol = "SPY"): Promise<OptionLevels | 
   cacheBySymbol.set(symbol, { at: Date.now(), value });
   return value;
 }
+
+// ── Emir defteri (Level 1) + opsiyon Call/Put akışı ─────────────────
+
+async function callAuthed(path: string): Promise<{ status: number; json: unknown }> {
+  let a = await getAuth();
+  if (!a) return { status: 0, json: null };
+  let r = await getJson(path, a);
+  if (r.status === 401) {
+    a = await getAuth(true);
+    if (!a) return r;
+    r = await getJson(path, a);
+  }
+  return r;
+}
+
+export interface QuoteBook {
+  bid: number | null;
+  ask: number | null;
+  /** En iyi alış / satış kademesindeki miktar (Yahoo'nun verdiği adet) */
+  bidSize: number | null;
+  askSize: number | null;
+  price: number | null;
+  volume: number | null;
+  marketState: string | null;
+  /** Kotasyonun alındığı an (unix sn) */
+  fetchedAt: number;
+}
+
+const bookCache = new Map<string, { at: number; value: QuoteBook }>();
+
+/**
+ * En iyi alış/satış fiyatı ve miktarı (Level 1). Yahoo ücretsiz uçta derinlik (Level 2) vermez —
+ * bu yüzden "emir defteri" burada yalnız en üst kademedir. 2 sn önbellekli.
+ */
+export async function fetchQuoteBook(symbol = "SPY"): Promise<QuoteBook | null> {
+  const c = bookCache.get(symbol);
+  if (c && Date.now() - c.at < 2000) return c.value;
+  const r = await callAuthed(`/v7/finance/quote?symbols=${symbol}`);
+  const q = (r.json as { quoteResponse?: { result?: Record<string, unknown>[] } } | null)?.quoteResponse?.result?.[0];
+  if (!q) return c?.value ?? null;
+  const num = (v: unknown) => (Number.isFinite(Number(v)) && v != null ? Number(v) : null);
+  const value: QuoteBook = {
+    bid: num(q.bid), ask: num(q.ask), bidSize: num(q.bidSize), askSize: num(q.askSize),
+    price: num(q.regularMarketPrice), volume: num(q.regularMarketVolume),
+    marketState: typeof q.marketState === "string" ? q.marketState : null,
+    fetchedAt: Math.floor(Date.now() / 1000),
+  };
+  bookCache.set(symbol, { at: Date.now(), value });
+  return value;
+}
+
+export interface OptionSideFlow {
+  /** Toplam işlem hacmi (kontrat) */
+  volume: number;
+  /** Prim hacmi ($) = hacim × orta fiyat × 100 — yalnız para dışı + fiyata ±%0,5 yakın strike (derin para içi kontratlar oranı şişirmesin) */
+  premium: number;
+  /** Fiyata ±%1 yakın strike'lardaki hacim */
+  nearVolume: number;
+  /** Para dışı (OTM) strike'lardaki hacim */
+  otmVolume: number;
+  /** En çok işlem gören 3 strike */
+  top: { strike: number; volume: number }[];
+}
+
+export interface OptionFlow {
+  expiry: string;
+  isZeroDte: boolean;
+  spot: number;
+  calls: OptionSideFlow;
+  puts: OptionSideFlow;
+  fetchedAt: number;
+}
+
+const flowCache = new Map<string, { at: number; value: OptionFlow }>();
+
+/** En yakın vadenin (0DTE) Call/Put hacim ve prim dengesi. 60 sn önbellekli. Zincir gelmezse null. */
+export async function fetchOptionFlow(symbol = "SPY"): Promise<OptionFlow | null> {
+  const c = flowCache.get(symbol);
+  if (c && Date.now() - c.at < 60_000) return c.value;
+  const list = await callAuthed(`/v7/finance/options/${symbol}`);
+  const res0 = (list.json as { optionChain?: { result?: { expirationDates?: number[] }[] } } | null)?.optionChain?.result?.[0];
+  const dates = (res0?.expirationDates ?? []).map(Number).filter(Number.isFinite).sort((x, y) => x - y);
+  const todayNy = nyParts(Math.floor(Date.now() / 1000)).ymd;
+  const pick = dates.map((e) => ({ e, ymd: new Date(e * 1000).toISOString().slice(0, 10) })).find((x) => x.ymd >= todayNy);
+  if (!pick) return c?.value ?? null;
+  const chain = await callAuthed(`/v7/finance/options/${symbol}?date=${pick.e}`);
+  const r = (chain.json as {
+    optionChain?: { result?: { quote?: { regularMarketPrice?: number }; options?: { calls?: unknown[]; puts?: unknown[] }[] }[] };
+  } | null)?.optionChain?.result?.[0];
+  const opt = r?.options?.[0];
+  const spot = Number(r?.quote?.regularMarketPrice);
+  if (!opt || !Number.isFinite(spot)) return c?.value ?? null;
+  const side = (raw: unknown[] | undefined, isCall: boolean): OptionSideFlow => {
+    const rows = (raw ?? []).map((x) => {
+      const o = x as Record<string, unknown>;
+      const bid = n(o.bid), ask = n(o.ask), last = n(o.lastPrice);
+      const mid = bid > 0 && ask > 0 ? (bid + ask) / 2 : last;
+      return { strike: n(o.strike), volume: n(o.volume), mid };
+    });
+    return {
+      volume: rows.reduce((a, x) => a + x.volume, 0),
+      premium: rows.filter((x) => (isCall ? x.strike >= spot * 0.995 : x.strike <= spot * 1.005)).reduce((a, x) => a + x.volume * x.mid * 100, 0),
+      nearVolume: rows.filter((x) => Math.abs(x.strike - spot) / spot <= 0.01).reduce((a, x) => a + x.volume, 0),
+      otmVolume: rows.filter((x) => (isCall ? x.strike > spot : x.strike < spot)).reduce((a, x) => a + x.volume, 0),
+      top: [...rows].sort((a, b) => b.volume - a.volume).slice(0, 3).map((x) => ({ strike: x.strike, volume: x.volume })),
+    };
+  };
+  const value: OptionFlow = {
+    expiry: pick.ymd, isZeroDte: pick.ymd === todayNy, spot,
+    calls: side(opt.calls, true), puts: side(opt.puts, false),
+    fetchedAt: Math.floor(Date.now() / 1000),
+  };
+  flowCache.set(symbol, { at: Date.now(), value });
+  return value;
+}
