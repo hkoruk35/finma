@@ -21,7 +21,9 @@ import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotRead } 
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import ForecastMap from "@/components/admin/spyengine/ForecastMap";
 import ForecastTabs from "@/components/admin/spyengine/ForecastTabs";
-import { factsOf, type ForecastModel, type ForecastStats } from "@/lib/spyengine/forecastModel";
+import type { ForecastModel, ForecastStats } from "@/lib/spyengine/forecastModel";
+import Setup15Panel from "@/components/admin/spyengine/Setup15Panel";
+import { backtestSetup15, mergeHourly, readSetup15 } from "@/lib/spyengine/setup15";
 import {
   TickerStrip, InfoCards, PhaseBadge, SURFACE, num, signed, tone,
   type StripQuote, type SpotStats,
@@ -1136,6 +1138,23 @@ export default function SpyEngineV9() {
   const [m1, setM1] = useState<Bar[]>([]);
   const [m5, setM5] = useState<Bar[]>([]);
   const [m15, setM15] = useState<Bar[]>([]);
+  /** 1h geçmişi (~6 ay, RTH) — 15m setup tahmininin 1h/4h teyidi için; 5 dk'da bir yenilenir */
+  const [h1Hist, setH1Hist] = useState<Bar[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/htf?symbol=SPY", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok) setH1Hist(fromCompact(json.h1));
+      } catch {
+        // üst zaman geçmişi gelmezse 1m'den türetilen saatlikle devam edilir
+      }
+    };
+    void load();
+    const id = setInterval(load, 5 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
 
   const [quotes, setQuotes] = useState<StripQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
@@ -1435,12 +1454,6 @@ export default function SpyEngineV9() {
     return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null) };
   }, [m5D, ema5, date]);
 
-  /** Bugünün (kısmi) ham gerçekleri — günlük / saatlik tahmin sekmeleri için (yalnız KAPANMIŞ 5m mumlar) */
-  const todayFacts = useMemo(
-    () => (date && evalNow ? factsOf(m5D, date, data?.levels?.prevClose ?? null, evalNow) : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [m5D, date, data?.levels?.prevClose, minuteSlot],
-  );
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
   const hourHiLo = useMemo<HiLo | null>(() => {
@@ -1461,6 +1474,46 @@ export default function SpyEngineV9() {
   }, [todayRth5]);
   /** Klasik günlük pivotlar (önceki seans Y/D/K) + fiyatın pivotlara hareketi */
   const pivBase = useMemo(() => (date ? prevDayPivots(m1, date, data?.levels?.prevClose ?? null) : null), [m1, date, data?.levels?.prevClose]);
+  // ── 15m setup + 4 mum tahmini (1h/4h teyidi) ──────────────────
+  /** Kapanmış RTH 15m mumları (çok günlük, 1m akıştan) */
+  const m15Closed = useMemo(
+    () => (evalNow ? m15D.filter((b) => isRthBar(b) && b.time + 900 <= evalNow && (lastM1Time == null || lastM1Time >= b.time + 900)) : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [m15D, lastM1Time, minuteSlot],
+  );
+  const setupKey = m15Closed.length ? m15Closed[m15Closed.length - 1].time : 0;
+  /** Oluşmakta olan 15m mum (1. tahmin yuvasında gerçekleşen olarak gösterilir) */
+  const m15Forming = useMemo(() => {
+    const b = m15D.length ? m15D[m15D.length - 1] : null;
+    return b && isRthBar(b) && b.time > setupKey && nyParts(b.time).ymd === date ? b : null;
+  }, [m15D, setupKey, date]);
+  const setup15 = useMemo(() => {
+    if (!setupKey) return { read: null, stats: null };
+    const h1 = mergeHourly(h1Hist, m1, setupKey + 900);
+    const pivCache = new Map<string, ReturnType<typeof prevDayPivots>>();
+    const pivotsFor = (ymd: string) => {
+      if (!pivCache.has(ymd)) pivCache.set(ymd, ymd === date ? pivBase : prevDayPivots(m1, ymd, null));
+      return pivCache.get(ymd) ?? null;
+    };
+    // gün içi VWAP (kapanmış 15m mumlardan)
+    const vw = new Map<number, number>();
+    let day = "", pv = 0, vol = 0;
+    for (const b of m15Closed) {
+      const ymd = nyParts(b.time).ymd;
+      if (ymd !== day) { day = ymd; pv = 0; vol = 0; }
+      pv += ((b.high + b.low + b.close) / 3) * (b.volume || 0);
+      vol += b.volume || 0;
+      if (vol > 0) vw.set(b.time, pv / vol);
+    }
+    const vwapAt = (t: number) => vw.get(t) ?? null;
+    const last = m15Closed[m15Closed.length - 1];
+    const read = readSetup15({ m15: m15Closed, h1, pivots: pivotsFor(nyParts(last.time).ymd), vwap: vwapAt(last.time) });
+    const stats = backtestSetup15(m15Closed, h1, pivotsFor, vwapAt, 120);
+    return { read, stats };
+    // yalnız yeni 15m kapanışında (ve 1h geçmişi gelince) yeniden hesaplanır
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setupKey, h1Hist, pivBase]);
+
   const pivR = useMemo<PivotRead | null>(() => {
     if (!pivBase || price == null) return null;
     return pivotRead(pivBase, analysis?.s5 ?? { bars: [], vwap: [] }, price);
@@ -1934,17 +1987,12 @@ export default function SpyEngineV9() {
 
         </Hideable>
 
-        {/* ── 3) Tahmin: günlük yol · 1 saatlik · harita (mevcut, aynen) ── */}
+        {/* ── 3) Tahmin: 15m setup + 4 mum tahmini · harita ── */}
         {!date ? (
           <div className={`${SURFACE} px-3 py-8 text-center text-[12px] text-slate-500`}>Tahmin bölümü için fiyat ve seviye verisi bekleniyor.</div>
         ) : (
           <ForecastTabs
-            bars={todayRth5.bars}
-            date={date}
-            nowSec={evalNow}
-            model={journal?.model ?? null}
-            fstats={journal?.fstats ?? null}
-            facts={todayFacts}
+            setupTab={<Setup15Panel bars={m15Closed} forming={m15Forming} read={setup15.read} stats={setup15.stats} htfReady={h1Hist.length > 0} />}
             mapTab={
         <div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
