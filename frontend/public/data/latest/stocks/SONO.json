@@ -1,0 +1,89 @@
+{
+  "ticker": "SONO",
+  "company": "Sonos, Inc.",
+  "date": "2026-10-12",
+  "generated_at": "2026-10-12T15:32:37.835Z",
+  "sector": "Technology",
+  "industry": "Consumer Electronics",
+  "price": {
+    "current": 17.65999984741211,
+    "open": 17.25,
+    "high": 17.700000762939453,
+    "low": 16.915000915527344,
+    "prev_close": 17.260000228881836,
+    "change_pct": 2.317494862259262,
+    "change_pct_1w": -1.5607618634901905,
+    "change_pct_1m": -1.064428739479797,
+    "change_pct_1y": 6.965473062311149,
+    "volume": 269508,
+    "avg_volume_30d": 60436308
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 68.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.14%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.32311924955949,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 17.073411118073874,
+    "ema_50": 16.351041766552875,
+    "ema_200": 15.671961049552486,
+    "ema_stack_bullish": true,
+    "bb_upper": 18.542999839782716,
+    "bb_middle": 17.65999984741211,
+    "bb_lower": 16.776999855041502,
+    "bb_width": 10,
+    "atr": 0.62,
+    "atr_pct": 3.53,
+    "rvol": 0.6629003214425342,
+    "52w_high": 19.81999969482422,
+    "52w_low": 12.4399995803833
+  },
+  "fundamental": {
+    "pe_ratio": 39.244446,
+    "pb_ratio": 5.17585,
+    "gross_margin": 0.45009997,
+    "operating_margin": 0.04404,
+    "net_margin": 0.03818,
+    "market_cap": 2089071616,
+    "revenue_growth_ttm": 0.088,
+    "fcf_yield": 0.046628306686064325,
+    "institutional_ownership_pct": 1.0409,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 17.29,
+    "entry_range_high": 17.72,
+    "target_range_low": 18.38,
+    "target_range_high": 20.13,
+    "target_1": 18.38,
+    "target_2": 19.25,
+    "target_3": 20.13,
+    "stop_loss": 16.78,
+    "risk_reward_ratio": 2.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $17.29 – $17.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $17.98 direnci veya $17.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $16.78 olarak belirlenmiştir. Fiyatın EMA20 ($17.07) veya günlük VWAP ($17.23) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($17.23) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}
