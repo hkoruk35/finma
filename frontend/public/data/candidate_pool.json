@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VEEV",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PYPL",
@@ -298,7 +298,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TDW",
@@ -444,7 +444,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WSE",
@@ -588,7 +588,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "DAC",
@@ -733,7 +733,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EL",
@@ -879,7 +879,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GOOGL",
@@ -1025,7 +1025,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MRVL",
@@ -1169,7 +1169,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CSCO",
@@ -1313,7 +1313,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-10-12",
+      "last_checked": "2026-10-12 13:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SNOW",
