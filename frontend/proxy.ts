@@ -7,7 +7,7 @@ import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_
 import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
 import { MEMBERSHIP_DISABLED } from './lib/siteMode'
-import { isStaffRole, isStaffOnlyPath } from './lib/staffOnly'
+import { isStaffRole, isStaffOnlyPath, isEngineAdminPath } from './lib/staffOnly'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
 const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
@@ -388,9 +388,9 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     return redirectTo(new URL('/admin/account/login', request.url))
   }
 
-  // "engine" rolü: yalnızca SPY / QQQ Engine sayfaları. Başka her yönetim sayfası motor ekranına yönlendirilir.
+  // "engine" rolü: SPY / QQQ Engine, Piyasalar menüsü ve Pro (lib/staffOnly.ts · ENGINE_ADMIN_PREFIXES). Başka her yönetim sayfası motor ekranına yönlendirilir.
   if (requiresAdminAuth && request.cookies.get('boga_auth')?.value === 'engine') {
-    const engineOk = pathname?.startsWith('/admin/spyengine/') || pathname?.startsWith('/admin/qqqengine/')
+    const engineOk = !!pathname && isEngineAdminPath(pathname)
     if (!engineOk) return redirectTo(new URL('/admin/spyengine/v1', request.url))
   }
 

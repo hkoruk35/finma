@@ -3,11 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isEngineAdminPath } from "@/lib/staffOnly";
 
 const NAV = [
   { href: "/admin", label: "🏠 Genel Bakış" },
   { href: "/admin/spyengine/v1", label: "⚡ SPYEngine" },
   { href: "/admin/qqqengine/v1", label: "🔷 QQQEngine" },
+  { href: "/admin/piyasalar", label: "📑 Piyasalar (Site)" },
   { href: "/admin/supertrade/v4", label: "🦅 SuperTrade V4" },
   { href: "/admin/trading/swing", label: "📈 Trading" },
   { href: "/admin/analytics/performance", label: "📊 Analytics" },
@@ -44,7 +46,7 @@ export default function AdminSidebar({ role }: { role?: string }) {
 
   const navList = (onNavigate?: () => void) => (
     <nav style={{ padding: 8, display: "flex", flexDirection: "column", gap: 2 }}>
-      {(role === "engine" ? NAV.filter((n) => n.href.startsWith("/admin/spyengine/") || n.href.startsWith("/admin/qqqengine/")) : NAV).map((item) => {
+      {(role === "engine" ? NAV.filter((n) => isEngineAdminPath(n.href)) : NAV).map((item) => {
         const active = pathname === item.href;
         return (
           <Link

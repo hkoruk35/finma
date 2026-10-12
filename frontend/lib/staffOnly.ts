@@ -34,3 +34,21 @@ export function isStaffOnlyPath(pathname: string): boolean {
 export function isStaffOnlyHref(href: string): boolean {
   return isStaffOnlyPath(href.split(/[?#]/)[0]);
 }
+
+/**
+ * "engine" rolünün (afk2351@outlook.com) açabildiği yönetim sayfaları: SPY/QQQ Engine, site menüsü (Piyasalar),
+ * Pro paneli ve Pro'dan bağlanan detay sayfaları. Diğer tüm /admin/** motor ekranına yönlendirilir (proxy.ts).
+ * Not: engine rolü isStaffAuthed'e girmez — bu sayfaların yazma API'leri ona kapalı kalır, yalnız görüntüleme açılır.
+ */
+export const ENGINE_ADMIN_PREFIXES = [
+  "/admin/spyengine", "/admin/qqqengine",
+  "/admin/piyasalar",
+  "/admin/pro",
+  "/admin/ai",
+  "/admin/analytics/screener", "/admin/analytics/performance",
+  "/admin/trading/options", "/admin/trading/csp", "/admin/trading/swing",
+] as const;
+
+export function isEngineAdminPath(pathname: string): boolean {
+  return ENGINE_ADMIN_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+}
