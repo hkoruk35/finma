@@ -1,0 +1,89 @@
+{
+  "ticker": "FRPT",
+  "company": "Freshpet, Inc.",
+  "date": "2026-10-12",
+  "generated_at": "2026-10-12T01:27:55.897Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 64.06999969482422,
+    "open": 65.23999786376953,
+    "high": 65.66999816894531,
+    "low": 63.77000045776367,
+    "prev_close": 65.18000030517578,
+    "change_pct": -1.702977301556441,
+    "change_pct_1w": 6.322604512800918,
+    "change_pct_1m": 12.069270153706215,
+    "change_pct_1y": 28.114380814200285,
+    "volume": 893800,
+    "avg_volume_30d": 32555199.999999996
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 85,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.32923050023949,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.19449007902151,
+    "ema_50": 63.16173513144025,
+    "ema_200": 61.42180803395458,
+    "ema_stack_bullish": false,
+    "bb_upper": 67.27349967956543,
+    "bb_middle": 64.06999969482422,
+    "bb_lower": 60.866499710083005,
+    "bb_width": 10,
+    "atr": 2.08,
+    "atr_pct": 3.24,
+    "rvol": 1.0883606919939057,
+    "52w_high": 86,
+    "52w_low": 46.45000076293945
+  },
+  "fundamental": {
+    "pe_ratio": 16.905014,
+    "pb_ratio": 2.5170896,
+    "gross_margin": 0.41367,
+    "operating_margin": 0.07113,
+    "net_margin": 0.17283002,
+    "market_cap": 3079080704,
+    "revenue_growth_ttm": 0.155,
+    "fcf_yield": 0.00625970081750738,
+    "institutional_ownership_pct": 1.34004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 62.82,
+    "entry_range_high": 64.28,
+    "target_range_low": 66.73,
+    "target_range_high": 73.08,
+    "target_1": 66.73,
+    "target_2": 69.91,
+    "target_3": 73.08,
+    "stop_loss": 60.87,
+    "risk_reward_ratio": 2.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $62.82 – $64.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $65.67 direnci veya $62.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $60.87 olarak belirlenmiştir. Fiyatın EMA200 ($61.42) veya günlük VWAP ($64.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($63.16) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($64.51) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}
