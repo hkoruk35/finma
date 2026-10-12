@@ -36,6 +36,9 @@ import { type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 import Link from "next/link";
 import { QQQ_LADDER_CFG } from "@/lib/qqqengine/config";
+import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
+import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
+import type { OptionFlow, QuoteBook } from "@/lib/spyengine/optionFetch";
 import type { TechRow } from "@/lib/qqqengine/techs";
 import {
   ladderRead, ladderComment5, ladderComment15, ladderForming, rvolText,
@@ -226,6 +229,55 @@ function CondList({ title, conds, empty }: { title: string; conds: Cond[] | null
   );
 }
 
+/** Karar özeti: şimdi ne yapmalı · neden · tetik için ne eksik · plan ne zaman bozulur · bugün */
+function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
+  const rg = s.regime;
+  const side = s.side ?? (rg.permission === "CALL" || rg.permission === "PUT" ? rg.permission : null);
+  const pl = s.plan;
+  const col = ladderCol(s);
+  const action =
+    s.status === "TETİK" && pl ? `${pl.side} AL — giriş ${num(pl.entry)} · stop ${num(pl.stop)} · hedef ${num(pl.target)}`
+      : s.status === "ERKEN UYARI" ? `${side ?? ""} için HAZIRLAN — emri hazırla, 5m tetik mumunu bekle`
+        : s.status === "İZLE" ? `${side ?? ""} yönü açık — henüz GİRME, tetik bekleniyor`
+          : s.status === "TERS UYARI" ? "Pozisyondaysan KORU — ters yönde sinyal var, kârı al ya da stopu daralt"
+            : s.status === "İPTAL" ? "Plan İPTAL — yeni kurulum bekle"
+              : "BEKLE — şu an işlem yok";
+  const why: string[] = [s.message];
+  if (rg.permission !== "NÖTR") why.push(`Seans planı: ${rg.mode} — ${rg.modeText}`);
+  else why.push(`Seans planı yön vermiyor (${rg.mode}).`);
+  if (s.confirm) why.push(`Üst zaman dilimleri ${s.confirm.n}/3 aynı yönde (15m ${s.confirm.m15 ? "✓" : "✗"} · 30m ${s.confirm.m30 ? "✓" : "✗"} · 1h ${s.confirm.h1 ? "✓" : "✗"})`);
+  const missing = (s.status === "İZLE" || s.status === "ERKEN UYARI") ? (s.trigConds ?? []).filter((c) => !c.ok).map((c) => c.label) : [];
+  const done = L.attempts.filter((a) => a.r != null);
+  const totR = done.reduce((a, x) => a + (x.r ?? 0), 0);
+  return (
+    <div className="grid grid-cols-1 gap-px bg-[#1c2635] md:grid-cols-3">
+      <div className="bg-[#0f141d] px-3 py-2">
+        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Şimdi ne yapmalı</div>
+        <div className="mt-0.5 text-[15px] font-extrabold leading-snug" style={{ color: col }}>{action}</div>
+        {s.status === "TETİK" && pl && <div className="mt-0.5 font-mono text-[11px] text-slate-400">kurulum: {pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
+      </div>
+      <div className="bg-[#0f141d] px-3 py-2">
+        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Neden</div>
+        <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
+          {why.slice(0, 3).map((w, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-500">•</span><span>{w}</span></li>)}
+        </ul>
+        {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
+      </div>
+      <div className="bg-[#0f141d] px-3 py-2">
+        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{missing.length ? "Girmek için eksik olan" : "Plan ne zaman değişir"}</div>
+        {missing.length ? (
+          <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
+            {missing.slice(0, 3).map((m, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-600">✗</span><span>{m}</span></li>)}
+          </ul>
+        ) : <div className="mt-0.5 text-[12px] leading-snug text-slate-200">{s.change}</div>}
+        <div className="mt-1 font-mono text-[11px] text-slate-500">
+          bugün: {L.attempts.length ? `${L.attempts.length} deneme · ${done.length ? `${totR >= 0 ? "+" : ""}${totR.toFixed(1)}R` : "sonuç bekleniyor"}` : "deneme yok"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Merdivenin ayrıntısı: 4 adımın koşulları, risk, gün içi durum geçmişi */
 function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | null; waiting: boolean }) {
   if (!L || !s) {
@@ -235,17 +287,26 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
       </div>
     );
   }
+  return <LadderPanelBody L={L} s={s} />;
+}
+
+function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
+  const [open, setOpen] = useState(false);
   const rg = s.regime;
   const permCol = rg.permission === "CALL" ? "#22c55e" : rg.permission === "PUT" ? "#ef4444" : "#94a3b8";
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[13px] font-semibold text-slate-200">
-          Karar Merdiveni · ayrıntı <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· 1) seans planı → 2) 5m erken uyarı → 3) 5m tetik → 4) risk · yalnızca kapanmış mum</span>
-        </span>
-        <span className="font-mono text-[11px] text-slate-500">RVOL tabanı: son {L.base?.days ?? 0} seans, aynı saat</span>
+        <span className="text-[13px] font-semibold text-slate-200">Karar Merdiveni · karar desteği</span>
+        <span className="font-mono text-[11px] text-slate-500">son 5m kapanış {s.clock} ET</span>
       </div>
-      <div className="grid grid-cols-1 gap-px bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
+      <LadderSummary L={L} s={s} />
+      <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">
+        <button type="button" onClick={() => setOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{open ? "▴ gizle" : "▾ göster"}</button>
+        <span className="text-[12px] font-semibold text-slate-300">Teknik ayrıntı <span className="font-normal text-slate-500">· 4 adımın koşulları, risk kuralları, gün içi geçmiş, kalibrasyon</span></span>
+      </div>
+      {open && (<>
+      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2 xl:grid-cols-4">
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Adım 1 · yön izni = seans planı</div>
@@ -326,6 +387,7 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
         Dürüst not: arama ve seçim aynı 59 günde yapıldı, gerçek bir görülmemiş dönem kalmadı; sonuçlar SPY&apos;a göre daha zayıf ve daha az kanıtlıdır. Geçmiş sonuç geleceği garanti etmez.
         Eşikler: lib/qqqengine/config.ts. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>
+      </>)}
     </div>
   );
 }
@@ -613,122 +675,8 @@ function TechPanel({ t, step }: { t: TechResp | null; step: LadderStep | null })
   );
 }
 
-// ── Ortak durum kartı düzeni: başlık + etiket · büyük durum · tablo · sonuç ──
-
-function StateCard({ title, hint, chip, chipCol, arrow, label, sub, col, children, verdict }: {
-  title: string;
-  hint?: string;
-  chip?: string;
-  chipCol?: string;
-  arrow: string;
-  label: string;
-  sub?: string;
-  col: string;
-  children?: ReactNode;
-  verdict?: ReactNode;
-}) {
-  return (
-    <div className={`${SURFACE} flex flex-col overflow-hidden`} style={{ borderColor: `${col}55` }}>
-      <div className="flex items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="min-w-0 truncate text-[13px] font-semibold text-slate-200" title={hint}>{title}</span>
-        {chip && (
-          <span className="shrink-0 rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: chipCol ?? col, borderColor: `${chipCol ?? col}66`, backgroundColor: `${chipCol ?? col}14` }}>{chip}</span>
-        )}
-      </div>
-      <div className="flex items-center gap-3 px-3 py-2" style={{ backgroundColor: `${col}0d` }}>
-        <span className="text-[30px] font-black leading-none" style={{ color: col }}>{arrow}</span>
-        <div className="min-w-0">
-          <div className="text-[18px] font-extrabold leading-tight tracking-wide" style={{ color: col }}>{label}</div>
-          {sub && <div className="text-[11.5px] text-slate-400">{sub}</div>}
-        </div>
-      </div>
-      {children && <div className="flex-1 px-3 py-1.5">{children}</div>}
-      {verdict && <div className="border-t border-[#1c2635] px-3 py-1.5 text-[12px] leading-snug text-slate-300">{verdict}</div>}
-    </div>
-  );
-}
-
-function Row({ k, children }: { k: string; children: ReactNode }) {
-  return (
-    <div className="flex items-baseline justify-between gap-2 border-b border-[#151c28] py-[3px] text-[11.5px] last:border-0">
-      <span className="shrink-0 text-slate-500">{k}</span>
-      <span className="min-w-0 text-right text-slate-200">{children}</span>
-    </div>
-  );
-}
-
 const UPC = "#22c55e", DNC = "#ef4444";
 const NEUTRAL = "#64748b";
-
-/** VWAP gerekçesi: fiyat − VWAP (ATR cinsinden), öğlen dönüş eşikleri, kesişim — karar vermez */
-function VwapEvidence({ s, vwap, price }: { s: LadderStep | null; vwap: number | null; price: number | null }) {
-  const rg = s?.regime ?? null;
-  const dev = vwap != null && price != null ? price - vwap : null;
-  const devA = rg?.devAtr ?? null;
-  return (
-    <StateCard
-      title="VWAP · gerekçe"
-      hint="karar vermez — seans planının VWAP girdileri"
-      chip={devA == null ? "veri yok" : Math.abs(devA) >= CFG.plan.fadeK ? `uzama ≥ ${CFG.plan.fadeK} ATR` : "VWAP'a yakın"}
-      chipCol={NEUTRAL}
-      arrow="•"
-      label={dev != null ? `${dev >= 0 ? "+" : "−"}${Math.abs(dev).toFixed(2)}` : "—"}
-      sub={devA != null ? `fiyat − VWAP = ${devA >= 0 ? "+" : "−"}${Math.abs(devA).toFixed(2)} ATR(5m) · son 5m ${s?.clock ?? "—"}` : "5m kapanış bekleniyor"}
-      col={NEUTRAL}
-    >
-      <Row k="VWAP (RTH, 09:30)">{vwap != null ? num(vwap) : "—"}</Row>
-      <Row k={`Öğlen dönüş eşiği (± ${CFG.plan.fadeK} ATR)`}>{rg?.fadeDn != null && rg.fadeUp != null ? `${num(rg.fadeDn)} / ${num(rg.fadeUp)}` : "—"}</Row>
-      <Row k="POC (hacim profili)">{rg?.poc != null ? num(rg.poc) : "—"}</Row>
-      <Row k="Son 2 saatte VWAP kesişimi">{rg ? `${rg.crosses}` : "—"}</Row>
-    </StateCard>
-  );
-}
-
-/** EMA20 gerekçesi: 5m/15m değer + açılış okuması — karar vermez */
-function EmaEvidence({ s, ema5, ema15, price }: { s: LadderStep | null; ema5: number | null; ema15: number | null; price: number | null }) {
-  const op = s?.regime.opening ?? null;
-  const d = (e: number | null) => (e != null && price != null ? `${num(e)} (${price - e >= 0 ? "+" : "−"}${Math.abs(price - e).toFixed(2)})` : "—");
-  return (
-    <StateCard
-      title="EMA20 · açılış · gerekçe"
-      hint="karar vermez — trend modlarında tetik VWAP + EMA20'nin doğru tarafında kapanış ister"
-      chip={op ? (op.net ? `NET ${op.decidedAt ?? ""}` : "açılış net değil") : "açılış bekleniyor"}
-      chipCol={NEUTRAL}
-      arrow="•"
-      label={ema5 != null ? num(ema5) : "—"}
-      sub="EMA20 (5m) · parantezde fiyatın uzaklığı"
-      col={NEUTRAL}
-    >
-      <Row k="EMA20 5m">{d(ema5)}</Row>
-      <Row k="EMA20 15m">{d(ema15)}</Row>
-      <Row k="Açılış okuması">{op ? op.label : "—"}</Row>
-      <Row k="Açılış aralığı (ilk 15 dk)">{op?.orLow != null && op.orHigh != null ? `${num(op.orLow)} – ${num(op.orHigh)}${op.broken ? " · kırıldı" : ""}` : "—"}</Row>
-    </StateCard>
-  );
-}
-
-/** Hacim gerekçesi: RVOL (mum + gün), yerel artış, yorum tablosu — karar vermez */
-function VolumeEvidence({ s, base }: { s: LadderStep | null; base: RvolBase | null }) {
-  const rows: [string, string][] = [["< 0,8", "zayıf ilgi"], ["0,8 – 1,2", "normal"], ["1,2 – 1,5", "hareketi destekliyor"], ["1,5 – 3,0", "güçlü ilgi"], ["> 3,0", "aşırı — haber/tükenme"]];
-  return (
-    <StateCard
-      title="Hacim (RVOL) · gerekçe"
-      hint="RVOL = hacim ÷ son 20 seansta aynı saatin ortalaması"
-      chip={base ? `taban: ${base.days} seans` : "taban yok"}
-      chipCol={NEUTRAL}
-      arrow="•"
-      label={s?.dayRvol != null ? `gün ${s.dayRvol.toFixed(2)}` : "—"}
-      sub={s?.dayRvol != null ? rvolText(s.dayRvol) : "veri yok"}
-      col={NEUTRAL}
-    >
-      <Row k={`Son 5m RVOL (${s?.clock ?? "—"})`}>{s?.rvol != null ? `${s.rvol.toFixed(2)} · ${rvolText(s.rvol)}` : "—"}</Row>
-      <Row k="Yerel artış (÷ önceki 3 mum)">{s?.localRatio != null ? `${s.localRatio.toFixed(2)}×${s.localRatio >= CFG.trig.volRatio ? " · tetik hacmi yeterli" : ""}` : "—"}</Row>
-      <div className="mt-1 grid grid-cols-5 gap-0.5 text-center font-mono text-[9.5px] text-slate-500">
-        {rows.map(([k, v]) => <div key={k} className="rounded bg-[#0a0e17] px-0.5 py-0.5"><div className="text-slate-300">{k}</div>{v}</div>)}
-      </div>
-    </StateCard>
-  );
-}
 
 // ── Pivot noktaları kartı: görsel merdiven + fiyatın pivotlara hareketi ──
 
@@ -1073,6 +1021,37 @@ export default function SpyEngineV9() {
     return () => { cancelled = true; clearInterval(id); };
   }, [replayDate]);
 
+  /** Emir defteri (Level 1) + opsiyon Call/Put akışı — birkaç saniyede bir; defter örnekleri 5 dk ortalama için tutulur */
+  const [book, setBook] = useState<QuoteBook | null>(null);
+  const [optFlow, setOptFlow] = useState<OptionFlow | null>(null);
+  const [bookSamples, setBookSamples] = useState<BookSample[]>([]);
+  // Emir defteri + opsiyon akışı: canlıda 3 sn'de bir (oynatmada anlamsız — kapalı)
+  useEffect(() => {
+    if (replayDate) return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/orderflow?symbol=QQQ", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (cancelled || !json.ok) return;
+        if (json.options) setOptFlow(json.options as OptionFlow);
+        const b = json.book as QuoteBook | null;
+        if (b) {
+          setBook(b);
+          if (b.bidSize != null && b.askSize != null && b.bid != null && b.ask != null && b.marketState === "REGULAR") {
+            const smp: BookSample = { t: b.fetchedAt, bidSize: b.bidSize, askSize: b.askSize, spread: b.ask - b.bid };
+            setBookSamples((prev) => (prev.length && prev[prev.length - 1].t === smp.t ? prev : [...prev.filter((x) => x.t >= smp.t - 600), smp]));
+          }
+        }
+      } catch {
+        // defter/opsiyon akışı gelmezse kartlar "alınamadı" der, ana akış etkilenmez
+      }
+    };
+    void load();
+    const id = setInterval(load, 3000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, [replayDate]);
+
   // 1 sn kalp atışı
   useEffect(() => {
     const first = setTimeout(() => setNowSec(Math.floor(Date.now() / 1000)), 0);
@@ -1329,10 +1308,25 @@ export default function SpyEngineV9() {
   const chartDir: "UP" | "DOWN" | null = lad?.regime.permission === "CALL" ? "UP" : lad?.regime.permission === "PUT" ? "DOWN" : null;
   /** Aşama yüzdelerinin dayandığı örnek: günlükten öğrenildiyse gün sayısı, değilse sabit ölçüm */
   const stageN = "SPY ölçümü";
-  const ema15Now = (() => {
-    const bs = analysis?.s15.bars;
-    return bs && bs.length ? ema15.get(bs[bs.length - 1].time) ?? null : null;
-  })();
+  // ── Sonuç odaklı gerekçe kartları ──
+  const m15Closed = evalNow ? m15D.filter((b) => isRthBar(b) && b.time + 900 <= evalNow && (lastM1Time == null || lastM1Time >= b.time + 900)) : [];
+  const atr15Now = m15Closed.length ? atr15Map.get(m15Closed[m15Closed.length - 1].time) ?? null : null;
+  const m5Closed = analysis?.s5.bars ?? [];
+  const vwapR = vwapRead(m5Closed, price, atr5);
+  const ema5Tf = emaTf(m5D.filter((b) => b.time + 300 <= (evalNow || Infinity) && (lastM1Time == null || lastM1Time >= b.time + 300)), ema5, price, atr5);
+  const ema15Tf = emaTf(m15Closed, ema15, price, atr15Now);
+  const emaV = emaVerdict(ema5Tf, ema15Tf);
+  const today1 = date ? m1.filter((b) => isRthBar(b) && nyParts(b.time).ymd === date) : [];
+  const pressR = pressureRead(today1, evalNow);
+  const bookR = replayDate ? null : bookRead(book, bookSamples, evalNow);
+  const optR = replayDate ? null : optionFlowRead(optFlow);
+  const bias = dayBias([
+    { label: "VWAP", side: vwapR?.side },
+    { label: "EMA20", side: ema5Tf && ema15Tf ? (emaV.side !== 0 ? emaV.side : ema5Tf.side === ema15Tf.side ? ema5Tf.side : 0) : null },
+    { label: "Alıcı/satıcı", side: pressR?.side },
+    { label: "Emir defteri", side: bookR && bookR.imbAvg != null ? bookR.side : null },
+    { label: "Opsiyon C/P", side: optR?.side },
+  ]);
 
   return (
     <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
@@ -1545,11 +1539,13 @@ export default function SpyEngineV9() {
             </>)}
           </div>
 
-        {/* ── 1a) Gerekçe kartları — VWAP · EMA20/yapı · hacim (karar vermez) ── */}
-        <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-3">
-          <VwapEvidence s={lad} vwap={vwapNow} price={price} />
-          <EmaEvidence s={lad} ema5={ema5Now} ema15={ema15Now} price={price} />
-          <VolumeEvidence s={lad} base={rvolBase} />
+        {/* ── 1a) Gerekçe kartları — gün yönelimi · VWAP · EMA20 · alıcı/satıcı · emir defteri + opsiyon akışı ── */}
+        <BiasStrip b={bias} />
+        <div className="grid grid-cols-1 gap-1.5 md:grid-cols-2 xl:grid-cols-4">
+          <VwapCard r={vwapR} clock={lad?.clock ?? null} />
+          <EmaCard e5={ema5Tf} e15={ema15Tf} v={emaV} opening={lad?.regime.opening ?? null} />
+          <VolumeCard p={pressR} dayRvol={lad?.dayRvol ?? null} rvol5={lad?.rvol ?? null} clock={lad?.clock ?? null} />
+          <BookOptionsCard b={bookR} o={optR} />
         </div>
 
         {/* ── 1a2) Pivot noktaları ── */}
