@@ -1,5 +1,115 @@
 {
   "date": "2026-10-12",
-  "tickers": [],
-  "price_updated_at": "2026-10-12T12:30:05.729358-04:00"
+  "tickers": [
+    {
+      "ticker": "VEEV",
+      "company": "VEEV",
+      "sector": "Healthcare",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 294.5299987792969,
+      "change_pct": -0.54,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PYPL",
+      "company": "PYPL",
+      "sector": "Financial Services",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 55.95000076293945,
+      "change_pct": 0.76,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TDW",
+      "company": "TDW",
+      "sector": "Energy",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 85.69000244140625,
+      "change_pct": 0.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "WSE",
+      "company": "WSE",
+      "sector": "Technology",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 12.095000267028809,
+      "change_pct": 1.9,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DAC",
+      "company": "DAC",
+      "sector": "Industrials",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 170.3249969482422,
+      "change_pct": 0.73,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EL",
+      "company": "EL",
+      "sector": "Consumer Defensive",
+      "master_score": 49.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 97.83499908447266,
+      "change_pct": -0.22,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc",
+      "sector": "Communication Services",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 353.7099914550781,
+      "change_pct": 0.58,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "MRVL",
+      "sector": "Technology",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 267.2250061035156,
+      "change_pct": -2.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CSCO",
+      "sector": "Technology",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 115.27999877929688,
+      "change_pct": -2.63,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "SNOW",
+      "company": "SNOW",
+      "sector": "Technology",
+      "master_score": 42.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 360.0400085449219,
+      "change_pct": -2.4,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.0 | System: DEFAULT"
+    }
+  ]
 }

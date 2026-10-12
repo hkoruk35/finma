@@ -1,17 +1,30 @@
 {
   "date": "2026-10-12",
-  "generated_at": "2026-10-12T09:04:32.425522-04:00",
+  "generated_at": "2026-10-12T12:13:42.866069-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 0,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 0,
-      "tickers": []
+      "count": 10,
+      "tickers": [
+        "VEEV",
+        "PYPL",
+        "TDW",
+        "WSE",
+        "DAC",
+        "EL",
+        "GOOGL",
+        "MRVL",
+        "CSCO",
+        "SNOW"
+      ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "DAC"
+      ]
     },
     "value": {
       "count": 0,
@@ -30,28 +43,39 @@
       "tickers": []
     }
   },
-  "top_3_overall": [],
+  "top_3_overall": [
+    {
+      "ticker": "VEEV",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "PYPL",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "TDW",
+      "score": 54.0,
+      "score_type": "POSITIVE_BIAS"
+    }
+  ],
   "market_indices": {
     "SP500": {
-      "value": 778.15,
-      "change_pct": -0.05
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 746.87,
-      "change_pct": -0.59
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 517.85,
-      "change_pct": 0.34
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.13,
-      "change_pct": 1.95
-    },
-    "RUSSELL2000": {
-      "value": 278.465,
-      "change_pct": -0.17
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-12T12:30:05.729738-04:00"
+  }
 }
