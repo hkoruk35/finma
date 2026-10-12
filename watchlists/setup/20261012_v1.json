@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "ATEX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "NVAX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "SBAC",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "CCI",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "MRNA",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "SEZL",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "AMT",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "FIGS",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "DDOG",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "GME",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "ITUB",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "HNGE",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "LITE",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "PLTR",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "BIIB",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "COCO",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "CEG",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "CIEN",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "FCX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-12 13:03",
+        "symbol": "S",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    }
+]
