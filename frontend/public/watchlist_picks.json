@@ -1,23 +1,11 @@
 {
-  "generated_at": "2026-10-12T14:03:31.918654-04:00",
+  "generated_at": "2026-10-12T17:01:58.812019-04:00",
   "picks": [
     {
       "ticker": "PWR",
       "sector": "Industrials",
       "date_added": "2026-10-12",
       "score": 38.5
-    },
-    {
-      "ticker": "WWW",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-12",
-      "score": 34.0
-    },
-    {
-      "ticker": "XMTR",
-      "sector": "Industrials",
-      "date_added": "2026-10-12",
-      "score": 33.0
     },
     {
       "ticker": "SEZL",
@@ -30,6 +18,24 @@
       "sector": "Energy",
       "date_added": "2026-10-12",
       "score": 28.5
+    },
+    {
+      "ticker": "DOCU",
+      "sector": "Technology",
+      "date_added": "2026-10-12",
+      "score": 47.0
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-10-12",
+      "score": 46.0
+    },
+    {
+      "ticker": "NP",
+      "sector": "Financial Services",
+      "date_added": "2026-10-12",
+      "score": 46.0
     }
   ]
 }
