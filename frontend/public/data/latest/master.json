@@ -1,39 +1,17 @@
 {
-  "date": "2026-10-09",
-  "generated_at": "2026-10-09T17:03:28.047375-04:00",
+  "date": "2026-10-12",
+  "generated_at": "2026-10-12T09:04:32.425522-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 36,
+  "active_scores_count": 0,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 10,
-      "tickers": [
-        "FRPT",
-        "SEZL",
-        "SEI",
-        "STNG",
-        "FIGS",
-        "SPOT",
-        "OSCR",
-        "GME",
-        "ACN",
-        "TDC"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "breakout": {
-      "count": 10,
-      "tickers": [
-        "STNG",
-        "FIGS",
-        "GME",
-        "ACN",
-        "TDC",
-        "DNOW",
-        "TEVA",
-        "VTRS",
-        "CIEN",
-        "SPCX"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -52,44 +30,23 @@
       "tickers": []
     }
   },
-  "top_3_overall": [
-    {
-      "ticker": "FRPT",
-      "score": 63.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "SEZL",
-      "score": 54.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "SEI",
-      "score": 52.0,
-      "score_type": "POSITIVE_BIAS"
-    }
-  ],
+  "top_3_overall": [],
   "market_indices": {
     "SP500": {
-      "value": 778.76,
-      "change_pct": 0.02
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 751.27,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 516.54,
-      "change_pct": 0.08
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.42,
-      "change_pct": 3.91
-    },
-    "RUSSELL2000": {
-      "value": 278.7,
-      "change_pct": -0.09
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-12T09:30:09.496906-04:00"
+  }
 }
