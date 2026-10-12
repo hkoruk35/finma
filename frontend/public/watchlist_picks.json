@@ -1,4 +1,35 @@
 {
-  "generated_at": "2026-10-12T09:04:32.435433-04:00",
-  "picks": []
+  "generated_at": "2026-10-12T12:13:42.870224-04:00",
+  "picks": [
+    {
+      "ticker": "BP",
+      "sector": "Energy",
+      "date_added": "2026-10-12",
+      "score": 40.0
+    },
+    {
+      "ticker": "PWR",
+      "sector": "Industrials",
+      "date_added": "2026-10-12",
+      "score": 38.5
+    },
+    {
+      "ticker": "WWW",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-12",
+      "score": 34.0
+    },
+    {
+      "ticker": "RPD",
+      "sector": "Technology",
+      "date_added": "2026-10-12",
+      "score": 32.0
+    },
+    {
+      "ticker": "CRDO",
+      "sector": "Technology",
+      "date_added": "2026-10-12",
+      "score": 25.5
+    }
+  ]
 }
