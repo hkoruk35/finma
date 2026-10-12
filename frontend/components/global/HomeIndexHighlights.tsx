@@ -13,6 +13,7 @@ import { formatNumber } from "@/lib/formatNumber";
 import { ClientTime } from "@/components/global/ClientTime";
 import { getFeaturedTrendCardData } from "@/lib/homeFeed";
 import HomeFeaturedTrendCard from "@/components/global/HomeFeaturedTrendCard";
+import StaffOnly from "@/components/global/StaffOnly";
 
 // Ana sayfada iki sütun: S&P 500 (sol) + Günün Trend Hisselerinden (sağ).
 // Sol sütunun içeriği ve etiketleri /global/[locale]/[indexSlug]
@@ -78,7 +79,10 @@ export default async function HomeIndexHighlights({ locale }: { locale: Locale }
           liveQuote={quotes[symbol]}
         />
       ))}
-      <HomeFeaturedTrendCard locale={locale} data={featuredTrend} />
+      {/* "Günün Trend Hisselerinden" kartı yalnız yönetim hesaplarına görünür (lib/staffOnly.ts) */}
+      <StaffOnly>
+        <HomeFeaturedTrendCard locale={locale} data={featuredTrend} />
+      </StaffOnly>
     </div>
   );
 }

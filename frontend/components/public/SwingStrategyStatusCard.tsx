@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useIsStaff } from "@/hooks/useIsStaff";
 import type { Locale } from "@/lib/i18n/copy";
 import { formatNumber } from "@/lib/formatNumber";
 
@@ -305,6 +306,7 @@ const T: Record<Locale, {
 };
 
 export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: string; locale: Locale }) {
+  const isStaff = useIsStaff();
   const t = T[locale] ?? T.en;
   const [swingPick, setSwingPick] = useState<SwingPick | null | undefined>(undefined);
   const [watchPick, setWatchPick] = useState<SwingPick | null | undefined>(undefined);
@@ -395,12 +397,14 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
             {t.tradePlanNote}
           </p>
 
+          {isStaff && (
           <Link
             href={`/global/${locale}/swing`}
             className="self-start text-[10px] font-medium text-[#58a6ff] border border-[#58a6ff]/40 bg-[#58a6ff]/10 rounded px-2.5 py-1 hover:bg-[#58a6ff]/20 transition-colors"
           >
             {t.swingLink} ↗
           </Link>
+          )}
         </div>
       ) : watchPick ? (
         <div className="flex flex-col gap-2">
