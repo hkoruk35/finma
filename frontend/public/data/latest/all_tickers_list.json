@@ -16,23 +16,23 @@
       "ticker": "PYPL",
       "company": "PYPL",
       "sector": "Financial Services",
-      "master_score": 56.0,
+      "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 55.95000076293945,
-      "change_pct": 0.76,
+      "price": 56.04999923706055,
+      "change_pct": 0.94,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
     },
     {
       "ticker": "TDW",
       "company": "TDW",
       "sector": "Energy",
-      "master_score": 54.0,
+      "master_score": 56.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 85.69000244140625,
-      "change_pct": 0.32,
+      "price": 86.44999694824219,
+      "change_pct": 1.21,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
     },
     {
       "ticker": "WSE",
@@ -60,12 +60,12 @@
       "ticker": "EL",
       "company": "EL",
       "sector": "Consumer Defensive",
-      "master_score": 49.5,
+      "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 97.83499908447266,
-      "change_pct": -0.22,
+      "price": 100.04000091552734,
+      "change_pct": 2.03,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: EMA_CROSS"
     },
     {
       "ticker": "GOOGL",
@@ -73,8 +73,8 @@
       "sector": "Communication Services",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 353.7099914550781,
-      "change_pct": 0.58,
+      "price": 352.7200012207031,
+      "change_pct": 0.3,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
@@ -220,6 +220,72 @@
       "change_pct": 1.82,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 39.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TEVA",
+      "company": "TEVA",
+      "sector": "Healthcare",
+      "master_score": 59.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 41.16999816894531,
+      "change_pct": 0.17,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "EXLS",
+      "company": "EXLS",
+      "sector": "Technology",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 36.7400016784668,
+      "change_pct": -0.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MTD",
+      "company": "MTD",
+      "sector": "Healthcare",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 1563.010009765625,
+      "change_pct": 0.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SSL",
+      "company": "SSL",
+      "sector": "Basic Materials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 15.300000190734863,
+      "change_pct": 1.26,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SCHL",
+      "company": "SCHL",
+      "sector": "Communication Services",
+      "master_score": 49.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 39.400001525878906,
+      "change_pct": 2.07,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "EXPO",
+      "company": "EXPO",
+      "sector": "Industrials",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 70.66999816894531,
+      "change_pct": 1.23,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     }
   ]
 }
