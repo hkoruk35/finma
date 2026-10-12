@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import { useIsStaff } from "@/hooks/useIsStaff";
+import { isStaffOnlyHref } from "@/lib/staffOnly";
 
 interface Props {
   locale: Locale;
@@ -69,6 +71,8 @@ const translations: Record<string, Record<string, string>> = {
 
 export default function ListsNavigation({ locale, activePath, trailingAction }: Props) {
   const t = translations[locale] || translations.en;
+  // Top 7 / Top 100 / Artanlar / Düşenler / Trend / Tema sekmeleri yalnız yönetim hesaplarına görünür
+  const isStaff = useIsStaff();
 
   const links = [
     { id: "top7", label: t.top7, href: `/global/${locale}/top7` },
@@ -78,7 +82,7 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
     { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
     { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` },
     { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }
-  ].filter((l) => !(MY_WATCHLIST_DISABLED && l.id === "my-watchlist"));
+  ].filter((l) => !(MY_WATCHLIST_DISABLED && l.id === "my-watchlist")).filter((l) => isStaff || !isStaffOnlyHref(l.href));
 
   return (
     <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">

@@ -5,6 +5,7 @@ import { getAllArchivedTickers, getArchivedDates } from '@/lib/analysis-archive'
 import { INDEX_LIST, INDEX_LOCALES, type IndexSymbol } from '@/lib/indices';
 import { getAllDailyTradeDates, getAllWeeklyLabels } from '@/lib/indexSnapshots';
 import { ASSET_CLASS_SLUGS, ASSET_CLASS_LOCALES } from '@/lib/assetClasses';
+import { isStaffOnlyPath } from '@/lib/staffOnly';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const swingData = await getSwingAllPicks();
@@ -93,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
     changeFrequency: cf as MetadataRoute.Sitemap[0]['changeFrequency'],
     priority,
-  }));
+  })).filter((r) => !isStaffOnlyPath(r.url.replace(baseUrl, ''))); // yönetim-yalnız sayfalar (Terminal, Top 7/100, Trend, Performans, Eğitim…) arama motoruna sunulmaz
 
   // ── /[lang]/[slug]/[ticker] — current swing picks × 6 languages ──
   const picks = swingData?.picks ?? [];

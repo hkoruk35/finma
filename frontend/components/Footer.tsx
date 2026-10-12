@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import MobileTerminalLink from "@/components/global/MobileTerminalLink";
+import StaffOnly from "@/components/global/StaffOnly";
 
 const DISCLAIMER: Record<"en" | "tr" | "es" | "fr" | "pt" | "id", string> = {
   en: "This page does not constitute investment advice. Content here is for informational and analytical purposes only. Data may be delayed and is not guaranteed to be accurate, complete, or current. Past performance does not indicate future results. Always do your own research before making any investment decision.",
@@ -136,6 +137,7 @@ export default function Footer({
             <p className="text-xs text-[#FFFFFF] mb-3">
               {BRAND_TAGLINE[locale ?? "en"]}
             </p>
+            <StaffOnly>
             <MobileTerminalLink
               locale={locale ?? "en"}
               targetHref={`/global/${locale ?? "en"}/terminal`}
@@ -147,6 +149,7 @@ export default function Footer({
               </svg>
               {TERMINAL_LABEL[locale ?? "en"]}
             </MobileTerminalLink>
+            </StaffOnly>
           </div>
 
 

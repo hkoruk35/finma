@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useIsStaff } from "@/hooks/useIsStaff";
 
 /** Yalnızca Türkçe ana sayfada: ABD Borsası Eğitim Rehberi'ne giriş kartı. */
 export default function HomeEducationCard() {
+  // Eğitim Rehberi yalnız yönetim hesaplarına görünür (sayfa da proxy.ts'te kilitli)
+  if (!useIsStaff()) return null;
   return (
     <Link
       href="/global/tr/egitim"

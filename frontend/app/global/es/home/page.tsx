@@ -9,7 +9,6 @@ import HomeSearchBar from "@/components/public/HomeSearchBar";
 import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
 import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
 import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
-import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -135,8 +134,6 @@ function toSectorStocks(items: { ticker: string; label: string }[], quotes: Quot
   });
 }
 
-import { getTrendStocksServerData } from "@/lib/homeFeed";
-
 export default async function EsHomePage() {
   const allTickers = [
     ...INDEX_ITEMS,
@@ -150,11 +147,10 @@ export default async function EsHomePage() {
     ...SECTOR_ITEMS,
   ].map((i) => i.ticker);
 
-  const [lastUpdated, indices, quotes, trendStocksData] = await Promise.all([
+  const [lastUpdated, indices, quotes] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
     getMultiQuote(allTickers),
-    getTrendStocksServerData(),
   ]);
 
   const marketGroups: MarketGroup[] = [
@@ -211,7 +207,6 @@ export default async function EsHomePage() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <TrendPicksSlot locale="es" compactMode initialStocks={trendStocksData} />
             <HomePersonalWatchlistCard locale="es" initialVisible={5} />
             <HomeListCard title="Sectores" accent="#3b82f6" stocks={sectorStocks} locale="es" initialVisible={5} viewAllHref="/global/es/sectors" />
           </div>

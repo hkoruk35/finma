@@ -5,6 +5,8 @@ import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { useIsStaff } from "@/hooks/useIsStaff";
+import { isStaffOnlyHref } from "@/lib/staffOnly";
 
 interface MenuChild {
   label: string;
@@ -163,9 +165,12 @@ export default function HeaderMegaMenu({ locale }: { locale: Locale }) {
       .catch(() => {});
   }, []);
 
-  const groups = buildGroups(locale).filter(
-    (g) => toggles[g.key]?.enabled !== false && !(MEMBERSHIP_DISABLED && (g.key === "watchlist" || g.key === "premium")),
-  );
+  // Top 7 / Top 100 / Yükselenler / Düşenler / Trend / Temalar yalnız yönetim hesaplarına açık (lib/staffOnly.ts);
+  // ziyaretçide bu öğeler ve onlara ait "Hisseler" alt başlığı menüden çıkar.
+  const isStaff = useIsStaff();
+  const groups = buildGroups(locale)
+    .filter((g) => toggles[g.key]?.enabled !== false && !(MEMBERSHIP_DISABLED && (g.key === "watchlist" || g.key === "premium")))
+    .map((g) => (isStaff || !g.children ? g : { ...g, children: g.children.filter((c) => (c.href ? !isStaffOnlyHref(c.href) : false)) }));
 
   return (
     <>

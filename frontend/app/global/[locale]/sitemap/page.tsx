@@ -3,6 +3,7 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { isStaffOnlyHref } from "@/lib/staffOnly";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt" | "id";
 
@@ -315,7 +316,7 @@ export default async function SitemapPage({ params }: { params: Promise<{ locale
   const r = LOCALE_ROUTES[locale] || LOCALE_ROUTES.en;
   const base = `/global/${locale}`;
 
-  const routes = [
+  const allRoutes = [
     {
       category: sec.main,
       links: [
@@ -379,6 +380,8 @@ export default async function SitemapPage({ params }: { params: Promise<{ locale
       ],
     },
   ];
+  // Terminal, Top 7/100, Yükselenler/Düşenler, Trend, Temalar yalnız yönetime açık — ziyaretçi haritasında listelenmez
+  const routes = allRoutes.map((s) => ({ ...s, links: s.links.filter((x) => !isStaffOnlyHref(x.href)) }));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">

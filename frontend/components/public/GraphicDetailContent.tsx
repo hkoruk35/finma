@@ -11,6 +11,8 @@ import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard
 import TickerSearchBox from "@/components/public/TickerSearchBox";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import { useIsStaff } from "@/hooks/useIsStaff";
+import { isStaffOnlyHref } from "@/lib/staffOnly";
 import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import { getAssetCategory } from "@/lib/symbols";
 import { getIndexBySymbol } from "@/lib/indices";
@@ -226,6 +228,7 @@ function decodeSegment(raw: string | string[] | undefined): string {
 }
 
 export default function GraphicDetailContent({ locale }: { locale: Locale }) {
+  const isStaff = useIsStaff();
   const params = useParams();
   // useParams URL segmentini decode ETMEZ: "MES=F" -> "MES%3DF", "^GSPC" -> "%5EGSPC"
   // gelir. Decode edilmezse vadeli/endeks sembolleri grafik API'sine bozuk gider.
@@ -384,7 +387,8 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 { label: sl.top100, href: `/global/${locale}/top100` },
                 { label: sl.myWatchlist, href: `/global/${locale}/my-watchlist` },
               ];
-              return shortcutsItems.map((s) => (
+              // Trend / Top 7 / Top 100 yalnız yönetim hesaplarına görünür (lib/staffOnly.ts)
+              return shortcutsItems.filter((s) => isStaff || !isStaffOnlyHref(s.href)).map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}

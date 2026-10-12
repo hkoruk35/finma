@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import StaffOnly from "@/components/global/StaffOnly";
 
 export const metadata: Metadata = {
   title: "BOGA AI — Blue One Global Analysis",
@@ -197,12 +198,14 @@ export default function EnHomePage() {
               >
                 Create Free Account
               </Link>
+              <StaffOnly>
               <Link
                 href="/global/en/swing"
                 className="px-8 py-3.5 bg-white/5 border border-white/10 text-white/70 rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-white/10 hover:text-white transition-all"
               >
                 View Swing Picks →
               </Link>
+              </StaffOnly>
             </div>
           </div>
         </section>

@@ -7,6 +7,7 @@ import { detectDevice, isTrackablePageRequest, isPrefetchOrDataRequest, VISITOR_
 import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
 import { MEMBERSHIP_DISABLED } from './lib/siteMode'
+import { isStaffRole, isStaffOnlyPath } from './lib/staffOnly'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
 const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
@@ -346,11 +347,19 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
+  // Yönetim hesabı (boga_auth: admin/readonly/engine) mı? Terminal, Top 7/100, Yükselenler/Düşenler, Trend,
+  // Temalar, Performans ve Eğitim Rehberi yalnızca bunlara açık (bkz. lib/staffOnly.ts). Diğer herkes ana sayfaya döner.
+  const isStaff = isStaffRole(request.cookies.get('boga_auth')?.value)
+  if (!isStaff && currentLocale && isStaffOnlyPath(pathname)) {
+    return redirectTo(new URL(`/global/${currentLocale}/home`, request.url))
+  }
+
   // Terminal sayfası taşındı: bare /global/{locale} → /global/{locale}/terminal
   // (kalıcı 308 — arama motorlarının eski URL yerine yenisini indekslemesi için).
+  // Terminal yalnız yönetime açık olduğundan diğer ziyaretçiler doğrudan ana sayfaya gider.
   for (const locale of Object.keys(LOCALE_AUTH_ROUTES)) {
     if (pathname === `/global/${locale}` || pathname === `/global/${locale}/`) {
-      const res = NextResponse.redirect(new URL(`/global/${locale}/terminal`, request.url), 308)
+      const res = NextResponse.redirect(new URL(`/global/${locale}/${isStaff ? 'terminal' : 'home'}`, request.url), isStaff ? 308 : 307)
       response.cookies.getAll().forEach((c) => res.cookies.set(c))
       return res
     }

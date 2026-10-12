@@ -11,6 +11,7 @@ import HeaderMegaMenu from "@/components/public/HeaderMegaMenu";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { useMemberSession } from "@/hooks/useMemberSession";
 import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
+import { useIsStaff } from "@/hooks/useIsStaff";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
@@ -25,6 +26,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isDesktopUserMenuOpen, setIsDesktopUserMenuOpen] = useState(false);
   const [isDesktopLangOpen, setIsDesktopLangOpen] = useState(false);
   const [isTerminalHovered, setIsTerminalHovered] = useState(false);
+  /** Terminal yalnızca yönetim hesaplarına açık (lib/staffOnly.ts) */
+  const isStaff = useIsStaff();
 
   useEffect(() => {
     if (MEMBERSHIP_DISABLED) {
@@ -240,6 +243,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             )}
 
             {/* Terminal Link with Hover Preview — sadece desktop'ta gösterilir, mobilde üye/giriş alanına yer açmak için kaldırıldı */}
+            {isStaff && (
             <div
               className="relative shrink-0 hidden sm:block"
               onMouseEnter={() => setIsTerminalHovered(true)}
@@ -298,6 +302,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 </div>
               )}
             </div>
+            )}
 
             {/* Desktop-only Quick Navigation */}
             <Link
@@ -516,6 +521,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
                           {/* Navigation Links with Text & Icons */}
                           <div className="space-y-1">
+                            {isStaff && (
                             <Link
                               href={terminalHref}
                               onClick={() => setIsMobileUserMenuOpen(false)}
@@ -524,6 +530,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                               <span className="text-sm">💻</span>
                               <span>TERMINAL</span>
                             </Link>
+                            )}
 
                             <Link
                               href={homeHref}
