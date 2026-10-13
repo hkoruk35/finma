@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T14:04:06.687835-04:00",
+  "generated_at": "2026-10-13T17:02:21.842249-04:00",
   "picks": [
     {
       "ticker": "PWR",
@@ -14,12 +14,6 @@
       "score": 28.5
     },
     {
-      "ticker": "NP",
-      "sector": "Financial Services",
-      "date_added": "2026-10-12",
-      "score": 46.0
-    },
-    {
       "ticker": "WST",
       "sector": "Healthcare",
       "date_added": "2026-10-13",
@@ -30,12 +24,6 @@
       "sector": "Financial Services",
       "date_added": "2026-10-13",
       "score": 48.0
-    },
-    {
-      "ticker": "IQV",
-      "sector": "Healthcare",
-      "date_added": "2026-10-13",
-      "score": 47.5
     },
     {
       "ticker": "AXTA",
@@ -50,12 +38,6 @@
       "score": 46.0
     },
     {
-      "ticker": "AMT",
-      "sector": "Real Estate",
-      "date_added": "2026-10-13",
-      "score": 45.0
-    },
-    {
       "ticker": "JBL",
       "sector": "Technology",
       "date_added": "2026-10-13",
@@ -68,16 +50,64 @@
       "score": 42.5
     },
     {
-      "ticker": "HCI",
-      "sector": "Financial Services",
-      "date_added": "2026-10-13",
-      "score": 41.5
-    },
-    {
-      "ticker": "OSCR",
+      "ticker": "HCA",
       "sector": "Healthcare",
       "date_added": "2026-10-13",
+      "score": 49.5
+    },
+    {
+      "ticker": "EBAY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-13",
+      "score": 48.0
+    },
+    {
+      "ticker": "BFH",
+      "sector": "Financial Services",
+      "date_added": "2026-10-13",
+      "score": 47.5
+    },
+    {
+      "ticker": "VRSN",
+      "sector": "Technology",
+      "date_added": "2026-10-13",
+      "score": 47.0
+    },
+    {
+      "ticker": "SEZL",
+      "sector": "Financial Services",
+      "date_added": "2026-10-13",
+      "score": 46.0
+    },
+    {
+      "ticker": "SCCO",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-13",
+      "score": 45.5
+    },
+    {
+      "ticker": "RGEN",
+      "sector": "Healthcare",
+      "date_added": "2026-10-13",
+      "score": 44.0
+    },
+    {
+      "ticker": "MRX",
+      "sector": "Financial Services",
+      "date_added": "2026-10-13",
       "score": 40.5
+    },
+    {
+      "ticker": "DIN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-13",
+      "score": 39.9
+    },
+    {
+      "ticker": "ENTG",
+      "sector": "Technology",
+      "date_added": "2026-10-13",
+      "score": 39.0
     }
   ]
 }
