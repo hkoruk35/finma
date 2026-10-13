@@ -1,8 +1,8 @@
 {
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T14:04:06.281672-04:00",
+  "generated_at": "2026-10-13T17:02:12.002199-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 36,
+  "active_scores_count": 46,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,9 +21,11 @@
       ]
     },
     "breakout": {
-      "count": 1,
+      "count": 3,
       "tickers": [
-        "DAC"
+        "DAC",
+        "TXN",
+        "ELV"
       ]
     },
     "value": {

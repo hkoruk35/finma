@@ -396,6 +396,116 @@
       "change_pct": 0.86,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SPSC",
+      "company": "SPSC",
+      "sector": "Technology",
+      "master_score": 64.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 83.76000213623047,
+      "change_pct": -0.99,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 64.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BRZE",
+      "company": "BRZE",
+      "sector": "Technology",
+      "master_score": 62.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 28.93000030517578,
+      "change_pct": -0.45,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 62.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SXT",
+      "company": "SXT",
+      "sector": "Basic Materials",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 132.5500030517578,
+      "change_pct": 1.97,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: SQUEEZE"
+    },
+    {
+      "ticker": "MTN",
+      "company": "MTN",
+      "sector": "Consumer Cyclical",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 152.57000732421875,
+      "change_pct": 3.79,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ARXS",
+      "company": "ARXS",
+      "sector": "Industrials",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 49.90999984741211,
+      "change_pct": 4.46,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TXN",
+      "company": "TXN",
+      "sector": "Technology",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 287.8500061035156,
+      "change_pct": 2.17,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PACS",
+      "company": "PACS",
+      "sector": "Healthcare",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 44.380001068115234,
+      "change_pct": 0.18,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GEV",
+      "company": "GEV",
+      "sector": "Industrials",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 1004.0399780273438,
+      "change_pct": 0.73,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ELV",
+      "company": "ELV",
+      "sector": "Healthcare",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 425.2699890136719,
+      "change_pct": 0.75,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "SHOO",
+      "company": "SHOO",
+      "sector": "Consumer Cyclical",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 44.75,
+      "change_pct": 0.09,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
     }
   ]
 }
