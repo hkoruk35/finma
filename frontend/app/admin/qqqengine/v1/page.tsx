@@ -41,7 +41,7 @@ import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwa
 import type { OptionFlow, QuoteBook } from "@/lib/spyengine/optionFetch";
 import type { TechRow } from "@/lib/qqqengine/techs";
 import {
-  ladderRead, ladderComment5, ladderComment15, ladderForming, rvolText,
+  ladderRead, ladderComment5, ladderComment15, ladderForming, rvolText, rsiSeries,
   type LadderRead, type LadderStep, type LadderStatus, type Cond, type RvolBase,
 } from "@/lib/spyengine/ladder";
 
@@ -261,6 +261,13 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
         <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
           {why.slice(0, 3).map((w, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-500">•</span><span>{w}</span></li>)}
         </ul>
+        {s.rsi && (
+          <div className="mt-1 font-mono text-[11px] text-slate-400">
+            RSI 15m <b className={s.rsi.d15 > 0 ? "text-[#4ade80]" : s.rsi.d15 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v15 != null ? s.rsi.v15.toFixed(0) : "—"} {s.rsi.d15 > 0 ? "↑" : s.rsi.d15 < 0 ? "↓" : "→"}</b>
+            {" · "}30m <b className={s.rsi.d30 > 0 ? "text-[#4ade80]" : s.rsi.d30 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"} {s.rsi.d30 > 0 ? "↑" : s.rsi.d30 < 0 ? "↓" : "→"}</b>
+            <span className="text-slate-500"> · bilgi</span>
+          </div>
+        )}
         {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
       </div>
       <div className="bg-[#0f141d] px-3 py-2">
@@ -384,6 +391,7 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
         Kalibrasyon (QQQ 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): SPY ayarı QQQ&apos;da tutmadı (+3,8R; görülmemiş son 20 günde −1,7R). QQQ için ayrı arama yapıldı ve teknoloji liderleri filtresi eklendi.
         Seçilen ayar: 85 işlem (1,5/gün) · %51 kazanç · toplam +16,5R · üç dönem ayrı ayrı +7,1R / +4,4R / +5,0R. Mod bazında: kapanış yönü +6,8R (65) · öğlen dönüş +9,7R (20); açılış yönü QQQ&apos;da kenar vermedi (kapalı).
+        13 Eki: SPY denetiminden yalnız erken uyarı temizliği uygulandı (uyarılar 511 → 398, işlemler aynı). Kapanış modu QQQ&apos;da kârın yarısını getirdiği için açık; açılış modu 15m RSI ile de kenar vermedi (kapalı).
         Dürüst not: arama ve seçim aynı 59 günde yapıldı, gerçek bir görülmemiş dönem kalmadı; sonuçlar SPY&apos;a göre daha zayıf ve daha az kanıtlıdır. Geçmiş sonuç geleceği garanti etmez.
         Eşikler: lib/qqqengine/config.ts. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>
@@ -1203,10 +1211,12 @@ export default function SpyEngineV9() {
   /** Üst zaman dilimi teyidi için 30m / 1h mumlar + EMA20 (yalnızca doğrulama; tetik 5m'den gelir) */
   const m60D = useMemo(() => bucketAggregate(m1, 60), [m1]);
   const htf = useMemo(() => ({ m30: m30D, e30: emaByTime(m30D), m60: m60D, e60: emaByTime(m60D) }), [m30D, m60D]);
+  /** 15m / 30m RSI(14) — RTH, çok günlük (QQQ'da yalnız bilgi; işlem şartı değil) */
+  const rsiInput = useMemo(() => ({ r15: rsiSeries(m15D), r30: rsiSeries(m30D) }), [m15D, m30D]);
   const ladderInput = useMemo(() => {
     if (!analysis || !date) return null;
-    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, tech: techMap, cfg: CFG };
-  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, techMap, data?.levels?.prevClose]);
+    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, tech: techMap, cfg: CFG, rsi: rsiInput };
+  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, techMap, rsiInput, data?.levels?.prevClose]);
   const ladder = useMemo<LadderRead | null>(() => (ladderInput ? ladderRead(ladderInput) : null), [ladderInput]);
   const lad = ladder?.current ?? null;
 

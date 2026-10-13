@@ -39,9 +39,12 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   c.risk.openLeg.maxStopAtr = 3.5;
   c.risk.openLeg.stopBars = 1;
   c.climax.on = true;
-  // 2026-10-12 SPY'a eklenen RSI / erken uyarı değişiklikleri QQQ'da ölçülmedi — QQQ eski davranışında kalır
-  c.rsi = { ...c.rsi, open: "off", close: "off", warnTrend: "off", warnFade: false, preOpen: "all", early955: false, warnGate: true };
-  c.warn.preFade = true;
+  // 2026-10-13 QQQ ölçümü (59 seans 07-21 → 10-09): SPY değişikliklerinden yalnız ERKEN UYARI temizliği uygulandı —
+  // işlemler aynı (84 işlem %52 +20,6R), uyarı bölümleri 511 → 398 (açılış modu kapalıyken 09:35–09:55 "açılış hazırlanıyor"
+  // ve izin yokken "öğlen hazırlanıyor" uyarıları anlamsızdı). Uygulanmayanlar (ölçümle): kapanış modunu kapatmak
+  // (QQQ'da kârın yarısı: 65 işlem +9,9R — kapatınca günde 0,3 işlem, +10,7R); açılış modu + 15m RSI + 09:55 (25 işlem +2,2R, orta dönem eksi).
+  c.rsi = { ...c.rsi, open: "off", close: "off", warnTrend: "off", warnFade: false, preOpen: "off", early955: false, warnGate: true };
+  c.warn.preFade = false;
   c.warn.fadeReady = "base";
   return c;
 })();
