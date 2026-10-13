@@ -400,7 +400,7 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
         Kalibrasyon (SPY 5m, 59 seans 21 Tem–9 Eki, spot fiyat, opsiyon spread&apos;i hariç): 86 işlem (1,5/gün) · %59 kazanç · toplam +66,4R · üç dönem ayrı ayrı +20,7R / +22,5R / +23,3R.
-        13 Eki (gün içi): ERKEN UYARI 2 mum kilitlendi (durum titremesi günde 15 → 12; işlemler aynı), öğlen dönüşünde 15m RSI uzama yönündeyse "teyit zayıf" notu. 58 seans: 84 işlem %60 +67,2R.
+        13 Eki (gün içi): ERKEN UYARI 2 mum kilitlendi (durum titremesi günde 15 → 12; işlemler aynı), öğlen dönüşünde 15m RSI uzama yönündeyse &quot;teyit zayıf&quot; notu. 58 seans: 84 işlem %60 +67,2R.
         13 Eki denetimi: kapanış yönü modu kapatıldı (46 işlem, %39, işlem başı +0,11R — öğleden sonra gürültüsü). Trend sonu çıkışı, ORB, kesişimde trend başı girişi, gap teyidi ölçüldü; hiçbiri mevcut sistemi geçmedi (ayrıntı: lib/spyengine/ladder.ts).
         12 Eki güncellemesi: açılış tetiği 15m RSI yönünü ister (açılış modu 47 işlem +28,4R → 34 işlem +37,8R), 09:55 GÜÇLÜ kararda 10:00 beklenmez; gürültülü erken uyarılar (09:35–09:50 ön okuma, izinsiz öğlen hazırlığı) kaldırıldı — uyarılar 412 → 268, tetiğe dönüş %20 → %25.
         Mod bazında: açılış yönü +37,8R (34) · öğlen dönüş +24,7R (50) · tepe/dip reddi +4,0R (2 — nadir).
