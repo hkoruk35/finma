@@ -49,7 +49,7 @@ import type { OpenForecastRead } from "@/lib/spyengine/openForecastFetch";
 import type { JournalDay, JournalStats } from "@/lib/spyengine/journal";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 import {
-  ladderRead, ladderComment5, ladderComment15, ladderForming, rvolText, LADDER_CFG,
+  ladderRead, ladderComment5, ladderComment15, ladderForming, rvolText, rsiSeries, LADDER_CFG,
   type LadderRead, type LadderStep, type LadderStatus, type Cond, type RvolBase,
 } from "@/lib/spyengine/ladder";
 
@@ -267,6 +267,13 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
         <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
           {why.slice(0, 3).map((w, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-500">•</span><span>{w}</span></li>)}
         </ul>
+        {s.rsi && (
+          <div className="mt-1 font-mono text-[11px] text-slate-400">
+            RSI 15m <b className={s.rsi.d15 > 0 ? "text-[#4ade80]" : s.rsi.d15 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v15 != null ? s.rsi.v15.toFixed(0) : "—"} {s.rsi.d15 > 0 ? "↑" : s.rsi.d15 < 0 ? "↓" : "→"}</b>
+            {" · "}30m <b className={s.rsi.d30 > 0 ? "text-[#4ade80]" : s.rsi.d30 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"} {s.rsi.d30 > 0 ? "↑" : s.rsi.d30 < 0 ? "↓" : "→"}</b>
+            {rg.mode === "AÇILIŞ YÖNÜ" && side && <span className={((side === "CALL" ? 1 : -1) === s.rsi.d15) ? "text-sky-300" : "text-amber-300"}> · açılış tetiği 15m RSI yönünü ister {((side === "CALL" ? 1 : -1) === s.rsi.d15) ? "✓" : "— bekleniyor"}</span>}
+          </div>
+        )}
         {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
       </div>
       <div className="bg-[#0f141d] px-3 py-2">
@@ -330,6 +337,10 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
               ) : "yön yok"}
             </div>
             <div className="text-[10.5px] leading-snug text-slate-500">15m VWAP+EMA20 · 30m/1h EMA20 aynı tarafta. Tetik 5m&apos;den gelir; teyit yalnızca bilgidir, giriş engellemez (filtre yapınca günlük işlem 2,2→1,8&apos;e düşüp erken girişler kaçıyor).</div>
+            <div className="mt-1 font-mono text-[11px] text-slate-400">
+              RSI(14): 15m {s.rsi?.v15 != null ? s.rsi.v15.toFixed(1) : "—"} {s.rsi ? (s.rsi.d15 > 0 ? "↑" : s.rsi.d15 < 0 ? "↓" : "→") : ""} · 30m {s.rsi?.v30 != null ? s.rsi.v30.toFixed(1) : "—"} {s.rsi ? (s.rsi.d30 > 0 ? "↑" : s.rsi.d30 < 0 ? "↓" : "→") : ""}
+            </div>
+            <div className="text-[10.5px] leading-snug text-slate-500">Açılış yönü tetiği 15m RSI yönünü ister (50 üstü + yükselen = yukarı). Ölçüm: RSI ters/kararsızken açılan açılış işlemleri %27 kazanç, −2,4R; şartla açılış modu +28,4R → +37,8R. 30m bilgi amaçlı.</div>
           </div>
           <CondList title="Seans planı (hangisi aktif)" conds={rg.conds} empty="—" />
           <div className="text-[10.5px] leading-snug text-slate-500">
@@ -388,9 +399,9 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
         })}
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Kalibrasyon (SPY 5m, 59 seans 17 Tem–8 Eki, spot fiyat, opsiyon spread&apos;i hariç): ayarlar ilk 39 günde seçildi, son 20 günde (görülmemiş) +17,9R.
-        Tüm dönem 139 işlem (2,4/gün) · %48 kazanç · toplam +59,4R · üç dönem ayrı ayrı +23,1R / +16,9R / +19,4R · tetiklerin %70&apos;inden önce erken uyarı yanmıştı.
-        Mod bazında: açılış yönü +28,4R (47) · öğlen dönüş +24,6R (48) · kapanış yönü +2,4R (42) · tepe/dip reddi +4,0R (2 — nadir).
+        Kalibrasyon (SPY 5m, 59 seans 21 Tem–9 Eki, spot fiyat, opsiyon spread&apos;i hariç): 132 işlem (2,2/gün) · %52 kazanç · toplam +71,5R · üç dönem ayrı ayrı +22,8R / +22,2R / +26,5R · son 20 gün +26,1R.
+        12 Eki güncellemesi: açılış tetiği 15m RSI yönünü ister (açılış modu 47 işlem +28,4R → 34 işlem +37,8R), 09:55 GÜÇLÜ kararda 10:00 beklenmez; gürültülü erken uyarılar (09:35–09:50 ön okuma, izinsiz öğlen hazırlığı) kaldırıldı — uyarılar 412 → 268, tetiğe dönüş %20 → %25.
+        Mod bazında: açılış yönü +37,8R (34) · öğlen dönüş +24,7R (50) · kapanış yönü +5,1R (46) · tepe/dip reddi +4,0R (2 — nadir).
         Ardışık 2 hacimli 5m mumu TEK BAŞINA kovalamak ölçümde yazı-tura çıktı (yön isabeti %50–56, görülmemiş dönemde ≈ 0R); bu yüzden yön izninin içinde tetik olarak kullanılıyor. Hacimli kırılımı kovalamak −5,4R verdi.
         Geçmiş sonuç geleceği garanti etmez. Eşikler: lib/spyengine/ladder.ts · LADDER_CFG. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>
@@ -1528,10 +1539,12 @@ export default function SpyEngineV9() {
   /** Üst zaman dilimi teyidi için 30m / 1h mumlar + EMA20 (yalnızca doğrulama; tetik 5m'den gelir) */
   const m60D = useMemo(() => bucketAggregate(m1, 60), [m1]);
   const htf = useMemo(() => ({ m30: m30D, e30: emaByTime(m30D), m60: m60D, e60: emaByTime(m60D) }), [m30D, m60D]);
+  /** 15m / 30m RSI(14) — RTH, çok günlük (açılış tetiği 15m RSI yönünü ister; 30m bilgi) */
+  const rsiInput = useMemo(() => ({ r15: rsiSeries(m15D), r30: rsiSeries(m30D) }), [m15D, m30D]);
   const ladderInput = useMemo(() => {
     if (!analysis || !date) return null;
-    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels };
-  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, data?.levels?.prevClose]);
+    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, rsi: rsiInput };
+  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, rsiInput, data?.levels?.prevClose]);
   const ladder = useMemo<LadderRead | null>(() => (ladderInput ? ladderRead(ladderInput) : null), [ladderInput]);
   const lad = ladder?.current ?? null;
 

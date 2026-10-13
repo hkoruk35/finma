@@ -32,9 +32,21 @@
  *   Denenip eklenmeyenler: ardışık 2 hacimli 5m mumu TEK BAŞINA kovalama (yön isabeti %50–56, OOS ≈ 0R; yalnızca izin içinde tetik),
  *   KIRILIM kovalama (−5,4R), kırılıma karşı fade engeli (iyileştirmedi), iz süren stop/4R hedef (fark gürültü),
  *   üst TF teyidini TÜM modlara filtre yapmak (OOS +12,9R → +2R: öğlen dönüşü trende karşı çalışır).
+ *
+ * GÜNCELLEME (2026-10-12, aynı ölçüm, 59 seans 07-21 → 10-09, 15m/30m RSI eklendi):
+ *   Taban: 143 işlem, %48, +61,0R (dönemler +20,7 / +21,8 / +18,5R; görülmemiş son 20 gün +18,1R).
+ *   Seçilen: 132 işlem, %52, +71,5R (dönemler +22,8 / +22,2 / +26,5R; görülmemiş son 20 gün +26,1R) —
+ *   · AÇILIŞ YÖNÜ tetiği 15m RSI(14) yönünü ister (50 üstü ve yükselen / altı ve düşen): açılış modu 47 işlem +28,4R → 34 işlem +37,8R.
+ *     Elenen 13 işlem RSI ters/kararsızken açılmıştı (ölçümde RSI ters iken açılış işlemleri %27 kazanç, −2,4R). 30m RSI da iyileştirdi (+66R) ama 15m kadar değil.
+ *   · 09:55 GÜÇLÜ (kural + EMA20 + hacim + gap) NET kararda izin 10:00'ı beklemeden 09:55 kapanışında açılır (4 işlem 5 dk erken, +3R).
+ *   · ERKEN UYARI gürültüsü: 412 uyarı bölümünün yön isabeti %50, yalnız %20'si 4 mumda tetiğe dönüyordu.
+ *     09:35–09:50 açılış ön uyarıları (%48 isabet, %3 tetiğe) ve izin yokken "öğlen hazırlanıyor" uyarıları (%9 tetiğe) kaldırıldı;
+ *     trend uyarısı tetiğin RSI şartını bekler. Sonuç: 268 bölüm (−%35), tetiğe dönüş %25; tetiklerin %56'sından önce uyarı var (önce %68 — bedel).
+ *   · Denenip eklenmeyenler: KAPANIŞ tetiğine RSI şartı (54,6R — kötüleştirdi), uyarıya ek RSI/“hız kesildi” şartları
+ *     (dönüşüm %30'a çıkıyor ama tetiklerin yalnız %37'si önceden uyarılıyor), 2/3 şart hazır tanımı (dönüşüm %16).
  */
 
-import { nyParts, nyClock, r2, type Bar } from "./core";
+import { nyParts, nyClock, r2, rsi as rsiCalc, type Bar } from "./core";
 import { openingRegime, type DaySeries, type EmaMap, type CandleComment, type Tone, type OpeningRegime } from "./openingMap";
 import { volumeProfile } from "./flow";
 import { detectCandlePatterns } from "./candlePatterns";
@@ -97,11 +109,34 @@ export const LADDER_CFG = {
     /** hacim ≥ önceki 3 mumun ortalaması × */
     volRatio: 1.0,
   },
+  /** 15m / 30m RSI(14) yönü (RTH, çok günlük): yön = RSI 50'nin üstünde ve yükseliyor (aşağı: altında ve düşüyor) */
+  rsi: {
+    /** AÇILIŞ YÖNÜ tetiği için 15m RSI şartı: "dir" yön aynı · "side" yalnız 50'nin doğru tarafı · "off" */
+    open: "dir" as "dir" | "side" | "notOpp" | "off",
+    /** açılış şartında hangi RSI: "15" · "30" · "both" (ikisi de) · "either" (biri yeter) */
+    openTf: "15" as "15" | "30" | "both" | "either",
+    /** KAPANIŞ YÖNÜ tetiği için 15m RSI şartı */
+    close: "off" as "dir" | "side" | "notOpp" | "off",
+    /** trend modlarında ERKEN UYARI için 15m RSI şartı */
+    warnTrend: "off" as "dir" | "side" | "notOpp" | "off",
+    /** öğlen dönüşü ERKEN UYARI: 15m RSI dönüş yönüne kıvrılmış olmalı */
+    warnFade: false,
+    /** 09:30–10:00 "açılış hazırlanıyor" uyarısı: "all" her aşama · "strong955" yalnız 09:55 GÜÇLÜ kural · "off" */
+    preOpen: "strong955" as "all" | "strong955" | "off",
+    /** ERKEN UYARI da tetiğin RSI şartını bekler (false: uyarı RSI'dan bağımsız, mesajda "RSI teyidi bekleniyor") */
+    warnGate: true,
+    /** 09:55 GÜÇLÜ (NET) kararda izin ve tetik 09:55 kapanışında açılır (10:00'ı beklemez) */
+    early955: true,
+  },
   warn: {
     /** trend modlarında geri çekilme VWAP/EMA20'ye bu kadar ATR5 yaklaşınca */
     nearAtr: 0.5,
     /** öğlende uzama eşiğinin bu oranına gelince */
     fadePre: 0.75,
+    /** izin yokken "öğlen dönüşü hazırlanıyor" ERKEN UYARI'sı (false: yalnız bilgi satırı) */
+    preFade: false,
+    /** öğlen dönüşü uyarısı: "base" uzama + (hacim düşüyor | formasyon) · "noNew" + mum yeni dip/tepe yapmadı · "noNewVol" ikisi birden · "turn" + kapanış dönüş yönünde */
+    fadeReady: "base" as "base" | "noNew" | "noNewVol" | "turn" | "noNewTurn",
   },
   reverse: {
     crossRvol: 1.5,
@@ -265,6 +300,8 @@ export interface LadderStep {
   confirm: { n: number; m15: boolean; m30: boolean; h1: boolean } | null;
   /** Teknoloji liderleri genişliği (yön işaretli: + işlem yönüyle uyumlu) — QQQ Engine */
   tech: { vw: number; mom: number } | null;
+  /** 15m / 30m RSI(14) son kapanmış değer ve yönü (+1 yukarı · −1 aşağı · 0 kararsız) */
+  rsi: { v15: number | null; d15: 1 | -1 | 0; v30: number | null; d30: 1 | -1 | 0 } | null;
   rvol: number | null;
   dayRvol: number | null;
   localRatio: number | null;
@@ -299,6 +336,38 @@ export interface LadderInput {
   tech?: Map<number, { vw: number; mom: number }>;
   /** Sembole özel eşikler (varsayılan: SPY ayarı) */
   cfg?: LadderCfg;
+  /** 15m / 30m RSI(14) — rsiSeries() ile (RTH, çok günlük, kapanmış mumlar) */
+  rsi?: { r15: RsiPoint[]; r30: RsiPoint[] };
+}
+
+export interface RsiPoint { time: number; v: number }
+
+/** RSI(period) noktaları — yalnız RTH mumları (gece/premarket boşluğu RSI'yı bozmasın), eskiden yeniye */
+export function rsiSeries(bars: Bar[], period = 14): RsiPoint[] {
+  const rth = bars.filter((b) => { const m = nyParts(b.time).minutes; return m >= OPEN_MIN && m < 16 * 60; });
+  const v = rsiCalc(rth.map((b) => b.close), period);
+  const out: RsiPoint[] = [];
+  rth.forEach((b, i) => { if (v[i] != null) out.push({ time: b.time, v: v[i] as number }); });
+  return out;
+}
+
+/** `end` anında kapanmış son RSI noktası ve bir öncekisi */
+function rsiAt(arr: RsiPoint[] | undefined, span: number, end: number): { v: number; prev: number | null } | null {
+  if (!arr || !arr.length) return null;
+  let k = -1;
+  for (let j = arr.length - 1; j >= 0; j--) if (arr[j].time + span <= end) { k = j; break; }
+  return k < 0 ? null : { v: arr[k].v, prev: k > 0 ? arr[k - 1].v : null };
+}
+/** +1 yukarı (RSI > 50 ve yükseliyor) · −1 aşağı · 0 kararsız */
+const rsiDirOf = (x: { v: number; prev: number | null } | null): 1 | -1 | 0 =>
+  x == null ? 0 : x.v > 50 && (x.prev == null || x.v >= x.prev) ? 1 : x.v < 50 && (x.prev == null || x.v <= x.prev) ? -1 : 0;
+const rsiSideOf = (x: { v: number; prev: number | null } | null): 1 | -1 | 0 => (x == null ? 0 : x.v > 50 ? 1 : x.v < 50 ? -1 : 0);
+/** RSI şartı sağlanıyor mu (veri yoksa engellemez) */
+function rsiPass(rule: "dir" | "side" | "notOpp" | "off", x: { v: number; prev: number | null } | null, d: 1 | -1): boolean {
+  if (rule === "off" || x == null) return true;
+  if (rule === "dir") return rsiDirOf(x) === d;
+  if (rule === "side") return rsiSideOf(x) === d;
+  return rsiDirOf(x) !== -d;
 }
 
 // ── Yardımcılar ──────────────────────────────────────────────────────
@@ -381,12 +450,15 @@ export function ladderRead(inp: LadderInput): LadderRead {
     const prof = volumeProfile(bars.slice(0, i + 1));
     const poc = prof?.poc ?? null;
     const crosses = crossesIn(s5, i - 23, i);
+    const r15 = rsiAt(inp.rsi?.r15, 900, end), r30 = rsiAt(inp.rsi?.r30, 1800, end);
 
     // ── açılış okuması (09:55 / 10:00 kilidi) ──
-    if (endMin <= 10 * 60) {
+    if (endMin <= 10 * 60 && !opening) {
       const op = openingRegime(cut(s5, end, 300), cut(inp.s15, end, 900), ema5, cut(inp.s30, end, 1800), null, inp.prevClose);
       openingProvisional = op;
       if (endMin === 10 * 60) opening = op;
+      // 09:55 GÜÇLÜ (kural + EMA20 + hacim + gap) NET kararı 10:00'ı beklemeden kilitlenir
+      else if (C.rsi.early955 && endMin === 10 * 60 - 5 && op.net && op.decidedAt === "09:55") opening = op;
     }
 
     // ── momentum kırılımı / tükenme reddi tespiti (bu mum dahil) ──
@@ -413,7 +485,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     const dev = b.close - vw;
     const devAtr = A5 ? dev / A5 : null;
 
-    if (endMin < 10 * 60) {
+    if (endMin < 10 * 60 && !(opening && opD)) {
       mode = "AÇILIŞ TOPLANIYOR";
       const op = openingProvisional;
       modeText = op ? `Açılış okuması: ${op.label} — karar 09:55 / 10:00'da` : "09:30–10:00 açılış aşamaları toplanıyor";
@@ -542,7 +614,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     let plan: Plan | null = null;
     let side: "CALL" | "PUT" | null = d ? word(d) : null;
     const full = attempts.length >= C.risk.maxAttempts;
-    const inWindow = endMin >= C.risk.firstEntryMin && endMin <= C.risk.lastEntryMin;
+    const inWindow = (endMin >= C.risk.firstEntryMin || (mode === "AÇILIŞ YÖNÜ" && endMin >= 10 * 60 - 5)) && endMin <= C.risk.lastEntryMin;
     const cooling = i <= cooldownUntil;
     const pat = d ? detectCandlePatterns(bars, i).filter((p) => (p.direction === "LONG" ? 1 : -1) === d).sort((a, c) => c.strength - a.strength)[0] ?? null : null;
 
@@ -580,7 +652,12 @@ export function ladderRead(inp: LadderInput): LadderRead {
       const techBlock = C.tech.on && !!tk && (techVw < C.tech.minVw || techMom < C.tech.minMom);
       if (C.tech.on) trigConds.push({ key: "t5", required: true, label: `Teknoloji liderleri ters değil (VWAP/EMA20 genişliği ≥ ${C.tech.minVw}${C.tech.minMom > -2 ? `, momentum ≥ ${C.tech.minMom}` : ""})`, ok: !techBlock, value: tk ? `genişlik ${techVw >= 0 ? "+" : "−"}${Math.abs(techVw).toFixed(2)} · momentum ${techMom >= 0 ? "+" : "−"}${Math.abs(techMom).toFixed(2)}` : "veri yok" });
       const confOk = fade || clx || (confirm?.n ?? 3) >= C.trig.minConfirm;
-      const firedBase = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && !(clx && lastClx && i <= lastClx.i);
+      const rsiRule = mode === "AÇILIŞ YÖNÜ" ? C.rsi.open : mode === "KAPANIŞ YÖNÜ" ? C.rsi.close : "off";
+      const rsiOk = mode === "AÇILIŞ YÖNÜ" && C.rsi.openTf !== "15"
+        ? C.rsi.openTf === "30" ? rsiPass(rsiRule, r30, d) : C.rsi.openTf === "both" ? rsiPass(rsiRule, r15, d) && rsiPass(rsiRule, r30, d) : rsiPass(rsiRule, r15, d) || rsiPass(rsiRule, r30, d)
+        : rsiPass(rsiRule, r15, d);
+      if (rsiRule !== "off") trigConds.push({ key: "t6", required: true, label: `15m RSI yönü ${d > 0 ? "yukarı (50 üstü, yükselen)" : "aşağı (50 altı, düşen)"}`, ok: rsiOk, value: r15 ? `RSI ${r15.v.toFixed(1)}${r15.prev != null ? ` (önceki ${r15.prev.toFixed(1)})` : ""}` : "veri yok" });
+      const firedBase = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && rsiOk && !(clx && lastClx && i <= lastClx.i);
       const fired = firedBase && !techBlock;
       if (fired && !full && !cooling) {
         // tükenme reddinde yapısal stop: spike'tan sonraki mumların ucu (spike'ın kendisi hariç)
@@ -641,7 +718,12 @@ export function ladderRead(inp: LadderInput): LadderRead {
         const firstGood = C.trig.pair.on && !fade && !clx && !!bPrev && rg > 0 && body / rg >= C.trig.pair.bodyFrac && (b.close > b.open ? 1 : -1) === d && (d > 0 ? closePos >= C.trig.closeTop : closePos <= 1 - C.trig.closeTop) && (b.volume || 0) > (bPrev.volume || 0) && (b.close - e5) * d > 0 && (b.close - vw) * d > 0;
         warnSigns.push({ key: "w4", required: false, label: "Formasyonun ilk mumu: gövdeli, hacim artıyor, VWAP+EMA20'nin doğru tarafında kapandı", ok: firstGood, value: bPrev ? `hacim ${(bPrev.volume / 1000).toFixed(0)}K → ${((b.volume || 0) / 1000).toFixed(0)}K` : "—" });
         // öğlende: uzama dolu VE hız kesiliyor (hacim düşüyor ya da formasyon) · trendde: geri çekilme seviyeye geldi ya da formasyonun ilk mumu
-        const ready = clx ? true : fade ? stretched && ((local != null && local < 1) || !!pat) : (near && pulled) || firstGood;
+        const rsiTurn = !!r15 && r15.prev != null && (r15.v - r15.prev) * d > 0;
+        const noNew = i > 0 && (d > 0 ? b.low >= bars[i - 1].low : b.high <= bars[i - 1].high);
+        const turned = d > 0 ? closePos >= 0.5 : closePos <= 0.5;
+        const slowing = (local != null && local < 1) || !!pat;
+        const fadeOk = C.warn.fadeReady === "noNew" ? slowing && noNew : C.warn.fadeReady === "noNewVol" ? noNew && local != null && local < 1 : C.warn.fadeReady === "turn" ? slowing && turned : C.warn.fadeReady === "noNewTurn" ? noNew && turned : slowing;
+        const ready = clx ? true : fade ? stretched && fadeOk && (!C.rsi.warnFade || rsiTurn) : ((near && pulled) || firstGood) && (!C.rsi.warnGate || rsiOk) && rsiPass(C.rsi.warnTrend, r15, d);
         if (ready && inWindow && !full) {
           status = "ERKEN UYARI";
           message = `${word(d)} · ${mode} · ${clx && lastClx ? `${lastClx.d < 0 ? "tepe" : "dip"} ${f2(lastClx.extreme)} reddedildi, ${word(d)} hazırlan` : firstGood && !fade ? `ilk ${d > 0 ? "yeşil" : "kırmızı"} gövdeli mum hacimle VWAP+EMA20'nin ${d > 0 ? "üstünde" : "altında"} kapandı; ikinci mum aynı yönde ve hacim artarak kapanırsa TETİK` : fade ? `fiyat VWAP'tan ${devAtr != null ? sgn(devAtr) : ""} ATR uzakta, dönüş mumu bekleniyor` : `geri çekilme ${L.label} ${f2(L.price)} yakınında`}. Tetik: ${turnTxt}.`;
@@ -654,7 +736,9 @@ export function ladderRead(inp: LadderInput): LadderRead {
               ? `${word(d)} yönü (${mode}) · ${endMin > C.risk.lastEntryMin ? "15:30 sonrası yeni giriş yok" : "10:00 öncesi giriş yok"}.`
               : full
                 ? `${word(d)} yönü (${mode}) · günlük ${C.risk.maxAttempts} deneme doldu.`
-                : `${word(d)} yönü (${mode}) · kurulum yok; fiyat ${L.label} ${f2(L.price)}'den ${(Math.abs(b.close - L.price) / A5).toFixed(2)} ATR uzakta.`;
+                : !rsiOk
+                  ? `${word(d)} yönü (${mode}) · 15m RSI teyidi bekleniyor (RSI ${r15 ? r15.v.toFixed(0) : "—"} ${rsiDirOf(r15) > 0 ? "↑" : rsiDirOf(r15) < 0 ? "↓" : "→"}) — RSI ${d > 0 ? "50 üstünde yükselmeden" : "50 altında düşmeden"} tetik açılmaz.`
+                  : `${word(d)} yönü (${mode}) · kurulum yok; fiyat ${L.label} ${f2(L.price)}'den ${(Math.abs(b.close - L.price) / A5).toFixed(2)} ATR uzakta.`;
           change = fade
             ? `Dönüş mumu gelirse TETİK (${turnTxt}).`
             : `Geri çekilme VWAP/EMA20'ye ${C.warn.nearAtr} ATR yaklaşırsa ERKEN UYARI; ${turnTxt} = TETİK.`;
@@ -667,8 +751,10 @@ export function ladderRead(inp: LadderInput): LadderRead {
     } else {
       // izin yok: erken uyarı = yön hazırlanıyor
       const op = openingProvisional;
-      const preSide = mode === "AÇILIŞ TOPLANIYOR" && op && (op.provisional === "UP" || op.provisional === "DOWN") ? (op.provisional === "UP" ? 1 : -1) : 0;
-      const preFade = endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.warn.fadePre * C.plan.fadeK && !(opD && !broken && endMin < C.plan.openEnd);
+      const preSide = mode !== "AÇILIŞ TOPLANIYOR" || !op || C.rsi.preOpen === "off" ? 0
+        : C.rsi.preOpen === "all" ? (op.provisional === "UP" ? 1 : op.provisional === "DOWN" ? -1 : 0)
+          : op.status === "LOCKED" && op.net && (op.side === "UP" || op.side === "DOWN") ? (op.side === "UP" ? 1 : -1) : 0;
+      const preFade = C.warn.preFade && endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.warn.fadePre * C.plan.fadeK && !(opD && !broken && endMin < C.plan.openEnd);
       if (preSide) {
         status = "ERKEN UYARI";
         side = word(preSide as 1 | -1);
@@ -694,6 +780,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     steps.push({
       time: b.time, clock, status, side: status === "İŞLEM YOK" ? null : side, message, change, regime,
       warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm, tech: inp.tech?.get(b.time) ?? null,
+      rsi: r15 || r30 ? { v15: r15 ? r2(r15.v) : null, d15: rsiDirOf(r15), v30: r30 ? r2(r30.v) : null, d30: rsiDirOf(r30) } : null,
       rvol: rv != null ? r2(rv) : null, dayRvol: dayRv != null ? r2(dayRv) : null, localRatio: local != null ? r2(local) : null,
     });
   }

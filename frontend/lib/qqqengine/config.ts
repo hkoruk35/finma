@@ -39,5 +39,9 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   c.risk.openLeg.maxStopAtr = 3.5;
   c.risk.openLeg.stopBars = 1;
   c.climax.on = true;
+  // 2026-10-12 SPY'a eklenen RSI / erken uyarı değişiklikleri QQQ'da ölçülmedi — QQQ eski davranışında kalır
+  c.rsi = { ...c.rsi, open: "off", close: "off", warnTrend: "off", warnFade: false, preOpen: "all", early955: false, warnGate: true };
+  c.warn.preFade = true;
+  c.warn.fadeReady = "base";
   return c;
 })();
