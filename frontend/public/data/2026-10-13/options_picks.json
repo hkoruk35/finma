@@ -1,8 +1,8 @@
 {
   "version": "v243",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T05:01:13.521320-04:00",
-  "vix": 15.380000114440918,
+  "generated_at": "2026-10-13T09:01:26.547272-04:00",
+  "vix": 15.3100004196167,
   "dte_range": "1-30",
   "atm_strikes": 5,
   "earnings_hard_block_days": 14,
@@ -26,7 +26,7 @@
     "spy_gap_down": false
   },
   "universe_size": 844,
-  "scan_duration_sec": 69.73963570594788,
+  "scan_duration_sec": 81.84360694885254,
   "total_candidates": 1,
   "picks": [
     {
@@ -145,7 +145,7 @@
         "atm_iv": 26.8,
         "iv_rank": 8.0,
         "iv_pct_rank": 4.3,
-        "max_pain": 210.0,
+        "max_pain": 360.0,
         "atm_contracts": [
           {
             "strike": 260.0,
