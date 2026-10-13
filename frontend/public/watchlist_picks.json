@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T09:04:03.601741-04:00",
+  "generated_at": "2026-10-13T14:04:06.687835-04:00",
   "picks": [
     {
       "ticker": "PWR",
@@ -8,34 +8,76 @@
       "score": 38.5
     },
     {
-      "ticker": "SEZL",
-      "sector": "Financial Services",
-      "date_added": "2026-10-12",
-      "score": 29.0
-    },
-    {
       "ticker": "DINO",
       "sector": "Energy",
       "date_added": "2026-10-12",
       "score": 28.5
     },
     {
-      "ticker": "DOCU",
-      "sector": "Technology",
-      "date_added": "2026-10-12",
-      "score": 47.0
-    },
-    {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-10-12",
-      "score": 46.0
-    },
-    {
       "ticker": "NP",
       "sector": "Financial Services",
       "date_added": "2026-10-12",
       "score": 46.0
+    },
+    {
+      "ticker": "WST",
+      "sector": "Healthcare",
+      "date_added": "2026-10-13",
+      "score": 49.5
+    },
+    {
+      "ticker": "EZPW",
+      "sector": "Financial Services",
+      "date_added": "2026-10-13",
+      "score": 48.0
+    },
+    {
+      "ticker": "IQV",
+      "sector": "Healthcare",
+      "date_added": "2026-10-13",
+      "score": 47.5
+    },
+    {
+      "ticker": "AXTA",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-13",
+      "score": 46.5
+    },
+    {
+      "ticker": "SWK",
+      "sector": "Industrials",
+      "date_added": "2026-10-13",
+      "score": 46.0
+    },
+    {
+      "ticker": "AMT",
+      "sector": "Real Estate",
+      "date_added": "2026-10-13",
+      "score": 45.0
+    },
+    {
+      "ticker": "JBL",
+      "sector": "Technology",
+      "date_added": "2026-10-13",
+      "score": 43.5
+    },
+    {
+      "ticker": "META",
+      "sector": "Communication Services",
+      "date_added": "2026-10-13",
+      "score": 42.5
+    },
+    {
+      "ticker": "HCI",
+      "sector": "Financial Services",
+      "date_added": "2026-10-13",
+      "score": 41.5
+    },
+    {
+      "ticker": "OSCR",
+      "sector": "Healthcare",
+      "date_added": "2026-10-13",
+      "score": 40.5
     }
   ]
 }
