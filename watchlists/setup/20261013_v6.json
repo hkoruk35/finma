@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "DHT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 26.49,
+        "entry_zone": "26.00 - 26.99",
+        "SL": 24.51,
+        "TP": 30.47
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "INSP",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 70.08,
+        "entry_zone": "68.50 - 71.65",
+        "SL": 63.78,
+        "TP": 82.68
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "BKH",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 77.18,
+        "entry_zone": "76.18 - 78.18",
+        "SL": 73.16,
+        "TP": 85.22
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "FRPT",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 66.27,
+        "entry_zone": "65.12 - 67.42",
+        "SL": 61.68,
+        "TP": 75.44
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "HCI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 197.94,
+        "entry_zone": "195.51 - 200.37",
+        "SL": 188.23,
+        "TP": 212.51
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "STGW",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 9.41,
+        "entry_zone": "9.26 - 9.57",
+        "SL": 8.81,
+        "TP": 10.63
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "EL",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 98.54,
+        "entry_zone": "96.96 - 100.11",
+        "SL": 92.24,
+        "TP": 107.97
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "MDT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 92.07,
+        "entry_zone": "90.87 - 93.28",
+        "SL": 87.27,
+        "TP": 101.68
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "KDP",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 32.76,
+        "entry_zone": "32.32 - 33.21",
+        "SL": 31.0,
+        "TP": 36.29
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "RBLX",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 49.85,
+        "entry_zone": "48.64 - 51.06",
+        "SL": 45.01,
+        "TP": 59.54
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "TTE",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 88.65,
+        "entry_zone": "87.73 - 89.57",
+        "SL": 84.96,
+        "TP": 96.02
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "KNTK",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 55.92,
+        "entry_zone": "55.17 - 56.68",
+        "SL": 52.92,
+        "TP": 61.93
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "SNAP",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 6.62,
+        "entry_zone": "6.49 - 6.76",
+        "SL": 6.07,
+        "TP": 7.74
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "SPNT",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 25.4,
+        "entry_zone": "25.08 - 25.71",
+        "SL": 24.12,
+        "TP": 27.94
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "COP",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 140.13,
+        "entry_zone": "138.64 - 141.62",
+        "SL": 134.17,
+        "TP": 152.06
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "VIST",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 69.34,
+        "entry_zone": "68.20 - 70.48",
+        "SL": 64.79,
+        "TP": 78.45
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "VFC",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 15.98,
+        "entry_zone": "15.67 - 16.28",
+        "SL": 14.76,
+        "TP": 18.4
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "CNR",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 91.13,
+        "entry_zone": "89.66 - 92.60",
+        "SL": 85.26,
+        "TP": 102.87
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "PTGX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 140.24,
+        "entry_zone": "137.54 - 142.95",
+        "SL": 129.44,
+        "TP": 161.86
+    },
+    {
+        "date": "2026-10-13 17:00",
+        "symbol": "KO",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 90.18,
+        "entry_zone": "89.57 - 90.79",
+        "SL": 87.73,
+        "TP": 95.09
+    }
+]
