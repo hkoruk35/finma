@@ -1,0 +1,1055 @@
+{
+  "date": "2026-10-13",
+  "generated_at": "2026-10-13T09:03:50.783647-04:00",
+  "market_regime": "Bull",
+  "vix_level": 15.3100004196167,
+  "total": 20,
+  "signals": [
+    {
+      "ticker": "STGW",
+      "company": "STGW",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "VFC",
+      "company": "VFC",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "MDT",
+      "company": "MDT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "company": "DHT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "KNTK",
+      "company": "KNTK",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "TTE",
+      "company": "TTE",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "INSP",
+      "company": "INSP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "SPNT",
+      "company": "SPNT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "CNR",
+      "company": "CNR",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "COP",
+      "company": "COP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "PTGX",
+      "company": "PTGX",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "KDP",
+      "company": "KDP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "RBLX",
+      "company": "RBLX",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "SNAP",
+      "company": "SNAP",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "HCI",
+      "company": "HCI",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-10-12",
+      "days_since_pick": 1,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "BKH",
+      "company": "BKH",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "FRPT",
+      "company": "FRPT",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "VIST",
+      "company": "VIST",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "EL",
+      "company": "EL",
+      "sector": "Consumer Defensive",
+      "swing_pick_date": "2026-10-12",
+      "days_since_pick": 1,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    },
+    {
+      "ticker": "KO",
+      "company": "KO",
+      "sector": "Unknown",
+      "swing_pick_date": "2026-10-13",
+      "days_since_pick": 0,
+      "current_price": 0.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "WAIT",
+      "status_detail": "Insufficient data - technical analysis could not be performed",
+      "alert_level": "LOW",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 0.0,
+        "volume_ratio": 1.0,
+        "change_1h": 0.0,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 0.0,
+        "pre_gap_total": 0,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "⚠️ Technical data insufficient"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-10-13",
+    "last_updated": "2026-10-13T09:03:50.783647-04:00",
+    "tickers": {
+      "STGW": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "VFC": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "MDT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "DHT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "KNTK": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "TTE": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "INSP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "SPNT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "CNR": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "COP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "PTGX": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "KDP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "RBLX": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "SNAP": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "HCI": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "BKH": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "FRPT": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "VIST": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "EL": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      },
+      "KO": {
+        "status_history": [
+          {
+            "hour": "09:03",
+            "status": "WAIT"
+          }
+        ],
+        "current_status": "WAIT",
+        "entry_triggered_at": null,
+        "entry_price": null
+      }
+    }
+  }
+}
