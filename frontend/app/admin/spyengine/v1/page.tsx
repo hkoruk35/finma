@@ -344,7 +344,7 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
           </div>
           <CondList title="Seans planı (hangisi aktif)" conds={rg.conds} empty="—" />
           <div className="text-[10.5px] leading-snug text-slate-500">
-            Açılış yönü 10:00–14:00 (açılış aralığı {rg.opening?.orLow != null && rg.opening?.orHigh != null ? `${num(rg.opening.orLow)}–${num(rg.opening.orHigh)}` : ""} karşı ucu kırılınca biter) · öğlen VWAP ± {LADDER_CFG.plan.fadeK} ATR ({rg.fadeDn != null && rg.fadeUp != null ? `${num(rg.fadeDn)} / ${num(rg.fadeUp)}` : "—"}) dışında VWAP&apos;a dönüş · 14:00 sonrası VWAP+POC tarafı.
+            Açılış yönü 10:00–14:00 (açılış aralığı {rg.opening?.orLow != null && rg.opening?.orHigh != null ? `${num(rg.opening.orLow)}–${num(rg.opening.orHigh)}` : ""} karşı ucu kırılınca biter) · öğlen VWAP ± {LADDER_CFG.plan.fadeK} ATR ({rg.fadeDn != null && rg.fadeUp != null ? `${num(rg.fadeDn)} / ${num(rg.fadeUp)}` : "—"}) dışında VWAP&apos;a dönüş{LADDER_CFG.plan.closeOn ? " · 14:00 sonrası VWAP+POC tarafı" : " · 14:00 sonrası yeni yön işlemi yok (kapanış modu ölçümde kenarsızdı, kapalı)"}.
           </div>
         </div>
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
@@ -399,9 +399,10 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
         })}
       </div>
       <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Kalibrasyon (SPY 5m, 59 seans 21 Tem–9 Eki, spot fiyat, opsiyon spread&apos;i hariç): 132 işlem (2,2/gün) · %52 kazanç · toplam +71,5R · üç dönem ayrı ayrı +22,8R / +22,2R / +26,5R · son 20 gün +26,1R.
+        Kalibrasyon (SPY 5m, 59 seans 21 Tem–9 Eki, spot fiyat, opsiyon spread&apos;i hariç): 86 işlem (1,5/gün) · %59 kazanç · toplam +66,4R · üç dönem ayrı ayrı +20,7R / +22,5R / +23,3R.
+        13 Eki denetimi: kapanış yönü modu kapatıldı (46 işlem, %39, işlem başı +0,11R — öğleden sonra gürültüsü). Trend sonu çıkışı, ORB, kesişimde trend başı girişi, gap teyidi ölçüldü; hiçbiri mevcut sistemi geçmedi (ayrıntı: lib/spyengine/ladder.ts).
         12 Eki güncellemesi: açılış tetiği 15m RSI yönünü ister (açılış modu 47 işlem +28,4R → 34 işlem +37,8R), 09:55 GÜÇLÜ kararda 10:00 beklenmez; gürültülü erken uyarılar (09:35–09:50 ön okuma, izinsiz öğlen hazırlığı) kaldırıldı — uyarılar 412 → 268, tetiğe dönüş %20 → %25.
-        Mod bazında: açılış yönü +37,8R (34) · öğlen dönüş +24,7R (50) · kapanış yönü +5,1R (46) · tepe/dip reddi +4,0R (2 — nadir).
+        Mod bazında: açılış yönü +37,8R (34) · öğlen dönüş +24,7R (50) · tepe/dip reddi +4,0R (2 — nadir).
         Ardışık 2 hacimli 5m mumu TEK BAŞINA kovalamak ölçümde yazı-tura çıktı (yön isabeti %50–56, görülmemiş dönemde ≈ 0R); bu yüzden yön izninin içinde tetik olarak kullanılıyor. Hacimli kırılımı kovalamak −5,4R verdi.
         Geçmiş sonuç geleceği garanti etmez. Eşikler: lib/spyengine/ladder.ts · LADDER_CFG. Diğer kartlar yalnızca gerekçe gösterir, karar vermez.
       </div>

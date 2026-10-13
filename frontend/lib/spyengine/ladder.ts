@@ -44,6 +44,18 @@
  *     trend uyarısı tetiğin RSI şartını bekler. Sonuç: 268 bölüm (−%35), tetiğe dönüş %25; tetiklerin %56'sından önce uyarı var (önce %68 — bedel).
  *   · Denenip eklenmeyenler: KAPANIŞ tetiğine RSI şartı (54,6R — kötüleştirdi), uyarıya ek RSI/“hız kesildi” şartları
  *     (dönüşüm %30'a çıkıyor ama tetiklerin yalnız %37'si önceden uyarılıyor), 2/3 şart hazır tanımı (dönüşüm %16).
+ *
+ * BAĞIMSIZ DENETİM (2026-10-13, aynı 59 seans; kullanıcı tarzı: sabah yönü + 1 işlem, yön dönerse 2. işlem, trend sonunda çık):
+ *   KAPANIŞ YÖNÜ kapatıldı: 132 işlem %52 +71,5R 50,2 puan → 86 işlem %59 +66,4R 46,5 puan (dönemler +20,7 / +22,5 / +23,3R).
+ *   Ölçülüp EKLENMEYEN profesyonel yöntemler (bayraklar kapalı, kod içinde duruyor):
+ *   · Trend sonu çıkışı (risk.trendExit — 5m EMA20 kapanışı / ATR×3 iz süren / yarısı 2R + kalanı EMA20 / 2R + EMA20 bozulursa kes):
+ *     aynı girişleri tek tek oynatınca +60R görünüyordu ama tam sistemde (yeniden giriş dahil) puan aynı (≈50), R ve kazanç oranı düşük.
+ *     "2R'de çık, yön sürüyorsa geri çekilmede yeniden gir" trendi parça parça aynı puanla yakalıyor.
+ *   · Açılış aralığı kırılımı (ORB 5/15/30 dk, 6.912 ayar): ortalama pozitif ama yalnız %10'u üç dönemde de kârlı; en iyisi +29R (merdivenin açılış modu +37,8R).
+ *   · Taze VWAP+EMA20 kesişiminde "trend başı" girişi (2.304 ayar): ortalama −1,5R — kesişimi kovalamak gürültü.
+ *   · Yön dönünce karşı yöne giriş: NET açılış 59 günün yalnız 4'ünde öğleden önce bozuluyor; örnek yok denecek kadar az.
+ *   · Gap yönüyle NET olmayan açılışa izin (plan.gapLean): ~0R ek; açılış yönünü RSI/VWAP trend sonunda bitirmek (plan.openEndOn): puanı 50 → 44–46.
+ *   · Sabah yönü (10:00 → 12:00): NET açılış %74 (23 gün, +0,76 puan); gap yönü %62, önceki gün tepe/dip dışı %60, premarket dışı %57, VWAP tarafı %56.
  */
 
 import { nyParts, nyClock, r2, rsi as rsiCalc, type Bar } from "./core";
@@ -59,7 +71,8 @@ export const LADDER_CFG = {
     /** mod anahtarları (sembol bazlı kalibrasyon: ölçümde kenarı olmayan mod kapatılabilir) */
     openOn: true,
     fadeOn: true,
-    closeOn: true,
+    /** KAPALI (2026-10-13 denetimi): 59 seansta 46 işlem +5,1R (%39, işlem başı +0,11R) — hiçbir çıkış kuralında kenar yok; öğleden sonra gürültüsü */
+    closeOn: false,
     /** açılış yönünün geçerli olduğu son dakika (14:00) */
     openEnd: 14 * 60,
     /** öğlen VWAP'a dönüş penceresi */
@@ -71,6 +84,10 @@ export const LADDER_CFG = {
     closeStart: 14 * 60,
     /** açılış aralığı (kırılma kontrolü): ilk N adet 5m */
     orBars: 3,
+    /** NET olmayan günde açılış tarafı GAP yönüyle aynıysa (|gap| ≥ fiyatın bu oranı) açılış yönü izni verilir — 0 kapalı */
+    gapLean: 0,
+    /** Açılış yönü TREND SONU işaretinde biter: "rsi" 15m RSI ters yöne döndü · "vwap2" iki 5m kapanış VWAP'ın ters tarafında · "off" */
+    openEndOn: "off" as "rsi" | "vwap2" | "both" | "off",
   },
   /** Momentum kırılımı: hacimli gövdeli mum VWAP+EMA20'yi kendi yönünde aşar */
   impulse: {
@@ -156,6 +173,8 @@ export const LADDER_CFG = {
     /** Trend modlarında stop: VWAP/EMA20'nin alt (üst) çizgisi ∓ pad — yapısal stop çok genişse yedek */
     lineStop: { on: true, maxAtr: 2.0 },
     trail: { on: false, afterR: 1.0, bars: 2, rr: 4 },
+    /** TREND SONU ÇIKIŞI: bu modlarda sabit hedef yok — 5m kapanış EMA20'nin ters tarafına geçince çık ("chand": en iyi fiyat − k×ATR5 iz süren stop) */
+    trendExit: { modes: [] as PlanMode[], rule: "ema20" as "ema20" | "chand" | "beEma20" | "scale" | "cut", chandK: 3, scaleFrac: 0.5 },
     /** öğlen modunda hedef VWAP (en az 0,8R uzakta olmalı) */
     fadeMinR: 0.8,
     maxAttempts: 4,
@@ -278,6 +297,8 @@ export interface Attempt {
   exitClock: string | null;
   exit: number | null;
   result: "KÂR" | "ZARAR" | "ZAMAN" | null;
+  /** Çıkış nedeni: stop · hedef · trend sonu (EMA20) · zaman */
+  exitWhy?: "STOP" | "HEDEF" | "TREND SONU" | "ZAMAN";
   r: number | null;
   mfe: number;
   /** girişte üst zaman dilimi teyidi (0–3) */
@@ -419,7 +440,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
   let opening: OpeningRegime | null = null;
   let openingProvisional: OpeningRegime | null = null;
   let broken = false;
-  let pos: { att: Attempt; d: 1 | -1; stop: number; target: number; risk: number } | null = null;
+  let trendEnded = false;
+  let pos: { att: Attempt; d: 1 | -1; stop: number; target: number; risk: number; partial?: number } | null = null;
   let cooldownUntil = -1;
   let lastImp: { i: number; d: 1 | -1 } | null = null;
   let lastClx: { i: number; d: 1 | -1; extreme: number } | null = null;
@@ -480,8 +502,15 @@ export function ladderRead(inp: LadderInput): LadderRead {
     let mode: PlanMode = "BEKLE";
     let modeText = "";
     const conds: Cond[] = [];
-    const opD: 1 | -1 | 0 = opening && opening.net && (opening.side === "UP" || opening.side === "DOWN") ? (opening.side === "UP" ? 1 : -1) : 0;
+    const opSideN: 1 | -1 | 0 = opening && (opening.side === "UP" || opening.side === "DOWN") ? (opening.side === "UP" ? 1 : -1) : 0;
+    const gapLean = !!opening && !opening.net && opSideN !== 0 && C.plan.gapLean > 0 && !!opening.gap && opening.gap.agree && Math.abs(opening.gap.pts) >= C.plan.gapLean * b.close;
+    const opD: 1 | -1 | 0 = opening && (opening.net || gapLean) ? opSideN : 0;
     if (opD && orHi != null && orLo != null && !broken && (opD > 0 ? b.close < orLo : b.close > orHi)) broken = true;
+    if (opD && !broken && endMin > 10 * 60 && C.plan.openEndOn !== "off" && !pos) {
+      const rsiFlip = rsiDirOf(r15) === -opD;
+      const vwapLost = i > 0 && (b.close - (s5.vwap[i] ?? b.close)) * opD < 0 && (bars[i - 1].close - (s5.vwap[i - 1] ?? bars[i - 1].close)) * opD < 0;
+      if ((C.plan.openEndOn === "rsi" && rsiFlip) || (C.plan.openEndOn === "vwap2" && vwapLost) || (C.plan.openEndOn === "both" && (rsiFlip || vwapLost))) { broken = true; trendEnded = true; }
+    }
     const dev = b.close - vw;
     const devAtr = A5 ? dev / A5 : null;
 
@@ -555,13 +584,28 @@ export function ladderRead(inp: LadderInput): LadderRead {
     let exitedNow: Attempt | null = null;
     if (pos) {
       const P = pos;
+      const trendMode = C.risk.trendExit.modes.includes(P.att.mode);
+      const scale = trendMode && C.risk.trendExit.rule === "scale";
       const hitStop = P.d > 0 ? b.low <= P.stop : b.high >= P.stop;
-      const hitTgt = P.d > 0 ? b.high >= P.target : b.low <= P.target;
-      let ex: { price: number; result: Attempt["result"] } | null = null;
-      if (hitStop) ex = { price: P.stop, result: "ZARAR" };
-      else if (hitTgt) ex = { price: P.target, result: "KÂR" };
-      else if (endMin >= C.risk.exitMin) ex = { price: b.close, result: "ZAMAN" };
+      // kısmi kâr: hedefte pozisyonun bir kısmı kapanır, stop girişe çekilir, kalanı trend sonuna taşınır
+      if (scale && P.partial == null && !hitStop && (P.d > 0 ? b.high >= P.target : b.low <= P.target)) {
+        P.partial = C.risk.trendExit.scaleFrac;
+        if ((P.att.entry - P.stop) * P.d > 0) P.stop = P.att.entry;
+      }
+      const hitTgt = (!trendMode || C.risk.trendExit.rule === "cut") && (P.d > 0 ? b.high >= P.target : b.low <= P.target);
+      const trendEnd = trendMode && C.risk.trendExit.rule !== "chand" && (!scale || P.partial != null) && e5 != null && (b.close - e5) * P.d < 0;
+      let ex: { price: number; result: Attempt["result"]; why: NonNullable<Attempt["exitWhy"]> } | null = null;
+      if (hitStop) ex = { price: P.stop, result: "ZARAR", why: "STOP" };
+      else if (hitTgt) ex = { price: P.target, result: "KÂR", why: "HEDEF" };
+      else if (trendEnd) ex = { price: b.close, result: (b.close - P.att.entry) * P.d >= 0 ? "KÂR" : "ZARAR", why: "TREND SONU" };
+      else if (endMin >= C.risk.exitMin) ex = { price: b.close, result: "ZAMAN", why: "ZAMAN" };
       P.att.mfe = Math.max(P.att.mfe, P.d > 0 ? b.high - P.att.entry : P.att.entry - b.low);
+      if (!ex && trendMode && C.risk.trendExit.rule === "beEma20" && P.att.mfe >= P.risk && (P.att.entry - P.stop) * P.d > 0) P.stop = P.att.entry;
+      if (!ex && trendMode && C.risk.trendExit.rule === "chand" && A5) {
+        const best = P.d > 0 ? P.att.entry + P.att.mfe : P.att.entry - P.att.mfe;
+        const ns = best - P.d * C.risk.trendExit.chandK * A5;
+        if ((ns - P.stop) * P.d > 0) P.stop = r2(ns);
+      }
       if (!ex && C.risk.trail.on && P.att.mfe >= C.risk.trail.afterR * P.risk) {
         const tb = bars.slice(Math.max(0, i - C.risk.trail.bars + 1), i + 1);
         const ts = P.d > 0 ? Math.min(...tb.map((x) => x.low)) - C.risk.stopPadAtr * (A5 ?? 0) : Math.max(...tb.map((x) => x.high)) + C.risk.stopPadAtr * (A5 ?? 0);
@@ -571,8 +615,13 @@ export function ladderRead(inp: LadderInput): LadderRead {
       if (ex) {
         P.att.exitClock = clock;
         P.att.exit = r2(ex.price);
-        P.att.r = P.risk > 0 ? r2(((ex.price - P.att.entry) * P.d) / P.risk) : null;
+        const restR = P.risk > 0 ? ((ex.price - P.att.entry) * P.d) / P.risk : 0;
+        const tgtR = P.risk > 0 ? ((P.target - P.att.entry) * P.d) / P.risk : 0;
+        P.att.r = P.risk > 0 ? r2(P.partial != null ? P.partial * tgtR + (1 - P.partial) * restR : restR) : null;
+        if (P.partial != null) P.att.exit = r2(P.att.entry + P.d * (P.att.r ?? 0) * P.risk);
         P.att.result = ex.result === "ZAMAN" ? ((P.att.r ?? 0) >= 0 ? "ZAMAN" : "ZARAR") : ex.result;
+        if (P.partial != null) P.att.result = (P.att.r ?? 0) >= 0 ? "KÂR" : "ZARAR";
+        P.att.exitWhy = ex.why;
         exitedNow = P.att;
         pos = null;
         cooldownUntil = i + C.risk.cooldownBars;
