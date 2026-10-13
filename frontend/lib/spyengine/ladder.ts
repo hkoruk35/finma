@@ -56,6 +56,15 @@
  *   · Yön dönünce karşı yöne giriş: NET açılış 59 günün yalnız 4'ünde öğleden önce bozuluyor; örnek yok denecek kadar az.
  *   · Gap yönüyle NET olmayan açılışa izin (plan.gapLean): ~0R ek; açılış yönünü RSI/VWAP trend sonunda bitirmek (plan.openEndOn): puanı 50 → 44–46.
  *   · Sabah yönü (10:00 → 12:00): NET açılış %74 (23 gün, +0,76 puan); gap yönü %62, önceki gün tepe/dip dışı %60, premarket dışı %57, VWAP tarafı %56.
+ *
+ * 13 EKİM GÜN İÇİ İNCELEME (58 seans, pencere 07-22 → 10-13; kapanış modu kapalı): 84 işlem %60 +67,2R (dönemler +22,5 / +21,9 / +22,9R).
+ *   Bugünün akışı (gap aşağı, 09:35'te gap doldu, 778,75 tepe → 775,95 dip → 777,9): NET olmayan yukarı açılış → işlem yok (doğru, gün 1,2 puan yukarı sonra tamamen geri verdi);
+ *   11:15 CALL (öğlen dönüşü) stop −1R, 11:55 CALL hedef +1,25R. Bulgular:
+ *   · İZLE ↔ ERKEN UYARI ↔ İŞLEM YOK günde ~15 kez titriyordu (uzama eşik civarında gidip geliyor): ERKEN UYARI artık 2 mum kilitli (warn.latch) →
+ *     titreme 15,1 → 12,4/gün, uyarı bölümleri 219 → 154, tetikten önce uyarı oranı %69 → %71; işlemler birebir aynı.
+ *   · Öğlen dönüşünde 15m RSI hâlâ UZAMA yönündeyse mesaja "dönüş teyidi zayıf" notu eklenir (ölçüm: bu durumda %43 kazanç, kararsızken %53 — filtre değil, uyarı: 48 işlemde hiçbir filtre üç dönemde tutmadı).
+ *   · Denenip eklenmeyenler: dönüş izninde histerezis (0,4–0,85 ATR: R +67 → +66, titreme azalmadı), dönüş stopunu genişletmek (6–9 mum / en az 1–1,5 ATR: R 67 → 51–66), RSI5 aşırılığı / uzama yaşı / günün ekstremine yakınlık filtreleri (örnek az, dönemler tutarsız),
+ *     gap erken dolunca yön okuması (49 gap gününün yalnız 7'sinde erken doldu; yön %29 — örnek yetersiz).
  */
 
 import { nyParts, nyClock, r2, rsi as rsiCalc, type Bar } from "./core";
@@ -150,6 +159,8 @@ export const LADDER_CFG = {
     nearAtr: 0.5,
     /** öğlende uzama eşiğinin bu oranına gelince */
     fadePre: 0.75,
+    /** ERKEN UYARI kilidi: uyarı yandıktan sonra bu kadar mum boyunca (aynı yön, izin sürdükçe) "hazır" şartı düşse bile sönmez — İZLE ↔ UYARI titremesini önler. 0 = kapalı */
+    latch: 2,
     /** izin yokken "öğlen dönüşü hazırlanıyor" ERKEN UYARI'sı (false: yalnız bilgi satırı) */
     preFade: false,
     /** öğlen dönüşü uyarısı: "base" uzama + (hacim düşüyor | formasyon) · "noNew" + mum yeni dip/tepe yapmadı · "noNewVol" ikisi birden · "turn" + kapanış dönüş yönünde */
@@ -447,6 +458,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
   let lastClx: { i: number; d: 1 | -1; extreme: number } | null = null;
   let clxUsed = -1;
   let reverseUntil = -1;
+  let warnLatch: { i: number; d: 1 | -1 } | null = null;
   let reverseWhy: string[] = [];
   const sweptFlag = new Set<number>();
   let cum = 0;
@@ -768,14 +780,19 @@ export function ladderRead(inp: LadderInput): LadderRead {
         warnSigns.push({ key: "w4", required: false, label: "Formasyonun ilk mumu: gövdeli, hacim artıyor, VWAP+EMA20'nin doğru tarafında kapandı", ok: firstGood, value: bPrev ? `hacim ${(bPrev.volume / 1000).toFixed(0)}K → ${((b.volume || 0) / 1000).toFixed(0)}K` : "—" });
         // öğlende: uzama dolu VE hız kesiliyor (hacim düşüyor ya da formasyon) · trendde: geri çekilme seviyeye geldi ya da formasyonun ilk mumu
         const rsiTurn = !!r15 && r15.prev != null && (r15.v - r15.prev) * d > 0;
+        // öğlen dönüşünde 15m RSI hâlâ UZAMA yönünde (işleme ters) ise dönüş teyidi zayıf — ölçüm: %43 kazanç vs RSI kararsızken %53
+        const counterTrend = fade && rsiDirOf(r15) === -d;
+        const ctNote = counterTrend ? ` ⚠ 15m RSI (${r15!.v.toFixed(0)}) hâlâ ${d > 0 ? "aşağı" : "yukarı"} yönde — dönüş teyidi zayıf, küçük pozisyon / mum kapanışını bekle.` : "";
         const noNew = i > 0 && (d > 0 ? b.low >= bars[i - 1].low : b.high <= bars[i - 1].high);
         const turned = d > 0 ? closePos >= 0.5 : closePos <= 0.5;
         const slowing = (local != null && local < 1) || !!pat;
         const fadeOk = C.warn.fadeReady === "noNew" ? slowing && noNew : C.warn.fadeReady === "noNewVol" ? noNew && local != null && local < 1 : C.warn.fadeReady === "turn" ? slowing && turned : C.warn.fadeReady === "noNewTurn" ? noNew && turned : slowing;
         const ready = clx ? true : fade ? stretched && fadeOk && (!C.rsi.warnFade || rsiTurn) : ((near && pulled) || firstGood) && (!C.rsi.warnGate || rsiOk) && rsiPass(C.rsi.warnTrend, r15, d);
-        if (ready && inWindow && !full) {
+        const latched = !ready && !!warnLatch && warnLatch.d === d && i - warnLatch.i <= C.warn.latch && i - warnLatch.i > 0 && !reverseActive;
+        if ((ready || latched) && inWindow && !full) {
+          if (ready) warnLatch = { i, d };
           status = "ERKEN UYARI";
-          message = `${word(d)} · ${mode} · ${clx && lastClx ? `${lastClx.d < 0 ? "tepe" : "dip"} ${f2(lastClx.extreme)} reddedildi, ${word(d)} hazırlan` : firstGood && !fade ? `ilk ${d > 0 ? "yeşil" : "kırmızı"} gövdeli mum hacimle VWAP+EMA20'nin ${d > 0 ? "üstünde" : "altında"} kapandı; ikinci mum aynı yönde ve hacim artarak kapanırsa TETİK` : fade ? `fiyat VWAP'tan ${devAtr != null ? sgn(devAtr) : ""} ATR uzakta, dönüş mumu bekleniyor` : `geri çekilme ${L.label} ${f2(L.price)} yakınında`}. Tetik: ${turnTxt}.`;
+          message = `${word(d)} · ${mode} · ${clx && lastClx ? `${lastClx.d < 0 ? "tepe" : "dip"} ${f2(lastClx.extreme)} reddedildi, ${word(d)} hazırlan` : firstGood && !fade ? `ilk ${d > 0 ? "yeşil" : "kırmızı"} gövdeli mum hacimle VWAP+EMA20'nin ${d > 0 ? "üstünde" : "altında"} kapandı; ikinci mum aynı yönde ve hacim artarak kapanırsa TETİK` : fade ? `fiyat VWAP'tan ${devAtr != null ? sgn(devAtr) : ""} ATR uzakta, dönüş mumu bekleniyor` : `geri çekilme ${L.label} ${f2(L.price)} yakınında`}. Tetik: ${turnTxt}.${ctNote}`;
           change = clx && lastClx ? `${f2(lastClx.extreme)} aşılırsa iptal; 2 saat içinde tetik gelmezse söner.` : fade ? `Uzama ${C.plan.fadeK} ATR'nin altına inerse ya da 14:00 olursa iptal.` : `Açılış yönü bitmezse tetik beklenir; 15m kapanış ${d > 0 ? "VWAP altına" : "VWAP üstüne"} geçerse dikkat.`;
         } else {
           status = reverseActive ? "TERS UYARI" : "İZLE";
