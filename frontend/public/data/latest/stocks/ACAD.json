@@ -1,13 +1,13 @@
 {
   "ticker": "ACAD",
   "company": "Acadia Pharmaceuticals Inc.",
-  "date": "2026-10-13",
-  "generated_at": "2026-10-13T19:32:52.917Z",
+  "date": "2026-10-14",
+  "generated_at": "2026-10-14T07:43:11.686Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
     "current": 18.6200008392334,
-    "open": 19.020000457763672,
+    "open": 19.049999237060547,
     "high": 19.100000381469727,
     "low": 18.389999389648438,
     "prev_close": 19.40999984741211,
@@ -15,11 +15,11 @@
     "change_pct_1w": -5.673753520116296,
     "change_pct_1m": -7.593046194848871,
     "change_pct_1y": -7.1784579513763,
-    "volume": 1362464,
-    "avg_volume_30d": 63137063.99999999
+    "volume": 2140500,
+    "avg_volume_30d": 63915100.00000001
   },
   "scores": {
-    "master_score": 53,
+    "master_score": 50,
     "technical_score": 40,
     "fundamental_score": 73.1,
     "momentum_score": 50,
@@ -28,8 +28,8 @@
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": 4,
-      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.87%)"
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
     }
   },
   "technical": {
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.9,
     "atr_pct": 4.82,
-    "rvol": 0.7420488225426511,
+    "rvol": 0.8060536555524437,
     "52w_high": 30.959999084472656,
     "52w_low": 18.389999389648438
   },
@@ -60,7 +60,7 @@
     "market_cap": 3188412160,
     "revenue_growth_ttm": 0.164,
     "fcf_yield": 0.021530152488190235,
-    "institutional_ownership_pct": 0.99702,
+    "institutional_ownership_pct": 0.99698997,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -80,10 +80,10 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $18.08 – $18.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $19.66 direnci veya $17.90 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $17.45 olarak belirlenmiştir. Fiyatın EMA20 ($21.68) veya günlük VWAP ($18.68) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $17.45 olarak belirlenmiştir. Fiyatın EMA20 ($21.68) veya günlük VWAP ($18.67) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($24.07) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($18.68) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
-    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($18.67) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 16 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
   }
 }

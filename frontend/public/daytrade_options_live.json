@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-10-13T08:00:20.061905",
+  "generated_at": "2026-10-14T08:00:15.823615",
   "options": {
     "PLTR": {
       "dte_30": {
         "strike": 210.0,
-        "lastPrice": 13.5,
+        "lastPrice": 13.7,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 151,
+        "volume": 206,
         "openInterest": 0,
-        "impliedVolatility": 0.0039162109375,
+        "impliedVolatility": 0.007822421875,
         "expiry": "2026-11-13",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 210.0,
-        "lastPrice": 15.27,
+        "lastPrice": 15.34,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 103,
+        "volume": 104,
         "openInterest": 0,
         "impliedVolatility": 0.0039162109375,
         "expiry": "2026-11-27",
@@ -26,10 +26,10 @@
       },
       "dte_60": {
         "strike": 210.0,
-        "lastPrice": 18.3,
+        "lastPrice": 18.2,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 753,
+        "volume": 418,
         "openInterest": 0,
         "impliedVolatility": 0.0039162109375,
         "expiry": "2026-12-18",
@@ -39,10 +39,10 @@
     "MRNA": {
       "dte_30": {
         "strike": 225.0,
-        "lastPrice": 22.6,
+        "lastPrice": 22.0,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 29,
+        "volume": 7,
         "openInterest": 0,
         "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-13",
@@ -50,10 +50,10 @@
       },
       "dte_45": {
         "strike": 225.0,
-        "lastPrice": 31.93,
+        "lastPrice": 27.06,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 11,
+        "volume": 6,
         "openInterest": 0,
         "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-27",
@@ -61,10 +61,10 @@
       },
       "dte_60": {
         "strike": 230.0,
-        "lastPrice": 26.9,
+        "lastPrice": 26.89,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 146,
+        "volume": 120,
         "openInterest": 0,
         "impliedVolatility": 0.0312596875,
         "expiry": "2026-12-18",
@@ -74,34 +74,34 @@
     "HIMS": {
       "dte_30": {
         "strike": 31.0,
-        "lastPrice": 3.05,
+        "lastPrice": 2.45,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 28,
+        "volume": 187,
         "openInterest": 0,
-        "impliedVolatility": 0.015634843750000002,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-13",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 31.0,
-        "lastPrice": 3.38,
+        "lastPrice": 2.75,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 14,
+        "volume": 5,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-27",
         "type": "CALL"
       },
       "dte_60": {
         "strike": 31.0,
-        "lastPrice": 3.91,
+        "lastPrice": 3.38,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 12,
+        "volume": 4,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-12-18",
         "type": "CALL"
       }
@@ -109,34 +109,34 @@
     "AMZN": {
       "dte_30": {
         "strike": 260.0,
-        "lastPrice": 12.45,
+        "lastPrice": 11.73,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 257,
+        "volume": 147,
         "openInterest": 0,
-        "impliedVolatility": 0.00196310546875,
+        "impliedVolatility": 0.0039162109375,
         "expiry": "2026-11-13",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 260.0,
-        "lastPrice": 13.75,
+        "lastPrice": 13.73,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 25,
+        "volume": 37,
         "openInterest": 0,
-        "impliedVolatility": 0.00196310546875,
+        "impliedVolatility": 0.0039162109375,
         "expiry": "2026-11-27",
         "type": "CALL"
       },
       "dte_60": {
         "strike": 260.0,
-        "lastPrice": 16.2,
+        "lastPrice": 15.73,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 918,
+        "volume": 318,
         "openInterest": 0,
-        "impliedVolatility": 0.000986552734375,
+        "impliedVolatility": 0.0039162109375,
         "expiry": "2026-12-18",
         "type": "CALL"
       }
@@ -149,7 +149,7 @@
         "ask": 0.0,
         "volume": 12,
         "openInterest": 0,
-        "impliedVolatility": 0.015634843750000002,
+        "impliedVolatility": 0.062509375,
         "expiry": "2026-11-20",
         "type": "CALL"
       },
@@ -160,7 +160,7 @@
         "ask": 0.0,
         "volume": 12,
         "openInterest": 0,
-        "impliedVolatility": 0.015634843750000002,
+        "impliedVolatility": 0.062509375,
         "expiry": "2026-11-20",
         "type": "CALL"
       },
@@ -171,7 +171,7 @@
         "ask": 0.0,
         "volume": 74,
         "openInterest": 0,
-        "impliedVolatility": 0.007822421875,
+        "impliedVolatility": 0.062509375,
         "expiry": "2026-12-18",
         "type": "CALL"
       }
@@ -179,23 +179,23 @@
     "IONS": {
       "dte_30": {
         "strike": 45.0,
-        "lastPrice": 2.7,
+        "lastPrice": 2.3,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 132,
+        "volume": 13,
         "openInterest": 0,
-        "impliedVolatility": 0.0312596875,
+        "impliedVolatility": 0.062509375,
         "expiry": "2026-11-20",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 45.0,
-        "lastPrice": 2.7,
+        "lastPrice": 2.3,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 132,
+        "volume": 13,
         "openInterest": 0,
-        "impliedVolatility": 0.0312596875,
+        "impliedVolatility": 0.062509375,
         "expiry": "2026-11-20",
         "type": "CALL"
       },
@@ -206,7 +206,7 @@
         "ask": 0.0,
         "volume": 3,
         "openInterest": 0,
-        "impliedVolatility": 0.015634843750000002,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-12-18",
         "type": "CALL"
       }
@@ -214,10 +214,10 @@
     "AFRM": {
       "dte_30": {
         "strike": 81.0,
-        "lastPrice": 6.02,
+        "lastPrice": 4.8,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 3,
+        "volume": 1,
         "openInterest": 0,
         "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-13",
@@ -236,10 +236,10 @@
       },
       "dte_60": {
         "strike": 80.0,
-        "lastPrice": 7.33,
+        "lastPrice": 7.2,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 9,
+        "volume": 31,
         "openInterest": 0,
         "impliedVolatility": 0.015634843750000002,
         "expiry": "2026-12-18",
@@ -249,10 +249,10 @@
     "CELH": {
       "dte_30": {
         "strike": 29.0,
-        "lastPrice": 1.81,
+        "lastPrice": 1.65,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 11,
+        "volume": 2,
         "openInterest": 0,
         "impliedVolatility": 0.0312596875,
         "expiry": "2026-11-13",
@@ -265,16 +265,16 @@
         "ask": 0.0,
         "volume": 1,
         "openInterest": 0,
-        "impliedVolatility": 1.0000000000000003e-05,
+        "impliedVolatility": 0.0039162109375,
         "expiry": "2026-11-27",
         "type": "CALL"
       },
       "dte_60": {
         "strike": 27.5,
-        "lastPrice": 3.35,
+        "lastPrice": 3.1,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 647,
+        "volume": 26,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-12-18",
@@ -284,10 +284,10 @@
     "COIN": {
       "dte_30": {
         "strike": 180.0,
-        "lastPrice": 13.09,
+        "lastPrice": 15.0,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 24,
+        "volume": 4,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-11-13",
@@ -306,10 +306,10 @@
       },
       "dte_60": {
         "strike": 180.0,
-        "lastPrice": 19.94,
+        "lastPrice": 21.0,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 196,
+        "volume": 89,
         "openInterest": 0,
         "impliedVolatility": 1.0000000000000003e-05,
         "expiry": "2026-12-18",
