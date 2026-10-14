@@ -23,6 +23,8 @@ import ForecastMap from "@/components/admin/spyengine/ForecastMap";
 import ForecastTabs from "@/components/admin/spyengine/ForecastTabs";
 import type { ForecastModel, ForecastStats } from "@/lib/spyengine/forecastModel";
 import Setup15Panel from "@/components/admin/spyengine/Setup15Panel";
+import DecisionLogPanel, { type DecisionResp } from "@/components/admin/spyengine/DecisionLogPanel";
+import { applyTrust, type ModeStat } from "@/lib/spyengine/decisionCore";
 import { backtestSetup15, mergeHourly, readSetup15 } from "@/lib/spyengine/setup15";
 import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
 import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
@@ -242,7 +244,7 @@ function Pill({ ok, children }: { ok: boolean | null; children: ReactNode }) {
 }
 
 /** Karar özeti: ŞİMDİ ne yap · NEDEN · giriş kontrol listesi / plan ne zaman değişir (sade ve sonuç odaklı) */
-function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
+function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: ModeStat | null }) {
   const rg = s.regime;
   const side = s.side ?? (rg.permission === "CALL" || rg.permission === "PUT" ? rg.permission : null);
   const sideN = side === "CALL" ? 1 : side === "PUT" ? -1 : 0;
@@ -295,6 +297,11 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
             <Pill ok={rsiOk(s.rsi.d30)}>RSI 30m {s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"}</Pill>
           </>)}
         </div>
+        {hist && hist.n >= 10 && (
+          <div className="mt-1.5 text-[11px] leading-snug text-slate-300">
+            Arşivde <b>{s.regime.mode}</b>: {hist.n} işlem · %{Math.round((100 * hist.wins) / hist.n)} kazanç · ort. <b className={hist.avgR >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{hist.avgR >= 0 ? "+" : "−"}{Math.abs(hist.avgR).toFixed(2)}R</b> · güven <b>{hist.level}</b>
+          </div>
+        )}
         {s.confirm && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">Rozetler işlem yönüyle uyum (yeşil ✓ = aynı yönde). Üst zaman ve RSI bilgidir; giriş yalnız 5m tetikten gelir.</div>}
         {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
       </div>
@@ -321,7 +328,7 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
 }
 
 /** Merdivenin ayrıntısı: 4 adımın koşulları, risk, gün içi durum geçmişi */
-function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | null; waiting: boolean }) {
+function LadderPanel({ L, s, waiting, hist }: { L: LadderRead | null; s: LadderStep | null; waiting: boolean; hist?: ModeStat | null }) {
   if (!L || !s) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
@@ -329,10 +336,10 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
       </div>
     );
   }
-  return <LadderPanelBody L={L} s={s} />;
+  return <LadderPanelBody L={L} s={s} hist={hist ?? null} />;
 }
 
-function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
+function LadderPanelBody({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: ModeStat | null }) {
   const [open, setOpen] = useState(false);
   const rg = s.regime;
   const permCol = rg.permission === "CALL" ? "#22c55e" : rg.permission === "PUT" ? "#ef4444" : "#94a3b8";
@@ -342,7 +349,7 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
         <span className="text-[13px] font-semibold text-slate-200">Karar Merdiveni · karar desteği</span>
         <span className="font-mono text-[11px] text-slate-500">son 5m kapanış {s.clock} ET</span>
       </div>
-      <LadderSummary L={L} s={s} />
+      <LadderSummary L={L} s={s} hist={hist} />
       <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">
         <button type="button" onClick={() => setOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{open ? "▴ gizle" : "▾ göster"}</button>
         <span className="text-[12px] font-semibold text-slate-300">Teknik ayrıntı <span className="font-normal text-slate-500">· 4 adımın koşulları, risk kuralları, gün içi geçmiş, kalibrasyon</span></span>
@@ -1189,6 +1196,9 @@ export default function SpyEngineV9() {
   const [openFc, setOpenFc] = useState<OpenForecastRead | null>(null);
   /** Tahmin günlüğü + öğrenilen aşama isabetleri (30 dk'da bir) */
   const [journal, setJournal] = useState<JournalResp | null>(null);
+  /** Karar günlüğü + öğrenen model (arşivlenmiş seans kararları ve sonuçları; 10 dk'da bir) */
+  const [decisions, setDecisions] = useState<DecisionResp | null>(null);
+  const [showDecisions, setShowDecisions] = useState(false);
   /** 0DTE opsiyon duvarları + max pain — yalnızca seviye (5 dk'da bir) */
   const [optLevelsLive, setOptLevels] = useState<OptionLevels | null>(null);
   const [forecastAccuracy, setForecastAccuracy] = useState<{ checked: number; hit: number } | null>(null);
@@ -1282,6 +1292,23 @@ export default function SpyEngineV9() {
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
   }, [showTickers]);
+
+  // Karar günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları arşivler, modeli yeniden öğrenir)
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/decisions", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok) setDecisions(json as DecisionResp);
+      } catch {
+        // günlük ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 10 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
 
   // Tahmin günlüğü: açılışta bir kez + 30 dk'da bir (sunucu eksik seansları kendisi ekler)
   useEffect(() => {
@@ -1605,12 +1632,27 @@ export default function SpyEngineV9() {
   const htf = useMemo(() => ({ m30: m30D, e30: emaByTime(m30D), m60: m60D, e60: emaByTime(m60D) }), [m30D, m60D]);
   /** 15m / 30m RSI(14) — RTH, çok günlük (açılış tetiği 15m RSI yönünü ister; 30m bilgi) */
   const rsiInput = useMemo(() => ({ r15: rsiSeries(m15D), r30: rsiSeries(m30D) }), [m15D, m30D]);
+  /** Öğrenen model: kanıt güçlü eksi olan mod otomatik kapanır (başka hiçbir ayar kendiliğinden değişmez) */
+  const cfgEff = useMemo(() => applyTrust(LADDER_CFG, decisions?.model ?? null), [decisions?.model]);
   const ladderInput = useMemo(() => {
     if (!analysis || !date) return null;
-    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, rsi: rsiInput };
-  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, rsiInput, data?.levels?.prevClose]);
+    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, rsi: rsiInput, cfg: cfgEff };
+  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, rsiInput, cfgEff, data?.levels?.prevClose]);
   const ladder = useMemo<LadderRead | null>(() => (ladderInput ? ladderRead(ladderInput) : null), [ladderInput]);
   const lad = ladder?.current ?? null;
+
+  // Her canlı kararı (durum / yön / mod değişimi) günün karar günlüğüne işle — gün kapanınca arşiv kaydına birleşir
+  const loggedSig = useRef("");
+  useEffect(() => {
+    if (replayDate || !lad || !date || !data?.session.isLive) return;
+    const sig = `${date}|${lad.status}|${lad.side}|${lad.regime.mode}`;
+    if (loggedSig.current === sig) return;
+    loggedSig.current = sig;
+    void fetch("/api/admin/spyengine/v2/decisions", {
+      method: "POST", credentials: "include", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, events: [{ t: lad.time, clock: lad.clock, status: lad.status, side: lad.side, mode: lad.regime.mode, msg: lad.message, price: price, entry: lad.plan?.entry, stop: lad.plan?.stop, target: lad.plan?.target }] }),
+    }).catch(() => { /* kayıt ana akışı etkilemesin */ });
+  }, [lad, date, replayDate, data?.session.isLive, price]);
 
   /** Mum yorumları — aynı sistem (5m: merdiven durumu + kalite + RVOL; 15m: rejim koşulları) */
   const comments = useMemo(() => {
@@ -1974,7 +2016,7 @@ export default function SpyEngineV9() {
         </div>
 
         {/* ── 1a2) Karar merdiveni — karar özeti (+ gizli teknik ayrıntı) ── */}
-        <LadderPanel L={ladder} s={lad} waiting={!analysis || !analysis.s5.bars.length} />
+        <LadderPanel L={ladder} s={lad} waiting={!analysis || !analysis.s5.bars.length} hist={lad ? decisions?.model.modes[lad.regime.mode] ?? null : null} />
 
         {/* ── 1b) Pivot noktaları ── */}
         <PivotCard p={pivR} price={price} />
@@ -2180,6 +2222,9 @@ export default function SpyEngineV9() {
 
         {/* ── 6) Tahmin günlüğü — gerçekleşenle kıyas ── */}
         <Hideable title="Tahmin Günlüğü" open={showJournal} onToggle={() => setShowJournal((v) => !v)}><JournalPanel j={journal} /></Hideable>
+
+        {/* ── 7) Karar günlüğü & öğrenen model — her karar ve sonucu arşivde ── */}
+        <Hideable title="Karar Günlüğü & Öğrenen Model" open={showDecisions} onToggle={() => setShowDecisions((v) => !v)}><DecisionLogPanel r={decisions} /></Hideable>
 
       </div>
 

@@ -63,6 +63,12 @@
  *   · İZLE ↔ ERKEN UYARI ↔ İŞLEM YOK günde ~15 kez titriyordu (uzama eşik civarında gidip geliyor): ERKEN UYARI artık 2 mum kilitli (warn.latch) →
  *     titreme 15,1 → 12,4/gün, uyarı bölümleri 219 → 154, tetikten önce uyarı oranı %69 → %71; işlemler birebir aynı.
  *   · Öğlen dönüşünde 15m RSI hâlâ UZAMA yönündeyse mesaja "dönüş teyidi zayıf" notu eklenir (ölçüm: bu durumda %43 kazanç, kararsızken %53 — filtre değil, uyarı: 48 işlemde hiçbir filtre üç dönemde tutmadı).
+ *
+ * 14 EKİM BAŞTAN SONA DENETİM (58 seans, 4.307 mum): (1) NEDENSELLİK — her mumda "o ana kadarki veri" ile "tüm gün verisi" aynı karar/mesaj/plan/RSI/işlem listesini veriyor (0 tutarsızlık, geleceğe bakış yok);
+ *   (2) VERİ UYUMU — sayfanın verisi (1m'den türetilmiş 5 gün) ile test verisi (Yahoo 5m, 60 gün) son 4 seansta 0/78 durum farkı, aynı işlemler;
+ *   (3) DEĞİŞMEZLER — stop/hedef tarafı, giriş saatleri, çıkış sırası, işlem çakışması, günlük sınır, R işareti: ihlal yok. Tek bulgu: dar stopla uzak VWAP hedefleyen tek işlem 9,7R yazıyordu (öğlen dönüşü
+ *   toplamının %40'ı) → risk.fadeMaxR = 3 (VWAP hedefi en çok 3R): puan aynı (47,0 → 46,4), R 67,5 → 64,0 (daha gerçekçi).
+ *   KARAR GÜNLÜĞÜ: lib/spyengine/decisionCore.ts + decisionStore.ts — her seansın tüm kararları/sonuçları/dersleri arşivde; model arşivden öğrenir (applyTrust: kanıt güçlü eksi olan modu kapatır, hiçbir şeyi açmaz).
  *   · Denenip eklenmeyenler: dönüş izninde histerezis (0,4–0,85 ATR: R +67 → +66, titreme azalmadı), dönüş stopunu genişletmek (6–9 mum / en az 1–1,5 ATR: R 67 → 51–66), RSI5 aşırılığı / uzama yaşı / günün ekstremine yakınlık filtreleri (örnek az, dönemler tutarsız),
  *     gap erken dolunca yön okuması (49 gap gününün yalnız 7'sinde erken doldu; yön %29 — örnek yetersiz).
  */
@@ -186,6 +192,8 @@ export const LADDER_CFG = {
     trail: { on: false, afterR: 1.0, bars: 2, rr: 4 },
     /** TREND SONU ÇIKIŞI: bu modlarda sabit hedef yok — 5m kapanış EMA20'nin ters tarafına geçince çık ("chand": en iyi fiyat − k×ATR5 iz süren stop) */
     trendExit: { modes: [] as PlanMode[], rule: "ema20" as "ema20" | "chand" | "beEma20" | "scale" | "cut", chandK: 3, scaleFrac: 0.5 },
+    /** öğlen dönüşü hedefi VWAP'tır ama en çok bu kadar R uzakta olabilir (0 = sınırsız). Dar stopla uzak VWAP'ı hedefleyen nadir işlemler R toplamını şişiriyordu (9,7R'lik tek işlem) */
+    fadeMaxR: 3,
     /** öğlen modunda hedef VWAP (en az 0,8R uzakta olmalı) */
     fadeMinR: 0.8,
     maxAttempts: 4,
@@ -731,7 +739,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
           if (Math.abs(b.close - line) <= C.risk.lineStop.maxAtr * A5 && (b.close - line) * d > 0) stop = line;
         }
         const risk = Math.abs(b.close - stop);
-        const tgt = fade ? vw : b.close + d * (C.risk.trail.on ? C.risk.trail.rr : C.risk.rr) * risk;
+        const tgt = fade ? (C.risk.fadeMaxR > 0 && Math.abs(vw - b.close) > C.risk.fadeMaxR * risk ? b.close + d * C.risk.fadeMaxR * risk : vw) : b.close + d * (C.risk.trail.on ? C.risk.trail.rr : C.risk.rr) * risk;
         const maxStop = (openLeg ? C.risk.openLeg.maxStopAtr : C.risk.maxStopAtr) * A5;
         if (risk > maxStop || risk < C.risk.minStopPts) {
           status = "İPTAL";
