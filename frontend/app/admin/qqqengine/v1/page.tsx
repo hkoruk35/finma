@@ -37,6 +37,7 @@ import type { ReversalState } from "@/lib/spyengine/reversal";
 import Link from "next/link";
 import { QQQ_LADDER_CFG } from "@/lib/qqqengine/config";
 import DecisionLogPanel, { type DecisionResp } from "@/components/admin/spyengine/DecisionLogPanel";
+import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
 import { applyTrust, type ModeStat } from "@/lib/spyengine/decisionCore";
 import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
 import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
@@ -1320,6 +1321,7 @@ export default function SpyEngineV9() {
   // Karar günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları arşivler, modeli yeniden öğrenir)
   const [decisions, setDecisions] = useState<DecisionResp | null>(null);
   const [showDecisions, setShowDecisions] = useState(false);
+  const [showTrades, setShowTrades] = useState(false);
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
@@ -1859,6 +1861,14 @@ export default function SpyEngineV9() {
 
         {/* ── 6) Karar günlüğü & öğrenen model — her karar ve sonucu arşivde ── */}
         <Hideable title="Karar Günlüğü & Öğrenen Model" open={showDecisions} onToggle={() => setShowDecisions((v) => !v)}><DecisionLogPanel r={decisions} /></Hideable>
+
+        {/* ── Önerilen işlemler kaydı (bugün canlı + arşiv) — varsayılan gizli ── */}
+        <Hideable title="Önerilen İşlemler" open={showTrades} onToggle={() => setShowTrades((v) => !v)}>
+          <TradeLogPanel
+            today={(ladder?.attempts ?? []).map((a): TradeRow => ({ date: date ?? "", clock: a.clock, side: a.side, mode: a.mode, setup: a.setup, entry: a.entry, stop: a.stop, target: a.target, exitClock: a.exitClock, exit: a.exit, exitWhy: a.exitWhy ?? null, r: a.r }))}
+            past={(decisions?.trades ?? []).map((a): TradeRow => ({ date: a.date, clock: a.clock, side: a.side, mode: a.mode, setup: a.setup, entry: a.entry, stop: a.stop, target: a.target, exitClock: a.exitClock, exit: a.exit, exitWhy: a.exitWhy, r: a.r }))}
+          />
+        </Hideable>
 
       </div>
 

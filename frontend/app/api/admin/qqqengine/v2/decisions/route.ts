@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   try {
     const { days, model, added } = await updateQqqDecisionLog(req.nextUrl.searchParams.get("force") === "1");
     return NextResponse.json(
-      { ok: true, model, added, count: days.length, recent: days.slice(-10).reverse() },
+      { ok: true, model, added, count: days.length, recent: days.slice(-10).reverse(), trades: days.slice(-60).flatMap((d) => d.attempts.filter((a) => !a.shadow).map((a) => ({ date: d.date, ...a }))) },
       { headers: { "Cache-Control": "no-store, max-age=0" } },
     );
   } catch (e) {

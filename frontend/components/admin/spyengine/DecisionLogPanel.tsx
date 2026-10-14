@@ -5,9 +5,9 @@
  * gölge (kapalı) modlar, eğitim notları ve son günlerin dersleri. Hesaplar lib/spyengine/decisionCore.ts'te.
  */
 
-import type { DecisionDay, DecisionModel, ModeStat, Trust } from "@/lib/spyengine/decisionCore";
+import type { DecisionDay, DecisionModel, LoggedAttempt, ModeStat, Trust } from "@/lib/spyengine/decisionCore";
 
-export interface DecisionResp { ok: boolean; model: DecisionModel; recent: DecisionDay[]; count: number; added: string[] }
+export interface DecisionResp { ok: boolean; model: DecisionModel; recent: DecisionDay[]; count: number; added: string[]; trades?: (LoggedAttempt & { date: string })[] }
 
 const TRUST_CLS: Record<Trust, string> = {
   YÜKSEK: "border-[#22c55e]/50 bg-[#22c55e]/10 text-[#4ade80]",
