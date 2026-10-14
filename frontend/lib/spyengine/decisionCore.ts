@@ -29,7 +29,7 @@ import { barEnd, readSetup15, sessionAggregate } from "./setup15";
 const hash = (s: string) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
 /** Motor ayarlarının parmak izi — kayıtta hangi kod/ayar sürümüyle üretildiği görünür */
 export const cfgHash = (c: LadderCfg = LADDER_CFG) => hash(JSON.stringify(c));
-export const ENGINE_VERSION = "ladder-2026.10.14";
+export const ENGINE_VERSION = "ladder-2026.10.14.2";
 
 // ── Tipler ──────────────────────────────────────────────────────────
 
@@ -39,6 +39,8 @@ export interface LoggedAttempt {
   clock: string; side: string; mode: string; setup: string; entry: number; stop: number; target: number;
   exitClock: string | null; exit: number | null; result: string | null; exitWhy: string | null; r: number | null; mfe: number;
   rsi15: number | null; confirm: number; shadow?: boolean;
+  /** Yönetim: hedefte yarı satış + kalan yarının sonucu (resmî işlem hedefte tam çıkış olarak kalır) */
+  managed?: { why: string | null; restR: number | null; totalR: number | null; exitClock: string | null } | null;
 }
 export interface Lesson { tag: string; text: string; clock?: string }
 export interface LiveEvent { t: number; clock: string; status: string; side: string | null; mode: string; msg: string; price: number | null; entry?: number; stop?: number; target?: number }
@@ -55,6 +57,10 @@ export interface DecisionDay {
   opening: { label: string; side: string | null; net: boolean; decidedAt: string | null; strength: string | null; gap: number | null; move2h: number | null; right: boolean | null };
   transitions: Transition[];
   warnings: WarnEpisode[];
+  /** Trend sonu uyarıları: seviye değişimleri ve 6 mum içinde BİTTİ'ye dönüp dönmediği */
+  trendEnds: { clock: string; level: string; ended6: boolean }[];
+  /** İşlem yönetimi tavsiyeleri (değişim anları) */
+  manageLog: { clock: string; action: string }[];
   attempts: LoggedAttempt[];
   /** Kapalı modların gölge işlemleri (gerçek karar değil; izlenir) */
   shadow: LoggedAttempt[];
@@ -93,6 +99,9 @@ export interface DecisionModel {
   /** Kapalı (gölge) modların izlenen sonuçları */
   shadow: Record<string, ModeStat & { reopen: boolean }>;
   warn: { n: number; convPct: number; rightPct: number };
+  /** Yönetim politikası (hedefte yarı sat, kalan taşı) ile resmî (tam çıkış) toplam R karşılaştırması — mod bazında */
+  managed: Record<string, { n: number; carried: number; baseR: number; managedR: number }>;
+  trendEnd: { warnN: number; endedPct: number };
   opening: { netN: number; netHitPct: number; otherN: number; otherHitPct: number; otherMovePct: number };
   fc15: { n: number; dirPct: number | null; bandPct: number | null; mae: number | null; naiveMae: number | null };
   lessons: Record<string, { n: number; of: number }>;
@@ -143,6 +152,15 @@ export function learnFromLog(days: DecisionDay[]): DecisionModel {
   }
   const W = ds.flatMap((d) => d.warnings);
   const warn = { n: W.length, convPct: W.length ? Math.round((100 * W.filter((w) => w.converted).length) / W.length) : 0, rightPct: (() => { const j = W.filter((w) => w.right !== 0); return j.length ? Math.round((100 * j.filter((w) => w.right > 0).length) / j.length) : 0; })() };
+  const managed: DecisionModel["managed"] = {};
+  for (const d of ds) for (const a of d.attempts) {
+    if (a.r == null) continue;
+    const g = (managed[a.mode] ??= { n: 0, carried: 0, baseR: 0, managedR: 0 });
+    g.n++; g.baseR += a.r; g.managedR += a.managed?.totalR ?? a.r; if (a.managed) g.carried++;
+  }
+  for (const g of Object.values(managed)) { g.baseR = r2(g.baseR); g.managedR = r2(g.managedR); }
+  const TE = ds.flatMap((d) => d.trendEnds ?? []).filter((t) => t.level === "UYARI");
+  const trendEnd = { warnN: TE.length, endedPct: TE.length ? Math.round((100 * TE.filter((t) => t.ended6).length) / TE.length) : 0 };
   const net = ds.filter((d) => d.opening.net && d.opening.right != null), oth = ds.filter((d) => !d.opening.net && d.opening.side && d.opening.right != null);
   const opening = {
     netN: net.length, netHitPct: net.length ? Math.round((100 * net.filter((d) => d.opening.right).length) / net.length) : 0,
@@ -184,7 +202,9 @@ export function learnFromLog(days: DecisionDay[]): DecisionModel {
   if (fc15.dirPct != null && fc15.naiveMae != null && fc15.mae != null) insights.push(`15m 4-mum tahmini: yön %${fc15.dirPct}, bant içi %${fc15.bandPct}; hata ${fc15.mae} vs "fiyat aynı kalır" ${fc15.naiveMae} — ${fc15.mae < fc15.naiveMae * 0.98 ? "tahmin değer katıyor" : "tahmin şimdilik değer katmıyor, yalnız senaryo aracı"}.`);
 
   const disabled = Object.entries(modes).filter(([, s]) => s.level === "KAPAT").map(([m]) => m);
-  return { version: ENGINE_VERSION, days: ds.length, liveDays: ds.filter((d) => !d.backfill).length, trades: allAtt.length, modes, shadow, warn, opening, fc15, lessons, insights, disabled };
+  for (const [m, g] of Object.entries(managed)) if (g.carried >= 8) insights.push(`Yönetim (${m}): ${g.carried} işlemde yarı hedefte satılıp kalan taşındı — toplam ${g.baseR >= 0 ? "+" : ""}${g.baseR}R → ${g.managedR >= 0 ? "+" : ""}${g.managedR}R (${g.managedR > g.baseR ? "taşıma değer katıyor" : "taşıma değer katmıyor"}).`);
+  if (trendEnd.warnN >= 15) insights.push(`Trend sonu uyarısı ${trendEnd.warnN} kez yandı; %${trendEnd.endedPct}'i 6 mum içinde gerçekten BİTTİ'ye döndü.`);
+  return { version: ENGINE_VERSION, days: ds.length, liveDays: ds.filter((d) => !d.backfill).length, trades: allAtt.length, modes, shadow, warn, managed, trendEnd, opening, fc15, lessons, insights, disabled };
 }
 
 /** Kanıt güçlü eksi ise o modu KAPATIR; hiçbir şeyi açmaz */
@@ -200,7 +220,7 @@ export function applyTrust(base: LadderCfg, model: DecisionModel | null): Ladder
 const am = (bs: Bar[]) => { const a = atr(bs, 14); const m = new Map<number, number>(); bs.forEach((b, i) => { if (a[i] != null) m.set(b.time, a[i] as number); }); return m; };
 
 /** Bir seans için ladderRead girdisi (sayfa ile aynı kurulum; m5 = 5m mumlar, premarket dahil, ≥ date) */
-export function ladderInputFor(m5All: Bar[], date: string, prevClose: number | null): LadderInput {
+export function ladderInputFor(m5All: Bar[], date: string, prevClose: number | null, tech?: LadderInput["tech"]): LadderInput {
   const m5 = m5All.filter((b) => nyParts(b.time).ymd <= date);
   const m15 = bucketAggregate(m5, 15), m30 = bucketAggregate(m5, 30), m60 = bucketAggregate(m5, 60);
   const now = nyDateTimeToEpoch(date, 16 * 60 + 5);
@@ -208,6 +228,7 @@ export function ladderInputFor(m5All: Bar[], date: string, prevClose: number | n
     date, s5: daySeries(m5, "5m", date, now, null), s15: daySeries(m15, "15m", date, now, null), s30: daySeries(m30, "30m", date, now, null),
     ema5: emaByTime(m5), ema15: emaByTime(m15), atr5: am(m5), atr15: am(m15), rvol: rvolBaseline(m5, date), prevClose, staticLevels: [],
     htf: { m30, e30: emaByTime(m30), m60, e60: emaByTime(m60) }, rsi: { r15: rsiSeries(m15), r30: rsiSeries(m30) },
+    ...(tech ? { tech } : {}),
   };
 }
 
@@ -215,6 +236,7 @@ const cap = (s: string, n = 140) => (s.length > n ? s.slice(0, n - 1) + "…" : 
 const logAtt = (a: Attempt, rsi15: number | null, shadow = false): LoggedAttempt => ({
   clock: a.clock, side: a.side, mode: a.mode, setup: cap(a.setup, 60), entry: a.entry, stop: a.stop, target: a.target, exitClock: a.exitClock, exit: a.exit,
   result: a.result, exitWhy: a.exitWhy ?? null, r: a.r, mfe: r2(a.mfe), rsi15, confirm: a.confirm, ...(shadow ? { shadow: true } : {}),
+  managed: a.managed ? { why: a.managed.why, restR: a.managed.restR, totalR: a.managed.totalR, exitClock: a.managed.exitClock } : null,
 });
 
 function forecast15Day(m5All: Bar[], date: string, prevClose: number | null): DecisionDay["fc15"] {
@@ -242,6 +264,10 @@ function forecast15Day(m5All: Bar[], date: string, prevClose: number | null): De
 
 export function buildDecisionDay(args: {
   m5: Bar[]; date: string; backfill: boolean; model: DecisionModel | null; live?: LiveEvent[];
+  /** Motorun taban ayarı (varsayılan SPY; QQQ kendi ayarını verir) */
+  baseCfg?: LadderCfg;
+  /** Sembole özel ek girdi: o gün için teknoloji liderleri serisi (QQQ) */
+  techFor?: (date: string, nowSec: number) => LadderInput["tech"];
 }): DecisionDay | null {
   const { m5, date, backfill, model } = args;
   const rth = m5.filter((b) => isRthBar(b));
@@ -252,8 +278,9 @@ export function buildDecisionDay(args: {
   if (dayBars.length < 70) return null;
   const prev = rth.filter((b) => nyParts(b.time).ymd === days[di - 1]);
   const prevClose = prev[prev.length - 1].close;
-  const inp = ladderInputFor(m5, date, prevClose);
-  const cfgEff = applyTrust(LADDER_CFG, model);
+  const baseCfg = args.baseCfg ?? LADDER_CFG;
+  const inp = ladderInputFor(m5, date, prevClose, args.techFor?.(date, nyDateTimeToEpoch(date, 16 * 60 + 5)));
+  const cfgEff = applyTrust(baseCfg, model);
   const lr: LadderRead = ladderRead({ ...inp, cfg: cfgEff });
   const B = inp.s5.bars;
   const A = (i: number) => inp.atr5.get(B[i].time) ?? 0.5;
@@ -262,7 +289,7 @@ export function buildDecisionDay(args: {
   const kClock = (clock: string | null) => (clock ? B.findIndex((b) => nyParts(b.time).minutes + 5 === Number(clock.slice(0, 2)) * 60 + Number(clock.slice(3))) : -1);
 
   // gölge: kapalı modlar için hesaplanan işlemler
-  const sc = clone(LADDER_CFG); for (const m of MODES) setMode(sc, m, true);
+  const sc = clone(baseCfg); for (const m of MODES) setMode(sc, m, true);
   const off = MODES.filter((m) => !modeEnabled(cfgEff, m));
   const shadow = off.length ? ladderRead({ ...inp, cfg: sc }).attempts.filter((a) => off.includes(a.mode)) : [];
 
@@ -290,6 +317,15 @@ export function buildDecisionDay(args: {
     }
     warnings.push({ clock: s.clock, side: s.side, mode: s.regime.mode, converted, right });
   });
+
+  const trendEnds: DecisionDay["trendEnds"] = [];
+  lr.steps.forEach((s, i) => {
+    const t = s.trendEnd, p = lr.steps[i - 1]?.trendEnd;
+    if (!t || t.level === "İZLE" || p?.level === t.level) return;
+    trendEnds.push({ clock: s.clock, level: t.level, ended6: lr.steps.slice(i + 1, i + 7).some((x) => x.trendEnd?.level === "BİTTİ") });
+  });
+  const manageLog: DecisionDay["manageLog"] = [];
+  lr.steps.forEach((s, i) => { const m = s.manage, p = lr.steps[i - 1]?.manage; if (m && (!p || p.action !== m.action)) manageLog.push({ clock: s.clock, action: m.action }); });
 
   const rsiAt = (t: number) => { const k = kOf(t); return k >= 0 ? lr.steps[k].rsi?.v15 ?? null : null; };
   const attempts = lr.attempts.map((a) => logAtt(a, rsiAt(a.time)));
@@ -339,7 +375,7 @@ export function buildDecisionDay(args: {
   return {
     date, version: ENGINE_VERSION, cfg: cfgHash(cfgEff), backfill, generatedAt: new Date().toISOString(),
     prevClose: r2(prevClose), open: r2(dayBars[0].open), close: r2(dayBars[dayBars.length - 1].close), atr5: r2(k10 >= 0 ? A(k10) : 0),
-    opening, transitions, warnings, attempts, shadow: shadowL,
+    opening, transitions, warnings, trendEnds, manageLog, attempts, shadow: shadowL,
     summary: { n: done.length, wins: done.filter((a) => (a.r ?? 0) > 0).length, R: r2(done.reduce((s, a) => s + (a.r ?? 0), 0)), pts: r2(done.reduce((s, a) => s + (a.exit != null ? (a.exit - a.entry) * (a.side === "CALL" ? 1 : -1) : 0), 0)) },
     fc15: forecast15Day(m5, date, prevClose), lessons, ...(args.live?.length ? { live: args.live } : {}),
   };

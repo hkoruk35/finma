@@ -57,6 +57,13 @@
  *   · Gap yönüyle NET olmayan açılışa izin (plan.gapLean): ~0R ek; açılış yönünü RSI/VWAP trend sonunda bitirmek (plan.openEndOn): puanı 50 → 44–46.
  *   · Sabah yönü (10:00 → 12:00): NET açılış %74 (23 gün, +0,76 puan); gap yönü %62, önceki gün tepe/dip dışı %60, premarket dışı %57, VWAP tarafı %56.
  *
+ * POZİSYON YÖNETİMİ + TREND SONU (2026-10-14, aynı 59 seans; 13 Ekim incelemesi sonrası):
+ *   · 09:40 PUT neden yok: açılış eğilimi yukarı iken eğilime KARŞI açılış aralığı kırılımları ortalama −12,3R (ORB karşı yön) — kural bilerek yok.
+ *   · Hedefte yarıyı sat + stopu girişe çek + kalanı 5m EMA20 kapanışına kadar taşı (manage): AÇILIŞ +37,8R → +49,1R (üç dönemde de iyi),
+ *     ÖĞLEN'de kazanç yok → tam çıkış (VWAP). Girişte 1R'de başabaşa çekmek zarar veriyor. QQQ KAPANIŞ'ta taşıma kaybettirdi → qqqengine/config.ts'te kapalı.
+ *   · Trend bitişi (trendEnd): İZLE / UYARI / BİTTİ — 15m RSI dönüşü, 5m kapanışın VWAP'ın ters tarafında olması, ters kurulum; EMA20 ötesi kapanış = BİTTİ.
+ *   · Ölçülüp EKLENMEYEN: histerezis (durum titremesi azaltma) ve daha geniş stoplar — dönemlerde tutarsız; fırsat kaçırmamak için yeni giriş kuralı da eklenmedi.
+ *
  * 13 EKİM GÜN İÇİ İNCELEME (58 seans, pencere 07-22 → 10-13; kapanış modu kapalı): 84 işlem %60 +67,2R (dönemler +22,5 / +21,9 / +22,9R).
  *   Bugünün akışı (gap aşağı, 09:35'te gap doldu, 778,75 tepe → 775,95 dip → 777,9): NET olmayan yukarı açılış → işlem yok (doğru, gün 1,2 puan yukarı sonra tamamen geri verdi);
  *   11:15 CALL (öğlen dönüşü) stop −1R, 11:55 CALL hedef +1,25R. Bulgular:
@@ -140,6 +147,22 @@ export const LADDER_CFG = {
     closeTop: 0.55,
     /** hacim ≥ önceki 3 mumun ortalaması × */
     volRatio: 1.0,
+  },
+  /**
+   * İŞLEM YÖNETİMİ (tavsiye + izlenen "taşınan yarı"): hedefte yarısı satılır, stop girişe çekilir, kalan yarı trend bitene kadar taşınır.
+   * Resmî işlem (log/öğrenme) hedefte tam çıkış olarak kalır; taşınan yarının sonucu ayrıca "managed" olarak izlenir.
+   * Ölçüm (58 seans, aynı girişler; stop girişe çekilir): AÇILIŞ +37,8R → +49,1R (dönemler 22,1→32,2 / 0,7→0,7 / 15,0→16,2: hiçbirinde düşmedi).
+   * ÖĞLEN dönüşünde taşımak güvenilir fark vermedi (+22,2R → +23,7R, 2. dönemde −2R) → ÖĞLEN'de hedefte (VWAP) tamamı satılır, taşıma tavsiye edilmez.
+   * Stopu +1R'de girişe çekmek AÇILIŞ'ta kazananı erken çıkardı (BE@1R: +37,8R → +30,9R) → çekilmez; yalnız hedefte yarı satıldıktan sonra girişe çekilir.
+   */
+  manage: {
+    on: true,
+    /** hedefte satılan oran */
+    frac: 0.5,
+    /** mod → kalan yarının çıkış kuralı: "ema20" = 5m kapanış EMA20'nin ters tarafına geçince · "r4" = 4R'ye kadar (stop girişte) */
+    runner: { "AÇILIŞ YÖNÜ": "ema20", "KAPANIŞ YÖNÜ": "ema20" } as Record<string, "ema20" | "r4">,
+    /** TREND SONU uyarıları (AÇILIŞ / KAPANIŞ yönü) */
+    trendEnd: true,
   },
   /** 15m / 30m RSI(14) yönü (RTH, çok günlük): yön = RSI 50'nin üstünde ve yükseliyor (aşağı: altında ve düşüyor) */
   rsi: {
@@ -322,7 +345,12 @@ export interface Attempt {
   mfe: number;
   /** girişte üst zaman dilimi teyidi (0–3) */
   confirm: number;
+  /** Taşınan yarı (yönetim): hedefte yarısı satıldı, kalan yarı kural gereği çıkana kadar izlenir */
+  managed?: { frac: number; exitClock: string | null; exit: number | null; why: "TREND SONU" | "BE STOP" | "4R" | "ZAMAN" | null; restR: number | null; totalR: number | null };
 }
+
+export interface TrendEnd { level: "İZLE" | "UYARI" | "BİTTİ"; text: string; flags: string[] }
+export interface ManageAdvice { phase: "POZİSYON" | "HEDEF" | "TAŞINAN YARI" | "KAPANDI" | "ARTTIR"; action: string; text: string }
 
 export interface LadderStep {
   time: number;
@@ -342,6 +370,10 @@ export interface LadderStep {
   tech: { vw: number; mom: number } | null;
   /** 15m / 30m RSI(14) son kapanmış değer ve yönü (+1 yukarı · −1 aşağı · 0 kararsız) */
   rsi: { v15: number | null; d15: 1 | -1 | 0; v30: number | null; d30: 1 | -1 | 0 } | null;
+  /** Trend sonu uyarısı (yön izni ya da açık pozisyon trend modundayken) */
+  trendEnd: TrendEnd | null;
+  /** İşlem yönetimi tavsiyesi: pozisyon / hedef / taşınan yarı */
+  manage: ManageAdvice | null;
   rvol: number | null;
   dayRvol: number | null;
   localRatio: number | null;
@@ -459,7 +491,6 @@ export function ladderRead(inp: LadderInput): LadderRead {
   let opening: OpeningRegime | null = null;
   let openingProvisional: OpeningRegime | null = null;
   let broken = false;
-  let trendEnded = false;
   let pos: { att: Attempt; d: 1 | -1; stop: number; target: number; risk: number; partial?: number } | null = null;
   let cooldownUntil = -1;
   let lastImp: { i: number; d: 1 | -1 } | null = null;
@@ -467,6 +498,9 @@ export function ladderRead(inp: LadderInput): LadderRead {
   let clxUsed = -1;
   let reverseUntil = -1;
   let warnLatch: { i: number; d: 1 | -1 } | null = null;
+  type Runner = { att: Attempt; d: 1 | -1; risk: number; rule: "ema20" | "r4" };
+  /** taşınan yarılar (birden fazla işlemin kalan yarısı aynı anda sürebilir) */
+  let runners: Runner[] = [];
   let reverseWhy: string[] = [];
   const sweptFlag = new Set<number>();
   let cum = 0;
@@ -529,7 +563,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     if (opD && !broken && endMin > 10 * 60 && C.plan.openEndOn !== "off" && !pos) {
       const rsiFlip = rsiDirOf(r15) === -opD;
       const vwapLost = i > 0 && (b.close - (s5.vwap[i] ?? b.close)) * opD < 0 && (bars[i - 1].close - (s5.vwap[i - 1] ?? bars[i - 1].close)) * opD < 0;
-      if ((C.plan.openEndOn === "rsi" && rsiFlip) || (C.plan.openEndOn === "vwap2" && vwapLost) || (C.plan.openEndOn === "both" && (rsiFlip || vwapLost))) { broken = true; trendEnded = true; }
+      if ((C.plan.openEndOn === "rsi" && rsiFlip) || (C.plan.openEndOn === "vwap2" && vwapLost) || (C.plan.openEndOn === "both" && (rsiFlip || vwapLost))) { broken = true; }
     }
     const dev = b.close - vw;
     const devAtr = A5 ? dev / A5 : null;
@@ -643,10 +677,32 @@ export function ladderRead(inp: LadderInput): LadderRead {
         if (P.partial != null) P.att.result = (P.att.r ?? 0) >= 0 ? "KÂR" : "ZARAR";
         P.att.exitWhy = ex.why;
         exitedNow = P.att;
+        if (C.manage.on && ex.why === "HEDEF" && C.manage.runner[P.att.mode]) runners.push({ att: P.att, d: P.d, risk: P.risk, rule: C.manage.runner[P.att.mode] });
         pos = null;
         cooldownUntil = i + C.risk.cooldownBars;
       }
     }
+
+    // ── taşınan yarı (hedefte yarısı satıldı; stop girişte; kalan kurala göre çıkar) ──
+    let runnerEnded: Attempt | null = null;
+    const stillRunning: Runner[] = [];
+    for (const Rn of runners) {
+      if (exitedNow && Rn.att === exitedNow) { stillRunning.push(Rn); continue; }
+      const dd = Rn.d;
+      let x: { price: number; why: NonNullable<Attempt["managed"]>["why"] } | null = null;
+      if (dd > 0 ? b.low <= Rn.att.entry : b.high >= Rn.att.entry) x = { price: Rn.att.entry, why: "BE STOP" };
+      else if (Rn.rule === "ema20" && e5 != null && (b.close - e5) * dd < 0) x = { price: b.close, why: "TREND SONU" };
+      else if (Rn.rule === "r4" && (dd > 0 ? b.high >= Rn.att.entry + 4 * Rn.risk : b.low <= Rn.att.entry - 4 * Rn.risk)) x = { price: Rn.att.entry + dd * 4 * Rn.risk, why: "4R" };
+      else if (endMin >= C.risk.exitMin) x = { price: b.close, why: "ZAMAN" };
+      if (x) {
+        const restR = Rn.risk > 0 ? ((x.price - Rn.att.entry) * dd) / Rn.risk : 0;
+        const tgtR = Rn.risk > 0 ? Math.abs(Rn.att.target - Rn.att.entry) / Rn.risk : 0;
+        Rn.att.managed = { frac: C.manage.frac, exitClock: clock, exit: r2(x.price), why: x.why, restR: r2(restR), totalR: r2(C.manage.frac * tgtR + (1 - C.manage.frac) * restR) };
+        runnerEnded = Rn.att;
+      } else stillRunning.push(Rn);
+    }
+    runners = stillRunning;
+    const runner: Runner | null = runners.length ? runners[runners.length - 1] : null;
 
     // ── ters uyarı (bilgi: yeni girişi engellemez, stopu otomatik oynatmaz) ──
     const rd: 1 | -1 | 0 = pos ? pos.d : d;
@@ -851,7 +907,48 @@ export function ladderRead(inp: LadderInput): LadderRead {
       }
     }
 
+    // ── TREND SONU uyarısı (AÇILIŞ / KAPANIŞ yönü: izin, açık pozisyon ya da taşınan yarı varken) ──
+    let trendEnd: TrendEnd | null = null;
+    {
+      const tmode = pos ? pos.att.mode : runner ? runner.att.mode : mode;
+      const tdir: 1 | -1 | 0 = pos ? pos.d : runner ? runner.d : (mode === "AÇILIŞ YÖNÜ" || mode === "KAPANIŞ YÖNÜ") ? d : 0;
+      if (C.manage.trendEnd && tdir !== 0 && e5 != null && A5 && (tmode === "AÇILIŞ YÖNÜ" || tmode === "KAPANIŞ YÖNÜ")) {
+        const flags: string[] = [];
+        if (rsiDirOf(r15) === -tdir) flags.push(`15m RSI ${tdir > 0 ? "aşağı" : "yukarı"} döndü (${r15 ? r15.v.toFixed(0) : "—"})`);
+        if ((b.close - vw) * tdir < 0) flags.push("5m kapanış VWAP'ın ters tarafında");
+        if (revNow.length) flags.push(revNow[0]);
+        if ((b.close - e5) * tdir < 0) trendEnd = { level: "BİTTİ", text: `TREND BİTTİ: 5m kapanış EMA20'nin (${f2(e5)}) ${tdir > 0 ? "altına indi" : "üstüne çıktı"}`, flags };
+        else if (flags.length >= 2 || (flags.length === 1 && Math.abs(b.close - e5) < 0.4 * A5)) trendEnd = { level: "UYARI", text: `TREND ZAYIFLIYOR: ${flags.join(" · ")}`, flags };
+        else if (flags.length === 1) trendEnd = { level: "İZLE", text: `Trend izleniyor: ${flags[0]}`, flags };
+      }
+    }
+
+    // ── İŞLEM YÖNETİMİ tavsiyesi ──
+    let manage: ManageAdvice | null = null;
+    if (C.manage.on) {
+      const ruleTxt = (r: "ema20" | "r4", dd: 1 | -1) => (r === "ema20" ? `5m kapanış EMA20'nin ${dd > 0 ? "altına" : "üstüne"} inene kadar` : "4R'ye kadar (stop girişte)");
+      if (runnerEnded?.managed) {
+        const m = runnerEnded.managed;
+        manage = { phase: "KAPANDI", action: "TAŞINAN YARI KAPANDI", text: `Kalan yarı ${m.why} ile ${f2(m.exit ?? 0)} seviyesinde kapandı (${(m.restR ?? 0) >= 0 ? "+" : ""}${m.restR}R) — hedefte satılan yarıyla toplam yönetimli sonuç ${(m.totalR ?? 0) >= 0 ? "+" : ""}${m.totalR}R.` };
+      } else if (exitedNow && runner && runner.att === exitedNow) {
+        manage = { phase: "HEDEF", action: "YARISINI SAT · KALANI TAŞI", text: `Hedef ${f2(exitedNow.target)} geldi: pozisyonun yarısını sat, stopu girişe (${f2(exitedNow.entry)}) çek, kalan yarıyı ${ruleTxt(runner.rule, runner.d)} taşı.` };
+      } else if (pos && pos.att.time === b.time && runners.some((x) => x.d === pos!.d && x.att !== pos!.att)) {
+        manage = { phase: "ARTTIR", action: "ARTTIR", text: `Taşınan yarı sürerken aynı yönde yeni TETİK geldi — trend devam ediyor: ekleme fırsatı (yeni stop ${f2(pos.stop)}; taşınan yarının stopu girişte).` };
+      } else if (runner) {
+        const bad = trendEnd && trendEnd.level !== "İZLE";
+        manage = { phase: "TAŞINAN YARI", action: bad ? "KALANI KAPAT / SIKILAŞTIR" : "TAŞI", text: bad ? `${trendEnd!.text}. Kalan yarıyı kapat ya da stopu sıkılaştır.` : `Kalan yarı açık: stop girişte (${f2(runner.att.entry)}), çıkış ${ruleTxt(runner.rule, runner.d)}${runner.rule === "ema20" && e5 != null ? ` (EMA20 ${f2(e5)})` : ""}.` };
+      } else if (pos) {
+        const P = pos, rNow = P.risk > 0 ? ((b.close - P.att.entry) * P.d) / P.risk : 0;
+        const rule = C.manage.runner[P.att.mode];
+        const strong = rsiDirOf(r15) === P.d && (local ?? 1) >= 0.9 && e5 != null && (b.close - e5) * P.d > 0;
+        if (trendEnd && trendEnd.level !== "İZLE") manage = { phase: "POZİSYON", action: "KÜÇÜLT", text: `${trendEnd.text}. Pozisyonu küçült (yarısını sat) ya da stopu sıkılaştır.` };
+        else if (rNow >= 1 && strong) manage = { phase: "POZİSYON", action: "TAŞI", text: `Trend güçlü (${rNow.toFixed(1)}R · 15m RSI ${P.d > 0 ? "yukarı" : "aşağı"} · hacim yeterli): stopu girişe ÇEKME (ölçümde kazananı erken çıkardı), hedefte yarısını sat.` };
+        else manage = { phase: "POZİSYON", action: "PLANI KORU", text: `Stop ${f2(P.stop)} · hedef ${f2(P.target)} (${rNow >= 0 ? "+" : "−"}${Math.abs(rNow).toFixed(1)}R). ${rule ? `Hedefte yarısını sat, stopu girişe çek, kalanı ${ruleTxt(rule, P.d)} taşı.` : "Hedefte (VWAP) tamamını sat — bu modda taşımak ölçümde ek kâr getirmedi."}` };
+      }
+    }
+
     steps.push({
+      trendEnd, manage,
       time: b.time, clock, status, side: status === "İŞLEM YOK" ? null : side, message, change, regime,
       warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm, tech: inp.tech?.get(b.time) ?? null,
       rsi: r15 || r30 ? { v15: r15 ? r2(r15.v) : null, d15: rsiDirOf(r15), v30: r30 ? r2(r30.v) : null, d30: rsiDirOf(r30) } : null,
@@ -881,7 +978,38 @@ export function ladderComment5(inp: LadderInput, lr: LadderRead, i: number): Can
   const devA = dev != null && A ? dev / A : null;
   const quality = rg > 0 && body / rg >= C.trig.minBodyFrac && (up ? cp >= C.trig.closeTop : cp <= 1 - C.trig.closeTop);
   const pat = detectCandlePatterns(inp.s5.bars, i).sort((a, c) => c.strength - a.strength)[0] ?? null;
+
+  // ── Mum ↔ karar uyumu: mum, sistemin o anki yönünü (ya da henüz sönmemiş uyarısını) destekliyor mu? ──
+  const cdir: 1 | -1 = up ? 1 : -1;
+  // yön: kararın yönü; karar yönsüzse son 10 mumdaki ERKEN UYARI'nın yönü (uyarı gerçekleşiyor mu?)
+  let sdir: 1 | -1 | 0 = st.side === "CALL" ? 1 : st.side === "PUT" ? -1 : 0;
+  let follow: { clock: string; move: number } | null = null;
+  if (sdir === 0 || st.status === "İZLE") {
+    for (let j = i - 1; j >= Math.max(0, i - 10); j--) {
+      const w = lr.steps[j];
+      if (w.status === "ERKEN UYARI" && w.side && (sdir === 0 || (w.side === "CALL" ? 1 : -1) === sdir)) {
+        const wd = w.side === "CALL" ? 1 : -1, mv = (b.close - inp.s5.bars[j].close) * wd;
+        // uyarı işleme döndüyse (araya TETİK girdiyse) "takip" değil, işlem akışıdır
+        const traded = lr.steps.slice(j + 1, i + 1).some((x) => x.status === "TETİK" || x.status === "İPTAL");
+        if (A && mv >= 0.6 * A && !traded) { sdir = wd; follow = { clock: w.clock, move: mv }; }
+        break;
+      }
+    }
+  }
+  const fadeMode = st.regime.mode === "ÖĞLEN DÖNÜŞ" || (follow != null && lr.steps.slice(Math.max(0, i - 10), i).some((x) => x.status === "ERKEN UYARI" && x.regime.mode === "ÖĞLEN DÖNÜŞ"));
+  let support: boolean | null = null;
+  let supportTxt = "";
+  if (sdir !== 0 && ["ERKEN UYARI", "İZLE", "TETİK", "TERS UYARI", "İŞLEM YOK"].includes(st.status)) {
+    const sw = sdir > 0 ? "CALL" : "PUT";
+    if (cdir === sdir) { support = quality; supportTxt = quality ? `mum ${sw} yönünü DESTEKLİYOR${fadeMode ? " (dönüş mumu)" : ""}` : `mum ${sw} yönünde ama zayıf — teyit değil`; }
+    else { support = false; supportTxt = quality ? (fadeMode ? `mum ${sw} uyarısını henüz DESTEKLEMİYOR — uzama sürüyor (${up ? "yeşil" : "kırmızı"} gövdeli); dönüş için ${sdir > 0 ? "yeşil" : "kırmızı"} gövdeli kapanış gerekir` : `mum ${sw} yönüne TERS (${up ? "yeşil" : "kırmızı"} gövdeli) — geri çekilme; yön izni kaybolmadıkça beklenir`) : `ters yönde ama zayıf mum — ${sw} planı bozulmadı`; }
+  }
+  const trendTxt = st.trendEnd && st.trendEnd.level !== "İZLE" ? st.trendEnd.text : null;
   const lines: string[] = [
+    ...(follow ? [`UYARI GERÇEKLEŞİYOR: ${follow.clock} ${sdir > 0 ? "CALL" : "PUT"} uyarısından beri fiyat uyarı yönünde ${follow.move.toFixed(2)} puan gitti; tetik şartı (uzama ≥ ${C.plan.fadeK} ATR) artık yok — yeni giriş değil, uyarının hedefi VWAP ${vw != null ? f2(vw) : "—"} yönünde seyrediyor.`] : []),
+    ...(supportTxt ? [`Mum ↔ karar: ${supportTxt}`] : []),
+    ...(trendTxt ? [`⚠ ${trendTxt}${st.trendEnd!.flags.length ? ` (${st.trendEnd!.flags.join(" · ")})` : ""}`] : []),
+    ...(st.manage ? [`Yönetim: ${st.manage.action} — ${st.manage.text}`] : []),
     `Durum: ${st.status}${st.side ? ` (${st.side})` : ""} · ${st.regime.mode} — ${st.message}`,
     `Mum: gövde %${rg > 0 ? Math.round((body / rg) * 100) : 0} · kapanış %${Math.round(cp * 100)} → ${quality ? "gövdeli" : "zayıf"}${A ? ` · aralık ${(rg / A).toFixed(2)} ATR` : ""}${pat ? ` · formasyon: ${pat.label} (${pat.direction === "LONG" ? "yukarı" : "aşağı"})` : ""}`,
     `Hacim: önceki 3 mumun ${st.localRatio != null ? `${st.localRatio.toFixed(2)}×'i` : "—"} · RVOL ${st.rvol != null ? st.rvol.toFixed(2) : "—"} (${rvolText(st.rvol)})`,
@@ -889,8 +1017,11 @@ export function ladderComment5(inp: LadderInput, lr: LadderRead, i: number): Can
   ];
   if (st.change) lines.push(`Ne olursa değişir: ${st.change}`);
   return {
-    tf: "5m", time: b.time, clock: nyClock(b.time + 300), tone: toneOf(st), forming: false,
-    headline: `${st.status}${st.side ? ` · ${st.side}` : ""} · ${quality ? "gövdeli" : "zayıf"} ${up ? "yükseliş" : "düşüş"} mumu${pat ? ` · ${pat.label}` : ""}`,
+    tf: "5m", time: b.time, clock: nyClock(b.time + 300),
+    // renk: TETİK = yön rengi; uyarı/izle/uyarı-takibi = yalnız mum yönü kararı DESTEKLİYORSA yön rengi, aksi halde nötr (çelişen renk gösterilmez)
+    tone: st.status === "TETİK" ? toneOf(st) : support && sdir !== 0 ? (sdir > 0 ? "bull" : "bear") : "neutral",
+    forming: false,
+    headline: `${follow ? `UYARI GERÇEKLEŞİYOR · ${sdir > 0 ? "CALL" : "PUT"}` : `${st.status}${st.side ? ` · ${st.side}` : ""}`} · ${quality ? "gövdeli" : "zayıf"} ${up ? "yükseliş" : "düşüş"} mumu${support === true ? " ✓ destekliyor" : support === false && ["ERKEN UYARI", "TETİK"].includes(st.status) ? " ✕ desteklemiyor" : ""}${trendTxt ? " · ⚠ TREND BİTİYOR" : ""}${st.manage && ["HEDEF", "KÜÇÜLT", "ARTTIR"].some((k) => st.manage!.phase === k || st.manage!.action === k) ? ` · ${st.manage.action}` : ""}${pat ? ` · ${pat.label}` : ""}`,
     close: b.close, vwap: vw ?? null, vwapSide: dev == null ? null : Math.abs(dev) < 0.02 ? "AT" : dev > 0 ? "ABOVE" : "BELOW",
     upperWick: r2(b.high - Math.max(b.open, b.close)), lowerWick: r2(Math.min(b.open, b.close) - b.low), closePos: cp,
     volume: b.volume || 0, volRatio: st.rvol, lines,
@@ -913,6 +1044,7 @@ export function ladderComment15(inp: LadderInput, lr: LadderRead, k: number): Ca
   const dev = vw != null ? b.close - vw : null;
   const side = (x: number | null) => (x == null ? "—" : x > 0 ? "üstünde" : x < 0 ? "altında" : "üzerinde");
   const lines = [
+    ...(st ? [`Karar (${st.clock}): ${st.status}${st.side ? ` · ${st.side}` : ""}${st.trendEnd && st.trendEnd.level !== "İZLE" ? ` · ⚠ ${st.trendEnd.text}` : ""}`] : []),
     `Seans planı: ${rg ? `${rg.mode}${rg.permission !== "NÖTR" ? ` → ${rg.permission}` : ""} — ${rg.modeText}` : "—"}`,
     `15m kapanış VWAP ${vw != null ? f2(vw) : "—"} ${side(dev)} (${dev != null ? sgn(dev) : "—"}) · EMA20 ${e15 != null ? `${f2(e15)} ${side(b.close - e15)}` : "—"}`,
     `15m RVOL ${rv15 != null ? rv15.toFixed(2) : "—"}: ${rvolText(rv15)}${pat ? ` · formasyon: ${pat.label} (${pat.direction === "LONG" ? "yukarı" : "aşağı"})` : ""}`,

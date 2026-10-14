@@ -278,6 +278,12 @@ function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: Mod
         <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
         <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
         {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
+        {s.trendEnd && s.trendEnd.level !== "İZLE" && (
+          <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.trendEnd.level === "BİTTİ" ? "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#f87171]" : "border-orange-500/50 bg-orange-500/10 text-orange-300"}`}>⚠ {s.trendEnd.text}</div>
+        )}
+        {s.manage && (
+          <div className="mt-1.5 rounded border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[12px] leading-snug text-sky-100"><b className="text-sky-300">{s.manage.action}</b> — {s.manage.text}</div>
+        )}
         <div className="mt-1.5 font-mono text-[11px] text-slate-500">
           bugün: {L.attempts.length ? `${L.attempts.length} deneme · ${done.length ? `${totR >= 0 ? "+" : ""}${totR.toFixed(1)}R` : "sonuç bekleniyor"}` : "deneme yok"}
         </div>
@@ -1758,12 +1764,14 @@ export default function SpyEngineV9() {
   // Sesli uyarı: yalnızca merdiven durumu değişince — ERKEN UYARI / TERS UYARI (ön uyarı sesi), TETİK (giriş sesi).
   // İlk yüklemede (prev == null) çalmaz.
   useEffect(() => {
-    const key = lad ? `${lad.status}:${lad.side ?? ""}` : "-";
+    const key = lad ? `${lad.status}:${lad.side ?? ""}:${lad.trendEnd && lad.trendEnd.level !== "İZLE" ? lad.trendEnd.level : ""}:${lad.manage && ["HEDEF", "KÜÇÜLT", "ARTTIR", "KAPANDI"].includes(lad.manage.phase === "POZİSYON" ? lad.manage.action : lad.manage.phase) ? lad.manage.phase + lad.manage.action : ""}` : "-";
     const prev = lastAlertKeyRef.current;
     lastAlertKeyRef.current = key;
     if (prev == null || prev === key || !alertSound || replayDate || !lad) return;
     if (lad.status === "TETİK" && lad.plan && !prev.startsWith("TETİK")) chime("fired");
     else if (lad.status === "ERKEN UYARI" || lad.status === "TERS UYARI") chime("imminent");
+    else if (lad.trendEnd && lad.trendEnd.level !== "İZLE") chime("imminent");
+    else if (lad.manage && (lad.manage.phase === "HEDEF" || lad.manage.phase === "ARTTIR" || lad.manage.action === "KÜÇÜLT" || lad.manage.phase === "KAPANDI")) chime("fired");
   }, [lad, alertSound, replayDate, chime]);
 
 

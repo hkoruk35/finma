@@ -36,6 +36,8 @@ import { type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { ReversalState } from "@/lib/spyengine/reversal";
 import Link from "next/link";
 import { QQQ_LADDER_CFG } from "@/lib/qqqengine/config";
+import DecisionLogPanel, { type DecisionResp } from "@/components/admin/spyengine/DecisionLogPanel";
+import { applyTrust, type ModeStat } from "@/lib/spyengine/decisionCore";
 import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
 import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
 import type { OptionFlow, QuoteBook } from "@/lib/spyengine/optionFetch";
@@ -236,7 +238,7 @@ function Pill({ ok, children }: { ok: boolean | null; children: ReactNode }) {
 }
 
 /** Karar özeti: ŞİMDİ ne yap · NEDEN · giriş kontrol listesi / plan ne zaman değişir (sade ve sonuç odaklı) */
-function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
+function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: ModeStat | null }) {
   const rg = s.regime;
   const side = s.side ?? (rg.permission === "CALL" || rg.permission === "PUT" ? rg.permission : null);
   const sideN = side === "CALL" ? 1 : side === "PUT" ? -1 : 0;
@@ -270,6 +272,12 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
         <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
         <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
         {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
+        {s.trendEnd && s.trendEnd.level !== "İZLE" && (
+          <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.trendEnd.level === "BİTTİ" ? "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#f87171]" : "border-orange-500/50 bg-orange-500/10 text-orange-300"}`}>⚠ {s.trendEnd.text}</div>
+        )}
+        {s.manage && (
+          <div className="mt-1.5 rounded border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[12px] leading-snug text-sky-100"><b className="text-sky-300">{s.manage.action}</b> — {s.manage.text}</div>
+        )}
         <div className="mt-1.5 font-mono text-[11px] text-slate-500">
           bugün: {L.attempts.length ? `${L.attempts.length} deneme · ${done.length ? `${totR >= 0 ? "+" : ""}${totR.toFixed(1)}R` : "sonuç bekleniyor"}` : "deneme yok"}
         </div>
@@ -289,6 +297,11 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
             <Pill ok={rsiOk(s.rsi.d30)}>RSI 30m {s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"}</Pill>
           </>)}
         </div>
+        {hist && hist.n >= 10 && (
+          <div className="mt-1.5 text-[11px] leading-snug text-slate-300">
+            Arşivde <b>{s.regime.mode}</b>: {hist.n} işlem · %{Math.round((100 * hist.wins) / hist.n)} kazanç · ort. <b className={hist.avgR >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{hist.avgR >= 0 ? "+" : "−"}{Math.abs(hist.avgR).toFixed(2)}R</b> · güven <b>{hist.level}</b>
+          </div>
+        )}
         {s.confirm && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">Rozetler işlem yönüyle uyum (yeşil ✓ = aynı yönde). Üst zaman ve RSI bilgidir; giriş yalnız 5m tetikten gelir.</div>}
         {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
       </div>
@@ -315,7 +328,7 @@ function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
 }
 
 /** Merdivenin ayrıntısı: 4 adımın koşulları, risk, gün içi durum geçmişi */
-function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | null; waiting: boolean }) {
+function LadderPanel({ L, s, waiting, hist }: { L: LadderRead | null; s: LadderStep | null; waiting: boolean; hist?: ModeStat | null }) {
   if (!L || !s) {
     return (
       <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
@@ -323,10 +336,10 @@ function LadderPanel({ L, s, waiting }: { L: LadderRead | null; s: LadderStep | 
       </div>
     );
   }
-  return <LadderPanelBody L={L} s={s} />;
+  return <LadderPanelBody L={L} s={s} hist={hist ?? null} />;
 }
 
-function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
+function LadderPanelBody({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: ModeStat | null }) {
   const [open, setOpen] = useState(false);
   const rg = s.regime;
   const permCol = rg.permission === "CALL" ? "#22c55e" : rg.permission === "PUT" ? "#ef4444" : "#94a3b8";
@@ -336,7 +349,7 @@ function LadderPanelBody({ L, s }: { L: LadderRead; s: LadderStep }) {
         <span className="text-[13px] font-semibold text-slate-200">Karar Merdiveni · karar desteği</span>
         <span className="font-mono text-[11px] text-slate-500">son 5m kapanış {s.clock} ET</span>
       </div>
-      <LadderSummary L={L} s={s} />
+      <LadderSummary L={L} s={s} hist={hist} />
       <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">
         <button type="button" onClick={() => setOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{open ? "▴ gizle" : "▾ göster"}</button>
         <span className="text-[12px] font-semibold text-slate-300">Teknik ayrıntı <span className="font-normal text-slate-500">· 4 adımın koşulları, risk kuralları, gün içi geçmiş, kalibrasyon</span></span>
@@ -1275,12 +1288,45 @@ export default function SpyEngineV9() {
   const htf = useMemo(() => ({ m30: m30D, e30: emaByTime(m30D), m60: m60D, e60: emaByTime(m60D) }), [m30D, m60D]);
   /** 15m / 30m RSI(14) — RTH, çok günlük (QQQ'da yalnız bilgi; işlem şartı değil) */
   const rsiInput = useMemo(() => ({ r15: rsiSeries(m15D), r30: rsiSeries(m30D) }), [m15D, m30D]);
+  // Karar günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları arşivler, modeli yeniden öğrenir)
+  const [decisions, setDecisions] = useState<DecisionResp | null>(null);
+  const [showDecisions, setShowDecisions] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/qqqengine/v2/decisions", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok) setDecisions(json as DecisionResp);
+      } catch {
+        // günlük ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 10 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
+  /** Öğrenen model: kanıt güçlü eksi olan mod otomatik kapanır (başka hiçbir ayar kendiliğinden değişmez) */
+  const cfgEff = useMemo(() => applyTrust(CFG, decisions?.model ?? null), [decisions?.model]);
   const ladderInput = useMemo(() => {
     if (!analysis || !date) return null;
-    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, tech: techMap, cfg: CFG, rsi: rsiInput };
-  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, techMap, rsiInput, data?.levels?.prevClose]);
+    return { date, s5: analysis.s5, s15: analysis.s15, s30: analysis.s30, ema5, ema15, atr5: atr5Map, atr15: atr15Map, rvol: rvolBase, prevClose: data?.levels?.prevClose ?? null, htf, staticLevels, tech: techMap, cfg: cfgEff, rsi: rsiInput };
+  }, [analysis, date, ema5, ema15, atr5Map, atr15Map, rvolBase, htf, staticLevels, techMap, rsiInput, cfgEff, data?.levels?.prevClose]);
   const ladder = useMemo<LadderRead | null>(() => (ladderInput ? ladderRead(ladderInput) : null), [ladderInput]);
   const lad = ladder?.current ?? null;
+
+  // Her canlı kararı (durum / yön / mod değişimi) günün karar günlüğüne işle — gün kapanınca arşiv kaydına birleşir
+  const loggedSig = useRef("");
+  useEffect(() => {
+    if (replayDate || !lad || !date || !data?.session.isLive) return;
+    const sig = `${date}|${lad.status}|${lad.side}|${lad.regime.mode}`;
+    if (loggedSig.current === sig) return;
+    loggedSig.current = sig;
+    void fetch("/api/admin/qqqengine/v2/decisions", {
+      method: "POST", credentials: "include", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, events: [{ t: lad.time, clock: lad.clock, status: lad.status, side: lad.side, mode: lad.regime.mode, msg: lad.message, price: price, entry: lad.plan?.entry, stop: lad.plan?.stop, target: lad.plan?.target }] }),
+    }).catch(() => { /* kayıt ana akışı etkilemesin */ });
+  }, [lad, date, replayDate, data?.session.isLive, price]);
 
   /** Mum yorumları — aynı sistem (5m: merdiven durumu + kalite + RVOL; 15m: rejim koşulları) */
   const comments = useMemo(() => {
@@ -1365,12 +1411,14 @@ export default function SpyEngineV9() {
   // Sesli uyarı: yalnızca merdiven durumu değişince — ERKEN UYARI / TERS UYARI (ön uyarı sesi), TETİK (giriş sesi).
   // İlk yüklemede (prev == null) çalmaz.
   useEffect(() => {
-    const key = lad ? `${lad.status}:${lad.side ?? ""}` : "-";
+    const key = lad ? `${lad.status}:${lad.side ?? ""}:${lad.trendEnd && lad.trendEnd.level !== "İZLE" ? lad.trendEnd.level : ""}:${lad.manage && ["HEDEF", "KÜÇÜLT", "ARTTIR", "KAPANDI"].includes(lad.manage.phase === "POZİSYON" ? lad.manage.action : lad.manage.phase) ? lad.manage.phase + lad.manage.action : ""}` : "-";
     const prev = lastAlertKeyRef.current;
     lastAlertKeyRef.current = key;
     if (prev == null || prev === key || !alertSound || replayDate || !lad) return;
     if (lad.status === "TETİK" && lad.plan && !prev.startsWith("TETİK")) chime("fired");
     else if (lad.status === "ERKEN UYARI" || lad.status === "TERS UYARI") chime("imminent");
+    else if (lad.trendEnd && lad.trendEnd.level !== "İZLE") chime("imminent");
+    else if (lad.manage && (lad.manage.phase === "HEDEF" || lad.manage.phase === "ARTTIR" || lad.manage.action === "KÜÇÜLT" || lad.manage.phase === "KAPANDI")) chime("fired");
   }, [lad, alertSound, replayDate, chime]);
 
 
@@ -1621,7 +1669,7 @@ export default function SpyEngineV9() {
         </div>
 
         {/* ── 1a2) Karar merdiveni — karar özeti (+ gizli teknik ayrıntı) ── */}
-        <LadderPanel L={ladder} s={lad} waiting={!analysis || !analysis.s5.bars.length} />
+        <LadderPanel L={ladder} s={lad} waiting={!analysis || !analysis.s5.bars.length} hist={lad ? decisions?.model.modes[lad.regime.mode] ?? null : null} />
 
         {/* ── 1b) Pivot noktaları ── */}
         <PivotCard p={pivR} price={price} />
@@ -1778,6 +1826,9 @@ export default function SpyEngineV9() {
           <CommentFeed title="15m Mum Yorumları — rejim: 5 koşul · VWAP tamponu · RVOL" items={comments.c15} forming={forming15} />
           <CommentFeed title="5m Mum Yorumları — karar satırı durumu · mum kalitesi · RVOL · yerel hacim" items={comments.c5} forming={forming5} />
         </div>
+
+        {/* ── 6) Karar günlüğü & öğrenen model — her karar ve sonucu arşivde ── */}
+        <Hideable title="Karar Günlüğü & Öğrenen Model" open={showDecisions} onToggle={() => setShowDecisions((v) => !v)}><DecisionLogPanel r={decisions} /></Hideable>
 
       </div>
 

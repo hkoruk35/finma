@@ -46,5 +46,9 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   c.rsi = { ...c.rsi, open: "off", close: "off", warnTrend: "off", warnFade: false, preOpen: "off", early955: false, warnGate: true };
   c.warn.preFade = false;
   c.warn.fadeReady = "base";
+  // 2026-10-14 QQQ yönetim ölçümü (58 seans): hedefte yarıyı satıp kalanı EMA20'ye kadar taşımak SPY'da AÇILIŞ'ta kazandırdı
+  // ama QQQ KAPANIŞ'ta kaybettirdi (65 işlem 6,8R → 5,6R, dönemler 5,2→3,3 / −1,2→−2,6 / 2,8→4,9) ve ÖĞLEN'de zaten tam çıkış —
+  // taşıma kapalı; trend-bitişi uyarıları (UYARI/BİTTİ) ve pozisyon yönetimi metinleri açık kalır.
+  c.manage.runner = {};
   return c;
 })();
