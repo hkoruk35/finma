@@ -53,6 +53,7 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   // 2026-10-14: SPY'da "açılış eğilimine karşı öğlen dönüşü 13:00'e kadar aranmaz" kazandırdı, QQQ'da kaybettirdi
   // (58 seans: 85 işlem +16,0R → 73 işlem +9,3R; ÖĞLEN 20/+9,2R → 5/+2,2R) — QQQ'da kapalı.
   c.plan.fadeVsLean = 0;
-  // TREND YAPISI + yapıya ters öneri yok (SPY ile aynı, kullanıcı kararı 2026-10-14): QQQ 58 seans 85 işlem +16,0R → 96 işlem +12,5R (TREND 67/+7,8R).
+  // 09:55 açılış trend uyarısı + ekstra işlem SPY'da +8,9R (31 işlem), QQQ'da 41 işlem −4,0R (58 seans) → QQQ'da kapalı.
+  c.openTrend.on = false;
   return c;
 })();

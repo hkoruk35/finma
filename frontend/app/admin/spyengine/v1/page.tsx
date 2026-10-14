@@ -278,8 +278,8 @@ function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: Mod
         <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
         <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
         {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
-        {s.structure && (
-          <div className={`mt-1.5 rounded border px-2 py-1 text-[11.5px] leading-snug ${s.structure.d > 0 ? "border-[#22c55e]/40 bg-[#22c55e]/10 text-[#86efac]" : s.structure.d < 0 ? "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#fca5a5]" : "border-slate-700 bg-slate-800/40 text-slate-400"}`}>{s.structure.d > 0 ? "▲ " : s.structure.d < 0 ? "▼ " : "◆ "}{s.structure.text}{s.structure.d !== 0 && s.regime.mode !== "TREND YAPISI" && side && (side === "CALL" ? 1 : -1) !== s.structure.d ? " · ⚠ karar yapıya TERS — küçük pozisyon" : ""}</div>
+        {s.openTrend && s.openTrend.phase !== "YOK" && (
+          <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.openTrend.phase === "KAPANDI" ? "border-slate-600 bg-slate-800/50 text-slate-300" : s.openTrend.phase === "BELİRSİZ" ? "border-amber-500/50 bg-amber-500/10 text-amber-200" : s.openTrend.side === "CALL" ? "border-[#22c55e]/50 bg-[#22c55e]/10 text-[#86efac]" : "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#fca5a5]"}`}>{s.openTrend.phase === "KAPANDI" ? "◆ " : s.openTrend.phase === "BELİRSİZ" ? "⚠ " : s.openTrend.side === "CALL" ? "▲ " : "▼ "}{s.openTrend.text}</div>
         )}
         {s.trendEnd && s.trendEnd.level !== "İZLE" && (
           <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.trendEnd.level === "BİTTİ" ? "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#f87171]" : "border-orange-500/50 bg-orange-500/10 text-orange-300"}`}>⚠ {s.trendEnd.text}</div>
@@ -312,6 +312,13 @@ function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: Mod
           </div>
         )}
         {s.confirm && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">Rozetler işlem yönüyle uyum (yeşil ✓ = aynı yönde). Üst zaman ve RSI bilgidir; giriş yalnız 5m tetikten gelir.</div>}
+        {s.general && (
+          <div className="mt-1.5 text-[11px] leading-snug text-slate-300">
+            Genel trend (şu an): <b className={s.general.label.includes("YUKARI") ? "text-[#4ade80]" : s.general.label.includes("AŞAĞI") ? "text-[#f87171]" : "text-amber-300"}>{s.general.label} ({s.general.score > 0 ? "+" : ""}{s.general.score}/{s.general.n})</b>
+            {sideN !== 0 && s.general.label.startsWith("GÜÇLÜ") && Math.sign(s.general.score) === -sideN && <b className="text-orange-300"> · ⚠ karar genel trende ters — küçük pozisyon</b>}
+            <span className="block text-[10.5px] text-slate-500">{s.general.items.map((x) => `${x.k} ${x.v > 0 ? "▲" : x.v < 0 ? "▼" : "–"}`).join(" · ")} — durum özeti, tahmin değil</span>
+          </div>
+        )}
         {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
       </div>
 
@@ -1767,11 +1774,12 @@ export default function SpyEngineV9() {
   // Sesli uyarı: yalnızca merdiven durumu değişince — ERKEN UYARI / TERS UYARI (ön uyarı sesi), TETİK (giriş sesi).
   // İlk yüklemede (prev == null) çalmaz.
   useEffect(() => {
-    const key = lad ? `${lad.status}:${lad.side ?? ""}:${lad.trendEnd && lad.trendEnd.level !== "İZLE" ? lad.trendEnd.level : ""}:${lad.manage && ["HEDEF", "KÜÇÜLT", "ARTTIR", "KAPANDI"].includes(lad.manage.phase === "POZİSYON" ? lad.manage.action : lad.manage.phase) ? lad.manage.phase + lad.manage.action : ""}` : "-";
+    const key = lad ? `${lad.openTrend?.phase === "UYARI" || lad.openTrend?.phase === "KAPANDI" ? lad.openTrend.phase : ""}:${lad.status}:${lad.side ?? ""}:${lad.trendEnd && lad.trendEnd.level !== "İZLE" ? lad.trendEnd.level : ""}:${lad.manage && ["HEDEF", "KÜÇÜLT", "ARTTIR", "KAPANDI"].includes(lad.manage.phase === "POZİSYON" ? lad.manage.action : lad.manage.phase) ? lad.manage.phase + lad.manage.action : ""}` : "-";
     const prev = lastAlertKeyRef.current;
     lastAlertKeyRef.current = key;
     if (prev == null || prev === key || !alertSound || replayDate || !lad) return;
-    if (lad.status === "TETİK" && lad.plan && !prev.startsWith("TETİK")) chime("fired");
+    if (lad.openTrend?.phase === "UYARI" && !prev.startsWith("UYARI")) chime("fired");
+    else if (lad.status === "TETİK" && lad.plan && !prev.includes(":TETİK:")) chime("fired");
     else if (lad.status === "ERKEN UYARI" || lad.status === "TERS UYARI") chime("imminent");
     else if (lad.trendEnd && lad.trendEnd.level !== "İZLE") chime("imminent");
     else if (lad.manage && (lad.manage.phase === "HEDEF" || lad.manage.phase === "ARTTIR" || lad.manage.action === "KÜÇÜLT" || lad.manage.phase === "KAPANDI")) chime("fired");

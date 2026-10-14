@@ -69,14 +69,14 @@
  *   · EKLENMEDİ plan.leanOpen (NET olmayan eğilime açılış izni): 23 ek işlem ≈ −0,7R, puan 45 → 39 — bugünkü PUT'u verirdi ama 58 günde kenarı yok.
  *     plan.gapLean 0,002: −3,0R. plan.fadeTrendBlock (VWAP+EMA20 eğimi aynı yönde dönüşü engelle): kârlı dönüşleri de kesiyor, −15R.
  *     risk.fadeStopsMax 1 (aynı yönde stop olan dönüşü tekrar etme): −2,4R.
- *   · TREND YAPISI (15m VWAP+EMA20 tarafı + 5m EMA20 eğimi + VWAP tarafı) — ilk ölçüm (işlem modu kapalıyken):
- *     kırılım mumunda giriş 49 işlem −8,6R · eğilimle aynı yönde 41/−10,3R · 3 adet 15m 39/−5,2R · 14:00 öncesi 30/−14,8R ·
- *     EMA20 geri çekilme reddi (pullback 0,2 ATR, 10:30+) 25/+1,1R (≈0). SPY gün içi ortalamaya dönüyor; yapıyı kovalamak kenar vermedi.
- *     Yapı her mumda hesaplanır ve ekranda gösterilir (step.structure).
- *   · KULLANICI KARARIYLA AÇILDI (2026-10-14): trend.on + noCounter (yapıya TERS hiçbir öneri yok) + beforeFade, 3 adet 15m, kırılım tetiği, 10:30+.
- *     58 seans: 77 işlem %64 +63,5R → 104 işlem %47 +35,6R (TREND 63/−7,8R; yapıya ters öğlen dönüşleri kesildi: ÖĞLEN 41/+21,7R → 5/+1,7R;
- *     dönemler 22,9/18,0/22,6 → 20,0/−3,5/19,2). Bugünkü (14 Ekim) 10:40 PUT'u verir. Bilerek seçildi: trend günlerinde yapı yönünde hareket,
- *     karşı yönde öneri yok. Karar günlüğü modu canlı izler; kanıt güçlü eksi olursa TREND YAPISI otomatik kapanabilir (applyTrust).
+ *   · TREND YAPISI modu + "yapıya ters öneri yok" denendi ve kullanıcı kararıyla GERİ ALINDI (SPY 63,5R → 35,6R).
+ *   · EKLENDİ openTrend (09:55 açılış trend uyarısı, kullanıcı kuralı): ilk 15m mum + son 2 adet 5m mum VWAP'ın aynı tarafında →
+ *     ekstra işlem (giriş 09:55, stop 2 mumun ucu, hedef 1,5R). 58 seans: 31 işlem +8,9R (2R hedefte +4,9R, 3R +6,2R);
+ *     dönemler +5,0 / −5,5 / +9,5R. Merdivenin kararlarını değiştirmez. QQQ'da 41 işlem −4,0R → kapalı.
+ *   · 10:00 İKİNCİ KONTROL (kullanıcı isteği): koşulsuz eklenince 14 işlem −4,0R; genel trend aynı yönde GÜÇLÜ şartıyla 7 işlem +0,5R
+ *     → needGeneral "late" (toplam 38 işlem +9,4R). 09:55/10:00'da koşul tutmazsa AÇILIŞ BELİRSİZ / KARARSIZ uyarısı.
+ *   · GENEL TREND (step.general, 9 gösterge oylaması) şu anki durumu özetler; günün geri kalanını TAHMİN ETMEZ:
+ *     58 seansta etiket yönü → gün kapanışı isabeti 10:00–13:00 arası %40–60 (yazı-tura). Bu yüzden yalnız bilgi + 10:00 süzgeci.
  *
  * 13 EKİM GÜN İÇİ İNCELEME (58 seans, pencere 07-22 → 10-13; kapanış modu kapalı): 84 işlem %60 +67,2R (dönemler +22,5 / +21,9 / +22,9R).
  *   Bugünün akışı (gap aşağı, 09:35'te gap doldu, 778,75 tepe → 775,95 dip → 777,9): NET olmayan yukarı açılış → işlem yok (doğru, gün 1,2 puan yukarı sonra tamamen geri verdi);
@@ -134,32 +134,24 @@ export const LADDER_CFG = {
     openEndOn: "off" as "rsi" | "vwap2" | "both" | "off",
   },
   /**
-   * TREND YAPISI (gün içi piyasa yapısı): son kapanan 15m mumlar VWAP ve 15m EMA20'nin aynı tarafında kapanıyor,
-   * 5m EMA20 o yöne eğimli ve 5m fiyat VWAP'ın o tarafında → o yönde izin. Giriş yine 5m tetikten (gövdeli mum + hacim,
-   * VWAP/EMA20'nin doğru tarafında kapanış). NET olmayan açılış günlerinde de yapıyı izler.
+   * AÇILIŞ TREND UYARISI (09:55, kullanıcı kuralı 2026-10-14): ilk 15m mum (09:30–09:45) VWAP'ın bir tarafında kapandı VE
+   * ardışık son 2 adet 5m mum (09:45, 09:50) aynı tarafta kapandı → o yönde trend uyarısı + merdivenden bağımsız EKSTRA işlem önerisi.
+   * Ekstra işlem: giriş 09:55 kapanışı, stop son 2 mumun ucu ± pad, hedef rr × risk; 15:50'de kapanır.
    */
-  trend: {
+  openTrend: {
     on: true,
-    /** art arda VWAP+EMA20'nin aynı tarafında kapanan 15m mum sayısı */
-    n15: 3,
-    /** 5m EMA20 eğimi: şimdiki EMA20 − bu kadar mum önceki EMA20 işlem yönünde */
-    slopeBars: 6,
-    start: 10 * 60 + 30,
-    end: 15 * 60,
-    /** 15m: son mumun tepesi (dibi) bir öncekinin altında (üstünde) — düşen tepe / yükselen dip */
-    swing: false,
-    /** "afterFade": öğlen dönüşü şartı doluysa (ve engellenmediyse) önce o · "beforeFade": yapı varken karşı yönde dönüş aranmaz */
-    priority: "beforeFade" as "afterFade" | "beforeFade",
-    /** fiyat VWAP'tan en çok bu kadar ATR5 uzaktaysa izin (kovalamama) — 0 sınırsız */
-    maxDevAtr: 0,
-    /** Yapıya TERS yönde hiçbir mod izin vermez (açılış, öğlen dönüşü, tepe/dip reddi, kapanış) — yapı yoksa normal akış */
-    noCounter: true,
-    /** giriş yalnız geri çekilme reddinde: son 2 mumun ucu 5m EMA20'ye bu kadar ATR5 yaklaştı (değdi) ve kapanış EMA20'nin doğru tarafında — 0 kapalı */
-    pullback: 0,
-    /** geri çekilme referansı: "ema" 5m EMA20 · "either" EMA20 ya da VWAP */
-    pullRef: "ema" as "ema" | "either",
-    /** yalnız açılış eğilimiyle (NET olsun olmasın) aynı yöndeki yapı — eğilime karşı trend kovalanmaz */
-    leanOnly: false,
+    /** kontrol anları (5m kapanış dakikası): 09:55'te yoksa 10:00'da yeniden bakılır; günde en çok 1 ekstra işlem */
+    at: [9 * 60 + 55, 10 * 60],
+    /** genel trend şartı: "off" · "late" yalnız ilk kontrolden sonrakilerde (10:00) · "all" hepsinde — genel trend aynı yönde GÜÇLÜ olmalı */
+    needGeneral: "late" as "off" | "late" | "all",
+    /** VWAP'ın aynı tarafında kapanması gereken ardışık 5m mum */
+    n5: 2,
+    rr: 1.5,
+    stopPadAtr: 0.1,
+    /** stop bu kadar ATR5'ten genişse en çok bu kadar ATR'ye sıkılaştırılır */
+    maxStopAtr: 2.5,
+    /** ek çıkış: "none" yalnız stop/hedef/15:50 · "vwap" 5m kapanış VWAP'ın öbür tarafına geçerse · "ema20" 5m kapanış EMA20'nin öbür tarafına geçerse */
+    exit: "none" as "none" | "vwap" | "ema20",
   },
   /** Momentum kırılımı: hacimli gövdeli mum VWAP+EMA20'yi kendi yönünde aşar */
   impulse: {
@@ -338,7 +330,7 @@ export function rvolText(r: number | null): string {
 // ── Tipler ───────────────────────────────────────────────────────────
 
 export type Permission = "CALL" | "PUT" | "NÖTR";
-export type PlanMode = "AÇILIŞ TOPLANIYOR" | "AÇILIŞ YÖNÜ" | "KIRILIM" | "TEPE/DİP REDDİ" | "ÖĞLEN DÖNÜŞ" | "TREND YAPISI" | "KAPANIŞ YÖNÜ" | "BEKLE";
+export type PlanMode = "AÇILIŞ TOPLANIYOR" | "AÇILIŞ YÖNÜ" | "AÇILIŞ TRENDİ" | "KIRILIM" | "TEPE/DİP REDDİ" | "ÖĞLEN DÖNÜŞ" | "KAPANIŞ YÖNÜ" | "BEKLE";
 export type LadderStatus = "İŞLEM YOK" | "İZLE" | "ERKEN UYARI" | "TETİK" | "TERS UYARI" | "İPTAL";
 
 export interface Cond {
@@ -424,8 +416,10 @@ export interface LadderStep {
   rsi: { v15: number | null; d15: 1 | -1 | 0; v30: number | null; d30: 1 | -1 | 0 } | null;
   /** Trend sonu uyarısı (yön izni ya da açık pozisyon trend modundayken) */
   trendEnd: TrendEnd | null;
-  /** Gün içi piyasa yapısı (15m VWAP+EMA20 tarafı, 5m EMA20 eğimi, VWAP tarafı) — her zaman hesaplanır; işlem izni yalnız trend.on iken */
-  structure: { d: 1 | -1 | 0; text: string } | null;
+  /** 09:55 açılış trend uyarısı ve ekstra işlemin durumu (merdivenden bağımsız) */
+  openTrend: { phase: "UYARI" | "AÇIK" | "KAPANDI" | "BELİRSİZ" | "YOK"; side: "CALL" | "PUT" | null; text: string; plan: { entry: number; stop: number; target: number } | null } | null;
+  /** Genel trend (bilgi, karar vermez): önceki kapanış, VWAP, 5m EMA20 + eğimi, 15m/30m/1h EMA20, açılış aralığı, 15m RSI oylaması */
+  general: { score: number; n: number; label: "GÜÇLÜ YUKARI" | "YUKARI" | "KARARSIZ" | "AŞAĞI" | "GÜÇLÜ AŞAĞI"; items: { k: string; v: 1 | -1 | 0 }[] } | null;
   /** İşlem yönetimi tavsiyesi: pozisyon / hedef / taşınan yarı */
   manage: ManageAdvice | null;
   rvol: number | null;
@@ -556,6 +550,10 @@ export function ladderRead(inp: LadderInput): LadderRead {
   /** taşınan yarılar (birden fazla işlemin kalan yarısı aynı anda sürebilir) */
   let runners: Runner[] = [];
   let reverseWhy: string[] = [];
+  /** açılış trendi ekstra pozisyonu */
+  let otPos: { att: Attempt; d: 1 | -1; stop: number; target: number; risk: number } | null = null;
+  let otInfo: LadderStep["openTrend"] = null;
+  let otDone = false;
   const sweptFlag = new Set<number>();
   let cum = 0;
 
@@ -621,36 +619,6 @@ export function ladderRead(inp: LadderInput): LadderRead {
     }
     const dev = b.close - vw;
     const devAtr = A5 ? dev / A5 : null;
-    // ── TREND YAPISI: 15m VWAP+EMA20 tarafı, 5m EMA20 eğimi, 5m VWAP tarafı ──
-    let trendD: 1 | -1 | 0 = 0;
-    let trendTxt = "";
-    let structure: LadderStep["structure"] = null;
-    if (endMin >= 10 * 60 && e5 != null && A5 && i >= C.trend.slopeBars) {
-      const c15 = lastClosedBar(inp.s15.bars, 900, end);
-      const k = c15 ? inp.s15.bars.indexOf(c15) : -1;
-      if (k >= C.trend.n15 - 1) {
-        const side15 = (j: number) => { const x = inp.s15.bars[j]; const v = inp.s15.vwap[j]; const e = inp.ema15.get(x.time); return v == null || e == null ? 0 : x.close > v && x.close > e ? 1 : x.close < v && x.close < e ? -1 : 0; };
-        const s0 = side15(k);
-        let all = s0 !== 0;
-        for (let j = k - C.trend.n15 + 1; j < k && all; j++) if (side15(j) !== s0) all = false;
-        const ep = ema5.get(bars[i - C.trend.slopeBars].time);
-        const slopeOk = ep != null && Math.sign(e5 - ep) === s0;
-        const sideOk = Math.sign(dev) === s0;
-        const swingOk = !C.trend.swing || (k >= 1 && (s0 > 0 ? inp.s15.bars[k].low > inp.s15.bars[k - 1].low : inp.s15.bars[k].high < inp.s15.bars[k - 1].high));
-        const devOk = !C.trend.maxDevAtr || Math.abs(devAtr ?? 0) <= C.trend.maxDevAtr;
-        const leanOk = !C.trend.leanOnly || (opSideN !== 0 && opSideN === s0);
-        const core = all && slopeOk && sideOk;
-        const run15 = (() => { let c = 0; for (let j = k; j >= 0 && side15(j) === s0 && s0 !== 0; j--) c++; return c; })();
-        structure = core
-          ? { d: s0 as 1 | -1, text: `YAPI ${s0 > 0 ? "YUKARI" : "AŞAĞI"} — ${run15} adet 15m mum VWAP+EMA20'nin ${s0 > 0 ? "üstünde" : "altında"}, 5m EMA20 ${s0 > 0 ? "yükseliyor" : "düşüyor"}, fiyat VWAP'ın ${s0 > 0 ? "üstünde" : "altında"}` }
-          : { d: 0, text: s0 === 0 ? "YAPI KARIŞIK — son 15m mum VWAP ile EMA20 arasında" : `YAPI ZAYIF — 15m ${s0 > 0 ? "yukarı" : "aşağı"} ama ${!slopeOk ? "5m EMA20 eğimi ters" : !sideOk ? "5m fiyat VWAP'ın öbür tarafında" : "15m mumlar ardışık değil"}` };
-        if (C.trend.on && endMin >= C.trend.start && endMin < C.trend.end && core && swingOk && devOk && leanOk) {
-          trendD = s0 as 1 | -1;
-          trendTxt = `Trend yapısı: son ${C.trend.n15} adet 15m mum VWAP ve EMA20'nin ${s0 > 0 ? "üstünde" : "altında"} kapandı, 5m EMA20 ${s0 > 0 ? "yükseliyor" : "düşüyor"}, fiyat VWAP ${f2(vw)}'ın ${s0 > 0 ? "üstünde" : "altında"} — geri çekilmede ${s0 > 0 ? "CALL" : "PUT"} aranır`;
-        }
-      }
-    }
-    const fadeWanted = C.plan.fadeOn && endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK;
 
     if (endMin < 10 * 60 && !(opening && opD)) {
       mode = "AÇILIŞ TOPLANIYOR";
@@ -668,11 +636,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
       permission = word(lastClx.d);
       mode = "TEPE/DİP REDDİ";
       modeText = `${nyClock(bars[lastClx.i].time + 300)} ${lastClx.d < 0 ? "tepe" : "dip"} reddi: dev hacimli spike ${f2(lastClx.extreme)}'ten geri döndü (uzun ${lastClx.d < 0 ? "üst" : "alt"} fitil) — ${lastClx.d < 0 ? "aşağı" : "yukarı"} dönüş; ${f2(lastClx.extreme)} aşılırsa geçersiz`;
-    } else if (trendD && C.trend.priority === "beforeFade") {
-      permission = word(trendD);
-      mode = "TREND YAPISI";
-      modeText = trendTxt;
-    } else if (fadeWanted
+    } else if (C.plan.fadeOn && endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK
       && !(lastImp && i - lastImp.i <= C.impulse.fadeBlock && lastImp.d === (dev > 0 ? 1 : -1))
       && !(C.plan.fadeVsLean > 0 && endMin < C.plan.fadeVsLean && opSideN !== 0 && Math.sign(dev) === opSideN)
       && !(C.plan.fadeTrendBlock && e5 != null && i >= 6 && Math.sign(b.close - e5) === Math.sign(dev) && (() => { const ep = inp.ema5.get(bars[i - 6].time); return ep != null && Math.sign(e5 - ep) === Math.sign(dev); })())
@@ -680,10 +644,6 @@ export function ladderRead(inp: LadderInput): LadderRead {
       permission = dev > 0 ? "PUT" : "CALL";
       mode = "ÖĞLEN DÖNÜŞ";
       modeText = `Öğlen: fiyat VWAP'tan ${sgn(devAtr)} ATR uzakta (eşik ±${C.plan.fadeK}) — VWAP ${f2(vw)}'a dönüş`;
-    } else if (trendD) {
-      permission = word(trendD);
-      mode = "TREND YAPISI";
-      modeText = trendTxt;
     } else if (C.plan.closeOn && endMin >= C.plan.closeStart && poc != null && Math.sign(b.close - vw) === Math.sign(b.close - poc) && b.close !== vw) {
       permission = b.close > vw ? "CALL" : "PUT";
       mode = "KAPANIŞ YÖNÜ";
@@ -696,12 +656,6 @@ export function ladderRead(inp: LadderInput): LadderRead {
             ? `Öğlen: fiyat VWAP'tan ${sgn(devAtr)} ATR uzakta ama açılış eğilimi (${opening?.label ?? (opSideN > 0 ? "yukarı" : "aşağı")}) bu yönde — eğilime karşı ${opSideN > 0 ? "PUT" : "CALL"} dönüşü ${Math.floor(C.plan.fadeVsLean / 60)}:${String(C.plan.fadeVsLean % 60).padStart(2, "0")}'e kadar aranmaz (ölçümde zarar)`
             : `Öğlen: fiyat VWAP'a yakın (${devAtr != null ? sgn(devAtr) : "—"} ATR, eşik ±${C.plan.fadeK}) — dönüş için uzama yok`
           ) : `Kapanış saatleri: fiyat VWAP ile POC arasında (${f2(vw)} / ${poc != null ? f2(poc) : "—"}) — yön yok`;
-    }
-    // ── yapıya ters öneri yok: izin yapının tersiyse kaldırılır (yapı yönünde trend izni varsa ona geçilir) ──
-    if (C.trend.noCounter && structure && structure.d !== 0 && (permission === "CALL" || permission === "PUT") && (permission === "CALL" ? 1 : -1) === -structure.d) {
-      const was = `${permission} · ${mode}`;
-      if (trendD === structure.d) { permission = word(trendD); mode = "TREND YAPISI"; modeText = `${trendTxt} (${was} yapıya ters olduğu için önerilmez)`; }
-      else { permission = "NÖTR"; mode = "BEKLE"; modeText = `${was} yapıya TERS — önerilmez. ${structure.text}`; }
     }
     conds.push(
       { key: "p1", required: false, label: "09:55/10:00 NET açılış yönü (ilk 2–3 saat)", ok: mode === "AÇILIŞ YÖNÜ", value: opening ? `${opening.label}${opening.net ? " · NET" : " · net değil"}${broken ? " · aralık kırıldı (bitti)" : ""}` : openingProvisional ? `ön okuma: ${openingProvisional.label}` : "—" },
@@ -735,6 +689,93 @@ export function ladderRead(inp: LadderInput): LadderRead {
       const m30ok = !!c30 && !!h && h.e30.get(c30.time) != null && (c30.close - (h.e30.get(c30.time) as number)) * d > 0;
       const h1ok = !!c60 && !!h && h.e60.get(c60.time) != null && (c60.close - (h.e60.get(c60.time) as number)) * d > 0;
       confirm = { n: (m15ok ? 1 : 0) + (m30ok ? 1 : 0) + (h1ok ? 1 : 0), m15: m15ok, m30: m30ok, h1: h1ok };
+    }
+
+    // ── AÇILIŞ TRENDİ: 09:55 uyarısı + ekstra işlem (merdivenden bağımsız) ──
+    if (otPos) {
+      const P = otPos;
+      P.att.mfe = Math.max(P.att.mfe, r2(((P.d > 0 ? b.high : b.low) - P.att.entry) * P.d));
+      const hitStop = P.d > 0 ? b.low <= P.stop : b.high >= P.stop;
+      const hitTgt = P.d > 0 ? b.high >= P.target : b.low <= P.target;
+      const lineX = C.openTrend.exit === "vwap" ? (b.close - vw) * P.d < 0 : C.openTrend.exit === "ema20" ? e5 != null && (b.close - e5) * P.d < 0 : false;
+      const ex: { price: number; why: NonNullable<Attempt["exitWhy"]> } | null = hitStop ? { price: P.stop, why: "STOP" } : hitTgt ? { price: P.target, why: "HEDEF" } : lineX ? { price: b.close, why: "TREND SONU" } : endMin >= C.risk.exitMin ? { price: b.close, why: "ZAMAN" } : null;
+      if (ex) {
+        P.att.exitClock = clock; P.att.exit = r2(ex.price); P.att.exitWhy = ex.why;
+        P.att.r = P.risk > 0 ? r2(((ex.price - P.att.entry) * P.d) / P.risk) : null;
+        P.att.result = (P.att.r ?? 0) > 0 ? "KÂR" : ex.why === "ZAMAN" && (P.att.r ?? 0) === 0 ? "ZAMAN" : "ZARAR";
+        otInfo = { phase: "KAPANDI", side: P.att.side, text: `Açılış trendi ${P.att.side} kapandı (${clock}): ${ex.why === "HEDEF" ? "hedef" : ex.why === "STOP" ? "stop" : ex.why === "TREND SONU" ? (C.openTrend.exit === "vwap" ? "VWAP geri alındı" : "EMA20 geri alındı") : "zaman"} ${f2(ex.price)} · ${(P.att.r ?? 0) >= 0 ? "+" : ""}${(P.att.r ?? 0).toFixed(2)}R`, plan: null };
+        otPos = null;
+      } else {
+        otInfo = { phase: "AÇIK", side: P.att.side, text: `Açılış trendi ${P.att.side} açık (${P.att.clock} · giriş ${f2(P.att.entry)}) · stop ${f2(P.stop)} · hedef ${f2(P.target)} · şimdi ${(b.close - P.att.entry) * P.d >= 0 ? "+" : "−"}${f2(Math.abs(b.close - P.att.entry))}`, plan: { entry: P.att.entry, stop: P.stop, target: P.target } };
+      }
+    }
+    // ── GENEL TREND (bilgi): çok göstergeli yön oylaması — işlem kararını değiştirmez ──
+    let general: LadderStep["general"] = null;
+    if (A5 && endMin >= 9 * 60 + 40) {
+      const sg = (x: number, eps = 0): 1 | -1 | 0 => (x > eps ? 1 : x < -eps ? -1 : 0);
+      const items: { k: string; v: 1 | -1 | 0 }[] = [];
+      if (inp.prevClose != null) items.push({ k: "önceki kapanış", v: sg(b.close - inp.prevClose, 0.05 * A5) });
+      items.push({ k: "VWAP", v: sg(b.close - vw, 0.05 * A5) });
+      if (e5 != null) {
+        items.push({ k: "5m EMA20", v: sg(b.close - e5, 0.02 * A5) });
+        const ep = i >= 6 ? ema5.get(bars[i - 6].time) : undefined;
+        if (ep != null) items.push({ k: "5m EMA20 eğimi", v: sg(e5 - ep, 0.05 * A5) });
+      }
+      const g15 = lastClosedBar(inp.s15.bars, 900, end);
+      const ge15 = g15 ? inp.ema15.get(g15.time) : undefined;
+      if (g15 && ge15 != null) items.push({ k: "15m EMA20", v: sg(g15.close - ge15) });
+      const h = inp.htf;
+      if (h) {
+        const c30 = lastClosedBar(h.m30, 1800, end), e30 = c30 ? h.e30.get(c30.time) : undefined;
+        if (c30 && e30 != null) items.push({ k: "30m EMA20", v: sg(c30.close - e30) });
+        const c60 = lastClosedBar(h.m60, 3600, end), e60 = c60 ? h.e60.get(c60.time) : undefined;
+        if (c60 && e60 != null) items.push({ k: "1h EMA20", v: sg(c60.close - e60) });
+      }
+      if (or30 && i >= 6) items.push({ k: "ilk 30 dk aralığı", v: b.close > or30.high ? 1 : b.close < or30.low ? -1 : 0 });
+      if (r15) items.push({ k: "15m RSI", v: rsiDirOf(r15) });
+      const score = items.reduce((a, x) => a + x.v, 0), nn = items.length;
+      const label = score >= 0.6 * nn ? "GÜÇLÜ YUKARI" : score >= 0.3 * nn ? "YUKARI" : score <= -0.6 * nn ? "GÜÇLÜ AŞAĞI" : score <= -0.3 * nn ? "AŞAĞI" : "KARARSIZ";
+      general = { score, n: nn, label, items };
+    }
+    if (otInfo?.phase === "BELİRSİZ" && endMin >= 10 * 60 + 30) otInfo = null;
+    if (C.openTrend.on && !otDone && !otPos && C.openTrend.at.includes(endMin) && A5 && i >= C.openTrend.n5 - 1) {
+      const c15 = lastClosedBar(inp.s15.bars, 900, end);
+      const k = c15 ? inp.s15.bars.indexOf(c15) : -1;
+      const v15 = k >= 0 ? inp.s15.vwap[k] : null;
+      const s15 = c15 && v15 != null ? Math.sign(c15.close - v15) : 0;
+      let ok = s15 !== 0;
+      for (let j = i - C.openTrend.n5 + 1; j <= i && ok; j++) if (Math.sign(bars[j].close - (s5.vwap[j] ?? bars[j].close)) !== s15) ok = false;
+      const lastCheck = endMin === Math.max(...C.openTrend.at);
+      const needG = C.openTrend.needGeneral === "all" || (C.openTrend.needGeneral === "late" && endMin !== Math.min(...C.openTrend.at));
+      const genBlocked = ok && needG && !(general && general.label === (s15 > 0 ? "GÜÇLÜ YUKARI" : "GÜÇLÜ AŞAĞI"));
+      if (genBlocked) ok = false;
+      if (ok) {
+        otDone = true;
+        const d = s15 as 1 | -1;
+        const xs = bars.slice(i - C.openTrend.n5 + 1, i + 1);
+        const ext = d > 0 ? Math.min(...xs.map((x) => x.low)) : Math.max(...xs.map((x) => x.high));
+        let stop = ext - d * C.openTrend.stopPadAtr * A5;
+        if (Math.abs(b.close - stop) > C.openTrend.maxStopAtr * A5) stop = b.close - d * C.openTrend.maxStopAtr * A5;
+        const risk = Math.max(Math.abs(b.close - stop), C.risk.minStopPts);
+        stop = b.close - d * risk;
+        const target = b.close + d * C.openTrend.rr * risk;
+        const att: Attempt = { side: word(d), mode: "AÇILIŞ TRENDİ", setup: `${clock} trend uyarısı: 15m + ${C.openTrend.n5} adet 5m VWAP'ın ${d > 0 ? "üstünde" : "altında"}`, clock, time: b.time, entry: r2(b.close), stop: r2(stop), target: r2(target), exitClock: null, exit: null, result: null, r: null, mfe: 0, confirm: 0 };
+        attempts.push(att);
+        otPos = { att, d, stop: r2(stop), target: r2(target), risk };
+        const gNote = general ? (general.score * d < 0 ? ` · ⚠ genel trend ${general.label} (${general.score}/${general.n}) — TERS, küçük pozisyon` : ` · genel trend ${general.label} (${general.score}/${general.n})`) : "";
+        otInfo = { phase: "UYARI", side: word(d), text: `${clock} TREND UYARISI ${d > 0 ? "▲ YUKARI" : "▼ AŞAĞI"}: son kapanan 15m mum ve son ${C.openTrend.n5} adet 5m mum VWAP'ın ${d > 0 ? "üstünde" : "altında"} kapandı → ekstra ${word(d)}: giriş ${f2(b.close)}, stop ${f2(stop)}, hedef ${f2(target)} (${C.openTrend.rr}R)${gNote}`, plan: { entry: r2(b.close), stop: r2(stop), target: r2(target) } };
+      } else {
+        // açılış belirsiz: 15m ve 5m VWAP tarafları uyuşmuyor
+        const sides5 = bars.slice(i - C.openTrend.n5 + 1, i + 1).map((x, j) => Math.sign(x.close - (s5.vwap[i - C.openTrend.n5 + 1 + j] ?? x.close)));
+        const tx = (s: number) => (s > 0 ? "üstünde" : s < 0 ? "altında" : "üzerinde");
+        const why = genBlocked
+          ? `15m ve son 5m mumlar VWAP'ın ${tx(s15)} ama genel trend aynı yönde GÜÇLÜ değil`
+          : `15m mum VWAP'ın ${tx(s15)}, son 5m mumlar ${sides5.map(tx).join(" / ")}`;
+        const gTxt = general ? ` · genel trend ${general.label} (${general.score}/${general.n})` : "";
+        otInfo = lastCheck
+          ? { phase: "BELİRSİZ", side: null, text: `${clock} AÇILIŞ KARARSIZ — ${why}${gTxt}. Ekstra işlem yok; yön netleşene kadar küçük pozisyon, ilk karar 10:30 sonrası (öğlen) beklenir.`, plan: null }
+          : { phase: "BELİRSİZ", side: null, text: `${clock} açılış belirsiz — ${why}${gTxt}. 10:00 kapanışında yeniden bakılır.`, plan: null };
+      }
     }
 
     // ── pozisyon yönetimi (stop öncelikli) ──
@@ -841,7 +882,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     let trigConds: Cond[] | null = null;
     let plan: Plan | null = null;
     let side: "CALL" | "PUT" | null = d ? word(d) : null;
-    const full = attempts.length >= C.risk.maxAttempts;
+    const full = attempts.filter((a) => a.mode !== "AÇILIŞ TRENDİ").length >= C.risk.maxAttempts;
     const inWindow = (endMin >= C.risk.firstEntryMin || (mode === "AÇILIŞ YÖNÜ" && endMin >= 10 * 60 - 5)) && endMin <= C.risk.lastEntryMin;
     const cooling = i <= cooldownUntil;
     const pat = d ? detectCandlePatterns(bars, i).filter((p) => (p.direction === "LONG" ? 1 : -1) === d).sort((a, c) => c.strength - a.strength)[0] ?? null : null;
@@ -864,15 +905,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
       const clx = mode === "TEPE/DİP REDDİ";
       const volOk = pv > 0 && (b.volume || 0) >= (clx ? C.climax.trigVolRatio : C.trig.volRatio) * pv;
       const fade = mode === "ÖĞLEN DÖNÜŞ";
-      const placeOk0 = fade ? i > 0 && (b.close - bars[i - 1].close) * d > 0 : (b.close - e5) * d > 0 && (b.close - vw) * d > 0;
-      // trend yapısında giriş geri çekilme reddinden: son 2 mumun ucu EMA20'ye (ya da VWAP'a) değdi, kapanış doğru tarafta
-      const pullOk = mode !== "TREND YAPISI" || !C.trend.pullback || (() => {
-        const xs = bars.slice(Math.max(0, i - 1), i + 1);
-        const tip = d > 0 ? Math.min(...xs.map((x) => x.low)) : Math.max(...xs.map((x) => x.high));
-        const touch = (lvl: number) => (d > 0 ? tip <= lvl + C.trend.pullback * A5 : tip >= lvl - C.trend.pullback * A5);
-        return touch(e5) || (C.trend.pullRef === "either" && touch(vw));
-      })();
-      const placeOk = placeOk0 && pullOk;
+      const placeOk = fade ? i > 0 && (b.close - bars[i - 1].close) * d > 0 : (b.close - e5) * d > 0 && (b.close - vw) * d > 0;
       trigConds = [
         { key: "t1", required: true, label: fade ? "Mum VWAP'a doğru döndü (kapanış öncekinden VWAP tarafında)" : `Kapanış VWAP ve EMA20'nin ${d > 0 ? "üstünde" : "altında"}`, ok: placeOk, value: fade ? `${f2(b.close)} · önceki ${i > 0 ? f2(bars[i - 1].close) : "—"}` : `VWAP ${f2(vw)} · EMA20 ${f2(e5)} · kapanış ${f2(b.close)}` },
         { key: "t2", required: true, label: `Gövdeli ${d > 0 ? "yeşil" : "kırmızı"} mum (gövde ≥ %${Math.round(C.trig.minBodyFrac * 100)}, kapanış iyi tarafta)`, ok: quality, value: `gövde %${rg > 0 ? Math.round((body / rg) * 100) : 0} · kapanış %${Math.round(closePos * 100)}${pat ? ` · ${pat.label}` : ""}` },
@@ -917,7 +950,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
           message = `${word(d)} tetiği geldi ama hedef (VWAP ${f2(vw)}) stoba göre çok yakın — işlem açılmaz.`;
           change = "Fiyat VWAP'tan yeniden uzaklaşırsa tekrar aranır.";
         } else {
-          const setup = fade ? "VWAP'a dönüş mumu" : mode === "KIRILIM" ? "hacimli kırılım mumu (VWAP+EMA20 aşıldı)" : clx ? `${d < 0 ? "tepe" : "dip"} reddi sonrası VWAP+EMA20 ${d < 0 ? "kaybı" : "geri alımı"}` : mode === "AÇILIŞ YÖNÜ" ? "açılış yönünde VWAP/EMA20 üstü gövdeli mum" : mode === "TREND YAPISI" ? `trend yapısında VWAP/EMA20 ${d > 0 ? "üstü" : "altı"} gövdeli mum` : "kapanış yönünde VWAP/EMA20 üstü gövdeli mum";
+          const setup = fade ? "VWAP'a dönüş mumu" : mode === "KIRILIM" ? "hacimli kırılım mumu (VWAP+EMA20 aşıldı)" : clx ? `${d < 0 ? "tepe" : "dip"} reddi sonrası VWAP+EMA20 ${d < 0 ? "kaybı" : "geri alımı"}` : mode === "AÇILIŞ YÖNÜ" ? "açılış yönünde VWAP/EMA20 üstü gövdeli mum" : "kapanış yönünde VWAP/EMA20 üstü gövdeli mum";
           plan = { side: word(d), entry: r2(b.close), stop: r2(stop), target: r2(tgt), targetLabel: fade ? "VWAP" : `${C.risk.rr}R`, stopAtr: r2(risk / A5), setup };
           const att: Attempt = { side: word(d), mode, setup: pairOk && !(quality && volOk) ? `${setup} (2 mum hacim artışı)` : setup, clock, time: b.time, entry: r2(b.close), stop: r2(stop), target: r2(tgt), exitClock: null, exit: null, result: null, r: null, mfe: 0, confirm: confirm?.n ?? 0 };
           attempts.push(att);
@@ -1023,7 +1056,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     {
       const tmode = pos ? pos.att.mode : runner ? runner.att.mode : mode;
       const tdir: 1 | -1 | 0 = pos ? pos.d : runner ? runner.d : (mode === "AÇILIŞ YÖNÜ" || mode === "KAPANIŞ YÖNÜ") ? d : 0;
-      if (C.manage.trendEnd && tdir !== 0 && e5 != null && A5 && (tmode === "AÇILIŞ YÖNÜ" || tmode === "KAPANIŞ YÖNÜ" || tmode === "TREND YAPISI")) {
+      if (C.manage.trendEnd && tdir !== 0 && e5 != null && A5 && (tmode === "AÇILIŞ YÖNÜ" || tmode === "KAPANIŞ YÖNÜ")) {
         const flags: string[] = [];
         if (rsiDirOf(r15) === -tdir) flags.push(`15m RSI ${tdir > 0 ? "aşağı" : "yukarı"} döndü (${r15 ? r15.v.toFixed(0) : "—"})`);
         if ((b.close - vw) * tdir < 0) flags.push("5m kapanış VWAP'ın ters tarafında");
@@ -1059,7 +1092,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
     }
 
     steps.push({
-      trendEnd, manage, structure,
+      trendEnd, manage, openTrend: otInfo, general,
       time: b.time, clock, status, side: status === "İŞLEM YOK" ? null : side, message, change, regime,
       warnSigns, trigConds, reverse: reverseActive ? reverseWhy : [], plan, confirm, tech: inp.tech?.get(b.time) ?? null,
       rsi: r15 || r30 ? { v15: r15 ? r2(r15.v) : null, d15: rsiDirOf(r15), v30: r30 ? r2(r30.v) : null, d30: rsiDirOf(r30) } : null,
