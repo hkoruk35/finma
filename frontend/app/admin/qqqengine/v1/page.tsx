@@ -229,57 +229,86 @@ function CondList({ title, conds, empty }: { title: string; conds: Cond[] | null
   );
 }
 
-/** Karar özeti: şimdi ne yapmalı · neden · tetik için ne eksik · plan ne zaman bozulur · bugün */
+/** küçük durum rozeti (✓ / ✗ / —) */
+function Pill({ ok, children }: { ok: boolean | null; children: ReactNode }) {
+  const cls = ok == null ? "border-slate-700 text-slate-500" : ok ? "border-[#22c55e]/40 bg-[#22c55e]/10 text-[#4ade80]" : "border-slate-700 bg-slate-800/40 text-slate-400";
+  return <span className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[11px] font-semibold ${cls}`}>{ok == null ? "•" : ok ? "✓" : "✗"} {children}</span>;
+}
+
+/** Karar özeti: ŞİMDİ ne yap · NEDEN · giriş kontrol listesi / plan ne zaman değişir (sade ve sonuç odaklı) */
 function LadderSummary({ L, s }: { L: LadderRead; s: LadderStep }) {
   const rg = s.regime;
   const side = s.side ?? (rg.permission === "CALL" || rg.permission === "PUT" ? rg.permission : null);
+  const sideN = side === "CALL" ? 1 : side === "PUT" ? -1 : 0;
   const pl = s.plan;
   const col = ladderCol(s);
-  const action =
-    s.status === "TETİK" && pl ? `${pl.side} AL — giriş ${num(pl.entry)} · stop ${num(pl.stop)} · hedef ${num(pl.target)}`
-      : s.status === "ERKEN UYARI" ? `${side ?? ""} için HAZIRLAN — emri hazırla, 5m tetik mumunu bekle`
-        : s.status === "İZLE" ? `${side ?? ""} yönü açık — henüz GİRME, tetik bekleniyor`
-          : s.status === "TERS UYARI" ? "Pozisyondaysan KORU — ters yönde sinyal var, kârı al ya da stopu daralt"
-            : s.status === "İPTAL" ? "Plan İPTAL — yeni kurulum bekle"
-              : "BEKLE — şu an işlem yok";
-  const why: string[] = [s.message];
-  if (rg.permission !== "NÖTR") why.push(`Seans planı: ${rg.mode} — ${rg.modeText}`);
-  else why.push(`Seans planı yön vermiyor (${rg.mode}).`);
-  if (s.confirm) why.push(`Üst zaman dilimleri ${s.confirm.n}/3 aynı yönde (15m ${s.confirm.m15 ? "✓" : "✗"} · 30m ${s.confirm.m30 ? "✓" : "✗"} · 1h ${s.confirm.h1 ? "✓" : "✗"})`);
-  const missing = (s.status === "İZLE" || s.status === "ERKEN UYARI") ? (s.trigConds ?? []).filter((c) => !c.ok).map((c) => c.label) : [];
+  const arrow = side === "CALL" ? "▲" : side === "PUT" ? "▼" : "◆";
+  const headline =
+    s.status === "TETİK" && pl ? `${arrow} ${pl.side} — pozisyon açık`
+      : s.status === "ERKEN UYARI" ? `${arrow} ${side ?? ""} İÇİN HAZIRLAN`
+        : s.status === "İZLE" ? `${arrow} ${side ?? ""} YÖNÜ AÇIK · GİRME`
+          : s.status === "TERS UYARI" ? "⚠ TERS UYARI — pozisyonu koru"
+            : s.status === "İPTAL" ? "✕ KURULUM İPTAL"
+              : "◆ BEKLE — işlem yok";
+  const sub =
+    s.status === "TETİK" && pl ? `giriş ${num(pl.entry)} · stop ${num(pl.stop)} · hedef ${num(pl.target)}`
+      : s.status === "ERKEN UYARI" ? "Emri hazırla, girme. 5m tetik mumu kapanınca gir."
+        : s.status === "İZLE" ? "Yön izni var ama kurulum henüz oluşmadı — tetik mumunu bekle."
+          : s.status === "TERS UYARI" ? "Ters yönde sinyal var: kârı al ya da stopu sıkılaştır."
+            : s.status === "İPTAL" ? "Tetik geldi ama risk/hedef uygun değil — yeni kurulum beklenir."
+              : "Seans planı yön vermiyor.";
+  const trig = (s.status === "İZLE" || s.status === "ERKEN UYARI") ? (s.trigConds ?? []).filter((c) => c.required || c.key === "t4") : [];
+  const reqOk = trig.filter((c) => c.required).every((c) => c.ok);
   const done = L.attempts.filter((a) => a.r != null);
   const totR = done.reduce((a, x) => a + (x.r ?? 0), 0);
+  const rsiOk = (d: 1 | -1 | 0) => (sideN === 0 ? null : d === sideN);
   return (
-    <div className="grid grid-cols-1 gap-px bg-[#1c2635] md:grid-cols-3">
-      <div className="bg-[#0f141d] px-3 py-2">
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Şimdi ne yapmalı</div>
-        <div className="mt-0.5 text-[15px] font-extrabold leading-snug" style={{ color: col }}>{action}</div>
-        {s.status === "TETİK" && pl && <div className="mt-0.5 font-mono text-[11px] text-slate-400">kurulum: {pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
-      </div>
-      <div className="bg-[#0f141d] px-3 py-2">
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Neden</div>
-        <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
-          {why.slice(0, 3).map((w, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-500">•</span><span>{w}</span></li>)}
-        </ul>
-        {s.rsi && (
-          <div className="mt-1 font-mono text-[11px] text-slate-400">
-            RSI 15m <b className={s.rsi.d15 > 0 ? "text-[#4ade80]" : s.rsi.d15 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v15 != null ? s.rsi.v15.toFixed(0) : "—"} {s.rsi.d15 > 0 ? "↑" : s.rsi.d15 < 0 ? "↓" : "→"}</b>
-            {" · "}30m <b className={s.rsi.d30 > 0 ? "text-[#4ade80]" : s.rsi.d30 < 0 ? "text-[#f87171]" : "text-slate-300"}>{s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"} {s.rsi.d30 > 0 ? "↑" : s.rsi.d30 < 0 ? "↓" : "→"}</b>
-            <span className="text-slate-500"> · bilgi</span>
-          </div>
-        )}
-        {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
-      </div>
-      <div className="bg-[#0f141d] px-3 py-2">
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{missing.length ? "Girmek için eksik olan" : "Plan ne zaman değişir"}</div>
-        {missing.length ? (
-          <ul className="mt-0.5 flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
-            {missing.slice(0, 3).map((m, i) => <li key={i} className="flex gap-1.5"><span className="text-slate-600">✗</span><span>{m}</span></li>)}
-          </ul>
-        ) : <div className="mt-0.5 text-[12px] leading-snug text-slate-200">{s.change}</div>}
-        <div className="mt-1 font-mono text-[11px] text-slate-500">
+    <div className="grid grid-cols-1 gap-px bg-[#1c2635] md:grid-cols-[1.05fr_1fr_1fr]">
+      {/* ŞİMDİ */}
+      <div className="bg-[#0f141d] px-3 py-2.5" style={{ borderLeft: `3px solid ${col}` }}>
+        <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Şimdi</div>
+        <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
+        <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
+        {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
+        <div className="mt-1.5 font-mono text-[11px] text-slate-500">
           bugün: {L.attempts.length ? `${L.attempts.length} deneme · ${done.length ? `${totR >= 0 ? "+" : ""}${totR.toFixed(1)}R` : "sonuç bekleniyor"}` : "deneme yok"}
         </div>
+      </div>
+
+      {/* NEDEN */}
+      <div className="bg-[#0f141d] px-3 py-2.5">
+        <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Neden</div>
+        <div className="mt-0.5 text-[12.5px] leading-snug text-slate-100 line-clamp-4">{s.message}</div>
+        <div className="mt-1.5 flex flex-wrap items-center gap-1">
+          <span className="rounded border border-slate-700 px-1.5 py-0.5 text-[11px] font-semibold text-slate-300">{rg.mode}</span>
+          {s.confirm && (<>
+            <Pill ok={s.confirm.m15}>15m</Pill><Pill ok={s.confirm.m30}>30m</Pill><Pill ok={s.confirm.h1}>1h</Pill>
+          </>)}
+          {s.rsi && sideN !== 0 && (<>
+            <Pill ok={rsiOk(s.rsi.d15)}>RSI 15m {s.rsi.v15 != null ? s.rsi.v15.toFixed(0) : "—"}</Pill>
+            <Pill ok={rsiOk(s.rsi.d30)}>RSI 30m {s.rsi.v30 != null ? s.rsi.v30.toFixed(0) : "—"}</Pill>
+          </>)}
+        </div>
+        {s.confirm && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">Rozetler işlem yönüyle uyum (yeşil ✓ = aynı yönde). Üst zaman ve RSI bilgidir; giriş yalnız 5m tetikten gelir.</div>}
+        {s.reverse.length > 0 && <div className="mt-1 text-[12px] leading-snug text-orange-300">⚠ {s.reverse[0]}</div>}
+      </div>
+
+      {/* KONTROL LİSTESİ / PLAN */}
+      <div className="bg-[#0f141d] px-3 py-2.5">
+        <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">{trig.length ? "Girmeden önce kontrol" : "Plan ne zaman değişir"}</div>
+        {trig.length ? (
+          <>
+            <ul className="mt-1 flex flex-col gap-1">
+              {trig.map((c) => (
+                <li key={c.key} className="flex items-start gap-1.5 text-[12px] leading-snug">
+                  <span className={`mt-[1px] font-bold ${c.ok ? "text-[#4ade80]" : "text-slate-600"}`}>{c.ok ? "✓" : "✗"}</span>
+                  <span className={c.ok ? "text-slate-100" : "text-slate-400"}>{c.label}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-1.5 text-[11px] font-semibold" style={{ color: reqOk ? "#4ade80" : "#94a3b8" }}>{reqOk ? "Zorunlu şartlar tamam — kapanışta TETİK." : "Zorunlu şartlar tamamlanınca TETİK."}</div>
+          </>
+        ) : <div className="mt-1 text-[12.5px] leading-snug text-slate-100">{s.change}</div>}
       </div>
     </div>
   );
@@ -413,171 +442,204 @@ const EVENT_TAG: Record<FlowRead["events"][number]["kind"], string> = {
   DIV_BEAR: "− UYUMSUZLUK",
 };
 
-function FlowTile({ title, value, tone: tcol, status, note, children }: { title: string; value?: ReactNode; tone?: string; status?: ReactNode; note?: string; children?: ReactNode }) {
+function FlowTile({ title, ask, headline, tone: tcol, children, note }: { title: string; ask: string; headline: ReactNode; tone?: string; children?: ReactNode; note?: string }) {
   return (
-    <div className="flex flex-col gap-0.5 bg-[#0f141d] px-3 py-2">
-      <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{title}</div>
-      {value != null && <div className="font-mono text-[16px] font-bold" style={{ color: tcol ?? "#e2e8f0" }}>{value}</div>}
-      {status && <div className="text-[12px] leading-snug text-slate-200">{status}</div>}
+    <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2.5">
+      <div className="flex items-baseline justify-between gap-2">
+        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">{title}</div>
+        <div className="text-[10px] text-slate-600">{ask}</div>
+      </div>
+      <div className="text-[14px] font-extrabold leading-snug" style={{ color: tcol ?? "#e2e8f0" }}>{headline}</div>
       {children}
       {note && <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">{note}</div>}
     </div>
   );
 }
 
+function KV({ k, children }: { k: string; children: ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-2 border-b border-[#151c28] py-[3px] text-[11.5px] last:border-0">
+      <span className="shrink-0 text-slate-500">{k}</span>
+      <span className="min-w-0 text-right font-mono text-slate-200">{children}</span>
+    </div>
+  );
+}
+
+const SHOW_BTN = "rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30";
+
 function FlowPanel({ f, price, opt, step }: { f: FlowRead | null; price: number | null; opt: OptionLevels | null; step: LadderStep | null }) {
+  const [open, setOpen] = useState(false);
   const [optOpen, setOptOpen] = useState(false);
   const [tracesOpen, setTracesOpen] = useState(false);
   const [eventsOpen, setEventsOpen] = useState(false);
+  const lc = step ? ladderCol(step) : "#64748b";
+  const head = (
+    <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5">
+      <div className="flex flex-wrap items-center gap-2">
+        <button type="button" onClick={() => setOpen((v) => !v)} className={SHOW_BTN}>{open ? "▴ gizle" : "▾ göster"}</button>
+        <span className="text-[13px] font-semibold text-slate-200">Likidite · Akıllı Para · Hacim Profili</span>
+        <span className="hidden text-[11px] text-slate-500 sm:inline">· gerekçe, karar vermez</span>
+      </div>
+      {step && (
+        <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: lc, borderColor: `${lc}66`, backgroundColor: `${lc}14` }}>
+          karar satırı: {step.status}{step.side && step.status !== "İŞLEM YOK" ? ` · ${step.side}` : ""}
+        </span>
+      )}
+    </div>
+  );
   if (!f) {
     return (
-      <div className={`${SURFACE} px-3 py-3 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Likidite · Akıllı Para · Hacim Profili</span> — güncel veri yok; ilk 5m kapanışla başlar.
+      <div className={`${SURFACE} overflow-hidden`}>
+        {head}
+        {open && <div className="border-t border-[#1c2635] px-3 py-3 text-[12px] text-slate-500">Güncel veri yok; ilk 5m kapanışla başlar.</div>}
       </div>
     );
   }
   const w = f.warning;
   const px = price ?? 0;
   const prof = f.profile;
-  const above = f.pools.filter((p) => !p.swept && p.price > px).sort((a, b) => a.price - b.price).slice(0, 3);
-  const below = f.pools.filter((p) => !p.swept && p.price < px).sort((a, b) => b.price - a.price).slice(0, 3);
+  const above = f.pools.filter((pl) => !pl.swept && pl.price > px).sort((a, b) => a.price - b.price).slice(0, 3);
+  const below = f.pools.filter((pl) => !pl.swept && pl.price < px).sort((a, b) => b.price - a.price).slice(0, 3);
   const fmtD = (v: number) => `${v >= 0 ? "+" : "−"}${fmtVol(Math.abs(v))}`;
-  const lc = step ? ladderCol(step) : "#64748b";
+  const UPC2 = "#4ade80", DNC2 = "#f87171", NEU2 = "#94a3b8";
+
+  // — okumalar (sonuç cümleleri) —
+  const vaPos = !prof ? 0 : px > prof.vah ? 1 : px < prof.val ? -1 : 0;
+  const vaHead = !prof ? "veri yok" : vaPos > 0 ? "Fiyat değer alanının ÜSTÜNDE" : vaPos < 0 ? "Fiyat değer alanının ALTINDA" : "Fiyat değer alanının İÇİNDE";
+  const vaMean = !prof ? "" : vaPos > 0 ? "Yukarıda kabul görüyor — geri çekilmede alıcılar savunur." : vaPos < 0 ? "Aşağıda kabul görüyor — tepkiler satıcılara çarpar." : "Denge bölgesi — fiyat çoğunlukla POC'a doğru geri döner.";
+  const dpct = f.deltaPct30;
+  const dSide = dpct == null || Math.abs(dpct) < 0.12 ? 0 : dpct > 0 ? 1 : -1;
+  const dHead = dSide > 0 ? "Son 30 dk: ALICILAR önde" : dSide < 0 ? "Son 30 dk: SATICILAR önde" : "Son 30 dk: alıcı ≈ satıcı";
+  const dDay = f.cumDelta >= 0 ? "gün boyu alıcı ağırlıklı" : "gün boyu satıcı ağırlıklı";
+  const compHead = f.compression.active ? "SIKIŞMA — kırılım yaklaşıyor" : f.accel.text ? f.accel.text : "Normal hareket";
+  const compTone = f.compression.active ? "#fbbf24" : f.accel.text ? (f.accel.dir > 0 ? UPC2 : DNC2) : NEU2;
+  const nearUp = above[0], nearDn = below[0];
+  const poolHead = !nearUp && !nearDn ? "Yakında süpürülmemiş havuz yok"
+    : nearUp && nearDn ? (nearUp.price - px <= px - nearDn.price ? `Önce ▲ ${num(nearUp.price)} yakın (+${num(nearUp.price - px)})` : `Önce ▼ ${num(nearDn.price)} yakın (−${num(px - nearDn.price)})`)
+    : nearUp ? `▲ ${num(nearUp.price)} yakın (+${num(nearUp.price - px)})` : `▼ ${num(nearDn!.price)} yakın (−${num(px - nearDn!.price)})`;
+
+  // — tek satır özet —
+  const votes = [vaPos, dSide];
+  const total = votes.reduce((a, v) => a + v, 0);
+  const sumTxt = total > 0 ? "alıcı tarafı ağır basıyor" : total < 0 ? "satıcı tarafı ağır basıyor" : "denge — net bir taraf yok";
   return (
     <div className={`${SURFACE} overflow-hidden`}>
-      {/* başlık */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[13px] font-semibold text-slate-200">
-          Likidite · Akıllı Para · Hacim Profili <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· gerekçe — karar vermez · süpürme · emilim · kurumsal itki · delta uyumsuzluğu · POC göçü · sıkışma/ivme</span>
-        </span>
-        {step && (
-          <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: lc, borderColor: `${lc}66`, backgroundColor: `${lc}14` }}>
-            karar satırı: {step.status}{step.side && step.status !== "İŞLEM YOK" ? ` · ${step.side}` : ""}
-          </span>
-        )}
-      </div>
-
-      {/* alıcı / satıcı izleri */}
-      <div className="border-t border-[#1c2635] px-3 py-2">
-        <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => setTracesOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{tracesOpen ? "▴ gizle" : "▾ göster"}</button>
-          <span className="text-[12px] font-semibold text-slate-200">Alıcı / satıcı izleri <span className="font-normal text-slate-500">· kanıt</span></span>
+      {head}
+      {!open ? (
+        <div className="border-t border-[#1c2635] px-3 py-1.5 text-[11.5px] text-slate-400">
+          Kısa okuma: <b className={total > 0 ? "text-[#4ade80]" : total < 0 ? "text-[#f87171]" : "text-slate-300"}>{sumTxt}</b> · POC {prof ? num(prof.poc) : "—"} · {dHead.replace("Son 30 dk: ", "30 dk ")}
         </div>
-      </div>
-      {tracesOpen && (
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
-        {([["Alıcı izleri (kanıt)", w.bullWhy, "#cbd5e1"], ["Satıcı izleri (kanıt)", w.bearWhy, "#cbd5e1"]] as const).map(([t, list, c]) => (
-          <div key={t} className="bg-[#0f141d] px-3 py-2">
-            <div className="mb-1 text-[12px] font-semibold" style={{ color: c }}>{t}</div>
-            {list.length === 0 ? <div className="text-[12px] text-slate-500">belirgin iz yok</div> : (
-              <ul className="flex flex-col gap-1 text-[12px] leading-snug text-slate-200">
-                {list.map((x, i) => <li key={i} className="flex gap-1.5"><span style={{ color: c }}>•</span><span>{x}</span></li>)}
-              </ul>
-            )}
-          </div>
-        ))}
-      </div>
-      )}
-
-      {/* ölçüm kutucukları */}
-      <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] sm:grid-cols-2 xl:grid-cols-4">
-        <FlowTile
-          title="Hacim profili · POC"
-          value={prof ? num(prof.poc) : "—"}
-          tone="#fb923c"
-          status={prof ? (
-            px > prof.vah ? <b className="text-[#4ade80]">değer alanı ÜSTÜNDE → yukarıda kabul arıyor</b>
-              : px < prof.val ? <b className="text-[#f87171]">değer alanı ALTINDA → aşağıda kabul arıyor</b>
-              : <span>değer alanı içinde → POC&apos;a dönüş eğilimi</span>
-          ) : "veri yok"}
-        >
-          {prof && (
-            <>
-              <div className="font-mono text-[11.5px] text-slate-400">alan {num(prof.val)} – {num(prof.vah)} · 1 saat kayma <b className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)}</b></div>
-              <div className="flex flex-wrap gap-1 font-mono text-[10.5px] text-slate-500">
-                {prof.pocPath.map((pp) => <span key={pp.clock} className="rounded bg-[#151c28] px-1">{pp.clock} {num(pp.poc)}</span>)}
+      ) : (
+        <>
+          {/* ölçüm kutucukları */}
+          <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] sm:grid-cols-2 xl:grid-cols-4">
+            <FlowTile title="Hacim profili" ask="fiyat nerede kabul görüyor?" headline={vaHead} tone={vaPos > 0 ? UPC2 : vaPos < 0 ? DNC2 : NEU2} note={vaMean}>
+              {prof && (
+                <div>
+                  <KV k="POC (en çok işlem)">{num(prof.poc)}</KV>
+                  <KV k="Değer alanı">{num(prof.val)} – {num(prof.vah)}</KV>
+                  <KV k="POC 1 saatte"><span className={prof.pocShift > 0 ? "text-[#4ade80]" : prof.pocShift < 0 ? "text-[#f87171]" : "text-slate-300"}>{signed(prof.pocShift)} {prof.pocShift > 0 ? "yukarı kayıyor" : prof.pocShift < 0 ? "aşağı kayıyor" : "sabit"}</span></KV>
+                </div>
+              )}
+            </FlowTile>
+            <FlowTile title="Alıcı / satıcı baskısı" ask="kim daha agresif?" headline={dHead} tone={dSide > 0 ? UPC2 : dSide < 0 ? DNC2 : NEU2} note="Kapanış konumundan tahmin (gerçek işlem tarafı değil). Fiyat yeni dip yaparken delta yükseliyorsa gizli alım vardır.">
+              <div>
+                <KV k="Seans toplamı"><span className={f.cumDelta >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.cumDelta)}</span> · {dDay}</KV>
+                <KV k="Son 30 dk"><span className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</span>{dpct != null ? ` · %${Math.round(Math.abs(dpct) * 100)} ${dSide === 0 ? "dengede" : dSide > 0 ? "alıcı" : "satıcı"}` : ""}</KV>
               </div>
-            </>
+            </FlowTile>
+            <FlowTile title="Sıkışma · ivme" ask="kırılım yaklaşıyor mu?" headline={compHead} tone={compTone}>
+              <div>
+                <KV k="Mum boyu">{f.compression.ratio != null ? `ortalamanın ${f.compression.ratio.toFixed(2)}×` : "—"}</KV>
+                {f.compression.boxHigh != null && f.compression.boxLow != null && <KV k="Kutu">{num(f.compression.boxLow)} – {num(f.compression.boxHigh)}</KV>}
+              </div>
+            </FlowTile>
+            <FlowTile title="Stop kümeleri" ask="fiyat nereye çekilir?" headline={poolHead} tone={NEU2} note="Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.">
+              <div className="flex flex-col gap-0.5 font-mono text-[11.5px]">
+                {above.map((pl) => <div key={`a${pl.price}`} className="flex justify-between gap-2"><span className="text-[#4ade80]">▲ {num(pl.price)}</span><span className="truncate text-slate-400">{pl.label}</span><span className="text-slate-500">+{num(pl.price - px)}</span></div>)}
+                {below.map((pl) => <div key={`b${pl.price}`} className="flex justify-between gap-2"><span className="text-[#f87171]">▼ {num(pl.price)}</span><span className="truncate text-slate-400">{pl.label}</span><span className="text-slate-500">−{num(px - pl.price)}</span></div>)}
+              </div>
+            </FlowTile>
+          </div>
+
+          {/* alıcı / satıcı izleri */}
+          <div className="border-t border-[#1c2635] px-3 py-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <button type="button" onClick={() => setTracesOpen((v) => !v)} className={SHOW_BTN}>{tracesOpen ? "▴ gizle" : "▾ göster"}</button>
+              <span className="text-[12px] font-semibold text-slate-200">Alıcı / satıcı izleri <span className="font-normal text-slate-500">· kanıt</span></span>
+            </div>
+          </div>
+          {tracesOpen && (
+            <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-2">
+              {([["Alıcı izleri", w.bullWhy, UPC2], ["Satıcı izleri", w.bearWhy, DNC2]] as const).map(([t, list, c]) => (
+                <div key={t} className="bg-[#0f141d] px-3 py-2">
+                  <div className="mb-1 text-[12px] font-semibold" style={{ color: c }}>{t}</div>
+                  {list.length === 0 ? <div className="text-[12px] text-slate-500">belirgin iz yok</div> : (
+                    <ul className="flex flex-col gap-1 text-[12px] leading-snug text-slate-200">
+                      {list.map((x, k) => <li key={k} className="flex gap-1.5"><span style={{ color: c }}>•</span><span>{x}</span></li>)}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
-        </FlowTile>
-        <FlowTile
-          title="Kümülatif delta"
-          value={fmtD(f.cumDelta)}
-          tone={f.cumDelta >= 0 ? "#4ade80" : "#f87171"}
-          status={<>son 30 dk <b className={f.delta30 >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{fmtD(f.delta30)}</b>{f.deltaPct30 != null && <> · %{Math.round(f.deltaPct30 * 100)} {Math.abs(f.deltaPct30) < 0.12 ? "dengede" : f.deltaPct30 > 0 ? "alıcı baskın" : "satıcı baskın"}</>}</>}
-          note="Kapanış konumundan tahmin — fiyat yeni dip yaparken delta yükseliyorsa gizli alım (uyumsuzluk) var demektir."
-        />
-        <FlowTile
-          title="Sıkışma · ivme"
-          value={f.compression.active ? "SIKIŞMA" : "yok"}
-          tone={f.compression.active ? "#fbbf24" : "#94a3b8"}
-          status={<>{f.compression.ratio != null && <>mum boyu ortalamanın {f.compression.ratio.toFixed(2)}×</>}{f.compression.boxHigh != null && f.compression.boxLow != null && <> · kutu {num(f.compression.boxLow)} – {num(f.compression.boxHigh)}</>}</>}
-        >
-          <div className="text-[12px]">{f.accel.text ? <b className={f.accel.dir > 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{f.accel.text}</b> : <span className="text-slate-400">ivme artışı yok</span>}</div>
-        </FlowTile>
-        <FlowTile title="Likidite havuzları · stop kümeleri" note="Fiyat bu seviyelere çekilir (stoplar orada). Fitille geçip geri dönerse = süpürme → dönüş sinyali.">
-          <div className="flex flex-col gap-0.5 font-mono text-[12px]">
-            {above.map((p) => <div key={`a${p.price}`} className="flex justify-between gap-2"><span className="text-[#4ade80]">▲ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">+{num(p.price - px)}</span></div>)}
-            {below.map((p) => <div key={`b${p.price}`} className="flex justify-between gap-2"><span className="text-[#f87171]">▼ {num(p.price)}</span><span className="truncate text-slate-400">{p.label}</span><span className="text-slate-500">−{num(px - p.price)}</span></div>)}
-            {above.length + below.length === 0 && <span className="font-sans text-slate-500">yakında süpürülmemiş havuz yok</span>}
-          </div>
-        </FlowTile>
-      </div>
 
-      {/* opsiyon seviyeleri — varsayılan gizli */}
-      <div className="border-t border-[#1c2635] px-3 py-2">
-        <div className="mb-1 flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => setOptOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{optOpen ? "▴ gizle" : "▾ göster"}</button>
-          <span className="text-[12px] font-semibold text-slate-200">Opsiyon seviyeleri</span>
-          <span className="text-[11px] text-slate-500">{opt ? (opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`) : "opsiyon zinciri alınamadı"} · yalnız seviye, yön vermez</span>
-        </div>
-        {optOpen && opt && (
-          <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11.5px]">
-            {opt.callWalls.map((cw, i) => (
-              <span key={`c${cw.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
-                call{i ? " 2" : ""} <b>{num(cw.strike)}</b> <span className="text-slate-500">{Math.round(cw.openInterest / 1000)}K · {num(cw.strike - (price ?? opt.spot))}</span>
-              </span>
-            ))}
-            {opt.putWalls.map((pw, i) => (
-              <span key={`p${pw.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
-                put{i ? " 2" : ""} <b>{num(pw.strike)}</b> <span className="text-slate-500">{Math.round(pw.openInterest / 1000)}K · {num(pw.strike - (price ?? opt.spot))}</span>
-              </span>
-            ))}
-            {opt.maxPain != null && (
-              <span className="rounded border border-slate-600 bg-slate-700/20 px-1.5 py-0.5 text-slate-200" title="Vade sonunda opsiyon yazarlarının kaybını en aza indiren fiyat — gün sonuna doğru mıknatıs etkisi">
-                max pain <b>{num(opt.maxPain)}</b> <span className="text-slate-500">{num(opt.maxPain - (price ?? opt.spot))}</span>
-              </span>
-            )}
-            {opt.callPutOi != null && <span className="text-slate-500">C/P {opt.basis} {opt.callPutOi.toFixed(2)}</span>}
-            {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
-          </div>
-        )}
-        {optOpen && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">
-          OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
-        </div>}
-      </div>
-
-      {/* olaylar — varsayılan gizli */}
-      {f.events.length > 0 && (
-        <div className="border-t border-[#1c2635] px-3 py-2">
-          <div className="mb-1 flex flex-wrap items-center gap-2">
-            <button type="button" onClick={() => setEventsOpen((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30">{eventsOpen ? "▴ gizle" : "▾ göster"}</button>
-            <span className="text-[12px] font-semibold text-slate-200">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte · {f.events.length} olay</span></span>
-          </div>
-          {eventsOpen && <div className="flex max-h-[170px] flex-col overflow-y-auto">
-            {f.events.slice().reverse().slice(0, 12).map((e) => (
-              <div key={`${e.kind}${e.time}${e.price}`} className="grid grid-cols-[44px_118px_minmax(0,1fr)] items-baseline gap-2 border-b border-[#151c28] py-1 text-[12px] last:border-0">
-                <span className="font-mono text-slate-400">{e.clock}</span>
-                <span className={`rounded px-1.5 py-[1px] text-center font-mono text-[10.5px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
-                <span className="leading-snug text-slate-300">{e.text}</span>
+          {/* opsiyon seviyeleri */}
+          <div className="border-t border-[#1c2635] px-3 py-2">
+            <div className="mb-1 flex flex-wrap items-center gap-2">
+              <button type="button" onClick={() => setOptOpen((v) => !v)} className={SHOW_BTN}>{optOpen ? "▴ gizle" : "▾ göster"}</button>
+              <span className="text-[12px] font-semibold text-slate-200">Opsiyon seviyeleri</span>
+              <span className="text-[11px] text-slate-500">{opt ? (opt.isZeroDte ? "0DTE" : `vade ${opt.expiry} (0DTE yok)`) : "opsiyon zinciri alınamadı"} · yalnız seviye, yön vermez</span>
+            </div>
+            {optOpen && opt && (
+              <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11.5px]">
+                {opt.callWalls.map((cw, k) => (
+                  <span key={`c${cw.strike}`} className="rounded border border-[#ef4444]/30 bg-[#ef4444]/10 px-1.5 py-0.5 text-[#f87171]" title="Dünkü açık pozisyon (OI) — fiyat yukarıdan bu seviyeye çarpma eğilimi">
+                    call{k ? " 2" : ""} <b>{num(cw.strike)}</b> <span className="text-slate-500">{Math.round(cw.openInterest / 1000)}K · {num(cw.strike - (price ?? opt.spot))}</span>
+                  </span>
+                ))}
+                {opt.putWalls.map((pw, k) => (
+                  <span key={`p${pw.strike}`} className="rounded border border-[#22c55e]/30 bg-[#22c55e]/10 px-1.5 py-0.5 text-[#4ade80]" title="Dünkü açık pozisyon (OI) — fiyat aşağıdan bu seviyeye çarpma eğilimi">
+                    put{k ? " 2" : ""} <b>{num(pw.strike)}</b> <span className="text-slate-500">{Math.round(pw.openInterest / 1000)}K · {num(pw.strike - (price ?? opt.spot))}</span>
+                  </span>
+                ))}
+                {opt.maxPain != null && (
+                  <span className="rounded border border-slate-600 bg-slate-700/20 px-1.5 py-0.5 text-slate-200" title="Vade sonunda opsiyon yazarlarının kaybını en aza indiren fiyat — gün sonuna doğru mıknatıs etkisi">
+                    max pain <b>{num(opt.maxPain)}</b> <span className="text-slate-500">{num(opt.maxPain - (price ?? opt.spot))}</span>
+                  </span>
+                )}
+                {opt.callPutOi != null && <span className="text-slate-500">C/P {opt.basis} {opt.callPutOi.toFixed(2)}</span>}
+                {opt.basis === "hacim" && <span className="text-amber-300/90">· OI henüz yok (açılış öncesi) — son işlem günü hacmiyle</span>}
               </div>
-            ))}
-          </div>}
-        </div>
+            )}
+            {optOpen && <div className="mt-1 text-[10.5px] leading-snug text-slate-500">
+              OI dünkü kapanış değeridir (vade günü değişmez); açılış öncesi 0DTE OI henüz yayınlanmadığından son işlem günü hacmi kullanılır. ±%3 pencere; veri gecikmeli olabilir. Duvarlar fiyatı çeker/durdurur — yön vermez.
+            </div>}
+          </div>
+
+          {/* olaylar */}
+          {f.events.length > 0 && (
+            <div className="border-t border-[#1c2635] px-3 py-2">
+              <div className="mb-1 flex flex-wrap items-center gap-2">
+                <button type="button" onClick={() => setEventsOpen((v) => !v)} className={SHOW_BTN}>{eventsOpen ? "▴ gizle" : "▾ göster"}</button>
+                <span className="text-[12px] font-semibold text-slate-200">Akıllı para olayları <span className="font-normal text-slate-500">· en yeni üstte · {f.events.length} olay</span></span>
+              </div>
+              {eventsOpen && <div className="flex max-h-[170px] flex-col overflow-y-auto">
+                {f.events.slice().reverse().slice(0, 12).map((e) => (
+                  <div key={`${e.kind}${e.time}${e.price}`} className="grid grid-cols-[44px_118px_minmax(0,1fr)] items-baseline gap-2 border-b border-[#151c28] py-1 text-[12px] last:border-0">
+                    <span className="font-mono text-slate-400">{e.clock}</span>
+                    <span className={`rounded px-1.5 py-[1px] text-center font-mono text-[10.5px] font-semibold ${e.bias > 0 ? "bg-[#22c55e]/15 text-[#4ade80]" : "bg-[#ef4444]/15 text-[#f87171]"}`}>{EVENT_TAG[e.kind]}</span>
+                    <span className="leading-snug text-slate-300">{e.text}</span>
+                  </div>
+                ))}
+              </div>}
+            </div>
+          )}
+          <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
+            Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir. Bu olaylar karar vermez; ters yön uyarısı yalnızca karar satırından gelir.
+          </div>
+        </>
       )}
-      <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-        Alıcı/satıcı hacmi ve &quot;akıllı para&quot; etiketleri fiyat–hacim davranışından çıkarımdır, emir defteri verisi değildir. Bu olaylar karar vermez; ters yön uyarısı yalnızca karar satırından gelir.
-      </div>
     </div>
   );
 }
@@ -1558,11 +1620,11 @@ export default function SpyEngineV9() {
           <BookOptionsCard b={bookR} o={optR} />
         </div>
 
-        {/* ── 1a2) Pivot noktaları ── */}
-        <PivotCard p={pivR} price={price} />
-
-        {/* ── 1b) Karar merdiveni ayrıntısı — 4 adımın koşulları ── */}
+        {/* ── 1a2) Karar merdiveni — karar özeti (+ gizli teknik ayrıntı) ── */}
         <LadderPanel L={ladder} s={lad} waiting={!analysis || !analysis.s5.bars.length} />
+
+        {/* ── 1b) Pivot noktaları ── */}
+        <PivotCard p={pivR} price={price} />
 
         {/* ── 1b2) Teknoloji liderleri — QQQ'yu kimler taşıyor ── */}
         <TechPanel t={techs} step={lad} />
