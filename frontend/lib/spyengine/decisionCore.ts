@@ -29,7 +29,7 @@ import { barEnd, readSetup15, sessionAggregate } from "./setup15";
 const hash = (s: string) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
 /** Motor ayarlarının parmak izi — kayıtta hangi kod/ayar sürümüyle üretildiği görünür */
 export const cfgHash = (c: LadderCfg = LADDER_CFG) => hash(JSON.stringify(c));
-export const ENGINE_VERSION = "ladder-2026.10.14.2";
+export const ENGINE_VERSION = "ladder-2026.10.14.5";
 
 // ── Tipler ──────────────────────────────────────────────────────────
 
@@ -71,15 +71,15 @@ export interface DecisionDay {
   live?: LiveEvent[];
 }
 
-export const MODES: PlanMode[] = ["AÇILIŞ YÖNÜ", "ÖĞLEN DÖNÜŞ", "KAPANIŞ YÖNÜ", "TEPE/DİP REDDİ"];
+export const MODES: PlanMode[] = ["AÇILIŞ YÖNÜ", "ÖĞLEN DÖNÜŞ", "TREND YAPISI", "KAPANIŞ YÖNÜ", "TEPE/DİP REDDİ"];
 
 // ── Mod anahtarları ve güven ile ayar uygulama ─────────────────────
 
 export function modeEnabled(c: LadderCfg, m: string): boolean {
-  return m === "AÇILIŞ YÖNÜ" ? c.plan.openOn : m === "ÖĞLEN DÖNÜŞ" ? c.plan.fadeOn : m === "KAPANIŞ YÖNÜ" ? c.plan.closeOn : m === "TEPE/DİP REDDİ" ? c.climax.on : true;
+  return m === "AÇILIŞ YÖNÜ" ? c.plan.openOn : m === "ÖĞLEN DÖNÜŞ" ? c.plan.fadeOn : m === "KAPANIŞ YÖNÜ" ? c.plan.closeOn : m === "TEPE/DİP REDDİ" ? c.climax.on : m === "TREND YAPISI" ? c.trend.on : true;
 }
 function setMode(c: LadderCfg, m: string, on: boolean) {
-  if (m === "AÇILIŞ YÖNÜ") c.plan.openOn = on; else if (m === "ÖĞLEN DÖNÜŞ") c.plan.fadeOn = on; else if (m === "KAPANIŞ YÖNÜ") c.plan.closeOn = on; else if (m === "TEPE/DİP REDDİ") c.climax.on = on;
+  if (m === "AÇILIŞ YÖNÜ") c.plan.openOn = on; else if (m === "ÖĞLEN DÖNÜŞ") c.plan.fadeOn = on; else if (m === "KAPANIŞ YÖNÜ") c.plan.closeOn = on; else if (m === "TEPE/DİP REDDİ") c.climax.on = on; else if (m === "TREND YAPISI") c.trend.on = on;
 }
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 

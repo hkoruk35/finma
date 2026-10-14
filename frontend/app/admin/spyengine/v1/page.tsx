@@ -278,6 +278,9 @@ function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: Mod
         <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
         <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
         {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
+        {s.structure && (
+          <div className={`mt-1.5 rounded border px-2 py-1 text-[11.5px] leading-snug ${s.structure.d > 0 ? "border-[#22c55e]/40 bg-[#22c55e]/10 text-[#86efac]" : s.structure.d < 0 ? "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#fca5a5]" : "border-slate-700 bg-slate-800/40 text-slate-400"}`}>{s.structure.d > 0 ? "▲ " : s.structure.d < 0 ? "▼ " : "◆ "}{s.structure.text}{s.structure.d !== 0 && s.regime.mode !== "TREND YAPISI" && side && (side === "CALL" ? 1 : -1) !== s.structure.d ? " · ⚠ karar yapıya TERS — küçük pozisyon" : ""}</div>
+        )}
         {s.trendEnd && s.trendEnd.level !== "İZLE" && (
           <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.trendEnd.level === "BİTTİ" ? "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#f87171]" : "border-orange-500/50 bg-orange-500/10 text-orange-300"}`}>⚠ {s.trendEnd.text}</div>
         )}
