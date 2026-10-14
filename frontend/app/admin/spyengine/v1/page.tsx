@@ -25,7 +25,7 @@ import type { ForecastModel, ForecastStats } from "@/lib/spyengine/forecastModel
 import Setup15Panel from "@/components/admin/spyengine/Setup15Panel";
 import DecisionLogPanel, { type DecisionResp } from "@/components/admin/spyengine/DecisionLogPanel";
 import { applyTrust, type ModeStat } from "@/lib/spyengine/decisionCore";
-import { backtestSetup15, mergeHourly, readSetup15 } from "@/lib/spyengine/setup15";
+import { backtestSetup15, mergeHourly, readSetup15, setupHist, type Setup15Read } from "@/lib/spyengine/setup15";
 import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
 import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
 import type { OptionFlow, QuoteBook } from "@/lib/spyengine/optionFetch";
@@ -184,7 +184,7 @@ const ladderCol = (s: LadderStep) => (s.status === "TETİK" ? (s.side === "PUT" 
 const ladderDot = (s: LadderStep) => (s.status === "TETİK" ? (s.side === "PUT" ? "🔴" : "🟢") : LADDER_STYLE[s.status].dot);
 
 /** En üstteki tek satır: durum · neden · ne olursa değişir */
-function LadderBar({ s, waiting }: { s: LadderStep | null; waiting: boolean }) {
+function LadderBar({ s, waiting, setup }: { s: LadderStep | null; waiting: boolean; setup?: Setup15Read | null }) {
   if (!s) {
     return (
       <div className="rounded-lg border-2 border-slate-600 bg-slate-700/10 px-4 py-2.5 text-[15px] font-semibold text-slate-300">
@@ -220,6 +220,22 @@ function LadderBar({ s, waiting }: { s: LadderStep | null; waiting: boolean }) {
                 <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">hedef </span><b className="text-slate-100">{num(o.plan.target)}</b></div>
               </div>
             )}
+          </div>
+        );
+      })()}
+      {setup?.primary && s && (() => {
+        const sp = setup.primary;
+        const h = setupHist(sp, setup.align);
+        const sd = sp.dir;
+        const ladD = s.side === "CALL" ? 1 : s.side === "PUT" ? -1 : 0;
+        const clash = ladD !== 0 && ladD !== sd;
+        const oc = sd > 0 ? "#22c55e" : "#ef4444";
+        return (
+          <div className="mt-2 rounded-md border px-3 py-1 text-[12.5px] leading-snug" style={{ borderColor: `${oc}66`, backgroundColor: `${oc}0f` }}>
+            <b style={{ color: oc }}>15m setup: {sp.title} · {sp.status}</b>
+            <span className="text-slate-200"> · giriş {num(sp.trigger)} · stop {num(sp.stop)} · H1 {num(sp.targets[0])} · skor {sp.score}</span>
+            {h && <span className="text-slate-400"> · 60 seans: H1 stoptan önce %{h.win}, ort. {h.avgR > 0 ? "+" : ""}{h.avgR.toFixed(2)}R</span>}
+            <span className="block text-[11.5px] text-slate-400">{clash ? <b className="text-orange-300">⚠ Merdiven kararı ({s.side}) bu setupın tersine — dikkat, küçük pozisyon. </b> : null}Bilgi: 15m setup ayrı bir tahmin modülüdür; işlem kararı Karar Merdiveni&apos;nden gelir.</span>
           </div>
         );
       })()}
@@ -1935,7 +1951,7 @@ export default function SpyEngineV9() {
 
       <div className="flex flex-col gap-1.5">
         {/* ── KARAR SATIRI — ekrandaki tek durum ── */}
-        <LadderBar s={lad} waiting={!analysis || !analysis.s5.bars.length} />
+        <LadderBar s={lad} waiting={!analysis || !analysis.s5.bars.length} setup={setup15.read} />
 
         {/* Tickerlar — varsayılan gizli */}
         {showTickers && (

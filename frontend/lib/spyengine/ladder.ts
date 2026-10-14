@@ -68,6 +68,14 @@
  *   · plan.fadeVsLean (eğilime karşı öğlen dönüşü 13:00'e kadar aranmaz; 8 işlem −1,8R) KULLANICI İSTEĞİYLE KAPATILDI (0) — sabit yasak yerine piyasa dinamiği.
  *     Dinamik süzgeçler ölçüldü, hiçbiri iyileştirmedi (dönüşler 49 işlem +19,9R): genel trend GÜÇLÜ ters → 7/+1,6R · 15m RSI kıvrıldı → 29/+10,4R ·
  *     yeni uç yok → 39/+12,2R · ikisi → 22/+7,8R · biri → 45/+14,3R. Hepsi kapalı (plan.fadeGeneral / plan.fadeDyn); genel trend ekranda bilgi olarak.
+ *   · TEYİTSİZ DÖNÜŞ (kullanıcı şikâyeti, 13:30 "her şey aşağıyken CALL erken uyarı"): genel trend dönüşün tersine GÜÇLÜ iken 15m RSI
+ *     dönüş yönüne kıvrılmadıysa ne ERKEN UYARI (warn.fadeGen) ne TETİK (plan.fadeGeneral = strongNoTurn) verilir.
+ *     58 seans: dönüş uyarı bölümü 127 → 80; dönüş işlemleri 49/+19,9R → 32/+11,4R (dönemler 30,4/5,0/27,2 vs 28,5/9,6/33,1). Tutarlılık için bilerek seçildi.
+ *   · KULLANICI KARARI "trend aşağıyken düzeltmede CALL yok, ara çözüm yok": plan.fadeTrend — genel trend dönüşün tersine GÜÇLÜ ya da
+ *     30m RSI dönüşün tersine gidiyorsa öğlen dönüşü İZNİ yok (uyarı/tetik yok). Engel yalnız 4 gerçek dönüş işaretinin hepsiyle kalkar
+ *     (15m RSI dönüyor, 30m RSI dönüyor, 15m mum EMA20'yi geri aldı, 15m yükselen dip / alçalan tepe). Eşik 3'te 14 Ekim 13:00 CALL'u yine gelirdi.
+ *     58 seans: öğlen dönüşü 49/+19,9R → 5/+1,2R; toplam 71,1R → 52,4R. Ekstra işleme 30m RSI notOpp eklendi (+3,1R → 55,5R, orta dönem −2,2 → +1,3R).
+ *     Açılış yönüne 30m RSI eklemek kötüleştirdi (both 48,6R · either 49,4R) → eklenmedi.
  *   · EKLENMEDİ plan.leanOpen (NET olmayan eğilime açılış izni): 23 ek işlem ≈ −0,7R, puan 45 → 39 — bugünkü PUT'u verirdi ama 58 günde kenarı yok.
  *     plan.gapLean 0,002: −3,0R. plan.fadeTrendBlock (VWAP+EMA20 eğimi aynı yönde dönüşü engelle): kârlı dönüşleri de kesiyor, −15R.
  *     risk.fadeStopsMax 1 (aynı yönde stop olan dönüşü tekrar etme): −2,4R.
@@ -131,7 +139,9 @@ export const LADDER_CFG = {
      *  %60 → %64 kazanç (dönemler +0,4 / +2,4 / −1,0R). 14:00'e kadar kapatmak: 19 işlem +1,2R (kenar yok ama kâr da değil) → 13:00 seçildi. */
     fadeVsLean: 0,
     /** Öğlen dönüşü tetiği piyasa dinamiğine bakar: "strong" genel trend (9 gösterge) dönüşün tersine GÜÇLÜ ise tetik açılmaz · "off" */
-    fadeGeneral: "off" as "off" | "strong",
+    /** TREND YÖNÜNE KARŞI DÖNÜŞ YOK (izin seviyesinde: ne uyarı ne tetik): genel trend dönüşün tersine GÜÇLÜ ise · 30m RSI kuralı ("notOpp": 30m RSI dönüşün tersine 50 altı/üstü ve o yöne gidiyorsa) */
+    fadeTrend: { general: true, rsi30: "notOpp" as "off" | "notOpp" | "dir" | "side", /** gerçek dönüş işaretleri (4 üzerinden) bu sayıya ulaşınca engel kalkar — 0 hiç */ revMin: 4 },
+    fadeGeneral: "off" as "off" | "strong" | "strongNoTurn",
     /** Öğlen dönüşü tetiğinde dönüş dinamiği: "rsiTurn" 15m RSI dönüş yönüne kıvrıldı · "noNew" tetik mumu yeni dip/tepe yapmadı · "both" · "either" · "off" */
     fadeDyn: "off" as "off" | "rsiTurn" | "noNew" | "both" | "either",
     /** Gün yönelimine karşı öğlen dönüşü: fiyat VWAP ve 5m EMA20'nin aynı tarafında, EMA20 de o yöne eğimliyse (trend günü) dönüş aranmaz */
@@ -149,6 +159,8 @@ export const LADDER_CFG = {
     /** kontrol anları (5m kapanış dakikası): 09:55'te yoksa 10:00'da yeniden bakılır; günde en çok 1 ekstra işlem */
     at: [9 * 60 + 55, 10 * 60],
     /** genel trend şartı: "off" · "late" yalnız ilk kontrolden sonrakilerde (10:00) · "all" hepsinde — genel trend aynı yönde GÜÇLÜ olmalı */
+    /** 30m RSI kuralı (ekstra işlem yönü): "notOpp" ters yöne gitmiyor · "off" */
+    rsi30: "notOpp" as "off" | "notOpp" | "dir" | "side",
     needGeneral: "late" as "off" | "late" | "all",
     /** VWAP'ın aynı tarafında kapanması gereken ardışık 5m mum */
     n5: 2,
@@ -241,6 +253,8 @@ export const LADDER_CFG = {
     /** izin yokken "öğlen dönüşü hazırlanıyor" ERKEN UYARI'sı (false: yalnız bilgi satırı) */
     preFade: false,
     /** öğlen dönüşü uyarısı: "base" uzama + (hacim düşüyor | formasyon) · "noNew" + mum yeni dip/tepe yapmadı · "noNewVol" ikisi birden · "turn" + kapanış dönüş yönünde */
+    /** öğlen dönüşü uyarısı: genel trend (9 gösterge) dönüşün tersine GÜÇLÜ iken 15m RSI dönmediyse uyarı verilmez */
+    fadeGen: true,
     fadeReady: "base" as "base" | "noNew" | "noNewVol" | "turn" | "noNewTurn",
   },
   reverse: {
@@ -609,6 +623,54 @@ export function ladderRead(inp: LadderInput): LadderRead {
     const impValid = !!lastImp && i - lastImp.i <= C.impulse.life && (b.close - vw) * lastImp.d > 0;
     const clxValid = !!lastClx && clxUsed !== lastClx.i && i - lastClx.i <= C.climax.life && (lastClx.d < 0 ? b.close < lastClx.extreme : b.close > lastClx.extreme);
 
+    // ── GENEL TREND (bilgi): çok göstergeli yön oylaması — işlem kararını değiştirmez ──
+    let general: LadderStep["general"] = null;
+    if (A5 && endMin >= 9 * 60 + 40) {
+      const sg = (x: number, eps = 0): 1 | -1 | 0 => (x > eps ? 1 : x < -eps ? -1 : 0);
+      const items: { k: string; v: 1 | -1 | 0 }[] = [];
+      if (inp.prevClose != null) items.push({ k: "önceki kapanış", v: sg(b.close - inp.prevClose, 0.05 * A5) });
+      items.push({ k: "VWAP", v: sg(b.close - vw, 0.05 * A5) });
+      if (e5 != null) {
+        items.push({ k: "5m EMA20", v: sg(b.close - e5, 0.02 * A5) });
+        const ep = i >= 6 ? ema5.get(bars[i - 6].time) : undefined;
+        if (ep != null) items.push({ k: "5m EMA20 eğimi", v: sg(e5 - ep, 0.05 * A5) });
+      }
+      const g15 = lastClosedBar(inp.s15.bars, 900, end);
+      const ge15 = g15 ? inp.ema15.get(g15.time) : undefined;
+      if (g15 && ge15 != null) items.push({ k: "15m EMA20", v: sg(g15.close - ge15) });
+      const h = inp.htf;
+      if (h) {
+        const c30 = lastClosedBar(h.m30, 1800, end), e30 = c30 ? h.e30.get(c30.time) : undefined;
+        if (c30 && e30 != null) items.push({ k: "30m EMA20", v: sg(c30.close - e30) });
+        const c60 = lastClosedBar(h.m60, 3600, end), e60 = c60 ? h.e60.get(c60.time) : undefined;
+        if (c60 && e60 != null) items.push({ k: "1h EMA20", v: sg(c60.close - e60) });
+      }
+      if (or30 && i >= 6) items.push({ k: "ilk 30 dk aralığı", v: b.close > or30.high ? 1 : b.close < or30.low ? -1 : 0 });
+      if (r15) items.push({ k: "15m RSI", v: rsiDirOf(r15) });
+      const score = items.reduce((a, x) => a + x.v, 0), nn = items.length;
+      const label = score >= 0.6 * nn ? "GÜÇLÜ YUKARI" : score >= 0.3 * nn ? "YUKARI" : score <= -0.6 * nn ? "GÜÇLÜ AŞAĞI" : score <= -0.3 * nn ? "AŞAĞI" : "KARARSIZ";
+      general = { score, n: nn, label, items };
+    }
+    // trend yönüne karşı dönüş engeli (izin seviyesinde: uyarı da tetik de yok)
+    let fadeTrendWhy = "";
+    {
+      const dv = b.close - vw;
+      if (dv !== 0) {
+        const fd: 1 | -1 = dv > 0 ? -1 : 1;
+        const why: string[] = [];
+        if (C.plan.fadeTrend.general && general && general.label.startsWith("GÜÇLÜ") && Math.sign(general.score) === -fd) why.push(`genel trend ${general.label} (${general.score}/${general.n})`);
+        if (C.plan.fadeTrend.rsi30 !== "off" && r30 && !rsiPass(C.plan.fadeTrend.rsi30, r30, fd)) why.push(`30m RSI ${r30.v.toFixed(0)} ${rsiDirOf(r30) < 0 ? "↓" : rsiDirOf(r30) > 0 ? "↑" : "→"}`);
+        // gerçek trend dönüşü işaretleri (geçici düzeltmeden ayırmak için)
+        const sig: string[] = [];
+        if (r15 && r15.prev != null && (r15.v - r15.prev) * fd > 0) sig.push("15m RSI dönüyor");
+        if (r30 && r30.prev != null && (r30.v - r30.prev) * fd > 0) sig.push("30m RSI dönüyor");
+        const q15 = lastClosedBar(inp.s15.bars, 900, end); const qk = q15 ? inp.s15.bars.indexOf(q15) : -1; const qe = q15 ? inp.ema15.get(q15.time) : undefined;
+        if (q15 && qe != null && (q15.close - qe) * fd > 0) sig.push("15m mum EMA20'yi geri aldı");
+        if (qk >= 1 && (fd > 0 ? inp.s15.bars[qk].low > inp.s15.bars[qk - 1].low : inp.s15.bars[qk].high < inp.s15.bars[qk - 1].high)) sig.push(fd > 0 ? "15m yükselen dip" : "15m alçalan tepe");
+        if (why.length && !(C.plan.fadeTrend.revMin > 0 && sig.length >= C.plan.fadeTrend.revMin))
+          fadeTrendWhy = `${word(fd)} dönüşü aranmaz — trend ${fd > 0 ? "aşağı" : "yukarı"} (${why.join(" · ")}); geçici düzeltme sayılır. Gerçek dönüş işaretleri ${sig.length}/4${sig.length ? `: ${sig.join(", ")}` : ""} — ${C.plan.fadeTrend.revMin} olunca dönüş aranır`;
+      }
+    }
     // ── seans planı: izin ──
     let permission: Permission = "NÖTR";
     let mode: PlanMode = "BEKLE";
@@ -643,6 +705,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
       mode = "TEPE/DİP REDDİ";
       modeText = `${nyClock(bars[lastClx.i].time + 300)} ${lastClx.d < 0 ? "tepe" : "dip"} reddi: dev hacimli spike ${f2(lastClx.extreme)}'ten geri döndü (uzun ${lastClx.d < 0 ? "üst" : "alt"} fitil) — ${lastClx.d < 0 ? "aşağı" : "yukarı"} dönüş; ${f2(lastClx.extreme)} aşılırsa geçersiz`;
     } else if (C.plan.fadeOn && endMin >= C.plan.fadeStart && endMin < C.plan.fadeEnd && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK
+      && !fadeTrendWhy
       && !(lastImp && i - lastImp.i <= C.impulse.fadeBlock && lastImp.d === (dev > 0 ? 1 : -1))
       && !(C.plan.fadeVsLean > 0 && endMin < C.plan.fadeVsLean && opSideN !== 0 && Math.sign(dev) === opSideN)
       && !(C.plan.fadeTrendBlock && e5 != null && i >= 6 && Math.sign(b.close - e5) === Math.sign(dev) && (() => { const ep = inp.ema5.get(bars[i - 6].time); return ep != null && Math.sign(e5 - ep) === Math.sign(dev); })())
@@ -658,7 +721,7 @@ export function ladderRead(inp: LadderInput): LadderRead {
       modeText = endMin < C.plan.fadeStart
         ? (opening && !opening.net ? `Açılış NET değil (${opening.label}) — 10:30'dan sonra öğlen dönüşü aranır` : broken ? "Açılış yönü açılış aralığının karşı ucunun kırılmasıyla bitti — 10:30'dan sonra öğlen dönüşü aranır" : "Açılış kararı bekleniyor")
         : endMin < C.plan.fadeEnd
-          ? (devAtr != null && Math.abs(devAtr) >= C.plan.fadeK && C.plan.fadeVsLean > 0 && endMin < C.plan.fadeVsLean && opSideN !== 0 && Math.sign(dev) === opSideN
+          ? (fadeTrendWhy && devAtr != null && Math.abs(devAtr) >= C.plan.fadeK ? fadeTrendWhy : devAtr != null && Math.abs(devAtr) >= C.plan.fadeK && C.plan.fadeVsLean > 0 && endMin < C.plan.fadeVsLean && opSideN !== 0 && Math.sign(dev) === opSideN
             ? `Öğlen: fiyat VWAP'tan ${sgn(devAtr)} ATR uzakta ama açılış eğilimi (${opening?.label ?? (opSideN > 0 ? "yukarı" : "aşağı")}) bu yönde — eğilime karşı ${opSideN > 0 ? "PUT" : "CALL"} dönüşü ${Math.floor(C.plan.fadeVsLean / 60)}:${String(C.plan.fadeVsLean % 60).padStart(2, "0")}'e kadar aranmaz (ölçümde zarar)`
             : `Öğlen: fiyat VWAP'a yakın (${devAtr != null ? sgn(devAtr) : "—"} ATR, eşik ±${C.plan.fadeK}) — dönüş için uzama yok`
           ) : `Kapanış saatleri: fiyat VWAP ile POC arasında (${f2(vw)} / ${poc != null ? f2(poc) : "—"}) — yön yok`;
@@ -715,34 +778,6 @@ export function ladderRead(inp: LadderInput): LadderRead {
         otInfo = { phase: "AÇIK", side: P.att.side, text: `Açılış trendi ${P.att.side} açık (${P.att.clock} · giriş ${f2(P.att.entry)}) · stop ${f2(P.stop)} · hedef ${f2(P.target)} · şimdi ${(b.close - P.att.entry) * P.d >= 0 ? "+" : "−"}${f2(Math.abs(b.close - P.att.entry))}`, plan: { entry: P.att.entry, stop: P.stop, target: P.target } };
       }
     }
-    // ── GENEL TREND (bilgi): çok göstergeli yön oylaması — işlem kararını değiştirmez ──
-    let general: LadderStep["general"] = null;
-    if (A5 && endMin >= 9 * 60 + 40) {
-      const sg = (x: number, eps = 0): 1 | -1 | 0 => (x > eps ? 1 : x < -eps ? -1 : 0);
-      const items: { k: string; v: 1 | -1 | 0 }[] = [];
-      if (inp.prevClose != null) items.push({ k: "önceki kapanış", v: sg(b.close - inp.prevClose, 0.05 * A5) });
-      items.push({ k: "VWAP", v: sg(b.close - vw, 0.05 * A5) });
-      if (e5 != null) {
-        items.push({ k: "5m EMA20", v: sg(b.close - e5, 0.02 * A5) });
-        const ep = i >= 6 ? ema5.get(bars[i - 6].time) : undefined;
-        if (ep != null) items.push({ k: "5m EMA20 eğimi", v: sg(e5 - ep, 0.05 * A5) });
-      }
-      const g15 = lastClosedBar(inp.s15.bars, 900, end);
-      const ge15 = g15 ? inp.ema15.get(g15.time) : undefined;
-      if (g15 && ge15 != null) items.push({ k: "15m EMA20", v: sg(g15.close - ge15) });
-      const h = inp.htf;
-      if (h) {
-        const c30 = lastClosedBar(h.m30, 1800, end), e30 = c30 ? h.e30.get(c30.time) : undefined;
-        if (c30 && e30 != null) items.push({ k: "30m EMA20", v: sg(c30.close - e30) });
-        const c60 = lastClosedBar(h.m60, 3600, end), e60 = c60 ? h.e60.get(c60.time) : undefined;
-        if (c60 && e60 != null) items.push({ k: "1h EMA20", v: sg(c60.close - e60) });
-      }
-      if (or30 && i >= 6) items.push({ k: "ilk 30 dk aralığı", v: b.close > or30.high ? 1 : b.close < or30.low ? -1 : 0 });
-      if (r15) items.push({ k: "15m RSI", v: rsiDirOf(r15) });
-      const score = items.reduce((a, x) => a + x.v, 0), nn = items.length;
-      const label = score >= 0.6 * nn ? "GÜÇLÜ YUKARI" : score >= 0.3 * nn ? "YUKARI" : score <= -0.6 * nn ? "GÜÇLÜ AŞAĞI" : score <= -0.3 * nn ? "AŞAĞI" : "KARARSIZ";
-      general = { score, n: nn, label, items };
-    }
     if (otInfo?.phase === "BELİRSİZ" && endMin >= 10 * 60 + 30) otInfo = null;
     if (C.openTrend.on && !otDone && !otPos && C.openTrend.at.includes(endMin) && A5 && i >= C.openTrend.n5 - 1) {
       const c15 = lastClosedBar(inp.s15.bars, 900, end);
@@ -753,6 +788,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
       for (let j = i - C.openTrend.n5 + 1; j <= i && ok; j++) if (Math.sign(bars[j].close - (s5.vwap[j] ?? bars[j].close)) !== s15) ok = false;
       const lastCheck = endMin === Math.max(...C.openTrend.at);
       const needG = C.openTrend.needGeneral === "all" || (C.openTrend.needGeneral === "late" && endMin !== Math.min(...C.openTrend.at));
+      const rsi30Blocked = ok && C.openTrend.rsi30 !== "off" && !!r30 && !rsiPass(C.openTrend.rsi30, r30, s15 as 1 | -1);
+      if (rsi30Blocked) ok = false;
       const genBlocked = ok && needG && !(general && general.label === (s15 > 0 ? "GÜÇLÜ YUKARI" : "GÜÇLÜ AŞAĞI"));
       if (genBlocked) ok = false;
       if (ok) {
@@ -774,7 +811,9 @@ export function ladderRead(inp: LadderInput): LadderRead {
         // açılış belirsiz: 15m ve 5m VWAP tarafları uyuşmuyor
         const sides5 = bars.slice(i - C.openTrend.n5 + 1, i + 1).map((x, j) => Math.sign(x.close - (s5.vwap[i - C.openTrend.n5 + 1 + j] ?? x.close)));
         const tx = (s: number) => (s > 0 ? "üstünde" : s < 0 ? "altında" : "üzerinde");
-        const why = genBlocked
+        const why = rsi30Blocked
+          ? `15m ve son 5m mumlar VWAP'ın ${tx(s15)} ama 30m RSI (${r30 ? r30.v.toFixed(0) : "—"}) ters yönde`
+          : genBlocked
           ? `15m ve son 5m mumlar VWAP'ın ${tx(s15)} ama genel trend aynı yönde GÜÇLÜ değil`
           : `15m mum VWAP'ın ${tx(s15)}, son 5m mumlar ${sides5.map(tx).join(" / ")}`;
         const gTxt = general ? ` · genel trend ${general.label} (${general.score}/${general.n})` : "";
@@ -932,7 +971,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
         ? C.rsi.openTf === "30" ? rsiPass(rsiRule, r30, d) : C.rsi.openTf === "both" ? rsiPass(rsiRule, r15, d) && rsiPass(rsiRule, r30, d) : rsiPass(rsiRule, r15, d) || rsiPass(rsiRule, r30, d)
         : rsiPass(rsiRule, r15, d);
       if (rsiRule !== "off") trigConds.push({ key: "t6", required: true, label: `15m RSI yönü ${d > 0 ? "yukarı (50 üstü, yükselen)" : "aşağı (50 altı, düşen)"}`, ok: rsiOk, value: r15 ? `RSI ${r15.v.toFixed(1)}${r15.prev != null ? ` (önceki ${r15.prev.toFixed(1)})` : ""}` : "veri yok" });
-      const fadeGenBlock0 = fade && C.plan.fadeGeneral === "strong" && !!general && general.label.startsWith("GÜÇLÜ") && Math.sign(general.score) === -d;
+      const fadeGenBlock0 = fade && C.plan.fadeGeneral !== "off" && !!general && general.label.startsWith("GÜÇLÜ") && Math.sign(general.score) === -d
+        && !(C.plan.fadeGeneral === "strongNoTurn" && !!r15 && r15.prev != null && (r15.v - r15.prev) * d > 0);
       const dynRsi = !!r15 && r15.prev != null && (r15.v - r15.prev) * d > 0;
       const dynNoNew = i > 0 && (d > 0 ? b.low >= bars[i - 1].low : b.high <= bars[i - 1].high);
       const dynOk = C.plan.fadeDyn === "off" ? true : C.plan.fadeDyn === "rsiTurn" ? dynRsi : C.plan.fadeDyn === "noNew" ? dynNoNew : C.plan.fadeDyn === "both" ? dynRsi && dynNoNew : dynRsi || dynNoNew;
@@ -1008,7 +1048,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
         const turned = d > 0 ? closePos >= 0.5 : closePos <= 0.5;
         const slowing = (local != null && local < 1) || !!pat;
         const fadeOk = C.warn.fadeReady === "noNew" ? slowing && noNew : C.warn.fadeReady === "noNewVol" ? noNew && local != null && local < 1 : C.warn.fadeReady === "turn" ? slowing && turned : C.warn.fadeReady === "noNewTurn" ? noNew && turned : slowing;
-        const ready = clx ? true : fade ? stretched && fadeOk && (!C.rsi.warnFade || rsiTurn) : ((near && pulled) || firstGood) && (!C.rsi.warnGate || rsiOk) && rsiPass(C.rsi.warnTrend, r15, d);
+        const genAgainst = !!general && general.label.startsWith("GÜÇLÜ") && Math.sign(general.score) === -d;
+        const ready = clx ? true : fade ? stretched && fadeOk && (!C.rsi.warnFade || rsiTurn) && !(C.warn.fadeGen && genAgainst && !rsiTurn) : ((near && pulled) || firstGood) && (!C.rsi.warnGate || rsiOk) && rsiPass(C.rsi.warnTrend, r15, d);
         const latched = !ready && !!warnLatch && warnLatch.d === d && i - warnLatch.i <= C.warn.latch && i - warnLatch.i > 0 && !reverseActive;
         if ((ready || latched) && inWindow && !full) {
           if (ready) warnLatch = { i, d };
@@ -1023,6 +1064,8 @@ export function ladderRead(inp: LadderInput): LadderRead {
               ? `${word(d)} yönü (${mode}) · ${endMin > C.risk.lastEntryMin ? "15:30 sonrası yeni giriş yok" : "10:00 öncesi giriş yok"}.`
               : full
                 ? `${word(d)} yönü (${mode}) · günlük ${C.risk.maxAttempts} deneme doldu.`
+                : fade && C.warn.fadeGen && genAgainst && !rsiTurn && stretched
+                  ? `${word(d)} dönüşü için teyit yok — genel trend ${general!.label} (${general!.score}/${general!.n}), 15m RSI ${r15 ? r15.v.toFixed(0) : "—"} hâlâ ${d > 0 ? "aşağı" : "yukarı"}. RSI dönmeden erken uyarı verilmez; uzama ${devAtr != null ? sgn(devAtr) : "—"} ATR.`
                 : !rsiOk
                   ? `${word(d)} yönü (${mode}) · 15m RSI teyidi bekleniyor (RSI ${r15 ? r15.v.toFixed(0) : "—"} ${rsiDirOf(r15) > 0 ? "↑" : rsiDirOf(r15) < 0 ? "↓" : "→"}) — RSI ${d > 0 ? "50 üstünde yükselmeden" : "50 altında düşmeden"} tetik açılmaz.`
                   : `${word(d)} yönü (${mode}) · kurulum yok; fiyat ${L.label} ${f2(L.price)}'den ${(Math.abs(b.close - L.price) / A5).toFixed(2)} ATR uzakta.`;

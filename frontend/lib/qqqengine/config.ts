@@ -55,5 +55,8 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   c.plan.fadeVsLean = 0;
   // 09:55 açılış trend uyarısı + ekstra işlem SPY'da +8,9R (31 işlem), QQQ'da 41 işlem −4,0R (58 seans) → QQQ'da kapalı.
   c.openTrend.on = false;
+  // SPY'daki "trende karşı dönüş yok" engeli (plan.fadeTrend, warn.fadeGen) QQQ'da kârın çoğunu siliyor (58 seans +16,0R → +6,8R; ÖĞLEN 20/+9,2R → 2/+0,4R) — QQQ'da kapalı.
+  c.plan.fadeTrend = { general: false, rsi30: "off", revMin: 0 };
+  c.warn.fadeGen = false;
   return c;
 })();

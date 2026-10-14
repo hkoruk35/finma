@@ -29,7 +29,7 @@ import { barEnd, readSetup15, sessionAggregate } from "./setup15";
 const hash = (s: string) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
 /** Motor ayarlarının parmak izi — kayıtta hangi kod/ayar sürümüyle üretildiği görünür */
 export const cfgHash = (c: LadderCfg = LADDER_CFG) => hash(JSON.stringify(c));
-export const ENGINE_VERSION = "ladder-2026.10.14.8";
+export const ENGINE_VERSION = "ladder-2026.10.14.10";
 
 // ── Tipler ──────────────────────────────────────────────────────────
 
