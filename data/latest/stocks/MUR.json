@@ -1,22 +1,22 @@
 {
   "ticker": "MUR",
   "company": "Murphy Oil Corporation",
-  "date": "2026-10-13",
-  "generated_at": "2026-10-13T20:36:46.007Z",
+  "date": "2026-10-14",
+  "generated_at": "2026-10-14T10:14:20.675Z",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
     "current": 39.040000915527344,
     "open": 39.77000045776367,
-    "high": 39.970001220703125,
+    "high": 39.97999954223633,
     "low": 38.060001373291016,
     "prev_close": 39.380001068115234,
     "change_pct": -0.8633827916860525,
     "change_pct_1w": 3.307753293772464,
     "change_pct_1m": 5.4565111636567964,
     "change_pct_1y": 35.64975672027235,
-    "volume": 2875875,
-    "avg_volume_30d": 49024475
+    "volume": 2875900,
+    "avg_volume_30d": 49024500
   },
   "scores": {
     "master_score": 86,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 1.33,
     "atr_pct": 3.42,
-    "rvol": 0.9382466614889807,
+    "rvol": 0.938249242725576,
     "52w_high": 43.34000015258789,
     "52w_low": 26.489999771118164
   },
@@ -60,9 +60,9 @@
     "market_cap": 5597599232,
     "revenue_growth_ttm": 0.356,
     "fcf_yield": 0.06158325269685903,
-    "institutional_ownership_pct": 0.92495,
-    "dividend_rate": 1.4,
-    "dividend_yield": 0.0356
+    "institutional_ownership_pct": 0.92525,
+    "dividend_rate": 0,
+    "dividend_yield": 0.0359
   },
   "scores_detail": {
     "entry_range_low": 38.24,
