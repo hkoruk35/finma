@@ -232,7 +232,25 @@ function TfRow({ t, label }: { t: TfTrend | null; label: string }) {
   );
 }
 
-export default function Setup15Panel({ bars, forming, read, stats, htfReady }: {
+/** Setup'ın canlı durumu: son 15m kapanışından beri oluşan mumdaki en yüksek/düşük ve anlık fiyatla H1 / stop görüldü mü */
+function liveState(s: Setup15, forming: Bar | null, price: number | null): { text: string; cls: string } | null {
+  if (price == null) return null;
+  const hi = Math.max(price, forming?.high ?? price), lo = Math.min(price, forming?.low ?? price);
+  const hit = (lvl: number, up: boolean) => (up ? hi >= lvl : lo <= lvl);
+  const tgtHit = s.targets[0] != null && hit(s.targets[0], s.dir === 1);
+  const stopHit = hit(s.stop, s.dir === -1);
+    const trigHit = s.status === "KURULUYOR" && hit(s.trigger, s.dir === 1);
+  const mv = (price - s.trigger) * s.dir;
+  const base = `şimdi ${num(price)} · girişe göre ${mv >= 0 ? "+" : "−"}${num(Math.abs(mv))}`;
+  if (stopHit && !tgtHit) return { text: `${base} · STOP seviyesi görüldü — kurulum bozuldu`, cls: "text-[#f87171]" };
+  if (tgtHit) return { text: `${base} · H1 ${num(s.targets[0])} görüldü ✓ — kârın bir kısmını al`, cls: "text-[#4ade80]" };
+  if (trigHit) return { text: `${base} · tetik seviyesi aşıldı — 15m kapanışı bekleniyor`, cls: "text-amber-300" };
+  return { text: base, cls: "text-slate-400" };
+}
+
+export default function Setup15Panel({ bars, forming, read, stats, htfReady, price }: {
+  /** Anlık fiyat (canlı) — setup'ın güncel durumu için */
+  price?: number | null;
   /** Kapanmış RTH 15m mumları (çok günlük) */
   bars: Bar[];
   /** Oluşmakta olan 15m mum (yoksa null) */
@@ -255,7 +273,8 @@ export default function Setup15Panel({ bars, forming, read, stats, htfReady }: {
           15m Setup &amp; 4 Mum Tahmini <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 1h / 4h teyidi · pivotlar · her 15m kapanışta güncellenir</span>
         </span>
         <span className="flex items-center gap-2 font-mono text-[11px]">
-          <span className="text-slate-500">son kapanış {nyClock(read.key + 900)} · +60 dk ≈</span>
+          {price != null && <span className="text-slate-300">şimdi <b className="text-slate-100">{num(price)}</b> ·</span>}
+          <span className="text-slate-500">tahmin son 15m kapanışına ({nyClock(read.key + 900)}) göre · +60 dk ≈</span>
           <b className="text-[14px] text-slate-100">${num(fc.candles[3].c)}</b>
           <span className="text-slate-500">({num(fc.candles[3].lo)} – {num(fc.candles[3].hi)})</span>
         </span>
@@ -281,6 +300,7 @@ export default function Setup15Panel({ bars, forming, read, stats, htfReady }: {
                 <b className={`text-[12px] ${s.dir === 1 ? "text-[#4ade80]" : "text-[#f87171]"}`}>{s.title}</b>
                 <span className="font-mono text-[11px] text-slate-400">{s.status} · skor {s.score} · R:R {s.rr}</span>
               </div>
+              {(() => { const ls = liveState(s, forming, price ?? null); return ls ? <div className={`font-mono text-[11px] font-semibold ${ls.cls}`}>● CANLI: {ls.text}</div> : null; })()}
               <div className="font-mono text-[11px] text-slate-300">
                 giriş {num(s.trigger)} · stop {num(s.stop)} · H1 {num(s.targets[0])}{s.targets[1] != null ? ` · H2 ${num(s.targets[1])}` : ""}
               </div>

@@ -2114,7 +2114,7 @@ export default function SpyEngineV9() {
           <div className={`${SURFACE} px-3 py-8 text-center text-[12px] text-slate-500`}>Tahmin bölümü için fiyat ve seviye verisi bekleniyor.</div>
         ) : (
           <ForecastTabs
-            setupTab={<Setup15Panel bars={m15Closed} forming={m15Forming} read={setup15.read} stats={setup15.stats} htfReady={h1Hist.length > 0} />}
+            setupTab={<Setup15Panel bars={m15Closed} forming={m15Forming} read={setup15.read} stats={setup15.stats} htfReady={h1Hist.length > 0} price={price} />}
             mapTab={
         <div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
