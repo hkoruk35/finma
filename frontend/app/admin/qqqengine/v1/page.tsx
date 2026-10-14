@@ -198,6 +198,25 @@ function LadderBar({ s, waiting }: { s: LadderStep | null; waiting: boolean }) {
         <span className="ml-auto font-mono text-[11px] text-slate-500">son 5m kapanış {s.clock} ET</span>
       </div>
       <div className="mt-1 text-[13px] leading-snug text-slate-300"><b className="text-slate-400">Ne olursa değişir:</b> {s.change}</div>
+      {s.openTrend && s.openTrend.phase !== "YOK" && (() => {
+        const o = s.openTrend;
+        const oc = o.phase === "KAPANDI" ? "#94a3b8" : o.phase === "BELİRSİZ" ? "#eab308" : o.side === "CALL" ? "#22c55e" : "#ef4444";
+        return (
+          <div className="mt-2 rounded-md border-2 px-3 py-1.5" style={{ borderColor: oc, backgroundColor: `${oc}1a` }}>
+            <div className={`text-[15px] font-black leading-snug ${o.phase === "UYARI" ? "animate-pulse" : ""}`} style={{ color: oc }}>
+              {o.phase === "UYARI" ? `🔔 AÇILIŞ TRENDİ · EKSTRA ${o.side}` : o.phase === "AÇIK" ? `● AÇILIŞ TRENDİ · ${o.side} AÇIK` : o.phase === "KAPANDI" ? "◆ AÇILIŞ TRENDİ · KAPANDI" : "⚠ AÇILIŞ BELİRSİZ"}
+            </div>
+            <div className="text-[13px] leading-snug text-slate-100">{o.text}</div>
+            {o.plan && (
+              <div className="mt-1 grid grid-cols-3 gap-1 font-mono text-[12px]">
+                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">giriş </span><b className="text-slate-100">{num(o.plan.entry)}</b></div>
+                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">stop </span><b className="text-slate-100">{num(o.plan.stop)}</b></div>
+                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">hedef </span><b className="text-slate-100">{num(o.plan.target)}</b></div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
       {pl && (s.status === "TETİK" || s.status === "TERS UYARI") && (
         <div className="mt-1.5 grid grid-cols-2 gap-1 font-mono text-[12px] sm:grid-cols-4">
           <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1"><div className="text-[10px] text-slate-500">giriş (5m kapanış)</div><b className="text-slate-100">{num(pl.entry)}</b></div>
@@ -1329,12 +1348,12 @@ export default function SpyEngineV9() {
   const loggedSig = useRef("");
   useEffect(() => {
     if (replayDate || !lad || !date || !data?.session.isLive) return;
-    const sig = `${date}|${lad.status}|${lad.side}|${lad.regime.mode}`;
+    const sig = `${date}|${lad.status}|${lad.side}|${lad.regime.mode}|${lad.openTrend?.phase ?? ""}`;
     if (loggedSig.current === sig) return;
     loggedSig.current = sig;
     void fetch("/api/admin/qqqengine/v2/decisions", {
       method: "POST", credentials: "include", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ date, events: [{ t: lad.time, clock: lad.clock, status: lad.status, side: lad.side, mode: lad.regime.mode, msg: lad.message, price: price, entry: lad.plan?.entry, stop: lad.plan?.stop, target: lad.plan?.target }] }),
+      body: JSON.stringify({ date, events: [{ t: lad.time, clock: lad.clock, status: lad.status, side: lad.side, mode: lad.regime.mode, msg: lad.openTrend && lad.openTrend.phase !== "YOK" ? `${lad.message} | ${lad.openTrend.text}` : lad.message, price: price, entry: lad.plan?.entry, stop: lad.plan?.stop, target: lad.plan?.target }] }),
     }).catch(() => { /* kayıt ana akışı etkilemesin */ });
   }, [lad, date, replayDate, data?.session.isLive, price]);
 

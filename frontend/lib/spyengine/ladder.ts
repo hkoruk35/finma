@@ -65,7 +65,9 @@
  *   · Ölçülüp EKLENMEYEN: histerezis (durum titremesi azaltma) ve daha geniş stoplar — dönemlerde tutarsız; fırsat kaçırmamak için yeni giriş kuralı da eklenmedi.
  *
  * 14 EKİM GÜNÜ (gap aşağı, açılış "DÜŞÜŞ eğilimi · NET DEĞİL", 10:35 öğlen dönüşü CALL −1R) İNCELEMESİ (58 seans):
- *   · EKLENDİ plan.fadeVsLean = 13:00: eğilime karşı öğlen dönüşü 13:00'e kadar aranmaz (8 işlem −1,8R çıktı; +61,7R → +63,5R, %60 → %64).
+ *   · plan.fadeVsLean (eğilime karşı öğlen dönüşü 13:00'e kadar aranmaz; 8 işlem −1,8R) KULLANICI İSTEĞİYLE KAPATILDI (0) — sabit yasak yerine piyasa dinamiği.
+ *     Dinamik süzgeçler ölçüldü, hiçbiri iyileştirmedi (dönüşler 49 işlem +19,9R): genel trend GÜÇLÜ ters → 7/+1,6R · 15m RSI kıvrıldı → 29/+10,4R ·
+ *     yeni uç yok → 39/+12,2R · ikisi → 22/+7,8R · biri → 45/+14,3R. Hepsi kapalı (plan.fadeGeneral / plan.fadeDyn); genel trend ekranda bilgi olarak.
  *   · EKLENMEDİ plan.leanOpen (NET olmayan eğilime açılış izni): 23 ek işlem ≈ −0,7R, puan 45 → 39 — bugünkü PUT'u verirdi ama 58 günde kenarı yok.
  *     plan.gapLean 0,002: −3,0R. plan.fadeTrendBlock (VWAP+EMA20 eğimi aynı yönde dönüşü engelle): kârlı dönüşleri de kesiyor, −15R.
  *     risk.fadeStopsMax 1 (aynı yönde stop olan dönüşü tekrar etme): −2,4R.
@@ -127,7 +129,11 @@ export const LADDER_CFG = {
     /** Öğlen dönüşü, açılış EĞİLİMİNE karşıysa (fiyat eğilim yönünde VWAP'tan uzaklaşmış) bu dakikaya kadar aranmaz — 0 kapalı.
      *  2026-10-14 ölçümü (58 seans): 13:00 öncesi eğilime karşı öğlen dönüşleri 8 işlem −1,8R → kapatınca 85 → 77 işlem, +61,7R → +63,5R,
      *  %60 → %64 kazanç (dönemler +0,4 / +2,4 / −1,0R). 14:00'e kadar kapatmak: 19 işlem +1,2R (kenar yok ama kâr da değil) → 13:00 seçildi. */
-    fadeVsLean: 13 * 60,
+    fadeVsLean: 0,
+    /** Öğlen dönüşü tetiği piyasa dinamiğine bakar: "strong" genel trend (9 gösterge) dönüşün tersine GÜÇLÜ ise tetik açılmaz · "off" */
+    fadeGeneral: "off" as "off" | "strong",
+    /** Öğlen dönüşü tetiğinde dönüş dinamiği: "rsiTurn" 15m RSI dönüş yönüne kıvrıldı · "noNew" tetik mumu yeni dip/tepe yapmadı · "both" · "either" · "off" */
+    fadeDyn: "off" as "off" | "rsiTurn" | "noNew" | "both" | "either",
     /** Gün yönelimine karşı öğlen dönüşü: fiyat VWAP ve 5m EMA20'nin aynı tarafında, EMA20 de o yöne eğimliyse (trend günü) dönüş aranmaz */
     fadeTrendBlock: false,
     /** Açılış yönü TREND SONU işaretinde biter: "rsi" 15m RSI ters yöne döndü · "vwap2" iki 5m kapanış VWAP'ın ters tarafında · "off" */
@@ -926,7 +932,14 @@ export function ladderRead(inp: LadderInput): LadderRead {
         ? C.rsi.openTf === "30" ? rsiPass(rsiRule, r30, d) : C.rsi.openTf === "both" ? rsiPass(rsiRule, r15, d) && rsiPass(rsiRule, r30, d) : rsiPass(rsiRule, r15, d) || rsiPass(rsiRule, r30, d)
         : rsiPass(rsiRule, r15, d);
       if (rsiRule !== "off") trigConds.push({ key: "t6", required: true, label: `15m RSI yönü ${d > 0 ? "yukarı (50 üstü, yükselen)" : "aşağı (50 altı, düşen)"}`, ok: rsiOk, value: r15 ? `RSI ${r15.v.toFixed(1)}${r15.prev != null ? ` (önceki ${r15.prev.toFixed(1)})` : ""}` : "veri yok" });
-      const firedBase = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && rsiOk && !(clx && lastClx && i <= lastClx.i);
+      const fadeGenBlock0 = fade && C.plan.fadeGeneral === "strong" && !!general && general.label.startsWith("GÜÇLÜ") && Math.sign(general.score) === -d;
+      const dynRsi = !!r15 && r15.prev != null && (r15.v - r15.prev) * d > 0;
+      const dynNoNew = i > 0 && (d > 0 ? b.low >= bars[i - 1].low : b.high <= bars[i - 1].high);
+      const dynOk = C.plan.fadeDyn === "off" ? true : C.plan.fadeDyn === "rsiTurn" ? dynRsi : C.plan.fadeDyn === "noNew" ? dynNoNew : C.plan.fadeDyn === "both" ? dynRsi && dynNoNew : dynRsi || dynNoNew;
+      if (fade && C.plan.fadeDyn !== "off") trigConds.push({ key: "t8", required: true, label: `Dönüş dinamiği: ${C.plan.fadeDyn === "noNew" ? "mum yeni dip/tepe yapmadı" : C.plan.fadeDyn === "rsiTurn" ? "15m RSI dönüş yönüne kıvrıldı" : C.plan.fadeDyn === "both" ? "15m RSI kıvrıldı ve yeni dip/tepe yok" : "15m RSI kıvrıldı ya da yeni dip/tepe yok"}`, ok: dynOk, value: `RSI ${r15 ? r15.v.toFixed(0) : "—"}${dynRsi ? " ↺" : ""} · ${dynNoNew ? "yeni uç yok" : "yeni uç yaptı"}` });
+      const fadeGenBlock = fadeGenBlock0 || (fade && !dynOk);
+      if (fade && C.plan.fadeGeneral !== "off") trigConds.push({ key: "t7", required: true, label: `Genel trend dönüşün tersine GÜÇLÜ değil`, ok: !fadeGenBlock, value: general ? `${general.label} (${general.score}/${general.n})` : "veri yok" });
+      const firedBase = ((placeOk && quality && volOk) || pairOk) && inWindow && confOk && rsiOk && !fadeGenBlock && !(clx && lastClx && i <= lastClx.i);
       const fired = firedBase && !techBlock;
       if (fired && !full && !cooling) {
         // tükenme reddinde yapısal stop: spike'tan sonraki mumların ucu (spike'ın kendisi hariç)
