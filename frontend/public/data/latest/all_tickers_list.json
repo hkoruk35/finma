@@ -71,12 +71,12 @@
       "ticker": "J",
       "company": "J",
       "sector": "Industrials",
-      "master_score": 52.0,
+      "master_score": 50.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 141.60000610351562,
-      "change_pct": 1.56,
+      "price": 142.0,
+      "change_pct": -0.14,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
     },
     {
       "ticker": "NOW",
@@ -308,6 +308,105 @@
       "change_pct": -0.26,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ICUI",
+      "company": "ICUI",
+      "sector": "Healthcare",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 162.69000244140625,
+      "change_pct": -0.33,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CRL",
+      "company": "CRL",
+      "sector": "Healthcare",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 302.0,
+      "change_pct": 1.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "AZZ",
+      "company": "AZZ",
+      "sector": "Industrials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 137.66000366210938,
+      "change_pct": 0.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GTLB",
+      "company": "GTLB",
+      "sector": "Technology",
+      "master_score": 52.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 53.15999984741211,
+      "change_pct": 2.33,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EFXT",
+      "company": "EFXT",
+      "sector": "Energy",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 25.770000457763672,
+      "change_pct": -6.43,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "CNC",
+      "company": "CNC",
+      "sector": "Healthcare",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 70.16000366210938,
+      "change_pct": 1.89,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "THC",
+      "company": "THC",
+      "sector": "Healthcare",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 271.6000061035156,
+      "change_pct": 1.76,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PAYX",
+      "company": "PAYX",
+      "sector": "Technology",
+      "master_score": 47.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 108.37000274658203,
+      "change_pct": 2.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BAP",
+      "company": "BAP",
+      "sector": "Financial Services",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 383.94000244140625,
+      "change_pct": 0.85,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: SQUEEZE"
     }
   ]
 }

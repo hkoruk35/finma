@@ -1,8 +1,8 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T14:03:12.365257-04:00",
+  "generated_at": "2026-10-14T17:03:54.777938-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 28,
+  "active_scores_count": 37,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,10 +21,14 @@
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 6,
       "tickers": [
         "TXN",
-        "ELV"
+        "ELV",
+        "CRL",
+        "GTLB",
+        "CNC",
+        "THC"
       ]
     },
     "value": {
