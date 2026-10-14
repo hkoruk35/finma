@@ -5,6 +5,7 @@
  *   R1 = 2P − L        S1 = 2P − H
  *   R2 = P + (H − L)   S2 = P − (H − L)
  *   R3 = H + 2(P − L)  S3 = L − 2(H − P)
+ *   R4 = H + 3(P − L)  S4 = L − 3(H − P)   (yalnız fiyat/gün R3 üstüne ya da S3 altına çıkınca merdivene eklenir)
  * Pivotlar seviye bilgisidir; yön kararına girmez (karar mantığı ve ölçümler değişmez).
  */
 
@@ -14,6 +15,8 @@ import type { DaySeries } from "./openingMap";
 
 export type PivotKey = "R3" | "R2" | "R1" | "P" | "S1" | "S2" | "S3";
 export const PIVOT_ORDER: PivotKey[] = ["R3", "R2", "R1", "P", "S1", "S2", "S3"];
+/** Merdiven anahtarı: 7 klasik seviye + dışa taşan günlerde R4 / S4 */
+export type PivotKeyX = PivotKey | "R4" | "S4";
 
 export interface PivotBase {
   /** Pivotların dayandığı seans */
@@ -51,7 +54,7 @@ export function prevDayPivots(bars: Bar[], date: string, prevClose: number | nul
 }
 
 export interface PivotLevelRead {
-  key: PivotKey;
+  key: PivotKeyX;
   price: number;
   /** fiyat − seviye (puan) */
   dist: number;
@@ -81,8 +84,14 @@ export interface PivotRead {
 export function pivotRead(base: PivotBase, s5: DaySeries, price: number): PivotRead {
   const bars = s5.bars;
   const first = bars[0] ?? null;
-  const ladder: PivotLevelRead[] = PIVOT_ORDER.map((key) => {
-    const lvl = base.levels[key];
+  // Fiyat (ya da gün içi uç) R3 üstü / S3 altına çıktıysa merdiven bitmesin: R4 / S4 eklenir
+  const P0 = (base.H + base.L + base.C) / 3;
+  const ext: Record<"R4" | "S4", number> = { R4: r2(base.H + 3 * (P0 - base.L)), S4: r2(base.L - 3 * (base.H - P0)) };
+  const hiDay = Math.max(price, ...bars.map((b) => b.high)), loDay = Math.min(price, ...bars.map((b) => b.low));
+  const order: PivotKeyX[] = [...(hiDay >= base.levels.R3 ? (["R4"] as const) : []), ...PIVOT_ORDER, ...(loDay <= base.levels.S3 ? (["S4"] as const) : [])];
+  const levelOf = (k: PivotKeyX) => (k === "R4" || k === "S4" ? ext[k] : base.levels[k]);
+  const ladder: PivotLevelRead[] = order.map((key) => {
+    const lvl = levelOf(key);
     let touched: string | null = null;
     let state: PivotLevelRead["state"] = "DEĞMEDİ";
     if (first) {
@@ -108,7 +117,8 @@ export function pivotRead(base: PivotBase, s5: DaySeries, price: number): PivotR
   const heading: PivotRead["heading"] = speed30 > 0.25 ? "UP" : speed30 < -0.25 ? "DOWN" : "FLAT";
   const target = heading === "UP" ? above : heading === "DOWN" ? below : null;
   const etaMin = target && Math.abs(speed30) > 0.05 ? Math.max(5, Math.round((Math.abs(target.price - price) / Math.abs(speed30)) * 30 / 5) * 5) : null;
-  const zone = `${below ? below.key : "S3 altı"} – ${above ? above.key : "R3 üstü"}`;
+  const lowest = order[order.length - 1], highest = order[0];
+  const zone = `${below ? below.key : `${lowest} altı`} – ${above ? above.key : `${highest} üstü`}`;
 
   const lvlTxt = (l: PivotLevelRead) => `${l.key} ${l.price.toFixed(2)}`;
   let text: string;

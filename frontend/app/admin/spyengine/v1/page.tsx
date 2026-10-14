@@ -17,7 +17,7 @@
 
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotRead } from "@/lib/spyengine/pivots";
+import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotKeyX, type PivotRead } from "@/lib/spyengine/pivots";
 import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
 import ForecastMap from "@/components/admin/spyengine/ForecastMap";
 import ForecastTabs from "@/components/admin/spyengine/ForecastTabs";
@@ -966,7 +966,7 @@ const NEUTRAL = "#64748b";
 
 // ── Pivot noktaları kartı: görsel merdiven + fiyatın pivotlara hareketi ──
 
-const PIVOT_COLOR: Record<PivotKey, string> = { R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626" };
+const PIVOT_COLOR: Record<PivotKeyX, string> = { R4: "#15803d", R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626", S4: "#b91c1c" };
 const PIVOT_STATE_CLS: Record<string, string> = {
   "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
   "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
