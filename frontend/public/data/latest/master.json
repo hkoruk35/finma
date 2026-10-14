@@ -1,29 +1,28 @@
 {
-  "date": "2026-10-13",
-  "generated_at": "2026-10-13T17:02:12.002199-04:00",
+  "date": "2026-10-14",
+  "generated_at": "2026-10-14T09:03:53.403387-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 46,
+  "active_scores_count": 20,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "VEEV",
-        "PYPL",
-        "TDW",
-        "WSE",
-        "DAC",
-        "EL",
-        "GOOGL",
-        "MRVL",
-        "CSCO",
-        "SNOW"
+        "FTNT",
+        "HCC",
+        "GM",
+        "DVA",
+        "NIQ",
+        "GOOG",
+        "J",
+        "NOW",
+        "M",
+        "RS"
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 2,
       "tickers": [
-        "DAC",
         "TXN",
         "ELV"
       ]
@@ -47,42 +46,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VEEV",
+      "ticker": "FTNT",
+      "score": 57.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "HCC",
       "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PYPL",
-      "score": 54.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "TDW",
-      "score": 56.0,
+      "ticker": "GM",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 775.02,
-      "change_pct": -0.38
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 743.57,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 515.31,
-      "change_pct": -0.17
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.74,
-      "change_pct": 3.08
-    },
-    "RUSSELL2000": {
-      "value": 273.25,
-      "change_pct": -1.25
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-14T09:30:12.061042-04:00"
+  }
 }

@@ -26,7 +26,7 @@
   },
   "UNG": {
     "market_cap": 0,
-    "avg_volume": 17147000,
+    "avg_volume": 17485870,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -426,7 +426,7 @@
   },
   "BOIL": {
     "market_cap": 0,
-    "avg_volume": 5389167,
+    "avg_volume": 5423367,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 21296951,
+    "avg_volume": 21444062,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2326,7 +2326,7 @@
   },
   "QQQ": {
     "market_cap": 0,
-    "avg_volume": 34913762,
+    "avg_volume": 34903943,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 43082715,
+    "avg_volume": 42937234,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -6376,7 +6376,7 @@
   },
   "FISV": {
     "market_cap": 24812234752,
-    "avg_volume": 7162017,
+    "avg_volume": 7139167,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -7026,7 +7026,7 @@
   },
   "UVXY": {
     "market_cap": 0,
-    "avg_volume": 7128385,
+    "avg_volume": 7116928,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -8326,7 +8326,7 @@
   },
   "SLV": {
     "market_cap": 0,
-    "avg_volume": 15625971,
+    "avg_volume": 15695398,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11151,7 +11151,7 @@
   },
   "VXX": {
     "market_cap": 0,
-    "avg_volume": 7949468,
+    "avg_volume": 7955303,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11226,7 +11226,7 @@
   },
   "IAU": {
     "market_cap": 0,
-    "avg_volume": 5160784,
+    "avg_volume": 5163778,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -15426,7 +15426,7 @@
   },
   "GLD": {
     "market_cap": 0,
-    "avg_volume": 9258267,
+    "avg_volume": 9249210,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -17401,7 +17401,7 @@
   },
   "GLDM": {
     "market_cap": 0,
-    "avg_volume": 4529217,
+    "avg_volume": 4544712,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -26251,7 +26251,7 @@
   },
   "SVXY": {
     "market_cap": 0,
-    "avg_volume": 1240225,
+    "avg_volume": 1238457,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -31451,7 +31451,7 @@
   },
   "SVIX": {
     "market_cap": 0,
-    "avg_volume": 1908884,
+    "avg_volume": 1892304,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -33376,7 +33376,7 @@
   },
   "SPYU": {
     "market_cap": 0,
-    "avg_volume": 642434,
+    "avg_volume": 637432,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -34451,7 +34451,7 @@
   },
   "GSG": {
     "market_cap": 0,
-    "avg_volume": 1125439,
+    "avg_volume": 1141778,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -37251,7 +37251,7 @@
   },
   "SATA": {
     "market_cap": 0,
-    "avg_volume": 372240,
+    "avg_volume": 378270,
     "beta": 13.243,
     "short_float": 0.0,
     "sector": "Financial Services",
@@ -41976,7 +41976,7 @@
   },
   "MSBT": {
     "market_cap": 0,
-    "avg_volume": 652837,
+    "avg_volume": 652400,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -47676,7 +47676,7 @@
   },
   "IBIT": {
     "market_cap": 0,
-    "avg_volume": 46198125,
+    "avg_volume": 45909043,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -47876,7 +47876,7 @@
   },
   "ARKB": {
     "market_cap": 0,
-    "avg_volume": 1718778,
+    "avg_volume": 1704142,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -48476,7 +48476,7 @@
   },
   "VIXY": {
     "market_cap": 0,
-    "avg_volume": 2336114,
+    "avg_volume": 2343096,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -48725,8 +48725,8 @@
     "quoteType": "EQUITY"
   },
   "NIQ": {
-    "market_cap": 5413915136,
-    "avg_volume": 1486732,
+    "market_cap": 5400642048,
+    "avg_volume": 1473340,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -48737,7 +48737,7 @@
     "profitMargins": 0,
     "revenueGrowth": 0,
     "trailingPE": 0,
-    "priceToBook": 5.9691052,
+    "priceToBook": 5.954471,
     "freeCashflow": 0,
     "recommendationKey": "buy",
     "pegRatio": 0,

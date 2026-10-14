@@ -1,263 +1,871 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T09:03:20.564636-04:00",
+  "generated_at": "2026-10-14T09:30:19.243196-04:00",
   "market_regime": "Bull",
-  "vix_level": 15.75,
+  "vix_level": 15.739999771118164,
   "total": 20,
   "signals": [
     {
       "ticker": "EFXT",
-      "company": "EFXT",
-      "sector": "Unknown",
+      "company": "Enerflex Ltd.",
+      "sector": "Energy",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 27.54,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($26.83–$28.25). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
+        "rsi_1h": 81.2,
+        "adx_1h": 50.5,
+        "volume_ratio": 3.26,
+        "change_1h": 0.18,
+        "change_24h": 14.37,
         "trend_1h": "FLAT",
-        "setup": "NONE",
+        "setup": "AGGRESSIVE_BUY",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 5.13,
+        "pre_gap_total": 2,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
         "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.85,
+        "late_volume_score": 2
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "✅ MTF Aligned: 1H & 15M Bullish"
       ]
     },
     {
-      "ticker": "PARR",
-      "company": "PARR",
-      "sector": "Unknown",
+      "ticker": "APA",
+      "company": "APA Corporation",
+      "sector": "Energy",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 48.01,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($47.26–$48.76). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
+        "rsi_1h": 75.6,
+        "adx_1h": 42.1,
+        "volume_ratio": 2.22,
+        "change_1h": 0.04,
+        "change_24h": 2.5,
         "trend_1h": "FLAT",
-        "setup": "NONE",
+        "setup": "ABSORPTION",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 3.14,
+        "pre_gap_total": 2,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
         "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 1.61,
+        "late_volume_score": 2
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "MUR",
+      "company": "Murphy Oil Corporation",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 39.04,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($38.37–$39.71). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.3,
+        "adx_1h": 28.9,
+        "volume_ratio": 3.37,
+        "change_1h": -0.14,
+        "change_24h": -0.86,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 3.42,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 2.2,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "Aligned with 1H EMA50 & 15M Trend",
+        "⚠️ 15m trend DOWN (-0.1%) 🔻 Falling knife - RED"
       ]
     },
     {
       "ticker": "ECPG",
-      "company": "ECPG",
-      "sector": "Unknown",
+      "company": "Encore Capital Group, Inc.",
+      "sector": "Financial Services",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 105.6,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($104.12–$107.08). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
+        "rsi_1h": 78.3,
+        "adx_1h": 18.5,
+        "volume_ratio": 2.66,
+        "change_1h": 1.4,
+        "change_24h": 4.71,
+        "trend_1h": "UP",
+        "setup": "AGGRESSIVE_BUY",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 2.8,
+        "pre_gap_total": 3,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
         "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
+        "late_volume_ratio": 2.61,
+        "late_volume_score": 3
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
       ]
     },
     {
       "ticker": "BP",
-      "company": "BP",
-      "sector": "Unknown",
+      "company": "BP p.l.c.",
+      "sector": "Energy",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 48.53,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($47.96–$49.10). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
+        "rsi_1h": 76.4,
+        "adx_1h": 38.5,
+        "volume_ratio": 1.82,
+        "change_1h": 0.25,
+        "change_24h": 3.85,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 2.36,
+        "pre_gap_total": 3,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
         "close_to_high_score": 0,
+        "late_volume_ratio": 2.17,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "DRH",
+      "company": "DiamondRock Hospitality Company",
+      "sector": "Real Estate",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 13.16,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($13.01–$13.31). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 77.8,
+        "adx_1h": 13.7,
+        "volume_ratio": 2.86,
+        "change_1h": 0.92,
+        "change_24h": 2.97,
+        "trend_1h": "UP",
+        "setup": "AGGRESSIVE_BUY",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 2.34,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 2.59,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "CVE",
+      "company": "Cenovus Energy Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 33.08,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($32.62–$33.54). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 75.0,
+        "adx_1h": 48.6,
+        "volume_ratio": 0.0,
+        "change_1h": -0.06,
+        "change_24h": 0.76,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 2.78,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.15,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.32,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.64,
+        "close_to_high_score": 3,
         "late_volume_ratio": 0.0,
         "late_volume_score": 0
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CNC",
+      "company": "Centene Corporation",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 69.27,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($68.27–$70.27). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 58.4,
+        "adx_1h": 30.4,
+        "volume_ratio": 0.0,
+        "change_1h": 0.39,
+        "change_24h": 0.6,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 2.89,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.97,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.27,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.43,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "PARR",
+      "company": "Par Pacific Holdings, Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 89.88,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($87.71–$92.05). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 54.6,
+        "adx_1h": 47.4,
+        "volume_ratio": 0.0,
+        "change_1h": -1.45,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.77,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.69,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 2.59,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CNK",
+      "company": "Cinemark Holdings, Inc.",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 37.74,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($37.14–$38.35). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 54.1,
+        "adx_1h": 41.8,
+        "volume_ratio": 0.0,
+        "change_1h": -1.76,
+        "change_24h": -0.51,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 3.18,
+        "pre_gap_total": 2,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.71,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.17,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 96.53,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DAR",
+      "company": "Darling Ingredients Inc.",
+      "sector": "Consumer Defensive",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 62.97,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($61.95–$63.99). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 56.6,
+        "adx_1h": 34.5,
+        "volume_ratio": 0.0,
+        "change_1h": -0.66,
+        "change_24h": -0.21,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 3.23,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.15,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 98.32,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DVN",
+      "company": "Devon Energy Corporation",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 50.36,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($49.69–$51.03). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 63.1,
+        "adx_1h": 47.0,
+        "volume_ratio": 0.0,
+        "change_1h": 0.34,
+        "change_24h": 0.3,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 2.66,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.42,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.41,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.02,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "NXT",
+      "company": "Nextpower Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 88.77,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($86.90–$90.64). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 65.1,
+        "adx_1h": 23.5,
+        "volume_ratio": 0.0,
+        "change_1h": 0.0,
+        "change_24h": 4.61,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 1.0,
+        "natr": 4.2,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 2.76,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "PINS",
+      "company": "Pinterest, Inc.",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 22.13,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($21.80–$22.46). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 60.0,
+        "adx_1h": 48.2,
+        "volume_ratio": 0.0,
+        "change_1h": 0.01,
+        "change_24h": -1.07,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 3.01,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.54,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.31,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 98.62,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
       "ticker": "CNQ",
-      "company": "CNQ",
-      "sector": "Unknown",
+      "company": "Canadian Natural Resources Limited",
+      "sector": "Energy",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 52.3,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($51.73–$52.87). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
+        "rsi_1h": 67.9,
+        "adx_1h": 41.9,
+        "volume_ratio": 0.0,
+        "change_1h": 0.13,
+        "change_24h": 0.31,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 2.18,
+        "pre_gap_total": 5,
         "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
+        "gap_pct": 5.02,
+        "gap_score": 3,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.19,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
+        "close_to_high_pct": 95.51,
+        "close_to_high_score": 2,
         "late_volume_ratio": 0.0,
         "late_volume_score": 0
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "OVV",
+      "company": "Ovintiv Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 66.81,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($65.98–$67.64). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 66.0,
+        "adx_1h": 55.5,
+        "volume_ratio": 0.0,
+        "change_1h": -0.07,
+        "change_24h": 0.23,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 2.47,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.29,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.08,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
       "ticker": "ADM",
-      "company": "ADM",
-      "sector": "Unknown",
+      "company": "Archer-Daniels-Midland Company",
+      "sector": "Consumer Defensive",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 83.82,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($82.82–$84.81). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
+        "rsi_1h": 66.1,
+        "adx_1h": 25.4,
+        "volume_ratio": 0.0,
+        "change_1h": 0.33,
+        "change_24h": 4.22,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 1.0,
+        "natr": 2.4,
+        "pre_gap_total": 3,
         "pre_gap_grade": "C",
-        "gap_pct": 0.0,
+        "gap_pct": 0.1,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
+        "daily_rvol": 0.86,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
+        "close_to_high_pct": 99.98,
+        "close_to_high_score": 3,
         "late_volume_ratio": 0.0,
         "late_volume_score": 0
       },
       "notes": [
-        "⚠️ Technical data insufficient"
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CDNA",
+      "company": "CareDx, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 64.31,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($62.19–$66.43). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 48.7,
+        "adx_1h": 18.4,
+        "volume_ratio": 0.0,
+        "change_1h": -1.05,
+        "change_24h": 1.89,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 6.48,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 1.27,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.11,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 97.06,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXHAUSTION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
       "ticker": "ARXS",
-      "company": "ARXS",
+      "company": "Arxis, Inc.",
       "sector": "Industrials",
-      "swing_pick_date": "2026-10-13",
-      "days_since_pick": 1,
-      "current_price": 0.0,
+      "swing_pick_date": "2026-10-14",
+      "days_since_pick": 0,
+      "current_price": 49.91,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
@@ -294,612 +902,152 @@
     },
     {
       "ticker": "ERIC",
-      "company": "ERIC",
-      "sector": "Unknown",
+      "company": "Telefonaktiebolaget LM Ericsson (publ)",
+      "sector": "Technology",
       "swing_pick_date": "2026-10-14",
       "days_since_pick": 0,
-      "current_price": 0.0,
+      "current_price": 9.63,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($9.54–$9.72). Entry suitable.",
+      "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
+        "rsi_1h": 55.4,
+        "adx_1h": 30.3,
+        "volume_ratio": 0.0,
         "change_1h": 0.0,
-        "change_24h": 0.0,
+        "change_24h": 2.77,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
+        "rs_score": 2.0,
+        "natr": 1.91,
+        "pre_gap_total": 4,
         "pre_gap_grade": "C",
-        "gap_pct": 0.0,
+        "gap_pct": -0.21,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
         "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
+        "daily_rvol": 2.37,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 98.87,
+        "close_to_high_score": 3,
         "late_volume_ratio": 0.0,
         "late_volume_score": 0
       },
       "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "PINS",
-      "company": "PINS",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "MUR",
-      "company": "MUR",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "DAR",
-      "company": "DAR",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "CDNA",
-      "company": "CDNA",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "CVE",
-      "company": "CVE",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "OVV",
-      "company": "OVV",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "APA",
-      "company": "APA",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "DRH",
-      "company": "DRH",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "NXT",
-      "company": "NXT",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "DVN",
-      "company": "DVN",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "CNC",
-      "company": "CNC",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
-      ]
-    },
-    {
-      "ticker": "CNK",
-      "company": "CNK",
-      "sector": "Unknown",
-      "swing_pick_date": "2026-10-14",
-      "days_since_pick": 0,
-      "current_price": 0.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "WAIT",
-      "status_detail": "Insufficient data - technical analysis could not be performed",
-      "alert_level": "LOW",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 0.0,
-        "volume_ratio": 1.0,
-        "change_1h": 0.0,
-        "change_24h": 0.0,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 0.0,
-        "natr": 0.0,
-        "pre_gap_total": 0,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 1.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 0.0,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "⚠️ Technical data insufficient"
+        "🚀 RS: Outperformer",
+        "NATR < 2% (Too Stable)",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-10-14",
-    "last_updated": "2026-10-14T09:03:20.564636-04:00",
+    "last_updated": "2026-10-14T09:30:19.243196-04:00",
     "tickers": {
       "EFXT": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 27.54
       },
       "PARR": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 89.88
       },
       "ECPG": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 105.6
       },
       "BP": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 48.53
       },
       "CNQ": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 52.3
       },
       "ADM": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 83.82
       },
       "ARXS": {
         "status_history": [
           {
             "hour": "09:03",
+            "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
             "status": "WAIT"
           }
         ],
@@ -912,143 +1060,195 @@
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 9.63
       },
       "PINS": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 22.13
       },
       "MUR": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 39.04
       },
       "DAR": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 62.97
       },
       "CDNA": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 64.31
       },
       "CVE": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 33.08
       },
       "OVV": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 66.81
       },
       "APA": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 48.01
       },
       "DRH": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 13.16
       },
       "NXT": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 88.77
       },
       "DVN": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 50.36
       },
       "CNC": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 69.27
       },
       "CNK": {
         "status_history": [
           {
             "hour": "09:03",
             "status": "WAIT"
+          },
+          {
+            "hour": "09:30",
+            "status": "ENTRY_NOW"
           }
         ],
-        "current_status": "WAIT",
-        "entry_triggered_at": null,
-        "entry_price": null
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-10-14T09:30:19.243196-04:00",
+        "entry_price": 37.74
       }
     }
   }
