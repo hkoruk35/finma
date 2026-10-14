@@ -1,53 +1,11 @@
 {
-  "generated_at": "2026-10-14T09:03:53.600376-04:00",
+  "generated_at": "2026-10-14T14:03:13.320536-04:00",
   "picks": [
-    {
-      "ticker": "PWR",
-      "sector": "Industrials",
-      "date_added": "2026-10-12",
-      "score": 38.5
-    },
     {
       "ticker": "DINO",
       "sector": "Energy",
       "date_added": "2026-10-12",
       "score": 28.5
-    },
-    {
-      "ticker": "WST",
-      "sector": "Healthcare",
-      "date_added": "2026-10-13",
-      "score": 49.5
-    },
-    {
-      "ticker": "EZPW",
-      "sector": "Financial Services",
-      "date_added": "2026-10-13",
-      "score": 48.0
-    },
-    {
-      "ticker": "AXTA",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-13",
-      "score": 46.5
-    },
-    {
-      "ticker": "SWK",
-      "sector": "Industrials",
-      "date_added": "2026-10-13",
-      "score": 46.0
-    },
-    {
-      "ticker": "JBL",
-      "sector": "Technology",
-      "date_added": "2026-10-13",
-      "score": 43.5
-    },
-    {
-      "ticker": "META",
-      "sector": "Communication Services",
-      "date_added": "2026-10-13",
-      "score": 42.5
     },
     {
       "ticker": "HCA",
@@ -62,52 +20,34 @@
       "score": 48.0
     },
     {
-      "ticker": "BFH",
-      "sector": "Financial Services",
-      "date_added": "2026-10-13",
-      "score": 47.5
+      "ticker": "FRPT",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-14",
+      "score": 45.0
     },
     {
-      "ticker": "VRSN",
+      "ticker": "ELF",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-14",
+      "score": 43.5
+    },
+    {
+      "ticker": "NOW",
       "sector": "Technology",
-      "date_added": "2026-10-13",
-      "score": 47.0
+      "date_added": "2026-10-14",
+      "score": 42.5
     },
     {
-      "ticker": "SEZL",
-      "sector": "Financial Services",
-      "date_added": "2026-10-13",
-      "score": 46.0
-    },
-    {
-      "ticker": "SCCO",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-13",
-      "score": 45.5
-    },
-    {
-      "ticker": "RGEN",
-      "sector": "Healthcare",
-      "date_added": "2026-10-13",
-      "score": 44.0
-    },
-    {
-      "ticker": "MRX",
-      "sector": "Financial Services",
-      "date_added": "2026-10-13",
-      "score": 40.5
-    },
-    {
-      "ticker": "DIN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-13",
-      "score": 39.9
-    },
-    {
-      "ticker": "ENTG",
+      "ticker": "DDOG",
       "sector": "Technology",
-      "date_added": "2026-10-13",
-      "score": 39.0
+      "date_added": "2026-10-14",
+      "score": 39.5
+    },
+    {
+      "ticker": "PH",
+      "sector": "Industrials",
+      "date_added": "2026-10-14",
+      "score": 34.0
     }
   ]
 }
