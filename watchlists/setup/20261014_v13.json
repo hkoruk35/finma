@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "EFXT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 26.17,
+        "entry_zone": "25.43 - 26.90",
+        "SL": 23.21,
+        "TP": 32.08
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "BP",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 48.92,
+        "entry_zone": "48.39 - 49.46",
+        "SL": 46.77,
+        "TP": 53.23
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "OVV",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 66.97,
+        "entry_zone": "66.12 - 67.83",
+        "SL": 63.55,
+        "TP": 73.81
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "PARR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 88.25,
+        "entry_zone": "86.00 - 90.49",
+        "SL": 79.27,
+        "TP": 106.2
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "CVE",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 32.72,
+        "entry_zone": "32.24 - 33.20",
+        "SL": 30.81,
+        "TP": 36.53
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "CNC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 69.75,
+        "entry_zone": "68.71 - 70.80",
+        "SL": 65.57,
+        "TP": 78.13
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "CNQ",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 52.03,
+        "entry_zone": "51.43 - 52.62",
+        "SL": 49.64,
+        "TP": 56.8
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "ADM",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 83.91,
+        "entry_zone": "82.89 - 84.93",
+        "SL": 79.85,
+        "TP": 92.04
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "DVN",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 49.97,
+        "entry_zone": "49.29 - 50.66",
+        "SL": 47.24,
+        "TP": 55.44
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "MUR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 39.19,
+        "entry_zone": "38.55 - 39.82",
+        "SL": 36.63,
+        "TP": 44.3
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "CNK",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 38.28,
+        "entry_zone": "37.64 - 38.92",
+        "SL": 35.71,
+        "TP": 43.41
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "DRH",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 13.01,
+        "entry_zone": "12.85 - 13.16",
+        "SL": 12.37,
+        "TP": 14.28
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "PINS",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 21.63,
+        "entry_zone": "21.28 - 21.99",
+        "SL": 20.21,
+        "TP": 24.47
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "APA",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 47.79,
+        "entry_zone": "47.04 - 48.54",
+        "SL": 44.78,
+        "TP": 53.82
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "ECPG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 101.67,
+        "entry_zone": "100.17 - 103.17",
+        "SL": 95.68,
+        "TP": 113.66
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "CDNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 65.49,
+        "entry_zone": "63.53 - 67.45",
+        "SL": 57.63,
+        "TP": 81.2
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "ARXS",
+        "sector": "Industrials",
+        "action": "WAIT",
+        "price": 50.87,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "DAR",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 62.35,
+        "entry_zone": "61.29 - 63.41",
+        "SL": 58.09,
+        "TP": 70.86
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "NXT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 83.65,
+        "entry_zone": "81.73 - 85.57",
+        "SL": 75.96,
+        "TP": 99.04
+    },
+    {
+        "date": "2026-10-14 19:00",
+        "symbol": "ERIC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 9.49,
+        "entry_zone": "9.40 - 9.58",
+        "SL": 9.13,
+        "TP": 10.22
+    }
+]
