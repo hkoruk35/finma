@@ -7,7 +7,7 @@
  *   • ŞİMDİ: son 5m kapanışın tek okuması — yön · ne yap · 30 dk tahmini · kurulum/pozisyon.
  *   • Zaman şeridi: her satır 30 dk (6 adet 5m kartı). 09:05–09:30 seans öncesi → 09:35–10:00 açılış aşamaları →
  *     … → 14:35–15:00. Varsayılan görünüm SON 30 dk'lık satır; yukarı kaydırınca önceki satırlar.
- *   • Karta tıklayınca ayrıntı: 5m/15m mum okuması, yön puanı dökümü, kontrol listesi, merdiven durumu, olaylar, tahminin sonucu.
+ *   • Karta tıklayınca ayrıntı: 5m/15m mum okuması, yön puanı dökümü, kontrol listesi, olaylar, tahminin sonucu. Sayfanın tek karar kaynağı budur.
  *   • Geçmiş: kurulum etiketlerine göre sonuçlar ve tahmin kurallarının gerçekleşen isabeti (sunucu günlüğü).
  */
 
@@ -25,7 +25,6 @@ const toneCol = (t: TrackStep["tone"]) => (t === "bull" ? UP : t === "bear" ? DN
 const dCol = (d: number) => (d > 0 ? UP : d < 0 ? DN : NEU);
 const arrow = (d: number) => (d > 0 ? "▲" : d < 0 ? "▼" : "◆");
 
-export interface LadderMark { status: string; side: string | null; message: string; openTrend: string | null; changed?: boolean }
 
 const hm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
@@ -89,7 +88,7 @@ function Outcome({ s }: { s: TrackStep }) {
   );
 }
 
-function Cell({ s, min, sel, onSel, mark, isNow, past }: { s: TrackStep | null; min: number; sel: boolean; onSel: () => void; mark?: LadderMark; isNow: boolean; past: boolean }) {
+function Cell({ s, min, sel, onSel, isNow, past }: { s: TrackStep | null; min: number; sel: boolean; onSel: () => void; isNow: boolean; past: boolean }) {
   if (!s) {
     return (
       <div className="flex min-h-[92px] flex-col rounded border border-dashed border-[#1c2635] px-1.5 py-1 text-[10.5px] text-slate-600">
@@ -99,7 +98,6 @@ function Cell({ s, min, sel, onSel, mark, isNow, past }: { s: TrackStep | null; 
     );
   }
   const col = toneCol(s.tone);
-  const ladderHot = !!mark?.changed && (mark.status === "TETİK" || mark.status === "ERKEN UYARI" || mark.status === "TERS UYARI" || !!(mark.openTrend && /^(UYARI|AÇIK|KAPANDI)/.test(mark.openTrend)));
   return (
     <button
       type="button"
@@ -119,13 +117,12 @@ function Cell({ s, min, sel, onSel, mark, isNow, past }: { s: TrackStep | null; 
       <span className="mt-0.5 line-clamp-2 text-[10.5px] leading-snug text-slate-300">{s.action}</span>
       <span className="mt-auto flex flex-wrap items-center justify-between gap-1 pt-0.5 font-mono text-[9.5px]">
         <Outcome s={s} />
-        {ladderHot && <span className="rounded bg-orange-500/20 px-1 text-[9px] font-semibold text-orange-300" title={mark?.openTrend ?? mark?.message}>merdiven {mark?.openTrend && !["TETİK", "ERKEN UYARI", "TERS UYARI"].includes(mark.status) ? `açılış trendi ${mark.openTrend.split(" · ")[0]}` : `${mark?.status}${mark?.side ? ` ${mark.side}` : ""}`}</span>}
       </span>
     </button>
   );
 }
 
-function StepDetail({ s, mark }: { s: TrackStep; mark?: LadderMark }) {
+function StepDetail({ s }: { s: TrackStep }) {
   return (
     <div className="grid grid-cols-1 gap-px border-t border-[#1c2635] bg-[#1c2635] md:grid-cols-3">
       <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2">
@@ -137,12 +134,6 @@ function StepDetail({ s, mark }: { s: TrackStep; mark?: LadderMark }) {
         {s.out && s.fc.dir !== 0 && (
           <div className={`text-[11.5px] font-semibold ${s.out.hit ? "text-[#4ade80]" : "text-[#f87171]"}`}>
             Gerçekleşen: 30 dk sonra {s.out.move >= 0 ? "+" : ""}{s.out.move.toFixed(2)} puan — {s.out.hit ? "yön doğru" : "yön yanlış"}{s.out.targetHit ? " · hedefe değdi" : ""}{s.out.invalidHit ? " · önce iptal seviyesi geldi" : ""}{s.out.done ? "" : " (süre dolmadı)"}
-          </div>
-        )}
-        {mark && (
-          <div className="mt-1 rounded border border-orange-500/30 bg-orange-500/5 px-2 py-1 text-[11px] leading-snug text-orange-200">
-            <b>Karar merdiveni {s.clock}:</b> {mark.status}{mark.side ? ` ${mark.side}` : ""} — {mark.message}
-            {mark.openTrend && <span className="block text-orange-300">Açılış trendi: {mark.openTrend}</span>}
           </div>
         )}
       </div>
@@ -257,12 +248,10 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
   );
 }
 
-export default function TrackerPanel({ r, nowSec, live, marks, hist }: {
+export default function TrackerPanel({ r, nowSec, live, hist }: {
   r: TrackRead | null;
   nowSec: number;
   live: boolean;
-  /** mum başlangıcı → karar merdiveninin o mumdaki durumu */
-  marks?: Map<number, LadderMark>;
   hist: TrackerSummary | null;
 }) {
   const [selT, setSelT] = useState<number | null>(null);
@@ -351,14 +340,14 @@ export default function TrackerPanel({ r, nowSec, live, marks, hist }: {
               <div className="grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-6">
                 {row.mins.map((m) => {
                   const s = byMin.get(m) ?? null;
-                  return <Cell key={m} s={s} min={m} past={!!cur && m < cur.min} sel={!!s && s.t === selT} isNow={!!s && s.t === cur?.t} onSel={() => s && setSelT((v) => (v === s.t ? null : s.t))} mark={s ? marks?.get(s.t) : undefined} />;
+                  return <Cell key={m} s={s} min={m} past={!!cur && m < cur.min} sel={!!s && s.t === selT} isNow={!!s && s.t === cur?.t} onSel={() => s && setSelT((v) => (v === s.t ? null : s.t))} />;
                 })}
               </div>
             </div>
           );
         })}
       </div>
-      {sel && <StepDetail s={sel} mark={marks?.get(sel.t)} />}
+      {sel && <StepDetail s={sel} />}
 
       {/* bugünkü işlemler + uyarılar */}
       <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">

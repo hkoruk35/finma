@@ -233,9 +233,10 @@ export interface TrackAlert { t: number; clock: string; level: AlertLevel; tag: 
 
 /** 30 dk tahmin kuralları (ölçüm: CALIB). Eski anahtarlar geçmiş kayıtlar için. */
 export type FcRule = "ALIGNED" | "PB_RESUME" | "OPEN_MOM" | "CHOP_FADE" | "TREND_DAY" | "STRUCT";
-export const FC_RULES: Record<FcRule, { label: string; hit: number; n: number; avg: number; text: string }> = {
-  ALIGNED: { label: "15m + 5m aynı yönde", hit: 47, n: 1874, avg: -0.01, text: "15m VWAP+EMA20 tarafı ve 5m VWAP+EMA20 tarafı aynı → o yönde devam" },
-  PB_RESUME: { label: "15m yönü, 5m geri çekilme", hit: 48, n: 88, avg: -0.03, text: "15m yön veriyor, 5m geçici olarak ters tarafta → 15m yönüne dönüş" },
+/** hit = 30 dk sonra yön isabeti · tHit = 30 dk içinde hedef seviyeye iptalden ÖNCE değme oranı */
+export const FC_RULES: Record<FcRule, { label: string; hit: number; tHit?: number; n: number; avg: number; text: string }> = {
+  ALIGNED: { label: "15m + 5m aynı yönde", hit: 47, tHit: 53, n: 2046, avg: -0.02, text: "15m VWAP+EMA20 tarafı ve 5m VWAP+EMA20 tarafı aynı → o yönde devam" },
+  PB_RESUME: { label: "15m yönü, 5m geri çekilme", hit: 47, tHit: 51, n: 90, avg: -0.04, text: "15m yön veriyor, 5m geçici olarak ters tarafta → 15m yönüne dönüş" },
   OPEN_MOM: { label: "açılış ivmesi", hit: 54, n: 437, avg: 0.1, text: "v1 kuralı" },
   CHOP_FADE: { label: "testere → VWAP", hit: 55, n: 449, avg: 0.16, text: "v1 kuralı" },
   TREND_DAY: { label: "trend günü", hit: 56, n: 192, avg: 0.09, text: "v1 kuralı" },
@@ -685,7 +686,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
       else trend = `15m ${w} · 5m VWAP/EMA20 arasında`;
     } else {
       // 15m belirsiz (VWAP ile EMA20 arasında / henüz 15m yok): eğilim 5m + belirsizlik teyitleriyle
-      const lean = absS >= 2 ? (Math.sign(score) as D) : 0;
+      // 15m VWAP–EMA20 arasında: eğilim = 15m EMA20 tarafı (tetik de bu yönde aranır); 5m puanı buna güçlü ters ise eğilim yok
+      const l15: D = today15 && b15 && ema15 != null ? (b15.close > ema15 ? 1 : b15.close < ema15 ? -1 : 0) : 0;
+      const lean: D = l15 ? (l15 * score > -2 ? l15 : 0) : absS >= 2 ? (Math.sign(score) as D) : 0;
       dir = lean;
       trend = phaseBase === "AÇILIŞ" ? `AÇILIŞ · 5m ${side5 > 0 ? "VWAP+EMA20 üstü" : side5 < 0 ? "VWAP+EMA20 altı" : "karışık"} (15m teyidi 09:45)` : `15m BELİRSİZ (VWAP–EMA20 arası)${lean ? ` · eğilim ${arrow(lean)}` : ""}`;
     }
@@ -910,7 +913,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const up = nextLevel(1, c, 0.1), dn = nextLevel(-1, c, 0.1);
       fc = {
         dir: 0, target: null, targetLabel: "", invalid: null, invalidLabel: "", rule: null,
-        text: `30 dk: 15m yön vermiyor${up ? ` · ${f2(up.price)} (${up.label}) üstü ▲` : ""}${dn ? ` · ${f2(dn.price)} (${dn.label}) altı ▼` : ""}`,
+        text: `30 dk: ${side15 ? `15m ${side15 > 0 ? "yukarı" : "aşağı"} ama 5m VWAP–EMA20 arasında — net tahmin yok` : "15m yön vermiyor"}${up ? ` · ${f2(up.price)} (${up.label}) üstü ▲` : ""}${dn ? ` · ${f2(dn.price)} (${dn.label}) altı ▼` : ""}`,
       };
     }
 
@@ -953,7 +956,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         : `15m ${side15 > 0 ? "yukarı" : "aşağı"}, 5m geri çekiliyor — ${side15 > 0 ? "PUT" : "CALL"} arama. 5m kapanış ${lt} ${side15 > 0 ? "üstüne" : "altına"} dönünce ${side15 > 0 ? "CALL" : "PUT"} tetiği.`;
     } else {
       const top = Math.max(vwap ?? -Infinity, ema15 ?? -Infinity), bot = Math.min(vwap ?? Infinity, ema15 ?? Infinity);
-      action = `BEKLE — 15m VWAP ile EMA20 arasında (${Number.isFinite(bot) ? f2(bot) : "—"}–${Number.isFinite(top) ? f2(top) : "—"}). 15m kapanış ${Number.isFinite(top) ? f2(top) : "—"} üstü ▲ CALL, ${Number.isFinite(bot) ? f2(bot) : "—"} altı ▼ PUT yönünü açar.${dir ? ` Şimdilik eğilim ${dir > 0 ? "yukarı" : "aşağı"} (5m + ${rsiD ? "RSI" : "hacim/formasyon"}).` : ""}`;
+      action = `BEKLE — 15m VWAP ile EMA20 arasında (${Number.isFinite(bot) ? f2(bot) : "—"}–${Number.isFinite(top) ? f2(top) : "—"}). 15m kapanış ${Number.isFinite(top) ? f2(top) : "—"} üstü ▲ CALL, ${Number.isFinite(bot) ? f2(bot) : "—"} altı ▼ PUT yönünü açar.${dir ? ` Şimdilik eğilim ${dir > 0 ? "yukarı" : "aşağı"} (15m EMA20 tarafı) — ${dir > 0 ? "CALL" : "PUT"} için 5m VWAP+EMA20 ${dir > 0 ? "üstünde" : "altında"} kapanış + hacim VE formasyon birlikte gerekir.` : " 5m ile 15m çelişiyor — bekle."}`;
     }
 
     if (runners.length) {
