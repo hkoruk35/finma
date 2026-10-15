@@ -212,16 +212,22 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         <HtfChips h={s.htf} />
       </div>
       <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2.5">
+        {s.runners?.length > 0 && (
+          <div className="rounded border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[11.5px] leading-snug text-sky-100">
+            <b className="text-sky-300">Taşınan yarı</b> (stop yalnız sıkılaşır):
+            {s.runners.map((x, k) => <div key={k} className="font-mono">{x.side} {x.entryClock} · giriş {num(x.entry)} · stop <b>{num(x.stop)}</b> · {x.liveR >= 0 ? "+" : "−"}{Math.abs(x.liveR).toFixed(2)}R</div>)}
+          </div>
+        )}
         {p ? (
           <>
-            <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Pozisyon · {p.tag}</div>
+            <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Pozisyon · {p.tag}{p.contracts ? ` · ${p.contracts} kontrat` : ""}</div>
             <div className="text-[16px] font-black" style={{ color: p.side === "CALL" ? UP : DN }}>{p.side === "CALL" ? "▲ CALL" : "▼ PUT"} · {p.liveR >= 0 ? "+" : "−"}{Math.abs(p.liveR).toFixed(2)}R</div>
             <div className="grid grid-cols-2 gap-1 font-mono text-[11.5px]">
-              {([["giriş", p.entry], ["stop", p.stop], ["hedef (1R)", p.h1], ["sonraki seviye", p.h2]] as const).map(([k, v]) => (
+              {([["giriş", p.entry], ["stop", p.stop], ["1R (yarısı)", p.h1], ["sonraki seviye", p.h2]] as const).map(([k, v]) => (
                 <div key={k} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5"><span className="text-[9.5px] text-slate-500">{k} </span><b className="text-slate-100">{num(v)}</b></div>
               ))}
             </div>
-            <div className="text-[11px] text-slate-400">{p.h1Hit ? "Yarısı H1'de alındı · stop girişte · kalan: 5m EMA20 ters kapanış / H2" : "Hedef H1 (1R) gelince kapat · stop son 2 mumun ucu · 15m yön teyidi dönerse çık"}</div>
+            <div className="text-[11px] text-slate-400">{"1R'de 1 kontratı kapat, stopu girişe çek · kalan yarı: her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + " (tamponlu) taşınır · 15m yön teyidi 1R'den önce dönerse çık"}</div>
           </>
         ) : s.setup ? (
           <>
@@ -367,9 +373,9 @@ export default function TrackerPanel({ r, nowSec, live, marks, hist }: {
               <ul className="flex flex-col gap-1 font-mono text-[11px]">
                 {r.trades.map((t) => (
                   <li key={t.id} className="text-slate-300">
-                    <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · H1 {num(t.h1)} · {t.size === "half" ? "½" : "tam"}
+                    <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.contracts ?? 2}× {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · H1 {num(t.h1)} · {t.size === "half" ? "½" : "tam"}
                     {" → "}{t.exitClock ? <>{t.exitClock} {t.exitReason} <b className={(t.resultR ?? 0) >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{(t.resultR ?? 0) >= 0 ? "+" : ""}{t.resultR}R</b></> : <b className="text-sky-300">açık {t.liveR != null ? `${t.liveR >= 0 ? "+" : ""}${t.liveR}R` : ""}</b>}
-                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}</span>
+                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · momentum: ${t.momWhy.join(", ")}` : ""}</span>
                   </li>
                 ))}
               </ul>

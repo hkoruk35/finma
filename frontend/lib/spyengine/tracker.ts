@@ -24,6 +24,14 @@
  *     hacim VE formasyon birlikte → 183 işlem (4,1/gün) %56 +23,2R, yarılar +10,1 / +13,0R (daha dengeli); 14 Eki 4 PUT +4R.
  *     EMA20 bozulana kadar taşıma ("trail") denendi: +20,7R ama %36 kazanç ve ilk yarı −4R (öğlen dönüşlerinde kârı geri veriyor) → seçilmedi;
  *     trend günleri 1R'de çıkıp her EMA20 yaklaşmasında yeniden girişle yakalanıyor.
+ *   • v2.2 POZİSYON YÖNETİMİ (kullanıcı yöntemi, exitMode "half15"): 2 kontrat · 1R'de 1'i kapanır, stop girişe · kalan yarı her 15m
+ *     kapanışında son 15m dip (CALL) / tepe (PUT) ∓ 0,25×ATR15'e taşınır (yalnız sıkılaşır), stop olana kadar; taşınırken yeni tetiklere girilir.
+ *     190 işlem %54 +22,0R (yarılar −4,3 / +26,3R) — 1R'de tam çıkışla (+23,2R) toplamda eşit, ilk yarıda daha zayıf; tampon 0,1: +16,3R ·
+ *     0,5: +20,8R · tampon yok: +14,2R · taşınırken yeni giriş YOKKEN: 156 işlem +13,1R. 14 Eki: 4 PUT +3,4R.
+ *   • v2.3 POZİSYON BÜYÜKLÜĞÜ (kullanıcı: "kuvvetli momentum daha büyük pozisyon"): taban 2 kontrat, her işaret +1 (en çok 4) —
+ *     hacim+formasyon birlikte · RVOL ≥ 1,5 · aynı yönde kârdaki taşınan pozisyon · 30 dk itki ≥ 2 ATR5 · gün içi yeni tepe/dip.
+ *     2 kontrat birimiyle toplam: sabit 2 → +22,0R (−4,3 / +26,3) · öneriyle → +34,8R (−3,1 / +37,9); ≤3 kontrat +32,7R.
+ *     Tek tek işaretlerin kenarı küçük/karışık (en tutarlısı 30 dk itki) — boyut bir öneridir, R hesabı kontrat başınadır.
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
  *     H1 1,5R: %47 +15,2R · "her hizalı mum" (taze değil): 257 işlem %52 +11,7R · stop VWAP/EMA ötesi: 117 işlem %57 +19,8R.
  *   • 15m teyidi yalnız VWAP: −8,5R; yalnız EMA20: +3,1R; ikisi birlikte en iyisi. RSI'yı ŞART yapmak işlem sayısını düşürüp kötüleştirdi
@@ -40,7 +48,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.1";
+export const TRACK_VERSION = "2.3";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -63,7 +71,20 @@ export const TRACK_CFG = {
   minStopAtr5: 0.5,
   minStopPts: 0.3,
   /** "half" = H1'de yarısı + kalan EMA20/15m dönüşüne kadar · "full" = H1'de tamamı */
-  exitMode: "full" as "half" | "full" | "trail",
+  exitMode: "half15" as "half" | "full" | "trail" | "half15",
+  /** "half15" (kullanıcı yöntemi): 2 kontrat · 1R'de yarısı kapanır, stop girişe · sonra her 15m kapanışında stop son 15m mumun
+   *  dibi (PUT'ta tepesi) ∓ tampon'a taşınır (yalnız sıkılaşır) · kalan yarı stop olana kadar taşınır */
+  trailBufAtr15: 0.25,
+  /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
+  runnerFlip: false,
+  /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
+  runnerParallel: true,
+  /** pozisyon büyüklüğü önerisi: taban kontrat + her kuvvetli momentum işareti için +1 (en çok sizeMax) */
+  sizeBase: 2,
+  sizeMax: 4,
+  sizeRvol: 1.5,
+  sizeImpulse: 2,
+  sizeFactors: ["both", "rvol", "runner", "impulse", "ext"] as string[],
   /** "trail": 1R gelince stop girişe çekilir; pozisyon 5m kapanış EMA20'nin ters tarafına geçene (ya da 15m yön dönene) kadar taşınır */
   /** geri çekilme yakınlığı: mum EMA20/VWAP'a bu kadar ATR5 yaklaştıysa (değmese de) geri çekilme sayılır */
   touchAtr: 0.25,
@@ -101,7 +122,7 @@ export type SetupTag = "T5_TREND" | "T5_PB"
   | "K1_ORB5" | "K2_TREND_CLOSE" | "K2_TREND_PB" | "K3_BREAK" | "K3_FAKEOUT" | "K4_PB_VWAP" | "K4_PB_EMA" | "T_PB_VWAP" | "T_PB_EMA" | "T_BRK";
 export type VetoCode = "LOW_RVOL" | "VWAP_CHOP" | "VWAP_POC_ZONE" | "STOP_TOO_WIDE" | "DAILY_LOSS" | "MAX_TRADES" | "EVENT_K1";
 export type DayClass = "TREND_CANDLE" | "INDECISION" | "NORMAL";
-export type ExitReason = "STOP" | "H1" | "H1_BE" | "EMA_EXIT" | "H2" | "TIME" | "FORCE_1545" | "TREND_FLIP";
+export type ExitReason = "STOP" | "H1" | "TRAIL_15M" | "H1_BE" | "EMA_EXIT" | "H2" | "TIME" | "FORCE_1545" | "TREND_FLIP";
 export type AlertLevel = "HAZIRLAN" | "TETİK" | "İPTAL" | "YÖNET" | "ÇIKIŞ" | "KADEME";
 
 export const TAG_TEXT: Record<SetupTag, string> = {
@@ -201,6 +222,11 @@ export interface TrackTrade {
   liveR: number | null;
   /** girişteki gerekçe (VWAP/EMA/hacim/formasyon/teyit) */
   why?: string;
+  /** önerilen kontrat sayısı (taban 2; kuvvetli momentumda artar) ve nedenleri */
+  contracts?: number;
+  momWhy?: string[];
+  /** girişteki momentum işaretleri (ölçüm için) */
+  momF?: { both: boolean; rvol: boolean; runner: boolean; impulse: boolean; ext: boolean };
 }
 
 export interface TrackAlert { t: number; clock: string; level: AlertLevel; tag: SetupTag | null; side: Side | null; text: string; key: string }
@@ -277,7 +303,9 @@ export interface TrackStep {
   /** engellemeyen dikkat notları */
   warns: VetoCode[];
   setup: TrackSetup | null;
-  pos: { tag: SetupTag; side: Side; entry: number; stop: number; h1: number; h2: number; liveR: number; h1Hit: boolean } | null;
+  pos: { tag: SetupTag; side: Side; entry: number; stop: number; h1: number; h2: number; liveR: number; h1Hit: boolean; contracts?: number } | null;
+  /** 1R'den sonra taşınan yarılar (stop girişte / 15m izleyen stop) */
+  runners: { side: Side; entryClock: string; entry: number; stop: number; liveR: number }[];
   fc: TrackForecast;
   out: TrackOutcome | null;
   c5: string;
@@ -518,7 +546,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         { key: "pm", ok: k.parts.pmVsClose !== 0, text: `PM fiyatı dünkü kapanışın ${k.parts.pmVsClose > 0 ? "üstünde" : k.parts.pmVsClose < 0 ? "altında" : "üzerinde"}` },
         { key: "pmb", ok: k.parts.pmBreak !== 0, text: `PM aralık kırılımı ${k.parts.pmBreak > 0 ? "yukarı" : k.parts.pmBreak < 0 ? "aşağı" : "yok"}` },
       ],
-      veto: null, warns: [], setup: null, pos: null,
+      veto: null, warns: [], setup: null, pos: null, runners: [],
       fc: { dir: 0, target: null, targetLabel: "", invalid: null, invalidLabel: "", rule: null, text: "Seans öncesi — tahmin 09:35'ten itibaren." },
       out: null, c5: candleText(b, null, null, null, "5m (PM)", null), c15: null, events: [],
     });
@@ -542,6 +570,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let dayClass: DayClass | null = null;
   const trades: TrackTrade[] = [];
   let pos: TrackTrade | null = null;
+  const runners: TrackTrade[] = [];
   let armedNext: TrackRead["armed"] = null;
   let prevArmed: { tag: SetupTag; side: Side } | null = null;
   let runSide = 0, runLen = 0;
@@ -686,8 +715,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
     // ── pozisyon yönetimi ──
     let entered: TrackTrade | null = null;
     let exited: TrackTrade | null = null;
-    if (pos) {
-      const p: TrackTrade = pos;
+    const manage = (p: TrackTrade): boolean => {
+      let out = false;
       const d = dOfSide(p.side);
       p.barsHeld++;
       p.mfeR = Math.max(p.mfeR, r2((d > 0 ? b.high - p.entry : p.entry - b.low) / p.rPts));
@@ -696,11 +725,25 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const close = (px: number, why: ExitReason) => {
         const rest = r2((d * (px - p.entry)) / p.rPts);
         p.exit = r2(px); p.exitTime = b.time; p.exitClock = nyClock(T); p.exitReason = why;
-        p.resultR = r2(p.h1Hit && C.exitMode === "half" ? 0.5 * h1R + 0.5 * rest : rest);
+        p.resultR = r2(p.h1Hit && (C.exitMode === "half" || C.exitMode === "half15") ? 0.5 * h1R + 0.5 * rest : rest);
         p.liveR = null;
         exited = p;
+        out = true;
       };
-      if (C.exitMode === "trail" && p.h1Hit) {
+      if (C.exitMode === "half15" && p.h1Hit) {
+        // kalan yarı: stop (giriş ya da son 15m dip/tepe izi) olana kadar taşı
+        if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, p.stop === p.entry ? "H1_BE" : "TRAIL_15M");
+        else if (C.runnerFlip && side15 === -d) close(c, "TREND_FLIP");
+        else if (is15 && b15 && today15) {
+          const buf = (atr15 ?? (atr5 ? atr5 * 1.7 : 0.3)) * C.trailBufAtr15;
+          const ns = r2(d > 0 ? b15.low - buf : b15.high + buf);
+          if (d * (ns - p.stop) > 0 && d * (c - ns) > 0) {
+            p.stop = ns;
+            pushAlert(b.time, "YÖNET", p.tag, p.side, `15m kapanış: stopu ${f2(ns)}'e taşı (15m ${d > 0 ? "dibi" : "tepesi"} ${f2(d > 0 ? b15.low : b15.high)} ∓ tampon)`);
+            ev.push(`stop 15m ${d > 0 ? "dibinin" : "tepesinin"} ötesine taşındı → ${f2(ns)}`);
+          }
+        }
+      } else if (C.exitMode === "trail" && p.h1Hit) {
         if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, "H1_BE");
         else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
@@ -716,7 +759,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         }
         else if (d > 0 ? b.high >= p.h1 : b.low <= p.h1) {
           p.h1Hit = true; p.h1Clock = nyClock(T); p.stop = p.entry;
-          pushAlert(b.time, "YÖNET", p.tag, p.side, `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
+          pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `1R ${f2(p.h1)} geldi: 1 kontratı kapat, stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
           ev.push(`H1 ${f2(p.h1)} — yarısı alındı, stop girişe`);
         } else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (C.timeStopBars > 0 && p.barsHeld >= C.timeStopBars && d * (c - p.entry) < 0) close(c, "TIME");
@@ -726,16 +769,23 @@ export function trackerRead(inp: TrackInput): TrackRead {
         else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
       }
-      if (!exited && m >= C.forceExit) close(c, "FORCE_1545");
-      if (exited) {
-        const x: TrackTrade = exited;
+      if (!out && m >= C.forceExit) close(c, "FORCE_1545");
+      if (out) {
+        const x: TrackTrade = p;
         pushAlert(b.time, "ÇIKIŞ", x.tag, x.side, `ÇIKIŞ ${x.side} · ${x.exitReason} ${f2(x.exit as number)} · sonuç ${sgnR(x.resultR as number)}R`);
         ev.push(`ÇIKIŞ ${x.exitReason} ${f2(x.exit as number)} → ${sgnR(x.resultR as number)}R`);
-        pos = null;
       } else {
         const rest = r2((d * (c - p.entry)) / p.rPts);
-        p.liveR = r2(p.h1Hit && C.exitMode === "half" ? 0.5 * h1R + 0.5 * rest : rest);
+        p.liveR = r2(p.h1Hit && (C.exitMode === "half" || C.exitMode === "half15") ? 0.5 * h1R + 0.5 * rest : rest);
       }
+      return out;
+    };
+    // kalan yarılar (half15: 1R'den sonra stop girişte, 15m izleyen stop) — yeni girişleri engellemez
+    for (const rn of [...runners]) if (manage(rn)) runners.splice(runners.indexOf(rn), 1);
+    if (pos) {
+      const p: TrackTrade = pos;
+      if (manage(p)) pos = null;
+      else if (C.exitMode === "half15" && C.runnerParallel && p.h1Hit) { runners.push(p); pos = null; }
     }
 
     // ── 5m tetik (15m yönünde) ──
@@ -794,17 +844,28 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const h2R = r2(c + d * C.h2R * rPts);
         const nl = nextLevel(d, tp1, 0.05);
         const h2 = nl && d * (nl.price - h2R) < 0 ? r2(nl.price) : h2R;
+        // kuvvetli momentum → daha büyük pozisyon önerisi (piyasa gerçeği: trend sürerken her geri çekilmede ekle)
+        const momF = {
+          both: volD === d && candleD === d,
+          rvol: (rvol5 ?? 0) >= C.sizeRvol,
+          runner: runners.some((x) => dOfSide(x.side) === d && (x.liveR ?? 0) > 0),
+          impulse: atr5 != null && d * impulse >= C.sizeImpulse,
+          ext: newExt === d,
+        };
+        const momWhy = [momF.both && "hacim + formasyon birlikte", momF.rvol && `RVOL ${rvol5 != null ? rvol5.toFixed(1) : ""}`, momF.runner && "aynı yönde kârdaki taşınan pozisyon", momF.impulse && "30 dk itki güçlü", momF.ext && `gün içi yeni ${d > 0 ? "tepe" : "dip"}`].filter(Boolean) as string[];
+        const pts = C.sizeFactors.reduce((a, k) => a + (momF[k as keyof typeof momF] ? 1 : 0), 0);
+        const contracts = Math.min(C.sizeMax, C.sizeBase + pts);
         const why = [vSide === d && "VWAP", eSide === d && "EMA20", volD === d && "hacim", candleD === d && (pattern ?? "formasyon"), tiebreak && "RVOL+RSI teyidi"].filter(Boolean).join(" · ");
         const tr: TrackTrade = {
           id: `${date}-${nyClock(T).replace(":", "")}-${tag}`, tag, reentry: trades.length > 0, side: s, stage: "TAKİP",
-          entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: warns.length ? "half" : "full", confirm10: null,
+          entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: warns.length ? "half" : "full", confirm10: null, contracts, momWhy, momF,
           strike: strikeHint(s, c), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
           barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
         };
         trades.push(tr);
         pos = tr;
         entered = tr;
-        pushAlert(b.time, "TETİK", tag, s, `TETİK · ${nyClock(T)} · ${s} · giriş ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} · ${why}`);
+        pushAlert(b.time, "TETİK", tag, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · momentum: ${momWhy.join(", ")}` : ""}`);
         ev.push(`GİRİŞ ${s} ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} · H2 ${f2(h2)} — ${why}`);
       }
       if (pos) {
@@ -861,20 +922,20 @@ export function trackerRead(inp: TrackInput): TrackRead {
     const warnTxt = warns.length ? ` Dikkat: ${warns.map((w) => VETO_TEXT[w]).join("; ")}.` : "";
     if (entered) {
       const e: TrackTrade = entered;
-      headline = e.side === "CALL" ? "🟢 ▲ CALL GİR" : "🔴 ▼ PUT GİR";
-      action = `5m tetik + 15m teyit (${e.why}) · giriş ${f2(e.entry)} · stop ${f2(e.stop)} · H1 ${f2(e.h1)} · H2 ${f2(e.h2)} · ${e.strike}.${warnTxt}`;
+      headline = `${e.side === "CALL" ? "🟢 ▲ CALL GİR" : "🔴 ▼ PUT GİR"} · ${e.contracts ?? 2} kontrat`;
+      action = `${e.contracts ?? 2} KONTRAT${(e.momWhy ?? []).length ? ` (kuvvetli momentum: ${(e.momWhy ?? []).join(", ")})` : " (taban)"} · 5m tetik + 15m teyit (${e.why}) · giriş ${f2(e.entry)} · stop ${f2(e.stop)} · H1 ${f2(e.h1)} · H2 ${f2(e.h2)} · ${e.strike}.${warnTxt}`;
       tone = e.side === "CALL" ? "bull" : "bear";
     } else if (exited) {
       const x: TrackTrade = exited;
       headline = `◼ ${x.side} KAPAT · ${sgnR(x.resultR as number)}R`;
-      action = `${x.exitReason === "H1" ? "Hedef (1R) geldi — tamamı kapandı" : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte kapandı" : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
+      action = `${x.exitReason === "TRAIL_15M" ? "Taşınan yarı 15m izleyen stopta kapandı — trend dinlendi" : x.exitReason === "H1" ? "Hedef (1R) geldi — tamamı kapandı" : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte (stop başabaş) kapandı" : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
       tone = "warn";
     } else if (P) {
       const pd = dOfSide(P.side);
       headline = `${P.side === "CALL" ? "▲ CALL" : "▼ PUT"} AÇIK · ${P.liveR != null ? sgnR(P.liveR) : "0"}R`;
       action = P.h1Hit
         ? `Yarısı alındı, stop girişte (${f2(P.entry)}). Kalanı TUT — 5m EMA20 ${ema5 != null ? f2(ema5) : "—"} ${pd > 0 ? "altına" : "üstüne"} kapanış, 15m yön dönüşü ya da H2 ${f2(P.h2)}'de kapat.`
-        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (1R)${C.exitMode === "full" ? "'de kapat" : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
+        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (1R)${C.exitMode === "full" ? "'de kapat" : C.exitMode === "half15" ? "'de 1 kontratı kapat, stopu girişe çek; kalanı her 15m kapanışında 15m dip/tepe ∓ tampona taşı" : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
       tone = side5 === -pd ? "warn" : P.side === "CALL" ? "bull" : "bear";
     } else if (setup?.status === "ARMED" && setup.trigger != null) {
       headline = `⚡ ${setup.side} HAZIR`;
@@ -895,6 +956,14 @@ export function trackerRead(inp: TrackInput): TrackRead {
       action = `BEKLE — 15m VWAP ile EMA20 arasında (${Number.isFinite(bot) ? f2(bot) : "—"}–${Number.isFinite(top) ? f2(top) : "—"}). 15m kapanış ${Number.isFinite(top) ? f2(top) : "—"} üstü ▲ CALL, ${Number.isFinite(bot) ? f2(bot) : "—"} altı ▼ PUT yönünü açar.${dir ? ` Şimdilik eğilim ${dir > 0 ? "yukarı" : "aşağı"} (5m + ${rsiD ? "RSI" : "hacim/formasyon"}).` : ""}`;
     }
 
+    if (runners.length) {
+      const rt = runners.map((x) => `${x.side} ${x.entryClock} girişi ${f2(x.entry)} → stop ${f2(x.stop)} (${sgnR(x.liveR ?? 0)}R)`).join(" · ");
+      action += ` Taşınan yarı: ${rt} — her 15m kapanışında stop 15m ${runners[0].side === "CALL" ? "dibinin altına" : "tepesinin üstüne"} çekilir.`;
+      if (!P && !entered && !exited && setup?.status !== "ARMED") {
+        headline = `${runners[0].side === "CALL" ? "▲ CALL" : "▼ PUT"} TAŞINIYOR · stop ${f2(runners[runners.length - 1].stop)}`;
+        tone = runners[0].side === "CALL" ? "bull" : "bear";
+      }
+    }
     const shownPhase: TrackPhase = pos && !entered ? (P?.h1Hit ? "MANAGE" : "IN_TRADE") : phaseBase;
     let c15: string | null = null;
     if (is15 && i >= 2) {
@@ -911,7 +980,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
       score, breakdown, threshold: 4.5, dir, strength, trend, mom,
       htf: { m15: side15, m30: m30.d, h1: h1.d, h4: h4.d }, side15, side5, pattern, rsi15: rsi15 != null ? r2(rsi15) : null,
       headline, action, tone, checklist, veto: null, warns, setup,
-      pos: P && !exited ? { tag: P.tag, side: P.side, entry: P.entry, stop: P.stop, h1: P.h1, h2: P.h2, liveR: P.liveR ?? 0, h1Hit: P.h1Hit } : null,
+      pos: P && !exited ? { tag: P.tag, side: P.side, entry: P.entry, stop: P.stop, h1: P.h1, h2: P.h2, liveR: P.liveR ?? 0, h1Hit: P.h1Hit, contracts: P.contracts } : null,
+      runners: runners.map((x) => ({ side: x.side, entryClock: x.entryClock, entry: x.entry, stop: x.stop, liveR: x.liveR ?? 0 })),
       fc, out: null, c5: candleText(b, vwap, ema5, rvol5, "5m", pattern), c15, events: ev,
     });
     if (today15) prevSide15 = side15;
