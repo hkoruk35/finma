@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "LLY",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 1229.0,
+        "entry_zone": "1211.82 - 1246.18",
+        "SL": 1160.27,
+        "TP": 1366.46
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "ETSY",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 83.4,
+        "entry_zone": "82.04 - 84.76",
+        "SL": 77.95,
+        "TP": 94.31
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "CNC",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 70.91,
+        "entry_zone": "69.86 - 71.96",
+        "SL": 66.72,
+        "TP": 77.19
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "GILD",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 155.9,
+        "entry_zone": "154.12 - 157.68",
+        "SL": 148.77,
+        "TP": 170.16
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "RPRX",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 60.0,
+        "entry_zone": "59.39 - 60.61",
+        "SL": 57.54,
+        "TP": 64.91
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "CHEF",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 113.3,
+        "entry_zone": "111.26 - 115.34",
+        "SL": 105.13,
+        "TP": 129.64
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "KR",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 64.22,
+        "entry_zone": "63.41 - 65.03",
+        "SL": 60.97,
+        "TP": 70.72
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "REGN",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 794.8,
+        "entry_zone": "783.53 - 806.07",
+        "SL": 749.72,
+        "TP": 884.97
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "DG",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 133.14,
+        "entry_zone": "131.21 - 135.07",
+        "SL": 125.41,
+        "TP": 148.59
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "EXEL",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 61.5,
+        "entry_zone": "60.67 - 62.33",
+        "SL": 58.17,
+        "TP": 68.16
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "UNFI",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 48.25,
+        "entry_zone": "47.66 - 48.84",
+        "SL": 45.9,
+        "TP": 52.95
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "MRNA",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 223.34,
+        "entry_zone": "215.26 - 231.42",
+        "SL": 191.04,
+        "TP": 287.95
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "UNH",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 395.62,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "NRIX",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 23.85,
+        "entry_zone": "23.29 - 24.41",
+        "SL": 21.62,
+        "TP": 28.32
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "AZN",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 167.35,
+        "entry_zone": "165.70 - 169.00",
+        "SL": 160.74,
+        "TP": 180.58
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "GFS",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 47.47,
+        "entry_zone": "46.38 - 48.56",
+        "SL": 43.1,
+        "TP": 56.21
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "CL",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 93.8,
+        "entry_zone": "93.07 - 94.53",
+        "SL": 90.87,
+        "TP": 99.67
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "BUD",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 81.49,
+        "entry_zone": "80.75 - 82.23",
+        "SL": 78.54,
+        "TP": 87.39
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "KMB",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 102.58,
+        "entry_zone": "101.61 - 103.55",
+        "SL": 98.69,
+        "TP": 110.36
+    },
+    {
+        "date": "2026-10-15 13:04",
+        "symbol": "TRV",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 381.25,
+        "entry_zone": "378.27 - 384.23",
+        "SL": 369.32,
+        "TP": 405.1
+    }
+]
