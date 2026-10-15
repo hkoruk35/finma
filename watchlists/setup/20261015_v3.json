@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "UNH",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 408.55,
+        "entry_zone": "402.75 - 414.35",
+        "SL": 385.36,
+        "TP": 443.34
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "LLY",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 1257.28,
+        "entry_zone": "1239.36 - 1275.19",
+        "SL": 1185.62,
+        "TP": 1400.58
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "AZN",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 169.05,
+        "entry_zone": "167.21 - 170.89",
+        "SL": 161.68,
+        "TP": 183.79
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "GILD",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 159.06,
+        "entry_zone": "157.14 - 160.98",
+        "SL": 151.36,
+        "TP": 174.46
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "KMB",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 103.95,
+        "entry_zone": "102.86 - 105.04",
+        "SL": 99.59,
+        "TP": 112.67
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "ETSY",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 84.68,
+        "entry_zone": "83.31 - 86.05",
+        "SL": 79.21,
+        "TP": 95.62
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "DG",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 134.73,
+        "entry_zone": "132.73 - 136.72",
+        "SL": 126.76,
+        "TP": 150.65
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "NRIX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 24.3,
+        "entry_zone": "23.74 - 24.86",
+        "SL": 22.06,
+        "TP": 28.79
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "KR",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 64.52,
+        "entry_zone": "63.69 - 65.35",
+        "SL": 61.22,
+        "TP": 71.13
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "REGN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 800.26,
+        "entry_zone": "788.58 - 811.94",
+        "SL": 753.55,
+        "TP": 893.69
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "RPRX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 60.19,
+        "entry_zone": "59.56 - 60.83",
+        "SL": 57.66,
+        "TP": 65.27
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "CHEF",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 112.68,
+        "entry_zone": "110.70 - 114.65",
+        "SL": 104.78,
+        "TP": 128.48
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "CNC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 70.14,
+        "entry_zone": "69.12 - 71.16",
+        "SL": 66.08,
+        "TP": 76.23
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "EXEL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 62.19,
+        "entry_zone": "61.33 - 63.04",
+        "SL": 58.75,
+        "TP": 69.05
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "UNFI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 47.72,
+        "entry_zone": "47.14 - 48.30",
+        "SL": 45.41,
+        "TP": 52.34
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 230.38,
+        "entry_zone": "222.18 - 238.57",
+        "SL": 197.59,
+        "TP": 295.95
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "GFS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 46.13,
+        "entry_zone": "45.00 - 47.26",
+        "SL": 41.63,
+        "TP": 55.13
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "CL",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 95.07,
+        "entry_zone": "94.28 - 95.86",
+        "SL": 91.93,
+        "TP": 101.36
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "TRV",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 381.89,
+        "entry_zone": "378.80 - 384.98",
+        "SL": 369.54,
+        "TP": 406.59
+    },
+    {
+        "date": "2026-10-15 14:00",
+        "symbol": "BUD",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 81.34,
+        "entry_zone": "80.54 - 82.14",
+        "SL": 78.16,
+        "TP": 87.71
+    }
+]
