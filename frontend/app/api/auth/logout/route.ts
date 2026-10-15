@@ -10,5 +10,6 @@ export async function POST() {
     maxAge: 0,
     path: '/',
   })
+  res.cookies.set('boga_user', '', { httpOnly: true, secure: true, sameSite: 'lax', maxAge: 0, path: '/' })
   return res
 }

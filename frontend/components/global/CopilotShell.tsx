@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { CopilotProvider, useCopilot } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
 import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
+import { isCopilotRole } from "@/lib/copilot/adminPersona";
 
 function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; isFinancePage: boolean }) {
   const { isOpen } = useCopilot();
@@ -29,13 +30,13 @@ function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; i
   );
 }
 
-/** Sayfa ömrü boyunca tek istek: admin (boga_auth: admin / readonly) mi? Cookie httpOnly olabilir → /api/auth/me */
+/** Sayfa ömrü boyunca tek istek: yönetim hesabı (boga_auth: admin / readonly / engine) mı? Cookie httpOnly → /api/auth/me */
 let adminPending: Promise<boolean> | null = null;
 function loadIsAdmin(): Promise<boolean> {
   if (!adminPending) {
     adminPending = fetch("/api/auth/me", { credentials: "include", cache: "no-store" })
       .then((r) => (r.ok ? r.json() : { role: null }))
-      .then((j: { role?: string | null }) => j.role === "admin" || j.role === "readonly")
+      .then((j: { role?: string | null }) => isCopilotRole(j.role))
       .catch(() => false);
   }
   return adminPending;
@@ -51,7 +52,7 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
     return () => { alive = false; };
   }, []);
 
-  // 2026-10-15: Copilot yalnız admin hesaplarına açık (SPY odaklı). Admin değilse Provider/Drawer hiç mount edilmez.
+  // 2026-10-15: Copilot yalnız yönetim hesaplarına (admin / readonly / engine) açık, SPY odaklı. Değilse Provider/Drawer hiç mount edilmez.
   const enabled = COPILOT_ADMIN_ONLY ? isAdmin : !COPILOT_DISABLED;
   if (!enabled) return <>{children}</>;
 

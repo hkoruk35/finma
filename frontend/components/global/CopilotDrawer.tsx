@@ -10,6 +10,8 @@ import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/perso
 import { ct } from "@/lib/copilot/i18n";
 import { SupportedLocale } from "@/lib/copilot/visitorDemo";
 import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
+import { adminPersonaFor, isCopilotRole, SPY_PILLS } from "@/lib/copilot/adminPersona";
+import { COPILOT_ADMIN_ONLY } from "@/lib/siteMode";
 import { TASK_LABELS, CopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { getUSMarketStatus } from "@/lib/copilot/marketSchedule";
 import { buildRoute, RouteKey } from "@/lib/copilot/routes";
@@ -263,7 +265,20 @@ export default function CopilotDrawer() {
     ? (activeLocale as CopilotLang)
     : "tr";
   const isAnon = !isAuthenticated || !member;
-  const dailyGreeting = buildMemberDailyGreeting(realUserName, favoriteSectors, 0, memberLang, isAnon);
+  // Yönetim hesabı: kişiye özel karşılama + SPY Engine odaklı hızlı sorular (lib/copilot/adminPersona.ts)
+  const [adminWho, setAdminWho] = useState<{ admin: boolean; email: string | null }>({ admin: false, email: null });
+  useEffect(() => {
+    if (!COPILOT_ADMIN_ONLY) return;
+    let alive = true;
+    fetch("/api/auth/me", { credentials: "include", cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j: { role?: string | null; email?: string | null } | null) => { if (alive && j) setAdminWho({ admin: isCopilotRole(j.role), email: j.email ?? null }); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+  const dailyGreeting = adminWho.admin
+    ? { welcomeMessage: adminPersonaFor(adminWho.email).welcome, pills: SPY_PILLS }
+    : buildMemberDailyGreeting(realUserName, favoriteSectors, 0, memberLang, isAnon);
 
   const handleCancelTask = async (taskId: string) => {
     setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));

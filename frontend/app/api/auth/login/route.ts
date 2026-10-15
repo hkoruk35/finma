@@ -76,5 +76,13 @@ export async function POST(req: NextRequest) {
     maxAge: 60 * 60 * 24, // 24 saat
     path: '/',
   })
+  // Copilot kişiselleştirmesi (lib/copilot/adminPersona.ts): hangi yönetici — yetki için KULLANILMAZ
+  res.cookies.set('boga_user', String(user.email).toLowerCase(), {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24,
+    path: '/',
+  })
   return res
 }

@@ -3,7 +3,8 @@ import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getMemberAccess, isStaffAuthed, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { adminPersonaFor, isCopilotRole } from "@/lib/copilot/adminPersona";
 import { getSpyLive } from "@/lib/copilot/spyLive";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
@@ -114,7 +115,8 @@ async function buildSystemPrompt(
   userId: string,
   accessMode: "member" | "expired_member" | "visitor",
   isPremium: boolean,
-  adminMode = false
+  adminMode = false,
+  adminNote = ""
 ): Promise<string> {
   // Anonim ziyaretçi için hesap yok — kişiselleştirme/profil sorgusu hiç
   // atılmaz, doğrudan varsayılanlarla devam edilir.
@@ -296,7 +298,7 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 `;
 
   if (adminMode) {
-    contextStr += `${ADMIN_SPY_BLOCK}\n\n`;
+    contextStr += `${ADMIN_SPY_BLOCK}\n${adminNote}\n\n`;
   } else if (accessMode === "visitor") {
     contextStr += `ÜYELİK DURUMU: Bu kullanıcı henüz hesap OLUŞTURMAMIŞ, misafir (anonim) bir ziyaretçidir. Top7 sıralaması, Top Gainers (En Çok Yükselenler), Top Losers (En Çok Düşenler), Top100'ün ilk 10 hissesi ve Terminal sayfası (2 ekran görünümü) bu kullanıcıya TAMAMEN AÇIKTIR. Anonim ziyaretçiye Trend Hisseleri ve Trend Adayları önerilmez. Kişisel izleme listesi kaydetme, 4-6-9 ekran görünümü ve 1. tema dışındaki temalar için ücretsiz hesap açmasını kısaca ve nazikçe belirt (agresif satış yapma).\n\n`;
   } else if (accessMode === "expired_member") {
@@ -374,8 +376,9 @@ KURALLAR:
 }
 
 export async function POST(req: NextRequest) {
-  // Yalnız admin (boga_auth: admin / readonly) — kota/kredi uygulanmaz, SPY odaklı esprili mod
-  const adminMode = isStaffAuthed(req);
+  // Yalnız yönetim hesapları (boga_auth: admin / readonly / engine) — kota/kredi uygulanmaz, SPY odaklı esprili mod
+  const adminMode = isCopilotRole(req.cookies.get("boga_auth")?.value);
+  const adminNote = adminMode ? adminPersonaFor(req.cookies.get("boga_user")?.value).promptNote : "";
   if (COPILOT_ADMIN_ONLY && !adminMode) return Response.json({ error: "admin_only" }, { status: 403 });
   if (COPILOT_DISABLED && !adminMode) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   // catch bloğunun da doğru dilde hata dönebilmesi için try dışında,
@@ -532,7 +535,7 @@ export async function POST(req: NextRequest) {
       logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
     }
 
-    const systemPrompt = await buildSystemPrompt(pageContext, locale, user?.id ?? "", accessMode, access.isPremium, adminMode);
+    const systemPrompt = await buildSystemPrompt(pageContext, locale, user?.id ?? "", accessMode, access.isPremium, adminMode, adminNote);
 
     // search_market_news'in kendi araç sonucuna gömülü talimat üretebilmesi için
     // bu turda site-verisi aracı (deep-analysis/technical-levels) çağrıldı mı takip
