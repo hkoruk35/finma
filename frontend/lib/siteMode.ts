@@ -8,4 +8,10 @@
  */
 export const MEMBERSHIP_DISABLED = true
 export const COPILOT_DISABLED = MEMBERSHIP_DISABLED
+/**
+ * 2026-10-15 (kullanıcı talebi): Boga Copilot yalnız admin hesaplarına (boga_auth: admin / readonly) açık —
+ * SPY odaklı, esprili anlatım. Ziyaretçi/üye için kapalı kalır. Sunucu: copilot/chat + usage route'ları
+ * boga_auth rolüyle kapı tutar; istemci: CopilotShell /api/auth/me rolüne bakar.
+ */
+export const COPILOT_ADMIN_ONLY = true
 export const MY_WATCHLIST_DISABLED = MEMBERSHIP_DISABLED

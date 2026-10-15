@@ -1,10 +1,10 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CopilotProvider, useCopilot } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
-import { COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
 
 function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; isFinancePage: boolean }) {
   const { isOpen } = useCopilot();
@@ -29,14 +29,35 @@ function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; i
   );
 }
 
+/** Sayfa ömrü boyunca tek istek: admin (boga_auth: admin / readonly) mi? Cookie httpOnly olabilir → /api/auth/me */
+let adminPending: Promise<boolean> | null = null;
+function loadIsAdmin(): Promise<boolean> {
+  if (!adminPending) {
+    adminPending = fetch("/api/auth/me", { credentials: "include", cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : { role: null }))
+      .then((j: { role?: string | null }) => j.role === "admin" || j.role === "readonly")
+      .catch(() => false);
+  }
+  return adminPending;
+}
+
 export default function CopilotShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (!COPILOT_ADMIN_ONLY) return;
+    let alive = true;
+    loadIsAdmin().then((v) => { if (alive) setIsAdmin(v); });
+    return () => { alive = false; };
+  }, []);
 
-  // Geçici kapatma: Provider/Drawer hiç mount edilmez (usage/chat çağrısı da yok).
-  if (COPILOT_DISABLED) return <>{children}</>;
+  // 2026-10-15: Copilot yalnız admin hesaplarına açık (SPY odaklı). Admin değilse Provider/Drawer hiç mount edilmez.
+  const enabled = COPILOT_ADMIN_ONLY ? isAdmin : !COPILOT_DISABLED;
+  if (!enabled) return <>{children}</>;
 
-  // Exclude non-money pages: /search (ask), /discover, /sports, /weather, /today, /admin
-  const isExcluded = !!pathname && (
+  // Finans dışı sayfalar ve SPY/QQQ Engine dışındaki yönetim sayfaları hariç
+  const isEnginePage = !!pathname && (pathname.startsWith("/admin/spyengine") || pathname.startsWith("/admin/qqqengine"));
+  const isExcluded = !!pathname && !isEnginePage && (
     pathname.includes("/search") ||
     pathname.includes("/discover") ||
     pathname.includes("/sports") ||
@@ -53,6 +74,3 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
     </CopilotProvider>
   );
 }
-
-
-

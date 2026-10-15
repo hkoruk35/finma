@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { getMemberAccess, isStaffAuthed, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { getSpyLive } from "@/lib/copilot/spyLive";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { createAnthropic } from "@ai-sdk/anthropic";
@@ -93,12 +94,27 @@ function sanitizeMessages(messages: any[]): any[] {
     });
 }
 
+/**
+ * Admin modu (COPILOT_ADMIN_ONLY): SPY odaklı, esprili ton. Rakam ve karar her zaman get_spy_live (SPY Engine Takip
+ * Sistemi) çıktısından — AI_BEHAVIOR.md Kural 5. Mizah üslupta kalır; finansal dil kısıtlamaları aynen geçerli.
+ */
+const ADMIN_SPY_BLOCK = `ADMIN MODU — SPY ODAK + MİZAH (bu blok yukarıdaki TON kurallarından ÖNCELİKLİDİR):
+- Kullanıcı BOGASTOCK yöneticisidir ve gün içi SPY (0DTE opsiyon) işlemcisidir. Varsayılan konu SPY'dır: "piyasa nasıl", "ne yapalım", "CALL mı PUT mu", "durum ne", "yorumla", "şimdi?" gibi belirsiz sorular SPY içindir.
+- SPY / piyasa / endeks sorularında MUTLAKA ÖNCE 'get_spy_live' aracını çağır. Yön, "şimdi ne yap", tetik, stop, hedef, pozisyon ve R değerlerini YALNIZCA bu aracın döndürdüğü alanlardan (headline, action, direction15m, position5m, setup, openPosition, runners, tradesToday, forecast30m) kur. Aracın 'action' alanıyla ÇELİŞEN bir öneri ASLA verme (araç BEKLE diyorsa "gir" deme; PUT tarafı diyorsa CALL önerme). Kendi kafandan giriş/stop/hedef sayısı üretme.
+- Sistemin mantığını bil ve gerektiğinde kısaca anlat: 15m VWAP+EMA20 yön teyidi → 5m tetik (VWAP, EMA20, hacim çubuğu, mum formasyonu; RVOL/RSI yalnız belirsizlikte) → stop son 2 mumun ucu → 1R'de yarısı + stop girişe → kalan yarı her 15m kapanışında 15m dip/tepe ∓ tampon. Kuvvetli momentumda 2 yerine 3-4 kontrat önerilir. Kazanç yön tahmininden değil bu düzenden gelir; 30 dk yön tahmini tek başına ~%47 — bunu "kesin" gibi sunma.
+- Yanıt kalıbı (kısa): 1) tek cümlelik esprili durum özeti (fiyat + 15m yön), 2) ŞİMDİ NE YAPILIR (aracın action'ı, net), 3) izlenecek seviyeler (VWAP / EMA20 / tetik / stop), 4) varsa açık pozisyon / taşınan yarı ve R, 5) en fazla 3 buton. Gereksiz uzunluk yok.
+- MİZAH: Esprili, hazırcevap, hafif alaycı bir trading masası arkadaşı gibi konuş — boğa/ayı benzetmeleri, kahve/mum/uykusuz trader esprileri, piyasaya takılmalar serbest. Her yanıtta 1-2 kısa espri yeter; espri rakamları ve kararı GÖLGELEMESİN. Kullanıcıyla dalga geçme, piyasayla geç. Zarar/stop durumlarında empatik ve hafif mizahi ol, alay etme.
+- Finansal dil kısıtlamaları AYNEN geçerli: garanti / kesin kâr / "kesin yükselecek" yok. Esprili olmak ihtiyatsız olmayı gerektirmez.
+- Veri notu: SPY verisi 5 dakikalık kapanışlardan; "anlık" yerine "son 5m kapanışına göre" de. Seans dışında son seansı anlattığını belirt.
+- Üyelik/kota/premium/satış mesajı ASLA verme — kullanıcı yönetici. SPY dışı bir hisse sorulursa normal araçlarla yanıtla ama tonu koru.`;
+
 async function buildSystemPrompt(
   pageContext: CopilotPageContext | null,
   locale: string,
   userId: string,
   accessMode: "member" | "expired_member" | "visitor",
-  isPremium: boolean
+  isPremium: boolean,
+  adminMode = false
 ): Promise<string> {
   // Anonim ziyaretçi için hesap yok — kişiselleştirme/profil sorgusu hiç
   // atılmaz, doğrudan varsayılanlarla devam edilir.
@@ -135,7 +151,7 @@ async function buildSystemPrompt(
 
   let contextStr = `${LANG_DIRECTIVE[locale] || LANG_DIRECTIVE.en}
 
-SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
+SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun ${adminMode ? "esprili, hazırcevap ve piyasayı iyi okuyan" : "kibar, profesyonel ve samimi"} yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
 
 KÜRESEL ŞİRKET VE DİL POLİTİKASI (GLOBAL COMPANY & LANGUAGE POLICY):
 - Biz ABD merkezli küresel bir şirketiz. Varsayılan dilimiz İngilizce'dir, ancak 6 farklı dilde (İngilizce, Türkçe, İspanyolca, Fransızca, Portekizce, Endonezce) yerel çeviri desteği sunuyoruz.
@@ -279,7 +295,9 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 
 `;
 
-  if (accessMode === "visitor") {
+  if (adminMode) {
+    contextStr += `${ADMIN_SPY_BLOCK}\n\n`;
+  } else if (accessMode === "visitor") {
     contextStr += `ÜYELİK DURUMU: Bu kullanıcı henüz hesap OLUŞTURMAMIŞ, misafir (anonim) bir ziyaretçidir. Top7 sıralaması, Top Gainers (En Çok Yükselenler), Top Losers (En Çok Düşenler), Top100'ün ilk 10 hissesi ve Terminal sayfası (2 ekran görünümü) bu kullanıcıya TAMAMEN AÇIKTIR. Anonim ziyaretçiye Trend Hisseleri ve Trend Adayları önerilmez. Kişisel izleme listesi kaydetme, 4-6-9 ekran görünümü ve 1. tema dışındaki temalar için ücretsiz hesap açmasını kısaca ve nazikçe belirt (agresif satış yapma).\n\n`;
   } else if (accessMode === "expired_member") {
     contextStr += `ÜYELİK DURUMU: Bu kullanıcının ücretli üyeliği şu anda AKTİF DEĞİL (süresi dolmuş/iptal edilmiş). Tüm hisse detayları, Top7, Top100 tam listesi, Bellek Üreticiler & AI Depolama teması ve 4-6-9 ekran Terminal görünümleri bu kullanıcıya AÇIKTIR. Kayıtlı kişisel listesi korunur. Bunu sorarsa kibarca açıkla, ama sohbetin başında kendiliğinden satış/yenileme mesajı ile karşılama.\n\n`;
@@ -356,7 +374,10 @@ KURALLAR:
 }
 
 export async function POST(req: NextRequest) {
-  if (COPILOT_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
+  // Yalnız admin (boga_auth: admin / readonly) — kota/kredi uygulanmaz, SPY odaklı esprili mod
+  const adminMode = isStaffAuthed(req);
+  if (COPILOT_ADMIN_ONLY && !adminMode) return Response.json({ error: "admin_only" }, { status: 403 });
+  if (COPILOT_DISABLED && !adminMode) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   // catch bloğunun da doğru dilde hata dönebilmesi için try dışında,
   // gövdeyi henüz okuyamadan patlarsa bile güvenli bir varsayılanla tutulur.
   let locale = "en";
@@ -378,7 +399,7 @@ export async function POST(req: NextRequest) {
     // sınırlı sayıda gerçek Copilot sorgusu açık (bkz. aşağıdaki ANON_DAILY_LIMIT).
     const access = await getMemberAccess();
     const tier = resolveMemberTierFromAccess(access);
-    const isPremiumTier = tier === "premium" || tier === "admin";
+    const isPremiumTier = adminMode || tier === "premium" || tier === "admin";
     const accessMode: "member" | "expired_member" | "visitor" = !user
       ? "visitor"
       : access.plan && access.plan !== "premium" && access.plan !== "admin"
@@ -412,7 +433,9 @@ export async function POST(req: NextRequest) {
       pageContext?.activeListContext?.listKey === "trend_candidate_watchlist";
     let freeTierUsesTopup = false;
 
-    if (tier === "anonymous") {
+    if (adminMode) {
+      // admin: kota/kredi/adil kullanım yok
+    } else if (tier === "anonymous") {
       const cookieStore = await cookies();
       const today = new Date().toISOString().slice(0, 10);
       const raw = cookieStore.get("boga_anon_copilot")?.value;
@@ -509,7 +532,7 @@ export async function POST(req: NextRequest) {
       logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
     }
 
-    const systemPrompt = await buildSystemPrompt(pageContext, locale, user?.id ?? "", accessMode, access.isPremium);
+    const systemPrompt = await buildSystemPrompt(pageContext, locale, user?.id ?? "", accessMode, access.isPremium, adminMode);
 
     // search_market_news'in kendi araç sonucuna gömülü talimat üretebilmesi için
     // bu turda site-verisi aracı (deep-analysis/technical-levels) çağrıldı mı takip
@@ -519,6 +542,11 @@ export async function POST(req: NextRequest) {
     let siteDataToolCalled = false;
 
     const baseTools = {
+        get_spy_live: tool({
+          description: "SPY's live reading from BOGA SPY Engine 'Takip Sistemi' — the SAME engine as the /admin/spyengine/v1 top banner (single source): price, 15m direction (VWAP+EMA20), 5m position, trend label, what to do now (headline/action), armed setup with trigger/stop, open position and runners with live R, today's trades, 30-min forecast with its measured hit rate, last 30 min of readings. ALWAYS call this FIRST for any SPY / market / index / 'CALL mı PUT mu' / 'şimdi ne yapayım' / 'piyasa nasıl' question, and never contradict its action.",
+          parameters: z.object({}),
+          execute: async () => await getSpyLive(),
+        }),
         get_top_trending_stocks: tool({
           description: "Fetches BOGASTOCK.COM's 5 distinct site lists: Trend Listesi (trend_stocks), Trend Adayı İzleme Listesi (trend_candidate_watchlist), Kişisel İzleme Listesi (user_watchlist), Top 7 (top_7), or Top 100 (top_100). These are five SEPARATE lists — call with the category that matches exactly what the user asked for.",
           parameters: z.object({
@@ -887,7 +915,9 @@ export async function POST(req: NextRequest) {
       // user_id NOT NULL) yazılabilir/yazılmalı — sessizce atla.
       if (!userId) return;
       try {
-        if (tier === "free") {
+        if (adminMode) {
+          // admin: kredi düşülmez
+        } else if (tier === "free") {
           // Sorgu sayacı: Trend/Theme sayfalarında (isExemptFreePage) sınırsız,
           // hiç düşürülmez. Token sayacı ise sayfa türünden bağımsız her zaman
           // işler — 15k/gün tavanı tüm free kullanım için geçerli.

@@ -32,6 +32,12 @@ Rules below were each written after a real, user-reported bug — not speculativ
 
 **Not yet implemented** (flagged in the user's proposal as a bigger, separate effort): a dedicated deterministic ranking/screener tool decoupled from the LLM, a persisted `REJECTED_SET`/`USER_OBJECTIVE` conversation-state schema (currently relies on the model re-reading chat history), a single canonical JSON snapshot object per ticker, and a code-level (non-prompt) contradiction validator that blocks a reply before it's sent. If any of these become a real incident (model re-suggesting a rejected ticker, drifting risk parameters across turns, etc.), promote the relevant piece from prompt-only to actual state/code here.
 
+## Rule 5 — SPY reading in Copilot = SPY Engine Takip Sistemi, nothing else
+
+**Context (2026-10-15)**: Copilot is now admin-only (`COPILOT_ADMIN_ONLY` in `frontend/lib/siteMode.ts`; chat/usage routes gate on `boga_auth` admin/readonly, `CopilotShell` mounts only for those roles) and SPY-focused with a humorous tone (`ADMIN_SPY_BLOCK` in `app/api/copilot/chat/route.ts`). Admins have no quota/credit checks.
+
+**Rule**: any SPY / market / "CALL or PUT" / "what now" answer must call `get_spy_live` (`frontend/lib/copilot/spyLive.ts`), which runs the SAME `trackerRead` (`lib/spyengine/tracker.ts`) that drives the /admin/spyengine/v1 top banner. The model may joke, but direction, action, trigger, stop, position and R come only from that tool and must never contradict its `action` field — the SPY page was deliberately reduced to a single decision source and Copilot must not reintroduce a second one. Humor never relaxes the financial-language restrictions (no guarantee / certain-profit wording).
+
 ## Cross-cutting principle
 
 Whenever the same fact (a score, a list, a verdict) is rendered on two different surfaces (admin vs public, page vs Copilot, one locale vs another), those two surfaces must call the **same function**, not two independently-written computations that happen to agree today. Two independent implementations of the same logic *will* drift — it's a matter of when, not if. When reviewing a Copilot tool or a new page, grep for whether the number/list it shows already has a canonical source before writing new logic.

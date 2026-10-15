@@ -74,6 +74,8 @@ function localeFromPathname(pathname: string | null): string {
   if (parts[1] === "global" && ["tr", "en", "es", "fr", "pt", "id"].includes(parts[2])) {
     return parts[2];
   }
+  // yönetim sayfaları (SPY/QQQ Engine) Türkçe
+  if (parts[1] === "admin") return "tr";
   return "en";
 }
 

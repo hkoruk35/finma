@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -9,6 +9,12 @@ const ANON_DAILY_LIMIT = 3;
 const FREE_DAILY_TOKEN_LIMIT = 15_000;
 
 export async function GET() {
+  // Yalnız admin (boga_auth: admin / readonly — apiAuth.isStaffAuthed ile aynı roller): sınırsız
+  const role = (await cookies()).get("boga_auth")?.value;
+  if (role === "admin" || role === "readonly") {
+    return NextResponse.json({ monthlyCredits: 0, topupCredits: 0, unlimited: true, hasAccess: true, tier: "admin", dailyUsed: 0, dailyLimit: 0 });
+  }
+  if (COPILOT_ADMIN_ONLY) return Response.json({ error: "admin_only" }, { status: 403 });
   if (COPILOT_DISABLED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   const access = await getMemberAccess();
 
