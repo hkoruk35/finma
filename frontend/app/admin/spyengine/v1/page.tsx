@@ -186,7 +186,7 @@ function TrackLine({ t }: { t: TrackStep }) {
   const c = t.dir > 0 ? "#4ade80" : t.dir < 0 ? "#f87171" : "#94a3b8";
   return (
     <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 rounded border border-[#1c2635] bg-[#0a0e17] px-2.5 py-1 text-[12.5px] leading-snug">
-      <span className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Takip 5m</span>
+      <span className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">5m tetik · 15m teyit</span>
       <b style={{ color: c }}>{t.dir > 0 ? "▲ YUKARI" : t.dir < 0 ? "▼ AŞAĞI" : "◆ YÖN YOK"}{t.dir ? ` ${t.strength}` : ""} ({t.score > 0 ? "+" : ""}{t.score})</b>
       <span className="font-semibold" style={{ color: c }}>· {t.trend}</span>
       <span className="text-slate-300">· {t.fc.text}</span>
@@ -213,7 +213,7 @@ function LadderBar({ s, waiting, track }: { s: LadderStep | null; waiting: boole
           <span className="text-[15px] font-semibold leading-snug text-slate-100">· {t.action}</span>
           <span className="ml-auto font-mono text-[11px] text-slate-500">Takip Sistemi · {t.stageLabel} · son 5m kapanış {t.clock} ET</span>
         </div>
-        <div className="mt-1 text-[13px] leading-snug text-slate-300"><b className="text-slate-400">Yön:</b> <b style={{ color: t.dir > 0 ? "#4ade80" : t.dir < 0 ? "#f87171" : "#94a3b8" }}>{t.trend} ({t.score > 0 ? "+" : ""}{t.score}/10,5)</b> · {t.fc.text}</div>
+        <div className="mt-1 text-[13px] leading-snug text-slate-300"><b className="text-slate-400">Yön:</b> <b style={{ color: t.dir > 0 ? "#4ade80" : t.dir < 0 ? "#f87171" : "#94a3b8" }}>{t.trend} ({t.score > 0 ? "+" : ""}{t.score}/6,5)</b> · {t.fc.text}</div>
         {t.setup && t.setup.status !== "OPEN" && t.checklist.some((c) => !c.ok) && (
           <div className="mt-0.5 text-[12px] leading-snug text-slate-400"><b>Neden henüz değil:</b> {t.checklist.filter((c) => !c.ok).map((c) => c.text).join(" · ")}</div>
         )}

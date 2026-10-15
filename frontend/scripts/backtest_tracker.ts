@@ -52,17 +52,11 @@ async function main() {
   const sum = summarizeTrades(trades);
   writeFileSync(join(out, "summary_by_tag.csv"), csv([["tag", "n", "win_rate", "avg_r", "median_r", "expectancy_r", "profit_factor", "avg_mfe_r", "avg_mae_r", "max_consec_loss", "total_r", "status"], ...sum.map((s) => [s.tag, s.n, s.win, s.avgR, s.medR, s.avgR, s.pf, s.avgMfe, s.avgMae, s.maxConsecLoss, s.totalR, s.status])]));
 
-  // huni
-  const stages = ["K1", "K2", "K3", "K4", "TAKİP"] as const;
-  const funnel = stages.map((st) => {
-    const reached = reads.filter((r) => r.steps.some((s) => s.stageLabel.startsWith(st === "TAKİP" ? "Gün içi" : `Kademe ${st[1]}`))).length;
-    const armed = reads.reduce((a, r) => a + r.steps.filter((s) => s.setup?.status === "ARMED" && (st === "TAKİP" ? s.setup.tag.startsWith("T") : s.setup.tag.startsWith(st))).length, 0);
-    const entries = trades.filter((t) => (st === "TAKİP" ? t.tag.startsWith("T") : t.tag.startsWith(st))).length;
-    const vetoes: Record<string, number> = {};
-    for (const r of reads) for (const s of r.steps) if (s.veto && s.stageLabel.startsWith(st === "TAKİP" ? "Gün içi" : `Kademe ${st[1]}`)) vetoes[s.veto] = (vetoes[s.veto] ?? 0) + 1;
-    return [st, reached, armed, entries, JSON.stringify(vetoes).replace(/,/g, ";")];
-  });
-  writeFileSync(join(out, "funnel.csv"), csv([["stage", "days_reached", "setups_armed", "entries", "veto_counts"], ...funnel]));
+  // huni: 15m yön teyidi olan adımlar → HAZIR → giriş
+  const funnel = [["15m teyitli adım", reads.reduce((a, r) => a + r.steps.filter((x) => !x.pre && x.side15 !== 0 && x.phase !== "KAPANIŞ").length, 0)],
+    ["HAZIR", reads.reduce((a, r) => a + r.steps.filter((x) => x.setup?.status === "ARMED").length, 0)],
+    ["giriş", trades.length]] as (string | number)[][];
+  writeFileSync(join(out, "funnel.csv"), csv([["stage", "count"], ...funnel]));
 
   // bağlam
   const ctxRows: (string | number)[][] = [];
@@ -106,7 +100,7 @@ async function main() {
   for (const s of sum) console.log(`  ${s.tag.padEnd(14)} n=${s.n} win=%${s.win} avg=${s.avgR}R total=${s.totalR}R pf=${s.pf} ${s.status}`);
   console.log(`tahmin ${preds.length} · yön %${Math.round((100 * preds.filter((p) => p.s.out?.hit).length) / Math.max(1, preds.length))} · hedef %${Math.round((100 * preds.filter((p) => p.s.out?.targetHit).length) / Math.max(1, preds.length))}`);
   for (const r of pr) console.log("  ", r.join(" · "));
-  console.log(`huni: ${funnel.map((f) => f.slice(0, 4).join("/")).join(" | ")}`);
+  console.log(`huni: ${funnel.map((f) => f.join(" ")).join(" → ")}`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

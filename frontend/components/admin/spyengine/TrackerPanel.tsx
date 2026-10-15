@@ -13,7 +13,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  BREAKDOWN_LABEL, FC_RULES, PHASE_TEXT, TAG_TEXT, VETO_TEXT,
+  BREAKDOWN_LABEL, FC_RULES, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
   type Breakdown, type TrackRead, type TrackStep, type D,
 } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
@@ -31,17 +31,17 @@ const hm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${
 
 /** Satır tanımları: seans öncesi + 09:35'ten 15:00'e kadar 30'ar dk */
 const ROWS: { key: string; title: string; mins: number[] }[] = [
-  { key: "pre", title: "Seans öncesi · Kademe 0", mins: [545, 550, 555, 560, 565, 570] },
+  { key: "pre", title: "Seans öncesi · bilgi", mins: [545, 550, 555, 560, 565, 570] },
   ...Array.from({ length: 11 }, (_, k) => {
     const start = 575 + 30 * k;
     const mins = Array.from({ length: 6 }, (_, j) => start + 5 * j);
-    const title = k === 0 ? "Açılış aşamaları · K1 → K3" : k === 1 ? "Kademe 4 · açılış modülü sonu" : "Gün içi takip";
+    const title = k === 0 ? "Açılış · 09:45 ilk 15m teyidi" : "5m tetik · 15m teyit";
     return { key: `r${k}`, title, mins };
   }),
 ];
 
 function Gauge({ score, thr }: { score: number; thr: number }) {
-  const MAX = 10.5;
+  const MAX = SCORE_MAX;
   const pos = (v: number) => `${((v + MAX) / (2 * MAX)) * 100}%`;
   const col = dCol(Math.abs(score) >= 3 ? score : 0);
   return (
@@ -148,7 +148,7 @@ function StepDetail({ s, mark }: { s: TrackStep; mark?: LadderMark }) {
       </div>
       <div className="flex flex-col gap-1.5 bg-[#0f141d] px-3 py-2">
         <div className="flex items-baseline justify-between text-[11px] text-slate-400">
-          <span>yön puanı <b className="font-mono text-[13px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> / ±10,5 · eşik {s.threshold}</span>
+          <span>yön puanı <b className="font-mono text-[13px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> / ±6,5 · eşik {s.threshold}</span>
           <span className="font-mono">ivme {sg(s.mom.score)}</span>
         </div>
         {!s.pre && <Gauge score={s.score} thr={s.threshold} />}
@@ -176,7 +176,7 @@ function StepDetail({ s, mark }: { s: TrackStep; mark?: LadderMark }) {
             </ul>
           </div>
         )}
-        {s.veto && <div className="rounded border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-200">VETO · {VETO_TEXT[s.veto]}</div>}
+        {(s.warns ?? []).map((w) => <div key={w} className="rounded border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-200">DİKKAT · {VETO_TEXT[w]}</div>)}
         {s.events.length > 0 && <ul className="mt-1 flex flex-col gap-0.5 text-[10.5px] leading-snug text-slate-400">{s.events.map((e, i) => <li key={i}>• {e}</li>)}</ul>}
       </div>
     </div>
@@ -203,12 +203,12 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
       </div>
       <div className="flex flex-col gap-1.5 bg-[#0f141d] px-3 py-2.5">
         <div className="flex items-baseline justify-between text-[11px] text-slate-400">
-          <span>Yön puanı <b className="font-mono text-[16px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> <span className="text-slate-500">/ ±10,5</span></span>
+          <span>Yön puanı <b className="font-mono text-[16px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> <span className="text-slate-500">/ ±6,5</span></span>
           <span className="font-mono text-[11px]" style={{ color: dCol(s.dir) }}>{s.dir ? s.strength : "YÖN YOK"}</span>
         </div>
         {!s.pre && <Gauge score={s.score} thr={s.threshold} />}
         {!s.pre && <BreakdownChips b={s.breakdown} />}
-        <div className="mt-0.5 text-[10.5px] text-slate-500">Üst zaman dilimleri (fiyat EMA20 tarafı + eğim):</div>
+        <div className="mt-0.5 text-[10.5px] text-slate-500">15m = teyit · 30m / 1h / 4h yalnız bilgi (karara girmez):</div>
         <HtfChips h={s.htf} />
       </div>
       <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2.5">
@@ -217,11 +217,11 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
             <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Pozisyon · {p.tag}</div>
             <div className="text-[16px] font-black" style={{ color: p.side === "CALL" ? UP : DN }}>{p.side === "CALL" ? "▲ CALL" : "▼ PUT"} · {p.liveR >= 0 ? "+" : "−"}{Math.abs(p.liveR).toFixed(2)}R</div>
             <div className="grid grid-cols-2 gap-1 font-mono text-[11.5px]">
-              {([["giriş", p.entry], ["stop", p.stop], ["H1 (1R)", p.h1], ["H2", p.h2]] as const).map(([k, v]) => (
+              {([["giriş", p.entry], ["stop", p.stop], ["hedef (1R)", p.h1], ["sonraki seviye", p.h2]] as const).map(([k, v]) => (
                 <div key={k} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5"><span className="text-[9.5px] text-slate-500">{k} </span><b className="text-slate-100">{num(v)}</b></div>
               ))}
             </div>
-            <div className="text-[11px] text-slate-400">{p.h1Hit ? "Yarısı H1'de alındı · stop girişte · kalan: 5m EMA20 ters kapanış / H2" : "H1'de yarısını al, stopu girişe çek · 30 dk'da H1 yoksa ve aleyhteyse çık"}</div>
+            <div className="text-[11px] text-slate-400">{p.h1Hit ? "Yarısı H1'de alındı · stop girişte · kalan: 5m EMA20 ters kapanış / H2" : "Hedef H1 (1R) gelince kapat · stop son 2 mumun ucu · 15m yön teyidi dönerse çık"}</div>
           </>
         ) : s.setup ? (
           <>
@@ -236,13 +236,13 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
                 </li>
               ))}
             </ul>
-            {s.veto && <div className="mt-0.5 rounded border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-200">VETO · {VETO_TEXT[s.veto]}</div>}
+            {(s.warns ?? []).map((w) => <div key={w} className="mt-0.5 rounded border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[11px] text-amber-200">DİKKAT · {VETO_TEXT[w]} (engellemez)</div>)}
           </>
         ) : (
           <>
             <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Kurulum</div>
             <div className="text-[12px] leading-snug text-slate-300">
-              {s.pre ? "Seans öncesi — işlem yok. 09:35'te OR5, 09:45'te OR15 belirlenir." : s.phase === "KAPANIŞ" ? "15:00 sonrası yeni giriş yok — açık pozisyon 15:45'e kadar yönetilir." : r.dirEstablished === 0 && s.min > 600 && s.min <= 630 ? "10:00'da yön kurulmadı — Kademe 4 yok. 10:35'ten sonra trend takibi." : "Aktif kurulum yok — yön puanı eşiği geçip 2 kapanış korunduğunda trend takibi kurulum arar."}
+              {s.pre ? "Seans öncesi — işlem yok. İlk 15m yön teyidi 09:45'te." : s.phase === "KAPANIŞ" ? "15:00 sonrası yeni giriş yok — açık pozisyon 15:45'e kadar yönetilir." : s.phase === "AÇILIŞ" ? "09:45 15m kapanışı bekleniyor — yön teyidi gelince 5m tetik aranır." : "15m kapanış VWAP ile EMA20 arasında — yön teyidi yok. 15m ikisinin üstünde/altında kapanınca 5m tetik aranır."}
             </div>
           </>
         )}
@@ -306,15 +306,14 @@ export default function TrackerPanel({ r, nowSec, live, marks, hist }: {
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="flex flex-wrap items-center gap-2">
           <span className="text-[13px] font-bold tracking-wide text-slate-100">Takip Sistemi</span>
-          <span className="text-[11px] text-slate-400">· ana zaman 5m · 15m teyit · 30m/1h/4h yön · {cur ? PHASE_TEXT[cur.phase] : ""}</span>
+          <span className="text-[11px] text-slate-400">· 5m tetik · 15m yön teyidi · VWAP · EMA20 · hacim · formasyon (RSI/RVOL belirsizlikte) · {cur ? PHASE_TEXT[cur.phase] : ""}</span>
         </span>
         <span className="flex flex-wrap items-center gap-1">
-          {badge(`eğilim ${r.k0.bias} ${r.k0.score > 0 ? "+" : ""}${r.k0.score}`, r.k0.bias === "CALL" ? UP : r.k0.bias === "PUT" ? DN : NEU, "Seans öncesi: 4h/1h EMA20 + premarket kapanış/aralık kırılımı")}
+          {badge(`seans öncesi ${r.k0.bias}`, r.k0.bias === "CALL" ? UP : r.k0.bias === "PUT" ? DN : NEU, "Premarket fiyatı dünkü kapanışa göre + premarket aralık kırılımı (bilgi)")}
           {badge(`gap ${r.gap.pts != null ? (r.gap.pts >= 0 ? "+" : "") + r.gap.pts.toFixed(2) : "—"} ${r.gap.type}`, r.gap.type === "UP" ? UP : r.gap.type === "DOWN" ? DN : NEU)}
           {r.dayClass && badge(r.dayClass === "TREND_CANDLE" ? "TREND MUMU" : r.dayClass === "INDECISION" ? "KARARSIZ AÇILIŞ" : "NORMAL AÇILIŞ", r.dayClass === "TREND_CANDLE" ? WARN : NEU, "09:30–09:45 15m mumunun sınıfı")}
-          {r.or15?.orbDisabled && badge("ORB KAPALI", NEU, "OR15 günlük ATR'nin %40'ından geniş — kırılım kurulumu kapalı, fakeout açık")}
-          {r.or15?.squeeze && badge("SIKIŞMA", WARN, "OR15 günlük ATR'nin %15'inden dar — kırılım puanı +1")}
-          {r.eventDay && badge("VERİ GÜNÜ", WARN, "K1 kapalı, boyut yarım")}
+          {r.or15?.squeeze && badge("DAR AÇILIŞ", WARN, "OR15 günlük ATR'nin %15'inden dar — kırılım yakın olabilir")}
+          {r.eventDay && badge("VERİ GÜNÜ", WARN, "dikkat — boyut yarım")}
           {badge(`30dk tahmin ${r.pred.hit}/${r.pred.n}`, NEU, "Bugün sonucu belli olan yönlü tahminler: doğru yön / toplam")}
           {r.trades.length > 0 && badge(`işlem ${r.trades.length} · ${r.realizedR >= 0 ? "+" : ""}${r.realizedR.toFixed(2)}R`, r.realizedR >= 0 ? UP : DN)}
         </span>
@@ -415,7 +414,7 @@ export default function TrackerPanel({ r, nowSec, live, marks, hist }: {
                   </tbody>
                 </table>
               )}
-              <div className="mt-1 text-[10.5px] text-slate-500">CANLI OK = en az 100 işlem ve işlem başı ≥ +0,20R (spec §13). Altındakiler gözlemde: sinyal verir ama kanıt henüz yetersiz.</div>
+              <div className="mt-1 text-[10.5px] text-slate-500">CANLI OK = en az 100 işlem ve işlem başı ≥ +0,20R. Altındakiler gözlemde: sinyal verir ama kanıt henüz yetersiz. (K*/T_* = önceki sürümün etiketleri.)</div>
             </div>
             <div>
               <div className="mb-1 text-[11px] font-semibold text-slate-400">30 dk tahmin kuralları (gerçekleşen)</div>
