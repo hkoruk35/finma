@@ -20,9 +20,23 @@ const W = 920;
 const H = 340;
 const PAD = { l: 8, r: 118, t: 26, b: 22 };
 
+export interface MapScenario {
+  /** şimdi → … noktaları */
+  pts: { t: number; price: number; label: string }[];
+  /** ölçülmüş olasılık / isabet (%) */
+  pct: number | null;
+  color: string;
+  /** ana senaryo kalın, alternatif ince */
+  main: boolean;
+}
+
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec,
+  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec, endSec, scenarios,
 }: {
+  /** x ekseninin sonu (verilmezse 16:00) — Takip Sistemi ufku: şimdi + 90 dk */
+  endSec?: number;
+  /** Takip Sistemi senaryoları — verilirse gün sonu yolculuğu/konisi yerine çizilir */
+  scenarios?: MapScenario[];
   /** Bugünün RTH 5m mumları (oluşmakta olan dahil) */
   bars: Bar[];
   /** bars ile aynı uzunlukta VWAP */
@@ -38,11 +52,13 @@ export default function ForecastMap({
 }) {
   const g = useMemo(() => {
     const x0 = nyDateTimeToEpoch(date, RTH_OPEN_MIN);
-    const x1 = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
-    const prices: number[] = [map.price, map.closeLow, map.closeHigh];
+    const x1 = Math.min(nyDateTimeToEpoch(date, RTH_CLOSE_MIN), Math.max(endSec ?? Infinity, x0 + 3600));
+    const useScen = !!scenarios?.length;
+    const prices: number[] = useScen ? [map.price] : [map.price, map.closeLow, map.closeHigh];
+    for (const sc of scenarios ?? []) for (const p of sc.pts) prices.push(p.price);
     for (const b of bars) prices.push(b.high, b.low);
     for (const l of [...map.supports, ...map.resistances]) prices.push(l.price);
-    for (const p of map.path) prices.push(p.price);
+    if (!useScen) for (const p of map.path) prices.push(p.price);
     if (map.vwap != null) prices.push(map.vwap);
     let lo = Math.min(...prices);
     let hi = Math.max(...prices);
@@ -50,8 +66,8 @@ export default function ForecastMap({
     lo -= padY; hi += padY;
     const X = (t: number) => PAD.l + ((t - x0) / (x1 - x0)) * (W - PAD.l - PAD.r);
     const Y = (p: number) => PAD.t + (1 - (p - lo) / (hi - lo)) * (H - PAD.t - PAD.b);
-    return { x0, x1, lo, hi, X, Y };
-  }, [bars, map, date]);
+    return { x0, x1, lo, hi, X, Y, useScen };
+  }, [bars, map, date, endSec, scenarios]);
 
   const { X, Y } = g;
   const barW = Math.max(1.5, (X(g.x0 + 300) - X(g.x0)) * 0.62);
@@ -60,7 +76,7 @@ export default function ForecastMap({
   const step = g.hi - g.lo > 6 ? 1 : g.hi - g.lo > 3 ? 0.5 : 0.25;
   for (let p = Math.ceil(g.lo / step) * step; p <= g.hi; p += step) grid.push(p);
 
-  const hours = [10, 11, 12, 13, 14, 15].map((h) => nyDateTimeToEpoch(date, h * 60));
+  const hours = [10, 11, 12, 13, 14, 15].map((h) => nyDateTimeToEpoch(date, h * 60)).filter((t) => t < g.x1 - 600);
 
   const vwapPts = bars
     .map((b, i) => (vwapSeries[i] != null ? `${X(b.time + 150).toFixed(1)},${Y(vwapSeries[i] as number).toFixed(1)}` : null))
@@ -114,7 +130,7 @@ export default function ForecastMap({
         </g>
       ))}
       <text x={X(g.x0)} y={H - 8} fontSize={8} fill="#475569" fontFamily="monospace">09:30</text>
-      <text x={X(g.x1)} y={H - 8} fontSize={8} fill="#475569" textAnchor="end" fontFamily="monospace">16:00</text>
+      <text x={X(g.x1)} y={H - 8} fontSize={8} fill="#475569" textAnchor="end" fontFamily="monospace">{nyClock(g.x1)}</text>
 
       {/* destek / direnç */}
       {map.resistances.map((l) => (
@@ -243,10 +259,25 @@ export default function ForecastMap({
         )}
       </g>
 
-      {/* tahmin konisi + yolculuk */}
-      <polygon points={cone} fill={biasColor} opacity={0.09} />
-      <polyline points={pathPts} fill="none" stroke={biasColor} strokeWidth={2} strokeDasharray="7 5" />
-      {map.path.map((p, i) => (
+      {/* Takip Sistemi senaryoları (ana + alternatif) */}
+      {g.useScen && scenarios!.map((sc, k) => {
+        const pts = sc.pts.map((p) => `${X(Math.min(p.t, g.x1)).toFixed(1)},${Y(p.price).toFixed(1)}`).join(" ");
+        const end = sc.pts[sc.pts.length - 1];
+        const ex = Math.min(X(Math.min(end.t, g.x1)), W - PAD.r - 4);
+        return (
+          <g key={`sc${k}`}>
+            <polyline points={pts} fill="none" stroke={sc.color} strokeWidth={sc.main ? 2.2 : 1.3} strokeDasharray={sc.main ? "7 4" : "3 4"} opacity={sc.main ? 1 : 0.8} />
+            {sc.pts.slice(1).map((p, i) => <circle key={i} cx={X(Math.min(p.t, g.x1))} cy={Y(p.price)} r={sc.main ? 3.5 : 2.5} fill={sc.color} stroke="#0a0e17" strokeWidth={1} />)}
+            <text x={ex} y={Y(end.price) + (end.price >= map.price ? -7 : 13)} fontSize={sc.main ? 9.5 : 8.5} fill={sc.color} textAnchor="end" fontWeight={sc.main ? 700 : 500}>
+              {end.label}{sc.pct != null ? ` · %${sc.pct}` : ""}
+            </text>
+          </g>
+        );
+      })}
+      {/* tahmin konisi + yolculuk (gün sonu — senaryo yoksa) */}
+      {!g.useScen && <polygon points={cone} fill={biasColor} opacity={0.09} />}
+      {!g.useScen && <polyline points={pathPts} fill="none" stroke={biasColor} strokeWidth={2} strokeDasharray="7 5" />}
+      {!g.useScen && map.path.map((p, i) => (
         <g key={i}>
           <circle cx={X(p.t)} cy={Y(p.price)} r={3.5} fill={i === 0 ? "#e2e8f0" : biasColor} stroke="#0a0e17" strokeWidth={1} />
           {i > 0 && (i === map.path.length - 1 || X(map.path[map.path.length - 1].t) - X(p.t) > 70) && (

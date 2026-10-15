@@ -6,8 +6,10 @@
  * Ekranda aynı anda TEK durum görünür (lib/spyengine/ladder.ts):
  *   İŞLEM YOK · İZLE · ERKEN UYARI · TETİK · TERS UYARI · İPTAL
  *   1) yön izni = seans planı (açılış yönü · öğlen VWAP'a dönüş · kapanış VWAP+POC · tepe/dip reddi) → 2) 5m erken uyarı → 3) 5m tetik → 4) risk.
- * Diğer kartlar (VWAP, EMA20/yapı, hacim/RVOL, likidite/akış, pivot, açılış aşamaları,
- * 15m/5m mum yorumları) yalnızca GEREKÇE gösterir; kendi yön hükmü vermez.
+ * Diğer kartlar (VWAP, EMA20/yapı, hacim/RVOL, likidite/akış, pivot, 15m/5m mum yorumları) yalnızca GEREKÇE gösterir.
+ * TAKİP SİSTEMİ (2026-10-15, lib/spyengine/tracker.ts): açılış aşamaları + açılış trendi + 5 dk'lık yön/trend okuması +
+ * 30 dk tahmini + açılış modülü (K1–K4, spec_acilis_modulu_v1) tek panelde; ana zaman 5m, 15m teyit, 30m/1h/4h yön.
+ * Kaldırılanlar (2026-10-15): 15m setup tahmini, 15m/5m grafikleri — sayfada tek grafik (tahmin haritası).
  * Kaldırılanlar (çelişkili ikinci hüküm üretiyorlardı): Karar Desteği, Senaryo Takibi,
  * gün tipi/"son 2 saat" etiketi, VWAP/EMA20 "TEYİTLİ/YUKARI" rozetleri, eski motor sinyali.
  *
@@ -17,16 +19,17 @@
 
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { prevDayPivots, pivotRead, PIVOT_ORDER, type PivotKey, type PivotKeyX, type PivotRead } from "@/lib/spyengine/pivots";
-import SpyChart, { type ChartToggles } from "@/components/admin/spyengine/SpyChart";
-import ForecastMap from "@/components/admin/spyengine/ForecastMap";
-import ForecastTabs from "@/components/admin/spyengine/ForecastTabs";
+import { prevDayPivots, PIVOT_ORDER } from "@/lib/spyengine/pivots";
+import { pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel } from "@/lib/spyengine/mtfPivots";
+import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import type { ForecastModel, ForecastStats } from "@/lib/spyengine/forecastModel";
-import Setup15Panel from "@/components/admin/spyengine/Setup15Panel";
+import TrackerPanel, { type LadderMark } from "@/components/admin/spyengine/TrackerPanel";
+import { trackerRead, trackPrewarn, FC_RULES, type TrackRead, type TrackAlert, type TrackStep } from "@/lib/spyengine/tracker";
+import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import DecisionLogPanel, { type DecisionResp } from "@/components/admin/spyengine/DecisionLogPanel";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
 import { applyTrust, type ModeStat } from "@/lib/spyengine/decisionCore";
-import { backtestSetup15, mergeHourly, readSetup15, setupHist, type Setup15Read } from "@/lib/spyengine/setup15";
+import { mergeHourly } from "@/lib/spyengine/setup15";
 import { BiasStrip, BookOptionsCard, EmaCard, VolumeCard, VwapCard } from "@/components/admin/spyengine/EvidenceCards";
 import { bookRead, dayBias, emaTf, emaVerdict, optionFlowRead, pressureRead, vwapRead, type BookSample } from "@/lib/spyengine/evidence";
 import type { OptionFlow, QuoteBook } from "@/lib/spyengine/optionFetch";
@@ -89,12 +92,6 @@ interface StreamResponse {
 }
 
 const POLL_OPTIONS = [1000, 2000, 5000, 15000];
-
-const DEFAULT_TOGGLES: ChartToggles = {
-  candleType: "NORMAL",
-  bb: false, ema20: true, ema21: false, vwap: true, volume: true,
-  rsi: false, macd: false, markers: true, levels: true,
-};
 
 function mergeBars(prev: Bar[], incoming: Bar[], full: boolean): Bar[] {
   if (full) return incoming;
@@ -184,12 +181,51 @@ const LADDER_STYLE: Record<LadderStatus, { col: string; dot: string }> = {
 const ladderCol = (s: LadderStep) => (s.status === "TETİK" ? (s.side === "PUT" ? "#ef4444" : "#22c55e") : LADDER_STYLE[s.status].col);
 const ladderDot = (s: LadderStep) => (s.status === "TETİK" ? (s.side === "PUT" ? "🔴" : "🟢") : LADDER_STYLE[s.status].dot);
 
-/** En üstteki tek satır: durum · neden · ne olursa değişir */
-function LadderBar({ s, waiting, setup }: { s: LadderStep | null; waiting: boolean; setup?: Setup15Read | null }) {
+/** Takip Sistemi'nin son okuması tek satır (üst bantta, merdivenin altında) */
+function TrackLine({ t }: { t: TrackStep }) {
+  const c = t.dir > 0 ? "#4ade80" : t.dir < 0 ? "#f87171" : "#94a3b8";
+  return (
+    <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 rounded border border-[#1c2635] bg-[#0a0e17] px-2.5 py-1 text-[12.5px] leading-snug">
+      <span className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Takip 5m</span>
+      <b style={{ color: c }}>{t.dir > 0 ? "▲ YUKARI" : t.dir < 0 ? "▼ AŞAĞI" : "◆ YÖN YOK"}{t.dir ? ` ${t.strength}` : ""} ({t.score > 0 ? "+" : ""}{t.score})</b>
+      <span className="font-semibold" style={{ color: c }}>· {t.trend}</span>
+      <span className="text-slate-300">· {t.fc.text}</span>
+    </div>
+  );
+}
+
+/**
+ * En üstteki tek satır: durum · neden · ne olursa değişir.
+ * Spec §8.2: 09:30–10:30 arası (ve açılış/trend pozisyonu ya da HAZIR kurulum varken) ŞİMDİ satırını Takip Sistemi yazar;
+ * merdiven TETİK verdiyse ve Takip'te açık pozisyon yoksa merdiven önceliklidir. Diğer zamanlarda merdiven + Takip yön satırı.
+ */
+function LadderBar({ s, waiting, track }: { s: LadderStep | null; waiting: boolean; track: TrackStep | null }) {
+  const t = track && !track.pre ? track : null;
+  const tAct = !!t && (!!t.pos || t.setup?.status === "ARMED" || t.events.some((e) => e.startsWith("GİRİŞ") || e.startsWith("ÇIKIŞ")));
+  const ladHot = !!s && (s.status === "TETİK" || s.status === "ERKEN UYARI" || s.status === "TERS UYARI");
+  const trackFirst = !!t && ((tAct && (!ladHot || !!t.pos)) || (t.min <= 630 && !ladHot));
+  if (trackFirst && t) {
+    const col = t.tone === "bull" ? "#22c55e" : t.tone === "bear" ? "#ef4444" : t.tone === "warn" ? "#eab308" : "#94a3b8";
+    return (
+      <div className="rounded-lg border-2 px-4 py-2.5" style={{ borderColor: col, backgroundColor: `${col}14` }}>
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span className={`text-[20px] font-black tracking-wide ${t.setup?.status === "ARMED" ? "animate-pulse" : ""}`} style={{ color: col }}>{t.headline}</span>
+          <span className="text-[15px] font-semibold leading-snug text-slate-100">· {t.action}</span>
+          <span className="ml-auto font-mono text-[11px] text-slate-500">Takip Sistemi · {t.stageLabel} · son 5m kapanış {t.clock} ET</span>
+        </div>
+        <div className="mt-1 text-[13px] leading-snug text-slate-300"><b className="text-slate-400">Yön:</b> <b style={{ color: t.dir > 0 ? "#4ade80" : t.dir < 0 ? "#f87171" : "#94a3b8" }}>{t.trend} ({t.score > 0 ? "+" : ""}{t.score}/10,5)</b> · {t.fc.text}</div>
+        {t.setup && t.setup.status !== "OPEN" && t.checklist.some((c) => !c.ok) && (
+          <div className="mt-0.5 text-[12px] leading-snug text-slate-400"><b>Neden henüz değil:</b> {t.checklist.filter((c) => !c.ok).map((c) => c.text).join(" · ")}</div>
+        )}
+        {s && <div className="mt-1 text-[12px] leading-snug text-slate-400"><b className="text-slate-500">Karar merdiveni:</b> {s.status}{s.side && s.status !== "İŞLEM YOK" ? ` ${s.side}` : ""} — {s.message}</div>}
+      </div>
+    );
+  }
   if (!s) {
     return (
       <div className="rounded-lg border-2 border-slate-600 bg-slate-700/10 px-4 py-2.5 text-[15px] font-semibold text-slate-300">
         ⚪ İŞLEM YOK · {waiting ? "09:35 ET ilk 5m kapanışı bekleniyor; rejim için 15m kapanışlar gerekir (en erken 10:00)." : "mum verisi bekleniyor."}
+        {t && <TrackLine t={t} />}
       </div>
     );
   }
@@ -205,41 +241,7 @@ function LadderBar({ s, waiting, setup }: { s: LadderStep | null; waiting: boole
         <span className="ml-auto font-mono text-[11px] text-slate-500">son 5m kapanış {s.clock} ET</span>
       </div>
       <div className="mt-1 text-[13px] leading-snug text-slate-300"><b className="text-slate-400">Ne olursa değişir:</b> {s.change}</div>
-      {s.openTrend && s.openTrend.phase !== "YOK" && (() => {
-        const o = s.openTrend;
-        const oc = o.phase === "KAPANDI" ? "#94a3b8" : o.phase === "BELİRSİZ" ? "#eab308" : o.side === "CALL" ? "#22c55e" : "#ef4444";
-        return (
-          <div className="mt-2 rounded-md border-2 px-3 py-1.5" style={{ borderColor: oc, backgroundColor: `${oc}1a` }}>
-            <div className={`text-[15px] font-black leading-snug ${o.phase === "UYARI" ? "animate-pulse" : ""}`} style={{ color: oc }}>
-              {o.phase === "UYARI" ? `🔔 AÇILIŞ TRENDİ · EKSTRA ${o.side}` : o.phase === "AÇIK" ? `● AÇILIŞ TRENDİ · ${o.side} AÇIK` : o.phase === "KAPANDI" ? "◆ AÇILIŞ TRENDİ · KAPANDI" : "⚠ AÇILIŞ BELİRSİZ"}
-            </div>
-            <div className="text-[13px] leading-snug text-slate-100">{o.text}</div>
-            {o.plan && (
-              <div className="mt-1 grid grid-cols-3 gap-1 font-mono text-[12px]">
-                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">giriş </span><b className="text-slate-100">{num(o.plan.entry)}</b></div>
-                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">stop </span><b className="text-slate-100">{num(o.plan.stop)}</b></div>
-                <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-0.5"><span className="text-[10px] text-slate-500">hedef </span><b className="text-slate-100">{num(o.plan.target)}</b></div>
-              </div>
-            )}
-          </div>
-        );
-      })()}
-      {setup?.primary && s && (() => {
-        const sp = setup.primary;
-        const h = setupHist(sp, setup.align);
-        const sd = sp.dir;
-        const ladD = s.side === "CALL" ? 1 : s.side === "PUT" ? -1 : 0;
-        const clash = ladD !== 0 && ladD !== sd;
-        const oc = sd > 0 ? "#22c55e" : "#ef4444";
-        return (
-          <div className="mt-2 rounded-md border px-3 py-1 text-[12.5px] leading-snug" style={{ borderColor: `${oc}66`, backgroundColor: `${oc}0f` }}>
-            <b style={{ color: oc }}>15m setup: {sp.title} · {sp.status}</b>
-            <span className="text-slate-200"> · giriş {num(sp.trigger)} · stop {num(sp.stop)} · H1 {num(sp.targets[0])} · skor {sp.score}</span>
-            {h && <span className="text-slate-400"> · 60 seans: H1 stoptan önce %{h.win}, ort. {h.avgR > 0 ? "+" : ""}{h.avgR.toFixed(2)}R</span>}
-            <span className="block text-[11.5px] text-slate-400">{clash ? <b className="text-orange-300">⚠ Merdiven kararı ({s.side}) bu setupın tersine — dikkat, küçük pozisyon. </b> : null}Bilgi: 15m setup ayrı bir tahmin modülüdür; işlem kararı Karar Merdiveni&apos;nden gelir.</span>
-          </div>
-        );
-      })()}
+      {t && <TrackLine t={t} />}
       {pl && (s.status === "TETİK" || s.status === "TERS UYARI") && (
         <div className="mt-1.5 grid grid-cols-2 gap-1 font-mono text-[12px] sm:grid-cols-4">
           <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1"><div className="text-[10px] text-slate-500">giriş (5m kapanış)</div><b className="text-slate-100">{num(pl.entry)}</b></div>
@@ -314,9 +316,6 @@ function LadderSummary({ L, s, hist }: { L: LadderRead; s: LadderStep; hist: Mod
         <div className="mt-0.5 text-[19px] font-black leading-tight tracking-wide" style={{ color: col }}>{headline}</div>
         <div className="mt-1 text-[12.5px] leading-snug text-slate-200">{sub}</div>
         {s.status === "TETİK" && pl && <div className="mt-1 font-mono text-[11px] text-slate-400">{pl.setup} · stop {pl.stopAtr.toFixed(2)} ATR</div>}
-        {s.openTrend && s.openTrend.phase !== "YOK" && (
-          <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.openTrend.phase === "KAPANDI" ? "border-slate-600 bg-slate-800/50 text-slate-300" : s.openTrend.phase === "BELİRSİZ" ? "border-amber-500/50 bg-amber-500/10 text-amber-200" : s.openTrend.side === "CALL" ? "border-[#22c55e]/50 bg-[#22c55e]/10 text-[#86efac]" : "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#fca5a5]"}`}>{s.openTrend.phase === "KAPANDI" ? "◆ " : s.openTrend.phase === "BELİRSİZ" ? "⚠ " : s.openTrend.side === "CALL" ? "▲ " : "▼ "}{s.openTrend.text}</div>
-        )}
         {s.trendEnd && s.trendEnd.level !== "İZLE" && (
           <div className={`mt-1.5 rounded border px-2 py-1 text-[12px] font-semibold leading-snug ${s.trendEnd.level === "BİTTİ" ? "border-[#ef4444]/50 bg-[#ef4444]/10 text-[#f87171]" : "border-orange-500/50 bg-orange-500/10 text-orange-300"}`}>⚠ {s.trendEnd.text}</div>
         )}
@@ -1010,9 +1009,9 @@ function JournalPanel({ j }: { j: JournalResp | null }) {
 const UPC = "#22c55e", DNC = "#ef4444";
 const NEUTRAL = "#64748b";
 
-// ── Pivot noktaları kartı: görsel merdiven + fiyatın pivotlara hareketi ──
+// ── Pivot noktaları kartı: 30m / 1h / 4h Fibonacci pivotları (her mum kapanışında güncellenir) ──
 
-const PIVOT_COLOR: Record<PivotKeyX, string> = { R4: "#15803d", R3: "#16a34a", R2: "#22c55e", R1: "#4ade80", P: "#facc15", S1: "#f87171", S2: "#ef4444", S3: "#dc2626", S4: "#b91c1c" };
+const KIND_COLOR: Record<MtfLevel["kind"], string> = { R: "#4ade80", S: "#f87171", P: "#facc15", F: "#38bdf8" };
 const PIVOT_STATE_CLS: Record<string, string> = {
   "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
   "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
@@ -1021,40 +1020,37 @@ const PIVOT_STATE_CLS: Record<string, string> = {
   "DEĞMEDİ": "border-slate-700 text-slate-500",
 };
 
-function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) {
+function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null }) {
   if (!p) {
     return (
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; önceki seansın yüksek/düşük/kapanışı bekleniyor.
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; 30m / 1h / 4h kapanmış mum bekleniyor.
       </div>
     );
   }
-  // bilgi kartı: yön rengi yok (yön kararı yalnızca karar satırında)
   const hcol = NEUTRAL;
   const maxAbs = Math.max(...p.ladder.map((l) => Math.abs(l.dist)), 0.5);
-  // hedefe ilerleme: önceki pivot (ters taraftaki) → hedef
   const from = p.heading === "UP" ? p.below : p.heading === "DOWN" ? p.above : null;
   const prog = p.target && from && price != null ? Math.min(1, Math.max(0, (price - from.price) / (p.target.price - from.price))) : null;
   return (
-    <div className={`${SURFACE} overflow-hidden`} style={{ borderColor: `${hcol}55` }}>
+    <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[13px] font-semibold text-slate-200">
-          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· klasik günlük · {p.base.date}: Y {num(p.base.H)} · D {num(p.base.L)} · K {num(p.base.C)} · yalnız seviye, yön kararına girmez</span>
+          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· Fibonacci (0,382 / 0,618 / 1,0) · {p.sets.map((x) => `${x.tf} ${x.base.clock} Y ${num(x.base.H)} D ${num(x.base.L)} K ${num(x.base.C)}`).join(" · ")}{p.fib ? ` · gün salınımı ${num(p.fib.lo)}–${num(p.fib.hi)}` : ""}</span>
         </span>
         <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: hcol, borderColor: `${hcol}66`, backgroundColor: `${hcol}14` }}>bölge {p.zone}</span>
       </div>
-      <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-        {/* görsel merdiven */}
+      <div className="grid grid-cols-1 gap-px bg-[#1c2635] lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div className="bg-[#0f141d] px-3 py-1.5">
           {p.ladder.map((l, i) => {
             const next = p.ladder[i + 1];
             const here = price != null && l.price >= price && (!next || next.price < price);
             const w = Math.round((Math.abs(l.dist) / maxAbs) * 100);
-            const near = p.above?.key === l.key || p.below?.key === l.key;
+            const near = p.above?.price === l.price || p.below?.price === l.price;
             return (
-              <Fragment key={l.key}>
-                <div className={`grid grid-cols-[34px_72px_minmax(0,1fr)_auto] items-center gap-2 rounded px-1 py-[3px] ${near ? "bg-[#151c28]" : ""}`}>
-                  <span className="font-mono text-[12.5px] font-bold" style={{ color: PIVOT_COLOR[l.key] }}>{l.key}</span>
+              <Fragment key={`${l.price}${l.label}`}>
+                <div className={`grid grid-cols-[minmax(0,118px)_62px_minmax(0,1fr)_auto] items-center gap-2 rounded px-1 py-[3px] ${near ? "bg-[#151c28]" : ""}`}>
+                  <span className="truncate font-mono text-[11.5px] font-bold" style={{ color: KIND_COLOR[l.kind] }} title={l.keys.join(" · ")}>{l.label}{l.weight >= 5 ? " ★" : ""}</span>
                   <span className="font-mono text-[12.5px] text-slate-100">{num(l.price)}</span>
                   <span className="flex items-center gap-1.5">
                     <span className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
@@ -1071,21 +1067,17 @@ function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) 
             );
           })}
         </div>
-        {/* hareket */}
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div>
-            <div className="text-[11px] text-slate-500">Son 30 dk hareketi · bilgi, karar vermez</div>
+            <div className="text-[11px] text-slate-500">Son 30 dk hareketi · seviye bilgisi</div>
             <div className="text-[17px] font-extrabold leading-tight" style={{ color: hcol }}>
-              {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `sıradaki pivot ${p.target.key} ${num(p.target.price)}` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı"}
+              {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `sıradaki ${p.target.label} ${num(p.target.price)}` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı"}
             </div>
-            <div className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-[12px] text-slate-300">
-              <span>30 dk hız {p.speed30 >= 0 ? "+" : ""}{p.speed30.toFixed(2)}</span>
-              {p.target && price != null && <span>kalan {Math.abs(p.target.price - price).toFixed(2)} puan</span>}
-            </div>
+            <div className="mt-0.5 text-[12px] leading-snug text-slate-300">{p.text}</div>
           </div>
           {prog != null && from && p.target && (
             <div>
-              <div className="flex justify-between font-mono text-[10.5px] text-slate-500"><span>{from.key} {num(from.price)}</span><span>%{Math.round(prog * 100)}</span><span>{p.target.key} {num(p.target.price)}</span></div>
+              <div className="flex justify-between font-mono text-[10.5px] text-slate-500"><span>{num(from.price)}</span><span>%{Math.round(prog * 100)}</span><span>{num(p.target.price)}</span></div>
               <div className="h-2 overflow-hidden rounded bg-[#1c2635]"><span className="block h-full rounded" style={{ width: `${Math.round(prog * 100)}%`, backgroundColor: hcol }} /></div>
             </div>
           )}
@@ -1095,14 +1087,17 @@ function PivotCard({ p, price }: { p: PivotRead | null; price: number | null }) 
                 <div className="font-sans text-[10.5px] text-slate-500">{t}</div>
                 {l ? (
                   <>
-                    <div><b style={{ color: c }}>{l.key} {num(l.price)}</b> <span className="text-slate-400">{l.dist >= 0 ? "−" : "+"}{Math.abs(l.dist).toFixed(2)}</span></div>
-                    <span className={`mt-0.5 inline-block rounded border px-1 text-[10px] ${PIVOT_STATE_CLS[l.state] ?? ""}`}>{l.state}</span>
+                    <div><b style={{ color: c }}>{num(l.price)}</b> <span className="text-slate-400">{l.dist >= 0 ? "−" : "+"}{Math.abs(l.dist).toFixed(2)}</span></div>
+                    <div className="truncate font-sans text-[10.5px] text-slate-400">{l.keys.join(" · ")}</div>
                   </>
                 ) : "—"}
               </div>
             ))}
           </div>
-          <div className="text-[10.5px] leading-snug text-slate-500">TEST · TUTTU = değdi, aynı tarafta kaldı (tepki seviyesi) · KIRILDI = açılıştaki tarafından öbür tarafa geçti.</div>
+          <div className="text-[10.5px] leading-snug text-slate-500">
+            Pivotlar 30m / 1h / 4h son KAPANMIŞ mumdan Fibonacci kuralıyla hesaplanır (P ± 0,382 · 0,618 · 1,0 × aralık) ve her yeni mumda güncellenir; mavi = gün salınımının Fibonacci geri çekilmesi.
+            Aynı fiyattaki kaynaklar birleşir (★ = güçlü kesişim). TEST · TUTTU = değdi, aynı tarafta kaldı · KIRILDI = öbür tarafa geçti.
+          </div>
         </div>
       </div>
     </div>
@@ -1156,7 +1151,7 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
   day: HiLo | null;
   vwap: number | null;
   ema: number | null;
-  piv: PivotRead | null;
+  piv: MtfPivotRead | null;
 }) {
   return (
     <div className="-mx-2 mb-2 border-b border-[#1c2635] bg-[#0a0e17]/95 px-2 py-1.5 backdrop-blur sm:mx-0 sm:rounded-lg sm:border lg:sticky lg:top-0 lg:z-30">
@@ -1185,11 +1180,11 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
                 </span>
               </div>
               <div className="flex justify-between gap-2">
-                <span className="text-[#f87171]">{piv.below ? `${piv.below.key} ${num(piv.below.price)} (−${Math.abs(piv.below.dist).toFixed(2)})` : "—"}</span>
-                <span className="text-[#4ade80]">{piv.above ? `${piv.above.key} ${num(piv.above.price)} (+${Math.abs(piv.above.dist).toFixed(2)})` : "—"}</span>
+                <span className="truncate text-[#f87171]" title={piv.below?.keys.join(" · ")}>{piv.below ? `${piv.below.keys[0]} ${num(piv.below.price)} (−${Math.abs(piv.below.dist).toFixed(2)})` : "—"}</span>
+                <span className="truncate text-[#4ade80]" title={piv.above?.keys.join(" · ")}>{piv.above ? `${piv.above.keys[0]} ${num(piv.above.price)} (+${Math.abs(piv.above.dist).toFixed(2)})` : "—"}</span>
               </div>
             </div>
-          ) : <span className="text-[10.5px] text-slate-500">Pivot: önceki seans verisi bekleniyor</span>}
+          ) : <span className="text-[10.5px] text-slate-500">Pivot: 30m/1h/4h verisi bekleniyor</span>}
         </div>
       </div>
     </div>
@@ -1199,16 +1194,11 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
 // ── Sayfa ─────────────────────────────────────────────────────────
 
 export default function SpyEngineV9() {
-  const [toggles, setToggles] = useState<ChartToggles>(DEFAULT_TOGGLES);
   const [pollMs, setPollMs] = useState(1000);
-  /** Açılış Rejimi kartı: göster / gizle */
-  const [regimeOpen, setRegimeOpen] = useState(false);
-  const [autoScroll, setAutoScroll] = useState(true);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
-  /** Açılış Tahmini / 15m-5m Grafikleri / Tahmin Günlüğü varsayılan GİZLİ */
+  /** Açılış Tahmini / Tahmin Günlüğü varsayılan GİZLİ */
   const [showOpenFc, setShowOpenFc] = useState(false);
-  const [showCharts, setShowCharts] = useState(false);
   const [showJournal, setShowJournal] = useState(false);
   const [showStops, setShowStops] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
@@ -1218,13 +1208,11 @@ export default function SpyEngineV9() {
 
   const [data, setData] = useState<StreamResponse | null>(null);
   const [m1, setM1] = useState<Bar[]>([]);
-  const [m5, setM5] = useState<Bar[]>([]);
-  const [m15, setM15] = useState<Bar[]>([]);
   /** Emir defteri (Level 1) + opsiyon Call/Put akışı — birkaç saniyede bir; defter örnekleri 5 dk ortalama için tutulur */
   const [book, setBook] = useState<QuoteBook | null>(null);
   const [optFlow, setOptFlow] = useState<OptionFlow | null>(null);
   const [bookSamples, setBookSamples] = useState<BookSample[]>([]);
-  /** 1h geçmişi (~6 ay, RTH) — 15m setup tahmininin 1h/4h teyidi için; 5 dk'da bir yenilenir */
+  /** 1h geçmişi (~6 ay, RTH) — Takip Sistemi 1h/4h EMA20 yönü, günlük ATR ve 4h/1h pivotları için; 5 dk'da bir yenilenir */
   const [h1Hist, setH1Hist] = useState<Bar[]>([]);
   useEffect(() => {
     let cancelled = false;
@@ -1285,8 +1273,6 @@ export default function SpyEngineV9() {
       }
       setData(json);
       setM1((p) => mergeBars(p, fromCompact(json.bars.m1), json.full));
-      setM5((p) => mergeBars(p, fromCompact(json.bars.m5), json.full));
-      setM15((p) => mergeBars(p, fromCompact(json.bars.m15), json.full));
 
       const lasts = [json.bars.m1, json.bars.m5, json.bars.m15]
         .map((a) => (a.length ? a[a.length - 1][0] : null))
@@ -1354,6 +1340,24 @@ export default function SpyEngineV9() {
         const res = await fetch("/api/admin/spyengine/v2/decisions", { credentials: "include", cache: "no-store" });
         const json = await res.json();
         if (!cancelled && json.ok) setDecisions(json as DecisionResp);
+      } catch {
+        // günlük ana akışı etkilemesin
+      }
+    };
+    load();
+    const id = setInterval(load, 10 * 60 * 1000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
+
+  // Takip Sistemi günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları dondurur; özet döner)
+  const [trackHist, setTrackHist] = useState<TrackerSummary | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch("/api/admin/spyengine/v2/tracker", { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok) setTrackHist(json as TrackerSummary);
       } catch {
         // günlük ana akışı etkilemesin
       }
@@ -1488,11 +1492,7 @@ export default function SpyEngineV9() {
   const connection: "live" | "lagging" | "down" =
     failures >= 3 ? "down" : secondsSince != null && secondsSince > Math.max(12, (pollMs / 1000) * 4) ? "lagging" : "live";
 
-  const openPosition = data?.openPosition ?? null;
-  const events = data?.events ?? [];
   const date = data?.session.date ?? "";
-  const m5Bars = useMemo(() => (m5.length ? m5 : bucketAggregate(m1, 5)), [m5, m1]);
-  const m15Bars = useMemo(() => (m15.length ? m15 : bucketAggregate(m1, 15)), [m15, m1]);
 
   /** Değerlendirme "anı": replay'de sunucunun zamanı, canlıda saat */
   const evalNow = replayDate ? (data?.serverTime ?? 0) : (nowSec || data?.serverTime || 0);
@@ -1548,6 +1548,9 @@ export default function SpyEngineV9() {
     return closed.length >= 15 ? lastNum(atr(closed, 14)) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [m5D, lastM1Time, minuteSlot]);
+
+  /** Opsiyon C/P akışının tarafı (yalnız canlı, Takip Sistemi'nin son mumuna ±0,5) */
+  const optFlowSide = useMemo(() => { const o = optionFlowRead(optFlow); return o ? (o.side as 1 | -1 | 0) : null; }, [optFlow]);
 
   /** Replay'de güncel zincir anlamsız — gizlenir */
   const optLevels = replayDate ? null : optLevelsLive;
@@ -1606,52 +1609,47 @@ export default function SpyEngineV9() {
     for (const b of bs) { if (b.high > hi.high) hi = b; if (b.low < lo.low) lo = b; }
     return { hi: hi.high, lo: lo.low, hiClock: nyClock(hi.time), loClock: nyClock(lo.time) };
   }, [todayRth5]);
-  /** Klasik günlük pivotlar (önceki seans Y/D/K) + fiyatın pivotlara hareketi */
-  const pivBase = useMemo(() => (date ? prevDayPivots(m1, date, data?.levels?.prevClose ?? null) : null), [m1, date, data?.levels?.prevClose]);
-  // ── 15m setup + 4 mum tahmini (1h/4h teyidi) ──────────────────
-  /** Kapanmış RTH 15m mumları (çok günlük, 1m akıştan) */
+  /** Kapanmış RTH 15m mumları (çok günlük, 1m akıştan) — ATR15 / trend stop bölgesi */
   const m15Closed = useMemo(
     () => (evalNow ? m15D.filter((b) => isRthBar(b) && b.time + 900 <= evalNow && (lastM1Time == null || lastM1Time >= b.time + 900)) : []),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [m15D, lastM1Time, minuteSlot],
   );
-  const setupKey = m15Closed.length ? m15Closed[m15Closed.length - 1].time : 0;
-  /** Oluşmakta olan 15m mum (1. tahmin yuvasında gerçekleşen olarak gösterilir) */
-  const m15Forming = useMemo(() => {
-    const b = m15D.length ? m15D[m15D.length - 1] : null;
-    return b && isRthBar(b) && b.time > setupKey && nyParts(b.time).ymd === date ? b : null;
-  }, [m15D, setupKey, date]);
-  const setup15 = useMemo(() => {
-    if (!setupKey) return { read: null, stats: null };
-    const h1 = mergeHourly(h1Hist, m1, setupKey + 900);
-    const pivCache = new Map<string, ReturnType<typeof prevDayPivots>>();
-    const pivotsFor = (ymd: string) => {
-      if (!pivCache.has(ymd)) pivCache.set(ymd, ymd === date ? pivBase : prevDayPivots(m1, ymd, null));
-      return pivCache.get(ymd) ?? null;
-    };
-    // gün içi VWAP (kapanmış 15m mumlardan)
-    const vw = new Map<number, number>();
-    let day = "", pv = 0, vol = 0;
-    for (const b of m15Closed) {
-      const ymd = nyParts(b.time).ymd;
-      if (ymd !== day) { day = ymd; pv = 0; vol = 0; }
-      pv += ((b.high + b.low + b.close) / 3) * (b.volume || 0);
-      vol += b.volume || 0;
-      if (vol > 0) vw.set(b.time, pv / vol);
-    }
-    const vwapAt = (t: number) => vw.get(t) ?? null;
-    const last = m15Closed[m15Closed.length - 1];
-    const read = readSetup15({ m15: m15Closed, h1, pivots: pivotsFor(nyParts(last.time).ymd), vwap: vwapAt(last.time) });
-    const stats = backtestSetup15(m15Closed, h1, pivotsFor, vwapAt, 120);
-    return { read, stats };
-    // yalnız yeni 15m kapanışında (ve 1h geçmişi gelince) yeniden hesaplanır
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setupKey, h1Hist, pivBase]);
 
-  const pivR = useMemo<PivotRead | null>(() => {
-    if (!pivBase || price == null) return null;
-    return pivotRead(pivBase, analysis?.s5 ?? { bars: [], vwap: [] }, price);
-  }, [pivBase, analysis?.s5, price]);
+  // ── TAKİP SİSTEMİ: her 5m kapanışında tek okuma (lib/spyengine/tracker.ts) ──
+  /** Bir mum yalnız 1m akışında bitişinden sonraki dakika görülünce kapanmış sayılır (merdivenle aynı kural) */
+  const trackNow = replayDate ? evalNow : lastM1Time != null ? Math.min(evalNow || lastM1Time, lastM1Time) : evalNow;
+  const trackKey = trackNow ? Math.floor(trackNow / 300) : 0;
+  /** Son kapanmış 5m mumun imzası — Takip yalnız yeni kapanışta (ya da kapanmış mum düzeltilince) yeniden hesaplanır */
+  const trackSig = (() => {
+    for (let k = m5D.length - 1; k >= 0; k--) if (m5D[k].time + 300 <= trackNow) return `${trackKey}:${m5D[k].close}:${m5D[k].volume}`;
+    return `${trackKey}`;
+  })();
+  const h1Track = useMemo(() => (trackNow ? mergeHourly(h1Hist, m1, trackNow) : []),
+    // yalnız yeni 5m kapanışında
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [h1Hist, trackKey]);
+  const track = useMemo<TrackRead | null>(() => {
+    if (!date || !trackNow) return null;
+    return trackerRead({
+      date, m5: m5D, nowSec: trackNow, h1: h1Track, fine: m1,
+      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null,
+      optSide: replayDate ? null : optFlowSide,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate]);
+  const trackCur = track?.current ?? null;
+
+  /** Pivot noktaları: 30m / 1h / 4h Fibonacci (her mum kapanışında güncellenir) */
+  const pivFrames = useMemo(() => pivotFrames(m5D.filter((b) => isRthBar(b) && b.time + 300 <= (trackNow || Infinity)), h1Hist),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [trackKey, h1Hist]);
+  const pivR = useMemo<MtfPivotRead | null>(() => {
+    if (price == null || !trackNow) return null;
+    return mtfPivotRead(pivFrames, analysis?.s5.bars ?? [], price, trackNow);
+  }, [pivFrames, analysis?.s5, price, trackNow]);
+  /** Önceki seans klasik pivotları — yalnız merdivenin sabit seviye listesinde (davranış değişmesin) */
+  const pivBase = useMemo(() => (date ? prevDayPivots(m1, date, data?.levels?.prevClose ?? null) : null), [m1, date, data?.levels?.prevClose]);
   const ema5Now = useMemo(() => {
     const bs = analysis?.s5.bars;
     return bs && bs.length ? ema5.get(bs[bs.length - 1].time) ?? null : null;
@@ -1707,6 +1705,20 @@ export default function SpyEngineV9() {
     }).catch(() => { /* kayıt ana akışı etkilemesin */ });
   }, [lad, date, replayDate, data?.session.isLive, price]);
 
+  /** Takip Sistemi kartları için: her mumda merdivenin durumu + açılış trendi metni */
+  const ladderMarks = useMemo(() => {
+    const m = new Map<number, LadderMark>();
+    let prev = "";
+    for (const x of ladder?.steps ?? []) {
+      const ot = x.openTrend && x.openTrend.phase !== "YOK" ? x.openTrend : null;
+      const sig = `${x.status}|${x.side}|${ot?.phase ?? ""}`;
+      // kartta rozet yalnız durum değiştiğinde (ayrıntıda her mumda görünür)
+      m.set(x.time, { status: x.status, side: x.side, message: x.message, openTrend: ot ? `${ot.phase} · ${ot.text}` : null, changed: sig !== prev });
+      prev = sig;
+    }
+    return m;
+  }, [ladder]);
+
   /** Mum yorumları — aynı sistem (5m: merdiven durumu + kalite + RVOL; 15m: rejim koşulları) */
   const comments = useMemo(() => {
     if (!ladder || !ladderInput) return { c5: [] as CandleComment[], c15: [] as CandleComment[] };
@@ -1726,14 +1738,46 @@ export default function SpyEngineV9() {
   const forming5 = formingOf(m5D, 300, "5m");
   const forming15 = formingOf(m15D, 900, "15m");
 
-  /** Harita yönü = merdivenin rejim izni (sayfada tek yön kaynağı) */
+  /** Harita yönü = Takip Sistemi'nin 5m yön okuması (sayfada tek tahmin kaynağı) */
   const playBias = useMemo<{ bias: "UP" | "DOWN" | "FLAT"; text: string } | null>(() => {
-    if (!lad) return null;
-    const pm = lad.regime.permission;
-    if (pm === "CALL") return { bias: "UP", text: `Karar satırı: CALL izni (${lad.status}) → yükseliş senaryosu.` };
-    if (pm === "PUT") return { bias: "DOWN", text: `Karar satırı: PUT izni (${lad.status}) → düşüş senaryosu.` };
-    return { bias: "FLAT", text: "Karar satırı: rejim NÖTR — yön yok, aralık senaryosu." };
-  }, [lad]);
+    const t = trackCur && !trackCur.pre ? trackCur : null;
+    if (!t) return null;
+    if (t.dir > 0) return { bias: "UP", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı +${t.score}) → yükseliş senaryosu.` };
+    if (t.dir < 0) return { bias: "DOWN", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı ${t.score}) → düşüş senaryosu.` };
+    return { bias: "FLAT", text: `Takip Sistemi ${t.clock}: yön yok (puan ${t.score}) — aralık senaryosu.` };
+  }, [trackCur]);
+
+  /** Haritanın ufku: şimdi + 90 dk (gün sonuna kadar uzanmaz) ve Takip Sistemi'nin 30 dk senaryoları */
+  const mapEnd = evalNow ? Math.max(evalNow, (trackCur?.t ?? evalNow) + 300) + 90 * 60 : undefined;
+  const scenarios = useMemo<MapScenario[] | undefined>(() => {
+    const t = trackCur && !trackCur.pre ? trackCur : null;
+    if (!t || price == null) return undefined;
+    const t0 = t.t + 300;
+    const lv = [...(pivR?.ladder ?? []).map((l) => ({ price: l.price, label: l.keys[0] })), ...(t.vwap != null ? [{ price: t.vwap, label: "VWAP" }] : [])];
+    const next = (d: 1 | -1, from: number) => lv.filter((l) => d * (l.price - from) > 0.15).sort((a, b) => d * (a.price - b.price))[0] ?? null;
+    if (t.fc.dir && t.fc.target != null && t.fc.invalid != null) {
+      const d = t.fc.dir as 1 | -1;
+      const pct = t.fc.rule ? FC_RULES[t.fc.rule].hit : null;
+      const beyond = next(d, t.fc.target);
+      const main: MapScenario = {
+        main: true, pct, color: d > 0 ? "#22c55e" : "#ef4444",
+        pts: [{ t: t0, price: price, label: "şimdi" }, { t: t0 + 30 * 60, price: t.fc.target, label: `${d > 0 ? "▲" : "▼"} ${t.fc.target.toFixed(2)} ${t.fc.targetLabel}` },
+          ...(beyond ? [{ t: t0 + 75 * 60, price: beyond.price, label: `devam ${beyond.price.toFixed(2)} ${beyond.label}` }] : [])],
+      };
+      const opp = next((-d) as 1 | -1, t.fc.invalid);
+      const alt: MapScenario = {
+        main: false, pct: pct != null ? 100 - pct : null, color: "#94a3b8",
+        pts: [{ t: t0, price: price, label: "şimdi" }, { t: t0 + 20 * 60, price: t.fc.invalid, label: `iptal ${t.fc.invalid.toFixed(2)}` },
+          ...(opp ? [{ t: t0 + 55 * 60, price: opp.price, label: `iptal → ${opp.price.toFixed(2)} ${opp.label}` }] : [])],
+      };
+      return [alt, main];
+    }
+    const up = next(1, price), dn = next(-1, price);
+    return [
+      ...(up ? [{ main: false, pct: null, color: "#22c55e", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: up.price, label: `▲ ${up.price.toFixed(2)} ${up.label} (üstü kapanışla)` }] }] : []),
+      ...(dn ? [{ main: false, pct: null, color: "#ef4444", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: dn.price, label: `▼ ${dn.price.toFixed(2)} ${dn.label} (altı kapanışla)` }] }] : []),
+    ];
+  }, [trackCur, price, pivR]);
 
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
@@ -1746,25 +1790,6 @@ export default function SpyEngineV9() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, extraLevels, playBias, minuteSlot]);
-
-  /** Grafik çizgileri: merdivenin planı (giriş/stop/hedef) + rejim yönündeki trend stopu */
-  const chartLines = useMemo(() => {
-    const pivLines = pivBase && price != null
-      ? PIVOT_ORDER.filter((k) => Math.abs(pivBase.levels[k] - price) / price <= 0.012)
-        .map((k: PivotKey) => ({ price: pivBase.levels[k], label: `Pivot ${k} ${pivBase.levels[k].toFixed(2)}`, color: PIVOT_COLOR[k] }))
-      : [];
-    const out = [...(data?.levels?.lines ?? []), ...pivLines];
-    const pl = lad?.plan;
-    if (pl) {
-      out.push({ price: pl.stop, label: `${pl.side} stop ${pl.stop.toFixed(2)}`, color: "#f59e0b" });
-      out.push({ price: pl.target, label: `${pl.side} hedef ${pl.target.toFixed(2)}`, color: "#38bdf8" });
-    } else if (stops) {
-      const pm = lad?.regime.permission ?? "NÖTR";
-      if (stops.long && pm !== "PUT") out.push({ price: stops.long.stop, label: `CALL trend stopu ${stops.long.stop.toFixed(2)}`, color: "#64748b" });
-      if (stops.short && pm !== "CALL") out.push({ price: stops.short.stop, label: `PUT trend stopu ${stops.short.stop.toFixed(2)}`, color: "#64748b" });
-    }
-    return out;
-  }, [data?.levels?.lines, stops, lad, pivBase, price]);
 
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   useEffect(() => {
@@ -1823,12 +1848,32 @@ export default function SpyEngineV9() {
   }, [lad, alertSound, replayDate, chime]);
 
 
+  // Takip Sistemi uyarıları: TETİK / YÖNET / ÇIKIŞ / İPTAL (kapanışta) + HAZIRLAN (kapanışa ≤ 60 sn) — her biri bir kez
+  const seenAlerts = useRef<Set<string> | null>(null);
+  const prewarn = useMemo<TrackAlert | null>(() => {
+    if (replayDate || !nowSec || !track) return null;
+    const cur = m5D.length ? m5D[m5D.length - 1] : null;
+    return cur && cur.time + 300 > nowSec ? trackPrewarn(track, cur, nowSec) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [track, nowSec, replayDate]);
+  useEffect(() => {
+    if (replayDate || !track || !data?.session.isLive) return;
+    const all = [...track.alerts.filter((a) => a.level !== "KADEME"), ...(prewarn ? [prewarn] : [])];
+    if (seenAlerts.current == null) { seenAlerts.current = new Set(all.map((a) => a.key)); return; } // ilk yüklemede çalma
+    const fresh = all.filter((a) => !seenAlerts.current!.has(a.key));
+    if (!fresh.length) return;
+    for (const a of fresh) seenAlerts.current.add(a.key);
+    if (alertSound) {
+      if (fresh.some((a) => a.level === "TETİK" || a.level === "ÇIKIŞ")) chime("fired");
+      else if (fresh.some((a) => a.level === "HAZIRLAN" || a.level === "YÖNET")) chime("imminent");
+    }
+    void fetch("/api/admin/spyengine/v2/tracker", {
+      method: "POST", credentials: "include", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date: track.date, alerts: fresh.map((a) => ({ t: a.t, clock: a.clock, level: a.level, tag: a.tag, side: a.side, text: a.text })) }),
+    }).catch(() => { /* kayıt ana akışı etkilemesin */ });
+  }, [track, prewarn, replayDate, data?.session.isLive, alertSound, chime]);
+
   // ── Render ──────────────────────────────────────────────────────
-  const op = analysis?.opening ?? null;
-  /** Grafik yön oku = rejim izni (tek kaynak) */
-  const chartDir: "UP" | "DOWN" | null = lad?.regime.permission === "CALL" ? "UP" : lad?.regime.permission === "PUT" ? "DOWN" : null;
-  /** Aşama yüzdelerinin dayandığı örnek: günlükten öğrenildiyse gün sayısı, değilse sabit ölçüm */
-  const stageN = journal?.learned.stageStats ? `${journal.stats.n} gün` : "sabit ölçüm";
   // ── Sonuç odaklı gerekçe kartları ──
   const atr15Now = m15Closed.length ? atr15Map.get(m15Closed[m15Closed.length - 1].time) ?? null : null;
   const m5Closed = analysis?.s5.bars ?? [];
@@ -1953,7 +1998,10 @@ export default function SpyEngineV9() {
 
       <div className="flex flex-col gap-1.5">
         {/* ── KARAR SATIRI — ekrandaki tek durum ── */}
-        <LadderBar s={lad} waiting={!analysis || !analysis.s5.bars.length} setup={setup15.read} />
+        <LadderBar s={lad} waiting={!analysis || !analysis.s5.bars.length} track={trackCur} />
+        {prewarn && (
+          <div className="animate-pulse rounded-lg border-2 border-[#eab308] bg-[#eab308]/10 px-4 py-1.5 text-[14px] font-bold text-[#facc15]">⚡ {prewarn.text}</div>
+        )}
 
         {/* Tickerlar — varsayılan gizli */}
         {showTickers && (
@@ -1975,92 +2023,8 @@ export default function SpyEngineV9() {
         )}
 
         <>
-        {/* ── 1) Açılış aşamaları — BİLGİ, karar vermez (yön kararı karar satırında) ── */}
-          <div className="overflow-hidden rounded-lg border border-[#1c2635] bg-black">
-            <div className={`flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 ${regimeOpen ? "border-b border-[#1c2635]" : ""}`}>
-              <span className="flex min-w-0 flex-wrap items-center gap-2 text-[12px] font-semibold tracking-wide text-slate-300">
-                Açılış aşamaları <span className="text-[10.5px] font-normal text-slate-500">· bilgi, karar vermez</span>
-                {regimeOpen ? (
-                  <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 09:35 ilk okuma → 09:45 15m → 09:55 büyük resim (karar) → 09:55 net değilse 10:00 30m kararı</span>
-                ) : op ? (
-                  <>
-                    <span className="text-[12px] font-normal text-slate-400">okuma: {op.label}</span>
-                    <span className="flex gap-0.5">
-                      {op.stages.map((st) => {
-                        const c = st.skipped ? "#334155" : st.dir === "UP" ? "#22c55e" : st.dir === "DOWN" ? "#ef4444" : st.dir === "MIXED" ? "#eab308" : "#334155";
-                        return (
-                          <span key={st.clock} title={st.detail} className="rounded px-1 font-mono text-[10px]" style={{ color: c, backgroundColor: `${c}1f` }}>
-                            {st.clock} {st.skipped ? "—" : st.dir === "UP" ? "▲" : st.dir === "DOWN" ? "▼" : st.dir === "MIXED" ? "◆" : "…"}
-                          </span>
-                        );
-                      })}
-                    </span>
-                  </>
-                ) : null}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => setRegimeOpen((v) => !v)}
-                  className="rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30"
-                >
-                  {regimeOpen ? "▴ gizle" : "▾ göster"}
-                </button>
-              </span>
-            </div>
-            {regimeOpen && (<>
-            <div className="flex items-center gap-4 px-4 py-3">
-              <div className="text-center">
-                <div className="text-[11px] text-slate-500">açılış okuması</div>
-                <div className="mt-1 text-[15px] font-bold tracking-wide text-slate-300">{op?.label ?? "VERİ BEKLENİYOR"}</div>
-              </div>
-              <div className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-400">{op?.summary ?? "Mum verisi bekleniyor."}</div>
-            </div>
-            {op && (
-              <div className="grid grid-cols-3 gap-1 border-t border-[#1c2635] p-1.5 sm:grid-cols-6">
-                {op.stages.map((st) => {
-                  const c = st.skipped ? "#334155" : st.dir === "UP" ? "#22c55e" : st.dir === "DOWN" ? "#ef4444" : st.dir === "MIXED" ? "#eab308" : "#334155";
-                  return (
-                    <div
-                      key={st.clock}
-                      title={st.detail}
-                      className={`rounded border px-1.5 py-1 ${st.decisive ? "ring-1 ring-[#eab308]/60" : ""}`}
-                      style={{ borderColor: `${c}66`, backgroundColor: `${c}14` }}
-                    >
-                      <div className="flex items-center justify-between font-mono text-[11px]">
-                        <b className="text-slate-200">{st.clock}</b>
-                        <span style={{ color: c }}>{st.skipped ? "—" : st.dir === "UP" ? "▲" : st.dir === "DOWN" ? "▼" : st.dir === "MIXED" ? "◆" : "…"}</span>
-                      </div>
-                      <div className="text-[10.5px] text-slate-400">{st.title}{st.decisive ? " · KARAR" : ""}</div>
-                      <div className="font-mono text-[10px] text-slate-500" title="Kalibre edilmiş olasılık değil — geçmiş ölçümden model puanı">model puanı 60dk %{st.hit60} · kap. %{st.hitClose} · {stageN}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-            {op && (op.closes5.length > 0 || op.closes15.length > 0) && (
-              <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-[#1c2635] px-3 py-1.5 font-mono text-[10.5px]">
-                <div className="flex flex-wrap items-center gap-1">
-                  <span className="text-slate-500">5m</span>
-                  {op.closes5.map((c) => (
-                    <span key={c.clock} className={`rounded border px-1 py-0.5 ${c.side ? SIDE_CHIP[c.side] : "border-slate-700 text-slate-500"}`}>
-                      {c.clock} {c.side === "ABOVE" ? "▲" : c.side === "BELOW" ? "▼" : "•"}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap items-center gap-1">
-                  <span className="text-slate-500">15m</span>
-                  {op.closes15.map((c) => (
-                    <span key={c.clock} className={`rounded border px-1 py-0.5 ${c.side ? SIDE_CHIP[c.side] : "border-slate-700 text-slate-500"}`}>
-                      {c.clock} {c.side === "ABOVE" ? "▲" : c.side === "BELOW" ? "▼" : "•"}
-                    </span>
-                  ))}
-                </div>
-                <span className="text-slate-500">▲ VWAP üstü kapanış · ▼ VWAP altı kapanış</span>
-              </div>
-            )}
-            </>)}
-          </div>
+        {/* ── 1) TAKİP SİSTEMİ — açılış aşamaları + açılış trendi + 5 dk'lık yön/trend kartları (09:00 → 15:00) ── */}
+        <TrackerPanel r={track} nowSec={nowSec} live={!replayDate && !!data?.session.isLive} marks={ladderMarks} hist={trackHist} />
 
         {/* ── 1a) Gerekçe kartları — gün yönelimi · VWAP · EMA20 · alıcı/satıcı · emir defteri + opsiyon akışı ── */}
         <BiasStrip b={bias} />
@@ -2157,23 +2121,16 @@ export default function SpyEngineV9() {
 
         </Hideable>
 
-        {/* ── 3) Tahmin: 15m setup + 4 mum tahmini · harita ── */}
-        {!date ? (
-          <div className={`${SURFACE} px-3 py-8 text-center text-[12px] text-slate-500`}>Tahmin bölümü için fiyat ve seviye verisi bekleniyor.</div>
-        ) : (
-          <ForecastTabs
-            setupTab={<Setup15Panel bars={m15Closed} forming={m15Forming} read={setup15.read} stats={setup15.stats} htfReady={h1Hist.length > 0} price={price} />}
-            mapTab={
-        <div>
+        {/* ── 3) Tahmin haritası — sayfadaki tek grafik (Takip Sistemi senaryoları, ufuk şimdi + 90 dk) ── */}
+        <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· destek / direnç · yolculuk · kapanış beklentisi</span>
+              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· destek / direnç · Takip Sistemi senaryoları (sonraki 30–90 dk) · pivotlar</span>
             </span>
             {map && (
               <span className="flex items-center gap-2 font-mono text-[11px]">
-                <span className="text-slate-500">gün sonu kapanış ≈</span>
-                <b className="text-[14px] text-slate-100">${num(map.closeExpect)}</b>
-                <span className="text-slate-500">({num(map.closeLow)} – {num(map.closeHigh)})</span>
+                <span className="text-slate-500">gün sonu kapanış bandı</span>
+                <b className="text-[13px] text-slate-100">{num(map.closeLow)} – {num(map.closeHigh)}</b>
               </span>
             )}
           </div>
@@ -2181,94 +2138,39 @@ export default function SpyEngineV9() {
             <div className="px-3 py-8 text-center text-[12px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
           ) : (
             <>
-              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} />
+              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} />
               <div className="grid grid-cols-1 gap-2 border-t border-[#1c2635] px-3 py-2 lg:grid-cols-2">
                 <div>
                   <div className="mb-0.5 text-[11px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>
                     {map.biasText}
                   </div>
-                  <ol className="flex list-decimal flex-col gap-0.5 pl-4 text-[11.5px] leading-snug text-slate-300 marker:text-slate-500">
-                    {map.steps.map((s, i) => <li key={i}>{s}</li>)}
+                  {trackCur && !trackCur.pre && (
+                    <ul className="flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
+                      {trackCur.fc.dir !== 0 && trackCur.fc.target != null && trackCur.fc.invalid != null ? (
+                        <>
+                          <li><b style={{ color: trackCur.fc.dir > 0 ? "#4ade80" : "#f87171" }}>Ana senaryo{trackCur.fc.rule ? ` (%${FC_RULES[trackCur.fc.rule].hit})` : ""}:</b> {trackCur.fc.dir > 0 ? "yukarı" : "aşağı"} {num(trackCur.fc.target)} ({trackCur.fc.targetLabel}) — {trackCur.fc.rule ? FC_RULES[trackCur.fc.rule].label : ""}.</li>
+                          <li><b className="text-slate-400">Alternatif:</b> 5m kapanış {num(trackCur.fc.invalid)} ({trackCur.fc.invalidLabel}) {trackCur.fc.dir > 0 ? "altına" : "üstüne"} geçerse senaryo iptal, ters yöne dönülür.</li>
+                        </>
+                      ) : (
+                        <li><b className="text-amber-300">Ölçülmüş bir kenar yok:</b> {trackCur.fc.text.replace(/^30 dk: /, "")}.</li>
+                      )}
+                    </ul>
+                  )}
+                  <ol className="mt-1 flex list-decimal flex-col gap-0.5 pl-4 text-[11px] leading-snug text-slate-400 marker:text-slate-500">
+                    {map.steps.filter((x) => !x.startsWith("Gün sonu")).map((x, i) => <li key={i}>{x}</li>)}
                   </ol>
                 </div>
                 <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-500">
                   {map.alt.map((a, i) => <li key={i}>⚠ {a}</li>)}
                   <li className="mt-0.5 text-slate-500">
-                    Bu bir TAHMİNDİR. Seviyeler ölçülmüş veriden, yolculuk süresi ortalama saatlik hareketten, kapanış bandı 20 seanslık
-                    dağılımdan gelir{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} seans)` : ""}.
+                    Bu bir TAHMİNDİR. Senaryo yüzdeleri Takip Sistemi kurallarının 45 seanslık ölçümünden (30 dk sonra yön isabeti) gelir; seviyeler ölçülmüş veriden.
+                    Gün sonu bandı 20 seanslık dağılımdan{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} seans)` : ""}.
                   </li>
                 </ul>
               </div>
             </>
           )}
         </div>
-            }
-          />
-        )}
-
-        {/* ── 4) 15m + 5m grafik ── */}
-        <Hideable title="15m / 5m Grafikleri" open={showCharts} onToggle={() => setShowCharts((v) => !v)}>
-        <div className={`${SURFACE} overflow-hidden`}>
-          <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[#1c2635] px-2 py-1">
-            <span className="text-[11px] font-semibold tracking-wide text-slate-300">15m / 5m Grafikleri</span>
-            <div className="flex flex-wrap items-center gap-0.5">
-              <button
-                type="button"
-                onClick={() => setToggles((t) => ({ ...t, candleType: t.candleType === "HA" ? "NORMAL" : "HA" }))}
-                className={`rounded px-1.5 py-0.5 text-[10.5px] font-medium transition-colors ${toggles.candleType === "HA" ? "bg-[#0e7490] text-white" : "bg-[#111827] text-slate-400 hover:bg-[#1c2635]"}`}
-              >
-                {toggles.candleType === "HA" ? "HA" : "Normal"}
-              </button>
-              {([["vwap", "VWAP"], ["ema20", "EMA20"], ["ema21", "EMA21"], ["bb", "BB"], ["volume", "VOL"], ["markers", "SİN"], ["levels", "SEV"]] as const).map(([key, label]) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setToggles((t) => ({ ...t, [key]: !t[key] }))}
-                  className={`rounded px-1.5 py-0.5 text-[10.5px] transition-colors ${toggles[key] ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-500 hover:text-slate-400"}`}
-                >
-                  {label}
-                </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => setAutoScroll((a) => !a)}
-                className={`rounded px-1.5 py-0.5 text-[10.5px] transition-colors ${autoScroll ? "bg-[#1c2635] text-slate-200" : "bg-[#111827] text-slate-500"}`}
-                title="Yeni mum geldikçe sağa kaydır"
-              >
-                ⟳
-              </button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-0.5 lg:grid-cols-2">
-            <div className="border-b border-[#1c2635] bg-[#0a0e17] lg:border-b-0 lg:border-r">
-              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
-                15m — rejim
-                {chartDir && <span className={`text-[13px] font-bold leading-none ${chartDir === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{chartDir === "UP" ? "↑" : "↓"}</span>}
-              </div>
-              <SpyChart
-                bars={m15Bars} timeframe="15m" events={events} position={openPosition} toggles={toggles}
-                height={380} autoScroll={autoScroll} defaultWindowMin={480}
-                levelLines={chartLines} trendDirection={chartDir}
-              />
-            </div>
-            <div className="bg-[#0a0e17]">
-              <div className="flex items-center gap-1.5 border-b border-[#1c2635] px-2 py-1 text-[10.5px] text-slate-500">
-                5m — erken uyarı / tetik
-                {chartDir && <span className={`text-[13px] font-bold leading-none ${chartDir === "UP" ? "text-[#22c55e]" : "text-[#ef4444]"}`}>{chartDir === "UP" ? "↑" : "↓"}</span>}
-              </div>
-              <SpyChart
-                bars={m5Bars} timeframe="5m" events={events} position={openPosition} toggles={toggles}
-                height={380} autoScroll={autoScroll} defaultWindowMin={120}
-                levelLines={chartLines} trendDirection={chartDir}
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-2 border-t border-[#1c2635] px-2 py-1 font-mono text-[9.5px] text-slate-500">
-            <span>Kaynak: {data?.dataSource.primary ?? "—"}</span>
-            <span>Son kapanan: 5m {data?.lastClosed.m5 ? nyClock(data.lastClosed.m5) : "—"} · 15m {data?.lastClosed.m15 ? nyClock(data.lastClosed.m15) : "—"}</span>
-          </div>
-        </div>
-        </Hideable>
 
         {/* ── 5) Anlık mum yorumları ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">

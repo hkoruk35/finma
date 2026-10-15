@@ -438,7 +438,8 @@ export async function GET(req: NextRequest) {
           const key = `${session.date}:${rvolHistory.bars.length}:${rvolHistory.bars[rvolHistory.bars.length - 1]?.time ?? 0}`;
           if (rvolCache?.key === key) return rvolCache.value;
           const b = rvolBaseline(rvolHistory.bars, session.date);
-          const value = b ? { slot: b.slot.map(Math.round), cum: b.cum.map(Math.round), days: b.days } : null;
+          // med: aynı saatin medyan hacmi — Takip Sistemi RVOL'u (merdiven slot/cum kullanır, değişmedi)
+          const value = b ? { slot: b.slot.map(Math.round), cum: b.cum.map(Math.round), days: b.days, med: (b.med ?? []).map(Math.round) } : null;
           rvolCache = { key, value };
           return value;
         })(),

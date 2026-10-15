@@ -303,6 +303,8 @@ export interface RvolBase {
   /** aynı saate kadar ortalama TOPLAM hacim (dilim sonunda) */
   cum: number[];
   days: number;
+  /** aynı saatteki 5m hacmin MEDYANI (Takip Sistemi RVOL'u — ortalama yüksek hacimli günlerle şişiyor; merdiven kullanmaz) */
+  med?: number[];
 }
 
 /** `date`'ten ÖNCEKİ son `days` tam RTH seansından aynı-saat hacim ortalamaları */
@@ -333,7 +335,11 @@ export function rvolBaseline(bars5: Bar[], date: string, days = C.rvolDays): Rvo
     return a.map((v) => (s += Number.isFinite(v) ? v : 0));
   });
   const cum = new Array(78).fill(0).map((_, k) => cumDays.reduce((s, a) => s + a[k], 0) / cumDays.length);
-  return { slot, cum, days: full.length };
+  const med = new Array(78).fill(0).map((_, k) => {
+    const xs = full.map((a) => a[k]).filter((v) => Number.isFinite(v)).sort((a, b) => a - b);
+    return xs.length ? xs[Math.floor(xs.length / 2)] : 0;
+  });
+  return { slot, cum, days: full.length, med };
 }
 
 const slotOf = (t: number) => Math.round((nyParts(t).minutes - OPEN_MIN) / 5);
