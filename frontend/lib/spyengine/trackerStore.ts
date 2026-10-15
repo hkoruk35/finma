@@ -150,6 +150,10 @@ export interface TrackerSummary {
   pred: { n: number; hit: number; tHit: number };
   recent: { date: string; backfill: boolean; bias: string; gap: string; dayClass: string | null; trades: number; r: number; pred: string }[];
   trades: (TrackTrade & { date: string })[];
+  /** Önerilen işlemler arşivi (son 60 seans, tüm işlemler) */
+  allTrades: (TrackTrade & { date: string })[];
+  /** Uyarı kaydı (son 10 seans; canlı HAZIRLAN dahil) */
+  alertLog: { date: string; clock: string; level: string; side: string | null; text: string }[];
 }
 
 export function summarizeLog(days: TrackDay[]): TrackerSummary {
@@ -177,5 +181,10 @@ export function summarizeLog(days: TrackDay[]): TrackerSummary {
     pred,
     recent: days.slice(-10).reverse().map((d) => ({ date: d.date, backfill: d.backfill, bias: d.bias, gap: d.gap.type, dayClass: d.dayClass, trades: d.trades.length, r: d.realizedR, pred: `${d.pred.hit}/${d.pred.n}` })),
     trades: all.slice(-20).reverse(),
+    allTrades: days.slice(-60).flatMap((d) => d.trades.map((t) => ({ ...t, date: d.date }))),
+    alertLog: days.slice(-10).flatMap((d) => [
+      ...d.alerts.map((a) => ({ date: d.date, clock: a.clock, level: a.level, side: a.side, text: a.text })),
+      ...(d.live ?? []).filter((a) => a.level === "HAZIRLAN").map((a) => ({ date: d.date, clock: a.clock, level: a.level, side: a.side, text: a.text })),
+    ]).sort((a, b) => (a.date === b.date ? a.clock.localeCompare(b.clock) : a.date.localeCompare(b.date))),
   };
 }

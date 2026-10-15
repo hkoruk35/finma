@@ -20,7 +20,8 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel } from "@/lib/spyengine/mtfPivots";
 import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
-import { trackerRead, trackPrewarn, FC_RULES, type TrackRead, type TrackAlert, type TrackStep } from "@/lib/spyengine/tracker";
+import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
+import { trackerRead, trackPrewarn, FC_RULES, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import {
@@ -673,6 +674,52 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
   );
 }
 
+// ── Kayıt yardımcıları ─────────────────────────────────────────────
+
+/** Takip işlemi → Önerilen İşlemler satırı (R kontrat başına; kontrat önerisi kurulum metninde) */
+function tradeRow(date: string, a: TrackTrade): TradeRow {
+  return {
+    date, clock: a.entryClock, side: a.side, mode: a.tag,
+    setup: `${a.contracts ?? 2} kontrat · ${a.why ?? ""}${a.momWhy?.length ? ` · momentum: ${a.momWhy.join(", ")}` : ""}`,
+    entry: a.entry, stop: a.stop0, target: a.h1,
+    exitClock: a.exitClock, exit: a.exit, exitWhy: a.exitReason, r: a.resultR,
+  };
+}
+
+const LEVEL_CLS: Record<string, string> = {
+  TETİK: "text-[#4ade80]", ÇIKIŞ: "text-orange-300", YÖNET: "text-sky-300", HAZIRLAN: "text-[#facc15]", İPTAL: "text-slate-500", KADEME: "text-slate-400",
+};
+
+function AlertLog({ today, past }: { today: { date: string; clock: string; level: string; side: string | null; text: string }[]; past: { date: string; clock: string; level: string; side: string | null; text: string }[] }) {
+  const todayDate = today[0]?.date;
+  const rows = [...today, ...past.filter((a) => a.date !== todayDate)].sort((a, b) => (a.date === b.date ? b.clock.localeCompare(a.clock) : b.date.localeCompare(a.date)));
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[13px] font-semibold text-slate-200">Uyarı Kaydı</span>
+        <span className="font-mono text-[11px] text-slate-500">bugün + son 10 seans · {rows.length} uyarı</span>
+      </div>
+      <div className="max-h-[360px] overflow-auto">
+        {rows.length === 0 ? <div className="px-3 py-4 text-center text-[12px] text-slate-500">Kayıtlı uyarı yok.</div> : (
+          <table className="w-full text-[11.5px]">
+            <tbody>
+              {rows.map((a, i) => (
+                <tr key={`${a.date}-${a.clock}-${a.level}-${i}`} className={`border-t border-[#151c28] ${a.date === todayDate ? "bg-sky-500/5" : ""}`}>
+                  <td className="px-2 py-1 font-mono text-slate-400">{a.date === todayDate ? "bugün" : a.date.slice(5)}</td>
+                  <td className="px-2 font-mono text-slate-300">{a.clock}</td>
+                  <td className={`px-2 font-semibold ${LEVEL_CLS[a.level] ?? "text-slate-300"}`}>{a.level}</td>
+                  <td className="px-2 text-slate-300">{a.text}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+      <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] text-slate-500">Bugünkü uyarılar canlı hesaptan; geçmiş günler her seans kapanışında Takip günlüğüne (Supabase) dondurulur. HAZIRLAN uyarıları canlı sayfadan kaydedilir.</div>
+    </div>
+  );
+}
+
 // ── Sayfa ─────────────────────────────────────────────────────────
 
 export default function SpyEngineV9() {
@@ -681,6 +728,9 @@ export default function SpyEngineV9() {
   const [showTickers, setShowTickers] = useState(false);
   /** Açılış Tahmini / Tahmin Günlüğü varsayılan GİZLİ */
   const [showOpenFc, setShowOpenFc] = useState(false);
+  /** Kayıt bölümleri (sayfa altı) — varsayılan gizli */
+  const [showTrades, setShowTrades] = useState(false);
+  const [showAlerts, setShowAlerts] = useState(false);
   const [showStops, setShowStops] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
@@ -1434,6 +1484,16 @@ export default function SpyEngineV9() {
           )}
         </div>
 
+        {/* ── Kayıtlar: Takip Sistemi'nin önerdiği işlemler (bugün canlı + arşiv) ve uyarılar ── */}
+        <Hideable title="Önerilen İşlemler (kayıt)" open={showTrades} onToggle={() => setShowTrades((v) => !v)}>
+          <TradeLogPanel
+            today={(track?.trades ?? []).map((a) => tradeRow(date ?? "", a))}
+            past={(trackHist?.allTrades ?? []).map((a) => tradeRow(a.date, a))}
+          />
+        </Hideable>
+        <Hideable title="Uyarı Kaydı" open={showAlerts} onToggle={() => setShowAlerts((v) => !v)}>
+          <AlertLog today={(track?.alerts ?? []).filter((a) => a.level !== "KADEME").map((a) => ({ date: date ?? "", clock: a.clock, level: a.level, side: a.side, text: a.text }))} past={trackHist?.alertLog ?? []} />
+        </Hideable>
       </div>
 
       <div className="mt-2 text-center font-mono text-[9.5px] text-slate-700">
