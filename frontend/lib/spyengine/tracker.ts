@@ -73,6 +73,10 @@
  *     yakın; kapanış yine 5m mum kapanışında). 45 seans: 173 işlem +25,8R → 151 işlem %58 +37,5R, 3 dönem 2,4/29,4/5,7, kontrat-ağırlıklı
  *     76 → 117. Trend günlerinde kapatmak (sonradan bilinse bile) daha kötü: 34,0R; anlık "açılıştan ≥0,3/0,5 ATR" istisnası 31,5/34,3R.
  *     %40: 36,3R · %20: 37,7R (134 işlem). 1m tetik filtreleri (22 seans) belirgin katkı vermedi.
+ *     v2.14 (kullanıcı: "net trend gününde işlemler açılsın, kuralı bozma"): kapanış konumu şartına iki istisna — (1) sert hacimli kırılım
+ *     girişi, (2) giriş mumunda hacim yönde ve RVOL ≥ 2. 45 seans: 151 işlem +37,5R → 157 işlem %56 +32,5R, 3 dönem 3,0/26,9/2,7,
+ *     kontrat-ağırlıklı 117 → 97,6 (hâlâ şartsız 173 / +25,8R / 75,9'dan iyi). 16 Eki: 11:15, 11:55, 12:05, 14:00 PUT'ların hepsi açılır.
+ *     Yalnız kırılım istisnası 36,5R (12:05 açılmaz) · RVOL≥1,5 33,9R · RVOL≥3 32,5R.
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -91,7 +95,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.13";
+export const TRACK_VERSION = "2.14";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -132,6 +136,10 @@ export const TRACK_CFG = {
   regimeEntry: "size" as "off" | "require" | "size",
   /** giriş mumu kapanışı yön ucuna yakın olmalı: CALL closePos ≥ bu, PUT ≤ 100 − bu (0–100) · 0 = kapalı */
   entryClosePos: 70,
+  /** kapanış konumu istisnası: sert hacimli kırılım girişi (brk) şarttan muaf */
+  closePosBrkBypass: true,
+  /** kapanış konumu istisnası: giriş mumunda hacim yönde ve RVOL ≥ bu ise muaf (0 = kapalı) */
+  closePosBypassRvol: 2,
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
@@ -1032,7 +1040,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         pushAlert(b.time, "KADEME", tag, s, `${s} tetiği · 15m teyit zayıf — ${C.confirmBars} aynı yönde 5m kapanış gelirse giriş (ilki ${hm(m + 5)}: ${f2(c)} ${d > 0 ? "üstünde" : "altında"})${fridayNote}`);
       }
       const brkHit = !!brkOk && brkOk.side === d;
-      const closeOk = C.entryClosePos <= 0 || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
+      const closeOk = C.entryClosePos <= 0 || (C.closePosBrkBypass && brkHit) || (C.closePosBypassRvol > 0 && volD === d && (rvol5 ?? 0) >= C.closePosBypassRvol) || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
       if (!pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
