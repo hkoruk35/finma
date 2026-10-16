@@ -13,7 +13,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  BREAKDOWN_LABEL, FC_RULES, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
+  BREAKDOWN_LABEL, FC_RULES, halfOf, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
   type Breakdown, type TrackRead, type TrackStep, type D,
 } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
@@ -218,7 +218,7 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
                 <div key={k} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5"><span className="text-[9.5px] text-slate-500">{k} </span><b className="text-slate-100">{num(v)}</b></div>
               ))}
             </div>
-            <div className="text-[11px] text-slate-400">{"1R'de 1 kontratı kapat, stopu girişe çek · kalan yarı: her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + " (tamponlu) taşınır · 15m yön teyidi 1R'den önce dönerse çık"}</div>
+            <div className="text-[11px] text-slate-400">{`1R'de yarısını kapat (${halfOf(p.contracts)} / ${p.contracts ?? 2} kontrat), stopu girişe çek · kalan yarı` + ": her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + " (tamponlu) taşınır · 15m yön teyidi 1R'den önce dönerse çık"}</div>
           </>
         ) : s.setup ? (
           <>

@@ -126,6 +126,8 @@ export const TRACK_CFG = {
   runnerEmaBufAtr5: 0,
   /** giriş önceliği: "off" · "require" = yalnız rejim yönünde giriş · "size" = rejim yönündeki girişe +1 kontrat */
   regimeEntry: "size" as "off" | "require" | "size",
+  /** giriş mumu kapanışı yön ucuna yakın olmalı: CALL closePos ≥ bu, PUT ≤ 100 − bu (0–100) · 0 = kapalı */
+  entryClosePos: 0,
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
@@ -529,6 +531,11 @@ function slotAvg(base: RvolBase | null | undefined, min: number): number | null 
   return v && v > 0 ? v : null;
 }
 
+/** 1R'de kapatılacak kontrat (yarısı; 3 kontratta 2) */
+export function halfOf(contracts: number | null | undefined): number {
+  return Math.max(1, Math.round((contracts ?? 2) / 2));
+}
+
 function strikeHint(side: Side, price: number): string {
   return `0DTE ${side === "CALL" ? "C" : "P"} ${Math.round(price)} (≈0,45Δ)`;
 }
@@ -883,7 +890,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         }
         else if (d > 0 ? b.high >= p.h1 : b.low <= p.h1) {
           p.h1Hit = true; p.h1Clock = nyClock(T); p.stop = p.entry;
-          pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `1R ${f2(p.h1)} geldi: 1 kontratı kapat, stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
+          pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `1R ${f2(p.h1)} geldi: yarısını kapat (${halfOf(p.contracts)} / ${p.contracts ?? 2} kontrat), stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
           ev.push(`H1 ${f2(p.h1)} — yarısı alındı, stop girişe`);
         } else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (C.timeStopBars > 0 && p.barsHeld >= C.timeStopBars && d * (c - p.entry) < 0) close(c, "TIME");
@@ -1021,7 +1028,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
         pushAlert(b.time, "KADEME", tag, s, `${s} tetiği · 15m teyit zayıf — ${C.confirmBars} aynı yönde 5m kapanış gelirse giriş (ilki ${hm(m + 5)}: ${f2(c)} ${d > 0 ? "üstünde" : "altında"})${fridayNote}`);
       }
       const brkHit = !!brkOk && brkOk.side === d;
-      if (!pos && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
+      const closeOk = C.entryClosePos <= 0 || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
+      if (!pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
         const tp1 = r2(c + d * C.h1R * rPts);
@@ -1139,7 +1147,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       headline = `${P.side === "CALL" ? "▲ CALL" : "▼ PUT"} AÇIK · ${P.liveR != null ? sgnR(P.liveR) : "0"}R`;
       action = P.h1Hit
         ? `Yarısı alındı, stop girişte (${f2(P.entry)}). Kalanı TUT — 5m EMA20 ${ema5 != null ? f2(ema5) : "—"} ${pd > 0 ? "altına" : "üstüne"} kapanış, 15m yön dönüşü ya da H2 ${f2(P.h2)}'de kapat.`
-        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (1R)${C.exitMode === "full" ? "'de kapat" : C.exitMode === "half15" ? "'de 1 kontratı kapat, stopu girişe çek; kalanı her 15m kapanışında 15m dip/tepe ∓ tampona taşı" : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
+        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (1R)${C.exitMode === "full" ? "'de kapat" : C.exitMode === "half15" ? `'de yarısını kapat (${halfOf(P.contracts)} / ${P.contracts ?? 2} kontrat), stopu girişe çek; kalanı her 15m kapanışında 15m dip/tepe ∓ tampona taşı` : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
       tone = side5 === -pd ? "warn" : P.side === "CALL" ? "bull" : "bear";
     } else if (setup?.status === "ARMED" && setup.trigger != null) {
       headline = `⚡ ${setup.side} HAZIR`;
