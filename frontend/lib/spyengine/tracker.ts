@@ -63,6 +63,8 @@
  *     Giriş SL'i (kullanıcı: "dibinden/tepesinden tampon koyarak"): son 2 mumun dibi/tepesi + 0,1 ATR15 tampon → 174 işlem +25,3R,
  *     kontrat-ağırlıklı 70,6, 3 dönem −0,1/23,5/1,8 (tamponsuz +28,6R ama ilk dönem −4,9). Daha geniş: 2 mum+0,25 16,7R · 3 mum+0,1 11,2R ·
  *     4 mum+0,25 3,8R · 6 mum+0,25 −0,6R (seçilmedi).
+ *     16 Eki 13:20 (kullanıcı: "5m mumlar yukarı yönlüydü"): önceki 5m mum ters yönde formasyon verdiyse kırılım taze sayılmaz →
+ *     173 işlem +25,8R, kontrat-ağırlıklı 72,4 (önce 174 / +25,3R / 70,6). Kırılıma hacim şartı 17,2R, hacim+formasyon 20,7R (seçilmedi).
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -81,7 +83,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.10";
+export const TRACK_VERSION = "2.11";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -161,6 +163,10 @@ export const TRACK_CFG = {
   fresh15Bars: 0,
   /** trend devamı: 5m kapanış son N mumun dibinin altında / tepesinin üstündeyse (yeni kırılım) tetik taze sayılır · 0 = kapalı */
   freshBreakBars: 4,
+  /** kırılım-tazeliği için teyit: "none" · "vol" = hacim çubuğu yönde · "both" = hacim VE formasyon · "volOr" = hacim ya da RVOL≥1,5 */
+  freshBreakConfirm: "none" as "none" | "vol" | "both" | "volOr",
+  /** kırılım-tazeliği: önceki 5m mum ters yönde formasyon verdiyse (dönüş işareti) kırılım taze sayılmaz */
+  freshBreakPrevCandle: true,
   h1R: 1,
   h2R: 2,
   /** 0 = kapalı (ölçüm: 30 dk zaman stopu kazanan işlemleri erken kesiyordu, +19,8R → −1,4R) */
@@ -653,6 +659,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let runSide = 0, runLen = 0;
   let prevSide15: D = 0;
   let side15Since = -99;
+  /** önceki 5m mumun formasyon yönü */
+  let candlePrev: D = 0;
   /** 15m belirsizken oluşan sert hacimli 5m kırılım (destek mumu + 15m teyidi bekleniyor) */
   type Brk = { side: D; clock: string; close: number; mid: number; left: number };
   let brk: Brk | null = null;
@@ -744,6 +752,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
       candleD = cd.closePos >= C.candleClosePos && barDir > 0 ? 1 : cd.closePos <= 100 - C.candleClosePos && barDir < 0 ? -1 : 0;
       if (candleD) pattern = candleD > 0 ? "güçlü alış mumu" : "güçlü satış mumu";
     }
+    const prevCandleD: D = candlePrev;
+    candlePrev = candleD;
     const rsiD: D = rsi15 == null ? 0 : rsi15 > 50 && (rsi15p == null || rsi15 >= rsi15p) ? 1 : rsi15 < 50 && (rsi15p == null || rsi15 <= rsi15p) ? -1 : 0;
 
     const breakdown: Breakdown = { m15: 2 * side15, vwap5: vSide, ema5: eSide, volume: volD, candle: candleD, rsi: 0.5 * rsiD };
@@ -930,7 +940,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
         return (e != null && hit(e)) || (vw != null && hit(vw));
       });
       const priorN = C.freshBreakBars > 0 && i >= C.freshBreakBars ? today.slice(i - C.freshBreakBars, i) : [];
-      const brokeOut = priorN.length > 0 && (d > 0 ? c > Math.max(...priorN.map((x) => x.high)) : c < Math.min(...priorN.map((x) => x.low)));
+      const brkConf = C.freshBreakConfirm === "none" ? true : C.freshBreakConfirm === "vol" ? volD === d : C.freshBreakConfirm === "both" ? volD === d && candleD === d : volD === d || (rvol5 ?? 0) >= 1.5;
+      const brkCtx = (!C.freshBreakPrevCandle || prevCandleD !== -d);
+      const brokeOut = brkConf && brkCtx && priorN.length > 0 && (d > 0 ? c > Math.max(...priorN.map((x) => x.high)) : c < Math.min(...priorN.map((x) => x.low)));
       const fresh = C.fresh === "any" || prevSide5 !== d || touched || brokeOut || (C.fresh15Bars > 0 && side15 === d && i - side15Since < C.fresh15Bars);
       const confirmVC = mixed ? volD === d && candleD === d : volD === d || candleD === d;
       // belirsizlikte (hacim ve formasyon yön vermiyorsa): RVOL ≥ 1 VE RSI 15m yönü
