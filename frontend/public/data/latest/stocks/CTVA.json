@@ -1,0 +1,89 @@
+{
+  "ticker": "CTVA",
+  "company": "Corteva, Inc.",
+  "date": "2026-10-16",
+  "generated_at": "2026-10-16T05:01:42.761Z",
+  "sector": "Basic Materials",
+  "industry": "Agricultural Inputs",
+  "price": {
+    "current": 12.880000114440918,
+    "open": 12.84000015258789,
+    "high": 12.930000305175781,
+    "low": 12.40999984741211,
+    "prev_close": 13.399999618530273,
+    "change_pct": -3.880593424571974,
+    "change_pct_1w": -6.3272718949751425,
+    "change_pct_1m": 8.05369154364508,
+    "change_pct_1y": 38.6612842088058,
+    "volume": 27214400,
+    "avg_volume_30d": 1164320573
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.31973168439112,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.868609069228945,
+    "ema_50": 12.588259726610369,
+    "ema_200": 11.87098908703552,
+    "ema_stack_bullish": true,
+    "bb_upper": 13.524000120162965,
+    "bb_middle": 12.880000114440918,
+    "bb_lower": 12.236000108718871,
+    "bb_width": 10,
+    "atr": 0.86,
+    "atr_pct": 6.68,
+    "rvol": 0.5904270833493208,
+    "52w_high": 14.619999885559082,
+    "52w_low": 9.082521438598633
+  },
+  "fundamental": {
+    "pe_ratio": 8.256411,
+    "pb_ratio": 1.0606061,
+    "gross_margin": 0.33213,
+    "operating_margin": 0.12777,
+    "net_margin": 0.027579999,
+    "market_cap": 8593484800,
+    "revenue_growth_ttm": -0.012,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.9197,
+    "dividend_rate": 0,
+    "dividend_yield": 0.0539
+  },
+  "scores_detail": {
+    "entry_range_low": 12.36,
+    "entry_range_high": 12.97,
+    "target_range_low": 13.3,
+    "target_range_high": 14.62,
+    "target_1": 13.3,
+    "target_2": 13.93,
+    "target_3": 14.62,
+    "stop_loss": 11.76,
+    "risk_reward_ratio": 1.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.36 – $12.97 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.34 direnci veya $12.19 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.76 olarak belirlenmiştir. Fiyatın EMA200 ($11.87) veya günlük VWAP ($12.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.74) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}
