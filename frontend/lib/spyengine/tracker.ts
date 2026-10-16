@@ -49,6 +49,13 @@
  *     v2.8 (kullanıcı: "15m VWAP'ın net üstünde/altında kapanmazsa işlem arama"): 15m kapanış VWAP'tan ≥ 0,1 ATR15 uzak olmalı ve
  *     15m VWAP–EMA20 arasındayken giriş yok (mixedEntry kapalı). 45 seans: 165 → 159 işlem, +21,8R → +22,0R, %55, 3 dönem −1,7/19,8/3,9R.
  *     Eşik 0,15–0,3 ATR15 sonucu düşürdü (+20,9…+17,5R). Cuma günleri işlem uyarılarına "mübarek Cuma… gerekmedikçe işlem açma" notu.
+ *     v2.9 (16 Eki 11:00 kaçan PUT): 15m kapanış VWAP'ın net altında ama 15m EMA20 üstündeydi → "VWAP–EMA20 arası" sayıldı, ekranda
+ *     EMA20 tarafından gelen ters "eğilim ▲" yazıyordu. Eğilim artık 15m kapanışın NET VWAP tarafı (leadBy "vwap") — işlemler değişmedi.
+ *     Bu bölgede girişi açan denemeler 45 seansta sonucu düşürdü: VWAP eğilimiyle giriş 179 işlem +8,5R · +RVOL≥1,5 167 +17,1R ·
+ *     +güçlü 15m+RVOL≥1,5 166 +18,1R (kontrat-ağırlıklı 41,7 → 27,5) · 15m yön dönünce 3 mum taze 170 +14,9R. Hepsi KAPALI (varsayılan 0/false).
+ *     Kullanıcı kuralı (seçildi): belirsiz 15m'de kırılım mumunda giriş YOK; sert hacimli (RVOL ≥ 1,5) 5m kırılım → sonraki 5m kapanış
+ *     kırılım mumunun ortasının ötesinde, VWAP+EMA20 doğru tarafında, hacimli (RVOL ≥ 1) VE 15m yön teyidi gelmişse giriş. 45 seans:
+ *     159 işlem +22,0R değişmedi (3 eşleşme zaten aynı mumda açılıyordu), 16 Eki 11:15 PUT eklendi; 3 mum bekleme 160 +21,0R (seçilmedi).
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -67,7 +74,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.8";
+export const TRACK_VERSION = "2.9";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -124,6 +131,21 @@ export const TRACK_CFG = {
   /** 15m VWAP–EMA20 arasındayken: 15m EMA20 tarafı yönünde, 5m VWAP+EMA20 + hacim VE formasyon birlikte ise tetik */
   /** KAPALI (v2.8, kullanıcı: 15m net VWAP üstü/altı değilse işlem arama) — 15m VWAP–EMA20 arasında giriş yok */
   mixedEntry: false,
+  /** 15m VWAP–EMA20 arasında eğilim/tetik yönü: "vwap" = 15m kapanışın NET VWAP tarafı (≥ net15Atr) · "ema" = 15m EMA20 tarafı (eski) */
+  leadBy: "vwap" as "vwap" | "ema",
+  /** VWAP–EMA20 arası (mixed) girişte asgari 5m RVOL (sert hacim) · 0 = yok */
+  mixedMinRvol: 0,
+  /** mixed girişte 15m mum güçlü olmalı (renk yönde + aralığın yön yarısında kapanış) */
+  mixedStrong15: false,
+  /** 15m belirsizken (VWAP net tarafı ≠ EMA20 tarafı) sert hacimli 5m kırılım: o mumda giriş YOK; sonraki destek hacimli 5m kapanış
+   *  (VWAP+EMA20 doğru tarafı, kırılım mumunun ortasının ötesi) + 15m yön teyidi gelirse giriş. brkRvol = kırılım mumunun asgari RVOL'u (0 = kapalı) */
+  brkRvol: 1.5,
+  /** destek mumunun asgari RVOL'u */
+  brkSupRvol: 1,
+  /** kırılımdan sonra teyit için beklenen en çok 5m mum */
+  brkBars: 1,
+  /** 15m yön yeni belirlendiyse (son N 5m mum içinde) 5m hizası eskiden kalsa da tetik "taze" sayılır · 0 = kapalı */
+  fresh15Bars: 0,
   h1R: 1,
   h2R: 2,
   /** 0 = kapalı (ölçüm: 30 dk zaman stopu kazanan işlemleri erken kesiyordu, +19,8R → −1,4R) */
@@ -615,6 +637,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let prevArmed: { tag: SetupTag; side: Side } | null = null;
   let runSide = 0, runLen = 0;
   let prevSide15: D = 0;
+  let side15Since = -99;
+  /** 15m belirsizken oluşan sert hacimli 5m kırılım (destek mumu + 15m teyidi bekleniyor) */
+  type Brk = { side: D; clock: string; close: number; mid: number; left: number };
+  let brk: Brk | null = null;
   const realized = () => trades.reduce((a, x) => a + (x.resultR ?? 0), 0);
 
   for (let i = 0; i < today.length; i++) {
@@ -676,6 +702,11 @@ export function trackerRead(inp: TrackInput): TrackRead {
     // net kapanış: 15m kapanış VWAP'ın hemen yanında ise yön sayılmaz (belirsiz — yön her an dönebilir)
     const net15 = !rawSide15 || C.net15Atr <= 0 || (b15 != null && vwap15 != null && atr15 != null && Math.abs(b15.close - vwap15) >= C.net15Atr * atr15);
     const side15: D = net15 ? rawSide15 : 0;
+    // 15m VWAP–EMA20 arasında eğilim: kapanış VWAP'ın net altında/üstündeyse o taraf (16 Eki 11:00: VWAP'ın net altı, EMA20 üstü → PUT eğilimi)
+    const lead15: D = !today15 || !b15 ? 0
+      : C.leadBy === "vwap"
+        ? vwap15 != null && atr15 != null && Math.abs(b15.close - vwap15) >= Math.max(C.net15Atr, 0) * atr15 ? (b15.close > vwap15 ? 1 : b15.close < vwap15 ? -1 : 0) : 0
+        : ema15 != null ? (b15.close > ema15 ? 1 : b15.close < ema15 ? -1 : 0) : 0;
     const side5: D = sideOf(c, vwap, ema5);
     const vSide: D = vwap == null ? 0 : c > vwap ? 1 : c < vwap ? -1 : 0;
     const eSide: D = ema5 == null ? 0 : c > ema5 ? 1 : c < ema5 ? -1 : 0;
@@ -729,11 +760,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
     } else {
       // 15m belirsiz (VWAP ile EMA20 arasında / henüz 15m yok): eğilim 5m + belirsizlik teyitleriyle
       // 15m VWAP–EMA20 arasında: eğilim = 15m EMA20 tarafı (tetik de bu yönde aranır); 5m puanı buna güçlü ters ise eğilim yok
-      const l15: D = today15 && b15 && ema15 != null ? (b15.close > ema15 ? 1 : b15.close < ema15 ? -1 : 0) : 0;
+      const l15: D = lead15;
       const lean: D = l15 ? (l15 * score > -2 ? l15 : 0) : absS >= 2 ? (Math.sign(score) as D) : 0;
       dir = lean;
       trend = phaseBase === "AÇILIŞ" ? `AÇILIŞ · 5m ${side5 > 0 ? "VWAP+EMA20 üstü" : side5 < 0 ? "VWAP+EMA20 altı" : "karışık"} (15m teyidi 09:45)` : rawSide15 && !net15 ? `15m NET DEĞİL (kapanış VWAP'a çok yakın)${lean ? ` · eğilim ${arrow(lean)}` : ""}` : `15m BELİRSİZ (VWAP–EMA20 arası)${lean ? ` · eğilim ${arrow(lean)}` : ""}`;
     }
+    if (side15 && prevSide15 !== side15 && today15) side15Since = i;
     if (side15 && prevSide15 !== side15) {
       ev.push(`15m yön ${prevSide15 ? "değişti" : "belirlendi"}: ${side15 > 0 ? "▲ VWAP+EMA20 üstü" : "▼ VWAP+EMA20 altı"}`);
       if (phaseBase !== "KAPANIŞ") pushAlert(b.time, "KADEME", null, side15 > 0 ? "CALL" : "PUT", `15m yön ${side15 > 0 ? "▲ YUKARI" : "▼ AŞAĞI"} (VWAP ${vwap15 != null ? f2(vwap15) : "—"} · EMA20 ${ema15 != null ? f2(ema15) : "—"})`);
@@ -841,9 +873,32 @@ export function trackerRead(inp: TrackInput): TrackRead {
     if (eventDay) warns.push("EVENT_K1");
 
     // tetik yönü = 15m yönü; 15m VWAP–EMA20 arasındaysa (mixedEntry) 15m EMA20 tarafı — o zaman hacim VE formasyon birlikte aranır
-    const lean15: D = today15 && b15 && ema15 != null ? (b15.close > ema15 ? 1 : b15.close < ema15 ? -1 : 0) : 0;
-    const mixed = !side15 && C.mixedEntry && !!lean15;
+    const lean15: D = lead15;
+    const mixed = !side15 && C.mixedEntry && !!lean15 && (C.mixedMinRvol <= 0 || (rvol5 ?? 0) >= C.mixedMinRvol)
+      && (!C.mixedStrong15 || (!!b15 && lean15 * (b15.close - b15.open) > 0 && b15.high > b15.low && (lean15 > 0 ? b15.close - b15.low : b15.high - b15.close) / (b15.high - b15.low) >= 0.5));
     const d: D = side15 || (mixed ? lean15 : 0);
+    // sert hacimli kırılım takibi (16 Eki 11:10: 15m VWAP'ın net altı/EMA20 üstü, sert hacimli kırmızı 5m → 11:15 destek mumu + 15m ▼)
+    let brkOk: Brk | null = null;
+    if (brk) {
+      const k: Brk = brk;
+      brk = null;
+      const hold = vSide === k.side && eSide === k.side && k.side * (c - k.mid) > 0;
+      const sup = (rvol5 ?? 0) >= C.brkSupRvol;
+      if (!pos && hold && sup && side15 === k.side) brkOk = k;
+      else if (!pos && hold && k.left > 1) brk = { ...k, left: k.left - 1 };
+      else if (!pos) {
+        const why = !hold ? `kapanış ${f2(c)} kırılımı tutmadı` : !sup ? `destek mumu hacimsiz (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.brkSupRvol})` : "15m yön teyidi gelmedi";
+        ev.push(`${k.clock} sert hacimli kırılım teyit edilmedi — ${why}`);
+        pushAlert(b.time, "İPTAL", "T5_TREND", k.side > 0 ? "CALL" : "PUT", `İPTAL · ${k.clock} kırılımı: ${why}`);
+      }
+    }
+    if (C.brkRvol > 0 && !pos && !brkOk && !side15 && lead15 && phaseBase === "TAKİP" && m >= C.firstEntry && m + 5 <= C.lastEntry && trades.length < C.maxTrades
+      && vSide === lead15 && eSide === lead15 && volD === lead15 && (rvol5 ?? 0) >= C.brkRvol && lead15 * (c - b.open) > 0) {
+      brk = { side: lead15, clock: nyClock(T), close: r2(c), mid: r2((b.open + c) / 2), left: C.brkBars };
+      const sk: Side = lead15 > 0 ? "CALL" : "PUT";
+      ev.push(`sert hacimli ${lead15 > 0 ? "yukarı" : "aşağı"} kırılım (RVOL ${(rvol5 as number).toFixed(2)}) — 15m belirsiz, bu mumda giriş yok; destek hacimli 5m kapanış + 15m ${arrow(lead15)} teyidi bekleniyor`);
+      pushAlert(b.time, "KADEME", "T5_TREND", sk, `${sk} hazırlığı · sert hacimli kırılım ${f2(c)} — ${hm(m + 5)} kapanışı ${f2((b.open + c) / 2)} ${lead15 > 0 ? "üstünde" : "altında"}, hacimli ve 15m ${arrow(lead15)} teyitli olursa giriş${fridayNote}`);
+    }
     let checklist: CheckItem[] = [];
     let setup: TrackSetup | null = null;
     armedNext = null;
@@ -859,7 +914,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const hit = (lv: number) => (d > 0 ? x.low <= lv + near && x.high >= lv - near : x.high >= lv - near && x.low <= lv + near);
         return (e != null && hit(e)) || (vw != null && hit(vw));
       });
-      const fresh = C.fresh === "any" || prevSide5 !== d || touched;
+      const fresh = C.fresh === "any" || prevSide5 !== d || touched || (C.fresh15Bars > 0 && side15 === d && i - side15Since < C.fresh15Bars);
       const confirmVC = mixed ? volD === d && candleD === d : volD === d || candleD === d;
       // belirsizlikte (hacim ve formasyon yön vermiyorsa): RVOL ≥ 1 VE RSI 15m yönü
       const tiebreak = !mixed && !confirmVC && volD !== -d && candleD !== -d && (rvol5 ?? 0) >= C.rvolConfirm && rsiD === d;
@@ -913,7 +968,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
         ev.push(`${s} tetiği oluştu ama 15m teyit zayıf (${weakWhat}) — ${C.confirmBars} adet aynı yönde 5m kapanış bekleniyor (her biri öncekinin ${d > 0 ? "üstünde" : "altında"} ve VWAP+EMA20 ${d > 0 ? "üstünde" : "altında"}); ilki ${hm(m + 5)} kapanışı ${f2(c)} ${d > 0 ? "üstünde" : "altında"}`);
         pushAlert(b.time, "KADEME", tag, s, `${s} tetiği · 15m teyit zayıf — ${C.confirmBars} aynı yönde 5m kapanış gelirse giriş (ilki ${hm(m + 5)}: ${f2(c)} ${d > 0 ? "üstünde" : "altında"})${fridayNote}`);
       }
-      if (!pos && (confirmed || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
+      const brkHit = !!brkOk && brkOk.side === d;
+      if (!pos && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
         const tp1 = r2(c + d * C.h1R * rPts);
@@ -934,7 +990,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const lowVol = rvol5 != null && r2(rvol5) < C.sizeLowRvol; // gösterilen (2 basamak) değerle karşılaştır
         const contracts = lowVol ? 1 : Math.min(C.sizeMax, C.sizeBase + pts);
         if (lowVol) momWhy.splice(0, momWhy.length, `düşük hacim (RVOL ${(rvol5 as number).toFixed(2)} < ${C.sizeLowRvol}) → 1 kontrat`);
-        const why = confirmed
+        const why = brkHit && brkOk
+          ? `${brkOk.clock} sert hacimli kırılım + destek hacimli 5m kapanış + 15m ${arrow(d)} teyidi · VWAP · EMA20`
+          : confirmed
           ? `${confirmed.clock} tetiği + ${C.confirmBars} aynı yönde 5m kapanış teyidi (15m zayıftı: ${confirmed.what}) · VWAP · EMA20`
           : [vSide === d && "VWAP", eSide === d && "EMA20", volD === d && "hacim", candleD === d && (pattern ?? "formasyon"), tiebreak && "RVOL+RSI teyidi"].filter(Boolean).join(" · ");
         const tagE: SetupTag = confirmed ? confirmed.tag : tag;
@@ -970,6 +1028,13 @@ export function trackerRead(inp: TrackInput): TrackRead {
         };
         if (armed) armedNext = { tag: "T5_TREND", side: s, trigger: r2(line), stop };
       }
+    }
+    if (brk && !pos && !setup) {
+      const k: Brk = brk;
+      const sk: Side = k.side > 0 ? "CALL" : "PUT";
+      checklist = [{ key: "brk", ok: false, price: true, text: `${k.clock} sert hacimli kırılım — sonraki 5m kapanış ${f2(k.mid)} ${k.side > 0 ? "üstünde" : "altında"} + hacimli (RVOL ≥ ${C.brkSupRvol}) + 15m ${arrow(k.side)} teyidi` }];
+      setup = { tag: "T5_TREND", side: sk, status: "ARMED", trigger: k.mid, triggerText: `5m kapanış ${f2(k.mid)} ${k.side > 0 ? "üstünde" : "altında"} (hacimli) + 15m ${arrow(k.side)} teyidi — sert hacimli kırılımın onayı`, stop: null, missing: [`destek hacimli 5m kapanış + 15m ${arrow(k.side)} teyidi`] };
+      armedNext = { tag: "T5_TREND", side: sk, trigger: k.mid, stop: null };
     }
     if (prevArmed && !entered && (!setup || setup.status !== "ARMED" || setup.side !== prevArmed.side)) {
       pushAlert(b.time, "İPTAL", prevArmed.tag, prevArmed.side, `İPTAL · ${prevArmed.side} hazırlığı kapanışta tutmadı`);
