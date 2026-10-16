@@ -1,35 +1,11 @@
 {
-  "generated_at": "2026-10-16T09:03:06.648919-04:00",
+  "generated_at": "2026-10-16T14:03:43.112574-04:00",
   "picks": [
-    {
-      "ticker": "FRPT",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-10-14",
-      "score": 45.0
-    },
-    {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-14",
-      "score": 46.5
-    },
     {
       "ticker": "CHEF",
       "sector": "Consumer Defensive",
       "date_added": "2026-10-14",
       "score": 46.0
-    },
-    {
-      "ticker": "WDAY",
-      "sector": "Technology",
-      "date_added": "2026-10-14",
-      "score": 40.0
-    },
-    {
-      "ticker": "W",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-14",
-      "score": 38.5
     },
     {
       "ticker": "ALLE",
@@ -38,52 +14,34 @@
       "score": 38.5
     },
     {
-      "ticker": "SOLV",
-      "sector": "Healthcare",
-      "date_added": "2026-10-14",
-      "score": 37.5
+      "ticker": "AVPT",
+      "sector": "Technology",
+      "date_added": "2026-10-16",
+      "score": 38.0
     },
     {
-      "ticker": "MHK",
+      "ticker": "SWKS",
+      "sector": "Technology",
+      "date_added": "2026-10-16",
+      "score": 36.5
+    },
+    {
+      "ticker": "NWG",
+      "sector": "Financial Services",
+      "date_added": "2026-10-16",
+      "score": 36.5
+    },
+    {
+      "ticker": "HUM",
+      "sector": "Healthcare",
+      "date_added": "2026-10-16",
+      "score": 34.0
+    },
+    {
+      "ticker": "CBRL",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-16",
-      "score": 47.5
-    },
-    {
-      "ticker": "ARCB",
-      "sector": "Industrials",
-      "date_added": "2026-10-16",
-      "score": 46.5
-    },
-    {
-      "ticker": "CVLT",
-      "sector": "Technology",
-      "date_added": "2026-10-16",
-      "score": 43.5
-    },
-    {
-      "ticker": "ZETA",
-      "sector": "Technology",
-      "date_added": "2026-10-16",
-      "score": 43.0
-    },
-    {
-      "ticker": "NTR",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-16",
-      "score": 42.5
-    },
-    {
-      "ticker": "DXCM",
-      "sector": "Healthcare",
-      "date_added": "2026-10-16",
-      "score": 39.5
-    },
-    {
-      "ticker": "CDW",
-      "sector": "Technology",
-      "date_added": "2026-10-16",
-      "score": 37.0
+      "score": 21.2
     }
   ]
 }
