@@ -56,6 +56,13 @@
  *     Kullanıcı kuralı (seçildi): belirsiz 15m'de kırılım mumunda giriş YOK; sert hacimli (RVOL ≥ 1,5) 5m kırılım → sonraki 5m kapanış
  *     kırılım mumunun ortasının ötesinde, VWAP+EMA20 doğru tarafında, hacimli (RVOL ≥ 1) VE 15m yön teyidi gelmişse giriş. 45 seans:
  *     159 işlem +22,0R değişmedi (3 eşleşme zaten aynı mumda açılıyordu), 16 Eki 11:15 PUT eklendi; 3 mum bekleme 160 +21,0R (seçilmedi).
+ *     v2.10 (16 Eki: 11:15 PUT'tan sonra VWAP+EMA20 altında süren düşüşte yeni giriş yok — "taze" yalnız hiza değişimi/geri çekilmeydi):
+ *     5m kapanış son 4 mumun dibinin altında/tepesinin üstündeyse (trend devamı kırılımı) tetik taze sayılır. 45 seans: 159 → 202 işlem,
+ *     +22,0R → +28,6R, kontrat-ağırlıklı 41,7 → 72,4, 3 dönem −4,9/30,6/3,0. 16 Eki: 11:15, 11:25, 12:00, 12:50 PUT.
+ *     Seçilmeyen: taşınan stopu 5m kapanışta tetiklemek (18,4R — fitil stopu daha iyi), 2/3/5 mum pencere (26,7/27,6/24,4R).
+ *     Giriş SL'i (kullanıcı: "dibinden/tepesinden tampon koyarak"): son 2 mumun dibi/tepesi + 0,1 ATR15 tampon → 174 işlem +25,3R,
+ *     kontrat-ağırlıklı 70,6, 3 dönem −0,1/23,5/1,8 (tamponsuz +28,6R ama ilk dönem −4,9). Daha geniş: 2 mum+0,25 16,7R · 3 mum+0,1 11,2R ·
+ *     4 mum+0,25 3,8R · 6 mum+0,25 −0,6R (seçilmedi).
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -74,7 +81,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.9";
+export const TRACK_VERSION = "2.10";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -93,6 +100,10 @@ export const TRACK_CFG = {
   /** stop: "bar" = son 2 mumun ucu · "line" = VWAP/EMA20'nin (hangisi uzaksa) ötesi */
   stopMode: "bar" as "bar" | "line",
   stopPad: 0.03,
+  /** giriş stopu: son N 5m mumun dibi (CALL) / tepesi (PUT) */
+  stopBars: 2,
+  /** dip/tepeye eklenen tampon (ATR15 x) — 15m izleyen stoptaki tamponla aynı mantık · 0 = yalnız stopPad */
+  stopBufAtr15: 0.1,
   /** çok dar stop tabanı: ATR5 × k ya da sabit puan (büyük olanı) */
   minStopAtr5: 0.5,
   minStopPts: 0.3,
@@ -101,6 +112,8 @@ export const TRACK_CFG = {
   /** "half15" (kullanıcı yöntemi): 2 kontrat · 1R'de yarısı kapanır, stop girişe · sonra her 15m kapanışında stop son 15m mumun
    *  dibi (PUT'ta tepesi) ∓ tampon'a taşınır (yalnız sıkılaşır) · kalan yarı stop olana kadar taşınır */
   trailBufAtr15: 0.25,
+  /** taşınan yarının 15m izleyen stopu fitilde değil 5m KAPANIŞTA tetiklenir (girişteki başabaş stop fitilde kalır) */
+  trailOnClose: false,
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
@@ -146,6 +159,8 @@ export const TRACK_CFG = {
   brkBars: 1,
   /** 15m yön yeni belirlendiyse (son N 5m mum içinde) 5m hizası eskiden kalsa da tetik "taze" sayılır · 0 = kapalı */
   fresh15Bars: 0,
+  /** trend devamı: 5m kapanış son N mumun dibinin altında / tepesinin üstündeyse (yeni kırılım) tetik taze sayılır · 0 = kapalı */
+  freshBreakBars: 4,
   h1R: 1,
   h2R: 2,
   /** 0 = kapalı (ölçüm: 30 dk zaman stopu kazanan işlemleri erken kesiyordu, +19,8R → −1,4R) */
@@ -809,7 +824,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       };
       if (C.exitMode === "half15" && p.h1Hit) {
         // kalan yarı: stop (giriş ya da son 15m dip/tepe izi) olana kadar taşı
-        if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, p.stop === p.entry ? "H1_BE" : "TRAIL_15M");
+        if (C.trailOnClose && p.stop !== p.entry ? d * (c - p.stop) <= 0 : d > 0 ? b.low <= p.stop : b.high >= p.stop) close(C.trailOnClose && p.stop !== p.entry ? c : p.stop, p.stop === p.entry ? "H1_BE" : "TRAIL_15M");
         else if (C.runnerFlip && side15 === -d) close(c, "TREND_FLIP");
         else if (is15 && b15 && today15) {
           const buf = (atr15 ?? (atr5 ? atr5 * 1.7 : 0.3)) * C.trailBufAtr15;
@@ -914,7 +929,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const hit = (lv: number) => (d > 0 ? x.low <= lv + near && x.high >= lv - near : x.high >= lv - near && x.low <= lv + near);
         return (e != null && hit(e)) || (vw != null && hit(vw));
       });
-      const fresh = C.fresh === "any" || prevSide5 !== d || touched || (C.fresh15Bars > 0 && side15 === d && i - side15Since < C.fresh15Bars);
+      const priorN = C.freshBreakBars > 0 && i >= C.freshBreakBars ? today.slice(i - C.freshBreakBars, i) : [];
+      const brokeOut = priorN.length > 0 && (d > 0 ? c > Math.max(...priorN.map((x) => x.high)) : c < Math.min(...priorN.map((x) => x.low)));
+      const fresh = C.fresh === "any" || prevSide5 !== d || touched || brokeOut || (C.fresh15Bars > 0 && side15 === d && i - side15Since < C.fresh15Bars);
       const confirmVC = mixed ? volD === d && candleD === d : volD === d || candleD === d;
       // belirsizlikte (hacim ve formasyon yön vermiyorsa): RVOL ≥ 1 VE RSI 15m yönü
       const tiebreak = !mixed && !confirmVC && volD !== -d && candleD !== -d && (rvol5 ?? 0) >= C.rvolConfirm && rsiD === d;
@@ -954,9 +971,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
         }
       }
       // stop
-      const two = today.slice(Math.max(0, i - 1), i + 1);
+      const two = today.slice(Math.max(0, i - C.stopBars + 1), i + 1);
       let stop = C.stopMode === "bar"
-        ? (d > 0 ? Math.min(...two.map((x) => x.low)) : Math.max(...two.map((x) => x.high))) - d * C.stopPad
+        ? (d > 0 ? Math.min(...two.map((x) => x.low)) : Math.max(...two.map((x) => x.high))) - d * (C.stopPad + (C.stopBufAtr15 > 0 ? (atr15 ?? (atr5 ? atr5 * 1.7 : 0.3)) * C.stopBufAtr15 : 0))
         : (d > 0 ? Math.min(vwap ?? c, ema5 ?? c) : Math.max(vwap ?? c, ema5 ?? c)) - d * C.stopPad;
       const minStop = Math.max(atr5 ? C.minStopAtr5 * atr5 : 0.1, C.minStopPts);
       if (d * (c - stop) < minStop) stop = c - d * minStop;
