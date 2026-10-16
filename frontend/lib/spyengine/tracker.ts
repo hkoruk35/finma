@@ -65,6 +65,10 @@
  *     4 mum+0,25 3,8R · 6 mum+0,25 −0,6R (seçilmedi).
  *     16 Eki 13:20 (kullanıcı: "5m mumlar yukarı yönlüydü"): önceki 5m mum ters yönde formasyon verdiyse kırılım taze sayılmaz →
  *     173 işlem +25,8R, kontrat-ağırlıklı 72,4 (önce 174 / +25,3R / 70,6). Kırılıma hacim şartı 17,2R, hacim+formasyon 20,7R (seçilmedi).
+ *     v2.12 5m EMA20×VWAP kesişmesi (45 seans, 47 kesişme ≈ 1,1/gün): kesişme ANI yön vermiyor (30 dk %47, 60 dk %49 — gecikmeli), ama
+ *     rejim kalıcı: ort. 30 mum sürüyor, %74'ü ≥ 1 saat (15m yönüyle aynıysa 34 mum, %83). Rejim yönündeki girişe +1 kontrat (öncelik):
+ *     R aynı (+25,8), kontrat-ağırlıklı 72,4 → 75,9. Seçilmeyen: yalnız rejim yönünde giriş 127 işlem +12,2R · rejimde taşınan yarıyı
+ *     EMA20 kapanışıyla taşımak 24,3R / +0,25 ATR5 23,7R / +0,5 ATR5 23,5R (15m izleyen stop daha iyi; runnerEma kapalı).
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -83,7 +87,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.11";
+export const TRACK_VERSION = "2.12";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -116,6 +120,12 @@ export const TRACK_CFG = {
   trailBufAtr15: 0.25,
   /** taşınan yarının 15m izleyen stopu fitilde değil 5m KAPANIŞTA tetiklenir (girişteki başabaş stop fitilde kalır) */
   trailOnClose: false,
+  /** 5m EMA20–VWAP rejimi (EMA20 VWAP'ın altında = aşağı trend) sürerken taşınan yarı 15m izleyen stopla değil,
+   *  5m kapanış EMA20'nin ters tarafına (± runnerEmaBufAtr5 · ATR5) geçince kapanır; rejim bitince 15m izleyen stopa döner */
+  runnerEma: false,
+  runnerEmaBufAtr5: 0,
+  /** giriş önceliği: "off" · "require" = yalnız rejim yönünde giriş · "size" = rejim yönündeki girişe +1 kontrat */
+  regimeEntry: "size" as "off" | "require" | "size",
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
@@ -832,7 +842,19 @@ export function trackerRead(inp: TrackInput): TrackRead {
         exited = p;
         out = true;
       };
-      if (C.exitMode === "half15" && p.h1Hit) {
+      const regimeOn = ema5 != null && vwap != null && d * (ema5 - vwap) > 0;
+      if (C.exitMode === "half15" && p.h1Hit && C.runnerEma && regimeOn) {
+        // EMA20–VWAP rejimi sürüyor: düzeltmeler EMA20'de karşılanır — çıkış yalnız 5m kapanış EMA20'nin ters tarafında (ya da başabaş stop)
+        const lim = (ema5 as number) + d * (atr5 ?? 0) * C.runnerEmaBufAtr5;
+        if (p.stop === p.entry && (d > 0 ? b.low <= p.stop : b.high >= p.stop)) close(p.stop, "H1_BE");
+        else if (d * (c - lim) < 0) close(c, "EMA_EXIT");
+        else if (is15 && b15 && today15) {
+          const buf = (atr15 ?? (atr5 ? atr5 * 1.7 : 0.3)) * C.trailBufAtr15;
+          const ns = r2(d > 0 ? b15.low - buf : b15.high + buf);
+          // 15m izi kayıt olarak güncellenir (rejim biterse devreye girer)
+          if (d * (ns - p.stop) > 0 && d * (c - ns) > 0) p.stop = ns;
+        }
+      } else if (C.exitMode === "half15" && p.h1Hit) {
         // kalan yarı: stop (giriş ya da son 15m dip/tepe izi) olana kadar taşı
         if (C.trailOnClose && p.stop !== p.entry ? d * (c - p.stop) <= 0 : d > 0 ? b.low <= p.stop : b.high >= p.stop) close(C.trailOnClose && p.stop !== p.entry ? c : p.stop, p.stop === p.entry ? "H1_BE" : "TRAIL_15M");
         else if (C.runnerFlip && side15 === -d) close(c, "TREND_FLIP");
@@ -956,7 +978,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
         ...(confirmVC ? [] : [{ key: "tiebreak", ok: tiebreak, text: `belirsizlik teyidi: RVOL ≥ ${C.rvolConfirm} (${rvol5 != null ? rvol5.toFixed(2) : "—"}) + RSI 15m ${d > 0 ? "yukarı" : "aşağı"} (${rsi15 != null ? rsi15.toFixed(0) : "—"})` }]),
         { key: "fresh", ok: fresh, text: "taze tetik: 5m hizası bu mumda oluştu ya da EMA20/VWAP'a geri çekilme sonrası" },
       ];
-      const allOk = vSide === d && eSide === d && (confirmVC || tiebreak) && fresh;
+      const regimeD: D = ema5 != null && vwap != null ? (ema5 > vwap ? 1 : ema5 < vwap ? -1 : 0) : 0;
+      const allOk = vSide === d && eSide === d && (confirmVC || tiebreak) && fresh && (C.regimeEntry !== "require" || regimeD === d);
       const tag: SetupTag = touched && prevSide5 === d ? "T5_PB" : "T5_TREND";
       // zayıf 15m teyidi: 15m kapanış VWAP/EMA20'nin doğru tarafında ama mumun kendisi yöne ters (16 Eki 09:45: kırmızı 15m mumla CALL)
       const weak15 = C.weak15Confirm && today15 && !!b15 && (() => {
@@ -1013,8 +1036,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
           impulse: atr5 != null && d * impulse >= C.sizeImpulse,
           ext: newExt === d,
         };
-        const momWhy = [momF.both && "hacim + formasyon birlikte", momF.rvol && `RVOL ${rvol5 != null ? rvol5.toFixed(1) : ""}`, momF.runner && "aynı yönde kârdaki taşınan pozisyon", momF.impulse && "30 dk itki güçlü", momF.ext && `gün içi yeni ${d > 0 ? "tepe" : "dip"}`].filter(Boolean) as string[];
-        const pts = C.sizeFactors.reduce((a, k) => a + (momF[k as keyof typeof momF] ? 1 : 0), 0);
+        const momWhy = [momF.both && "hacim + formasyon birlikte", momF.rvol && `RVOL ${rvol5 != null ? rvol5.toFixed(1) : ""}`, momF.runner && "aynı yönde kârdaki taşınan pozisyon", momF.impulse && "30 dk itki güçlü", momF.ext && `gün içi yeni ${d > 0 ? "tepe" : "dip"}`, C.regimeEntry === "size" && regimeD === d && `5m EMA20 VWAP'ın ${d > 0 ? "üstünde" : "altında"} (trend rejimi)`].filter(Boolean) as string[];
+        const pts = C.sizeFactors.reduce((a, k) => a + (momF[k as keyof typeof momF] ? 1 : 0), 0) + (C.regimeEntry === "size" && regimeD === d ? 1 : 0);
         // düşük hacim → 1 kontrat; normal hacimde taban 2, her momentum işareti +1 (en çok 4)
         const lowVol = rvol5 != null && r2(rvol5) < C.sizeLowRvol; // gösterilen (2 basamak) değerle karşılaştır
         const contracts = lowVol ? 1 : Math.min(C.sizeMax, C.sizeBase + pts);
