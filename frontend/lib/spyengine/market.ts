@@ -490,6 +490,44 @@ export async function fetchStripQuotes(): Promise<TickerQuote[]> {
   return cached("strip", TTL.quotes, async () => Promise.all(STRIP_SYMBOLS.map(quoteOne)));
 }
 
+/**
+ * SPY Engine "SPY Piyasa Takibi" (2026-10-15): SPY gün içi işlemcisinin izlemesi gereken semboller, gruplu ve
+ * Türkçe açıklamalı. QQQ Engine eski şeridi (STRIP_SYMBOLS) kullanmaya devam eder.
+ */
+export const SPY_WATCH_SYMBOLS: { group: string; label: string; symbol: string; name: string }[] = [
+  { group: "spy", label: "SPY", symbol: "SPY", name: "S&P 500 ETF — işlem yaptığımız" },
+  { group: "spy", label: "SPX", symbol: "^GSPC", name: "S&P 500 Endeksi" },
+  { group: "spy", label: "ES", symbol: "ES=F", name: "S&P 500 Vadeli (gece de açık)" },
+  { group: "spy", label: "RSP", symbol: "RSP", name: "S&P 500 Eşit Ağırlık (genişlik)" },
+  { group: "risk", label: "VIX", symbol: "^VIX", name: "Korku Endeksi (30 gün)" },
+  { group: "risk", label: "VIX9D", symbol: "^VIX9D", name: "Kısa Vade Korku (9 gün)" },
+  { group: "risk", label: "TNX", symbol: "^TNX", name: "ABD 10 Yıllık Faiz" },
+  { group: "risk", label: "DXY", symbol: "DX-Y.NYB", name: "Dolar Endeksi" },
+  { group: "idx", label: "QQQ", symbol: "QQQ", name: "Nasdaq 100 ETF (teknoloji)" },
+  { group: "idx", label: "NQ", symbol: "NQ=F", name: "Nasdaq 100 Vadeli" },
+  { group: "idx", label: "IWM", symbol: "IWM", name: "Russell 2000 (küçük şirketler)" },
+  { group: "idx", label: "DIA", symbol: "DIA", name: "Dow Jones ETF" },
+  { group: "sector", label: "XLK", symbol: "XLK", name: "Teknoloji Sektörü" },
+  { group: "sector", label: "SMH", symbol: "SMH", name: "Yarı İletken" },
+  { group: "sector", label: "XLF", symbol: "XLF", name: "Finans Sektörü" },
+  { group: "sector", label: "XLY", symbol: "XLY", name: "Tüketici (lüks/isteğe bağlı)" },
+  { group: "sector", label: "XLV", symbol: "XLV", name: "Sağlık Sektörü" },
+  { group: "sector", label: "XLE", symbol: "XLE", name: "Enerji Sektörü" },
+  { group: "lead", label: "NVDA", symbol: "NVDA", name: "NVIDIA" },
+  { group: "lead", label: "MSFT", symbol: "MSFT", name: "Microsoft" },
+  { group: "lead", label: "AAPL", symbol: "AAPL", name: "Apple" },
+  { group: "lead", label: "AMZN", symbol: "AMZN", name: "Amazon" },
+  { group: "lead", label: "GOOGL", symbol: "GOOGL", name: "Alphabet (Google)" },
+  { group: "lead", label: "META", symbol: "META", name: "Meta (Facebook)" },
+  { group: "lead", label: "AVGO", symbol: "AVGO", name: "Broadcom" },
+];
+
+export async function fetchSpyWatchQuotes(): Promise<(TickerQuote & { group: string })[]> {
+  return cached("spywatch", TTL.quotes, async () =>
+    Promise.all(SPY_WATCH_SYMBOLS.map(async (e) => ({ ...(await quoteOne(e)), group: e.group }))),
+  );
+}
+
 // ── 0DTE opsiyon primi ────────────────────────────────────────────
 
 export interface OptionSeries {

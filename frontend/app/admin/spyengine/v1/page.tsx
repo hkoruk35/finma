@@ -20,13 +20,14 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel } from "@/lib/spyengine/mtfPivots";
 import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
+import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
 import { trackerRead, trackPrewarn, FC_RULES, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import {
-  TickerStrip, InfoCards, PhaseBadge, SURFACE, num, signed, tone,
-  type StripQuote, type SpotStats,
+  PhaseBadge, SURFACE, num, signed, tone,
+  type SpotStats,
 } from "@/components/admin/spyengine/panels";
 import {
   fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum,
@@ -757,7 +758,7 @@ export default function SpyEngineV9() {
     return () => { cancelled = true; clearInterval(id); };
   }, []);
 
-  const [quotes, setQuotes] = useState<StripQuote[]>([]);
+  const [quotes, setQuotes] = useState<WatchQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
   /** Açılış tahmini (04:00 → 09:30): ES fair value, 60 sn'de bir */
   const [openFc, setOpenFc] = useState<OpenForecastRead | null>(null);
@@ -838,7 +839,7 @@ export default function SpyEngineV9() {
     let cancelled = false;
     const load = async () => {
       try {
-        const res = await fetch("/api/admin/spyengine/v2/quotes", { credentials: "include", cache: "no-store" });
+        const res = await fetch("/api/admin/spyengine/v2/quotes?set=spy", { credentials: "include", cache: "no-store" });
         const json = await res.json();
         if (cancelled || !json.ok) return;
         setQuotes(json.quotes || []);
@@ -1284,7 +1285,7 @@ export default function SpyEngineV9() {
               showTickers ? "border-sky-500/60 bg-sky-500/15 text-sky-300 font-bold" : "border-sky-500/60 bg-sky-500/15 text-sky-300 font-bold hover:bg-sky-500/30"
             }`}
           >
-            Tickerlar: {showTickers ? "gizle" : "göster"}
+            Piyasa takibi: {showTickers ? "gizle" : "göster"}
           </button>
         </div>
       </header>
@@ -1326,13 +1327,8 @@ export default function SpyEngineV9() {
           <div className="animate-pulse rounded-lg border-2 border-[#eab308] bg-[#eab308]/10 px-4 py-1.5 text-[14px] font-bold text-[#facc15]">⚡ {prewarn.text}</div>
         )}
 
-        {/* Tickerlar — varsayılan gizli */}
-        {showTickers && (
-          <div className="flex flex-col gap-1 rounded border border-[#1c2635] p-1">
-            <TickerStrip quotes={quotes} updatedAt={quotesAt} />
-            <InfoCards spot={data?.spot ?? null} lastFetch={lastFetch} phase={data?.session.phase ?? "CLOSED"} />
-          </div>
-        )}
+        {/* SPY Piyasa Takibi — varsayılan gizli (bilgi; karar üst bantta) */}
+        {showTickers && <SpyMarketWatch quotes={quotes} updatedAt={quotesAt} spot={data?.spot ?? null} phase={data?.session.phase ?? "CLOSED"} />}
 
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
         {!replayDate && <Hideable title="Açılış Tahmini" open={showOpenFc} onToggle={() => setShowOpenFc((v) => !v)}><OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} /></Hideable>}

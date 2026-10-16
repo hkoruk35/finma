@@ -11,7 +11,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { isEngineAuthed } from "@/lib/apiAuth";
-import { fetchStripQuotes } from "@/lib/spyengine/market";
+import { fetchSpyWatchQuotes, fetchStripQuotes } from "@/lib/spyengine/market";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +23,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   }
   try {
-    const quotes = await fetchStripQuotes();
+    // ?set=spy → SPY Engine'in gruplu, Türkçe açıklamalı SPY takip listesi; varsayılan eski şerit (QQQ Engine)
+    const quotes = req.nextUrl.searchParams.get("set") === "spy" ? await fetchSpyWatchQuotes() : await fetchStripQuotes();
     return NextResponse.json(
       { ok: true, serverTime: Math.floor(Date.now() / 1000), quotes },
       { headers: { "Cache-Control": "no-store, max-age=0" } }
