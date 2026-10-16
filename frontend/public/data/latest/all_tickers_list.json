@@ -5,23 +5,23 @@
       "ticker": "ACIW",
       "company": "ACIW",
       "sector": "Technology",
-      "master_score": 60.0,
+      "master_score": 64.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 52.54999923706055,
-      "change_pct": 2.9,
+      "price": 52.79999923706055,
+      "change_pct": 0.48,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 64.0 | System: TREND_CONT"
     },
     {
       "ticker": "SHW",
       "company": "SHW",
       "sector": "Basic Materials",
-      "master_score": 57.0,
+      "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 336.9200134277344,
-      "change_pct": 3.81,
+      "price": 335.20001220703125,
+      "change_pct": -0.51,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.0 | System: EMA_CROSS"
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
     },
     {
       "ticker": "MGA",
@@ -62,8 +62,8 @@
       "sector": "Consumer Cyclical",
       "master_score": 52.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 223.22999572753906,
-      "change_pct": 1.95,
+      "price": 222.72000122070312,
+      "change_pct": -0.23,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
     },
@@ -220,6 +220,83 @@
       "change_pct": -1.31,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 40.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "IT",
+      "company": "IT",
+      "sector": "Technology",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 205.35000610351562,
+      "change_pct": -0.95,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "VRSK",
+      "company": "VRSK",
+      "sector": "Industrials",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 190.89999389648438,
+      "change_pct": 1.91,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SIRI",
+      "company": "SIRI",
+      "sector": "Communication Services",
+      "master_score": 49.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 26.969999313354492,
+      "change_pct": -0.66,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "AEM",
+      "company": "AEM",
+      "sector": "Basic Materials",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 189.52999877929688,
+      "change_pct": 1.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EQNR",
+      "company": "EQNR",
+      "sector": "Energy",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 46.97999954223633,
+      "change_pct": 4.59,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "KNSL",
+      "company": "KNSL",
+      "sector": "Financial Services",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 365.239990234375,
+      "change_pct": 2.17,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "VTRS",
+      "company": "VTRS",
+      "sector": "Healthcare",
+      "master_score": 45.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 18.655000686645508,
+      "change_pct": 2.39,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
     }
   ]
 }

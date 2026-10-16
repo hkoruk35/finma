@@ -1,8 +1,8 @@
 {
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T14:03:42.449937-04:00",
+  "generated_at": "2026-10-16T17:01:57.866886-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 27,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -21,12 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 7,
       "tickers": [
         "HOG",
         "CAKE",
         "SNAP",
-        "CNQ"
+        "CNQ",
+        "AEM",
+        "EQNR",
+        "VTRS"
       ]
     },
     "value": {
@@ -49,12 +52,12 @@
   "top_3_overall": [
     {
       "ticker": "ACIW",
-      "score": 60.0,
+      "score": 64.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "SHW",
-      "score": 57.0,
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
