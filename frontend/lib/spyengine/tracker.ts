@@ -69,6 +69,10 @@
  *     rejim kalıcı: ort. 30 mum sürüyor, %74'ü ≥ 1 saat (15m yönüyle aynıysa 34 mum, %83). Rejim yönündeki girişe +1 kontrat (öncelik):
  *     R aynı (+25,8), kontrat-ağırlıklı 72,4 → 75,9. Seçilmeyen: yalnız rejim yönünde giriş 127 işlem +12,2R · rejimde taşınan yarıyı
  *     EMA20 kapanışıyla taşımak 24,3R / +0,25 ATR5 23,7R / +0,5 ATR5 23,5R (15m izleyen stop daha iyi; runnerEma kapalı).
+ *     v2.13 giriş mumu kapanış konumu (kullanıcı onayı): giriş mumu aralığının yön ucundaki %30'unda kapanmalı (PUT dibe, CALL tepeye
+ *     yakın; kapanış yine 5m mum kapanışında). 45 seans: 173 işlem +25,8R → 151 işlem %58 +37,5R, 3 dönem 2,4/29,4/5,7, kontrat-ağırlıklı
+ *     76 → 117. Trend günlerinde kapatmak (sonradan bilinse bile) daha kötü: 34,0R; anlık "açılıştan ≥0,3/0,5 ATR" istisnası 31,5/34,3R.
+ *     %40: 36,3R · %20: 37,7R (134 işlem). 1m tetik filtreleri (22 seans) belirgin katkı vermedi.
  *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
  *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
@@ -87,7 +91,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.12";
+export const TRACK_VERSION = "2.13";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -127,7 +131,7 @@ export const TRACK_CFG = {
   /** giriş önceliği: "off" · "require" = yalnız rejim yönünde giriş · "size" = rejim yönündeki girişe +1 kontrat */
   regimeEntry: "size" as "off" | "require" | "size",
   /** giriş mumu kapanışı yön ucuna yakın olmalı: CALL closePos ≥ bu, PUT ≤ 100 − bu (0–100) · 0 = kapalı */
-  entryClosePos: 0,
+  entryClosePos: 70,
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
