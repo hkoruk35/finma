@@ -35,6 +35,19 @@
  *   • v2.4 (kullanıcı kuralı): düşük hacimli sinyal (RVOL 5m < 0,7) → 1 kontrat; diğer kademeler aynı (2 taban, momentum işaretiyle 3–4).
  *     45 seans: RVOL < 0,7 olan 40 işlemin ortalaması ≈ 0R (−0,05 / −0,01R) — risk küçültmesi; kontrat ağırlıklı toplam 69,6 → 58,0
  *     (bu işlemlerin bir kısmı fiyat momentumu nedeniyle 3–4 kontrattı). Giriş/çıkış kuralları ve işlem listesi değişmedi.
+ *   • v2.5 (16 Eki 09:45 CALL, 3 kontrat, stop): 15m kapanış VWAP+EMA20 üstünde ama 15m mumun kendisi kırmızıydı; açılışın doğal
+ *     yüksek hacmi (RVOL 3,9) momentum sayıldı. Ölçüm (45 seans): zayıf 15m teyitli girişler (mum yöne ters renkte ya da aralığın ters
+ *     yarısında kapanış) 57 işlem ≈ 0R. Kullanıcı kararı (v2.6): zayıf 15m teyidinde tetik mumunda GİRİLMEZ; bir sonraki 5m mum
+ *     VWAP+EMA20'nin doğru tarafında ve tetik mumunun kapanışının ötesinde kapanırsa girilir, kapanmazsa tetik iptal (sonuç: bkz. v2.6 notu).
+ *     v2.6 ölçüm (45 seans): işlem 188 → 166, kontrat başı +20,5R → +22,9R (yarılar −7,5/+28,1 → −2,0/+25,0), kazanç %53 → %55;
+ *     teyitle giren 23 işlem %61 +6,3R. Teyit mumuna gövde şartı (≥%30–50) eklemek iyileştirmedi (+19,9…+23,4R, örnek az) → yalnız kapanış.
+ *     16 Eki: 09:45 tetiği beklemeye alındı, 09:50 kapanışı 772,26 (> 772,20) teyit etti, 2 kontrat, 09:55 stop (−1R) — teyit zayıf bir mumdu.
+ *     v2.7 (kullanıcı: "2 aynı yönde 5m kapanış olmadan tetikleme yapmasın"): zayıf 15m teyidinde tetikten sonra 2 adet aynı yönde
+ *     5m kapanış (her biri öncekinin ötesinde + VWAP+EMA20 doğru tarafı) beklenir. 45 seans, 3 dönem: eski hemen-gir 188 işlem +20,5R
+ *     (−8,1/22,0/6,6) · 1 teyit 166 +22,9R (−5,8/24,8/4,0) · 2 teyit 165 +21,8R (−2,2/21,9/2,1) SEÇİLDİ · her tetikte 1 teyit 115 +3,6R ·
+ *     her tetikte 2 teyit 63 işlem %57 +12,5R (4,5/6,2/1,8 — en istikrarlı ama 1,4 işlem/gün). 16 Eki: 2 teyitte işlem yok (09:55 düştü).
+ *     Denenip seçilmeyen: girişi 09:50'ye/10:00'a ertelemek (+20,5R → +6,4R / 0R — 09:45 girişleri 16 işlem %63 +13R, en iyi kısım),
+ *     10:00 öncesi en çok 2 kontrat (56,4 → 46,2), açılışta RVOL işaretini saymamak (≈ aynı, 55,9).
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
  *     H1 1,5R: %47 +15,2R · "her hizalı mum" (taze değil): 257 işlem %52 +11,7R · stop VWAP/EMA ötesi: 117 işlem %57 +19,8R.
  *   • 15m teyidi yalnız VWAP: −8,5R; yalnız EMA20: +3,1R; ikisi birlikte en iyisi. RSI'yı ŞART yapmak işlem sayısını düşürüp kötüleştirdi
@@ -51,7 +64,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.4";
+export const TRACK_VERSION = "2.7";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -87,6 +100,16 @@ export const TRACK_CFG = {
   sizeMax: 4,
   /** düşük hacimli sinyal (RVOL 5m, medyan tabanlı, bu değerin altında) → yalnız 1 kontrat (kullanıcı kuralı, 2026-10-15) */
   sizeLowRvol: 0.7,
+  /** zayıf 15m teyidi (son 15m mum yöne ters renkte ya da aralığının ters yarısında kapandı): tetik mumunda girilmez,
+   *  bir sonraki 5m mum VWAP+EMA20'nin doğru tarafında VE tetik mumunun kapanışının ötesinde kapanırsa girilir; kapanmazsa iptal */
+  weak15Confirm: true,
+  /** teyit için gereken aynı yönde 5m kapanış sayısı (her biri öncekinin ötesinde + VWAP+EMA20 doğru tarafında) */
+  confirmBars: 2,
+  /** true: teyit her tetikte aranır · false: yalnız zayıf 15m teyidinde */
+  confirmAll: false,
+  /** teyit mumu gerçek yön mumu olmalı: gövde ≥ %confirmBody ve kapanış yön tarafında (aralığın ≥ %confirmClosePos'i); 0 = yalnız kapanış */
+  confirmBody: 0,
+  confirmClosePos: 0,
   sizeRvol: 1.5,
   sizeImpulse: 2,
   sizeFactors: ["both", "rvol", "runner", "impulse", "ext"] as string[],
@@ -576,6 +599,9 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let dayClass: DayClass | null = null;
   const trades: TrackTrade[] = [];
   let pos: TrackTrade | null = null;
+  /** zayıf 15m teyidinde bekleyen tetik (bir 5m kapanış teyidi aranıyor) */
+  type PendingWeak = { side: D; close: number; clock: string; tag: SetupTag; what: string; left: number };
+  let pendingWeak: PendingWeak | null = null;
   const runners: TrackTrade[] = [];
   let armedNext: TrackRead["armed"] = null;
   let prevArmed: { tag: SetupTag; side: Side } | null = null;
@@ -837,6 +863,30 @@ export function trackerRead(inp: TrackInput): TrackRead {
       ];
       const allOk = vSide === d && eSide === d && (confirmVC || tiebreak) && fresh;
       const tag: SetupTag = touched && prevSide5 === d ? "T5_PB" : "T5_TREND";
+      // zayıf 15m teyidi: 15m kapanış VWAP/EMA20'nin doğru tarafında ama mumun kendisi yöne ters (16 Eki 09:45: kırmızı 15m mumla CALL)
+      const weak15 = C.weak15Confirm && today15 && !!b15 && (() => {
+        const rng = b15.high - b15.low;
+        const colorAgainst = d * (b15.close - b15.open) < 0;
+        const halfAgainst = rng > 0 && (d > 0 ? (b15.close - b15.low) / rng : (b15.high - b15.close) / rng) < 0.5;
+        return colorAgainst || halfAgainst;
+      })();
+      const weakWhat = b15 && weak15 ? `15m mum ${d * (b15.close - b15.open) < 0 ? (d > 0 ? "kırmızı" : "yeşil") : "aralığının ters yarısında"} kapandı` : "";
+      // bekleyen zayıf-teyit tetiği: bu 5m kapanış onaylıyor mu?
+      let confirmed: { tag: SetupTag; clock: string; what: string } | null = null;
+      if (pendingWeak) {
+        const pw: PendingWeak = pendingWeak;
+        pendingWeak = null;
+        const dirBar = d * (c - b.open) > 0 && cd.body >= C.confirmBody && (d > 0 ? cd.closePos : 100 - cd.closePos) >= C.confirmClosePos;
+        const ok = !pos && pw.side === d && vSide === d && eSide === d && d * (c - pw.close) > 0 && (C.confirmBody === 0 || dirBar);
+        if (ok && pw.left <= 1) confirmed = { tag: pw.tag, clock: pw.clock, what: pw.what };
+        else if (ok) {
+          pendingWeak = { ...pw, close: r2(c), left: pw.left - 1 };
+          ev.push(`${pw.clock} tetiği: 5m kapanış teyidi ${C.confirmBars - pw.left + 1}/${C.confirmBars} — bir kapanış daha bekleniyor`);
+        } else if (!pos) {
+          ev.push(`${pw.clock} tetiğinin 5m kapanış teyidi gelmedi — iptal`);
+          pushAlert(b.time, "İPTAL", pw.tag, d > 0 ? "CALL" : "PUT", `İPTAL · ${pw.clock} tetiği teyit edilmedi (15m zayıftı; ${C.confirmBars - pw.left + 1}. teyit kapanışı ${f2(c)} onaylamadı)`);
+        }
+      }
       // stop
       const two = today.slice(Math.max(0, i - 1), i + 1);
       let stop = C.stopMode === "bar"
@@ -845,7 +895,14 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const minStop = Math.max(atr5 ? C.minStopAtr5 * atr5 : 0.1, C.minStopPts);
       if (d * (c - stop) < minStop) stop = c - d * minStop;
       stop = r2(stop);
-      if (!pos && allOk && trades.length < C.maxTrades && !exited) {
+      // zayıf 15m teyidinde tetik mumunda girme: bir sonraki 5m kapanış teyidini bekle
+      const needConfirm = weak15 || C.confirmAll;
+      if (!pos && !confirmed && !pendingWeak && allOk && needConfirm && trades.length < C.maxTrades && !exited && m + 5 <= C.lastEntry) {
+        pendingWeak = { side: d, close: r2(c), clock: nyClock(T), tag, what: weak15 ? weakWhat : "teyit kuralı", left: C.confirmBars };
+        ev.push(`${s} tetiği oluştu ama 15m teyit zayıf (${weakWhat}) — ${C.confirmBars} adet aynı yönde 5m kapanış bekleniyor (her biri öncekinin ${d > 0 ? "üstünde" : "altında"} ve VWAP+EMA20 ${d > 0 ? "üstünde" : "altında"}); ilki ${hm(m + 5)} kapanışı ${f2(c)} ${d > 0 ? "üstünde" : "altında"}`);
+        pushAlert(b.time, "KADEME", tag, s, `${s} tetiği · 15m teyit zayıf — ${C.confirmBars} aynı yönde 5m kapanış gelirse giriş (ilki ${hm(m + 5)}: ${f2(c)} ${d > 0 ? "üstünde" : "altında"})`);
+      }
+      if (!pos && (confirmed || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
         const tp1 = r2(c + d * C.h1R * rPts);
@@ -866,9 +923,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const lowVol = rvol5 != null && r2(rvol5) < C.sizeLowRvol; // gösterilen (2 basamak) değerle karşılaştır
         const contracts = lowVol ? 1 : Math.min(C.sizeMax, C.sizeBase + pts);
         if (lowVol) momWhy.splice(0, momWhy.length, `düşük hacim (RVOL ${(rvol5 as number).toFixed(2)} < ${C.sizeLowRvol}) → 1 kontrat`);
-        const why = [vSide === d && "VWAP", eSide === d && "EMA20", volD === d && "hacim", candleD === d && (pattern ?? "formasyon"), tiebreak && "RVOL+RSI teyidi"].filter(Boolean).join(" · ");
+        const why = confirmed
+          ? `${confirmed.clock} tetiği + ${C.confirmBars} aynı yönde 5m kapanış teyidi (15m zayıftı: ${confirmed.what}) · VWAP · EMA20`
+          : [vSide === d && "VWAP", eSide === d && "EMA20", volD === d && "hacim", candleD === d && (pattern ?? "formasyon"), tiebreak && "RVOL+RSI teyidi"].filter(Boolean).join(" · ");
+        const tagE: SetupTag = confirmed ? confirmed.tag : tag;
         const tr: TrackTrade = {
-          id: `${date}-${nyClock(T).replace(":", "")}-${tag}`, tag, reentry: trades.length > 0, side: s, stage: "TAKİP",
+          id: `${date}-${nyClock(T).replace(":", "")}-${tagE}`, tag: tagE, reentry: trades.length > 0, side: s, stage: "TAKİP",
           entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: warns.length ? "half" : "full", confirm10: null, contracts, momWhy, momF,
           strike: strikeHint(s, c), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
           barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
@@ -876,13 +936,18 @@ export function trackerRead(inp: TrackInput): TrackRead {
         trades.push(tr);
         pos = tr;
         entered = tr;
-        pushAlert(b.time, "TETİK", tag, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · ${contracts === 1 ? "" : "momentum: "}${momWhy.join(", ")}` : ""}`);
+        pushAlert(b.time, "TETİK", tagE, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · ${contracts === 1 ? "" : "momentum: "}${momWhy.join(", ")}` : ""}`);
         ev.push(`GİRİŞ ${s} ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} · H2 ${f2(h2)} — ${why}`);
       }
       if (pos) {
         const p = pos as TrackTrade;
         setup = { tag: p.tag, side: p.side, status: "OPEN", trigger: null, triggerText: "", stop: p.stop, missing: [] };
         checklist = entered ? checklist : [];
+      } else if (pendingWeak) {
+        const pw: PendingWeak = pendingWeak;
+        checklist = [...checklist, { key: "confirm5", ok: false, price: true, text: `15m teyit zayıf (${pw.what}) — aynı yönde 5m kapanış ${C.confirmBars - pw.left + 1}/${C.confirmBars}: sonraki kapanış ${f2(pw.close)} ${d > 0 ? "üstünde" : "altında"} olmalı` }];
+        setup = { tag: pw.tag, side: s, status: "ARMED", trigger: pw.close, triggerText: `5m kapanış ${f2(pw.close)} ${d > 0 ? "üstünde" : "altında"} (VWAP+EMA20 ${d > 0 ? "üstünde" : "altında"}) — zayıf 15m teyidinin ${C.confirmBars - pw.left + 1}/${C.confirmBars}. 5m onayı`, stop, missing: [`aynı yönde 5m kapanış ${C.confirmBars - pw.left + 1}/${C.confirmBars} (${pw.what})`] };
+        armedNext = { tag: pw.tag, side: s, trigger: pw.close, stop };
       } else {
         const missing = checklist.filter((x) => !x.ok && x.key !== "fresh" && x.key !== "tiebreak" && !(confirmVC && (x.key === "volume" || x.key === "candle")) && !(x.key === "volume" && candleD === d) && !(x.key === "candle" && volD === d));
         const line = d > 0 ? Math.max(vwap ?? -Infinity, ema5 ?? -Infinity) : Math.min(vwap ?? Infinity, ema5 ?? Infinity);
