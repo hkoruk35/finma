@@ -284,8 +284,9 @@ export interface SpyBundle {
  * dakikada ~15'e düşer. 5m/15m her durumda seyrek.
  */
 export const TTL = {
-  m1: 1200,
-  m1Extended: 4000,
+  m1: 1000,
+  /** kullanıcı isteği: veri her saniye güncel — RTH dışında da 1 sn */
+  m1Extended: 1000,
   m5: 6000,
   m15: 15000,
   option: 2500,

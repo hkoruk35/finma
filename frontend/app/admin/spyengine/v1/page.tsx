@@ -78,7 +78,9 @@ interface StreamResponse {
   rvolBase?: RvolBase | null;
 }
 
-const POLL_OPTIONS = [1000, 2000, 5000, 15000];
+/** veri yoklama: her saniye · tam yenileme (tüm kaynaklar baştan): her 30 saniye */
+const POLL_MS = 1000;
+const FULL_REFRESH_MS = 30 * 1000;
 
 function mergeBars(prev: Bar[], incoming: Bar[], full: boolean): Bar[] {
   if (full) return incoming;
@@ -724,7 +726,13 @@ function AlertLog({ today, past }: { today: { date: string; clock: string; level
 // ── Sayfa ─────────────────────────────────────────────────────────
 
 export default function SpyEngineV9() {
-  const [pollMs, setPollMs] = useState(1000);
+  const pollMs = POLL_MS;
+  /** 30 sn'de bir artar → tüm veri kaynakları baştan çekilir (sayfa durumu, ses izni ve görünüm korunur) */
+  const [refreshTick, setRefreshTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setRefreshTick((x) => x + 1), FULL_REFRESH_MS);
+    return () => clearInterval(id);
+  }, []);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
   /** Açılış Tahmini / Tahmin Günlüğü varsayılan GİZLİ */
@@ -756,7 +764,7 @@ export default function SpyEngineV9() {
     void load();
     const id = setInterval(load, 5 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, []);
+  }, [refreshTick]);
 
   const [quotes, setQuotes] = useState<WatchQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
@@ -821,7 +829,7 @@ export default function SpyEngineV9() {
     })();
     const id = setInterval(() => { void poll(); }, pollMs);
     return () => { cancelled = true; clearInterval(id); };
-  }, [poll, pollMs, replayDate]);
+  }, [poll, pollMs, replayDate, refreshTick]);
 
   useEffect(() => {
     const onVis = () => { if (document.visibilityState === "visible") poll(); };
@@ -851,7 +859,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [showTickers]);
+  }, [showTickers, refreshTick]);
 
   // Takip Sistemi günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları dondurur; özet döner)
   const [trackHist, setTrackHist] = useState<TrackerSummary | null>(null);
@@ -869,7 +877,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 10 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, []);
+  }, [refreshTick]);
 
   // Açılış tahmini: canlı modda 60 sn'de bir (sunucu 60 sn önbellekler); replay'de anlamsız
   useEffect(() => {
@@ -887,7 +895,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [replayDate]);
+  }, [replayDate, refreshTick]);
 
   // Opsiyon seviyeleri: canlı modda 5 dk'da bir (sunucu da 5 dk önbellekler); replay'de güncel zincir anlamsız
   useEffect(() => {
@@ -905,7 +913,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 5 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [replayDate]);
+  }, [replayDate, refreshTick]);
 
   // Kapanış tahmini kaydı + isabet oranı (V4 — sunucu 5 dk kovalara yuvarlıyor)
   const forecastKeyRef = useRef<string>("");
@@ -1256,14 +1264,6 @@ export default function SpyEngineV9() {
           <span className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400">
             {nowSec ? `${nyClock(nowSec, true)} ET` : "—"}
           </span>
-          <select
-            value={pollMs}
-            onChange={(e) => setPollMs(Number(e.target.value))}
-            className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400"
-            title="Yoklama aralığı"
-          >
-            {POLL_OPTIONS.map((ms) => <option key={ms} value={ms}>{ms / 1000} sn</option>)}
-          </select>
           <input
             type="date"
             value={replayDate}
@@ -1501,7 +1501,7 @@ export default function SpyEngineV9() {
       </div>
 
       <div className="mt-2 text-center font-mono text-[9.5px] text-slate-700">
-        yoklama {pollMs / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
+        yoklama {pollMs / 1000}sn · tam yenileme {FULL_REFRESH_MS / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
       </div>
     </div>
   );
