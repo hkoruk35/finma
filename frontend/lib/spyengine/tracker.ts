@@ -32,6 +32,9 @@
  *     hacim+formasyon birlikte · RVOL ≥ 1,5 · aynı yönde kârdaki taşınan pozisyon · 30 dk itki ≥ 2 ATR5 · gün içi yeni tepe/dip.
  *     2 kontrat birimiyle toplam: sabit 2 → +22,0R (−4,3 / +26,3) · öneriyle → +34,8R (−3,1 / +37,9); ≤3 kontrat +32,7R.
  *     Tek tek işaretlerin kenarı küçük/karışık (en tutarlısı 30 dk itki) — boyut bir öneridir, R hesabı kontrat başınadır.
+ *   • v2.4 (kullanıcı kuralı): düşük hacimli sinyal (RVOL 5m < 0,7) → 1 kontrat; diğer kademeler aynı (2 taban, momentum işaretiyle 3–4).
+ *     45 seans: RVOL < 0,7 olan 40 işlemin ortalaması ≈ 0R (−0,05 / −0,01R) — risk küçültmesi; kontrat ağırlıklı toplam 69,6 → 58,0
+ *     (bu işlemlerin bir kısmı fiyat momentumu nedeniyle 3–4 kontrattı). Giriş/çıkış kuralları ve işlem listesi değişmedi.
  *   • Aynı tetik 30 dk zaman stopuyla: 191 işlem %41, −1,4R (kazananları erken kesiyordu) → kapatıldı.
  *     H1 1,5R: %47 +15,2R · "her hizalı mum" (taze değil): 257 işlem %52 +11,7R · stop VWAP/EMA ötesi: 117 işlem %57 +19,8R.
  *   • 15m teyidi yalnız VWAP: −8,5R; yalnız EMA20: +3,1R; ikisi birlikte en iyisi. RSI'yı ŞART yapmak işlem sayısını düşürüp kötüleştirdi
@@ -48,7 +51,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.3";
+export const TRACK_VERSION = "2.4";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -82,6 +85,8 @@ export const TRACK_CFG = {
   /** pozisyon büyüklüğü önerisi: taban kontrat + her kuvvetli momentum işareti için +1 (en çok sizeMax) */
   sizeBase: 2,
   sizeMax: 4,
+  /** düşük hacimli sinyal (RVOL 5m, medyan tabanlı, bu değerin altında) → yalnız 1 kontrat (kullanıcı kuralı, 2026-10-15) */
+  sizeLowRvol: 0.7,
   sizeRvol: 1.5,
   sizeImpulse: 2,
   sizeFactors: ["both", "rvol", "runner", "impulse", "ext"] as string[],
@@ -857,7 +862,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
         };
         const momWhy = [momF.both && "hacim + formasyon birlikte", momF.rvol && `RVOL ${rvol5 != null ? rvol5.toFixed(1) : ""}`, momF.runner && "aynı yönde kârdaki taşınan pozisyon", momF.impulse && "30 dk itki güçlü", momF.ext && `gün içi yeni ${d > 0 ? "tepe" : "dip"}`].filter(Boolean) as string[];
         const pts = C.sizeFactors.reduce((a, k) => a + (momF[k as keyof typeof momF] ? 1 : 0), 0);
-        const contracts = Math.min(C.sizeMax, C.sizeBase + pts);
+        // düşük hacim → 1 kontrat; normal hacimde taban 2, her momentum işareti +1 (en çok 4)
+        const lowVol = rvol5 != null && r2(rvol5) < C.sizeLowRvol; // gösterilen (2 basamak) değerle karşılaştır
+        const contracts = lowVol ? 1 : Math.min(C.sizeMax, C.sizeBase + pts);
+        if (lowVol) momWhy.splice(0, momWhy.length, `düşük hacim (RVOL ${(rvol5 as number).toFixed(2)} < ${C.sizeLowRvol}) → 1 kontrat`);
         const why = [vSide === d && "VWAP", eSide === d && "EMA20", volD === d && "hacim", candleD === d && (pattern ?? "formasyon"), tiebreak && "RVOL+RSI teyidi"].filter(Boolean).join(" · ");
         const tr: TrackTrade = {
           id: `${date}-${nyClock(T).replace(":", "")}-${tag}`, tag, reentry: trades.length > 0, side: s, stage: "TAKİP",
@@ -868,7 +876,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         trades.push(tr);
         pos = tr;
         entered = tr;
-        pushAlert(b.time, "TETİK", tag, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · momentum: ${momWhy.join(", ")}` : ""}`);
+        pushAlert(b.time, "TETİK", tag, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · ${contracts === 1 ? "" : "momentum: "}${momWhy.join(", ")}` : ""}`);
         ev.push(`GİRİŞ ${s} ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} · H2 ${f2(h2)} — ${why}`);
       }
       if (pos) {
@@ -926,7 +934,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
     if (entered) {
       const e: TrackTrade = entered;
       headline = `${e.side === "CALL" ? "🟢 ▲ CALL GİR" : "🔴 ▼ PUT GİR"} · ${e.contracts ?? 2} kontrat`;
-      action = `${e.contracts ?? 2} KONTRAT${(e.momWhy ?? []).length ? ` (kuvvetli momentum: ${(e.momWhy ?? []).join(", ")})` : " (taban)"} · 5m tetik + 15m teyit (${e.why}) · giriş ${f2(e.entry)} · stop ${f2(e.stop)} · H1 ${f2(e.h1)} · H2 ${f2(e.h2)} · ${e.strike}.${warnTxt}`;
+      action = `${e.contracts ?? 2} KONTRAT${e.contracts === 1 ? ` (${(e.momWhy ?? []).join(", ")})` : (e.momWhy ?? []).length ? ` (kuvvetli momentum: ${(e.momWhy ?? []).join(", ")})` : " (taban)"} · 5m tetik + 15m teyit (${e.why}) · giriş ${f2(e.entry)} · stop ${f2(e.stop)} · H1 ${f2(e.h1)} · H2 ${f2(e.h2)} · ${e.strike}.${warnTxt}`;
       tone = e.side === "CALL" ? "bull" : "bear";
     } else if (exited) {
       const x: TrackTrade = exited;

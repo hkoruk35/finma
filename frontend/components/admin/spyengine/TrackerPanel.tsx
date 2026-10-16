@@ -364,7 +364,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
                   <li key={t.id} className="text-slate-300">
                     <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.contracts ?? 2}× {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · H1 {num(t.h1)} · {t.size === "half" ? "½" : "tam"}
                     {" → "}{t.exitClock ? <>{t.exitClock} {t.exitReason} <b className={(t.resultR ?? 0) >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{(t.resultR ?? 0) >= 0 ? "+" : ""}{t.resultR}R</b></> : <b className="text-sky-300">açık {t.liveR != null ? `${t.liveR >= 0 ? "+" : ""}${t.liveR}R` : ""}</b>}
-                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · momentum: ${t.momWhy.join(", ")}` : ""}</span>
+                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · ${t.contracts === 1 ? "" : "momentum: "}${t.momWhy.join(", ")}` : ""}</span>
                   </li>
                 ))}
               </ul>

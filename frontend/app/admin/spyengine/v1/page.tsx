@@ -680,7 +680,7 @@ function PriceStrip({ price, change, changePct, badge, hour, day, vwap, ema, piv
 function tradeRow(date: string, a: TrackTrade): TradeRow {
   return {
     date, clock: a.entryClock, side: a.side, mode: a.tag,
-    setup: `${a.contracts ?? 2} kontrat · ${a.why ?? ""}${a.momWhy?.length ? ` · momentum: ${a.momWhy.join(", ")}` : ""}`,
+    setup: `${a.contracts ?? 2} kontrat · ${a.why ?? ""}${a.momWhy?.length ? ` · ${a.contracts === 1 ? "" : "momentum: "}${a.momWhy.join(", ")}` : ""}`,
     entry: a.entry, stop: a.stop0, target: a.h1,
     exitClock: a.exitClock, exit: a.exit, exitWhy: a.exitReason, r: a.resultR,
   };
