@@ -73,7 +73,7 @@
  *     yakın; kapanış yine 5m mum kapanışında). 45 seans: 173 işlem +25,8R → 151 işlem %58 +37,5R, 3 dönem 2,4/29,4/5,7, kontrat-ağırlıklı
  *     76 → 117. Trend günlerinde kapatmak (sonradan bilinse bile) daha kötü: 34,0R; anlık "açılıştan ≥0,3/0,5 ATR" istisnası 31,5/34,3R.
  *     %40: 36,3R · %20: 37,7R (134 işlem). 1m tetik filtreleri (22 seans) belirgin katkı vermedi.
- *     v2.14 (kullanıcı: "net trend gününde işlemler açılsın, kuralı bozma"): kapanış konumu şartına iki istisna — (1) sert hacimli kırılım
+ *     v2.14 DENENDİ, GERİ ALINDI (kullanıcı v2.13'ü seçti; istisnalar closePosBrkBypass/closePosBypassRvol ile KAPALI) ("net trend gününde işlemler açılsın, kuralı bozma"): kapanış konumu şartına iki istisna — (1) sert hacimli kırılım
  *     girişi, (2) giriş mumunda hacim yönde ve RVOL ≥ 2. 45 seans: 151 işlem +37,5R → 157 işlem %56 +32,5R, 3 dönem 3,0/26,9/2,7,
  *     kontrat-ağırlıklı 117 → 97,6 (hâlâ şartsız 173 / +25,8R / 75,9'dan iyi). 16 Eki: 11:15, 11:55, 12:05, 14:00 PUT'ların hepsi açılır.
  *     Yalnız kırılım istisnası 36,5R (12:05 açılmaz) · RVOL≥1,5 33,9R · RVOL≥3 32,5R.
@@ -95,7 +95,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.14";
+export const TRACK_VERSION = "2.13";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -136,10 +136,10 @@ export const TRACK_CFG = {
   regimeEntry: "size" as "off" | "require" | "size",
   /** giriş mumu kapanışı yön ucuna yakın olmalı: CALL closePos ≥ bu, PUT ≤ 100 − bu (0–100) · 0 = kapalı */
   entryClosePos: 70,
-  /** kapanış konumu istisnası: sert hacimli kırılım girişi (brk) şarttan muaf */
-  closePosBrkBypass: true,
+  /** kapanış konumu istisnası (KAPALI — kullanıcı v2.13'ü seçti): sert hacimli kırılım girişi (brk) şarttan muaf */
+  closePosBrkBypass: false,
   /** kapanış konumu istisnası: giriş mumunda hacim yönde ve RVOL ≥ bu ise muaf (0 = kapalı) */
-  closePosBypassRvol: 2,
+  closePosBypassRvol: 0,
   /** half15'te kalan yarı 15m yön teyidi dönünce de kapansın mı */
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
