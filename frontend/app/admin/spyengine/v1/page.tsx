@@ -1216,9 +1216,17 @@ export default function SpyEngineV9() {
     }).catch(() => { /* kayıt ana akışı etkilemesin */ });
   }, [track, prewarn, replayDate, data?.session.isLive, alertSound, chime]);
 
+  // Cuma notu: yalnız NY saatiyle Cuma günleri (canlıda bugün, replay'de seçilen seans)
+  const isFriday = evalNow > 0 && new Date(`${nyParts(evalNow).ymd}T12:00:00Z`).getUTCDay() === 5;
+
   // ── Render ──────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
+      {isFriday && (
+        <div className="mb-2 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-center text-[13px] font-semibold text-emerald-300">
+          🕌 Bugün mübarek Cuma günü… Gerekmedikçe işlem açma.
+        </div>
+      )}
       {/* ── Başlık ── */}
       <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
         <div className="flex flex-wrap items-center gap-3">
