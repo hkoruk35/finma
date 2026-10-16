@@ -78,7 +78,7 @@ interface StreamResponse {
   rvolBase?: RvolBase | null;
 }
 
-/** veri yoklama: her saniye · tam yenileme (tüm kaynaklar baştan): her 30 saniye */
+/** veri yoklama: her saniye · tam sayfa yenileme (reload): her 30 saniye */
 const POLL_MS = 1000;
 const FULL_REFRESH_MS = 30 * 1000;
 
@@ -727,12 +727,6 @@ function AlertLog({ today, past }: { today: { date: string; clock: string; level
 
 export default function SpyEngineV9() {
   const pollMs = POLL_MS;
-  /** 30 sn'de bir artar → tüm veri kaynakları baştan çekilir (sayfa durumu, ses izni ve görünüm korunur) */
-  const [refreshTick, setRefreshTick] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setRefreshTick((x) => x + 1), FULL_REFRESH_MS);
-    return () => clearInterval(id);
-  }, []);
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
   const [showTickers, setShowTickers] = useState(false);
   /** Açılış Tahmini / Tahmin Günlüğü varsayılan GİZLİ */
@@ -743,6 +737,12 @@ export default function SpyEngineV9() {
   const [showStops, setShowStops] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
+  // 30 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
+  useEffect(() => {
+    if (replayDate) return;
+    const id = setTimeout(() => window.location.reload(), FULL_REFRESH_MS);
+    return () => clearTimeout(id);
+  }, [replayDate]);
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
   const [stopMult, setStopMult] = useState(0.25);
 
@@ -764,7 +764,7 @@ export default function SpyEngineV9() {
     void load();
     const id = setInterval(load, 5 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [refreshTick]);
+  }, []);
 
   const [quotes, setQuotes] = useState<WatchQuote[]>([]);
   const [quotesAt, setQuotesAt] = useState<number | null>(null);
@@ -829,7 +829,7 @@ export default function SpyEngineV9() {
     })();
     const id = setInterval(() => { void poll(); }, pollMs);
     return () => { cancelled = true; clearInterval(id); };
-  }, [poll, pollMs, replayDate, refreshTick]);
+  }, [poll, pollMs, replayDate]);
 
   useEffect(() => {
     const onVis = () => { if (document.visibilityState === "visible") poll(); };
@@ -859,7 +859,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [showTickers, refreshTick]);
+  }, [showTickers]);
 
   // Takip Sistemi günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları dondurur; özet döner)
   const [trackHist, setTrackHist] = useState<TrackerSummary | null>(null);
@@ -877,7 +877,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 10 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [refreshTick]);
+  }, []);
 
   // Açılış tahmini: canlı modda 60 sn'de bir (sunucu 60 sn önbellekler); replay'de anlamsız
   useEffect(() => {
@@ -895,7 +895,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [replayDate, refreshTick]);
+  }, [replayDate]);
 
   // Opsiyon seviyeleri: canlı modda 5 dk'da bir (sunucu da 5 dk önbellekler); replay'de güncel zincir anlamsız
   useEffect(() => {
@@ -913,7 +913,7 @@ export default function SpyEngineV9() {
     load();
     const id = setInterval(load, 5 * 60 * 1000);
     return () => { cancelled = true; clearInterval(id); };
-  }, [replayDate, refreshTick]);
+  }, [replayDate]);
 
   // Kapanış tahmini kaydı + isabet oranı (V4 — sunucu 5 dk kovalara yuvarlıyor)
   const forecastKeyRef = useRef<string>("");
