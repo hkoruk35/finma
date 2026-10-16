@@ -1,34 +1,31 @@
 {
-  "date": "2026-10-14",
-  "generated_at": "2026-10-14T17:03:54.777938-04:00",
+  "date": "2026-10-16",
+  "generated_at": "2026-10-16T09:03:05.966067-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 37,
+  "active_scores_count": 10,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "FTNT",
-        "HCC",
-        "GM",
-        "DVA",
-        "NIQ",
-        "GOOG",
-        "J",
-        "NOW",
-        "M",
-        "RS"
+        "ACIW",
+        "SHW",
+        "MGA",
+        "ROP",
+        "HOG",
+        "FIVE",
+        "H",
+        "CAKE",
+        "GLBE",
+        "SNAP"
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 3,
       "tickers": [
-        "TXN",
-        "ELV",
-        "CRL",
-        "GTLB",
-        "CNC",
-        "THC"
+        "HOG",
+        "CAKE",
+        "SNAP"
       ]
     },
     "value": {
@@ -50,17 +47,17 @@
   },
   "top_3_overall": [
     {
-      "ticker": "FTNT",
+      "ticker": "ACIW",
+      "score": 60.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "SHW",
       "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HCC",
-      "score": 56.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "GM",
+      "ticker": "MGA",
       "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
