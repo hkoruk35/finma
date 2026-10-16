@@ -78,9 +78,9 @@ interface StreamResponse {
   rvolBase?: RvolBase | null;
 }
 
-/** veri yoklama: her saniye · tam sayfa yenileme (reload): her 30 saniye */
+/** veri yoklama: her saniye · tam sayfa yenileme (reload): her 60 saniye */
 const POLL_MS = 1000;
-const FULL_REFRESH_MS = 30 * 1000;
+const FULL_REFRESH_MS = 60 * 1000;
 
 function mergeBars(prev: Bar[], incoming: Bar[], full: boolean): Bar[] {
   if (full) return incoming;
@@ -737,7 +737,7 @@ export default function SpyEngineV9() {
   const [showStops, setShowStops] = useState(false);
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
-  // 30 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
+  // 60 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
   useEffect(() => {
     if (replayDate) return;
     const id = setTimeout(() => window.location.reload(), FULL_REFRESH_MS);
