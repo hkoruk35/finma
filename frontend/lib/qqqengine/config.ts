@@ -13,6 +13,7 @@
  */
 
 import { LADDER_CFG, type LadderCfg } from "../spyengine/ladder";
+import { TRACK_CFG, TRACK_VERSION, type TrackCfg } from "../spyengine/tracker";
 
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
@@ -60,3 +61,13 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
   c.warn.fadeGen = false;
   return c;
 })();
+
+/**
+ * QQQ Takip Sistemi — SPY kuralları (TRACK_CFG) + tek fark: QQQ girişinde SPY'ın kapanmış 15m yönü (VWAP+EMA20 tarafı) aynı olmalı.
+ * Ölçüm (2026-10-16, 45 seans 08-14 → 10-16, üç 15'er günlük dönem; scripts/backtest_qqq_variants.ts):
+ *   SPY kuralları: 140 işlem %50 +4,8R (−12,0 / +11,4 / +5,5) → SPY aynı yön: 123 işlem %52 +10,7R (−8,1 / +12,5 / +6,3).
+ *   Kapanış konumu 60–80, net15Atr 0–0,3, freshBreakBars 0–8 tek başına en kötü dönemi iyileştirmedi. SPY sonuçları değişmez.
+ */
+export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, refAlign15: "same" };
+/** QQQ kayıt sürümü (kurallar SPY'dan ayrıştı — değişince QQQ geriye dönük kayıtları yeniden üretilir) */
+export const QQQ_TRACK_VERSION = `${TRACK_VERSION}-q1`;

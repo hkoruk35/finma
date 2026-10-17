@@ -242,6 +242,9 @@ export const TRACK_CFG = {
   predBars: 6,
   alertPrewarnSec: 60,
   eventDays: [] as string[],
+  /** referans sembol (QQQ için SPY) kapanmış 15m yönü şartı: "off" · "same" = referans 15m aynı yönde · "notAgainst" = referans ters yönde değil.
+   *  Referans yönü TrackInput.refSide15 ile verilir; verilmezse şart uygulanmaz */
+  refAlign15: "off" as "off" | "same" | "notAgainst",
 };
 export type TrackCfg = typeof TRACK_CFG;
 
@@ -494,6 +497,8 @@ export interface TrackInput {
   /** işlem başı dolar riski (yoksa TRACK_CFG.riskUsd) */
   riskUsd?: number | null;
   cfg?: TrackCfg;
+  /** referans sembolün (örn. SPY) kapanmış 15m yönü, 5m mum açılış zamanına göre (cfg.refAlign15 ile kullanılır) */
+  refSide15?: Map<number, D> | null;
 }
 
 // ── Yardımcılar ──────────────────────────────────────────────────────
@@ -1080,7 +1085,11 @@ export function trackerRead(inp: TrackInput): TrackRead {
       }
       const brkHit = !!brkOk && brkOk.side === d;
       const closeOk = C.entryClosePos <= 0 || (C.closePosBrkBypass && brkHit) || (C.closePosBypassRvol > 0 && volD === d && (rvol5 ?? 0) >= C.closePosBypassRvol) || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
-      if (!pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
+      const refD = inp.refSide15?.get(b.time) ?? 0;
+      const refOk = C.refAlign15 === "off" || !inp.refSide15 || (C.refAlign15 === "same" ? refD === d : refD !== -d);
+      if (!refOk && !pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited)
+        ev.push(`${s} tetiği referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"} olduğu için alınmadı`);
+      if (!pos && refOk && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
         const tp1 = r2(c + d * C.h1R * rPts);
@@ -1294,6 +1303,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
 }
 
 /** Canlı ön uyarı (HAZIRLAN): kapanışa ≤ 60 sn kala oluşan mum, hazır kurulumun tetik fiyatını geçmişse */
+/** Referans sembolün (QQQ için SPY) kapanmış 15m yönü, 5m mum zamanına göre — kendi TRACK_CFG kurallarıyla (yalnız 5m veriden) */
+export function refSide15Of(m5: Bar[], date: string, nowSec: number): Map<number, D> {
+  const r = trackerRead({ date, m5, nowSec });
+  return new Map(r.steps.filter((s) => !s.pre).map((s) => [s.t, s.side15]));
+}
+
 export function trackPrewarn(r: TrackRead | null, forming: Bar | null, nowSec: number, cfg: TrackCfg = TRACK_CFG): TrackAlert | null {
   if (!r?.armed || !forming) return null;
   const left = forming.time + 300 - nowSec;

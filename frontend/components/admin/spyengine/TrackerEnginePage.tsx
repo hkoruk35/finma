@@ -2,7 +2,8 @@
 
 /**
  * SPY / QQQ Engine — Takip Sistemi sayfası (ortak bileşen). /admin/spyengine/v1 → symbol="SPY", /admin/qqqengine/v1 → symbol="QQQ".
- * İki sayfa birebir aynı tasarım ve aynı motor kurallarıyla (lib/spyengine/tracker.ts · TRACK_CFG) çalışır; yalnız veri
+ * İki sayfa birebir aynı tasarım ve aynı motor kurallarıyla (lib/spyengine/tracker.ts · TRACK_CFG) çalışır — tek fark: QQQ girişi
+ * SPY'ın kapanmış 15m yönünü ister (QQQ_TRACK_CFG, lib/qqqengine/config.ts; SPY yönü /api/admin/spyengine/v2/tracker?ref15=1); yalnız veri
  * uçları ve sembole özel bilgi panelleri (SPY: ES açılış tahmini + kapanış bandı) ayrışır.
  *
  * TEK KARAR KAYNAĞI: lib/spyengine/tracker.ts (2026-10-15, kullanıcı yapısı)
@@ -24,7 +25,8 @@ import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/Fore
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
-import { trackerRead, trackPrewarn, FC_RULES, TRACK_CFG, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { trackerRead, trackPrewarn, FC_RULES, TRACK_CFG, type D, type TrackCfg, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { QQQ_TRACK_CFG } from "@/lib/qqqengine/config";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import {
@@ -731,6 +733,12 @@ function AlertLog({ today, past }: { today: { date: string; clock: string; level
 export type EngineSymbol = "SPY" | "QQQ";
 
 /** Sembole göre veri uçları ve sayfa metinleri (motor kuralları ortak) */
+/** sembol başına Takip kuralları; refSym = giriş için 15m yönü aynı olması gereken referans sembol */
+const TRACK_CFGS: Record<EngineSymbol, { cfg: TrackCfg; refSym: EngineSymbol | null }> = {
+  SPY: { cfg: TRACK_CFG, refSym: null },
+  QQQ: { cfg: QQQ_TRACK_CFG, refSym: "SPY" },
+};
+
 const ENGINES: Record<EngineSymbol, {
   stream: string; optlevels: string; openForecast: string | null; closeForecast: string | null;
   riskKey: string; other: { href: string; label: string; cls: string };
@@ -905,6 +913,30 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     const id = setInterval(load, 15000);
     return () => { cancelled = true; clearInterval(id); };
   }, [showTickers]);
+
+  // Referans 15m yönü (QQQ → SPY): canlıda 20 sn'de bir, geçmiş gün izlenirken bir kez
+  const { cfg: trackCfg, refSym } = TRACK_CFGS[symbol];
+  const refDate = data?.session.date ?? "";
+  const [refRaw, setRefRaw] = useState<[number, D][] | null>(null);
+  useEffect(() => {
+    if (!refSym || !refDate) return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch(`/api/admin/spyengine/v2/tracker?symbol=${symbol}&ref15=1&date=${refDate}`, { credentials: "include", cache: "no-store" });
+        const json = await res.json();
+        if (!cancelled && json.ok && Array.isArray(json.ref)) setRefRaw(json.ref as [number, D][]);
+      } catch {
+        // referans gelmezse giriş alınmaz (şart sağlanmamış sayılır)
+      }
+    };
+    load();
+    if (replayDate) return () => { cancelled = true; };
+    const id = setInterval(load, 20000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, [symbol, refSym, refDate, replayDate]);
+  const refSide15 = useMemo(() => (refSym ? new Map(refRaw ?? []) : null), [refSym, refRaw]);
+  const refSig = refRaw ? `${refRaw.length}:${refRaw.length ? refRaw[refRaw.length - 1].join(",") : ""}` : "";
 
   // Takip Sistemi günlüğü: açılışta bir kez + 10 dk'da bir (sunucu biten seansları dondurur; özet döner)
   const [trackHist, setTrackHist] = useState<TrackerSummary | null>(null);
@@ -1129,10 +1161,10 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     if (!date || !trackNow) return null;
     return trackerRead({
       date, m5: m5D, nowSec: trackNow, h1: h1Track, fine: m1,
-      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null, riskUsd,
+      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null, riskUsd, cfg: trackCfg, refSide15,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate, riskUsd]);
+  }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate, riskUsd, trackCfg, refSig]);
   const trackCur = track?.current ?? null;
 
   /** Pivot noktaları: 30m / 1h / 4h Fibonacci (her mum kapanışında güncellenir) */
@@ -1249,9 +1281,12 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const prewarn = useMemo<TrackAlert | null>(() => {
     if (replayDate || !nowSec || !track) return null;
     const cur = m5D.length ? m5D[m5D.length - 1] : null;
-    return cur && cur.time + 300 > nowSec ? trackPrewarn(track, cur, nowSec) : null;
+    // QQQ: SPY'ın son kapanmış 15m yönü tetik yönünde değilse HAZIRLAN verilmez (giriş zaten alınmaz)
+    const lastRef = refRaw?.length ? refRaw[refRaw.length - 1][1] : 0;
+    if (refSym && track.armed && lastRef !== (track.armed.side === "CALL" ? 1 : -1)) return null;
+    return cur && cur.time + 300 > nowSec ? trackPrewarn(track, cur, nowSec, trackCfg) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track, nowSec, replayDate]);
+  }, [track, nowSec, replayDate, refSig]);
   useEffect(() => {
     if (replayDate || !track || !data?.session.isLive) return;
     const all = [...track.alerts.filter((a) => a.level !== "KADEME"), ...(prewarn ? [prewarn] : [])];

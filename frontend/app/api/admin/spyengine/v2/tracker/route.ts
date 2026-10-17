@@ -1,11 +1,12 @@
 /**
  * SPY / QQQ Engine — Takip Sistemi günlüğü (?symbol=SPY|QQQ, varsayılan SPY): GET tamamlanan seansları (tahmin · gerçekleşen · işlem · uyarı) kaydeder ve özet döner;
+ * ?ref15=1&date= → QQQ girişleri için SPY'ın kapanmış 15m yönü (Takip kuralı, qqqengine/config.ts).
  * POST sayfanın canlı uyarılarını (HAZIRLAN / TETİK / YÖNET / ÇIKIŞ / İPTAL) günün bekleyen kaydına ekler. Lib: trackerStore.ts.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { isEngineAuthed } from "@/lib/apiAuth";
-import { appendTrackerAlerts, summarizeLog, updateTrackerLog, TRACK_SYMBOLS, type LiveAlert, type TrackSymbol } from "@/lib/spyengine/trackerStore";
+import { appendTrackerAlerts, liveRefSide15, summarizeLog, updateTrackerLog, TRACK_SYMBOLS, type LiveAlert, type TrackSymbol } from "@/lib/spyengine/trackerStore";
 
 const symOf = (req: NextRequest): TrackSymbol | null => {
   const v = (req.nextUrl.searchParams.get("symbol") || "SPY").toUpperCase();
@@ -22,6 +23,11 @@ export async function GET(req: NextRequest) {
   try {
     const sym = symOf(req);
     if (!sym) return NextResponse.json({ ok: false, error: "Geçersiz sembol" }, { status: 400 });
+    // ?ref15=1&date=YYYY-MM-DD → referans sembolün (QQQ için SPY) kapanmış 15m yönü [5m mum zamanı, yön][]
+    if (req.nextUrl.searchParams.get("ref15") === "1") {
+      const ref = await liveRefSide15(sym, req.nextUrl.searchParams.get("date") || "");
+      return NextResponse.json({ ok: true, ref }, { headers: { "Cache-Control": "no-store, max-age=0" } });
+    }
     const days = await updateTrackerLog(req.nextUrl.searchParams.get("force") === "1", sym);
     return NextResponse.json({ ok: true, ...summarizeLog(days) }, { headers: { "Cache-Control": "no-store, max-age=0" } });
   } catch (e) {
