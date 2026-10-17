@@ -22,11 +22,11 @@ const KEYS: Record<TrackSymbol, string> = { SPY: "spyengine_tracker", QQQ: "qqqe
 const MAX_DAYS = 250;
 const MAX_LIVE_ALERTS = 300;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-/** sembol başına Takip kuralları — QQQ girişleri SPY'ın kapanmış 15m yönünü ister (qqqengine/config.ts) */
+/** sembol başına Takip kuralları — QQQ kendi 5m ayarlarıyla (qqqengine/config.ts) */
 const CFGS: Record<TrackSymbol, TrackCfg> = { SPY: TRACK_CFG, QQQ: QQQ_TRACK_CFG };
 const VERSIONS: Record<TrackSymbol, string> = { SPY: TRACK_VERSION, QQQ: QQQ_TRACK_VERSION };
-/** referans 15m yönü gereken semboller için referans sembol */
-const REF: Partial<Record<TrackSymbol, TrackSymbol>> = { QQQ: "SPY" };
+/** referans 15m yönü gereken semboller için referans sembol (yalnız cfg.refAlign15 açıksa; şu an hiçbiri) */
+const REF: Partial<Record<TrackSymbol, TrackSymbol>> = CFGS.QQQ.refAlign15 !== "off" ? { QQQ: "SPY" } : {};
 
 /** [saat, yön, kural, puan, fiyat, hedef, iptal, 30dk hareket, yön doğru (1/0), hedefe değdi (1/0)] */
 export type CompactPred = [string, number, FcRule | null, number, number, number | null, number | null, number, 0 | 1, 0 | 1];

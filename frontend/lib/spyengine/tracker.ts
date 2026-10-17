@@ -245,6 +245,10 @@ export const TRACK_CFG = {
   /** referans sembol (QQQ için SPY) kapanmış 15m yönü şartı: "off" · "same" = referans 15m aynı yönde · "notAgainst" = referans ters yönde değil.
    *  Referans yönü TrackInput.refSide15 ile verilir; verilmezse şart uygulanmaz */
   refAlign15: "off" as "off" | "same" | "notAgainst",
+  /** 5m giriş süzgeçleri (0 = kapalı): stop mesafesi ≤ maxStopAtr5 × ATR5 · giriş mumu RVOL ≥ minEntryRvol · gün içi VWAP kesişmesi < maxCrosses */
+  maxStopAtr5: 0,
+  minEntryRvol: 0,
+  maxCrosses: 0,
 };
 export type TrackCfg = typeof TRACK_CFG;
 
@@ -1086,9 +1090,16 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const brkHit = !!brkOk && brkOk.side === d;
       const closeOk = C.entryClosePos <= 0 || (C.closePosBrkBypass && brkHit) || (C.closePosBypassRvol > 0 && volD === d && (rvol5 ?? 0) >= C.closePosBypassRvol) || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
       const refD = inp.refSide15?.get(b.time) ?? 0;
-      const refOk = C.refAlign15 === "off" || !inp.refSide15 || (C.refAlign15 === "same" ? refD === d : refD !== -d);
+      // sembol başına ek giriş süzgeçleri (SPY'da hepsi kapalı) — engellenen tetik olay olarak yazılır
+      const blockWhy = [
+        C.refAlign15 !== "off" && inp.refSide15 && !(C.refAlign15 === "same" ? refD === d : refD !== -d) && `referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"}`,
+        C.maxStopAtr5 > 0 && atr5 && Math.abs(c - stop) > C.maxStopAtr5 * atr5 && `stop ${f2(Math.abs(c - stop))} > ${C.maxStopAtr5} ATR5`,
+        C.minEntryRvol > 0 && (rvol5 ?? 0) < C.minEntryRvol && `hacim zayıf (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.minEntryRvol})`,
+        C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
+      ].filter(Boolean) as string[];
+      const refOk = blockWhy.length === 0;
       if (!refOk && !pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited)
-        ev.push(`${s} tetiği referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"} olduğu için alınmadı`);
+        ev.push(`${s} tetiği alınmadı — ${blockWhy.join(" · ")}`);
       if (!pos && refOk && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");

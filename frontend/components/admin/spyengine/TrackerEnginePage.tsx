@@ -2,8 +2,8 @@
 
 /**
  * SPY / QQQ Engine — Takip Sistemi sayfası (ortak bileşen). /admin/spyengine/v1 → symbol="SPY", /admin/qqqengine/v1 → symbol="QQQ".
- * İki sayfa birebir aynı tasarım ve aynı motor kurallarıyla (lib/spyengine/tracker.ts · TRACK_CFG) çalışır — tek fark: QQQ girişi
- * SPY'ın kapanmış 15m yönünü ister (QQQ_TRACK_CFG, lib/qqqengine/config.ts; SPY yönü /api/admin/spyengine/v2/tracker?ref15=1); yalnız veri
+ * İki sayfa birebir aynı tasarım ve aynı motor (lib/spyengine/tracker.ts) ile çalışır; ayarlar sembol başına: SPY = TRACK_CFG,
+ * QQQ = QQQ_TRACK_CFG (lib/qqqengine/config.ts — QQQ'nun kendi 5m süzgeçleri); yalnız veri
  * uçları ve sembole özel bilgi panelleri (SPY: ES açılış tahmini + kapanış bandı) ayrışır.
  *
  * TEK KARAR KAYNAĞI: lib/spyengine/tracker.ts (2026-10-15, kullanıcı yapısı)
@@ -736,7 +736,7 @@ export type EngineSymbol = "SPY" | "QQQ";
 /** sembol başına Takip kuralları; refSym = giriş için 15m yönü aynı olması gereken referans sembol */
 const TRACK_CFGS: Record<EngineSymbol, { cfg: TrackCfg; refSym: EngineSymbol | null }> = {
   SPY: { cfg: TRACK_CFG, refSym: null },
-  QQQ: { cfg: QQQ_TRACK_CFG, refSym: "SPY" },
+  QQQ: { cfg: QQQ_TRACK_CFG, refSym: QQQ_TRACK_CFG.refAlign15 !== "off" ? "SPY" : null },
 };
 
 const ENGINES: Record<EngineSymbol, {
