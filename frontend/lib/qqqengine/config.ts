@@ -67,7 +67,7 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
  *   1) minEntryRvol 0,85: giriş mumunun saat-normalize RVOL'u ≥ 0,85 (RVOL < 1 girişler 57 işlem −9,2R; 1,5–2,5 her dönemde kârda)
  *   2) maxCrosses 6: gün içinde 5m kapanış VWAP'ı 6 kez kestiyse (testere gün) yeni giriş yok — trend günleri ≥1 ATR hareket +18R, testere günler eksi
  *   3) trailOnClose: 1R sonrası taşınan yarının 15m izleyen stopu fitilde değil 5m KAPANIŞTA tetiklenir (trend günü düzeltmede silkelenmez)
- * Ölçüm (2026-10-16, QQQ 5m 45 seans 08-14 → 10-16, üç 15'er günlük dönem; scripts/backtest_qqq_variants.ts):
+ * Ölçüm (2026-10-16, QQQ 5m 45 seans 08-14 → 10-16, üç 15'er günlük dönem; scripts/backtest_engines.ts QQQ):
  *   SPY kuralları: 140 işlem %50 +4,8R (−12,0 / +11,4 / +5,5) → QQQ kuralları: 82 işlem %60 +28,2R (0,0 / +20,4 / +7,8).
  *   Komşu değerler sağlam (RVOL 0,85–0,95: +25…+28R · kesişme 4–8: +25…+28R). Seçim aynı 45 günde yapıldı — görülmemiş dönem yok.
  *   16 Eki (−20 $ düşüş günü): +3,45R → +6,42R.

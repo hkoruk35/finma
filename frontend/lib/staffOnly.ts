@@ -36,12 +36,13 @@ export function isStaffOnlyHref(href: string): boolean {
 }
 
 /**
- * "engine" rolünün (afk2351@outlook.com) açabildiği yönetim sayfaları: SPY/QQQ Engine, site menüsü (Piyasalar),
+ * "engine" rolünün (afk2351@outlook.com) açabildiği yönetim sayfaları: SPY/QQQ/IWM/NVDA/AAPL/TSLA/AMZN Engine, site menüsü (Piyasalar),
  * Pro paneli ve Pro'dan bağlanan detay sayfaları. Diğer tüm /admin/** motor ekranına yönlendirilir (proxy.ts).
  * Not: engine rolü isStaffAuthed'e girmez — bu sayfaların yazma API'leri ona kapalı kalır, yalnız görüntüleme açılır.
  */
 export const ENGINE_ADMIN_PREFIXES = [
   "/admin/spyengine", "/admin/qqqengine",
+  "/admin/iwmengine", "/admin/nvdaengine", "/admin/aaplengine", "/admin/tslaengine", "/admin/amznengine",
   "/admin/piyasalar",
   "/admin/pro",
   "/admin/ai",

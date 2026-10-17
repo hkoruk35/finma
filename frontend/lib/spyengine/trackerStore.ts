@@ -1,5 +1,6 @@
 /**
- * Takip Sistemi günlüğü (sunucu) — Supabase `shared_store` anahtarı `spyengine_tracker` (SPY) / `qqqengine_tracker` (QQQ).
+ * Takip Sistemi günlüğü (sunucu) — Supabase `shared_store` anahtarı `{sembol}engine_tracker` (spyengine_tracker, qqqengine_tracker,
+ * iwmengine_tracker, nvdaengine_tracker, aaplengine_tracker, tslaengine_tracker, amznengine_tracker).
  *
  * • Tamamlanan her seans (16:05 ET sonrası) için CANLI MOTORUN AYNI FONKSİYONU (tracker.ts · trackerRead) Yahoo 5m ile
  *   günü baştan oynatır; o günün bütün 30 dk tahminleri + gerçekleşenleri, işlemleri ve uyarıları tek kayıtta DONDURULUR.
@@ -13,20 +14,21 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { normalizeBars, snapToInterval, dropBadPrints, isRthBar, nyParts, nyDateTimeToEpoch, type Bar } from "./core";
 import { chart } from "./openForecastFetch";
 import { rvolBaseline } from "./ladder";
-import { trackerRead, refSide15Of, summarizeTrades, TRACK_CFG, TRACK_VERSION, type D, type FcRule, type TagStat, type TrackCfg, type TrackTrade } from "./tracker";
-import { QQQ_TRACK_CFG, QQQ_TRACK_VERSION } from "../qqqengine/config";
+import { trackerRead, refSide15Of, summarizeTrades, type D, type FcRule, type TagStat, type TrackCfg, type TrackTrade } from "./tracker";
+import { ENGINES, ENGINE_SYMBOLS, type EngineSymbol } from "./engines";
 
-export type TrackSymbol = "SPY" | "QQQ";
-export const TRACK_SYMBOLS: TrackSymbol[] = ["SPY", "QQQ"];
-const KEYS: Record<TrackSymbol, string> = { SPY: "spyengine_tracker", QQQ: "qqqengine_tracker" };
+export type TrackSymbol = EngineSymbol;
+export const TRACK_SYMBOLS: TrackSymbol[] = [...ENGINE_SYMBOLS];
+/** shared_store anahtarı: spyengine_tracker · qqqengine_tracker · iwmengine_tracker · … */
+const keyOf = (sym: TrackSymbol) => `${sym.toLowerCase()}engine_tracker`;
 const MAX_DAYS = 250;
 const MAX_LIVE_ALERTS = 300;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-/** sembol başına Takip kuralları — QQQ kendi 5m ayarlarıyla (qqqengine/config.ts) */
-const CFGS: Record<TrackSymbol, TrackCfg> = { SPY: TRACK_CFG, QQQ: QQQ_TRACK_CFG };
-const VERSIONS: Record<TrackSymbol, string> = { SPY: TRACK_VERSION, QQQ: QQQ_TRACK_VERSION };
-/** referans 15m yönü gereken semboller için referans sembol (yalnız cfg.refAlign15 açıksa; şu an hiçbiri) */
-const REF: Partial<Record<TrackSymbol, TrackSymbol>> = CFGS.QQQ.refAlign15 !== "off" ? { QQQ: "SPY" } : {};
+/** sembol başına Takip kuralları ve kayıt sürümü — tek kayıt lib/spyengine/engines.ts */
+const CFGS = Object.fromEntries(ENGINE_SYMBOLS.map((s) => [s, ENGINES[s].cfg])) as Record<TrackSymbol, TrackCfg>;
+const VERSIONS = Object.fromEntries(ENGINE_SYMBOLS.map((s) => [s, ENGINES[s].version])) as Record<TrackSymbol, string>;
+/** referans 15m yönü gereken semboller için referans sembol SPY (yalnız cfg.refAlign15 açıksa; şu an hiçbiri) */
+const REF = Object.fromEntries(ENGINE_SYMBOLS.filter((s) => s !== "SPY" && CFGS[s].refAlign15 !== "off").map((s) => [s, "SPY"])) as Partial<Record<TrackSymbol, TrackSymbol>>;
 
 /** [saat, yön, kural, puan, fiyat, hedef, iptal, 30dk hareket, yön doğru (1/0), hedefe değdi (1/0)] */
 export type CompactPred = [string, number, FcRule | null, number, number, number | null, number | null, number, 0 | 1, 0 | 1];
@@ -53,7 +55,7 @@ interface Store { days: Record<string, TrackDay>; pending: Record<string, LiveAl
 
 async function readStore(sym: TrackSymbol): Promise<Store> {
   try {
-    const { data } = await supabaseAdmin.from("shared_store").select("value").eq("key", KEYS[sym]).maybeSingle();
+    const { data } = await supabaseAdmin.from("shared_store").select("value").eq("key", keyOf(sym)).maybeSingle();
     const v = data?.value as Store | undefined;
     if (v && typeof v === "object" && v.days) return { days: v.days, pending: v.pending ?? {}, updatedAt: v.updatedAt ?? "" };
   } catch {
@@ -66,7 +68,7 @@ async function writeStore(sym: TrackSymbol, s: Store): Promise<void> {
   const keys = Object.keys(s.days).sort();
   for (const k of keys.slice(0, Math.max(0, keys.length - MAX_DAYS))) delete s.days[k];
   s.updatedAt = new Date().toISOString();
-  await supabaseAdmin.from("shared_store").upsert({ key: KEYS[sym], value: s }, { onConflict: "key" });
+  await supabaseAdmin.from("shared_store").upsert({ key: keyOf(sym), value: s }, { onConflict: "key" });
 }
 
 /** Bir günü canlı motorla oynatıp kayda çevirir (geriye dönük test de aynı fonksiyonu kullanır) */

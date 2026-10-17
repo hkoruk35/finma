@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * SPY / QQQ Engine — Takip Sistemi sayfası (ortak bileşen). /admin/spyengine/v1 → symbol="SPY", /admin/qqqengine/v1 → symbol="QQQ".
- * İki sayfa birebir aynı tasarım ve aynı motor (lib/spyengine/tracker.ts) ile çalışır; ayarlar sembol başına: SPY = TRACK_CFG,
- * QQQ = QQQ_TRACK_CFG (lib/qqqengine/config.ts — QQQ'nun kendi 5m süzgeçleri); yalnız veri
- * uçları ve sembole özel bilgi panelleri (SPY: ES açılış tahmini + kapanış bandı) ayrışır.
+ * Takip Sistemi motorları — ortak sayfa: SPY · QQQ · IWM · NVDA · AAPL · TSLA · AMZN (/admin/{sembol}engine/v1 → symbol).
+ * Yedi sayfa birebir aynı tasarım ve aynı motor (lib/spyengine/tracker.ts) ile çalışır; sembol başına uçlar, renk ve Takip ayarı
+ * tek kayıtta: lib/spyengine/engines.ts (SPY = TRACK_CFG; diğerleri ölçülmüş küçük farklar). Üstteki geçiş çubuğu motorlar
+ * arasında gezdirir; SPY'a özel bilgi panelleri (ES açılış tahmini + kapanış bandı) yalnız SPY'da.
  *
  * TEK KARAR KAYNAĞI: lib/spyengine/tracker.ts (2026-10-15, kullanıcı yapısı)
  *   15m yön teyidi (son 15m kapanış VWAP + EMA20 aynı tarafta) → 5m tetik (VWAP · EMA20 · hacim çubuğu · mum formasyonu;
@@ -25,8 +25,8 @@ import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/Fore
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
-import { trackerRead, trackPrewarnLive, FC_RULES, TRACK_CFG, type D, type TrackCfg, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
-import { QQQ_TRACK_CFG } from "@/lib/qqqengine/config";
+import { trackerRead, trackPrewarnLive, FC_RULES, type D, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { ENGINES, ENGINE_SYMBOLS, type EngineSymbol } from "@/lib/spyengine/engines";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import {
@@ -730,33 +730,20 @@ function AlertLog({ today, past }: { today: { date: string; clock: string; level
 
 // ── Sayfa ─────────────────────────────────────────────────────────
 
-export type EngineSymbol = "SPY" | "QQQ";
+export type { EngineSymbol };
 
-/** Sembole göre veri uçları ve sayfa metinleri (motor kuralları ortak) */
-/** sembol başına Takip kuralları; refSym = giriş için 15m yönü aynı olması gereken referans sembol */
-const TRACK_CFGS: Record<EngineSymbol, { cfg: TrackCfg; refSym: EngineSymbol | null }> = {
-  SPY: { cfg: TRACK_CFG, refSym: null },
-  QQQ: { cfg: QQQ_TRACK_CFG, refSym: QQQ_TRACK_CFG.refAlign15 !== "off" ? "SPY" : null },
-};
-
-const ENGINES: Record<EngineSymbol, {
-  stream: string; optlevels: string; openForecast: string | null; closeForecast: string | null;
-  riskKey: string; other: { href: string; label: string; cls: string };
-}> = {
-  SPY: {
-    stream: "/api/admin/spyengine/v2", optlevels: "/api/admin/spyengine/v2/optlevels",
-    openForecast: "/api/admin/spyengine/v2/openforecast", closeForecast: "/api/admin/spyengine/v2/forecast",
-    riskKey: "spyengine_risk_usd",
-    other: { href: "/admin/qqqengine/v1", label: "→ QQQ Engine", cls: "border-sky-500/60 bg-sky-500/15 text-sky-300 hover:bg-sky-500/30" },
-  },
-  QQQ: {
-    stream: "/api/admin/qqqengine/v2", optlevels: "/api/admin/qqqengine/v2/optlevels",
-    // ES fair value açılış tahmini ve kalibre kapanış bandı SPY'a özgü — QQQ'da yok (uydurma yok)
-    openForecast: null, closeForecast: null,
-    riskKey: "qqqengine_risk_usd",
-    other: { href: "/admin/spyengine/v1", label: "→ SPY Engine", cls: "border-amber-500/60 bg-amber-500/15 text-amber-300 hover:bg-amber-500/30" },
-  },
-};
+/** Yedi motor arası geçiş çubuğu — tek kayıt: lib/spyengine/engines.ts */
+function EngineSwitcher({ current }: { current: EngineSymbol }) {
+  return (
+    <nav className="flex flex-wrap items-center gap-1" aria-label="Motorlar">
+      {ENGINE_SYMBOLS.map((s) => (
+        s === current
+          ? <span key={s} className="rounded-md border border-[#eab308] bg-[#eab308]/20 px-2 py-0.5 text-[11px] font-extrabold text-[#facc15]" aria-current="page">{s}</span>
+          : <Link key={s} href={ENGINES[s].page} title={`${s} Engine · ${ENGINES[s].name}`} className={`rounded-md border px-2 py-0.5 text-[11px] font-bold ${ENGINES[s].cls}`}>{s}</Link>
+      ))}
+    </nav>
+  );
+}
 
 export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) {
   const E = ENGINES[symbol];
@@ -786,7 +773,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
   const [stopMult, setStopMult] = useState(0.25);
   /** işlem başı dolar riski — kontrat sayısı = risk ÷ (stop × Δ × 100); tarayıcıda hatırlanır (sayfa 60 sn'de yenilenir) */
-  const [riskUsd, setRiskUsd] = useState(TRACK_CFG.riskUsd);
+  const [riskUsd, setRiskUsd] = useState(E.cfg.riskUsd);
   useEffect(() => {
     const id = setTimeout(() => {
       try {
@@ -920,7 +907,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   }, [showTickers]);
 
   // Referans 15m yönü (QQQ → SPY): canlıda 20 sn'de bir, geçmiş gün izlenirken bir kez
-  const { cfg: trackCfg, refSym } = TRACK_CFGS[symbol];
+  const trackCfg = E.cfg;
+  const refSym: EngineSymbol | null = trackCfg.refAlign15 !== "off" && symbol !== "SPY" ? "SPY" : null;
   const refDate = data?.session.date ?? "";
   const [refRaw, setRefRaw] = useState<[number, D][] | null>(null);
   useEffect(() => {
@@ -1347,15 +1335,18 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         </div>
       )}
       {/* ── Başlık ── */}
-      <header className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] pb-2">
+      {/* erken uyarı (HAZIRLAN) varken başlık bandı yeşil yanıp söner — yedi motorda aynı */}
+      <header className={`mb-2 flex flex-wrap items-center justify-between gap-2 border-b pb-2 ${prewarn ? "animate-pulse rounded-md border-2 border-green-500 bg-green-500/20 px-2 pt-1 shadow-[0_0_18px_rgba(34,197,94,0.55)]" : "border-[#1c2635]"}`}>
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="flex flex-wrap items-center gap-2 text-[15px] font-semibold tracking-tight text-[#eab308]">{symbol} Engine · Takip Sistemi
-              <Link href={E.other.href} className={`rounded-md border px-2.5 py-0.5 text-[11px] font-bold ${E.other.cls}`}>{E.other.label}</Link>
+              <EngineSwitcher current={symbol} />
+              {prewarn && <span className="rounded-md bg-green-500 px-2 py-0.5 text-[11px] font-extrabold text-[#0a0e17]">⚡ ERKEN UYARI · {prewarn.side} · {prewarn.clock}</span>}
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
               Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + saat-normalize RVOL ≥ 1] ya da formasyon · kapanış mumun yön ucunda) · kontrat = sabit dolar riski ÷ stop → 1R&apos;de yarısı, kalan 15m izleyen stop · tek karar kaynağı · 30m/1h/4h yalnız bilgi
             </p>
+            {symbol !== "SPY" && <p className="text-[10.5px] font-semibold text-sky-300/90">{E.note}</p>}
           </div>
         </div>
 

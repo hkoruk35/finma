@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { isEngineAuthed } from "@/lib/apiAuth";
+import { ENGINE_SYMBOLS } from "@/lib/spyengine/engines";
 import { fetchChart } from "@/lib/spyengine/market";
 import { isRthBar, toCompact } from "@/lib/spyengine/core";
 
@@ -14,7 +15,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const maxDuration = 30;
 
-const SYMBOLS = new Set(["SPY", "QQQ"]);
+/** Takip Sistemi motorlarının sembolleri (lib/spyengine/engines.ts) */
+const SYMBOLS = new Set<string>(ENGINE_SYMBOLS);
 
 export async function GET(req: NextRequest) {
   if (!isEngineAuthed(req)) {

@@ -249,6 +249,9 @@ export const TRACK_CFG = {
   maxStopAtr5: 0,
   minEntryRvol: 0,
   maxCrosses: 0,
+  /** kontrat önerisi: vade etiketi ve strike adımı (SPY/QQQ/IWM her gün vadeli, 1 $ adım · hisselerde en yakın haftalık, 2,5 $ adım) */
+  optLabel: "0DTE",
+  strikeStep: 1,
 };
 export type TrackCfg = typeof TRACK_CFG;
 
@@ -593,8 +596,9 @@ export function halfOf(contracts: number | null | undefined): number {
   return Math.max(1, Math.round((contracts ?? 2) / 2));
 }
 
-function strikeHint(side: Side, price: number): string {
-  return `0DTE ${side === "CALL" ? "C" : "P"} ${Math.round(price)} (≈0,45Δ)`;
+function strikeHint(side: Side, price: number, C: TrackCfg = TRACK_CFG): string {
+  const k = Math.round(price / C.strikeStep) * C.strikeStep;
+  return `${C.optLabel} ${side === "CALL" ? "C" : "P"} ${C.strikeStep < 1 || k % 1 ? k.toFixed(1) : k} (≈0,45Δ)`;
 }
 
 // ── Ana oynatma ──────────────────────────────────────────────────────
@@ -1141,7 +1145,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const tr: TrackTrade = {
           id: `${date}-${nyClock(T).replace(":", "")}-${tagE}`, tag: tagE, reentry: trades.length > 0, side: s, stage: "TAKİP",
           entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: warns.length ? "half" : "full", confirm10: null, contracts, momWhy, momF,
-          strike: strikeHint(s, c), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
+          strike: strikeHint(s, c, C), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
           barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
         };
         trades.push(tr);

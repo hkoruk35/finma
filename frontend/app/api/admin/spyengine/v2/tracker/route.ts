@@ -1,5 +1,5 @@
 /**
- * SPY / QQQ Engine — Takip Sistemi günlüğü (?symbol=SPY|QQQ, varsayılan SPY): GET tamamlanan seansları (tahmin · gerçekleşen · işlem · uyarı) kaydeder ve özet döner;
+ * Takip Sistemi günlüğü (?symbol=SPY|QQQ|IWM|NVDA|AAPL|TSLA|AMZN, varsayılan SPY): GET tamamlanan seansları (tahmin · gerçekleşen · işlem · uyarı) kaydeder ve özet döner;
  * ?ref15=1&date= → QQQ girişleri için SPY'ın kapanmış 15m yönü (Takip kuralı, qqqengine/config.ts).
  * POST sayfanın canlı uyarılarını (HAZIRLAN / TETİK / YÖNET / ÇIKIŞ / İPTAL) günün bekleyen kaydına ekler. Lib: trackerStore.ts.
  */

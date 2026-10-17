@@ -57,7 +57,7 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
   if (!enabled) return <>{children}</>;
 
   // Finans dışı sayfalar ve SPY/QQQ Engine dışındaki yönetim sayfaları hariç
-  const isEnginePage = !!pathname && (pathname.startsWith("/admin/spyengine") || pathname.startsWith("/admin/qqqengine"));
+  const isEnginePage = !!pathname && /^\/admin\/(spy|qqq|iwm|nvda|aapl|tsla|amzn)engine(\/|$)/.test(pathname);
   const isExcluded = !!pathname && !isEnginePage && (
     pathname.includes("/search") ||
     pathname.includes("/discover") ||
