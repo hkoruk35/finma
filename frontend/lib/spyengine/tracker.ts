@@ -1320,6 +1320,29 @@ export function refSide15Of(m5: Bar[], date: string, nowSec: number): Map<number
   return new Map(r.steps.filter((s) => !s.pre).map((s) => [s.t, s.side15]));
 }
 
+/**
+ * Erken uyarı (ön okuma): kapanışa ≤ alertPrewarnSec kala OLUŞAN 5m mum şu anki haliyle kapanmış sayılıp motor yeniden okunur —
+ * bu mumda giriş çıkıyorsa "böyle kapanırsa TETİK" HAZIRLAN uyarısı verilir. trackPrewarn yalnız fiyat şartı eksik hazırlıkları
+ * kapsar; hacim/formasyon/kapanış konumu ancak kapanışta belli olduğundan girişlerin çoğu ön uyarısız geliyordu (SPY 5 günde 4/17).
+ * Anahtar trackPrewarn ile aynı biçimde — aynı mum için iki kez çalmaz.
+ */
+export function trackPrewarnLive(inp: TrackInput, forming: Bar | null, nowSec: number): TrackAlert | null {
+  const C = inp.cfg ?? TRACK_CFG;
+  if (!forming) return null;
+  const left = forming.time + 300 - nowSec;
+  if (left > C.alertPrewarnSec || left < 0) return null;
+  const m5 = inp.m5.filter((b) => b.time < forming.time).concat(forming);
+  const r = trackerRead({ ...inp, m5, nowSec: forming.time + 300 });
+  const t = r.trades.find((x) => x.entryTime === forming.time);
+  if (!t) return null;
+  const clock = nyClock(forming.time + 300);
+  return {
+    t: forming.time, clock, level: "HAZIRLAN", tag: t.tag, side: t.side,
+    text: `HAZIRLAN · ${clock} · ${t.side} · 5m şu anki haliyle kapanırsa TETİK — giriş ≈${t.entry.toFixed(2)} · stop ${t.stop0.toFixed(2)} · ${left} sn kaldı`,
+    key: `${r.date}|HAZIRLAN|${t.tag}|${t.side}|${forming.time}`,
+  };
+}
+
 export function trackPrewarn(r: TrackRead | null, forming: Bar | null, nowSec: number, cfg: TrackCfg = TRACK_CFG): TrackAlert | null {
   if (!r?.armed || !forming) return null;
   const left = forming.time + 300 - nowSec;

@@ -25,7 +25,7 @@ import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/Fore
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
-import { trackerRead, trackPrewarn, FC_RULES, TRACK_CFG, type D, type TrackCfg, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { trackerRead, trackPrewarnLive, FC_RULES, TRACK_CFG, type D, type TrackCfg, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
 import { QQQ_TRACK_CFG } from "@/lib/qqqengine/config";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
@@ -773,9 +773,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const [alertSound, setAlertSound] = useState(true);
   const [replayDate, setReplayDate] = useState("");
   // 60 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
+  // Yenileme 5m kapanışına son 90 sn ile kapanıştan sonraki 15 sn'ye düşmez (erken uyarı/TETİK penceresi) — o aralığa
+  // denk gelirse kapanıştan 15 sn sonraya ertelenir; yoksa her pencerede bir yenileme uyarıyı sessize alıp ses iznini düşürüyordu
   useEffect(() => {
     if (replayDate) return;
-    const id = setTimeout(() => window.location.reload(), FULL_REFRESH_MS);
+    const at = Date.now() + FULL_REFRESH_MS;
+    const inBar = Math.floor(at / 1000) % 300;
+    const delay = inBar >= 210 || inBar < 15 ? FULL_REFRESH_MS + ((300 - inBar + 15) % 300) * 1000 : FULL_REFRESH_MS;
+    const id = setTimeout(() => window.location.reload(), delay);
     return () => clearTimeout(id);
   }, [replayDate]);
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
@@ -1243,16 +1248,29 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       }
       audioRef.current?.resume().catch(() => {});
     };
+    // ilk tıklamada sistem bildirimi izni istenir (bir kez; kalıcı) — yenilemeden sonra ses askıdayken uyarı bildirimle gelir
+    const askNotify = () => {
+      if (typeof Notification !== "undefined" && Notification.permission === "default") Notification.requestPermission().catch(() => {});
+      window.removeEventListener("pointerdown", askNotify);
+    };
+    window.addEventListener("pointerdown", askNotify);
+    // sayfa her yenilendiğinde ses bağlamı hemen kurulur (tarayıcı izin veriyorsa tıklamasız çalar; vermiyorsa ilk tıklamada açılır)
+    unlock();
     window.addEventListener("pointerdown", unlock);
     window.addEventListener("keydown", unlock);
     return () => {
+      window.removeEventListener("pointerdown", askNotify);
       window.removeEventListener("pointerdown", unlock);
       window.removeEventListener("keydown", unlock);
     };
   }, []);
 
-  const chime = useCallback((kind: "fired" | "imminent") => {
+  const chime = useCallback((kind: "fired" | "imminent", text?: string) => {
     const ctx = audioRef.current;
+    // ses bağlamı askıdaysa (yenilemeden sonra tıklanmadı) sistem bildirimi — izni kalıcıdır, tıklama gerektirmez
+    if ((!ctx || ctx.state !== "running") && text && typeof Notification !== "undefined" && Notification.permission === "granted") {
+      try { new Notification(text.split(" · ").slice(0, 3).join(" · "), { body: text, tag: text.slice(0, 40), requireInteraction: kind === "fired" }); } catch { /* bildirim desteklenmiyor */ }
+    }
     if (ctx) {
       const t0 = ctx.currentTime;
       const tones = kind === "fired" ? [1318.5, 1975.5] : [660, 880];
@@ -1278,25 +1296,38 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
   // Takip Sistemi uyarıları: TETİK / YÖNET / ÇIKIŞ / İPTAL (kapanışta) + HAZIRLAN (kapanışa ≤ 60 sn) — her biri bir kez
   const seenAlerts = useRef<Set<string> | null>(null);
+  /** Erken uyarı: kapanışa ≤ 60 sn kala oluşan 5m mum şu anki haliyle kapanırsa motor giriş veriyor mu (2 sn'de bir ön okuma) */
+  const prewarnSlot = Math.floor(nowSec / 2);
   const prewarn = useMemo<TrackAlert | null>(() => {
-    if (replayDate || !nowSec || !track) return null;
+    if (replayDate || !nowSec || !track || !date) return null;
     const cur = m5D.length ? m5D[m5D.length - 1] : null;
-    // QQQ: SPY'ın son kapanmış 15m yönü tetik yönünde değilse HAZIRLAN verilmez (giriş zaten alınmaz)
-    const lastRef = refRaw?.length ? refRaw[refRaw.length - 1][1] : 0;
-    if (refSym && track.armed && lastRef !== (track.armed.side === "CALL" ? 1 : -1)) return null;
-    return cur && cur.time + 300 > nowSec ? trackPrewarn(track, cur, nowSec, trackCfg) : null;
+    if (!cur || cur.time + 300 <= nowSec || nyParts(cur.time).ymd !== date) return null;
+    return trackPrewarnLive({
+      date, m5: m5D, nowSec: trackNow, h1: h1Track, fine: m1,
+      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null, riskUsd, cfg: trackCfg, refSide15,
+    }, cur, nowSec);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track, nowSec, replayDate, refSig]);
+  }, [track, prewarnSlot, replayDate, refSig]);
   useEffect(() => {
     if (replayDate || !track || !data?.session.isLive) return;
     const all = [...track.alerts.filter((a) => a.level !== "KADEME"), ...(prewarn ? [prewarn] : [])];
-    if (seenAlerts.current == null) { seenAlerts.current = new Set(all.map((a) => a.key)); return; } // ilk yüklemede çalma
+    // görülen uyarılar sekme boyunca saklanır: 60 sn'lik tam yenilemeden sonra yeni uyarı sessize alınmaz
+    const store = `${symbol}_track_seen_${track.date}`;
+    if (seenAlerts.current == null) {
+      let saved: string[] | null = null;
+      try { saved = JSON.parse(sessionStorage.getItem(store) ?? "null"); } catch { /* depolama yok */ }
+      // sekmede ilk açılış: 1 dk'dan eski uyarılar çalmaz, son kapanıştaki ve oluşan mumdaki çalar
+      seenAlerts.current = new Set(saved ?? all.filter((a) => a.t + 300 < Date.now() / 1000 - 60).map((a) => a.key));
+    }
     const fresh = all.filter((a) => !seenAlerts.current!.has(a.key));
     if (!fresh.length) return;
     for (const a of fresh) seenAlerts.current.add(a.key);
+    try { sessionStorage.setItem(store, JSON.stringify([...seenAlerts.current])); } catch { /* depolama yok */ }
     if (alertSound) {
-      if (fresh.some((a) => a.level === "TETİK" || a.level === "ÇIKIŞ")) chime("fired");
-      else if (fresh.some((a) => a.level === "HAZIRLAN" || a.level === "YÖNET")) chime("imminent");
+      const fired = fresh.find((a) => a.level === "TETİK" || a.level === "ÇIKIŞ");
+      const soon = fresh.find((a) => a.level === "HAZIRLAN" || a.level === "YÖNET");
+      if (fired) chime("fired", fired.text);
+      else if (soon) chime("imminent", soon.text);
     }
     void fetch(`/api/admin/spyengine/v2/tracker?symbol=${symbol}`, {
       method: "POST", credentials: "include", headers: { "Content-Type": "application/json" },
