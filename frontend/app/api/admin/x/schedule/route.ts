@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -7,7 +8,7 @@ export const maxDuration = 30;
 const MAX_DAYS_AHEAD = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 // Kullanicinin belirli bir NY saati + dil icin ileri tarihli plana aldigi

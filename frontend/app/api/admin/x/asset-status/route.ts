@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { MARKET_ASSET_DEFS } from "@/lib/x/listOptions";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 // X Studio "Analiz Yönetimi" — her sektör/endeks/emtia/döviz/kripto varlığı

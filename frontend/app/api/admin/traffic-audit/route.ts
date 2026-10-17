@@ -16,6 +16,7 @@ import {
   type TrafficSession,
   type Timeframe,
 } from "@/lib/trafficAudit";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const dynamic = "force-dynamic";
 // 30 gunluk/tum-zaman pencerelerinde on binlerce satir sayfa sayfa taraniyor —
@@ -23,7 +24,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 function requireAdmin(req: NextRequest): boolean {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin" || role === "readonly";
 }
 

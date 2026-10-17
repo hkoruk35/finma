@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildMonthlyReport } from "@/lib/trafficMonthly";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 function requireAdmin(req: NextRequest): boolean {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin" || role === "readonly";
 }
 

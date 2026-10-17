@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { TrackerPageClient } from "@/components/TrackerPageClient";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { STAFF_COOKIE, readStaffRole } from "@/lib/staffSession";
 
 export const metadata: Metadata = {
   title: "Tracker — BOGA AI",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function TrackerPage() {
   const cookieStore = await cookies();
-  const role = cookieStore.get("boga_auth")?.value;
+  const role = readStaffRole(cookieStore.get(STAFF_COOKIE)?.value);
   if (role !== "admin" && role !== "readonly") {
     redirect("/login");
   }

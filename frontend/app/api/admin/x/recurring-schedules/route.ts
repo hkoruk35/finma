@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { computeNextIntervalRunIso, computeNextWeeklyRunIso } from "@/lib/x/recurringSchedules";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 const LOCALES = new Set(["en", "es", "fr", "pt", "tr", "id"]);

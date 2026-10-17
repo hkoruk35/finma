@@ -5,13 +5,14 @@ import { cookies } from "next/headers";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { STAFF_COOKIE, readStaffRole } from "@/lib/staffSession";
 
 const ANON_DAILY_LIMIT = 3;
 const FREE_DAILY_TOKEN_LIMIT = 15_000;
 
 export async function GET() {
   // Yalnız yönetim hesapları (boga_auth: admin / readonly / engine): sınırsız
-  const role = (await cookies()).get("boga_auth")?.value;
+  const role = readStaffRole((await cookies()).get(STAFF_COOKIE)?.value);
   if (isCopilotRole(role)) {
     return NextResponse.json({ monthlyCredits: 0, topupCredits: 0, unlimited: true, hasAccess: true, tier: "admin", dailyUsed: 0, dailyLimit: 0 });
   }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendHourlyMemberReport } from "@/lib/telegram";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 
@@ -25,7 +26,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   // Manual trigger from Admin UI
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   if (role !== "admin" && role !== "readonly") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }

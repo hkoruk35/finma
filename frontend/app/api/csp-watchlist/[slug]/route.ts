@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { createTimeoutFetch } from '@/lib/supabaseFetch'
+import { getStaffRole } from '@/lib/staffSession'
 
 const VALID_SLUGS = ['active', '525', '2550', '50250', 'portfolio', 'swing', 'daily', 'long_term']
 
@@ -15,7 +16,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  if (!req.cookies.get('boga_auth')?.value) {
+  if (!getStaffRole(req)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
@@ -47,7 +48,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  if (req.cookies.get('boga_auth')?.value !== 'admin') {
+  if (getStaffRole(req) !== 'admin') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 

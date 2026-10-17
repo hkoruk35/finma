@@ -27,6 +27,7 @@ import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { getUserTasks, createCopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { HOT_THEMES_2026, getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 import { EARNINGS_LOCALES } from "@/lib/earnings/deepseekAnalysis";
+import { getStaffRole } from "@/lib/staffSession";
 
 // DeepSeek-v4-flash varsayılan olarak "thinking mode" ile çalışır (bkz.
 // DeepSeek fiyatlandırma tablosu) — Gemini flash'a göre adım başına daha
@@ -377,7 +378,7 @@ KURALLAR:
 
 export async function POST(req: NextRequest) {
   // Yalnız yönetim hesapları (boga_auth: admin / readonly / engine) — kota/kredi uygulanmaz, SPY odaklı esprili mod
-  const adminMode = isCopilotRole(req.cookies.get("boga_auth")?.value);
+  const adminMode = isCopilotRole(getStaffRole(req));
   const adminNote = adminMode ? adminPersonaFor(req.cookies.get("boga_user")?.value).promptNote : "";
   if (COPILOT_ADMIN_ONLY && !adminMode) return Response.json({ error: "admin_only" }, { status: 403 });
   if (COPILOT_DISABLED && !adminMode) return Response.json({ error: "temporarily_disabled" }, { status: 503 });

@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import { STAFF_COOKIE, readStaffRole } from "@/lib/staffSession";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  const role = cookieStore.get("boga_auth")?.value;
+  const role = readStaffRole(cookieStore.get(STAFF_COOKIE)?.value);
 
   // Sayfa erişimi (redirect) proxy.ts'de yapılıyor, ama login/register
   // sayfaları BİLEREK auth-muaf tutuluyor ki oraya ulaşılabilsin — bu

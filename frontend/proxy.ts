@@ -8,6 +8,7 @@ import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
 import { MEMBERSHIP_DISABLED } from './lib/siteMode'
 import { isStaffRole, isStaffOnlyPath, isEngineAdminPath } from './lib/staffOnly'
+import { getStaffRole } from './lib/staffSession'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
 const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
@@ -349,7 +350,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
 
   // Yönetim hesabı (boga_auth: admin/readonly/engine) mı? Terminal, Top 7/100, Yükselenler/Düşenler, Trend,
   // Temalar, Performans ve Eğitim Rehberi yalnızca bunlara açık (bkz. lib/staffOnly.ts). Diğer herkes ana sayfaya döner.
-  const isStaff = isStaffRole(request.cookies.get('boga_auth')?.value)
+  const isStaff = isStaffRole(getStaffRole(request))
   if (!isStaff && currentLocale && isStaffOnlyPath(pathname)) {
     return redirectTo(new URL(`/global/${currentLocale}/home`, request.url))
   }
@@ -382,14 +383,15 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   // yapmamış herkes doğrudan Yönetim Merkezi dashboard'unu görebiliyordu.
   const isAdminPath = pathname === '/admin' || pathname?.startsWith('/admin/')
   const requiresAdminAuth = isAdminPath && !isAdminAuthPath
-  const hasBogaAuth = !!request.cookies.get('boga_auth')?.value
+  // Rol yalnız imzalı çerezden (lib/staffSession.ts) — düz/eski/sahte boga_auth değeri girişsiz sayılır.
+  const staffRole = getStaffRole(request)
 
-  if (requiresAdminAuth && !hasBogaAuth) {
+  if (requiresAdminAuth && !staffRole) {
     return redirectTo(new URL('/admin/account/login', request.url))
   }
 
   // "engine" rolü: SPY / QQQ Engine, Piyasalar menüsü ve Pro (lib/staffOnly.ts · ENGINE_ADMIN_PREFIXES). Başka her yönetim sayfası motor ekranına yönlendirilir.
-  if (requiresAdminAuth && request.cookies.get('boga_auth')?.value === 'engine') {
+  if (requiresAdminAuth && staffRole === 'engine') {
     const engineOk = !!pathname && isEngineAdminPath(pathname)
     if (!engineOk) return redirectTo(new URL('/admin/spyengine/v1', request.url))
   }

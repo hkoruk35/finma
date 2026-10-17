@@ -14,6 +14,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { MARKET_THEMES } from "@/lib/themeData";
+import { STAFF_COOKIE, readStaffRole } from "@/lib/staffSession";
 
 export const revalidate = 60;
 
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 export default async function ProPage() {
   // GEÇİCİ: login zorunluluğu kaldırıldı
   const cookieStore = await cookies();
-  const role = cookieStore.get("boga_auth")?.value;
+  const role = readStaffRole(cookieStore.get(STAFF_COOKIE)?.value);
   if (false && role !== "admin" && role !== "readonly") {
     redirect("/login");
   }

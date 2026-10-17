@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, after } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { createTimeoutFetch } from '@/lib/supabaseFetch'
+import { getStaffRole } from '@/lib/staffSession'
 
 // İzin verilen anahtarlar — güvenlik için whitelist
 const ALLOWED_KEYS = [
@@ -26,7 +27,7 @@ function adminClient() {
 }
 
 function requireAdmin(req: NextRequest): boolean {
-  return !!req.cookies.get('boga_auth')?.value
+  return !!getStaffRole(req)
 }
 
 // theme_overrides/hot_themes_removals gibi degerler ic ice dizi tutuyor
@@ -138,7 +139,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
-  if (req.cookies.get('boga_auth')?.value !== 'admin') {
+  if (getStaffRole(req) !== 'admin') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 

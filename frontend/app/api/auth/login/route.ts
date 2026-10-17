@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { STAFF_COOKIE, STAFF_SESSION_MAX_AGE_SECONDS, signStaffSession } from '@/lib/staffSession'
 
 // Brute-force koruması: basit in-memory rate limiter
 const attempts = new Map<string, { count: number; resetAt: number }>()
@@ -68,12 +69,19 @@ export async function POST(req: NextRequest) {
 
   clearAttempts(ip)
 
+  // İmzalı oturum değeri (rol + son kullanma + HMAC) — düz rol metni ASLA yazılmaz (lib/staffSession.ts)
+  const token = signStaffSession(String(user.role))
+  if (!token) {
+    console.error('[auth/login] boga_auth imzalanamadı: bilinmeyen rol ya da imza sırrı yok (BOGA_AUTH_SECRET / SUPABASE_SERVICE_ROLE_KEY)')
+    return NextResponse.json({ error: 'Giriş şu an yapılamıyor.' }, { status: 500 })
+  }
+
   const res = NextResponse.json({ ok: true, role: user.role })
-  res.cookies.set('boga_auth', user.role, {
+  res.cookies.set(STAFF_COOKIE, token, {
     httpOnly: true,
     secure: true,
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24, // 24 saat
+    maxAge: STAFF_SESSION_MAX_AGE_SECONDS, // 24 saat — imzadaki son kullanma ile aynı
     path: '/',
   })
   // Copilot kişiselleştirmesi (lib/copilot/adminPersona.ts): hangi yönetici — yetki için KULLANILMAZ

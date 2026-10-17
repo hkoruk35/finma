@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { extname } from "path";
+import { getStaffRole } from "@/lib/staffSession";
 
 function requireAdmin(req: NextRequest) {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 function getSupabaseAdmin() {

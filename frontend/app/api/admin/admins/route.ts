@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getStaffRole } from "@/lib/staffSession";
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 export async function GET(req: NextRequest) {

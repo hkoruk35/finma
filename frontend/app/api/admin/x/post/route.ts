@@ -4,12 +4,13 @@ import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
 import { postTweet, extractXErrorDetail } from "@/lib/x/client";
 import { uploadPostImage } from "@/lib/x/storage";
 import { isXPostingEnabled } from "@/lib/x/settings";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 const DAILY_FREE_TIER_LIMIT = 480; // 500 free-tier limitine güvenlik payı bırakır

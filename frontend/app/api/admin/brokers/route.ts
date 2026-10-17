@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 const CATEGORIES = new Set(["stock", "fx", "crypto"]);

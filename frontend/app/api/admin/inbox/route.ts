@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getStaffRole } from "@/lib/staffSession";
 
 function requireAdmin(req: NextRequest): boolean {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin" || role === "readonly";
 }
 
 function requireWrite(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 interface UnifiedMessage {

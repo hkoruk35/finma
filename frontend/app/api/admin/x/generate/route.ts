@@ -4,12 +4,13 @@ import { fetchTickerMarketData, fetchMarketAssetQuote, fetchMarketAssetBars, fet
 import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
 import { getSectorStandouts, getSectorRotation } from "@/lib/x/listOptions";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 export async function POST(req: NextRequest) {

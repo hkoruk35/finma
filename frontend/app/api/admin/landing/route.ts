@@ -5,9 +5,10 @@ import {
   deleteLandingConfigFromDB,
   type LandingConfig,
 } from "@/lib/landingConfig";
+import { getStaffRole } from "@/lib/staffSession";
 
 function requireAdmin(req: NextRequest) {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin";
 }
 

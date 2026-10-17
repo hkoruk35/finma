@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getVisitors } from '@/lib/visitor-store';
+import { getStaffRole } from '@/lib/staffSession';
 
 function requireAdmin(req: NextRequest): boolean {
-  const role = req.cookies.get('boga_auth')?.value;
+  const role = getStaffRole(req);
   return role === 'admin' || role === 'readonly';
 }
 

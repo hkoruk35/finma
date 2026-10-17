@@ -1,10 +1,11 @@
 import { NextRequest } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { MEMBERSHIP_DISABLED } from "@/lib/siteMode";
+import { getStaffRole } from "@/lib/staffSession";
 
 /** İç yönetim paneli (staff) kimliği — customer/Supabase oturumundan tamamen ayrı. */
 export function isStaffAuthed(req: NextRequest): boolean {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin" || role === "readonly";
 }
 
@@ -13,12 +14,12 @@ export function isStaffAuthed(req: NextRequest): boolean {
  * "engine" rolü genel isStaffAuthed'e GİRMEZ — diğer tüm yönetim API'leri ona kapalı kalır.
  */
 export function isEngineAuthed(req: NextRequest): boolean {
-  const role = req.cookies.get("boga_auth")?.value;
+  const role = getStaffRole(req);
   return role === "admin" || role === "readonly" || role === "engine";
 }
 
 export function isStaffWriteAuthed(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 export interface MemberAccess {

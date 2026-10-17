@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 // Önizleme amaçlı: sabit şablonu paylaşmadan PNG olarak render eder.

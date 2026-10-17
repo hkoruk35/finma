@@ -3,12 +3,13 @@ import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume } from "
 import { getAllTickers } from "@/lib/data";
 import { SECTOR_ORDER, groupBySector } from "@/lib/sectorHeatMap";
 import { generateLocalizedTexts, type ListType } from "@/lib/x/generateContent";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 const LIST_TITLES: Record<ListType, string> = {

@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { isXPostingEnabled } from "@/lib/x/settings";
 import { LOCALES, type Locale, type MarketAssetCategory } from "@/lib/x/generateContent";
 import { publishTargetNow } from "@/lib/x/publishNow";
+import { getStaffRole } from "@/lib/staffSession";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 const MARKET_ASSET_CATEGORIES = new Set(["sector", "index", "commodity", "fx", "crypto"]);

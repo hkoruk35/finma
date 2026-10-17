@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { computeTop100Snapshot } from "@/lib/top100-engine";
 import { getAllTickers } from "@/lib/data";
+import { getStaffRole } from "@/lib/staffSession";
 
 function requireAdmin(req: NextRequest): boolean {
-  return req.cookies.get("boga_auth")?.value === "admin";
+  return getStaffRole(req) === "admin";
 }
 
 export async function GET(req: NextRequest) {
