@@ -22,7 +22,7 @@ import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/Fore
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
-import { trackerRead, trackPrewarn, FC_RULES, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { trackerRead, trackPrewarn, FC_RULES, TRACK_CFG, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import {
@@ -745,6 +745,24 @@ export default function SpyEngineV9() {
   }, [replayDate]);
   /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
   const [stopMult, setStopMult] = useState(0.25);
+  /** işlem başı dolar riski — kontrat sayısı = risk ÷ (stop × Δ × 100); tarayıcıda hatırlanır (sayfa 60 sn'de yenilenir) */
+  const [riskUsd, setRiskUsd] = useState(TRACK_CFG.riskUsd);
+  useEffect(() => {
+    const id = setTimeout(() => {
+      try {
+        const v = Number(localStorage.getItem("spyengine_risk_usd"));
+        if (Number.isFinite(v) && v > 0) setRiskUsd(v);
+      } catch {
+        // depolama yoksa varsayılan risk
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, []);
+  const changeRisk = (v: number) => {
+    if (!Number.isFinite(v) || v <= 0) return;
+    setRiskUsd(v);
+    try { localStorage.setItem("spyengine_risk_usd", String(v)); } catch { /* depolama yok */ }
+  };
 
   const [data, setData] = useState<StreamResponse | null>(null);
   const [m1, setM1] = useState<Bar[]>([]);
@@ -1084,10 +1102,10 @@ export default function SpyEngineV9() {
     if (!date || !trackNow) return null;
     return trackerRead({
       date, m5: m5D, nowSec: trackNow, h1: h1Track, fine: m1,
-      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null,
+      prevClose: data?.levels?.prevClose ?? null, rvol: data?.rvolBase ?? null, riskUsd,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate]);
+  }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate, riskUsd]);
   const trackCur = track?.current ?? null;
 
   /** Pivot noktaları: 30m / 1h / 4h Fibonacci (her mum kapanışında güncellenir) */
@@ -1243,7 +1261,7 @@ export default function SpyEngineV9() {
               <Link href="/admin/qqqengine/v1" className="rounded-md border border-sky-500/60 bg-sky-500/15 px-2.5 py-0.5 text-[11px] font-bold text-sky-300 hover:bg-sky-500/30">→ QQQ Engine</Link>
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
-              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim çubuğu · mum formasyonu; RVOL/RSI belirsizlikte) → 1R&apos;de yarısı, kalan 15m izleyen stop · tek karar kaynağı · 30m/1h/4h yalnız bilgi
+              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + saat-normalize RVOL ≥ 1] ya da formasyon · kapanış mumun yön ucunda) · kontrat = sabit dolar riski ÷ stop → 1R&apos;de yarısı, kalan 15m izleyen stop · tek karar kaynağı · 30m/1h/4h yalnız bilgi
             </p>
           </div>
         </div>
@@ -1264,6 +1282,17 @@ export default function SpyEngineV9() {
           <span className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400">
             {nowSec ? `${nyClock(nowSec, true)} ET` : "—"}
           </span>
+          <label className="flex items-center gap-1 rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400" title="İşlem başı dolar riski: kontrat = risk ÷ (stop puanı × Δ0,45 × 100)">
+            risk $
+            <input
+              type="number"
+              min={10}
+              step={10}
+              value={riskUsd}
+              onChange={(e) => changeRisk(Number(e.target.value))}
+              className="w-14 bg-transparent text-right text-slate-200 outline-none"
+            />
+          </label>
           <input
             type="date"
             value={replayDate}

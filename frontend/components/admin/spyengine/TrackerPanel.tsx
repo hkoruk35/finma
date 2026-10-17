@@ -301,7 +301,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="flex flex-wrap items-center gap-2">
           <span className="text-[13px] font-bold tracking-wide text-slate-100">Takip Sistemi</span>
-          <span className="text-[11px] text-slate-400">· 5m tetik · 15m yön teyidi · VWAP · EMA20 · hacim · formasyon (RSI/RVOL belirsizlikte) · {cur ? PHASE_TEXT[cur.phase] : ""}</span>
+          <span className="text-[11px] text-slate-400">· 5m tetik · 15m yön teyidi · VWAP · EMA20 · hacim (yön rengi + RVOL ≥ 1) · formasyon · kapanış yön ucunda · {cur ? PHASE_TEXT[cur.phase] : ""}</span>
         </span>
         <span className="flex flex-wrap items-center gap-1">
           {badge(`seans öncesi ${r.k0.bias}`, r.k0.bias === "CALL" ? UP : r.k0.bias === "PUT" ? DN : NEU, "Premarket fiyatı dünkü kapanışa göre + premarket aralık kırılımı (bilgi)")}
@@ -364,7 +364,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
                   <li key={t.id} className="text-slate-300">
                     <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.contracts ?? 2}× {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · H1 {num(t.h1)} · {t.size === "half" ? "½" : "tam"}
                     {" → "}{t.exitClock ? <>{t.exitClock} {t.exitReason} <b className={(t.resultR ?? 0) >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{(t.resultR ?? 0) >= 0 ? "+" : ""}{t.resultR}R</b></> : <b className="text-sky-300">açık {t.liveR != null ? `${t.liveR >= 0 ? "+" : ""}${t.liveR}R` : ""}</b>}
-                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · ${t.contracts === 1 ? "" : "momentum: "}${t.momWhy.join(", ")}` : ""}</span>
+                    <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · ${t.momWhy.join(", ")}` : ""}</span>
                   </li>
                 ))}
               </ul>
