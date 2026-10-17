@@ -15,7 +15,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed, isStaffWriteAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed, isStaffWriteAuthed } from "@/lib/apiAuth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export const runtime = "nodejs";
@@ -68,7 +68,8 @@ function scoreOf(s: ForecastSession): { checked: number; hit: number } {
 }
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) {
+  // okuma: engine rolü de (motor sayfası paneli); kayıt (POST) yalnız admin
+  if (!isEngineAuthed(req)) {
     return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   }
   const store = await readStore();

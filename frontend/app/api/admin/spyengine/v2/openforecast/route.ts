@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { isStaffAuthed } from "@/lib/apiAuth";
+import { isEngineAuthed } from "@/lib/apiAuth";
 import { fetchOpenForecast } from "@/lib/spyengine/openForecastFetch";
 import { updateJournal, learned, openBias } from "@/lib/spyengine/journal";
 
@@ -14,7 +14,8 @@ export const revalidate = 0;
 export const maxDuration = 30;
 
 export async function GET(req: NextRequest) {
-  if (!isStaffAuthed(req)) {
+  // engine rolü de okur (motor sayfası Açılış Tahmini paneli)
+  if (!isEngineAuthed(req)) {
     return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });
   }
   try {
