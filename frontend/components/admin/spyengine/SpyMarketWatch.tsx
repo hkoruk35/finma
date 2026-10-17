@@ -57,7 +57,7 @@ function Stat({ k, v, sub, cls }: { k: string; v: ReactNode; sub?: ReactNode; cl
 
 const PHASE_TR: Record<SessionPhase, string> = { PRE: "seans öncesi", RTH: "seans içi", POST: "seans sonrası", CLOSED: "piyasa kapalı" };
 
-export default function SpyMarketWatch({ quotes, updatedAt, spot, phase }: { quotes: WatchQuote[]; updatedAt: number | null; spot: SpotStats | null; phase: SessionPhase }) {
+export default function SpyMarketWatch({ symbol = "SPY", quotes, updatedAt, spot, phase }: { symbol?: string; quotes: WatchQuote[]; updatedAt: number | null; spot: SpotStats | null; phase: SessionPhase }) {
   const by = (l: string) => quotes.find((q) => q.label === l && !q.error && q.price != null) ?? null;
   const spy = by("SPY"), es = by("ES"), vix = by("VIX"), vix9 = by("VIX9D"), rsp = by("RSP"), tnx = by("TNX"), dxy = by("DXY");
   const leaders = quotes.filter((q) => q.group === "lead" && q.changePct != null);
@@ -85,13 +85,13 @@ export default function SpyMarketWatch({ quotes, updatedAt, spot, phase }: { quo
   return (
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-        <span className="text-[13px] font-semibold text-slate-200">SPY Piyasa Takibi <span className="text-[11px] font-normal text-slate-500">· bilgi — işlem kararı üst banttaki Takip Sistemi&apos;nde</span></span>
+        <span className="text-[13px] font-semibold text-slate-200">{symbol} Piyasa Takibi <span className="text-[11px] font-normal text-slate-500">· bilgi — işlem kararı üst banttaki Takip Sistemi&apos;nde</span></span>
         <span className="font-mono text-[10.5px] text-slate-500">{updatedAt ? `${nyClock(updatedAt, true)} ET` : "veri bekleniyor"} · {PHASE_TR[phase]}</span>
       </div>
 
       {/* SPY'ın kendi verileri */}
       <div className="grid grid-cols-2 gap-1.5 border-b border-[#1c2635] p-2 sm:grid-cols-4 xl:grid-cols-8">
-        <Stat k="SPY fiyat" v={spot?.price != null ? `$${num(spot.price)}` : "—"} sub={spot?.priceTime ? `${nyClock(spot.priceTime, true)} ET` : undefined} />
+        <Stat k={`${symbol} fiyat`} v={spot?.price != null ? `$${num(spot.price)}` : "—"} sub={spot?.priceTime ? `${nyClock(spot.priceTime, true)} ET` : undefined} />
         <Stat k="Günlük değişim" v={pct(spot?.changePct)} cls={tone(spot?.changePct ?? null)} sub={spot?.change != null ? `${signed(spot.change)} $ · dünkü kapanış ${num(spot.prevClose)}` : undefined} />
         <Stat k="Seans zirve / dip" v={spot?.rthHigh != null ? `${num(spot.rthHigh)} / ${num(spot.rthLow)}` : "—"} sub={spot?.rangePct != null ? `fiyat aralığın %${num(spot.rangePct, 0)}'inde` : "seans başlamadı"} />
         <Stat k="Seans öncesi zirve / dip" v={spot?.preHigh != null ? `${num(spot.preHigh)} / ${num(spot.preLow)}` : "—"} sub={gap != null && phase === "PRE" ? `açılış farkı (gap) ${signed(gap)} $` : "premarket aralığı"} />

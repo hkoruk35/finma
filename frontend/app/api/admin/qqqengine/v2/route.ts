@@ -25,7 +25,7 @@ export const maxDuration = 30;
 
 const SYMBOL = "QQQ";
 
-let rvolCache: { key: string; value: { slot: number[]; cum: number[]; days: number } | null } | null = null;
+let rvolCache: { key: string; value: { slot: number[]; cum: number[]; med?: number[]; days: number } | null } | null = null;
 
 function spotStats(sessionBars: Bar[], date: string) {
   const rth = sessionBars.filter(isRthBar);
@@ -137,7 +137,7 @@ export async function GET(req: NextRequest) {
           const key = `${session.date}:${hist.bars.length}:${hist.bars[hist.bars.length - 1]?.time ?? 0}`;
           if (rvolCache?.key === key) return rvolCache.value;
           const b = rvolBaseline(hist.bars, session.date);
-          const value = b ? { slot: b.slot.map(Math.round), cum: b.cum.map(Math.round), days: b.days } : null;
+          const value = b ? { slot: b.slot.map(Math.round), cum: b.cum.map(Math.round), med: b.med?.map(Math.round), days: b.days } : null;
           rvolCache = { key, value };
           return value;
         })(),

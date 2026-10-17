@@ -1,5 +1,5 @@
 /**
- * Takip Sistemi günlüğü (sunucu) — Supabase `shared_store` anahtarı `spyengine_tracker`.
+ * Takip Sistemi günlüğü (sunucu) — Supabase `shared_store` anahtarı `spyengine_tracker` (SPY) / `qqqengine_tracker` (QQQ).
  *
  * • Tamamlanan her seans (16:05 ET sonrası) için CANLI MOTORUN AYNI FONKSİYONU (tracker.ts · trackerRead) Yahoo 5m ile
  *   günü baştan oynatır; o günün bütün 30 dk tahminleri + gerçekleşenleri, işlemleri ve uyarıları tek kayıtta DONDURULUR.
@@ -15,7 +15,9 @@ import { chart } from "./openForecastFetch";
 import { rvolBaseline } from "./ladder";
 import { trackerRead, summarizeTrades, TRACK_VERSION, type FcRule, type TagStat, type TrackTrade } from "./tracker";
 
-const KEY = "spyengine_tracker";
+export type TrackSymbol = "SPY" | "QQQ";
+export const TRACK_SYMBOLS: TrackSymbol[] = ["SPY", "QQQ"];
+const KEYS: Record<TrackSymbol, string> = { SPY: "spyengine_tracker", QQQ: "qqqengine_tracker" };
 const MAX_DAYS = 250;
 const MAX_LIVE_ALERTS = 300;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -43,9 +45,9 @@ export interface TrackDay {
 
 interface Store { days: Record<string, TrackDay>; pending: Record<string, LiveAlert[]>; updatedAt: string }
 
-async function readStore(): Promise<Store> {
+async function readStore(sym: TrackSymbol): Promise<Store> {
   try {
-    const { data } = await supabaseAdmin.from("shared_store").select("value").eq("key", KEY).maybeSingle();
+    const { data } = await supabaseAdmin.from("shared_store").select("value").eq("key", KEYS[sym]).maybeSingle();
     const v = data?.value as Store | undefined;
     if (v && typeof v === "object" && v.days) return { days: v.days, pending: v.pending ?? {}, updatedAt: v.updatedAt ?? "" };
   } catch {
@@ -54,11 +56,11 @@ async function readStore(): Promise<Store> {
   return { days: {}, pending: {}, updatedAt: "" };
 }
 
-async function writeStore(s: Store): Promise<void> {
+async function writeStore(sym: TrackSymbol, s: Store): Promise<void> {
   const keys = Object.keys(s.days).sort();
   for (const k of keys.slice(0, Math.max(0, keys.length - MAX_DAYS))) delete s.days[k];
   s.updatedAt = new Date().toISOString();
-  await supabaseAdmin.from("shared_store").upsert({ key: KEY, value: s }, { onConflict: "key" });
+  await supabaseAdmin.from("shared_store").upsert({ key: KEYS[sym], value: s }, { onConflict: "key" });
 }
 
 /** Bir günü canlı motorla oynatıp kayda çevirir (geriye dönük test de aynı fonksiyonu kullanır) */
@@ -77,18 +79,19 @@ export function buildTrackDay(m5: Bar[], date: string, backfill: boolean, live?:
   };
 }
 
-let memo: { at: number; days: TrackDay[] } | null = null;
+const memo: Partial<Record<TrackSymbol, { at: number; days: TrackDay[] }>> = {};
 
 /** Eksik tamamlanmış seansları kaydeder. 10 dk önbellekli. */
-export async function updateTrackerLog(force = false): Promise<TrackDay[]> {
-  if (!force && memo && Date.now() - memo.at < 10 * 60 * 1000) return memo.days;
-  const store = await readStore();
+export async function updateTrackerLog(force = false, sym: TrackSymbol = "SPY"): Promise<TrackDay[]> {
+  const mm = memo[sym];
+  if (!force && mm && Date.now() - mm.at < 10 * 60 * 1000) return mm.days;
+  const store = await readStore(sym);
   const empty = Object.keys(store.days).length === 0;
   const isStale = (x: TrackDay) => x.backfill && x.version !== TRACK_VERSION;
   const staleAny = Object.values(store.days).some(isStale);
   let dirty = false;
   try {
-    const raw = await chart("SPY", empty || staleAny ? "60d" : "1mo");
+    const raw = await chart(sym, empty || staleAny ? "60d" : "1mo");
     const m5: Bar[] = dropBadPrints(snapToInterval(normalizeBars(raw), 300)).bars;
     if (m5.length) {
       const np = nyParts(Math.floor(Date.now() / 1000));
@@ -112,17 +115,17 @@ export async function updateTrackerLog(force = false): Promise<TrackDay[]> {
     // veri alınamadıysa mevcut kayıtla devam
   }
   if (dirty) {
-    try { await writeStore(store); } catch { /* sonraki çağrıda yeniden denenir */ }
+    try { await writeStore(sym, store); } catch { /* sonraki çağrıda yeniden denenir */ }
   }
   const days = Object.values(store.days).sort((a, b) => a.date.localeCompare(b.date));
-  memo = { at: Date.now(), days };
+  memo[sym] = { at: Date.now(), days };
   return days;
 }
 
 /** Tarayıcıdan gelen canlı uyarıları günün bekleyen kaydına ekler (aynı uyarı iki kez yazılmaz) */
-export async function appendTrackerAlerts(date: string, alerts: LiveAlert[]): Promise<number> {
+export async function appendTrackerAlerts(date: string, alerts: LiveAlert[], sym: TrackSymbol = "SPY"): Promise<number> {
   if (!DATE_RE.test(date) || !alerts.length) return 0;
-  const store = await readStore();
+  const store = await readStore(sym);
   if (store.days[date]) return 0;
   const p = (store.pending[date] ??= []);
   const seen = new Set(p.map((a) => `${a.t}|${a.level}|${a.tag}|${a.side}`));
@@ -134,7 +137,7 @@ export async function appendTrackerAlerts(date: string, alerts: LiveAlert[]): Pr
     p.push(a);
     n++;
   }
-  if (n) await writeStore(store);
+  if (n) await writeStore(sym, store);
   return n;
 }
 
