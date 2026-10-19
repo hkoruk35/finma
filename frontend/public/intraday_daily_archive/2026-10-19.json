@@ -1,10 +1,58 @@
 {
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T13:00:16.337146-04:00",
+  "generated_at": "2026-10-19T13:30:13.147540-04:00",
   "market_regime": "Bull",
-  "vix_level": 18.030000686645508,
+  "vix_level": 18.40999984741211,
   "total": 20,
   "signals": [
+    {
+      "ticker": "MTDR",
+      "company": "Matador Resources Company",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 57.54,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($56.67–$58.41). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 62.2,
+        "adx_1h": 36.6,
+        "volume_ratio": 0.0,
+        "change_1h": 0.07,
+        "change_24h": 0.03,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.03,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.03,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.16,
+        "hourly_score": 1,
+        "daily_rvol": 0.35,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.19,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.86,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+      ]
+    },
     {
       "ticker": "HG",
       "company": "Hamilton Insurance Group, Ltd.",
@@ -20,8 +68,8 @@
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 61.2,
-        "adx_1h": 41.8,
-        "volume_ratio": 0.2,
+        "adx_1h": 41.9,
+        "volume_ratio": 0.94,
         "change_1h": 0.22,
         "change_24h": -0.75,
         "trend_1h": "FLAT",
@@ -29,17 +77,17 @@
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
         "natr": 2.32,
-        "pre_gap_total": 5,
+        "pre_gap_total": 4,
         "pre_gap_grade": "C",
         "gap_pct": -0.88,
         "gap_score": 0,
         "hourly_strength_pct": -0.77,
-        "hourly_score": 2,
+        "hourly_score": 1,
         "daily_rvol": 0.31,
         "daily_rvol_score": 0,
         "close_to_high_pct": 98.74,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.78,
+        "late_volume_ratio": 0.48,
         "late_volume_score": 0
       },
       "notes": [
@@ -50,7 +98,150 @@
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.2x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.9x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "SJM",
+      "company": "The J. M. Smucker Company",
+      "sector": "Consumer Defensive",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 127.2,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($125.80–$128.60). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 56.9,
+        "adx_1h": 28.6,
+        "volume_ratio": 1.03,
+        "change_1h": -0.18,
+        "change_24h": -0.18,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.2,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": -1.12,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.18,
+        "hourly_score": 2,
+        "daily_rvol": 0.77,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.22,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.63,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (1.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "VNOM",
+      "company": "Viper Energy, Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 45.21,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($44.68–$45.74). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 68.6,
+        "adx_1h": 27.2,
+        "volume_ratio": 1.45,
+        "change_1h": 0.11,
+        "change_24h": 0.42,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.36,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.04,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.33,
+        "hourly_score": 2,
+        "daily_rvol": 0.46,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.53,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.18,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 15m: Price UP but volume DOWN (-17%) ⚠️ Fake Rally Trap - RED"
+      ]
+    },
+    {
+      "ticker": "EOG",
+      "company": "EOG Resources, Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 157.51,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($155.77–$159.25). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 57.5,
+        "adx_1h": 27.2,
+        "volume_ratio": 0.83,
+        "change_1h": 0.13,
+        "change_24h": -0.32,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.21,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.58,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.15,
+        "hourly_score": 3,
+        "daily_rvol": 0.54,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.06,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.88,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
       ]
     },
     {
@@ -59,35 +250,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 42.46,
+      "current_price": 42.43,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($41.78–$43.14). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($41.74–$43.11). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 72.2,
+        "rsi_1h": 71.7,
         "adx_1h": 33.6,
-        "volume_ratio": 0.5,
-        "change_1h": 0.06,
-        "change_24h": 1.72,
+        "volume_ratio": 0.79,
+        "change_1h": -0.02,
+        "change_24h": 1.64,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "pattern_15m": "🕯️ Bullish Engulfing",
+        "pattern_15m": "Neutral",
         "rs_score": 3.0,
         "natr": 3.21,
         "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": -0.53,
         "gap_score": 0,
-        "hourly_strength_pct": 1.77,
+        "hourly_strength_pct": 1.69,
         "hourly_score": 3,
-        "daily_rvol": 0.68,
+        "daily_rvol": 0.63,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 99.84,
+        "close_to_high_pct": 99.75,
         "close_to_high_score": 3,
-        "late_volume_ratio": 1.07,
+        "late_volume_ratio": 0.67,
         "late_volume_score": 0
       },
       "notes": [
@@ -96,9 +287,55 @@
         "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
-        "15M Trigger: 🕯️ Bullish Engulfing",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "ALL",
+      "company": "The Allstate Corporation",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 245.79,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($243.29–$248.30). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 59.9,
+        "adx_1h": 27.6,
+        "volume_ratio": 0.63,
+        "change_1h": 0.23,
+        "change_24h": -0.84,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.04,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.79,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.84,
+        "hourly_score": 2,
+        "daily_rvol": 0.49,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.65,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.03,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
       ]
     },
     {
@@ -112,171 +349,30 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($53.50–$54.75). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($53.49–$54.75). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 67.7,
-        "adx_1h": 28.7,
-        "volume_ratio": 0.53,
-        "change_1h": 0.12,
-        "change_24h": 0.6,
+        "adx_1h": 28.8,
+        "volume_ratio": 0.92,
+        "change_1h": 0.11,
+        "change_24h": 0.59,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
         "natr": 2.31,
-        "pre_gap_total": 6,
+        "pre_gap_total": 5,
         "pre_gap_grade": "C",
         "gap_pct": -1.49,
         "gap_score": 0,
-        "hourly_strength_pct": 1.17,
-        "hourly_score": 3,
-        "daily_rvol": 0.65,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.89,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.86,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "EOG",
-      "company": "EOG Resources, Inc.",
-      "sector": "Energy",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 157.42,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($155.68–$159.16). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 57.1,
-        "adx_1h": 26.9,
-        "volume_ratio": 0.37,
-        "change_1h": 0.07,
-        "change_24h": -0.37,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.21,
-        "pre_gap_total": 6,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.58,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.09,
-        "hourly_score": 3,
-        "daily_rvol": 0.56,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.0,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.34,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "VNOM",
-      "company": "Viper Energy, Inc.",
-      "sector": "Energy",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 45.26,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($44.73–$45.79). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 69.4,
-        "adx_1h": 27.1,
-        "volume_ratio": 0.82,
-        "change_1h": 0.22,
-        "change_24h": 0.53,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.36,
-        "pre_gap_total": 7,
-        "pre_gap_grade": "B",
-        "gap_pct": -0.04,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.44,
-        "hourly_score": 3,
-        "daily_rvol": 0.46,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.64,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 1.26,
-        "late_volume_score": 1
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "ALL",
-      "company": "The Allstate Corporation",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 245.69,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($243.19–$248.19). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 59.7,
-        "adx_1h": 27.6,
-        "volume_ratio": 0.27,
-        "change_1h": 0.18,
-        "change_24h": -0.88,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.04,
-        "pre_gap_total": 5,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.79,
-        "gap_score": 0,
-        "hourly_strength_pct": -0.88,
+        "hourly_strength_pct": 1.16,
         "hourly_score": 2,
-        "daily_rvol": 0.51,
+        "daily_rvol": 0.62,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 99.61,
+        "close_to_high_pct": 99.81,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.42,
+        "late_volume_ratio": 0.71,
         "late_volume_score": 0
       },
       "notes": [
@@ -286,54 +382,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "PBA",
-      "company": "Pembina Pipeline Corporation",
-      "sector": "Energy",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 49.72,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($49.21–$50.22). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 63.2,
-        "adx_1h": 28.3,
-        "volume_ratio": 0.16,
-        "change_1h": 0.07,
-        "change_24h": -0.77,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.05,
-        "pre_gap_total": 5,
-        "pre_gap_grade": "C",
-        "gap_pct": -0.04,
-        "gap_score": 0,
-        "hourly_strength_pct": -0.57,
-        "hourly_score": 2,
-        "daily_rvol": 0.35,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 98.94,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.5,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.9x < 1.0x) ❌"
       ]
     },
     {
@@ -342,35 +391,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 24.65,
+      "current_price": 24.61,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($23.86–$25.44). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($23.82–$25.40). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 43.6,
-        "adx_1h": 16.2,
-        "volume_ratio": 0.19,
-        "change_1h": -0.31,
-        "change_24h": -0.99,
+        "rsi_1h": 43.0,
+        "adx_1h": 16.0,
+        "volume_ratio": 0.7,
+        "change_1h": -0.49,
+        "change_24h": -1.16,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 6.43,
+        "natr": 6.44,
         "pre_gap_total": 3,
         "pre_gap_grade": "C",
         "gap_pct": 0.4,
         "gap_score": 0,
-        "hourly_strength_pct": -2.71,
+        "hourly_strength_pct": -2.88,
         "hourly_score": 1,
         "daily_rvol": 0.41,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 96.68,
+        "close_to_high_pct": 96.51,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.39,
+        "late_volume_ratio": 1.06,
         "late_volume_score": 0
       },
       "notes": [
@@ -381,102 +430,54 @@
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.7x < 1.2x) ❌"
       ]
     },
     {
-      "ticker": "TRGP",
-      "company": "Targa Resources Corp.",
+      "ticker": "PBA",
+      "company": "Pembina Pipeline Corporation",
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 292.93,
+      "current_price": 49.69,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($289.09–$296.77). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($49.18–$50.20). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 61.5,
-        "adx_1h": 29.0,
-        "volume_ratio": 0.29,
-        "change_1h": -0.07,
-        "change_24h": -0.67,
+        "rsi_1h": 62.2,
+        "adx_1h": 27.0,
+        "volume_ratio": 0.0,
+        "change_1h": -0.08,
+        "change_24h": -0.82,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 2.62,
+        "natr": 2.05,
         "pre_gap_total": 4,
         "pre_gap_grade": "C",
-        "gap_pct": -0.52,
+        "gap_pct": -0.04,
         "gap_score": 0,
-        "hourly_strength_pct": -0.67,
+        "hourly_strength_pct": -0.62,
         "hourly_score": 1,
-        "daily_rvol": 0.59,
+        "daily_rvol": 0.33,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 98.95,
+        "close_to_high_pct": 98.89,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.48,
+        "late_volume_ratio": 0.37,
         "late_volume_score": 0
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "SJM",
-      "company": "The J. M. Smucker Company",
-      "sector": "Consumer Defensive",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 127.09,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($125.69–$128.49). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 56.3,
-        "adx_1h": 28.7,
-        "volume_ratio": 0.61,
-        "change_1h": -0.27,
-        "change_24h": -0.27,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.2,
-        "pre_gap_total": 5,
-        "pre_gap_grade": "C",
-        "gap_pct": -1.12,
-        "gap_score": 0,
-        "hourly_strength_pct": -0.27,
-        "hourly_score": 2,
-        "daily_rvol": 0.82,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.13,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.87,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: ACCUMULATION",
+        "Phase: EXPANSION",
         "Vol: Acceptable",
         "Slope: Positive",
         "VWAP Extended",
-        "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.6x < 1.2x) ❌"
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
@@ -485,35 +486,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 13.37,
+      "current_price": 13.47,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($13.17–$13.57). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($13.26–$13.67). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 72.1,
-        "adx_1h": 50.7,
-        "volume_ratio": 1.23,
-        "change_1h": 0.79,
-        "change_24h": 1.29,
+        "rsi_1h": 74.7,
+        "adx_1h": 51.7,
+        "volume_ratio": 0.0,
+        "change_1h": 0.11,
+        "change_24h": 2.01,
         "trend_1h": "UP",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 2.96,
+        "natr": 2.98,
         "pre_gap_total": 5,
         "pre_gap_grade": "C",
         "gap_pct": -1.14,
         "gap_score": 0,
-        "hourly_strength_pct": 1.29,
+        "hourly_strength_pct": 2.01,
         "hourly_score": 2,
         "daily_rvol": 1.1,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 99.93,
+        "close_to_high_pct": 100.0,
         "close_to_high_score": 3,
-        "late_volume_ratio": 1.1,
+        "late_volume_ratio": 0.66,
         "late_volume_score": 0
       },
       "notes": [
@@ -524,54 +525,7 @@
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
         "⛔ Extended (Don't Chase)",
-        "⚠️ 1h: Fiyat UP ama hacim DOWN (-58%) ⚠️ Divergence - RED"
-      ]
-    },
-    {
-      "ticker": "IMO",
-      "company": "Imperial Oil Limited",
-      "sector": "Energy",
-      "swing_pick_date": "2026-10-19",
-      "days_since_pick": 0,
-      "current_price": 135.21,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($133.63–$136.79). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 67.7,
-        "adx_1h": 28.2,
-        "volume_ratio": 0.57,
-        "change_1h": 0.21,
-        "change_24h": 0.96,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "pattern_15m": "Neutral",
-        "rs_score": 3.0,
-        "natr": 2.34,
-        "pre_gap_total": 6,
-        "pre_gap_grade": "C",
-        "gap_pct": -1.42,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.9,
-        "hourly_score": 3,
-        "daily_rvol": 0.61,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 99.63,
-        "close_to_high_score": 3,
-        "late_volume_ratio": 0.49,
-        "late_volume_score": 0
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: ACCUMULATION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
@@ -580,35 +534,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 33.44,
+      "current_price": 33.37,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($33.03–$33.86). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($32.95–$33.79). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 43.5,
-        "adx_1h": 24.7,
+        "rsi_1h": 41.9,
+        "adx_1h": 24.0,
         "volume_ratio": 0.0,
-        "change_1h": -0.01,
-        "change_24h": -2.21,
+        "change_1h": -0.03,
+        "change_24h": -2.43,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 2.47,
+        "natr": 2.49,
         "pre_gap_total": 2,
         "pre_gap_grade": "C",
         "gap_pct": -0.0,
         "gap_score": 0,
-        "hourly_strength_pct": -2.21,
+        "hourly_strength_pct": -2.43,
         "hourly_score": 0,
-        "daily_rvol": 1.03,
+        "daily_rvol": 0.97,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 97.45,
+        "close_to_high_pct": 97.23,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.28,
+        "late_volume_ratio": 0.44,
         "late_volume_score": 0
       },
       "notes": [
@@ -628,35 +582,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 55.07,
+      "current_price": 55.01,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($54.27–$55.87). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($54.20–$55.81). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 54.2,
-        "adx_1h": 24.8,
-        "volume_ratio": 0.37,
-        "change_1h": -0.49,
-        "change_24h": -0.42,
+        "rsi_1h": 53.2,
+        "adx_1h": 24.6,
+        "volume_ratio": 0.81,
+        "change_1h": -0.61,
+        "change_24h": -0.53,
         "trend_1h": "DOWN",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 2.92,
-        "pre_gap_total": 5,
+        "natr": 2.94,
+        "pre_gap_total": 4,
         "pre_gap_grade": "C",
         "gap_pct": -0.54,
         "gap_score": 0,
-        "hourly_strength_pct": -0.42,
-        "hourly_score": 2,
-        "daily_rvol": 0.59,
+        "hourly_strength_pct": -0.53,
+        "hourly_score": 1,
+        "daily_rvol": 0.56,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 98.78,
+        "close_to_high_pct": 98.66,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.69,
+        "late_volume_ratio": 0.81,
         "late_volume_score": 0
       },
       "notes": [
@@ -666,44 +620,92 @@
         "Slope: Positive",
         "VWAP/EMA50 Acceptable Zone",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
       ]
     },
     {
-      "ticker": "MTDR",
-      "company": "Matador Resources Company",
+      "ticker": "IMO",
+      "company": "Imperial Oil Limited",
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 57.21,
+      "current_price": 135.49,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($56.34–$58.08). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($133.90–$137.07). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 58.9,
-        "adx_1h": 36.7,
-        "volume_ratio": 0.37,
-        "change_1h": -0.1,
-        "change_24h": -0.54,
+        "rsi_1h": 68.6,
+        "adx_1h": 28.3,
+        "volume_ratio": 0.81,
+        "change_1h": 0.42,
+        "change_24h": 1.17,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 3.05,
+        "natr": 2.34,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -1.42,
+        "gap_score": 0,
+        "hourly_strength_pct": 1.11,
+        "hourly_score": 3,
+        "daily_rvol": 0.58,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.83,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.47,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "TRGP",
+      "company": "Targa Resources Corp.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-10-19",
+      "days_since_pick": 0,
+      "current_price": 292.53,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($288.69–$296.37). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 59.9,
+        "adx_1h": 29.0,
+        "volume_ratio": 0.76,
+        "change_1h": -0.2,
+        "change_24h": -0.8,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.62,
         "pre_gap_total": 4,
         "pre_gap_grade": "C",
-        "gap_pct": -0.03,
+        "gap_pct": -0.52,
         "gap_score": 0,
-        "hourly_strength_pct": -0.42,
+        "hourly_strength_pct": -0.8,
         "hourly_score": 1,
-        "daily_rvol": 0.29,
+        "daily_rvol": 0.57,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 98.62,
+        "close_to_high_pct": 98.81,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.63,
+        "late_volume_ratio": 0.71,
         "late_volume_score": 0
       },
       "notes": [
@@ -713,7 +715,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
       ]
     },
     {
@@ -722,35 +724,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 13.62,
+      "current_price": 13.64,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($13.36–$13.89). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($13.37–$13.91). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 62.4,
+        "rsi_1h": 63.2,
         "adx_1h": 35.3,
-        "volume_ratio": 0.33,
-        "change_1h": -0.07,
-        "change_24h": -1.05,
+        "volume_ratio": 0.66,
+        "change_1h": 0.04,
+        "change_24h": -0.94,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 3.91,
+        "natr": 3.9,
         "pre_gap_total": 3,
         "pre_gap_grade": "C",
         "gap_pct": -0.07,
         "gap_score": 0,
-        "hourly_strength_pct": -0.18,
+        "hourly_strength_pct": -0.07,
         "hourly_score": 1,
-        "daily_rvol": 0.87,
+        "daily_rvol": 0.82,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 97.57,
+        "close_to_high_pct": 97.67,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.31,
+        "late_volume_ratio": 0.73,
         "late_volume_score": 0
       },
       "notes": [
@@ -760,7 +762,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.7x < 1.0x) ❌"
       ]
     },
     {
@@ -769,35 +771,35 @@
       "sector": "Real Estate",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 80.49,
+      "current_price": 80.7,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($79.06–$81.92). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($79.27–$82.13). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 44.3,
-        "adx_1h": 18.9,
-        "volume_ratio": 0.24,
-        "change_1h": -0.14,
-        "change_24h": -2.15,
+        "rsi_1h": 46.3,
+        "adx_1h": 18.3,
+        "volume_ratio": 0.0,
+        "change_1h": 0.02,
+        "change_24h": -1.9,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 1.0,
-        "natr": 3.56,
-        "pre_gap_total": 2,
+        "natr": 3.55,
+        "pre_gap_total": 3,
         "pre_gap_grade": "C",
         "gap_pct": -0.34,
         "gap_score": 0,
-        "hourly_strength_pct": -1.46,
-        "hourly_score": 0,
-        "daily_rvol": 0.6,
+        "hourly_strength_pct": -1.2,
+        "hourly_score": 1,
+        "daily_rvol": 0.58,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 97.31,
+        "close_to_high_pct": 97.56,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.64,
+        "late_volume_ratio": 0.34,
         "late_volume_score": 0
       },
       "notes": [
@@ -807,7 +809,7 @@
         "Slope: Positive",
         "VWAP/EMA50 Defense Zone",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
       ]
     },
     {
@@ -816,35 +818,35 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 54.61,
+      "current_price": 54.74,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($53.96–$55.26). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($54.09–$55.39). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 63.4,
-        "adx_1h": 22.9,
-        "volume_ratio": 0.42,
-        "change_1h": -0.02,
-        "change_24h": 0.57,
+        "rsi_1h": 65.1,
+        "adx_1h": 23.0,
+        "volume_ratio": 1.05,
+        "change_1h": 0.22,
+        "change_24h": 0.81,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
         "rs_score": 3.0,
-        "natr": 2.38,
+        "natr": 2.37,
         "pre_gap_total": 5,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.13,
+        "hourly_strength_pct": 0.37,
         "hourly_score": 2,
-        "daily_rvol": 0.87,
+        "daily_rvol": 0.83,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 99.71,
+        "close_to_high_pct": 99.94,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.42,
+        "late_volume_ratio": 0.92,
         "late_volume_score": 0
       },
       "notes": [
@@ -853,7 +855,7 @@
         "Vol: Acceptable",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ 1h: Fiyat UP ama hacim DOWN (-35%) ⚠️ Divergence - RED"
       ]
     },
     {
@@ -862,19 +864,19 @@
       "sector": "Energy",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 58.71,
+      "current_price": 58.76,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($58.23–$59.19). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($58.28–$59.24). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 58.1,
-        "adx_1h": 14.8,
-        "volume_ratio": 0.5,
-        "change_1h": -0.02,
-        "change_24h": -0.66,
+        "rsi_1h": 59.4,
+        "adx_1h": 15.0,
+        "volume_ratio": 0.85,
+        "change_1h": 0.07,
+        "change_24h": -0.58,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "pattern_15m": "Neutral",
@@ -884,13 +886,13 @@
         "pre_gap_grade": "C",
         "gap_pct": -0.41,
         "gap_score": 0,
-        "hourly_strength_pct": -0.03,
+        "hourly_strength_pct": 0.05,
         "hourly_score": 2,
-        "daily_rvol": 0.76,
+        "daily_rvol": 0.7,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 99.44,
+        "close_to_high_pct": 99.53,
         "close_to_high_score": 3,
-        "late_volume_ratio": 0.68,
+        "late_volume_ratio": 0.4,
         "late_volume_score": 0
       },
       "notes": [
@@ -898,8 +900,8 @@
         "NATR < 2% (Too Stable)",
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.5x < 1.2x) ❌"
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.9x < 1.2x) ❌"
       ]
     },
     {
@@ -908,19 +910,19 @@
       "sector": "Utilities",
       "swing_pick_date": "2026-10-19",
       "days_since_pick": 0,
-      "current_price": 109.49,
+      "current_price": 109.45,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($108.51–$110.47). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($108.47–$110.43). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
-        "rsi_1h": 40.3,
+        "rsi_1h": 40.0,
         "adx_1h": 20.1,
-        "volume_ratio": 0.39,
-        "change_1h": -0.16,
-        "change_24h": -2.47,
+        "volume_ratio": 0.84,
+        "change_1h": -0.2,
+        "change_24h": -2.5,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "pattern_15m": "Neutral",
@@ -930,13 +932,13 @@
         "pre_gap_grade": "C",
         "gap_pct": -0.26,
         "gap_score": 0,
-        "hourly_strength_pct": -1.69,
+        "hourly_strength_pct": -1.72,
         "hourly_score": 0,
-        "daily_rvol": 0.69,
+        "daily_rvol": 0.67,
         "daily_rvol_score": 0,
-        "close_to_high_pct": 97.79,
+        "close_to_high_pct": 97.75,
         "close_to_high_score": 2,
-        "late_volume_ratio": 0.34,
+        "late_volume_ratio": 0.92,
         "late_volume_score": 0
       },
       "notes": [
@@ -944,13 +946,13 @@
         "NATR < 2% (Too Stable)",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.8x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-10-19",
-    "last_updated": "2026-10-19T13:00:16.337146-04:00",
+    "last_updated": "2026-10-19T13:30:13.147540-04:00",
     "tickers": {
       "EFXT": {
         "status_history": [
@@ -988,6 +990,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1032,6 +1038,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1074,6 +1084,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1118,6 +1132,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1160,6 +1178,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1204,6 +1226,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1246,6 +1272,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1290,6 +1320,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1332,6 +1366,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1376,6 +1414,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1418,6 +1460,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1462,6 +1508,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1504,6 +1554,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1548,6 +1602,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1590,6 +1648,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1634,6 +1696,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1676,6 +1742,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1720,6 +1790,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1763,6 +1837,10 @@
           {
             "hour": "13:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1805,6 +1883,10 @@
           },
           {
             "hour": "13:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "13:30",
             "status": "ENTRY_NOW"
           }
         ],
