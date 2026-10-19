@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.15";
+export const TRACK_VERSION = "2.17";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -249,6 +249,17 @@ export const TRACK_CFG = {
   maxStopAtr5: 0,
   minEntryRvol: 0,
   maxCrosses: 0,
+  /** ters yön kilidi: STOP ile kapanan işlemden sonra bu kadar dakika ters yönde giriş yok (aynı yön serbest) · 0 = kapalı.
+   *  13 Eki: 12:30 PUT stopu → 12:45 CALL −1R, 13:00 CALL stopu → 13:20 PUT −1R. 45 seans: 42,5R → 46,7R, maxDD −6,35R → −4,67R */
+  oppAfterStopMin: 60,
+  /** VWAP testeresi: son 1 saatte (12 × 5m) VWAP kesişmesi ≥ chopCross iken alınan girişte risk × chopSizeMult (daha az kontrat),
+   *  hedef H1 = chopH1R × R (daha yakın) ve chopExit "full" ise H1'de tamamı kapanır (taşınan yarı yok) · chopCross 0 = kapalı */
+  /*  45 seans: testere girişleri 13 işlem +1,1R (8 kazanç) → 1R'de tam çıkışla +2,6R; toplam 46,7R → 47,0R (yarım pozisyon ağırlıklı 45,7R).
+   *  Hedefi 0,75R'ye çekmek −1,6R kaybettirdi — hedef 1R kaldı, yalnız taşınan yarı kaldırıldı. */
+  chopCross: 4,
+  chopSizeMult: 0.5,
+  chopH1R: 1,
+  chopExit: "full" as "half15" | "full",
   /** kontrat önerisi: vade etiketi ve strike adımı (SPY/QQQ/IWM her gün vadeli, 1 $ adım · hisselerde en yakın haftalık, 2,5 $ adım) */
   optLabel: "0DTE",
   strikeStep: 1,
@@ -372,6 +383,10 @@ export interface TrackTrade {
   momWhy?: string[];
   /** girişteki momentum işaretleri (ölçüm için) */
   momF?: { both: boolean; rvol: boolean; runner: boolean; impulse: boolean; ext: boolean };
+  /** VWAP testeresinde alındı: küçük pozisyon + yakın hedef */
+  chop?: boolean;
+  /** H1 hedefinin R katı (testerede chopH1R, normalde h1R) */
+  h1RMult?: number;
 }
 
 export interface TrackAlert { t: number; clock: string; level: AlertLevel; tag: SetupTag | null; side: Side | null; text: string; key: string }
@@ -941,7 +956,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
       } else if (!p.h1Hit) {
         if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, "STOP");
-        else if (C.exitMode === "full" && (d > 0 ? b.high >= p.h1 : b.low <= p.h1)) { p.h1Hit = true; p.h1Clock = nyClock(T); close(p.h1, "H1"); }
+        else if ((C.exitMode === "full" || (p.chop && C.chopExit === "full")) && (d > 0 ? b.high >= p.h1 : b.low <= p.h1)) { p.h1Hit = true; p.h1Clock = nyClock(T); close(p.h1, "H1"); }
         else if (C.exitMode === "trail" && (d > 0 ? b.high >= p.h1 : b.low <= p.h1)) {
           // taşıma: 1R'de stop girişe; hedef yok — trend 5m EMA20 bozulana kadar
           p.h1Hit = true; p.h1Clock = nyClock(T); p.stop = p.entry;
@@ -1094,12 +1109,18 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const brkHit = !!brkOk && brkOk.side === d;
       const closeOk = C.entryClosePos <= 0 || (C.closePosBrkBypass && brkHit) || (C.closePosBypassRvol > 0 && volD === d && (rvol5 ?? 0) >= C.closePosBypassRvol) || (d > 0 ? cd.closePos >= C.entryClosePos : cd.closePos <= 100 - C.entryClosePos);
       const refD = inp.refSide15?.get(b.time) ?? 0;
-      // sembol başına ek giriş süzgeçleri (SPY'da hepsi kapalı) — engellenen tetik olay olarak yazılır
+      // sembol başına ek giriş süzgeçleri (SPY'da yalnız ters yön kilidi açık) — engellenen tetik olay olarak yazılır
       const blockWhy = [
         C.refAlign15 !== "off" && inp.refSide15 && !(C.refAlign15 === "same" ? refD === d : refD !== -d) && `referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"}`,
         C.maxStopAtr5 > 0 && atr5 && Math.abs(c - stop) > C.maxStopAtr5 * atr5 && `stop ${f2(Math.abs(c - stop))} > ${C.maxStopAtr5} ATR5`,
         C.minEntryRvol > 0 && (rvol5 ?? 0) < C.minEntryRvol && `hacim zayıf (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.minEntryRvol})`,
         C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
+        (() => {
+          if (C.oppAfterStopMin <= 0) return false;
+          const ls = [...trades].reverse().find((t) => t.exitReason === "STOP" && t.exitTime != null);
+          if (!ls || dOfSide(ls.side) !== -d || (b.time - (ls.exitTime as number)) / 60 > C.oppAfterStopMin) return false;
+          return `${ls.exitClock} ${ls.side} stopundan sonra ${C.oppAfterStopMin} dk ters yön kilidi`;
+        })(),
       ].filter(Boolean) as string[];
       const refOk = blockWhy.length === 0;
       if (!refOk && !pos && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited)
@@ -1107,7 +1128,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
       if (!pos && refOk && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && !exited) {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
-        const tp1 = r2(c + d * C.h1R * rPts);
+        const chopN = crossIdx.filter((k) => k > i - 12).length;
+        const chop = C.chopCross > 0 && chopN >= C.chopCross;
+        const h1Mult = chop ? C.chopH1R : C.h1R;
+        const tp1 = r2(c + d * h1Mult * rPts);
         const h2R = r2(c + d * C.h2R * rPts);
         const nl = nextLevel(d, tp1, 0.05);
         const h2 = nl && d * (nl.price - h2R) < 0 ? r2(nl.price) : h2R;
@@ -1128,14 +1152,16 @@ export function trackerRead(inp: TrackInput): TrackRead {
           // sabit dolar riski: kontrat = risk ÷ (stop mesafesi × Δ × 100); düşük hacimde risk yarıya iner
           const riskUsd = inp.riskUsd && inp.riskUsd > 0 ? inp.riskUsd : C.riskUsd;
           const perC = rPts * C.optDelta * 100;
-          const rk = riskUsd * (lowVol ? C.sizeLowRvolMult : 1);
+          const rk = riskUsd * (lowVol ? C.sizeLowRvolMult : 1) * (chop ? C.chopSizeMult : 1);
           contracts = Math.max(1, Math.min(C.sizeRiskMax, Math.floor(rk / Math.max(perC, 1))));
           momWhy.splice(0, momWhy.length,
-            `risk $${Math.round(rk)}${lowVol ? ` (düşük hacim RVOL ${(rvol5 as number).toFixed(2)} → ×${C.sizeLowRvolMult})` : ""} ÷ (stop ${f2(rPts)} × Δ${C.optDelta} × 100 = $${Math.round(perC)}) → ${contracts} kontrat`);
+            `risk $${Math.round(rk)}${lowVol ? ` (düşük hacim RVOL ${(rvol5 as number).toFixed(2)} → ×${C.sizeLowRvolMult})` : ""}${chop ? ` (VWAP testeresi: son 1 saatte ${chopN} kesişme → ×${C.chopSizeMult})` : ""} ÷ (stop ${f2(rPts)} × Δ${C.optDelta} × 100 = $${Math.round(perC)}) → ${contracts} kontrat`);
         } else {
           contracts = lowVol ? 1 : Math.min(C.sizeMax, C.sizeBase + pts);
+          if (chop && !lowVol) contracts = Math.max(1, Math.floor(contracts * C.chopSizeMult));
           if (lowVol) momWhy.splice(0, momWhy.length, `düşük hacim (RVOL ${(rvol5 as number).toFixed(2)} < ${C.sizeLowRvol}) → 1 kontrat`);
         }
+        if (chop) momWhy.push(`VWAP testeresi → hedef ${h1Mult}R${C.chopExit === "full" ? ", hedefte tamamı kapanır" : ""}`);
         const why = brkHit && brkOk
           ? `${brkOk.clock} sert hacimli kırılım + destek hacimli 5m kapanış + 15m ${arrow(d)} teyidi · VWAP · EMA20`
           : confirmed
@@ -1146,12 +1172,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
           id: `${date}-${nyClock(T).replace(":", "")}-${tagE}`, tag: tagE, reentry: trades.length > 0, side: s, stage: "TAKİP",
           entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: warns.length ? "half" : "full", confirm10: null, contracts, momWhy, momF,
           strike: strikeHint(s, c, C), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
-          barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
+          chop, h1RMult: h1Mult, barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
         };
         trades.push(tr);
         pos = tr;
         entered = tr;
-        pushAlert(b.time, "TETİK", tagE, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why}${momWhy.length ? ` · ${C.sizeMode === "risk" ? "boyut: " : contracts === 1 ? "" : "momentum: "}${momWhy.join(", ")}` : ""}${fridayNote}`);
+        pushAlert(b.time, "TETİK", tagE, s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · ${h1Mult}R ${f2(tp1)}${chop && C.chopExit === "full" ? " (testere: hedefte tamamı)" : ""} · ${why}${momWhy.length ? ` · ${C.sizeMode === "risk" ? "boyut: " : contracts === 1 ? "" : "momentum: "}${momWhy.join(", ")}` : ""}${fridayNote}`);
         ev.push(`GİRİŞ ${s} ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} · H2 ${f2(h2)} — ${why}`);
       }
       if (pos) {
@@ -1226,14 +1252,14 @@ export function trackerRead(inp: TrackInput): TrackRead {
     } else if (exited) {
       const x: TrackTrade = exited;
       headline = `◼ ${x.side} KAPAT · ${sgnR(x.resultR as number)}R`;
-      action = `${x.exitReason === "TRAIL_15M" ? "Taşınan yarı 15m izleyen stopta kapandı — trend dinlendi" : x.exitReason === "H1" ? "Hedef (1R) geldi — tamamı kapandı" : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte (stop başabaş) kapandı" : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
+      action = `${x.exitReason === "TRAIL_15M" ? "Taşınan yarı 15m izleyen stopta kapandı — trend dinlendi" : x.exitReason === "H1" ? `Hedef (${x.h1RMult ?? C.h1R}R) geldi — tamamı kapandı${x.chop ? " (VWAP testeresi: taşınan yarı yok)" : ""}` : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte (stop başabaş) kapandı" : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
       tone = "warn";
     } else if (P) {
       const pd = dOfSide(P.side);
       headline = `${P.side === "CALL" ? "▲ CALL" : "▼ PUT"} AÇIK · ${P.liveR != null ? sgnR(P.liveR) : "0"}R`;
       action = P.h1Hit
         ? `Yarısı alındı, stop girişte (${f2(P.entry)}). Kalanı TUT — 5m EMA20 ${ema5 != null ? f2(ema5) : "—"} ${pd > 0 ? "altına" : "üstüne"} kapanış, 15m yön dönüşü ya da H2 ${f2(P.h2)}'de kapat.`
-        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (1R)${C.exitMode === "full" ? "'de kapat" : C.exitMode === "half15" ? `'de yarısını kapat (${halfOf(P.contracts)} / ${P.contracts ?? 2} kontrat), stopu girişe çek; kalanı her 15m kapanışında 15m dip/tepe ∓ tampona taşı` : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
+        : `TUT — stop ${f2(P.stop)} · hedef ${f2(P.h1)} (${P.h1RMult ?? C.h1R}R)${C.exitMode === "full" || (P.chop && C.chopExit === "full") ? `'de tamamını kapat${P.chop ? " (VWAP testeresi — küçük pozisyon, taşıma yok)" : ""}` : C.exitMode === "half15" ? `'de yarısını kapat (${halfOf(P.contracts)} / ${P.contracts ?? 2} kontrat), stopu girişe çek; kalanı her 15m kapanışında 15m dip/tepe ∓ tampona taşı` : "'de yarısını al"}. 15m yön dönerse çık.${side5 === -pd ? " ⚠ 5m VWAP/EMA20'nin ters tarafına geçti — stopu sıkılaştır." : ""}`;
       tone = side5 === -pd ? "warn" : P.side === "CALL" ? "bull" : "bear";
     } else if (setup?.status === "ARMED" && setup.trigger != null) {
       headline = `⚡ ${setup.side} HAZIR`;

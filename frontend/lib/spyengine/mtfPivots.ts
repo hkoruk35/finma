@@ -1,25 +1,20 @@
 /**
- * SPY Engine — Çok zaman dilimli FIBONACCI pivotları (saf, izomorfik).
+ * SPY Engine — Pivot noktaları (saf, izomorfik).
  *
- * Neden (2026-10-15, kullanıcı): klasik günlük pivot (önceki seans Y/D/K) dar aralıklı bir günün ertesinde
- * işe yaramıyordu — 14 Ekim'de fiyat bütün gün "S4 altı" göründü. Pivotlar artık 30m / 1h / 4h
- * zaman dilimlerinin SON KAPANMIŞ mumundan, Fibonacci kuralıyla hesaplanır ve her yeni mum kapanışında güncellenir:
- *   P  = (H + L + C) / 3
- *   R1 = P + 0,382 × (H − L)   S1 = P − 0,382 × (H − L)
- *   R2 = P + 0,618 × (H − L)   S2 = P − 0,618 × (H − L)
- *   R3 = P + 1,000 × (H − L)   S3 = P − 1,000 × (H − L)
- * Ek olarak seansın ana salınımına (gün tepesi ↔ gün dibi) Fibonacci geri çekilmeleri (0,382 / 0,5 / 0,618) —
- * trend günlerinde geri çekilmenin duracağı yerler.
- * Mumlar seans hizalıdır (30m: 09:30, 10:00 … · 1h: 09:30, 10:30 … · 4h: 09:30, 13:30), yalnız RTH.
- * Aynı fiyata (≤ 0,08 puan) düşen seviyeler birleştirilir: birden çok kaynak = güçlü seviye (kesişim).
- * Pivotlar seviye bilgisidir; Takip Sistemi'nde yalnız hedef / geçersizlik seviyesi olarak kullanılır.
+ * 2026-10-19 (kullanıcı): 30m / 1h / 4h son mumdan Fibonacci pivotları her mumda değişiyor, fiyat kolayca "bütün pivotların
+ * üstünde / R3 – üst yok" kalıyordu — piyasanın baktığı seviyeler değildi. Artık ANA seviyeler piyasa gerçekleri:
+ *   • Dünkü seans: tepe · dip · kapanış          • Bugünkü seans: tepe · dip (o ana kadar)
+ *   • Klasik günlük pivot (dünkü Y/D/K):  P = (Y + D + K) / 3
+ *       R1 = 2P − D   S1 = 2P − Y   R2 = P + (Y − D)   S2 = P − (Y − D)
+ * Fibonacci DESTEK olarak kalır (düşük ağırlık): dünkü aralıkla Fib pivotları P ± 0,382 / 0,618 / 1,0 × (Y − D) ve
+ * bugünkü salınımın (gün tepesi ↔ dibi) 0,382 / 0,5 / 0,618 geri çekilmeleri. Ana seviyeyle aynı fiyata düşen
+ * Fibonacci o seviyeyi güçlendirir (★ = kesişim).
+ * Mumlar seans hizalıdır, yalnız RTH. Pivotlar seviye bilgisidir; Takip Sistemi'nde yalnız hedef seviyesi olarak kullanılır.
  */
 
 import { nyClock, nyParts, r2, type Bar } from "./core";
-import { barEnd, sessionAggregate } from "./setup15";
+import { sessionAggregate } from "./setup15";
 
-export type PivTf = "30m" | "1h" | "4h";
-const TF_MIN: Record<PivTf, number> = { "30m": 30, "1h": 60, "4h": 240 };
 const FIB = [0.382, 0.618, 1.0] as const;
 const MERGE_EPS = 0.08;
 
@@ -42,43 +37,41 @@ export function pivotFrames(m5: Bar[], h1Hist?: Bar[] | null): PivotFrames {
   return { m30, h1, h4 };
 }
 
-export interface FibPivotSet {
-  tf: PivTf;
-  /** Dayanak mum (son kapanmış) */
-  base: { time: number; end: number; clock: string; H: number; L: number; C: number };
-  levels: { key: string; price: number }[];
-}
+/** Bir seansın RTH tepe / dip / kapanışı */
+export interface DaySession { ymd: string; H: number; L: number; C: number }
 
-/** `bars` içinde `t` anında kapanmış son mumun indeksi (bars artan zamanlı) */
-function lastClosedIdx(bars: Bar[], minutes: number, t: number): number {
-  let lo = 0, hi = bars.length - 1, ans = -1;
-  while (lo <= hi) {
-    const mid = (lo + hi) >> 1;
-    if (barEnd(bars[mid].time, minutes) <= t) { ans = mid; lo = mid + 1; } else hi = mid - 1;
+/** `t` anından önceki son tamamlanmış seans (saatlik RTH mumlarından) */
+export function prevSessionAt(fr: PivotFrames, t: number): DaySession | null {
+  const today = nyParts(t - 1).ymd;
+  let ymd: string | null = null;
+  let H = -Infinity, L = Infinity, C = 0;
+  for (const b of fr.h1) {
+    const d = nyParts(b.time).ymd;
+    if (d >= today) break;
+    if (d !== ymd) { ymd = d; H = b.high; L = b.low; } else { H = Math.max(H, b.high); L = Math.min(L, b.low); }
+    C = b.close;
   }
-  return ans;
+  return ymd ? { ymd, H, L, C } : null;
 }
 
+/** Klasik günlük pivot (P, R1, R2, S1, S2) */
+export function classicPivots(H: number, L: number, C: number): { key: string; price: number }[] {
+  const P = (H + L + C) / 3;
+  return [
+    { key: "R2", price: r2(P + (H - L)) }, { key: "R1", price: r2(2 * P - L) },
+    { key: "P", price: r2(P) },
+    { key: "S1", price: r2(2 * P - H) }, { key: "S2", price: r2(P - (H - L)) },
+  ];
+}
+
+/** Fibonacci pivotları: P ± 0,382 / 0,618 / 1,0 × (Y − D) — destek seviyeleri */
 export function fibPivots(H: number, L: number, C: number): { key: string; price: number }[] {
   const P = (H + L + C) / 3;
   const R = H - L;
   return [
-    { key: "R3", price: r2(P + FIB[2] * R) }, { key: "R2", price: r2(P + FIB[1] * R) }, { key: "R1", price: r2(P + FIB[0] * R) },
-    { key: "P", price: r2(P) },
-    { key: "S1", price: r2(P - FIB[0] * R) }, { key: "S2", price: r2(P - FIB[1] * R) }, { key: "S3", price: r2(P - FIB[2] * R) },
+    { key: "Fib R3", price: r2(P + FIB[2] * R) }, { key: "Fib R2", price: r2(P + FIB[1] * R) }, { key: "Fib R1", price: r2(P + FIB[0] * R) },
+    { key: "Fib S1", price: r2(P - FIB[0] * R) }, { key: "Fib S2", price: r2(P - FIB[1] * R) }, { key: "Fib S3", price: r2(P - FIB[2] * R) },
   ];
-}
-
-/** `t` anındaki 30m / 1h / 4h Fibonacci pivot setleri */
-export function fibSetsAt(fr: PivotFrames, t: number): FibPivotSet[] {
-  const out: FibPivotSet[] = [];
-  for (const [tf, bars] of [["4h", fr.h4], ["1h", fr.h1], ["30m", fr.m30]] as const) {
-    const i = lastClosedIdx(bars, TF_MIN[tf], t);
-    if (i < 0) continue;
-    const b = bars[i];
-    out.push({ tf, base: { time: b.time, end: barEnd(b.time, TF_MIN[tf]), clock: nyClock(b.time), H: b.high, L: b.low, C: b.close }, levels: fibPivots(b.high, b.low, b.close) });
-  }
-  return out;
 }
 
 export interface DayFib {
@@ -102,20 +95,23 @@ export function dayFib(todayRth5: Bar[]): DayFib | null {
   const lv = (f: number) => r2(dir === "UP" ? hi.high - f * range : lo.low + f * range);
   return {
     dir, hi: hi.high, lo: lo.low, hiClock: nyClock(hi.time), loClock: nyClock(lo.time),
-    levels: [{ key: "Fib 0,382", price: lv(0.382) }, { key: "Fib 0,5", price: lv(0.5) }, { key: "Fib 0,618", price: lv(0.618) }],
+    levels: [{ key: "Gün Fib 0,382", price: lv(0.382) }, { key: "Gün Fib 0,5", price: lv(0.5) }, { key: "Gün Fib 0,618", price: lv(0.618) }],
   };
 }
 
 export type MtfState = "DEĞMEDİ" | "TEST · TUTTU" | "KIRILDI ▲" | "KIRILDI ▼" | "ÜZERİNDE";
 
+/** D = piyasa seviyesi (dün/bugün tepe-dip-kapanış) · R/S/P = klasik pivot · F = Fibonacci desteği */
+export type LevelKind = "D" | "R" | "S" | "P" | "F";
+
 export interface MtfLevel {
   price: number;
-  /** Kaynaklar, ör. ["4h R1", "1h P"] */
+  /** Kaynaklar, ör. ["Dün kapanış", "P", "Fib R1"] (ana seviye önce) */
   keys: string[];
   /** Kısa etiket (en güçlü kaynak önce) */
   label: string;
-  kind: "R" | "S" | "P" | "F";
-  /** Kaynak ağırlığı (4h=3 · 1h=2 · 30m=1 · Fib=2) toplamı — kesişim gücü */
+  kind: LevelKind;
+  /** Kaynak ağırlığı (ana seviye 3 · Fibonacci 1) toplamı — kesişim gücü; ≥ 4 = ★ */
   weight: number;
   /** fiyat − seviye */
   dist: number;
@@ -124,7 +120,12 @@ export interface MtfLevel {
 }
 
 export interface MtfPivotRead {
-  sets: FibPivotSet[];
+  /** Pivotların dayanağı: dünkü seans */
+  prev: DaySession | null;
+  /** Klasik günlük pivot P */
+  P: number | null;
+  /** Bugünkü seans tepe / dip (o ana kadar) */
+  today: { hi: number; lo: number } | null;
   fib: DayFib | null;
   /** Yüksekten alçağa */
   ladder: MtfLevel[];
@@ -138,45 +139,72 @@ export interface MtfPivotRead {
   text: string;
 }
 
-const TF_W: Record<string, number> = { "4h": 3, "1h": 2, "30m": 1 };
+/** Ana seviye ağırlığı · Fibonacci destek ağırlığı */
+const W_MAIN = 3;
+const W_FIB = 1;
 
-/** Tüm kaynakları tek merdivende birleştirir (yakın seviyeler tek satır). */
-export function mergeLevels(sets: FibPivotSet[], fib: DayFib | null): { price: number; keys: string[]; weight: number; formed: number }[] {
-  const raw: { price: number; key: string; w: number; formed: number }[] = [];
-  for (const s of sets) for (const l of s.levels) raw.push({ price: l.price, key: `${s.tf} ${l.key}`, w: TF_W[s.tf], formed: s.base.end });
-  if (fib) for (const l of fib.levels) raw.push({ price: l.price, key: l.key, w: 2, formed: 0 });
-  raw.sort((a, b) => b.price - a.price);
-  const out: { price: number; keys: string[]; weight: number; formed: number; sum: number }[] = [];
-  for (const x of raw) {
-    const last = out[out.length - 1];
-    if (last && Math.abs(last.price - x.price) <= MERGE_EPS) {
-      last.keys.push(x.key);
-      last.sum += x.price * x.w;
-      last.weight += x.w;
-      last.price = r2(last.sum / last.weight);
-      last.formed = Math.max(last.formed, x.formed);
-    } else out.push({ price: x.price, keys: [x.key], weight: x.w, formed: x.formed, sum: x.price * x.w });
+type RawLevel = { price: number; key: string; kind: LevelKind; w: number; formed: number };
+
+/** `t` anındaki tüm seviyeler (birleştirilmemiş) */
+function rawLevels(fr: PivotFrames, todayRth5: Bar[], t: number): { raw: RawLevel[]; prev: DaySession | null; P: number | null; fib: DayFib | null } {
+  const raw: RawLevel[] = [];
+  const prev = prevSessionAt(fr, t);
+  let P: number | null = null;
+  if (prev) {
+    raw.push({ price: r2(prev.H), key: "Dün tepe", kind: "D", w: W_MAIN, formed: 0 });
+    raw.push({ price: r2(prev.L), key: "Dün dip", kind: "D", w: W_MAIN, formed: 0 });
+    raw.push({ price: r2(prev.C), key: "Dün kapanış", kind: "D", w: W_MAIN, formed: 0 });
+    for (const l of classicPivots(prev.H, prev.L, prev.C)) {
+      if (l.key === "P") P = l.price;
+      raw.push({ price: l.price, key: l.key, kind: l.key === "P" ? "P" : l.key.startsWith("R") ? "R" : "S", w: W_MAIN, formed: 0 });
+    }
+    for (const l of fibPivots(prev.H, prev.L, prev.C)) raw.push({ price: l.price, key: l.key, kind: "F", w: W_FIB, formed: 0 });
   }
-  return out.map(({ price, keys, weight, formed }) => ({ price, keys: keys.sort((a, b) => (TF_W[b.split(" ")[0]] ?? 2) - (TF_W[a.split(" ")[0]] ?? 2)), weight, formed }));
+  if (todayRth5.length) {
+    let hi = todayRth5[0], lo = todayRth5[0];
+    for (const b of todayRth5) { if (b.high > hi.high) hi = b; if (b.low < lo.low) lo = b; }
+    // dokunma durumu yalnız tepe/dibi yapan mumdan SONRAKİ mumlarla (yeniden test) ölçülür
+    raw.push({ price: r2(hi.high), key: "Bugün tepe", kind: "D", w: W_MAIN, formed: hi.time + 300 });
+    raw.push({ price: r2(lo.low), key: "Bugün dip", kind: "D", w: W_MAIN, formed: lo.time + 300 });
+  }
+  const fib = dayFib(todayRth5);
+  if (fib) for (const l of fib.levels) raw.push({ price: l.price, key: l.key, kind: "F", w: W_FIB, formed: 0 });
+  return { raw, prev, P, fib };
 }
 
-const kindOf = (keys: string[]): MtfLevel["kind"] => {
-  const k = keys[0];
-  if (k.startsWith("Fib")) return "F";
-  const s = k.split(" ")[1] ?? "";
-  return s.startsWith("R") ? "R" : s.startsWith("S") ? "S" : "P";
-};
+/** Tüm kaynakları tek merdivende birleştirir (yakın seviyeler tek satır; fiyatı ana seviye belirler). */
+export function mergeLevels(raw: RawLevel[]): { price: number; keys: string[]; kind: LevelKind; weight: number; formed: number }[] {
+  const xs = [...raw].sort((a, b) => b.price - a.price);
+  const groups: RawLevel[][] = [];
+  for (const x of xs) {
+    const last = groups[groups.length - 1];
+    if (last && Math.abs(last[last.length - 1].price - x.price) <= MERGE_EPS) last.push(x);
+    else groups.push([x]);
+  }
+  return groups.map((items) => {
+    const ord = [...items].sort((a, b) => b.w - a.w);
+    const mains = ord.filter((x) => x.w === W_MAIN);
+    // fiyat: ana seviye(ler)in ortalaması; yalnız Fibonacci ise onların ortalaması
+    const src = mains.length ? mains : ord;
+    return {
+      price: r2(src.reduce((a, x) => a + x.price, 0) / src.length),
+      keys: ord.map((x) => x.key),
+      kind: ord[0].kind,
+      weight: items.reduce((a, x) => a + x.w, 0),
+      formed: Math.max(...items.map((x) => x.formed)),
+    };
+  });
+}
 
 /**
  * Fiyatın çevresindeki pivot merdiveni + hareket okuması.
- * @param todayRth5 bugünün KAPANMIŞ RTH 5m mumları (dokunma/kırılım durumları ve 30 dk hız için)
+ * @param todayRth5 bugünün KAPANMIŞ RTH 5m mumları (bugün tepe/dip, dokunma/kırılım durumları ve 30 dk hız için)
  * @param span fiyatın her iki yanında gösterilecek seviye sayısı
  */
 export function mtfPivotRead(fr: PivotFrames, todayRth5: Bar[], price: number, t: number, span = 5): MtfPivotRead | null {
-  const sets = fibSetsAt(fr, t);
-  if (!sets.length) return null;
-  const fib = dayFib(todayRth5);
-  const merged = mergeLevels(sets, fib);
+  const { raw, prev, P, fib } = rawLevels(fr, todayRth5, t);
+  if (!raw.length) return null;
+  const merged = mergeLevels(raw);
   const lv: MtfLevel[] = merged.map((m) => {
     const after = todayRth5.filter((b) => b.time + 300 > m.formed);
     let touched: string | null = null;
@@ -192,7 +220,7 @@ export function mtfPivotRead(fr: PivotFrames, todayRth5: Bar[], price: number, t
         state = Math.abs(lastClose - m.price) < 0.05 ? "ÜZERİNDE" : nowSide === startSide ? "TEST · TUTTU" : nowSide > 0 ? "KIRILDI ▲" : "KIRILDI ▼";
       }
     }
-    return { price: m.price, keys: m.keys, label: m.keys.slice(0, 2).join(" · ") + (m.keys.length > 2 ? ` +${m.keys.length - 2}` : ""), kind: kindOf(m.keys), weight: m.weight, dist: r2(price - m.price), touched, state };
+    return { price: m.price, keys: m.keys, label: m.keys.slice(0, 2).join(" · ") + (m.keys.length > 2 ? ` +${m.keys.length - 2}` : ""), kind: m.kind, weight: m.weight, dist: r2(price - m.price), touched, state };
   });
   const above = lv.filter((l) => l.price > price + 0.02).sort((a, b) => a.price - b.price);
   const below = lv.filter((l) => l.price < price - 0.02).sort((a, b) => b.price - a.price);
@@ -210,14 +238,15 @@ export function mtfPivotRead(fr: PivotFrames, todayRth5: Bar[], price: number, t
   let text: string;
   if (heading === "FLAT") text = `Fiyat ${zone} arasında yatay (30 dk ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}).${a0 ? ` Üst: ${lt(a0)} (+${(a0.price - price).toFixed(2)})` : ""}${b0 ? ` · Alt: ${lt(b0)} (−${(price - b0.price).toFixed(2)})` : ""}.`;
   else if (target) text = `Fiyat ${heading === "UP" ? "yukarı" : "aşağı"} ${lt(target)} seviyesine gidiyor: ${Math.abs(target.price - price).toFixed(2)} puan kaldı (30 dk hız ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}${etaMin ? `, bu hızla ~${etaMin} dk` : ""}).`;
-  else text = `Fiyat bütün pivotların ${heading === "UP" ? "üstünde" : "altında"} — güçlü hareket.`;
-  return { sets, fib, ladder, above: a0, below: b0, heading, speed30, target, etaMin, zone, text };
+  else text = `Fiyat bütün seviyelerin ${heading === "UP" ? "üstünde" : "altında"} — güçlü hareket.`;
+  const today = n ? { hi: Math.max(...todayRth5.map((b) => b.high)), lo: Math.min(...todayRth5.map((b) => b.low)) } : null;
+  return { prev, P, today, fib, ladder, above: a0, below: b0, heading, speed30, target, etaMin, zone, text };
 }
 
-/** Yalnız fiyat listesi (Takip Sistemi hedef/geçersizlik seviyeleri için) */
+/** Yalnız fiyat listesi (Takip Sistemi hedef seviyeleri için). Dünkü/bugünkü tepe-dip-kapanış Takip Sistemi'nde ayrıca var; burada pivotlar. */
 export function pivotLevelsAt(fr: PivotFrames, todayRth5: Bar[], t: number): { price: number; label: string }[] {
-  const merged = mergeLevels(fibSetsAt(fr, t), dayFib(todayRth5));
-  return merged.map((m) => ({ price: m.price, label: m.keys.slice(0, 2).join(" · ") }));
+  const { raw } = rawLevels(fr, todayRth5, t);
+  return mergeLevels(raw.filter((x) => x.kind !== "D")).map((m) => ({ price: m.price, label: m.keys.slice(0, 2).join(" · ") }));
 }
 
 /** Sayfa ve testlerde gün ayrımı için yardımcı */

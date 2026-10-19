@@ -499,9 +499,9 @@ function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact
 const UPC = "#22c55e", DNC = "#ef4444";
 const NEUTRAL = "#64748b";
 
-// ── Pivot noktaları kartı: 30m / 1h / 4h Fibonacci pivotları (her mum kapanışında güncellenir) ──
+// ── Pivot noktaları kartı: dünkü / bugünkü tepe-dip-kapanış + klasik günlük pivot; Fibonacci destek ──
 
-const KIND_COLOR: Record<MtfLevel["kind"], string> = { R: "#4ade80", S: "#f87171", P: "#facc15", F: "#38bdf8" };
+const KIND_COLOR: Record<MtfLevel["kind"], string> = { D: "#fb923c", R: "#4ade80", S: "#f87171", P: "#facc15", F: "#38bdf8" };
 const PIVOT_STATE_CLS: Record<string, string> = {
   "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
   "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
@@ -514,7 +514,7 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
   if (!p) {
     return (
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; 30m / 1h / 4h kapanmış mum bekleniyor.
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; dünkü seans verisi bekleniyor.
       </div>
     );
   }
@@ -526,7 +526,7 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[13px] font-semibold text-slate-200">
-          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· Fibonacci (0,382 / 0,618 / 1,0) · {p.sets.map((x) => `${x.tf} ${x.base.clock} Y ${num(x.base.H)} D ${num(x.base.L)} K ${num(x.base.C)}`).join(" · ")}{p.fib ? ` · gün salınımı ${num(p.fib.lo)}–${num(p.fib.hi)}` : ""}</span>
+          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· klasik günlük pivot{p.prev ? ` · dün Y ${num(p.prev.H)} D ${num(p.prev.L)} K ${num(p.prev.C)}` : ""}{p.P != null ? ` · P ${num(p.P)}` : ""}{p.today ? ` · bugün ${num(p.today.lo)}–${num(p.today.hi)}` : ""} · Fibonacci destek</span>
         </span>
         <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: hcol, borderColor: `${hcol}66`, backgroundColor: `${hcol}14` }}>bölge {p.zone}</span>
       </div>
@@ -540,7 +540,7 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
             return (
               <Fragment key={`${l.price}${l.label}`}>
                 <div className={`grid grid-cols-[minmax(0,118px)_62px_minmax(0,1fr)_auto] items-center gap-2 rounded px-1 py-[3px] ${near ? "bg-[#151c28]" : ""}`}>
-                  <span className="truncate font-mono text-[11.5px] font-bold" style={{ color: KIND_COLOR[l.kind] }} title={l.keys.join(" · ")}>{l.label}{l.weight >= 5 ? " ★" : ""}</span>
+                  <span className="truncate font-mono text-[11.5px] font-bold" style={{ color: KIND_COLOR[l.kind] }} title={l.keys.join(" · ")}>{l.label}{l.weight >= 4 ? " ★" : ""}</span>
                   <span className="font-mono text-[12.5px] text-slate-100">{num(l.price)}</span>
                   <span className="flex items-center gap-1.5">
                     <span className="h-1.5 flex-1 overflow-hidden rounded bg-[#1c2635]">
@@ -585,8 +585,9 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
             ))}
           </div>
           <div className="text-[10.5px] leading-snug text-slate-500">
-            Pivotlar 30m / 1h / 4h son KAPANMIŞ mumdan Fibonacci kuralıyla hesaplanır (P ± 0,382 · 0,618 · 1,0 × aralık) ve her yeni mumda güncellenir; mavi = gün salınımının Fibonacci geri çekilmesi.
-            Aynı fiyattaki kaynaklar birleşir (★ = güçlü kesişim). TEST · TUTTU = değdi, aynı tarafta kaldı · KIRILDI = öbür tarafa geçti.
+            Turuncu = dünkü / bugünkü tepe · dip · kapanış. Klasik günlük pivot dünkü seansın Y/D/K değerlerinden: P = (Y + D + K) / 3, R1 = 2P − D, S1 = 2P − Y, R2/S2 = P ± (Y − D).
+            Mavi = Fibonacci desteği (P ± 0,382 · 0,618 · 1,0 × dünkü aralık ve bugünkü salınımın geri çekilmeleri); ana seviyeyle aynı fiyata düşerse ★ (güçlü kesişim).
+            TEST · TUTTU = değdi, aynı tarafta kaldı · KIRILDI = öbür tarafa geçti.
           </div>
         </div>
       </div>
@@ -1160,7 +1161,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate, riskUsd, trackCfg, refSig]);
   const trackCur = track?.current ?? null;
 
-  /** Pivot noktaları: 30m / 1h / 4h Fibonacci (her mum kapanışında güncellenir) */
+  /** Pivot noktaları: dünkü seans + klasik günlük pivot, Fibonacci destek */
   const pivFrames = useMemo(() => pivotFrames(m5D.filter((b) => isRthBar(b) && b.time + 300 <= (trackNow || Infinity)), h1Hist),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [trackKey, h1Hist]);

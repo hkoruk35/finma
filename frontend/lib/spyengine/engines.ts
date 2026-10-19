@@ -62,23 +62,25 @@ const stock = (s: string) => ({
  * en yakın haftalık vade / 2,5 $ adım.
  */
 const WEEKLY = { optLabel: "haftalık", strikeStep: 2.5 };
+/** SPY'a özel kurallar (yalnız SPY 5m verisinde ölçüldü): stop sonrası ters yön kilidi + VWAP testeresinde küçük pozisyon / 1R'de tam çıkış — diğer sembollerde kapalı */
+export const SPY_ONLY_OFF = { oppAfterStopMin: 0, chopCross: 0 };
 /** IWM — küçük şirket endeksi, VWAP etrafında sık salınır: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı.
  *  SPY kuralları 147 işlem +9,9R (−1,4 / −5,5 / +16,9) → 139 işlem %54 +12,3R (−0,4 / −1,2 / +13,9); 0,2–0,3 arası sağlam. */
-export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, net15Atr: 0.3 };
+export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, net15Atr: 0.3 };
 /** NVDA — sert ve hızlı: çok geniş stoplu (> 2 ATR5) girişler yok, zayıf 15m teyidinde ek 5m onayı beklenmez (geç kalıyordu),
  *  aşırı testere günde (VWAP 8+ kez kesildi) yeni giriş yok. 139 işlem +0,2R (−5,7 / −2,0 / +7,9) → 128 işlem %52 +13,0R (−0,3 / −0,7 / +14,0).
  *  Kesişme sınırı 6'ya inince +3,8R — yalnız aşırı testere süzülür. */
-export const NVDA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...WEEKLY, maxCrosses: 8, maxStopAtr5: 2, weak15Confirm: false };
+export const NVDA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, maxCrosses: 8, maxStopAtr5: 2, weak15Confirm: false };
 /** AAPL — yavaş ve gürültülü: stop dibin/tepenin 0,5 ATR15 ötesinde (gürültüden silkelenmez), ilk hedef 2R.
  *  145 işlem −2,6R (+3,7 / −8,7 / +2,4) → 77 işlem %43 +9,4R (+8,4 / +0,3 / +0,8). Komşu değerlerde kırılgan (h1R 1,5: +2,9R) — kanıt zayıf. */
-export const AAPL_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...WEEKLY, stopBufAtr15: 0.5, h1R: 2 };
+export const AAPL_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, stopBufAtr15: 0.5, h1R: 2 };
 /** TSLA — çok oynak, kırılımlar sık geri dönüyor: kırılım-tazeliği girişi yok, stop tamponu 0,3 ATR15, 1R'de tamamı kapanır,
  *  testere günde (VWAP 6+ kez) yeni giriş yok. 135 işlem −21,6R (−8,1 / −11,7 / −1,7) → 68 işlem %50 +0,1R (−0,2 / +1,1 / −0,8).
  *  SPY kurallarının kaybı silindi ama KANIT YOK (≈ başabaş) — varsayılan risk yarıya (100 $) indirildi. */
-export const TSLA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...WEEKLY, freshBreakBars: 0, stopBufAtr15: 0.3, exitMode: "full", maxCrosses: 6, riskUsd: 100 };
+export const TSLA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, freshBreakBars: 0, stopBufAtr15: 0.3, exitMode: "full", maxCrosses: 6, riskUsd: 100 };
 /** AMZN — stop tamponu 0,2 ATR15, kapanış konumu şartı yok (AMZN'de güçlü mumlar ortada kapanabiliyor), testere günde (6+) yeni giriş yok.
  *  161 işlem +1,7R (−0,8 / −14,2 / +16,7) → 132 işlem %58 +22,0R (+2,5 / +2,9 / +16,7); kesişme 4–8 arası +19,6…+22R. */
-export const AMZN_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...WEEKLY, stopBufAtr15: 0.2, entryClosePos: 0, maxCrosses: 6 };
+export const AMZN_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, stopBufAtr15: 0.2, entryClosePos: 0, maxCrosses: 6 };
 
 export const ENGINES: Record<EngineSymbol, EngineDef> = {
   SPY: {
