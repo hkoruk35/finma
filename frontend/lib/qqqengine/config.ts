@@ -72,6 +72,6 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
  *   Komşu değerler sağlam (RVOL 0,85–0,95: +25…+28R · kesişme 4–8: +25…+28R). Seçim aynı 45 günde yapıldı — görülmemiş dönem yok.
  *   16 Eki (−20 $ düşüş günü): +3,45R → +6,42R.
  */
-export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true, oppAfterStopMin: 0, chopCross: 0 };
+export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true, oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0 };
 /** QQQ kayıt sürümü (kurallar SPY'dan ayrıştı — değişince QQQ geriye dönük kayıtları yeniden üretilir) */
 export const QQQ_TRACK_VERSION = `${TRACK_VERSION}-q2`;

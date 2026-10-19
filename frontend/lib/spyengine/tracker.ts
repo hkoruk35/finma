@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "2.17";
+export const TRACK_VERSION = "2.18";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -260,6 +260,11 @@ export const TRACK_CFG = {
   chopSizeMult: 0.5,
   chopH1R: 1,
   chopExit: "full" as "half15" | "full",
+  /** erken çıkış (1R gelmeden): pozisyon en az earlyExitArmR kadar kâr gördükten sonra art arda earlyExitBars adet ters renkli 5m mum
+   *  kapanırsa tamamı kapanır · earlyExitBars 0 = kapalı. 19 Eki: CALL +0,89R gördü, 770'te kırmızı mumlarla 1R'ye 0,25 kala döndü.
+   *  45 seans: toplam 47,0R → 43,0R (bedeli), maxDD −5,85R → −4,68R, en kötü gün −2,67R → −2,06R (kullanıcı kararı 2026-10-19) */
+  earlyExitArmR: 0.75,
+  earlyExitBars: 2,
   /** kontrat önerisi: vade etiketi ve strike adımı (SPY/QQQ/IWM her gün vadeli, 1 $ adım · hisselerde en yakın haftalık, 2,5 $ adım) */
   optLabel: "0DTE",
   strikeStep: 1,
@@ -278,7 +283,7 @@ export type SetupTag = "T5_TREND" | "T5_PB"
   | "K1_ORB5" | "K2_TREND_CLOSE" | "K2_TREND_PB" | "K3_BREAK" | "K3_FAKEOUT" | "K4_PB_VWAP" | "K4_PB_EMA" | "T_PB_VWAP" | "T_PB_EMA" | "T_BRK";
 export type VetoCode = "LOW_RVOL" | "VWAP_CHOP" | "VWAP_POC_ZONE" | "STOP_TOO_WIDE" | "DAILY_LOSS" | "MAX_TRADES" | "EVENT_K1";
 export type DayClass = "TREND_CANDLE" | "INDECISION" | "NORMAL";
-export type ExitReason = "STOP" | "H1" | "TRAIL_15M" | "H1_BE" | "EMA_EXIT" | "H2" | "TIME" | "FORCE_1545" | "TREND_FLIP";
+export type ExitReason = "STOP" | "H1" | "TRAIL_15M" | "H1_BE" | "EMA_EXIT" | "H2" | "TIME" | "FORCE_1545" | "TREND_FLIP" | "REV_2BAR";
 export type AlertLevel = "HAZIRLAN" | "TETİK" | "İPTAL" | "YÖNET" | "ÇIKIŞ" | "KADEME";
 
 export const TAG_TEXT: Record<SetupTag, string> = {
@@ -387,6 +392,8 @@ export interface TrackTrade {
   chop?: boolean;
   /** H1 hedefinin R katı (testerede chopH1R, normalde h1R) */
   h1RMult?: number;
+  /** 1R öncesi art arda ters renkli 5m mum sayısı (erken çıkış) */
+  againstBars?: number;
 }
 
 export interface TrackAlert { t: number; clock: string; level: AlertLevel; tag: SetupTag | null; side: Side | null; text: string; key: string }
@@ -955,7 +962,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
         else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
       } else if (!p.h1Hit) {
+        p.againstBars = d * (c - b.open) < 0 ? (p.againstBars ?? 0) + 1 : 0;
+        const revExit = C.earlyExitBars > 0 && p.mfeR >= C.earlyExitArmR && p.againstBars >= C.earlyExitBars;
         if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, "STOP");
+        else if (revExit) close(c, "REV_2BAR");
         else if ((C.exitMode === "full" || (p.chop && C.chopExit === "full")) && (d > 0 ? b.high >= p.h1 : b.low <= p.h1)) { p.h1Hit = true; p.h1Clock = nyClock(T); close(p.h1, "H1"); }
         else if (C.exitMode === "trail" && (d > 0 ? b.high >= p.h1 : b.low <= p.h1)) {
           // taşıma: 1R'de stop girişe; hedef yok — trend 5m EMA20 bozulana kadar
@@ -1252,7 +1262,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
     } else if (exited) {
       const x: TrackTrade = exited;
       headline = `◼ ${x.side} KAPAT · ${sgnR(x.resultR as number)}R`;
-      action = `${x.exitReason === "TRAIL_15M" ? "Taşınan yarı 15m izleyen stopta kapandı — trend dinlendi" : x.exitReason === "H1" ? `Hedef (${x.h1RMult ?? C.h1R}R) geldi — tamamı kapandı${x.chop ? " (VWAP testeresi: taşınan yarı yok)" : ""}` : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte (stop başabaş) kapandı" : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
+      action = `${x.exitReason === "TRAIL_15M" ? "Taşınan yarı 15m izleyen stopta kapandı — trend dinlendi" : x.exitReason === "H1" ? `Hedef (${x.h1RMult ?? C.h1R}R) geldi — tamamı kapandı${x.chop ? " (VWAP testeresi: taşınan yarı yok)" : ""}` : x.exitReason === "STOP" ? "Stop oldu" : x.exitReason === "H2" ? "H2 hedefi geldi" : x.exitReason === "EMA_EXIT" ? "5m kapanış EMA20'nin ters tarafında — hareket bitti" : x.exitReason === "TREND_FLIP" ? "15m yön teyidi tersine döndü" : x.exitReason === "H1_BE" ? "Kalan yarı girişte (stop başabaş) kapandı" : x.exitReason === "REV_2BAR" ? `+${C.earlyExitArmR}R gördükten sonra ${C.earlyExitBars} ters 5m mum — 1R beklenmeden kapandı` : x.exitReason === "TIME" ? "30 dk'da H1 gelmedi, fiyat aleyhte" : "15:45 zorunlu kapanış"} (${f2(x.exit as number)}). ${side15 ? `15m yön ${side15 > 0 ? "yukarı" : "aşağı"}.` : "15m belirsiz."}`;
       tone = "warn";
     } else if (P) {
       const pd = dOfSide(P.side);

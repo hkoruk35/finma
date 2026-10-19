@@ -62,8 +62,8 @@ const stock = (s: string) => ({
  * en yakın haftalık vade / 2,5 $ adım.
  */
 const WEEKLY = { optLabel: "haftalık", strikeStep: 2.5 };
-/** SPY'a özel kurallar (yalnız SPY 5m verisinde ölçüldü): stop sonrası ters yön kilidi + VWAP testeresinde küçük pozisyon / 1R'de tam çıkış — diğer sembollerde kapalı */
-export const SPY_ONLY_OFF = { oppAfterStopMin: 0, chopCross: 0 };
+/** SPY'a özel kurallar (yalnız SPY 5m verisinde ölçüldü): stop sonrası ters yön kilidi + VWAP testeresinde küçük pozisyon / 1R'de tam çıkış + 0,75R sonrası 2 ters mumda erken çıkış — diğer sembollerde kapalı */
+export const SPY_ONLY_OFF = { oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0 };
 /** IWM — küçük şirket endeksi, VWAP etrafında sık salınır: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı.
  *  SPY kuralları 147 işlem +9,9R (−1,4 / −5,5 / +16,9) → 139 işlem %54 +12,3R (−0,4 / −1,2 / +13,9); 0,2–0,3 arası sağlam. */
 export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, net15Atr: 0.3 };
