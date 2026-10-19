@@ -1,8 +1,8 @@
 {
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T09:03:46.087100-04:00",
+  "generated_at": "2026-10-19T14:04:06.561218-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -21,10 +21,11 @@
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 3,
       "tickers": [
         "AVTR",
-        "BTG"
+        "BTG",
+        "GMAB"
       ]
     },
     "value": {
@@ -63,25 +64,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 767.195,
-      "change_pct": 0.52
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 718.49,
-      "change_pct": 1.22
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 519.65,
-      "change_pct": 0.11
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 18.26,
-      "change_pct": -8.65
-    },
-    "RUSSELL2000": {
-      "value": 270.95,
-      "change_pct": 0.19
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-19T14:30:05.999925-04:00"
+  }
 }
