@@ -5,23 +5,23 @@
       "ticker": "AVTR",
       "company": "AVTR",
       "sector": "Healthcare",
-      "master_score": 61.0,
+      "master_score": 59.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 16.420000076293945,
-      "change_pct": 2.05,
+      "price": 16.290000915527344,
+      "change_pct": -0.79,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
     },
     {
       "ticker": "ABNB",
       "company": "ABNB",
       "sector": "Consumer Cyclical",
-      "master_score": 61.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 173.6999969482422,
-      "change_pct": -0.33,
+      "price": 175.4600067138672,
+      "change_pct": 1.01,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
       "ticker": "CNK",
@@ -220,6 +220,94 @@
       "change_pct": 0.85,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 40.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "EL",
+      "company": "EL",
+      "sector": "Consumer Defensive",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 105.77999877929688,
+      "change_pct": 1.19,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "EXPE",
+      "company": "EXPE",
+      "sector": "Consumer Cyclical",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 291.7200012207031,
+      "change_pct": 0.96,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "FRPT",
+      "company": "FRPT",
+      "sector": "Consumer Defensive",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 66.12000274658203,
+      "change_pct": -0.77,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DNOW",
+      "company": "DNOW",
+      "sector": "Industrials",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 16.209999084472656,
+      "change_pct": 3.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "GRMN",
+      "company": "GRMN",
+      "sector": "Technology",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 286.1600036621094,
+      "change_pct": 0.48,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ULTA",
+      "company": "ULTA",
+      "sector": "Consumer Cyclical",
+      "master_score": 45.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 591.6199951171875,
+      "change_pct": -0.22,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "GPN",
+      "company": "GPN",
+      "sector": "Industrials",
+      "master_score": 45.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 84.58999633789062,
+      "change_pct": 1.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "SPGI",
+      "company": "SPGI",
+      "sector": "Financial Services",
+      "master_score": 43.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 427.8299865722656,
+      "change_pct": -0.42,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.5 | System: TREND_CONT"
     }
   ]
 }

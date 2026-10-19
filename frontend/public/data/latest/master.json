@@ -1,8 +1,8 @@
 {
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T14:04:06.561218-04:00",
+  "generated_at": "2026-10-19T17:04:05.726544-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 28,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -21,11 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 4,
       "tickers": [
-        "AVTR",
         "BTG",
-        "GMAB"
+        "GMAB",
+        "EL",
+        "DNOW"
       ]
     },
     "value": {
@@ -48,12 +49,12 @@
   "top_3_overall": [
     {
       "ticker": "AVTR",
-      "score": 61.0,
+      "score": 59.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "ABNB",
-      "score": 61.0,
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
