@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-10-19T14:04:06.840402-04:00",
+  "generated_at": "2026-10-19T17:04:06.269033-04:00",
   "picks": [
     {
       "ticker": "CXT",
       "sector": "Industrials",
       "date_added": "2026-10-19",
       "score": 44.0
-    },
-    {
-      "ticker": "DNOW",
-      "sector": "Industrials",
-      "date_added": "2026-10-19",
-      "score": 41.5
     },
     {
       "ticker": "NOW",
@@ -26,52 +20,46 @@
       "score": 37.0
     },
     {
-      "ticker": "EHC",
-      "sector": "Healthcare",
-      "date_added": "2026-10-19",
-      "score": 37.0
-    },
-    {
-      "ticker": "RL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-19",
-      "score": 36.0
-    },
-    {
-      "ticker": "MGA",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-19",
-      "score": 36.0
-    },
-    {
       "ticker": "EW",
       "sector": "Healthcare",
       "date_added": "2026-10-19",
       "score": 36.0
     },
     {
-      "ticker": "CLMT",
-      "sector": "Basic Materials",
+      "ticker": "WMG",
+      "sector": "Communication Services",
       "date_added": "2026-10-19",
-      "score": 35.5
+      "score": 42.0
     },
     {
-      "ticker": "COLM",
+      "ticker": "CAKE",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-19",
-      "score": 35.0
+      "score": 41.0
     },
     {
-      "ticker": "DXCM",
-      "sector": "Healthcare",
+      "ticker": "H",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-10-19",
-      "score": 35.0
+      "score": 38.5
     },
     {
-      "ticker": "ARCB",
+      "ticker": "PD",
+      "sector": "Technology",
+      "date_added": "2026-10-19",
+      "score": 36.0
+    },
+    {
+      "ticker": "MATX",
       "sector": "Industrials",
       "date_added": "2026-10-19",
-      "score": 32.5
+      "score": 36.0
+    },
+    {
+      "ticker": "CRGY",
+      "sector": "Energy",
+      "date_added": "2026-10-19",
+      "score": 33.0
     }
   ]
 }
