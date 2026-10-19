@@ -1,0 +1,89 @@
+{
+  "ticker": "ERIC",
+  "company": "Telefonaktiebolaget LM Ericsson (publ)",
+  "date": "2026-10-19",
+  "generated_at": "2026-10-19T00:00:22.816Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 10.550000190734863,
+    "open": 10.569999694824219,
+    "high": 10.760000228881836,
+    "low": 10.510000228881836,
+    "prev_close": 10.710000038146973,
+    "change_pct": -1.493929475650985,
+    "change_pct_1w": 10.355645686863447,
+    "change_pct_1m": 14.42516144454141,
+    "change_pct_1y": 11.286927216940798,
+    "volume": 15878200,
+    "avg_volume_30d": 288594700
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 90,
+    "fundamental_score": 68.15,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.65216981988868,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 9.776395098861995,
+    "ema_50": 9.947145213600223,
+    "ema_200": 10.477399581170245,
+    "ema_stack_bullish": false,
+    "bb_upper": 11.077500200271606,
+    "bb_middle": 10.550000190734863,
+    "bb_lower": 10.02250018119812,
+    "bb_width": 10,
+    "atr": 0.26,
+    "atr_pct": 2.49,
+    "rvol": 2.110117753375235,
+    "52w_high": 13.770000457763672,
+    "52w_low": 9.039999961853027
+  },
+  "fundamental": {
+    "pe_ratio": 17.016129,
+    "pb_ratio": 0.3426326,
+    "gross_margin": 0.48014,
+    "operating_margin": 0,
+    "net_margin": 0.08364,
+    "market_cap": 34240507904,
+    "revenue_growth_ttm": 0.058,
+    "fcf_yield": 0.8398313104648975,
+    "institutional_ownership_pct": 0.122370005,
+    "dividend_rate": 0.32,
+    "dividend_yield": 0.030299999
+  },
+  "scores_detail": {
+    "entry_range_low": 10.39,
+    "entry_range_high": 10.58,
+    "target_range_low": 11.38,
+    "target_range_high": 12.12,
+    "target_1": 11.38,
+    "target_2": 11.83,
+    "target_3": 12.12,
+    "stop_loss": 10.02,
+    "risk_reward_ratio": 2.91,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.39 – $10.58 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $10.76 direnci veya $10.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.02 olarak belirlenmiştir. Fiyatın EMA50 ($9.95) veya günlük VWAP ($10.61) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($9.95) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($10.61) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.1 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

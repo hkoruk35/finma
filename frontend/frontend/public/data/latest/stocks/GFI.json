@@ -1,0 +1,89 @@
+{
+  "ticker": "GFI",
+  "company": "Gold Fields Limited",
+  "date": "2026-10-17",
+  "generated_at": "2026-10-17T06:46:06.653Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 37.599998474121094,
+    "open": 37.2400016784668,
+    "high": 38.150001525878906,
+    "low": 37.130001068115234,
+    "prev_close": 37.09000015258789,
+    "change_pct": 1.3750291707605153,
+    "change_pct_1w": 2.1184106077179554,
+    "change_pct_1m": 5.351638892983148,
+    "change_pct_1y": -19.34792077310545,
+    "volume": 3625800,
+    "avg_volume_30d": 109962400
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 40,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.58726575190238,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 37.791224274374414,
+    "ema_50": 39.26699638711142,
+    "ema_200": 41.51906116322954,
+    "ema_stack_bullish": false,
+    "bb_upper": 39.47999839782715,
+    "bb_middle": 37.599998474121094,
+    "bb_lower": 35.719998550415035,
+    "bb_width": 10,
+    "atr": 1.21,
+    "atr_pct": 3.22,
+    "rvol": 0.9713065556954013,
+    "52w_high": 61.63999938964844,
+    "52w_low": 31.110000610351562
+  },
+  "fundamental": {
+    "pe_ratio": 7.7049174,
+    "pb_ratio": 7.4647603,
+    "gross_margin": 0.57771,
+    "operating_margin": 0.54997003,
+    "net_margin": 0.38654998,
+    "market_cap": 33497706496,
+    "revenue_growth_ttm": 0.789,
+    "fcf_yield": 0.12466152190146648,
+    "institutional_ownership_pct": 0.21429001,
+    "dividend_rate": 2.15,
+    "dividend_yield": 0.0573
+  },
+  "scores_detail": {
+    "entry_range_low": 36.92,
+    "entry_range_high": 37.72,
+    "target_range_low": 41.27,
+    "target_range_high": 47.34,
+    "target_1": 41.27,
+    "target_2": 43.56,
+    "target_3": 47.34,
+    "stop_loss": 35.72,
+    "risk_reward_ratio": 3.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $36.92 – $37.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $38.15 direnci veya $36.68 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $35.72 olarak belirlenmiştir. Fiyatın EMA20 ($37.79) veya günlük VWAP ($37.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.27) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($37.57) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}
