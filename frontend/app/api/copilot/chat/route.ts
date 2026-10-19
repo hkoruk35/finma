@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED, COPILOT_PAUSED } from "@/lib/siteMode";
 import { cookies } from "next/headers";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -377,6 +377,8 @@ KURALLAR:
 }
 
 export async function POST(req: NextRequest) {
+  // Geçici kapatma (lib/siteMode.ts COPILOT_PAUSED): admin dahil herkese kapalı
+  if (COPILOT_PAUSED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   // Yalnız yönetim hesapları (boga_auth: admin / readonly / engine) — kota/kredi uygulanmaz, SPY odaklı esprili mod
   const adminMode = isCopilotRole(getStaffRole(req));
   const adminNote = adminMode ? adminPersonaFor(req.cookies.get("boga_user")?.value).promptNote : "";

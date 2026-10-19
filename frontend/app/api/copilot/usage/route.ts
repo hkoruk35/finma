@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED, COPILOT_PAUSED } from "@/lib/siteMode";
 import { isCopilotRole } from "@/lib/copilot/adminPersona";
 import { cookies } from "next/headers";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
@@ -11,6 +11,8 @@ const ANON_DAILY_LIMIT = 3;
 const FREE_DAILY_TOKEN_LIMIT = 15_000;
 
 export async function GET() {
+  // Geçici kapatma (lib/siteMode.ts COPILOT_PAUSED): admin dahil herkese kapalı
+  if (COPILOT_PAUSED) return Response.json({ error: "temporarily_disabled" }, { status: 503 });
   // Yalnız yönetim hesapları (boga_auth: admin / readonly / engine): sınırsız
   const role = readStaffRole((await cookies()).get(STAFF_COOKIE)?.value);
   if (isCopilotRole(role)) {

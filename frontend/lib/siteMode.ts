@@ -14,4 +14,9 @@ export const COPILOT_DISABLED = MEMBERSHIP_DISABLED
  * boga_auth rolüyle kapı tutar; istemci: CopilotShell /api/auth/me rolüne bakar.
  */
 export const COPILOT_ADMIN_ONLY = true
+/**
+ * 2026-10-19 (kullanıcı talebi, GEÇİCİ): Boga Copilot admin hesapları dahil herkese kapalı — üzerinde çalışılıyor.
+ * Düğme/çekmece hiç gösterilmez, copilot/chat + usage 503 döner. Geri açmak için: COPILOT_PAUSED = false.
+ */
+export const COPILOT_PAUSED = true
 export const MY_WATCHLIST_DISABLED = MEMBERSHIP_DISABLED

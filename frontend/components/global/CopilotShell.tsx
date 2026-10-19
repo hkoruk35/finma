@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CopilotProvider, useCopilot } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
-import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED } from "@/lib/siteMode";
+import { COPILOT_ADMIN_ONLY, COPILOT_DISABLED, COPILOT_PAUSED } from "@/lib/siteMode";
 import { isCopilotRole } from "@/lib/copilot/adminPersona";
 
 function CopilotShellInner({ children, isFinancePage }: { children: ReactNode; isFinancePage: boolean }) {
@@ -46,14 +46,15 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if (!COPILOT_ADMIN_ONLY) return;
+    if (!COPILOT_ADMIN_ONLY || COPILOT_PAUSED) return;
     let alive = true;
     loadIsAdmin().then((v) => { if (alive) setIsAdmin(v); });
     return () => { alive = false; };
   }, []);
 
   // 2026-10-15: Copilot yalnız yönetim hesaplarına (admin / readonly / engine) açık, SPY odaklı. Değilse Provider/Drawer hiç mount edilmez.
-  const enabled = COPILOT_ADMIN_ONLY ? isAdmin : !COPILOT_DISABLED;
+  // 2026-10-19: COPILOT_PAUSED iken herkese (admin dahil) kapalı
+  const enabled = !COPILOT_PAUSED && (COPILOT_ADMIN_ONLY ? isAdmin : !COPILOT_DISABLED);
   if (!enabled) return <>{children}</>;
 
   // Finans dışı sayfalar ve SPY/QQQ Engine dışındaki yönetim sayfaları hariç
