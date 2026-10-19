@@ -1,35 +1,30 @@
 {
-  "date": "2026-10-16",
-  "generated_at": "2026-10-16T17:01:57.866886-04:00",
+  "date": "2026-10-19",
+  "generated_at": "2026-10-19T09:03:46.087100-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 27,
+  "active_scores_count": 10,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "ACIW",
-        "SHW",
-        "MGA",
-        "ROP",
-        "HOG",
-        "FIVE",
-        "H",
-        "CAKE",
-        "GLBE",
-        "SNAP"
+        "AVTR",
+        "ABNB",
+        "CNK",
+        "CTSH",
+        "ADM",
+        "HONA",
+        "SPB",
+        "MATX",
+        "BTG",
+        "GWW"
       ]
     },
     "breakout": {
-      "count": 7,
+      "count": 2,
       "tickers": [
-        "HOG",
-        "CAKE",
-        "SNAP",
-        "CNQ",
-        "AEM",
-        "EQNR",
-        "VTRS"
+        "AVTR",
+        "BTG"
       ]
     },
     "value": {
@@ -51,18 +46,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ACIW",
-      "score": 64.0,
+      "ticker": "AVTR",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SHW",
-      "score": 54.0,
+      "ticker": "ABNB",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "MGA",
-      "score": 55.0,
+      "ticker": "CNK",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

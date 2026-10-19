@@ -1,41 +1,23 @@
 {
-  "generated_at": "2026-10-16T17:01:58.388677-04:00",
+  "generated_at": "2026-10-19T09:03:46.096671-04:00",
   "picks": [
     {
-      "ticker": "ALLE",
+      "ticker": "CXT",
       "sector": "Industrials",
-      "date_added": "2026-10-14",
-      "score": 38.5
+      "date_added": "2026-10-19",
+      "score": 44.0
     },
     {
-      "ticker": "CBRL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-16",
-      "score": 21.2
+      "ticker": "FRPT",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-19",
+      "score": 42.0
     },
     {
-      "ticker": "NTR",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-16",
-      "score": 42.5
-    },
-    {
-      "ticker": "YETI",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-16",
-      "score": 37.0
-    },
-    {
-      "ticker": "GFF",
+      "ticker": "DNOW",
       "sector": "Industrials",
-      "date_added": "2026-10-16",
-      "score": 33.5
-    },
-    {
-      "ticker": "VRNS",
-      "sector": "Technology",
-      "date_added": "2026-10-16",
-      "score": 32.0
+      "date_added": "2026-10-19",
+      "score": 41.5
     }
   ]
 }
