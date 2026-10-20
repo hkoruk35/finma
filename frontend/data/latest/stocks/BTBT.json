@@ -2,7 +2,7 @@
   "ticker": "BTBT",
   "company": "Bit Digital, Inc.",
   "date": "2026-10-20",
-  "generated_at": "2026-10-20T03:41:51.870Z",
+  "generated_at": "2026-10-20T08:44:37.484Z",
   "sector": "Financial Services",
   "industry": "Capital Markets",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 326409376,
     "revenue_growth_ttm": 0.256,
     "fcf_yield": -1.7162267789758587,
-    "institutional_ownership_pct": 0.51694,
+    "institutional_ownership_pct": 0.51677,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
