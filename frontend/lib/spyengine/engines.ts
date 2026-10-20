@@ -7,7 +7,7 @@
  * Sayfa (TrackerEnginePage), sunucu günlüğü (trackerStore) ve motor geçiş çubuğu buradan okur.
  */
 
-import { TRACK_CFG, TRACK_VERSION, type TrackCfg } from "./tracker";
+import { TRACK_CFG, TRACK_VERSION, NON_SPY_RULES, type TrackCfg } from "./tracker";
 import { QQQ_TRACK_CFG, QQQ_TRACK_VERSION } from "../qqqengine/config";
 
 export const ENGINE_SYMBOLS = ["SPY", "QQQ", "IWM", "NVDA", "AAPL", "TSLA", "AMZN"] as const;
@@ -63,7 +63,7 @@ const stock = (s: string) => ({
  */
 const WEEKLY = { optLabel: "haftalık", strikeStep: 2.5 };
 /** SPY'a özel kurallar (yalnız SPY 5m verisinde ölçüldü): stop sonrası ters yön kilidi + VWAP testeresinde küçük pozisyon / 1R'de tam çıkış + 0,75R sonrası 2 ters mumda erken çıkış — diğer sembollerde kapalı */
-export const SPY_ONLY_OFF = { oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0 };
+export const SPY_ONLY_OFF = NON_SPY_RULES;
 /** IWM — küçük şirket endeksi, VWAP etrafında sık salınır: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı.
  *  SPY kuralları 147 işlem +9,9R (−1,4 / −5,5 / +16,9) → 139 işlem %54 +12,3R (−0,4 / −1,2 / +13,9); 0,2–0,3 arası sağlam. */
 export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, net15Atr: 0.3 };
@@ -88,7 +88,7 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     stream: "/api/admin/spyengine/v2", optlevels: "/api/admin/spyengine/v2/optlevels",
     openForecast: "/api/admin/spyengine/v2/openforecast", closeForecast: "/api/admin/spyengine/v2/forecast",
     riskKey: "spyengine_risk_usd", cls: "border-amber-500/60 bg-amber-500/15 text-amber-300 hover:bg-amber-500/30",
-    cfg: TRACK_CFG, version: TRACK_VERSION, expiry: "0DTE", note: "SPY kuralları (45 seansta kalibre).",
+    cfg: TRACK_CFG, version: TRACK_VERSION, expiry: "0DTE", note: "SPY v3: 5m teyit · testere engeli · %25 prim stopu.",
   },
   QQQ: {
     symbol: "QQQ", name: "Nasdaq 100 ETF", page: "/admin/qqqengine/v1",

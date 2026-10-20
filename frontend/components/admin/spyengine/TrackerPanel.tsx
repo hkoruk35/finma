@@ -70,7 +70,7 @@ function BreakdownChips({ b }: { b: Breakdown }) {
 function HtfChips({ h }: { h: TrackStep["htf"] }) {
   return (
     <div className="flex flex-wrap gap-1">
-      {([["15m", h.m15], ["30m", h.m30], ["1h", h.h1], ["4h", h.h4]] as [string, D][]).map(([k, v]) => (
+      {([["15m", h.m15], ["1h", h.h1], ["4h", h.h4]] as [string, D][]).map(([k, v]) => (
         <Chip key={k} v={v} title={`${k}: fiyat EMA20'nin ${v > 0 ? "üstünde ve EMA yükseliyor" : v < 0 ? "altında ve EMA düşüyor" : "karışık tarafında"}`}>{k} {arrow(v)}</Chip>
       ))}
     </div>
@@ -78,7 +78,7 @@ function HtfChips({ h }: { h: TrackStep["htf"] }) {
 }
 
 function Outcome({ s }: { s: TrackStep }) {
-  if (!s.fc.dir) return <span className="text-slate-600">30dk —</span>;
+  if (!s.fc.dir) return null;
   if (!s.out) return <span className="text-slate-500">30dk {arrow(s.fc.dir)} bekleniyor</span>;
   const ok = s.out.hit;
   return (
@@ -130,7 +130,7 @@ function StepDetail({ s }: { s: TrackStep }) {
         <div className="text-[15px] font-black leading-tight" style={{ color: toneCol(s.tone) }}>{s.headline}</div>
         <div className="text-[12px] leading-snug text-slate-100">{s.action}</div>
         <div className="text-[11.5px] font-semibold" style={{ color: dCol(s.dir) }}>{s.trend}</div>
-        <div className="text-[11.5px] leading-snug text-slate-300">{s.fc.text}</div>
+        {s.fc.text && <div className="text-[11.5px] leading-snug text-slate-300">{s.fc.text}</div>}
         {s.out && s.fc.dir !== 0 && (
           <div className={`text-[11.5px] font-semibold ${s.out.hit ? "text-[#4ade80]" : "text-[#f87171]"}`}>
             Gerçekleşen: 30 dk sonra {s.out.move >= 0 ? "+" : ""}{s.out.move.toFixed(2)} puan — {s.out.hit ? "yön doğru" : "yön yanlış"}{s.out.targetHit ? " · hedefe değdi" : ""}{s.out.invalidHit ? " · önce iptal seviyesi geldi" : ""}{s.out.done ? "" : " (süre dolmadı)"}
@@ -148,7 +148,7 @@ function StepDetail({ s }: { s: TrackStep }) {
         <div className="font-mono text-[10.5px] leading-snug text-slate-400">
           {s.vwap != null && <>VWAP {num(s.vwap)} · </>}{s.poc != null && <>POC {num(s.poc)} · </>}{s.ema5 != null && <>EMA20 5m {num(s.ema5)} · </>}{s.ema15 != null && <>15m {num(s.ema15)}</>}
           <br />
-          {s.rvol5 != null && <>RVOL 5m {s.rvol5.toFixed(2)} · </>}{s.rvol15 != null && <>15m {s.rvol15.toFixed(2)} · </>}30dk itki {s.mom.impulse.toFixed(1)} ATR · VWAP kesişimi {s.crosses}
+          {s.rvol5 != null && <>RVOL 5m {s.rvol5.toFixed(2)} · </>}{s.rvol15 != null && <>15m {s.rvol15.toFixed(2)} · </>}itki {s.mom.impulse.toFixed(1)} ATR · VWAP kesişimi {s.crosses}
         </div>
       </div>
       <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2">
@@ -187,10 +187,12 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         <div className="mt-0.5 text-[20px] font-black leading-tight tracking-wide" style={{ color: col }}>{s.headline}</div>
         <div className="mt-1 text-[13px] font-semibold leading-snug text-slate-100">{s.action}</div>
         <div className="mt-1 text-[12px] font-bold" style={{ color: dCol(s.dir) }}>{s.trend}</div>
-        <div className="mt-1 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1 text-[12px] leading-snug text-slate-200">
-          {s.fc.text}
-          {s.fc.rule && <span className="block text-[10.5px] text-slate-500">Kural: {FC_RULES[s.fc.rule].text}. Geçmiş ölçüm {FC_RULES[s.fc.rule].n} tahmin, %{FC_RULES[s.fc.rule].hit} isabet.</span>}
-        </div>
+        {s.fc.text && (
+          <div className="mt-1 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1 text-[12px] leading-snug text-slate-200">
+            {s.fc.text}
+            {s.fc.rule && <span className="block text-[10.5px] text-slate-500">Kural: {FC_RULES[s.fc.rule].text}. Geçmiş ölçüm {FC_RULES[s.fc.rule].n} tahmin, %{FC_RULES[s.fc.rule].hit} isabet.</span>}
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-1.5 bg-[#0f141d] px-3 py-2.5">
         <div className="flex items-baseline justify-between text-[11px] text-slate-400">
@@ -199,7 +201,7 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         </div>
         {!s.pre && <Gauge score={s.score} thr={s.threshold} />}
         {!s.pre && <BreakdownChips b={s.breakdown} />}
-        <div className="mt-0.5 text-[10.5px] text-slate-500">15m = teyit · 30m / 1h / 4h yalnız bilgi (karara girmez):</div>
+        <div className="mt-0.5 text-[10.5px] text-slate-500">15m = teyit · 1h / 4h yalnız bilgi (karara girmez):</div>
         <HtfChips h={s.htf} />
       </div>
       <div className="flex flex-col gap-1 bg-[#0f141d] px-3 py-2.5">
@@ -309,7 +311,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
           {r.dayClass && badge(r.dayClass === "TREND_CANDLE" ? "TREND MUMU" : r.dayClass === "INDECISION" ? "KARARSIZ AÇILIŞ" : "NORMAL AÇILIŞ", r.dayClass === "TREND_CANDLE" ? WARN : NEU, "09:30–09:45 15m mumunun sınıfı")}
           {r.or15?.squeeze && badge("DAR AÇILIŞ", WARN, "OR15 günlük ATR'nin %15'inden dar — kırılım yakın olabilir")}
           {r.eventDay && badge("VERİ GÜNÜ", WARN, "dikkat — boyut yarım")}
-          {badge(`30dk tahmin ${r.pred.hit}/${r.pred.n}`, NEU, "Bugün sonucu belli olan yönlü tahminler: doğru yön / toplam")}
+          {r.pred.n > 0 && badge(`30dk tahmin ${r.pred.hit}/${r.pred.n}`, NEU, "Bugün sonucu belli olan yönlü tahminler: doğru yön / toplam")}
           {r.trades.length > 0 && badge(`işlem ${r.trades.length} · ${r.realizedR >= 0 ? "+" : ""}${r.realizedR.toFixed(2)}R`, r.realizedR >= 0 ? UP : DN)}
         </span>
       </div>
@@ -388,7 +390,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
       <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">
         <button type="button" onClick={() => setShowHist((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-2.5 py-0.5 text-[11px] font-bold text-sky-300 hover:bg-sky-500/30">{showHist ? "▴ gizle" : "▾ göster"}</button>
         <span className="text-[12px] font-semibold text-slate-300">Takip Sistemi geçmişi</span>
-        <span className="text-[11px] text-slate-500">{hist ? `${hist.count} seans (${hist.liveCount} canlı) · 30 dk tahmin isabeti %${hist.pred.n ? Math.round((100 * hist.pred.hit) / hist.pred.n) : 0} (${hist.pred.n})` : "yükleniyor"}</span>
+        <span className="text-[11px] text-slate-500">{hist ? `${hist.count} seans (${hist.liveCount} canlı)${hist.pred.n ? ` · 30 dk tahmin isabeti %${Math.round((100 * hist.pred.hit) / hist.pred.n)} (${hist.pred.n})` : ""}` : "yükleniyor"}</span>
       </div>
       {showHist && hist && (
         <div className="border-t border-[#1c2635] bg-[#0f141d] px-3 py-2">
@@ -411,6 +413,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
               )}
               <div className="mt-1 text-[10.5px] text-slate-500">CANLI OK = en az 100 işlem ve işlem başı ≥ +0,20R. Altındakiler gözlemde: sinyal verir ama kanıt henüz yetersiz. (K*/T_* = önceki sürümün etiketleri.)</div>
             </div>
+            {hist.byRule.length > 0 && (
             <div>
               <div className="mb-1 text-[11px] font-semibold text-slate-400">30 dk tahmin kuralları (gerçekleşen)</div>
               <table className="w-full font-mono text-[11px]">
@@ -429,6 +432,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
               </table>
               <div className="mt-1 text-[10.5px] text-slate-500">Ort. = tahmin yönünde 30 dk&apos;lık puan. Yön isabeti %50 = yazı-tura.</div>
             </div>
+            )}
           </div>
           <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-2">
             <div>

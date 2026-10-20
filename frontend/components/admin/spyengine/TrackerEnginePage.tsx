@@ -125,7 +125,7 @@ function TopBar({ t, waiting }: { t: TrackStep | null; waiting: boolean }) {
       {!t.pre && (
         <div className="mt-1 text-[13px] leading-snug text-slate-300">
           <b className="text-slate-400">Yön:</b> <b style={{ color: dcol }}>{t.trend}</b> <span className="text-slate-500">(puan {t.score > 0 ? "+" : ""}{t.score}/6,5)</span>
-          <span className="text-slate-400"> · {t.fc.text}</span>
+          {t.fc.text && <span className="text-slate-400"> · {t.fc.text}</span>}
         </div>
       )}
       {!t.pre && t.setup && t.setup.status !== "OPEN" && t.checklist.some((c) => !c.ok) && (
@@ -767,7 +767,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     if (replayDate) return;
     const at = Date.now() + FULL_REFRESH_MS;
     const inBar = Math.floor(at / 1000) % 300;
-    const delay = inBar >= 210 || inBar < 15 ? FULL_REFRESH_MS + ((300 - inBar + 15) % 300) * 1000 : FULL_REFRESH_MS;
+    const delay = inBar >= 170 || inBar < 15 ? FULL_REFRESH_MS + ((300 - inBar + 15) % 300) * 1000 : FULL_REFRESH_MS;
     const id = setTimeout(() => window.location.reload(), delay);
     return () => clearTimeout(id);
   }, [replayDate]);
@@ -1345,7 +1345,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
               {prewarn && <span className="rounded-md bg-green-500 px-2 py-0.5 text-[11px] font-extrabold text-[#0a0e17]">⚡ ERKEN UYARI · {prewarn.side} · {prewarn.clock}</span>}
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
-              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + saat-normalize RVOL ≥ 1] ya da formasyon · kapanış mumun yön ucunda) · kontrat = sabit dolar riski ÷ stop → 1R&apos;de yarısı, kalan 15m izleyen stop · tek karar kaynağı · 30m/1h/4h yalnız bilgi
+              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da isimli formasyon) → bir sonraki 5m kapanış teyidi · VWAP etrafında hacimsiz testerede ve sahte kırılımda işlem yok · stop = yapısal stop ya da tahmini primin %25&apos;i (hangisi yakınsa) · kontrat = sabit dolar riski ÷ stop (en çok 4) → 1R&apos;de yarısı, kalan 15m izleyen stop
             </p>
             {symbol !== "SPY" && <p className="text-[10.5px] font-semibold text-sky-300/90">{E.note}</p>}
           </div>
@@ -1582,9 +1582,9 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                           <li><b style={{ color: trackCur.fc.dir > 0 ? "#4ade80" : "#f87171" }}>Ana senaryo{trackCur.fc.rule && FC_RULES[trackCur.fc.rule].tHit ? ` (hedefe değme %${FC_RULES[trackCur.fc.rule].tHit})` : ""}:</b> {trackCur.fc.dir > 0 ? "yukarı" : "aşağı"} {num(trackCur.fc.target)} ({trackCur.fc.targetLabel}) — {trackCur.fc.rule ? FC_RULES[trackCur.fc.rule].label : ""}.</li>
                           <li><b className="text-slate-400">Alternatif:</b> 5m kapanış {num(trackCur.fc.invalid)} ({trackCur.fc.invalidLabel}) {trackCur.fc.dir > 0 ? "altına" : "üstüne"} geçerse senaryo iptal, ters yöne dönülür.</li>
                         </>
-                      ) : (
+                      ) : trackCur.fc.text ? (
                         <li><b className="text-amber-300">Ölçülmüş bir kenar yok:</b> {trackCur.fc.text.replace(/^30 dk: /, "")}.</li>
-                      )}
+                      ) : null}
                     </ul>
                   )}
                   <ol className="mt-1 flex list-decimal flex-col gap-0.5 pl-4 text-[11px] leading-snug text-slate-400 marker:text-slate-500">
@@ -1594,7 +1594,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                 <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-500">
                   {map.alt.map((a, i) => <li key={i}>⚠ {a}</li>)}
                   <li className="mt-0.5 text-slate-500">
-                    Bu bir TAHMİNDİR. Senaryo yüzdesi 45 seanslık ölçümde fiyatın 30 dk içinde hedefe iptal seviyesinden önce değme oranıdır (30 dk sonraki yön isabeti ayrıca ~%47 — yön tek başına kenar değil); seviyeler ölçülmüş veriden.
+                    Bu bir TAHMİNDİR; seviyeler ölçülmüş veriden.
                     Gün sonu bandı 20 seanslık dağılımdan{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} seans)` : ""}.
                   </li>
                 </ul>
