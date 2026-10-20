@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.0";
+export const TRACK_VERSION = "3.2";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -136,7 +136,7 @@ export const TRACK_CFG = {
   exitMode: "half15" as "half" | "full" | "trail" | "half15",
   /** "half15" (kullanıcı yöntemi): 2 kontrat · 1R'de yarısı kapanır, stop girişe · sonra her 15m kapanışında stop son 15m mumun
    *  dibi (PUT'ta tepesi) ∓ tampon'a taşınır (yalnız sıkılaşır) · kalan yarı stop olana kadar taşınır */
-  trailBufAtr15: 0.25,
+  trailBufAtr15: 0.4,
   /** taşınan yarının 15m izleyen stopu fitilde değil 5m KAPANIŞTA tetiklenir (girişteki başabaş stop fitilde kalır) */
   trailOnClose: false,
   /** 5m EMA20–VWAP rejimi (EMA20 VWAP'ın altında = aşağı trend) sürerken taşınan yarı 15m izleyen stopla değil,
@@ -155,7 +155,7 @@ export const TRACK_CFG = {
   runnerFlip: false,
   /** half15'te 1R sonrası risksiz kalan yarı taşınırken yeni tetiklere girilebilir */
   runnerParallel: true,
-  /** pozisyon büyüklüğü önerisi: taban kontrat + her kuvvetli momentum işareti için +1 (en çok sizeMax) */
+  /** sizeMode "momentum" HAZIR / KAPALI (50 seans: +7.354 $ → +5.213 $, maxDD −1.687 $) · pozisyon büyüklüğü önerisi: taban kontrat + her kuvvetli momentum işareti için +1 (en çok sizeMax) */
   sizeBase: 2,
   /** kontrat hesabı: "risk" = sabit dolar riski ÷ (stop puanı × Δ × 100) · "momentum" = taban + momentum işaretleri (eski) */
   sizeMode: "risk" as "risk" | "momentum",
@@ -166,21 +166,21 @@ export const TRACK_CFG = {
   /** düşük hacimli sinyalde risk çarpanı */
   sizeLowRvolMult: 0.5,
   /** risk modunda üst sınır (kontrat) */
-  sizeRiskMax: 4,
+  sizeRiskMax: 20,
   sizeMax: 4,
   /** düşük hacimli sinyal (RVOL 5m, medyan tabanlı, bu değerin altında) → yalnız 1 kontrat (kullanıcı kuralı, 2026-10-15) */
   sizeLowRvol: 0.7,
   /** zayıf 15m teyidi (son 15m mum yöne ters renkte ya da aralığının ters yarısında kapandı): tetik mumunda girilmez,
    *  bir sonraki 5m mum VWAP+EMA20'nin doğru tarafında VE tetik mumunun kapanışının ötesinde kapanırsa girilir; kapanmazsa iptal */
-  weak15Confirm: false,
+  weak15Confirm: true,
   /** teyit için gereken aynı yönde 5m kapanış sayısı (her biri öncekinin ötesinde + VWAP+EMA20 doğru tarafında) */
-  confirmBars: 1,
+  confirmBars: 2,
   /** true: teyit her tetikte aranır · false: yalnız zayıf 15m teyidinde */
-  confirmAll: true,
+  confirmAll: false,
   /** 15m yön teyidi için 15m kapanış VWAP'tan en az bu kadar ATR15 uzakta olmalı (net kapanış); 0 = kapalı */
   net15Atr: 0.1,
   /** teyit mumu gerçek yön mumu olmalı: gövde ≥ %confirmBody ve kapanış yön tarafında (aralığın ≥ %confirmClosePos'i); 0 = yalnız kapanış */
-  confirmBody: 35,
+  confirmBody: 0,
   confirmClosePos: 0,
   sizeRvol: 1.5,
   sizeImpulse: 2,
@@ -240,14 +240,14 @@ export const TRACK_CFG = {
   trackEnd: 15 * 60,
   forceExit: 15 * 60 + 45,
   predBars: 6,
-  alertPrewarnSec: 120,
+  alertPrewarnSec: 60,
   eventDays: [] as string[],
   /** referans sembol (QQQ için SPY) kapanmış 15m yönü şartı: "off" · "same" = referans 15m aynı yönde · "notAgainst" = referans ters yönde değil.
    *  Referans yönü TrackInput.refSide15 ile verilir; verilmezse şart uygulanmaz */
   refAlign15: "off" as "off" | "same" | "notAgainst",
   /** 5m giriş süzgeçleri (0 = kapalı): stop mesafesi ≤ maxStopAtr5 × ATR5 · giriş mumu RVOL ≥ minEntryRvol · gün içi VWAP kesişmesi < maxCrosses */
   maxStopAtr5: 0,
-  minEntryRvol: 0.8,
+  minEntryRvol: 0,
   maxCrosses: 0,
   /** ters yön kilidi: STOP ile kapanan işlemden sonra bu kadar dakika ters yönde giriş yok (aynı yön serbest) · 0 = kapalı.
    *  13 Eki: 12:30 PUT stopu → 12:45 CALL −1R, 13:00 CALL stopu → 13:20 PUT −1R. 45 seans: 42,5R → 46,7R, maxDD −6,35R → −4,67R */
@@ -265,22 +265,35 @@ export const TRACK_CFG = {
    *  45 seans: toplam 47,0R → 43,0R (bedeli), maxDD −5,85R → −4,68R, en kötü gün −2,67R → −2,06R (kullanıcı kararı 2026-10-19) */
   earlyExitArmR: 0.75,
   earlyExitBars: 2,
-  /** ── v3.0 (2026-10-20, kullanıcı kuralları) ── */
+  /** ── v3.0 süzgeçleri (2026-10-20) — v3.1'de SPY için KAPALI: 50 seansta 5m teyit / %25 prim stopu / testere engeli / isimli formasyon
+   *  şartı v2.18 çekirdeğinin kazancını eritiyordu (kod duruyor, değerler 0/false) ── */
   /** stop = yapısal stop (son 2 mumun ucu) ya da tahmini 0DTE priminin premStopPct'i — hangisi girişe yakınsa. Mum uzun olunca stop genişlemez.
    *  Tahmini prim ≈ premK × ATR5 × √(kapanışa kalan 5m mum sayısı); stop puanı = prim × premStopPct ÷ optDelta · 0 = kapalı */
-  premStopPct: 0.25,
+  premStopPct: 0,
   premK: 0.35,
   /** testere: son chopBars 5m mumun VWAP'a mesafe medyanı ≤ chopDistAtr5 × ATR5 VE RVOL medyanı < chopRvolMax → yeni giriş yok (VWAP kesişme SAYISI aranmaz) */
-  chopBlock: true,
+  chopBlock: false,
   chopBars: 6,
   chopDistAtr5: 0.6,
   chopRvolMax: 1.0,
   /** hacim desteği = yön renginde RVOL ≥ volRvolMin · formasyon desteği = YALNIZ isimli formasyon (yutan, çekiç, yıldız…); genel "güçlü mum" sayılmaz */
-  namedVC: true,
+  namedVC: false,
   /** tetik mumunun aralığı ≥ bu × ATR5 olmalı (30–40 sentlik gürültü mumuyla işlem önerilmez) · 0 = kapalı */
-  minBarAtr5: 0.7,
+  minBarAtr5: 0,
   /** tetik mumunda yön tersi isimli formasyon (tuzak / sahte kırılım) varsa giriş yok */
-  blockOpposeNamed: true,
+  blockOpposeNamed: false,
+  /** SIÇRAMA KIRILIMI (T5_BRK, kullanıcı kuralı 2026-10-20): sert ve hacimli 5m mum VWAP ile EMA20'yi (uzatılmış seri — grafikle aynı) keserse
+   *  erken uyarı; SONRAKİ 5m mum aynı renkte ve sinyal kapanışının ötesinde kapanırsa 15m teyidi beklenmeden giriş. Stop sinyal mumunun dibi/tepesi.
+   *  20 Eki 09:45: 764,50 → 766,12 (RVOL 1,5) VWAP + EMA20 üstü — 09:50 yeşil teyit → 772'ye giden trend */
+  brkSpike: true,
+  /** HAZIR / KAPALI (50 seans: +7.354 $ → +2.456 $, maxDD −2.400 $) — stop yalnız prim yüzdesinden (mum büyüklüğüne bakılmaz): stop puanı = tahmini prim × premStopPct ÷ optDelta (en az minStop) */
+  stopPremOnly: false,
+  /** 12:00 sonrası, net trend günü değilse tetik/giriş mumunda RVOL ≥ pmRvolMin · net trend günü = bugünkü 5m kapanışların ≥ trendDayShare'i işlem yönünde VWAP'ın doğru tarafında */
+  pmRvolMin: 1.5,
+  trendDayShare: 0.8,
+  brkBodyPct: 60,
+  brkRangeAtr5: 1.0,
+  brkRvolMin: 1.5,
   /** 30 dk tahmini ve 30m bilgisi: kapalı (kullanıcı: "30 dk hiç bir şekilde bakma, yanıltıcı") */
   fc30: false,
   /** kontrat önerisi: vade etiketi ve strike adımı (SPY/QQQ/IWM her gün vadeli, 1 $ adım · hisselerde en yakın haftalık, 2,5 $ adım) */
@@ -294,6 +307,7 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0,
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
+  trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
 };
 
 // ── Tipler ───────────────────────────────────────────────────────────
@@ -303,7 +317,7 @@ export type Side = "CALL" | "PUT";
 export type TrackPhase = "PRE" | "AÇILIŞ" | "TAKİP" | "IN_TRADE" | "MANAGE" | "KAPANIŞ"
   // v1 kayıtları (geçmiş görüntüleme)
   | "K1" | "K2" | "K3" | "K4" | "DONE" | "VETO";
-export type SetupTag = "T5_TREND" | "T5_PB"
+export type SetupTag = "T5_TREND" | "T5_PB" | "T5_BRK"
   // v1 kayıtları
   | "K1_ORB5" | "K2_TREND_CLOSE" | "K2_TREND_PB" | "K3_BREAK" | "K3_FAKEOUT" | "K4_PB_VWAP" | "K4_PB_EMA" | "T_PB_VWAP" | "T_PB_EMA" | "T_BRK";
 export type VetoCode = "LOW_RVOL" | "VWAP_CHOP" | "VWAP_POC_ZONE" | "STOP_TOO_WIDE" | "DAILY_LOSS" | "MAX_TRADES" | "EVENT_K1";
@@ -314,6 +328,7 @@ export type AlertLevel = "HAZIRLAN" | "TETİK" | "İPTAL" | "YÖNET" | "ÇIKIŞ"
 export const TAG_TEXT: Record<SetupTag, string> = {
   T5_TREND: "5m tetik · 15m teyitli (yeni hiza)",
   T5_PB: "5m tetik · 15m teyitli (EMA20/VWAP geri çekilmesi sonrası)",
+  T5_BRK: "sıçrama kırılımı · sert hacimli 5m mum VWAP+EMA20'yi kesti, sonraki 5m aynı yönde (15m beklenmez)",
   K1_ORB5: "OR5 kırılımı", K2_TREND_CLOSE: "09:45 trend mumu", K2_TREND_PB: "09:45 trend mumu · geri çekilme",
   K3_BREAK: "OR15 kırılımı", K3_FAKEOUT: "OR15 başarısız kırılım", K4_PB_VWAP: "VWAP geri çekilmesi", K4_PB_EMA: "EMA20 geri çekilmesi",
   T_PB_VWAP: "trend · VWAP geri çekilmesi", T_PB_EMA: "trend · EMA20 geri çekilmesi", T_BRK: "trend · 30 dk kırılım",
@@ -657,6 +672,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
   const all5 = inp.m5.filter((b) => b.time + 300 <= nowSec);
   const rth5 = all5.filter((b) => isRth(b.time));
   const ema5Map = mapOf(rth5, emaCalc(rth5.map((b) => b.close), 20));
+  /** grafikteki EMA20 (04:00'tan itibaren uzatılmış seri) — yalnız sıçrama kırılımı için */
+  const emaExtMap = mapOf(all5, emaCalc(all5.map((b) => b.close), 20));
   const atr5Map = mapOf(rth5, atrCalc(rth5, 14));
   const tf15 = tfOf(sessionAggregate(rth5, 15), 15);
   const atr15Arr = atrCalc(tf15.bars, 14);
@@ -784,6 +801,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let runSide = 0, runLen = 0;
   let prevSide15: D = 0;
   let side15Since = -99;
+  /** sıçrama kırılımı: teyit bekleyen sinyal */
+  let spike: { side: D; close: number; stop: number; clock: string } | null = null;
   /** önceki 5m mumun formasyon yönü */
   let candlePrev: D = 0;
   /** 15m belirsizken oluşan sert hacimli 5m kırılım (destek mumu + 15m teyidi bekleniyor) */
@@ -1033,6 +1052,78 @@ export function trackerRead(inp: TrackInput): TrackRead {
       else if (C.exitMode === "half15" && C.runnerParallel && p.h1Hit) { runners.push(p); pos = null; }
     }
 
+    // ── sıçrama kırılımı (T5_BRK): 15m teyidi beklenmez ──
+    if (C.brkSpike) {
+      const eX = emaExtMap.get(b.time) ?? null;
+      // teyit: sinyalden sonraki ilk 5m kapanış
+      if (spike) {
+        const sp = spike;
+        spike = null;
+        const sd = sp.side;
+        const okC = !pos && sd * (c - b.open) > 0 && sd * (c - sp.close) > 0 && vwap != null && eX != null && sd * (c - vwap) > 0 && sd * (c - eX) > 0
+          && trades.length < C.maxTrades && m <= C.lastEntry;
+        if (okC) {
+          const s: Side = sd > 0 ? "CALL" : "PUT";
+          const minStop = Math.max(atr5 ? C.minStopAtr5 * atr5 : 0.1, C.minStopPts);
+          let stop = sp.stop;
+          let premTxt = "";
+          if (C.premStopPct > 0 && C.stopPremOnly && atr5) {
+            const premEst = C.premK * atr5 * Math.sqrt(Math.max(1, (16 * 60 - m) / 5));
+            stop = c - sd * Math.max(minStop, (C.premStopPct * premEst) / C.optDelta);
+            premTxt = `stop: tahmini prim $${premEst.toFixed(2)} × %${Math.round(C.premStopPct * 100)}`;
+          }
+          if (sd * (c - stop) < minStop) stop = c - sd * minStop;
+          stop = r2(stop);
+          const rPts = r2(Math.abs(c - stop));
+          const riskUsd = inp.riskUsd && inp.riskUsd > 0 ? inp.riskUsd : C.riskUsd;
+          const perC = rPts * C.optDelta * 100;
+          const momPts = [(rvol5 ?? 0) >= C.sizeRvol, atr5 != null && sd * impulse >= C.sizeImpulse, newExt === sd, runners.some((x) => dOfSide(x.side) === sd && (x.liveR ?? 0) > 0)];
+          const contracts = C.sizeMode === "momentum"
+            ? Math.min(C.sizeMax, C.sizeBase + momPts.filter(Boolean).length)
+            : Math.max(1, Math.min(C.sizeRiskMax, Math.floor(riskUsd / Math.max(perC, 1))));
+          const tp1 = r2(c + sd * C.h1R * rPts);
+          const h2 = r2(c + sd * C.h2R * rPts);
+          const why = `${sp.clock} sert hacimli mum VWAP+EMA20'yi kesti + ${nyClock(T)} aynı yönde 5m kapanış (15m beklenmedi)`;
+          const momWhy = C.sizeMode === "momentum"
+            ? [`momentum: taban ${C.sizeBase} + ${[momPts[0] && `RVOL ${(rvol5 ?? 0).toFixed(1)}`, momPts[1] && "30 dk itki", momPts[2] && `yeni gün ${sd > 0 ? "tepesi" : "dibi"}`, momPts[3] && "kârdaki taşınan pozisyon"].filter(Boolean).join(", ") || "ek işaret yok"} → ${contracts} kontrat`, ...(premTxt ? [premTxt] : [])]
+            : [`risk $${Math.round(riskUsd)} ÷ (stop ${f2(rPts)} × Δ${C.optDelta} × 100 = $${Math.round(perC)}) → ${contracts} kontrat`];
+          const tr: TrackTrade = {
+            id: `${date}-${nyClock(T).replace(":", "")}-T5_BRK`, tag: "T5_BRK", reentry: trades.length > 0, side: s, stage: "TAKİP",
+            entryTime: b.time, entryClock: nyClock(T), entry: r2(c), stop, stop0: stop, rPts, h1: tp1, h2, size: "full", confirm10: null, contracts, momWhy,
+            strike: strikeHint(s, c, C), exitTime: null, exitClock: null, exit: null, exitReason: null, resultR: null, mfeR: 0, maeR: 0,
+            chop: false, h1RMult: C.h1R, barsHeld: 0, scoreEntry: score, rvolEntry: rvol5 != null ? r2(rvol5) : null, dayClass, bias: k0.bias, gapType, eventDay, h1Hit: false, h1Clock: null, liveR: 0, why,
+          };
+          trades.push(tr);
+          pos = tr;
+          entered = tr;
+          pushAlert(b.time, "TETİK", "T5_BRK", s, `TETİK · ${nyClock(T)} · ${s} ${contracts} kontrat · giriş ${f2(c)} · stop ${f2(stop)} · 1R ${f2(tp1)} · ${why} · ${momWhy.join(" · ")}${fridayNote}`);
+          ev.push(`GİRİŞ ${s} ${f2(c)} · stop ${f2(stop)} · H1 ${f2(tp1)} — sıçrama kırılımı teyit edildi`);
+        } else if (!pos) {
+          ev.push(`${sp.clock} sıçrama kırılımı teyit edilmedi (${nyClock(T)} kapanışı ${f2(c)})`);
+          pushAlert(b.time, "İPTAL", "T5_BRK", sd > 0 ? "CALL" : "PUT", `İPTAL · ${sp.clock} sıçrama kırılımı: sonraki 5m aynı yönde kapanmadı (${f2(c)})`);
+        }
+      }
+      // sinyal: sert + hacimli mum VWAP ve EMA20'yi (uzatılmış) kesti
+      const rngS = b.high - b.low;
+      const dS: D = c > b.open ? 1 : c < b.open ? -1 : 0;
+      if ((!pos || dOfSide((pos as TrackTrade).side) !== dS) && !entered && dS && vwap != null && eX != null && atr5 && rngS > 0 && m >= OPEN_MIN + 10 && m + 5 <= C.lastEntry) {
+        const prev = i > 0 ? today[i - 1] : null;
+        const prevVw = i > 0 ? vwaps[i - 1] : null;
+        const prevE = prev ? emaExtMap.get(prev.time) ?? null : null;
+        const beyondNow = dS * (c - vwap) > 0 && dS * (c - eX) > 0;
+        const wasNot = dS * (b.open - vwap) <= 0 || dS * (b.open - eX) <= 0
+          || (!!prev && prevVw != null && prevE != null && (dS * (prev.close - prevVw) <= 0 || dS * (prev.close - prevE) <= 0));
+        const strong = (Math.abs(c - b.open) / rngS) * 100 >= C.brkBodyPct && rngS >= C.brkRangeAtr5 * atr5;
+        const heavy = (rvol5 ?? 0) >= C.brkRvolMin;
+        if (beyondNow && wasNot && strong && heavy) {
+          spike = { side: dS, close: r2(c), stop: r2(dS > 0 ? b.low - C.stopPad : b.high + C.stopPad), clock: nyClock(T) };
+          const sk: Side = dS > 0 ? "CALL" : "PUT";
+          ev.push(`ERKEN UYARI: sert hacimli ${dS > 0 ? "yeşil" : "kırmızı"} mum VWAP ${f2(vwap)} + EMA20 ${f2(eX)} ${dS > 0 ? "üstüne" : "altına"} kapandı (RVOL ${(rvol5 as number).toFixed(2)}) — sonraki 5m aynı yönde ${f2(c)} ${dS > 0 ? "üstünde" : "altında"} kapanırsa ${sk}`);
+          pushAlert(b.time, "KADEME", "T5_BRK", sk, `ERKEN UYARI · ${sk} sıçrama kırılımı: sert hacimli 5m mum VWAP + EMA20'yi kesti (${f2(c)}, RVOL ${(rvol5 as number).toFixed(2)}) — ${hm(m + 5)} mumu ${dS > 0 ? "yeşil ve " + f2(c) + " üstünde" : "kırmızı ve " + f2(c) + " altında"} kapanırsa giriş · stop ${f2(spike.stop)}${fridayNote}`);
+        }
+      }
+    }
+
     // ── 5m tetik (15m yönünde) ──
     const warns: VetoCode[] = [];
     if (rvol5 != null && rvol5 < C.warnRvol) warns.push("LOW_RVOL");
@@ -1164,7 +1255,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const barsLeft = Math.max(1, (16 * 60 - m) / 5);
         const premEst = C.premK * atr5 * Math.sqrt(barsLeft);
         const capPts = Math.max(minStop, (C.premStopPct * premEst) / C.optDelta);
-        if (d * (c - stop) > capPts) {
+        if (C.stopPremOnly) {
+          stop = c - d * capPts;
+          premInfo = `stop: tahmini prim $${premEst.toFixed(2)} × %${Math.round(C.premStopPct * 100)} ≈ ${capPts.toFixed(2)} SPY puanı`;
+        } else if (d * (c - stop) > capPts) {
           stop = c - d * capPts;
           premInfo = `stop: tahmini prim $${premEst.toFixed(2)} × %${Math.round(C.premStopPct * 100)} ≈ ${capPts.toFixed(2)} puan (yapısal stop daha genişti)`;
         }
@@ -1185,6 +1279,11 @@ export function trackerRead(inp: TrackInput): TrackRead {
         C.refAlign15 !== "off" && inp.refSide15 && !(C.refAlign15 === "same" ? refD === d : refD !== -d) && `referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"}`,
         C.maxStopAtr5 > 0 && atr5 && Math.abs(c - stop) > C.maxStopAtr5 * atr5 && `stop ${f2(Math.abs(c - stop))} > ${C.maxStopAtr5} ATR5`,
         C.minEntryRvol > 0 && (rvol5 ?? 0) < C.minEntryRvol && `hacim zayıf (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.minEntryRvol})`,
+        C.pmRvolMin > 0 && m > 12 * 60 && (rvol5 ?? 0) < C.pmRvolMin && (() => {
+          let on = 0;
+          for (let q = 0; q <= i; q++) if (d * (today[q].close - (vwaps[q] ?? today[q].close)) > 0) on++;
+          return on / (i + 1) < C.trendDayShare;
+        })() && `12:00 sonrası, net trend günü değil — hacim yetersiz (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.pmRvolMin})`,
         C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
         (() => {
           if (C.oppAfterStopMin <= 0) return false;

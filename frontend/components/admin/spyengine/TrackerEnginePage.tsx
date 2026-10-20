@@ -1345,7 +1345,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
               {prewarn && <span className="rounded-md bg-green-500 px-2 py-0.5 text-[11px] font-extrabold text-[#0a0e17]">⚡ ERKEN UYARI · {prewarn.side} · {prewarn.clock}</span>}
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
-              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da isimli formasyon) → bir sonraki 5m kapanış teyidi · VWAP etrafında hacimsiz testerede ve sahte kırılımda işlem yok · stop = yapısal stop ya da tahmini primin %25&apos;i (hangisi yakınsa) · kontrat = sabit dolar riski ÷ stop (en çok 4) → 1R&apos;de yarısı, kalan 15m izleyen stop
+              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da formasyon) · SIÇRAMA: sert hacimli 5m mum (RVOL ≥ 1,5) VWAP + EMA20&apos;yi keserse erken uyarı, sonraki 5m aynı yönde kapanırsa 15m beklenmeden giriş · 12:00 sonrası net trend günü değilse RVOL ≥ 1,5 · kontrat = sabit dolar riski ÷ stop → 1R&apos;de yarısı, kalan 15m izleyen stop (tampon 0,4 ATR15) · 0,75R sonrası 2 ters mumda çıkış
             </p>
             {symbol !== "SPY" && <p className="text-[10.5px] font-semibold text-sky-300/90">{E.note}</p>}
           </div>

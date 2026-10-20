@@ -88,7 +88,7 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     stream: "/api/admin/spyengine/v2", optlevels: "/api/admin/spyengine/v2/optlevels",
     openForecast: "/api/admin/spyengine/v2/openforecast", closeForecast: "/api/admin/spyengine/v2/forecast",
     riskKey: "spyengine_risk_usd", cls: "border-amber-500/60 bg-amber-500/15 text-amber-300 hover:bg-amber-500/30",
-    cfg: TRACK_CFG, version: TRACK_VERSION, expiry: "0DTE", note: "SPY v3: 5m teyit · testere engeli · %25 prim stopu.",
+    cfg: TRACK_CFG, version: TRACK_VERSION, expiry: "0DTE", note: "SPY v3.2: v2.18 çekirdeği · sıçrama kırılımı (RVOL ≥ 1,5) · izleyen stop tamponu 0,4 · 12:00 sonrası trend günü değilse RVOL ≥ 1,5.",
   },
   QQQ: {
     symbol: "QQQ", name: "Nasdaq 100 ETF", page: "/admin/qqqengine/v1",
