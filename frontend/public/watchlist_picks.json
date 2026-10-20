@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T17:04:06.269033-04:00",
+  "generated_at": "2026-10-20T09:04:19.770314-04:00",
   "picks": [
     {
       "ticker": "CXT",
@@ -26,18 +26,6 @@
       "score": 36.0
     },
     {
-      "ticker": "WMG",
-      "sector": "Communication Services",
-      "date_added": "2026-10-19",
-      "score": 42.0
-    },
-    {
-      "ticker": "CAKE",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-19",
-      "score": 41.0
-    },
-    {
       "ticker": "H",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-19",
@@ -50,16 +38,22 @@
       "score": 36.0
     },
     {
-      "ticker": "MATX",
-      "sector": "Industrials",
-      "date_added": "2026-10-19",
-      "score": 36.0
+      "ticker": "CLMT",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-20",
+      "score": 39.5
     },
     {
-      "ticker": "CRGY",
-      "sector": "Energy",
-      "date_added": "2026-10-19",
-      "score": 33.0
+      "ticker": "MGA",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-20",
+      "score": 39.0
+    },
+    {
+      "ticker": "ARCB",
+      "sector": "Industrials",
+      "date_added": "2026-10-20",
+      "score": 30.5
     }
   ]
 }
