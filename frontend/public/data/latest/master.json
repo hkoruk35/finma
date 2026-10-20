@@ -1,8 +1,8 @@
 {
   "date": "2026-10-20",
-  "generated_at": "2026-10-20T14:04:33.627457-04:00",
+  "generated_at": "2026-10-20T17:02:50.568733-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 39,
+  "active_scores_count": 44,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,13 +21,17 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 9,
       "tickers": [
+        "CNK",
         "BTG",
         "GMAB",
         "LYFT",
         "EL",
-        "DNOW"
+        "DNOW",
+        "HNGE",
+        "NOW",
+        "IQV"
       ]
     },
     "value": {
@@ -60,7 +64,7 @@
     },
     {
       "ticker": "CNK",
-      "score": 58.0,
+      "score": 48.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
