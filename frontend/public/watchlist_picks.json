@@ -1,24 +1,6 @@
 {
-  "generated_at": "2026-10-20T14:04:34.139532-04:00",
+  "generated_at": "2026-10-20T17:02:51.222963-04:00",
   "picks": [
-    {
-      "ticker": "CXT",
-      "sector": "Industrials",
-      "date_added": "2026-10-19",
-      "score": 44.0
-    },
-    {
-      "ticker": "NOW",
-      "sector": "Technology",
-      "date_added": "2026-10-19",
-      "score": 38.5
-    },
-    {
-      "ticker": "EW",
-      "sector": "Healthcare",
-      "date_added": "2026-10-19",
-      "score": 36.0
-    },
     {
       "ticker": "H",
       "sector": "Consumer Cyclical",
@@ -30,12 +12,6 @@
       "sector": "Technology",
       "date_added": "2026-10-19",
       "score": 36.0
-    },
-    {
-      "ticker": "ARCB",
-      "sector": "Industrials",
-      "date_added": "2026-10-20",
-      "score": 30.5
     },
     {
       "ticker": "DLO",
@@ -50,24 +26,6 @@
       "score": 43.0
     },
     {
-      "ticker": "EBAY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-20",
-      "score": 42.5
-    },
-    {
-      "ticker": "CRC",
-      "sector": "Energy",
-      "date_added": "2026-10-20",
-      "score": 42.0
-    },
-    {
-      "ticker": "PAYS",
-      "sector": "Technology",
-      "date_added": "2026-10-20",
-      "score": 34.5
-    },
-    {
       "ticker": "GLBE",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-20",
@@ -78,6 +36,24 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-20",
       "score": 23.2
+    },
+    {
+      "ticker": "SNAP",
+      "sector": "Communication Services",
+      "date_added": "2026-10-20",
+      "score": 42.5
+    },
+    {
+      "ticker": "IDCC",
+      "sector": "Technology",
+      "date_added": "2026-10-20",
+      "score": 37.0
+    },
+    {
+      "ticker": "IR",
+      "sector": "Industrials",
+      "date_added": "2026-10-20",
+      "score": 34.0
     }
   ]
 }
