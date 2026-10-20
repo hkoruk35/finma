@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "MTCH",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 45.57,
+        "entry_zone": "44.98 - 46.16",
+        "SL": 43.2,
+        "TP": 50.31
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 162.04,
+        "entry_zone": "159.31 - 164.77",
+        "SL": 151.11,
+        "TP": 183.91
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 114.19,
+        "entry_zone": "111.77 - 116.61",
+        "SL": 104.53,
+        "TP": 133.52
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "VEEV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 319.7,
+        "entry_zone": "314.73 - 324.67",
+        "SL": 299.82,
+        "TP": 359.46
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "AMZN",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 263.59,
+        "entry_zone": "260.33 - 266.85",
+        "SL": 250.56,
+        "TP": 289.65
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "STLD",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 243.06,
+        "entry_zone": "239.32 - 246.80",
+        "SL": 228.1,
+        "TP": 272.98
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "GMAB",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.3,
+        "entry_zone": "38.48 - 40.12",
+        "SL": 36.01,
+        "TP": 44.24
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "RNG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 81.59,
+        "entry_zone": "79.71 - 83.47",
+        "SL": 74.08,
+        "TP": 96.61
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "VAL",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 88.44,
+        "entry_zone": "86.83 - 90.05",
+        "SL": 82.02,
+        "TP": 101.28
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "VET",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 13.41,
+        "entry_zone": "13.19 - 13.63",
+        "SL": 12.52,
+        "TP": 15.19
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "PEB",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 20.61,
+        "entry_zone": "20.25 - 20.98",
+        "SL": 19.14,
+        "TP": 23.57
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "DNOW",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 15.85,
+        "entry_zone": "15.58 - 16.11",
+        "SL": 14.78,
+        "TP": 17.44
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "RIG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 5.83,
+        "entry_zone": "5.72 - 5.94",
+        "SL": 5.39,
+        "TP": 6.72
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "CDNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 69.59,
+        "entry_zone": "67.40 - 71.78",
+        "SL": 60.84,
+        "TP": 87.08
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "CVE",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 32.82,
+        "entry_zone": "32.29 - 33.35",
+        "SL": 30.71,
+        "TP": 37.05
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "OIS",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 8.29,
+        "entry_zone": "8.14 - 8.44",
+        "SL": 7.7,
+        "TP": 9.47
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 234.78,
+        "entry_zone": "225.46 - 244.10",
+        "SL": 197.51,
+        "TP": 309.33
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "RGC",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 10.43,
+        "entry_zone": "9.79 - 11.07",
+        "SL": 7.87,
+        "TP": 15.54
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "CME",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 296.55,
+        "entry_zone": "293.61 - 299.50",
+        "SL": 284.78,
+        "TP": 320.1
+    },
+    {
+        "date": "2026-10-20 15:30",
+        "symbol": "RAMP",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 38.21,
+        "entry_zone": "38.09 - 38.32",
+        "SL": 37.75,
+        "TP": 39.11
+    }
+]
