@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "CLOSE",
+        "price": 9.22,
+        "entry_zone": "8.95 - 9.48",
+        "SL": 8.17,
+        "TP": 11.3
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 13.92,
+        "entry_zone": "13.51 - 14.33",
+        "SL": 12.28,
+        "TP": 17.19
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "RVMD",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 199.94,
+        "entry_zone": "194.91 - 204.97",
+        "SL": 179.81,
+        "TP": 240.21
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "MD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 28.14,
+        "entry_zone": "27.78 - 28.50",
+        "SL": 26.72,
+        "TP": 30.99
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "PK",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 16.67,
+        "entry_zone": "16.45 - 16.89",
+        "SL": 15.79,
+        "TP": 18.43
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "MSCI",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 597.78,
+        "entry_zone": "591.05 - 604.50",
+        "SL": 570.87,
+        "TP": 651.6
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "CNK",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 40.11,
+        "entry_zone": "39.56 - 40.67",
+        "SL": 37.89,
+        "TP": 44.55
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "NOC",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 543.43,
+        "entry_zone": "536.58 - 550.28",
+        "SL": 516.02,
+        "TP": 598.24
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "RLAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 18.81,
+        "entry_zone": "18.32 - 19.30",
+        "SL": 16.84,
+        "TP": 22.75
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "FITB",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 52.82,
+        "entry_zone": "52.28 - 53.36",
+        "SL": 50.66,
+        "TP": 57.15
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 18.26,
+        "entry_zone": "17.89 - 18.63",
+        "SL": 16.77,
+        "TP": 21.25
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "BILL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 49.38,
+        "entry_zone": "48.56 - 50.21",
+        "SL": 46.1,
+        "TP": 55.95
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 93.7,
+        "entry_zone": "90.98 - 96.42",
+        "SL": 82.84,
+        "TP": 115.42
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 80.86,
+        "entry_zone": "79.75 - 81.97",
+        "SL": 76.41,
+        "TP": 89.77
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "AMRX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 19.89,
+        "entry_zone": "19.58 - 20.19",
+        "SL": 18.65,
+        "TP": 22.35
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "BIIB",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 241.86,
+        "entry_zone": "238.47 - 245.25",
+        "SL": 228.31,
+        "TP": 268.96
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "MMM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 170.44,
+        "entry_zone": "168.44 - 172.44",
+        "SL": 162.44,
+        "TP": 182.43
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "SRPT",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 19.03,
+        "entry_zone": "18.60 - 19.47",
+        "SL": 17.31,
+        "TP": 22.49
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "XRAY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 8.86,
+        "entry_zone": "8.71 - 9.01",
+        "SL": 8.25,
+        "TP": 10.07
+    },
+    {
+        "date": "2026-10-21 14:00",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 245.5,
+        "entry_zone": "236.06 - 254.94",
+        "SL": 207.75,
+        "TP": 321.01
+    }
+]
