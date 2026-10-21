@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T17:02:51.222963-04:00",
+  "generated_at": "2026-10-21T09:04:39.185307-04:00",
   "picks": [
     {
       "ticker": "H",
@@ -50,10 +50,58 @@
       "score": 37.0
     },
     {
-      "ticker": "IR",
+      "ticker": "GMAB",
+      "sector": "Healthcare",
+      "date_added": "2026-10-21",
+      "score": 42.5
+    },
+    {
+      "ticker": "COLM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-21",
+      "score": 41.5
+    },
+    {
+      "ticker": "CRM",
+      "sector": "Technology",
+      "date_added": "2026-10-21",
+      "score": 39.5
+    },
+    {
+      "ticker": "EW",
+      "sector": "Healthcare",
+      "date_added": "2026-10-21",
+      "score": 39.0
+    },
+    {
+      "ticker": "GME",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-21",
+      "score": 37.5
+    },
+    {
+      "ticker": "SEZL",
+      "sector": "Financial Services",
+      "date_added": "2026-10-21",
+      "score": 37.0
+    },
+    {
+      "ticker": "SPB",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-21",
+      "score": 37.0
+    },
+    {
+      "ticker": "DXCM",
+      "sector": "Healthcare",
+      "date_added": "2026-10-21",
+      "score": 36.0
+    },
+    {
+      "ticker": "ARCB",
       "sector": "Industrials",
-      "date_added": "2026-10-20",
-      "score": 34.0
+      "date_added": "2026-10-21",
+      "score": 31.5
     }
   ]
 }
