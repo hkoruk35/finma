@@ -1,37 +1,32 @@
 {
-  "date": "2026-10-20",
-  "generated_at": "2026-10-20T17:02:50.568733-04:00",
+  "date": "2026-10-21",
+  "generated_at": "2026-10-21T09:04:38.734756-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 44,
+  "active_scores_count": 24,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "AVTR",
-        "ABNB",
-        "CNK",
-        "CTSH",
-        "ADM",
-        "HONA",
-        "SPB",
-        "MATX",
-        "BTG",
-        "GWW"
+        "RL",
+        "TEVA",
+        "IMO",
+        "BKH",
+        "MAS",
+        "SXT",
+        "STLD",
+        "RES",
+        "PRGS",
+        "BBWI"
       ]
     },
     "breakout": {
-      "count": 9,
+      "count": 4,
       "tickers": [
-        "CNK",
-        "BTG",
-        "GMAB",
-        "LYFT",
-        "EL",
-        "DNOW",
         "HNGE",
         "NOW",
-        "IQV"
+        "IQV",
+        "HUM"
       ]
     },
     "value": {
@@ -53,42 +48,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "AVTR",
-      "score": 59.0,
+      "ticker": "RL",
+      "score": 47.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ABNB",
-      "score": 53.0,
+      "ticker": "TEVA",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CNK",
-      "score": 48.5,
+      "ticker": "IMO",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 771.1772,
-      "change_pct": 0.28
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 717.63,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 526.26,
-      "change_pct": 0.36
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 17.0,
-      "change_pct": -1.79
-    },
-    "RUSSELL2000": {
-      "value": 276.865,
-      "change_pct": 0.39
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-21T09:30:11.379894-04:00"
+  }
 }

@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 21939339,
+    "avg_volume": 22067881,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 42916940,
+    "avg_volume": 42927159,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -8576,7 +8576,7 @@
   },
   "DIA": {
     "market_cap": 0,
-    "avg_volume": 3479857,
+    "avg_volume": 3485632,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -9451,7 +9451,7 @@
   },
   "SGOL": {
     "market_cap": 0,
-    "avg_volume": 2419087,
+    "avg_volume": 2405801,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11151,7 +11151,7 @@
   },
   "VXX": {
     "market_cap": 0,
-    "avg_volume": 8947682,
+    "avg_volume": 9073203,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11226,7 +11226,7 @@
   },
   "IAU": {
     "market_cap": 0,
-    "avg_volume": 5078490,
+    "avg_volume": 5093570,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -14876,7 +14876,7 @@
   },
   "UGL": {
     "market_cap": 0,
-    "avg_volume": 2797415,
+    "avg_volume": 2820942,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -20576,7 +20576,7 @@
   },
   "BSOL": {
     "market_cap": 0,
-    "avg_volume": 3487445,
+    "avg_volume": 3509709,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -26251,7 +26251,7 @@
   },
   "SVXY": {
     "market_cap": 0,
-    "avg_volume": 1483860,
+    "avg_volume": 1496009,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -32826,7 +32826,7 @@
   },
   "SOMN": {
     "market_cap": 0,
-    "avg_volume": 449884,
+    "avg_volume": 449121,
     "beta": 0.301,
     "short_float": 0.0,
     "sector": "Utilities",
@@ -43476,7 +43476,7 @@
   },
   "GBTC": {
     "market_cap": 0,
-    "avg_volume": 1803662,
+    "avg_volume": 1803401,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -51376,7 +51376,7 @@
   },
   "BITB": {
     "market_cap": 0,
-    "avg_volume": 1098037,
+    "avg_volume": 1103282,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
