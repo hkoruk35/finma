@@ -1,30 +1,6 @@
 {
-  "generated_at": "2026-10-21T09:04:39.185307-04:00",
+  "generated_at": "2026-10-22T14:02:56.654833-04:00",
   "picks": [
-    {
-      "ticker": "H",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-19",
-      "score": 38.5
-    },
-    {
-      "ticker": "PD",
-      "sector": "Technology",
-      "date_added": "2026-10-19",
-      "score": 36.0
-    },
-    {
-      "ticker": "DLO",
-      "sector": "Technology",
-      "date_added": "2026-10-20",
-      "score": 45.0
-    },
-    {
-      "ticker": "CCL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-20",
-      "score": 43.0
-    },
     {
       "ticker": "GLBE",
       "sector": "Consumer Cyclical",
@@ -36,18 +12,6 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-20",
       "score": 23.2
-    },
-    {
-      "ticker": "SNAP",
-      "sector": "Communication Services",
-      "date_added": "2026-10-20",
-      "score": 42.5
-    },
-    {
-      "ticker": "IDCC",
-      "sector": "Technology",
-      "date_added": "2026-10-20",
-      "score": 37.0
     },
     {
       "ticker": "GMAB",
@@ -62,24 +26,6 @@
       "score": 41.5
     },
     {
-      "ticker": "CRM",
-      "sector": "Technology",
-      "date_added": "2026-10-21",
-      "score": 39.5
-    },
-    {
-      "ticker": "EW",
-      "sector": "Healthcare",
-      "date_added": "2026-10-21",
-      "score": 39.0
-    },
-    {
-      "ticker": "GME",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-21",
-      "score": 37.5
-    },
-    {
       "ticker": "SEZL",
       "sector": "Financial Services",
       "date_added": "2026-10-21",
@@ -92,16 +38,22 @@
       "score": 37.0
     },
     {
-      "ticker": "DXCM",
-      "sector": "Healthcare",
-      "date_added": "2026-10-21",
-      "score": 36.0
+      "ticker": "GWW",
+      "sector": "Industrials",
+      "date_added": "2026-10-22",
+      "score": 46.5
     },
     {
-      "ticker": "ARCB",
+      "ticker": "BIO",
+      "sector": "Healthcare",
+      "date_added": "2026-10-22",
+      "score": 40.0
+    },
+    {
+      "ticker": "ECO",
       "sector": "Industrials",
-      "date_added": "2026-10-21",
-      "score": 31.5
+      "date_added": "2026-10-22",
+      "score": 37.5
     }
   ]
 }
