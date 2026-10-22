@@ -95,7 +95,7 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     stream: "/api/admin/qqqengine/v2", optlevels: "/api/admin/qqqengine/v2/optlevels",
     openForecast: null, closeForecast: null,
     riskKey: "qqqengine_risk_usd", cls: "border-sky-500/60 bg-sky-500/15 text-sky-300 hover:bg-sky-500/30",
-    cfg: QQQ_TRACK_CFG, version: QQQ_TRACK_VERSION, expiry: "0DTE", note: "QQQ'nun kendi 5m süzgeçleri: RVOL ≥ 0,85 · testere günde (VWAP 6+ kesişme) giriş yok · taşınan yarıda 5m kapanış stopu.",
+    cfg: QQQ_TRACK_CFG, version: QQQ_TRACK_VERSION, expiry: "0DTE", note: "QQQ'nun kendi 5m süzgeçleri: SPY v3.2 kuralları (sıçrama kırılımı, erken çıkış, 12:00 sonrası RVOL şartı) + RVOL ≥ 0,85 · testere günde giriş yok · QQQ oynaklığı için gevşek stop (tampon 0,2 ATR15, asgari 0,65 ATR5).",
   },
   IWM: { symbol: "IWM", name: "Russell 2000 ETF", ...stock("IWM"), cls: "border-violet-500/60 bg-violet-500/15 text-violet-300 hover:bg-violet-500/30", cfg: IWM_TRACK_CFG, version: versionOf("IWM", IWM_TRACK_CFG), expiry: "0DTE", note: "IWM: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı (VWAP etrafında salınım süzgeci)." },
   NVDA: { symbol: "NVDA", name: "NVIDIA", ...stock("NVDA"), cls: "border-lime-500/60 bg-lime-500/15 text-lime-300 hover:bg-lime-500/30", cfg: NVDA_TRACK_CFG, version: versionOf("NVDA", NVDA_TRACK_CFG), expiry: "haftalık", note: "NVDA: stop > 2 ATR5 ise giriş yok · zayıf 15m'de ek onay beklenmez · aşırı testere günde (VWAP 8+ kesişme) giriş yok · en yakın haftalık vade." },

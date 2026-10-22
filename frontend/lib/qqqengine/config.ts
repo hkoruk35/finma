@@ -13,7 +13,7 @@
  */
 
 import { LADDER_CFG, type LadderCfg } from "../spyengine/ladder";
-import { TRACK_CFG, TRACK_VERSION, NON_SPY_RULES, type TrackCfg } from "../spyengine/tracker";
+import { TRACK_CFG, TRACK_VERSION, type TrackCfg } from "../spyengine/tracker";
 
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
@@ -72,6 +72,14 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
  *   Komşu değerler sağlam (RVOL 0,85–0,95: +25…+28R · kesişme 4–8: +25…+28R). Seçim aynı 45 günde yapıldı — görülmemiş dönem yok.
  *   16 Eki (−20 $ düşüş günü): +3,45R → +6,42R.
  */
-export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...NON_SPY_RULES, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true };
+/**
+ * 2026-10-22 SPY v3.2 ile eş güdüm: QQQ artık SPY'ın güncel kurallarını da kullanır (sıçrama kırılımı T5_BRK,
+ * erken çıkış REV_2BAR, 12:00 sonrası RVOL ≥ 1,5, 0,4 tamponlu izleyen stop...) — önceden NON_SPY_RULES ile kapalıydı.
+ * QQQ daha oynak olduğundan STOP gevşetildi: giriş stop tamponu 0,1 → 0,2 ATR15, asgari stop 0,5 → 0,65 ATR5, izleyen stop tamponu 0,4 → 0,5 ATR15.
+ * Ölçüm (QQQ 5m 45 seans, scripts/backtest_engines.ts mantığı): eski QQQ ayarı 90 işlem %56 +30,6R maxDD −6,5R · SPY v3.2 + QQQ 3 fark + gevşek stop
+ * 93 işlem %51 +18,3R (−3,4 / +10,0 / +11,7) maxDD −5,3R. R, stop mesafesine bölündüğü için geniş stopta düşük görünür (kontrat sayısı aynı dolar riskine göre azalır);
+ * düşüş azaldı, işlemler SPY ile aynı mantıkla açılıp kapanır. Seçim aynı 45 günde yapıldı — görülmemiş dönem yok.
+ */
+export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true, stopBufAtr15: 0.2, minStopAtr5: 0.65, trailBufAtr15: 0.5 };
 /** QQQ kayıt sürümü (kurallar SPY'dan ayrıştı — değişince QQQ geriye dönük kayıtları yeniden üretilir) */
-export const QQQ_TRACK_VERSION = `${TRACK_VERSION}-q2`;
+export const QQQ_TRACK_VERSION = `${TRACK_VERSION}-q3`;
