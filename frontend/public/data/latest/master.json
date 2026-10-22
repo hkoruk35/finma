@@ -1,31 +1,28 @@
 {
-  "date": "2026-10-21",
-  "generated_at": "2026-10-21T09:04:38.734756-04:00",
+  "date": "2026-10-22",
+  "generated_at": "2026-10-22T14:02:55.877346-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 24,
-  "market_regime": "BULLISH",
+  "active_scores_count": 18,
+  "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "RL",
-        "TEVA",
-        "IMO",
-        "BKH",
-        "MAS",
-        "SXT",
-        "STLD",
-        "RES",
-        "PRGS",
-        "BBWI"
+        "HUM",
+        "HWC",
+        "HLF",
+        "MMM",
+        "DD",
+        "HOG",
+        "EBAY",
+        "MTDR",
+        "WAT",
+        "ETSY"
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 1,
       "tickers": [
-        "HNGE",
-        "NOW",
-        "IQV",
         "HUM"
       ]
     },
@@ -48,42 +45,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "RL",
-      "score": 47.0,
+      "ticker": "HUM",
+      "score": 55.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "TEVA",
-      "score": 58.0,
+      "ticker": "HWC",
+      "score": 50.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IMO",
-      "score": 57.0,
+      "ticker": "HLF",
+      "score": 50.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 762.16,
-      "change_pct": -1.41
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 703.8,
-      "change_pct": -2.95
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 526.82,
-      "change_pct": -0.17
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 19.38,
-      "change_pct": 16.19
-    },
-    "RUSSELL2000": {
-      "value": 275.8,
-      "change_pct": -0.25
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-10-22T14:30:08.084768-04:00"
+  }
 }
