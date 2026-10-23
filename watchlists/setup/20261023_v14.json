@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "SPOT",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 584.83,
+        "entry_zone": "573.90 - 595.75",
+        "SL": 541.14,
+        "TP": 672.19
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "LMT",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 606.49,
+        "entry_zone": "598.25 - 614.73",
+        "SL": 573.54,
+        "TP": 672.38
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "INTU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 343.4,
+        "entry_zone": "337.11 - 349.69",
+        "SL": 318.24,
+        "TP": 393.71
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "GIS",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 34.49,
+        "entry_zone": "33.97 - 35.00",
+        "SL": 32.42,
+        "TP": 38.61
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "CPB",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 20.75,
+        "entry_zone": "20.41 - 21.08",
+        "SL": 19.39,
+        "TP": 23.46
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "CAG",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 14.88,
+        "entry_zone": "14.64 - 15.11",
+        "SL": 13.92,
+        "TP": 16.79
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "ROP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 436.62,
+        "entry_zone": "431.09 - 442.15",
+        "SL": 414.52,
+        "TP": 480.83
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "DOW",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 32.83,
+        "entry_zone": "32.39 - 33.28",
+        "SL": 31.06,
+        "TP": 36.38
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "WTRG",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 43.08,
+        "entry_zone": "42.64 - 43.51",
+        "SL": 41.33,
+        "TP": 46.57
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 28.85,
+        "entry_zone": "28.37 - 29.33",
+        "SL": 26.95,
+        "TP": 32.66
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "BHVN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.97,
+        "entry_zone": "13.46 - 14.47",
+        "SL": 11.93,
+        "TP": 18.04
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "NDAQ",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 102.84,
+        "entry_zone": "101.72 - 103.96",
+        "SL": 98.37,
+        "TP": 111.77
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "TILE",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 36.45,
+        "entry_zone": "35.97 - 36.93",
+        "SL": 34.52,
+        "TP": 40.3
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "HCSG",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 24.74,
+        "entry_zone": "24.34 - 25.14",
+        "SL": 23.13,
+        "TP": 27.95
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "UPBD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 16.94,
+        "entry_zone": "16.63 - 17.25",
+        "SL": 15.72,
+        "TP": 19.39
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "PG",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 161.35,
+        "entry_zone": "159.66 - 163.04",
+        "SL": 154.58,
+        "TP": 174.88
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "BX",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 117.38,
+        "entry_zone": "115.31 - 119.45",
+        "SL": 109.11,
+        "TP": 133.93
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "TPG",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 44.74,
+        "entry_zone": "43.88 - 45.59",
+        "SL": 41.33,
+        "TP": 51.54
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "ARES",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 122.53,
+        "entry_zone": "120.70 - 124.36",
+        "SL": 115.2,
+        "TP": 137.19
+    },
+    {
+        "date": "2026-10-23 19:30",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 51.01,
+        "entry_zone": "50.53 - 51.50",
+        "SL": 49.06,
+        "TP": 54.93
+    }
+]
