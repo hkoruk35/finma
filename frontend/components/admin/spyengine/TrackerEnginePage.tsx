@@ -38,7 +38,8 @@ import {
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
-  daySeries, liveVwap, fmtVol, stopZones, openingRegime, buildForecastMap, emaByTime,
+  daySeries, liveVwap, fmtVol, stopZones, openingRegime, buildForecastMap, emaByTime, commentAll, commentForming,
+  type CandleComment, type Tone,
 } from "@/lib/spyengine/openingMap";
 import type {
   EngineEvent, PositionState, ContractType, EngineState, GateStatus, RegimeState,
@@ -100,6 +101,66 @@ const SIDE_CHIP: Record<string, string> = {
   BELOW: "border-[#ef4444]/40 bg-[#ef4444]/10 text-[#f87171]",
   AT: "border-slate-600 bg-slate-700/20 text-slate-300",
 };
+
+const TONE_STYLE: Record<Tone, { ring: string; text: string; dot: string }> = {
+  bull: { ring: "border-[#22c55e]/35 bg-[#22c55e]/[0.07]", text: "text-[#4ade80]", dot: "bg-[#22c55e]" },
+  bear: { ring: "border-[#ef4444]/35 bg-[#ef4444]/[0.07]", text: "text-[#f87171]", dot: "bg-[#ef4444]" },
+  neutral: { ring: "border-[#1c2635] bg-[#0f141d]", text: "text-slate-300", dot: "bg-slate-500" },
+};
+
+function CommentCard({ c, latest }: { c: CandleComment; latest: boolean }) {
+  const st = TONE_STYLE[c.tone];
+  return (
+    <div className={`rounded border px-2 py-1.5 ${st.ring} ${c.forming ? "border-dashed" : ""} ${latest ? "ring-1 ring-[#eab308]/40" : ""}`}>
+      <div className="flex flex-wrap items-center justify-between gap-1">
+        <span className="flex items-center gap-1.5">
+          <span className={`h-1.5 w-1.5 rounded-full ${st.dot} ${c.forming ? "animate-pulse" : ""}`} />
+          <span className="font-mono text-[12px] font-bold text-slate-200">{c.clock}</span>
+          <span className="text-[10.5px] text-slate-500">{c.tf} {c.forming ? "oluşuyor" : "kapanış"} {num(c.close)}</span>
+          {c.forming && <span className="rounded bg-sky-500/15 px-1 text-[9.5px] font-semibold text-sky-300">CANLI</span>}
+          {latest && !c.forming && <span className="rounded bg-[#eab308]/15 px-1 text-[9.5px] font-semibold text-[#eab308]">SON</span>}
+        </span>
+        {c.vwapSide && (
+          <span className={`rounded border px-1.5 py-0.5 font-mono text-[10.5px] font-semibold ${SIDE_CHIP[c.vwapSide]}`}>
+            {c.vwapSide === "ABOVE" ? "VWAP ÜSTÜ" : c.vwapSide === "BELOW" ? "VWAP ALTI" : "VWAP'TA"} {c.vwap != null && num(c.vwap)}
+          </span>
+        )}
+      </div>
+      <div className={`mt-0.5 text-[12px] font-semibold ${st.text}`}>{c.headline}</div>
+      <div className="mt-0.5 flex flex-wrap gap-1 font-mono text-[10.5px] text-slate-400">
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">üst fitil {num(c.upperWick)}</span>
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">alt fitil {num(c.lowerWick)}</span>
+        <span className="rounded bg-[#0a0e17] px-1 py-0.5">kapanış konumu %{Math.round(c.closePos * 100)}</span>
+        <span className={`rounded bg-[#0a0e17] px-1 py-0.5 ${c.volRatio != null && c.volRatio >= 1.2 ? "text-sky-300" : c.volRatio != null && c.volRatio < 0.8 ? "text-amber-300" : ""}`}>
+          hacim {fmtVol(c.volume)}{c.volRatio != null ? ` · RVOL ${c.volRatio.toFixed(2)}` : ""}
+        </span>
+      </div>
+      <ul className="mt-0.5 flex flex-col gap-0.5 text-[11px] leading-snug text-slate-400">
+        {c.lines.map((l, i) => <li key={i}>• {l}</li>)}
+      </ul>
+    </div>
+  );
+}
+
+function CommentFeed({ title, items, forming }: { title: string; items: CandleComment[]; forming: CandleComment | null }) {
+  return (
+    <div className={`${SURFACE} overflow-hidden`}>
+      <div className="flex items-center justify-between border-b border-[#1c2635] px-3 py-1.5">
+        <span className="text-[12px] font-semibold tracking-wide text-slate-300">{title}</span>
+        <span className="font-mono text-[10.5px] text-slate-500">{items.length} kapanmış mum · en yeni üstte</span>
+      </div>
+      <div className="flex max-h-[520px] flex-col gap-1 overflow-y-auto p-1.5">
+        {forming && <CommentCard c={forming} latest={false} />}
+        {items.length === 0 && !forming && (
+          <div className="px-2 py-4 text-center text-[12px] text-slate-500">
+            Henüz kapanmış seans mumu yok — 09:30 ET&apos;den sonra ilk kapanışla yorumlar gelir.
+          </div>
+        )}
+        {items.map((c, idx) => <CommentCard key={`${c.tf}-${c.time}`} c={c} latest={idx === 0} />)}
+      </div>
+    </div>
+  );
+}
 
 /**
  * En üst bant — sayfanın TEK karar satırı (Takip Sistemi: 15m yön teyidi → 5m tetik → 1R'de yarısı → 15m izleyen stop).
@@ -1060,6 +1121,20 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [m5D, m15D, m30D, ema5, ema15, date, lastM1Time, minuteSlot, data?.levels?.prevClose]);
 
+  /** Mum yorumları: kapanmış mumlar (en yeni üstte) + oluşan canlı mum — yalnız bilgi, karar vermez */
+  const comments = useMemo(() => {
+    if (!analysis) return { c5: [] as CandleComment[], c15: [] as CandleComment[], f5: null as CandleComment | null, f15: null as CandleComment | null };
+    const live = !replayDate && !!date && !!nowSec;
+    return {
+      c5: commentAll(analysis.s5, "5m", 40, ema5),
+      c15: commentAll(analysis.s15, "15m", 40, ema15),
+      f5: live ? commentForming(m5D, analysis.s5, "5m", date, nowSec, ema5) : null,
+      f15: live ? commentForming(m15D, analysis.s15, "15m", date, nowSec, ema15) : null,
+    };
+    // oluşan mum saniyede bir yenilenir (nowSec)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analysis, m5D, m15D, ema5, ema15, date, replayDate, nowSec]);
+
   /** 15m yapı stopu: ATR15 yalnızca KAPANMIŞ seans 15m mumlarından */
   const stops = useMemo(() => {
     if (!analysis || !evalNow) return null;
@@ -1601,6 +1676,12 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
               </div>
             </>
           )}
+        </div>
+
+        {/* ── Anlık mum yorumları (15m sol · 5m sağ) ── */}
+        <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
+          <CommentFeed title="15m Mum Yorumları — canlı + kapanış" items={comments.c15} forming={comments.f15} />
+          <CommentFeed title="5m Mum Yorumları — canlı + kapanış" items={comments.c5} forming={comments.f5} />
         </div>
 
         {/* ── Kayıtlar: Takip Sistemi'nin önerdiği işlemler (bugün canlı + arşiv) ve uyarılar ── */}
