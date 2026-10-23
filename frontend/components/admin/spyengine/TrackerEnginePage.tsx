@@ -1645,7 +1645,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
           ) : (
             <>
               <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} />
-              <div className="grid grid-cols-1 gap-2 border-t border-[#1c2635] px-3 py-2 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-2 border-t border-[#22d3ee]/40 bg-[#0e4b5a] px-3 py-2 lg:grid-cols-2">
                 <div>
                   <div className="mb-0.5 text-[11px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>
                     {map.biasText}
