@@ -1,0 +1,89 @@
+{
+  "ticker": "FPS",
+  "company": "Forgent Power Solutions, Inc.",
+  "date": "2026-10-23",
+  "generated_at": "2026-10-23T14:02:35.481Z",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 24.945999145507812,
+    "open": 24.860000610351562,
+    "high": 25.290000915527344,
+    "low": 23.850000381469727,
+    "prev_close": 24.920000076293945,
+    "change_pct": 0.10433013296255864,
+    "change_pct_1w": -21.256316587117546,
+    "change_pct_1m": -32.741981550606035,
+    "change_pct_1y": -13.979313291352371,
+    "volume": 2021914,
+    "avg_volume_30d": 338576614
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 40,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 28.41354766661543,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 33.142074529352286,
+    "ema_50": 35.33047310408078,
+    "ema_200": 36.93423335449098,
+    "ema_stack_bullish": false,
+    "bb_upper": 26.193299102783204,
+    "bb_middle": 24.945999145507812,
+    "bb_lower": 23.69869918823242,
+    "bb_width": 10,
+    "atr": 2.91,
+    "atr_pct": 11.65,
+    "rvol": 1.2201577631702585,
+    "52w_high": 66,
+    "52w_low": 23.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 83.15333,
+    "pb_ratio": 11.490557,
+    "gross_margin": 0.35027,
+    "operating_margin": 0.19863,
+    "net_margin": 0.05763,
+    "market_cap": 7957394432,
+    "revenue_growth_ttm": 0.943,
+    "fcf_yield": -0.010993894138035358,
+    "institutional_ownership_pct": 0.9486,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 23.74,
+    "entry_range_high": 25.24,
+    "target_range_low": 37.53,
+    "target_range_high": 41.61,
+    "target_1": 37.53,
+    "target_2": 40.07,
+    "target_3": 41.61,
+    "stop_loss": 21.71,
+    "risk_reward_ratio": 5.6,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.74 – $25.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $31.48 direnci veya $23.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $21.71 olarak belirlenmiştir. Fiyatın EMA20 ($33.14) veya günlük VWAP ($24.25) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($35.33) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($24.25) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 28 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}
