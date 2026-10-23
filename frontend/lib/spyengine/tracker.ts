@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.2";
+export const TRACK_VERSION = "3.3";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -225,7 +225,7 @@ export const TRACK_CFG = {
   needVC: true,
   /** VWAP eğimi: VWAP son N 5m mumda giriş yönünde ilerlemiş olmalı · 0 = kapalı */
   vwapSlopeBars: 0,
-  h1R: 1,
+  h1R: 0.5,
   h2R: 2,
   /** 0 = kapalı (ölçüm: 30 dk zaman stopu kazanan işlemleri erken kesiyordu, +19,8R → −1,4R) */
   timeStopBars: 0,
@@ -1023,7 +1023,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         }
         else if (d > 0 ? b.high >= p.h1 : b.low <= p.h1) {
           p.h1Hit = true; p.h1Clock = nyClock(T); p.stop = p.entry;
-          pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `1R ${f2(p.h1)} geldi: yarısını kapat (${halfOf(p.contracts)} / ${p.contracts ?? 2} kontrat), stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
+          pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `${C.h1R}R ${f2(p.h1)} geldi: yarısını kapat (${halfOf(p.contracts)} / ${p.contracts ?? 2} kontrat), stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
           ev.push(`H1 ${f2(p.h1)} — yarısı alındı, stop girişe`);
         } else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
         else if (C.timeStopBars > 0 && p.barsHeld >= C.timeStopBars && d * (c - p.entry) < 0) close(c, "TIME");
