@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-10-22T14:02:56.654833-04:00",
+  "generated_at": "2026-10-23T09:03:43.802841-04:00",
   "picks": [
-    {
-      "ticker": "GLBE",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-20",
-      "score": 34.0
-    },
-    {
-      "ticker": "ARHS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-20",
-      "score": 23.2
-    },
     {
       "ticker": "GMAB",
       "sector": "Healthcare",
@@ -50,10 +38,52 @@
       "score": 40.0
     },
     {
-      "ticker": "ECO",
-      "sector": "Industrials",
-      "date_added": "2026-10-22",
-      "score": 37.5
+      "ticker": "MTN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-23",
+      "score": 46.5
+    },
+    {
+      "ticker": "TGT",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-23",
+      "score": 46.0
+    },
+    {
+      "ticker": "MCO",
+      "sector": "Financial Services",
+      "date_added": "2026-10-23",
+      "score": 46.0
+    },
+    {
+      "ticker": "MAT",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-23",
+      "score": 45.0
+    },
+    {
+      "ticker": "SMG",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-23",
+      "score": 41.0
+    },
+    {
+      "ticker": "SHC",
+      "sector": "Healthcare",
+      "date_added": "2026-10-23",
+      "score": 40.0
+    },
+    {
+      "ticker": "VSXY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-23",
+      "score": 33.5
+    },
+    {
+      "ticker": "CAG",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-23",
+      "score": 29.2
     }
   ]
 }

@@ -1,29 +1,30 @@
 {
-  "date": "2026-10-22",
-  "generated_at": "2026-10-22T14:02:55.877346-04:00",
+  "date": "2026-10-23",
+  "generated_at": "2026-10-23T09:03:43.335839-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 18,
+  "active_scores_count": 20,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "HUM",
-        "HWC",
-        "HLF",
-        "MMM",
-        "DD",
-        "HOG",
-        "EBAY",
-        "MTDR",
         "WAT",
-        "ETSY"
+        "ETSY",
+        "KEY",
+        "CART",
+        "WSM",
+        "WDAY",
+        "W",
+        "RIG",
+        "AOS",
+        "COMP"
       ]
     },
     "breakout": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "HUM"
+        "DAVE",
+        "J"
       ]
     },
     "value": {
@@ -45,18 +46,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "HUM",
-      "score": 55.5,
+      "ticker": "WAT",
+      "score": 68.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HWC",
-      "score": 50.0,
+      "ticker": "ETSY",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HLF",
-      "score": 50.0,
+      "ticker": "KEY",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
