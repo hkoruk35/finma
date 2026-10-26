@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-10-26T14:04:21.839190-04:00",
+  "generated_at": "2026-10-26T17:03:43.395374-04:00",
   "picks": [
     {
       "ticker": "WTS",
       "sector": "Industrials",
       "date_added": "2026-10-26",
       "score": 41.0
-    },
-    {
-      "ticker": "ESNT",
-      "sector": "Financial Services",
-      "date_added": "2026-10-26",
-      "score": 40.0
     },
     {
       "ticker": "OKTA",
@@ -24,12 +18,6 @@
       "sector": "Technology",
       "date_added": "2026-10-26",
       "score": 22.0
-    },
-    {
-      "ticker": "GEF",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-26",
-      "score": 38.0
     },
     {
       "ticker": "RBRK",
@@ -50,30 +38,6 @@
       "score": 34.5
     },
     {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-10-26",
-      "score": 32.5
-    },
-    {
-      "ticker": "KSS",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-26",
-      "score": 29.5
-    },
-    {
-      "ticker": "SHOP",
-      "sector": "Technology",
-      "date_added": "2026-10-26",
-      "score": 28.0
-    },
-    {
-      "ticker": "SIG",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-26",
-      "score": 26.5
-    },
-    {
       "ticker": "CCI",
       "sector": "Real Estate",
       "date_added": "2026-10-26",
@@ -84,6 +48,42 @@
       "sector": "Technology",
       "date_added": "2026-10-26",
       "score": 21.0
+    },
+    {
+      "ticker": "QCOM",
+      "sector": "Technology",
+      "date_added": "2026-10-26",
+      "score": 39.0
+    },
+    {
+      "ticker": "BILL",
+      "sector": "Technology",
+      "date_added": "2026-10-26",
+      "score": 38.5
+    },
+    {
+      "ticker": "CHH",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-26",
+      "score": 37.5
+    },
+    {
+      "ticker": "ADI",
+      "sector": "Technology",
+      "date_added": "2026-10-26",
+      "score": 37.5
+    },
+    {
+      "ticker": "CRWD",
+      "sector": "Technology",
+      "date_added": "2026-10-26",
+      "score": 35.5
+    },
+    {
+      "ticker": "NDSN",
+      "sector": "Industrials",
+      "date_added": "2026-10-26",
+      "score": 33.5
     }
   ]
 }
