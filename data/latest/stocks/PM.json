@@ -1,8 +1,8 @@
 {
   "ticker": "PM",
   "company": "Philip Morris International Inc.",
-  "date": "2026-10-24",
-  "generated_at": "2026-10-24T17:56:15.292Z",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T11:44:31.276Z",
   "sector": "Consumer Defensive",
   "industry": "Tobacco",
   "price": {
@@ -54,12 +54,12 @@
   "fundamental": {
     "pe_ratio": 29.119709,
     "pb_ratio": 0,
-    "gross_margin": 0.67722,
-    "operating_margin": 0.41965,
+    "gross_margin": 0.67697,
+    "operating_margin": 0.41939,
     "net_margin": 0.24825001,
     "market_cap": 310896623616,
     "revenue_growth_ttm": 0.055,
-    "fcf_yield": 0.04,
+    "fcf_yield": 0.03707060239494627,
     "institutional_ownership_pct": 0.84363,
     "dividend_rate": 6.4,
     "dividend_yield": 0.0321
