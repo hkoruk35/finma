@@ -1,0 +1,89 @@
+{
+  "ticker": "XOM",
+  "company": "ExxonMobil Holdings Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T08:21:29.653Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 183.2100067138672,
+    "open": 179.3699951171875,
+    "high": 183.75,
+    "low": 179,
+    "prev_close": 178.22999572753906,
+    "change_pct": 2.794148631379136,
+    "change_pct_1w": 2.3633987525440907,
+    "change_pct_1m": 6.424637356672412,
+    "change_pct_1y": 57.96689205985819,
+    "volume": 11517700,
+    "avg_volume_30d": 382299200
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 90,
+    "fundamental_score": 66.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.51%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 76.12333325535838,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 172.77193133520683,
+    "ema_50": 166.28684520052738,
+    "ema_200": 151.76028109666294,
+    "ema_stack_bullish": true,
+    "bb_upper": 192.37050704956056,
+    "bb_middle": 183.2100067138672,
+    "bb_lower": 174.04950637817382,
+    "bb_width": 10,
+    "atr": 3.93,
+    "atr_pct": 2.14,
+    "rvol": 0.9251962860502978,
+    "52w_high": 183.75,
+    "52w_low": 112.51000213623047
+  },
+  "fundamental": {
+    "pe_ratio": 23.579151,
+    "pb_ratio": 2.904407,
+    "gross_margin": 0.29767,
+    "operating_margin": 0.15859,
+    "net_margin": 0.09072,
+    "market_cap": 753343397888,
+    "revenue_growth_ttm": 0.441,
+    "fcf_yield": 0.027439014709561668,
+    "institutional_ownership_pct": 0.67250997,
+    "dividend_rate": 4.12,
+    "dividend_yield": 0.0225
+  },
+  "scores_detail": {
+    "entry_range_low": 178.03,
+    "entry_range_high": 183.6,
+    "target_range_low": 189.85,
+    "target_range_high": 207.94,
+    "target_1": 189.85,
+    "target_2": 198.9,
+    "target_3": 207.94,
+    "stop_loss": 174.05,
+    "risk_reward_ratio": 2.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $178.03 – $183.60 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $183.75 direnci veya $177.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $174.05 olarak belirlenmiştir. Fiyatın EMA20 ($172.77) veya günlük VWAP ($182.67) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($182.67) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 76 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

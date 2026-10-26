@@ -1,0 +1,89 @@
+{
+  "ticker": "YUM",
+  "company": "Yum! Brands, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T10:22:02.870Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 149.6999969482422,
+    "open": 153.44000244140625,
+    "high": 154.19000244140625,
+    "low": 147.7899932861328,
+    "prev_close": 154.4499969482422,
+    "change_pct": -3.0754290021719943,
+    "change_pct_1w": -0.5381686188002359,
+    "change_pct_1m": 2.010219385514268,
+    "change_pct_1y": 2.275057690880296,
+    "volume": 2555300,
+    "avg_volume_30d": 72733100
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 70,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.24178425677765,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 146.86287032267393,
+    "ema_50": 146.39516048391175,
+    "ema_200": 150.2800276971776,
+    "ema_stack_bullish": false,
+    "bb_upper": 157.1849967956543,
+    "bb_middle": 149.6999969482422,
+    "bb_lower": 142.21499710083006,
+    "bb_width": 10,
+    "atr": 3.24,
+    "atr_pct": 2.16,
+    "rvol": 0.9651974135572388,
+    "52w_high": 170.13999938964844,
+    "52w_low": 134.25999450683594
+  },
+  "fundamental": {
+    "pe_ratio": 18.853903,
+    "pb_ratio": 0,
+    "gross_margin": 0.45311,
+    "operating_margin": 0.32779998,
+    "net_margin": 0.25406998,
+    "market_cap": 40853291008,
+    "revenue_growth_ttm": 0.122,
+    "fcf_yield": 0.020396153245936313,
+    "institutional_ownership_pct": 0.91031,
+    "dividend_rate": 3,
+    "dividend_yield": 0.02
+  },
+  "scores_detail": {
+    "entry_range_low": 147.76,
+    "entry_range_high": 150.02,
+    "target_range_low": 156.33,
+    "target_range_high": 171.22,
+    "target_1": 156.33,
+    "target_2": 163.78,
+    "target_3": 171.22,
+    "stop_loss": 142.21,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $147.76 – $150.02 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $151.38 direnci veya $147.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $142.21 olarak belirlenmiştir. Fiyatın EMA50 ($146.40) veya günlük VWAP ($149.55) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($146.40) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($149.55) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

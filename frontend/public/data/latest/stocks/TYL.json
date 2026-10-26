@@ -1,0 +1,89 @@
+{
+  "ticker": "TYL",
+  "company": "Tyler Technologies, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T12:03:42.056Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 390.1400146484375,
+    "open": 391.6499938964844,
+    "high": 394.6600036621094,
+    "low": 386.1099853515625,
+    "prev_close": 392.45001220703125,
+    "change_pct": -0.5886093736124398,
+    "change_pct_1w": 8.110959605202137,
+    "change_pct_1m": 14.767315363446812,
+    "change_pct_1y": -24.428084329600484,
+    "volume": 558800,
+    "avg_volume_30d": 20455300
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 75,
+    "fundamental_score": 74.75,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 73.17867877999754,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 356.3771879916447,
+    "ema_50": 344.40989076913127,
+    "ema_200": 356.3747462904837,
+    "ema_stack_bullish": false,
+    "bb_upper": 409.6470153808594,
+    "bb_middle": 390.1400146484375,
+    "bb_lower": 370.6330139160156,
+    "bb_width": 10,
+    "atr": 11.04,
+    "atr_pct": 2.83,
+    "rvol": 1.0648780511652236,
+    "52w_high": 518.3699951171875,
+    "52w_low": 270.7099914550781
+  },
+  "fundamental": {
+    "pe_ratio": 51.334213,
+    "pb_ratio": 5.257668,
+    "gross_margin": 0.47205,
+    "operating_margin": 0.14741,
+    "net_margin": 0.13361,
+    "market_cap": 15977119744,
+    "revenue_growth_ttm": 0.082,
+    "fcf_yield": 0.03720543236356682,
+    "institutional_ownership_pct": 1.07919,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 375.1,
+    "entry_range_high": 391.24,
+    "target_range_low": 402.33,
+    "target_range_high": 481.57,
+    "target_1": 402.33,
+    "target_2": 469.97,
+    "target_3": 481.57,
+    "stop_loss": 367.37,
+    "risk_reward_ratio": 5.49,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $375.10 – $391.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $394.91 direnci veya $372.89 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $367.37 olarak belirlenmiştir. Fiyatın EMA20 ($356.38) veya günlük VWAP ($389.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($344.41) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($389.03) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 73 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}
