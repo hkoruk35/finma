@@ -5,34 +5,34 @@
       "ticker": "VLY",
       "company": "VLY",
       "sector": "Financial Services",
-      "master_score": 60.0,
+      "master_score": 56.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 14.0600004196167,
-      "change_pct": 1.81,
+      "price": 14.050000190734863,
+      "change_pct": -0.07,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
     },
     {
       "ticker": "ZGN",
       "company": "ZGN",
       "sector": "Consumer Cyclical",
-      "master_score": 54.0,
+      "master_score": 51.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 13.479999542236328,
-      "change_pct": -2.67,
+      "price": 13.40999984741211,
+      "change_pct": -0.52,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: DEFAULT"
     },
     {
       "ticker": "TRMB",
       "company": "TRMB",
       "sector": "Technology",
-      "master_score": 53.0,
+      "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 63.4900016784668,
-      "change_pct": -0.81,
+      "price": 63.369998931884766,
+      "change_pct": -0.19,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
     },
     {
       "ticker": "BILL",
@@ -49,34 +49,34 @@
       "ticker": "BCO",
       "company": "BCO",
       "sector": "Industrials",
-      "master_score": 48.0,
+      "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 111.2699966430664,
-      "change_pct": 0.04,
+      "price": 110.88999938964844,
+      "change_pct": -0.34,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
     {
       "ticker": "DLTR",
       "company": "DLTR",
       "sector": "Consumer Defensive",
-      "master_score": 47.5,
+      "master_score": 41.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 125.30999755859375,
-      "change_pct": -4.37,
+      "price": 124.91999816894531,
+      "change_pct": -0.31,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 47.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: DEFAULT"
     },
     {
       "ticker": "EVTC",
       "company": "EVTC",
       "sector": "Technology",
-      "master_score": 45.0,
+      "master_score": 47.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 32.43000030517578,
-      "change_pct": -2.7,
+      "price": 30.940000534057617,
+      "change_pct": -4.59,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 45.0 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
     },
     {
       "ticker": "LPG",
@@ -220,6 +220,50 @@
       "change_pct": -1.09,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 38.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "AMPL",
+      "company": "AMPL",
+      "sector": "Technology",
+      "master_score": 49.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 17.299999237060547,
+      "change_pct": -0.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CRGY",
+      "company": "CRGY",
+      "sector": "Energy",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 13.880000114440918,
+      "change_pct": 0.36,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "BBWI",
+      "company": "BBWI",
+      "sector": "Consumer Cyclical",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 21.3799991607666,
+      "change_pct": 2.05,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "WFRD",
+      "company": "WFRD",
+      "sector": "Energy",
+      "master_score": 40.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 88.5999984741211,
+      "change_pct": 2.01,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 40.5 | System: DEFAULT"
     }
   ]
 }

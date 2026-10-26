@@ -1,8 +1,8 @@
 {
   "date": "2026-10-26",
-  "generated_at": "2026-10-26T14:04:21.319803-04:00",
+  "generated_at": "2026-10-26T17:03:42.757734-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 24,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -47,17 +47,17 @@
   "top_3_overall": [
     {
       "ticker": "VLY",
-      "score": 60.0,
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "ZGN",
-      "score": 54.0,
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
       "ticker": "TRMB",
-      "score": 53.0,
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
