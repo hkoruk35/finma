@@ -1,0 +1,89 @@
+{
+  "ticker": "DG",
+  "company": "Dollar General Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T18:17:42.154Z",
+  "sector": "Consumer Defensive",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 126.33999633789062,
+    "open": 133.3699951171875,
+    "high": 135.33999633789062,
+    "low": 126.11000061035156,
+    "prev_close": 132.69000244140625,
+    "change_pct": -4.785594985816422,
+    "change_pct_1w": -5.199975772794612,
+    "change_pct_1m": 1.0719970703125,
+    "change_pct_1y": 23.874888699032983,
+    "volume": 2170254,
+    "avg_volume_30d": 66164354
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 85,
+    "fundamental_score": 61.55,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.693960859959134,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 129.0020520957311,
+    "ema_50": 126.10997296116611,
+    "ema_200": 122.06675704308037,
+    "ema_stack_bullish": true,
+    "bb_upper": 132.65699615478516,
+    "bb_middle": 126.33999633789062,
+    "bb_lower": 120.02299652099609,
+    "bb_width": 10,
+    "atr": 4.75,
+    "atr_pct": 3.76,
+    "rvol": 0.9039992138365017,
+    "52w_high": 158.22999572753906,
+    "52w_low": 95.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 16.407793,
+    "pb_ratio": 3.0007362,
+    "gross_margin": 0.31160998,
+    "operating_margin": 0.06813,
+    "net_margin": 0.03903,
+    "market_cap": 27872722944,
+    "revenue_growth_ttm": 0.052,
+    "fcf_yield": 0.0623555766507604,
+    "institutional_ownership_pct": 1.0088401,
+    "dividend_rate": 2.36,
+    "dividend_yield": 0.0178
+  },
+  "scores_detail": {
+    "entry_range_low": 123.49,
+    "entry_range_high": 126.81,
+    "target_range_low": 131.41,
+    "target_range_high": 154.75,
+    "target_1": 131.41,
+    "target_2": 137.67,
+    "target_3": 154.75,
+    "stop_loss": 120.02,
+    "risk_reward_ratio": 2.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $123.49 – $126.81 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $132.03 direnci veya $122.54 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $120.02 olarak belirlenmiştir. Fiyatın EMA200 ($122.07) veya günlük VWAP ($130.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($126.11) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($130.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}
