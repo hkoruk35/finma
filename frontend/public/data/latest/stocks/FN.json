@@ -1,0 +1,89 @@
+{
+  "ticker": "FN",
+  "company": "Fabrinet",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T15:36:16.176Z",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 332.5299987792969,
+    "open": 318.6700134277344,
+    "high": 334.2550048828125,
+    "low": 312.7300109863281,
+    "prev_close": 314.94000244140625,
+    "change_pct": 5.5851896239072385,
+    "change_pct_1w": -8.315642410623607,
+    "change_pct_1m": -22.273387619459175,
+    "change_pct_1y": -21.014252071425922,
+    "volume": 187119,
+    "avg_volume_30d": 25862519
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+4.89%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.90505909339926,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 387.20156760746454,
+    "ema_50": 422.46280102345287,
+    "ema_200": 487.4083838775083,
+    "ema_stack_bullish": false,
+    "bb_upper": 349.15649871826173,
+    "bb_middle": 332.5299987792969,
+    "bb_lower": 315.903498840332,
+    "bb_width": 10,
+    "atr": 28.06,
+    "atr_pct": 8.44,
+    "rvol": 0.8134286532568619,
+    "52w_high": 748.8900146484375,
+    "52w_low": 305.6300048828125
+  },
+  "fundamental": {
+    "pe_ratio": 25.481226,
+    "pb_ratio": 4.8553033,
+    "gross_margin": 0.11991,
+    "operating_margin": 0.10231,
+    "net_margin": 0.10192,
+    "market_cap": 11916167168,
+    "revenue_growth_ttm": 0.446,
+    "fcf_yield": -0.004856721056701443,
+    "institutional_ownership_pct": 1.03704,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 320.89,
+    "entry_range_high": 335.34,
+    "target_range_low": 498,
+    "target_range_high": 528.8,
+    "target_1": 498,
+    "target_2": 511.2,
+    "target_3": 528.8,
+    "stop_loss": 301.25,
+    "risk_reward_ratio": 6.82,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $320.89 – $335.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $359.08 direnci veya $315.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $301.25 olarak belirlenmiştir. Fiyatın EMA20 ($387.20) veya günlük VWAP ($319.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($422.46) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($319.93) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
