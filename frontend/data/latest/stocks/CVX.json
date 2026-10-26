@@ -1,0 +1,89 @@
+{
+  "ticker": "CVX",
+  "company": "Chevron Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T21:50:28.411Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 233.2100067138672,
+    "open": 228.19000244140625,
+    "high": 233.74000549316406,
+    "low": 227.97999572753906,
+    "prev_close": 226.67999267578125,
+    "change_pct": 2.8807191852285654,
+    "change_pct_1w": 3.653496164278673,
+    "change_pct_1m": 8.469770564589389,
+    "change_pct_1y": 48.958872221869186,
+    "volume": 8140500,
+    "avg_volume_30d": 271832500
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 76.88835862206841,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 218.4827357228793,
+    "ema_50": 210.2265575394222,
+    "ema_200": 191.73136689400474,
+    "ema_stack_bullish": true,
+    "bb_upper": 244.87050704956056,
+    "bb_middle": 233.2100067138672,
+    "bb_lower": 221.54950637817382,
+    "bb_width": 10,
+    "atr": 4.99,
+    "atr_pct": 2.14,
+    "rvol": 0.8930676059705884,
+    "52w_high": 233.74000549316406,
+    "52w_low": 146.49000549316406
+  },
+  "fundamental": {
+    "pe_ratio": 22.445621,
+    "pb_ratio": 2.4091942,
+    "gross_margin": 0.44267,
+    "operating_margin": 0.21866,
+    "net_margin": 0.09834,
+    "market_cap": 457465528320,
+    "revenue_growth_ttm": 0.535,
+    "fcf_yield": 0.04794678236970246,
+    "institutional_ownership_pct": 0.71213996,
+    "dividend_rate": 7.12,
+    "dividend_yield": 0.0305
+  },
+  "scores_detail": {
+    "entry_range_low": 227.22,
+    "entry_range_high": 233.71,
+    "target_range_low": 241.99,
+    "target_range_high": 265.04,
+    "target_1": 241.99,
+    "target_2": 253.51,
+    "target_3": 265.04,
+    "stop_loss": 221.55,
+    "risk_reward_ratio": 2.58,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $227.22 – $233.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $233.74 direnci veya $226.23 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $221.55 olarak belirlenmiştir. Fiyatın EMA20 ($218.48) veya günlük VWAP ($232.57) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($232.57) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 77 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MAR",
+  "company": "Marriott International, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T17:29:49.407Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Lodging",
+  "price": {
+    "current": 390.7099914550781,
+    "open": 392.760009765625,
+    "high": 396.8299865722656,
+    "low": 390.0899963378906,
+    "prev_close": 396.79998779296875,
+    "change_pct": -1.5347773501112338,
+    "change_pct_1w": 0.6854796407128176,
+    "change_pct_1m": 5.797455827188362,
+    "change_pct_1y": 44.868362540212026,
+    "volume": 1356700,
+    "avg_volume_30d": 44250700
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.76505387258024,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 376.2596008624678,
+    "ema_50": 364.831942950173,
+    "ema_200": 348.66451857116147,
+    "ema_stack_bullish": true,
+    "bb_upper": 410.24549102783203,
+    "bb_middle": 390.7099914550781,
+    "bb_lower": 371.1744918823242,
+    "bb_width": 10,
+    "atr": 8.01,
+    "atr_pct": 2.05,
+    "rvol": 1.1430870020135275,
+    "52w_high": 410.9800109863281,
+    "52w_low": 256.760009765625
+  },
+  "fundamental": {
+    "pe_ratio": 40.44617,
+    "pb_ratio": 0,
+    "gross_margin": 0.79241997,
+    "operating_margin": 0.65276,
+    "net_margin": 0.35029998,
+    "market_cap": 101883994112,
+    "revenue_growth_ttm": 0.111,
+    "fcf_yield": 0.020222754888614313,
+    "institutional_ownership_pct": 0.63499,
+    "dividend_rate": 2.92,
+    "dividend_yield": 0.0075
+  },
+  "scores_detail": {
+    "entry_range_low": 385.91,
+    "entry_range_high": 391.51,
+    "target_range_low": 410.98,
+    "target_range_high": 447.01,
+    "target_1": 410.98,
+    "target_2": 427.58,
+    "target_3": 447.01,
+    "stop_loss": 371.17,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $385.91 – $391.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $394.74 direnci veya $384.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $371.17 olarak belirlenmiştir. Fiyatın EMA20 ($376.26) veya günlük VWAP ($392.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($392.28) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

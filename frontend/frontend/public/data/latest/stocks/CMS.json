@@ -1,0 +1,89 @@
+{
+  "ticker": "CMS",
+  "company": "CMS Energy Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T14:56:21.059Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 69.58000183105469,
+    "open": 70.13999938964844,
+    "high": 70.2699966430664,
+    "low": 69.30999755859375,
+    "prev_close": 70.30000305175781,
+    "change_pct": -1.0241837687731392,
+    "change_pct_1w": 1.2809387509514534,
+    "change_pct_1m": 5.648346775323948,
+    "change_pct_1y": -6.679179037828536,
+    "volume": 3235400,
+    "avg_volume_30d": 124941900
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.92326778531452,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 67.02831619945985,
+    "ema_50": 67.5011119098967,
+    "ema_200": 71.22657919182566,
+    "ema_stack_bullish": false,
+    "bb_upper": 73.05900192260742,
+    "bb_middle": 69.58000183105469,
+    "bb_lower": 66.10100173950195,
+    "bb_width": 10,
+    "atr": 1.25,
+    "atr_pct": 1.79,
+    "rvol": 0.9135142014008111,
+    "52w_high": 80.36000061035156,
+    "52w_low": 62.290000915527344
+  },
+  "fundamental": {
+    "pe_ratio": 20.894896,
+    "pb_ratio": 2.2848325,
+    "gross_margin": 0.40315,
+    "operating_margin": 0.17167999,
+    "net_margin": 0.11642,
+    "market_cap": 21494628352,
+    "revenue_growth_ttm": -0.005,
+    "fcf_yield": -0.10229880898570654,
+    "institutional_ownership_pct": 1.04316,
+    "dividend_rate": 2.28,
+    "dividend_yield": 0.0328
+  },
+  "scores_detail": {
+    "entry_range_low": 68.61,
+    "entry_range_high": 69.7,
+    "target_range_low": 72.62,
+    "target_range_high": 79.53,
+    "target_1": 72.62,
+    "target_2": 76.08,
+    "target_3": 79.53,
+    "stop_loss": 66.1,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $68.61 – $69.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $70.36 direnci veya $68.36 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $66.10 olarak belirlenmiştir. Fiyatın EMA20 ($67.03) veya günlük VWAP ($69.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($67.50) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($69.51) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "SYK",
+  "company": "Stryker Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T18:05:47.457Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 307.1499938964844,
+    "open": 305.010009765625,
+    "high": 309.57000732421875,
+    "low": 305,
+    "prev_close": 307.0799865722656,
+    "change_pct": 0.022797748886274314,
+    "change_pct_1w": 4.238780316007,
+    "change_pct_1m": 8.687185867921091,
+    "change_pct_1y": -19.816739974394743,
+    "volume": 1984900,
+    "avg_volume_30d": 80712700
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 70,
+    "fundamental_score": 81.35,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.22085396610079,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 291.3420186135586,
+    "ema_50": 295.66821971625103,
+    "ema_200": 321.6207564404195,
+    "ema_stack_bullish": false,
+    "bb_upper": 322.5074935913086,
+    "bb_middle": 307.1499938964844,
+    "bb_lower": 291.79249420166013,
+    "bb_width": 10,
+    "atr": 8.36,
+    "atr_pct": 2.72,
+    "rvol": 0.9983707644521865,
+    "52w_high": 389.3299865722656,
+    "52w_low": 267
+  },
+  "fundamental": {
+    "pe_ratio": 31.829016,
+    "pb_ratio": 4.9114137,
+    "gross_margin": 0.65588,
+    "operating_margin": 0.27015,
+    "net_margin": 0.14433,
+    "market_cap": 117814460416,
+    "revenue_growth_ttm": 0.094,
+    "fcf_yield": 0.03487581230259564,
+    "institutional_ownership_pct": 0.83028,
+    "dividend_rate": 3.52,
+    "dividend_yield": 0.0115
+  },
+  "scores_detail": {
+    "entry_range_low": 302.13,
+    "entry_range_high": 307.99,
+    "target_range_low": 320.31,
+    "target_range_high": 350.82,
+    "target_1": 320.31,
+    "target_2": 335.57,
+    "target_3": 350.82,
+    "stop_loss": 291.79,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $302.13 – $307.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $309.68 direnci veya $300.46 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $291.79 olarak belirlenmiştir. Fiyatın EMA20 ($291.34) veya günlük VWAP ($308.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($295.67) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($308.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

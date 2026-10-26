@@ -1,0 +1,89 @@
+{
+  "ticker": "WCC",
+  "company": "WESCO International, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T01:53:01.844Z",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 318.0199890136719,
+    "open": 318.1400146484375,
+    "high": 324.4100036621094,
+    "low": 312.94000244140625,
+    "prev_close": 323.67999267578125,
+    "change_pct": -1.7486418036899796,
+    "change_pct_1w": -6.708916263901616,
+    "change_pct_1m": -11.988710843875145,
+    "change_pct_1y": 44.77169921451307,
+    "volume": 735700,
+    "avg_volume_30d": 17472300
+  },
+  "scores": {
+    "master_score": 33,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.685379581594376,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 348.4718708488826,
+    "ema_50": 350.6231206980175,
+    "ema_200": 324.72090333039864,
+    "ema_stack_bullish": false,
+    "bb_upper": 333.9209884643555,
+    "bb_middle": 318.0199890136719,
+    "bb_lower": 302.11898956298825,
+    "bb_width": 10,
+    "atr": 15.39,
+    "atr_pct": 4.84,
+    "rvol": 1.1921842001339262,
+    "52w_high": 388.6400146484375,
+    "52w_low": 214.52999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 21.993084,
+    "pb_ratio": 2.9690695,
+    "gross_margin": 0.21395001,
+    "operating_margin": 0.06082,
+    "net_margin": 0.02839,
+    "market_cap": 15498021888,
+    "revenue_growth_ttm": 0.13,
+    "fcf_yield": 0.01142403858243925,
+    "institutional_ownership_pct": 0.98748,
+    "dividend_rate": 2,
+    "dividend_yield": 0.0063
+  },
+  "scores_detail": {
+    "entry_range_low": 308.79,
+    "entry_range_high": 319.56,
+    "target_range_low": 344.03,
+    "target_range_high": 372.79,
+    "target_1": 344.03,
+    "target_2": 365.48,
+    "target_3": 372.79,
+    "stop_loss": 298.02,
+    "risk_reward_ratio": 3.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $308.79 – $319.56 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $326.85 direnci veya $305.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $298.02 olarak belirlenmiştir. Fiyatın EMA200 ($324.72) veya günlük VWAP ($320.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($350.62) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($320.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 34 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

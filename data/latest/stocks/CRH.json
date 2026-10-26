@@ -1,0 +1,89 @@
+{
+  "ticker": "CRH",
+  "company": "CRH plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T22:56:12.156Z",
+  "sector": "Basic Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 84.88999938964844,
+    "open": 86.54000091552734,
+    "high": 86.9000015258789,
+    "low": 84.27999877929688,
+    "prev_close": 86.43000030517578,
+    "change_pct": -1.7817897837437844,
+    "change_pct_1w": 1.506638978370853,
+    "change_pct_1m": 4.737811466137068,
+    "change_pct_1y": -27.97998013781326,
+    "volume": 3661600,
+    "avg_volume_30d": 164330700
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 55,
+    "fundamental_score": 74.75,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.17073515565165,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 84.15255032244724,
+    "ema_50": 87.92618431973614,
+    "ema_200": 101.31892176547754,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.13449935913086,
+    "bb_middle": 84.88999938964844,
+    "bb_lower": 80.64549942016602,
+    "bb_width": 10,
+    "atr": 2.14,
+    "atr_pct": 2.52,
+    "rvol": 0.8061902006137623,
+    "52w_high": 131.5500030517578,
+    "52w_low": 78.62000274658203
+  },
+  "fundamental": {
+    "pe_ratio": 14.998234,
+    "pb_ratio": 2.3519144,
+    "gross_margin": 0.3625,
+    "operating_margin": 0.19022,
+    "net_margin": 0.099350005,
+    "market_cap": 56476000256,
+    "revenue_growth_ttm": 0.056,
+    "fcf_yield": 0.03575191201302342,
+    "institutional_ownership_pct": 0.8837,
+    "dividend_rate": 1.56,
+    "dividend_yield": 0.0184
+  },
+  "scores_detail": {
+    "entry_range_low": 83.53,
+    "entry_range_high": 85.1,
+    "target_range_low": 98.19,
+    "target_range_high": 108.74,
+    "target_1": 98.19,
+    "target_2": 102.28,
+    "target_3": 108.74,
+    "stop_loss": 80.65,
+    "risk_reward_ratio": 4.89,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $83.53 – $85.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $86.27 direnci veya $83.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $80.65 olarak belirlenmiştir. Fiyatın EMA20 ($84.15) veya günlük VWAP ($85.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($87.93) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($85.16) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

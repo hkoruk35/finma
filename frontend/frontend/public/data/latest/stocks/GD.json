@@ -1,0 +1,89 @@
+{
+  "ticker": "GD",
+  "company": "General Dynamics Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T19:35:14.242Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 349.3599853515625,
+    "open": 348.0400085449219,
+    "high": 350.92999267578125,
+    "low": 344.989990234375,
+    "prev_close": 350.7900085449219,
+    "change_pct": -0.4076579031686552,
+    "change_pct_1w": 1.4902751652987407,
+    "change_pct_1m": 4.143562347388225,
+    "change_pct_1y": 2.3016062522877014,
+    "volume": 736700,
+    "avg_volume_30d": 39602300
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 55,
+    "fundamental_score": 61.55,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.6726087306338,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 341.9164957076596,
+    "ema_50": 349.60850283509023,
+    "ema_200": 353.6712864772843,
+    "ema_stack_bullish": false,
+    "bb_upper": 366.82798461914064,
+    "bb_middle": 349.3599853515625,
+    "bb_lower": 331.89198608398436,
+    "bb_width": 10,
+    "atr": 6.02,
+    "atr_pct": 1.72,
+    "rvol": 0.8197099663403388,
+    "52w_high": 400,
+    "52w_low": 306.7699890136719
+  },
+  "fundamental": {
+    "pe_ratio": 21.315435,
+    "pb_ratio": 3.5182273,
+    "gross_margin": 0.15375,
+    "operating_margin": 0.1038,
+    "net_margin": 0.08179,
+    "market_cap": 94521851904,
+    "revenue_growth_ttm": 0.081,
+    "fcf_yield": 0.04655140413953098,
+    "institutional_ownership_pct": 0.86735,
+    "dividend_rate": 6.36,
+    "dividend_yield": 0.0182
+  },
+  "scores_detail": {
+    "entry_range_low": 346.19,
+    "entry_range_high": 349.96,
+    "target_range_low": 365.48,
+    "target_range_high": 400.29,
+    "target_1": 365.48,
+    "target_2": 382.89,
+    "target_3": 400.29,
+    "stop_loss": 331.89,
+    "risk_reward_ratio": 2.15,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $346.19 – $349.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $351.15 direnci veya $344.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $331.89 olarak belirlenmiştir. Fiyatın EMA20 ($341.92) veya günlük VWAP ($349.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($349.61) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($349.22) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

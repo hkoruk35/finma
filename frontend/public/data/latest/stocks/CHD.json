@@ -1,0 +1,89 @@
+{
+  "ticker": "CHD",
+  "company": "Church & Dwight Co., Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T21:55:27.746Z",
+  "sector": "Consumer Defensive",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 105.19000244140625,
+    "open": 107.95999908447266,
+    "high": 108.48999786376953,
+    "low": 105.05999755859375,
+    "prev_close": 108.86000061035156,
+    "change_pct": -3.3713008895540373,
+    "change_pct_1w": 0.6314011956537923,
+    "change_pct_1m": 5.326924550431427,
+    "change_pct_1y": 21.312424809196944,
+    "volume": 1966000,
+    "avg_volume_30d": 57649200
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 100,
+    "fundamental_score": 76.4,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.37526246234046,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 101.51270720782857,
+    "ema_50": 99.41030912784376,
+    "ema_200": 96.3096102564706,
+    "ema_stack_bullish": true,
+    "bb_upper": 110.44950256347657,
+    "bb_middle": 105.19000244140625,
+    "bb_lower": 99.93050231933593,
+    "bb_width": 10,
+    "atr": 2.16,
+    "atr_pct": 2.05,
+    "rvol": 1.1208863262629838,
+    "52w_high": 108.93000030517578,
+    "52w_low": 81.33000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 33.714745,
+    "pb_ratio": 5.7371154,
+    "gross_margin": 0.45562,
+    "operating_margin": 0.18065001,
+    "net_margin": 0.119569995,
+    "market_cap": 24951478272,
+    "revenue_growth_ttm": 0.016,
+    "fcf_yield": 0.0376435623477275,
+    "institutional_ownership_pct": 0.94829005,
+    "dividend_rate": 1.23,
+    "dividend_yield": 0.0117
+  },
+  "scores_detail": {
+    "entry_range_low": 103.89,
+    "entry_range_high": 105.41,
+    "target_range_low": 109.88,
+    "target_range_high": 120.35,
+    "target_1": 109.88,
+    "target_2": 115.12,
+    "target_3": 120.35,
+    "stop_loss": 99.93,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $103.89 – $105.41 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $108.75 direnci veya $103.46 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $99.93 olarak belirlenmiştir. Fiyatın EMA50 ($99.41) veya günlük VWAP ($105.67) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($105.67) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

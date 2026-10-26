@@ -1,0 +1,89 @@
+{
+  "ticker": "DLR",
+  "company": "Digital Realty Trust, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T05:49:59.128Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 172.3699951171875,
+    "open": 170.9499969482422,
+    "high": 174.55999755859375,
+    "low": 170,
+    "prev_close": 170.94000244140625,
+    "change_pct": 0.836546539930824,
+    "change_pct_1w": -2.0458067162257194,
+    "change_pct_1m": -4.3239389357096485,
+    "change_pct_1y": -1.7218794018874823,
+    "volume": 1583200,
+    "avg_volume_30d": 57278400
+  },
+  "scores": {
+    "master_score": 57,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.65%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.706087513970566,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 176.7558355636681,
+    "ema_50": 180.8180418213045,
+    "ema_200": 181.82013817364805,
+    "ema_stack_bullish": false,
+    "bb_upper": 180.98849487304688,
+    "bb_middle": 172.3699951171875,
+    "bb_lower": 163.75149536132812,
+    "bb_width": 10,
+    "atr": 5.1,
+    "atr_pct": 2.96,
+    "rvol": 0.8704014078605548,
+    "52w_high": 208.13999938964844,
+    "52w_low": 146.22999572753906
+  },
+  "fundamental": {
+    "pe_ratio": 83.67476,
+    "pb_ratio": 2.3884547,
+    "gross_margin": 0.56994,
+    "operating_margin": 0.25882,
+    "net_margin": 0.11825,
+    "market_cap": 65097891840,
+    "revenue_growth_ttm": 0.299,
+    "fcf_yield": 0.0578894637212264,
+    "institutional_ownership_pct": 1.04961,
+    "dividend_rate": 4.88,
+    "dividend_yield": 0.028299998
+  },
+  "scores_detail": {
+    "entry_range_low": 169.31,
+    "entry_range_high": 172.88,
+    "target_range_low": 183.52,
+    "target_range_high": 197.03,
+    "target_1": 183.52,
+    "target_2": 188.2,
+    "target_3": 197.03,
+    "stop_loss": 163.75,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $169.31 – $172.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $175.08 direnci veya $168.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $163.75 olarak belirlenmiştir. Fiyatın EMA20 ($176.76) veya günlük VWAP ($171.63) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($180.82) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($171.63) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "SW",
+  "company": "Smurfit Westrock Plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T20:33:13.415Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 41.849998474121094,
+    "open": 41.81999969482422,
+    "high": 42.040000915527344,
+    "low": 41.04999923706055,
+    "prev_close": 42.43000030517578,
+    "change_pct": -1.3669616471436523,
+    "change_pct_1w": 1.6763815093948968,
+    "change_pct_1m": 1.8991935356531622,
+    "change_pct_1y": -2.7196698540049224,
+    "volume": 3446000,
+    "avg_volume_30d": 133371300
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 56.6,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.026566356787285,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.240895907780796,
+    "ema_50": 43.63451640222467,
+    "ema_200": 43.43176679372895,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.94249839782715,
+    "bb_middle": 41.849998474121094,
+    "bb_lower": 39.757498550415036,
+    "bb_width": 10,
+    "atr": 1.23,
+    "atr_pct": 2.93,
+    "rvol": 1.0526237653828072,
+    "52w_high": 52.650001525878906,
+    "52w_low": 32.729000091552734
+  },
+  "fundamental": {
+    "pe_ratio": 43.144325,
+    "pb_ratio": 1.2154391,
+    "gross_margin": 0.18160999,
+    "operating_margin": 0.05466,
+    "net_margin": 0.01587,
+    "market_cap": 21951283200,
+    "revenue_growth_ttm": 0.011,
+    "fcf_yield": 0.05534984232721302,
+    "institutional_ownership_pct": 1.01748,
+    "dividend_rate": 1.81,
+    "dividend_yield": 0.0432
+  },
+  "scores_detail": {
+    "entry_range_low": 41.11,
+    "entry_range_high": 41.97,
+    "target_range_low": 43.62,
+    "target_range_high": 47.77,
+    "target_1": 43.62,
+    "target_2": 45.7,
+    "target_3": 47.77,
+    "stop_loss": 39.76,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $41.11 – $41.97 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $42.52 direnci veya $40.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.76 olarak belirlenmiştir. Fiyatın EMA20 ($42.24) veya günlük VWAP ($41.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($43.63) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($41.74) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

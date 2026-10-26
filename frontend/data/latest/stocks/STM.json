@@ -1,0 +1,89 @@
+{
+  "ticker": "STM",
+  "company": "STMicroelectronics N.V.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T17:36:55.531Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 44.02000045776367,
+    "open": 43.38999938964844,
+    "high": 44.400001525878906,
+    "low": 43.209999084472656,
+    "prev_close": 44.09000015258789,
+    "change_pct": -0.1587654674120251,
+    "change_pct_1w": -3.0182836534631132,
+    "change_pct_1m": -12.797145687506617,
+    "change_pct_1y": 74.26761701859363,
+    "volume": 8092900,
+    "avg_volume_30d": 286423700
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.81620193477197,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 48.82243827696701,
+    "ema_50": 51.477229635317165,
+    "ema_200": 49.103485466106854,
+    "ema_stack_bullish": false,
+    "bb_upper": 46.22100048065186,
+    "bb_middle": 44.02000045776367,
+    "bb_lower": 41.819000434875484,
+    "bb_width": 10,
+    "atr": 2.28,
+    "atr_pct": 5.18,
+    "rvol": 1.0260261284244285,
+    "52w_high": 81.41999816894531,
+    "52w_low": 21.110000610351562
+  },
+  "fundamental": {
+    "pe_ratio": 1100.5,
+    "pb_ratio": 2.2268312,
+    "gross_margin": 0.34476003,
+    "operating_margin": 0.06883,
+    "net_margin": 0.03558,
+    "market_cap": 39413387264,
+    "revenue_growth_ttm": 0.261,
+    "fcf_yield": 0.002689441516152556,
+    "institutional_ownership_pct": 0.19305,
+    "dividend_rate": 0.36,
+    "dividend_yield": 0.0082
+  },
+  "scores_detail": {
+    "entry_range_low": 42.65,
+    "entry_range_high": 44.25,
+    "target_range_low": 52.87,
+    "target_range_high": 59.29,
+    "target_1": 52.87,
+    "target_2": 57.04,
+    "target_3": 59.29,
+    "stop_loss": 41.06,
+    "risk_reward_ratio": 5.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $42.65 – $44.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $46.26 direnci veya $42.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.06 olarak belirlenmiştir. Fiyatın EMA20 ($48.82) veya günlük VWAP ($44.02) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($51.48) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($44.02) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

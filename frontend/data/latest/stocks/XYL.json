@@ -1,0 +1,89 @@
+{
+  "ticker": "XYL",
+  "company": "Xylem Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T09:55:57.017Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 108.73999786376953,
+    "open": 108.54000091552734,
+    "high": 110.29000091552734,
+    "low": 107.80999755859375,
+    "prev_close": 109.26000213623047,
+    "change_pct": -0.4759328778088178,
+    "change_pct_1w": 4.507443223888004,
+    "change_pct_1m": 5.994738030424768,
+    "change_pct_1y": -26.372810571988133,
+    "volume": 2165000,
+    "avg_volume_30d": 70770100
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 70,
+    "fundamental_score": 76.4,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.53053317667985,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 105.01742230307566,
+    "ema_50": 107.3398268142923,
+    "ema_200": 118.10362812975666,
+    "ema_stack_bullish": false,
+    "bb_upper": 114.17699775695802,
+    "bb_middle": 108.73999786376953,
+    "bb_lower": 103.30299797058105,
+    "bb_width": 10,
+    "atr": 2.4,
+    "atr_pct": 2.21,
+    "rvol": 0.8306219717083909,
+    "52w_high": 154.27000427246094,
+    "52w_low": 98.58000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 25.890476,
+    "pb_ratio": 2.4364777,
+    "gross_margin": 0.39240003,
+    "operating_margin": 0.16995001,
+    "net_margin": 0.111549996,
+    "market_cap": 25389355008,
+    "revenue_growth_ttm": 0.015,
+    "fcf_yield": 0.04662387113130716,
+    "institutional_ownership_pct": 0.97676,
+    "dividend_rate": 1.72,
+    "dividend_yield": 0.015800001
+  },
+  "scores_detail": {
+    "entry_range_low": 107.3,
+    "entry_range_high": 108.98,
+    "target_range_low": 113.55,
+    "target_range_high": 126.48,
+    "target_1": 113.55,
+    "target_2": 124,
+    "target_3": 126.48,
+    "stop_loss": 103.3,
+    "risk_reward_ratio": 3.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $107.30 – $108.98 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $110.29 direnci veya $106.82 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $103.30 olarak belirlenmiştir. Fiyatın EMA20 ($105.02) veya günlük VWAP ($108.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($107.34) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($108.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

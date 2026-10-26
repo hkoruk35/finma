@@ -1,0 +1,89 @@
+{
+  "ticker": "NRG",
+  "company": "NRG Energy, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T21:28:02.473Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 92.30999755859375,
+    "open": 93.91999816894531,
+    "high": 94.3499984741211,
+    "low": 90.80000305175781,
+    "prev_close": 94.37999725341797,
+    "change_pct": -2.193261024649218,
+    "change_pct_1w": -11.026508377259036,
+    "change_pct_1m": -13.218017133538213,
+    "change_pct_1y": -43.64812958038469,
+    "volume": 3486800,
+    "avg_volume_30d": 93494200
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.438064718640405,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 100.99112010890006,
+    "ema_50": 107.57422443238092,
+    "ema_200": 130.76761990965866,
+    "ema_stack_bullish": false,
+    "bb_upper": 96.92549743652344,
+    "bb_middle": 92.30999755859375,
+    "bb_lower": 87.69449768066406,
+    "bb_width": 10,
+    "atr": 5.25,
+    "atr_pct": 5.69,
+    "rvol": 0.9694419546880982,
+    "52w_high": 189.9600067138672,
+    "52w_low": 90.80000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 24.16492,
+    "pb_ratio": 4.616885,
+    "gross_margin": 0.18795,
+    "operating_margin": 0.12765999,
+    "net_margin": 0.02563,
+    "market_cap": 19404529664,
+    "revenue_growth_ttm": 0.11,
+    "fcf_yield": 0.03980384937816548,
+    "institutional_ownership_pct": 0.95287,
+    "dividend_rate": 1.9,
+    "dividend_yield": 0.020599999
+  },
+  "scores_detail": {
+    "entry_range_low": 89.16,
+    "entry_range_high": 92.84,
+    "target_range_low": 110.38,
+    "target_range_high": 127.53,
+    "target_1": 110.38,
+    "target_2": 121.68,
+    "target_3": 127.53,
+    "stop_loss": 85.48,
+    "risk_reward_ratio": 5.56,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $89.16 – $92.84 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $100.04 direnci veya $88.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $85.48 olarak belirlenmiştir. Fiyatın EMA20 ($100.99) veya günlük VWAP ($92.59) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($107.57) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($92.59) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

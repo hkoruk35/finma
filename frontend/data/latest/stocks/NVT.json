@@ -1,0 +1,89 @@
+{
+  "ticker": "NVT",
+  "company": "nVent Electric plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T22:53:19.571Z",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 125.4000015258789,
+    "open": 126.02999877929688,
+    "high": 128.60000610351562,
+    "low": 121.04000091552734,
+    "prev_close": 127.66999816894531,
+    "change_pct": -1.778018857697896,
+    "change_pct_1w": -11.708792083607378,
+    "change_pct_1m": -22.96350751550204,
+    "change_pct_1y": 24.62730878839956,
+    "volume": 2592000,
+    "avg_volume_30d": 66905700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 28.728404837633775,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 149.44519449550734,
+    "ema_50": 154.5897336584838,
+    "ema_200": 145.01924266088335,
+    "ema_stack_bullish": false,
+    "bb_upper": 131.67000160217285,
+    "bb_middle": 125.4000015258789,
+    "bb_lower": 119.13000144958495,
+    "bb_width": 10,
+    "atr": 8.91,
+    "atr_pct": 7.1,
+    "rvol": 1.3032880606585089,
+    "52w_high": 184.63999938964844,
+    "52w_low": 93.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 34.736843,
+    "pb_ratio": 5.0909386,
+    "gross_margin": 0.36453998,
+    "operating_margin": 0.18827,
+    "net_margin": 0.12377,
+    "market_cap": 20296984576,
+    "revenue_growth_ttm": 0.528,
+    "fcf_yield": 0.02229641621421509,
+    "institutional_ownership_pct": 0.93167996,
+    "dividend_rate": 0.84,
+    "dividend_yield": 0.0067000003
+  },
+  "scores_detail": {
+    "entry_range_low": 120.06,
+    "entry_range_high": 126.29,
+    "target_range_low": 129.94,
+    "target_range_high": 167.03,
+    "target_1": 129.94,
+    "target_2": 163.75,
+    "target_3": 167.03,
+    "stop_loss": 113.82,
+    "risk_reward_ratio": 4.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $120.06 – $126.29 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $131.52 direnci veya $118.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $113.82 olarak belirlenmiştir. Fiyatın EMA200 ($145.02) veya günlük VWAP ($126.73) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($154.59) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($126.73) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 29 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

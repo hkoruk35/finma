@@ -1,0 +1,89 @@
+{
+  "ticker": "FTI",
+  "company": "TechnipFMC plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T07:20:58.325Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Equipment & Services",
+  "price": {
+    "current": 69.88999938964844,
+    "open": 67.12000274658203,
+    "high": 70.33999633789062,
+    "low": 66.93000030517578,
+    "prev_close": 66.81999969482422,
+    "change_pct": 4.594432368819685,
+    "change_pct_1w": 0.31577612528370685,
+    "change_pct_1m": 0.20071597082213263,
+    "change_pct_1y": 70.79668259293524,
+    "volume": 2566100,
+    "avg_volume_30d": 86152000
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 70,
+    "fundamental_score": 74.75,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.568279571162975,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 69.84898917770235,
+    "ema_50": 71.31361395975202,
+    "ema_200": 66.86279598626692,
+    "ema_stack_bullish": false,
+    "bb_upper": 73.38449935913086,
+    "bb_middle": 69.88999938964844,
+    "bb_lower": 66.39549942016602,
+    "bb_width": 10,
+    "atr": 2.28,
+    "atr_pct": 3.26,
+    "rvol": 1.0331182096759215,
+    "52w_high": 80.69999694824219,
+    "52w_low": 38.130001068115234
+  },
+  "fundamental": {
+    "pe_ratio": 24.351917,
+    "pb_ratio": 8.391163,
+    "gross_margin": 0.22966999,
+    "operating_margin": 0.1769,
+    "net_margin": 0.11282,
+    "market_cap": 27408367616,
+    "revenue_growth_ttm": 0.09,
+    "fcf_yield": 0.05339108773284778,
+    "institutional_ownership_pct": 1.01121,
+    "dividend_rate": 0.2,
+    "dividend_yield": 0.0029
+  },
+  "scores_detail": {
+    "entry_range_low": 68.52,
+    "entry_range_high": 70.12,
+    "target_range_low": 72.79,
+    "target_range_high": 79.72,
+    "target_1": 72.79,
+    "target_2": 76.25,
+    "target_3": 79.72,
+    "stop_loss": 66.4,
+    "risk_reward_ratio": 2.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $68.52 – $70.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $71.41 direnci veya $68.07 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $66.40 olarak belirlenmiştir. Fiyatın EMA200 ($66.86) veya günlük VWAP ($69.73) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($71.31) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($69.73) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

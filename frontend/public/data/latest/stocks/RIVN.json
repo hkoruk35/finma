@@ -1,0 +1,89 @@
+{
+  "ticker": "RIVN",
+  "company": "Rivian Automotive, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T20:33:38.175Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 11.829999923706055,
+    "open": 11.930000305175781,
+    "high": 12.020000457763672,
+    "low": 11.600000381469727,
+    "prev_close": 12.0600004196167,
+    "change_pct": -1.9071350572801606,
+    "change_pct_1w": -4.750403775874559,
+    "change_pct_1m": -12.629246993830487,
+    "change_pct_1y": -9.62567008551741,
+    "volume": 23479300,
+    "avg_volume_30d": 737396400
+  },
+  "scores": {
+    "master_score": 37,
+    "technical_score": 40,
+    "fundamental_score": 33.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 20.885841883331523,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 13.374890095511534,
+    "ema_50": 14.482988517652842,
+    "ema_200": 15.335494757030572,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.421499919891358,
+    "bb_middle": 11.829999923706055,
+    "bb_lower": 11.23849992752075,
+    "bb_width": 10,
+    "atr": 0.46,
+    "atr_pct": 3.91,
+    "rvol": 0.8814062558482791,
+    "52w_high": 22.690000534057617,
+    "52w_low": 11.600000381469727
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.155508,
+    "gross_margin": 0.07513,
+    "operating_margin": -0.50422,
+    "net_margin": -0.54955,
+    "market_cap": 17128190976,
+    "revenue_growth_ttm": 0.272,
+    "fcf_yield": -0.08987376297689408,
+    "institutional_ownership_pct": 0.40372002,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 11.55,
+    "entry_range_high": 11.88,
+    "target_range_low": 16.81,
+    "target_range_high": 17.56,
+    "target_1": 16.81,
+    "target_2": 17.16,
+    "target_3": 17.56,
+    "stop_loss": 11.23,
+    "risk_reward_ratio": 11.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.55 – $11.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.13 direnci veya $11.46 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.23 olarak belirlenmiştir. Fiyatın EMA20 ($13.37) veya günlük VWAP ($11.91) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($14.48) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.91) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 21 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

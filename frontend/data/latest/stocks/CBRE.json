@@ -1,0 +1,89 @@
+{
+  "ticker": "CBRE",
+  "company": "CBRE Group, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T22:44:15.930Z",
+  "sector": "Real Estate",
+  "industry": "Real Estate Services",
+  "price": {
+    "current": 123.30000305175781,
+    "open": 129.4600067138672,
+    "high": 131,
+    "low": 123.04000091552734,
+    "prev_close": 131.24000549316406,
+    "change_pct": -6.049986367777029,
+    "change_pct_1w": -7.348962011371627,
+    "change_pct_1m": -5.669040839643104,
+    "change_pct_1y": -24.90864473607545,
+    "volume": 4564700,
+    "avg_volume_30d": 73069000
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 35,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.26184413987406,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 132.0805260950101,
+    "ema_50": 136.0303362982584,
+    "ema_200": 143.02800683168692,
+    "ema_stack_bullish": false,
+    "bb_upper": 129.46500320434572,
+    "bb_middle": 123.30000305175781,
+    "bb_lower": 117.13500289916992,
+    "bb_width": 10,
+    "atr": 4.87,
+    "atr_pct": 3.95,
+    "rvol": 1.4767165282130588,
+    "52w_high": 174.27000427246094,
+    "52w_low": 121.69000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 26.40257,
+    "pb_ratio": 4.1128793,
+    "gross_margin": 0.18502001,
+    "operating_margin": 0.03273,
+    "net_margin": 0.03068,
+    "market_cap": 35534598144,
+    "revenue_growth_ttm": 0.123,
+    "fcf_yield": 0.03825496971968796,
+    "institutional_ownership_pct": 1.00568,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 120.38,
+    "entry_range_high": 123.79,
+    "target_range_low": 138.11,
+    "target_range_high": 148.97,
+    "target_1": 138.11,
+    "target_2": 144.57,
+    "target_3": 148.97,
+    "stop_loss": 116.97,
+    "risk_reward_ratio": 4.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $120.38 – $123.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $129.92 direnci veya $119.41 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $116.97 olarak belirlenmiştir. Fiyatın EMA20 ($132.08) veya günlük VWAP ($124.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($136.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($124.46) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

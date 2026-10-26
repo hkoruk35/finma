@@ -1,0 +1,89 @@
+{
+  "ticker": "VRTX",
+  "company": "Vertex Pharmaceuticals Incorporated",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T14:10:53.121Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 523.9299926757812,
+    "open": 531.6599731445312,
+    "high": 533.0800170898438,
+    "low": 522.9099731445312,
+    "prev_close": 535.1699829101562,
+    "change_pct": -2.1002654471115876,
+    "change_pct_1w": 4.840517652001651,
+    "change_pct_1m": 3.339249048477564,
+    "change_pct_1y": 23.96895313219831,
+    "volume": 832600,
+    "avg_volume_30d": 35450200
+  },
+  "scores": {
+    "master_score": 89,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.072853499059164,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 513.5648498791539,
+    "ema_50": 512.2644505944164,
+    "ema_200": 482.8902452982651,
+    "ema_stack_bullish": true,
+    "bb_upper": 550.1264923095704,
+    "bb_middle": 523.9299926757812,
+    "bb_lower": 497.7334930419922,
+    "bb_width": 10,
+    "atr": 13.86,
+    "atr_pct": 2.64,
+    "rvol": 1.0918584380342002,
+    "52w_high": 560.25,
+    "52w_low": 403.1600036621094
+  },
+  "fundamental": {
+    "pe_ratio": 30.514269,
+    "pb_ratio": 6.5555987,
+    "gross_margin": 0.54957,
+    "operating_margin": 0.38055,
+    "net_margin": 0.34997,
+    "market_cap": 132711464960,
+    "revenue_growth_ttm": 0.125,
+    "fcf_yield": 0.019801511623672156,
+    "institutional_ownership_pct": 0.98307,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 518.1,
+    "entry_range_high": 525.32,
+    "target_range_low": 560.25,
+    "target_range_high": 599.96,
+    "target_1": 560.25,
+    "target_2": 573.88,
+    "target_3": 599.96,
+    "stop_loss": 497.73,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $518.10 – $525.32 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $537.37 direnci veya $515.33 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $497.73 olarak belirlenmiştir. Fiyatın EMA50 ($512.26) veya günlük VWAP ($525.60) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($525.60) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

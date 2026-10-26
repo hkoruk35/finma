@@ -1,0 +1,89 @@
+{
+  "ticker": "AMT",
+  "company": "American Tower Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T20:37:58.791Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Specialty",
+  "price": {
+    "current": 188.97000122070312,
+    "open": 200.72000122070312,
+    "high": 202.5,
+    "low": 185.44000244140625,
+    "prev_close": 181.57000732421875,
+    "change_pct": 4.0755596177680635,
+    "change_pct_1w": 1.9970836416676037,
+    "change_pct_1m": 3.5111764613450136,
+    "change_pct_1y": -0.698897430229128,
+    "volume": 8851800,
+    "avg_volume_30d": 100007000
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 75,
+    "fundamental_score": 76.4,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.67229612158363,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 177.8719184300278,
+    "ema_50": 175.1897083644082,
+    "ema_200": 177.0735018611634,
+    "ema_stack_bullish": false,
+    "bb_upper": 198.4185012817383,
+    "bb_middle": 188.97000122070312,
+    "bb_lower": 179.52150115966796,
+    "bb_width": 10,
+    "atr": 6.42,
+    "atr_pct": 3.4,
+    "rvol": 1.2898497105202635,
+    "52w_high": 202.5,
+    "52w_low": 160.05999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 25.993122,
+    "pb_ratio": 23.671553,
+    "gross_margin": 0.73774004,
+    "operating_margin": 0.45411,
+    "net_margin": 0.31083,
+    "market_cap": 88052473856,
+    "revenue_growth_ttm": 0.047,
+    "fcf_yield": 0.03316218632057238,
+    "institutional_ownership_pct": 0.96919,
+    "dividend_rate": 7.16,
+    "dividend_yield": 0.0379
+  },
+  "scores_detail": {
+    "entry_range_low": 185.12,
+    "entry_range_high": 189.61,
+    "target_range_low": 196.73,
+    "target_range_high": 215.47,
+    "target_1": 196.73,
+    "target_2": 206.1,
+    "target_3": 215.47,
+    "stop_loss": 179.52,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $185.12 – $189.61 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $202.50 direnci veya $183.83 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $179.52 olarak belirlenmiştir. Fiyatın EMA20 ($177.87) veya günlük VWAP ($189.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($175.19) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($189.28) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

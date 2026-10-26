@@ -1,0 +1,89 @@
+{
+  "ticker": "TLN",
+  "company": "Talen Energy Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T07:08:43.720Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Independent Power Producers",
+  "price": {
+    "current": 327.9100036621094,
+    "open": 327.2300109863281,
+    "high": 330,
+    "low": 315.5,
+    "prev_close": 331.4200134277344,
+    "change_pct": -1.0590820178064932,
+    "change_pct_1w": -7.58152083694938,
+    "change_pct_1m": -13.655630210868381,
+    "change_pct_1y": -14.566724661354435,
+    "volume": 876300,
+    "avg_volume_30d": 33085100.000000004
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.9014576102634,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 343.5085443695665,
+    "ema_50": 336.7464279873176,
+    "ema_200": 350.0868281305824,
+    "ema_stack_bullish": false,
+    "bb_upper": 344.30550384521484,
+    "bb_middle": 327.9100036621094,
+    "bb_lower": 311.5145034790039,
+    "bb_width": 10,
+    "atr": 22.02,
+    "atr_pct": 6.71,
+    "rvol": 0.9292581857089747,
+    "52w_high": 449.84100341796875,
+    "52w_low": 279.7699890136719
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 9.719596,
+    "gross_margin": 0.42101002,
+    "operating_margin": -0.04797,
+    "net_margin": -0.049450003,
+    "market_cap": 15510142976,
+    "revenue_growth_ttm": 1.112,
+    "fcf_yield": 0.08134999257920444,
+    "institutional_ownership_pct": 1.03141,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 314.7,
+    "entry_range_high": 330.11,
+    "target_range_low": 338.53,
+    "target_range_high": 371,
+    "target_1": 338.53,
+    "target_2": 354.65,
+    "target_3": 371,
+    "stop_loss": 299.29,
+    "risk_reward_ratio": 1.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $314.70 – $330.11 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $353.66 direnci veya $310.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $299.29 olarak belirlenmiştir. Fiyatın EMA50 ($336.75) veya günlük VWAP ($325.79) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($336.75) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($325.79) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 45 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

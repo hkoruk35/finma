@@ -1,0 +1,89 @@
+{
+  "ticker": "SVC",
+  "company": "Service Properties Trust",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T02:09:13.254Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 6.150000095367432,
+    "open": 6.230000019073486,
+    "high": 6.25,
+    "low": 6.059999942779541,
+    "prev_close": 6.21999979019165,
+    "change_pct": -1.1253970608584525,
+    "change_pct_1w": 0,
+    "change_pct_1m": 3.7099540201916823,
+    "change_pct_1y": -48.31932527299529,
+    "volume": 943800,
+    "avg_volume_30d": 69276000
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 43.4,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.39410678853831,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 6.2863779147261125,
+    "ema_50": 6.799325652292515,
+    "ema_200": 8.226283382342215,
+    "ema_stack_bullish": false,
+    "bb_upper": 6.457500100135803,
+    "bb_middle": 6.150000095367432,
+    "bb_lower": 5.84250009059906,
+    "bb_width": 10,
+    "atr": 0.51,
+    "atr_pct": 8.21,
+    "rvol": 0.6429586003810843,
+    "52w_high": 12.149999618530273,
+    "52w_low": 5.650000095367432
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.98779315,
+    "gross_margin": 0.31435,
+    "operating_margin": 0.14641,
+    "net_margin": -0.25441,
+    "market_cap": 796483392,
+    "revenue_growth_ttm": -0.164,
+    "fcf_yield": 1.1349631054202822,
+    "institutional_ownership_pct": 0.85728997,
+    "dividend_rate": 0.2,
+    "dividend_yield": 0.0326
+  },
+  "scores_detail": {
+    "entry_range_low": 5.85,
+    "entry_range_high": 6.2,
+    "target_range_low": 7.94,
+    "target_range_high": 8.7,
+    "target_1": 7.94,
+    "target_2": 8.1,
+    "target_3": 8.7,
+    "stop_loss": 5.49,
+    "risk_reward_ratio": 3.92,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $5.85 – $6.20 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $6.41 direnci veya $5.75 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.49 olarak belirlenmiştir. Fiyatın EMA20 ($6.29) veya günlük VWAP ($6.14) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($6.80) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($6.14) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "WMB",
+  "company": "The Williams Companies, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T07:28:09.203Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 71.69999694824219,
+    "open": 70.75,
+    "high": 72.30999755859375,
+    "low": 70.29000091552734,
+    "prev_close": 70.62999725341797,
+    "change_pct": 1.514936622445414,
+    "change_pct_1w": 0.5892230304966,
+    "change_pct_1m": -3.330189135338694,
+    "change_pct_1y": 21.669771893662837,
+    "volume": 5912200,
+    "avg_volume_30d": 234282100
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 70,
+    "fundamental_score": 61.55,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.40523033777949,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 71.49020667825216,
+    "ema_50": 71.90502226690141,
+    "ema_200": 70.64251997645503,
+    "ema_stack_bullish": false,
+    "bb_upper": 75.2849967956543,
+    "bb_middle": 71.69999694824219,
+    "bb_lower": 68.11499710083008,
+    "bb_width": 10,
+    "atr": 2.28,
+    "atr_pct": 3.18,
+    "rvol": 0.9449556752308436,
+    "52w_high": 80.08000183105469,
+    "52w_low": 56.189998626708984
+  },
+  "fundamental": {
+    "pe_ratio": 28.565737,
+    "pb_ratio": 6.6660466,
+    "gross_margin": 0.63637,
+    "operating_margin": 0.39540002,
+    "net_margin": 0.24937001,
+    "market_cap": 87701102592,
+    "revenue_growth_ttm": 0.078,
+    "fcf_yield": -0.01729453686638549,
+    "institutional_ownership_pct": 0.91648,
+    "dividend_rate": 2.1,
+    "dividend_yield": 0.0293
+  },
+  "scores_detail": {
+    "entry_range_low": 70.75,
+    "entry_range_high": 71.93,
+    "target_range_low": 74.9,
+    "target_range_high": 82.04,
+    "target_1": 74.9,
+    "target_2": 78.47,
+    "target_3": 82.04,
+    "stop_loss": 68.11,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $70.75 – $71.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $73.05 direnci veya $70.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $68.11 olarak belirlenmiştir. Fiyatın EMA200 ($70.64) veya günlük VWAP ($71.79) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($71.91) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($71.79) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "HCA",
+  "company": "HCA Healthcare, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T19:57:16.480Z",
+  "sector": "Healthcare",
+  "industry": "Medical Care Facilities",
+  "price": {
+    "current": 469.0299987792969,
+    "open": 465.760009765625,
+    "high": 473.4599914550781,
+    "low": 461.7699890136719,
+    "prev_close": 467.30999755859375,
+    "change_pct": 0.3680642891633112,
+    "change_pct_1w": 2.220818264043031,
+    "change_pct_1m": 2.274311499556976,
+    "change_pct_1y": 6.558977389356274,
+    "volume": 1026900,
+    "avg_volume_30d": 38464000
+  },
+  "scores": {
+    "master_score": 86,
+    "technical_score": 100,
+    "fundamental_score": 74.75,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.6218223113437,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 452.0317571951223,
+    "ema_50": 435.996195330376,
+    "ema_200": 434.9437940748761,
+    "ema_stack_bullish": true,
+    "bb_upper": 492.4814987182617,
+    "bb_middle": 469.0299987792969,
+    "bb_lower": 445.57849884033203,
+    "bb_width": 10,
+    "atr": 11.59,
+    "atr_pct": 2.47,
+    "rvol": 0.7669561148086523,
+    "52w_high": 556.52001953125,
+    "52w_low": 353.989990234375
+  },
+  "fundamental": {
+    "pe_ratio": 15.723433,
+    "pb_ratio": 0,
+    "gross_margin": 0.42580003,
+    "operating_margin": 0.15161,
+    "net_margin": 0.08768,
+    "market_cap": 104049524736,
+    "revenue_growth_ttm": 0.087,
+    "fcf_yield": 0.03592640202331121,
+    "institutional_ownership_pct": 0.78652,
+    "dividend_rate": 3.12,
+    "dividend_yield": 0.0067000003
+  },
+  "scores_detail": {
+    "entry_range_low": 464.09,
+    "entry_range_high": 470.19,
+    "target_range_low": 490.49,
+    "target_range_high": 537.21,
+    "target_1": 490.49,
+    "target_2": 513.85,
+    "target_3": 537.21,
+    "stop_loss": 445.58,
+    "risk_reward_ratio": 2.17,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $464.09 – $470.19 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $478.86 direnci veya $461.77 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $445.58 olarak belirlenmiştir. Fiyatın EMA20 ($452.03) veya günlük VWAP ($471.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($471.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

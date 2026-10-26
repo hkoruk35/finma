@@ -1,0 +1,89 @@
+{
+  "ticker": "SKHY",
+  "company": "SK hynix Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T03:11:37.563Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 137.02000427246094,
+    "open": 136.61000061035156,
+    "high": 138.52000427246094,
+    "low": 135.2100067138672,
+    "prev_close": 131.69000244140625,
+    "change_pct": 4.047385323290735,
+    "change_pct_1w": 0.38830592568436767,
+    "change_pct_1m": -15.539661048513883,
+    "change_pct_1y": -18.445325425633584,
+    "volume": 16214700,
+    "avg_volume_30d": 593145800
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.61881914478674,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 156.73942992746458,
+    "ema_50": 164.80453626849842,
+    "ema_200": 166.4313514442252,
+    "ema_stack_bullish": false,
+    "bb_upper": 143.871004486084,
+    "bb_middle": 137.02000427246094,
+    "bb_lower": 130.16900405883788,
+    "bb_width": 10,
+    "atr": 8.99,
+    "atr_pct": 6.56,
+    "rvol": 0.9100329126498071,
+    "52w_high": 199.8699951171875,
+    "52w_low": 124.80000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 8.738521,
+    "pb_ratio": 4.9314313,
+    "gross_margin": 0.76268,
+    "operating_margin": 0.76328003,
+    "net_margin": 0.85619,
+    "market_cap": 998693076992,
+    "revenue_growth_ttm": 2.568,
+    "fcf_yield": 55.84107931525266,
+    "institutional_ownership_pct": 0.00928,
+    "dividend_rate": 0.11,
+    "dividend_yield": 0.0008
+  },
+  "scores_detail": {
+    "entry_range_low": 132.59,
+    "entry_range_high": 137.92,
+    "target_range_low": 178.43,
+    "target_range_high": 199.89,
+    "target_1": 178.43,
+    "target_2": 195.97,
+    "target_3": 199.89,
+    "stop_loss": 126.3,
+    "risk_reward_ratio": 6.78,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $132.59 – $137.92 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $142.45 direnci veya $130.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $126.30 olarak belirlenmiştir. Fiyatın EMA20 ($156.74) veya günlük VWAP ($137.25) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($164.80) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($137.25) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "GSK",
+  "company": "GSK plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T05:43:57.727Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 50.75,
+    "open": 50.83000183105469,
+    "high": 50.91999816894531,
+    "low": 50.290000915527344,
+    "prev_close": 51.209999084472656,
+    "change_pct": -0.898260286460603,
+    "change_pct_1w": 2.5045480115225285,
+    "change_pct_1m": 8.162834570589625,
+    "change_pct_1y": 11.440489634896455,
+    "volume": 3178800,
+    "avg_volume_30d": 149070700
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 85,
+    "fundamental_score": 81.35,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.730872581725336,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 49.09584173932812,
+    "ema_50": 49.51998053013015,
+    "ema_200": 50.621516018492535,
+    "ema_stack_bullish": false,
+    "bb_upper": 53.2875,
+    "bb_middle": 50.75,
+    "bb_lower": 48.2125,
+    "bb_width": 10,
+    "atr": 1.08,
+    "atr_pct": 2.13,
+    "rvol": 0.8873534504097721,
+    "52w_high": 61.70000076293945,
+    "52w_low": 42.849998474121094
+  },
+  "fundamental": {
+    "pe_ratio": 16.009464,
+    "pb_ratio": 4.301718,
+    "gross_margin": 0.73493,
+    "operating_margin": 0.30943,
+    "net_margin": 0.1452,
+    "market_cap": 101678399488,
+    "revenue_growth_ttm": 0.053,
+    "fcf_yield": 0.034251375331798145,
+    "institutional_ownership_pct": 0.17471,
+    "dividend_rate": 1.82,
+    "dividend_yield": 0.0358
+  },
+  "scores_detail": {
+    "entry_range_low": 50.1,
+    "entry_range_high": 50.86,
+    "target_range_low": 53,
+    "target_range_high": 58.05,
+    "target_1": 53,
+    "target_2": 55.53,
+    "target_3": 58.05,
+    "stop_loss": 48.21,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $50.10 – $50.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $51.44 direnci veya $49.88 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $48.21 olarak belirlenmiştir. Fiyatın EMA20 ($49.10) veya günlük VWAP ($50.60) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($49.52) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($50.60) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

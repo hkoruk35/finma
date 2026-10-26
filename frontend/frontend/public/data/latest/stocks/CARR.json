@@ -1,0 +1,89 @@
+{
+  "ticker": "CARR",
+  "company": "Carrier Global Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T15:48:06.073Z",
+  "sector": "Industrials",
+  "industry": "Building Products & Equipment",
+  "price": {
+    "current": 56.2400016784668,
+    "open": 55.900001525878906,
+    "high": 56.55500030517578,
+    "low": 55.08000183105469,
+    "prev_close": 56.47999954223633,
+    "change_pct": -0.42492539963648257,
+    "change_pct_1w": 2.254548506303267,
+    "change_pct_1m": 1.4796166304837135,
+    "change_pct_1y": -1.5406114668653266,
+    "volume": 3883400,
+    "avg_volume_30d": 189280600
+  },
+  "scores": {
+    "master_score": 58,
+    "technical_score": 55,
+    "fundamental_score": 50,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.45979461042763,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 55.785849981120556,
+    "ema_50": 57.49447503617282,
+    "ema_200": 60.389095027997925,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.05200176239014,
+    "bb_middle": 56.2400016784668,
+    "bb_lower": 53.42800159454345,
+    "bb_width": 10,
+    "atr": 1.36,
+    "atr_pct": 2.43,
+    "rvol": 0.7712074031887051,
+    "52w_high": 76.76000213623047,
+    "52w_low": 50.2400016784668
+  },
+  "fundamental": {
+    "pe_ratio": 40.753624,
+    "pb_ratio": 3.529338,
+    "gross_margin": 0.24691999,
+    "operating_margin": 0.13069001,
+    "net_margin": 0.055180002,
+    "market_cap": 46711844864,
+    "revenue_growth_ttm": 0.039,
+    "fcf_yield": 0.01844821197940173,
+    "institutional_ownership_pct": 0.89928,
+    "dividend_rate": 0.96,
+    "dividend_yield": 0.0171
+  },
+  "scores_detail": {
+    "entry_range_low": 55.42,
+    "entry_range_high": 56.38,
+    "target_range_low": 60.2,
+    "target_range_high": 68.33,
+    "target_1": 60.2,
+    "target_2": 64.99,
+    "target_3": 68.33,
+    "stop_loss": 53.43,
+    "risk_reward_ratio": 3.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $55.42 – $56.38 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $56.73 direnci veya $55.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $53.43 olarak belirlenmiştir. Fiyatın EMA20 ($55.79) veya günlük VWAP ($56.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($57.49) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($56.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "TSEM",
+  "company": "Tower Semiconductor Ltd.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T02:35:06.604Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 167.55999755859375,
+    "open": 164.74000549316406,
+    "high": 169.97999572753906,
+    "low": 163.69000244140625,
+    "prev_close": 167.7100067138672,
+    "change_pct": -0.08944556035309842,
+    "change_pct_1w": -14.326620314005872,
+    "change_pct_1m": -22.605081959079097,
+    "change_pct_1y": 123.62204307507466,
+    "volume": 1875500,
+    "avg_volume_30d": 69970500
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.7290764162464,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 206.22437899424082,
+    "ema_50": 217.5887466234016,
+    "ema_200": 199.7349498591749,
+    "ema_stack_bullish": false,
+    "bb_upper": 175.93799743652343,
+    "bb_middle": 167.55999755859375,
+    "bb_lower": 159.18199768066407,
+    "bb_width": 10,
+    "atr": 16.09,
+    "atr_pct": 9.6,
+    "rvol": 1.2194310459407893,
+    "52w_high": 319.94000244140625,
+    "52w_low": 72.55000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 66.22925,
+    "pb_ratio": 6.1370544,
+    "gross_margin": 0.26871002,
+    "operating_margin": 0.19625,
+    "net_margin": 0.16939,
+    "market_cap": 19021019136,
+    "revenue_growth_ttm": 0.237,
+    "fcf_yield": 0.008770021774715489,
+    "institutional_ownership_pct": 0.65567,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 157.91,
+    "entry_range_high": 169.17,
+    "target_range_low": 228.73,
+    "target_range_high": 268.93,
+    "target_1": 228.73,
+    "target_2": 240,
+    "target_3": 268.93,
+    "stop_loss": 146.65,
+    "risk_reward_ratio": 4.53,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $157.91 – $169.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $176.15 direnci veya $154.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $146.65 olarak belirlenmiştir. Fiyatın EMA200 ($199.73) veya günlük VWAP ($167.26) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($217.59) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($167.26) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 32 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

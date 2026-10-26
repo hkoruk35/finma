@@ -1,0 +1,89 @@
+{
+  "ticker": "NXPI",
+  "company": "NXP Semiconductors N.V.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T21:26:25.370Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 234.9199981689453,
+    "open": 236.14999389648438,
+    "high": 240.6999969482422,
+    "low": 233.9499969482422,
+    "prev_close": 237.7899932861328,
+    "change_pct": -1.2069452871105613,
+    "change_pct_1w": 2.4375338129586392,
+    "change_pct_1m": 4.311527536791392,
+    "change_pct_1y": 6.42866973953185,
+    "volume": 3271600,
+    "avg_volume_30d": 105673700
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.367615110853905,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 233.5063457391246,
+    "ema_50": 236.17843152635322,
+    "ema_200": 242.63430263845146,
+    "ema_stack_bullish": false,
+    "bb_upper": 246.6659980773926,
+    "bb_middle": 234.9199981689453,
+    "bb_lower": 223.17399826049802,
+    "bb_width": 10,
+    "atr": 8.66,
+    "atr_pct": 3.69,
+    "rvol": 1.1009532173095105,
+    "52w_high": 339.95001220703125,
+    "52w_low": 183
+  },
+  "fundamental": {
+    "pe_ratio": 20.061485,
+    "pb_ratio": 5.19884,
+    "gross_margin": 0.56102,
+    "operating_margin": 0.30406,
+    "net_margin": 0.22564,
+    "market_cap": 59238408192,
+    "revenue_growth_ttm": 0.195,
+    "fcf_yield": 0.06001174191713163,
+    "institutional_ownership_pct": 0.99641,
+    "dividend_rate": 4.06,
+    "dividend_yield": 0.0173
+  },
+  "scores_detail": {
+    "entry_range_low": 231.29,
+    "entry_range_high": 235.79,
+    "target_range_low": 245.21,
+    "target_range_high": 268.57,
+    "target_1": 245.21,
+    "target_2": 256.89,
+    "target_3": 268.57,
+    "stop_loss": 223.17,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $231.29 – $235.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $239.82 direnci veya $229.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $223.17 olarak belirlenmiştir. Fiyatın EMA20 ($233.51) veya günlük VWAP ($237.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($236.18) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($237.07) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

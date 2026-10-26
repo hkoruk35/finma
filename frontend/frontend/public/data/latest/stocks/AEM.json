@@ -1,0 +1,89 @@
+{
+  "ticker": "AEM",
+  "company": "Agnico Eagle Mines Limited",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T20:13:52.811Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 173.94000244140625,
+    "open": 174.19000244140625,
+    "high": 176.60000610351562,
+    "low": 169.6999969482422,
+    "prev_close": 176.14999389648438,
+    "change_pct": -1.2546077386621086,
+    "change_pct_1w": -8.225608842030754,
+    "change_pct_1m": -7.56721797673217,
+    "change_pct_1y": 5.629443356737186,
+    "volume": 1621400,
+    "avg_volume_30d": 51999100
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.225866103790025,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 185.30571524287785,
+    "ema_50": 186.26597176269064,
+    "ema_200": 182.7954006100587,
+    "ema_stack_bullish": false,
+    "bb_upper": 182.63700256347656,
+    "bb_middle": 173.94000244140625,
+    "bb_lower": 165.24300231933594,
+    "bb_width": 10,
+    "atr": 6.9,
+    "atr_pct": 3.97,
+    "rvol": 0.8233988665188436,
+    "52w_high": 255.24000549316406,
+    "52w_low": 134.3800048828125
+  },
+  "fundamental": {
+    "pe_ratio": 14.879385,
+    "pb_ratio": 3.0792382,
+    "gross_margin": 0.74512,
+    "operating_margin": 0.58105,
+    "net_margin": 0.40438,
+    "market_cap": 88077107200,
+    "revenue_growth_ttm": 0.35,
+    "fcf_yield": 0.048619545579262624,
+    "institutional_ownership_pct": 0.71446997,
+    "dividend_rate": 1.8,
+    "dividend_yield": 0.010299999
+  },
+  "scores_detail": {
+    "entry_range_low": 171.08,
+    "entry_range_high": 174.63,
+    "target_range_low": 182.21,
+    "target_range_high": 200.64,
+    "target_1": 182.21,
+    "target_2": 190.14,
+    "target_3": 200.64,
+    "stop_loss": 165.24,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $171.08 – $174.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $185.35 direnci veya $169.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $165.24 olarak belirlenmiştir. Fiyatın EMA200 ($182.80) veya günlük VWAP ($173.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($186.27) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($173.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

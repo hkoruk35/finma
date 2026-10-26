@@ -1,0 +1,89 @@
+{
+  "ticker": "DT",
+  "company": "Dynatrace, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T05:32:02.096Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 64.05000305175781,
+    "open": 63.11000061035156,
+    "high": 64.17500305175781,
+    "low": 62.220001220703125,
+    "prev_close": 63.369998931884766,
+    "change_pct": 1.073069482933037,
+    "change_pct_1w": 4.811000510623847,
+    "change_pct_1m": -1.8390757827466475,
+    "change_pct_1y": 28.253914323302553,
+    "volume": 7420200,
+    "avg_volume_30d": 220810000
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.84%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.84755816609303,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.53631310436989,
+    "ema_50": 57.04749482254296,
+    "ema_200": 48.33158575162321,
+    "ema_stack_bullish": true,
+    "bb_upper": 67.2525032043457,
+    "bb_middle": 64.05000305175781,
+    "bb_lower": 60.84750289916992,
+    "bb_width": 10,
+    "atr": 2.26,
+    "atr_pct": 3.54,
+    "rvol": 0.9994003894751144,
+    "52w_high": 66.30000305175781,
+    "52w_low": 31.635000228881836
+  },
+  "fundamental": {
+    "pe_ratio": 128.1,
+    "pb_ratio": 7.587964,
+    "gross_margin": 0.81597,
+    "operating_margin": 0.12889,
+    "net_margin": 0.072230004,
+    "market_cap": 18510585856,
+    "revenue_growth_ttm": 0.162,
+    "fcf_yield": 0.02952495551743168,
+    "institutional_ownership_pct": 1.08478,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 62.69,
+    "entry_range_high": 64.28,
+    "target_range_low": 66.66,
+    "target_range_high": 73.01,
+    "target_1": 66.66,
+    "target_2": 69.83,
+    "target_3": 73.01,
+    "stop_loss": 60.85,
+    "risk_reward_ratio": 2.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $62.69 – $64.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $65.23 direnci veya $62.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $60.85 olarak belirlenmiştir. Fiyatın EMA20 ($61.54) veya günlük VWAP ($63.35) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($63.35) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

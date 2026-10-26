@@ -1,0 +1,89 @@
+{
+  "ticker": "QSR",
+  "company": "Restaurant Brands International Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T17:15:11.543Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 75.33999633789062,
+    "open": 75.94000244140625,
+    "high": 76.5,
+    "low": 74.41999816894531,
+    "prev_close": 76.41000366210938,
+    "change_pct": -1.4003497879026425,
+    "change_pct_1w": 0.7084598270194592,
+    "change_pct_1m": 5.933624055591594,
+    "change_pct_1y": 11.697553367871661,
+    "volume": 2081700,
+    "avg_volume_30d": 93211800
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 85,
+    "fundamental_score": 69.8,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.274186247812644,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 73.4551293179718,
+    "ema_50": 73.90546888377226,
+    "ema_200": 73.52602699921884,
+    "ema_stack_bullish": false,
+    "bb_upper": 79.10699615478516,
+    "bb_middle": 75.33999633789062,
+    "bb_lower": 71.57299652099609,
+    "bb_width": 10,
+    "atr": 1.52,
+    "atr_pct": 2.02,
+    "rvol": 0.6442810888750137,
+    "52w_high": 81.95999908447266,
+    "52w_low": 64.5199966430664
+  },
+  "fundamental": {
+    "pe_ratio": 18.929647,
+    "pb_ratio": 6.83356,
+    "gross_margin": 0.34085998,
+    "operating_margin": 0.27738002,
+    "net_margin": 0.13125,
+    "market_cap": 34514079744,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": 0.04964278313976651,
+    "institutional_ownership_pct": 0.97511,
+    "dividend_rate": 2.6,
+    "dividend_yield": 0.0345
+  },
+  "scores_detail": {
+    "entry_range_low": 74.43,
+    "entry_range_high": 75.49,
+    "target_range_low": 78.71,
+    "target_range_high": 86.2,
+    "target_1": 78.71,
+    "target_2": 82.46,
+    "target_3": 86.2,
+    "stop_loss": 71.57,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $74.43 – $75.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $76.50 direnci veya $74.12 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $71.57 olarak belirlenmiştir. Fiyatın EMA20 ($73.46) veya günlük VWAP ($75.02) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($73.91) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($75.02) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "MPWR",
+  "company": "Monolithic Power Systems, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T23:26:56.808Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 1140.1199951171875,
+    "open": 1156.3900146484375,
+    "high": 1169.06005859375,
+    "low": 1126.5699462890625,
+    "prev_close": 1167.9300537109375,
+    "change_pct": -2.3811407631293804,
+    "change_pct_1w": -5.842127999120912,
+    "change_pct_1m": -13.576858319117413,
+    "change_pct_1y": 6.4736592387090095,
+    "volume": 668600,
+    "avg_volume_30d": 23177100
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.01443224302143,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1277.1263426344076,
+    "ema_50": 1302.8006676315977,
+    "ema_200": 1288.70113852336,
+    "ema_stack_bullish": false,
+    "bb_upper": 1197.125994873047,
+    "bb_middle": 1140.1199951171875,
+    "bb_lower": 1083.113995361328,
+    "bb_width": 10,
+    "atr": 62.66,
+    "atr_pct": 5.5,
+    "rvol": 1.0690811188630156,
+    "52w_high": 1714.0899658203125,
+    "52w_low": 833.1799926757812
+  },
+  "fundamental": {
+    "pe_ratio": 69.350365,
+    "pb_ratio": 14.382924,
+    "gross_margin": 0.55195,
+    "operating_margin": 0.30989,
+    "net_margin": 0.24500999,
+    "market_cap": 56028917760,
+    "revenue_growth_ttm": 0.476,
+    "fcf_yield": 0.00793012154729151,
+    "institutional_ownership_pct": 1.00368,
+    "dividend_rate": 8,
+    "dividend_yield": 0.0069999998
+  },
+  "scores_detail": {
+    "entry_range_low": 1102.52,
+    "entry_range_high": 1146.39,
+    "target_range_low": 1250,
+    "target_range_high": 1415.21,
+    "target_1": 1250,
+    "target_2": 1387.46,
+    "target_3": 1415.21,
+    "stop_loss": 1058.66,
+    "risk_reward_ratio": 4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,102.52 – $1,146.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,187.08 direnci veya $1,089.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,058.66 olarak belirlenmiştir. Fiyatın EMA20 ($1,277.13) veya günlük VWAP ($1,152.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,302.80) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,152.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

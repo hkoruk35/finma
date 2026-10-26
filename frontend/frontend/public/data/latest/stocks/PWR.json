@@ -1,0 +1,89 @@
+{
+  "ticker": "PWR",
+  "company": "Quanta Services, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T08:54:52.201Z",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 546.4299926757812,
+    "open": 543.02001953125,
+    "high": 555.5399780273438,
+    "low": 527.0700073242188,
+    "prev_close": 552.4400024414062,
+    "change_pct": -1.0879027114374187,
+    "change_pct_1w": -13.520399242919076,
+    "change_pct_1m": -21.353213207362028,
+    "change_pct_1y": 27.8617585655024,
+    "volume": 1620800,
+    "avg_volume_30d": 30767100
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 28.281949345743698,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 630.2309797146486,
+    "ema_50": 642.8476917758913,
+    "ema_200": 613.44584107037,
+    "ema_stack_bullish": false,
+    "bb_upper": 573.7514923095704,
+    "bb_middle": 546.4299926757812,
+    "bb_lower": 519.1084930419921,
+    "bb_width": 10,
+    "atr": 32.27,
+    "atr_pct": 5.91,
+    "rvol": 1.5419912828963405,
+    "52w_high": 788.75,
+    "52w_low": 408.3599853515625
+  },
+  "fundamental": {
+    "pe_ratio": 62.592213,
+    "pb_ratio": 8.519864,
+    "gross_margin": 0.15456,
+    "operating_margin": 0.07217,
+    "net_margin": 0.04032,
+    "market_cap": 82152136704,
+    "revenue_growth_ttm": 0.411,
+    "fcf_yield": 0.023803292360438225,
+    "institutional_ownership_pct": 0.94071,
+    "dividend_rate": 0.44,
+    "dividend_yield": 0.0008
+  },
+  "scores_detail": {
+    "entry_range_low": 527.07,
+    "entry_range_high": 549.66,
+    "target_range_low": 583.73,
+    "target_range_high": 708.06,
+    "target_1": 583.73,
+    "target_2": 653.87,
+    "target_3": 708.06,
+    "stop_loss": 504.48,
+    "risk_reward_ratio": 3.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $527.07 – $549.66 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $601.33 direnci veya $520.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $504.48 olarak belirlenmiştir. Fiyatın EMA200 ($613.45) veya günlük VWAP ($549.02) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($642.85) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($549.02) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 28 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "GEN",
+  "company": "Gen Digital Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T16:39:16.755Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 24.8799991607666,
+    "open": 24.799999237060547,
+    "high": 25.1299991607666,
+    "low": 24.6200008392334,
+    "prev_close": 24.889999389648438,
+    "change_pct": -0.04017769838112152,
+    "change_pct_1w": 2.9801296270770243,
+    "change_pct_1m": 6.552457191868241,
+    "change_pct_1y": -8.495775387711218,
+    "volume": 4670800,
+    "avg_volume_30d": 335587800
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 55,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.60967572615803,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.319276886843095,
+    "ema_50": 25.480154137817657,
+    "ema_200": 25.439376577846264,
+    "ema_stack_bullish": false,
+    "bb_upper": 26.12399911880493,
+    "bb_middle": 24.8799991607666,
+    "bb_lower": 23.63599920272827,
+    "bb_width": 10,
+    "atr": 0.73,
+    "atr_pct": 2.92,
+    "rvol": 0.5106371566546817,
+    "52w_high": 31.649999618530273,
+    "52w_low": 17.780000686645508
+  },
+  "fundamental": {
+    "pe_ratio": 14.549706,
+    "pb_ratio": 5.611186,
+    "gross_margin": 0.78007007,
+    "operating_margin": 0.35554,
+    "net_margin": 0.20732,
+    "market_cap": 14892844032,
+    "revenue_growth_ttm": 0.063,
+    "fcf_yield": 0.10388378396199671,
+    "institutional_ownership_pct": 0.94551,
+    "dividend_rate": 0.5,
+    "dividend_yield": 0.0201
+  },
+  "scores_detail": {
+    "entry_range_low": 24.44,
+    "entry_range_high": 24.95,
+    "target_range_low": 25.93,
+    "target_range_high": 28.4,
+    "target_1": 25.93,
+    "target_2": 27.28,
+    "target_3": 28.4,
+    "stop_loss": 23.64,
+    "risk_reward_ratio": 2.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $24.44 – $24.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $25.23 direnci veya $24.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $23.64 olarak belirlenmiştir. Fiyatın EMA20 ($24.32) veya günlük VWAP ($24.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($25.48) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($24.94) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.5x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "NBIX",
+  "company": "Neurocrine Biosciences, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T17:43:39.668Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "price": {
+    "current": 142.6999969482422,
+    "open": 142.74000549316406,
+    "high": 143.8300018310547,
+    "low": 140.89999389648438,
+    "prev_close": 143.2899932861328,
+    "change_pct": -0.41174985381740753,
+    "change_pct_1w": 5.150681518359063,
+    "change_pct_1m": 0.9407949897375277,
+    "change_pct_1y": -0.675159207256671,
+    "volume": 1033400,
+    "avg_volume_30d": 40956300
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.67173303167771,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 141.59676472262666,
+    "ema_50": 146.9781382099288,
+    "ema_200": 149.55115631837617,
+    "ema_stack_bullish": false,
+    "bb_upper": 149.8349967956543,
+    "bb_middle": 142.6999969482422,
+    "bb_lower": 135.56499710083008,
+    "bb_width": 10,
+    "atr": 3.44,
+    "atr_pct": 2.41,
+    "rvol": 0.7912921821551263,
+    "52w_high": 186.1199951171875,
+    "52w_low": 122.13999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 20.923752,
+    "pb_ratio": 3.92529,
+    "gross_margin": 0.6448,
+    "operating_margin": 0.2219,
+    "net_margin": 0.20910999,
+    "market_cap": 14505337856,
+    "revenue_growth_ttm": 0.395,
+    "fcf_yield": 0.04400018188724911,
+    "institutional_ownership_pct": 1.03628,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 140.64,
+    "entry_range_high": 143.04,
+    "target_range_low": 148.93,
+    "target_range_high": 163.12,
+    "target_1": 148.93,
+    "target_2": 157.67,
+    "target_3": 163.12,
+    "stop_loss": 135.56,
+    "risk_reward_ratio": 2.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $140.64 – $143.04 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $146.92 direnci veya $139.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $135.56 olarak belirlenmiştir. Fiyatın EMA20 ($141.60) veya günlük VWAP ($142.06) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($146.98) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($142.06) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

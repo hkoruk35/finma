@@ -1,22 +1,22 @@
 {
   "ticker": "STLA",
   "company": "Stellantis N.V.",
-  "date": "2026-10-23",
-  "generated_at": "2026-10-23T21:27:31.008Z",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T16:48:46.694Z",
   "sector": "Consumer Cyclical",
   "industry": "Auto Manufacturers",
   "price": {
     "current": 4.059999942779541,
-    "open": 4.074999809265137,
+    "open": 4.079999923706055,
     "high": 4.079999923706055,
-    "low": 3.920099973678589,
+    "low": 3.9200000762939453,
     "prev_close": 4.269999980926514,
     "change_pct": -4.918033702225133,
     "change_pct_1w": -7.0938203866767555,
     "change_pct_1m": -7.3059398013788215,
     "change_pct_1y": -62.26765932697893,
-    "volume": 61212841,
-    "avg_volume_30d": 896177841
+    "volume": 61224600,
+    "avg_volume_30d": 896189600
   },
   "scores": {
     "master_score": 37,
@@ -47,9 +47,9 @@
     "bb_width": 10,
     "atr": 0.17,
     "atr_pct": 4.17,
-    "rvol": 1.178246099927838,
+    "rvol": 1.1783093666786582,
     "52w_high": 12.220000267028809,
-    "52w_low": 3.920099973678589
+    "52w_low": 3.9200000762939453
   },
   "fundamental": {
     "pe_ratio": 0,
@@ -60,7 +60,7 @@
     "market_cap": 11787913216,
     "revenue_growth_ttm": 0.131,
     "fcf_yield": -0.28363799179160837,
-    "institutional_ownership_pct": 0.47923002,
+    "institutional_ownership_pct": 0.47926998,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

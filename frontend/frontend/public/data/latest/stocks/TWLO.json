@@ -1,0 +1,89 @@
+{
+  "ticker": "TWLO",
+  "company": "Twilio Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T05:22:46.436Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 261.7900085449219,
+    "open": 256,
+    "high": 263.70001220703125,
+    "low": 253.11000061035156,
+    "prev_close": 253.6300048828125,
+    "change_pct": 3.2172864034283455,
+    "change_pct_1w": 7.128540236447857,
+    "change_pct_1m": -7.383427031344487,
+    "change_pct_1y": 136.22993075784012,
+    "volume": 2081200,
+    "avg_volume_30d": 116557400
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 85,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.27000051513081,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 267.44533987083486,
+    "ema_50": 255.76604919086637,
+    "ema_200": 201.44717692868068,
+    "ema_stack_bullish": true,
+    "bb_upper": 274.87950897216797,
+    "bb_middle": 261.7900085449219,
+    "bb_lower": 248.70050811767578,
+    "bb_width": 10,
+    "atr": 16.53,
+    "atr_pct": 6.31,
+    "rvol": 0.5581164301880447,
+    "52w_high": 308.3999938964844,
+    "52w_low": 105
+  },
+  "fundamental": {
+    "pe_ratio": 36.208855,
+    "pb_ratio": 4.478105,
+    "gross_margin": 0.48561,
+    "operating_margin": 0.078260005,
+    "net_margin": 0.20615,
+    "market_cap": 40204455936,
+    "revenue_growth_ttm": 0.22,
+    "fcf_yield": 0.023745512027813852,
+    "institutional_ownership_pct": 0.93561995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 251.87,
+    "entry_range_high": 263.44,
+    "target_range_low": 308.4,
+    "target_range_high": 320.86,
+    "target_1": 308.4,
+    "target_2": 314.57,
+    "target_3": 320.86,
+    "stop_loss": 240.3,
+    "risk_reward_ratio": 3.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $251.87 – $263.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $271.00 direnci veya $248.57 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $240.30 olarak belirlenmiştir. Fiyatın EMA50 ($255.77) veya günlük VWAP ($261.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($255.77) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($261.82) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

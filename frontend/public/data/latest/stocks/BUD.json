@@ -1,0 +1,89 @@
+{
+  "ticker": "BUD",
+  "company": "Anheuser-Busch InBev SA/NV",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T07:57:05.573Z",
+  "sector": "Consumer Defensive",
+  "industry": "Beverages - Brewers",
+  "price": {
+    "current": 84.26000213623047,
+    "open": 85.38999938964844,
+    "high": 85.51000213623047,
+    "low": 84.05000305175781,
+    "prev_close": 85.48999786376953,
+    "change_pct": -1.438759806146085,
+    "change_pct_1w": 2.0220436764611875,
+    "change_pct_1m": 7.625496424689769,
+    "change_pct_1y": 36.807926493713495,
+    "volume": 2446900,
+    "avg_volume_30d": 61006700
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 90,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.90976014723178,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 80.27243768776727,
+    "ema_50": 79.38997824194703,
+    "ema_200": 76.44916163267868,
+    "ema_stack_bullish": true,
+    "bb_upper": 88.47300224304199,
+    "bb_middle": 84.26000213623047,
+    "bb_lower": 80.04700202941895,
+    "bb_width": 10,
+    "atr": 1.62,
+    "atr_pct": 1.93,
+    "rvol": 1.0826745259127275,
+    "52w_high": 86.5999984741211,
+    "52w_low": 59.63999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 18.159483,
+    "pb_ratio": 10.639147,
+    "gross_margin": 0.56494,
+    "operating_margin": 0.27341,
+    "net_margin": 0.14896,
+    "market_cap": 165918801920,
+    "revenue_growth_ttm": 0.11,
+    "fcf_yield": 0.06445095256386962,
+    "institutional_ownership_pct": 0.055630002,
+    "dividend_rate": 1.35,
+    "dividend_yield": 0.016
+  },
+  "scores_detail": {
+    "entry_range_low": 83.6,
+    "entry_range_high": 84.42,
+    "target_range_low": 88.21,
+    "target_range_high": 96.62,
+    "target_1": 88.21,
+    "target_2": 92.41,
+    "target_3": 96.62,
+    "stop_loss": 80.05,
+    "risk_reward_ratio": 2.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $83.60 – $84.42 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $85.31 direnci veya $83.28 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $80.05 olarak belirlenmiştir. Fiyatın EMA20 ($80.27) veya günlük VWAP ($84.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($84.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

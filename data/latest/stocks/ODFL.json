@@ -1,0 +1,89 @@
+{
+  "ticker": "ODFL",
+  "company": "Old Dominion Freight Line, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T18:13:12.602Z",
+  "sector": "Industrials",
+  "industry": "Trucking",
+  "price": {
+    "current": 182.6999969482422,
+    "open": 187.6999969482422,
+    "high": 189.07000732421875,
+    "low": 180.47999572753906,
+    "prev_close": 189.88999938964844,
+    "change_pct": -3.7864039520336115,
+    "change_pct_1w": -2.674197869069316,
+    "change_pct_1m": 0.43427698874669574,
+    "change_pct_1y": 34.476664306979075,
+    "volume": 1993100,
+    "avg_volume_30d": 53352500
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 40,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.87028315670417,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 184.23047778919647,
+    "ema_50": 188.89089292986722,
+    "ema_200": 192.2605034532057,
+    "ema_stack_bullish": false,
+    "bb_upper": 191.8349967956543,
+    "bb_middle": 182.6999969482422,
+    "bb_lower": 173.56499710083008,
+    "bb_width": 10,
+    "atr": 4.67,
+    "atr_pct": 2.56,
+    "rvol": 0.8404554613185886,
+    "52w_high": 252.02999877929688,
+    "52w_low": 126.01000213623047
+  },
+  "fundamental": {
+    "pe_ratio": 35.134617,
+    "pb_ratio": 8.335615,
+    "gross_margin": 0.39566,
+    "operating_margin": 0.28835,
+    "net_margin": 0.19443001,
+    "market_cap": 37884055552,
+    "revenue_growth_ttm": 0.104,
+    "fcf_yield": 0.025624922829803793,
+    "institutional_ownership_pct": 0.81249,
+    "dividend_rate": 1.16,
+    "dividend_yield": 0.0063
+  },
+  "scores_detail": {
+    "entry_range_low": 179.9,
+    "entry_range_high": 183.17,
+    "target_range_low": 208.74,
+    "target_range_high": 233.79,
+    "target_1": 208.74,
+    "target_2": 221.63,
+    "target_3": 233.79,
+    "stop_loss": 173.56,
+    "risk_reward_ratio": 5.03,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $179.90 – $183.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $187.86 direnci veya $178.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $173.56 olarak belirlenmiştir. Fiyatın EMA20 ($184.23) veya günlük VWAP ($182.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($188.89) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($182.69) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

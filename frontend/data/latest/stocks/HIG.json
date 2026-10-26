@@ -1,0 +1,89 @@
+{
+  "ticker": "HIG",
+  "company": "The Hartford Insurance Group, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T11:20:40.431Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Diversified",
+  "price": {
+    "current": 136.75999450683594,
+    "open": 138.82000732421875,
+    "high": 139.75,
+    "low": 136.6300048828125,
+    "prev_close": 139.4499969482422,
+    "change_pct": -1.9290086054319977,
+    "change_pct_1w": 1.2137355305749464,
+    "change_pct_1m": 5.04646435380981,
+    "change_pct_1y": 9.189616372723304,
+    "volume": 1056400,
+    "avg_volume_30d": 52494800
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 85,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.470397975990224,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 132.87103294606223,
+    "ema_50": 133.24048954833358,
+    "ema_200": 134.0533705718609,
+    "ema_stack_bullish": false,
+    "bb_upper": 143.59799423217774,
+    "bb_middle": 136.75999450683594,
+    "bb_lower": 129.92199478149413,
+    "bb_width": 10,
+    "atr": 2.36,
+    "atr_pct": 1.73,
+    "rvol": 0.7018752333564467,
+    "52w_high": 146.07000732421875,
+    "52w_low": 120.33000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 9.761599,
+    "pb_ratio": 1.9248145,
+    "gross_margin": 0.37868,
+    "operating_margin": 0.17615,
+    "net_margin": 0.1489,
+    "market_cap": 37044453376,
+    "revenue_growth_ttm": 0.081,
+    "fcf_yield": 0.14867273046518067,
+    "institutional_ownership_pct": 0.96249,
+    "dividend_rate": 2.4,
+    "dividend_yield": 0.0175
+  },
+  "scores_detail": {
+    "entry_range_low": 135.34,
+    "entry_range_high": 137,
+    "target_range_low": 142.98,
+    "target_range_high": 156.59,
+    "target_1": 142.98,
+    "target_2": 149.79,
+    "target_3": 156.59,
+    "stop_loss": 129.92,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $135.34 – $137.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $139.72 direnci veya $134.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $129.92 olarak belirlenmiştir. Fiyatın EMA20 ($132.87) veya günlük VWAP ($137.34) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($133.24) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($137.34) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

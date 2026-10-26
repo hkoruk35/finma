@@ -1,0 +1,89 @@
+{
+  "ticker": "NI",
+  "company": "NiSource Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T00:15:26.745Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Gas",
+  "price": {
+    "current": 43.279998779296875,
+    "open": 43.599998474121094,
+    "high": 43.810001373291016,
+    "low": 43.130001068115234,
+    "prev_close": 43.689998626708984,
+    "change_pct": -0.9384295268928308,
+    "change_pct_1w": 1.4058070989477764,
+    "change_pct_1m": 4.972105893332626,
+    "change_pct_1y": -1.3448829882671316,
+    "volume": 5029700,
+    "avg_volume_30d": 171404000
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 60,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.89151425791951,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 41.663660777353684,
+    "ema_50": 41.727139205997624,
+    "ema_200": 43.73995521396699,
+    "ema_stack_bullish": false,
+    "bb_upper": 45.44399871826172,
+    "bb_middle": 43.279998779296875,
+    "bb_lower": 41.11599884033203,
+    "bb_width": 10,
+    "atr": 0.79,
+    "atr_pct": 1.83,
+    "rvol": 1.0992905649809805,
+    "52w_high": 49.209999084472656,
+    "52w_low": 38.41999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 23.021276,
+    "pb_ratio": 2.1674678,
+    "gross_margin": 0.50971,
+    "operating_margin": 0.17156,
+    "net_margin": 0.13153,
+    "market_cap": 20755359744,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": -0.08542371502438267,
+    "institutional_ownership_pct": 0.97982,
+    "dividend_rate": 1.2,
+    "dividend_yield": 0.0277
+  },
+  "scores_detail": {
+    "entry_range_low": 42.8,
+    "entry_range_high": 43.36,
+    "target_range_low": 45.24,
+    "target_range_high": 49.54,
+    "target_1": 45.24,
+    "target_2": 47.39,
+    "target_3": 49.54,
+    "stop_loss": 41.12,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $42.80 – $43.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $43.81 direnci veya $42.65 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $41.12 olarak belirlenmiştir. Fiyatın EMA20 ($41.66) veya günlük VWAP ($43.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($41.73) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($43.28) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

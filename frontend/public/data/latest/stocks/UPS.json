@@ -1,0 +1,89 @@
+{
+  "ticker": "UPS",
+  "company": "United Parcel Service, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T22:16:56.320Z",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 101.05999755859375,
+    "open": 100.9000015258789,
+    "high": 101.58000183105469,
+    "low": 99.08000183105469,
+    "prev_close": 101.5199966430664,
+    "change_pct": -0.4531118003184776,
+    "change_pct_1w": 3.6725421403111977,
+    "change_pct_1m": 5.999581959738178,
+    "change_pct_1y": 16.12087668170162,
+    "volume": 3601600,
+    "avg_volume_30d": 146209200
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 70,
+    "fundamental_score": 61.55,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.49333211029339,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 97.43379036325979,
+    "ema_50": 99.04131379018938,
+    "ema_200": 101.38388377701398,
+    "ema_stack_bullish": false,
+    "bb_upper": 106.11299743652344,
+    "bb_middle": 101.05999755859375,
+    "bb_lower": 96.00699768066406,
+    "bb_width": 10,
+    "atr": 1.97,
+    "atr_pct": 1.95,
+    "rvol": 0.815911721013452,
+    "52w_high": 122.41000366210938,
+    "52w_low": 86.30000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 18.784386,
+    "pb_ratio": 5.707992,
+    "gross_margin": 0.22413,
+    "operating_margin": 0.09052,
+    "net_margin": 0.050819997,
+    "market_cap": 85979979776,
+    "revenue_growth_ttm": 0.076,
+    "fcf_yield": 0.06506165605730324,
+    "institutional_ownership_pct": 0.73490995,
+    "dividend_rate": 6.56,
+    "dividend_yield": 0.064899996
+  },
+  "scores_detail": {
+    "entry_range_low": 99.55,
+    "entry_range_high": 101.26,
+    "target_range_low": 105.43,
+    "target_range_high": 115.47,
+    "target_1": 105.43,
+    "target_2": 110.45,
+    "target_3": 115.47,
+    "stop_loss": 96.01,
+    "risk_reward_ratio": 2.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $99.55 – $101.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $101.97 direnci veya $99.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $96.01 olarak belirlenmiştir. Fiyatın EMA20 ($97.43) veya günlük VWAP ($100.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($99.04) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($100.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "TEL",
+  "company": "TE Connectivity plc",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T15:51:02.913Z",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 208.0500030517578,
+    "open": 207,
+    "high": 209.14999389648438,
+    "low": 204.6300048828125,
+    "prev_close": 208.4199981689453,
+    "change_pct": -0.1775238079061789,
+    "change_pct_1w": -2.158576162088755,
+    "change_pct_1m": -4.247973020707936,
+    "change_pct_1y": -11.123924000812968,
+    "volume": 1611700,
+    "avg_volume_30d": 55770700
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.92652611727414,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 212.68202121500877,
+    "ema_50": 211.28457427384967,
+    "ema_200": 214.1003161844697,
+    "ema_stack_bullish": false,
+    "bb_upper": 218.4525032043457,
+    "bb_middle": 208.0500030517578,
+    "bb_lower": 197.64750289916992,
+    "bb_width": 10,
+    "atr": 5.25,
+    "atr_pct": 2.53,
+    "rvol": 1.029088750903252,
+    "52w_high": 252.55999755859375,
+    "52w_low": 190.27000427246094
+  },
+  "fundamental": {
+    "pe_ratio": 20.37708,
+    "pb_ratio": 4.554011,
+    "gross_margin": 0.36119,
+    "operating_margin": 0.20775,
+    "net_margin": 0.15609,
+    "market_cap": 60322156544,
+    "revenue_growth_ttm": 0.138,
+    "fcf_yield": 0.038739911533093876,
+    "institutional_ownership_pct": 0.99343,
+    "dividend_rate": 3.12,
+    "dividend_yield": 0.015
+  },
+  "scores_detail": {
+    "entry_range_low": 204.9,
+    "entry_range_high": 208.58,
+    "target_range_low": 217.07,
+    "target_range_high": 237.75,
+    "target_1": 217.07,
+    "target_2": 227.41,
+    "target_3": 237.75,
+    "stop_loss": 197.65,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $204.90 – $208.58 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $210.99 direnci veya $203.85 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $197.65 olarak belirlenmiştir. Fiyatın EMA50 ($211.28) veya günlük VWAP ($207.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($211.28) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($207.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

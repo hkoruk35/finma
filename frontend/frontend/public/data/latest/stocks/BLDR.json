@@ -1,0 +1,89 @@
+{
+  "ticker": "BLDR",
+  "company": "Builders FirstSource, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T03:12:49.510Z",
+  "sector": "Industrials",
+  "industry": "Building Products & Equipment",
+  "price": {
+    "current": 56.849998474121094,
+    "open": 56.68000030517578,
+    "high": 57.34000015258789,
+    "low": 56.220001220703125,
+    "prev_close": 57.540000915527344,
+    "change_pct": -1.1991700215980545,
+    "change_pct_1w": 4.025611869746066,
+    "change_pct_1m": 9.033370041442216,
+    "change_pct_1y": -54.22705324396089,
+    "volume": 2122500,
+    "avg_volume_30d": 99753100
+  },
+  "scores": {
+    "master_score": 53,
+    "technical_score": 55,
+    "fundamental_score": 56.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.170621362541816,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 55.487009613332745,
+    "ema_50": 59.9912189967003,
+    "ema_200": 78.50249823660397,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.69249839782715,
+    "bb_middle": 56.849998474121094,
+    "bb_lower": 54.007498550415036,
+    "bb_width": 10,
+    "atr": 2.31,
+    "atr_pct": 4.07,
+    "rvol": 0.6824990902538367,
+    "52w_high": 131.5,
+    "52w_low": 49.66999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 61.793476,
+    "pb_ratio": 1.5271995,
+    "gross_margin": 0.29188,
+    "operating_margin": 0.033269998,
+    "net_margin": 0.0070999996,
+    "market_cap": 6116858368,
+    "revenue_growth_ttm": -0.088,
+    "fcf_yield": 0.07595028232636691,
+    "institutional_ownership_pct": 1.0188401,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 54.62,
+    "entry_range_high": 57.08,
+    "target_range_low": 76.8,
+    "target_range_high": 90.96,
+    "target_1": 76.8,
+    "target_2": 79.82,
+    "target_3": 90.96,
+    "stop_loss": 53,
+    "risk_reward_ratio": 8.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $54.62 – $57.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $57.61 direnci veya $54.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $53.00 olarak belirlenmiştir. Fiyatın EMA20 ($55.49) veya günlük VWAP ($56.88) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($59.99) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($56.88) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

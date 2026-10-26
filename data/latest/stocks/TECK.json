@@ -1,0 +1,89 @@
+{
+  "ticker": "TECK",
+  "company": "Teck Resources Limited",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T00:27:39.358Z",
+  "sector": "Basic Materials",
+  "industry": "Copper",
+  "price": {
+    "current": 59.04999923706055,
+    "open": 59.43000030517578,
+    "high": 59.650001525878906,
+    "low": 58.310001373291016,
+    "prev_close": 58.900001525878906,
+    "change_pct": 0.25466503785358324,
+    "change_pct_1w": -8.619627472572493,
+    "change_pct_1m": -12.570331008856945,
+    "change_pct_1y": 39.006591039035364,
+    "volume": 2468600,
+    "avg_volume_30d": 78652900
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.331821919075225,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 64.35347498539181,
+    "ema_50": 65.02994264971176,
+    "ema_200": 59.90985806117973,
+    "ema_stack_bullish": false,
+    "bb_upper": 62.002499198913576,
+    "bb_middle": 59.04999923706055,
+    "bb_lower": 56.09749927520752,
+    "bb_width": 10,
+    "atr": 2.23,
+    "atr_pct": 3.78,
+    "rvol": 1.1508056282730834,
+    "52w_high": 72.55999755859375,
+    "52w_low": 38
+  },
+  "fundamental": {
+    "pe_ratio": 16.046196,
+    "pb_ratio": 1.4743723,
+    "gross_margin": 0.35987,
+    "operating_margin": 0.43135,
+    "net_margin": 0.17854,
+    "market_cap": 28969928704,
+    "revenue_growth_ttm": 0.782,
+    "fcf_yield": 0.05996303994217797,
+    "institutional_ownership_pct": 0.77678,
+    "dividend_rate": 0.35,
+    "dividend_yield": 0.006
+  },
+  "scores_detail": {
+    "entry_range_low": 57.71,
+    "entry_range_high": 59.27,
+    "target_range_low": 61.42,
+    "target_range_high": 67.27,
+    "target_1": 61.42,
+    "target_2": 64.34,
+    "target_3": 67.27,
+    "stop_loss": 56.1,
+    "risk_reward_ratio": 2.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $57.71 – $59.27 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $63.72 direnci veya $57.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $56.10 olarak belirlenmiştir. Fiyatın EMA200 ($59.91) veya günlük VWAP ($59.17) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($65.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($59.17) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "RMD",
+  "company": "ResMed Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T07:02:58.123Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 252.86000061035156,
+    "open": 251.8300018310547,
+    "high": 255.57000732421875,
+    "low": 248.72000122070312,
+    "prev_close": 253.05999755859375,
+    "change_pct": -0.07903143530058716,
+    "change_pct_1w": 5.812444791687551,
+    "change_pct_1m": 7.7834586665691905,
+    "change_pct_1y": -4.6746621046382675,
+    "volume": 1008400,
+    "avg_volume_30d": 35855700
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 90,
+    "fundamental_score": 74.75,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 77.19420054021589,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 236.7979460233675,
+    "ema_50": 228.91736229368425,
+    "ema_200": 227.27871702414677,
+    "ema_stack_bullish": true,
+    "bb_upper": 265.5030006408692,
+    "bb_middle": 252.86000061035156,
+    "bb_lower": 240.21700057983398,
+    "bb_width": 10,
+    "atr": 5.76,
+    "atr_pct": 2.28,
+    "rvol": 0.9725148302780311,
+    "52w_high": 277.6700134277344,
+    "52w_low": 180.27000427246094
+  },
+  "fundamental": {
+    "pe_ratio": 24.243528,
+    "pb_ratio": 5.538374,
+    "gross_margin": 0.61618,
+    "operating_margin": 0.30857,
+    "net_margin": 0.26945,
+    "market_cap": 35562041344,
+    "revenue_growth_ttm": 0.086,
+    "fcf_yield": 0.026411539397146255,
+    "institutional_ownership_pct": 0.72993,
+    "dividend_rate": 2.64,
+    "dividend_yield": 0.0104
+  },
+  "scores_detail": {
+    "entry_range_low": 250.5,
+    "entry_range_high": 253.44,
+    "target_range_low": 264.56,
+    "target_range_high": 289.76,
+    "target_1": 264.56,
+    "target_2": 277.16,
+    "target_3": 289.76,
+    "stop_loss": 240.22,
+    "risk_reward_ratio": 2.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $250.50 – $253.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $255.57 direnci veya $249.35 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $240.22 olarak belirlenmiştir. Fiyatın EMA20 ($236.80) veya günlük VWAP ($253.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($253.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 77 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

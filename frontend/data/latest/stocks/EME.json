@@ -1,0 +1,89 @@
+{
+  "ticker": "EME",
+  "company": "EMCOR Group, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T23:44:57.997Z",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 647.6599731445312,
+    "open": 646.8400268554688,
+    "high": 657.77001953125,
+    "low": 631.7000122070312,
+    "prev_close": 660.4099731445312,
+    "change_pct": -1.9306189364904778,
+    "change_pct_1w": -10.254136678463054,
+    "change_pct_1m": -16.87715033272214,
+    "change_pct_1y": -6.982830773050002,
+    "volume": 577300,
+    "avg_volume_30d": 11641900
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 40,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 26.10885864107803,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 730.9426739898396,
+    "ema_50": 754.0419381029224,
+    "ema_200": 764.6528911143407,
+    "ema_stack_bullish": false,
+    "bb_upper": 680.0429718017579,
+    "bb_middle": 647.6599731445312,
+    "bb_lower": 615.2769744873046,
+    "bb_width": 10,
+    "atr": 32.1,
+    "atr_pct": 4.96,
+    "rvol": 1.2189762839399068,
+    "52w_high": 951.9600219726562,
+    "52w_low": 564.9199829101562
+  },
+  "fundamental": {
+    "pe_ratio": 20.163761,
+    "pb_ratio": 7.024588,
+    "gross_margin": 0.19426,
+    "operating_margin": 0.10618,
+    "net_margin": 0.07738,
+    "market_cap": 28568217600,
+    "revenue_growth_ttm": 0.198,
+    "fcf_yield": 0.034243704444480286,
+    "institutional_ownership_pct": 0.96277,
+    "dividend_rate": 1.6,
+    "dividend_yield": 0.0025
+  },
+  "scores_detail": {
+    "entry_range_low": 628.4,
+    "entry_range_high": 650.87,
+    "target_range_low": 775.86,
+    "target_range_high": 834.23,
+    "target_1": 775.86,
+    "target_2": 791.38,
+    "target_3": 834.23,
+    "stop_loss": 605.92,
+    "risk_reward_ratio": 4.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $628.40 – $650.87 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $705.92 direnci veya $621.98 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $605.92 olarak belirlenmiştir. Fiyatın EMA20 ($730.94) veya günlük VWAP ($651.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($754.04) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($651.15) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 26 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

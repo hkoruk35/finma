@@ -1,0 +1,89 @@
+{
+  "ticker": "HUBB",
+  "company": "Hubbell Incorporated",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T20:23:53.940Z",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment & Parts",
+  "price": {
+    "current": 448.1000061035156,
+    "open": 440.54998779296875,
+    "high": 451.3299865722656,
+    "low": 435.510009765625,
+    "prev_close": 445.79998779296875,
+    "change_pct": 0.5159305458785729,
+    "change_pct_1w": -2.819345007139631,
+    "change_pct_1m": -5.474102385334566,
+    "change_pct_1y": 3.422811980032106,
+    "volume": 500599,
+    "avg_volume_30d": 15380269
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.4450309419331,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 463.12061237448967,
+    "ema_50": 467.78321706017067,
+    "ema_200": 475.8454024800165,
+    "ema_stack_bullish": false,
+    "bb_upper": 470.50500640869143,
+    "bb_middle": 448.1000061035156,
+    "bb_lower": 425.6950057983398,
+    "bb_width": 10,
+    "atr": 13.96,
+    "atr_pct": 3.11,
+    "rvol": 1.2046985654152083,
+    "52w_high": 565.4998779296875,
+    "52w_low": 403.82000732421875
+  },
+  "fundamental": {
+    "pe_ratio": 26.530493,
+    "pb_ratio": 6.051889,
+    "gross_margin": 0.35338002,
+    "operating_margin": 0.21666999,
+    "net_margin": 0.14491999,
+    "market_cap": 23678400512,
+    "revenue_growth_ttm": 0.153,
+    "fcf_yield": 0.0209394427528467,
+    "institutional_ownership_pct": 0.99197,
+    "dividend_rate": 5.68,
+    "dividend_yield": 0.0127
+  },
+  "scores_detail": {
+    "entry_range_low": 440.11,
+    "entry_range_high": 449.5,
+    "target_range_low": 467.04,
+    "target_range_high": 511.52,
+    "target_1": 467.04,
+    "target_2": 492.63,
+    "target_3": 511.52,
+    "stop_loss": 425.7,
+    "risk_reward_ratio": 2.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $440.11 – $449.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $461.33 direnci veya $437.32 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $425.70 olarak belirlenmiştir. Fiyatın EMA20 ($463.12) veya günlük VWAP ($447.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($467.78) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($447.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

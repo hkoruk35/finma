@@ -1,0 +1,89 @@
+{
+  "ticker": "TROW",
+  "company": "T. Rowe Price Group, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T09:07:00.272Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 104.19999694824219,
+    "open": 102.66999816894531,
+    "high": 104.5999984741211,
+    "low": 102.26000213623047,
+    "prev_close": 103.44999694824219,
+    "change_pct": 0.7249879382550759,
+    "change_pct_1w": 3.1989657209955316,
+    "change_pct_1m": 0.2019416182196313,
+    "change_pct_1y": 1.6684546005607297,
+    "volume": 2094100,
+    "avg_volume_30d": 57177500
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.959685888624485,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 103.34042922850219,
+    "ema_50": 105.68442633775273,
+    "ema_200": 105.45621044708824,
+    "ema_stack_bullish": false,
+    "bb_upper": 109.40999679565431,
+    "bb_middle": 104.19999694824219,
+    "bb_lower": 98.98999710083007,
+    "bb_width": 10,
+    "atr": 2.32,
+    "atr_pct": 2.23,
+    "rvol": 1.0395417777972105,
+    "52w_high": 122,
+    "52w_low": 85.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 10.461847,
+    "pb_ratio": 2.020202,
+    "gross_margin": 0.51614,
+    "operating_margin": 0.28688,
+    "net_margin": 0.29262,
+    "market_cap": 22227511296,
+    "revenue_growth_ttm": 0.107,
+    "fcf_yield": 0.09105438845797449,
+    "institutional_ownership_pct": 0.92122,
+    "dividend_rate": 5.2,
+    "dividend_yield": 0.0499
+  },
+  "scores_detail": {
+    "entry_range_low": 102.81,
+    "entry_range_high": 104.43,
+    "target_range_low": 108.8,
+    "target_range_high": 119.16,
+    "target_1": 108.8,
+    "target_2": 113.98,
+    "target_3": 119.16,
+    "stop_loss": 98.99,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $102.81 – $104.43 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $105.75 direnci veya $102.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $98.99 olarak belirlenmiştir. Fiyatın EMA20 ($103.34) veya günlük VWAP ($103.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($105.68) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($103.78) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

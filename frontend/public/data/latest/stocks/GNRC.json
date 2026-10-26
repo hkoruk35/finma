@@ -1,0 +1,89 @@
+{
+  "ticker": "GNRC",
+  "company": "Generac Holdings Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T10:56:20.669Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 186.9199981689453,
+    "open": 185,
+    "high": 189.30999755859375,
+    "low": 181.22999572753906,
+    "prev_close": 188.02000427246094,
+    "change_pct": -0.5850473771512097,
+    "change_pct_1w": -2.9894097601135807,
+    "change_pct_1m": -14.40216039358551,
+    "change_pct_1y": -1.1214532334322793,
+    "volume": 1113100,
+    "avg_volume_30d": 41689200
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.84458162632194,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 201.5768602234174,
+    "ema_50": 205.3424217948422,
+    "ema_200": 210.9124431201565,
+    "ema_stack_bullish": false,
+    "bb_upper": 196.2659980773926,
+    "bb_middle": 186.9199981689453,
+    "bb_lower": 177.57399826049803,
+    "bb_width": 10,
+    "atr": 10.78,
+    "atr_pct": 5.77,
+    "rvol": 0.6505713710025618,
+    "52w_high": 296.44000244140625,
+    "52w_low": 134.8000030517578
+  },
+  "fundamental": {
+    "pe_ratio": 42.970116,
+    "pb_ratio": 3.8327625,
+    "gross_margin": 0.39539,
+    "operating_margin": 0.17932,
+    "net_margin": 0.05817,
+    "market_cap": 11040230400,
+    "revenue_growth_ttm": 0.106,
+    "fcf_yield": 0.02618210866323949,
+    "institutional_ownership_pct": 0.91342,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 180.45,
+    "entry_range_high": 188,
+    "target_range_low": 211.98,
+    "target_range_high": 230.52,
+    "target_1": 211.98,
+    "target_2": 226,
+    "target_3": 230.52,
+    "stop_loss": 172.9,
+    "risk_reward_ratio": 3.69,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $180.45 – $188.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $195.65 direnci veya $178.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $172.90 olarak belirlenmiştir. Fiyatın EMA20 ($201.58) veya günlük VWAP ($187.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($205.34) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($187.08) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

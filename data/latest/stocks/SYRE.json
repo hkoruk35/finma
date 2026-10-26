@@ -1,0 +1,89 @@
+{
+  "ticker": "SYRE",
+  "company": "Spyre Therapeutics, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T23:15:06.746Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 90.33000183105469,
+    "open": 90.70500183105469,
+    "high": 91.9000015258789,
+    "low": 88.69000244140625,
+    "prev_close": 92.33000183105469,
+    "change_pct": -2.1661431391061785,
+    "change_pct_1w": 13.053817404243222,
+    "change_pct_1m": 5.157159751436285,
+    "change_pct_1y": 303.79972481999346,
+    "volume": 503000,
+    "avg_volume_30d": 43843900
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 85,
+    "fundamental_score": 36.8,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.13897205780251,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 87.1535363375118,
+    "ema_50": 89.03470173447056,
+    "ema_200": 74.30967807719017,
+    "ema_stack_bullish": false,
+    "bb_upper": 94.84650192260743,
+    "bb_middle": 90.33000183105469,
+    "bb_lower": 85.81350173950194,
+    "bb_width": 10,
+    "atr": 5.22,
+    "atr_pct": 5.78,
+    "rvol": 0.7443908958828936,
+    "52w_high": 110.17500305175781,
+    "52w_low": 21.145000457763672
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 8.332257,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 8441522176,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.010549577924842735,
+    "institutional_ownership_pct": 1.08295,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 86.49,
+    "entry_range_high": 90.85,
+    "target_range_low": 95.19,
+    "target_range_high": 105.09,
+    "target_1": 95.19,
+    "target_2": 102.06,
+    "target_3": 105.09,
+    "stop_loss": 82.84,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $86.49 – $90.85 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $93.12 direnci veya $85.45 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $82.84 olarak belirlenmiştir. Fiyatın EMA20 ($87.15) veya günlük VWAP ($90.30) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($89.03) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($90.30) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

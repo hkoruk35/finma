@@ -1,0 +1,89 @@
+{
+  "ticker": "FFIV",
+  "company": "F5, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T04:46:08.580Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 455.4200134277344,
+    "open": 449.0400085449219,
+    "high": 457.5,
+    "low": 443.3900146484375,
+    "prev_close": 450.0799865722656,
+    "change_pct": 1.1864617434197655,
+    "change_pct_1w": 3.029209484744283,
+    "change_pct_1m": -3.8163376585207396,
+    "change_pct_1y": 50.87127659445406,
+    "volume": 622500,
+    "avg_volume_30d": 16927100
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.468166533069166,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 452.72798040866286,
+    "ema_50": 436.14713632933234,
+    "ema_200": 377.83409579978667,
+    "ema_stack_bullish": true,
+    "bb_upper": 478.1910140991211,
+    "bb_middle": 455.4200134277344,
+    "bb_lower": 432.64901275634764,
+    "bb_width": 10,
+    "atr": 14.72,
+    "atr_pct": 3.23,
+    "rvol": 1.0123411570794763,
+    "52w_high": 483.29998779296875,
+    "52w_low": 223.75999450683594
+  },
+  "fundamental": {
+    "pe_ratio": 36.96591,
+    "pb_ratio": 6.7120605,
+    "gross_margin": 0.81865996,
+    "operating_margin": 0.24649,
+    "net_margin": 0.21952999,
+    "market_cap": 25789153280,
+    "revenue_growth_ttm": 0.109,
+    "fcf_yield": 0.027807639910231285,
+    "institutional_ownership_pct": 1.01587,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 446.59,
+    "entry_range_high": 456.89,
+    "target_range_low": 474.33,
+    "target_range_high": 519.5,
+    "target_1": 474.33,
+    "target_2": 496.91,
+    "target_3": 519.5,
+    "stop_loss": 432.65,
+    "risk_reward_ratio": 2.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $446.59 – $456.89 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $463.89 direnci veya $443.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $432.65 olarak belirlenmiştir. Fiyatın EMA50 ($436.15) veya günlük VWAP ($454.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($454.19) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "LNG",
+  "company": "Cheniere Energy, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T23:05:31.060Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 298.6700134277344,
+    "open": 289.510009765625,
+    "high": 299.45001220703125,
+    "low": 288.44000244140625,
+    "prev_close": 287.010009765625,
+    "change_pct": 4.062577354577647,
+    "change_pct_1w": 3.1924890252489395,
+    "change_pct_1m": 5.72764478484183,
+    "change_pct_1y": 34.8153933732332,
+    "volume": 2304900,
+    "avg_volume_30d": 53297200
+  },
+  "scores": {
+    "master_score": 88,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.25959977178717,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 282.0366896078108,
+    "ema_50": 276.25247074814484,
+    "ema_200": 256.12903580528484,
+    "ema_stack_bullish": true,
+    "bb_upper": 313.6035140991211,
+    "bb_middle": 298.6700134277344,
+    "bb_lower": 283.7365127563476,
+    "bb_width": 10,
+    "atr": 7.56,
+    "atr_pct": 2.53,
+    "rvol": 1.001917549139542,
+    "52w_high": 300.8900146484375,
+    "52w_low": 186.1999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 22.609388,
+    "pb_ratio": 10.0295515,
+    "gross_margin": 0.3685,
+    "operating_margin": 0.74996,
+    "net_margin": 0.13944,
+    "market_cap": 61685559296,
+    "revenue_growth_ttm": 0.227,
+    "fcf_yield": 0.011686284703051159,
+    "institutional_ownership_pct": 0.91628,
+    "dividend_rate": 2.22,
+    "dividend_yield": 0.0074
+  },
+  "scores_detail": {
+    "entry_range_low": 286.63,
+    "entry_range_high": 299.43,
+    "target_range_low": 307.68,
+    "target_range_high": 336.98,
+    "target_1": 307.68,
+    "target_2": 322.33,
+    "target_3": 336.98,
+    "stop_loss": 281.34,
+    "risk_reward_ratio": 2.51,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $286.63 – $299.43 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $299.45 direnci veya $285.12 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $281.34 olarak belirlenmiştir. Fiyatın EMA20 ($282.04) veya günlük VWAP ($297.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($297.37) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}

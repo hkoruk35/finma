@@ -1,0 +1,89 @@
+{
+  "ticker": "INFY",
+  "company": "Infosys Limited",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T21:31:13.106Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 12.350000381469727,
+    "open": 12.609999656677246,
+    "high": 12.6899995803833,
+    "low": 12.210000038146973,
+    "prev_close": 13.220000267028809,
+    "change_pct": -6.580936974176129,
+    "change_pct_1w": 0.8986978137950862,
+    "change_pct_1m": 14.03509204498243,
+    "change_pct_1y": -29.54934456518274,
+    "volume": 45958400,
+    "avg_volume_30d": 622557900
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 75,
+    "fundamental_score": 69.8,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.71308548082641,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 11.77399890317676,
+    "ema_50": 11.564463322809985,
+    "ema_200": 12.90082430770526,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.967500400543214,
+    "bb_middle": 12.350000381469727,
+    "bb_lower": 11.73250036239624,
+    "bb_width": 10,
+    "atr": 0.47,
+    "atr_pct": 3.8,
+    "rvol": 1.4448342877023967,
+    "52w_high": 30,
+    "52w_low": 10.119999885559082
+  },
+  "fundamental": {
+    "pe_ratio": 15.246914,
+    "pb_ratio": 9.682477,
+    "gross_margin": 0.29754,
+    "operating_margin": 0.20972,
+    "net_margin": 0.16217,
+    "market_cap": 50022150144,
+    "revenue_growth_ttm": 0.014,
+    "fcf_yield": 0.061160407843183495,
+    "institutional_ownership_pct": 0.14177,
+    "dividend_rate": 0.52,
+    "dividend_yield": 0.0424
+  },
+  "scores_detail": {
+    "entry_range_low": 12.07,
+    "entry_range_high": 12.4,
+    "target_range_low": 12.84,
+    "target_range_high": 14.07,
+    "target_1": 12.84,
+    "target_2": 13.46,
+    "target_3": 14.07,
+    "stop_loss": 11.73,
+    "risk_reward_ratio": 2.45,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.07 – $12.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.69 direnci veya $11.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.73 olarak belirlenmiştir. Fiyatın EMA20 ($11.77) veya günlük VWAP ($12.49) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($11.56) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.49) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

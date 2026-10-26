@@ -1,0 +1,89 @@
+{
+  "ticker": "NUE",
+  "company": "Nucor Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T14:59:39.620Z",
+  "sector": "Basic Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 258.1099853515625,
+    "open": 257.4800109863281,
+    "high": 264.6199951171875,
+    "low": 257.1499938964844,
+    "prev_close": 258.05999755859375,
+    "change_pct": 0.01937060894430181,
+    "change_pct_1w": 0.7101239790710078,
+    "change_pct_1m": 2.4937392188564047,
+    "change_pct_1y": 86.42830699956873,
+    "volume": 1165700,
+    "avg_volume_30d": 37494600
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.29633680545875,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 254.43926159238197,
+    "ema_50": 252.0765536403344,
+    "ema_200": 224.76703394636377,
+    "ema_stack_bullish": true,
+    "bb_upper": 271.01548461914064,
+    "bb_middle": 258.1099853515625,
+    "bb_lower": 245.20448608398436,
+    "bb_width": 10,
+    "atr": 7.2,
+    "atr_pct": 2.79,
+    "rvol": 1.0128498503784544,
+    "52w_high": 280.1099853515625,
+    "52w_low": 135.58999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 21.10466,
+    "pb_ratio": 2.6486402,
+    "gross_margin": 0.15554,
+    "operating_margin": 0.15668,
+    "net_margin": 0.07989,
+    "market_cap": 58558877696,
+    "revenue_growth_ttm": 0.23,
+    "fcf_yield": 0.01166987829834518,
+    "institutional_ownership_pct": 0.81138,
+    "dividend_rate": 2.24,
+    "dividend_yield": 0.0087
+  },
+  "scores_detail": {
+    "entry_range_low": 255.1,
+    "entry_range_high": 258.83,
+    "target_range_low": 269.82,
+    "target_range_high": 295.51,
+    "target_1": 269.82,
+    "target_2": 282.66,
+    "target_3": 295.51,
+    "stop_loss": 245.2,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $255.10 – $258.83 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $262.39 direnci veya $253.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $245.20 olarak belirlenmiştir. Fiyatın EMA50 ($252.08) veya günlük VWAP ($261.18) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($261.18) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

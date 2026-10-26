@@ -1,0 +1,89 @@
+{
+  "ticker": "CVNA",
+  "company": "Carvana Co.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T06:06:12.624Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto & Truck Dealerships",
+  "price": {
+    "current": 57.810001373291016,
+    "open": 57.54999923706055,
+    "high": 58.154998779296875,
+    "low": 56.279998779296875,
+    "prev_close": 58.720001220703125,
+    "change_pct": -1.5497272283626373,
+    "change_pct_1w": -1.7338100051277623,
+    "change_pct_1m": -2.85665769818558,
+    "change_pct_1y": -15.48492586151916,
+    "volume": 6279200,
+    "avg_volume_30d": 244258500
+  },
+  "scores": {
+    "master_score": 42,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 37.53734423293985,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.24212859624473,
+    "ema_50": 64.43189627850835,
+    "ema_200": 68.45827059933546,
+    "ema_stack_bullish": false,
+    "bb_upper": 60.700501441955566,
+    "bb_middle": 57.810001373291016,
+    "bb_lower": 54.919501304626465,
+    "bb_width": 10,
+    "atr": 2.91,
+    "atr_pct": 5.03,
+    "rvol": 0.7763127997592715,
+    "52w_high": 97.37799835205078,
+    "52w_low": 54.4640007019043
+  },
+  "fundamental": {
+    "pe_ratio": 30.75,
+    "pb_ratio": 10.319529,
+    "gross_margin": 0.19371,
+    "operating_margin": 0.09219,
+    "net_margin": 0.06257,
+    "market_cap": 64080289792,
+    "revenue_growth_ttm": 0.524,
+    "fcf_yield": 0.00662255132393269,
+    "institutional_ownership_pct": 1.05286,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 56.07,
+    "entry_range_high": 58.1,
+    "target_range_low": 66.02,
+    "target_range_high": 72.77,
+    "target_1": 66.02,
+    "target_2": 69.05,
+    "target_3": 72.77,
+    "stop_loss": 54.03,
+    "risk_reward_ratio": 3.92,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $56.07 – $58.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.31 direnci veya $55.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $54.03 olarak belirlenmiştir. Fiyatın EMA20 ($61.24) veya günlük VWAP ($57.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($64.43) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($57.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

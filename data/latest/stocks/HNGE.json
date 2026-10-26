@@ -1,0 +1,89 @@
+{
+  "ticker": "HNGE",
+  "company": "Hinge Health, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T03:04:05.774Z",
+  "sector": "Healthcare",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 111.5199966430664,
+    "open": 109.51000213623047,
+    "high": 112.58000183105469,
+    "low": 109.13999938964844,
+    "prev_close": 109.93000030517578,
+    "change_pct": 1.4463716305618566,
+    "change_pct_1w": 12.464695970639603,
+    "change_pct_1m": 6.391907048033524,
+    "change_pct_1y": 125.06558700339166,
+    "volume": 1562100,
+    "avg_volume_30d": 57462000
+  },
+  "scores": {
+    "master_score": 89,
+    "technical_score": 90,
+    "fundamental_score": 86.3,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.70983501384043,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 103.0395656316469,
+    "ema_50": 95.9948949191327,
+    "ema_200": 73.86090259130773,
+    "ema_stack_bullish": true,
+    "bb_upper": 117.09599647521974,
+    "bb_middle": 111.5199966430664,
+    "bb_lower": 105.94399681091308,
+    "bb_width": 10,
+    "atr": 4.6,
+    "atr_pct": 4.12,
+    "rvol": 1.2425394173540776,
+    "52w_high": 113.4800033569336,
+    "52w_low": 30.079999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 36.80528,
+    "pb_ratio": 25.97717,
+    "gross_margin": 0.84541,
+    "operating_margin": 0.19002001,
+    "net_margin": 0.15147,
+    "market_cap": 8999041024,
+    "revenue_growth_ttm": 0.53,
+    "fcf_yield": 0.03329772752461674,
+    "institutional_ownership_pct": 0.98845,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 108.76,
+    "entry_range_high": 111.98,
+    "target_range_low": 115.89,
+    "target_range_high": 126.93,
+    "target_1": 115.89,
+    "target_2": 121.41,
+    "target_3": 126.93,
+    "stop_loss": 105.54,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $108.76 – $111.98 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $113.48 direnci veya $107.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $105.54 olarak belirlenmiştir. Fiyatın EMA20 ($103.04) veya günlük VWAP ($111.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($111.12) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

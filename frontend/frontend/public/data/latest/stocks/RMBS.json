@@ -1,0 +1,89 @@
+{
+  "ticker": "RMBS",
+  "company": "Rambus Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T07:06:24.985Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 85.6500015258789,
+    "open": 85.72000122070312,
+    "high": 89.22000122070312,
+    "low": 84.43000030517578,
+    "prev_close": 85.7300033569336,
+    "change_pct": -0.09331835754351127,
+    "change_pct_1w": -1.8338091393938036,
+    "change_pct_1m": -15.231590706847841,
+    "change_pct_1y": -15.707114446023066,
+    "volume": 2893600,
+    "avg_volume_30d": 69772100
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.63114984552376,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 95.50370856176457,
+    "ema_50": 97.6077333216495,
+    "ema_200": 104.58182284876168,
+    "ema_stack_bullish": false,
+    "bb_upper": 89.93250160217285,
+    "bb_middle": 85.6500015258789,
+    "bb_lower": 81.36750144958496,
+    "bb_width": 10,
+    "atr": 5.78,
+    "atr_pct": 6.74,
+    "rvol": 0.810022917469877,
+    "52w_high": 174.10000610351562,
+    "52w_low": 77.88999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 39.28899,
+    "pb_ratio": 6.334122,
+    "gross_margin": 0.80357003,
+    "operating_margin": 0.36671,
+    "net_margin": 0.3169,
+    "market_cap": 9261931520,
+    "revenue_growth_ttm": 0.204,
+    "fcf_yield": 0.02184235195036294,
+    "institutional_ownership_pct": 0.94347,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 82.18,
+    "entry_range_high": 86.23,
+    "target_range_low": 98.35,
+    "target_range_high": 104.74,
+    "target_1": 98.35,
+    "target_2": 102.69,
+    "target_3": 104.74,
+    "stop_loss": 78.14,
+    "risk_reward_ratio": 3.05,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $82.18 – $86.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $88.70 direnci veya $81.03 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $78.14 olarak belirlenmiştir. Fiyatın EMA20 ($95.50) veya günlük VWAP ($87.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($97.61) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($87.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 37 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

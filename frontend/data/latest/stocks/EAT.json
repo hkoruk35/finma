@@ -1,0 +1,89 @@
+{
+  "ticker": "EAT",
+  "company": "Brinker International, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T05:58:43.786Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 182.6999969482422,
+    "open": 189.50999450683594,
+    "high": 190.75,
+    "low": 182.27999877929688,
+    "prev_close": 190.11000061035156,
+    "change_pct": -3.8977453255059835,
+    "change_pct_1w": -10.50259748481876,
+    "change_pct_1m": -5.882958199154714,
+    "change_pct_1y": 44.57544747753337,
+    "volume": 1043900,
+    "avg_volume_30d": 43421600
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 45,
+    "fundamental_score": 61.55,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.396594857048285,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 196.95242393527883,
+    "ema_50": 201.99565733149376,
+    "ema_200": 179.05461920958663,
+    "ema_stack_bullish": false,
+    "bb_upper": 191.8349967956543,
+    "bb_middle": 182.6999969482422,
+    "bb_lower": 173.56499710083008,
+    "bb_width": 10,
+    "atr": 8.22,
+    "atr_pct": 4.5,
+    "rvol": 0.8219503657166018,
+    "52w_high": 254.99000549316406,
+    "52w_low": 100.30000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 16.807728,
+    "pb_ratio": 17.376831,
+    "gross_margin": 0.18646999,
+    "operating_margin": 0.11258,
+    "net_margin": 0.083859995,
+    "market_cap": 7651705856,
+    "revenue_growth_ttm": 0.051,
+    "fcf_yield": 0.048038308701029084,
+    "institutional_ownership_pct": 1.14349,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 177.77,
+    "entry_range_high": 183.52,
+    "target_range_low": 254.99,
+    "target_range_high": 265.29,
+    "target_1": 254.99,
+    "target_2": 260.09,
+    "target_3": 265.29,
+    "stop_loss": 172.02,
+    "risk_reward_ratio": 9.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $177.77 – $183.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $189.60 direnci veya $176.13 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $172.02 olarak belirlenmiştir. Fiyatın EMA200 ($179.05) veya günlük VWAP ($184.45) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($202.00) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($184.45) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

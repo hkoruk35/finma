@@ -1,0 +1,89 @@
+{
+  "ticker": "BP",
+  "company": "BP p.l.c.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T21:07:00.338Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 51.31999969482422,
+    "open": 50.619998931884766,
+    "high": 51.4900016784668,
+    "low": 50.54999923706055,
+    "prev_close": 50.04999923706055,
+    "change_pct": 2.5374634907552087,
+    "change_pct_1w": 2.2107162529202835,
+    "change_pct_1m": 9.822384330304297,
+    "change_pct_1y": 46.628570556640625,
+    "volume": 9155000,
+    "avg_volume_30d": 287147500
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 90,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 74.02309914665656,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 47.802697833695554,
+    "ema_50": 45.81675007094481,
+    "ema_200": 42.524996620833775,
+    "ema_stack_bullish": true,
+    "bb_upper": 53.88599967956543,
+    "bb_middle": 51.31999969482422,
+    "bb_lower": 48.75399971008301,
+    "bb_width": 10,
+    "atr": 1.23,
+    "atr_pct": 2.39,
+    "rvol": 0.9653031978338658,
+    "52w_high": 51.4900016784668,
+    "52w_low": 33.220001220703125
+  },
+  "fundamental": {
+    "pe_ratio": 25.034147,
+    "pb_ratio": 9.089621,
+    "gross_margin": 0.28304002,
+    "operating_margin": 0.13149999,
+    "net_margin": 0.02549,
+    "market_cap": 132179353600,
+    "revenue_growth_ttm": 0.482,
+    "fcf_yield": 0.09743484343987592,
+    "institutional_ownership_pct": 0.14147,
+    "dividend_rate": 2.02,
+    "dividend_yield": 0.039300002
+  },
+  "scores_detail": {
+    "entry_range_low": 50.27,
+    "entry_range_high": 51.44,
+    "target_range_low": 53.4,
+    "target_range_high": 58.48,
+    "target_1": 53.4,
+    "target_2": 55.94,
+    "target_3": 58.48,
+    "stop_loss": 48.75,
+    "risk_reward_ratio": 2.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $50.27 – $51.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $51.49 direnci veya $50.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $48.75 olarak belirlenmiştir. Fiyatın EMA20 ($47.80) veya günlük VWAP ($51.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($51.28) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 74 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

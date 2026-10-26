@@ -1,0 +1,89 @@
+{
+  "ticker": "TGT",
+  "company": "Target Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T14:40:59.803Z",
+  "sector": "Consumer Defensive",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 152.75999450683594,
+    "open": 156.9199981689453,
+    "high": 158.36000061035156,
+    "low": 152,
+    "prev_close": 158.11000061035156,
+    "change_pct": -3.383724042035932,
+    "change_pct_1w": -0.9723843208963218,
+    "change_pct_1m": -0.5598233548279438,
+    "change_pct_1y": 62.07956976852619,
+    "volume": 3195400,
+    "avg_volume_30d": 113610800
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 70,
+    "fundamental_score": 61.55,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.08211891432562,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 154.84517812352595,
+    "ema_50": 153.87531637377083,
+    "ema_200": 135.5757905508017,
+    "ema_stack_bullish": true,
+    "bb_upper": 160.39799423217775,
+    "bb_middle": 152.75999450683594,
+    "bb_lower": 145.12199478149412,
+    "bb_width": 10,
+    "atr": 4.16,
+    "atr_pct": 2.72,
+    "rvol": 0.8978336566594022,
+    "52w_high": 170.75,
+    "52w_low": 83.44000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 15.862927,
+    "pb_ratio": 3.889299,
+    "gross_margin": 0.2838,
+    "operating_margin": 0.06044,
+    "net_margin": 0.04078,
+    "market_cap": 69397561344,
+    "revenue_growth_ttm": 0.053,
+    "fcf_yield": 0.04946859615113567,
+    "institutional_ownership_pct": 0.89337,
+    "dividend_rate": 4.64,
+    "dividend_yield": 0.0304
+  },
+  "scores_detail": {
+    "entry_range_low": 150.27,
+    "entry_range_high": 153.18,
+    "target_range_low": 160.8,
+    "target_range_high": 174.48,
+    "target_1": 160.8,
+    "target_2": 170.75,
+    "target_3": 174.48,
+    "stop_loss": 145.12,
+    "risk_reward_ratio": 2.88,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $150.27 – $153.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $155.21 direnci veya $149.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $145.12 olarak belirlenmiştir. Fiyatın EMA50 ($153.88) veya günlük VWAP ($153.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($153.88) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($153.15) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}

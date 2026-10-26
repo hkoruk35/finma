@@ -1,0 +1,89 @@
+{
+  "ticker": "ICE",
+  "company": "Intercontinental Exchange, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T05:29:44.138Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 162.74000549316406,
+    "open": 163.25,
+    "high": 164.69000244140625,
+    "low": 161.9499969482422,
+    "prev_close": 163.83999633789062,
+    "change_pct": -0.6713811458210903,
+    "change_pct_1w": 0.7303837288944953,
+    "change_pct_1m": 3.3794990383046795,
+    "change_pct_1y": 3.3598022530675786,
+    "volume": 2323600,
+    "avg_volume_30d": 86082000
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 76.4,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.6547741524898,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 157.63170288323371,
+    "ema_50": 155.44859738015407,
+    "ema_200": 153.80820507337194,
+    "ema_stack_bullish": true,
+    "bb_upper": 170.87700576782228,
+    "bb_middle": 162.74000549316406,
+    "bb_lower": 154.60300521850584,
+    "bb_width": 10,
+    "atr": 3.28,
+    "atr_pct": 2.01,
+    "rvol": 1.2336864849794382,
+    "52w_high": 176.0500030517578,
+    "52w_low": 121.79000091552734
+  },
+  "fundamental": {
+    "pe_ratio": 22.953455,
+    "pb_ratio": 3.0894527,
+    "gross_margin": 1,
+    "operating_margin": 0.52626,
+    "net_margin": 0.38246,
+    "market_cap": 91361345536,
+    "revenue_growth_ttm": 0.048,
+    "fcf_yield": 0.039772018096736625,
+    "institutional_ownership_pct": 0.96760005,
+    "dividend_rate": 2.08,
+    "dividend_yield": 0.0128
+  },
+  "scores_detail": {
+    "entry_range_low": 159.04,
+    "entry_range_high": 163.07,
+    "target_range_low": 169.1,
+    "target_range_high": 185.21,
+    "target_1": 169.1,
+    "target_2": 177.16,
+    "target_3": 185.21,
+    "stop_loss": 154.6,
+    "risk_reward_ratio": 2.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $159.04 – $163.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $164.69 direnci veya $158.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $154.60 olarak belirlenmiştir. Fiyatın EMA200 ($153.81) veya günlük VWAP ($163.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($163.01) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

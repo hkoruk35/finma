@@ -1,0 +1,89 @@
+{
+  "ticker": "IDXX",
+  "company": "IDEXX Laboratories, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T16:31:43.402Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 560.3800048828125,
+    "open": 564.7999877929688,
+    "high": 569.5599975585938,
+    "low": 558.2899780273438,
+    "prev_close": 566.760009765625,
+    "change_pct": -1.125697786167174,
+    "change_pct_1w": 0.003572619703999744,
+    "change_pct_1m": 6.954995280300523,
+    "change_pct_1y": -12.248664843958924,
+    "volume": 398300,
+    "avg_volume_30d": 15402700
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 70,
+    "fundamental_score": 74.75,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.91943962928427,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 539.9622994171265,
+    "ema_50": 537.9415474850982,
+    "ema_200": 571.255936681439,
+    "ema_stack_bullish": false,
+    "bb_upper": 588.3990051269532,
+    "bb_middle": 560.3800048828125,
+    "bb_lower": 532.3610046386718,
+    "bb_width": 10,
+    "atr": 13.06,
+    "atr_pct": 2.33,
+    "rvol": 0.8459685639530732,
+    "52w_high": 769.97998046875,
+    "52w_low": 500.6099853515625
+  },
+  "fundamental": {
+    "pe_ratio": 39.380184,
+    "pb_ratio": 27.409147,
+    "gross_margin": 0.62446,
+    "operating_margin": 0.3498,
+    "net_margin": 0.25030002,
+    "market_cap": 44204453888,
+    "revenue_growth_ttm": 0.097,
+    "fcf_yield": 0.020571872379739148,
+    "institutional_ownership_pct": 0.96601,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 552.54,
+    "entry_range_high": 561.69,
+    "target_range_low": 584.97,
+    "target_range_high": 640.68,
+    "target_1": 584.97,
+    "target_2": 612.83,
+    "target_3": 640.68,
+    "stop_loss": 532.36,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $552.54 – $561.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $568.67 direnci veya $549.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $532.36 olarak belirlenmiştir. Fiyatın EMA50 ($537.94) veya günlük VWAP ($562.21) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($537.94) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($562.21) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

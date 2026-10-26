@@ -1,0 +1,89 @@
+{
+  "ticker": "STRL",
+  "company": "Sterling Infrastructure, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T05:25:48.793Z",
+  "sector": "Industrials",
+  "industry": "Engineering & Construction",
+  "price": {
+    "current": 355.29998779296875,
+    "open": 366.4800109863281,
+    "high": 367.5,
+    "low": 345.739990234375,
+    "prev_close": 372.8299865722656,
+    "change_pct": -4.70187469105279,
+    "change_pct_1w": -16.273918357637033,
+    "change_pct_1m": -29.108724024377043,
+    "change_pct_1y": 0.4239683583250282,
+    "volume": 798200,
+    "avg_volume_30d": 18700700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 40,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 23.583300581941813,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 453.67038139390826,
+    "ema_50": 500.2685323418863,
+    "ema_200": 531.1485575013993,
+    "ema_stack_bullish": false,
+    "bb_upper": 373.0649871826172,
+    "bb_middle": 355.29998779296875,
+    "bb_lower": 337.5349884033203,
+    "bb_width": 10,
+    "atr": 34.84,
+    "atr_pct": 9.81,
+    "rvol": 1.111177656451363,
+    "52w_high": 1005.6799926757812,
+    "52w_low": 281.5799865722656
+  },
+  "fundamental": {
+    "pe_ratio": 25.597982,
+    "pb_ratio": 8.034099,
+    "gross_margin": 0.23807,
+    "operating_margin": 0.20055,
+    "net_margin": 0.12549,
+    "market_cap": 10868100096,
+    "revenue_growth_ttm": 0.901,
+    "fcf_yield": 0.032147696553566966,
+    "institutional_ownership_pct": 0.89195997,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 334.4,
+    "entry_range_high": 358.78,
+    "target_range_low": 419.14,
+    "target_range_high": 470,
+    "target_1": 419.14,
+    "target_2": 460.64,
+    "target_3": 470,
+    "stop_loss": 310.01,
+    "risk_reward_ratio": 3.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $334.40 – $358.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $374.52 direnci veya $327.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $310.01 olarak belirlenmiştir. Fiyatın EMA20 ($453.67) veya günlük VWAP ($358.84) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($500.27) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($358.84) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 24 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "LII",
+  "company": "Lennox International Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T23:30:15.258Z",
+  "sector": "Industrials",
+  "industry": "Building Products & Equipment",
+  "price": {
+    "current": 376.010009765625,
+    "open": 373.0400085449219,
+    "high": 379.760009765625,
+    "low": 371.07000732421875,
+    "prev_close": 378.7200012207031,
+    "change_pct": -0.715565971256651,
+    "change_pct_1w": 5.109998663208469,
+    "change_pct_1m": 5.407604978389513,
+    "change_pct_1y": -24.036845757711916,
+    "volume": 498800,
+    "avg_volume_30d": 15199200
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 55,
+    "fundamental_score": 63.2,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.497495926528856,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 364.71345849697485,
+    "ema_50": 384.7702215629475,
+    "ema_200": 452.52397840931957,
+    "ema_stack_bullish": false,
+    "bb_upper": 394.8105102539063,
+    "bb_middle": 376.010009765625,
+    "bb_lower": 357.2095092773437,
+    "bb_width": 10,
+    "atr": 11.04,
+    "atr_pct": 2.94,
+    "rvol": 0.998263066477183,
+    "52w_high": 587.27001953125,
+    "52w_low": 340.32000732421875
+  },
+  "fundamental": {
+    "pe_ratio": 16.578924,
+    "pb_ratio": 10.017317,
+    "gross_margin": 0.33330002,
+    "operating_margin": 0.22856002,
+    "net_margin": 0.14871,
+    "market_cap": 12995160064,
+    "revenue_growth_ttm": 0.03,
+    "fcf_yield": 0.02137238038101629,
+    "institutional_ownership_pct": 0.79389,
+    "dividend_rate": 5.44,
+    "dividend_yield": 0.0145000005
+  },
+  "scores_detail": {
+    "entry_range_low": 369.38,
+    "entry_range_high": 377.11,
+    "target_range_low": 524.43,
+    "target_range_high": 551.5,
+    "target_1": 524.43,
+    "target_2": 539.57,
+    "target_3": 551.5,
+    "stop_loss": 357.21,
+    "risk_reward_ratio": 10.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $369.38 – $377.11 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $381.70 direnci veya $367.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $357.21 olarak belirlenmiştir. Fiyatın EMA20 ($364.71) veya günlük VWAP ($376.25) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($384.77) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($376.25) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

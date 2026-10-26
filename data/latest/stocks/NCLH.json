@@ -1,0 +1,89 @@
+{
+  "ticker": "NCLH",
+  "company": "Norwegian Cruise Line Holdings Ltd.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T16:33:52.848Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Travel Services",
+  "price": {
+    "current": 15.100000381469727,
+    "open": 14.930000305175781,
+    "high": 15.109999656677246,
+    "low": 14.539999961853027,
+    "prev_close": 15.539999961853027,
+    "change_pct": -2.83140013811708,
+    "change_pct_1w": 0.33222717675209457,
+    "change_pct_1m": -1.6286644546393365,
+    "change_pct_1y": -35.68994601423428,
+    "volume": 22419600,
+    "avg_volume_30d": 607492100
+  },
+  "scores": {
+    "master_score": 45,
+    "technical_score": 40,
+    "fundamental_score": 43.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.257084460563995,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 15.240757494724427,
+    "ema_50": 15.8084810713876,
+    "ema_200": 18.3264513235209,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.855000400543213,
+    "bb_middle": 15.100000381469727,
+    "bb_lower": 14.34500036239624,
+    "bb_width": 10,
+    "atr": 0.68,
+    "atr_pct": 4.5,
+    "rvol": 0.8391526408326956,
+    "52w_high": 25.1299991607666,
+    "52w_low": 13.630000114440918
+  },
+  "fundamental": {
+    "pe_ratio": 9.320988,
+    "pb_ratio": 2.694985,
+    "gross_margin": 0.42457,
+    "operating_margin": 0.14042,
+    "net_margin": 0.07492,
+    "market_cap": 6933736448,
+    "revenue_growth_ttm": 0.049,
+    "fcf_yield": -0.24233706091968266,
+    "institutional_ownership_pct": 1.04636,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 14.69,
+    "entry_range_high": 15.17,
+    "target_range_low": 15.74,
+    "target_range_high": 20.82,
+    "target_1": 15.74,
+    "target_2": 20.26,
+    "target_3": 20.82,
+    "stop_loss": 14.22,
+    "risk_reward_ratio": 7.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $14.69 – $15.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $15.50 direnci veya $14.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $14.22 olarak belirlenmiştir. Fiyatın EMA20 ($15.24) veya günlük VWAP ($14.92) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($15.81) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.92) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

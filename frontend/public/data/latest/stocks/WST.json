@@ -1,0 +1,89 @@
+{
+  "ticker": "WST",
+  "company": "West Pharmaceutical Services, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T12:27:37.529Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 392.1499938964844,
+    "open": 391.6000061035156,
+    "high": 394.17999267578125,
+    "low": 389.7200012207031,
+    "prev_close": 394.0299987792969,
+    "change_pct": -0.47712227206982877,
+    "change_pct_1w": 2.117078567627128,
+    "change_pct_1m": 6.678451410595327,
+    "change_pct_1y": 27.632219331646663,
+    "volume": 718000,
+    "avg_volume_30d": 17690100
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.8163347409896,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 378.21156326896926,
+    "ema_50": 365.88805407486143,
+    "ema_200": 329.1637675631395,
+    "ema_stack_bullish": true,
+    "bb_upper": 411.7574935913086,
+    "bb_middle": 392.1499938964844,
+    "bb_lower": 372.54249420166013,
+    "bb_width": 10,
+    "atr": 8.43,
+    "atr_pct": 2.15,
+    "rvol": 0.968032967592043,
+    "52w_high": 397.1600036621094,
+    "52w_low": 223.8300018310547
+  },
+  "fundamental": {
+    "pe_ratio": 50.211266,
+    "pb_ratio": 9.232707,
+    "gross_margin": 0.36786,
+    "operating_margin": 0.22469,
+    "net_margin": 0.1698,
+    "market_cap": 27597854720,
+    "revenue_growth_ttm": 0.138,
+    "fcf_yield": 0.010070982212924701,
+    "institutional_ownership_pct": 1.0214701,
+    "dividend_rate": 1.04,
+    "dividend_yield": 0.0027
+  },
+  "scores_detail": {
+    "entry_range_low": 385.9,
+    "entry_range_high": 392.99,
+    "target_range_low": 408.92,
+    "target_range_high": 447.86,
+    "target_1": 408.92,
+    "target_2": 428.39,
+    "target_3": 447.86,
+    "stop_loss": 372.54,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $385.90 – $392.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $397.15 direnci veya $384.21 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $372.54 olarak belirlenmiştir. Fiyatın EMA20 ($378.21) veya günlük VWAP ($391.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($391.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "V",
+  "company": "Visa Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T01:47:43.941Z",
+  "sector": "Financial Services",
+  "industry": "Credit Services",
+  "price": {
+    "current": 407.9200134277344,
+    "open": 410.5899963378906,
+    "high": 412.5799865722656,
+    "low": 406.79998779296875,
+    "prev_close": 414.3399963378906,
+    "change_pct": -1.5494480298544027,
+    "change_pct_1w": 1.3189012367726332,
+    "change_pct_1m": 4.791025493981114,
+    "change_pct_1y": 17.909591716677323,
+    "volume": 5071800,
+    "avg_volume_30d": 191765900
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 70.00927305477043,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 391.37821210098303,
+    "ema_50": 378.3359894298557,
+    "ema_200": 352.891145872767,
+    "ema_stack_bullish": true,
+    "bb_upper": 428.3160140991211,
+    "bb_middle": 407.9200134277344,
+    "bb_lower": 387.52401275634764,
+    "bb_width": 10,
+    "atr": 7.18,
+    "atr_pct": 1.76,
+    "rvol": 0.9423646226988218,
+    "52w_high": 414.6000061035156,
+    "52w_low": 293.8900146484375
+  },
+  "fundamental": {
+    "pe_ratio": 34.7166,
+    "pb_ratio": 21.617382,
+    "gross_margin": 0.97725,
+    "operating_margin": 0.66130996,
+    "net_margin": 0.50782,
+    "market_cap": 765810769920,
+    "revenue_growth_ttm": 0.144,
+    "fcf_yield": 0.02664365868102311,
+    "institutional_ownership_pct": 0.90045,
+    "dividend_rate": 2.68,
+    "dividend_yield": 0.0066000004
+  },
+  "scores_detail": {
+    "entry_range_low": 403.61,
+    "entry_range_high": 408.64,
+    "target_range_low": 426.43,
+    "target_range_high": 467.04,
+    "target_1": 426.43,
+    "target_2": 446.74,
+    "target_3": 467.04,
+    "stop_loss": 387.52,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $403.61 – $408.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $414.52 direnci veya $402.18 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $387.52 olarak belirlenmiştir. Fiyatın EMA20 ($391.38) veya günlük VWAP ($408.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($408.74) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 70 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "HSBC",
+  "company": "HSBC Holdings plc",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T03:43:44.060Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 90.68000030517578,
+    "open": 90.38999938964844,
+    "high": 90.83000183105469,
+    "low": 89.91999816894531,
+    "prev_close": 91.88999938964844,
+    "change_pct": -1.3167908287188046,
+    "change_pct_1w": -4.113354554511366,
+    "change_pct_1m": -3.85920207954388,
+    "change_pct_1y": 36.854810416000035,
+    "volume": 2206100,
+    "avg_volume_30d": 53823100
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.079371940138927,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 95.05370819101535,
+    "ema_50": 97.88101280834992,
+    "ema_200": 92.61711032762524,
+    "ema_stack_bullish": false,
+    "bb_upper": 95.21400032043458,
+    "bb_middle": 90.68000030517578,
+    "bb_lower": 86.14600028991698,
+    "bb_width": 10,
+    "atr": 1.87,
+    "atr_pct": 2.06,
+    "rvol": 0.9326107191893444,
+    "52w_high": 107.91999816894531,
+    "52w_low": 66.2300033569336
+  },
+  "fundamental": {
+    "pe_ratio": 12.954286,
+    "pb_ratio": 7.1982536,
+    "gross_margin": 0,
+    "operating_margin": 0.58768004,
+    "net_margin": 0.37797,
+    "market_cap": 310124576768,
+    "revenue_growth_ttm": 0.254,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.024920002,
+    "dividend_rate": 3.75,
+    "dividend_yield": 0.0414
+  },
+  "scores_detail": {
+    "entry_range_low": 89.56,
+    "entry_range_high": 90.87,
+    "target_range_low": 94.72,
+    "target_range_high": 103.74,
+    "target_1": 94.72,
+    "target_2": 99.23,
+    "target_3": 103.74,
+    "stop_loss": 86.15,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $89.56 – $90.87 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $91.91 direnci veya $89.18 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $86.15 olarak belirlenmiştir. Fiyatın EMA200 ($92.62) veya günlük VWAP ($90.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($97.88) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($90.52) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

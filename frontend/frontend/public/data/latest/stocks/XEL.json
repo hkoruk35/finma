@@ -1,0 +1,89 @@
+{
+  "ticker": "XEL",
+  "company": "Xcel Energy Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T09:03:56.857Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 78.05000305175781,
+    "open": 78.73999786376953,
+    "high": 79.04000091552734,
+    "low": 77.4800033569336,
+    "prev_close": 78.9000015258789,
+    "change_pct": -1.0773110997245006,
+    "change_pct_1w": 2.280180250075384,
+    "change_pct_1m": 5.231232275312422,
+    "change_pct_1y": -2.934958963897718,
+    "volume": 3988700,
+    "avg_volume_30d": 172258500
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 75,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.50%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.55555047705462,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 75.03774104290822,
+    "ema_50": 75.0805020301414,
+    "ema_200": 77.48200152156254,
+    "ema_stack_bullish": false,
+    "bb_upper": 81.9525032043457,
+    "bb_middle": 78.05000305175781,
+    "bb_lower": 74.14750289916992,
+    "bb_width": 10,
+    "atr": 1.36,
+    "atr_pct": 1.74,
+    "rvol": 0.9289318088802585,
+    "52w_high": 84.2300033569336,
+    "52w_low": 68.72000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 21.151762,
+    "pb_ratio": 2.0257995,
+    "gross_margin": 0.46825,
+    "operating_margin": 0.22700001,
+    "net_margin": 0.15278,
+    "market_cap": 48752709632,
+    "revenue_growth_ttm": -0.051,
+    "fcf_yield": -0.16220636357839271,
+    "institutional_ownership_pct": 0.98106,
+    "dividend_rate": 2.37,
+    "dividend_yield": 0.0304
+  },
+  "scores_detail": {
+    "entry_range_low": 77.23,
+    "entry_range_high": 78.19,
+    "target_range_low": 81.6,
+    "target_range_high": 89.37,
+    "target_1": 81.6,
+    "target_2": 85.48,
+    "target_3": 89.37,
+    "stop_loss": 74.15,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $77.23 – $78.19 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $79.16 direnci veya $76.96 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $74.15 olarak belirlenmiştir. Fiyatın EMA20 ($75.04) veya günlük VWAP ($77.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($75.08) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($77.90) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

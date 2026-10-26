@@ -1,0 +1,89 @@
+{
+  "ticker": "BWXT",
+  "company": "BWX Technologies, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T18:39:53.019Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 127.19000244140625,
+    "open": 125.66999816894531,
+    "high": 127.77999877929688,
+    "low": 123.05000305175781,
+    "prev_close": 127.30000305175781,
+    "change_pct": -0.08641053237590128,
+    "change_pct_1w": -7.167354542839378,
+    "change_pct_1m": -9.09805309757675,
+    "change_pct_1y": -36.379550016840994,
+    "volume": 1048400,
+    "avg_volume_30d": 37016400
+  },
+  "scores": {
+    "master_score": 45,
+    "technical_score": 30,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.342128843093235,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 137.17928336759277,
+    "ema_50": 147.02775350007974,
+    "ema_200": 175.24320845868397,
+    "ema_stack_bullish": false,
+    "bb_upper": 133.54950256347658,
+    "bb_middle": 127.19000244140625,
+    "bb_lower": 120.83050231933593,
+    "bb_width": 10,
+    "atr": 5.6,
+    "atr_pct": 4.41,
+    "rvol": 0.8129153564366065,
+    "52w_high": 241.82000732421875,
+    "52w_low": 123.05000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 32.95078,
+    "pb_ratio": 8.732578,
+    "gross_margin": 0.22082001,
+    "operating_margin": 0.10393,
+    "net_margin": 0.10108,
+    "market_cap": 11653400576,
+    "revenue_growth_ttm": 0.18,
+    "fcf_yield": 0.012496288534001905,
+    "institutional_ownership_pct": 0.94573,
+    "dividend_rate": 1.06,
+    "dividend_yield": 0.0083
+  },
+  "scores_detail": {
+    "entry_range_low": 123.83,
+    "entry_range_high": 127.75,
+    "target_range_low": 147,
+    "target_range_high": 174.6,
+    "target_1": 147,
+    "target_2": 162.91,
+    "target_3": 174.6,
+    "stop_loss": 119.91,
+    "risk_reward_ratio": 6.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $123.83 – $127.75 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $134.98 direnci veya $122.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $119.91 olarak belirlenmiştir. Fiyatın EMA20 ($137.18) veya günlük VWAP ($126.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($147.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($126.69) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

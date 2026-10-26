@@ -1,0 +1,89 @@
+{
+  "ticker": "HSY",
+  "company": "The Hershey Company",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T18:02:10.017Z",
+  "sector": "Consumer Defensive",
+  "industry": "Confectioners",
+  "price": {
+    "current": 169.63999938964844,
+    "open": 174.47000122070312,
+    "high": 175.14999389648438,
+    "low": 168.94000244140625,
+    "prev_close": 175.63999938964844,
+    "change_pct": -3.4160783539342336,
+    "change_pct_1w": -0.6966003797056232,
+    "change_pct_1m": 3.540041004271232,
+    "change_pct_1y": -6.57561533263748,
+    "volume": 1861200,
+    "avg_volume_30d": 45800100
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 55,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.76646339614882,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 167.44309335846125,
+    "ema_50": 170.27966518426686,
+    "ema_200": 181.22394543947777,
+    "ema_stack_bullish": false,
+    "bb_upper": 178.12199935913085,
+    "bb_middle": 169.63999938964844,
+    "bb_lower": 161.15799942016602,
+    "bb_width": 10,
+    "atr": 3.8,
+    "atr_pct": 2.24,
+    "rvol": 1.0715216779002665,
+    "52w_high": 239.47999572753906,
+    "52w_low": 156.16000366210938
+  },
+  "fundamental": {
+    "pe_ratio": 23.174862,
+    "pb_ratio": 7.470166,
+    "gross_margin": 0.38377,
+    "operating_margin": 0.23119,
+    "net_margin": 0.12242,
+    "market_cap": 34085029888,
+    "revenue_growth_ttm": 0.066,
+    "fcf_yield": 0.05115548842789385,
+    "institutional_ownership_pct": 0.91111,
+    "dividend_rate": 5.81,
+    "dividend_yield": 0.0342
+  },
+  "scores_detail": {
+    "entry_range_low": 167.36,
+    "entry_range_high": 170.02,
+    "target_range_low": 188.37,
+    "target_range_high": 196.58,
+    "target_1": 188.37,
+    "target_2": 192.14,
+    "target_3": 196.58,
+    "stop_loss": 161.16,
+    "risk_reward_ratio": 3.11,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $167.36 – $170.02 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $172.12 direnci veya $166.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $161.16 olarak belirlenmiştir. Fiyatın EMA20 ($167.44) veya günlük VWAP ($170.59) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($170.28) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($170.59) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

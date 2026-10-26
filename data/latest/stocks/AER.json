@@ -1,0 +1,89 @@
+{
+  "ticker": "AER",
+  "company": "AerCap Holdings N.V.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T19:21:06.070Z",
+  "sector": "Industrials",
+  "industry": "Rental & Leasing Services",
+  "price": {
+    "current": 145.9199981689453,
+    "open": 145.35000610351562,
+    "high": 146.22000122070312,
+    "low": 144.10000610351562,
+    "prev_close": 147.67999267578125,
+    "change_pct": -1.1917623199642584,
+    "change_pct_1w": 0.15786651361445506,
+    "change_pct_1m": -0.191517636895711,
+    "change_pct_1y": 20.954906255964417,
+    "volume": 1183700,
+    "avg_volume_30d": 34170300
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 85,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.71251671385363,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 145.36473561943438,
+    "ema_50": 145.4640857720922,
+    "ema_200": 142.65821054659406,
+    "ema_stack_bullish": false,
+    "bb_upper": 153.21599807739258,
+    "bb_middle": 145.9199981689453,
+    "bb_lower": 138.62399826049804,
+    "bb_width": 10,
+    "atr": 3.44,
+    "atr_pct": 2.36,
+    "rvol": 1.143870554253255,
+    "52w_high": 158.80999755859375,
+    "52w_low": 119.91000366210938
+  },
+  "fundamental": {
+    "pe_ratio": 7.1494365,
+    "pb_ratio": 1.2240789,
+    "gross_margin": 0.62824,
+    "operating_margin": 0.575,
+    "net_margin": 0.37854,
+    "market_cap": 22936297472,
+    "revenue_growth_ttm": 0.149,
+    "fcf_yield": -0.06803093349765219,
+    "institutional_ownership_pct": 0.94717,
+    "dividend_rate": 1.6,
+    "dividend_yield": 0.011
+  },
+  "scores_detail": {
+    "entry_range_low": 143.86,
+    "entry_range_high": 146.26,
+    "target_range_low": 152.31,
+    "target_range_high": 166.82,
+    "target_1": 152.31,
+    "target_2": 159.57,
+    "target_3": 166.82,
+    "stop_loss": 138.62,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $143.86 – $146.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $147.80 direnci veya $143.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $138.62 olarak belirlenmiştir. Fiyatın EMA200 ($142.66) veya günlük VWAP ($145.38) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($145.46) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($145.38) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "CNC",
+  "company": "Centene Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T02:45:32.078Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 70.16999816894531,
+    "open": 70.94999694824219,
+    "high": 71.31999969482422,
+    "low": 70.11000061035156,
+    "prev_close": 71.23999786376953,
+    "change_pct": -1.5019648047580694,
+    "change_pct_1w": 1.4603737035214794,
+    "change_pct_1m": 4.700092037687071,
+    "change_pct_1y": 104.22001432620857,
+    "volume": 4314100,
+    "avg_volume_30d": 135395700
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 43.4,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.9669593720254,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 67.78066686075837,
+    "ema_50": 66.03692987701547,
+    "ema_200": 56.93014673749736,
+    "ema_stack_bullish": true,
+    "bb_upper": 73.67849807739258,
+    "bb_middle": 70.16999816894531,
+    "bb_lower": 66.66149826049805,
+    "bb_width": 10,
+    "atr": 2.17,
+    "atr_pct": 3.1,
+    "rvol": 0.8341815877461396,
+    "52w_high": 72.5,
+    "52w_low": 31.6299991607666
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.5363562,
+    "gross_margin": 0.11415,
+    "operating_margin": 0.0376,
+    "net_margin": -0.02829,
+    "market_cap": 34663628800,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": 0.27809046651226543,
+    "institutional_ownership_pct": 1.01957,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 68.87,
+    "entry_range_high": 70.39,
+    "target_range_low": 73.11,
+    "target_range_high": 80.07,
+    "target_1": 73.11,
+    "target_2": 76.59,
+    "target_3": 80.07,
+    "stop_loss": 66.66,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $68.87 – $70.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $71.32 direnci veya $68.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $66.66 olarak belirlenmiştir. Fiyatın EMA50 ($66.04) veya günlük VWAP ($70.80) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($70.80) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

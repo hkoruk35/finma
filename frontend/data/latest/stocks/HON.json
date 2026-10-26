@@ -1,0 +1,89 @@
+{
+  "ticker": "HON",
+  "company": "Honeywell International Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T09:19:22.866Z",
+  "sector": "Industrials",
+  "industry": "Conglomerates",
+  "price": {
+    "current": 221.14999389648438,
+    "open": 215.8699951171875,
+    "high": 223.42999267578125,
+    "low": 212.57000732421875,
+    "prev_close": 218.30999755859375,
+    "change_pct": 1.3009007235815568,
+    "change_pct_1w": 4.607156740767173,
+    "change_pct_1m": 5.49036182996873,
+    "change_pct_1y": 1.3864053257976965,
+    "volume": 2619800,
+    "avg_volume_30d": 85868900
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 60,
+    "fundamental_score": 69.8,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.31917917412216,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 212.51199884441849,
+    "ema_50": 214.9311184516312,
+    "ema_200": 223.46619480636326,
+    "ema_stack_bullish": false,
+    "bb_upper": 232.2074935913086,
+    "bb_middle": 221.14999389648438,
+    "bb_lower": 210.09249420166014,
+    "bb_width": 10,
+    "atr": 5.47,
+    "atr_pct": 2.47,
+    "rvol": 1.1115479527512289,
+    "52w_high": 260.2831726074219,
+    "52w_low": 195.86785888671875
+  },
+  "fundamental": {
+    "pe_ratio": 10.964303,
+    "pb_ratio": 3.099466,
+    "gross_margin": 0.3721,
+    "operating_margin": 0.14958,
+    "net_margin": 0.18684,
+    "market_cap": 70091276288,
+    "revenue_growth_ttm": -0.52,
+    "fcf_yield": 0.10112884557665767,
+    "institutional_ownership_pct": 0.84698,
+    "dividend_rate": 2.8,
+    "dividend_yield": 0.0127
+  },
+  "scores_detail": {
+    "entry_range_low": 215.69,
+    "entry_range_high": 221.7,
+    "target_range_low": 231.82,
+    "target_range_high": 253.35,
+    "target_1": 231.82,
+    "target_2": 248.38,
+    "target_3": 253.35,
+    "stop_loss": 210.09,
+    "risk_reward_ratio": 3.45,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $215.69 – $221.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $223.43 direnci veya $214.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $210.09 olarak belirlenmiştir. Fiyatın EMA20 ($212.51) veya günlük VWAP ($219.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($214.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($219.08) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

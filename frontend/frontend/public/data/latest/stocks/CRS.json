@@ -1,0 +1,89 @@
+{
+  "ticker": "CRS",
+  "company": "Carpenter Technology Corporation",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T08:40:13.154Z",
+  "sector": "Industrials",
+  "industry": "Metal Fabrication",
+  "price": {
+    "current": 284.6600036621094,
+    "open": 284,
+    "high": 289.1300048828125,
+    "low": 278.1700134277344,
+    "prev_close": 292.260009765625,
+    "change_pct": -2.6004262812453796,
+    "change_pct_1w": -24.511388149623457,
+    "change_pct_1m": -24.54340525855285,
+    "change_pct_1y": -5.1986498560306496,
+    "volume": 2206500,
+    "avg_volume_30d": 25893900
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 45,
+    "fundamental_score": 68.15,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 11.061303588331512,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 370.8018305819587,
+    "ema_50": 416.3351906111973,
+    "ema_200": 434.70725035682244,
+    "ema_stack_bullish": false,
+    "bb_upper": 298.8930038452149,
+    "bb_middle": 284.6600036621094,
+    "bb_lower": 270.4270034790039,
+    "bb_width": 10,
+    "atr": 17.85,
+    "atr_pct": 6.27,
+    "rvol": 1.63412232224578,
+    "52w_high": 625.989990234375,
+    "52w_low": 262.25
+  },
+  "fundamental": {
+    "pe_ratio": 25.102293,
+    "pb_ratio": 6.459416,
+    "gross_margin": 0.31216,
+    "operating_margin": 0.24693,
+    "net_margin": 0.17869,
+    "market_cap": 14102264832,
+    "revenue_growth_ttm": 0.088,
+    "fcf_yield": 0.015010887011542403,
+    "institutional_ownership_pct": 0.95656997,
+    "dividend_rate": 0.8,
+    "dividend_yield": 0.0028
+  },
+  "scores_detail": {
+    "entry_range_low": 273.95,
+    "entry_range_high": 286.45,
+    "target_range_low": 341.28,
+    "target_range_high": 355.97,
+    "target_1": 341.28,
+    "target_2": 348.99,
+    "target_3": 355.97,
+    "stop_loss": 261.45,
+    "risk_reward_ratio": 3.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $273.95 – $286.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $301.96 direnci veya $270.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $261.45 olarak belirlenmiştir. Fiyatın EMA20 ($370.80) veya günlük VWAP ($284.39) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($416.34) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($284.39) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 11 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

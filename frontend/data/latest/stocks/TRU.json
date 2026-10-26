@@ -1,0 +1,89 @@
+{
+  "ticker": "TRU",
+  "company": "TransUnion",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T04:52:28.644Z",
+  "sector": "Financial Services",
+  "industry": "Financial Data & Stock Exchanges",
+  "price": {
+    "current": 81.4800033569336,
+    "open": 83.31999969482422,
+    "high": 83.70999908447266,
+    "low": 81.04000091552734,
+    "prev_close": 83.45999908447266,
+    "change_pct": -2.37238886803131,
+    "change_pct_1w": 9.989202676796898,
+    "change_pct_1m": 23.323753190991102,
+    "change_pct_1y": -2.395783324838458,
+    "volume": 3036400,
+    "avg_volume_30d": 93642500
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 75,
+    "fundamental_score": 86.3,
+    "momentum_score": 38,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.45290627175055,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 73.03331348723171,
+    "ema_50": 73.42818142669819,
+    "ema_200": 75.46353909931459,
+    "ema_stack_bullish": false,
+    "bb_upper": 85.55400352478027,
+    "bb_middle": 81.4800033569336,
+    "bb_lower": 77.40600318908692,
+    "bb_width": 10,
+    "atr": 3.2,
+    "atr_pct": 3.93,
+    "rvol": 1.1421224337240037,
+    "52w_high": 89.12000274658203,
+    "52w_low": 60.959999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 21.498682,
+    "pb_ratio": 3.2236116,
+    "gross_margin": 0.5873,
+    "operating_margin": 0.19701,
+    "net_margin": 0.15077,
+    "market_cap": 15611569152,
+    "revenue_growth_ttm": 0.149,
+    "fcf_yield": 0.05179652449583564,
+    "institutional_ownership_pct": 1.14588,
+    "dividend_rate": 0.5,
+    "dividend_yield": 0.0061000003
+  },
+  "scores_detail": {
+    "entry_range_low": 78.81,
+    "entry_range_high": 81.8,
+    "target_range_low": 85.94,
+    "target_range_high": 92.35,
+    "target_1": 85.94,
+    "target_2": 88.8,
+    "target_3": 92.35,
+    "stop_loss": 76.57,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $78.81 – $81.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $83.76 direnci veya $78.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $76.57 olarak belirlenmiştir. Fiyatın EMA200 ($75.46) veya günlük VWAP ($81.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($73.43) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($81.82) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}

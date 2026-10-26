@@ -1,0 +1,89 @@
+{
+  "ticker": "CP",
+  "company": "Canadian Pacific Kansas City Limited",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T01:28:13.926Z",
+  "sector": "Industrials",
+  "industry": "Railroads",
+  "price": {
+    "current": 89.51000213623047,
+    "open": 89.81999969482422,
+    "high": 90.45999908447266,
+    "low": 88.56999969482422,
+    "prev_close": 90.62000274658203,
+    "change_pct": -1.22489580303332,
+    "change_pct_1w": 2.4610823155421837,
+    "change_pct_1m": 4.653342001329457,
+    "change_pct_1y": 17.869369579352533,
+    "volume": 2512300,
+    "avg_volume_30d": 66776200.00000001
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.855145322627834,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 87.33437954151901,
+    "ema_50": 88.13285611824429,
+    "ema_200": 85.7374711233793,
+    "ema_stack_bullish": false,
+    "bb_upper": 93.98550224304199,
+    "bb_middle": 89.51000213623047,
+    "bb_lower": 85.03450202941895,
+    "bb_width": 10,
+    "atr": 1.58,
+    "atr_pct": 1.76,
+    "rvol": 0.9909818168748745,
+    "52w_high": 96.9000015258789,
+    "52w_low": 68.41999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 28.781353,
+    "pb_ratio": 2.3778405,
+    "gross_margin": 0.53395003,
+    "operating_margin": 0.38977,
+    "net_margin": 0.25031,
+    "market_cap": 78686380032,
+    "revenue_growth_ttm": 0.126,
+    "fcf_yield": 0.02772239585952338,
+    "institutional_ownership_pct": 0.75961995,
+    "dividend_rate": 0.77,
+    "dividend_yield": 0.0086
+  },
+  "scores_detail": {
+    "entry_range_low": 88.56,
+    "entry_range_high": 89.67,
+    "target_range_low": 93.57,
+    "target_range_high": 102.48,
+    "target_1": 93.57,
+    "target_2": 98.03,
+    "target_3": 102.48,
+    "stop_loss": 85.03,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $88.56 – $89.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $91.18 direnci veya $88.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $85.03 olarak belirlenmiştir. Fiyatın EMA200 ($85.74) veya günlük VWAP ($89.50) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($88.13) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($89.50) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

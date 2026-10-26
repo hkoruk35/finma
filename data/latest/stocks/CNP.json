@@ -1,0 +1,89 @@
+{
+  "ticker": "CNP",
+  "company": "CenterPoint Energy, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T20:40:35.235Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 41.06999969482422,
+    "open": 41.11000061035156,
+    "high": 41.220001220703125,
+    "low": 40.91999816894531,
+    "prev_close": 41.20000076293945,
+    "change_pct": -0.31553656725213935,
+    "change_pct_1w": 1.2823686006100317,
+    "change_pct_1m": 5.226751164054467,
+    "change_pct_1y": 3.7121244377415374,
+    "volume": 6878200,
+    "avg_volume_30d": 201656700
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 75,
+    "fundamental_score": 66.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.04110482674595,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 39.4714155978105,
+    "ema_50": 39.507451669229816,
+    "ema_200": 40.6929348517049,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.123499679565434,
+    "bb_middle": 41.06999969482422,
+    "bb_lower": 39.016499710083,
+    "bb_width": 10,
+    "atr": 0.69,
+    "atr_pct": 1.68,
+    "rvol": 0.8533403551679661,
+    "52w_high": 45.2599983215332,
+    "52w_low": 36.369998931884766
+  },
+  "fundamental": {
+    "pe_ratio": 24.301775,
+    "pb_ratio": 2.308211,
+    "gross_margin": 0.47027,
+    "operating_margin": 0.24489,
+    "net_margin": 0.11611,
+    "market_cap": 27053641728,
+    "revenue_growth_ttm": 0.107,
+    "fcf_yield": -0.1919103950662032,
+    "institutional_ownership_pct": 1.0747,
+    "dividend_rate": 0.96,
+    "dividend_yield": 0.0234
+  },
+  "scores_detail": {
+    "entry_range_low": 40.43,
+    "entry_range_high": 41.14,
+    "target_range_low": 43.27,
+    "target_range_high": 46.9,
+    "target_1": 43.27,
+    "target_2": 44.86,
+    "target_3": 46.9,
+    "stop_loss": 39.02,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $40.43 – $41.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.23 direnci veya $40.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.02 olarak belirlenmiştir. Fiyatın EMA20 ($39.47) veya günlük VWAP ($41.05) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.51) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($41.05) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}

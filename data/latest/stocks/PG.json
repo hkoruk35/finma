@@ -1,0 +1,89 @@
+{
+  "ticker": "PG",
+  "company": "The Procter & Gamble Company",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T06:50:27.465Z",
+  "sector": "Consumer Defensive",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 161.02000427246094,
+    "open": 164,
+    "high": 164.5,
+    "low": 160.63999938964844,
+    "prev_close": 165.58999633789062,
+    "change_pct": -2.7598237613970964,
+    "change_pct_1w": 1.0480063413743845,
+    "change_pct_1m": 5.1044435248002635,
+    "change_pct_1y": 5.788054116018319,
+    "volume": 10330100,
+    "avg_volume_30d": 276519700
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 76.4,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.64792421482072,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 154.53925006615935,
+    "ema_50": 150.479634107641,
+    "ema_200": 148.49533150828776,
+    "ema_stack_bullish": true,
+    "bb_upper": 169.07100448608398,
+    "bb_middle": 161.02000427246094,
+    "bb_lower": 152.9690040588379,
+    "bb_width": 10,
+    "atr": 3.38,
+    "atr_pct": 2.1,
+    "rvol": 1.34918777938787,
+    "52w_high": 167.25,
+    "52w_low": 137.6199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 24.250002,
+    "pb_ratio": 6.8668175,
+    "gross_margin": 0.50597,
+    "operating_margin": 0.27062,
+    "net_margin": 0.18229,
+    "market_cap": 373209432064,
+    "revenue_growth_ttm": 0.04,
+    "fcf_yield": 0.03391158915252082,
+    "institutional_ownership_pct": 0.71898,
+    "dividend_rate": 4.35,
+    "dividend_yield": 0.027
+  },
+  "scores_detail": {
+    "entry_range_low": 158.81,
+    "entry_range_high": 161.36,
+    "target_range_low": 168.09,
+    "target_range_high": 184.1,
+    "target_1": 168.09,
+    "target_2": 176.09,
+    "target_3": 184.1,
+    "stop_loss": 152.97,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $158.81 – $161.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $166.60 direnci veya $158.13 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $152.97 olarak belirlenmiştir. Fiyatın EMA20 ($154.54) veya günlük VWAP ($161.32) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($161.32) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "GEHC",
+  "company": "GE HealthCare Technologies Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T02:50:05.623Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 71.44999694824219,
+    "open": 70.73999786376953,
+    "high": 71.86000061035156,
+    "low": 70.09500122070312,
+    "prev_close": 71.41999816894531,
+    "change_pct": 0.04200333249226965,
+    "change_pct_1w": 2.702310279811363,
+    "change_pct_1m": 5.476821968512247,
+    "change_pct_1y": -7.520068634924002,
+    "volume": 2976100,
+    "avg_volume_30d": 109478700
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 85,
+    "fundamental_score": 68.15,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.56576709678234,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 68.38466107885792,
+    "ema_50": 67.76432866751519,
+    "ema_200": 69.71088137438186,
+    "ema_stack_bullish": false,
+    "bb_upper": 75.0224967956543,
+    "bb_middle": 71.44999694824219,
+    "bb_lower": 67.87749710083007,
+    "bb_width": 10,
+    "atr": 1.82,
+    "atr_pct": 2.55,
+    "rvol": 0.7030353849652946,
+    "52w_high": 89.7699966430664,
+    "52w_low": 58.75
+  },
+  "fundamental": {
+    "pe_ratio": 16.425287,
+    "pb_ratio": 2.940571,
+    "gross_margin": 0.39528,
+    "operating_margin": 0.14976,
+    "net_margin": 0.093339995,
+    "market_cap": 32502016000,
+    "revenue_growth_ttm": 0.058,
+    "fcf_yield": 0.048400843566134485,
+    "institutional_ownership_pct": 0.94262004,
+    "dividend_rate": 0.16,
+    "dividend_yield": 0.0022
+  },
+  "scores_detail": {
+    "entry_range_low": 70.36,
+    "entry_range_high": 71.63,
+    "target_range_low": 75.65,
+    "target_range_high": 87.25,
+    "target_1": 75.65,
+    "target_2": 85.54,
+    "target_3": 87.25,
+    "stop_loss": 67.88,
+    "risk_reward_ratio": 4.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $70.36 – $71.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $71.86 direnci veya $69.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $67.88 olarak belirlenmiştir. Fiyatın EMA50 ($67.76) veya günlük VWAP ($71.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($67.76) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($71.20) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

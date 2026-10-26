@@ -1,0 +1,89 @@
+{
+  "ticker": "REGN",
+  "company": "Regeneron Pharmaceuticals, Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T22:59:41.301Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 805.02001953125,
+    "open": 819.0900268554688,
+    "high": 819.0900268554688,
+    "low": 801.219970703125,
+    "prev_close": 819.0900268554688,
+    "change_pct": -1.7177607909882966,
+    "change_pct_1w": 1.8059070583545933,
+    "change_pct_1m": 5.53349092273977,
+    "change_pct_1y": 39.83567824997707,
+    "volume": 527700,
+    "avg_volume_30d": 21948600
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.044208238813226,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 782.697737944216,
+    "ema_50": 772.8838960784034,
+    "ema_200": 728.590769934602,
+    "ema_stack_bullish": true,
+    "bb_upper": 845.2710205078125,
+    "bb_middle": 805.02001953125,
+    "bb_lower": 764.7690185546875,
+    "bb_width": 10,
+    "atr": 21.34,
+    "atr_pct": 2.65,
+    "rvol": 0.8403269456821847,
+    "52w_high": 859.3400268554688,
+    "52w_low": 572.75
+  },
+  "fundamental": {
+    "pe_ratio": 19.906528,
+    "pb_ratio": 2.5466373,
+    "gross_margin": 0.44458,
+    "operating_margin": 0.33106,
+    "net_margin": 0.27865,
+    "market_cap": 82880831488,
+    "revenue_growth_ttm": 0.167,
+    "fcf_yield": 0.03698442586744334,
+    "institutional_ownership_pct": 0.93278,
+    "dividend_rate": 3.76,
+    "dividend_yield": 0.0047
+  },
+  "scores_detail": {
+    "entry_range_low": 792.22,
+    "entry_range_high": 807.15,
+    "target_range_low": 839.67,
+    "target_range_high": 919.64,
+    "target_1": 839.67,
+    "target_2": 879.65,
+    "target_3": 919.64,
+    "stop_loss": 764.77,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $792.22 – $807.15 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $822.98 direnci veya $787.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $764.77 olarak belirlenmiştir. Fiyatın EMA50 ($772.88) veya günlük VWAP ($806.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($806.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

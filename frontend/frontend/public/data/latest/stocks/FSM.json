@@ -1,0 +1,89 @@
+{
+  "ticker": "FSM",
+  "company": "Fortuna Mining Corp.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T22:22:09.850Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 9.180000305175781,
+    "open": 9.40999984741211,
+    "high": 9.4399995803833,
+    "low": 8.970000267028809,
+    "prev_close": 9.520000457763672,
+    "change_pct": -3.571430002512411,
+    "change_pct_1w": -14.285711741565125,
+    "change_pct_1m": -14.684013848485261,
+    "change_pct_1y": 11.814863124504214,
+    "volume": 5428300,
+    "avg_volume_30d": 159077600
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 40,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 29.956111172708503,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 10.561696277558266,
+    "ema_50": 10.786925575481902,
+    "ema_200": 10.163066855901224,
+    "ema_stack_bullish": false,
+    "bb_upper": 9.63900032043457,
+    "bb_middle": 9.180000305175781,
+    "bb_lower": 8.721000289916992,
+    "bb_width": 10,
+    "atr": 0.49,
+    "atr_pct": 5.31,
+    "rvol": 1.0214863689168052,
+    "52w_high": 13.850000381469727,
+    "52w_low": 7.699999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 7.846154,
+    "pb_ratio": 1.5376885,
+    "gross_margin": 0.57238,
+    "operating_margin": 0.51069,
+    "net_margin": 0.3198,
+    "market_cap": 2716888832,
+    "revenue_growth_ttm": 0.382,
+    "fcf_yield": 0.13407946755474756,
+    "institutional_ownership_pct": 0.80289,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 8.89,
+    "entry_range_high": 9.23,
+    "target_range_low": 10,
+    "target_range_high": 10.42,
+    "target_1": 10,
+    "target_2": 10.2,
+    "target_3": 10.42,
+    "stop_loss": 8.55,
+    "risk_reward_ratio": 2.23,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $8.89 – $9.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $9.58 direnci veya $8.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $8.55 olarak belirlenmiştir. Fiyatın EMA200 ($10.16) veya günlük VWAP ($9.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($10.79) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($9.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 30 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

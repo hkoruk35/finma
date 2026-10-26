@@ -1,0 +1,89 @@
+{
+  "ticker": "D",
+  "company": "Dominion Energy, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T17:34:22.531Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 65.19999694824219,
+    "open": 65.2699966430664,
+    "high": 65.66000366210938,
+    "low": 64.75,
+    "prev_close": 65.4000015258789,
+    "change_pct": -0.30581738986286805,
+    "change_pct_1w": 2.5802321263641845,
+    "change_pct_1m": 4.403516656055354,
+    "change_pct_1y": 7.4489067573074275,
+    "volume": 5127000,
+    "avg_volume_30d": 139596300
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 85,
+    "fundamental_score": 66.5,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.97931771259167,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.98113938875827,
+    "ema_50": 63.9282804661734,
+    "ema_200": 64.41720886390904,
+    "ema_stack_bullish": false,
+    "bb_upper": 68.4599967956543,
+    "bb_middle": 65.19999694824219,
+    "bb_lower": 61.93999710083008,
+    "bb_width": 10,
+    "atr": 1.24,
+    "atr_pct": 1.91,
+    "rvol": 0.9079237773493997,
+    "52w_high": 72.98999786376953,
+    "52w_low": 55.849998474121094
+  },
+  "fundamental": {
+    "pe_ratio": 22.560553,
+    "pb_ratio": 2.0541902,
+    "gross_margin": 0.46222,
+    "operating_margin": 0.29219,
+    "net_margin": 0.13984999,
+    "market_cap": 57345089536,
+    "revenue_growth_ttm": 0.176,
+    "fcf_yield": -0.16010306518461864,
+    "institutional_ownership_pct": 0.82921,
+    "dividend_rate": 2.67,
+    "dividend_yield": 0.040999997
+  },
+  "scores_detail": {
+    "entry_range_low": 63.79,
+    "entry_range_high": 65.32,
+    "target_range_low": 67.79,
+    "target_range_high": 74.24,
+    "target_1": 67.79,
+    "target_2": 71.01,
+    "target_3": 74.24,
+    "stop_loss": 61.94,
+    "risk_reward_ratio": 2.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $63.79 – $65.32 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $65.66 direnci veya $63.54 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $61.94 olarak belirlenmiştir. Fiyatın EMA20 ($62.98) veya günlük VWAP ($65.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($63.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($65.00) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

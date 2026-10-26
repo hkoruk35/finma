@@ -1,0 +1,89 @@
+{
+  "ticker": "ROP",
+  "company": "Roper Technologies, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T19:04:04.864Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 438.1400146484375,
+    "open": 440,
+    "high": 444.7699890136719,
+    "low": 433.5400085449219,
+    "prev_close": 436.2300109863281,
+    "change_pct": 0.437843251038782,
+    "change_pct_1w": 14.48355789787779,
+    "change_pct_1m": 19.280193268021133,
+    "change_pct_1y": -8.71322142494762,
+    "volume": 1161400,
+    "avg_volume_30d": 26841400
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 75,
+    "fundamental_score": 81.35,
+    "momentum_score": 53,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 80.36372114886933,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 387.65616094888014,
+    "ema_50": 381.8839671092187,
+    "ema_200": 383.1602002081705,
+    "ema_stack_bullish": false,
+    "bb_upper": 460.0470153808594,
+    "bb_middle": 438.1400146484375,
+    "bb_lower": 416.2330139160156,
+    "bb_width": 10,
+    "atr": 11.05,
+    "atr_pct": 2.52,
+    "rvol": 1.193320765682863,
+    "52w_high": 483.3599853515625,
+    "52w_low": 305.9599914550781
+  },
+  "fundamental": {
+    "pe_ratio": 17.338346,
+    "pb_ratio": 2.2623837,
+    "gross_margin": 0.69671,
+    "operating_margin": 0.28695,
+    "net_margin": 0.30712998,
+    "market_cap": 43332427776,
+    "revenue_growth_ttm": 0.076,
+    "fcf_yield": 0.05619896001647005,
+    "institutional_ownership_pct": 1.06875,
+    "dividend_rate": 3.64,
+    "dividend_yield": 0.0083
+  },
+  "scores_detail": {
+    "entry_range_low": 431.51,
+    "entry_range_high": 439.25,
+    "target_range_low": 457.15,
+    "target_range_high": 500.68,
+    "target_1": 457.15,
+    "target_2": 478.91,
+    "target_3": 500.68,
+    "stop_loss": 416.23,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $431.51 – $439.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $444.77 direnci veya $429.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $416.23 olarak belirlenmiştir. Fiyatın EMA20 ($387.66) veya günlük VWAP ($436.60) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($381.88) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($436.60) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 80 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

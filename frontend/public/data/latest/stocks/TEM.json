@@ -1,0 +1,89 @@
+{
+  "ticker": "TEM",
+  "company": "Tempus AI, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T13:46:26.713Z",
+  "sector": "Healthcare",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 67.61499786376953,
+    "open": 63.939998626708984,
+    "high": 68.1449966430664,
+    "low": 62.66999816894531,
+    "prev_close": 63.810001373291016,
+    "change_pct": 5.963009573090488,
+    "change_pct_1w": 4.473109685511459,
+    "change_pct_1m": -0.5515517161088628,
+    "change_pct_1y": -22.312868364701785,
+    "volume": 4679300,
+    "avg_volume_30d": 210632300
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 85,
+    "fundamental_score": 40.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.26912418963313,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 69.45393296180198,
+    "ema_50": 67.55416521688736,
+    "ema_200": 62.63524920284601,
+    "ema_stack_bullish": true,
+    "bb_upper": 70.99574775695801,
+    "bb_middle": 67.61499786376953,
+    "bb_lower": 64.23424797058105,
+    "bb_width": 10,
+    "atr": 5.94,
+    "atr_pct": 8.78,
+    "rvol": 0.6676155556389024,
+    "52w_high": 93.37999725341797,
+    "52w_low": 40.77000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 27.363415,
+    "gross_margin": 0.63979,
+    "operating_margin": -0.19588,
+    "net_margin": -0.17767,
+    "market_cap": 12322293760,
+    "revenue_growth_ttm": 0.216,
+    "fcf_yield": -0.008047375750925127,
+    "institutional_ownership_pct": 0.59276,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 64.05,
+    "entry_range_high": 68.21,
+    "target_range_low": 72.96,
+    "target_range_high": 79.96,
+    "target_1": 72.96,
+    "target_2": 76.33,
+    "target_3": 79.96,
+    "stop_loss": 59.89,
+    "risk_reward_ratio": 1.64,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $64.05 – $68.21 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $71.35 direnci veya $62.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $59.89 olarak belirlenmiştir. Fiyatın EMA200 ($62.64) veya günlük VWAP ($66.39) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($67.55) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($66.39) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

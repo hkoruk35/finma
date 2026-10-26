@@ -1,0 +1,89 @@
+{
+  "ticker": "FORM",
+  "company": "FormFactor, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T18:22:43.784Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 98.51000213623047,
+    "open": 94.25,
+    "high": 100.5,
+    "low": 93.01000213623047,
+    "prev_close": 95.02999877929688,
+    "change_pct": 3.66200505275787,
+    "change_pct_1w": -6.189886551537717,
+    "change_pct_1m": -24.38593563152156,
+    "change_pct_1y": 129.94865029261595,
+    "volume": 1048900,
+    "avg_volume_30d": 53576000
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.23999860037493,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 117.826762496622,
+    "ema_50": 119.74741708880339,
+    "ema_200": 108.29096013372495,
+    "ema_stack_bullish": false,
+    "bb_upper": 103.435502243042,
+    "bb_middle": 98.51000213623047,
+    "bb_lower": 93.58450202941894,
+    "bb_width": 10,
+    "atr": 8.95,
+    "atr_pct": 9.09,
+    "rvol": 0.7507839331043751,
+    "52w_high": 160.27000427246094,
+    "52w_low": 40.599998474121094
+  },
+  "fundamental": {
+    "pe_ratio": 67.93793,
+    "pb_ratio": 6.9246454,
+    "gross_margin": 0.46182,
+    "operating_margin": 0.24122,
+    "net_margin": 0.12798001,
+    "market_cap": 7679324160,
+    "revenue_growth_ttm": 0.319,
+    "fcf_yield": 0.014955743188733942,
+    "institutional_ownership_pct": 0.95308995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 94.8,
+    "entry_range_high": 99.41,
+    "target_range_low": 107.04,
+    "target_range_high": 139.8,
+    "target_1": 107.04,
+    "target_2": 110.09,
+    "target_3": 139.8,
+    "stop_loss": 88.53,
+    "risk_reward_ratio": 1.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $94.80 – $99.41 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $109.05 direnci veya $93.01 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $88.53 olarak belirlenmiştir. Fiyatın EMA200 ($108.29) veya günlük VWAP ($99.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($119.75) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($99.29) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

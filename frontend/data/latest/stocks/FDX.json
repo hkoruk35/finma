@@ -1,0 +1,89 @@
+{
+  "ticker": "FDX",
+  "company": "FedEx Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T00:11:03.363Z",
+  "sector": "Industrials",
+  "industry": "Integrated Freight & Logistics",
+  "price": {
+    "current": 298.7200012207031,
+    "open": 301.1099853515625,
+    "high": 302.04998779296875,
+    "low": 295.7300109863281,
+    "prev_close": 303.9200134277344,
+    "change_pct": -1.7109805137158893,
+    "change_pct_1w": 1.761203761786772,
+    "change_pct_1m": 2.2208500121086576,
+    "change_pct_1y": 55.64997088059853,
+    "volume": 798900,
+    "avg_volume_30d": 42226000
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 70,
+    "fundamental_score": 66.5,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.896566118124916,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 296.0585977463829,
+    "ema_50": 302.00329852154044,
+    "ema_200": 292.95831781760654,
+    "ema_stack_bullish": false,
+    "bb_upper": 313.65600128173827,
+    "bb_middle": 298.7200012207031,
+    "bb_lower": 283.784001159668,
+    "bb_width": 10,
+    "atr": 5.69,
+    "atr_pct": 1.9,
+    "rvol": 0.6639558565812533,
+    "52w_high": 345.3699951171875,
+    "52w_low": 188.9846954345703
+  },
+  "fundamental": {
+    "pe_ratio": 16.103504,
+    "pb_ratio": 2.2653813,
+    "gross_margin": 0.27318,
+    "operating_margin": 0.11129,
+    "net_margin": 0.0468,
+    "market_cap": 70698188800,
+    "revenue_growth_ttm": 0.125,
+    "fcf_yield": 0.08001089204706754,
+    "institutional_ownership_pct": 0.82962,
+    "dividend_rate": 4.88,
+    "dividend_yield": 0.0163
+  },
+  "scores_detail": {
+    "entry_range_low": 295.31,
+    "entry_range_high": 299.29,
+    "target_range_low": 312.16,
+    "target_range_high": 341.89,
+    "target_1": 312.16,
+    "target_2": 327.03,
+    "target_3": 341.89,
+    "stop_loss": 283.78,
+    "risk_reward_ratio": 2.2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $295.31 – $299.29 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $302.91 direnci veya $294.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $283.78 olarak belirlenmiştir. Fiyatın EMA200 ($292.96) veya günlük VWAP ($298.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($302.00) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($298.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "BIIB",
+  "company": "Biogen Inc.",
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T23:18:51.253Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 250.69000244140625,
+    "open": 251.67999267578125,
+    "high": 252.44000244140625,
+    "low": 246.14999389648438,
+    "prev_close": 253.83999633789062,
+    "change_pct": -1.2409367877122746,
+    "change_pct_1w": 7.754140992132854,
+    "change_pct_1m": 9.275968109324257,
+    "change_pct_1y": 67.0375795461466,
+    "volume": 1157400,
+    "avg_volume_30d": 37127300
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 90,
+    "fundamental_score": 69.8,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 70.58649863593536,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 233.58237743740582,
+    "ema_50": 224.40653608897082,
+    "ema_200": 201.70910031858145,
+    "ema_stack_bullish": true,
+    "bb_upper": 263.22450256347656,
+    "bb_middle": 250.69000244140625,
+    "bb_lower": 238.15550231933594,
+    "bb_width": 10,
+    "atr": 7.7,
+    "atr_pct": 3.07,
+    "rvol": 1.0746808951903315,
+    "52w_high": 254.41000366210938,
+    "52w_low": 138
+  },
+  "fundamental": {
+    "pe_ratio": 44.52753,
+    "pb_ratio": 1.9645013,
+    "gross_margin": 0.78322,
+    "operating_margin": 0.25058,
+    "net_margin": 0.083229996,
+    "market_cap": 37040451584,
+    "revenue_growth_ttm": 0.034,
+    "fcf_yield": 0.03420550953939471,
+    "institutional_ownership_pct": 0.99565005,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 246.07,
+    "entry_range_high": 251.46,
+    "target_range_low": 261.2,
+    "target_range_high": 286.08,
+    "target_1": 261.2,
+    "target_2": 273.64,
+    "target_3": 286.08,
+    "stop_loss": 238.16,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $246.07 – $251.46 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $254.41 direnci veya $244.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $238.16 olarak belirlenmiştir. Fiyatın EMA20 ($233.58) veya günlük VWAP ($250.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($250.15) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 71 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

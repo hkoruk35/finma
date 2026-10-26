@@ -1,0 +1,89 @@
+{
+  "ticker": "AGCO",
+  "company": "AGCO Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T00:54:22.754Z",
+  "sector": "Industrials",
+  "industry": "Farm & Heavy Construction Machinery",
+  "price": {
+    "current": 106.0999984741211,
+    "open": 104.98999786376953,
+    "high": 106.81999969482422,
+    "low": 103.12999725341797,
+    "prev_close": 106.16999816894531,
+    "change_pct": -0.06593170955209986,
+    "change_pct_1w": 2.2946367387266355,
+    "change_pct_1m": 1.560253885681919,
+    "change_pct_1y": -3.6155553149807402,
+    "volume": 574500,
+    "avg_volume_30d": 27795400
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 56.6,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.15565188042631,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 108.64845986581057,
+    "ema_50": 111.76268283120255,
+    "ema_200": 113.71208450968791,
+    "ema_stack_bullish": false,
+    "bb_upper": 111.40499839782716,
+    "bb_middle": 106.0999984741211,
+    "bb_lower": 100.79499855041503,
+    "bb_width": 10,
+    "atr": 3.92,
+    "atr_pct": 3.69,
+    "rvol": 0.6609295063211899,
+    "52w_high": 143.77999877929688,
+    "52w_low": 98.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 14.674965,
+    "pb_ratio": 1.8201468,
+    "gross_margin": 0.25267,
+    "operating_margin": 0.057290003,
+    "net_margin": 0.05154,
+    "market_cap": 7430366208,
+    "revenue_growth_ttm": -0.01,
+    "fcf_yield": 0.06059761839399235,
+    "institutional_ownership_pct": 0.98106,
+    "dividend_rate": 1.2,
+    "dividend_yield": 0.0113
+  },
+  "scores_detail": {
+    "entry_range_low": 103.75,
+    "entry_range_high": 106.49,
+    "target_range_low": 110.38,
+    "target_range_high": 120.89,
+    "target_1": 110.38,
+    "target_2": 115.63,
+    "target_3": 120.89,
+    "stop_loss": 100.79,
+    "risk_reward_ratio": 2.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $103.75 – $106.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $108.11 direnci veya $102.96 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $100.79 olarak belirlenmiştir. Fiyatın EMA20 ($108.65) veya günlük VWAP ($105.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($111.76) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($105.52) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

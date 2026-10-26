@@ -1,0 +1,89 @@
+{
+  "ticker": "EBAY",
+  "company": "eBay Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T01:13:29.170Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 121.41000366210938,
+    "open": 120.83999633789062,
+    "high": 122.19000244140625,
+    "low": 120.31999969482422,
+    "prev_close": 122.04000091552734,
+    "change_pct": -0.5162219343590756,
+    "change_pct_1w": 0.9394786284342742,
+    "change_pct_1m": 5.896207628662434,
+    "change_pct_1y": 27.104279657575,
+    "volume": 3556400,
+    "avg_volume_30d": 132232599.99999999
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.34581857426923,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 115.92996137746681,
+    "ema_50": 111.86175719864889,
+    "ema_200": 105.05315535519817,
+    "ema_stack_bullish": true,
+    "bb_upper": 127.48050384521486,
+    "bb_middle": 121.41000366210938,
+    "bb_lower": 115.3395034790039,
+    "bb_width": 10,
+    "atr": 3.5,
+    "atr_pct": 2.88,
+    "rvol": 0.7847081582000203,
+    "52w_high": 124.58999633789062,
+    "52w_low": 78.02999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 25.560001,
+    "pb_ratio": 11.581609,
+    "gross_margin": 0.72052,
+    "operating_margin": 0.2157,
+    "net_margin": 0.18571,
+    "market_cap": 54027452416,
+    "revenue_growth_ttm": 0.148,
+    "fcf_yield": 0.02923745039535125,
+    "institutional_ownership_pct": 0.95212,
+    "dividend_rate": 1.24,
+    "dividend_yield": 0.010199999
+  },
+  "scores_detail": {
+    "entry_range_low": 119.31,
+    "entry_range_high": 121.76,
+    "target_range_low": 126.56,
+    "target_range_high": 138.61,
+    "target_1": 126.56,
+    "target_2": 132.59,
+    "target_3": 138.61,
+    "stop_loss": 115.34,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $119.31 – $121.76 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $123.75 direnci veya $118.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $115.34 olarak belirlenmiştir. Fiyatın EMA20 ($115.93) veya günlük VWAP ($121.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($121.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

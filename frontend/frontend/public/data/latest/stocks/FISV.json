@@ -1,0 +1,89 @@
+{
+  "ticker": "FISV",
+  "company": "Fiserv, Inc.",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T22:36:28.714Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 49.86000061035156,
+    "open": 50.060001373291016,
+    "high": 50.5,
+    "low": 48.83000183105469,
+    "prev_close": 50.81999969482422,
+    "change_pct": -1.8890182806719453,
+    "change_pct_1w": 4.858047130084067,
+    "change_pct_1m": 8.273618754427183,
+    "change_pct_1y": -59.77734674201278,
+    "volume": 5219300,
+    "avg_volume_30d": 186587400
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.67%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.52900162832544,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 47.69377852287966,
+    "ema_50": 48.70186216659642,
+    "ema_200": 59.14641856113713,
+    "ema_stack_bullish": false,
+    "bb_upper": 52.35300064086914,
+    "bb_middle": 49.86000061035156,
+    "bb_lower": 47.367000579833984,
+    "bb_width": 10,
+    "atr": 1.17,
+    "atr_pct": 2.34,
+    "rvol": 0.7582280475530502,
+    "52w_high": 128.77999877929688,
+    "52w_low": 43.869998931884766
+  },
+  "fundamental": {
+    "pe_ratio": 9.570058,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 26513889280,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 49.07,
+    "entry_range_high": 49.98,
+    "target_range_low": 53.99,
+    "target_range_high": 56.95,
+    "target_1": 53.99,
+    "target_2": 55.36,
+    "target_3": 56.95,
+    "stop_loss": 47.37,
+    "risk_reward_ratio": 2.7,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $49.07 – $49.98 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $50.74 direnci veya $48.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $47.37 olarak belirlenmiştir. Fiyatın EMA20 ($47.69) veya günlük VWAP ($49.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($48.70) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($49.52) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

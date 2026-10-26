@@ -1,0 +1,89 @@
+{
+  "ticker": "WEC",
+  "company": "WEC Energy Group, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T02:55:31.131Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 111.08999633789062,
+    "open": 112.04000091552734,
+    "high": 112.23999786376953,
+    "low": 110.5999984741211,
+    "prev_close": 112.1500015258789,
+    "change_pct": -0.9451673415659136,
+    "change_pct_1w": 2.189308502862374,
+    "change_pct_1m": 5.8907563245213135,
+    "change_pct_1y": -4.158404945158669,
+    "volume": 2058600,
+    "avg_volume_30d": 83019000
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 75,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.44123318657182,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 106.57550279859187,
+    "ema_50": 106.45084290275383,
+    "ema_200": 110.12546631767913,
+    "ema_stack_bullish": false,
+    "bb_upper": 116.64449615478516,
+    "bb_middle": 111.08999633789062,
+    "bb_lower": 105.53549652099609,
+    "bb_width": 10,
+    "atr": 1.94,
+    "atr_pct": 1.75,
+    "rvol": 0.8465869258844361,
+    "52w_high": 119.91000366210938,
+    "52w_low": 99.80000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 21.570873,
+    "pb_ratio": 2.5609164,
+    "gross_margin": 0.41909,
+    "operating_margin": 0.21802999,
+    "net_margin": 0.16686001,
+    "market_cap": 36198604800,
+    "revenue_growth_ttm": 0.026,
+    "fcf_yield": -0.06502011304037884,
+    "institutional_ownership_pct": 0.87903,
+    "dividend_rate": 3.81,
+    "dividend_yield": 0.0343
+  },
+  "scores_detail": {
+    "entry_range_low": 109.07,
+    "entry_range_high": 111.28,
+    "target_range_low": 115.68,
+    "target_range_high": 126.7,
+    "target_1": 115.68,
+    "target_2": 121.19,
+    "target_3": 126.7,
+    "stop_loss": 105.54,
+    "risk_reward_ratio": 2.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $109.07 – $111.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $112.24 direnci veya $108.68 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $105.54 olarak belirlenmiştir. Fiyatın EMA50 ($106.45) veya günlük VWAP ($110.96) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($106.45) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($110.96) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

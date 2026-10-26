@@ -1,0 +1,89 @@
+{
+  "ticker": "WIT",
+  "company": "Wipro Limited",
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T19:23:30.562Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 2.109999895095825,
+    "open": 2.1500000953674316,
+    "high": 2.180000066757202,
+    "low": 2.0799999237060547,
+    "prev_close": 2.190000057220459,
+    "change_pct": -3.6529753440358235,
+    "change_pct_1w": 8.20512017946683,
+    "change_pct_1m": 24.117637406583746,
+    "change_pct_1y": -22.14022636920005,
+    "volume": 17329900,
+    "avg_volume_30d": 316787700
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 80,
+    "fundamental_score": 74.75,
+    "momentum_score": 48,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 70.63514577835522,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1.8873897468793244,
+    "ema_50": 1.8420128902586683,
+    "ema_200": 2.0720758896967504,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.2154998898506166,
+    "bb_middle": 2.109999895095825,
+    "bb_lower": 2.0044999003410338,
+    "bb_width": 10,
+    "atr": 0.08,
+    "atr_pct": 3.76,
+    "rvol": 1.7044298121423276,
+    "52w_high": 3.0899999141693115,
+    "52w_low": 1.590000033378601
+  },
+  "fundamental": {
+    "pe_ratio": 15.071427,
+    "pb_ratio": 2.4769762,
+    "gross_margin": 0.28874,
+    "operating_margin": 0.16156,
+    "net_margin": 0.13578,
+    "market_cap": 20875337728,
+    "revenue_growth_ttm": 0.091,
+    "fcf_yield": 5.0254157838744025,
+    "institutional_ownership_pct": 0.035550002,
+    "dividend_rate": 0.09,
+    "dividend_yield": 0.041100003
+  },
+  "scores_detail": {
+    "entry_range_low": 2.06,
+    "entry_range_high": 2.12,
+    "target_range_low": 2.29,
+    "target_range_high": 2.55,
+    "target_1": 2.29,
+    "target_2": 2.5,
+    "target_3": 2.55,
+    "stop_loss": 2,
+    "risk_reward_ratio": 4.77,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.06 – $2.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.16 direnci veya $2.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.00 olarak belirlenmiştir. Fiyatın EMA200 ($2.07) veya günlük VWAP ($2.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1.84) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.11) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 71 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

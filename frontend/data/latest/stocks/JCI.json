@@ -1,0 +1,89 @@
+{
+  "ticker": "JCI",
+  "company": "Johnson Controls International plc",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T00:59:06.986Z",
+  "sector": "Industrials",
+  "industry": "Building Products & Equipment",
+  "price": {
+    "current": 143.9600067138672,
+    "open": 141.9499969482422,
+    "high": 144.97999572753906,
+    "low": 140.66000366210938,
+    "prev_close": 143,
+    "change_pct": 0.6713333663406906,
+    "change_pct_1w": -1.038010926077477,
+    "change_pct_1m": -7.367606124723243,
+    "change_pct_1y": 30.221621655195545,
+    "volume": 3375000,
+    "avg_volume_30d": 103333100
+  },
+  "scores": {
+    "master_score": 61,
+    "technical_score": 60,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.54118040240361,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 149.15584365643633,
+    "ema_50": 147.8888387718944,
+    "ema_200": 139.51202946944443,
+    "ema_stack_bullish": true,
+    "bb_upper": 151.15800704956055,
+    "bb_middle": 143.9600067138672,
+    "bb_lower": 136.76200637817382,
+    "bb_width": 10,
+    "atr": 4.87,
+    "atr_pct": 3.38,
+    "rvol": 0.9626305607786857,
+    "52w_high": 160.41000366210938,
+    "52w_low": 108.41000366210938
+  },
+  "fundamental": {
+    "pe_ratio": 40.666668,
+    "pb_ratio": 6.4680777,
+    "gross_margin": 0.36651,
+    "operating_margin": 0.15875,
+    "net_margin": 0.14319,
+    "market_cap": 87202545664,
+    "revenue_growth_ttm": 0.093,
+    "fcf_yield": 0.034220617130813216,
+    "institutional_ownership_pct": 0.92140996,
+    "dividend_rate": 1.6,
+    "dividend_yield": 0.0111
+  },
+  "scores_detail": {
+    "entry_range_low": 141.87,
+    "entry_range_high": 144.45,
+    "target_range_low": 150.32,
+    "target_range_high": 164.63,
+    "target_1": 150.32,
+    "target_2": 157.48,
+    "target_3": 164.63,
+    "stop_loss": 136.76,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $141.87 – $144.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $148.18 direnci veya $140.90 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $136.76 olarak belirlenmiştir. Fiyatın EMA200 ($139.51) veya günlük VWAP ($144.02) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($147.89) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($144.02) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
