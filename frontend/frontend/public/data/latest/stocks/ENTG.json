@@ -1,0 +1,89 @@
+{
+  "ticker": "ENTG",
+  "company": "Entegris, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T08:42:58.336Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 134.52000427246094,
+    "open": 127.30000305175781,
+    "high": 134.91000366210938,
+    "low": 127.01000213623047,
+    "prev_close": 128.30999755859375,
+    "change_pct": 4.839846334679681,
+    "change_pct_1w": -3.041661419648027,
+    "change_pct_1m": -15.930248802855884,
+    "change_pct_1y": 48.23140966662362,
+    "volume": 3304300,
+    "avg_volume_30d": 69925100
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 45,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.23825254942823,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 147.67106410383272,
+    "ema_50": 147.06316166348324,
+    "ema_200": 134.66896657791924,
+    "ema_stack_bullish": true,
+    "bb_upper": 141.246004486084,
+    "bb_middle": 134.52000427246094,
+    "bb_lower": 127.79400405883788,
+    "bb_width": 10,
+    "atr": 8.85,
+    "atr_pct": 6.58,
+    "rvol": 1.19874551484374,
+    "52w_high": 186.94000244140625,
+    "52w_low": 67.97000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 67.26,
+    "pb_ratio": 4.9423175,
+    "gross_margin": 0.45555001,
+    "operating_margin": 0.19271,
+    "net_margin": 0.091850005,
+    "market_cap": 20487397376,
+    "revenue_growth_ttm": 0.115,
+    "fcf_yield": 0.023321043626542092,
+    "institutional_ownership_pct": 1.11167,
+    "dividend_rate": 0.4,
+    "dividend_yield": 0.003
+  },
+  "scores_detail": {
+    "entry_range_low": 130.65,
+    "entry_range_high": 135.41,
+    "target_range_low": 139.68,
+    "target_range_high": 152.98,
+    "target_1": 139.68,
+    "target_2": 146.33,
+    "target_3": 152.98,
+    "stop_loss": 124.45,
+    "risk_reward_ratio": 1.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $130.65 – $135.41 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $146.98 direnci veya $128.88 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $124.45 olarak belirlenmiştir. Fiyatın EMA200 ($134.67) veya günlük VWAP ($133.32) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($147.06) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($133.32) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

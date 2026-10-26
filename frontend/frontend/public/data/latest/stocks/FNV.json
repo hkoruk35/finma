@@ -1,0 +1,89 @@
+{
+  "ticker": "FNV",
+  "company": "Franco-Nevada Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T11:22:24.704Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 228.75,
+    "open": 231,
+    "high": 232.38999938964844,
+    "low": 225.25,
+    "prev_close": 231.94000244140625,
+    "change_pct": -1.375356733563941,
+    "change_pct_1w": -6.142294906336756,
+    "change_pct_1m": -6.917599186164802,
+    "change_pct_1y": 19.570332402486837,
+    "volume": 698000,
+    "avg_volume_30d": 20030000
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.31302545926523,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 242.1884366265618,
+    "ema_50": 244.3186924553813,
+    "ema_200": 233.8053374843693,
+    "ema_stack_bullish": false,
+    "bb_upper": 240.1875,
+    "bb_middle": 228.75,
+    "bb_lower": 217.3125,
+    "bb_width": 10,
+    "atr": 7,
+    "atr_pct": 3.06,
+    "rvol": 0.7152371442835747,
+    "52w_high": 285.6700134277344,
+    "52w_low": 181.5
+  },
+  "fundamental": {
+    "pe_ratio": 29.90196,
+    "pb_ratio": 5.353883,
+    "gross_margin": 0.9209,
+    "operating_margin": 0.76978,
+    "net_margin": 0.6423,
+    "market_cap": 44115705856,
+    "revenue_growth_ttm": 0.582,
+    "fcf_yield": 0.010660035895947016,
+    "institutional_ownership_pct": 0.85024,
+    "dividend_rate": 1.76,
+    "dividend_yield": 0.0077
+  },
+  "scores_detail": {
+    "entry_range_low": 224.55,
+    "entry_range_high": 229.45,
+    "target_range_low": 238.35,
+    "target_range_high": 261.05,
+    "target_1": 238.35,
+    "target_2": 249.7,
+    "target_3": 261.05,
+    "stop_loss": 217.31,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $224.55 – $229.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $234.37 direnci veya $223.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $217.31 olarak belirlenmiştir. Fiyatın EMA200 ($233.81) veya günlük VWAP ($229.43) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($244.32) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($229.43) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

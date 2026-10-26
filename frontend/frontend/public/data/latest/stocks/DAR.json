@@ -1,0 +1,89 @@
+{
+  "ticker": "DAR",
+  "company": "Darling Ingredients Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T11:08:10.351Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 56.2400016784668,
+    "open": 55.75,
+    "high": 57.22999954223633,
+    "low": 55.65999984741211,
+    "prev_close": 55.63999938964844,
+    "change_pct": 1.0783650168946388,
+    "change_pct_1w": -8.344196350971044,
+    "change_pct_1m": -7.89387419983353,
+    "change_pct_1y": 62.215185026580755,
+    "volume": 2176500,
+    "avg_volume_30d": 67834100
+  },
+  "scores": {
+    "master_score": 42,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 34.64544662931014,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 60.365446691993675,
+    "ema_50": 61.655601551938396,
+    "ema_200": 56.82733437729101,
+    "ema_stack_bullish": false,
+    "bb_upper": 59.05200176239014,
+    "bb_middle": 56.2400016784668,
+    "bb_lower": 53.42800159454345,
+    "bb_width": 10,
+    "atr": 2.2,
+    "atr_pct": 3.91,
+    "rvol": 0.9392532664249987,
+    "52w_high": 69.9800033569336,
+    "52w_low": 31.479999542236328
+  },
+  "fundamental": {
+    "pe_ratio": 16.114614,
+    "pb_ratio": 1.6918356,
+    "gross_margin": 0.26333,
+    "operating_margin": 0.12892,
+    "net_margin": 0.091309994,
+    "market_cap": 8874835968,
+    "revenue_growth_ttm": 0.164,
+    "fcf_yield": 0.02474896536589148,
+    "institutional_ownership_pct": 1.07875,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 55.3,
+    "entry_range_high": 56.46,
+    "target_range_low": 63,
+    "target_range_high": 65.55,
+    "target_1": 63,
+    "target_2": 64.26,
+    "target_3": 65.55,
+    "stop_loss": 53.43,
+    "risk_reward_ratio": 3.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $55.30 – $56.46 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.32 direnci veya $54.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $53.43 olarak belirlenmiştir. Fiyatın EMA200 ($56.83) veya günlük VWAP ($56.47) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($61.66) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($56.47) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

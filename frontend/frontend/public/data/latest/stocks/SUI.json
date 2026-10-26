@@ -1,0 +1,89 @@
+{
+  "ticker": "SUI",
+  "company": "Sun Communities, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T11:20:18.785Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Residential",
+  "price": {
+    "current": 120.23999786376953,
+    "open": 121.01000213623047,
+    "high": 121.01000213623047,
+    "low": 118.4000015258789,
+    "prev_close": 119.86000061035156,
+    "change_pct": 0.3170342495269024,
+    "change_pct_1w": 1.829264904488485,
+    "change_pct_1m": 5.049798030341741,
+    "change_pct_1y": -2.513376492754735,
+    "volume": 1012500,
+    "avg_volume_30d": 35173100
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.88%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.254866201168305,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 115.95166638442062,
+    "ema_50": 116.63604132546953,
+    "ema_200": 121.32881345100773,
+    "ema_stack_bullish": false,
+    "bb_upper": 126.25199775695802,
+    "bb_middle": 120.23999786376953,
+    "bb_lower": 114.22799797058104,
+    "bb_width": 10,
+    "atr": 2.43,
+    "atr_pct": 2.02,
+    "rvol": 0.9848549033210038,
+    "52w_high": 137.85000610351562,
+    "52w_low": 109.7699966430664
+  },
+  "fundamental": {
+    "pe_ratio": 91.090904,
+    "pb_ratio": 2.6687973,
+    "gross_margin": 0.53682,
+    "operating_margin": 0.23205,
+    "net_margin": -0.37355,
+    "market_cap": 15373983744,
+    "revenue_growth_ttm": 0.002,
+    "fcf_yield": 0.12185846005796323,
+    "institutional_ownership_pct": 1.03967,
+    "dividend_rate": 4.48,
+    "dividend_yield": 0.0373
+  },
+  "scores_detail": {
+    "entry_range_low": 119.17,
+    "entry_range_high": 120.48,
+    "target_range_low": 125.81,
+    "target_range_high": 137.8,
+    "target_1": 125.81,
+    "target_2": 131.81,
+    "target_3": 137.8,
+    "stop_loss": 114.23,
+    "risk_reward_ratio": 2.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $119.17 – $120.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $121.01 direnci veya $118.68 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $114.23 olarak belirlenmiştir. Fiyatın EMA20 ($115.95) veya günlük VWAP ($119.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($116.64) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($119.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}

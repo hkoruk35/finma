@@ -1,0 +1,89 @@
+{
+  "ticker": "GILD",
+  "company": "Gilead Sciences, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T09:14:41.294Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 156.0399932861328,
+    "open": 156.47000122070312,
+    "high": 157.64999389648438,
+    "low": 155.75999450683594,
+    "prev_close": 157.19000244140625,
+    "change_pct": -0.7316045151803545,
+    "change_pct_1w": -0.09604273828583398,
+    "change_pct_1m": 3.72930990061449,
+    "change_pct_1y": 29.23637240924265,
+    "volume": 6070700,
+    "avg_volume_30d": 180875000
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.427631458604054,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 152.17762932771444,
+    "ema_50": 147.9178052236745,
+    "ema_200": 138.2779707841819,
+    "ema_stack_bullish": true,
+    "bb_upper": 163.84199295043945,
+    "bb_middle": 156.0399932861328,
+    "bb_lower": 148.23799362182618,
+    "bb_width": 10,
+    "atr": 4.11,
+    "atr_pct": 2.64,
+    "rvol": 1.0325904630269522,
+    "52w_high": 160.50999450683594,
+    "52w_low": 114.0199966430664
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 16.370121,
+    "gross_margin": 0.79603994,
+    "operating_margin": 0.33679,
+    "net_margin": -0.10637999,
+    "market_cap": 193482604544,
+    "revenue_growth_ttm": 0.102,
+    "fcf_yield": 0.05048968113192033,
+    "institutional_ownership_pct": 0.92015,
+    "dividend_rate": 3.28,
+    "dividend_yield": 0.021
+  },
+  "scores_detail": {
+    "entry_range_low": 153.57,
+    "entry_range_high": 156.45,
+    "target_range_low": 162.76,
+    "target_range_high": 178.26,
+    "target_1": 162.76,
+    "target_2": 170.51,
+    "target_3": 178.26,
+    "stop_loss": 148.24,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $153.57 – $156.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $159.59 direnci veya $152.75 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $148.24 olarak belirlenmiştir. Fiyatın EMA50 ($147.92) veya günlük VWAP ($156.72) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($156.72) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

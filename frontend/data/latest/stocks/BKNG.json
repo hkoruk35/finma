@@ -1,0 +1,89 @@
+{
+  "ticker": "BKNG",
+  "company": "Booking Holdings Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T09:02:50.946Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Travel Services",
+  "price": {
+    "current": 155.8300018310547,
+    "open": 159.36000061035156,
+    "high": 159.80999755859375,
+    "low": 155.5800018310547,
+    "prev_close": 161.10000610351562,
+    "change_pct": -3.2712626150210506,
+    "change_pct_1w": -4.661973239192188,
+    "change_pct_1m": -1.6410976235082637,
+    "change_pct_1y": -23.514813185456866,
+    "volume": 5931100,
+    "avg_volume_30d": 239499100
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 81.35,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 37.83169048109784,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 162.39107973486034,
+    "ema_50": 170.87237906800917,
+    "ema_200": 180.97596940264597,
+    "ema_stack_bullish": false,
+    "bb_upper": 163.62150192260742,
+    "bb_middle": 155.8300018310547,
+    "bb_lower": 148.03850173950195,
+    "bb_width": 10,
+    "atr": 5.16,
+    "atr_pct": 3.31,
+    "rvol": 0.8542679283554719,
+    "52w_high": 220.80599975585938,
+    "52w_low": 150.13999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 17.276052,
+    "pb_ratio": 0,
+    "gross_margin": 0.87227994,
+    "operating_margin": 0.34412,
+    "net_margin": 0.25527,
+    "market_cap": 120749309952,
+    "revenue_growth_ttm": 0.081,
+    "fcf_yield": 0.06398276895388613,
+    "institutional_ownership_pct": 0.98529,
+    "dividend_rate": 1.68,
+    "dividend_yield": 0.0108
+  },
+  "scores_detail": {
+    "entry_range_low": 152.74,
+    "entry_range_high": 156.35,
+    "target_range_low": 185.36,
+    "target_range_high": 193.92,
+    "target_1": 185.36,
+    "target_2": 189.07,
+    "target_3": 193.92,
+    "stop_loss": 148.04,
+    "risk_reward_ratio": 5.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $152.74 – $156.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $159.38 direnci veya $151.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $148.04 olarak belirlenmiştir. Fiyatın EMA20 ($162.39) veya günlük VWAP ($156.67) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($170.87) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($156.67) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

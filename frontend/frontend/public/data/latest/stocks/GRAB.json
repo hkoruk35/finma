@@ -1,0 +1,89 @@
+{
+  "ticker": "GRAB",
+  "company": "Grab Holdings Limited",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T09:36:06.347Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 2.7899999618530273,
+    "open": 2.8299999237060547,
+    "high": 2.8499999046325684,
+    "low": 2.7899999618530273,
+    "prev_close": 2.8499999046325684,
+    "change_pct": -2.1052612206061254,
+    "change_pct_1w": -5.102043960816961,
+    "change_pct_1m": -11.428575321119542,
+    "change_pct_1y": -51.223775101580074,
+    "volume": 43024400,
+    "avg_volume_30d": 2147973100
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.462120079559966,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 2.982514672022707,
+    "ema_50": 3.1485396387448685,
+    "ema_200": 3.7552463938416394,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.929499959945679,
+    "bb_middle": 2.7899999618530273,
+    "bb_lower": 2.650499963760376,
+    "bb_width": 10,
+    "atr": 0.11,
+    "atr_pct": 4.1,
+    "rvol": 0.6525648761616242,
+    "52w_high": 6.239999771118164,
+    "52w_low": 2.740000009536743
+  },
+  "fundamental": {
+    "pe_ratio": 25.363636,
+    "pb_ratio": 1.6817359,
+    "gross_margin": 0.40472,
+    "operating_margin": 0.02104,
+    "net_margin": 0.16028,
+    "market_cap": 11414731776,
+    "revenue_growth_ttm": 0.219,
+    "fcf_yield": 0.04403300943582329,
+    "institutional_ownership_pct": 0.66363996,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2.72,
+    "entry_range_high": 2.8,
+    "target_range_low": 3.23,
+    "target_range_high": 3.62,
+    "target_1": 3.23,
+    "target_2": 3.29,
+    "target_3": 3.62,
+    "stop_loss": 2.64,
+    "risk_reward_ratio": 4.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.72 – $2.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.85 direnci veya $2.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.64 olarak belirlenmiştir. Fiyatın EMA20 ($2.98) veya günlük VWAP ($2.83) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($3.15) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.83) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 35 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

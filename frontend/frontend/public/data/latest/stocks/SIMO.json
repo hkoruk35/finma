@@ -1,0 +1,89 @@
+{
+  "ticker": "SIMO",
+  "company": "Silicon Motion Technology Corporation",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T11:32:09.819Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 187.38999938964844,
+    "open": 186.75999450683594,
+    "high": 192.9600067138672,
+    "low": 185.19000244140625,
+    "prev_close": 187.9600067138672,
+    "change_pct": -0.30325989777520923,
+    "change_pct_1w": -11.315666501080283,
+    "change_pct_1m": -24.11824186864713,
+    "change_pct_1y": 97.19036282937742,
+    "volume": 962100,
+    "avg_volume_30d": 22879700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 40,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 28.194279412013472,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 234.31186241498494,
+    "ema_50": 249.31671656499114,
+    "ema_200": 218.33451761086735,
+    "ema_stack_bullish": false,
+    "bb_upper": 196.75949935913087,
+    "bb_middle": 187.38999938964844,
+    "bb_lower": 178.020499420166,
+    "bb_width": 10,
+    "atr": 16.83,
+    "atr_pct": 8.98,
+    "rvol": 1.0390783095932203,
+    "52w_high": 355,
+    "52w_low": 79.76000213623047
+  },
+  "fundamental": {
+    "pe_ratio": 21.916958,
+    "pb_ratio": 6.069705,
+    "gross_margin": 0.48869,
+    "operating_margin": 0.2242,
+    "net_margin": 0.2206,
+    "market_cap": 6354064384,
+    "revenue_growth_ttm": 1.27,
+    "fcf_yield": -0.030980211106403546,
+    "institutional_ownership_pct": 0.75514,
+    "dividend_rate": 2.3,
+    "dividend_yield": 0.0123000005
+  },
+  "scores_detail": {
+    "entry_range_low": 177.29,
+    "entry_range_high": 189.07,
+    "target_range_low": 275,
+    "target_range_high": 296.98,
+    "target_1": 275,
+    "target_2": 291.16,
+    "target_3": 296.98,
+    "stop_loss": 165.52,
+    "risk_reward_ratio": 6.11,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $177.29 – $189.07 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $216.47 direnci veya $173.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $165.52 olarak belirlenmiştir. Fiyatın EMA200 ($218.33) veya günlük VWAP ($189.43) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($249.32) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($189.43) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 28 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

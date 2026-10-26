@@ -1,0 +1,89 @@
+{
+  "ticker": "AME",
+  "company": "AMETEK, Inc.",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T09:57:56.141Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 240.02999877929688,
+    "open": 236.16000366210938,
+    "high": 241.4199981689453,
+    "low": 235.16000366210938,
+    "prev_close": 238.82000732421875,
+    "change_pct": 0.506654140344053,
+    "change_pct_1w": -3.2800094490499276,
+    "change_pct_1m": -3.9457363777799936,
+    "change_pct_1y": 26.865751929668274,
+    "volume": 988800,
+    "avg_volume_30d": 41846000
+  },
+  "scores": {
+    "master_score": 59,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.912504183297415,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 246.2410810622356,
+    "ema_50": 244.4921207393696,
+    "ema_200": 231.94743730935727,
+    "ema_stack_bullish": true,
+    "bb_upper": 252.03149871826173,
+    "bb_middle": 240.02999877929688,
+    "bb_lower": 228.02849884033202,
+    "bb_width": 10,
+    "atr": 5.83,
+    "atr_pct": 2.43,
+    "rvol": 0.9651245041342064,
+    "52w_high": 261.1600036621094,
+    "52w_low": 182.8699951171875
+  },
+  "fundamental": {
+    "pe_ratio": 35.092106,
+    "pb_ratio": 4.886803,
+    "gross_margin": 0.36905998,
+    "operating_margin": 0.26182,
+    "net_margin": 0.20044,
+    "market_cap": 55015596032,
+    "revenue_growth_ttm": 0.15,
+    "fcf_yield": 0.027123605297887612,
+    "institutional_ownership_pct": 0.92813003,
+    "dividend_rate": 1.36,
+    "dividend_yield": 0.0057
+  },
+  "scores_detail": {
+    "entry_range_low": 236.71,
+    "entry_range_high": 240.61,
+    "target_range_low": 250.59,
+    "target_range_high": 274.46,
+    "target_1": 250.59,
+    "target_2": 262.53,
+    "target_3": 274.46,
+    "stop_loss": 228.03,
+    "risk_reward_ratio": 2.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $236.71 – $240.61 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $246.79 direnci veya $235.54 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $228.03 olarak belirlenmiştir. Fiyatın EMA200 ($231.95) veya günlük VWAP ($239.96) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($244.49) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($239.96) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

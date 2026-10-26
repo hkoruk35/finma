@@ -1,8 +1,8 @@
 {
   "ticker": "MTZ",
   "company": "MasTec, Inc.",
-  "date": "2026-10-25",
-  "generated_at": "2026-10-25T14:14:00.222Z",
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T10:53:42.886Z",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 164.30999755859375
   },
   "fundamental": {
-    "pe_ratio": 28.796297,
+    "pe_ratio": 27.280703,
     "pb_ratio": 3.840282,
     "gross_margin": 0.12913999,
     "operating_margin": 0.05424,
