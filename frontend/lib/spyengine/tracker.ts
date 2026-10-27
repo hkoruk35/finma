@@ -249,6 +249,8 @@ export const TRACK_CFG = {
   maxStopAtr5: 0,
   minEntryRvol: 0,
   maxCrosses: 0,
+  /** 12:00 sonrası: gün içi VWAP kesişimi bu sayıya ulaştıysa giriş yok (öğleden sonra testere) · 0 = kapalı. 45 seans: +29,3R → +37,7R, yarılar +24,1/+13,6 */
+  pmMaxCrosses: 3,
   /** ters yön kilidi: STOP ile kapanan işlemden sonra bu kadar dakika ters yönde giriş yok (aynı yön serbest) · 0 = kapalı.
    *  13 Eki: 12:30 PUT stopu → 12:45 CALL −1R, 13:00 CALL stopu → 13:20 PUT −1R. 45 seans: 42,5R → 46,7R, maxDD −6,35R → −4,67R */
   oppAfterStopMin: 0,
@@ -304,7 +306,7 @@ export type TrackCfg = typeof TRACK_CFG;
 
 /** SPY dışındaki motorlar (QQQ / IWM / NVDA / AAPL / TSLA / AMZN) v3.0 öncesi kurallarla çalışır: SPY'a özel yeni kurallar orada KAPALI */
 export const NON_SPY_RULES: Partial<TrackCfg> = {
-  oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0,
+  oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0, pmMaxCrosses: 0,
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
@@ -1285,6 +1287,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
           return on / (i + 1) < C.trendDayShare;
         })() && `12:00 sonrası, net trend günü değil — hacim yetersiz (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.pmRvolMin})`,
         C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
+        C.pmMaxCrosses > 0 && m > 12 * 60 && crosses >= C.pmMaxCrosses && `12:00 sonrası testere gün (VWAP ${crosses} kez kesildi)`,
         (() => {
           if (C.oppAfterStopMin <= 0) return false;
           const ls = [...trades].reverse().find((t) => t.exitReason === "STOP" && t.exitTime != null);
