@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-10-27T14:07:26.867604-04:00",
+  "generated_at": "2026-10-27T17:03:39.702726-04:00",
   "picks": [
     {
       "ticker": "OKTA",
       "sector": "Technology",
       "date_added": "2026-10-26",
       "score": 34.0
-    },
-    {
-      "ticker": "SNOW",
-      "sector": "Technology",
-      "date_added": "2026-10-26",
-      "score": 22.0
     },
     {
       "ticker": "RBRK",
@@ -44,12 +38,6 @@
       "score": 39.0
     },
     {
-      "ticker": "CHH",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-26",
-      "score": 37.5
-    },
-    {
       "ticker": "ADI",
       "sector": "Technology",
       "date_added": "2026-10-26",
@@ -62,58 +50,16 @@
       "score": 35.5
     },
     {
-      "ticker": "WMG",
-      "sector": "Communication Services",
-      "date_added": "2026-10-27",
-      "score": 36.0
-    },
-    {
-      "ticker": "SSD",
-      "sector": "Basic Materials",
-      "date_added": "2026-10-27",
-      "score": 34.0
-    },
-    {
       "ticker": "KSS",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-27",
       "score": 29.5
     },
     {
-      "ticker": "FTDR",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-27",
-      "score": 44.5
-    },
-    {
-      "ticker": "NTNX",
-      "sector": "Technology",
-      "date_added": "2026-10-27",
-      "score": 43.5
-    },
-    {
-      "ticker": "CTAS",
-      "sector": "Industrials",
-      "date_added": "2026-10-27",
-      "score": 42.5
-    },
-    {
       "ticker": "SSL",
       "sector": "Basic Materials",
       "date_added": "2026-10-27",
       "score": 41.0
-    },
-    {
-      "ticker": "PACS",
-      "sector": "Healthcare",
-      "date_added": "2026-10-27",
-      "score": 39.0
-    },
-    {
-      "ticker": "IOT",
-      "sector": "Technology",
-      "date_added": "2026-10-27",
-      "score": 38.5
     },
     {
       "ticker": "SYRE",
@@ -128,10 +74,64 @@
       "score": 32.0
     },
     {
-      "ticker": "MDB",
+      "ticker": "BR",
       "sector": "Technology",
       "date_added": "2026-10-27",
-      "score": 27.5
+      "score": 43.5
+    },
+    {
+      "ticker": "ELF",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-10-27",
+      "score": 43.0
+    },
+    {
+      "ticker": "TOST",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 42.0
+    },
+    {
+      "ticker": "TREX",
+      "sector": "Industrials",
+      "date_added": "2026-10-27",
+      "score": 41.0
+    },
+    {
+      "ticker": "HNGE",
+      "sector": "Healthcare",
+      "date_added": "2026-10-27",
+      "score": 39.5
+    },
+    {
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-27",
+      "score": 38.0
+    },
+    {
+      "ticker": "TXN",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 37.0
+    },
+    {
+      "ticker": "TEAM",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 35.5
+    },
+    {
+      "ticker": "FDS",
+      "sector": "Financial Services",
+      "date_added": "2026-10-27",
+      "score": 34.5
+    },
+    {
+      "ticker": "VRNS",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 31.0
     }
   ]
 }
