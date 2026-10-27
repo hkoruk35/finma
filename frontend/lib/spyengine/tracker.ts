@@ -306,7 +306,7 @@ export type TrackCfg = typeof TRACK_CFG;
 
 /** SPY dışındaki motorlar (QQQ / IWM / NVDA / AAPL / TSLA / AMZN) v3.0 öncesi kurallarla çalışır: SPY'a özel yeni kurallar orada KAPALI */
 export const NON_SPY_RULES: Partial<TrackCfg> = {
-  oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0, pmMaxCrosses: 0,
+  oppAfterStopMin: 0, chopCross: 0, earlyExitBars: 0, pmMaxCrosses: 3,
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
