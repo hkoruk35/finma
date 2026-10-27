@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-10-27T09:04:51.009875-04:00",
+  "generated_at": "2026-10-27T14:07:26.867604-04:00",
   "picks": [
-    {
-      "ticker": "WTS",
-      "sector": "Industrials",
-      "date_added": "2026-10-26",
-      "score": 41.0
-    },
     {
       "ticker": "OKTA",
       "sector": "Technology",
@@ -68,28 +62,10 @@
       "score": 35.5
     },
     {
-      "ticker": "TDW",
-      "sector": "Energy",
-      "date_added": "2026-10-27",
-      "score": 38.0
-    },
-    {
       "ticker": "WMG",
       "sector": "Communication Services",
       "date_added": "2026-10-27",
       "score": 36.0
-    },
-    {
-      "ticker": "VG",
-      "sector": "Energy",
-      "date_added": "2026-10-27",
-      "score": 34.0
-    },
-    {
-      "ticker": "LIFE",
-      "sector": "Financial Services",
-      "date_added": "2026-10-27",
-      "score": 34.0
     },
     {
       "ticker": "SSD",
@@ -98,22 +74,64 @@
       "score": 34.0
     },
     {
-      "ticker": "SG",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-10-27",
-      "score": 33.5
-    },
-    {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-10-27",
-      "score": 32.5
-    },
-    {
       "ticker": "KSS",
       "sector": "Consumer Cyclical",
       "date_added": "2026-10-27",
       "score": 29.5
+    },
+    {
+      "ticker": "FTDR",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-10-27",
+      "score": 44.5
+    },
+    {
+      "ticker": "NTNX",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 43.5
+    },
+    {
+      "ticker": "CTAS",
+      "sector": "Industrials",
+      "date_added": "2026-10-27",
+      "score": 42.5
+    },
+    {
+      "ticker": "SSL",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-27",
+      "score": 41.0
+    },
+    {
+      "ticker": "PACS",
+      "sector": "Healthcare",
+      "date_added": "2026-10-27",
+      "score": 39.0
+    },
+    {
+      "ticker": "IOT",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 38.5
+    },
+    {
+      "ticker": "SYRE",
+      "sector": "Healthcare",
+      "date_added": "2026-10-27",
+      "score": 32.5
+    },
+    {
+      "ticker": "LION",
+      "sector": "Unknown",
+      "date_added": "2026-10-27",
+      "score": 32.0
+    },
+    {
+      "ticker": "MDB",
+      "sector": "Technology",
+      "date_added": "2026-10-27",
+      "score": 27.5
     }
   ]
 }
