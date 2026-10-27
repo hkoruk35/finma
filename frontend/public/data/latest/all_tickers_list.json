@@ -407,6 +407,116 @@
       "change_pct": 1.47,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RDN",
+      "company": "RDN",
+      "sector": "Financial Services",
+      "master_score": 56.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 35.70000076293945,
+      "change_pct": -0.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TCBI",
+      "company": "TCBI",
+      "sector": "Financial Services",
+      "master_score": 53.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 101.0,
+      "change_pct": -0.6,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ACIW",
+      "company": "ACIW",
+      "sector": "Technology",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 54.65999984741211,
+      "change_pct": -1.83,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "AVAH",
+      "company": "AVAH",
+      "sector": "Healthcare",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 12.699999809265137,
+      "change_pct": -3.64,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "SM",
+      "company": "SM",
+      "sector": "Energy",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 39.06999969482422,
+      "change_pct": -2.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "ICUI",
+      "company": "ICUI",
+      "sector": "Healthcare",
+      "master_score": 49.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 163.1999969482422,
+      "change_pct": -1.66,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "SSD",
+      "company": "SSD",
+      "sector": "Basic Materials",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 191.66000366210938,
+      "change_pct": 5.31,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "ULTA",
+      "company": "ULTA",
+      "sector": "Consumer Cyclical",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 626.8800048828125,
+      "change_pct": 0.25,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DIN",
+      "company": "DIN",
+      "sector": "Consumer Cyclical",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 32.0099983215332,
+      "change_pct": 0.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DGII",
+      "company": "DGII",
+      "sector": "Technology",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 78.8499984741211,
+      "change_pct": 3.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
     }
   ]
 }
