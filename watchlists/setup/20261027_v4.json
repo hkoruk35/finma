@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "TXN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 303.24,
+        "entry_zone": "298.34 - 308.15",
+        "SL": 283.64,
+        "TP": 342.46
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "RNG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 85.4,
+        "entry_zone": "82.83 - 87.97",
+        "SL": 75.14,
+        "TP": 105.93
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "GH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 175.03,
+        "entry_zone": "171.05 - 179.01",
+        "SL": 159.11,
+        "TP": 206.88
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 69.62,
+        "entry_zone": "67.43 - 71.82",
+        "SL": 60.83,
+        "TP": 87.22
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "ORKA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 91.85,
+        "entry_zone": "89.60 - 94.10",
+        "SL": 82.84,
+        "TP": 109.88
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "QCOM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 180.47,
+        "entry_zone": "177.51 - 183.43",
+        "SL": 168.62,
+        "TP": 204.16
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "TGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 55.0,
+        "entry_zone": "53.97 - 56.03",
+        "SL": 50.88,
+        "TP": 63.24
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "NXPI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 247.79,
+        "entry_zone": "243.40 - 252.18",
+        "SL": 230.25,
+        "TP": 282.87
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 162.85,
+        "entry_zone": "159.85 - 165.85",
+        "SL": 150.84,
+        "TP": 186.88
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "S",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 25.32,
+        "entry_zone": "24.67 - 25.96",
+        "SL": 22.73,
+        "TP": 30.48
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "VISN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 6.39,
+        "entry_zone": "6.29 - 6.48",
+        "SL": 5.99,
+        "TP": 6.98
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "INVX",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 30.86,
+        "entry_zone": "30.32 - 31.40",
+        "SL": 28.7,
+        "TP": 35.17
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "AMRX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 21.24,
+        "entry_zone": "20.94 - 21.54",
+        "SL": 20.02,
+        "TP": 23.68
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "BLLN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 111.34,
+        "entry_zone": "108.59 - 114.09",
+        "SL": 100.35,
+        "TP": 133.32
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "TSLA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 402.45,
+        "entry_zone": "395.72 - 409.18",
+        "SL": 375.52,
+        "TP": 456.31
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "NDAQ",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 104.41,
+        "entry_zone": "103.27 - 105.55",
+        "SL": 99.86,
+        "TP": 113.5
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "ADI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 417.63,
+        "entry_zone": "410.54 - 424.72",
+        "SL": 389.27,
+        "TP": 474.35
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "J",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 145.55,
+        "entry_zone": "143.79 - 147.31",
+        "SL": 138.5,
+        "TP": 159.65
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "PRAX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 267.99,
+        "entry_zone": "261.99 - 273.98",
+        "SL": 244.01,
+        "TP": 315.95
+    },
+    {
+        "date": "2026-10-27 14:30",
+        "symbol": "LULU",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 102.72,
+        "entry_zone": "100.77 - 104.67",
+        "SL": 94.92,
+        "TP": 118.32
+    }
+]
