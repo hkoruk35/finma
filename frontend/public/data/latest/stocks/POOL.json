@@ -1,0 +1,89 @@
+{
+  "ticker": "POOL",
+  "company": "Pool Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T14:12:42.160Z",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 192.50999450683594,
+    "open": 192.47999572753906,
+    "high": 193.8699951171875,
+    "low": 192.0800018310547,
+    "prev_close": 194.89999389648438,
+    "change_pct": -1.2262696072313979,
+    "change_pct_1w": 11.638826131569624,
+    "change_pct_1m": 13.830416310880874,
+    "change_pct_1y": -32.911661851423055,
+    "volume": 44298,
+    "avg_volume_30d": 26343298
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 60,
+    "fundamental_score": 56.6,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.66247079514339,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 177.72675333711192,
+    "ema_50": 177.17622887225426,
+    "ema_200": 201.69793702413594,
+    "ema_stack_bullish": false,
+    "bb_upper": 202.13549423217773,
+    "bb_middle": 192.50999450683594,
+    "bb_lower": 182.88449478149414,
+    "bb_width": 10,
+    "atr": 6.64,
+    "atr_pct": 3.45,
+    "rvol": 1.19561294109796,
+    "52w_high": 293.2699890136719,
+    "52w_low": 152.6999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 17.661469,
+    "pb_ratio": 5.6289473,
+    "gross_margin": 0.29417,
+    "operating_margin": 0.114420004,
+    "net_margin": 0.072680004,
+    "market_cap": 6995957248,
+    "revenue_growth_ttm": 0.037,
+    "fcf_yield": 0.05105568077936888,
+    "institutional_ownership_pct": 1.11849,
+    "dividend_rate": 5.2,
+    "dividend_yield": 0.026700001
+  },
+  "scores_detail": {
+    "entry_range_low": 188.53,
+    "entry_range_high": 193.17,
+    "target_range_low": 209.78,
+    "target_range_high": 249.04,
+    "target_1": 209.78,
+    "target_2": 221.02,
+    "target_3": 249.04,
+    "stop_loss": 182.88,
+    "risk_reward_ratio": 3.79,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $188.53 – $193.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $197.11 direnci veya $187.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $182.88 olarak belirlenmiştir. Fiyatın EMA20 ($177.73) veya günlük VWAP ($193.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($177.18) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($193.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}
