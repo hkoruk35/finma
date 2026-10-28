@@ -2,7 +2,7 @@
   "ticker": "SNPS",
   "company": "Synopsys, Inc.",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T04:18:33.647Z",
+  "generated_at": "2026-10-28T08:24:59.569Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 90916257792,
     "revenue_growth_ttm": 0.424,
     "fcf_yield": 0.03767799602835637,
-    "institutional_ownership_pct": 0.93046,
+    "institutional_ownership_pct": 0.9296,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

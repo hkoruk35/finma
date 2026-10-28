@@ -1,0 +1,89 @@
+{
+  "ticker": "CTSH",
+  "company": "Cognizant Technology Solutions Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T08:32:51.664Z",
+  "sector": "Technology",
+  "industry": "Information Technology Services",
+  "price": {
+    "current": 66.22000122070312,
+    "open": 68.19999694824219,
+    "high": 68.55999755859375,
+    "low": 65.7699966430664,
+    "prev_close": 69.33999633789062,
+    "change_pct": -4.499560545091331,
+    "change_pct_1w": -2.874741970812027,
+    "change_pct_1m": 6.002881265763792,
+    "change_pct_1y": -2.6892016884449155,
+    "volume": 10885000,
+    "avg_volume_30d": 207418100
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.41054165057079,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 64.9604290620402,
+    "ema_50": 61.41686117205431,
+    "ema_200": 60.04960157898553,
+    "ema_stack_bullish": true,
+    "bb_upper": 69.53100128173828,
+    "bb_middle": 66.22000122070312,
+    "bb_lower": 62.909001159667966,
+    "bb_width": 10,
+    "atr": 2.9,
+    "atr_pct": 4.39,
+    "rvol": 1.1307017082887172,
+    "52w_high": 87.02999877929688,
+    "52w_low": 37.08000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 14.24086,
+    "pb_ratio": 2.0696337,
+    "gross_margin": 0.3344,
+    "operating_margin": 0.17479,
+    "net_margin": 0.10258,
+    "market_cap": 31322060800,
+    "revenue_growth_ttm": 0.045,
+    "fcf_yield": 0.07073289481642281,
+    "institutional_ownership_pct": 1.1645501,
+    "dividend_rate": 1.32,
+    "dividend_yield": 0.0199
+  },
+  "scores_detail": {
+    "entry_range_low": 64.48,
+    "entry_range_high": 66.51,
+    "target_range_low": 68.77,
+    "target_range_high": 88.68,
+    "target_1": 68.77,
+    "target_2": 86.94,
+    "target_3": 88.68,
+    "stop_loss": 62.44,
+    "risk_reward_ratio": 7.03,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $64.48 – $66.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $68.75 direnci veya $63.90 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $62.44 olarak belirlenmiştir. Fiyatın EMA50 ($61.42) veya günlük VWAP ($66.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($66.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}
