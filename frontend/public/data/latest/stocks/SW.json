@@ -2,7 +2,7 @@
   "ticker": "SW",
   "company": "Smurfit Westrock Plc",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T05:15:32.323Z",
+  "generated_at": "2026-10-28T10:10:01.473Z",
   "sector": "Consumer Cyclical",
   "industry": "Packaging & Containers",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 32.729000091552734
   },
   "fundamental": {
-    "pe_ratio": 44.312504,
+    "pe_ratio": 44.77895,
     "pb_ratio": 1.2354786,
     "gross_margin": 0.18160999,
     "operating_margin": 0.05466,
@@ -60,9 +60,9 @@
     "market_cap": 22313205760,
     "revenue_growth_ttm": 0.011,
     "fcf_yield": 0.054452062024098864,
-    "institutional_ownership_pct": 1.01743,
+    "institutional_ownership_pct": 1.01754,
     "dividend_rate": 1.81,
-    "dividend_yield": 0.0428
+    "dividend_yield": 0.0425
   },
   "scores_detail": {
     "entry_range_low": 41.81,

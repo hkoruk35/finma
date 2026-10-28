@@ -2,7 +2,7 @@
   "ticker": "CNP",
   "company": "CenterPoint Energy, Inc.",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T06:49:32.521Z",
+  "generated_at": "2026-10-28T11:00:08.386Z",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
   "price": {
@@ -53,16 +53,16 @@
   },
   "fundamental": {
     "pe_ratio": 24.12069,
-    "pb_ratio": 2.4568284,
-    "gross_margin": 0.47027,
-    "operating_margin": 0.24489,
-    "net_margin": 0.11611,
+    "pb_ratio": 2.3693123,
+    "gross_margin": 0.48386002,
+    "operating_margin": 0.30443,
+    "net_margin": 0.117580004,
     "market_cap": 27646490624,
-    "revenue_growth_ttm": 0.107,
-    "fcf_yield": -0.18779508555392987,
-    "institutional_ownership_pct": 1.07472,
+    "revenue_growth_ttm": 0.102,
+    "fcf_yield": -0.17920448694125005,
+    "institutional_ownership_pct": 1.07479,
     "dividend_rate": 0.96,
-    "dividend_yield": 0.0233
+    "dividend_yield": 0.0229
   },
   "scores_detail": {
     "entry_range_low": 41.16,

@@ -2,7 +2,7 @@
   "ticker": "NSC",
   "company": "Norfolk Southern Corporation",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T06:08:46.702Z",
+  "generated_at": "2026-10-28T10:57:00.568Z",
   "sector": "Industrials",
   "industry": "Railroads",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 76311273472,
     "revenue_growth_ttm": 0.136,
     "fcf_yield": 0.021215739042725328,
-    "institutional_ownership_pct": 0.77647,
+    "institutional_ownership_pct": 0.77624,
     "dividend_rate": 5.4,
-    "dividend_yield": 0.0162
+    "dividend_yield": 0.0159
   },
   "scores_detail": {
     "entry_range_low": 335.74,

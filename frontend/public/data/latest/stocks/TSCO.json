@@ -1,0 +1,89 @@
+{
+  "ticker": "TSCO",
+  "company": "Tractor Supply Company",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T09:11:46.812Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Specialty Retail",
+  "price": {
+    "current": 32.2400016784668,
+    "open": 32.439998626708984,
+    "high": 32.619998931884766,
+    "low": 31.940000534057617,
+    "prev_close": 32.529998779296875,
+    "change_pct": -0.8914759044339143,
+    "change_pct_1w": -2.03584980872614,
+    "change_pct_1m": -1.5271837946448599,
+    "change_pct_1y": -42.806453274153306,
+    "volume": 19135700,
+    "avg_volume_30d": 411480100
+  },
+  "scores": {
+    "master_score": 58,
+    "technical_score": 45,
+    "fundamental_score": 61.55,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.40806669427496,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.943836482665894,
+    "ema_50": 33.029857942207606,
+    "ema_200": 37.82710880692146,
+    "ema_stack_bullish": false,
+    "bb_upper": 33.85200176239014,
+    "bb_middle": 32.2400016784668,
+    "bb_lower": 30.628001594543456,
+    "bb_width": 10,
+    "atr": 1.38,
+    "atr_pct": 4.28,
+    "rvol": 1.5944732199685963,
+    "52w_high": 56.939998626708984,
+    "52w_low": 28.360000610351562
+  },
+  "fundamental": {
+    "pe_ratio": 17.333334,
+    "pb_ratio": 6.309198,
+    "gross_margin": 0.36247003,
+    "operating_margin": 0.07869,
+    "net_margin": 0.061300002,
+    "market_cap": 16798334976,
+    "revenue_growth_ttm": 0.051,
+    "fcf_yield": 0.0068626296692322845,
+    "institutional_ownership_pct": 0.96992993,
+    "dividend_rate": 0.96,
+    "dividend_yield": 0.0298
+  },
+  "scores_detail": {
+    "entry_range_low": 30.18,
+    "entry_range_high": 32.38,
+    "target_range_low": 32.84,
+    "target_range_high": 35.97,
+    "target_1": 32.84,
+    "target_2": 34.4,
+    "target_3": 35.97,
+    "stop_loss": 29.21,
+    "risk_reward_ratio": 1.51,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.18 – $32.38 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $33.10 direnci veya $29.90 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.21 olarak belirlenmiştir. Fiyatın EMA20 ($32.94) veya günlük VWAP ($32.23) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($33.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.23) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 45 ile dengeli/nötr bir görünümde."
+  }
+}

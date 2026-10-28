@@ -2,7 +2,7 @@
   "ticker": "LMT",
   "company": "Lockheed Martin Corporation",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T06:08:43.055Z",
+  "generated_at": "2026-10-28T10:39:40.006Z",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 143913582592,
     "revenue_growth_ttm": 0.113,
     "fcf_yield": 0.03922840222805924,
-    "institutional_ownership_pct": 0.76658994,
+    "institutional_ownership_pct": 0.76742,
     "dividend_rate": 14.4,
-    "dividend_yield": 0.0227
+    "dividend_yield": 0.0231
   },
   "scores_detail": {
     "entry_range_low": 608.06,

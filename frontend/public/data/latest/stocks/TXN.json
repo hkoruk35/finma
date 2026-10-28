@@ -1,0 +1,89 @@
+{
+  "ticker": "TXN",
+  "company": "Texas Instruments Incorporated",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T10:15:08.848Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 308.9100036621094,
+    "open": 300.8699951171875,
+    "high": 309.4700012207031,
+    "low": 299.3500061035156,
+    "prev_close": 298.1199951171875,
+    "change_pct": 3.6193508391412816,
+    "change_pct_1w": 11.20671215336352,
+    "change_pct_1m": 10.069485259297204,
+    "change_pct_1y": 82.34460597630037,
+    "volume": 8160900,
+    "avg_volume_30d": 198575000
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 95,
+    "fundamental_score": 79.7,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.97536377361874,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 284.799165538178,
+    "ema_50": 279.83288981719534,
+    "ema_200": 257.18139104198076,
+    "ema_stack_bullish": true,
+    "bb_upper": 324.35550384521486,
+    "bb_middle": 308.9100036621094,
+    "bb_lower": 293.4645034790039,
+    "bb_width": 10,
+    "atr": 10.17,
+    "atr_pct": 3.29,
+    "rvol": 1.4372292584665742,
+    "52w_high": 334.0299987792969,
+    "52w_low": 152.72999572753906
+  },
+  "fundamental": {
+    "pe_ratio": 40.066147,
+    "pb_ratio": 14.717009,
+    "gross_margin": 0.60243,
+    "operating_margin": 0.47547,
+    "net_margin": 0.34252998,
+    "market_cap": 282420248576,
+    "revenue_growth_ttm": 0.277,
+    "fcf_yield": 0.01692026350126967,
+    "institutional_ownership_pct": 0.91757005,
+    "dividend_rate": 6.08,
+    "dividend_yield": 0.0197
+  },
+  "scores_detail": {
+    "entry_range_low": 286.75,
+    "entry_range_high": 309.93,
+    "target_range_low": 315.34,
+    "target_range_high": 343.09,
+    "target_1": 315.34,
+    "target_2": 331.51,
+    "target_3": 343.09,
+    "stop_loss": 279.63,
+    "risk_reward_ratio": 1.77,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $286.75 – $309.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $309.47 direnci veya $284.72 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $279.63 olarak belirlenmiştir. Fiyatın EMA50 ($279.83) veya günlük VWAP ($306.23) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($306.23) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 70 seviyesinde pozitif momentumu destekliyor."
+  }
+}
