@@ -1,0 +1,89 @@
+{
+  "ticker": "NEM",
+  "company": "Newmont Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:15:08.255Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 111.62999725341797,
+    "open": 111.9800033569336,
+    "high": 112.41999816894531,
+    "low": 110.86499786376953,
+    "prev_close": 112.63999938964844,
+    "change_pct": -0.8966638331882728,
+    "change_pct_1w": -4.736305715398323,
+    "change_pct_1m": -3.592714076532598,
+    "change_pct_1y": 40.69826368281103,
+    "volume": 1368271,
+    "avg_volume_30d": 177950171
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 45,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.25066174264722,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 115.13586715363627,
+    "ema_50": 116.14587554691313,
+    "ema_200": 109.26897241028934,
+    "ema_stack_bullish": false,
+    "bb_upper": 117.21149711608888,
+    "bb_middle": 111.62999725341797,
+    "bb_lower": 106.04849739074706,
+    "bb_width": 10,
+    "atr": 3.7,
+    "atr_pct": 3.31,
+    "rvol": 1.0474742730087065,
+    "52w_high": 135.2899932861328,
+    "52w_low": 76.05000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 12.950116,
+    "pb_ratio": 3.2636535,
+    "gross_margin": 0.68041,
+    "operating_margin": 0.49992,
+    "net_margin": 0.34729,
+    "market_cap": 116005134336,
+    "revenue_growth_ttm": 0.152,
+    "fcf_yield": 0.07891137622827778,
+    "institutional_ownership_pct": 0.82992995,
+    "dividend_rate": 1.04,
+    "dividend_yield": 0.0092
+  },
+  "scores_detail": {
+    "entry_range_low": 109.41,
+    "entry_range_high": 112,
+    "target_range_low": 120.05,
+    "target_range_high": 131.98,
+    "target_1": 120.05,
+    "target_2": 122.45,
+    "target_3": 131.98,
+    "stop_loss": 106.05,
+    "risk_reward_ratio": 2.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $109.41 – $112.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $114.24 direnci veya $108.67 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $106.05 olarak belirlenmiştir. Fiyatın EMA200 ($109.27) veya günlük VWAP ($112.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($116.15) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($112.15) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

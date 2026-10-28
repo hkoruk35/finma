@@ -1,0 +1,89 @@
+{
+  "ticker": "AXP",
+  "company": "American Express Company",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:22:14.053Z",
+  "sector": "Financial Services",
+  "industry": "Credit Services",
+  "price": {
+    "current": 315.3599853515625,
+    "open": 312.67999267578125,
+    "high": 316.9800109863281,
+    "low": 312.7250061035156,
+    "prev_close": 312.9100036621094,
+    "change_pct": 0.7829668789044841,
+    "change_pct_1w": -2.549365091759263,
+    "change_pct_1m": 0.4747157286629748,
+    "change_pct_1y": -12.649922051395276,
+    "volume": 453272,
+    "avg_volume_30d": 99915872
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.09812662667213,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 314.0831002349332,
+    "ema_50": 317.8311428138523,
+    "ema_200": 329.8066206002661,
+    "ema_stack_bullish": false,
+    "bb_upper": 331.12798461914065,
+    "bb_middle": 315.3599853515625,
+    "bb_lower": 299.59198608398435,
+    "bb_width": 10,
+    "atr": 6.49,
+    "atr_pct": 2.06,
+    "rvol": 0.8254947922588314,
+    "52w_high": 387.489990234375,
+    "52w_low": 290.9700012207031
+  },
+  "fundamental": {
+    "pe_ratio": 17.76676,
+    "pb_ratio": 5.9112635,
+    "gross_margin": 0.61954,
+    "operating_margin": 0.18431,
+    "net_margin": 0.16823,
+    "market_cap": 211465273344,
+    "revenue_growth_ttm": 0.113,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.65023005,
+    "dividend_rate": 3.8,
+    "dividend_yield": 0.0121
+  },
+  "scores_detail": {
+    "entry_range_low": 311.46,
+    "entry_range_high": 316.01,
+    "target_range_low": 339.98,
+    "target_range_high": 363.14,
+    "target_1": 339.98,
+    "target_2": 352.49,
+    "target_3": 363.14,
+    "stop_loss": 299.59,
+    "risk_reward_ratio": 2.74,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $311.46 – $316.01 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $319.85 direnci veya $310.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $299.59 olarak belirlenmiştir. Fiyatın EMA20 ($314.08) veya günlük VWAP ($314.41) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($317.83) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($314.41) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "AMRZ",
+  "company": "AMRZ Corp.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:15:07.979Z",
+  "sector": "Basic Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 39.834999084472656,
+    "open": 40,
+    "high": 40.310001373291016,
+    "low": 39.709999084472656,
+    "prev_close": 40.22999954223633,
+    "change_pct": -0.9818554865976874,
+    "change_pct_1w": 2.667525432380704,
+    "change_pct_1m": 6.739012353200083,
+    "change_pct_1y": -21.024979839354653,
+    "volume": 1307894,
+    "avg_volume_30d": 107835194
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 55,
+    "fundamental_score": 74.75,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.77682076286587,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 38.6010769211764,
+    "ema_50": 40.39375657902663,
+    "ema_200": 47.49413451044271,
+    "ema_stack_bullish": false,
+    "bb_upper": 41.82674903869629,
+    "bb_middle": 39.834999084472656,
+    "bb_lower": 37.84324913024902,
+    "bb_width": 10,
+    "atr": 0.86,
+    "atr_pct": 2.16,
+    "rvol": 1.1013525324580025,
+    "52w_high": 65.94000244140625,
+    "52w_low": 35.78499984741211
+  },
+  "fundamental": {
+    "pe_ratio": 18.189497,
+    "pb_ratio": 1.7022048,
+    "gross_margin": 0.25092,
+    "operating_margin": 0.20492001,
+    "net_margin": 0.10137,
+    "market_cap": 21786781696,
+    "revenue_growth_ttm": 0.086,
+    "fcf_yield": 0.0520499087852062,
+    "institutional_ownership_pct": 0.51168,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 39.41,
+    "entry_range_high": 39.92,
+    "target_range_low": 51.81,
+    "target_range_high": 54.68,
+    "target_1": 51.81,
+    "target_2": 53.01,
+    "target_3": 54.68,
+    "stop_loss": 37.84,
+    "risk_reward_ratio": 7.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $39.41 – $39.92 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $40.31 direnci veya $39.24 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $37.84 olarak belirlenmiştir. Fiyatın EMA20 ($38.60) veya günlük VWAP ($40.09) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($40.39) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.09) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

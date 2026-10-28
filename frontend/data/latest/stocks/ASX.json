@@ -1,0 +1,89 @@
+{
+  "ticker": "ASX",
+  "company": "ASE Technology Holding Co., Ltd.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:08:57.925Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 43.18000030517578,
+    "open": 42.900001525878906,
+    "high": 43.33000183105469,
+    "low": 42.58000183105469,
+    "prev_close": 42.060001373291016,
+    "change_pct": 2.6628599508225137,
+    "change_pct_1w": 1.8156106119643336,
+    "change_pct_1m": 3.079496143048691,
+    "change_pct_1y": 223.20360340424622,
+    "volume": 1383942,
+    "avg_volume_30d": 218845742
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 46.7,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.54268581149507,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.20875378813606,
+    "ema_50": 41.51390007334124,
+    "ema_200": 33.98648676461719,
+    "ema_stack_bullish": true,
+    "bb_upper": 45.33900032043457,
+    "bb_middle": 43.18000030517578,
+    "bb_lower": 41.02100028991699,
+    "bb_width": 10,
+    "atr": 2.35,
+    "atr_pct": 5.44,
+    "rvol": 1.0360871083340522,
+    "52w_high": 47.93000030517578,
+    "52w_low": 13.180000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 51.404762,
+    "pb_ratio": 7.902894,
+    "gross_margin": 0.19485001,
+    "operating_margin": 0.11061,
+    "net_margin": 0.08545999,
+    "market_cap": 95323037696,
+    "revenue_growth_ttm": 0.267,
+    "fcf_yield": -1.0981028630436984,
+    "institutional_ownership_pct": 0.073520005,
+    "dividend_rate": 0.42,
+    "dividend_yield": 0.0099
+  },
+  "scores_detail": {
+    "entry_range_low": 41.77,
+    "entry_range_high": 43.41,
+    "target_range_low": 45.52,
+    "target_range_high": 48.98,
+    "target_1": 45.52,
+    "target_2": 47.93,
+    "target_3": 48.98,
+    "stop_loss": 40.13,
+    "risk_reward_ratio": 2.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $41.77 – $43.41 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $47.83 direnci veya $41.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $40.13 olarak belirlenmiştir. Fiyatın EMA50 ($41.51) veya günlük VWAP ($42.21) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.21) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "WM",
+  "company": "Waste Management, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:25:21.329Z",
+  "sector": "Industrials",
+  "industry": "Waste Management",
+  "price": {
+    "current": 229.72999572753906,
+    "open": 227.6199951171875,
+    "high": 230.3000030517578,
+    "low": 224.81500244140625,
+    "prev_close": 235.80999755859375,
+    "change_pct": -2.5783477774490615,
+    "change_pct_1w": 0.06533404272500781,
+    "change_pct_1m": 2.4711152262825506,
+    "change_pct_1y": 12.48592299537589,
+    "volume": 1076539,
+    "avg_volume_30d": 70837339
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 85,
+    "fundamental_score": 69.8,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.802773747595694,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 224.93691914771938,
+    "ema_50": 220.85581354155136,
+    "ema_200": 220.97737590292942,
+    "ema_stack_bullish": false,
+    "bb_upper": 241.21649551391602,
+    "bb_middle": 229.72999572753906,
+    "bb_lower": 218.2434959411621,
+    "bb_width": 10,
+    "atr": 5.16,
+    "atr_pct": 2.25,
+    "rvol": 0.9863221146689318,
+    "52w_high": 248.1300048828125,
+    "52w_low": 194.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 32.53966,
+    "pb_ratio": 9.265922,
+    "gross_margin": 0.40601003,
+    "operating_margin": 0.18986,
+    "net_margin": 0.11115,
+    "market_cap": 91826569216,
+    "revenue_growth_ttm": 0.04,
+    "fcf_yield": 0.025574025688316966,
+    "institutional_ownership_pct": 0.8599,
+    "dividend_rate": 3.78,
+    "dividend_yield": 0.015700001
+  },
+  "scores_detail": {
+    "entry_range_low": 226.98,
+    "entry_range_high": 230.25,
+    "target_range_low": 240.04,
+    "target_range_high": 262.91,
+    "target_1": 240.04,
+    "target_2": 251.48,
+    "target_3": 262.91,
+    "stop_loss": 218.24,
+    "risk_reward_ratio": 2.2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $226.98 – $230.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $235.90 direnci veya $225.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $218.24 olarak belirlenmiştir. Fiyatın EMA50 ($220.86) veya günlük VWAP ($233.05) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($220.86) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($233.05) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}
