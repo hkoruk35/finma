@@ -1,8 +1,8 @@
 {
   "ticker": "LAES",
   "company": "SEALSQ Corp",
-  "date": "2026-10-27",
-  "generated_at": "2026-10-27T22:44:33.386Z",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T09:17:52.658Z",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -1.8072272284938358,
     "change_pct_1m": -11.413045344427053,
     "change_pct_1y": -76.06461073527801,
-    "volume": 4154019,
-    "avg_volume_30d": 134558319
+    "volume": 4171700,
+    "avg_volume_30d": 134576000
   },
   "scores": {
     "master_score": 37,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.13,
     "atr_pct": 8.04,
-    "rvol": 0.7863602546937287,
+    "rvol": 0.7870452383783141,
     "52w_high": 7.639999866485596,
     "52w_low": 1.5
   },
@@ -60,7 +60,7 @@
     "market_cap": 366636800,
     "revenue_growth_ttm": 1.311,
     "fcf_yield": -0.08842538446768028,
-    "institutional_ownership_pct": 0.0665,
+    "institutional_ownership_pct": 0.06643,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

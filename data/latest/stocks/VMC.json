@@ -2,7 +2,7 @@
   "ticker": "VMC",
   "company": "Vulcan Materials Company",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T05:25:47.305Z",
+  "generated_at": "2026-10-28T12:01:46.352Z",
   "sector": "Basic Materials",
   "industry": "Building Materials",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 34014418944,
     "revenue_growth_ttm": 0.025,
     "fcf_yield": 0.024801246829730353,
-    "institutional_ownership_pct": 1.00238,
+    "institutional_ownership_pct": 1.00271,
     "dividend_rate": 2.08,
-    "dividend_yield": 0.008
+    "dividend_yield": 0.007900001
   },
   "scores_detail": {
     "entry_range_low": 259.08,

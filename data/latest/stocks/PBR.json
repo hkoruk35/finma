@@ -2,7 +2,7 @@
   "ticker": "PBR",
   "company": "Petróleo Brasileiro S.A. - Petrobras",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T06:11:34.827Z",
+  "generated_at": "2026-10-28T11:55:26.681Z",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 143709372416,
     "revenue_growth_ttm": 0.423,
     "fcf_yield": 0.6557688440194434,
-    "institutional_ownership_pct": 0.22264999,
+    "institutional_ownership_pct": 0.22275999,
     "dividend_rate": 1.43,
-    "dividend_yield": 0.0636
+    "dividend_yield": 0.0641
   },
   "scores_detail": {
     "entry_range_low": 21.56,

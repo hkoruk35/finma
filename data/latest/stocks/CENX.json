@@ -1,8 +1,8 @@
 {
   "ticker": "CENX",
   "company": "Century Aluminum Company",
-  "date": "2026-10-27",
-  "generated_at": "2026-10-27T23:02:43.935Z",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T09:35:02.272Z",
   "sector": "Basic Materials",
   "industry": "Aluminum",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -0.4179086258162314,
     "change_pct_1m": 0.42143101897656793,
     "change_pct_1y": 8.664494401652323,
-    "volume": 2247443,
-    "avg_volume_30d": 62006343
+    "volume": 2248600,
+    "avg_volume_30d": 62007500
   },
   "scores": {
     "master_score": 54,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 1.67,
     "atr_pct": 4.99,
-    "rvol": 1.3480081868398528,
+    "rvol": 1.3480949885094544,
     "52w_high": 70.43000030517578,
     "52w_low": 25.399999618530273
   },
@@ -60,7 +60,7 @@
     "market_cap": 3302416384,
     "revenue_growth_ttm": 0.197,
     "fcf_yield": -0.014016251925184247,
-    "institutional_ownership_pct": 0.77782995,
+    "institutional_ownership_pct": 0.77783996,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
