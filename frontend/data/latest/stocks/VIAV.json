@@ -1,0 +1,89 @@
+{
+  "ticker": "VIAV",
+  "company": "Viavi Solutions Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T15:46:47.404Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 33.650001525878906,
+    "open": 33.97999954223633,
+    "high": 34.17829895019531,
+    "low": 32.959999084472656,
+    "prev_close": 33.29999923706055,
+    "change_pct": 1.0510579484603457,
+    "change_pct_1w": -4.916637168065281,
+    "change_pct_1m": -8.60944648348522,
+    "change_pct_1y": 140.3571537562779,
+    "volume": 598367,
+    "avg_volume_30d": 161223967
+  },
+  "scores": {
+    "master_score": 46,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.81%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.545202643971216,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.32306005127581,
+    "ema_50": 38.21411391127328,
+    "ema_200": 36.43103430554672,
+    "ema_stack_bullish": false,
+    "bb_upper": 35.332501602172854,
+    "bb_middle": 33.650001525878906,
+    "bb_lower": 31.967501449584958,
+    "bb_width": 10,
+    "atr": 2.87,
+    "atr_pct": 8.54,
+    "rvol": 0.7417259618726538,
+    "52w_high": 60.43000030517578,
+    "52w_low": 13.770000457763672
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 5.7384043,
+    "gross_margin": 0.6089,
+    "operating_margin": 0.14308,
+    "net_margin": -0.02002,
+    "market_cap": 8275279872,
+    "revenue_growth_ttm": 0.525,
+    "fcf_yield": 0.019179109160647852,
+    "institutional_ownership_pct": 1.01969,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 32.43,
+    "entry_range_high": 33.94,
+    "target_range_low": 35.61,
+    "target_range_high": 40.04,
+    "target_1": 35.61,
+    "target_2": 38.08,
+    "target_3": 40.04,
+    "stop_loss": 30.42,
+    "risk_reward_ratio": 1.77,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $32.43 – $33.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $35.40 direnci veya $31.85 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $30.42 olarak belirlenmiştir. Fiyatın EMA20 ($36.32) veya günlük VWAP ($33.54) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($38.21) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($33.54) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
