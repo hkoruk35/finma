@@ -1,0 +1,89 @@
+{
+  "ticker": "NEE",
+  "company": "NextEra Energy, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T10:03:51.105Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 82.41999816894531,
+    "open": 82.08000183105469,
+    "high": 82.44999694824219,
+    "low": 81.75,
+    "prev_close": 82.04000091552734,
+    "change_pct": 0.4631853354185524,
+    "change_pct_1w": 4.514326060157862,
+    "change_pct_1m": 5.167787776477926,
+    "change_pct_1y": -4.1962113932056795,
+    "volume": 6843600,
+    "avg_volume_30d": 373114100
+  },
+  "scores": {
+    "master_score": 73,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.745840580526,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 79.66193445233765,
+    "ema_50": 80.71023006956314,
+    "ema_200": 84.96102656944998,
+    "ema_stack_bullish": false,
+    "bb_upper": 86.54099807739259,
+    "bb_middle": 82.41999816894531,
+    "bb_lower": 78.29899826049804,
+    "bb_width": 10,
+    "atr": 1.47,
+    "atr_pct": 1.78,
+    "rvol": 0.9612083810287524,
+    "52w_high": 98.75,
+    "52w_low": 74.41000366210938
+  },
+  "fundamental": {
+    "pe_ratio": 14.85045,
+    "pb_ratio": 2.8108587,
+    "gross_margin": 0.60173,
+    "operating_margin": 0.33004,
+    "net_margin": 0.40370998,
+    "market_cap": 172859965440,
+    "revenue_growth_ttm": 0.016,
+    "fcf_yield": -0.12270771103076764,
+    "institutional_ownership_pct": 0.86524004,
+    "dividend_rate": 2.49,
+    "dividend_yield": 0.030199999
+  },
+  "scores_detail": {
+    "entry_range_low": 81.54,
+    "entry_range_high": 82.57,
+    "target_range_low": 86.16,
+    "target_range_high": 94.36,
+    "target_1": 86.16,
+    "target_2": 90.26,
+    "target_3": 94.36,
+    "stop_loss": 78.3,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $81.54 – $82.57 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $82.81 direnci veya $81.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $78.30 olarak belirlenmiştir. Fiyatın EMA20 ($79.66) veya günlük VWAP ($82.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($80.71) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($82.16) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

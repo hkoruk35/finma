@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "SOFI",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 16.41,
+        "entry_zone": "16.03 - 16.80",
+        "SL": 14.87,
+        "TP": 19.5
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "ORKA",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 96.5,
+        "entry_zone": "94.13 - 98.87",
+        "SL": 87.03,
+        "TP": 115.44
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "SYRE",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 98.06,
+        "entry_zone": "95.70 - 100.42",
+        "SL": 88.6,
+        "TP": 116.97
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "JCI",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 158.3,
+        "entry_zone": "155.68 - 160.92",
+        "SL": 147.82,
+        "TP": 179.25
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "VSAT",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 71.22,
+        "entry_zone": "68.93 - 73.52",
+        "SL": 62.03,
+        "TP": 89.62
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "MCHP",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 79.53,
+        "entry_zone": "77.94 - 81.12",
+        "SL": 73.15,
+        "TP": 92.29
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "KNSA",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 87.5,
+        "entry_zone": "85.27 - 89.73",
+        "SL": 78.6,
+        "TP": 105.3
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "ADI",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 420.75,
+        "entry_zone": "413.39 - 428.11",
+        "SL": 391.32,
+        "TP": 479.6
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "PII",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 58.06,
+        "entry_zone": "56.97 - 59.15",
+        "SL": 53.7,
+        "TP": 66.78
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "BHVN",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 14.91,
+        "entry_zone": "14.38 - 15.45",
+        "SL": 12.78,
+        "TP": 19.19
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "BKR",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 58.99,
+        "entry_zone": "58.14 - 59.84",
+        "SL": 55.58,
+        "TP": 65.8
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "NUE",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 270.0,
+        "entry_zone": "265.78 - 274.22",
+        "SL": 253.1,
+        "TP": 303.8
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "ATEX",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 85.62,
+        "entry_zone": "82.72 - 88.52",
+        "SL": 74.03,
+        "TP": 108.81
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "NTLA",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 12.16,
+        "entry_zone": "11.78 - 12.54",
+        "SL": 10.65,
+        "TP": 15.17
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "PVLA",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 140.75,
+        "entry_zone": "137.33 - 144.17",
+        "SL": 127.07,
+        "TP": 168.1
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "GM",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 81.09,
+        "entry_zone": "79.83 - 82.35",
+        "SL": 76.03,
+        "TP": 91.21
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "WSC",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 17.26,
+        "entry_zone": "16.88 - 17.65",
+        "SL": 15.74,
+        "TP": 20.32
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "TWST",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 161.0,
+        "entry_zone": "154.22 - 167.78",
+        "SL": 133.86,
+        "TP": 215.27
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "TXG",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 79.6,
+        "entry_zone": "76.54 - 82.66",
+        "SL": 67.37,
+        "TP": 104.06
+    },
+    {
+        "date": "2026-10-28 13:04",
+        "symbol": "ABSI",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 10.57,
+        "entry_zone": "10.14 - 11.00",
+        "SL": 8.87,
+        "TP": 13.98
+    }
+]

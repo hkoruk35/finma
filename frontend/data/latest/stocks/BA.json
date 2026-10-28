@@ -2,7 +2,7 @@
   "ticker": "BA",
   "company": "The Boeing Company",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T06:21:50.797Z",
+  "generated_at": "2026-10-28T11:45:18.166Z",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
   "price": {
@@ -19,9 +19,9 @@
     "avg_volume_30d": 291090600
   },
   "scores": {
-    "master_score": 49,
+    "master_score": 48,
     "technical_score": 45,
-    "fundamental_score": 61.55,
+    "fundamental_score": 56.6,
     "momentum_score": 60,
     "sentiment_score": 70,
     "signal_type": "SELL",
@@ -53,14 +53,14 @@
   },
   "fundamental": {
     "pe_ratio": 17.356037,
-    "pb_ratio": 24.222958,
-    "gross_margin": 0.0471,
-    "operating_margin": 0.000040000003,
-    "net_margin": 0.025910001,
+    "pb_ratio": 20.360773,
+    "gross_margin": 0.0945,
+    "operating_margin": 0.00575,
+    "net_margin": 0.08066,
     "market_cap": 132827299840,
-    "revenue_growth_ttm": 0.08,
-    "fcf_yield": 0.0423510471023364,
-    "institutional_ownership_pct": 0.76825994,
+    "revenue_growth_ttm": 0.039,
+    "fcf_yield": 0.036570043702244995,
+    "institutional_ownership_pct": 0.76818,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

@@ -2,7 +2,7 @@
   "ticker": "ANF",
   "company": "Abercrombie & Fitch Co.",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T03:36:15.619Z",
+  "generated_at": "2026-10-28T10:15:41.983Z",
   "sector": "Consumer Cyclical",
   "industry": "Apparel Retail",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 7017797120,
     "revenue_growth_ttm": 0.048,
     "fcf_yield": 0.06210805934498146,
-    "institutional_ownership_pct": 1.14753,
+    "institutional_ownership_pct": 1.1474401,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

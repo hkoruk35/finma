@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 21939587,
+    "avg_volume": 21913335,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2326,7 +2326,7 @@
   },
   "QQQ": {
     "market_cap": 0,
-    "avg_volume": 35752859,
+    "avg_volume": 35433607,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 42564075,
+    "avg_volume": 42271814,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11226,7 +11226,7 @@
   },
   "IAU": {
     "market_cap": 0,
-    "avg_volume": 5154021,
+    "avg_volume": 5123420,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -12576,7 +12576,7 @@
   },
   "DRIP": {
     "market_cap": 0,
-    "avg_volume": 782292,
+    "avg_volume": 800640,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -13451,12 +13451,12 @@
   },
   "STRC": {
     "market_cap": 0,
-    "avg_volume": 1516000,
+    "avg_volume": 1517610,
     "beta": 3.571,
     "short_float": 0.0,
     "sector": "Technology",
     "industry": "Software - Application",
-    "heldPercentInstitutions": 0.10132,
+    "heldPercentInstitutions": 0.101289995,
     "grossMargins": 0.67600995,
     "operatingMargins": -68.081116,
     "profitMargins": 0.0,
@@ -14876,7 +14876,7 @@
   },
   "UGL": {
     "market_cap": 0,
-    "avg_volume": 2923464,
+    "avg_volume": 2933078,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -15426,7 +15426,7 @@
   },
   "GLD": {
     "market_cap": 0,
-    "avg_volume": 9603189,
+    "avg_volume": 9612870,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -21751,7 +21751,7 @@
   },
   "AAAU": {
     "market_cap": 0,
-    "avg_volume": 1379526,
+    "avg_volume": 1378889,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -22600,8 +22600,8 @@
     "quoteType": "EQUITY"
   },
   "LION": {
-    "market_cap": 3622789120,
-    "avg_volume": 2952723,
+    "market_cap": 3627252480,
+    "avg_volume": 2963084,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -22612,7 +22612,7 @@
     "profitMargins": 0,
     "revenueGrowth": 0,
     "trailingPE": 0,
-    "priceToBook": -2.972412,
+    "priceToBook": -2.976074,
     "freeCashflow": 0,
     "recommendationKey": "buy",
     "pegRatio": 0,
@@ -27101,7 +27101,7 @@
   },
   "GOOGN": {
     "market_cap": 0,
-    "avg_volume": 1432828,
+    "avg_volume": 1419328,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -30651,7 +30651,7 @@
   },
   "GLL": {
     "market_cap": 0,
-    "avg_volume": 2885707,
+    "avg_volume": 2907993,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -31451,7 +31451,7 @@
   },
   "SVIX": {
     "market_cap": 0,
-    "avg_volume": 2066545,
+    "avg_volume": 2063010,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -32076,7 +32076,7 @@
   },
   "UVIX": {
     "market_cap": 0,
-    "avg_volume": 2266190,
+    "avg_volume": 2267440,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -36701,7 +36701,7 @@
   },
   "UUP": {
     "market_cap": 0,
-    "avg_volume": 1660084,
+    "avg_volume": 1663318,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -37251,7 +37251,7 @@
   },
   "SATA": {
     "market_cap": 0,
-    "avg_volume": 437021,
+    "avg_volume": 438937,
     "beta": 13.243,
     "short_float": 0.0,
     "sector": "Financial Services",
@@ -43476,7 +43476,7 @@
   },
   "GBTC": {
     "market_cap": 0,
-    "avg_volume": 1828300,
+    "avg_volume": 1831457,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -43801,7 +43801,7 @@
   },
   "ETHA": {
     "market_cap": 0,
-    "avg_volume": 12380388,
+    "avg_volume": 12290366,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -53576,7 +53576,7 @@
   },
   "CPER": {
     "market_cap": 0,
-    "avg_volume": 511035,
+    "avg_volume": 510625,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -53676,7 +53676,7 @@
   },
   "FETH": {
     "market_cap": 0,
-    "avg_volume": 2039332,
+    "avg_volume": 2027512,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -54151,7 +54151,7 @@
   },
   "XRP": {
     "market_cap": 0,
-    "avg_volume": 1576898,
+    "avg_volume": 1581223,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",

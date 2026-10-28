@@ -1,22 +1,22 @@
 {
   "ticker": "AA",
   "company": "Alcoa Corporation",
-  "date": "2026-10-27",
-  "generated_at": "2026-10-27T22:30:51.789Z",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T09:57:10.026Z",
   "sector": "Basic Materials",
   "industry": "Aluminum",
   "price": {
     "current": 39.93000030517578,
     "open": 39.09000015258789,
-    "high": 40.0099983215332,
+    "high": 40.02000045776367,
     "low": 39.08000183105469,
     "prev_close": 38.70000076293945,
     "change_pct": 3.178293328134042,
     "change_pct_1w": -2.10836134113493,
     "change_pct_1m": -0.3742552869912357,
     "change_pct_1y": 0.07518490764321893,
-    "volume": 4768370,
-    "avg_volume_30d": 145207570
+    "volume": 4770900,
+    "avg_volume_30d": 145210100
   },
   "scores": {
     "master_score": 53,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 1.51,
     "atr_pct": 3.79,
-    "rvol": 0.8839609395019833,
+    "rvol": 0.8840500764065309,
     "52w_high": 84.37999725341797,
     "52w_low": 35.119998931884766
   },
@@ -60,7 +60,7 @@
     "market_cap": 10537904128,
     "revenue_growth_ttm": 0.237,
     "fcf_yield": 0.0874699565306199,
-    "institutional_ownership_pct": 0.85592,
+    "institutional_ownership_pct": 0.85583,
     "dividend_rate": 0.4,
     "dividend_yield": 0.010299999
   },

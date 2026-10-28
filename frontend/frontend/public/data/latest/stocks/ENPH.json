@@ -1,0 +1,89 @@
+{
+  "ticker": "ENPH",
+  "company": "Enphase Energy, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T11:32:00.467Z",
+  "sector": "Technology",
+  "industry": "Solar",
+  "price": {
+    "current": 29.760000228881836,
+    "open": 30.829999923706055,
+    "high": 31.84000015258789,
+    "low": 29.270000457763672,
+    "prev_close": 30.360000610351562,
+    "change_pct": -1.9762858017372704,
+    "change_pct_1w": -7.663665369022551,
+    "change_pct_1m": 1.3969330224300947,
+    "change_pct_1y": -19.152406632412116,
+    "volume": 16279600,
+    "avg_volume_30d": 157634500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 63.2,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.65638113730379,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 31.85367289818485,
+    "ema_50": 34.368425106919055,
+    "ema_200": 38.712911231680756,
+    "ema_stack_bullish": false,
+    "bb_upper": 31.24800024032593,
+    "bb_middle": 29.760000228881836,
+    "bb_lower": 28.272000217437743,
+    "bb_width": 10,
+    "atr": 1.73,
+    "atr_pct": 5.83,
+    "rvol": 1.21376729078977,
+    "52w_high": 73.73999786376953,
+    "52w_low": 25.780000686645508
+  },
+  "fundamental": {
+    "pe_ratio": 29.76,
+    "pb_ratio": 3.5885687,
+    "gross_margin": 0.30037,
+    "operating_margin": 0.17981,
+    "net_margin": 0.100880004,
+    "market_cap": 3922315264,
+    "revenue_growth_ttm": -0.196,
+    "fcf_yield": 0.01996849991097503,
+    "institutional_ownership_pct": 0.96427,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 28.72,
+    "entry_range_high": 29.93,
+    "target_range_low": 33.29,
+    "target_range_high": 39.54,
+    "target_1": 33.29,
+    "target_2": 36.94,
+    "target_3": 39.54,
+    "stop_loss": 27.51,
+    "risk_reward_ratio": 4.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $28.72 – $29.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $30.65 direnci veya $28.37 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $27.51 olarak belirlenmiştir. Fiyatın EMA20 ($31.85) veya günlük VWAP ($30.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($34.37) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($30.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 37 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

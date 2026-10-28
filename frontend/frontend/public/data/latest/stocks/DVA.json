@@ -2,7 +2,7 @@
   "ticker": "DVA",
   "company": "DaVita Inc.",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T04:51:57.517Z",
+  "generated_at": "2026-10-28T11:50:25.429Z",
   "sector": "Healthcare",
   "industry": "Medical Care Facilities",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 11661772800,
     "revenue_growth_ttm": 0.052,
     "fcf_yield": 0.08939048992619715,
-    "institutional_ownership_pct": 0.48476002,
+    "institutional_ownership_pct": 0.48421,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

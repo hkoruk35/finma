@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:03:39.702726-04:00",
+  "generated_at": "2026-10-28T09:03:51.932662-04:00",
   "picks": [
     {
       "ticker": "OKTA",
@@ -17,7 +17,7 @@
       "ticker": "A",
       "sector": "Healthcare",
       "date_added": "2026-10-26",
-      "score": 34.5
+      "score": 44.5
     },
     {
       "ticker": "CCI",
@@ -74,18 +74,6 @@
       "score": 32.0
     },
     {
-      "ticker": "BR",
-      "sector": "Technology",
-      "date_added": "2026-10-27",
-      "score": 43.5
-    },
-    {
-      "ticker": "ELF",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-10-27",
-      "score": 43.0
-    },
-    {
       "ticker": "TOST",
       "sector": "Technology",
       "date_added": "2026-10-27",
@@ -116,22 +104,46 @@
       "score": 37.0
     },
     {
-      "ticker": "TEAM",
+      "ticker": "MNDY",
       "sector": "Technology",
-      "date_added": "2026-10-27",
-      "score": 35.5
+      "date_added": "2026-10-28",
+      "score": 45.5
     },
     {
-      "ticker": "FDS",
-      "sector": "Financial Services",
-      "date_added": "2026-10-27",
-      "score": 34.5
+      "ticker": "MANH",
+      "sector": "Technology",
+      "date_added": "2026-10-28",
+      "score": 44.5
     },
     {
-      "ticker": "VRNS",
+      "ticker": "AMT",
+      "sector": "Real Estate",
+      "date_added": "2026-10-28",
+      "score": 44.0
+    },
+    {
+      "ticker": "IOT",
       "sector": "Technology",
-      "date_added": "2026-10-27",
-      "score": 31.0
+      "date_added": "2026-10-28",
+      "score": 43.0
+    },
+    {
+      "ticker": "JHX",
+      "sector": "Basic Materials",
+      "date_added": "2026-10-28",
+      "score": 43.0
+    },
+    {
+      "ticker": "PACS",
+      "sector": "Healthcare",
+      "date_added": "2026-10-28",
+      "score": 39.0
+    },
+    {
+      "ticker": "MDB",
+      "sector": "Technology",
+      "date_added": "2026-10-28",
+      "score": 30.5
     }
   ]
 }

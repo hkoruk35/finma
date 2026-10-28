@@ -1,0 +1,89 @@
+{
+  "ticker": "TENB",
+  "company": "Tenable Holdings, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T11:38:07.586Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 48.650001525878906,
+    "open": 48.189998626708984,
+    "high": 49.16999816894531,
+    "low": 47.2599983215332,
+    "prev_close": 48.209999084472656,
+    "change_pct": 0.9126788005850943,
+    "change_pct_1w": 24.807599017964993,
+    "change_pct_1m": 27.623302437153313,
+    "change_pct_1y": 61.35987443256378,
+    "volume": 3384500,
+    "avg_volume_30d": 111066100
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 90,
+    "fundamental_score": 68.15,
+    "momentum_score": 53,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 73.2469226367684,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 40.92289677737766,
+    "ema_50": 38.05886449726042,
+    "ema_200": 31.78017089727746,
+    "ema_stack_bullish": true,
+    "bb_upper": 51.082501602172854,
+    "bb_middle": 48.650001525878906,
+    "bb_lower": 46.21750144958496,
+    "bb_width": 10,
+    "atr": 2.54,
+    "atr_pct": 5.22,
+    "rvol": 1.185866794638508,
+    "52w_high": 49.16999816894531,
+    "52w_low": 15.729999542236328
+  },
+  "fundamental": {
+    "pe_ratio": 810.8334,
+    "pb_ratio": 27.087975,
+    "gross_margin": 0.78051,
+    "operating_margin": 0.04849,
+    "net_margin": 0.0064600003,
+    "market_cap": 5364731904,
+    "revenue_growth_ttm": 0.086,
+    "fcf_yield": 0.04786567168594899,
+    "institutional_ownership_pct": 1.096,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 47.13,
+    "entry_range_high": 48.9,
+    "target_range_low": 50.42,
+    "target_range_high": 55.22,
+    "target_1": 50.42,
+    "target_2": 52.82,
+    "target_3": 55.22,
+    "stop_loss": 45.35,
+    "risk_reward_ratio": 1.8,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $47.13 – $48.90 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $49.17 direnci veya $46.62 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $45.35 olarak belirlenmiştir. Fiyatın EMA20 ($40.92) veya günlük VWAP ($48.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($48.44) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 73 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

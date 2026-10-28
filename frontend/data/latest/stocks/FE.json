@@ -1,0 +1,89 @@
+{
+  "ticker": "FE",
+  "company": "FirstEnergy Corp.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T08:32:53.890Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 46.27000045776367,
+    "open": 46,
+    "high": 46.369998931884766,
+    "low": 45.7599983215332,
+    "prev_close": 46.18000030517578,
+    "change_pct": 0.1948898917131526,
+    "change_pct_1w": 1.202972927331187,
+    "change_pct_1m": 1.8938573293137182,
+    "change_pct_1y": -0.3660598061420735,
+    "volume": 3932500,
+    "avg_volume_30d": 131133699.99999999
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 70,
+    "fundamental_score": 54.95,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.66%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.338860278984946,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 45.47506981580058,
+    "ema_50": 45.64338186053733,
+    "ema_200": 46.70532508679086,
+    "ema_stack_bullish": false,
+    "bb_upper": 48.58350048065186,
+    "bb_middle": 46.27000045776367,
+    "bb_lower": 43.95650043487549,
+    "bb_width": 10,
+    "atr": 0.72,
+    "atr_pct": 1.56,
+    "rvol": 0.9818299948830851,
+    "52w_high": 52.34000015258789,
+    "52w_low": 42.66999816894531
+  },
+  "fundamental": {
+    "pe_ratio": 24.743315,
+    "pb_ratio": 2.0698757,
+    "gross_margin": 0.68605006,
+    "operating_margin": 0.19304001,
+    "net_margin": 0.06939,
+    "market_cap": 26764009472,
+    "revenue_growth_ttm": 0.088,
+    "fcf_yield": -0.07527366279359834,
+    "institutional_ownership_pct": 0.95816004,
+    "dividend_rate": 1.86,
+    "dividend_yield": 0.0402
+  },
+  "scores_detail": {
+    "entry_range_low": 45.84,
+    "entry_range_high": 46.34,
+    "target_range_low": 48.39,
+    "target_range_high": 53,
+    "target_1": 48.39,
+    "target_2": 50.7,
+    "target_3": 53,
+    "stop_loss": 43.96,
+    "risk_reward_ratio": 2.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $45.84 – $46.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $46.57 direnci veya $45.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $43.96 olarak belirlenmiştir. Fiyatın EMA20 ($45.48) veya günlük VWAP ($46.04) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($45.64) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($46.04) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

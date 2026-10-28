@@ -1,0 +1,89 @@
+{
+  "ticker": "BSX",
+  "company": "Boston Scientific Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T12:07:50.262Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 45.060001373291016,
+    "open": 45.290000915527344,
+    "high": 45.33000183105469,
+    "low": 44.86000061035156,
+    "prev_close": 45.58000183105469,
+    "change_pct": -1.1408522090259852,
+    "change_pct_1w": -1.1408522090259852,
+    "change_pct_1m": 4.79070086811864,
+    "change_pct_1y": -56.008980533983134,
+    "volume": 15122400,
+    "avg_volume_30d": 524748300
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 55,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.14773639706927,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 44.522910514336715,
+    "ema_50": 45.164500607666774,
+    "ema_200": 57.611895554230244,
+    "ema_stack_bullish": false,
+    "bb_upper": 47.31300144195557,
+    "bb_middle": 45.060001373291016,
+    "bb_lower": 42.80700130462646,
+    "bb_width": 10,
+    "atr": 1.17,
+    "atr_pct": 2.59,
+    "rvol": 0.7706540449964298,
+    "52w_high": 105.6500015258789,
+    "52w_low": 41.38999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 18.242916,
+    "pb_ratio": 2.6149025,
+    "gross_margin": 0.69189,
+    "operating_margin": 0.22895999,
+    "net_margin": 0.17499,
+    "market_cap": 65302286336,
+    "revenue_growth_ttm": 0.075,
+    "fcf_yield": 0.03753888633220182,
+    "institutional_ownership_pct": 0.94905,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 44.31,
+    "entry_range_high": 45.18,
+    "target_range_low": 46.98,
+    "target_range_high": 52.99,
+    "target_1": 46.98,
+    "target_2": 49.22,
+    "target_3": 52.99,
+    "stop_loss": 42.81,
+    "risk_reward_ratio": 2.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $44.31 – $45.18 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $45.67 direnci veya $44.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $42.81 olarak belirlenmiştir. Fiyatın EMA20 ($44.52) veya günlük VWAP ($45.05) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($45.16) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($45.05) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "ROL",
+  "company": "Rollins, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T10:30:26.366Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Personal Services",
+  "price": {
+    "current": 34.0099983215332,
+    "open": 34.27000045776367,
+    "high": 34.400001525878906,
+    "low": 33.619998931884766,
+    "prev_close": 34.54999923706055,
+    "change_pct": -1.5629549275014285,
+    "change_pct_1w": 2.0095925791209286,
+    "change_pct_1m": 4.229228342767198,
+    "change_pct_1y": -39.51627494503695,
+    "volume": 6323700,
+    "avg_volume_30d": 252846600
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 55,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.120900142985484,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 33.21469557080017,
+    "ema_50": 34.33627661085133,
+    "ema_200": 43.83980076212916,
+    "ema_stack_bullish": false,
+    "bb_upper": 35.71049823760986,
+    "bb_middle": 34.0099983215332,
+    "bb_lower": 32.309498405456544,
+    "bb_width": 10,
+    "atr": 1.12,
+    "atr_pct": 3.29,
+    "rvol": 1.0482142136773838,
+    "52w_high": 66.13999938964844,
+    "52w_low": 29.290000915527344
+  },
+  "fundamental": {
+    "pe_ratio": 31.201832,
+    "pb_ratio": 11.691302,
+    "gross_margin": 0.52139,
+    "operating_margin": 0.20562,
+    "net_margin": 0.13194,
+    "market_cap": 16363754496,
+    "revenue_growth_ttm": 0.062,
+    "fcf_yield": 0.03392518264287702,
+    "institutional_ownership_pct": 0.61089003,
+    "dividend_rate": 0.8,
+    "dividend_yield": 0.0235
+  },
+  "scores_detail": {
+    "entry_range_low": 33.34,
+    "entry_range_high": 34.12,
+    "target_range_low": 37.73,
+    "target_range_high": 48.52,
+    "target_1": 37.73,
+    "target_2": 46.36,
+    "target_3": 48.52,
+    "stop_loss": 32.31,
+    "risk_reward_ratio": 8.89,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $33.34 – $34.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $34.59 direnci veya $33.11 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $32.31 olarak belirlenmiştir. Fiyatın EMA20 ($33.21) veya günlük VWAP ($33.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($34.34) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($33.89) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 seviyesinde pozitif momentumu destekliyor."
+  }
+}

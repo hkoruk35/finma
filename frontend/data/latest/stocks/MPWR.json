@@ -2,7 +2,7 @@
   "ticker": "MPWR",
   "company": "Monolithic Power Systems, Inc.",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T04:51:58.839Z",
+  "generated_at": "2026-10-28T09:59:44.583Z",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 833.1799926757812
   },
   "fundamental": {
-    "pe_ratio": 70.995316,
+    "pe_ratio": 73.715935,
     "pb_ratio": 15.288322,
     "gross_margin": 0.55195,
     "operating_margin": 0.30989,
@@ -60,9 +60,9 @@
     "market_cap": 59555909632,
     "revenue_growth_ttm": 0.476,
     "fcf_yield": 0.0074604876450625884,
-    "institutional_ownership_pct": 1.0037999,
+    "institutional_ownership_pct": 1.00072,
     "dividend_rate": 8,
-    "dividend_yield": 0.0069
+    "dividend_yield": 0.0066000004
   },
   "scores_detail": {
     "entry_range_low": 1179.92,

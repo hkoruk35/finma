@@ -1,0 +1,89 @@
+{
+  "ticker": "RIOT",
+  "company": "Riot Platforms, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T12:31:20.196Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 13.5600004196167,
+    "open": 12.800000190734863,
+    "high": 13.630000114440918,
+    "low": 12.5649995803833,
+    "prev_close": 12.59000015258789,
+    "change_pct": 7.704529430282999,
+    "change_pct_1w": -1.5250546925622825,
+    "change_pct_1m": -10.198674986411719,
+    "change_pct_1y": -41.04347643644913,
+    "volume": 20665600,
+    "avg_volume_30d": 524269800
+  },
+  "scores": {
+    "master_score": 39,
+    "technical_score": 30,
+    "fundamental_score": 33.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.93%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.643884768116635,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 15.726534218103296,
+    "ema_50": 18.246429156819417,
+    "ema_200": 19.861755232930133,
+    "ema_stack_bullish": false,
+    "bb_upper": 14.238000440597535,
+    "bb_middle": 13.5600004196167,
+    "bb_lower": 12.882000398635864,
+    "bb_width": 10,
+    "atr": 1.24,
+    "atr_pct": 9.17,
+    "rvol": 1.0575840912446226,
+    "52w_high": 30.31999969482422,
+    "52w_low": 11.5
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.337931,
+    "gross_margin": 0.28257,
+    "operating_margin": -1.22334,
+    "net_margin": -1.96277,
+    "market_cap": 5088511488,
+    "revenue_growth_ttm": 0.139,
+    "fcf_yield": -0.14127033921319507,
+    "institutional_ownership_pct": 0.86927,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 13,
+    "entry_range_high": 13.68,
+    "target_range_low": 15.25,
+    "target_range_high": 16.65,
+    "target_1": 15.25,
+    "target_2": 16.27,
+    "target_3": 16.65,
+    "stop_loss": 12.13,
+    "risk_reward_ratio": 2.41,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $13.00 – $13.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.31 direnci veya $12.75 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $12.13 olarak belirlenmiştir. Fiyatın EMA20 ($15.73) veya günlük VWAP ($13.38) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($18.25) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.38) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

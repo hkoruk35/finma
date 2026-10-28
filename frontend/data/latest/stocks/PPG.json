@@ -1,0 +1,89 @@
+{
+  "ticker": "PPG",
+  "company": "PPG Industries, Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T11:23:43.998Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 113.44000244140625,
+    "open": 108.7300033569336,
+    "high": 113.5999984741211,
+    "low": 108.30999755859375,
+    "prev_close": 109.9000015258789,
+    "change_pct": 3.2211108884231963,
+    "change_pct_1w": 4.447105979110309,
+    "change_pct_1m": 8.172021999020625,
+    "change_pct_1y": 7.577056163487403,
+    "volume": 2583600,
+    "avg_volume_30d": 54098900
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 85,
+    "fundamental_score": 68.15,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.4885592980819,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 108.44869748936283,
+    "ema_50": 108.93497652698927,
+    "ema_200": 110.2870883178881,
+    "ema_stack_bullish": false,
+    "bb_upper": 119.11200256347657,
+    "bb_middle": 113.44000244140625,
+    "bb_lower": 107.76800231933593,
+    "bb_width": 10,
+    "atr": 2.79,
+    "atr_pct": 2.46,
+    "rvol": 0.9936911841091038,
+    "52w_high": 133.42999267578125,
+    "52w_low": 93.38999938964844
+  },
+  "fundamental": {
+    "pe_ratio": 16.298851,
+    "pb_ratio": 2.9868352,
+    "gross_margin": 0.41202998,
+    "operating_margin": 0.14016,
+    "net_margin": 0.09573,
+    "market_cap": 25217712128,
+    "revenue_growth_ttm": 0.072,
+    "fcf_yield": 0.043803538496797294,
+    "institutional_ownership_pct": 0.93567,
+    "dividend_rate": 2.96,
+    "dividend_yield": 0.026099999
+  },
+  "scores_detail": {
+    "entry_range_low": 112.29,
+    "entry_range_high": 113.72,
+    "target_range_low": 118.65,
+    "target_range_high": 129.95,
+    "target_1": 118.65,
+    "target_2": 124.3,
+    "target_3": 129.95,
+    "stop_loss": 107.77,
+    "risk_reward_ratio": 2.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $112.29 – $113.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $114.25 direnci veya $111.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $107.77 olarak belirlenmiştir. Fiyatın EMA20 ($108.45) veya günlük VWAP ($111.96) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($108.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($111.96) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

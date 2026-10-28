@@ -2,7 +2,7 @@
   "ticker": "UMC",
   "company": "United Microelectronics Corporation",
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T05:09:23.607Z",
+  "generated_at": "2026-10-28T11:26:51.431Z",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -62,7 +62,7 @@
     "fcf_yield": 0.7562836444999548,
     "institutional_ownership_pct": 0.07447,
     "dividend_rate": 0.4,
-    "dividend_yield": 0.0209
+    "dividend_yield": 0.020599999
   },
   "scores_detail": {
     "entry_range_low": 18.98,
