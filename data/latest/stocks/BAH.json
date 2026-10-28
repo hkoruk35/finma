@@ -1,0 +1,89 @@
+{
+  "ticker": "BAH",
+  "company": "Booz Allen Hamilton Holding Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T05:41:03.923Z",
+  "sector": "Industrials",
+  "industry": "Consulting Services",
+  "price": {
+    "current": 83.4000015258789,
+    "open": 82.52999877929688,
+    "high": 83.66000366210938,
+    "low": 81.97000122070312,
+    "prev_close": 83.36000061035156,
+    "change_pct": 0.04798574284364446,
+    "change_pct_1w": 11.24449802309436,
+    "change_pct_1m": 16.04285284356026,
+    "change_pct_1y": -3.6172394517204713,
+    "volume": 1792400,
+    "avg_volume_30d": 52102300
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 75,
+    "fundamental_score": 56.6,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 72.92570396493232,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 75.82565672672072,
+    "ema_50": 74.38281470777024,
+    "ema_200": 76.35045723699274,
+    "ema_stack_bullish": false,
+    "bb_upper": 87.57000160217285,
+    "bb_middle": 83.4000015258789,
+    "bb_lower": 79.23000144958496,
+    "bb_width": 10,
+    "atr": 3.08,
+    "atr_pct": 3.7,
+    "rvol": 1.2993284365565436,
+    "52w_high": 109.0999984741211,
+    "52w_low": 59.5
+  },
+  "fundamental": {
+    "pe_ratio": 13.113208,
+    "pb_ratio": 7.984682,
+    "gross_margin": 0.22575001,
+    "operating_margin": 0.088190004,
+    "net_margin": 0.0714,
+    "market_cap": 9932687360,
+    "revenue_growth_ttm": -0.039,
+    "fcf_yield": 0.07939694419215063,
+    "institutional_ownership_pct": 1.02741,
+    "dividend_rate": 2.36,
+    "dividend_yield": 0.028299998
+  },
+  "scores_detail": {
+    "entry_range_low": 81.55,
+    "entry_range_high": 83.71,
+    "target_range_low": 86.76,
+    "target_range_high": 95.02,
+    "target_1": 86.76,
+    "target_2": 90.89,
+    "target_3": 95.02,
+    "stop_loss": 79.23,
+    "risk_reward_ratio": 2.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $81.55 – $83.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $84.89 direnci veya $80.93 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $79.23 olarak belirlenmiştir. Fiyatın EMA200 ($76.35) veya günlük VWAP ($83.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($74.38) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($83.01) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 73 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

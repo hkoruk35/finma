@@ -1,0 +1,89 @@
+{
+  "ticker": "CBRS",
+  "company": "Cerebras Systems Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T07:20:14.730Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 119.30999755859375,
+    "open": 109.54000091552734,
+    "high": 120.5,
+    "low": 108.87999725341797,
+    "prev_close": 108.37000274658203,
+    "change_pct": 10.095039710937687,
+    "change_pct_1w": 0.9049388651520625,
+    "change_pct_1m": -15.670058551344674,
+    "change_pct_1y": -61.6452905296522,
+    "volume": 14317500,
+    "avg_volume_30d": 276993600
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.24651801055852,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 140.48839556767038,
+    "ema_50": 168.18676096048293,
+    "ema_200": 229.2233461279081,
+    "ema_stack_bullish": false,
+    "bb_upper": 125.27549743652344,
+    "bb_middle": 119.30999755859375,
+    "bb_lower": 113.34449768066406,
+    "bb_width": 10,
+    "atr": 10.3,
+    "atr_pct": 8.63,
+    "rvol": 1.0559984057393383,
+    "52w_high": 386.3399963378906,
+    "52w_low": 106.12999725341797
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.9625309,
+    "gross_margin": 0.34903,
+    "operating_margin": -2.64968,
+    "net_margin": -0.75271004,
+    "market_cap": 28343764992,
+    "revenue_growth_ttm": 0.743,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.80221003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 113.13,
+    "entry_range_high": 120.34,
+    "target_range_low": 214,
+    "target_range_high": 244,
+    "target_1": 214,
+    "target_2": 222.5,
+    "target_3": 244,
+    "stop_loss": 105.92,
+    "risk_reward_ratio": 9.78,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $113.13 – $120.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $126.10 direnci veya $111.07 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $105.92 olarak belirlenmiştir. Fiyatın EMA20 ($140.49) veya günlük VWAP ($116.39) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($168.19) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($116.39) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 32 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,22 +1,22 @@
 {
   "ticker": "SNPS",
   "company": "Synopsys, Inc.",
-  "date": "2026-10-27",
-  "generated_at": "2026-10-27T20:48:29.863Z",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T04:18:33.647Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
     "current": 474.4200134277344,
     "open": 458,
     "high": 475.3999938964844,
-    "low": 455.92999267578125,
+    "low": 455.82000732421875,
     "prev_close": 454.3299865722656,
     "change_pct": 4.4219020203882655,
     "change_pct_1w": 5.987225459740822,
     "change_pct_1m": -1.1480797891639927,
     "change_pct_1y": 1.9359295448591871,
-    "volume": 2150529,
-    "avg_volume_30d": 72986529
+    "volume": 2153600,
+    "avg_volume_30d": 72989600
   },
   "scores": {
     "master_score": 78,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 17.92,
     "atr_pct": 3.78,
-    "rvol": 0.8424674366964349,
+    "rvol": 0.8426844372348938,
     "52w_high": 539.47998046875,
     "52w_low": 362.54998779296875
   },

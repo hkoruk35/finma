@@ -1,0 +1,89 @@
+{
+  "ticker": "ARES",
+  "company": "Ares Management Corporation",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T05:36:01.012Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 122.19000244140625,
+    "open": 123.19999694824219,
+    "high": 123.80999755859375,
+    "low": 121.27999877929688,
+    "prev_close": 121.87999725341797,
+    "change_pct": 0.25435280191523596,
+    "change_pct_1w": 5.073524361019351,
+    "change_pct_1m": 8.622992943233818,
+    "change_pct_1y": -19.063389114784055,
+    "volume": 1238100,
+    "avg_volume_30d": 69944900
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 55,
+    "fundamental_score": 74.75,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.956765983007145,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 119.3438181996184,
+    "ema_50": 123.17812102688858,
+    "ema_200": 129.2381361111823,
+    "ema_stack_bullish": false,
+    "bb_upper": 128.29950256347658,
+    "bb_middle": 122.19000244140625,
+    "bb_lower": 116.08050231933593,
+    "bb_width": 10,
+    "atr": 3.64,
+    "atr_pct": 2.98,
+    "rvol": 0.8207174504502831,
+    "52w_high": 181.19000244140625,
+    "52w_low": 95.80000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 56.308754,
+    "pb_ratio": 11.076965,
+    "gross_margin": 1,
+    "operating_margin": 0.09473,
+    "net_margin": 0.121149994,
+    "market_cap": 40539701248,
+    "revenue_growth_ttm": 0.096,
+    "fcf_yield": 0.05327409994434895,
+    "institutional_ownership_pct": 0.94058,
+    "dividend_rate": 5.4,
+    "dividend_yield": 0.044299997
+  },
+  "scores_detail": {
+    "entry_range_low": 118.05,
+    "entry_range_high": 122.55,
+    "target_range_low": 126.32,
+    "target_range_high": 138.35,
+    "target_1": 126.32,
+    "target_2": 132.33,
+    "target_3": 138.35,
+    "stop_loss": 115.5,
+    "risk_reward_ratio": 2.5,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $118.05 – $122.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $123.96 direnci veya $117.32 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $115.50 olarak belirlenmiştir. Fiyatın EMA20 ($119.34) veya günlük VWAP ($122.09) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($123.18) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($122.09) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

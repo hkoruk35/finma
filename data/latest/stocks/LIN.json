@@ -1,0 +1,89 @@
+{
+  "ticker": "LIN",
+  "company": "Linde plc",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T06:11:35.039Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 508.6499938964844,
+    "open": 504.55999755859375,
+    "high": 509,
+    "low": 504.55999755859375,
+    "prev_close": 507.55999755859375,
+    "change_pct": 0.21475221513389528,
+    "change_pct_1w": 1.3469045110973341,
+    "change_pct_1m": 3.2372602586319776,
+    "change_pct_1y": 14.34962131227642,
+    "volume": 1710500,
+    "avg_volume_30d": 62159900
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 90,
+    "fundamental_score": 74.75,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.58648766273016,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 494.8757525438422,
+    "ema_50": 488.85142119447727,
+    "ema_200": 484.6625096930804,
+    "ema_stack_bullish": true,
+    "bb_upper": 534.0824935913087,
+    "bb_middle": 508.6499938964844,
+    "bb_lower": 483.21749420166014,
+    "bb_width": 10,
+    "atr": 6.99,
+    "atr_pct": 1.37,
+    "rvol": 0.8133893394294393,
+    "52w_high": 548.2000122070312,
+    "52w_low": 387.7799987792969
+  },
+  "fundamental": {
+    "pe_ratio": 32.837315,
+    "pb_ratio": 5.999788,
+    "gross_margin": 0.48348,
+    "operating_margin": 0.28119,
+    "net_margin": 0.20435,
+    "market_cap": 234477551616,
+    "revenue_growth_ttm": 0.093,
+    "fcf_yield": 0.017744769387621342,
+    "institutional_ownership_pct": 0.88978,
+    "dividend_rate": 6.4,
+    "dividend_yield": 0.0126
+  },
+  "scores_detail": {
+    "entry_range_low": 504.46,
+    "entry_range_high": 509.35,
+    "target_range_low": 532.25,
+    "target_range_high": 582.94,
+    "target_1": 532.25,
+    "target_2": 557.59,
+    "target_3": 582.94,
+    "stop_loss": 483.22,
+    "risk_reward_ratio": 2.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $504.46 – $509.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $512.49 direnci veya $503.06 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $483.22 olarak belirlenmiştir. Fiyatın EMA200 ($484.66) veya günlük VWAP ($507.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($507.15) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 70 seviyesinde pozitif momentumu destekliyor."
+  }
+}

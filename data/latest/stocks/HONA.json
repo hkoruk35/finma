@@ -1,0 +1,89 @@
+{
+  "ticker": "HONA",
+  "company": "Honeywell Aerospace Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T07:11:00.352Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 167.89999389648438,
+    "open": 168.5399932861328,
+    "high": 169.13999938964844,
+    "low": 165.6300048828125,
+    "prev_close": 168.63999938964844,
+    "change_pct": -0.4388078129994858,
+    "change_pct_1w": 5.003127145319979,
+    "change_pct_1m": 7.1269051703180955,
+    "change_pct_1y": -16.050003051757812,
+    "volume": 2517200,
+    "avg_volume_30d": 98658700
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 70,
+    "fundamental_score": 68.15,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.182840842627705,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 161.8802979936774,
+    "ema_50": 165.74950676082122,
+    "ema_200": 186.16492815287495,
+    "ema_stack_bullish": false,
+    "bb_upper": 176.2949935913086,
+    "bb_middle": 167.89999389648438,
+    "bb_lower": 159.50499420166014,
+    "bb_width": 10,
+    "atr": 5.76,
+    "atr_pct": 3.43,
+    "rvol": 0.8114033531761516,
+    "52w_high": 297.5,
+    "52w_low": 149.19000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 51.189022,
+    "pb_ratio": 0,
+    "gross_margin": 0.34535,
+    "operating_margin": 0.14684,
+    "net_margin": 0.10862,
+    "market_cap": 53216362496,
+    "revenue_growth_ttm": 0.054,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.79103994,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 164.25,
+    "entry_range_high": 168.48,
+    "target_range_low": 174.68,
+    "target_range_high": 222.54,
+    "target_1": 174.68,
+    "target_2": 183,
+    "target_3": 222.54,
+    "stop_loss": 159.5,
+    "risk_reward_ratio": 2.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $164.25 – $168.48 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $170.30 direnci veya $163.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $159.50 olarak belirlenmiştir. Fiyatın EMA20 ($161.88) veya günlük VWAP ($167.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($165.75) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($167.76) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

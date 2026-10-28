@@ -1,0 +1,89 @@
+{
+  "ticker": "TTE",
+  "company": "TotalEnergies SE",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T05:28:54.986Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Integrated",
+  "price": {
+    "current": 92.3499984741211,
+    "open": 93.12000274658203,
+    "high": 93.30000305175781,
+    "low": 92.27999877929688,
+    "prev_close": 93.76000213623047,
+    "change_pct": -1.5038434620134522,
+    "change_pct_1w": 2.5199784601734265,
+    "change_pct_1m": 3.0232029260651747,
+    "change_pct_1y": 48.06798149055277,
+    "volume": 1013800,
+    "avg_volume_30d": 66358200
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 73.1,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.11530338762162,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 89.9404664563985,
+    "ema_50": 88.81638881997087,
+    "ema_200": 83.5218118691223,
+    "ema_stack_bullish": true,
+    "bb_upper": 96.96749839782716,
+    "bb_middle": 92.3499984741211,
+    "bb_lower": 87.73249855041503,
+    "bb_width": 10,
+    "atr": 1.97,
+    "atr_pct": 2.13,
+    "rvol": 0.8293805437760517,
+    "52w_high": 94.16999816894531,
+    "52w_low": 60.58000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 11.558198,
+    "pb_ratio": 1.599605,
+    "gross_margin": 0.37682,
+    "operating_margin": 0.12788999,
+    "net_margin": 0.09083,
+    "market_cap": 203615944704,
+    "revenue_growth_ttm": 0.278,
+    "fcf_yield": 0.06645537809757872,
+    "institutional_ownership_pct": 0.54302,
+    "dividend_rate": 4.02,
+    "dividend_yield": 0.0431
+  },
+  "scores_detail": {
+    "entry_range_low": 90.34,
+    "entry_range_high": 92.55,
+    "target_range_low": 96.02,
+    "target_range_high": 105.16,
+    "target_1": 96.02,
+    "target_2": 100.59,
+    "target_3": 105.16,
+    "stop_loss": 87.73,
+    "risk_reward_ratio": 2.46,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $90.34 – $92.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $93.58 direnci veya $89.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $87.73 olarak belirlenmiştir. Fiyatın EMA50 ($88.82) veya günlük VWAP ($92.61) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($92.61) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

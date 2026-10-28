@@ -1,0 +1,89 @@
+{
+  "ticker": "BMY",
+  "company": "Bristol-Myers Squibb Company",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T07:48:51.494Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - General",
+  "price": {
+    "current": 61.54999923706055,
+    "open": 61.209999084472656,
+    "high": 61.63999938964844,
+    "low": 60.91999816894531,
+    "prev_close": 61.61000061035156,
+    "change_pct": -0.0973890159009905,
+    "change_pct_1w": -0.21076697060963784,
+    "change_pct_1m": 3.82928560139656,
+    "change_pct_1y": 41.85296174893366,
+    "volume": 7777900,
+    "avg_volume_30d": 405073900
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 70,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.25649520066545,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.00017094172661,
+    "ema_50": 61.712607901359995,
+    "ema_200": 58.87245231601619,
+    "ema_stack_bullish": false,
+    "bb_upper": 64.62749919891358,
+    "bb_middle": 61.54999923706055,
+    "bb_lower": 58.47249927520752,
+    "bb_width": 10,
+    "atr": 1.94,
+    "atr_pct": 3.16,
+    "rvol": 0.7342038082433847,
+    "52w_high": 68.63999938964844,
+    "52w_low": 42.52000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 13.557269,
+    "pb_ratio": 5.6338673,
+    "gross_margin": 0.71661,
+    "operating_margin": 0.34418,
+    "net_margin": 0.18871,
+    "market_cap": 125729087488,
+    "revenue_growth_ttm": 0.057,
+    "fcf_yield": 0.06453856724900245,
+    "institutional_ownership_pct": 0.84904,
+    "dividend_rate": 2.52,
+    "dividend_yield": 0.040900003
+  },
+  "scores_detail": {
+    "entry_range_low": 60.38,
+    "entry_range_high": 61.74,
+    "target_range_low": 64.12,
+    "target_range_high": 70.22,
+    "target_1": 64.12,
+    "target_2": 67.17,
+    "target_3": 70.22,
+    "stop_loss": 58.47,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $60.38 – $61.74 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $63.59 direnci veya $60.00 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $58.47 olarak belirlenmiştir. Fiyatın EMA200 ($58.87) veya günlük VWAP ($61.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($61.71) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($61.36) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}
