@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "JCI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 154.56,
+        "entry_zone": "151.94 - 157.18",
+        "SL": 144.08,
+        "TP": 175.51
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "ADI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 416.93,
+        "entry_zone": "409.57 - 424.29",
+        "SL": 387.5,
+        "TP": 475.78
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "NUE",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 270.79,
+        "entry_zone": "266.57 - 275.01",
+        "SL": 253.89,
+        "TP": 304.59
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "KNSA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 89.2,
+        "entry_zone": "86.97 - 91.43",
+        "SL": 80.3,
+        "TP": 107.0
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "MCHP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 80.17,
+        "entry_zone": "78.58 - 81.76",
+        "SL": 73.79,
+        "TP": 92.93
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "SOFI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 16.56,
+        "entry_zone": "16.17 - 16.94",
+        "SL": 15.01,
+        "TP": 19.65
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "ATEX",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 85.62,
+        "entry_zone": "82.72 - 88.52",
+        "SL": 74.03,
+        "TP": 108.81
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "ORKA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 95.81,
+        "entry_zone": "93.44 - 98.18",
+        "SL": 86.34,
+        "TP": 114.75
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "PII",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 57.18,
+        "entry_zone": "56.11 - 58.25",
+        "SL": 52.89,
+        "TP": 65.76
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 71.64,
+        "entry_zone": "69.35 - 73.94",
+        "SL": 62.45,
+        "TP": 90.04
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 99.05,
+        "entry_zone": "96.68 - 101.41",
+        "SL": 89.59,
+        "TP": 117.96
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "BKR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 57.0,
+        "entry_zone": "56.15 - 57.85",
+        "SL": 53.59,
+        "TP": 63.81
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "BHVN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 15.0,
+        "entry_zone": "14.48 - 15.52",
+        "SL": 12.92,
+        "TP": 19.17
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "NTLA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 12.11,
+        "entry_zone": "11.73 - 12.49",
+        "SL": 10.6,
+        "TP": 15.12
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "WSC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 17.67,
+        "entry_zone": "17.29 - 18.05",
+        "SL": 16.14,
+        "TP": 20.72
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "PVLA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 134.15,
+        "entry_zone": "130.73 - 137.57",
+        "SL": 120.47,
+        "TP": 161.5
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "GM",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 80.76,
+        "entry_zone": "79.57 - 81.95",
+        "SL": 75.99,
+        "TP": 90.3
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "ABSI",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 10.56,
+        "entry_zone": "10.13 - 10.99",
+        "SL": 8.86,
+        "TP": 13.97
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 78.93,
+        "entry_zone": "75.87 - 81.99",
+        "SL": 66.7,
+        "TP": 103.39
+    },
+    {
+        "date": "2026-10-28 13:30",
+        "symbol": "TWST",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 158.77,
+        "entry_zone": "151.99 - 165.55",
+        "SL": 131.63,
+        "TP": 213.04
+    }
+]

@@ -1,0 +1,89 @@
+{
+  "ticker": "CCC",
+  "company": "CCC Intelligent Solutions Holdings Inc.",
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T13:05:03.478Z",
+  "sector": "Technology",
+  "industry": "Software—Application",
+  "price": {
+    "current": 7.699999809265137,
+    "open": 7.679999828338623,
+    "high": 7.710000038146973,
+    "low": 7.659999847412109,
+    "prev_close": 7.699999809265137,
+    "change_pct": 0,
+    "change_pct_1w": 0.9174271792176496,
+    "change_pct_1m": 0.785339578901603,
+    "change_pct_1y": -17.204304824248595,
+    "volume": 30760300,
+    "avg_volume_30d": 914014000
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 90,
+    "fundamental_score": 56.6,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 67.49494601716017,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 7.3767103598719315,
+    "ema_50": 7.023689560648499,
+    "ema_200": 6.645777449586874,
+    "ema_stack_bullish": true,
+    "bb_upper": 8.084999799728394,
+    "bb_middle": 7.699999809265137,
+    "bb_lower": 7.31499981880188,
+    "bb_width": 10,
+    "atr": 0.18,
+    "atr_pct": 2.39,
+    "rvol": 0.7991588750281725,
+    "52w_high": 9.4399995803833,
+    "52w_low": 4.079999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 7.59,
+    "entry_range_high": 7.72,
+    "target_range_low": 8.04,
+    "target_range_high": 8.8,
+    "target_1": 8.04,
+    "target_2": 8.42,
+    "target_3": 8.8,
+    "stop_loss": 7.31,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $7.59 – $7.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $7.91 direnci veya $7.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.31 olarak belirlenmiştir. Fiyatın EMA20 ($7.38) veya günlük VWAP ($7.68) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($7.68) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}
