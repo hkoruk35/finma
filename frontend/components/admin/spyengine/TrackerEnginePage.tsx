@@ -20,9 +20,10 @@
 
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel } from "@/lib/spyengine/mtfPivots";
+import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
+import GexCard from "@/components/admin/spyengine/GexCard";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
 import { fmtR, trackerRead, trackPrewarnLive, FC_RULES, type D, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
@@ -561,9 +562,9 @@ function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact
 const UPC = "#22c55e", DNC = "#ef4444";
 const NEUTRAL = "#64748b";
 
-// ── Pivot noktaları kartı: dünkü / bugünkü tepe-dip-kapanış + klasik günlük pivot; Fibonacci destek ──
+// ── Pivot noktaları kartı: son kapanmış 4h mumun klasik pivotları + dünkü / bugünkü tepe-dip-kapanış ──
 
-const KIND_COLOR: Record<MtfLevel["kind"], string> = { D: "#fb923c", R: "#4ade80", S: "#f87171", P: "#facc15", F: "#38bdf8" };
+const KIND_COLOR: Record<MtfLevel["kind"], string> = { D: "#fb923c", R: "#4ade80", S: "#f87171", P: "#facc15" };
 const PIVOT_STATE_CLS: Record<string, string> = {
   "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
   "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
@@ -572,11 +573,11 @@ const PIVOT_STATE_CLS: Record<string, string> = {
   "DEĞMEDİ": "border-slate-700 text-slate-500",
 };
 
-function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null }) {
+function PivotCard({ p, price, odds }: { p: MtfPivotRead | null; price: number | null; odds: NextLevelOdds | null }) {
   if (!p) {
     return (
       <div className={`${SURFACE} px-3 py-2 text-[12px] text-slate-500`}>
-        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; dünkü seans verisi bekleniyor.
+        <span className="font-semibold text-slate-300">Pivot Noktaları</span> — güncel veri yok; 4h ve dünkü seans verisi bekleniyor.
       </div>
     );
   }
@@ -588,7 +589,7 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
     <div className={`${SURFACE} overflow-hidden`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
         <span className="text-[13px] font-semibold text-slate-200">
-          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· klasik günlük pivot{p.prev ? ` · dün Y ${num(p.prev.H)} D ${num(p.prev.L)} K ${num(p.prev.C)}` : ""}{p.P != null ? ` · P ${num(p.P)}` : ""}{p.today ? ` · bugün ${num(p.today.lo)}–${num(p.today.hi)}` : ""} · Fibonacci destek</span>
+          Pivot Noktaları <span className="hidden text-[11px] font-normal text-slate-500 sm:inline">· 4h klasik pivot{p.anchor4h ? ` · ${p.anchor4h.date.slice(5)} ${p.anchor4h.clock} mumu Y ${num(p.anchor4h.H)} D ${num(p.anchor4h.L)} K ${num(p.anchor4h.C)}` : ""}{p.P != null ? ` · P ${num(p.P)}` : ""}{p.today ? ` · bugün ${num(p.today.lo)}–${num(p.today.hi)}` : ""}</span>
         </span>
         <span className="rounded border px-1.5 py-0.5 text-[11px] font-semibold" style={{ color: hcol, borderColor: `${hcol}66`, backgroundColor: `${hcol}14` }}>bölge {p.zone}</span>
       </div>
@@ -646,9 +647,17 @@ function PivotCard({ p, price }: { p: MtfPivotRead | null; price: number | null 
               </div>
             ))}
           </div>
+          {odds && (
+            <div className="rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1 text-[11.5px] leading-snug text-slate-300">
+              <div className="text-[10.5px] font-semibold text-slate-500">Önce hangi seviye? · mesafeye göre, yön tahmini değil</div>
+              <span className="font-mono text-[#4ade80]">▲ {num(odds.up.price)} {odds.up.keys[0]} %{odds.upPct}</span>
+              <span className="mx-2 text-slate-600">·</span>
+              <span className="font-mono text-[#f87171]">▼ {num(odds.down.price)} {odds.down.keys[0]} %{odds.downPct}</span>
+            </div>
+          )}
           <div className="text-[10.5px] leading-snug text-slate-500">
-            Turuncu = dünkü / bugünkü tepe · dip · kapanış. Klasik günlük pivot dünkü seansın Y/D/K değerlerinden: P = (Y + D + K) / 3, R1 = 2P − D, S1 = 2P − Y, R2/S2 = P ± (Y − D).
-            Mavi = Fibonacci desteği (P ± 0,382 · 0,618 · 1,0 × dünkü aralık ve bugünkü salınımın geri çekilmeleri); ana seviyeyle aynı fiyata düşerse ★ (güçlü kesişim).
+            Turuncu = dünkü / bugünkü tepe · dip · kapanış. 4h pivotlar son kapanmış RTH 4h mumundan: P = (Y + D + K) / 3, R1 = 2P − D, S1 = 2P − Y, R2/S2 = P ± (Y − D), R3 = Y + 2(P − D), S3 = D − 2(Y − P). Pivotlar seans içinde bir kez, 13:30 kapanışında değişir.
+            İki seviye aynı fiyata düşerse ★ (güçlü kesişim).
             TEST · TUTTU = değdi, aynı tarafta kaldı · KIRILDI = öbür tarafa geçti.
           </div>
         </div>
@@ -738,7 +747,7 @@ function PriceStrip({ symbol, price, change, changePct, badge, hour, day, vwap, 
                 <span className="truncate text-[#4ade80]" title={piv.above?.keys.join(" · ")}>{piv.above ? `${piv.above.keys[0]} ${num(piv.above.price)} (+${Math.abs(piv.above.dist).toFixed(2)})` : "—"}</span>
               </div>
             </div>
-          ) : <span className="text-[10.5px] text-slate-500">Pivot: 30m/1h/4h verisi bekleniyor</span>}
+          ) : <span className="text-[10.5px] text-slate-500">Pivot: 4h verisi bekleniyor</span>}
         </div>
       </div>
     </div>
@@ -1242,7 +1251,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   }, [trackSig, h1Track, date, data?.levels?.prevClose, data?.rvolBase, replayDate, riskUsd, trackCfg, refSig]);
   const trackCur = track?.current ?? null;
 
-  /** Pivot noktaları: dünkü seans + klasik günlük pivot, Fibonacci destek */
+  /** Pivot noktaları: son kapanmış 4h mum + dünkü/bugünkü seans seviyeleri */
   const pivFrames = useMemo(() => pivotFrames(m5D.filter((b) => isRthBar(b) && b.time + 300 <= (trackNow || Infinity)), h1Hist),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [trackKey, h1Hist]);
@@ -1250,6 +1259,10 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     if (price == null || !trackNow) return null;
     return mtfPivotRead(pivFrames, analysis?.s5.bars ?? [], price, trackNow);
   }, [pivFrames, analysis?.s5, price, trackNow]);
+  const pivotOdds = useMemo(
+    () => (pivR && price != null ? nextLevelOdds(pivR.ladder, price, trackCur?.atr5 ?? null) : null),
+    [pivR, price, trackCur?.atr5],
+  );
   const ema5Now = useMemo(() => {
     const bs = analysis?.s5.bars;
     return bs && bs.length ? ema5.get(bs[bs.length - 1].time) ?? null : null;
@@ -1290,12 +1303,13 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       };
       return [alt, main];
     }
-    const up = next(1, price), dn = next(-1, price);
+    const up = pivotOdds ? { price: pivotOdds.up.price, label: pivotOdds.up.keys[0] } : next(1, price);
+    const dn = pivotOdds ? { price: pivotOdds.down.price, label: pivotOdds.down.keys[0] } : next(-1, price);
     return [
-      ...(up ? [{ main: false, pct: null, color: "#22c55e", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: up.price, label: `▲ ${up.price.toFixed(2)} ${up.label} (üstü kapanışla)` }] }] : []),
-      ...(dn ? [{ main: false, pct: null, color: "#ef4444", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: dn.price, label: `▼ ${dn.price.toFixed(2)} ${dn.label} (altı kapanışla)` }] }] : []),
+      ...(up ? [{ main: false, pct: pivotOdds?.upPct ?? null, color: "#22c55e", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: up.price, label: `▲ ${up.price.toFixed(2)} ${up.label}${pivotOdds ? ` %${pivotOdds.upPct}` : ""}` }] }] : []),
+      ...(dn ? [{ main: false, pct: pivotOdds?.downPct ?? null, color: "#ef4444", pts: [{ t: t0, price, label: "şimdi" }, { t: t0 + 40 * 60, price: dn.price, label: `▼ ${dn.price.toFixed(2)} ${dn.label}${pivotOdds ? ` %${pivotOdds.downPct}` : ""}` }] }] : []),
     ];
-  }, [trackCur, price, pivR]);
+  }, [trackCur, price, pivR, pivotOdds]);
 
   const map = useMemo(() => {
     if (!analysis || price == null || !date) return null;
@@ -1305,9 +1319,10 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       levels: data?.levels ?? null, forecast: data?.forecast ?? null,
       playBias,
       extra: extraLevels,
+      pivots: pivR?.ladder.map((l) => ({ price: l.price, label: l.label })),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, extraLevels, playBias, minuteSlot]);
+  }, [analysis, price, vwapNow, date, data?.levels, data?.forecast, extraLevels, playBias, pivR, minuteSlot]);
 
   // ── Sesli + titreşimli ön uyarı ─────────────────────────────────
   useEffect(() => {
@@ -1550,10 +1565,13 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         <TrackerPanel r={track} nowSec={nowSec} live={!replayDate && !!data?.session.isLive} hist={trackHist} />
 
         {/* ── 1b) Pivot noktaları ── */}
-        <PivotCard p={pivR} price={price} />
+        <PivotCard p={pivR} price={price} odds={pivotOdds} />
 
         {/* ── 1c) Likidite · akıllı para · hacim profili (gerekçe) ── */}
         <FlowPanel f={flow} price={price} opt={optLevels} />
+
+        {/* ── 1d) Gamma kaydı: yalnız SPY, karar vermez ── */}
+        {symbol === "SPY" && !replayDate && <GexCard />}
 
         </>
 
@@ -1641,7 +1659,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· destek / direnç · Takip Sistemi senaryoları (sonraki 30–90 dk) · pivotlar</span>
+              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 4h pivot durakları · önce hangi seviye · ufuk şimdi + 90 dk</span>
             </span>
             {map && (
               <span className="flex items-center gap-2 font-mono text-[11px]">
@@ -1671,6 +1689,12 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                         <li><b className="text-amber-300">Ölçülmüş bir kenar yok:</b> {trackCur.fc.text.replace(/^30 dk: /, "")}.</li>
                       ) : null}
                     </ul>
+                  )}
+                  {pivotOdds && (
+                    <div className="mt-1 font-mono text-[11.5px] text-slate-200">
+                      Önce hangi seviye: <span className="text-[#4ade80]">▲ {num(pivotOdds.up.price)} {pivotOdds.up.keys[0]} %{pivotOdds.upPct}</span> · <span className="text-[#f87171]">▼ {num(pivotOdds.down.price)} {pivotOdds.down.keys[0]} %{pivotOdds.downPct}</span>
+                      <span className="font-sans text-slate-400"> · mesafeye göre, yön tahmini değil</span>
+                    </div>
                   )}
                   <ol className="mt-1 flex list-decimal flex-col gap-0.5 pl-4 text-[11px] leading-snug text-slate-400 marker:text-slate-500">
                     {map.steps.filter((x) => !x.startsWith("Gün sonu")).map((x, i) => <li key={i}>{x}</li>)}

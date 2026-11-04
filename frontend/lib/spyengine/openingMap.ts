@@ -656,6 +656,8 @@ export function buildForecastMap(input: {
   trend?: "UP" | "DOWN" | null;
   /** Ek ölçülmüş seviyeler (POC/VAH/VAL, süpürülmemiş likidite havuzları) */
   extra?: MapLevel[];
+  /** Verilirse senaryo durakları ve destek/direnç listesi bu pivot merdiveninden seçilir */
+  pivots?: MapLevel[];
   /** Seans oyun planının yönü (karar paneliyle aynı) — verilirse diğer yön kaynaklarından önceliklidir */
   playBias?: { bias: "UP" | "DOWN" | "FLAT"; text: string; alt?: string[] } | null;
   /** Gün ortası aralık dilimi (10:30–14:00, trend günü değil): harita aralık / VWAP'a dönüş senaryosu çizer */
@@ -663,7 +665,7 @@ export function buildForecastMap(input: {
   /** Erken uyarı (flow.ts) — başlamış/biriken hareketin yönü */
   early?: { side: "LONG" | "SHORT" | null; level: "STARTED" | "BUILDING" | "NONE"; headline: string } | null;
 }): ForecastMapData | null {
-  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, early, rangeMode, playBias } = input;
+  const { price, vwap, date, nowSec, opening, live, levels, forecast, trend, extra, pivots, early, rangeMode, playBias } = input;
   if (!Number.isFinite(price)) return null;
 
   const closeSec = nyDateTimeToEpoch(date, RTH_CLOSE_MIN);
@@ -729,8 +731,9 @@ export function buildForecastMap(input: {
     } else uniq.push(c);
   }
   const MIN_DIST = 0.12;
-  const supports = uniq.filter((l) => l.price < price - MIN_DIST).sort((a, b) => b.price - a.price).slice(0, 3);
-  const resistances = uniq.filter((l) => l.price > price + MIN_DIST).sort((a, b) => a.price - b.price).slice(0, 3);
+  const stops = pivots?.length ? pivots : uniq;
+  const supports = stops.filter((l) => l.price < price - MIN_DIST).sort((a, b) => b.price - a.price).slice(0, 3);
+  const resistances = stops.filter((l) => l.price > price + MIN_DIST).sort((a, b) => a.price - b.price).slice(0, 3);
 
   // — yolculuk —
   const hr = Math.max(0.3, levels?.hourlyRange ?? DEFAULT_HOURLY);

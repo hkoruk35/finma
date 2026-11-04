@@ -1,0 +1,22 @@
+name: SPY GEX Snapshot
+
+on:
+  schedule:
+    # UTC saatler yaz ve kis saatini kapsar; endpoint NY saatine gore 09:00-16:10 disini atlar.
+    - cron: '5,35 13-21 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call GEX snapshot endpoint
+        run: |
+          response=$(curl -s --max-time 70 -w "\nHTTP_STATUS=%{http_code}" -X GET "https://bogastock.com/api/cron/gex-snapshot" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::GEX snapshot call returned HTTP $status"
+            exit 1
+          fi
