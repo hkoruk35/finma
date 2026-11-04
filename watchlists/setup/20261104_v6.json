@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "NBIX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 165.45,
+        "entry_zone": "163.10 - 167.80",
+        "SL": 156.04,
+        "TP": 184.27
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "FISV",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 61.74,
+        "entry_zone": "60.70 - 62.78",
+        "SL": 57.58,
+        "TP": 70.06
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "DD",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 153.48,
+        "entry_zone": "151.66 - 155.30",
+        "SL": 146.22,
+        "TP": 168.01
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "EW",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 98.9,
+        "entry_zone": "97.52 - 100.28",
+        "SL": 93.37,
+        "TP": 109.96
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 21.22,
+        "entry_zone": "20.59 - 21.85",
+        "SL": 18.71,
+        "TP": 26.24
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "CODI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 12.23,
+        "entry_zone": "11.97 - 12.49",
+        "SL": 11.2,
+        "TP": 14.29
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 28.39,
+        "entry_zone": "27.65 - 29.13",
+        "SL": 25.42,
+        "TP": 34.33
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "BTSG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 69.6,
+        "entry_zone": "68.24 - 70.96",
+        "SL": 64.16,
+        "TP": 80.47
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "FOXA",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 68.68,
+        "entry_zone": "67.44 - 69.91",
+        "SL": 63.75,
+        "TP": 78.53
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "TNC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 73.75,
+        "entry_zone": "72.65 - 74.85",
+        "SL": 69.36,
+        "TP": 82.53
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "BAX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 26.81,
+        "entry_zone": "26.25 - 27.36",
+        "SL": 24.59,
+        "TP": 31.23
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "JAZZ",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 230.56,
+        "entry_zone": "227.18 - 233.94",
+        "SL": 217.05,
+        "TP": 257.58
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "CAPR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 8.39,
+        "entry_zone": "8.08 - 8.70",
+        "SL": 7.15,
+        "TP": 10.88
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "RVTY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 158.04,
+        "entry_zone": "154.16 - 161.91",
+        "SL": 142.53,
+        "TP": 189.05
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "MPWR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 1268.44,
+        "entry_zone": "1232.53 - 1304.35",
+        "SL": 1124.78,
+        "TP": 1555.75
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "PRIM",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 70.07,
+        "entry_zone": "67.64 - 72.49",
+        "SL": 60.37,
+        "TP": 89.46
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "TLN",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 325.54,
+        "entry_zone": "315.56 - 335.51",
+        "SL": 285.62,
+        "TP": 405.36
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 247.1,
+        "entry_zone": "235.57 - 258.63",
+        "SL": 200.96,
+        "TP": 339.38
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "SEDG",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 30.41,
+        "entry_zone": "29.23 - 31.58",
+        "SL": 25.69,
+        "TP": 39.83
+    },
+    {
+        "date": "2026-11-04 16:30",
+        "symbol": "SNDX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 10.7,
+        "entry_zone": "10.22 - 11.18",
+        "SL": 8.79,
+        "TP": 14.52
+    }
+]
