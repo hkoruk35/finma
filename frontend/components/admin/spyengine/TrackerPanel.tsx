@@ -13,10 +13,11 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  BREAKDOWN_LABEL, FC_RULES, halfOf, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
+  BREAKDOWN_LABEL, FC_RULES, fmtR, halfExitText, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
   type Breakdown, type TrackRead, type TrackStep, type D,
 } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
+import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 
 const UP = "#22c55e", DN = "#ef4444", WARN = "#eab308", NEU = "#64748b";
 const num = (n: number | null | undefined) => (n == null ? "—" : n.toFixed(2));
@@ -208,7 +209,7 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         {s.runners?.length > 0 && (
           <div className="rounded border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[11.5px] leading-snug text-sky-100">
             <b className="text-sky-300">Taşınan yarı</b> (stop yalnız sıkılaşır):
-            {s.runners.map((x, k) => <div key={k} className="font-mono">{x.side} {x.entryClock} · giriş {num(x.entry)} · stop <b>{num(x.stop)}</b> · {x.liveR >= 0 ? "+" : "−"}{Math.abs(x.liveR).toFixed(2)}R</div>)}
+            {s.runners.map((x, k) => <div key={k} className="font-mono">{x.side} {x.entryClock} · giriş {num(x.entry)} · stop <b>{num(x.stop)}</b> · {x.liveR >= 0 ? "+" : "−"}{Math.abs(x.liveR).toFixed(2)}R{x.contracts === 1 ? " · tek kontrat, yalnız R kaydı" : ""}</div>)}
           </div>
         )}
         {p ? (
@@ -216,11 +217,11 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
             <div className="text-[10.5px] font-semibold uppercase tracking-widest text-slate-500">Pozisyon · {p.tag}{p.contracts ? ` · ${p.contracts} kontrat` : ""}</div>
             <div className="text-[16px] font-black" style={{ color: p.side === "CALL" ? UP : DN }}>{p.side === "CALL" ? "▲ CALL" : "▼ PUT"} · {p.liveR >= 0 ? "+" : "−"}{Math.abs(p.liveR).toFixed(2)}R</div>
             <div className="grid grid-cols-2 gap-1 font-mono text-[11.5px]">
-              {([["giriş", p.entry], ["stop", p.stop], ["1R (yarısı)", p.h1], ["sonraki seviye", p.h2]] as const).map(([k, v]) => (
+              {([["giriş", p.entry], ["stop", p.stop], [`${fmtR(p.h1RMult ?? 1)} (yarısı)`, p.h1], ["sonraki seviye", p.h2]] as const).map(([k, v]) => (
                 <div key={k} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5"><span className="text-[9.5px] text-slate-500">{k} </span><b className="text-slate-100">{num(v)}</b></div>
               ))}
             </div>
-            <div className="text-[11px] text-slate-400">{`1R'de yarısını kapat (${halfOf(p.contracts)} / ${p.contracts ?? 2} kontrat), stopu girişe çek · kalan yarı` + ": her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + " (tamponlu) taşınır · 15m yön teyidi 1R'den önce dönerse çık"}</div>
+            <div className="text-[11px] text-slate-400">{`${fmtR(p.h1RMult ?? 1)}'de ${halfExitText(p.contracts)}, stopu girişe çek · kalan yarı` + ": her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + ` (tamponlu) taşınır · 15m yön teyidi ${fmtR(p.h1RMult ?? 1)}'den önce dönerse çık`}</div>
           </>
         ) : s.setup ? (
           <>
@@ -256,10 +257,10 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
   live: boolean;
   hist: TrackerSummary | null;
 }) {
-  const [selT, setSelT] = useState<number | null>(null);
-  const [expanded, setExpanded] = useState(false);
-  const [showHist, setShowHist] = useState(false);
-  const [showTrades, setShowTrades] = useState(false);
+  const [selT, setSelT] = usePersistedState<number | null>("spyengine_ui_track_sel", null);
+  const [expanded, setExpanded] = usePersistedState("spyengine_ui_track_expanded", false);
+  const [showHist, setShowHist] = usePersistedState("spyengine_ui_track_hist", false);
+  const [showTrades, setShowTrades] = usePersistedState("spyengine_ui_track_trades", false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   /** kullanıcı yukarı kaydırdıysa yeni kapanışta aşağı atlanmaz */
   const [pinned, setPinned] = useState(true);

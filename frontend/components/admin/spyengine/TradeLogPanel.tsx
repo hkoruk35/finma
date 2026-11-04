@@ -5,7 +5,7 @@
  * geçmiş günler (Supabase'te donmuş kayıtlar, son 60 seans). Hesap yok; yalnız listeler.
  */
 
-import { useState } from "react";
+import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 
 export interface TradeRow {
   date: string; clock: string; side: string; mode: string; setup: string;
@@ -17,7 +17,7 @@ const f2 = (x: number | null | undefined) => (x == null ? "—" : x.toFixed(2));
 const sgn = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)}`;
 
 export default function TradeLogPanel({ today, past }: { today: TradeRow[]; past: TradeRow[] }) {
-  const [days, setDays] = useState(10);
+  const [days, setDays] = usePersistedState("spyengine_ui_tradelog_days", 10);
   const todayDate = today[0]?.date;
   const archive = past.filter((t) => t.date !== todayDate);
   const dates = Array.from(new Set(archive.map((t) => t.date))).sort().reverse();

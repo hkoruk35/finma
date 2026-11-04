@@ -25,10 +25,11 @@ import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/Fore
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
-import { trackerRead, trackPrewarnLive, FC_RULES, type D, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
+import { fmtR, trackerRead, trackPrewarnLive, FC_RULES, type D, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
 import { ENGINES, ENGINE_SYMBOLS, type EngineSymbol } from "@/lib/spyengine/engines";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
+import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 import {
   PhaseBadge, SURFACE, num, signed, tone,
   type SpotStats,
@@ -166,7 +167,7 @@ function CommentFeed({ title, items, forming }: { title: string; items: CandleCo
  * En üst bant — sayfanın TEK karar satırı (Takip Sistemi: 15m yön teyidi → 5m tetik → 1R'de yarısı → 15m izleyen stop).
  * Başka hiçbir bölüm yön/işlem hükmü vermez.
  */
-function TopBar({ t, waiting }: { t: TrackStep | null; waiting: boolean }) {
+function TopBar({ t, waiting, h1R }: { t: TrackStep | null; waiting: boolean; h1R: number }) {
   if (!t) {
     return (
       <div className="rounded-lg border-2 border-slate-600 bg-slate-700/10 px-4 py-2.5 text-[15px] font-semibold text-slate-300">
@@ -189,10 +190,10 @@ function TopBar({ t, waiting }: { t: TrackStep | null; waiting: boolean }) {
           {t.fc.text && <span className="text-slate-400"> · {t.fc.text}</span>}
         </div>
       )}
-      {!t.pre && t.setup && t.setup.status !== "OPEN" && t.checklist.some((c) => !c.ok) && (
-        <div className="mt-0.5 text-[12px] leading-snug text-slate-400"><b>Tetik için eksik:</b> {t.checklist.filter((c) => !c.ok && c.key !== "fresh").map((c) => c.text).join(" · ") || "taze tetik (yeni hiza ya da EMA20/VWAP'a geri çekilme)"}</div>
+      {!t.pre && t.setup && t.setup.status !== "OPEN" && (t.setup.missing.length > 0 || t.checklist.some((c) => c.key === "fresh" && !c.ok)) && (
+        <div className="mt-0.5 text-[12px] leading-snug text-slate-400"><b>Tetik için eksik:</b> {t.setup.missing.join(" · ") || "taze tetik (yeni hiza ya da EMA20/VWAP'a geri çekilme)"}</div>
       )}
-      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">Kazanç yön tahmininden değil düzenden gelir: 15m teyitli 5m tetik · stop son 2 mumun ucu · 1R&apos;de yarısı + stop girişe · kalan yarı her 15m kapanışında 15m dip/tepe ∓ tampon.</div>
+      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">Kazanç yön tahmininden değil düzenden gelir: 15m teyitli 5m tetik · stop son 2 mumun ucu · {fmtR(h1R)}&apos;de yarısı + stop girişe · kalan yarı her 15m kapanışında 15m dip/tepe ∓ tampon.</div>
     </div>
   );
 }
@@ -236,10 +237,10 @@ function KV({ k, children }: { k: string; children: ReactNode }) {
 const SHOW_BTN = "rounded-md border border-sky-500/60 bg-sky-500/15 px-3 py-1 text-[12px] font-bold text-sky-300 shadow-sm hover:bg-sky-500/30";
 
 function FlowPanel({ f, price, opt }: { f: FlowRead | null; price: number | null; opt: OptionLevels | null }) {
-  const [open, setOpen] = useState(false);
-  const [optOpen, setOptOpen] = useState(false);
-  const [tracesOpen, setTracesOpen] = useState(false);
-  const [eventsOpen, setEventsOpen] = useState(false);
+  const [open, setOpen] = usePersistedState("spyengine_ui_flow", false);
+  const [optOpen, setOptOpen] = usePersistedState("spyengine_ui_flow_opt", false);
+  const [tracesOpen, setTracesOpen] = usePersistedState("spyengine_ui_flow_traces", false);
+  const [eventsOpen, setEventsOpen] = usePersistedState("spyengine_ui_flow_events", false);
   const head = (
     <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5">
       <div className="flex flex-wrap items-center gap-2">
@@ -812,14 +813,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const { stream, optlevels, openForecast, closeForecast, riskKey } = E;
   const pollMs = POLL_MS;
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
-  const [showTickers, setShowTickers] = useState(false);
+  const [showTickers, setShowTickers] = usePersistedState("spyengine_ui_tickers", false);
   /** Açılış Tahmini / Tahmin Günlüğü varsayılan GİZLİ */
-  const [showOpenFc, setShowOpenFc] = useState(false);
+  const [showOpenFc, setShowOpenFc] = usePersistedState("spyengine_ui_openfc", false);
   /** Kayıt bölümleri (sayfa altı) — varsayılan gizli */
-  const [showTrades, setShowTrades] = useState(false);
-  const [showAlerts, setShowAlerts] = useState(false);
-  const [showStops, setShowStops] = useState(false);
-  const [alertSound, setAlertSound] = useState(true);
+  const [showTrades, setShowTrades] = usePersistedState("spyengine_ui_trades", false);
+  const [showAlerts, setShowAlerts] = usePersistedState("spyengine_ui_alerts", false);
+  const [showStops, setShowStops] = usePersistedState("spyengine_ui_stops", false);
+  const [alertSound, setAlertSound] = usePersistedState("spyengine_ui_sound", true);
   const [replayDate, setReplayDate] = useState("");
   // 60 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
   // Yenileme 5m kapanışına son 90 sn ile kapanıştan sonraki 15 sn'ye düşmez (erken uyarı/TETİK penceresi) — o aralığa
@@ -832,8 +833,13 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     const id = setTimeout(() => window.location.reload(), delay);
     return () => clearTimeout(id);
   }, [replayDate]);
-  /** SL tamponu çarpanı (ATR15 x): 0,25 normal · 0,40 yüksek oynaklık · 0,50 veri/FOMC günü */
-  const [stopMult, setStopMult] = useState(0.25);
+  /** SL tamponu çarpanı (ATR15 x): varsayılan motorun izleyen stop tamponu; diğerleri elle karşılaştırma */
+  const engineStopMult = E.cfg.trailBufAtr15;
+  const [stopMult, setStopMult] = usePersistedState(`${symbol}_ui_stop_mult`, engineStopMult);
+  const stopMultOptions: readonly (readonly [number, string])[] = [
+    [engineStopMult, "motor"],
+    ...([[0.25, "normal"], [0.4, "yüksek vol."], [0.5, "veri günü"]] as const).filter(([m]) => m !== engineStopMult),
+  ];
   /** işlem başı dolar riski — kontrat sayısı = risk ÷ (stop × Δ × 100); tarayıcıda hatırlanır (sayfa 60 sn'de yenilenir) */
   const [riskUsd, setRiskUsd] = useState(E.cfg.riskUsd);
   useEffect(() => {
@@ -1420,7 +1426,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
               {prewarn && <span className="rounded-md bg-green-500 px-2 py-0.5 text-[11px] font-extrabold text-[#0a0e17]">⚡ ERKEN UYARI · {prewarn.side} · {prewarn.clock}</span>}
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
-              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da formasyon) · SIÇRAMA: sert hacimli 5m mum (RVOL ≥ 1,5) VWAP + EMA20&apos;yi keserse erken uyarı, sonraki 5m aynı yönde kapanırsa 15m beklenmeden giriş · 12:00 sonrası net trend günü değilse RVOL ≥ 1,5 · kontrat = sabit dolar riski ÷ stop → 1R&apos;de yarısı, kalan 15m izleyen stop (tampon 0,4 ATR15) · 0,75R sonrası 2 ters mumda çıkış
+              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da formasyon) · SIÇRAMA: sert hacimli 5m mum (RVOL ≥ 1,5) VWAP + EMA20&apos;yi keserse erken uyarı, sonraki 5m aynı yönde kapanırsa 15m beklenmeden giriş · 12:00 sonrası net trend günü değilse RVOL ≥ 1,5 · kontrat = sabit dolar riski ÷ stop → {fmtR(E.cfg.h1R)}&apos;de yarısı, kalan 15m izleyen stop (tampon {String(E.cfg.trailBufAtr15).replace(".", ",")} ATR15) · {fmtR(E.cfg.earlyExitArmR)} sonrası 2 ters mumda çıkış
             </p>
             {symbol !== "SPY" && <p className="text-[10.5px] font-semibold text-sky-300/90">{E.note}</p>}
           </div>
@@ -1520,7 +1526,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
       <div className="flex flex-col gap-1.5">
         {/* ── KARAR SATIRI — ekrandaki tek durum ── */}
-        <TopBar t={trackCur} waiting={!analysis || !analysis.s5.bars.length} />
+        <TopBar t={trackCur} waiting={!analysis || !analysis.s5.bars.length} h1R={E.cfg.h1R} />
         {prewarn && (
           <div className="animate-pulse rounded-lg border-2 border-[#eab308] bg-[#eab308]/10 px-4 py-1.5 text-[14px] font-bold text-[#facc15]">⚡ {prewarn.text}</div>
         )}
@@ -1556,11 +1562,11 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Trend Stop Bölgesi <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· Takip Sistemi&apos;nin kalan yarı için kullandığı kural: son kapanan 15m dip/tepe ∓ ATR15 tamponu (varsayılan 0,25) · her 15m kapanışta yenilenir, yalnız sıkılaşır</span>
+              Trend Stop Bölgesi <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· Takip Sistemi&apos;nin kalan yarı için kullandığı kural: son kapanan 15m dip/tepe ∓ ATR15 tamponu (motor {String(engineStopMult).replace(".", ",")}) · her 15m kapanışta yenilenir, yalnız sıkılaşır</span>
             </span>
             <span className="flex items-center gap-1 font-mono text-[10.5px] text-slate-500">
               tampon çarpanı
-              {([[0.25, "normal"], [0.4, "yüksek vol."], [0.5, "veri günü"]] as const).map(([m, l]) => (
+              {stopMultOptions.map(([m, l]) => (
                 <button
                   key={m}
                   type="button"
@@ -1585,6 +1591,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                 const col = isLong ? "#22c55e" : "#ef4444";
                 const dist = price != null ? (isLong ? price - z.stop : z.stop - price) : null;
                 const hit = dist != null && dist <= 0;
+                const liveStops = (trackCur?.runners ?? []).filter((x) => x.side === (isLong ? "CALL" : "PUT"));
                 return (
                   <div key={z.side} className={`bg-[#0f141d] px-3 py-2 ${active ? "" : "opacity-45"}`}>
                     <div className="flex items-center justify-between">
@@ -1614,6 +1621,9 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                             : <b className="text-slate-300">değişmedi</b>}
                         </span>
                       )}
+                      {liveStops.map((x) => (
+                        <b key={x.entryClock} className="text-sky-300">Motordaki aktif stop ({x.entryClock}): {num(x.stop)}</b>
+                      ))}
                     </div>
                   </div>
                 );

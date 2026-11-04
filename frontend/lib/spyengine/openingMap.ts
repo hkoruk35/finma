@@ -823,8 +823,8 @@ export interface StopZones {
 }
 
 /**
- * Tampon = ATR₁₅ × çarpan — motorun stop kuralıyla aynı (normal 0,25 ·
- * yüksek oynaklık 0,40 · veri/FOMC günü 0,50). Yalnızca KAPANMIŞ 15m mumlardan.
+ * Tampon = ATR₁₅ × çarpan. Takip sayfası varsayılan olarak motorun trailBufAtr15 değerini verir.
+ * Yalnızca KAPANMIŞ 15m mumlardan.
  */
 export function stopZones(s15: DaySeries, atr15: number | null, mult: number): StopZones {
   const buffer = Math.max(0.1, r2((atr15 ?? 0) * mult));
