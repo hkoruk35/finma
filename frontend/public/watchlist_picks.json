@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-11-04T14:04:27.953199-05:00",
+  "generated_at": "2026-11-04T17:03:12.940778-05:00",
   "picks": [
-    {
-      "ticker": "SBCF",
-      "sector": "Financial Services",
-      "date_added": "2026-11-04",
-      "score": 45.0
-    },
-    {
-      "ticker": "PRGS",
-      "sector": "Technology",
-      "date_added": "2026-11-04",
-      "score": 40.0
-    },
     {
       "ticker": "PRG",
       "sector": "Industrials",
@@ -24,12 +12,6 @@
       "sector": "Technology",
       "date_added": "2026-11-04",
       "score": 31.5
-    },
-    {
-      "ticker": "KOD",
-      "sector": "Healthcare",
-      "date_added": "2026-11-04",
-      "score": 30.5
     },
     {
       "ticker": "CXM",
@@ -44,12 +26,6 @@
       "score": 43.0
     },
     {
-      "ticker": "LNG",
-      "sector": "Energy",
-      "date_added": "2026-11-04",
-      "score": 41.0
-    },
-    {
       "ticker": "SBAC",
       "sector": "Real Estate",
       "date_added": "2026-11-04",
@@ -62,16 +38,64 @@
       "score": 40.0
     },
     {
-      "ticker": "RVTY",
-      "sector": "Healthcare",
-      "date_added": "2026-11-04",
-      "score": 38.0
-    },
-    {
       "ticker": "LEN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-04",
       "score": 26.2
+    },
+    {
+      "ticker": "IR",
+      "sector": "Industrials",
+      "date_added": "2026-11-04",
+      "score": 48.5
+    },
+    {
+      "ticker": "OMC",
+      "sector": "Communication Services",
+      "date_added": "2026-11-04",
+      "score": 48.5
+    },
+    {
+      "ticker": "PRGS",
+      "sector": "Technology",
+      "date_added": "2026-11-04",
+      "score": 48.0
+    },
+    {
+      "ticker": "EBAY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-04",
+      "score": 47.5
+    },
+    {
+      "ticker": "NUE",
+      "sector": "Basic Materials",
+      "date_added": "2026-11-04",
+      "score": 47.0
+    },
+    {
+      "ticker": "VEEV",
+      "sector": "Healthcare",
+      "date_added": "2026-11-04",
+      "score": 46.5
+    },
+    {
+      "ticker": "CNK",
+      "sector": "Communication Services",
+      "date_added": "2026-11-04",
+      "score": 44.0
+    },
+    {
+      "ticker": "SYRE",
+      "sector": "Healthcare",
+      "date_added": "2026-11-04",
+      "score": 40.5
+    },
+    {
+      "ticker": "WOR",
+      "sector": "Industrials",
+      "date_added": "2026-11-04",
+      "score": 37.0
     }
   ]
 }
