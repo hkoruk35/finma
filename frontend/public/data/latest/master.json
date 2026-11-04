@@ -1,32 +1,32 @@
 {
-  "date": "2026-10-28",
-  "generated_at": "2026-10-28T09:03:50.821303-04:00",
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04T09:04:00.479480-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
-  "market_regime": "STRONG",
+  "active_scores_count": 10,
+  "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "DHT",
-        "KNSL",
-        "TDY",
-        "HHH",
-        "FA",
-        "LFST",
-        "EL",
-        "TGTX",
-        "JHX",
-        "NYT"
+        "VTR",
+        "OMC",
+        "EXPD",
+        "TRU",
+        "VRSN",
+        "ADP",
+        "ICE",
+        "RXO",
+        "NXPI",
+        "IR"
       ]
     },
     "breakout": {
       "count": 4,
       "tickers": [
-        "KNSL",
-        "HHH",
-        "CNC",
-        "FTDR"
+        "EXPD",
+        "VRSN",
+        "NXPI",
+        "IR"
       ]
     },
     "value": {
@@ -48,18 +48,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "DHT",
-      "score": 51.5,
+      "ticker": "VTR",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "KNSL",
-      "score": 43.5,
+      "ticker": "OMC",
+      "score": 57.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "TDY",
-      "score": 38.5,
+      "ticker": "EXPD",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
