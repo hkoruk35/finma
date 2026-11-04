@@ -1,8 +1,8 @@
 {
   "date": "2026-11-04",
-  "generated_at": "2026-11-04T14:04:27.295784-05:00",
+  "generated_at": "2026-11-04T17:03:12.344259-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 24,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,14 +21,17 @@
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 9,
       "tickers": [
         "EXPD",
         "VRSN",
+        "ADP",
         "NXPI",
         "IR",
         "CP",
-        "BUD"
+        "BUD",
+        "SBCF",
+        "CSX"
       ]
     },
     "value": {
@@ -51,7 +54,7 @@
   "top_3_overall": [
     {
       "ticker": "VTR",
-      "score": 58.0,
+      "score": 63.0,
       "score_type": "POSITIVE_BIAS"
     },
     {

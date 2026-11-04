@@ -5,12 +5,12 @@
       "ticker": "VTR",
       "company": "VTR",
       "sector": "Real Estate",
-      "master_score": 58.0,
+      "master_score": 63.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 87.04000091552734,
-      "change_pct": 0.37,
+      "price": 89.19999694824219,
+      "change_pct": 2.48,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
     },
     {
       "ticker": "OMC",
@@ -38,12 +38,12 @@
       "ticker": "TRU",
       "company": "TRU",
       "sector": "Financial Services",
-      "master_score": 56.0,
+      "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 78.55000305175781,
-      "change_pct": -0.86,
+      "price": 82.12999725341797,
+      "change_pct": 4.56,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
     },
     {
       "ticker": "VRSN",
@@ -60,23 +60,23 @@
       "ticker": "ADP",
       "company": "ADP",
       "sector": "Technology",
-      "master_score": 53.0,
+      "master_score": 56.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 296.010009765625,
-      "change_pct": -0.93,
+      "price": 303.5400085449219,
+      "change_pct": 2.54,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: BREAKOUT"
     },
     {
       "ticker": "ICE",
       "company": "ICE",
       "sector": "Financial Services",
-      "master_score": 52.0,
+      "master_score": 55.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 170.92999267578125,
-      "change_pct": -0.78,
+      "price": 174.9199981689453,
+      "change_pct": 2.33,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
     },
     {
       "ticker": "RXO",
@@ -84,8 +84,8 @@
       "sector": "Industrials",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 28.239999771118164,
-      "change_pct": 1.51,
+      "price": 28.399999618530273,
+      "change_pct": 0.57,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
@@ -93,12 +93,12 @@
       "ticker": "NXPI",
       "company": "NXPI",
       "sector": "Technology",
-      "master_score": 49.0,
+      "master_score": 50.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 262.7900085449219,
-      "change_pct": 2.16,
+      "price": 265.010009765625,
+      "change_pct": 0.84,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: BREAKOUT"
     },
     {
       "ticker": "IR",
@@ -220,6 +220,50 @@
       "change_pct": 2.89,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "MS",
+      "company": "MS",
+      "sector": "Financial Services",
+      "master_score": 65.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 193.97000122070312,
+      "change_pct": 4.23,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 65.0 | System: EMA_CROSS"
+    },
+    {
+      "ticker": "SBCF",
+      "company": "SBCF",
+      "sector": "Financial Services",
+      "master_score": 57.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 34.27000045776367,
+      "change_pct": 2.45,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "CSX",
+      "company": "CSX",
+      "sector": "Industrials",
+      "master_score": 55.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 52.04999923706055,
+      "change_pct": 2.62,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 55.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "DLR",
+      "company": "DLR",
+      "sector": "Real Estate",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 184.8800048828125,
+      "change_pct": 2.57,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: DEFAULT"
     }
   ]
 }
