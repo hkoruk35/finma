@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "DLTR",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 140.07,
+        "entry_zone": "137.22 - 142.93",
+        "SL": 128.65,
+        "TP": 162.93
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "ISRG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 462.48,
+        "entry_zone": "454.02 - 470.95",
+        "SL": 428.64,
+        "TP": 530.18
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "THC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 282.5,
+        "entry_zone": "276.41 - 288.59",
+        "SL": 258.13,
+        "TP": 331.23
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "MOS",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 22.26,
+        "entry_zone": "21.80 - 22.72",
+        "SL": 20.42,
+        "TP": 25.94
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "ZBH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 106.12,
+        "entry_zone": "104.39 - 107.85",
+        "SL": 99.21,
+        "TP": 119.94
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "AEM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 187.72,
+        "entry_zone": "183.67 - 191.77",
+        "SL": 171.52,
+        "TP": 220.12
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "VCEL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 50.31,
+        "entry_zone": "49.05 - 51.58",
+        "SL": 45.25,
+        "TP": 60.43
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "XRAY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 10.06,
+        "entry_zone": "9.86 - 10.26",
+        "SL": 9.25,
+        "TP": 11.67
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "HCA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 504.98,
+        "entry_zone": "495.84 - 514.12",
+        "SL": 468.42,
+        "TP": 578.11
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "CNC",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 73.27,
+        "entry_zone": "71.50 - 75.04",
+        "SL": 66.18,
+        "TP": 87.45
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "YOU",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 56.73,
+        "entry_zone": "55.35 - 58.11",
+        "SL": 51.22,
+        "TP": 67.75
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "LIVN",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 89.65,
+        "entry_zone": "87.81 - 91.49",
+        "SL": 82.31,
+        "TP": 104.33
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "MMM",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 189.33,
+        "entry_zone": "186.49 - 192.17",
+        "SL": 177.99,
+        "TP": 212.02
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "NXT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 97.93,
+        "entry_zone": "94.39 - 101.47",
+        "SL": 83.76,
+        "TP": 126.27
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "ASO",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 67.45,
+        "entry_zone": "66.25 - 68.65",
+        "SL": 62.67,
+        "TP": 77.01
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 112.68,
+        "entry_zone": "109.46 - 115.90",
+        "SL": 99.78,
+        "TP": 138.48
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "OC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 121.89,
+        "entry_zone": "119.18 - 124.60",
+        "SL": 111.04,
+        "TP": 143.58
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 45.33,
+        "entry_zone": "43.72 - 46.94",
+        "SL": 38.89,
+        "TP": 58.2
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "BRKR",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 58.3,
+        "entry_zone": "56.38 - 60.22",
+        "SL": 50.61,
+        "TP": 73.69
+    },
+    {
+        "date": "2026-11-05 19:00",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 240.62,
+        "entry_zone": "229.15 - 252.09",
+        "SL": 194.75,
+        "TP": 332.36
+    }
+]
