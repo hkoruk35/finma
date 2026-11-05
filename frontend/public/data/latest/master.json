@@ -1,9 +1,9 @@
 {
   "date": "2026-11-05",
-  "generated_at": "2026-11-05T09:04:08.179053-05:00",
+  "generated_at": "2026-11-05T14:03:25.681725-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 31,
-  "market_regime": "BULLISH",
+  "active_scores_count": 40,
+  "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 14,
       "tickers": [
         "EXPD",
         "VRSN",
@@ -33,7 +33,10 @@
         "SBCF",
         "CSX",
         "WAT",
-        "GDDY"
+        "GDDY",
+        "BEKE",
+        "MSEX",
+        "GLOB"
       ]
     },
     "value": {
@@ -72,25 +75,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 735.34,
-      "change_pct": -4.1
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 651.59,
-      "change_pct": -5.83
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 515.8099,
-      "change_pct": -3.25
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 25.4,
-      "change_pct": 52.92
-    },
-    "RUSSELL2000": {
-      "value": 270.979,
-      "change_pct": -4.59
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-11-05T14:30:09.410618-05:00"
+  }
 }
