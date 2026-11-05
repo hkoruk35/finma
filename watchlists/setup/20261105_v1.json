@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "ISRG",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 484.0,
+        "entry_zone": "475.89 - 492.11",
+        "SL": 451.54,
+        "TP": 548.91
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "AEM",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 186.98,
+        "entry_zone": "183.10 - 190.86",
+        "SL": 171.48,
+        "TP": 217.99
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "HCA",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 517.72,
+        "entry_zone": "508.45 - 526.99",
+        "SL": 480.65,
+        "TP": 591.87
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "MMM",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 194.28,
+        "entry_zone": "191.48 - 197.08",
+        "SL": 183.09,
+        "TP": 216.66
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "BRKR",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 63.4,
+        "entry_zone": "61.58 - 65.22",
+        "SL": 56.1,
+        "TP": 77.99
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "NXT",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 109.45,
+        "entry_zone": "106.27 - 112.63",
+        "SL": 96.72,
+        "TP": 134.9
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "ZBH",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 111.0,
+        "entry_zone": "109.37 - 112.63",
+        "SL": 104.48,
+        "TP": 124.03
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "ASO",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 67.86,
+        "entry_zone": "66.67 - 69.05",
+        "SL": 63.09,
+        "TP": 77.4
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "W",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 122.2,
+        "entry_zone": "119.15 - 125.25",
+        "SL": 110.01,
+        "TP": 146.58
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "MOS",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 21.74,
+        "entry_zone": "21.30 - 22.18",
+        "SL": 19.98,
+        "TP": 25.26
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "VCEL",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 48.91,
+        "entry_zone": "47.94 - 49.88",
+        "SL": 45.03,
+        "TP": 56.66
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "YOU",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 58.0,
+        "entry_zone": "56.66 - 59.34",
+        "SL": 52.66,
+        "TP": 68.69
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "THC",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 296.42,
+        "entry_zone": "290.48 - 302.36",
+        "SL": 272.66,
+        "TP": 343.95
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "DLTR",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 143.0,
+        "entry_zone": "140.35 - 145.65",
+        "SL": 132.42,
+        "TP": 164.17
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "OC",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 127.8,
+        "entry_zone": "125.16 - 130.44",
+        "SL": 117.23,
+        "TP": 148.94
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "XRAY",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 10.76,
+        "entry_zone": "10.57 - 10.95",
+        "SL": 10.0,
+        "TP": 12.29
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "CNC",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 76.1,
+        "entry_zone": "74.40 - 77.80",
+        "SL": 69.3,
+        "TP": 89.69
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "LIVN",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 94.48,
+        "entry_zone": "92.69 - 96.27",
+        "SL": 87.33,
+        "TP": 108.78
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "LQDA",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 47.99,
+        "entry_zone": "46.39 - 49.59",
+        "SL": 41.58,
+        "TP": 60.81
+    },
+    {
+        "date": "2026-11-05 14:04",
+        "symbol": "MRNA",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 256.03,
+        "entry_zone": "244.32 - 267.74",
+        "SL": 209.18,
+        "TP": 349.74
+    }
+]

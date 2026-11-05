@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-04",
-  "generated_at": "2026-11-04T17:03:12.344259-05:00",
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05T09:04:08.179053-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 24,
+  "active_scores_count": 31,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 9,
+      "count": 11,
       "tickers": [
         "EXPD",
         "VRSN",
@@ -31,7 +31,9 @@
         "CP",
         "BUD",
         "SBCF",
-        "CSX"
+        "CSX",
+        "WAT",
+        "GDDY"
       ]
     },
     "value": {

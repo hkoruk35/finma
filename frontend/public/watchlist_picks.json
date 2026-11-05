@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T17:03:12.940778-05:00",
+  "generated_at": "2026-11-05T09:04:09.271358-05:00",
   "picks": [
     {
       "ticker": "PRG",
@@ -29,7 +29,7 @@
       "ticker": "SBAC",
       "sector": "Real Estate",
       "date_added": "2026-11-04",
-      "score": 40.5
+      "score": 47.5
     },
     {
       "ticker": "BBVA",
@@ -56,28 +56,10 @@
       "score": 48.5
     },
     {
-      "ticker": "PRGS",
-      "sector": "Technology",
-      "date_added": "2026-11-04",
-      "score": 48.0
-    },
-    {
       "ticker": "EBAY",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-04",
       "score": 47.5
-    },
-    {
-      "ticker": "NUE",
-      "sector": "Basic Materials",
-      "date_added": "2026-11-04",
-      "score": 47.0
-    },
-    {
-      "ticker": "VEEV",
-      "sector": "Healthcare",
-      "date_added": "2026-11-04",
-      "score": 46.5
     },
     {
       "ticker": "CNK",
@@ -86,16 +68,64 @@
       "score": 44.0
     },
     {
-      "ticker": "SYRE",
-      "sector": "Healthcare",
-      "date_added": "2026-11-04",
-      "score": 40.5
-    },
-    {
       "ticker": "WOR",
       "sector": "Industrials",
       "date_added": "2026-11-04",
       "score": 37.0
+    },
+    {
+      "ticker": "EXPD",
+      "sector": "Industrials",
+      "date_added": "2026-11-05",
+      "score": 53.0
+    },
+    {
+      "ticker": "PRSU",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-05",
+      "score": 52.0
+    },
+    {
+      "ticker": "PYPL",
+      "sector": "Financial Services",
+      "date_added": "2026-11-05",
+      "score": 51.0
+    },
+    {
+      "ticker": "CMCSA",
+      "sector": "Communication Services",
+      "date_added": "2026-11-05",
+      "score": 50.5
+    },
+    {
+      "ticker": "MICC",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-11-05",
+      "score": 49.0
+    },
+    {
+      "ticker": "HIW",
+      "sector": "Real Estate",
+      "date_added": "2026-11-05",
+      "score": 49.0
+    },
+    {
+      "ticker": "APG",
+      "sector": "Industrials",
+      "date_added": "2026-11-05",
+      "score": 48.5
+    },
+    {
+      "ticker": "VOYA",
+      "sector": "Financial Services",
+      "date_added": "2026-11-05",
+      "score": 48.0
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-11-05",
+      "score": 45.5
     }
   ]
 }
