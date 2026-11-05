@@ -1,29 +1,11 @@
 {
-  "generated_at": "2026-11-05T09:04:09.271358-05:00",
+  "generated_at": "2026-11-05T14:03:26.877677-05:00",
   "picks": [
-    {
-      "ticker": "PRG",
-      "sector": "Industrials",
-      "date_added": "2026-11-04",
-      "score": 39.5
-    },
-    {
-      "ticker": "PI",
-      "sector": "Technology",
-      "date_added": "2026-11-04",
-      "score": 31.5
-    },
     {
       "ticker": "CXM",
       "sector": "Technology",
       "date_added": "2026-11-04",
       "score": 44.0
-    },
-    {
-      "ticker": "RNST",
-      "sector": "Financial Services",
-      "date_added": "2026-11-04",
-      "score": 43.0
     },
     {
       "ticker": "SBAC",
@@ -32,22 +14,10 @@
       "score": 47.5
     },
     {
-      "ticker": "BBVA",
-      "sector": "Financial Services",
-      "date_added": "2026-11-04",
-      "score": 40.0
-    },
-    {
       "ticker": "LEN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-04",
       "score": 26.2
-    },
-    {
-      "ticker": "IR",
-      "sector": "Industrials",
-      "date_added": "2026-11-04",
-      "score": 48.5
     },
     {
       "ticker": "OMC",
@@ -56,40 +26,10 @@
       "score": 48.5
     },
     {
-      "ticker": "EBAY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-04",
-      "score": 47.5
-    },
-    {
       "ticker": "CNK",
       "sector": "Communication Services",
       "date_added": "2026-11-04",
       "score": 44.0
-    },
-    {
-      "ticker": "WOR",
-      "sector": "Industrials",
-      "date_added": "2026-11-04",
-      "score": 37.0
-    },
-    {
-      "ticker": "EXPD",
-      "sector": "Industrials",
-      "date_added": "2026-11-05",
-      "score": 53.0
-    },
-    {
-      "ticker": "PRSU",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-05",
-      "score": 52.0
-    },
-    {
-      "ticker": "PYPL",
-      "sector": "Financial Services",
-      "date_added": "2026-11-05",
-      "score": 51.0
     },
     {
       "ticker": "CMCSA",
@@ -104,28 +44,28 @@
       "score": 49.0
     },
     {
-      "ticker": "HIW",
-      "sector": "Real Estate",
-      "date_added": "2026-11-05",
-      "score": 49.0
-    },
-    {
-      "ticker": "APG",
-      "sector": "Industrials",
-      "date_added": "2026-11-05",
-      "score": 48.5
-    },
-    {
-      "ticker": "VOYA",
-      "sector": "Financial Services",
-      "date_added": "2026-11-05",
-      "score": 48.0
-    },
-    {
-      "ticker": "SPOT",
+      "ticker": "PPLI",
       "sector": "Communication Services",
       "date_added": "2026-11-05",
-      "score": 45.5
+      "score": 39.5
+    },
+    {
+      "ticker": "TRNS",
+      "sector": "Industrials",
+      "date_added": "2026-11-05",
+      "score": 36.0
+    },
+    {
+      "ticker": "ETSY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-05",
+      "score": 35.5
+    },
+    {
+      "ticker": "FLS",
+      "sector": "Industrials",
+      "date_added": "2026-11-05",
+      "score": 34.0
     }
   ]
 }
