@@ -1,0 +1,89 @@
+{
+  "ticker": "B",
+  "company": "Barrick Mining Corporation",
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05T17:21:43.321Z",
+  "sector": "Basic Materials",
+  "industry": "Gold",
+  "price": {
+    "current": 40.25,
+    "open": 40.93000030517578,
+    "high": 41.529998779296875,
+    "low": 39.03499984741211,
+    "prev_close": 40.130001068115234,
+    "change_pct": 0.2990254888881855,
+    "change_pct_1w": 4.085859596247767,
+    "change_pct_1m": 5.532251295536824,
+    "change_pct_1y": 22.75083524300866,
+    "volume": 6560076,
+    "avg_volume_30d": 218635376
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.98%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.93408271200517,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 39.44505737716328,
+    "ema_50": 40.437262675946634,
+    "ema_200": 40.59393869280377,
+    "ema_stack_bullish": false,
+    "bb_upper": 42.2625,
+    "bb_middle": 40.25,
+    "bb_lower": 38.2375,
+    "bb_width": 10,
+    "atr": 1.53,
+    "atr_pct": 3.8,
+    "rvol": 1.1644915871254065,
+    "52w_high": 54.689998626708984,
+    "52w_low": 32.099998474121094
+  },
+  "fundamental": {
+    "pe_ratio": 10.400517,
+    "pb_ratio": 2.4261603,
+    "gross_margin": 0.56267,
+    "operating_margin": 0.51342,
+    "net_margin": 0.316,
+    "market_cap": 66246848512,
+    "revenue_growth_ttm": 0.438,
+    "fcf_yield": 0.07681309022689951,
+    "institutional_ownership_pct": 0.65873003,
+    "dividend_rate": 0.7,
+    "dividend_yield": 0.0174
+  },
+  "scores_detail": {
+    "entry_range_low": 39.34,
+    "entry_range_high": 40.4,
+    "target_range_low": 41.87,
+    "target_range_high": 45.85,
+    "target_1": 41.87,
+    "target_2": 43.86,
+    "target_3": 45.85,
+    "stop_loss": 38.24,
+    "risk_reward_ratio": 2.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $39.34 – $40.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.53 direnci veya $39.03 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $38.24 olarak belirlenmiştir. Fiyatın EMA20 ($39.45) veya günlük VWAP ($40.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($40.44) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.03) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
