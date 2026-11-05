@@ -203,12 +203,12 @@
       "ticker": "WDAY",
       "company": "WDAY",
       "sector": "Technology",
-      "master_score": 44.0,
+      "master_score": 42.4,
       "score_type": "POSITIVE_BIAS",
-      "price": 202.97000122070312,
-      "change_pct": 2.54,
+      "price": 200.1699981689453,
+      "change_pct": -0.83,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 42.4 | System: TREND_CONT"
     },
     {
       "ticker": "CUBI",
@@ -269,12 +269,12 @@
       "ticker": "SW",
       "company": "SW",
       "sector": "Consumer Cyclical",
-      "master_score": 71.5,
+      "master_score": 43.6,
       "score_type": "POSITIVE_BIAS",
-      "price": 45.189998626708984,
-      "change_pct": 4.08,
+      "price": 44.5099983215332,
+      "change_pct": -1.5,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 71.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 43.6 | System: DEFAULT"
     },
     {
       "ticker": "BTSG",
@@ -440,6 +440,94 @@
       "change_pct": -6.18,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 40.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "AIN",
+      "company": "AIN",
+      "sector": "Consumer Cyclical",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 67.02999877929688,
+      "change_pct": -6.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "CHYM",
+      "company": "CHYM",
+      "sector": "Technology",
+      "master_score": 45.2,
+      "score_type": "POSITIVE_BIAS",
+      "price": 30.18000030517578,
+      "change_pct": 1.04,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.2 | System: EMA_CROSS"
+    },
+    {
+      "ticker": "CAG",
+      "company": "CAG",
+      "sector": "Consumer Defensive",
+      "master_score": 44.8,
+      "score_type": "POSITIVE_BIAS",
+      "price": 15.510000228881836,
+      "change_pct": 1.57,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.8 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ECL",
+      "company": "ECL",
+      "sector": "Basic Materials",
+      "master_score": 43.2,
+      "score_type": "POSITIVE_BIAS",
+      "price": 305.8299865722656,
+      "change_pct": -2.91,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.2 | System: DEFAULT"
+    },
+    {
+      "ticker": "J",
+      "company": "J",
+      "sector": "Industrials",
+      "master_score": 42.4,
+      "score_type": "POSITIVE_BIAS",
+      "price": 147.5399932861328,
+      "change_pct": -7.85,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.4 | System: DEFAULT"
+    },
+    {
+      "ticker": "CMG",
+      "company": "CMG",
+      "sector": "Consumer Cyclical",
+      "master_score": 42.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 35.400001525878906,
+      "change_pct": 0.57,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "SAP",
+      "company": "SAP",
+      "sector": "Technology",
+      "master_score": 42.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 243.52999877929688,
+      "change_pct": 1.45,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PKG",
+      "company": "PKG",
+      "sector": "Consumer Cyclical",
+      "master_score": 41.6,
+      "score_type": "POSITIVE_BIAS",
+      "price": 248.8000030517578,
+      "change_pct": -4.0,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.6 | System: DEFAULT"
     }
   ]
 }

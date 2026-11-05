@@ -1,9 +1,9 @@
 {
   "date": "2026-11-05",
-  "generated_at": "2026-11-05T14:03:25.681725-05:00",
+  "generated_at": "2026-11-05T17:03:53.061708-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 40,
-  "market_regime": "HIGH_VOLATILITY",
+  "active_scores_count": 48,
+  "market_regime": "WEAK",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 14,
+      "count": 16,
       "tickers": [
         "EXPD",
         "VRSN",
@@ -36,7 +36,9 @@
         "GDDY",
         "BEKE",
         "MSEX",
-        "GLOB"
+        "GLOB",
+        "CAG",
+        "SAP"
       ]
     },
     "value": {
