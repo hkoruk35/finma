@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T14:03:26.877677-05:00",
+  "generated_at": "2026-11-05T17:03:53.666720-05:00",
   "picks": [
     {
       "ticker": "CXM",
@@ -35,37 +35,61 @@
       "ticker": "CMCSA",
       "sector": "Communication Services",
       "date_added": "2026-11-05",
-      "score": 50.5
+      "score": 38.0
     },
     {
-      "ticker": "MICC",
-      "sector": "Consumer Defensive",
+      "ticker": "MSCI",
+      "sector": "Financial Services",
       "date_added": "2026-11-05",
-      "score": 49.0
+      "score": 41.2
     },
     {
-      "ticker": "PPLI",
-      "sector": "Communication Services",
+      "ticker": "RHP",
+      "sector": "Real Estate",
       "date_added": "2026-11-05",
-      "score": 39.5
+      "score": 40.4
     },
     {
-      "ticker": "TRNS",
-      "sector": "Industrials",
+      "ticker": "SBUX",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-05",
+      "score": 39.6
+    },
+    {
+      "ticker": "VOYA",
+      "sector": "Financial Services",
+      "date_added": "2026-11-05",
+      "score": 39.2
+    },
+    {
+      "ticker": "ATRC",
+      "sector": "Healthcare",
+      "date_added": "2026-11-05",
+      "score": 38.4
+    },
+    {
+      "ticker": "SN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-05",
+      "score": 38.0
+    },
+    {
+      "ticker": "JLL",
+      "sector": "Real Estate",
       "date_added": "2026-11-05",
       "score": 36.0
     },
     {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
+      "ticker": "SHW",
+      "sector": "Basic Materials",
       "date_added": "2026-11-05",
-      "score": 35.5
+      "score": 34.8
     },
     {
-      "ticker": "FLS",
-      "sector": "Industrials",
+      "ticker": "KYMR",
+      "sector": "Healthcare",
       "date_added": "2026-11-05",
-      "score": 34.0
+      "score": 28.8
     }
   ]
 }
