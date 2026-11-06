@@ -1,0 +1,89 @@
+{
+  "ticker": "STRC",
+  "company": "Strategy Inc",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T14:29:14.851Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 99.55999755859375,
+    "open": 99.95999908447266,
+    "high": 99.97000122070312,
+    "low": 99.1500015258789,
+    "prev_close": 99.9800033569336,
+    "change_pct": -0.42008980219814773,
+    "change_pct_1w": -0.43004331869436707,
+    "change_pct_1m": 0.20128517211517746,
+    "change_pct_1y": -0.4499595720673385,
+    "volume": 2862900,
+    "avg_volume_30d": 52432500
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.75438316047663,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 99.36417407998975,
+    "ema_50": 98.26052933340847,
+    "ema_200": 96.87942419611572,
+    "ema_stack_bullish": true,
+    "bb_upper": 104.53799743652344,
+    "bb_middle": 99.55999755859375,
+    "bb_lower": 94.58199768066406,
+    "bb_width": 10,
+    "atr": 0.71,
+    "atr_pct": 0.71,
+    "rvol": 1.3719582320125876,
+    "52w_high": 100.41799926757812,
+    "52w_low": 71.25
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.7577787,
+    "gross_margin": 0.67836,
+    "operating_margin": -0.02073,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": -0.025,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.09946,
+    "dividend_rate": 12,
+    "dividend_yield": 0.1205
+  },
+  "scores_detail": {
+    "entry_range_low": 99.14,
+    "entry_range_high": 99.63,
+    "target_range_low": 104.35,
+    "target_range_high": 114.29,
+    "target_1": 104.35,
+    "target_2": 109.32,
+    "target_3": 114.29,
+    "stop_loss": 94.58,
+    "risk_reward_ratio": 2.07,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $99.14 – $99.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $99.94 direnci veya $98.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $94.58 olarak belirlenmiştir. Fiyatın EMA200 ($96.88) veya günlük VWAP ($99.63) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($99.63) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}
