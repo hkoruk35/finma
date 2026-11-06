@@ -1,0 +1,89 @@
+{
+  "ticker": "ROIV",
+  "company": "Roivant Sciences Ltd.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T13:27:45.919Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 36.619998931884766,
+    "open": 38.22999954223633,
+    "high": 38.27000045776367,
+    "low": 36.439998626708984,
+    "prev_close": 38.22999954223633,
+    "change_pct": -4.21135398804502,
+    "change_pct_1w": -2.398724719878507,
+    "change_pct_1m": 0.35625444625474423,
+    "change_pct_1y": 81.01828848502585,
+    "volume": 10177000,
+    "avg_volume_30d": 200956700
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 100,
+    "fundamental_score": 36.8,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.4761703224619,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 36.349568146842806,
+    "ema_50": 36.13346368693138,
+    "ema_200": 32.11950867540713,
+    "ema_stack_bullish": true,
+    "bb_upper": 38.450998878479005,
+    "bb_middle": 36.619998931884766,
+    "bb_lower": 34.788998985290526,
+    "bb_width": 10,
+    "atr": 1.56,
+    "atr_pct": 4.26,
+    "rvol": 1.158545099516463,
+    "52w_high": 42.5,
+    "52w_low": 19.614999771118164
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.254483,
+    "gross_margin": 0,
+    "operating_margin": -254.08113,
+    "net_margin": 0,
+    "market_cap": 26451468288,
+    "revenue_growth_ttm": -0.335,
+    "fcf_yield": -0.04221098730109178,
+    "institutional_ownership_pct": 0.79033995,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 35.68,
+    "entry_range_high": 36.78,
+    "target_range_low": 38.04,
+    "target_range_high": 41.66,
+    "target_1": 38.04,
+    "target_2": 39.85,
+    "target_3": 41.66,
+    "stop_loss": 34.59,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $35.68 – $36.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $37.94 direnci veya $35.37 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $34.59 olarak belirlenmiştir. Fiyatın EMA50 ($36.13) veya günlük VWAP ($37.16) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($37.16) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

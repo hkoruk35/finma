@@ -1,0 +1,89 @@
+{
+  "ticker": "LOW",
+  "company": "Lowe's Companies, Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T11:54:56.067Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Home Improvement Retail",
+  "price": {
+    "current": 227.24000549316406,
+    "open": 233.50999450683594,
+    "high": 234.75,
+    "low": 226.19000244140625,
+    "prev_close": 229.3800048828125,
+    "change_pct": -0.9329494045227429,
+    "change_pct_1w": 9.629489980420045,
+    "change_pct_1m": 14.374881150709962,
+    "change_pct_1y": -3.0339237999468955,
+    "volume": 5275700,
+    "avg_volume_30d": 101640900
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 75,
+    "fundamental_score": 61.55,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 72.05482920458135,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 205.6058037260544,
+    "ema_50": 201.81473757086664,
+    "ema_200": 216.7545042936071,
+    "ema_stack_bullish": false,
+    "bb_upper": 238.60200576782228,
+    "bb_middle": 227.24000549316406,
+    "bb_lower": 215.87800521850585,
+    "bb_width": 10,
+    "atr": 6.45,
+    "atr_pct": 2.84,
+    "rvol": 1.2488909484272572,
+    "52w_high": 293.05999755859375,
+    "52w_low": 178.4499969482422
+  },
+  "fundamental": {
+    "pe_ratio": 19.208792,
+    "pb_ratio": 0,
+    "gross_margin": 0.32994,
+    "operating_margin": 0.13365,
+    "net_margin": 0.073460005,
+    "market_cap": 127493914624,
+    "revenue_growth_ttm": 0.083,
+    "fcf_yield": 0.036200746220801834,
+    "institutional_ownership_pct": 0.81024003,
+    "dividend_rate": 5,
+    "dividend_yield": 0.022
+  },
+  "scores_detail": {
+    "entry_range_low": 216.54,
+    "entry_range_high": 227.89,
+    "target_range_low": 233.32,
+    "target_range_high": 255.55,
+    "target_1": 233.32,
+    "target_2": 249.44,
+    "target_3": 255.55,
+    "stop_loss": 212.02,
+    "risk_reward_ratio": 2.67,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $216.54 – $227.89 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $234.75 direnci veya $215.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $212.02 olarak belirlenmiştir. Fiyatın EMA200 ($216.75) veya günlük VWAP ($228.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($201.81) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($228.69) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 72 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

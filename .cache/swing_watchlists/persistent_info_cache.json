@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 21828760,
+    "avg_volume": 22368250,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2326,7 +2326,7 @@
   },
   "QQQ": {
     "market_cap": 0,
-    "avg_volume": 35367153,
+    "avg_volume": 36867750,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 41025620,
+    "avg_volume": 42385103,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2751,7 +2751,7 @@
   },
   "MDY": {
     "market_cap": 0,
-    "avg_volume": 609787,
+    "avg_volume": 647290,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -6376,7 +6376,7 @@
   },
   "FISV": {
     "market_cap": 33380673536,
-    "avg_volume": 7118032,
+    "avg_volume": 6969260,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -6387,7 +6387,7 @@
     "profitMargins": 0,
     "revenueGrowth": 0,
     "trailingPE": 0,
-    "priceToBook": 1.5843034,
+    "priceToBook": 1.5819067,
     "freeCashflow": 0,
     "recommendationKey": "hold",
     "pegRatio": 0,
@@ -6551,7 +6551,7 @@
   },
   "ZSL": {
     "market_cap": 0,
-    "avg_volume": 3534635,
+    "avg_volume": 3558951,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -8576,7 +8576,7 @@
   },
   "DIA": {
     "market_cap": 0,
-    "avg_volume": 3283381,
+    "avg_volume": 3404996,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -9451,7 +9451,7 @@
   },
   "SGOL": {
     "market_cap": 0,
-    "avg_volume": 2522071,
+    "avg_volume": 2557140,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11151,7 +11151,7 @@
   },
   "VXX": {
     "market_cap": 0,
-    "avg_volume": 10111478,
+    "avg_volume": 11119292,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -12576,7 +12576,7 @@
   },
   "DRIP": {
     "market_cap": 0,
-    "avg_volume": 934710,
+    "avg_volume": 953867,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -13451,12 +13451,12 @@
   },
   "STRC": {
     "market_cap": 0,
-    "avg_volume": 1563410,
+    "avg_volume": 1587035,
     "beta": 3.611,
     "short_float": 0.0,
     "sector": "Technology",
     "industry": "Software - Application",
-    "heldPercentInstitutions": 0.09952,
+    "heldPercentInstitutions": 0.09946,
     "grossMargins": 0.67836,
     "operatingMargins": -0.02073,
     "profitMargins": 0.0,
@@ -15801,7 +15801,7 @@
   },
   "FBTC": {
     "market_cap": 0,
-    "avg_volume": 3640059,
+    "avg_volume": 3701087,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -21751,7 +21751,7 @@
   },
   "AAAU": {
     "market_cap": 0,
-    "avg_volume": 1427190,
+    "avg_volume": 1461851,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -26251,7 +26251,7 @@
   },
   "SVXY": {
     "market_cap": 0,
-    "avg_volume": 1540473,
+    "avg_volume": 1642437,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -30651,7 +30651,7 @@
   },
   "GLL": {
     "market_cap": 0,
-    "avg_volume": 3011500,
+    "avg_volume": 3073335,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -48476,7 +48476,7 @@
   },
   "VIXY": {
     "market_cap": 0,
-    "avg_volume": 2881167,
+    "avg_volume": 3154514,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -48726,7 +48726,7 @@
   },
   "NIQ": {
     "market_cap": 5878470656,
-    "avg_volume": 1398379,
+    "avg_volume": 1405285,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -49126,7 +49126,7 @@
   },
   "PALL": {
     "market_cap": 0,
-    "avg_volume": 932353,
+    "avg_volume": 949779,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -52576,7 +52576,7 @@
   },
   "OUNZ": {
     "market_cap": 0,
-    "avg_volume": 601665,
+    "avg_volume": 610862,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -54851,7 +54851,7 @@
   },
   "DBA": {
     "market_cap": 0,
-    "avg_volume": 1183254,
+    "avg_volume": 1199978,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -55001,7 +55001,7 @@
   },
   "ZCSH": {
     "market_cap": 0,
-    "avg_volume": 1383764,
+    "avg_volume": 1408803,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",

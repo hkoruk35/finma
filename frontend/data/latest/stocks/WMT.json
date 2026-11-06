@@ -1,0 +1,89 @@
+{
+  "ticker": "WMT",
+  "company": "Walmart Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T11:50:39.693Z",
+  "sector": "Consumer Defensive",
+  "industry": "Discount Stores",
+  "price": {
+    "current": 127.72000122070312,
+    "open": 130.89999389648438,
+    "high": 131.82000732421875,
+    "low": 127.38999938964844,
+    "prev_close": 129.1699981689453,
+    "change_pct": -1.1225493294082833,
+    "change_pct_1w": 5.336083480992268,
+    "change_pct_1m": 6.530988298370737,
+    "change_pct_1y": 25.869714875537188,
+    "volume": 42035500,
+    "avg_volume_30d": 657104100
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 95,
+    "fundamental_score": 54.95,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.48463311647924,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 120.29580515426919,
+    "ema_50": 115.4667258236468,
+    "ema_200": 114.60175576504554,
+    "ema_stack_bullish": true,
+    "bb_upper": 134.1060012817383,
+    "bb_middle": 127.72000122070312,
+    "bb_lower": 121.33400115966796,
+    "bb_width": 10,
+    "atr": 2.98,
+    "atr_pct": 2.33,
+    "rvol": 1.3692524517804714,
+    "52w_high": 135.16000366210938,
+    "52w_low": 98.87999725341797
+  },
+  "fundamental": {
+    "pe_ratio": 46.275364,
+    "pb_ratio": 10.325814,
+    "gross_margin": 0.24836999,
+    "operating_margin": 0.0345,
+    "net_margin": 0.03,
+    "market_cap": 1013298102272,
+    "revenue_growth_ttm": 0.059,
+    "fcf_yield": 0.007034085231205465,
+    "institutional_ownership_pct": 0.38372,
+    "dividend_rate": 0.99,
+    "dividend_yield": 0.0078
+  },
+  "scores_detail": {
+    "entry_range_low": 125.25,
+    "entry_range_high": 128.02,
+    "target_range_low": 132.96,
+    "target_range_high": 145.63,
+    "target_1": 132.96,
+    "target_2": 139.29,
+    "target_3": 145.63,
+    "stop_loss": 121.33,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $125.25 – $128.02 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $129.24 direnci veya $124.65 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $121.33 olarak belirlenmiştir. Fiyatın EMA20 ($120.30) veya günlük VWAP ($129.63) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($129.63) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

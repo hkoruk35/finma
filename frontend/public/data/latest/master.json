@@ -1,44 +1,36 @@
 {
-  "date": "2026-11-05",
-  "generated_at": "2026-11-05T17:03:53.061708-05:00",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T09:04:08.434532-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 48,
-  "market_regime": "WEAK",
+  "active_scores_count": 30,
+  "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "VTR",
-        "OMC",
-        "EXPD",
-        "TRU",
-        "VRSN",
-        "ADP",
-        "ICE",
-        "RXO",
-        "NXPI",
-        "IR"
+        "SW",
+        "BTSG",
+        "RS",
+        "TKO",
+        "GOLD",
+        "WAT",
+        "GDDY",
+        "BBVA",
+        "BEKE",
+        "NTES"
       ]
     },
     "breakout": {
-      "count": 16,
+      "count": 8,
       "tickers": [
-        "EXPD",
-        "VRSN",
-        "ADP",
-        "NXPI",
-        "IR",
-        "CP",
-        "BUD",
-        "SBCF",
-        "CSX",
         "WAT",
         "GDDY",
         "BEKE",
-        "MSEX",
         "GLOB",
         "CAG",
-        "SAP"
+        "SAP",
+        "PTON",
+        "BUD"
       ]
     },
     "value": {
@@ -60,18 +52,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VTR",
-      "score": 63.0,
+      "ticker": "SW",
+      "score": 43.6,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "OMC",
-      "score": 57.5,
+      "ticker": "BTSG",
+      "score": 59.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "EXPD",
-      "score": 57.0,
+      "ticker": "RS",
+      "score": 58.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
