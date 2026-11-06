@@ -11,7 +11,7 @@
 
 ## Frontend deploy (Hetzner, `.github/workflows/deploy-frontend.yml`)
 
-- Push to `main` touching `frontend/**` (except `frontend/public/**`) deploys automatically.
+- Push to `main` touching `frontend/**` (except `frontend/public/**`, `frontend/data/**`, and `frontend/frontend/**`) deploys automatically. The last two are runtime ticker-analysis caches written by `fetch_live_ticker_analysis.py`; API routes can read them, so do not delete them as dead paths.
 - **Zero-downtime swap (2026-10-07):** the server builds into the *inactive* dist dir (`.next-a` / `.next-b`, via `NEXT_DIST_DIR` → `distDir` in `next.config.ts`); the live dir is never touched during the build. Only after a successful build is pm2 restarted with the new `NEXT_DIST_DIR`, then a health check hits `/global/tr`; on failure it rolls back to the previous dir. `frontend/.dist-current` (gitignored) records the live dir. A failed build retries once after 90 s (failures clustered at :00, when the server's hourly bot writes files).
 - Before this, a failed build left a half-written `.next` and the whole site returned 500 ("client reference manifest does not exist") until a manual rebuild.
 - Manual rebuild on the server: `cd /root/finma/frontend && NEW=.next-a; [ "$(cat .dist-current)" = .next-a ] && NEW=.next-b; NEXT_DIST_DIR=$NEW npm run build && echo $NEW > .dist-current && NEXT_DIST_DIR=$NEW pm2 restart bogastock-next --update-env && pm2 save`
