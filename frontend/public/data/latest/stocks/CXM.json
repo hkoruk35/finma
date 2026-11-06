@@ -1,0 +1,89 @@
+{
+  "ticker": "CXM",
+  "company": "Sprinklr, Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T19:05:42.395Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 6.675000190734863,
+    "open": 6.690000057220459,
+    "high": 6.764999866485596,
+    "low": 6.624000072479248,
+    "prev_close": 6.840000152587891,
+    "change_pct": -2.41228009023655,
+    "change_pct_1w": -1.982375230234977,
+    "change_pct_1m": -0.5216072610004768,
+    "change_pct_1y": -11.236699366155328,
+    "volume": 972007,
+    "avg_volume_30d": 72513607
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.687847804360395,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 6.467819999485686,
+    "ema_50": 6.191885804150022,
+    "ema_200": 6.1593095166945036,
+    "ema_stack_bullish": true,
+    "bb_upper": 7.0087502002716064,
+    "bb_middle": 6.675000190734863,
+    "bb_lower": 6.34125018119812,
+    "bb_width": 10,
+    "atr": 0.24,
+    "atr_pct": 3.66,
+    "rvol": 0.802914713648157,
+    "52w_high": 8.274999618530273,
+    "52w_low": 4.715000152587891
+  },
+  "fundamental": {
+    "pe_ratio": 74.166664,
+    "pb_ratio": 3.046554,
+    "gross_margin": 0.65594,
+    "operating_margin": 0.04458,
+    "net_margin": 0.026530001,
+    "market_cap": 1549743744,
+    "revenue_growth_ttm": 0.008,
+    "fcf_yield": 0.06489121339534183,
+    "institutional_ownership_pct": 1.00439,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 6.53,
+    "entry_range_high": 6.7,
+    "target_range_low": 8.2,
+    "target_range_high": 8.54,
+    "target_1": 8.2,
+    "target_2": 8.37,
+    "target_3": 8.54,
+    "stop_loss": 6.34,
+    "risk_reward_ratio": 6.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $6.53 – $6.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $6.85 direnci veya $6.48 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $6.34 olarak belirlenmiştir. Fiyatın EMA20 ($6.47) veya günlük VWAP ($6.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($6.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

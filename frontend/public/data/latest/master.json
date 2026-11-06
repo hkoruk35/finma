@@ -1,8 +1,8 @@
 {
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T09:04:08.434532-05:00",
+  "generated_at": "2026-11-06T14:04:52.368751-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 30,
+  "active_scores_count": 39,
   "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 10,
       "tickers": [
         "WAT",
         "GDDY",
@@ -30,7 +30,9 @@
         "CAG",
         "SAP",
         "PTON",
-        "BUD"
+        "BUD",
+        "CHH",
+        "BILL"
       ]
     },
     "value": {
@@ -58,7 +60,7 @@
     },
     {
       "ticker": "BTSG",
-      "score": 59.5,
+      "score": 47.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
@@ -69,25 +71,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 737.78,
-      "change_pct": 0.65
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 658.41,
-      "change_pct": 1.76
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 513.73,
-      "change_pct": -0.11
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 24.41,
-      "change_pct": -13.38
-    },
-    "RUSSELL2000": {
-      "value": 273.84,
-      "change_pct": 1.06
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-11-06T14:30:09.120640-05:00"
+  }
 }
