@@ -4,9 +4,11 @@
  * `/api/admin/spyengine/v2`            → tam anlık görüntü (ilk yükleme)
  * `/api/admin/spyengine/v2?since=<ts>` → yalnızca `ts` ve sonrasındaki mumlar
  *
- * Delta modu bilinçli: sayfa 2 saniyede bir yokluyor; her seferinde 800+ mum
+ * Delta modu bilinçli: sayfa 1 saniyede bir yokluyor; her seferinde 800+ mum
  * göndermek saatte yüz megabaytlara çıkardı. Delta modda yanıt tipik olarak
  * birkaç yüz bayt kalır, "Son güncelleme" saati ise kesintisiz ilerler.
+ *
+ * Eski strateji motoru bu akıştan çıkarıldı: Takip Sistemi kararları tarayıcıda lib/spyengine/tracker.ts ile hesaplanır.
  *
  * Kimlik: /api/* proxy.ts matcher'ının dışında kaldığı için (bkz.
  * frontend/AGENTS.md §3, tasks/active/001) boga_auth kontrolü burada satır
@@ -35,43 +37,14 @@ import {
 } from "@/lib/spyengine/core";
 import { detectRegimeSeries } from "@/lib/spyengine/regime";
 import { readLevels, forecastClose } from "@/lib/spyengine/levels";
-import {
-  closedBars,
-  generateCandidates,
-  findExitSignal,
-  runLifecycle,
-  filterOverlapping,
-  buildOptionSymbol,
-  strikeFor,
-  type PositionState,
-  type EngineEvent,
-} from "@/lib/spyengine/strategy";
-import { fetchSpyBundle, fetchSpy5mHistory, fetchOptionSeries, fetchAtmContract } from "@/lib/spyengine/market";
-import { checkReversalCatch } from "@/lib/spyengine/reversal";
+import { closedBars } from "@/lib/spyengine/strategy";
+import { fetchSpyBundle, fetchSpy5mHistory } from "@/lib/spyengine/market";
 import { rvolBaseline } from "@/lib/spyengine/ladder";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const maxDuration = 30;
-
-/**
- * Prim serisi çekilecek azami pozisyon sayısı — artık ADAYLARA değil, zincir
- * çözüldükten sonra KABUL EDİLEN pozisyonlara uygulanır. Tipik bir seansta
- * ~20 pozisyon kabul ediliyor, dolayısıyla bu sınır pratikte devreye girmez;
- * yalnızca patolojik bir günde Yahoo'ya sınırsız istek gitmesini önler.
- */
-const MAX_TRACKED_POSITIONS = 80;
-
-/**
- * Kapanmış bir pozisyonun sonucu ASLA değişmez (deterministik, non-repainting).
- * Bu önbellek olmadan MAX_TRACKED_POSITIONS=40 ile her 2 sn'lik yoklamada
- * 40 ayrı opsiyon kontratının prim serisi yeniden çekilirdi — çoğu saatler
- * önce kapanmış, sonucu hiç değişmeyecek pozisyonlar için. Süreç sıcak
- * kaldığı sürece (bkz. lib/spyengine/market.ts'teki aynı desendeki TTL
- * önbelleği) kapanmış pozisyonlar bir daha hiç Yahoo'ya sorulmaz.
- */
-const resolvedPositionCache = new Map<string, PositionState>();
 
 /** RVOL tabanı gün içinde değişmez — 60 günlük geçmiş değişmedikçe yeniden hesaplanmaz */
 let rvolCache: { key: string; value: { slot: number[]; cum: number[]; days: number } | null } | null = null;
@@ -173,171 +146,9 @@ export async function GET(req: NextRequest) {
     const chartM1 = bundle.m1.filter((b) => b.time <= chartCutoff);
     const chartM5 = m5All.filter((b) => b.time <= chartCutoff);
 
-    // ── Motor ──────────────────────────────────────────────────────
-    const gen = generateCandidates({
-      m1: sessionM1,
-      m5: m5All,
-      m15: m15All,
-      session,
-      nowSec: evalNow,
-      m5History: rvolHistory.bars,
-    });
-
-    // ── V6.0: rejim (TREND/SIKIŞMA) motoru artık karar mekanizmasının
-    // parçası DEĞİL — yalnızca Gün Kapanış Tahmini panelinin bant genişliği
-    // notunda kozmetik amaçla kullanılıyor (bkz. levels.ts forecastClose).
-    // Giriş/çıkış kararları artık generateCandidates/findExitSignal
-    // içindeki 15m veto + 5m Layer1/2 rejimi + 1m tetik zincirinden gelir.
+    // Rejim yalnızca Gün Kapanış Tahmini panelinin bant notunda kullanılır.
     const regimeM1 = closedBars(sessionM1, 1, evalNow);
     const regimeSeries = detectRegimeSeries(regimeM1);
-
-    // ── Pozisyon yaşam döngüleri (gerçek 0DTE prim mumlarıyla) ──────
-    //
-    // Çıkış kararı GİRİŞLE AYNI VERİDEN (SPY 1m/5m) üretiliyor; opsiyon
-    // primi yalnızca $ kâr/zararı fiyatlıyor. Bunun önemli bir sonucu var:
-    // tek-pozisyon/yeniden-giriş zinciri HİÇ ağ isteği olmadan, tüm adaylar
-    // üzerinde çözülebiliyor. Önce zincir çözülür (ücretsiz), sonra yalnızca
-    // KABUL EDİLEN pozisyonlar için prim çekilir.
-    const scans = gen.candidates.map((c) =>
-      findExitSignal({
-        m1: sessionM1,
-        m5: m5All,
-        entryTime: c.time,
-        side: c.side,
-        entrySpot: c.spot,
-        session,
-        nowSec: evalNow,
-      })
-    );
-    const shells = gen.candidates.map((c, i) => ({
-      entryTime: c.time,
-      side: c.side,
-      contractType: c.contractType,
-      exitTime: scans[i].signal?.time ?? null,
-      // V4.1 (B.3): saf/senkron hesap — ağ isteği gerektirmez, filterOverlapping
-      // her adayın kendi "kontrat başına tek deneme" kontrolünü buradan yapar.
-      strike: strikeFor(c.spot, c.side, c.contractType),
-    }));
-    const scanByTime = new Map(gen.candidates.map((c, i) => [`${c.time}:${c.side}:${c.contractType}`, scans[i]]));
-
-    const { accepted: acceptedAll, contractReuseBlocked } = filterOverlapping(gen.candidates, shells, sessionM1);
-    const accepted = acceptedAll.slice(-MAX_TRACKED_POSITIONS);
-
-    const candKey = (c: { time: number; side: string; contractType: string }) =>
-      `${session.date}:${c.time}:${c.side}:${c.contractType}`;
-    const activePositions: PositionState[] = await Promise.all(
-      accepted.map(async (c) => {
-        const cached = resolvedPositionCache.get(candKey(c));
-        if (cached) return cached;
-
-        const exit = scanByTime.get(`${c.time}:${c.side}:${c.contractType}`)!;
-        const isCall = c.side === "LONG";
-        const strike = strikeFor(c.spot, c.side, c.contractType);
-        const contract = buildOptionSymbol("SPY", session.date, isCall, strike);
-        const series = await fetchOptionSeries(contract);
-        // V4 ikinci gecis: sikisma rejiminin hedef/stop kurallari PRIM
-        // yuzdesi uzerinden tanimli, ama prim ancak aday kabul edildikten
-        // sonra cekiliyor (aglayi ~20 istekte tutan bilincli sira). Bu
-        // yuzden cikis, prim elde edildikten sonra bir kez daha taranir.
-        const exitWithPremium = series.bars.length
-          ? findExitSignal({
-              m1: sessionM1,
-              m5: m5All,
-              entryTime: c.time,
-              side: c.side,
-              entrySpot: c.spot,
-              session,
-              nowSec: evalNow,
-              premiumBars: series.bars,
-            })
-          : exit;
-        const pos = runLifecycle({
-          candidate: c,
-          exit: exitWithPremium,
-          premiumBars: series.bars,
-          contract: series.bars.length ? contract : null,
-          strike: series.bars.length ? strike : null,
-          expiry: session.date,
-          livePremium: series.livePremium,
-        });
-        if (pos.status === "CLOSED") {
-          if (resolvedPositionCache.size > 2000) resolvedPositionCache.clear();
-          resolvedPositionCache.set(candKey(c), pos);
-        }
-        return pos;
-      })
-    );
-
-    // ── V4: 3 ardisik kayip -> 15 dk sinyal durdurma (spec 7.2) ────
-    //
-    // "Kayip" burada SPOT sonucuyla tanimli, prim ile degil: prim her
-    // pozisyonda gelmeyebiliyor ve tanimin deterministik kalmasi gerek.
-    // 2 Eylul'de motor tam bu tuzaga dusmustu (11:39, 12:24, 14:03).
-    const COOLDOWN_AFTER_LOSSES = 3;
-    const COOLDOWN_MINUTES = 15;
-    let cooldownUntil: number | null = null;
-    {
-      let streak = 0;
-      const kept: PositionState[] = [];
-      for (const pos of activePositions) {
-        if (cooldownUntil != null && pos.entryTime < cooldownUntil) continue;
-        kept.push(pos);
-        if (pos.status !== "CLOSED" || pos.exitSpot == null) continue;
-        const spotPnl = (pos.exitSpot - pos.entrySpot) * (pos.side === "LONG" ? 1 : -1);
-        if (spotPnl < 0) streak++;
-        else streak = 0;
-        if (streak >= COOLDOWN_AFTER_LOSSES) {
-          cooldownUntil = (pos.exitTime ?? pos.entryTime) + COOLDOWN_MINUTES * 60;
-          streak = 0;
-        }
-      }
-      activePositions.length = 0;
-      activePositions.push(...kept);
-    }
-    const cooldownActive = cooldownUntil != null && evalNow < cooldownUntil;
-
-    const openPosition = activePositions.find((p) => p.status !== "CLOSED") ?? null;
-
-    // Motor okuması pozisyonlardan ÖNCE üretiliyor (adaylar oradan çıkıyor);
-    // açık pozisyon varsa durumu burada "POZİSYONDA"ya çekiyoruz ki panel
-    // "hazırlanıyor" derken aslında pozisyon taşıdığımızı gizlemesin.
-    if (openPosition) {
-      gen.read.state = "IN_POSITION";
-      gen.read.stateLabel = openPosition.side === "LONG" ? "LONG POZİSYONDA" : "SHORT POZİSYONDA";
-      gen.read.action = openPosition.side;
-      gen.read.contractType = openPosition.contractType;
-      gen.read.nextStep = openPosition.progress.note;
-      gen.read.reasoning = `Pozisyon açık (${nyParts(openPosition.entryTime).hhmm} ET girişi) — trend devam ettiği sürece taşınıyor.`;
-    } else if (cooldownActive) {
-      // Soğuma penceresinde üretilen adaylar yukarıdaki döngüde zaten
-      // pozisyona çevrilmiyor; motor okuması bunu yansıtmadığı için panel
-      // "LONG GİRİŞ SİNYALİ" derken arkada hiçbir şey açılmıyordu. İki
-      // gösterge artık aynı gerçeği söylüyor.
-      gen.read.state = "WATCHING";
-      gen.read.action = "BEKLE";
-      gen.read.contractType = null;
-      gen.read.stateLabel = "SOĞUMA — SİNYAL DURDURULDU";
-      gen.read.nextStep = `3 ardışık kayıp sonrası ${COOLDOWN_MINUTES} dk sinyal durdurma aktif — ${nyParts(cooldownUntil!).hhmm} ET'ye kadar yeni giriş üretilmiyor.`;
-      gen.read.reasoning = "Motor soğuma penceresinde; bu sürede oluşan tetikler pozisyona çevrilmiyor.";
-    }
-
-    // Olayların spot değerleri artık SPY mumlarından geliyor (giriş adayın
-    // kapanışı, çıkış sinyalin kendi mumu) — geriye doldurmaya gerek yok.
-    const events: EngineEvent[] = activePositions.flatMap((p) => p.events).sort((a, b) => a.time - b.time);
-
-    // ── Açık pozisyon için canlı ATM zincir kotasyonu (gerçek bid/ask) ──
-    let liveChain = null;
-    if (openPosition && openPosition.strike != null) {
-      // Yahoo, vadeyi UTC gece yarısı epoch'u olarak bekler.
-      const [ey, em, ed] = session.date.split("-").map(Number);
-      const expiryEpoch = Date.UTC(ey, em - 1, ed) / 1000;
-      liveChain = await fetchAtmContract(
-        "SPY",
-        expiryEpoch,
-        openPosition.side === "LONG",
-        openPosition.entrySpot
-      ).catch(() => null);
-    }
 
     // ── Mum yükü: tam veya delta ───────────────────────────────────
     const cut = (bars: Bar[]) => (since ? bars.filter((b) => b.time >= since) : bars);
@@ -360,7 +171,10 @@ export async function GET(req: NextRequest) {
     } else if (lastBar) { price = lastBar.close; priceTime = lastBar.time; }
     else if (bundle.marketPrice != null) { price = bundle.marketPrice; priceTime = bundle.marketTime; }
 
-    const prevClose = bundle.previousClose;
+    const isReplay = !!replayDate && replayDate !== liveSession.date;
+    const replayPrev = isReplay ? rvolHistory.bars.filter((b) => isRthBar(b) && nyParts(b.time).ymd < session.date).at(-1)?.close ?? null : null;
+    const prevClose = isReplay ? replayPrev : bundle.previousClose;
+    if (isReplay && lastBar) { price = lastBar.close; priceTime = lastBar.time; }
 
     return NextResponse.json(
       {
@@ -390,7 +204,6 @@ export async function GET(req: NextRequest) {
           m5: toCompact(m5Out),
           m15: toCompact(m15Out),
         },
-        engine: gen.read,
         // V4 seviye paneli (spec 3) -- hepsi olculen veriden, uydurma yok
         levels: readLevels({
           sessionM1,
@@ -408,30 +221,6 @@ export async function GET(req: NextRequest) {
           prevClose,
           regime: regimeSeries.current.regime,
         }),
-        // V6.0 rejim bloku: 15m veto + hacim vetosu + 5m Layer1 + kayip
-        // sonrasi soguma -- karar mekanizmasinin GERCEK durumu (gen.read
-        // icinden). Layer2 (3'te 2 oylama) V6.0'da kaldirildi.
-        regime: {
-          veto: gen.read.veto,
-          volumeVeto: gen.read.volumeVeto,
-          layer1: gen.read.layer1,
-          current: gen.read.regime,
-          cooldownUntil,
-          cooldownActive,
-        },
-        // Tier 3 — Dönüş Yakalama: AND-tabanlı yerine puanlama tabanlı
-        // giriş/çıkış katmanı. Mevcut rejim mekanizmasini degistirmez,
-        // paralel panel olarak Kapı Durumu ve Çıkış Takip'te görünür.
-        reversalCatch: checkReversalCatch({
-          m5: closedBars(m5All, 5, evalNow),
-          nowSec: evalNow,
-          openSide: openPosition?.side ?? null,
-        }),
-        lastClosed: gen.lastClosed,
-        positions: activePositions,
-        openPosition,
-        liveChain,
-        events,
         // Karar merdiveni RVOL tabanı: son 20 seansta AYNI SAATTEKİ 5m mumların ortalama hacmi
         // (78 dilim) + aynı saate kadar ortalama toplam hacim. Yalnızca seans tarihinden ÖNCEKİ günler.
         rvolBase: (() => {
@@ -443,10 +232,6 @@ export async function GET(req: NextRequest) {
           rvolCache = { key, value };
           return value;
         })(),
-        // V4.1 (B.3): bugun ayni kontrata (strike+yon) ikinci kez girmek
-        // isteyip reddedilen adaylar -- rejimden bagimsiz, aday cozumleme
-        // asamasina ait, o yuzden regime blokunun disinda.
-        contractReuseBlocked,
       },
       { headers: { "Cache-Control": "no-store, max-age=0" } }
     );

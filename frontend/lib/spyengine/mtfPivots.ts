@@ -165,7 +165,7 @@ export function mergeLevels(raw: RawLevel[]): { price: number; keys: string[]; k
 
 /**
  * Fiyatın çevresindeki pivot merdiveni + hareket okuması.
- * @param todayRth5 bugünün KAPANMIŞ RTH 5m mumları (bugün tepe/dip, dokunma/kırılım durumları ve 30 dk hız için)
+ * @param todayRth5 bugünün KAPANMIŞ RTH 5m mumları (bugün tepe/dip, dokunma/kırılım durumları ve son 6 mum hız için)
  * @param span fiyatın her iki yanında gösterilecek seviye sayısı
  */
 export function mtfPivotRead(fr: PivotFrames, todayRth5: Bar[], price: number, t: number, span = 5): MtfPivotRead | null {
@@ -203,8 +203,8 @@ export function mtfPivotRead(fr: PivotFrames, todayRth5: Bar[], price: number, t
   const zone = `${b0 ? short(b0) : "alt yok"} – ${a0 ? short(a0) : "üst yok"}`;
   const lt = (l: MtfLevel) => `${l.label} ${l.price.toFixed(2)}`;
   let text: string;
-  if (heading === "FLAT") text = `Fiyat ${zone} arasında yatay (30 dk ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}).${a0 ? ` Üst: ${lt(a0)} (+${(a0.price - price).toFixed(2)})` : ""}${b0 ? ` · Alt: ${lt(b0)} (−${(price - b0.price).toFixed(2)})` : ""}.`;
-  else if (target) text = `Fiyat ${heading === "UP" ? "yukarı" : "aşağı"} ${lt(target)} seviyesine gidiyor: ${Math.abs(target.price - price).toFixed(2)} puan kaldı (30 dk hız ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}${etaMin ? `, bu hızla ~${etaMin} dk` : ""}).`;
+  if (heading === "FLAT") text = `Fiyat ${zone} arasında yatay (son 6 mum ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}).${a0 ? ` Üst: ${lt(a0)} (+${(a0.price - price).toFixed(2)})` : ""}${b0 ? ` · Alt: ${lt(b0)} (−${(price - b0.price).toFixed(2)})` : ""}.`;
+  else if (target) text = `Fiyat ${heading === "UP" ? "yukarı" : "aşağı"} ${lt(target)} seviyesine gidiyor: ${Math.abs(target.price - price).toFixed(2)} puan kaldı (son 6 mum hız ${speed30 >= 0 ? "+" : ""}${speed30.toFixed(2)}${etaMin ? `, bu hızla ~${etaMin} dk` : ""}).`;
   else text = `Fiyat bütün seviyelerin ${heading === "UP" ? "üstünde" : "altında"} — güçlü hareket.`;
   const today = n ? { hi: Math.max(...todayRth5.map((b) => b.high)), lo: Math.min(...todayRth5.map((b) => b.low)) } : null;
   return { prev, anchor4h, P, today, ladder, above: a0, below: b0, heading, speed30, target, etaMin, zone, text };

@@ -158,6 +158,8 @@ export interface RuleStat { rule: FcRule; n: number; hit: number; tHit: number; 
 
 export interface TrackerSummary {
   count: number;
+  /** kayıtlarda bulunan farklı motor sürümü sayısı */
+  versions: number;
   liveCount: number;
   from: string | null;
   to: string | null;
@@ -189,6 +191,7 @@ export function summarizeLog(days: TrackDay[]): TrackerSummary {
   const pred = days.reduce((a, d) => ({ n: a.n + d.pred.n, hit: a.hit + d.pred.hit, tHit: a.tHit + d.pred.tHit }), { n: 0, hit: 0, tHit: 0 });
   return {
     count: days.length,
+    versions: new Set(days.map((d) => d.version)).size,
     liveCount: days.filter((d) => !d.backfill).length,
     from: days[0]?.date ?? null,
     to: days[days.length - 1]?.date ?? null,

@@ -12,8 +12,8 @@
  *   15m dip/tepe ∓ tampon. Kazanç yön tahmininden değil bu düzenden gelir.
  * Üst bant, Takip paneli, sesli uyarı, harita senaryosu ve trend stop bölgesi hepsi aynı okumadan beslenir.
  * Kaldırıldı (çelişkili ikinci hüküm üretiyorlardı): Karar Merdiveni (bant, panel, ses, karar/işlem günlükleri),
- * merdiven tabanlı 5m/15m mum yorumları, Gün yönelimi + VWAP/EMA/hacim/defter kanıt kartları, eski açılış kararı günlüğü,
- * 15m setup tahmini, 15m/5m grafikleri. 30m/1h/4h yalnız bilgi. Açılış Tahmini (ES fair value) seans öncesi bilgi olarak kalır.
+ * Gün yönelimi + VWAP/EMA/hacim/defter kanıt kartları, eski açılış kararı günlüğü, 15m setup tahmini, 15m/5m grafikleri.
+ * Mum yorumları yalnız bilgi amaçlıdır. 30m/1h/4h yalnız bilgi. Açılış Tahmini (ES fair value) seans öncesi bilgi olarak kalır.
  *
  * Yalnızca admin: /admin/** proxy.ts tarafından boga_auth ile korunur; API uçları da ayrıca satır içi kontrol yapar.
  */
@@ -24,6 +24,7 @@ import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLe
 import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
+import MarketBriefPanel from "@/components/admin/spyengine/MarketBrief";
 import SpyMarketWatch, { type WatchQuote } from "@/components/admin/spyengine/SpyMarketWatch";
 import TradeLogPanel, { type TradeRow } from "@/components/admin/spyengine/TradeLogPanel";
 import { fmtR, trackerRead, trackPrewarnLive, FC_RULES, type D, type TrackRead, type TrackAlert, type TrackStep, type TrackTrade } from "@/lib/spyengine/tracker";
@@ -31,6 +32,7 @@ import { ENGINES, ENGINE_SYMBOLS, type EngineSymbol } from "@/lib/spyengine/engi
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
 import { mergeHourly } from "@/lib/spyengine/setup15";
 import { usePersistedState } from "@/lib/spyengine/usePersistedState";
+import { marketBrief } from "@/lib/spyengine/marketState";
 import {
   PhaseBadge, SURFACE, num, signed, tone,
   type SpotStats,
@@ -43,27 +45,13 @@ import {
   daySeries, liveVwap, fmtVol, stopZones, openingRegime, buildForecastMap, emaByTime, commentAll, commentForming,
   type CandleComment, type Tone,
 } from "@/lib/spyengine/openingMap";
-import type {
-  EngineEvent, PositionState, ContractType, EngineState, GateStatus, RegimeState,
-} from "@/lib/spyengine/strategy";
 import type { LevelRead, CloseForecast } from "@/lib/spyengine/levels";
 import { flowRead, type FlowRead } from "@/lib/spyengine/flow";
 import { optionLevelList, type OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { OpenForecastRead } from "@/lib/spyengine/openForecastFetch";
-import type { ReversalState } from "@/lib/spyengine/reversal";
 import type { RvolBase } from "@/lib/spyengine/ladder";
 
 // ── Yanıt tipi (API değişmedi; kullanılan alanlar) ────────────────
-
-interface EngineRead {
-  regime: RegimeState;
-  action: "LONG" | "SHORT" | "BEKLE";
-  contractType: ContractType | null;
-  state: EngineState;
-  stateLabel: string;
-  nextStep: string;
-  gateStatus: GateStatus;
-}
 
 interface StreamResponse {
   ok: boolean;
@@ -74,13 +62,8 @@ interface StreamResponse {
   dataSource: { primary: string; overnight: string | null; sanitized: number; errors: string[] };
   spot: SpotStats;
   bars: { m1: CompactBar[]; m5: CompactBar[]; m15: CompactBar[] };
-  engine: EngineRead;
-  lastClosed: { m1: number | null; m5: number | null; m15: number | null };
-  openPosition: PositionState | null;
-  events: EngineEvent[];
   levels?: LevelRead;
   forecast?: CloseForecast | null;
-  reversalCatch?: ReversalState;
   /** RVOL tabanı (son 20 seans, aynı saat; med = medyan — Takip Sistemi) */
   rvolBase?: RvolBase | null;
 }
@@ -134,7 +117,7 @@ function CommentCard({ c, latest }: { c: CandleComment; latest: boolean }) {
         <span className="rounded bg-[#0a0e17] px-1 py-0.5">alt fitil {num(c.lowerWick)}</span>
         <span className="rounded bg-[#0a0e17] px-1 py-0.5">kapanış konumu %{Math.round(c.closePos * 100)}</span>
         <span className={`rounded bg-[#0a0e17] px-1 py-0.5 ${c.volRatio != null && c.volRatio >= 1.2 ? "text-sky-300" : c.volRatio != null && c.volRatio < 0.8 ? "text-amber-300" : ""}`}>
-          hacim {fmtVol(c.volume)}{c.volRatio != null ? ` · RVOL ${c.volRatio.toFixed(2)}` : ""}
+          hacim {fmtVol(c.volume)}{c.volRatio != null ? ` · yakın ort. ${c.volRatio.toFixed(2)}×` : ""}
         </span>
       </div>
       <ul className="mt-0.5 flex flex-col gap-0.5 text-[11px] leading-snug text-slate-400">
@@ -194,7 +177,7 @@ function TopBar({ t, waiting, h1R }: { t: TrackStep | null; waiting: boolean; h1
       {!t.pre && t.setup && t.setup.status !== "OPEN" && (t.setup.missing.length > 0 || t.checklist.some((c) => c.key === "fresh" && !c.ok)) && (
         <div className="mt-0.5 text-[12px] leading-snug text-slate-400"><b>Tetik için eksik:</b> {t.setup.missing.join(" · ") || "taze tetik (yeni hiza ya da EMA20/VWAP'a geri çekilme)"}</div>
       )}
-      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">Kazanç yön tahmininden değil düzenden gelir: 15m teyitli 5m tetik · stop son 2 mumun ucu · {fmtR(h1R)}&apos;de yarısı + stop girişe · kalan yarı her 15m kapanışında 15m dip/tepe ∓ tampon.</div>
+      <div className="mt-0.5 text-[10.5px] leading-snug text-slate-500">Kazanç yön tahmininden değil düzenden gelir: 15m teyitli 5m tetik · stop son 2 mumun ucu + tampon · {fmtR(h1R)}&apos;de yarısı + stop girişe · kalan yarı her 15m kapanışında 15m dip/tepe ∓ tampon.</div>
     </div>
   );
 }
@@ -551,7 +534,7 @@ function OpenForecastPanel({ r, compact }: { r: OpenForecastRead | null; compact
           </ul>
           <div className="border-t border-[#1c2635] px-4 py-1.5 text-[11px] leading-snug text-slate-500">
             58 seans ölçümü (ES fair value): ort. hata 04:00 1,79 · 07:00 1,41 · 08:30 0,79 · 09:00 0,50 · 09:25 0,31 puan; gap yönü %74 → %100.
-            Aralık bu ölçümün %80 kapsamasıdır. Açılış yönü işlem kararı değildir — gün yönü 09:55 kuralıyla belirlenir.
+            Aralık bu ölçümün %80 kapsamasıdır. Açılış yönü işlem kararı değildir; işlem yönü Takip Sistemi&apos;nden gelir.
           </div>
         </>
       )}
@@ -622,7 +605,7 @@ function PivotCard({ p, price, odds }: { p: MtfPivotRead | null; price: number |
         </div>
         <div className="flex flex-col gap-2 bg-[#0f141d] px-3 py-2">
           <div>
-            <div className="text-[11px] text-slate-500">Son 30 dk hareketi · seviye bilgisi</div>
+            <div className="text-[11px] text-slate-500">Son 6 mum hareketi · seviye bilgisi</div>
             <div className="text-[17px] font-extrabold leading-tight" style={{ color: hcol }}>
               {p.heading === "UP" ? "▲" : p.heading === "DOWN" ? "▼" : "◆"} {p.target ? `sıradaki ${p.target.label} ${num(p.target.price)}` : p.heading === "FLAT" ? `${p.zone} arasında yatay` : "pivot dışı"}
             </div>
@@ -738,9 +721,6 @@ function PriceStrip({ symbol, price, change, changePct, badge, hour, day, vwap, 
             <div className="font-mono text-[11.5px]">
               <div className="flex items-baseline justify-between gap-2">
                 <span className="font-sans text-[10.5px] text-slate-500">Pivot · {piv.zone}</span>
-                <span className={piv.heading === "UP" ? "text-[#4ade80]" : piv.heading === "DOWN" ? "text-[#f87171]" : "text-slate-400"}>
-                  {piv.heading === "UP" ? "▲" : piv.heading === "DOWN" ? "▼" : "◆"} 30dk {piv.speed30 >= 0 ? "+" : ""}{piv.speed30.toFixed(2)}
-                </span>
               </div>
               <div className="flex justify-between gap-2">
                 <span className="truncate text-[#f87171]" title={piv.below?.keys.join(" · ")}>{piv.below ? `${piv.below.keys[0]} ${num(piv.below.price)} (−${Math.abs(piv.below.dist).toFixed(2)})` : "—"}</span>
@@ -770,7 +750,7 @@ const LEVEL_CLS: Record<string, string> = {
   TETİK: "text-[#4ade80]", ÇIKIŞ: "text-orange-300", YÖNET: "text-sky-300", HAZIRLAN: "text-[#facc15]", İPTAL: "text-slate-500", KADEME: "text-slate-400",
 };
 
-function AlertLog({ today, past }: { today: { date: string; clock: string; level: string; side: string | null; text: string }[]; past: { date: string; clock: string; level: string; side: string | null; text: string }[] }) {
+function AlertLog({ today, past, todayLabel }: { todayLabel: string; today: { date: string; clock: string; level: string; side: string | null; text: string }[]; past: { date: string; clock: string; level: string; side: string | null; text: string }[] }) {
   const todayDate = today[0]?.date;
   const rows = [...today, ...past.filter((a) => a.date !== todayDate)].sort((a, b) => (a.date === b.date ? b.clock.localeCompare(a.clock) : b.date.localeCompare(a.date)));
   return (
@@ -785,7 +765,7 @@ function AlertLog({ today, past }: { today: { date: string; clock: string; level
             <tbody>
               {rows.map((a, i) => (
                 <tr key={`${a.date}-${a.clock}-${a.level}-${i}`} className={`border-t border-[#151c28] ${a.date === todayDate ? "bg-sky-500/5" : ""}`}>
-                  <td className="px-2 py-1 font-mono text-slate-400">{a.date === todayDate ? "bugün" : a.date.slice(5)}</td>
+                  <td className="px-2 py-1 font-mono text-slate-400">{a.date === todayDate ? todayLabel : a.date.slice(5)}</td>
                   <td className="px-2 font-mono text-slate-300">{a.clock}</td>
                   <td className={`px-2 font-semibold ${LEVEL_CLS[a.level] ?? "text-slate-300"}`}>{a.level}</td>
                   <td className="px-2 text-slate-300">{a.text}</td>
@@ -1070,7 +1050,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     if (!f || !date || replayDate || !closeForecast) return;
     const bucket = Math.floor((lastFetch ?? 0) / 300) * 300;
     const sessionOver = data ? !data.session.isLive || data.session.phase === "POST" || data.session.phase === "CLOSED" : false;
-    const actualClose = sessionOver ? data?.spot.price ?? null : null;
+    const closeBar = sessionOver ? m1.find((b) => nyParts(b.time).ymd === date && nyParts(b.time).minutes === 15 * 60 + 59) : null;
+    const actualClose = closeBar?.close ?? null;
     const key = `${date}:${bucket}:${actualClose ?? ""}`;
     if (!bucket || key === forecastKeyRef.current) return;
     forecastKeyRef.current = key;
@@ -1093,7 +1074,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         // tahmin kaydı ana akışı etkilemesin
       }
     })();
-  }, [data, lastFetch, replayDate, closeForecast]);
+  }, [data, lastFetch, replayDate, closeForecast, m1]);
 
   // 1 sn kalp atışı
   useEffect(() => {
@@ -1216,14 +1197,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
   const hourHiLo = useMemo<HiLo | null>(() => {
-    const t = evalNow || lastM1Time || 0;
+    const t = replayDate ? lastM1Time ?? 0 : evalNow || lastM1Time || 0;
     const bs = m1.filter((b) => b.time > t - 3600 && b.time <= t);
     if (!bs.length) return null;
     let hi = bs[0], lo = bs[0];
     for (const b of bs) { if (b.high > hi.high) hi = b; if (b.low < lo.low) lo = b; }
     return { hi: hi.high, lo: lo.low, hiClock: nyClock(hi.time), loClock: nyClock(lo.time) };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [m1, minuteSlot, evalNow]);
+  }, [m1, minuteSlot, evalNow, replayDate, lastM1Time]);
   const dayHiLo = useMemo<HiLo | null>(() => {
     const bs = todayRth5.bars;
     if (!bs.length) return null;
@@ -1272,12 +1253,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   }, [analysis?.s5, ema5]);
 
   /** Harita yönü = Takip Sistemi'nin 5m yön okuması (sayfada tek tahmin kaynağı) */
-  const playBias = useMemo<{ bias: "UP" | "DOWN" | "FLAT"; text: string } | null>(() => {
+  const playBias = useMemo<{ bias: "UP" | "DOWN" | "FLAT"; text: string; alt: string[] } | null>(() => {
     const t = trackCur && !trackCur.pre ? trackCur : null;
     if (!t) return null;
-    if (t.dir > 0) return { bias: "UP", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı +${t.score}) → yükseliş senaryosu.` };
-    if (t.dir < 0) return { bias: "DOWN", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı ${t.score}) → düşüş senaryosu.` };
-    return { bias: "FLAT", text: `Takip Sistemi ${t.clock}: yön yok (puan ${t.score}) — aralık senaryosu.` };
+    const score = `${t.score > 0 ? "+" : ""}${t.score}`;
+    const alt = ["Yön değişimi için 15m kapanış VWAP ve EMA20'nin ters tarafına geçmeli."];
+    if (t.dir > 0) return { bias: "UP", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı ${score}) → yükseliş senaryosu.`, alt };
+    if (t.dir < 0) return { bias: "DOWN", text: `Takip Sistemi ${t.clock}: ${t.trend} (yön puanı ${score}) → düşüş senaryosu.`, alt };
+    return { bias: "FLAT", text: `Takip Sistemi ${t.clock}: yön yok (puan ${score}) — aralık senaryosu.`, alt: ["Yön için 15m kapanış VWAP ve EMA20'nin aynı tarafında olmalı."] };
   }, [trackCur]);
 
   /** Haritanın ufku: şimdi + 90 dk (gün sonuna kadar uzanmaz) ve Takip Sistemi'nin 30 dk senaryoları */
@@ -1440,6 +1423,15 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   // Cuma notu: yalnız NY saatiyle Cuma günleri (canlıda bugün, replay'de seçilen seans)
   const isFriday = evalNow > 0 && new Date(`${nyParts(evalNow).ymd}T12:00:00Z`).getUTCDay() === 5;
 
+  const brief = useMemo(() => marketBrief({
+    steps: track?.steps ?? [],
+    prewarn,
+    compressed: !!flow?.compression.active,
+    odds: pivotOdds,
+    stale: feedStaleSec != null && lastM1Time != null ? { ageSec: feedStaleSec, lastClock: nyClock(lastM1Time) } : null,
+    h1R: E.cfg.h1R,
+  }), [track, prewarn, flow?.compression.active, pivotOdds, feedStaleSec, lastM1Time, E.cfg.h1R]);
+
   // ── Render ──────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-[#0a0e17] p-2 text-slate-300">
@@ -1536,7 +1528,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         hour={hourHiLo}
         day={dayHiLo}
         vwap={vwapNow}
-        ema={ema5Now}
+        ema={trackCur?.ema5 ?? ema5Now}
         piv={pivR}
       />
 
@@ -1558,11 +1550,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       )}
 
       <div className="flex flex-col gap-1.5">
-        {feedIsStale && lastM1Time != null && (
-          <div className="rounded-lg border-2 border-red-500 bg-red-500/15 px-4 py-2 text-[14px] font-bold text-red-200" role="alert">
-            ⚠ VERİ BAYAT · son mum {nyClock(lastM1Time)} ET · {Math.floor((feedStaleSec as number) / 60)} dk önce. Veri kaynağından yeni mum gelmiyor; yeni sinyal üretilmiyor, ekrandaki karar güncel değil.
-          </div>
-        )}
+        <MarketBriefPanel brief={brief} />
         {/* ── KARAR SATIRI — ekrandaki tek durum ── */}
         <TopBar t={trackCur} waiting={!analysis || !analysis.s5.bars.length} h1R={E.cfg.h1R} />
         {prewarn && (
@@ -1672,7 +1660,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
             </div>
           )}
           <div className="border-t border-[#1c2635] px-3 py-1 text-[10.5px] leading-snug text-slate-500">
-            Kural: stop yalnızca trend yönünde çekilir (CALL&apos;da yukarı, PUT&apos;ta aşağı), asla geri gevşetilmez. Yalnızca KAPANMIŞ 15m mum kullanılır; oluşan mumun fitili stopu oynatmaz. Seviyeler grafikte SL çizgisi olarak görünür.
+            Kural: stop yalnızca trend yönünde çekilir (CALL&apos;da yukarı, PUT&apos;ta aşağı), asla geri gevşetilmez. Yalnızca KAPANMIŞ 15m mum kullanılır; oluşan mumun fitili stopu oynatmaz.
           </div>
         </div>
 
@@ -1727,7 +1715,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
                   {map.alt.map((a, i) => <li key={i}>⚠ {a}</li>)}
                   <li className="mt-0.5 text-slate-500">
                     Bu bir TAHMİNDİR; seviyeler ölçülmüş veriden.
-                    Gün sonu bandı 20 seanslık dağılımdan{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} seans)` : ""}.
+                    Gün sonu bandı 20 seanslık dağılımdan{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} ölçüm)` : ""}.
                   </li>
                 </ul>
               </div>
@@ -1737,8 +1725,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         {/* ── Anlık mum yorumları (15m sol · 5m sağ) ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
-          <CommentFeed title="15m Mum Yorumları — canlı + kapanış" items={comments.c15} forming={comments.f15} />
-          <CommentFeed title="5m Mum Yorumları — canlı + kapanış" items={comments.c5} forming={comments.f5} />
+          <CommentFeed title="15m Mum Yorumları — bilgi, karar vermez" items={comments.c15} forming={comments.f15} />
+          <CommentFeed title="5m Mum Yorumları — bilgi, karar vermez" items={comments.c5} forming={comments.f5} />
         </div>
 
         {/* ── Kayıtlar: Takip Sistemi'nin önerdiği işlemler (bugün canlı + arşiv) ve uyarılar ── */}
@@ -1746,10 +1734,11 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
           <TradeLogPanel
             today={(track?.trades ?? []).map((a) => tradeRow(date ?? "", a))}
             past={(trackHist?.allTrades ?? []).map((a) => tradeRow(a.date, a))}
+            todayLabel={replayDate ? "seçilen gün" : "bugün"}
           />
         </Hideable>
         <Hideable title="Uyarı Kaydı" open={showAlerts} onToggle={() => setShowAlerts((v) => !v)}>
-          <AlertLog today={(track?.alerts ?? []).filter((a) => a.level !== "KADEME").map((a) => ({ date: date ?? "", clock: a.clock, level: a.level, side: a.side, text: a.text }))} past={trackHist?.alertLog ?? []} />
+          <AlertLog today={(track?.alerts ?? []).filter((a) => a.level !== "KADEME").map((a) => ({ date: date ?? "", clock: a.clock, level: a.level, side: a.side, text: a.text }))} past={trackHist?.alertLog ?? []} todayLabel={replayDate ? "seçilen gün" : "bugün"} />
         </Hideable>
       </div>
 

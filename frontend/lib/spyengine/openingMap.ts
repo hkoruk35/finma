@@ -232,7 +232,7 @@ function analyseCandle(
   const meaning = tone === "bull" ? "alıcı lehine" : tone === "bear" ? "satıcı lehine" : "nötr / kararsız";
 
   return {
-    tf, time: b.time, clock: nyClock(b.time), tone, forming, close: b.close, vwap: v, vwapSide: side,
+    tf, time: b.time, clock: nyClock(b.time + (tf === "5m" ? 300 : tf === "15m" ? 900 : 1800)), tone, forming, close: b.close, vwap: v, vwapSide: side,
     upperWick: upW, lowerWick: loW, closePos, volume: vol, volRatio, lines,
     headline: `${colorTxt} · ${vwapTxt} → ${meaning}`,
   };

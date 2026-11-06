@@ -4,16 +4,16 @@
  * SPY Engine — TAKİP SİSTEMİ paneli (lib/spyengine/tracker.ts).
  *
  * Eski "Açılış aşamaları" + "Açılış trendi" + 5m/15m mum okumaları tek yerde:
- *   • ŞİMDİ: son 5m kapanışın tek okuması — yön · ne yap · 30 dk tahmini · kurulum/pozisyon.
+ *   • ŞİMDİ: son 5m kapanışın tek okuması — yön · ne yap · kurulum/pozisyon.
  *   • Zaman şeridi: her satır 30 dk (6 adet 5m kartı). 09:05–09:30 seans öncesi → 09:35–10:00 açılış aşamaları →
- *     … → 14:35–15:00. Varsayılan görünüm SON 30 dk'lık satır; yukarı kaydırınca önceki satırlar.
- *   • Karta tıklayınca ayrıntı: 5m/15m mum okuması, yön puanı dökümü, kontrol listesi, olaylar, tahminin sonucu. Sayfanın tek karar kaynağı budur.
- *   • Geçmiş: kurulum etiketlerine göre sonuçlar ve tahmin kurallarının gerçekleşen isabeti (sunucu günlüğü).
+ *     … → 15:35–16:00. Varsayılan görünüm SON 30 dk'lık satır; yukarı kaydırınca önceki satırlar.
+ *   • Karta tıklayınca ayrıntı: 5m/15m mum okuması, yön puanı dökümü, kontrol listesi ve olaylar. Sayfanın tek karar kaynağı budur.
+ *   • Geçmiş: kurulum etiketlerine göre sonuçlar (sunucu günlüğü).
  */
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  BREAKDOWN_LABEL, FC_RULES, fmtR, halfExitText, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
+  BREAKDOWN_LABEL, fmtR, halfExitText, PHASE_TEXT, SCORE_MAX, TAG_TEXT, VETO_TEXT,
   type Breakdown, type TrackRead, type TrackStep, type D,
 } from "@/lib/spyengine/tracker";
 import type { TrackerSummary } from "@/lib/spyengine/trackerStore";
@@ -29,24 +29,23 @@ const arrow = (d: number) => (d > 0 ? "▲" : d < 0 ? "▼" : "◆");
 
 const hm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
-/** Satır tanımları: seans öncesi + 09:35'ten 15:00'e kadar 30'ar dk */
+/** Satır tanımları: seans öncesi + 09:35'ten 16:00'a kadar 30'ar dk */
 const ROWS: { key: string; title: string; mins: number[] }[] = [
   { key: "pre", title: "Seans öncesi · bilgi", mins: [545, 550, 555, 560, 565, 570] },
-  ...Array.from({ length: 11 }, (_, k) => {
+  ...Array.from({ length: 13 }, (_, k) => {
     const start = 575 + 30 * k;
     const mins = Array.from({ length: 6 }, (_, j) => start + 5 * j);
-    const title = k === 0 ? "Açılış · 09:45 ilk 15m teyidi" : "5m tetik · 15m teyit";
+    const title = k === 0 ? "Açılış · 09:45 ilk 15m teyidi" : k >= 11 ? "Kapanış · yeni giriş yok" : "5m tetik · 15m teyit";
     return { key: `r${k}`, title, mins };
   }),
 ];
 
-function Gauge({ score, thr }: { score: number; thr: number }) {
+function Gauge({ score }: { score: number }) {
   const MAX = SCORE_MAX;
   const pos = (v: number) => `${((v + MAX) / (2 * MAX)) * 100}%`;
   const col = dCol(Math.abs(score) >= 3 ? score : 0);
   return (
     <div className="relative mt-1 h-3 rounded bg-gradient-to-r from-[#ef4444]/35 via-[#1c2635] to-[#22c55e]/35">
-      {[-thr, thr].map((t) => <span key={t} className="absolute top-[-2px] h-4 w-px bg-slate-400/70" style={{ left: pos(t) }} title={`eşik ${t}`} />)}
       <span className="absolute top-[-2px] h-4 w-px bg-slate-600" style={{ left: "50%" }} />
       <span className="absolute top-[-4px] h-5 w-1.5 rounded" style={{ left: `calc(${pos(Math.max(-MAX, Math.min(MAX, score)))} - 3px)`, backgroundColor: col }} />
     </div>
@@ -72,7 +71,7 @@ function HtfChips({ h }: { h: TrackStep["htf"] }) {
   return (
     <div className="flex flex-wrap gap-1">
       {([["15m", h.m15], ["1h", h.h1], ["4h", h.h4]] as [string, D][]).map(([k, v]) => (
-        <Chip key={k} v={v} title={`${k}: fiyat EMA20'nin ${v > 0 ? "üstünde ve EMA yükseliyor" : v < 0 ? "altında ve EMA düşüyor" : "karışık tarafında"}`}>{k} {arrow(v)}</Chip>
+        <Chip key={k} v={v} title={k === "15m" ? `15m: kapanış VWAP ve EMA20'nin ${v > 0 ? "üstünde" : v < 0 ? "altında" : "aynı tarafında değil"}` : `${k}: fiyat EMA20'nin ${v > 0 ? "üstünde ve EMA yükseliyor" : v < 0 ? "altında ve EMA düşüyor" : "karışık tarafında"}`}>{k} {arrow(v)}</Chip>
       ))}
     </div>
   );
@@ -140,10 +139,10 @@ function StepDetail({ s }: { s: TrackStep }) {
       </div>
       <div className="flex flex-col gap-1.5 bg-[#0f141d] px-3 py-2">
         <div className="flex items-baseline justify-between text-[11px] text-slate-400">
-          <span>yön puanı <b className="font-mono text-[13px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> / ±6,5 · eşik {s.threshold}</span>
+          <span>yön puanı <b className="font-mono text-[13px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> / ±6,5 · bilgi, giriş şartı değil</span>
           <span className="font-mono">ivme {sg(s.mom.score)}</span>
         </div>
-        {!s.pre && <Gauge score={s.score} thr={s.threshold} />}
+        {!s.pre && <Gauge score={s.score} />}
         {!s.pre && <BreakdownChips b={s.breakdown} />}
         <HtfChips h={s.htf} />
         <div className="font-mono text-[10.5px] leading-snug text-slate-400">
@@ -191,16 +190,15 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         {s.fc.text && (
           <div className="mt-1 rounded border border-[#1c2635] bg-[#0a0e17] px-2 py-1 text-[12px] leading-snug text-slate-200">
             {s.fc.text}
-            {s.fc.rule && <span className="block text-[10.5px] text-slate-500">Kural: {FC_RULES[s.fc.rule].text}. Geçmiş ölçüm {FC_RULES[s.fc.rule].n} tahmin, %{FC_RULES[s.fc.rule].hit} isabet.</span>}
           </div>
         )}
       </div>
       <div className="flex flex-col gap-1.5 bg-[#0f141d] px-3 py-2.5">
         <div className="flex items-baseline justify-between text-[11px] text-slate-400">
-          <span>Yön puanı <b className="font-mono text-[16px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> <span className="text-slate-500">/ ±6,5</span></span>
+          <span>Yön puanı <b className="font-mono text-[16px]" style={{ color: dCol(s.dir) }}>{sg(s.score)}</b> <span className="text-slate-500">/ ±6,5 · bilgi</span></span>
           <span className="font-mono text-[11px]" style={{ color: dCol(s.dir) }}>{s.dir ? s.strength : "YÖN YOK"}</span>
         </div>
-        {!s.pre && <Gauge score={s.score} thr={s.threshold} />}
+        {!s.pre && <Gauge score={s.score} />}
         {!s.pre && <BreakdownChips b={s.breakdown} />}
         <div className="mt-0.5 text-[10.5px] text-slate-500">15m = teyit · 1h / 4h yalnız bilgi (karara girmez):</div>
         <HtfChips h={s.htf} />
@@ -209,7 +207,7 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
         {s.runners?.length > 0 && (
           <div className="rounded border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[11.5px] leading-snug text-sky-100">
             <b className="text-sky-300">Taşınan yarı</b> (stop yalnız sıkılaşır):
-            {s.runners.map((x, k) => <div key={k} className="font-mono">{x.side} {x.entryClock} · giriş {num(x.entry)} · stop <b>{num(x.stop)}</b> · {x.liveR >= 0 ? "+" : "−"}{Math.abs(x.liveR).toFixed(2)}R{x.contracts === 1 ? " · tek kontrat, yalnız R kaydı" : ""}</div>)}
+            {s.runners.map((x, k) => <div key={k} className="font-mono">{x.side} {x.entryClock} · giriş {num(x.entry)} · stop <b>{num(x.stop)}</b> · {x.liveR >= 0 ? "+" : "−"}{Math.abs(x.liveR).toFixed(2)}R</div>)}
           </div>
         )}
         {p ? (
@@ -221,7 +219,7 @@ function NowBlock({ r, s, countdown }: { r: TrackRead; s: TrackStep; countdown: 
                 <div key={k} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1.5 py-0.5"><span className="text-[9.5px] text-slate-500">{k} </span><b className="text-slate-100">{num(v)}</b></div>
               ))}
             </div>
-            <div className="text-[11px] text-slate-400">{`${fmtR(p.h1RMult ?? 1)}'de ${halfExitText(p.contracts)}, stopu girişe çek · kalan yarı` + ": her 15m kapanışında stop 15m " + (p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne") + ` (tamponlu) taşınır · 15m yön teyidi ${fmtR(p.h1RMult ?? 1)}'den önce dönerse çık`}</div>
+            <div className="text-[11px] text-slate-400">{p.contracts === 1 ? `${fmtR(p.h1RMult ?? 1)}'de tek kontratı kapat · 15m yön teyidi hedeften önce dönerse çık` : `${fmtR(p.h1RMult ?? 1)}'de ${halfExitText(p.contracts)}, stopu girişe çek · kalan yarı: her 15m kapanışında stop 15m ${p.side === "CALL" ? "dibinin altına" : "tepesinin üstüne"} (tamponlu) taşınır · 15m yön teyidi ${fmtR(p.h1RMult ?? 1)}'den önce dönerse çık`}</div>
           </>
         ) : s.setup ? (
           <>
@@ -311,8 +309,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
           {badge(`gap ${r.gap.pts != null ? (r.gap.pts >= 0 ? "+" : "") + r.gap.pts.toFixed(2) : "—"} ${r.gap.type}`, r.gap.type === "UP" ? UP : r.gap.type === "DOWN" ? DN : NEU)}
           {r.dayClass && badge(r.dayClass === "TREND_CANDLE" ? "TREND MUMU" : r.dayClass === "INDECISION" ? "KARARSIZ AÇILIŞ" : "NORMAL AÇILIŞ", r.dayClass === "TREND_CANDLE" ? WARN : NEU, "09:30–09:45 15m mumunun sınıfı")}
           {r.or15?.squeeze && badge("DAR AÇILIŞ", WARN, "OR15 günlük ATR'nin %15'inden dar — kırılım yakın olabilir")}
-          {r.eventDay && badge("VERİ GÜNÜ", WARN, "dikkat — boyut yarım")}
-          {r.pred.n > 0 && badge(`30dk tahmin ${r.pred.hit}/${r.pred.n}`, NEU, "Bugün sonucu belli olan yönlü tahminler: doğru yön / toplam")}
+          {r.eventDay && badge("VERİ GÜNÜ", WARN, "veri günü — dikkat")}
           {r.trades.length > 0 && badge(`işlem ${r.trades.length} · ${r.realizedR >= 0 ? "+" : ""}${r.realizedR.toFixed(2)}R`, r.realizedR >= 0 ? UP : DN)}
         </span>
       </div>
@@ -365,7 +362,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
               <ul className="flex flex-col gap-1 font-mono text-[11px]">
                 {r.trades.map((t) => (
                   <li key={t.id} className="text-slate-300">
-                    <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.contracts ?? 2}× {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · H1 {num(t.h1)} · {t.size === "half" ? "½" : "tam"}
+                    <b style={{ color: t.side === "CALL" ? UP : DN }}>{t.side}</b> {t.entryClock} {t.contracts ?? 2}× {t.tag}{t.reentry ? " (yeniden)" : ""} · {num(t.entry)} · stop {num(t.stop0)} · ilk hedef {num(t.h1)}
                     {" → "}{t.exitClock ? <>{t.exitClock} {t.exitReason} <b className={(t.resultR ?? 0) >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{(t.resultR ?? 0) >= 0 ? "+" : ""}{t.resultR}R</b></> : <b className="text-sky-300">açık {t.liveR != null ? `${t.liveR >= 0 ? "+" : ""}${t.liveR}R` : ""}</b>}
                     <span className="text-slate-500"> · MFE {t.mfeR}R · {t.strike}{t.momWhy?.length ? ` · ${t.momWhy.join(", ")}` : ""}</span>
                   </li>
@@ -391,7 +388,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
       <div className="flex flex-wrap items-center gap-2 border-t border-[#1c2635] px-3 py-1.5">
         <button type="button" onClick={() => setShowHist((v) => !v)} className="rounded-md border border-sky-500/60 bg-sky-500/15 px-2.5 py-0.5 text-[11px] font-bold text-sky-300 hover:bg-sky-500/30">{showHist ? "▴ gizle" : "▾ göster"}</button>
         <span className="text-[12px] font-semibold text-slate-300">Takip Sistemi geçmişi</span>
-        <span className="text-[11px] text-slate-500">{hist ? `${hist.count} seans (${hist.liveCount} canlı)${hist.pred.n ? ` · 30 dk tahmin isabeti %${Math.round((100 * hist.pred.hit) / hist.pred.n)} (${hist.pred.n})` : ""}` : "yükleniyor"}</span>
+        <span className="text-[11px] text-slate-500">{hist ? `${hist.count} seans (${hist.liveCount} canlı)${hist.versions > 1 ? ` · ${hist.versions} motor sürümü karışık` : ""}` : "yükleniyor"}</span>
       </div>
       {showHist && hist && (
         <div className="border-t border-[#1c2635] bg-[#0f141d] px-3 py-2">
@@ -414,33 +411,13 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
               )}
               <div className="mt-1 text-[10.5px] text-slate-500">CANLI OK = en az 100 işlem ve işlem başı ≥ +0,20R. Altındakiler gözlemde: sinyal verir ama kanıt henüz yetersiz. (K*/T_* = önceki sürümün etiketleri.)</div>
             </div>
-            {hist.byRule.length > 0 && (
-            <div>
-              <div className="mb-1 text-[11px] font-semibold text-slate-400">30 dk tahmin kuralları (gerçekleşen)</div>
-              <table className="w-full font-mono text-[11px]">
-                <tbody>
-                  {hist.byRule.map((x) => (
-                    <tr key={x.rule} className="border-b border-[#151c28] text-slate-300">
-                      <td className="py-0.5 pr-2 font-sans">{FC_RULES[x.rule].label}</td>
-                      <td className="pr-2">{x.n}</td>
-                      <td className="pr-2">yön %{x.n ? Math.round((100 * x.hit) / x.n) : 0}</td>
-                      <td className="pr-2">hedef %{x.n ? Math.round((100 * x.tHit) / x.n) : 0}</td>
-                      <td className={x.avgMove >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{x.avgMove >= 0 ? "+" : ""}{x.avgMove}</td>
-                      <td className="pl-2 text-slate-500">{x.liveN ? `canlı %${Math.round((100 * x.liveHit) / x.liveN)} (${x.liveN})` : ""}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="mt-1 text-[10.5px] text-slate-500">Ort. = tahmin yönünde 30 dk&apos;lık puan. Yön isabeti %50 = yazı-tura.</div>
-            </div>
-            )}
           </div>
           <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-2">
             <div>
               <div className="mb-1 text-[11px] font-semibold text-slate-400">Son seanslar</div>
               <ul className="flex flex-col gap-0.5 font-mono text-[11px] text-slate-300">
                 {hist.recent.map((d) => (
-                  <li key={d.date}>{d.date.slice(5)}{d.backfill ? "*" : ""} · eğilim {d.bias} · gap {d.gap} · {d.dayClass ?? "—"} · tahmin {d.pred} · {d.trades} işlem {d.trades ? `${d.r >= 0 ? "+" : ""}${d.r}R` : ""}</li>
+                  <li key={d.date}>{d.date.slice(5)}{d.backfill ? "*" : ""} · eğilim {d.bias} · gap {d.gap} · {d.dayClass ?? "—"} · {d.trades} işlem {d.trades ? `${d.r >= 0 ? "+" : ""}${d.r}R` : ""}</li>
                 ))}
               </ul>
             </div>
@@ -453,7 +430,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
               </ul>
             </div>
           </div>
-          <div className="mt-2 text-[10.5px] leading-snug text-slate-500">* geriye dönük (canlı motorun aynı fonksiyonuyla gün yeniden oynatıldı). Her seans 16:05 ET&apos;den sonra dondurularak kaydedilir. Opsiyon akışı geçmişte yok (flow=off).</div>
+          <div className="mt-2 text-[10.5px] leading-snug text-slate-500">* geriye dönük (canlı motorun aynı fonksiyonuyla gün yeniden oynatıldı). Her seans 16:05 ET&apos;den sonra dondurularak kaydedilir.</div>
         </div>
       )}
     </div>

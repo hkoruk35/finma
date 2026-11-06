@@ -16,7 +16,7 @@ export interface TradeRow {
 const f2 = (x: number | null | undefined) => (x == null ? "—" : x.toFixed(2));
 const sgn = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)}`;
 
-export default function TradeLogPanel({ today, past }: { today: TradeRow[]; past: TradeRow[] }) {
+export default function TradeLogPanel({ today, past, todayLabel = "bugün" }: { today: TradeRow[]; past: TradeRow[]; todayLabel?: string }) {
   const [days, setDays] = usePersistedState("spyengine_ui_tradelog_days", 10);
   const todayDate = today[0]?.date;
   const archive = past.filter((t) => t.date !== todayDate);
@@ -36,7 +36,7 @@ export default function TradeLogPanel({ today, past }: { today: TradeRow[]; past
         <span className="flex items-center gap-2 font-mono text-[11px] text-slate-400">
           {done.length} kapanan · %{done.length ? Math.round((100 * wins) / done.length) : 0} kazanç · <b className={sumR >= 0 ? "text-[#4ade80]" : "text-[#f87171]"}>{sgn(sumR)}R</b>
           <select value={days} onChange={(e) => setDays(Number(e.target.value))} className="rounded border border-[#1c2635] bg-[#0a0e17] px-1 py-0.5 text-[11px] text-slate-300">
-            {[5, 10, 20, 60].map((n) => <option key={n} value={n}>bugün + son {n} gün</option>)}
+            {[5, 10, 20, 60].map((n) => <option key={n} value={n}>{todayLabel} + son {n} gün</option>)}
           </select>
         </span>
       </div>
@@ -58,7 +58,7 @@ export default function TradeLogPanel({ today, past }: { today: TradeRow[]; past
             {rows.length === 0 && <tr><td colSpan={9} className="px-3 py-4 text-center text-slate-500">Kayıtlı işlem yok.</td></tr>}
             {rows.map((t, i) => (
               <tr key={`${t.date}-${t.clock}-${t.mode}-${i}`} className={`border-t border-[#151c28] ${t.date === todayDate ? "bg-sky-500/5" : ""}`}>
-                <td className="px-2 py-1 font-mono text-slate-400">{t.date === todayDate ? "bugün" : t.date.slice(5)}</td>
+                <td className="px-2 py-1 font-mono text-slate-400">{t.date === todayDate ? todayLabel : t.date.slice(5)}</td>
                 <td className="px-2 font-mono text-slate-300">{t.clock}</td>
                 <td className={`px-2 font-bold ${t.side === "CALL" ? "text-[#4ade80]" : "text-[#f87171]"}`}>{t.side}</td>
                 <td className="px-2 text-slate-300"><span className="font-semibold">{t.mode}</span> <span className="text-slate-500">· {t.setup}</span></td>
