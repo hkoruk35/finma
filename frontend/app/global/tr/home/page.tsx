@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
@@ -208,9 +207,6 @@ export default async function TrHomePage() {
               </div>
             </div>
 
-            <div className="mt-4">
-              <HomeRecentEarnings locale="tr" />
-            </div>
           </div>
 
           <div className="flex flex-col gap-4">
