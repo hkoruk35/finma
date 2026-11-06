@@ -1,0 +1,89 @@
+{
+  "ticker": "PH",
+  "company": "Parker-Hannifin Corporation",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T05:54:49.093Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 892.2899780273438,
+    "open": 968,
+    "high": 976.1400146484375,
+    "low": 890.4199829101562,
+    "prev_close": 910.1900024414062,
+    "change_pct": -1.9666250306034119,
+    "change_pct_1w": -3.8946667784225655,
+    "change_pct_1m": 1.3309527471573082,
+    "change_pct_1y": 15.260601936000562,
+    "volume": 1776300,
+    "avg_volume_30d": 19807800
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 35,
+    "fundamental_score": 74.75,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.77162497994567,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 927.2869231264946,
+    "ema_50": 945.8629894566081,
+    "ema_200": 933.6360633590351,
+    "ema_stack_bullish": false,
+    "bb_upper": 936.904476928711,
+    "bb_middle": 892.2899780273438,
+    "bb_lower": 847.6754791259765,
+    "bb_width": 10,
+    "atr": 35.67,
+    "atr_pct": 4,
+    "rvol": 1.7170205676551662,
+    "52w_high": 1099.93994140625,
+    "52w_low": 755.0999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 30.652351,
+    "pb_ratio": 7.3044524,
+    "gross_margin": 0.37546003,
+    "operating_margin": 0.23458,
+    "net_margin": 0.16968,
+    "market_cap": 112528842752,
+    "revenue_growth_ttm": 0.098,
+    "fcf_yield": 0.026319918907611446,
+    "institutional_ownership_pct": 0.90294,
+    "dividend_rate": 8,
+    "dividend_yield": 0.0088
+  },
+  "scores_detail": {
+    "entry_range_low": 870.89,
+    "entry_range_high": 895.86,
+    "target_range_low": 927.54,
+    "target_range_high": 1015.88,
+    "target_1": 927.54,
+    "target_2": 971.71,
+    "target_3": 1015.88,
+    "stop_loss": 845.92,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $870.89 – $895.86 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $913.00 direnci veya $863.75 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $845.92 olarak belirlenmiştir. Fiyatın EMA20 ($927.29) veya günlük VWAP ($914.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($945.86) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($914.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

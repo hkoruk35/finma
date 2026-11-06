@@ -1,0 +1,89 @@
+{
+  "ticker": "MTSI",
+  "company": "MACOM Technology Solutions Holdings, Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T06:32:01.553Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 190.35000610351562,
+    "open": 218.5,
+    "high": 220.13999938964844,
+    "low": 186.58999633789062,
+    "prev_close": 233.1300048828125,
+    "change_pct": -18.350275761715487,
+    "change_pct_1w": -24.589966134096116,
+    "change_pct_1m": -19.425160143325655,
+    "change_pct_1y": 27.171309071232287,
+    "volume": 5172200,
+    "avg_volume_30d": 51518500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 35,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 30.708193138609147,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 250.96565863641626,
+    "ema_50": 269.50746047397104,
+    "ema_200": 268.69176399017493,
+    "ema_stack_bullish": false,
+    "bb_upper": 199.8675064086914,
+    "bb_middle": 190.35000610351562,
+    "bb_lower": 180.83250579833984,
+    "bb_width": 10,
+    "atr": 21.16,
+    "atr_pct": 11.12,
+    "rvol": 1.7861700165959802,
+    "52w_high": 418.8999938964844,
+    "52w_low": 144.6199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 44.164734,
+    "pb_ratio": 9.434477,
+    "gross_margin": 0.56536,
+    "operating_margin": 0.23337,
+    "net_margin": 0.20698999,
+    "market_cap": 14537206784,
+    "revenue_growth_ttm": 0.358,
+    "fcf_yield": 0.007178236201114768,
+    "institutional_ownership_pct": 0.98392,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 177.65,
+    "entry_range_high": 192.47,
+    "target_range_low": 194.31,
+    "target_range_high": 258.98,
+    "target_1": 194.31,
+    "target_2": 246.12,
+    "target_3": 258.98,
+    "stop_loss": 162.84,
+    "risk_reward_ratio": 2.75,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $177.65 – $192.47 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $227.82 direnci veya $173.42 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $162.84 olarak belirlenmiştir. Fiyatın EMA20 ($250.97) veya günlük VWAP ($201.33) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($269.51) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($201.33) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.8 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
