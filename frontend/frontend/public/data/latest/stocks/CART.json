@@ -1,0 +1,89 @@
+{
+  "ticker": "CART",
+  "company": "Maplebear Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T19:45:18.623Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 57.8650016784668,
+    "open": 57.790000915527344,
+    "high": 58.25,
+    "low": 57.630001068115234,
+    "prev_close": 57.790000915527344,
+    "change_pct": 0.129781556932458,
+    "change_pct_1w": 2.506644634903743,
+    "change_pct_1m": -4.952364219368398,
+    "change_pct_1y": 65.42310587682584,
+    "volume": 1661130,
+    "avg_volume_30d": 197159130
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.1131100903277,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 54.89811319839016,
+    "ema_50": 51.28229273860691,
+    "ema_200": 45.45080750347434,
+    "ema_stack_bullish": true,
+    "bb_upper": 60.75825176239014,
+    "bb_middle": 57.8650016784668,
+    "bb_lower": 54.971751594543456,
+    "bb_width": 10,
+    "atr": 2.43,
+    "atr_pct": 4.2,
+    "rvol": 0.9264992191840165,
+    "52w_high": 62,
+    "52w_low": 32.72999954223633
+  },
+  "fundamental": {
+    "pe_ratio": 30.295813,
+    "pb_ratio": 5.2513843,
+    "gross_margin": 0.72113997,
+    "operating_margin": 0.15890001,
+    "net_margin": 0.11665,
+    "market_cap": 13684977664,
+    "revenue_growth_ttm": 0.166,
+    "fcf_yield": 0.0739040282587048,
+    "institutional_ownership_pct": 0.79555,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 56.79,
+    "entry_range_high": 58.11,
+    "target_range_low": 62,
+    "target_range_high": 66.06,
+    "target_1": 62,
+    "target_2": 63.24,
+    "target_3": 66.06,
+    "stop_loss": 54.97,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $56.79 – $58.11 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.38 direnci veya $56.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $54.97 olarak belirlenmiştir. Fiyatın EMA20 ($54.90) veya günlük VWAP ($57.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($57.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}
