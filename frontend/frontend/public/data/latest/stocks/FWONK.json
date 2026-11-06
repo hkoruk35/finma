@@ -1,0 +1,89 @@
+{
+  "ticker": "FWONK",
+  "company": "Formula One Group",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T16:32:22.083Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 105.41000366210938,
+    "open": 105,
+    "high": 105.9000015258789,
+    "low": 103.41999816894531,
+    "prev_close": 106.5199966430664,
+    "change_pct": -1.042051272942171,
+    "change_pct_1w": 13.993730150950956,
+    "change_pct_1m": 18.26546270657166,
+    "change_pct_1y": 2.1216841847575907,
+    "volume": 931021,
+    "avg_volume_30d": 77666621
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 95,
+    "fundamental_score": 63.2,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 74.27894885749505,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 95.41175729648589,
+    "ema_50": 95.05067767653922,
+    "ema_200": 94.82493672104499,
+    "ema_stack_bullish": true,
+    "bb_upper": 110.68050384521484,
+    "bb_middle": 105.41000366210938,
+    "bb_lower": 100.1395034790039,
+    "bb_width": 10,
+    "atr": 2.96,
+    "atr_pct": 2.81,
+    "rvol": 1.50302568203656,
+    "52w_high": 108.3499984741211,
+    "52w_low": 80.1500015258789
+  },
+  "fundamental": {
+    "pe_ratio": 128.54878,
+    "pb_ratio": 3.4685755,
+    "gross_margin": 0.35537997,
+    "operating_margin": 0.09422,
+    "net_margin": 0.09403,
+    "market_cap": 26427181056,
+    "revenue_growth_ttm": -0.304,
+    "fcf_yield": 0.030598232262703275,
+    "institutional_ownership_pct": 1.03128,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 104.01,
+    "entry_range_high": 105.71,
+    "target_range_low": 110.1,
+    "target_range_high": 120.59,
+    "target_1": 110.1,
+    "target_2": 115.35,
+    "target_3": 120.59,
+    "stop_loss": 100.14,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $104.01 – $105.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $108.15 direnci veya $103.42 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $100.14 olarak belirlenmiştir. Fiyatın EMA20 ($95.41) veya günlük VWAP ($105.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($105.69) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 74 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

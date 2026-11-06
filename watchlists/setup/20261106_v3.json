@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "BEKE",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 19.0,
+        "entry_zone": "18.75 - 19.25",
+        "SL": 18.01,
+        "TP": 20.48
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "BR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 191.01,
+        "entry_zone": "188.27 - 193.75",
+        "SL": 180.05,
+        "TP": 212.92
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "MOS",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 22.58,
+        "entry_zone": "22.11 - 23.04",
+        "SL": 20.73,
+        "TP": 26.27
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "VCEL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 53.03,
+        "entry_zone": "51.71 - 54.35",
+        "SL": 47.75,
+        "TP": 63.59
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "COTY",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 3.92,
+        "entry_zone": "3.82 - 4.02",
+        "SL": 3.52,
+        "TP": 4.71
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "VRSK",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 204.6,
+        "entry_zone": "200.26 - 208.93",
+        "SL": 187.27,
+        "TP": 239.24
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "SPNT",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 26.69,
+        "entry_zone": "26.38 - 27.00",
+        "SL": 25.44,
+        "TP": 29.19
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "RGLD",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 264.56,
+        "entry_zone": "259.66 - 269.45",
+        "SL": 244.98,
+        "TP": 303.72
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "BTG",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 5.38,
+        "entry_zone": "5.25 - 5.52",
+        "SL": 4.85,
+        "TP": 6.19
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "CAG",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 15.15,
+        "entry_zone": "14.87 - 15.42",
+        "SL": 14.03,
+        "TP": 16.82
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "NTES",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 130.41,
+        "entry_zone": "128.73 - 132.10",
+        "SL": 123.67,
+        "TP": 140.53
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "NVRI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 24.25,
+        "entry_zone": "23.65 - 24.85",
+        "SL": 21.84,
+        "TP": 29.08
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "TPR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 133.83,
+        "entry_zone": "131.57 - 136.10",
+        "SL": 124.77,
+        "TP": 151.95
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "ECPG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 114.92,
+        "entry_zone": "112.15 - 117.69",
+        "SL": 103.84,
+        "TP": 137.08
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "WRBY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 26.92,
+        "entry_zone": "25.99 - 27.84",
+        "SL": 23.23,
+        "TP": 34.29
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "LYV",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 176.34,
+        "entry_zone": "173.98 - 178.70",
+        "SL": 166.9,
+        "TP": 195.23
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "FUN",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 9.99,
+        "entry_zone": "9.63 - 10.35",
+        "SL": 8.55,
+        "TP": 12.88
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "CHTR",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 119.39,
+        "entry_zone": "116.34 - 122.44",
+        "SL": 107.18,
+        "TP": 143.81
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "ALB",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 99.55,
+        "entry_zone": "97.62 - 101.48",
+        "SL": 91.85,
+        "TP": 114.95
+    },
+    {
+        "date": "2026-11-06 17:00",
+        "symbol": "CF",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 119.22,
+        "entry_zone": "116.91 - 121.54",
+        "SL": 109.95,
+        "TP": 137.78
+    }
+]
