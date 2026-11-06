@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-11-06T14:04:53.407909-05:00",
+  "generated_at": "2026-11-06T17:03:00.903290-05:00",
   "picks": [
-    {
-      "ticker": "SBAC",
-      "sector": "Real Estate",
-      "date_added": "2026-11-04",
-      "score": 47.5
-    },
-    {
-      "ticker": "LEN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-04",
-      "score": 26.2
-    },
     {
       "ticker": "SN",
       "sector": "Consumer Cyclical",
@@ -24,48 +12,6 @@
       "sector": "Financial Services",
       "date_added": "2026-11-06",
       "score": 49.0
-    },
-    {
-      "ticker": "ALSN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 45.0
-    },
-    {
-      "ticker": "THC",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 44.5
-    },
-    {
-      "ticker": "FLS",
-      "sector": "Industrials",
-      "date_added": "2026-11-06",
-      "score": 38.0
-    },
-    {
-      "ticker": "ELV",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 46.0
-    },
-    {
-      "ticker": "EHC",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 44.5
-    },
-    {
-      "ticker": "VLY",
-      "sector": "Financial Services",
-      "date_added": "2026-11-06",
-      "score": 44.0
-    },
-    {
-      "ticker": "KTB",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 43.5
     },
     {
       "ticker": "BBY",
@@ -92,16 +38,46 @@
       "score": 37.0
     },
     {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
+      "ticker": "CCL",
+      "sector": "Consumer Cyclical",
       "date_added": "2026-11-06",
-      "score": 35.5
+      "score": 43.5
     },
     {
-      "ticker": "DLTR",
+      "ticker": "DAL",
+      "sector": "Industrials",
+      "date_added": "2026-11-06",
+      "score": 42.0
+    },
+    {
+      "ticker": "SKY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-06",
+      "score": 41.5
+    },
+    {
+      "ticker": "THC",
+      "sector": "Healthcare",
+      "date_added": "2026-11-06",
+      "score": 40.5
+    },
+    {
+      "ticker": "EL",
       "sector": "Consumer Defensive",
       "date_added": "2026-11-06",
-      "score": 33.0
+      "score": 40.0
+    },
+    {
+      "ticker": "DE",
+      "sector": "Industrials",
+      "date_added": "2026-11-06",
+      "score": 40.0
+    },
+    {
+      "ticker": "CROX",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-06",
+      "score": 39.5
     }
   ]
 }
