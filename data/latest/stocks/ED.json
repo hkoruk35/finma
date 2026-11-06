@@ -1,0 +1,89 @@
+{
+  "ticker": "ED",
+  "company": "Consolidated Edison, Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T20:38:20.826Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 119.20999908447266,
+    "open": 119.93000030517578,
+    "high": 121.08999633789062,
+    "low": 119.01000213623047,
+    "prev_close": 121.44000244140625,
+    "change_pct": -1.8363004875675553,
+    "change_pct_1w": 2.203360518066242,
+    "change_pct_1m": 3.2836605230055134,
+    "change_pct_1y": 22.90958007021812,
+    "volume": 1293195,
+    "avg_volume_30d": 70783495
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.84481787247657,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 114.73349066281898,
+    "ema_50": 111.08628162532173,
+    "ema_200": 107.89253349790388,
+    "ema_stack_bullish": true,
+    "bb_upper": 125.17049903869629,
+    "bb_middle": 119.20999908447266,
+    "bb_lower": 113.24949913024902,
+    "bb_width": 10,
+    "atr": 2.39,
+    "atr_pct": 2.01,
+    "rvol": 1.1290000585588489,
+    "52w_high": 122.75,
+    "52w_low": 94.95999908447266
+  },
+  "fundamental": {
+    "pe_ratio": 19.639208,
+    "pb_ratio": 1.6819515,
+    "gross_margin": 0.53723997,
+    "operating_margin": 0.23813999,
+    "net_margin": 0.12699,
+    "market_cap": 44087271424,
+    "revenue_growth_ttm": 0.085,
+    "fcf_yield": -0.02794741013001912,
+    "institutional_ownership_pct": 0.78723,
+    "dividend_rate": 3.55,
+    "dividend_yield": 0.0292
+  },
+  "scores_detail": {
+    "entry_range_low": 117.4,
+    "entry_range_high": 119.45,
+    "target_range_low": 124.34,
+    "target_range_high": 136.19,
+    "target_1": 124.34,
+    "target_2": 130.27,
+    "target_3": 136.19,
+    "stop_loss": 113.25,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $117.40 – $119.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $120.70 direnci veya $116.92 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $113.25 olarak belirlenmiştir. Fiyatın EMA20 ($114.73) veya günlük VWAP ($120.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($120.03) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}
