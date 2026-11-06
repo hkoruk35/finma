@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SW",
@@ -151,7 +151,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BTSG",
@@ -296,7 +296,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RS",
@@ -442,7 +442,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TKO",
@@ -588,7 +588,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GOLD",
@@ -732,7 +732,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WAT",
@@ -876,7 +876,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GDDY",
@@ -1021,7 +1021,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BBVA",
@@ -1166,7 +1166,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BEKE",
@@ -1311,7 +1311,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "NTES",
@@ -1457,7 +1457,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MSEX",
@@ -1601,7 +1601,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GLOB",
@@ -1746,7 +1746,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WWW",
@@ -1890,7 +1890,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BTG",
@@ -2034,7 +2034,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "THC",
@@ -2178,7 +2178,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05 16:00",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CCL",
@@ -2322,7 +2322,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AIN",
@@ -2466,7 +2466,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CHYM",
@@ -2612,7 +2612,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CAG",
@@ -2757,7 +2757,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ECL",
@@ -2901,7 +2901,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "J",
@@ -3045,7 +3045,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CMG",
@@ -3191,7 +3191,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SAP",
@@ -3335,7 +3335,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-05",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PKG",
@@ -3479,7 +3479,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PTON",
@@ -3624,7 +3624,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PPLI",
@@ -3769,7 +3769,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "MICC",
@@ -3913,7 +3913,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FBIN",
@@ -4057,7 +4057,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WPM",
@@ -4201,7 +4201,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-06 12:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BUD",
