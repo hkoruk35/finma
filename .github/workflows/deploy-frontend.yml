@@ -47,8 +47,9 @@ jobs:
           # sunucuda `git config core.sshCommand` ile duzeltildi (artik botlar
           # da push edebiliyor). Burada AYRICA: pull'u `--ff-only` yapip
           # divergence'ta ACIKCA patlat (sessiz-basari riskini bir daha
-          # yaratmasin), VE deploy sonunda sunucudaki HEAD'in bu commit'e
-          # esit oldugunu dogrula -- esit degilse job'u ACIKCA basarisiz say.
+          # yaratmasin), VE deploy sonunda sunucudaki HEAD'in bu commit'i
+          # icerdigini dogrula. Sunucu botu deploy sirasinda yeni commit
+          # atabilir; bu durum basarisizlik degildir. Commit yoksa ACIKCA patla.
           script: |
             set -e
             cd /root/finma
@@ -85,8 +86,8 @@ jobs:
             echo "Canli derleme: $NEW (onceki: $CUR, geri donus icin saklaniyor)"
             cd /root/finma
             DEPLOYED_SHA=$(git rev-parse HEAD)
-            if [ "$DEPLOYED_SHA" != "${{ github.sha }}" ]; then
-              echo "HATA: sunucudaki HEAD ($DEPLOYED_SHA) beklenen commit'le (${{ github.sha }}) uyusmuyor."
+            if ! git merge-base --is-ancestor "${{ github.sha }}" "$DEPLOYED_SHA"; then
+              echo "HATA: sunucudaki HEAD ($DEPLOYED_SHA) beklenen commit'i (${{ github.sha }}) icermiyor."
               exit 1
             fi
-            echo "Dogrulandi: sunucu HEAD = ${{ github.sha }}"
+            echo "Dogrulandi: sunucu HEAD ($DEPLOYED_SHA), ${{ github.sha }} commit'ini iceriyor"
