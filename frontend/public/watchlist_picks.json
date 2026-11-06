@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-11-06T09:04:09.547327-05:00",
+  "generated_at": "2026-11-06T14:04:53.407909-05:00",
   "picks": [
-    {
-      "ticker": "CXM",
-      "sector": "Technology",
-      "date_added": "2026-11-04",
-      "score": 44.0
-    },
     {
       "ticker": "SBAC",
       "sector": "Real Estate",
@@ -18,24 +12,6 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-04",
       "score": 26.2
-    },
-    {
-      "ticker": "OMC",
-      "sector": "Communication Services",
-      "date_added": "2026-11-04",
-      "score": 48.5
-    },
-    {
-      "ticker": "CNK",
-      "sector": "Communication Services",
-      "date_added": "2026-11-04",
-      "score": 44.0
-    },
-    {
-      "ticker": "CMCSA",
-      "sector": "Communication Services",
-      "date_added": "2026-11-05",
-      "score": 38.0
     },
     {
       "ticker": "SN",
@@ -50,30 +26,6 @@
       "score": 49.0
     },
     {
-      "ticker": "CCL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 46.5
-    },
-    {
-      "ticker": "CTAS",
-      "sector": "Industrials",
-      "date_added": "2026-11-06",
-      "score": 46.5
-    },
-    {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 45.5
-    },
-    {
-      "ticker": "WWW",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 45.0
-    },
-    {
       "ticker": "ALSN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-06",
@@ -86,22 +38,70 @@
       "score": 44.5
     },
     {
-      "ticker": "PRSU",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 44.0
-    },
-    {
-      "ticker": "PFGC",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-11-06",
-      "score": 41.5
-    },
-    {
       "ticker": "FLS",
       "sector": "Industrials",
       "date_added": "2026-11-06",
       "score": 38.0
+    },
+    {
+      "ticker": "ELV",
+      "sector": "Healthcare",
+      "date_added": "2026-11-06",
+      "score": 46.0
+    },
+    {
+      "ticker": "EHC",
+      "sector": "Healthcare",
+      "date_added": "2026-11-06",
+      "score": 44.5
+    },
+    {
+      "ticker": "VLY",
+      "sector": "Financial Services",
+      "date_added": "2026-11-06",
+      "score": 44.0
+    },
+    {
+      "ticker": "KTB",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-06",
+      "score": 43.5
+    },
+    {
+      "ticker": "BBY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-06",
+      "score": 41.5
+    },
+    {
+      "ticker": "ALGN",
+      "sector": "Healthcare",
+      "date_added": "2026-11-06",
+      "score": 40.5
+    },
+    {
+      "ticker": "EAT",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-06",
+      "score": 38.0
+    },
+    {
+      "ticker": "BRKR",
+      "sector": "Healthcare",
+      "date_added": "2026-11-06",
+      "score": 37.0
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-11-06",
+      "score": 35.5
+    },
+    {
+      "ticker": "DLTR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-11-06",
+      "score": 33.0
     }
   ]
 }
