@@ -1,0 +1,89 @@
+{
+  "ticker": "A",
+  "company": "Agilent Technologies, Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T10:26:05.441Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 171.77999877929688,
+    "open": 176.4499969482422,
+    "high": 177.99000549316406,
+    "low": 171.07000732421875,
+    "prev_close": 177.1699981689453,
+    "change_pct": -3.0422754672654313,
+    "change_pct_1w": -5.172506449291879,
+    "change_pct_1m": -0.7453680535791808,
+    "change_pct_1y": 17.04026284581138,
+    "volume": 2698700,
+    "avg_volume_30d": 64619599.99999999
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 85,
+    "fundamental_score": 74.75,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.43586083891772,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 173.74772151644697,
+    "ema_50": 166.35477874472608,
+    "ema_200": 146.9930930636516,
+    "ema_stack_bullish": true,
+    "bb_upper": 180.36899871826174,
+    "bb_middle": 171.77999877929688,
+    "bb_lower": 163.190998840332,
+    "bb_width": 10,
+    "atr": 5.68,
+    "atr_pct": 3.31,
+    "rvol": 1.0284279073222367,
+    "52w_high": 182.99000549316406,
+    "52w_low": 108.3499984741211
+  },
+  "fundamental": {
+    "pe_ratio": 33.881657,
+    "pb_ratio": 6.5783324,
+    "gross_margin": 0.53648996,
+    "operating_margin": 0.25559,
+    "net_margin": 0.19533001,
+    "market_cap": 48429740032,
+    "revenue_growth_ttm": 0.081,
+    "fcf_yield": 0.02189512013278114,
+    "institutional_ownership_pct": 0.95651,
+    "dividend_rate": 1.02,
+    "dividend_yield": 0.0058999998
+  },
+  "scores_detail": {
+    "entry_range_low": 168.37,
+    "entry_range_high": 172.35,
+    "target_range_low": 178.88,
+    "target_range_high": 195.91,
+    "target_1": 178.88,
+    "target_2": 187.39,
+    "target_3": 195.91,
+    "stop_loss": 163.19,
+    "risk_reward_ratio": 2.38,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $168.37 – $172.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $175.61 direnci veya $167.23 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $163.19 olarak belirlenmiştir. Fiyatın EMA50 ($166.35) veya günlük VWAP ($174.17) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($166.35) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($174.17) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

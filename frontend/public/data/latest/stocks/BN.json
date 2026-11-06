@@ -1,0 +1,89 @@
+{
+  "ticker": "BN",
+  "company": "Brookfield Corporation",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T10:36:35.207Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 41.7599983215332,
+    "open": 43.40999984741211,
+    "high": 43.58000183105469,
+    "low": 41.2400016784668,
+    "prev_close": 43.099998474121094,
+    "change_pct": -3.109049188000502,
+    "change_pct_1w": 5.721514738058742,
+    "change_pct_1m": 9.981556436620771,
+    "change_pct_1y": -9.01961452443858,
+    "volume": 4632300,
+    "avg_volume_30d": 168802500
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 60,
+    "fundamental_score": 48.35,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.21811281554034,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 39.15469121676201,
+    "ema_50": 39.035248821812765,
+    "ema_200": 41.85925748927713,
+    "ema_stack_bullish": false,
+    "bb_upper": 43.847998237609865,
+    "bb_middle": 41.7599983215332,
+    "bb_lower": 39.67199840545654,
+    "bb_width": 10,
+    "atr": 1.21,
+    "atr_pct": 2.91,
+    "rvol": 1.1478064602123783,
+    "52w_high": 49.56999969482422,
+    "52w_low": 35.61000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 77.33333,
+    "pb_ratio": 2.1950066,
+    "gross_margin": 0.32329,
+    "operating_margin": 0.25674,
+    "net_margin": 0.0177,
+    "market_cap": 93222993920,
+    "revenue_growth_ttm": 0.085,
+    "fcf_yield": -0.021251462849392253,
+    "institutional_ownership_pct": 0.59435004,
+    "dividend_rate": 0.28,
+    "dividend_yield": 0.0067000003
+  },
+  "scores_detail": {
+    "entry_range_low": 41.03,
+    "entry_range_high": 41.88,
+    "target_range_low": 45.08,
+    "target_range_high": 47.68,
+    "target_1": 45.08,
+    "target_2": 45.98,
+    "target_3": 47.68,
+    "stop_loss": 39.67,
+    "risk_reward_ratio": 2.54,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $41.03 – $41.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $43.21 direnci veya $40.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.67 olarak belirlenmiştir. Fiyatın EMA20 ($39.15) veya günlük VWAP ($42.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.04) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.03) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

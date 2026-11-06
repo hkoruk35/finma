@@ -1,0 +1,89 @@
+{
+  "ticker": "TWST",
+  "company": "Twist Bioscience Corporation",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T08:49:21.297Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 120.61000061035156,
+    "open": 134.7899932861328,
+    "high": 134.97999572753906,
+    "low": 118.5999984741211,
+    "prev_close": 142.5800018310547,
+    "change_pct": -15.40889391117818,
+    "change_pct_1w": -30.46410911938971,
+    "change_pct_1m": -13.800741717619266,
+    "change_pct_1y": 282.6459354655377,
+    "volume": 3087400,
+    "avg_volume_30d": 87560500
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 60,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.222327223019356,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 147.75973987511378,
+    "ema_50": 145.58158481133904,
+    "ema_200": 102.63712405810914,
+    "ema_stack_bullish": true,
+    "bb_upper": 126.64050064086915,
+    "bb_middle": 120.61000061035156,
+    "bb_lower": 114.57950057983398,
+    "bb_width": 10,
+    "atr": 16.05,
+    "atr_pct": 13.31,
+    "rvol": 0.8978843199844678,
+    "52w_high": 219.7100067138672,
+    "52w_low": 23.299999237060547
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 16.958662,
+    "gross_margin": 0.51965,
+    "operating_margin": -0.30648002,
+    "net_margin": -0.31662,
+    "market_cap": 7996584960,
+    "revenue_growth_ttm": 0.232,
+    "fcf_yield": -0.008106272905778018,
+    "institutional_ownership_pct": 1.15441,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 110.98,
+    "entry_range_high": 122.21,
+    "target_range_low": 155.44,
+    "target_range_high": 224.1,
+    "target_1": 155.44,
+    "target_2": 219.71,
+    "target_3": 224.1,
+    "stop_loss": 99.75,
+    "risk_reward_ratio": 6.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $110.98 – $122.21 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $140.22 direnci veya $107.77 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $99.75 olarak belirlenmiştir. Fiyatın EMA200 ($102.64) veya günlük VWAP ($127.23) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($145.58) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($127.23) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
