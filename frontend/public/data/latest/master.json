@@ -1,8 +1,8 @@
 {
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T14:04:52.368751-05:00",
+  "generated_at": "2026-11-06T17:03:00.005075-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 39,
+  "active_scores_count": 47,
   "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
@@ -21,18 +21,21 @@
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 13,
       "tickers": [
         "WAT",
         "GDDY",
         "BEKE",
+        "MSEX",
         "GLOB",
         "CAG",
         "SAP",
-        "PTON",
         "BUD",
         "CHH",
-        "BILL"
+        "BILL",
+        "FLS",
+        "ICLR",
+        "NXT"
       ]
     },
     "value": {
