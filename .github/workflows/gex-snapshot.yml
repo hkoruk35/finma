@@ -1,9 +1,8 @@
 name: SPY GEX Snapshot
 
+# Zamanli kayit frontend/lib/spyengine/gexScheduler.ts ile sunucu icinde yapilir.
+# Bu is yalniz elle kontrol ve yedek tetikleme icindir.
 on:
-  schedule:
-    # UTC saatler yaz ve kis saatini kapsar; endpoint NY saatine gore 09:00-16:10 disini atlar.
-    - cron: '5,35 13-21 * * 1-5'
   workflow_dispatch:
 
 jobs:

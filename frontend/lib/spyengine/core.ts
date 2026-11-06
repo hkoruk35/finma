@@ -171,6 +171,16 @@ export function detectSession(bars: Bar[], nowSec: number): SessionInfo {
   };
 }
 
+/** Seans içinde 1m mum bu kadar saniyeden eskiyse veri bayattır. Normal akışta boşluk 1 dakikayı geçmez. */
+export const FEED_STALE_SEC = 180;
+
+/** Bugünün seansında son mum bayatsa yaşını döner. API 200 dönse bile veri kaynağının durduğunu yakalar. */
+export function feedStaleAge(lastBarSec: number | null, nowSec: number, phase: SessionPhase, date: string): number | null {
+  if (lastBarSec == null || !nowSec || phase !== "RTH" || nyParts(lastBarSec).ymd !== date) return null;
+  const age = nowSec - lastBarSec;
+  return age > FEED_STALE_SEC ? age : null;
+}
+
 /** Belirli bir NY gününe (04:00–20:00 ET, pre + RTH + post) ait mumlar */
 export function barsOfSessionDay(bars: Bar[], ymd: string): Bar[] {
   return bars.filter((b) => {

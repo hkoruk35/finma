@@ -36,7 +36,7 @@ import {
   type SpotStats,
 } from "@/components/admin/spyengine/panels";
 import {
-  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum,
+  fromCompact, nyClock, nyParts, isRthBar, bucketAggregate, atr, lastNum, feedStaleAge,
   type Bar, type SessionInfo, type CompactBar,
 } from "@/lib/spyengine/core";
 import {
@@ -1121,6 +1121,9 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   /** 30m — açılış ve gün içi genel gidişat */
   const m30D = useMemo(() => bucketAggregate(m1, 30), [m1]);
   const lastM1Time = m1.length ? m1[m1.length - 1].time : null;
+  /** Veri kaynağı 200 dönüp yeni mum vermiyorsa bağlantı canlı görünse de veri bayattır */
+  const feedStaleSec = !replayDate && data ? feedStaleAge(lastM1Time, nowSec, data.session.phase, date) : null;
+  const feedIsStale = feedStaleSec != null;
   /** EMA20 — çok günlük akıştan ısınmış (seansın ilk mumlarında da değer var) */
   const ema5 = useMemo(() => emaByTime(m5D), [m5D]);
   const ema15 = useMemo(() => emaByTime(m15D), [m15D]);
@@ -1379,6 +1382,20 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     }
   }, []);
 
+  // Bayat veri uyarısı: aynı son mum için bir kez; 60 sn'lik yenileme sonrası tekrar çalmaz
+  useEffect(() => {
+    if (!feedIsStale || lastM1Time == null || !date) return;
+    const key = `${symbol}_stale_feed_${date}`;
+    const value = String(lastM1Time);
+    try {
+      if (sessionStorage.getItem(key) === value) return;
+      sessionStorage.setItem(key, value);
+    } catch {
+      // depolama yoksa uyarı yine verilir
+    }
+    if (alertSound) chime("fired", `VERİ BAYAT · ${symbol} · son mum ${nyClock(lastM1Time)} ET · yeni sinyal üretilmiyor`);
+  }, [feedIsStale, lastM1Time, date, symbol, alertSound, chime]);
+
   // Takip Sistemi uyarıları: TETİK / YÖNET / ÇIKIŞ / İPTAL (kapanışta) + HAZIRLAN (kapanışa ≤ 60 sn) — her biri bir kez
   const seenAlerts = useRef<Set<string> | null>(null);
   /** Erken uyarı: kapanışa ≤ 60 sn kala oluşan 5m mum şu anki haliyle kapanırsa motor giriş veriyor mu (2 sn'de bir ön okuma) */
@@ -1450,15 +1467,16 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         <div className="flex flex-wrap items-center gap-1.5">
           <span
             className={`flex items-center gap-1.5 rounded border px-2 py-1 font-mono text-[11px] ${
-              connection === "live" ? "border-green-500/25 bg-green-500/10 text-green-300"
+              feedIsStale ? "border-red-500/25 bg-red-500/10 text-red-300"
+              : connection === "live" ? "border-green-500/25 bg-green-500/10 text-green-300"
               : connection === "lagging" ? "border-amber-500/25 bg-amber-500/10 text-amber-300"
               : "border-red-500/25 bg-red-500/10 text-red-300"
             }`}
-            title={error ?? "Akış sağlıklı"}
+            title={feedIsStale ? "API yanıt veriyor, veri kaynağından yeni mum gelmiyor" : error ?? "Akış sağlıklı"}
           >
-            <span className={`h-1.5 w-1.5 rounded-full ${connection === "live" ? "animate-pulse bg-green-400" : connection === "lagging" ? "bg-amber-400" : "bg-red-400"}`} />
-            {connection === "down" ? `BAĞLANTI YOK (${failures})` : connection === "lagging" ? "GECİKME" : "CANLI"}
-            {secondsSince != null && ` · ${secondsSince}sn`}
+            <span className={`h-1.5 w-1.5 rounded-full ${feedIsStale ? "bg-red-400" : connection === "live" ? "animate-pulse bg-green-400" : connection === "lagging" ? "bg-amber-400" : "bg-red-400"}`} />
+            {feedIsStale ? `VERİ BAYAT · ${Math.floor((feedStaleSec as number) / 60)} dk` : connection === "down" ? `BAĞLANTI YOK (${failures})` : connection === "lagging" ? "GECİKME" : "CANLI"}
+            {!feedIsStale && secondsSince != null && ` · ${secondsSince}sn`}
           </span>
           <span className="rounded border border-[#1c2635] bg-[#111827] px-2 py-1 font-mono text-[11px] text-slate-400">
             {nowSec ? `${nyClock(nowSec, true)} ET` : "—"}
@@ -1540,6 +1558,11 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       )}
 
       <div className="flex flex-col gap-1.5">
+        {feedIsStale && lastM1Time != null && (
+          <div className="rounded-lg border-2 border-red-500 bg-red-500/15 px-4 py-2 text-[14px] font-bold text-red-200" role="alert">
+            ⚠ VERİ BAYAT · son mum {nyClock(lastM1Time)} ET · {Math.floor((feedStaleSec as number) / 60)} dk önce. Veri kaynağından yeni mum gelmiyor; yeni sinyal üretilmiyor, ekrandaki karar güncel değil.
+          </div>
+        )}
         {/* ── KARAR SATIRI — ekrandaki tek durum ── */}
         <TopBar t={trackCur} waiting={!analysis || !analysis.s5.bars.length} h1R={E.cfg.h1R} />
         {prewarn && (

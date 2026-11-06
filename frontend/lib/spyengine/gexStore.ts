@@ -1,6 +1,6 @@
 /**
  * SPY gamma kaydı (sunucu): Cboe gecikmeli zinciri + Supabase `shared_store` anahtarı `spyengine_gex_log`.
- * Tek yazıcı GitHub Actions cron'udur (/api/cron/gex-snapshot); sayfa yalnız okur. Kayıt yalnız ölçüm içindir,
+ * Zamanlı yazıcı üretim sunucusu içindeki gexScheduler'dır; sayfa yalnız okur. Kayıt yalnız ölçüm içindir,
  * Takip Sistemi kararlarına girmez.
  */
 
@@ -50,14 +50,18 @@ export async function readGexDay(date: string): Promise<GexSnapshot[]> {
   }
 }
 
+/** Kayıt saatindeyse NY tarihi ve 30 dakikalık dilim */
+export function currentGexBucket(nowSec = Math.floor(Date.now() / 1000)): { date: string; bucket: number } | null {
+  const now = nyParts(nowSec);
+  if (now.weekday < 1 || now.weekday > 5 || now.minutes < FIRST_MIN || now.minutes > LAST_MIN) return null;
+  return { date: now.ymd, bucket: Math.floor(now.minutes / BUCKET_MIN) * BUCKET_MIN };
+}
+
 /** NY işlem saatlerinde 30 dakikalık dilim başına bir özet yazar. */
 export async function recordGexSnapshot(): Promise<{ saved: boolean; reason: string; date: string; bucket: number | null; count: number }> {
-  const now = nyParts(Math.floor(Date.now() / 1000));
-  const date = now.ymd;
-  if (now.weekday < 1 || now.weekday > 5 || now.minutes < FIRST_MIN || now.minutes > LAST_MIN) {
-    return { saved: false, reason: "kayıt saati dışında", date, bucket: null, count: 0 };
-  }
-  const bucket = Math.floor(now.minutes / BUCKET_MIN) * BUCKET_MIN;
+  const slot = currentGexBucket();
+  if (!slot) return { saved: false, reason: "kayıt saati dışında", date: nyParts(Math.floor(Date.now() / 1000)).ymd, bucket: null, count: 0 };
+  const { date, bucket } = slot;
   const store = await readStore();
   const day = store.sessions[date] ?? { date, snapshots: [] };
   if (day.snapshots.some((s) => s.bucket === bucket)) {

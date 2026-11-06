@@ -1,5 +1,5 @@
 /**
- * SPY gamma kaydı yazıcısı — .github/workflows/gex-snapshot.yml çağırır. NY işlem saatlerinde 30 dakikalık dilim başına bir özet.
+ * SPY gamma kaydı için elle tetikleme ucu. Zamanlı kayıt lib/spyengine/gexScheduler.ts ile sunucu içinde yapılır.
  */
 
 import { NextRequest, NextResponse } from "next/server";
