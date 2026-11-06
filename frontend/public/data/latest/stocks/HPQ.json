@@ -1,0 +1,89 @@
+{
+  "ticker": "HPQ",
+  "company": "HP Inc.",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T18:29:13.610Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 28.934999465942383,
+    "open": 29.450000762939453,
+    "high": 29.777999877929688,
+    "low": 28.774999618530273,
+    "prev_close": 29.440000534057617,
+    "change_pct": -1.715356857860871,
+    "change_pct_1w": 0.5385641959654209,
+    "change_pct_1m": -15.121738526170624,
+    "change_pct_1y": 10.565530690055702,
+    "volume": 4409354,
+    "avg_volume_30d": 384710454
+  },
+  "scores": {
+    "master_score": 50,
+    "technical_score": 45,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.84882004308172,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 30.66684483204921,
+    "ema_50": 30.675185831005983,
+    "ema_200": 27.069034084965125,
+    "ema_stack_bullish": false,
+    "bb_upper": 30.381749439239503,
+    "bb_middle": 28.934999465942383,
+    "bb_lower": 27.488249492645263,
+    "bb_width": 10,
+    "atr": 1.67,
+    "atr_pct": 5.77,
+    "rvol": 1.0959247912717236,
+    "52w_high": 36.22999954223633,
+    "52w_low": 17.559999465942383
+  },
+  "fundamental": {
+    "pe_ratio": 11.043894,
+    "pb_ratio": 0,
+    "gross_margin": 0.1966,
+    "operating_margin": 0.05396,
+    "net_margin": 0.04143,
+    "market_cap": 26093322240,
+    "revenue_growth_ttm": 0.125,
+    "fcf_yield": 0.12991350479715688,
+    "institutional_ownership_pct": 0.95935,
+    "dividend_rate": 1.2,
+    "dividend_yield": 0.040799998
+  },
+  "scores_detail": {
+    "entry_range_low": 27.93,
+    "entry_range_high": 29.1,
+    "target_range_low": 29.94,
+    "target_range_high": 32.85,
+    "target_1": 29.94,
+    "target_2": 32.19,
+    "target_3": 32.85,
+    "stop_loss": 26.76,
+    "risk_reward_ratio": 2.09,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $27.93 – $29.10 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $29.89 direnci veya $27.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $26.76 olarak belirlenmiştir. Fiyatın EMA200 ($27.07) veya günlük VWAP ($29.34) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($30.68) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($29.34) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
