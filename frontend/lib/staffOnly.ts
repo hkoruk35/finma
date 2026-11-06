@@ -13,10 +13,9 @@ export const isStaffRole = (role: string | null | undefined): boolean =>
   !!role && (STAFF_ROLES as readonly string[]).includes(role);
 
 /** /global/{locale}/ altındaki yönetim-yalnız ilk yol parçaları (alt yolları dahil) */
+// 2026-11-06 (kullanıcı talebi): Top 7, Top 100, Yükselenler, Düşenler, Trend Hisseleri (swing) ve Temalar
+// herkese açıldı — listeden çıkarıldı. Kalanlar yönetime özel.
 export const STAFF_ONLY_SEGMENTS = [
-  "top7", "top100", "gainers", "losers",
-  "swing",        // + /swing/arsiv, /swing/archive
-  "themes",       // + /themes/{slug}
   "performance",
   "swingperformance",
   "dailyone",     // Günün Trend Hisseleri detay sayfası

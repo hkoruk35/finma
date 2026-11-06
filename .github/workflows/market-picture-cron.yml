@@ -1,11 +1,8 @@
 name: Market Picture Generation
 
 on:
-  schedule:
-    # Saatte bir dener — endpoint kendi icinde mode'a gore (intraday: ~2 saatte
-    # bir, day_close/week_close: gunde/haftada bir) gercekten uretip
-    # uretmeyecegine karar verir, gereksiz cagrilar "skipped" doner.
-    - cron: '20 * * * *'
+  # 2026-11-06 (kullanıcı talebi): günlük/saatlik piyasa analizi üretimi durduruldu, sistem yükü azaltıldı.
+  # Zamanlama kaldırıldı; geri açmak için eski satırı ekleyin:  schedule: - cron: '20 * * * *'
   workflow_dispatch:
 
 jobs:

@@ -1,15 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
-import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
-import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
-import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
-import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
+import ListsNavigation from "@/components/global/ListsNavigation";
+import SwingTracker from "@/components/public/SwingTracker";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -189,16 +186,12 @@ export default async function FrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="fr" />
             </div>
 
-            <TodaysMarketPicture locale="fr" />
-
+            {/* Günün Trend Hisseleri — /swing sayfasıyla birebir aynı tablo (herkese açık) */}
             <div className="mt-4">
-              <HomeScheduleBanner locale="fr" />
-            </div>
-
-            <HomeIndexHighlights locale="fr" />
-
-            <div className="mt-4">
-              <HomeLatestAnalysis locale="fr" />
+              <ListsNavigation locale="fr" activePath="swing" />
+              <div className="relative z-10">
+                <SwingTracker locale="fr" />
+              </div>
             </div>
 
             <div className="mt-4">
@@ -212,9 +205,6 @@ export default async function FrHomePage() {
           </div>
         </div>
 
-        <div className="mt-5">
-          <HomeIndexTextFeed locale="fr" />
-        </div>
 
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">

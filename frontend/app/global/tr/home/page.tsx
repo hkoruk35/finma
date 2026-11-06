@@ -1,16 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
-import HomeLatestAnalysis from "@/components/global/HomeLatestAnalysis";
 import HomeRecentEarnings from "@/components/global/HomeRecentEarnings";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
 import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
 import HomeSearchBar from "@/components/public/HomeSearchBar";
-import HomeIndexHighlights from "@/components/global/HomeIndexHighlights";
-import TodaysMarketPicture from "@/components/global/TodaysMarketPicture";
-import HomeIndexTextFeed from "@/components/global/HomeIndexTextFeed";
+import ListsNavigation from "@/components/global/ListsNavigation";
+import SwingTracker from "@/components/public/SwingTracker";
 import HomeEducationCard from "@/components/global/HomeEducationCard";
-import HomeScheduleBanner from "@/components/global/HomeScheduleBanner";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -203,21 +200,12 @@ export default async function TrHomePage() {
               <MarketOverviewTabs groups={marketGroups} locale="tr" />
             </div>
 
-            <TodaysMarketPicture locale="tr" />
-
-            {/* 2026-08-23 kullanıcı talebi: canlı analiz uyarısı endeks
-                ticker satırının (MarketOverviewTabs) hemen altına taşındı —
-                artık son 5 tamamlanmış analizi güncellenme saatiyle
-                dönen bir carousel olarak gösteriyor (bkz.
-                HomeScheduleBanner.tsx / HomeScheduleBannerCarousel.tsx). */}
+            {/* Günün Trend Hisseleri — /swing sayfasıyla birebir aynı tablo (herkese açık) */}
             <div className="mt-4">
-              <HomeScheduleBanner locale="tr" />
-            </div>
-
-            <HomeIndexHighlights locale="tr" />
-
-            <div className="mt-4">
-              <HomeLatestAnalysis locale="tr" />
+              <ListsNavigation locale="tr" activePath="swing" />
+              <div className="relative z-10">
+                <SwingTracker locale="tr" />
+              </div>
             </div>
 
             <div className="mt-4">
@@ -232,12 +220,6 @@ export default async function TrHomePage() {
           </div>
         </div>
 
-        {/* 2026-09-10 kullanıcı talebi: sayfa sonundaki liste ızgaraları
-            (HomeMoversGrid) kaldırıldı, yerine tam genişlikte "Son Dünya
-            Borsası Analizleri" metin bloğu taşındı. */}
-        <div className="mt-5">
-          <HomeIndexTextFeed locale="tr" />
-        </div>
 
         {/* Güncelleme bilgisi */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
