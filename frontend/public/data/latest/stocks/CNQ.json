@@ -1,0 +1,89 @@
+{
+  "ticker": "CNQ",
+  "company": "Canadian Natural Resources Limited",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T21:31:16.459Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 48.54999923706055,
+    "open": 48.880001068115234,
+    "high": 49.34000015258789,
+    "low": 48.42499923706055,
+    "prev_close": 48.91999816894531,
+    "change_pct": -0.7563347214506705,
+    "change_pct_1w": -13.473536430324499,
+    "change_pct_1m": -11.903468155757597,
+    "change_pct_1y": 54.17592756411953,
+    "volume": 6082462,
+    "avg_volume_30d": 182849062
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 65,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.77007230554136,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 52.07234193176366,
+    "ema_50": 50.82481856257935,
+    "ema_200": 45.80079280665799,
+    "ema_stack_bullish": true,
+    "bb_upper": 50.97749919891358,
+    "bb_middle": 48.54999923706055,
+    "bb_lower": 46.12249927520752,
+    "bb_width": 10,
+    "atr": 1.63,
+    "atr_pct": 3.35,
+    "rvol": 1.5707401988203802,
+    "52w_high": 56.27000045776367,
+    "52w_low": 30.1299991607666
+  },
+  "fundamental": {
+    "pe_ratio": 9.9487705,
+    "pb_ratio": 2.9822648,
+    "gross_margin": 0.52916,
+    "operating_margin": 0.32268003,
+    "net_margin": 0.2951,
+    "market_cap": 100085825536,
+    "revenue_growth_ttm": 0.344,
+    "fcf_yield": 0.11136442472556597,
+    "institutional_ownership_pct": 0.78923,
+    "dividend_rate": 1.76,
+    "dividend_yield": 0.0359
+  },
+  "scores_detail": {
+    "entry_range_low": 47.57,
+    "entry_range_high": 48.71,
+    "target_range_low": 50.55,
+    "target_range_high": 55.36,
+    "target_1": 50.55,
+    "target_2": 52.96,
+    "target_3": 55.36,
+    "stop_loss": 46.12,
+    "risk_reward_ratio": 2.38,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $47.57 – $48.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $49.54 direnci veya $47.25 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $46.12 olarak belirlenmiştir. Fiyatın EMA200 ($45.80) veya günlük VWAP ($48.81) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($50.82) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($48.81) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

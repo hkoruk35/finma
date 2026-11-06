@@ -1,0 +1,89 @@
+{
+  "ticker": "DTE",
+  "company": "DTE Energy Company",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T21:32:21.636Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 135.0800018310547,
+    "open": 132.17999267578125,
+    "high": 136.22000122070312,
+    "low": 130.64010620117188,
+    "prev_close": 134.8699951171875,
+    "change_pct": 0.15571047784550912,
+    "change_pct_1w": -0.3026080489236242,
+    "change_pct_1m": 2.5352939112059896,
+    "change_pct_1y": 0.7383142070265765,
+    "volume": 1743937,
+    "avg_volume_30d": 47024737
+  },
+  "scores": {
+    "master_score": 64,
+    "technical_score": 70,
+    "fundamental_score": 36.8,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.95181346630354,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 132.5297332749275,
+    "ema_50": 132.35450763080865,
+    "ema_200": 137.37802313629624,
+    "ema_stack_bullish": false,
+    "bb_upper": 141.83400192260743,
+    "bb_middle": 135.0800018310547,
+    "bb_lower": 128.32600173950195,
+    "bb_width": 10,
+    "atr": 2.53,
+    "atr_pct": 1.87,
+    "rvol": 1.189242632021525,
+    "52w_high": 155.75,
+    "52w_low": 119.68000030517578
+  },
+  "fundamental": {
+    "pe_ratio": 20.591463,
+    "pb_ratio": 2.280909,
+    "gross_margin": 0.29347,
+    "operating_margin": 0.13623999,
+    "net_margin": 0.07999,
+    "market_cap": 28108535808,
+    "revenue_growth_ttm": -0.015,
+    "fcf_yield": -0.0923785185303381,
+    "institutional_ownership_pct": 0.82121,
+    "dividend_rate": 4.66,
+    "dividend_yield": 0.0339
+  },
+  "scores_detail": {
+    "entry_range_low": 133.56,
+    "entry_range_high": 135.33,
+    "target_range_low": 141.17,
+    "target_range_high": 154.62,
+    "target_1": 141.17,
+    "target_2": 147.89,
+    "target_3": 154.62,
+    "stop_loss": 128.33,
+    "risk_reward_ratio": 2.2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $133.56 – $135.33 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $136.42 direnci veya $133.06 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $128.33 olarak belirlenmiştir. Fiyatın EMA50 ($132.35) veya günlük VWAP ($134.70) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($132.35) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($134.70) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}
