@@ -1,0 +1,89 @@
+{
+  "ticker": "RY",
+  "company": "Royal Bank of Canada",
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T17:32:51.501Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 203.02999877929688,
+    "open": 202.2050018310547,
+    "high": 203.67999267578125,
+    "low": 200.94000244140625,
+    "prev_close": 203.75999450683594,
+    "change_pct": -0.3582625378970414,
+    "change_pct_1w": 0.024634472761016223,
+    "change_pct_1m": 0.2765829778325149,
+    "change_pct_1y": 39.62588107148367,
+    "volume": 240093,
+    "avg_volume_30d": 39031693
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 74.75,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.152855842678875,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 202.25860623292144,
+    "ema_50": 201.85361151681144,
+    "ema_200": 191.06660732154228,
+    "ema_stack_bullish": true,
+    "bb_upper": 213.18149871826174,
+    "bb_middle": 203.02999877929688,
+    "bb_lower": 192.878498840332,
+    "bb_width": 10,
+    "atr": 3.58,
+    "atr_pct": 1.76,
+    "rvol": 0.595069191592586,
+    "52w_high": 218.57000732421875,
+    "52w_low": 143.3800048828125
+  },
+  "fundamental": {
+    "pe_ratio": 17.747377,
+    "pb_ratio": 2.9477334,
+    "gross_margin": 0,
+    "operating_margin": 0.46436,
+    "net_margin": 0.33870998,
+    "market_cap": 281080791040,
+    "revenue_growth_ttm": 0.089,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.51300997,
+    "dividend_rate": 5.04,
+    "dividend_yield": 0.0247
+  },
+  "scores_detail": {
+    "entry_range_low": 200.88,
+    "entry_range_high": 203.39,
+    "target_range_low": 212.37,
+    "target_range_high": 232.46,
+    "target_1": 212.37,
+    "target_2": 222.35,
+    "target_3": 232.46,
+    "stop_loss": 192.88,
+    "risk_reward_ratio": 2.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $200.88 – $203.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $205.20 direnci veya $200.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $192.88 olarak belirlenmiştir. Fiyatın EMA200 ($191.07) veya günlük VWAP ($203.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($203.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
