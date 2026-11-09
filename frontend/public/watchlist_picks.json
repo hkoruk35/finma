@@ -1,83 +1,29 @@
 {
-  "generated_at": "2026-11-06T17:03:00.903290-05:00",
+  "generated_at": "2026-11-09T09:04:21.522615-05:00",
   "picks": [
     {
-      "ticker": "SN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-05",
-      "score": 38.0
-    },
-    {
-      "ticker": "FFBC",
-      "sector": "Financial Services",
-      "date_added": "2026-11-06",
-      "score": 49.0
-    },
-    {
-      "ticker": "BBY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
+      "ticker": "AVNT",
+      "sector": "Basic Materials",
+      "date_added": "2026-11-09",
       "score": 41.5
     },
     {
-      "ticker": "ALGN",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 40.5
-    },
-    {
-      "ticker": "EAT",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 38.0
-    },
-    {
-      "ticker": "BRKR",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 37.0
-    },
-    {
-      "ticker": "CCL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 43.5
-    },
-    {
-      "ticker": "DAL",
-      "sector": "Industrials",
-      "date_added": "2026-11-06",
-      "score": 42.0
-    },
-    {
-      "ticker": "SKY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
-      "score": 41.5
-    },
-    {
-      "ticker": "THC",
-      "sector": "Healthcare",
-      "date_added": "2026-11-06",
-      "score": 40.5
-    },
-    {
-      "ticker": "EL",
+      "ticker": "DLTR",
       "sector": "Consumer Defensive",
-      "date_added": "2026-11-06",
-      "score": 40.0
-    },
-    {
-      "ticker": "DE",
-      "sector": "Industrials",
-      "date_added": "2026-11-06",
-      "score": 40.0
-    },
-    {
-      "ticker": "CROX",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-06",
+      "date_added": "2026-11-09",
       "score": 39.5
+    },
+    {
+      "ticker": "XMTR",
+      "sector": "Industrials",
+      "date_added": "2026-11-09",
+      "score": 39.5
+    },
+    {
+      "ticker": "AMPL",
+      "sector": "Technology",
+      "date_added": "2026-11-09",
+      "score": 37.0
     }
   ]
 }
