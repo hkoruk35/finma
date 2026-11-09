@@ -38,12 +38,12 @@
       "ticker": "TEVA",
       "company": "TEVA",
       "sector": "Healthcare",
-      "master_score": 50.5,
+      "master_score": 55.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 42.61000061035156,
-      "change_pct": 1.99,
+      "price": 42.970001220703125,
+      "change_pct": 0.84,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
     },
     {
       "ticker": "ZGN",
@@ -220,6 +220,105 @@
       "change_pct": 4.18,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "BR",
+      "company": "BR",
+      "sector": "Technology",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 192.33999633789062,
+      "change_pct": 1.02,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "H",
+      "company": "H",
+      "sector": "Consumer Cyclical",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 185.6999969482422,
+      "change_pct": 0.75,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "RPM",
+      "company": "RPM",
+      "sector": "Basic Materials",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 106.37999725341797,
+      "change_pct": 2.97,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "AEM",
+      "company": "AEM",
+      "sector": "Basic Materials",
+      "master_score": 57.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 200.8000030517578,
+      "change_pct": 4.82,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "FBNC",
+      "company": "FBNC",
+      "sector": "Financial Services",
+      "master_score": 54.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 65.30999755859375,
+      "change_pct": 1.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ENR",
+      "company": "ENR",
+      "sector": "Industrials",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 25.059999465942383,
+      "change_pct": 5.12,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "PYPL",
+      "company": "PYPL",
+      "sector": "Financial Services",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 60.04999923706055,
+      "change_pct": 1.37,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "MMM",
+      "company": "MMM",
+      "sector": "Industrials",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 188.6300048828125,
+      "change_pct": 1.88,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "TGT",
+      "company": "TGT",
+      "sector": "Consumer Defensive",
+      "master_score": 52.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 165.89999389648438,
+      "change_pct": 4.73,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
     }
   ]
 }
