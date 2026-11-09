@@ -1,8 +1,8 @@
 {
   "ticker": "SCHW",
   "company": "The Charles Schwab Corporation",
-  "date": "2026-11-07",
-  "generated_at": "2026-11-07T15:17:17.697Z",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T14:22:37.127Z",
   "sector": "Financial Services",
   "industry": "Capital Markets",
   "price": {
@@ -53,11 +53,11 @@
   },
   "fundamental": {
     "pe_ratio": 15.639317,
-    "pb_ratio": 3.075811,
+    "pb_ratio": 3.4899867,
     "gross_margin": 0.97506,
-    "operating_margin": 0.52669996,
+    "operating_margin": 0.52796,
     "net_margin": 0.39333,
-    "market_cap": 158216912896,
+    "market_cap": 157912432640,
     "revenue_growth_ttm": 0.169,
     "fcf_yield": 0.04,
     "institutional_ownership_pct": 0.85517997,

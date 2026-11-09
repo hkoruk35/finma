@@ -1,0 +1,89 @@
+{
+  "ticker": "TTAN",
+  "company": "ServiceTitan, Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T14:15:17.042Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 81.7699966430664,
+    "open": 81.19999694824219,
+    "high": 81.9000015258789,
+    "low": 79.04000091552734,
+    "prev_close": 82.20999908447266,
+    "change_pct": -0.5352176697558864,
+    "change_pct_1w": -2.955145300303048,
+    "change_pct_1m": -1.6241651334294962,
+    "change_pct_1y": -11.153372750143163,
+    "volume": 844900,
+    "avg_volume_30d": 48728700
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.03%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.79218218019929,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 80.23269161078925,
+    "ema_50": 77.19540814710372,
+    "ema_200": 77.00880740343277,
+    "ema_stack_bullish": true,
+    "bb_upper": 85.85849647521972,
+    "bb_middle": 81.7699966430664,
+    "bb_lower": 77.68149681091309,
+    "bb_width": 10,
+    "atr": 4.05,
+    "atr_pct": 4.95,
+    "rvol": 0.6833262533168338,
+    "52w_high": 111.36000061035156,
+    "52w_low": 53
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.912291,
+    "gross_margin": 0.71226996,
+    "operating_margin": -0.094110005,
+    "net_margin": -0.12116,
+    "market_cap": 7888180224,
+    "revenue_growth_ttm": 0.209,
+    "fcf_yield": 0.022384567667808903,
+    "institutional_ownership_pct": 1.06834,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 79.34,
+    "entry_range_high": 82.17,
+    "target_range_low": 84.8,
+    "target_range_high": 92.87,
+    "target_1": 84.8,
+    "target_2": 88.83,
+    "target_3": 92.87,
+    "stop_loss": 76.51,
+    "risk_reward_ratio": 1.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $79.34 – $82.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $83.82 direnci veya $78.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $76.51 olarak belirlenmiştir. Fiyatın EMA200 ($77.01) veya günlük VWAP ($80.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($80.53) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

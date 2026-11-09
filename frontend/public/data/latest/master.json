@@ -1,41 +1,32 @@
 {
-  "date": "2026-11-06",
-  "generated_at": "2026-11-06T17:03:00.005075-05:00",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T09:04:21.511792-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 47,
+  "active_scores_count": 10,
   "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SW",
-        "BTSG",
-        "RS",
-        "TKO",
-        "GOLD",
-        "WAT",
-        "GDDY",
-        "BBVA",
+        "SOLV",
+        "BILL",
+        "ALGN",
+        "TEVA",
+        "ZGN",
         "BEKE",
-        "NTES"
+        "BUD",
+        "SNN",
+        "GPN",
+        "EE"
       ]
     },
     "breakout": {
-      "count": 13,
+      "count": 4,
       "tickers": [
-        "WAT",
-        "GDDY",
-        "BEKE",
-        "MSEX",
-        "GLOB",
-        "CAG",
-        "SAP",
-        "BUD",
-        "CHH",
         "BILL",
-        "FLS",
-        "ICLR",
-        "NXT"
+        "ALGN",
+        "ZGN",
+        "GPN"
       ]
     },
     "value": {
@@ -57,42 +48,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SW",
-      "score": 43.6,
+      "ticker": "SOLV",
+      "score": 62.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BTSG",
-      "score": 47.5,
+      "ticker": "BILL",
+      "score": 55.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RS",
-      "score": 58.5,
+      "ticker": "ALGN",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 741.93,
-      "change_pct": 0.9
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 656.1,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 518.51,
-      "change_pct": 1.23
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 23.19,
-      "change_pct": -9.56
-    },
-    "RUSSELL2000": {
-      "value": 277.44,
-      "change_pct": 1.38
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-11-09T09:30:13.463808-05:00"
+  }
 }

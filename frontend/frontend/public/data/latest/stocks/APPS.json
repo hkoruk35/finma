@@ -1,8 +1,8 @@
 {
   "ticker": "APPS",
   "company": "Digital Turbine, Inc.",
-  "date": "2026-11-07",
-  "generated_at": "2026-11-07T05:56:03.281Z",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T14:19:27.916Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 1263472896,
     "revenue_growth_ttm": 0.268,
     "fcf_yield": 0.022888698357958287,
-    "institutional_ownership_pct": 0.70712996,
+    "institutional_ownership_pct": 0.70857,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
