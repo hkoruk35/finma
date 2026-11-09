@@ -1,0 +1,89 @@
+{
+  "ticker": "GMAB",
+  "company": "Genmab A/S",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T08:58:59.636Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 53.630001068115234,
+    "open": 52.36000061035156,
+    "high": 54.150001525878906,
+    "low": 51.2239990234375,
+    "prev_close": 52.7400016784668,
+    "change_pct": 1.68752249018569,
+    "change_pct_1w": -6.011216653740419,
+    "change_pct_1m": 20.01790180132074,
+    "change_pct_1y": 85.95700688060805,
+    "volume": 7827800,
+    "avg_volume_30d": 179599900
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 90,
+    "fundamental_score": 79.7,
+    "momentum_score": 38,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 70.70067674471535,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 47.86816851746565,
+    "ema_50": 41.30939383876705,
+    "ema_200": 33.310533924004076,
+    "ema_stack_bullish": true,
+    "bb_upper": 56.311501121521,
+    "bb_middle": 53.630001068115234,
+    "bb_lower": 50.94850101470947,
+    "bb_width": 10,
+    "atr": 3.02,
+    "atr_pct": 5.64,
+    "rvol": 0.802129622566605,
+    "52w_high": 59.970001220703125,
+    "52w_low": 23.6200008392334
+  },
+  "fundamental": {
+    "pe_ratio": 45.83761,
+    "pb_ratio": 5.360052,
+    "gross_margin": 0.92667997,
+    "operating_margin": 0.37152,
+    "net_margin": 0.16969,
+    "market_cap": 32979519488,
+    "revenue_growth_ttm": 0.161,
+    "fcf_yield": 0.025921390647036465,
+    "institutional_ownership_pct": 0.20606,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 51.83,
+    "entry_range_high": 53.93,
+    "target_range_low": 59.97,
+    "target_range_high": 62.39,
+    "target_1": 59.97,
+    "target_2": 61.17,
+    "target_3": 62.39,
+    "stop_loss": 49.71,
+    "risk_reward_ratio": 2.62,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $51.83 – $53.93 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $55.27 direnci veya $51.22 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $49.71 olarak belirlenmiştir. Fiyatın EMA20 ($47.87) veya günlük VWAP ($53.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($53.22) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 71 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}
