@@ -1,0 +1,89 @@
+{
+  "ticker": "FROG",
+  "company": "JFrog Ltd.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T16:02:32.354Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 106.37999725341797,
+    "open": 101.69000244140625,
+    "high": 107.23999786376953,
+    "low": 98.5,
+    "prev_close": 100.9800033569336,
+    "change_pct": 5.347587360833252,
+    "change_pct_1w": 24.991183751066064,
+    "change_pct_1m": 5.892890924642982,
+    "change_pct_1y": 77.29999542236328,
+    "volume": 681387,
+    "avg_volume_30d": 59541487
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 53.3,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+3.96%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.65824876859912,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 94.064669797948,
+    "ema_50": 92.99163973409057,
+    "ema_200": 79.6400791621005,
+    "ema_stack_bullish": true,
+    "bb_upper": 111.69899711608888,
+    "bb_middle": 106.37999725341797,
+    "bb_lower": 101.06099739074706,
+    "bb_width": 10,
+    "atr": 8.48,
+    "atr_pct": 7.97,
+    "rvol": 1.6581299355187415,
+    "52w_high": 107.23999786376953,
+    "52w_low": 34.04999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 13.030377,
+    "gross_margin": 0.78444,
+    "operating_margin": -0.0027,
+    "net_margin": -0.03284,
+    "market_cap": 13116792832,
+    "revenue_growth_ttm": 0.309,
+    "fcf_yield": 0.017573941050409356,
+    "institutional_ownership_pct": 0.93865997,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 102.59,
+    "entry_range_high": 107.23,
+    "target_range_low": 110.15,
+    "target_range_high": 120.64,
+    "target_1": 110.15,
+    "target_2": 115.4,
+    "target_3": 120.64,
+    "stop_loss": 96.65,
+    "risk_reward_ratio": 1.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $102.59 – $107.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $107.24 direnci veya $100.89 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $96.65 olarak belirlenmiştir. Fiyatın EMA20 ($94.06) veya günlük VWAP ($102.34) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($102.34) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

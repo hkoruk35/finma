@@ -1,0 +1,89 @@
+{
+  "ticker": "TD",
+  "company": "The Toronto-Dominion Bank",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T16:02:33.507Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Diversified",
+  "price": {
+    "current": 123.67500305175781,
+    "open": 124,
+    "high": 124.18890380859375,
+    "low": 123.02999877929688,
+    "prev_close": 122.4000015258789,
+    "change_pct": 1.0416679003139833,
+    "change_pct_1w": -1.0916489553544357,
+    "change_pct_1m": -1.6735536237622706,
+    "change_pct_1y": 52.87391930665875,
+    "volume": 232788,
+    "avg_volume_30d": 56111488
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.33522506170795,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 123.36432036309735,
+    "ema_50": 121.61764275717275,
+    "ema_200": 112.17883983418179,
+    "ema_stack_bullish": true,
+    "bb_upper": 129.8587532043457,
+    "bb_middle": 123.67500305175781,
+    "bb_lower": 117.49125289916992,
+    "bb_width": 10,
+    "atr": 2.31,
+    "atr_pct": 1.86,
+    "rvol": 0.8356671632019455,
+    "52w_high": 128.7899932861328,
+    "52w_low": 79.73999786376953
+  },
+  "fundamental": {
+    "pe_ratio": 18.349407,
+    "pb_ratio": 2.2967038,
+    "gross_margin": 0,
+    "operating_margin": 0.3802,
+    "net_margin": 0.26617,
+    "market_cap": 201963339776,
+    "revenue_growth_ttm": 0.115,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.57518,
+    "dividend_rate": 3.21,
+    "dividend_yield": 0.026199998
+  },
+  "scores_detail": {
+    "entry_range_low": 122.29,
+    "entry_range_high": 123.91,
+    "target_range_low": 129.25,
+    "target_range_high": 141.56,
+    "target_1": 129.25,
+    "target_2": 135.41,
+    "target_3": 141.56,
+    "stop_loss": 117.49,
+    "risk_reward_ratio": 2.2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $122.29 – $123.91 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $125.59 direnci veya $121.83 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $117.49 olarak belirlenmiştir. Fiyatın EMA50 ($121.62) veya günlük VWAP ($122.98) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($122.98) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
