@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SOLV",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BILL",
@@ -297,7 +297,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ALGN",
@@ -442,7 +442,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "TEVA",
@@ -587,7 +587,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ZGN",
@@ -732,7 +732,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BEKE",
@@ -876,7 +876,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BUD",
@@ -1020,7 +1020,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SNN",
@@ -1164,7 +1164,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GPN",
@@ -1308,7 +1308,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-11-09",
+      "last_checked": "2026-11-09 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EE",
