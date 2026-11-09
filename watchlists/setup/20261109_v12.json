@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "IMVT",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 34.31,
+        "entry_zone": "33.57 - 35.05",
+        "SL": 31.33,
+        "TP": 40.27
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "RVMD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 198.36,
+        "entry_zone": "193.44 - 203.28",
+        "SL": 178.68,
+        "TP": 237.72
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 42.53,
+        "entry_zone": "41.06 - 44.00",
+        "SL": 36.67,
+        "TP": 54.26
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "ABNB",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 192.99,
+        "entry_zone": "189.51 - 196.47",
+        "SL": 179.07,
+        "TP": 213.87
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "ELVN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 51.16,
+        "entry_zone": "50.07 - 52.25",
+        "SL": 46.79,
+        "TP": 59.91
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "VCEL",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 58.31,
+        "entry_zone": "56.82 - 59.79",
+        "SL": 52.35,
+        "TP": 70.21
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "ORKA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 104.64,
+        "entry_zone": "101.84 - 107.44",
+        "SL": 93.43,
+        "TP": 127.06
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "EWTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 46.68,
+        "entry_zone": "45.29 - 48.08",
+        "SL": 41.11,
+        "TP": 57.83
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 29.95,
+        "entry_zone": "29.14 - 30.76",
+        "SL": 26.71,
+        "TP": 36.43
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "ROIV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 40.44,
+        "entry_zone": "39.58 - 41.30",
+        "SL": 36.99,
+        "TP": 47.33
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "TRVI",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 15.25,
+        "entry_zone": "14.87 - 15.63",
+        "SL": 13.72,
+        "TP": 18.31
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "BRKR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 66.25,
+        "entry_zone": "64.14 - 68.36",
+        "SL": 57.81,
+        "TP": 83.14
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 73.94,
+        "entry_zone": "71.85 - 76.03",
+        "SL": 65.56,
+        "TP": 90.7
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "RLAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 20.33,
+        "entry_zone": "19.75 - 20.91",
+        "SL": 17.99,
+        "TP": 25.0
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "PVLA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 173.58,
+        "entry_zone": "168.73 - 178.43",
+        "SL": 154.19,
+        "TP": 212.36
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "TMDX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 94.27,
+        "entry_zone": "91.80 - 96.74",
+        "SL": 84.4,
+        "TP": 114.01
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "FUN",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 10.95,
+        "entry_zone": "10.57 - 11.33",
+        "SL": 9.42,
+        "TP": 14.0
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "ATMU",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 55.05,
+        "entry_zone": "54.01 - 56.09",
+        "SL": 50.9,
+        "TP": 63.35
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "IONQ",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 35.72,
+        "entry_zone": "34.42 - 37.02",
+        "SL": 30.5,
+        "TP": 46.15
+    },
+    {
+        "date": "2026-11-09 19:30",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 3.54,
+        "entry_zone": "3.38 - 3.69",
+        "SL": 2.93,
+        "TP": 4.75
+    }
+]
