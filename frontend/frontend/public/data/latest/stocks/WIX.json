@@ -1,0 +1,89 @@
+{
+  "ticker": "WIX",
+  "company": "Wix.com Ltd.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T20:43:15.699Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 70.37999725341797,
+    "open": 76.0999984741211,
+    "high": 77.41000366210938,
+    "low": 70.05000305175781,
+    "prev_close": 76.08999633789062,
+    "change_pct": -7.504270415675183,
+    "change_pct_1w": -6.097398106607127,
+    "change_pct_1m": -11.125148271723976,
+    "change_pct_1y": -48.223349484548585,
+    "volume": 938230,
+    "avg_volume_30d": 23283130
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.91519508815336,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 76.65109596680402,
+    "ema_50": 75.47409916647699,
+    "ema_200": 77.64722665510739,
+    "ema_stack_bullish": false,
+    "bb_upper": 73.89899711608886,
+    "bb_middle": 70.37999725341797,
+    "bb_lower": 66.86099739074707,
+    "bb_width": 10,
+    "atr": 4.2,
+    "atr_pct": 5.97,
+    "rvol": 0.9066384115881326,
+    "52w_high": 137.6199951171875,
+    "52w_low": 40.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0.66637003,
+    "operating_margin": -0.05624,
+    "net_margin": -0.08185001,
+    "market_cap": 2945368576,
+    "revenue_growth_ttm": 0.149,
+    "fcf_yield": 0.15020162148969704,
+    "institutional_ownership_pct": 1.04344,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 67.86,
+    "entry_range_high": 70.8,
+    "target_range_low": 82.48,
+    "target_range_high": 85.87,
+    "target_1": 82.48,
+    "target_2": 84.19,
+    "target_3": 85.87,
+    "stop_loss": 64.92,
+    "risk_reward_ratio": 3.37,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $67.86 – $70.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $74.30 direnci veya $67.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $64.92 olarak belirlenmiştir. Fiyatın EMA50 ($75.47) veya günlük VWAP ($72.70) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($75.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($72.70) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

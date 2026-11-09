@@ -1,0 +1,89 @@
+{
+  "ticker": "CAH",
+  "company": "Cardinal Health, Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T20:42:15.690Z",
+  "sector": "Healthcare",
+  "industry": "Medical Distribution",
+  "price": {
+    "current": 273.760009765625,
+    "open": 274.989990234375,
+    "high": 277.3825988769531,
+    "low": 272.32000732421875,
+    "prev_close": 271.7200012207031,
+    "change_pct": 0.750775995788727,
+    "change_pct_1w": 7.639683794551773,
+    "change_pct_1m": 11.08136058249507,
+    "change_pct_1y": 34.413518057058,
+    "volume": 856346,
+    "avg_volume_30d": 51585446
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 74.94836309866885,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 254.62091053390873,
+    "ema_50": 244.7795736184843,
+    "ema_200": 227.2719363599113,
+    "ema_stack_bullish": true,
+    "bb_upper": 287.44801025390626,
+    "bb_middle": 273.760009765625,
+    "bb_lower": 260.07200927734374,
+    "bb_width": 10,
+    "atr": 7.49,
+    "atr_pct": 2.74,
+    "rvol": 1.1592625563419574,
+    "52w_high": 286.2900085449219,
+    "52w_low": 180.4499969482422
+  },
+  "fundamental": {
+    "pe_ratio": 35.415268,
+    "pb_ratio": 0,
+    "gross_margin": 0.03899,
+    "operating_margin": 0.013350001,
+    "net_margin": 0.0070499997,
+    "market_cap": 63275974656,
+    "revenue_growth_ttm": 0.055,
+    "fcf_yield": 0.07935278985898454,
+    "institutional_ownership_pct": 0.91731,
+    "dividend_rate": 2.06,
+    "dividend_yield": 0.0076
+  },
+  "scores_detail": {
+    "entry_range_low": 269.11,
+    "entry_range_high": 274.51,
+    "target_range_low": 285.4,
+    "target_range_high": 312.58,
+    "target_1": 285.4,
+    "target_2": 298.99,
+    "target_3": 312.58,
+    "stop_loss": 260.07,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $269.11 – $274.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $286.29 direnci veya $267.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $260.07 olarak belirlenmiştir. Fiyatın EMA20 ($254.62) veya günlük VWAP ($273.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($273.89) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 75 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}
