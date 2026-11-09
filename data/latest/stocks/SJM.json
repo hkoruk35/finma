@@ -1,0 +1,89 @@
+{
+  "ticker": "SJM",
+  "company": "The J. M. Smucker Company",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T09:45:02.410Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 130.5500030517578,
+    "open": 130,
+    "high": 131.8800048828125,
+    "low": 128.47999572753906,
+    "prev_close": 133.25,
+    "change_pct": -2.0262641262605534,
+    "change_pct_1w": 0.5003919829214322,
+    "change_pct_1m": 1.484766535425739,
+    "change_pct_1y": 24.42814080261639,
+    "volume": 1576600,
+    "avg_volume_30d": 35513700
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.66811378306051,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 127.9282158836302,
+    "ema_50": 124.68661291638523,
+    "ema_200": 115.11424661668426,
+    "ema_stack_bullish": true,
+    "bb_upper": 137.0775032043457,
+    "bb_middle": 130.5500030517578,
+    "bb_lower": 124.02250289916992,
+    "bb_width": 10,
+    "atr": 3.88,
+    "atr_pct": 2.97,
+    "rvol": 1.3640257140202232,
+    "52w_high": 136.22000122070312,
+    "52w_low": 88.25
+  },
+  "fundamental": {
+    "pe_ratio": 61.004673,
+    "pb_ratio": 2.4250474,
+    "gross_margin": 0.37951002,
+    "operating_margin": 0.17898001,
+    "net_margin": 0.02506,
+    "market_cap": 13945766912,
+    "revenue_growth_ttm": 0.05,
+    "fcf_yield": 0.10500229533737385,
+    "institutional_ownership_pct": 0.91196996,
+    "dividend_rate": 4.48,
+    "dividend_yield": 0.0343
+  },
+  "scores_detail": {
+    "entry_range_low": 128.22,
+    "entry_range_high": 130.94,
+    "target_range_low": 136.06,
+    "target_range_high": 149.02,
+    "target_1": 136.06,
+    "target_2": 142.54,
+    "target_3": 149.02,
+    "stop_loss": 124.02,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $128.22 – $130.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $133.70 direnci veya $127.44 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $124.02 olarak belirlenmiştir. Fiyatın EMA50 ($124.69) veya günlük VWAP ($131.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($131.08) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

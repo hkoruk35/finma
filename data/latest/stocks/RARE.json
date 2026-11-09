@@ -1,8 +1,8 @@
 {
   "ticker": "RARE",
   "company": "Ultragenyx Pharmaceutical Inc.",
-  "date": "2026-11-07",
-  "generated_at": "2026-11-07T06:23:13.141Z",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T09:32:28.406Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 1572688384,
     "revenue_growth_ttm": 0.081,
     "fcf_yield": -0.1140575550916004,
-    "institutional_ownership_pct": 1.16279,
+    "institutional_ownership_pct": 1.16486,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
