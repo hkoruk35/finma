@@ -1,0 +1,89 @@
+{
+  "ticker": "ONON",
+  "company": "On Holding AG",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T09:47:06.146Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Footwear & Accessories",
+  "price": {
+    "current": 37.36000061035156,
+    "open": 36.470001220703125,
+    "high": 38.10200119018555,
+    "low": 36.132999420166016,
+    "prev_close": 37.540000915527344,
+    "change_pct": -0.47948934679255506,
+    "change_pct_1w": 10.597992778048303,
+    "change_pct_1m": 12.631904349422149,
+    "change_pct_1y": 5.2098067481364,
+    "volume": 7251500,
+    "avg_volume_30d": 300428300
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 75,
+    "fundamental_score": 73.1,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.42541275875594,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 34.70694759876933,
+    "ema_50": 33.342467977758076,
+    "ema_200": 35.275730162245374,
+    "ema_stack_bullish": false,
+    "bb_upper": 39.22800064086914,
+    "bb_middle": 37.36000061035156,
+    "bb_lower": 35.492000579833984,
+    "bb_width": 10,
+    "atr": 1.52,
+    "atr_pct": 4.07,
+    "rvol": 1.1027037066747707,
+    "52w_high": 51.08000183105469,
+    "52w_low": 26.364999771118164
+  },
+  "fundamental": {
+    "pe_ratio": 24.906668,
+    "pb_ratio": 5.384789,
+    "gross_margin": 0.64824,
+    "operating_margin": 0.14019,
+    "net_margin": 0.12303001,
+    "market_cap": 12486260736,
+    "revenue_growth_ttm": 0.135,
+    "fcf_yield": 0.023104394029530538,
+    "institutional_ownership_pct": 0.7338,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 36.68,
+    "entry_range_high": 37.51,
+    "target_range_low": 38.95,
+    "target_range_high": 42.66,
+    "target_1": 38.95,
+    "target_2": 40.81,
+    "target_3": 42.66,
+    "stop_loss": 35.49,
+    "risk_reward_ratio": 2.31,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $36.68 – $37.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $38.45 direnci veya $36.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $35.49 olarak belirlenmiştir. Fiyatın EMA200 ($35.28) veya günlük VWAP ($37.50) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($33.34) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($37.50) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

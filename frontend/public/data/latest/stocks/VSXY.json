@@ -1,0 +1,89 @@
+{
+  "ticker": "VSXY",
+  "company": "VSXY Corp.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T13:23:13.437Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 108.05000305175781,
+    "open": 106,
+    "high": 109.30000305175781,
+    "low": 104.0999984741211,
+    "prev_close": 106.30999755859375,
+    "change_pct": 1.636727996541475,
+    "change_pct_1w": 11.829848872137525,
+    "change_pct_1m": 13.784755785055145,
+    "change_pct_1y": 197.4945042941602,
+    "volume": 1202600,
+    "avg_volume_30d": 46427700
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 90,
+    "fundamental_score": 73.1,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.54480090301321,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 96.38426731471841,
+    "ema_50": 90.29777244016826,
+    "ema_200": 73.93930522623927,
+    "ema_stack_bullish": true,
+    "bb_upper": 113.4525032043457,
+    "bb_middle": 108.05000305175781,
+    "bb_lower": 102.64750289916992,
+    "bb_width": 10,
+    "atr": 4.94,
+    "atr_pct": 4.57,
+    "rvol": 0.9749739918195388,
+    "52w_high": 110.2699966430664,
+    "52w_low": 33.61000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 24.118303,
+    "pb_ratio": 8.731314,
+    "gross_margin": 0.37750998,
+    "operating_margin": 0.07821,
+    "net_margin": 0.0547,
+    "market_cap": 8618505216,
+    "revenue_growth_ttm": 0.104,
+    "fcf_yield": 0.03904389352521336,
+    "institutional_ownership_pct": 1.10056,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 105.09,
+    "entry_range_high": 108.54,
+    "target_range_low": 112.16,
+    "target_range_high": 122.84,
+    "target_1": 112.16,
+    "target_2": 117.5,
+    "target_3": 122.84,
+    "stop_loss": 101.63,
+    "risk_reward_ratio": 2.06,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $105.09 – $108.54 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $110.27 direnci veya $104.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $101.63 olarak belirlenmiştir. Fiyatın EMA20 ($96.38) veya günlük VWAP ($107.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($107.93) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 70 seviyesinde pozitif momentumu destekliyor."
+  }
+}

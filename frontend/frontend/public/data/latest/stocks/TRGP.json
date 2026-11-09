@@ -1,8 +1,8 @@
 {
   "ticker": "TRGP",
   "company": "Targa Resources Corp.",
-  "date": "2026-11-07",
-  "generated_at": "2026-11-07T06:24:45.944Z",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T10:45:22.732Z",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
   "price": {
@@ -19,9 +19,9 @@
     "avg_volume_30d": 37833000
   },
   "scores": {
-    "master_score": 59,
+    "master_score": 62,
     "technical_score": 65,
-    "fundamental_score": 69.8,
+    "fundamental_score": 79.7,
     "momentum_score": 60,
     "sentiment_score": 70,
     "signal_type": "BUY",
@@ -53,16 +53,16 @@
   },
   "fundamental": {
     "pe_ratio": 23.415043,
-    "pb_ratio": 18.513155,
-    "gross_margin": 0.43192002,
-    "operating_margin": 0.27803,
-    "net_margin": 0.13545,
-    "market_cap": 56736305152,
-    "revenue_growth_ttm": 0.042,
-    "fcf_yield": 0.0011604121879917515,
-    "institutional_ownership_pct": 0.97700995,
+    "pb_ratio": 14.872961,
+    "gross_margin": 0.41818002,
+    "operating_margin": 0.19576,
+    "net_margin": 0.13455,
+    "market_cap": 56768847872,
+    "revenue_growth_ttm": 0.349,
+    "fcf_yield": 0.002855879555025541,
+    "institutional_ownership_pct": 0.98022,
     "dividend_rate": 5,
-    "dividend_yield": 0.0175
+    "dividend_yield": 0.0189
   },
   "scores_detail": {
     "entry_range_low": 258.1,

@@ -1,0 +1,89 @@
+{
+  "ticker": "CI",
+  "company": "The Cigna Group",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T10:46:27.410Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 293.5899963378906,
+    "open": 293.4700012207031,
+    "high": 297.29998779296875,
+    "low": 292.3500061035156,
+    "prev_close": 301.4800109863281,
+    "change_pct": -2.6170937909363765,
+    "change_pct_1w": -1.5558510134817432,
+    "change_pct_1m": -3.9865270750441204,
+    "change_pct_1y": 14.513608996959906,
+    "volume": 2428000,
+    "avg_volume_30d": 50555700
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.58218659984101,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 296.1294776012718,
+    "ema_50": 289.6722190772664,
+    "ema_200": 281.4406345117652,
+    "ema_stack_bullish": true,
+    "bb_upper": 308.26949615478514,
+    "bb_middle": 293.5899963378906,
+    "bb_lower": 278.9104965209961,
+    "bb_width": 10,
+    "atr": 8.54,
+    "atr_pct": 2.91,
+    "rvol": 1.305229677365757,
+    "52w_high": 318.04998779296875,
+    "52w_low": 255.52999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 12.944885,
+    "pb_ratio": 1.7852409,
+    "gross_margin": 0.09087,
+    "operating_margin": 0.03481,
+    "net_margin": 0.020920001,
+    "market_cap": 77361717248,
+    "revenue_growth_ttm": 0.056,
+    "fcf_yield": 0.10585500698941258,
+    "institutional_ownership_pct": 0.92945,
+    "dividend_rate": 6.24,
+    "dividend_yield": 0.021300001
+  },
+  "scores_detail": {
+    "entry_range_low": 288.47,
+    "entry_range_high": 294.44,
+    "target_range_low": 306.03,
+    "target_range_high": 335.17,
+    "target_1": 306.03,
+    "target_2": 320.6,
+    "target_3": 335.17,
+    "stop_loss": 278.91,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $288.47 – $294.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $299.54 direnci veya $286.76 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $278.91 olarak belirlenmiştir. Fiyatın EMA200 ($281.44) veya günlük VWAP ($294.50) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($289.67) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($294.50) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}

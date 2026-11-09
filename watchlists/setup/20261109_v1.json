@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "ABNB",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 192.79,
+        "entry_zone": "189.46 - 196.12",
+        "SL": 179.47,
+        "TP": 219.43
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 76.05,
+        "entry_zone": "74.06 - 78.04",
+        "SL": 68.08,
+        "TP": 92.0
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "PVLA",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 175.92,
+        "entry_zone": "171.04 - 180.80",
+        "SL": 156.38,
+        "TP": 215.0
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "TMDX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 87.9,
+        "entry_zone": "85.39 - 90.41",
+        "SL": 77.85,
+        "TP": 107.99
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "EWTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 45.0,
+        "entry_zone": "43.61 - 46.39",
+        "SL": 39.45,
+        "TP": 56.1
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "TRVI",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 14.9,
+        "entry_zone": "14.51 - 15.29",
+        "SL": 13.33,
+        "TP": 18.03
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "ATMU",
+        "sector": "Unknown",
+        "action": "BUY",
+        "price": 50.64,
+        "entry_zone": "49.71 - 51.57",
+        "SL": 46.91,
+        "TP": 58.11
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "AMLX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "ELVN",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "FUN",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "IMVT",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "VCEL",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "RLAY",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "RVMD",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "ROIV",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "ORKA",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "LCID",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "BRKR",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 38.91,
+        "entry_zone": "37.51 - 40.31",
+        "SL": 33.31,
+        "TP": 50.12
+    },
+    {
+        "date": "2026-11-09 14:04",
+        "symbol": "IONQ",
+        "sector": "Unknown",
+        "action": "WATCH",
+        "price": 32.38,
+        "entry_zone": "31.14 - 33.62",
+        "SL": 27.44,
+        "TP": 42.26
+    }
+]

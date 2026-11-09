@@ -1,0 +1,89 @@
+{
+  "ticker": "DD",
+  "company": "DuPont de Nemours, Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T10:52:42.098Z",
+  "sector": "Basic Materials",
+  "industry": "Specialty Chemicals",
+  "price": {
+    "current": 146.52000427246094,
+    "open": 144.97999572753906,
+    "high": 147.75999450683594,
+    "low": 144.0500030517578,
+    "prev_close": 144.92999267578125,
+    "change_pct": 1.097089406632799,
+    "change_pct_1w": 4.6197794214342345,
+    "change_pct_1m": 7.53761781465023,
+    "change_pct_1y": 24.750964733553214,
+    "volume": 975700,
+    "avg_volume_30d": 30367500
+  },
+  "scores": {
+    "master_score": 88,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.702207721681816,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 139.67209675901864,
+    "ema_50": 136.38018010825914,
+    "ema_200": 135.09358484104789,
+    "ema_stack_bullish": true,
+    "bb_upper": 153.84600448608398,
+    "bb_middle": 146.52000427246094,
+    "bb_lower": 139.1940040588379,
+    "bb_width": 10,
+    "atr": 4.28,
+    "atr_pct": 2.92,
+    "rvol": 1.9635070387750062,
+    "52w_high": 157.97999572753906,
+    "52w_low": 111.1500015258789
+  },
+  "fundamental": {
+    "pe_ratio": 51.05227,
+    "pb_ratio": 1.4315305,
+    "gross_margin": 0.35491002,
+    "operating_margin": 0.15792,
+    "net_margin": 0.042630002,
+    "market_cap": 19418638336,
+    "revenue_growth_ttm": 0.041,
+    "fcf_yield": 0.2476808623127549,
+    "institutional_ownership_pct": 0.81014997,
+    "dividend_rate": 2.4,
+    "dividend_yield": 0.0164
+  },
+  "scores_detail": {
+    "entry_range_low": 143.95,
+    "entry_range_high": 146.95,
+    "target_range_low": 152.72,
+    "target_range_high": 167.27,
+    "target_1": 152.72,
+    "target_2": 159.99,
+    "target_3": 167.27,
+    "stop_loss": 139.19,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $143.95 – $146.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $154.67 direnci veya $143.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $139.19 olarak belirlenmiştir. Fiyatın EMA20 ($139.67) veya günlük VWAP ($147.01) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($147.01) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.0 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

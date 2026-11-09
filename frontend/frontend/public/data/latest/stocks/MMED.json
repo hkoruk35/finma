@@ -1,0 +1,89 @@
+{
+  "ticker": "MMED",
+  "company": "MiniMed Group, Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T10:45:27.439Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 16.709999084472656,
+    "open": 18.25,
+    "high": 18.25,
+    "low": 16.65999984741211,
+    "prev_close": 18.15999984741211,
+    "change_pct": -7.984585766095617,
+    "change_pct_1w": -8.588629886211216,
+    "change_pct_1m": -10.450164945793887,
+    "change_pct_1y": -9.62682914375106,
+    "volume": 7479400,
+    "avg_volume_30d": 424979500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.56203479683653,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 18.603952880710615,
+    "ema_50": 19.015142720090985,
+    "ema_200": 17.867283478537257,
+    "ema_stack_bullish": false,
+    "bb_upper": 17.54549903869629,
+    "bb_middle": 16.709999084472656,
+    "bb_lower": 15.874499130249022,
+    "bb_width": 10,
+    "atr": 0.92,
+    "atr_pct": 5.52,
+    "rvol": 0.5897522115772643,
+    "52w_high": 24.43000030517578,
+    "52w_low": 10.649999618530273
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.2980657,
+    "gross_margin": 0.5689,
+    "operating_margin": 0.0047400002,
+    "net_margin": -0.097449996,
+    "market_cap": 4701357056,
+    "revenue_growth_ttm": 0.166,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.21841998,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 16.16,
+    "entry_range_high": 16.8,
+    "target_range_low": 20.88,
+    "target_range_high": 24.92,
+    "target_1": 20.88,
+    "target_2": 24.43,
+    "target_3": 24.92,
+    "stop_loss": 15.51,
+    "risk_reward_ratio": 8.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $16.16 – $16.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $18.28 direnci veya $15.97 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $15.51 olarak belirlenmiştir. Fiyatın EMA200 ($17.87) veya günlük VWAP ($17.21) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($19.02) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($17.21) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

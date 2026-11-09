@@ -1,0 +1,89 @@
+{
+  "ticker": "BZ",
+  "company": "Kanzhun Limited",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T10:44:22.909Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 17.649999618530273,
+    "open": 17.65999984741211,
+    "high": 17.81999969482422,
+    "low": 17.360000610351562,
+    "prev_close": 17.760000228881836,
+    "change_pct": -0.6193727980514114,
+    "change_pct_1w": 6.710995414521957,
+    "change_pct_1m": 5.942375631365604,
+    "change_pct_1y": -16.311050304262352,
+    "volume": 4683700,
+    "avg_volume_30d": 141067000
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 75,
+    "fundamental_score": 86.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 69.03699091759253,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 16.654005997171005,
+    "ema_50": 16.123755818351725,
+    "ema_200": 16.160906375264467,
+    "ema_stack_bullish": false,
+    "bb_upper": 18.532499599456788,
+    "bb_middle": 17.649999618530273,
+    "bb_lower": 16.76749963760376,
+    "bb_width": 10,
+    "atr": 0.56,
+    "atr_pct": 3.15,
+    "rvol": 1.0350400873343872,
+    "52w_high": 22.485000610351562,
+    "52w_low": 12.569999694824219
+  },
+  "fundamental": {
+    "pe_ratio": 12.697842,
+    "pb_ratio": 2.1587155,
+    "gross_margin": 0.85905,
+    "operating_margin": 0.35988,
+    "net_margin": 0.52848,
+    "market_cap": 7721975296,
+    "revenue_growth_ttm": 0.141,
+    "fcf_yield": 0.5275580140887309,
+    "institutional_ownership_pct": 0.8081,
+    "dividend_rate": 0.51,
+    "dividend_yield": 0.028900001
+  },
+  "scores_detail": {
+    "entry_range_low": 17.32,
+    "entry_range_high": 17.71,
+    "target_range_low": 19.33,
+    "target_range_high": 21.6,
+    "target_1": 19.33,
+    "target_2": 19.72,
+    "target_3": 21.6,
+    "stop_loss": 16.77,
+    "risk_reward_ratio": 2.97,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $17.32 – $17.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $18.29 direnci veya $17.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $16.77 olarak belirlenmiştir. Fiyatın EMA20 ($16.65) veya günlük VWAP ($17.56) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($16.12) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($17.56) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

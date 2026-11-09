@@ -1,0 +1,89 @@
+{
+  "ticker": "SGI",
+  "company": "Somnigroup International Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T13:39:51.094Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Furnishings, Fixtures & Appliances",
+  "price": {
+    "current": 64.16999816894531,
+    "open": 67.94999694824219,
+    "high": 67.94999694824219,
+    "low": 63.97999954223633,
+    "prev_close": 67.87000274658203,
+    "change_pct": -5.451605168563298,
+    "change_pct_1w": 0.9597180341009681,
+    "change_pct_1m": 3.283433229935985,
+    "change_pct_1y": -27.882675041565964,
+    "volume": 7195000,
+    "avg_volume_30d": 85482000
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 63.2,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.17902836957342,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 64.7161004944868,
+    "ema_50": 64.87553538814232,
+    "ema_200": 71.87561050188513,
+    "ema_stack_bullish": false,
+    "bb_upper": 67.37849807739258,
+    "bb_middle": 64.16999816894531,
+    "bb_lower": 60.96149826049805,
+    "bb_width": 10,
+    "atr": 3,
+    "atr_pct": 4.67,
+    "rvol": 1.5420018249456027,
+    "52w_high": 98.55999755859375,
+    "52w_low": 60.08000183105469
+  },
+  "fundamental": {
+    "pe_ratio": 25.565737,
+    "pb_ratio": 4.1788225,
+    "gross_margin": 0.44733003,
+    "operating_margin": 0.111269996,
+    "net_margin": 0.07002,
+    "market_cap": 14774693888,
+    "revenue_growth_ttm": -0.03,
+    "fcf_yield": 0.04656018711553288,
+    "institutional_ownership_pct": 0.99209,
+    "dividend_rate": 0.68,
+    "dividend_yield": 0.0106
+  },
+  "scores_detail": {
+    "entry_range_low": 62.43,
+    "entry_range_high": 64.47,
+    "target_range_low": 66.62,
+    "target_range_high": 73.22,
+    "target_1": 66.62,
+    "target_2": 70.94,
+    "target_3": 73.22,
+    "stop_loss": 60.34,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $62.43 – $64.47 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $66.77 direnci veya $61.83 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $60.34 olarak belirlenmiştir. Fiyatın EMA20 ($64.72) veya günlük VWAP ($66.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($64.88) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($66.00) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}
