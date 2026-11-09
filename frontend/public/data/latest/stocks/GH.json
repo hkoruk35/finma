@@ -1,0 +1,89 @@
+{
+  "ticker": "GH",
+  "company": "Guardant Health, Inc.",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T17:56:54.371Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 158.3300018310547,
+    "open": 152.77999877929688,
+    "high": 162.9550018310547,
+    "low": 149.39999389648438,
+    "prev_close": 150.8699951171875,
+    "change_pct": 4.944658948303581,
+    "change_pct_1w": -7.262926378955115,
+    "change_pct_1m": -11.080532403717777,
+    "change_pct_1y": 63.699338123213145,
+    "volume": 1691035,
+    "avg_volume_30d": 60221235
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 65,
+    "fundamental_score": 40.1,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.0040543001233,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 167.3040925668776,
+    "ema_50": 166.73990782717075,
+    "ema_200": 141.68794938688362,
+    "ema_stack_bullish": true,
+    "bb_upper": 166.24650192260742,
+    "bb_middle": 158.3300018310547,
+    "bb_lower": 150.41350173950195,
+    "bb_width": 10,
+    "atr": 10.66,
+    "atr_pct": 6.73,
+    "rvol": 1.5341865705676743,
+    "52w_high": 191.0500030517578,
+    "52w_low": 74.55000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0.65190005,
+    "operating_margin": -0.37057,
+    "net_margin": -0.37929,
+    "market_cap": 21419827200,
+    "revenue_growth_ttm": 0.361,
+    "fcf_yield": -0.002826172379205748,
+    "institutional_ownership_pct": 1.02006,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 151.93,
+    "entry_range_high": 159.4,
+    "target_range_low": 173.17,
+    "target_range_high": 183.51,
+    "target_1": 173.17,
+    "target_2": 176.63,
+    "target_3": 183.51,
+    "stop_loss": 144.47,
+    "risk_reward_ratio": 1.87,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $151.93 – $159.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $172.19 direnci veya $149.80 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $144.47 olarak belirlenmiştir. Fiyatın EMA200 ($141.69) veya günlük VWAP ($154.58) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($166.74) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($154.58) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
