@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:03:20.831214-05:00",
+  "generated_at": "2026-11-09T17:02:23.516942-05:00",
   "picks": [
     {
       "ticker": "AVNT",
@@ -56,16 +56,70 @@
       "score": 40.0
     },
     {
-      "ticker": "TOST",
-      "sector": "Technology",
-      "date_added": "2026-11-09",
-      "score": 38.5
-    },
-    {
       "ticker": "SPOT",
       "sector": "Communication Services",
       "date_added": "2026-11-09",
       "score": 38.5
+    },
+    {
+      "ticker": "RLJ",
+      "sector": "Real Estate",
+      "date_added": "2026-11-09",
+      "score": 51.0
+    },
+    {
+      "ticker": "ALGN",
+      "sector": "Healthcare",
+      "date_added": "2026-11-09",
+      "score": 50.5
+    },
+    {
+      "ticker": "EHC",
+      "sector": "Healthcare",
+      "date_added": "2026-11-09",
+      "score": 50.5
+    },
+    {
+      "ticker": "DIS",
+      "sector": "Communication Services",
+      "date_added": "2026-11-09",
+      "score": 50.0
+    },
+    {
+      "ticker": "RL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-09",
+      "score": 49.0
+    },
+    {
+      "ticker": "DLTR",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-11-09",
+      "score": 49.0
+    },
+    {
+      "ticker": "ELF",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-11-09",
+      "score": 47.5
+    },
+    {
+      "ticker": "CPA",
+      "sector": "Industrials",
+      "date_added": "2026-11-09",
+      "score": 47.5
+    },
+    {
+      "ticker": "XYZ",
+      "sector": "Technology",
+      "date_added": "2026-11-09",
+      "score": 44.5
+    },
+    {
+      "ticker": "CARG",
+      "sector": "Communication Services",
+      "date_added": "2026-11-09",
+      "score": 41.5
     }
   ]
 }
