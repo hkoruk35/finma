@@ -1,17 +1,11 @@
 {
-  "generated_at": "2026-11-09T09:04:21.522615-05:00",
+  "generated_at": "2026-11-09T14:03:20.831214-05:00",
   "picks": [
     {
       "ticker": "AVNT",
       "sector": "Basic Materials",
       "date_added": "2026-11-09",
       "score": 41.5
-    },
-    {
-      "ticker": "DLTR",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-11-09",
-      "score": 39.5
     },
     {
       "ticker": "XMTR",
@@ -24,6 +18,54 @@
       "sector": "Technology",
       "date_added": "2026-11-09",
       "score": 37.0
+    },
+    {
+      "ticker": "ELAN",
+      "sector": "Healthcare",
+      "date_added": "2026-11-09",
+      "score": 44.5
+    },
+    {
+      "ticker": "CCI",
+      "sector": "Real Estate",
+      "date_added": "2026-11-09",
+      "score": 44.0
+    },
+    {
+      "ticker": "GLBE",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-09",
+      "score": 43.5
+    },
+    {
+      "ticker": "JXN",
+      "sector": "Financial Services",
+      "date_added": "2026-11-09",
+      "score": 43.5
+    },
+    {
+      "ticker": "VIK",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-09",
+      "score": 43.0
+    },
+    {
+      "ticker": "ARCB",
+      "sector": "Industrials",
+      "date_added": "2026-11-09",
+      "score": 40.0
+    },
+    {
+      "ticker": "TOST",
+      "sector": "Technology",
+      "date_added": "2026-11-09",
+      "score": 38.5
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-11-09",
+      "score": 38.5
     }
   ]
 }
