@@ -1,0 +1,89 @@
+{
+  "ticker": "TAP",
+  "company": "Molson Coors Beverage Company",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T04:37:23.209Z",
+  "sector": "Consumer Defensive",
+  "industry": "Beverages - Brewers",
+  "price": {
+    "current": 40.33000183105469,
+    "open": 39.869998931884766,
+    "high": 40.90999984741211,
+    "low": 39.439998626708984,
+    "prev_close": 42.22999954223633,
+    "change_pct": -4.499165834187041,
+    "change_pct_1w": 0.5234369510489324,
+    "change_pct_1m": 0.8250045776367186,
+    "change_pct_1y": -8.528007050398042,
+    "volume": 4611000,
+    "avg_volume_30d": 101316800
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 60,
+    "fundamental_score": 63.2,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.25109026812001,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 40.344303717817,
+    "ema_50": 39.74430030916451,
+    "ema_200": 41.45245780780546,
+    "ema_stack_bullish": false,
+    "bb_upper": 42.34650192260742,
+    "bb_middle": 40.33000183105469,
+    "bb_lower": 38.31350173950195,
+    "bb_width": 10,
+    "atr": 1.57,
+    "atr_pct": 3.9,
+    "rvol": 1.502658986466213,
+    "52w_high": 54.81999969482422,
+    "52w_low": 35.52000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 8.767392,
+    "pb_ratio": 0.73113257,
+    "gross_margin": 0.35874,
+    "operating_margin": 0.13733,
+    "net_margin": 0.0809,
+    "market_cap": 7475311104,
+    "revenue_growth_ttm": -0.016,
+    "fcf_yield": 0.12006523601669757,
+    "institutional_ownership_pct": 1.07664,
+    "dividend_rate": 1.92,
+    "dividend_yield": 0.0476
+  },
+  "scores_detail": {
+    "entry_range_low": 39.39,
+    "entry_range_high": 40.49,
+    "target_range_low": 41.93,
+    "target_range_high": 45.93,
+    "target_1": 41.93,
+    "target_2": 43.93,
+    "target_3": 45.93,
+    "stop_loss": 38.29,
+    "risk_reward_ratio": 2.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $39.39 – $40.49 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $42.35 direnci veya $39.07 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $38.29 olarak belirlenmiştir. Fiyatın EMA50 ($39.74) veya günlük VWAP ($40.52) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($39.74) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.52) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

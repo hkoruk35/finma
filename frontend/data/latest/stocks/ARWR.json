@@ -1,0 +1,89 @@
+{
+  "ticker": "ARWR",
+  "company": "Arrowhead Pharmaceuticals, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T17:27:38.148Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 58.15999984741211,
+    "open": 58.209999084472656,
+    "high": 58.709999084472656,
+    "low": 57,
+    "prev_close": 57.459999084472656,
+    "change_pct": 1.218240121985337,
+    "change_pct_1w": -2.9048441304547463,
+    "change_pct_1m": -1.3903012905875094,
+    "change_pct_1y": 46.86869214255178,
+    "volume": 1363200,
+    "avg_volume_30d": 51742700
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.92%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.64818832548312,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 60.196578170263834,
+    "ema_50": 65.60741411793946,
+    "ema_200": 68.52350457482929,
+    "ema_stack_bullish": false,
+    "bb_upper": 61.067999839782715,
+    "bb_middle": 58.15999984741211,
+    "bb_lower": 55.251999855041504,
+    "bb_width": 10,
+    "atr": 2.34,
+    "atr_pct": 4.02,
+    "rvol": 0.8610142107002533,
+    "52w_high": 95.48999786376953,
+    "52w_low": 37.060001373291016
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 17.63493,
+    "gross_margin": 1,
+    "operating_margin": -2.26028,
+    "net_margin": -0.4779,
+    "market_cap": 8192244736,
+    "revenue_growth_ttm": 1.71,
+    "fcf_yield": -0.005935872958764107,
+    "institutional_ownership_pct": 0.85346,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 56.76,
+    "entry_range_high": 58.39,
+    "target_range_low": 67.15,
+    "target_range_high": 76.11,
+    "target_1": 67.15,
+    "target_2": 72.36,
+    "target_3": 76.11,
+    "stop_loss": 55.12,
+    "risk_reward_ratio": 6.03,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $56.76 – $58.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.44 direnci veya $56.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $55.12 olarak belirlenmiştir. Fiyatın EMA20 ($60.20) veya günlük VWAP ($57.87) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($65.61) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($57.87) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

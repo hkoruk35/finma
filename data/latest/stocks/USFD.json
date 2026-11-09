@@ -1,0 +1,89 @@
+{
+  "ticker": "USFD",
+  "company": "US Foods Holding Corp.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T00:46:49.902Z",
+  "sector": "Consumer Defensive",
+  "industry": "Food Distribution",
+  "price": {
+    "current": 106.66999816894531,
+    "open": 106.12000274658203,
+    "high": 107.35990142822266,
+    "low": 105,
+    "prev_close": 106.8499984741211,
+    "change_pct": -0.16846074660391974,
+    "change_pct_1w": 2.9533805043603376,
+    "change_pct_1m": 5.238750519553033,
+    "change_pct_1y": 49.39775334638166,
+    "volume": 2255269,
+    "avg_volume_30d": 68663869
+  },
+  "scores": {
+    "master_score": 88,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.1896264626871,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 102.8434563237829,
+    "ema_50": 100.78372330242576,
+    "ema_200": 94.2781633416094,
+    "ema_stack_bullish": true,
+    "bb_upper": 112.00349807739258,
+    "bb_middle": 106.66999816894531,
+    "bb_lower": 101.33649826049805,
+    "bb_width": 10,
+    "atr": 3.71,
+    "atr_pct": 3.48,
+    "rvol": 1.7196615297049456,
+    "52w_high": 112.56500244140625,
+    "52w_low": 69.875
+  },
+  "fundamental": {
+    "pe_ratio": 29.79609,
+    "pb_ratio": 5.392003,
+    "gross_margin": 0.17554002,
+    "operating_margin": 0.04197,
+    "net_margin": 0.01814,
+    "market_cap": 23075997696,
+    "revenue_growth_ttm": 0.045,
+    "fcf_yield": 0.03489014874271549,
+    "institutional_ownership_pct": 1.1139901,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 104.45,
+    "entry_range_high": 107.04,
+    "target_range_low": 111.28,
+    "target_range_high": 121.6,
+    "target_1": 111.28,
+    "target_2": 116.32,
+    "target_3": 121.6,
+    "stop_loss": 101.34,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $104.45 – $107.04 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $109.06 direnci veya $103.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $101.34 olarak belirlenmiştir. Fiyatın EMA50 ($100.78) veya günlük VWAP ($106.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($106.44) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

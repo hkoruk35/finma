@@ -1,0 +1,89 @@
+{
+  "ticker": "LEN",
+  "company": "Lennar Corporation",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T14:50:20.260Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Residential Construction",
+  "price": {
+    "current": 88.73999786376953,
+    "open": 88.80000305175781,
+    "high": 90.9000015258789,
+    "low": 88.27999877929688,
+    "prev_close": 91.58999633789062,
+    "change_pct": -3.111691874740314,
+    "change_pct_1w": 2.0703880513189534,
+    "change_pct_1m": 5.6680094267261545,
+    "change_pct_1y": -26.252807684352934,
+    "volume": 2952900,
+    "avg_volume_30d": 150632300
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.11791311512176,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 84.79633990934143,
+    "ema_50": 83.07189601951806,
+    "ema_200": 90.81041203451565,
+    "ema_stack_bullish": false,
+    "bb_upper": 93.17699775695802,
+    "bb_middle": 88.73999786376953,
+    "bb_lower": 84.30299797058105,
+    "bb_width": 10,
+    "atr": 3.79,
+    "atr_pct": 4.27,
+    "rvol": 0.8981619480018561,
+    "52w_high": 133.75999450683594,
+    "52w_low": 71.77999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 16.806818,
+    "pb_ratio": 0.9792324,
+    "gross_margin": 0.16014999,
+    "operating_margin": 0.056929998,
+    "net_margin": 0.04092,
+    "market_cap": 21111267328,
+    "revenue_growth_ttm": -0.087,
+    "fcf_yield": 0.05813228495156688,
+    "institutional_ownership_pct": 0.99517,
+    "dividend_rate": 2,
+    "dividend_yield": 0.0225
+  },
+  "scores_detail": {
+    "entry_range_low": 86.47,
+    "entry_range_high": 89.12,
+    "target_range_low": 92.18,
+    "target_range_high": 100.96,
+    "target_1": 92.18,
+    "target_2": 96.57,
+    "target_3": 100.96,
+    "stop_loss": 83.82,
+    "risk_reward_ratio": 2.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $86.47 – $89.12 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $91.77 direnci veya $85.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $83.82 olarak belirlenmiştir. Fiyatın EMA50 ($83.07) veya günlük VWAP ($89.53) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($83.07) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($89.53) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

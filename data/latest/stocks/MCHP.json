@@ -1,0 +1,89 @@
+{
+  "ticker": "MCHP",
+  "company": "Microchip Technology Incorporated",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T16:42:14.712Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 58.349998474121094,
+    "open": 64.86000061035156,
+    "high": 65.30999755859375,
+    "low": 54.83000183105469,
+    "prev_close": 64.8499984741211,
+    "change_pct": -10.023130536531742,
+    "change_pct_1w": -24.553916166228078,
+    "change_pct_1m": -23.122533200179124,
+    "change_pct_1y": -1.6849200096206218,
+    "volume": 47393300,
+    "avg_volume_30d": 380155700
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 45,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 26.9281767990706,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 73.92025427598182,
+    "ema_50": 75.64588110673857,
+    "ema_200": 76.60639241553484,
+    "ema_stack_bullish": false,
+    "bb_upper": 61.267498397827154,
+    "bb_middle": 58.349998474121094,
+    "bb_lower": 55.43249855041503,
+    "bb_width": 10,
+    "atr": 4.74,
+    "atr_pct": 8.12,
+    "rvol": 2.082722421365772,
+    "52w_high": 105.91000366210938,
+    "52w_low": 48.52000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 43.872177,
+    "pb_ratio": 4.782003,
+    "gross_margin": 0.62701,
+    "operating_margin": 0.29134,
+    "net_margin": 0.14957,
+    "market_cap": 31755446272,
+    "revenue_growth_ttm": 0.422,
+    "fcf_yield": 0.048462158548120936,
+    "institutional_ownership_pct": 1.02289,
+    "dividend_rate": 1.82,
+    "dividend_yield": 0.0312
+  },
+  "scores_detail": {
+    "entry_range_low": 55.51,
+    "entry_range_high": 58.82,
+    "target_range_low": 68.1,
+    "target_range_high": 81.43,
+    "target_1": 68.1,
+    "target_2": 69.56,
+    "target_3": 81.43,
+    "stop_loss": 52.19,
+    "risk_reward_ratio": 2.49,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $55.51 – $58.82 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $75.78 direnci veya $54.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $52.19 olarak belirlenmiştir. Fiyatın EMA20 ($73.92) veya günlük VWAP ($57.32) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($75.65) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($57.32) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.1 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 27 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "EVRG",
+  "company": "Evergy, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T17:42:12.272Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 87.54000091552734,
+    "open": 86.31999969482422,
+    "high": 88.01000213623047,
+    "low": 86.0999984741211,
+    "prev_close": 87.41000366210938,
+    "change_pct": 0.14872125382866236,
+    "change_pct_1w": 1.87361876484782,
+    "change_pct_1m": 3.4629479778272354,
+    "change_pct_1y": 15.854954663866394,
+    "volume": 3813700,
+    "avg_volume_30d": 74851800
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 95,
+    "fundamental_score": 66.5,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.3259784839823,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 84.57554083940754,
+    "ema_50": 83.05907071492435,
+    "ema_200": 81.60996148145695,
+    "ema_stack_bullish": true,
+    "bb_upper": 91.91700096130371,
+    "bb_middle": 87.54000091552734,
+    "bb_lower": 83.16300086975097,
+    "bb_width": 10,
+    "atr": 1.58,
+    "atr_pct": 1.81,
+    "rvol": 1.6631664168396751,
+    "52w_high": 89.66000366210938,
+    "52w_low": 71.41000366210938
+  },
+  "fundamental": {
+    "pe_ratio": 19.49666,
+    "pb_ratio": 1.8646162,
+    "gross_margin": 0.52948004,
+    "operating_margin": 0.38458002,
+    "net_margin": 0.16670999,
+    "market_cap": 20527837184,
+    "revenue_growth_ttm": 0.158,
+    "fcf_yield": -0.0714164354899825,
+    "institutional_ownership_pct": 0.99165,
+    "dividend_rate": 2.89,
+    "dividend_yield": 0.033
+  },
+  "scores_detail": {
+    "entry_range_low": 86.59,
+    "entry_range_high": 87.7,
+    "target_range_low": 91.5,
+    "target_range_high": 100.22,
+    "target_1": 91.5,
+    "target_2": 95.86,
+    "target_3": 100.22,
+    "stop_loss": 83.16,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $86.59 – $87.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $89.66 direnci veya $86.27 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $83.16 olarak belirlenmiştir. Fiyatın EMA50 ($83.06) veya günlük VWAP ($87.61) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($87.61) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}

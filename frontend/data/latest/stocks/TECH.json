@@ -1,0 +1,89 @@
+{
+  "ticker": "TECH",
+  "company": "Bio-Techne Corporation",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T20:38:36.713Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 72.77999877929688,
+    "open": 72.68000030517578,
+    "high": 72.80000305175781,
+    "low": 72.62999725341797,
+    "prev_close": 72.66000366210938,
+    "change_pct": 0.16514603790210772,
+    "change_pct_1w": 0.16514603790210772,
+    "change_pct_1m": 0.12380841225472373,
+    "change_pct_1y": 25.094531449877383,
+    "volume": 2307600,
+    "avg_volume_30d": 87376100
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.10607748758104,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 72.62528204359494,
+    "ema_50": 72.06060481394283,
+    "ema_200": 66.03711192700639,
+    "ema_stack_bullish": true,
+    "bb_upper": 76.41899871826172,
+    "bb_middle": 72.77999877929688,
+    "bb_lower": 69.14099884033203,
+    "bb_width": 10,
+    "atr": 0.13,
+    "atr_pct": 0.17,
+    "rvol": 1.136425178052122,
+    "52w_high": 72.83000183105469,
+    "52w_low": 43.20000076293945
+  },
+  "fundamental": {
+    "pe_ratio": 62.74138,
+    "pb_ratio": 5.2781205,
+    "gross_margin": 0.66226,
+    "operating_margin": 0.12213001,
+    "net_margin": 0.14002,
+    "market_cap": 11430504448,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": 0.023850543538146394,
+    "institutional_ownership_pct": 1.12298,
+    "dividend_rate": 0.32,
+    "dividend_yield": 0.0044
+  },
+  "scores_detail": {
+    "entry_range_low": 72.7,
+    "entry_range_high": 72.79,
+    "target_range_low": 76.39,
+    "target_range_high": 83.66,
+    "target_1": 76.39,
+    "target_2": 80.02,
+    "target_3": 83.66,
+    "stop_loss": 69.14,
+    "risk_reward_ratio": 2.02,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $72.70 – $72.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $72.83 direnci veya $72.68 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $69.14 olarak belirlenmiştir. Fiyatın EMA50 ($72.06) veya günlük VWAP ($72.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($72.76) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 61 seviyesinde pozitif momentumu destekliyor."
+  }
+}

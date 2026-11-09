@@ -1,0 +1,89 @@
+{
+  "ticker": "BRK-B",
+  "company": "Berkshire Hathaway Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T01:25:25.321Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Diversified",
+  "price": {
+    "current": 572.3300170898438,
+    "open": 584.22998046875,
+    "high": 586.2999877929688,
+    "low": 571.0999755859375,
+    "prev_close": 579.0900268554688,
+    "change_pct": -1.1673504035862434,
+    "change_pct_1w": 5.603733464812607,
+    "change_pct_1m": 5.558939580722846,
+    "change_pct_1y": 16.055971646220847,
+    "volume": 9829900,
+    "avg_volume_30d": 139775800
+  },
+  "scores": {
+    "master_score": 86,
+    "technical_score": 95,
+    "fundamental_score": 74.75,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 75.14509308550029,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 543.3696427031996,
+    "ema_50": 526.4595442150506,
+    "ema_200": 504.78009175850065,
+    "ema_stack_bullish": true,
+    "bb_upper": 600.9465179443359,
+    "bb_middle": 572.3300170898438,
+    "bb_lower": 543.7135162353516,
+    "bb_width": 10,
+    "atr": 9.48,
+    "atr_pct": 1.66,
+    "rvol": 1.4005385767779546,
+    "52w_high": 586.2999877929688,
+    "52w_low": 464.010009765625
+  },
+  "fundamental": {
+    "pe_ratio": 14.358401,
+    "pb_ratio": 0.001093186,
+    "gross_margin": 0.30332002,
+    "operating_margin": 0.32561,
+    "net_margin": 0.22296,
+    "market_cap": 1222109822976,
+    "revenue_growth_ttm": 0.1,
+    "fcf_yield": 0.058894255261553084,
+    "institutional_ownership_pct": 0.6699,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 561.51,
+    "entry_range_high": 573.28,
+    "target_range_low": 595.76,
+    "target_range_high": 652.5,
+    "target_1": 595.76,
+    "target_2": 624.13,
+    "target_3": 652.5,
+    "stop_loss": 543.71,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $561.51 – $573.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $586.30 direnci veya $559.61 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $543.71 olarak belirlenmiştir. Fiyatın EMA20 ($543.37) veya günlük VWAP ($572.10) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($572.10) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 75 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

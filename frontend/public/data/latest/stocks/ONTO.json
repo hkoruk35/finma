@@ -1,0 +1,89 @@
+{
+  "ticker": "ONTO",
+  "company": "Onto Innovation Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T16:28:06.349Z",
+  "sector": "Technology",
+  "industry": "Semiconductor Equipment & Materials",
+  "price": {
+    "current": 173.27999877929688,
+    "open": 174.9499969482422,
+    "high": 175,
+    "low": 166.35000610351562,
+    "prev_close": 155.99000549316406,
+    "change_pct": 11.084039154605012,
+    "change_pct_1w": -14.0348303403186,
+    "change_pct_1m": -14.862673896442354,
+    "change_pct_1y": 31.521820705348674,
+    "volume": 1274800,
+    "avg_volume_30d": 31768800
+  },
+  "scores": {
+    "master_score": 53,
+    "technical_score": 35,
+    "fundamental_score": 79.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.82903501450696,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 213.48774438877956,
+    "ema_50": 244.47068423606268,
+    "ema_200": 248.15527046278785,
+    "ema_stack_bullish": false,
+    "bb_upper": 181.94399871826172,
+    "bb_middle": 173.27999877929688,
+    "bb_lower": 164.61599884033203,
+    "bb_width": 10,
+    "atr": 16.63,
+    "atr_pct": 9.6,
+    "rvol": 1.3724975447608976,
+    "52w_high": 386.4599914550781,
+    "52w_low": 118.97000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 65.14285,
+    "pb_ratio": 4.419055,
+    "gross_margin": 0.55492,
+    "operating_margin": 0.2297,
+    "net_margin": 0.11838,
+    "market_cap": 8503585792,
+    "revenue_growth_ttm": 0.353,
+    "fcf_yield": 0.023866078730096264,
+    "institutional_ownership_pct": 0.99931,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 160.54,
+    "entry_range_high": 174.94,
+    "target_range_low": 176.13,
+    "target_range_high": 227.72,
+    "target_1": 176.13,
+    "target_2": 223.25,
+    "target_3": 227.72,
+    "stop_loss": 148.9,
+    "risk_reward_ratio": 2.95,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $160.54 – $174.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $188.57 direnci veya $157.21 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $148.90 olarak belirlenmiştir. Fiyatın EMA20 ($213.49) veya günlük VWAP ($171.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($244.47) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($171.65) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 34 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

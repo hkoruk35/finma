@@ -1,0 +1,89 @@
+{
+  "ticker": "FIGR",
+  "company": "Figure Technology Solutions, Inc.",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T00:30:11.686Z",
+  "sector": "Financial Services",
+  "industry": "Capital Markets",
+  "price": {
+    "current": 22.725000381469727,
+    "open": 21.600000381469727,
+    "high": 22.905000686645508,
+    "low": 20.81100082397461,
+    "prev_close": 20.899999618530273,
+    "change_pct": 8.732061226074753,
+    "change_pct_1w": 5.305840879572322,
+    "change_pct_1m": 3.71976512886138,
+    "change_pct_1y": -36.326698638583764,
+    "volume": 5590600,
+    "avg_volume_30d": 152899700
+  },
+  "scores": {
+    "master_score": 58,
+    "technical_score": 30,
+    "fundamental_score": 66.5,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+2.07%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.936455380810536,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.192704736747196,
+    "ema_50": 27.444663676442108,
+    "ema_200": 32.280449754776356,
+    "ema_stack_bullish": false,
+    "bb_upper": 23.861250400543213,
+    "bb_middle": 22.725000381469727,
+    "bb_lower": 21.58875036239624,
+    "bb_width": 10,
+    "atr": 1.69,
+    "atr_pct": 7.43,
+    "rvol": 1.2050409516827043,
+    "52w_high": 78,
+    "52w_low": 19.540000915527344
+  },
+  "fundamental": {
+    "pe_ratio": 24.435484,
+    "pb_ratio": 3.596297,
+    "gross_margin": 1,
+    "operating_margin": 0.35525,
+    "net_margin": 0.38301,
+    "market_cap": 5098987008,
+    "revenue_growth_ttm": 1.208,
+    "fcf_yield": -0.049818817659556584,
+    "institutional_ownership_pct": 0.77724,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 21.71,
+    "entry_range_high": 22.89,
+    "target_range_low": 35.2,
+    "target_range_high": 40.6,
+    "target_1": 35.2,
+    "target_2": 37.5,
+    "target_3": 40.6,
+    "stop_loss": 20.53,
+    "risk_reward_ratio": 8.57,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $21.71 – $22.89 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $23.62 direnci veya $21.37 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.53 olarak belirlenmiştir. Fiyatın EMA20 ($24.19) veya günlük VWAP ($22.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($27.44) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($22.13) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

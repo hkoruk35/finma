@@ -1,0 +1,89 @@
+{
+  "ticker": "CHTR",
+  "company": "Charter Communications, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T06:14:36.634Z",
+  "sector": "Communication Services",
+  "industry": "Telecom Services",
+  "price": {
+    "current": 118.06999969482422,
+    "open": 115.73999786376953,
+    "high": 123.66000366210938,
+    "low": 110.58000183105469,
+    "prev_close": 125.86000061035156,
+    "change_pct": -6.189417509733146,
+    "change_pct_1w": 5.90187636302123,
+    "change_pct_1m": 15.550987807976696,
+    "change_pct_1y": -45.80464547689249,
+    "volume": 6463300,
+    "avg_volume_30d": 87845100
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 55,
+    "fundamental_score": 69.8,
+    "momentum_score": 48,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.93536522375727,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 113.50482752422724,
+    "ema_50": 119.66606514268183,
+    "ema_200": 152.78317327866648,
+    "ema_stack_bullish": false,
+    "bb_upper": 123.97349967956544,
+    "bb_middle": 118.06999969482422,
+    "bb_lower": 112.166499710083,
+    "bb_width": 10,
+    "atr": 6.11,
+    "atr_pct": 5.17,
+    "rvol": 1.2602820191450632,
+    "52w_high": 254.11000061035156,
+    "52w_low": 101.11000061035156
+  },
+  "fundamental": {
+    "pe_ratio": 11.096804,
+    "pb_ratio": 0.93132037,
+    "gross_margin": 0.55189997,
+    "operating_margin": 0.23503,
+    "net_margin": 0.09052,
+    "market_cap": 15344094208,
+    "revenue_growth_ttm": -0.017,
+    "fcf_yield": 0.14327172931809987,
+    "institutional_ownership_pct": 0.92787004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 115.43,
+    "entry_range_high": 118.68,
+    "target_range_low": 147.85,
+    "target_range_high": 162.48,
+    "target_1": 147.85,
+    "target_2": 159.29,
+    "target_3": 162.48,
+    "stop_loss": 111.16,
+    "risk_reward_ratio": 7.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $115.43 – $118.68 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $122.99 direnci veya $114.21 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $111.16 olarak belirlenmiştir. Fiyatın EMA20 ($113.50) veya günlük VWAP ($120.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($119.67) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($120.51) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

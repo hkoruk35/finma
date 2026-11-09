@@ -1,0 +1,89 @@
+{
+  "ticker": "JHX",
+  "company": "James Hardie Industries plc",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T11:48:03.140Z",
+  "sector": "Basic Materials",
+  "industry": "Building Materials",
+  "price": {
+    "current": 27.850000381469727,
+    "open": 26.81999969482422,
+    "high": 28.309999465942383,
+    "low": 26,
+    "prev_close": 28.65999984741211,
+    "change_pct": -2.8262368117755687,
+    "change_pct_1w": 2.2393561507967767,
+    "change_pct_1m": 7.033051081903542,
+    "change_pct_1y": 60.6113041314667,
+    "volume": 12576400,
+    "avg_volume_30d": 248706600
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 73.1,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 56.42398508467805,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 26.989721903229523,
+    "ema_50": 26.77967832224326,
+    "ema_200": 24.669231163322173,
+    "ema_stack_bullish": true,
+    "bb_upper": 29.242500400543214,
+    "bb_middle": 27.850000381469727,
+    "bb_lower": 26.45750036239624,
+    "bb_width": 10,
+    "atr": 1.06,
+    "atr_pct": 3.8,
+    "rvol": 1.3247899331983952,
+    "52w_high": 31.43000030517578,
+    "52w_low": 16.459999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 48.017242,
+    "pb_ratio": 2.408128,
+    "gross_margin": 0.38251,
+    "operating_margin": 0.19556,
+    "net_margin": 0.062230002,
+    "market_cap": 16199073792,
+    "revenue_growth_ttm": 0.237,
+    "fcf_yield": 0.009842383956466638,
+    "institutional_ownership_pct": 0.60789,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 27.22,
+    "entry_range_high": 27.96,
+    "target_range_low": 31.36,
+    "target_range_high": 32.63,
+    "target_1": 31.36,
+    "target_2": 31.99,
+    "target_3": 32.63,
+    "stop_loss": 26.46,
+    "risk_reward_ratio": 3.9,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $27.22 – $27.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $28.85 direnci veya $27.00 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $26.46 olarak belirlenmiştir. Fiyatın EMA50 ($26.78) veya günlük VWAP ($27.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($27.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

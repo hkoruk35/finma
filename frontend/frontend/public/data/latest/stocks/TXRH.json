@@ -1,0 +1,89 @@
+{
+  "ticker": "TXRH",
+  "company": "Texas Roadhouse, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T20:39:40.681Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Restaurants",
+  "price": {
+    "current": 183.8800048828125,
+    "open": 183.61000061035156,
+    "high": 191.4199981689453,
+    "low": 183.52999877929688,
+    "prev_close": 191.7899932861328,
+    "change_pct": -4.12429672048601,
+    "change_pct_1w": 0.7451241390074648,
+    "change_pct_1m": 10.89132599257581,
+    "change_pct_1y": 14.403042226490257,
+    "volume": 1867600,
+    "avg_volume_30d": 42268100
+  },
+  "scores": {
+    "master_score": 68,
+    "technical_score": 85,
+    "fundamental_score": 54.95,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.22095529622527,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 177.63893657632582,
+    "ema_50": 176.54748189594284,
+    "ema_200": 177.595726167133,
+    "ema_stack_bullish": false,
+    "bb_upper": 193.07400512695312,
+    "bb_middle": 183.8800048828125,
+    "bb_lower": 174.68600463867188,
+    "bb_width": 10,
+    "atr": 6.71,
+    "atr_pct": 3.65,
+    "rvol": 1.090510337583189,
+    "52w_high": 216.3000030517578,
+    "52w_low": 153.8300018310547
+  },
+  "fundamental": {
+    "pe_ratio": 28.91195,
+    "pb_ratio": 7.5895658,
+    "gross_margin": 0.16284001,
+    "operating_margin": 0.06776,
+    "net_margin": 0.06585,
+    "market_cap": 12070053888,
+    "revenue_growth_ttm": 0.095,
+    "fcf_yield": 0.021979365664949714,
+    "institutional_ownership_pct": 1.0355,
+    "dividend_rate": 3,
+    "dividend_yield": 0.0163
+  },
+  "scores_detail": {
+    "entry_range_low": 174.23,
+    "entry_range_high": 184.55,
+    "target_range_low": 188.36,
+    "target_range_high": 206.3,
+    "target_1": 188.36,
+    "target_2": 197.33,
+    "target_3": 206.3,
+    "stop_loss": 169.54,
+    "risk_reward_ratio": 1.82,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $174.23 – $184.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $187.41 direnci veya $172.89 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $169.54 olarak belirlenmiştir. Fiyatın EMA50 ($176.55) veya günlük VWAP ($185.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($176.55) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($185.12) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

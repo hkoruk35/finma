@@ -1,0 +1,89 @@
+{
+  "ticker": "RKLB",
+  "company": "Rocket Lab Corporation",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T03:11:21.633Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 53.06999969482422,
+    "open": 48.279998779296875,
+    "high": 53.099998474121094,
+    "low": 46.5099983215332,
+    "prev_close": 45.9900016784668,
+    "change_pct": 15.394646136036961,
+    "change_pct_1w": -3.0330711881900374,
+    "change_pct_1m": -1.3935340101314164,
+    "change_pct_1y": 6.974398391260444,
+    "volume": 20675700,
+    "avg_volume_30d": 606410400
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.59%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.77743773361282,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 55.97143896422588,
+    "ema_50": 62.2832000256963,
+    "ema_200": 71.88634902064221,
+    "ema_stack_bullish": false,
+    "bb_upper": 55.723499679565435,
+    "bb_middle": 53.06999969482422,
+    "bb_lower": 50.416499710083,
+    "bb_width": 10,
+    "atr": 4.4,
+    "atr_pct": 8.29,
+    "rvol": 1.057091039335737,
+    "52w_high": 151,
+    "52w_low": 37.56999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 9.090442,
+    "gross_margin": 0.37264,
+    "operating_margin": -0.24572,
+    "net_margin": -0.21511999,
+    "market_cap": 33933541376,
+    "revenue_growth_ttm": 0.62,
+    "fcf_yield": -0.007425208857752908,
+    "institutional_ownership_pct": 0.62481,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 50.43,
+    "entry_range_high": 53.51,
+    "target_range_low": 78.2,
+    "target_range_high": 93.1,
+    "target_1": 78.2,
+    "target_2": 86.83,
+    "target_3": 93.1,
+    "stop_loss": 47.35,
+    "risk_reward_ratio": 7.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $50.43 – $53.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $55.31 direnci veya $49.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $47.35 olarak belirlenmiştir. Fiyatın EMA20 ($55.97) veya günlük VWAP ($51.27) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($62.28) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($51.27) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

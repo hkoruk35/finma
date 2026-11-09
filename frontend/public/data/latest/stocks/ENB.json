@@ -1,0 +1,89 @@
+{
+  "ticker": "ENB",
+  "company": "Enbridge Inc.",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T01:48:35.207Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas Midstream",
+  "price": {
+    "current": 46.88999938964844,
+    "open": 47.75,
+    "high": 47.75,
+    "low": 46.380001068115234,
+    "prev_close": 48.11000061035156,
+    "change_pct": -2.5358578366773585,
+    "change_pct_1w": -5.19611755437949,
+    "change_pct_1m": -2.838787773586564,
+    "change_pct_1y": 0.02132747718728902,
+    "volume": 10480000,
+    "avg_volume_30d": 132576800.00000001
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 35,
+    "fundamental_score": 46.7,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.75972593982695,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 48.13826360186789,
+    "ema_50": 48.65684138137155,
+    "ema_200": 50.61669667366113,
+    "ema_stack_bullish": false,
+    "bb_upper": 49.23449935913086,
+    "bb_middle": 46.88999938964844,
+    "bb_lower": 44.54549942016602,
+    "bb_width": 10,
+    "atr": 0.74,
+    "atr_pct": 1.57,
+    "rvol": 1.4004757996874264,
+    "52w_high": 58.45000076293945,
+    "52w_low": 45.029998779296875
+  },
+  "fundamental": {
+    "pe_ratio": 22.652174,
+    "pb_ratio": 2.5882142,
+    "gross_margin": 0.32594,
+    "operating_margin": 0.101610005,
+    "net_margin": 0.07339,
+    "market_cap": 104512561152,
+    "revenue_growth_ttm": 0.971,
+    "fcf_yield": -0.010144713442224456,
+    "institutional_ownership_pct": 0.52002,
+    "dividend_rate": 2.78,
+    "dividend_yield": 0.0577
+  },
+  "scores_detail": {
+    "entry_range_low": 46.53,
+    "entry_range_high": 46.96,
+    "target_range_low": 49.08,
+    "target_range_high": 54.2,
+    "target_1": 49.08,
+    "target_2": 51.42,
+    "target_3": 54.2,
+    "stop_loss": 44.55,
+    "risk_reward_ratio": 2.12,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $46.53 – $46.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $48.33 direnci veya $46.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $44.55 olarak belirlenmiştir. Fiyatın EMA20 ($48.14) veya günlük VWAP ($46.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($48.66) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($46.90) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

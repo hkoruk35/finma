@@ -1,0 +1,89 @@
+{
+  "ticker": "VIK",
+  "company": "Viking Holdings Ltd",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T02:25:10.253Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Travel Services",
+  "price": {
+    "current": 87.4800033569336,
+    "open": 85.5999984741211,
+    "high": 88.11000061035156,
+    "low": 84.7249984741211,
+    "prev_close": 86.16000366210938,
+    "change_pct": 1.532033006870351,
+    "change_pct_1w": 0.011434933223827784,
+    "change_pct_1m": 3.3065694870889977,
+    "change_pct_1y": 52.64351991047609,
+    "volume": 2635100,
+    "avg_volume_30d": 107585400
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 78,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.90168679259863,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 85.8841064175023,
+    "ema_50": 86.30193951985498,
+    "ema_200": 84.09371762929246,
+    "ema_stack_bullish": false,
+    "bb_upper": 91.85400352478028,
+    "bb_middle": 87.4800033569336,
+    "bb_lower": 83.1060031890869,
+    "bb_width": 10,
+    "atr": 3.43,
+    "atr_pct": 3.92,
+    "rvol": 1.2416164275078216,
+    "52w_high": 110.08999633789062,
+    "52w_low": 56.369998931884766
+  },
+  "fundamental": {
+    "pe_ratio": 29.063124,
+    "pb_ratio": 24.04618,
+    "gross_margin": 0.44276002,
+    "operating_margin": 0.29395,
+    "net_margin": 0.19331,
+    "market_cap": 39071903744,
+    "revenue_growth_ttm": 0.165,
+    "fcf_yield": 0.010386328617589256,
+    "institutional_ownership_pct": 1.0117401,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 85.42,
+    "entry_range_high": 87.82,
+    "target_range_low": 92,
+    "target_range_high": 105.76,
+    "target_1": 92,
+    "target_2": 95.28,
+    "target_3": 105.76,
+    "stop_loss": 83.02,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $85.42 – $87.82 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $89.25 direnci veya $84.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $83.02 olarak belirlenmiştir. Fiyatın EMA200 ($84.09) veya günlük VWAP ($87.14) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($86.30) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($87.14) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

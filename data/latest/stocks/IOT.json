@@ -1,0 +1,89 @@
+{
+  "ticker": "IOT",
+  "company": "Samsara Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T08:41:20.486Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 40.97999954223633,
+    "open": 40.4900016784668,
+    "high": 41.244998931884766,
+    "low": 39.86000061035156,
+    "prev_close": 41.09000015258789,
+    "change_pct": -0.26770652212965385,
+    "change_pct_1w": -2.590920276906945,
+    "change_pct_1m": -8.21948904417274,
+    "change_pct_1y": 7.559058224297399,
+    "volume": 4316900,
+    "avg_volume_30d": 125583100
+  },
+  "scores": {
+    "master_score": 69,
+    "technical_score": 85,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.26289405879592,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 41.851721903102934,
+    "ema_50": 40.78146971748699,
+    "ema_200": 37.15304763070629,
+    "ema_stack_bullish": true,
+    "bb_upper": 43.02899951934815,
+    "bb_middle": 40.97999954223633,
+    "bb_lower": 38.93099956512451,
+    "bb_width": 10,
+    "atr": 1.85,
+    "atr_pct": 4.51,
+    "rvol": 0.9491786713339613,
+    "52w_high": 47.470001220703125,
+    "52w_low": 23.3799991607666
+  },
+  "fundamental": {
+    "pe_ratio": 292.7143,
+    "pb_ratio": 14.972598,
+    "gross_margin": 0.76432,
+    "operating_margin": 0.00959,
+    "net_margin": 0.04901,
+    "market_cap": 23998099456,
+    "revenue_growth_ttm": 0.299,
+    "fcf_yield": 0.010853151453828194,
+    "institutional_ownership_pct": 1.0780101,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 40.23,
+    "entry_range_high": 41.16,
+    "target_range_low": 42.73,
+    "target_range_high": 46.8,
+    "target_1": 42.73,
+    "target_2": 44.77,
+    "target_3": 46.8,
+    "stop_loss": 38.93,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $40.23 – $41.16 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.95 direnci veya $39.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $38.93 olarak belirlenmiştir. Fiyatın EMA200 ($37.15) veya günlük VWAP ($40.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($40.78) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.74) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "WOR",
+  "company": "Worthington Enterprises, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T15:37:05.337Z",
+  "sector": "Industrials",
+  "industry": "Metal Fabrication",
+  "price": {
+    "current": 60.5,
+    "open": 60.97999954223633,
+    "high": 61.900001525878906,
+    "low": 60.2599983215332,
+    "prev_close": 61.220001220703125,
+    "change_pct": -1.1760882168353142,
+    "change_pct_1w": -3.5856573705179287,
+    "change_pct_1m": -5.777914868978425,
+    "change_pct_1y": 9.66105131041113,
+    "volume": 277300,
+    "avg_volume_30d": 8457000
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 60,
+    "fundamental_score": 66.5,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 42.94807434685941,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.90322610933643,
+    "ema_50": 61.40481522515023,
+    "ema_200": 57.787078736310335,
+    "ema_stack_bullish": true,
+    "bb_upper": 63.525000000000006,
+    "bb_middle": 60.5,
+    "bb_lower": 57.474999999999994,
+    "bb_width": 10,
+    "atr": 1.88,
+    "atr_pct": 3.11,
+    "rvol": 0.8832919474991131,
+    "52w_high": 67.54000091552734,
+    "52w_low": 45.0099983215332
+  },
+  "fundamental": {
+    "pe_ratio": 18.277946,
+    "pb_ratio": 2.8458533,
+    "gross_margin": 0.27429,
+    "operating_margin": 0.03996,
+    "net_margin": 0.115030006,
+    "market_cap": 2980212480,
+    "revenue_growth_ttm": 0.132,
+    "fcf_yield": 0.022078291545171973,
+    "institutional_ownership_pct": 0.54032004,
+    "dividend_rate": 0.8,
+    "dividend_yield": 0.013200001
+  },
+  "scores_detail": {
+    "entry_range_low": 59.37,
+    "entry_range_high": 60.69,
+    "target_range_low": 63.03,
+    "target_range_high": 69.03,
+    "target_1": 63.03,
+    "target_2": 66.03,
+    "target_3": 69.03,
+    "stop_loss": 57.47,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $59.37 – $60.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $61.74 direnci veya $58.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $57.47 olarak belirlenmiştir. Fiyatın EMA200 ($57.79) veya günlük VWAP ($60.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($61.40) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($60.93) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

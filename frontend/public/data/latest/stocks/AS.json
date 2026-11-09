@@ -1,0 +1,89 @@
+{
+  "ticker": "AS",
+  "company": "Amer Sports, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T02:42:36.567Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Leisure",
+  "price": {
+    "current": 31.469999313354492,
+    "open": 30.639999389648438,
+    "high": 32.0099983215332,
+    "low": 30.420000076293945,
+    "prev_close": 31.31999969482422,
+    "change_pct": 0.47892598975683126,
+    "change_pct_1w": 6.931698902564881,
+    "change_pct_1m": 10.227671293607301,
+    "change_pct_1y": 6.066731487805858,
+    "volume": 6631900,
+    "avg_volume_30d": 165306200
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 70,
+    "fundamental_score": 66.5,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.38682368134005,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 29.750129905382877,
+    "ema_50": 29.709896680905125,
+    "ema_200": 32.08902939280915,
+    "ema_stack_bullish": false,
+    "bb_upper": 33.04349927902222,
+    "bb_middle": 31.469999313354492,
+    "bb_lower": 29.896499347686767,
+    "bb_width": 10,
+    "atr": 1.11,
+    "atr_pct": 3.54,
+    "rvol": 1.0609329837598347,
+    "52w_high": 42.7599983215332,
+    "52w_low": 26.100000381469727
+  },
+  "fundamental": {
+    "pe_ratio": 33.126316,
+    "pb_ratio": 2.670117,
+    "gross_margin": 0.5981,
+    "operating_margin": 0.07926,
+    "net_margin": 0.07349,
+    "market_cap": 18309939200,
+    "revenue_growth_ttm": 0.321,
+    "fcf_yield": 0.02991203203995347,
+    "institutional_ownership_pct": 0.42852002,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 30.94,
+    "entry_range_high": 31.58,
+    "target_range_low": 36.86,
+    "target_range_high": 38.35,
+    "target_1": 36.86,
+    "target_2": 37.6,
+    "target_3": 38.35,
+    "stop_loss": 29.9,
+    "risk_reward_ratio": 4.64,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.94 – $31.58 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $32.16 direnci veya $30.72 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.90 olarak belirlenmiştir. Fiyatın EMA20 ($29.75) veya günlük VWAP ($31.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($29.71) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.65) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

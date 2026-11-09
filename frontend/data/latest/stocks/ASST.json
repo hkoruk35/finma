@@ -1,0 +1,89 @@
+{
+  "ticker": "ASST",
+  "company": "Strive, Inc.",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T04:27:55.984Z",
+  "sector": "Financial Services",
+  "industry": "Asset Management",
+  "price": {
+    "current": 21.450000762939453,
+    "open": 20.899999618530273,
+    "high": 21.468000411987305,
+    "low": 19.65999984741211,
+    "prev_close": 20.59000015258789,
+    "change_pct": 4.17678778037052,
+    "change_pct_1w": -3.3566070832544157,
+    "change_pct_1m": -18.503035670028684,
+    "change_pct_1y": -26.03448012779499,
+    "volume": 4829500,
+    "avg_volume_30d": 249961100
+  },
+  "scores": {
+    "master_score": 64,
+    "technical_score": 60,
+    "fundamental_score": 73.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+4.38%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.697917641681066,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 24.63735333244462,
+    "ema_50": 24.556557971545892,
+    "ema_200": 20.33469811885831,
+    "ema_stack_bullish": true,
+    "bb_upper": 22.522500801086426,
+    "bb_middle": 21.450000762939453,
+    "bb_lower": 20.37750072479248,
+    "bb_width": 10,
+    "atr": 2.45,
+    "atr_pct": 11.42,
+    "rvol": 0.8924324624911636,
+    "52w_high": 34.400001525878906,
+    "52w_low": 7.019999980926514
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.4642638,
+    "gross_margin": 0,
+    "operating_margin": 190.03857,
+    "net_margin": 0,
+    "market_cap": 2731252480,
+    "revenue_growth_ttm": 0.747,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.3875,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 19.98,
+    "entry_range_high": 21.69,
+    "target_range_low": 23.4,
+    "target_range_high": 31.51,
+    "target_1": 23.4,
+    "target_2": 23.87,
+    "target_3": 31.51,
+    "stop_loss": 18.27,
+    "risk_reward_ratio": 1.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $19.98 – $21.69 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $23.51 direnci veya $19.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.27 olarak belirlenmiştir. Fiyatın EMA200 ($20.33) veya günlük VWAP ($20.61) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($24.56) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($20.61) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 40 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

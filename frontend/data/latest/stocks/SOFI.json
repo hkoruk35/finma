@@ -1,0 +1,89 @@
+{
+  "ticker": "SOFI",
+  "company": "SoFi Technologies, Inc.",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T10:10:13.200Z",
+  "sector": "Financial Services",
+  "industry": "Credit Services",
+  "price": {
+    "current": 16.209999084472656,
+    "open": 16.1299991607666,
+    "high": 16.559999465942383,
+    "low": 15.930000305175781,
+    "prev_close": 16.040000915527344,
+    "change_pct": 1.0598388980186881,
+    "change_pct_1w": -3.2816296950962136,
+    "change_pct_1m": 12.10234468678427,
+    "change_pct_1y": -40.31664515632464,
+    "volume": 44066500,
+    "avg_volume_30d": 1605064900
+  },
+  "scores": {
+    "master_score": 65,
+    "technical_score": 55,
+    "fundamental_score": 86.3,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.83242359271493,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 16.110766316639705,
+    "ema_50": 16.330634273291285,
+    "ema_200": 18.43223930640767,
+    "ema_stack_bullish": false,
+    "bb_upper": 17.02049903869629,
+    "bb_middle": 16.209999084472656,
+    "bb_lower": 15.399499130249023,
+    "bb_width": 10,
+    "atr": 0.91,
+    "atr_pct": 5.59,
+    "rvol": 1.052115961167676,
+    "52w_high": 32.72999954223633,
+    "52w_low": 13.859999656677246
+  },
+  "fundamental": {
+    "pe_ratio": 29.472725,
+    "pb_ratio": 1.8608654,
+    "gross_margin": 0.84154,
+    "operating_margin": 0.23193,
+    "net_margin": 0.15745,
+    "market_cap": 21037991936,
+    "revenue_growth_ttm": 0.439,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.51494,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 15.61,
+    "entry_range_high": 16.3,
+    "target_range_low": 17.96,
+    "target_range_high": 19.07,
+    "target_1": 17.96,
+    "target_2": 18.7,
+    "target_3": 19.07,
+    "stop_loss": 14.98,
+    "risk_reward_ratio": 2.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $15.61 – $16.30 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $16.76 direnci veya $15.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $14.98 olarak belirlenmiştir. Fiyatın EMA20 ($16.11) veya günlük VWAP ($16.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($16.33) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($16.19) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

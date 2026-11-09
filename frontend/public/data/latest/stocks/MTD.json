@@ -1,0 +1,89 @@
+{
+  "ticker": "MTD",
+  "company": "Mettler-Toledo International Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T18:48:50.349Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 1722.1500244140625,
+    "open": 1806.5799560546875,
+    "high": 1806.5799560546875,
+    "low": 1685.6300048828125,
+    "prev_close": 1679.0799560546875,
+    "change_pct": 2.5650993095395043,
+    "change_pct_1w": 2.826587145055803,
+    "change_pct_1m": 3.146226653400136,
+    "change_pct_1y": 19.625319893801322,
+    "volume": 350600,
+    "avg_volume_30d": 6034500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 90,
+    "fundamental_score": 74.75,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.05871555965767,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1655.5811613109927,
+    "ema_50": 1560.4975266002562,
+    "ema_200": 1409.9417735089212,
+    "ema_stack_bullish": true,
+    "bb_upper": 1808.2575256347657,
+    "bb_middle": 1722.1500244140625,
+    "bb_lower": 1636.0425231933593,
+    "bb_width": 10,
+    "atr": 52.08,
+    "atr_pct": 3.02,
+    "rvol": 1.2556798409147403,
+    "52w_high": 1806.5799560546875,
+    "52w_low": 1023.0499877929688
+  },
+  "fundamental": {
+    "pe_ratio": 37.38116,
+    "pb_ratio": 442.71207,
+    "gross_margin": 0.59157,
+    "operating_margin": 0.28701,
+    "net_margin": 0.22248,
+    "market_cap": 34254260224,
+    "revenue_growth_ttm": 0.063,
+    "fcf_yield": 0.019650223580902054,
+    "institutional_ownership_pct": 1.0282199,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 1690.91,
+    "entry_range_high": 1727.36,
+    "target_range_low": 1794.59,
+    "target_range_high": 1965.5,
+    "target_1": 1794.59,
+    "target_2": 1880.04,
+    "target_3": 1965.5,
+    "stop_loss": 1636.04,
+    "risk_reward_ratio": 2.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,690.91 – $1,727.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,759.47 direnci veya $1,680.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,636.04 olarak belirlenmiştir. Fiyatın EMA20 ($1,655.58) veya günlük VWAP ($1,745.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,745.19) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
+  }
+}

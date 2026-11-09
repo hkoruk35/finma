@@ -1,0 +1,89 @@
+{
+  "ticker": "BDX",
+  "company": "Becton, Dickinson and Company",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T23:35:00.651Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 211.8800048828125,
+    "open": 209.2899932861328,
+    "high": 214.8800048828125,
+    "low": 208.9499969482422,
+    "prev_close": 213.5500030517578,
+    "change_pct": -0.7820173940903936,
+    "change_pct_1w": 7.074994771852269,
+    "change_pct_1m": 7.887369795460435,
+    "change_pct_1y": 51.93154103784785,
+    "volume": 2172600,
+    "avg_volume_30d": 54578600
+  },
+  "scores": {
+    "master_score": 90,
+    "technical_score": 95,
+    "fundamental_score": 69.8,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 74.5631327081681,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 198.07631332962458,
+    "ema_50": 189.41857132251272,
+    "ema_200": 170.08332337651655,
+    "ema_stack_bullish": true,
+    "bb_upper": 222.47400512695313,
+    "bb_middle": 211.8800048828125,
+    "bb_lower": 201.28600463867187,
+    "bb_width": 10,
+    "atr": 4.58,
+    "atr_pct": 2.16,
+    "rvol": 1.5791793853268496,
+    "52w_high": 214.8800048828125,
+    "52w_low": 127.58647918701172
+  },
+  "fundamental": {
+    "pe_ratio": 41.87352,
+    "pb_ratio": 2.3430536,
+    "gross_margin": 0.47015998,
+    "operating_margin": 0.21634,
+    "net_margin": 0.05885,
+    "market_cap": 57713319936,
+    "revenue_growth_ttm": -0.105,
+    "fcf_yield": 0.07177719286628703,
+    "institutional_ownership_pct": 0.99099,
+    "dividend_rate": 4.24,
+    "dividend_yield": 0.02
+  },
+  "scores_detail": {
+    "entry_range_low": 209.87,
+    "entry_range_high": 212.34,
+    "target_range_low": 221.66,
+    "target_range_high": 242.77,
+    "target_1": 221.66,
+    "target_2": 232.21,
+    "target_3": 242.77,
+    "stop_loss": 201.29,
+    "risk_reward_ratio": 2.15,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $209.87 – $212.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $214.78 direnci veya $208.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $201.29 olarak belirlenmiştir. Fiyatın EMA20 ($198.08) veya günlük VWAP ($212.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($212.76) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 75 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

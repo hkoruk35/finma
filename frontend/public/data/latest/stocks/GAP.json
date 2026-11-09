@@ -1,0 +1,89 @@
+{
+  "ticker": "GAP",
+  "company": "The Gap, Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T01:34:50.570Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Retail",
+  "price": {
+    "current": 21.479999542236328,
+    "open": 22.110000610351562,
+    "high": 22.510000228881836,
+    "low": 21.440000534057617,
+    "prev_close": 22.40999984741211,
+    "change_pct": -4.149934455636228,
+    "change_pct_1w": -3.7634415953091525,
+    "change_pct_1m": -3.504046175316184,
+    "change_pct_1y": -5.706765167796019,
+    "volume": 6059700,
+    "avg_volume_30d": 170037400
+  },
+  "scores": {
+    "master_score": 33,
+    "technical_score": 30,
+    "fundamental_score": 63.2,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.56394299401819,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 22.486684023368884,
+    "ema_50": 22.212470156378316,
+    "ema_200": 22.5102172037537,
+    "ema_stack_bullish": false,
+    "bb_upper": 22.553999519348146,
+    "bb_middle": 21.479999542236328,
+    "bb_lower": 20.40599956512451,
+    "bb_width": 10,
+    "atr": 0.89,
+    "atr_pct": 4.14,
+    "rvol": 1.08444495152243,
+    "52w_high": 29.360000610351562,
+    "52w_low": 18.110000610351562
+  },
+  "fundamental": {
+    "pe_ratio": 6.4698796,
+    "pb_ratio": 1.9083155,
+    "gross_margin": 0.40539002,
+    "operating_margin": 0.0671,
+    "net_margin": 0.08137,
+    "market_cap": 7545282560,
+    "revenue_growth_ttm": -0.02,
+    "fcf_yield": 0.03265285375873319,
+    "institutional_ownership_pct": 0.67278,
+    "dividend_rate": 0.7,
+    "dividend_yield": 0.0312
+  },
+  "scores_detail": {
+    "entry_range_low": 20.95,
+    "entry_range_high": 21.57,
+    "target_range_low": 22.41,
+    "target_range_high": 25.32,
+    "target_1": 22.41,
+    "target_2": 24.39,
+    "target_3": 25.32,
+    "stop_loss": 20.32,
+    "risk_reward_ratio": 3.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $20.95 – $21.57 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $22.07 direnci veya $20.77 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.32 olarak belirlenmiştir. Fiyatın EMA50 ($22.21) veya günlük VWAP ($21.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($22.21) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($21.97) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 44 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

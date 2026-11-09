@@ -1,0 +1,89 @@
+{
+  "ticker": "CYTK",
+  "company": "Cytokinetics, Incorporated",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T10:31:35.271Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 53.689998626708984,
+    "open": 55.70000076293945,
+    "high": 56.5099983215332,
+    "low": 53.54999923706055,
+    "prev_close": 55.54999923706055,
+    "change_pct": -3.348335978213031,
+    "change_pct_1w": -14.7642527447924,
+    "change_pct_1m": -11.592295354178594,
+    "change_pct_1y": -10.961858530653243,
+    "volume": 2561100,
+    "avg_volume_30d": 61523000
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 27.022161498743202,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.494890626086985,
+    "ema_50": 65.34553906086263,
+    "ema_200": 68.82370177357826,
+    "ema_stack_bullish": false,
+    "bb_upper": 56.374498558044436,
+    "bb_middle": 53.689998626708984,
+    "bb_lower": 51.00549869537353,
+    "bb_width": 10,
+    "atr": 2.69,
+    "atr_pct": 5,
+    "rvol": 1.5128781106252946,
+    "52w_high": 88.30999755859375,
+    "52w_low": 53.54999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": -2.59583,
+    "operating_margin": -3.5134299,
+    "net_margin": 0,
+    "market_cap": 7479196160,
+    "revenue_growth_ttm": 23.565,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 1.26104,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 52.08,
+    "entry_range_high": 53.96,
+    "target_range_low": 64.68,
+    "target_range_high": 67.29,
+    "target_1": 64.68,
+    "target_2": 65.97,
+    "target_3": 67.29,
+    "stop_loss": 50.2,
+    "risk_reward_ratio": 4.59,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $52.08 – $53.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $55.13 direnci veya $51.54 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $50.20 olarak belirlenmiştir. Fiyatın EMA20 ($61.49) veya günlük VWAP ($54.74) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($65.35) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($54.74) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 27 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

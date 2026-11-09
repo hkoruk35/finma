@@ -1,0 +1,89 @@
+{
+  "ticker": "ESTC",
+  "company": "Elastic N.V.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T17:42:13.047Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 86.08000183105469,
+    "open": 84.80999755859375,
+    "high": 87.72000122070312,
+    "low": 84.19999694824219,
+    "prev_close": 84.19999694824219,
+    "change_pct": 2.232784977377304,
+    "change_pct_1w": -11.513154902121329,
+    "change_pct_1m": -19.01401722682673,
+    "change_pct_1y": -0.5775005652871897,
+    "volume": 1116300,
+    "avg_volume_30d": 55966500
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.91847333842881,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 94.1723148777732,
+    "ema_50": 90.8327663594514,
+    "ema_200": 77.0389952803508,
+    "ema_stack_bullish": true,
+    "bb_upper": 90.38400192260742,
+    "bb_middle": 86.08000183105469,
+    "bb_lower": 81.77600173950195,
+    "bb_width": 10,
+    "atr": 4.73,
+    "atr_pct": 5.5,
+    "rvol": 1.041762482913886,
+    "52w_high": 108,
+    "52w_low": 42.04999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 24.594286,
+    "pb_ratio": 6.9773855,
+    "gross_margin": 0.75586,
+    "operating_margin": -0.00606,
+    "net_margin": 0.20844,
+    "market_cap": 9037649920,
+    "revenue_growth_ttm": 0.151,
+    "fcf_yield": 0.05580177020178272,
+    "institutional_ownership_pct": 0.91440004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 83.24,
+    "entry_range_high": 86.55,
+    "target_range_low": 101.39,
+    "target_range_high": 109.63,
+    "target_1": 101.39,
+    "target_2": 107.48,
+    "target_3": 109.63,
+    "stop_loss": 79.93,
+    "risk_reward_ratio": 4.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $83.24 – $86.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $90.46 direnci veya $82.29 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $79.93 olarak belirlenmiştir. Fiyatın EMA200 ($77.04) veya günlük VWAP ($86.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($90.83) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($86.12) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

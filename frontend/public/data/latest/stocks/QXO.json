@@ -1,0 +1,89 @@
+{
+  "ticker": "QXO",
+  "company": "QXO, Inc.",
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T07:14:45.184Z",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 11.5600004196167,
+    "open": 11.649999618530273,
+    "high": 11.65999984741211,
+    "low": 11.149999618530273,
+    "prev_close": 11.640000343322754,
+    "change_pct": -0.687284547649918,
+    "change_pct_1w": 4.710149090221478,
+    "change_pct_1m": 10.305352333535595,
+    "change_pct_1y": -28.376698533019585,
+    "volume": 13958200,
+    "avg_volume_30d": 646252600
+  },
+  "scores": {
+    "master_score": 57,
+    "technical_score": 55,
+    "fundamental_score": 33.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.78%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.29776951891563,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 11.352386284377415,
+    "ema_50": 11.93340681012585,
+    "ema_200": 15.206022326824788,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.138000440597535,
+    "bb_middle": 11.5600004196167,
+    "bb_lower": 10.982000398635863,
+    "bb_width": 10,
+    "atr": 0.7,
+    "atr_pct": 6.01,
+    "rvol": 0.827196362536878,
+    "52w_high": 27.610000610351562,
+    "52w_low": 10.039999961853027
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.899681,
+    "gross_margin": 0.24544,
+    "operating_margin": 0.012940001,
+    "net_margin": -0.05167,
+    "market_cap": 11993393152,
+    "revenue_growth_ttm": 0.703,
+    "fcf_yield": -0.21228457899551395,
+    "institutional_ownership_pct": 0.96370006,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 11.14,
+    "entry_range_high": 11.63,
+    "target_range_low": 12.59,
+    "target_range_high": 15.68,
+    "target_1": 12.59,
+    "target_2": 12.84,
+    "target_3": 15.68,
+    "stop_loss": 10.66,
+    "risk_reward_ratio": 1.99,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.14 – $11.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $11.97 direnci veya $11.00 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.66 olarak belirlenmiştir. Fiyatın EMA20 ($11.35) veya günlük VWAP ($11.40) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($11.93) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.40) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 51 ile dengeli/nötr bir görünümde."
+  }
+}

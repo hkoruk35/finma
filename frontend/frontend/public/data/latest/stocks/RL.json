@@ -1,0 +1,89 @@
+{
+  "ticker": "RL",
+  "company": "Ralph Lauren Corporation",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T02:49:54.578Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 376.55999755859375,
+    "open": 375,
+    "high": 382.80999755859375,
+    "low": 373.30999755859375,
+    "prev_close": 381.7799987792969,
+    "change_pct": -1.3672799092130423,
+    "change_pct_1w": -4.151499926516076,
+    "change_pct_1m": -2.685105135202449,
+    "change_pct_1y": 19.527675007950513,
+    "volume": 877000,
+    "avg_volume_30d": 16835500
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 90,
+    "fundamental_score": 81.35,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.589399207334246,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 384.5403132330843,
+    "ema_50": 375.2853333361619,
+    "ema_200": 365.26141318164844,
+    "ema_stack_bullish": true,
+    "bb_upper": 395.38799743652345,
+    "bb_middle": 376.55999755859375,
+    "bb_lower": 357.73199768066405,
+    "bb_width": 10,
+    "atr": 12.83,
+    "atr_pct": 3.41,
+    "rvol": 1.5594190846722698,
+    "52w_high": 421.6000061035156,
+    "52w_low": 308.4100036621094
+  },
+  "fundamental": {
+    "pe_ratio": 21.616533,
+    "pb_ratio": 8.276589,
+    "gross_margin": 0.71829003,
+    "operating_margin": 0.16582,
+    "net_margin": 0.12556,
+    "market_cap": 22436288512,
+    "revenue_growth_ttm": 0.091,
+    "fcf_yield": 0.05271538273219367,
+    "institutional_ownership_pct": 1.08033,
+    "dividend_rate": 4,
+    "dividend_yield": 0.0105
+  },
+  "scores_detail": {
+    "entry_range_low": 368.86,
+    "entry_range_high": 377.84,
+    "target_range_low": 392.02,
+    "target_range_high": 429.36,
+    "target_1": 392.02,
+    "target_2": 410.69,
+    "target_3": 429.36,
+    "stop_loss": 357.73,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $368.86 – $377.84 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $385.39 direnci veya $366.30 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $357.73 olarak belirlenmiştir. Fiyatın EMA200 ($365.26) veya günlük VWAP ($378.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($375.29) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($378.00) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

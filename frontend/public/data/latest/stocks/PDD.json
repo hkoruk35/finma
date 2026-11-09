@@ -1,0 +1,89 @@
+{
+  "ticker": "PDD",
+  "company": "PDD Holdings Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T10:33:38.972Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Internet Retail",
+  "price": {
+    "current": 83.02999877929688,
+    "open": 82.83000183105469,
+    "high": 84.61000061035156,
+    "low": 82.25,
+    "prev_close": 83.94999694824219,
+    "change_pct": -1.0958882696714336,
+    "change_pct_1w": 5.622691940754515,
+    "change_pct_1m": 6.271600791160331,
+    "change_pct_1y": -39.27892683648625,
+    "volume": 6502100,
+    "avg_volume_30d": 166123800
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 70,
+    "fundamental_score": 81.35,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.17832009179095,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 80.52003296367786,
+    "ema_50": 80.97257674264495,
+    "ema_200": 91.70749090365098,
+    "ema_stack_bullish": false,
+    "bb_upper": 87.18149871826172,
+    "bb_middle": 83.02999877929688,
+    "bb_lower": 78.87849884033203,
+    "bb_width": 10,
+    "atr": 2.53,
+    "atr_pct": 3.04,
+    "rvol": 1.2977574555843292,
+    "52w_high": 139.1199951171875,
+    "52w_low": 71.94000244140625
+  },
+  "fundamental": {
+    "pe_ratio": 9.339707,
+    "pb_ratio": 1.741967,
+    "gross_margin": 0.56318,
+    "operating_margin": 0.2471,
+    "net_margin": 0.20426,
+    "market_cap": 118184607744,
+    "revenue_growth_ttm": 0.081,
+    "fcf_yield": 0.6315143199837636,
+    "institutional_ownership_pct": 0.31125,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 81.51,
+    "entry_range_high": 83.28,
+    "target_range_low": 87.76,
+    "target_range_high": 94.76,
+    "target_1": 87.76,
+    "target_2": 91.9,
+    "target_3": 94.76,
+    "stop_loss": 78.88,
+    "risk_reward_ratio": 2.7,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $81.51 – $83.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $84.32 direnci veya $81.01 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $78.88 olarak belirlenmiştir. Fiyatın EMA20 ($80.52) veya günlük VWAP ($83.58) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($80.97) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($83.58) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

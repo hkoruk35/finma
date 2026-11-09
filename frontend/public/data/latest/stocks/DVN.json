@@ -1,0 +1,89 @@
+{
+  "ticker": "DVN",
+  "company": "Devon Energy Corporation",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T12:46:32.153Z",
+  "sector": "Energy",
+  "industry": "Oil & Gas E&P",
+  "price": {
+    "current": 42.209999084472656,
+    "open": 41,
+    "high": 43.18000030517578,
+    "low": 40.599998474121094,
+    "prev_close": 42.880001068115234,
+    "change_pct": -1.5625045871110739,
+    "change_pct_1w": -19.060406808374925,
+    "change_pct_1m": -18.261038761875128,
+    "change_pct_1y": 30.157257746729044,
+    "volume": 19203600,
+    "avg_volume_30d": 290967200
+  },
+  "scores": {
+    "master_score": 59,
+    "technical_score": 45,
+    "fundamental_score": 86.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 27.763850012084532,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 48.047356005724595,
+    "ema_50": 48.114840533004106,
+    "ema_200": 45.095974540191946,
+    "ema_stack_bullish": false,
+    "bb_upper": 44.32049903869629,
+    "bb_middle": 42.209999084472656,
+    "bb_lower": 40.09949913024902,
+    "bb_width": 10,
+    "atr": 1.89,
+    "atr_pct": 4.48,
+    "rvol": 1.5056191900667844,
+    "52w_high": 52.709999084472656,
+    "52w_low": 32.060001373291016
+  },
+  "fundamental": {
+    "pe_ratio": 9.90845,
+    "pb_ratio": 1.1473538,
+    "gross_margin": 0.53478,
+    "operating_margin": 0.19843,
+    "net_margin": 0.16284999,
+    "market_cap": 48107339776,
+    "revenue_growth_ttm": 0.819,
+    "fcf_yield": 0.03112830680251165,
+    "institutional_ownership_pct": 0.96671,
+    "dividend_rate": 1.28,
+    "dividend_yield": 0.030299999
+  },
+  "scores_detail": {
+    "entry_range_low": 40.98,
+    "entry_range_high": 42.4,
+    "target_range_low": 46.15,
+    "target_range_high": 49.72,
+    "target_1": 46.15,
+    "target_2": 47.25,
+    "target_3": 49.72,
+    "stop_loss": 39.65,
+    "risk_reward_ratio": 2.73,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $40.98 – $42.40 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $43.18 direnci veya $40.60 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $39.65 olarak belirlenmiştir. Fiyatın EMA200 ($45.10) veya günlük VWAP ($42.42) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($48.11) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($42.42) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.5 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 28 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

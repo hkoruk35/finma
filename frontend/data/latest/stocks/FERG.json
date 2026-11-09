@@ -1,0 +1,89 @@
+{
+  "ticker": "FERG",
+  "company": "Ferguson Enterprises Inc.",
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T18:53:02.840Z",
+  "sector": "Industrials",
+  "industry": "Industrial Distribution",
+  "price": {
+    "current": 233.6999969482422,
+    "open": 232.63999938964844,
+    "high": 236.07000732421875,
+    "low": 231.94000244140625,
+    "prev_close": 235.64999389648438,
+    "change_pct": -0.8274971350513918,
+    "change_pct_1w": -2.086473889876393,
+    "change_pct_1m": 1.8211888279765027,
+    "change_pct_1y": -5.038605789411355,
+    "volume": 2190200,
+    "avg_volume_30d": 43457100
+  },
+  "scores": {
+    "master_score": 62,
+    "technical_score": 70,
+    "fundamental_score": 56.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.49948983062845,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 233.04545189497696,
+    "ema_50": 230.01049557416601,
+    "ema_200": 234.6599347780594,
+    "ema_stack_bullish": false,
+    "bb_upper": 245.3849967956543,
+    "bb_middle": 233.6999969482422,
+    "bb_lower": 222.01499710083007,
+    "bb_width": 10,
+    "atr": 6.88,
+    "atr_pct": 2.95,
+    "rvol": 1.1376460923531482,
+    "52w_high": 271.6400146484375,
+    "52w_low": 212.1300048828125
+  },
+  "fundamental": {
+    "pe_ratio": 23.001968,
+    "pb_ratio": 7.2908216,
+    "gross_margin": 0.30633,
+    "operating_margin": 0.10159001,
+    "net_margin": 0.063200004,
+    "market_cap": 45209899008,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 1.03448,
+    "dividend_rate": 3.56,
+    "dividend_yield": 0.0152
+  },
+  "scores_detail": {
+    "entry_range_low": 230.55,
+    "entry_range_high": 234.39,
+    "target_range_low": 245.15,
+    "target_range_high": 267.34,
+    "target_1": 245.15,
+    "target_2": 255.71,
+    "target_3": 267.34,
+    "stop_loss": 222.01,
+    "risk_reward_ratio": 2.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $230.55 – $234.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $237.25 direnci veya $229.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $222.01 olarak belirlenmiştir. Fiyatın EMA50 ($230.01) veya günlük VWAP ($234.46) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($230.01) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($234.46) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
