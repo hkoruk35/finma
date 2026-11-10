@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.6";
+export const TRACK_VERSION = "3.7";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
 export const TRACK_VERSION_DATE = "2026-11-10";
@@ -321,8 +321,9 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
-  // v3.6 kapıları yalnız SPY'da ölçüldü — diğer motorlarda kendi ölçümüne kadar kapalı
-  gapCounterBlock: false, brkBiasAlign: false,
+  // v3.7 (kullanıcı kararı 2026-11-10): gap kapısı + sıçrama eğilim şartı TÜM motorlarda açık (TRACK_CFG'den miras).
+  // 45 seans, motor ayarı → kapılar açık: QQQ 18,2 → 19,8R · IWM 29,3 → 29,9 · NVDA 5,1 → 9,9 · AAPL −2,1 → −0,4 · TSLA 10,1 → 15,0 · AMZN 17,9 → 19,5.
+  // Dikkat: QQQ'da eğilim şartı tek başına 18,2 → 15,7R (gap kapısıyla birlikte net +1,6R); AAPL en kötü dönem −2,6 → −3,0.
 };
 
 // ── Tipler ───────────────────────────────────────────────────────────

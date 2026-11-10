@@ -80,8 +80,7 @@ export const QQQ_LADDER_CFG: LadderCfg = (() => {
  * 93 işlem %51 +18,3R (−3,4 / +10,0 / +11,7) maxDD −5,3R. R, stop mesafesine bölündüğü için geniş stopta düşük görünür (kontrat sayısı aynı dolar riskine göre azalır);
  * düşüş azaldı, işlemler SPY ile aynı mantıkla açılıp kapanır. Seçim aynı 45 günde yapıldı — görülmemiş dönem yok.
  */
-export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true, stopBufAtr15: 0.2, minStopAtr5: 0.65, trailBufAtr15: 0.5, earlyExitArmR: 0.75,
-  // SPY v3.6 kapıları QQQ'da ölçülene kadar kapalı
-  gapCounterBlock: false, brkBiasAlign: false };
+export const QQQ_TRACK_CFG: TrackCfg = { ...TRACK_CFG, minEntryRvol: 0.85, maxCrosses: 6, trailOnClose: true, stopBufAtr15: 0.2, minStopAtr5: 0.65, trailBufAtr15: 0.5, earlyExitArmR: 0.75 };
+// v3.7: SPY'ın gap kapısı ve sıçrama eğilim şartı QQQ'da da açık (TRACK_CFG'den miras) — 45 seans 18,2 → 19,8R
 /** QQQ kayıt sürümü (kurallar SPY'dan ayrıştı — değişince QQQ geriye dönük kayıtları yeniden üretilir) */
 export const QQQ_TRACK_VERSION = `${TRACK_VERSION}-q3`;
