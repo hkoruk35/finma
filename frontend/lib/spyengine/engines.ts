@@ -7,7 +7,7 @@
  * Sayfa (TrackerEnginePage), sunucu günlüğü (trackerStore) ve motor geçiş çubuğu buradan okur.
  */
 
-import { TRACK_CFG, TRACK_VERSION, NON_SPY_RULES, type TrackCfg } from "./tracker";
+import { TRACK_CFG, TRACK_VERSION, TRACK_VERSION_DATE, NON_SPY_RULES, type TrackCfg } from "./tracker";
 import { QQQ_TRACK_CFG, QQQ_TRACK_VERSION } from "../qqqengine/config";
 
 export const ENGINE_SYMBOLS = ["SPY", "QQQ", "IWM", "NVDA", "AAPL", "TSLA", "AMZN"] as const;
@@ -32,6 +32,9 @@ export interface EngineDef {
   cfg: TrackCfg;
   /** sunucu günlüğü sürümü — değişince o sembolün geriye dönük kayıtları yeniden üretilir */
   version: string;
+  /** sayfanın en üstünde gösterilen sürüm etiketi ve yayın tarihi (YYYY-AA-GG) */
+  versionLabel: string;
+  versionDate: string;
   /** opsiyon önerisi: vade etiketi (endeks ETF'lerinde her gün vade var; hisselerde en yakın haftalık) */
   expiry: string;
   /** sayfada gösterilen sembole özel not (ölçüm sonucu / dikkat) */
@@ -88,18 +91,18 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     stream: "/api/admin/spyengine/v2", optlevels: "/api/admin/spyengine/v2/optlevels",
     openForecast: "/api/admin/spyengine/v2/openforecast", closeForecast: "/api/admin/spyengine/v2/forecast",
     riskKey: "spyengine_risk_usd", cls: "border-amber-500/60 bg-amber-500/15 text-amber-300 hover:bg-amber-500/30",
-    cfg: TRACK_CFG, version: TRACK_VERSION, expiry: "0DTE", note: "SPY v3.6: v2.18 çekirdeği · gap yönüne ters giriş yok · sıçrama kırılımı (RVOL ≥ 1,5, seans öncesi eğilime ters değilse) · ilk hedef 0,5R · 0,45R sonrası 2 ters mumda çıkış · izleyen stop tamponu 0,4 · 12:00 sonrası trend günü değilse RVOL ≥ 1,5 · 12:00 sonrası 3+ VWAP kesişiminde giriş yok.",
+    cfg: TRACK_CFG, version: TRACK_VERSION, versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "SPY v3.6: v2.18 çekirdeği · gap yönüne ters giriş yok · sıçrama kırılımı (RVOL ≥ 1,5, seans öncesi eğilime ters değilse) · ilk hedef 0,5R · 0,45R sonrası 2 ters mumda çıkış · izleyen stop tamponu 0,4 · 12:00 sonrası trend günü değilse RVOL ≥ 1,5 · 12:00 sonrası 3+ VWAP kesişiminde giriş yok.",
   },
   QQQ: {
     symbol: "QQQ", name: "Nasdaq 100 ETF", page: "/admin/qqqengine/v1",
     stream: "/api/admin/qqqengine/v2", optlevels: "/api/admin/qqqengine/v2/optlevels",
     openForecast: null, closeForecast: null,
     riskKey: "qqqengine_risk_usd", cls: "border-sky-500/60 bg-sky-500/15 text-sky-300 hover:bg-sky-500/30",
-    cfg: QQQ_TRACK_CFG, version: QQQ_TRACK_VERSION, expiry: "0DTE", note: "QQQ'nun kendi 5m süzgeçleri: SPY v3.2 kuralları (sıçrama kırılımı, erken çıkış, 12:00 sonrası RVOL şartı) + RVOL ≥ 0,85 · testere günde giriş yok · QQQ oynaklığı için gevşek stop (tampon 0,2 ATR15, asgari 0,65 ATR5).",
+    cfg: QQQ_TRACK_CFG, version: QQQ_TRACK_VERSION, versionLabel: `v${QQQ_TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "QQQ'nun kendi 5m süzgeçleri: SPY v3.2 kuralları (sıçrama kırılımı, erken çıkış, 12:00 sonrası RVOL şartı) + RVOL ≥ 0,85 · testere günde giriş yok · QQQ oynaklığı için gevşek stop (tampon 0,2 ATR15, asgari 0,65 ATR5).",
   },
-  IWM: { symbol: "IWM", name: "Russell 2000 ETF", ...stock("IWM"), cls: "border-violet-500/60 bg-violet-500/15 text-violet-300 hover:bg-violet-500/30", cfg: IWM_TRACK_CFG, version: versionOf("IWM", IWM_TRACK_CFG), expiry: "0DTE", note: "IWM: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı (VWAP etrafında salınım süzgeci)." },
-  NVDA: { symbol: "NVDA", name: "NVIDIA", ...stock("NVDA"), cls: "border-lime-500/60 bg-lime-500/15 text-lime-300 hover:bg-lime-500/30", cfg: NVDA_TRACK_CFG, version: versionOf("NVDA", NVDA_TRACK_CFG), expiry: "haftalık", note: "NVDA: stop > 2 ATR5 ise giriş yok · zayıf 15m'de ek onay beklenmez · aşırı testere günde (VWAP 8+ kesişme) giriş yok · en yakın haftalık vade." },
-  AAPL: { symbol: "AAPL", name: "Apple", ...stock("AAPL"), cls: "border-slate-400/60 bg-slate-400/15 text-slate-200 hover:bg-slate-400/30", cfg: AAPL_TRACK_CFG, version: versionOf("AAPL", AAPL_TRACK_CFG), expiry: "haftalık", note: "AAPL: stop tamponu 0,5 ATR15 · ilk hedef 2R · en yakın haftalık vade. Ölçüm kanıtı zayıf — küçük riskle izleyin." },
-  TSLA: { symbol: "TSLA", name: "Tesla", ...stock("TSLA"), cls: "border-rose-500/60 bg-rose-500/15 text-rose-300 hover:bg-rose-500/30", cfg: TSLA_TRACK_CFG, version: versionOf("TSLA", TSLA_TRACK_CFG), expiry: "haftalık", note: "TSLA: kırılım-tazeliği girişi yok · 1R'de tamamı kapanır · testere günde giriş yok · varsayılan risk 100 $. 45 seansta ≈ başabaş — KANITLANMIŞ KENAR YOK." },
-  AMZN: { symbol: "AMZN", name: "Amazon", ...stock("AMZN"), cls: "border-orange-500/60 bg-orange-500/15 text-orange-300 hover:bg-orange-500/30", cfg: AMZN_TRACK_CFG, version: versionOf("AMZN", AMZN_TRACK_CFG), expiry: "haftalık", note: "AMZN: stop tamponu 0,2 ATR15 · kapanış konumu şartı yok · testere günde (VWAP 6+ kesişme) giriş yok · en yakın haftalık vade." },
+  IWM: { symbol: "IWM", name: "Russell 2000 ETF", ...stock("IWM"), cls: "border-violet-500/60 bg-violet-500/15 text-violet-300 hover:bg-violet-500/30", cfg: IWM_TRACK_CFG, version: versionOf("IWM", IWM_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "IWM: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı (VWAP etrafında salınım süzgeci)." },
+  NVDA: { symbol: "NVDA", name: "NVIDIA", ...stock("NVDA"), cls: "border-lime-500/60 bg-lime-500/15 text-lime-300 hover:bg-lime-500/30", cfg: NVDA_TRACK_CFG, version: versionOf("NVDA", NVDA_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "NVDA: stop > 2 ATR5 ise giriş yok · zayıf 15m'de ek onay beklenmez · aşırı testere günde (VWAP 8+ kesişme) giriş yok · en yakın haftalık vade." },
+  AAPL: { symbol: "AAPL", name: "Apple", ...stock("AAPL"), cls: "border-slate-400/60 bg-slate-400/15 text-slate-200 hover:bg-slate-400/30", cfg: AAPL_TRACK_CFG, version: versionOf("AAPL", AAPL_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "AAPL: stop tamponu 0,5 ATR15 · ilk hedef 2R · en yakın haftalık vade. Ölçüm kanıtı zayıf — küçük riskle izleyin." },
+  TSLA: { symbol: "TSLA", name: "Tesla", ...stock("TSLA"), cls: "border-rose-500/60 bg-rose-500/15 text-rose-300 hover:bg-rose-500/30", cfg: TSLA_TRACK_CFG, version: versionOf("TSLA", TSLA_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "TSLA: kırılım-tazeliği girişi yok · 1R'de tamamı kapanır · testere günde giriş yok · varsayılan risk 100 $. 45 seansta ≈ başabaş — KANITLANMIŞ KENAR YOK." },
+  AMZN: { symbol: "AMZN", name: "Amazon", ...stock("AMZN"), cls: "border-orange-500/60 bg-orange-500/15 text-orange-300 hover:bg-orange-500/30", cfg: AMZN_TRACK_CFG, version: versionOf("AMZN", AMZN_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "AMZN: stop tamponu 0,2 ATR15 · kapanış konumu şartı yok · testere günde (VWAP 6+ kesişme) giriş yok · en yakın haftalık vade." },
 };

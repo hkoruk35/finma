@@ -1481,11 +1481,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <h1 className="flex flex-wrap items-center gap-2 text-[15px] font-semibold tracking-tight text-[#eab308]">{symbol} Engine · Takip Sistemi
+              <span className="rounded border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[11px] font-bold text-amber-200" title="Motor sürümü · yayın tarihi">
+                {E.versionLabel} · {E.versionDate.split("-").reverse().join(".")}
+              </span>
               <EngineSwitcher current={symbol} />
               {prewarn && <span className="rounded-md bg-green-500 px-2 py-0.5 text-[11px] font-extrabold text-[#0a0e17]">⚡ ERKEN UYARI · {prewarn.side} · {prewarn.clock}</span>}
             </h1>
             <p className="hidden text-[10.5px] text-slate-500 sm:block">
-              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da formasyon) · SIÇRAMA: sert hacimli 5m mum (RVOL ≥ 1,5) VWAP + EMA20&apos;yi keserse erken uyarı, sonraki 5m aynı yönde kapanırsa 15m beklenmeden giriş · 12:00 sonrası net trend günü değilse RVOL ≥ 1,5 · kontrat = sabit dolar riski ÷ stop → {fmtR(E.cfg.h1R)}&apos;de yarısı, kalan 15m izleyen stop (tampon {String(E.cfg.trailBufAtr15).replace(".", ",")} ATR15) · {fmtR(E.cfg.earlyExitArmR)} sonrası 2 ters mumda çıkış
+              Ana karar: 15m yön teyidi (VWAP + EMA20) → 5m tetik (VWAP · EMA20 · hacim [yön rengi + RVOL ≥ 1] ya da formasyon){E.cfg.gapCounterBlock && " · gap yönüne ters giriş yok"} · SIÇRAMA: sert hacimli 5m mum (RVOL ≥ 1,5) VWAP + EMA20&apos;yi keserse erken uyarı, sonraki 5m aynı yönde kapanırsa 15m beklenmeden giriş{E.cfg.brkBiasAlign && " (seans öncesi eğilime ters değilse)"} ·12:00 sonrası net trend günü değilse RVOL ≥ 1,5 · kontrat = sabit dolar riski ÷ stop → {fmtR(E.cfg.h1R)}&apos;de yarısı, kalan 15m izleyen stop (tampon {String(E.cfg.trailBufAtr15).replace(".", ",")} ATR15) · {fmtR(E.cfg.earlyExitArmR)} sonrası 2 ters mumda çıkış
             </p>
             {symbol !== "SPY" && <p className="text-[10.5px] font-semibold text-sky-300/90">{E.note}</p>}
           </div>

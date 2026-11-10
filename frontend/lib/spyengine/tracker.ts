@@ -107,6 +107,9 @@ import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
 export const TRACK_VERSION = "3.6";
+/** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
+ *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
+export const TRACK_VERSION_DATE = "2026-11-10";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
