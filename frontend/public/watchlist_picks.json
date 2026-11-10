@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-11-10T09:05:38.674814-05:00",
+  "generated_at": "2026-11-10T14:03:55.313186-05:00",
   "picks": [
-    {
-      "ticker": "XMTR",
-      "sector": "Industrials",
-      "date_added": "2026-11-09",
-      "score": 39.5
-    },
     {
       "ticker": "AMPL",
       "sector": "Technology",
@@ -42,12 +36,6 @@
       "sector": "Industrials",
       "date_added": "2026-11-09",
       "score": 40.0
-    },
-    {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-11-09",
-      "score": 38.5
     },
     {
       "ticker": "RLJ",
@@ -98,12 +86,6 @@
       "score": 47.5
     },
     {
-      "ticker": "XYZ",
-      "sector": "Technology",
-      "date_added": "2026-11-09",
-      "score": 44.5
-    },
-    {
       "ticker": "CARG",
       "sector": "Communication Services",
       "date_added": "2026-11-09",
@@ -134,22 +116,22 @@
       "score": 43.5
     },
     {
-      "ticker": "VYX",
-      "sector": "Technology",
-      "date_added": "2026-11-10",
-      "score": 40.0
-    },
-    {
-      "ticker": "W",
-      "sector": "Consumer Cyclical",
+      "ticker": "RKT",
+      "sector": "Financial Services",
       "date_added": "2026-11-10",
       "score": 39.0
     },
     {
-      "ticker": "TOST",
-      "sector": "Technology",
+      "ticker": "BRKR",
+      "sector": "Healthcare",
       "date_added": "2026-11-10",
-      "score": 38.5
+      "score": 37.0
+    },
+    {
+      "ticker": "ULCC",
+      "sector": "Industrials",
+      "date_added": "2026-11-10",
+      "score": 33.5
     }
   ]
 }
