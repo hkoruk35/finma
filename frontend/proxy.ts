@@ -8,7 +8,7 @@ import { lookupCountry } from './lib/geoip'
 import exchangeMap from './public/exchange_map.json'
 import { MEMBERSHIP_DISABLED } from './lib/siteMode'
 import { isStaffRole, isStaffOnlyPath, isEngineAdminPath } from './lib/staffOnly'
-import { getStaffRole } from './lib/staffSession'
+import { STAFF_COOKIE, STAFF_USER_COOKIE, getStaffRole, isBlockedStaffRequest } from './lib/staffSession'
 
 // Bilinen ticker listesi (lowercase) — /stock/ redirect'leri için
 const KNOWN_TICKERS = new Set(Object.keys(exchangeMap.exchanges).map((t) => t.toLowerCase()))
@@ -385,6 +385,14 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const requiresAdminAuth = isAdminPath && !isAdminAuthPath
   // Rol yalnız imzalı çerezden (lib/staffSession.ts) — düz/eski/sahte boga_auth değeri girişsiz sayılır.
   const staffRole = getStaffRole(request)
+
+  // Engellenen yönetim hesabı (lib/staffSession.ts · BLOCKED_STAFF_EMAILS): çerezleri sil, giriş sayfası mesajı gösterir
+  if (requiresAdminAuth && isBlockedStaffRequest(request)) {
+    const res = redirectTo(new URL('/admin/account/login?blocked=1', request.url))
+    res.cookies.delete(STAFF_COOKIE)
+    res.cookies.delete(STAFF_USER_COOKIE)
+    return res
+  }
 
   if (requiresAdminAuth && !staffRole) {
     return redirectTo(new URL('/admin/account/login', request.url))

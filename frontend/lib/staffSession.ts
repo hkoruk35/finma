@@ -65,10 +65,43 @@ export function readStaffRole(value: string | null | undefined): StaffRole | nul
   const expected = Buffer.from(mac(key, `${VERSION}.${role}.${expStr}`));
   const given = Buffer.from(sig);
   if (given.length !== expected.length || !timingSafeEqual(given, expected)) return null;
+  if (isRevokedEngineToken(value)) return null; // engellenen hesap (aşağıya bakın)
   return role;
 }
 
 /** İstekteki `boga_auth` çerezinden doğrulanmış rol (route handler'lar ve proxy.ts için). */
 export function getStaffRole(req: Pick<NextRequest, "cookies">): StaffRole | null {
   return readStaffRole(req.cookies.get(STAFF_COOKIE)?.value);
+}
+
+/* ─── Engellenen yönetim hesapları (2026-11-10, kullanıcı talebi: şüpheli girişler) ─────────────────
+ * - Giriş: app/api/auth/login bu e-postalara oturum açmaz, STAFF_BLOCKED_MESSAGE ile 403 döner.
+ * - Açık oturumlar: çerez e-posta taşımadığı için, engellenen tek hesabın rolü olan "engine" için
+ *   ENGINE_SESSIONS_NOT_BEFORE'dan önce imzalanmış tüm çerezler geçersiz sayılır (readStaffRole null döner).
+ * - proxy.ts: engellenen oturumla /admin/** açılırsa çerezler silinir, giriş sayfası mesajı gösterir.
+ * Engeli kaldırmak: e-postayı listeden çıkar (eski çerezler yine de geçersiz kalır → yeniden giriş). */
+export const BLOCKED_STAFF_EMAILS: readonly string[] = ["afk2351@outlook.com"];
+export const STAFF_BLOCKED_MESSAGE = "Şüpheli girişler nedeniyle erişiminiz engellendi.";
+export const STAFF_USER_COOKIE = "boga_user";
+
+/** Bu andan önce imzalanmış "engine" oturumları reddedilir (unix sn). */
+const ENGINE_SESSIONS_NOT_BEFORE = Math.floor(Date.parse("2026-11-12T00:00:00Z") / 1000);
+
+export function isBlockedStaffEmail(email: string | null | undefined): boolean {
+  return !!email && BLOCKED_STAFF_EMAILS.includes(email.trim().toLowerCase());
+}
+
+/** İmzası geçerli ama iptal edilmiş eski bir "engine" oturumu mu? (imza kontrolünü readStaffRole yapar) */
+function isRevokedEngineToken(value: string | null | undefined): boolean {
+  if (!value) return false;
+  const parts = value.split(".");
+  if (parts.length !== 4 || parts[0] !== VERSION || parts[1] !== "engine") return false;
+  const issuedAt = Number(parts[2]) - STAFF_SESSION_MAX_AGE_SECONDS;
+  return issuedAt < ENGINE_SESSIONS_NOT_BEFORE;
+}
+
+/** proxy.ts: istek engellenen bir hesaba mı ait? (boga_user e-postası ya da iptal edilmiş engine çerezi) */
+export function isBlockedStaffRequest(req: Pick<NextRequest, "cookies">): boolean {
+  if (isBlockedStaffEmail(req.cookies.get(STAFF_USER_COOKIE)?.value)) return true;
+  return isRevokedEngineToken(req.cookies.get(STAFF_COOKIE)?.value);
 }

@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const BLOCKED_MESSAGE = "Şüpheli girişler nedeniyle erişiminiz engellendi.";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // proxy.ts engellenen hesabı ?blocked=1 ile buraya yönlendirir (useSearchParams yerine: prerender'ı bozmasın)
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("blocked") === "1") setError(BLOCKED_MESSAGE);
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

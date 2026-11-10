@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { supabaseAdmin } from '@/lib/supabase-admin'
-import { STAFF_COOKIE, STAFF_SESSION_MAX_AGE_SECONDS, signStaffSession } from '@/lib/staffSession'
+import {
+  STAFF_BLOCKED_MESSAGE,
+  STAFF_COOKIE,
+  STAFF_SESSION_MAX_AGE_SECONDS,
+  isBlockedStaffEmail,
+  signStaffSession,
+} from '@/lib/staffSession'
 
 // Brute-force koruması: basit in-memory rate limiter
 const attempts = new Map<string, { count: number; resetAt: number }>()
@@ -68,6 +74,11 @@ export async function POST(req: NextRequest) {
   }
 
   clearAttempts(ip)
+
+  // Engellenen yönetim hesabı (lib/staffSession.ts · BLOCKED_STAFF_EMAILS) — oturum açılmaz
+  if (isBlockedStaffEmail(user.email)) {
+    return NextResponse.json({ error: STAFF_BLOCKED_MESSAGE, blocked: true }, { status: 403 })
+  }
 
   // İmzalı oturum değeri (rol + son kullanma + HMAC) — düz rol metni ASLA yazılmaz (lib/staffSession.ts)
   const token = signStaffSession(String(user.role))
