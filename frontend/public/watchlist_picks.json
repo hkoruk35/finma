@@ -1,12 +1,6 @@
 {
-  "generated_at": "2026-11-09T17:02:23.516942-05:00",
+  "generated_at": "2026-11-10T09:05:38.674814-05:00",
   "picks": [
-    {
-      "ticker": "AVNT",
-      "sector": "Basic Materials",
-      "date_added": "2026-11-09",
-      "score": 41.5
-    },
     {
       "ticker": "XMTR",
       "sector": "Industrials",
@@ -38,16 +32,10 @@
       "score": 43.5
     },
     {
-      "ticker": "JXN",
-      "sector": "Financial Services",
-      "date_added": "2026-11-09",
-      "score": 43.5
-    },
-    {
       "ticker": "VIK",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-09",
-      "score": 43.0
+      "score": 45.5
     },
     {
       "ticker": "ARCB",
@@ -120,6 +108,48 @@
       "sector": "Communication Services",
       "date_added": "2026-11-09",
       "score": 41.5
+    },
+    {
+      "ticker": "ADUS",
+      "sector": "Healthcare",
+      "date_added": "2026-11-10",
+      "score": 47.5
+    },
+    {
+      "ticker": "ABNB",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-10",
+      "score": 45.5
+    },
+    {
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-10",
+      "score": 43.5
+    },
+    {
+      "ticker": "CELH",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-11-10",
+      "score": 43.5
+    },
+    {
+      "ticker": "VYX",
+      "sector": "Technology",
+      "date_added": "2026-11-10",
+      "score": 40.0
+    },
+    {
+      "ticker": "W",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-10",
+      "score": 39.0
+    },
+    {
+      "ticker": "TOST",
+      "sector": "Technology",
+      "date_added": "2026-11-10",
+      "score": 38.5
     }
   ]
 }
