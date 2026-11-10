@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.5";
+export const TRACK_VERSION = "3.6";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -297,6 +297,13 @@ export const TRACK_CFG = {
   brkBodyPct: 60,
   brkRangeAtr5: 1.0,
   brkRvolMin: 1.5,
+  /** GAP YÖNÜ KAPISI (v3.6, 10 Kas): aşağı gap'li günde (|gap| ≥ 0,25 günlük ATR) CALL, yukarı gap'li günde PUT girişi yok — tüm kurulumlar.
+   *  10 Kas: −4,67 gap, 10:05 T5_BRK CALL → −1R. 45 seans (aynı veri, motor baştan oynatıldı): kapısız 162 işlem +37,6R (yarılar 21,8/15,8,
+   *  maxDD −3,10, en kötü gün −2,44) → yalnız gap kapısı 148 işlem +40,5R (22,0/18,5, en kötü −2,00, zararlı gün 17 → 15). */
+  gapCounterBlock: true,
+  /** SIÇRAMA KIRILIMI EĞİLİM ŞARTI (v3.6): T5_BRK 15m beklemediği için seans öncesi eğilime (k0) ters yönde alınmaz (NÖTR serbest).
+   *  Yalnız bu: +38,6R (22,3/16,3), maxDD −3,10 → −2,63. İkisi birlikte (canlı): 146 işlem +39,7R (22,0/17,7), maxDD −3,13, en kötü −2,00; 10 Kas −0,5R → +0,5R. */
+  brkBiasAlign: true,
   /** 30 dk tahmini ve 30m bilgisi: kapalı (kullanıcı: "30 dk hiç bir şekilde bakma, yanıltıcı") */
   fc30: false,
   /** kontrat önerisi: vade etiketi ve strike adımı (SPY/QQQ/IWM her gün vadeli, 1 $ adım · hisselerde en yakın haftalık, 2,5 $ adım) */
@@ -311,6 +318,8 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
+  // v3.6 kapıları yalnız SPY'da ölçüldü — diğer motorlarda kendi ölçümüne kadar kapalı
+  gapCounterBlock: false, brkBiasAlign: false,
 };
 
 // ── Tipler ───────────────────────────────────────────────────────────
@@ -326,7 +335,9 @@ export type SetupTag = "T5_TREND" | "T5_PB" | "T5_BRK"
 export type VetoCode = "LOW_RVOL" | "VWAP_CHOP" | "VWAP_POC_ZONE" | "STOP_TOO_WIDE" | "DAILY_LOSS" | "MAX_TRADES" | "EVENT_K1";
 export type DayClass = "TREND_CANDLE" | "INDECISION" | "NORMAL";
 export type ExitReason = "STOP" | "H1" | "TRAIL_15M" | "H1_BE" | "EMA_EXIT" | "H2" | "TIME" | "FORCE_1545" | "TREND_FLIP" | "REV_2BAR";
-export type AlertLevel = "HAZIRLAN" | "TETİK" | "İPTAL" | "YÖNET" | "ÇIKIŞ" | "KADEME";
+/** RED = oluşan tetik giriş kapısına takıldı (gerekçesiyle kayda geçer, ses çalmaz) ·
+ *  DÜZELTME = canlı sayfa, kapanmış mum verisi düzelince daha önce duyurduğu TETİK/İPTAL/ÇIKIŞ'ın değiştiğini bildirir (yalnız istemci üretir) */
+export type AlertLevel = "HAZIRLAN" | "TETİK" | "İPTAL" | "YÖNET" | "ÇIKIŞ" | "KADEME" | "RED" | "DÜZELTME";
 
 export const TAG_TEXT: Record<SetupTag, string> = {
   T5_TREND: "5m tetik · 15m teyitli (yeni hiza)",
@@ -791,6 +802,11 @@ export function trackerRead(inp: TrackInput): TrackRead {
   const k0 = k0At(pmBars.length ? pmBars[pmBars.length - 1].close : prevClose ?? 0, (today[0]?.time ?? nowSec), pmBars);
   const gapPts = prevClose == null ? null : today.length ? r2(today[0].open - prevClose) : k0.pmLast != null ? r2(k0.pmLast - prevClose) : null;
   const gapType: "UP" | "DOWN" | "FLAT" = gapPts == null || atrDaily == null ? "FLAT" : Math.abs(gapPts) < 0.25 * atrDaily ? "FLAT" : gapPts > 0 ? "UP" : "DOWN";
+  /** gap yönü kapısı (cfg.gapCounterBlock): gap yönüne ters giriş engeli — engelliyse gerekçe metni */
+  const gapGateWhy = (d: D): string | false =>
+    C.gapCounterBlock && d !== 0 && gapType !== "FLAT" && (gapType === "UP" ? d < 0 : d > 0)
+      ? `gap yönüne ters (${gapType === "UP" ? "yukarı" : "aşağı"} gap ${gapPts != null ? (gapPts > 0 ? "+" : "") + gapPts.toFixed(2) : ""})`
+      : false;
 
   // ── RTH ──
   const fine = (inp.fine ?? []).filter((b) => nyParts(b.time).ymd === date && isRth(b.time)).sort((a, b) => a.time - b.time);
@@ -1137,7 +1153,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
           || (!!prev && prevVw != null && prevE != null && (dS * (prev.close - prevVw) <= 0 || dS * (prev.close - prevE) <= 0));
         const strong = (Math.abs(c - b.open) / rngS) * 100 >= C.brkBodyPct && rngS >= C.brkRangeAtr5 * atr5;
         const heavy = (rvol5 ?? 0) >= C.brkRvolMin;
-        if (beyondNow && wasNot && strong && heavy) {
+        const spikeBlock = beyondNow && wasNot && strong && heavy ? (gapGateWhy(dS) || (C.brkBiasAlign && k0.bias !== "NÖTR" && k0.bias !== (dS > 0 ? "CALL" : "PUT") && `seans öncesi eğilim ${k0.bias}`)) : false;
+        if (spikeBlock) {
+          const sk: Side = dS > 0 ? "CALL" : "PUT";
+          ev.push(`${sk} sıçrama kırılımı görüldü ama alınmadı — ${spikeBlock}`);
+          pushAlert(b.time, "RED", "T5_BRK", sk, `RED · ${nyClock(T)} ${sk} sıçrama kırılımı alınmadı — ${spikeBlock}`);
+        } else if (beyondNow && wasNot && strong && heavy) {
           spike = { side: dS, close: r2(c), stop: r2(dS > 0 ? b.low - C.stopPad : b.high + C.stopPad), clock: nyClock(T) };
           const sk: Side = dS > 0 ? "CALL" : "PUT";
           ev.push(`ERKEN UYARI: sert hacimli ${dS > 0 ? "yeşil" : "kırmızı"} mum VWAP ${f2(vwap)} + EMA20 ${f2(eX)} ${dS > 0 ? "üstüne" : "altına"} kapandı (RVOL ${(rvol5 as number).toFixed(2)}) — sonraki 5m aynı yönde ${f2(c)} ${dS > 0 ? "üstünde" : "altında"} kapanırsa ${sk}`);
@@ -1289,7 +1310,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
       stop = r2(stop);
       // zayıf 15m teyidinde tetik mumunda girme: bir sonraki 5m kapanış teyidini bekle
       const needConfirm = weak15 || C.confirmAll;
-      if (!pos && !confirmed && !pendingWeak && allOk && needConfirm && trades.length < C.maxTrades && (!exited || entryLockFree) && m + 5 <= C.lastEntry) {
+      const gapWhy = gapGateWhy(d);
+      if (!pos && !confirmed && !pendingWeak && allOk && needConfirm && !gapWhy && trades.length < C.maxTrades && (!exited || entryLockFree) && m + 5 <= C.lastEntry) {
         pendingWeak = { side: d, close: r2(c), clock: nyClock(T), tag, what: weak15 ? weakWhat : "teyit kuralı", left: C.confirmBars };
         ev.push(`${s} tetiği oluştu${weak15 ? ` ama 15m teyit zayıf (${weakWhat})` : ""} — ${C.confirmBars} adet aynı yönde 5m kapanış bekleniyor (her biri öncekinin ${d > 0 ? "üstünde" : "altında"} ve VWAP+EMA20 ${d > 0 ? "üstünde" : "altında"}); ilki ${hm(m + 5)} kapanışı ${f2(c)} ${d > 0 ? "üstünde" : "altında"}`);
         pushAlert(b.time, "KADEME", tag, s, `${s} tetiği${weak15 ? " · 15m teyit zayıf" : ""} — ${C.confirmBars} aynı yönde 5m kapanış (ilk 3 dk yönde) gelirse giriş (ilki ${hm(m + 5)}: ${f2(c)} ${d > 0 ? "üstünde" : "altında"})${fridayNote}`);
@@ -1299,6 +1321,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const refD = inp.refSide15?.get(b.time) ?? 0;
       // sembol başına ek giriş süzgeçleri — engellenen tetik olay olarak yazılır
       const blockWhy = [
+        gapWhy,
         C.refAlign15 !== "off" && inp.refSide15 && !(C.refAlign15 === "same" ? refD === d : refD !== -d) && `referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"}`,
         C.maxStopAtr5 > 0 && atr5 && Math.abs(c - stop) > C.maxStopAtr5 * atr5 && `stop ${f2(Math.abs(c - stop))} > ${C.maxStopAtr5} ATR5`,
         C.minEntryRvol > 0 && (rvol5 ?? 0) < C.minEntryRvol && `hacim zayıf (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.minEntryRvol})`,
@@ -1318,7 +1341,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
       ].filter(Boolean) as string[];
       const refOk = blockWhy.length === 0;
       const triggerBlocked = !refOk && !pos && closeOk && !!(confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && (!exited || entryLockFree);
-      if (triggerBlocked) ev.push(`${s} tetiği alınmadı — ${blockWhy.join(" · ")}`);
+      if (triggerBlocked) {
+        ev.push(`${s} tetiği alınmadı — ${blockWhy.join(" · ")}`);
+        pushAlert(b.time, "RED", confirmed ? confirmed.tag : tag, s, `RED · ${nyClock(T)} ${s} tetiği alınmadı — ${blockWhy.join(" · ")}`);
+      }
       if (!refOk && !pos) blockNote = { side: s, why: blockWhy.join(" · "), triggered: triggerBlocked };
       if (!pos && refOk && closeOk && (confirmed || brkHit || (allOk && !needConfirm)) && trades.length < C.maxTrades && (!exited || entryLockFree)) {
         const rPts = r2(Math.abs(c - stop));
@@ -1390,7 +1416,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const missingText = missing.filter((x) => mixed || x.key !== "candle").map((x) => (!mixed && x.key === "volume" ? "hacim ya da mum formasyonu" : x.text));
         if (blockNote) missingText.unshift(`giriş kapalı: ${blockWhy.join(" · ")}`);
         const line = d > 0 ? Math.max(vwap ?? -Infinity, ema5 ?? -Infinity) : Math.min(vwap ?? Infinity, ema5 ?? Infinity);
-        const armed = m + 5 <= C.lastEntry && missing.length >= 1 && missing.every((x) => x.price) && Number.isFinite(line);
+        // gap kapısı bütün gün geçerli: o yönde HAZIR/ön uyarı gösterilmez
+        const armed = !gapWhy && m + 5 <= C.lastEntry && missing.length >= 1 && missing.every((x) => x.price) && Number.isFinite(line);
         setup = {
           tag: "T5_TREND", side: s, status: armed ? "ARMED" : "WATCH", trigger: Number.isFinite(line) ? r2(line) : null,
           triggerText: `5m kapanış ${Number.isFinite(line) ? f2(line) : "—"} (VWAP+EMA20) ${d > 0 ? "üstünde" : "altında"} + hacim çubuğu ya da formasyon`,

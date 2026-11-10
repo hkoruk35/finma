@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 }
 
 const s = (v: unknown, n: number) => (typeof v === "string" ? v.slice(0, n) : "");
-const LEVELS = new Set(["HAZIRLAN", "TETİK", "İPTAL", "YÖNET", "ÇIKIŞ", "KADEME"]);
+const LEVELS = new Set(["HAZIRLAN", "TETİK", "İPTAL", "YÖNET", "ÇIKIŞ", "KADEME", "RED", "DÜZELTME"]);
 
 export async function POST(req: NextRequest) {
   if (!isEngineAuthed(req)) return NextResponse.json({ ok: false, error: "Yetkisiz" }, { status: 401 });

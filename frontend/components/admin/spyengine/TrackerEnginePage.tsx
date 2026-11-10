@@ -748,7 +748,12 @@ function tradeRow(date: string, a: TrackTrade): TradeRow {
 
 const LEVEL_CLS: Record<string, string> = {
   TETİK: "text-[#4ade80]", ÇIKIŞ: "text-orange-300", YÖNET: "text-sky-300", HAZIRLAN: "text-[#facc15]", İPTAL: "text-slate-500", KADEME: "text-slate-400",
+  RED: "text-rose-400/80", DÜZELTME: "text-fuchsia-300",
 };
+
+/** TETİK/İPTAL aynı giriş kararının iki sonucu (E), ÇIKIŞ ayrı karar (X) — aynı mum + kurulum + yön için tek "yuva" */
+const decisionSlot = (a: { t: number; level: string; tag: string | null; side: string | null }) =>
+  a.level === "TETİK" || a.level === "İPTAL" ? `E|${a.t}|${a.tag ?? ""}|${a.side ?? ""}` : a.level === "ÇIKIŞ" ? `X|${a.t}|${a.tag ?? ""}|${a.side ?? ""}` : null;
 
 function AlertLog({ today, past, todayLabel }: { todayLabel: string; today: { date: string; clock: string; level: string; side: string | null; text: string }[]; past: { date: string; clock: string; level: string; side: string | null; text: string }[] }) {
   const todayDate = today[0]?.date;
@@ -1381,6 +1386,10 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
   // Takip Sistemi uyarıları: TETİK / YÖNET / ÇIKIŞ / İPTAL (kapanışta) + HAZIRLAN (kapanışa ≤ 60 sn) — her biri bir kez
   const seenAlerts = useRef<Set<string> | null>(null);
+  /** Duyurulmuş karar uyarıları (yuva → TETİK/İPTAL/ÇIKIŞ uyarısı). Kapanmış mum verisi düzelip motor kararı değişirse
+   *  eski uyarı sessizce kaybolmaz: DÜZELTME uyarısı çalar ve kayda geçer (10 Kas 10:05: aynı mum için TETİK ve İPTAL birlikte görünmüştü). */
+  const announced = useRef<{ date: string; map: Map<string, TrackAlert> } | null>(null);
+  const [corrections, setCorrections] = useState<TrackAlert[]>([]);
   /** Erken uyarı: kapanışa ≤ 60 sn kala oluşan 5m mum şu anki haliyle kapanırsa motor giriş veriyor mu (2 sn'de bir ön okuma) */
   const prewarnSlot = Math.floor(nowSec / 2);
   const prewarn = useMemo<TrackAlert | null>(() => {
@@ -1395,7 +1404,33 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   }, [track, prewarnSlot, replayDate, refSig]);
   useEffect(() => {
     if (replayDate || !track || !data?.session.isLive) return;
-    const all = [...track.alerts.filter((a) => a.level !== "KADEME"), ...(prewarn ? [prewarn] : [])];
+    // veri düzeltmesi: daha önce duyurulan TETİK/İPTAL/ÇIKIŞ güncel okumada değiştiyse ya da kaybolduysa DÜZELTME üret
+    const nowDecisions = new Map<string, TrackAlert>();
+    for (const a of track.alerts) { const k = decisionSlot(a); if (k) nowDecisions.set(k, a); }
+    const fixes: TrackAlert[] = [];
+    if (announced.current && announced.current.date === track.date) {
+      for (const [k, prev] of announced.current.map) {
+        const cur = nowDecisions.get(k);
+        if (cur && cur.level === prev.level) continue;
+        const sd = prev.side ?? "";
+        const text = prev.level === "TETİK"
+          ? `DÜZELTME · ${prev.clock} ${sd} TETİK geçersiz — kapanmış mum verisi güncellendi, motor bu girişi artık vermiyor${cur ? ` (${cur.level})` : ""}. Bu sinyalle pozisyon açtıysan kendi stopunla yönet.`
+          : prev.level === "İPTAL"
+          ? `DÜZELTME · ${prev.clock} ${sd} İPTAL geçersiz — güncel veriyle giriş oluştu, motor pozisyonu AÇIK sayıyor${cur ? `: ${cur.text.replace(/^TETİK · /, "")}` : ""}`
+          : `DÜZELTME · ${prev.clock} ${sd} ÇIKIŞ geçersiz — güncel veriyle motor pozisyonu hâlâ açık sayıyor`;
+        fixes.push({ t: prev.t, clock: prev.clock, level: "DÜZELTME", tag: prev.tag, side: prev.side, text, key: `${track.date}|DÜZELTME|${k}|${cur?.level ?? "YOK"}` });
+      }
+    }
+    // yeni yuvalar eklenir; değişen/kaybolan yuva güncel hâliyle değiştirilir (aynı düzeltme bir kez üretilir)
+    if (!announced.current || announced.current.date !== track.date) announced.current = { date: track.date, map: new Map(nowDecisions) };
+    else {
+      for (const [k, a] of nowDecisions) announced.current.map.set(k, a);
+      for (const k of [...announced.current.map.keys()]) if (!nowDecisions.has(k)) announced.current.map.delete(k);
+    }
+    // yalnız veri düzeltmesi olduğunda (nadir) çalışır; duyurulan uyarı geçmişi efektin kendi durumu olduğundan render'da türetilemez
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (fixes.length) setCorrections((c) => [...c.filter((x) => !fixes.some((f) => f.key === x.key)), ...fixes]);
+    const all = [...track.alerts.filter((a) => a.level !== "KADEME"), ...fixes, ...(prewarn ? [prewarn] : [])];
     // görülen uyarılar sekme boyunca saklanır: 60 sn'lik tam yenilemeden sonra yeni uyarı sessize alınmaz
     const store = `${symbol}_track_seen_${track.date}`;
     if (seenAlerts.current == null) {
@@ -1409,7 +1444,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     for (const a of fresh) seenAlerts.current.add(a.key);
     try { sessionStorage.setItem(store, JSON.stringify([...seenAlerts.current])); } catch { /* depolama yok */ }
     if (alertSound) {
-      const fired = fresh.find((a) => a.level === "TETİK" || a.level === "ÇIKIŞ");
+      const fired = fresh.find((a) => a.level === "TETİK" || a.level === "ÇIKIŞ" || a.level === "DÜZELTME");
       const soon = fresh.find((a) => a.level === "HAZIRLAN" || a.level === "YÖNET");
       if (fired) chime("fired", fired.text);
       else if (soon) chime("imminent", soon.text);
@@ -1738,7 +1773,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
           />
         </Hideable>
         <Hideable title="Uyarı Kaydı" open={showAlerts} onToggle={() => setShowAlerts((v) => !v)}>
-          <AlertLog today={(track?.alerts ?? []).filter((a) => a.level !== "KADEME").map((a) => ({ date: date ?? "", clock: a.clock, level: a.level, side: a.side, text: a.text }))} past={trackHist?.alertLog ?? []} todayLabel={replayDate ? "seçilen gün" : "bugün"} />
+          <AlertLog today={[...(track?.alerts ?? []).filter((a) => a.level !== "KADEME"), ...(replayDate ? [] : corrections.filter((x) => x.key.startsWith(`${track?.date}|`)))].sort((a, b) => a.t - b.t).map((a) => ({ date: date ?? "", clock: a.clock, level: a.level, side: a.side, text: a.text }))} past={trackHist?.alertLog ?? []} todayLabel={replayDate ? "seçilen gün" : "bugün"} />
         </Hideable>
       </div>
 
