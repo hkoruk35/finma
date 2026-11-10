@@ -21,7 +21,7 @@
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
-import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
+import type { MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import MapTerminal from "@/components/admin/spyengine/MapTerminal";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
@@ -805,8 +805,6 @@ function EngineSwitcher({ current }: { current: EngineSymbol }) {
 
 export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) {
   const E = ENGINES[symbol];
-  /** Tahmin Haritası terminal paneli (MapTerminal) — kullanıcı isteğiyle önce yalnız SPY'da; onaydan sonra diğer motorlara açılacak */
-  const newMapLayout = symbol === "SPY";
   const { stream, optlevels, openForecast, closeForecast, riskKey } = E;
   const pollMs = POLL_MS;
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
@@ -1601,14 +1599,12 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         {/* SPY Piyasa Takibi — varsayılan gizli (bilgi; karar üst bantta) */}
         {showTickers && <SpyMarketWatch symbol={symbol} quotes={quotes} updatedAt={quotesAt} spot={data?.spot ?? null} phase={data?.session.phase ?? "CLOSED"} />}
 
-        {/* ── Tahmin haritası (terminal paneli) — SPY'da Açılış Tahmini'nin üstünde; diğer motorlarda eski yerinde ── */}
-        {newMapLayout && (
-          <MapTerminal
-            map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels}
-            nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
-            odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
-          />
-        )}
+        {/* ── Tahmin haritası (terminal paneli, tüm motorlar) — Açılış Tahmini'nin üstünde ── */}
+        <MapTerminal
+          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels}
+          nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
+          odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
+        />
 
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
         {!replayDate && openForecast && <Hideable title="Açılış Tahmini" open={showOpenFc} onToggle={() => setShowOpenFc((v) => !v)}><OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} /></Hideable>}
@@ -1715,63 +1711,6 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         </div>
 
         </Hideable>
-
-        {/* ── 3) Tahmin haritası — sayfadaki tek grafik (Takip Sistemi senaryoları, ufuk şimdi + 90 dk) · SPY'da yukarıdaki MapTerminal ── */}
-        {!newMapLayout && <div className={`${SURFACE} overflow-hidden`}>
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
-            <span className="text-[12px] font-semibold tracking-wide text-slate-300">
-              Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 4h pivot durakları · önce hangi seviye · ufuk şimdi + 90 dk</span>
-            </span>
-            {map && (
-              <span className="flex items-center gap-2 font-mono text-[11px]">
-                <span className="text-slate-500">gün sonu kapanış bandı</span>
-                <b className="text-[13px] text-slate-100">{num(map.closeLow)} – {num(map.closeHigh)}</b>
-              </span>
-            )}
-          </div>
-          {!map || !date ? (
-            <div className="px-3 py-8 text-center text-[12px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
-          ) : (
-            <>
-              <ForecastMap bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} />
-              <div className="grid grid-cols-1 gap-2 border-t border-[#22d3ee]/40 bg-[#0e4b5a] px-3 py-2 lg:grid-cols-2">
-                <div>
-                  <div className="mb-0.5 text-[11px] font-semibold" style={{ color: map.bias === "UP" ? "#4ade80" : map.bias === "DOWN" ? "#f87171" : "#facc15" }}>
-                    {map.biasText}
-                  </div>
-                  {trackCur && !trackCur.pre && (
-                    <ul className="flex flex-col gap-0.5 text-[12px] leading-snug text-slate-200">
-                      {trackCur.fc.dir !== 0 && trackCur.fc.target != null && trackCur.fc.invalid != null ? (
-                        <>
-                          <li><b style={{ color: trackCur.fc.dir > 0 ? "#4ade80" : "#f87171" }}>Ana senaryo{trackCur.fc.rule && FC_RULES[trackCur.fc.rule].tHit ? ` (hedefe değme %${FC_RULES[trackCur.fc.rule].tHit})` : ""}:</b> {trackCur.fc.dir > 0 ? "yukarı" : "aşağı"} {num(trackCur.fc.target)} ({trackCur.fc.targetLabel}) — {trackCur.fc.rule ? FC_RULES[trackCur.fc.rule].label : ""}.</li>
-                          <li><b className="text-slate-400">Alternatif:</b> 5m kapanış {num(trackCur.fc.invalid)} ({trackCur.fc.invalidLabel}) {trackCur.fc.dir > 0 ? "altına" : "üstüne"} geçerse senaryo iptal, ters yöne dönülür.</li>
-                        </>
-                      ) : trackCur.fc.text ? (
-                        <li><b className="text-amber-300">Ölçülmüş bir kenar yok:</b> {trackCur.fc.text.replace(/^30 dk: /, "")}.</li>
-                      ) : null}
-                    </ul>
-                  )}
-                  {pivotOdds && (
-                    <div className="mt-1 font-mono text-[11.5px] text-slate-200">
-                      Önce hangi seviye: <span className="text-[#4ade80]">▲ {num(pivotOdds.up.price)} {pivotOdds.up.keys[0]} %{pivotOdds.upPct}</span> · <span className="text-[#f87171]">▼ {num(pivotOdds.down.price)} {pivotOdds.down.keys[0]} %{pivotOdds.downPct}</span>
-                      <span className="font-sans text-slate-400"> · mesafeye göre, yön tahmini değil</span>
-                    </div>
-                  )}
-                  <ol className="mt-1 flex list-decimal flex-col gap-0.5 pl-4 text-[11px] leading-snug text-slate-400 marker:text-slate-500">
-                    {map.steps.filter((x) => !x.startsWith("Gün sonu")).map((x, i) => <li key={i}>{x}</li>)}
-                  </ol>
-                </div>
-                <ul className="flex flex-col gap-0.5 text-[11px] leading-snug text-slate-500">
-                  {map.alt.map((a, i) => <li key={i}>⚠ {a}</li>)}
-                  <li className="mt-0.5 text-slate-500">
-                    Bu bir TAHMİNDİR; seviyeler ölçülmüş veriden.
-                    Gün sonu bandı 20 seanslık dağılımdan{forecastAccuracy && forecastAccuracy.checked > 0 ? ` (gerçekleşen isabet %${Math.round((forecastAccuracy.hit / forecastAccuracy.checked) * 100)}, ${forecastAccuracy.checked} ölçüm)` : ""}.
-                  </li>
-                </ul>
-              </div>
-            </>
-          )}
-        </div>}
 
         {/* ── Anlık mum yorumları (15m sol · 5m sağ) ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">

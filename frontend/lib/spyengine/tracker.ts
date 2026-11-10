@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.8";
+export const TRACK_VERSION = "3.9";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
 export const TRACK_VERSION_DATE = "2026-11-10";
