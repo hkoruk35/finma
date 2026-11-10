@@ -1,0 +1,89 @@
+{
+  "ticker": "TDG",
+  "company": "TransDigm Group Incorporated",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T22:42:44.510Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 1218.8499755859375,
+    "open": 1220.949951171875,
+    "high": 1242.8299560546875,
+    "low": 1208.2249755859375,
+    "prev_close": 1197.010009765625,
+    "change_pct": 1.8245432905434744,
+    "change_pct_1w": 0.43094053243948005,
+    "change_pct_1m": 7.840881647860143,
+    "change_pct_1y": -5.130143659414747,
+    "volume": 722299,
+    "avg_volume_30d": 11145099
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 85,
+    "fundamental_score": 79.7,
+    "momentum_score": 68,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.59643302378267,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 1165.1475314237077,
+    "ema_50": 1156.0489037262062,
+    "ema_200": 1209.436399775289,
+    "ema_stack_bullish": false,
+    "bb_upper": 1279.7924743652345,
+    "bb_middle": 1218.8499755859375,
+    "bb_lower": 1157.9074768066405,
+    "bb_width": 10,
+    "atr": 38.93,
+    "atr_pct": 3.19,
+    "rvol": 1.180931098054849,
+    "52w_high": 1463.030029296875,
+    "52w_low": 1071.25
+  },
+  "fundamental": {
+    "pe_ratio": 36.968452,
+    "pb_ratio": 0,
+    "gross_margin": 0.59824,
+    "operating_margin": 0.46005002,
+    "net_margin": 0.21277,
+    "market_cap": 68174647296,
+    "revenue_growth_ttm": 0.225,
+    "fcf_yield": 0.021377081272931035,
+    "institutional_ownership_pct": 0.97668,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 1195.49,
+    "entry_range_high": 1222.74,
+    "target_range_low": 1269.57,
+    "target_range_high": 1390.48,
+    "target_1": 1269.57,
+    "target_2": 1330.03,
+    "target_3": 1390.48,
+    "stop_loss": 1157.91,
+    "risk_reward_ratio": 2.36,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1,195.49 – $1,222.74 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $1,242.83 direnci veya $1,187.70 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1,157.91 olarak belirlenmiştir. Fiyatın EMA50 ($1,156.05) veya günlük VWAP ($1,226.99) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($1,156.05) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($1,226.99) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

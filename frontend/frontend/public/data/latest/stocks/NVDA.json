@@ -1,8 +1,8 @@
 {
   "ticker": "NVDA",
   "company": "NVIDIA Corporation",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T10:45:25.628Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T01:48:52.763Z",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -14,12 +14,12 @@
     "change_pct": 2.775326606134537,
     "change_pct_1w": -8.795934349924806,
     "change_pct_1m": -13.59259287516276,
-    "change_pct_1y": -0.7656329367221886,
+    "change_pct_1y": -0.802548262460588,
     "volume": 179722400,
     "avg_volume_30d": 3466806800
   },
   "scores": {
-    "master_score": 50,
+    "master_score": 56,
     "technical_score": 35,
     "fundamental_score": 79.7,
     "momentum_score": 60,
@@ -28,18 +28,18 @@
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
-      "score_bonus": -2,
-      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.62%)"
     }
   },
   "technical": {
-    "rsi_14": 30.76215411940379,
+    "rsi_14": 30.762154137505362,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 208.77699944890986,
-    "ema_50": 215.0686965414497,
-    "ema_200": 207.53043191050185,
+    "ema_20": 208.7769994489107,
+    "ema_50": 215.06869959040245,
+    "ema_200": 207.53611992344287,
     "ema_stack_bullish": false,
     "bb_upper": 195.97199935913088,
     "bb_middle": 186.63999938964844,
@@ -52,14 +52,14 @@
     "52w_low": 164.27000427246094
   },
   "fundamental": {
-    "pe_ratio": 23.59545,
-    "pb_ratio": 19.681536,
+    "pe_ratio": 22.587864,
+    "pb_ratio": 18.841084,
     "gross_margin": 0.74674004,
     "operating_margin": 0.66236997,
     "net_margin": 0.63663,
-    "market_cap": 4506795900928,
+    "market_cap": 4314344194048,
     "revenue_growth_ttm": 1.059,
-    "fcf_yield": 0.009277073083205493,
+    "fcf_yield": 0.009690899256874367,
     "institutional_ownership_pct": 0.71528,
     "dividend_rate": 1,
     "dividend_yield": 0.0054
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $181.83 – $187.44 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $194.90 direnci veya $180.22 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $176.21 olarak belirlenmiştir. Fiyatın EMA200 ($207.53) veya günlük VWAP ($188.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $176.21 olarak belirlenmiştir. Fiyatın EMA200 ($207.54) veya günlük VWAP ($177.40) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($215.07) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($188.15) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($177.40) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.5x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
   }

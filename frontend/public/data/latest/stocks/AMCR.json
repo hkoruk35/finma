@@ -1,0 +1,89 @@
+{
+  "ticker": "AMCR",
+  "company": "Amcor plc",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T01:41:37.013Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Packaging & Containers",
+  "price": {
+    "current": 44.869998931884766,
+    "open": 44.7599983215332,
+    "high": 45.59000015258789,
+    "low": 44.099998474121094,
+    "prev_close": 45.84000015258789,
+    "change_pct": -2.116058502343534,
+    "change_pct_1w": -5.317578582442701,
+    "change_pct_1m": -2.8577608444892655,
+    "change_pct_1y": 7.216249863500374,
+    "volume": 4385100,
+    "avg_volume_30d": 105572700
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.40091952021665,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 45.608525493749454,
+    "ema_50": 44.63943265358933,
+    "ema_200": 43.314396818346545,
+    "ema_stack_bullish": true,
+    "bb_upper": 47.11349887847901,
+    "bb_middle": 44.869998931884766,
+    "bb_lower": 42.626498985290525,
+    "bb_width": 10,
+    "atr": 1.47,
+    "atr_pct": 3.28,
+    "rvol": 1.6510120514110183,
+    "52w_high": 50.939998626708984,
+    "52w_low": 36.25
+  },
+  "fundamental": {
+    "pe_ratio": 19.37339,
+    "pb_ratio": 1.7770253,
+    "gross_margin": 0.19778,
+    "operating_margin": 0.08044,
+    "net_margin": 0.04546,
+    "market_cap": 20847714304,
+    "revenue_growth_ttm": 0.067,
+    "fcf_yield": 0.04262457797733259,
+    "institutional_ownership_pct": 0.79441,
+    "dividend_rate": 2.64,
+    "dividend_yield": 0.0588
+  },
+  "scores_detail": {
+    "entry_range_low": 43.99,
+    "entry_range_high": 45.02,
+    "target_range_low": 48.94,
+    "target_range_high": 51.96,
+    "target_1": 48.94,
+    "target_2": 50.94,
+    "target_3": 51.96,
+    "stop_loss": 42.63,
+    "risk_reward_ratio": 3.43,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $43.99 – $45.02 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $45.64 direnci veya $43.69 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $42.63 olarak belirlenmiştir. Fiyatın EMA200 ($43.31) veya günlük VWAP ($45.75) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($44.64) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($45.75) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

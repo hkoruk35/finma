@@ -1,13 +1,13 @@
 {
   "ticker": "BNTX",
   "company": "BioNTech SE",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T21:45:34.984Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T04:33:26.194Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
     "current": 87.51000213623047,
-    "open": 87.80000305175781,
+    "open": 87.76000213623047,
     "high": 88.77999877929688,
     "low": 86.55999755859375,
     "prev_close": 87.51000213623047,
@@ -15,8 +15,8 @@
     "change_pct_1w": -0.022845473946397424,
     "change_pct_1m": 0.5168901794809418,
     "change_pct_1y": -15.154156821709911,
-    "volume": 1104841,
-    "avg_volume_30d": 32537441
+    "volume": 1142900,
+    "avg_volume_30d": 32575500
   },
   "scores": {
     "master_score": 39,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 2.83,
     "atr_pct": 3.24,
-    "rvol": 1.0187969607075122,
+    "rvol": 1.0246166597596353,
     "52w_high": 124,
     "52w_low": 79.5199966430664
   },

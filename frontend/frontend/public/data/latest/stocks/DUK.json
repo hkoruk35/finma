@@ -1,0 +1,89 @@
+{
+  "ticker": "DUK",
+  "company": "Duke Energy Corporation",
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T23:59:33.893Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 128.10000610351562,
+    "open": 128.85000610351562,
+    "high": 129.19000244140625,
+    "low": 127.26000213623047,
+    "prev_close": 127.77999877929688,
+    "change_pct": 0.2504361615869714,
+    "change_pct_1w": -0.2181015490320808,
+    "change_pct_1m": 2.6442331498896,
+    "change_pct_1y": 3.5904919213314805,
+    "volume": 6125790,
+    "avg_volume_30d": 128766590.00000001
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.78520028880908,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 124.78253552999183,
+    "ema_50": 122.28227445174792,
+    "ema_200": 123.07715213755337,
+    "ema_stack_bullish": false,
+    "bb_upper": 134.5050064086914,
+    "bb_middle": 128.10000610351562,
+    "bb_lower": 121.69500579833984,
+    "bb_width": 10,
+    "atr": 2.38,
+    "atr_pct": 1.86,
+    "rvol": 1.4456012231122994,
+    "52w_high": 134.49000549316406,
+    "52w_low": 112.4000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 18.782991,
+    "pb_ratio": 1.8365855,
+    "gross_margin": 0.52579,
+    "operating_margin": 0.30031002,
+    "net_margin": 0.16158001,
+    "market_cap": 99880640512,
+    "revenue_growth_ttm": 0.066,
+    "fcf_yield": -0.06031073730725897,
+    "institutional_ownership_pct": 0.71129,
+    "dividend_rate": 4.34,
+    "dividend_yield": 0.034
+  },
+  "scores_detail": {
+    "entry_range_low": 126.67,
+    "entry_range_high": 128.34,
+    "target_range_low": 133.88,
+    "target_range_high": 146.63,
+    "target_1": 133.88,
+    "target_2": 140.26,
+    "target_3": 146.63,
+    "stop_loss": 121.7,
+    "risk_reward_ratio": 2.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $126.67 – $128.34 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $130.13 direnci veya $126.20 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $121.70 olarak belirlenmiştir. Fiyatın EMA50 ($122.28) veya günlük VWAP ($128.44) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($122.28) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($128.44) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

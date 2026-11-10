@@ -1,0 +1,89 @@
+{
+  "ticker": "CMI",
+  "company": "Cummins Inc.",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T04:41:43.605Z",
+  "sector": "Industrials",
+  "industry": "Specialty Industrial Machinery",
+  "price": {
+    "current": 466.4700012207031,
+    "open": 460.1700134277344,
+    "high": 468.44000244140625,
+    "low": 455.1600036621094,
+    "prev_close": 450.07000732421875,
+    "change_pct": 3.6438762036125296,
+    "change_pct_1w": -6.817819509925253,
+    "change_pct_1m": -12.087971561327215,
+    "change_pct_1y": -1.4513869882830268,
+    "volume": 1379600,
+    "avg_volume_30d": 39746400
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 35,
+    "fundamental_score": 66.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.18147918704119,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 500.42106016924436,
+    "ema_50": 529.8210865609486,
+    "ema_200": 570.9094939118726,
+    "ema_stack_bullish": false,
+    "bb_upper": 489.7935012817383,
+    "bb_middle": 466.4700012207031,
+    "bb_lower": 443.14650115966793,
+    "bb_width": 10,
+    "atr": 17.62,
+    "atr_pct": 3.78,
+    "rvol": 1.7596914437533966,
+    "52w_high": 737.760009765625,
+    "52w_low": 443.6199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 18.778986,
+    "pb_ratio": 4.793797,
+    "gross_margin": 0.26322,
+    "operating_margin": 0.13954,
+    "net_margin": 0.09263,
+    "market_cap": 63942721536,
+    "revenue_growth_ttm": 0.135,
+    "fcf_yield": 0.03914440930686382,
+    "institutional_ownership_pct": 0.87775004,
+    "dividend_rate": 8.8,
+    "dividend_yield": 0.0189
+  },
+  "scores_detail": {
+    "entry_range_low": 455.17,
+    "entry_range_high": 468.23,
+    "target_range_low": 526.5,
+    "target_range_high": 551.3,
+    "target_1": 526.5,
+    "target_2": 540.49,
+    "target_3": 551.3,
+    "stop_loss": 442.84,
+    "risk_reward_ratio": 4.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $455.17 – $468.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $476.13 direnci veya $451.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $442.84 olarak belirlenmiştir. Fiyatın EMA20 ($500.42) veya günlük VWAP ($464.68) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($529.82) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($464.68) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.8 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

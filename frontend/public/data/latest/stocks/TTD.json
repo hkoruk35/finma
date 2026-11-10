@@ -1,8 +1,8 @@
 {
   "ticker": "TTD",
   "company": "The Trade Desk, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T22:04:14.172Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T03:47:45.590Z",
   "sector": "Communication Services",
   "industry": "Advertising Agencies",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 18.96414404995764,
     "change_pct_1m": 17.559059286629072,
     "change_pct_1y": -65.27906905773074,
-    "volume": 86907651,
-    "avg_volume_30d": 533871251
+    "volume": 96518300,
+    "avg_volume_30d": 543481900
   },
   "scores": {
     "master_score": 35,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.7,
     "atr_pct": 4.71,
-    "rvol": 1.636044466458824,
+    "rvol": 1.71321436831659,
     "52w_high": 46,
     "52w_low": 11.619999885559082
   },
@@ -83,7 +83,7 @@
     "stop_rationale": "Hesaplanan stop-loss seviyesi $12.34 olarak belirlenmiştir. Fiyatın EMA20 ($12.97) veya günlük VWAP ($15.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($13.41) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
     "rationale_vwap": "Fiyat gün içi VWAP'ın ($15.00) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
-    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.7 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
     "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
   }
 }

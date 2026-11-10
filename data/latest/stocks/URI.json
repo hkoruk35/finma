@@ -1,8 +1,8 @@
 {
   "ticker": "URI",
   "company": "United Rentals, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T21:42:29.284Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T03:42:31.807Z",
   "sector": "Industrials",
   "industry": "Rental & Leasing Services",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -4.019839566577814,
     "change_pct_1m": -2.911355942744191,
     "change_pct_1y": 32.999710456270265,
-    "volume": 464700,
-    "avg_volume_30d": 17593800
+    "volume": 464800,
+    "avg_volume_30d": 17593900
   },
   "scores": {
     "master_score": 79,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 52.81,
     "atr_pct": 4.68,
-    "rvol": 1.1721856563107458,
+    "rvol": 1.1722130965846116,
     "52w_high": 1202.1199951171875,
     "52w_low": 701.5900268554688
   },
@@ -62,7 +62,7 @@
     "fcf_yield": 0.03027811352859518,
     "institutional_ownership_pct": 0.95786005,
     "dividend_rate": 7.88,
-    "dividend_yield": 0.0075
+    "dividend_yield": 0.0069999998
   },
   "scores_detail": {
     "entry_range_low": 1085.98,

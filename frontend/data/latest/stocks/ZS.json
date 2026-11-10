@@ -1,8 +1,8 @@
 {
   "ticker": "ZS",
   "company": "Zscaler, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T22:04:15.103Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T03:50:50.858Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -11.059475732838157,
     "change_pct_1m": -23.49029484685196,
     "change_pct_1y": -37.801947685352246,
-    "volume": 2129856,
-    "avg_volume_30d": 76957856
+    "volume": 2131000,
+    "avg_volume_30d": 76959000
   },
   "scores": {
     "master_score": 54,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 14.1,
     "atr_pct": 7.08,
-    "rvol": 0.8540536264419841,
+    "rvol": 0.854130121233384,
     "52w_high": 333.8999938964844,
     "52w_low": 114.625
   },

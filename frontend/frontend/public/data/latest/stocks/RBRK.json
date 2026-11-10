@@ -1,0 +1,89 @@
+{
+  "ticker": "RBRK",
+  "company": "RBRK Corp.",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T01:32:17.172Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 105.75,
+    "open": 110.5,
+    "high": 111.01000213623047,
+    "low": 104.12000274658203,
+    "prev_close": 105.73999786376953,
+    "change_pct": 0.009459179527651433,
+    "change_pct_1w": -14.82078235983223,
+    "change_pct_1m": -20.72713280477374,
+    "change_pct_1y": 44.80350782914,
+    "volume": 3332200,
+    "avg_volume_30d": 90959700
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 60,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.92703410683592,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 118.58544459449192,
+    "ema_50": 112.33578256410438,
+    "ema_200": 88.63573318017583,
+    "ema_stack_bullish": true,
+    "bb_upper": 111.03750000000001,
+    "bb_middle": 105.75,
+    "bb_lower": 100.46249999999999,
+    "bb_width": 10,
+    "atr": 8.52,
+    "atr_pct": 8.06,
+    "rvol": 1.0849837895243717,
+    "52w_high": 139.9199981689453,
+    "52w_low": 42.25
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0.80206,
+    "operating_margin": -0.16829,
+    "net_margin": -0.16498,
+    "market_cap": 22892253184,
+    "revenue_growth_ttm": 0.379,
+    "fcf_yield": 0.020959814315497656,
+    "institutional_ownership_pct": 0.80512,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 100.64,
+    "entry_range_high": 106.6,
+    "target_range_low": 108.8,
+    "target_range_high": 127.9,
+    "target_1": 108.8,
+    "target_2": 113.98,
+    "target_3": 127.9,
+    "stop_loss": 94.68,
+    "risk_reward_ratio": 1.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $100.64 – $106.60 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $111.01 direnci veya $98.94 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $94.68 olarak belirlenmiştir. Fiyatın EMA200 ($88.64) veya günlük VWAP ($110.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($112.34) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($110.29) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 39 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,8 +1,8 @@
 {
   "ticker": "CLVR",
   "company": "Clever Leaves Holdings Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T06:14:06.471Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T03:46:40.316Z",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - Specialty & Generic",
   "price": {
@@ -33,7 +33,7 @@
     }
   },
   "technical": {
-    "rsi_14": 23.583063420668907,
+    "rsi_14": 23.58306369862393,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,

@@ -1,0 +1,89 @@
+{
+  "ticker": "YETI",
+  "company": "YETI Holdings, Inc.",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T07:39:00.527Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Leisure",
+  "price": {
+    "current": 45.83000183105469,
+    "open": 45.380001068115234,
+    "high": 45.97999954223633,
+    "low": 44.7400016784668,
+    "prev_close": 44.970001220703125,
+    "change_pct": 1.9123873404647334,
+    "change_pct_1w": 0.9026941405508551,
+    "change_pct_1m": 8.473377114922338,
+    "change_pct_1y": 26.323052296262773,
+    "volume": 2461100,
+    "avg_volume_30d": 41954300
+  },
+  "scores": {
+    "master_score": 85,
+    "technical_score": 100,
+    "fundamental_score": 74.75,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.47607806698295,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 44.0603636681166,
+    "ema_50": 43.42667943049396,
+    "ema_200": 43.3980707313584,
+    "ema_stack_bullish": true,
+    "bb_upper": 48.12150192260742,
+    "bb_middle": 45.83000183105469,
+    "bb_lower": 43.53850173950195,
+    "bb_width": 10,
+    "atr": 1.72,
+    "atr_pct": 3.76,
+    "rvol": 1.2587124561725496,
+    "52w_high": 53.9900016784668,
+    "52w_low": 34.7599983215332
+  },
+  "fundamental": {
+    "pe_ratio": 20.100878,
+    "pb_ratio": 5.487966,
+    "gross_margin": 0.59208,
+    "operating_margin": 0.19327,
+    "net_margin": 0.09236,
+    "market_cap": 3345076736,
+    "revenue_growth_ttm": 0.085,
+    "fcf_yield": 0.03809090494957183,
+    "institutional_ownership_pct": 1.20973,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 44.8,
+    "entry_range_high": 46,
+    "target_range_low": 50.6,
+    "target_range_high": 52.64,
+    "target_1": 50.6,
+    "target_2": 51.61,
+    "target_3": 52.64,
+    "stop_loss": 43.54,
+    "risk_reward_ratio": 3.34,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $44.80 – $46.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $47.20 direnci veya $44.45 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $43.54 olarak belirlenmiştir. Fiyatın EMA50 ($43.43) veya günlük VWAP ($45.40) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($45.40) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}

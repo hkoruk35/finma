@@ -1,22 +1,22 @@
 {
   "ticker": "AMAT",
   "company": "Applied Materials, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T21:52:51.566Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T03:41:28.297Z",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
   "price": {
     "current": 370.54998779296875,
     "open": 343.1000061035156,
-    "high": 375.5199890136719,
+    "high": 375.5299987792969,
     "low": 342.9800109863281,
     "prev_close": 332.7200012207031,
     "change_pct": 11.369916576542648,
     "change_pct_1w": -1.0626681438870447,
     "change_pct_1m": -6.4102253813329195,
     "change_pct_1y": 61.05966705637693,
-    "volume": 10932995,
-    "avg_volume_30d": 228491695
+    "volume": 10988300,
+    "avg_volume_30d": 228561000
   },
   "scores": {
     "master_score": 53,
@@ -47,12 +47,12 @@
     "bb_width": 10,
     "atr": 25.17,
     "atr_pct": 6.79,
-    "rvol": 1.3374104034722138,
+    "rvol": 1.338824208854529,
     "52w_high": 739.6699829101562,
     "52w_low": 203.39999389648438
   },
   "fundamental": {
-    "pe_ratio": 31.971525,
+    "pe_ratio": 28.702555,
     "pb_ratio": 11.475333,
     "gross_margin": 0.49398,
     "operating_margin": 0.33736,

@@ -1,8 +1,8 @@
 {
   "ticker": "RBA",
   "company": "RB Global, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T14:16:19.407Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T01:45:47.809Z",
   "sector": "Industrials",
   "industry": "Specialty Business Services",
   "price": {
@@ -14,32 +14,32 @@
     "change_pct": -1.3293966580063887,
     "change_pct_1w": 4.270257662399174,
     "change_pct_1m": 10.426253332285931,
-    "change_pct_1y": -2.7959697193681707,
+    "change_pct_1y": -6.852594400647617,
     "volume": 2821900,
     "avg_volume_30d": 62512000
   },
   "scores": {
-    "master_score": 70,
+    "master_score": 35,
     "technical_score": 60,
     "fundamental_score": 79.7,
     "momentum_score": 56,
     "sentiment_score": 70,
-    "signal_type": "STRONG_BUY",
-    "score_type": "HIGH_CONVICTION",
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
     "micro_15m": {
-      "is_valid": true,
-      "score_bonus": 1,
-      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
     }
   },
   "technical": {
-    "rsi_14": 66.08414161352829,
+    "rsi_14": 66.08414141014951,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 88.50427411852192,
-    "ema_50": 87.89996054654941,
-    "ema_200": 95.53547325159619,
+    "ema_20": 88.50427411857348,
+    "ema_50": 87.90014306894597,
+    "ema_200": 95.87598024997163,
     "ema_stack_bullish": false,
     "bb_upper": 98.19599647521973,
     "bb_middle": 93.5199966430664,
@@ -52,14 +52,14 @@
     "52w_low": 78.05000305175781
   },
   "fundamental": {
-    "pe_ratio": 40.310345,
-    "pb_ratio": 3.1090424,
+    "pe_ratio": 41.28017,
+    "pb_ratio": 3.1955287,
     "gross_margin": 0.45761,
     "operating_margin": 0.17721,
     "net_margin": 0.09988,
-    "market_cap": 17422776320,
+    "market_cap": 17841950720,
     "revenue_growth_ttm": 0.111,
-    "fcf_yield": 0.034643590029169356,
+    "fcf_yield": 0.03382968204947491,
     "institutional_ownership_pct": 1.1503501,
     "dividend_rate": 1.32,
     "dividend_yield": 0.014099999
@@ -80,9 +80,9 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $92.04 – $93.77 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $95.00 direnci veya $91.54 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $88.84 olarak belirlenmiştir. Fiyatın EMA20 ($88.50) veya günlük VWAP ($93.77) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $88.84 olarak belirlenmiştir. Fiyatın EMA20 ($88.50) veya günlük VWAP ($96.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($87.90) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($93.77) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($96.19) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 66 seviyesinde pozitif momentumu destekliyor."
   }

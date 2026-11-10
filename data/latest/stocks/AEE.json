@@ -1,0 +1,89 @@
+{
+  "ticker": "AEE",
+  "company": "Ameren Corporation",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T00:41:17.799Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Electric",
+  "price": {
+    "current": 114.0199966430664,
+    "open": 113.66000366210938,
+    "high": 114.66000366210938,
+    "low": 112.81999969482422,
+    "prev_close": 112.8499984741211,
+    "change_pct": 1.036772870859735,
+    "change_pct_1w": 2.333511503185214,
+    "change_pct_1m": 4.855617880286982,
+    "change_pct_1y": 8.95365024420988,
+    "volume": 2276288,
+    "avg_volume_30d": 60913288
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 75,
+    "fundamental_score": 61.55,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 72.89510703208013,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 109.16190738029215,
+    "ema_50": 107.07324255052691,
+    "ema_200": 107.29924905223507,
+    "ema_stack_bullish": false,
+    "bb_upper": 119.72099647521974,
+    "bb_middle": 114.0199966430664,
+    "bb_lower": 108.31899681091308,
+    "bb_width": 10,
+    "atr": 1.96,
+    "atr_pct": 1.72,
+    "rvol": 1.2466233640187014,
+    "52w_high": 118.31999969482422,
+    "52w_low": 96.56999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 19.829565,
+    "pb_ratio": 2.2223089,
+    "gross_margin": 0.52586,
+    "operating_margin": 0.34078997,
+    "net_margin": 0.18628,
+    "market_cap": 31576414208,
+    "revenue_growth_ttm": 0.067,
+    "fcf_yield": -0.08063376161802849,
+    "institutional_ownership_pct": 0.90800005,
+    "dividend_rate": 3,
+    "dividend_yield": 0.026600001
+  },
+  "scores_detail": {
+    "entry_range_low": 113.02,
+    "entry_range_high": 114.22,
+    "target_range_low": 119.3,
+    "target_range_high": 130.66,
+    "target_1": 119.3,
+    "target_2": 124.98,
+    "target_3": 130.66,
+    "stop_loss": 108.32,
+    "risk_reward_ratio": 2.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $113.02 – $114.22 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $115.31 direnci veya $112.63 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $108.32 olarak belirlenmiştir. Fiyatın EMA20 ($109.16) veya günlük VWAP ($114.05) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($107.07) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($114.05) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 73 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

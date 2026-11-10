@@ -1,0 +1,89 @@
+{
+  "ticker": "RNST",
+  "company": "Renasant Corporation",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T00:40:14.453Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 40.13999938964844,
+    "open": 39.900001525878906,
+    "high": 40.540000915527344,
+    "low": 39.650001525878906,
+    "prev_close": 39.38999938964844,
+    "change_pct": 1.9040365870051208,
+    "change_pct_1w": -1.0110970533321029,
+    "change_pct_1m": -3.4632091822823377,
+    "change_pct_1y": 15.877598432185827,
+    "volume": 847663,
+    "avg_volume_30d": 21971163
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 55,
+    "fundamental_score": 69.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.54014721254232,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 40.17162295048516,
+    "ema_50": 40.42704110908847,
+    "ema_200": 39.93606630789098,
+    "ema_stack_bullish": false,
+    "bb_upper": 42.14699935913086,
+    "bb_middle": 40.13999938964844,
+    "bb_lower": 38.132999420166016,
+    "bb_width": 10,
+    "atr": 1.36,
+    "atr_pct": 3.38,
+    "rvol": 1.0073739837986728,
+    "52w_high": 44.540000915527344,
+    "52w_low": 33.15999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 11.119114,
+    "pb_ratio": 0.94645256,
+    "gross_margin": 0,
+    "operating_margin": 0.41602,
+    "net_margin": 0.31343,
+    "market_cap": 3619394816,
+    "revenue_growth_ttm": 0.002,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.93008006,
+    "dividend_rate": 0.96,
+    "dividend_yield": 0.024400001
+  },
+  "scores_detail": {
+    "entry_range_low": 39.32,
+    "entry_range_high": 40.28,
+    "target_range_low": 41.79,
+    "target_range_high": 45.77,
+    "target_1": 41.79,
+    "target_2": 43.78,
+    "target_3": 45.77,
+    "stop_loss": 38.13,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $39.32 – $40.28 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $41.12 direnci veya $39.05 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $38.13 olarak belirlenmiştir. Fiyatın EMA200 ($39.94) veya günlük VWAP ($40.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($40.43) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($40.29) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}
