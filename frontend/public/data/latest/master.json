@@ -1,8 +1,8 @@
 {
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T14:03:53.896432-05:00",
+  "generated_at": "2026-11-10T17:03:05.272599-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 43,
+  "active_scores_count": 50,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -21,7 +21,7 @@
       ]
     },
     "breakout": {
-      "count": 22,
+      "count": 24,
       "tickers": [
         "BILL",
         "ALGN",
@@ -30,7 +30,6 @@
         "GPN",
         "HIW",
         "GWW",
-        "HLF",
         "FIBK",
         "ABNB",
         "BR",
@@ -44,7 +43,10 @@
         "ICUI",
         "AVNT",
         "JXN",
-        "DHI"
+        "DHI",
+        "HUM",
+        "BCO",
+        "PPLI"
       ]
     },
     "value": {
