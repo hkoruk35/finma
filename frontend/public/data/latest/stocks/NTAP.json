@@ -2,7 +2,7 @@
   "ticker": "NTAP",
   "company": "NetApp, Inc.",
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T03:42:34.047Z",
+  "generated_at": "2026-11-10T10:45:44.280Z",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 93.69000244140625
   },
   "fundamental": {
-    "pe_ratio": 23.890097,
+    "pe_ratio": 24.833569,
     "pb_ratio": 23.082067,
     "gross_margin": 0.70625997,
     "operating_margin": 0.26667,
@@ -60,9 +60,9 @@
     "market_cap": 34583494656,
     "revenue_growth_ttm": 0.299,
     "fcf_yield": 0.033870925643911885,
-    "institutional_ownership_pct": 1.02298,
+    "institutional_ownership_pct": 1.0285,
     "dividend_rate": 2.08,
-    "dividend_yield": 0.0123000005
+    "dividend_yield": 0.0117999995
   },
   "scores_detail": {
     "entry_range_low": 169.35,

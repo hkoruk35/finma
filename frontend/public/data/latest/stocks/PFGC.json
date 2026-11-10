@@ -1,0 +1,89 @@
+{
+  "ticker": "PFGC",
+  "company": "Performance Food Group Company",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T12:46:58.400Z",
+  "sector": "Consumer Defensive",
+  "industry": "Food Distribution",
+  "price": {
+    "current": 111.7699966430664,
+    "open": 108.79000091552734,
+    "high": 112.6500015258789,
+    "low": 108.75499725341797,
+    "prev_close": 107.5,
+    "change_pct": 3.9720899005268895,
+    "change_pct_1w": 10.838953492770838,
+    "change_pct_1m": 16.11260561254264,
+    "change_pct_1y": 13.207731026798392,
+    "volume": 2101300,
+    "avg_volume_30d": 51549700
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 95,
+    "fundamental_score": 61.55,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 70.64157834309722,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 100.88962110458048,
+    "ema_50": 99.0904046496748,
+    "ema_200": 98.78567026659917,
+    "ema_stack_bullish": true,
+    "bb_upper": 117.35849647521974,
+    "bb_middle": 111.7699966430664,
+    "bb_lower": 106.18149681091307,
+    "bb_width": 10,
+    "atr": 3.73,
+    "atr_pct": 3.34,
+    "rvol": 2.2386473636122033,
+    "52w_high": 117.4749984741211,
+    "52w_low": 80.81999969482422
+  },
+  "fundamental": {
+    "pe_ratio": 44.52988,
+    "pb_ratio": 3.4522486,
+    "gross_margin": 0.12655,
+    "operating_margin": 0.01511,
+    "net_margin": 0.00605,
+    "market_cap": 17635575808,
+    "revenue_growth_ttm": 0.055,
+    "fcf_yield": 0.04715255714093438,
+    "institutional_ownership_pct": 1.01955,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 109.74,
+    "entry_range_high": 112.14,
+    "target_range_low": 116.49,
+    "target_range_high": 127.58,
+    "target_1": 116.49,
+    "target_2": 122.03,
+    "target_3": 127.58,
+    "stop_loss": 106.18,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $109.74 – $112.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $112.65 direnci veya $108.99 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $106.18 olarak belirlenmiştir. Fiyatın EMA20 ($100.89) veya günlük VWAP ($111.28) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($111.28) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.2 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 71 seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir."
+  }
+}

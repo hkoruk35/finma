@@ -1,8 +1,8 @@
 {
   "ticker": "PD",
   "company": "PagerDuty, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T21:58:01.380Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T09:38:17.354Z",
   "sector": "Technology",
   "industry": "Software - Application",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -6.28365825606916,
     "change_pct_1m": -11.774648746974032,
     "change_pct_1y": 1.0974827553640025,
-    "volume": 1076551,
-    "avg_volume_30d": 47537751
+    "volume": 1098900,
+    "avg_volume_30d": 47560100
   },
   "scores": {
     "master_score": 70,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.63,
     "atr_pct": 3.99,
-    "rvol": 0.7865055711196771,
+    "rvol": 0.7889554479490161,
     "52w_high": 18.059999465942383,
     "52w_low": 5.699999809265137
   },
@@ -60,7 +60,7 @@
     "market_cap": 1231656960,
     "revenue_growth_ttm": 0.008,
     "fcf_yield": 0.09498718214526226,
-    "institutional_ownership_pct": 0.99169,
+    "institutional_ownership_pct": 0.99693,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

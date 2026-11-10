@@ -2,7 +2,7 @@
   "ticker": "GLW",
   "company": "Corning Incorporated",
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T03:43:36.025Z",
+  "generated_at": "2026-11-10T10:37:26.794Z",
   "sector": "Technology",
   "industry": "Electronic Components",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 77.38999938964844
   },
   "fundamental": {
-    "pe_ratio": 42.944443,
+    "pe_ratio": 46.943317,
     "pb_ratio": 7.684406,
     "gross_margin": 0.36481,
     "operating_margin": 0.1895,
@@ -60,9 +60,9 @@
     "market_cap": 99879452672,
     "revenue_growth_ttm": 0.184,
     "fcf_yield": 0.008711751703901047,
-    "institutional_ownership_pct": 0.74463,
+    "institutional_ownership_pct": 0.74452,
     "dividend_rate": 1.12,
-    "dividend_yield": 0.0106
+    "dividend_yield": 0.0097
   },
   "scores_detail": {
     "entry_range_low": 106.98,
