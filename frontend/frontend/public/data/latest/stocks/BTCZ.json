@@ -1,8 +1,8 @@
 {
   "ticker": "BTCZ",
   "company": "T-Rex 2X Inverse Bitcoin Daily Target ETF",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T22:41:42.573Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T09:58:00.484Z",
   "sector": "Unknown",
   "industry": "Unknown",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 4.069763492931929,
     "change_pct_1m": 14.559997558593752,
     "change_pct_1y": 10.664607103488333,
-    "volume": 22969227,
-    "avg_volume_30d": 547907927
+    "volume": 22977600,
+    "avg_volume_30d": 548073900
   },
   "scores": {
     "master_score": 61,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.19,
     "atr_pct": 5.19,
-    "rvol": 1.151189699797864,
+    "rvol": 1.152658063082369,
     "52w_high": 7.340000152587891,
     "52w_low": 2.693000078201294
   },

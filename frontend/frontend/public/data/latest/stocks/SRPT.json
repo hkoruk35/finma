@@ -1,8 +1,8 @@
 {
   "ticker": "SRPT",
   "company": "Sarepta Therapeutics, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T21:58:44.988Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T08:00:40.861Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -5.8951961883011235,
     "change_pct_1m": -8.734778569841879,
     "change_pct_1y": -2.2121350437516374,
-    "volume": 2476269,
-    "avg_volume_30d": 75324269
+    "volume": 2480400,
+    "avg_volume_30d": 75328400
   },
   "scores": {
     "master_score": 30,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.92,
     "atr_pct": 5.36,
-    "rvol": 0.7823907856311224,
+    "rvol": 0.7826769186654702,
     "52w_high": 24.68000030517578,
     "52w_low": 14.680000305175781
   },

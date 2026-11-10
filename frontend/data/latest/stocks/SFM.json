@@ -1,8 +1,8 @@
 {
   "ticker": "SFM",
   "company": "Sprouts Farmers Market, Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T23:49:13.501Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T09:59:00.781Z",
   "sector": "Consumer Defensive",
   "industry": "Grocery Stores",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -10.229943432936095,
     "change_pct_1m": -23.024376630766703,
     "change_pct_1y": -37.08121838714993,
-    "volume": 4622613,
-    "avg_volume_30d": 111491013
+    "volume": 4759600,
+    "avg_volume_30d": 111628000
   },
   "scores": {
     "master_score": 44,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 4.23,
     "atr_pct": 8.52,
-    "rvol": 1.180901262418344,
+    "rvol": 1.1868151359873866,
     "52w_high": 94.88999938964844,
     "52w_low": 47.349998474121094
   },
@@ -60,7 +60,7 @@
     "market_cap": 4572894208,
     "revenue_growth_ttm": 0.047,
     "fcf_yield": 0.0804121782123677,
-    "institutional_ownership_pct": 1.1772,
+    "institutional_ownership_pct": 1.18245,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

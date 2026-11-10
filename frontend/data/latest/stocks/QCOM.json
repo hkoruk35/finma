@@ -1,8 +1,8 @@
 {
   "ticker": "QCOM",
   "company": "QUALCOMM Incorporated",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T22:04:13.985Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T11:43:41.482Z",
   "sector": "Technology",
   "industry": "Semiconductors",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 5.793434898548542,
     "change_pct_1m": -6.895801202426062,
     "change_pct_1y": 0.3394006864803235,
-    "volume": 16479314,
-    "avg_volume_30d": 370420014
+    "volume": 16485600,
+    "avg_volume_30d": 370426300
   },
   "scores": {
     "master_score": 35,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 9.6,
     "atr_pct": 5.6,
-    "rvol": 1.783149557356261,
+    "rvol": 1.783221115779306,
     "52w_high": 259.9200134277344,
     "52w_low": 121.98999786376953
   },
@@ -60,9 +60,9 @@
     "market_cap": 183472898048,
     "revenue_growth_ttm": -0.084,
     "fcf_yield": 0.049637441523474504,
-    "institutional_ownership_pct": 0.81639,
+    "institutional_ownership_pct": 0.8172,
     "dividend_rate": 3.68,
-    "dividend_yield": 0.0222
+    "dividend_yield": 0.0215
   },
   "scores_detail": {
     "entry_range_low": 165.69,

@@ -1,8 +1,8 @@
 {
   "ticker": "FRMI",
   "company": "Fermi Inc.",
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T22:45:49.920Z",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T11:41:34.183Z",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -24.716552196911046,
     "change_pct_1m": -36.64121988054318,
     "change_pct_1y": -93.18275178391926,
-    "volume": 23099368,
-    "avg_volume_30d": 701687168
+    "volume": 23148500,
+    "avg_volume_30d": 701758600
   },
   "scores": {
     "master_score": 50,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.27,
     "atr_pct": 16.31,
-    "rvol": 1.3791305472469464,
+    "rvol": 1.3796009054965626,
     "52w_high": 25.697999954223633,
     "52w_low": 1.440000057220459
   },
@@ -60,7 +60,7 @@
     "market_cap": 1064491072,
     "revenue_growth_ttm": 0,
     "fcf_yield": 0.04,
-    "institutional_ownership_pct": 0.28093,
+    "institutional_ownership_pct": 0.28573,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
