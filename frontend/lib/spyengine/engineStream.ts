@@ -12,6 +12,7 @@ import {
 import { readLevels } from "./levels";
 import { closedBars } from "./strategy";
 import { fetchBundle, fetch5mHistory } from "./market";
+import { overlayLiveTick } from "./liveTicks";
 import { rvolBaseline } from "./ladder";
 
 type RvolValue = { slot: number[]; cum: number[]; med?: number[]; days: number } | null;
@@ -57,10 +58,12 @@ export async function engineStream(req: NextRequest, SYMBOL: string): Promise<Ne
   const replayDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : null;
 
   try {
-    const [bundle, hist] = await Promise.all([
+    const [rawBundle, hist] = await Promise.all([
       fetchBundle(SYMBOL),
       fetch5mHistory(SYMBOL).catch(() => ({ bars: [] as Bar[] })),
     ]);
+    // canlı akış (Yahoo streamer, ~1 sn): anlık fiyat + oluşan mum; geçmiş gün oynatmada kullanılmaz
+    const bundle = replayDate ? { ...rawBundle, liveTick: null } : overlayLiveTick(SYMBOL, rawBundle, nowSec);
     const liveSession = detectSession(bundle.m1, nowSec);
     const session: typeof liveSession = replayDate && replayDate !== liveSession.date
       ? {
@@ -105,7 +108,7 @@ export async function engineStream(req: NextRequest, SYMBOL: string): Promise<Ne
         serverTime: nowSec,
         full,
         session,
-        dataSource: { primary: "canlı piyasa verisi (premarket + aftermarket dahil)", overnight: bundle.overnightSource, sanitized: bundle.sanitized, errors: bundle.errors },
+        dataSource: { primary: "canlı piyasa verisi (premarket + aftermarket dahil)", overnight: bundle.overnightSource, live: bundle.liveTick ? { price: bundle.liveTick.price, time: bundle.liveTick.time } : null, sanitized: bundle.sanitized, errors: bundle.errors },
         spot: {
           price, priceTime, prevClose,
           change: price != null && prevClose != null ? r2(price - prevClose) : null,

@@ -39,6 +39,7 @@ import { detectRegimeSeries } from "@/lib/spyengine/regime";
 import { readLevels, forecastClose } from "@/lib/spyengine/levels";
 import { closedBars } from "@/lib/spyengine/strategy";
 import { fetchSpyBundle, fetchSpy5mHistory } from "@/lib/spyengine/market";
+import { overlayLiveTick } from "@/lib/spyengine/liveTicks";
 import { rvolBaseline } from "@/lib/spyengine/ladder";
 
 export const runtime = "nodejs";
@@ -107,10 +108,12 @@ export async function GET(req: NextRequest) {
   const replayDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : null;
 
   try {
-    const [bundle, rvolHistory] = await Promise.all([
+    const [rawBundle, rvolHistory] = await Promise.all([
       fetchSpyBundle(),
       fetchSpy5mHistory().catch(() => ({ bars: [] as Bar[] })),
     ]);
+    // canlı akış (Yahoo streamer, ~1 sn): anlık fiyat + oluşan mum; geçmiş gün oynatmada kullanılmaz
+    const bundle = replayDate ? { ...rawBundle, liveTick: null } : overlayLiveTick("SPY", rawBundle, nowSec);
     const liveSession = detectSession(bundle.m1, nowSec);
     const session: typeof liveSession = replayDate && replayDate !== liveSession.date
       ? {
@@ -185,6 +188,7 @@ export async function GET(req: NextRequest) {
         dataSource: {
           primary: "canlı piyasa verisi (premarket + aftermarket dahil)",
           overnight: bundle.overnightSource,
+          live: bundle.liveTick ? { price: bundle.liveTick.price, time: bundle.liveTick.time } : null,
           sanitized: bundle.sanitized,
           errors: bundle.errors,
         },

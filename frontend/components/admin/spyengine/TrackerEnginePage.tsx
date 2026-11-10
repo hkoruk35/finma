@@ -60,7 +60,8 @@ interface StreamResponse {
   serverTime: number;
   full: boolean;
   session: SessionInfo;
-  dataSource: { primary: string; overnight: string | null; sanitized: number; errors: string[] };
+  /** live: Yahoo canlı akış tick'i (~1 sn) — yoksa fiyat 1m grafik verisinden (~10 sn) */
+  dataSource: { primary: string; overnight: string | null; live?: { price: number; time: number } | null; sanitized: number; errors: string[] };
   spot: SpotStats;
   bars: { m1: CompactBar[]; m5: CompactBar[]; m15: CompactBar[] };
   levels?: LevelRead;
@@ -1732,7 +1733,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       </div>
 
       <div className="mt-2 text-center font-mono text-[9.5px] text-slate-700">
-        yoklama {pollMs / 1000}sn · tam yenileme {FULL_REFRESH_MS / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
+        yoklama {pollMs / 1000}sn · fiyat {data?.dataSource.live ? "canlı akış (~1 sn)" : "1m grafik verisi (~10 sn)"} · tam yenileme {FULL_REFRESH_MS / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
       </div>
     </div>
   );
