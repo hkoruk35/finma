@@ -1,0 +1,89 @@
+{
+  "ticker": "DOCS",
+  "company": "Doximity, Inc.",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T14:40:06.170Z",
+  "sector": "Healthcare",
+  "industry": "Health Information Services",
+  "price": {
+    "current": 31.985000610351562,
+    "open": 32.2400016784668,
+    "high": 32.790000915527344,
+    "low": 31.969999313354492,
+    "prev_close": 32.869998931884766,
+    "change_pct": -2.692419684488433,
+    "change_pct_1w": -1.8864966029300152,
+    "change_pct_1m": -6.61313690408303,
+    "change_pct_1y": -39.12257317662338,
+    "volume": 56568,
+    "avg_volume_30d": 86634168
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 85,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.5908906224898,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.267145089423536,
+    "ema_50": 29.92824478660992,
+    "ema_200": 29.417745210389963,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.58425064086914,
+    "bb_middle": 31.985000610351562,
+    "bb_lower": 30.38575057983398,
+    "bb_width": 10,
+    "atr": 1.4,
+    "atr_pct": 4.38,
+    "rvol": 0.9058620843452897,
+    "52w_high": 55.959999084472656,
+    "52w_low": 17.149999618530273
+  },
+  "fundamental": {
+    "pe_ratio": 44.42361,
+    "pb_ratio": 6.142693,
+    "gross_margin": 0.86828005,
+    "operating_margin": 0.25165,
+    "net_margin": 0.21119,
+    "market_cap": 5706426368,
+    "revenue_growth_ttm": 0.036,
+    "fcf_yield": 0.05119675207557151,
+    "institutional_ownership_pct": 1.0132,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 30.08,
+    "entry_range_high": 32.13,
+    "target_range_low": 40,
+    "target_range_high": 51.85,
+    "target_1": 40,
+    "target_2": 46.75,
+    "target_3": 51.85,
+    "stop_loss": 29.1,
+    "risk_reward_ratio": 7.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.08 – $32.13 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $32.87 direnci veya $29.80 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.10 olarak belirlenmiştir. Fiyatın EMA200 ($29.42) veya günlük VWAP ($32.58) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($29.93) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.58) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
