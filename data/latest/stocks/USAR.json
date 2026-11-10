@@ -1,0 +1,89 @@
+{
+  "ticker": "USAR",
+  "company": "USA Rare Earth, Inc.",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T11:41:36.589Z",
+  "sector": "Basic Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 8.760000228881836,
+    "open": 8.390000343322754,
+    "high": 9.140000343322754,
+    "low": 8.164999961853027,
+    "prev_close": 8.225000381469727,
+    "change_pct": 6.504557113668001,
+    "change_pct_1w": -1.0728325044102727,
+    "change_pct_1m": -15.769225478877487,
+    "change_pct_1y": -49.539170962595755,
+    "volume": 20005900,
+    "avg_volume_30d": 420923600
+  },
+  "scores": {
+    "master_score": 40,
+    "technical_score": 30,
+    "fundamental_score": 36.8,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 37.14102666736325,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 9.860315478790902,
+    "ema_50": 12.365461429846734,
+    "ema_200": 16.649352105659887,
+    "ema_stack_bullish": false,
+    "bb_upper": 9.198000240325928,
+    "bb_middle": 8.760000228881836,
+    "bb_lower": 8.322000217437743,
+    "bb_width": 10,
+    "atr": 0.85,
+    "atr_pct": 9.76,
+    "rvol": 1.2324640386046304,
+    "52w_high": 32.79999923706055,
+    "52w_low": 6.840000152587891
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.8445002,
+    "gross_margin": -1.30933,
+    "operating_margin": -47.11626,
+    "net_margin": 0,
+    "market_cap": 3285670912,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.09484718596187883,
+    "institutional_ownership_pct": 0.38047,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 8.34,
+    "entry_range_high": 8.85,
+    "target_range_low": 10.89,
+    "target_range_high": 19.02,
+    "target_1": 10.89,
+    "target_2": 17.1,
+    "target_3": 19.02,
+    "stop_loss": 7.74,
+    "risk_reward_ratio": 10,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $8.34 – $8.85 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $9.88 direnci veya $8.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.74 olarak belirlenmiştir. Fiyatın EMA20 ($9.86) veya günlük VWAP ($8.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($12.37) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($8.86) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 37 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
