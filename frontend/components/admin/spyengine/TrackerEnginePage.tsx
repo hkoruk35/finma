@@ -22,6 +22,7 @@ import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import ForecastMap, { type MapScenario } from "@/components/admin/spyengine/ForecastMap";
+import MapTerminal from "@/components/admin/spyengine/MapTerminal";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
 import MarketBriefPanel from "@/components/admin/spyengine/MarketBrief";
@@ -804,6 +805,8 @@ function EngineSwitcher({ current }: { current: EngineSymbol }) {
 
 export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) {
   const E = ENGINES[symbol];
+  /** Tahmin Haritası terminal paneli (MapTerminal) — kullanıcı isteğiyle önce yalnız SPY'da; onaydan sonra diğer motorlara açılacak */
+  const newMapLayout = symbol === "SPY";
   const { stream, optlevels, openForecast, closeForecast, riskKey } = E;
   const pollMs = POLL_MS;
   /** Tickerlar varsayılan GİZLİ — "göster" deyince görünür */
@@ -1598,6 +1601,15 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
         {/* SPY Piyasa Takibi — varsayılan gizli (bilgi; karar üst bantta) */}
         {showTickers && <SpyMarketWatch symbol={symbol} quotes={quotes} updatedAt={quotesAt} spot={data?.spot ?? null} phase={data?.session.phase ?? "CLOSED"} />}
 
+        {/* ── Tahmin haritası (terminal paneli) — SPY'da Açılış Tahmini'nin üstünde; diğer motorlarda eski yerinde ── */}
+        {newMapLayout && (
+          <MapTerminal
+            map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels}
+            nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
+            odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
+          />
+        )}
+
         {/* ── 0) Açılış tahmini — seans öncesi büyük, açılıştan sonra tek satır sonuç ── */}
         {!replayDate && openForecast && <Hideable title="Açılış Tahmini" open={showOpenFc} onToggle={() => setShowOpenFc((v) => !v)}><OpenForecastPanel r={openFc} compact={sessionActive && !!openFc?.actual} /></Hideable>}
 
@@ -1704,8 +1716,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         </Hideable>
 
-        {/* ── 3) Tahmin haritası — sayfadaki tek grafik (Takip Sistemi senaryoları, ufuk şimdi + 90 dk) ── */}
-        <div className={`${SURFACE} overflow-hidden`}>
+        {/* ── 3) Tahmin haritası — sayfadaki tek grafik (Takip Sistemi senaryoları, ufuk şimdi + 90 dk) · SPY'da yukarıdaki MapTerminal ── */}
+        {!newMapLayout && <div className={`${SURFACE} overflow-hidden`}>
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1c2635] px-3 py-1.5">
             <span className="text-[12px] font-semibold tracking-wide text-slate-300">
               Tahmin Haritası <span className="hidden text-[10.5px] font-normal text-slate-500 sm:inline">· 4h pivot durakları · önce hangi seviye · ufuk şimdi + 90 dk</span>
@@ -1759,7 +1771,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
               </div>
             </>
           )}
-        </div>
+        </div>}
 
         {/* ── Anlık mum yorumları (15m sol · 5m sağ) ── */}
         <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">

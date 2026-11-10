@@ -22,7 +22,8 @@ import type { FlowRead } from "@/lib/spyengine/flow";
 import type { OptionLevels } from "@/lib/spyengine/optionLevels";
 
 const W = 920;
-const H = 360;
+/** varsayılan yükseklik (viewBox birimi) — tam ekranda `height` ile uzatılır */
+const H_DEFAULT = 360;
 const PAD = { l: 46, r: 150, t: 42, b: 22 };
 const MIN_GAP = 11;
 
@@ -59,8 +60,10 @@ function layoutLabels(items: { y: number; prio: number; i: number }[], top: numb
 }
 
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec, endSec, scenarios,
+  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec, endSec, scenarios, height,
 }: {
+  /** viewBox yüksekliği (varsayılan 360) — tam ekran görünümde daha uzun grafik için */
+  height?: number;
   /** x ekseninin sonu (verilmezse 16:00) — Takip Sistemi ufku: şimdi + 90 dk */
   endSec?: number;
   /** Takip Sistemi senaryoları — verilirse gün sonu yolculuğu/konisi yerine çizilir */
@@ -78,6 +81,7 @@ export default function ForecastMap({
   date: string;
   nowSec: number;
 }) {
+  const H = height ?? H_DEFAULT;
   const g = useMemo(() => {
     const x0 = nyDateTimeToEpoch(date, RTH_OPEN_MIN);
     const x1 = Math.min(nyDateTimeToEpoch(date, RTH_CLOSE_MIN), Math.max(endSec ?? Infinity, x0 + 3600));
@@ -95,7 +99,7 @@ export default function ForecastMap({
     const X = (t: number) => PAD.l + ((t - x0) / (x1 - x0)) * (W - PAD.l - PAD.r);
     const Y = (p: number) => PAD.t + (1 - (p - lo) / (hi - lo)) * (H - PAD.t - PAD.b);
     return { x0, x1, lo, hi, X, Y, useScen };
-  }, [bars, map, date, endSec, scenarios]);
+  }, [bars, map, date, endSec, scenarios, H]);
 
   const { X, Y } = g;
   const plotR = W - PAD.r;
