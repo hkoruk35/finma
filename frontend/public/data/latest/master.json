@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-09",
-  "generated_at": "2026-11-09T17:02:22.863385-05:00",
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T09:05:38.498462-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 29,
+  "active_scores_count": 33,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
@@ -21,14 +21,17 @@
       ]
     },
     "breakout": {
-      "count": 15,
+      "count": 22,
       "tickers": [
         "BILL",
         "ALGN",
         "ZGN",
+        "BUD",
         "GPN",
         "HIW",
         "GWW",
+        "HLF",
+        "FIBK",
         "ABNB",
         "BR",
         "H",
@@ -37,7 +40,11 @@
         "ENR",
         "PYPL",
         "MMM",
-        "TGT"
+        "TGT",
+        "ICUI",
+        "AVNT",
+        "JXN",
+        "DHI"
       ]
     },
     "value": {
@@ -76,25 +83,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 748.46,
-      "change_pct": -0.56
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 679.35,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 521.42,
-      "change_pct": -0.36
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 20.98,
-      "change_pct": 5.32
-    },
-    "RUSSELL2000": {
-      "value": 279.9,
-      "change_pct": -0.92
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-11-10T09:30:11.380383-05:00"
+  }
 }

@@ -1601,7 +1601,7 @@
   },
   "IWM": {
     "market_cap": 0,
-    "avg_volume": 22480815,
+    "avg_volume": 22679382,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2326,7 +2326,7 @@
   },
   "QQQ": {
     "market_cap": 0,
-    "avg_volume": 37512128,
+    "avg_volume": 37956842,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -2701,7 +2701,7 @@
   },
   "SPY": {
     "market_cap": 0,
-    "avg_volume": 42632195,
+    "avg_volume": 42803296,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -6376,7 +6376,7 @@
   },
   "FISV": {
     "market_cap": 33795670016,
-    "avg_volume": 6974021,
+    "avg_volume": 6976804,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -7026,7 +7026,7 @@
   },
   "UVXY": {
     "market_cap": 0,
-    "avg_volume": 10170242,
+    "avg_volume": 10258948,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -8326,7 +8326,7 @@
   },
   "SLV": {
     "market_cap": 0,
-    "avg_volume": 17099060,
+    "avg_volume": 16978875,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11151,7 +11151,7 @@
   },
   "VXX": {
     "market_cap": 0,
-    "avg_volume": 11536431,
+    "avg_volume": 11661359,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -11226,7 +11226,7 @@
   },
   "IAU": {
     "market_cap": 0,
-    "avg_volume": 4908801,
+    "avg_volume": 4944232,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -12576,7 +12576,7 @@
   },
   "DRIP": {
     "market_cap": 0,
-    "avg_volume": 969731,
+    "avg_volume": 970367,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -13451,12 +13451,12 @@
   },
   "STRC": {
     "market_cap": 0,
-    "avg_volume": 1589175,
+    "avg_volume": 1593704,
     "beta": 3.611,
     "short_float": 0.0,
     "sector": "Technology",
     "industry": "Software - Application",
-    "heldPercentInstitutions": 0.09948,
+    "heldPercentInstitutions": 0.09784,
     "grossMargins": 0.67836,
     "operatingMargins": -0.02073,
     "profitMargins": 0.0,
@@ -15801,7 +15801,7 @@
   },
   "FBTC": {
     "market_cap": 0,
-    "avg_volume": 3722640,
+    "avg_volume": 3698504,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -38951,7 +38951,7 @@
   },
   "SIVR": {
     "market_cap": 0,
-    "avg_volume": 1805939,
+    "avg_volume": 1784782,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -41326,7 +41326,7 @@
   },
   "AGQ": {
     "market_cap": 0,
-    "avg_volume": 2905251,
+    "avg_volume": 2903304,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -43476,7 +43476,7 @@
   },
   "GBTC": {
     "market_cap": 0,
-    "avg_volume": 1870360,
+    "avg_volume": 1854479,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -43801,7 +43801,7 @@
   },
   "ETHA": {
     "market_cap": 0,
-    "avg_volume": 12426682,
+    "avg_volume": 12442189,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -43851,7 +43851,7 @@
   },
   "PPLT": {
     "market_cap": 0,
-    "avg_volume": 2302003,
+    "avg_volume": 2302698,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -44826,7 +44826,7 @@
   },
   "BTC": {
     "market_cap": 0,
-    "avg_volume": 1792931,
+    "avg_volume": 1781623,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -52576,7 +52576,7 @@
   },
   "OUNZ": {
     "market_cap": 0,
-    "avg_volume": 617754,
+    "avg_volume": 622195,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -53676,7 +53676,7 @@
   },
   "FETH": {
     "market_cap": 0,
-    "avg_volume": 2116629,
+    "avg_volume": 2117906,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -55376,12 +55376,12 @@
   },
   "DUKU": {
     "market_cap": 0,
-    "avg_volume": 787423,
+    "avg_volume": 788865,
     "beta": 0.308,
     "short_float": 0.0,
     "sector": "Utilities",
     "industry": "Utilities - Regulated Electric",
-    "heldPercentInstitutions": 0.48606998,
+    "heldPercentInstitutions": 0.51681,
     "grossMargins": 0.52579,
     "operatingMargins": 0.30031002,
     "profitMargins": 0.16158001,
@@ -55626,7 +55626,7 @@
   },
   "FNGD": {
     "market_cap": 0,
-    "avg_volume": 427329,
+    "avg_volume": 435790,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",
@@ -55876,7 +55876,7 @@
   },
   "ETHE": {
     "market_cap": 0,
-    "avg_volume": 2571337,
+    "avg_volume": 2577554,
     "beta": 1.0,
     "short_float": 0.0,
     "sector": "Unknown",

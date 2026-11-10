@@ -2,7 +2,7 @@
   "ticker": "EC",
   "company": "Ecopetrol S.A.",
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T02:40:03.277Z",
+  "generated_at": "2026-11-10T14:28:12.137Z",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 9.199999809265137
   },
   "fundamental": {
-    "pe_ratio": 8.483695,
+    "pe_ratio": 8.259259,
     "pb_ratio": 0.007951924,
     "gross_margin": 0.371,
     "operating_margin": 0,
@@ -60,9 +60,9 @@
     "market_cap": 32091580416,
     "revenue_growth_ttm": 0.355,
     "fcf_yield": 378.60907685824833,
-    "institutional_ownership_pct": 0.01421,
+    "institutional_ownership_pct": 0.014199999,
     "dividend_rate": 0.65,
-    "dividend_yield": 0.0418
+    "dividend_yield": 0.0416
   },
   "scores_detail": {
     "entry_range_low": 15.2,

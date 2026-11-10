@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "IMVT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 34.95,
+        "entry_zone": "34.21 - 35.70",
+        "SL": 31.97,
+        "TP": 40.91
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "GTN",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 5.6,
+        "entry_zone": "5.46 - 5.74",
+        "SL": 5.05,
+        "TP": 6.71
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "BRKR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 66.54,
+        "entry_zone": "64.40 - 68.68",
+        "SL": 57.99,
+        "TP": 83.64
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 43.5,
+        "entry_zone": "41.99 - 45.01",
+        "SL": 37.45,
+        "TP": 55.59
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "TTD",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 14.6,
+        "entry_zone": "14.25 - 14.96",
+        "SL": 13.2,
+        "TP": 17.42
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "MPWR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 1388.05,
+        "entry_zone": "1343.08 - 1433.02",
+        "SL": 1208.18,
+        "TP": 1747.79
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "SRRK",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 51.55,
+        "entry_zone": "50.48 - 52.62",
+        "SL": 47.28,
+        "TP": 60.09
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "RLAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 20.39,
+        "entry_zone": "19.80 - 20.98",
+        "SL": 18.02,
+        "TP": 25.13
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "LSCC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 113.0,
+        "entry_zone": "109.02 - 116.98",
+        "SL": 97.08,
+        "TP": 144.83
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "QXO",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 13.56,
+        "entry_zone": "13.15 - 13.97",
+        "SL": 11.93,
+        "TP": 16.82
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "FERG",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 257.92,
+        "entry_zone": "253.64 - 262.20",
+        "SL": 240.82,
+        "TP": 292.13
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "PRAX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 332.97,
+        "entry_zone": "324.46 - 341.48",
+        "SL": 298.91,
+        "TP": 401.08
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "TRVI",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 14.12,
+        "entry_zone": "13.73 - 14.51",
+        "SL": 12.56,
+        "TP": 17.24
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "WSC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 20.63,
+        "entry_zone": "20.04 - 21.22",
+        "SL": 18.28,
+        "TP": 25.34
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "WRBY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 29.52,
+        "entry_zone": "28.42 - 30.62",
+        "SL": 25.13,
+        "TP": 38.3
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "ADPT",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 29.4,
+        "entry_zone": "28.48 - 30.32",
+        "SL": 25.72,
+        "TP": 36.77
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "CEG",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 270.28,
+        "entry_zone": "263.40 - 277.16",
+        "SL": 242.75,
+        "TP": 325.35
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "DIOD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 85.89,
+        "entry_zone": "82.68 - 89.10",
+        "SL": 73.06,
+        "TP": 111.55
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "LINC",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 22.0,
+        "entry_zone": "21.27 - 22.73",
+        "SL": 19.07,
+        "TP": 27.87
+    },
+    {
+        "date": "2026-11-10 14:30",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 74.37,
+        "entry_zone": "71.02 - 77.72",
+        "SL": 60.98,
+        "TP": 101.16
+    }
+]
