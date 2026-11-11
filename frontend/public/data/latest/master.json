@@ -1,8 +1,8 @@
 {
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T14:02:12.978920-05:00",
+  "generated_at": "2026-11-11T17:03:00.384544-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 36,
+  "active_scores_count": 44,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
@@ -21,18 +21,19 @@
       ]
     },
     "breakout": {
-      "count": 10,
+      "count": 11,
       "tickers": [
         "ICUI",
         "AVNT",
         "JXN",
         "DHI",
-        "BTSG",
+        "CWST",
         "HUM",
         "BCO",
         "PPLI",
         "SBH",
-        "GWW"
+        "GWW",
+        "QNST"
       ]
     },
     "value": {
