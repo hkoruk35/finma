@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "TGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 65.16,
+        "entry_zone": "63.39 - 66.93",
+        "SL": 58.07,
+        "TP": 79.35
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "CHTR",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 135.57,
+        "entry_zone": "132.08 - 139.06",
+        "SL": 121.63,
+        "TP": 163.46
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 21.87,
+        "entry_zone": "21.16 - 22.58",
+        "SL": 19.04,
+        "TP": 27.52
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "LAMR",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 162.62,
+        "entry_zone": "160.60 - 164.64",
+        "SL": 154.56,
+        "TP": 178.75
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "GCMG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 14.1,
+        "entry_zone": "13.85 - 14.36",
+        "SL": 13.09,
+        "TP": 16.13
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "SUPN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 29.32,
+        "entry_zone": "28.56 - 30.08",
+        "SL": 26.29,
+        "TP": 35.38
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "AMG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 403.09,
+        "entry_zone": "394.90 - 411.28",
+        "SL": 370.35,
+        "TP": 468.57
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "SPNT",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 27.03,
+        "entry_zone": "26.67 - 27.40",
+        "SL": 25.59,
+        "TP": 29.93
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "OUT",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 33.54,
+        "entry_zone": "32.96 - 34.12",
+        "SL": 31.24,
+        "TP": 38.14
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "GSL",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 42.51,
+        "entry_zone": "41.92 - 43.10",
+        "SL": 40.13,
+        "TP": 47.27
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "GTN",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 5.91,
+        "entry_zone": "5.75 - 6.06",
+        "SL": 5.28,
+        "TP": 7.15
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "ORKA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 106.76,
+        "entry_zone": "103.60 - 109.93",
+        "SL": 94.1,
+        "TP": 132.09
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "TTD",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 15.98,
+        "entry_zone": "15.56 - 16.40",
+        "SL": 14.3,
+        "TP": 19.35
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 44.38,
+        "entry_zone": "42.85 - 45.91",
+        "SL": 38.27,
+        "TP": 56.6
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "LXU",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 11.23,
+        "entry_zone": "10.94 - 11.53",
+        "SL": 10.04,
+        "TP": 13.62
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 54.87,
+        "entry_zone": "53.03 - 56.70",
+        "SL": 47.51,
+        "TP": 69.57
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "UTI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 22.97,
+        "entry_zone": "22.22 - 23.72",
+        "SL": 19.97,
+        "TP": 28.97
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "TTWO",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 232.01,
+        "entry_zone": "227.37 - 236.65",
+        "SL": 213.44,
+        "TP": 269.16
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "LINC",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 23.49,
+        "entry_zone": "22.70 - 24.28",
+        "SL": 20.34,
+        "TP": 29.8
+    },
+    {
+        "date": "2026-11-11 20:30",
+        "symbol": "TNGX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 25.56,
+        "entry_zone": "24.49 - 26.62",
+        "SL": 21.28,
+        "TP": 34.1
+    }
+]

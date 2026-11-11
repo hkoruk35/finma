@@ -1,0 +1,89 @@
+{
+  "ticker": "WAT",
+  "company": "Waters Corporation",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T20:28:31.222Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 472.7250061035156,
+    "open": 479.25,
+    "high": 483.3299865722656,
+    "low": 471.2149963378906,
+    "prev_close": 475.5199890136719,
+    "change_pct": -0.587774010500301,
+    "change_pct_1w": 1.0960222269256015,
+    "change_pct_1m": -1.529985441423885,
+    "change_pct_1y": 22.423211314659973,
+    "volume": 342382,
+    "avg_volume_30d": 29441782
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.28086144354598,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 459.02503707712054,
+    "ema_50": 441.11013898325865,
+    "ema_200": 397.1083483647108,
+    "ema_stack_bullish": true,
+    "bb_upper": 496.3612564086914,
+    "bb_middle": 472.7250061035156,
+    "bb_lower": 449.08875579833983,
+    "bb_width": 10,
+    "atr": 16.42,
+    "atr_pct": 3.47,
+    "rvol": 0.8589185260593263,
+    "52w_high": 483.3299865722656,
+    "52w_low": 282.7699890136719
+  },
+  "fundamental": {
+    "pe_ratio": 197.87029,
+    "pb_ratio": 3.0387595,
+    "gross_margin": 0.49827,
+    "operating_margin": 0.09747,
+    "net_margin": 0.01758,
+    "market_cap": 46433075200,
+    "revenue_growth_ttm": 1.209,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 1.04795,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 462.87,
+    "entry_range_high": 474.37,
+    "target_range_low": 492.05,
+    "target_range_high": 538.91,
+    "target_1": 492.05,
+    "target_2": 515.48,
+    "target_3": 538.91,
+    "stop_loss": 449.09,
+    "risk_reward_ratio": 2.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $462.87 – $474.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $482.27 direnci veya $459.59 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $449.09 olarak belirlenmiştir. Fiyatın EMA50 ($441.11) veya günlük VWAP ($474.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($474.90) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}
