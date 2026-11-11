@@ -1,0 +1,89 @@
+{
+  "ticker": "IONQ",
+  "company": "IonQ, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T02:44:11.009Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 34.9900016784668,
+    "open": 34.41999816894531,
+    "high": 35.73899841308594,
+    "low": 33.91999816894531,
+    "prev_close": 35.34000015258789,
+    "change_pct": -0.9903748517541077,
+    "change_pct_1w": 16.67223056188176,
+    "change_pct_1m": 7.89392953808404,
+    "change_pct_1y": -36.80693091305473,
+    "volume": 17931200,
+    "avg_volume_30d": 696392300
+  },
+  "scores": {
+    "master_score": 66,
+    "technical_score": 55,
+    "fundamental_score": 53.3,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.14085043783319,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.758310296494386,
+    "ema_50": 35.89949526788932,
+    "ema_200": 42.18252799339255,
+    "ema_stack_bullish": false,
+    "bb_upper": 36.73950176239014,
+    "bb_middle": 34.9900016784668,
+    "bb_lower": 33.24050159454345,
+    "bb_width": 10,
+    "atr": 2.68,
+    "atr_pct": 7.65,
+    "rvol": 1.2711068172350555,
+    "52w_high": 73.6500015258789,
+    "52w_low": 24.915000915527344
+  },
+  "fundamental": {
+    "pe_ratio": 20.225433,
+    "pb_ratio": 2.867328,
+    "gross_margin": 0.2529,
+    "operating_margin": -2.26527,
+    "net_margin": 0.67091006,
+    "market_cap": 16259712000,
+    "revenue_growth_ttm": 3.36,
+    "fcf_yield": -0.0074234323461571765,
+    "institutional_ownership_pct": 0.44449002,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 32.19,
+    "entry_range_high": 35.26,
+    "target_range_low": 41.9,
+    "target_range_high": 47.91,
+    "target_1": 41.9,
+    "target_2": 44.43,
+    "target_3": 47.91,
+    "stop_loss": 30.31,
+    "risk_reward_ratio": 3.14,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $32.19 – $35.26 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $36.35 direnci veya $31.65 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $30.31 olarak belirlenmiştir. Fiyatın EMA20 ($32.76) veya günlük VWAP ($34.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($35.90) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($34.78) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

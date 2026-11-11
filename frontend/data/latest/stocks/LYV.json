@@ -1,0 +1,89 @@
+{
+  "ticker": "LYV",
+  "company": "Live Nation Entertainment, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T02:52:24.882Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 178.25,
+    "open": 175.0800018310547,
+    "high": 180.5500030517578,
+    "low": 172.6300048828125,
+    "prev_close": 176.63999938964844,
+    "change_pct": 0.9114586820169073,
+    "change_pct_1w": -0.3466177302578375,
+    "change_pct_1m": 3.3333333333333335,
+    "change_pct_1y": 24.34600098397098,
+    "volume": 3547800,
+    "avg_volume_30d": 70779400
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 84,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.9549349584255,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 175.8496862160159,
+    "ema_50": 174.6896514495152,
+    "ema_200": 167.8983220154395,
+    "ema_stack_bullish": true,
+    "bb_upper": 187.1625,
+    "bb_middle": 178.25,
+    "bb_lower": 169.3375,
+    "bb_width": 10,
+    "atr": 5.29,
+    "atr_pct": 2.97,
+    "rvol": 1.8706544559575242,
+    "52w_high": 189.25,
+    "52w_low": 125.33999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 90.20749,
+    "gross_margin": 0.25355,
+    "operating_margin": 0.088999994,
+    "net_margin": 0.00542,
+    "market_cap": 42012909568,
+    "revenue_growth_ttm": 0.189,
+    "fcf_yield": 0.03042905919026684,
+    "institutional_ownership_pct": 0.8513,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 175.07,
+    "entry_range_high": 178.78,
+    "target_range_low": 187.2,
+    "target_range_high": 203.47,
+    "target_1": 187.2,
+    "target_2": 194.62,
+    "target_3": 203.47,
+    "stop_loss": 169.34,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $175.07 – $178.78 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $181.09 direnci veya $174.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $169.34 olarak belirlenmiştir. Fiyatın EMA200 ($167.90) veya günlük VWAP ($177.62) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($177.62) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.9 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

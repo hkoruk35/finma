@@ -1,22 +1,22 @@
 {
   "ticker": "TMUS",
   "company": "T-Mobile US, Inc.",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T21:28:20.514Z",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T03:53:52.169Z",
   "sector": "Communication Services",
   "industry": "Telecom Services",
   "price": {
     "current": 169.0800018310547,
     "open": 169.6699981689453,
-    "high": 169.73500061035156,
+    "high": 169.74000549316406,
     "low": 165.0800018310547,
     "prev_close": 168.7100067138672,
     "change_pct": 0.21930834121476453,
     "change_pct_1w": 9.500678596606484,
     "change_pct_1m": 14.181523325451481,
     "change_pct_1y": -17.870497964111195,
-    "volume": 3859633,
-    "avg_volume_30d": 197390333
+    "volume": 3874300,
+    "avg_volume_30d": 197405000
   },
   "scores": {
     "master_score": 80,
@@ -47,12 +47,12 @@
     "bb_width": 10,
     "atr": 6.57,
     "atr_pct": 3.89,
-    "rvol": 0.9101458783191778,
+    "rvol": 0.9105240495428181,
     "52w_high": 224.75,
     "52w_low": 143.75
   },
   "fundamental": {
-    "pe_ratio": 16.304726,
+    "pe_ratio": 16.27334,
     "pb_ratio": 3.1915135,
     "gross_margin": 0.62979,
     "operating_margin": 0.24746001,

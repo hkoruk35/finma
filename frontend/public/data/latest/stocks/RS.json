@@ -1,0 +1,89 @@
+{
+  "ticker": "RS",
+  "company": "Reliance, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T04:41:15.414Z",
+  "sector": "Basic Materials",
+  "industry": "Steel",
+  "price": {
+    "current": 427.1499938964844,
+    "open": 418.42999267578125,
+    "high": 431.3800048828125,
+    "low": 418.42999267578125,
+    "prev_close": 421.07000732421875,
+    "change_pct": 1.443937223385305,
+    "change_pct_1w": -3.7603646762605707,
+    "change_pct_1m": -2.2942492674259367,
+    "change_pct_1y": 57.075086438789214,
+    "volume": 252500,
+    "avg_volume_30d": 9457600
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.77066184740708,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 423.1773476152494,
+    "ema_50": 412.2440982256257,
+    "ema_200": 375.35776351352115,
+    "ema_stack_bullish": true,
+    "bb_upper": 448.5074935913086,
+    "bb_middle": 427.1499938964844,
+    "bb_lower": 405.79249420166013,
+    "bb_width": 10,
+    "atr": 15.52,
+    "atr_pct": 3.63,
+    "rvol": 1.2258078159363899,
+    "52w_high": 454.92999267578125,
+    "52w_low": 263.1199951171875
+  },
+  "fundamental": {
+    "pe_ratio": 19.630054,
+    "pb_ratio": 2.8172777,
+    "gross_margin": 0.28172,
+    "operating_margin": 0.10629,
+    "net_margin": 0.06375,
+    "market_cap": 21759838208,
+    "revenue_growth_ttm": 0.428,
+    "fcf_yield": 0.01160279803492186,
+    "institutional_ownership_pct": 0.85735,
+    "dividend_rate": 5,
+    "dividend_yield": 0.0119
+  },
+  "scores_detail": {
+    "entry_range_low": 417.84,
+    "entry_range_high": 428.7,
+    "target_range_low": 444.43,
+    "target_range_high": 486.76,
+    "target_1": 444.43,
+    "target_2": 465.6,
+    "target_3": 486.76,
+    "stop_loss": 405.79,
+    "risk_reward_ratio": 2.42,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $417.84 – $428.70 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $437.82 direnci veya $414.73 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $405.79 olarak belirlenmiştir. Fiyatın EMA50 ($412.24) veya günlük VWAP ($429.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($429.37) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 55 ile dengeli/nötr bir görünümde."
+  }
+}

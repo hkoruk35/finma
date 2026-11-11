@@ -1,0 +1,89 @@
+{
+  "ticker": "NTES",
+  "company": "NetEase, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T03:42:16.730Z",
+  "sector": "Communication Services",
+  "industry": "Electronic Gaming & Multimedia",
+  "price": {
+    "current": 128.02999877929688,
+    "open": 127.2300033569336,
+    "high": 129.24000549316406,
+    "low": 127.20999908447266,
+    "prev_close": 129.64999389648438,
+    "change_pct": -1.2495142255702245,
+    "change_pct_1w": 10.152280032313502,
+    "change_pct_1m": 13.855048691753863,
+    "change_pct_1y": -8.752048316563274,
+    "volume": 1173700,
+    "avg_volume_30d": 22242000
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 90,
+    "fundamental_score": 81.35,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.66821255706698,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 121.81481318295833,
+    "ema_50": 121.38358426941468,
+    "ema_200": 123.87900136100701,
+    "ema_stack_bullish": false,
+    "bb_upper": 134.43149871826174,
+    "bb_middle": 128.02999877929688,
+    "bb_lower": 121.62849884033203,
+    "bb_width": 10,
+    "atr": 3.39,
+    "atr_pct": 2.64,
+    "rvol": 1.3054221742649041,
+    "52w_high": 149.11000061035156,
+    "52w_low": 106.05999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 18.032394,
+    "pb_ratio": 16.390171,
+    "gross_margin": 0.67154,
+    "operating_margin": 0.40155,
+    "net_margin": 0.27883,
+    "market_cap": 81976844288,
+    "revenue_growth_ttm": 0.079,
+    "fcf_yield": 0.39975408563997444,
+    "institutional_ownership_pct": 0.097720005,
+    "dividend_rate": 2.93,
+    "dividend_yield": 0.0226
+  },
+  "scores_detail": {
+    "entry_range_low": 125.54,
+    "entry_range_high": 128.37,
+    "target_range_low": 133.67,
+    "target_range_high": 146.67,
+    "target_1": 133.67,
+    "target_2": 139.65,
+    "target_3": 146.67,
+    "stop_loss": 121.63,
+    "risk_reward_ratio": 2.38,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $125.54 – $128.37 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $129.95 direnci veya $124.86 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $121.63 olarak belirlenmiştir. Fiyatın EMA20 ($121.81) veya günlük VWAP ($127.97) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($121.38) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($127.97) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 63 seviyesinde pozitif momentumu destekliyor."
+  }
+}

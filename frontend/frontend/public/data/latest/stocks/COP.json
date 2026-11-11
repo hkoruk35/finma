@@ -1,22 +1,22 @@
 {
   "ticker": "COP",
   "company": "ConocoPhillips",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T21:24:59.805Z",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T04:12:28.306Z",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
     "current": 135.58999633789062,
     "open": 132.97000122070312,
-    "high": 136.28909301757812,
+    "high": 136.2899932861328,
     "low": 131.1199951171875,
     "prev_close": 134.47000122070312,
     "change_pct": 0.832895892779292,
     "change_pct_1w": -6.101106600398715,
     "change_pct_1m": -9.036630512091765,
     "change_pct_1y": 53.67787734220371,
-    "volume": 9029846,
-    "avg_volume_30d": 200451846
+    "volume": 9144600,
+    "avg_volume_30d": 200566600
   },
   "scores": {
     "master_score": 67,
@@ -47,12 +47,12 @@
     "bb_width": 10,
     "atr": 4.69,
     "atr_pct": 3.46,
-    "rvol": 1.4323104612366602,
+    "rvol": 1.4349238607026296,
     "52w_high": 154.27999877929688,
     "52w_low": 85.69999694824219
   },
   "fundamental": {
-    "pe_ratio": 14.287671,
+    "pe_ratio": 14.168234,
     "pb_ratio": 2.4293187,
     "gross_margin": 0.49008,
     "operating_margin": 0.30045998,

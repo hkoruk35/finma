@@ -1,0 +1,89 @@
+{
+  "ticker": "BEKE",
+  "company": "KE Holdings Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T01:44:59.491Z",
+  "sector": "Real Estate",
+  "industry": "Real Estate Services",
+  "price": {
+    "current": 18.399999618530273,
+    "open": 18.579999923706055,
+    "high": 18.593000411987305,
+    "low": 18.239999771118164,
+    "prev_close": 18.850000381469727,
+    "change_pct": -2.3872719036219285,
+    "change_pct_1w": 2.735900476230133,
+    "change_pct_1m": 4.249291876542562,
+    "change_pct_1y": 14.073159180845158,
+    "volume": 4543000,
+    "avg_volume_30d": 151838400
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 100,
+    "fundamental_score": 56.6,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.93346878182323,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 17.860297195948384,
+    "ema_50": 17.433155445247685,
+    "ema_200": 16.900396269572095,
+    "ema_stack_bullish": true,
+    "bb_upper": 19.31999959945679,
+    "bb_middle": 18.399999618530273,
+    "bb_lower": 17.479999637603758,
+    "bb_width": 10,
+    "atr": 0.52,
+    "atr_pct": 2.82,
+    "rvol": 1.5709188189548888,
+    "52w_high": 19.8799991607666,
+    "52w_low": 13.8100004196167
+  },
+  "fundamental": {
+    "pe_ratio": 30.166666,
+    "pb_ratio": 2.0466194,
+    "gross_margin": 0.23982,
+    "operating_margin": 0.12332,
+    "net_margin": 0.053179998,
+    "market_cap": 19834114048,
+    "revenue_growth_ttm": -0.057,
+    "fcf_yield": 0.21920461874315023,
+    "institutional_ownership_pct": 0.129,
+    "dividend_rate": 0.28,
+    "dividend_yield": 0.015
+  },
+  "scores_detail": {
+    "entry_range_low": 18.12,
+    "entry_range_high": 18.45,
+    "target_range_low": 19.2,
+    "target_range_high": 21.03,
+    "target_1": 19.2,
+    "target_2": 20.12,
+    "target_3": 21.03,
+    "stop_loss": 17.48,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $18.12 – $18.45 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $18.71 direnci veya $18.02 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $17.48 olarak belirlenmiştir. Fiyatın EMA50 ($17.43) veya günlük VWAP ($18.06) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($18.06) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

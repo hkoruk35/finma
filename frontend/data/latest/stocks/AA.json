@@ -1,8 +1,8 @@
 {
   "ticker": "AA",
   "company": "Alcoa Corporation",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T21:04:49.587Z",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T03:58:42.104Z",
   "sector": "Basic Materials",
   "industry": "Aluminum",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": 1.2408149985891708,
     "change_pct_1m": -0.571995890258908,
     "change_pct_1y": 3.0677973669050287,
-    "volume": 3974984,
-    "avg_volume_30d": 150204584
+    "volume": 4632400,
+    "avg_volume_30d": 150862000
   },
   "scores": {
     "master_score": 61,
@@ -29,7 +29,7 @@
     "micro_15m": {
       "is_valid": true,
       "score_bonus": 4,
-      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.64%)"
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.50%)"
     }
   },
   "technical": {
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 1.65,
     "atr_pct": 4.14,
-    "rvol": 1.049184384412662,
+    "rvol": 1.0707587066325517,
     "52w_high": 84.37999725341797,
     "52w_low": 35.119998931884766
   },
@@ -80,10 +80,10 @@
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $38.99 – $40.15 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $40.90 direnci veya $38.66 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $37.83 olarak belirlenmiştir. Fiyatın EMA20 ($40.42) veya günlük VWAP ($39.76) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $37.83 olarak belirlenmiştir. Fiyatın EMA20 ($40.42) veya günlük VWAP ($39.78) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($42.90) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($39.76) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
-    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($39.78) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
   }
 }
