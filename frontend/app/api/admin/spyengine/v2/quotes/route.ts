@@ -11,7 +11,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { isEngineAuthed } from "@/lib/apiAuth";
-import { fetchSpyWatchQuotes, fetchStripQuotes } from "@/lib/spyengine/market";
+import { fetchQuotesFor, fetchSpyWatchQuotes, fetchStripQuotes } from "@/lib/spyengine/market";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,6 +24,13 @@ export async function GET(req: NextRequest) {
   }
   try {
     // ?set=spy → SPY Engine'in gruplu, Türkçe açıklamalı SPY takip listesi; varsayılan eski şerit (QQQ Engine)
+    // ?symbols=SPY,QQQ,UPRO → yönetim merkez sayfaları (sembol listesi doğrulanır, en çok 40)
+    const symParam = req.nextUrl.searchParams.get("symbols");
+    if (symParam) {
+      const syms = symParam.split(",").map((x) => x.trim().toUpperCase()).filter((x) => /^[A-Z.^=-]{1,10}$/.test(x)).slice(0, 40);
+      const hq = await fetchQuotesFor(syms);
+      return NextResponse.json({ ok: true, serverTime: Math.floor(Date.now() / 1000), quotes: hq }, { headers: { "Cache-Control": "no-store, max-age=0" } });
+    }
     const quotes = req.nextUrl.searchParams.get("set") === "spy" ? await fetchSpyWatchQuotes() : await fetchStripQuotes();
     return NextResponse.json(
       { ok: true, serverTime: Math.floor(Date.now() / 1000), quotes },

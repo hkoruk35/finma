@@ -491,6 +491,14 @@ export async function fetchStripQuotes(): Promise<TickerQuote[]> {
   return cached("strip", TTL.quotes, async () => Promise.all(STRIP_SYMBOLS.map(quoteOne)));
 }
 
+/** Yönetim ana sayfası / merkez sayfaları: verilen Yahoo sembolleri için canlı fiyat (aynı önbellek TTL'i). */
+export async function fetchQuotesFor(symbols: string[]): Promise<TickerQuote[]> {
+  const list = Array.from(new Set(symbols));
+  return cached(`hub:${list.join(",")}`, TTL.quotes, async () =>
+    Promise.all(list.map((symbol) => quoteOne({ label: symbol.replace(/^\^/, ""), symbol, name: symbol }))),
+  );
+}
+
 /**
  * SPY Engine "SPY Piyasa Takibi" (2026-10-15): SPY gün içi işlemcisinin izlemesi gereken semboller, gruplu ve
  * Türkçe açıklamalı. QQQ Engine eski şeridi (STRIP_SYMBOLS) kullanmaya devam eder.

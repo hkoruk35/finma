@@ -7,6 +7,10 @@ import { isEngineAdminPath } from "@/lib/staffOnly";
 
 const NAV = [
   { href: "/admin", label: "🏠 Genel Bakış" },
+  { href: "/admin/merkez/endeks", label: "⚡ Endeks Merkezi" },
+  { href: "/admin/merkez/kaldiracli", label: "🚀 Kaldıraçlı ETF" },
+  { href: "/admin/merkez/hisse-swing", label: "📈 Hisse Swing" },
+  { href: "/admin/merkez/hisse-opsiyon", label: "🎯 Hisse Opsiyon" },
   { href: "/admin/spyengine/v1", label: "⚡ SPYEngine" },
   { href: "/admin/qqqengine/v1", label: "🔷 QQQEngine" },
   { href: "/admin/iwmengine/v1", label: "🟣 IWMEngine" },

@@ -41,7 +41,8 @@ export function isStaffOnlyHref(href: string): boolean {
  */
 export const ENGINE_ADMIN_PREFIXES = [
   "/admin/spyengine", "/admin/qqqengine",
-  "/admin/iwmengine", "/admin/nvdaengine", "/admin/aaplengine", "/admin/tslaengine", "/admin/amznengine",
+  "/admin/iwmengine", "/admin/nvdaengine", "/admin/aaplengine", "/admin/tslaengine", "/admin/amznengine", "/admin/stockengine",
+  "/admin/merkez",
   "/admin/piyasalar",
   "/admin/pro",
   "/admin/ai",

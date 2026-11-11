@@ -10,7 +10,9 @@
 import { TRACK_CFG, TRACK_VERSION, TRACK_VERSION_DATE, NON_SPY_RULES, type TrackCfg } from "./tracker";
 import { QQQ_TRACK_CFG, QQQ_TRACK_VERSION } from "../qqqengine/config";
 
-export const ENGINE_SYMBOLS = ["SPY", "QQQ", "IWM", "NVDA", "AAPL", "TSLA", "AMZN"] as const;
+/** 2026-11-11: öncelik/ikinci liste hisseleri de motor oldu (HUB_STOCKS) — ölçülmemiş genel hisse ayarıyla, sayfa /admin/stockengine/{SEMBOL}. */
+export const HUB_STOCKS = ["AMD", "META", "PLTR", "COIN", "HOOD", "AVGO", "MU", "MSFT", "GOOGL", "NFLX", "ORCL", "TSM", "INTC", "SMCI", "MSTR", "SOFI", "JPM", "XOM"] as const;
+export const ENGINE_SYMBOLS = ["SPY", "QQQ", "IWM", "NVDA", "AAPL", "TSLA", "AMZN", ...HUB_STOCKS] as const;
 export type EngineSymbol = (typeof ENGINE_SYMBOLS)[number];
 
 export const isEngineSymbol = (v: string): v is EngineSymbol => (ENGINE_SYMBOLS as readonly string[]).includes(v);
@@ -49,8 +51,9 @@ function versionOf(sym: string, cfg: TrackCfg): string {
   return `${TRACK_VERSION}-${sym.toLowerCase()}-${h.toString(36)}`;
 }
 
+const LEGACY_PAGES = new Set(["IWM", "NVDA", "AAPL", "TSLA", "AMZN"]);
 const stock = (s: string) => ({
-  page: `/admin/${s.toLowerCase()}engine/v1`,
+  page: LEGACY_PAGES.has(s) ? `/admin/${s.toLowerCase()}engine/v1` : `/admin/stockengine/${s}`,
   stream: `/api/admin/engine/${s}`,
   optlevels: `/api/admin/engine/${s}/optlevels`,
   openForecast: null,
@@ -85,6 +88,34 @@ export const TSLA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEK
  *  161 işlem +1,7R (−0,8 / −14,2 / +16,7) → 132 işlem %58 +22,0R (+2,5 / +2,9 / +16,7); kesişme 4–8 arası +19,6…+22R. */
 export const AMZN_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, stopBufAtr15: 0.2, entryClosePos: 0, maxCrosses: 6 };
 
+/** Genel hisse ayarı — SPY'a özel kurallar kapalı + haftalık vade; HİSSEYE ÖZEL ÖLÇÜM YOK (NVDA/AAPL/TSLA/AMZN gibi kalibre edilmedi). */
+export const GENERIC_STOCK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY };
+const HUB_META: Record<(typeof HUB_STOCKS)[number], [string, string]> = {
+  AMD: ["AMD", "border-red-500/60 bg-red-500/15 text-red-300 hover:bg-red-500/30"],
+  META: ["Meta", "border-blue-500/60 bg-blue-500/15 text-blue-300 hover:bg-blue-500/30"],
+  PLTR: ["Palantir", "border-zinc-400/60 bg-zinc-400/15 text-zinc-200 hover:bg-zinc-400/30"],
+  COIN: ["Coinbase", "border-indigo-500/60 bg-indigo-500/15 text-indigo-300 hover:bg-indigo-500/30"],
+  HOOD: ["Robinhood", "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/30"],
+  AVGO: ["Broadcom", "border-rose-500/60 bg-rose-500/15 text-rose-300 hover:bg-rose-500/30"],
+  MU: ["Micron", "border-cyan-500/60 bg-cyan-500/15 text-cyan-300 hover:bg-cyan-500/30"],
+  MSFT: ["Microsoft", "border-sky-500/60 bg-sky-500/15 text-sky-300 hover:bg-sky-500/30"],
+  GOOGL: ["Alphabet", "border-yellow-500/60 bg-yellow-500/15 text-yellow-300 hover:bg-yellow-500/30"],
+  NFLX: ["Netflix", "border-red-600/60 bg-red-600/15 text-red-300 hover:bg-red-600/30"],
+  ORCL: ["Oracle", "border-orange-600/60 bg-orange-600/15 text-orange-300 hover:bg-orange-600/30"],
+  TSM: ["Taiwan Semi", "border-teal-500/60 bg-teal-500/15 text-teal-300 hover:bg-teal-500/30"],
+  INTC: ["Intel", "border-blue-400/60 bg-blue-400/15 text-blue-200 hover:bg-blue-400/30"],
+  SMCI: ["Super Micro", "border-green-500/60 bg-green-500/15 text-green-300 hover:bg-green-500/30"],
+  MSTR: ["Strategy", "border-amber-600/60 bg-amber-600/15 text-amber-300 hover:bg-amber-600/30"],
+  SOFI: ["SoFi", "border-purple-500/60 bg-purple-500/15 text-purple-300 hover:bg-purple-500/30"],
+  JPM: ["JPMorgan", "border-slate-500/60 bg-slate-500/15 text-slate-300 hover:bg-slate-500/30"],
+  XOM: ["Exxon Mobil", "border-pink-500/60 bg-pink-500/15 text-pink-300 hover:bg-pink-500/30"],
+};
+const hubEngine = (s: (typeof HUB_STOCKS)[number]): EngineDef => ({
+  symbol: s, name: HUB_META[s][0], ...stock(s), cls: HUB_META[s][1], cfg: GENERIC_STOCK_CFG,
+  version: versionOf(s, GENERIC_STOCK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık",
+  note: `${s}: genel hisse ayarı (SPY kuralları, SPY'a özel kurallar kapalı) · en yakın haftalık vade · bu hisse için ÖLÇÜM/KALİBRASYON YOK — küçük riskle izleyin.`,
+});
+
 export const ENGINES: Record<EngineSymbol, EngineDef> = {
   SPY: {
     symbol: "SPY", name: "S&P 500 ETF", page: "/admin/spyengine/v1",
@@ -105,4 +136,5 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
   AAPL: { symbol: "AAPL", name: "Apple", ...stock("AAPL"), cls: "border-slate-400/60 bg-slate-400/15 text-slate-200 hover:bg-slate-400/30", cfg: AAPL_TRACK_CFG, version: versionOf("AAPL", AAPL_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "AAPL: stop tamponu 0,5 ATR15 · ilk hedef 2R · en yakın haftalık vade. Ölçüm kanıtı zayıf — küçük riskle izleyin." },
   TSLA: { symbol: "TSLA", name: "Tesla", ...stock("TSLA"), cls: "border-rose-500/60 bg-rose-500/15 text-rose-300 hover:bg-rose-500/30", cfg: TSLA_TRACK_CFG, version: versionOf("TSLA", TSLA_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "TSLA: kırılım-tazeliği girişi yok · 1R'de tamamı kapanır · testere günde giriş yok · varsayılan risk 100 $. 45 seansta ≈ başabaş — KANITLANMIŞ KENAR YOK." },
   AMZN: { symbol: "AMZN", name: "Amazon", ...stock("AMZN"), cls: "border-orange-500/60 bg-orange-500/15 text-orange-300 hover:bg-orange-500/30", cfg: AMZN_TRACK_CFG, version: versionOf("AMZN", AMZN_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "AMZN: stop tamponu 0,2 ATR15 · kapanış konumu şartı yok · testere günde (VWAP 6+ kesişme) giriş yok · en yakın haftalık vade." },
+  ...(Object.fromEntries(HUB_STOCKS.map((h) => [h, hubEngine(h)])) as Record<(typeof HUB_STOCKS)[number], EngineDef>),
 };
