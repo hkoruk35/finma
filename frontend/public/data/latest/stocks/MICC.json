@@ -1,0 +1,89 @@
+{
+  "ticker": "MICC",
+  "company": "The Magnum Ice Cream Company N.V.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T09:59:05.381Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 19.889999389648438,
+    "open": 19.8700008392334,
+    "high": 19.985000610351562,
+    "low": 19.610000610351562,
+    "prev_close": 19.700000762939453,
+    "change_pct": 0.9644599967042566,
+    "change_pct_1w": 2.578648869204867,
+    "change_pct_1m": 3.0569957301083788,
+    "change_pct_1y": 33.31098718458597,
+    "volume": 603200,
+    "avg_volume_30d": 27010600
+  },
+  "scores": {
+    "master_score": 83,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.05899560779659,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 19.344378794172876,
+    "ema_50": 18.99037194007086,
+    "ema_200": 17.654759125426846,
+    "ema_stack_bullish": true,
+    "bb_upper": 20.88449935913086,
+    "bb_middle": 19.889999389648438,
+    "bb_lower": 18.895499420166015,
+    "bb_width": 10,
+    "atr": 0.58,
+    "atr_pct": 2.9,
+    "rvol": 1.132533153650789,
+    "52w_high": 20.684999465942383,
+    "52w_low": 12.9399995803833
+  },
+  "fundamental": {
+    "pe_ratio": 40.591835,
+    "pb_ratio": 10.025405,
+    "gross_margin": 0.36145002,
+    "operating_margin": 0.124919996,
+    "net_margin": 0.022349998,
+    "market_cap": 12009733120,
+    "revenue_growth_ttm": 0.042,
+    "fcf_yield": 0.033025296069193584,
+    "institutional_ownership_pct": 0.61421,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 19.54,
+    "entry_range_high": 19.95,
+    "target_range_low": 20.73,
+    "target_range_high": 22.71,
+    "target_1": 20.73,
+    "target_2": 21.72,
+    "target_3": 22.71,
+    "stop_loss": 18.9,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $19.54 – $19.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $20.21 direnci veya $19.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $18.90 olarak belirlenmiştir. Fiyatın EMA50 ($18.99) veya günlük VWAP ($19.86) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($19.86) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 57 seviyesinde pozitif momentumu destekliyor."
+  }
+}
