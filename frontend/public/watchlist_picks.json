@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-11-11T14:02:27.785502-05:00",
+  "generated_at": "2026-11-11T17:03:01.595886-05:00",
   "picks": [
-    {
-      "ticker": "CCI",
-      "sector": "Real Estate",
-      "date_added": "2026-11-09",
-      "score": 44.0
-    },
-    {
-      "ticker": "ARCB",
-      "sector": "Industrials",
-      "date_added": "2026-11-09",
-      "score": 40.0
-    },
     {
       "ticker": "RLJ",
       "sector": "Real Estate",
@@ -20,64 +8,10 @@
       "score": 51.0
     },
     {
-      "ticker": "ALGN",
-      "sector": "Healthcare",
-      "date_added": "2026-11-09",
-      "score": 50.5
-    },
-    {
-      "ticker": "EHC",
-      "sector": "Healthcare",
-      "date_added": "2026-11-09",
-      "score": 50.5
-    },
-    {
-      "ticker": "DIS",
-      "sector": "Communication Services",
-      "date_added": "2026-11-09",
-      "score": 50.0
-    },
-    {
       "ticker": "DLTR",
       "sector": "Consumer Defensive",
       "date_added": "2026-11-09",
       "score": 49.0
-    },
-    {
-      "ticker": "CPA",
-      "sector": "Industrials",
-      "date_added": "2026-11-09",
-      "score": 47.5
-    },
-    {
-      "ticker": "CARG",
-      "sector": "Communication Services",
-      "date_added": "2026-11-09",
-      "score": 41.5
-    },
-    {
-      "ticker": "ADUS",
-      "sector": "Healthcare",
-      "date_added": "2026-11-10",
-      "score": 47.5
-    },
-    {
-      "ticker": "ABNB",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-10",
-      "score": 45.5
-    },
-    {
-      "ticker": "CELH",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-11-10",
-      "score": 43.5
-    },
-    {
-      "ticker": "ULCC",
-      "sector": "Industrials",
-      "date_added": "2026-11-10",
-      "score": 34.0
     },
     {
       "ticker": "JXN",
@@ -92,34 +26,16 @@
       "score": 40.0
     },
     {
-      "ticker": "CNC",
-      "sector": "Healthcare",
-      "date_added": "2026-11-10",
-      "score": 35.0
-    },
-    {
       "ticker": "GCT",
       "sector": "Technology",
       "date_added": "2026-11-10",
       "score": 30.5
     },
     {
-      "ticker": "DHI",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-11",
-      "score": 42.0
-    },
-    {
       "ticker": "XMTR",
       "sector": "Industrials",
       "date_added": "2026-11-11",
       "score": 37.0
-    },
-    {
-      "ticker": "RDNT",
-      "sector": "Healthcare",
-      "date_added": "2026-11-11",
-      "score": 36.5
     },
     {
       "ticker": "MGNI",
@@ -132,18 +48,6 @@
       "sector": "Financial Services",
       "date_added": "2026-11-11",
       "score": 48.5
-    },
-    {
-      "ticker": "MTCH",
-      "sector": "Communication Services",
-      "date_added": "2026-11-11",
-      "score": 47.5
-    },
-    {
-      "ticker": "TDY",
-      "sector": "Technology",
-      "date_added": "2026-11-11",
-      "score": 46.5
     },
     {
       "ticker": "TSM",
@@ -162,6 +66,66 @@
       "sector": "Energy",
       "date_added": "2026-11-11",
       "score": 38.5
+    },
+    {
+      "ticker": "OUST",
+      "sector": "Technology",
+      "date_added": "2026-11-11",
+      "score": 54.5
+    },
+    {
+      "ticker": "MIRM",
+      "sector": "Healthcare",
+      "date_added": "2026-11-11",
+      "score": 54.0
+    },
+    {
+      "ticker": "BNY",
+      "sector": "Financial Services",
+      "date_added": "2026-11-11",
+      "score": 54.0
+    },
+    {
+      "ticker": "KN",
+      "sector": "Technology",
+      "date_added": "2026-11-11",
+      "score": 53.0
+    },
+    {
+      "ticker": "FLYW",
+      "sector": "Technology",
+      "date_added": "2026-11-11",
+      "score": 52.5
+    },
+    {
+      "ticker": "PACS",
+      "sector": "Healthcare",
+      "date_added": "2026-11-11",
+      "score": 52.0
+    },
+    {
+      "ticker": "FLR",
+      "sector": "Industrials",
+      "date_added": "2026-11-11",
+      "score": 51.0
+    },
+    {
+      "ticker": "PTRN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-11",
+      "score": 50.5
+    },
+    {
+      "ticker": "JCI",
+      "sector": "Industrials",
+      "date_added": "2026-11-11",
+      "score": 49.0
+    },
+    {
+      "ticker": "ITT",
+      "sector": "Industrials",
+      "date_added": "2026-11-11",
+      "score": 49.0
     }
   ]
 }
