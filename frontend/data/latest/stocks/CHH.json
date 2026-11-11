@@ -1,0 +1,89 @@
+{
+  "ticker": "CHH",
+  "company": "Choice Hotels International, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T09:59:09.247Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Lodging",
+  "price": {
+    "current": 120.2300033569336,
+    "open": 119.81999969482422,
+    "high": 120.55000305175781,
+    "low": 117.44999694824219,
+    "prev_close": 119.5,
+    "change_pct": 0.610881470237317,
+    "change_pct_1w": 1.084581208212805,
+    "change_pct_1m": 9.28013727085551,
+    "change_pct_1y": 21.395398066968426,
+    "volume": 349100,
+    "avg_volume_30d": 17495300
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 90,
+    "fundamental_score": 76.4,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.74632428054446,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 113.78355260265204,
+    "ema_50": 109.41495296897514,
+    "ema_200": 106.42740837755323,
+    "ema_stack_bullish": true,
+    "bb_upper": 126.24150352478028,
+    "bb_middle": 120.2300033569336,
+    "bb_lower": 114.2185031890869,
+    "bb_width": 10,
+    "atr": 4.09,
+    "atr_pct": 3.41,
+    "rvol": 0.9513755122804411,
+    "52w_high": 123.81999969482422,
+    "52w_low": 84.04000091552734
+  },
+  "fundamental": {
+    "pe_ratio": 26.71778,
+    "pb_ratio": 40.481483,
+    "gross_margin": 0.90053004,
+    "operating_margin": 0.49054,
+    "net_margin": 0.20346001,
+    "market_cap": 5351262208,
+    "revenue_growth_ttm": 0.027,
+    "fcf_yield": 0.042619313189147315,
+    "institutional_ownership_pct": 0.76943,
+    "dividend_rate": 1.15,
+    "dividend_yield": 0.0095999995
+  },
+  "scores_detail": {
+    "entry_range_low": 117.77,
+    "entry_range_high": 120.64,
+    "target_range_low": 125.17,
+    "target_range_high": 137.09,
+    "target_1": 125.17,
+    "target_2": 131.13,
+    "target_3": 137.09,
+    "stop_loss": 114.22,
+    "risk_reward_ratio": 2.39,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $117.77 – $120.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $121.95 direnci veya $116.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $114.22 olarak belirlenmiştir. Fiyatın EMA20 ($113.78) veya günlük VWAP ($119.37) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($119.37) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

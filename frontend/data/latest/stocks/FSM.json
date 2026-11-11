@@ -1,22 +1,22 @@
 {
   "ticker": "FSM",
   "company": "Fortuna Mining Corp.",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T21:17:46.677Z",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T09:37:27.997Z",
   "sector": "Basic Materials",
   "industry": "Gold",
   "price": {
     "current": 9.510000228881836,
     "open": 9.699999809265137,
-    "high": 9.845000267028809,
-    "low": 9.414999961853027,
+    "high": 9.850000381469727,
+    "low": 9.420000076293945,
     "prev_close": 10.069999694824219,
     "change_pct": -5.561067357630721,
     "change_pct_1w": 7.579186252590779,
     "change_pct_1m": -1.4507709345356417,
     "change_pct_1y": 12.945369865930608,
-    "volume": 4798131,
-    "avg_volume_30d": 173410331
+    "volume": 4850300,
+    "avg_volume_30d": 173462500
   },
   "scores": {
     "master_score": 52,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 0.54,
     "atr_pct": 5.65,
-    "rvol": 0.9546327779052565,
+    "rvol": 0.9561501765511278,
     "52w_high": 13.850000381469727,
     "52w_low": 7.900000095367432
   },
@@ -60,7 +60,7 @@
     "market_cap": 2814554624,
     "revenue_growth_ttm": 0.167,
     "fcf_yield": 0.1460960325636231,
-    "institutional_ownership_pct": 0.79963994,
+    "institutional_ownership_pct": 0.80371004,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

@@ -2,7 +2,7 @@
   "ticker": "REGN",
   "company": "Regeneron Pharmaceuticals, Inc.",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T08:30:36.497Z",
+  "generated_at": "2026-11-11T14:02:45.445Z",
   "sector": "Healthcare",
   "industry": "Biotechnology",
   "price": {
@@ -55,12 +55,12 @@
     "pe_ratio": 20.248894,
     "pb_ratio": 2.7433023,
     "gross_margin": 0.46734002,
-    "operating_margin": 0.40457,
+    "operating_margin": 0.30383,
     "net_margin": 0.28511998,
     "market_cap": 94764441600,
     "revenue_growth_ttm": 0.363,
     "fcf_yield": 0.027224477920629674,
-    "institutional_ownership_pct": 0.9317,
+    "institutional_ownership_pct": 0.93527,
     "dividend_rate": 3.76,
     "dividend_yield": 0.0041
   },

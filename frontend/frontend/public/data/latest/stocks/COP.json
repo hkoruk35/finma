@@ -2,7 +2,7 @@
   "ticker": "COP",
   "company": "ConocoPhillips",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T04:12:28.306Z",
+  "generated_at": "2026-11-11T10:22:17.981Z",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
   "price": {
@@ -52,7 +52,7 @@
     "52w_low": 85.69999694824219
   },
   "fundamental": {
-    "pe_ratio": 14.168234,
+    "pe_ratio": 14.287671,
     "pb_ratio": 2.4293187,
     "gross_margin": 0.49008,
     "operating_margin": 0.30045998,
@@ -60,9 +60,9 @@
     "market_cap": 160312819712,
     "revenue_growth_ttm": 0.293,
     "fcf_yield": 0.07151408834674643,
-    "institutional_ownership_pct": 0.88461995,
+    "institutional_ownership_pct": 0.88261,
     "dividend_rate": 3.72,
-    "dividend_yield": 0.0277
+    "dividend_yield": 0.0274
   },
   "scores_detail": {
     "entry_range_low": 132.78,

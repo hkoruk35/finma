@@ -2,7 +2,7 @@
   "ticker": "STRL",
   "company": "Sterling Infrastructure, Inc.",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T05:14:19.274Z",
+  "generated_at": "2026-11-11T11:10:14.659Z",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
   "price": {
@@ -60,7 +60,7 @@
     "market_cap": 8832314368,
     "revenue_growth_ttm": 1.27,
     "fcf_yield": 0.039923470260246965,
-    "institutional_ownership_pct": 0.90186995,
+    "institutional_ownership_pct": 0.93561995,
     "dividend_rate": 0,
     "dividend_yield": 0
   },

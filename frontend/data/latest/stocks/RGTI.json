@@ -1,0 +1,89 @@
+{
+  "ticker": "RGTI",
+  "company": "Rigetti Computing, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T14:00:41.077Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 12.149999618530273,
+    "open": 12.579999923706055,
+    "high": 12.899999618530273,
+    "low": 12.041999816894531,
+    "prev_close": 12.979999542236328,
+    "change_pct": -6.3944526423538965,
+    "change_pct_1w": 9.607573989339668,
+    "change_pct_1m": -2.0161290942816303,
+    "change_pct_1y": -63.27086171100464,
+    "volume": 19440000,
+    "avg_volume_30d": 454029300
+  },
+  "scores": {
+    "master_score": 54,
+    "technical_score": 60,
+    "fundamental_score": 43.4,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.22213014518961,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.091403492372036,
+    "ema_50": 13.498835325941515,
+    "ema_200": 17.728751008529965,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.757499599456787,
+    "bb_middle": 12.149999618530273,
+    "bb_lower": 11.54249963760376,
+    "bb_width": 10,
+    "atr": 1,
+    "atr_pct": 8.25,
+    "rvol": 1.4080351202003925,
+    "52w_high": 34.709999084472656,
+    "52w_low": 9.190999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 7.5418997,
+    "gross_margin": 0.39596,
+    "operating_margin": -8.56644,
+    "net_margin": 0,
+    "market_cap": 4055290112,
+    "revenue_growth_ttm": -0.275,
+    "fcf_yield": -0.008861881396267415,
+    "institutional_ownership_pct": 0.53787,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 11.55,
+    "entry_range_high": 12.25,
+    "target_range_low": 12.59,
+    "target_range_high": 17.66,
+    "target_1": 12.59,
+    "target_2": 17.05,
+    "target_3": 17.66,
+    "stop_loss": 10.85,
+    "risk_reward_ratio": 4.89,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $11.55 – $12.25 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.98 direnci veya $11.35 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $10.85 olarak belirlenmiştir. Fiyatın EMA20 ($12.09) veya günlük VWAP ($12.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($13.50) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.29) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}
