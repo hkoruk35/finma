@@ -1,52 +1,38 @@
 {
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T17:03:05.272599-05:00",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T09:04:36.382570-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 50,
+  "active_scores_count": 26,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SOLV",
-        "BILL",
-        "ALGN",
-        "TEVA",
-        "ZGN",
-        "BEKE",
-        "BUD",
-        "SNN",
-        "GPN",
-        "EE"
-      ]
-    },
-    "breakout": {
-      "count": 24,
-      "tickers": [
-        "BILL",
-        "ALGN",
-        "ZGN",
-        "BUD",
-        "GPN",
-        "HIW",
-        "GWW",
-        "FIBK",
-        "ABNB",
-        "BR",
-        "H",
-        "RPM",
-        "FBNC",
-        "ENR",
-        "PYPL",
-        "MMM",
-        "TGT",
         "ICUI",
         "AVNT",
         "JXN",
         "DHI",
+        "CNH",
+        "MGNI",
+        "VIRT",
+        "VSXY",
+        "UAL",
+        "BBY"
+      ]
+    },
+    "breakout": {
+      "count": 10,
+      "tickers": [
+        "ICUI",
+        "AVNT",
+        "JXN",
+        "DHI",
+        "BTSG",
         "HUM",
         "BCO",
-        "PPLI"
+        "PPLI",
+        "SBH",
+        "GWW"
       ]
     },
     "value": {
@@ -68,42 +54,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SOLV",
-      "score": 62.5,
+      "ticker": "ICUI",
+      "score": 46.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BILL",
-      "score": 55.5,
+      "ticker": "AVNT",
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ALGN",
-      "score": 51.5,
+      "ticker": "JXN",
+      "score": 49.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 756.69,
-      "change_pct": 0.9
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 674.76,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 522.55,
-      "change_pct": 0.16
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 18.31,
-      "change_pct": -5.91
-    },
-    "RUSSELL2000": {
-      "value": 282.61,
-      "change_pct": 0.72
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-11-11T09:30:15.784843-05:00"
+  }
 }

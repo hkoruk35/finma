@@ -2,7 +2,7 @@
   "ticker": "AZN",
   "company": "AstraZeneca PLC",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T04:13:41.639Z",
+  "generated_at": "2026-11-11T14:08:00.750Z",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
   "price": {
@@ -55,14 +55,14 @@
     "pe_ratio": 26.41584,
     "pb_ratio": 5.5998316,
     "gross_margin": 0.81781995,
-    "operating_margin": 0.29569998,
+    "operating_margin": 0.25803,
     "net_margin": 0.17681,
     "market_cap": 289649360896,
     "revenue_growth_ttm": 0.067,
     "fcf_yield": 0.019430390726878768,
-    "institutional_ownership_pct": 0.76752,
+    "institutional_ownership_pct": 0.77387,
     "dividend_rate": 3.2,
-    "dividend_yield": 0.016900001
+    "dividend_yield": 0.0172
   },
   "scores_detail": {
     "entry_range_low": 183.73,
