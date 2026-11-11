@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T17:03:06.352679-05:00",
+  "generated_at": "2026-11-11T09:04:37.647613-05:00",
   "picks": [
     {
       "ticker": "CCI",
@@ -80,44 +80,14 @@
       "score": 33.5
     },
     {
-      "ticker": "AU",
-      "sector": "Basic Materials",
-      "date_added": "2026-11-10",
-      "score": 45.0
-    },
-    {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-10",
-      "score": 45.0
-    },
-    {
       "ticker": "JXN",
       "sector": "Financial Services",
       "date_added": "2026-11-10",
       "score": 43.5
     },
     {
-      "ticker": "VIK",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-10",
-      "score": 43.0
-    },
-    {
-      "ticker": "PHM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-10",
-      "score": 43.0
-    },
-    {
       "ticker": "SMG",
       "sector": "Basic Materials",
-      "date_added": "2026-11-10",
-      "score": 40.0
-    },
-    {
-      "ticker": "LPX",
-      "sector": "Industrials",
       "date_added": "2026-11-10",
       "score": 40.0
     },
@@ -132,6 +102,66 @@
       "sector": "Technology",
       "date_added": "2026-11-10",
       "score": 30.5
+    },
+    {
+      "ticker": "VMC",
+      "sector": "Basic Materials",
+      "date_added": "2026-11-11",
+      "score": 44.0
+    },
+    {
+      "ticker": "BBY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-11",
+      "score": 43.0
+    },
+    {
+      "ticker": "DHI",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-11",
+      "score": 42.0
+    },
+    {
+      "ticker": "RKT",
+      "sector": "Financial Services",
+      "date_added": "2026-11-11",
+      "score": 39.0
+    },
+    {
+      "ticker": "TOST",
+      "sector": "Technology",
+      "date_added": "2026-11-11",
+      "score": 38.0
+    },
+    {
+      "ticker": "BRKR",
+      "sector": "Healthcare",
+      "date_added": "2026-11-11",
+      "score": 37.0
+    },
+    {
+      "ticker": "XMTR",
+      "sector": "Industrials",
+      "date_added": "2026-11-11",
+      "score": 37.0
+    },
+    {
+      "ticker": "RDNT",
+      "sector": "Healthcare",
+      "date_added": "2026-11-11",
+      "score": 36.5
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-11-11",
+      "score": 35.5
+    },
+    {
+      "ticker": "MGNI",
+      "sector": "Communication Services",
+      "date_added": "2026-11-11",
+      "score": 35.0
     }
   ]
 }
