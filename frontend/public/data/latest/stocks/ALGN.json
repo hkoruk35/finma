@@ -1,0 +1,89 @@
+{
+  "ticker": "ALGN",
+  "company": "Align Technology, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T17:24:43.440Z",
+  "sector": "Healthcare",
+  "industry": "Medical Instruments & Supplies",
+  "price": {
+    "current": 170.69000244140625,
+    "open": 174.3000030517578,
+    "high": 175.24000549316406,
+    "low": 169.66160583496094,
+    "prev_close": 174.25999450683594,
+    "change_pct": -2.0486584287649814,
+    "change_pct_1w": 3.5112242324014518,
+    "change_pct_1m": 11.046773135042214,
+    "change_pct_1y": 18.132739948910675,
+    "volume": 295276,
+    "avg_volume_30d": 33296176.000000004
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 80,
+    "fundamental_score": 76.4,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.1021433525552,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 158.79597044980866,
+    "ema_50": 155.9920293660993,
+    "ema_200": 161.56108261706171,
+    "ema_stack_bullish": false,
+    "bb_upper": 179.22450256347656,
+    "bb_middle": 170.69000244140625,
+    "bb_lower": 162.15550231933594,
+    "bb_width": 10,
+    "atr": 6.73,
+    "atr_pct": 3.94,
+    "rvol": 1.3949666772544689,
+    "52w_high": 200.44000244140625,
+    "52w_low": 130.22999572753906
+  },
+  "fundamental": {
+    "pe_ratio": 24.881924,
+    "pb_ratio": 2.8024232,
+    "gross_margin": 0.71532,
+    "operating_margin": 0.19643,
+    "net_margin": 0.11828,
+    "market_cap": 12031435776,
+    "revenue_growth_ttm": 0.019,
+    "fcf_yield": 0.04768344881534445,
+    "institutional_ownership_pct": 1.0732,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 164.13,
+    "entry_range_high": 171.36,
+    "target_range_low": 176.13,
+    "target_range_high": 192.91,
+    "target_1": 176.13,
+    "target_2": 184.52,
+    "target_3": 192.91,
+    "stop_loss": 159.42,
+    "risk_reward_ratio": 2.01,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $164.13 – $171.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $175.80 direnci veya $162.79 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $159.42 olarak belirlenmiştir. Fiyatın EMA20 ($158.80) veya günlük VWAP ($172.94) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($155.99) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($172.94) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}
