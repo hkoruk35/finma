@@ -2,7 +2,7 @@
   "ticker": "AA",
   "company": "Alcoa Corporation",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T03:58:42.104Z",
+  "generated_at": "2026-11-11T10:46:54.704Z",
   "sector": "Basic Materials",
   "industry": "Aluminum",
   "price": {
@@ -60,9 +60,9 @@
     "market_cap": 10553515008,
     "revenue_growth_ttm": 0.237,
     "fcf_yield": 0.0870444608553306,
-    "institutional_ownership_pct": 0.84716004,
+    "institutional_ownership_pct": 0.82623,
     "dividend_rate": 0.4,
-    "dividend_yield": 0.0095999995
+    "dividend_yield": 0.01
   },
   "scores_detail": {
     "entry_range_low": 38.99,

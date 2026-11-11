@@ -1,22 +1,22 @@
 {
   "ticker": "COTY",
   "company": "Coty Inc.",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T23:38:36.241Z",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T12:10:54.682Z",
   "sector": "Consumer Defensive",
   "industry": "Household & Personal Products",
   "price": {
     "current": 4.329999923706055,
     "open": 4.190000057220459,
-    "high": 4.364999771118164,
-    "low": 4.186999797821045,
+    "high": 4.369999885559082,
+    "low": 4.150000095367432,
     "prev_close": 4.21999979019165,
     "change_pct": 2.606638364534342,
     "change_pct_1w": 31.61094145628099,
     "change_pct_1m": 28.869049371877008,
     "change_pct_1y": 21.97183047511988,
-    "volume": 6137464,
-    "avg_volume_30d": 181429264
+    "volume": 6326900,
+    "avg_volume_30d": 181618700
   },
   "scores": {
     "master_score": 78,
@@ -46,9 +46,9 @@
     "bb_lower": 4.113499927520752,
     "bb_width": 10,
     "atr": 0.22,
-    "atr_pct": 5.09,
-    "rvol": 1.6114136030447657,
-    "52w_high": 4.364999771118164,
+    "atr_pct": 5.16,
+    "rvol": 1.615991084618489,
+    "52w_high": 4.369999885559082,
     "52w_low": 1.8200000524520874
   },
   "fundamental": {
@@ -60,7 +60,7 @@
     "market_cap": 3816215552,
     "revenue_growth_ttm": -0.014,
     "fcf_yield": 0.18278251385313782,
-    "institutional_ownership_pct": 0.42453,
+    "institutional_ownership_pct": 0.42437,
     "dividend_rate": 0,
     "dividend_yield": 0
   },
@@ -73,13 +73,13 @@
     "target_2": 4.7,
     "target_3": 4.91,
     "stop_loss": 4.04,
-    "risk_reward_ratio": 1.83,
+    "risk_reward_ratio": 1.82,
     "entry_engine": {
       "valid": false,
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
-    "entry_condition": "Hesaplanan giriş aralığı $4.19 – $4.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $4.36 direnci veya $4.15 desteği üzerindeki seyri takip edilebilir.",
+    "entry_condition": "Hesaplanan giriş aralığı $4.19 – $4.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $4.37 direnci veya $4.15 desteği üzerindeki seyri takip edilebilir.",
     "stop_rationale": "Hesaplanan stop-loss seviyesi $4.04 olarak belirlenmiştir. Fiyatın EMA20 ($3.51) veya günlük VWAP ($4.30) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
     "rationale_vwap": "Fiyat gün içi VWAP'ın ($4.30) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
