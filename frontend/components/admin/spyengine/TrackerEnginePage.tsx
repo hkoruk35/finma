@@ -74,7 +74,9 @@ interface StreamResponse {
 
 /** veri yoklama: her saniye · tam sayfa yenileme (reload): her 60 saniye */
 const POLL_MS = 1000;
-const FULL_REFRESH_MS = 60 * 1000;
+/** Güvenlik amaçlı tam sayfa yenileme aralığı. Veriler zaten ayrı yoklamayla (canlı akış ~1–2 sn, Takip/HTF/opsiyon kendi aralıklarında) güncellenir;
+ *  tam yenileme yalnız bellek/eski kod birikmesine karşı. 2026-11-12 kullanıcı: 60 sn gereksiz sık → 5 dk. */
+const FULL_REFRESH_MS = 5 * 60 * 1000;
 
 function mergeBars(prev: Bar[], incoming: Bar[], full: boolean): Bar[] {
   if (full) return incoming;
@@ -821,7 +823,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const [showHtfComments, setShowHtfComments] = usePersistedState("spyengine_ui_htfcomments", false);
   const [alertSound, setAlertSound] = usePersistedState("spyengine_ui_sound", true);
   const [replayDate, setReplayDate] = useState("");
-  // 60 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
+  // 5 dk'da bir tam sayfa yenileme (ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz; kullanıcı bir kutuya yazarken 60 sn ertelenir
   // Yenileme 5m kapanışına son 90 sn ile kapanıştan sonraki 15 sn'ye düşmez (erken uyarı/TETİK penceresi) — o aralığa
   // denk gelirse kapanıştan 15 sn sonraya ertelenir; yoksa her pencerede bir yenileme uyarıyı sessize alıp ses iznini düşürüyordu
   useEffect(() => {
@@ -829,7 +831,13 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     const at = Date.now() + FULL_REFRESH_MS;
     const inBar = Math.floor(at / 1000) % 300;
     const delay = inBar >= 170 || inBar < 15 ? FULL_REFRESH_MS + ((300 - inBar + 15) % 300) * 1000 : FULL_REFRESH_MS;
-    const id = setTimeout(() => window.location.reload(), delay);
+    let id: ReturnType<typeof setTimeout>;
+    const tryReload = () => {
+      const el = document.activeElement;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT")) { id = setTimeout(tryReload, 60 * 1000); return; }
+      window.location.reload();
+    };
+    id = setTimeout(tryReload, delay);
     return () => clearTimeout(id);
   }, [replayDate]);
   /** SL tamponu çarpanı (ATR15 x): varsayılan motorun izleyen stop tamponu; diğerleri elle karşılaştırma */
@@ -1762,7 +1770,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       </div>
 
       <div className="mt-2 text-center font-mono text-[9.5px] text-slate-700">
-        yoklama {pollMs / 1000}sn · fiyat {data?.dataSource.live ? "canlı akış (~1 sn)" : "1m grafik verisi (~10 sn)"} · tam yenileme {FULL_REFRESH_MS / 1000}sn · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
+        yoklama {pollMs / 1000}sn · fiyat {data?.dataSource.live ? "canlı akış (~1 sn)" : "1m grafik verisi (~10 sn)"} · tam yenileme {FULL_REFRESH_MS / 60000} dk · {m1.length} × 1m mum yüklü · son yanıt {lastFetch ? `${nyClock(lastFetch, true)} ET` : "—"}
       </div>
     </div>
   );
