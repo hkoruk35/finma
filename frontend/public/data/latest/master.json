@@ -1,36 +1,28 @@
 {
-  "date": "2026-11-11",
-  "generated_at": "2026-11-11T17:03:00.384544-05:00",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T14:02:50.294055-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 44,
+  "active_scores_count": 31,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "ICUI",
-        "AVNT",
-        "JXN",
-        "DHI",
-        "CNH",
-        "MGNI",
-        "VIRT",
-        "VSXY",
-        "UAL",
-        "BBY"
+        "SBH",
+        "VNO",
+        "GWW",
+        "EBC",
+        "PACS",
+        "AAL",
+        "TMO",
+        "ICE",
+        "BILL",
+        "VLY"
       ]
     },
     "breakout": {
-      "count": 11,
+      "count": 3,
       "tickers": [
-        "ICUI",
-        "AVNT",
-        "JXN",
-        "DHI",
-        "CWST",
-        "HUM",
-        "BCO",
-        "PPLI",
         "SBH",
         "GWW",
         "QNST"
@@ -55,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ICUI",
-      "score": 46.0,
+      "ticker": "SBH",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AVNT",
-      "score": 51.0,
+      "ticker": "VNO",
+      "score": 48.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "JXN",
-      "score": 49.5,
+      "ticker": "GWW",
+      "score": 47.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
