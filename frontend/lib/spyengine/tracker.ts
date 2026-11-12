@@ -106,10 +106,10 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.10";
+export const TRACK_VERSION = "3.11";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
-export const TRACK_VERSION_DATE = "2026-11-10";
+export const TRACK_VERSION_DATE = "2026-11-12";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -304,6 +304,17 @@ export const TRACK_CFG = {
    *  10 Kas: −4,67 gap, 10:05 T5_BRK CALL → −1R. 45 seans (aynı veri, motor baştan oynatıldı): kapısız 162 işlem +37,6R (yarılar 21,8/15,8,
    *  maxDD −3,10, en kötü gün −2,44) → yalnız gap kapısı 148 işlem +40,5R (22,0/18,5, en kötü −2,00, zararlı gün 17 → 15). */
   gapCounterBlock: true,
+  /** GAP KAPANINCA KAPI KALKAR (v3.11, 2026-11-12 KULLANICI KARARI): bir 5m kapanış dünkü kapanışı gap'e ters yönde geçince (gap doldu) kapı o gün kalkar.
+   *  Neden: 12 Kas SPY −5,81 gap, 10:55 kapanışı 760,78 ile gap doldu, 11:00 CALL tetiği kapıya takıldı.
+   *  45 seans ölçümü (motor baştan oynatıldı; kullanıcıya gösterildi): SPY 45,7 → 44,5R (maxDD −2,00 → −2,71) · QQQ 20,0 → 17,5 · IWM 26,4 → 28,0 ·
+   *  NVDA 8,5 → 6,8 · TSLA 17,0 → 14,5 · AMZN 20,6 → 22,2 — toplam ≈ −4,7R; fark 45 seansta istatistiksel olarak kesin değil. Kullanıcı yine de kaldırmayı seçti. */
+  gapFillRelease: 1,
+  /** bu dakikadan (ET, gün dakikası) sonra gap kapısı kalkar · 0 = hiç (bütün gün) */
+  gapReleaseMin: 0,
+  /** gap dolumu sayılması için dolduran 5m mumun RVOL'u en az bu (0 = şart yok) */
+  gapFillRvol: 0,
+  /** kapı yalnız |gap| ≥ bu × günlük ATR iken (gap tipi gösterimi 0,25'te kalır) */
+  gapGateAtr: 0.25,
   /** SIÇRAMA KIRILIMI EĞİLİM ŞARTI (v3.6): T5_BRK 15m beklemediği için seans öncesi eğilime (k0) ters yönde alınmaz (NÖTR serbest).
    *  Yalnız bu: +38,6R (22,3/16,3), maxDD −3,10 → −2,63. İkisi birlikte (canlı): 146 işlem +39,7R (22,0/17,7), maxDD −3,13, en kötü −2,00; 10 Kas −0,5R → +0,5R. */
   brkBiasAlign: true,
@@ -807,9 +818,13 @@ export function trackerRead(inp: TrackInput): TrackRead {
   const gapPts = prevClose == null ? null : today.length ? r2(today[0].open - prevClose) : k0.pmLast != null ? r2(k0.pmLast - prevClose) : null;
   const gapType: "UP" | "DOWN" | "FLAT" = gapPts == null || atrDaily == null ? "FLAT" : Math.abs(gapPts) < 0.25 * atrDaily ? "FLAT" : gapPts > 0 ? "UP" : "DOWN";
   /** gap yönü kapısı (cfg.gapCounterBlock): gap yönüne ters giriş engeli — engelliyse gerekçe metni */
+  let gapFilled = false;
+  let curMin = 0;
   const gapGateWhy = (d: D): string | false =>
     C.gapCounterBlock && d !== 0 && gapType !== "FLAT" && (gapType === "UP" ? d < 0 : d > 0)
-      ? `gap yönüne ters (${gapType === "UP" ? "yukarı" : "aşağı"} gap ${gapPts != null ? (gapPts > 0 ? "+" : "") + gapPts.toFixed(2) : ""})`
+      && !(C.gapFillRelease && gapFilled) && !(C.gapReleaseMin && curMin >= C.gapReleaseMin)
+      && (gapPts == null || atrDaily == null || Math.abs(gapPts) >= C.gapGateAtr * atrDaily)
+      ? `gap yönüne ters (${gapType === "UP" ? "yukarı" : "aşağı"} gap ${gapPts != null ? (gapPts > 0 ? "+" : "") + gapPts.toFixed(2) : ""}${gapFilled && prevClose != null ? ` · gap doldu (5m kapanış ${gapType === "DOWN" ? "≥" : "≤"} dünkü kapanış ${prevClose.toFixed(2)}) ama kapı gün boyu geçerli` : ""})`
       : false;
 
   // ── RTH ──
@@ -851,6 +866,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
     const m = nyParts(b.time).minutes + 5;
     const c = b.close;
     const ev: string[] = [];
+    curMin = m;
 
     const vol = b.volume || 0;
     pv += ((b.high + b.low + b.close) / 3) * vol;
@@ -881,6 +897,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
 
     const sa = slotAvg(inp.rvol, m - 5);
     const rvol5 = sa ? vol / sa : null;
+    if (!gapFilled && prevClose != null && ((gapType === "DOWN" && c >= prevClose) || (gapType === "UP" && c <= prevClose)) && (!C.gapFillRvol || (rvol5 ?? 0) >= C.gapFillRvol)) gapFilled = true;
     let rvol15: number | null = null;
     if (is15 && i >= 2 && inp.rvol) {
       const s3 = [0, 1, 2].map((k) => slotAvg(inp.rvol, m - 5 - k * 5) ?? 0).reduce((a, x) => a + x, 0);
