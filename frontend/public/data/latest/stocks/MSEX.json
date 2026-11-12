@@ -1,0 +1,89 @@
+{
+  "ticker": "MSEX",
+  "company": "Middlesex Water Company",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T04:40:17.076Z",
+  "sector": "Utilities",
+  "industry": "Utilities - Regulated Water",
+  "price": {
+    "current": 58.099998474121094,
+    "open": 58.43000030517578,
+    "high": 58.810001373291016,
+    "low": 57.75,
+    "prev_close": 58.77000045776367,
+    "change_pct": -1.140040800449014,
+    "change_pct_1w": -1.858111950408936,
+    "change_pct_1m": 4.968383154131003,
+    "change_pct_1y": 8.113131111793981,
+    "volume": 115900,
+    "avg_volume_30d": 4421500
+  },
+  "scores": {
+    "master_score": 84,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 58.27189110683415,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 57.12715952515418,
+    "ema_50": 56.16836297198357,
+    "ema_200": 54.89473926870948,
+    "ema_stack_bullish": true,
+    "bb_upper": 61.00499839782715,
+    "bb_middle": 58.099998474121094,
+    "bb_lower": 55.194998550415036,
+    "bb_width": 10,
+    "atr": 1.4,
+    "atr_pct": 2.41,
+    "rvol": 1.0018771909985298,
+    "52w_high": 60.720001220703125,
+    "52w_low": 48.189998626708984
+  },
+  "fundamental": {
+    "pe_ratio": 20.97473,
+    "pb_ratio": 2.0294816,
+    "gross_margin": 0.5446,
+    "operating_margin": 0.32715,
+    "net_margin": 0.24503,
+    "market_cap": 1111434368,
+    "revenue_growth_ttm": 0.113,
+    "fcf_yield": -0.03577719129880281,
+    "institutional_ownership_pct": 0.87696,
+    "dividend_rate": 1.44,
+    "dividend_yield": 0.024500001
+  },
+  "scores_detail": {
+    "entry_range_low": 57.26,
+    "entry_range_high": 58.24,
+    "target_range_low": 60.64,
+    "target_range_high": 66.41,
+    "target_1": 60.64,
+    "target_2": 63.53,
+    "target_3": 66.41,
+    "stop_loss": 55.19,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $57.26 – $58.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $59.13 direnci veya $56.98 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $55.19 olarak belirlenmiştir. Fiyatın EMA200 ($54.89) veya günlük VWAP ($58.22) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($58.22) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 58 seviyesinde pozitif momentumu destekliyor."
+  }
+}

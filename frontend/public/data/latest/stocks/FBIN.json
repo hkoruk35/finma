@@ -1,0 +1,89 @@
+{
+  "ticker": "FBIN",
+  "company": "Fortune Brands Innovations, Inc.",
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T22:30:48.918Z",
+  "sector": "Industrials",
+  "industry": "Building Products & Equipment",
+  "price": {
+    "current": 49.16999816894531,
+    "open": 49.15999984741211,
+    "high": 49.52000045776367,
+    "low": 48.77000045776367,
+    "prev_close": 49.83000183105469,
+    "change_pct": -1.3245106117938217,
+    "change_pct_1w": 3.581202663843132,
+    "change_pct_1m": 11.420795329351515,
+    "change_pct_1y": 0.8201716371277278,
+    "volume": 3288060,
+    "avg_volume_30d": 79374860
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 80,
+    "fundamental_score": 63.2,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 66.655771589114,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 45.44378808223487,
+    "ema_50": 43.666632453420505,
+    "ema_200": 44.83225268102167,
+    "ema_stack_bullish": false,
+    "bb_upper": 51.62849807739258,
+    "bb_middle": 49.16999816894531,
+    "bb_lower": 46.71149826049805,
+    "bb_width": 10,
+    "atr": 2.22,
+    "atr_pct": 4.51,
+    "rvol": 1.3292213680754839,
+    "52w_high": 64.83999633789062,
+    "52w_low": 32.34000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 45.953266,
+    "pb_ratio": 2.5439777,
+    "gross_margin": 0.43199003,
+    "operating_margin": 0.10892,
+    "net_margin": 0.02938,
+    "market_cap": 5825447936,
+    "revenue_growth_ttm": -0.031,
+    "fcf_yield": 0.07211033599734501,
+    "institutional_ownership_pct": 1.07953,
+    "dividend_rate": 1.04,
+    "dividend_yield": 0.0209
+  },
+  "scores_detail": {
+    "entry_range_low": 48.25,
+    "entry_range_high": 49.39,
+    "target_range_low": 53.32,
+    "target_range_high": 56.15,
+    "target_1": 53.32,
+    "target_2": 54.39,
+    "target_3": 56.15,
+    "stop_loss": 46.7,
+    "risk_reward_ratio": 2.62,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $48.25 – $49.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $50.65 direnci veya $47.81 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $46.70 olarak belirlenmiştir. Fiyatın EMA20 ($45.44) veya günlük VWAP ($49.24) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($43.67) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($49.24) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 67 seviyesinde pozitif momentumu destekliyor."
+  }
+}
