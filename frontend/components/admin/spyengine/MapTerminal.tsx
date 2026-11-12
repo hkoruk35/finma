@@ -229,7 +229,7 @@ export default function MapTerminal({
 
       {tab === "wide" ? (
         wide && price != null ? (
-          <WideForecast symbol={wide.symbol} price={price} t={wide.t} bars15={wide.bars15} bars4h={wide.bars4h} levels={wide.levels} read4h={h4 ?? null} volRatio4h={wide.volRatio4h} />
+          <WideForecast symbol={wide.symbol} price={price} t={wide.t} bars15={wide.bars15} bars4h={wide.bars4h} levels={wide.levels} read4h={h4 ?? null} />
         ) : (
           <div className="px-3 py-8 text-center text-[12px] text-slate-500">Geniş harita için fiyat ve geçmiş veri bekleniyor.</div>
         )
