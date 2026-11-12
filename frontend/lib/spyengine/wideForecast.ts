@@ -36,6 +36,25 @@ export interface WideInput {
   ivAnnual: number | null;
   ivLabel: string | null;
   basis4h: number | null;
+  /** kullanıcının kontrol noktası tahminleri (açılış / 10:30 / 12:00 / 14:00 / kapanış) — verilirse simülasyon bunlardan geçer */
+  userWps?: UserWp[] | null;
+}
+
+/** kontrol noktası: `open` = günün açılış fiyatı (09:30, gece boşluğu sonrası), aksi hâlde o saatte biten 15m mumun kapanışı */
+export interface Checkpoint { t: number; open: boolean; label: string; day: number; ymd: string; slot: number }
+export interface UserWp { t: number; open: boolean; price: number }
+export interface WpPrice { t: number; open: boolean; price: number }
+
+export interface UserCalc {
+  wps: { t: number; open: boolean; label: string; price: number; pctile: number; verdict: string; p10: number; p90: number }[];
+  /** kullanıcı yolu etrafındaki koni (slot kapanışları; köprülenmiş simülasyon) */
+  cone: { p10: number[]; p25: number[]; p50: number[]; p75: number[]; p90: number[] };
+  /** köprülenmiş yolların açılış dağılımı (gün başına) */
+  opens: { day: number; p10: number; p50: number; p90: number }[];
+  touchU1: number;
+  touchD1: number;
+  levelTouch: { price: number; label: string; touchPct: number }[];
+  lines: string[];
 }
 
 export interface FutureSlot { time: number; day: number; endsAt: number }
@@ -46,10 +65,8 @@ export interface ClassPath {
   pct: number;
   /** %95 güven aralığı yarı genişliği (puan) */
   ci: number;
-  /** medoid yol (slot sonu kapanışlar) */
-  medoid: number[];
-  /** soluk çizilecek örnek yollar */
-  samples: number[][];
+  /** senaryo yolu: sınıf medyanı her kontrol noktasında (sadeleştirilmiş, düz parçalı yol) */
+  wp: WpPrice[];
 }
 
 export interface TouchRow { label: string; slot: number; up: number; down: number }
@@ -80,6 +97,8 @@ export interface WideForecast {
   levelOdds: LevelOdds[];
   lines: string[];
   n: number;
+  checkpoints: Checkpoint[];
+  user: UserCalc | null;
 }
 
 // ── yardımcılar ──────────────────────────────────────────────────
@@ -255,6 +274,21 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
   const drawGap = () => (vm.gaps.length >= 5 ? vm.gaps[Math.floor(rng() * vm.gaps.length)] * k : vm.sigmaGap * k * gauss());
 
   const slotSig = slots.map((s) => sigma15 * vm.mult[slotOfDay(s.time)]);
+  const dayList = [...new Set(slots.map((x) => x.day))];
+  const dayIdx = new Map(dayList.map((d, i) => [d, i]));
+  // kontrol noktaları: her gün açılış (gelecekteyse) · 10:30 · 12:00 · 14:00 · kapanış
+  const checkpoints: Checkpoint[] = [];
+  for (const d of dayList) {
+    const ds = slots.map((x, i) => ({ x, i })).filter((q) => q.x.day === d);
+    const ymd = nyParts(ds[0].x.time).ymd;
+    if (nyParts(ds[0].x.time).minutes === RTH_OPEN_MIN) checkpoints.push({ t: ds[0].x.time, open: true, label: "Açılış", day: d, ymd, slot: ds[0].i });
+    for (const cm of [10 * 60 + 30, 12 * 60, 14 * 60, RTH_CLOSE_MIN]) {
+      const e = nyDateTimeToEpoch(ymd, cm);
+      const hit = ds.find((q) => q.x.endsAt === e);
+      if (hit) checkpoints.push({ t: e, open: false, label: cm === RTH_CLOSE_MIN ? "Kapanış" : hhmm(cm), day: d, ymd, slot: hit.i });
+    }
+  }
+  const opens: Float32Array[] = [];
   const closes: Float32Array[] = [];
   const lvHit = new Array(watch.length).fill(0);
   const cls = new Int8Array(N_PATHS);
@@ -262,12 +296,13 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
 
   for (let n = 0; n < N_PATHS; n++) {
     const arr = new Float32Array(S);
+    const op = new Float32Array(dayList.length);
     let x = Math.log(start);
     const tested = new Uint8Array(watch.length);
     let block: number[] = [], bi = 0;
     for (let s = 0; s < S; s++) {
       const newDay = s === 0 ? !inRth : slots[s].day !== slots[s - 1].day;
-      if (newDay) { x += drawGap(); block = []; bi = 0; }
+      if (newDay) { x += drawGap(); block = []; bi = 0; op[dayIdx.get(slots[s].day)!] = Math.exp(x); }
       if (bi >= block.length) {
         const sess = vm.sessions[Math.floor(rng() * vm.sessions.length)];
         const st = Math.floor(rng() * (sess.length - BLOCK + 1));
@@ -300,6 +335,7 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
       arr[s] = Math.exp(x);
     }
     closes.push(arr);
+    opens.push(op);
     const a = tU[n], b = tD[n];
     cls[n] = a >= 0 && (b < 0 || a < b) ? 0 : b >= 0 && (a < 0 || b < a) ? 1 : a >= 0 && a === b ? (rng() < 0.5 ? 0 : 1) : 2;
   }
@@ -307,23 +343,14 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
   const pctOf = (c: number) => (c / N_PATHS) * 100;
   const ciOf = (c: number) => { const p = c / N_PATHS; return 1.96 * Math.sqrt((p * (1 - p)) / N_PATHS) * 100; };
 
+  const valAt = (n: number, cp: Checkpoint) => (cp.open ? opens[n][dayIdx.get(cp.day)!] : closes[n][cp.slot]);
+  const medianOf = (vals: number[]) => { const q = [...vals].sort((a, b) => a - b); return q[Math.floor(q.length / 2)]; };
   const classOf = (key: ClassPath["key"], k0: number): ClassPath => {
     const idx: number[] = [];
     for (let i = 0; i < N_PATHS; i++) if (cls[i] === k0) idx.push(i);
     const c = idx.length;
-    let medoid: number[] = [];
-    if (idx.length >= 10) {
-      const smp = idx.length > 300 ? idx.filter((_, j) => j % Math.ceil(idx.length / 300) === 0) : idx;
-      let best = smp[0], bestD = Infinity;
-      for (const i of smp) {
-        let d = 0;
-        for (const j of smp) { if (i === j) continue; let e = 0; for (let s = 0; s < S; s++) { const q = closes[i][s] - closes[j][s]; e += q * q; } d += Math.sqrt(e); }
-        if (d < bestD) { bestD = d; best = i; }
-      }
-      medoid = Array.from(closes[best]);
-    }
-    const samples = idx.slice(0, 14).map((i) => Array.from(closes[i]));
-    return { key, pct: Math.round(pctOf(c)), ci: Math.round(ciOf(c) * 10) / 10, medoid, samples };
+    const wp: WpPrice[] = idx.length >= 20 ? checkpoints.map((cp) => ({ t: cp.t, open: cp.open, price: medianOf(idx.map((n) => valAt(n, cp))) })) : [];
+    return { key, pct: Math.round(pctOf(c)), ci: Math.round(ciOf(c) * 10) / 10, wp };
   };
 
   const p10: number[] = [], p25: number[] = [], p50: number[] = [], p75: number[] = [], p90: number[] = [];
@@ -359,6 +386,86 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
     price: l.price, label: l.label, touchPct: Math.round(pctOf(lvHit[kk])), side: l.price >= start ? "UP" as const : "DOWN" as const,
   })).sort((a, b) => b.price - a.price);
 
+  // ── kullanıcı senaryosu: her simülasyon yolu kullanıcının kontrol noktalarından geçecek şekilde köprülenir ──
+  let user: UserCalc | null = null;
+  const uw = (inp.userWps ?? [])
+    .map((w) => ({ w, cp: checkpoints.find((c) => c.t === w.t && c.open === w.open) }))
+    .filter((q): q is { w: UserWp; cp: Checkpoint } => !!q.cp && q.w.price > 0)
+    .sort((a, b) => a.cp.t - b.cp.t || (a.cp.open ? -1 : 1));
+  if (uw.length) {
+    // zaman çizelgesi: [başlangıç] + her slot için (gün açılışı?) + slot kapanışı
+    const tlSlot: number[] = [], tlOpen: boolean[] = [];
+    slots.forEach((x, i) => {
+      const nd = i === 0 ? !inRth : x.day !== slots[i - 1].day;
+      if (nd) { tlSlot.push(i); tlOpen.push(true); }
+      tlSlot.push(i); tlOpen.push(false);
+    });
+    const T = tlSlot.length;
+    const anchorIdx = uw.map(({ cp }) => tlSlot.findIndex((sl, j) => sl === cp.slot && tlOpen[j] === cp.open));
+    const anchorVal = uw.map(({ w }) => Math.log(w.price));
+    const anchorSig = 0.25 * sigmaDay;
+    const bClose: Float32Array[] = [];
+    const bOpen: number[][] = dayList.map(() => []);
+    let hitU = 0, hitD = 0;
+    const lt = new Array(watch.length).fill(0);
+    for (let n = 0; n < N_PATHS; n++) {
+      const y = new Float64Array(T);
+      for (let j = 0; j < T; j++) y[j] = Math.log(tlOpen[j] ? opens[n][dayIdx.get(slots[tlSlot[j]].day)!] : closes[n][tlSlot[j]]);
+      // parça parça doğrusal düzeltme: başlangıç (−1) → çapa1 → çapa2 …; son çapadan sonra sabit kaydırma
+      let prevJ = -1, prevOff = 0;
+      for (let a = 0; a < anchorIdx.length; a++) {
+        const j1 = anchorIdx[a];
+        if (j1 < 0 || j1 <= prevJ) continue;
+        // çapa belirsizliği: kullanıcının tahmini de kesin değil — 0,25 σgün sapma (koni noktalarda sıfıra daralmasın)
+        const off1 = anchorVal[a] + anchorSig * gauss() - y[j1];
+        for (let j = prevJ + 1; j <= j1; j++) y[j] += prevOff + ((j - prevJ) / (j1 - prevJ)) * (off1 - prevOff);
+        prevJ = j1; prevOff = off1;
+      }
+      for (let j = prevJ + 1; j < T; j++) y[j] += prevOff;
+      const cArr = new Float32Array(S);
+      let tu = false, td = false;
+      const touched = new Uint8Array(watch.length);
+      for (let j = 0; j < T; j++) {
+        const pr = Math.exp(y[j]);
+        if (tlOpen[j]) bOpen[dayIdx.get(slots[tlSlot[j]].day)!].push(pr); else cArr[tlSlot[j]] = pr;
+        if (pr >= u1.price) tu = true;
+        if (pr <= d1.price) td = true;
+        for (let kk = 0; kk < watch.length; kk++) if (!touched[kk] && ((watch[kk].price >= start && pr >= watch[kk].price) || (watch[kk].price < start && pr <= watch[kk].price))) touched[kk] = 1;
+      }
+      bClose.push(cArr);
+      if (tu) hitU++;
+      if (td) hitD++;
+      for (let kk = 0; kk < watch.length; kk++) if (touched[kk]) lt[kk]++;
+    }
+    const uc = { p10: [] as number[], p25: [] as number[], p50: [] as number[], p75: [] as number[], p90: [] as number[] };
+    for (let x = 0; x < S; x++) {
+      const col = bClose.map((a) => a[x]).sort((a, b) => a - b);
+      uc.p10.push(pctile(col, 0.1)); uc.p25.push(pctile(col, 0.25)); uc.p50.push(pctile(col, 0.5)); uc.p75.push(pctile(col, 0.75)); uc.p90.push(pctile(col, 0.9));
+    }
+    const wps = uw.map(({ w, cp }) => {
+      const col = Array.from({ length: N_PATHS }, (_, n) => valAt(n, cp)).sort((a, b) => a - b);
+      let lo = 0, hi = col.length;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (col[m] < w.price) lo = m + 1; else hi = m; }
+      const pc = Math.round((lo / col.length) * 100);
+      const tail = Math.min(pc, 100 - pc);
+      const verdict = tail >= 10 ? "olası" : tail >= 5 ? "zayıf olasılık" : "çok düşük olasılık";
+      return { t: cp.t, open: cp.open, label: `${trDate(cp.ymd)} ${cp.label}`, price: w.price, pctile: pc, verdict, p10: pctile(col, 0.1), p90: pctile(col, 0.9) };
+    });
+    const ulines: string[] = [];
+    const weak = wps.filter((w) => w.verdict !== "olası");
+    ulines.push(weak.length
+      ? `Senaryonun ${weak.length} noktası modelin normal aralığının (%10–90) dışında: ${weak.map((w) => `${w.label} ${w.price.toFixed(2)} (%${w.pctile}'lik dilim)`).join(" · ")}.`
+      : "Senaryonun tüm noktaları modelin normal aralığında (%10–90).");
+    ulines.push(`Senaryon gerçekleşirse: ${u1.price.toFixed(2)}'e değme %${Math.round(pctOf(hitU))} · ${d1.price.toFixed(2)}'e değme %${Math.round(pctOf(hitD))} (yol çevresindeki oynaklıkla).`);
+    user = {
+      wps, cone: uc,
+      opens: dayList.map((d, i) => { const q = [...bOpen[i]].sort((a, b) => a - b); return { day: d, p10: q.length ? pctile(q, 0.1) : NaN, p50: q.length ? pctile(q, 0.5) : NaN, p90: q.length ? pctile(q, 0.9) : NaN }; }),
+      touchU1: Math.round(pctOf(hitU)), touchD1: Math.round(pctOf(hitD)),
+      levelTouch: watch.map((l, kk) => ({ price: l.price, label: l.label, touchPct: Math.round(pctOf(lt[kk])) })).sort((a, b) => b.price - a.price),
+      lines: ulines,
+    };
+  }
+
   const lines: string[] = [];
   lines.push(startNote);
   lines.push(`Oynaklık: ${volSource}. Gün içi profil (ölçülen): açılış ×${vm.mult[0].toFixed(2)} · öğlen ×${vm.mult[13].toFixed(2)} · kapanış ×${vm.mult[SLOTS_PER_DAY - 1].toFixed(2)}.`);
@@ -369,7 +476,7 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
 
   return {
     generatedAt: t, basis4h: inp.basis4h, inRth, start, startNote, slots, sigma15, sigmaDay, sigmaDayRealized, volSource,
-    cone: { p10, p25, p50, p75, p90 }, u1, d1, up, down, none, baseUp, touches, dayEnds, levelOdds, lines, n: N_PATHS,
+    cone: { p10, p25, p50, p75, p90 }, u1, d1, up, down, none, baseUp, touches, dayEnds, levelOdds, lines, n: N_PATHS, checkpoints, user,
   };
 }
 
