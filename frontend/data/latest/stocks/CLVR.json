@@ -1,8 +1,8 @@
 {
   "ticker": "CLVR",
   "company": "Clever Leaves Holdings Inc.",
-  "date": "2026-11-10",
-  "generated_at": "2026-11-10T03:46:40.316Z",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T18:33:38.425Z",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - Specialty & Generic",
   "price": {
@@ -19,12 +19,12 @@
     "avg_volume_30d": 942
   },
   "scores": {
-    "master_score": 55,
+    "master_score": 49,
     "technical_score": 60,
     "fundamental_score": 35.15,
     "momentum_score": 60,
     "sentiment_score": 70,
-    "signal_type": "NEUTRAL",
+    "signal_type": "SELL",
     "score_type": "NEUTRAL",
     "micro_15m": {
       "is_valid": true,
@@ -33,13 +33,13 @@
     }
   },
   "technical": {
-    "rsi_14": 23.58306369862393,
+    "rsi_14": 23.58306466748131,
     "macd": 0.1,
     "macd_signal": 0.1,
     "macd_histogram": 0,
-    "ema_20": 0.007695711078670987,
-    "ema_50": 0.005249410902030008,
-    "ema_200": 0.002112390142193434,
+    "ema_20": 0.005959062995647681,
+    "ema_50": 0.004768829062166779,
+    "ema_200": 0.002079513776576255,
     "ema_stack_bullish": true,
     "bb_upper": 0.0010500000498723239,
     "bb_middle": 0.0010000000474974513,
@@ -55,7 +55,7 @@
     "pe_ratio": 0,
     "pb_ratio": 0.00007134194,
     "gross_margin": 0.37640998,
-    "operating_margin": -1.05908,
+    "operating_margin": -0.89532995,
     "net_margin": -1.02767,
     "market_cap": 1754,
     "revenue_growth_ttm": 0.054,
@@ -81,7 +81,7 @@
     },
     "entry_condition": "Hesaplanan giriş aralığı $0.00 – $0.00 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $0.01 direnci veya $0.00 desteği üzerindeki seyri takip edilebilir.",
     "stop_rationale": "Hesaplanan stop-loss seviyesi $0.00 olarak belirlenmiştir. Fiyatın EMA200 ($0.00) veya günlük VWAP ($0.00) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
-    "rationale_ema": "Fiyat 50 günlük EMA'nın ($0.01) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($0.00) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
     "rationale_vwap": "Fiyat gün içi VWAP'ın ($0.00) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
     "rationale_volume": "Hacim 30 günlük ortalamanın 2.1 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
     "rationale_rsi": "RSI 24 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
