@@ -1,0 +1,89 @@
+{
+  "ticker": "ZGN",
+  "company": "Ermenegildo Zegna N.V.",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T17:36:04.001Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Apparel Manufacturing",
+  "price": {
+    "current": 13.670000076293945,
+    "open": 14.130000114440918,
+    "high": 14.119999885559082,
+    "low": 13.630000114440918,
+    "prev_close": 14.029999732971191,
+    "change_pct": -2.5659277514541152,
+    "change_pct_1w": -2.0773636179124355,
+    "change_pct_1m": 1.334324004668692,
+    "change_pct_1y": 31.44231324717864,
+    "volume": 369079,
+    "avg_volume_30d": 34110979
+  },
+  "scores": {
+    "master_score": 70,
+    "technical_score": 85,
+    "fundamental_score": 68.15,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 51.560553075408755,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 13.6928205698557,
+    "ema_50": 13.348204648586036,
+    "ema_200": 12.66853390190632,
+    "ema_stack_bullish": true,
+    "bb_upper": 14.353500080108644,
+    "bb_middle": 13.670000076293945,
+    "bb_lower": 12.986500072479247,
+    "bb_width": 10,
+    "atr": 0.54,
+    "atr_pct": 3.95,
+    "rvol": 0.7208023551596101,
+    "52w_high": 15.949999809265137,
+    "52w_low": 8.649999618530273
+  },
+  "fundamental": {
+    "pe_ratio": 39.057144,
+    "pb_ratio": 3.1532006,
+    "gross_margin": 0.67584,
+    "operating_margin": 0.08397,
+    "net_margin": 0.0398,
+    "market_cap": 3675717888,
+    "revenue_growth_ttm": 0.064,
+    "fcf_yield": 0.07761943236488121,
+    "institutional_ownership_pct": 0.29825002,
+    "dividend_rate": 0.14,
+    "dividend_yield": 0.0097
+  },
+  "scores_detail": {
+    "entry_range_low": 13.12,
+    "entry_range_high": 13.72,
+    "target_range_low": 14.58,
+    "target_range_high": 15.95,
+    "target_1": 14.58,
+    "target_2": 15.44,
+    "target_3": 15.95,
+    "stop_loss": 12.74,
+    "risk_reward_ratio": 2.97,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $13.12 – $13.72 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.95 direnci veya $13.01 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $12.74 olarak belirlenmiştir. Fiyatın EMA200 ($12.67) veya günlük VWAP ($13.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($13.35) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.90) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 52 ile dengeli/nötr bir görünümde."
+  }
+}
