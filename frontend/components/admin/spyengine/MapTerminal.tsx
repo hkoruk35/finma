@@ -20,6 +20,7 @@ import type { NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import { FC_RULES, type TrackForecast } from "@/lib/spyengine/tracker";
 import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 import { align4h, type Htf4hRead } from "@/lib/spyengine/htf4h";
+import WideForecast from "@/components/admin/spyengine/WideForecast";
 
 const f2 = (v: number) => v.toFixed(2);
 const sgn = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(2)}`;
@@ -83,14 +84,13 @@ function StatTile({ theme, label, value, sub, title }: { theme: ThemeKey; label:
 }
 
 export default function MapTerminal({
-  map, date, bars, vwapSeries, emaSeries, ema200Series, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4,
+  map, date, bars, vwapSeries, emaSeries, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4, wide,
 }: {
   map: ForecastMapData | null;
   date: string | null;
   bars: Bar[];
   vwapSeries: (number | null)[];
   emaSeries: (number | null)[];
-  ema200Series?: (number | null)[];
   flow: FlowRead | null;
   optLevels: OptionLevels | null;
   nowSec: number;
@@ -106,10 +106,13 @@ export default function MapTerminal({
   ema200?: number | null;
   /** 4h kapanmış mum okuması (htf4h.ts) — genel yönelim */
   h4?: Htf4hRead | null;
+  /** Geniş Harita sekmesi girdileri (15m/4h geçmiş, pivotlar, 4h okuması) */
+  wide?: { symbol: string; t: number; bars15: Bar[]; bars4h: Bar[]; levels: { price: number; label: string }[]; volRatio4h: number | null } | null;
 }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [full, setFull] = useState(false);
   const [detail, setDetail] = usePersistedState("spyengine_ui_mapdetail", false);
+  const [tab, setTab] = usePersistedState<"map" | "wide">("spyengine_ui_maptab", "map");
 
   // tam ekran: Fullscreen API (tarayıcı Esc'i kendisi yönetir); desteklenmezse sabit katman + Esc
   useEffect(() => {
@@ -193,10 +196,11 @@ export default function MapTerminal({
       {/* başlık şeridi */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1f2a3a] bg-[#0b111b] px-3 py-1.5">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-[11.5px] font-bold uppercase tracking-[0.18em] text-slate-200">Tahmin Haritası</span>
-          <span className="rounded border border-slate-600/60 bg-slate-500/10 px-1.5 py-px font-mono text-[9.5px] text-slate-400">ufuk +90 dk</span>
-          {map && <span className={`rounded border px-1.5 py-px font-mono text-[10px] font-bold ${THEME[biasTheme].frame} ${THEME[biasTheme].bg} ${THEME[biasTheme].fg}`}>{biasWord}</span>}
-          {map && h4 && (() => {
+          <button type="button" onClick={() => setTab("map")} className={`rounded border px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] ${tab === "map" ? "border-slate-300 bg-slate-400/20 text-white" : "border-slate-600/60 text-slate-400 hover:text-white"}`}>Tahmin Haritası</button>
+          <button type="button" onClick={() => setTab("wide")} className={`rounded border px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] ${tab === "wide" ? "border-slate-300 bg-slate-400/20 text-white" : "border-slate-600/60 text-slate-400 hover:text-white"}`}>Geniş Harita</button>
+          {tab === "map" && <span className="rounded border border-slate-600/60 bg-slate-500/10 px-1.5 py-px font-mono text-[9.5px] text-slate-400">ufuk +90 dk</span>}
+          {tab === "map" && map && <span className={`rounded border px-1.5 py-px font-mono text-[10px] font-bold ${THEME[biasTheme].frame} ${THEME[biasTheme].bg} ${THEME[biasTheme].fg}`}>{biasWord}</span>}
+          {tab === "map" && map && h4 && (() => {
             const al = align4h(map.bias, h4);
             const cls = h4.dir === "UP" ? "border-emerald-500/50 text-emerald-300" : h4.dir === "DOWN" ? "border-rose-500/50 text-rose-300" : "border-amber-400/50 text-amber-300";
             return (
@@ -207,7 +211,7 @@ export default function MapTerminal({
           })()}
         </div>
         <div className="flex items-center gap-2">
-          {map && (
+          {tab === "map" && map && (
             <span className="font-mono text-[10.5px] text-slate-500">
               kapanış bandı <b className="text-[12px] text-slate-100">{f2(map.closeLow)} – {f2(map.closeHigh)}</b>
             </span>
@@ -223,14 +227,20 @@ export default function MapTerminal({
         </div>
       </div>
 
-      {!map || !date || price == null ? (
+      {tab === "wide" ? (
+        wide && price != null ? (
+          <WideForecast symbol={wide.symbol} price={price} t={wide.t} bars15={wide.bars15} bars4h={wide.bars4h} levels={wide.levels} read4h={h4 ?? null} volRatio4h={wide.volRatio4h} />
+        ) : (
+          <div className="px-3 py-8 text-center text-[12px] text-slate-500">Geniş harita için fiyat ve geçmiş veri bekleniyor.</div>
+        )
+      ) : !map || !date || price == null ? (
         <div className="px-3 py-8 text-center text-[12px] text-slate-500">Harita için fiyat ve seviye verisi bekleniyor.</div>
       ) : (
         <>
           {/* grafik + sağ sütun: seviye merdiveni */}
           <div className={`grid grid-cols-1 gap-2 p-2 ${full ? "lg:grid-cols-[minmax(0,1fr)_320px]" : "lg:grid-cols-[minmax(0,1fr)_270px]"}`}>
             <div className="min-w-0 overflow-hidden rounded border border-[#1a2433]">
-              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} ema200Series={ema200Series} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
+              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
             </div>
             <div className="flex min-w-0 flex-col gap-[3px]">
               <div className="mb-0.5 flex items-center justify-between font-mono text-[9.5px] uppercase tracking-[0.14em] text-slate-500">

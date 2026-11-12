@@ -164,3 +164,14 @@ export function comment4h(fr: PivotFrames, t: number, limit = 12): CandleComment
   }
   return out;
 }
+
+/** Son kapanmış 4h mumun hacminin önceki ≤10 mum ortalamasına oranı (kıyas yoksa null) */
+export function lastVolRatio4h(fr: PivotFrames, t: number): number | null {
+  const cl = closed4h(fr, t);
+  if (cl.length < 4) return null;
+  const last = cl[cl.length - 1];
+  const vols = cl.slice(Math.max(0, cl.length - 11), cl.length - 1).map((x) => x.volume || 0).filter((v) => v > 0);
+  if (vols.length < 3) return null;
+  const avg = vols.reduce((a, x) => a + x, 0) / vols.length;
+  return avg > 0 ? (last.volume || 0) / avg : null;
+}

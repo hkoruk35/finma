@@ -23,7 +23,8 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import type { MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import MapTerminal from "@/components/admin/spyengine/MapTerminal";
-import { read4h, comment4h } from "@/lib/spyengine/htf4h";
+import { read4h, comment4h, closed4h, lastVolRatio4h } from "@/lib/spyengine/htf4h";
+import { sessionAggregate } from "@/lib/spyengine/setup15";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
 import MarketBriefPanel from "@/components/admin/spyengine/MarketBrief";
@@ -1202,8 +1203,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       vol += v;
       return vol > 0 ? pv / vol : null;
     });
-    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null), ema200: bars.map((b) => ema200m.get(b.time) ?? null) };
-  }, [m5D, ema5, ema200m, date]);
+    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null)};
+  }, [m5D, ema5, date]);
 
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
@@ -1259,6 +1260,18 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     [pivR, price, trackCur?.atr5],
   );
   const c4h = useMemo(() => (trackNow ? comment4h(pivFrames, trackNow, 12) : []), [pivFrames, trackNow]);
+  /** Geniş Harita girdileri: kapanmış RTH 15m (5m'den) + kapanmış 4h mumlar + pivot merdiveni */
+  const wideIn = useMemo(() => {
+    if (!trackNow) return null;
+    const rth5 = m5D.filter((b) => isRthBar(b) && b.time + 300 <= trackNow);
+    const bars15 = sessionAggregate(rth5, 15).filter((b) => b.time + 900 <= trackNow);
+    return {
+      symbol, t: trackNow, bars15, bars4h: closed4h(pivFrames, trackNow),
+      levels: (pivR?.ladder ?? []).map((l) => ({ price: l.price, label: l.label })),
+      volRatio4h: lastVolRatio4h(pivFrames, trackNow),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trackKey, pivFrames, pivR, symbol]);
   const h4Read = useMemo(() => (trackNow ? read4h(pivFrames, price, trackNow) : null), [pivFrames, price, trackNow]);
   const ema50Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema50m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema50m]);
   const ema200Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema200m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema200m]);
@@ -1610,7 +1623,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         {/* ── Tahmin haritası (terminal paneli, tüm motorlar) — Açılış Tahmini'nin üstünde ── */}
         <MapTerminal
-          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema200Series={todayRth5.ema200} ema50={ema50Now} ema200={ema200Now} h4={h4Read} flow={flow} optLevels={optLevels}
+          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema50={ema50Now} ema200={ema200Now} h4={h4Read} wide={wideIn} flow={flow} optLevels={optLevels}
           nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
           odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
         />
