@@ -25,6 +25,7 @@ Otomatik tetikleme:
 
 import os
 import glob
+import re
 import json
 import asyncio
 import logging
@@ -208,13 +209,17 @@ def collect_positions(existing: Dict[str, dict]) -> Dict[str, dict]:
     """
     positions = dict(existing)
     added = 0
+    new_cutoff = (date.today() - timedelta(days=3)).isoformat()
+    seen_day = {(p.get("ticker"), p.get("scan_date")) for p in positions.values()}
 
     scan_files = []
 
-    # v242 formatı: data/v242_*.json
+    # data/v2NN_YYYYMMDD_HHMM.json — SÜRÜM ÖNEKİNDEN BAĞIMSIZ (2026-11-12 düzeltme: yalnız v242_ aranıyordu; tarayıcı v243_
+    # yazdığı için 14 Ekim'den sonraki hiçbir tarama pozisyona dönüşmüyor, saatlik çalışma açık pozisyonları 0'a düşürüyordu)
     if os.path.isdir(DATA_DIR):
-        for p in sorted(glob.glob(os.path.join(DATA_DIR, "v242_*.json"))):
-            scan_files.append(p)
+        for p in sorted(glob.glob(os.path.join(DATA_DIR, "v2*_*.json"))):
+            if re.search(r"_(\d{8}_\d{4})\.json$", os.path.basename(p)):
+                scan_files.append(p)
 
     # Geçmiş format uyumu: data/YYYY-MM-DD/options_picks.json (varsa)
     if os.path.isdir(DATA_DIR):
@@ -229,9 +234,22 @@ def collect_positions(existing: Dict[str, dict]) -> Dict[str, dict]:
     if os.path.isfile(latest_p):
         scan_files.append(latest_p)
 
+    # Depoyla eşitlenen yayın dosyaları: başka makinede (Windows/sunucu) yapılan taramalar da pozisyona dönüşsün
+    pub = os.path.join(HERE, "frontend", "public", "data")
+    if os.path.isdir(pub):
+        cutoff = (date.today() - timedelta(days=60)).isoformat()
+        for d in sorted(os.listdir(pub)):
+            if len(d) == 10 and d[:4].isdigit() and d >= cutoff:
+                f = os.path.join(pub, d, "options_picks.json")
+                if os.path.isfile(f):
+                    scan_files.append(f)
+        f = os.path.join(pub, "latest", "options_picks.json")
+        if os.path.isfile(f):
+            scan_files.append(f)
+
     for path in scan_files:
         data = load_json(path)
-        if not data:
+        if not isinstance(data, dict) or not data:
             continue
 
         scan_date = data.get("date", date.today().isoformat())
@@ -258,9 +276,18 @@ def collect_positions(existing: Dict[str, dict]) -> Dict[str, dict]:
                 continue
 
             pid = pos["id"]
-            if pid not in positions:
-                positions[pid] = pos
-                added += 1
+            if pid in positions:
+                continue
+            # Geç eklenen eski taramalar bugünkü primle değerlendirilip yanlış sonuç üretir → yalnız son 3 günün taramaları yeni pozisyon olur
+            if scan_date < new_cutoff:
+                continue
+            # Gün içi tekrar taramalar aynı hisse için farklı strike'larla çoğalmasın: hisse+gün başına ilk öneri
+            day_key = (pos["ticker"], scan_date)
+            if day_key in seen_day:
+                continue
+            seen_day.add(day_key)
+            positions[pid] = pos
+            added += 1
 
     logging.info(f"✅ {added} yeni pozisyon eklendi, toplam: {len(positions)}")
     return positions
@@ -486,6 +513,15 @@ async def run_tracker():
     # Mevcut outcomes yükle
     existing_outcomes  = load_json(OUTCOMES_FILE) or {}
     existing_positions = {p["id"]: p for p in existing_outcomes.get("positions", [])}
+    # Depodaki yayınlanmış sonuçlarla birleştir (başka makinenin açtığı/kapattığı pozisyonlar kaybolmasın).
+    # Aynı pozisyon iki kaynakta varsa kapanmış olan (ya da daha çok gün izlenmiş olan) kazanır.
+    published = load_json(os.path.join(HERE, "frontend", "public", "data", "latest", "options_outcomes.json")) or {}
+    for p in published.get("positions", []):
+        cur = existing_positions.get(p.get("id"))
+        if cur is None:
+            existing_positions[p["id"]] = p
+        elif cur.get("status") == "open" and (p.get("status") != "open" or (p.get("days_held") or 0) > (cur.get("days_held") or 0)):
+            existing_positions[p["id"]] = p
 
     # Yeni scan dosyalarından pozisyon ekle
     all_positions = collect_positions(existing_positions)

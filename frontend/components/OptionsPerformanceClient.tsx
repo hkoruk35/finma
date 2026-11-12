@@ -47,6 +47,11 @@ const TD = ({ children, center, right, cls, title }: { children: React.ReactNode
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
+/** v242+ pozisyonları CALL/PUT (strategy v242_call / v242_put, side alanı); eskiler INST./ASYM. */
+const isPut = (p: { strategy?: string }) => (p as { side?: string }).side === "PUT" || p.strategy === "v242_put";
+const typeLabel = (p: { strategy?: string }) =>
+  isPut(p) ? "PUT" : p.strategy === "v242_call" ? "CALL" : p.strategy === "institutional" ? "INST." : "ASYM.";
+
 export default function OptionsPerformanceClient({ outcomes }: { outcomes: OptionsOutcomes | null }) {
   const [selectedDate, setSelectedDate] = useState<string>("ALL");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
@@ -104,7 +109,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
     const header = "DATE\tTICKER\tSTRATEGY\tSTRIKE\tEXPIRATION\tENTRY\tCURRENT\tTP\tSL\tSTATUS\tPNL%\tUNRLZD%\tDAYS_HELD";
     const rows = filtered.map((p) => [
       p.scan_date, p.ticker, p.strategy,
-      p.strike ? `$${p.strike} C` : "—",
+      p.strike ? `$${p.strike} ${isPut(p) ? "P" : "C"}` : "—",
       p.expiration || "—",
       formatNumber(p.entry_premium, 2) ?? "—",
       formatNumber(p.current_premium, 2) ?? "—",
@@ -229,6 +234,8 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
             className="bg-[#0c121d] border border-white/10 text-[10px] font-medium text-white px-2 py-1 outline-none uppercase tracking-wider"
           >
             <option value="ALL">All Strategies</option>
+            <option value="v242_call">CALL</option>
+            <option value="v242_put">PUT</option>
             <option value="institutional">Institutional</option>
             <option value="asymmetric">Asymmetric</option>
           </select>
@@ -315,11 +322,11 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                           </Link>
                         </TickerHoverChart>
                       </TD>
-                      <TD center cls={p.strategy === "institutional" ? "text-purple-400 font-medium text-[10px]" : "text-amber-400 font-medium text-[10px]"}>
-                        {p.strategy === "institutional" ? "INST." : "ASYM."}
+                      <TD center cls={isPut(p) ? "text-rose-400 font-bold text-[10px]" : (p.strategy as string) === "v242_call" ? "text-emerald-400 font-bold text-[10px]" : p.strategy === "institutional" ? "text-purple-400 font-medium text-[10px]" : "text-amber-400 font-medium text-[10px]"}>
+                        {typeLabel(p)}
                       </TD>
                       <TD cls="text-white font-medium">
-                        {p.strike ? `$${p.strike} C` : "—"}
+                        {p.strike ? `$${p.strike} ${isPut(p) ? "P" : "C"}` : "—"}
                       </TD>
                       <TD cls={`font-mono text-[10px] ${daysLeft != null && daysLeft <= 3 ? "text-amber-400" : "text-slate-400"}`}>
                         {p.expiration || "—"}
