@@ -1,0 +1,1173 @@
+{
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T10:34:04.876682-05:00",
+  "market_regime": "Bull",
+  "vix_level": 18.420000076293945,
+  "total": 20,
+  "signals": [
+    {
+      "ticker": "TMDX",
+      "company": "TransMedics Group, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 93.6,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($90.85–$96.34). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 62.0,
+        "adx_1h": 36.5,
+        "volume_ratio": 0.0,
+        "change_1h": 0.48,
+        "change_24h": 1.72,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 5.86,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.55,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.62,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 97.03,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.43,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "KNTK",
+      "company": "Kinetik Holdings Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 54.22,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($53.10–$55.34). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 64.9,
+        "adx_1h": 29.8,
+        "volume_ratio": 0.01,
+        "change_1h": 0.09,
+        "change_24h": 0.95,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.12,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.56,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.89,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.39,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "company": "Broadcom Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 361.27,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($351.87–$370.67). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 68.9,
+        "adx_1h": 41.4,
+        "volume_ratio": 0.13,
+        "change_1h": -0.07,
+        "change_24h": 4.65,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 5.2,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": 2.48,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 4.17,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 98.79,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.65,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "EMR",
+      "company": "Emerson Electric Co.",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 168.4,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($165.76–$171.04). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 54.4,
+        "adx_1h": 12.1,
+        "volume_ratio": 0.03,
+        "change_1h": 0.03,
+        "change_24h": 0.8,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 1.0,
+        "natr": 3.13,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.51,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.35,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.84,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.49,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "ABNB",
+      "company": "Airbnb, Inc.",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 182.79,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($179.12–$186.47). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 47.6,
+        "adx_1h": 20.7,
+        "volume_ratio": 0.1,
+        "change_1h": 0.16,
+        "change_24h": 0.92,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.02,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.17,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.09,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.89,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.23,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "ANET",
+      "company": "Arista Networks, Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 198.93,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($192.91–$204.95). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 61.4,
+        "adx_1h": 24.0,
+        "volume_ratio": 0.08,
+        "change_1h": -0.39,
+        "change_24h": 1.14,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 6.05,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -1.87,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.44,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.16,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.61,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "SNPS",
+      "company": "Synopsys, Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 461.18,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($451.81–$470.55). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.3,
+        "adx_1h": 14.8,
+        "volume_ratio": 0.11,
+        "change_1h": -0.12,
+        "change_24h": -0.2,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 1.0,
+        "natr": 4.06,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -1.51,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.42,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.13,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.76,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "LNG",
+      "company": "Cheniere Energy, Inc.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 308.8,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($302.43–$315.16). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 77.9,
+        "adx_1h": 46.0,
+        "volume_ratio": 0.07,
+        "change_1h": -0.07,
+        "change_24h": 1.41,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.12,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.49,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.97,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.72,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.33,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "TLN",
+      "company": "Talen Energy Corporation",
+      "sector": "Utilities",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 383.14,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($373.15–$393.12). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 62.7,
+        "adx_1h": 22.6,
+        "volume_ratio": 0.1,
+        "change_1h": 0.06,
+        "change_24h": 1.17,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 5.21,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -2.56,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.6,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.67,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.57,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "TEVA",
+      "company": "Teva Pharmaceutical Industries Limited",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 43.91,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($43.27–$44.55). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 72.8,
+        "adx_1h": 33.4,
+        "volume_ratio": 0.1,
+        "change_1h": 0.45,
+        "change_24h": 1.55,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 1.0,
+        "natr": 2.9,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.76,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.25,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.98,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.45,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "SWKS",
+      "company": "Skyworks Solutions, Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 91.2,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($88.97–$93.43). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 77.2,
+        "adx_1h": 23.8,
+        "volume_ratio": 0.09,
+        "change_1h": -0.17,
+        "change_24h": 4.06,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 4.9,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.82,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.07,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 98.88,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.63,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "LQDA",
+      "company": "Liquidia Corporation",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 56.96,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($55.16–$58.75). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 65.5,
+        "adx_1h": 35.4,
+        "volume_ratio": 0.12,
+        "change_1h": 0.36,
+        "change_24h": 3.16,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 6.32,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.74,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.45,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 100.0,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.56,
+        "late_volume_score": 2
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "company": "QUALCOMM Incorporated",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 179.2,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($174.23–$184.17). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 60.4,
+        "adx_1h": 18.7,
+        "volume_ratio": 0.06,
+        "change_1h": -0.06,
+        "change_24h": 1.49,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 5.54,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": -3.09,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.99,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.35,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.81,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "ALL",
+      "company": "The Allstate Corporation",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 267.67,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($264.09–$271.25). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 72.9,
+        "adx_1h": 21.8,
+        "volume_ratio": 0.02,
+        "change_1h": 0.14,
+        "change_24h": 2.09,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 2.67,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 2.16,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.13,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.43,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.31,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "EPD",
+      "company": "Enterprise Products Partners L.P.",
+      "sector": "Energy",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 37.77,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($37.39–$38.15). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 65.1,
+        "adx_1h": 18.8,
+        "volume_ratio": 0.1,
+        "change_1h": 0.03,
+        "change_24h": 1.64,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 1.0,
+        "natr": 2.02,
+        "pre_gap_total": 3,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.09,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.75,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.92,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.55,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "RSG",
+      "company": "Republic Services, Inc.",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 252.14,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($249.25–$255.03). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 69.9,
+        "adx_1h": 23.7,
+        "volume_ratio": 0.06,
+        "change_1h": 0.23,
+        "change_24h": 1.12,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 2.29,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 1.98,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.66,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 99.16,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.16,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CTRE",
+      "company": "CareTrust REIT, Inc.",
+      "sector": "Real Estate",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 37.91,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($37.43–$38.39). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 46.0,
+        "adx_1h": 20.2,
+        "volume_ratio": 0.13,
+        "change_1h": 0.34,
+        "change_24h": -1.81,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 2.52,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -2.33,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 14.81,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 98.21,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.5,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "SANM",
+      "company": "Sanmina Corporation",
+      "sector": "Technology",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 162.39,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($156.00–$168.78). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 54.8,
+        "adx_1h": 13.5,
+        "volume_ratio": 0.06,
+        "change_1h": 0.22,
+        "change_24h": 1.97,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 2.0,
+        "natr": 7.87,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -2.66,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 1.64,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.3,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.52,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.1x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "XEL",
+      "company": "Xcel Energy Inc.",
+      "sector": "Utilities",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 81.85,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($81.07–$82.63). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 69.8,
+        "adx_1h": 13.2,
+        "volume_ratio": 0.13,
+        "change_1h": 0.17,
+        "change_24h": 0.92,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 1.9,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.44,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 2.36,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 100.0,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.06,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "NATR < 2% (Too Stable)",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.1x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "AEE",
+      "company": "Ameren Corporation",
+      "sector": "Utilities",
+      "swing_pick_date": "2026-11-12",
+      "days_since_pick": 0,
+      "current_price": 114.21,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($113.27–$115.15). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 61.3,
+        "adx_1h": 14.6,
+        "volume_ratio": 0.03,
+        "change_1h": 0.19,
+        "change_24h": 0.82,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 0.0,
+        "natr": 1.64,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.45,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 0.22,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 100.0,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 1.5,
+        "late_volume_score": 1
+      },
+      "notes": [
+        "NATR < 2% (Too Stable)",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-11-12",
+    "last_updated": "2026-11-12T10:34:04.876682-05:00",
+    "tickers": {
+      "TMDX": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 93.6
+      },
+      "KNTK": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 54.22
+      },
+      "AVGO": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 361.27
+      },
+      "EMR": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 168.4
+      },
+      "ABNB": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 182.79
+      },
+      "ANET": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 198.93
+      },
+      "SNPS": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 461.18
+      },
+      "LNG": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 308.8
+      },
+      "TLN": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 383.14
+      },
+      "TEVA": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 43.91
+      },
+      "SWKS": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 91.2
+      },
+      "LQDA": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 56.96
+      },
+      "QCOM": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 179.2
+      },
+      "ALL": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 267.67
+      },
+      "EPD": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 37.77
+      },
+      "RSG": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 252.14
+      },
+      "CTRE": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 37.91
+      },
+      "SANM": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 162.39
+      },
+      "XEL": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 81.85
+      },
+      "AEE": {
+        "status_history": [
+          {
+            "hour": "10:34",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-11-12T10:34:04.876682-05:00",
+        "entry_price": 114.21
+      }
+    }
+  }
+}
