@@ -67,7 +67,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
     const rows = filteredPicks.flatMap((pick: any) => {
       const opts = pick.options || {};
       const contracts = [];
-      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: "GAMMA" });
+      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: opts.gamma_sweet.side || "GAMMA" });
       if (opts.institutional) contracts.push({ ...opts.institutional, label: "INST." });
       if (contracts.length === 0 && pick.institutional) contracts.push({ ...pick.institutional, label: "INST." });
       if (contracts.length === 0) contracts.push({ label: "—" });
@@ -108,7 +108,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
     const rows = filteredPicks.flatMap((pick: any) => {
       const opts = pick.options || {};
       const contracts = [];
-      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: "GAMMA" });
+      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: opts.gamma_sweet.side || "GAMMA" });
       if (opts.institutional) contracts.push({ ...opts.institutional, label: "INST." });
       if (contracts.length === 0 && pick.institutional) contracts.push({ ...pick.institutional, label: "INST." });
       if (contracts.length === 0) contracts.push({ label: "—" });
@@ -156,7 +156,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
     const rows = filteredPicks.flatMap((pick: any) => {
       const opts = pick.options || {};
       const contracts = [];
-      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: "GAMMA" });
+      if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: opts.gamma_sweet.side || "GAMMA" });
       if (opts.institutional) contracts.push({ ...opts.institutional, label: "INST." });
       if (contracts.length === 0 && pick.institutional) contracts.push({ ...pick.institutional, label: "INST." });
       if (contracts.length === 0) contracts.push({ label: "—" });
@@ -289,7 +289,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                   const opts = raw.options || {};
                   
                   const contracts = [];
-                  if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: "GAMMA" });
+                  if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: opts.gamma_sweet.side || "GAMMA" });
                   if (opts.institutional) contracts.push({ ...opts.institutional, label: "INST." });
                   if (contracts.length === 0 && raw.institutional) contracts.push({ ...raw.institutional, label: "INST." });
                   if (contracts.length === 0) contracts.push({ label: "—" });
@@ -325,7 +325,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                       <TD center cls={c.label === "GAMMA" ? "text-emerald-400 font-medium" : c.label === "INST." ? "text-purple-400 font-medium" : "text-slate-600"}>
                         {c.label}
                       </TD>
-                      <TD cls="text-white font-medium">{c.strike ? `$${c.strike} C` : "—"}</TD>
+                      <TD cls="text-white font-medium">{c.strike ? `$${c.strike} ${c.side === "PUT" ? "P" : "C"}` : "—"}</TD>
                       <TD cls="text-slate-400">{c.expiration || c.expiry || "—"}</TD>
                       <TD right cls="text-white font-medium">{dollar(c.cost_per_contract || c.contract_cost || (c.premium ? c.premium * 100 : null), 0)}</TD>
                       <TD right cls="text-[#3b82f6]">{n(c.delta, 2)}</TD>

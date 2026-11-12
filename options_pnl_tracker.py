@@ -137,13 +137,15 @@ def _build_position(scan_date: str, pick: dict, contract: dict) -> Optional[dict
         expected_move = round(cp_val * (atm_iv / 100) * ((dte / 365) ** 0.5), 2)
 
     # Unique ID: ticker-scanDate-strike-expiry-v242
-    pos_id = f"{pick['ticker']}-{scan_date}-{int(strike)}C-{expiration}-v242"
+    side   = (contract.get("side") or pick.get("side") or "CALL").upper()
+    pos_id = f"{pick['ticker']}-{scan_date}-{int(strike)}{'P' if side == 'PUT' else 'C'}-{expiration}-v242"
 
     return {
         "id":               pos_id,
         "scan_date":        scan_date,
         "ticker":           pick["ticker"],
-        "strategy":         "v242_call",
+        "strategy":         "v242_put" if side == "PUT" else "v242_call",
+        "side":             side,
         # --- Giriş bilgileri ---
         "entry_mode":       setup_type,           # eski entry_mode karşılığı
         "entry_mode_label": bs.get("bs_label", ""),
@@ -267,7 +269,7 @@ def collect_positions(existing: Dict[str, dict]) -> Dict[str, dict]:
 # ─── Price Fetcher ────────────────────────────────────────────────────────────
 
 async def fetch_current_option_price(
-    ticker: str, expiration: str, strike: float
+    ticker: str, expiration: str, strike: float, side: str = "CALL"
 ) -> Optional[float]:
     """yfinance ile güncel opsiyon mid-price al."""
     try:
@@ -288,7 +290,7 @@ async def fetch_current_option_price(
         closest_str = closest.isoformat()
 
         chain = await asyncio.to_thread(lambda: stock.option_chain(closest_str))
-        calls = chain.calls
+        calls = chain.puts if str(side).upper() == "PUT" else chain.calls
         if calls is None or calls.empty:
             return None
 
@@ -411,7 +413,7 @@ async def update_position(pos: dict) -> dict:
         return pos
     async with SEM:
         cur = await fetch_current_option_price(
-            pos["ticker"], pos.get("expiration", ""), pos.get("strike", 0)
+            pos["ticker"], pos.get("expiration", ""), pos.get("strike", 0), pos.get("side", "CALL")
         )
         await asyncio.sleep(0.2)
     return _update_status(pos, cur)

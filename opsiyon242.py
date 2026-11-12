@@ -106,8 +106,10 @@ RS_60D_MIN = -15.0
 RS_20D_MIN = -15.0
 
 # ── Opsiyon parametreleri ─────────────────────────────────────────────────
-DTE_MIN      = 1
-DTE_MAX      = 30
+DTE_MIN      = 21     # 2026-11-11: 21-45 gün (kullanıcı kararı)
+DTE_MAX      = 45
+TARGET_DELTA = (0.55, 0.70)   # ATM / ITM1 hedef delta bandı
+TARGET_DTE   = 32
 SPREAD_MAX   = 0.40   # ATM seçimde gevşetildi
 MID_MIN      = 0.01
 OI_MIN       = 10     # ATM seçimde gevşetildi
@@ -115,6 +117,11 @@ ATM_STRIKES  = 5      # Fiyata en yakın kaç strike listelensin
 
 EARNINGS_HARD_BLOCK_DAYS = 14
 EARNINGS_WARN_DAYS       = 21
+
+# ── ÖNCELİK LİSTESİ (admin/merkez/hisse-opsiyon ile aynı; frontend/lib/adminHub.ts) ──
+PRIORITY_INDEXES = ["SPY", "QQQ", "IWM"]
+PRIORITY_STOCKS  = ["NVDA", "TSLA", "AMD", "META", "PLTR", "AAPL", "AMZN", "COIN", "HOOD", "AVGO"]
+SECONDARY_STOCKS = ["MU", "MSFT", "GOOGL", "NFLX", "ORCL", "TSM", "INTC", "SMCI", "MSTR", "SOFI", "JPM", "XOM"]
 
 # ── Exit hedefleri ────────────────────────────────────────────────────────
 TAKE_PROFIT_PCT = 0.50
@@ -246,7 +253,12 @@ def split_safe(msg: str, limit: int = 3800) -> list:
 
 
 async def send_tg(msg: str):
-    if not ENABLE_TELEGRAM: print(msg); return
+    if not ENABLE_TELEGRAM:
+        try:
+            print(msg)
+        except (ValueError, OSError):   # stdout başka bir modül tarafından yeniden sarılıp kapanabiliyor (exit 1'e yol açıyordu)
+            pass
+        return
     url = f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage"
     async with aiohttp.ClientSession() as s:
         for chunk in split_safe(sanitize_html(msg)):
@@ -1068,7 +1080,8 @@ def volume_engine(df: pd.DataFrame) -> dict:
 # 8) OPSİYON UYUM MOTORU — earnings + flow + kontrat seçimi
 # ════════════════════════════════════════════════════════════════════════════
 
-async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) -> Optional[dict]:
+async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float,
+                         side: str = "CALL", priority: bool = False) -> Optional[dict]:
     """
     Earnings hard block + flow analizi + en iyi kontrat seçimi.
     Döner: kontrat detayları veya None (uygun kontrat yoksa)
@@ -1101,7 +1114,11 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
                 elif isinstance(earn_date, str): earn_date = datetime.strptime(earn_date[:10], "%Y-%m-%d").date()
                 days = (earn_date - today).days
                 result["earnings_days"] = days
-                if 0 <= days < EARNINGS_HARD_BLOCK_DAYS:
+                if priority:
+                    # Öncelik listesinde bilanço engellemez (21-45g vade çoğu zaman bilançoyu kapsar) — yalnız uyarı
+                    if 0 <= days <= DTE_MAX:
+                        result["earnings_warning"] = True
+                elif 0 <= days < EARNINGS_HARD_BLOCK_DAYS:
                     result["earnings_hard_block"] = True
                     return result
                 elif days < EARNINGS_WARN_DAYS:
@@ -1130,6 +1147,12 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
                 puts  = chain.puts.copy()  if chain.puts  is not None else pd.DataFrame()
 
                 if calls.empty: continue
+                cdf = calls if side == "CALL" else puts
+                if side == "PUT":
+                    if cdf.empty: continue
+                    for col in ['volume', 'openInterest', 'ask', 'bid', 'impliedVolatility', 'strike']:
+                        if col in cdf.columns:
+                            cdf[col] = pd.to_numeric(cdf[col], errors='coerce').fillna(0)
 
                 for col in ['volume', 'openInterest', 'ask', 'bid', 'impliedVolatility', 'strike']:
                     if col in calls.columns:
@@ -1171,7 +1194,7 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
 
                 # Strike'ları fiyata yakınlık sırasına diz, en yakın ATM_STRIKES adet al
                 atm_candidates = []
-                for _, row in calls.iterrows():
+                for _, row in cdf.iterrows():
                     try:
                         strike = float(row['strike'])
                         bid    = float(row.get('bid', 0) or 0)
@@ -1191,11 +1214,11 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
 
                 atm_candidates.sort(key=lambda x: x[0])
 
-                for dist, strike, bid, ask, mid, spread, oi, volume, iv_row in atm_candidates[:ATM_STRIKES]:
+                for dist, strike, bid, ask, mid, spread, oi, volume, iv_row in atm_candidates[:(14 if priority else ATM_STRIKES)]:
                     try:
                         iv_row = max(iv_row, 0.05)
                         g     = bs_greeks(cp, strike, T, r, iv_row)
-                        delta = g['delta']
+                        delta = g['delta'] if side == "CALL" else round(g['delta'] - 1.0, 4)
                         gamma = g['gamma']
                         theta = g['theta']
                         vol_oi = volume / oi if oi > 0 else 0.0
@@ -1215,21 +1238,29 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
                             "cost_per_contract": round(ask * 100, 0),
                             "tp_price": tp_target, "sl_price": sl_breaker,
                             "time_stop_days": time_stop,
-                            "breakeven": round(strike + ask, 2),
+                            "breakeven": round(strike + ask, 2) if side == "CALL" else round(strike - ask, 2),
+                            "side": side,
                             "iv_rank": iv_rank, "iv_pct_rank": iv_pct,
                             "atm_iv": round(atm_iv * 100, 1),
                             "dist_pct": round(dist / cp * 100, 2),
                             "atm_label": ("ATM" if dist/cp < 0.01 else
-                                          "ITM" if strike < cp else "OTM"),
+                                          ("ITM" if strike < cp else "OTM") if side == "CALL" else
+                                          ("ITM" if strike > cp else "OTM")),
                         }
-
-                        if best_result is None or dist < abs(best_result["strike"] - cp):
-                            best_result = contract
 
                         all_atm_contracts.append(contract)
                     except: continue
 
             except: continue
+
+        # ── EN İYİ KONTRAT: delta 0.55-0.70 (ATM/ITM1), vade 21-45g, hedef ~32g ──
+        def _fit(c):
+            d = abs(c["delta"])
+            band = 0.0 if TARGET_DELTA[0] <= d <= TARGET_DELTA[1] else 1.0 + abs(d - sum(TARGET_DELTA) / 2)
+            itm_ok = (c["atm_label"] != "OTM")
+            return (band, 0 if itm_ok else 1, abs(d - sum(TARGET_DELTA) / 2) + abs(c["dte"] - TARGET_DTE) / 200.0)
+        if all_atm_contracts:
+            best_result = min(all_atm_contracts, key=_fit)
 
         result["sweep_count"]    = sweeps
         result["total_notional"] = round(notional, 0)
@@ -1260,7 +1291,7 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
         ask_r = ask_vol / all_vol if all_vol > 0 else 0.5
         if ask_r > 0.75: flow_s += 2.0
         elif ask_r > 0.6: flow_s += 1.0
-        if result["earnings_warning"]: flow_s -= 8.0
+        if result["earnings_warning"] and not priority: flow_s -= 8.0
 
         flow_s = max(0.0, min(flow_s, 10.0))
 
@@ -1462,7 +1493,7 @@ PROGRESS_COUNTER = 0
 TOTAL_TO_SCAN    = 0
 
 
-async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
+async def analyze(ticker: str, sector_etf: str = "", priority: bool = False) -> Optional[dict]:
     global PROGRESS_COUNTER
     async with ANALYSIS_SEM:
         try:
@@ -1478,7 +1509,7 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
                     return None
 
             # ── STAGE 0: Bear market hard gate ──
-            if MARKET_REGIME.get("regime") == "bear": return None
+            if MARKET_REGIME.get("regime") == "bear" and not priority: return None
 
             # ── VERİ: Günlük 300 gün ──
             df_1d = await asyncio.wait_for(asyncio.to_thread(
@@ -1493,10 +1524,13 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
 
             close = df_1d['Close'].astype(float)
             cp    = float(close.iloc[-1])
-            if not (PRICE_MIN <= cp <= PRICE_MAX): return None
+            if not priority and not (PRICE_MIN <= cp <= PRICE_MAX): return None
 
             vol_mean = float(df_1d['Volume'].astype(float).tail(20).mean()) if 'Volume' in df_1d.columns else 0
-            if vol_mean < AVG_VOL_MIN: return None
+            if not priority and vol_mean < AVG_VOL_MIN: return None
+
+            if priority:
+                return await _analyze_priority(ticker, sector_etf, df_1d, close, cp)
 
             # ── BOGA GATE (STEP 2+3): Close > EMA10 > EMA20, RSI≥50↑, RVOL≥1.5 ──
             # Bu zorunlu giriş koşuludur — geçmeden diğer engine'ler çalışmaz
@@ -1594,6 +1628,90 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
         except Exception as e:
             logging.error(f"HATA {ticker}: {e}")
             return None
+
+
+async def _analyze_priority(ticker: str, sector_etf: str, df_1d: pd.DataFrame, close: pd.Series, cp: float) -> Optional[dict]:
+    """
+    ÖNCELİK LİSTESİ (endeksler + hub hisseleri + trend/swing hisseleri): BOGA long-only kapısı UYGULANMAZ.
+    Yön (CALL/PUT) günlük trendden okunur: EMA10/20/50 dizilimi + RSI(14) + RSI eğimi. Kontrat: 21-45g, ATM/ITM1, delta 0.55-0.70.
+    Yön net değilse (3/5) yine en olası yönde gösterilir, setup etiketinde güç yazar — karar kullanıcıda.
+    """
+    e10 = float(EMAIndicator(close, 10).ema_indicator().iloc[-1])
+    e20 = float(EMAIndicator(close, 20).ema_indicator().iloc[-1])
+    e50 = float(EMAIndicator(close, 50).ema_indicator().iloc[-1])
+    rsi_s = RSIIndicator(close, 14).rsi()
+    rsi = float(rsi_s.iloc[-1])
+    rsi_slope = rsi - float(rsi_s.iloc[-6]) if len(rsi_s) >= 6 else 0.0
+    ret_5d = (cp / float(close.iloc[-6]) - 1) * 100 if len(close) >= 6 else 0.0
+
+    bull = sum([cp > e20, e10 > e20, cp > e50, rsi >= 50, rsi_slope > 0])
+    bear = 5 - bull
+    side = "CALL" if bull >= 3 else "PUT"
+    strength = bull if side == "CALL" else bear          # 3..5
+
+    vol = df_1d['Volume'].astype(float) if 'Volume' in df_1d.columns else pd.Series([1e6] * len(close))
+    v5 = float(vol.tail(5).mean()); v20 = float(vol.tail(20).mean()) if len(vol) >= 20 else v5
+    rvol = round(v5 / v20, 2) if v20 > 0 else 1.0
+
+    hv20 = calc_hv(close, 20)
+    opt = await options_engine(ticker, cp, close, hv20, side=side, priority=True)
+    if opt is None or opt.get("best") is None:
+        logging.info(f"⚠️ {ticker}: {DTE_MIN}-{DTE_MAX}g uygun {side} kontrat yok")
+        return None
+
+    atr_pct = 2.0
+    try:
+        atr_s = AverageTrueRange(df_1d['High'].astype(float), df_1d['Low'].astype(float), close, 14).average_true_range()
+        atr_pct = float(atr_s.iloc[-1]) / cp * 100 if cp > 0 else 2.0
+    except Exception:
+        pass
+
+    total = round(min(strength * 10 + opt.get("opt_score", 0.0) * 3 + min(rvol, 2.0) * 10, 100.0), 1)
+    arrow = "↑" if side == "CALL" else "↓"
+    grade = ("🏆 " if total >= 75 else "🔥 " if total >= 60 else "💡 " if total >= 45 else "📊 ") + f"{side} {strength}/5 {arrow}"
+    if opt.get("earnings_warning"):
+        grade += "·EARN⚠️"
+    best = opt["best"]
+    result = {
+        "ticker": ticker, "current_price": round(cp, 2), "score": total, "grade": grade,
+        "side": side, "priority": True,
+        "sector_etf": sector_etf, "sector_info": {}, "sector_score": 0.0,
+        "boga": {"e10": round(e10, 2), "e20": round(e20, 2), "rsi": round(rsi, 1), "rsi_slope": round(rsi_slope, 1), "rvol": rvol},
+        "trend": {"rs_60": 0.0, "ret_5d": round(ret_5d, 2), "weekly_ok": False, "hh_structure": False, "atr_pct": round(atr_pct, 2)},
+        "mom": {"rsi_1d": round(rsi, 1)},
+        "bs": {"setup_type": f"{side} {strength}/5 · {best.get('atm_label', '')} D{abs(best.get('delta', 0)):.2f} · {best.get('dte')}g",
+               "at_new_high": False, "nr7": False},
+        "vol": {"rvol": rvol, "today_rvol": rvol},
+        "opt": opt, "hv20": round(hv20 * 100, 1),
+    }
+    if side == "CALL":      # geriye dönük test yalnız call fiyatlıyor
+        log_backtest(result)
+    return result
+
+
+def _load_priority_universe() -> List[str]:
+    """Endeksler + hub hisseleri (admin/merkez) + bogastock Trend/swing hisseleri — sırayla, tekrarsız."""
+    tickers: List[str] = []
+    seen = set()
+
+    def add(t):
+        t = str(t or "").strip().upper()
+        if t and t not in seen:
+            tickers.append(t)
+            seen.add(t)
+
+    for t in PRIORITY_INDEXES + PRIORITY_STOCKS + SECONDARY_STOCKS:
+        add(t)
+    for rel in (("frontend", "public", "swing_all_picks.json"), ("frontend", "public", "swing_picks.json"), ("frontend", "public", "watchlist_picks.json")):
+        try:
+            with open(os.path.join(HERE, *rel), "r", encoding="utf-8") as f:
+                d = json.load(f)
+            for pk in (d.get("picks") or []) + (d.get("watchlist") or []):
+                if isinstance(pk, dict):
+                    add(pk.get("ticker"))
+        except Exception:
+            continue
+    return tickers
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -1815,6 +1933,8 @@ def save_picks(candidates, n_universe, duration, active_sectors):
 async def deploy_to_git():
     """Scan sonuçlarını git commit + push ile Vercel'e deploy et."""
     import subprocess
+    if os.environ.get("BOGA_NO_GIT"):      # run_options_scanner.py kendi yayınlama adımını yapar (origin/main'e plumbing)
+        return
     try:
         today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d %H:%M")
         fe_picks  = os.path.join("frontend", "public", "options_picks.json")
@@ -1884,21 +2004,26 @@ async def scan(force: bool = False, tickers_override: Optional[List[str]] = None
 
     now_str = datetime.now(NY_TZ).strftime('%Y-%m-%d %H:%M NY')
 
-    if not regime_ok and not force:
+    # Evren: öncelik listesi (endeks + hub + trend) HER ZAMAN taranır; geniş evren yalnız rejim uygunsa.
+    # (Eskiden CASH_PROTECTION'da hiçbir şey kaydedilmeden çıkılıyordu -> site haftalarca bayat kaldı.)
+    priority_list = _load_priority_universe()
+    if tickers_override:
+        universe = tickers_override
+        priority_list = list(tickers_override)
+        logging.info(f"🎯 Override: {universe}")
+    elif not regime_ok and not force:
+        universe = list(priority_list)
+        logging.info(f"🔴 {regime_reason} — yalnız öncelik listesi taranıyor ({len(universe)})")
         await send_tg(
             f"🔴 <b>BOGA AI — CASH_PROTECTION</b>\n"
             f"🕒 {now_str}\n\n"
-            f"Market environment unfavorable. Do not deploy capital.\n"
+            f"Geniş evren atlandı; öncelik listesi ({len(universe)} hisse) CALL/PUT yönüyle taranıyor.\n"
             f"<i>{regime_reason}</i>"
         )
-        return
-
-    # Evren: override veya tam evren
-    if tickers_override:
-        universe = tickers_override
-        logging.info(f"🎯 Override: {universe}")
     else:
-        universe = _load_boga_universe()
+        _pset = set(priority_list)
+        universe = priority_list + [t for t in _load_boga_universe() if t not in _pset]
+    PRIORITY_SET = set(priority_list)
     ACTIVE_SECTORS = list(SECTOR_ETFS.keys())
 
     await send_tg(
@@ -1922,12 +2047,12 @@ async def scan(force: bool = False, tickers_override: Optional[List[str]] = None
     ticker_etf_pairs = [(t, ticker_etf_map.get(t, "BOGA")) for t in universe]
 
     results = await asyncio.gather(
-        *[analyze(t, etf) for t, etf in ticker_etf_pairs],
+        *[analyze(t, etf, priority=(t in PRIORITY_SET)) for t, etf in ticker_etf_pairs],
         return_exceptions=True
     )
     raw_candidates = sorted(
         [r for r in results if isinstance(r, dict)],
-        key=lambda x: x['score'], reverse=True
+        key=lambda x: (not x.get("priority", False), -x['score'])
     )
 
     # Toplam kontrat sayısını hesapla

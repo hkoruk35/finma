@@ -16,7 +16,9 @@ export default async function OptionsHubPage() {
     ticker: p.ticker,
     a: p.score != null ? `${Number(p.score).toFixed(1)}${p.grade ? ` · ${p.grade}` : ""}` : undefined,
     b: px(p.current_price),
-    c: p.exp_date ? `${p.exp_date}${p.dte != null ? ` (${p.dte}g)` : ""}` : undefined,
+    c: p.institutional?.strike != null
+      ? `${p.institutional.side ?? "CALL"} $${p.institutional.strike} · ${p.institutional.expiration ?? p.exp_date ?? ""}${p.institutional.dte != null ? ` (${p.institutional.dte}g)` : ""}`
+      : p.exp_date ?? undefined,
   }));
   const trend: any[] = Array.isArray(swing?.picks) ? swing.picks : [];
   const trendRows: PickRow[] = trend.slice(0, 15).map((p) => ({
@@ -45,7 +47,7 @@ export default async function OptionsHubPage() {
         <EngineGrid symbols={SECONDARY_STOCKS} compact />
       </HubSection>
       <HubSection title="Opsiyon tarayıcısı adayları" hint={opt?.date ? `Tarama: ${opt.date}` : undefined} right={<HubLink href="/admin/trading/options">Tam tarayıcı</HubLink>}>
-        <PicksTable rows={optRows} heads={["Skor", "Fiyat", "Vade"]} empty="Şu an opsiyon adayı yok (tarama henüz çalışmadı)." />
+        <PicksTable rows={optRows} heads={["Skor", "Fiyat", "Kontrat (21–45g)"]} empty="Şu an opsiyon adayı yok (tarama henüz çalışmadı)." />
       </HubSection>
       <HubSection title="Trend Hisseleri (opsiyon izleme için)" right={<HubLink href="/admin/trading/swing">Swing listesi</HubLink>}>
         <PicksTable rows={trendRows} heads={["Skor", "Fiyat", "Sektör"]} empty="Şu an trend hissesi yok." />

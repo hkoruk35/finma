@@ -893,6 +893,7 @@ export async function getIntradaySignals(): Promise<any | null> {
 
 export interface OptionContract {
   strike: number | null;
+  side?: "CALL" | "PUT";
   expiration: string | null;
   expiry?: string | null; // Backward compatibility
   dte: number | null;
@@ -1038,6 +1039,7 @@ function normalizeOptionsData(raw: any): OptionsData | null {
       if (!c) return null;
       return {
         strike: c.strike,
+        side: c.side,
         expiration: c.expiration || c.expiry,
         dte: c.dte,
         premium: c.premium || c.mid || c.cost_per_contract,

@@ -18,9 +18,9 @@ export const PRIORITY_STOCKS: EngineSymbol[] = ["NVDA", "TSLA", "AMD", "META", "
 /** İkinci grup (ETF'ler endeks merkezinde olduğundan hariç) */
 export const SECONDARY_STOCKS: EngineSymbol[] = ["MU", "MSFT", "GOOGL", "NFLX", "ORCL", "TSM", "INTC", "SMCI", "MSTR", "SOFI", "JPM", "XOM"];
 
-/** Opsiyon tercihi başlangıç şablonu (kullanıcı: 7–21 gün, ATM/ITM1, delta 0,55–0,70, 5M setup + 1M tetik) */
+/** Opsiyon tercihi başlangıç şablonu (kullanıcı 2026-11-11: 21–45 gün, ATM/ITM1, delta 0,55–0,70, 5M setup + 1M tetik) */
 export const OPTION_PREFS = [
-  ["Vade", "7–21 gün"],
+  ["Vade", "21–45 gün"],
   ["Strike", "ATM veya ITM1"],
   ["Delta", "0,55–0,70"],
   ["İşlem", "CALL / PUT alımı"],

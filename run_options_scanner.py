@@ -49,6 +49,42 @@ if not os.path.exists(VENV_PYTHON):
 def run_git(args):
     return subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
 
+
+def _git(args, env=None, check=True):
+    r = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8",
+                       env={**os.environ, **(env or {})})
+    if check and r.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args[:2])} -> {r.returncode}: {(r.stderr or r.stdout).strip()[:300]}")
+    return r.stdout.strip()
+
+
+def publish_files(rel_paths, message):
+    """Çalışma ağacındaki dosyaları origin/main üzerine tek commit olarak gönderir (yerel dal/indeks değişmez)."""
+    import tempfile
+    files = [p for p in rel_paths if os.path.isfile(os.path.join(FINMA_DIR, p))]
+    if not files:
+        log.info("ℹ️ Yayınlanacak dosya yok.")
+        return
+    _git(["fetch", "origin", "main"])
+    base = _git(["rev-parse", "origin/main"])
+    idx = os.path.join(tempfile.gettempdir(), f"boga_opt_index_{os.getpid()}")
+    env = {"GIT_INDEX_FILE": idx}
+    try:
+        _git(["read-tree", base], env)
+        for p in files:
+            _git(["update-index", "--add", "--", p], env)
+        tree = _git(["write-tree"], env)
+        if tree == _git(["rev-parse", f"{base}^{{tree}}"]):
+            log.info("ℹ️ Değişiklik yok — yayın atlandı.")
+            return
+        commit = _git(["commit-tree", tree, "-p", base, "-m", message])
+        _git(["push", "origin", f"{commit}:refs/heads/main"])
+        log.info(f"🚀 origin/main'e yayınlandı: {commit[:9]} ({len(files)} dosya)")
+    finally:
+        try: os.remove(idx)
+        except OSError: pass
+
+
 def main():
     now_ny = datetime.now(NY_TZ)
     if now_ny.weekday() >= 5:
@@ -62,7 +98,8 @@ def main():
     
     log.info(f"▶ Çalıştırılıyor: opsiyon242.py")
     try:
-        result = subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8")
+        result = subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8",
+                                env={**os.environ, "BOGA_NO_GIT": "1", "PYTHONIOENCODING": "utf-8"})
         if result.returncode == 0:
             log.info("✅ opsiyon242.py tamamlandı.")
         else:
@@ -147,47 +184,24 @@ def main():
 
     log.info("📁 Dosyalar transfer, frontend/data ve public/ klasörlerine başarıyla kopyalandı.")
 
-    # 6. Git Push — Options dosyalarını açıkça ekle ve push et
-    log.info("📤 Veriler GitHub'a gönderiliyor...")
+    # P&L sonuçları (tracker transfer/latest'e yazar) -> frontend'in okuduğu public/data/latest
+    _out = os.path.join(FINMA_DIR, "transfer", "latest", "options_outcomes.json")
+    if os.path.isfile(_out):
+        shutil.copy2(_out, os.path.join(public_latest_dir, "options_outcomes.json"))
+
+    # 6. Yayınlama — origin/main'e PLUMBING ile (yerel main'e commit YOK).
+    # Neden: yerel main yüzlerce commit geride/ileride; `git push` her çalışmada "fetch first" ile reddediliyordu
+    # (2026-10-14'ten beri site bayat kaldı). Burada origin/main'in ağacına yalnız opsiyon dosyaları eklenir.
+    # Yalnız frontend/public/data/** yazılır: deploy-frontend.yml bunu build tetiklemeden hariç tutar (OOM riski yok).
+    log.info("📤 Veriler origin/main'e yayınlanıyor...")
     try:
-        def run_git(args):
-            result = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
-            if result.stdout:
-                log.debug(f"  Git: {result.stdout.strip()}")
-            return result
-
-        # Options dosyalarını açıkça stage et
-        options_files = [
+        publish_files([
             "frontend/public/data/latest/options_picks.json",
+            f"frontend/public/data/{today_str}/options_picks.json",
             "frontend/public/data/latest/options_outcomes.json",
-            "frontend/public/data/" + today_str + "/",
-            "data/",
-            "transfer/"
-        ]
-
-        for f in options_files:
-            try:
-                run_git(["add", f])
-            except Exception:
-                pass
-
-        # Status kontrol
-        status = subprocess.run(["git", "status", "--porcelain"], cwd=FINMA_DIR,
-                               capture_output=True, text=True).stdout
-        if status.strip():
-            log.info(f"  📝 Commit edilecek değişiklikler: {len(status.splitlines())} dosya")
-            run_git(["commit", "-m", f"Data: Options Scanner Auto Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
-            run_git(["push", "origin", "main"])
-            log.info("🚀 Git Push başarılı.")
-        else:
-            log.info("ℹ️ Commit edilecek değişiklik yok.")
-
-    except subprocess.CalledProcessError as e:
-        log.error(f"❌ Git Push hatası (Exit {e.returncode}):")
-        if e.stdout: log.error(f"STDOUT: {e.stdout}")
-        if e.stderr: log.error(f"STDERR: {e.stderr}")
+        ], f"Data: Options Scanner Auto Update {now_ny.strftime('%Y-%m-%d %H:%M')}")
     except Exception as e:
-        log.error(f"❌ Git Push beklenmedik hata: {e}")
+        log.error(f"❌ Yayınlama hatası: {e}")
 
     log.info("✅ Otomatik tarama döngüsü tamamlandı.")
 
