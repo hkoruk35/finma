@@ -10,7 +10,8 @@
  * son mum yönü ve kapanış konumu (mumun üst/alt %33'ünde kapanış). |skor| ≥ 2 → yön; aksi YATAY.
  */
 
-import { nyDateTimeToEpoch, nyParts, r2, type Bar } from "./core";
+import { nyClock, nyDateTimeToEpoch, nyParts, r2, type Bar } from "./core";
+import { fmtVol, type CandleComment, type Tone } from "./openingMap";
 import type { PivotFrames } from "./mtfPivots";
 
 export type Dir4h = "UP" | "DOWN" | "FLAT";
@@ -97,4 +98,69 @@ export function align4h(mapDir: Dir4h, h4: Htf4hRead | null): "UYUMLU" | "TERS" 
   if (!h4) return null;
   if (mapDir === "FLAT" || h4.dir === "FLAT") return "NÖTR";
   return mapDir === h4.dir ? "UYUMLU" : "TERS";
+}
+
+// ── 4h mum yorumları (bilgi, karar vermez) ─────────────────────────────
+
+const f2 = (v: number) => v.toFixed(2);
+const sg = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(2)}`;
+
+/**
+ * Kapanmış 4h mumların yorumları (en yeni üstte). Biçim, 5m/15m yorumlarıyla aynıdır (CandleComment) — aynı kart çizer.
+ * VWAP 4h için anlamlı olmadığından yok; yerine 4h EMA20/EMA50 ve önceki 4h kapanış kıyası kullanılır.
+ */
+export function comment4h(fr: PivotFrames, t: number, limit = 12): CandleComment[] {
+  const cl = closed4h(fr, t);
+  const closes = cl.map((b) => b.close);
+  const out: CandleComment[] = [];
+  for (let i = cl.length - 1; i >= Math.max(1, cl.length - limit); i--) {
+    const b = cl[i], prev = cl[i - 1];
+    const upper = b.high - Math.max(b.open, b.close);
+    const lower = Math.min(b.open, b.close) - b.low;
+    const range = b.high - b.low;
+    const closePos = range > 0 ? (b.close - b.low) / range : 0.5;
+    const body = Math.abs(b.close - b.open);
+    const color: Tone = b.close > b.open ? "bull" : b.close < b.open ? "bear" : "neutral";
+    const ema20 = emaLast(closes.slice(0, i + 1), 20);
+    const ema50 = emaLast(closes.slice(0, i + 1), 50);
+    const lines: string[] = [];
+    let score = 0;
+
+    lines.push(`Gövde ${f2(body)} · aralık ${f2(range)} · önceki 4h kapanış ${f2(prev.close)} → ${sg(b.close - prev.close)}.`);
+    if (b.close > prev.close) score += 1; else if (b.close < prev.close) score -= 1;
+
+    if (closePos >= 0.75) { lines.push(`Kapanış aralığın üst %${Math.round((1 - closePos) * 100)}'lik diliminde → alıcılar kontrolde.`); score += 1; }
+    else if (closePos <= 0.25) { lines.push(`Kapanış aralığın alt %${Math.round(closePos * 100)}'lik diliminde → satıcılar kontrolde.`); score -= 1; }
+    else lines.push(`Kapanış aralığın ortasında (%${Math.round(closePos * 100)}) → net üstünlük yok.`);
+
+    if (range > 0 && upper / range >= 0.4) lines.push("Uzun üst fitil → yukarıda satış baskısı / ret.");
+    if (range > 0 && lower / range >= 0.4) lines.push("Uzun alt fitil → aşağıda alım ilgisi / tepki.");
+
+    if (ema20 != null) {
+      const d = b.close - ema20;
+      lines.push(`EMA20 (${f2(ema20)}) ${d >= 0 ? "üstünde" : "altında"} (${sg(d)}).`);
+      score += d >= 0 ? 1 : -1;
+    }
+    if (ema50 != null) {
+      const d = b.close - ema50;
+      lines.push(`EMA50 (${f2(ema50)}) ${d >= 0 ? "üstünde" : "altında"} (${sg(d)})${ema20 != null ? `; EMA20 ${ema20 > ema50 ? ">" : "<"} EMA50` : ""}.`);
+      score += d >= 0 ? 0.5 : -0.5;
+    }
+    const vols = cl.slice(Math.max(0, i - 10), i).map((x) => x.volume || 0).filter((v) => v > 0);
+    const avg = vols.length >= 3 ? vols.reduce((a, x) => a + x, 0) / vols.length : 0;
+    const volRatio = avg > 0 ? (b.volume || 0) / avg : null;
+    if (volRatio != null) lines.push(`Hacim ${fmtVol(b.volume || 0)} (önceki ort. ${fmtVol(avg)}, ${volRatio.toFixed(2)}×)${volRatio >= 1.5 ? " → yüksek: hareket teyitli." : volRatio <= 0.6 ? " → zayıf: güvenilir değil." : "."}`);
+    else lines.push(`Hacim ${fmtVol(b.volume || 0)}.`);
+
+    const tone: Tone = score >= 2 ? "bull" : score <= -2 ? "bear" : "neutral";
+    const colorTxt = color === "bull" ? "Yeşil 4h mum" : color === "bear" ? "Kırmızı 4h mum" : "Doji 4h mum";
+    const ymd = nyParts(b.time).ymd;
+    const closeSec = Math.min(b.time + 240 * 60, nyDateTimeToEpoch(ymd, 16 * 60));
+    out.push({
+      tf: "4h", time: b.time, clock: `${ymd.slice(5)} ${nyClock(closeSec)}`, tone, forming: false, close: b.close,
+      vwap: null, vwapSide: null, upperWick: upper, lowerWick: lower, closePos, volume: b.volume || 0, volRatio, lines,
+      headline: `${colorTxt} → ${tone === "bull" ? "alıcı lehine" : tone === "bear" ? "satıcı lehine" : "nötr / kararsız"}`,
+    });
+  }
+  return out;
 }

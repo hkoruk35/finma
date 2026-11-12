@@ -23,7 +23,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import type { MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import MapTerminal from "@/components/admin/spyengine/MapTerminal";
-import { read4h } from "@/lib/spyengine/htf4h";
+import { read4h, comment4h } from "@/lib/spyengine/htf4h";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
 import MarketBriefPanel from "@/components/admin/spyengine/MarketBrief";
@@ -817,6 +817,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const [showTrades, setShowTrades] = usePersistedState("spyengine_ui_trades", false);
   const [showAlerts, setShowAlerts] = usePersistedState("spyengine_ui_alerts", false);
   const [showStops, setShowStops] = usePersistedState("spyengine_ui_stops", false);
+  const [showHtfComments, setShowHtfComments] = usePersistedState("spyengine_ui_htfcomments", false);
   const [alertSound, setAlertSound] = usePersistedState("spyengine_ui_sound", true);
   const [replayDate, setReplayDate] = useState("");
   // 60 sn'de bir gerçek tam sayfa yenileme (kullanıcı isteği; ses izni yeniden tıklama ister) — geçmiş gün izlenirken yapılmaz
@@ -1257,6 +1258,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     () => (pivR && price != null ? nextLevelOdds(pivR.ladder, price, trackCur?.atr5 ?? null) : null),
     [pivR, price, trackCur?.atr5],
   );
+  const c4h = useMemo(() => (trackNow ? comment4h(pivFrames, trackNow, 12) : []), [pivFrames, trackNow]);
   const h4Read = useMemo(() => (trackNow ? read4h(pivFrames, price, trackNow) : null), [pivFrames, price, trackNow]);
   const ema50Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema50m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema50m]);
   const ema200Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema200m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema200m]);
@@ -1724,6 +1726,14 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
           <CommentFeed title="15m Mum Yorumları — bilgi, karar vermez" items={comments.c15} forming={comments.f15} />
           <CommentFeed title="5m Mum Yorumları — bilgi, karar vermez" items={comments.c5} forming={comments.f5} />
         </div>
+
+        {/* ── 30m ve 4h kapanış mum analizi — varsayılan gizli ── */}
+        <Hideable title="30m ve 4h Mum Analizi" open={showHtfComments} onToggle={() => setShowHtfComments((v) => !v)}>
+          <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
+            <CommentFeed title="4h Mum Yorumları (kapanmış) — genel yönelim, karar vermez" items={c4h} forming={null} />
+            <CommentFeed title="30m Mum Yorumları — bilgi, karar vermez" items={analysis ? commentAll(analysis.s30, "30m", 40) : []} forming={null} />
+          </div>
+        </Hideable>
 
         {/* ── Kayıtlar: Takip Sistemi'nin önerdiği işlemler (bugün canlı + arşiv) ve uyarılar ── */}
         <Hideable title="Önerilen İşlemler (kayıt)" open={showTrades} onToggle={() => setShowTrades((v) => !v)}>
