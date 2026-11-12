@@ -1,13 +1,22 @@
 import HubShell, { HubSection, HubLink } from "@/components/admin/hub/HubShell";
 import EngineGrid from "@/components/admin/hub/EngineGrid";
 import { ENGINES } from "@/lib/spyengine/engines";
-import { INDEX_ENGINES } from "@/lib/adminHub";
+import { INDEX_ENGINES, PRIORITY_STOCKS, SECONDARY_STOCKS } from "@/lib/adminHub";
+import EngineMonitor from "@/components/admin/hub/EngineMonitor";
 
 export const metadata = { title: "Endeks Merkezi | BOGA AI" };
 
 export default function IndexHubPage() {
+  const monitor = [
+    ...INDEX_ENGINES.map((s) => ({ symbol: s, page: ENGINES[s].page, group: "endeks" })),
+    ...PRIORITY_STOCKS.map((s) => ({ symbol: s, page: ENGINES[s].page, group: "1. öncelik" })),
+    ...SECONDARY_STOCKS.map((s) => ({ symbol: s, page: ENGINES[s].page, group: "2. grup" })),
+  ];
   return (
     <HubShell title="⚡ Endeks Merkezi" subtitle="SPY · QQQ · IWM — gün içi Takip Sistemi motorları (0DTE).">
+      <HubSection title="Motor izleme listesi — tüm motorlar" hint="Pozisyon / tetik hazır / erken uyarı olanlar en üstte · ticker üzerine gel: grafik · tıkla: motor sayfası">
+        <EngineMonitor symbols={monitor} />
+      </HubSection>
       <HubSection title="Canlı fiyatlar" hint="Karta tıkla → motor sayfası">
         <EngineGrid symbols={INDEX_ENGINES} />
       </HubSection>

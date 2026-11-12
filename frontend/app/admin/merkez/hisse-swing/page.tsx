@@ -39,14 +39,14 @@ export default async function SwingHubPage() {
 
   return (
     <HubShell title="📈 Hisse Swing Merkezi" subtitle="Engine hisseleri + BOGA Trend hisseleri — öneri anından bugüne performans. Ticker üzerine gel: grafik · tıkla: detay.">
+      <HubSection title="Engine hisseleri" hint="Takip Sistemi motorları — tıkla: motor sayfası">
+        <EngineTable rows={engines} />
+      </HubSection>
       <HubSection title="Trend hisseleri — bugünkü adaylar" hint={picksData?.date ? `Liste tarihi: ${picksData.date} · öneriden beri değişim canlı fiyatla` : undefined} right={<HubLink href="/admin/trading/swing">Tam swing listesi</HubLink>}>
         <SwingCandidates rows={cand} date={picksData?.date ?? null} />
       </HubSection>
       <HubSection title="Öneri performansı (son 90 gün)" hint={st.last_updated ? `Performans güncelleme: ${String(st.last_updated).replace("T", " ").slice(0, 16)}` : undefined}>
         <SwingPerformance rows={rows} stats={{ winRate: num(st.win_rate), avg: num(st.avg_return_pct), pending: num(st.pending_count), completed: num(st.completed_count) }} />
-      </HubSection>
-      <HubSection title="Engine hisseleri" hint="Takip Sistemi motorları — tıkla: motor sayfası">
-        <EngineTable rows={engines} />
       </HubSection>
     </HubShell>
   );
