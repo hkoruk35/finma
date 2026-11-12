@@ -19,6 +19,7 @@ import type { OptionLevels } from "@/lib/spyengine/optionLevels";
 import type { NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import { FC_RULES, type TrackForecast } from "@/lib/spyengine/tracker";
 import { usePersistedState } from "@/lib/spyengine/usePersistedState";
+import { align4h, type Htf4hRead } from "@/lib/spyengine/htf4h";
 
 const f2 = (v: number) => v.toFixed(2);
 const sgn = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(2)}`;
@@ -30,16 +31,18 @@ const shortLbl = (s: string, n = 14) => {
 
 /** kutucuk renk temaları: çerçeve · zemin · yazı */
 const THEME = {
-  res: { frame: "border-rose-500/50", bg: "bg-rose-500/[0.09]", fg: "text-rose-300", bar: "bg-rose-500" },
-  sup: { frame: "border-emerald-500/50", bg: "bg-emerald-500/[0.09]", fg: "text-emerald-300", bar: "bg-emerald-500" },
-  price: { frame: "border-amber-400/70", bg: "bg-amber-400/[0.14]", fg: "text-amber-200", bar: "bg-amber-400" },
-  vwap: { frame: "border-fuchsia-500/50", bg: "bg-fuchsia-500/[0.08]", fg: "text-fuchsia-300", bar: "bg-fuchsia-400" },
-  ema: { frame: "border-cyan-500/50", bg: "bg-cyan-500/[0.08]", fg: "text-cyan-300", bar: "bg-cyan-400" },
-  poc: { frame: "border-orange-500/45", bg: "bg-orange-500/[0.08]", fg: "text-orange-300", bar: "bg-orange-500" },
-  liq: { frame: "border-yellow-400/45", bg: "bg-yellow-400/[0.07]", fg: "text-yellow-200", bar: "bg-yellow-400" },
-  call: { frame: "border-pink-400/45", bg: "bg-pink-400/[0.07]", fg: "text-pink-300", bar: "bg-pink-400" },
-  put: { frame: "border-sky-400/45", bg: "bg-sky-400/[0.07]", fg: "text-sky-300", bar: "bg-sky-400" },
-  pain: { frame: "border-slate-400/40", bg: "bg-slate-400/[0.06]", fg: "text-slate-200", bar: "bg-slate-300" },
+  // 2026-11-11 sadeleştirme: yön = kırmızı/yeşil · sarı = referans (VWAP, POC, yatay) · mavi = fiyat · diğer her şey nötr gri
+  res: { frame: "border-rose-500/50", bg: "bg-rose-500/[0.08]", fg: "text-rose-300", bar: "bg-rose-500" },
+  sup: { frame: "border-emerald-500/50", bg: "bg-emerald-500/[0.08]", fg: "text-emerald-300", bar: "bg-emerald-500" },
+  price: { frame: "border-blue-300", bg: "bg-blue-600", fg: "text-white", bar: "bg-white" },
+  vwap: { frame: "border-amber-400/50", bg: "bg-amber-400/[0.07]", fg: "text-amber-300", bar: "bg-amber-400" },
+  ema: { frame: "border-slate-500/50", bg: "bg-slate-500/[0.07]", fg: "text-slate-200", bar: "bg-slate-400" },
+  ema200: { frame: "border-slate-200/60", bg: "bg-slate-200/[0.10]", fg: "text-white", bar: "bg-white" },
+  poc: { frame: "border-amber-400/50", bg: "bg-amber-400/[0.07]", fg: "text-amber-300", bar: "bg-amber-400" },
+  liq: { frame: "border-slate-500/40", bg: "bg-slate-500/[0.05]", fg: "text-slate-300", bar: "bg-slate-400" },
+  call: { frame: "border-slate-500/40", bg: "bg-slate-500/[0.05]", fg: "text-slate-300", bar: "bg-slate-400" },
+  put: { frame: "border-slate-500/40", bg: "bg-slate-500/[0.05]", fg: "text-slate-300", bar: "bg-slate-400" },
+  pain: { frame: "border-slate-500/40", bg: "bg-slate-500/[0.05]", fg: "text-slate-300", bar: "bg-slate-400" },
   up: { frame: "border-emerald-500/55", bg: "bg-emerald-500/[0.10]", fg: "text-emerald-300", bar: "bg-emerald-500" },
   down: { frame: "border-rose-500/55", bg: "bg-rose-500/[0.10]", fg: "text-rose-300", bar: "bg-rose-500" },
   flat: { frame: "border-amber-400/50", bg: "bg-amber-400/[0.08]", fg: "text-amber-200", bar: "bg-amber-400" },
@@ -54,15 +57,15 @@ function RungTile({ r, price }: { r: Rung; price: number }) {
   const t = THEME[r.theme];
   const d = r.price - price;
   return (
-    <div className={`flex items-center gap-2 rounded border ${t.frame} ${t.bg} py-[3px] pl-0 pr-2 ${r.isPrice ? "ring-1 ring-amber-300/60" : ""}`}>
+    <div className={`flex items-center gap-2 rounded border ${t.frame} ${t.bg} py-[3px] pl-0 pr-2 ${r.isPrice ? "ring-2 ring-blue-300/70 shadow-[0_0_10px_rgba(59,130,246,0.55)]" : ""}`}>
       <span className={`h-5 w-1 shrink-0 rounded-r ${t.bar}`} />
       <span className={`w-[52px] shrink-0 font-mono text-[9.5px] font-bold uppercase tracking-wider ${t.fg}`}>{r.tag}</span>
-      <span className="min-w-0 flex-1 truncate text-[10px] text-slate-400" title={r.label}>{r.label}</span>
-      <span className={`font-mono text-[12.5px] font-bold tabular-nums ${r.isPrice ? "text-amber-100" : "text-slate-100"}`}>{f2(r.price)}</span>
+      <span className={`min-w-0 flex-1 truncate text-[10px] ${r.isPrice ? "font-semibold text-white" : "text-slate-400"}`} title={r.label}>{r.label}</span>
+      <span className={`font-mono text-[12.5px] font-bold tabular-nums ${r.isPrice ? "text-white" : "text-slate-100"}`}>{f2(r.price)}</span>
       {!r.isPrice && (
         <span className={`w-[44px] text-right font-mono text-[10px] tabular-nums ${d > 0 ? "text-emerald-400/90" : d < 0 ? "text-rose-400/90" : "text-slate-500"}`}>{sgn(d)}</span>
       )}
-      {r.isPrice && <span className="w-[44px] text-right font-mono text-[9.5px] text-amber-300/80">ŞİMDİ</span>}
+      {r.isPrice && <span className="w-[44px] text-right font-mono text-[9.5px] font-bold text-white">ŞİMDİ</span>}
     </div>
   );
 }
@@ -80,13 +83,14 @@ function StatTile({ theme, label, value, sub, title }: { theme: ThemeKey; label:
 }
 
 export default function MapTerminal({
-  map, date, bars, vwapSeries, emaSeries, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema,
+  map, date, bars, vwapSeries, emaSeries, ema200Series, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4,
 }: {
   map: ForecastMapData | null;
   date: string | null;
   bars: Bar[];
   vwapSeries: (number | null)[];
   emaSeries: (number | null)[];
+  ema200Series?: (number | null)[];
   flow: FlowRead | null;
   optLevels: OptionLevels | null;
   nowSec: number;
@@ -97,6 +101,11 @@ export default function MapTerminal({
   odds: NextLevelOdds | null;
   accuracy: { checked: number; hit: number } | null;
   ema: number | null;
+  /** 5m EMA50 / EMA200 (EMA20 ile aynı çok günlük akıştan) */
+  ema50?: number | null;
+  ema200?: number | null;
+  /** 4h kapanmış mum okuması (htf4h.ts) — genel yönelim */
+  h4?: Htf4hRead | null;
 }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [full, setFull] = useState(false);
@@ -137,6 +146,10 @@ export default function MapTerminal({
     map.supports.slice(0, 2).forEach((l, i) => rungs.push({ price: l.price, tag: `DESTEK ${i + 1}`, label: shortLbl(l.label), theme: "sup", prio: 1 }));
     if (map.vwap != null) rungs.push({ price: map.vwap, tag: "VWAP", label: "gün ort.", theme: "vwap", prio: 1 });
     if (ema != null) rungs.push({ price: ema, tag: "EMA20", label: "5m ort.", theme: "ema", prio: 1 });
+    if (ema50 != null) rungs.push({ price: ema50, tag: "EMA50", label: "5m ort.", theme: "ema", prio: 1 });
+    if (ema200 != null) rungs.push({ price: ema200, tag: "EMA200", label: "5m ort. · ana", theme: "ema200", prio: 1 });
+    if (h4?.ema200 != null) rungs.push({ price: h4.ema200, tag: "4h E200", label: "4h ort.", theme: "ema200", prio: 2 });
+    if (h4?.last) rungs.push({ price: h4.last.close, tag: "4h KAPANIŞ", label: h4.last.close >= h4.last.open ? "son 4h yeşil" : "son 4h kırmızı", theme: h4.last.close >= h4.last.open ? "sup" : "res", prio: 2 });
     const prof = flow?.profile ?? null;
     if (prof) {
       rungs.push({ price: prof.poc, tag: "POC", label: "hacim max", theme: "poc", prio: 2 });
@@ -183,6 +196,15 @@ export default function MapTerminal({
           <span className="font-mono text-[11.5px] font-bold uppercase tracking-[0.18em] text-slate-200">Tahmin Haritası</span>
           <span className="rounded border border-slate-600/60 bg-slate-500/10 px-1.5 py-px font-mono text-[9.5px] text-slate-400">ufuk +90 dk</span>
           {map && <span className={`rounded border px-1.5 py-px font-mono text-[10px] font-bold ${THEME[biasTheme].frame} ${THEME[biasTheme].bg} ${THEME[biasTheme].fg}`}>{biasWord}</span>}
+          {map && h4 && (() => {
+            const al = align4h(map.bias, h4);
+            const cls = h4.dir === "UP" ? "border-emerald-500/50 text-emerald-300" : h4.dir === "DOWN" ? "border-rose-500/50 text-rose-300" : "border-amber-400/50 text-amber-300";
+            return (
+              <span className={`rounded border bg-slate-500/[0.06] px-1.5 py-px font-mono text-[10px] font-bold ${cls}`} title={h4.reasons.join(" · ")}>
+                4h {h4.dir === "UP" ? "▲" : h4.dir === "DOWN" ? "▼" : "◆"}{al === "TERS" ? " · TERS" : al === "UYUMLU" ? " · uyumlu" : ""}
+              </span>
+            );
+          })()}
         </div>
         <div className="flex items-center gap-2">
           {map && (
@@ -208,7 +230,7 @@ export default function MapTerminal({
           {/* grafik + sağ sütun: seviye merdiveni */}
           <div className={`grid grid-cols-1 gap-2 p-2 ${full ? "lg:grid-cols-[minmax(0,1fr)_320px]" : "lg:grid-cols-[minmax(0,1fr)_270px]"}`}>
             <div className="min-w-0 overflow-hidden rounded border border-[#1a2433]">
-              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
+              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} ema200Series={ema200Series} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
             </div>
             <div className="flex min-w-0 flex-col gap-[3px]">
               <div className="mb-0.5 flex items-center justify-between font-mono text-[9.5px] uppercase tracking-[0.14em] text-slate-500">
@@ -219,8 +241,15 @@ export default function MapTerminal({
           </div>
 
           {/* alt sıra: özet kutucukları */}
-          <div className="grid grid-cols-2 gap-2 px-2 pb-2 sm:grid-cols-3 lg:grid-cols-5">
-            <StatTile theme={biasTheme} label="Yön" value={biasWord} sub={biasSub} title={map.biasText} />
+          <div className="grid grid-cols-2 gap-2 px-2 pb-2 sm:grid-cols-3 lg:grid-cols-6">
+            <StatTile theme={biasTheme} label="Yön (15m)" value={biasWord} sub={biasSub} title={map.biasText} />
+            <StatTile
+              theme={h4 ? (h4.dir === "UP" ? "up" : h4.dir === "DOWN" ? "down" : "flat") : "info"}
+              label="4h genel yön"
+              value={h4 ? (h4.dir === "UP" ? "▲ YUKARI" : h4.dir === "DOWN" ? "▼ AŞAĞI" : "◆ YATAY") : "—"}
+              sub={h4 ? `${align4h(map.bias, h4) === "UYUMLU" ? "15m ile uyumlu" : align4h(map.bias, h4) === "TERS" ? "15m'ye TERS — dikkat" : "15m nötr"} · kapanış ${f2(h4.last!.close)}` : "4h veri bekleniyor"}
+              title={h4 ? `${h4.text} — ${h4.reasons.join(" · ")}` : undefined}
+            />
             {hasFc ? (
               <StatTile
                 theme={fc!.dir > 0 ? "up" : "down"}
@@ -286,6 +315,7 @@ export default function MapTerminal({
                 <div className="text-[11px] leading-snug text-slate-300">
                   <div className={`mb-0.5 font-semibold ${THEME[biasTheme].fg}`}>{map.biasText}</div>
                   {fc && !hasFc && fc.text && <div className="text-amber-300/90">{fc.text.replace(/^30 dk: /, "")}</div>}
+                  {h4 && <div className="mt-1 text-slate-300"><b>{h4.text}</b> — {h4.reasons.join(" · ")}</div>}
                   <ol className="mt-1 flex list-decimal flex-col gap-0.5 pl-4 text-slate-400 marker:text-slate-600">
                     {map.steps.filter((x) => !x.startsWith("Gün sonu")).map((x, i) => <li key={i}>{x}</li>)}
                   </ol>

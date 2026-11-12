@@ -56,14 +56,14 @@ const C = {
   bbBand: "#3b82f6",
   bbFill: "rgba(59,130,246,0.06)",
   ema: "#f59e0b",
-  ema20: "#22d3ee",
-  vwap: "#e879f9",
+  ema20: "#94a3b8",
+  vwap: "#facc15",
   volUp: "rgba(34,197,94,0.35)",
   volDown: "rgba(239,68,68,0.35)",
   rsi: "#60a5fa",
   macd: "#60a5fa",
   signal: "#f59e0b",
-  trail: "#a855f7",
+  trail: "#94a3b8",
 };
 
 export interface ChartToggles {

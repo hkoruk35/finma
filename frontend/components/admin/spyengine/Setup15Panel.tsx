@@ -167,8 +167,8 @@ function Chart({ bars, forming, read }: { bars: Bar[]; forming: Bar | null; read
         );
       })}
 
-      {vwapPts.length > 1 && <polyline points={vwapPts.join(" ")} fill="none" stroke="#e879f9" strokeWidth={1.3} />}
-      {emaPts && <polyline points={emaPts} fill="none" stroke="#22d3ee" strokeWidth={1.1} />}
+      {vwapPts.length > 1 && <polyline points={vwapPts.join(" ")} fill="none" stroke="#facc15" strokeWidth={1.3} />}
+      {emaPts && <polyline points={emaPts} fill="none" stroke="#94a3b8" strokeWidth={1.1} />}
 
       {/* tahmin: bant + hayalet mumlar */}
       {cone && <path d={cone} fill={fcColor} opacity={0.08} />}
@@ -202,10 +202,10 @@ function Chart({ bars, forming, read }: { bars: Bar[]; forming: Bar | null; read
       <text x={X(S) - slotW / 2} y={PAD.t - 3} fontSize={8} fill="#94a3b8" textAnchor="middle">son kapanış</text>
 
       <g fontSize={8} fontFamily="monospace">
-        <line x1={PAD.l + 4} x2={PAD.l + 18} y1={8} y2={8} stroke="#e879f9" strokeWidth={1.3} />
-        <text x={PAD.l + 21} y={11} fill="#e879f9">VWAP</text>
-        <line x1={PAD.l + 50} x2={PAD.l + 64} y1={8} y2={8} stroke="#22d3ee" strokeWidth={1.1} />
-        <text x={PAD.l + 67} y={11} fill="#22d3ee">EMA20</text>
+        <line x1={PAD.l + 4} x2={PAD.l + 18} y1={8} y2={8} stroke="#facc15" strokeWidth={1.3} />
+        <text x={PAD.l + 21} y={11} fill="#facc15">VWAP</text>
+        <line x1={PAD.l + 50} x2={PAD.l + 64} y1={8} y2={8} stroke="#94a3b8" strokeWidth={1.1} />
+        <text x={PAD.l + 67} y={11} fill="#94a3b8">EMA20</text>
         <line x1={PAD.l + 102} x2={PAD.l + 116} y1={8} y2={8} stroke="#a78bfa" strokeWidth={0.8} strokeDasharray="8 3 1 3" />
         <text x={PAD.l + 119} y={11} fill="#a78bfa">pivot / dünkü T-D</text>
         <text x={PAD.l + 210} y={11} fill="#94a3b8">▲▼ 15m salınım · kesikli mumlar: sonraki 4 mum tahmini · gölge: ~%60 kapanış bandı</text>

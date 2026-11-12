@@ -23,6 +23,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type React
 import { nextLevelOdds, pivotFrames, mtfPivotRead, type MtfPivotRead, type MtfLevel, type NextLevelOdds } from "@/lib/spyengine/mtfPivots";
 import type { MapScenario } from "@/components/admin/spyengine/ForecastMap";
 import MapTerminal from "@/components/admin/spyengine/MapTerminal";
+import { read4h } from "@/lib/spyengine/htf4h";
 import TrackerPanel from "@/components/admin/spyengine/TrackerPanel";
 import GexCard from "@/components/admin/spyengine/GexCard";
 import MarketBriefPanel from "@/components/admin/spyengine/MarketBrief";
@@ -549,7 +550,7 @@ const NEUTRAL = "#64748b";
 
 // ── Pivot noktaları kartı: son kapanmış 4h mumun klasik pivotları + dünkü / bugünkü tepe-dip-kapanış ──
 
-const KIND_COLOR: Record<MtfLevel["kind"], string> = { D: "#fb923c", R: "#4ade80", S: "#f87171", P: "#facc15" };
+const KIND_COLOR: Record<MtfLevel["kind"], string> = { D: "#94a3b8", R: "#4ade80", S: "#f87171", P: "#facc15" };
 const PIVOT_STATE_CLS: Record<string, string> = {
   "KIRILDI ▲": "border-[#22c55e]/50 bg-[#22c55e]/15 text-[#4ade80]",
   "KIRILDI ▼": "border-[#ef4444]/50 bg-[#ef4444]/15 text-[#f87171]",
@@ -749,8 +750,8 @@ function tradeRow(date: string, a: TrackTrade): TradeRow {
 }
 
 const LEVEL_CLS: Record<string, string> = {
-  TETİK: "text-[#4ade80]", ÇIKIŞ: "text-orange-300", YÖNET: "text-sky-300", HAZIRLAN: "text-[#facc15]", İPTAL: "text-slate-500", KADEME: "text-slate-400",
-  RED: "text-rose-400/80", DÜZELTME: "text-fuchsia-300",
+  TETİK: "text-[#4ade80]", ÇIKIŞ: "text-amber-300", YÖNET: "text-sky-300", HAZIRLAN: "text-[#facc15]", İPTAL: "text-slate-500", KADEME: "text-slate-400",
+  RED: "text-rose-400/80", DÜZELTME: "text-slate-300",
 };
 
 /** TETİK/İPTAL aynı giriş kararının iki sonucu (E), ÇIKIŞ ayrı karar (X) — aynı mum + kurulum + yön için tek "yuva" */
@@ -798,7 +799,7 @@ function EngineSwitcher({ current }: { current: EngineSymbol }) {
       {ENGINE_SYMBOLS.map((s) => (
         s === current
           ? <span key={s} className="rounded-md border border-[#eab308] bg-[#eab308]/20 px-2 py-0.5 text-[11px] font-extrabold text-[#facc15]" aria-current="page">{s}</span>
-          : <Link key={s} href={ENGINES[s].page} title={`${s} Engine · ${ENGINES[s].name}`} className={`rounded-md border px-2 py-0.5 text-[11px] font-bold ${ENGINES[s].cls}`}>{s}</Link>
+          : <Link key={s} href={ENGINES[s].page} title={`${s} Engine · ${ENGINES[s].name}`} className="rounded-md border border-slate-600/60 bg-slate-500/10 px-2 py-0.5 text-[11px] font-bold text-slate-300 hover:border-slate-400 hover:bg-slate-500/25 hover:text-white">{s}</Link>
       ))}
     </nav>
   );
@@ -1114,6 +1115,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const feedIsStale = feedStaleSec != null;
   /** EMA20 — çok günlük akıştan ısınmış (seansın ilk mumlarında da değer var) */
   const ema5 = useMemo(() => emaByTime(m5D), [m5D]);
+  const ema50m = useMemo(() => emaByTime(m5D, 50), [m5D]);
+  const ema200m = useMemo(() => emaByTime(m5D, 200), [m5D]);
   const ema15 = useMemo(() => emaByTime(m15D), [m15D]);
 
   const analysis = useMemo(() => {
@@ -1198,8 +1201,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       vol += v;
       return vol > 0 ? pv / vol : null;
     });
-    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null) };
-  }, [m5D, ema5, date]);
+    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null), ema200: bars.map((b) => ema200m.get(b.time) ?? null) };
+  }, [m5D, ema5, ema200m, date]);
 
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
@@ -1254,6 +1257,9 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
     () => (pivR && price != null ? nextLevelOdds(pivR.ladder, price, trackCur?.atr5 ?? null) : null),
     [pivR, price, trackCur?.atr5],
   );
+  const h4Read = useMemo(() => (trackNow ? read4h(pivFrames, price, trackNow) : null), [pivFrames, price, trackNow]);
+  const ema50Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema50m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema50m]);
+  const ema200Now = useMemo(() => { const bs = analysis?.s5.bars; return bs && bs.length ? ema200m.get(bs[bs.length - 1].time) ?? null : null; }, [analysis?.s5, ema200m]);
   const ema5Now = useMemo(() => {
     const bs = analysis?.s5.bars;
     return bs && bs.length ? ema5.get(bs[bs.length - 1].time) ?? null : null;
@@ -1540,7 +1546,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
             type="button"
             onClick={() => setAlertSound((v) => !v)}
             className={`rounded border px-2 py-1 text-[11px] font-semibold transition-colors ${
-              alertSound ? "border-orange-500/40 bg-orange-500/15 text-orange-300" : "border-[#1c2635] bg-[#111827] text-slate-500 hover:bg-[#1c2635]"
+              alertSound ? "border-amber-500/40 bg-amber-500/15 text-amber-300" : "border-[#1c2635] bg-[#111827] text-slate-500 hover:bg-[#1c2635]"
             }`}
             title="Takip Sistemi: HAZIRLAN / YÖNET (ön uyarı sesi) · TETİK / ÇIKIŞ (giriş/çıkış sesi) — sesli + titreşimli"
           >
@@ -1602,7 +1608,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         {/* ── Tahmin haritası (terminal paneli, tüm motorlar) — Açılış Tahmini'nin üstünde ── */}
         <MapTerminal
-          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} flow={flow} optLevels={optLevels}
+          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema200Series={todayRth5.ema200} ema50={ema50Now} ema200={ema200Now} h4={h4Read} flow={flow} optLevels={optLevels}
           nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
           odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
         />

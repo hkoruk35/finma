@@ -547,7 +547,7 @@ export function AlertBanner({
       {secondsToClose != null && (
         <span
           className={`ml-auto rounded px-2 py-0.5 font-mono text-[11px] font-semibold ${
-            secondsToClose <= 10 ? "bg-orange-500/20 text-orange-300" : "bg-[#111827] text-slate-400"
+            secondsToClose <= 10 ? "bg-amber-500/20 text-amber-300" : "bg-[#111827] text-slate-400"
           }`}
           title="Değerlendirilen 1m mumun kapanışına kalan süre — karar sadece kapalı mumla verilir"
         >
@@ -685,7 +685,7 @@ export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) 
   }
 
   const { exitWarn, exitScore, exitChecks, isMarketHours } = reversal!;
-  const accent = exitWarn ? "#f97316" : "#64748b";
+  const accent = exitWarn ? "#eab308" : "#64748b";
   const sideWord = openSide === "LONG" ? "LONG" : "SHORT";
 
   return (
@@ -698,7 +698,7 @@ export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) 
           </span>
         </span>
         {exitWarn && (
-          <span className="animate-pulse rounded border border-orange-500/50 bg-orange-500/15 px-2 py-0.5 text-[10px] font-bold text-orange-300">
+          <span className="animate-pulse rounded border border-amber-500/50 bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-300">
             ⚠ ÇIKIŞ UYARISI
           </span>
         )}
@@ -723,12 +723,12 @@ export function ExitGatePanel({ reversal }: { reversal: ReversalState | null }) 
             className="flex items-center justify-between gap-1.5 border-b border-[#151c28] py-[3px] last:border-0"
           >
             <span className="flex min-w-0 items-center gap-1">
-              <span className={c.ok ? "text-[#f97316]" : "text-[#64748b]"}>{c.ok ? "⚠" : "○"}</span>
+              <span className={c.ok ? "text-[#eab308]" : "text-[#64748b]"}>{c.ok ? "⚠" : "○"}</span>
               <span className={`truncate text-[10px] ${c.ok ? "text-slate-300" : "text-slate-500"}`} title={c.label}>
                 {c.label}
               </span>
             </span>
-            <span className={`shrink-0 font-mono text-[10px] ${c.ok ? "text-orange-300" : "text-slate-600"}`}>
+            <span className={`shrink-0 font-mono text-[10px] ${c.ok ? "text-amber-300" : "text-slate-600"}`}>
               {c.detail}
             </span>
           </div>
@@ -834,7 +834,7 @@ export function PositionPanel({ position, livePremium }: {
             <div className="mb-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px]">
               <span>
                 {pg.stopSpy != null ? (
-                  <>15m yapı stopu (Stop_SPY): <b className="text-orange-300">{num(pg.stopSpy)}</b></>
+                  <>15m yapı stopu (Stop_SPY): <b className="text-amber-300">{num(pg.stopSpy)}</b></>
                 ) : (
                   <>Güvenlik ağı (%{EXIT_STOP_PCT * 100}, swing/ATR verisi henüz yok) — anlık:{" "}
                   <b className={tone(pg.premiumPct)}>{pg.premiumPct == null ? "veri yok" : `${signed(pg.premiumPct * 100, 0)}%`}</b></>

@@ -374,7 +374,7 @@ export default function TrackerPanel({ r, nowSec, live, hist }: {
             {r.alerts.length === 0 ? <div className="text-[11.5px] text-slate-500">Uyarı yok.</div> : (
               <ul className="flex flex-col gap-0.5 text-[11px] leading-snug">
                 {[...r.alerts].reverse().map((a) => (
-                  <li key={a.key} className={a.level === "TETİK" ? "text-[#4ade80]" : a.level === "ÇIKIŞ" ? "text-orange-300" : a.level === "İPTAL" ? "text-slate-500" : a.level === "YÖNET" ? "text-sky-300" : a.level === "RED" ? "text-rose-400/80" : "text-slate-400"}>
+                  <li key={a.key} className={a.level === "TETİK" ? "text-[#4ade80]" : a.level === "ÇIKIŞ" ? "text-amber-300" : a.level === "İPTAL" ? "text-slate-500" : a.level === "YÖNET" ? "text-sky-300" : a.level === "RED" ? "text-rose-400/80" : "text-slate-400"}>
                     <span className="font-mono">{a.clock}</span> <b>{a.level}</b> · {a.text}
                   </li>
                 ))}

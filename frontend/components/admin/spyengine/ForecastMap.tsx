@@ -60,7 +60,7 @@ function layoutLabels(items: { y: number; prio: number; i: number }[], top: numb
 }
 
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec, endSec, scenarios, height,
+  bars, vwapSeries, emaSeries, ema200Series, flow, optLevels, map, date, nowSec, endSec, scenarios, height,
 }: {
   /** viewBox yüksekliği (varsayılan 360) — tam ekran görünümde daha uzun grafik için */
   height?: number;
@@ -74,6 +74,8 @@ export default function ForecastMap({
   vwapSeries: (number | null)[];
   /** bars ile aynı uzunlukta EMA20 (çok günlük akıştan ısınmış) */
   emaSeries?: (number | null)[];
+  /** bars ile aynı uzunlukta EMA200 (5m, çok günlük akıştan) — ölçeği germez, aralık dışındaysa çizilmez */
+  ema200Series?: (number | null)[];
   flow?: FlowRead | null;
   /** 0DTE opsiyon duvarları + max pain — yalnızca seviye çizgisi */
   optLevels?: OptionLevels | null;
@@ -112,6 +114,7 @@ export default function ForecastMap({
   const hours = [10, 11, 12, 13, 14, 15].map((h) => nyDateTimeToEpoch(date, h * 60)).filter((t) => t < g.x1 - 600);
 
   const vwapPts = bars.map((b, i) => (vwapSeries[i] != null ? `${X(b.time + 150).toFixed(1)},${Y(vwapSeries[i] as number).toFixed(1)}` : null)).filter(Boolean).join(" ");
+  const ema200Pts = (ema200Series ?? []).map((e, i) => (e != null && bars[i] && inY(e) ? `${X(bars[i].time + 150).toFixed(1)},${Y(e).toFixed(1)}` : null)).filter(Boolean).join(" ");
   const emaPts = (emaSeries ?? []).map((e, i) => (e != null && bars[i] ? `${X(bars[i].time + 150).toFixed(1)},${Y(e).toFixed(1)}` : null)).filter(Boolean).join(" ");
 
   const biasColor = map.bias === "UP" ? "#22c55e" : map.bias === "DOWN" ? "#ef4444" : "#eab308";
@@ -133,19 +136,19 @@ export default function ForecastMap({
   map.resistances.slice(0, 2).forEach((l) => lv.push({ price: l.price, text: `D ${l.price.toFixed(2)} · ${short(l.label)}`, color: "#f87171", dash: "5 4", width: 0.9, prio: 1 }));
   map.supports.slice(0, 2).forEach((l) => lv.push({ price: l.price, text: `S ${l.price.toFixed(2)} · ${short(l.label)}`, color: "#4ade80", dash: "5 4", width: 0.9, prio: 1 }));
   if (prof) {
-    lv.push({ price: prof.poc, text: `POC ${prof.poc.toFixed(2)}`, color: "#fb923c", dash: "", width: 1.1, prio: 2 });
-    lv.push({ price: prof.vah, text: `VAH ${prof.vah.toFixed(2)}`, color: "#c2410c", dash: "2 3", width: 0.6, prio: 4, opacity: 0.6 });
-    lv.push({ price: prof.val, text: `VAL ${prof.val.toFixed(2)}`, color: "#c2410c", dash: "2 3", width: 0.6, prio: 4, opacity: 0.6 });
+    lv.push({ price: prof.poc, text: `POC ${prof.poc.toFixed(2)}`, color: "#eab308", dash: "", width: 1.1, prio: 2 });
+    lv.push({ price: prof.vah, text: `VAH ${prof.vah.toFixed(2)}`, color: "#64748b", dash: "2 3", width: 0.6, prio: 4, opacity: 0.7 });
+    lv.push({ price: prof.val, text: `VAL ${prof.val.toFixed(2)}`, color: "#64748b", dash: "2 3", width: 0.6, prio: 4, opacity: 0.6 });
   }
   if (flow) {
     const up = flow.pools.filter((pl) => !pl.swept && pl.side === "BUY" && pl.price > map.price && inY(pl.price)).sort((a, b) => a.price - b.price)[0];
     const dn = flow.pools.filter((pl) => !pl.swept && pl.side === "SELL" && pl.price < map.price && inY(pl.price)).sort((a, b) => b.price - a.price)[0];
-    if (up) lv.push({ price: up.price, text: `$ ${up.price.toFixed(2)} alış stopları`, color: "#facc15", dash: "1 2.5", width: 0.9, prio: 3 });
-    if (dn) lv.push({ price: dn.price, text: `$ ${dn.price.toFixed(2)} satış stopları`, color: "#facc15", dash: "1 2.5", width: 0.9, prio: 3 });
+    if (up) lv.push({ price: up.price, text: `$ ${up.price.toFixed(2)} alış stopları`, color: "#cbd5e1", dash: "1 2.5", width: 0.9, prio: 3 });
+    if (dn) lv.push({ price: dn.price, text: `$ ${dn.price.toFixed(2)} satış stopları`, color: "#cbd5e1", dash: "1 2.5", width: 0.9, prio: 3 });
   }
   if (optLevels) {
-    optLevels.callWalls.slice(0, 1).forEach((w) => lv.push({ price: w.strike, text: `C duvar ${w.strike.toFixed(0)}`, color: "#f472b6", dash: "8 3 1 3", width: 0.8, prio: 3 }));
-    optLevels.putWalls.slice(0, 1).forEach((w) => lv.push({ price: w.strike, text: `P duvar ${w.strike.toFixed(0)}`, color: "#38bdf8", dash: "8 3 1 3", width: 0.8, prio: 3 }));
+    optLevels.callWalls.slice(0, 1).forEach((w) => lv.push({ price: w.strike, text: `C duvar ${w.strike.toFixed(0)}`, color: "#94a3b8", dash: "8 3 1 3", width: 0.8, prio: 3 }));
+    optLevels.putWalls.slice(0, 1).forEach((w) => lv.push({ price: w.strike, text: `P duvar ${w.strike.toFixed(0)}`, color: "#94a3b8", dash: "8 3 1 3", width: 0.8, prio: 3 }));
     if (optLevels.maxPain != null) lv.push({ price: optLevels.maxPain, text: `max pain ${optLevels.maxPain.toFixed(0)}`, color: "#e2e8f0", dash: "8 3 1 3", width: 0.7, prio: 4 });
   }
   // aynı fiyattaki tekrarları birleştir (yüksek öncelikli kalır)
@@ -184,7 +187,7 @@ export default function ForecastMap({
 
       {/* değer alanı gölgesi */}
       {prof && inY(prof.vah) && inY(prof.val) && (
-        <rect x={PAD.l} y={Y(prof.vah)} width={plotR - PAD.l} height={Math.max(1, Y(prof.val) - Y(prof.vah))} fill="#f97316" opacity={0.04} />
+        <rect x={PAD.l} y={Y(prof.vah)} width={plotR - PAD.l} height={Math.max(1, Y(prof.val) - Y(prof.vah))} fill="#eab308" opacity={0.04} />
       )}
 
       {/* seviyeler + sağ kenar etiketleri (çakışmasız) */}
@@ -236,8 +239,9 @@ export default function ForecastMap({
       ))}
 
       {/* VWAP / EMA20 */}
-      {vwapPts && <polyline points={vwapPts} fill="none" stroke="#e879f9" strokeWidth={1.4} />}
-      {emaPts && <polyline points={emaPts} fill="none" stroke="#22d3ee" strokeWidth={1.2} />}
+      {vwapPts && <polyline points={vwapPts} fill="none" stroke="#facc15" strokeWidth={1.4} />}
+      {emaPts && <polyline points={emaPts} fill="none" stroke="#94a3b8" strokeWidth={1.2} />}
+      {ema200Pts && <polyline points={ema200Pts} fill="none" stroke="#f8fafc" strokeWidth={1.8} strokeDasharray="6 3" />}
 
       {/* Takip senaryoları — yalnız çizgi + uç noktası */}
       {g.useScen && scen.map((sc, k) => {
@@ -266,11 +270,13 @@ export default function ForecastMap({
 
       {/* üst satır: çizgi açıklamaları + senaryo özeti (grafiğin içine yazı yok) */}
       <g fontSize={8.5} fontFamily="monospace">
-        <line x1={PAD.l} x2={PAD.l + 12} y1={9} y2={9} stroke="#e879f9" strokeWidth={1.4} />
-        <text x={PAD.l + 15} y={12} fill="#e879f9">VWAP</text>
-        <line x1={PAD.l + 46} x2={PAD.l + 58} y1={9} y2={9} stroke="#22d3ee" strokeWidth={1.2} />
-        <text x={PAD.l + 61} y={12} fill="#22d3ee">EMA20</text>
-        <text x={PAD.l + 100} y={12} fill="#64748b">S/D destek-direnç · POC · $ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
+        <line x1={PAD.l} x2={PAD.l + 12} y1={9} y2={9} stroke="#facc15" strokeWidth={1.4} />
+        <text x={PAD.l + 15} y={12} fill="#facc15">VWAP</text>
+        <line x1={PAD.l + 46} x2={PAD.l + 58} y1={9} y2={9} stroke="#94a3b8" strokeWidth={1.2} />
+        <text x={PAD.l + 61} y={12} fill="#94a3b8">EMA20</text>
+        <line x1={PAD.l + 96} x2={PAD.l + 108} y1={9} y2={9} stroke="#f8fafc" strokeWidth={1.8} strokeDasharray="4 2" />
+        <text x={PAD.l + 111} y={12} fill="#f8fafc">EMA200</text>
+        <text x={PAD.l + 156} y={12} fill="#64748b">S/D destek-direnç · POC · $ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
         {mainSc && (
           <text x={PAD.l} y={23} fill={mainSc.color} fontWeight={700}>
             ━ Ana senaryo: {endLabel(mainSc)}{mainSc.pct != null ? ` · hedefe değme %${mainSc.pct}` : ""}
