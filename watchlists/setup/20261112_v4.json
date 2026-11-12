@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "TLN",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 386.97,
+        "entry_zone": "376.70 - 397.24",
+        "SL": 345.9,
+        "TP": 469.1
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "KNTK",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 54.39,
+        "entry_zone": "53.26 - 55.52",
+        "SL": 49.88,
+        "TP": 63.41
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 364.89,
+        "entry_zone": "355.35 - 374.44",
+        "SL": 326.72,
+        "TP": 441.24
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "ABNB",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 182.92,
+        "entry_zone": "179.20 - 186.64",
+        "SL": 168.04,
+        "TP": 212.69
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "EMR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 168.22,
+        "entry_zone": "165.54 - 170.90",
+        "SL": 157.5,
+        "TP": 189.66
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "SNPS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 464.61,
+        "entry_zone": "455.02 - 474.19",
+        "SL": 426.27,
+        "TP": 541.29
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "SWKS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 91.27,
+        "entry_zone": "89.00 - 93.54",
+        "SL": 82.19,
+        "TP": 109.44
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "TMDX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 91.53,
+        "entry_zone": "88.78 - 94.28",
+        "SL": 80.54,
+        "TP": 113.52
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "TEVA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 43.94,
+        "entry_zone": "43.29 - 44.59",
+        "SL": 41.33,
+        "TP": 49.15
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "LNG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 311.2,
+        "entry_zone": "304.77 - 317.63",
+        "SL": 285.47,
+        "TP": 362.66
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "ANET",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 204.18,
+        "entry_zone": "197.94 - 210.42",
+        "SL": 179.21,
+        "TP": 254.12
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 57.58,
+        "entry_zone": "55.73 - 59.43",
+        "SL": 50.2,
+        "TP": 72.35
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "QCOM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 180.37,
+        "entry_zone": "175.29 - 185.44",
+        "SL": 160.07,
+        "TP": 220.97
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "ALL",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 266.92,
+        "entry_zone": "263.34 - 270.50",
+        "SL": 252.62,
+        "TP": 295.52
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "RSG",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 252.12,
+        "entry_zone": "249.23 - 255.01",
+        "SL": 240.55,
+        "TP": 275.26
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "EPD",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 37.8,
+        "entry_zone": "37.42 - 38.18",
+        "SL": 36.26,
+        "TP": 40.88
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "CTRE",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 37.88,
+        "entry_zone": "37.40 - 38.36",
+        "SL": 35.97,
+        "TP": 41.71
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "SANM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 167.18,
+        "entry_zone": "160.44 - 173.91",
+        "SL": 140.24,
+        "TP": 221.04
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "XEL",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 81.64,
+        "entry_zone": "80.86 - 82.42",
+        "SL": 78.51,
+        "TP": 87.9
+    },
+    {
+        "date": "2026-11-12 17:00",
+        "symbol": "AEE",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 114.02,
+        "entry_zone": "113.07 - 114.97",
+        "SL": 110.24,
+        "TP": 121.59
+    }
+]
