@@ -10,7 +10,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { nyParts, type Bar } from "@/lib/spyengine/core";
 import type { Htf4hRead } from "@/lib/spyengine/htf4h";
-import { buildWideForecast, type ClassPath, type UserScenarioInput, type WideForecast } from "@/lib/spyengine/wideForecast";
+import { buildWideForecast, type Ohlc, type UserScenarioInput, type WideForecast } from "@/lib/spyengine/wideForecast";
 
 type Tf = "15m" | "4h";
 
@@ -38,121 +38,206 @@ const etStamp = (sec: number) =>
 
 // ── grafik ────────────────────────────────────────────────────────
 
-const W = 1000, H = 400, VH = 64, PAD = { l: 52, r: 150, t: 26, b: 22 };
+const W = 1000, H = 400, VH = 64, PAD = { l: 52, r: 178, t: 40, b: 22 };
+const MIN_GAP = 11;
 
-function WideChart({ tf, hist, volHist, fc, price, levels, user, histDays }: {
-  tf: Tf; hist: Bar[]; volHist: boolean; fc: WideForecast; price: number;
+/** Sağ kenar etiketleri: çizgiye en yakın boş yere, çakışmadan; sığmayan düşük öncelikliler atlanır (ForecastMap ile aynı kural) */
+function layoutLabels(items: { y: number; prio: number; i: number }[], top: number, bottom: number): Map<number, number> {
+  const placed: number[] = [];
+  const out = new Map<number, number>();
+  for (const it of [...items].sort((a, b) => a.prio - b.prio || a.y - b.y)) {
+    let best: number | null = null;
+    for (let d = 0; d <= 26 && best == null; d += 1) {
+      for (const cand of [it.y + d, it.y - d]) {
+        if (cand < top || cand > bottom) continue;
+        if (placed.every((p) => Math.abs(p - cand) >= MIN_GAP)) { best = cand; break; }
+      }
+    }
+    if (best == null) continue;
+    placed.push(best);
+    out.set(it.i, best);
+  }
+  return out;
+}
+
+interface Lbl { price: number; text: string; color: string; prio: number; dash: string; width: number; opacity: number }
+
+function WideChart({ tf, hist, fc, price, levels, user, histDays }: {
+  tf: Tf; hist: Bar[]; fc: WideForecast; price: number;
   levels: { price: number; label: string }[]; user: UserScenarioInput | null; histDays: number;
 }) {
   const g = useMemo(() => {
-    const keep = (() => {
-      const days = [...new Set(hist.map((b) => nyParts(b.time).ymd))].slice(-histDays);
-      return hist.filter((b) => days.includes(nyParts(b.time).ymd));
-    })();
-    // gelecek noktalar: 15m → her slot; 4h → 4h mum bitişleri (13:30 ve 16:00 slot sonları)
-    const fut: number[] = [];
+    const days = [...new Set(hist.map((b) => nyParts(b.time).ymd))].slice(-histDays);
+    const keep = hist.filter((b) => days.includes(nyParts(b.time).ymd));
+    // gelecek mumlar: 15m → her slot; 4h → seans hizalı 4h kovaları (09:30–13:30, 13:30–16:00)
+    const groups: number[][] = [];
     fc.slots.forEach((s, i) => {
-      if (tf === "15m") fut.push(i);
-      else { const m = nyParts(s.endsAt).minutes; if (m === 13 * 60 + 30 || m === 16 * 60) fut.push(i); }
+      const key = tf === "15m" ? i : s.day * 2 + (nyParts(s.time).minutes >= 13 * 60 + 30 ? 1 : 0);
+      const last = groups[groups.length - 1];
+      const lastKey = last ? (tf === "15m" ? last[0] : fc.slots[last[0]].day * 2 + (nyParts(fc.slots[last[0]].time).minutes >= 13 * 60 + 30 ? 1 : 0)) : null;
+      if (last && lastKey === key) last.push(i); else groups.push([i]);
     });
     const nh = keep.length;
-    const total = nh + fut.length + 1;
+    const total = nh + groups.length + 1;
     const X = (idx: number) => PAD.l + (idx / Math.max(1, total - 1)) * (W - PAD.l - PAD.r);
     const vals: number[] = [price];
     keep.forEach((b) => vals.push(b.high, b.low));
-    fut.forEach((i) => vals.push(fc.cone.p10[i], fc.cone.p90[i]));
+    groups.forEach((gr) => { const s = gr[gr.length - 1]; vals.push(fc.cone.p10[s], fc.cone.p90[s]); });
     if (user) [user.h0, user.l1, user.l2, user.t].forEach((v) => { if (v) vals.push(v); });
     let lo = Math.min(...vals), hi = Math.max(...vals);
     const pad = (hi - lo) * 0.04 || 1; lo -= pad; hi += pad;
     const Y = (p: number) => PAD.t + (1 - (p - lo) / (hi - lo)) * (H - PAD.t - PAD.b);
     const maxVol = Math.max(1, ...keep.map((b) => b.volume || 0));
-    return { keep, fut, nh, X, Y, lo, hi, maxVol };
+    return { keep, groups, nh, X, Y, lo, hi, maxVol };
   }, [hist, histDays, fc, tf, price, user]);
 
-  const { keep, fut, nh, X, Y, lo, hi, maxVol } = g;
+  const { keep, groups, nh, X, Y, lo, hi, maxVol } = g;
   const bw = Math.max(1.2, (X(1) - X(0)) * 0.62);
   const futX = (j: number) => X(nh + 1 + j);
-  const pts = (arr: number[]) => (arr.length ? [`${X(nh - 1).toFixed(1)},${Y(price).toFixed(1)}`, ...fut.map((i, j) => `${futX(j).toFixed(1)},${Y(arr[i]).toFixed(1)}`)].join(" ") : "");
-  const bandTop = fut.map((i, j) => `${futX(j).toFixed(1)},${Y(fc.cone.p90[i]).toFixed(1)}`);
-  const bandBot = fut.map((i, j) => `${futX(j).toFixed(1)},${Y(fc.cone.p10[i]).toFixed(1)}`).reverse();
-  const cone = [`${X(nh - 1).toFixed(1)},${Y(price).toFixed(1)}`, ...bandTop, ...bandBot].join(" ");
+  const endOf = (j: number) => groups[j][groups[j].length - 1];
+  const pts = (arr: number[]) => (arr.length ? [`${X(nh - 1).toFixed(1)},${Y(price).toFixed(1)}`, ...groups.map((_, j) => `${futX(j).toFixed(1)},${Y(arr[endOf(j)]).toFixed(1)}`)].join(" ") : "");
+  const band = (a: number[], b: number[]) => [
+    `${X(nh - 1).toFixed(1)},${Y(price).toFixed(1)}`,
+    ...groups.map((_, j) => `${futX(j).toFixed(1)},${Y(a[endOf(j)]).toFixed(1)}`),
+    ...groups.map((_, j) => `${futX(j).toFixed(1)},${Y(b[endOf(j)]).toFixed(1)}`).reverse(),
+  ].join(" ");
+  /** temsili yolun mumları (4h'de kovaya toplanır) */
+  const repCandles = (rep: Ohlc[]) => groups.map((gr) => ({
+    o: rep[gr[0]].o, c: rep[gr[gr.length - 1]].c,
+    h: Math.max(...gr.map((s) => rep[s].h)), l: Math.min(...gr.map((s) => rep[s].l)),
+  }));
+  const repLine = (rep: Ohlc[]) => (rep.length ? pts(rep.map((r) => r.c)) : "");
 
-  // gün ayırıcıları
+  // baskın sistem senaryosu mumlarla, diğeri çizgiyle
+  const dom = fc.up.pct >= fc.down.pct ? fc.up : fc.down;
+  const other = dom === fc.up ? fc.down : fc.up;
+  const domColor = dom === fc.up ? "#4ade80" : "#f87171";
+  const otherColor = other === fc.up ? "#4ade80" : "#f87171";
+
+  // gün ayırıcıları (geçmiş + gelecek; ilk gelecek gün dahil)
   const seps: { x: number; label: string; future: boolean }[] = [];
-  keep.forEach((b, i) => { if (i > 0 && nyParts(b.time).ymd !== nyParts(keep[i - 1].time).ymd) seps.push({ x: X(i), label: nyParts(b.time).ymd.slice(5), future: false }); });
-  fut.forEach((si, j) => { const s = fc.slots[si]; if (j > 0 && s.day !== fc.slots[fut[j - 1]].day) seps.push({ x: futX(j), label: nyParts(s.time).ymd.slice(5), future: true }); });
+  keep.forEach((b, i) => { if (i > 0 && nyParts(b.time).ymd !== nyParts(keep[i - 1].time).ymd) seps.push({ x: X(i - 0.5), label: nyParts(b.time).ymd.slice(5), future: false }); });
+  const lastHistYmd = keep.length ? nyParts(keep[keep.length - 1].time).ymd : "";
+  groups.forEach((gr, j) => {
+    const ymd = nyParts(fc.slots[gr[0]].time).ymd;
+    const prevYmd = j === 0 ? lastHistYmd : nyParts(fc.slots[groups[j - 1][0]].time).ymd;
+    if (ymd !== prevYmd) seps.push({ x: j === 0 ? X(nh - 0.5) + 2 : futX(j - 0.5), label: ymd.slice(5), future: true });
+  });
+  const firstYmd = keep.length ? nyParts(keep[0].time).ymd.slice(5) : "";
 
-  const lines = levels.filter((l) => l.price > lo && l.price < hi).sort((a, b) => Math.abs(a.price - price) - Math.abs(b.price - price)).slice(0, 9);
-  const uLv: { p: number; t: string }[] = [];
-  if (user?.h0) uLv.push({ p: user.h0, t: "SEN H0" });
-  if (user?.l1) uLv.push({ p: user.l1, t: "SEN L1" });
-  if (user?.t) uLv.push({ p: user.t, t: "SEN HEDEF" });
-  if (user?.l2) uLv.push({ p: user.l2, t: "SEN B PLANI" });
-
-  const path = (c: ClassPath | null | undefined, color: string, dash: string, w: number) =>
-    c && c.median.length ? (
-      <g key={c.key}>
-        <polyline points={pts(c.median)} fill="none" stroke={color} strokeWidth={w} strokeDasharray={dash || undefined} />
-        <text x={futX(fut.length - 1) + 4} y={Y(c.median[fut[fut.length - 1]]) + 3} fontSize={9} fontWeight={700} fill={color} fontFamily="monospace">%{c.pct}</text>
-      </g>
-    ) : null;
+  // sağ kenar etiketleri: kullanıcı seviyeleri (öncelik 0) → U1/D1 (1) → diğer pivotlar (2), çakışmasız yerleşim
+  const lbls: Lbl[] = [];
+  if (user?.l1) lbls.push({ price: user.l1, text: `${f2(user.l1)} SEN L1`, color: "#60a5fa", prio: 0, dash: "8 3", width: 1.1, opacity: 1 });
+  if (user?.t) lbls.push({ price: user.t, text: `${f2(user.t)} SEN HEDEF`, color: "#60a5fa", prio: 0, dash: "8 3", width: 1.1, opacity: 1 });
+  if (user?.l2) lbls.push({ price: user.l2, text: `${f2(user.l2)} SEN B PLANI`, color: "#60a5fa", prio: 0, dash: "8 3", width: 1.1, opacity: 1 });
+  if (user?.h0) lbls.push({ price: user.h0, text: `${f2(user.h0)} SEN H0`, color: "#60a5fa", prio: 0, dash: "8 3", width: 1.1, opacity: 1 });
+  const short = (s: string) => (s.length > 18 ? `${s.slice(0, 17)}…` : s);
+  levels
+    .filter((l) => l.price > lo && l.price < hi && !lbls.some((u) => Math.abs(u.price - l.price) < 0.02))
+    .forEach((l) => {
+      const key = Math.abs(l.price - fc.u1.price) < 0.01 || Math.abs(l.price - fc.d1.price) < 0.01;
+      lbls.push({ price: l.price, text: `${f2(l.price)} ${short(l.label)}`, color: l.price > price ? "#f87171" : "#4ade80", prio: key ? 1 : 2, dash: "4 4", width: key ? 0.9 : 0.6, opacity: key ? 0.75 : 0.45 });
+    });
+  const labelY = layoutLabels(lbls.map((l, i) => ({ y: Y(l.price), prio: l.prio, i })), PAD.t + 4, H - PAD.b - 2);
+  const plotR = W - PAD.r;
 
   return (
     <svg viewBox={`0 0 ${W} ${H + VH}`} className="h-auto w-full" role="img" aria-label="Geniş harita">
       <rect x={0} y={0} width={W} height={H + VH} fill="#0a0e17" />
       {/* gelecek bölge */}
-      <rect x={X(nh - 0.5)} y={PAD.t} width={W - PAD.r - X(nh - 0.5)} height={H - PAD.t - PAD.b} fill="#1e293b" opacity={0.25} />
-      <text x={X(nh - 0.5) + 6} y={PAD.t + 10} fontSize={9} fill="#94a3b8" fontFamily="monospace">TAHMİN → sonraki 3 işlem günü</text>
+      <rect x={X(nh - 0.5)} y={PAD.t} width={plotR - X(nh - 0.5)} height={H - PAD.t - PAD.b} fill="#1e293b" opacity={0.22} />
+
+      {/* fiyat ekseni */}
+      {Array.from({ length: 6 }, (_, k) => lo + ((hi - lo) * k) / 5).map((p, k) => (
+        <g key={k}>
+          <line x1={PAD.l} x2={plotR} y1={Y(p)} y2={Y(p)} stroke="#121a26" strokeWidth={0.6} />
+          <text x={PAD.l - 4} y={Y(p) + 3} fontSize={8.5} fill="#475569" textAnchor="end" fontFamily="monospace">{f2(p)}</text>
+        </g>
+      ))}
+      {/* gün ayırıcıları — tarih ekseni altta, çakışmasız */}
+      {firstYmd && <text x={X(0)} y={H - 6} fontSize={8.5} fill="#64748b" fontFamily="monospace">{firstYmd}</text>}
       {seps.map((s, i) => (
         <g key={i}>
           <line x1={s.x} x2={s.x} y1={PAD.t} y2={H + VH - 4} stroke={s.future ? "#334155" : "#1e293b"} strokeWidth={0.8} strokeDasharray="3 3" />
-          <text x={s.x + 3} y={H - 6} fontSize={8.5} fill="#64748b" fontFamily="monospace">{s.label}</text>
+          <text x={s.x + 3} y={H - 6} fontSize={8.5} fill={s.future ? "#94a3b8" : "#64748b"} fontFamily="monospace">{s.label}</text>
         </g>
       ))}
-      {/* pivot seviyeleri */}
-      {lines.map((l, i) => (
-        <g key={i}>
-          <line x1={PAD.l} x2={W - PAD.r} y1={Y(l.price)} y2={Y(l.price)} stroke={l.price > price ? "#f87171" : "#4ade80"} strokeWidth={0.7} strokeDasharray="4 4" opacity={0.55} />
-          <text x={W - PAD.r + 4} y={Y(l.price) + 3} fontSize={8.5} fill={l.price > price ? "#f87171" : "#4ade80"} fontFamily="monospace" opacity={0.9}>{f2(l.price)} {l.label.length > 15 ? `${l.label.slice(0, 14)}…` : l.label}</text>
-        </g>
-      ))}
-      {uLv.map((l, i) => (
-        <g key={`u${i}`}>
-          <line x1={PAD.l} x2={W - PAD.r} y1={Y(l.p)} y2={Y(l.p)} stroke="#60a5fa" strokeWidth={1.1} strokeDasharray="8 3" />
-          <text x={W - PAD.r + 4} y={Y(l.p) + 3} fontSize={9} fontWeight={700} fill="#60a5fa" fontFamily="monospace">{f2(l.p)} {l.t}</text>
-        </g>
-      ))}
-      {/* fiyat ekseni */}
-      {Array.from({ length: 6 }, (_, k) => lo + ((hi - lo) * k) / 5).map((p, k) => (
-        <text key={k} x={PAD.l - 4} y={Y(p) + 3} fontSize={8.5} fill="#475569" textAnchor="end" fontFamily="monospace">{f2(p)}</text>
-      ))}
-      {/* mumlar */}
+
+      {/* seviye çizgileri + sağ kenar etiketleri */}
+      {lbls.map((l, i) => {
+        const y = Y(l.price);
+        const ly = labelY.get(i);
+        return (
+          <g key={`l${i}`}>
+            <line x1={PAD.l} x2={plotR} y1={y} y2={y} stroke={l.color} strokeWidth={l.width} strokeDasharray={l.dash} opacity={ly == null ? l.opacity * 0.5 : l.opacity} />
+            {ly != null && (
+              <>
+                {Math.abs(ly - y) > 1 && <line x1={plotR} x2={plotR + 6} y1={y} y2={ly} stroke={l.color} strokeWidth={0.6} opacity={0.7} />}
+                <text x={plotR + 8} y={ly + 3} fontSize={8.5} fontWeight={l.prio === 0 ? 700 : 400} fill={l.color} fontFamily="monospace">{l.text}</text>
+              </>
+            )}
+          </g>
+        );
+      })}
+
+      {/* geçmiş mumlar + hacim */}
       {keep.map((b, i) => {
         const up = b.close >= b.open;
         const c = up ? "#22c55e" : "#ef4444";
         const x = X(i);
+        const vh = ((b.volume || 0) / maxVol) * (VH - 12);
         return (
           <g key={b.time}>
             <line x1={x} x2={x} y1={Y(b.high)} y2={Y(b.low)} stroke={c} strokeWidth={0.8} />
             <rect x={x - bw / 2} y={Math.min(Y(b.open), Y(b.close))} width={bw} height={Math.max(1, Math.abs(Y(b.open) - Y(b.close)))} fill={c} />
-            {volHist && <rect x={x - bw / 2} y={H + VH - 4 - ((b.volume || 0) / maxVol) * (VH - 10)} width={bw} height={((b.volume || 0) / maxVol) * (VH - 10)} fill={c} opacity={0.45} />}
+            <rect x={x - bw / 2} y={H + VH - 4 - vh} width={bw} height={vh} fill={c} opacity={0.4} />
           </g>
         );
       })}
-      {/* koni + medyan */}
-      <polygon points={cone} fill="#94a3b8" opacity={0.12} />
-      <polyline points={pts(fc.cone.p50)} fill="none" stroke="#94a3b8" strokeWidth={1} strokeDasharray="2 3" />
-      {path(fc.up, "#4ade80", "7 4", 1.8)}
-      {path(fc.down, "#f87171", "7 4", 1.8)}
-      {path(fc.none, "#94a3b8", "3 4", 1.2)}
-      {path(fc.user?.l1Path, "#60a5fa", "2 3", 1.1)}
-      {path(fc.user?.main, "#60a5fa", "", 2)}
-      {path(fc.user?.planB, "#bfdbfe", "6 3", 2)}
+
+      {/* olasılık konisi: %10–90 dış, %25–75 iç, medyan */}
+      <polygon points={band(fc.cone.p90, fc.cone.p10)} fill="#94a3b8" opacity={0.08} />
+      <polygon points={band(fc.cone.p75, fc.cone.p25)} fill="#94a3b8" opacity={0.12} />
+      <polyline points={pts(fc.cone.p50)} fill="none" stroke="#64748b" strokeWidth={0.9} strokeDasharray="2 3" />
+
+      {/* diğer sistem senaryosu: temsili yolun kapanış çizgisi */}
+      {other.rep.length > 0 && <polyline points={repLine(other.rep)} fill="none" stroke={otherColor} strokeWidth={1.3} strokeDasharray="5 3" opacity={0.85} />}
+      {/* baskın sistem senaryosu: temsili yolun mumları */}
+      {dom.rep.length > 0 && repCandles(dom.rep).map((c, j) => {
+        const up = c.c >= c.o;
+        const col = up ? "#22c55e" : "#ef4444";
+        const x = futX(j);
+        return (
+          <g key={`f${j}`} opacity={0.55}>
+            <line x1={x} x2={x} y1={Y(c.h)} y2={Y(c.l)} stroke={col} strokeWidth={0.8} />
+            <rect x={x - bw / 2} y={Math.min(Y(c.o), Y(c.c))} width={bw} height={Math.max(1, Math.abs(Y(c.o) - Y(c.c)))} fill="none" stroke={col} strokeWidth={0.9} />
+          </g>
+        );
+      })}
+      {dom.rep.length > 0 && <polyline points={repLine(dom.rep)} fill="none" stroke={domColor} strokeWidth={0.8} opacity={0.35} />}
+      {/* kullanıcı senaryosu: temsili yollar */}
+      {fc.user?.main?.rep.length ? <polyline points={repLine(fc.user.main.rep)} fill="none" stroke="#60a5fa" strokeWidth={1.6} /> : null}
+      {fc.user?.planB?.rep.length ? <polyline points={repLine(fc.user.planB.rep)} fill="none" stroke="#bfdbfe" strokeWidth={1.4} strokeDasharray="6 3" /> : null}
+
       {/* şimdi */}
       <line x1={X(nh - 1)} x2={X(nh - 1)} y1={PAD.t} y2={H - PAD.b} stroke="#e2e8f0" strokeWidth={0.8} strokeDasharray="2 3" />
       <circle cx={X(nh - 1)} cy={Y(price)} r={3.5} fill="#3b82f6" stroke="#fff" strokeWidth={1.2} />
-      <text x={X(nh - 1)} y={PAD.t - 8} fontSize={9} fill="#e2e8f0" textAnchor="middle" fontFamily="monospace">şimdi {f2(price)}</text>
-      {volHist && <text x={PAD.l} y={H + 12} fontSize={8.5} fill="#64748b" fontFamily="monospace">hacim</text>}
+
+      {/* üst bant: başlıklar ve olasılıklar (grafiğin içine yazı yok) */}
+      <g fontSize={9} fontFamily="monospace">
+        <text x={PAD.l} y={13} fill="#94a3b8">geçmiş {histDays} gün · {tf}</text>
+        <text x={X(nh - 1)} y={13} fill="#e2e8f0" textAnchor="middle">şimdi {f2(price)}</text>
+        <text x={PAD.l} y={28}>
+          <tspan fill="#94a3b8">TAHMİN (gri alan, 3 işlem günü) — önce hangi seviye: </tspan>
+          <tspan fill="#4ade80" fontWeight={700}>▲ {f2(fc.u1.price)} %{fc.up.pct}</tspan>
+          <tspan fill="#64748b"> · </tspan>
+          <tspan fill="#f87171" fontWeight={700}>▼ {f2(fc.d1.price)} %{fc.down.pct}</tspan>
+          <tspan fill="#64748b"> · </tspan>
+          <tspan fill="#94a3b8">ikisi de değil %{fc.none.pct}</tspan>
+          <tspan fill="#64748b">  ·  mumlar: baskın senaryonun temsili yolu</tspan>
+        </text>
+      </g>
+      <text x={PAD.l} y={H + 10} fontSize={8.5} fill="#64748b" fontFamily="monospace">hacim</text>
     </svg>
   );
 }
@@ -239,14 +324,13 @@ export default function WideForecast({ symbol, price, t, bars15, bars4h, levels,
       ) : (
         <>
           <div className="overflow-hidden rounded border border-[#1a2433]">
-            <WideChart tf={tf} hist={hist} volHist fc={fc} price={price} levels={levels} user={user} histDays={histDays} />
+            <WideChart tf={tf} hist={hist} fc={fc} price={price} levels={levels} user={user} histDays={histDays} />
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[10px] text-slate-500">
-            <span><b className="text-emerald-300">━ ━</b> sistem: yukarı seviye önce</span>
-            <span><b className="text-rose-300">━ ━</b> sistem: aşağı seviye önce</span>
-            <span><b className="text-slate-300">· · ·</b> aralık / medyan</span>
-            <span><b className="text-blue-300">━</b> senin senaryon</span>
-            <span>gri alan: %10–%90 olasılık konisi</span>
+            <span><b className="text-slate-300">▯</b> içi boş mumlar: baskın sistem senaryosunun temsili simülasyon yolu</span>
+            <span><b className="text-slate-300">╌ ╌</b> diğer sistem senaryosu</span>
+            <span><b className="text-blue-300">━</b> senin senaryon (açık mavi kesik: B planı)</span>
+            <span>gri alan: koyu %25–75 · açık %10–90 olasılık konisi · noktalı: medyan</span>
           </div>
 
           {/* sistem senaryoları */}

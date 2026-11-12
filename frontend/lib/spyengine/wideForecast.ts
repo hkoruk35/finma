@@ -1,17 +1,19 @@
 /**
- * Geniş Harita tahmini — saf, izomorfik (2026-11-12, kullanıcı isteği).
+ * Geniş Harita tahmini — saf, izomorfik (2026-11-12, kullanıcı isteği; v2 aynı gün: daha gerçekçi yollar).
  *
  * Bugünden itibaren 3 işlem günü için Monte Carlo senaryo hesabı:
- *   • Oynaklık: son ≤6 seansın 15m getiri sapması (σ15) + seans arası boşluk sapması (σgap) — GERÇEK veriden.
+ *   • Oynaklık: son ≤10 seansın 15m getiri sapması (σ15) GÜN İÇİ SAATE GÖRE ölçeklenir (açılış/kapanış daha oynak — her 15m dilimin
+ *     kendi sapması, az örnekte genele doğru büzülür) + seans arası boşluk sapması (σgap). Hepsi GERÇEK veriden.
+ *   • Seviye tepkisi: yol bir pivot seviyesine İLK kez değdiğinde %55 olasılıkla geri seker (mtfPivots.ts ölçümü: ilk temasta tutma
+ *     %54–59, 44 seans, 5m). Böylece yollar seviyelerde duraksar/döner — düz çizgi yerine gerçek fiyat davranışına yakın.
  *   • Eğilim (drift): 4h okuması (htf4h.ts, −4…+4 puan) × küçük katsayı; son 4h mumun hacmi yönü teyit ediyorsa ×1,25, zayıfsa ×0,75.
- *     Katsayı ölçülmüş değil, "hafif eğim" olarak seçildi: puan +4 iken 3 günde yaklaşık +0,6σ kayma.
- *   • Seviyeler: pivot merdiveni (4h pivotlar, dünkü/bugünkü tepe-dip-kapanış) — dokunma olasılıkları bu seviyelere göre.
+ *     Katsayı ölçülmüş değil, "hafif eğim": puan +4 iken 3 günde yaklaşık +0,6σ kayma.
  * Sistem senaryoları: en yakın üst seviye (U1) ile alt seviyeye (D1) hangisine ÖNCE değileceği + ikisine de değmeme.
  * Kullanıcı senaryosu (isteğe bağlı): [H0 zayıf yükseliş] → L1 geri çekilme → T kırılım hedefi | B planı L2 — sıralı dokunma olasılıkları.
+ * Her senaryo için TEMSİLİ YOL: o senaryoya düşen simülasyonlardan sınıf medyanına en yakın GERÇEK yol (mumlarıyla) — düzgün ortalama çizgi değil.
  *
- * DÜRÜSTLÜK: bu kalibre edilmiş bir tahmin modeli DEĞİL; olasılıklar "bu oynaklık ve hafif eğimle rastgele yürüyüşte neler olurdu"
- * sorusunun cevabıdır. Mum/hacim formasyonu yalnız eğim katsayısına girer. Geriye dönük isabet ölçümü yapılmadı.
- * Tohumlu rastgele sayı: aynı 4h kapanışı + aynı girdi → aynı sonuç (sayfa yenilendikçe oynamaz).
+ * DÜRÜSTLÜK: kalibre edilmiş bir tahmin modeli DEĞİL; olasılıklar "bu oynaklık, seviye tepkisi ve hafif eğimle neler olurdu"
+ * sorusunun cevabıdır. Geriye dönük isabet ölçümü yapılmadı. Tohumlu rastgele sayı: aynı 4h kapanışı + aynı girdi → aynı sonuç.
  */
 
 import { nyDateTimeToEpoch, nyParts, RTH_CLOSE_MIN, RTH_OPEN_MIN, type Bar } from "./core";
@@ -21,15 +23,13 @@ export const SLOT_MIN = 15;
 export const SLOTS_PER_DAY = (RTH_CLOSE_MIN - RTH_OPEN_MIN) / SLOT_MIN; // 26
 const N_PATHS = 3000;
 const MICRO = 3; // slot başına alt adım (fitil/dokunma tespiti için)
+/** pivotta ilk temasta geri sekme olasılığı (mtfPivots.ts: ilk temasta tutma %54–59) */
+const HOLD_FIRST = 0.55;
 
 export interface UserScenarioInput {
-  /** zayıf yükseliş tepesi (opsiyonel) */
   h0?: number | null;
-  /** geri çekilme seviyesi */
   l1: number | null;
-  /** B planı: L1 altı hedef */
   l2?: number | null;
-  /** ana senaryo: sonraki daha güçlü denemede kırılacak hedef */
   t?: number | null;
 }
 
@@ -37,19 +37,16 @@ export interface WideInput {
   symbol: string;
   price: number;
   t: number;
-  /** RTH 15m mumlar (çok günlük, en az ~3 seans) */
   bars15: Bar[];
   read4h: Htf4hRead | null;
-  /** pivot merdiveni */
   levels: { price: number; label: string }[];
   user: UserScenarioInput | null;
-  /** son kapanmış 4h mumun zamanı (tohum + güncelleme damgası) */
   basis4h: number | null;
-  /** son 4h mumun hacim oranı (önceki ort.'a göre) */
   volRatio4h: number | null;
 }
 
 export interface FutureSlot { time: number; day: number; endsAt: number }
+export interface Ohlc { o: number; h: number; l: number; c: number }
 
 export interface ClassPath {
   key: string;
@@ -58,8 +55,8 @@ export interface ClassPath {
   pct: number;
   /** slot sonu medyan yol (class üyelerinin); üye yoksa boş */
   median: number[];
-  /** sınıfın ortalama ilk-dokunma slotu (yaklaşık süre) */
-  etaSlot: number | null;
+  /** temsili gerçek simülasyon yolu (slot mumları); üye yoksa boş */
+  rep: Ohlc[];
 }
 
 export interface LevelOdds { price: number; label: string; touchPct: number; side: "UP" | "DOWN" }
@@ -67,9 +64,7 @@ export interface LevelOdds { price: number; label: string; touchPct: number; sid
 export interface UserResult {
   pH0: number | null;
   pL1: number;
-  /** L1'e dokunup SONRA T'ye (L2'den önce) değme — mutlak */
   pMain: number | null;
-  /** L1'e dokunup SONRA L2'ye (T'den önce) değme — mutlak */
   pPlanB: number | null;
   main: ClassPath | null;
   planB: ClassPath | null;
@@ -85,7 +80,7 @@ export interface WideForecast {
   sigmaGap: number;
   tilt: number;
   tiltNote: string;
-  cone: { p10: number[]; p50: number[]; p90: number[] };
+  cone: { p10: number[]; p25: number[]; p50: number[]; p75: number[]; p90: number[] };
   u1: { price: number; label: string };
   d1: { price: number; label: string };
   up: ClassPath;
@@ -97,7 +92,6 @@ export interface WideForecast {
   d2: { price: number; label: string } | null;
   levelOdds: LevelOdds[];
   user: UserResult | null;
-  /** 4h kapanışında bu tahmin kuruldu */
   lines: string[];
 }
 
@@ -125,6 +119,7 @@ function addDays(ymd: string, n: number): string {
   return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, "0")}-${String(dt.getUTCDate()).padStart(2, "0")}`;
 }
 const isWeekday = (ymd: string) => { const w = new Date(`${ymd}T12:00:00Z`).getUTCDay(); return w >= 1 && w <= 5; };
+const slotOfDay = (sec: number) => Math.min(SLOTS_PER_DAY - 1, Math.max(0, Math.floor((nyParts(sec).minutes - RTH_OPEN_MIN) / SLOT_MIN)));
 
 /** `t`'den sonraki 15m slotlar: bugünün kalanı (seans içindeyse) + sonraki `days` işlem günü (hafta sonu atlanır; tatiller bilinmez) */
 export function futureSlots(t: number, days = 3): FutureSlot[] {
@@ -150,31 +145,44 @@ export function futureSlots(t: number, days = 3): FutureSlot[] {
   return out;
 }
 
-function estimateVol(bars15: Bar[]): { sigma15: number; sigmaGap: number } {
+/** σ15 + gün içi dilim çarpanları (26) + seans arası boşluk σ */
+function estimateVol(bars15: Bar[]): { sigma15: number; sigmaGap: number; mult: number[] } {
   const bySession = new Map<string, Bar[]>();
   for (const b of bars15) {
     const y = nyParts(b.time).ymd;
     const a = bySession.get(y) ?? [];
     a.push(b); bySession.set(y, a);
   }
-  const days = [...bySession.keys()].sort().slice(-6);
+  const days = [...bySession.keys()].sort().slice(-10);
   const rets: number[] = [];
+  const bucket: number[][] = Array.from({ length: SLOTS_PER_DAY }, () => []);
   const gaps: number[] = [];
   let prevClose: number | null = null;
   for (const y of days) {
     const bs = bySession.get(y)!;
-    for (let i = 1; i < bs.length; i++) if (bs[i - 1].close > 0) rets.push(Math.log(bs[i].close / bs[i - 1].close));
+    for (let i = 0; i < bs.length; i++) {
+      // dilimin kendi hareketi: açılış dilimi için open→close, diğerleri önceki kapanış→kapanış
+      const from = i === 0 ? bs[0].open : bs[i - 1].close;
+      if (from > 0 && bs[i].close > 0) {
+        const r = Math.log(bs[i].close / from);
+        rets.push(r);
+        bucket[slotOfDay(bs[i].time)].push(r);
+      }
+    }
     if (prevClose != null && bs[0].open > 0) gaps.push(Math.log(bs[0].open / prevClose));
     prevClose = bs[bs.length - 1].close;
   }
-  const sd = (a: number[], fallback: number) => {
-    if (a.length < 5) return fallback;
-    const m = a.reduce((x, y) => x + y, 0) / a.length;
-    return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / (a.length - 1));
-  };
-  const sigma15 = Math.max(0.0004, sd(rets, 0.0012));
-  const sigmaGap = Math.max(0.0003, sd(gaps, sigma15 * 3));
-  return { sigma15, sigmaGap };
+  const rms = (a: number[]) => Math.sqrt(a.reduce((x, y) => x + y * y, 0) / Math.max(1, a.length));
+  const sigma15 = Math.max(0.0004, rets.length >= 20 ? rms(rets) : 0.0012);
+  const sigmaGap = Math.max(0.0003, gaps.length >= 3 ? rms(gaps) : sigma15 * 3);
+  // dilim çarpanı: az örnekte 1'e doğru büzülür (n/(n+5)), 0,6–2,2 arasında sınırlı
+  const mult = bucket.map((a) => {
+    if (!a.length) return 1;
+    const w = a.length / (a.length + 5);
+    const m = rms(a) / sigma15;
+    return Math.min(2.2, Math.max(0.6, w * m + (1 - w)));
+  });
+  return { sigma15, sigmaGap, mult };
 }
 
 // ── ana hesap ────────────────────────────────────────────────────
@@ -184,9 +192,11 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
   if (!(price > 0) || inp.bars15.length < 20) return null;
   const slots = futureSlots(t, 3);
   if (slots.length < 10) return null;
+  const S = slots.length;
 
-  const { sigma15, sigmaGap } = estimateVol(inp.bars15);
+  const { sigma15, sigmaGap, mult } = estimateVol(inp.bars15);
   const sigmaDay = sigma15 * Math.sqrt(SLOTS_PER_DAY);
+  const slotMult = slots.map((s) => mult[slotOfDay(s.time)]);
 
   // eğim: 4h puanı × 0,015σ15 / slot; hacim teyidi ×1,25 · zayıf hacim ×0,75
   const score = inp.read4h?.score ?? 0;
@@ -199,8 +209,13 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
     else if (inp.volRatio4h <= 0.6) { tilt *= 0.75; tiltNote += " · zayıf hacim (×0,75)"; }
   }
 
-  // seviyeler
-  const lv = [...inp.levels].filter((l) => Number.isFinite(l.price)).sort((a, b) => a.price - b.price);
+  // seviyeler (yakın kopyalar birleştirilir)
+  const lv: { price: number; label: string }[] = [];
+  for (const l of [...inp.levels].filter((x) => Number.isFinite(x.price)).sort((a, b) => a.price - b.price)) {
+    const prev = lv[lv.length - 1];
+    if (prev && Math.abs(prev.price - l.price) < 0.05 * sigmaDay * price) { if (!prev.label.includes(l.label)) prev.label = `${prev.label} · ${l.label}`; continue; }
+    lv.push({ ...l });
+  }
   const minDist = 0.35 * sigmaDay * price;
   const ups = lv.filter((l) => l.price >= price + minDist);
   const dns = lv.filter((l) => l.price <= price - minDist).reverse();
@@ -211,106 +226,125 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
 
   const user = inp.user && inp.user.l1 != null && inp.user.l1 > 0 ? inp.user : null;
   const watch = lv.filter((l) => Math.abs(l.price - price) <= 4 * sigmaDay * price);
+  const react = watch.map((l) => Math.log(l.price));
 
   const rng = mulberry32(hashStr(`${inp.symbol}|${inp.basis4h ?? 0}|${Math.round(price * 100)}|${user ? `${user.h0}|${user.l1}|${user.l2}|${user.t}` : ""}`));
+  let spare: number | null = null;
   const gauss = () => {
+    if (spare != null) { const v = spare; spare = null; return v; }
     let u = 0, v = 0;
     while (u === 0) u = rng();
     while (v === 0) v = rng();
-    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    const r = Math.sqrt(-2 * Math.log(u));
+    spare = r * Math.sin(2 * Math.PI * v);
+    return r * Math.cos(2 * Math.PI * v);
   };
 
-  const S = slots.length;
-  const sigStep = sigma15 / Math.sqrt(MICRO);
-  const tiltStep = tilt / MICRO;
-  const paths: Float32Array[] = [];
-  const hit = new Map<number, number>();           // seviye fiyatı → dokunan yol sayısı
-  const lvPrices = watch.map((l) => l.price);
-  const lvHit = new Array(lvPrices.length).fill(0);
-
-  // sınıf bayrakları
-  const cls: number[] = [];       // 0 = up-first, 1 = down-first, 2 = none
+  const closes: Float32Array[] = [];
+  const highs: Float32Array[] = [];
+  const lows: Float32Array[] = [];
+  const lvHit = new Array(watch.length).fill(0);
+  const cls = new Int8Array(N_PATHS);
   let cU2 = 0, cD2 = 0;
-  const uH0: boolean[] = [], uL1: boolean[] = [], uMain: boolean[] = [], uB: boolean[] = [];
-  const uL1Slot: number[] = [];
+  const uL1 = new Uint8Array(N_PATHS), uMain = new Uint8Array(N_PATHS), uB = new Uint8Array(N_PATHS);
   let nH0 = 0, nL1 = 0, nMain = 0, nB = 0;
-
   const useH0 = !!(user && user.h0 != null && user.h0 > price);
   const l1Below = user ? user.l1! < price : true;
+  const sqM = Math.sqrt(MICRO);
 
   for (let n = 0; n < N_PATHS; n++) {
-    const arr = new Float32Array(S);
+    const cArr = new Float32Array(S), hArr = new Float32Array(S), lArr = new Float32Array(S);
     let x = Math.log(price);
-    let mx = x, mn = x;
     let tU1 = -1, tD1 = -1;
-    const touched = new Array(lvPrices.length).fill(false);
+    const tested = new Uint8Array(watch.length);
     let reachedU2 = false, reachedD2 = false;
-    // kullanıcı durum makinesi
     let stage = user ? (useH0 ? 0 : 1) : 9;
-    let sawH0 = false, sawL1 = false, main = false, planB = false, l1Slot = -1;
+    let sawH0 = false, sawL1 = false, main = false, planB = false;
 
     for (let s = 0; s < S; s++) {
       if (s > 0 && slots[s].day !== slots[s - 1].day) x += sigmaGap * gauss(); // seans arası boşluk
+      const sig = (sigma15 * slotMult[s]) / sqM;
+      const drift = tilt / MICRO - 0.5 * sig * sig;
+      let hi = x, lo = x;
       for (let m = 0; m < MICRO; m++) {
-        x += tiltStep - 0.5 * sigStep * sigStep + sigStep * gauss();
-        if (x > mx) mx = x;
-        if (x < mn) mn = x;
-        const p = Math.exp(x);
-        if (tU1 < 0 && p >= u1.price) tU1 = s;
-        if (tD1 < 0 && p <= d1.price) tD1 = s;
-        if (u2 && !reachedU2 && p >= u2.price) reachedU2 = true;
-        if (d2 && !reachedD2 && p <= d2.price) reachedD2 = true;
-        for (let k = 0; k < lvPrices.length; k++) if (!touched[k] && ((lvPrices[k] >= price && p >= lvPrices[k]) || (lvPrices[k] < price && p <= lvPrices[k]))) touched[k] = true;
+        const x0 = x;
+        x += drift + sig * gauss();
+        // seviye tepkisi: ilk temasta %55 geri seker
+        for (let k = 0; k < react.length; k++) {
+          if (tested[k]) continue;
+          const L = react[k];
+          if ((x0 < L && x >= L) || (x0 > L && x <= L)) {
+            tested[k] = 1;
+            lvHit[k]++;
+            if (x >= L) hi = Math.max(hi, L); else lo = Math.min(lo, L);
+            if (rng() < HOLD_FIRST) { x = L - (x - L) * 0.6; break; }
+          }
+        }
+        if (x > hi) hi = x;
+        if (x < lo) lo = x;
+        const pHi = Math.exp(hi), pLo = Math.exp(lo);
+        if (tU1 < 0 && pHi >= u1.price) tU1 = s * MICRO + m;
+        if (tD1 < 0 && pLo <= d1.price) tD1 = s * MICRO + m;
+        if (u2 && pHi >= u2.price) reachedU2 = true;
+        if (d2 && pLo <= d2.price) reachedD2 = true;
         if (user) {
-          if (stage === 0 && p >= user.h0!) { stage = 1; sawH0 = true; }
-          else if (stage === 1 && (l1Below ? p <= user.l1! : p >= user.l1!)) { stage = 2; sawL1 = true; l1Slot = s; }
+          if (stage === 0 && pHi >= user.h0!) { stage = 1; sawH0 = true; }
+          else if (stage === 1 && (l1Below ? pLo <= user.l1! : pHi >= user.l1!)) { stage = 2; sawL1 = true; }
           else if (stage === 2) {
-            if (user.t != null && p >= user.t) { stage = 3; main = true; }
-            else if (user.l2 != null && p <= user.l2) { stage = 3; planB = true; }
+            if (user.t != null && pHi >= user.t) { stage = 3; main = true; }
+            else if (user.l2 != null && pLo <= user.l2) { stage = 3; planB = true; }
           }
         }
       }
-      arr[s] = Math.exp(x);
+      cArr[s] = Math.exp(x); hArr[s] = Math.exp(hi); lArr[s] = Math.exp(lo);
     }
-    paths.push(arr);
-    for (let k = 0; k < lvPrices.length; k++) if (touched[k]) lvHit[k]++;
-    if (tU1 >= 0 && (tD1 < 0 || tU1 < tD1)) cls.push(0);
-    else if (tD1 >= 0 && (tU1 < 0 || tD1 <= tU1)) cls.push(1);
-    else cls.push(2);
+    closes.push(cArr); highs.push(hArr); lows.push(lArr);
+    cls[n] = tU1 >= 0 && (tD1 < 0 || tU1 < tD1) ? 0 : tD1 >= 0 && (tU1 < 0 || tD1 <= tU1) ? 1 : 2;
     if (reachedU2) cU2++;
     if (reachedD2) cD2++;
-    uH0.push(sawH0); uL1.push(sawL1); uMain.push(main); uB.push(planB); uL1Slot.push(l1Slot);
     if (sawH0) nH0++;
-    if (sawL1) nL1++;
-    if (main) nMain++;
-    if (planB) nB++;
-    void hit; void mx; void mn;
+    if (sawL1) { nL1++; uL1[n] = 1; }
+    if (main) { nMain++; uMain[n] = 1; }
+    if (planB) { nB++; uB[n] = 1; }
   }
 
   const pct = (c: number) => Math.round((c / N_PATHS) * 1000) / 10;
-  const medianPath = (pred: (i: number) => boolean): number[] => {
+
+  /** sınıf medyanı + medyana en yakın GERÇEK yol (mumlarıyla) */
+  const classOf = (pred: (i: number) => boolean): { median: number[]; rep: Ohlc[] } => {
     const idx: number[] = [];
-    for (let i = 0; i < N_PATHS && idx.length < 1500; i++) if (pred(i)) idx.push(i);
-    if (idx.length < 20) return [];
-    const out: number[] = [];
-    for (let s = 0; s < S; s++) out.push(median(idx.map((i) => paths[i][s])));
-    return out;
+    for (let i = 0; i < N_PATHS; i++) if (pred(i)) idx.push(i);
+    if (idx.length < 20) return { median: [], rep: [] };
+    const sample = idx.length > 1500 ? idx.filter((_, k) => k % Math.ceil(idx.length / 1500) === 0) : idx;
+    const med: number[] = [];
+    for (let s = 0; s < S; s++) med.push(median(sample.map((i) => closes[i][s])));
+    let best = sample[0], bestErr = Infinity;
+    for (const i of sample) {
+      let e = 0;
+      for (let s = 0; s < S; s++) { const d = closes[i][s] - med[s]; e += d * d; }
+      if (e < bestErr) { bestErr = e; best = i; }
+    }
+    const rep: Ohlc[] = [];
+    for (let s = 0; s < S; s++) {
+      const o = s === 0 ? price : closes[best][s - 1];
+      rep.push({ o, h: Math.max(highs[best][s], o), l: Math.min(lows[best][s], o), c: closes[best][s] });
+    }
+    return { median: med, rep };
   };
 
   // koni
-  const p10: number[] = [], p50: number[] = [], p90: number[] = [];
+  const p10: number[] = [], p25: number[] = [], p50: number[] = [], p75: number[] = [], p90: number[] = [];
   for (let s = 0; s < S; s++) {
-    const col = paths.map((a) => a[s]).sort((a, b) => a - b);
-    p10.push(pctile(col, 0.1)); p50.push(pctile(col, 0.5)); p90.push(pctile(col, 0.9));
+    const col = closes.map((a) => a[s]).sort((a, b) => a - b);
+    p10.push(pctile(col, 0.1)); p25.push(pctile(col, 0.25)); p50.push(pctile(col, 0.5)); p75.push(pctile(col, 0.75)); p90.push(pctile(col, 0.9));
   }
 
-  const count = (k: number) => cls.filter((c) => c === k).length;
-  const mk = (key: string, title: string, k: number): ClassPath => ({
-    key, title, pct: pct(count(k)), median: medianPath((i) => cls[i] === k), etaSlot: null,
-  });
-  const up = mk("up", `▲ ${u1.price.toFixed(2)} (${u1.label}) önce`, 0);
-  const down = mk("down", `▼ ${d1.price.toFixed(2)} (${d1.label}) önce`, 1);
-  const none = mk("none", "İkisine de değmez (aralık)", 2);
+  let c0 = 0, c1 = 0, c2 = 0;
+  for (let i = 0; i < N_PATHS; i++) { if (cls[i] === 0) c0++; else if (cls[i] === 1) c1++; else c2++; }
+  const mk = (key: string, title: string, k: number, c: number): ClassPath => ({ key, title, pct: pct(c), ...classOf((i) => cls[i] === k) });
+  const up = mk("up", `▲ ${u1.price.toFixed(2)} (${u1.label}) önce`, 0, c0);
+  const down = mk("down", `▼ ${d1.price.toFixed(2)} (${d1.label}) önce`, 1, c1);
+  const none = mk("none", "İkisine de değmez (aralık)", 2, c2);
 
   const levelOdds: LevelOdds[] = watch.map((l, k) => ({
     price: l.price, label: l.label, touchPct: pct(lvHit[k]), side: l.price >= price ? "UP" as const : "DOWN" as const,
@@ -318,29 +352,30 @@ export function buildWideForecast(inp: WideInput): WideForecast | null {
 
   let userRes: UserResult | null = null;
   if (user) {
-    const base = useH0 ? (i: number) => uH0[i] : () => true;
-    void base;
     userRes = {
       pH0: useH0 ? pct(nH0) : null,
       pL1: pct(nL1),
       pMain: user.t != null ? pct(nMain) : null,
       pPlanB: user.l2 != null ? pct(nB) : null,
-      main: user.t != null ? { key: "umain", title: `Senin ana senaryon → ${user.t.toFixed(2)}`, pct: pct(nMain), median: medianPath((i) => uMain[i]), etaSlot: null } : null,
-      planB: user.l2 != null ? { key: "uplanb", title: `B planı → ${user.l2.toFixed(2)}`, pct: pct(nB), median: medianPath((i) => uB[i]), etaSlot: null } : null,
-      l1Path: { key: "ul1", title: `Geri çekilme → ${user.l1!.toFixed(2)}`, pct: pct(nL1), median: medianPath((i) => uL1[i]), etaSlot: null },
+      main: user.t != null ? { key: "umain", title: `Senin ana senaryon → ${user.t.toFixed(2)}`, pct: pct(nMain), ...classOf((i) => uMain[i] === 1) } : null,
+      planB: user.l2 != null ? { key: "uplanb", title: `B planı → ${user.l2.toFixed(2)}`, pct: pct(nB), ...classOf((i) => uB[i] === 1) } : null,
+      l1Path: { key: "ul1", title: `Geri çekilme → ${user.l1!.toFixed(2)}`, pct: pct(nL1), ...classOf((i) => uL1[i] === 1) },
     };
   }
 
+  const openMult = mult[0], midMult = mult[Math.floor(SLOTS_PER_DAY / 2)], closeMult = mult[SLOTS_PER_DAY - 1];
   const lines: string[] = [];
   lines.push(`Oynaklık: 15m σ %${(sigma15 * 100).toFixed(3)} · günlük σ %${(sigmaDay * 100).toFixed(2)} (≈ ${(sigmaDay * price).toFixed(2)} puan) · seans arası boşluk σ %${(sigmaGap * 100).toFixed(2)}.`);
-  lines.push(`Eğim: ${tiltNote}.`);
+  lines.push(`Gün içi oynaklık profili (ölçülen): açılış ×${openMult.toFixed(2)} · öğlen ×${midMult.toFixed(2)} · kapanış ×${closeMult.toFixed(2)}.`);
+  lines.push(`Eğim: ${tiltNote}. Seviye tepkisi: ilk temasta %${Math.round(HOLD_FIRST * 100)} geri sekme.`);
   lines.push(`3 işlem günü içinde önce ${u1.price.toFixed(2)} (${u1.label}) %${up.pct} · önce ${d1.price.toFixed(2)} (${d1.label}) %${down.pct} · ikisine de değmez %${none.pct}.`);
   if (u2) lines.push(`Üstte bir sonraki seviye ${u2.price.toFixed(2)} (${u2.label}): 3 günde değme %${pct(cU2)}.`);
   if (d2) lines.push(`Altta bir sonraki seviye ${d2.price.toFixed(2)} (${d2.label}): 3 günde değme %${pct(cD2)}.`);
+  lines.push(`3 gün sonu aralığı: %50 olasılıkla ${p25[S - 1].toFixed(2)}–${p75[S - 1].toFixed(2)} · %80 olasılıkla ${p10[S - 1].toFixed(2)}–${p90[S - 1].toFixed(2)} · medyan ${p50[S - 1].toFixed(2)}.`);
 
   return {
     generatedAt: t, basis4h: inp.basis4h, slots, sigma15, sigmaDay, sigmaGap, tilt, tiltNote,
-    cone: { p10, p50, p90 }, u1, d1, up, down, none,
+    cone: { p10, p25, p50, p75, p90 }, u1, d1, up, down, none,
     pU2: u2 ? pct(cU2) : null, pD2: d2 ? pct(cD2) : null, u2, d2, levelOdds, user: userRes, lines,
   };
 }
