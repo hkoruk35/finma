@@ -1,24 +1,6 @@
 {
-  "generated_at": "2026-11-12T14:02:51.376433-05:00",
+  "generated_at": "2026-11-12T17:02:07.377200-05:00",
   "picks": [
-    {
-      "ticker": "JXN",
-      "sector": "Financial Services",
-      "date_added": "2026-11-10",
-      "score": 43.5
-    },
-    {
-      "ticker": "GCT",
-      "sector": "Technology",
-      "date_added": "2026-11-10",
-      "score": 30.5
-    },
-    {
-      "ticker": "XMTR",
-      "sector": "Industrials",
-      "date_added": "2026-11-11",
-      "score": 37.0
-    },
     {
       "ticker": "MGNI",
       "sector": "Communication Services",
@@ -44,12 +26,6 @@
       "score": 50.5
     },
     {
-      "ticker": "JCI",
-      "sector": "Industrials",
-      "date_added": "2026-11-11",
-      "score": 49.0
-    },
-    {
       "ticker": "BBY",
       "sector": "Consumer Cyclical",
       "date_added": "2026-11-12",
@@ -72,6 +48,48 @@
       "sector": "Industrials",
       "date_added": "2026-11-12",
       "score": 40.0
+    },
+    {
+      "ticker": "MTCH",
+      "sector": "Communication Services",
+      "date_added": "2026-11-12",
+      "score": 45.5
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "date_added": "2026-11-12",
+      "score": 43.0
+    },
+    {
+      "ticker": "NP",
+      "sector": "Financial Services",
+      "date_added": "2026-11-12",
+      "score": 43.0
+    },
+    {
+      "ticker": "SNOW",
+      "sector": "Technology",
+      "date_added": "2026-11-12",
+      "score": 42.0
+    },
+    {
+      "ticker": "TRGP",
+      "sector": "Energy",
+      "date_added": "2026-11-12",
+      "score": 41.5
+    },
+    {
+      "ticker": "DOCU",
+      "sector": "Technology",
+      "date_added": "2026-11-12",
+      "score": 38.5
+    },
+    {
+      "ticker": "ADI",
+      "sector": "Technology",
+      "date_added": "2026-11-12",
+      "score": 37.0
     }
   ]
 }
