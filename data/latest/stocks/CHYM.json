@@ -1,0 +1,89 @@
+{
+  "ticker": "CHYM",
+  "company": "Chime Financial, Inc.",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T21:35:06.083Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 33.029998779296875,
+    "open": 32.84000015258789,
+    "high": 33.339500427246094,
+    "low": 32.525001525878906,
+    "prev_close": 33.08000183105469,
+    "change_pct": -0.1511579473700962,
+    "change_pct_1w": 9.443334808821481,
+    "change_pct_1m": 18.17530546579909,
+    "change_pct_1y": 63.514839266226005,
+    "volume": 2584827,
+    "avg_volume_30d": 120947927
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 95,
+    "fundamental_score": 79.7,
+    "momentum_score": 48,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.45432336905293,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 30.51733649844647,
+    "ema_50": 29.606535071068272,
+    "ema_200": 25.65780967630511,
+    "ema_stack_bullish": true,
+    "bb_upper": 34.68149871826172,
+    "bb_middle": 33.029998779296875,
+    "bb_lower": 31.37849884033203,
+    "bb_width": 10,
+    "atr": 1.42,
+    "atr_pct": 4.29,
+    "rvol": 1.4083561928266866,
+    "52w_high": 35.54999923706055,
+    "52w_low": 15.880000114440918
+  },
+  "fundamental": {
+    "pe_ratio": 28.973684,
+    "pb_ratio": 8.210291,
+    "gross_margin": 0.89359003,
+    "operating_margin": 0.19319999,
+    "net_margin": 0.0305,
+    "market_cap": 12676311040,
+    "revenue_growth_ttm": 0.321,
+    "fcf_yield": 0.0381860014693991,
+    "institutional_ownership_pct": 0.93942,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 32.18,
+    "entry_range_high": 33.17,
+    "target_range_low": 34.31,
+    "target_range_high": 37.58,
+    "target_1": 34.31,
+    "target_2": 35.94,
+    "target_3": 37.58,
+    "stop_loss": 31.19,
+    "risk_reward_ratio": 2.2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $32.18 – $33.17 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $33.34 direnci veya $31.90 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $31.19 olarak belirlenmiştir. Fiyatın EMA20 ($30.52) veya günlük VWAP ($32.96) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($32.96) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 68 seviyesinde pozitif momentumu destekliyor."
+  }
+}
