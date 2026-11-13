@@ -1,0 +1,89 @@
+{
+  "ticker": "WWW",
+  "company": "Wolverine World Wide, Inc.",
+  "date": "2026-11-13",
+  "generated_at": "2026-11-13T03:35:16.983Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Footwear & Accessories",
+  "price": {
+    "current": 22.8700008392334,
+    "open": 21.93000030517578,
+    "high": 23.469999313354492,
+    "low": 20.690000534057617,
+    "prev_close": 21.93000030517578,
+    "change_pct": 4.286368084708892,
+    "change_pct_1w": 5.4402963398868796,
+    "change_pct_1m": 9.95193114471183,
+    "change_pct_1y": 42.93750524520874,
+    "volume": 1448100,
+    "avg_volume_30d": 29590700
+  },
+  "scores": {
+    "master_score": 86,
+    "technical_score": 100,
+    "fundamental_score": 68.15,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+1.62%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 63.61000671455019,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 21.16748819608363,
+    "ema_50": 20.305822399576083,
+    "ema_200": 18.665090286358062,
+    "ema_stack_bullish": true,
+    "bb_upper": 24.013500881195068,
+    "bb_middle": 22.8700008392334,
+    "bb_lower": 21.72650079727173,
+    "bb_width": 10,
+    "atr": 1.15,
+    "atr_pct": 5.02,
+    "rvol": 0.968290712960491,
+    "52w_high": 23.84000015258789,
+    "52w_low": 14
+  },
+  "fundamental": {
+    "pe_ratio": 17.728683,
+    "pb_ratio": 4.551244,
+    "gross_margin": 0.47120997,
+    "operating_margin": 0.0892,
+    "net_margin": 0.05549,
+    "market_cap": 1876857216,
+    "revenue_growth_ttm": 0.068,
+    "fcf_yield": 0.06997069296506357,
+    "institutional_ownership_pct": 1.103,
+    "dividend_rate": 0.4,
+    "dividend_yield": 0.0182
+  },
+  "scores_detail": {
+    "entry_range_low": 22.4,
+    "entry_range_high": 22.98,
+    "target_range_low": 23.83,
+    "target_range_high": 26.1,
+    "target_1": 23.83,
+    "target_2": 24.96,
+    "target_3": 26.1,
+    "stop_loss": 21.6,
+    "risk_reward_ratio": 2.07,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $22.40 – $22.98 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $23.47 direnci veya $22.17 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $21.60 olarak belirlenmiştir. Fiyatın EMA20 ($21.17) veya günlük VWAP ($22.51) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($22.51) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 64 seviyesinde pozitif momentumu destekliyor."
+  }
+}

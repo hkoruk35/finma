@@ -1,0 +1,89 @@
+{
+  "ticker": "SNN",
+  "company": "Smith & Nephew plc",
+  "date": "2026-11-13",
+  "generated_at": "2026-11-13T02:35:47.891Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 31,
+    "open": 31.360000610351562,
+    "high": 31.56999969482422,
+    "low": 31,
+    "prev_close": 31.040000915527344,
+    "change_pct": -0.12886892508863887,
+    "change_pct_1w": -3.1552589018843364,
+    "change_pct_1m": 4.377101695844819,
+    "change_pct_1y": -7.379746431485897,
+    "volume": 945900,
+    "avg_volume_30d": 43072200
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 85,
+    "fundamental_score": 69.8,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.379872594029905,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 30.34026828775126,
+    "ema_50": 29.52843566535758,
+    "ema_200": 30.487493487281284,
+    "ema_stack_bullish": false,
+    "bb_upper": 32.550000000000004,
+    "bb_middle": 31,
+    "bb_lower": 29.45,
+    "bb_width": 10,
+    "atr": 0.76,
+    "atr_pct": 2.44,
+    "rvol": 1.0691629403652472,
+    "52w_high": 37.09000015258789,
+    "52w_low": 26.1200008392334
+  },
+  "fundamental": {
+    "pe_ratio": 21.088434,
+    "pb_ratio": 12.734143,
+    "gross_margin": 0.68444,
+    "operating_margin": 0.14222,
+    "net_margin": 0.10079,
+    "market_cap": 12974029824,
+    "revenue_growth_ttm": 0.046,
+    "fcf_yield": 0.08162460040295341,
+    "institutional_ownership_pct": 0.109960005,
+    "dividend_rate": 0.79,
+    "dividend_yield": 0.0256
+  },
+  "scores_detail": {
+    "entry_range_low": 30.55,
+    "entry_range_high": 31.08,
+    "target_range_low": 32.92,
+    "target_range_high": 35.43,
+    "target_1": 32.92,
+    "target_2": 33.91,
+    "target_3": 35.43,
+    "stop_loss": 29.45,
+    "risk_reward_ratio": 2.28,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.55 – $31.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $31.57 direnci veya $30.39 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.45 olarak belirlenmiştir. Fiyatın EMA50 ($29.53) veya günlük VWAP ($31.17) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($29.53) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.17) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}

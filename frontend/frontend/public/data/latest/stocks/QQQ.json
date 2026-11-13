@@ -1,0 +1,89 @@
+{
+  "ticker": "QQQ",
+  "company": "Invesco QQQ Trust",
+  "date": "2026-11-12",
+  "generated_at": "2026-11-12T23:37:41.314Z",
+  "sector": "Unknown",
+  "industry": "Unknown",
+  "price": {
+    "current": 688.1699829101562,
+    "open": 680.2119750976562,
+    "high": 694.5598754882812,
+    "low": 679.8400268554688,
+    "prev_close": 690.3800048828125,
+    "change_pct": -0.32011674107383614,
+    "change_pct_1w": 6.354995115206513,
+    "change_pct_1m": -0.3359943456140853,
+    "change_pct_1y": 10.8021452911449,
+    "volume": 36073858,
+    "avg_volume_30d": 1349689158
+  },
+  "scores": {
+    "master_score": 45,
+    "technical_score": 40,
+    "fundamental_score": 56.6,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.37590746356526,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 695.4185899949546,
+    "ema_50": 709.2242675946038,
+    "ema_200": 689.7393550222997,
+    "ema_stack_bullish": false,
+    "bb_upper": 722.578482055664,
+    "bb_middle": 688.1699829101562,
+    "bb_lower": 653.7614837646485,
+    "bb_width": 10,
+    "atr": 18.16,
+    "atr_pct": 2.64,
+    "rvol": 1.0908638772661756,
+    "52w_high": 762.8599853515625,
+    "52w_low": 555.5999755859375
+  },
+  "fundamental": {
+    "pe_ratio": 28.345846,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 677.27,
+    "entry_range_high": 689.99,
+    "target_range_low": 724.13,
+    "target_range_high": 786.17,
+    "target_1": 724.13,
+    "target_2": 751.99,
+    "target_3": 786.17,
+    "stop_loss": 653.76,
+    "risk_reward_ratio": 2.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $677.27 – $689.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $699.43 direnci veya $673.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $653.76 olarak belirlenmiştir. Fiyatın EMA200 ($689.74) veya günlük VWAP ($689.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($709.22) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($689.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 45 ile dengeli/nötr bir görünümde."
+  }
+}

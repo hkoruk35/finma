@@ -1,8 +1,8 @@
 {
   "ticker": "DPZ",
   "company": "Domino's Pizza, Inc.",
-  "date": "2026-11-12",
-  "generated_at": "2026-11-12T21:37:09.943Z",
+  "date": "2026-11-13",
+  "generated_at": "2026-11-13T07:19:42.897Z",
   "sector": "Consumer Cyclical",
   "industry": "Restaurants",
   "price": {
@@ -15,8 +15,8 @@
     "change_pct_1w": -2.4587986349049697,
     "change_pct_1m": 6.222313621797787,
     "change_pct_1y": -17.468297273976734,
-    "volume": 453224,
-    "avg_volume_30d": 23900324
+    "volume": 454000,
+    "avg_volume_30d": 23901100
   },
   "scores": {
     "master_score": 75,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 9.06,
     "atr_pct": 2.72,
-    "rvol": 0.7946814444858572,
+    "rvol": 0.7948504462137725,
     "52w_high": 442.3500061035156,
     "52w_low": 282
   },
@@ -62,7 +62,7 @@
     "fcf_yield": 0.05163523215063719,
     "institutional_ownership_pct": 1.0993199,
     "dividend_rate": 7.96,
-    "dividend_yield": 0.0242
+    "dividend_yield": 0.0239
   },
   "scores_detail": {
     "entry_range_low": 327.79,

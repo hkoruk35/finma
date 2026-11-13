@@ -1,0 +1,89 @@
+{
+  "ticker": "SOUN",
+  "company": "SoundHound AI, Inc.",
+  "date": "2026-11-13",
+  "generated_at": "2026-11-13T03:37:24.912Z",
+  "sector": "Technology",
+  "industry": "Software - Application",
+  "price": {
+    "current": 3.5999999046325684,
+    "open": 3.7300000190734863,
+    "high": 3.7799999713897705,
+    "low": 3.555000066757202,
+    "prev_close": 3.9100000858306885,
+    "change_pct": -7.928393206985311,
+    "change_pct_1w": -15.492964525556008,
+    "change_pct_1m": -14.691941146540314,
+    "change_pct_1y": -72.80966792397055,
+    "volume": 21786800,
+    "avg_volume_30d": 522525399.99999994
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 45,
+    "fundamental_score": 53.3,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 23.874960684433333,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 4.325157520822981,
+    "ema_50": 5.068757765153392,
+    "ema_200": 7.1228235234262565,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.779999899864197,
+    "bb_middle": 3.5999999046325684,
+    "bb_lower": 3.4199999094009397,
+    "bb_width": 10,
+    "atr": 0.28,
+    "atr_pct": 7.83,
+    "rvol": 1.3993306354102595,
+    "52w_high": 13.869999885559082,
+    "52w_low": 3.555000066757202
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 2.1831412,
+    "gross_margin": 0.39943,
+    "operating_margin": -0.90592,
+    "net_margin": -0.32923,
+    "market_cap": 1758216192,
+    "revenue_growth_ttm": 0.485,
+    "fcf_yield": 0.0034581924723851025,
+    "institutional_ownership_pct": 0.38176998,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 3.43,
+    "entry_range_high": 3.63,
+    "target_range_low": 6.21,
+    "target_range_high": 7.09,
+    "target_1": 6.21,
+    "target_2": 6.73,
+    "target_3": 7.09,
+    "stop_loss": 3.23,
+    "risk_reward_ratio": 10.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.43 – $3.63 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.92 direnci veya $3.37 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $3.23 olarak belirlenmiştir. Fiyatın EMA20 ($4.33) veya günlük VWAP ($3.65) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.07) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.65) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 24 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}
