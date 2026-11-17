@@ -9,6 +9,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DayPlan, Lean, PathPt, Zone } from "@/lib/spyengine/dayPlan";
+import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 
 const f2 = (v: number) => v.toFixed(2);
 const sg = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(2)}`;
@@ -34,7 +35,15 @@ const etStamp = (sec: number) => {
   const hm = d.toLocaleTimeString("en-GB", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false });
   return `${trShort(ymd)} ${ymd.slice(0, 4)} ${hm}`;
 };
-const EMA_COL = { e9: "#22d3ee", e20: "#a78bfa", e50: "#fb923c" } as const;
+const EMA_COL = { e9: "#22d3ee", e20: "#a78bfa", e50: "#fb923c", e200: "#f472b6" } as const;
+const EMA_KEYS = ["e9", "e20", "e50", "e200"] as const;
+type EmaKey = (typeof EMA_KEYS)[number];
+type Tf = "5m" | "15m";
+type View = { path: PathPt[]; ema: DayPlan["ema"]; breaks: DayPlan["breaks"] };
+/** seçili zaman dilimi verisi (eski sürümlerde 15m / EMA200 yoksa boş) */
+const viewOf = (p: DayPlan, tf: Tf): View =>
+  tf === "15m" && p.tf15 ? { path: p.tf15.actual_path, ema: p.tf15.ema, breaks: p.tf15.breaks } : { path: p.actual_path, ema: p.ema ?? [], breaks: p.breaks ?? [] };
+const emaPts = (v: View, k: EmaKey): PathPt[] => v.ema.filter((e) => Number.isFinite(e[k])).map((e) => ({ t: "", m: e.m, p: e[k] }));
 
 function Card({ title, children, tone = "base" }: { title: string; children: React.ReactNode; tone?: "base" | "warn" | "info" }) {
   const cls = tone === "warn" ? "border-amber-500/40 bg-amber-500/[0.08]" : tone === "info" ? "border-sky-500/40 bg-sky-500/[0.08]" : "border-[#1c2635] bg-[#0f141d]";
@@ -53,14 +62,14 @@ const X0 = 4 * 60, X1 = 16 * 60;
 const AXIS = [240, 510, 570, 600, 630, 690, 720, 810, 900, 960];
 const hh = (m: number) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 
-function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: string; dash: string; label: string }> }) {
+function Chart({ p, v, tf, colors }: { p: DayPlan; v: View; tf: Tf; colors: Record<string, { stroke: string; dash: string; label: string }> }) {
   const [hover, setHover] = useState<number | null>(null);
   const g = useMemo(() => {
     const vals: number[] = [p.meta.spot];
-    p.actual_path.forEach((q) => vals.push(q.p));
+    v.path.forEach((q) => vals.push(q.p));
     p.scenarios.forEach((s) => s.points.forEach((q) => vals.push(q.p)));
     p.band.forEach((b) => vals.push(b.lo, b.hi));
-    (p.ema ?? []).forEach((e) => vals.push(e.e9, e.e20, e.e50));
+    v.ema.forEach((e) => EMA_KEYS.forEach((k) => { if (Number.isFinite(e[k])) vals.push(e[k]); }));
     let lo = Math.min(...vals), hi = Math.max(...vals);
     // en uzak ilgili seviye ±1: yolların aralığına 0,5 aralık mesafede kalan seviyeler dahil
     const span = Math.max(1, hi - lo);
@@ -68,7 +77,7 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
     lv.forEach((z) => { lo = Math.min(lo, z.low); hi = Math.max(hi, z.high); });
     lo -= 1; hi += 1;
     return { lo, hi, lv };
-  }, [p]);
+  }, [p, v]);
   const X = (m: number) => PAD.l + ((Math.max(X0, Math.min(X1, m)) - X0) / (X1 - X0)) * (W - PAD.l - PAD.r);
   const Y = (v: number) => PAD.t + (1 - (v - g.lo) / (g.hi - g.lo)) * (H - PAD.t - PAD.b);
   const line = (pts: PathPt[]) => pts.map((q) => `${X(q.m).toFixed(1)},${Y(q.p).toFixed(1)}`).join(" ");
@@ -83,7 +92,7 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
     return null;
   });
   // "şimdi" = son kapanan 5m mum (senaryolar da buradan başlar); seans öncesi günden önceki mumsa 04:00
-  const lastM = p.actual_path.length ? p.actual_path[p.actual_path.length - 1].m : X0;
+  const lastM = p.actual_path.length ? p.actual_path[p.actual_path.length - 1].m : X0; // şimdi = son 5m kapanışı (her iki görünümde)
   const nowM = Math.max(X0, Math.min(X1, lastM));
   const valAt = (pts: PathPt[], m: number) => {
     if (!pts.length || m < pts[0].m || m > pts[pts.length - 1].m) return null;
@@ -98,8 +107,8 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
     setHover(Math.round(X0 + ((x - PAD.l) / (W - PAD.l - PAD.r)) * (X1 - X0)));
   };
   const tip = hover != null ? [
-    { k: "Gerçekleşen", v: valAt(p.actual_path, hover), c: "#e2e8f0" },
-    ...(["e9", "e20", "e50"] as const).map((k) => ({ k: `EMA${k.slice(1)}`, v: valAt((p.ema ?? []).map((e) => ({ t: "", m: e.m, p: e[k] })), hover), c: EMA_COL[k] })),
+    { k: `Gerçekleşen ${tf}`, v: valAt(v.path, hover), c: "#e2e8f0" },
+    ...EMA_KEYS.map((k) => ({ k: `EMA${k.slice(1)}`, v: valAt(emaPts(v, k), hover), c: EMA_COL[k] })),
     ...p.scenarios.map((s) => ({ k: colors[s.key].label, v: valAt(s.points, hover), c: colors[s.key].stroke })),
   ].filter((r) => r.v != null) : [];
   const bandPoly = p.band.length ? [...p.band.map((b) => `${X(b.m).toFixed(1)},${Y(b.hi).toFixed(1)}`), ...[...p.band].reverse().map((b) => `${X(b.m).toFixed(1)},${Y(b.lo).toFixed(1)}`)].join(" ") : "";
@@ -142,17 +151,17 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
         {p.scenarios.map((s) => (
           <polyline key={s.key} points={line(s.points)} fill="none" stroke={colors[s.key].stroke} strokeWidth={s.key === "main" ? 2 : 1.6} strokeDasharray={colors[s.key].dash} />
         ))}
-        {(["e50", "e20", "e9"] as const).map((k) => (p.ema?.length ?? 0) > 1 && (
-          <polyline key={k} points={line(p.ema.map((e) => ({ t: "", m: e.m, p: e[k] })))} fill="none" stroke={EMA_COL[k]} strokeWidth={1} opacity={0.85} />
-        ))}
-        {p.actual_path.length > 1 && <polyline points={line(p.actual_path)} fill="none" stroke="#e2e8f0" strokeWidth={1.6} />}
-        {(p.breaks ?? []).map((b, i) => {
+        {(["e200", "e50", "e20", "e9"] as const).map((k) => { const pts = emaPts(v, k); return pts.length > 1 && (
+          <polyline key={k} points={line(pts)} fill="none" stroke={EMA_COL[k]} strokeWidth={k === "e200" ? 1.4 : 1} strokeDasharray={k === "e200" ? "6 3" : ""} opacity={0.85} />
+        ); })}
+        {v.path.length > 1 && <polyline points={line(v.path)} fill="none" stroke="#e2e8f0" strokeWidth={1.6} />}
+        {v.breaks.map((b, i) => {
           const x = X(b.m), y = Y(b.p), up = b.dir === "UP", s = b.inval ? 7 : 5;
           const pts = up ? `${x},${y - 6 - s} ${x - s},${y - 6} ${x + s},${y - 6}` : `${x},${y + 6 + s} ${x - s},${y + 6} ${x + s},${y + 6}`;
           return <polygon key={`b${i}`} points={pts} fill={up ? "#22c55e" : "#ef4444"} stroke={b.inval ? "#fde047" : "#0a0e17"} strokeWidth={b.inval ? 1.5 : 0.8} />;
         })}
         <text x={PAD.l + 4} y={PAD.t + 12} fontSize={12} fill="#e2e8f0" fontFamily="monospace" fontWeight={700}>
-          Güncelleme {etStamp(p.meta.asOf)} ET · son 5m kapanışı {p.meta.spot_et} · {p.meta.version || "canlı"}
+          {tf} · Güncelleme {etStamp(p.meta.asOf)} ET · son 5m kapanışı {p.meta.spot_et} · {p.meta.version || "canlı"}
         </text>
         <line x1={X(nowM)} x2={X(nowM)} y1={PAD.t} y2={H - PAD.b} stroke="#3b82f6" strokeWidth={0.9} strokeDasharray="2 3" />
         <circle cx={X(nowM)} cy={Y(p.meta.spot)} r={3.5} fill="#3b82f6" stroke="#fff" strokeWidth={1.2} />
@@ -220,6 +229,8 @@ type VersionRow = { v: number; asof_et: string; created_at_et: string; spot: num
 export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
   p: DayPlan; versions: VersionRow[]; sel: string; onSel: (v: string) => void; onRefresh: () => void; busy: boolean; err: string | null;
 }) {
+  const [tf, setTf] = usePersistedState<Tf>("spyengine_ui_dayplan_tf", "5m");
+  const v = viewOf(p, tf);
   const dir = p.bias.dir;
   const dirCol = dir === "BEAR" ? "#f87171" : dir === "BULL" ? "#4ade80" : "#94a3b8";
   const oppCol = dir === "BULL" ? "#f87171" : "#4ade80";
@@ -298,30 +309,38 @@ export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
             <svg width="22" height="6"><line x1="0" x2="22" y1="3" y2="3" stroke={colors[s.key].stroke} strokeWidth="2" strokeDasharray={colors[s.key].dash} /></svg>{s.label}
           </span>
         ))}
-        {(["e9", "e20", "e50"] as const).map((k) => {
-          const last = p.ema?.[p.ema.length - 1];
+        {EMA_KEYS.map((k) => {
+          const last = v.ema[v.ema.length - 1];
+          if (last && !Number.isFinite(last[k])) return null;
           return (
             <span key={k} className="flex items-center gap-1.5" style={{ color: EMA_COL[k] }}>
-              <svg width="22" height="6"><line x1="0" x2="22" y1="3" y2="3" stroke={EMA_COL[k]} strokeWidth="1.5" /></svg>EMA{k.slice(1)}{last ? ` ${f2(last[k])}` : ""}
+              <svg width="22" height="6"><line x1="0" x2="22" y1="3" y2="3" stroke={EMA_COL[k]} strokeWidth="1.5" strokeDasharray={k === "e200" ? "6 3" : ""} /></svg>EMA{k.slice(1)}{last ? ` ${f2(last[k])}` : ""}
             </span>
           );
         })}
-        <span className="flex items-center gap-1 text-slate-300"><span className="text-emerald-400">▲</span><span className="text-rose-400">▼</span> 5m kapanış kırılımı</span>
+        <span className="flex items-center gap-1 text-slate-300"><span className="text-emerald-400">▲</span><span className="text-rose-400">▼</span> {tf} kapanış kırılımı</span>
         <span className="rounded border border-slate-600/60 px-1.5 py-px text-[11px] text-slate-400">seviye tabanlı senaryo — olasılık değildir</span>
         <span className="text-[11px] text-slate-500">gölge: Ana ±1σ ({p.meta.profile === "sabit" ? "sabit profil" : `ölçülen profil, ${p.meta.sessions} seans`})</span>
       </div>
 
-      {/* 4) ana grafik */}
+      {/* 4) ana grafik + zaman dilimi seçici */}
+      <div className="flex items-center gap-1.5 px-1">
+        <span className="text-[11px] text-slate-500">Zaman dilimi</span>
+        {(["5m", "15m"] as Tf[]).map((x) => (
+          <button key={x} type="button" onClick={() => setTf(x)} className={`rounded border px-2.5 py-0.5 font-mono text-[12px] font-bold ${tf === x ? "border-blue-400 bg-blue-500/20 text-blue-100" : "border-slate-600/60 bg-slate-500/10 text-slate-300 hover:text-white"}`}>{x}</button>
+        ))}
+        {tf === "15m" && !p.tf15 && <span className="text-[11px] text-amber-300">bu sürümde 15m verisi yok (v5.2 öncesi)</span>}
+      </div>
       {/* mobilde grafik gerçek boyutunda (etiketler 11px), kendi kutusunda yatay kaydırılır */}
       <div className="overflow-x-auto overflow-y-hidden rounded-lg border border-[#1a2433]">
-        {p.scenarios.length || p.actual_path.length ? <Chart p={p} colors={colors} /> : <div className="px-3 py-10 text-center text-[12px] text-slate-500">Senaryo için yeterli seviye yok</div>}
+        {p.scenarios.length || p.actual_path.length ? <Chart p={p} v={v} tf={tf} colors={colors} /> : <div className="px-3 py-10 text-center text-[12px] text-slate-500">Senaryo için yeterli seviye yok</div>}
       </div>
 
-      {/* 4b) 5m kapanış kırılımları */}
-      <Card title={`5m kırılımlar (bugün) · güncelleme ${etStamp(p.meta.asOf)} ET`}>
-        {(p.breaks ?? []).length ? (
+      {/* 4b) seçili zaman diliminde kapanış kırılımları */}
+      <Card title={`${tf} kırılımlar (bugün) · güncelleme ${etStamp(p.meta.asOf)} ET`}>
+        {v.breaks.length ? (
           <ul className="flex max-h-[180px] flex-col gap-0.5 overflow-y-auto font-mono text-[12px]">
-            {[...p.breaks].reverse().map((b, i) => (
+            {[...v.breaks].reverse().map((b, i) => (
               <li key={i} className={b.dir === "UP" ? "text-emerald-300" : "text-rose-300"}>
                 <b>{b.t}</b> {b.dir === "UP" ? "▲ yukarı kırılım" : "▼ aşağı kırılım"} {b.zone} · kapanış {f2(b.p)}
                 {b.inval && <span className="ml-1 rounded bg-amber-400/20 px-1 text-amber-200">İPTAL</span>}
@@ -330,7 +349,7 @@ export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
             ))}
           </ul>
         ) : <div className="text-[12px] text-slate-400">Bugün henüz 5m kapanışla kırılan önemli bölge yok</div>}
-        <div className="mt-1 text-[11px] text-slate-500">Yalnız ret almış ya da ≥2 kaynaklı bölgeler; bölgenin 0,05 ötesinde 5m kapanış = kırılım, aynı yönde tekrar sayılmaz.</div>
+        <div className="mt-1 text-[11px] text-slate-500">Yalnız ret almış ya da ≥2 kaynaklı bölgeler; bölgenin 0,05 ötesinde {tf} kapanış = kırılım, aynı yönde tekrar sayılmaz.</div>
       </Card>
 
       {/* 5) akış + seviyeler */}

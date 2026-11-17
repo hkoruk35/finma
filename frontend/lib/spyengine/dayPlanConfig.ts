@@ -3,7 +3,7 @@
  * yeni snapshot'ların inputs_hash'ine girer (eski sürümler değişmez).
  */
 
-export const DAYPLAN_VERSION = "5.1";
+export const DAYPLAN_VERSION = "5.2";
 
 export interface DayPlanCfg {
   /** seviye kümeleme: birbirine bu kadar (puan) yakın adaylar tek bölge */
