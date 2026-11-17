@@ -1,0 +1,89 @@
+{
+  "ticker": "RYZ",
+  "company": "Ryerson Holding Corporation",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T14:18:53.342Z",
+  "sector": "Industrials",
+  "industry": "Metal Fabrication",
+  "price": {
+    "current": 28.440000534057617,
+    "open": 28.739999771118164,
+    "high": 29.43000030517578,
+    "low": 28.270000457763672,
+    "prev_close": 29.1299991607666,
+    "change_pct": -2.3686874239196714,
+    "change_pct_1w": -4.499664612797669,
+    "change_pct_1m": -11.152758433836093,
+    "change_pct_1y": 40.93161597605777,
+    "volume": 354700,
+    "avg_volume_30d": 16910600
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 85,
+    "fundamental_score": 46.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.535839518296044,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 29.132834856741365,
+    "ema_50": 27.961571447649867,
+    "ema_200": 26.3117854524124,
+    "ema_stack_bullish": true,
+    "bb_upper": 29.8620005607605,
+    "bb_middle": 28.440000534057617,
+    "bb_lower": 27.018000507354735,
+    "bb_width": 10,
+    "atr": 1.99,
+    "atr_pct": 7.01,
+    "rvol": 0.8095987132331202,
+    "52w_high": 33.720001220703125,
+    "52w_low": 19.34000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.1210533,
+    "gross_margin": 0.17309,
+    "operating_margin": 0.01042,
+    "net_margin": 0.00206,
+    "market_cap": 1470623616,
+    "revenue_growth_ttm": 0.875,
+    "fcf_yield": -0.41490051523829197,
+    "institutional_ownership_pct": 0.93023,
+    "dividend_rate": 0.75,
+    "dividend_yield": 0.026400002
+  },
+  "scores_detail": {
+    "entry_range_low": 27.24,
+    "entry_range_high": 28.64,
+    "target_range_low": 29.34,
+    "target_range_high": 32.13,
+    "target_1": 29.34,
+    "target_2": 30.74,
+    "target_3": 32.13,
+    "stop_loss": 25.85,
+    "risk_reward_ratio": 1.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $27.24 – $28.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $30.43 direnci veya $26.84 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $25.85 olarak belirlenmiştir. Fiyatın EMA200 ($26.31) veya günlük VWAP ($28.67) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($27.96) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($28.67) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

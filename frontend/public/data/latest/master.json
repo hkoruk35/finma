@@ -1,31 +1,31 @@
 {
-  "date": "2026-11-12",
-  "generated_at": "2026-11-12T17:02:06.670924-05:00",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T09:03:51.613829-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 40,
-  "market_regime": "CHOPPY",
+  "active_scores_count": 10,
+  "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SBH",
-        "VNO",
-        "GWW",
-        "EBC",
-        "PACS",
-        "AAL",
-        "TMO",
-        "ICE",
-        "BILL",
-        "VLY"
+        "ELV",
+        "J",
+        "TYL",
+        "IDXX",
+        "KNTK",
+        "DUOL",
+        "AEO",
+        "BXP",
+        "UNH",
+        "EE"
       ]
     },
     "breakout": {
       "count": 3,
       "tickers": [
-        "SBH",
-        "GWW",
-        "QNST"
+        "ELV",
+        "DUOL",
+        "UNH"
       ]
     },
     "value": {
@@ -47,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SBH",
-      "score": 51.5,
+      "ticker": "ELV",
+      "score": 57.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "VNO",
-      "score": 48.0,
+      "ticker": "J",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "GWW",
-      "score": 47.0,
+      "ticker": "TYL",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
