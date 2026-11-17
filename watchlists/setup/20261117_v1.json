@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "H",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 190.58,
+        "entry_zone": "187.85 - 193.31",
+        "SL": 179.66,
+        "TP": 212.43
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "MCB",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 96.82,
+        "entry_zone": "95.53 - 98.11",
+        "SL": 91.66,
+        "TP": 104.56
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "LUV",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 45.88,
+        "entry_zone": "45.02 - 46.74",
+        "SL": 42.44,
+        "TP": 52.77
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "BILL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 57.45,
+        "entry_zone": "56.34 - 58.56",
+        "SL": 53.0,
+        "TP": 64.13
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "CNC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 73.14,
+        "entry_zone": "71.30 - 74.98",
+        "SL": 65.77,
+        "TP": 87.87
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "BR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 193.11,
+        "entry_zone": "190.57 - 195.65",
+        "SL": 182.96,
+        "TP": 213.41
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "HST",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 25.72,
+        "entry_zone": "25.41 - 26.03",
+        "SL": 24.47,
+        "TP": 28.23
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "HG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 42.0,
+        "entry_zone": "41.39 - 42.61",
+        "SL": 39.56,
+        "TP": 46.88
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "HCA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 519.94,
+        "entry_zone": "511.51 - 528.36",
+        "SL": 486.25,
+        "TP": 587.31
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "KNTK",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 55.5,
+        "entry_zone": "54.35 - 56.65",
+        "SL": 50.89,
+        "TP": 64.72
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "CHYM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 34.09,
+        "entry_zone": "33.37 - 34.81",
+        "SL": 31.22,
+        "TP": 38.4
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 83.43,
+        "entry_zone": "80.38 - 86.48",
+        "SL": 71.22,
+        "TP": 107.85
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "TSN",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 63.02,
+        "entry_zone": "62.03 - 64.01",
+        "SL": 59.05,
+        "TP": 70.97
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "UNFI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 49.92,
+        "entry_zone": "48.97 - 50.87",
+        "SL": 46.1,
+        "TP": 57.56
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "PCG",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 13.6,
+        "entry_zone": "13.42 - 13.78",
+        "SL": 12.88,
+        "TP": 15.03
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 440.3,
+        "entry_zone": "433.57 - 447.03",
+        "SL": 413.39,
+        "TP": 494.11
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "HUBS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 227.5,
+        "entry_zone": "220.14 - 234.86",
+        "SL": 198.07,
+        "TP": 286.36
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "WEC",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 117.46,
+        "entry_zone": "116.28 - 118.64",
+        "SL": 112.75,
+        "TP": 126.87
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "CB",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 380.0,
+        "entry_zone": "376.49 - 383.51",
+        "SL": 365.95,
+        "TP": 408.1
+    },
+    {
+        "date": "2026-11-17 14:03",
+        "symbol": "ROKU",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 160.08,
+        "entry_zone": "158.68 - 161.49",
+        "SL": 154.45,
+        "TP": 171.36
+    }
+]

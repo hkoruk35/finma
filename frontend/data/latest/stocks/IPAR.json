@@ -1,0 +1,89 @@
+{
+  "ticker": "IPAR",
+  "company": "Interparfums, Inc.",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T12:43:07.670Z",
+  "sector": "Consumer Defensive",
+  "industry": "Household & Personal Products",
+  "price": {
+    "current": 134.30999755859375,
+    "open": 134.52000427246094,
+    "high": 135.30999755859375,
+    "low": 133.32000732421875,
+    "prev_close": 133.3699951171875,
+    "change_pct": 0.7048080346559982,
+    "change_pct_1w": -1.3587000982362964,
+    "change_pct_1m": 14.706637423585509,
+    "change_pct_1y": 53.62003555962782,
+    "volume": 152800,
+    "avg_volume_30d": 6881300
+  },
+  "scores": {
+    "master_score": 78,
+    "technical_score": 90,
+    "fundamental_score": 76.4,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.85330593026936,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 126.04170933265799,
+    "ema_50": 120.34154989808351,
+    "ema_200": 108.73512083068658,
+    "ema_stack_bullish": true,
+    "bb_upper": 141.02549743652344,
+    "bb_middle": 134.30999755859375,
+    "bb_lower": 127.59449768066406,
+    "bb_width": 10,
+    "atr": 4.43,
+    "atr_pct": 3.3,
+    "rvol": 0.8693124845596036,
+    "52w_high": 138.1300048828125,
+    "52w_low": 77.20999908447266
+  },
+  "fundamental": {
+    "pe_ratio": 25.293785,
+    "pb_ratio": 4.896642,
+    "gross_margin": 0.59776,
+    "operating_margin": 0.17878,
+    "net_margin": 0.11331,
+    "market_cap": 4301624320,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.048602020178275356,
+    "institutional_ownership_pct": 0.69532996,
+    "dividend_rate": 3.2,
+    "dividend_yield": 0.0238
+  },
+  "scores_detail": {
+    "entry_range_low": 131.65,
+    "entry_range_high": 134.75,
+    "target_range_low": 139.86,
+    "target_range_high": 153.18,
+    "target_1": 139.86,
+    "target_2": 146.52,
+    "target_3": 153.18,
+    "stop_loss": 127.59,
+    "risk_reward_ratio": 2.38,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $131.65 – $134.75 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $137.63 direnci veya $130.76 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $127.59 olarak belirlenmiştir. Fiyatın EMA20 ($126.04) veya günlük VWAP ($134.06) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($134.06) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 69 seviyesinde pozitif momentumu destekliyor."
+  }
+}

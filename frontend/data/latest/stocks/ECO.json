@@ -1,0 +1,89 @@
+{
+  "ticker": "ECO",
+  "company": "Okeanis Eco Tankers Corp.",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T09:01:37.318Z",
+  "sector": "Industrials",
+  "industry": "Marine Shipping",
+  "price": {
+    "current": 84.83000183105469,
+    "open": 87.5,
+    "high": 87.83999633789062,
+    "low": 84.44999694824219,
+    "prev_close": 88.81999969482422,
+    "change_pct": -4.492229089708092,
+    "change_pct_1w": 3.1869636002427377,
+    "change_pct_1m": -9.039245241343203,
+    "change_pct_1y": 120.73900899665024,
+    "volume": 1007300,
+    "avg_volume_30d": 28303500
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 85,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 46.030118569434066,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 88.03863153716239,
+    "ema_50": 84.5193884857068,
+    "ema_200": 65.61241890515912,
+    "ema_stack_bullish": true,
+    "bb_upper": 89.07150192260742,
+    "bb_middle": 84.83000183105469,
+    "bb_lower": 80.58850173950195,
+    "bb_width": 10,
+    "atr": 5.21,
+    "atr_pct": 6.15,
+    "rvol": 1.0552122529015846,
+    "52w_high": 102.55999755859375,
+    "52w_low": 31.75
+  },
+  "fundamental": {
+    "pe_ratio": 4.7791553,
+    "pb_ratio": 5.2448378,
+    "gross_margin": 0.69933,
+    "operating_margin": 0.63706,
+    "net_margin": 0.60648996,
+    "market_cap": 3312158208,
+    "revenue_growth_ttm": 4.535,
+    "fcf_yield": -0.04467865805521329,
+    "institutional_ownership_pct": 0.3059,
+    "dividend_rate": 9.55,
+    "dividend_yield": 0.1126
+  },
+  "scores_detail": {
+    "entry_range_low": 81.7,
+    "entry_range_high": 85.35,
+    "target_range_low": 87.7,
+    "target_range_high": 102.7,
+    "target_1": 87.7,
+    "target_2": 100.68,
+    "target_3": 102.7,
+    "stop_loss": 78.05,
+    "risk_reward_ratio": 3.13,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $81.70 – $85.35 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $89.19 direnci veya $80.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $78.05 olarak belirlenmiştir. Fiyatın EMA50 ($84.52) veya günlük VWAP ($85.73) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($84.52) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($85.73) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 46 ile dengeli/nötr bir görünümde."
+  }
+}
