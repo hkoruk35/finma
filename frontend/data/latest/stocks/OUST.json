@@ -1,0 +1,89 @@
+{
+  "ticker": "OUST",
+  "company": "Ouster, Inc.",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T15:12:52.429Z",
+  "sector": "Technology",
+  "industry": "Electronic Components",
+  "price": {
+    "current": 30.475000381469727,
+    "open": 31.988100051879883,
+    "high": 31.988100051879883,
+    "low": 30.22010040283203,
+    "prev_close": 31.229999542236328,
+    "change_pct": -2.4175445783965492,
+    "change_pct_1w": -20.26426109855293,
+    "change_pct_1m": -9.138343620732208,
+    "change_pct_1y": 45.67399746811323,
+    "volume": 291153,
+    "avg_volume_30d": 81868253
+  },
+  "scores": {
+    "master_score": 39,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.11345115336026,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 33.55842899503094,
+    "ema_50": 34.92594984285873,
+    "ema_200": 33.513726373726506,
+    "ema_stack_bullish": false,
+    "bb_upper": 31.998750400543216,
+    "bb_middle": 30.475000381469727,
+    "bb_lower": 28.951250362396237,
+    "bb_width": 10,
+    "atr": 3.27,
+    "atr_pct": 10.74,
+    "rvol": 0.6404646010951278,
+    "52w_high": 63.790000915527344,
+    "52w_low": 16.399999618530273
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.9634542,
+    "gross_margin": 0.46342,
+    "operating_margin": -0.28176,
+    "net_margin": -0.2036,
+    "market_cap": 2224588800,
+    "revenue_growth_ttm": 0.501,
+    "fcf_yield": -0.03589770118414693,
+    "institutional_ownership_pct": 0.5488,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 28.81,
+    "entry_range_high": 30.8,
+    "target_range_low": 38.38,
+    "target_range_high": 49.39,
+    "target_1": 38.38,
+    "target_2": 46.09,
+    "target_3": 49.39,
+    "stop_loss": 26.52,
+    "risk_reward_ratio": 4.96,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $28.81 – $30.80 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $33.50 direnci veya $28.16 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $26.52 olarak belirlenmiştir. Fiyatın EMA200 ($33.51) veya günlük VWAP ($31.36) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($34.93) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.36) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
