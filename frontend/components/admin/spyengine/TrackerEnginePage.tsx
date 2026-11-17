@@ -1125,6 +1125,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
   const feedIsStale = feedStaleSec != null;
   /** EMA20 — çok günlük akıştan ısınmış (seansın ilk mumlarında da değer var) */
   const ema5 = useMemo(() => emaByTime(m5D), [m5D]);
+  /** EMA9 (5m) — Tahmin Haritası çizgisi */
+  const ema9m = useMemo(() => emaByTime(m5D, 9), [m5D]);
   const ema50m = useMemo(() => emaByTime(m5D, 50), [m5D]);
   const ema200m = useMemo(() => emaByTime(m5D, 200), [m5D]);
   const ema15 = useMemo(() => emaByTime(m15D), [m15D]);
@@ -1202,7 +1204,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
   /** Grafik/harita için bugünün RTH 5m mumları (oluşan dahil) + VWAP */
   const todayRth5 = useMemo(() => {
-    if (!date) return { bars: [] as Bar[], vwap: [] as (number | null)[], ema: [] as (number | null)[] };
+    if (!date) return { bars: [] as Bar[], vwap: [] as (number | null)[], ema: [] as (number | null)[], ema9: [] as (number | null)[] };
     const bars = m5D.filter((b) => isRthBar(b) && nyParts(b.time).ymd === date);
     let pv = 0, vol = 0;
     const vwap = bars.map((b) => {
@@ -1211,8 +1213,8 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
       vol += v;
       return vol > 0 ? pv / vol : null;
     });
-    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null)};
-  }, [m5D, ema5, date]);
+    return { bars, vwap, ema: bars.map((b) => ema5.get(b.time) ?? null), ema9: bars.map((b) => ema9m.get(b.time) ?? null) };
+  }, [m5D, ema5, ema9m, date]);
 
 
   /** Son 1 saat (1m, oluşan dahil) ve seans dip/tepesi — fiyat şeridi için */
@@ -1631,7 +1633,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         {/* ── Tahmin haritası (terminal paneli, tüm motorlar) — Açılış Tahmini'nin üstünde ── */}
         <MapTerminal
-          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema50={ema50Now} ema200={ema200Now} h4={h4Read} wide={wideIn} flow={flow} optLevels={optLevels}
+          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema9Series={todayRth5.ema9} ema50={ema50Now} ema200={ema200Now} h4={h4Read} wide={wideIn} flow={flow} optLevels={optLevels}
           nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
           odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
         />

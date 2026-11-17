@@ -60,7 +60,7 @@ function layoutLabels(items: { y: number; prio: number; i: number }[], top: numb
 }
 
 export default function ForecastMap({
-  bars, vwapSeries, emaSeries, flow, optLevels, map, date, nowSec, endSec, scenarios, height,
+  bars, vwapSeries, emaSeries, ema9Series, flow, optLevels, map, date, nowSec, endSec, scenarios, height,
 }: {
   /** viewBox yüksekliği (varsayılan 360) — tam ekran görünümde daha uzun grafik için */
   height?: number;
@@ -74,6 +74,8 @@ export default function ForecastMap({
   vwapSeries: (number | null)[];
   /** bars ile aynı uzunlukta EMA20 (çok günlük akıştan ısınmış) */
   emaSeries?: (number | null)[];
+  /** bars ile aynı uzunlukta EMA9 (5m, çok günlük akıştan ısınmış) — 2026-11-17 kullanıcı isteği */
+  ema9Series?: (number | null)[];
   flow?: FlowRead | null;
   /** 0DTE opsiyon duvarları + max pain — yalnızca seviye çizgisi */
   optLevels?: OptionLevels | null;
@@ -113,6 +115,7 @@ export default function ForecastMap({
 
   const vwapPts = bars.map((b, i) => (vwapSeries[i] != null ? `${X(b.time + 150).toFixed(1)},${Y(vwapSeries[i] as number).toFixed(1)}` : null)).filter(Boolean).join(" ");
   const emaPts = (emaSeries ?? []).map((e, i) => (e != null && bars[i] ? `${X(bars[i].time + 150).toFixed(1)},${Y(e).toFixed(1)}` : null)).filter(Boolean).join(" ");
+  const ema9Pts = (ema9Series ?? []).map((e, i) => (e != null && bars[i] && inY(e) ? `${X(bars[i].time + 150).toFixed(1)},${Y(e).toFixed(1)}` : null)).filter(Boolean).join(" ");
 
   const biasColor = map.bias === "UP" ? "#22c55e" : map.bias === "DOWN" ? "#ef4444" : "#eab308";
   const nowX = X(Math.min(Math.max(nowSec, g.x0), g.x1));
@@ -238,6 +241,7 @@ export default function ForecastMap({
       {/* VWAP / EMA20 */}
       {vwapPts && <polyline points={vwapPts} fill="none" stroke="#facc15" strokeWidth={1.4} />}
       {emaPts && <polyline points={emaPts} fill="none" stroke="#94a3b8" strokeWidth={1.2} />}
+      {ema9Pts && <polyline points={ema9Pts} fill="none" stroke="#22d3ee" strokeWidth={1.1} />}
 
       {/* Takip senaryoları — yalnız çizgi + uç noktası */}
       {g.useScen && scen.map((sc, k) => {
@@ -270,7 +274,9 @@ export default function ForecastMap({
         <text x={PAD.l + 15} y={12} fill="#facc15">VWAP</text>
         <line x1={PAD.l + 46} x2={PAD.l + 58} y1={9} y2={9} stroke="#94a3b8" strokeWidth={1.2} />
         <text x={PAD.l + 61} y={12} fill="#94a3b8">EMA20</text>
-        <text x={PAD.l + 100} y={12} fill="#64748b">S/D destek-direnç · POC · $ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
+        <line x1={PAD.l + 96} x2={PAD.l + 108} y1={9} y2={9} stroke="#22d3ee" strokeWidth={1.1} />
+        <text x={PAD.l + 111} y={12} fill="#22d3ee">EMA9</text>
+        <text x={PAD.l + 142} y={12} fill="#64748b">S/D destek-direnç · POC · $ likidite · ✕ süpürme · ▲▼ dip/tepe</text>
         {mainSc && (
           <text x={PAD.l} y={23} fill={mainSc.color} fontWeight={700}>
             ━ Ana senaryo: {endLabel(mainSc)}{mainSc.pct != null ? ` · hedefe değme %${mainSc.pct}` : ""}

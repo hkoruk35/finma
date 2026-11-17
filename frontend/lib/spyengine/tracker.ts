@@ -106,10 +106,10 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.11";
+export const TRACK_VERSION = "3.13";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
-export const TRACK_VERSION_DATE = "2026-11-12";
+export const TRACK_VERSION_DATE = "2026-11-17";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -234,6 +234,11 @@ export const TRACK_CFG = {
   timeStopBars: 0,
   /** 15m yönü tersine dönerse kalan pozisyondan çık */
   exitOn15Flip: true,
+  /** v3.13 (2026-11-17, kullanıcı: "5m ana zaman dilimi, 15m teyit; gecikme istemiyorum"): giriş yönü/teyidi için 15m
+   *  kapanmasını bekleme — oluşan 15m mum (kapanmış 5m'lerden) VWAP+EMA20 tarafı. false = eski davranış (kapanmış 15m) */
+  live15: true,
+  /** 15m yön dönüşü çıkışı (exitOn15Flip/runnerFlip) da oluşan 15m'yi kullansın mı · false = kapanmış 15m (v3.11 ile aynı) */
+  live15Exit: true,
   /** "dikkat" notları (engellemez) */
   warnRvol: 0.5,
   warnChop: 4,
@@ -332,6 +337,9 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
+  // v3.13 canlı 15m teyidi SPY'da açık; diğer motorlarda varsayılan KAPALI (44 seans: NVDA 6,4 → 5,2R · TSLA 15,8 → 12,3R ·
+  // AMZN 18,0 → 7,9R · QQQ 18,1 → 13,4R kötüleşti). Ölçümde iyileşen IWM (31,0 → 45,3R) ve AAPL (−3,7 → −2,8R) kendi ayarında açar.
+  live15: false, live15Exit: false,
   // v3.7 (kullanıcı kararı 2026-11-10): gap kapısı + sıçrama eğilim şartı TÜM motorlarda açık (TRACK_CFG'den miras).
   // 45 seans, motor ayarı → kapılar açık: QQQ 18,2 → 19,8R · IWM 29,3 → 29,9 · NVDA 5,1 → 9,9 · AAPL −2,1 → −0,4 · TSLA 10,1 → 15,0 · AMZN 17,9 → 19,5.
   // Dikkat: QQQ'da eğilim şartı tek başına 18,2 → 15,7R (gap kapısıyla birlikte net +1,6R); AAPL en kötü dönem −2,6 → −3,0.
@@ -886,14 +894,24 @@ export function trackerRead(inp: TrackInput): TrackRead {
     const ema5 = ema5Map.get(b.time) ?? null;
     const atr5 = atr5Map.get(b.time) ?? null;
     const i15 = closedIdx(tf15.bars, 15, T);
-    const b15 = i15 >= 0 ? tf15.bars[i15] : null;
+    const b15c = i15 >= 0 ? tf15.bars[i15] : null;
+    const is15 = (m - OPEN_MIN) % 15 === 0;
+    // v3.13 CANLI 15m TEYİDİ (5m ana zaman dilimi): 15m kovası kapanmadan, bu kovadaki KAPANMIŞ 5m mumlardan oluşan 15m mum
+    // (açılış = kovanın ilk 5m açılışı, kapanış = bu 5m kapanışı) ve son kapanmış 15m EMA20'nin bu kapanışla ilerletilmiş değeri
+    // kullanılır. 15m kapanışında (is15) kapanmış mumla birebir aynıdır; arada 15m'nin kapanmasını BEKLEMEZ (gecikme yok).
+    const live15 = C.live15 && !is15 && m > OPEN_MIN;
+    const bStart15 = OPEN_MIN + Math.floor((m - 5 - OPEN_MIN) / 15) * 15;
+    const part15 = live15 ? today.slice(0, i + 1).filter((x) => nyParts(x.time).minutes >= bStart15) : [];
+    const b15: Bar | null = live15 && part15.length
+      ? { time: part15[0].time, open: part15[0].open, high: Math.max(...part15.map((x) => x.high)), low: Math.min(...part15.map((x) => x.low)), close: c, volume: part15.reduce((a, x) => a + (x.volume || 0), 0) }
+      : b15c;
     const today15 = !!b15 && nyParts(b15.time).ymd === date;
-    const ema15 = i15 >= 0 ? tf15.ema[i15] : null;
+    const ema15c = i15 >= 0 ? tf15.ema[i15] : null;
+    const ema15 = live15 && ema15c != null ? ema15c + (2 / 21) * (c - ema15c) : ema15c;
     const atr15 = i15 >= 0 ? atr15Arr[i15] ?? null : null;
     const rsi15 = i15 >= 0 ? rsi15Arr[i15] ?? null : null;
     const rsi15p = i15 > 0 ? rsi15Arr[i15 - 1] ?? null : null;
-    const vwap15 = today15 && b15 ? vwapAtEnd.get(barEnd(b15.time, 15)) ?? null : null;
-    const is15 = (m - OPEN_MIN) % 15 === 0;
+    const vwap15 = today15 && b15 ? (live15 ? vwap : vwapAtEnd.get(barEnd(b15.time, 15)) ?? null) : null;
 
     const sa = slotAvg(inp.rvol, m - 5);
     const rvol5 = sa ? vol / sa : null;
@@ -921,6 +939,15 @@ export function trackerRead(inp: TrackInput): TrackRead {
     // net kapanış: 15m kapanış VWAP'ın hemen yanında ise yön sayılmaz (belirsiz — yön her an dönebilir)
     const net15 = !rawSide15 || C.net15Atr <= 0 || (b15 != null && vwap15 != null && atr15 != null && Math.abs(b15.close - vwap15) >= C.net15Atr * atr15);
     const side15: D = net15 ? rawSide15 : 0;
+    /** kapanmış 15m yönü (live15Exit kapalıyken 15m yön dönüşü çıkışları bunu kullanır) */
+    const side15c: D = !live15 ? side15 : (() => {
+      const tc = !!b15c && nyParts(b15c.time).ymd === date;
+      const vw = tc && b15c ? vwapAtEnd.get(barEnd(b15c.time, 15)) ?? null : null;
+      const raw: D = tc && b15c ? sideOf(b15c.close, vw, ema15c) : 0;
+      const net = !raw || C.net15Atr <= 0 || (b15c != null && vw != null && atr15 != null && Math.abs(b15c.close - vw) >= C.net15Atr * atr15);
+      return net ? raw : 0;
+    })();
+    const side15x: D = C.live15Exit ? side15 : side15c;
     // 15m VWAP–EMA20 arasında eğilim: kapanış VWAP'ın net altında/üstündeyse o taraf (16 Eki 11:00: VWAP'ın net altı, EMA20 üstü → PUT eğilimi)
     const lead15: D = !today15 || !b15 ? 0
       : C.leadBy === "vwap"
@@ -1049,7 +1076,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       } else if (C.exitMode === "half15" && p.h1Hit) {
         // kalan yarı: stop (giriş ya da son 15m dip/tepe izi) olana kadar taşı
         if (C.trailOnClose && p.stop !== p.entry ? d * (c - p.stop) <= 0 : d > 0 ? b.low <= p.stop : b.high >= p.stop) close(C.trailOnClose && p.stop !== p.entry ? c : p.stop, p.stop === p.entry ? "H1_BE" : "TRAIL_15M");
-        else if (C.runnerFlip && side15 === -d) close(c, "TREND_FLIP");
+        else if (C.runnerFlip && side15x === -d) close(c, "TREND_FLIP");
         else if (is15 && b15 && today15) {
           const buf = (atr15 ?? (atr5 ? atr5 * 1.7 : 0.3)) * C.trailBufAtr15;
           const ns = r2(d > 0 ? b15.low - buf : b15.high + buf);
@@ -1061,7 +1088,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         }
       } else if (C.exitMode === "trail" && p.h1Hit) {
         if (d > 0 ? b.low <= p.stop : b.high >= p.stop) close(p.stop, "H1_BE");
-        else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
+        else if (C.exitOn15Flip && side15x === -d) close(c, "TREND_FLIP");
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
       } else if (!p.h1Hit) {
         p.againstBars = d * (c - b.open) < 0 ? (p.againstBars ?? 0) + 1 : 0;
@@ -1080,12 +1107,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
           p.h1Hit = true; p.h1Clock = nyClock(T); p.stop = p.entry;
           pushAlert(b.time, "YÖNET", p.tag, p.side, C.exitMode === "half15" ? `${fmtR(p.h1RMult ?? C.h1R)} ${f2(p.h1)} geldi: ${halfExitText(p.contracts)}, stopu girişe (${f2(p.entry)}) çek · kalanı her 15m kapanışında 15m ${d > 0 ? "dibi" : "tepesi"} ∓ tampona taşı` : `H1 ${f2(p.h1)} geldi: yarısını kapat, stopu girişe (${f2(p.entry)}) çek · kalan 5m EMA20 kırılınca ya da 15m yön dönünce`);
           ev.push(`H1 ${f2(p.h1)} — yarısı alındı, stop girişe`);
-        } else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
+        } else if (C.exitOn15Flip && side15x === -d) close(c, "TREND_FLIP");
         else if (C.timeStopBars > 0 && p.barsHeld >= C.timeStopBars && d * (c - p.entry) < 0) close(c, "TIME");
       } else {
         if (d > 0 ? b.low <= p.entry : b.high >= p.entry) close(p.entry, "H1_BE");
         else if (d > 0 ? b.high >= p.h2 : b.low <= p.h2) close(p.h2, "H2");
-        else if (C.exitOn15Flip && side15 === -d) close(c, "TREND_FLIP");
+        else if (C.exitOn15Flip && side15x === -d) close(c, "TREND_FLIP");
         else if (ema5 != null && d * (c - ema5) < 0) close(c, "EMA_EXIT");
       }
       if (!out && m >= C.forceExit) close(c, "FORCE_1545");
@@ -1267,7 +1294,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       // belirsizlikte (hacim ve formasyon yön vermiyorsa): RVOL ≥ 1 VE RSI 15m yönü
       const tiebreak = C.useTiebreak && !mixed && !confirmVC && volD !== -d && candleD !== -d && (rvol5 ?? 0) >= C.rvolConfirm && rsiD === d;
       checklist = [
-        { key: "m15", ok: true, text: mixed ? `15m VWAP–EMA20 arasında, EMA20 ${ema15 != null ? f2(ema15) : "—"} ${d > 0 ? "üstünde" : "altında"} → hacim VE formasyon birlikte aranır` : `15m kapanış VWAP ${vwap15 != null ? f2(vwap15) : "—"} ve EMA20 ${ema15 != null ? f2(ema15) : "—"} ${d > 0 ? "üstünde" : "altında"}` },
+        { key: "m15", ok: true, text: live15 ? `oluşan 15m (5m kapanışıyla, 15m kapanışı beklenmez) VWAP ${vwap15 != null ? f2(vwap15) : "—"} ve 15m EMA20 ${ema15 != null ? f2(ema15) : "—"} ${d > 0 ? "üstünde" : "altında"}` : mixed ? `15m VWAP–EMA20 arasında, EMA20 ${ema15 != null ? f2(ema15) : "—"} ${d > 0 ? "üstünde" : "altında"} → hacim VE formasyon birlikte aranır` : `15m kapanış VWAP ${vwap15 != null ? f2(vwap15) : "—"} ve EMA20 ${ema15 != null ? f2(ema15) : "—"} ${d > 0 ? "üstünde" : "altında"}` },
         { key: "vwap5", ok: vSide === d, price: true, text: `5m kapanış VWAP ${vwap != null ? f2(vwap) : "—"} ${d > 0 ? "üstünde" : "altında"}` },
         { key: "ema5", ok: eSide === d, price: true, text: `5m kapanış EMA20 ${ema5 != null ? f2(ema5) : "—"} ${d > 0 ? "üstünde" : "altında"}` },
         { key: "volume", ok: volD === d, text: `${C.volMode === "rvol" ? `hacim: ${d > 0 ? "yeşil" : "kırmızı"} mum + RVOL ≥ ${C.volRvolMin} (saat-normalize, şu an ${rvol5 != null ? rvol5.toFixed(2) : "—"})` : `hacim çubuğu ${d > 0 ? "alış" : "satış"} yönünde (≥ son ${C.volLookback} mum ort.)`}${mixed ? "" : " · formasyonla biri yeter"}` },

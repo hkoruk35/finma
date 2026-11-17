@@ -85,13 +85,15 @@ function StatTile({ theme, label, value, sub, title }: { theme: ThemeKey; label:
 }
 
 export default function MapTerminal({
-  map, date, bars, vwapSeries, emaSeries, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4, wide,
+  map, date, bars, vwapSeries, emaSeries, ema9Series, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4, wide,
 }: {
   map: ForecastMapData | null;
   date: string | null;
   bars: Bar[];
   vwapSeries: (number | null)[];
   emaSeries: (number | null)[];
+  /** 5m EMA9 (bars ile aynı uzunlukta) — Tahmin Haritası'nda çizilir */
+  ema9Series?: (number | null)[];
   flow: FlowRead | null;
   optLevels: OptionLevels | null;
   nowSec: number;
@@ -246,7 +248,7 @@ export default function MapTerminal({
           {/* grafik + sağ sütun: seviye merdiveni */}
           <div className={`grid grid-cols-1 gap-2 p-2 ${full ? "lg:grid-cols-[minmax(0,1fr)_320px]" : "lg:grid-cols-[minmax(0,1fr)_270px]"}`}>
             <div className="min-w-0 overflow-hidden rounded border border-[#1a2433]">
-              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
+              <ForecastMap bars={bars} vwapSeries={vwapSeries} emaSeries={emaSeries} ema9Series={ema9Series} flow={flow} optLevels={optLevels} map={map} date={date} nowSec={nowSec} endSec={endSec} scenarios={scenarios} height={full ? 560 : undefined} />
             </div>
             <div className="flex min-w-0 flex-col gap-[3px]">
               <div className="mb-0.5 flex items-center justify-between font-mono text-[9.5px] uppercase tracking-[0.14em] text-slate-500">

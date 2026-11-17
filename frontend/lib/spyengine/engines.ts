@@ -72,14 +72,14 @@ const WEEKLY = { optLabel: "haftalık", strikeStep: 2.5 };
 export const SPY_ONLY_OFF = NON_SPY_RULES;
 /** IWM — küçük şirket endeksi, VWAP etrafında sık salınır: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı.
  *  SPY kuralları 147 işlem +9,9R (−1,4 / −5,5 / +16,9) → 139 işlem %54 +12,3R (−0,4 / −1,2 / +13,9); 0,2–0,3 arası sağlam. */
-export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, net15Atr: 0.3 };
+export const IWM_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, net15Atr: 0.3, live15: true, live15Exit: true };
 /** NVDA — sert ve hızlı: çok geniş stoplu (> 2 ATR5) girişler yok, zayıf 15m teyidinde ek 5m onayı beklenmez (geç kalıyordu),
  *  aşırı testere günde (VWAP 8+ kez kesildi) yeni giriş yok. 139 işlem +0,2R (−5,7 / −2,0 / +7,9) → 128 işlem %52 +13,0R (−0,3 / −0,7 / +14,0).
  *  Kesişme sınırı 6'ya inince +3,8R — yalnız aşırı testere süzülür. */
 export const NVDA_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, maxCrosses: 8, maxStopAtr5: 2, weak15Confirm: false };
 /** AAPL — yavaş ve gürültülü: stop dibin/tepenin 0,5 ATR15 ötesinde (gürültüden silkelenmez), ilk hedef 2R.
  *  145 işlem −2,6R (+3,7 / −8,7 / +2,4) → 77 işlem %43 +9,4R (+8,4 / +0,3 / +0,8). Komşu değerlerde kırılgan (h1R 1,5: +2,9R) — kanıt zayıf. */
-export const AAPL_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, stopBufAtr15: 0.5, h1R: 2 };
+export const AAPL_TRACK_CFG: TrackCfg = { ...TRACK_CFG, ...SPY_ONLY_OFF, ...WEEKLY, stopBufAtr15: 0.5, h1R: 2, live15: true, live15Exit: true };
 /** TSLA — çok oynak, kırılımlar sık geri dönüyor: kırılım-tazeliği girişi yok, stop tamponu 0,3 ATR15, 1R'de tamamı kapanır,
  *  testere günde (VWAP 6+ kez) yeni giriş yok. 135 işlem −21,6R (−8,1 / −11,7 / −1,7) → 68 işlem %50 +0,1R (−0,2 / +1,1 / −0,8).
  *  SPY kurallarının kaybı silindi ama KANIT YOK (≈ başabaş) — varsayılan risk yarıya (100 $) indirildi. */
@@ -122,7 +122,7 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     stream: "/api/admin/spyengine/v2", optlevels: "/api/admin/spyengine/v2/optlevels",
     openForecast: "/api/admin/spyengine/v2/openforecast", closeForecast: "/api/admin/spyengine/v2/forecast",
     riskKey: "spyengine_risk_usd", cls: "border-amber-500/60 bg-amber-500/15 text-amber-300 hover:bg-amber-500/30",
-    cfg: TRACK_CFG, version: TRACK_VERSION, versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "SPY v3.11: v2.18 çekirdeği · gap yönüne ters giriş yok (gap dolunca kalkar) · sıçrama kırılımı (RVOL ≥ 1,5, seans öncesi eğilime ters değilse) · ilk hedef 0,5R · 0,45R sonrası 2 ters mumda çıkış · izleyen stop tamponu 0,4 · 12:00 sonrası trend günü değilse RVOL ≥ 1,5 · 12:00 sonrası 3+ VWAP kesişiminde giriş yok.",
+    cfg: TRACK_CFG, version: TRACK_VERSION, versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "SPY v3.13: 5m ana zaman dilimi · 15m teyidi oluşan 15m mumdan (15m kapanışı beklenmez) · v2.18 çekirdeği · gap yönüne ters giriş yok (gap dolunca kalkar) · sıçrama kırılımı (RVOL ≥ 1,5, seans öncesi eğilime ters değilse) · ilk hedef 0,5R · 0,45R sonrası 2 ters mumda çıkış · izleyen stop tamponu 0,4 · 12:00 sonrası trend günü değilse RVOL ≥ 1,5 · 12:00 sonrası 3+ VWAP kesişiminde giriş yok.",
   },
   QQQ: {
     symbol: "QQQ", name: "Nasdaq 100 ETF", page: "/admin/qqqengine/v1",
@@ -131,7 +131,7 @@ export const ENGINES: Record<EngineSymbol, EngineDef> = {
     riskKey: "qqqengine_risk_usd", cls: "border-sky-500/60 bg-sky-500/15 text-sky-300 hover:bg-sky-500/30",
     cfg: QQQ_TRACK_CFG, version: QQQ_TRACK_VERSION, versionLabel: `v${QQQ_TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "QQQ'nun kendi 5m süzgeçleri: SPY v3.2 kuralları (sıçrama kırılımı, erken çıkış, 12:00 sonrası RVOL şartı) + RVOL ≥ 0,85 · testere günde giriş yok · QQQ oynaklığı için gevşek stop (tampon 0,2 ATR15, asgari 0,65 ATR5).",
   },
-  IWM: { symbol: "IWM", name: "Russell 2000 ETF", ...stock("IWM"), cls: "border-violet-500/60 bg-violet-500/15 text-violet-300 hover:bg-violet-500/30", cfg: IWM_TRACK_CFG, version: versionOf("IWM", IWM_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "IWM: 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı (VWAP etrafında salınım süzgeci)." },
+  IWM: { symbol: "IWM", name: "Russell 2000 ETF", ...stock("IWM"), cls: "border-violet-500/60 bg-violet-500/15 text-violet-300 hover:bg-violet-500/30", cfg: IWM_TRACK_CFG, version: versionOf("IWM", IWM_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "0DTE", note: "IWM v3.13: 15m teyidi oluşan 15m mumdan (gecikmesiz) · 15m yön teyidi VWAP'tan en az 0,3 ATR15 uzakta kapanmalı (VWAP etrafında salınım süzgeci)." },
   NVDA: { symbol: "NVDA", name: "NVIDIA", ...stock("NVDA"), cls: "border-lime-500/60 bg-lime-500/15 text-lime-300 hover:bg-lime-500/30", cfg: NVDA_TRACK_CFG, version: versionOf("NVDA", NVDA_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "NVDA: stop > 2 ATR5 ise giriş yok · zayıf 15m'de ek onay beklenmez · aşırı testere günde (VWAP 8+ kesişme) giriş yok · en yakın haftalık vade." },
   AAPL: { symbol: "AAPL", name: "Apple", ...stock("AAPL"), cls: "border-slate-400/60 bg-slate-400/15 text-slate-200 hover:bg-slate-400/30", cfg: AAPL_TRACK_CFG, version: versionOf("AAPL", AAPL_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "AAPL: stop tamponu 0,5 ATR15 · ilk hedef 2R · en yakın haftalık vade. Ölçüm kanıtı zayıf — küçük riskle izleyin." },
   TSLA: { symbol: "TSLA", name: "Tesla", ...stock("TSLA"), cls: "border-rose-500/60 bg-rose-500/15 text-rose-300 hover:bg-rose-500/30", cfg: TSLA_TRACK_CFG, version: versionOf("TSLA", TSLA_TRACK_CFG), versionLabel: `v${TRACK_VERSION}`, versionDate: TRACK_VERSION_DATE, expiry: "haftalık", note: "TSLA: kırılım-tazeliği girişi yok · 1R'de tamamı kapanır · testere günde giriş yok · varsayılan risk 100 $. 45 seansta ≈ başabaş — KANITLANMIŞ KENAR YOK." },
