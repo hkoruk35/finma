@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.13";
+export const TRACK_VERSION = "3.14";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
 export const TRACK_VERSION_DATE = "2026-11-17";
@@ -337,9 +337,10 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   confirmAll: false, confirmBars: 2, weak15Confirm: true, confirmBody: 0, minEntryRvol: 0,
   premStopPct: 0, sizeRiskMax: 20, chopBlock: false, namedVC: false, minBarAtr5: 0, blockOpposeNamed: false, alertPrewarnSec: 60,
   trailBufAtr15: 0.25, brkSpike: false, stopPremOnly: false, pmRvolMin: 0, sizeMode: "risk",
-  // v3.13 canlı 15m teyidi SPY'da açık; diğer motorlarda varsayılan KAPALI (44 seans: NVDA 6,4 → 5,2R · TSLA 15,8 → 12,3R ·
-  // AMZN 18,0 → 7,9R · QQQ 18,1 → 13,4R kötüleşti). Ölçümde iyileşen IWM (31,0 → 45,3R) ve AAPL (−3,7 → −2,8R) kendi ayarında açar.
-  live15: false, live15Exit: false,
+  // v3.14 (2026-11-17 kullanıcı kararı "hepsinde aç"): canlı 15m teyidi TÜM motorlarda açık (5m ana zaman dilimi, gecikmesiz).
+  // 44 seans ölçümü (bilgi): SPY 45,8 → 47,1R · IWM 31,0 → 45,3 · AAPL −3,7 → −2,8 · QQQ 18,1 → 13,4 · NVDA 6,4 → 5,2 ·
+  // TSLA 15,8 → 12,3 (DD −2,5 → −4,8) · AMZN 18,0 → 7,9R. Geri almak için live15: false (motor bazında).
+  live15: true, live15Exit: true,
   // v3.7 (kullanıcı kararı 2026-11-10): gap kapısı + sıçrama eğilim şartı TÜM motorlarda açık (TRACK_CFG'den miras).
   // 45 seans, motor ayarı → kapılar açık: QQQ 18,2 → 19,8R · IWM 29,3 → 29,9 · NVDA 5,1 → 9,9 · AAPL −2,1 → −0,4 · TSLA 10,1 → 15,0 · AMZN 17,9 → 19,5.
   // Dikkat: QQQ'da eğilim şartı tek başına 18,2 → 15,7R (gap kapısıyla birlikte net +1,6R); AAPL en kötü dönem −2,6 → −3,0.
