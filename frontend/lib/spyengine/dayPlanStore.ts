@@ -18,7 +18,7 @@ import { fetchOptionLevels } from "./optionFetch";
 export interface DayVersion { v: number; asOf: number; asof_et: string; created_at_et: string; spot: number; inputs_hash: string }
 interface DayRow { symbol: string; date: string; versions: DayVersion[]; updatedAt: string }
 
-const MAX_VERSIONS = 120;
+const MAX_VERSIONS = 160;
 const keyOf = (symbol: string, date: string) => `spyengine_dayplan_${symbol}_${date}`;
 const nowSec = () => Math.floor(Date.now() / 1000);
 const etClock = (sec: number) => { const m = nyParts(sec).minutes; return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; };
@@ -107,7 +107,10 @@ export async function saveVersion(plan: DayPlan, force: boolean): Promise<{ vers
   });
 }
 
-/** Canlı pencere (hafta içi 04:00–16:05 ET) içinde son sürüm 5 dk'dan eskiyse ya da hiç yoksa yenisini üretir */
+/**
+ * Canlı pencerede (hafta içi 04:00–16:05 ET) son sürümden sonra yeni bir 5m kapanışı geçtiyse (+30 sn Yahoo payı) ya da
+ * hiç sürüm yoksa yeniden hesaplar. Yeni mum henüz gelmediyse girdi özeti aynı kalır → sürüm açılmaz.
+ */
 export async function ensureFresh(symbol: string): Promise<DayRow | null> {
   const t = nowSec();
   const date = tradeDateOf(t);
@@ -116,7 +119,8 @@ export async function ensureFresh(symbol: string): Promise<DayRow | null> {
   const p = nyParts(t);
   const wd = new Date(`${p.ymd}T12:00:00Z`).getUTCDay();
   const liveWindow = p.ymd === date && wd >= 1 && wd <= 5 && p.minutes >= 4 * 60 && p.minutes <= 16 * 60 + 5;
-  if (last && (!liveWindow || t - last.asOf < 300)) return row;
+  const newBar = last ? Math.floor((t - 30) / 300) > Math.floor((last.asOf - 30) / 300) : true;
+  if (last && (!liveWindow || !newBar)) return row;
   const plan = await computePlan(symbol, t);
   if (!plan) return row;
   await saveVersion(plan, false);

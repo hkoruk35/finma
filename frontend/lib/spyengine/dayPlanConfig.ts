@@ -3,7 +3,7 @@
  * yeni snapshot'ların inputs_hash'ine girer (eski sürümler değişmez).
  */
 
-export const DAYPLAN_VERSION = "5.0";
+export const DAYPLAN_VERSION = "5.1";
 
 export interface DayPlanCfg {
   /** seviye kümeleme: birbirine bu kadar (puan) yakın adaylar tek bölge */
@@ -89,11 +89,8 @@ export const FIXED_PROFILE_15 = [
 /** Senaryo anchor saatleri (ET dakika) */
 export const ANCHORS_MIN = [8 * 60 + 30, 9 * 60 + 30, 10 * 60, 10 * 60 + 30, 11 * 60 + 30, 12 * 60, 13 * 60 + 30, 15 * 60, 16 * 60];
 
-/** Snapshot saatleri (ET dakika): 04:05, 06:45, 08:35, 09:15 ve 09:30–16:00 her 5 dk (kapanmış mumdan 1 dk sonra) */
-export const SNAPSHOT_MIN: number[] = [
-  4 * 60 + 5, 6 * 60 + 45, 8 * 60 + 35, 9 * 60 + 15,
-  ...Array.from({ length: 79 }, (_, i) => 9 * 60 + 31 + i * 5).filter((m) => m <= 16 * 60 + 1),
-];
+/** Snapshot saatleri (ET dakika): 04:00–16:00 her 5m kapanışından 1 dk sonra (04:06, 04:11 … 16:01) — v5.1 kullanıcı isteği */
+export const SNAPSHOT_MIN: number[] = Array.from({ length: 144 }, (_, i) => 4 * 60 + 6 + i * 5).filter((m) => m <= 16 * 60 + 1);
 
 /** Sembol → örtük oynaklık endeksi (yalnız endeks ETF'leri; hisselerde yok → EM "veri yok") */
 export const IV_INDEX: Record<string, { sym: string; label: string }> = {

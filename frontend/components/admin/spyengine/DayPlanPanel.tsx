@@ -27,6 +27,15 @@ const missingLabel = (k: string) => MISSING_TR[k] ?? (k.startsWith("rel_") ? `${
 
 const NA = () => <span className="text-slate-500">veri yok</span>;
 
+/** "17 Kas 2026 09:35" (ET) */
+const etStamp = (sec: number) => {
+  const d = new Date(sec * 1000);
+  const ymd = d.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+  const hm = d.toLocaleTimeString("en-GB", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false });
+  return `${trShort(ymd)} ${ymd.slice(0, 4)} ${hm}`;
+};
+const EMA_COL = { e9: "#22d3ee", e20: "#a78bfa", e50: "#fb923c" } as const;
+
 function Card({ title, children, tone = "base" }: { title: string; children: React.ReactNode; tone?: "base" | "warn" | "info" }) {
   const cls = tone === "warn" ? "border-amber-500/40 bg-amber-500/[0.08]" : tone === "info" ? "border-sky-500/40 bg-sky-500/[0.08]" : "border-[#1c2635] bg-[#0f141d]";
   return (
@@ -51,6 +60,7 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
     p.actual_path.forEach((q) => vals.push(q.p));
     p.scenarios.forEach((s) => s.points.forEach((q) => vals.push(q.p)));
     p.band.forEach((b) => vals.push(b.lo, b.hi));
+    (p.ema ?? []).forEach((e) => vals.push(e.e9, e.e20, e.e50));
     let lo = Math.min(...vals), hi = Math.max(...vals);
     // en uzak ilgili seviye ±1: yolların aralığına 0,5 aralık mesafede kalan seviyeler dahil
     const span = Math.max(1, hi - lo);
@@ -72,7 +82,9 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
     for (let d = 0; d < 40; d++) for (const c of [y0 + d, y0 - d]) if (c > PAD.t && c < H - PAD.b && placed.every((q) => Math.abs(q - c) >= 11)) { placed.push(c); return c; }
     return null;
   });
-  const nowM = Math.max(X0, Math.min(X1, Number(p.meta.asof_et.slice(0, 2)) * 60 + Number(p.meta.asof_et.slice(3, 5))));
+  // "şimdi" = son kapanan 5m mum (senaryolar da buradan başlar); seans öncesi günden önceki mumsa 04:00
+  const lastM = p.actual_path.length ? p.actual_path[p.actual_path.length - 1].m : X0;
+  const nowM = Math.max(X0, Math.min(X1, lastM));
   const valAt = (pts: PathPt[], m: number) => {
     if (!pts.length || m < pts[0].m || m > pts[pts.length - 1].m) return null;
     let best = pts[0];
@@ -87,6 +99,7 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
   };
   const tip = hover != null ? [
     { k: "Gerçekleşen", v: valAt(p.actual_path, hover), c: "#e2e8f0" },
+    ...(["e9", "e20", "e50"] as const).map((k) => ({ k: `EMA${k.slice(1)}`, v: valAt((p.ema ?? []).map((e) => ({ t: "", m: e.m, p: e[k] })), hover), c: EMA_COL[k] })),
     ...p.scenarios.map((s) => ({ k: colors[s.key].label, v: valAt(s.points, hover), c: colors[s.key].stroke })),
   ].filter((r) => r.v != null) : [];
   const bandPoly = p.band.length ? [...p.band.map((b) => `${X(b.m).toFixed(1)},${Y(b.hi).toFixed(1)}`), ...[...p.band].reverse().map((b) => `${X(b.m).toFixed(1)},${Y(b.lo).toFixed(1)}`)].join(" ") : "";
@@ -129,7 +142,18 @@ function Chart({ p, colors }: { p: DayPlan; colors: Record<string, { stroke: str
         {p.scenarios.map((s) => (
           <polyline key={s.key} points={line(s.points)} fill="none" stroke={colors[s.key].stroke} strokeWidth={s.key === "main" ? 2 : 1.6} strokeDasharray={colors[s.key].dash} />
         ))}
+        {(["e50", "e20", "e9"] as const).map((k) => (p.ema?.length ?? 0) > 1 && (
+          <polyline key={k} points={line(p.ema.map((e) => ({ t: "", m: e.m, p: e[k] })))} fill="none" stroke={EMA_COL[k]} strokeWidth={1} opacity={0.85} />
+        ))}
         {p.actual_path.length > 1 && <polyline points={line(p.actual_path)} fill="none" stroke="#e2e8f0" strokeWidth={1.6} />}
+        {(p.breaks ?? []).map((b, i) => {
+          const x = X(b.m), y = Y(b.p), up = b.dir === "UP", s = b.inval ? 7 : 5;
+          const pts = up ? `${x},${y - 6 - s} ${x - s},${y - 6} ${x + s},${y - 6}` : `${x},${y + 6 + s} ${x - s},${y + 6} ${x + s},${y + 6}`;
+          return <polygon key={`b${i}`} points={pts} fill={up ? "#22c55e" : "#ef4444"} stroke={b.inval ? "#fde047" : "#0a0e17"} strokeWidth={b.inval ? 1.5 : 0.8} />;
+        })}
+        <text x={PAD.l + 4} y={PAD.t + 12} fontSize={12} fill="#e2e8f0" fontFamily="monospace" fontWeight={700}>
+          Güncelleme {etStamp(p.meta.asOf)} ET · son 5m kapanışı {p.meta.spot_et} · {p.meta.version || "canlı"}
+        </text>
         <line x1={X(nowM)} x2={X(nowM)} y1={PAD.t} y2={H - PAD.b} stroke="#3b82f6" strokeWidth={0.9} strokeDasharray="2 3" />
         <circle cx={X(nowM)} cy={Y(p.meta.spot)} r={3.5} fill="#3b82f6" stroke="#fff" strokeWidth={1.2} />
         {hover != null && tip.length > 0 && <line x1={X(hover)} x2={X(hover)} y1={PAD.t} y2={H - PAD.b} stroke="#475569" strokeWidth={0.8} />}
@@ -171,7 +195,7 @@ export default function DayPlanPanel({ symbol }: { symbol: string }) {
   useEffect(() => {
     const first = setTimeout(() => { void load(sel); }, 0);
     if (sel !== "latest") return () => clearTimeout(first);
-    const id = setInterval(() => { void load("latest"); }, 60 * 1000);
+    const id = setInterval(() => { void load("latest"); }, 30 * 1000);
     return () => { clearTimeout(first); clearInterval(id); };
   }, [load, sel]);
 
@@ -215,7 +239,8 @@ export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
         <div className="min-w-0">
           <div className="text-[16px] font-bold text-slate-100">{p.meta.symbol} · {trLong(p.meta.date)} · <span className="font-mono">{p.meta.version || "canlı"}</span></div>
           <div className="mt-0.5 flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[12px] text-slate-400">
-            <span>spot <b className="text-slate-100">{f2(p.meta.spot)}</b> ({p.meta.spot_et} ET)</span>
+            <span>güncelleme <b className="text-slate-100">{etStamp(p.meta.asOf)} ET</b></span>
+            <span>spot <b className="text-slate-100">{f2(p.meta.spot)}</b> (5m kapanış {p.meta.spot_et})</span>
             {p.meta.prev_close != null && <span>dün kapanış {f2(p.meta.prev_close)} ({sg(p.meta.spot - p.meta.prev_close)})</span>}
             {c.rel.map((r) => <span key={r.symbol}>{r.symbol} {r.pct == null ? <NA /> : <b className={r.pct >= 0 ? "text-emerald-300" : "text-rose-300"}>{r.pct >= 0 ? "+" : ""}{r.pct.toFixed(2)}%</b>}</span>)}
           </div>
@@ -273,6 +298,15 @@ export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
             <svg width="22" height="6"><line x1="0" x2="22" y1="3" y2="3" stroke={colors[s.key].stroke} strokeWidth="2" strokeDasharray={colors[s.key].dash} /></svg>{s.label}
           </span>
         ))}
+        {(["e9", "e20", "e50"] as const).map((k) => {
+          const last = p.ema?.[p.ema.length - 1];
+          return (
+            <span key={k} className="flex items-center gap-1.5" style={{ color: EMA_COL[k] }}>
+              <svg width="22" height="6"><line x1="0" x2="22" y1="3" y2="3" stroke={EMA_COL[k]} strokeWidth="1.5" /></svg>EMA{k.slice(1)}{last ? ` ${f2(last[k])}` : ""}
+            </span>
+          );
+        })}
+        <span className="flex items-center gap-1 text-slate-300"><span className="text-emerald-400">▲</span><span className="text-rose-400">▼</span> 5m kapanış kırılımı</span>
         <span className="rounded border border-slate-600/60 px-1.5 py-px text-[11px] text-slate-400">seviye tabanlı senaryo — olasılık değildir</span>
         <span className="text-[11px] text-slate-500">gölge: Ana ±1σ ({p.meta.profile === "sabit" ? "sabit profil" : `ölçülen profil, ${p.meta.sessions} seans`})</span>
       </div>
@@ -282,6 +316,22 @@ export function DayPlanView({ p, versions, sel, onSel, onRefresh, busy, err }: {
       <div className="overflow-x-auto overflow-y-hidden rounded-lg border border-[#1a2433]">
         {p.scenarios.length || p.actual_path.length ? <Chart p={p} colors={colors} /> : <div className="px-3 py-10 text-center text-[12px] text-slate-500">Senaryo için yeterli seviye yok</div>}
       </div>
+
+      {/* 4b) 5m kapanış kırılımları */}
+      <Card title={`5m kırılımlar (bugün) · güncelleme ${etStamp(p.meta.asOf)} ET`}>
+        {(p.breaks ?? []).length ? (
+          <ul className="flex max-h-[180px] flex-col gap-0.5 overflow-y-auto font-mono text-[12px]">
+            {[...p.breaks].reverse().map((b, i) => (
+              <li key={i} className={b.dir === "UP" ? "text-emerald-300" : "text-rose-300"}>
+                <b>{b.t}</b> {b.dir === "UP" ? "▲ yukarı kırılım" : "▼ aşağı kırılım"} {b.zone} · kapanış {f2(b.p)}
+                {b.inval && <span className="ml-1 rounded bg-amber-400/20 px-1 text-amber-200">İPTAL</span>}
+                <span className="font-sans text-[11px] text-slate-500"> — {b.label}</span>
+              </li>
+            ))}
+          </ul>
+        ) : <div className="text-[12px] text-slate-400">Bugün henüz 5m kapanışla kırılan önemli bölge yok</div>}
+        <div className="mt-1 text-[11px] text-slate-500">Yalnız ret almış ya da ≥2 kaynaklı bölgeler; bölgenin 0,05 ötesinde 5m kapanış = kırılım, aynı yönde tekrar sayılmaz.</div>
+      </Card>
 
       {/* 5) akış + seviyeler */}
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

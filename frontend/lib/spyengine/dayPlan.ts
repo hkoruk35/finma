@@ -84,6 +84,10 @@ export interface DayPlan {
   bias: { dir: "BEAR" | "BULL" | "NÖTR"; line: [number, number] | null; invalidation: number | null; targets: number[]; reason: string };
   levels: Zone[];
   actual_path: PathPt[];
+  /** 5m EMA9/20/50 (seans dışı dahil sürekli seri; 60 günle ısınmış), gerçekleşen yolla aynı zaman noktaları */
+  ema: { m: number; e9: number; e20: number; e50: number }[];
+  /** 5m KAPANIŞ ile bölge kırılımları (bugün 04:00 → son mum) */
+  breaks: { m: number; t: string; p: number; dir: "UP" | "DOWN"; zone: string; label: string; inval: boolean }[];
   scenarios: Scenario[];
   band: { m: number; lo: number; hi: number }[];
   plan: PlanRow[];
@@ -211,7 +215,9 @@ export function buildDayPlan(inp: DayPlanInput): DayPlan | null {
   const lastBar = bars[bars.length - 1];
   const spot = r2(lastBar.close);
   const spotEt = clock(lastBar.time + 300);
-  const asofMin = nyParts(asOf).ymd === date ? nyParts(asOf).minutes : PRE_OPEN_MIN;
+  // plan "son kapanan 5m mum itibarıyla" kurulur: aynı mumlar → aynı plan (hesap anı içeriği değiştirmez)
+  const barEnd = lastBar.time + 300;
+  const asofMin = nyParts(barEnd).ymd === date ? nyParts(barEnd).minutes : PRE_OPEN_MIN;
 
   // gece (dün 16:00 → bugün 04:00) ve premarket (04:00 → 09:30)
   const onBars = bars.filter((b) => b.time >= nyDateTimeToEpoch(prevYmd, RTH_CLOSE_MIN) && b.time < at(PRE_OPEN_MIN));
@@ -554,6 +560,38 @@ export function buildDayPlan(inp: DayPlanInput): DayPlan | null {
     return { t: hhmm(m), m, p: r2(b.close) };
   });
 
+  // ── EMA9/20/50 (5m, sürekli) ──
+  const closes = bars.map((b) => b.close);
+  const E9 = ema(closes, 9), E20 = ema(closes, 20), E50 = ema(closes, 50);
+  const dayStart = at(PRE_OPEN_MIN), dayEnd = at(RTH_CLOSE_MIN);
+  const emaOut: DayPlan["ema"] = [];
+  bars.forEach((b, i) => {
+    if (b.time < dayStart || b.time + 300 > dayEnd || E9[i] == null || E20[i] == null || E50[i] == null) return;
+    emaOut.push({ m: nyParts(b.time).minutes + 5, e9: r2(E9[i]!), e20: r2(E20[i]!), e50: r2(E50[i]!) });
+  });
+
+  // ── 5m kapanış kırılımları: anlamlı bölgeler (ret almış ya da ≥2 kaynak); bölge dışına kapanış = olay, aynı yönde tekrar sayılmaz ──
+  const breaks: DayPlan["breaks"] = [];
+  const bTol = 0.05;
+  const keyZones = levels.filter((z) => z.rejects > 0 || z.sources.length >= 2);
+  const startIdx = bars.findIndex((b) => b.time >= dayStart);
+  if (startIdx > 0) {
+    for (const z of keyZones) {
+      const sideOf = (c: number) => (c > z.high + bTol ? 1 : c < z.low - bTol ? -1 : 0);
+      let lastNz = sideOf(bars[startIdx - 1].close);
+      for (let i = startIdx; i < bars.length && bars[i].time + 300 <= dayEnd; i++) {
+        const sd = sideOf(bars[i].close);
+        if (sd === 0 || sd === lastNz) continue;
+        if (lastNz !== 0 || i > startIdx) {
+          const isInval = inval != null && ((dir === "BEAR" && sd > 0 && bars[i].close > inval) || (dir === "BULL" && sd < 0 && bars[i].close < inval)) && z === biasZ;
+          breaks.push({ m: nyParts(bars[i].time).minutes + 5, t: hhmm(nyParts(bars[i].time).minutes + 5), p: r2(bars[i].close), dir: sd > 0 ? "UP" : "DOWN", zone: zf(z), label: z.label, inval: isInval });
+        }
+        lastNz = sd;
+      }
+    }
+  }
+  breaks.sort((a, b) => a.m - b.m);
+
   // ── koşullu plan ──
   const rrOf = (e: number, s: number, ts: number[]) => ts.map((t) => Math.round((Math.abs(t - e) / Math.max(0.01, Math.abs(e - s))) * 10) / 10);
   const plan: PlanRow[] = [];
@@ -675,7 +713,7 @@ export function buildDayPlan(inp: DayPlanInput): DayPlan | null {
   }
   let mc: DayPlan["nextDays"]["mc"] = null;
   const wf = buildWideForecast({
-    symbol, livePrice: spot, t: asOf, bars15: rth15.filter((b) => b.time + 900 <= asOf),
+    symbol, livePrice: spot, t: barEnd, bars15: rth15.filter((b) => b.time + 900 <= barEnd),
     levels: levels.map((z) => ({ price: r2((z.low + z.high) / 2), label: z.label })),
     ivAnnual: inp.iv ? inp.iv.value / 100 : null, ivLabel: inp.iv?.label ?? null, basis4h: null,
   });
@@ -696,7 +734,7 @@ export function buildDayPlan(inp: DayPlanInput): DayPlan | null {
   if (inp.earnings == null) missing.push("events_earnings");
 
   const hashSrc = JSON.stringify({
-    v: DAYPLAN_VERSION, symbol, date, asofMin, n: bars.length, lb: [lastBar.time, lastBar.close, lastBar.volume],
+    v: DAYPLAN_VERSION, symbol, date, n: bars.length, lb: [lastBar.time, lastBar.close, lastBar.volume],
     d: dly.length ? [dly[dly.length - 1].time, dly[dly.length - 1].close] : null, iv: inp.iv, rel: relOut, ev: evToday, w: inp.walls, st: inp.straddle, cfg,
   });
 
@@ -724,6 +762,8 @@ export function buildDayPlan(inp: DayPlanInput): DayPlan | null {
     bias: { dir, line: biasZ ? [biasZ.low, biasZ.high] : null, invalidation: inval, targets: targets.map(r2), reason },
     levels,
     actual_path,
+    ema: emaOut,
+    breaks: breaks.slice(-24),
     scenarios: scenarios.filter((s) => s.points.length >= 2),
     band,
     plan,
