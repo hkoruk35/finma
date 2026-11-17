@@ -106,7 +106,7 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.14";
+export const TRACK_VERSION = "3.15";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
 export const TRACK_VERSION_DATE = "2026-11-17";
@@ -176,6 +176,11 @@ export const TRACK_CFG = {
   /** zayıf 15m teyidi (son 15m mum yöne ters renkte ya da aralığının ters yarısında kapandı): tetik mumunda girilmez,
    *  bir sonraki 5m mum VWAP+EMA20'nin doğru tarafında VE tetik mumunun kapanışının ötesinde kapanırsa girilir; kapanmazsa iptal */
   weak15Confirm: true,
+  /** v3.15 (2026-11-17, 09:45 erken PUT): 15m mum gövdesi aralığın bu %'sinden küçükse (kararsız) zayıf teyit sayılır · 0 = kapalı */
+  weak15BodyPct: 30,
+  /** yalnız açılış 15m mumu (09:30–09:45) için mi. SPY 44 seans: 47,1R aynı (bu durum geçmişte yok); 17 Kas 09:45 PUT'unu
+   *  (açılış 15m gövde %23, uzun üst fitil) 09:50'de iptal eder. QQQ −0,3R · IWM −2,1R → diğer motorlarda kapalı */
+  weak15BodyOpenOnly: true,
   /** teyit için gereken aynı yönde 5m kapanış sayısı (her biri öncekinin ötesinde + VWAP+EMA20 doğru tarafında) */
   confirmBars: 2,
   /** true: teyit her tetikte aranır · false: yalnız zayıf 15m teyidinde */
@@ -341,6 +346,7 @@ export const NON_SPY_RULES: Partial<TrackCfg> = {
   // 44 seans ölçümü (bilgi): SPY 45,8 → 47,1R · IWM 31,0 → 45,3 · AAPL −3,7 → −2,8 · QQQ 18,1 → 13,4 · NVDA 6,4 → 5,2 ·
   // TSLA 15,8 → 12,3 (DD −2,5 → −4,8) · AMZN 18,0 → 7,9R. Geri almak için live15: false (motor bazında).
   live15: true, live15Exit: true,
+  weak15BodyPct: 0,
   // v3.7 (kullanıcı kararı 2026-11-10): gap kapısı + sıçrama eğilim şartı TÜM motorlarda açık (TRACK_CFG'den miras).
   // 45 seans, motor ayarı → kapılar açık: QQQ 18,2 → 19,8R · IWM 29,3 → 29,9 · NVDA 5,1 → 9,9 · AAPL −2,1 → −0,4 · TSLA 10,1 → 15,0 · AMZN 17,9 → 19,5.
   // Dikkat: QQQ'da eğilim şartı tek başına 18,2 → 15,7R (gap kapısıyla birlikte net +1,6R); AAPL en kötü dönem −2,6 → −3,0.
@@ -1316,9 +1322,12 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const rng = b15.high - b15.low;
         const colorAgainst = d * (b15.close - b15.open) < 0;
         const halfAgainst = rng > 0 && (d > 0 ? (b15.close - b15.low) / rng : (b15.high - b15.close) / rng) < 0.5;
-        return colorAgainst || halfAgainst;
+        // v3.15: kararsız 15m mum (gövde aralığın < weak15BodyPct %'i) da zayıf teyittir — 2×5m teyidi beklenir
+        const indecisive = C.weak15BodyPct > 0 && rng > 0 && (Math.abs(b15.close - b15.open) / rng) * 100 < C.weak15BodyPct
+          && (!C.weak15BodyOpenOnly || nyParts(b15.time).minutes === OPEN_MIN);
+        return colorAgainst || halfAgainst || indecisive;
       })();
-      const weakWhat = b15 && weak15 ? `15m mum ${d * (b15.close - b15.open) < 0 ? (d > 0 ? "kırmızı" : "yeşil") : "aralığının ters yarısında"} kapandı` : "";
+      const weakWhat = b15 && weak15 ? `15m mum ${d * (b15.close - b15.open) < 0 ? (d > 0 ? "kırmızı" : "yeşil") : (d > 0 ? (b15.close - b15.low) : (b15.high - b15.close)) < 0.5 * (b15.high - b15.low) ? "aralığının ters yarısında" : `kararsız (gövde %${Math.round((Math.abs(b15.close - b15.open) / Math.max(1e-9, b15.high - b15.low)) * 100)})`} kapandı` : "";
       // bekleyen zayıf-teyit tetiği: bu 5m kapanış onaylıyor mu?
       let confirmed: { tag: SetupTag; clock: string; what: string } | null = null;
       if (pendingWeak) {
