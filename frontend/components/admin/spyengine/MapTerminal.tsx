@@ -21,6 +21,7 @@ import { FC_RULES, type TrackForecast } from "@/lib/spyengine/tracker";
 import { usePersistedState } from "@/lib/spyengine/usePersistedState";
 import { align4h, type Htf4hRead } from "@/lib/spyengine/htf4h";
 import WideForecast from "@/components/admin/spyengine/WideForecast";
+import DayPlanPanel from "@/components/admin/spyengine/DayPlanPanel";
 
 const f2 = (v: number) => v.toFixed(2);
 const sgn = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(2)}`;
@@ -229,7 +230,12 @@ export default function MapTerminal({
 
       {tab === "wide" ? (
         wide && price != null ? (
-          <WideForecast symbol={wide.symbol} price={price} t={wide.t} bars15={wide.bars15} bars4h={wide.bars4h} levels={wide.levels} read4h={h4 ?? null} />
+          <div className="flex flex-col gap-2 p-2">
+            {/* v5 (2026-11-17): sunucu tarafı deterministik Günlük Plan & Seviye Haritası (sürümlü) */}
+            <DayPlanPanel symbol={wide.symbol} />
+            <div className="mt-1 border-t border-[#1c2635] pt-2 font-mono text-[11px] font-bold uppercase tracking-wider text-slate-400">3 günlük Monte Carlo haritası</div>
+            <WideForecast symbol={wide.symbol} price={price} t={wide.t} bars15={wide.bars15} bars4h={wide.bars4h} levels={wide.levels} read4h={h4 ?? null} />
+          </div>
         ) : (
           <div className="px-3 py-8 text-center text-[12px] text-slate-500">Geniş harita için fiyat ve geçmiş veri bekleniyor.</div>
         )
