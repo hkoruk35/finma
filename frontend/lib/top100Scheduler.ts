@@ -27,14 +27,17 @@ const COMPOSITION_SLOT = 14 * 60;
 const state = globalThis as typeof globalThis & { __top100Scheduler?: NodeJS.Timeout };
 const done = new Set<string>();
 let running = false;
+// Son başarılı tazeleme (bellekte). Sunucu yeniden başlar/deploy dilimi kaçırırsa seans içinde yakalama için.
+let lastRefreshOk = 0;
+const CATCHUP_AFTER_MS = 65 * 60 * 1000;
 
-function dueSlots(): { ymd: string; refresh: number | null; composition: boolean } | null {
+function dueSlots(): { ymd: string; refresh: number | null; composition: boolean; minutes: number } | null {
   const p = nyParts(Math.floor(Date.now() / 1000));
   const wd = new Date(`${p.ymd}T12:00:00Z`).getUTCDay();
   if (wd < 1 || wd > 5) return null;
   const within = (slot: number) => p.minutes >= slot && p.minutes - slot <= WINDOW_MIN;
   const refresh = REFRESH_SLOTS.find(within) ?? null;
-  return { ymd: p.ymd, refresh, composition: within(COMPOSITION_SLOT) };
+  return { ymd: p.ymd, refresh, composition: within(COMPOSITION_SLOT), minutes: p.minutes };
 }
 
 async function refreshFixed(): Promise<void> {
@@ -77,9 +80,12 @@ async function tick(): Promise<void> {
   if (!due) return;
   const jobs: { key: string; run: () => Promise<void> }[] = [];
   if (due.composition) jobs.push({ key: `${due.ymd}:comp`, run: refreshComposition });
-  if (due.refresh != null) {
-    jobs.push({ key: `${due.ymd}:fixed:${due.refresh}`, run: refreshFixed });
-    jobs.push({ key: `${due.ymd}:swing:${due.refresh}`, run: refreshSwingRows });
+  const inSession = due.minutes >= 9 * 60 + 35 && due.minutes <= 16 * 60 + 30;
+  const catchUp = due.refresh == null && inSession && Date.now() - lastRefreshOk > CATCHUP_AFTER_MS;
+  if (due.refresh != null || catchUp) {
+    const k = due.refresh ?? `catchup${Math.floor(Date.now() / CATCHUP_AFTER_MS)}`;
+    jobs.push({ key: `${due.ymd}:fixed:${k}`, run: refreshFixed });
+    jobs.push({ key: `${due.ymd}:swing:${k}`, run: refreshSwingRows });
   }
   const pending = jobs.filter((j) => !done.has(j.key));
   if (pending.length === 0) return;
@@ -89,6 +95,7 @@ async function tick(): Promise<void> {
       try {
         await j.run();
         done.add(j.key);
+        if (j.key.includes(":fixed:")) lastRefreshOk = Date.now();
       } catch (e) {
         console.error(`[top100] ${j.key} başarısız: ${e instanceof Error ? e.message : String(e)}`);
       }
