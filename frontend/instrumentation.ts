@@ -10,4 +10,6 @@ export async function register() {
   startGexScheduler();
   const { startDayPlanScheduler } = await import("./lib/spyengine/dayPlanScheduler");
   startDayPlanScheduler();
+  const { startTop100Scheduler } = await import("./lib/top100Scheduler");
+  startTop100Scheduler();
 }
