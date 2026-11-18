@@ -1225,6 +1225,7 @@ export async function GET(req: NextRequest) {
       const now = Date.now();
 
       let foundData = false;
+      let staticFallback: any = null;
       let localSectorData: { sector?: string; industry?: string; company?: string } | null = null;
 
       for (const p of localPaths) {
@@ -1241,6 +1242,14 @@ export async function GET(req: NextRequest) {
             if (parsed && parsed.ticker) {
               // If file is not stale, use it directly
               if (now - mtime <= MAX_STATIC_AGE_MS) {
+                // Dosya mtime'ı taze olsa bile (git pull/deploy mtime'ı sıfırlar) içerik
+                // tracker_1h göstergelerini taşımıyorsa (günlük özet dosyaları: fiyat var,
+                // EMA/RSI yok) Top100/tracker tabloları boş "—" gösterir. Bu durumda canlı
+                // Yahoo hesabına düş; o da başarısız olursa statik veriyi yine döndür.
+                if (!parsed?.tracker_1h?.ema_20) {
+                  staticFallback = staticFallback ?? parsed;
+                  continue;
+                }
                 results.push(parsed);
                 foundData = true;
                 break;
@@ -1274,9 +1283,11 @@ export async function GET(req: NextRequest) {
             results.push(liveData);
           } else {
             console.warn(`[watchlist-data] ${ticker}: fetchYahooLive returned null - no data available`);
+            if (staticFallback) results.push(staticFallback);
           }
         } catch (err) {
           console.error(`[watchlist-data] Error fetching live data for ${ticker}:`, err instanceof Error ? err.message : String(err));
+          if (staticFallback) results.push(staticFallback);
         }
       }
   };
