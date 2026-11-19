@@ -1,53 +1,35 @@
 {
-  "generated_at": "2026-11-17T09:03:51.624097-05:00",
+  "generated_at": "2026-11-19T14:04:17.649280-05:00",
   "picks": [
     {
-      "ticker": "MSCI",
-      "sector": "Financial Services",
-      "date_added": "2026-11-17",
-      "score": 47.5
-    },
-    {
-      "ticker": "AAPL",
-      "sector": "Technology",
-      "date_added": "2026-11-17",
-      "score": 47.5
-    },
-    {
-      "ticker": "ABNB",
+      "ticker": "CBRL",
       "sector": "Consumer Cyclical",
-      "date_added": "2026-11-17",
-      "score": 47.0
+      "date_added": "2026-11-19",
+      "score": 37.5
     },
     {
-      "ticker": "VOYA",
-      "sector": "Financial Services",
-      "date_added": "2026-11-17",
-      "score": 44.0
+      "ticker": "GNRC",
+      "sector": "Industrials",
+      "date_added": "2026-11-19",
+      "score": 37.5
     },
     {
-      "ticker": "IPAR",
+      "ticker": "COCO",
       "sector": "Consumer Defensive",
-      "date_added": "2026-11-17",
-      "score": 44.0
+      "date_added": "2026-11-19",
+      "score": 36.0
     },
     {
-      "ticker": "BBY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-17",
-      "score": 41.0
+      "ticker": "ZS",
+      "sector": "Technology",
+      "date_added": "2026-11-19",
+      "score": 32.0
     },
     {
-      "ticker": "MAX",
-      "sector": "Communication Services",
-      "date_added": "2026-11-17",
-      "score": 38.0
-    },
-    {
-      "ticker": "HHH",
-      "sector": "Real Estate",
-      "date_added": "2026-11-17",
-      "score": 34.5
+      "ticker": "ULCC",
+      "sector": "Industrials",
+      "date_added": "2026-11-19",
+      "score": 27.0
     }
   ]
 }
