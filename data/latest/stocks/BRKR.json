@@ -1,0 +1,89 @@
+{
+  "ticker": "BRKR",
+  "company": "Bruker Corporation",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T18:46:27.405Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 62.47999954223633,
+    "open": 63.81999969482422,
+    "high": 65.81999969482422,
+    "low": 62.060001373291016,
+    "prev_close": 63.2599983215332,
+    "change_pct": -1.2330047423212933,
+    "change_pct_1w": 3.563728900924607,
+    "change_pct_1m": 1.9083316632496579,
+    "change_pct_1y": 43.996313484950626,
+    "volume": 1084710,
+    "avg_volume_30d": 71374810
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 43.4,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 53.66983583639191,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 60.90746005518524,
+    "ema_50": 59.81287475125837,
+    "ema_200": 54.15217783334611,
+    "ema_stack_bullish": true,
+    "bb_upper": 65.60399951934815,
+    "bb_middle": 62.47999954223633,
+    "bb_lower": 59.355999565124506,
+    "bb_width": 10,
+    "atr": 4.19,
+    "atr_pct": 6.71,
+    "rvol": 0.7861857705820863,
+    "52w_high": 68.9800033569336,
+    "52w_low": 32.369998931884766
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.174796,
+    "gross_margin": 0.49108002,
+    "operating_margin": 0.091709994,
+    "net_margin": -0.03513,
+    "market_cap": 9542094848,
+    "revenue_growth_ttm": 0.016,
+    "fcf_yield": 0.02141039292255838,
+    "institutional_ownership_pct": 0.90718,
+    "dividend_rate": 0.2,
+    "dividend_yield": 0.0032
+  },
+  "scores_detail": {
+    "entry_range_low": 59.97,
+    "entry_range_high": 62.9,
+    "target_range_low": 64.5,
+    "target_range_high": 70.65,
+    "target_1": 64.5,
+    "target_2": 67.58,
+    "target_3": 70.65,
+    "stop_loss": 57.03,
+    "risk_reward_ratio": 1.4,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $59.97 – $62.90 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $64.61 direnci veya $59.13 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $57.03 olarak belirlenmiştir. Fiyatın EMA50 ($59.81) veya günlük VWAP ($63.79) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($63.79) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

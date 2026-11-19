@@ -1,0 +1,89 @@
+{
+  "ticker": "DNTH",
+  "company": "Dianthus Therapeutics, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T18:46:27.562Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 85.91999816894531,
+    "open": 84.33000183105469,
+    "high": 87.12000274658203,
+    "low": 83.25,
+    "prev_close": 83.9800033569336,
+    "change_pct": 2.3100675571139377,
+    "change_pct_1w": -7.093430957900643,
+    "change_pct_1m": -0.12786308486852396,
+    "change_pct_1y": 110.63985349467971,
+    "volume": 441574,
+    "avg_volume_30d": 26798474
+  },
+  "scores": {
+    "master_score": 58,
+    "technical_score": 55,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.72118530711047,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 86.0339166433569,
+    "ema_50": 88.04185530126753,
+    "ema_200": 84.06228245355341,
+    "ema_stack_bullish": false,
+    "bb_upper": 90.21599807739258,
+    "bb_middle": 85.91999816894531,
+    "bb_lower": 81.62399826049804,
+    "bb_width": 10,
+    "atr": 4.97,
+    "atr_pct": 5.78,
+    "rvol": 0.7016759237858097,
+    "52w_high": 117.87999725341797,
+    "52w_low": 35.84000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.8962452,
+    "gross_margin": 1,
+    "operating_margin": -86.838844,
+    "net_margin": 0,
+    "market_cap": 4838388224,
+    "revenue_growth_ttm": 2.056,
+    "fcf_yield": -0.022557409398985838,
+    "institutional_ownership_pct": 1.25062,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 82.94,
+    "entry_range_high": 86.42,
+    "target_range_low": 88.91,
+    "target_range_high": 97.38,
+    "target_1": 88.91,
+    "target_2": 93.15,
+    "target_3": 97.38,
+    "stop_loss": 79.46,
+    "risk_reward_ratio": 1.62,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $82.94 – $86.42 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $89.00 direnci veya $81.95 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $79.46 olarak belirlenmiştir. Fiyatın EMA200 ($84.06) veya günlük VWAP ($85.59) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($88.04) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($85.59) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 50 ile dengeli/nötr bir görünümde."
+  }
+}
