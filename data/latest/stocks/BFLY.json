@@ -1,0 +1,89 @@
+{
+  "ticker": "BFLY",
+  "company": "Butterfly Network, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T17:59:58.150Z",
+  "sector": "Healthcare",
+  "industry": "Medical Devices",
+  "price": {
+    "current": 5.940000057220459,
+    "open": 6.349999904632568,
+    "high": 6.379899978637695,
+    "low": 5.909999847412109,
+    "prev_close": 6.079999923706055,
+    "change_pct": -2.3026294118809623,
+    "change_pct_1w": -10.944527896903661,
+    "change_pct_1m": -6.750389891111949,
+    "change_pct_1y": 147.4999925494197,
+    "volume": 2196087,
+    "avg_volume_30d": 136970187
+  },
+  "scores": {
+    "master_score": 30,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.24946153522511,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 6.550499537980801,
+    "ema_50": 7.160929108964676,
+    "ema_200": 6.380835617688853,
+    "ema_stack_bullish": false,
+    "bb_upper": 6.237000060081482,
+    "bb_middle": 5.940000057220459,
+    "bb_lower": 5.643000054359436,
+    "bb_width": 10,
+    "atr": 0.51,
+    "atr_pct": 8.53,
+    "rvol": 0.8600216191571673,
+    "52w_high": 10.210000038146973,
+    "52w_low": 1.9950000047683716
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 8.608696,
+    "gross_margin": 0.7026,
+    "operating_margin": -0.36089,
+    "net_margin": -0.43557,
+    "market_cap": 1588723968,
+    "revenue_growth_ttm": 0.517,
+    "fcf_yield": -0.004417460264563718,
+    "institutional_ownership_pct": 0.72905,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 5.64,
+    "entry_range_high": 5.99,
+    "target_range_low": 7.93,
+    "target_range_high": 10.05,
+    "target_1": 7.93,
+    "target_2": 9.69,
+    "target_3": 10.05,
+    "stop_loss": 5.28,
+    "risk_reward_ratio": 7.29,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $5.64 – $5.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $6.20 direnci veya $5.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $5.28 olarak belirlenmiştir. Fiyatın EMA200 ($6.38) veya günlük VWAP ($6.08) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($7.16) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($6.08) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
