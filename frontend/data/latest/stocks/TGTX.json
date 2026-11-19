@@ -1,0 +1,89 @@
+{
+  "ticker": "TGTX",
+  "company": "TG Therapeutics, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T21:03:37.903Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 64.87999725341797,
+    "open": 66.55000305175781,
+    "high": 67.19000244140625,
+    "low": 64.61499786376953,
+    "prev_close": 66.12000274658203,
+    "change_pct": -1.8753863303917702,
+    "change_pct_1w": 0.495662495237537,
+    "change_pct_1m": 8.449638823255976,
+    "change_pct_1y": 113.91360836340621,
+    "volume": 1643319,
+    "avg_volume_30d": 57127919
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 62.02029627251479,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 61.53754612651213,
+    "ema_50": 58.26575528684533,
+    "ema_200": 48.645687501825705,
+    "ema_stack_bullish": true,
+    "bb_upper": 68.12399711608887,
+    "bb_middle": 64.87999725341797,
+    "bb_lower": 61.635997390747065,
+    "bb_width": 10,
+    "atr": 3.61,
+    "atr_pct": 5.56,
+    "rvol": 0.8459771482311478,
+    "52w_high": 68.02999877929688,
+    "52w_low": 26.760000228881836
+  },
+  "fundamental": {
+    "pe_ratio": 96.835815,
+    "pb_ratio": 15.890275,
+    "gross_margin": 0.82742995,
+    "operating_margin": 0.21483,
+    "net_margin": 0.118140005,
+    "market_cap": 9806470144,
+    "revenue_growth_ttm": 0.607,
+    "fcf_yield": 0.008721078914651719,
+    "institutional_ownership_pct": 0.7881,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 62.72,
+    "entry_range_high": 65.24,
+    "target_range_low": 68.03,
+    "target_range_high": 73.58,
+    "target_1": 68.03,
+    "target_2": 70.38,
+    "target_3": 73.58,
+    "stop_loss": 60.19,
+    "risk_reward_ratio": 1.69,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $62.72 – $65.24 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $67.19 direnci veya $62.00 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $60.19 olarak belirlenmiştir. Fiyatın EMA20 ($61.54) veya günlük VWAP ($65.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($65.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 62 seviyesinde pozitif momentumu destekliyor."
+  }
+}
