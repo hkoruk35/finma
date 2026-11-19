@@ -37,6 +37,11 @@ export function marketRegime(steps: TrackStep[], compressed = false): { regime: 
   const last6 = w.slice(-6);
   const range6 = (Math.max(...last6.map((x) => x.high)) - Math.min(...last6.map((x) => x.low))) / s.atr5;
   const facts = `son 1 saat · VWAP kesişimi ${crosses} · verim %${Math.round(eff * 100)}`;
+  // sert hacimli kırılım (tracker.ts · brk) testere etiketini kaldırır
+  if (s.brk) {
+    if (s.side15 && s.side15 !== s.brk) return { regime: "KARISIK", note: `${facts} · sert kırılım ama 15m ters tarafta` };
+    return { regime: s.brk > 0 ? "TREND_UP" : "TREND_DOWN", note: `${facts} · sert hacimli kırılım (testere kalktı)` };
+  }
   if (crosses >= 3) return { regime: "TESTERE", note: facts };
   if (compressed || range6 <= 1.8) return { regime: "SIKISIK", note: `${facts} · son 6 mum ${range6.toFixed(1)} ATR5` };
   if (eff >= 0.3 && crosses <= 1 && sideShare >= 0.75) {

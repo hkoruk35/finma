@@ -106,10 +106,10 @@ import { pivotFrames, pivotLevelsAt, type PivotFrames } from "./mtfPivots";
 import { detectCandlePatterns } from "./candlePatterns";
 
 /** Motor sürümü — değişince sunucu günlüğündeki geriye dönük kayıtlar yeniden üretilir */
-export const TRACK_VERSION = "3.15";
+export const TRACK_VERSION = "3.16";
 /** Sürümün yayın tarihi (YYYY-AA-GG) — sayfanın en üstünde sürümle birlikte gösterilir.
  *  KULLANICI KURALI (2026-11-10): motorda her güncellemede TRACK_VERSION artırılır ve bu tarih yenilenir. */
-export const TRACK_VERSION_DATE = "2026-11-17";
+export const TRACK_VERSION_DATE = "2026-11-19";
 
 export const TRACK_CFG = {
   /** ilk 15m kapanışı (yön teyidi bundan sonra var) ve son giriş */
@@ -323,6 +323,25 @@ export const TRACK_CFG = {
   gapReleaseMin: 0,
   /** gap dolumu sayılması için dolduran 5m mumun RVOL'u en az bu (0 = şart yok) */
   gapFillRvol: 0,
+  /** SERT KIRILIM TESTEREYİ KALDIRIR (v3.12, 2026-11-12 kullanıcı isteği): sert + hacimli mum (gövde ≥ brkBodyPct, aralık ≥ brkRangeAtr5 ATR5, RVOL ≥ brkRvolMin)
+   *  VWAP ve EMA20 ötesinde kapanırsa, sonraki testereBrkBars mum boyunca o yönde testere engelleri/uyarıları (VWAP kesişim sayısı, düşük hacimli testere,
+   *  küçük pozisyon) uygulanmaz. 1 = açık · 0 = kapalı */
+  testereBrkExempt: 1,
+  testereBrkBars: 3,
+  /** TREND GÜNÜNDE KAPILAR ESNER (v3.16, 2026-11-19 KULLANICI KURALI — TÜM motorlar): "gap ve VWAP kesişim kuralları yatay/belirsiz piyasa tedbiri;
+   *  trend gününde daha esnek olmalı." 19 Kas SPY +7,13 yukarı gap sonrası gün boyu düşüş: 10:30 PUT gap kapısına takıldı.
+   *  Canlı trend günü (yön d) varken o yönde gap kapısı, VWAP kesişim sayısı (maxCrosses / pmMaxCrosses), düşük hacimli testere engeli,
+   *  testere küçük pozisyonu ve 12:00 sonrası RVOL şartı uygulanmaz. Tanım: döngüdeki trendNow.
+   *  44 seans (R · eski → ikisi esnek → yalnız gap → yalnız testere): SPY 48,9 → 45,9 → 47,8 → 47,9 · QQQ 19,4 → 25,8 → 19,9 → 30,1 ·
+   *  IWM 45,9 → 37,6 → 41,0 → 47,4 · NVDA 13,6 → 18,5 → 11,1 → 23,1 · AAPL −7,0 → −5,6 → −6,8 → −9,3 · TSLA 10,3 → 7,3 → 9,3 → 8,3 ·
+   *  AMZN 9,3 → 12,6 → 8,2 → 13,1 · toplam 140,4 → 142,1 → 130,5 → 160,6. KULLANICI KARARI: yalnız testere esnek ("chop") — gap kapısı trend gününde de geçerli. */
+  trendDayRelax: true,
+  /** trend günü için fiyatın günün karşı ucundan uzaklığı (× günlük ATR) */
+  trendDayMoveAtrD: 0.4,
+  /** VWAP bu kadar 5m mum önceye göre trend yönünde ilerlemiş olmalı (aynı zamanda en erken mum sayısı) */
+  trendDaySlopeBars: 6,
+  /** hangi kapılar esner: "all" · "gap" = yalnız gap kapısı · "chop" = yalnız VWAP kesişim/testere kuralları */
+  trendDayGates: "chop" as "all" | "gap" | "chop",
   /** kapı yalnız |gap| ≥ bu × günlük ATR iken (gap tipi gösterimi 0,25'te kalır) */
   gapGateAtr: 0.25,
   /** SIÇRAMA KIRILIMI EĞİLİM ŞARTI (v3.6): T5_BRK 15m beklemediği için seans öncesi eğilime (k0) ters yönde alınmaz (NÖTR serbest).
@@ -562,6 +581,8 @@ export interface TrackStep {
   out: TrackOutcome | null;
   /** bu kapanışta oluşan sıçrama kırılımı erken uyarısı */
   earlyWarn: string | null;
+  /** sert kırılım aktif (yön): son testereBrkBars mumda sert + hacimli mum VWAP/EMA20 ötesinde kapandı ve fiyat hâlâ o tarafta — testere uyarısı kalkar */
+  brk: D;
   c5: string;
   c15: string | null;
   events: string[];
@@ -826,7 +847,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       ],
       veto: null, warns: [], setup: null, pos: null, runners: [],
       fc: { dir: 0, target: null, targetLabel: "", invalid: null, invalidLabel: "", rule: null, text: "" },
-      out: null, earlyWarn: null, c5: candleText(b, null, null, null, "5m (PM)", null), c15: null, events: [],
+      out: null, earlyWarn: null, brk: 0, c5: candleText(b, null, null, null, "5m (PM)", null), c15: null, events: [],
     });
   }
   const k0 = k0At(pmBars.length ? pmBars[pmBars.length - 1].close : prevClose ?? 0, (today[0]?.time ?? nowSec), pmBars);
@@ -835,8 +856,10 @@ export function trackerRead(inp: TrackInput): TrackRead {
   /** gap yönü kapısı (cfg.gapCounterBlock): gap yönüne ters giriş engeli — engelliyse gerekçe metni */
   let gapFilled = false;
   let curMin = 0;
+  /** bu mumda canlı trend günü yönü (v3.16 · döngüde güncellenir) — trend yönündeki giriş gap kapısına takılmaz */
+  let trendDir: D = 0;
   const gapGateWhy = (d: D): string | false =>
-    C.gapCounterBlock && d !== 0 && gapType !== "FLAT" && (gapType === "UP" ? d < 0 : d > 0)
+    C.gapCounterBlock && d !== 0 && gapType !== "FLAT" && (gapType === "UP" ? d < 0 : d > 0) && !(C.trendDayRelax && C.trendDayGates !== "chop" && trendDir === d)
       && !(C.gapFillRelease && gapFilled) && !(C.gapReleaseMin && curMin >= C.gapReleaseMin)
       && (gapPts == null || atrDaily == null || Math.abs(gapPts) >= C.gapGateAtr * atrDaily)
       ? `gap yönüne ters (${gapType === "UP" ? "yukarı" : "aşağı"} gap ${gapPts != null ? (gapPts > 0 ? "+" : "") + gapPts.toFixed(2) : ""}${gapFilled && prevClose != null ? ` · gap doldu (5m kapanış ${gapType === "DOWN" ? "≥" : "≤"} dünkü kapanış ${prevClose.toFixed(2)}) ama kapı gün boyu geçerli` : ""})`
@@ -868,6 +891,8 @@ export function trackerRead(inp: TrackInput): TrackRead {
   let side15Since = -99;
   /** sıçrama kırılımı: teyit bekleyen sinyal */
   let spike: { side: D; close: number; stop: number; clock: string } | null = null;
+  /** son sert kırılım (testere muafiyeti) */
+  let lastBrk: { d: D; i: number } | null = null;
   /** önceki 5m mumun formasyon yönü */
   let candlePrev: D = 0;
   /** 15m belirsizken oluşan sert hacimli 5m kırılım (destek mumu + 15m teyidi bekleniyor) */
@@ -1003,6 +1028,29 @@ export function trackerRead(inp: TrackInput): TrackRead {
     if (eSide) { if (eSide === runSide) runLen++; else { runSide = eSide; runLen = 1; } }
     const mom: Momentum = { impulse, newExt, struct: 0, run: runSide * runLen, score: (impulse >= 1.5 ? 1 : impulse <= -1.5 ? -1 : 0) + newExt };
     const h4 = emaDir(tf240, T, c), h1 = emaDir(tf60, T, c), m30 = emaDir(tf30, T, c);
+    // ── v3.16 CANLI TREND GÜNÜ (kullanıcı kuralı 2026-11-19): gap kapısı ve VWAP kesişim/testere kuralları yatay–belirsiz gün tedbiridir;
+    // trend gününde o yönde uygulanmaz.
+    //   Başlar (yön d): 5m kapanış VWAP'ın d tarafında · gün açılışının d tarafında · günün karşı ucundan (CALL'da gün dibi, PUT'ta gün tepesi)
+    //   ≥ trendDayMoveAtrD × günlük ATR uzaklaşmış · VWAP son trendDaySlopeBars mumda d yönünde ilerlemiş.
+    //   Sürer: VWAP hâlâ d yönünde eğimli VE fiyat açılışın d tarafında (VWAP'a geri çekilme / kısa kesişme trendi bitirmez).
+    //   (EMA20 şartı yok: sert dönüşte 5m EMA20 VWAP'ın gerisinde kalıyor — 19 Kas QQQ 11:10)
+    const trendNow: D = ((): D => {
+      if (!C.trendDayRelax || vwap == null || !atrDaily || i < C.trendDaySlopeBars) return 0;
+      const slope = vwap - vwaps[i - C.trendDaySlopeBars];
+      const o = today[0].open;
+      if (trendDir) return trendDir * slope > 0 && trendDir * (c - o) > 0 ? trendDir : 0;
+      const td: D = c > vwap ? 1 : c < vwap ? -1 : 0;
+      if (!td || td * (c - o) <= 0 || td * slope <= 0) return 0;
+      let hi = -Infinity, lo = Infinity;
+      for (let q = 0; q <= i; q++) { if (today[q].high > hi) hi = today[q].high; if (today[q].low < lo) lo = today[q].low; }
+      return (td > 0 ? c - lo : hi - c) >= C.trendDayMoveAtrD * atrDaily ? td : 0;
+    })();
+    /** bu yönde trend günü var mı (gap/testere kapıları bu yönde esner) */
+    const trendDay = (d: D): boolean => d !== 0 && trendNow === d && C.trendDayGates !== "gap";
+    if (trendNow !== trendDir) ev.push(trendNow
+      ? `trend günü ${arrow(trendNow)} — ${trendNow > 0 ? "CALL" : "PUT"} yönünde ${C.trendDayGates === "gap" ? "gap kapısı" : C.trendDayGates === "chop" ? "VWAP kesişim/testere kuralları" : "gap kapısı ve VWAP kesişim/testere kuralları"} esnek`
+      : `trend günü ${arrow(trendDir)} sona erdi (VWAP eğimi döndü ya da fiyat açılışın ötesine geçti) — kurallar yeniden tam geçerli`);
+    trendDir = trendNow;
 
     // ── yön durumu ──
     const phaseBase: TrackPhase = m < C.firstEntry ? "AÇILIŞ" : m <= C.trackEnd ? "TAKİP" : "KAPANIŞ";
@@ -1145,6 +1193,16 @@ export function trackerRead(inp: TrackInput): TrackRead {
     let spikeNote = "";
     /** giriş engeli varsa ekrandaki gerekçe; tetik oluşmuşsa triggered true */
     let blockNote: { side: Side; why: string; triggered: boolean } | null = null;
+    // ── sert kırılım takibi (testere muafiyeti) ──
+    if (C.testereBrkExempt) {
+      const eXb = emaExtMap.get(b.time) ?? null;
+      const rb = b.high - b.low;
+      const db: D = c > b.open ? 1 : c < b.open ? -1 : 0;
+      if (db && vwap != null && eXb != null && atr5 && rb > 0 && (Math.abs(c - b.open) / rb) * 100 >= C.brkBodyPct && rb >= C.brkRangeAtr5 * atr5
+        && (rvol5 ?? 0) >= C.brkRvolMin && db * (c - vwap) > 0 && db * (c - eXb) > 0) lastBrk = { d: db, i };
+    }
+    /** sert kırılım aktif mi (d = 0 → hangi yönde olursa; aksi yalnız o yönde) — fiyat hâlâ VWAP'ın kırılım tarafında olmalı */
+    const brkActive = (d: D): D => (C.testereBrkExempt && lastBrk && i - lastBrk.i <= C.testereBrkBars && (d === 0 || lastBrk.d === d) && vwap != null && lastBrk.d * (c - vwap) > 0 ? lastBrk.d : 0);
     // ── sıçrama kırılımı (T5_BRK): 15m teyidi beklenmez ──
     if (C.brkSpike) {
       const eX = emaExtMap.get(b.time) ?? null;
@@ -1286,7 +1344,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       const opposeNamed = C.blockOpposeNamed && namedD === -d;
       // testere: fiyat VWAP etrafında VE hacim düşük (son chopBars mum, medyan)
       const chopNow = (() => {
-        if (!C.chopBlock || !atr5 || !inp.rvol || i < C.chopBars - 1) return false;
+        if (!C.chopBlock || !atr5 || !inp.rvol || i < C.chopBars - 1 || brkActive(d) || trendDay(d)) return false;
         const ds: number[] = [], rs: number[] = [];
         for (let q = i - C.chopBars + 1; q <= i; q++) {
           const bq = today[q];
@@ -1383,13 +1441,13 @@ export function trackerRead(inp: TrackInput): TrackRead {
         C.refAlign15 !== "off" && inp.refSide15 && !(C.refAlign15 === "same" ? refD === d : refD !== -d) && `referans 15m yönü ${refD > 0 ? "▲" : refD < 0 ? "▼" : "belirsiz"}`,
         C.maxStopAtr5 > 0 && atr5 && Math.abs(c - stop) > C.maxStopAtr5 * atr5 && `stop ${f2(Math.abs(c - stop))} > ${C.maxStopAtr5} ATR5`,
         C.minEntryRvol > 0 && (rvol5 ?? 0) < C.minEntryRvol && `hacim zayıf (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.minEntryRvol})`,
-        C.pmRvolMin > 0 && m > 12 * 60 && (rvol5 ?? 0) < C.pmRvolMin && (() => {
+        C.pmRvolMin > 0 && m > 12 * 60 && (rvol5 ?? 0) < C.pmRvolMin && !trendDay(d) && (() => {
           let on = 0;
           for (let q = 0; q <= i; q++) if (d * (today[q].close - (vwaps[q] ?? today[q].close)) > 0) on++;
           return on / (i + 1) < C.trendDayShare;
         })() && `12:00 sonrası, net trend günü değil — hacim yetersiz (RVOL ${rvol5 != null ? rvol5.toFixed(2) : "—"} < ${C.pmRvolMin})`,
-        C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
-        C.pmMaxCrosses > 0 && m > 12 * 60 && crosses >= C.pmMaxCrosses && `12:00 sonrası testere gün (VWAP ${crosses} kez kesildi)`,
+        !brkActive(d) && !trendDay(d) && C.maxCrosses > 0 && crosses >= C.maxCrosses && `testere gün (VWAP ${crosses} kez kesildi)`,
+        !brkActive(d) && !trendDay(d) && C.pmMaxCrosses > 0 && m > 12 * 60 && crosses >= C.pmMaxCrosses && `12:00 sonrası testere gün (VWAP ${crosses} kez kesildi)`,
         (() => {
           if (C.oppAfterStopMin <= 0) return false;
           const ls = [...trades].reverse().find((t) => t.exitReason === "STOP" && t.exitTime != null);
@@ -1408,7 +1466,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
         const rPts = r2(Math.abs(c - stop));
         if (rPts > C.warnStopAtr15 * a15) warns.push("STOP_TOO_WIDE");
         const chopN = crossIdx.filter((k) => k > i - 12).length;
-        const chop = C.chopCross > 0 && chopN >= C.chopCross;
+        const chop = C.chopCross > 0 && chopN >= C.chopCross && !brkActive(d) && !trendDay(d);
         const h1Mult = chop ? C.chopH1R : C.h1R;
         const tp1 = r2(c + d * h1Mult * rPts);
         const h2R = r2(c + d * C.h2R * rPts);
@@ -1598,7 +1656,7 @@ export function trackerRead(inp: TrackInput): TrackRead {
       headline, action, tone, checklist, veto: null, warns, setup,
       pos: P && !exited ? { tag: P.tag, side: P.side, entry: P.entry, stop: P.stop, h1: P.h1, h2: P.h2, liveR: P.liveR ?? 0, h1Hit: P.h1Hit, contracts: P.contracts, h1RMult: P.h1RMult } : null,
       runners: runners.map((x) => ({ side: x.side, entryClock: x.entryClock, entry: x.entry, stop: x.stop, liveR: x.liveR ?? 0, contracts: x.contracts })),
-      fc, out: null, earlyWarn: spikeNote.trim() || null, c5: candleText(b, vwap, ema5, rvol5, "5m", pattern), c15, events: ev,
+      fc, out: null, earlyWarn: spikeNote.trim() || null, brk: brkActive(0), c5: candleText(b, vwap, ema5, rvol5, "5m", pattern), c15, events: ev,
     });
     if (today15) prevSide15 = side15;
   }
