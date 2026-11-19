@@ -1,0 +1,89 @@
+{
+  "ticker": "YSS",
+  "company": "York Space Systems, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T20:04:21.504Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 3.4749999046325684,
+    "open": 3.7899999618530273,
+    "high": 4.169899940490723,
+    "low": 3.4649999141693115,
+    "prev_close": 3.7799999713897705,
+    "change_pct": -8.06878489591799,
+    "change_pct_1w": -47.34848553265204,
+    "change_pct_1m": -44.488821444447865,
+    "change_pct_1y": -89.66081570506637,
+    "volume": 2157638,
+    "avg_volume_30d": 59769038
+  },
+  "scores": {
+    "master_score": 30,
+    "technical_score": 45,
+    "fundamental_score": 23.6,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 26.925789629184962,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 5.729286495287364,
+    "ema_50": 7.421611585954913,
+    "ema_200": 17.116237179742626,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.648749899864197,
+    "bb_middle": 3.4749999046325684,
+    "bb_lower": 3.3012499094009398,
+    "bb_width": 10,
+    "atr": 0.76,
+    "atr_pct": 21.74,
+    "rvol": 1.5995008653142453,
+    "52w_high": 44.540000915527344,
+    "52w_low": 3.4649999141693115
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.43470103,
+    "gross_margin": 0.20309,
+    "operating_margin": -0.51962,
+    "net_margin": -2.48507,
+    "market_cap": 471103616,
+    "revenue_growth_ttm": -0.073,
+    "fcf_yield": -0.3288801417308586,
+    "institutional_ownership_pct": 0.76607,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 3.02,
+    "entry_range_high": 3.55,
+    "target_range_low": 7.19,
+    "target_range_high": 29.68,
+    "target_1": 7.19,
+    "target_2": 10.04,
+    "target_3": 29.68,
+    "stop_loss": 2.49,
+    "risk_reward_ratio": 8.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $3.02 – $3.55 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.97 direnci veya $2.87 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.49 olarak belirlenmiştir. Fiyatın EMA20 ($5.73) veya günlük VWAP ($3.71) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($7.42) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.71) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 27 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}
