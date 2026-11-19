@@ -1,29 +1,11 @@
 {
-  "generated_at": "2026-11-19T14:04:17.649280-05:00",
+  "generated_at": "2026-11-19T17:03:39.142628-05:00",
   "picks": [
-    {
-      "ticker": "CBRL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-11-19",
-      "score": 37.5
-    },
     {
       "ticker": "GNRC",
       "sector": "Industrials",
       "date_added": "2026-11-19",
       "score": 37.5
-    },
-    {
-      "ticker": "COCO",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-11-19",
-      "score": 36.0
-    },
-    {
-      "ticker": "ZS",
-      "sector": "Technology",
-      "date_added": "2026-11-19",
-      "score": 32.0
     },
     {
       "ticker": "ULCC",
