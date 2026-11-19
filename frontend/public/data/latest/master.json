@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-17",
-  "generated_at": "2026-11-17T09:03:51.613829-05:00",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T14:04:17.200756-05:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "HIGH_VOLATILITY",
@@ -8,25 +8,21 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "ELV",
-        "J",
-        "TYL",
-        "IDXX",
-        "KNTK",
-        "DUOL",
-        "AEO",
-        "BXP",
-        "UNH",
-        "EE"
+        "EIX",
+        "ATEN",
+        "RSKD",
+        "CRWD",
+        "R",
+        "VLY",
+        "SKY",
+        "SIRI",
+        "PRMB",
+        "ALSN"
       ]
     },
     "breakout": {
-      "count": 3,
-      "tickers": [
-        "ELV",
-        "DUOL",
-        "UNH"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -47,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ELV",
-      "score": 57.5,
+      "ticker": "EIX",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "J",
-      "score": 55.0,
+      "ticker": "ATEN",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "TYL",
-      "score": 55.0,
+      "ticker": "RSKD",
+      "score": 49.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

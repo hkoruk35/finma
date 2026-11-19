@@ -1,0 +1,89 @@
+{
+  "ticker": "NRIX",
+  "company": "Nurix Therapeutics, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T19:01:37.613Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 13.710000038146973,
+    "open": 14.210000038146973,
+    "high": 14.390000343322754,
+    "low": 13.6850004196167,
+    "prev_close": 14.100000381469727,
+    "change_pct": -2.765959806889749,
+    "change_pct_1w": -12.11538651991168,
+    "change_pct_1m": -10.392157730499495,
+    "change_pct_1y": -4.326586802930954,
+    "volume": 875155,
+    "avg_volume_30d": 107057755
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 40,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 23.00371415555277,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 18.114442664044063,
+    "ema_50": 21.099459984741742,
+    "ema_200": 20.685765896213894,
+    "ema_stack_bullish": false,
+    "bb_upper": 14.395500040054323,
+    "bb_middle": 13.710000038146973,
+    "bb_lower": 13.024500036239623,
+    "bb_width": 10,
+    "atr": 1.71,
+    "atr_pct": 12.47,
+    "rvol": 0.5286317651626451,
+    "52w_high": 28.229999542236328,
+    "52w_low": 12.609999656677246
+  },
+  "fundamental": {
+    "pe_ratio": 5.6419754,
+    "pb_ratio": 1.5461825,
+    "gross_margin": 0.52407,
+    "operating_margin": 0.41265,
+    "net_margin": 0.42009,
+    "market_cap": 1497815040,
+    "revenue_growth_ttm": 84.263,
+    "fcf_yield": 0.15578534449754222,
+    "institutional_ownership_pct": 1.10567,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 12.68,
+    "entry_range_high": 13.88,
+    "target_range_low": 17.68,
+    "target_range_high": 19.84,
+    "target_1": 17.68,
+    "target_2": 18.1,
+    "target_3": 19.84,
+    "stop_loss": 11.49,
+    "risk_reward_ratio": 2.68,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.68 – $13.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $15.06 direnci veya $12.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $11.49 olarak belirlenmiştir. Fiyatın EMA20 ($18.11) veya günlük VWAP ($13.90) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($21.10) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.90) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.5x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 23 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}
