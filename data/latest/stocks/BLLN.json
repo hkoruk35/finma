@@ -1,0 +1,89 @@
+{
+  "ticker": "BLLN",
+  "company": "BillionToOne, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T18:19:44.016Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 91.56500244140625,
+    "open": 90.8499984741211,
+    "high": 93.79000091552734,
+    "low": 89.50499725341797,
+    "prev_close": 91.54000091552734,
+    "change_pct": 0.027312131995691734,
+    "change_pct_1w": -17.35264763539386,
+    "change_pct_1m": -19.63752810300874,
+    "change_pct_1y": -5.981103793765221,
+    "volume": 540257,
+    "avg_volume_30d": 18992757
+  },
+  "scores": {
+    "master_score": 56,
+    "technical_score": 35,
+    "fundamental_score": 73.1,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 31.362242781784516,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 104.48878321484153,
+    "ema_50": 105.77786329201048,
+    "ema_200": 101.97872278159807,
+    "ema_stack_bullish": false,
+    "bb_upper": 96.14325256347657,
+    "bb_middle": 91.56500244140625,
+    "bb_lower": 86.98675231933593,
+    "bb_width": 10,
+    "atr": 7.35,
+    "atr_pct": 8.03,
+    "rvol": 1.3683817467890522,
+    "52w_high": 150.44000244140625,
+    "52w_low": 61.959999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 99.527176,
+    "pb_ratio": 7.6984196,
+    "gross_margin": 0.71406,
+    "operating_margin": 0.102299996,
+    "net_margin": 0.105170004,
+    "market_cap": 4374503936,
+    "revenue_growth_ttm": 0.472,
+    "fcf_yield": 0.002715650774076707,
+    "institutional_ownership_pct": 0.51682,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 87.18,
+    "entry_range_high": 92.3,
+    "target_range_low": 94.23,
+    "target_range_high": 103.2,
+    "target_1": 94.23,
+    "target_2": 98.71,
+    "target_3": 103.2,
+    "stop_loss": 82.03,
+    "risk_reward_ratio": 1.16,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $87.18 – $92.30 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $97.84 direnci veya $85.71 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $82.03 olarak belirlenmiştir. Fiyatın EMA200 ($101.98) veya günlük VWAP ($91.11) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($105.78) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($91.11) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.4x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 31 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

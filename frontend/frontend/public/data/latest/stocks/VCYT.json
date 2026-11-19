@@ -1,0 +1,89 @@
+{
+  "ticker": "VCYT",
+  "company": "Veracyte, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T18:24:22.050Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 25.770000457763672,
+    "open": 25.68000030517578,
+    "high": 26.6299991607666,
+    "low": 25.400100708007812,
+    "prev_close": 25.56999969482422,
+    "change_pct": 0.7821695945500402,
+    "change_pct_1w": 4.628507250674174,
+    "change_pct_1m": 6.663909853145207,
+    "change_pct_1y": -35.46205794938767,
+    "volume": 875189,
+    "avg_volume_30d": 69905289
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 30,
+    "fundamental_score": 86.3,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 32.15814631560873,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.492708600183164,
+    "ema_50": 38.74190465586565,
+    "ema_200": 42.472910046366955,
+    "ema_stack_bullish": false,
+    "bb_upper": 27.05850048065186,
+    "bb_middle": 25.770000457763672,
+    "bb_lower": 24.481500434875485,
+    "bb_width": 10,
+    "atr": 3.89,
+    "atr_pct": 15.09,
+    "rvol": 0.9203156859847901,
+    "52w_high": 60.90999984741211,
+    "52w_low": 21.90999984741211
+  },
+  "fundamental": {
+    "pe_ratio": 16.733767,
+    "pb_ratio": 1.450197,
+    "gross_margin": 0.74158996,
+    "operating_margin": 0.15022,
+    "net_margin": 0.21804,
+    "market_cap": 2079522560,
+    "revenue_growth_ttm": 0.151,
+    "fcf_yield": 0.053337123690545586,
+    "institutional_ownership_pct": 1.18462,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 23.44,
+    "entry_range_high": 26.16,
+    "target_range_low": 34.18,
+    "target_range_high": 39.89,
+    "target_1": 34.18,
+    "target_2": 35.19,
+    "target_3": 39.89,
+    "stop_loss": 20.71,
+    "risk_reward_ratio": 2.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $23.44 – $26.16 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $52.76 direnci veya $22.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.71 olarak belirlenmiştir. Fiyatın EMA20 ($32.49) veya günlük VWAP ($25.83) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($38.74) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($25.83) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 32 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "AMRX",
+  "company": "Amneal Pharmaceuticals, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T18:19:43.852Z",
+  "sector": "Healthcare",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "price": {
+    "current": 21.299999237060547,
+    "open": 21.8799991607666,
+    "high": 21.959999084472656,
+    "low": 21.190000534057617,
+    "prev_close": 21.8799991607666,
+    "change_pct": -2.6508224220870282,
+    "change_pct_1w": -1.843324939241719,
+    "change_pct_1m": 5.759681641342683,
+    "change_pct_1y": 84.89581936349528,
+    "volume": 463974,
+    "avg_volume_30d": 110952774
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 100,
+    "fundamental_score": 54.95,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.66736090213774,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 20.938481715302018,
+    "ema_50": 20.087219274268687,
+    "ema_200": 17.014209759357954,
+    "ema_stack_bullish": true,
+    "bb_upper": 22.364999198913576,
+    "bb_middle": 21.299999237060547,
+    "bb_lower": 20.234999275207517,
+    "bb_width": 10,
+    "atr": 0.92,
+    "atr_pct": 4.34,
+    "rvol": 0.4435873230172686,
+    "52w_high": 22.125,
+    "52w_low": 11.449999809265137
+  },
+  "fundamental": {
+    "pe_ratio": 53.249996,
+    "pb_ratio": 13.967213,
+    "gross_margin": 0.40013,
+    "operating_margin": 0.16688,
+    "net_margin": 0.04171,
+    "market_cap": 7421191168,
+    "revenue_growth_ttm": 0.1,
+    "fcf_yield": -0.006080644330330772,
+    "institutional_ownership_pct": 0.50672,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 20.75,
+    "entry_range_high": 21.39,
+    "target_range_low": 22.12,
+    "target_range_high": 24.23,
+    "target_1": 22.12,
+    "target_2": 23.18,
+    "target_3": 24.23,
+    "stop_loss": 20.1,
+    "risk_reward_ratio": 2.17,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $20.75 – $21.39 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $21.96 direnci veya $20.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $20.10 olarak belirlenmiştir. Fiyatın EMA50 ($20.09) veya günlük VWAP ($21.58) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($21.58) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın çok altında (0.4x) — bu zayıf bir teyit sinyali, tek başına likidite riski göstergesi değildir; pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}
