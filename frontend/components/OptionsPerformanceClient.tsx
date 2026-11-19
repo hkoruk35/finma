@@ -31,6 +31,8 @@ const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
   time_stop: { label: "T-STOP",    cls: "text-amber-400 bg-amber-400/10 border border-amber-400/20" },
   expired:   { label: "EXPIRED",   cls: "text-slate-400 bg-slate-400/10 border border-slate-400/20" },
   manual:    { label: "MANUAL",    cls: "text-purple-400 bg-purple-400/10 border border-purple-400/20" },
+  pending:   { label: "VWAP WAIT", cls: "text-violet-300 bg-violet-400/10 border border-violet-400/20" },
+  no_entry:  { label: "NO ENTRY",  cls: "text-slate-500 bg-slate-500/10 border border-slate-500/20" },
 };
 
 const TH = ({ children, right, center }: { children: React.ReactNode; right?: boolean; center?: boolean }) => (
@@ -79,7 +81,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
 
   // ── Stats for filtered view ──
   const filteredStats = useMemo(() => {
-    const closed = filtered.filter((p) => p.status !== "open");
+    const closed = filtered.filter((p) => p.status !== "open" && p.status !== "pending" && p.status !== "no_entry");
     const open = filtered.filter((p) => p.status === "open");
     const pnls = closed.map((p) => p.pnl_pct).filter((v) => v != null) as number[];
     const winners = pnls.filter((v) => v > 0);
@@ -92,7 +94,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       tp,
       sl: closed.filter((p) => p.status === "sl_hit").length,
       tstop: closed.filter((p) => p.status === "time_stop").length,
-      win_rate: closed.length ? Math.round((tp / closed.length) * 100 * 10) / 10 : null,
+      win_rate: pnls.length ? Math.round((winners.length / pnls.length) * 100 * 10) / 10 : null,
       avg_pnl: pnls.length ? Math.round(pnls.reduce((a, b) => a + b, 0) / pnls.length * 10) / 10 : null,
       avg_winner: winners.length ? Math.round(winners.reduce((a, b) => a + b, 0) / winners.length * 10) / 10 : null,
       avg_loser: losers.length ? Math.round(losers.reduce((a, b) => a + b, 0) / losers.length * 10) / 10 : null,

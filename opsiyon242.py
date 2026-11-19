@@ -127,6 +127,13 @@ SECONDARY_STOCKS = ["MU", "MSFT", "GOOGL", "NFLX", "ORCL", "TSM", "INTC", "SMCI"
 TAKE_PROFIT_PCT = 0.50
 STOP_LOSS_PCT   = 0.35
 
+# ── Kovalama filtresi (2026-11-19, kullanıcı kararı) ─────────────────────
+# 25 öncelik hissesi, 27 Ağu–6 Kas geriye dönük (1275 sinyal): 5 günde yön lehine >%8 gitmiş ya da
+# tarama anında gün içinde yön lehine >0,5 ATR uzamış hisselerde opsiyon almak ort. P&L'i eksiye çekiyordu.
+# İki filtre + VWAP'a dönüş girişi (options_pnl_tracker.py): ort. +%0,8 → +%5,3, maxDD −30,1k$ → −9,2k$ ($1000/işlem).
+CHASE_RET5_MAX  = 8.0    # yön lehine 5 günlük getiri üst sınırı (%)
+DAY_EXT_ATR_MAX = 0.5    # yön lehine gün içi uzama üst sınırı (ATR14 katı)
+
 # ── Diğer ─────────────────────────────────────────────────────────────────
 SEMAPHORE_N        = 2
 NOTIONAL_SWEEP_MIN = 100_000
@@ -1649,6 +1656,27 @@ async def _analyze_priority(ticker: str, sector_etf: str, df_1d: pd.DataFrame, c
     side = "CALL" if bull >= 3 else "PUT"
     strength = bull if side == "CALL" else bear          # 3..5
 
+    # ── Kovalama filtresi: hareketin peşinden girme ──
+    sgn = 1.0 if side == "CALL" else -1.0
+    ret5_dir = sgn * ret_5d
+    try:
+        today_ny = datetime.now(NY_TZ).date()
+        last_is_today = pd.Timestamp(df_1d.index[-1]).date() == today_ny
+        hist = df_1d.iloc[:-1] if last_is_today else df_1d
+        prev_close = float(hist['Close'].iloc[-1])
+        h, l, c = hist['High'].astype(float), hist['Low'].astype(float), hist['Close'].astype(float)
+        tr = pd.concat([h - l, (h - c.shift()).abs(), (l - c.shift()).abs()], axis=1).max(axis=1)
+        atr_prev = float(tr.tail(14).mean())
+        day_ext_atr = sgn * (cp - prev_close) / atr_prev if atr_prev > 0 else 0.0
+    except Exception:
+        day_ext_atr = 0.0
+    if ret5_dir > CHASE_RET5_MAX:
+        logging.info(f"⛔ {ticker} {side}: 5g yön lehine %{ret5_dir:.1f} > %{CHASE_RET5_MAX:.0f} — kovalama, öneri yok")
+        return None
+    if day_ext_atr > DAY_EXT_ATR_MAX:
+        logging.info(f"⛔ {ticker} {side}: gün içi yön lehine {day_ext_atr:.2f} ATR > {DAY_EXT_ATR_MAX} — kovalama, öneri yok")
+        return None
+
     vol = df_1d['Volume'].astype(float) if 'Volume' in df_1d.columns else pd.Series([1e6] * len(close))
     v5 = float(vol.tail(5).mean()); v20 = float(vol.tail(20).mean()) if len(vol) >= 20 else v5
     rvol = round(v5 / v20, 2) if v20 > 0 else 1.0
@@ -1676,7 +1704,8 @@ async def _analyze_priority(ticker: str, sector_etf: str, df_1d: pd.DataFrame, c
         "ticker": ticker, "current_price": round(cp, 2), "score": total, "grade": grade,
         "side": side, "priority": True,
         "sector_etf": sector_etf, "sector_info": {}, "sector_score": 0.0,
-        "boga": {"e10": round(e10, 2), "e20": round(e20, 2), "rsi": round(rsi, 1), "rsi_slope": round(rsi_slope, 1), "rvol": rvol},
+        "boga": {"e10": round(e10, 2), "e20": round(e20, 2), "rsi": round(rsi, 1), "rsi_slope": round(rsi_slope, 1), "rvol": rvol,
+                 "ret5_dir": round(ret5_dir, 2), "day_ext_atr": round(day_ext_atr, 2)},
         "trend": {"rs_60": 0.0, "ret_5d": round(ret_5d, 2), "weekly_ok": False, "hh_structure": False, "atr_pct": round(atr_pct, 2)},
         "mom": {"rsi_1d": round(rsi, 1)},
         "bs": {"setup_type": f"{side} {strength}/5 · {best.get('atm_label', '')} D{abs(best.get('delta', 0)):.2f} · {best.get('dte')}g",

@@ -257,13 +257,15 @@ export interface OptionPosRow {
 const STATUS_TR: Record<string, [string, string]> = {
   open: ["Açık", "text-sky-300"], tp_hit: ["Hedef", "text-emerald-400"], sl_hit: ["Stop", "text-rose-400"],
   time_stop: ["Süre stop", "text-amber-300"], expired: ["Vade doldu", "text-slate-400"], manual: ["Elle", "text-slate-400"],
+  pending: ["VWAP bekliyor", "text-violet-300"], no_entry: ["Giriş olmadı", "text-slate-500"],
 };
 
 export function OptionPerformance({ rows, summary }: { rows: OptionPosRow[]; summary: { winRate: number | null; avg: number | null; open: number; closed: number; updated: string | null } }) {
   const [tab, setTab] = useState<"open" | "closed" | "all">("open");
-  const view = (tab === "open" ? rows.filter((r) => r.status === "open") : tab === "closed" ? rows.filter((r) => r.status !== "open") : rows).slice(0, 200);
-  const open = rows.filter((r) => r.status === "open");
-  const avgOpen = open.length ? open.reduce((a, r) => a + (r.pnl ?? 0), 0) / open.length : null;
+  const isClosed = (s: string) => s !== "open" && s !== "pending" && s !== "no_entry";
+  const view = (tab === "open" ? rows.filter((r) => r.status === "open" || r.status === "pending") : tab === "closed" ? rows.filter((r) => isClosed(r.status)) : rows).slice(0, 200);
+  const openPnl = rows.filter((r) => r.status === "open" && r.pnl != null).map((r) => r.pnl as number);
+  const avgOpen = openPnl.length ? openPnl.reduce((a, v) => a + v, 0) / openPnl.length : null;
   return (
     <div className="flex flex-col gap-2">
       <div className="grid grid-cols-2 gap-2 md:grid-cols-5">

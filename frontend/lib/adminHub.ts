@@ -24,7 +24,7 @@ export const OPTION_PREFS = [
   ["Strike", "ATM veya ITM1"],
   ["Delta", "0,55–0,70"],
   ["İşlem", "CALL / PUT alımı"],
-  ["Giriş", "5M setup + 1M tetik"],
+  ["Giriş", "VWAP'a dönüş (5M) · kovalama yok"],
 ] as const;
 
 export const HUB_PAGES = [

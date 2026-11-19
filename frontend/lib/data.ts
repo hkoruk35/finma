@@ -1189,7 +1189,7 @@ export interface OptionPosition {
   iv_rank_at_entry: number | null;
   delta_at_entry: number | null;
   expected_move: number | null;
-  status: "open" | "tp_hit" | "sl_hit" | "time_stop" | "expired" | "manual";
+  status: "open" | "tp_hit" | "sl_hit" | "time_stop" | "expired" | "manual" | "pending" | "no_entry";
   exit_premium: number | null;
   exit_date: string | null;
   exit_reason: string | null;
