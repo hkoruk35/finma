@@ -1,9 +1,9 @@
 {
   "date": "2026-11-19",
-  "generated_at": "2026-11-19T14:04:17.200756-05:00",
+  "generated_at": "2026-11-19T17:03:38.806350-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
-  "market_regime": "HIGH_VOLATILITY",
+  "active_scores_count": 14,
+  "market_regime": "WEAK",
   "menus": {
     "top_scores": {
       "count": 10,
@@ -21,8 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "TGT",
+        "EVER",
+        "RBRK"
+      ]
     },
     "value": {
       "count": 0,
