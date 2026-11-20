@@ -1,0 +1,89 @@
+{
+  "ticker": "CGON",
+  "company": "CG Oncology, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T23:43:06.197Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 81.9000015258789,
+    "open": 84.02999877929688,
+    "high": 84.22000122070312,
+    "low": 79.95999908447266,
+    "prev_close": 80,
+    "change_pct": 2.375001907348633,
+    "change_pct_1w": 16.749821446069863,
+    "change_pct_1m": 7.777344161404621,
+    "change_pct_1y": 92.25353159491782,
+    "volume": 2520500,
+    "avg_volume_30d": 47239200
+  },
+  "scores": {
+    "master_score": 82,
+    "technical_score": 100,
+    "fundamental_score": 36.8,
+    "momentum_score": 99,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.50447695404104,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 72.60740526456848,
+    "ema_50": 70.1196412197902,
+    "ema_200": 65.52796313837668,
+    "ema_stack_bullish": true,
+    "bb_upper": 85.99500160217285,
+    "bb_middle": 81.9000015258789,
+    "bb_lower": 77.80500144958496,
+    "bb_width": 10,
+    "atr": 6.93,
+    "atr_pct": 8.46,
+    "rvol": 2.6256160138190316,
+    "52w_high": 93.94999694824219,
+    "52w_low": 37.0099983215332
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 7.380373,
+    "gross_margin": 0,
+    "operating_margin": -42.935287,
+    "net_margin": 0,
+    "market_cap": 7315218944,
+    "revenue_growth_ttm": -0.037,
+    "fcf_yield": -0.016303800735564148,
+    "institutional_ownership_pct": 1.12347,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 77.74,
+    "entry_range_high": 82.59,
+    "target_range_low": 84.18,
+    "target_range_high": 93.95,
+    "target_1": 84.18,
+    "target_2": 88.18,
+    "target_3": 93.95,
+    "stop_loss": 72.89,
+    "risk_reward_ratio": 1.1,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $77.74 – $82.59 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $86.68 direnci veya $76.36 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $72.89 olarak belirlenmiştir. Fiyatın EMA20 ($72.61) veya günlük VWAP ($81.79) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($81.79) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 2.6 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}

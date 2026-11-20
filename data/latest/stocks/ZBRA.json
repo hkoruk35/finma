@@ -1,0 +1,89 @@
+{
+  "ticker": "ZBRA",
+  "company": "Zebra Technologies Corporation",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T02:56:38.665Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 312.510009765625,
+    "open": 321.3699951171875,
+    "high": 324.92999267578125,
+    "low": 312.0299987792969,
+    "prev_close": 319.6099853515625,
+    "change_pct": -2.2214498643175102,
+    "change_pct_1w": -1.6738435740489868,
+    "change_pct_1m": -2.953226374913985,
+    "change_pct_1y": 35.3267309042787,
+    "volume": 537200,
+    "avg_volume_30d": 20185000
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 33.11528627051389,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 335.59854671480724,
+    "ema_50": 346.6550960828145,
+    "ema_200": 304.82967098382994,
+    "ema_stack_bullish": false,
+    "bb_upper": 328.13551025390626,
+    "bb_middle": 312.510009765625,
+    "bb_lower": 296.88450927734374,
+    "bb_width": 10,
+    "atr": 14.39,
+    "atr_pct": 4.6,
+    "rvol": 0.9275105276195194,
+    "52w_high": 392.7799987792969,
+    "52w_low": 199.0500030517578
+  },
+  "fundamental": {
+    "pe_ratio": 25.263542,
+    "pb_ratio": 4.132036,
+    "gross_margin": 0.48901,
+    "operating_margin": 0.16528,
+    "net_margin": 0.09803,
+    "market_cap": 14715300864,
+    "revenue_growth_ttm": 0.223,
+    "fcf_yield": 0.04752705924694847,
+    "institutional_ownership_pct": 0.98622,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 303.88,
+    "entry_range_high": 313.95,
+    "target_range_low": 386.23,
+    "target_range_high": 401.83,
+    "target_1": 386.23,
+    "target_2": 393.95,
+    "target_3": 401.83,
+    "stop_loss": 293.8,
+    "risk_reward_ratio": 5.63,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $303.88 – $313.95 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $322.00 direnci veya $301.00 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $293.80 olarak belirlenmiştir. Fiyatın EMA200 ($304.83) veya günlük VWAP ($317.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($346.66) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($317.13) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 33 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

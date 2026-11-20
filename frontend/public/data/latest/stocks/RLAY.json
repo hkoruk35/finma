@@ -1,0 +1,89 @@
+{
+  "ticker": "RLAY",
+  "company": "Relay Therapeutics, Inc.",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T03:36:34.384Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 16.510000228881836,
+    "open": 16.40999984741211,
+    "high": 17.139999389648438,
+    "low": 16.219999313354492,
+    "prev_close": 16.469999313354492,
+    "change_pct": 0.2428713855191816,
+    "change_pct_1w": -16.277886390689815,
+    "change_pct_1m": -2.8823515948127296,
+    "change_pct_1y": 160.41009197993012,
+    "volume": 2426100,
+    "avg_volume_30d": 75208700
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 45,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 40.570637301898245,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 18.041086678904225,
+    "ema_50": 18.226838868768734,
+    "ema_200": 15.798374830861022,
+    "ema_stack_bullish": false,
+    "bb_upper": 17.335500240325928,
+    "bb_middle": 16.510000228881836,
+    "bb_lower": 15.684500217437744,
+    "bb_width": 10,
+    "atr": 1.27,
+    "atr_pct": 7.72,
+    "rvol": 0.8690537132007334,
+    "52w_high": 21.270000457763672,
+    "52w_low": 6.28000020980835
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.264272,
+    "gross_margin": 0,
+    "operating_margin": -30.9458,
+    "net_margin": 0,
+    "market_cap": 3515465216,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.03341083378251807,
+    "institutional_ownership_pct": 1.15565,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 15.75,
+    "entry_range_high": 16.64,
+    "target_range_low": 17.32,
+    "target_range_high": 19.5,
+    "target_1": 17.32,
+    "target_2": 17.81,
+    "target_3": 19.5,
+    "stop_loss": 14.85,
+    "risk_reward_ratio": 1.21,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $15.75 – $16.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $17.58 direnci veya $15.49 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $14.85 olarak belirlenmiştir. Fiyatın EMA200 ($15.80) veya günlük VWAP ($16.13) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($18.23) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($16.13) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 41 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

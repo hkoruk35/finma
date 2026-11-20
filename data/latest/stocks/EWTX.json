@@ -1,0 +1,89 @@
+{
+  "ticker": "EWTX",
+  "company": "Edgewise Therapeutics, Inc.",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T00:16:15.292Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 41.16999816894531,
+    "open": 41.56999969482422,
+    "high": 42.130001068115234,
+    "low": 40.25,
+    "prev_close": 41.369998931884766,
+    "change_pct": -0.4834439644747202,
+    "change_pct_1w": -10.148410207004357,
+    "change_pct_1m": -8.59236826802076,
+    "change_pct_1y": 84.28826270252345,
+    "volume": 1193914,
+    "avg_volume_30d": 47282314
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 70,
+    "fundamental_score": 50,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.611752978235394,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 42.27278881771841,
+    "ema_50": 41.51284496242557,
+    "ema_200": 37.358276956130815,
+    "ema_stack_bullish": true,
+    "bb_upper": 43.22849807739258,
+    "bb_middle": 41.16999816894531,
+    "bb_lower": 39.111498260498045,
+    "bb_width": 10,
+    "atr": 3.37,
+    "atr_pct": 8.18,
+    "rvol": 0.7492163771849237,
+    "52w_high": 48.779998779296875,
+    "52w_low": 19.760000228881836
+  },
+  "fundamental": {
+    "pe_ratio": 4.9128876,
+    "pb_ratio": 2.7601233,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 4507404800,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.0014532752860359913,
+    "institutional_ownership_pct": 1.16889,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 38.72,
+    "entry_range_high": 41.51,
+    "target_range_low": 43.93,
+    "target_range_high": 46.85,
+    "target_1": 43.93,
+    "target_2": 45.93,
+    "target_3": 46.85,
+    "stop_loss": 36.36,
+    "risk_reward_ratio": 1.55,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $38.72 – $41.51 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $44.23 direnci veya $38.04 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $36.36 olarak belirlenmiştir. Fiyatın EMA200 ($37.36) veya günlük VWAP ($41.24) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($41.51) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($41.24) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.7x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 48 ile dengeli/nötr bir görünümde."
+  }
+}

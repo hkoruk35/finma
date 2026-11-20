@@ -1,0 +1,89 @@
+{
+  "ticker": "TVTX",
+  "company": "Travere Therapeutics, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T22:31:29.598Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 48.29999923706055,
+    "open": 50.5,
+    "high": 51.08000183105469,
+    "low": 47.7400016784668,
+    "prev_close": 50.2400016784668,
+    "change_pct": -3.8614696986320927,
+    "change_pct_1w": -6.322734773857487,
+    "change_pct_1m": -2.6209662843816908,
+    "change_pct_1y": 36.32514485190297,
+    "volume": 1792710,
+    "avg_volume_30d": 60206210
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 38.37724811109005,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 50.97919510836981,
+    "ema_50": 53.55074287997777,
+    "ema_200": 50.11431516101459,
+    "ema_stack_bullish": false,
+    "bb_upper": 50.714999198913574,
+    "bb_middle": 48.29999923706055,
+    "bb_lower": 45.88499927520752,
+    "bb_width": 10,
+    "atr": 2.72,
+    "atr_pct": 5.63,
+    "rvol": 0.5953349330575699,
+    "52w_high": 68.7300033569336,
+    "52w_low": 22.59000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 204.66101,
+    "gross_margin": 0.61066,
+    "operating_margin": -0.0313,
+    "net_margin": -0.18664,
+    "market_cap": 4636421120,
+    "revenue_growth_ttm": 0.362,
+    "fcf_yield": -0.013973978274001132,
+    "institutional_ownership_pct": 1.19319,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 46.67,
+    "entry_range_high": 48.57,
+    "target_range_low": 50,
+    "target_range_high": 59.69,
+    "target_1": 50,
+    "target_2": 53.3,
+    "target_3": 59.69,
+    "stop_loss": 44.76,
+    "risk_reward_ratio": 1.99,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $46.67 – $48.57 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $50.21 direnci veya $46.12 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $44.76 olarak belirlenmiştir. Fiyatın EMA200 ($50.11) veya günlük VWAP ($49.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($53.55) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($49.07) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 38 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

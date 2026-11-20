@@ -1,0 +1,89 @@
+{
+  "ticker": "RCAT",
+  "company": "Red Cat Holdings, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T23:29:06.715Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 1.940000057220459,
+    "open": 2.299999952316284,
+    "high": 2.375,
+    "low": 1.8819999694824219,
+    "prev_close": 2.25,
+    "change_pct": -13.777775234646267,
+    "change_pct_1w": -50.69885424572298,
+    "change_pct_1m": -51.98019615003563,
+    "change_pct_1y": -70.65052922791698,
+    "volume": 16425616,
+    "avg_volume_30d": 238142516
+  },
+  "scores": {
+    "master_score": 41,
+    "technical_score": 45,
+    "fundamental_score": 33.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 22.212509828361462,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.820044657042421,
+    "ema_50": 5.164558098192356,
+    "ema_200": 8.04207206113115,
+    "ema_stack_bullish": false,
+    "bb_upper": 2.037000060081482,
+    "bb_middle": 1.940000057220459,
+    "bb_lower": 1.843000054359436,
+    "bb_width": 10,
+    "atr": 0.48,
+    "atr_pct": 24.84,
+    "rvol": 1.8959163763937055,
+    "52w_high": 18.780000686645508,
+    "52w_low": 1.8819999694824219
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0.68527025,
+    "gross_margin": 0.08691,
+    "operating_margin": -1.80929,
+    "net_margin": -1.65505,
+    "market_cap": 296736512,
+    "revenue_growth_ttm": 0.22,
+    "fcf_yield": -0.5665389771785145,
+    "institutional_ownership_pct": 0.47118,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 1.65,
+    "entry_range_high": 1.99,
+    "target_range_low": 5.25,
+    "target_range_high": 11.76,
+    "target_1": 5.25,
+    "target_2": 8.85,
+    "target_3": 11.76,
+    "stop_loss": 1.31,
+    "risk_reward_ratio": 13.89,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $1.65 – $1.99 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.38 direnci veya $1.55 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1.31 olarak belirlenmiştir. Fiyatın EMA20 ($3.82) veya günlük VWAP ($2.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($5.16) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.03) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamanın 1.9 katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.",
+    "rationale_rsi": "RSI 22 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

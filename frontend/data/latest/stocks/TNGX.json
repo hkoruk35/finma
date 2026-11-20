@@ -1,0 +1,89 @@
+{
+  "ticker": "TNGX",
+  "company": "Tango Therapeutics, Inc.",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T04:07:31.679Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 21.889999389648438,
+    "open": 22.024999618530273,
+    "high": 22.360000610351562,
+    "low": 21.270000457763672,
+    "prev_close": 22.110000610351562,
+    "change_pct": -0.9950303691991932,
+    "change_pct_1w": -14.924213839508432,
+    "change_pct_1m": 4.8873910368875,
+    "change_pct_1y": 164.21242960536645,
+    "volume": 2746100,
+    "avg_volume_30d": 120927900
+  },
+  "scores": {
+    "master_score": 40,
+    "technical_score": 30,
+    "fundamental_score": 36.8,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 44.530337686754265,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 23.37122367849181,
+    "ema_50": 23.693865455920825,
+    "ema_200": 21.98865033008115,
+    "ema_stack_bullish": false,
+    "bb_upper": 22.98449935913086,
+    "bb_middle": 21.889999389648438,
+    "bb_lower": 20.795499420166013,
+    "bb_width": 10,
+    "atr": 1.94,
+    "atr_pct": 8.88,
+    "rvol": 0.6241090765654576,
+    "52w_high": 34.38999938964844,
+    "52w_low": 7.829999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.9202483,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 3848326656,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.020834347800229983,
+    "institutional_ownership_pct": 1.27457,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 20.72,
+    "entry_range_high": 22.08,
+    "target_range_low": 25.52,
+    "target_range_high": 27,
+    "target_1": 25.52,
+    "target_2": 26.03,
+    "target_3": 27,
+    "stop_loss": 19.36,
+    "risk_reward_ratio": 2.27,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $20.72 – $22.08 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $23.12 direnci veya $20.34 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $19.36 olarak belirlenmiştir. Fiyatın EMA200 ($21.99) veya günlük VWAP ($22.92) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($23.69) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($22.92) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — hacim teyidi zayıf kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.",
+    "rationale_rsi": "RSI 45 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

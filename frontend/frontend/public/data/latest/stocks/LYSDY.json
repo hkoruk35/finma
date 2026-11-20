@@ -1,0 +1,89 @@
+{
+  "ticker": "LYSDY",
+  "company": "Lynas Rare Earths Limited",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T01:28:56.527Z",
+  "sector": "Basic Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 8.470000267028809,
+    "open": 8.449999809265137,
+    "high": 8.619999885559082,
+    "low": 8.420000076293945,
+    "prev_close": 8.350000381469727,
+    "change_pct": 1.4371243122980581,
+    "change_pct_1w": -6.201544656725289,
+    "change_pct_1m": 0.8333410913985613,
+    "change_pct_1y": -15.888773349395215,
+    "volume": 91097,
+    "avg_volume_30d": 17211097
+  },
+  "scores": {
+    "master_score": 49,
+    "technical_score": 40,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 47.0435502591367,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 8.629825616362956,
+    "ema_50": 9.041377354841723,
+    "ema_200": 10.555706695531136,
+    "ema_stack_bullish": false,
+    "bb_upper": 8.89350028038025,
+    "bb_middle": 8.470000267028809,
+    "bb_lower": 8.046500253677367,
+    "bb_width": 10,
+    "atr": 0.46,
+    "atr_pct": 5.41,
+    "rvol": 1.1092832722980994,
+    "52w_high": 15.75,
+    "52w_low": 7.420000076293945
+  },
+  "fundamental": {
+    "pe_ratio": 56.466667,
+    "pb_ratio": 3.474697,
+    "gross_margin": 0.4013,
+    "operating_margin": 0.245,
+    "net_margin": 0.22737,
+    "market_cap": 8525076992,
+    "revenue_growth_ttm": 0.867,
+    "fcf_yield": -0.011244033114299409,
+    "institutional_ownership_pct": 0.00053,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 8.17,
+    "entry_range_high": 8.52,
+    "target_range_low": 10.72,
+    "target_range_high": 12.54,
+    "target_1": 10.72,
+    "target_2": 12.01,
+    "target_3": 12.54,
+    "stop_loss": 7.85,
+    "risk_reward_ratio": 7.44,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $8.17 – $8.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $8.96 direnci veya $8.08 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $7.85 olarak belirlenmiştir. Fiyatın EMA20 ($8.63) veya günlük VWAP ($8.50) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($9.04) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($8.50) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 47 ile dengeli/nötr bir görünümde."
+  }
+}

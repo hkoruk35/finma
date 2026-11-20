@@ -1,0 +1,89 @@
+{
+  "ticker": "PSNL",
+  "company": "Personalis, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T23:10:43.761Z",
+  "sector": "Healthcare",
+  "industry": "Diagnostics & Research",
+  "price": {
+    "current": 14.720000267028809,
+    "open": 15.130000114440918,
+    "high": 15.260000228881836,
+    "low": 14.65999984741211,
+    "prev_close": 14.979999542236328,
+    "change_pct": -1.735642744677313,
+    "change_pct_1w": -7.187890380366335,
+    "change_pct_1m": -6.776438868962793,
+    "change_pct_1y": 78.64078490176112,
+    "volume": 2756513,
+    "avg_volume_30d": 73820413
+  },
+  "scores": {
+    "master_score": 51,
+    "technical_score": 60,
+    "fundamental_score": 33.5,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 29.800451882641383,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 15.520802220310294,
+    "ema_50": 15.592250394353275,
+    "ema_200": 12.906643334335802,
+    "ema_stack_bullish": false,
+    "bb_upper": 15.45600028038025,
+    "bb_middle": 14.720000267028809,
+    "bb_lower": 13.984000253677367,
+    "bb_width": 10,
+    "atr": 0.34,
+    "atr_pct": 2.31,
+    "rvol": 1.3436212826389906,
+    "52w_high": 18.889999389648438,
+    "52w_low": 4.954999923706055
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 7.5025487,
+    "gross_margin": 0.16707,
+    "operating_margin": -1.56662,
+    "net_margin": -1.47738,
+    "market_cap": 1595704192,
+    "revenue_growth_ttm": 0.766,
+    "fcf_yield": -0.037191494700290914,
+    "institutional_ownership_pct": 0.66894996,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 14.58,
+    "entry_range_high": 14.75,
+    "target_range_low": 16.07,
+    "target_range_high": 16.87,
+    "target_1": 16.07,
+    "target_2": 16.39,
+    "target_3": 16.87,
+    "stop_loss": 13.98,
+    "risk_reward_ratio": 2.52,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $14.58 – $14.75 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.95 direnci veya $14.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.98 olarak belirlenmiştir. Fiyatın EMA200 ($12.91) veya günlük VWAP ($14.87) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($15.59) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($14.87) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 30 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

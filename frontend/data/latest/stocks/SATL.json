@@ -1,0 +1,89 @@
+{
+  "ticker": "SATL",
+  "company": "Satellogic Inc.",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T03:12:38.063Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 2.8949999809265137,
+    "open": 2.9800000190734863,
+    "high": 3.1500000953674316,
+    "low": 2.865000009536743,
+    "prev_close": 2.930000066757202,
+    "change_pct": -1.1945421513053092,
+    "change_pct_1w": -23.815789019632202,
+    "change_pct_1m": 0.17300608445841736,
+    "change_pct_1y": 119.31817165829959,
+    "volume": 3806800,
+    "avg_volume_30d": 140821400
+  },
+  "scores": {
+    "master_score": 29,
+    "technical_score": 30,
+    "fundamental_score": 40.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.56082493079653,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 3.5332587105774915,
+    "ema_50": 4.1189547676260005,
+    "ema_200": 4.557775387869969,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.0397499799728394,
+    "bb_middle": 2.8949999809265137,
+    "bb_lower": 2.750249981880188,
+    "bb_width": 10,
+    "atr": 0.42,
+    "atr_pct": 14.37,
+    "rvol": 1.0289970132380448,
+    "52w_high": 12,
+    "52w_low": 1.2549999952316284
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.6666665,
+    "gross_margin": 0.79477996,
+    "operating_margin": -0.35014,
+    "net_margin": -1.7954601,
+    "market_cap": 422214176,
+    "revenue_growth_ttm": 3.415,
+    "fcf_yield": -0.09409442472154227,
+    "institutional_ownership_pct": 0.76171994,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2.65,
+    "entry_range_high": 2.94,
+    "target_range_low": 4,
+    "target_range_high": 6.21,
+    "target_1": 4,
+    "target_2": 5.93,
+    "target_3": 6.21,
+    "stop_loss": 2.35,
+    "risk_reward_ratio": 7.19,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.65 – $2.94 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.15 direnci veya $2.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.35 olarak belirlenmiştir. Fiyatın EMA20 ($3.53) veya günlük VWAP ($2.82) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($4.12) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.82) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

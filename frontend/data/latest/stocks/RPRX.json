@@ -1,0 +1,89 @@
+{
+  "ticker": "RPRX",
+  "company": "Royalty Pharma plc",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T06:45:38.688Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 67.72000122070312,
+    "open": 68.41500091552734,
+    "high": 68.9800033569336,
+    "low": 67.56999969482422,
+    "prev_close": 68.66999816894531,
+    "change_pct": -1.383423581729183,
+    "change_pct_1w": -1.8123821630798815,
+    "change_pct_1m": 0.6240685734030477,
+    "change_pct_1y": 75.21345031606221,
+    "volume": 3250000,
+    "avg_volume_30d": 101622600
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 100,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.18397057892392,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 66.91096785717,
+    "ema_50": 63.76361153124529,
+    "ema_200": 55.934625185619964,
+    "ema_stack_bullish": true,
+    "bb_upper": 71.10600128173829,
+    "bb_middle": 67.72000122070312,
+    "bb_lower": 64.33400115966796,
+    "bb_width": 10,
+    "atr": 1.61,
+    "atr_pct": 2.38,
+    "rvol": 0.9098546976755171,
+    "52w_high": 70.37000274658203,
+    "52w_low": 37.310001373291016
+  },
+  "fundamental": {
+    "pe_ratio": 44.26144,
+    "pb_ratio": 4.415754,
+    "gross_margin": 0.99789,
+    "operating_margin": 0.64414,
+    "net_margin": 0.25697002,
+    "market_cap": 38938304512,
+    "revenue_growth_ttm": 0.133,
+    "fcf_yield": -0.011563770884303264,
+    "institutional_ownership_pct": 0.90297997,
+    "dividend_rate": 0.94,
+    "dividend_yield": 0.0137
+  },
+  "scores_detail": {
+    "entry_range_low": 66.75,
+    "entry_range_high": 67.88,
+    "target_range_low": 70.68,
+    "target_range_high": 77.41,
+    "target_1": 70.68,
+    "target_2": 74.05,
+    "target_3": 77.41,
+    "stop_loss": 64.33,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $66.75 – $67.88 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $68.61 direnci veya $66.43 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $64.33 olarak belirlenmiştir. Fiyatın EMA50 ($63.76) veya günlük VWAP ($67.98) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($67.98) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 60 seviyesinde pozitif momentumu destekliyor."
+  }
+}

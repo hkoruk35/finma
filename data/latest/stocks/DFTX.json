@@ -1,0 +1,89 @@
+{
+  "ticker": "DFTX",
+  "company": "Definium Therapeutics, Inc.",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T23:02:42.973Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 29.479999542236328,
+    "open": 29.440000534057617,
+    "high": 29.979999542236328,
+    "low": 28.229999542236328,
+    "prev_close": 29.1200008392334,
+    "change_pct": 1.2362592466615014,
+    "change_pct_1w": -10.666668053829309,
+    "change_pct_1m": -11.391646718907495,
+    "change_pct_1y": 169.7163652253184,
+    "volume": 3073979,
+    "avg_volume_30d": 53022579
+  },
+  "scores": {
+    "master_score": 39,
+    "technical_score": 30,
+    "fundamental_score": 36.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 36.37111434439153,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 32.7473854732255,
+    "ema_50": 34.95420728921255,
+    "ema_200": 31.16135039682023,
+    "ema_stack_bullish": false,
+    "bb_upper": 30.953999519348145,
+    "bb_middle": 29.479999542236328,
+    "bb_lower": 28.00599956512451,
+    "bb_width": 10,
+    "atr": 2.28,
+    "atr_pct": 7.72,
+    "rvol": 0.9996585416940961,
+    "52w_high": 49.70000076293945,
+    "52w_low": 10.46500015258789
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 4.168552,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 4035810048,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": -0.02939738158855984,
+    "institutional_ownership_pct": 0.88592005,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 28.11,
+    "entry_range_high": 29.71,
+    "target_range_low": 39.14,
+    "target_range_high": 48.5,
+    "target_1": 39.14,
+    "target_2": 43.77,
+    "target_3": 48.5,
+    "stop_loss": 26.52,
+    "risk_reward_ratio": 6.22,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $28.11 – $29.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $30.67 direnci veya $27.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $26.52 olarak belirlenmiştir. Fiyatın EMA200 ($31.16) veya günlük VWAP ($29.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($34.95) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($29.19) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}
