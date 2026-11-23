@@ -77,6 +77,116 @@
       "change_pct": -1.88,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 31.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "SYY",
+      "company": "SYY",
+      "sector": "Consumer Defensive",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 80.30000305175781,
+      "change_pct": 2.72,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ATEN",
+      "company": "ATEN",
+      "sector": "Technology",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 32.040000915527344,
+      "change_pct": 5.53,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "OMC",
+      "company": "OMC",
+      "sector": "Communication Services",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 87.31999969482422,
+      "change_pct": 2.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ARGX",
+      "company": "ARGX",
+      "sector": "Healthcare",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 943.52001953125,
+      "change_pct": 1.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "BMI",
+      "company": "BMI",
+      "sector": "Technology",
+      "master_score": 41.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 163.10000610351562,
+      "change_pct": 5.72,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "HD",
+      "company": "HD",
+      "sector": "Consumer Cyclical",
+      "master_score": 41.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 346.05999755859375,
+      "change_pct": 2.07,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "ICE",
+      "company": "ICE",
+      "sector": "Financial Services",
+      "master_score": 40.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 172.19000244140625,
+      "change_pct": 1.29,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 40.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "DHR",
+      "company": "DHR",
+      "sector": "Healthcare",
+      "master_score": 38.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 225.66000366210938,
+      "change_pct": 2.41,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 38.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "RLJ",
+      "company": "RLJ",
+      "sector": "Real Estate",
+      "master_score": 37.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 12.670000076293945,
+      "change_pct": 1.52,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 37.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "SMG",
+      "company": "SMG",
+      "sector": "Basic Materials",
+      "master_score": 36.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 61.54999923706055,
+      "change_pct": 5.03,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 36.5 | System: BREAKOUT"
     }
   ]
 }

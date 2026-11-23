@@ -1,12 +1,12 @@
 {
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T14:03:41.331418-05:00",
+  "generated_at": "2026-11-23T17:02:35.922494-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 7,
+  "active_scores_count": 17,
   "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
-      "count": 7,
+      "count": 10,
       "tickers": [
         "BOX",
         "RDN",
@@ -14,12 +14,24 @@
         "PRMB",
         "CMG",
         "LEVI",
-        "COCO"
+        "COCO",
+        "SYY",
+        "ATEN",
+        "OMC"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 8,
+      "tickers": [
+        "OMC",
+        "ARGX",
+        "BMI",
+        "HD",
+        "ICE",
+        "DHR",
+        "RLJ",
+        "SMG"
+      ]
     },
     "value": {
       "count": 0,
