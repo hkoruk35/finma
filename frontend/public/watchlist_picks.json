@@ -1,4 +1,29 @@
 {
-  "generated_at": "2026-11-23T14:03:41.337042-05:00",
-  "picks": []
+  "generated_at": "2026-11-23T17:02:35.930223-05:00",
+  "picks": [
+    {
+      "ticker": "EBAY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-11-23",
+      "score": 36.5
+    },
+    {
+      "ticker": "HEI",
+      "sector": "Industrials",
+      "date_added": "2026-11-23",
+      "score": 36.5
+    },
+    {
+      "ticker": "DAL",
+      "sector": "Industrials",
+      "date_added": "2026-11-23",
+      "score": 35.5
+    },
+    {
+      "ticker": "ALGN",
+      "sector": "Healthcare",
+      "date_added": "2026-11-23",
+      "score": 34.0
+    }
+  ]
 }
