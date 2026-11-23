@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "SRRK",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 50.94,
+        "entry_zone": "49.34 - 52.55",
+        "SL": 44.54,
+        "TP": 63.75
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "ZS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 226.96,
+        "entry_zone": "219.18 - 234.73",
+        "SL": 195.84,
+        "TP": 289.19
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 104.54,
+        "entry_zone": "101.05 - 108.04",
+        "SL": 90.56,
+        "TP": 132.51
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "DNTH",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 90.48,
+        "entry_zone": "87.97 - 92.99",
+        "SL": 80.44,
+        "TP": 110.56
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 21.26,
+        "entry_zone": "20.71 - 21.82",
+        "SL": 19.06,
+        "TP": 25.68
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "PVH",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 95.18,
+        "entry_zone": "93.17 - 97.18",
+        "SL": 87.15,
+        "TP": 111.22
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "OKTA",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 207.24,
+        "entry_zone": "199.68 - 214.81",
+        "SL": 177.0,
+        "TP": 267.74
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "RSKD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 10.22,
+        "entry_zone": "9.87 - 10.56",
+        "SL": 8.84,
+        "TP": 12.27
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "CRUS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 116.99,
+        "entry_zone": "114.62 - 119.36",
+        "SL": 107.52,
+        "TP": 135.94
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "TLN",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 364.7,
+        "entry_zone": "353.46 - 375.93",
+        "SL": 319.77,
+        "TP": 454.55
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "APG",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 44.78,
+        "entry_zone": "43.88 - 45.68",
+        "SL": 41.16,
+        "TP": 52.01
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "S",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 24.69,
+        "entry_zone": "23.88 - 25.51",
+        "SL": 21.44,
+        "TP": 31.21
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "TSLA",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 388.33,
+        "entry_zone": "377.30 - 399.37",
+        "SL": 344.18,
+        "TP": 476.65
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "SYM",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 36.42,
+        "entry_zone": "35.12 - 37.72",
+        "SL": 31.24,
+        "TP": 46.79
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "NRG",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 96.56,
+        "entry_zone": "93.64 - 99.48",
+        "SL": 84.87,
+        "TP": 119.92
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "COHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 216.36,
+        "entry_zone": "202.39 - 230.33",
+        "SL": 160.47,
+        "TP": 328.15
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "LSCC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 113.14,
+        "entry_zone": "108.36 - 117.91",
+        "SL": 94.05,
+        "TP": 151.3
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "RBRK",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 115.28,
+        "entry_zone": "110.96 - 119.60",
+        "SL": 97.98,
+        "TP": 141.23
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "MPWR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 1329.41,
+        "entry_zone": "1270.14 - 1388.67",
+        "SL": 1092.34,
+        "TP": 1803.55
+    },
+    {
+        "date": "2026-11-23 18:03",
+        "symbol": "MOD",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 137.9,
+        "entry_zone": "130.82 - 144.98",
+        "SL": 109.57,
+        "TP": 194.56
+    }
+]
