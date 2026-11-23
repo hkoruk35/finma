@@ -85,7 +85,7 @@ function StatTile({ theme, label, value, sub, title }: { theme: ThemeKey; label:
 }
 
 export default function MapTerminal({
-  map, date, bars, vwapSeries, emaSeries, ema9Series, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4, wide,
+  map, date, bars, vwapSeries, emaSeries, ema9Series, flow, optLevels, nowSec, endSec, scenarios, fc, odds, accuracy, ema, ema50, ema200, h4, htf, wide,
 }: {
   map: ForecastMapData | null;
   date: string | null;
@@ -109,6 +109,8 @@ export default function MapTerminal({
   ema200?: number | null;
   /** 4h kapanmış mum okuması (htf4h.ts) — genel yönelim */
   h4?: Htf4hRead | null;
+  /** Takip Sistemi'nin son 5m kapanıştaki 15m / 30m yönü (tracker.ts TrackStep.htf) — 4h rozetinin solunda uyum rozeti */
+  htf?: { m15: number; m30: number } | null;
   /** Geniş Harita sekmesi girdileri (15m/4h geçmiş, pivotlar, 4h okuması) */
   wide?: { symbol: string; t: number; bars15: Bar[]; bars4h: Bar[]; levels: { price: number; label: string }[]; volRatio4h: number | null } | null;
 }) {
@@ -203,6 +205,19 @@ export default function MapTerminal({
           <button type="button" onClick={() => setTab("wide")} className={`rounded border px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] ${tab === "wide" ? "border-slate-300 bg-slate-400/20 text-white" : "border-slate-600/60 text-slate-400 hover:text-white"}`}>Geniş Harita</button>
           {tab === "map" && <span className="rounded border border-slate-600/60 bg-slate-500/10 px-1.5 py-px font-mono text-[9.5px] text-slate-400">ufuk +90 dk</span>}
           {tab === "map" && map && <span className={`rounded border px-1.5 py-px font-mono text-[10px] font-bold ${THEME[biasTheme].frame} ${THEME[biasTheme].bg} ${THEME[biasTheme].fg}`}>{biasWord}</span>}
+          {tab === "map" && map && htf && ([
+            ["30m", htf.m30, "30m: son kapanış 30m EMA20'nin üstünde ve EMA20 yükseliyor = ▲, altında ve düşüyor = ▼, aksi yön yok"],
+            ["15m", htf.m15, "15m: Takip Sistemi'nin 15m yön teyidi (oluşan 15m mum VWAP + EMA20 üstü = ▲, altı = ▼, arası = belirsiz)"],
+          ] as const).map(([tf, d, why]) => {
+            const dir = d > 0 ? "UP" : d < 0 ? "DOWN" : "FLAT";
+            const al = map.bias === "FLAT" || dir === "FLAT" ? "NÖTR" : map.bias === dir ? "UYUMLU" : "TERS";
+            const cls = dir === "UP" ? "border-emerald-500/50 text-emerald-300" : dir === "DOWN" ? "border-rose-500/50 text-rose-300" : "border-amber-400/50 text-amber-300";
+            return (
+              <span key={tf} className={`rounded border bg-slate-500/[0.06] px-1.5 py-px font-mono text-[10px] font-bold ${cls}`} title={why}>
+                {tf} {dir === "UP" ? "▲" : dir === "DOWN" ? "▼" : "◆"}{al === "TERS" ? " · TERS" : al === "UYUMLU" ? " · uyumlu" : ""}
+              </span>
+            );
+          })}
           {tab === "map" && map && h4 && (() => {
             const al = align4h(map.bias, h4);
             const cls = h4.dir === "UP" ? "border-emerald-500/50 text-emerald-300" : h4.dir === "DOWN" ? "border-rose-500/50 text-rose-300" : "border-amber-400/50 text-amber-300";

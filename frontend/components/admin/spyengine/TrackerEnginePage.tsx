@@ -1633,7 +1633,7 @@ export default function TrackerEnginePage({ symbol }: { symbol: EngineSymbol }) 
 
         {/* ── Tahmin haritası (terminal paneli, tüm motorlar) — Açılış Tahmini'nin üstünde ── */}
         <MapTerminal
-          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema9Series={todayRth5.ema9} ema50={ema50Now} ema200={ema200Now} h4={h4Read} wide={wideIn} flow={flow} optLevels={optLevels}
+          map={map} date={date} bars={todayRth5.bars} vwapSeries={todayRth5.vwap} emaSeries={todayRth5.ema} ema9Series={todayRth5.ema9} ema50={ema50Now} ema200={ema200Now} h4={h4Read} htf={trackCur && !trackCur.pre ? trackCur.htf : null} wide={wideIn} flow={flow} optLevels={optLevels}
           nowSec={evalNow} endSec={mapEnd} scenarios={scenarios} fc={trackCur && !trackCur.pre ? trackCur.fc : null}
           odds={pivotOdds} accuracy={forecastAccuracy} ema={trackCur?.ema5 ?? ema5Now}
         />
