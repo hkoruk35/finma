@@ -1,0 +1,89 @@
+{
+  "ticker": "VLY",
+  "company": "Valley National Bancorp",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T21:50:57.187Z",
+  "sector": "Financial Services",
+  "industry": "Banks - Regional",
+  "price": {
+    "current": 13.859999656677246,
+    "open": 13.84000015258789,
+    "high": 13.994999885559082,
+    "low": 13.789999961853027,
+    "prev_close": 13.6899995803833,
+    "change_pct": 1.241782918222599,
+    "change_pct_1w": -2.8731659981367597,
+    "change_pct_1m": -3.1446593273510652,
+    "change_pct_1y": 28.69079914185254,
+    "volume": 5803508,
+    "avg_volume_30d": 209260808
+  },
+  "scores": {
+    "master_score": 71,
+    "technical_score": 85,
+    "fundamental_score": 74.75,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 48.61284950393547,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 13.983993661992757,
+    "ema_50": 13.80183478877305,
+    "ema_200": 13.401341587397692,
+    "ema_stack_bullish": true,
+    "bb_upper": 14.552999639511109,
+    "bb_middle": 13.859999656677246,
+    "bb_lower": 13.166999673843383,
+    "bb_width": 10,
+    "atr": 0.38,
+    "atr_pct": 2.73,
+    "rvol": 1.0010495993114965,
+    "52w_high": 15.199999809265137,
+    "52w_low": 10.489999771118164
+  },
+  "fundamental": {
+    "pe_ratio": 11,
+    "pb_ratio": 1.0118265,
+    "gross_margin": 0,
+    "operating_margin": 0.4708,
+    "net_margin": 0.3584,
+    "market_cap": 7619753472,
+    "revenue_growth_ttm": 0.097,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.99083,
+    "dividend_rate": 0.44,
+    "dividend_yield": 0.0321
+  },
+  "scores_detail": {
+    "entry_range_low": 13.63,
+    "entry_range_high": 13.9,
+    "target_range_low": 14.45,
+    "target_range_high": 15.83,
+    "target_1": 14.45,
+    "target_2": 15.14,
+    "target_3": 15.83,
+    "stop_loss": 13.17,
+    "risk_reward_ratio": 2.3,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $13.63 – $13.90 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $14.11 direnci veya $13.56 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $13.17 olarak belirlenmiştir. Fiyatın EMA200 ($13.40) veya günlük VWAP ($13.88) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($13.80) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($13.88) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}

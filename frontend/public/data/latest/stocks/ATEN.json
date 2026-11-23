@@ -1,0 +1,89 @@
+{
+  "ticker": "ATEN",
+  "company": "A10 Networks, Inc.",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T21:36:37.126Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 32.040000915527344,
+    "open": 32.13999938964844,
+    "high": 32.43000030517578,
+    "low": 31.1299991607666,
+    "prev_close": 30.360000610351562,
+    "change_pct": 5.533597731888607,
+    "change_pct_1w": 10.178820493765862,
+    "change_pct_1m": 15.29327045694828,
+    "change_pct_1y": 90.26128637299085,
+    "volume": 992853,
+    "avg_volume_30d": 35229153
+  },
+  "scores": {
+    "master_score": 87,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 63,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 64.67285731648602,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 28.537200643744747,
+    "ema_50": 27.55765029101155,
+    "ema_200": 26.37900632843992,
+    "ema_stack_bullish": true,
+    "bb_upper": 33.642000961303715,
+    "bb_middle": 32.040000915527344,
+    "bb_lower": 30.438000869750976,
+    "bb_width": 10,
+    "atr": 1.9,
+    "atr_pct": 5.92,
+    "rvol": 1.224426769499681,
+    "52w_high": 38.4900016784668,
+    "52w_low": 16.6299991607666
+  },
+  "fundamental": {
+    "pe_ratio": 50.062504,
+    "pb_ratio": 9.9103,
+    "gross_margin": 0.79016995,
+    "operating_margin": 0.1733,
+    "net_margin": 0.14659001,
+    "market_cap": 2308531200,
+    "revenue_growth_ttm": 0.226,
+    "fcf_yield": 0.02075979046763587,
+    "institutional_ownership_pct": 1.09028,
+    "dividend_rate": 0.24,
+    "dividend_yield": 0.007900001
+  },
+  "scores_detail": {
+    "entry_range_low": 30.9,
+    "entry_range_high": 32.23,
+    "target_range_low": 33.14,
+    "target_range_high": 39.26,
+    "target_1": 33.14,
+    "target_2": 38.49,
+    "target_3": 39.26,
+    "stop_loss": 29.57,
+    "risk_reward_ratio": 3.48,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $30.90 – $32.23 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $33.05 direnci veya $30.52 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $29.57 olarak belirlenmiştir. Fiyatın EMA20 ($28.54) veya günlük VWAP ($31.93) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($31.93) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.2x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}
