@@ -1,0 +1,89 @@
+{
+  "ticker": "COCO",
+  "company": "The Vita Coco Company, Inc.",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T21:15:44.008Z",
+  "sector": "Consumer Defensive",
+  "industry": "Beverages - Non-Alcoholic",
+  "price": {
+    "current": 63.310001373291016,
+    "open": 65.36000061035156,
+    "high": 65.40499877929688,
+    "low": 62.29999923706055,
+    "prev_close": 64.37000274658203,
+    "change_pct": -1.646731906264056,
+    "change_pct_1w": -1.5855750485479956,
+    "change_pct_1m": -3.94477642900369,
+    "change_pct_1y": 31.02235466295428,
+    "volume": 1173893,
+    "avg_volume_30d": 39491793
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 52.746489852929514,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 62.91237353974098,
+    "ema_50": 61.304283737728966,
+    "ema_200": 60.90637945686144,
+    "ema_stack_bullish": true,
+    "bb_upper": 66.47550144195557,
+    "bb_middle": 63.310001373291016,
+    "bb_lower": 60.14450130462646,
+    "bb_width": 10,
+    "atr": 3.29,
+    "atr_pct": 5.2,
+    "rvol": 1.0801018328035903,
+    "52w_high": 85.83000183105469,
+    "52w_low": 45.02000045776367
+  },
+  "fundamental": {
+    "pe_ratio": 31.974749,
+    "pb_ratio": 8.446965,
+    "gross_margin": 0.38926998,
+    "operating_margin": 0.18250999,
+    "net_margin": 0.15696,
+    "market_cap": 3612712960,
+    "revenue_growth_ttm": 0.337,
+    "fcf_yield": 0.024706259530787634,
+    "institutional_ownership_pct": 1.09203,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 61.34,
+    "entry_range_high": 63.64,
+    "target_range_low": 65.61,
+    "target_range_high": 71.86,
+    "target_1": 65.61,
+    "target_2": 68.74,
+    "target_3": 71.86,
+    "stop_loss": 59.03,
+    "risk_reward_ratio": 1.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $61.34 – $63.64 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $65.22 direnci veya $60.68 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $59.03 olarak belirlenmiştir. Fiyatın EMA200 ($60.91) veya günlük VWAP ($63.03) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($63.03) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 53 ile dengeli/nötr bir görünümde."
+  }
+}

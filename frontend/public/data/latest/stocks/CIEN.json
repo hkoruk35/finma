@@ -1,0 +1,89 @@
+{
+  "ticker": "CIEN",
+  "company": "Ciena Corporation",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T21:07:12.891Z",
+  "sector": "Technology",
+  "industry": "Communication Equipment",
+  "price": {
+    "current": 264.6000061035156,
+    "open": 272.75,
+    "high": 274.5249938964844,
+    "low": 261.9700012207031,
+    "prev_close": 234.3699951171875,
+    "change_pct": 12.898413455704002,
+    "change_pct_1w": 2.7333470304604677,
+    "change_pct_1m": -2.756339519208521,
+    "change_pct_1y": 48.43487841203131,
+    "volume": 3525593,
+    "avg_volume_30d": 94525893
+  },
+  "scores": {
+    "master_score": 48,
+    "technical_score": 30,
+    "fundamental_score": 73.1,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.286856746264135,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 283.7359881618577,
+    "ema_50": 321.4578070645218,
+    "ema_200": 357.6708141378454,
+    "ema_stack_bullish": false,
+    "bb_upper": 277.8300064086914,
+    "bb_middle": 264.6000061035156,
+    "bb_lower": 251.37000579833983,
+    "bb_width": 10,
+    "atr": 27.59,
+    "atr_pct": 10.43,
+    "rvol": 0.9080872475862248,
+    "52w_high": 637.510009765625,
+    "52w_low": 168.22000122070312
+  },
+  "fundamental": {
+    "pe_ratio": 59.194633,
+    "pb_ratio": 12.282983,
+    "gross_margin": 0.44072,
+    "operating_margin": 0.14125,
+    "net_margin": 0.10869,
+    "market_cap": 37522538496,
+    "revenue_growth_ttm": 0.37,
+    "fcf_yield": 0.016879678438267674,
+    "institutional_ownership_pct": 0.9548,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 248.05,
+    "entry_range_high": 267.36,
+    "target_range_low": 365.9,
+    "target_range_high": 463.82,
+    "target_1": 365.9,
+    "target_2": 454.73,
+    "target_3": 463.82,
+    "stop_loss": 228.73,
+    "risk_reward_ratio": 6.8,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $248.05 – $267.36 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $280.62 direnci veya $242.53 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $228.73 olarak belirlenmiştir. Fiyatın EMA20 ($283.74) veya günlük VWAP ($267.07) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($321.46) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($267.07) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

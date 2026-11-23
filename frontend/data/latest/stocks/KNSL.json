@@ -1,0 +1,89 @@
+{
+  "ticker": "KNSL",
+  "company": "Kinsale Capital Group, Inc.",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T21:25:49.347Z",
+  "sector": "Financial Services",
+  "industry": "Insurance - Property & Casualty",
+  "price": {
+    "current": 396.3399963378906,
+    "open": 391.2900085449219,
+    "high": 399.31500244140625,
+    "low": 390.7680969238281,
+    "prev_close": 398.5799865722656,
+    "change_pct": -0.5619926513718401,
+    "change_pct_1w": -0.9496721576035243,
+    "change_pct_1m": -0.3469789999439094,
+    "change_pct_1y": 2.9722012530046813,
+    "volume": 318050,
+    "avg_volume_30d": 7859750
+  },
+  "scores": {
+    "master_score": 77,
+    "technical_score": 100,
+    "fundamental_score": 69.8,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 59.201889882992084,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 387.3347190597772,
+    "ema_50": 373.6763597809931,
+    "ema_200": 360.9023569407705,
+    "ema_stack_bullish": true,
+    "bb_upper": 416.1569961547852,
+    "bb_middle": 396.3399963378906,
+    "bb_lower": 376.52299652099606,
+    "bb_width": 10,
+    "atr": 11.75,
+    "atr_pct": 2.96,
+    "rvol": 0.876783612710328,
+    "52w_high": 421.8999938964844,
+    "52w_low": 287.20001220703125
+  },
+  "fundamental": {
+    "pe_ratio": 17.269716,
+    "pb_ratio": 4.6490407,
+    "gross_margin": 0.2934,
+    "operating_margin": 0.34332,
+    "net_margin": 0.26887,
+    "market_cap": 8921590784,
+    "revenue_growth_ttm": -0.086,
+    "fcf_yield": 0.10229844857228547,
+    "institutional_ownership_pct": 0.97652,
+    "dividend_rate": 1,
+    "dividend_yield": 0.0025
+  },
+  "scores_detail": {
+    "entry_range_low": 389.29,
+    "entry_range_high": 397.52,
+    "target_range_low": 413.07,
+    "target_range_high": 452.41,
+    "target_1": 413.07,
+    "target_2": 432.74,
+    "target_3": 452.41,
+    "stop_loss": 376.52,
+    "risk_reward_ratio": 2.33,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $389.29 – $397.52 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $404.20 direnci veya $386.94 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $376.52 olarak belirlenmiştir. Fiyatın EMA50 ($373.68) veya günlük VWAP ($396.29) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($396.29) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 59 seviyesinde pozitif momentumu destekliyor."
+  }
+}
