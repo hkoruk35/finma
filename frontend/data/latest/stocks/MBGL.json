@@ -1,0 +1,89 @@
+{
+  "ticker": "MBGL",
+  "company": "Mobility Global, Inc.",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T20:37:23.105Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 22.864999771118164,
+    "open": 22.520000457763672,
+    "high": 23.174999237060547,
+    "low": 22.610000610351562,
+    "prev_close": 22.6299991607666,
+    "change_pct": 1.0384472782437422,
+    "change_pct_1w": -4.887691762317076,
+    "change_pct_1m": 14.726539994985194,
+    "change_pct_1y": 8.880951291038878,
+    "volume": 3635464,
+    "avg_volume_30d": 130824064.00000001
+  },
+  "scores": {
+    "master_score": 75,
+    "technical_score": 80,
+    "fundamental_score": 74.75,
+    "momentum_score": 66,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.46052282169812,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 21.41041870997153,
+    "ema_50": 20.277756530385954,
+    "ema_200": 20.31410299321646,
+    "ema_stack_bullish": false,
+    "bb_upper": 24.008249759674072,
+    "bb_middle": 22.864999771118164,
+    "bb_lower": 21.721749782562256,
+    "bb_width": 10,
+    "atr": 0.95,
+    "atr_pct": 4.18,
+    "rvol": 1.3024238721096448,
+    "52w_high": 26,
+    "52w_low": 16.950000762939453
+  },
+  "fundamental": {
+    "pe_ratio": 69.28787,
+    "pb_ratio": 0.6860186,
+    "gross_margin": 0.72766995,
+    "operating_margin": 0.22036,
+    "net_margin": 0.095290005,
+    "market_cap": 6746938880,
+    "revenue_growth_ttm": 0.074,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.93358004,
+    "dividend_rate": 0.24,
+    "dividend_yield": 0.0106
+  },
+  "scores_detail": {
+    "entry_range_low": 22.29,
+    "entry_range_high": 22.96,
+    "target_range_low": 23.76,
+    "target_range_high": 26.02,
+    "target_1": 23.76,
+    "target_2": 24.89,
+    "target_3": 26.02,
+    "stop_loss": 21.62,
+    "risk_reward_ratio": 2.26,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $22.29 – $22.96 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $24.05 direnci veya $22.10 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $21.62 olarak belirlenmiştir. Fiyatın EMA20 ($21.41) veya günlük VWAP ($22.89) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($20.28) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($22.89) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 65 seviyesinde pozitif momentumu destekliyor."
+  }
+}
