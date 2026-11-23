@@ -1,17 +1,4 @@
 {
-  "generated_at": "2026-11-19T17:03:39.142628-05:00",
-  "picks": [
-    {
-      "ticker": "GNRC",
-      "sector": "Industrials",
-      "date_added": "2026-11-19",
-      "score": 37.5
-    },
-    {
-      "ticker": "ULCC",
-      "sector": "Industrials",
-      "date_added": "2026-11-19",
-      "score": 27.0
-    }
-  ]
+  "generated_at": "2026-11-23T14:03:41.337042-05:00",
+  "picks": []
 }
