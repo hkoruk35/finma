@@ -1,32 +1,25 @@
 {
-  "date": "2026-11-19",
-  "generated_at": "2026-11-19T17:03:38.806350-05:00",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T14:03:41.331418-05:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 14,
-  "market_regime": "WEAK",
+  "active_scores_count": 7,
+  "market_regime": "HIGH_VOLATILITY",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 7,
       "tickers": [
-        "EIX",
-        "ATEN",
-        "RSKD",
-        "CRWD",
-        "R",
-        "VLY",
-        "SKY",
-        "SIRI",
+        "BOX",
+        "RDN",
+        "CBRL",
         "PRMB",
-        "ALSN"
+        "CMG",
+        "LEVI",
+        "COCO"
       ]
     },
     "breakout": {
-      "count": 3,
-      "tickers": [
-        "TGT",
-        "EVER",
-        "RBRK"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -47,18 +40,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "EIX",
-      "score": 57.0,
+      "ticker": "BOX",
+      "score": 46.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ATEN",
-      "score": 56.0,
+      "ticker": "RDN",
+      "score": 45.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RSKD",
-      "score": 49.0,
+      "ticker": "CBRL",
+      "score": 40.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
