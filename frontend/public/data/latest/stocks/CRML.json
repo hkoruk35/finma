@@ -1,0 +1,89 @@
+{
+  "ticker": "CRML",
+  "company": "Critical Metals Corp.",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T04:57:01.245Z",
+  "sector": "Basic Materials",
+  "industry": "Other Industrial Metals & Mining",
+  "price": {
+    "current": 3.0850000381469727,
+    "open": 3.424999952316284,
+    "high": 3.4549999237060547,
+    "low": 2.994999885559082,
+    "prev_close": 3.0199999809265137,
+    "change_pct": 2.1523197891053445,
+    "change_pct_1w": -26.372315130862212,
+    "change_pct_1m": -46.99312805576209,
+    "change_pct_1y": -56.73211797151737,
+    "volume": 11611500,
+    "avg_volume_30d": 213268300
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 45,
+    "fundamental_score": 73.1,
+    "momentum_score": 60,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 24.666566683643936,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 4.98343665868417,
+    "ema_50": 6.033445725523899,
+    "ema_200": 7.735006637625926,
+    "ema_stack_bullish": false,
+    "bb_upper": 3.2392500400543214,
+    "bb_middle": 3.0850000381469727,
+    "bb_lower": 2.930750036239624,
+    "bb_width": 10,
+    "atr": 0.55,
+    "atr_pct": 17.85,
+    "rvol": 1.3384942816161616,
+    "52w_high": 21.860000610351562,
+    "52w_low": 2.940000057220459
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.3183762,
+    "gross_margin": 1,
+    "operating_margin": -42.41758,
+    "net_margin": 0,
+    "market_cap": 599167552,
+    "revenue_growth_ttm": 5.577,
+    "fcf_yield": 0.09551837680288802,
+    "institutional_ownership_pct": 0.14043,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 2.75,
+    "entry_range_high": 3.14,
+    "target_range_low": 7.44,
+    "target_range_high": 8.56,
+    "target_1": 7.44,
+    "target_2": 8.29,
+    "target_3": 8.56,
+    "stop_loss": 2.37,
+    "risk_reward_ratio": 9.24,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $2.75 – $3.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $3.45 direnci veya $2.64 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $2.37 olarak belirlenmiştir. Fiyatın EMA20 ($4.98) veya günlük VWAP ($3.15) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($6.03) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($3.15) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.3x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 25 ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "ticker": "ARGX",
+  "company": "argenx SE",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T00:25:48.129Z",
+  "sector": "Healthcare",
+  "industry": "Biotechnology",
+  "price": {
+    "current": 943.52001953125,
+    "open": 950.1400146484375,
+    "high": 962.5750122070312,
+    "low": 942.0449829101562,
+    "prev_close": 925.7000122070312,
+    "change_pct": 1.925030473072235,
+    "change_pct_1w": -0.781323158988894,
+    "change_pct_1m": -2.8850773108847756,
+    "change_pct_1y": 2.6770597090714174,
+    "volume": 318452,
+    "avg_volume_30d": 11761552
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 100,
+    "fundamental_score": 86.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.23955032785106,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 931.4929760311346,
+    "ema_50": 923.0322367407953,
+    "ema_200": 894.8948553974441,
+    "ema_stack_bullish": true,
+    "bb_upper": 990.6960205078126,
+    "bb_middle": 943.52001953125,
+    "bb_lower": 896.3440185546874,
+    "bb_width": 10,
+    "atr": 27.84,
+    "atr_pct": 2.95,
+    "rvol": 0.8083892329855789,
+    "52w_high": 1072.75,
+    "52w_low": 661.8499755859375
+  },
+  "fundamental": {
+    "pe_ratio": 32.681675,
+    "pb_ratio": 175.2582,
+    "gross_margin": 0.59838,
+    "operating_margin": 0.31944,
+    "net_margin": 0.31731,
+    "market_cap": 59334266880,
+    "revenue_growth_ttm": 0.521,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.45438,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 930.72,
+    "entry_range_high": 946.3,
+    "target_range_low": 988.89,
+    "target_range_high": 1094.2,
+    "target_1": 988.89,
+    "target_2": 1072.75,
+    "target_3": 1094.2,
+    "stop_loss": 896.34,
+    "risk_reward_ratio": 3.18,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $930.72 – $946.30 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $962.58 direnci veya $925.15 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $896.34 olarak belirlenmiştir. Fiyatın EMA200 ($894.89) veya günlük VWAP ($950.69) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($950.69) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}

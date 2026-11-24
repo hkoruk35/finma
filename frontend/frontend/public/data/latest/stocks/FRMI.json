@@ -1,22 +1,22 @@
 {
   "ticker": "FRMI",
   "company": "Fermi Inc.",
-  "date": "2026-11-23",
-  "generated_at": "2026-11-23T20:41:49.503Z",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T04:30:36.441Z",
   "sector": "Real Estate",
   "industry": "REIT - Specialty",
   "price": {
     "current": 2.0999999046325684,
-    "open": 2.369999885559082,
-    "high": 2.440000057220459,
-    "low": 2.0999999046325684,
+    "open": 2.390000104904175,
+    "high": 2.450000047683716,
+    "low": 2.069999933242798,
     "prev_close": 1.9500000476837158,
     "change_pct": 7.692300168250153,
     "change_pct_1w": -15.322585141869629,
     "change_pct_1m": 36.36363354877704,
     "change_pct_1y": -85.3556493564361,
-    "volume": 23112590,
-    "avg_volume_30d": 928400690
+    "volume": 28934700,
+    "avg_volume_30d": 934587400
   },
   "scores": {
     "master_score": 37,
@@ -46,8 +46,8 @@
     "bb_lower": 1.9949999094009399,
     "bb_width": 10,
     "atr": 0.41,
-    "atr_pct": 19.68,
-    "rvol": 0.8462203318698525,
+    "atr_pct": 19.71,
+    "rvol": 0.8803369272900534,
     "52w_high": 16.889999389648438,
     "52w_low": 1.440000057220459
   },
@@ -73,17 +73,17 @@
     "target_2": 7.04,
     "target_3": 7.55,
     "stop_loss": 1.59,
-    "risk_reward_ratio": 12.01,
+    "risk_reward_ratio": 12,
     "entry_engine": {
       "valid": false,
       "type": "WAITING_FOR_VOLUME_OR_SWEEP",
       "confidence": 0
     },
     "entry_condition": "Hesaplanan giriş aralığı $1.88 – $2.14 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $2.44 direnci veya $1.80 desteği üzerindeki seyri takip edilebilir.",
-    "stop_rationale": "Hesaplanan stop-loss seviyesi $1.59 olarak belirlenmiştir. Fiyatın EMA20 ($2.31) veya günlük VWAP ($2.20) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $1.59 olarak belirlenmiştir. Fiyatın EMA20 ($2.31) veya günlük VWAP ($2.19) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
     "rationale_ema": "Fiyat 50 günlük EMA'nın ($3.14) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
-    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.20) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
-    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.8x) — standart piyasa katılımı gözleniyor.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($2.19) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
     "rationale_rsi": "RSI 43 seviyesinde zayıf momentum görünümü sergiliyor."
   }
 }

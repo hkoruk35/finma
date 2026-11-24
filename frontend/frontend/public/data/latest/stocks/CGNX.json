@@ -1,0 +1,89 @@
+{
+  "ticker": "CGNX",
+  "company": "Cognex Corporation",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T23:33:02.879Z",
+  "sector": "Technology",
+  "industry": "Scientific & Technical Instruments",
+  "price": {
+    "current": 48.470001220703125,
+    "open": 48.5,
+    "high": 49.025001525878906,
+    "low": 47.36000061035156,
+    "prev_close": 44.36000061035156,
+    "change_pct": 9.265104945450519,
+    "change_pct_1w": 0.5601669159542271,
+    "change_pct_1m": -4.586610337304098,
+    "change_pct_1y": 31.39062624735122,
+    "volume": 2265362,
+    "avg_volume_30d": 66811162
+  },
+  "scores": {
+    "master_score": 44,
+    "technical_score": 30,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.97048261358845,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 50.96695872657955,
+    "ema_50": 54.988657083641804,
+    "ema_200": 55.81955685854612,
+    "ema_stack_bullish": false,
+    "bb_upper": 50.89350128173828,
+    "bb_middle": 48.470001220703125,
+    "bb_lower": 46.04650115966797,
+    "bb_width": 10,
+    "atr": 3.21,
+    "atr_pct": 6.63,
+    "rvol": 1.1420512638292386,
+    "52w_high": 72.87999725341797,
+    "52w_low": 34.599998474121094
+  },
+  "fundamental": {
+    "pe_ratio": 33.895107,
+    "pb_ratio": 4.740806,
+    "gross_margin": 0.69694,
+    "operating_margin": 0.25011998,
+    "net_margin": 0.21497999,
+    "market_cap": 8161285120,
+    "revenue_growth_ttm": 0.132,
+    "fcf_yield": 0.026353814238510517,
+    "institutional_ownership_pct": 1.04176,
+    "dividend_rate": 0.36,
+    "dividend_yield": 0.0081
+  },
+  "scores_detail": {
+    "entry_range_low": 45.14,
+    "entry_range_high": 48.79,
+    "target_range_low": 51.98,
+    "target_range_high": 59.88,
+    "target_1": 51.98,
+    "target_2": 56.54,
+    "target_3": 59.88,
+    "stop_loss": 42.89,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $45.14 – $48.79 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $50.28 direnci veya $44.50 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $42.89 olarak belirlenmiştir. Fiyatın EMA20 ($50.97) veya günlük VWAP ($48.48) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($54.99) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($48.48) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.1x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 42 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

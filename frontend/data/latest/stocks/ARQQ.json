@@ -1,0 +1,89 @@
+{
+  "ticker": "ARQQ",
+  "company": "Arqit Quantum Inc.",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T23:33:09.652Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 11.5,
+    "open": 12.789999961853027,
+    "high": 12.875,
+    "low": 11.100000381469727,
+    "prev_close": 10.970000267028809,
+    "change_pct": 4.831355697995258,
+    "change_pct_1w": -14.498140051436017,
+    "change_pct_1m": -26.937737184077204,
+    "change_pct_1y": -52.810834616443316,
+    "volume": 392232,
+    "avg_volume_30d": 8710732
+  },
+  "scores": {
+    "master_score": 42,
+    "technical_score": 30,
+    "fundamental_score": 53.3,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 35.9911252926961,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 14.238629970021414,
+    "ema_50": 16.509376132487002,
+    "ema_200": 18.803449901954114,
+    "ema_stack_bullish": false,
+    "bb_upper": 12.075000000000001,
+    "bb_middle": 11.5,
+    "bb_lower": 10.924999999999999,
+    "bb_width": 10,
+    "atr": 1.71,
+    "atr_pct": 14.83,
+    "rvol": 1.0126349886553736,
+    "52w_high": 31.75,
+    "52w_low": 10.902000427246094
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.689936,
+    "gross_margin": 0.49723998,
+    "operating_margin": -46.17127,
+    "net_margin": 0,
+    "market_cap": 200127744,
+    "revenue_growth_ttm": 8.299,
+    "fcf_yield": -0.09845149705979797,
+    "institutional_ownership_pct": 0.82921,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 10.48,
+    "entry_range_high": 11.67,
+    "target_range_low": 16.24,
+    "target_range_high": 18.57,
+    "target_1": 16.24,
+    "target_2": 17.69,
+    "target_3": 18.57,
+    "stop_loss": 9.28,
+    "risk_reward_ratio": 3.7,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $10.48 – $11.67 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $12.68 direnci veya $10.14 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $9.28 olarak belirlenmiştir. Fiyatın EMA20 ($14.24) veya günlük VWAP ($11.54) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($16.51) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($11.54) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (1.0x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 36 seviyesinde zayıf momentum görünümü sergiliyor."
+  }
+}

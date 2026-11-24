@@ -1,0 +1,89 @@
+{
+  "ticker": "HEI",
+  "company": "HEICO Corporation",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T00:08:46.138Z",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "price": {
+    "current": 336.1000061035156,
+    "open": 331.6499938964844,
+    "high": 336.8500061035156,
+    "low": 328.885009765625,
+    "prev_close": 322.79998779296875,
+    "change_pct": 4.120204093401944,
+    "change_pct_1w": -0.34689801887734,
+    "change_pct_1m": -2.605114703346127,
+    "change_pct_1y": 10.843613465617102,
+    "volume": 508172,
+    "avg_volume_30d": 13215272
+  },
+  "scores": {
+    "master_score": 81,
+    "technical_score": 100,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 4,
+      "msg": "🔥 15m ONAY: Son 2 saat net trend (+0.57%)"
+    }
+  },
+  "technical": {
+    "rsi_14": 55.66562092727038,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 330.53503893643915,
+    "ema_50": 324.74938813539137,
+    "ema_200": 321.79152990763816,
+    "ema_stack_bullish": true,
+    "bb_upper": 352.9050064086914,
+    "bb_middle": 336.1000061035156,
+    "bb_lower": 319.29500579833984,
+    "bb_width": 10,
+    "atr": 10.55,
+    "atr_pct": 3.14,
+    "rvol": 0.8855536231112006,
+    "52w_high": 376.8599853515625,
+    "52w_low": 256.1099853515625
+  },
+  "fundamental": {
+    "pe_ratio": 56.016666,
+    "pb_ratio": 9.493546,
+    "gross_margin": 0.40398,
+    "operating_margin": 0.24271,
+    "net_margin": 0.16375999,
+    "market_cap": 46972465152,
+    "revenue_growth_ttm": 0.231,
+    "fcf_yield": 0.017997495964164976,
+    "institutional_ownership_pct": 0.8192,
+    "dividend_rate": 0.25,
+    "dividend_yield": 0.0008
+  },
+  "scores_detail": {
+    "entry_range_low": 329.77,
+    "entry_range_high": 337.15,
+    "target_range_low": 350.14,
+    "target_range_high": 383.48,
+    "target_1": 350.14,
+    "target_2": 366.81,
+    "target_3": 383.48,
+    "stop_loss": 319.3,
+    "risk_reward_ratio": 2.35,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $329.77 – $337.15 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $341.66 direnci veya $327.66 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $319.30 olarak belirlenmiştir. Fiyatın EMA200 ($321.79) veya günlük VWAP ($333.96) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($333.96) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 56 seviyesinde pozitif momentumu destekliyor."
+  }
+}

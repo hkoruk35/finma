@@ -1,22 +1,22 @@
 {
   "ticker": "DHI",
   "company": "D.R. Horton, Inc.",
-  "date": "2026-11-23",
-  "generated_at": "2026-11-23T21:44:45.831Z",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T05:41:36.550Z",
   "sector": "Consumer Cyclical",
   "industry": "Residential Construction",
   "price": {
     "current": 147.05999755859375,
     "open": 146.52000427246094,
-    "high": 147.4600067138672,
-    "low": 143.4405975341797,
+    "high": 147.47000122070312,
+    "low": 143.44000244140625,
     "prev_close": 145.44000244140625,
     "change_pct": 1.1138580101716866,
     "change_pct_1w": 1.5958532356433506,
     "change_pct_1m": -1.7635266823426858,
     "change_pct_1y": 0.2385596269579347,
-    "volume": 2118269,
-    "avg_volume_30d": 94701569
+    "volume": 2130600,
+    "avg_volume_30d": 94713900
   },
   "scores": {
     "master_score": 68,
@@ -47,7 +47,7 @@
     "bb_width": 10,
     "atr": 5.41,
     "atr_pct": 3.68,
-    "rvol": 0.7817844496325081,
+    "rvol": 0.7824638199884072,
     "52w_high": 170.7899932861328,
     "52w_low": 130.39999389648438
   },

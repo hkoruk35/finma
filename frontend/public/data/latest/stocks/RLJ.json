@@ -1,0 +1,89 @@
+{
+  "ticker": "RLJ",
+  "company": "RLJ Lodging Trust",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T23:16:59.009Z",
+  "sector": "Real Estate",
+  "industry": "REIT - Hotel & Motel",
+  "price": {
+    "current": 12.670000076293945,
+    "open": 12.739999771118164,
+    "high": 12.829999923706055,
+    "low": 12.520000457763672,
+    "prev_close": 12.479999542236328,
+    "change_pct": 1.5224402325865023,
+    "change_pct_1w": -2.8374224435695767,
+    "change_pct_1m": -4.449473170466476,
+    "change_pct_1y": 68.48404399507615,
+    "volume": 2056882,
+    "avg_volume_30d": 61395782
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 100,
+    "fundamental_score": 61.55,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 54.041849919352764,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 12.632198359202379,
+    "ema_50": 12.153181535323887,
+    "ema_200": 10.634631419860746,
+    "ema_stack_bullish": true,
+    "bb_upper": 13.303500080108643,
+    "bb_middle": 12.670000076293945,
+    "bb_lower": 12.036500072479248,
+    "bb_width": 10,
+    "atr": 0.37,
+    "atr_pct": 2.9,
+    "rvol": 0.9079270624812629,
+    "52w_high": 13.399999618530273,
+    "52w_low": 7.150000095367432
+  },
+  "fundamental": {
+    "pe_ratio": 253.4,
+    "pb_ratio": 1.0720026,
+    "gross_margin": 0.27186,
+    "operating_margin": 0.1013,
+    "net_margin": 0.02553,
+    "market_cap": 1939873280,
+    "revenue_growth_ttm": 0.074,
+    "fcf_yield": 0.06499657957039338,
+    "institutional_ownership_pct": 0.998,
+    "dividend_rate": 0.6,
+    "dividend_yield": 0.0481
+  },
+  "scores_detail": {
+    "entry_range_low": 12.45,
+    "entry_range_high": 12.71,
+    "target_range_low": 13.21,
+    "target_range_high": 14.46,
+    "target_1": 13.21,
+    "target_2": 13.84,
+    "target_3": 14.46,
+    "stop_loss": 12.04,
+    "risk_reward_ratio": 2.32,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $12.45 – $12.71 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $13.02 direnci veya $12.38 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $12.04 olarak belirlenmiştir. Fiyatın EMA50 ($12.15) veya günlük VWAP ($12.64) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($12.64) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede (0.9x) — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 54 ile dengeli/nötr bir görünümde."
+  }
+}
